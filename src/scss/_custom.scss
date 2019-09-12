@@ -1,0 +1,98 @@
+// Here you can add other styles
+body {
+	background-color: #ffffff;	
+}
+
+// .app .navbar-brand {
+// 	top: 27px;
+// 	left: 48px;
+// 	width: 128px;
+// 	height: 57px;
+// }
+
+
+// Start - Sidebar
+.sidebar {
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+	opacity: 1;
+	color: #919191 !important;
+}
+
+.sidebar .nav {
+	// width: 82px;
+	flex-direction: column;
+	min-height: 100%;
+	padding: 1;
+}
+
+.sidebar .nav-link {
+	color: #919191 !important;
+}
+
+.sidebar .nav-link.active {
+	color: #388DCD !important;
+	background: #FFFFFF !important;
+}
+
+.sidebar .nav-link:hover {
+	color: #FFFFFF !important;
+	background: #388DCD !important;
+}
+
+.sidebar .nav-dropdown.open {
+	background: #FFFFFF !important;
+}
+
+.sidebar-minimizer {
+	background: #FFFFFF !important;
+}
+
+.sidebar-minimizer:hover {
+	color: #919191 !important;
+}
+
+.rounded-left-125 {
+	border-top-left-radius: 1.25rem !important;
+	border-bottom-left-radius: 1.25rem !important;
+}
+
+.rounded-right-125 {
+	border-top-right-radius: 1.25rem !important;
+	border-bottom-right-radius: 1.25rem !important;
+}
+// End - Sidebar
+
+
+// Start - Button
+.circle {
+	// content: '\25CF';
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	background-color: #388DCD;
+	color: #FFFFFF;
+}
+
+.search {
+	width: 160px;
+	height: 35px;
+	background-color: #388DCD;
+	color: #FFFFFF;
+}
+// End - Button
+
+
+// Start - Table
+.headerBlue {
+	background-color: #388DCD;
+	color: #FFFFFF;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td{
+	background-color: #EAF3FA;
+}
+
+.table-striped>tbody>tr:nth-child(even)>td{
+	background-color: #F5F7FA;
+ }
+// End - Table
