@@ -208,7 +208,7 @@ class StockHolding extends Component {
 											<div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0">
 												<FormGroup>
 													<InputGroup>
-														<div className="col-10 col-xl-11 col-lg-10 col-md-10 col-sm-6 p-0">
+														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
 															<h4 className="headerTitle">Stock Holding Summary</h4>
 														</div>
 													</InputGroup>
@@ -220,7 +220,7 @@ class StockHolding extends Component {
 							</div>
 
 							<div className="row">
-								<Card className="border-0 col-12 col-lg-12 col-md-12 col-sm-12 p-0">
+								<Card className="border-0 p-0">
 									<div className="col-12 col-lg-12 col-md-12 col-sm-12">
 										<form>
 											<div className="form-group row">
@@ -229,21 +229,21 @@ class StockHolding extends Component {
 														<div className="col-12 col-lg-12 col-md-12 col-sm-12">
 															<FormGroup>
 																<InputGroup>
-																	<div className="col-11 col-xl-11 col-lg-11 col-md-11 col-sm-11 p-0">
+																	<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
 																		<Card className="form-group row rounded-left-125 rounded-right-125">
 																			<div className="input-group p-2">
 																				<div className="input-group-prepend bg-white">
-																					<span className="input-group-text col-9 border-0 rounded-left-125 bg-white">
+																					<span className="input-group-text col-2 border-0 rounded-left-125 bg-white">
 																						<i className="fa fa-search iconSpace" />
 																					</span>
 																				</div>
-																				<input type="text" className="form-control border-0 rounded-right-125" placeholder="Type here to Search" />
+																				<input type="text" className="form-control col-9 border-0 rounded-right-125" placeholder="Type here to Search" />
 																				<div className="col-1 text-right">
 																					<button type="submit" className="circle">
 																						<i className="fa fa-sliders" />
 																					</button>
 																				</div>
-																				<div className="col-2">
+																				<div className="col-1">
 																					<button type="submit" className="search rounded-left-125 rounded-right-125">
 																						<strong>Search</strong>
 																					</button>
@@ -257,7 +257,7 @@ class StockHolding extends Component {
 													</Row>
 
 													<Row className="align-items-center">
-														<div className="col-11 col-lg-11 col-md-11 col-sm-11 p-0">
+														<div className="col-12 col-lg-12 col-md-12 col-sm-12 p-0">
 															{content}
 														</div>
 													</Row>
