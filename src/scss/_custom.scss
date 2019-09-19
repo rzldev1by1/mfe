@@ -1,9 +1,9 @@
 // Here you can add other styles
 body {
-	background-color: #ffffff;	
+	background-color: #FFFFFF;	
 }
 
-// .app .navbar-brand {
+// .app-header .navbar-brand {
 // 	top: 27px;
 // 	left: 48px;
 // 	width: 128px;
@@ -16,13 +16,32 @@ body {
 	background: #FFFFFF 0% 0% no-repeat padding-box;
 	opacity: 1;
 	color: #919191 !important;
+	width: 170px !important;
+}
+
+.sidebar .sidebar-header {
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+	width: 170px;
+}
+
+.sidebar .sidebar-footer {
+	background: #FFFFFF 0% 0% no-repeat padding-box;
 }
 
 .sidebar .nav {
-	// width: 82px;
+	// width: 100px;
 	flex-direction: column;
 	min-height: 100%;
 	padding: 1;
+}
+
+.sidebar .sidebar-nav {
+	position: relative;
+	width: 170px;
+}
+
+.sidebar .nav-item {
+	width: 170px;
 }
 
 .sidebar .nav-link {
@@ -61,6 +80,15 @@ body {
 	border-bottom-right-radius: 1.25rem !important;
 }
 // End - Sidebar
+
+
+// Start - Border
+hr.border-header {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 90%;
+}
+// End - Border
 
 
 // Start - Button
