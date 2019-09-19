@@ -126,7 +126,7 @@ const routes = [
 	// { path: '/users', exact: true,  name: 'Users', component: Users },
 	// { path: '/users/:id', exact: true, name: 'User Details', component: User },
 	
-	{ path: '/', exact: true, name: 'Home', component: DefaultLayout },
+	{ path: '/', exact: true, name: 'Home' },
 	{ path: '/stockholding', exact: true, name: 'Stock Holding', component: StockHolding },
   	{ path: '/stockholding/:product', exact: true, name: 'Stock Details', component: StockDetails }
 ];
