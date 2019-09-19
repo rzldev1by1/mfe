@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Card, CardBody,
-		 Col, Row, Table,
-		 Button, ButtonDropdown,
-		 FormGroup,
-		 Input, InputGroup, InputGroupAddon,
-		 DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
+		 Row, Table,
+		//  Button, ButtonDropdown,
+		 FormGroup, InputGroup,
+		//  Input, InputGroup, InputGroupAddon,
+		//  DropdownItem, DropdownMenu, DropdownToggle
+} from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { isTSEnumMember } from '@babel/types';
 // import DatePicker from 'react-datepicker';
 // import "react-datepicker/dist/react-datepicker.css";
+// import { isTSEnumMember } from '@babel/types';
 
 // import StockHoldingEditColumn from './StockHoldingEditColumn';
 // import './StockHolding.css';
@@ -20,7 +21,6 @@ class StockHolding extends Component {
 			isVisible: [],
 			isLoaded: false,
 			isSearch: false,
-			stockHolding: [],
 			displayMoreColumnModal: false,
 			displayContent: "INIT",
 			currentPage: 1,
@@ -116,6 +116,204 @@ class StockHolding extends Component {
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
+				},
+				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
+				  product: "1003", description: "Example Product 3",
+				  qty: "100", plannedIn: "50", plannedOut: "0",
+				  packType: "EACH", packSize: "12*6",
+				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
+				  dateStatus: "LIVE", zone: "C", batch: "",
+				  ref2: "", ref3: "", ref4: "",
+				  disposition: "", alert: "No",
+				  weight: "12", volume: "1.76",
+				  lastUpdated: ""				  				
+				},
+				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
+				  product: "1003", description: "Example Product 3",
+				  qty: "100", plannedIn: "50", plannedOut: "0",
+				  packType: "EACH", packSize: "12*6",
+				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
+				  dateStatus: "LIVE", zone: "C", batch: "",
+				  ref2: "", ref3: "", ref4: "",
+				  disposition: "", alert: "No",
+				  weight: "12", volume: "1.76",
+				  lastUpdated: ""				  				
+				},
+				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
+				  product: "1003", description: "Example Product 3",
+				  qty: "100", plannedIn: "50", plannedOut: "0",
+				  packType: "EACH", packSize: "12*6",
+				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
+				  dateStatus: "LIVE", zone: "C", batch: "",
+				  ref2: "", ref3: "", ref4: "",
+				  disposition: "", alert: "No",
+				  weight: "12", volume: "1.76",
+				  lastUpdated: ""				  				
+				},
+				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
+				  product: "1003", description: "Example Product 3",
+				  qty: "100", plannedIn: "50", plannedOut: "0",
+				  packType: "EACH", packSize: "12*6",
+				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
+				  dateStatus: "LIVE", zone: "C", batch: "",
+				  ref2: "", ref3: "", ref4: "",
+				  disposition: "", alert: "No",
+				  weight: "12", volume: "1.76",
+				  lastUpdated: ""				  				
+				},
+				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
+				  product: "1003", description: "Example Product 3",
+				  qty: "100", plannedIn: "50", plannedOut: "0",
+				  packType: "EACH", packSize: "12*6",
+				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
+				  dateStatus: "LIVE", zone: "C", batch: "",
+				  ref2: "", ref3: "", ref4: "",
+				  disposition: "", alert: "No",
+				  weight: "12", volume: "1.76",
+				  lastUpdated: ""				  				
+				},
+				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
+				  product: "1003", description: "Example Product 3",
+				  qty: "100", plannedIn: "50", plannedOut: "0",
+				  packType: "EACH", packSize: "12*6",
+				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
+				  dateStatus: "LIVE", zone: "C", batch: "",
+				  ref2: "", ref3: "", ref4: "",
+				  disposition: "", alert: "No",
+				  weight: "12", volume: "1.76",
+				  lastUpdated: ""				  				
+				},
+				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
+				  product: "1003", description: "Example Product 3",
+				  qty: "100", plannedIn: "50", plannedOut: "0",
+				  packType: "EACH", packSize: "12*6",
+				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
+				  dateStatus: "LIVE", zone: "C", batch: "",
+				  ref2: "", ref3: "", ref4: "",
+				  disposition: "", alert: "No",
+				  weight: "12", volume: "1.76",
+				  lastUpdated: ""				  				
+				},
+				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
+				  product: "1003", description: "Example Product 3",
+				  qty: "100", plannedIn: "50", plannedOut: "0",
+				  packType: "EACH", packSize: "12*6",
+				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
+				  dateStatus: "LIVE", zone: "C", batch: "",
+				  ref2: "", ref3: "", ref4: "",
+				  disposition: "", alert: "No",
+				  weight: "12", volume: "1.76",
+				  lastUpdated: ""				  				
+				},
+				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
+				  product: "1003", description: "Example Product 3",
+				  qty: "100", plannedIn: "50", plannedOut: "0",
+				  packType: "EACH", packSize: "12*6",
+				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
+				  dateStatus: "LIVE", zone: "C", batch: "",
+				  ref2: "", ref3: "", ref4: "",
+				  disposition: "", alert: "No",
+				  weight: "12", volume: "1.76",
+				  lastUpdated: ""				  				
+				},
+				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
+				  product: "1003", description: "Example Product 3",
+				  qty: "100", plannedIn: "50", plannedOut: "0",
+				  packType: "EACH", packSize: "12*6",
+				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
+				  dateStatus: "LIVE", zone: "C", batch: "",
+				  ref2: "", ref3: "", ref4: "",
+				  disposition: "", alert: "No",
+				  weight: "12", volume: "1.76",
+				  lastUpdated: ""				  				
+				},
+				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
+				  product: "1003", description: "Example Product 3",
+				  qty: "100", plannedIn: "50", plannedOut: "0",
+				  packType: "EACH", packSize: "12*6",
+				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
+				  dateStatus: "LIVE", zone: "C", batch: "",
+				  ref2: "", ref3: "", ref4: "",
+				  disposition: "", alert: "No",
+				  weight: "12", volume: "1.76",
+				  lastUpdated: ""				  				
+				},
+				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
+				  product: "1003", description: "Example Product 3",
+				  qty: "100", plannedIn: "50", plannedOut: "0",
+				  packType: "EACH", packSize: "12*6",
+				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
+				  dateStatus: "LIVE", zone: "C", batch: "",
+				  ref2: "", ref3: "", ref4: "",
+				  disposition: "", alert: "No",
+				  weight: "12", volume: "1.76",
+				  lastUpdated: ""				  				
+				},
+				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
+				  product: "1003", description: "Example Product 3",
+				  qty: "100", plannedIn: "50", plannedOut: "0",
+				  packType: "EACH", packSize: "12*6",
+				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
+				  dateStatus: "LIVE", zone: "C", batch: "",
+				  ref2: "", ref3: "", ref4: "",
+				  disposition: "", alert: "No",
+				  weight: "12", volume: "1.76",
+				  lastUpdated: ""				  				
+				},
+				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
+				  product: "1003", description: "Example Product 3",
+				  qty: "100", plannedIn: "50", plannedOut: "0",
+				  packType: "EACH", packSize: "12*6",
+				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
+				  dateStatus: "LIVE", zone: "C", batch: "",
+				  ref2: "", ref3: "", ref4: "",
+				  disposition: "", alert: "No",
+				  weight: "12", volume: "1.76",
+				  lastUpdated: ""				  				
+				},
+				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
+				  product: "1003", description: "Example Product 3",
+				  qty: "100", plannedIn: "50", plannedOut: "0",
+				  packType: "EACH", packSize: "12*6",
+				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
+				  dateStatus: "LIVE", zone: "C", batch: "",
+				  ref2: "", ref3: "", ref4: "",
+				  disposition: "", alert: "No",
+				  weight: "12", volume: "1.76",
+				  lastUpdated: ""				  				
+				},
+				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
+				  product: "1003", description: "Example Product 3",
+				  qty: "100", plannedIn: "50", plannedOut: "0",
+				  packType: "EACH", packSize: "12*6",
+				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
+				  dateStatus: "LIVE", zone: "C", batch: "",
+				  ref2: "", ref3: "", ref4: "",
+				  disposition: "", alert: "No",
+				  weight: "12", volume: "1.76",
+				  lastUpdated: ""				  				
+				},
+				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
+				  product: "1003", description: "Example Product 3",
+				  qty: "100", plannedIn: "50", plannedOut: "0",
+				  packType: "EACH", packSize: "12*6",
+				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
+				  dateStatus: "LIVE", zone: "C", batch: "",
+				  ref2: "", ref3: "", ref4: "",
+				  disposition: "", alert: "No",
+				  weight: "12", volume: "1.76",
+				  lastUpdated: ""				  				
+				},
+				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
+				  product: "1003", description: "Example Product 3",
+				  qty: "100", plannedIn: "50", plannedOut: "0",
+				  packType: "EACH", packSize: "12*6",
+				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
+				  dateStatus: "LIVE", zone: "C", batch: "",
+				  ref2: "", ref3: "", ref4: "",
+				  disposition: "", alert: "No",
+				  weight: "12", volume: "1.76",
+				  lastUpdated: ""				  				
 				}
 			],
 			masterResource: []
@@ -183,13 +381,25 @@ class StockHolding extends Component {
 					</thead>
 					<tbody>
 						{this.state.stockHolding.map((item, idx) => (
-							<tr key={idx}>
-								{this.state.columns.map((column, columnIdx) => {
-									if (column.isVisible) {
-										return <td key={columnIdx} className="px-3 text-left">{item[column.id]}</td>
-									}
-								})}
-							</tr>
+								<tr key={idx}>
+									{this.state.columns.map((column, columnIdx) => {
+										if (column.isVisible) {
+											if (column.id === "product") {
+												return (
+													<td key={columnIdx} className="px-3 text-left">
+														<u>
+															<Link className="company-link p-1" to={"/stockholding/" + encodeURIComponent(item["product"])}>
+																{item[column.id]}
+															</Link>
+														</u>
+													</td>
+												);
+											}
+											
+											return <td key={columnIdx} className="px-3 text-left">{item[column.id]}</td>
+										}
+									})}
+								</tr>
 						))}
 					</tbody>
 				</Table>
