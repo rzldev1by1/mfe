@@ -129,6 +129,33 @@ export default {
 		icon: 'fa fa-cogs',
 	},
 	{
+		name: 'Inbound Delivery',
+		// url: '/notifications',
+		icon: 'fa fa-truck',
+		// children: [
+		//   {
+		// 	name: 'Buttons',
+		// 	url: '/buttons/buttons',
+		// 	icon: 'icon-cursor',
+		//   },
+		//   {
+		// 	name: 'Button dropdowns',
+		// 	url: '/buttons/button-dropdowns',
+		// 	icon: 'icon-cursor',
+		//   },
+		//   {
+		// 	name: 'Button groups',
+		// 	url: '/buttons/button-groups',
+		// 	icon: 'icon-cursor',
+		//   },
+		//   {
+		// 	name: 'Brand Buttons',
+		// 	url: '/buttons/brand-buttons',
+		// 	icon: 'icon-cursor',
+		//   },
+		// ],
+	},
+	{
 		name: 'Sales Order',
 		// url: '/icons',
 		icon: 'fa fa-shopping-cart',
@@ -176,33 +203,6 @@ export default {
         //   icon: 'icon-cursor',
         }
       ],
-	},
-	{
-		name: 'Inbound Delivery',
-		// url: '/notifications',
-		icon: 'fa fa-truck',
-		// children: [
-		//   {
-		// 	name: 'Buttons',
-		// 	url: '/buttons/buttons',
-		// 	icon: 'icon-cursor',
-		//   },
-		//   {
-		// 	name: 'Button dropdowns',
-		// 	url: '/buttons/button-dropdowns',
-		// 	icon: 'icon-cursor',
-		//   },
-		//   {
-		// 	name: 'Button groups',
-		// 	url: '/buttons/button-groups',
-		// 	icon: 'icon-cursor',
-		//   },
-		//   {
-		// 	name: 'Brand Buttons',
-		// 	url: '/buttons/brand-buttons',
-		// 	icon: 'icon-cursor',
-		//   },
-		// ],
 	},
 	{
 		name: 'Returns',

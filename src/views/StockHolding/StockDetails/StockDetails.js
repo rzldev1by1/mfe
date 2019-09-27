@@ -180,14 +180,14 @@ class StockHolding extends Component {
 																						<Label className="font-weight-bold">Product ID</Label>
 																					</div>
 																					<div className="col-3">
-																						<label>10002</label>
+																						<Label className="text-secondary">10002</Label>
 																					</div>
 
 																					<div className="col-3">
 																						<Label className="font-weight-bold">Stock On Hand</Label>
 																					</div>
 																					<div className="col-3">
-																						<label>75</label>
+																						<Label className="text-secondary">75</Label>
 																					</div>
 																				</div>
 
@@ -196,14 +196,14 @@ class StockHolding extends Component {
 																						<Label className="font-weight-bold">Product Name</Label>
 																					</div>
 																					<div className="col-3">
-																						<label>Example Product 2</label>
+																						<Label className="text-secondary">Example Product 2</Label>
 																					</div>
 																					
 																					<div className="col-3">
 																						<Label className="font-weight-bold">Allocated Qty</Label>
 																					</div>
 																					<div className="col-3">
-																						<label>0</label>
+																						<Label className="text-secondary">0</Label>
 																					</div>
 																				</div>
 
@@ -212,14 +212,14 @@ class StockHolding extends Component {
 																						<Label className="font-weight-bold">UoM</Label>
 																					</div>
 																					<div className="col-3">
-																						<label>EACH</label>
+																						<Label className="text-secondary">EACH</Label>
 																					</div>
 																					
 																					<div className="col-3">
 																						<Label className="font-weight-bold">Available Qty</Label>
 																					</div>
 																					<div className="col-3">
-																						<label>75</label>
+																						<Label className="text-secondary">75</Label>
 																					</div>
 																				</div>
 
@@ -228,14 +228,14 @@ class StockHolding extends Component {
 																						<Label className="font-weight-bold">RotaDate Type</Label>
 																					</div>
 																					<div className="col-3">
-																						<label>R - Receipt Date</label>
+																						<Label className="text-secondary">R - Receipt Date</Label>
 																					</div>
 																					
 																					<div className="col-3">
 																						<Label className="font-weight-bold">On Purchase Qty</Label>
 																					</div>
 																					<div className="col-3">
-																						<label>0</label>
+																						<Label className="text-secondary">0</Label>
 																					</div>
 																				</div>
 																			</div>

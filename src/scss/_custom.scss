@@ -4,7 +4,7 @@ body {
 }
 
 //Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Nunito&display=swap");
 
 // .app .navbar-brand {
 // 	top: 27px;
@@ -125,148 +125,194 @@ hr.border-header {
 
 .table-striped>tbody>tr:nth-child(even)>td{
 	background-color: #F5F7FA;
- }
+}
 // End - Table
+
 
 // Start - Login Page
 
-.logo-box{
+.titleMenu {
+	font-family: "Nunito";
+	color: #388DCD;
+}
+
+.logo-box {
 	position: absolute;
-	top:30%;
-    left:60%;
+	top: 30%;
+    left: 60%;
 	width: 300px;
 	height: 300px;
-    background: #acb5bc 0% 0% no-repeat padding-box;
+	background: #ACB5BC 0% 0% no-repeat padding-box;
+	// background-image: url("../assets/img/brand/logo_ml_w.png");
+	background-position: center;
+    background-size: cover;
     border-radius: 40px;
     opacity: 0.7;
 }
 
-// Input Style - Login Page
-.input {
-  font-family: "Nunito";
-  background: none;
-  font-size: 16px;
-  padding: 24px 10px 10px 5px;
-  display: block;
-  width: 100%;
-  border: none;
-  border-radius: 0;
-  border-bottom: 1px solid #388DCD;
-}
-.input:focus {
-  outline: none;
-}
-.input:focus ~ .label, .input:valid ~ .label {
-  color: #2196F3;
-}
-.input:focus ~ .bar:before {
-  width: 100%;
+.btnLogin {
+	border-radius: 33px;
+	background-color: #388DCD;
+	border-color: #388DCD;
+	width: 135px;
 }
 
-.input[type="password"] {
-  letter-spacing: 0.3em;
+.btnForgotPwd {
+	color: #919191;
+	text-decoration: none;
+	margin-top: -6px;
 }
 
-.label {
-  font-family: "Nunito";
-  top: -2px;
-  font-size: 14px;
-  color: #388DCD;
-  font-weight: normal;
-  position: absolute;
-  pointer-events: none;
-  left: 5px;
-  transition: 300ms ease all;
+.rememberMe {
+	color: #919191;
 }
 
-.bar {
-  position: relative;
-  display: block;
-  width: 100%;
-}
-.bar:before {
-  content: '';
-  height: 2px;
-  width: 0;
-  bottom: 0px;
-  position: absolute;
-  background: #2196F3;
-  transition: 300ms ease all;
-  left: 0%;
-}
 
-// Checkbox Style - Login Page
-.cbx {
-	margin: auto;
-	-webkit-user-select: none;
-	user-select: none;
-	cursor: pointer;
-  }
-  .cbx span {
-	display: inline-block;
-	vertical-align: middle;
-	transform: translate3d(0, 0, 0);
-  }
-  .cbx span:first-child {
-	position: relative;
-	width: 18px;
-	height: 18px;
-	border-radius: 3px;
-	transform: scale(1);
-	vertical-align: middle;
-	border: 1px solid #9098A9;
-	transition: all 0.2s ease;
-  }
-  .cbx span:first-child svg {
-	position: absolute;
-	top: 3px;
-	left: 2px;
-	fill: none;
-	stroke: #FFFFFF;
-	stroke-width: 2;
-	stroke-linecap: round;
-	stroke-linejoin: round;
-	stroke-dasharray: 16px;
-	stroke-dashoffset: 16px;
-	transition: all 0.3s ease;
-	transition-delay: 0.1s;
-	transform: translate3d(0, 0, 0);
-  }
-  .cbx span:first-child:before {
-	content: "";
-	width: 100%;
-	height: 100%;
-	background: #506EEC;
-	display: block;
-	transform: scale(0);
-	opacity: 1;
-	border-radius: 50%;
-  }
-  .cbx span:last-child {
-	padding-left: 8px;
-  }
-  .cbx:hover span:first-child {
-	border-color: #506EEC;
-  }
-  
-  .inp-cbx:checked + .cbx span:first-child {
-	background: #506EEC;
-	border-color: #506EEC;
-	animation: wave 0.4s ease;
-  }
-  .inp-cbx:checked + .cbx span:first-child svg {
-	stroke-dashoffset: 0;
-  }
-  .inp-cbx:checked + .cbx span:first-child:before {
-	transform: scale(3.5);
-	opacity: 0;
-	transition: all 0.6s ease;
-  }
-  
-  @keyframes wave {
+@keyframes wave {
 	50% {
-	  transform: scale(0.9);
+		transform: scale(0.9);
 	}
-  }
+}
+
+@media (min-width: 1200px) {
+	.container {
+		max-width: 1440px;
+		// max-width: 1140px;
+	}
+}
+
+	// Input Style - Login Page
+	.input {
+		font-family: "Nunito";
+		background: none;
+		font-size: 16px;
+		padding: 24px 10px 10px 5px;
+		display: block;
+		width: 100%;
+		border: none;
+		border-radius: 0;
+		border-bottom: 1px solid #388DCD;
+	}
+
+	.input:focus {
+		outline: none;
+	}
+
+	.input:focus ~ .label, .input:valid ~ .label {
+		color: #2196F3;
+	}
+
+	.input:focus ~ .bar:before {
+		width: 100%;
+	}
+
+	.input[type="password"] {
+		letter-spacing: 0.3em;
+	}
+
+	.label {
+		font-family: "Nunito";
+		top: -2px;
+		font-size: 14px;
+		color: #388DCD;
+		font-weight: normal;
+		position: absolute;
+		pointer-events: none;
+		left: 5px;
+		transition: 300ms ease all;
+	}
+
+	.bar {
+		position: relative;
+		display: block;
+		width: 100%;
+	}
+
+	.bar:before {
+		content: '';
+		height: 2px;
+		width: 0;
+		bottom: 0px;
+		position: absolute;
+		background: #2196F3;
+		transition: 300ms ease all;
+		left: 0%;
+	}
+
+	// Checkbox Style - Login Page
+	.cbx {
+		margin: auto;
+		-webkit-user-select: none;
+		user-select: none;
+		cursor: pointer;
+	}
+
+	.cbx span {
+		display: inline-block;
+		vertical-align: middle;
+		transform: translate3d(0, 0, 0);
+	}
+
+	.cbx span:first-child {
+		position: relative;
+		width: 18px;
+		height: 18px;
+		border-radius: 3px;
+		transform: scale(1);
+		vertical-align: middle;
+		border: 1px solid #9098A9;
+		transition: all 0.2s ease;
+	}
+
+	.cbx span:first-child svg {
+		position: absolute;
+		top: 3px;
+		left: 2px;
+		fill: none;
+		stroke: #FFFFFF;
+		stroke-width: 2;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		stroke-dasharray: 16px;
+		stroke-dashoffset: 16px;
+		transition: all 0.3s ease;
+		transition-delay: 0.1s;
+		transform: translate3d(0, 0, 0);
+	}
+
+	.cbx span:first-child:before {
+		content: "";
+		width: 100%;
+		height: 100%;
+		background: #506EEC;
+		display: block;
+		transform: scale(0);
+		opacity: 1;
+		border-radius: 50%;
+	}
+
+	.cbx span:last-child {
+		padding-left: 8px;
+	}
+
+	.cbx:hover span:first-child {
+		border-color: #506EEC;
+	}
+
+	.inp-cbx:checked + .cbx span:first-child {
+		background: #506EEC;
+		border-color: #506EEC;
+		animation: wave 0.4s ease;
+	}
+
+	.inp-cbx:checked + .cbx span:first-child svg {
+		stroke-dashoffset: 0;
+	}
+
+	.inp-cbx:checked + .cbx span:first-child:before {
+		transform: scale(3.5);
+		opacity: 0;
+		transition: all 0.6s ease;
+	}
 
 // End - Login Page
