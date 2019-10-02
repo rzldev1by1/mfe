@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, CardBody,
 		 Row, Table,
-		//  Button, ButtonDropdown,
+		 Button, ButtonDropdown,
 		 FormGroup, InputGroup,
 		//  Input, InputGroup, InputGroupAddon,
 		//  DropdownItem, DropdownMenu, DropdownToggle
@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 // import "react-datepicker/dist/react-datepicker.css";
 // import { isTSEnumMember } from '@babel/types';
 
-// import StockHoldingEditColumn from './StockHoldingEditColumn';
+import StockHoldingEditColumn from './StockHoldingEditColumn';
 // import './StockHolding.css';
 
 class StockHolding extends Component {
@@ -377,6 +377,11 @@ class StockHolding extends Component {
 									return <th className="p-3 text-left align-middle headerBlue" key={idx}>{item.tableHeaderText}</th>
 								}
 							})}
+							<th className="p-3 text-left align-middle headerBlue">
+								<button type="button" className="btn btn-outline-light"  onClick={this.toggleDisplayMoreColumn} style={{backgroundColor: '#ffffff', padding: '0.1rem 0.4rem', borderRadius: '100%'}}>
+									<span className="glyphicon glyphicon-pencil" style={{color: '#388dcd', fontSize: '11px'}}></span>
+								</button>
+							</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -399,6 +404,13 @@ class StockHolding extends Component {
 											return <td key={columnIdx} className="px-3 text-left">{item[column.id]}</td>
 										}
 									})}
+									<td className="px-3 text-left">
+										<a href="#" class="dots">
+											<div class="dot"></div>
+											<div class="dot"></div>
+											<div class="dot"></div>
+										</a>
+									</td>
 								</tr>
 						))}
 					</tbody>
@@ -486,6 +498,7 @@ class StockHolding extends Component {
 						</div>
 					</div>
 				</div>
+				<StockHoldingEditColumn isOpen={this.state.displayMoreColumnModal} toggle={this.toggleDisplayMoreColumn} fields={this.state.columns} updateTableColumn={this.updateTableColumn} />
 			</React.Fragment>
 		);
 	}
