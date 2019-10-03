@@ -15,7 +15,7 @@ export default class SalesOrderEditColumn extends Component {
         };
         this.columnForm = React.createRef();
         // console.log(this.props.fields);
-        console.log(this.state.modalClose);
+        // console.log(this.state.modalClose);
     }
     
     componentDidUpdate() {
@@ -30,10 +30,12 @@ export default class SalesOrderEditColumn extends Component {
         });
         this.props.updateTableColumn(columns);
         this.props.toggle();
-    }
+	}
+	
     modalClose = () => {
         this.setState({ modalClose: !this.state.modalClose });
-    }
+	}
+	
     setEnableElements = () => {
         // let form = this.columnForm.current;
         
@@ -46,8 +48,9 @@ export default class SalesOrderEditColumn extends Component {
         //     form[item.id].disabled = totalCheckedCheckbox >= 10 && !form[item.id].checked;
         //     // form[item.id].disabled = totalCheckedCheckbox === 1 && form[item.id].checked;
         // });   
-    }
-    render(){
+	}
+	
+    render() {
         return (
             <Modal isOpen={(this.state.modalClose == true) ? !this.props.isOpen : this.props.isOpen} toggle={this.props.toggle} className='modal-company animated fadeIn editcol-modal' backdrop="static" style={{maxWidth: '1200px',width: '1000px', }}>
                 {/* <div class="editcol-header modal-header">
@@ -72,11 +75,16 @@ export default class SalesOrderEditColumn extends Component {
                                         {this.props.fields.map((item, idx) => (
                                             <div className="form-group col-12 col-sm-6 col-md-4" key={item.id}>
                                                 <div className="form-check">
-                                                <label class="check-text">
-                                                    <input type="checkbox" className="eye" defaultChecked={item.isVisible} value={item.value} id={item.id} name={item.id} disabled={item.isDisabled} onChange={this.setEnableElements} /><span class="glyphicon glyphicon-eye-open checked"></span><span class="glyphicon glyphicon-eye-open unchecked"></span> {item.checkboxLabelText}
-                                                </label>
-                                                   
-                                                    
+													<label class="check-text">
+														<input type="checkbox" className="eye"
+																id={item.id} name={item.id}
+																defaultChecked={item.isVisible} value={item.value} 
+																disabled={item.isDisabled} 
+																onChange={this.setEnableElements} />
+														<span class="glyphicon glyphicon-eye-open checked" />
+														<span class="glyphicon glyphicon-eye-close unchecked" />
+														{item.checkboxLabelText}
+													</label>
                                                     {/* <input className="form-check-input" type="checkbox" defaultChecked={item.isVisible} value={item.value} id={item.id} name={item.id} disabled={item.isDisabled} onChange={this.setEnableElements} />
                                                     <label className="form-check-label" htmlFor={item.id}>
                                                         {item.checkboxLabelText}

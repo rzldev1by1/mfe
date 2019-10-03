@@ -76,7 +76,7 @@ class Login extends Component {
 													onChange={this.validateForm} autoComplete="off" />
 											<FormFeedback valid={this.state.valid.username.isValid}>{this.state.valid.username.message}</FormFeedback>
 
-                                            <span class="bar" />
+                                            <span className="bar" />
                                             <label className="label">
 												<strong>Username</strong>
 											</label>
@@ -88,7 +88,7 @@ class Login extends Component {
 													onChange={this.validateForm} autoComplete="off" />
 											<FormFeedback valid={this.state.valid.password.isValid}>{this.state.valid.password.message}</FormFeedback>
 
-                                            <span class="bar"></span>
+                                            <span className="bar"></span>
                                             <label className="label">
 												<strong>Password</strong>
 											</label>
@@ -97,9 +97,9 @@ class Login extends Component {
                                         <Row>
                                             <Col xs="6">
                                                 <input type="checkbox" className="inp-cbx d-none" id="cbx" />
-                                                <label className="cbx" for="cbx">
+                                                <label className="cbx" htmlFor="cbx">
                                                     <span>
-                                                        <svg viewbox="0 0 12 10" width="12px" height="10px">
+                                                        <svg viewBox="0 0 12 10" width="12px" height="10px">
                                                             <polyline points="1.5 6 4.5 9 10.5 1" />
                                                         </svg>
                                                     </span>
@@ -123,7 +123,7 @@ class Login extends Component {
                         </CardGroup>
                     </Col>
                     <Col md="7">
-                        {/* <div class="logo-box d-none d-sm-block">
+                        {/* <div className="logo-box d-none d-sm-block">
 							<img className="img-fluid" src={logo2} width="240px" />
 						</div>    */}
                     </Col>
