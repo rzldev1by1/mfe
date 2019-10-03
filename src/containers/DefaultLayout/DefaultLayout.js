@@ -20,6 +20,7 @@ import navigation from '../../_nav';
 import routes from '../../routes';
 
 import logo from '../../assets/img/brand/logo_ttl_large.png';
+// import logo from '../../assets/img/brand/logo_ml_large.png';
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
 // const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
@@ -48,7 +49,7 @@ class DefaultLayout extends Component {
 						<AppSidebarForm />
 						<Suspense>
 							<div className="p-0 sidebar-header">
-								<img className="navbar-brand-full" src={logo} alt="" style={{ width: 150, height: 38, alt: 'TT Logistics Web' }} />
+								<img className="navbar-brand-full" src={logo} alt="" style={{ width: 150, height: 38 }} />
 								<hr className="border-header" />
 							</div>
 

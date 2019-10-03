@@ -1,28 +1,25 @@
 import React, { Component } from 'react';
 import { Card, CardBody,
-		 Row, Table,
+		 Table, Row, Col,
 		//  Button, ButtonDropdown,
 		 FormGroup, InputGroup,
 		 Label,
+		 TabContent, TabPane,
+		 Nav, NavItem, NavLink
 		//  Input, InputGroup, InputGroupAddon,
 		//  DropdownItem, DropdownMenu, DropdownToggle
 } from 'reactstrap';
-// import { Link } from 'react-router-dom';
-// import DatePicker from 'react-datepicker';
-// import "react-datepicker/dist/react-datepicker.css";
-// import { isTSEnumMember } from '@babel/types';
 
-// import StockHoldingEditColumn from './StockHoldingEditColumn';
+// import StockDetailsEditColumn from './StockDetailsEditColumn';
 // import './StockHolding.css';
 
-class StockHolding extends Component {
+class StockDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			isVisible: [],
 			isLoaded: false,
-			isSearch: false,
-			stockHolding: [],
+			activeTabIndex: 1,
 			displayMoreColumnModal: false,
 			displayContent: "INIT",
 			currentPage: 1,
@@ -109,6 +106,10 @@ class StockHolding extends Component {
 		this.setState({ displayMoreColumnModal: !this.state.displayMoreColumnModal });
 	}
 
+	activeTabIndex = (tabIndex) => {
+		this.setState({ activeTabIndex: tabIndex });
+	}
+
 	render() {
 		let content;
 		content = 
@@ -152,7 +153,7 @@ class StockHolding extends Component {
 												<FormGroup>
 													<InputGroup>
 														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
-															<h4 className="headerTitle">Stock Details</h4>
+															<h4 className="headerTitle">Detailed Information</h4>
 														</div>
 													</InputGroup>
 												</FormGroup>
@@ -172,70 +173,70 @@ class StockHolding extends Component {
 														<div className="col-12 col-lg-12 col-md-12 col-sm-12">
 															<FormGroup>
 																<InputGroup>
-																	<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
-																		<Card className="form-group row rounded-left-125 rounded-right-125">
+																	<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
+																		<Card className="form-group row rounded-left-05 rounded-right-05">
 																			<div className="col-12">
 																				<div className="row">
 																					<div className="col-3">
-																						<Label className="font-weight-bold">Product ID</Label>
+																						<Label className="font-weight-bold primary-text">Product ID</Label>
 																					</div>
 																					<div className="col-3">
-																						<Label className="text-secondary">10002</Label>
+																						<Label className="secondary-text">10002</Label>
 																					</div>
 
 																					<div className="col-3">
-																						<Label className="font-weight-bold">Stock On Hand</Label>
+																						<Label className="font-weight-bold primary-text">Stock On Hand</Label>
 																					</div>
 																					<div className="col-3">
-																						<Label className="text-secondary">75</Label>
+																						<Label className="secondary-text">75</Label>
 																					</div>
 																				</div>
 
 																				<div className="row">
 																					<div className="col-3">
-																						<Label className="font-weight-bold">Product Name</Label>
+																						<Label className="font-weight-bold primary-text">Product Name</Label>
 																					</div>
 																					<div className="col-3">
-																						<Label className="text-secondary">Example Product 2</Label>
+																						<Label className="secondary-text">Example Product 2</Label>
 																					</div>
 																					
 																					<div className="col-3">
-																						<Label className="font-weight-bold">Allocated Qty</Label>
+																						<Label className="font-weight-bold primary-text">Allocated Qty</Label>
 																					</div>
 																					<div className="col-3">
-																						<Label className="text-secondary">0</Label>
+																						<Label className="secondary-text">0</Label>
 																					</div>
 																				</div>
 
 																				<div className="row">
 																					<div className="col-3">
-																						<Label className="font-weight-bold">UoM</Label>
+																						<Label className="font-weight-bold primary-text">UoM</Label>
 																					</div>
 																					<div className="col-3">
-																						<Label className="text-secondary">EACH</Label>
+																						<Label className="secondary-text">EACH</Label>
 																					</div>
 																					
 																					<div className="col-3">
-																						<Label className="font-weight-bold">Available Qty</Label>
+																						<Label className="font-weight-bold primary-text">Available Qty</Label>
 																					</div>
 																					<div className="col-3">
-																						<Label className="text-secondary">75</Label>
+																						<Label className="secondary-text">75</Label>
 																					</div>
 																				</div>
 
 																				<div className="row">
 																					<div className="col-3">
-																						<Label className="font-weight-bold">RotaDate Type</Label>
+																						<Label className="font-weight-bold primary-text">RotaDate Type</Label>
 																					</div>
 																					<div className="col-3">
-																						<Label className="text-secondary">R - Receipt Date</Label>
+																						<Label className="secondary-text">R - Receipt Date</Label>
 																					</div>
 																					
 																					<div className="col-3">
-																						<Label className="font-weight-bold">On Purchase Qty</Label>
+																						<Label className="font-weight-bold primary-text">On Purchase Qty</Label>
 																					</div>
 																					<div className="col-3">
-																						<Label className="text-secondary">0</Label>
+																						<Label className="secondary-text">0</Label>
 																					</div>
 																				</div>
 																			</div>
@@ -247,7 +248,45 @@ class StockHolding extends Component {
 													</Row>
 
 													<Row className="align-items-center">
+														<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
+															<Nav tabs>
+																<div className="input-group">
+																	<NavItem className="col-xl-6 col-lg-6 col-md-6 col-sm-12 pl-0">
+																		<NavLink className={"nav-link-cust rounded-left-05 rounded-right-05" + (this.state.activeTabIndex === 1 ? " tab-custom" : "")} active={this.state.activeTab === 1} onClick={() => this.activeTabIndex(1)}>
+																			<div className="row barisTabCustom align-items-center">
+																				<div className="tabTitleText">Stock Details</div>
+																			</div>
+																		</NavLink>
+																	</NavItem>
+
+																	<NavItem className="col-xl-6 col-lg-6 col-md-6 col-sm-12 pl-0">
+																		<NavLink className={"nav-link-cust rounded-left-05 rounded-right-05" + (this.state.activeTabIndex === 2 ? " tab-custom" : "")} active={this.state.activeTab === 2} onClick={() => this.activeTabIndex(2)}>
+																			<div className="row barisTabCustom align-items-center">
+																				<span className="tabTitleText">Foreshadowed Stock Balance</span>
+																			</div>
+																		</NavLink>
+																	</NavItem>
+																</div>
+															</Nav>
+														</div>
+													</Row>
+
+													{/* <Row className="align-items-center">
 														<div className="col-12 col-lg-12 col-md-12 col-sm-12 p-0">
+															<TabContent>
+																<TabPane tabId="1">
+
+																</TabPane>
+
+																<TabPane tabId="2">
+
+																</TabPane>
+															</TabContent>
+														</div>
+													</Row> */}
+
+													<Row className="align-items-center">
+														<div className="d-flex col-12 col-lg-12 col-md-12 col-sm-12 mt-3 pl-0">
 															{content}
 														</div>
 													</Row>
@@ -271,4 +310,4 @@ class StockHolding extends Component {
 	}
 }
 
-export default StockHolding;
+export default StockDetails;

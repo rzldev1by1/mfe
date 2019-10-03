@@ -45,11 +45,11 @@ class StockHolding extends Component {
 				{ id: "rotaType", checkboxLabelText: "RotaDate Type", tableHeaderText: "RotaDate Type", isVisible: false, key: "" },
 				{ id: "dateStatus", checkboxLabelText: "Date Status", tableHeaderText: "Date Status", isVisible: true, key: "" },
 				{ id: "zone", checkboxLabelText: "Zone", tableHeaderText: "Zone", isVisible: false, key: "" },
-				{ id: "batch", checkboxLabelText: "Batch", tableHeaderText: "Batch", isVisible: false, key: "" },
-				{ id: "ref2", checkboxLabelText: "Ref 2", tableHeaderText: "Ref 2", isVisible: false, key: "" },
-				{ id: "ref3", checkboxLabelText: "Ref 3", tableHeaderText: "Ref 3", isVisible: false, key: "" },
-				{ id: "ref4", checkboxLabelText: "Ref 4", tableHeaderText: "Ref 4", isVisible: false, key: "" },
-				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: false, key: "" },
+				{ id: "batch", checkboxLabelText: "Batch", tableHeaderText: "Batch", isVisible: true, key: "" },
+				{ id: "ref2", checkboxLabelText: "Ref 2", tableHeaderText: "Ref 2", isVisible: true, key: "" },
+				{ id: "ref3", checkboxLabelText: "Ref 3", tableHeaderText: "Ref 3", isVisible: true, key: "" },
+				{ id: "ref4", checkboxLabelText: "Ref 4", tableHeaderText: "Ref 4", isVisible: true, key: "" },
+				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: true, key: "" },
 				{ id: "alert", checkboxLabelText: "Alert", tableHeaderText: "Alert", isVisible: true, key: "" },
 				{ id: "weight", checkboxLabelText: "Weight", tableHeaderText: "Weight", isVisible: true, key: "" },
 				{ id: "volume", checkboxLabelText: "Volume", tableHeaderText: "Volume", isVisible: true, key: "" },
@@ -85,12 +85,12 @@ class StockHolding extends Component {
 			},
 			stockHolding: [
 				{ location: "A0101A03", locationType: "Reserve", packId: "100000025",
-				  product: "1001", description: "Example Product",
+				  product: "1001", description: "AbcdefghijKlmnopqrst",
 				  qty: "50", plannedIn: "0", plannedOut: "0",
 				  packType: "EACH", packSize: "10*5",
 				  rotaDate: "11/02/2019", rotaType: "R - Receipt Date",
 				  dateStatus: "LIVE", zone: "A", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  ref2: "1234", ref3: "1234", ref4: "1234",
 				  disposition: "", alert: "No",
 				  weight: "1", volume: "1",
 				  lastUpdated: ""				  				
@@ -362,18 +362,28 @@ class StockHolding extends Component {
 		e.stopPropagation();
 	}
 
-
+	rowClicked = (productCode) => {
+		this.props.history.push("/stockholding/" + encodeURIComponent(productCode));
+	}
 
 	render() {
 		let content;
 		content = 
 		<Card className="init-table-content border-0">
 			<CardBody className="p-0">
-				<Table className="table-condensed table-responsive table-striped rounded-left-125 rounded-right-125 mb-0" size="sm">
+				<Table className="table-condensed table-responsive table-striped clickable-row rounded-left-125 rounded-right-125 mb-0" size="sm">
 					<thead>
 						<tr>
 							{this.state.columns.map((item, idx) => {
 								if (item.isVisible) {
+									if (item.id === "qty" ||
+										item.id === "plannedIn" ||
+										item.id === "plannedOut" ||
+										item.id === "weight" ||
+										item.id === "volume") {
+										return <th className="p-3 text-right align-middle headerBlue" key={idx}>{item.tableHeaderText}</th>
+									}
+
 									return <th className="p-3 text-left align-middle headerBlue" key={idx}>{item.tableHeaderText}</th>
 								}
 							})}
@@ -386,32 +396,40 @@ class StockHolding extends Component {
 					</thead>
 					<tbody>
 						{this.state.stockHolding.map((item, idx) => (
-								<tr key={idx}>
-									{this.state.columns.map((column, columnIdx) => {
-										if (column.isVisible) {
-											if (column.id === "product") {
-												return (
-													<td key={columnIdx} className="px-3 text-left">
-														<u>
-															<Link className="company-link p-1" to={"/stockholding/" + encodeURIComponent(item["product"])}>
-																{item[column.id]}
-															</Link>
-														</u>
-													</td>
-												);
-											}
-											
-											return <td key={columnIdx} className="px-3 text-left">{item[column.id]}</td>
+							<tr key={idx} onClick={() => this.rowClicked(item["product"])}>
+								{this.state.columns.map((column, columnIdx) => {
+									if (column.isVisible) {
+										if (column.id === "product") {
+											return (
+												<td key={columnIdx} className="px-3 text-left">
+													{item[column.id]}
+												</td>
+											);
 										}
-									})}
-									<td className="px-3 text-left">
-										<a href="#" class="dots">
-											<div class="dot"></div>
-											<div class="dot"></div>
-											<div class="dot"></div>
-										</a>
-									</td>
-								</tr>
+
+										if (column.id === "qty" ||
+											column.id === "plannedIn" ||
+											column.id === "plannedOut" ||
+											column.id === "weight" ||
+											column.id === "volume") {
+											return (
+												<td key={columnIdx} className="px-3 text-right">
+													{item[column.id]}
+												</td>
+											);
+										}
+										
+										return <td key={columnIdx} className="px-3 text-left">{item[column.id]}</td>
+									}
+								})}
+								<td className="px-3 text-left">
+									{/* <a href="#" className="dots"> */}
+										<div className="dot"></div>
+										<div className="dot"></div>
+										<div className="dot"></div>
+									{/* </a> */}
+								</td>
+							</tr>
 						))}
 					</tbody>
 				</Table>
@@ -425,7 +443,7 @@ class StockHolding extends Component {
 						<div className="col-12 p-0">
 							<div className="row">
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-									<CardBody className="px-0">
+									<CardBody>
 										<Row className="align-items-center">
 											<div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0">
 												<FormGroup>
@@ -442,30 +460,29 @@ class StockHolding extends Component {
 							</div>
 
 							<div className="row">
-								<Card className="border-0 p-0">
-									<div className="col-12 col-lg-12 col-md-12 col-sm-12">
+								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
+									<Card className="border-0 mb-0">
 										<form>
-											<div className="form-group row">
-												<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-													<Row className="align-items-center">
-														<div className="col-12 col-lg-12 col-md-12 col-sm-12">
+											<div className="form-group row mb-0">
+												<div className="col-12 col-lg-12 col-md-12 col-sm-12 mb-0">
+													<Row className="align-items-center mb-0">
+														<div className="col-12 col-lg-12 col-md-12 col-sm-12 mb-0">
 															<FormGroup>
 																<InputGroup>
-																	<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
+																	<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
 																		<Card className="form-group row rounded-left-125 rounded-right-125">
 																			<div className="input-group p-2">
-																				<div className="input-group-prepend bg-white">
-																					<span className="input-group-text col-2 border-0 rounded-left-125 bg-white">
-																						<i className="fa fa-search iconSpace" />
+																				<div className="input-group-prepend bg-white col-9">
+																					<span className="input-group-text border-0 rounded-left-125 bg-white p-0">
+																						<i className="fa fa-search fa-2x iconSpace" />
 																					</span>
+																					<input type="text" className="form-control border-0 rounded-right-125" placeholder="Type here to Search" />
 																				</div>
-																				<input type="text" className="form-control col-9 border-0 rounded-right-125" placeholder="Type here to Search" />
-																				<div className="col-1 text-right">
+																				<div className="col-3 text-right">
 																					<button type="submit" className="circle">
 																						<i className="fa fa-sliders" />
 																					</button>
-																				</div>
-																				<div className="col-1">
+																					{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}
 																					<button type="submit" className="search rounded-left-125 rounded-right-125">
 																						<strong>Search</strong>
 																					</button>
@@ -477,24 +494,18 @@ class StockHolding extends Component {
 															</FormGroup>
 														</div>
 													</Row>
-
-													<Row className="align-items-center">
-														<div className="col-12 col-lg-12 col-md-12 col-sm-12 p-0">
-															{content}
-														</div>
-													</Row>
 												</div>
 											</div>
 										</form>
-									</div>
-								</Card>
+									</Card>
+								</div>
 							</div>
 
-							{/* <div className="row">
-								<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
+							<div className="row">
+								<div className="d-flex col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
 									{content}
 								</div>
-							</div> */}
+							</div>
 						</div>
 					</div>
 				</div>
