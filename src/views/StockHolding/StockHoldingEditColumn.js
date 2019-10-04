@@ -14,8 +14,6 @@ export default class SalesOrderEditColumn extends Component {
             modalClose: false
         };
         this.columnForm = React.createRef();
-        // console.log(this.props.fields);
-        // console.log(this.state.modalClose);
     }
     
     componentDidUpdate() {
@@ -53,18 +51,18 @@ export default class SalesOrderEditColumn extends Component {
     render() {
         return (
             <Modal isOpen={(this.state.modalClose == true) ? !this.props.isOpen : this.props.isOpen} toggle={this.props.toggle} className='modal-company animated fadeIn editcol-modal' backdrop="static" style={{maxWidth: '1200px',width: '1000px', }}>
-                {/* <div class="editcol-header modal-header">
-                    <div class="modal-title">
+                {/* <div className="editcol-header modal-header">
+                    <div className="modal-title">
                         <h3><b>Edit Columns</b></h3>
-                        <p class="d-block m-0 p-0">Please select column to show</p>
+                        <p className="d-block m-0 p-0">Please select column to show</p>
                     </div>
-                    <button type="button" class="btn btn-outline-light" aria-label="Close">
+                    <button type="button" className="btn btn-outline-light" aria-label="Close">
                         <span aria-hidden="true" className="nunito" style={{color: '#388DCD'}} onClick={this.modalClose}>×</span>
                     </button>
                 </div> */}
                 <ModalHeader toggle={this.props.toggle} tag="div" className="editcol-header">
-                    <h3><b>Edit Columns</b></h3>
-                    <p className="d-block m-0 p-0">Please select column to show</p>
+                    <h3><strong>Edit Columns</strong></h3>
+                    <p className="d-block mb-0 p-0">Please select column to show</p>
                 </ModalHeader>
                 <ModalBody>
                     <div className="container-fluid px-4">
@@ -73,16 +71,16 @@ export default class SalesOrderEditColumn extends Component {
                                 <form ref={this.columnForm}>
                                     <div className="form-row">
                                         {this.props.fields.map((item, idx) => (
-                                            <div className="form-group col-12 col-sm-6 col-md-4" key={item.id}>
+                                            <div className="form-group col-12 col-sm-6 col-md-4 mb-1" key={item.id}>
                                                 <div className="form-check">
-													<label class="check-text">
+													<label className="check-text">
 														<input type="checkbox" className="eye"
 																id={item.id} name={item.id}
 																defaultChecked={item.isVisible} value={item.value} 
 																disabled={item.isDisabled} 
 																onChange={this.setEnableElements} />
-														<span class="glyphicon glyphicon-eye-open checked" />
-														<span class="glyphicon glyphicon-eye-close unchecked" />
+														<span className="glyphicon glyphicon-eye-open checked" />
+														<span className="glyphicon glyphicon-eye-close unchecked" />
 														{item.checkboxLabelText}
 													</label>
                                                     {/* <input className="form-check-input" type="checkbox" defaultChecked={item.isVisible} value={item.value} id={item.id} name={item.id} disabled={item.isDisabled} onChange={this.setEnableElements} />

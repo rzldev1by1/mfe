@@ -113,32 +113,40 @@ class StockDetails extends Component {
 	render() {
 		let content;
 		content = 
-		<Card className="init-table-content border-0">
-			<CardBody className="p-0">
-				<Table className="table-condensed table-responsive table-striped rounded-left-125 rounded-right-125 mb-0" size="sm">
-					<thead>
-						<tr>
-							{this.state.columns.map((item, idx) => {
-								if (item.isVisible) {
-									return <th className="p-3 text-left align-middle headerBlue" key={idx}>{item.tableHeaderText}</th>
+			<Table className="table-condensed table-responsive table-striped rounded-left-125 rounded-right-125 mb-0" size="sm">
+				<thead>
+					<tr>
+						{this.state.columns.map((item, idx) => {
+							if (item.isVisible) {
+								if (item.id === "qty" ||
+									item.id === "weight" ||
+									item.id === "volume") {
+									return <th className="p-3 text-right align-middle" key={idx} width="10%">{item.tableHeaderText}</th>
 								}
-							})}
-						</tr>
-					</thead>
-					<tbody>
-						{this.state.stockDetails.map((item, idx) => (
-								<tr key={idx}>
-									{this.state.columns.map((column, columnIdx) => {
-										if (column.isVisible) {
-											return <td key={columnIdx} className="px-3 text-left">{item[column.id]}</td>
+
+								return <th className="p-3 text-left align-middle" key={idx} width="10%">{item.tableHeaderText}</th>
+							}
+						})}
+					</tr>
+				</thead>
+				<tbody>
+					{this.state.stockDetails.map((item, idx) => (
+							<tr key={idx}>
+								{this.state.columns.map((column, columnIdx) => {
+									if (column.isVisible) {
+										if (column.id === "qty" ||
+											column.id === "weight" ||
+											column.id === "volume") {
+											return <td key={columnIdx} className="px-3 text-right" width="10%">{item[column.id]}</td>
 										}
-									})}
-								</tr>
-						))}
-					</tbody>
-				</Table>
-			</CardBody>
-		</Card>
+
+										return <td key={columnIdx} className="px-3 text-left" width="10%">{item[column.id]}</td>
+									}
+								})}
+							</tr>
+					))}
+				</tbody>
+			</Table>
 
 		return(
 			<React.Fragment>
@@ -164,137 +172,135 @@ class StockDetails extends Component {
 							</div>
 
 							<div className="row">
-								<Card className="border-0 p-0">
-									<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-										<form>
-											<div className="form-group row">
-												<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-													<Row className="align-items-center">
-														<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-															<FormGroup>
-																<InputGroup>
-																	<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-																		<Card className="form-group row rounded-left-05 rounded-right-05">
-																			<div className="col-12">
-																				<div className="row">
-																					<div className="col-3">
-																						<Label className="font-weight-bold primary-text">Product ID</Label>
-																					</div>
-																					<div className="col-3">
-																						<Label className="secondary-text">10002</Label>
-																					</div>
-
-																					<div className="col-3">
-																						<Label className="font-weight-bold primary-text">Stock On Hand</Label>
-																					</div>
-																					<div className="col-3">
-																						<Label className="secondary-text">75</Label>
-																					</div>
+								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
+									<form>
+										<div className="form-group row">
+											<div className="col-12 col-lg-12 col-md-12 col-sm-12">
+												<Row className="align-items-center">
+													<div className="col-12 col-lg-12 col-md-12 col-sm-12">
+														<FormGroup>
+															<InputGroup>
+																<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
+																	<Card className="form-group row rounded-left-05 rounded-right-05">
+																		<div className="col-12">
+																			<div className="row">
+																				<div className="col-3">
+																					<Label className="font-weight-bold primary-text">Product ID</Label>
+																				</div>
+																				<div className="col-3">
+																					<Label className="secondary-text">10002</Label>
 																				</div>
 
-																				<div className="row">
-																					<div className="col-3">
-																						<Label className="font-weight-bold primary-text">Product Name</Label>
-																					</div>
-																					<div className="col-3">
-																						<Label className="secondary-text">Example Product 2</Label>
-																					</div>
-																					
-																					<div className="col-3">
-																						<Label className="font-weight-bold primary-text">Allocated Qty</Label>
-																					</div>
-																					<div className="col-3">
-																						<Label className="secondary-text">0</Label>
-																					</div>
+																				<div className="col-3">
+																					<Label className="font-weight-bold primary-text">Stock On Hand</Label>
 																				</div>
-
-																				<div className="row">
-																					<div className="col-3">
-																						<Label className="font-weight-bold primary-text">UoM</Label>
-																					</div>
-																					<div className="col-3">
-																						<Label className="secondary-text">EACH</Label>
-																					</div>
-																					
-																					<div className="col-3">
-																						<Label className="font-weight-bold primary-text">Available Qty</Label>
-																					</div>
-																					<div className="col-3">
-																						<Label className="secondary-text">75</Label>
-																					</div>
-																				</div>
-
-																				<div className="row">
-																					<div className="col-3">
-																						<Label className="font-weight-bold primary-text">RotaDate Type</Label>
-																					</div>
-																					<div className="col-3">
-																						<Label className="secondary-text">R - Receipt Date</Label>
-																					</div>
-																					
-																					<div className="col-3">
-																						<Label className="font-weight-bold primary-text">On Purchase Qty</Label>
-																					</div>
-																					<div className="col-3">
-																						<Label className="secondary-text">0</Label>
-																					</div>
+																				<div className="col-3">
+																					<Label className="secondary-text">75</Label>
 																				</div>
 																			</div>
-																		</Card>
-																	</div>
-																</InputGroup>
-															</FormGroup>
-														</div>
-													</Row>
 
-													<Row className="align-items-center">
-														<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
-															<Nav tabs>
-																<div className="input-group">
-																	<NavItem className="col-xl-6 col-lg-6 col-md-6 col-sm-12 pl-0">
-																		<NavLink className={"nav-link-cust rounded-left-05 rounded-right-05" + (this.state.activeTabIndex === 1 ? " tab-custom" : "")} active={this.state.activeTab === 1} onClick={() => this.activeTabIndex(1)}>
-																			<div className="row barisTabCustom align-items-center">
-																				<div className="tabTitleText">Stock Details</div>
+																			<div className="row">
+																				<div className="col-3">
+																					<Label className="font-weight-bold primary-text">Product Name</Label>
+																				</div>
+																				<div className="col-3">
+																					<Label className="secondary-text">Example Product 2</Label>
+																				</div>
+																				
+																				<div className="col-3">
+																					<Label className="font-weight-bold primary-text">Allocated Qty</Label>
+																				</div>
+																				<div className="col-3">
+																					<Label className="secondary-text">0</Label>
+																				</div>
 																			</div>
-																		</NavLink>
-																	</NavItem>
 
-																	<NavItem className="col-xl-6 col-lg-6 col-md-6 col-sm-12 pl-0">
-																		<NavLink className={"nav-link-cust rounded-left-05 rounded-right-05" + (this.state.activeTabIndex === 2 ? " tab-custom" : "")} active={this.state.activeTab === 2} onClick={() => this.activeTabIndex(2)}>
-																			<div className="row barisTabCustom align-items-center">
-																				<span className="tabTitleText">Foreshadowed Stock Balance</span>
+																			<div className="row">
+																				<div className="col-3">
+																					<Label className="font-weight-bold primary-text">UoM</Label>
+																				</div>
+																				<div className="col-3">
+																					<Label className="secondary-text">EACH</Label>
+																				</div>
+																				
+																				<div className="col-3">
+																					<Label className="font-weight-bold primary-text">Available Qty</Label>
+																				</div>
+																				<div className="col-3">
+																					<Label className="secondary-text">75</Label>
+																				</div>
 																			</div>
-																		</NavLink>
-																	</NavItem>
+
+																			<div className="row">
+																				<div className="col-3">
+																					<Label className="font-weight-bold primary-text">RotaDate Type</Label>
+																				</div>
+																				<div className="col-3">
+																					<Label className="secondary-text">R - Receipt Date</Label>
+																				</div>
+																				
+																				<div className="col-3">
+																					<Label className="font-weight-bold primary-text">On Purchase Qty</Label>
+																				</div>
+																				<div className="col-3">
+																					<Label className="secondary-text">0</Label>
+																				</div>
+																			</div>
+																		</div>
+																	</Card>
 																</div>
-															</Nav>
-														</div>
-													</Row>
+															</InputGroup>
+														</FormGroup>
+													</div>
+												</Row>
 
-													{/* <Row className="align-items-center">
-														<div className="col-12 col-lg-12 col-md-12 col-sm-12 p-0">
-															<TabContent>
-																<TabPane tabId="1">
+												<Row className="align-items-center">
+													<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
+														<Nav tabs>
+															<div className="input-group">
+																<NavItem className="col-xl-6 col-lg-6 col-md-6 col-sm-12 pl-0">
+																	<NavLink className={"nav-link-cust rounded-left-05 rounded-right-05" + (this.state.activeTabIndex === 1 ? " tab-custom" : "")} active={this.state.activeTab === 1} onClick={() => this.activeTabIndex(1)}>
+																		<div className="row barisTabCustom align-items-center">
+																			<div className="tabTitleText">Stock Details</div>
+																		</div>
+																	</NavLink>
+																</NavItem>
 
-																</TabPane>
+																<NavItem className="col-xl-6 col-lg-6 col-md-6 col-sm-12 pl-0">
+																	<NavLink className={"nav-link-cust rounded-left-05 rounded-right-05" + (this.state.activeTabIndex === 2 ? " tab-custom" : "")} active={this.state.activeTab === 2} onClick={() => this.activeTabIndex(2)}>
+																		<div className="row barisTabCustom align-items-center">
+																			<span className="tabTitleText">Foreshadowed Stock Balance</span>
+																		</div>
+																	</NavLink>
+																</NavItem>
+															</div>
+														</Nav>
+													</div>
+												</Row>
 
-																<TabPane tabId="2">
+												{/* <Row className="align-items-center">
+													<div className="col-12 col-lg-12 col-md-12 col-sm-12 p-0">
+														<TabContent>
+															<TabPane tabId="1">
 
-																</TabPane>
-															</TabContent>
-														</div>
-													</Row> */}
+															</TabPane>
 
-													<Row className="align-items-center">
-														<div className="d-flex col-12 col-lg-12 col-md-12 col-sm-12 mt-3 pl-0">
-															{content}
-														</div>
-													</Row>
-												</div>
+															<TabPane tabId="2">
+
+															</TabPane>
+														</TabContent>
+													</div>
+												</Row> */}
+
+												<Row className="align-items-center">
+													<div className="d-flex col-12 col-lg-12 col-md-12 col-sm-12 mt-3 pl-0">
+														{content}
+													</div>
+												</Row>
 											</div>
-										</form>
-									</div>
-								</Card>
+										</div>
+									</form>
+								</div>
 							</div>
 
 							{/* <div className="row">

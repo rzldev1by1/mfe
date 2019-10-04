@@ -5,8 +5,8 @@
 }
 
 body {
-	// background-color: #F5F7FA;
-	background-color: #FFFFFF;
+	background-color: #F5F7FA;
+	// background-color: #FFFFFF;
 	font-family: "Nunito";
 	// font-size: 15px;	
 }
@@ -30,7 +30,7 @@ body {
 .sidebar {
 	background: #FFFFFF 0% 0% no-repeat padding-box;
 	opacity: 1;
-	color: #919191 !important;
+	color: #212F61 !important;
 	width: 170px !important;
 }
 
@@ -60,7 +60,7 @@ body {
 }
 
 .sidebar .nav-link {
-	color: #919191 !important;
+	color: #212F61 !important;
 }
 
 .sidebar .nav-link.active {
@@ -126,6 +126,15 @@ hr.border-header {
 	width: 35px;
 	height: 35px;
 	border-radius: 50%;
+	background-color: #E0E3F2;
+	color: #212F61;
+}
+
+.circle.active {
+	// content: '\25CF';
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
 	background-color: #388DCD;
 	color: #FFFFFF;
 }
@@ -143,7 +152,7 @@ hr.border-header {
 // Start - Table
 
 .headerBlue {
-	background-color: #388DCD;
+	background-color: #388DCD !important;
 	color: #FFFFFF;
 }
 
@@ -159,8 +168,14 @@ hr.border-header {
 // 	background-color: #F5F7FA;
 // }
 
-.table-striped>tbody>tr>td{
-	background-color: #F5F7FA;
+.table-striped>tbody>tr>td {
+	// background-color: #F5F7FA;
+	background-color: #FFFFFF;
+}
+
+.table th {
+	background-color: #FFFFFF;
+	border-top: none;
 }
 
 .clickable-row>tbody>tr:hover>td {

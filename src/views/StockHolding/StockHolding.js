@@ -21,8 +21,10 @@ class StockHolding extends Component {
 			isVisible: [],
 			isLoaded: false,
 			isSearch: false,
-			displayMoreColumnModal: false,
 			displayContent: "INIT",
+			displayMoreColumnModal: false,
+			showFilter: false,
+
 			currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
@@ -47,9 +49,9 @@ class StockHolding extends Component {
 				{ id: "zone", checkboxLabelText: "Zone", tableHeaderText: "Zone", isVisible: false, key: "" },
 				{ id: "batch", checkboxLabelText: "Batch", tableHeaderText: "Batch", isVisible: true, key: "" },
 				{ id: "ref2", checkboxLabelText: "Ref 2", tableHeaderText: "Ref 2", isVisible: true, key: "" },
-				{ id: "ref3", checkboxLabelText: "Ref 3", tableHeaderText: "Ref 3", isVisible: true, key: "" },
-				{ id: "ref4", checkboxLabelText: "Ref 4", tableHeaderText: "Ref 4", isVisible: true, key: "" },
-				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: true, key: "" },
+				{ id: "ref3", checkboxLabelText: "Ref 3", tableHeaderText: "Ref 3", isVisible: false, key: "" },
+				{ id: "ref4", checkboxLabelText: "Ref 4", tableHeaderText: "Ref 4", isVisible: false, key: "" },
+				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: false, key: "" },
 				{ id: "alert", checkboxLabelText: "Alert", tableHeaderText: "Alert", isVisible: true, key: "" },
 				{ id: "weight", checkboxLabelText: "Weight", tableHeaderText: "Weight", isVisible: true, key: "" },
 				{ id: "volume", checkboxLabelText: "Volume", tableHeaderText: "Volume", isVisible: true, key: "" },
@@ -360,6 +362,11 @@ class StockHolding extends Component {
 
 	triggerChangeFilter = (e) => {
 		e.stopPropagation();
+		this.setState((prevState) => {
+			return { showFilter: !prevState.showFilter };
+		});
+
+
 	}
 
 	rowClicked = (productCode) => {
@@ -369,72 +376,68 @@ class StockHolding extends Component {
 	render() {
 		let content;
 		content = 
-		<Card className="init-table-content border-0">
-			<CardBody className="p-0">
-				<Table className="table-condensed table-responsive table-striped clickable-row rounded-left-125 rounded-right-125 mb-0" size="sm">
-					<thead>
-						<tr>
-							{this.state.columns.map((item, idx) => {
-								if (item.isVisible) {
-									if (item.id === "qty" ||
-										item.id === "plannedIn" ||
-										item.id === "plannedOut" ||
-										item.id === "weight" ||
-										item.id === "volume") {
-										return <th className="p-3 text-right align-middle headerBlue" key={idx}>{item.tableHeaderText}</th>
-									}
+		<Table className="table-condensed table-responsive table-striped clickable-row rounded-left-125 rounded-right-125 mb-0" size="sm">
+			<thead>
+				<tr>
+					{this.state.columns.map((item, idx) => {
+						if (item.isVisible) {
+							if (item.id === "qty" ||
+								item.id === "plannedIn" ||
+								item.id === "plannedOut" ||
+								item.id === "weight" ||
+								item.id === "volume") {
+								return <th className="p-3 text-right align-middle" key={idx} width="10%">{item.tableHeaderText}</th>
+							}
 
-									return <th className="p-3 text-left align-middle headerBlue" key={idx}>{item.tableHeaderText}</th>
+							return <th className="p-3 text-left align-middle" key={idx} width="10%">{item.tableHeaderText}</th>
+						}
+					})}
+					<th className="p-3 text-left align-middle">
+						<button type="button" className="btn btn-outline-light"  onClick={this.toggleDisplayMoreColumn} style={{backgroundColor: '#FFFFFF', padding: '0.1rem 0.4rem', borderRadius: '100%'}}>
+							<span className="glyphicon glyphicon-pencil" style={{ color: '#388DCD', fontSize: '11px' }}></span>
+						</button>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				{this.state.stockHolding.map((item, idx) => (
+					<tr key={idx} onClick={() => this.rowClicked(item["product"])}>
+						{this.state.columns.map((column, columnIdx) => {
+							if (column.isVisible) {
+								if (column.id === "product") {
+									return (
+										<td key={columnIdx} className="px-3 text-left">
+											{item[column.id]}
+										</td>
+									);
 								}
-							})}
-							<th className="p-3 text-left align-middle headerBlue">
-								<button type="button" className="btn btn-outline-light"  onClick={this.toggleDisplayMoreColumn} style={{backgroundColor: '#ffffff', padding: '0.1rem 0.4rem', borderRadius: '100%'}}>
-									<span className="glyphicon glyphicon-pencil" style={{color: '#388dcd', fontSize: '11px'}}></span>
-								</button>
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						{this.state.stockHolding.map((item, idx) => (
-							<tr key={idx} onClick={() => this.rowClicked(item["product"])}>
-								{this.state.columns.map((column, columnIdx) => {
-									if (column.isVisible) {
-										if (column.id === "product") {
-											return (
-												<td key={columnIdx} className="px-3 text-left">
-													{item[column.id]}
-												</td>
-											);
-										}
 
-										if (column.id === "qty" ||
-											column.id === "plannedIn" ||
-											column.id === "plannedOut" ||
-											column.id === "weight" ||
-											column.id === "volume") {
-											return (
-												<td key={columnIdx} className="px-3 text-right">
-													{item[column.id]}
-												</td>
-											);
-										}
-										
-										return <td key={columnIdx} className="px-3 text-left">{item[column.id]}</td>
-									}
-								})}
-								<td className="px-3 text-left">
-									{/* <a href="#" className="dots"> */}
-										<div className="dot"></div>
-										<div className="dot"></div>
-										<div className="dot"></div>
-									{/* </a> */}
-								</td>
-							</tr>
-						))}
-					</tbody>
-				</Table>
-			</CardBody>
-		</Card>
+								if (column.id === "qty" ||
+									column.id === "plannedIn" ||
+									column.id === "plannedOut" ||
+									column.id === "weight" ||
+									column.id === "volume") {
+									return (
+										<td key={columnIdx} className="px-3 text-right">
+											{item[column.id]}
+										</td>
+									);
+								}
+								
+								return <td key={columnIdx} className="px-3 text-left">{item[column.id]}</td>
+							}
+						})}
+						<td className="px-3 text-left">
+							{/* <a href="#" className="dots"> */}
+								<div className="dot"></div>
+								<div className="dot"></div>
+								<div className="dot"></div>
+							{/* </a> */}
+						</td>
+					</tr>
+				))}
+			</tbody>
+		</Table>
 
 		return(
 			<React.Fragment>
@@ -461,43 +464,44 @@ class StockHolding extends Component {
 
 							<div className="row">
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-									<Card className="border-0 mb-0">
-										<form>
-											<div className="form-group row mb-0">
-												<div className="col-12 col-lg-12 col-md-12 col-sm-12 mb-0">
-													<Row className="align-items-center mb-0">
-														<div className="col-12 col-lg-12 col-md-12 col-sm-12 mb-0">
-															<FormGroup>
-																<InputGroup>
-																	<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-																		<Card className="form-group row rounded-left-125 rounded-right-125">
-																			<div className="input-group p-2">
-																				<div className="input-group-prepend bg-white col-9">
-																					<span className="input-group-text border-0 rounded-left-125 bg-white p-0">
-																						<i className="fa fa-search fa-2x iconSpace" />
-																					</span>
-																					<input type="text" className="form-control border-0 rounded-right-125" placeholder="Type here to Search" />
-																				</div>
-																				<div className="col-3 text-right">
-																					<button type="submit" className="circle">
-																						<i className="fa fa-sliders" />
-																					</button>
-																					{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}
-																					<button type="submit" className="search rounded-left-125 rounded-right-125">
-																						<strong>Search</strong>
-																					</button>
-																				</div>
+									<form>
+										<div className="form-group row mb-0">
+											<div className="col-12 col-lg-12 col-md-12 col-sm-12 mb-0">
+												<Row className="align-items-center mb-0">
+													<div className="col-12 col-lg-12 col-md-12 col-sm-12 mb-0">
+														<FormGroup>
+															<InputGroup>
+																<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+																	<Card className="form-group row rounded-left-125 rounded-right-125">
+																		<div className="input-group p-2">
+																			<div className="input-group-prepend bg-white col-9">
+																				<span className="input-group-text border-0 rounded-left-125 bg-white p-0">
+																					<i className="fa fa-search fa-2x iconSpace" />
+																				</span>
+																				<input type="text" className="form-control border-0 rounded-right-125" placeholder="Type here to Search" />
 																			</div>
-																		</Card>
-																	</div>
-																</InputGroup>
-															</FormGroup>
-														</div>
-													</Row>
-												</div>
+																			<div className="col-3 text-right">
+																				<button type="submit" className={"circle" + (this.state.showFilter ? " active" : "")} onClick={this.triggerChangeFilter}>
+																					<i className="fa fa-sliders" />
+																				</button>
+																				{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}
+																				<button type="submit" className="search rounded-left-125 rounded-right-125">
+																					<strong>Search</strong>
+																				</button>
+																			</div>
+																		</div>
+																		{/* <div className={"input-group p-2" + (this.state.showFilter ? "" : " d-none")}>
+																			<button>Example</button>
+																		</div> */}
+																	</Card>
+																</div>
+															</InputGroup>
+														</FormGroup>
+													</div>
+												</Row>
 											</div>
-										</form>
-									</Card>
+										</div>
+									</form>
 								</div>
 							</div>
 
@@ -509,7 +513,17 @@ class StockHolding extends Component {
 						</div>
 					</div>
 				</div>
-				<StockHoldingEditColumn isOpen={this.state.displayMoreColumnModal} toggle={this.toggleDisplayMoreColumn} fields={this.state.columns} updateTableColumn={this.updateTableColumn} />
+				
+				{/* <div className="row mt-2">
+					<div className="d-flex col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
+						{content}
+					</div>
+				</div> */}
+
+				<StockHoldingEditColumn isOpen={this.state.displayMoreColumnModal}
+										toggle={this.toggleDisplayMoreColumn}
+										fields={this.state.columns}
+										updateTableColumn={this.updateTableColumn} />
 			</React.Fragment>
 		);
 	}
