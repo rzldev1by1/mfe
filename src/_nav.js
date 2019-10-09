@@ -183,7 +183,7 @@ export default {
 		// ],
 	},
     {
-      name: 'Inventory',
+      name: 'Stock',
     //   url: '/buttons',
       icon: 'fa fa-cubes',
       children: [

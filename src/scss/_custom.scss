@@ -8,6 +8,7 @@ body {
 	background-color: #F5F7FA;
 	// background-color: #FFFFFF;
 	font-family: "Nunito";
+	color: #212F61;
 	// font-size: 15px;	
 }
 
@@ -30,7 +31,6 @@ body {
 .sidebar {
 	background: #FFFFFF 0% 0% no-repeat padding-box;
 	opacity: 1;
-	color: #212F61 !important;
 	width: 170px !important;
 }
 
@@ -85,24 +85,12 @@ body {
 	color: #919191 !important;
 }
 
-.rounded-left-125 {
-	border-top-left-radius: 1.25rem !important;
-	border-bottom-left-radius: 1.25rem !important;
+.rounded-175 {
+	border-radius: 1.75rem !important;
 }
 
-.rounded-right-125 {
-	border-top-right-radius: 1.25rem !important;
-	border-bottom-right-radius: 1.25rem !important;
-}
-
-.rounded-left-05 {
-	border-top-left-radius: 0.5rem !important;
-	border-bottom-left-radius: 0.5rem !important;
-}
-
-.rounded-right-05 {
-	border-top-right-radius: 0.5rem !important;
-	border-bottom-right-radius: 0.5rem !important;
+.rounded-05 {
+	border-radius: 0.5rem !important;
 }
 
 // End - Sidebar
@@ -135,8 +123,8 @@ hr.border-header {
 	width: 35px;
 	height: 35px;
 	border-radius: 50%;
-	background-color: #388DCD;
-	color: #FFFFFF;
+	background-color: #388DCD !important;
+	color: #FFFFFF !important;
 }
 
 .search {
@@ -171,10 +159,12 @@ hr.border-header {
 .table-striped>tbody>tr>td {
 	// background-color: #F5F7FA;
 	background-color: #FFFFFF;
+	color: #4E4E4E;
 }
 
 .table th {
 	background-color: #FFFFFF;
+	color: #212F61;
 	border-top: none;
 }
 
@@ -384,6 +374,76 @@ hr.border-header {
 	display: inline-block;
 	margin-left: 2px;
 }
+
+.form-control:focus {
+	box-shadow: none;
+}
+
+.custom-dropDown {
+	position: relative;
+	background-color: #EAF3FA;
+	color: #388DCD;
+	display: inline-block;
+	border: 0;
+	border-radius: 1.75rem !important;
+	font-weight: bold;
+}
+
+
+
+// .custom-select select {
+// 	display: none;
+// }
+
+// .select-selected {
+// 	background-color: #EAF3FA;
+// }
+
+// .select-selected:after {
+// 	position: absolute;
+// 	content: "";
+// 	top: 14px;
+// 	right: 10px;
+// 	width: 0;
+// 	height: 0;
+// 	border: 6px solid transparent;
+// 	border-color: #000000 transparent transparent transparent;
+// }
+
+// .select-selected.select-arrow-active:after {
+// 	border-color: transparent transparent #FFFFFF transparent;
+// 	top: 7px;
+// }
+
+// .select-items div, .select-selected {
+// 	color: #388DCD;
+// 	padding: 8px 16px;
+// 	border: 1px solid transparent;
+// 	border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+// 	cursor: pointer;
+// }
+
+// .select-items {
+// 	position: absolute;
+// 	background-color: #EAF3FA;
+// 	top: 100%;
+// 	left: 0;
+// 	right: 0;
+// 	z-index: 99;
+// }
+
+// .select-hide {
+// 	display: none;
+// }
+
+// .select-items div:hover, .same-as-selected {
+// 	background-color: #EAF3FA;
+// }
+
+// .custom-select:focus {
+// 	box-shadow: none;
+// }
+
 // End - Stock Holding Page
 
 
