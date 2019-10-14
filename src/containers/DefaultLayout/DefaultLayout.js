@@ -19,8 +19,8 @@ import navigation from '../../_nav';
 // routes config
 import routes from '../../routes';
 
-import logo from '../../assets/img/brand/logo_ttl_large.png';
-// import logo from '../../assets/img/brand/logo_ml_large.png';
+// import logo from '../../assets/img/brand/logo_ttl_large.png';
+import logo from '../../assets/img/brand/logo_ml_large.png';
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
 // const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
