@@ -194,7 +194,7 @@ export default {
         },
         {
           name: 'Stock Movement',
-          url: '/buttons/button-dropdowns',
+          url: '/stockmovement',
         //   icon: 'icon-cursor',
         },
         {
