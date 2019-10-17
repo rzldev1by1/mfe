@@ -11,7 +11,7 @@ import { Card, CardBody,
 } from 'reactstrap';
 
 // import StockDetailsEditColumn from './StockDetailsEditColumn';
-// import './StockHolding.css';
+import './StockDetails.css';
 
 class StockDetails extends Component {
 	constructor(props) {
@@ -113,7 +113,7 @@ class StockDetails extends Component {
 	render() {
 		let content;
 		content = 
-			<Table className="table-condensed table-responsive table-striped rounded-175 mb-0" size="sm">
+			<Table className="table-condensed table-responsive table-striped rounded-175 mb-0" size="md">
 				<thead>
 					<tr>
 						{this.state.columns.map((item, idx) => {
@@ -260,7 +260,7 @@ class StockDetails extends Component {
 															<div className="input-group">
 																<NavItem className="col-xl-6 col-lg-6 col-md-6 col-sm-12 pl-0">
 																	<NavLink className={"nav-link-cust rounded-05" + (this.state.activeTabIndex === 1 ? " tab-custom" : "")} active={this.state.activeTab === 1} onClick={() => this.activeTabIndex(1)}>
-																		<div className="row barisTabCustom align-items-center">
+																		<div className="row rowTabCustom align-items-center">
 																			<div className="tabTitleText">Stock Details</div>
 																		</div>
 																	</NavLink>
@@ -268,7 +268,7 @@ class StockDetails extends Component {
 
 																<NavItem className="col-xl-6 col-lg-6 col-md-6 col-sm-12 pl-0">
 																	<NavLink className={"nav-link-cust rounded-05" + (this.state.activeTabIndex === 2 ? " tab-custom" : "")} active={this.state.activeTab === 2} onClick={() => this.activeTabIndex(2)}>
-																		<div className="row barisTabCustom align-items-center">
+																		<div className="row rowTabCustom align-items-center">
 																			<span className="tabTitleText">Foreshadowed Stock Balance</span>
 																		</div>
 																	</NavLink>
