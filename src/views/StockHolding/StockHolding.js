@@ -3,16 +3,13 @@ import { Card, CardBody,
 		 Col, Row, Table,
 		 Button, ButtonDropdown,
 		 FormGroup,
-		 Input, InputGroup, InputGroupAddon,
-		 DropdownItem, DropdownMenu, DropdownToggle
+		 InputGroup,
+		 DropdownToggle
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-// import DatePicker from 'react-datepicker';
-// import "react-datepicker/dist/react-datepicker.css";
-// import { isTSEnumMember } from '@babel/types';
 
+import './StockHolding.css';
 import StockHoldingEditColumn from './StockHoldingEditColumn';
-// import './StockHolding.css';
 
 class StockHolding extends Component {
 	constructor(props) {
@@ -22,7 +19,7 @@ class StockHolding extends Component {
 			isLoaded: false,
 			isSearch: false,
 			displayContent: "INIT",
-			displayMoreColumnModal: false,
+			showEditColumn: false,
 			showFilter: true,
 
 			currentPage: 1,
@@ -33,289 +30,90 @@ class StockHolding extends Component {
 			maxPage: 0,
 
 			columns: [
-				{ id: "location", checkboxLabelText: "Location", tableHeaderText: "Location", isVisible: true, key: "" },
-				{ id: "locationType", checkboxLabelText: "Location Type", tableHeaderText: "Location Type", isVisible: true, key: "" },
-				{ id: "packId", checkboxLabelText: "Pack ID", tableHeaderText: "Pack ID", isVisible: true, key: "" },
+				// { id: "location", checkboxLabelText: "Location", tableHeaderText: "Location", isVisible: true, key: "" },
+				// { id: "locationType", checkboxLabelText: "Location Type", tableHeaderText: "Location Type", isVisible: true, key: "" },
+				// { id: "packId", checkboxLabelText: "Pack ID", tableHeaderText: "Pack ID", isVisible: true, key: "" },
+				// { id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "" },
+				// { id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "" },
+				// { id: "qty", checkboxLabelText: "Qty", tableHeaderText: "Qty", isVisible: true, key: "" },
+				// { id: "plannedIn", checkboxLabelText: "Planned In", tableHeaderText: "Planned In", isVisible: true, key: "" },
+				// { id: "plannedOut", checkboxLabelText: "Planned Out", tableHeaderText: "Planned Out", isVisible: true, key: "" },
+				// { id: "packType", checkboxLabelText: "Pack Type", tableHeaderText: "Pack Type", isVisible: true, key: "" },
+				// { id: "packSize", checkboxLabelText: "Pack Size", tableHeaderText: "Pack Size", isVisible: true, key: "" },
+				// { id: "rotaDate", checkboxLabelText: "RotaDate", tableHeaderText: "RotaDate", isVisible: false, key: "" },
+				// { id: "rotaType", checkboxLabelText: "RotaDate Type", tableHeaderText: "RotaDate Type", isVisible: false, key: "" },
+				// { id: "dateStatus", checkboxLabelText: "Date Status", tableHeaderText: "Date Status", isVisible: true, key: "" },
+				// { id: "zone", checkboxLabelText: "Zone", tableHeaderText: "Zone", isVisible: false, key: "" },
+				// { id: "batch", checkboxLabelText: "Batch", tableHeaderText: "Batch", isVisible: true, key: "" },
+				// { id: "ref2", checkboxLabelText: "Ref 2", tableHeaderText: "Ref 2", isVisible: true, key: "" },
+				// { id: "ref3", checkboxLabelText: "Ref 3", tableHeaderText: "Ref 3", isVisible: false, key: "" },
+				// { id: "ref4", checkboxLabelText: "Ref 4", tableHeaderText: "Ref 4", isVisible: false, key: "" },
+				// { id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: false, key: "" },
+				// { id: "alert", checkboxLabelText: "Alert", tableHeaderText: "Alert", isVisible: true, key: "" },
+				// { id: "weight", checkboxLabelText: "Weight", tableHeaderText: "Weight", isVisible: true, key: "" },
+				// { id: "volume", checkboxLabelText: "Volume", tableHeaderText: "Volume", isVisible: true, key: "" },
+				// { id: "lastUpdated", checkboxLabelText: "Last Updated", tableHeaderText: "Last Updated", isVisible: false, key: "" },
+
+
+				{ id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "" },
 				{ id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "" },
 				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "" },
-				{ id: "qty", checkboxLabelText: "Qty", tableHeaderText: "Qty", isVisible: true, key: "" },
-				{ id: "plannedIn", checkboxLabelText: "Planned In", tableHeaderText: "Planned In", isVisible: true, key: "" },
-				{ id: "plannedOut", checkboxLabelText: "Planned Out", tableHeaderText: "Planned Out", isVisible: true, key: "" },
-				{ id: "packType", checkboxLabelText: "Pack Type", tableHeaderText: "Pack Type", isVisible: true, key: "" },
-				{ id: "packSize", checkboxLabelText: "Pack Size", tableHeaderText: "Pack Size", isVisible: true, key: "" },
-				{ id: "rotaDate", checkboxLabelText: "RotaDate", tableHeaderText: "RotaDate", isVisible: false, key: "" },
-				{ id: "rotaType", checkboxLabelText: "RotaDate Type", tableHeaderText: "RotaDate Type", isVisible: false, key: "" },
-				{ id: "dateStatus", checkboxLabelText: "Date Status", tableHeaderText: "Date Status", isVisible: true, key: "" },
-				{ id: "zone", checkboxLabelText: "Zone", tableHeaderText: "Zone", isVisible: false, key: "" },
-				{ id: "batch", checkboxLabelText: "Batch", tableHeaderText: "Batch", isVisible: true, key: "" },
-				{ id: "ref2", checkboxLabelText: "Ref 2", tableHeaderText: "Ref 2", isVisible: true, key: "" },
-				{ id: "ref3", checkboxLabelText: "Ref 3", tableHeaderText: "Ref 3", isVisible: false, key: "" },
-				{ id: "ref4", checkboxLabelText: "Ref 4", tableHeaderText: "Ref 4", isVisible: false, key: "" },
-				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: false, key: "" },
-				{ id: "alert", checkboxLabelText: "Alert", tableHeaderText: "Alert", isVisible: true, key: "" },
-				{ id: "weight", checkboxLabelText: "Weight", tableHeaderText: "Weight", isVisible: true, key: "" },
-				{ id: "volume", checkboxLabelText: "Volume", tableHeaderText: "Volume", isVisible: true, key: "" },
-				{ id: "lastUpdated", checkboxLabelText: "Last Updated", tableHeaderText: "Last Updated", isVisible: false, key: "" },
+				{ id: "status", checkboxLabelText: "Status", tableHeaderText: "Status", isVisible: true, key: "" },
+				{ id: "uom", checkboxLabelText: "UoM", tableHeaderText: "UoM", isVisible: true, key: "" },
+				{ id: "onHandQty", checkboxLabelText: "On Hand Qty", tableHeaderText: "On Hand Qty", isVisible: true, key: "" },
+				{ id: "onHandWeight", checkboxLabelText: "On Hand Weight", tableHeaderText: "On Hand Weight", isVisible: true, key: "" },
+				{ id: "expectedInQty", checkboxLabelText: "Expected In Qty", tableHeaderText: "Expected In Qty", isVisible: true, key: "" },
+				{ id: "expectedInWeight", checkboxLabelText: "Expected In Weight", tableHeaderText: "Expected In Weight", isVisible: true, key: "" },
+				{ id: "expectedOutQty", checkboxLabelText: "Expected Out Qty", tableHeaderText: "Expected Out Qty", isVisible: true, key: "" },
 			],
 			filterStockHolding: {
 				showPopup: false,
 				item: {
-					"location": { text: "Location", isVisible: false },
-					"locationType": { text: "Location Type", isVisible: false },
-					// "packId": { text: "Pack ID", isVisible: false },
-					// "product": { text: "Product", isVisible: false },
-					// "description": { text: "Description", isVisible: false },
-					// "qty": { text: "Qty", isVisible: false },
-					// "plannedIn": { text: "Planned In", isVisible: false },
-					// "plannedOut": { text: "Planned Out", isVisible: false },
-					"packType": { text: "Pack Type", isVisible: false },
-					// "packSize": { text: "Pack Size", isVisible: false },
-					"rotaDate": { text: "RotaDate", isVisible: false },
-					"rotaType": { text: "RotaDate Type", isVisible: false },
-					"dateStatus": { text: "Date Status", isVisible: false },
-					"zone": { text: "Zone", isVisible: false },
-					// "batch": { text: "Batch", isVisible: false },
-					// "ref2": { text: "Ref 2", isVisible: false },
-					// "ref3": { text: "Ref 3", isVisible: false },
-					// "ref4": { text: "Ref 4", isVisible: false },
-					"disposition": { text: "Disposition", isVisible: false },
-					"alert": { text: "Alert", isVisible: false },
-					// "weight": { text: "Weight", isVisible: false },
-					// "volume": { text: "Volume", isVisible: false },
-					// "lastUpdated": { text: "Last Updated", isVisible: false },
+					// "location": { id: "location", text: "Location", isVisible: false },
+					// "locationType": { id: "locationType", text: "Location Type", isVisible: false },
+					// "packType": { id: "packType", text: "Pack Type", isVisible: false },
+					// "rotaDate": { id: "rotaDate", text: "RotaDate", isVisible: false },
+					// "rotaType": { id: "rotaType", text: "RotaDate Type", isVisible: false },
+					// "dateStatus": { id: "dateStatus", text: "Date Status", isVisible: false },
+					// "zone": { id: "zone", text: "Zone", isVisible: false },
+					// "disposition": { id: "disposition", text: "Disposition", isVisible: false },
+					// "alert": { id: "alert", text: "Alert", isVisible: false },
+					site: { id: "site", text: "Site", isVisible: false },
+					uom: { id: "uom", text: "UoM", isVisible: false },
+					status: { id: "status", text: "Status", isVisible: false }
 				}
 			},
 			stockHolding: [
-				{ location: "A0101A03", locationType: "Reserve", packId: "100000025",
-				  product: "1001", description: "AbcdefghijKlmnopqrst",
-				  qty: "50", plannedIn: "0", plannedOut: "0",
-				  packType: "EACH", packSize: "10*5",
-				  rotaDate: "11/02/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "A", batch: "",
-				  ref2: "1234", ref3: "1234", ref4: "1234",
-				  disposition: "", alert: "No",
-				  weight: "1", volume: "1",
-				  lastUpdated: ""				  				
+				// { location: "A0101A03", locationType: "Reserve", packId: "100000025",
+				//   product: "1001", description: "AbcdefghijKlmnopqrst",
+				//   qty: "50", plannedIn: "0", plannedOut: "0",
+				//   packType: "EACH", packSize: "10*5",
+				//   rotaDate: "11/02/2019", rotaType: "R - Receipt Date",
+				//   dateStatus: "LIVE", zone: "A", batch: "",
+				//   ref2: "1234", ref3: "1234", ref4: "1234",
+				//   disposition: "", alert: "No",
+				//   weight: "1", volume: "1",
+				//   lastUpdated: ""
+				// },
+				{ site: "A", product: "1001", description: "Example Product 1001",
+				  status: "LIVE", uom: "EACH", onHandQty: "50", onHandWeight: "100",
+				  expectedInQty: "176", expectedInWeight: "352", expectedOutQty: "69"
 				},
-				{ location: "A0101A02", locationType: "Fixed Pickface", packId: "100000008",
-				  product: "1002", description: "Example Product 2",
-				  qty: "150", plannedIn: "0", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "21/10/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "B", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "1", volume: "1",
-				  lastUpdated: ""				  				
+				{ site: "NZ01", product: "1002", description: "AbcdefghijKlmnopqrst",
+				  status: "LIVE", uom: "EACH", onHandQty: "109", onHandWeight: "218",
+				  expectedInQty: "167", expectedInWeight: "334", expectedOutQty: "96"
 				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
+				{ site: "B", product: "1003", description: "Example Product Description 1003",
+				  status: "LIVE", uom: "EACH", onHandQty: "2090", onHandWeight: "4180",
+				  expectedInQty: "111", expectedInWeight: "222", expectedOutQty: "2025"
 				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
+				{ site: "A", product: "1004", description: "AbcdefghijKlmnopqrst",
+				  status: "LIVE", uom: "EACH", onHandQty: "50", onHandWeight: "100",
+				  expectedInQty: "176", expectedInWeight: "352", expectedOutQty: "69"
 				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
+				{ site: "C", product: "1005", description: "AbcdefghijKlmnopqrst",
+				  status: "LIVE", uom: "EACH", onHandQty: "50", onHandWeight: "100",
+				  expectedInQty: "176", expectedInWeight: "352", expectedOutQty: "69"
 				}
 			],
 			masterResStockHolding: []
@@ -372,43 +170,60 @@ class StockHolding extends Component {
 	}
 
 	toggleDisplayMoreColumn = () => {
-		this.setState({ displayMoreColumnModal: !this.state.displayMoreColumnModal });
+		this.setState((prevState) => {
+			return { showEditColumn: !prevState.showEditColumn }
+		});
 	}
 
-	triggerChangeFilter = (e) => {
+	triggerShowFilter = (e) => {
 		e.stopPropagation();
 		this.setState((prevState) => {
 			return { showFilter: !prevState.showFilter };
 		});
-		// this.setState({ showFilter: !this.state.showFilter });
+	}
+	
+	triggerChangeFilter = (key) => {
+		this.setState((state) => {
+			state.filterStockHolding.item[key].isVisible = !state.filterStockHolding.item[key].isVisible;
+			return state;
+		});
 	}
 
 	rowClicked = (productCode) => {
 		this.props.history.push("/stockholding/" + encodeURIComponent(productCode));
+		// return <Link className="company-link p-1" to={"/stockholding/" + encodeURIComponent(productCode)}>{productCode}</Link>;
 	}
 
 	render() {
 		let content;
 		content = 
-		<Table className="table-condensed table-responsive table-striped clickable-row rounded-175 mb-0" size="sm">
+		<Table className="table-condensed table-responsive table-striped clickable-row rounded-175 mb-0" size="md">
 			<thead>
 				<tr>
 					{this.state.columns.map((item, idx) => {
 						if (item.isVisible) {
-							if (item.id === "qty" ||
-								item.id === "plannedIn" ||
-								item.id === "plannedOut" ||
-								item.id === "weight" ||
-								item.id === "volume") {
-								return <th className="p-3 text-right align-middle" key={idx} width="10%">{item.tableHeaderText}</th>
+							// if (item.id === "qty" ||
+							// 	item.id === "plannedIn" ||
+							// 	item.id === "plannedOut" ||
+							// 	item.id === "weight" ||
+							// 	item.id === "volume") {
+							// 	return <th className="p-3 text-right align-middle" key={idx} width="10%">{item.tableHeaderText}</th>;
+							// }
+
+							if (item.id === "onHandQty" ||
+								item.id === "onHandWeight" ||
+								item.id === "expectedInQty" ||
+								item.id === "expectedInWeight" ||
+								item.id === "expectedOutQty") {
+								return <th className="p-3 text-right align-middle" key={idx} width="10%">{item.tableHeaderText}</th>;
 							}
 
-							return <th className="p-3 text-left align-middle" key={idx} width="10%">{item.tableHeaderText}</th>
+							return <th className="p-3 text-left align-middle" key={idx} width="10%">{item.tableHeaderText}</th>;
 						}
 					})}
 					<th className="p-3 text-left align-middle">
-						<button type="button" className="btn btn-outline-light"  onClick={this.toggleDisplayMoreColumn} style={{backgroundColor: '#FFFFFF', padding: '0.1rem 0.4rem', borderRadius: '100%'}}>
-							<span className="glyphicon glyphicon-pencil" style={{ color: '#388DCD', fontSize: '11px' }}></span>
+						<button type="button" className="btn btn-outline-light editColumnBtn"  onClick={this.toggleDisplayMoreColumn}>
+							<span className="glyphicon glyphicon-pencil editColumnLogo"></span>
 						</button>
 					</th>
 				</tr>
@@ -418,27 +233,23 @@ class StockHolding extends Component {
 					<tr key={idx} onClick={() => this.rowClicked(item["product"])}>
 						{this.state.columns.map((column, columnIdx) => {
 							if (column.isVisible) {
-								if (column.id === "product") {
-									return (
-										<td key={columnIdx} className="px-3 text-left">
-											{item[column.id]}
-										</td>
-									);
-								}
+								// if (column.id === "qty" ||
+								// 	column.id === "plannedIn" ||
+								// 	column.id === "plannedOut" ||
+								// 	column.id === "weight" ||
+								// 	column.id === "volume") {
+								// 	return <td key={columnIdx} className="px-3 text-right">{item[column.id]}</td>;
+								// }
 
-								if (column.id === "qty" ||
-									column.id === "plannedIn" ||
-									column.id === "plannedOut" ||
-									column.id === "weight" ||
-									column.id === "volume") {
-									return (
-										<td key={columnIdx} className="px-3 text-right">
-											{item[column.id]}
-										</td>
-									);
+								if (column.id === "onHandQty" ||
+									column.id === "onHandWeight" ||
+									column.id === "expectedInQty" ||
+									column.id === "expectedInWeight" ||
+									column.id === "expectedOutQty") {
+									return <td key={columnIdx} className="px-3 text-right">{item[column.id]}</td>;
 								}
 								
-								return <td key={columnIdx} className="px-3 text-left">{item[column.id]}</td>
+								return <td key={columnIdx} className="px-3 text-left">{item[column.id]}</td>;
 							}
 						})}
 						<td className="px-3 text-left">
@@ -495,7 +306,7 @@ class StockHolding extends Component {
 																				<input type="text" className="form-control border-0" placeholder="Type here to Search" />
 																			</div>
 																			<div className="col-3 text-right">
-																				<Button className={"circle" + (this.state.showFilter ? " active" : "")} onClick={this.triggerChangeFilter}>
+																				<Button className={"circle" + (this.state.showFilter ? " active" : "")} onClick={this.triggerShowFilter}>
 																					<i className="fa fa-sliders" />
 																				</Button>
 
@@ -515,8 +326,8 @@ class StockHolding extends Component {
 																				{Object.keys(this.state.filterStockHolding.item).map((key, idx) => {
 																					let item = this.state.filterStockHolding.item[key];
 																					return (
-																						<Col lg="auto" md="5" sm="6" className={idx === 0 ? "" : "pl-0"}>
-																							<ButtonDropdown isOpen={this.state.filterStockHolding.showPopup}
+																						<Col lg="auto" md="5" sm="6" className={idx === 0 ? "" : "pl-0"} key={idx}>
+																							{/* <ButtonDropdown isOpen={this.state.filterStockHolding.showPopup}
 																											toggle={this.toggleAddFilterStockHolding}>
 																								<DropdownToggle className="custom-dropDown">
 																									{item.text}
@@ -529,7 +340,36 @@ class StockHolding extends Component {
 																										<label className="form-check-label">EACH</label>
 																									</div>
 																								</DropdownToggle>
-																							</ButtonDropdown>
+																							</ButtonDropdown> */}
+
+																							<ul className={"select" + (item.isVisible ? " expand" : "")}
+																								id="select" name="select">
+																								<li className="expand-style">
+																									<input type="radio" className="select-close" id={item.id + "-close"} name={item.id} value="" />
+																									<span className="select-label select-label-placeholder">{item.text}</span>
+																								</li>
+
+																								<li className="select-items">
+																									<input type="radio" className="select-expand"
+																											id={item.id + "-opener"} name={item.id} />
+																									<label className="select-closeLabel" htmlFor={item.id + "-close"} onClick={() => this.triggerChangeFilter(key)} />
+
+																									<ul className="select-options">
+																										<li className="select-option">
+																											<input type="radio" className="select-input"
+																											name={item.id} />
+																											<label className="select-label" htmlFor={item.id + "-test123"}>TEST123</label>
+																										</li>
+																										<li className="select-option">
+																											<input type="radio" className="select-input"
+																											name={item.id} />
+																											<label className="select-label option-radius" htmlFor={item.id + "-test234"}>TEST234</label>
+																										</li>
+																									</ul>
+
+																									<label className="select-expandLabel" htmlFor={item.id + "-opener"} onClick={() => this.triggerChangeFilter(key)} />
+																								</li>
+																							</ul>
 																						</Col>
 																					);
 																				})}
@@ -562,7 +402,7 @@ class StockHolding extends Component {
 					</div>
 				</div> */}
 
-				<StockHoldingEditColumn isOpen={this.state.displayMoreColumnModal}
+				<StockHoldingEditColumn isOpen={this.state.showEditColumn}
 										toggle={this.toggleDisplayMoreColumn}
 										fields={this.state.columns}
 										updateTableColumn={this.updateTableColumn} />
