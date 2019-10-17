@@ -6,6 +6,7 @@ import {
     ModalHeader,
     ModalBody,
 } from 'reactstrap';
+import './StockHoldingEditColumn.css';
 
 export default class SalesOrderEditColumn extends Component {
     constructor(props){

@@ -1,0 +1,53 @@
+.check-text .eye {
+	display: none;
+}
+
+.check-text .eye ~ span {
+	color: #93D1FF;
+	cursor: pointer;
+	padding: 6px;
+	border-radius: 2px;
+	font-weight: 200;
+}
+
+.check-text .eye ~ .checked {
+	display: none;
+}
+
+.check-text .eye:checked ~ .checked {
+	color: #388DCD;
+	display: inline-block;
+}
+
+.check-text .eye:checked ~ .unchecked {
+	display: none;
+	color: #93D1FF;
+}
+
+.editcol-modal {
+	max-width: 1000px !important;
+	width: 1000px;
+}
+
+.editcol-header {
+	font-family: 'Nunito';
+	padding: 27px 48px;
+}
+
+.modal-content {
+	border: 0 !important;
+	border-radius: 20px !important;
+}
+
+.btn-editcol {
+	font-weight: 500;
+	padding: 7px 27px !important;
+	background-color: #388DCD !important;
+	border-color: #388DCD !important;
+	border-radius: 33px !important;
+}
+
+.btn-editcol:hover {
+	background-color: #367FB5 !important;
+	border-color: #367FB5 !important;
+}
