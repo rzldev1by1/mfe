@@ -72,10 +72,10 @@ const StockMovement = Loadable({
 // 	loading: Loading
 // });
 
-// const StockAgeProfile = Loadable({
-// 	loader: () => import('./views/StockAgeProfile/StockAgeProfile'),
-// 	loading: Loading
-// });
+const StockAgeProfile = Loadable({
+	loader: () => import('./views/StockAgeProfile/StockAgeProfile'),
+	loading: Loading
+});
 
 // const InboundDelivery = Loadable({
 // 	loader: () => import('./views/InboundDelivery/InboundDelivery'),
@@ -133,8 +133,9 @@ const routes = [
 	
 	{ path: '/', exact: true, name: 'Home' },
 	{ path: '/stockholding', exact: true, name: 'Stock Holding', component: StockHolding },
-  	{ path: '/stockholding/:product', exact: true, name: 'Stock Details', component: StockDetails },
-  	{ path: '/stockmovement/', exact: true, name: 'Stock Movement', component: StockMovement }
+	{ path: '/stockholding/:product', exact: true, name: 'Stock Details', component: StockDetails },
+	{ path: '/stockmovement/', exact: true, name: 'Stock Movement', component: StockMovement },
+	{ path: '/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
 ];
 
 export default routes;

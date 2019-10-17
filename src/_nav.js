@@ -199,37 +199,10 @@ export default {
         },
         {
           name: 'Stock Age Profile',
-          url: '/buttons/button-groups',
+          url: '/stockageprofile',
         //   icon: 'icon-cursor',
         }
       ],
-	},
-	{
-		name: 'Returns',
-		// url: '/widgets',
-		icon: 'fa fa-exchange',
-		// children: [
-		//   {
-		// 	name: 'Buttons',
-		// 	url: '/buttons/buttons',
-		// 	icon: 'icon-cursor',
-		//   },
-		//   {
-		// 	name: 'Button dropdowns',
-		// 	url: '/buttons/button-dropdowns',
-		// 	icon: 'icon-cursor',
-		//   },
-		//   {
-		// 	name: 'Button groups',
-		// 	url: '/buttons/button-groups',
-		// 	icon: 'icon-cursor',
-		//   },
-		//   {
-		// 	name: 'Brand Buttons',
-		// 	url: '/buttons/brand-buttons',
-		// 	icon: 'icon-cursor',
-		//   },
-		// ],
 	},
 	{
 		name: 'User Control',

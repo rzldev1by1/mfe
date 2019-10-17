@@ -28,6 +28,7 @@ import { Colors, Typography } from './Theme';
 import Widgets from './Widgets';
 
 import StockHolding from './StockHolding/StockHolding';
+import StockAgeProfile from './StockAgeProfile/StockAgeProfile';
 
 export {
   Badges,
@@ -68,6 +69,7 @@ export {
   Breadcrumbs,
   Paginations,
 
-  StockHolding
+  StockHolding,
+  StockAgeProfile
 };
 
