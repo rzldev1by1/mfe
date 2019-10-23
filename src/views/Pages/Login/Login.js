@@ -6,7 +6,7 @@ import { Button,
 		 Container, Form,
 		 Input, InputGroup, InputGroupAddon, InputGroupText,
 		 FormFeedback } from 'reactstrap';
-import bg from '../../../assets/img/brand/bg.png';
+import bg from '../../../assets/img/brand/bg.jpg';
 import logo from '../../../assets/img/brand/logo_ml_large.png';
 import logo2 from '../../../assets/img/brand/logo_ml_w.png';
 
