@@ -7,13 +7,13 @@ class ProtectedRoute extends Component {
 		const { component: Component, ...others } = this.props;
 
 		const renderRoute = props => {
-			if (Authentication.isAunthenticated()) {
+			// if (Authentication.isAunthenticated()) {
 				return <Component {...props} />
-			}
+			// }
 
-			return (
-				<Redirect to={{ pathname: '/login', state: { returnUrl: props.location } }} />
-			)
+			// return (
+			// 	<Redirect to={{ pathname: '/login', state: { returnUrl: props.location } }} />
+			// )
 		}
 
 		return <Route {...others} render={renderRoute} />

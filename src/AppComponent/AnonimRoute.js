@@ -7,13 +7,11 @@ class AnonimRoute extends Component {
 		const { component: Component, ...others } = this.props;
 
 		const renderRoute = props => {
-			if (Authentication.isAuthenticated()) {
-				return (
-					window.location.pathname = '/'
-				);
-			}
+			// if (Authentication.isAuthenticated()) {
+				return window.location.pathname = '/'
+			// }
 
-			return <Component {...props} />;
+			return <Component {...props} />
 		}
 
 		return <Route {...others} render={renderRoute} />

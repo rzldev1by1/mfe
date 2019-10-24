@@ -1,6 +1,8 @@
 import React from 'react';
 import Loadable from 'react-loadable';
 
+import DefaultLayout from './containers/DefaultLayout';
+
 function Loading() {
 	return <div>Loading...</div>;
 }
@@ -27,7 +29,7 @@ function Loading() {
 // const ButtonGroups = React.lazy(() => import('./views/Buttons/ButtonGroups'));
 // const Buttons = React.lazy(() => import('./views/Buttons/Buttons'));
 // const Charts = React.lazy(() => import('./views/Charts'));
-const Dashboard = React.lazy(() => import('./views/Dashboard'));
+// const Dashboard = React.lazy(() => import('./views/Dashboard'));
 // const CoreUIIcons = React.lazy(() => import('./views/Icons/CoreUIIcons'));
 // const Flags = React.lazy(() => import('./views/Icons/Flags'));
 // const FontAwesome = React.lazy(() => import('./views/Icons/FontAwesome'));
@@ -47,10 +49,10 @@ const Dashboard = React.lazy(() => import('./views/Dashboard'));
 // 	loading: Loading
 // });
 
-const DefaultLayout = Loadable({
-	loader: () => import('./containers/DefaultLayout/DefaultLayout'),
-	loading: Loading
-});
+// const DefaultLayout = Loadable({
+// 	loader: () => import('./containers/DefaultLayout/DefaultLayout'),
+// 	loading: Loading
+// });
 
 const StockHolding = Loadable({
 	loader: () => import('./views/StockHolding/StockHolding'),
@@ -131,7 +133,8 @@ const routes = [
 	// { path: '/users', exact: true,  name: 'Users', component: Users },
 	// { path: '/users/:id', exact: true, name: 'User Details', component: User },
 	
-	{ path: '/', exact: true, name: 'Home' },
+	{ path: '/', exact: true, name: 'Home', component: DefaultLayout },
+	
 	{ path: '/stockholding', exact: true, name: 'Stock Holding', component: StockHolding },
 	{ path: '/stockholding/:product', exact: true, name: 'Stock Details', component: StockDetails },
 	{ path: '/stockmovement/', exact: true, name: 'Stock Movement', component: StockMovement },
