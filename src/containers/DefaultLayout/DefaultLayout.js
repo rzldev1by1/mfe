@@ -1,7 +1,7 @@
 import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import * as router from 'react-router-dom';
-import { Container } from 'reactstrap';
+import { Container, Table } from 'reactstrap';
 
 import { AppAside,
 		// AppFooter,
@@ -56,11 +56,29 @@ class DefaultLayout extends Component {
 							<AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
 
 							{/* <div className="p-1 sidebar-footer">
-								<div className="text-center">
+								<div className="text-center align-middle">
 									<span className="fa fa-user-circle fa-3x" />
-									<span className="ml-3">George Smith</span>
+									<span className="px-2">George Smith</span>
 								</div>
 							</div> */}
+
+							<Table className="userSection" size="sm">
+								<tbody>
+									<tr>
+										<td rowSpan="2" className="text-center align-middle p-0" style={{ borderTop: "none" }}>
+											<span className="fa fa-user-circle fa-3x" />
+										</td>
+										<td className="pb-0" style={{ borderTop: "none" }}>
+											<span className="userName">George Smith</span>
+										</td>
+									</tr>
+									<tr>
+										<td className="pt-0" style={{ borderTop: "none" }}>
+											<span className="viewProfile">View Profile</span>
+										</td>
+									</tr>
+								</tbody>
+							</Table>
 						</Suspense>
 						<AppSidebarFooter />
 						{/* <AppSidebarMinimizer /> */}
@@ -82,7 +100,7 @@ class DefaultLayout extends Component {
 												)} />
 										) : (null);
 									})}
-									<Redirect from="/" to="/login" />
+									<Redirect from="/" to="/stockholding" />
 								</Switch>
 							</Suspense>
 						</Container>
