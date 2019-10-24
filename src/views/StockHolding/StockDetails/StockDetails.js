@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { Card, CardBody,
-		 Table, Row, Col,
+		 Table, Row,
 		//  Button, ButtonDropdown,
 		 FormGroup, InputGroup,
 		 Label,
-		 TabContent, TabPane,
+		//  TabContent, TabPane,
 		 Nav, NavItem, NavLink
 		//  Input, InputGroup, InputGroupAddon,
 		//  DropdownItem, DropdownMenu, DropdownToggle
 } from 'reactstrap';
 
-// import StockDetailsEditColumn from './StockDetailsEditColumn';
 import './StockDetails.css';
+import Paging from '../../General/Paging';
 
 class StockDetails extends Component {
 	constructor(props) {
@@ -26,8 +26,8 @@ class StockDetails extends Component {
 			startIndex: 0,
 			lastIndex: 0,
 			displayPage: 50,
-			totalRows: 0,
-			maxPage: 0,
+			totalRows: 150,
+			maxPage: 3,
 			columns: [
 				{ id: "site", checkboxLabelText: "Location", tableHeaderText: "Location", isVisible: true, key: "" },
 				{ id: "batch", checkboxLabelText: "Location Type", tableHeaderText: "Location Type", isVisible: true, key: "" },
@@ -110,43 +110,96 @@ class StockDetails extends Component {
 		this.setState({ activeTabIndex: tabIndex });
 	}
 
+	changeStartIndex = (currentPage) => {
+		this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
+	}
+
+	changeLastIndex = (currentPage) => {
+		this.setState({ lastIndex: parseInt(currentPage) * this.state.displayPage });
+	}
+
+	numberEventClick = (currentPage) => {
+		let page = parseInt(currentPage);
+		this.setState({ currentPage: page });
+		this.changeStartIndex(page);
+		this.changeLastIndex(page);
+	}
+
+	nextPageClick = () => {
+		if (this.state.currentPage < this.state.maxPage) {
+			this.setState((prev) => {
+				currentPage: prev.currentPage++;
+				this.changeStartIndex(prev.currentPage);
+				this.changeLastIndex(prev.currentPage);
+			});
+		}
+	}
+
+	backPageClick = () => {
+		if (this.state.currentPage > 1) {
+			this.setState((prev) => {
+				currentPage: prev.currentPage--;
+				this.changeStartIndex(prev.currentPage);
+				this.changeLastIndex(prev.currentPage);
+			});
+		}
+	}
+
+	showHeader = () => {
+		return (
+			<tr>
+				{this.state.columns.map((item, idx) => {
+					if (item.isVisible) {
+						if (item.id === "qty" ||
+							item.id === "weight" ||
+							item.id === "volume") {
+							return <th className="p-3 text-right align-middle" key={idx} width="10%">{item.tableHeaderText}</th>
+						}
+
+						return <th className="p-3 text-left align-middle" key={idx} width="10%">{item.tableHeaderText}</th>
+					}
+				})}
+			</tr>
+		);
+	}
+
+	showData = () => {
+		return(
+			this.state.stockDetails.map((item, idx) => (
+				<tr key={idx}>
+					{this.state.columns.map((column, columnIdx) => {
+						if (column.isVisible) {
+							if (column.id === "qty" ||
+								column.id === "weight" ||
+								column.id === "volume") {
+								return <td key={columnIdx} className="px-3 text-right" width="10%">{item[column.id]}</td>
+							}
+
+							return <td key={columnIdx} className="px-3 text-left" width="10%">{item[column.id]}</td>
+						}
+					})}
+				</tr>
+			))
+		);
+	}
+
 	render() {
 		let content;
 		content = 
-			<Table className="table-condensed table-responsive table-striped rounded-175 mb-0" size="md">
-				<thead>
-					<tr>
-						{this.state.columns.map((item, idx) => {
-							if (item.isVisible) {
-								if (item.id === "qty" ||
-									item.id === "weight" ||
-									item.id === "volume") {
-									return <th className="p-3 text-right align-middle" key={idx} width="10%">{item.tableHeaderText}</th>
-								}
+			<div className="col-12 p-0">
+				<Table className="table-condensed table-responsive table-striped rounded-top-175 mb-0" size="md">
+					<thead>{this.showHeader()}</thead>
+					<tbody>{this.showData()}</tbody>
+				</Table>
 
-								return <th className="p-3 text-left align-middle" key={idx} width="10%">{item.tableHeaderText}</th>
-							}
-						})}
-					</tr>
-				</thead>
-				<tbody>
-					{this.state.stockDetails.map((item, idx) => (
-							<tr key={idx}>
-								{this.state.columns.map((column, columnIdx) => {
-									if (column.isVisible) {
-										if (column.id === "qty" ||
-											column.id === "weight" ||
-											column.id === "volume") {
-											return <td key={columnIdx} className="px-3 text-right" width="10%">{item[column.id]}</td>
-										}
-
-										return <td key={columnIdx} className="px-3 text-left" width="10%">{item[column.id]}</td>
-									}
-								})}
-							</tr>
-					))}
-				</tbody>
-			</Table>
+				<div className="bg-transparent card-footer text-center border-company border-top-0">
+					<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+							totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+							currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+							isActive={this.state.isActive}
+							numberEventClick={this.numberEventClick} />
+				</div>
+			</div>
 
 		return(
 			<React.Fragment>
@@ -181,7 +234,7 @@ class StockDetails extends Component {
 														<FormGroup>
 															<InputGroup>
 																<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-																	<Card className="form-group row rounded-05">
+																	<Card className="form-group row rounded-05 mb-0">
 																		<div className="col-12">
 																			<div className="row">
 																				<div className="col-3">

@@ -10,16 +10,11 @@
 	border-bottom: none;
 }
 
-.nav-tabs .nav-link.nav-link-cust {
+.nav-tabs .nav-link.nav-link-cust, .nav-tabs .nav-link.nav-link-cust:hover {
 	border: none;
 	height: 50px;
 	color: #388DCD;
-}
-
-.nav-tabs .nav-link.nav-link-cust:hover {
-	border: none;
-	height: 50px;
-	color: #388DCD;
+	background-color: #FFFFFF;
 }
 
 .nav-tabs .nav-link.tab-custom {
