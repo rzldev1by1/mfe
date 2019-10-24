@@ -54,6 +54,7 @@
 	box-shadow: 0 2px 0 #EAF3FA;
 	border-radius: 32px;
 	transition: ease-in;
+	z-index: 1;
 }
 
 .expand {
@@ -63,6 +64,7 @@
 	border-bottom-right-radius: 0px;
 	transition: ease-in;
 	border-bottom: solid #388DCD 2px;
+	z-index: 2;
 }
 
 .select-expand {
