@@ -41,6 +41,7 @@ body {
 
 .sidebar .sidebar-footer {
 	background: #FFFFFF 0% 0% no-repeat padding-box;
+	color: #212F61;
 }
 
 .sidebar .nav {
@@ -85,15 +86,52 @@ body {
 	color: #919191 !important;
 }
 
-.rounded-175 {
-	border-radius: 1.75rem !important;
-}
-
 .rounded-05 {
 	border-radius: 0.5rem !important;
 }
 
+.rounded-175 {
+	border-radius: 1.75rem !important;
+}
+
+.rounded-top-175 {
+	border-top-left-radius: 1.75rem;
+	border-top-right-radius: 1.75rem;
+}
+
+.rounded-bottom-175 {
+	border-bottom-left-radius: 1.75rem;
+	border-bottom-right-radius: 1.75rem;
+}
+
 // End - Sidebar
+
+
+// Start - User section
+
+.userSection {
+	background-color: #F4F9FD;
+	border-radius: 1.75rem;
+	width: 160px;
+	align-self: center;
+	margin-bottom: 5px;
+}
+
+.userName {
+	font-weight: bold;
+	color: #388DCD;
+	font-size: 15px;
+}
+
+.viewProfile {
+	vertical-align: top;
+	color: #919191;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+
+// End - User Section
 
 
 // Start - Border
@@ -227,138 +265,181 @@ hr.border-header {
 	}
 }
 
-	// Input Style - Login Page
-	.input {
-		font-family: "Nunito";
-		background: none;
-		font-size: 16px;
-		padding: 24px 10px 10px 5px;
-		display: block;
-		width: 100%;
-		border: none;
-		border-radius: 0;
-		border-bottom: 1px solid #388DCD;
-	}
 
-	.input:focus {
-		outline: none;
-	}
+// Input Style - Login Page
 
-	.input:focus ~ .label, .input:valid ~ .label {
-		color: #2196F3;
-	}
+.input {
+	font-family: "Nunito";
+	background: none;
+	font-size: 16px;
+	padding: 24px 10px 10px 5px;
+	display: block;
+	width: 100%;
+	border: none;
+	border-radius: 0;
+	border-bottom: 1px solid #388DCD;
+}
 
-	.input:focus ~ .bar:before {
-		width: 100%;
-	}
+.input:focus {
+	outline: none;
+}
 
-	.input[type="password"] {
-		letter-spacing: 0.3em;
-	}
+.input:focus ~ .label, .input:valid ~ .label {
+	color: #2196F3;
+}
 
-	.label {
-		font-family: "Nunito";
-		top: -2px;
-		font-size: 14px;
-		color: #388DCD;
-		font-weight: normal;
-		position: absolute;
-		pointer-events: none;
-		left: 5px;
-		transition: 300ms ease all;
-	}
+.input:focus ~ .bar:before {
+	width: 100%;
+}
 
-	.bar {
-		position: relative;
-		display: block;
-		width: 100%;
-	}
+.input[type="password"] {
+	letter-spacing: 0.3em;
+}
 
-	.bar:before {
-		content: '';
-		height: 2px;
-		width: 0;
-		bottom: 0px;
-		position: absolute;
-		background: #2196F3;
-		transition: 300ms ease all;
-		left: 0%;
-	}
+.label {
+	font-family: "Nunito";
+	top: -2px;
+	font-size: 14px;
+	color: #388DCD;
+	font-weight: normal;
+	position: absolute;
+	pointer-events: none;
+	left: 5px;
+	transition: 300ms ease all;
+}
 
-	// Checkbox Style - Login Page
-	.cbx {
-		margin: auto;
-		-webkit-user-select: none;
-		user-select: none;
-		cursor: pointer;
-	}
+.bar {
+	position: relative;
+	display: block;
+	width: 100%;
+}
 
-	.cbx span {
-		display: inline-block;
-		vertical-align: middle;
-		transform: translate3d(0, 0, 0);
-	}
+.bar:before {
+	content: '';
+	height: 2px;
+	width: 0;
+	bottom: 0px;
+	position: absolute;
+	background: #2196F3;
+	transition: 300ms ease all;
+	left: 0%;
+}
 
-	.cbx span:first-child {
-		position: relative;
-		width: 18px;
-		height: 18px;
-		border-radius: 3px;
-		transform: scale(1);
-		vertical-align: middle;
-		border: 1px solid #9098A9;
-		transition: all 0.2s ease;
-	}
+// Checkbox Style - Login Page
+.cbx {
+	margin: auto;
+	-webkit-user-select: none;
+	user-select: none;
+	cursor: pointer;
+}
 
-	.cbx span:first-child svg {
-		position: absolute;
-		top: 3px;
-		left: 2px;
-		fill: none;
-		stroke: #FFFFFF;
-		stroke-width: 2;
-		stroke-linecap: round;
-		stroke-linejoin: round;
-		stroke-dasharray: 16px;
-		stroke-dashoffset: 16px;
-		transition: all 0.3s ease;
-		transition-delay: 0.1s;
-		transform: translate3d(0, 0, 0);
-	}
+.cbx span {
+	display: inline-block;
+	vertical-align: middle;
+	transform: translate3d(0, 0, 0);
+}
 
-	.cbx span:first-child:before {
-		content: "";
-		width: 100%;
-		height: 100%;
-		background: #506EEC;
-		display: block;
-		transform: scale(0);
-		opacity: 1;
-		border-radius: 50%;
-	}
+.cbx span:first-child {
+	position: relative;
+	width: 18px;
+	height: 18px;
+	border-radius: 3px;
+	transform: scale(1);
+	vertical-align: middle;
+	border: 1px solid #9098A9;
+	transition: all 0.2s ease;
+}
 
-	.cbx span:last-child {
-		padding-left: 8px;
-	}
+.cbx span:first-child svg {
+	position: absolute;
+	top: 3px;
+	left: 2px;
+	fill: none;
+	stroke: #FFFFFF;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-dasharray: 16px;
+	stroke-dashoffset: 16px;
+	transition: all 0.3s ease;
+	transition-delay: 0.1s;
+	transform: translate3d(0, 0, 0);
+}
 
-	.cbx:hover span:first-child {
-		border-color: #506EEC;
-	}
+.cbx span:first-child:before {
+	content: "";
+	width: 100%;
+	height: 100%;
+	background: #506EEC;
+	display: block;
+	transform: scale(0);
+	opacity: 1;
+	border-radius: 50%;
+}
 
-	.inp-cbx:checked + .cbx span:first-child {
-		background: #506EEC;
-		border-color: #506EEC;
-		animation: wave 0.4s ease;
-	}
+.cbx span:last-child {
+	padding-left: 8px;
+}
 
-	.inp-cbx:checked + .cbx span:first-child svg {
-		stroke-dashoffset: 0;
-	}
+.cbx:hover span:first-child {
+	border-color: #506EEC;
+}
 
-	.inp-cbx:checked + .cbx span:first-child:before {
-		transform: scale(3.5);
-		opacity: 0;
-		transition: all 0.6s ease;
-	}
+.inp-cbx:checked + .cbx span:first-child {
+	background: #506EEC;
+	border-color: #506EEC;
+	animation: wave 0.4s ease;
+}
+
+.inp-cbx:checked + .cbx span:first-child svg {
+	stroke-dashoffset: 0;
+}
+
+.inp-cbx:checked + .cbx span:first-child:before {
+	transform: scale(3.5);
+	opacity: 0;
+	transition: all 0.6s ease;
+}
 
 // End - Login Page
+
+
+// Start - Paging
+
+.btn-paging {
+	font-weight: bold;
+	color: #388DCD;
+	background: none;
+	border: none;
+	width: 35px;
+	height: 35px;
+}
+
+.btn-paging:focus, .btn-paging:hover, .btn-paging-active, .btn-paging-active:hover {
+	font-weight: bold;
+	background-color: #388DCD;
+	color: #FFFFFF;
+	border-radius: 50%;
+}
+
+.btn-pagingNav, .btn-pagingNav:hover {
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	background-color: #EAF3FA;
+	color: #388DCD;
+	box-shadow: none;
+}
+
+.btn-pagingNav-inactive, .btn-pagingNav-inactive:hover, .btn-pagingNav-inactive:focus {
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	background: none;
+	border: none;
+	color: transparent;
+	cursor: default;
+	box-shadow: none;
+}
+
+// End - Paging
