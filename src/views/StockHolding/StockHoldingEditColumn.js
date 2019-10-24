@@ -9,7 +9,7 @@ import {
 import './StockHoldingEditColumn.css';
 
 export default class SalesOrderEditColumn extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = { 
             modalClose: false
@@ -18,8 +18,9 @@ export default class SalesOrderEditColumn extends Component {
     }
     
     componentDidUpdate() {
-        if(this.props.isOpen)
+        if (this.props.isOpen) {
             this.setEnableElements();
+		}
     }
 
     onClickUpdateTable = () => {
@@ -51,7 +52,7 @@ export default class SalesOrderEditColumn extends Component {
 	
     render() {
         return (
-            <Modal isOpen={(this.state.modalClose == true) ? !this.props.isOpen : this.props.isOpen} toggle={this.props.toggle} className='modal-company animated fadeIn editcol-modal' backdrop="static" style={{maxWidth: '1200px',width: '1000px', }}>
+            <Modal isOpen={(this.state.modalClose === true) ? !this.props.isOpen : this.props.isOpen} toggle={this.props.toggle} className='modal-company animated fadeIn editcol-modal' backdrop="static" style={{maxWidth: '1200px',width: '1000px', }}>
                 {/* <div className="editcol-header modal-header">
                     <div className="modal-title">
                         <h3><b>Edit Columns</b></h3>

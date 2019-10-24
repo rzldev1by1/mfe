@@ -8,7 +8,7 @@ import { Button,
 		 FormFeedback } from 'reactstrap';
 import bg from '../../../assets/img/brand/bg.jpg';
 import logo from '../../../assets/img/brand/logo_ml_large.png';
-import logo2 from '../../../assets/img/brand/logo_ml_w.png';
+// import logo2 from '../../../assets/img/brand/logo_ml_w.png';
 
 class Login extends Component {
 	constructor(props) {
@@ -64,7 +64,7 @@ class Login extends Component {
                         <CardGroup className="h-100">
                             <Card className="p-4" style={{ borderRadius: 0, width: '' }}>
                                 <CardBody>
-                                    <img className="img-fluid" src={logo} width="240px" />
+                                    <img className="img-fluid" src={logo} width="240px" alt="Microlistics Web" />
                                     <form className="pt-5" ref={this.loginForm} onSubmit={e => { e.preventDefault() ; this.authenticateUser() }}>
                                         <h2 className="titleMenu">
 											<strong>Microlistics Web</strong>
