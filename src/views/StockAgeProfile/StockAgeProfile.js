@@ -108,7 +108,7 @@ class StockAgeProfile extends Component {
 	render() {
 		let content;
 		content = 
-		<Table className="table-condensed table-responsive table-striped clickable-row rounded-175 mb-0" size="sm">
+		<Table className="table-condensed table-responsive table-striped clickable-row rounded-bottom-175 mb-0" size="sm">
 			<thead>
 				<tr>
 					<th className="p-2 text-left align-middle" rowSpan="2" width="10%">Product ID</th>
@@ -181,10 +181,10 @@ class StockAgeProfile extends Component {
 														<FormGroup>
 															<InputGroup>
 																<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-																	<Card className="form-group row rounded-175">
+																	<Card className="form-group row rounded-top-175 mb-0">
 																		<div className="input-group p-2">
 																			<div className="input-group-prepend bg-white col-9">
-																				<span className="input-group-text border-0 rounded-left-175 bg-white p-0">
+																				<span className="input-group-text border-0 bg-white p-0">
 																					<i className="fa fa-search fa-2x iconSpace" />
 																				</span>
 																				<input type="text" className="form-control border-0" placeholder="Type here to Search" />
@@ -201,35 +201,6 @@ class StockAgeProfile extends Component {
 																				</button>
 																			</div>
 																		</div>
-																		
-																		{/* <hr className={this.state.showFilter ? "m-0" : " d-none"}/>
-
-																		<div className={"input-group p-2" + (this.state.showFilter ? "" : " d-none")}>
-																			<Row>
-																				<Col lg="auto" md="2" sm="6">{'\u00A0'}</Col>
-																				{Object.keys(this.state.filterStockHolding.item).map((key, idx) => {
-																					let item = this.state.filterStockHolding.item[key];
-																					return (
-																						<Col lg="auto" md="5" sm="6" className={idx === 0 ? "" : "pl-0"}>
-																							<ButtonDropdown isOpen={this.state.filterStockHolding.showPopup}
-																											toggle={this.toggleAddFilterStockHolding}>
-																								<DropdownToggle className="custom-dropDown">
-																									{item.text}
-																									<hr className={this.state.filterStockHolding.showPopup ? "ml-0 mt-1 mb-1 mr-0" : "d-none"}/>
-																									<div className={this.state.filterStockHolding.showPopup ? "form-check" : "d-none"} key={key} id={key}>
-																										<input type="checkbox" className="form-check-input"
-																												id="" name=""
-																												value=""
-																												defaultChecked={false} />
-																										<label className="form-check-label">EACH</label>
-																									</div>
-																								</DropdownToggle>
-																							</ButtonDropdown>
-																						</Col>
-																					);
-																				})}
-																			</Row>
-																		</div> */}
 																	</Card>
 																</div>
 															</InputGroup>
