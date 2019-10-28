@@ -13,10 +13,82 @@ import { Link } from 'react-router-dom';
 
 // import StockHoldingEditColumn from './StockHoldingEditColumn';
 import './StockMovement.css';
+import {Helmet} from "react-helmet";
+import DayPicker, { DateUtils } from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
+
+const currentYear = new Date().getFullYear();
+const currentMonth = new Date().getMonth();
+const fromMonth = new Date(currentYear, currentMonth);
+const toMonth = new Date(currentYear + 10, 11);
+
+function YearMonthForm({ date, localeUtils, onChange }) {
+	const months = localeUtils.getMonths();
+  
+	const years = [];
+	for (let i = fromMonth.getFullYear(); i <= toMonth.getFullYear(); i += 1) {
+	  years.push(i);
+	}
+  
+	const handleChange = function handleChange(e) {
+		if( typeof e !== '' ) {
+			const { year, month } = e.target.form;
+			  onChange(new Date(year.value, month.value));
+			  console.log(e.target.form)
+		}
+	};
+  
+	return (
+	  <form className="DayPicker-Caption">
+		  {/* <ul className="select" id="select">
+			<li className="expand-style">
+				<input className="select_close" type="radio" name="month" id="awesomeness-close1" value=""/>
+				<span className="select_label select_label-placeholder">Select Month</span>
+			</li>
+			
+			<li className="select_items">
+				<input className="select_expand" type="radio" name="month" id="awesomeness-opener1"  value=""/>
+				<label className="select_closeLabel" htmlFor="awesomeness-close1" ></label>
+
+				<ul className="select_options">
+				{months.map((month, i) => (
+					<li className="select_option">
+						<input className="select_input" type="radio" value={i} name="month" id={"month" + i}></input>
+						<label className="select_label" htmlFor={"month" + i} >{month}</label>
+					</li>
+		 		 ))}
+				</ul>
+
+
+				<label className="select_expandLabel" htmlFor="awesomeness-opener1"></label>
+			</li>
+		</ul> */}
+		<select name="month" onChange={handleChange} value={date.getMonth()}>
+		  {months.map((month, i) => (
+			<option key={month} value={i}>
+			  {month}
+			</option>
+		  ))}
+		</select>
+		<select name="year" onChange={handleChange} value={date.getFullYear()}>
+		  {years.map(year => (
+			<option key={year} value={year}>
+			  {year}
+			</option>
+		  ))}
+		</select>
+	  </form>
+	);
+  }
 
 class StockMovement extends Component {
+	static defaultProps = {
+	  numberOfMonths: 2,
+	};
 	constructor(props) {
 		super(props);
+		this.handleDayClick = this.handleDayClick.bind(this);
+		this.handleYearMonthChange = this.handleYearMonthChange.bind(this);
 		this.state = {
 			isVisible: [],
 			isLoaded: false,
@@ -318,9 +390,45 @@ class StockMovement extends Component {
 				  lastUpdated: ""				  				
 				}
 			],
-			masterResStockHolding: []
+			datepickerShow: false,
+			date: this.getInitialdate(),
+			month: fromMonth
+
 		}
 		// this.getLocalStorageColumn();
+	}
+
+	formatDate = (date) => {
+		var monthNames = [
+		  "January", "February", "March",
+		  "April", "May", "June", "July",
+		  "August", "September", "October",
+		  "November", "December"
+		];
+	  
+		var day = date.getDate();
+		var monthIndex = date.getMonth();
+		var year = date.getFullYear();
+	  
+		return day + ' ' + monthNames[monthIndex];
+	}
+
+	getInitialdate = () => {
+		return {
+		  from: undefined,
+		  to: undefined,
+		};
+	  }
+
+	handleDayClick = (day) => {
+		const range = DateUtils.addDayToRange(day, this.state.date);
+		this.setState({
+			date: range
+		});
+	}
+
+	handleYearMonthChange = (month) => {
+		this.setState({ month });
 	}
 
 	getLocalStorageFilterData = () => {
@@ -388,6 +496,8 @@ class StockMovement extends Component {
 	}
 
 	render() {
+		const { from, to } = this.state.date;
+		const modifiers = { start: this.state.from, end: this.state.to };
 		let content;
 		content = 
 		<Table className="table-condensed table-responsive table-striped clickable-row rounded-175 mb-0" size="sm">
@@ -485,32 +595,32 @@ class StockMovement extends Component {
 														<FormGroup>
 															<InputGroup>
 																<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-																	<Card className="form-group row rounded-175" style={{padding: '17px'}}>
+																	<Card className="form-group row rounded-175 filter-bar" style={{padding: '17px'}}>
 																		<div className="input-group p-2">
 																			<div className="input-group-prepend bg-white col-9">
 																				<Label htmlFor="select" className="filter_label">Display Period</Label>
-																				<ul className={"select" + (this.state.selectExpand ? " expand" : "")} id="select">
+																				<ul className={"select" + (this.state.selectExpand ? " expand-period" : "")} id="select">
 																					<li className="expand-style">
-																						<input className="select_close" type="radio" name="awesomeness" id="awesomeness-close" value=""/>
+																						<input className="select_close" type="radio" name="period" id="awesomeness-close" value=""/>
 																						<span className="select_label select_label-placeholder">Select Period</span>
 																					</li>
 																					
 																					<li className="select_items">
-																						<input className="select_expand" type="radio" name="awesomeness" id="awesomeness-opener"/>
+																						<input className="select_expand" type="radio" name="period" id="awesomeness-opener"/>
 																						<label className="select_closeLabel" htmlFor="awesomeness-close" onClick={this.triggerChangeFilter}></label>
 
 																						<ul className="select_options">
 																							<li className="select_option">
-																								<input className="select_input" type="radio" name="awesomeness" id="awesomeness-ridiculous"></input>
-																								<label className="select_label" htmlFor="awesomeness-ridiculous" onClick={this.triggerChangeFilter}>Daily</label>
+																								<input className="select_input" type="radio" name="period" id="daily"></input>
+																								<label className="select_label" htmlFor="daily" onClick={this.triggerChangeFilter}>Daily</label>
 																							</li>
 																							<li className="select_option">
-																								<input className="select_input" type="radio" name="awesomeness" id="awesomeness-ridiculous"></input>
-																								<label className="select_label" htmlFor="awesomeness-ridiculous" onClick={this.triggerChangeFilter}>Weekly</label>
+																								<input className="select_input" type="radio" name="period" id="weekly"></input>
+																								<label className="select_label" htmlFor="weekly" onClick={this.triggerChangeFilter}>Weekly</label>
 																							</li>
 																							<li className="select_option">
-																								<input className="select_input" type="radio" name="awesomeness" id="awesomeness-reasonable"></input>
-																								<label className="select_label option_radius" htmlFor="awesomeness-reasonable" onClick={this.triggerChangeFilter}>Monthly</label>
+																								<input className="select_input" type="radio" name="period" id="monthly"></input>
+																								<label className="select_label option_radius" htmlFor="monthly" onClick={this.triggerChangeFilter}>Monthly</label>
 																							</li>
 																						</ul>
 
@@ -518,12 +628,17 @@ class StockMovement extends Component {
 																						<label className="select_expandLabel" htmlFor="awesomeness-opener" onClick={this.triggerChangeFilter}></label>
 																					</li>
 																				</ul>
+																				<Label htmlFor="date" className="filter_label" style={{paddingLeft: '107px'}}>Select Date</Label>
+																				<ul className={"select" + (this.state.date.from && this.state.date.to ? " date-info" : "")} id="date">
+																					<span className="select_label select_label-placeholder" id="datepicker1" ref="datepicker1" name="datepicker1">{from &&
+																																																	to &&
+																																																	`${this.formatDate(from)} -
+																																																		${this.formatDate(to)}`}{' '}</span>
+																					<input className="select_expand" type="radio" name="asdas"/>
+																				</ul>
+																				
 																			</div>
 																			<div className="col-3 text-right">
-																				<Button className="circle active" onClick={this.triggerChangeFilter}>
-																					<i className="fa fa-sliders" />
-																				</Button>
-
 																				{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}
 
 																				<button type="submit" className="search rounded-175">
@@ -532,8 +647,45 @@ class StockMovement extends Component {
 																			</div>
 																		</div>
 																		
-																		
 																	</Card>
+																	<div className="col-md-8 offset-md-4">
+																		<DayPicker
+																				className="Selectable datepicker-tab"
+																				numberOfMonths={this.props.numberOfMonths}
+																				month={this.state.month}
+																				fromMonth={fromMonth}
+																				toMonth={toMonth}
+																				selectedDays={[from, { from, to }]}
+																				modifiers={modifiers}
+																				onDayClick={this.handleDayClick}
+																				captionElement={({ date, localeUtils }) => (
+																					<YearMonthForm
+																					  date={date}
+																					  localeUtils={localeUtils}
+																					  onChange={this.handleYearMonthChange}
+																					/>
+																				  )}
+																				/>
+																				<Helmet>
+																					<style>{`
+																						.Selectable .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
+																							background-color: #f0f8ff !important;
+																							color: #4a90e2;
+																						}
+																						.Selectable .DayPicker-Day {
+																							border-radius: 0 !important;
+																						}
+																						.Selectable .DayPicker-Day--start {
+																							border-top-left-radius: 50% !important;
+																							border-bottom-left-radius: 50% !important;
+																						}
+																						.Selectable .DayPicker-Day--end {
+																							border-top-right-radius: 50% !important;
+																							border-bottom-right-radius: 50% !important;
+																						}
+																						`}</style>
+																				</Helmet>
+																		</div>
 																</div>
 															</InputGroup>
 														</FormGroup>
