@@ -104,6 +104,16 @@ body {
 	border-bottom-right-radius: 1.75rem;
 }
 
+.rounded-top-05 {
+	border-top-left-radius: 0.5rem;
+	border-top-right-radius: 0.5rem;
+}
+
+.rounded-bottom-05 {
+	border-bottom-left-radius: 0.5rem;
+	border-bottom-right-radius: 0.5rem;
+}
+
 // End - Sidebar
 
 
@@ -443,3 +453,39 @@ hr.border-header {
 }
 
 // End - Paging
+
+
+// Start - Spinner
+
+.spinner {
+	width: 100px;
+	height: 100px;
+	margin: 200px auto;
+	background-color: #388DCD;
+	align-items: center;
+  
+	border-radius: 100%;  
+	-webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+	animation: sk-scaleout 1.0s infinite ease-in-out;
+  }
+  
+  @-webkit-keyframes sk-scaleout {
+	0% { -webkit-transform: scale(0) }
+	100% {
+	  -webkit-transform: scale(1.0);
+	  opacity: 0;
+	}
+  }
+  
+  @keyframes sk-scaleout {
+	0% { 
+	  -webkit-transform: scale(0);
+	  transform: scale(0);
+	} 100% {
+	  -webkit-transform: scale(1.0);
+	  transform: scale(1.0);
+	  opacity: 0;
+	}
+  }
+
+// End - Spinner

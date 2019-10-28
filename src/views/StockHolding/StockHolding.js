@@ -7,10 +7,11 @@ import { Card, CardBody,
 		 InputGroup,
 		//  DropdownToggle
 } from 'reactstrap';
+// import { TableHeaderColumn } from 'react-bootstrap-table';
 // import { Link } from 'react-router-dom';
 
 import axios from 'axios';
-import AppComponent from 'AppComponent';
+import AppComponent from '../../AppComponent';
 
 import './StockHolding.css';
 import StockHoldingEditColumn from './StockHoldingEditColumn';
@@ -92,7 +93,7 @@ class StockHolding extends Component {
 			},
 			masterResStockHolding: []
 		}
-		// this.getLocalStorageColumn();
+		this.searchForm = React.createRef();
 	}
 
 	componentDidMount() {
@@ -149,34 +150,106 @@ class StockHolding extends Component {
 
     loadStockHolding = () => {
 		let self = this;
-		self.setState({ isLoaded: true });
+		self.setState({ isLoaded: true, isSearch: true,
+						currentPage: 1,
+						startIndex: 0, lastIndex: 0,
+						totalRows: 0, maxPage: 0 });
 
-        // let params = {'activeonly': 'N'}
-        // let endpoint = "scale/_proc/API_ProductList";
-		axios.get(AppComponent.getBaseUrl())
-        // axios.get(AppComponent.getBaseUrl() + endpoint, {
-        //     params: params,
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'X-DreamFactory-API-Key': 'e553e47a799d4805fde8b31374f1706b130b2902b5376fbba6f4817ad3c6b272',
-        //         'X-Company-Code': Authentication.getCompanyCode(),
-        //         'X-DreamFactory-Session-Token': Authentication.getToken(),
-        //         'Accept':'application/json'
-        //     }
-        // })
-        .then(res => {
-			// res.isSuccess = true;
-			// self.setState({ isLoaded: false })
-            return res.data;
-        })
-        .catch(function (error) {
-            if (error.response) {
-				self.setState({ isLoaded: false,
-								notFoundMessage: error.response.data.error.message })
-            }
-            return [];
-        })
-        .then(function(result) {
+		// if (localStorage.getItem("masterResStockHolding")) {
+		// 	let masterResStockHolding = JSON.parse(localStorage.getItem("masterResStockHolding"));
+		// 	this.setState({ masterResStockHolding: masterResStockHolding });
+		// } else {
+			// let params = {'activeonly': 'N'}
+			// let endpoint = "scale/_proc/API_ProductList";
+			axios.get(AppComponent.getBaseUrl() + "stockholding")
+			// axios.get(AppComponent.getBaseUrl() + endpoint, {
+			//     params: params,
+			//     headers: {
+			//         'Content-Type': 'application/json',
+			//         'X-DreamFactory-API-Key': 'e553e47a799d4805fde8b31374f1706b130b2902b5376fbba6f4817ad3c6b272',
+			//         'X-Company-Code': Authentication.getCompanyCode(),
+			//         'X-DreamFactory-Session-Token': Authentication.getToken(),
+			//         'Accept':'application/json'
+			//     }
+			// })
+			.then(res => {
+				// res.isSuccess = true;
+				// self.setState({ isLoaded: false })
+				return res.data;
+			})
+			.catch(function (error) {
+				self.setState({ displayContent: "NOT_FOUND",
+								isLoaded: false,
+								isSearch: false });
+				if (error.response) {
+					// self.setState({ notFoundMessage: error.response.data.message })
+				}
+				return error;
+			})
+			.then(function(result) {
+				if (result.data) {
+					let respondRes = result.data;
+					let totalPage = 0;
+
+					if (respondRes.length > self.state.displayPage) {
+						totalPage = respondRes % self.state.displayPage;
+						if (totalPage > 0 && totalPage < 50) {
+							totalPage = parseInt(respondRes.length / self.state.displayPage) + 1;
+						} else {
+							totalPage = respondRes.length / self.state.displayPage;
+						}
+						self.setState({ maxPage: totalPage });
+					} else {
+						self.setState({ maxPage: 1 });
+					}
+
+					self.setState({ displayContent: "FOUND",
+									masterResStockHolding: respondRes,
+									totalRows: respondRes.length });
+
+					self.numberEventClick(self.state.currentPage);
+					localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
+				}
+				self.setState({ isLoaded: false, isSearch: false });
+			});
+		// }
+    }
+
+	searchData = () => {
+		let self = this;
+		self.setState({ isLoaded: true, isSearch: true,
+						currentPage: 1,
+						startIndex: 0, lastIndex: 0,
+						totalRows: 0, maxPage: 0 });
+
+		let form = this.searchForm.current;
+		if (!form.searchForm.value) { return };
+		let searchTerm = form.searchForm.value;
+
+		let payload = { "prodId": searchTerm.toString(),
+						"prodName": searchTerm.toString() };
+
+
+		axios.get(AppComponent.getBaseUrl() + "api/searchStockHolding", payload,
+		{
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json',
+			}
+		})
+		.then(res => {
+			return res.data;
+		})
+		.catch(function (error) {
+			self.setState({ displayContent: "NOT_FOUND",
+							isLoaded: false,
+							isSearch: false });
+			if (error.response) {
+				// self.setState({ notFoundMessage: error.response.data.message })
+			}
+			return error;
+		})
+		.then(function(result) {
 			if (result.data) {
 				let respondRes = result.data;
 				let totalPage = 0;
@@ -193,14 +266,16 @@ class StockHolding extends Component {
 					self.setState({ maxPage: 1 });
 				}
 
-				self.setState({ masterResStockHolding: respondRes,
+				self.setState({ displayContent: "FOUND",
+								masterResStockHolding: respondRes,
 								totalRows: respondRes.length });
+
 				self.numberEventClick(self.state.currentPage);
 				localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
 			}
-			self.setState({ isLoaded: false });
-        });
-    }
+			self.setState({ isLoaded: false, isSearch: false });
+		});
+	}
 
 	toggleDisplayMoreColumn = () => {
 		this.setState((prevState) => {
@@ -281,9 +356,11 @@ class StockHolding extends Component {
 							item.id === "expectedInWeight" ||
 							item.id === "expectedOutQty") {
 							return <th className="p-3 text-right align-middle" key={idx} width="10%">{item.tableHeaderText}</th>;
+							// return <TableHeaderColumn className="p-3 text-right align-middle" key={idx} width="10%" dataField="name" dataSort>{item.tableHeaderText}</TableHeaderColumn>;
 						}
 
 						return <th className="p-3 text-left align-middle" key={idx} width="10%">{item.tableHeaderText}</th>;
+						// return <TableHeaderColumn className="p-3 text-left align-middle" key={idx} width="10%" dataField="name" dataSort>{item.tableHeaderText}</TableHeaderColumn>;
 					}
 				})}
 				<th className="p-3 text-left align-middle">
@@ -367,21 +444,40 @@ class StockHolding extends Component {
 
 	render() {
 		let content;
-		content = 
-		<div className="col-12 p-0">
-			<Table className="table-condensed table-responsive table-striped clickable-row rounded-bottom-175 mb-0" size="md">
-				<thead>{this.showHeader()}</thead>
-				<tbody>{this.showData()}</tbody>
-			</Table>
-			<div className="bg-transparent card-footer text-center border-company border-top-0">
-				<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-						totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-						currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-						isActive={this.state.isActive}
-						numberEventClick={this.numberEventClick} />
-			</div>
-		</div>
+		switch (this.state.displayContent) {
+			case "FOUND" :
+				content = 
+				<div className="col-12 p-0">
+					<Table className="table-condensed table-responsive table-striped clickable-row rounded-bottom-175 mb-0" size="sm">
+						<thead>{this.showHeader()}</thead>
+						<tbody>{this.showData()}</tbody>
+					</Table>
+					<div className="bg-transparent card-footer text-center border-company border-top-0">
+						<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+								totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+								currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+								isActive={this.state.isActive}
+								numberEventClick={this.numberEventClick} />
+					</div>
+				</div>
+			break;
 
+			default :
+				content =
+				<div className="col-12 d-flex h-100 position-relative">
+					<div className="bg-transparent mx-auto my-auto text-center">
+						<div className={this.state.isSearch ? "" : "d-none"}>
+							{/* <div className={"sk-double-bounce" + (this.state.isLoaded ? "" : " d-none")}>
+								<div className="sk-child sk-double-bounce1" />
+								<div className="sk-child sk-double-bounce2" />
+							</div> */}
+							{/* <div className={"sk-spinner sk-spinner-pulse" + (this.state.isLoaded ? "" : " d-none")} /> */}
+							<div className={"spinner" + (this.state.isLoaded ? "" : " d-none")} />
+							<p className={this.state.displayContent === "NOT_FOUND" ? "" : "d-none"}>{this.state.notFoundMessage}</p>
+						</div>
+					</div>
+				</div>
+		}
 
 		return (
 			<React.Fragment>
@@ -408,7 +504,7 @@ class StockHolding extends Component {
 
 							<div className="row">
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-									<form>
+									<form ref={this.searchForm} onSubmit={e => { e.preventDefault() ; this.searchData(); }}>
 										<div className="form-group row mb-0">
 											<div className="col-12 col-lg-12 col-md-12 col-sm-12 mb-0">
 												<Row className="align-items-center mb-0">
@@ -422,7 +518,8 @@ class StockHolding extends Component {
 																				<span className="input-group-text border-0 bg-white p-0">
 																					<i className="fa fa-search fa-2x iconSpace" />
 																				</span>
-																				<input type="text" className="form-control border-0" placeholder="Type here to Search" />
+																				<input type="text" className="form-control border-0" 
+																						id="searchForm" name="searchForm" placeholder="Enter a Product or Description to Search" />
 																			</div>
 																			<div className="col-3 text-right">
 																				<Button className={"circle" + (this.state.showFilter ? " active" : "")} onClick={this.triggerShowFilter}>
@@ -431,9 +528,9 @@ class StockHolding extends Component {
 
 																				{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}
 
-																				<button type="submit" className="search rounded-175">
+																				<Button type="submit" className="search rounded-175" onClick={this.searchData}>
 																					<strong>Search</strong>
-																				</button>
+																				</Button>
 																			</div>
 																		</div>
 																		

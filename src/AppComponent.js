@@ -16,10 +16,10 @@ class AppComponent {
 		switch (this.ENV_MODE) {
 			case this.DEVELOPMENT :
 				return this.BASE_URL_DEV + "?endpoint=" + this.ENDPOINT_URL;
-				// return this.BASE_URL_DEV;
+				// return this.ENDPOINT_URL;
 			case this.PRODUCTION :
 				return this.BASE_URL_PROD + "?endpoint=" + this.ENDPOINT_URL;
-				// return this.BASE_URL_PROD;
+				// return this.ENDPOINT_URL;
 			default :
 				break;
 		}
