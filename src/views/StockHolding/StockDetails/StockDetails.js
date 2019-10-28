@@ -187,7 +187,7 @@ class StockDetails extends Component {
 		let content;
 		content = 
 			<div className="col-12 p-0">
-				<Table className="table-condensed table-responsive table-striped rounded-top-175 mb-0" size="md">
+				<Table className="table-condensed table-responsive table-striped rounded-bottom-175 mb-0" size="md">
 					<thead>{this.showHeader()}</thead>
 					<tbody>{this.showData()}</tbody>
 				</Table>
@@ -234,8 +234,8 @@ class StockDetails extends Component {
 														<FormGroup>
 															<InputGroup>
 																<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-																	<Card className="form-group row rounded-05 mb-0">
-																		<div className="col-12">
+																	<Card className="form-group row rounded-top-05 mb-0 border-0">
+																		<div className="col-12 pb-2 pt-3 pl-3">
 																			<div className="row">
 																				<div className="col-3">
 																					<Label className="font-weight-bold primary-text">Product ID</Label>
@@ -312,7 +312,7 @@ class StockDetails extends Component {
 														<Nav tabs>
 															<div className="input-group">
 																<NavItem className="col-xl-6 col-lg-6 col-md-6 col-sm-12 pl-0">
-																	<NavLink className={"nav-link-cust rounded-05" + (this.state.activeTabIndex === 1 ? " tab-custom" : "")} active={this.state.activeTab === 1} onClick={() => this.activeTabIndex(1)}>
+																	<NavLink className={"nav-link-cust" + (this.state.activeTabIndex === 1 ? " tab-custom" : "")} active={this.state.activeTab === 1} onClick={() => this.activeTabIndex(1)}>
 																		<div className="row rowTabCustom align-items-center">
 																			<div className="tabTitleText">Stock Details</div>
 																		</div>
@@ -320,7 +320,7 @@ class StockDetails extends Component {
 																</NavItem>
 
 																<NavItem className="col-xl-6 col-lg-6 col-md-6 col-sm-12 pl-0">
-																	<NavLink className={"nav-link-cust rounded-05" + (this.state.activeTabIndex === 2 ? " tab-custom" : "")} active={this.state.activeTab === 2} onClick={() => this.activeTabIndex(2)}>
+																	<NavLink className={"nav-link-cust" + (this.state.activeTabIndex === 2 ? " tab-custom" : "")} active={this.state.activeTab === 2} onClick={() => this.activeTabIndex(2)}>
 																		<div className="row rowTabCustom align-items-center">
 																			<span className="tabTitleText">Foreshadowed Stock Balance</span>
 																		</div>
