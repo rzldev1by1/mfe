@@ -9,7 +9,12 @@ body {
 	// background-color: #FFFFFF;
 	font-family: "Nunito";
 	color: #212F61;
-	// font-size: 15px;	
+	// font-size: 15px;
+}
+
+//custom
+.blueLabel{
+	color:#388DCD !important;
 }
 
 // Glyphicons Icons
@@ -218,6 +223,10 @@ hr.border-header {
 
 .clickable-row>tbody>tr:hover>td {
 	background-color: #EAF3FA;
+}
+
+.table.noneborder-bottom thead th{
+	border-bottom: none !important;
 }
 
 // End - Table
@@ -463,12 +472,12 @@ hr.border-header {
 	margin: 200px auto;
 	background-color: #388DCD;
 	align-items: center;
-  
-	border-radius: 100%;  
+
+	border-radius: 100%;
 	-webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
 	animation: sk-scaleout 1.0s infinite ease-in-out;
   }
-  
+
   @-webkit-keyframes sk-scaleout {
 	0% { -webkit-transform: scale(0) }
 	100% {
@@ -476,9 +485,9 @@ hr.border-header {
 	  opacity: 0;
 	}
   }
-  
+
   @keyframes sk-scaleout {
-	0% { 
+	0% {
 	  -webkit-transform: scale(0);
 	  transform: scale(0);
 	} 100% {

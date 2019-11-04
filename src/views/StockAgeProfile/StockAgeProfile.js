@@ -23,40 +23,40 @@ class StockAgeProfile extends Component {
 			maxPage: 0,
 
 			column: [
-				{ id: "productId" }, { id: "description" },
-				{ id: "site" }, { id: "uom" },
+				{ id: "site" },{ id: "productId" }, { id: "description" },
+				 { id: "uom" },
 				{ id: "lively" }, { id: "acceptable" }, { id: "marginal" }, { id: "shelfLife" }, { id: "dead" },
 				{ id: "onHand" }, { id: "expectedIn" }, { id: "expectedOut" }
 			],
 
 			stockAgeProfile: [
-				{ productId: "TEST123", description: "1234567890ABCDEFGHIJ",
-				  site: "A", uom: "EACH",
+				{ site: "A", productId: "TEST123", description: "1234567890ABCDEFGHIJ",
+				  uom: "EACH",
 				  lively: 10, acceptable: 10, marginal: 10, shelfLife: 10, dead: 10,
 				  onHand: 50, expectedIn: 20, expectedOut: 25
 				},
-				{ productId: "TEST123", description: "1234567890ABCDEFGHIJ",
-				  site: "A", uom: "EACH",
+				{ site: "A", productId: "TEST123", description: "1234567890ABCDEFGHIJ",
+				  uom: "EACH",
 				  lively: 10, acceptable: 10, marginal: 10, shelfLife: 10, dead: 10,
 				  onHand: 50, expectedIn: 20, expectedOut: 25
 				},
-				{ productId: "TEST123", description: "1234567890ABCDEFGHIJ",
-				  site: "A", uom: "EACH",
+				{ site: "A", productId: "TEST123", description: "1234567890ABCDEFGHIJ",
+				  uom: "EACH",
 				  lively: 10, acceptable: 10, marginal: 10, shelfLife: 10, dead: 10,
 				  onHand: 50, expectedIn: 20, expectedOut: 25
 			  	},
-				{ productId: "TEST123", description: "1234567890ABCDEFGHIJ",
-				  site: "A", uom: "EACH",
+				{ site: "A", productId: "TEST123", description: "1234567890ABCDEFGHIJ",
+				  uom: "EACH",
 				  lively: 10, acceptable: 10, marginal: 10, shelfLife: 10, dead: 10,
 				  onHand: 50, expectedIn: 20, expectedOut: 25
 			  	},
-				{ productId: "TEST123", description: "1234567890ABCDEFGHIJ",
-				  site: "A", uom: "EACH",
+				{ site: "A", productId: "TEST123", description: "1234567890ABCDEFGHIJ",
+				  uom: "EACH",
 				  lively: 10, acceptable: 10, marginal: 10, shelfLife: 10, dead: 10,
 				  onHand: 50, expectedIn: 20, expectedOut: 25
 			  	},
-				{ productId: "TEST123", description: "1234567890ABCDEFGHIJ",
-				  site: "A", uom: "EACH",
+				{ site: "A", productId: "TEST123", description: "1234567890ABCDEFGHIJ",
+				  uom: "EACH",
 				  lively: 10, acceptable: 10, marginal: 10, shelfLife: 10, dead: 10,
 				  onHand: 50, expectedIn: 20, expectedOut: 25
 			  	}
@@ -84,7 +84,7 @@ class StockAgeProfile extends Component {
 	// updateFilterData = (filterStockHolding) => {
 	// 	if (localStorage.getItem("filterStockHolding")) {
 	// 		localStorage.removeItem("filterStockHolding");
-	// 		localStorage.setItem("filterStockHolding", JSON.stringify(filterStockHolding))	
+	// 		localStorage.setItem("filterStockHolding", JSON.stringify(filterStockHolding))
 	// 	}
 	// }
 
@@ -107,41 +107,40 @@ class StockAgeProfile extends Component {
 
 	render() {
 		let content;
-		content = 
-		<Table className="table-condensed table-responsive table-striped clickable-row rounded-bottom-175 mb-0" size="sm">
+		content =
+		<Table className="table-condensed table-striped clickable-row rounded-bottom-175 mb-0">
 			<thead>
 				<tr>
-					<th className="p-2 text-left align-middle" rowSpan="2" width="10%">Product ID</th>
-					<th className="p-2 text-left align-middle" rowSpan="2" width="15%">Description</th>
-					<th className="p-2 text-left align-middle" rowSpan="2" width="5%">Site</th>
-					<th className="p-2 text-left align-middle" rowSpan="2" width="5%">UoM</th>
+					<th className="p-2 text-left border-bottom-0" rowSpan="2">Site</th>
+					<th className="p-2 text-left border-bottom-0" rowSpan="2">Product ID</th>
+					<th className="p-2 text-left border-bottom-0" rowSpan="2">Description</th>
+					<th className="p-2 text-left border-bottom-0" rowSpan="2">UoM</th>
 
-					<th className="p-2 text-right align-middle" colSpan="5">Age Profile</th>
-					<th className="p-2 text-right align-middle" colSpan="3">Total Quantities</th>
+					<th className="p-2 text-left text-center border-left border-right border-bottom-0" colSpan="5">Age Profile</th>
+					<th className="p-2 text-left text-center border-left border-right border-bottom-0" colSpan="3">Total Quantities</th>
 				</tr>
 				<tr>
-					<th className="text-right align-middle" width="5%">Lively</th>
-					<th className="text-right align-middle" width="5%">Acceptable</th>
-					<th className="text-right align-middle" width="5%">Marginal</th>
-					<th className="text-right align-middle" width="5%">Shelf Life</th>
-					<th className="text-right align-middle" width="5%">Dead</th>
+					<th className="text-left border-left border-bottom-0 blueLabel">Lively</th>
+					<th className="text-left border-bottom-0 blueLabel">Acceptable</th>
+					<th className="text-left border-bottom-0 blueLabel">Marginal</th>
+					<th className="text-left border-bottom-0 blueLabel">Shelf Life</th>
+					<th className="text-left border-right border-bottom-0 blueLabel">Dead</th>
 
-					<th className="text-right align-middle" width="5%">On Hand</th>
-					<th className="text-right align-middle" width="5%">Expected In</th>
-					<th className="text-right align-middle" width="5%">Expected Out</th>
+					<th className="text-left border-left border-bottom-0 blueLabel">On Hand</th>
+					<th className="text-left border-bottom-0 blueLabel">Expected In</th>
+					<th className="text-left border-right border-bottom-0 blueLabel">Expected Out</th>
 				</tr>
 			</thead>
 			<tbody>
 				{this.state.stockAgeProfile.map((item, idx) => (
 					<tr key={idx}>
 						{this.state.column.map((column, columnIdx) => {
-							if (column.id === "productId" ||
+							if (column.id === "site" || column.id === "productId" ||
 								column.id === "description" ||
-								column.id === "site" ||
 								column.id === "uom") {
 									return <td key={columnIdx} className="px-2 text-left">{item[column.id]}</td>
 							}
-							return <td key={columnIdx} className="px-2 text-right">{item[column.id]}</td>
+							return <td key={columnIdx} className={(column.id === "lively"?"px-2 text-right border-left":(column.id === "dead"? "px-2 text-right border-right":"px-2 text-right"))}>{item[column.id]}</td>
 						})}
 					</tr>
 				))}
