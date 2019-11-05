@@ -46,13 +46,22 @@ class StockDetails extends Component {
 				// { id: "ref2", checkboxLabelText: "Ref 2", tableHeaderText: "Ref 2", isVisible: true, key: "" },
 				// { id: "alert", checkboxLabelText: "Alert", tableHeaderText: "Alert", isVisible: true, key: "" }
 			],
+			foreshadowedColumn: [
+				{ id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site" },
+				{ id: "id", checkboxLabelText: "Customer ID", tableHeaderText: "Customer ID", isVisible: true, key: "id" },
+				{ id: "order_no", checkboxLabelText: "Order No", tableHeaderText: "Order No", isVisible: true, key: "order_no" },
+				{ id: "sm_dtm", checkboxLabelText: "Order Date", tableHeaderText: "Order Date", isVisible: true, key: "" },
+				{ id: "qty_rec", checkboxLabelText: "In", tableHeaderText: "In", isVisible: true, key: "" },
+				{ id: "qty_send", checkboxLabelText: "Out", tableHeaderText: "Out", isVisible: true, key: "" },
+				{ id: "", checkboxLabelText: "Balance", tableHeaderText: "Balance", isVisible: true, key: "" }
+			],
 			masterResStockHolding: [],
 			stockHolding: [],
 			stockDetails: [],
+			foreshadowedData: [],
 			masterResource: [],
 			UOM: []
 		}
-		console.log(this.props.history.location);
 		// this.getLocalStorageColumn();
 	}
 	
@@ -64,6 +73,21 @@ class StockDetails extends Component {
 		// } else {
 		// 	localStorage.setItem("columnData", JSON.stringify(this.state.columns));
 		// }
+	}
+
+	formatDate = (date) => {
+		var monthNames = [
+		  "January", "February", "March",
+		  "April", "May", "June", "July",
+		  "August", "September", "October",
+		  "November", "December"
+		];
+		var dateFormat = new Date(date);
+		var day = dateFormat.getDate();
+		var monthIndex = dateFormat.getMonth();
+		var year = dateFormat.getFullYear();
+	  
+		return day + ' ' + monthNames[monthIndex] + ' ' + year;
 	}
 
 	loadStockDetails = () => {
@@ -125,7 +149,73 @@ class StockDetails extends Component {
 									totalRows: respondRes.length });
 
 					self.numberEventClick(self.state.currentPage);
-					localStorage.setItem("stockHolding", JSON.stringify(respondRes));
+					localStorage.setItem("stockDetails", JSON.stringify(respondRes));
+				}
+				self.setState({ isLoaded: false, isSearch: false });
+			});
+		// }
+	}
+	
+	loadForeshadowed = () => {
+		let self = this;
+		self.setState({ isLoaded: true, currentPage: 1,
+						startIndex: 0, lastIndex: 0,
+						totalRows: 0, maxPage: 0 });
+
+		// if (localStorage.getItem("masterResStockHolding")) {
+		// 	let masterResStockHolding = JSON.parse(localStorage.getItem("masterResStockHolding"));
+		// 	this.setState({ masterResStockHolding: masterResStockHolding });
+		// } else {
+			// let params = {'activeonly': 'N'}
+			// let endpoint = "scale/_proc/API_ProductList";
+			axios.get(AppComponent.getBaseUrl() + "foreshadowedstockbalance/" + this.props.history.location.pathname.substring(14))
+			// axios.get(AppComponent.getBaseUrl() + endpoint, {
+			//     params: params,
+			//     headers: {
+			//         'Content-Type': 'application/json',
+			//         'X-DreamFactory-API-Key': 'e553e47a799d4805fde8b31374f1706b130b2902b5376fbba6f4817ad3c6b272',
+			//         'X-Company-Code': Authentication.getCompanyCode(),
+			//         'X-DreamFactory-Session-Token': Authentication.getToken(),
+			//         'Accept':'application/json'
+			//     }
+			// })
+			.then(res => {
+				// res.isSuccess = true;
+				// self.setState({ isLoaded: false })
+				return res.data;
+			})
+			.catch(function (error) {
+				self.setState({ displayContent: "NOT_FOUND",
+								isLoaded: false,
+								isSearch: false });
+				if (error.response) {
+					// self.setState({ notFoundMessage: error.response.data.message })
+				}
+				return error;
+			})
+			.then(function(result) {
+				if (result.data) {
+					let respondRes = result.data;
+					let totalPage = 0;
+
+					if (respondRes.length > self.state.displayPage) {
+						totalPage = respondRes % self.state.displayPage;
+						if (totalPage > 0 && totalPage < 50) {
+							totalPage = parseInt(respondRes.length / self.state.displayPage) + 1;
+						} else {
+							totalPage = respondRes.length / self.state.displayPage;
+						}
+						self.setState({ maxPage: totalPage });
+					} else {
+						self.setState({ maxPage: 1 });
+					}
+
+					self.setState({ displayContent: "FOUND",
+									foreshadowedData: respondRes,
+									totalRows: respondRes.length });
+
+					self.numberEventClick(self.state.currentPage);
+					localStorage.setItem("foreshadowedData", JSON.stringify(respondRes));
 				}
 				self.setState({ isLoaded: false, isSearch: false });
 			});
@@ -210,6 +300,7 @@ class StockDetails extends Component {
 	componentDidMount() {
 		this.loadStockDetails();
 		this.loadStockHolding();
+		this.loadForeshadowed();
 	}
 
 	toggleDisplayMoreColumn = () => {
@@ -283,7 +374,44 @@ class StockDetails extends Component {
 								column.id === "volume") {
 								return <td key={columnIdx} className="px-3 text-right" width="10%">{item[column.id]}</td>
 							}
-							return <td key={columnIdx} className="px-3 text-left" width="10%">{item[column.id]}</td>
+							return <td key={columnIdx} className="px-3 text-left" width="10%">{column.id === "effective_date" ? this.formatDate(item[column.id]) : item[column.id]}</td>
+						}
+					})}
+				</tr>
+			))
+		);
+	}
+
+
+	showForeshadowedHeader = () => {
+		return (
+			<tr>
+				{this.state.foreshadowedColumn.map((item, idx) => {
+					if (item.isVisible) {
+						if (item.id === "qty" ||
+							item.id === "weight" ||
+							item.id === "volume") {
+							return <th className="p-3 text-right align-middle" key={idx} width="10%">{item.tableHeaderText}</th>
+						}
+						return <th className="p-3 text-left align-middle" key={idx} width="10%">{item.tableHeaderText}</th>
+					}
+				})}
+			</tr>
+		);
+	}
+
+	showForeshadowedData = () => {
+		return(
+			this.state.foreshadowedData.map((item, idx) => (
+				<tr key={idx}>
+					{this.state.foreshadowedColumn.map((column, columnIdx) => {
+						if (column.isVisible) {
+							if (column.id === "qty" ||
+								column.id === "weight" ||
+								column.id === "volume") {
+								return <td key={columnIdx} className="px-3 text-right" width="10%">{item[column.id]}</td>
+							}
+							return <td key={columnIdx} className="px-3 text-left" width="10%">{column.id === "sm_dtm" ? this.formatDate(item[column.id]) : item[column.id]}</td>
 						}
 					})}
 				</tr>
@@ -293,9 +421,10 @@ class StockDetails extends Component {
 
 	render() {
 		let content;
-		let table;
+		let stockHoldingTable;
+		let foreshadowedTable;
 		this.state.stockDetails.map(item => (this.state.UOM.push(item["packdesc_2"])));
-		table = 
+		stockHoldingTable = 
 				<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
 					<Table className="table-condensed table-responsive table-striped rounded-bottom-175 mb-0 " size="md">
 						<thead>{this.showStockDetailsHeader()}</thead>
@@ -310,6 +439,21 @@ class StockDetails extends Component {
 								numberEventClick={this.numberEventClick} />
 					</div>
 				</div>
+		foreshadowedTable = 
+		<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
+			<Table className="table-condensed table-responsive table-striped rounded-bottom-175 mb-0 " size="md">
+				<thead>{this.showForeshadowedHeader()}</thead>
+				<tbody>{this.showForeshadowedData()}</tbody>
+			</Table>
+
+			<div className="bg-transparent card-footer text-center border-company border-top-0">
+				<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+						totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+						currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+						isActive={this.state.isActive}
+						numberEventClick={this.numberEventClick} />
+			</div>
+		</div>
 		switch (this.state.displayContent) {
 			case "FOUND" :
 				content = 
@@ -422,7 +566,7 @@ class StockDetails extends Component {
 														<Nav tabs>
 															<div className="input-group">
 																<NavItem className="col-xl-6 col-lg-6 col-md-6 col-sm-12 pl-0">
-																	<NavLink className={"nav-link-cust" + (this.state.activeTabIndex === 1 ? " tab-custom" : "")} active={this.state.activeTab === 1} onClick={() => this.activeTabIndex(1)}>
+																	<NavLink className={"nav-link-cust" + (this.state.activeTabIndex === 1 ? " tab-custom" : "")} active={this.state.activeTabIndex === 1} onClick={() => this.activeTabIndex(1)}>
 																		<div className="row rowTabCustom align-items-center">
 																			<div className="tabTitleText">Stock Details</div>
 																		</div>
@@ -430,7 +574,7 @@ class StockDetails extends Component {
 																</NavItem>
 
 																<NavItem className="col-xl-6 col-lg-6 col-md-6 col-sm-12 pl-0">
-																	<NavLink className={"nav-link-cust" + (this.state.activeTabIndex === 2 ? " tab-custom" : "")} active={this.state.activeTab === 2} onClick={() => this.activeTabIndex(2)}>
+																	<NavLink className={"nav-link-cust" + (this.state.activeTabIndex === 2 ? " tab-custom" : "")} active={this.state.activeTabIndex === 2} onClick={() => this.activeTabIndex(2)}>
 																		<div className="row rowTabCustom align-items-center">
 																			<span className="tabTitleText">Foreshadowed Stock Balance</span>
 																		</div>
@@ -454,10 +598,10 @@ class StockDetails extends Component {
 														</TabContent>
 													</div>
 												</Row> */}
-
 												<Row className="align-items-center">
 													<div className="d-flex col-12 col-lg-12 col-md-12 col-sm-12 mt-3 pl-0">
-														{table}
+														{this.state.activeTabIndex === 1 ? stockHoldingTable : null}
+														{this.state.activeTabIndex === 2 ? foreshadowedTable : null}
 													</div>
 												</Row>
 											</div>
@@ -474,7 +618,6 @@ class StockDetails extends Component {
 						</div>
 					</div>
 				</div>
-				
 			break;
 
 			default :
