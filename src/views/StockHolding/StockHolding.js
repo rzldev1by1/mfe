@@ -220,18 +220,18 @@ class StockHolding extends Component {
 		self.setState({ isLoaded: true, isSearch: true,
 						currentPage: 1,
 						startIndex: 0, lastIndex: 0,
-						totalRows: 0, maxPage: 0 });
+						totalRows: 0, maxPage: 0, displayContent: "NOT_FOUND"});
 
 		let form = this.searchForm.current;
 		if (!form.searchForm.value) { return };
 		let searchTerm = form.searchForm.value;
+		
+		let payload = { "searchParam": searchTerm.toString()};
+		console.log(payload);
 
-		let payload = { "prodId": searchTerm.toString(),
-						"prodName": searchTerm.toString() };
-
-
-		axios.get(AppComponent.getBaseUrl() + "api/searchStockHolding", payload,
-		{
+		axios.get(AppComponent.getBaseUrl() + "stockholding",
+		{	
+			params: payload,
 			headers: {
 				'Content-Type': 'application/json',
 				'Accept': 'application/json',
