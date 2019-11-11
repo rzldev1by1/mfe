@@ -48,8 +48,8 @@ class StockHolding extends Component {
 				// { id: "plannedOut", checkboxLabelText: "Planned Out", tableHeaderText: "Planned Out", isVisible: true, key: "" },
 				// { id: "packType", checkboxLabelText: "Pack Type", tableHeaderText: "Pack Type", isVisible: true, key: "" },
 				// { id: "packSize", checkboxLabelText: "Pack Size", tableHeaderText: "Pack Size", isVisible: true, key: "" },
-				// { id: "rotaDate", checkboxLabelText: "RotaDate", tableHeaderText: "RotaDate", isVisible: false, key: "" },
-				// { id: "rotaType", checkboxLabelText: "RotaDate Type", tableHeaderText: "RotaDate Type", isVisible: false, key: "" },
+				// { id: "rotaDate", checkboxLabelText: "Rotadate", tableHeaderText: "Rotadate", isVisible: false, key: "" },
+				// { id: "rotaType", checkboxLabelText: "Rotadate Type", tableHeaderText: "Rotadate Type", isVisible: false, key: "" },
 				// { id: "dateStatus", checkboxLabelText: "Date Status", tableHeaderText: "Date Status", isVisible: true, key: "" },
 				// { id: "zone", checkboxLabelText: "Zone", tableHeaderText: "Zone", isVisible: false, key: "" },
 				// { id: "batch", checkboxLabelText: "Batch", tableHeaderText: "Batch", isVisible: true, key: "" },
@@ -80,8 +80,8 @@ class StockHolding extends Component {
 					// "location": { id: "location", text: "Location", isVisible: false },
 					// "locationType": { id: "locationType", text: "Location Type", isVisible: false },
 					// "packType": { id: "packType", text: "Pack Type", isVisible: false },
-					// "rotaDate": { id: "rotaDate", text: "RotaDate", isVisible: false },
-					// "rotaType": { id: "rotaType", text: "RotaDate Type", isVisible: false },
+					// "rotaDate": { id: "rotaDate", text: "Rotadate", isVisible: false },
+					// "rotaType": { id: "rotaType", text: "Rotadate Type", isVisible: false },
 					// "dateStatus": { id: "dateStatus", text: "Date Status", isVisible: false },
 					// "zone": { id: "zone", text: "Zone", isVisible: false },
 					// "disposition": { id: "disposition", text: "Disposition", isVisible: false },
@@ -97,7 +97,17 @@ class StockHolding extends Component {
 	}
 
 	componentDidMount() {
-		this.loadStockHolding();
+		if (localStorage.getItem("masterResStockHolding") && localStorage.getItem("masterResStockHolding") !== "undefined" ) {
+			let masterResStockHolding =  JSON.parse(localStorage.getItem("masterResStockHolding"));
+			if (masterResStockHolding) {
+				this.setState(() => {
+					return { masterResStockHolding: masterResStockHolding };
+				});
+				this.setPagination(masterResStockHolding);
+			}
+		} else {
+			this.loadStockHolding();
+		}
 	}
 
 	getLocalStorageFilterData = () => {
@@ -148,6 +158,31 @@ class StockHolding extends Component {
 		// localStorage.setItem("columnData", JSON.stringify(this.state.columns));
 	}
 
+	setPagination = (result) => {
+		let self = this;
+		let respondRes = result;
+		let totalPage = 0;
+
+		if (respondRes.length > self.state.displayPage) {
+			totalPage = respondRes % self.state.displayPage;
+			if (totalPage > 0 && totalPage < 50) {
+				totalPage = parseInt(respondRes.length / self.state.displayPage) + 1;
+			} else {
+				totalPage = respondRes.length / self.state.displayPage;
+			}
+			self.setState({ maxPage: totalPage });
+		} else {
+			self.setState({ maxPage: 1 });
+		}
+
+		self.setState({ displayContent: "FOUND",
+						masterResStockHolding: respondRes,
+						totalRows: respondRes.length });
+
+		self.numberEventClick(self.state.currentPage);
+		localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
+	}
+
     loadStockHolding = () => {
 		let self = this;
 		self.setState({ isLoaded: true, isSearch: true,
@@ -188,27 +223,7 @@ class StockHolding extends Component {
 			})
 			.then(function(result) {
 				if (result.data) {
-					let respondRes = result.data;
-					let totalPage = 0;
-
-					if (respondRes.length > self.state.displayPage) {
-						totalPage = respondRes % self.state.displayPage;
-						if (totalPage > 0 && totalPage < 50) {
-							totalPage = parseInt(respondRes.length / self.state.displayPage) + 1;
-						} else {
-							totalPage = respondRes.length / self.state.displayPage;
-						}
-						self.setState({ maxPage: totalPage });
-					} else {
-						self.setState({ maxPage: 1 });
-					}
-
-					self.setState({ displayContent: "FOUND",
-									masterResStockHolding: respondRes,
-									totalRows: respondRes.length });
-
-					self.numberEventClick(self.state.currentPage);
-					localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
+					self.setPagination(result.data);
 				}
 				self.setState({ isLoaded: false, isSearch: false });
 			});
@@ -222,16 +237,16 @@ class StockHolding extends Component {
 						startIndex: 0, lastIndex: 0,
 						totalRows: 0, maxPage: 0, displayContent: "NOT_FOUND"});
 
-		let form = this.searchForm.current;
-		if (!form.searchForm.value) { return };
+		let params = {};
+		let form = self.searchForm.current;
 		let searchTerm = form.searchForm.value;
 		
-		let payload = { "searchParam": searchTerm.toString()};
-		console.log(payload);
+		// if (!searchTerm) { return };
+		params.searchParam = searchTerm;
 
 		axios.get(AppComponent.getBaseUrl() + "stockholding",
-		{	
-			params: payload,
+		{
+			params: params,
 			headers: {
 				'Content-Type': 'application/json',
 				'Accept': 'application/json',
@@ -251,27 +266,7 @@ class StockHolding extends Component {
 		})
 		.then(function(result) {
 			if (result.data) {
-				let respondRes = result.data;
-				let totalPage = 0;
-
-				if (respondRes.length > self.state.displayPage) {
-					totalPage = respondRes % self.state.displayPage;
-					if (totalPage > 0 && totalPage < 50) {
-						totalPage = parseInt(respondRes.length / self.state.displayPage) + 1;
-					} else {
-						totalPage = respondRes.length / self.state.displayPage;
-					}
-					self.setState({ maxPage: totalPage });
-				} else {
-					self.setState({ maxPage: 1 });
-				}
-
-				self.setState({ displayContent: "FOUND",
-								masterResStockHolding: respondRes,
-								totalRows: respondRes.length });
-
-				self.numberEventClick(self.state.currentPage);
-				localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
+				self.setPagination(result.data);
 			}
 			self.setState({ isLoaded: false, isSearch: false });
 		});
@@ -448,16 +443,19 @@ class StockHolding extends Component {
 			case "FOUND" :
 				content = 
 				<div className="col-12 p-0">
-					<Table className="table-condensed table-responsive table-striped clickable-row rounded-bottom-175 mb-0" size="sm">
-						<thead>{this.showHeader()}</thead>
-						<tbody>{this.showData()}</tbody>
-					</Table>
-					<div className="bg-transparent card-footer text-center border-company border-top-0">
-						<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-								totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-								currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-								isActive={this.state.isActive}
-								numberEventClick={this.numberEventClick} />
+					<div className={this.state.isSearch ? "spinner" : "d-none"} />
+					<div className={this.state.isSearch ? "d-none" : ""}>
+						<Table className="table-condensed table-responsive table-striped clickable-row rounded-bottom-175 mb-0" size="sm">
+							<thead>{this.showHeader()}</thead>
+							<tbody>{this.showData()}</tbody>
+						</Table>
+						<div className="bg-transparent card-footer text-center border-company border-top-0">
+							<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+									totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+									currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+									isActive={this.state.isActive}
+									numberEventClick={this.numberEventClick} />
+						</div>
 					</div>
 				</div>
 			break;
@@ -484,7 +482,7 @@ class StockHolding extends Component {
 				<div className="animated fadeIn">
 					<div className="row">
 						<div className="col-12 p-0">
-							<div className="row">
+							<div className="row mb-0 p-0">
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
 									<CardBody>
 										<Row className="align-items-center">
@@ -502,7 +500,7 @@ class StockHolding extends Component {
 								</div>
 							</div>
 
-							<div className="row">
+							<div className="row mb-0 p-0">
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
 									<form ref={this.searchForm} onSubmit={e => { e.preventDefault() ; this.searchData(); }}>
 										<div className="form-group row mb-0">
@@ -512,14 +510,14 @@ class StockHolding extends Component {
 														<FormGroup>
 															<InputGroup>
 																<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-																	<Card className="form-group row rounded-top-175 mb-0">
+																	<Card className="form-group row rounded-top-175 mb-0 border-0">
 																		<div className="input-group p-2">
 																			<div className="input-group-prepend bg-white col-9">
 																				<span className="input-group-text border-0 bg-white p-0">
 																					<i className="fa fa-search fa-2x iconSpace" />
 																				</span>
 																				<input type="text" className="form-control border-0" 
-																						id="searchForm" name="searchForm" placeholder="Enter a Product or Description to Search" />
+																						id="searchForm" name="searchForm" placeholder="Enter a Product or Description" />
 																			</div>
 																			<div className="col-3 text-right">
 																				<Button className={"circle" + (this.state.showFilter ? " active" : "")} onClick={this.triggerShowFilter}>

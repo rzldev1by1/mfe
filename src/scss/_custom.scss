@@ -54,18 +54,20 @@ body {
 .sidebar .sidebar-nav {
 	position: relative;
 	width: 170px;
+	color: #212F61;
 }
 
 .sidebar .nav-item {
 	width: 170px;
 }
 
-.sidebar .nav-link {
+.sidebar .nav-link, .nav-link .nav-icon,
+.nav-link.active, .nav-link.active .nav-icon {
 	color: #212F61 !important;
 }
 
 .sidebar .nav-link.active {
-	color: #388DCD !important;
+	color: #212F61;
 	background: #FFFFFF !important;
 }
 
@@ -158,28 +160,27 @@ hr.border-header {
 // Start - Button
 
 .circle {
-	// content: '\25CF';
 	width: 35px;
 	height: 35px;
 	border-radius: 50%;
 	background-color: #E0E3F2;
 	color: #212F61;
+	border: none !important;
+	box-shadow: none !important;
 }
 
-.circle.active {
-	// content: '\25CF';
-	width: 35px;
-	height: 35px;
-	border-radius: 50%;
+.circle.active, .circle.active:focus {
 	background-color: #388DCD !important;
 	color: #FFFFFF !important;
 }
 
-.search {
+.search, .search:hover, .search:focus {
 	width: 160px;
 	height: 35px;
 	background-color: #388DCD;
 	color: #FFFFFF;
+	border: none;
+	box-shadow: none !important;
 }
 
 // End - Button

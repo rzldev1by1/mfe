@@ -111,7 +111,7 @@ class StockAgeProfile extends Component {
 		<Table className="table-condensed table-responsive table-striped clickable-row rounded-bottom-175 mb-0" size="sm">
 			<thead>
 				<tr>
-					<th className="p-2 text-left align-middle" rowSpan="2" width="10%">Product ID</th>
+					<th className="p-2 text-left align-middle" rowSpan="2" width="10%">Product</th>
 					<th className="p-2 text-left align-middle" rowSpan="2" width="15%">Description</th>
 					<th className="p-2 text-left align-middle" rowSpan="2" width="5%">Site</th>
 					<th className="p-2 text-left align-middle" rowSpan="2" width="5%">UoM</th>

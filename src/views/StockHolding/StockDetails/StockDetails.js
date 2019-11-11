@@ -33,7 +33,7 @@ class StockDetails extends Component {
 			columns: [
 				{ id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site" },
 				{ id: "batch", checkboxLabelText: "Batch", tableHeaderText: "Batch", isVisible: true, key: "batch" },
-				{ id: "effective_date", checkboxLabelText: "RotaDate", tableHeaderText: "RotaDate", isVisible: true, key: "" },
+				{ id: "effective_date", checkboxLabelText: "Rotadate", tableHeaderText: "Rotadate", isVisible: true, key: "" },
 				{ id: "receipt_disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: true, key: "" },
 				{ id: "ref3", checkboxLabelText: "Ref 3", tableHeaderText: "Ref 3", isVisible: true, key: "" },
 				{ id: "ref4", checkboxLabelText: "Ref 4", tableHeaderText: "Ref 4", isVisible: true, key: "" },
@@ -354,9 +354,9 @@ class StockDetails extends Component {
 						if (item.id === "qty" ||
 							item.id === "weight" ||
 							item.id === "volume") {
-							return <th className="p-3 text-right align-middle" key={idx} width="10%">{item.tableHeaderText}</th>
+							return <th className="p-3 text-right align-middle" key={idx} width="15%">{item.tableHeaderText}</th>
 						}
-						return <th className="p-3 text-left align-middle" key={idx} width="10%">{item.tableHeaderText}</th>
+						return <th className="p-3 text-left align-middle" key={idx} width="15%">{item.tableHeaderText}</th>
 					}
 				})}
 			</tr>
@@ -364,7 +364,7 @@ class StockDetails extends Component {
 	}
 
 	showStockDetailsData = () => {
-		return(
+		return (
 			this.state.stockDetails.map((item, idx) => (
 				<tr key={idx}>
 					{this.state.columns.map((column, columnIdx) => {
@@ -372,16 +372,19 @@ class StockDetails extends Component {
 							if (column.id === "qty" ||
 								column.id === "weight" ||
 								column.id === "volume") {
-								return <td key={columnIdx} className="px-3 text-right" width="10%">{item[column.id]}</td>
+								return <td key={columnIdx} className="px-3 text-right" width="15%">{item[column.id]}</td>
 							}
-							return <td key={columnIdx} className="px-3 text-left" width="10%">{column.id === "effective_date" ? this.formatDate(item[column.id]) : item[column.id]}</td>
+							return (
+								<td key={columnIdx} className="px-3 text-left" width="15%">
+									{column.id === "effective_date" ? this.formatDate(item[column.id]) : item[column.id]}
+								</td>
+							)
 						}
 					})}
 				</tr>
 			))
 		);
 	}
-
 
 	showForeshadowedHeader = () => {
 		return (
@@ -401,7 +404,7 @@ class StockDetails extends Component {
 	}
 
 	showForeshadowedData = () => {
-		return(
+		return (
 			this.state.foreshadowedData.map((item, idx) => (
 				<tr key={idx}>
 					{this.state.foreshadowedColumn.map((column, columnIdx) => {
@@ -411,7 +414,12 @@ class StockDetails extends Component {
 								column.id === "volume") {
 								return <td key={columnIdx} className="px-3 text-right" width="10%">{item[column.id]}</td>
 							}
-							return <td key={columnIdx} className="px-3 text-left" width="10%">{column.id === "sm_dtm" ? this.formatDate(item[column.id]) : item[column.id]}</td>
+
+							return (
+								<td key={columnIdx} className="px-3 text-left" width="10%">
+									{column.id === "sm_dtm" ? this.formatDate(item[column.id]) : item[column.id]}
+								</td>
+							)
 						}
 					})}
 				</tr>
@@ -424,36 +432,39 @@ class StockDetails extends Component {
 		let stockHoldingTable;
 		let foreshadowedTable;
 		this.state.stockDetails.map(item => (this.state.UOM.push(item["packdesc_2"])));
+
 		stockHoldingTable = 
-				<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-					<Table className="table-condensed table-responsive table-striped rounded-bottom-175 mb-0 " size="md">
-						<thead>{this.showStockDetailsHeader()}</thead>
-						<tbody>{this.showStockDetailsData()}</tbody>
-					</Table>
+			<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
+				<Table className="table-condensed table-responsive table-striped rounded-bottom-175 mb-0" size="lg">
+					<thead>{this.showStockDetailsHeader()}</thead>
+					<tbody>{this.showStockDetailsData()}</tbody>
+				</Table>
 
-					<div className="bg-transparent card-footer text-center border-company border-top-0">
-						<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-								totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-								currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-								isActive={this.state.isActive}
-								numberEventClick={this.numberEventClick} />
-					</div>
+				<div className="bg-transparent card-footer text-center border-company border-top-0">
+					<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+							totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+							currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+							isActive={this.state.isActive}
+							numberEventClick={this.numberEventClick} />
 				</div>
-		foreshadowedTable = 
-		<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-			<Table className="table-condensed table-responsive table-striped rounded-bottom-175 mb-0 " size="md">
-				<thead>{this.showForeshadowedHeader()}</thead>
-				<tbody>{this.showForeshadowedData()}</tbody>
-			</Table>
-
-			<div className="bg-transparent card-footer text-center border-company border-top-0">
-				<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-						totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-						currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-						isActive={this.state.isActive}
-						numberEventClick={this.numberEventClick} />
 			</div>
-		</div>
+
+		foreshadowedTable = 
+			<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
+				<Table className="table-condensed table-responsive table-striped rounded-bottom-175 mb-0" size="lg">
+					<thead>{this.showForeshadowedHeader()}</thead>
+					<tbody>{this.showForeshadowedData()}</tbody>
+				</Table>
+
+				<div className="bg-transparent card-footer text-center border-company border-top-0">
+					<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+							totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+							currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+							isActive={this.state.isActive}
+							numberEventClick={this.numberEventClick} />
+				</div>
+			</div>
+
 		switch (this.state.displayContent) {
 			case "FOUND" :
 				content = 
@@ -492,7 +503,7 @@ class StockDetails extends Component {
 																		<div className="col-12 pb-2 pt-3 pl-3">
 																			<div className="row">
 																				<div className="col-3">
-																					<Label className="font-weight-bold primary-text">Product ID</Label>
+																					<Label className="font-weight-bold primary-text">Product</Label>
 																				</div>
 																				<div className="col-3">
 																					<Label className="secondary-text">{this.state.masterResStockHolding.product}</Label>
@@ -508,7 +519,7 @@ class StockDetails extends Component {
 
 																			<div className="row">
 																				<div className="col-3">
-																					<Label className="font-weight-bold primary-text">Product Name</Label>
+																					<Label className="font-weight-bold primary-text">Description</Label>
 																				</div>
 																				<div className="col-3">
 																					<Label className="secondary-text">{this.state.masterResStockHolding.product_name}</Label>
@@ -540,7 +551,7 @@ class StockDetails extends Component {
 
 																			<div className="row">
 																				<div className="col-3">
-																					<Label className="font-weight-bold primary-text">RotaDate Type</Label>
+																					<Label className="font-weight-bold primary-text">Rotadate Type</Label>
 																				</div>
 																				<div className="col-3">
 																					<Label className="secondary-text"></Label>
