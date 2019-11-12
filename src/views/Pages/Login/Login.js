@@ -8,6 +8,7 @@ import { Button,
 		 FormFeedback } from 'reactstrap';
 import bg from '../../../assets/img/brand/bg.jpg';
 import logo from '../../../assets/img/brand/logo_ml_large.png';
+import centerLogo from '../../../assets/img/brand/Microlistics_WTG_White_Medium.png';
 // import logo2 from '../../../assets/img/brand/logo_ml_w.png';
 
 class Login extends Component {
@@ -138,8 +139,49 @@ class Login extends Component {
 											</Card>
 										</div>
 										<div className="col-md-7 col-lg-8 fullscreen-right pl-0">
-												<div>
-													<img className="imgRight" src={bg}/>
+												<div className="background-right-full h-100">
+															<div className="background-shadow h-100">
+															 <Row>
+															 		<Col>
+																			<ul className="companyProfile">
+																				<li>
+																						<label className="profTitle">Blog</label>
+																				</li>
+																				<li>
+																						<label className="profTitle">Contact</label>
+																				</li>
+																				<li>
+																						<label className="profTitle">Technology</label>
+																				</li>
+																				<li>
+																						<label className="profTitle">About Us</label>
+																				</li>
+																		 </ul>
+																	</Col>
+															 </Row>
+
+															 <div className="row h-100">
+															 		<div className="col align-self-center h-50">
+																				<div className="d-flex justify-content-center area-logo-shadow">
+																						<div></div>
+																						<div className="h-100 logo-shadow">
+																								<img className="center-area-logo" src={centerLogo}/>
+																						</div>
+																						<div></div>
+																				</div>
+
+																	</div>
+															 </div>
+
+															 <Row className="float-left copyright-section">
+																 <Col>
+																 		<label className="pl-5 whiteLabel">
+																				© Microlistics Logistics {new Date().getFullYear()}
+																		</label>
+																 </Col>
+															 </Row>
+
+												 		 </div>
 												</div>
 										</div>
 								</div>

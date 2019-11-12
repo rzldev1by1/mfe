@@ -13,20 +13,109 @@ body {
 }
 
 //custom
-.imgRight{
-	position: absolute;
-	height:100%;
-	width: auto;
-	top: 0;
-  bottom: 0;
-	right: 0;
-	left:0;
+.red{
+	background-color: red !important;
+}
+
+.blue{
+	background-color: blue !important;
+}
+
+.centered-logo{
+	/* Location of the image */
+  background-image: url(../assets/img/brand/Microlistics_WTG_White_Medium.png);
+
+  /* Background image is centered vertically and horizontally at all times */
+  background-position: center center;
+
+  /* Background image doesn't tile */
+  background-repeat: no-repeat;
+
+  /* Background image is fixed in the viewport so that it doesn't move when
+     the content's height is greater than the image's height */
+  background-attachment: fixed;
+
+  /* This is what makes the background image rescale based
+     on the container's size */
+  background-size: cover;
+
+  /* Set a background color that will be displayed
+     while the background image is loading */
+  background-color: gray;
+}
+
+.background-right-full{
+	/* Location of the image */
+  background-image: url(../assets/img/brand/bg.jpg);
+
+  /* Background image is centered vertically and horizontally at all times */
+  background-position: center center;
+
+  /* Background image doesn't tile */
+  background-repeat: no-repeat;
+
+  /* Background image is fixed in the viewport so that it doesn't move when
+     the content's height is greater than the image's height */
+  background-attachment: fixed;
+
+  /* This is what makes the background image rescale based
+     on the container's size */
+  background-size: cover;
+
+  /* Set a background color that will be displayed
+     while the background image is loading */
+  background-color: gray;
+}
+
+.background-shadow{
+	background-color: #030404;
+	opacity: 0.5;
+}
+
+.logo-shadow{
+	background-color: #494949;
+	border-radius: 40px;
+	// opacity: 0.15;
+}
+
+.area-logo-shadow{
+	height: 450px !important;
+}
+
+img.center-area-logo{
+	padding-top: 4.5rem !important;
 }
 
 
 
+ul.companyProfile{
+	text-align: center;
+	list-style: none;
+	width: 100%;
+	li{
+		display: inline-block;
+		float: right;
+
+		label.profTitle{
+			padding: 25px !important;
+			text-align: center;
+			color: white;
+			font-size:1em;
+		}
+	}
+}
+
+.copyright-section{
+	position: fixed;
+	bottom: 10px;
+}
+
 .blueLabel{
 	color:#388DCD !important;
+}
+
+.whiteLabel{
+	color:#FFFFFF !important;
 }
 
 .contact-us{
