@@ -4,6 +4,7 @@ import { Card, CardBody,
 		 Button,
 		 FormGroup, InputGroup
 } from 'reactstrap';
+import Paging from '../General/Paging';
 
 class StockAgeProfile extends Component {
 	constructor(props) {
@@ -19,8 +20,8 @@ class StockAgeProfile extends Component {
 			startIndex: 0,
 			lastIndex: 0,
 			displayPage: 50,
-			totalRows: 0,
-			maxPage: 0,
+			totalRows: 5,
+			maxPage: 5,
 
 			column: [
 				{ id: "site" },{ id: "productId" }, { id: "description" },
@@ -105,9 +106,45 @@ class StockAgeProfile extends Component {
 		});
 	}
 
+	changeStartIndex = (currentPage) => {
+		this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
+	}
+
+	changeLastIndex = (currentPage) => {
+		this.setState({ lastIndex: parseInt(currentPage) * this.state.displayPage });
+	}
+
+	numberEventClick = (currentPage) => {
+		let page = parseInt(currentPage);
+		this.setState({ currentPage: page });
+		this.changeStartIndex(page);
+		this.changeLastIndex(page);
+	}
+
+	nextPageClick = () => {
+		if (this.state.currentPage < this.state.maxPage) {
+			this.setState((prev) => {
+				currentPage: prev.currentPage++;
+				this.changeStartIndex(prev.currentPage);
+				this.changeLastIndex(prev.currentPage);
+			});
+		}
+	}
+
+	backPageClick = () => {
+		if (this.state.currentPage > 1) {
+			this.setState((prev) => {
+				currentPage: prev.currentPage--;
+				this.changeStartIndex(prev.currentPage);
+				this.changeLastIndex(prev.currentPage);
+			});
+		}
+	}
+
 	render() {
 		let content;
 		content =
+		<div>
 		<Table className="table-condensed table-striped clickable-row rounded-bottom-175 mb-0">
 			<thead>
 				<tr>
@@ -120,15 +157,15 @@ class StockAgeProfile extends Component {
 					<th className="p-2 text-left text-center border-left border-right border-bottom-0" colSpan="3">Total Quantities</th>
 				</tr>
 				<tr>
-					<th className="text-left border-left border-bottom-0 blueLabel">Lively</th>
-					<th className="text-left border-bottom-0 blueLabel">Acceptable</th>
-					<th className="text-left border-bottom-0 blueLabel">Marginal</th>
-					<th className="text-left border-bottom-0 blueLabel">Shelf Life</th>
-					<th className="text-left border-right border-bottom-0 blueLabel">Dead</th>
+					<th className="text-right border-left border-bottom-0 blueLabel">Lively</th>
+					<th className="text-right border-bottom-0 blueLabel">Acceptable</th>
+					<th className="text-right border-bottom-0 blueLabel">Marginal</th>
+					<th className="text-right border-bottom-0 blueLabel">Shelf Life</th>
+					<th className="text-right border-right border-bottom-0 blueLabel">Dead</th>
 
-					<th className="text-left border-left border-bottom-0 blueLabel">On Hand</th>
-					<th className="text-left border-bottom-0 blueLabel">Expected In</th>
-					<th className="text-left border-right border-bottom-0 blueLabel">Expected Out</th>
+					<th className="text-right border-left border-bottom-0 blueLabel">On Hand</th>
+					<th className="text-right border-bottom-0 blueLabel">Expected In</th>
+					<th className="text-right border-right border-bottom-0 blueLabel">Expected Out</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -146,7 +183,14 @@ class StockAgeProfile extends Component {
 				))}
 			</tbody>
 		</Table>
-
+			<div className="card-footer text-center border-company border-top-0">
+				<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+						totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+						currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+						isActive={this.state.isActive}
+						numberEventClick={this.numberEventClick} />
+			</div>
+		</div>
 		return(
 			<React.Fragment>
 				<div className="animated fadeIn">
@@ -186,7 +230,7 @@ class StockAgeProfile extends Component {
 																				<span className="input-group-text border-0 bg-white p-0">
 																					<i className="fa fa-search fa-2x iconSpace" />
 																				</span>
-																				<input type="text" className="form-control border-0" placeholder="Type here to Search" />
+																				<input type="text" className="form-control border-0" placeholder="Enter a product or a description" />
 																			</div>
 																			<div className="col-3 text-right">
 																				<Button className={"circle" + (this.state.showFilter ? " active" : "")} onClick={this.triggerChangeFilter}>
