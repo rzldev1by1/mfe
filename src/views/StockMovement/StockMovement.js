@@ -22,9 +22,52 @@ const currentMonth = new Date().getMonth();
 const fromMonth = new Date(currentYear, currentMonth);
 const toMonth = new Date(currentYear + 10, 11);
 
-function YearMonthForm({ date, localeUtils, onChange }) {
+function Navbar({
+	nextMonth,
+	previousMonth,
+	onPreviousClick,
+	onNextClick,
+	className,
+	localeUtils,
+  }) {
 	const months = localeUtils.getMonths();
+	const prev = months[previousMonth.getMonth()];
+	const next = months[nextMonth.getMonth()];
+	const styleLeft = {
+	  float: 'left',
+	};
+	const styleRight = {
+	  float: 'right',
+	};
+	return (
+	  <div className={className}>
+		<button style={styleLeft} onClick={() => onPreviousClick()}>
+		  ←
+		</button>
+		<button style={styleRight} onClick={() => onNextClick()}>
+		   →
+		</button>
+	  </div>
+	);
+  }
+
+function formatMonth(date){
+	var monthNames = [
+	  "January", "February", "March",
+	  "April", "May", "June", "July",
+	  "August", "September", "October",
+	  "November", "December"
+	];
   
+	return monthNames[date];
+}
+
+function YearMonthForm({ date, localeUtils, onChange, no }) {
+	let monthOption, yearOption;
+	var monthExpand, yearExpand;
+	monthExpand = {};
+	yearExpand = {};
+	const months = localeUtils.getMonths();
 	const years = [];
 	for (let i = fromMonth.getFullYear(); i <= toMonth.getFullYear(); i += 1) {
 	  years.push(i);
@@ -33,50 +76,84 @@ function YearMonthForm({ date, localeUtils, onChange }) {
 	const handleChange = function handleChange(e) {
 		if( typeof e !== '' ) {
 			const { year, month } = e.target.form;
-			  onChange(new Date(year.value, month.value));
-			  console.log(e.target.form)
+			monthOption = month.value ? month.value : date.getMonth();
+			yearOption = year.value ? year.value : date.getFullYear();
+			  onChange(new Date(yearOption, monthOption));
+			  console.log(yearOption, monthOption)
 		}
 	};
-  
+
+	const handleMonthExpand = function handleMonthExpand(e){
+		return monthExpand[no] = !monthExpand[no];
+	}
+
+	const handleYearExpand = function handleYearExpand(e){
+		return yearExpand[no] = !yearExpand[no];
+	}
+	console.log(monthExpand[no]);
 	return (
+	
 	  <form className="DayPicker-Caption">
-		  {/* <ul className="select" id="select">
-			<li className="expand-style">
-				<input className="select_close" type="radio" name="month" id="awesomeness-close1" value=""/>
-				<span className="select_label select_label-placeholder">Select Month</span>
+		  <ul className={"select-date month-option" + (monthExpand[no] ? " expand-period-sm" : "")} id="select">
+			<li className="expand-style-date">
+				<input className="select_close-date" type="radio" name="month" id={"awesomeness-close1" + (no)} value=""/>
+				<span className="select_label-date select_label-placeholder-date">{formatMonth(date.getMonth())}</span>
 			</li>
 			
-			<li className="select_items">
-				<input className="select_expand" type="radio" name="month" id="awesomeness-opener1"  value=""/>
-				<label className="select_closeLabel" htmlFor="awesomeness-close1" ></label>
+			<li className="select_items-date">
+				<input className="select_expand-date" type="radio" name="month" id={"awesomeness-opener1" + (no)} value=""/>
+				<label className="select_closeLabel-date" htmlFor={"awesomeness-close1" + (no)} ></label>
 
-				<ul className="select_options">
+				<ul className="select_options-date">
 				{months.map((month, i) => (
-					<li className="select_option">
-						<input className="select_input" type="radio" value={i} name="month" id={"month" + i}></input>
-						<label className="select_label" htmlFor={"month" + i} >{month}</label>
+					<li className="select_option-date">
+						<input className="select_input-date" key={month} type="radio" value={i} name="month" id={"month" + i} onChange={handleChange}></input>
+						<label className="select_label-date" htmlFor={"month" + i} onClick={handleMonthExpand}>{month}</label>
 					</li>
 		 		 ))}
-				</ul>
+			</ul>
 
 
-				<label className="select_expandLabel" htmlFor="awesomeness-opener1"></label>
+				<label className="select_expandLabel-date" htmlFor={"awesomeness-opener1" + (no)} onClick={handleMonthExpand}></label>
 			</li>
-		</ul> */}
-		<select name="month" onChange={handleChange} value={date.getMonth()}>
+		</ul>
+		<ul className={"select-date year-option" + (yearExpand[no] ? " expand-period-sm" : "")} id="select">
+			<li className="expand-style-date">
+				<input className="select_close-date" type="radio" name="year" id={"awesomeness-close2" + (no)} value=""/>
+				<span className="select_label-date select_label-placeholder-date">{date.getFullYear()}</span>
+			</li>
+			
+			<li className="select_items-date">
+				<input className="select_expand-date" type="radio" name="year" id={"awesomeness-opener2" + (no)} value=""/>
+				<label className="select_closeLabel-date" htmlFor={"awesomeness-close2" + (no)} ></label>
+
+				<ul className="select_options-date">
+				{years.map(year => (
+					<li className="select_option-date">
+						<input className="select_input-date" key={year} type="radio" value={year} name="year" id={"year" + year} onChange={handleChange} ></input>
+						<label className="select_label-date" htmlFor={"year" + year} onClick={handleYearExpand}>{year}</label>
+					</li>
+		 		 ))}
+			</ul>
+
+
+				<label className="select_expandLabel-date" htmlFor={"awesomeness-opener2" + (no)} onClick={handleYearExpand}></label>
+			</li>
+		</ul>
+		{/* <select name="month" onChange={handleChange} value={date.getMonth()}>
 		  {months.map((month, i) => (
 			<option key={month} value={i}>
 			  {month}
 			</option>
 		  ))}
-		</select>
-		<select name="year" onChange={handleChange} value={date.getFullYear()}>
+		</select> */}
+		{/* <select name="year" onChange={handleChange} value={date.getFullYear()}>
 		  {years.map(year => (
 			<option key={year} value={year}>
 			  {year}
 			</option>
 		  ))}
-		</select>
+		</select> */}
 	  </form>
 	);
   }
@@ -104,6 +181,7 @@ class StockMovement extends Component {
 			totalRows: 0,
 			maxPage: 0,
 			selectExpand: false,
+			showDatepicker: false,
 			columns: [
 				{ id: "location", checkboxLabelText: "Location", tableHeaderText: "Location", isVisible: true, key: "" },
 				{ id: "locationType", checkboxLabelText: "Location Type", tableHeaderText: "Location Type", isVisible: true, key: "" },
@@ -115,8 +193,8 @@ class StockMovement extends Component {
 				{ id: "plannedOut", checkboxLabelText: "Planned Out", tableHeaderText: "Planned Out", isVisible: true, key: "" },
 				{ id: "packType", checkboxLabelText: "Pack Type", tableHeaderText: "Pack Type", isVisible: true, key: "" },
 				{ id: "packSize", checkboxLabelText: "Pack Size", tableHeaderText: "Pack Size", isVisible: true, key: "" },
-				{ id: "rotaDate", checkboxLabelText: "RotaDate", tableHeaderText: "RotaDate", isVisible: false, key: "" },
-				{ id: "rotaType", checkboxLabelText: "RotaDate Type", tableHeaderText: "RotaDate Type", isVisible: false, key: "" },
+				{ id: "rotaDate", checkboxLabelText: "Rotadate", tableHeaderText: "Rotadate", isVisible: false, key: "" },
+				{ id: "rotaType", checkboxLabelText: "Rotadate Type", tableHeaderText: "Rotadate Type", isVisible: false, key: "" },
 				{ id: "dateStatus", checkboxLabelText: "Date Status", tableHeaderText: "Date Status", isVisible: true, key: "" },
 				{ id: "zone", checkboxLabelText: "Zone", tableHeaderText: "Zone", isVisible: false, key: "" },
 				{ id: "batch", checkboxLabelText: "Batch", tableHeaderText: "Batch", isVisible: true, key: "" },
@@ -142,8 +220,8 @@ class StockMovement extends Component {
 					// "plannedOut": { text: "Planned Out", isVisible: false },
 					"packType": { text: "Pack Type", isVisible: false },
 					// "packSize": { text: "Pack Size", isVisible: false },
-					"rotaDate": { text: "RotaDate", isVisible: false },
-					"rotaType": { text: "RotaDate Type", isVisible: false },
+					"rotaDate": { text: "Rotadate", isVisible: false },
+					"rotaType": { text: "Rotadate Type", isVisible: false },
 					"dateStatus": { text: "Date Status", isVisible: false },
 					"zone": { text: "Zone", isVisible: false },
 					// "batch": { text: "Batch", isVisible: false },
@@ -491,6 +569,14 @@ class StockMovement extends Component {
 		// this.setState({ showFilter: !this.state.showFilter });
 	}
 
+	triggerShowDatepicker = (e) => {
+		e.stopPropagation();
+		this.setState((prevState) => {
+			return { showDatepicker: !prevState.showDatepicker };
+		});
+		// this.setState({ showFilter: !this.state.showFilter });
+	}
+
 	rowClicked = (productCode) => {
 		this.props.history.push("/stockholding/" + encodeURIComponent(productCode));
 	}
@@ -599,42 +685,42 @@ class StockMovement extends Component {
 																		<div className="input-group p-2">
 																			<div className="input-group-prepend bg-white col-9">
 																				<Label htmlFor="select" className="filter_label">Display Period</Label>
-																				<ul className={"select" + (this.state.selectExpand ? " expand-period" : "")} id="select">
-																					<li className="expand-style">
-																						<input className="select_close" type="radio" name="period" id="awesomeness-close" value=""/>
-																						<span className="select_label select_label-placeholder">Select Period</span>
+																				<ul className={"select-sm" + (this.state.selectExpand ? " expand-period-sm" : "")} id="select">
+																					<li className="expand-style-sm">
+																						<input className="select_close-sm" type="radio" name="period" id="awesomeness-close" value=""/>
+																						<span className="select_label-sm select_label-placeholder-sm">Select Period</span>
 																					</li>
 																					
-																					<li className="select_items">
-																						<input className="select_expand" type="radio" name="period" id="awesomeness-opener"/>
-																						<label className="select_closeLabel" htmlFor="awesomeness-close" onClick={this.triggerChangeFilter}></label>
+																					<li className="select_items-sm">
+																						<input className="select_expand-sm" type="radio" name="period" id="awesomeness-opener"/>
+																						<label className="select_closeLabel-sm" htmlFor="awesomeness-close" onClick={this.triggerChangeFilter}></label>
 
-																						<ul className="select_options">
-																							<li className="select_option">
-																								<input className="select_input" type="radio" name="period" id="daily"></input>
-																								<label className="select_label" htmlFor="daily" onClick={this.triggerChangeFilter}>Daily</label>
+																						<ul className="select_options-sm">
+																							<li className="select_option-sm">
+																								<input className="select_input-sm" type="radio" name="period" id="daily"></input>
+																								<label className="select_label-sm" htmlFor="daily" onClick={this.triggerChangeFilter}>Daily</label>
 																							</li>
-																							<li className="select_option">
-																								<input className="select_input" type="radio" name="period" id="weekly"></input>
-																								<label className="select_label" htmlFor="weekly" onClick={this.triggerChangeFilter}>Weekly</label>
+																							<li className="select_option-sm">
+																								<input className="select_input-sm" type="radio" name="period" id="weekly"></input>
+																								<label className="select_label-sm" htmlFor="weekly" onClick={this.triggerChangeFilter}>Weekly</label>
 																							</li>
-																							<li className="select_option">
-																								<input className="select_input" type="radio" name="period" id="monthly"></input>
-																								<label className="select_label option_radius" htmlFor="monthly" onClick={this.triggerChangeFilter}>Monthly</label>
+																							<li className="select_option-sm">
+																								<input className="select_input-sm" type="radio" name="period" id="monthly"></input>
+																								<label className="select_label-sm option_radius-sm" htmlFor="monthly" onClick={this.triggerChangeFilter}>Monthly</label>
 																							</li>
 																						</ul>
 
 
-																						<label className="select_expandLabel" htmlFor="awesomeness-opener" onClick={this.triggerChangeFilter}></label>
+																						<label className="select_expandLabel-sm" htmlFor="awesomeness-opener" onClick={this.triggerChangeFilter}></label>
 																					</li>
 																				</ul>
 																				<Label htmlFor="date" className="filter_label" style={{paddingLeft: '107px'}}>Select Date</Label>
-																				<ul className={"select" + (this.state.date.from && this.state.date.to ? " date-info" : "")} id="date">
-																					<span className="select_label select_label-placeholder" id="datepicker1" ref="datepicker1" name="datepicker1">{from &&
+																				<ul className={"select-sm" + (this.state.date.from && this.state.date.to ? " date-info" : "")} id="date" onClick={this.triggerShowDatepicker}>
+																					<span className="select_label-sm select_label-placeholder-sm" id="datepicker1" ref="datepicker1" name="datepicker1">{from &&
 																																																	to &&
 																																																	`${this.formatDate(from)} -
 																																																		${this.formatDate(to)}`}{' '}</span>
-																					<input className="select_expand" type="radio" name="asdas"/>
+																					<input className="select_expand-sm" type="radio" name="asdas"/>
 																				</ul>
 																				
 																			</div>
@@ -650,7 +736,7 @@ class StockMovement extends Component {
 																	</Card>
 																	<div className="col-md-8 offset-md-4">
 																		<DayPicker
-																				className="Selectable datepicker-tab"
+																				className={(this.state.showDatepicker ? "Selectable datepicker-tab" : "d-none")}
 																				numberOfMonths={this.props.numberOfMonths}
 																				month={this.state.month}
 																				fromMonth={fromMonth}
@@ -663,12 +749,17 @@ class StockMovement extends Component {
 																					  date={date}
 																					  localeUtils={localeUtils}
 																					  onChange={this.handleYearMonthChange}
+																					  no={Math.floor(Math.random() * 100000)}
 																					/>
 																				  )}
 																				/>
 																				<Helmet>
 																					<style>{`
+																						.showDatepicker{
+																							transition: 1s;
+																						}
 																						.Selectable .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
+																							position: static;
 																							background-color: #f0f8ff !important;
 																							color: #4a90e2;
 																						}
