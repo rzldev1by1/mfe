@@ -143,55 +143,57 @@ class StockAgeProfile extends Component {
 
 	render() {
 		let content;
-		content =
-		<div>
-		<Table className="table-condensed table-striped clickable-row rounded-bottom-175 mb-0">
-			<thead>
-				<tr>
-					<th className="p-2 text-left border-bottom-0" rowSpan="2">Site</th>
-					<th className="p-2 text-left border-bottom-0" rowSpan="2">Product ID</th>
-					<th className="p-2 text-left border-bottom-0" rowSpan="2">Description</th>
-					<th className="p-2 text-left border-bottom-0" rowSpan="2">UoM</th>
+			content =
+			<div>
+				<Table className="table-condensed table-striped clickable-row rounded-bottom-175 mb-0">
+					<thead>
+						<tr>
+							<th className="p-2 text-left border-bottom-0" rowSpan="2">Site</th>
+							<th className="p-2 text-left border-bottom-0" rowSpan="2">Product ID</th>
+							<th className="p-2 text-left border-bottom-0" rowSpan="2">Description</th>
+							<th className="p-2 text-left border-bottom-0" rowSpan="2">UoM</th>
 
-					<th className="p-2 text-left text-center border-left border-right border-bottom-0" colSpan="5">Age Profile</th>
-					<th className="p-2 text-left text-center border-left border-right border-bottom-0" colSpan="3">Total Quantities</th>
-				</tr>
-				<tr>
-					<th className="text-right border-left border-bottom-0 blueLabel">Lively</th>
-					<th className="text-right border-bottom-0 blueLabel">Acceptable</th>
-					<th className="text-right border-bottom-0 blueLabel">Marginal</th>
-					<th className="text-right border-bottom-0 blueLabel">Shelf Life</th>
-					<th className="text-right border-right border-bottom-0 blueLabel">Dead</th>
+							<th className="p-2 text-center border-left border-right border-bottom-0" colSpan="5">Age Profile</th>
+							<th className="p-2 text-center border-left border-bottom-0" colSpan="3">Total Quantities</th>
+						</tr>
+						<tr>
+							<th className="text-right border-left border-bottom-0 blueLabel">Lively</th>
+							<th className="text-right border-bottom-0 blueLabel">Acceptable</th>
+							<th className="text-right border-bottom-0 blueLabel">Marginal</th>
+							<th className="text-right border-bottom-0 blueLabel">Shelf Life</th>
+							<th className="text-right border-right border-bottom-0 blueLabel">Dead</th>
 
-					<th className="text-right border-left border-bottom-0 blueLabel">On Hand</th>
-					<th className="text-right border-bottom-0 blueLabel">Expected In</th>
-					<th className="text-right border-right border-bottom-0 blueLabel">Expected Out</th>
-				</tr>
-			</thead>
-			<tbody>
-				{this.state.stockAgeProfile.map((item, idx) => (
-					<tr key={idx}>
-						{this.state.column.map((column, columnIdx) => {
-							if (column.id === "site" || column.id === "productId" ||
-								column.id === "description" ||
-								column.id === "uom") {
-									return <td key={columnIdx} className="px-2 text-left">{item[column.id]}</td>
-							}
-							return <td key={columnIdx} className={(column.id === "lively"?"px-2 text-right border-left":(column.id === "dead"? "px-2 text-right border-right":"px-2 text-right"))}>{item[column.id]}</td>
-						})}
-					</tr>
-				))}
-			</tbody>
-		</Table>
-			<div className="card-footer text-center border-company border-top-0">
-				<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-						totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-						currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-						isActive={this.state.isActive}
-						numberEventClick={this.numberEventClick} />
+							<th className="text-right border-left border-bottom-0 blueLabel">On Hand</th>
+							<th className="text-right border-bottom-0 blueLabel">Expected In</th>
+							<th className="text-right border-bottom-0 blueLabel">Expected Out</th>
+						</tr>
+					</thead>
+					<tbody>
+						{this.state.stockAgeProfile.map((item, idx) => (
+							<tr key={idx}>
+								{this.state.column.map((column, columnIdx) => {
+									if (column.id === "site" || column.id === "productId" ||
+										column.id === "description" ||
+										column.id === "uom") {
+											return <td key={columnIdx} className="px-2 text-left">{item[column.id]}</td>
+									}
+
+									return <td key={columnIdx} className={"px-2 text-right" + (column.id === "lively" ? " border-left" : (column.id === "dead" ? " border-right" : ""))}>{item[column.id]}</td>
+								})}
+							</tr>
+						))}
+					</tbody>
+				</Table>
+				<div className="card-footer text-center border-company border-top-0">
+					<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+							totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+							currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+							isActive={this.state.isActive}
+							numberEventClick={this.numberEventClick} />
+				</div>
 			</div>
-		</div>
-		return(
+
+		return (
 			<React.Fragment>
 				<div className="animated fadeIn">
 					<div className="row">
@@ -224,24 +226,27 @@ class StockAgeProfile extends Component {
 														<FormGroup>
 															<InputGroup>
 																<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-																	<Card className="form-group row rounded-top-175 mb-0">
+																	<Card className="form-group row rounded-top-175 mb-0 border-0">
 																		<div className="input-group p-2">
 																			<div className="input-group-prepend bg-white col-9">
 																				<span className="input-group-text border-0 bg-white p-0">
 																					<i className="fa fa-search fa-2x iconSpace" />
+																					{/* <i className="iconU-search" /> */}
 																				</span>
-																				<input type="text" className="form-control border-0" placeholder="Enter a product or a description" />
+																				<input type="text" className="form-control border-0 pt-2"
+																						id="searchForm" name="searchForm" placeholder="Enter a product or a description" />
 																			</div>
 																			<div className="col-3 text-right">
 																				<Button className={"circle" + (this.state.showFilter ? " active" : "")} onClick={this.triggerChangeFilter}>
-																					<i className="fa fa-sliders" />
+																					{/* <i className="fa fa-sliders" /> */}
+																					<i className="iconU-filter" />
 																				</Button>
 
 																				{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}
 
-																				<button type="submit" className="search rounded-175">
+																				<Button type="submit" className="search rounded-175">
 																					<strong>Search</strong>
-																				</button>
+																				</Button>
 																			</div>
 																		</div>
 																	</Card>

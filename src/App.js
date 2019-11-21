@@ -5,8 +5,8 @@ import './App.scss';
 
 import { DefaultLayout } from './containers';
 import { Login } from './views/Pages';
-import AnonimRoute from './AppComponent/AnonimRoute';
-import ProtectedRoute from './AppComponent/ProtectedRoute';
+// import AnonimRoute from './AppComponent/AnonimRoute';
+// import ProtectedRoute from './AppComponent/ProtectedRoute';
 
 // const DefaultLayout = React.lazy(() => import('./containers/DefaultLayout'));
 // const Login = React.lazy(() => import('./views/Pages/Login'));
@@ -29,8 +29,8 @@ class App extends Component {
 						<Route exact path="/login" name="Login Page" render={props => <Login {...props}/>} />
 						<Route path="/" name="Home" render={props => <DefaultLayout {...props}/>} />
 
-						// <AnonimRoute exact path="/login" name="Login Page" component={Login} />
-						// <ProtectedRoute path="/" name="Home" component={DefaultLayout} />
+						{/* <AnonimRoute exact path="/login" name="Login Page" component={Login} />
+						<ProtectedRoute path="/" name="Home" component={DefaultLayout} /> */}
 					</Switch>
 				{/* </React.Suspense> */}
 			</HashRouter>

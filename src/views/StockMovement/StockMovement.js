@@ -596,13 +596,13 @@ class StockMovement extends Component {
 								item.id === "plannedOut" ||
 								item.id === "weight" ||
 								item.id === "volume") {
-								return <th className="p-3 text-right align-middle" key={idx} width="10%">{item.tableHeaderText}</th>
+								return <th className="p-3 text-right" key={idx} width="10%">{item.tableHeaderText}</th>
 							}
 
-							return <th className="p-3 text-left align-middle" key={idx} width="10%">{item.tableHeaderText}</th>
+							return <th className="p-3 text-left" key={idx} width="10%">{item.tableHeaderText}</th>
 						}
 					})}
-					<th className="p-3 text-left align-middle">
+					<th className="p-3 text-left">
 						<button type="button" className="btn btn-outline-light"  onClick={this.toggleDisplayMoreColumn} style={{backgroundColor: '#FFFFFF', padding: '0.1rem 0.4rem', borderRadius: '100%'}}>
 							<span className="glyphicon glyphicon-pencil" style={{ color: '#388DCD', fontSize: '11px' }}></span>
 						</button>

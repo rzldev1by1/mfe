@@ -8,15 +8,15 @@ import { Card, CardBody,
 		//  DropdownToggle
 } from 'reactstrap';
 // import { TableHeaderColumn } from 'react-bootstrap-table';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import axios from 'axios';
 import AppComponent from '../../AppComponent';
+import Paging from '../General/Paging';
 
 import './StockHolding.css';
 import StockHoldingEditColumn from './StockHoldingEditColumn';
 
-import Paging from '../General/Paging';
 
 class StockHolding extends Component {
 	constructor(props) {
@@ -328,8 +328,9 @@ class StockHolding extends Component {
 	}
 
 	rowClicked = (productCode) => {
-		this.props.history.push("/stockholding/" + encodeURIComponent(productCode));
-		// return <Link className="company-link p-1" to={"/stockholding/" + encodeURIComponent(productCode)}>{productCode}</Link>;
+		this.props.history.push("/stock/stockholding/" + encodeURIComponent(productCode));
+		// window.location = "/stock/stockholding/" + encodeURIComponent(productCode);
+		// return <Link className="company-link p-1" to={"/stock/stockholding/" + encodeURIComponent(productCode)}>{productCode}</Link>;
 	}
 
 	showHeader = () => {
@@ -337,30 +338,20 @@ class StockHolding extends Component {
 			<tr>
 				{this.state.columns.map((item, idx) => {
 					if (item.isVisible) {
-						// if (item.id === "qty" ||
-						// 	item.id === "plannedIn" ||
-						// 	item.id === "plannedOut" ||
-						// 	item.id === "weight" ||
-						// 	item.id === "volume") {
-						// 	return <th className="p-3 text-right align-middle" key={idx} width="10%">{item.tableHeaderText}</th>;
-						// }
-
 						if (item.id === "onHandQty" ||
 							item.id === "onHandWeight" ||
 							item.id === "expectedInQty" ||
 							item.id === "expectedInWeight" ||
 							item.id === "expectedOutQty") {
-							return <th className="p-3 text-right align-middle" key={idx} width="10%">{item.tableHeaderText}</th>;
-							// return <TableHeaderColumn className="p-3 text-right align-middle" key={idx} width="10%" dataField="name" dataSort>{item.tableHeaderText}</TableHeaderColumn>;
+							return <th className="p-3 text-right" key={idx} width="10%">{item.tableHeaderText}</th>;
 						}
 
-						return <th className="p-3 text-left align-middle" key={idx} width="10%">{item.tableHeaderText}</th>;
-						// return <TableHeaderColumn className="p-3 text-left align-middle" key={idx} width="10%" dataField="name" dataSort>{item.tableHeaderText}</TableHeaderColumn>;
+						return <th className="p-3 text-left" key={idx} width="10%">{item.tableHeaderText}</th>;
 					}
 				})}
-				<th className="p-3 text-left align-middle">
+				<th className="p-3 text-left">
 					<button type="button" className="btn btn-outline-light editColumnBtn"  onClick={this.toggleDisplayMoreColumn}>
-						<span className="glyphicon glyphicon-pencil editColumnLogo"></span>
+						<span className="glyphicon glyphicon-pencil editColumnLogo" />
 					</button>
 				</th>
 			</tr>
@@ -373,14 +364,6 @@ class StockHolding extends Component {
 				<tr key={idx} onClick={() => this.rowClicked(item["product"])}>
 					{this.state.columns.map((column, columnIdx) => {
 						if (column.isVisible) {
-							// if (column.id === "qty" ||
-							// 	column.id === "plannedIn" ||
-							// 	column.id === "plannedOut" ||
-							// 	column.id === "weight" ||
-							// 	column.id === "volume") {
-							// 	return <td key={columnIdx} className="px-3 text-right">{item[column.id]}</td>;
-							// }
-	
 							if (column.id === "onHandQty" ||
 								column.id === "onHandWeight" ||
 								column.id === "expectedInQty" ||
@@ -414,19 +397,16 @@ class StockHolding extends Component {
 				</li>
 
 				<li className="select-items">
-					<input type="radio" className="select-expand"
-							id={item.id + "-opener"} name={item.id} />
+					<input type="radio" className="select-expand" id={item.id + "-opener"} name={item.id} />
 					<label className="select-closeLabel" htmlFor={item.id + "-close"} onClick={() => this.triggerChangeFilter(key)} />
 
 					<ul className="select-options">
 						<li className="select-option">
-							<input type="radio" className="select-input"
-							name={item.id} />
+							<input type="radio" className="select-input" name={item.id} />
 							<label className="select-label" htmlFor={item.id + "-test123"}>TEST123</label>
 						</li>
 						<li className="select-option">
-							<input type="radio" className="select-input"
-							name={item.id} />
+							<input type="radio" className="select-input" name={item.id} />
 							<label className="select-label option-radius" htmlFor={item.id + "-test234"}>TEST234</label>
 						</li>
 					</ul>
@@ -458,18 +438,13 @@ class StockHolding extends Component {
 						</div>
 					</div>
 				</div>
-			break;
+				break;
 
 			default :
 				content =
 				<div className="col-12 d-flex h-100 position-relative">
 					<div className="bg-transparent mx-auto my-auto text-center">
 						<div className={this.state.isSearch ? "" : "d-none"}>
-							{/* <div className={"sk-double-bounce" + (this.state.isLoaded ? "" : " d-none")}>
-								<div className="sk-child sk-double-bounce1" />
-								<div className="sk-child sk-double-bounce2" />
-							</div> */}
-							{/* <div className={"sk-spinner sk-spinner-pulse" + (this.state.isLoaded ? "" : " d-none")} /> */}
 							<div className={"spinner" + (this.state.isLoaded ? "" : " d-none")} />
 							<p className={this.state.displayContent === "NOT_FOUND" ? "" : "d-none"}>{this.state.notFoundMessage}</p>
 						</div>
@@ -487,9 +462,9 @@ class StockHolding extends Component {
 									<CardBody>
 										<Row className="align-items-center">
 											<div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-												<FormGroup>
+												<FormGroup className="mb-1">
 													<InputGroup>
-														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
+														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
 															<h4 className="headerTitle font-weight-bold">Stock Holding Summary</h4>
 														</div>
 													</InputGroup>
@@ -515,13 +490,15 @@ class StockHolding extends Component {
 																			<div className="input-group-prepend bg-white col-9">
 																				<span className="input-group-text border-0 bg-white p-0">
 																					<i className="fa fa-search fa-2x iconSpace" />
+																					{/* <i className="iconU-search" /> */}
 																				</span>
-																				<input type="text" className="form-control border-0" 
+																				<input type="text" className="form-control border-0 pt-2" 
 																						id="searchForm" name="searchForm" placeholder="Enter a Product or Description" />
 																			</div>
 																			<div className="col-3 text-right">
 																				<Button className={"circle" + (this.state.showFilter ? " active" : "")} onClick={this.triggerShowFilter}>
-																					<i className="fa fa-sliders" />
+																					{/* <i className="fa fa-sliders" /> */}
+																					<i className="iconU-filter" />
 																				</Button>
 
 																				{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}
