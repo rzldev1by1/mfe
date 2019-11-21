@@ -93,7 +93,7 @@ class DefaultLayout extends Component {
 												)} />
 										) : (null);
 									})}
-									<Redirect from="/" to="/stockholding" />
+									<Redirect from="/" to="/stock" />
 								</Switch>
 							</Suspense>
 						</Container>

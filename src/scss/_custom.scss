@@ -69,132 +69,141 @@ body {
 	// font-size: 15px;
 }
 
-//custom
-.red{
-	background-color: red !important;
-}
 
-.blue{
-	background-color: blue !important;
-}
-
-.centered-logo{
-	/* Location of the image */
-  background-image: url(../assets/img/brand/Microlistics_WTG_White_Medium.png);
-
-  /* Background image is centered vertically and horizontally at all times */
-  background-position: center center;
-
-  /* Background image doesn't tile */
-  background-repeat: no-repeat;
-
-  /* Background image is fixed in the viewport so that it doesn't move when
-     the content's height is greater than the image's height */
-  background-attachment: fixed;
-
-  /* This is what makes the background image rescale based
-     on the container's size */
-  background-size: cover;
-
-  /* Set a background color that will be displayed
-     while the background image is loading */
-  background-color: gray;
-}
-
-.background-right-full{
-	/* Location of the image */
-  background-image: url(../assets/img/brand/bg.jpg);
-
-  /* Background image is centered vertically and horizontally at all times */
-  background-position: center center;
-
-  /* Background image doesn't tile */
-  background-repeat: no-repeat;
-
-  /* Background image is fixed in the viewport so that it doesn't move when
-     the content's height is greater than the image's height */
-  background-attachment: fixed;
-
-  /* This is what makes the background image rescale based
-     on the container's size */
-  background-size: cover;
-
-  /* Set a background color that will be displayed
-     while the background image is loading */
-  background-color: gray;
-}
-
-.background-shadow{
-	background-color: #030404;
-	opacity: 0.5;
-}
-
-.logo-shadow{
-	background-color: #494949;
-	border-radius: 40px;
-	// opacity: 0.15;
-}
-
-.area-logo-shadow{
-	height: 450px !important;
-}
-
-img.center-area-logo{
-	padding-top: 4.5rem !important;
+@font-face {
+	font-family: 'icomoon';
+	src: url('./logo/fonts/icomoon.eot?t60pg3');
+	src: url('./logo/fonts/icomoon.eot?t60pg3#iefix') format('embedded-opentype'),
+	url('./logo/fonts/icomoon.ttf?t60pg3') format('truetype'),
+	url('./logo/fonts/icomoon.woff?t60pg3') format('woff'),
+	url('./logo/fonts/icomoon.svg?t60pg3#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
 }
 
 
-
-ul.companyProfile{
-	text-align: center;
-	list-style: none;
-	width: 100%;
-	li{
-		display: inline-block;
-		float: right;
-
-		label.profTitle{
-			padding: 25px !important;
-			text-align: center;
-			color: white;
-			font-size:1em;
-		}
-	}
+[class^="iconU-"], [class*=" iconU-"] {
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+	// line-height: 0.75;
+	vertical-align: bottom;
+    // font-size: 3.5rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-.copyright-section{
-	position: fixed;
-	bottom: 10px;
+.iconU-user:before {
+	content: "\e912";
 }
 
-.blueLabel{
-	color:#388DCD !important;
+.iconU-dashboard:before {
+	content: "\e913"
 }
 
-.whiteLabel{
-	color:#FFFFFF !important;
+.iconU-purchaseOrder:before {
+	content: "\e914";
 }
 
-.contact-us{
-	position: fixed;
-	bottom: 100px;
-	// background-color: red;
-
+.iconU-report:before {
+	content: "\e915";
 }
 
-.fullscreen-left {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
+.iconU-salesOrder:before {
+	content: "\e916";
 }
 
-.fullscreen-right {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
+.iconU-stock:before {
+	content: "\e917";
 }
+
+.iconU-report:before {
+	content: "\e915";
+}
+
+
+.iconU-circledChecked:before {
+	content: "\e900";
+}
+
+.iconU-checked:before {
+	content: "\e90e";
+}
+
+.iconU-close:before {
+	content: "\e901";
+}
+
+.iconU-delete:before {
+	content: "\e902";
+}
+
+.iconU-edit:before {
+	content: "\e903";
+}
+
+.iconU-filter:before {
+	content: "\e904";
+	font-size: 13px !important;
+}
+
+.iconU-information:before {
+	content: "\e905";
+}
+
+.iconU-leftArrow:before {
+	content: "\e906";
+}
+
+.iconU-rightArrow:before {
+	content: "\e90a";
+}
+
+.iconU-upArrow:before {
+	content: "\e910";
+}
+
+.iconU-downArrow:before {
+	content: "\e90f";
+}
+
+.iconU-one:before {
+	content: "\e907";
+}
+
+.iconU-two:before {
+	content: "\e90c";
+}
+
+.iconU-three:before {
+	content: "\e90b";
+}
+
+.iconU-option:before {
+	content: "\e908";
+}
+
+.iconU-question:before {
+	content: "\e909";
+}
+
+.iconU-rightArrow:before {
+	content: "\e90a";
+}
+
+.iconU-calendar:before {
+	content: "\e90d";
+}
+
+.iconU-search:before {
+	content: "\e911";
+	display: inline-block;
+	font-size: 2rem !important;
+}
+
 
 // Glyphicons Icons
 @font-face{font-family:'Glyphicons Halflings';src:url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.eot');src:url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.woff') format('woff'),url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.ttf') format('truetype'),url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:normal;line-height:1;-webkit-font-smoothing:antialiased;}
@@ -202,25 +211,27 @@ ul.companyProfile{
 .glyphicon-eye-open:before{content:"\e105";}
 .glyphicon-eye-close:before{content:"\e106";}
 
-// .app .navbar-brand {
-// 	top: 27px;
-// 	left: 48px;
-// 	width: 128px;
-// 	height: 57px;
-// }
 
+@media (min-width: 992px) {
+	.sidebar-lg-show.sidebar-fixed .main, 
+	.sidebar-lg-show.sidebar-fixed .app-footer, 
+	.sidebar-show.sidebar-fixed .main, 
+	.sidebar-show.sidebar-fixed .app-footer {
+		margin-left: 260px !important;
+	}
+}
 
 // Start - Sidebar
 
 .sidebar {
 	background: #FFFFFF 0% 0% no-repeat padding-box;
 	opacity: 1;
-	width: 170px !important;
+	width: 230px !important;
 }
 
 .sidebar .sidebar-header {
 	background: #FFFFFF 0% 0% no-repeat padding-box;
-	width: 170px;
+	width: 230px;
 }
 
 .sidebar .sidebar-footer {
@@ -229,39 +240,45 @@ ul.companyProfile{
 }
 
 .sidebar .nav {
-	// width: 100px;
+	width: 230px;
 	flex-direction: column;
 	min-height: 100%;
-	padding: 1;
 }
 
 .sidebar .sidebar-nav {
 	position: relative;
-	width: 170px;
-	color: #212F61;
+	width: 230px;
 }
 
 .sidebar .nav-item {
-	width: 170px;
+	width: 230px;
+	padding: 0 30px 0 30px;
+	background: #FFFFFF !important;
 }
 
-.sidebar .nav-link, .nav-link .nav-icon,
-.nav-link.active, .nav-link.active .nav-icon {
+.sidebar .nav-link, 
+		 .nav-link .nav-icon {
 	color: #212F61 !important;
 }
 
-.sidebar .nav-link.active {
-	color: #212F61;
-	background: #FFFFFF !important;
+.sidebar .nav-item .nav-link:hover, 
+				   .nav-link:hover .nav-icon,
+				   .nav-link.active,
+				   .nav-link.active .nav-icon {
+	color: #388DCD !important;
+	background: #EAF3FA !important;
+	border-radius: 32px;
 }
 
-.sidebar .nav-link:hover {
-	color: #FFFFFF !important;
-	background: #388DCD !important;
+.sidebar .nav-dropdown.open:hover {
+	color: #388DCD !important;
 }
 
-.sidebar .nav-dropdown.open {
+.sidebar .nav-dropdown-items .nav-item .nav-link.active,
+.sidebar .nav-dropdown-items .nav-item .nav-link:hover {
+	color: #388DCD !important;
 	background: #FFFFFF !important;
+	border-radius: none;
 }
 
 .sidebar-minimizer {
@@ -326,7 +343,6 @@ ul.companyProfile{
 	font-weight: bold;
 }
 
-
 // End - User Section
 
 
@@ -344,8 +360,8 @@ hr.border-header {
 // Start - Button
 
 .circle {
-	width: 35px;
-	height: 35px;
+	width: 38px;
+	height: 38px;
 	border-radius: 50%;
 	background-color: #E0E3F2;
 	color: #212F61;
@@ -359,8 +375,8 @@ hr.border-header {
 }
 
 .search, .search:hover, .search:focus {
-	width: 160px;
-	height: 35px;
+	width: 140px;
+	height: 38px;
 	background-color: #388DCD;
 	color: #FFFFFF;
 	border: none;
@@ -389,16 +405,18 @@ hr.border-header {
 // 	background-color: #F5F7FA;
 // }
 
-.table-striped>tbody>tr>td {
-	// background-color: #F5F7FA;
-	background-color: #FFFFFF;
-	color: #4E4E4E;
-}
-
 .table th {
 	background-color: #FFFFFF;
 	color: #212F61;
 	border-top: none;
+	vertical-align: middle !important;
+}
+
+.table td, .table-striped>tbody>tr>td {
+	// background-color: #F5F7FA;
+	background-color: #FFFFFF;
+	color: #4E4E4E;
+	vertical-align: middle !important;
 }
 
 .clickable-row>tbody>tr:hover>td {
@@ -464,8 +482,128 @@ hr.border-header {
 	}
 }
 
+.red {
+	background-color: red !important;
+}
 
-// Input Style - Login Page
+.blue {
+	background-color: blue !important;
+}
+
+.centered-logo {
+	/* Location of the image */
+  background-image: url(../assets/img/brand/Microlistics_WTG_White_Medium.png);
+
+  /* Background image is centered vertically and horizontally at all times */
+  background-position: center center;
+
+  /* Background image doesn't tile */
+  background-repeat: no-repeat;
+
+  /* Background image is fixed in the viewport so that it doesn't move when
+     the content's height is greater than the image's height */
+  background-attachment: fixed;
+
+  /* This is what makes the background image rescale based
+     on the container's size */
+  background-size: cover;
+
+  /* Set a background color that will be displayed
+     while the background image is loading */
+  background-color: gray;
+}
+
+.background-right-full {
+	/* Location of the image */
+  background-image: url(../assets/img/brand/bg.jpg);
+
+  /* Background image is centered vertically and horizontally at all times */
+  background-position: center center;
+
+  /* Background image doesn't tile */
+  background-repeat: no-repeat;
+
+  /* Background image is fixed in the viewport so that it doesn't move when
+     the content's height is greater than the image's height */
+  background-attachment: fixed;
+
+  /* This is what makes the background image rescale based
+     on the container's size */
+  background-size: cover;
+
+  /* Set a background color that will be displayed
+     while the background image is loading */
+  background-color: gray;
+}
+
+.background-shadow {
+	background-color: #030404;
+	opacity: 0.5;
+}
+
+.logo-shadow {
+	background-color: #494949;
+	border-radius: 40px;
+	// opacity: 0.15;
+}
+
+.area-logo-shadow {
+	height: 450px !important;
+}
+
+img.center-area-logo {
+	padding-top: 4.5rem !important;
+}
+
+ul.companyProfile {
+	text-align: center;
+	list-style: none;
+	width: 100%;
+	li {
+		display: inline-block;
+		float: right;
+
+		label.profTitle {
+			padding: 25px !important;
+			text-align: center;
+			color: #FFFFFF;
+			font-size: 1em;
+		}
+	}
+}
+
+.copyright-section {
+	position: fixed;
+	bottom: 10px;
+}
+
+.blueLabel {
+	color:#388DCD !important;
+}
+
+.whiteLabel{
+	color:#FFFFFF !important;
+}
+
+.contact-us {
+	position: fixed;
+	bottom: 100px;
+	// background-color: red;
+}
+
+.fullscreen-left {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+}
+
+.fullscreen-right {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+}
 
 .input {
 	font-family: "Nunito";
@@ -524,7 +662,7 @@ hr.border-header {
 	left: 0%;
 }
 
-// Checkbox Style - Login Page
+
 .cbx {
 	margin: auto;
 	-webkit-user-select: none;

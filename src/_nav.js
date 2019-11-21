@@ -125,13 +125,13 @@ export default {
     // },
 	{
 		name: 'Dashboard',
-		// url: '/dashboard',
-		icon: 'fa fa-cogs',
+		url: '/dashboard',
+		icon: 'iconU-dashboard',
 	},
 	{
-		name: 'Inbound Delivery',
-		// url: '/notifications',
-		icon: 'fa fa-truck',
+		name: 'Purchase Order',
+		url: '/notifications',
+		icon: 'iconU-purchaseOrder',
 		// children: [
 		//   {
 		// 	name: 'Buttons',
@@ -157,8 +157,8 @@ export default {
 	},
 	{
 		name: 'Sales Order',
-		// url: '/icons',
-		icon: 'fa fa-shopping-cart',
+		url: '/icons',
+		icon: 'iconU-salesOrder',
 		// children: [
 		//   {
 		// 	name: 'Buttons',
@@ -184,30 +184,30 @@ export default {
 	},
     {
       name: 'Stock',
-    //   url: '/buttons',
-      icon: 'fa fa-cubes',
+      url: '/stock',
+      icon: 'iconU-stock',
       children: [
         {
           name: 'Stock Holding',
-          url: '/stockholding',
+          url: '/stock/stockholding',
         //   icon: 'icon-cursor',
         },
         {
           name: 'Stock Movement',
-          url: '/stockmovement',
+          url: '/stock/stockmovement',
         //   icon: 'icon-cursor',
         },
         {
           name: 'Stock Age Profile',
-          url: '/stockageprofile',
+          url: '/stock/stockageprofile',
         //   icon: 'icon-cursor',
         }
       ],
 	},
 	{
 		name: 'User Control',
-		// url: '/base',
-		icon: 'fa fa-user',
+		url: '/base',
+		icon: 'iconU-user',
 		// children: [
 		//   {
 		// 	name: 'Buttons',
