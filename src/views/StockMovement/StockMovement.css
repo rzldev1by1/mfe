@@ -77,6 +77,8 @@
 
 .select_expand-sm:hover::after {opacity: 1}
 
+.select_expand-sm:checked::after {-webkit-transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.75);transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.75);}
+
 .select_expandLabel-sm {
 	display: block;
 	width: 100%;
@@ -266,6 +268,8 @@
 
 .select_expand-date:hover::after {opacity: 1}
 
+.select_expand-date:checked::after {-webkit-transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.75);transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.75);}
+
 .select_expandLabel-date {
 	display: block;
 	width: 100%;
@@ -365,3 +369,4 @@
 	border-bottom-left-radius: 22px;
 	border-bottom-right-radius: 22px;
 }
+
