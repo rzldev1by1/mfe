@@ -17,8 +17,8 @@ import {Helmet} from "react-helmet";
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
-const currentYear = new Date().getFullYear();
-const currentMonth = new Date().getMonth();
+const currentYear = 2017;
+const currentMonth = 0;
 const fromMonth = new Date(currentYear, currentMonth);
 const toMonth = new Date(currentYear + 10, 11);
 
@@ -65,8 +65,10 @@ function formatMonth(date){
 function YearMonthForm({ date, localeUtils, onChange, no }) {
 	let monthOption, yearOption;
 	var monthExpand, yearExpand;
-	monthExpand = {};
-	yearExpand = {};
+	monthExpand = [];
+	yearExpand = [];
+	monthExpand[no] = false;
+	yearExpand[no] = false;
 	const months = localeUtils.getMonths();
 	const years = [];
 	for (let i = fromMonth.getFullYear(); i <= toMonth.getFullYear(); i += 1) {
@@ -83,18 +85,23 @@ function YearMonthForm({ date, localeUtils, onChange, no }) {
 		}
 	};
 
-	const handleMonthExpand = function handleMonthExpand(e){
-		return monthExpand[no] = !monthExpand[no];
+	var handleMonthExpand = function handleMonthExpand(){
+		monthExpand[no] = !monthExpand[no];
+		return monthExpand[no];
 	}
 
-	const handleYearExpand = function handleYearExpand(e){
-		return yearExpand[no] = !yearExpand[no];
+	const handleYearExpand = function handleYearExpand(){
+		return function(){
+			yearExpand[no] = !yearExpand[no];
+		}
 	}
-	console.log(monthExpand[no]);
+	var monthExpandStatus = [];
+	monthExpandStatus[no] = handleMonthExpand.bind(); 
+	console.log(handleMonthExpand)
 	return (
 	
 	  <form className="DayPicker-Caption">
-		  <ul className={"select-date month-option" + (monthExpand[no] ? " expand-period-sm" : "")} id="select">
+		  <ul className={"select-date month-option" + (handleMonthExpand ? " expand-period-sm" : "")} id="select">
 			<li className="expand-style-date">
 				<input className="select_close-date" type="radio" name="month" id={"awesomeness-close1" + (no)} value=""/>
 				<span className="select_label-date select_label-placeholder-date">{formatMonth(date.getMonth())}</span>
@@ -108,13 +115,13 @@ function YearMonthForm({ date, localeUtils, onChange, no }) {
 				{months.map((month, i) => (
 					<li className="select_option-date">
 						<input className="select_input-date" key={month} type="radio" value={i} name="month" id={"month" + i} onChange={handleChange}></input>
-						<label className="select_label-date" htmlFor={"month" + i} onClick={handleMonthExpand}>{month}</label>
+						<label className="select_label-date" htmlFor={"month" + i} onClick={handleMonthExpand.bind(YearMonthForm)}>{month}</label>
 					</li>
 		 		 ))}
 			</ul>
 
 
-				<label className="select_expandLabel-date" htmlFor={"awesomeness-opener1" + (no)} onClick={handleMonthExpand}></label>
+				<label className="select_expandLabel-date" htmlFor={"awesomeness-opener1" + (no)} onClick={handleMonthExpand.bind(YearMonthForm)}></label>
 			</li>
 		</ul>
 		<ul className={"select-date year-option" + (yearExpand[no] ? " expand-period-sm" : "")} id="select">
@@ -682,6 +689,7 @@ class StockMovement extends Component {
 															<InputGroup>
 																<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
 																	<Card className="form-group row rounded-175 filter-bar" style={{padding: '17px'}}>
+																		
 																		<div className="input-group p-2">
 																			<div className="input-group-prepend bg-white col-9">
 																				<Label htmlFor="select" className="filter_label">Display Period</Label>
