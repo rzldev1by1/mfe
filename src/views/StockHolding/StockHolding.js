@@ -86,9 +86,9 @@ class StockHolding extends Component {
 					// "zone": { id: "zone", text: "Zone", isVisible: false },
 					// "disposition": { id: "disposition", text: "Disposition", isVisible: false },
 					// "alert": { id: "alert", text: "Alert", isVisible: false },
-					site: { id: "site", text: "Site", isVisible: false },
-					uom: { id: "uom", text: "UoM", isVisible: false },
-					status: { id: "status", text: "Status", isVisible: false }
+					site: { id: "site", text: "Site", isVisible: false, options: "" },
+					status: { id: "status", text: "Status", isVisible: false, options: ["EACH", "BAG", "RPT", "CARTON"] },
+					uom: { id: "uom", text: "UoM", isVisible: false, options: "" }
 				}
 			},
 			masterResStockHolding: []
@@ -402,12 +402,28 @@ class StockHolding extends Component {
 
 					<ul className="select-options">
 						<li className="select-option">
-							<input type="radio" className="select-input" name={item.id} />
-							<label className="select-label" htmlFor={item.id + "-test123"}>TEST123</label>
+							<input type="checkbox" className="inp-cbx-filter d-none"
+							name={item.id} id={item.id + item} checked/>
+							<label className="select-label cbx-filter" htmlFor={item.id + item}>
+								<span>
+									<svg viewBox="0 0 12 10" width="12px" height="10px">
+										<polyline points="1.5 6 4.5 9 10.5 1" />
+									</svg>
+								</span>
+								<span>TEST123</span>
+							</label>
 						</li>
 						<li className="select-option">
-							<input type="radio" className="select-input" name={item.id} />
-							<label className="select-label option-radius" htmlFor={item.id + "-test234"}>TEST234</label>
+							<input type="checkbox" className="inp-cbx-filter d-none"
+								name={item.id} id={item.id + "-test234"} />
+								<label className="select-label option-radius cbx-filter" htmlFor={item.id + "-test234"}>
+									<span>
+										<svg viewBox="0 0 12 10" width="12px" height="10px">
+											<polyline points="1.5 6 4.5 9 10.5 1" />
+										</svg>
+									</span>
+									<span>TEST123</span>
+								</label>
 						</li>
 					</ul>
 
@@ -465,7 +481,7 @@ class StockHolding extends Component {
 												<FormGroup className="mb-1">
 													<InputGroup>
 														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-															<h4 className="headerTitle font-weight-bold">Stock Holding Summary</h4>
+															<h4 className="headerTitle font-weight-bold stockholding-title">Stock Holding Summary</h4>
 														</div>
 													</InputGroup>
 												</FormGroup>
@@ -506,6 +522,14 @@ class StockHolding extends Component {
 																				<Button type="submit" className="search rounded-175" onClick={this.searchData}>
 																					<strong>Search</strong>
 																				</Button>
+																			</div>
+																		</div>
+																		<div className={"input-group p-2" + (this.state.showFilter ? "" : " d-none")}>
+																			<div className="filter-show">
+																				<span className="filter-label-show">Each</span>
+																				<button type="button" className="btn btn-outline-light filter-show-btn">
+																					<span className="iconU-close filter-close-icon" />
+																				</button>
 																			</div>
 																		</div>
 																		
