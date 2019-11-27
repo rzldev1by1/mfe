@@ -205,7 +205,7 @@ export default {
       ],
 	},
 	{
-		name: 'User Control',
+		name: 'Customer',
 		url: '/base',
 		icon: 'iconU-user',
 		// children: [
@@ -231,11 +231,11 @@ export default {
 		//   },
 		// ],
 	},
-    // {
-    //   name: 'Charts',
-    //   url: '/charts',
-    //   icon: 'icon-pie-chart',
-    // },
+    {
+      name: 'Reports',
+      url: '/charts',
+      icon: 'iconU-report',
+    },
     // {
     //   name: 'Icons',
     //   url: '/icons',
