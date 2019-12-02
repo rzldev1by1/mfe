@@ -55,13 +55,6 @@ class DefaultLayout extends Component {
 
 							<AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
 
-							{/* <div className="p-1 sidebar-footer">
-								<div className="text-center align-middle">
-									<span className="fa fa-user-circle fa-3x" />
-									<span className="px-2">George Smith</span>
-								</div>
-							</div> */}
-
 							<Table className="userSection" size="sm">
 								<tbody>
 									<tr>
@@ -100,7 +93,7 @@ class DefaultLayout extends Component {
 												)} />
 										) : (null);
 									})}
-									<Redirect from="/" to="/stockholding" />
+									<Redirect from="/" to="/stock" />
 								</Switch>
 							</Suspense>
 						</Container>

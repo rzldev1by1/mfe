@@ -15,11 +15,11 @@ class AppComponent {
 	static getBaseUrl() {
 		switch (this.ENV_MODE) {
 			case this.DEVELOPMENT :
-				return this.BASE_URL_DEV + "?endpoint=" + this.ENDPOINT_URL;
-				// return this.ENDPOINT_URL;
+				// return this.BASE_URL_DEV + "?endpoint=" + this.ENDPOINT_URL;
+				return this.ENDPOINT_URL;
 			case this.PRODUCTION :
-				return this.BASE_URL_PROD + "?endpoint=" + this.ENDPOINT_URL;
-				// return this.ENDPOINT_URL;
+				// return this.BASE_URL_PROD + "?endpoint=" + this.ENDPOINT_URL;
+				return this.ENDPOINT_URL;
 			default :
 				break;
 		}

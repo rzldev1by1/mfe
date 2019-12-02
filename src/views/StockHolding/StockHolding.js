@@ -8,15 +8,15 @@ import { Card, CardBody,
 		//  DropdownToggle
 } from 'reactstrap';
 // import { TableHeaderColumn } from 'react-bootstrap-table';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import axios from 'axios';
 import AppComponent from '../../AppComponent';
+import Paging from '../General/Paging';
 
 import './StockHolding.css';
 import StockHoldingEditColumn from './StockHoldingEditColumn';
 
-import Paging from '../General/Paging';
 
 class StockHolding extends Component {
 	constructor(props) {
@@ -48,8 +48,8 @@ class StockHolding extends Component {
 				// { id: "plannedOut", checkboxLabelText: "Planned Out", tableHeaderText: "Planned Out", isVisible: true, key: "" },
 				// { id: "packType", checkboxLabelText: "Pack Type", tableHeaderText: "Pack Type", isVisible: true, key: "" },
 				// { id: "packSize", checkboxLabelText: "Pack Size", tableHeaderText: "Pack Size", isVisible: true, key: "" },
-				// { id: "rotaDate", checkboxLabelText: "RotaDate", tableHeaderText: "RotaDate", isVisible: false, key: "" },
-				// { id: "rotaType", checkboxLabelText: "RotaDate Type", tableHeaderText: "RotaDate Type", isVisible: false, key: "" },
+				// { id: "rotaDate", checkboxLabelText: "Rotadate", tableHeaderText: "Rotadate", isVisible: false, key: "" },
+				// { id: "rotaType", checkboxLabelText: "Rotadate Type", tableHeaderText: "Rotadate Type", isVisible: false, key: "" },
 				// { id: "dateStatus", checkboxLabelText: "Date Status", tableHeaderText: "Date Status", isVisible: true, key: "" },
 				// { id: "zone", checkboxLabelText: "Zone", tableHeaderText: "Zone", isVisible: false, key: "" },
 				// { id: "batch", checkboxLabelText: "Batch", tableHeaderText: "Batch", isVisible: true, key: "" },
@@ -80,15 +80,15 @@ class StockHolding extends Component {
 					// "location": { id: "location", text: "Location", isVisible: false },
 					// "locationType": { id: "locationType", text: "Location Type", isVisible: false },
 					// "packType": { id: "packType", text: "Pack Type", isVisible: false },
-					// "rotaDate": { id: "rotaDate", text: "RotaDate", isVisible: false },
-					// "rotaType": { id: "rotaType", text: "RotaDate Type", isVisible: false },
+					// "rotaDate": { id: "rotaDate", text: "Rotadate", isVisible: false },
+					// "rotaType": { id: "rotaType", text: "Rotadate Type", isVisible: false },
 					// "dateStatus": { id: "dateStatus", text: "Date Status", isVisible: false },
 					// "zone": { id: "zone", text: "Zone", isVisible: false },
 					// "disposition": { id: "disposition", text: "Disposition", isVisible: false },
 					// "alert": { id: "alert", text: "Alert", isVisible: false },
-					site: { id: "site", text: "Site", isVisible: false },
-					uom: { id: "uom", text: "UoM", isVisible: false },
-					status: { id: "status", text: "Status", isVisible: false }
+					site: { id: "site", text: "Site", isVisible: false, options: "" },
+					status: { id: "status", text: "Status", isVisible: false, options: ["EACH", "BAG", "RPT", "CARTON"] },
+					uom: { id: "uom", text: "UoM", isVisible: false, options: "" }
 				}
 			},
 			masterResStockHolding: []
@@ -97,7 +97,17 @@ class StockHolding extends Component {
 	}
 
 	componentDidMount() {
-		this.loadStockHolding();
+		if (localStorage.getItem("masterResStockHolding") && localStorage.getItem("masterResStockHolding") !== "undefined" ) {
+			let masterResStockHolding =  JSON.parse(localStorage.getItem("masterResStockHolding"));
+			if (masterResStockHolding) {
+				this.setState(() => {
+					return { masterResStockHolding: masterResStockHolding };
+				});
+				this.setPagination(masterResStockHolding);
+			}
+		} else {
+			this.loadStockHolding();
+		}
 	}
 
 	getLocalStorageFilterData = () => {
@@ -148,6 +158,31 @@ class StockHolding extends Component {
 		// localStorage.setItem("columnData", JSON.stringify(this.state.columns));
 	}
 
+	setPagination = (result) => {
+		let self = this;
+		let respondRes = result;
+		let totalPage = 0;
+
+		if (respondRes.length > self.state.displayPage) {
+			totalPage = respondRes % self.state.displayPage;
+			if (totalPage > 0 && totalPage < 50) {
+				totalPage = parseInt(respondRes.length / self.state.displayPage) + 1;
+			} else {
+				totalPage = respondRes.length / self.state.displayPage;
+			}
+			self.setState({ maxPage: totalPage });
+		} else {
+			self.setState({ maxPage: 1 });
+		}
+
+		self.setState({ displayContent: "FOUND",
+						masterResStockHolding: respondRes,
+						totalRows: respondRes.length });
+
+		self.numberEventClick(self.state.currentPage);
+		localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
+	}
+
     loadStockHolding = () => {
 		let self = this;
 		self.setState({ isLoaded: true, isSearch: true,
@@ -188,27 +223,7 @@ class StockHolding extends Component {
 			})
 			.then(function(result) {
 				if (result.data) {
-					let respondRes = result.data;
-					let totalPage = 0;
-
-					if (respondRes.length > self.state.displayPage) {
-						totalPage = respondRes % self.state.displayPage;
-						if (totalPage > 0 && totalPage < 50) {
-							totalPage = parseInt(respondRes.length / self.state.displayPage) + 1;
-						} else {
-							totalPage = respondRes.length / self.state.displayPage;
-						}
-						self.setState({ maxPage: totalPage });
-					} else {
-						self.setState({ maxPage: 1 });
-					}
-
-					self.setState({ displayContent: "FOUND",
-									masterResStockHolding: respondRes,
-									totalRows: respondRes.length });
-
-					self.numberEventClick(self.state.currentPage);
-					localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
+					self.setPagination(result.data);
 				}
 				self.setState({ isLoaded: false, isSearch: false });
 			});
@@ -220,18 +235,18 @@ class StockHolding extends Component {
 		self.setState({ isLoaded: true, isSearch: true,
 						currentPage: 1,
 						startIndex: 0, lastIndex: 0,
-						totalRows: 0, maxPage: 0 });
+						totalRows: 0, maxPage: 0, displayContent: "NOT_FOUND"});
 
-		let form = this.searchForm.current;
-		if (!form.searchForm.value) { return };
+		let params = {};
+		let form = self.searchForm.current;
 		let searchTerm = form.searchForm.value;
+		
+		// if (!searchTerm) { return };
+		params.searchParam = searchTerm;
 
-		let payload = { "prodId": searchTerm.toString(),
-						"prodName": searchTerm.toString() };
-
-
-		axios.get(AppComponent.getBaseUrl() + "api/searchStockHolding", payload,
+		axios.get(AppComponent.getBaseUrl() + "stockholding",
 		{
+			params: params,
 			headers: {
 				'Content-Type': 'application/json',
 				'Accept': 'application/json',
@@ -251,27 +266,7 @@ class StockHolding extends Component {
 		})
 		.then(function(result) {
 			if (result.data) {
-				let respondRes = result.data;
-				let totalPage = 0;
-
-				if (respondRes.length > self.state.displayPage) {
-					totalPage = respondRes % self.state.displayPage;
-					if (totalPage > 0 && totalPage < 50) {
-						totalPage = parseInt(respondRes.length / self.state.displayPage) + 1;
-					} else {
-						totalPage = respondRes.length / self.state.displayPage;
-					}
-					self.setState({ maxPage: totalPage });
-				} else {
-					self.setState({ maxPage: 1 });
-				}
-
-				self.setState({ displayContent: "FOUND",
-								masterResStockHolding: respondRes,
-								totalRows: respondRes.length });
-
-				self.numberEventClick(self.state.currentPage);
-				localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
+				self.setPagination(result.data);
 			}
 			self.setState({ isLoaded: false, isSearch: false });
 		});
@@ -333,8 +328,9 @@ class StockHolding extends Component {
 	}
 
 	rowClicked = (productCode) => {
-		this.props.history.push("/stockholding/" + encodeURIComponent(productCode));
-		// return <Link className="company-link p-1" to={"/stockholding/" + encodeURIComponent(productCode)}>{productCode}</Link>;
+		this.props.history.push("/stock/stockholding/" + encodeURIComponent(productCode));
+		// window.location = "/stock/stockholding/" + encodeURIComponent(productCode);
+		// return <Link className="company-link p-1" to={"/stock/stockholding/" + encodeURIComponent(productCode)}>{productCode}</Link>;
 	}
 
 	showHeader = () => {
@@ -342,30 +338,20 @@ class StockHolding extends Component {
 			<tr>
 				{this.state.columns.map((item, idx) => {
 					if (item.isVisible) {
-						// if (item.id === "qty" ||
-						// 	item.id === "plannedIn" ||
-						// 	item.id === "plannedOut" ||
-						// 	item.id === "weight" ||
-						// 	item.id === "volume") {
-						// 	return <th className="p-3 text-right align-middle" key={idx} width="10%">{item.tableHeaderText}</th>;
-						// }
-
 						if (item.id === "onHandQty" ||
 							item.id === "onHandWeight" ||
 							item.id === "expectedInQty" ||
 							item.id === "expectedInWeight" ||
 							item.id === "expectedOutQty") {
-							return <th className="p-3 text-right align-middle" key={idx} width="10%">{item.tableHeaderText}</th>;
-							// return <TableHeaderColumn className="p-3 text-right align-middle" key={idx} width="10%" dataField="name" dataSort>{item.tableHeaderText}</TableHeaderColumn>;
+							return <th className="p-3 text-right" key={idx} width="10%">{item.tableHeaderText}</th>;
 						}
 
-						return <th className="p-3 text-left align-middle" key={idx} width="10%">{item.tableHeaderText}</th>;
-						// return <TableHeaderColumn className="p-3 text-left align-middle" key={idx} width="10%" dataField="name" dataSort>{item.tableHeaderText}</TableHeaderColumn>;
+						return <th className="p-3 text-left" key={idx} width="10%">{item.tableHeaderText}</th>;
 					}
 				})}
-				<th className="p-3 text-left align-middle">
+				<th className="p-3 text-left">
 					<button type="button" className="btn btn-outline-light editColumnBtn"  onClick={this.toggleDisplayMoreColumn}>
-						<span className="glyphicon glyphicon-pencil editColumnLogo"></span>
+						<span className="glyphicon glyphicon-pencil editColumnLogo" />
 					</button>
 				</th>
 			</tr>
@@ -378,14 +364,6 @@ class StockHolding extends Component {
 				<tr key={idx} onClick={() => this.rowClicked(item["product"])}>
 					{this.state.columns.map((column, columnIdx) => {
 						if (column.isVisible) {
-							// if (column.id === "qty" ||
-							// 	column.id === "plannedIn" ||
-							// 	column.id === "plannedOut" ||
-							// 	column.id === "weight" ||
-							// 	column.id === "volume") {
-							// 	return <td key={columnIdx} className="px-3 text-right">{item[column.id]}</td>;
-							// }
-	
 							if (column.id === "onHandQty" ||
 								column.id === "onHandWeight" ||
 								column.id === "expectedInQty" ||
@@ -419,20 +397,33 @@ class StockHolding extends Component {
 				</li>
 
 				<li className="select-items">
-					<input type="radio" className="select-expand"
-							id={item.id + "-opener"} name={item.id} />
+					<input type="radio" className="select-expand" id={item.id + "-opener"} name={item.id} />
 					<label className="select-closeLabel" htmlFor={item.id + "-close"} onClick={() => this.triggerChangeFilter(key)} />
 
 					<ul className="select-options">
 						<li className="select-option">
-							<input type="radio" className="select-input"
-							name={item.id} />
-							<label className="select-label" htmlFor={item.id + "-test123"}>TEST123</label>
+							<input type="checkbox" className="inp-cbx-filter d-none"
+							name={item.id} id={item.id + item} checked/>
+							<label className="select-label cbx-filter" htmlFor={item.id + item}>
+								<span>
+									<svg viewBox="0 0 12 10" width="12px" height="10px">
+										<polyline points="1.5 6 4.5 9 10.5 1" />
+									</svg>
+								</span>
+								<span>TEST123</span>
+							</label>
 						</li>
 						<li className="select-option">
-							<input type="radio" className="select-input"
-							name={item.id} />
-							<label className="select-label option-radius" htmlFor={item.id + "-test234"}>TEST234</label>
+							<input type="checkbox" className="inp-cbx-filter d-none"
+								name={item.id} id={item.id + "-test234"} />
+								<label className="select-label option-radius cbx-filter" htmlFor={item.id + "-test234"}>
+									<span>
+										<svg viewBox="0 0 12 10" width="12px" height="10px">
+											<polyline points="1.5 6 4.5 9 10.5 1" />
+										</svg>
+									</span>
+									<span>TEST123</span>
+								</label>
 						</li>
 					</ul>
 
@@ -448,30 +439,28 @@ class StockHolding extends Component {
 			case "FOUND" :
 				content = 
 				<div className="col-12 p-0">
-					<Table className="table-condensed table-responsive table-striped clickable-row rounded-bottom-175 mb-0" size="sm">
-						<thead>{this.showHeader()}</thead>
-						<tbody>{this.showData()}</tbody>
-					</Table>
-					<div className="bg-transparent card-footer text-center border-company border-top-0">
-						<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-								totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-								currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-								isActive={this.state.isActive}
-								numberEventClick={this.numberEventClick} />
+					<div className={this.state.isSearch ? "spinner" : "d-none"} />
+					<div className={this.state.isSearch ? "d-none" : ""}>
+						<Table className="table-condensed table-responsive table-striped clickable-row rounded-bottom-175 mb-0" size="sm">
+							<thead>{this.showHeader()}</thead>
+							<tbody>{this.showData()}</tbody>
+						</Table>
+						<div className="bg-transparent card-footer text-center border-company border-top-0">
+							<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+									totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+									currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+									isActive={this.state.isActive}
+									numberEventClick={this.numberEventClick} />
+						</div>
 					</div>
 				</div>
-			break;
+				break;
 
 			default :
 				content =
 				<div className="col-12 d-flex h-100 position-relative">
 					<div className="bg-transparent mx-auto my-auto text-center">
 						<div className={this.state.isSearch ? "" : "d-none"}>
-							{/* <div className={"sk-double-bounce" + (this.state.isLoaded ? "" : " d-none")}>
-								<div className="sk-child sk-double-bounce1" />
-								<div className="sk-child sk-double-bounce2" />
-							</div> */}
-							{/* <div className={"sk-spinner sk-spinner-pulse" + (this.state.isLoaded ? "" : " d-none")} /> */}
 							<div className={"spinner" + (this.state.isLoaded ? "" : " d-none")} />
 							<p className={this.state.displayContent === "NOT_FOUND" ? "" : "d-none"}>{this.state.notFoundMessage}</p>
 						</div>
@@ -484,15 +473,15 @@ class StockHolding extends Component {
 				<div className="animated fadeIn">
 					<div className="row">
 						<div className="col-12 p-0">
-							<div className="row">
+							<div className="row mb-0 p-0">
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
 									<CardBody>
 										<Row className="align-items-center">
 											<div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-												<FormGroup>
+												<FormGroup className="mb-1">
 													<InputGroup>
-														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
-															<h4 className="headerTitle font-weight-bold">Stock Holding Summary</h4>
+														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
+															<h4 className="headerTitle font-weight-bold stockholding-title">Stock Holding Summary</h4>
 														</div>
 													</InputGroup>
 												</FormGroup>
@@ -502,7 +491,7 @@ class StockHolding extends Component {
 								</div>
 							</div>
 
-							<div className="row">
+							<div className="row mb-0 p-0">
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
 									<form ref={this.searchForm} onSubmit={e => { e.preventDefault() ; this.searchData(); }}>
 										<div className="form-group row mb-0">
@@ -512,18 +501,20 @@ class StockHolding extends Component {
 														<FormGroup>
 															<InputGroup>
 																<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-																	<Card className="form-group row rounded-top-175 mb-0">
+																	<Card className="form-group row rounded-top-175 mb-0 border-0">
 																		<div className="input-group p-2">
 																			<div className="input-group-prepend bg-white col-9">
 																				<span className="input-group-text border-0 bg-white p-0">
 																					<i className="fa fa-search fa-2x iconSpace" />
+																					{/* <i className="iconU-search" /> */}
 																				</span>
-																				<input type="text" className="form-control border-0" 
-																						id="searchForm" name="searchForm" placeholder="Enter a Product or Description to Search" />
+																				<input type="text" className="form-control border-0 pt-2" 
+																						id="searchForm" name="searchForm" placeholder="Enter a Product or Description" />
 																			</div>
 																			<div className="col-3 text-right">
 																				<Button className={"circle" + (this.state.showFilter ? " active" : "")} onClick={this.triggerShowFilter}>
-																					<i className="fa fa-sliders" />
+																					{/* <i className="fa fa-sliders" /> */}
+																					<i className="iconU-filter" />
 																				</Button>
 
 																				{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}
@@ -531,6 +522,14 @@ class StockHolding extends Component {
 																				<Button type="submit" className="search rounded-175" onClick={this.searchData}>
 																					<strong>Search</strong>
 																				</Button>
+																			</div>
+																		</div>
+																		<div className={"input-group p-2" + (this.state.showFilter ? "" : " d-none")}>
+																			<div className="filter-show">
+																				<span className="filter-label-show">Each</span>
+																				<button type="button" className="btn btn-outline-light filter-show-btn">
+																					<span className="iconU-close filter-close-icon" />
+																				</button>
 																			</div>
 																		</div>
 																		

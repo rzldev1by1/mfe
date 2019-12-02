@@ -54,6 +54,21 @@ function Loading() {
 // 	loading: Loading
 // });
 
+const Dashboard = Loadable({
+	loader: () => import('./views/Dashboard'),
+	loading: Loading
+});
+
+const InboundDelivery = Loadable({
+	loader: () => import('./views/Notifications/Alerts'),
+	loading: Loading
+});
+
+const SalesOrder = Loadable({
+	loader: () => import('./views/Icons/CoreUIIcons'),
+	loading: Loading
+});
+
 const StockHolding = Loadable({
 	loader: () => import('./views/StockHolding/StockHolding'),
 	loading: Loading
@@ -69,25 +84,15 @@ const StockMovement = Loadable({
 	loading: Loading
 });
 
-// const StockMovement = Loadable({
-// 	loader: () => import('./views/StockMovement/StockMovement'),
-// 	loading: Loading
-// });
-
 const StockAgeProfile = Loadable({
 	loader: () => import('./views/StockAgeProfile/StockAgeProfile'),
 	loading: Loading
 });
 
-// const InboundDelivery = Loadable({
-// 	loader: () => import('./views/InboundDelivery/InboundDelivery'),
-// 	loading: Loading
-// });
-
-// const Return = Loadable({
-// 	loader: () => import('./views/Return/Return'),
-// 	loading: Loading
-// });
+const UserControl = Loadable({
+	loader: () => import('./views/Base/Cards'),
+	loading: Loading
+});
 
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
@@ -135,10 +140,17 @@ const routes = [
 	
 	{ path: '/', exact: true, name: 'Home', component: DefaultLayout },
 	
-	{ path: '/stockholding', exact: true, name: 'Stock Holding', component: StockHolding },
-	{ path: '/stockholding/:product', exact: true, name: 'Stock Details', component: StockDetails },
-	{ path: '/stockmovement/', exact: true, name: 'Stock Movement', component: StockMovement },
-	{ path: '/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
+	{ path: '/dashboard', name: 'Dashboard', component: Dashboard },
+	{ path: '/notifications', exact: true, name: 'Inbound Delivery', component: InboundDelivery },
+	{ path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
+
+	{ path: '/stock', exact: true, name: 'Stock', component: StockHolding },
+	{ path: '/stock/stockholding', exact: true, name: 'Stock Holding', component: StockHolding },
+	{ path: '/stock/stockholding/:product', exact: true, name: 'Stock Details', component: StockDetails },
+	{ path: '/stock/stockmovement/', exact: true, name: 'Stock Movement', component: StockMovement },
+	{ path: '/stock/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
+
+	{ path: '/base', exact: true, name: 'User Control', component: UserControl },
 ];
 
 export default routes;
