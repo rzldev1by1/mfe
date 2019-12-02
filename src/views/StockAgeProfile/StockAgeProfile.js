@@ -144,7 +144,7 @@ class StockAgeProfile extends Component {
 	render() {
 		let content;
 		content =
-		<div>
+		<div className="w-100">
 		<Table className="table-condensed table-striped clickable-row rounded-bottom-175 mb-0">
 			<thead>
 				<tr>
@@ -184,11 +184,20 @@ class StockAgeProfile extends Component {
 			</tbody>
 		</Table>
 			<div className="card-footer text-center border-company border-top-0">
-				<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-						totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-						currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-						isActive={this.state.isActive}
-						numberEventClick={this.numberEventClick} />
+				<div className="row">
+						<div className="col-10">
+								<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+								totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+								currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+								isActive={this.state.isActive}
+								numberEventClick={this.numberEventClick} />
+						</div>
+						<div className="col-2 float-right pt-2">
+								<button type="button" style={{width:"100%",height:"100%", "background-color":"#E0E3F2"}} className="border-0 rounded-175">
+									<strong>Search</strong>
+								</button>
+						</div>
+				</div>
 			</div>
 		</div>
 		return(
