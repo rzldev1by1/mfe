@@ -4,8 +4,8 @@ import { Card, CardBody,
 		 Button,
 		 ButtonDropdown,
 		 FormGroup,
-		 InputGroup,
-		Breadcrumb, BreadcrumbItem
+		 
+		Breadcrumb, BreadcrumbItem,
          Input, InputGroup, InputGroupAddon,
          DropdownItem, DropdownMenu, DropdownToggle
 } from 'reactstrap';
@@ -457,7 +457,7 @@ class StockHolding extends Component {
 									<span>TEST123</span>
 								</label>
 						</li> */}
-						
+
 						<li className="select-option">
 							<input type="checkbox" className="inp-cbx-filter d-none"
 								name={item.id} id={item.id + "-test234"} />
