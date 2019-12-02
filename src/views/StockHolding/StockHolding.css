@@ -64,6 +64,7 @@
 	border-bottom-right-radius: 0px;
 	transition: ease-in;
 	border-bottom: solid #388DCD 2px;
+	transition: border-top-left-radius .5s ease, border-top-right-radius .5s ease, border-bottom .5s ease;
 	z-index: 2;
 }
 
@@ -209,3 +210,143 @@
 	padding-top: 9px;
 	margin-right: 2rem !important;
 }
+
+.filter-show{
+	background-color: #F7F8FC;
+    padding: 22px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    width: 152px;
+	height: 40px;
+	border-radius: 33px;
+}
+.filter-label-show{
+	text-align: left;
+	font-family: 'Nunito';
+	font-size: 16px;
+	color: #388DCD;
+}
+.filter-show-btn {
+	background-color: #FFFFFF;
+	padding: 0rem 0.4rem;
+	border-radius: 100%;
+	border: none;
+	float: right;
+}
+
+.filter-close-icon {
+	color: #388DCD;
+	font-size: 8px;	
+}
+
+
+/* Checkbox Style */
+.cbx-filter {
+	margin: auto;
+	-webkit-user-select: none;
+	user-select: none;
+	cursor: pointer;
+}
+
+.cbx-filter span {
+	display: inline-block;
+	vertical-align: middle;
+	
+}
+
+.cbx-filter span:first-child {
+	position: relative;
+	width: 18px;
+	height: 18px;
+	transform: scale(1);
+	vertical-align: middle;
+	border: 1px solid #9098A9;
+	background-color: #FFFFFF;
+	transition: all 0.2s ease;
+}
+
+.cbx-filter span:first-child svg {
+	position: absolute;
+	top: 3px;
+	left: 2px;
+	fill: none;
+	stroke: #FFFFFF;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-dasharray: 16px;
+	stroke-dashoffset: 16px;
+	transition: all 0.3s ease;
+	transition-delay: 0.1s;
+	
+}
+
+.cbx-filter span:last-child {
+	padding-left: 8px;
+}
+
+.cbx-filter:hover span:first-child {
+	border-color: #388DCD;
+}
+
+.inp-cbx-filter:checked + .cbx-filter span:first-child {
+	background: #388DCD;
+	border-color: #388DCD;
+}
+
+.inp-cbx-filter:checked + .cbx-filter span:first-child svg {
+	stroke-dashoffset: 0;
+}
+
+.inp-cbx-filter:checked + .cbx-filter span:first-child:before {
+	opacity: 0;
+	transition: all 0.6s ease;
+}
+
+.button-dropdown-display-block{
+    display: block !important;
+}
+
+button.btnWhite.btn.btn-outline-dark.btn-block:hover a {
+	background-color: #fde80f;
+}
+
+button.btnWhite.btn.btn-outline-dark:hover a {
+background-color: #fde80f;
+}
+
+.float-right {
+	float: right !important; }	
+
+.textYellowBg:hover{
+	background-color: #fde80f;
+	text-decoration: underline;
+	}
+.smallTitle{
+	display: none;
+	}
+	.form-check {
+		position: relative;
+		display: block;
+		padding-left: 1.25rem; }
+	  
+	  .form-check-input {
+		position: absolute;
+		margin-top: 0.3rem;
+		margin-left: -1.25rem; }
+		.form-check-input:disabled ~ .form-check-label {
+		  color: #73818f; }
+	  
+	  .form-check-label {
+		margin-bottom: 0; }
+	  
+	  .form-check-inline {
+		display: inline-flex;
+		align-items: center;
+		padding-left: 0;
+		margin-right: 0.75rem; }
+		.form-check-inline .form-check-input {
+		  position: static;
+		  margin-top: 0;
+		  margin-right: 0.3125rem;
+		  margin-left: 0; }

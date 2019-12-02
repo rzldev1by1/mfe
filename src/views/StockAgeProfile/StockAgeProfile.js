@@ -5,10 +5,13 @@ import { Card, CardBody,
 		 FormGroup, InputGroup
 } from 'reactstrap';
 import Paging from '../General/Paging';
+import axios from 'axios';
+import AppComponent from '../../AppComponent';
 
 class StockAgeProfile extends Component {
 	constructor(props) {
 		super(props);
+		this.loadData();
 		this.state = {
 			isVisible: [],
 			isLoaded: false,
@@ -29,76 +32,69 @@ class StockAgeProfile extends Component {
 				{ id: "lively" }, { id: "acceptable" }, { id: "marginal" }, { id: "shelfLife" }, { id: "dead" },
 				{ id: "onHand" }, { id: "expectedIn" }, { id: "expectedOut" }
 			],
-
-			stockAgeProfile: [
-				{ site: "A", productId: "TEST123", description: "1234567890ABCDEFGHIJ",
-				  uom: "EACH",
-				  lively: 10, acceptable: 10, marginal: 10, shelfLife: 10, dead: 10,
-				  onHand: 50, expectedIn: 20, expectedOut: 25
-				},
-				{ site: "A", productId: "TEST123", description: "1234567890ABCDEFGHIJ",
-				  uom: "EACH",
-				  lively: 10, acceptable: 10, marginal: 10, shelfLife: 10, dead: 10,
-				  onHand: 50, expectedIn: 20, expectedOut: 25
-				},
-				{ site: "A", productId: "TEST123", description: "1234567890ABCDEFGHIJ",
-				  uom: "EACH",
-				  lively: 10, acceptable: 10, marginal: 10, shelfLife: 10, dead: 10,
-				  onHand: 50, expectedIn: 20, expectedOut: 25
-			  	},
-				{ site: "A", productId: "TEST123", description: "1234567890ABCDEFGHIJ",
-				  uom: "EACH",
-				  lively: 10, acceptable: 10, marginal: 10, shelfLife: 10, dead: 10,
-				  onHand: 50, expectedIn: 20, expectedOut: 25
-			  	},
-				{ site: "A", productId: "TEST123", description: "1234567890ABCDEFGHIJ",
-				  uom: "EACH",
-				  lively: 10, acceptable: 10, marginal: 10, shelfLife: 10, dead: 10,
-				  onHand: 50, expectedIn: 20, expectedOut: 25
-			  	},
-				{ site: "A", productId: "TEST123", description: "1234567890ABCDEFGHIJ",
-				  uom: "EACH",
-				  lively: 10, acceptable: 10, marginal: 10, shelfLife: 10, dead: 10,
-				  onHand: 50, expectedIn: 20, expectedOut: 25
-			  	}
-			],
+			
+			stockAgeProfile: [],
+			//stockAgeProfile: this.loadData(),
 			masterResStockAgeProfile: []
 		}
+		this.searchForm = React.createRef();
 		// this.getLocalStorageColumn();
+
+	}
+	loadData = () => {
+		axios.get(AppComponent.getBaseUrl() + "searchFilterStockAgeProfile",
+		{
+			// headers: {
+			// 	'Content-Type': 'application/json',
+			// 	'Accept': 'application/json',
+			// 	'companyCode' : localStorage.getItem("companyCode"),
+			// 	'userLevel' : localStorage.getItem("userLevel"),
+			// 	'Authorization' : 'Bearer ' + localStorage.getItem('token')
+			// }
+		})
+		.then(res => {
+			let data = res.data;
+			
+			var compiled = [];
+			data["data"].forEach(function(value,key){
+				var obj = {
+					site : "",
+					productId : "",
+					description : "",
+					uom : "",
+					lively : 0,
+					acceptable : 0,
+					marginal : 0,
+					shelfLife : 0,
+					dead : 0,
+					onHand : 0,
+					expectedIn : 0,
+					expectedOut : 0
+				};
+				obj.site = value.site;
+				obj.productId = value.product;
+				obj.description = value.product_name;
+				obj.uom = value.packdesc
+				obj.lively = 0;
+				obj.marginal = 0;
+				obj.shelfLife = value.shelf_life;
+				obj.onHand = 0;
+				obj.expectedIn = value.qty_lcd_expected;
+				obj.expectedOut = value.qty_packdesc;
+				console.log(obj);
+				compiled.push(obj);
+			});
+			localStorage.setItem("cachedData",JSON.stringify(compiled));
+		})
+		.catch(function (error) {
+			return error;
+		})
 	}
 
-	// getLocalStorageFilterData = () => {
-	// 	// let self = this;
-	// 	if (localStorage.getItem("filterStockHolding") && localStorage.getItem("filterStockHolding") !== "undefined") {
-	// 		let filterItem = JSON.parse(localStorage.getItem("filterStockHolding"));
-	// 		if (filterItem) {
-	// 			// this.state.filterStockHolding = filterItem
-	// 			this.setState(() => {
-	// 				return { filterStockHolding: filterItem };
-	// 			});
-	// 		};
-	// 	} else {
-	// 		localStorage.setItem("filterStockHolding", JSON.stringify(this.state.filterStockHolding));
-	// 	}
-	// }
-
-	// updateFilterData = (filterStockHolding) => {
-	// 	if (localStorage.getItem("filterStockHolding")) {
-	// 		localStorage.removeItem("filterStockHolding");
-	// 		localStorage.setItem("filterStockHolding", JSON.stringify(filterStockHolding))
-	// 	}
-	// }
-
-	// toggleAddFilterStockHolding = () => {
-	// 	// if (this.state.masterResStockAgeProfile.length > 0) {
-	// 		let filterStockHolding = this.state.filterStockHolding;
-	// 		filterStockHolding.showPopup = !filterStockHolding.showPopup;
-
-	// 		this.setState({ filterStockHolding: filterStockHolding });
-	// 		this.updateFilterData(filterStockHolding);
-	// 	// }
-	// }
-
+	searchData = () =>
+	{
+		let search = this.searchForm.current.searchForm.value;
+	}
 	triggerChangeFilter = (e) => {
 		e.stopPropagation();
 		this.setState((prevState) => {
@@ -169,7 +165,7 @@ class StockAgeProfile extends Component {
 						</tr>
 					</thead>
 					<tbody>
-						{this.state.stockAgeProfile.map((item, idx) => (
+						{JSON.parse(localStorage.getItem('cachedData')).map((item, idx) => (
 							<tr key={idx}>
 								{this.state.column.map((column, columnIdx) => {
 									if (column.id === "site" || column.id === "productId" ||
@@ -217,8 +213,8 @@ class StockAgeProfile extends Component {
 							</div>
 
 							<div className="row">
-								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-									<form>
+							<div className="col-12 col-lg-12 col-md-12 col-sm-12">
+									<form ref={this.searchForm} onSubmit={e => { e.preventDefault() ; this.searchData(); }}>
 										<div className="form-group row mb-0">
 											<div className="col-12 col-lg-12 col-md-12 col-sm-12 mb-0">
 												<Row className="align-items-center mb-0">
@@ -233,18 +229,18 @@ class StockAgeProfile extends Component {
 																					<i className="fa fa-search fa-2x iconSpace" />
 																					{/* <i className="iconU-search" /> */}
 																				</span>
-																				<input type="text" className="form-control border-0 pt-2"
-																						id="searchForm" name="searchForm" placeholder="Enter a product or a description" />
+																				<input type="text" className="form-control border-0 pt-2" 
+																						id="searchForm" name="searchForm" placeholder="Enter a Product or Description" />
 																			</div>
 																			<div className="col-3 text-right">
-																				<Button className={"circle" + (this.state.showFilter ? " active" : "")} onClick={this.triggerChangeFilter}>
+																				<Button className={"circle" + (this.state.showFilter ? " active" : "")} onClick={this.triggerShowFilter}>
 																					{/* <i className="fa fa-sliders" /> */}
 																					<i className="iconU-filter" />
 																				</Button>
 
 																				{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}
 
-																				<Button type="submit" className="search rounded-175">
+																				<Button type="submit" className="search rounded-175" onClick={this.searchData}>
 																					<strong>Search</strong>
 																				</Button>
 																			</div>

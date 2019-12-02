@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Card, CardBody,
 		 Col, Row, Table,
 		 Button,
-		//  ButtonDropdown,
+		 ButtonDropdown,
 		 FormGroup,
-		 InputGroup,
-		//  DropdownToggle
+         Input, InputGroup, InputGroupAddon,
+         DropdownItem, DropdownMenu, DropdownToggle
 } from 'reactstrap';
 // import { TableHeaderColumn } from 'react-bootstrap-table';
 import { Link } from 'react-router-dom';
@@ -86,9 +86,9 @@ class StockHolding extends Component {
 					// "zone": { id: "zone", text: "Zone", isVisible: false },
 					// "disposition": { id: "disposition", text: "Disposition", isVisible: false },
 					// "alert": { id: "alert", text: "Alert", isVisible: false },
-					site: { id: "site", text: "Site", isVisible: false },
-					uom: { id: "uom", text: "UoM", isVisible: false },
-					status: { id: "status", text: "Status", isVisible: false }
+					site: { id: "site", text: "Site", isVisible: false, options: [] },
+					status: { id: "status", text: "Status", isVisible: false, options: ["EACH", "BAG", "RPT", "CARTON"] },
+					uom: { id: "uom", text: "UoM", isVisible: false, options: [] }
 				}
 			},
 			masterResStockHolding: []
@@ -110,7 +110,7 @@ class StockHolding extends Component {
 		}
 	}
 
-	getLocalStorageFilterData = () => {
+	getLocStockHolding = () => {
 		// let self = this;
 		if (localStorage.getItem("filterStockHolding") && localStorage.getItem("filterStockHolding") !== "undefined") {
 			let filterItem = JSON.parse(localStorage.getItem("filterStockHolding"));
@@ -125,7 +125,7 @@ class StockHolding extends Component {
 		}
 	}
 
-	updateFilterData = (filterStockHolding) => {
+	updateStockHolding = (filterStockHolding) => {
 		if (localStorage.getItem("filterStockHolding")) {
 			localStorage.removeItem("filterStockHolding");
 			localStorage.setItem("filterStockHolding", JSON.stringify(filterStockHolding))	
@@ -138,7 +138,6 @@ class StockHolding extends Component {
 			filterStockHolding.showPopup = !filterStockHolding.showPopup;
 
 			this.setState({ filterStockHolding: filterStockHolding });
-			this.updateFilterData(filterStockHolding);
 		// }
 	}
 
@@ -182,6 +181,14 @@ class StockHolding extends Component {
 		self.numberEventClick(self.state.currentPage);
 		localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
 	}
+
+	toggleAddFilter = () => {
+			let filterStockHolding = this.state.filterStockHolding;
+			filterStockHolding.showPopup = !filterStockHolding.showPopup;
+			// filterData.item = this.getRawFilterDataItem();
+			this.setState({ filterStockHolding: filterStockHolding });
+	}
+
 
     loadStockHolding = () => {
 		let self = this;
@@ -332,6 +339,29 @@ class StockHolding extends Component {
 		// window.location = "/stock/stockholding/" + encodeURIComponent(productCode);
 		// return <Link className="company-link p-1" to={"/stock/stockholding/" + encodeURIComponent(productCode)}>{productCode}</Link>;
 	}
+	itemFilterClick = (key, e) => {
+		e.stopPropagation();
+		this.toggleItemFilterShow(key);
+	}
+
+	toggleItemFilterShow = (key) => {
+		var self = this;
+		this.setState((state) => {
+			state.filterStockHolding.item[key].isVisible = !state.filterStockHolding.item[key].isVisible;
+			return state;
+		});
+	}
+	itemFilterCheckedClick = (key, e) => {
+		let isChecked = e.currentTarget.checked;
+		let filterdata = this.state.filterStockHolding;
+		if (isChecked) {
+			filterdata.item[key].isVisible= isChecked;
+		} else {
+			filterdata.item[key].isVisible= false;
+		}
+		this.setState({ filterStockHolding	: filterdata });
+		e.stopPropagation();
+	}
 
 	showHeader = () => {
 		return (
@@ -387,7 +417,7 @@ class StockHolding extends Component {
 		);
 	}
 
-	createFilter = (item, key) => {
+	createFilter = (item, key, options) => {
 		return (
 			<ul className={"select" + (item.isVisible ? " expand" : "")}
 				id="select" name="select">
@@ -401,13 +431,42 @@ class StockHolding extends Component {
 					<label className="select-closeLabel" htmlFor={item.id + "-close"} onClick={() => this.triggerChangeFilter(key)} />
 
 					<ul className="select-options">
-						<li className="select-option">
-							<input type="radio" className="select-input" name={item.id} />
-							<label className="select-label" htmlFor={item.id + "-test123"}>TEST123</label>
+						{/* <li className="select-option">
+							<input type="checkbox" className="inp-cbx-filter d-none"
+							name={item.id} id={item.id + item} checked/>
+							<label className="select-label cbx-filter" htmlFor={item.id + item}>
+								<span>
+									<svg viewBox="0 0 12 10" width="12px" height="10px">
+										<polyline points="1.5 6 4.5 9 10.5 1" />
+									</svg>
+								</span>
+								<span>TEST123</span>
+							</label>
 						</li>
 						<li className="select-option">
-							<input type="radio" className="select-input" name={item.id} />
-							<label className="select-label option-radius" htmlFor={item.id + "-test234"}>TEST234</label>
+							<input type="checkbox" className="inp-cbx-filter d-none"
+								name={item.id} id={item.id + "-test234"} />
+								<label className="select-label option-radius cbx-filter" htmlFor={item.id + "-test234"}>
+									<span>
+										<svg viewBox="0 0 12 10" width="12px" height="10px">
+											<polyline points="1.5 6 4.5 9 10.5 1" />
+										</svg>
+									</span>
+									<span>TEST123</span>
+								</label>
+						</li> */}
+						
+						<li className="select-option">
+							<input type="checkbox" className="inp-cbx-filter d-none"
+								name={item.id} id={item.id + "-test234"} />
+								<label className="select-label option-radius cbx-filter" htmlFor={item.id + "-test234"}>
+									<span>
+										<svg viewBox="0 0 12 10" width="12px" height="10px">
+											<polyline points="1.5 6 4.5 9 10.5 1" />
+										</svg>
+									</span>
+									<span>TEST123</span>
+								</label>
 						</li>
 					</ul>
 
@@ -465,7 +524,7 @@ class StockHolding extends Component {
 												<FormGroup className="mb-1">
 													<InputGroup>
 														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-															<h4 className="headerTitle font-weight-bold">Stock Holding Summary</h4>
+															<h4 className="headerTitle font-weight-bold stockholding-title">Stock Holding Summary</h4>
 														</div>
 													</InputGroup>
 												</FormGroup>
@@ -508,21 +567,102 @@ class StockHolding extends Component {
 																				</Button>
 																			</div>
 																		</div>
+																		<div className={"input-group p-2" + (this.state.showFilter ? "" : " d-none")}>
+																			<div className="filter-show">
+																				<span className="filter-label-show">Each</span>
+																				<button type="button" className="btn btn-outline-light filter-show-btn">
+																					<span className="iconU-close filter-close-icon" />
+																				</button>
+																			</div>
+																		</div>
 																		
 																		<hr className={this.state.showFilter ? "m-0" : " d-none"}/>
 
 																		<div className={"input-group p-2" + (this.state.showFilter ? "" : " d-none")}>
-																			<Row>
+																			{/* <Row>
 																				<Col lg="auto" md="2" sm="6">{'\u00A0'}</Col>
 																				{Object.keys(this.state.filterStockHolding.item).map((key, idx) => {
 																					let item = this.state.filterStockHolding.item[key];
 																					return (
 																						<Col lg="auto" md="5" sm="6" className={idx === 0 ? "" : "pl-0"} key={idx}>
-																							{this.createFilter(item, key)}
+																							{this.createFilter(item, key, item.options)}
 																						</Col>
 																					);
 																				})}
+																			</Row> */}
+																			<Row>
+																				<Col lg="2" md="6" sm="6" className={"mb-1" + (this.state.filterStockHolding.item["site"].isVisible ? "" : " d-none")}>
+																						<Input className="select-color-border" name="site" type="select" id="select_1">
+																							<option value="">Company</option>
+																							<option value="steven">steven</option>
+																							<option value="company 2">company 2</option>
+																						</Input>
+																						<InputGroupAddon addonType="append">
+																							<Button onClick={this.removeFilterField} data-id="companyItem" color="secondary" className="no-radius">
+																								<i className="fa fa-times" aria-hidden="true"></i>
+																							</Button>
+																						</InputGroupAddon>
+																				</Col>
+
+																				<Col lg="2" md="6" sm="6" className={"mb-1" + (this.state.filterStockHolding.item["status"].isVisible ? "" : " d-none")}>
+																						<Input className="select-color-border" name="status" type="select" id="select_2">
+																							<option value="">Company</option>
+																							<option value="steven">steven</option>
+																							<option value="company 2">company 2</option>
+																						</Input>
+																						<InputGroupAddon addonType="append">
+																							<Button onClick={this.removeFilterField} data-id="companyItem" color="secondary" className="no-radius">
+																								<i className="fa fa-times" aria-hidden="true"></i>
+																							</Button>
+																						</InputGroupAddon>
+																				</Col>
+
+																				<Col lg="2" md="6" sm="6" className={"mb-1" + (this.state.filterStockHolding.item["uom"].isVisible ? "" : " d-none")}>
+																					<InputGroup className="input-group-custom">
+																						<Input className="select-color-border" name="uom" type="select" id="select_3">
+																							<option value="">Company</option>
+																							<option value="steven">steven</option>
+																							<option value="company 2">company 2</option>
+																						</Input>
+																						<InputGroupAddon addonType="append">
+																							<Button onClick={this.removeFilterField} data-id="companyItem" color="secondary" className="no-radius">
+																								<i className="fa fa-times" aria-hidden="true"></i>
+																							</Button>
+																						</InputGroupAddon>
+																					</InputGroup>
+																				</Col>
 																			</Row>
+																			<ButtonDropdown isOpen={this.state.filterStockHolding.showPopup} toggle={this.toggleAddFilter}
+                                      className="button-dropdown-display-block">
+																				<DropdownToggle className="btnWhite float-right" block outline color="dark">
+																					{/* <i className="fa fa-tasks iconSpace"></i> */}
+																					<i className="iconCustom-filter"></i>
+																					<span className="textYellowBg smallTitle p-1"> Add Filter </span>
+																				</DropdownToggle>
+
+
+
+																				<DropdownMenu right className="rounded-0" style={{border: "1px solid #000000"}}>
+																					{Object.keys(this.state.filterStockHolding.item).map((key, idx) => {
+																						let item = this.state.filterStockHolding.item[key];
+																						// this.state.filterData.items.map((item, idx) => {
+																						// let key = item.id;
+																						if (key !== "serviceItem" && key !== "companyItem") {
+																							return (
+																								<DropdownItem key={key} id={key} className="border-0" onClick={ (e) => {this.itemFilterClick(key,e);} }>
+																									<div className="div-dropdownItem" onClick={ (e) => { this.itemFilterClick(key, e)} }>
+																										<div className="form-check">
+																											{/* <input disabled={key==="serviceItem" || key==="companyItem" ? true:false} className="form-check-input" ref={ el => { this.filterCheckbox[key] = el } } type="checkbox" checked={ item.isVisible } value={ item.text } id={ key } onChange={(e) => { this.itemFilterCheckedClick(key,e);}} onClick={ (e) => { this.itemFilterCheckedClick(key,e);} } /> */}
+																											<input className="form-check-input" type="checkbox" checked={ item.isVisible } value={ item.text } id={ key } onChange={(e) => { this.itemFilterCheckedClick(key,e);}} onClick={ (e) => { this.itemFilterCheckedClick(key,e);} } />
+																											<label className="form-check-label" htmlFor={key}>{item.text}</label>
+																										</div>
+																									</div>
+																								</DropdownItem>
+																							)
+																						}
+																					})}
+																				</DropdownMenu>
+																			</ButtonDropdown>
 																		</div>
 																	</Card>
 																</div>
