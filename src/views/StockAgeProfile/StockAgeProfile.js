@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardBody,
 		 Row, Table,
 		 Button,
-		 FormGroup, InputGroup
+		 FormGroup, InputGroup,Breadcrumb, BreadcrumbItem
 } from 'reactstrap';
 import Paging from '../General/Paging';
 import axios from 'axios';
@@ -32,7 +32,7 @@ class StockAgeProfile extends Component {
 				{ id: "lively" }, { id: "acceptable" }, { id: "marginal" }, { id: "shelfLife" }, { id: "dead" },
 				{ id: "onHand" }, { id: "expectedIn" }, { id: "expectedOut" }
 			],
-			
+
 			stockAgeProfile: [],
 			//stockAgeProfile: this.loadData(),
 			masterResStockAgeProfile: []
@@ -54,7 +54,7 @@ class StockAgeProfile extends Component {
 		})
 		.then(res => {
 			let data = res.data;
-			
+
 			var compiled = [];
 			data["data"].forEach(function(value,key){
 				var obj = {
@@ -181,20 +181,26 @@ class StockAgeProfile extends Component {
 		</Table>
 			<div className="card-footer text-center border-company border-top-0">
 				<div className="row">
-						<div className="col-10">
+						<div className="col-12">
 								<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
 								totalRows={this.state.totalRows} displayPage={this.state.displayPage}
 								currentPage={this.state.currentPage} maxPage={this.state.maxPage}
 								isActive={this.state.isActive}
 								numberEventClick={this.numberEventClick} />
 						</div>
+						{
+							/*
 						<div className="col-2 float-right pt-2">
-								<button type="button" style={{width:"100%",height:"100%", "background-color":"#E0E3F2"}} className="border-0 rounded-175">
-									<strong>Search</strong>
-								</button>
+							<button type="button" style={{width:"100%",height:"100%", "background-color":"#E0E3F2"}} className="border-0 rounded-175">
+							<strong>Search</strong>
+							</button>
+
 						</div>
+						**/
+					}
 				</div>
 			</div>
+	  </div>
 
 		return (
 			<React.Fragment>
@@ -209,7 +215,13 @@ class StockAgeProfile extends Component {
 												<FormGroup>
 													<InputGroup>
 														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
-															<h4 className="headerTitle font-weight-bold">Stock Age Profile</h4>
+
+															<Breadcrumb>
+																		<BreadcrumbItem active>
+																		Stock Age Profile
+																		{/* <h4 className="headerTitle font-weight-bold">Stock Age Profile</h4> **/}
+																		</BreadcrumbItem>
+															</Breadcrumb>
 														</div>
 													</InputGroup>
 												</FormGroup>
@@ -236,7 +248,7 @@ class StockAgeProfile extends Component {
 																					<i className="fa fa-search fa-2x iconSpace" />
 																					{/* <i className="iconU-search" /> */}
 																				</span>
-																				<input type="text" className="form-control border-0 pt-2" 
+																				<input type="text" className="form-control border-0 pt-2"
 																						id="searchForm" name="searchForm" placeholder="Enter a Product or Description" />
 																			</div>
 																			<div className="col-3 text-right">

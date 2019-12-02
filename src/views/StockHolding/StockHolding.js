@@ -5,7 +5,7 @@ import { Card, CardBody,
 		//  ButtonDropdown,
 		 FormGroup,
 		 InputGroup,
-		//  DropdownToggle
+		Breadcrumb, BreadcrumbItem
 } from 'reactstrap';
 // import { TableHeaderColumn } from 'react-bootstrap-table';
 import { Link } from 'react-router-dom';
@@ -128,7 +128,7 @@ class StockHolding extends Component {
 	updateFilterData = (filterStockHolding) => {
 		if (localStorage.getItem("filterStockHolding")) {
 			localStorage.removeItem("filterStockHolding");
-			localStorage.setItem("filterStockHolding", JSON.stringify(filterStockHolding))	
+			localStorage.setItem("filterStockHolding", JSON.stringify(filterStockHolding))
 		}
 	}
 
@@ -240,7 +240,7 @@ class StockHolding extends Component {
 		let params = {};
 		let form = self.searchForm.current;
 		let searchTerm = form.searchForm.value;
-		
+
 		// if (!searchTerm) { return };
 		params.searchParam = searchTerm;
 
@@ -284,7 +284,7 @@ class StockHolding extends Component {
 			return { showFilter: !prevState.showFilter };
 		});
 	}
-	
+
 	triggerChangeFilter = (key) => {
 		this.setState((state) => {
 			state.filterStockHolding.item[key].isVisible = !state.filterStockHolding.item[key].isVisible;
@@ -371,7 +371,7 @@ class StockHolding extends Component {
 								column.id === "expectedOutQty") {
 								return <td key={columnIdx} className="px-3 text-right">{item[column.key]}</td>;
 							}
-							
+
 							return <td key={columnIdx} className="px-3 text-left">{item[column.key]}</td>;
 						}
 					})}
@@ -437,7 +437,7 @@ class StockHolding extends Component {
 		let content;
 		switch (this.state.displayContent) {
 			case "FOUND" :
-				content = 
+				content =
 				<div className="col-12 p-0">
 					<div className={this.state.isSearch ? "spinner" : "d-none"} />
 					<div className={this.state.isSearch ? "d-none" : ""}>
@@ -475,13 +475,18 @@ class StockHolding extends Component {
 						<div className="col-12 p-0">
 							<div className="row mb-0 p-0">
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-									<CardBody>
+									<CardBody className="p-0">
 										<Row className="align-items-center">
-											<div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0">
+											<div className="col-12 col-lg-12 col-md-12 col-sm-12">
 												<FormGroup className="mb-1">
 													<InputGroup>
-														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-															<h4 className="headerTitle font-weight-bold stockholding-title">Stock Holding Summary</h4>
+														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
+															<Breadcrumb>
+																		<BreadcrumbItem active>
+																		Stock Holding Summary
+																		{/*<h4 className="headerTitle font-weight-bold stockholding-title">Stock Holding Summary</h4>**/}
+																		</BreadcrumbItem>
+															</Breadcrumb>
 														</div>
 													</InputGroup>
 												</FormGroup>
@@ -508,7 +513,7 @@ class StockHolding extends Component {
 																					<i className="fa fa-search fa-2x iconSpace" />
 																					{/* <i className="iconU-search" /> */}
 																				</span>
-																				<input type="text" className="form-control border-0 pt-2" 
+																				<input type="text" className="form-control border-0 pt-2"
 																						id="searchForm" name="searchForm" placeholder="Enter a Product or Description" />
 																			</div>
 																			<div className="col-3 text-right">
@@ -532,7 +537,7 @@ class StockHolding extends Component {
 																				</button>
 																			</div>
 																		</div>
-																		
+
 																		<hr className={this.state.showFilter ? "m-0" : " d-none"}/>
 
 																		<div className={"input-group p-2" + (this.state.showFilter ? "" : " d-none")}>
