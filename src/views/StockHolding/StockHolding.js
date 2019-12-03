@@ -575,101 +575,73 @@ class StockHolding extends Component {
 																			</div>
 																		</div>
 																		<div className={"input-group p-2" + (this.state.showFilter ? "" : " d-none")}>
-																			<div className="filter-show">
+																			{/* <div className="filter-show">
 																				<span className="filter-label-show">Each</span>
 																				<button type="button" className="btn btn-outline-light filter-show-btn">
 																					<span className="iconU-close filter-close-icon" />
 																				</button>
-																			</div>
+																			</div> */}
 																		</div>
 
 																		<hr className={this.state.showFilter ? "m-0" : " d-none"}/>
 
-																		<div className={"input-group p-2" + (this.state.showFilter ? "" : " d-none")}>
-																			{/* <Row>
-																				<Col lg="auto" md="2" sm="6">{'\u00A0'}</Col>
-																				{Object.keys(this.state.filterStockHolding.item).map((key, idx) => {
-																					let item = this.state.filterStockHolding.item[key];
-																					return (
-																						<Col lg="auto" md="5" sm="6" className={idx === 0 ? "" : "pl-0"} key={idx}>
-																							{this.createFilter(item, key, item.options)}
-																						</Col>
-																					);
-																				})}
-																			</Row> */}
-																			<Row>
-																				<Col lg="2" md="6" sm="6" className={"mb-1" + (this.state.filterStockHolding.item["site"].isVisible ? "" : " d-none")}>
-																						<Input className="select-color-border" name="site" type="select" id="select_1">
-																							<option value="">Company</option>
-																							<option value="steven">steven</option>
-																							<option value="company 2">company 2</option>
-																						</Input>
-																						<InputGroupAddon addonType="append">
-																							<Button onClick={this.removeFilterField} data-id="companyItem" color="secondary" className="no-radius">
-																								<i className="fa fa-times" aria-hidden="true"></i>
-																							</Button>
-																						</InputGroupAddon>
-																				</Col>
+																		<div className={"mb-xl-n4 row p-2" + (this.state.showFilter ? "" : " d-none")}>
+																			<div className="col-lg-10">
+																				<div className="row">
+																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["site"].isVisible ? "" : " d-none")}>
+																							<Input className="select-color-border" name="site" type="select" id="select_1">
+																								<option value="">Company</option>
+																								<option value="steven">steven</option>
+																								<option value="company 2">company 2</option>
+																							</Input>
+																					</Col>
 
-																				<Col lg="2" md="6" sm="6" className={"mb-1" + (this.state.filterStockHolding.item["status"].isVisible ? "" : " d-none")}>
-																						<Input className="select-color-border" name="status" type="select" id="select_2">
-																							<option value="">Company</option>
-																							<option value="steven">steven</option>
-																							<option value="company 2">company 2</option>
-																						</Input>
-																						<InputGroupAddon addonType="append">
-																							<Button onClick={this.removeFilterField} data-id="companyItem" color="secondary" className="no-radius">
-																								<i className="fa fa-times" aria-hidden="true"></i>
-																							</Button>
-																						</InputGroupAddon>
-																				</Col>
+																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["status"].isVisible ? "" : " d-none")}>
+																							<Input className="select-color-border" name="status" type="select" id="select_2">
+																								<option value="">Company</option>
+																								<option value="steven">steven</option>
+																								<option value="company 2">company 2</option>
+																							</Input>
+																					</Col>
 
-																				<Col lg="2" md="6" sm="6" className={"mb-1" + (this.state.filterStockHolding.item["uom"].isVisible ? "" : " d-none")}>
-																					<InputGroup className="input-group-custom">
-																						<Input className="select-color-border" name="uom" type="select" id="select_3">
-																							<option value="">Company</option>
-																							<option value="steven">steven</option>
-																							<option value="company 2">company 2</option>
-																						</Input>
-																						<InputGroupAddon addonType="append">
-																							<Button onClick={this.removeFilterField} data-id="companyItem" color="secondary" className="no-radius">
-																								<i className="fa fa-times" aria-hidden="true"></i>
-																							</Button>
-																						</InputGroupAddon>
-																					</InputGroup>
-																				</Col>
-																			</Row>
-																			<ButtonDropdown isOpen={this.state.filterStockHolding.showPopup} toggle={this.toggleAddFilter}
-                                      className="button-dropdown-display-block">
-																				<DropdownToggle className="btnWhite float-right" block outline color="dark">
-																					{/* <i className="fa fa-tasks iconSpace"></i> */}
-																					<i className="iconCustom-filter"></i>
-																					<span className="textYellowBg smallTitle p-1"> Add Filter </span>
-																				</DropdownToggle>
+																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["uom"].isVisible ? "" : " d-none")}>
+																						<InputGroup className="input-group-custom">
+																							<Input className="select-color-border" name="uom" type="select" id="select_3">
+																								<option value="">Company</option>
+																								<option value="steven">steven</option>
+																								<option value="company 2">company 2</option>
+																							</Input>
+																						</InputGroup>
+																					</Col>
 
 
+																				</div>
+																			</div>
+																			<div className="col-lg-2">
+																					<ButtonDropdown isOpen={this.state.filterStockHolding.showPopup} toggle={this.toggleAddFilter} className="button-dropdown-display-block">
+																						<DropdownToggle className="float-right">
+																							<span className="p-1"> Add Filter </span>
+																						</DropdownToggle>
+																						<DropdownMenu right className="rounded-0" style={{border: "1px solid #000000"}}>
+																							{Object.keys(this.state.filterStockHolding.item).map((key, idx) => {
+																								let item = this.state.filterStockHolding.item[key];
+																								if (key !== "serviceItem" && key !== "companyItem") {
+																									return (
+																										<DropdownItem key={key} id={key} className="border-0" onClick={ (e) => {this.itemFilterClick(key,e);} }>
+																											<div className="div-dropdownItem" onClick={ (e) => { this.itemFilterClick(key, e)} }>
+																												<div className="form-check">
+																													<input className="form-check-input" type="checkbox" checked={ item.isVisible } value={ item.text } id={ key } onChange={(e) => { this.itemFilterCheckedClick(key,e);}} onClick={ (e) => { this.itemFilterCheckedClick(key,e);} } />
+																													<label className="form-check-label" htmlFor={key}>{item.text}</label>
+																												</div>
+																											</div>
+																										</DropdownItem>
+																									)
+																								}
+																							})}
+																						</DropdownMenu>
+																					</ButtonDropdown>
 
-																				<DropdownMenu right className="rounded-0" style={{border: "1px solid #000000"}}>
-																					{Object.keys(this.state.filterStockHolding.item).map((key, idx) => {
-																						let item = this.state.filterStockHolding.item[key];
-																						// this.state.filterData.items.map((item, idx) => {
-																						// let key = item.id;
-																						if (key !== "serviceItem" && key !== "companyItem") {
-																							return (
-																								<DropdownItem key={key} id={key} className="border-0" onClick={ (e) => {this.itemFilterClick(key,e);} }>
-																									<div className="div-dropdownItem" onClick={ (e) => { this.itemFilterClick(key, e)} }>
-																										<div className="form-check">
-																											{/* <input disabled={key==="serviceItem" || key==="companyItem" ? true:false} className="form-check-input" ref={ el => { this.filterCheckbox[key] = el } } type="checkbox" checked={ item.isVisible } value={ item.text } id={ key } onChange={(e) => { this.itemFilterCheckedClick(key,e);}} onClick={ (e) => { this.itemFilterCheckedClick(key,e);} } /> */}
-																											<input className="form-check-input" type="checkbox" checked={ item.isVisible } value={ item.text } id={ key } onChange={(e) => { this.itemFilterCheckedClick(key,e);}} onClick={ (e) => { this.itemFilterCheckedClick(key,e);} } />
-																											<label className="form-check-label" htmlFor={key}>{item.text}</label>
-																										</div>
-																									</div>
-																								</DropdownItem>
-																							)
-																						}
-																					})}
-																				</DropdownMenu>
-																			</ButtonDropdown>
+																			</div>
 																		</div>
 																	</Card>
 																</div>
