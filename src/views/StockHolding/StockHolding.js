@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { Card, CardBody,
 		 Col, Row, Table,
 		 Button,
-		//  ButtonDropdown,
+		 ButtonDropdown,
 		 FormGroup,
-		 InputGroup,
-		//  DropdownToggle
+		 
+		Breadcrumb, BreadcrumbItem,
+         Input, InputGroup, InputGroupAddon,
+         DropdownItem, DropdownMenu, DropdownToggle
 } from 'reactstrap';
 // import { TableHeaderColumn } from 'react-bootstrap-table';
 import { Link } from 'react-router-dom';
@@ -86,9 +88,9 @@ class StockHolding extends Component {
 					// "zone": { id: "zone", text: "Zone", isVisible: false },
 					// "disposition": { id: "disposition", text: "Disposition", isVisible: false },
 					// "alert": { id: "alert", text: "Alert", isVisible: false },
-					site: { id: "site", text: "Site", isVisible: false, options: "" },
+					site: { id: "site", text: "Site", isVisible: false, options: [] },
 					status: { id: "status", text: "Status", isVisible: false, options: ["EACH", "BAG", "RPT", "CARTON"] },
-					uom: { id: "uom", text: "UoM", isVisible: false, options: "" }
+					uom: { id: "uom", text: "UoM", isVisible: false, options: [] }
 				}
 			},
 			masterResStockHolding: []
@@ -110,7 +112,7 @@ class StockHolding extends Component {
 		}
 	}
 
-	getLocalStorageFilterData = () => {
+	getLocStockHolding = () => {
 		// let self = this;
 		if (localStorage.getItem("filterStockHolding") && localStorage.getItem("filterStockHolding") !== "undefined") {
 			let filterItem = JSON.parse(localStorage.getItem("filterStockHolding"));
@@ -125,10 +127,10 @@ class StockHolding extends Component {
 		}
 	}
 
-	updateFilterData = (filterStockHolding) => {
+	updateStockHolding = (filterStockHolding) => {
 		if (localStorage.getItem("filterStockHolding")) {
 			localStorage.removeItem("filterStockHolding");
-			localStorage.setItem("filterStockHolding", JSON.stringify(filterStockHolding))	
+			localStorage.setItem("filterStockHolding", JSON.stringify(filterStockHolding))
 		}
 	}
 
@@ -138,7 +140,6 @@ class StockHolding extends Component {
 			filterStockHolding.showPopup = !filterStockHolding.showPopup;
 
 			this.setState({ filterStockHolding: filterStockHolding });
-			this.updateFilterData(filterStockHolding);
 		// }
 	}
 
@@ -182,6 +183,14 @@ class StockHolding extends Component {
 		self.numberEventClick(self.state.currentPage);
 		localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
 	}
+
+	toggleAddFilter = () => {
+			let filterStockHolding = this.state.filterStockHolding;
+			filterStockHolding.showPopup = !filterStockHolding.showPopup;
+			// filterData.item = this.getRawFilterDataItem();
+			this.setState({ filterStockHolding: filterStockHolding });
+	}
+
 
     loadStockHolding = () => {
 		let self = this;
@@ -240,7 +249,7 @@ class StockHolding extends Component {
 		let params = {};
 		let form = self.searchForm.current;
 		let searchTerm = form.searchForm.value;
-		
+
 		// if (!searchTerm) { return };
 		params.searchParam = searchTerm;
 
@@ -284,7 +293,7 @@ class StockHolding extends Component {
 			return { showFilter: !prevState.showFilter };
 		});
 	}
-	
+
 	triggerChangeFilter = (key) => {
 		this.setState((state) => {
 			state.filterStockHolding.item[key].isVisible = !state.filterStockHolding.item[key].isVisible;
@@ -332,6 +341,29 @@ class StockHolding extends Component {
 		// window.location = "/stock/stockholding/" + encodeURIComponent(productCode);
 		// return <Link className="company-link p-1" to={"/stock/stockholding/" + encodeURIComponent(productCode)}>{productCode}</Link>;
 	}
+	itemFilterClick = (key, e) => {
+		e.stopPropagation();
+		this.toggleItemFilterShow(key);
+	}
+
+	toggleItemFilterShow = (key) => {
+		var self = this;
+		this.setState((state) => {
+			state.filterStockHolding.item[key].isVisible = !state.filterStockHolding.item[key].isVisible;
+			return state;
+		});
+	}
+	itemFilterCheckedClick = (key, e) => {
+		let isChecked = e.currentTarget.checked;
+		let filterdata = this.state.filterStockHolding;
+		if (isChecked) {
+			filterdata.item[key].isVisible= isChecked;
+		} else {
+			filterdata.item[key].isVisible= false;
+		}
+		this.setState({ filterStockHolding	: filterdata });
+		e.stopPropagation();
+	}
 
 	showHeader = () => {
 		return (
@@ -371,7 +403,7 @@ class StockHolding extends Component {
 								column.id === "expectedOutQty") {
 								return <td key={columnIdx} className="px-3 text-right">{item[column.key]}</td>;
 							}
-							
+
 							return <td key={columnIdx} className="px-3 text-left">{item[column.key]}</td>;
 						}
 					})}
@@ -387,7 +419,7 @@ class StockHolding extends Component {
 		);
 	}
 
-	createFilter = (item, key) => {
+	createFilter = (item, key, options) => {
 		return (
 			<ul className={"select" + (item.isVisible ? " expand" : "")}
 				id="select" name="select">
@@ -401,7 +433,7 @@ class StockHolding extends Component {
 					<label className="select-closeLabel" htmlFor={item.id + "-close"} onClick={() => this.triggerChangeFilter(key)} />
 
 					<ul className="select-options">
-						<li className="select-option">
+						{/* <li className="select-option">
 							<input type="checkbox" className="inp-cbx-filter d-none"
 							name={item.id} id={item.id + item} checked/>
 							<label className="select-label cbx-filter" htmlFor={item.id + item}>
@@ -413,6 +445,19 @@ class StockHolding extends Component {
 								<span>TEST123</span>
 							</label>
 						</li>
+						<li className="select-option">
+							<input type="checkbox" className="inp-cbx-filter d-none"
+								name={item.id} id={item.id + "-test234"} />
+								<label className="select-label option-radius cbx-filter" htmlFor={item.id + "-test234"}>
+									<span>
+										<svg viewBox="0 0 12 10" width="12px" height="10px">
+											<polyline points="1.5 6 4.5 9 10.5 1" />
+										</svg>
+									</span>
+									<span>TEST123</span>
+								</label>
+						</li> */}
+
 						<li className="select-option">
 							<input type="checkbox" className="inp-cbx-filter d-none"
 								name={item.id} id={item.id + "-test234"} />
@@ -437,7 +482,7 @@ class StockHolding extends Component {
 		let content;
 		switch (this.state.displayContent) {
 			case "FOUND" :
-				content = 
+				content =
 				<div className="col-12 p-0">
 					<div className={this.state.isSearch ? "spinner" : "d-none"} />
 					<div className={this.state.isSearch ? "d-none" : ""}>
@@ -475,13 +520,18 @@ class StockHolding extends Component {
 						<div className="col-12 p-0">
 							<div className="row mb-0 p-0">
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-									<CardBody>
+									<CardBody className="p-0">
 										<Row className="align-items-center">
-											<div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0">
+											<div className="col-12 col-lg-12 col-md-12 col-sm-12">
 												<FormGroup className="mb-1">
 													<InputGroup>
-														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-															<h4 className="headerTitle font-weight-bold stockholding-title">Stock Holding Summary</h4>
+														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
+															<Breadcrumb>
+																		<BreadcrumbItem active>
+																		Stock Holding Summary
+																		{/*<h4 className="headerTitle font-weight-bold stockholding-title">Stock Holding Summary</h4>**/}
+																		</BreadcrumbItem>
+															</Breadcrumb>
 														</div>
 													</InputGroup>
 												</FormGroup>
@@ -508,7 +558,7 @@ class StockHolding extends Component {
 																					<i className="fa fa-search fa-2x iconSpace" />
 																					{/* <i className="iconU-search" /> */}
 																				</span>
-																				<input type="text" className="form-control border-0 pt-2" 
+																				<input type="text" className="form-control border-0 pt-2"
 																						id="searchForm" name="searchForm" placeholder="Enter a Product or Description" />
 																			</div>
 																			<div className="col-3 text-right">
@@ -525,28 +575,73 @@ class StockHolding extends Component {
 																			</div>
 																		</div>
 																		<div className={"input-group p-2" + (this.state.showFilter ? "" : " d-none")}>
-																			<div className="filter-show">
+																			{/* <div className="filter-show">
 																				<span className="filter-label-show">Each</span>
 																				<button type="button" className="btn btn-outline-light filter-show-btn">
 																					<span className="iconU-close filter-close-icon" />
 																				</button>
-																			</div>
+																			</div> */}
 																		</div>
-																		
+
 																		<hr className={this.state.showFilter ? "m-0" : " d-none"}/>
 
-																		<div className={"input-group p-2" + (this.state.showFilter ? "" : " d-none")}>
-																			<Row>
-																				<Col lg="auto" md="2" sm="6">{'\u00A0'}</Col>
-																				{Object.keys(this.state.filterStockHolding.item).map((key, idx) => {
-																					let item = this.state.filterStockHolding.item[key];
-																					return (
-																						<Col lg="auto" md="5" sm="6" className={idx === 0 ? "" : "pl-0"} key={idx}>
-																							{this.createFilter(item, key)}
-																						</Col>
-																					);
-																				})}
-																			</Row>
+																		<div className={"mb-xl-n4 row p-2" + (this.state.showFilter ? "" : " d-none")}>
+																			<div className="col-lg-10">
+																				<div className="row">
+																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["site"].isVisible ? "" : " d-none")}>
+																							<Input className="select-color-border" name="site" type="select" id="select_1">
+																								<option value="">Company</option>
+																								<option value="steven">steven</option>
+																								<option value="company 2">company 2</option>
+																							</Input>
+																					</Col>
+
+																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["status"].isVisible ? "" : " d-none")}>
+																							<Input className="select-color-border" name="status" type="select" id="select_2">
+																								<option value="">Company</option>
+																								<option value="steven">steven</option>
+																								<option value="company 2">company 2</option>
+																							</Input>
+																					</Col>
+
+																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["uom"].isVisible ? "" : " d-none")}>
+																						<InputGroup className="input-group-custom">
+																							<Input className="select-color-border" name="uom" type="select" id="select_3">
+																								<option value="">Company</option>
+																								<option value="steven">steven</option>
+																								<option value="company 2">company 2</option>
+																							</Input>
+																						</InputGroup>
+																					</Col>
+
+
+																				</div>
+																			</div>
+																			<div className="col-lg-2">
+																					<ButtonDropdown isOpen={this.state.filterStockHolding.showPopup} toggle={this.toggleAddFilter} className="button-dropdown-display-block">
+																						<DropdownToggle className="float-right">
+																							<span className="p-1"> Add Filter </span>
+																						</DropdownToggle>
+																						<DropdownMenu right className="rounded-0" style={{border: "1px solid #000000"}}>
+																							{Object.keys(this.state.filterStockHolding.item).map((key, idx) => {
+																								let item = this.state.filterStockHolding.item[key];
+																								if (key !== "serviceItem" && key !== "companyItem") {
+																									return (
+																										<DropdownItem key={key} id={key} className="border-0" onClick={ (e) => {this.itemFilterClick(key,e);} }>
+																											<div className="div-dropdownItem" onClick={ (e) => { this.itemFilterClick(key, e)} }>
+																												<div className="form-check">
+																													<input className="form-check-input" type="checkbox" checked={ item.isVisible } value={ item.text } id={ key } onChange={(e) => { this.itemFilterCheckedClick(key,e);}} onClick={ (e) => { this.itemFilterCheckedClick(key,e);} } />
+																													<label className="form-check-label" htmlFor={key}>{item.text}</label>
+																												</div>
+																											</div>
+																										</DropdownItem>
+																									)
+																								}
+																							})}
+																						</DropdownMenu>
+																					</ButtonDropdown>
+
+																			</div>
 																		</div>
 																	</Card>
 																</div>

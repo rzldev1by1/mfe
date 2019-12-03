@@ -214,9 +214,9 @@ body {
 
 
 @media (min-width: 992px) {
-	.sidebar-lg-show.sidebar-fixed .main, 
-	.sidebar-lg-show.sidebar-fixed .app-footer, 
-	.sidebar-show.sidebar-fixed .main, 
+	.sidebar-lg-show.sidebar-fixed .main,
+	.sidebar-lg-show.sidebar-fixed .app-footer,
+	.sidebar-show.sidebar-fixed .main,
 	.sidebar-show.sidebar-fixed .app-footer {
 		margin-left: 260px !important;
 	}
@@ -227,6 +227,43 @@ body {
 .headerTitle {
 	font-size: 25px;
 	font-family: "Nunito Bold";
+}
+
+.breadcrumb-item {
+		font-size: 25px;
+		font-family: "Nunito Bold";
+}
+
+.breadcrumb-item.active {
+    color: #388DCD;
+}
+
+.breadcrumb {
+    position: relative;
+    border-radius: 0;
+    border: none;
+}
+
+a.breadcrumb {
+	color: #388DCD !important;
+	padding-top: 0;
+	padding-right: 0;
+	margin-bottom: 0;
+}
+
+a.breadcrumb:hover {
+	text-decoration: none;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+		font-family: "FontAwesome";
+   	content: "\f105";
+    display: inline-block;
+    padding-right: 1rem;
+		padding-left: 1rem;
+    color: #388DCD;
+		font-weight: 900;
+    // content: "&#xf105;";
 }
 
 // End - Breadcrumb
@@ -266,12 +303,12 @@ body {
 	background: #FFFFFF !important;
 }
 
-.sidebar .nav-link, 
+.sidebar .nav-link,
 		 .nav-link .nav-icon {
 	color: #212F61 !important;
 }
 
-.sidebar .nav-item .nav-link:hover, 
+.sidebar .nav-item .nav-link:hover,
 				   .nav-link:hover .nav-icon,
 				   .nav-link.active,
 				   .nav-link.active .nav-icon {
@@ -927,7 +964,7 @@ ul.companyProfile {
 	margin-bottom: 0 !important;
 }
 
-.select_items-export { 
+.select_items-export {
 	list-style: none;
 	width: 100%;
 	position: absolute;
@@ -938,7 +975,7 @@ ul.companyProfile {
 }
 
 .select_input-export {display: none}
-	
+
 .select_options-export{list-style: none;}
 
 .select_label-export {
@@ -1010,7 +1047,7 @@ ul.companyProfile {
 	background-image: url(./vendors/pdf_icon.png);
 	background-position: left center;
 	background-repeat: no-repeat;
-	
+
 	padding-left: 35px; /* Or size of icon + spacing */
 }
 .excel-icon {

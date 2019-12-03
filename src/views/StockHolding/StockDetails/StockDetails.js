@@ -3,7 +3,7 @@ import { Card, CardBody,
 		 Table, Row,
 		 FormGroup, InputGroup,
 		 Label,
-		 Nav, NavItem, NavLink
+		 Nav, NavItem, NavLink,Breadcrumb, BreadcrumbItem
 } from 'reactstrap';
 
 import axios from 'axios';
@@ -54,7 +54,7 @@ class StockDetails extends Component {
 			UoM: []
 		}
 	}
-	
+
 	componentDidMount() {
 		this.loadStockHolding();
 		this.loadStockDetails();
@@ -120,7 +120,7 @@ class StockDetails extends Component {
 					self.setState({ displayContent: "FOUND",
 									masterResStockHolding: respondRes.find(x => x.product === productId),
 									totalRows: respondRes.length });
-					
+
 					self.numberEventClick(self.state.currentPage);
 					localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
 				}
@@ -194,7 +194,7 @@ class StockDetails extends Component {
 			});
 		// }
 	}
-	
+
 	loadForeshadowed = () => {
 		let self = this;
 		self.setState({ isLoaded: true, currentPage: 1,
@@ -268,7 +268,7 @@ class StockDetails extends Component {
 	}
 
 	toggleDisplayMoreColumn = () => {
-		this.setState((prevState) => { 
+		this.setState((prevState) => {
 			return { displayMoreColumnModal: !prevState.displayMoreColumnModal }
 		});
 	}
@@ -400,9 +400,9 @@ class StockDetails extends Component {
 		this.state.stockDetails.map(item => (this.state.UoM.push(item["packdesc_2"])));
 
 		if (this.state.stockDetails) {
-			stockHoldingTable = 
-				<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-					<Table className="table-condensed table-striped rounded-bottom-175 mb-0" size="xl" width="100%">
+			stockHoldingTable =
+				<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
+					<Table className="table-condensed  table-striped rounded-bottom-175 mb-0" size="xl" width="100%">
 						<thead>{this.showStockDetailsHeader()}</thead>
 						<tbody>{this.showStockDetailsData()}</tbody>
 					</Table>
@@ -423,9 +423,10 @@ class StockDetails extends Component {
 		}
 
 		if (this.state.foreshadowedData) {
-			foreshadowedTable = 
-				<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-					<Table className="table-condensed table-striped rounded-bottom-175 mb-0" size="lg">
+
+			foreshadowedTable =
+				<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
+					<Table className="table-condensed  table-striped rounded-bottom-175 mb-0" size="lg">
 						<thead>{this.showForeshadowedHeader()}</thead>
 						<tbody>{this.showForeshadowedData()}</tbody>
 					</Table>
@@ -447,7 +448,7 @@ class StockDetails extends Component {
 
 		switch (this.state.displayContent) {
 			case "FOUND" :
-				content = 
+				content =
 				<div className="animated fadeIn">
 					<div className="row">
 						<div className="col-12 p-0">
@@ -459,7 +460,16 @@ class StockDetails extends Component {
 												<FormGroup>
 													<InputGroup>
 														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
-															<h4 className="headerTitle font-weight-bold">Detailed Information</h4>
+															<Breadcrumb>
+															{/*eslint-disable-next-line*/}
+																<BreadcrumbItem>
+																		<a href="#" className="breadcrumb">Stock Holding Summary</a>
+																</BreadcrumbItem>
+																<BreadcrumbItem active>
+																		{decodeURIComponent(this.props.match.params.product)}
+																	  { /*<h4 className="headerTitle font-weight-bold">Detailed Information</h4>**/}
+																</BreadcrumbItem>
+															</Breadcrumb>
 														</div>
 													</InputGroup>
 												</FormGroup>
@@ -504,7 +514,7 @@ class StockDetails extends Component {
 																				<div className="col-3">
 																					<Label className="secondary-text">{this.state.masterResStockHolding.product_name}</Label>
 																				</div>
-																				
+
 																				<div className="col-3">
 																					<Label className="font-weight-bold primary-text">Allocated Qty</Label>
 																				</div>
@@ -520,7 +530,7 @@ class StockDetails extends Component {
 																				<div className="col-3">
 																					<Label className="secondary-text">{this.state.UoM[0]}</Label>
 																				</div>
-																				
+
 																				<div className="col-3">
 																					<Label className="font-weight-bold primary-text">Available Qty</Label>
 																				</div>
@@ -536,7 +546,7 @@ class StockDetails extends Component {
 																				<div className="col-3">
 																					<Label className="secondary-text"></Label>
 																				</div>
-																				
+
 																				<div className="col-3">
 																					<Label className="font-weight-bold primary-text">On Purchase Qty</Label>
 																				</div>
@@ -625,6 +635,7 @@ class StockDetails extends Component {
 					</div>
 				</div>
 		}
+
 		return (
 			<React.Fragment>
 				{content}
