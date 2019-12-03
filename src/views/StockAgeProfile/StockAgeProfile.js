@@ -168,10 +168,10 @@ class StockAgeProfile extends Component {
             className="table-condensed table-striped clickable-row rounded-bottom-175 mb-0">
             <thead>
                 <tr>
-                    <th className="p-2 text-center border-bottom-0" rowSpan="2">Site</th>
-                    <th className="p-2 text-center border-bottom-0" rowSpan="2">Product ID</th>
-                    <th className="p-2 text-center border-bottom-0" rowSpan="2">Description</th>
-                    <th className="p-2 text-center border-bottom-0" rowSpan="2">UoM</th>
+                    <th className="p-2 text-left border-bottom-0" rowSpan="2">Site</th>
+                    <th className="p-2 text-left border-bottom-0" rowSpan="2">Product ID</th>
+                    <th className="p-2 text-left border-bottom-0" rowSpan="2">Description</th>
+                    <th className="p-2 text-left border-bottom-0" rowSpan="2">UoM</th>
 
                     <th
                         className="p-2 text-center border-center border-right border-bottom-0"
@@ -179,15 +179,15 @@ class StockAgeProfile extends Component {
                     <th className="p-2 text-center border-center border-bottom-0" colSpan="3">Total Quantities</th>
                 </tr>
                 <tr>
-                    <th className="text-right border-center border-bottom-0 blueLabel">Lively</th>
-                    <th className="text-right border-bottom-0 blueLabel">Acceptable</th>
-                    <th className="text-right border-bottom-0 blueLabel">Marginal</th>
-                    <th className="text-right border-bottom-0 blueLabel">Shelf Life</th>
-                    <th className="text-right border-right border-bottom-0 blueLabel">Dead</th>
+                    <th className="text-left border-center border-bottom-0 blueLabel">Lively</th>
+                    <th className="text-left border-bottom-0 blueLabel">Acceptable</th>
+                    <th className="text-left border-bottom-0 blueLabel">Marginal</th>
+                    <th className="text-left border-bottom-0 blueLabel">Shelf Life</th>
+                    <th className="text-left border-right border-bottom-0 blueLabel">Dead</th>
 
-                    <th className="text-right border-center border-bottom-0 blueLabel">On Hand</th>
-                    <th className="text-right border-bottom-0 blueLabel">Expected In</th>
-                    <th className="text-right border-bottom-0 blueLabel">Expected Out</th>
+                    <th className="text-left border-center border-bottom-0 blueLabel">On Hand</th>
+                    <th className="text-left border-bottom-0 blueLabel">Expected In</th>
+                    <th className="text-left border-bottom-0 blueLabel">Expected Out</th>
                 </tr>
             </thead>
             <tbody>
@@ -205,7 +205,7 @@ class StockAgeProfile extends Component {
 
                                     return <td
                                         key={columnIdx}
-                                        className={"px-2 text-right" + (column.id === "lively"
+                                        className={"px-2 text-left" + (column.id === "lively"
                                         ? " border-left"
                                         : (column.id === "dead"
                                             ? " border-right"
