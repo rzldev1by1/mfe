@@ -462,7 +462,7 @@ class StockDetails extends Component {
 															<Breadcrumb>
 															{/*eslint-disable-next-line*/}
 																<BreadcrumbItem>
-																		<a href="#">Stock Holding Summary</a>
+																		<a href="#" className="breadcrumb">Stock Holding Summary</a>
 																</BreadcrumbItem>
 																<BreadcrumbItem active>
 																		{decodeURIComponent(this.props.match.params.product)}
