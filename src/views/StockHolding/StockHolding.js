@@ -4,6 +4,8 @@ import { Card, CardBody,
 		 Button,
 		 ButtonDropdown,
 		 FormGroup,
+		 
+		Breadcrumb, BreadcrumbItem,
          Input, InputGroup, InputGroupAddon,
          DropdownItem, DropdownMenu, DropdownToggle
 } from 'reactstrap';
@@ -86,9 +88,9 @@ class StockHolding extends Component {
 					// "zone": { id: "zone", text: "Zone", isVisible: false },
 					// "disposition": { id: "disposition", text: "Disposition", isVisible: false },
 					// "alert": { id: "alert", text: "Alert", isVisible: false },
-					site: { id: "site", text: "Site", isVisible: false, options: [] },
-					status: { id: "status", text: "Status", isVisible: false, options: ["EACH", "BAG", "RPT", "CARTON"] },
-					uom: { id: "uom", text: "UoM", isVisible: false, options: [] }
+					"site": { text: "Site", isVisible: false,},
+					"status": { text: "Status", isVisible: false},
+					"uom": { text: "UoM", isVisible: false,}
 				}
 			},
 			masterResStockHolding: []
@@ -128,7 +130,7 @@ class StockHolding extends Component {
 	updateStockHolding = (filterStockHolding) => {
 		if (localStorage.getItem("filterStockHolding")) {
 			localStorage.removeItem("filterStockHolding");
-			localStorage.setItem("filterStockHolding", JSON.stringify(filterStockHolding))	
+			localStorage.setItem("filterStockHolding", JSON.stringify(filterStockHolding))
 		}
 	}
 
@@ -244,12 +246,14 @@ class StockHolding extends Component {
 						startIndex: 0, lastIndex: 0,
 						totalRows: 0, maxPage: 0, displayContent: "NOT_FOUND"});
 
-		let params = {};
 		let form = self.searchForm.current;
-		let searchTerm = form.searchForm.value;
-		
+
 		// if (!searchTerm) { return };
-		params.searchParam = searchTerm;
+		let params = {};
+		params.searchParam = form.searchInput.value;
+		if (this.state.filterStockHolding.item["site"].isVisible) params.site = form.xxx.value;
+		if (form.status.value && this.state.filterStockHolding.item["status"].isVisible) params.status = form.status.value;
+		if (form.uom.value && this.state.filterStockHolding.item["uom"].isVisible) params.uom = form.uom.value;		
 
 		axios.get(AppComponent.getBaseUrl() + "stockholding",
 		{
@@ -291,7 +295,7 @@ class StockHolding extends Component {
 			return { showFilter: !prevState.showFilter };
 		});
 	}
-	
+
 	triggerChangeFilter = (key) => {
 		this.setState((state) => {
 			state.filterStockHolding.item[key].isVisible = !state.filterStockHolding.item[key].isVisible;
@@ -401,7 +405,7 @@ class StockHolding extends Component {
 								column.id === "expectedOutQty") {
 								return <td key={columnIdx} className="px-3 text-right">{item[column.key]}</td>;
 							}
-							
+
 							return <td key={columnIdx} className="px-3 text-left">{item[column.key]}</td>;
 						}
 					})}
@@ -455,7 +459,7 @@ class StockHolding extends Component {
 									<span>TEST123</span>
 								</label>
 						</li> */}
-						
+
 						<li className="select-option">
 							<input type="checkbox" className="inp-cbx-filter d-none"
 								name={item.id} id={item.id + "-test234"} />
@@ -480,7 +484,7 @@ class StockHolding extends Component {
 		let content;
 		switch (this.state.displayContent) {
 			case "FOUND" :
-				content = 
+				content =
 				<div className="col-12 p-0">
 					<div className={this.state.isSearch ? "spinner" : "d-none"} />
 					<div className={this.state.isSearch ? "d-none" : ""}>
@@ -518,13 +522,18 @@ class StockHolding extends Component {
 						<div className="col-12 p-0">
 							<div className="row mb-0 p-0">
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-									<CardBody>
+									<CardBody className="p-0">
 										<Row className="align-items-center">
-											<div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0">
+											<div className="col-12 col-lg-12 col-md-12 col-sm-12">
 												<FormGroup className="mb-1">
 													<InputGroup>
-														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-															<h4 className="headerTitle font-weight-bold stockholding-title">Stock Holding Summary</h4>
+														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
+															<Breadcrumb>
+																		<BreadcrumbItem active>
+																		Stock Holding Summary
+																		{/*<h4 className="headerTitle font-weight-bold stockholding-title">Stock Holding Summary</h4>**/}
+																		</BreadcrumbItem>
+															</Breadcrumb>
 														</div>
 													</InputGroup>
 												</FormGroup>
@@ -551,8 +560,7 @@ class StockHolding extends Component {
 																					<i className="fa fa-search fa-2x iconSpace" />
 																					{/* <i className="iconU-search" /> */}
 																				</span>
-																				<input type="text" className="form-control border-0 pt-2" 
-																						id="searchForm" name="searchForm" placeholder="Enter a Product or Description" />
+																				<input type="text" className="form-control border-0 pt-2" id="searchInput" name="searchInput" placeholder="Enter a Product or Description" />
 																			</div>
 																			<div className="col-3 text-right">
 																				<Button className={"circle" + (this.state.showFilter ? " active" : "")} onClick={this.triggerShowFilter}>
@@ -575,34 +583,34 @@ class StockHolding extends Component {
 																				</button>
 																			</div> */}
 																		</div>
-																		
+
 																		<hr className={this.state.showFilter ? "m-0" : " d-none"}/>
 
 																		<div className={"mb-xl-n4 row p-2" + (this.state.showFilter ? "" : " d-none")}>
 																			<div className="col-lg-10">
 																				<div className="row">
 																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["site"].isVisible ? "" : " d-none")}>
-																							<Input className="select-color-border" name="site" type="select" id="select_1">
-																								<option value="">Company</option>
-																								<option value="steven">steven</option>
-																								<option value="company 2">company 2</option>
+																							<Input className="select-color-border" name="xxx" type="select" id="select_1">
+																								<option value="1">Site 1</option>
+																								<option value="2">Site 2</option>
+																								<option value="3">Site 3</option>
 																							</Input>
 																					</Col>
 
 																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["status"].isVisible ? "" : " d-none")}>
 																							<Input className="select-color-border" name="status" type="select" id="select_2">
-																								<option value="">Company</option>
-																								<option value="steven">steven</option>
-																								<option value="company 2">company 2</option>
+																								<option value="a">Status a</option>
+																								<option value="b">Status b</option>
+																								<option value="c">Status c</option>
 																							</Input>
 																					</Col>
 
 																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["uom"].isVisible ? "" : " d-none")}>
 																						<InputGroup className="input-group-custom">
 																							<Input className="select-color-border" name="uom" type="select" id="select_3">
-																								<option value="">Company</option>
-																								<option value="steven">steven</option>
-																								<option value="company 2">company 2</option>
+																								<option value="I">Uom I</option>
+																								<option value="II">Uom II</option>
+																								<option value="III">Uom III</option>
 																							</Input>
 																						</InputGroup>
 																					</Col>
