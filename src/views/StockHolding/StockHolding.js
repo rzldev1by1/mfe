@@ -88,9 +88,9 @@ class StockHolding extends Component {
 					// "zone": { id: "zone", text: "Zone", isVisible: false },
 					// "disposition": { id: "disposition", text: "Disposition", isVisible: false },
 					// "alert": { id: "alert", text: "Alert", isVisible: false },
-					site: { id: "site", text: "Site", isVisible: false, options: [] },
-					status: { id: "status", text: "Status", isVisible: false, options: ["EACH", "BAG", "RPT", "CARTON"] },
-					uom: { id: "uom", text: "UoM", isVisible: false, options: [] }
+					"site": { text: "Site", isVisible: false,},
+					"status": { text: "Status", isVisible: false},
+					"uom": { text: "UoM", isVisible: false,}
 				}
 			},
 			masterResStockHolding: []
@@ -246,12 +246,14 @@ class StockHolding extends Component {
 						startIndex: 0, lastIndex: 0,
 						totalRows: 0, maxPage: 0, displayContent: "NOT_FOUND"});
 
-		let params = {};
 		let form = self.searchForm.current;
-		let searchTerm = form.searchForm.value;
 
 		// if (!searchTerm) { return };
-		params.searchParam = searchTerm;
+		let params = {};
+		params.searchParam = form.searchInput.value;
+		if (this.state.filterStockHolding.item["site"].isVisible) params.site = form.xxx.value;
+		if (form.status.value && this.state.filterStockHolding.item["status"].isVisible) params.status = form.status.value;
+		if (form.uom.value && this.state.filterStockHolding.item["uom"].isVisible) params.uom = form.uom.value;		
 
 		axios.get(AppComponent.getBaseUrl() + "stockholding",
 		{
@@ -558,8 +560,7 @@ class StockHolding extends Component {
 																					<i className="fa fa-search fa-2x iconSpace" />
 																					{/* <i className="iconU-search" /> */}
 																				</span>
-																				<input type="text" className="form-control border-0 pt-2"
-																						id="searchForm" name="searchForm" placeholder="Enter a Product or Description" />
+																				<input type="text" className="form-control border-0 pt-2" id="searchInput" name="searchInput" placeholder="Enter a Product or Description" />
 																			</div>
 																			<div className="col-3 text-right">
 																				<Button className={"circle" + (this.state.showFilter ? " active" : "")} onClick={this.triggerShowFilter}>
@@ -589,27 +590,27 @@ class StockHolding extends Component {
 																			<div className="col-lg-10">
 																				<div className="row">
 																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["site"].isVisible ? "" : " d-none")}>
-																							<Input className="select-color-border" name="site" type="select" id="select_1">
-																								<option value="">Company</option>
-																								<option value="steven">steven</option>
-																								<option value="company 2">company 2</option>
+																							<Input className="select-color-border" name="xxx" type="select" id="select_1">
+																								<option value="1">Site 1</option>
+																								<option value="2">Site 2</option>
+																								<option value="3">Site 3</option>
 																							</Input>
 																					</Col>
 
 																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["status"].isVisible ? "" : " d-none")}>
 																							<Input className="select-color-border" name="status" type="select" id="select_2">
-																								<option value="">Company</option>
-																								<option value="steven">steven</option>
-																								<option value="company 2">company 2</option>
+																								<option value="a">Status a</option>
+																								<option value="b">Status b</option>
+																								<option value="c">Status c</option>
 																							</Input>
 																					</Col>
 
 																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["uom"].isVisible ? "" : " d-none")}>
 																						<InputGroup className="input-group-custom">
 																							<Input className="select-color-border" name="uom" type="select" id="select_3">
-																								<option value="">Company</option>
-																								<option value="steven">steven</option>
-																								<option value="company 2">company 2</option>
+																								<option value="I">Uom I</option>
+																								<option value="II">Uom II</option>
+																								<option value="III">Uom III</option>
 																							</Input>
 																						</InputGroup>
 																					</Col>
