@@ -224,9 +224,9 @@ class StockHolding extends Component {
 		// if (!searchTerm) { return };
 		let params = {};
 		params.searchParam = form.searchInput.value;
-		if (this.state.filterStockHolding.item["site"].isVisible) params.site = form.xxx.value;
-		if (form.status.value && this.state.filterStockHolding.item["status"].isVisible) params.status = form.status.value;
-		if (form.uom.value && this.state.filterStockHolding.item["uom"].isVisible) params.uom = form.uom.value;		
+		if (this.state.filterStockHolding.item["site"].isVisible) params.site = form.filterSite.value;
+		if (this.state.filterStockHolding.item["status"].isVisible) params.status = form.filterStatus.value;
+		if (this.state.filterStockHolding.item["uom"].isVisible) params.uom = form.filterUom.value;		
 
 		axios.get(AppComponent.getBaseUrl() + "stockholding",
 		{
@@ -565,7 +565,7 @@ class StockHolding extends Component {
 																			<div className="col-lg-10">
 																				<div className="row">
 																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["site"].isVisible ? "" : " d-none")}>
-																							<Input className="select-color-border" name="xxx" type="select" id="select_1">
+																							<Input className="select-color-border" name="filterSite" type="select" id="select_1">
 																								<option value="1">Site 1</option>
 																								<option value="2">Site 2</option>
 																								<option value="3">Site 3</option>
@@ -573,7 +573,7 @@ class StockHolding extends Component {
 																					</Col>
 
 																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["status"].isVisible ? "" : " d-none")}>
-																							<Input className="select-color-border" name="status" type="select" id="select_2">
+																							<Input className="select-color-border" name="filterStatus" type="select" id="select_2">
 																								<option value="a">Status a</option>
 																								<option value="b">Status b</option>
 																								<option value="c">Status c</option>
@@ -582,7 +582,7 @@ class StockHolding extends Component {
 
 																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["uom"].isVisible ? "" : " d-none")}>
 																						<InputGroup className="input-group-custom">
-																							<Input className="select-color-border" name="uom" type="select" id="select_3">
+																							<Input className="select-color-border" name="filterUom" type="select" id="select_3">
 																								<option value="I">Uom I</option>
 																								<option value="II">Uom II</option>
 																								<option value="III">Uom III</option>
