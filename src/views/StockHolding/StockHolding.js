@@ -74,6 +74,7 @@ class StockHolding extends Component {
 	}
 
 	componentDidMount() {
+
 		if (localStorage.getItem("masterResStockHolding") && localStorage.getItem("masterResStockHolding") !== "undefined" ) {
 			let masterResStockHolding =  JSON.parse(localStorage.getItem("masterResStockHolding"));
 			if (masterResStockHolding) {
@@ -85,6 +86,7 @@ class StockHolding extends Component {
 		} else {
 			this.loadStockHolding();
 		}
+		
 	}
 
 	getLocStockHolding = () => {
@@ -226,7 +228,7 @@ class StockHolding extends Component {
 		params.searchParam = form.searchInput.value;
 		if (this.state.filterStockHolding.item["site"].isVisible) params.site = form.xxx.value;
 		if (form.status.value && this.state.filterStockHolding.item["status"].isVisible) params.status = form.status.value;
-		if (form.uom.value && this.state.filterStockHolding.item["uom"].isVisible) params.uom = form.uom.value;		
+		if (form.uom.value && this.state.filterStockHolding.item["uom"].isVisible) params.uom = form.uom.value;
 
 		axios.get(AppComponent.getBaseUrl() + "stockholding",
 		{
