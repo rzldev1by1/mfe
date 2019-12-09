@@ -87,9 +87,9 @@ class Login extends Component {
                 }
             })
             .then(res => {
-                localStorage.setItem("companyCode",res.data["data"].companyCode);
-                localStorage.setItem("userLevel",res.data["data"].userLevel);
-                localStorage.setItem('token',res.data["data"].token);
+                localStorage.setItem("companyCode",res.data.companyCode);
+                localStorage.setItem("userLevel",res.data.userLevel);
+                localStorage.setItem('token',res.data.token);
                 this
                     .props
                     .history
