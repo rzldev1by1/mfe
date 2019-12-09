@@ -81,7 +81,6 @@ function YearMonthForm({ date, localeUtils, onChange, no }) {
 			monthOption = month.value ? month.value : date.getMonth();
 			yearOption = year.value ? year.value : date.getFullYear();
 			  onChange(new Date(yearOption, monthOption));
-			  console.log(yearOption, monthOption)
 		}
 	};
 
@@ -97,7 +96,6 @@ function YearMonthForm({ date, localeUtils, onChange, no }) {
 	}
 	var monthExpandStatus = [];
 	monthExpandStatus[no] = handleMonthExpand.bind(); 
-	console.log(handleMonthExpand)
 	return (
 	
 	  <form className="DayPicker-Caption">
@@ -190,29 +188,32 @@ class StockMovement extends Component {
 			selectExpand: false,
 			showDatepicker: false,
 			columns: [
-				{ id: "location", checkboxLabelText: "Location", tableHeaderText: "Location", isVisible: true, key: "" },
-				{ id: "locationType", checkboxLabelText: "Location Type", tableHeaderText: "Location Type", isVisible: true, key: "" },
-				{ id: "packId", checkboxLabelText: "Pack ID", tableHeaderText: "Pack ID", isVisible: true, key: "" },
-				{ id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "" },
-				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "" },
-				{ id: "qty", checkboxLabelText: "Qty", tableHeaderText: "Qty", isVisible: true, key: "" },
-				{ id: "plannedIn", checkboxLabelText: "Planned In", tableHeaderText: "Planned In", isVisible: true, key: "" },
-				{ id: "plannedOut", checkboxLabelText: "Planned Out", tableHeaderText: "Planned Out", isVisible: true, key: "" },
-				{ id: "packType", checkboxLabelText: "Pack Type", tableHeaderText: "Pack Type", isVisible: true, key: "" },
-				{ id: "packSize", checkboxLabelText: "Pack Size", tableHeaderText: "Pack Size", isVisible: true, key: "" },
-				{ id: "rotaDate", checkboxLabelText: "Rotadate", tableHeaderText: "Rotadate", isVisible: false, key: "" },
-				{ id: "rotaType", checkboxLabelText: "Rotadate Type", tableHeaderText: "Rotadate Type", isVisible: false, key: "" },
-				{ id: "dateStatus", checkboxLabelText: "Date Status", tableHeaderText: "Date Status", isVisible: true, key: "" },
-				{ id: "zone", checkboxLabelText: "Zone", tableHeaderText: "Zone", isVisible: false, key: "" },
-				{ id: "batch", checkboxLabelText: "Batch", tableHeaderText: "Batch", isVisible: true, key: "" },
-				{ id: "ref2", checkboxLabelText: "Ref 2", tableHeaderText: "Ref 2", isVisible: true, key: "" },
-				{ id: "ref3", checkboxLabelText: "Ref 3", tableHeaderText: "Ref 3", isVisible: false, key: "" },
-				{ id: "ref4", checkboxLabelText: "Ref 4", tableHeaderText: "Ref 4", isVisible: false, key: "" },
-				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: false, key: "" },
-				{ id: "alert", checkboxLabelText: "Alert", tableHeaderText: "Alert", isVisible: true, key: "" },
-				{ id: "weight", checkboxLabelText: "Weight", tableHeaderText: "Weight", isVisible: true, key: "" },
-				{ id: "volume", checkboxLabelText: "Volume", tableHeaderText: "Volume", isVisible: true, key: "" },
-				{ id: "lastUpdated", checkboxLabelText: "Last Updated", tableHeaderText: "Last Updated", isVisible: false, key: "" },
+				{ id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site", class:"" },
+				{ id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "product", class:"" },
+				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "product_name", class:"" },
+				{ id: "uom", checkboxLabelText: "UoM", tableHeaderText: "UoM", isVisible: true, key: "uom", class:"" },
+				{ id: "17", checkboxLabelText: "17 July 2019", tableHeaderText: "17 July 2019", isVisible: false, key: "17", class:"border-left borderless-bottom" },
+				{ id: "18", checkboxLabelText: "18 July 2019", tableHeaderText: "18 July 2019", isVisible: false, key: "18", class:"border-left borderless-bottom" },
+				{ id: "19", checkboxLabelText: "19 July 2019", tableHeaderText: "19 July 2019", isVisible: false, key: "19", class:"border-left borderless-bottom" },
+				{ id: "20", checkboxLabelText: "20 July 2019", tableHeaderText: "20 July 2019", isVisible: false, key: "20", class:"border-left borderless-bottom" },
+			],
+			subColumn: [
+				{ id: "sa_plus17", checkboxLabelText: "SA +", tableHeaderText: "SA +", isVisible: true, key: "sa_plus17", class: "border-left" },
+				{ id: "sa_minus17", checkboxLabelText: "SA -", tableHeaderText: "SA -", isVisible: true, key: "sa_minus17", class: "" },
+				{ id: "qty_rec17", checkboxLabelText: "Rec", tableHeaderText: "Rec", isVisible: true, key: "product_name17", class: "" },
+				{ id: "qty_send17", checkboxLabelText: "Send", tableHeaderText: "Send", isVisible: true, key: "qty_send17", class: "" },
+				{ id: "sa_plus18", checkboxLabelText: "SA +", tableHeaderText: "SA +", isVisible: true, key: "sa_plus18", class: "border-left" },
+				{ id: "sa_minus18", checkboxLabelText: "SA -", tableHeaderText: "SA -", isVisible: true, key: "sa_minus18", class: "" },
+				{ id: "qty_rec18", checkboxLabelText: "Rec", tableHeaderText: "Rec", isVisible: true, key: "product_name18", class: "" },
+				{ id: "qty_send18", checkboxLabelText: "Send", tableHeaderText: "Send", isVisible: true, key: "qty_send18", class: "" },
+				{ id: "sa_plus19", checkboxLabelText: "SA +", tableHeaderText: "SA +", isVisible: true, key: "sa_plus19", class: "border-left" },
+				{ id: "sa_minus19", checkboxLabelText: "SA -", tableHeaderText: "SA -", isVisible: true, key: "sa_minus19", class: "" },
+				{ id: "qty_rec19", checkboxLabelText: "Rec", tableHeaderText: "Rec", isVisible: true, key: "product_name19", class: "" },
+				{ id: "qty_send19", checkboxLabelText: "Send", tableHeaderText: "Send", isVisible: true, key: "qty_send19", class: "" },
+				{ id: "sa_plus20", checkboxLabelText: "SA +", tableHeaderText: "SA +", isVisible: true, key: "sa_plus20", class: "border-left" },
+				{ id: "sa_minus20", checkboxLabelText: "SA -", tableHeaderText: "SA -", isVisible: true, key: "sa_minus20", class: "" },
+				{ id: "qty_rec20", checkboxLabelText: "Rec", tableHeaderText: "Rec", isVisible: true, key: "product_name20", class: "" },
+				{ id: "qty_send20", checkboxLabelText: "Send", tableHeaderText: "Send", isVisible: true, key: "qty_send20", class: "" },
 			],
 			filterStockHolding: {
 				showPopup: false,
@@ -225,16 +226,16 @@ class StockMovement extends Component {
 					// "qty": { text: "Qty", isVisible: false },
 					// "plannedIn": { text: "Planned In", isVisible: false },
 					// "plannedOut": { text: "Planned Out", isVisible: false },
-					"packType": { text: "Pack Type", isVisible: false },
-					// "packSize": { text: "Pack Size", isVisible: false },
+					"uom": { text: "Pack Type", isVisible: false },
+					// "sa_plus17": { text: "Pack Size", isVisible: false },
 					"rotaDate": { text: "Rotadate", isVisible: false },
 					"rotaType": { text: "Rotadate Type", isVisible: false },
-					"dateStatus": { text: "Date Status", isVisible: false },
+					"sa_minus17": { text: "Date Status", isVisible: false },
 					"zone": { text: "Zone", isVisible: false },
 					// "batch": { text: "Batch", isVisible: false },
-					// "ref2": { text: "Ref 2", isVisible: false },
-					// "ref3": { text: "Ref 3", isVisible: false },
-					// "ref4": { text: "Ref 4", isVisible: false },
+					// "qty_rec17": { text: "Ref 2", isVisible: false },
+					// "qty_send17": { text: "Ref 3", isVisible: false },
+					// "sa_minus18": { text: "Ref 4", isVisible: false },
 					"disposition": { text: "Disposition", isVisible: false },
 					"alert": { text: "Alert", isVisible: false },
 					// "weight": { text: "Weight", isVisible: false },
@@ -246,10 +247,10 @@ class StockMovement extends Component {
 				{ location: "A0101A03", locationType: "Reserve", packId: "100000025",
 				  product: "1001", description: "AbcdefghijKlmnopqrst",
 				  qty: "50", plannedIn: "0", plannedOut: "0",
-				  packType: "EACH", packSize: "10*5",
+				  uom: "EACH", sa_plus17: "10*5",
 				  rotaDate: "11/02/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "A", batch: "",
-				  ref2: "1234", ref3: "1234", ref4: "1234",
+				  sa_minus17: "LIVE", zone: "A", batch: "",
+				  qty_rec17: "1234", qty_send17: "1234", sa_minus18: "1234",
 				  disposition: "", alert: "No",
 				  weight: "1", volume: "1",
 				  lastUpdated: ""				  				
@@ -257,10 +258,10 @@ class StockMovement extends Component {
 				{ location: "A0101A02", locationType: "Fixed Pickface", packId: "100000008",
 				  product: "1002", description: "Example Product 2",
 				  qty: "150", plannedIn: "0", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus18: "12*6",
 				  rotaDate: "21/10/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "B", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus18: "LIVE", zone: "B", batch: "",
+				  qty_rec18: "", qty_send18: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "1", volume: "1",
 				  lastUpdated: ""				  				
@@ -268,10 +269,10 @@ class StockMovement extends Component {
 				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
 				  product: "1003", description: "Example Product 3",
 				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus19: "12*6",
 				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus19: "LIVE", zone: "C", batch: "",
+				  qty_rec19: "", qty_send19: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
@@ -279,10 +280,10 @@ class StockMovement extends Component {
 				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
 				  product: "1003", description: "Example Product 3",
 				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus20: "12*6",
 				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus20: "LIVE", zone: "C", batch: "",
+				  qty_rec20: "", qty_send20: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
@@ -290,10 +291,10 @@ class StockMovement extends Component {
 				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
 				  product: "1003", description: "Example Product 3",
 				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus17: "12*6",
 				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus17: "LIVE", zone: "C", batch: "",
+				  qty_rec17: "", qty_send17: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
@@ -301,10 +302,10 @@ class StockMovement extends Component {
 				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
 				  product: "1003", description: "Example Product 3",
 				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus17: "12*6",
 				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus17: "LIVE", zone: "C", batch: "",
+				  qty_rec17: "", qty_send17: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
@@ -312,10 +313,10 @@ class StockMovement extends Component {
 				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
 				  product: "1003", description: "Example Product 3",
 				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus17: "12*6",
 				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus17: "LIVE", zone: "C", batch: "",
+				  qty_rec17: "", qty_send17: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
@@ -323,10 +324,10 @@ class StockMovement extends Component {
 				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
 				  product: "1003", description: "Example Product 3",
 				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus17: "12*6",
 				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus17: "LIVE", zone: "C", batch: "",
+				  qty_rec17: "", qty_send17: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
@@ -334,10 +335,10 @@ class StockMovement extends Component {
 				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
 				  product: "1003", description: "Example Product 3",
 				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus17: "12*6",
 				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus17: "LIVE", zone: "C", batch: "",
+				  qty_rec17: "", qty_send17: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
@@ -345,10 +346,10 @@ class StockMovement extends Component {
 				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
 				  product: "1003", description: "Example Product 3",
 				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus17: "12*6",
 				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus17: "LIVE", zone: "C", batch: "",
+				  qty_rec17: "", qty_send17: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
@@ -356,10 +357,10 @@ class StockMovement extends Component {
 				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
 				  product: "1003", description: "Example Product 3",
 				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus17: "12*6",
 				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus17: "LIVE", zone: "C", batch: "",
+				  qty_rec17: "", qty_send17: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
@@ -367,10 +368,10 @@ class StockMovement extends Component {
 				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
 				  product: "1003", description: "Example Product 3",
 				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus17: "12*6",
 				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus17: "LIVE", zone: "C", batch: "",
+				  qty_rec17: "", qty_send17: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
@@ -378,10 +379,10 @@ class StockMovement extends Component {
 				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
 				  product: "1003", description: "Example Product 3",
 				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus17: "12*6",
 				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus17: "LIVE", zone: "C", batch: "",
+				  qty_rec17: "", qty_send17: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
@@ -389,10 +390,10 @@ class StockMovement extends Component {
 				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
 				  product: "1003", description: "Example Product 3",
 				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus17: "12*6",
 				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus17: "LIVE", zone: "C", batch: "",
+				  qty_rec17: "", qty_send17: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
@@ -400,10 +401,10 @@ class StockMovement extends Component {
 				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
 				  product: "1003", description: "Example Product 3",
 				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus17: "12*6",
 				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus17: "LIVE", zone: "C", batch: "",
+				  qty_rec17: "", qty_send17: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
@@ -411,10 +412,10 @@ class StockMovement extends Component {
 				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
 				  product: "1003", description: "Example Product 3",
 				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus17: "12*6",
 				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus17: "LIVE", zone: "C", batch: "",
+				  qty_rec17: "", qty_send17: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
@@ -422,10 +423,10 @@ class StockMovement extends Component {
 				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
 				  product: "1003", description: "Example Product 3",
 				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus17: "12*6",
 				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus17: "LIVE", zone: "C", batch: "",
+				  qty_rec17: "", qty_send17: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
@@ -433,10 +434,10 @@ class StockMovement extends Component {
 				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
 				  product: "1003", description: "Example Product 3",
 				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus17: "12*6",
 				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus17: "LIVE", zone: "C", batch: "",
+				  qty_rec17: "", qty_send17: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
@@ -444,10 +445,10 @@ class StockMovement extends Component {
 				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
 				  product: "1003", description: "Example Product 3",
 				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus17: "12*6",
 				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus17: "LIVE", zone: "C", batch: "",
+				  qty_rec17: "", qty_send17: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
@@ -455,10 +456,10 @@ class StockMovement extends Component {
 				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
 				  product: "1003", description: "Example Product 3",
 				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus17: "12*6",
 				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus17: "LIVE", zone: "C", batch: "",
+				  qty_rec17: "", qty_send17: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
@@ -466,10 +467,10 @@ class StockMovement extends Component {
 				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
 				  product: "1003", description: "Example Product 3",
 				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  packType: "EACH", packSize: "12*6",
+				  uom: "EACH", sa_plus17: "12*6",
 				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  dateStatus: "LIVE", zone: "C", batch: "",
-				  ref2: "", ref3: "", ref4: "",
+				  sa_minus17: "LIVE", zone: "C", batch: "",
+				  qty_rec17: "", qty_send17: "", sa_minus18: "",
 				  disposition: "", alert: "No",
 				  weight: "12", volume: "1.76",
 				  lastUpdated: ""				  				
@@ -593,27 +594,34 @@ class StockMovement extends Component {
 		const modifiers = { start: this.state.from, end: this.state.to };
 		let content;
 		content = 
-		<Table className="table-condensed table-responsive table-striped clickable-row rounded-175 mb-0" size="sm">
+		<Table className={"table-condensed table-responsive table-striped clickable-row rounded-bottom-175 mb-0" + (this.state.showDatepicker ? " table-fixed" : "") + (this.state.selectExpand ? " smm-table" : "")} size="md" width="100%">
 			<thead>
 				<tr>
 					{this.state.columns.map((item, idx) => {
-						if (item.isVisible) {
-							if (item.id === "qty" ||
-								item.id === "plannedIn" ||
-								item.id === "plannedOut" ||
-								item.id === "weight" ||
-								item.id === "volume") {
-								return <th className="p-3 text-right" key={idx} width="10%">{item.tableHeaderText}</th>
+							if (item.id === "site" ||
+								item.id === "product" ||
+								item.id === "description" ||
+								item.id === "uom") {
+								return <th className={" text-left " + item.class} key={idx} rowSpan="2" width="17%">{item.tableHeaderText}</th>
 							}
 
-							return <th className="p-3 text-left" key={idx} width="10%">{item.tableHeaderText}</th>
+							if (item.id >= 17) {
+								return <th className={" text-left " + item.class} key={idx} colSpan="4" width="17%">{item.tableHeaderText}</th>
+							}
+
+							return <th className={" text-center " + item.class} key={idx} width="17%">{item.tableHeaderText}</th>
+					})}
+				</tr>
+				<tr>
+					{this.state.subColumn.map((item, idx) => {
+						if (item.isVisible) {
+							if (item.id === "qty_send") {
+								return <th className={" text-left blueLabel " + item.class} key={idx} width="17%">{item.tableHeaderText}</th>
+							}
+
+							return <th className={" text-center blueLabel " + item.class} key={idx} width="17%">{item.tableHeaderText}</th>
 						}
 					})}
-					<th className="p-3 text-left">
-						<button type="button" className="btn btn-outline-light"  onClick={this.toggleDisplayMoreColumn} style={{backgroundColor: '#FFFFFF', padding: '0.1rem 0.4rem', borderRadius: '100%'}}>
-							<span className="glyphicon glyphicon-pencil" style={{ color: '#388DCD', fontSize: '11px' }}></span>
-						</button>
-					</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -621,40 +629,20 @@ class StockMovement extends Component {
 					<tr key={idx} onClick={() => this.rowClicked(item["product"])}>
 						{this.state.columns.map((column, columnIdx) => {
 							if (column.isVisible) {
-								if (column.id === "product") {
-									return (
-										<td key={columnIdx} className="px-3 text-left">
-											{item[column.id]}
-										</td>
-									);
-								}
-
-								if (column.id === "qty" ||
-									column.id === "plannedIn" ||
-									column.id === "plannedOut" ||
-									column.id === "weight" ||
-									column.id === "volume") {
-									return (
-										<td key={columnIdx} className="px-3 text-right">
-											{item[column.id]}
-										</td>
-									);
-								}
 								
-								return <td key={columnIdx} className="px-3 text-left">{item[column.id]}</td>
+								return <td key={columnIdx} className="px-3 text-left" width="17%">{item[column.id]}</td>
 							}
 						})}
-						<td className="px-3 text-left">
-							{/* <a href="#" className="dots"> */}
-								<div className="dot"></div>
-								<div className="dot"></div>
-								<div className="dot"></div>
-							{/* </a> */}
-						</td>
+						{this.state.subColumn.map((subcolumn, subcolumnIdx) => {
+							if (subcolumn.isVisible) {
+								return <td key={subcolumnIdx} className={"px-3 text-left " + subcolumn.class} width="17%">{item[subcolumn.id]}</td>
+							}
+						})}
 					</tr>
 				))}
 			</tbody>
 		</Table>
+		
 
 		return(
 			<React.Fragment>
@@ -742,7 +730,7 @@ class StockMovement extends Component {
 																		</div>
 																		
 																	</Card>
-																	<div className="col-md-8 offset-md-4">
+																	<div className="col-md-12 col-lg-12 offset-md-4 offset-lg-3">
 																		<DayPicker
 																				className={(this.state.showDatepicker ? "Selectable datepicker-tab" : "d-none")}
 																				numberOfMonths={this.props.numberOfMonths}
@@ -804,11 +792,11 @@ class StockMovement extends Component {
 					</div>
 				</div>
 				
-				{/* <div className="row mt-2">
-					<div className="d-flex col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
+				<div className="row rem">
+					<div className="d-flex col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
 						{content}
 					</div>
-				</div> */}
+				</div>
 
 				{/* <StockHoldingEditColumn isOpen={this.state.displayMoreColumnModal}
 										toggle={this.toggleDisplayMoreColumn}
