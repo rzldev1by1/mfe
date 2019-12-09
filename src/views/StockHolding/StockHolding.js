@@ -4,13 +4,13 @@ import { Card, CardBody,
 		 Button,
 		 ButtonDropdown,
 		 FormGroup,
-		 
+
 		Breadcrumb, BreadcrumbItem,
          Input, InputGroup, InputGroupAddon,
          DropdownItem, DropdownMenu, DropdownToggle
 } from 'reactstrap';
 // import { TableHeaderColumn } from 'react-bootstrap-table';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 import axios from 'axios';
 import AppComponent from '../../AppComponent';
@@ -40,31 +40,6 @@ class StockHolding extends Component {
 			maxPage: 0,
 
 			columns: [
-				// { id: "location", checkboxLabelText: "Location", tableHeaderText: "Location", isVisible: true, key: "" },
-				// { id: "locationType", checkboxLabelText: "Location Type", tableHeaderText: "Location Type", isVisible: true, key: "" },
-				// { id: "packId", checkboxLabelText: "Pack ID", tableHeaderText: "Pack ID", isVisible: true, key: "" },
-				// { id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "" },
-				// { id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "" },
-				// { id: "qty", checkboxLabelText: "Qty", tableHeaderText: "Qty", isVisible: true, key: "" },
-				// { id: "plannedIn", checkboxLabelText: "Planned In", tableHeaderText: "Planned In", isVisible: true, key: "" },
-				// { id: "plannedOut", checkboxLabelText: "Planned Out", tableHeaderText: "Planned Out", isVisible: true, key: "" },
-				// { id: "packType", checkboxLabelText: "Pack Type", tableHeaderText: "Pack Type", isVisible: true, key: "" },
-				// { id: "packSize", checkboxLabelText: "Pack Size", tableHeaderText: "Pack Size", isVisible: true, key: "" },
-				// { id: "rotaDate", checkboxLabelText: "Rotadate", tableHeaderText: "Rotadate", isVisible: false, key: "" },
-				// { id: "rotaType", checkboxLabelText: "Rotadate Type", tableHeaderText: "Rotadate Type", isVisible: false, key: "" },
-				// { id: "dateStatus", checkboxLabelText: "Date Status", tableHeaderText: "Date Status", isVisible: true, key: "" },
-				// { id: "zone", checkboxLabelText: "Zone", tableHeaderText: "Zone", isVisible: false, key: "" },
-				// { id: "batch", checkboxLabelText: "Batch", tableHeaderText: "Batch", isVisible: true, key: "" },
-				// { id: "ref2", checkboxLabelText: "Ref 2", tableHeaderText: "Ref 2", isVisible: true, key: "" },
-				// { id: "ref3", checkboxLabelText: "Ref 3", tableHeaderText: "Ref 3", isVisible: false, key: "" },
-				// { id: "ref4", checkboxLabelText: "Ref 4", tableHeaderText: "Ref 4", isVisible: false, key: "" },
-				// { id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: false, key: "" },
-				// { id: "alert", checkboxLabelText: "Alert", tableHeaderText: "Alert", isVisible: true, key: "" },
-				// { id: "weight", checkboxLabelText: "Weight", tableHeaderText: "Weight", isVisible: true, key: "" },
-				// { id: "volume", checkboxLabelText: "Volume", tableHeaderText: "Volume", isVisible: true, key: "" },
-				// { id: "lastUpdated", checkboxLabelText: "Last Updated", tableHeaderText: "Last Updated", isVisible: false, key: "" },
-
-
 				{ id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site" },
 				{ id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "product" },
 				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "product_name" },
@@ -88,9 +63,9 @@ class StockHolding extends Component {
 					// "zone": { id: "zone", text: "Zone", isVisible: false },
 					// "disposition": { id: "disposition", text: "Disposition", isVisible: false },
 					// "alert": { id: "alert", text: "Alert", isVisible: false },
-					site: { id: "site", text: "Site", isVisible: false, options: [] },
-					status: { id: "status", text: "Status", isVisible: false, options: ["EACH", "BAG", "RPT", "CARTON"] },
-					uom: { id: "uom", text: "UoM", isVisible: false, options: [] }
+					"site": { text: "Site", isVisible: false,},
+					"status": { text: "Status", isVisible: false},
+					"uom": { text: "UoM", isVisible: false,}
 				}
 			},
 			masterResStockHolding: []
@@ -113,7 +88,6 @@ class StockHolding extends Component {
 	}
 
 	getLocStockHolding = () => {
-		// let self = this;
 		if (localStorage.getItem("filterStockHolding") && localStorage.getItem("filterStockHolding") !== "undefined") {
 			let filterItem = JSON.parse(localStorage.getItem("filterStockHolding"));
 			if (filterItem) {
@@ -191,7 +165,6 @@ class StockHolding extends Component {
 			this.setState({ filterStockHolding: filterStockHolding });
 	}
 
-
     loadStockHolding = () => {
 		let self = this;
 		self.setState({ isLoaded: true, isSearch: true,
@@ -246,12 +219,14 @@ class StockHolding extends Component {
 						startIndex: 0, lastIndex: 0,
 						totalRows: 0, maxPage: 0, displayContent: "NOT_FOUND"});
 
-		let params = {};
 		let form = self.searchForm.current;
-		let searchTerm = form.searchForm.value;
 
 		// if (!searchTerm) { return };
-		params.searchParam = searchTerm;
+		let params = {};
+		params.searchParam = form.searchInput.value;
+		if (this.state.filterStockHolding.item["site"].isVisible) params.site = form.xxx.value;
+		if (form.status.value && this.state.filterStockHolding.item["status"].isVisible) params.status = form.status.value;
+		if (form.uom.value && this.state.filterStockHolding.item["uom"].isVisible) params.uom = form.uom.value;		
 
 		axios.get(AppComponent.getBaseUrl() + "stockholding",
 		{
@@ -341,6 +316,7 @@ class StockHolding extends Component {
 		// window.location = "/stock/stockholding/" + encodeURIComponent(productCode);
 		// return <Link className="company-link p-1" to={"/stock/stockholding/" + encodeURIComponent(productCode)}>{productCode}</Link>;
 	}
+
 	itemFilterClick = (key, e) => {
 		e.stopPropagation();
 		this.toggleItemFilterShow(key);
@@ -353,15 +329,16 @@ class StockHolding extends Component {
 			return state;
 		});
 	}
+
 	itemFilterCheckedClick = (key, e) => {
 		let isChecked = e.currentTarget.checked;
 		let filterdata = this.state.filterStockHolding;
 		if (isChecked) {
-			filterdata.item[key].isVisible= isChecked;
+			filterdata.item[key].isVisible = isChecked;
 		} else {
-			filterdata.item[key].isVisible= false;
+			filterdata.item[key].isVisible = false;
 		}
-		this.setState({ filterStockHolding	: filterdata });
+		this.setState({ filterStockHolding: filterdata });
 		e.stopPropagation();
 	}
 
@@ -527,10 +504,10 @@ class StockHolding extends Component {
 													<InputGroup>
 														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
 															<Breadcrumb>
-																		<BreadcrumbItem active>
-																		Stock Holding Summary
-																		{/*<h4 className="headerTitle font-weight-bold stockholding-title">Stock Holding Summary</h4>**/}
-																		</BreadcrumbItem>
+																<BreadcrumbItem active>
+																	Stock Holding Summary
+																	{/*<h4 className="headerTitle font-weight-bold stockholding-title">Stock Holding Summary</h4>**/}
+																</BreadcrumbItem>
 															</Breadcrumb>
 														</div>
 													</InputGroup>
@@ -558,8 +535,7 @@ class StockHolding extends Component {
 																					<i className="fa fa-search fa-2x iconSpace" />
 																					{/* <i className="iconU-search" /> */}
 																				</span>
-																				<input type="text" className="form-control border-0 pt-2"
-																						id="searchForm" name="searchForm" placeholder="Enter a Product or Description" />
+																				<input type="text" className="form-control border-0 pt-2" id="searchInput" name="searchInput" placeholder="Enter a Product or Description" />
 																			</div>
 																			<div className="col-3 text-right">
 																				<Button className={"circle" + (this.state.showFilter ? " active" : "")} onClick={this.triggerShowFilter}>
@@ -589,27 +565,27 @@ class StockHolding extends Component {
 																			<div className="col-lg-10">
 																				<div className="row">
 																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["site"].isVisible ? "" : " d-none")}>
-																							<Input className="select-color-border" name="site" type="select" id="select_1">
-																								<option value="">Company</option>
-																								<option value="steven">steven</option>
-																								<option value="company 2">company 2</option>
+																							<Input className="select-color-border" name="xxx" type="select" id="select_1">
+																								<option value="1">Site 1</option>
+																								<option value="2">Site 2</option>
+																								<option value="3">Site 3</option>
 																							</Input>
 																					</Col>
 
 																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["status"].isVisible ? "" : " d-none")}>
 																							<Input className="select-color-border" name="status" type="select" id="select_2">
-																								<option value="">Company</option>
-																								<option value="steven">steven</option>
-																								<option value="company 2">company 2</option>
+																								<option value="a">Status a</option>
+																								<option value="b">Status b</option>
+																								<option value="c">Status c</option>
 																							</Input>
 																					</Col>
 
 																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["uom"].isVisible ? "" : " d-none")}>
 																						<InputGroup className="input-group-custom">
 																							<Input className="select-color-border" name="uom" type="select" id="select_3">
-																								<option value="">Company</option>
-																								<option value="steven">steven</option>
-																								<option value="company 2">company 2</option>
+																								<option value="I">Uom I</option>
+																								<option value="II">Uom II</option>
+																								<option value="III">Uom III</option>
 																							</Input>
 																						</InputGroup>
 																					</Col>
@@ -640,7 +616,6 @@ class StockHolding extends Component {
 																							})}
 																						</DropdownMenu>
 																					</ButtonDropdown>
-
 																			</div>
 																		</div>
 																	</Card>

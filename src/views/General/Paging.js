@@ -48,15 +48,15 @@ class Paging extends Component {
 	}
 
 	pageStartIndexOf = () => {
-		return ((this.props.currentPage * this.props.dsiplayPage) - this.props.dsiplayPage) + 1;
+		return ((this.props.currentPage * this.props.displayPage) - this.props.displayPage) + 1;
 	}
 
 	pageLastIndexOf = () => {
-		if (this.props.totalRows < this.props.dsiplayPage) {
-			// return ((this.props.currentPage * this.props.dsiplayPage) - this.props.dsiplayPage) + 1;
+		if (this.props.totalRows < this.props.displayPage) {
+			// return ((this.props.currentPage * this.props.displayPage) - this.props.displayPage) + 1;
 			this.pageStartIndexOf();
 		} else {
-			return this.props.currentPage * this.props.dsiplayPage;
+			return this.props.currentPage * this.props.displayPage;
 		}
 	}
 
@@ -73,31 +73,35 @@ class Paging extends Component {
 					<i className="fa fa-chevron-right text-center" aria-hidden="true" />
 				</button>
 
-				<ul className={"select-export" + (this.state.exportExpand ? " expand-export" : "")} id="select">
+				{/* <ul className={"select-export" + (this.state.exportExpand ? " expand-export" : "")} id="select">
 					<li className="expand-style-export">
-						<input className="select_close-export" type="radio" name="export" id="export-btn-close" value=""/>
+						<input className="select_close-export" type="radio" name="export" id="export-btn-close" value="" />
 						<span className="select_label-export select_label-placeholder-export">Export</span>
 					</li>
 					
 					<li className="select_items-export">
-						<input className="select_expand-export" type="radio" name="export" id="export-btn-opener"/>
+						<input className="select_expand-export" type="radio" name="export" id="export-btn-opener" />
 						<label className="select_closeLabel-export" htmlFor="export-btn-close" onClick={this.triggerExportExpand}></label>
 
 						<ul className="select_options-export">
 							<li className="select_option-export">
-								<input className="select_input-export" type="radio" name="export"></input>
-								<label className="select_label-export" htmlFor="Export to PDF"><span className="pdf-icon">Export to PDF</span></label>
+								<input className="select_input-export" type="radio" name="export" />
+								<label className="select_label-export" htmlFor="Export to PDF">
+									<span className="pdf-icon">Export to PDF</span>
+								</label>
 							</li>
 							<li className="select_option-export">
-								<input className="select_input-export" type="radio" name="export"></input>
-								<label className="select_label-export option_radius-export" htmlFor="Export to XLS"><span className="excel-icon">Export to XLS</span></label>
+								<input className="select_input-export" type="radio" name="export" />
+								<label className="select_label-export option_radius-export" htmlFor="Export to XLS">
+									<span className="excel-icon">Export to XLS</span>
+								</label>
 							</li>
 						</ul>
 
 
-						<label className="select_expandLabel-export" htmlFor="export-btn-opener" onClick={this.triggerExportExpand}></label>
+						<label className="select_expandLabel-export" htmlFor="export-btn-opener" onClick={this.triggerExportExpand} />
 					</li>
-				</ul>
+				</ul> */}
 			</div>
 		);
 	}
