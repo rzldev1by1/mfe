@@ -234,10 +234,25 @@ body {
 		font-family: "Nunito Bold";
 }
 
+.breadcrumb-item.active {
+    color: #388DCD;
+}
+
 .breadcrumb {
     position: relative;
     border-radius: 0;
     border: none;
+}
+
+a.breadcrumb {
+	color: #388DCD !important;
+	padding-top: 0;
+	padding-right: 0;
+	margin-bottom: 0;
+}
+
+a.breadcrumb:hover {
+	text-decoration: none;
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
@@ -246,12 +261,19 @@ body {
     display: inline-block;
     padding-right: 1rem;
 		padding-left: 1rem;
-    color: #20a8d8;
+    color: #388DCD;
 		font-weight: 900;
     // content: "&#xf105;";
 }
 
 // End - Breadcrumb
+
+/* section modal header custom **/
+.modalheader-custom{
+	display: inline !important;
+}
+
+/* end section modal header custom **/
 
 // Start - Sidebar
 
@@ -1042,3 +1064,10 @@ ul.companyProfile {
 	padding-left: 35px; /* Or size of icon + spacing */
 }
 /* End - Export Button */
+
+/* Start - table */
+.borderless-bottom{
+	border-bottom: 0 !important;
+}
+
+/* End - table */

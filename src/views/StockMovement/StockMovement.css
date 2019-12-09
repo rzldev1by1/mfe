@@ -4,6 +4,8 @@
     margin-bottom: -15px !important;
 }
 .datepicker-tab{
+	width: 620px;
+    height: 360px;
 	background-color: white;
     border: 1px solid #E5E5E5;
     border-radius: 7px;
@@ -370,3 +372,15 @@
 	border-bottom-right-radius: 22px;
 }
 
+/* Start - Table */
+.table-fixed{
+	margin-top: -360px;
+    z-index: -1;
+}
+.smm-table{
+    z-index: -1;
+}
+.rem{
+	margin-top: 1rem;
+}
+/* End - Table */

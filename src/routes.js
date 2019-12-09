@@ -74,8 +74,8 @@ const StockHolding = Loadable({
 	loading: Loading
 });
 
-const StockDetails = Loadable({
-	loader: () => import('./views/StockHolding/StockDetails/StockDetails'),
+const StockHoldingDetails = Loadable({
+	loader: () => import('./views/StockHolding/StockHoldingDetails/StockHoldingDetails'),
 	loading: Loading
 });
 
@@ -146,7 +146,7 @@ const routes = [
 
 	{ path: '/stock', exact: true, name: 'Stock', component: StockHolding },
 	{ path: '/stock/stockholding', exact: true, name: 'Stock Holding', component: StockHolding },
-	{ path: '/stock/stockholding/:product', exact: true, name: 'Stock Details', component: StockDetails },
+	{ path: '/stock/stockholding/:product', exact: true, name: 'Stock Holding Details', component: StockHoldingDetails },
 	{ path: '/stock/stockmovement/', exact: true, name: 'Stock Movement', component: StockMovement },
 	{ path: '/stock/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
 

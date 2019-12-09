@@ -402,7 +402,7 @@ class StockDetails extends Component {
 		if (this.state.stockDetails) {
 			stockHoldingTable =
 				<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-					<Table className="table-condensed table-responsive table-striped rounded-bottom-175 mb-0" size="xl" width="100%">
+					<Table className="table-condensed  table-striped rounded-bottom-175 mb-0" size="xl" width="100%">
 						<thead>{this.showStockDetailsHeader()}</thead>
 						<tbody>{this.showStockDetailsData()}</tbody>
 					</Table>
@@ -417,15 +417,16 @@ class StockDetails extends Component {
 				</div>
 		} else {
 			stockHoldingTable =
-				<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
+				<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
 					<span>No data found</span>
 				</div>
 		}
 
 		if (this.state.foreshadowedData) {
+
 			foreshadowedTable =
 				<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-					<Table className="table-condensed table-responsive table-striped rounded-bottom-175 mb-0" size="lg">
+					<Table className="table-condensed  table-striped rounded-bottom-175 mb-0" size="lg">
 						<thead>{this.showForeshadowedHeader()}</thead>
 						<tbody>{this.showForeshadowedData()}</tbody>
 					</Table>
@@ -462,7 +463,7 @@ class StockDetails extends Component {
 															<Breadcrumb>
 															{/*eslint-disable-next-line*/}
 																<BreadcrumbItem>
-																		<a href="#">Stock Holding Summary</a>
+																		<a href="#" className="breadcrumb">Stock Holding Summary</a>
 																</BreadcrumbItem>
 																<BreadcrumbItem active>
 																		{decodeURIComponent(this.props.match.params.product)}
