@@ -74,6 +74,7 @@ class StockHolding extends Component {
 	}
 
 	componentDidMount() {
+
 		if (localStorage.getItem("masterResStockHolding") && localStorage.getItem("masterResStockHolding") !== "undefined" ) {
 			let masterResStockHolding =  JSON.parse(localStorage.getItem("masterResStockHolding"));
 			if (masterResStockHolding) {
@@ -85,6 +86,7 @@ class StockHolding extends Component {
 		} else {
 			this.loadStockHolding();
 		}
+		
 	}
 
 	getLocStockHolding = () => {
