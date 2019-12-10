@@ -3,7 +3,7 @@ import { Card, CardBody,
 		 Table, Row,
 		 FormGroup, InputGroup,
 		 Label,
-		 Nav, NavItem, NavLink,
+		 Nav, NavItem, NavLink, Breadcrumb, BreadcrumbItem,
 		 TabContent, TabPane
 } from 'reactstrap';
 
@@ -25,7 +25,7 @@ class StockHoldingDetails extends Component {
 			activeTab: "2",
 			displayContent: "INIT",
 			UoM: [],
-			
+
 			stockHolding: [],
 			isStockDetails: false,
 			stockDetails: [],
@@ -33,7 +33,7 @@ class StockHoldingDetails extends Component {
 			foreshadowedBalance: [],
 		}
 	}
-	
+
 	componentDidMount() {
 		this.loadStockDetails();
 		this.loadForeshadowed();
@@ -51,7 +51,7 @@ class StockHoldingDetails extends Component {
 						totalRows: 0, maxPage: 0 });
 
 		axios.get(AppComponent.getBaseUrl() + "stockholding", {
-			params: params	
+			params: params
 		})
 		.then(res => {
 			// res.isSuccess = true;
@@ -72,7 +72,7 @@ class StockHoldingDetails extends Component {
 				let respondRes = result.data;
 				self.setState({ displayContent: "FOUND",
 								stockHolding: respondRes });
-				
+
 				// self.numberEventClick(self.state.currentPage);
 				// localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
 			}
@@ -128,7 +128,7 @@ class StockHoldingDetails extends Component {
 			self.setState({ isLoaded: false, isSearch: false });
 		});
 	}
-	
+
 	loadForeshadowed = () => {
 		let self = this;
 		self.setState({ isLoaded: true, currentPage: 1,
@@ -190,7 +190,7 @@ class StockHoldingDetails extends Component {
 		let content;
 		switch (this.state.displayContent) {
 			case "FOUND" :
-				content = 
+				content =
 				<div className="animated fadeIn">
 					<div className="row">
 						<div className="col-12 p-0">
@@ -202,8 +202,18 @@ class StockHoldingDetails extends Component {
 												<FormGroup>
 													<InputGroup>
 														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
-															<h4 className="headerTitle font-weight-bold">Detailed Information</h4>
+															<h4 className="headerTitle font-weight-bold">
+																<Breadcrumb>
+																		<BreadcrumbItem>
+																				<a href="#" className="breadcrumb">Detailed Information</a>
+																		</BreadcrumbItem>
+																		<BreadcrumbItem active>
+																				{decodeURIComponent(this.props.match.params.product)}
+																		</BreadcrumbItem>
+																</Breadcrumb>
+															</h4>
 														</div>
+														{/*eslint-disable-next-line*/}
 													</InputGroup>
 												</FormGroup>
 											</div>
@@ -246,7 +256,7 @@ class StockHoldingDetails extends Component {
 																			<div className="col-3">
 																				<Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0]["product_name"] : null}</Label>
 																			</div>
-																			
+
 																			<div className="col-3">
 																				<Label className="font-weight-bold primary-text">Allocated Qty</Label>
 																			</div>
@@ -262,7 +272,7 @@ class StockHoldingDetails extends Component {
 																			<div className="col-3">
 																				<Label className="secondary-text">{this.state.UoM[0]}</Label>
 																			</div>
-																			
+
 																			<div className="col-3">
 																				<Label className="font-weight-bold primary-text">Available Qty</Label>
 																			</div>
@@ -278,7 +288,7 @@ class StockHoldingDetails extends Component {
 																			<div className="col-3">
 																				<Label className="secondary-text"></Label>
 																			</div>
-																			
+
 																			<div className="col-3">
 																				<Label className="font-weight-bold primary-text">On Purchase Qty</Label>
 																			</div>
