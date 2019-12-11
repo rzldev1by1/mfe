@@ -586,9 +586,9 @@ class StockHolding extends Component {
 																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["uom"].isVisible ? "" : " d-none")}>
 																						<InputGroup className="input-group-custom">
 																							<Input className="select-color-border" name="filterUom" type="select" id="select_3">
-																								<option value="I">Uom I</option>
-																								<option value="II">Uom II</option>
-																								<option value="III">Uom III</option>
+																								<option value="case">UoM Case</option>
+																								<option value="pallet">UoM Pallet</option>
+																								<option value="each">UoM Each</option>
 																							</Input>
 																						</InputGroup>
 																					</Col>
