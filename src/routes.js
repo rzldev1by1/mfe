@@ -59,8 +59,8 @@ const Dashboard = Loadable({
 	loading: Loading
 });
 
-const InboundDelivery = Loadable({
-	loader: () => import('./views/Notifications/Alerts'),
+const PurchaseOrder = Loadable({
+	loader: () => import('./views/PurchaseOrder/PurchaseOrder'),
 	loading: Loading
 });
 
@@ -145,7 +145,7 @@ const routes = [
 	{ path: '/', exact: true, name: 'Home', component: DefaultLayout },
 
 	{ path: '/dashboard', name: 'Dashboard', component: Dashboard },
-	{ path: '/notifications', exact: true, name: 'Inbound Delivery', component: InboundDelivery },
+	{ path: '/notifications', exact: true, name: 'Inbound Delivery', component: PurchaseOrder },
 	{ path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
 
 	{ path: '/stock', exact: true, name: 'Stock', component: StockHolding },
@@ -154,6 +154,8 @@ const routes = [
 	{ path: '/stock/stockmovement/', exact: true, name: 'Stock Movement', component: StockMovement },
 	{ path: '/stock/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
 	{ path: '/purchaseorder/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrderDetail },
+
+	{path: '/purchaseorder', exact:true, name: 'Inbound Delivery', component:PurchaseOrder},
 	{ path: '/base', exact: true, name: 'User Control', component: UserControl },
 ];
 
