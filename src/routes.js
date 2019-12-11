@@ -153,9 +153,9 @@ const routes = [
 	{ path: '/stock/stockholding/:product', exact: true, name: 'Stock Holding Details', component: StockHoldingDetails },
 	{ path: '/stock/stockmovement/', exact: true, name: 'Stock Movement', component: StockMovement },
 	{ path: '/stock/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
-	{ path: '/purchaseorder/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrderDetail },
 
 	{path: '/purchaseorder', exact:true, name: 'Inbound Delivery', component:PurchaseOrder},
+	{ path: '/purchaseorder/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrderDetail },
 	{ path: '/base', exact: true, name: 'User Control', component: UserControl },
 ];
 
