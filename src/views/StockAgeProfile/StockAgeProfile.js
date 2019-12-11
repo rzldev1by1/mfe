@@ -29,7 +29,6 @@ class StockAgeProfile extends Component {
             displayPage: 50,
             totalRows: 5,
             maxPage: 5,
-
             column: [
                 {
                     id: "site"
