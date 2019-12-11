@@ -569,17 +569,18 @@ class StockHolding extends Component {
 																				<div className="row">
 																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["site"].isVisible ? "" : " d-none")}>
 																							<Input className="select-color-border" name="xxx" type="select" id="select_1">
-																								<option value="1">Site 1</option>
-																								<option value="2">Site 2</option>
-																								<option value="3">Site 3</option>
+																								<option value="M">Site M</option>
+																								<option value="S">Site S</option>
 																							</Input>
 																					</Col>
 
 																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["status"].isVisible ? "" : " d-none")}>
 																							<Input className="select-color-border" name="status" type="select" id="select_2">
-																								<option value="a">Status a</option>
-																								<option value="b">Status b</option>
-																								<option value="c">Status c</option>
+																								<option value="Q">Status Q</option>
+																								<option value="D">Status D</option>
+																								<option value="E">Status E</option>
+																								<option value="I">Status I</option>
+																								<option value="F">Status F</option>
 																							</Input>
 																					</Col>
 
