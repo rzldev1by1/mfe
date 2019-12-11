@@ -94,6 +94,10 @@ const UserControl = Loadable({
 	loading: Loading
 });
 
+const PurchaseOrderDetail = Loadable({
+	loader: () => import('./views/PO/PurchaseOrderDetail'),
+	loading: Loading
+});
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -137,9 +141,9 @@ const routes = [
 	// { path: '/charts', name: 'Charts', component: Charts },
 	// { path: '/users', exact: true,  name: 'Users', component: Users },
 	// { path: '/users/:id', exact: true, name: 'User Details', component: User },
-	
+
 	{ path: '/', exact: true, name: 'Home', component: DefaultLayout },
-	
+
 	{ path: '/dashboard', name: 'Dashboard', component: Dashboard },
 	{ path: '/notifications', exact: true, name: 'Inbound Delivery', component: InboundDelivery },
 	{ path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
@@ -149,7 +153,7 @@ const routes = [
 	{ path: '/stock/stockholding/:product', exact: true, name: 'Stock Holding Details', component: StockHoldingDetails },
 	{ path: '/stock/stockmovement/', exact: true, name: 'Stock Movement', component: StockMovement },
 	{ path: '/stock/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
-
+	{ path: '/purchaseorder/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrderDetail },
 	{ path: '/base', exact: true, name: 'User Control', component: UserControl },
 ];
 

@@ -29,6 +29,7 @@ import Widgets from './Widgets';
 
 import StockHolding from './StockHolding/StockHolding';
 import StockAgeProfile from './StockAgeProfile/StockAgeProfile';
+import PurchaseOrderDetail from './PO/PurchaseOrderDetail';
 
 export {
   Badges,
@@ -72,4 +73,3 @@ export {
   StockHolding,
   StockAgeProfile
 };
-
