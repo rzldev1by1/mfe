@@ -68,27 +68,8 @@ class StockDetails extends Component {
 						currentPage: 1,
 						startIndex: 0, lastIndex: 0,
 						totalRows: 0, maxPage: 0 });
-
-		// if (localStorage.getItem("masterResStockHolding")) {
-		// 	let masterResStockHolding = JSON.parse(localStorage.getItem("masterResStockHolding"));
-		// 	this.setState({ masterResStockHolding: masterResStockHolding });
-		// } else {
-			// let params = {'activeonly': 'N'}
-			// let endpoint = "scale/_proc/API_ProductList";
-			// axios.get(AppComponent.getBaseUrl() + endpoint, {
 			axios.get(AppComponent.getBaseUrl() + "stockholding")
-			//     params: params,
-			//     headers: {
-			//         'Content-Type': 'application/json',
-			//         'X-DreamFactory-API-Key': 'e553e47a799d4805fde8b31374f1706b130b2902b5376fbba6f4817ad3c6b272',
-			//         'X-Company-Code': Authentication.getCompanyCode(),
-			//         'X-DreamFactory-Session-Token': Authentication.getToken(),
-			//         'Accept':'application/json'
-			//     }
-			// })
 			.then(res => {
-				// res.isSuccess = true;
-				// self.setState({ isLoaded: false })
 				return res.data;
 			})
 			.catch(function (error) {
@@ -96,7 +77,6 @@ class StockDetails extends Component {
 								isLoaded: false,
 								isSearch: false });
 				if (error.response) {
-					// self.setState({ notFoundMessage: error.response.data.message })
 				}
 				return error;
 			})

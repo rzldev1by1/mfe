@@ -32,6 +32,7 @@ class StockHoldingDetails extends Component {
 			isForeshadowedBalance: false,
 			foreshadowedBalance: [],
 		}
+		console.log(this.state.stockDetails);
 	}
 
 	componentDidMount() {
@@ -261,7 +262,7 @@ class StockHoldingDetails extends Component {
 																				<Label className="font-weight-bold primary-text">Allocated Qty</Label>
 																			</div>
 																			<div className="col-3">
-																				<Label className="secondary-text"></Label>
+																				<Label className="secondary-text">{this.state.stockDetails[0].qty_lcd_committed}</Label>
 																			</div>
 																		</div>
 
@@ -270,14 +271,14 @@ class StockHoldingDetails extends Component {
 																				<Label className="font-weight-bold primary-text">UoM</Label>
 																			</div>
 																			<div className="col-3">
-																				<Label className="secondary-text">{this.state.UoM[0]}</Label>
+																				<Label className="secondary-text">{this.state.UoM}</Label>
 																			</div>
 
 																			<div className="col-3">
 																				<Label className="font-weight-bold primary-text">Available Qty</Label>
 																			</div>
 																			<div className="col-3">
-																				<Label className="secondary-text"></Label>
+																				<Label className="secondary-text">{this.state.stockDetails[0].qty_lcd}</Label>
 																			</div>
 																		</div>
 
@@ -293,7 +294,7 @@ class StockHoldingDetails extends Component {
 																				<Label className="font-weight-bold primary-text">On Purchase Qty</Label>
 																			</div>
 																			<div className="col-3">
-																				<Label className="secondary-text"></Label>
+																				<Label className="secondary-text">{this.state.stockDetails[0].qty_lcd_expected}</Label>
 																			</div>
 																		</div>
 																	</div>
