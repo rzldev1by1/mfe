@@ -130,7 +130,7 @@ export default {
 	},
 	{
 		name: 'Purchase Order',
-		url: '/notifications',
+		url: '/purchaseorder',
 		icon: 'iconU-purchaseOrder',
 		// children: [
 		//   {
