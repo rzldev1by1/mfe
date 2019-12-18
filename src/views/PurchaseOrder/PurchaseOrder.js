@@ -1,6 +1,7 @@
 import React, {Component, useState} from  'react'
 import '../StockHolding/StockHolding.css'
 import '../StockMovement/StockMovement.css'
+import './PurchaseOrder.css'
 import {
     Table,
     } from 'reactstrap'
@@ -24,7 +25,7 @@ const PurchaseOrder = () => {
     const [tableHeader, setTableHeader] = useState(['Site','Order No', 'Client', 'Status', 'Status Description', 'Date Due', 'Date Received', 'Date Released', 'Date Completed', 'Supplier'])
     const [tableData, setTableData] = useState([{"data":['A','PO-4312-1213','Josaphat','Open','Description of Status','27/01/2019','27/01/2019','27/01/2019','27/01/2019','SDF']},{"data":['B','PO-4312-1213B','Josaphat2','Open','Description of Status','27/01/2019','27/01/2019','27/01/2019','27/01/2019','SDF']}])
     //show purchase order detail
-     const [showDetail, setShowDetail] = useState(true)
+     const [showDetail, setShowDetail] = useState(false)
     const purchaseOrderDetail = (value) => {
         setShowDetail(!showDetail)
     }

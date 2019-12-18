@@ -1,0 +1,104 @@
+/* Purchase Order CSS*/
+.iconU-edit {
+	font-size:15px !important;	
+}
+
+.breadCrumbPO {
+	background: none !important;
+}
+
+::placeholder  { /* Chrome/Opera/Safari */
+	color: #cccccc !important;
+  }
+
+.marginBottom {
+	margin-bottom: 15px !important;
+	width: 100%;
+	margin-left: 0px;
+
+}
+
+ul > li:last-child > label:last-child {
+	border-bottom-left-radius: 20px !important;
+	border-bottom-right-radius: 20px !important;	
+  }
+
+  ul > li:first-child > label:first-child {
+	border-top-left-radius: 20px !important;
+	border-top-right-radius: 20px !important;	
+  }
+
+  .tabHeaders {
+	font-style: initial;
+	color:#388DCD;
+	margin-left: 40px ;
+	margin-top: 35px;
+  }
+
+  .tabshubHeaders {
+	margin-left: 40px ;
+	color: #a6a6a6;
+  }
+
+.modal-content{
+	width: 1800px !important;
+	margin-left: -650px;
+	margin-top: 70px;
+}
+
+.undefined{
+	width: 100%;
+}
+
+button > div {
+	font-size: 20px;
+	margin-left: 40px ;
+	text-align: left;
+}
+
+table > tr > td> button {
+	width : 100px !important;
+	text-align: left;
+}
+
+input {
+	border-style: double;
+	height: 40px !important;
+	width: 95%;
+	border-color: #e6e6e6;
+	border-width: 1.4px !important;
+	border-radius: 7px;
+	outline-color: grey;
+	-moz-outline-radius: 5px !important;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.dropdownStyle {
+	width:'95%';
+	 background-color:'white';
+	 border-radius: 7px;
+}
+
+.create:active {
+	background-color: grey !important;
+	color:white !important;
+}
+
+.addLine:hover {
+	cursor: pointer;
+}
+
+.sidebar .nav-item .nav-link:hover, .nav-link:hover .nav-icon, .nav-link.active, .nav-link.active .nav-icon {
+	border-radius: 0px !important;
+	margin-left: 3px;
+	background-color: white !important;
+	border-color: white !important;
+}
+
+.tab-content {
+	border: 1px !important;
+	height: auto;
+}
+
+
