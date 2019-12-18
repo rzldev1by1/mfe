@@ -141,7 +141,7 @@ const routes = [
 	{ path: '/', exact: true, name: 'Home', component: DefaultLayout },
 	
 	{ path: '/dashboard', name: 'Dashboard', component: Dashboard },
-	{ path: '/notifications', exact: true, name: 'Inbound Delivery', component: PurchaseOrder },
+	// { path: '/notifications', exact: true, name: 'Inbound Delivery', component: PurchaseOrder },
 	{ path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
 
 	{ path: '/stock', exact: true, name: 'Stock', component: StockHolding },
