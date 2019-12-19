@@ -44,7 +44,7 @@ class StockHolding extends Component {
 				{ id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "product" },
 				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "product_name" },
 				{ id: "status", checkboxLabelText: "Status", tableHeaderText: "Status", isVisible: true, key: "status" },
-				{ id: "uom", checkboxLabelText: "UoM", tableHeaderText: "UoM", isVisible: true, key: "" },
+				{ id: "uom", checkboxLabelText: "UoM", tableHeaderText: "UoM", isVisible: true, key: "uom" },
 				{ id: "onHandQty", checkboxLabelText: "On Hand Qty", tableHeaderText: "On Hand Qty", isVisible: true, key: "qty_lcd" },
 				{ id: "onHandWeight", checkboxLabelText: "On Hand Weight", tableHeaderText: "On Hand Weight", isVisible: true, key: "weight" },
 				{ id: "expectedInQty", checkboxLabelText: "Expected In Qty", tableHeaderText: "Expected In Qty", isVisible: true, key: "qty_lcd_expected" },
@@ -228,7 +228,7 @@ class StockHolding extends Component {
 		params.searchParam = form.searchInput.value;
 		if (this.state.filterStockHolding.item["site"].isVisible) params.site = form.filterSite.value;
 		if (this.state.filterStockHolding.item["status"].isVisible) params.status = form.filterStatus.value;
-		if (this.state.filterStockHolding.item["uom"].isVisible) params.uom = form.filterUom.value;		
+		if (this.state.filterStockHolding.item["uom"].isVisible) params.UOM = form.filterUom.value;		
 
 		axios.get(AppComponent.getBaseUrl() + "stockholding",
 		{
@@ -586,9 +586,9 @@ class StockHolding extends Component {
 																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["uom"].isVisible ? "" : " d-none")}>
 																						<InputGroup className="input-group-custom">
 																							<Input className="select-color-border" name="filterUom" type="select" id="select_3">
-																								<option value="case">UoM Case</option>
-																								<option value="pallet">UoM Pallet</option>
-																								<option value="each">UoM Each</option>
+																								<option value="CASE">UoM Case</option>
+																								<option value="PALLET">UoM Pallet</option>
+																								<option value="EACH">UoM Each</option>
 																							</Input>
 																						</InputGroup>
 																					</Col>
