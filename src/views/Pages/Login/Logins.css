@@ -1,0 +1,151 @@
+.background {
+  background-image: url(../../../assets/img/brand/bg.png);
+  background-size: cover !important;
+  width: 100%;
+  height:1080px;
+  background-color: black;
+  opacity: 10;
+}
+
+p{    
+    color: white;
+    font-style: initial;
+    font-size: 20px;
+    width: auto;
+    text-align: center;
+    letter-spacing: 0;
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+h4{
+    font: 20px/25px;
+    letter-spacing: 0;
+    color: #FFFFFF;
+    opacity: 1;
+    font-size: 30px;
+    letter-spacing: 2;
+}
+
+p:hover{
+    cursor: pointer;
+}
+
+.menu{
+ float: right;
+}
+
+table{
+    width: 50%;
+    margin-top: 30px;
+    margin-right: 50px;
+}
+
+.leftSide{
+    width: 50%;
+    height: 70%;
+}
+
+.loginInput{
+    margin-left: 6%;   
+    margin-top: 6%; 
+}
+
+.logininput{    
+    margin-bottom: 1%;
+    width: 45%;
+    height: 50px;
+    display: inline-block;
+    color: black;
+    padding: 10px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 4px;
+    margin: 10px auto;
+    transition:background-color 0.5s ease;
+    outline-color: grey;
+}
+
+::placeholder{
+    color:#CBCBCB;
+}
+
+input[type=button]{ 
+    height: 50px;
+    width: 20%;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 4px;
+    margin: 10px auto;
+    transition:background-color 0.5s ease;
+    background-color: #266CB3;
+    color: white;
+    font-size: 18px;
+}
+
+input[type=button]:active{
+    background-color: white !important;
+    color: grey !important;
+    transition:background-color 0.5s ease;
+    font-size: 18px;
+}
+
+.underLogin{
+    display: flex;
+}
+
+.tes{
+    vertical-align: middle !important;
+    text-align: center;
+}
+
+.signUp{
+    background-image: url(../../../assets/img/brand/u.png);
+    background-size: cover !important;
+    background-color: grey;
+    width: 40px;
+    height:40px;
+}
+
+.labels{
+    margin-top: 70px;
+    width: 15%;
+    height: 90px;
+}
+.icon{
+    background-color: #EBE9EA;
+    border-top-left-radius: 15px !important;
+    border-bottom-left-radius: 15px !important;
+}
+
+.texttop{
+    padding-left: 20px;
+    background-color: white;
+    border-top-right-radius: 15px !important;
+    color: #266CB3;
+    font-size: 20px;
+}
+.textbottom{
+    padding-left: 20px;
+    background-color: white;
+    border-bottom-right-radius: 15px !important;
+    color: #266CB3;
+    font-size: 18px;
+}
+
+.icon > img{
+    width: 35%;
+}
+
+.footer{
+    margin-top: 3%;
+    color: white;
+    float: right;
+    margin-right: 5%;
+    font-size: 18px;
+    text-align: right;
+}
+
+.labels:hover{
+    cursor: pointer;
+}

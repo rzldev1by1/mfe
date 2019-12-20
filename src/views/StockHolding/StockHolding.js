@@ -42,7 +42,7 @@ class StockHolding extends Component {
 			columns: [
 				{ id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site" },
 				{ id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "product" },
-				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "product_name" },
+				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "description" },
 				{ id: "status", checkboxLabelText: "Status", tableHeaderText: "Status", isVisible: true, key: "status" },
 				{ id: "uom", checkboxLabelText: "UoM", tableHeaderText: "UoM", isVisible: true, key: "uom" },
 				{ id: "onHandQty", checkboxLabelText: "On Hand Qty", tableHeaderText: "On Hand Qty", isVisible: true, key: "qty_lcd" },
@@ -157,7 +157,7 @@ class StockHolding extends Component {
 						totalRows: respondRes.length });
 
 		self.numberEventClick(self.state.currentPage);
-		localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
+		// localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
 	}
 
 	toggleAddFilter = () => {
@@ -194,7 +194,7 @@ class StockHolding extends Component {
 			.then(res => {
 				// res.isSuccess = true;
 				// self.setState({ isLoaded: false })
-				return res.data;
+				return res.data;				
 			})
 			.catch(function (error) {
 				self.setState({ displayContent: "NOT_FOUND",

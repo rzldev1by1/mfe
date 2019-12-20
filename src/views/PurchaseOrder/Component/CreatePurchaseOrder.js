@@ -80,8 +80,8 @@ const CreatePurchaseOrder = (props) => {
                <h4 className='tabHeaders' style={{marginLeft:22}}>Line Details</h4>
                <table style={{width:'100%', marginLeft:22}} >
                   <tr>
-                      <td style={{width:'5%'}}>#</td>
-                      <td style={{width:'20%'}}>Porduct Entry</td>
+                      <td>#</td>
+                      <td>Porduct Entry</td>
                       <td>Quantity</td>
                       <td>Batch Type</td>
                       <td>Batch Size</td>
@@ -115,8 +115,17 @@ const CreatePurchaseOrder = (props) => {
     <div>
       <Modal isOpen={props.show} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
         toggle={toggle} className={className}>
-        <h4 className='tabHeaders' toggle={toggle}>Create Purchase Order</h4>
-        <div className='tabshubHeaders'>Enter delivery and product details to create a new Purchase Order</div>
+          <table>
+            <tr>
+              <td><h4 className='tabHeaders' toggle={toggle}>Create Purchase Order</h4></td>
+              <td><div style={{textAlign:'center', paddingTop:10, marginLeft:-30}} className="circle" onClick={()=>toggle()}>X</div></td>
+            </tr>
+            <tr>
+              <td><div className='tabshubHeaders'>Enter delivery and product details to create a new Purchase Order</div></td>
+            </tr>            
+          </table>
+        
+       
         <ModalBody style={{width:'100%'}}>
 
             <CoolTabs

@@ -32,7 +32,6 @@ class StockHoldingDetails extends Component {
 			isForeshadowedBalance: false,
 			foreshadowedBalance: [],
 		}
-		console.log(this.state.stockDetails);
 	}
 
 	componentDidMount() {
@@ -73,7 +72,7 @@ class StockHoldingDetails extends Component {
 				let respondRes = result.data;
 				self.setState({ displayContent: "FOUND",
 								stockHolding: respondRes });
-
+				console.log(self.state.stockHolding)
 				// self.numberEventClick(self.state.currentPage);
 				// localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
 			}
@@ -82,6 +81,7 @@ class StockHoldingDetails extends Component {
     }
 
 	loadStockDetails = () => {
+		console.log(this.state.stockDetails)
 		let self = this;
 		self.setState({ isLoaded: true, currentPage: 1,
 						startIndex: 0, lastIndex: 0,
@@ -118,13 +118,12 @@ class StockHoldingDetails extends Component {
 				} else {
 					self.setState({ maxPage: 1 });
 				}
-
 				self.setState({ displayContent: "FOUND",
 								stockDetails: respondRes,
-								totalRows: respondRes.length });
-
+								totalRows: respondRes.length });								
+				console.log(self.state.stockDetails)
 				// self.numberEventClick(self.state.currentPage);
-				localStorage.setItem("stockDetails", JSON.stringify(respondRes));
+				// localStorage.setItem("stockDetails", JSON.stringify(respondRes));				
 			}
 			self.setState({ isLoaded: false, isSearch: false });
 		});
@@ -173,7 +172,7 @@ class StockHoldingDetails extends Component {
 								totalRows: respondRes.length });
 
 				// self.numberEventClick(self.state.currentPage);
-				localStorage.setItem("foreshadowedData", JSON.stringify(respondRes));
+				// localStorage.setItem("foreshadowedData", JSON.stringify(respondRes));
 			}
 			self.setState({ isLoaded: false, isSearch: false });
 		});
