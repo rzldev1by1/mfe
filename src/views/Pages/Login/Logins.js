@@ -82,7 +82,7 @@ class Logins extends Component{
 
     required = (props) => {
         return(
-        <div>{props.value + ' is required'}</div>
+        <div className='textAlert'>{props.value + ' is required'}</div>
         )
     }
 
@@ -129,15 +129,15 @@ class Logins extends Component{
                     <div className="loginInput">
                         <input type="text" className="logininput" placeholder="Username" value={this.state.username} onChange={this.onUserNameChange}/>                        
                         {this.state.userNull ? <this.required value="username"/> : null}
-                        <br/>
+                        {this.state.userNull ? null : <br/>}
                         <input type="password" className="logininput" placeholder="Password" value={this.state.password} onChange={this.onPasswordChange}/>
                         {this.state.passNull ? <this.required value="password"/> : null}
-                        <br/>
+                        {this.state.passNull ? null : <br/>}
                         <input onClick={this.inputCheck} type="button" value="LOGIN"/>                        
                     </div>
                 </div>
 
-                <div style={{display:'flex', marginLeft:60}}>
+                <div style={{display:'flex', marginLeft:60, marginTop:15}}>
                             <table className="labels">
                                 <tr>
                                     <td rowSpan="2" className="icon" align="center"><img src={userLogo}/></td>
