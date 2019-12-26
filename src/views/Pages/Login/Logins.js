@@ -25,58 +25,19 @@ import search from "../../../assets/img/brand/search.png";
 
 class Logins extends Component{
     constructor(props) {
-        super(props);
+        super(props)
 
         this.state = {
-            valid: {
-                username: {
-                    isValid: true,
-                    message: ""
-                },
-                password: {
-                    isValid: true,
-                    message: ""
-                }
-            }
+            username: null, 
+            password:null,
+            userNull: false,
+            passNull: false
         }
-
-        this.loginForm = React.createRef();
-    }
-
-    validateForm = () => {
-        let isValid = true;
-        let form = this.loginForm.current;
-        let validState = this.state.valid;
-
-        let usernameValidState = validState.username;
-        usernameValidState.isValid = !form.username.value
-            ? false
-            : true;
-        usernameValidState.message = !form.username.value
-            ? "Username is required"
-            : "";
-        validState.username = usernameValidState;
-        isValid = usernameValidState.isValid;
-
-        let passwordValidState = validState.password;
-        passwordValidState.isValid = !form.password.value
-            ? false
-            : true;
-        passwordValidState.message = !form.password.value
-            ? "Password is required"
-            : "";
-        validState.password = passwordValidState;
-        isValid = passwordValidState.isValid;
-
-        this.setState({valid: validState});
-        return isValid;
     }
 
     authenticateUser = () => {
-        if (this.validateForm()) {
-			let form = this.loginForm.current;
-			let usrIn = form.username.value;
-            let pwdIn = form.password.value;
+			let usrIn = this.state.username;
+            let pwdIn = this.state.password;
             // "userid":"MLS12345",
             // "password":"password"
             axios({
@@ -102,23 +63,50 @@ class Logins extends Component{
                 {
                     alert("Invalid Username/password");
                 }
-            });
-            // if (form.username.value === "onebyonedev" && form.password.value === "onebyone") {
-            //     this
-            //         .props
-            //         .history
-            //         .push('/stockholding')
-            // }
+            });        
+    }
+
+    direct = () => {
+        this.inputCheck()        
+        }
+
+    onUserNameChange = (e) => {
+        this.setState({username: e.target.value})
+        this.setState({userNull:false})
+    }
+
+    onPasswordChange = (e) => {
+        this.setState({password: e.target.value})
+        this.setState({passNull:false})
+    }
+
+    required = (props) => {
+        return(
+        <div>{props.value + ' is required'}</div>
+        )
+    }
+
+    inputCheck = () => {
+        let username = this.state.username
+        let password = this.state.password
+        if(!username && !password)
+        {
+            this.setState({userNull:true})
+            this.setState({passNull:true})
+        }
+        else if(!username)
+        {
+            this.setState({userNull:true})
+        }
+        else if(!password)
+        {
+            this.setState({passNull:true})
+        }
+        else{
+            this.authenticateUser()
         }
     }
-    render(){
-        
-       const direct = ()=>{
-            this
-                    .props
-                    .history
-                    .push('/stock')
-        }
+    render(){             
         return(
             <div className="background fontstyle">
                 <table className="menu">
@@ -139,11 +127,13 @@ class Logins extends Component{
                     <h4 className="p" style={{marginLeft:'6%', marginRight:60, color:'white'}}>needing to ever change the core application.</h4>
 
                     <div className="loginInput">
-                        <input type="text" className="logininput" placeholder="Username"/>
+                        <input type="text" className="logininput" placeholder="Username" value={this.state.username} onChange={this.onUserNameChange}/>                        
+                        {this.state.userNull ? <this.required value="username"/> : null}
                         <br/>
-                        <input type="password" className="logininput" placeholder="Password"/>
+                        <input type="password" className="logininput" placeholder="Password" value={this.state.password} onChange={this.onPasswordChange}/>
+                        {this.state.passNull ? <this.required value="password"/> : null}
                         <br/>
-                        <input onClick={direct} type="button" value="LOGIN"/>                        
+                        <input onClick={this.inputCheck} type="button" value="LOGIN"/>                        
                     </div>
                 </div>
 
