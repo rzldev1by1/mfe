@@ -30,9 +30,12 @@ class Logins extends Component{
         this.state = {
             username: null, 
             password:null,
-            userNull: false,
-            passNull: false
+            loginClicked:false,
+            loginValidation:true
         }
+    }
+    loginValidation = () => {
+        this.setState({loginValidation:false})
     }
 
     authenticateUser = () => {
@@ -61,7 +64,8 @@ class Logins extends Component{
             .catch(function (error) {
                 if(error)
                 {
-                    alert("Invalid Username/password");
+                    // alert("Invalid Username/password");
+                    this.loginValidation()
                 }
             });        
     }
@@ -72,17 +76,17 @@ class Logins extends Component{
 
     onUserNameChange = (e) => {
         this.setState({username: e.target.value})
-        this.setState({userNull:false})
+        this.setState({loginClicked:false})
     }
 
     onPasswordChange = (e) => {
         this.setState({password: e.target.value})
-        this.setState({passNull:false})
+        this.setState({loginClicked:false})
     }
 
     required = (props) => {
         return(
-        <div className='textAlert'>{props.value + ' is required'}</div>
+        <div className='textAlert'>{<div className='iconU-search'/>+props.value + ' is required'}</div>
         )
     }
 
@@ -91,21 +95,59 @@ class Logins extends Component{
         let password = this.state.password
         if(!username && !password)
         {
-            this.setState({userNull:true})
-            this.setState({passNull:true})
+            this.setState({loginClicked:true})
         }
         else if(!username)
         {
-            this.setState({userNull:true})
+            this.setState({loginClicked:true})
         }
         else if(!password)
         {
-            this.setState({passNull:true})
+            this.setState({loginClicked:true})
         }
         else{
             this.authenticateUser()
         }
     }
+
+    alertComponent = () => {
+        let value = null
+
+        if(!this.state.username && !this.state.password)
+        {
+            value = 'Username and Password'
+        }
+        else if(!this.state.username)
+        {
+            value = 'Username'
+        }
+        else if(!this.state.password)
+        {
+            value = 'Password'
+        }
+        if(!this.state.username || !this.state.password && this.state.loginValidation)
+        {
+            return(
+                <div className='alertFadeIn'>
+                   {value + ' is required'}
+                </div>
+            )
+        }
+        else if(this.state.username || this.state.password && !this.state.loginValidation)
+        {
+            return(
+                <div className='alertFadeIn'>
+                   {value + ' is required'}
+                </div>
+            )
+        }
+
+        return false
+        
+    }
+
+    
+    
     render(){             
         return(
             <div className="background fontstyle">
@@ -121,23 +163,21 @@ class Logins extends Component{
                     </tr>
                 </table>
                 <div className="leftSide">
-                    <img src={centerLogo} style={{marginLeft:'3%', marginTop:'11%'}}/>
+                    <img src={centerLogo} style={{marginLeft:'5%', marginTop:'5%'}}/>
                     <h4 className="p" style={{marginLeft:'6%', marginRight:60, color:'white'}}>As such we can handle any size and/or type of warehouse</h4>
                     <h4 className="p" style={{marginLeft:'6%', marginRight:60, color:'white'}}>with the one system and allow the customer to grow without</h4>
                     <h4 className="p" style={{marginLeft:'6%', marginRight:60, color:'white'}}>needing to ever change the core application.</h4>
 
                     <div className="loginInput">
-                        <input type="text" className="logininput" placeholder="Username" value={this.state.username} onChange={this.onUserNameChange}/>                        
-                        {this.state.userNull ? <this.required value="username"/> : null}
-                        {this.state.userNull ? null : <br/>}
+                        <input type="text" className="logininput" placeholder="Username" value={this.state.username} onChange={this.onUserNameChange}/>
+                        <br/>
                         <input type="password" className="logininput" placeholder="Password" value={this.state.password} onChange={this.onPasswordChange}/>
-                        {this.state.passNull ? <this.required value="password"/> : null}
-                        {this.state.passNull ? null : <br/>}
-                        <input onClick={this.inputCheck} type="button" value="LOGIN"/>                        
+                        <br/>
+                        <input onClick={this.inputCheck} type="button" value="LOGIN"/> 
+                        {this.state.loginClicked ? <this.alertComponent/> : <div className='alertFadeIn' style={{color:'transparent', paddingTop: '0.2%'}}>.</div>}                
                     </div>
-                </div>
-
-                <div style={{display:'flex', marginLeft:60, marginTop:15}}>
+                </div>                
+                {/* <div style={{display:'flex', marginLeft:'6%', marginTop:'-0.5%'}}>
                             <table className="labels">
                                 <tr>
                                     <td rowSpan="2" className="icon" align="center"><img src={userLogo}/></td>
@@ -167,12 +207,12 @@ class Logins extends Component{
                                     <td className="textbottom">See the products</td>
                                 </tr>
                             </table>
-                        </div>
+                        </div> */}
                         <div className="footer">
                            Need more information?
                            <div style={{fontSize:30}}>help@microlistics.co.au</div>
                         </div>
-                        <div style={{fontSize:15, color:'white', marginTop:'6%', marginLeft:'3%'}}>© Microlistics Logistics {new Date().getFullYear()}</div>
+                        <div style={{fontSize:15, color:'white', marginTop:'3%', marginLeft:'3%'}}>© Microlistics Logistics {new Date().getFullYear()}</div>
             </div>
         )
     }
