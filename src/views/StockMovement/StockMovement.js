@@ -12,8 +12,12 @@ import { Link } from 'react-router-dom';
 // import { isTSEnumMember } from '@babel/types';
 
 // import StockHoldingEditColumn from './StockHoldingEditColumn';
+import axios from 'axios';
+import AppComponent from '../../AppComponent';
+import Authentication from '../../Auth/Authentication';
 import './StockMovement.css';
 import {Helmet} from "react-helmet";
+import moment from 'moment';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
@@ -21,6 +25,29 @@ const currentYear = 2017;
 const currentMonth = 0;
 const fromMonth = new Date(currentYear, currentMonth);
 const toMonth = new Date(currentYear + 10, 11);
+
+function getWeekDays(weekStart) {
+	const days = [weekStart];
+	for (let i = 1; i < 7; i += 1) {
+	  days.push(
+		moment(weekStart)
+		  .add(i, 'days')
+		  .toDate()
+	  );
+	}
+	return days;
+  }
+  
+  function getWeekRange(date) {
+	return {
+	  from: moment(date)
+		.startOf('week')
+		.toDate(),
+	  to: moment(date)
+		.endOf('week')
+		.toDate(),
+	};
+  }
 
 function Navbar({
 	nextMonth,
@@ -165,11 +192,11 @@ function YearMonthForm({ date, localeUtils, onChange, no }) {
 
 class StockMovement extends Component {
 	static defaultProps = {
-	  numberOfMonths: 2,
+		hoverRange: undefined,
+		selectedDays: []
 	};
 	constructor(props) {
 		super(props);
-		this.handleDayClick = this.handleDayClick.bind(this);
 		this.handleYearMonthChange = this.handleYearMonthChange.bind(this);
 		this.state = {
 			isVisible: [],
@@ -177,7 +204,7 @@ class StockMovement extends Component {
 			isSearch: false,
 			displayContent: "INIT",
 			displayMoreColumnModal: false,
-			showFilter: true,
+			showContent: false,
 
 			currentPage: 1,
 			startIndex: 0,
@@ -188,300 +215,31 @@ class StockMovement extends Component {
 			selectExpand: false,
 			showDatepicker: false,
 			columns: [
-				{ id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site", class:"" },
-				{ id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "product", class:"" },
-				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "product_name", class:"" },
-				{ id: "uom", checkboxLabelText: "UoM", tableHeaderText: "UoM", isVisible: true, key: "uom", class:"" },
-				{ id: "17", checkboxLabelText: "17 July 2019", tableHeaderText: "17 July 2019", isVisible: false, key: "17", class:"border-left borderless-bottom" },
-				{ id: "18", checkboxLabelText: "18 July 2019", tableHeaderText: "18 July 2019", isVisible: false, key: "18", class:"border-left borderless-bottom" },
-				{ id: "19", checkboxLabelText: "19 July 2019", tableHeaderText: "19 July 2019", isVisible: false, key: "19", class:"border-left borderless-bottom" },
-				{ id: "20", checkboxLabelText: "20 July 2019", tableHeaderText: "20 July 2019", isVisible: false, key: "20", class:"border-left borderless-bottom" },
+				{ id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site", class:"", subColumns: undefined},
+				{ id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "product", class:"", subColumns: undefined},
+				{ id: "product_name", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "product_name", class:"", subColumns: undefined},
+				{ id: "packdesc", checkboxLabelText: "UoM", tableHeaderText: "UoM", isVisible: true, key: "packdesc", class:"", subColumns: undefined},
 			],
-			subColumn: [
-				{ id: "sa_plus17", checkboxLabelText: "SA +", tableHeaderText: "SA +", isVisible: true, key: "sa_plus17", class: "border-left" },
-				{ id: "sa_minus17", checkboxLabelText: "SA -", tableHeaderText: "SA -", isVisible: true, key: "sa_minus17", class: "" },
-				{ id: "qty_rec17", checkboxLabelText: "Rec", tableHeaderText: "Rec", isVisible: true, key: "product_name17", class: "" },
-				{ id: "qty_send17", checkboxLabelText: "Send", tableHeaderText: "Send", isVisible: true, key: "qty_send17", class: "" },
-				{ id: "sa_plus18", checkboxLabelText: "SA +", tableHeaderText: "SA +", isVisible: true, key: "sa_plus18", class: "border-left" },
-				{ id: "sa_minus18", checkboxLabelText: "SA -", tableHeaderText: "SA -", isVisible: true, key: "sa_minus18", class: "" },
-				{ id: "qty_rec18", checkboxLabelText: "Rec", tableHeaderText: "Rec", isVisible: true, key: "product_name18", class: "" },
-				{ id: "qty_send18", checkboxLabelText: "Send", tableHeaderText: "Send", isVisible: true, key: "qty_send18", class: "" },
-				{ id: "sa_plus19", checkboxLabelText: "SA +", tableHeaderText: "SA +", isVisible: true, key: "sa_plus19", class: "border-left" },
-				{ id: "sa_minus19", checkboxLabelText: "SA -", tableHeaderText: "SA -", isVisible: true, key: "sa_minus19", class: "" },
-				{ id: "qty_rec19", checkboxLabelText: "Rec", tableHeaderText: "Rec", isVisible: true, key: "product_name19", class: "" },
-				{ id: "qty_send19", checkboxLabelText: "Send", tableHeaderText: "Send", isVisible: true, key: "qty_send19", class: "" },
-				{ id: "sa_plus20", checkboxLabelText: "SA +", tableHeaderText: "SA +", isVisible: true, key: "sa_plus20", class: "border-left" },
-				{ id: "sa_minus20", checkboxLabelText: "SA -", tableHeaderText: "SA -", isVisible: true, key: "sa_minus20", class: "" },
-				{ id: "qty_rec20", checkboxLabelText: "Rec", tableHeaderText: "Rec", isVisible: true, key: "product_name20", class: "" },
-				{ id: "qty_send20", checkboxLabelText: "Send", tableHeaderText: "Send", isVisible: true, key: "qty_send20", class: "" },
-			],
-			filterStockHolding: {
-				showPopup: false,
-				item: {
-					"location": { text: "Location", isVisible: false },
-					"locationType": { text: "Location Type", isVisible: false },
-					// "packId": { text: "Pack ID", isVisible: false },
-					// "product": { text: "Product", isVisible: false },
-					// "description": { text: "Description", isVisible: false },
-					// "qty": { text: "Qty", isVisible: false },
-					// "plannedIn": { text: "Planned In", isVisible: false },
-					// "plannedOut": { text: "Planned Out", isVisible: false },
-					"uom": { text: "Pack Type", isVisible: false },
-					// "sa_plus17": { text: "Pack Size", isVisible: false },
-					"rotaDate": { text: "Rotadate", isVisible: false },
-					"rotaType": { text: "Rotadate Type", isVisible: false },
-					"sa_minus17": { text: "Date Status", isVisible: false },
-					"zone": { text: "Zone", isVisible: false },
-					// "batch": { text: "Batch", isVisible: false },
-					// "qty_rec17": { text: "Ref 2", isVisible: false },
-					// "qty_send17": { text: "Ref 3", isVisible: false },
-					// "sa_minus18": { text: "Ref 4", isVisible: false },
-					"disposition": { text: "Disposition", isVisible: false },
-					"alert": { text: "Alert", isVisible: false },
-					// "weight": { text: "Weight", isVisible: false },
-					// "volume": { text: "Volume", isVisible: false },
-					// "lastUpdated": { text: "Last Updated", isVisible: false },
-				}
-			},
-			stockHolding: [
-				{ location: "A0101A03", locationType: "Reserve", packId: "100000025",
-				  product: "1001", description: "AbcdefghijKlmnopqrst",
-				  qty: "50", plannedIn: "0", plannedOut: "0",
-				  uom: "EACH", sa_plus17: "10*5",
-				  rotaDate: "11/02/2019", rotaType: "R - Receipt Date",
-				  sa_minus17: "LIVE", zone: "A", batch: "",
-				  qty_rec17: "1234", qty_send17: "1234", sa_minus18: "1234",
-				  disposition: "", alert: "No",
-				  weight: "1", volume: "1",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A02", locationType: "Fixed Pickface", packId: "100000008",
-				  product: "1002", description: "Example Product 2",
-				  qty: "150", plannedIn: "0", plannedOut: "0",
-				  uom: "EACH", sa_plus18: "12*6",
-				  rotaDate: "21/10/2019", rotaType: "R - Receipt Date",
-				  sa_minus18: "LIVE", zone: "B", batch: "",
-				  qty_rec18: "", qty_send18: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "1", volume: "1",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  uom: "EACH", sa_plus19: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  sa_minus19: "LIVE", zone: "C", batch: "",
-				  qty_rec19: "", qty_send19: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  uom: "EACH", sa_plus20: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  sa_minus20: "LIVE", zone: "C", batch: "",
-				  qty_rec20: "", qty_send20: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  uom: "EACH", sa_plus17: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  sa_minus17: "LIVE", zone: "C", batch: "",
-				  qty_rec17: "", qty_send17: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  uom: "EACH", sa_plus17: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  sa_minus17: "LIVE", zone: "C", batch: "",
-				  qty_rec17: "", qty_send17: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  uom: "EACH", sa_plus17: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  sa_minus17: "LIVE", zone: "C", batch: "",
-				  qty_rec17: "", qty_send17: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  uom: "EACH", sa_plus17: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  sa_minus17: "LIVE", zone: "C", batch: "",
-				  qty_rec17: "", qty_send17: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  uom: "EACH", sa_plus17: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  sa_minus17: "LIVE", zone: "C", batch: "",
-				  qty_rec17: "", qty_send17: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  uom: "EACH", sa_plus17: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  sa_minus17: "LIVE", zone: "C", batch: "",
-				  qty_rec17: "", qty_send17: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  uom: "EACH", sa_plus17: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  sa_minus17: "LIVE", zone: "C", batch: "",
-				  qty_rec17: "", qty_send17: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  uom: "EACH", sa_plus17: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  sa_minus17: "LIVE", zone: "C", batch: "",
-				  qty_rec17: "", qty_send17: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  uom: "EACH", sa_plus17: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  sa_minus17: "LIVE", zone: "C", batch: "",
-				  qty_rec17: "", qty_send17: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  uom: "EACH", sa_plus17: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  sa_minus17: "LIVE", zone: "C", batch: "",
-				  qty_rec17: "", qty_send17: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  uom: "EACH", sa_plus17: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  sa_minus17: "LIVE", zone: "C", batch: "",
-				  qty_rec17: "", qty_send17: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  uom: "EACH", sa_plus17: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  sa_minus17: "LIVE", zone: "C", batch: "",
-				  qty_rec17: "", qty_send17: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  uom: "EACH", sa_plus17: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  sa_minus17: "LIVE", zone: "C", batch: "",
-				  qty_rec17: "", qty_send17: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  uom: "EACH", sa_plus17: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  sa_minus17: "LIVE", zone: "C", batch: "",
-				  qty_rec17: "", qty_send17: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  uom: "EACH", sa_plus17: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  sa_minus17: "LIVE", zone: "C", batch: "",
-				  qty_rec17: "", qty_send17: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  uom: "EACH", sa_plus17: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  sa_minus17: "LIVE", zone: "C", batch: "",
-				  qty_rec17: "", qty_send17: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				},
-				{ location: "A0101A04", locationType: "Fixed Pickface", packId: "100000023",
-				  product: "1003", description: "Example Product 3",
-				  qty: "100", plannedIn: "50", plannedOut: "0",
-				  uom: "EACH", sa_plus17: "12*6",
-				  rotaDate: "16/08/2019", rotaType: "R - Receipt Date",
-				  sa_minus17: "LIVE", zone: "C", batch: "",
-				  qty_rec17: "", qty_send17: "", sa_minus18: "",
-				  disposition: "", alert: "No",
-				  weight: "12", volume: "1.76",
-				  lastUpdated: ""				  				
-				}
-			],
+			stockMovement: [],
+			dateColumns: [],
 			datepickerShow: false,
 			date: this.getInitialdate(),
-			month: fromMonth
+			dateLoops: {},
+			month: fromMonth,
+			datepickerWeekly: {
+				hoverRange: undefined,
+				selectedDays: []
+			},
+			displayPeriod: undefined,
+			rangeDate: []
 
 		}
 		// this.getLocalStorageColumn();
+	}
+
+	componentDidMount() {
+		if(this.state.displayPeriod !== undefined && this.state.date.to !== undefined){
+		}
 	}
 
 	formatDate = (date) => {
@@ -496,7 +254,22 @@ class StockMovement extends Component {
 		var monthIndex = date.getMonth();
 		var year = date.getFullYear();
 	  
-		return day + ' ' + monthNames[monthIndex];
+		return day + ' ' + monthNames[monthIndex] + ' ' + year;
+	}
+
+	formatDateDisplay = (date) => {
+		var monthNames = [
+		  "Jan", "Feb", "Mar",
+		  "Apr", "May", "June", "July",
+		  "Aug", "Sep", "Oct",
+		  "Nov", "Dec"
+		];
+	  
+		var day = date.getDate();
+		var monthIndex = date.getMonth();
+		var year = date.getFullYear();
+	  
+		return day + ' ' + monthNames[monthIndex] + ' ' + year;
 	}
 
 	getInitialdate = () => {
@@ -506,15 +279,122 @@ class StockMovement extends Component {
 		};
 	  }
 
+
+	loadStockMovement = () => {
+		let self = this;
+		const { from, to } = this.state.date;
+		let startDate = from ? new Date(from).toISOString().split('T')[0] : "";
+		let endDate = to ? new Date(to).toISOString().split('T')[0] : "";
+		let params = { 
+			startDate: startDate,
+			endDate: endDate,
+			filterType: this.state.displayPeriod
+		}
+		let headers = {
+			'userLevel': 'eyJpdiI6IkFsQThmaUd5THdvTDYzS1VSWFZjb1E9PSIsInZhbHVlIjoiZktUR3c3ZkpaSXRIODBTZ0hrM0hNdz09IiwibWFjIjoiNmFmOTg2OWNmMTEyZGUwMTk2ZjJiNzRlNmZiODdmZTY5ZWVmNjI1MzRhZTU2ODUxNDY4OTg0OGVmMDgyYTU1OCJ9',
+			'companyCode': 'eyJpdiI6Im45Z1NFYjhidldSYzdMcHg2K2tDenc9PSIsInZhbHVlIjoicHVGYkNBa05EQnZ3Ukk3QzM3aGNFUT09IiwibWFjIjoiNDVlNjAwZmY4Mzg3MDAxNWQ2OWRmN2IxMjZjNDBhZWQ0NzRjZTI0OTM0NTBmYTM2Y2ExMTU3NzQ0NTE5MzUyNCJ9',
+			'Authorization': 'Bearer ' + localStorage.getItem("token"),
+			'Content-Type': 'application/json'
+		}
+
+		self.setState({ isLoaded: true, isSearch: true,
+						currentPage: 1,
+						startIndex: 0, lastIndex: 0,
+						totalRows: 0, maxPage: 0 });
+
+		if(self.state.displayContent === "FOUND"){
+			self.setState({ displayContent: "NOT_FOUND" });
+		}
+
+		axios.get(AppComponent.getBaseUrl() + "stockmovement", {
+			params: params,
+			headers: headers
+		})
+		.then(res => {
+			// res.isSuccess = true;
+			// self.setState({ isLoaded: false })
+			return res.data;
+		})
+		.catch(function (error) {
+			self.setState({ displayContent: "NOT_FOUND",
+							isLoaded: false,
+							isSearch: false });
+			if (error.response) {
+				self.setState({ notFoundMessage: error.response.data.message })
+			}
+			if (error.response.status === 401) {
+				self.props.history.push('/login');
+			}
+			return error;
+		})
+		.then(function(result) {
+			if (result.data) {
+				let respondRes = result.data;
+				self.setState({ displayContent: "FOUND",
+								stockMovement: respondRes
+							});
+
+				// self.numberEventClick(self.state.currentPage);
+				// localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
+			}
+			self.setState({ isLoaded: false, isSearch: false });
+		});
+    }
+	  
 	handleDayClick = (day) => {
 		const range = DateUtils.addDayToRange(day, this.state.date);
 		this.setState({
-			date: range
+			date: range,
+			dateLoops: range
 		});
 	}
 
 	handleYearMonthChange = (month) => {
 		this.setState({ month });
+	}
+	handleDayChange = (date, {selected}) => {
+		this.setState({
+			datepickerWeekly: {
+				selectedDays: getWeekDays(getWeekRange(date).from),
+			}
+		});
+		const selectedDays = getWeekDays(getWeekRange(date).from);
+		if (selected) {
+		  const selectedIndex = selectedDays.findIndex(selectedDay =>
+			DateUtils.isSameDay(selectedDay, date)
+		  );
+		  selectedDays.splice(selectedIndex, 8);
+		} else {
+		  selectedDays.push(date);
+		}
+		this.setState({ datepickerWeekly: {
+			selectedDays: selectedDays,
+		} });
+	  
+	};
+
+	handleDayEnter = date => {
+		this.setState({
+			hoverRange: getWeekRange(date),
+		});
+	};
+
+	handleDayLeave = () => {
+		this.setState({
+			hoverRange: undefined,
+		});
+	};
+
+	handleWeekClick = (weekNumber, days, e) => {
+		this.setState({
+			selectedDays: days,
+		});
+	};
+
+	handlePeriod = (event) =>{
+		this.setState({
+			displayPeriod: event.target.value
+		});
 	}
 
 	getLocalStorageFilterData = () => {
@@ -574,7 +454,6 @@ class StockMovement extends Component {
 		this.setState((prevState) => {
 			return { selectExpand: !prevState.selectExpand };
 		});
-		// this.setState({ showFilter: !this.state.showFilter });
 	}
 
 	triggerShowDatepicker = (e) => {
@@ -582,7 +461,49 @@ class StockMovement extends Component {
 		this.setState((prevState) => {
 			return { showDatepicker: !prevState.showDatepicker };
 		});
-		// this.setState({ showFilter: !this.state.showFilter });
+	}
+	
+	triggerShowContent = (e) => {
+		e.stopPropagation();
+		this.loadStockMovement();
+		this.setState({
+			 showContent: true,
+			 showDatepicker: false
+		});
+		if(this.state.date.from !== undefined && this.state.date.to !== undefined){
+			let dateColumns = [];
+			let rangeDate = [];
+			if(dateColumns > 0 && rangeDate > 0){
+				dateColumns = [];
+				rangeDate = [];
+			}
+			const { from, to } = this.state.date;
+			for (const d = new Date(from); d <= to; d.setDate(d.getDate() + 1)) {
+				dateColumns.push({  
+					id: d.toISOString().split('T')[0], 
+					checkboxLabelText: this.formatDate(d), 
+					tableHeaderText: this.formatDate(d), 
+					isVisible: false, key: d.toISOString().split('T')[0], 
+					class:"border-left borderless-bottom",
+					subColumns: [
+						{ id: "sa_plus", checkboxLabelText: "SA +", tableHeaderText: "SA +", value: [], isVisible: true, key: "sa_plus", class: "border-left" },
+						{ id: "sa_minus", checkboxLabelText: "SA -", tableHeaderText: "SA -", value: [], isVisible: true, key: "sa_minus", class: "" },
+						{ id: "recv_weight", checkboxLabelText: "Rec", tableHeaderText: "Rec", value: [], isVisible: true, key: "recv_weight", class: "" },
+						{ id: "send_weight", checkboxLabelText: "Send", tableHeaderText: "Send", value: [], isVisible: true, key: "send_weight", class: "" }
+					],
+					value: []
+				});
+				rangeDate.push(d.toISOString().split('T')[0]);
+			}
+
+			this.setState({
+				dateColumns: dateColumns,
+				rangeDate: rangeDate
+			});
+		}
+	}
+
+	showData = () => {
 	}
 
 	rowClicked = (productCode) => {
@@ -590,58 +511,86 @@ class StockMovement extends Component {
 	}
 
 	render() {
+		let data = {value: {dataValue: this.state.stockMovement}};
+		const { hoverRange, selectedDays } = this.state.datepickerWeekly;
 		const { from, to } = this.state.date;
-		const modifiers = { start: this.state.from, end: this.state.to };
+		// const modifiers = { start: this.state.from, end: this.state.to };
+		const daysAreSelected = selectedDays.length > 0;
+
+		const modifiers = {
+			hoverRange,
+			selectedRange: daysAreSelected && {
+				from: selectedDays[0],
+				to: selectedDays[6],
+			},
+			hoverRangeStart: hoverRange && hoverRange.from,
+			hoverRangeEnd: hoverRange && hoverRange.to,
+			selectedRangeStart: daysAreSelected && selectedDays[0],
+			selectedRangeEnd: daysAreSelected && selectedDays[6],
+		};
+		
 		let content;
-		content = 
-		<Table className={"table-condensed table-responsive table-striped clickable-row rounded-bottom-175 mb-0" + (this.state.showDatepicker ? " table-fixed" : "") + (this.state.selectExpand ? " smm-table" : "")} size="md" width="100%">
-			<thead>
-				<tr>
-					{this.state.columns.map((item, idx) => {
-							if (item.id === "site" ||
-								item.id === "product" ||
-								item.id === "description" ||
-								item.id === "uom") {
-								return <th className={" text-left " + item.class} key={idx} rowSpan="2" width="17%">{item.tableHeaderText}</th>
-							}
+		switch (this.state.displayContent) {
+			case "FOUND" :
+				content = 
+					<Table className={"table-condensed table-responsive table-striped clickable-row rounded-bottom-175 mb-0" + (this.state.showDatepicker ? " table-fixed" : "") + (this.state.selectExpand ? " smm-table" : "")} size="md" width="100%">
+						<thead>
+							<tr>
+								{this.state.columns.map((item, idx) => {
+										return <th className={" text-left " + item.class} key={idx} rowSpan="2" width="20%">{item.tableHeaderText}</th>
+								})}
+								{this.state.dateColumns.map((item, idx) => {
+									return <th className={" text-left " + item.class} key={idx} colSpan="4" width="20%">{item.tableHeaderText}</th>
+								})}
+							</tr>
+							<tr>
+								{this.state.dateColumns.map((item, idx) => {
+									return (item.subColumns !== undefined ? 
+												item.subColumns.map((item, idx) => {
+													return <th className={" text-center blueLabel " + item.class} key={idx} width="15%">{item.tableHeaderText}</th>
+												}) 
+											: "")
+								})}
+							</tr>
+						</thead>
+						<tbody>
+							{this.state.stockMovement !== undefined ? this.state.stockMovement.map((item, idx) => {
+									if(item[this.state.rangeDate[idx]] !== undefined){
+										this.state.dateColumns.map((data, dataIdx) => {
+											if(data.id === this.state.rangeDate[idx]){
+												
+											}
+										})
+										if(this.state.dateColumns == this.state.rangeDate[idx]){
+											
+										}
+									}
+									return (item[this.state.rangeDate[idx]] !== undefined ? item[this.state.rangeDate[idx]].map((value, valueIdx) => {
+										return(
+											<tr key={valueIdx}>
+												{this.state.columns.map((column, columnIdx) => {
+														return <td key={columnIdx} className="px-3 text-left"> {value[column.id]} </td>
+												})}
+											</tr>
+										)
+									}) : null)
+							}) : null}
+						</tbody>
+					</Table>
+			break;
 
-							if (item.id >= 17) {
-								return <th className={" text-left " + item.class} key={idx} colSpan="4" width="17%">{item.tableHeaderText}</th>
-							}
-
-							return <th className={" text-center " + item.class} key={idx} width="17%">{item.tableHeaderText}</th>
-					})}
-				</tr>
-				<tr>
-					{this.state.subColumn.map((item, idx) => {
-						if (item.isVisible) {
-							if (item.id === "qty_send") {
-								return <th className={" text-left blueLabel " + item.class} key={idx} width="17%">{item.tableHeaderText}</th>
-							}
-
-							return <th className={" text-center blueLabel " + item.class} key={idx} width="17%">{item.tableHeaderText}</th>
-						}
-					})}
-				</tr>
-			</thead>
-			<tbody>
-				{this.state.stockHolding.map((item, idx) => (
-					<tr key={idx} onClick={() => this.rowClicked(item["product"])}>
-						{this.state.columns.map((column, columnIdx) => {
-							if (column.isVisible) {
-								
-								return <td key={columnIdx} className="px-3 text-left" width="17%">{item[column.id]}</td>
-							}
-						})}
-						{this.state.subColumn.map((subcolumn, subcolumnIdx) => {
-							if (subcolumn.isVisible) {
-								return <td key={subcolumnIdx} className={"px-3 text-left " + subcolumn.class} width="17%">{item[subcolumn.id]}</td>
-							}
-						})}
-					</tr>
-				))}
-			</tbody>
-		</Table>
+			default:
+				content =
+				<div className="col-12 d-flex h-100 position-relative">
+					<div className="bg-transparent mx-auto my-auto text-center">
+						<div className={this.state.isSearch ? "" : "d-none"}>
+							<div className={"spinner" + (this.state.isLoaded ? "" : " d-none")} />
+							<p className={this.state.displayContent === "NOT_FOUND" ? "" : "d-none"}>{this.state.notFoundMessage}</p>
+						</div>
+					</div>
+				</div>
+		}
+		
 		
 
 		return(
@@ -657,7 +606,7 @@ class StockMovement extends Component {
 												<FormGroup>
 													<InputGroup>
 														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
-															<h4 className="headerTitle font-weight-bold">Stock Movement</h4>
+															<h4 className="headerTitle font-weight-bold sm-header-title">Stock Movement</h4>
 														</div>
 													</InputGroup>
 												</FormGroup>
@@ -666,7 +615,6 @@ class StockMovement extends Component {
 									</CardBody>
 								</div>
 							</div>
-
 							<div className="row">
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
 										<div className="form-group row mb-0">
@@ -680,6 +628,17 @@ class StockMovement extends Component {
 																		
 																		<div className="input-group p-2">
 																			<div className="input-group-prepend bg-white col-9">
+																				{/* <Label htmlFor="select" className="filter_label" sm={2} md={2} lg={2}>Display Period</Label>
+																				<Col sm={3} md={3} lg={3}>
+																					<Input type="select" name="select" id="select" onChange={this.handlePeriod}>
+																						<option value="day" selected>Daily</option>
+																						<option value="week">Weekly</option>
+																						<option value="month">Monthly</option>
+																					</Input>	
+																					<div className="arrow-icon-space">
+																						<div className="arrow-icon"></div>
+																					</div>
+																				</Col> */}
 																				<Label htmlFor="select" className="filter_label">Display Period</Label>
 																				<ul className={"select-sm" + (this.state.selectExpand ? " expand-period-sm" : "")} id="select">
 																					<li className="expand-style-sm">
@@ -693,15 +652,15 @@ class StockMovement extends Component {
 
 																						<ul className="select_options-sm">
 																							<li className="select_option-sm">
-																								<input className="select_input-sm" type="radio" name="period" id="daily"></input>
+																								<input className="select_input-sm" type="radio" name="period" id="daily" value="day" onClick={this.handlePeriod}></input>
 																								<label className="select_label-sm" htmlFor="daily" onClick={this.triggerChangeFilter}>Daily</label>
 																							</li>
 																							<li className="select_option-sm">
-																								<input className="select_input-sm" type="radio" name="period" id="weekly"></input>
+																								<input className="select_input-sm" type="radio" name="period" id="weekly" value="week" onClick={this.handlePeriod}></input>
 																								<label className="select_label-sm" htmlFor="weekly" onClick={this.triggerChangeFilter}>Weekly</label>
 																							</li>
 																							<li className="select_option-sm">
-																								<input className="select_input-sm" type="radio" name="period" id="monthly"></input>
+																								<input className="select_input-sm" type="radio" name="period" id="monthly" value="month" onClick={this.handlePeriod}></input>
 																								<label className="select_label-sm option_radius-sm" htmlFor="monthly" onClick={this.triggerChangeFilter}>Monthly</label>
 																							</li>
 																						</ul>
@@ -711,11 +670,11 @@ class StockMovement extends Component {
 																					</li>
 																				</ul>
 																				<Label htmlFor="date" className="filter_label" style={{paddingLeft: '107px'}}>Select Date</Label>
-																				<ul className={"select-sm" + (this.state.date.from && this.state.date.to ? " date-info" : "")} id="date" onClick={this.triggerShowDatepicker}>
+																				<ul className={"select-sm" + (this.state.date.from && this.state.date.to ? " date-info" : "")} id="date" onClick={this.state.displayPeriod ? (this.state.displayPeriod === "month" ? null : this.triggerShowDatepicker) : null}>
 																					<span className="select_label-sm select_label-placeholder-sm" id="datepicker1" ref="datepicker1" name="datepicker1">{from &&
 																																																	to &&
-																																																	`${this.formatDate(from)} -
-																																																		${this.formatDate(to)}`}{' '}</span>
+																																																	`${this.formatDateDisplay(from)} -
+																																																		${this.formatDateDisplay(to)}`}{' '}</span>
 																					<input className="select_expand-sm" type="radio" name="asdas"/>
 																				</ul>
 																				
@@ -723,7 +682,7 @@ class StockMovement extends Component {
 																			<div className="col-3 text-right">
 																				{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}
 
-																				<button type="submit" className="search rounded-175">
+																				<button type="submit" className="search rounded-175" onClick={this.state.displayPeriod && from && to ? this.triggerShowContent : null}>
 																					<strong>Search</strong>
 																				</button>
 																			</div>
@@ -732,8 +691,8 @@ class StockMovement extends Component {
 																	</Card>
 																	<div className="col-md-12 col-lg-12 offset-md-4 offset-lg-3">
 																		<DayPicker
-																				className={(this.state.showDatepicker ? "Selectable datepicker-tab" : "d-none")}
-																				numberOfMonths={this.props.numberOfMonths}
+																				className={(this.state.showDatepicker ? (this.state.displayPeriod === "day" ? "Selectable datepickerdaily-tab" : "d-none") : "d-none")}
+																				numberOfMonths={2}
 																				month={this.state.month}
 																				fromMonth={fromMonth}
 																				toMonth={toMonth}
@@ -772,7 +731,75 @@ class StockMovement extends Component {
 																						}
 																						`}</style>
 																				</Helmet>
+																			<DayPicker
+																				className={(this.state.showDatepicker ? (this.state.displayPeriod === "week" ? "Selectable datepickerweekly-tab" : "d-none") : "d-none")}
+																				numberOfMonths={2}
+																				showWeekNumbers
+																				showOutsideDays
+																				selectedDays={selectedDays}
+																				modifiers={modifiers}
+																				onDayClick={this.handleDayChange}
+																				onDayMouseEnter={this.handleDayEnter}
+																				onDayMouseLeave={this.handleDayLeave}
+																				onWeekClick={this.handleWeekClick}
+																				captionElement={({ date, localeUtils }) => (
+																					<YearMonthForm
+																					  date={date}
+																					  localeUtils={localeUtils}
+																					  onChange={this.handleYearMonthChange}
+																					  no={Math.floor(Math.random() * 100000)}
+																					/>
+																				  )}
+																				/>
+																				<Helmet>
+																					<style>{`
+																						.SelectedWeekExample .DayPicker-Month {
+																							border-collapse: separate;
+																						}
+																						.SelectedWeekExample .DayPicker-WeekNumber {
+																							outline: none;
+																						}
+																						.SelectedWeekExample .DayPicker-Day {
+																							outline: none;
+																							border: 1px solid transparent;
+																						}
+																						.SelectedWeekExample .DayPicker-Day--hoverRange {
+																							background-color: #EFEFEF !important;
+																						}
+
+																						.SelectedWeekExample .DayPicker-Day--selectedRange {
+																							background-color: #fff7ba !important;
+																							border-top-color: #FFEB3B;
+																							border-bottom-color: #FFEB3B;
+																							border-left-color: #fff7ba;
+																							border-right-color: #fff7ba;
+																						}
+
+																						.SelectedWeekExample .DayPicker-Day--selectedRangeStart {
+																							background-color: #FFEB3B !important;
+																							border-left: 1px solid #FFEB3B;
+																						}
+
+																						.SelectedWeekExample .DayPicker-Day--selectedRangeEnd {
+																							background-color: #FFEB3B !important;
+																							border-right: 1px solid #FFEB3B;
+																						}
+
+																						.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+																							position: static;
+																						}
+																						.SelectedWeekExample .DayPicker-Day--selectedRange:not(.DayPicker-Day--outside).DayPicker-Day--selected,
+																						.SelectedWeekExample .DayPicker-Day--hoverRange:not(.DayPicker-Day--outside).DayPicker-Day--selected {
+																							border-radius: 0 !important;
+																							color: black !important;
+																						}
+																						.SelectedWeekExample .DayPicker-Day--hoverRange:hover {
+																							border-radius: 0 !important;
+																						}
+																					`}</style>
+																				</Helmet>
 																		</div>
+																		{}
 																</div>
 															</InputGroup>
 														</FormGroup>
@@ -792,7 +819,7 @@ class StockMovement extends Component {
 					</div>
 				</div>
 				
-				<div className="row rem">
+				<div className={"row rem " + (this.state.showContent ? "" : "d-none")}>
 					<div className="d-flex col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
 						{content}
 					</div>
