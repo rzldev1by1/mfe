@@ -173,13 +173,19 @@ class Logins extends Component{
                     <img src={centerLogo} className='mlslogo'/>
                     <div className="loginInput">
                         <div style={{marginBottom:'2%'}}><h1>Login</h1></div>
-                        <div className={this.state.logininputusername +' inputWrap'}><input type="text" className='inputlog' placeholder="Username" value={this.state.username} onChange={this.onUserNameChange}/><label className={this.state.iconusername + ' requiredlabel'}/></div>
+                        <div className={this.state.logininputusername +' inputWrap'}>
+                            <input type="text" className='inputlog' placeholder="Username" value={this.state.username} onChange={this.onUserNameChange}/>
+                            <label className={this.state.iconusername + ' requiredlabel'}/>
+                        </div>
                         <br/>
-                        <div className={this.state.logininputpassword +' inputWrap'}><input type="password" className='inputlog' placeholder="Password" value={this.state.password} onChange={this.onPasswordChange}/><label className={this.state.iconpassword + ' requiredlabel'}/></div>
+                        <div className={this.state.logininputpassword +' inputWrap'}>
+                            <input type="password" className='inputlog' placeholder="Password" value={this.state.password} onChange={this.onPasswordChange}/>
+                            <label className={this.state.iconpassword + ' requiredlabel'}/>
+                        </div>
                         <this.alertComponent/>
                         <input onClick={this.inputCheck} type="button" value="Login"/>                            
                         <div className="footer">
-                            <div>help@microlistics.co.au</div>
+                            <div>help@microlistics.com.au</div>
                             <div style={{width:'78%',float:'right'}}>© Microlistics Logistics {new Date().getFullYear()}</div>
                         </div>              
                     </div>

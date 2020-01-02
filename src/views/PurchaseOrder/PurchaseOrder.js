@@ -60,7 +60,7 @@ class PurchaseOrder extends Component {
 
     render(){
         return(
-            <div>
+            <div className='animated fadeIn'>
                 <div className='header'>
                     <h1 style={{marginTop:'0.5%'}}>Purchase Order</h1>
                     <Button color="primary" className='createpo'><label className='iconU-edit'/><label className='font'>Create Purchase Order</label></Button>
