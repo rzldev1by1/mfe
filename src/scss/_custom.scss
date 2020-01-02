@@ -121,6 +121,10 @@ body {
 	content: "\e917";
 }
 
+.iconU-i:before {
+	content: "\e918";
+}
+
 .iconU-report:before {
 	content: "\e915";
 }
@@ -148,7 +152,7 @@ body {
 
 .iconU-filter:before {
 	content: "\e904";
-	font-size: 13px !important;
+	font-size: 13px;
 }
 
 .iconU-information:before {
@@ -167,8 +171,14 @@ body {
 	content: "\e910";
 }
 
-.iconU-downArrow:before {
+.iconU-upArrows:after {
+	content: "\e910";
+	font-size: 9px;
+}
+
+.iconU-downArrow:after {
 	content: "\e90f";
+	font-size: 9px;
 }
 
 .iconU-one:before {
@@ -202,7 +212,7 @@ body {
 .iconU-search:before {
 	content: "\e911";
 	display: inline-block;
-	font-size: 2rem !important;
+	font-size: 1.5rem !important;
 }
 
 

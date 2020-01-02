@@ -1,27 +1,12 @@
 import React, {Component} from 'react';
 import AppComponent from '../../../AppComponent';
 import {
-    Button,
-    Card,
-    CardBody,
-    CardGroup,
-    Col,
-    Row,
-    Container,
-    Form,
-    Input,
-    InputGroup,
-    InputGroupAddon,
-    InputGroupText,
-    FormFeedback
+    Button
 } from 'reactstrap';
 import './Logins.css'
 import axios from 'axios';
-import centerLogo from '../../../assets/img/brand/Microlistics_WTG_White_Medium.png';
-import userLogo from "../../../assets/img/brand/u.png";
-import pricing from "../../../assets/img/brand/p.png";
-import bookDemo from "../../../assets/img/brand/b.png";
-import search from "../../../assets/img/brand/search.png";
+import centerLogo from '../../../assets/img/brand/login_microlisticslogo@2x.png';
+import videobg from '../../../assets/img/brand/microlisticsvideos.mp4';
 
 class Logins extends Component{
     constructor(props) {
@@ -31,16 +16,27 @@ class Logins extends Component{
             username: null, 
             password:null,
             loginClicked:false,
-            loginValidation:true
+            loginValidation:true,
+            
+            logininputusername:'logininput',
+            logininputpassword: 'logininput',
+
+            iconusername:null,
+            iconpassword:null
         }
     }
     loginValidation = () => {
         this.setState({loginValidation:false})
+        this.setState({logininputusername:'logininputrequired'})
+        this.setState({logininputpassword:'logininputrequired'})
+        this.setState({iconusername:'iconU-i'})
+        this.setState({iconpassword:'iconU-i'})
     }
 
     authenticateUser = () => {
 			let usrIn = this.state.username;
             let pwdIn = this.state.password;
+            var self = this
             // "userid":"MLS12345",
             // "password":"password"
             axios({
@@ -56,17 +52,13 @@ class Logins extends Component{
                 localStorage.setItem("companyCode",res.data.data.companyCode);
                 localStorage.setItem("userLevel",res.data.data.userLevel);
                 localStorage.setItem('token',res.data.data.token);
-                this
-                    .props
-                    .history
-                    .push('/stock')
+                self.props.history.push('/stock')
             })
             .catch(function (error) {
-                if(error)
-                {
-                    // alert("Invalid Username/password");
-                    this.loginValidation()
+                if(error){
+                    self.loginValidation()
                 }
+                
             });        
     }
 
@@ -77,16 +69,22 @@ class Logins extends Component{
     onUserNameChange = (e) => {
         this.setState({username: e.target.value})
         this.setState({loginClicked:false})
+        this.setState({loginValidation:true})
+        this.setState({logininputusername:'logininput'})
+        this.setState({iconusername:null})
     }
 
     onPasswordChange = (e) => {
         this.setState({password: e.target.value})
         this.setState({loginClicked:false})
+        this.setState({loginValidation:true})
+        this.setState({logininputpassword:'logininput'})
+        this.setState({iconpassword:null})
     }
 
     required = (props) => {
         return(
-        <div className='textAlert'>{<div className='iconU-search'/>+props.value + ' is required'}</div>
+        <div className='textAlert'>{props.value + ' is required'}</div>
         )
     }
 
@@ -96,18 +94,30 @@ class Logins extends Component{
         if(!username && !password)
         {
             this.setState({loginClicked:true})
+            this.setState({logininputusername:'logininputrequired'})
+            this.setState({logininputpassword:'logininputrequired'})
+            this.setState({iconusername:'iconU-i'})
+            this.setState({iconpassword:'iconU-i'})
         }
         else if(!username)
         {
             this.setState({loginClicked:true})
+            this.setState({logininputusername:'logininputrequired'})
+            this.setState({iconusername:'iconU-i'})
         }
         else if(!password)
         {
             this.setState({loginClicked:true})
+            this.setState({logininputpassword:'logininputrequired'})
+            this.setState({iconpassword:'iconU-i'})
         }
         else{
             this.authenticateUser()
         }
+    }
+
+    classalerthandler = () => {        
+        this.setState({logininputclass:'logininputrequired'})
     }
 
     alertComponent = () => {
@@ -125,94 +135,56 @@ class Logins extends Component{
         {
             value = 'Password'
         }
-        if(!this.state.username || !this.state.password && this.state.loginValidation)
+        if(this.state.loginClicked)
         {
-            return(
-                <div className='alertFadeIn'>
-                   {value + ' is required'}
-                </div>
-            )
+            if(!this.state.username || !this.state.password)
+            {
+                return(
+                    <div className='alertFadeIn' style={{display:'flex'}}>
+                       <div className=' iconU-i'/><div style={{marginLeft:'0.5%'}}>{value + ' is required'}</div>
+                    </div>
+                )
+            }
         }
-        else if(this.state.username || this.state.password && !this.state.loginValidation)
+        else if(this.state.username && this.state.password && this.state.loginValidation == false )
         {
+            
             return(
-                <div className='alertFadeIn'>
-                   {value + ' is required'}
+                <div className='alertFadeIn' style={{display:'flex'}}>
+                   <div className=' iconU-i'/><div style={{marginLeft:'0.5%'}}>{'Invalid username or password'}</div>
                 </div>
             )
         }
 
-        return false
+        else{
+            return(
+                <div className='errormessage'/>
+            )
+        }
         
     }
-
-    
-    
     render(){             
         return(
             <div className="background fontstyle">
-                <table className="menu">
-                    <tr>
-                        <td><p>ABOUT</p></td>
-                        <td><p>TECHNOLOGY</p></td>
-                        <td><p>CONTACT</p></td>
-                        <td><p>PRICING</p></td>
-                        <td><p> | </p></td>
-                        <td align="center"><img style={{width:'23%', marginTop:-20}} src={search}/></td>
-                        <td><p>EN</p></td>
-                    </tr>
-                </table>
-                <div className="leftSide">
-                    <img src={centerLogo} style={{marginLeft:'5%', marginTop:'5%'}}/>
-                    <h4 className="p" style={{marginLeft:'6%', marginRight:60, color:'white'}}>As such we can handle any size and/or type of warehouse</h4>
-                    <h4 className="p" style={{marginLeft:'6%', marginRight:60, color:'white'}}>with the one system and allow the customer to grow without</h4>
-                    <h4 className="p" style={{marginLeft:'6%', marginRight:60, color:'white'}}>needing to ever change the core application.</h4>
-
+                <video autoPlay muted loop id='bgvideo'>
+                    <source src={videobg} type='video/mp4'/>
+                </video>
+                <div className="leftSide content">
+                    <img src={centerLogo} className='mlslogo'/>
                     <div className="loginInput">
-                        <input type="text" className="logininput" placeholder="Username" value={this.state.username} onChange={this.onUserNameChange}/>
+                        <div style={{marginBottom:'2%'}}><h1>Login</h1></div>
+                        <div className={this.state.logininputusername +' inputWrap'}><input type="text" className='inputlog' placeholder="Username" value={this.state.username} onChange={this.onUserNameChange}/><label className={this.state.iconusername + ' requiredlabel'}/></div>
                         <br/>
-                        <input type="password" className="logininput" placeholder="Password" value={this.state.password} onChange={this.onPasswordChange}/>
-                        <br/>
-                        <input onClick={this.inputCheck} type="button" value="LOGIN"/> 
-                        {this.state.loginClicked ? <this.alertComponent/> : <div className='alertFadeIn' style={{color:'transparent', paddingTop: '0.2%'}}>.</div>}                
-                    </div>
-                </div>                
-                {/* <div style={{display:'flex', marginLeft:'6%', marginTop:'-0.5%'}}>
-                            <table className="labels">
-                                <tr>
-                                    <td rowSpan="2" className="icon" align="center"><img src={userLogo}/></td>
-                                    <td className="texttop">Sign up</td>
-                                </tr>
-                                <tr>
-                                    <td className="textbottom">Create an Account</td>
-                                </tr>
-                            </table>
-
-                            <table className="labels">
-                                <tr>
-                                    <td rowSpan="2" className="icon" align="center"><img src={pricing}/></td>
-                                    <td className="texttop">Pricing</td>
-                                </tr>
-                                <tr>
-                                    <td className="textbottom">Pricing Option</td>
-                                </tr>
-                            </table>
-
-                            <table className="labels">
-                                <tr>
-                                    <td rowSpan="2" className="icon" align="center"><img src={bookDemo}/></td>
-                                    <td className="texttop">Book Demo</td>
-                                </tr>
-                                <tr>
-                                    <td className="textbottom">See the products</td>
-                                </tr>
-                            </table>
-                        </div> */}
+                        <div className={this.state.logininputpassword +' inputWrap'}><input type="password" className='inputlog' placeholder="Password" value={this.state.password} onChange={this.onPasswordChange}/><label className={this.state.iconpassword + ' requiredlabel'}/></div>
+                        <this.alertComponent/>
+                        <input onClick={this.inputCheck} type="button" value="Login"/>                            
                         <div className="footer">
-                           Need more information?
-                           <div style={{fontSize:30}}>help@microlistics.co.au</div>
-                        </div>
-                        <div style={{fontSize:15, color:'white', marginTop:'3%', marginLeft:'3%'}}>© Microlistics Logistics {new Date().getFullYear()}</div>
+                            <div>help@microlistics.co.au</div>
+                            <div style={{width:'78%',float:'right'}}>© Microlistics Logistics {new Date().getFullYear()}</div>
+                        </div>              
+                    </div>
+                     
+                </div>
             </div>
         )
     }
