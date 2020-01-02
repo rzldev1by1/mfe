@@ -21,7 +21,7 @@ class PurchaseOrderTable extends Component {
   }
 
   arrowHandler = (header) => {
-    if(this.state.activearrow == mid && header == 'Site')
+    if(this.state.activearrow == mid)
     {
       this.setState({activearrow:up})
     }
