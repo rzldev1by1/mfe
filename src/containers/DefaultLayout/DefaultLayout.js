@@ -2,6 +2,9 @@ import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import * as router from 'react-router-dom';
 import { Container, Table } from 'reactstrap';
+import { Button, ButtonDropdown, Card, CardBody, CardHeader, Col, DropdownItem, DropdownMenu, DropdownToggle, Row } from 'reactstrap';
+import dummyPic from '../../assets/img/brand/user (1).png';
+
 
 import { AppAside,
 		// AppFooter,
@@ -35,82 +38,166 @@ class DefaultLayout extends Component {
 		this.props.history.push('/logins')
 	}
 
-	render() {
-		return (
-			<div className="app">
-				{/* <AppHeader fixed>
-					<Suspense  fallback={this.loading()}>
-						<DefaultHeader onLogout={e=>this.signOut(e)}/>
-					</Suspense>
-				</AppHeader> */}
-				<div className="app-body">
-					<AppSidebar className="sidebar-fullheight" fixed display="lg">
-						<AppSidebarHeader />
-						<AppSidebarForm />
-						<Suspense>
-							<div className="p-0 sidebar-header">
-								<img className="navbar-brand-full" src={logo} alt="" style={{ width: 150, height: 38 }} />
-								<hr className="border-header" />
-							</div>
+	constructor(){
+		super();
+	   
+		this.state = {
+			  displayMenu: false,
+			};
+	   
+		 this.showDropdownMenu = this.showDropdownMenu.bind(this);
+		 this.hideDropdownMenu = this.hideDropdownMenu.bind(this);
+	   
+	};
 
-							<AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
+	showDropdownMenu(event) {
+		event.preventDefault();
+		this.setState({ displayMenu: true }, () => {
+		document.addEventListener('click', this.hideDropdownMenu);
+		});
+	  }
+	
+	hideDropdownMenu() {
+		this.setState({ displayMenu: false }, () => {
+		  document.removeEventListener('click', this.hideDropdownMenu);
+		});
+	
+	  }
 
-							<Table className="userSection" size="sm">
-								<tbody>
-									<tr>
-										<td rowSpan="2" className="text-center align-middle p-0" style={{ borderTop: "none" }}>
-											<span className="fa fa-user-circle fa-3x" />
-										</td>
-										<td className="pb-0" style={{ borderTop: "none" }}>
-											<span className="userName">George Smith</span>
-										</td>
-									</tr>
-									<tr>
-										<td className="pt-0" style={{ borderTop: "none" }}>
-											<span className="viewProfile">View Profile</span>
-										</td>
-									</tr>
-								</tbody>
-							</Table>
+	// constructor(props) {
+	// 	super(props);
+	
+	// 	this.toggle = this.toggle.bind(this);
+	// 	this.state = {
+	// 	  dropdownOpen: new Array(19).fill(false),
+	// 	};
+	//   }
+	
+	//   toggle(i) {
+	// 	const newArray = this.state.dropdownOpen.map((element, index) => { return (index === i ? !element : false); });
+	// 	this.setState({
+	// 	  dropdownOpen: newArray,
+	// 	});
+	//   }
+
+		render() {
+			return (
+				<div className="app">
+					{/* <AppHeader fixed>
+						<Suspense  fallback={this.loading()}>
+							<DefaultHeader onLogout={e=>this.signOut(e)}/>
 						</Suspense>
-						<AppSidebarFooter />
-						{/* <AppSidebarMinimizer /> */}
-					</AppSidebar>
-					<main className="main">
-						{/* <AppBreadcrumb appRoutes={routes} router={router}/> */}
-						<Container fluid className="pl-2">
-							<Suspense fallback={this.loading()}>
-								<Switch>
-									{routes.map((route, idx) => {
-										return route.component ? (
-											<Route
-												key={idx}
-												path={route.path}
-												exact={route.exact}
-												name={route.name}
-												render={props => (
-													<route.component {...props} />
-												)} />
-										) : (null);
-									})}
-									<Redirect from="/" to="/logins" />
-								</Switch>
+					</AppHeader> */}
+					<div className="app-body">
+						<AppSidebar className="sidebar-fullheight" fixed display="lg">
+							<AppSidebarHeader />
+							<AppSidebarForm />
+							<Suspense>
+								<div className="p-0 sidebar-header">
+									<img className="navbar-brand-full" src={logo} alt="" style={{ width: 150, height: 38 }} />
+									<hr className="border-header" />
+								</div>
+	
+								<AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
+	
+								<div className="userSection" size="sm" onClick={this.showDropdownMenu}>
+									<tbody>
+										
+										<tr>
+											<td rowSpan="2" className="text-center align-middle p-0" style={{ borderTop: "none" }}>
+												<img style={{ marginTop: -3 }} src={dummyPic}></img>
+												{/* <span className="fa fa-user-circle fa-3x" /> */}
+											</td>
+											<td className="pb-0" style={{ borderTop: "none" }}>
+												<span className="userName">George Smith</span>
+											</td>
+										</tr>
+										<tr>
+											<td className="pt-0" style={{ borderTop: "none" }}>
+												<span className="profileID"> ID:123012131 </span>
+											</td>
+										</tr>
+									</tbody>
+								</div>
+	
+								{this.state.displayMenu ? (
+									
+								<div className="viewProfile" size="sm">
+									<div className="about" align="center">About</div>
+									<div className="about" align="center">Change Password</div>
+									<div className="about" align="center"><i className="fa fa-power-off"></i>  Logout</div>
+	
+								</div>
+								):
+								(
+									null
+								)
+								}
+	
+	{/* 
+	<ButtonDropdown direction="up" className="mr-1" isOpen={this.state.dropdownOpen[13]} toggle={() => { this.toggle(13); }}>
+		<DropdownToggle caret size="lg">
+		<tr>
+											<td rowSpan="2" className="text-center align-middle p-0" style={{ borderTop: "none" }}>
+												<span className="fa fa-user-circle fa-3x" />
+											</td>
+											<td className="pb-0" style={{ borderTop: "none" }}>
+												<span className="userName">George Smith</span>
+											</td>
+										</tr>
+										<tr>
+											<td className="pt-0" style={{ borderTop: "none" }}>
+												<span className="profileID"> ID:123012131 </span>
+											</td>
+										</tr>
+		</DropdownToggle>
+					  
+		<DropdownMenu>
+		  <DropdownItem>About</DropdownItem>
+		  <DropdownItem>Change Password</DropdownItem>
+		  <DropdownItem>Logout</DropdownItem>
+		</DropdownMenu>
+	</ButtonDropdown> */}
+	
 							</Suspense>
-						</Container>
-					</main>
-					<AppAside fixed>
+							<AppSidebarFooter />
+							{/* <AppSidebarMinimizer /> */}
+						</AppSidebar>
+						<main className="main">
+							{/* <AppBreadcrumb appRoutes={routes} router={router}/> */}
+							<Container fluid className="pl-2">
+								<Suspense fallback={this.loading()}>
+									<Switch>
+										{routes.map((route, idx) => {
+											return route.component ? (
+												<Route
+													key={idx}
+													path={route.path}
+													exact={route.exact}
+													name={route.name}
+													render={props => (
+														<route.component {...props} />
+													)} />
+											) : (null);
+										})}
+										<Redirect from="/" to="/logins" />
+									</Switch>
+								</Suspense>
+							</Container>
+						</main>
+						<AppAside fixed>
+							<Suspense fallback={this.loading()}>
+								<DefaultAside />
+							</Suspense>
+						</AppAside>
+					</div>
+					{/* <AppFooter>
 						<Suspense fallback={this.loading()}>
-							<DefaultAside />
+							<DefaultFooter />
 						</Suspense>
-					</AppAside>
+					</AppFooter> */}
 				</div>
-				{/* <AppFooter>
-					<Suspense fallback={this.loading()}>
-						<DefaultFooter />
-					</Suspense>
-				</AppFooter> */}
-			</div>
-		);
+			);
 	}
 }
 
