@@ -24,11 +24,14 @@ class PurchaseOrderTable extends Component {
   }
 
   loadPurchaseOrder = () => {
+    const companyCode = localStorage.getItem('companyCode')
+    const userLevel =  localStorage.getItem('userLevel')
+    const token = localStorage.getItem('token')
     axios.get(appCompoent.getBaseUrl()+ 'purchaseOrder', {
       headers: {
-        companyCode: 'eyJpdiI6IkptWlZtMGZuWHBIRStDS0dkNkRHRHc9PSIsInZhbHVlIjoieUp3MlRJbkJubDZuS2hFcUZRWkR2UT09IiwibWFjIjoiZjBlOGQ3MmI1ZDJlODRmZmRlZWI0MDM0NWZmZTY2ZDAzZTQwYWMxZjg2ZTY1ZjdmZWI1ZGE0MDY1YmJmY2E2YSJ9',
-        userLevel: 'eyJpdiI6IkpsbG5Kc0ZFN2s2bmNuVENwVEc0MUE9PSIsInZhbHVlIjoiUjFOdGJDQ3BnMXIzTDU1MjNUeFhmUT09IiwibWFjIjoiMDJjN2NkZWI3Njc1MWU3ZTQ4ZGQxMTc0MmM1OWZiOWEzNTJmYzk3YmJlNjI1NzFhNjkzZDcyNDdiMjIyZGY3OCJ9',
-        Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8zLjE5LjIwNy4yMDJcL21pY3JvbGlzdGljc2FwaVwvcHVibGljXC91c2VybG9naW4iLCJpYXQiOjE1NzgwNDA4MTMsImV4cCI6MTU3ODA0NDQxMywibmJmIjoxNTc4MDQwODEzLCJqdGkiOiJHRklWR2JOWm5jYjVObnhZIiwic3ViIjoiTUxTMTIzNDUiLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.f4VOR6kmPWxXfgnHHn4GhVeVaVjPkYx3PnDIFkfjjcs'
+        companyCode: companyCode,
+        userLevel: userLevel,
+        Authorization: 'Bearer '+ token
       }
     })
       .then(res => {
