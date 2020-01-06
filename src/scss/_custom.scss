@@ -443,8 +443,9 @@ a.breadcrumb:hover {
 	line-height: 35px;
 }
 
-.about :hover, .about :active {
+.about :hover{
 	color: #B4B9BB;
+	text-decoration: none;
 }
 
 // End - User Section
