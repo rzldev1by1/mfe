@@ -123,8 +123,8 @@ class DefaultLayout extends Component {
 								{this.state.displayMenu ? (
 									
 								<div className="viewProfile" size="sm">
-									<div className="about" align="center">About</div>
-									<div className="about" align="center">Change Password</div>
+									<div className="about" align="center"><a href="" style={{textDecoration:"none"}}>About</a></div>
+									<div className="about" align="center"><a href="" style={{textDecoration:"none"}}>Change Password</a></div>
 									<div className="about" align="center"><a href="" style={{textDecoration:"none"}}><i className="fa fa-power-off"></i>  Logout</a></div>
 	
 								</div>
