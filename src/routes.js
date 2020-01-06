@@ -74,22 +74,22 @@ const StockHolding = Loadable({
 	loading: Loading
 });
 
-const StockHoldingDetails = Loadable({
-	loader: () => import('./views/StockHolding/StockHoldingDetails/StockHoldingDetails'),
-	loading: Loading
-});
+// const StockHoldingDetails = Loadable({
+// 	loader: () => import('./views/StockHolding/StockHoldingDetails/StockHoldingDetails'),
+// 	loading: Loading
+// });
 
 const StockMovement = Loadable({
 	loader: () => import('./views/StockMovement/StockMovement'),
 	loading: Loading
 });
 
-const StockAgeProfile = Loadable({
-	loader: () => import('./views/StockAgeProfile/StockAgeProfile'),
-	loading: Loading
-});
+// const StockAgeProfile = Loadable({
+// 	loader: () => import('./views/StockAgeProfile/StockAgeProfile'),
+// 	loading: Loading
+// });
 
-const UserControl = Loadable({
+const UserManagement = Loadable({
 	loader: () => import('./views/Base/Cards'),
 	loading: Loading
 });
@@ -146,13 +146,13 @@ const routes = [
 
 	{ path: '/stock', exact: true, name: 'Stock', component: StockHolding },
 	{ path: '/stock/stockholding', exact: true, name: 'Stock Holding', component: StockHolding },
-	{ path: '/stock/stockholding/:product', exact: true, name: 'Stock Holding Details', component: StockHoldingDetails },
+	// { path: '/stock/stockholding/:product', exact: true, name: 'Stock Holding Details', component: StockHoldingDetails },
 	{ path: '/stock/stockmovement/', exact: true, name: 'Stock Movement', component: StockMovement },
-	{ path: '/stock/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
+	// { path: '/stock/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
 
 
 	{path: '/purchaseorder', exact:true, name: 'Inbound Delivery', component:PurchaseOrder},
-	{ path: '/base', exact: true, name: 'User Control', component: UserControl },
+	{ path: '/base', exact: true, name: 'User Control', component: UserManagement },
 ];
 
 export default routes;

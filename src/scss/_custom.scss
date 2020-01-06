@@ -393,10 +393,13 @@ a.breadcrumb:hover {
 	width: 200px;
 	height: 49px;
 	align-self: center;
-	opacity: 1;
 	margin-bottom: 8px;
 	padding: 3.75px 10px;
-	// padding-top: 5px;
+}
+
+.profilePhoto {
+	width: 42px;
+	height: 42px;
 }
 
 .userName {
@@ -405,7 +408,7 @@ a.breadcrumb:hover {
 	text-align: left;
 	letter-spacing: 0;
 	color: #637176;
-	opacity: 1;
+	// opacity: 1;
 	align-self: center;
 	padding-left: 10px;
 	padding-top: 5px;
@@ -418,7 +421,7 @@ a.breadcrumb:hover {
 	font-weight: bold;
 	align-self: center;
 	padding-left: 10px;
-	opacity: 1;
+	// opacity: 1;
 }
 
 .viewProfile {
@@ -427,7 +430,6 @@ a.breadcrumb:hover {
 	width: 200px;
 	align-self: center;
 	margin-bottom: 5px;
-	// display: none;
 	margin-top:-5px;
 }
 
@@ -439,6 +441,10 @@ a.breadcrumb:hover {
 	font-family: Helvetica;
 	vertical-align: middle;
 	line-height: 35px;
+}
+
+.about :hover, .about :active {
+	color: #B4B9BB;
 }
 
 // End - User Section

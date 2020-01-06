@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import * as router from 'react-router-dom';
 import { Container, Table } from 'reactstrap';
 import { Button, ButtonDropdown, Card, CardBody, CardHeader, Col, DropdownItem, DropdownMenu, DropdownToggle, Row } from 'reactstrap';
-import dummyPic from '../../assets/img/brand/user (1).png';
+import dummyPic from '../../assets/img/brand/userprofile.png';
 
 
 import { AppAside,
@@ -101,11 +101,11 @@ class DefaultLayout extends Component {
 								<AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
 	
 								<div className="userSection" size="sm" onClick={this.showDropdownMenu}>
-									<tbody>
+									<div>
 										
 										<tr>
 											<td rowSpan="2" className="text-center align-middle p-0" style={{ borderTop: "none" }}>
-												<img style={{ marginTop: -3 }} src={dummyPic}></img>
+												<img className="profilePhoto" src={dummyPic}></img>
 												{/* <span className="fa fa-user-circle fa-3x" /> */}
 											</td>
 											<td className="pb-0" style={{ borderTop: "none" }}>
@@ -117,7 +117,7 @@ class DefaultLayout extends Component {
 												<span className="profileID"> ID:123012131 </span>
 											</td>
 										</tr>
-									</tbody>
+									</div>
 								</div>
 	
 								{this.state.displayMenu ? (
@@ -125,7 +125,7 @@ class DefaultLayout extends Component {
 								<div className="viewProfile" size="sm">
 									<div className="about" align="center">About</div>
 									<div className="about" align="center">Change Password</div>
-									<div className="about" align="center"><i className="fa fa-power-off"></i>  Logout</div>
+									<div className="about" align="center"><a href="" style={{textDecoration:"none"}}><i className="fa fa-power-off"></i>  Logout</a></div>
 	
 								</div>
 								):
