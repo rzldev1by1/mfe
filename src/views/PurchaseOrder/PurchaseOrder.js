@@ -59,12 +59,20 @@ class PurchaseOrder extends Component {
         this.setState({search:props.target.value})        
     }
 
+    openModal = () => {
+        this.setState({showmodal:true})
+    }
+
+    closeModal = () => {
+        this.setState({showmodal:false})
+    }
+
     render(){        
         return(
             this.state.complete ?  <div className='animated fadeIn'>
             <div className='header'>
                 <h1 style={{marginTop:'0.5%'}}>Purchase Order</h1>
-                <Button color="primary" className='createpo'><label className='iconU-edit'/><label className='font'>Create Purchase Order</label></Button>
+                <Button onClick={() => this.openModal()} color="primary" className='createpo'><label className='iconU-edit'/><label className='font'>Create Purchase Order</label></Button>
             </div>
             
             <div className='searchbar'>
@@ -87,7 +95,7 @@ class PurchaseOrder extends Component {
             <div className='tablecontent'>
                 <PurchaseOrderTable/>
             </div>
-            {/* {this.state.showmodal ? <PurchaseOrderCreate showmodal={false}/> : null} */}
+            <PurchaseOrderCreate showmodal={this.state.showmodal} closemodal={() => this.closeModal()}/>
         </div> : null
            
             

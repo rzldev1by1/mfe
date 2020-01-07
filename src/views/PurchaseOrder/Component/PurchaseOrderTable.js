@@ -14,8 +14,8 @@ class PurchaseOrderTable extends Component {
       tableheader : ['Site','Order No','Client','Status','Status Description','Date Due','Date Received','Date Released','Date Completed','Supplier Name'],
       tablebody : ['A','PO-4312','Josaphat','1','Available','27/01/2020','27/01/2020','27/01/2020','27/01/2020', 'Swann-wq12'],
       activearrow:mid,
-
-      id:'Site'
+      sortparameter:'order_no',
+      sort:true
     }
   }
 
@@ -37,9 +37,12 @@ class PurchaseOrderTable extends Component {
       .then(res => {
         const result = res.data.data
         this.setState({ data:result })
+        console.log(result)
+      })
+      .catch(error => {
+        window.location.replace('http://localhost:3000/#/logins')
       })
   }
-
 
   arrowHandler = (e) => {
     let id = e.currentTarget.id
@@ -47,64 +50,97 @@ class PurchaseOrderTable extends Component {
     if(this.state.activearrow == mid)
       {
         this.setState({activearrow:up})
-        alert('up')
+        this.sortby(id)
       }
 
       if(this.state.activearrow == up)
       {
         this.setState({activearrow:down})
+        this.sortby(id)
       }
 
       if(this.state.activearrow == down)
       {
         this.setState({activearrow:up})
+        this.sortby(id)
       }
+  }
 
+  sortby = (id) => {
     if(id == 'Site')
     {
-      alert('site')
+      this.setState({sort:!this.state.sort, sortparameter:'site'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
     else if(id == 'Order No')
     {
-      alert('order no')
+      this.setState({sort:!this.state.sort, sortparameter:'order_no'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
     else if(id == 'Client')
     {
-      alert('client')
+      this.setState({sort:!this.state.sort, sortparameter:'client'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
     else if(id == 'Status')
     {
-      alert('')
+      this.setState({sort:!this.state.sort, sortparameter:'status'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
     else if(id == 'Status Description')
     {
-      alert('')
+      this.setState({sort:!this.state.sort, sortparameter:'status_desc'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
     else if(id == 'Date Due')
     {
-      alert('')
+      this.setState({sort:!this.state.sort, sortparameter:'date_due'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
     else if(id == 'Date Received')
     {
-      alert('')
+      this.setState({sort:!this.state.sort, sortparameter:'date_received'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
     else if(id == 'Date Released')
     {
-      alert('')
+      this.setState({sort:!this.state.sort, sortparameter:'date_released'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
     else if(id == 'Date Completed')
     {
-      alert('a')
+      this.setState({sort:!this.state.sort, sortparameter:'date_completed'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
     else if(id == 'Supplier Name')
     {
-      alert('Supplier Name')
+      this.setState({sort:!this.state.sort, sortparameter:'ship_to_name'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
   }
 
+  sorting = (data, param, sort) => {
+    data.sort((a,b) => {
+      if(a[param] !== null && b[param] !== null)
+      {
+        if(sort == true)
+      {
+        if(a[param].toLowerCase() < b[param].toLowerCase()) return -1
+        if(a[param].toLowerCase() > b[param].toLowerCase()) return 1
+        return 0
+      }
+      else if(sort == false)
+      {
+        if(a[param].toLowerCase() < b[param].toLowerCase()) return 1
+        if(a[param].toLowerCase() > b[param].toLowerCase()) return -1
+        return 0
+      }
+      }
+    })
+    this.setState({data:data})
+  }
+
   render(){
-    console.log(this.state.data)
-    console.log(this.state.data[0])
     return(
       <div>
         <table className="potable">
