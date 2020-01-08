@@ -1,25 +1,28 @@
-import axios from 'axios';
 // import moment from 'moment';
+
+import axios from 'axios';
+
 import AppComponent from '../AppComponent';
+// import { endpoint } from '../AppComponent/ConfigEndpoint';
 
 class Authentication {
-	static endpoint = "user/session";
+	static endpoint = "userlogin";
 
 	static isAuthenticated = () => {
 		return !Authentication.getToken() ? false : true;
 	}
 
 	static setAuthenticate = (userDetails) => {
-		// if (userDetails === null) {
-		// 	let keysToRemove = [ "user", "filterDataItem", "columnDataItem" ];
-		// 	keysToRemove.forEach(i => {
-		// 		localStorage.removeItem(i)
-		// 	});
-		// 	return;
-		// }
+		if (userDetails === null) {
+            let keysToRemove = ["user", "filterDataItem", "columnDataItem"];
+			keysToRemove.forEach(i => {
+				localStorage.removeItem(i)
+			});
+			return;
+		}
 		// userDetails["expiredDate"] = moment().add(1, 'minutes');
 		// userDetails["now"] = new Date();
-		// localStorage.setItem("user", JSON.stringify(user)); 
+		localStorage.setItem("user", JSON.stringify(userDetails)); 
 	}
 
 	static renewExpiredDate = () => {
@@ -32,10 +35,16 @@ class Authentication {
 		return JSON.parse(localStorage.getItem("user"));
 	}
 
+    static getUserLevel = () => {
+        let user = Authentication.getUser();
+        if (!user) { return false };
+        return user["userLevel"];
+    }
+
 	static getToken = () => {
-		// let user = Authentication.getUser();
-		// if (!user) { return false };
-		// return user["session_token"];
+		let user = Authentication.getUser();
+		if (!user) { return false };
+		return user["token"];
 	}
 
 	static getExpiredDate = () => {
@@ -45,9 +54,9 @@ class Authentication {
 	}
 
 	static getCompanyCode = () => {
-		// let user = Authentication.getUser();
-		// if (!user) { return false };
-		// return user["company"];
+		let user = Authentication.getUser();
+		if (!user) { return false };
+		return user["companyCode"];
 	}
 
 	static eraseAllLocalData = () => {
@@ -70,72 +79,70 @@ class Authentication {
 		Authentication.setAuthenticate(null);
 	}
 
-	authenticationHandler = (data) => {
+	authenticationHandler = (payload) => {
 		let result = {};
-		let params = {};
 
-		return axios.post(AppComponent.getBaseUrl() + Authentication.endpoint, data,
+		return (
+            axios.post(AppComponent.getBaseUrl() + Authentication.endpoint, payload,
 			{
-				params: params,
 				headers: { 'Content-Type': 'application/json' }
-			}
-		)
-		.then(res => {
-			if (res.data) {
-				if (res.data.error) {
-					result.isSuccess = false
-					result.message = res.data.error.status_code === 401 ? "Invalid username or password" : res.data.error.message;
-					return result;
-				} else {
-					result.isSuccess = true;
-					Authentication.setAuthenticate(res.data);
-					return this.renewToken();
-				}
-			} else {
-				result.isSuccess = false;
-				result.message = res.data.error.message;
-				return result;
-			}
-		})
-		.catch(function (error) {
-			result.isSuccess = false;
-			if (error.response) {
-				result.message = error.response.status === 401 ? error.response.data.error.message : "Failed to process your request";
-			} else {
-				result.message = "Failed to process your request";
-			}
-			return result;
-		});
+			})
+		    .then(res => {
+                if (res.data) {
+                    if (res.data.error) {
+                        result.isSuccess = false
+                        result.message = res.data.error.status_code === 401 ? "Username or password is not valid" : res.data.error.message;
+                        return result;
+                    } else {
+                        result.isSuccess = true;
+                        Authentication.setAuthenticate(res.data);
+                        // return this.renewToken();
+                        return result;
+                    }
+                } else {
+                    result.isSuccess = false;
+                    result.message = res.data.error.message;
+                    return result;
+                }
+            })
+            .catch(function (error) {
+                result.isSuccess = false;
+                if (error.response) {
+                    result.message = error.response.status === 401 ? "Username or password is not valid" : "Failed to process your request";
+                } else {
+                    result.message = "Failed to process your request";
+                }
+                return result;
+            })
+        );
 	}
 
 	renewToken = () => {
 		let oldToken = Authentication.getToken();
 		let result = {};
-		let params = {};
 
-		return axios.get(AppComponent.getBaseUrl() + Authentication.endpoint,
-			{
-				params: params,
-				headers: {
-					'X-DreamFactory-Session-Token': oldToken,
-					'Content-Type': 'application/json' 
-				}
-			}
-		)
-		.then(res => {
-			result.isSuccess = true;
-			Authentication.setAuthenticate(res.data);
-			return result;
-		})
-		.catch(function (error) {
-			result.isSuccess = false;
-			if (error.response) {
-				result.message = error.response.status === 401 ? error.response.data.error.message : "Failed to process your request";
-			} else {
-				result.message = "Failed to process your request";
-			}
-			return result;
-		})
+        return (
+            axios.post(Authentication.endpoint, {
+                headers: {
+                    'token': oldToken,
+                    'Content-Type': 'application/json' 
+                }
+            })
+            .then(res => {
+                result.isSuccess = true;
+                Authentication.setAuthenticate(res.data);
+                return result;
+            })
+            .catch(function (error) {
+                result.isSuccess = false;
+                if (error.response) {
+                    result.message = error.response.status === 401 ? error.response.data.error.message : "Failed to process your request";
+                } else {
+                    result.message = "Failed to process your request";
+                }
+                return result;
+            })
+        );
 	}
 }
 

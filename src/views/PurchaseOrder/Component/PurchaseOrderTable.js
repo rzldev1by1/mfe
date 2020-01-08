@@ -5,6 +5,8 @@ import mid from '../../../assets/img/brand/field-idle.png'
 import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
 
+import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
+
 class PurchaseOrderTable extends Component {
   constructor(props){
     super(props)
@@ -24,15 +26,11 @@ class PurchaseOrderTable extends Component {
   }
 
   loadPurchaseOrder = () => {
-    const companyCode = localStorage.getItem('companyCode')
-    const userLevel =  localStorage.getItem('userLevel')
-    const token = localStorage.getItem('token')
-    axios.get(appCompoent.getBaseUrl()+ 'purchaseOrder', {
-      headers: {
-        companyCode: companyCode,
-        userLevel: userLevel,
-        Authorization: 'Bearer ' + token
-      }
+    // const companyCode = localStorage.getItem('companyCode')
+    // const userLevel =  localStorage.getItem('userLevel')
+    // const token = localStorage.getItem('token')
+    axios.get(endpoint.purchaseOrder, {
+      headers: headers
     })
       .then(res => {
         const result = res.data.data
@@ -40,7 +38,7 @@ class PurchaseOrderTable extends Component {
         console.log(result)
       })
       .catch(error => {
-        // window.location.replace('http://localhost:3000/#/logins')
+        this.props.history.push("/logins")
       })
   }
 
