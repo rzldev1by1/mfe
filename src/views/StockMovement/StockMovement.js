@@ -231,7 +231,7 @@ class StockMovement extends Component {
 				selectedDays: []
 			},
 			displayPeriod: "day",
-			rangeDate: []
+			rangeDate: [],
 
 		}
 		// this.getLocalStorageColumn();
@@ -289,10 +289,11 @@ class StockMovement extends Component {
 			endDate: endDate,
 			filterType: this.state.displayPeriod
 		}
+		let userAuth = JSON.parse(localStorage.getItem("user"));
 		let headers = {
-			'userLevel': 'eyJpdiI6IkFsQThmaUd5THdvTDYzS1VSWFZjb1E9PSIsInZhbHVlIjoiZktUR3c3ZkpaSXRIODBTZ0hrM0hNdz09IiwibWFjIjoiNmFmOTg2OWNmMTEyZGUwMTk2ZjJiNzRlNmZiODdmZTY5ZWVmNjI1MzRhZTU2ODUxNDY4OTg0OGVmMDgyYTU1OCJ9',
-			'companyCode': 'eyJpdiI6Im45Z1NFYjhidldSYzdMcHg2K2tDenc9PSIsInZhbHVlIjoicHVGYkNBa05EQnZ3Ukk3QzM3aGNFUT09IiwibWFjIjoiNDVlNjAwZmY4Mzg3MDAxNWQ2OWRmN2IxMjZjNDBhZWQ0NzRjZTI0OTM0NTBmYTM2Y2ExMTU3NzQ0NTE5MzUyNCJ9',
-			'Authorization': 'Bearer ' + localStorage.getItem("token"),
+			'userLevel': userAuth.userLevel,
+			'companyCode': userAuth.companyCode,
+			'Authorization': 'Bearer ' + userAuth.token,
 			'Content-Type': 'application/json'
 		}
 
