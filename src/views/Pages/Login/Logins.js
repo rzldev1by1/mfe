@@ -136,7 +136,7 @@ class Logins extends Component{
 
                             <this.alertComponent />
                             
-                            <button className={this.state.isLoad ? "text-center" : "text-left pl-4"} onClick={this.validateForm}>
+                            <button className={"btnLogin " + (this.state.isLoad ? "text-center" : "text-left pl-4")} onClick={this.validateForm}>
                                 {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin iconSpace" /> : "Login"}
                             </button>
                             
