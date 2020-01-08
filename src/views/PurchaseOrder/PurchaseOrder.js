@@ -19,7 +19,7 @@ class PurchaseOrder extends Component {
             client:null, site:null, status:null, supplier:null, ordertype:null, area:null, quantity:null, search:null,
 
             //modal
-            showmodal:true,
+            showmodal:false,
             complete:true
         }
     }

@@ -325,6 +325,7 @@ td{
 .tabs{
 	display: flex;
 	margin-top: 5%;
+	min-width: 100%;
 }
 
 .tab{
@@ -335,6 +336,7 @@ td{
 	padding-bottom:2%;
 	border-top-right-radius: 6px;
 	border-top-left-radius: 6px;
+	min-width: 55%;
 }
 
 .tab:hover{
