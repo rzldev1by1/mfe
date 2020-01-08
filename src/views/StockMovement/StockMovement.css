@@ -389,7 +389,7 @@
 
 /* Start - Table */
 .table-fixed{
-	margin-top: -330px;
+	margin-top: -360px;
     z-index: -1;
 }
 .smm-table{
@@ -445,6 +445,17 @@
 		flex: 0 0 38%;
     	max-width: 38%;
 	}
+}
+.search-movement:active{
+    background-color: #22ABE3 !important;
+    color: white !important;
+    transition: 0;
+	font-size: auto;
+	font-size: inherit;
+}
+.search-movement, .search-movement:active, .search-movement:hover{
+	height: auto !important;
+    margin: auto !important;
 }
 .none-appearance{
     -webkit-appearance: none;
