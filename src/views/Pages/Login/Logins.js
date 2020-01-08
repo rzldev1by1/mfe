@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 // import { Button, FormFeedback } from 'reactstrap';
-import axios from 'axios';
-import AppComponent from '../../../AppComponent';
+
+// import axios from 'axios';
+// import AppComponent from '../../../AppComponent';
+import Authentication from '../../../Auth/Authentication';
 
 import centerLogo from '../../../assets/img/brand/login_microlisticslogo@2x.png';
 import videobg from '../../../assets/img/brand/microlisticsvideos.mp4';
@@ -38,20 +40,16 @@ class Logins extends Component{
             "password": password
         };
         
-        axios.post(AppComponent.getBaseUrl() + "userlogin", payload)
-        .then(res => {
-            localStorage.setItem("companyCode", res.data.data.companyCode);
-            localStorage.setItem("userLevel", res.data.data.userLevel);
-            localStorage.setItem("token", res.data.data.token);
-            self.props.history.push("/stock");
-        })
-        .catch(function (error) {
-            if (error) {
-                self.setState({ isLoad: false,
-                                usernameValid: false, passwordValid: false,
-                                errorMessage: "Username or Password is not valid" });
+        (new Authentication()).authenticationHandler(payload)
+        .then(result => {
+            self.setState({ isLoad: false,
+                            usernameValid: false, passwordValid: false,
+                            errorMessage: result.message });
+
+            if (result.isSuccess) {
+                self.props.history.push("/stock");
             }
-        });        
+        })
     }
 
     onInputChange = () => {
@@ -138,7 +136,7 @@ class Logins extends Component{
 
                             <this.alertComponent />
                             
-                            <button className={this.state.isLoad ? "text-center" : "text-left pl-4"} onClick={this.validateForm} block>
+                            <button className={this.state.isLoad ? "text-center" : "text-left pl-4"} onClick={this.validateForm}>
                                 {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin iconSpace" /> : "Login"}
                             </button>
                             
