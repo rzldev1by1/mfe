@@ -1,4 +1,3 @@
-
 //Fonts
 	/* Nunito Semibold */
 		/* vietnamese */
@@ -214,6 +213,10 @@ body {
 	font-size: 1.5rem !important;
 }
 
+.iconU-field-dropdown:before {
+	content: "\e90f";
+}
+
 
 // Glyphicons Icons
 @font-face{font-family:'Glyphicons Halflings';src:url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.eot');src:url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.woff') format('woff'),url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.ttf') format('truetype'),url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:normal;line-height:1;-webkit-font-exportoothing:antialiased;}
@@ -305,7 +308,7 @@ body {
 }
 
 .rounded-175 {
-	border-radius: 1.75rem !important;
+	border-radius: 5px !important;
 }
 
 .rounded-top-175 {

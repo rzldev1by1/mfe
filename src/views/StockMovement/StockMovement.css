@@ -4,7 +4,7 @@
     margin-bottom: -15px !important;
 }
 .datepickerdaily-tab{
-	width: 620px;
+	width: 370px;
     height: 360px;
 	background-color: white;
     border: 1px solid #E5E5E5;
@@ -198,7 +198,7 @@
 
 .filter_label{
 	padding-top: 9px;
-	margin-right: 2rem !important;
+	margin-right: 1em !important;
 }
 .date-info{
 	min-width: 250px !important;
@@ -393,9 +393,81 @@
     z-index: -1;
 }
 .smm-table{
+	margin-right: 0 !important;
     z-index: -1;
 }
 .rem{
 	margin-top: 1rem;
 }
 /* End - Table */
+.arrow-icon{
+	position: relative;
+	display: flex;
+	padding: 0 .5em;
+	flex: 0 0 22%;
+    max-width: 22%;
+}
+.arrow-icon::after{
+	/* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'icomoon' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+  
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	
+	content: "\e90f";
+	color: #203061 !important;
+	font-size: 4px;
+	position: absolute;
+    cursor: pointer;
+    pointer-events: none;
+	right: 2em;
+	padding: 4em;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -khtml-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+}
+@media (min-width: 1600px){
+	.arrow-icon{
+		flex: 0 0 16.66667%;
+    	max-width: 16.66667%;
+	}
+	.search-movement{
+		flex: 0 0 38%;
+    	max-width: 38%;
+	}
+}
+.none-appearance{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+}
+
+.none-appearance[readonly]{
+	background-color: #FFFFFF;
+	cursor: pointer;
+}
+.search-btn, .search-btn:hover{
+	background-color: #22ABE3 !important;
+	color: #FFFFFF;
+	border: none;
+	box-shadow: none !important;
+}
+.from-label{
+	margin: 0 3em;
+    margin-right: 1em !important;
+}
+.to-label{
+	margin: 0 0.8em;
+    margin-right: 1em !important;
+}
