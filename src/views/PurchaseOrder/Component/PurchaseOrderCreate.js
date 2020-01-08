@@ -9,7 +9,19 @@ class PurchaseOrderCreate extends Component{
         this.state = {
           tab1isactive:true,
           tab2isactive:false,
-          rowlist:[this.linedetailsrow()]
+          rowlist:[
+            {
+              id:1,
+              productEntry:null,
+              uom:null,
+              qty:null,
+              rodaDate:null,
+              batch:null,
+              ref3:null,
+              ref4:null,
+              disposition:null
+            }
+          ]
           }
     }
 
@@ -75,10 +87,12 @@ class PurchaseOrderCreate extends Component{
             </tr>                  
           </table>
           <div className={'tablerow ' + (this.state.rowlist.length >2 ? 'scroll' : null )}>
-            {this.state.rowlist.map(list => list)}
+            {this.state.rowlist.map((list, i) => this.linedetailsrow(list, i))}
           </div>
 
                <button onClick={() => this.addline()} type="button" class="btn btn-light font addline">+ Add Line</button>
+               {
+    console.log(this.state.rowlist)}
       </div>
     )
   }
@@ -86,65 +100,30 @@ class PurchaseOrderCreate extends Component{
   tab2Content = () => {
     return(
       <div className='tabcontent'>
-        <h3 className='font'>Order Details</h3>
-
-        <table className='createpotable'>
-            <tr>
-                <th>Site</th>
-                <th>Order No</th>
-                <th>Supplier</th>
-                <th>Customer Order Ref</th>
-            </tr>
-            <tr>
-                <td><input placeholder="Site"/> </td>
-                <td><input readOnly placeholder="Order no."/> </td>
-                <td><input placeholder="Supplier"/> </td>
-                <td><input placeholder="Customer Order ref."/> </td>
-            </tr>
-
-            <tr>
-                <th>Client</th>
-                <th>Order Date</th>
-                <th>Order Type</th>
-                <th>Client Order Ref</th>
-            </tr>
-            <tr>
-                <td><input placeholder="Client"/> </td>
-                <td><input placeholder="Order Date"/> </td>
-                <td><input placeholder="Order Type"/></td>
-                <td><input placeholder="Vendor Order ref."/> </td>
-            </tr>
-        </table>
-
-        <br/>
-        <h3 className='font'>Line Details</h3>
-
-        <table className='tabledetails'>
-            <tr>
-                <th style={{width:'2.5%', textAlign:'center'}}>#</th>
-                <th style={{width:'12%'}}>Porduct Entry</th>
-                <th style={{width:'6%'}}>UOM</th>
-                <th style={{width:'3%'}}>Quantity</th>
-                <th style={{width:'6%'}}>Rota Date</th>
-                <th style={{width:'6%'}}>Batch</th>
-                <th style={{width:'5%'}}>Ref3</th>
-                <th style={{width:'5%'}}>Ref4</th>
-                <th style={{width:'6%'}}>Disposition</th>
-                <th style={{width:'1.5%'}}></th>
-            </tr>                  
-          </table>
-          <div className={'tablerow ' + (this.state.rowlist.length >2 ? 'scroll' : null )}>
-            {this.state.rowlist.map(list => list)}
-          </div>
+        
       </div>
     )
   }
 
-  linedetailsrow = () => {
+  deletelinehandler = (e) => {
+    let updated = this.state.rowlist.length
+    if( updated >1){
+      let id = e.currentTarget.id -1
+      delete this.state.rowlist[id]
+      this.setState({rowlist:this.state.rowlist})
+      updated = this.state.rowlist.length
+    }
+    else{
+      alert('cant delete row')
+    }
+  }
+
+  linedetailsrow = (list, i) => {
     return(
       <table>
         <tr>
-            <td style={{width:'2.5%', textAlign:'center'}}><input value='1'/></td>
+            <td hidden id={list.id}></td>
+            <td style={{width:'2.5%', textAlign:'center'}}><input value={i+1}/></td>
             <td style={{width:'12%'}}><input placeholder='product'/></td>
             <td style={{width:'6%'}}>UOM</td>
             <td style={{width:'3%'}}><input placeholder='qty'/></td>
@@ -153,14 +132,27 @@ class PurchaseOrderCreate extends Component{
             <td style={{width:'5%'}}><input placeholder='ref3'/></td>
             <td style={{width:'5%'}}><input placeholder='ref4'/></td>
             <td style={{width:'6%'}}><input placeholder='disposition'/></td>
-            <td style={{width:'1.5%'}}><div className='iconU-delete'/></td>
+            <td id={list.id} onClick={(e) => this.deletelinehandler(e)} style={{width:'1.5%'}}><div className='iconU-delete'/></td>
           </tr>
       </table>
     )
   }
 
   addline = () => {
-    this.setState({rowlist: this.state.rowlist.concat(this.linedetailsrow())})
+    let index = this.state.rowlist.length
+    this.setState({rowlist: this.state.rowlist.concat(
+      {
+        id:index+1,
+        productEntry:null,
+        uom:null,
+        qty:null,
+        rodaDate:null,
+        batch:null,
+        ref3:null,
+        ref4:null,
+        disposition:null
+      }
+    )})
   }
 
   submit = () => {

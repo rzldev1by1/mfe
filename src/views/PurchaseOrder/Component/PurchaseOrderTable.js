@@ -31,7 +31,7 @@ class PurchaseOrderTable extends Component {
       headers: {
         companyCode: companyCode,
         userLevel: userLevel,
-        Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8zLjE5LjIwNy4yMDJcL21pY3JvbGlzdGljc2FwaVwvcHVibGljXC91c2VybG9naW4iLCJpYXQiOjE1Nzg0NTMxMTksImV4cCI6MTU3ODQ1NjcxOSwibmJmIjoxNTc4NDUzMTE5LCJqdGkiOiJqQnB2RnI1aEZQVXQ4QlNNIiwic3ViIjoiTUxTMTIzNDUiLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.oyI8eF82a7JMo1Kn_A_gG-NPWVAQ59T51qENJTvJArI'
+        Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8zLjE5LjIwNy4yMDJcL21pY3JvbGlzdGljc2FwaVwvcHVibGljXC91c2VybG9naW4iLCJpYXQiOjE1Nzg0NjM5NjksImV4cCI6MTU3ODQ2NzU2OSwibmJmIjoxNTc4NDYzOTY5LCJqdGkiOiIwVnZoSEZWSzFNYW11TnhFIiwic3ViIjoiTUxTMTIzNDUiLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.OAocOk4CBq66IvozITdyPSuEifbrM4Cx2tLUbFtBg9Y'
       }
     })
       .then(res => {
