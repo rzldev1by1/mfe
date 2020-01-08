@@ -8,7 +8,8 @@ class PurchaseOrderCreate extends Component{
 
         this.state = {
           tab1isactive:true,
-          tab2isactive:false
+          tab2isactive:false,
+          rowlist:[this.linedetailsrow()]
           }
     }
 
@@ -60,32 +61,24 @@ class PurchaseOrderCreate extends Component{
         <h3 className='font'>Line Details</h3>
 
         <table className='tabledetails'>
-                  <tr>
-                      <th style={{width:'2.5%', textAlign:'center'}}>#</th>
-                      <th style={{width:'12%'}}>Porduct Entry</th>
-                      <th style={{width:'6%'}}>UOM</th>
-                      <th style={{width:'3%'}}>Quantity</th>
-                      <th style={{width:'6%'}}>Rota Date</th>
-                      <th style={{width:'6%'}}>Batch</th>
-                      <th style={{width:'5%'}}>Ref3</th>
-                      <th style={{width:'5%'}}>Ref4</th>
-                      <th style={{width:'6%'}}>Disposition</th>
-                      <th style={{width:'1.5%'}}></th>
-                  </tr>
-                  <tr>
-                      <td><input value='1'/></td>
-                      <td><input placeholder='product'/></td>
-                      <td>UOM</td>
-                      <td><input placeholder='qty'/></td>
-                      <td>Batch Type</td>
-                      <td><input placeholder='batch'/></td>
-                      <td><input placeholder='ref3'/></td>
-                      <td><input placeholder='ref4'/></td>
-                      <td><input placeholder='disposition'/></td>
-                      <td><div className='iconU-delete'/></td>
-                  </tr>
-               </table>
-               <button type="button" class="btn btn-light font">+ Add Line</button>
+            <tr>
+                <th style={{width:'2.5%', textAlign:'center'}}>#</th>
+                <th style={{width:'12%'}}>Porduct Entry</th>
+                <th style={{width:'6%'}}>UOM</th>
+                <th style={{width:'3%'}}>Quantity</th>
+                <th style={{width:'6%'}}>Rota Date</th>
+                <th style={{width:'6%'}}>Batch</th>
+                <th style={{width:'5%'}}>Ref3</th>
+                <th style={{width:'5%'}}>Ref4</th>
+                <th style={{width:'6%'}}>Disposition</th>
+                <th style={{width:'1.5%'}}></th>
+            </tr>                  
+          </table>
+          <div className={'tablerow ' + (this.state.rowlist.length >2 ? 'scroll' : null )}>
+            {this.state.rowlist.map(list => list)}
+          </div>
+
+               <button onClick={() => this.addline()} type="button" class="btn btn-light font addline">+ Add Line</button>
       </div>
     )
   }
@@ -93,8 +86,89 @@ class PurchaseOrderCreate extends Component{
   tab2Content = () => {
     return(
       <div className='tabcontent'>
-        Tab2
+        <h3 className='font'>Order Details</h3>
+
+        <table className='createpotable'>
+            <tr>
+                <th>Site</th>
+                <th>Order No</th>
+                <th>Supplier</th>
+                <th>Customer Order Ref</th>
+            </tr>
+            <tr>
+                <td><input placeholder="Site"/> </td>
+                <td><input readOnly placeholder="Order no."/> </td>
+                <td><input placeholder="Supplier"/> </td>
+                <td><input placeholder="Customer Order ref."/> </td>
+            </tr>
+
+            <tr>
+                <th>Client</th>
+                <th>Order Date</th>
+                <th>Order Type</th>
+                <th>Client Order Ref</th>
+            </tr>
+            <tr>
+                <td><input placeholder="Client"/> </td>
+                <td><input placeholder="Order Date"/> </td>
+                <td><input placeholder="Order Type"/></td>
+                <td><input placeholder="Vendor Order ref."/> </td>
+            </tr>
+        </table>
+
+        <br/>
+        <h3 className='font'>Line Details</h3>
+
+        <table className='tabledetails'>
+            <tr>
+                <th style={{width:'2.5%', textAlign:'center'}}>#</th>
+                <th style={{width:'12%'}}>Porduct Entry</th>
+                <th style={{width:'6%'}}>UOM</th>
+                <th style={{width:'3%'}}>Quantity</th>
+                <th style={{width:'6%'}}>Rota Date</th>
+                <th style={{width:'6%'}}>Batch</th>
+                <th style={{width:'5%'}}>Ref3</th>
+                <th style={{width:'5%'}}>Ref4</th>
+                <th style={{width:'6%'}}>Disposition</th>
+                <th style={{width:'1.5%'}}></th>
+            </tr>                  
+          </table>
+          <div className={'tablerow ' + (this.state.rowlist.length >2 ? 'scroll' : null )}>
+            {this.state.rowlist.map(list => list)}
+          </div>
       </div>
+    )
+  }
+
+  linedetailsrow = () => {
+    return(
+      <table>
+        <tr>
+            <td style={{width:'2.5%', textAlign:'center'}}><input value='1'/></td>
+            <td style={{width:'12%'}}><input placeholder='product'/></td>
+            <td style={{width:'6%'}}>UOM</td>
+            <td style={{width:'3%'}}><input placeholder='qty'/></td>
+            <td style={{width:'6%'}}>Batch Type</td>
+            <td style={{width:'6%'}}><input placeholder='batch'/></td>
+            <td style={{width:'5%'}}><input placeholder='ref3'/></td>
+            <td style={{width:'5%'}}><input placeholder='ref4'/></td>
+            <td style={{width:'6%'}}><input placeholder='disposition'/></td>
+            <td style={{width:'1.5%'}}><div className='iconU-delete'/></td>
+          </tr>
+      </table>
+    )
+  }
+
+  addline = () => {
+    this.setState({rowlist: this.state.rowlist.concat(this.linedetailsrow())})
+  }
+
+  submit = () => {
+    return(
+      <React.Fragment>
+        <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch back' ><label className='font'>Back</label></Button>
+        <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch submit' ><label className='font'>Submit</label></Button>        
+      </React.Fragment>      
     )
   }
 
@@ -116,11 +190,15 @@ class PurchaseOrderCreate extends Component{
             </div>
           </ModalHeader>       
          
-          <ModalBody style={{width:'100%'}}>
+          <ModalBody className='bodycontent' style={{width:'100%'}}>
             {this.state.tab1isactive ? this.tab1Content() : this.tab2Content()}
           </ModalBody>
-          <ModalFooter>
-            footer
+          <ModalFooter className='footers'>
+            {this.state.tab2isactive ? 
+              this.submit() :  
+              <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch next' ><label className='font'>Next</label></Button>
+            }
+           
           </ModalFooter>
         </Modal>
         )
