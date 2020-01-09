@@ -126,7 +126,7 @@ function YearMonthForm({ date, localeUtils, onChange, no }) {
 	return (
 	
 	  <form className="DayPicker-Caption">
-		  <ul className={"select-date month-option" + (handleMonthExpand ? " expand-period-sm" : "")} id="select">
+		  {/* <ul className={"select-date month-option" + (handleMonthExpand ? " expand-period-sm" : "")} id="select">
 			<li className="expand-style-date">
 				<input className="select_close-date" type="radio" name="month" id={"awesomeness-close1" + (no)} value=""/>
 				<span className="select_label-date select_label-placeholder-date">{formatMonth(date.getMonth())}</span>
@@ -171,21 +171,21 @@ function YearMonthForm({ date, localeUtils, onChange, no }) {
 
 				<label className="select_expandLabel-date" htmlFor={"awesomeness-opener2" + (no)} onClick={handleYearExpand}></label>
 			</li>
-		</ul>
-		{/* <select name="month" onChange={handleChange} value={date.getMonth()}>
+		</ul> */}
+		<Input type="select" name="month" onChange={handleChange} value={date.getMonth()}>
 		  {months.map((month, i) => (
 			<option key={month} value={i}>
 			  {month}
 			</option>
 		  ))}
-		</select> */}
-		{/* <select name="year" onChange={handleChange} value={date.getFullYear()}>
+		</Input>
+		<Input type="select" name="year" onChange={handleChange} value={date.getFullYear()}>
 		  {years.map(year => (
 			<option key={year} value={year}>
 			  {year}
 			</option>
 		  ))}
-		</select> */}
+		</Input>
 	  </form>
 	);
   }
@@ -230,8 +230,8 @@ class StockMovement extends Component {
 				hoverRange: undefined,
 				selectedDays: []
 			},
-			displayPeriod: undefined,
-			rangeDate: []
+			displayPeriod: "day",
+			rangeDate: [],
 
 		}
 		// this.getLocalStorageColumn();
@@ -277,8 +277,7 @@ class StockMovement extends Component {
 		  from: undefined,
 		  to: undefined,
 		};
-	  }
-
+	}
 
 	loadStockMovement = () => {
 		let self = this;
@@ -290,10 +289,11 @@ class StockMovement extends Component {
 			endDate: endDate,
 			filterType: this.state.displayPeriod
 		}
+		let userAuth = JSON.parse(localStorage.getItem("user"));
 		let headers = {
-			'userLevel': 'eyJpdiI6IkFsQThmaUd5THdvTDYzS1VSWFZjb1E9PSIsInZhbHVlIjoiZktUR3c3ZkpaSXRIODBTZ0hrM0hNdz09IiwibWFjIjoiNmFmOTg2OWNmMTEyZGUwMTk2ZjJiNzRlNmZiODdmZTY5ZWVmNjI1MzRhZTU2ODUxNDY4OTg0OGVmMDgyYTU1OCJ9',
-			'companyCode': 'eyJpdiI6Im45Z1NFYjhidldSYzdMcHg2K2tDenc9PSIsInZhbHVlIjoicHVGYkNBa05EQnZ3Ukk3QzM3aGNFUT09IiwibWFjIjoiNDVlNjAwZmY4Mzg3MDAxNWQ2OWRmN2IxMjZjNDBhZWQ0NzRjZTI0OTM0NTBmYTM2Y2ExMTU3NzQ0NTE5MzUyNCJ9',
-			'Authorization': 'Bearer ' + localStorage.getItem("token"),
+			'userLevel': userAuth.userLevel,
+			'companyCode': userAuth.companyCode,
+			'Authorization': 'Bearer ' + userAuth.token,
 			'Content-Type': 'application/json'
 		}
 
@@ -333,7 +333,7 @@ class StockMovement extends Component {
 				self.setState({ displayContent: "FOUND",
 								stockMovement: respondRes
 							});
-
+				// console.log(self.state.stockMovement);
 				// self.numberEventClick(self.state.currentPage);
 				// localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
 			}
@@ -482,8 +482,7 @@ class StockMovement extends Component {
 				dateColumns.push({  
 					id: d.toISOString().split('T')[0], 
 					checkboxLabelText: this.formatDate(d), 
-					tableHeaderText: this.formatDate(d), 
-					isVisible: false, key: d.toISOString().split('T')[0], 
+					tableHeaderText: this.formatDate(d),
 					class:"border-left borderless-bottom",
 					subColumns: [
 						{ id: "sa_plus", checkboxLabelText: "SA +", tableHeaderText: "SA +", value: [], isVisible: true, key: "sa_plus", class: "border-left" },
@@ -504,6 +503,47 @@ class StockMovement extends Component {
 	}
 
 	showData = () => {
+		return (
+			this.state.stockMovement.map((item, idx) => {
+				return (
+					item[this.state.rangeDate[idx]].map((value, valueIdx) => {
+						return (
+							<tr key={valueIdx}>
+								{this.state.columns.map((column, columnIdx) => {
+									return <td key={columnIdx} className="px-3 text-left">{value[column.id]}</td>
+								})}
+								{this.state.dateColumns.map((dateColumn, dataIdx) => {
+									if(dateColumn.id === this.state.rangeDate[idx]){
+										item[this.state.rangeDate[idx]].map((element, index) => {
+											console.log(element[dateColumn.subColumns.id]);
+											return (
+												<td key={index} className="px-3 text-left">
+													{element[dateColumn.subColumns.id] ? element[dateColumn.subColumns.id] : "-"}
+												</td>
+											)
+										})
+									}
+									// dateColumn.subColumns.map((element, idx) => {
+									// 	console.log(value[element.id])
+									// 	return (
+									// 		<td key={dataIdx} className="px-3 text-left">
+									// 			{value[element.id] ? value[element.id] : "-"}
+									// 		</td>
+									// 	)
+									// });
+									// console.log(value[dateColumn.subColumns.id]);
+									// return (
+									// 	<td key={dataIdx} className="px-3 text-left">
+									// 		{value[dateColumn.subColumns.id] ? value[dateColumn.subColumns.id] : "-"}
+									// 	</td>
+									// )
+								})}
+							</tr>
+						);
+					})
+				)
+			})
+		);
 	}
 
 	rowClicked = (productCode) => {
@@ -533,11 +573,11 @@ class StockMovement extends Component {
 		switch (this.state.displayContent) {
 			case "FOUND" :
 				content = 
-					<Table className={"table-condensed table-responsive table-striped clickable-row rounded-bottom-175 mb-0" + (this.state.showDatepicker ? " table-fixed" : "") + (this.state.selectExpand ? " smm-table" : "")} size="md" width="100%">
+					<Table className={"table-condensed table-responsive table-striped clickable-row rounded-175 mb-0" + (this.state.showDatepicker ? " table-fixed" : "") + (this.state.selectExpand ? " smm-table" : "")} size="md" width="100%">
 						<thead>
 							<tr>
 								{this.state.columns.map((item, idx) => {
-										return <th className={" text-left " + item.class} key={idx} rowSpan="2" width="20%">{item.tableHeaderText}</th>
+									return <th className={" text-left " + item.class} key={idx} rowSpan="2" width="20%">{item.tableHeaderText}</th>
 								})}
 								{this.state.dateColumns.map((item, idx) => {
 									return <th className={" text-left " + item.class} key={idx} colSpan="4" width="20%">{item.tableHeaderText}</th>
@@ -545,37 +585,17 @@ class StockMovement extends Component {
 							</tr>
 							<tr>
 								{this.state.dateColumns.map((item, idx) => {
-									return (item.subColumns !== undefined ? 
-												item.subColumns.map((item, idx) => {
-													return <th className={" text-center blueLabel " + item.class} key={idx} width="15%">{item.tableHeaderText}</th>
-												}) 
-											: "")
+									return (
+										item.subColumns !== undefined ? 
+											item.subColumns.map((item, idx) => {
+												return <th className={" text-center blueLabel " + item.class} key={idx} width="15%">{item.tableHeaderText}</th>
+											}) 
+										: "")
 								})}
 							</tr>
 						</thead>
-						<tbody>
-							{this.state.stockMovement !== undefined ? this.state.stockMovement.map((item, idx) => {
-									if(item[this.state.rangeDate[idx]] !== undefined){
-										this.state.dateColumns.map((data, dataIdx) => {
-											if(data.id === this.state.rangeDate[idx]){
-												
-											}
-										})
-										if(this.state.dateColumns == this.state.rangeDate[idx]){
-											
-										}
-									}
-									return (item[this.state.rangeDate[idx]] !== undefined ? item[this.state.rangeDate[idx]].map((value, valueIdx) => {
-										return(
-											<tr key={valueIdx}>
-												{this.state.columns.map((column, columnIdx) => {
-														return <td key={columnIdx} className="px-3 text-left"> {value[column.id]} </td>
-												})}
-											</tr>
-										)
-									}) : null)
-							}) : null}
-						</tbody>
+
+						<tbody>{this.showData()}</tbody>
 					</Table>
 			break;
 
@@ -624,67 +644,42 @@ class StockMovement extends Component {
 														<FormGroup>
 															<InputGroup>
 																<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-																	<Card className="form-group row rounded-175 filter-bar" style={{padding: '17px'}}>
+																	<Card className="form-group row rounded-175 filter-bar" style={{paddingLeft: '6px'}}>
 																		
 																		<div className="input-group p-2">
 																			<div className="input-group-prepend bg-white col-9">
-																				{/* <Label htmlFor="select" className="filter_label" sm={2} md={2} lg={2}>Display Period</Label>
-																				<Col sm={3} md={3} lg={3}>
-																					<Input type="select" name="select" id="select" onChange={this.handlePeriod}>
-																						<option value="day" selected>Daily</option>
+																				<Label htmlFor="select" className="filter_label">Display Period</Label>
+																				<Col className="arrow-icon" xs={3}>
+																					<Input type="select" className="none-appearance" name="select" id="select" onChange={this.handlePeriod}>
+																						<option value="day">Daily</option>
 																						<option value="week">Weekly</option>
 																						<option value="month">Monthly</option>
-																					</Input>	
-																					<div className="arrow-icon-space">
-																						<div className="arrow-icon"></div>
-																					</div>
-																				</Col> */}
-																				<Label htmlFor="select" className="filter_label">Display Period</Label>
-																				<ul className={"select-sm" + (this.state.selectExpand ? " expand-period-sm" : "")} id="select">
-																					<li className="expand-style-sm">
-																						<input className="select_close-sm" type="radio" name="period" id="awesomeness-close" value=""/>
-																						<span className="select_label-sm select_label-placeholder-sm">Select Period</span>
-																					</li>
-																					
-																					<li className="select_items-sm">
-																						<input className="select_expand-sm" type="radio" name="period" id="awesomeness-opener"/>
-																						<label className="select_closeLabel-sm" htmlFor="awesomeness-close" onClick={this.triggerChangeFilter}></label>
-
-																						<ul className="select_options-sm">
-																							<li className="select_option-sm">
-																								<input className="select_input-sm" type="radio" name="period" id="daily" value="day" onClick={this.handlePeriod}></input>
-																								<label className="select_label-sm" htmlFor="daily" onClick={this.triggerChangeFilter}>Daily</label>
-																							</li>
-																							<li className="select_option-sm">
-																								<input className="select_input-sm" type="radio" name="period" id="weekly" value="week" onClick={this.handlePeriod}></input>
-																								<label className="select_label-sm" htmlFor="weekly" onClick={this.triggerChangeFilter}>Weekly</label>
-																							</li>
-																							<li className="select_option-sm">
-																								<input className="select_input-sm" type="radio" name="period" id="monthly" value="month" onClick={this.handlePeriod}></input>
-																								<label className="select_label-sm option_radius-sm" htmlFor="monthly" onClick={this.triggerChangeFilter}>Monthly</label>
-																							</li>
-																						</ul>
-
-
-																						<label className="select_expandLabel-sm" htmlFor="awesomeness-opener" onClick={this.triggerChangeFilter}></label>
-																					</li>
-																				</ul>
-																				<Label htmlFor="date" className="filter_label" style={{paddingLeft: '107px'}}>Select Date</Label>
-																				<ul className={"select-sm" + (this.state.date.from && this.state.date.to ? " date-info" : "")} id="date" onClick={this.state.displayPeriod ? (this.state.displayPeriod === "month" ? null : this.triggerShowDatepicker) : null}>
+																					</Input>
+																				</Col>
+																				
+																				<Label htmlFor="from" className="filter_label from-label">Date From</Label>
+																				<Col className="arrow-icon">
+																					<Input className="none-appearance" name="from" id="from" onChange={this.handlePeriod} placeholder="Select From" readOnly onClick={this.state.displayPeriod ? (this.state.displayPeriod === "month" ? null : this.triggerShowDatepicker) : null}></Input>
+																				</Col>
+																				<Label htmlFor="to" className="filter_label to-label">To</Label>
+																				<Col className="arrow-icon">
+																					<Input className="none-appearance" name="to" id="to" onChange={this.handlePeriod} placeholder="Select To" readOnly onClick={this.state.displayPeriod ? (this.state.displayPeriod === "month" ? null : this.triggerShowDatepicker) : null}></Input>
+																				</Col>
+																				{/* <ul className={"select-sm" + (this.state.date.from && this.state.date.to ? " date-info" : "")} id="date" onClick={this.state.displayPeriod ? (this.state.displayPeriod === "month" ? null : this.triggerShowDatepicker) : null}>
 																					<span className="select_label-sm select_label-placeholder-sm" id="datepicker1" ref="datepicker1" name="datepicker1">{from &&
 																																																	to &&
 																																																	`${this.formatDateDisplay(from)} -
 																																																		${this.formatDateDisplay(to)}`}{' '}</span>
 																					<input className="select_expand-sm" type="radio" name="asdas"/>
-																				</ul>
+																				</ul> */}
 																				
 																			</div>
 																			<div className="col-3 text-right">
 																				{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}
 
-																				<button type="submit" className="search rounded-175" onClick={this.state.displayPeriod && from && to ? this.triggerShowContent : null}>
+																				<Button type="submit" color="info" className="col-7 search-movement search-btn rounded-175" onClick={this.state.displayPeriod && from && to ? this.triggerShowContent : null}>
 																					<strong>Search</strong>
-																				</button>
+																				</Button>
 																			</div>
 																		</div>
 																		
@@ -692,7 +687,7 @@ class StockMovement extends Component {
 																	<div className="col-md-12 col-lg-12 offset-md-4 offset-lg-3">
 																		<DayPicker
 																				className={(this.state.showDatepicker ? (this.state.displayPeriod === "day" ? "Selectable datepickerdaily-tab" : "d-none") : "d-none")}
-																				numberOfMonths={2}
+																				numberOfMonths={1}
 																				month={this.state.month}
 																				fromMonth={fromMonth}
 																				toMonth={toMonth}
@@ -733,7 +728,7 @@ class StockMovement extends Component {
 																				</Helmet>
 																			<DayPicker
 																				className={(this.state.showDatepicker ? (this.state.displayPeriod === "week" ? "Selectable datepickerweekly-tab" : "d-none") : "d-none")}
-																				numberOfMonths={2}
+																				numberOfMonths={1}
 																				showWeekNumbers
 																				showOutsideDays
 																				selectedDays={selectedDays}

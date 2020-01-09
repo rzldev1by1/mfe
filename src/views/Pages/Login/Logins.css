@@ -91,7 +91,7 @@ p:hover{
 }
 
 /* input[type=button]{  */
-button {
+.btnLogin {
     height: 50px;
     width: 10%;
     box-sizing: border-box;
@@ -105,7 +105,7 @@ button {
 }
 
 /* input[type=button]:active{ */
-button:active {
+.btnLogin:active {
     background-color: white !important;
     color: grey !important;
     transition:background-color 0.5s ease;
