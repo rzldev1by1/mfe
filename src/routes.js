@@ -54,10 +54,10 @@ function Loading() {
 // 	loading: Loading
 // });
 
-const Dashboard = Loadable({
-	loader: () => import('./views/Dashboard'),
-	loading: Loading
-});
+// const Dashboard = Loadable({
+// 	loader: () => import('./views/Dashboard'),
+// 	loading: Loading
+// });
 
 const PurchaseOrder = Loadable({
 	loader: () => import('./views/PurchaseOrder/PurchaseOrder'),
@@ -90,7 +90,7 @@ const StockMovement = Loadable({
 // });
 
 const UserManagement = Loadable({
-	loader: () => import('./views/Base/Cards'),
+	loader: () => import('./views/Users/Users'),
 	loading: Loading
 });
 
@@ -138,9 +138,9 @@ const routes = [
 	// { path: '/users', exact: true,  name: 'Users', component: Users },
 	// { path: '/users/:id', exact: true, name: 'User Details', component: User },
 	
-	{ path: '/', exact: true, name: 'Home', component: DefaultLayout },
+	// { path: '/', exact: true, name: 'Stock Holding', component: DefaultLayout },
 	
-	{ path: '/dashboard', name: 'Dashboard', component: Dashboard },
+	// { path: '/dashboard', name: 'Dashboard', component: Dashboard },
 	// { path: '/notifications', exact: true, name: 'Inbound Delivery', component: PurchaseOrder },
 	{ path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
 
@@ -151,7 +151,7 @@ const routes = [
 	// { path: '/stock/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
 
 
-	{path: '/purchaseorder', exact:true, name: 'Inbound Delivery', component:PurchaseOrder},
+	{ path: '/purchaseorder', exact:true, name: 'Purchase Order', component: PurchaseOrder },
 	{ path: '/base', exact: true, name: 'User Control', component: UserManagement },
 ];
 

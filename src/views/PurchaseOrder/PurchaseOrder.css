@@ -91,7 +91,6 @@ input {
 
 .sidebar .nav-item .nav-link:hover, .nav-link:hover .nav-icon, .nav-link.active, .nav-link.active .nav-icon {
 	border-radius: 0px !important;
-	margin-left: 3px;
 	background-color: white !important;
 	border-color: white !important;
 }

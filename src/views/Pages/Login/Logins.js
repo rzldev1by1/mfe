@@ -95,7 +95,7 @@ class Logins extends Component{
                 this
                     .props
                     .history
-                    .push('/stock')
+                    .push('/stock/stockholding')
             })
             .catch(function (error) {
                 if(error)
@@ -117,7 +117,7 @@ class Logins extends Component{
             this
                     .props
                     .history
-                    .push('/stock')
+                    .push('/stock/stockholding')
         }
         return(
             <div className="background fontstyle">

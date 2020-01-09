@@ -94,7 +94,7 @@ class Login extends Component {
                 this
                     .props
                     .history
-                    .push('/stock')
+                    .push('/stock/stockholding')
             })
             .catch(function (error) {
                 if(error)
