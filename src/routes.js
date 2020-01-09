@@ -99,6 +99,11 @@ const PurchaseOrderDetail = Loadable({
 	loading: Loading
 });
 
+const UsersManagement = Loadable({
+	loader: () => import('./views/UserManagement/UserManagement'),
+	loading: Loading
+});
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
 	// { path: '/dashboard', name: 'Dashboard', component: Dashboard },
@@ -145,7 +150,7 @@ const routes = [
 	{ path: '/', exact: true, name: 'Home', component: DefaultLayout },
 
 	{ path: '/dashboard', name: 'Dashboard', component: Dashboard },
-	{ path: '/notifications', exact: true, name: 'Inbound Delivery', component: PurchaseOrder },
+	// { path: '/notifications', exact: true, name: 'Inbound Delivery', component: PurchaseOrder },
 	{ path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
 
 	{ path: '/stock', exact: true, name: 'Stock', component: StockHolding },
@@ -157,6 +162,7 @@ const routes = [
 	{path: '/purchaseorder', exact:true, name: 'Inbound Delivery', component:PurchaseOrder},
 	{ path: '/purchaseorder/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrderDetail },
 	{ path: '/base', exact: true, name: 'User Control', component: UserControl },
+	{ path: '/usersmanagement', exact: true, name: 'User Managementl', component: UsersManagement },
 ];
 
 export default routes;

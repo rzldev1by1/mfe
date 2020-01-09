@@ -17,7 +17,10 @@ import {
     DropdownToggle
     } from 'reactstrap'
 
-const PurchaseOrderHeader = () => {
+const PurchaseOrderHeader = (props) => {
+    const showCreatePurchaseOrder = () => {
+        props.showPOModal(true)
+    }
     return (
         <div style={{display:'flex'}}>
                 <div style={{width:'85%'}}>
@@ -26,10 +29,9 @@ const PurchaseOrderHeader = () => {
                             Purchase Order
                         </BreadcrumbItem>
                     </Breadcrumb>
-                </div>
-                
+                </div>                
                 <div style={{marginTop:10}}>
-                    <Button type="submit" className="search rounded-175" style={{width:300, backgroundColor:'#E0E3F2', alignItems:'right', font: 'Bold 20px/27px Nunito',color: '#212F61'}}>
+                    <Button onClick={()=> showCreatePurchaseOrder()} type="submit" className="search rounded-175 create" style={{width:300, backgroundColor:'#E0E3F2', alignItems:'right', font: 'Bold 20px/27px Nunito',color: '#212F61'}}>
                     <i className="iconU-edit" style={{marginRight:10}}/>
                         <strong>Create Purchase Order</strong>
                     </Button>

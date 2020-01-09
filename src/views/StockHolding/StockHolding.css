@@ -351,22 +351,3 @@ background-color: #fde80f;
 		  margin-right: 0.3125rem;
 		  margin-left: 0; }
 
-/* Purchase Order CSS*/
-.iconU-edit {
-	font-size:15px !important;	
-}
-
-.breadCrumbPO {
-	background: none !important;
-}
-
-::placeholder  { /* Chrome/Opera/Safari */
-	color: #cccccc !important;
-  }
-
-.marginBottom {
-	margin-bottom: 15px !important;
-	width: 100%;
-	margin-left: 0px;
-
-}

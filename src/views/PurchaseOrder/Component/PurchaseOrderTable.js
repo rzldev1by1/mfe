@@ -1,83 +1,119 @@
-import React, {Component, useState} from  'react'
-import '../../StockHolding/StockHolding.css'
-import {
-    Card,
-    CardBody,
-    Row,
-    Table,
-    Button,
-    FormGroup,
-    InputGroup,
-    Breadcrumb, 
-    BreadcrumbItem,
-    Input, 
-    InputGroupAddon,
-    DropdownItem, 
-    DropdownMenu, 
-    DropdownToggle
-    } from 'reactstrap'
-import axios from 'axios'
+import React, {Component} from  'react'
+import mid from '../../../assets/img/brand/field-idle.png'
+import down from '../../../assets/img/brand/field-bot.png'
+import up from '../../../assets/img/brand/field-top.png'
 
-const PurchaseOrderTable = () => {
+class PurchaseOrderTable extends Component {
+  constructor(props){
+    super(props)
+
+    this.state = {
+      tableheader : ['Site','Order No','Client','Status','Status Description','Date Due','Date Received','Date Released','Date Completed','Supplier Name'],
+      tablebody : ['A','PO-4312','Josaphat','1','Available','27/01/2020','27/01/2020','27/01/2020','27/01/2020', 'Swann-wq12'],
+      activearrow:mid
+    }
+  }
+
+  arrow = (header) => {
     return(
-        <Table responsive>
-      <thead>
-        <tr>
-          <th>Site</th>
-          <th>Order No</th>
-          <th>Client</th>
-          <th>Status</th>
-          <th>Satus Description</th>
-          <th>Date due</th>
-          <th>Date Received</th>
-          <th>Date Released</th>
-          <th>Date Completed</th>
-          <th>Supplier</th>
-          <th style={{textAlign:'center'}}><span className='glyphicon glyphicon-pencil'></span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>A</td>
-          <td>PO-4312-1213</td>
-          <td>Josaphat</td>
-          <td>Open</td>
-          <td>Description of Status</td>
-          <td>27/01/2019</td>
-          <td>27/01/2019</td>
-          <td>27/01/2019</td>
-          <td>27/01/2019</td>
-          <td className=''>sdf</td>
-          <td className='' style={{alignItems:'right'}}>
-            <div className='circle' style={{alignItems:'center', paddingLeft:'12%', paddingTop:'10%'}}>
-                <div className="dot"/>
-                <div className="dot"/>
-                <div className="dot"/>
-            </div>            
-          </td>
-        </tr>
-        <tr>
-          <td>A</td>
-          <td>PO-4312-1213</td>
-          <td>Josaphat</td>
-          <td>Open</td>
-          <td>Description of Status</td>
-          <td>27/01/2019</td>
-          <td>27/01/2019</td>
-          <td>27/01/2019</td>
-          <td>27/01/2019</td>
-          <td className=''>sdf</td>
-          <td className='' style={{alignItems:'right'}}>
-            <div className='circle' style={{alignItems:'center', paddingLeft:'12%', paddingTop:'10%'}}>
-                <div className="dot"/>
-                <div className="dot"/>
-                <div className="dot"/>
-            </div>            
-          </td>
-        </tr>
-      </tbody>
-    </Table>
+      <img id={header} onClick={() => this.arrowHandler(header)} className='arrow' src={this.state.activearrow}/>
     )
+  }
+
+  arrowHandler = (header) => {
+    if(this.state.activearrow == mid)
+    {
+      this.setState({activearrow:up})
+    }
+
+    if(this.state.activearrow == up)
+    {
+      this.setState({activearrow:down})
+    }
+
+    if(this.state.activearrow == down)
+    {
+      this.setState({activearrow:up})
+    }
+  }
+
+  render(){
+    return(
+      <div>
+        <table class="table">
+          <thead>
+            <tr>
+              {this.state.tableheader.map(header =><th>{header}{this.arrow(header)}</th>)}
+              <th className='iconU-edit'></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className='tr'>
+              {this.state.tablebody.map(body => <td>{body}</td>)}
+              <td className='iconU-option'></td>
+            </tr>
+            <tr className='tr'>
+              {this.state.tablebody.map(body => <td>{body}</td>)}
+              <td className='iconU-option'></td>
+            </tr>
+            <tr className='tr'>
+              {this.state.tablebody.map(body => <td>{body}</td>)}
+              <td className='iconU-option'></td>
+            </tr>
+            <tr className='tr'>
+              {this.state.tablebody.map(body => <td>{body}</td>)}
+              <td className='iconU-option'></td>
+            </tr>
+            <tr className='tr'>
+              {this.state.tablebody.map(body => <td>{body}</td>)}
+              <td className='iconU-option'></td>
+            </tr>
+            <tr className='tr'>
+              {this.state.tablebody.map(body => <td>{body}</td>)}
+              <td className='iconU-option'></td>
+            </tr>
+            <tr className='tr'>
+              {this.state.tablebody.map(body => <td>{body}</td>)}
+              <td className='iconU-option'></td>
+            </tr>
+            <tr className='tr'>
+              {this.state.tablebody.map(body => <td>{body}</td>)}
+              <td className='iconU-option'></td>
+            </tr>
+            <tr className='tr'>
+              {this.state.tablebody.map(body => <td>{body}</td>)}
+              <td className='iconU-option'></td>
+            </tr>
+            <tr className='tr'>
+              {this.state.tablebody.map(body => <td>{body}</td>)}
+              <td className='iconU-option'></td>
+            </tr>
+            <tr className='tr'>
+              {this.state.tablebody.map(body => <td>{body}</td>)}
+              <td className='iconU-option'></td>
+            </tr>
+            <tr className='tr'>
+              {this.state.tablebody.map(body => <td>{body}</td>)}
+              <td className='iconU-option'></td>
+            </tr>
+            <tr className='tr'>
+              {this.state.tablebody.map(body => <td>{body}</td>)}
+              <td className='iconU-option'></td>
+            </tr>
+            <tr className='tr'>
+              {this.state.tablebody.map(body => <td>{body}</td>)}
+              <td className='iconU-option'></td>
+            </tr>
+            <tr className='tr'>
+              {this.state.tablebody.map(body => <td>{body}</td>)}
+              <td className='iconU-option'></td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    )
+  }
 }
 
 export default PurchaseOrderTable

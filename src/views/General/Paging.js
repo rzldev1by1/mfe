@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Paging.css';
 
 class Paging extends Component {
 	constructor(props) {
@@ -47,30 +48,17 @@ class Paging extends Component {
 		this.props.backPageClick();
 	}
 
-	pageStartIndexOf = () => {
-		return ((this.props.currentPage * this.props.displayPage) - this.props.displayPage) + 1;
-	}
-
-	pageLastIndexOf = () => {
-		if (this.props.totalRows < this.props.displayPage) {
-			// return ((this.props.currentPage * this.props.displayPage) - this.props.displayPage) + 1;
-			this.pageStartIndexOf();
-		} else {
-			return this.props.currentPage * this.props.displayPage;
-		}
-	}
-
 	render() {
 		return (
 			<div>
+				<span>{this.createPageNumber()} (Total {this.props.totalRows}) </span>
+
 				<button className={"btn p-0 btn-pagingNav" + (this.props.currentPage > 1 ? "" : "-inactive")} onClick={this.backPageClick}>
-					<i className="fa fa-chevron-left" aria-hidden="true" />
+					<i className="fa fa-chevron-left" aria-hidden="true" /> Back
 				</button>
 
-				<span>{this.createPageNumber()}</span>
-
 				<button className={"btn p-0 btn-pagingNav" + (this.props.currentPage < this.props.maxPage ? "" : "-inactive")} onClick={this.nextPageClick}>
-					<i className="fa fa-chevron-right text-center" aria-hidden="true" />
+					Next <i className="fa fa-chevron-right text-center" aria-hidden="true" />
 				</button>
 
 				{/* <ul className={"select-export" + (this.state.exportExpand ? " expand-export" : "")} id="select">

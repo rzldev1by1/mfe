@@ -63,10 +63,9 @@
 }
 
 body {
-	background-color: #F5F7FA;
-	// background-color: #FFFFFF;
+	background-color: #E9ECED;
 	font-family: "Nunito";
-	color: #212F61;
+	color: #637176;
 	// font-size: 15px;
 }
 
@@ -121,6 +120,10 @@ body {
 	content: "\e917";
 }
 
+.iconU-i:before {
+	content: "\e918";
+}
+
 .iconU-report:before {
 	content: "\e915";
 }
@@ -148,7 +151,7 @@ body {
 
 .iconU-filter:before {
 	content: "\e904";
-	font-size: 13px !important;
+	font-size: 13px;
 }
 
 .iconU-information:before {
@@ -167,8 +170,14 @@ body {
 	content: "\e910";
 }
 
-.iconU-downArrow:before {
+.iconU-upArrows:after {
+	content: "\e910";
+	font-size: 9px;
+}
+
+.iconU-downArrow:after {
 	content: "\e90f";
+	font-size: 9px;
 }
 
 .iconU-one:before {
@@ -202,7 +211,7 @@ body {
 .iconU-search:before {
 	content: "\e911";
 	display: inline-block;
-	font-size: 2rem !important;
+	font-size: 1.5rem !important;
 }
 
 
@@ -222,59 +231,6 @@ body {
 	}
 }
 
-// Start - Breadcrumb
-
-.headerTitle {
-	font-size: 25px;
-	font-family: "Nunito Bold";
-}
-
-.breadcrumb-item {
-		font-size: 25px;
-		font-family: "Nunito Bold";
-}
-
-.breadcrumb-item.active {
-    color: #388DCD;
-}
-
-.breadcrumb {
-    position: relative;
-    border-radius: 0;
-	border: none;
-	background:none;
-}
-
-a.breadcrumb {
-	color: #388DCD !important;
-	padding-top: 0;
-	padding-right: 0;
-	margin-bottom: 0;
-}
-
-a.breadcrumb:hover {
-	text-decoration: none;
-}
-
-.breadcrumb-item + .breadcrumb-item::before {
-		font-family: "FontAwesome";
-   	content: "\f105";
-    display: inline-block;
-    padding-right: 1rem;
-		padding-left: 1rem;
-    color: #388DCD;
-		font-weight: 900;
-    // content: "&#xf105;";
-}
-
-// End - Breadcrumb
-
-/* section modal header custom **/
-.modalheader-custom{
-	display: inline !important;
-}
-
-/* end section modal header custom **/
 
 // Start - Sidebar
 
@@ -412,27 +368,98 @@ hr.border-header {
 // End - Border
 
 
+// Start - Breadcrumb
+
+.headerTitle {
+	font-size: 25px;
+	font-family: "Nunito Bold";
+}
+
+.breadcrumb-item {
+    font-size: 25px;
+    font-family: "Nunito Bold";
+}
+
+.breadcrumb-item.active {
+    color: #637176;
+}
+
+.breadcrumb {
+    position: relative;
+    border-radius: 0;
+	border: none;
+	background:none;
+}
+
+a.breadcrumb {
+	color: #388DCD !important;
+	padding-top: 0;
+	padding-right: 0;
+	margin-bottom: 0;
+}
+
+a.breadcrumb:hover {
+	text-decoration: none;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+	font-family: "FontAwesome";
+   	content: "\f105";
+    display: inline-block;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    color: #388DCD;
+    font-weight: 900;
+    // content: "&#xf105;";
+}
+
+// End - Breadcrumb
+
+
+// Start - Section modal header custom
+
+.modalheader-custom {
+	display: inline !important;
+}
+
+// End - Section modal header custom
+
+
+// Start - Searchbox
+
+.fa-search {
+    color: #D5D8DA;
+}
+
+.searchbox, .searchbox::placeholder {
+    color: #D5D8DA !important;
+    align-self: center;
+}
+
+// End - Searchbox
+
+
 // Start - Button
 
-.circle {
+.filter {
 	width: 38px;
 	height: 38px;
-	border-radius: 50%;
-	background-color: #E0E3F2;
-	color: #212F61;
+	// border-radius: 50%;
+	background-color: #E9ECED;
+	color: #637176;
 	border: none !important;
 	box-shadow: none !important;
 }
 
-.circle.active, .circle.active:focus {
-	background-color: #388DCD !important;
+.filter.active, .filter.active:focus {
+	background-color: #22ABE3 !important;
 	color: #FFFFFF !important;
 }
 
 .search, .search:hover, .search:focus {
 	width: 140px;
 	height: 38px;
-	background-color: #388DCD;
+	background-color: #22ABE3;
 	color: #FFFFFF;
 	border: none;
 	box-shadow: none !important;
@@ -462,379 +489,30 @@ hr.border-header {
 
 .table th {
 	background-color: #FFFFFF;
-	color: #212F61;
+	color: #637176;
 	border-top: none;
 	vertical-align: middle !important;
 }
 
 .table td, .table-striped>tbody>tr>td {
-	// background-color: #F5F7FA;
 	background-color: #FFFFFF;
 	color: #4E4E4E;
 	vertical-align: middle !important;
 }
 
-.clickable-row>tbody>tr:hover>td {
-	background-color: #E0E3F2;
-}
+// .clickable-row>tbody>tr:hover>td {
+// 	background-color: #E0E3F2;
+// }
 
 .table.noneborder-bottom thead th{
 	border-bottom: none !important;
 }
 
+.borderless-bottom{
+	border-bottom: 0 !important;
+}
+
 // End - Table
-
-
-// Start - Login Page
-
-.titleMenu {
-	font-family: "Nunito";
-	color: #388DCD;
-}
-
-.logo-box {
-	position: absolute;
-	top: 30%;
-    left: 60%;
-	width: 300px;
-	height: 300px;
-	background: #ACB5BC 0% 0% no-repeat padding-box;
-	// background-image: url("../assets/img/brand/logo_ml_w.png");
-	background-position: center;
-    background-size: cover;
-    border-radius: 40px;
-    opacity: 0.7;
-}
-
-.btnLogin {
-	border-radius: 33px;
-	background-color: #388DCD;
-	border-color: #388DCD;
-	width: 135px;
-}
-
-.btnForgotPwd {
-	color: #919191;
-	text-decoration: none;
-	margin-top: -6px;
-}
-
-.rememberMe {
-	color: #919191;
-}
-
-
-@keyframes wave {
-	50% {
-		transform: scale(0.9);
-	}
-}
-
-@media (min-width: 1200px) {
-	.container {
-		max-width: 1440px;
-		// max-width: 1140px;
-	}
-}
-
-.red {
-	background-color: red !important;
-}
-
-.blue {
-	background-color: blue !important;
-}
-
-.centered-logo {
-	/* Location of the image */
-  background-image: url(../assets/img/brand/Microlistics_WTG_White_Medium.png);
-
-  /* Background image is centered vertically and horizontally at all times */
-  background-position: center center;
-
-  /* Background image doesn't tile */
-  background-repeat: no-repeat;
-
-  /* Background image is fixed in the viewport so that it doesn't move when
-     the content's height is greater than the image's height */
-  background-attachment: fixed;
-
-  /* This is what makes the background image rescale based
-     on the container's size */
-  background-size: cover;
-
-  /* Set a background color that will be displayed
-     while the background image is loading */
-  background-color: gray;
-}
-
-.background-right-full {
-	/* Location of the image */
-  background-image: url(../assets/img/brand/bg.jpg);
-
-  /* Background image is centered vertically and horizontally at all times */
-  background-position: center center;
-
-  /* Background image doesn't tile */
-  background-repeat: no-repeat;
-
-  /* Background image is fixed in the viewport so that it doesn't move when
-     the content's height is greater than the image's height */
-  background-attachment: fixed;
-
-  /* This is what makes the background image rescale based
-     on the container's size */
-  background-size: cover;
-
-  /* Set a background color that will be displayed
-     while the background image is loading */
-  background-color: gray;
-}
-
-.background-shadow {
-	background-color: #030404;
-	opacity: 0.5;
-}
-
-.logo-shadow {
-	background-color: #494949;
-	border-radius: 40px;
-	// opacity: 0.15;
-}
-
-.area-logo-shadow {
-	height: 450px !important;
-}
-
-img.center-area-logo {
-	padding-top: 4.5rem !important;
-}
-
-ul.companyProfile {
-	text-align: center;
-	list-style: none;
-	width: 100%;
-	li {
-		display: inline-block;
-		float: right;
-
-		label.profTitle {
-			padding: 25px !important;
-			text-align: center;
-			color: #FFFFFF;
-			font-size: 1em;
-		}
-	}
-}
-
-.copyright-section {
-	position: fixed;
-	bottom: 10px;
-}
-
-.blueLabel {
-	color:#388DCD !important;
-}
-
-.whiteLabel{
-	color:#FFFFFF !important;
-}
-
-.contact-us {
-	position: fixed;
-	bottom: 100px;
-	// background-color: red;
-}
-
-.fullscreen-left {
-	position: fixed;
-	top: 0;
-	left: 0;
-	bottom: 0;
-}
-
-.fullscreen-right {
-	position: fixed;
-	top: 0;
-	right: 0;
-	bottom: 0;
-}
-
-.input {
-	font-family: "Nunito";
-	background: none;
-	font-size: 16px;
-	padding: 24px 10px 10px 5px;
-	display: block;
-	width: 100%;
-	border: none;
-	border-radius: 0;
-	border-bottom: 1px solid #388DCD;
-}
-
-.input:focus {
-	outline: none;
-}
-
-.input:focus ~ .label, .input:valid ~ .label {
-	color: #2196F3;
-}
-
-.input:focus ~ .bar:before {
-	width: 100%;
-}
-
-.input[type="password"] {
-	letter-spacing: 0.3em;
-}
-
-.label {
-	font-family: "Nunito";
-	top: -2px;
-	font-size: 14px;
-	color: #388DCD;
-	font-weight: normal;
-	position: absolute;
-	pointer-events: none;
-	left: 5px;
-	transition: 300ms ease all;
-}
-
-.bar {
-	position: relative;
-	display: block;
-	width: 100%;
-}
-
-.bar:before {
-	content: '';
-	height: 2px;
-	width: 0;
-	bottom: 0px;
-	position: absolute;
-	background: #2196F3;
-	transition: 300ms ease all;
-	left: 0%;
-}
-
-
-.cbx {
-	margin: auto;
-	-webkit-user-select: none;
-	user-select: none;
-	cursor: pointer;
-}
-
-.cbx span {
-	display: inline-block;
-	vertical-align: middle;
-	transform: translate3d(0, 0, 0);
-}
-
-.cbx span:first-child {
-	position: relative;
-	width: 18px;
-	height: 18px;
-	border-radius: 3px;
-	transform: scale(1);
-	vertical-align: middle;
-	border: 1px solid #9098A9;
-	transition: all 0.2s ease;
-}
-
-.cbx span:first-child svg {
-	position: absolute;
-	top: 3px;
-	left: 2px;
-	fill: none;
-	stroke: #FFFFFF;
-	stroke-width: 2;
-	stroke-linecap: round;
-	stroke-linejoin: round;
-	stroke-dasharray: 16px;
-	stroke-dashoffset: 16px;
-	transition: all 0.3s ease;
-	transition-delay: 0.1s;
-	transform: translate3d(0, 0, 0);
-}
-
-.cbx span:first-child:before {
-	content: "";
-	width: 100%;
-	height: 100%;
-	background: #506EEC;
-	display: block;
-	transform: scale(0);
-	opacity: 1;
-	border-radius: 50%;
-}
-
-.cbx span:last-child {
-	padding-left: 8px;
-}
-
-.cbx:hover span:first-child {
-	border-color: #506EEC;
-}
-
-.inp-cbx:checked + .cbx span:first-child {
-	background: #506EEC;
-	border-color: #506EEC;
-	animation: wave 0.4s ease;
-}
-
-.inp-cbx:checked + .cbx span:first-child svg {
-	stroke-dashoffset: 0;
-}
-
-.inp-cbx:checked + .cbx span:first-child:before {
-	transform: scale(3.5);
-	opacity: 0;
-	transition: all 0.6s ease;
-}
-
-// End - Login Page
-
-
-// Start - Paging
-
-.btn-paging {
-	font-weight: bold;
-	color: #388DCD;
-	background: none;
-	border: none;
-	width: 35px;
-	height: 35px;
-}
-
-.btn-paging:focus, .btn-paging:hover, .btn-paging-active, .btn-paging-active:hover {
-	font-weight: bold;
-	background-color: #388DCD;
-	color: #FFFFFF;
-	border-radius: 50%;
-}
-
-.btn-pagingNav, .btn-pagingNav:hover {
-	width: 35px;
-	height: 35px;
-	border-radius: 50%;
-	background-color: #E0E3F2;
-	color: #388DCD;
-	box-shadow: none;
-}
-
-.btn-pagingNav-inactive, .btn-pagingNav-inactive:hover, .btn-pagingNav-inactive:focus {
-	width: 35px;
-	height: 35px;
-	border-radius: 50%;
-	background: none;
-	border: none;
-	color: transparent;
-	cursor: default;
-	box-shadow: none;
-}
-
-// End - Paging
 
 
 // Start - Spinner
@@ -871,204 +549,3 @@ ul.companyProfile {
   }
 
 // End - Spinner
-
-
-/* Start - Export Button */
-
-.select-export, .expand-style-export, .select_items-export, .select_options-export, .select_option-export {
-	position: relative;
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	border-color: inherit;
-}
-.select_close-export, .select_expand-export, .select_input-export {
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  background: transparent;
-	outline: none;
-	border: none;
-	border-radius: 0;
-	-webkit-appearance: none;
-	   -moz-appearance: none;
-			appearance: none;
-}
-
-.select-export {
-	width: 200px;
-	height: 40px;
-	float: right;
-	text-align: left;
-	cursor: pointer;
-	list-style: none;
-    transform: scaleY(-1);
-	background-color: #E0E3F2;
-	box-shadow: 0 2px 0 #E0E3F2;
-	border-top-left-radius: 33px;
-	border-top-right-radius: 33px;
-	border-bottom-left-radius: 33px;
-	border-bottom-right-radius: 33px;
-	transition: .2s ease-out;
-}
-
-
-.expand-export{
-	border-top-left-radius: 22px;
-	border-top-right-radius: 22px;
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
-	border-bottom: solid #212F61 2px;
-	transition: border-top-left-radius .5s ease, border-top-right-radius .5s ease, border-bottom .5s ease;
-}
-
-.select_expand-export {
-	width: 0;
-	height: 40px;
-	position: absolute;
-	top: 0;
-	right: 10px;
-    transform: scaleY(-1);
-}
-
-.select_expand-export::after {
-	content: '\003E';
-	position: absolute;
-	top: 50%;
-	right: 0;
-	-webkit-transform: translate(-50%, -50%) rotate(90deg) scaleY(1.75);
-			transform: translate(-50%, -50%) rotate(90deg) scaleY(1.75);
-	color: #212F61;
-	font-size: 16px;
-	pointer-events: none;
-	z-index: 2;
-	transition: all 250ms cubic-bezier(.4,.25,.3,1);
-}
-
-.select_expand-export:hover::after {opacity: 1}
-
-.select_expand-export:checked::after {-webkit-transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.75);transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.75);}
-
-.select_expandLabel-export {
-	display: block;
-	width: 100%;
-	height: 40px;
-	position: absolute;
-	top: 0;
-	left: 0;
-	cursor: pointer;
-    margin-bottom: 0 !important;
-}
-
-.select_close-export {display: none}
-
-.select_closeLabel-export {
-	width: 100vw;
-	height: 100vh;
-	position: fixed;
-	top: 0;
-	left: 0;
-	display: none;
-	margin-bottom: 0 !important;
-}
-
-.select_items-export {
-	list-style: none;
-	width: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	border-radius: 2px;
-	padding-top: 40px;
-}
-
-.select_input-export {display: none}
-
-.select_options-export{list-style: none;}
-
-.select_label-export {
-	transition: all 250ms cubic-bezier(.4,.25,.3,1);
-	display: block;
-    transform: scaleY(-1);
-	height: 0;
-	font-family: 'Nunito';
-	font-size: 16px;
-	line-height: 40px;
-	overflow: hidden;
-	color: #212F61;
-	background-color: #E0E3F2;
-	cursor: pointer;
-	padding-left: 20px;
-	margin-bottom: 0 !important;
-	user-select: none;
-}
-
-.select_label-placeholder-export {
-	height: 40px;
-	text-align: center !important;
-	vertical-align: middle;
-	position: absolute;
-    transform: scaleY(-1);
-	top: 0;
-	left: 0;
-	background-color: transparent;
-	padding-left: 67px;
-}
-
-.select_expand-export:checked + .select_closeLabel-export {
-		display: block;
-	}
-
-.select_expand-export:checked + .select_closeLabel-export + .select_options-export .select_label-export {height: 40px;}
-
-.select_expand-export:checked + .select_closeLabel-export + .select_options-export .select_label-export:hover {background-color: #d3daff}
-
-.select_expand-export:checked + .select_closeLabel-export + .select_options-export + .select_expandLabel-export {display: none}
-
-.select_input-export:checked + .select_label-export {
-	height: 40px;
-	margin-top: -40px;
-	border-top-left-radius: 33px;
-	border-top-right-radius: 33px;
-	border-bottom-left-radius: 33px;
-	border-bottom-right-radius: 33px;
-}
-.select_expand-export:checked + .select-export {
-	display: block;
-}
-.select_expand-export:checked + .expand-style-export {
-	width: 225px;
-	height: 40px;
-	cursor: pointer;
-	background-color: #E0E3F2;
-	box-shadow: 0 2px 0 #E0E3F2;
-	border-top-left-radius: 33px;
-	border-top-right-radius: 33px;
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
-}
-.option_radius-export{
-	border-top-left-radius: 22px;
-	border-top-right-radius: 22px;
-}
-.pdf-icon {
-	background-image: url(./vendors/pdf_icon.png);
-	background-position: left center;
-	background-repeat: no-repeat;
-
-	padding-left: 35px; /* Or size of icon + spacing */
-}
-.excel-icon {
-	background-image: url(./vendors/excel_icon.png);
-	background-position: left center;
-	background-repeat: no-repeat;
-	padding-left: 35px; /* Or size of icon + spacing */
-}
-/* End - Export Button */
-
-/* Start - table */
-.borderless-bottom{
-	border-bottom: 0 !important;
-}
-
-/* End - table */

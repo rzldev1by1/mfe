@@ -42,14 +42,14 @@ class StockHolding extends Component {
 			columns: [
 				{ id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site" },
 				{ id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "product" },
-				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "product_name" },
+				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "description" },
 				{ id: "status", checkboxLabelText: "Status", tableHeaderText: "Status", isVisible: true, key: "status" },
-				{ id: "uom", checkboxLabelText: "UoM", tableHeaderText: "UoM", isVisible: true, key: "" },
-				{ id: "onHandQty", checkboxLabelText: "On Hand Qty", tableHeaderText: "On Hand Qty", isVisible: true, key: "qty_lcd" },
-				{ id: "onHandWeight", checkboxLabelText: "On Hand Weight", tableHeaderText: "On Hand Weight", isVisible: true, key: "weight" },
-				{ id: "expectedInQty", checkboxLabelText: "Expected In Qty", tableHeaderText: "Expected In Qty", isVisible: true, key: "qty_lcd_expected" },
-				{ id: "expectedInWeight", checkboxLabelText: "Expected In Weight", tableHeaderText: "Expected In Weight", isVisible: true, key: "wgt_expected" },
-				{ id: "expectedOutQty", checkboxLabelText: "Expected Out Qty", tableHeaderText: "Expected Out Qty", isVisible: true, key: "qty_lcd_committed" },
+				{ id: "uom", checkboxLabelText: "UoM", tableHeaderText: "UoM", isVisible: true, key: "uom" },
+				{ id: "on_hand_qty", checkboxLabelText: "On Hand Qty", tableHeaderText: "On Hand Qty", isVisible: true, key: "on_hand_qty" },
+				{ id: "on_hand_weight", checkboxLabelText: "On Hand Weight", tableHeaderText: "On Hand Weight", isVisible: true, key: "on_hand_weight" },
+				{ id: "expected_in_qty", checkboxLabelText: "Expected In Qty", tableHeaderText: "Expected In Qty", isVisible: true, key: "expected_in_qty" },
+				{ id: "expected_out_qty", checkboxLabelText: "Expected In Weight", tableHeaderText: "Expected In Weight", isVisible: true, key: "expected_in_qty" },
+				{ id: "expected_out_qty", checkboxLabelText: "Expected Out Qty", tableHeaderText: "Expected Out Qty", isVisible: true, key: "expected_out_qty" },
 			],
 			filterStockHolding: {
 				showPopup: false,
@@ -158,7 +158,7 @@ class StockHolding extends Component {
 						totalRows: respondRes.length });
 
 		self.numberEventClick(self.state.currentPage);
-		localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
+		// localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
 	}
 
 	toggleAddFilter = () => {
@@ -195,7 +195,7 @@ class StockHolding extends Component {
 			.then(res => {
 				// res.isSuccess = true;
 				// self.setState({ isLoaded: false })
-				return res.data;
+				return res.data;				
 			})
 			.catch(function (error) {
 				self.setState({ displayContent: "NOT_FOUND",
@@ -227,9 +227,9 @@ class StockHolding extends Component {
 		// if (!searchTerm) { return };
 		let params = {};
 		params.searchParam = form.searchInput.value;
-		if (this.state.filterStockHolding.item["site"].isVisible) params.site = form.xxx.value;
-		if (form.status.value && this.state.filterStockHolding.item["status"].isVisible) params.status = form.status.value;
-		if (form.uom.value && this.state.filterStockHolding.item["uom"].isVisible) params.uom = form.uom.value;
+		if (this.state.filterStockHolding.item["site"].isVisible) params.site = form.filterSite.value;
+		if (this.state.filterStockHolding.item["status"].isVisible) params.status = form.filterStatus.value;
+		if (this.state.filterStockHolding.item["uom"].isVisible) params.UOM = form.filterUom.value;		
 
 		axios.get(AppComponent.getBaseUrl() + "stockholding",
 		{
@@ -587,9 +587,9 @@ class StockHolding extends Component {
 																					<Col lg="3" className={"mb-1" + (this.state.filterStockHolding.item["uom"].isVisible ? "" : " d-none")}>
 																						<InputGroup className="input-group-custom">
 																							<Input className="select-color-border" name="uom" type="select" id="select_3">
-																								<option value="I">Uom I</option>
-																								<option value="II">Uom II</option>
-																								<option value="III">Uom III</option>
+																								<option value="CASE">UoM Case</option>
+																								<option value="PALLET">UoM Pallet</option>
+																								<option value="EACH">UoM Each</option>
 																							</Input>
 																						</InputGroup>
 																					</Col>
