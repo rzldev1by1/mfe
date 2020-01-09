@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 // import { Button, FormFeedback } from 'reactstrap';
-
 // import axios from 'axios';
 // import AppComponent from '../../../AppComponent';
 import Authentication from '../../../Auth/Authentication';
-
 import centerLogo from '../../../assets/img/brand/login_microlisticslogo@2x.png';
 import videobg from '../../../assets/img/brand/microlisticsvideos.mp4';
 
@@ -17,7 +15,6 @@ class Logins extends Component{
         this.state = {
             usernameClass: "form-control logininput inputWrap",
             passwordClass: "form-control logininput inputWrap",
-
             usernameValid: true,
             passwordValid: true,
             errorMessage: "",
@@ -47,7 +44,7 @@ class Logins extends Component{
                             errorMessage: result.message });
 
             if (result.isSuccess) {
-                self.props.history.push("/stock");
+                self.props.history.push("/stock/stockholding");
             }
         })
     }
@@ -135,7 +132,6 @@ class Logins extends Component{
                                     placeholder="Password" />
 
                             <this.alertComponent />
-                            
                             <button className={"btnLogin " + (this.state.isLoad ? "text-center" : "text-left pl-4")} onClick={this.validateForm}>
                                 {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin iconSpace" /> : "Login"}
                             </button>

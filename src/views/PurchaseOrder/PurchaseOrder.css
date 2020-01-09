@@ -413,11 +413,10 @@ h3{
 	color: white;
 }
 
-.addline{
-	margin-top: 0.5%;
-	background-color: #D5D8DA;
-	border: none;
-	color: white;
+.sidebar .nav-item .nav-link:hover, .nav-link:hover .nav-icon, .nav-link.active, .nav-link.active .nav-icon {
+	border-radius: 0px !important;
+	background-color: white !important;
+	border-color: white !important;
 }
 
 .addline:hover{

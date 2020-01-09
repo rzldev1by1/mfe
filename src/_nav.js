@@ -123,15 +123,15 @@ export default {
     //     },
     //   ],
     // },
-	{
-		name: 'Dashboard',
-		url: '/dashboard',
-		icon: 'iconU-dashboard',
-	},
-	{
-		name: 'Purchase Order',
-		url: '/purchaseorder',
-		icon: 'iconU-purchaseOrder',
+	// {
+	// 	name: 'Dashboard',
+	// 	url: '/dashboard',
+	// 	icon: 'iconU-dashboard',
+	// },
+	// {
+	// 	name: 'Purchase Order',
+	// 	url: '/purchaseorder',
+	// 	icon: 'iconU-purchaseOrder',
 		// children: [
 		//   {
 		// 	name: 'Buttons',
@@ -154,9 +154,19 @@ export default {
 		// 	icon: 'icon-cursor',
 		//   },
 		// ],
+  // },
+  {
+		name: 'STOCK HOLDING',
+		url: '/stock/stockholding',
+		icon: 'iconU-stock',
+  },
+  {
+		name: 'STOCK MOVEMENT',
+		url: '/stock/stockmovement',
+		icon: 'iconU-stock-movement',
 	},
 	{
-		name: 'Sales Order',
+		name: 'SALES ORDERS',
 		url: '/icons',
 		icon: 'iconU-salesOrder',
 		// children: [
@@ -181,61 +191,71 @@ export default {
 		// 	icon: 'icon-cursor',
 		//   },
 		// ],
-	},
-    {
-      name: 'Stock',
-      url: '/stock',
-      icon: 'iconU-stock',
-      children: [
-        {
-          name: 'Stock Holding',
-          url: '/stock/stockholding',
-        //   icon: 'icon-cursor',
-        },
-        {
-          name: 'Stock Movement',
-          url: '/stock/stockmovement',
-        //   icon: 'icon-cursor',
-        },
-        {
-          name: 'Stock Age Profile',
-          url: '/stock/stockageprofile',
-        //   icon: 'icon-cursor',
-        }
-      ],
-	},
-	{
-		name: 'Customer',
-		url: '/base',
-		icon: 'iconU-user',
-		// children: [
-		//   {
-		// 	name: 'Buttons',
-		// 	url: '/buttons/buttons',
-		// 	icon: 'icon-cursor',
-		//   },
-		//   {
-		// 	name: 'Button dropdowns',
-		// 	url: '/buttons/button-dropdowns',
-		// 	icon: 'icon-cursor',
-		//   },
-		//   {
-		// 	name: 'Button groups',
-		// 	url: '/buttons/button-groups',
-		// 	icon: 'icon-cursor',
-		//   },
-		//   {
-		// 	name: 'Brand Buttons',
-		// 	url: '/buttons/brand-buttons',
-		// 	icon: 'icon-cursor',
-		//   },
-		// ],
-	},
-    {
-      name: 'Reports',
-      url: '/charts',
-      icon: 'iconU-report',
-    },
+  },
+  {
+    name: 'PURCHASE ORDERS',
+    url: '/purchaseorder',
+    icon: 'iconU-purchaseOrder',
+  },
+  {
+    name: 'USER MANAGEMENT',
+    url: '/base',
+    icon: 'iconU-user',
+  },
+  //   {
+  //     name: 'Stock',
+  //     url: '/stock',
+  //     icon: 'iconU-stock',
+  //     children: [
+  //       {
+  //         name: 'Stock Holding',
+  //         url: '/stock/stockholding',
+  //       //   icon: 'icon-cursor',
+  //       },
+  //       {
+  //         name: 'Stock Movement',
+  //         url: '/stock/stockmovement',
+  //       //   icon: 'icon-cursor',
+  //       },
+  //       {
+  //         name: 'Stock Age Profile',
+  //         url: '/stock/stockageprofile',
+  //       //   icon: 'icon-cursor',
+  //       }
+  //     ],
+	// },
+	// {
+	// 	name: 'Customer',
+	// 	url: '/base',
+	// 	icon: 'iconU-user',
+	// 	// children: [
+	// 	//   {
+	// 	// 	name: 'Buttons',
+	// 	// 	url: '/buttons/buttons',
+	// 	// 	icon: 'icon-cursor',
+	// 	//   },
+	// 	//   {
+	// 	// 	name: 'Button dropdowns',
+	// 	// 	url: '/buttons/button-dropdowns',
+	// 	// 	icon: 'icon-cursor',
+	// 	//   },
+	// 	//   {
+	// 	// 	name: 'Button groups',
+	// 	// 	url: '/buttons/button-groups',
+	// 	// 	icon: 'icon-cursor',
+	// 	//   },
+	// 	//   {
+	// 	// 	name: 'Brand Buttons',
+	// 	// 	url: '/buttons/brand-buttons',
+	// 	// 	icon: 'icon-cursor',
+	// 	//   },
+	// 	// ],
+	// },
+    // {
+    //   name: 'Reports',
+    //   url: '/charts',
+    //   icon: 'iconU-report',
+    // },
     // {
     //   name: 'Icons',
     //   url: '/icons',
@@ -271,7 +291,7 @@ export default {
     //     },
     //   ],
     // },
-    // {
+    // { 
     //   name: 'Notifications',
     //   url: '/notifications',
     //   icon: 'icon-bell',

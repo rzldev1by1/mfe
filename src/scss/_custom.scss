@@ -85,7 +85,6 @@ body {
 
 [class^="iconU-"], [class*=" iconU-"] {
     font-family: 'icomoon' !important;
-    speak: none;
     font-style: normal;
     font-weight: normal;
     font-variant: normal;
@@ -100,7 +99,12 @@ body {
 .iconU-user:before {
 	content: "\e912";
 }
-
+.iconU-stock-movement:before {
+	content: "\e91a";
+}
+.iconU-user:before {
+	content: "\e91c";
+}
 .iconU-dashboard:before {
 	content: "\e913"
 }
@@ -118,7 +122,7 @@ body {
 }
 
 .iconU-stock:before {
-	content: "\e917";
+	content: "\e91b";
 }
 
 .iconU-i:before {
@@ -228,7 +232,7 @@ body {
 	.sidebar-lg-show.sidebar-fixed .app-footer,
 	.sidebar-show.sidebar-fixed .main,
 	.sidebar-show.sidebar-fixed .app-footer {
-		margin-left: 260px !important;
+		margin-left: 300px !important;
 	}
 }
 
@@ -290,13 +294,13 @@ a.breadcrumb:hover {
 
 .sidebar {
 	background: #FFFFFF 0% 0% no-repeat padding-box;
-	opacity: 1;
-	width: 230px !important;
+	width: 270px !important;
+	font-family: Helvetica;
 }
 
 .sidebar .sidebar-header {
 	background: #FFFFFF 0% 0% no-repeat padding-box;
-	width: 230px;
+	width: 270px;
 }
 
 .sidebar .sidebar-footer {
@@ -305,14 +309,14 @@ a.breadcrumb:hover {
 }
 
 .sidebar .nav {
-	width: 230px;
+	width: 270px;
 	flex-direction: column;
 	min-height: 100%;
 }
 
 .sidebar .sidebar-nav {
 	position: relative;
-	width: 230px;
+	width: 270px;
 }
 
 .sidebar .nav-item {
@@ -323,16 +327,22 @@ a.breadcrumb:hover {
 
 .sidebar .nav-link,
 		 .nav-link .nav-icon {
-	color: #212F61 !important;
+	// letter-spacing: 0;
+	color: #637176 !important;
+	
 }
 
 .sidebar .nav-item .nav-link:hover,
-				   .nav-link:hover .nav-icon,
-				   .nav-link.active,
-				   .nav-link.active .nav-icon {
-	color: #388DCD !important;
-	background: #EAF3FA !important;
-	border-radius: 32px;
+				   .nav-link:hover .nav-icon {
+	color: #9098A9  !important;
+	background: #ffffff !important;
+	// border-radius: 32px;
+}
+
+.sidebar .nav-link.active, .nav-link.active .nav-icon {
+	color: #22ABE3 !important;
+	background: #ffffff !important;
+	
 }
 
 .sidebar .nav-dropdown.open:hover {
@@ -388,24 +398,64 @@ a.breadcrumb:hover {
 // Start - User section
 
 .userSection {
-	background-color: #F4F9FD;
-	border-radius: 1.75rem;
-	width: 160px;
+	background-color: #E9ECED;
+	border-radius: 10px;
+	width: 200px;
+	height: 49px;
 	align-self: center;
-	margin-bottom: 5px;
+	margin-bottom: 8px;
+	padding: 3.75px 10px;
+}
+
+.profilePhoto {
+	width: 42px;
+	height: 42px;
 }
 
 .userName {
 	font-weight: bold;
-	color: #388DCD;
 	font-size: 15px;
+	text-align: left;
+	letter-spacing: 0;
+	color: #637176;
+	// opacity: 1;
+	align-self: center;
+	padding-left: 10px;
+	padding-top: 5px;
+}
+
+.profileID {
+	vertical-align: top;
+	color: #969EA1;
+	font-size: 11px;
+	font-weight: bold;
+	align-self: center;
+	padding-left: 10px;
+	// opacity: 1;
 }
 
 .viewProfile {
-	vertical-align: top;
-	color: #919191;
+	background-color: #E9ECED;
+	border-radius: 0px 0px 10px 10px;
+	width: 200px;
+	align-self: center;
+	margin-bottom: 5px;
+	margin-top:-5px;
+}
+
+.about {
+	color: #B4B9BB;
 	font-size: 12px;
-	font-weight: bold;
+	width: 200px;
+	height: 35px;
+	font-family: Helvetica;
+	vertical-align: middle;
+	line-height: 35px;
+}
+
+.about :hover{
+	color: #B4B9BB;
+	text-decoration: none;
 }
 
 // End - User Section
@@ -416,7 +466,7 @@ a.breadcrumb:hover {
 hr.border-header {
 	margin-top: 10px;
 	margin-bottom: 10px;
-	width: 90%;
+	width: 80%;
 }
 
 // End - Border
@@ -625,7 +675,7 @@ ul.companyProfile {
 	list-style: none;
 	width: 100%;
 	li {
-		display: inline-block;
+		// display: inline-block;
 		float: right;
 
 		label.profTitle {
