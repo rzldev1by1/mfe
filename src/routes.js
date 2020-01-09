@@ -54,10 +54,10 @@ function Loading() {
 // 	loading: Loading
 // });
 
-const Dashboard = Loadable({
-	loader: () => import('./views/Dashboard'),
-	loading: Loading
-});
+// const Dashboard = Loadable({
+// 	loader: () => import('./views/Dashboard'),
+// 	loading: Loading
+// });
 
 const PurchaseOrder = Loadable({
 	loader: () => import('./views/PurchaseOrder/PurchaseOrder'),
@@ -74,23 +74,23 @@ const StockHolding = Loadable({
 	loading: Loading
 });
 
-const StockHoldingDetails = Loadable({
-	loader: () => import('./views/StockHolding/StockHoldingDetails/StockHoldingDetails'),
-	loading: Loading
-});
+// const StockHoldingDetails = Loadable({
+// 	loader: () => import('./views/StockHolding/StockHoldingDetails/StockHoldingDetails'),
+// 	loading: Loading
+// });
 
 const StockMovement = Loadable({
 	loader: () => import('./views/StockMovement/StockMovement'),
 	loading: Loading
 });
 
-const StockAgeProfile = Loadable({
-	loader: () => import('./views/StockAgeProfile/StockAgeProfile'),
-	loading: Loading
-});
+// const StockAgeProfile = Loadable({
+// 	loader: () => import('./views/StockAgeProfile/StockAgeProfile'),
+// 	loading: Loading
+// });
 
-const UserControl = Loadable({
-	loader: () => import('./views/Base/Cards'),
+const UserManagement = Loadable({
+	loader: () => import('./views/Users/Users'),
 	loading: Loading
 });
 
@@ -146,23 +146,22 @@ const routes = [
 	// { path: '/charts', name: 'Charts', component: Charts },
 	// { path: '/users', exact: true,  name: 'Users', component: Users },
 	// { path: '/users/:id', exact: true, name: 'User Details', component: User },
-
-	{ path: '/', exact: true, name: 'Home', component: DefaultLayout },
-
-	{ path: '/dashboard', name: 'Dashboard', component: Dashboard },
+	
+	// { path: '/', exact: true, name: 'Stock Holding', component: DefaultLayout },
+	
+	// { path: '/dashboard', name: 'Dashboard', component: Dashboard },
 	// { path: '/notifications', exact: true, name: 'Inbound Delivery', component: PurchaseOrder },
 	{ path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
 
 	{ path: '/stock', exact: true, name: 'Stock', component: StockHolding },
 	{ path: '/stock/stockholding', exact: true, name: 'Stock Holding', component: StockHolding },
-	{ path: '/stock/stockholding/:product', exact: true, name: 'Stock Holding Details', component: StockHoldingDetails },
+	// { path: '/stock/stockholding/:product', exact: true, name: 'Stock Holding Details', component: StockHoldingDetails },
 	{ path: '/stock/stockmovement/', exact: true, name: 'Stock Movement', component: StockMovement },
-	{ path: '/stock/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
+	// { path: '/stock/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
 
-	{path: '/purchaseorder', exact:true, name: 'Inbound Delivery', component:PurchaseOrder},
-	{ path: '/purchaseorder/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrderDetail },
-	{ path: '/base', exact: true, name: 'User Control', component: UserControl },
-	{ path: '/usersmanagement', exact: true, name: 'User Managementl', component: UsersManagement },
+
+	{ path: '/purchaseorder', exact:true, name: 'Purchase Order', component: PurchaseOrder },
+	{ path: '/base', exact: true, name: 'User Control', component: UserManagement },
 ];
 
 export default routes;

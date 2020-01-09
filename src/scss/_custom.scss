@@ -140,7 +140,7 @@ body {
 	content: "\e90e";
 }
 
-.iconU-close:before {
+.iconU-close:after {
 	content: "\e901";
 }
 
@@ -352,10 +352,13 @@ body {
 	width: 200px;
 	height: 49px;
 	align-self: center;
-	opacity: 1;
 	margin-bottom: 8px;
 	padding: 3.75px 10px;
-	// padding-top: 5px;
+}
+
+.profilePhoto {
+	width: 42px;
+	height: 42px;
 }
 
 .userName {
@@ -364,7 +367,7 @@ body {
 	text-align: left;
 	letter-spacing: 0;
 	color: #637176;
-	opacity: 1;
+	// opacity: 1;
 	align-self: center;
 	padding-left: 10px;
 	padding-top: 5px;
@@ -377,7 +380,7 @@ body {
 	font-weight: bold;
 	align-self: center;
 	padding-left: 10px;
-	opacity: 1;
+	// opacity: 1;
 }
 
 .viewProfile {
@@ -386,7 +389,6 @@ body {
 	width: 200px;
 	align-self: center;
 	margin-bottom: 5px;
-	// display: none;
 	margin-top:-5px;
 }
 
@@ -398,6 +400,11 @@ body {
 	font-family: Helvetica;
 	vertical-align: middle;
 	line-height: 35px;
+}
+
+.about :hover{
+	color: #B4B9BB;
+	text-decoration: none;
 }
 
 // End - User Section
