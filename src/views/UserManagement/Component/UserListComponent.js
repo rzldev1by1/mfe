@@ -73,8 +73,8 @@ class UserListComponent extends Component{
                                                 <label className="mt-1 mb-0">{element}</label> 
                                                {
                                                    (element === '')?'': (<div className="d-flex flex-column ml-2"> 
-                                                                                    <span className="upArrow" style={{height:'12px'}}></span>
-                                                                                    <span className="downArrow" style={{height:'12px'}}></span>
+                                                                                    <span className="upArrow" style={{height:'10px'}}></span>
+                                                                                    <span className="downArrow" style={{height:'10px'}}></span>
                                                                                 </div>)
                                                } 
                                                
