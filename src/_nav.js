@@ -236,6 +236,11 @@ export default {
       url: '/charts',
       icon: 'iconU-report',
     },
+    {
+      name:'User Management',
+      url:'/usersmanagement',
+      icon: 'iconU-user'
+    }
     // {
     //   name: 'Icons',
     //   url: '/icons',
