@@ -26,9 +26,6 @@ class PurchaseOrderTable extends Component {
   }
 
   loadPurchaseOrder = () => {
-    // const companyCode = localStorage.getItem('companyCode')
-    // const userLevel =  localStorage.getItem('userLevel')
-    // const token = localStorage.getItem('token')
     axios.get(endpoint.purchaseOrder, {
       headers: headers
     })
