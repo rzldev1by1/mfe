@@ -32,7 +32,7 @@ class PurchaseOrderTable extends Component {
       .then(res => {
         const result = res.data.data
         this.setState({ data:result })
-        console.log(result)
+        this.props.loadCompleteHandler('sa')
       })
       .catch(error => {
         // this.props.history.push("/logins")

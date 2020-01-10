@@ -19,6 +19,9 @@ class PurchaseOrder extends Component {
             data:[{"menu":"Client", "subMenu":["MLS","MLB"], }, {"menu":"Site", "subMenu":["A","B","C"]},{"menu":"Status", "subMenu":["Open","Close"]},{"menu":"Supplier", "subMenu":["JohnDoe","JohnWick"]},{"menu":"Order Type", "subMenu":["Type 1", "Type 2"]},{"menu":"Area", "subMenu":["A Area", "B Area"]},{"menu":"Quantity", "subMenu":["Each", "Pallet"]}],
             client:null, site:null, status:null, supplier:null, ordertype:null, area:null, quantity:null, search:null,
 
+            //filter
+            filterclicked:false,
+
             //modal
             showmodal:false,
             complete:true
@@ -68,6 +71,10 @@ class PurchaseOrder extends Component {
         this.setState({showmodal:false})
     }
 
+    loadcompletehandler = (v) => {
+        // this.setState({complete: true})
+    }
+
     render(){        
         return(
             this.state.complete ?  <div className='animated fadeIn'>
@@ -81,23 +88,26 @@ class PurchaseOrder extends Component {
                     <label className='iconU-search'/>
                     <input onChange={(e) => this.onchangesearch(e) } type='text' className='searchinput' placeholder='Enter a site, order no. or client'/>
                 </div>
-                <Button color="secondary" className='iconU-filter'/>
+                <Button onClick={() => this.setState({filterclicked: !this.state.filterclicked})} color="secondary" className='iconU-filter'/>
                 <Button color="primary" className='btnsearch'><label className='font'>Search</label></Button>
             </div>
 
             <div className='filterbar'>
                 <div style={{display:'flex', width:'88.1%'}}>
-                    {this.state.data.map((data,key) => 
+                    {
+                        this.state.filterclicked ? null :
+                        this.state.data.map((data,key) => 
                         <Dropdown data={data} key={key} selectedHandler = {(id, value) => this.selectedValue(id, value)}/>                            
-                        )}
+                        )
+                    }
                 </div>               
             </div>
 
             <div className='tablecontent'>
-                <PurchaseOrderTable/>
+                <PurchaseOrderTable loadCompleteHandler = {(v) => this.loadcompletehandler(v)}/>
             </div>
             <PurchaseOrderCreate showmodal={this.state.showmodal} closemodal={() => this.closeModal()}/>
-        </div> : null
+        </div> : <div className='spinner'/>
            
             
         )
