@@ -377,9 +377,9 @@ input {
 	margin-bottom: 5px;
 }
 
- td{
-	height: 35px !important;
-	font-size: 1em;
+td{
+	/* height: 35px !important;
+	font-size: 1em; */
 }
 
 h3{
@@ -421,11 +421,11 @@ h3{
 	color: white;
 }
 
-.sidebar .nav-item .nav-link:hover, .nav-link:hover .nav-icon, .nav-link.active, .nav-link.active .nav-icon {
+/* .sidebar .nav-item .nav-link:hover, .nav-link:hover .nav-icon, .nav-link.active, .nav-link.active .nav-icon {
 	border-radius: 0px !important;
 	background-color: white !important;
 	border-color: white !important;
-}
+} */
 
 .addline:hover{
 	color: white;

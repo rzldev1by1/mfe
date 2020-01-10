@@ -1,16 +1,24 @@
 import React, {Component} from 'react'
-import {endpoint, headers} from '../../AppComponent/ConfigEndpoint'
-import axios from 'axios'
+import { Card, CardBody,
+         Col, Row, Table,
+         Button, ButtonDropdown,
+         FormGroup, Label,
+         Input, InputGroup, InputGroupAddon,
+         DropdownItem, DropdownMenu, DropdownToggle
+} from 'reactstrap';
+import { Helmet } from "react-helmet";
+import DayPicker, { DateUtils } from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
 
-// import StockHoldingEditColumn from './StockHoldingEditColumn';
+import moment from 'moment';
 import axios from 'axios';
 import AppComponent from '../../AppComponent';
 import Authentication from '../../Auth/Authentication';
+import { endpoint, headers } from '../../AppComponent/ConfigEndpoint'
+
 import './StockMovement.css';
-import {Helmet} from "react-helmet";
-import moment from 'moment';
-import DayPicker, { DateUtils } from 'react-day-picker';
-import 'react-day-picker/lib/style.css';
+
+// import StockHoldingEditColumn from './StockHoldingEditColumn';
 
 const currentYear = 2017;
 const currentMonth = 0;
@@ -182,8 +190,14 @@ function YearMonthForm({ date, localeUtils, onChange, no }) {
   }
 
 class StockMovement extends Component {
-	constructor(props){
-		super(props)
+    static defaultProps = {
+        hoverRange: undefined,
+        selectedDays: []
+    };
+
+    constructor(props){
+        super(props);
+        this.handleYearMonthChange = this.handleYearMonthChange.bind(this);
 		this.state = {
 			isVisible: [],
 			isLoaded: false,
@@ -223,7 +237,9 @@ class StockMovement extends Component {
 	}
 
 	componentDidMount(){
-		this.loadPurchaseOrder()
+        if (this.state.displayPeriod !== undefined && this.state.date.to !== undefined) {
+
+        }
 	}
 
 	formatDate = (date) => {
@@ -499,7 +515,6 @@ class StockMovement extends Component {
 								{this.state.dateColumns.map((dateColumn, dataIdx) => {
 									if(dateColumn.id === this.state.rangeDate[idx]){
 										item[this.state.rangeDate[idx]].map((element, index) => {
-											console.log(element[dateColumn.subColumns.id]);
 											return (
 												<td key={index} className="px-3 text-left">
 													{element[dateColumn.subColumns.id] ? element[dateColumn.subColumns.id] : "-"}
@@ -813,4 +828,4 @@ class StockMovement extends Component {
 	}
 }
 
-export default StockMovement
+export default StockMovement;

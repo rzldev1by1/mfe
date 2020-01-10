@@ -35,7 +35,7 @@ class PurchaseOrderTable extends Component {
         console.log(result)
       })
       .catch(error => {
-        this.props.history.push("/logins")
+        // this.props.history.push("/logins")
       })
   }
 

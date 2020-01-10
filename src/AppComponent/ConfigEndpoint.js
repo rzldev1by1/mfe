@@ -10,7 +10,9 @@ const endpoint = {
     'stockDetail': baseUrl + "stockdetail/",
     'foreshadowedBalance': baseUrl + "foreshadowedstockbalance/",
 
-    'stockMovement': baseUrl + "stockmovement"
+    'stockMovement': baseUrl + "stockmovement",
+
+    "purchaseOrder": baseUrl + "purchaseOrder"
 };
 
 const headers = {
