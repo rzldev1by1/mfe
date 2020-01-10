@@ -158,12 +158,12 @@ export default {
     {
           name: 'STOCK HOLDING',
           url: '/stock/stockholding',
-          icon: 'iconU-stock',
+          icon: 'iconU-stockHolding',
     },
     {
           name: 'STOCK MOVEMENT',
           url: '/stock/stockmovement',
-          icon: 'iconU-stock-movement',
+          icon: 'iconU-stockMovement',
       },
       {
           name: 'SALES ORDERS',

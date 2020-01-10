@@ -1,7 +1,7 @@
 import React from 'react';
 import Loadable from 'react-loadable';
 
-import DefaultLayout from './containers/DefaultLayout';
+import DefaultLayout from './containers/DefaultLayout/DefaultLayout';
 
 function Loading() {
 	return <div>Loading...</div>;
@@ -59,43 +59,43 @@ function Loading() {
 // 	loading: Loading
 // });
 
-const PurchaseOrder = Loadable({
-	loader: () => import('./views/PurchaseOrder/PurchaseOrder'),
-	loading: Loading
-});
-
-const SalesOrder = Loadable({
-	loader: () => import('./views/Icons/CoreUIIcons'),
-	loading: Loading
-});
+// const UserManagement = Loadable({
+// 	loader: () => import('./views/Users/Users'),
+// 	loading: Loading
+// });
 
 const StockHolding = Loadable({
 	loader: () => import('./views/StockHolding/StockHolding'),
 	loading: Loading
 });
 
-// const StockHoldingDetails = Loadable({
-// 	loader: () => import('./views/StockHolding/StockHoldingDetails/StockHoldingDetails'),
-// 	loading: Loading
-// });
+const StockHoldingDetails = Loadable({
+	loader: () => import('./views/StockHolding/StockHoldingDetails/StockHoldingDetails'),
+	loading: Loading
+});
 
 const StockMovement = Loadable({
 	loader: () => import('./views/StockMovement/StockMovement'),
 	loading: Loading
 });
 
-// const StockAgeProfile = Loadable({
-// 	loader: () => import('./views/StockAgeProfile/StockAgeProfile'),
-// 	loading: Loading
-// });
+const StockAgeProfile = Loadable({
+	loader: () => import('./views/StockAgeProfile/StockAgeProfile'),
+	loading: Loading
+});
 
-const UserManagement = Loadable({
-	loader: () => import('./views/Users/Users'),
+const PurchaseOrder = Loadable({
+	loader: () => import('./views/PurchaseOrder/PurchaseOrder'),
 	loading: Loading
 });
 
 const PurchaseOrderDetail = Loadable({
 	loader: () => import('./views/PO/PurchaseOrderDetail'),
+	loading: Loading
+});
+
+const SalesOrder = Loadable({
+	loader: () => import('./views/Icons/CoreUIIcons'),
 	loading: Loading
 });
 
@@ -146,22 +146,21 @@ const routes = [
 	// { path: '/charts', name: 'Charts', component: Charts },
 	// { path: '/users', exact: true,  name: 'Users', component: Users },
 	// { path: '/users/:id', exact: true, name: 'User Details', component: User },
-	
-	// { path: '/', exact: true, name: 'Stock Holding', component: DefaultLayout },
-	
-	// { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-	// { path: '/notifications', exact: true, name: 'Inbound Delivery', component: PurchaseOrder },
-	{ path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
+		
+    // { path: '/dashboard', name: 'Dashboard', component: Dashboard },
+	// { path: '/base', exact: true, name: 'User Control', component: UserManagement },
 
 	{ path: '/stock', exact: true, name: 'Stock', component: StockHolding },
 	{ path: '/stock/stockholding', exact: true, name: 'Stock Holding', component: StockHolding },
-	// { path: '/stock/stockholding/:product', exact: true, name: 'Stock Holding Details', component: StockHoldingDetails },
-	{ path: '/stock/stockmovement/', exact: true, name: 'Stock Movement', component: StockMovement },
-	// { path: '/stock/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
+	{ path: '/stock/stockholding/:product', exact: true, name: 'Stock Holding Details', component: StockHoldingDetails },
+	{ path: '/stock/stockmovement', exact: true, name: 'Stock Movement', component: StockMovement },
+    { path: '/stock/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
 
-
-	{ path: '/purchaseorder', exact:true, name: 'Purchase Order', component: PurchaseOrder },
-	{ path: '/base', exact: true, name: 'User Control', component: UserManagement },
+    { path: '/purchaseorder', exact:true, name: 'Purchase Order', component: PurchaseOrder },
+	{ path: '/purchaseorder/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrderDetail },
+    { path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
+    
+    { path: '/usersmanagement', exact: true, name: 'User Management', component: UsersManagement },
 ];
 
 export default routes;
