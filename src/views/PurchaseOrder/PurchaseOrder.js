@@ -8,6 +8,7 @@ import axios from 'axios'
 import PurchaseOrderTable from './Component/PurchaseOrderTable'
 import Dropdown from './Component/Dropdown'
 import PurchaseOrderCreate from './Component/PurchaseOrderCreate'
+import create from '../../assets/img/brand/button_create@2x.png'
 
 
 class PurchaseOrder extends Component {
@@ -72,7 +73,7 @@ class PurchaseOrder extends Component {
             this.state.complete ?  <div className='animated fadeIn'>
             <div className='header'>
                 <h1 style={{marginTop:'0.5%'}}>Purchase Order</h1>
-                <Button onClick={() => this.openModal()} color="primary" className='createpo'><label className='iconU-edit'/><label className='font'>Create Purchase Order</label></Button>
+                <div className='header2'><Button onClick={() => this.openModal()} color="primary" className='createpo'><img src={create} style={{width:'7%', marginTop:12}}/><label className='font'>Create Purchase Order</label></Button></div>
             </div>
             
             <div className='searchbar'>

@@ -35,9 +35,9 @@ class Dropdown extends Component {
 
     render(){
         return(
-            <div style={{width:'80%'}}>
+            <div style={{width:'30%'}}>
                 <div className='dropdown' onClick={() => this.dropdownexpandhandler()}>
-                    <label id='selected' className='selected'>{this.state.selected}</label> <label className='iconU-downArrow'/>   
+                    <label id='selected' className='selected font'>{this.state.selected}</label> <label className='iconU-downArrow'/>   
                     {this.props.data.subMenu.map( data => 
                        this.state.dropdownexpand ? this.option(data) : null
                     )}
