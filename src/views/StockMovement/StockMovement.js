@@ -1,15 +1,6 @@
-import React, { Component } from 'react';
-import { Card, CardBody,
-		 Col, Row, Table,
-		 Button, ButtonDropdown,
-		 FormGroup, Label,
-		 Input, InputGroup, InputGroupAddon,
-		 DropdownItem, DropdownMenu, DropdownToggle
-} from 'reactstrap';
-import { Link } from 'react-router-dom';
-// import DatePicker from 'react-datepicker';
-// import "react-datepicker/dist/react-datepicker.css";
-// import { isTSEnumMember } from '@babel/types';
+import React, {Component} from 'react'
+import {endpoint, headers} from '../../AppComponent/ConfigEndpoint'
+import axios from 'axios'
 
 // import StockHoldingEditColumn from './StockHoldingEditColumn';
 import axios from 'axios';
@@ -191,13 +182,8 @@ function YearMonthForm({ date, localeUtils, onChange, no }) {
   }
 
 class StockMovement extends Component {
-	static defaultProps = {
-		hoverRange: undefined,
-		selectedDays: []
-	};
-	constructor(props) {
-		super(props);
-		this.handleYearMonthChange = this.handleYearMonthChange.bind(this);
+	constructor(props){
+		super(props)
 		this.state = {
 			isVisible: [],
 			isLoaded: false,
@@ -234,12 +220,10 @@ class StockMovement extends Component {
 			rangeDate: [],
 
 		}
-		// this.getLocalStorageColumn();
 	}
 
-	componentDidMount() {
-		if(this.state.displayPeriod !== undefined && this.state.date.to !== undefined){
-		}
+	componentDidMount(){
+		this.loadPurchaseOrder()
 	}
 
 	formatDate = (date) => {
@@ -829,4 +813,4 @@ class StockMovement extends Component {
 	}
 }
 
-export default StockMovement;
+export default StockMovement

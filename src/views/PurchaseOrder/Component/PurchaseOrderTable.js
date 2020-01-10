@@ -13,7 +13,7 @@ class PurchaseOrderTable extends Component {
 
     this.state = {
       data:[],
-      tableheader : ['Site','Order No','Client','Status','Status Description','Date Due','Date Received','Date Released','Date Completed','Supplier Name'],
+      tableheader : ['Site','Order No','Client','Status','Status Desc','Date Due','Date Recv','Date Released','Date Completed','Supplier Name'],
       tablebody : ['A','PO-4312','Josaphat','1','Available','27/01/2020','27/01/2020','27/01/2020','27/01/2020', 'Swann-wq12'],
       activearrow:mid,
       sortparameter:'order_no',

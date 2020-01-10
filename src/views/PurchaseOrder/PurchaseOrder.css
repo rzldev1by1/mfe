@@ -19,24 +19,31 @@ h1{
 }
 
 .iconU-edit {
-	font-size:15px !important;	
+	font-size:1em !important;	
 }
 
 .font{
 	font-family: "Nunito" !important;
-	font-size: 160%;
+	font-size: 1.5em;
 	cursor: pointer;
 	margin-top: 2%;
 }
 
 .iconU-edit{
 	margin-right: 5%;
+	margin-top: -8%;
 	vertical-align: middle !important;
 	cursor: pointer;
 }
 
+.header2{
+	width: 50%;
+	
+}
 .createpo{
-	width: 18%;
+	float: right !important;
+	display: flex;
+	justify-content: space-between;
 }
 
 .btnsearch{
@@ -85,7 +92,7 @@ h1{
 	vertical-align: middle !important;
 	padding-top:0.3%;
 	padding-left: 1%;
-	min-width: 30% !important;
+	min-width: 20% !important;
 
 	height: 3% !important;
 }
@@ -97,8 +104,8 @@ h1{
 
 .iconU-filter{
 	height: auto;
-	font-size: 5px;
-	width: 3.2%;
+	font-size: 1em;
+	min-width: 4% !important;
 	background-color: #E9ECED;
 	border: none;
 	border-radius: 5px !important;
@@ -114,7 +121,7 @@ h1{
     margin: auto;
     transition:background-color 0.5s ease;
 	outline-color: transparent;
-	font-size: 140%;
+	font-size: 1.4em;
 }
 
 
@@ -124,7 +131,7 @@ h1{
 .dropdown{
 	border: 2px solid #D5D8DA;
 	border-radius: 5px;
-	width: 80% !important;
+	width: 90% !important;
 	cursor: pointer;
 	padding:0.3%;
 	margin-right: 1%;
@@ -142,13 +149,13 @@ h1{
 
 .iconU-downArrow{
 	float: right;
-	margin-top: 5%;
+	margin-top: 3%;
 	margin-right: 10%;
 	cursor: pointer;
 }
 
 .selected{
-	font-size: 140%;
+	font-size: 1.1em;
 	color: grey;
 	margin-left:10%;
 	margin-top: 3%;
@@ -157,7 +164,7 @@ h1{
 }
 
 .option{
-	font-size: 130%;
+	font-size: 1.1em;
 	color: grey;
 }
 
@@ -187,7 +194,7 @@ h1{
 .tablecontent{
 	max-height: 600px !important;
 	overflow-y:scroll;
-	font-size: 110%;
+	font-size: 1.1em;
 }
 
 
@@ -202,7 +209,7 @@ h1{
   }
 
 .iconU-option{
-	font-size: 4px !important;
+	font-size: 0.4em !important;
 	color: #B4B9BB !important;
 	text-align: center;
 	vertical-align: middle;
@@ -215,7 +222,7 @@ th.iconU-edit{
 
 .arrow{
 	margin-left: 20px !important;
-	width: 11px;
+	width: 0.7em;
 }
 
 .potable{
@@ -226,6 +233,7 @@ th.iconU-edit{
 	border-bottom: 2px solid #E2E2E2 !important;
 	height: 45px !important;
 	cursor: pointer;
+	font-size: 1em;
 }
 
 .potable tr {
@@ -248,9 +256,9 @@ td{
 
 .modal-content{
 	position: absolute ;
-	width: 350%;
-	margin-left: -125%;
-	margin-top: 20%;
+	width: 270%;
+	margin-left: -85%;
+	margin-top: 10%;
 }
 
 .modal-header{
@@ -269,7 +277,7 @@ td{
 
 .create{
 	display: flex;
-	width: 20%;
+	width: 30%;
 }
 
 .modal-title > button{
@@ -280,13 +288,12 @@ td{
 }
 
 .create > .iconU-edit{
-	margin-top: 5%;
+	margin-top: 4%;
 }
 
 .iconU-close{
-	margin:0px;
 	margin-left: 5%;
-	vertical-align: middle ;
+	vertical-align: middle !important;
 
 }
 
@@ -372,6 +379,7 @@ input {
 
  td{
 	height: 35px !important;
+	font-size: 1em;
 }
 
 h3{
@@ -384,7 +392,7 @@ h3{
 }
 
 .tabledetails{
-	width: 80%;
+	width: 83%;
 }
 
 .tablerow{
@@ -399,7 +407,7 @@ h3{
 .iconU-delete{
 	border:2px solid #e6e6e6;
 	border-radius: 5px;
-	font-size: 125%;
+	font-size: 1.25em;
 	padding:10%;
 	text-align: center;
 	background-color: #E8E8E8;
@@ -436,6 +444,8 @@ h3{
 
   .borderless{
 	  border: 0px !important;
+	  background-color: white !important;
+	  color: #B4B9BB;
   }
 
   .back{
@@ -447,3 +457,12 @@ h3{
 	  display: none;
   }
 
+  .numberimg{
+	  width: 20px;
+	  margin-right: 5px;
+	  margin-bottom: 4px;
+  }
+
+.borderless{
+	border:0px !important;
+}
