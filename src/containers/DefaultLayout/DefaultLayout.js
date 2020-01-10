@@ -94,7 +94,7 @@ class DefaultLayout extends Component {
 							<AppSidebarForm />
 							<Suspense>
 								<div className="p-0 sidebar-header">
-									<img className="navbar-brand-full" src={logo} alt="" style={{ width: 150, height: 38 }} />
+									<img className="navbar-brand-full" src={logo} alt="" style={{ width: 200, height: 58 }} />
 									<hr className="border-header" />
 								</div>
 	

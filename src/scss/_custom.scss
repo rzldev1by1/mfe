@@ -104,6 +104,7 @@ body {
 }
 .iconU-user:before {
 	content: "\e91c";
+	font-size: 14px;
 }
 .iconU-dashboard:before {
 	content: "\e913"
@@ -111,6 +112,7 @@ body {
 
 .iconU-purchaseOrder:before {
 	content: "\e914";
+	font-size: 16px;
 }
 
 .iconU-report:before {
@@ -119,10 +121,12 @@ body {
 
 .iconU-salesOrder:before {
 	content: "\e916";
+	font-size: 16px;
 }
 
 .iconU-stock:before {
 	content: "\e91b";
+	font-size: 16px;
 }
 
 .iconU-report:before {
@@ -295,7 +299,7 @@ a.breadcrumb:hover {
 
 .sidebar .sidebar-footer {
 	background: #FFFFFF 0% 0% no-repeat padding-box;
-	color: #212F61;
+	// color: #212F61;
 }
 
 .sidebar .nav {
@@ -310,44 +314,52 @@ a.breadcrumb:hover {
 }
 
 .sidebar .nav-item {
-	// width: 230px;
-	padding: 0 30px 0 30px;
-	background: #FFFFFF !important;
+	background: #ffffff !important;
+	font-size: 15px;
+	line-height: 30px;
+}
+
+.sidebar .nav-item .nav-link.active {
+	border-left: 3px solid #22ABE3 !important;
 }
 
 .sidebar .nav-link,
 		 .nav-link .nav-icon {
 	// letter-spacing: 0;
 	color: #637176 !important;
-	
 }
 
 .sidebar .nav-item .nav-link:hover,
-				   .nav-link:hover .nav-icon {
-	color: #9098A9  !important;
+		 .nav-item .nav-link:hover .nav-icon {
+	color: #B4B9BB  !important;
 	background: #ffffff !important;
-	// border-radius: 32px;
+}
+
+// .sidebar .nav-item .nav-link:hover {
+// 	border-left: 3px solid #22ABE3 !important;
+// }
+
+.sidebar .nav-link {
+	padding-left: 40px;
 }
 
 .sidebar .nav-link.active, .nav-link.active .nav-icon {
 	color: #22ABE3 !important;
 	background: #ffffff !important;
-	
 }
 
-.sidebar .nav-dropdown.open:hover {
-	color: #388DCD !important;
-}
+// .sidebar .nav-dropdown.open:hover {
+// 	color: #388DCD !important;
+// }
 
-.sidebar .nav-dropdown-items .nav-item .nav-link.active,
-.sidebar .nav-dropdown-items .nav-item .nav-link:hover {
-	color: #388DCD !important;
-	background: #FFFFFF !important;
-	border-radius: none;
-}
+// .sidebar .nav-dropdown-items .nav-item .nav-link.active,
+// .sidebar .nav-dropdown-items .nav-item .nav-link:hover {
+// 	color: #388DCD !important;
+// 	background: #FFFFFF !important;
+// }
 
 .sidebar-minimizer {
-	background: #FFFFFF !important;
+	background: #ffffff !important;
 }
 
 .sidebar-minimizer:hover {
@@ -390,25 +402,24 @@ a.breadcrumb:hover {
 .userSection {
 	background-color: #E9ECED;
 	border-radius: 10px;
-	width: 200px;
-	height: 49px;
+	width: 230px;
+	height: 60px;
 	align-self: center;
-	margin-bottom: 8px;
-	padding: 3.75px 10px;
+	margin-bottom: 15px;
+	padding: 7px;
 }
 
 .profilePhoto {
-	width: 42px;
-	height: 42px;
+	width: 47px;
+	height: 47px;
 }
 
 .userName {
 	font-weight: bold;
-	font-size: 15px;
+	font-size: 18px;
 	text-align: left;
 	letter-spacing: 0;
 	color: #637176;
-	// opacity: 1;
 	align-self: center;
 	padding-left: 10px;
 	padding-top: 5px;
@@ -427,16 +438,16 @@ a.breadcrumb:hover {
 .viewProfile {
 	background-color: #E9ECED;
 	border-radius: 0px 0px 10px 10px;
-	width: 200px;
+	width: 230px;
 	align-self: center;
-	margin-bottom: 5px;
-	margin-top:-5px;
+	margin-bottom: 15px;
+	margin-top: -10px;
 }
 
 .about {
 	color: #B4B9BB;
 	font-size: 12px;
-	width: 200px;
+	width: 230px;
 	height: 35px;
 	font-family: Helvetica;
 	vertical-align: middle;
