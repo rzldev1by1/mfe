@@ -89,10 +89,10 @@ const StockMovement = Loadable({
 // 	loading: Loading
 // });
 
-const UserManagement = Loadable({
+/* const UserManagement = Loadable({
 	loader: () => import('./views/Users/Users'),
 	loading: Loading
-});
+}); */
 
 const PurchaseOrderDetail = Loadable({
 	loader: () => import('./views/PO/PurchaseOrderDetail'),
@@ -161,7 +161,7 @@ const routes = [
 
 
 	{ path: '/purchaseorder', exact:true, name: 'Purchase Order', component: PurchaseOrder },
-	{ path: '/base', exact: true, name: 'User Control', component: UserManagement },
+	{ path: '/users-management', exact: true, name: 'User Management', component: UsersManagement },
 ];
 
 export default routes;

@@ -248,7 +248,7 @@ export default {
     },
     {
       name:'User Management',
-      url:'/usersmanagement',
+      url:'/users-management',
       icon: 'iconU-user'
     }
     // {
@@ -378,4 +378,5 @@ export default {
     //   attributes: { target: '_blank', rel: "noopener" },
     // },
   ],
+
 };

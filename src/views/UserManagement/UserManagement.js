@@ -5,6 +5,7 @@ import UserListComponent from './Component/UserListComponent'
 class UserManagement extends Component{
     constructor(props){
         super(props);
+        console.log(props);
         this.state ={
             userList : [
                 {user:"George Smith", userid:"12345", userlevel:"Admin", client:"All", lastaccess:"12 Dec 2019", status:"Active",action:""},
