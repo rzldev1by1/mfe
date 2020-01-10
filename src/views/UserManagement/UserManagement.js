@@ -23,14 +23,14 @@ class UserManagement extends Component{
     render(){
 
         return(<div>
-            <div className="d-flex">
+            <div className="d-flex pt-4">
                 <div className="flex-fill">
                     <h1>
                         <label>User Management</label>
                     </h1>
                 </div>
                 <div className="flex-fill">
-                    <button className="float-right" style={{width:'20%'}}>+ add user</button>
+                    <button className="btn btn-primary float-right" style={{width:'20%'}}>+ add user</button>
                 </div>
                 
             </div>
