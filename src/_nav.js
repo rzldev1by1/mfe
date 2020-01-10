@@ -123,15 +123,15 @@ export default {
     //     },
     //   ],
     // },
-	{
-		name: 'Dashboard',
-		url: '/dashboard',
-		icon: 'iconU-dashboard',
-	},
-	{
-		name: 'Purchase Order',
-		url: '/purchaseorder',
-		icon: 'iconU-purchaseOrder',
+	// {
+	// 	name: 'Dashboard',
+	// 	url: '/dashboard',
+	// 	icon: 'iconU-dashboard',
+	// },
+	// {
+	// 	name: 'Purchase Order',
+	// 	url: '/purchaseorder',
+	// 	icon: 'iconU-purchaseOrder',
 		// children: [
 		//   {
 		// 	name: 'Buttons',
@@ -154,9 +154,19 @@ export default {
 		// 	icon: 'icon-cursor',
 		//   },
 		// ],
+  // },
+  {
+		name: 'STOCK HOLDING',
+		url: '/stock/stockholding',
+		icon: 'iconU-stock',
+  },
+  {
+		name: 'STOCK MOVEMENT',
+		url: '/stock/stockmovement',
+		icon: 'iconU-stock-movement',
 	},
 	{
-		name: 'Sales Order',
+		name: 'SALES ORDERS',
 		url: '/icons',
 		icon: 'iconU-salesOrder',
 		// children: [
@@ -242,6 +252,11 @@ export default {
       icon: 'iconU-user'
     }
     // {
+    //   name: 'Reports',
+    //   url: '/charts',
+    //   icon: 'iconU-report',
+    // },
+    // {
     //   name: 'Icons',
     //   url: '/icons',
     //   icon: 'icon-star',
@@ -276,7 +291,7 @@ export default {
     //     },
     //   ],
     // },
-    // {
+    // { 
     //   name: 'Notifications',
     //   url: '/notifications',
     //   icon: 'icon-bell',

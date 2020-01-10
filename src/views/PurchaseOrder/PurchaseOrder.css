@@ -85,6 +85,7 @@ h1{
 	vertical-align: middle !important;
 	padding-top:0.3%;
 	padding-left: 1%;
+	min-width: 30% !important;
 
 	height: 3% !important;
 }
@@ -177,6 +178,7 @@ h1{
 
 ::placeholder  { /* Chrome/Opera/Safari */
 	color: #cccccc !important;
+	margin-left: 10px;
   }
 
 
@@ -187,6 +189,8 @@ h1{
 	overflow-y:scroll;
 	font-size: 110%;
 }
+
+
 
 .tablecontent::-webkit-scrollbar {
 	width: 8px !important;
@@ -201,6 +205,7 @@ h1{
 	font-size: 4px !important;
 	color: #B4B9BB !important;
 	text-align: center;
+	vertical-align: middle;
 }
 
 th.iconU-edit{
@@ -213,11 +218,232 @@ th.iconU-edit{
 	width: 11px;
 }
 
-.table thead th{
-	border-color: #E2E2E2;
+.potable{
+	width: 100%;
 }
 
-.table tbody td{
-	border-bottom:2px solid #f0f0f0 !important;
+.potable th {
+	border-bottom: 2px solid #E2E2E2 !important;
+	height: 45px !important;
+	cursor: pointer;
 }
+
+.potable tr {
+	border-bottom: 2px solid #f0f0f0  !important;
+	height: 45px !important;
+}
+.tr:hover{
+	background: #f0f0f0 !important;
+	cursor: pointer;
+}
+
+th{
+	font-family: "Nunito";
+}
+td{
+	font-family: "Nunito";
+}
+
+/* modal */
+
+.modal-content{
+	position: absolute ;
+	width: 350%;
+	margin-left: -125%;
+	margin-top: 20%;
+}
+
+.modal-header{
+	background-color: #E5E5E5;
+	width: 100% !important;
+	color: #919191;
+	display: flex !important;
+}
+
+
+.modal-title{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.create{
+	display: flex;
+	width: 20%;
+}
+
+.modal-title > button{
+	width: 10% !important;
+	color: white;
+	background-color: #CBCBCB;
+	border: none;
+}
+
+.create > .iconU-edit{
+	margin-top: 5%;
+}
+
+.iconU-close{
+	margin:0px;
+	margin-left: 5%;
+	vertical-align: middle ;
+
+}
+
+.btnsearch > .font{
+	vertical-align: middle;
+
+}
+
+.modal-title > .create >.iconU-edit:hover{
+	cursor: default;
+}
+
+.modal-title > .create >.font:hover{
+	cursor: default;
+}
+.modal-title > .create{
+	cursor: default;
+}
+
+.modal-header{
+	border:0px !important;
+}
+
+.Tab{
+	margin-top: -1%;
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+	display: flex !important;
+	flex-direction: column !important;
+}
+
+.bodycontent{
+	height: 500px !important;
+}
+
+.tabs{
+	display: flex;
+	margin-top: 5%;
+	min-width: 100%;
+}
+
+.tab{
+	margin-right: 2%;
+	background-color: #F7F7F7;
+	padding:3%;
+	padding-right: 10%;
+	padding-bottom:2%;
+	border-top-right-radius: 6px;
+	border-top-left-radius: 6px;
+	min-width: 55%;
+}
+
+.tab:hover{
+	cursor: pointer;
+}
+
+.tabisactive{
+	background-color: white;
+}
+
+.tabcontent{
+	padding:1%
+}
+
+/*tab1 content */
+
+.createpotable{
+	width: 90%;
+	margin-top: 1%;
+}
+input {
+	border-style: double;
+	height: 40px !important;
+	width: 95%;
+	border-color: #e6e6e6;
+	border-width: 1.4px !important;
+	border-radius: 5px;
+	outline-color: grey;
+	-moz-outline-radius: 5px !important;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+ td{
+	height: 35px !important;
+}
+
+h3{
+	color: #22ABE3;
+	margin-top: 0px !important;
+}
+
+.tabcontent > h3:hover{
+	cursor: default;
+}
+
+.tabledetails{
+	width: 80%;
+}
+
+.tablerow{
+	width: 80%;
+	max-height: 100px;
+}
+
+.scroll{
+	overflow-y:scroll;
+}
+
+.iconU-delete{
+	border:2px solid #e6e6e6;
+	border-radius: 5px;
+	font-size: 125%;
+	padding:10%;
+	text-align: center;
+	background-color: #E8E8E8;
+	color: #919191;
+	transition: ease-in;
+}
+
+.iconU-delete:hover{
+	cursor: pointer;
+	transition: ease-in;
+	color: white;
+}
+
+.sidebar .nav-item .nav-link:hover, .nav-link:hover .nav-icon, .nav-link.active, .nav-link.active .nav-icon {
+	border-radius: 0px !important;
+	background-color: white !important;
+	border-color: white !important;
+}
+
+.addline:hover{
+	color: white;
+}
+
+
+.tabcontent>.scroll::-webkit-scrollbar {
+	width: 8px !important;
+  }
+
+
+.tabcontent>.scroll::-webkit-scrollbar-thumb {
+	background-color: #B4B9BB;
+	border-radius: 5px;
+  }
+
+  .borderless{
+	  border: 0px !important;
+  }
+
+  .back{
+	  background-color: #D5D8DA;
+	  border: 0px;
+  }
+
+  .hidden{
+	  display: none;
+  }
 
