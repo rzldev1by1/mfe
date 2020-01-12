@@ -87,7 +87,7 @@ const StockAgeProfile = Loadable({
 const PurchaseOrder = Loadable({
 	loader: () => import('./views/PurchaseOrder/PurchaseOrder'),
 	loading: Loading
-}); */
+});
 
 const PurchaseOrderDetail = Loadable({
 	loader: () => import('./views/PO/PurchaseOrderDetail'),
@@ -151,7 +151,7 @@ const routes = [
 	// { path: '/charts', name: 'Charts', component: Charts },
 	// { path: '/users', exact: true,  name: 'Users', component: Users },
 	// { path: '/users/:id', exact: true, name: 'User Details', component: User },
-		
+
     // { path: '/dashboard', name: 'Dashboard', component: Dashboard },
 	// { path: '/base', exact: true, name: 'User Control', component: UserManagement },
 
@@ -164,8 +164,9 @@ const routes = [
     { path: '/purchaseorder', exact:true, name: 'Purchase Order', component: PurchaseOrder },
 	{ path: '/purchaseorder/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrderDetail },
     { path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
-    
-    { path: '/usersmanagement', exact: true, name: 'User Management', component: UsersManagement },
+
+    { path: '/users-management', exact: true, name: 'User Management', component: UsersManagement },
+		{ path: '/users-management', exact: true, name: 'User Management', component: UsersManagement },
 ];
 
 export default routes;
