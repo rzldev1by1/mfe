@@ -12,21 +12,53 @@ span.downArrow:before {
    	content: "\f107";
     display: inline-block;
     font-weight: 900;
-  
+
 }
 span.upArrow:before {
 	font-family: "FontAwesome";
    	content: "\f106";
     display: inline-block;
     font-weight: 900;
-    
+
+}
+
+.headers{
+    font-weight: 500;
+    color: #B4B9BB !important;
+    font-size: 15px;
+}
+
+.users{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 780;
+    font-size: 20px;
+}
+
+.border-account-info{
+    border: 3px solid #ffffff;
+    border-radius: 5px;
+}
+
+.account-info{
+    background-color: #E9ECED;
 }
 
 
+span.client-active{
+    border: 2px solid #22ABE3;
+    border-radius: 7px;
+    color: #22ABE3;
+}
+
+span.client-notActive{
+    border: 2px solid #D5D8DA;
+    border-radius: 7px;
+    color: #D5D8DA ;
+}
 
 table{
     font-family: Arial, Helvetica, sans-serif;
-    
+
 }
 
 tr th.headers{
@@ -56,6 +88,15 @@ tr td.norm{
     font-weight: 500;
     color: #FF4141;
     font-size: 20px;
+}
+
+.text-bolder{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 790;
+}
+
+.name-account{
+	color: #22ABE3;
 }
 
 /* .titleText{

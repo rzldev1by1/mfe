@@ -87,7 +87,7 @@ const StockAgeProfile = Loadable({
 const PurchaseOrder = Loadable({
 	loader: () => import('./views/PurchaseOrder/PurchaseOrder'),
 	loading: Loading
-});
+}); */
 
 const PurchaseOrderDetail = Loadable({
 	loader: () => import('./views/PO/PurchaseOrderDetail'),
@@ -101,6 +101,11 @@ const SalesOrder = Loadable({
 
 const UsersManagement = Loadable({
 	loader: () => import('./views/UserManagement/UserManagement'),
+	loading: Loading
+});
+
+const UsersManagementDetail = Loadable({
+	loader: () => import('./views/UserManagement/UserManagementDetail'),
 	loading: Loading
 });
 
