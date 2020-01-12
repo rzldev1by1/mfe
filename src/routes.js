@@ -104,6 +104,11 @@ const UsersManagement = Loadable({
 	loading: Loading
 });
 
+const UsersManagementDetail = Loadable({
+	loader: () => import('./views/UserManagement/UserManagementDetail'),
+	loading: Loading
+});
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
 	// { path: '/dashboard', name: 'Dashboard', component: Dashboard },
@@ -162,6 +167,7 @@ const routes = [
 
 	{ path: '/purchaseorder', exact:true, name: 'Purchase Order', component: PurchaseOrder },
 	{ path: '/users-management', exact: true, name: 'User Management', component: UsersManagement },
+	{ path: '/users-management/:id/detail', exact: true, name: 'User Management', component: UsersManagementDetail },
 ];
 
 export default routes;

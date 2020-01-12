@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Table,Button, Card, CardBody, Label} from 'reactstrap'
 import UserListComponent from './Component/UserListComponent'
+import PersonalUserComponent from './Component/PersonalUserComponent'
+
 
 class UserManagement extends Component{
     constructor(props){
@@ -16,7 +18,14 @@ class UserManagement extends Component{
                     ],
             headers : [
                 'User', 'Userid', 'User Level', 'Client', 'Last Access', 'Status', ''
+                ],
+            personalUser : [
+                {youraccount:"georgesmith@ttl.com", userid:"12345", client:"All Client", site:"All Site"}
+                    ],
+            headersPersonal : [
+                'Your Account', 'User ID', 'Client', 'Site'
                 ]
+            
         }
     }
 
@@ -26,18 +35,22 @@ class UserManagement extends Component{
         return(<div>
             <div className="d-flex pt-4">
                 <div className="flex-fill">
-                    <h1>
+                    <h3>
                         <label>User Management</label>
-                    </h1>
+                    </h3>
                 </div>
                 <div className="flex-fill">
                     <button className="btn btn-primary float-right" style={{width:'20%'}}>+ add user</button>
                 </div>
                 
             </div>
+            <div>
+                 <PersonalUserComponent data={this.state.personalUser} headers={this.state.headersPersonal} />
+            </div>
+                
             <Card>
                 <CardBody>
-                    <UserListComponent data={this.state.userList} headers={this.state.headers} />
+                    <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}/>
                 </CardBody>
             </Card>
         </div>)
