@@ -84,7 +84,7 @@ class PurchaseOrder extends Component {
                     <label className='iconU-search'/>
                     <input onChange={(e) => this.onchangesearch(e) } type='text' className='searchinput' placeholder='Enter a site, order no. or client'/>
                 </div>
-                <Button onClick={() => this.setState({filterclicked: !this.state.filterclicked})} color="secondary" className='iconU-filter'/>
+                <Button onClick={() => this.setState({filterclicked: !this.state.filterclicked})} color="secondary" className='iconU-filter iconU-filters'/>
                 <Button color="primary" className='btnsearch'><label className='font'>Search</label></Button>
             </div>
 
