@@ -31,7 +31,10 @@
 
       close = () => {
         this.props.closemodal()
-        this.tabhandler()
+        this.setState({
+          tab1isactive:true,
+          tab2isactive:false
+          })
       }
 
       tabhandler = () => {
