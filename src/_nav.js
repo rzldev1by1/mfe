@@ -199,7 +199,7 @@ export default {
     },
     {
       name: 'USER MANAGEMENT',
-      url: '/base',
+      url: '/users-management',
       icon: 'iconU-user',
     },
     //   {
@@ -291,7 +291,7 @@ export default {
       //     },
       //   ],
       // },
-      // { 
+      // {
       //   name: 'Notifications',
       //   url: '/notifications',
       //   icon: 'icon-bell',
@@ -378,4 +378,4 @@ export default {
       //   attributes: { target: '_blank', rel: "noopener" },
       // },
     ],
-};  
+};

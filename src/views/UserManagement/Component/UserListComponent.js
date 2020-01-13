@@ -57,6 +57,12 @@ class UserListComponent extends Component{
         return result;
     }
 
+    onRowClick = (e,id) => {
+        const {match, history} = this.props.route;
+        history.push(`${match.url}/${encodeURIComponent(id)}/detail`);
+
+    }
+
     render(){
         
        
@@ -88,7 +94,7 @@ class UserListComponent extends Component{
                         <tbody>
                                {
                                    this.state.data.map((element,index)=>{
-                                       return <tr key={index}>
+                                       return <tr key={index} onClick={(e)=>{ this.onRowClick(e,element.userid);}}>
                                                 {
                                                    Object.keys(element).map((item,idx) => {
                                                        return <td key={idx} className={(item === 'user')?'users':'norm'}>
