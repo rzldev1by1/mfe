@@ -295,7 +295,7 @@ td{
 	justify-content: space-between;
 }
 
-select{
+.selectinput{
 	display: flex;
 	align-items: center;
 	border-style: double;

@@ -88,7 +88,7 @@
               </tr>
               <tr>
                   <td>
-                    <select className="form-control">
+                    <select className="form-control selectinput">
                       <option selected disabled>Client</option>
                       <option>John Doe</option>
                       <option>John Wick</option>
@@ -96,7 +96,7 @@
                   </td>
                   <td></td>
                   <td>
-                    <select className="form-control">
+                    <select className="form-control selectinput">
                       <option selected disabled>Order Type</option>
                       <option>Type 1</option>
                       <option>Type 2</option>
@@ -219,7 +219,7 @@
               <td style={{width:'2%', textAlign:'center'}}><input className="form-control inputs" value={i+1}/></td>
               <td style={{width:'12%'}}><input className="form-control inputs" placeholder='product'/></td>
               <td style={{width:'6%'}}>
-                  <select>
+                  <select className="form-control selectinput">
                     <option selected disabled>UOM</option>
                     <option>each</option>
                     <option>pallet</option>
