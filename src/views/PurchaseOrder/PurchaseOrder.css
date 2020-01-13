@@ -265,7 +265,6 @@ td{
 	-webkit-animation-fill-mode: forwards;
 }
 
-
 @-webkit-keyframes fade {
 	from {opacity: 0}
 	to {opacity: 1}}

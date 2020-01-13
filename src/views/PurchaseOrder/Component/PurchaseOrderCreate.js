@@ -107,7 +107,7 @@
 
     tab2Content = () => {
       return(
-        <div className='tabcontent'>
+        <div className='tabcontent fades'>
           <h3 className='font'>Order Details</h3>
 
           <table className='createpotable'>
