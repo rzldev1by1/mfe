@@ -10,6 +10,9 @@
 	justify-content: space-between;
 }
 
+.hidden{
+	display: none !important;
+}
 
 h1{
 	color: #637176;

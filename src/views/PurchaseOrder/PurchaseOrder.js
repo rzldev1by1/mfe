@@ -99,9 +99,10 @@ class PurchaseOrder extends Component {
                 </div>               
             </div>
 
-            <div className='tablecontent'>
-                <PurchaseOrderTable style={{display:'none'}} loadCompleteHandler = {(v) =>  this.setState({complete: v})}/>
+            <div className={'tablecontent ' + ( this.state.complete ? null : 'hidden')}>
+                <PurchaseOrderTable className='animated fadeIn' style={{display:'none'}} loadCompleteHandler = {(v) =>  this.setState({complete: v})}/>
             </div>
+            <div className={( this.state.complete ? 'hidden': 'spinner')}/>
             <PurchaseOrderCreate showmodal={this.state.showmodal} closemodal={() => this.closeModal()}/>
         </div>
            
