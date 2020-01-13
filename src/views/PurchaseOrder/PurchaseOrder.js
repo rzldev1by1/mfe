@@ -24,7 +24,7 @@ class PurchaseOrder extends Component {
 
             //modal
             showmodal:false,
-            complete:true
+            complete:false
         }
     }
 
@@ -71,13 +71,9 @@ class PurchaseOrder extends Component {
         this.setState({showmodal:false})
     }
 
-    loadcompletehandler = (v) => {
-        // this.setState({complete: true})
-    }
-
     render(){        
         return(
-            this.state.complete ?  <div className='animated fadeIn'>
+        <div className='animated fadeIn'>
             <div className='header'>
                 <h1 style={{marginTop:'0.5%'}}>Purchase Order</h1>
                 <div className='header2'><Button onClick={() => this.openModal()} color="primary" className='createpo'><img src={create} style={{width:'7%', marginTop:12}}/><label className='font'>Create Purchase Order</label></Button></div>
@@ -104,10 +100,10 @@ class PurchaseOrder extends Component {
             </div>
 
             <div className='tablecontent'>
-                <PurchaseOrderTable loadCompleteHandler = {(v) => this.loadcompletehandler(v)}/>
+                <PurchaseOrderTable style={{display:'none'}} loadCompleteHandler = {(v) =>  this.setState({complete: v})}/>
             </div>
             <PurchaseOrderCreate showmodal={this.state.showmodal} closemodal={() => this.closeModal()}/>
-        </div> : <div className='spinner'/>
+        </div>
            
             
         )

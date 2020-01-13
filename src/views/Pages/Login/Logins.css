@@ -18,10 +18,10 @@
   }
 
   .mlslogo{
-      width: 35%;
+      width: 30%;
       margin-left: 6%;
-      margin-top: 5%;
-      margin-bottom: 3%;
+      margin-top: 11.5%;
+      margin-bottom: -2.5%;
   }
 
 p{    
@@ -191,14 +191,15 @@ p:hover{
 
 .footer{
     color: white;
-    margin-right: 5%;
-    font-size: 200%;
-    text-align: right;
-    margin-top: 1%;
+    font-size: 160%;
     display: flex;
-    align-content: space-between !important;
+    justify-content: space-between!important;
     width: 100%;
-    margin-top: 15%;
+    margin-top: 17%;
+}
+
+.footer > a{
+    color: white;
 }
 
 .labels:hover{

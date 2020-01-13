@@ -115,8 +115,8 @@ class Logins extends Component{
                     <img src={centerLogo} className="mlslogo" />
                     <form ref={this.loginForm} onSubmit={(e) => { e.preventDefault(); this.validateForm() }}>
                         <div className="loginInput">
-                            <div style={{ marginBottom: "2%" }}>
-                                <h1>Login</h1>
+                            <div style={{ marginBottom: "1%" }}>
+                                <h2>Login</h2>
                             </div>
 
                             <input type="text" className={this.state.usernameClass + (this.state.usernameValid ? "" : " is-invalid")}
@@ -137,8 +137,8 @@ class Logins extends Component{
                             </button>
                             
                             <div className="footer">
-                                <div>© Microlistics Logistics {new Date().getFullYear()}</div>
-                                <div style={{ width: "78%", float: "right" }}>help@microlistics.co.au</div>
+                                <a target='blank' href='https://www.microlistics.com.au/'>© Microlistics {new Date().getFullYear()}</a>
+                                <div style={{ marginRight:'6%' }}>help@microlistics.co.au</div>
                             </div>              
                         </div>
                     </form>
