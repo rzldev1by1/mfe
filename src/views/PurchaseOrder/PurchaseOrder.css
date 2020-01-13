@@ -295,6 +295,36 @@ td{
 	justify-content: space-between;
 }
 
+select{
+	display: flex;
+	align-items: center;
+	border-style: double;
+	height: 40px !important;
+	width: 100%;
+	border-color: #e6e6e6;
+	color:#b8b8b8 !important;
+	border-width: 1.4px !important;
+	border-radius: 5px;
+	outline-color: grey;
+	-moz-outline-radius: 5px !important;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+select option:hover{
+	background-color: #e6e6e6 !important;
+}
+
+.createdropdown > input{
+	border: none;
+	height: auto !important;
+}
+
+.createdropdown > img{
+	width: 10%;
+	height: 10%;
+}
+
 .create{
 	display: flex;
 	width: 30%;
@@ -384,10 +414,10 @@ td{
 	width: 90%;
 	margin-top: 1%;
 }
-input {
+.inputs {
 	border-style: double;
 	height: 40px !important;
-	width: 95%;
+	width: 100%;
 	border-color: #e6e6e6;
 	border-width: 1.4px !important;
 	border-radius: 5px;
@@ -397,9 +427,8 @@ input {
 	margin-bottom: 5px;
 }
 
-td{
-	/* height: 35px !important;
-	font-size: 1em; */
+.createpotable > tr> td{
+	padding-right: 2% !important;
 }
 
 h3{

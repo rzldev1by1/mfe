@@ -1,6 +1,6 @@
   import React, {Component} from 'react'
-  import CoolTabs from 'react-cool-tabs'
   import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+  import DatePicker from './DatePicker'
   import oneinactive from '../../../assets/img/brand/tab_1_grey@2x.png'
   import oneactive from '../../../assets/img/brand/tab_1_blue@2x.png'
   import twoinactive from '../../../assets/img/brand/tab_2_grey@2x.png'
@@ -13,6 +13,16 @@
           this.state = {
             tab1isactive:true,
             tab2isactive:false,
+            order:{
+              site:null,
+              orderno:null,
+              supplier:null,
+              orderref:null,
+              client:null,
+              orderdate:null,
+              ordertype:null,
+              vendorref:null,
+            },
             rowlist:[
               {
                 id:1,
@@ -24,6 +34,13 @@
                 ref3:null,
                 ref4:null,
                 disposition:null
+              }
+            ],
+
+            data:[
+              {
+                "menu":'Client',
+                "subMenu":['asd','asds']
               }
             ]
             }
@@ -57,10 +74,10 @@
                   <th>Customer Order Ref</th>
               </tr>
               <tr>
-                  <td><input className="form-control" placeholder="Site"/> </td>
-                  <td><input className="form-control" readOnly/> </td>
-                  <td><input className="form-control" placeholder="Supplier"/> </td>
-                  <td><input className="form-control" placeholder="Customer Order ref."/> </td>
+                  <td><input className="form-control inputs" placeholder="Site"/> </td>
+                  <td><input className="form-control inputs" readOnly/> </td>
+                  <td><input className="form-control inputs" placeholder="Supplier"/> </td>
+                  <td><input className="form-control inputs" placeholder="Customer Order ref."/> </td>
               </tr>
 
               <tr>
@@ -70,10 +87,22 @@
                   <th>Client Order Ref</th>
               </tr>
               <tr>
-                  <td><input className="form-control" placeholder="Client"/> </td>
-                  <td><input className="form-control" placeholder="Order Date"/> </td>
-                  <td><input className="form-control" placeholder="Order Type"/></td>
-                  <td><input className="form-control" placeholder="Vendor Order ref."/> </td>
+                  <td>
+                    <select className="form-control">
+                      <option selected disabled>Client</option>
+                      <option>John Doe</option>
+                      <option>John Wick</option>
+                    </select>
+                  </td>
+                  <td></td>
+                  <td>
+                    <select className="form-control">
+                      <option selected disabled>Order Type</option>
+                      <option>Type 1</option>
+                      <option>Type 2</option>
+                    </select>
+                  </td>
+                  <td><input className="form-control inputs" inputs placeholder="Vendor Order ref."/> </td>
               </tr>
           </table>
 
@@ -118,10 +147,10 @@
                   <th>Customer Order Ref</th>
               </tr>
               <tr>
-                  <td><input className="form-control borderless" readOnly/></td>
-                  <td><input className="form-control borderless" readOnly/></td>
-                  <td><input className="form-control borderless" readOnly/></td>
-                  <td><input className="form-control borderless" readOnly/></td>
+                  <td><input className="form-control inputs borderless" readOnly/></td>
+                  <td><input className="form-control inputs borderless" readOnly/></td>
+                  <td><input className="form-control inputs borderless" readOnly/></td>
+                  <td><input className="form-control inputs borderless" readOnly/></td>
               </tr>
 
               <tr>
@@ -131,10 +160,10 @@
                   <th>Client Order Ref</th>
               </tr>
               <tr>
-                  <td><input className="form-control borderless" readOnly/></td>
-                  <td><input className="form-control borderless" readOnly/></td>
-                  <td><input className="form-control borderless" readOnly/></td>
-                  <td><input className="form-control borderless" readOnly/></td>
+                  <td><input className="form-control inputs borderless" readOnly/></td>
+                  <td><input className="form-control inputs borderless" readOnly/></td>
+                  <td><input className="form-control inputs borderless" readOnly/></td>
+                  <td><input className="form-control inputs borderless" readOnly/></td>
               </tr>
           </table>
 
@@ -175,20 +204,33 @@
       }
     }
 
+    selectedValue = (id, value) => {
+      if(id == 'Saya')
+      {
+          this.setState({client:value})
+      }
+  }
+
     linedetailsrow = (list, i) => {
       return(
         <table>
           <tr>
               <td hidden id={list.id}></td>
-              <td style={{width:'2%', textAlign:'center'}}><input className="form-control" value={i+1}/></td>
-              <td style={{width:'12%'}}><input className="form-control" placeholder='product'/></td>
-              <td style={{width:'6%'}}><input className="form-control" placeholder='uom'/></td>
-              <td style={{width:'3%'}}><input className="form-control" placeholder='qty'/></td>
-              <td style={{width:'6%'}}><input className="form-control" placeholder='rota date'/></td>
-              <td style={{width:'6%'}}><input className="form-control" placeholder='batch'/></td>
-              <td style={{width:'5%'}}><input className="form-control" placeholder='ref3'/></td>
-              <td style={{width:'5%'}}><input className="form-control" placeholder='ref4'/></td>
-              <td style={{width:'6%'}}><input className="form-control" placeholder='disposition'/></td>
+              <td style={{width:'2%', textAlign:'center'}}><input className="form-control inputs" value={i+1}/></td>
+              <td style={{width:'12%'}}><input className="form-control inputs" placeholder='product'/></td>
+              <td style={{width:'6%'}}>
+                  <select>
+                    <option selected disabled>UOM</option>
+                    <option>each</option>
+                    <option>pallet</option>
+                  </select>
+              </td>
+              <td style={{width:'3%'}}><input className="form-control inputs" placeholder='qty'/></td>
+              <td style={{width:'6%'}}><input className="form-control inputs" placeholder='rota date'/></td>
+              <td style={{width:'6%'}}><input className="form-control inputs" placeholder='batch'/></td>
+              <td style={{width:'5%'}}><input className="form-control inputs" placeholder='ref3'/></td>
+              <td style={{width:'5%'}}><input className="form-control inputs" placeholder='ref4'/></td>
+              <td style={{width:'6%'}}><input className="form-control inputs" placeholder='disposition'/></td>
               <td id={list.id} onClick={(e) => this.deletelinehandler(e)} style={{width:'1.5%'}}><div className='iconU-delete'/></td>
             </tr>
         </table>
