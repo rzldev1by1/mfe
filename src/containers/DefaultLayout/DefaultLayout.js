@@ -72,7 +72,7 @@ class DefaultLayout extends Component {
 
                             <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
 
-                            <div className="userSection" size="sm" onClick={this.showDropdownMenu}>
+                            <div className="userSection" size="sm" onClick={this.onUserDropdownClick}>
                                 <table>
                                     <tbody>
                                         <tr>
