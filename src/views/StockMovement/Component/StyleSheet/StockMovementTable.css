@@ -1,0 +1,13 @@
+/* Start - Table */
+.table-fixed{
+	margin-top: -360px;
+    z-index: -1;
+}
+.smm-table{
+	margin-right: 0 !important;
+    z-index: -1;
+}
+.rem{
+	margin-top: 1rem;
+}
+/* End - Table */
