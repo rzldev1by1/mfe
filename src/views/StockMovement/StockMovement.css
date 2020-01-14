@@ -24,9 +24,6 @@
 .DayPicker-wrapper:focus{
 	outline: none;
 }
-.sm-header-title{
-	color: #000000;
-}
 
 /* ∞∞ Select Dropdown Elements ∞∞ */
 .select-sm, .expand-style-sm, .select_items-sm, .select_options-sm, .select_option-sm {
@@ -391,7 +388,7 @@
 
 /* Start - Table */
 .table-fixed{
-	margin-top: -360px;
+	margin-top: -392px;
     z-index: -1;
 }
 .smm-table{

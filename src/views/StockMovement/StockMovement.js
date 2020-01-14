@@ -21,6 +21,8 @@ import moment from 'moment';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
+import StockMovementTitle from './Component/StockMovementTitle';
+
 const currentYear = 2019;
 const currentMonth = 0;
 const fromMonth = new Date(currentYear, currentMonth);
@@ -207,11 +209,8 @@ class StockMovement extends Component {
 		this.handleDateToClick = this.handleDateToClick.bind(this);
 		this.handleYearMonthChange = this.handleYearMonthChange.bind(this);
 		this.state = {
-			isVisible: [],
 			isLoaded: false,
-			isSearch: false,
 			displayContent: "INIT",
-			displayMoreColumnModal: false,
 			showContent: false,
 
 			currentPage: 1,
@@ -309,7 +308,7 @@ class StockMovement extends Component {
 			'Content-Type': 'application/json'
 		}
 
-		self.setState({ isLoaded: true, isSearch: true,
+		self.setState({ isLoaded: true,
 						currentPage: 1,
 						startIndex: 0, lastIndex: 0,
 						totalRows: 0, maxPage: 0 });
@@ -329,8 +328,7 @@ class StockMovement extends Component {
 		})
 		.catch(function (error) {
 			self.setState({ displayContent: "NOT_FOUND",
-							isLoaded: false,
-							isSearch: false });
+							isLoaded: false});
 			if (error.response) {
 				self.setState({ notFoundMessage: error.response.data.message })
 			}
@@ -341,7 +339,7 @@ class StockMovement extends Component {
 		})
 		.then(function(result) {
 			if (result.data) {
-				let respondRes = result.data.data;
+				let respondRes = result.data;
 				self.setState({ displayContent: "FOUND",
 								stockMovement: respondRes
 							});
@@ -349,7 +347,7 @@ class StockMovement extends Component {
 				// self.numberEventClick(self.state.currentPage);
 				// localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
 			}
-			self.setState({ isLoaded: false, isSearch: false });
+			self.setState({ isLoaded: false});
 		});
     }
 	  
@@ -468,10 +466,6 @@ class StockMovement extends Component {
 		// localStorage.setItem("columnData", JSON.stringify(this.state.columns));
 	}
 
-	toggleDisplayMoreColumn = () => {
-		this.setState({ displayMoreColumnModal: !this.state.displayMoreColumnModal });
-	}
-
 	triggerChangeFilter = (e) => {
 		e.stopPropagation();
 		this.setState((prevState) => {
@@ -569,44 +563,43 @@ class StockMovement extends Component {
 
 	showData = () => {
 		return (
-			console.log(this.state.stockMovement)
-		// 	this.state.stockMovement.map((item, idx) => {
-		// 		return (
-		// 			item[this.state.rangeDate[idx]].map((value, valueIdx) => {
-		// 				return (
-		// 					<tr key={valueIdx}>
-		// 						{this.state.columns.map((column, columnIdx) => {
-		// 							return <td key={columnIdx} className="px-3 text-left">{value[column.id]}</td>
-		// 						})}
-		// 						{this.state.dateColumns.map((dateColumn, dataIdx) => {
-		// 							if(dateColumn.id === this.state.rangeDate[idx]){
-		// 								return (
-		// 									<td key={dataIdx} className="px-3 text-left">
-		// 										{value[dateColumn.subColumns.id] ? value[dateColumn.subColumns.id] : "-"}
-		// 									</td>
-		// 								)
-		// 							}
-		// 							// dateColumn.subColumns.map((element, idx) => {
-		// 							// 	console.log(value[element.id])
-		// 							// 	return (
-		// 							// 		<td key={dataIdx} className="px-3 text-left">
-		// 							// 			{value[element.id] ? value[element.id] : "-"}
-		// 							// 		</td>
-		// 							// 	)
-		// 							// });
-		// 							console.log(value[dateColumn.subColumns.id]);
-		// 							return (
-		// 								<td key={dataIdx} className="px-3 text-left">
-		// 									{value[dateColumn.subColumns.id] ? value[dateColumn.subColumns.id] : "-"}
-		// 								</td>
-		// 							)
-		// 						})}
-		// 					</tr>
-		// 				);
-		// 			})
-		// 		)
-		// 	})
-		);
+			// console.log(this.state.stockMovement)
+			this.state.stockMovement.map((item, idx) => {
+						return (
+							<tr key={idx}>
+								{this.state.columns.map((column, columnIdx) => {
+									return <td key={columnIdx} className="px-3 text-left">{item[column.id]}</td>
+								})}
+								{this.state.dateColumns.map((dateColumn, dataIdx) => {
+									// if(dateColumn.id === this.state.rangeDate[idx]){
+									// 	return (
+									// 		<td key={dataIdx} className="px-3 text-left">
+									// 			{item[dateColumn.subColumns.id] ? item[dateColumn.subColumns.id] : "-"}
+									// 		</td>
+									// 	)
+									// }
+									// dateColumn.subColumns.map((element, idx) => {
+									// 	console.log(value[element.id])
+									// 	return (
+									// 		<td key={dataIdx} className="px-3 text-left">
+									// 			{value[element.id] ? value[element.id] : "-"}
+									// 		</td>
+									// 	)
+									// });
+									dateColumn.subColumns.map((column, columnIdx) => {
+										// console.log(column.id);
+										console.log(item.details[column.id]);
+										return (
+											<td key={columnIdx} className="px-3 text-left">
+												{item.details[column.id] ? item.details[column.id] : "-"}
+											</td>
+										)
+									})
+								})}
+							</tr>
+						);
+					})
+		)
 	}
 
 	rowClicked = (productCode) => {
@@ -666,10 +659,8 @@ class StockMovement extends Component {
 				content =
 				<div className="col-12 d-flex h-100 position-relative">
 					<div className="bg-transparent mx-auto my-auto text-center">
-						<div className={this.state.isSearch ? "" : "d-none"}>
-							<div className={"spinner" + (this.state.isLoaded ? "" : " d-none")} />
-							<p className={this.state.displayContent === "NOT_FOUND" ? "" : "d-none"}>{this.state.notFoundMessage}</p>
-						</div>
+						<div className={"spinner" + (this.state.isLoaded ? "" : " d-none")} />
+						<p className={this.state.displayContent === "NOT_FOUND" ? "" : "d-none"}>{this.state.notFoundMessage}</p>
 					</div>
 				</div>
 		}
@@ -681,23 +672,7 @@ class StockMovement extends Component {
 				<div className="animated fadeIn">
 					<div className="row">
 						<div className="col-12 p-0">
-							<div className="row">
-								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-									<CardBody>
-										<Row className="align-items-center">
-											<div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-												<FormGroup>
-													<InputGroup>
-														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
-															<h4 className="headerTitle font-weight-bold sm-header-title">Stock Movement</h4>
-														</div>
-													</InputGroup>
-												</FormGroup>
-											</div>
-										</Row>
-									</CardBody>
-								</div>
-							</div>
+							<StockMovementTitle />
 							<div className="row">
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
 										<div className="form-group row mb-0">
@@ -925,10 +900,6 @@ class StockMovement extends Component {
 						{content}
 					</div>
 				</div>
-				{/* <StockHoldingEditColumn isOpen={this.state.displayMoreColumnModal}
-										toggle={this.toggleDisplayMoreColumn}
-										fields={this.state.columns}
-										updateTableColumn={this.updateTableColumn} /> */}
 			</React.Fragment>
 		);
 	}
