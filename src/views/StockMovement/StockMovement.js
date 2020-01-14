@@ -1,26 +1,27 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react';
 import { Card, CardBody,
-         Col, Row, Table,
-         Button, ButtonDropdown,
-         FormGroup, Label,
-         Input, InputGroup, InputGroupAddon,
-         DropdownItem, DropdownMenu, DropdownToggle
+		 Col, Row, Table,
+		 Button, ButtonDropdown,
+		 Form, FormGroup, Label,
+		 Input, InputGroup, InputGroupAddon,
+		 DropdownItem, DropdownMenu, DropdownToggle
 } from 'reactstrap';
-import { Helmet } from "react-helmet";
-import DayPicker, { DateUtils } from 'react-day-picker';
-import 'react-day-picker/lib/style.css';
+import { Link } from 'react-router-dom';
+// import DatePicker from 'react-datepicker';
+// import "react-datepicker/dist/react-datepicker.css";
+// import { isTSEnumMember } from '@babel/types';
 
-import moment from 'moment';
+// import StockHoldingEditColumn from './StockHoldingEditColumn';
 import axios from 'axios';
 import AppComponent from '../../AppComponent';
 import Authentication from '../../Auth/Authentication';
-import { endpoint, headers } from '../../AppComponent/ConfigEndpoint'
-
 import './StockMovement.css';
+import {Helmet} from "react-helmet";
+import moment from 'moment';
+import DayPicker, { DateUtils } from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
 
-// import StockHoldingEditColumn from './StockHoldingEditColumn';
-
-const currentYear = 2017;
+const currentYear = 2019;
 const currentMonth = 0;
 const fromMonth = new Date(currentYear, currentMonth);
 const toMonth = new Date(currentYear + 10, 11);
@@ -124,7 +125,7 @@ function YearMonthForm({ date, localeUtils, onChange, no }) {
 	monthExpandStatus[no] = handleMonthExpand.bind(); 
 	return (
 	
-	  <form className="DayPicker-Caption">
+	  <Form inline className="DayPicker-Caption">
 		  {/* <ul className={"select-date month-option" + (handleMonthExpand ? " expand-period-sm" : "")} id="select">
 			<li className="expand-style-date">
 				<input className="select_close-date" type="radio" name="month" id={"awesomeness-close1" + (no)} value=""/>
@@ -171,33 +172,40 @@ function YearMonthForm({ date, localeUtils, onChange, no }) {
 				<label className="select_expandLabel-date" htmlFor={"awesomeness-opener2" + (no)} onClick={handleYearExpand}></label>
 			</li>
 		</ul> */}
-		<Input type="select" name="month" onChange={handleChange} value={date.getMonth()}>
-		  {months.map((month, i) => (
-			<option key={month} value={i}>
-			  {month}
-			</option>
-		  ))}
-		</Input>
-		<Input type="select" name="year" onChange={handleChange} value={date.getFullYear()}>
-		  {years.map(year => (
-			<option key={year} value={year}>
-			  {year}
-			</option>
-		  ))}
-		</Input>
-	  </form>
+			<FormGroup>
+				<Col xs="7" className="arrow-icon">
+					<Input type="select" className="none-appearance col-12" name="month" onChange={handleChange} value={date.getMonth()}>
+					{months.map((month, i) => (
+						<option key={month} value={i}>
+						{month}
+						</option>
+					))}
+					</Input>
+				</Col>
+				<Col xs="5" className="arrow-icon">
+					<Input type="select" className="none-appearance col-12" name="year" onChange={handleChange} value={date.getFullYear()}>
+					{years.map(year => (
+						<option key={year} value={year}>
+						{year}
+						</option>
+					))}
+					</Input>
+				</Col>
+			</FormGroup>
+	  </Form>
 	);
   }
 
 class StockMovement extends Component {
-    static defaultProps = {
-        hoverRange: undefined,
-        selectedDays: []
-    };
-
-    constructor(props){
-        super(props);
-        this.handleYearMonthChange = this.handleYearMonthChange.bind(this);
+	static defaultProps = {
+		hoverRange: undefined,
+		selectedDays: []
+	};
+	constructor(props) {
+		super(props);
+		this.handleDateFromClick = this.handleDateFromClick.bind(this);
+		this.handleDateToClick = this.handleDateToClick.bind(this);
+		this.handleYearMonthChange = this.handleYearMonthChange.bind(this);
 		this.state = {
 			isVisible: [],
 			isLoaded: false,
@@ -214,6 +222,8 @@ class StockMovement extends Component {
 			maxPage: 0,
 			selectExpand: false,
 			showDatepicker: false,
+			showDatepickerFrom: false,
+			showDatepickerTo: false,
 			columns: [
 				{ id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site", class:"", subColumns: undefined},
 				{ id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "product", class:"", subColumns: undefined},
@@ -223,7 +233,11 @@ class StockMovement extends Component {
 			stockMovement: [],
 			dateColumns: [],
 			datepickerShow: false,
-			date: this.getInitialdate(),
+			dateRange: this.getInitialdaterange(),
+			dateFrom: null,
+			dateTo: null,
+			dateFromConfirm: false,
+			dateToConfirm: false,
 			dateLoops: {},
 			month: fromMonth,
 			datepickerWeekly: {
@@ -236,10 +250,7 @@ class StockMovement extends Component {
 		}
 	}
 
-	componentDidMount(){
-        if (this.state.displayPeriod !== undefined && this.state.date.to !== undefined) {
-
-        }
+	componentDidMount() {
 	}
 
 	formatDate = (date) => {
@@ -272,7 +283,7 @@ class StockMovement extends Component {
 		return day + ' ' + monthNames[monthIndex] + ' ' + year;
 	}
 
-	getInitialdate = () => {
+	getInitialdaterange = () => {
 		return {
 		  from: undefined,
 		  to: undefined,
@@ -281,7 +292,8 @@ class StockMovement extends Component {
 
 	loadStockMovement = () => {
 		let self = this;
-		const { from, to } = this.state.date;
+		const from = this.state.dateFrom;
+		const to = this.state.dateTo;
 		let startDate = from ? new Date(from).toISOString().split('T')[0] : "";
 		let endDate = to ? new Date(to).toISOString().split('T')[0] : "";
 		let params = { 
@@ -329,7 +341,7 @@ class StockMovement extends Component {
 		})
 		.then(function(result) {
 			if (result.data) {
-				let respondRes = result.data;
+				let respondRes = result.data.data;
 				self.setState({ displayContent: "FOUND",
 								stockMovement: respondRes
 							});
@@ -342,10 +354,21 @@ class StockMovement extends Component {
     }
 	  
 	handleDayClick = (day) => {
-		const range = DateUtils.addDayToRange(day, this.state.date);
+		const range = DateUtils.addDayToRange(day, this.state.dateRange);
 		this.setState({
-			date: range,
-			dateLoops: range
+			date: range
+		});
+	}
+
+	handleDateFromClick(day, { selected }) {
+		this.setState({
+			dateFrom: selected ? undefined : day
+		});
+	}
+
+	handleDateToClick(day, { selected }) {
+		this.setState({
+			dateTo: selected ? undefined : day
 		});
 	}
 
@@ -462,22 +485,64 @@ class StockMovement extends Component {
 			return { showDatepicker: !prevState.showDatepicker };
 		});
 	}
+
+	triggerShowDatepickerFrom = (e) => {
+		e.stopPropagation();
+		if(this.state.showDatepickerTo){
+			this.setState({
+				showDatepickerTo: false 
+			});
+		}
+		this.setState((prevState) => {
+			return { showDatepickerFrom: !prevState.showDatepickerFrom };
+		});
+	}
+
+	triggerShowDatepickerTo = (e) => {
+		e.stopPropagation();
+		if(this.state.showDatepickerFrom){
+			this.setState({
+				 showDatepickerFrom: false 
+			});
+		}
+		this.setState((prevState) => {
+			return { showDatepickerTo: !prevState.showDatepickerTo };
+		});
+	}
 	
+	triggerConfirmDateFrom = (e) => {
+		e.stopPropagation();
+		this.setState({ 
+			dateFromConfirm: true,
+			showDatepickerFrom: false
+		});
+	}
+
+	triggerConfirmDateTo = (e) => {
+		e.stopPropagation();
+		this.setState({
+			dateToConfirm: true,
+			showDatepickerTo: false
+		});
+	}
+
 	triggerShowContent = (e) => {
 		e.stopPropagation();
 		this.loadStockMovement();
 		this.setState({
 			 showContent: true,
-			 showDatepicker: false
+			 showDatepickerFrom: false,
+			 showDatepickerTo: false
 		});
-		if(this.state.date.from !== undefined && this.state.date.to !== undefined){
+		if(this.state.dateFrom !== undefined && this.state.dateTo !== undefined){
 			let dateColumns = [];
 			let rangeDate = [];
 			if(dateColumns > 0 && rangeDate > 0){
 				dateColumns = [];
 				rangeDate = [];
 			}
-			const { from, to } = this.state.date;
+			const from = this.state.dateFrom;
+			const to = this.state.dateTo;
 			for (const d = new Date(from); d <= to; d.setDate(d.getDate() + 1)) {
 				dateColumns.push({  
 					id: d.toISOString().split('T')[0], 
@@ -504,44 +569,43 @@ class StockMovement extends Component {
 
 	showData = () => {
 		return (
-			this.state.stockMovement.map((item, idx) => {
-				return (
-					item[this.state.rangeDate[idx]].map((value, valueIdx) => {
-						return (
-							<tr key={valueIdx}>
-								{this.state.columns.map((column, columnIdx) => {
-									return <td key={columnIdx} className="px-3 text-left">{value[column.id]}</td>
-								})}
-								{this.state.dateColumns.map((dateColumn, dataIdx) => {
-									if(dateColumn.id === this.state.rangeDate[idx]){
-										item[this.state.rangeDate[idx]].map((element, index) => {
-											return (
-												<td key={index} className="px-3 text-left">
-													{element[dateColumn.subColumns.id] ? element[dateColumn.subColumns.id] : "-"}
-												</td>
-											)
-										})
-									}
-									// dateColumn.subColumns.map((element, idx) => {
-									// 	console.log(value[element.id])
-									// 	return (
-									// 		<td key={dataIdx} className="px-3 text-left">
-									// 			{value[element.id] ? value[element.id] : "-"}
-									// 		</td>
-									// 	)
-									// });
-									// console.log(value[dateColumn.subColumns.id]);
-									// return (
-									// 	<td key={dataIdx} className="px-3 text-left">
-									// 		{value[dateColumn.subColumns.id] ? value[dateColumn.subColumns.id] : "-"}
-									// 	</td>
-									// )
-								})}
-							</tr>
-						);
-					})
-				)
-			})
+			console.log(this.state.stockMovement)
+		// 	this.state.stockMovement.map((item, idx) => {
+		// 		return (
+		// 			item[this.state.rangeDate[idx]].map((value, valueIdx) => {
+		// 				return (
+		// 					<tr key={valueIdx}>
+		// 						{this.state.columns.map((column, columnIdx) => {
+		// 							return <td key={columnIdx} className="px-3 text-left">{value[column.id]}</td>
+		// 						})}
+		// 						{this.state.dateColumns.map((dateColumn, dataIdx) => {
+		// 							if(dateColumn.id === this.state.rangeDate[idx]){
+		// 								return (
+		// 									<td key={dataIdx} className="px-3 text-left">
+		// 										{value[dateColumn.subColumns.id] ? value[dateColumn.subColumns.id] : "-"}
+		// 									</td>
+		// 								)
+		// 							}
+		// 							// dateColumn.subColumns.map((element, idx) => {
+		// 							// 	console.log(value[element.id])
+		// 							// 	return (
+		// 							// 		<td key={dataIdx} className="px-3 text-left">
+		// 							// 			{value[element.id] ? value[element.id] : "-"}
+		// 							// 		</td>
+		// 							// 	)
+		// 							// });
+		// 							console.log(value[dateColumn.subColumns.id]);
+		// 							return (
+		// 								<td key={dataIdx} className="px-3 text-left">
+		// 									{value[dateColumn.subColumns.id] ? value[dateColumn.subColumns.id] : "-"}
+		// 								</td>
+		// 							)
+		// 						})}
+		// 					</tr>
+		// 				);
+		// 			})
+		// 		)
+		// 	})
 		);
 	}
 
@@ -552,7 +616,7 @@ class StockMovement extends Component {
 	render() {
 		let data = {value: {dataValue: this.state.stockMovement}};
 		const { hoverRange, selectedDays } = this.state.datepickerWeekly;
-		const { from, to } = this.state.date;
+		const { from, to } = this.state.dateRange;
 		// const modifiers = { start: this.state.from, end: this.state.to };
 		const daysAreSelected = selectedDays.length > 0;
 
@@ -572,7 +636,7 @@ class StockMovement extends Component {
 		switch (this.state.displayContent) {
 			case "FOUND" :
 				content = 
-					<Table className={"table-condensed table-responsive table-striped clickable-row rounded-175 mb-0" + (this.state.showDatepicker ? " table-fixed" : "") + (this.state.selectExpand ? " smm-table" : "")} size="md" width="100%">
+					<Table className={"table-condensed table-responsive table-striped clickable-row rounded-175 mb-0" + (this.state.showDatepickerFrom || this.state.showDatepickerTo ? " table-fixed" : "") + (this.state.selectExpand ? " smm-table" : "")} size="md" width="100%">
 						<thead>
 							<tr>
 								{this.state.columns.map((item, idx) => {
@@ -648,7 +712,7 @@ class StockMovement extends Component {
 																		<div className="input-group p-2">
 																			<div className="input-group-prepend bg-white col-9">
 																				<Label htmlFor="select" className="filter_label">Display Period</Label>
-																				<Col className="arrow-icon" xs={3}>
+																				<Col className="arrow-icon select-filter" xs={3}>
 																					<Input type="select" className="none-appearance" name="select" id="select" onChange={this.handlePeriod}>
 																						<option value="day">Daily</option>
 																						<option value="week">Weekly</option>
@@ -657,12 +721,12 @@ class StockMovement extends Component {
 																				</Col>
 																				
 																				<Label htmlFor="from" className="filter_label from-label">Date From</Label>
-																				<Col className="arrow-icon">
-																					<Input className="none-appearance" name="from" id="from" onChange={this.handlePeriod} placeholder="Select From" readOnly onClick={this.state.displayPeriod ? (this.state.displayPeriod === "month" ? null : this.triggerShowDatepicker) : null}></Input>
+																				<Col className="arrow-icon select-filter">
+																					<Input className="none-appearance" name="from" id="from" onChange={this.handlePeriod} placeholder={(this.state.dateFrom && this.state.dateFromConfirm ? this.formatDate(this.state.dateFrom) : "Select From")} readOnly onClick={this.state.displayPeriod ? (this.state.displayPeriod === "month" ? null : this.triggerShowDatepickerFrom) : null}></Input>
 																				</Col>
 																				<Label htmlFor="to" className="filter_label to-label">To</Label>
-																				<Col className="arrow-icon">
-																					<Input className="none-appearance" name="to" id="to" onChange={this.handlePeriod} placeholder="Select To" readOnly onClick={this.state.displayPeriod ? (this.state.displayPeriod === "month" ? null : this.triggerShowDatepicker) : null}></Input>
+																				<Col className="arrow-icon select-filter">
+																					<Input className="none-appearance" name="to" id="to" onChange={this.handlePeriod} placeholder={(this.state.dateTo && this.state.dateToConfirm ? this.formatDate(this.state.dateTo) : "Select To")} readOnly onClick={this.state.displayPeriod ? (this.state.displayPeriod === "month" ? null : this.triggerShowDatepickerTo) : null}></Input>
 																				</Col>
 																				{/* <ul className={"select-sm" + (this.state.date.from && this.state.date.to ? " date-info" : "")} id="date" onClick={this.state.displayPeriod ? (this.state.displayPeriod === "month" ? null : this.triggerShowDatepicker) : null}>
 																					<span className="select_label-sm select_label-placeholder-sm" id="datepicker1" ref="datepicker1" name="datepicker1">{from &&
@@ -676,23 +740,63 @@ class StockMovement extends Component {
 																			<div className="col-3 text-right">
 																				{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}
 
-																				<Button type="submit" color="info" className="col-7 search-movement search-btn rounded-175" onClick={this.state.displayPeriod && from && to ? this.triggerShowContent : null}>
+																				<Button type="submit" color="info" className="col-7 search-movement search-btn rounded-175" onClick={this.state.displayPeriod && this.state.dateFrom && this.state.dateTo ? this.triggerShowContent : null}>
 																					<strong>Search</strong>
 																				</Button>
 																			</div>
 																		</div>
 																		
 																	</Card>
-																	<div className="col-md-12 col-lg-12 offset-md-4 offset-lg-3">
-																		<DayPicker
-																				className={(this.state.showDatepicker ? (this.state.displayPeriod === "day" ? "Selectable datepickerdaily-tab" : "d-none") : "d-none")}
-																				numberOfMonths={1}
+																		<div className={(this.state.showDatepickerFrom ? (this.state.displayPeriod === "day" ? "Selectable datepickerdaily-tab col-md-5 col-lg-5 offset-md-3" : "d-none") : "d-none") + " select-from"}>
+																			<DayPicker
 																				month={this.state.month}
 																				fromMonth={fromMonth}
 																				toMonth={toMonth}
-																				selectedDays={[from, { from, to }]}
-																				modifiers={modifiers}
-																				onDayClick={this.handleDayClick}
+																				selectedDays={this.state.dateFrom}
+																				onDayClick={this.handleDateFromClick}
+																				captionElement={({ date, localeUtils }) => (
+																					<YearMonthForm
+																					date={date}
+																					localeUtils={localeUtils}
+																					onChange={this.handleYearMonthChange}
+																					no={Math.floor(Math.random() * 100000)}
+																					/>
+																				)}
+																				/>
+																				<Helmet>
+																					<style>{`
+																						.showDatepicker{
+																							transition: 1s;
+																						}
+																						.Selectable .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
+																							position: static;
+																							background-color: #f0f8ff !important;
+																							color: #4a90e2;
+																						}
+																						.Selectable .DayPicker-Day {
+																							border-radius: 0 !important;
+																						}
+																						.Selectable .DayPicker-Day--start {
+																							border-top-left-radius: 50% !important;
+																							border-bottom-left-radius: 50% !important;
+																						}
+																						.Selectable .DayPicker-Day--end {
+																							border-top-right-radius: 50% !important;
+																							border-bottom-right-radius: 50% !important;
+																						}
+																						`}</style>
+																				</Helmet>
+																				<Button type="submit" color="info" className="col-3 search-movement search-btn confirm-btn rounded-175" onClick={this.triggerConfirmDateFrom}>
+																					<strong>Confirm</strong>
+																				</Button>
+																		</div>
+																		<div className={(this.state.showDatepickerTo ? (this.state.displayPeriod === "day" ? "Selectable datepickerdaily-tab col-md-5 col-lg-5 offset-md-6" : "d-none") : "d-none") + " select-to"}>
+																			<DayPicker
+																				month={this.state.month}
+																				fromMonth={fromMonth}
+																				toMonth={toMonth}
+																				selectedDays={this.state.dateTo}
+																				onDayClick={this.handleDateToClick}
 																				captionElement={({ date, localeUtils }) => (
 																					<YearMonthForm
 																					  date={date}
@@ -725,6 +829,10 @@ class StockMovement extends Component {
 																						}
 																						`}</style>
 																				</Helmet>
+																				<Button type="submit" color="info" className="col-3 search-movement search-btn confirm-btn rounded-175" onClick={this.triggerConfirmDateTo}>
+																					<strong>Confirm</strong>
+																				</Button>
+																		</div>
 																			<DayPicker
 																				className={(this.state.showDatepicker ? (this.state.displayPeriod === "week" ? "Selectable datepickerweekly-tab" : "d-none") : "d-none")}
 																				numberOfMonths={1}
@@ -792,7 +900,6 @@ class StockMovement extends Component {
 																						}
 																					`}</style>
 																				</Helmet>
-																		</div>
 																		{}
 																</div>
 															</InputGroup>
@@ -818,7 +925,6 @@ class StockMovement extends Component {
 						{content}
 					</div>
 				</div>
-
 				{/* <StockHoldingEditColumn isOpen={this.state.displayMoreColumnModal}
 										toggle={this.toggleDisplayMoreColumn}
 										fields={this.state.columns}
@@ -828,4 +934,4 @@ class StockMovement extends Component {
 	}
 }
 
-export default StockMovement;
+export default StockMovement

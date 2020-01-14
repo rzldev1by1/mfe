@@ -3,9 +3,11 @@
 	padding: 17px;
     margin-bottom: -15px !important;
 }
-.datepickerdaily-tab{
-	width: 370px;
-    height: 360px;
+.datepickerdaily-tab{    
+	padding: 1em;
+    padding-left: 3em;
+    width: 27em;
+    height: 28em;
 	background-color: white;
     border: 1px solid #E5E5E5;
     border-radius: 7px;
@@ -403,9 +405,7 @@
 .arrow-icon{
 	position: relative;
 	display: flex;
-	padding: 0 .5em;
-	flex: 0 0 22%;
-    max-width: 22%;
+	padding: 0 .4em;
 }
 .arrow-icon::after{
 	/* use !important to prevent issues with browser extensions that change fonts */
@@ -436,14 +436,25 @@
     -ms-user-select: none !important;
     user-select: none !important;
 }
+.select-filter{
+	flex: 0 0 22%;
+    max-width: 22%;
+
+}
 @media (min-width: 1600px){
-	.arrow-icon{
+	.select-filter{
 		flex: 0 0 16.66667%;
     	max-width: 16.66667%;
 	}
 	.search-movement{
 		flex: 0 0 38%;
     	max-width: 38%;
+	}
+	.select-from{
+		margin-left: 21%;
+	}
+	.select-to{
+		margin-left: 36%;
 	}
 }
 .search-movement:active{
@@ -481,4 +492,17 @@
 .to-label{
 	margin: 0 0.8em;
     margin-right: 1em !important;
+}
+.confirm-btn:active{
+    background-color: #22ABE3 !important;
+    color: white !important;
+    transition: 0;
+	font-size: auto;
+	font-size: inherit;
+}
+.confirm-btn, .confirm-btn:active, .confirm-btn:hover{
+	height: auto !important;
+    margin: auto !important;
+	float: right;
+	margin-right: 2em !important;
 }
