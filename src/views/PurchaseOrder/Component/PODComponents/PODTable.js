@@ -1,11 +1,11 @@
 import React, {Component} from  'react'
 import axios from 'axios'
-import appCompoent from '../../../../src/AppComponent'
-import mid from '../../../assets/img/brand/field-idle.png'
-import down from '../../../assets/img/brand/field-bot.png'
-import up from '../../../assets/img/brand/field-top.png'
+import appCompoent from '../../../../../src/AppComponent'
+import mid from '../../../../../src/assets/img/brand/field-idle.png'
+import down from '../../../../assets/img/brand/field-bot.png'
+import up from '../../../../assets/img/brand/field-top.png'
 
-import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
+import {endpoint, headers} from '../../../../AppComponent/ConfigEndpoint'
 
 class PurchaseOrderTable extends Component {
   constructor(props){
@@ -172,7 +172,7 @@ class PurchaseOrderTable extends Component {
           <tbody>
             
               {this.state.data.map((data,i) => 
-                  <tr onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/1')} className='tr'>
+                  <tr className='tr'>
                     <td>{data.site}</td>
                     <td>{data.order_no}</td>
                     <td>{data.client}</td>

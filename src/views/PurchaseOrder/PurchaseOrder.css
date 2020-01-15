@@ -3,6 +3,15 @@
 	background-color:  #E9ECED;
 }
 
+.container-fluid{
+	padding-left:0px !important
+}
+
+.pobody{
+	margin-left: -12px;
+	margin-right: -12px;
+}
+
 .header{
 	display: flex;
 	margin-top: 1.5%;
@@ -40,20 +49,29 @@ h1{
 	cursor: pointer;
 }
 
-.header2{
-	width: 50%;
-	
-}
+
 .createpo{
 	float: right !important;
 	display: flex;
 	justify-content: space-between;
+	margin-bottom: -1%;	
+}
+
+.createpo > .font{
+	font-size: large;
+	margin-left: -5px;
+	padding-right: 15px;
+}
+
+
+.header2{
+	margin-top: -10px !important;
 }
 
 .btnsearch{
 	width: 12%;
-	height: 53px;
 	border-radius: 5px !important;
+	font-size: 90%;
 }
 
 /* Search */
@@ -67,6 +85,12 @@ h1{
 	border-top-left-radius: 5px;
 	display: flex;
 	justify-content: space-between;
+	height: 60px;
+}
+
+.filterclicked{
+	background-color: #E9ECED !important;
+	color: #20a8d8;
 }
 
 .filterbar{
@@ -94,23 +118,27 @@ h1{
 	border-radius: 5px;
 	width: 80%;
 	vertical-align: middle !important;
-	padding-top:0.3%;
+	padding-top:0.1%;
 	padding-left: 1%;
 	min-width: 20% !important;
-
-	height: 3% !important;
+	align-items: center !important;
+	display: flex;
 }
+
 
 .iconU-search{
 	vertical-align: middle;
 	color: #D5D8DA !important;
 }
 
+.isearch{
+	margin-top: 0.5%;
+}
+
 .iconU-filters{
 	height: auto;
 	font-size: 1em;
-	min-width: 4% !important;
-	background-color: #E9ECED;
+	min-width: 3% !important;
 	border: none;
 	border-radius: 5px !important;
 }
@@ -122,10 +150,9 @@ h1{
     color: grey;
     box-sizing: border-box;
     border: none;
-    margin: auto;
     transition:background-color 0.5s ease;
 	outline-color: transparent;
-	font-size: 1.4em;
+	font-size: 1.2em;
 }
 
 

@@ -90,7 +90,7 @@ const PurchaseOrder = Loadable({
 });
 
 const PurchaseOrderDetail = Loadable({
-	loader: () => import('./views/PO/PurchaseOrderDetail'),
+	loader: () => import('./views/PurchaseOrder/PurchaseOrderDetail'),
 	loading: Loading
 });
 

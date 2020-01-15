@@ -105,15 +105,10 @@ class PurchaseOrderDetail extends Component{
                                       </Button>
                                     </div>
                                </div>
-
-
-
                             </div>
                         </Card>
     								</div>
     							</div>
-
-
     						</div>
     					</div>
     				</div>
