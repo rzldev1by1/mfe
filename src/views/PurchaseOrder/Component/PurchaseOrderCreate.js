@@ -112,7 +112,7 @@
           <table className='tabledetails'>
               <tr>
                   <th style={{width:'2.5%', textAlign:'center'}}>#</th>
-                  <th style={{width:'12%'}}>Porduct Entry</th>
+                  <th style={{width:'12%'}}>Product Entry</th>
                   <th style={{width:'6%'}}>UOM</th>
                   <th style={{width:'3%'}}>Quantity</th>
                   <th style={{width:'6%'}}>Rota Date</th>

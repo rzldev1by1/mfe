@@ -36,7 +36,7 @@ h1{
 }
 
 .font{
-	font-family: "Nunito" !important;
+	font-family: "Helvetica Neue Medium" !important;
 	font-size: 1.5em;
 	cursor: pointer;
 	margin-top: 2%;
@@ -277,10 +277,10 @@ th.iconU-edit{
 }
 
 th{
-	font-family: "Nunito";
+	font-family: "Helvetica Neue Medium";
 }
 td{
-	font-family: "Nunito";
+	font-family: "Helvetica Neue Medium";
 }
 
 .fades{
