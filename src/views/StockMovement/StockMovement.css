@@ -5,7 +5,7 @@
 }
 .datepickerdaily-tab{    
 	padding: 1em;
-    padding-left: 3em;
+    padding-left: 4.5em;
     width: 27em;
     height: 28em;
 	background-color: white;
@@ -198,6 +198,8 @@
 .filter_label{
 	padding-top: 9px;
 	margin-right: 1em !important;
+	color: #B4B9BB;
+	opacity: 1;
 }
 .date-info{
 	min-width: 250px !important;
@@ -388,7 +390,7 @@
 
 /* Start - Table */
 .table-fixed{
-	margin-top: -392px;
+	margin-top: -420px;
     z-index: -1;
 }
 .smm-table{
