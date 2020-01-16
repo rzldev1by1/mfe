@@ -20,7 +20,7 @@ class StockMovementTitle extends Component {
                                 <FormGroup>
                                     <InputGroup>
                                         <div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
-                                            <h4 className="headerTitle font-weight-bold sm-header-title">Stock Movement</h4>
+                                            <h4 className="headerTitle">Stock Movement</h4>
                                         </div>
                                     </InputGroup>
                                 </FormGroup>
