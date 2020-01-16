@@ -1,73 +1,29 @@
 //Fonts
-	/* Nunito Semibold */
-		/* vietnamese */
-		@font-face {
-			font-family: 'Nunito';
-			font-style: normal;
-			font-weight: 600;
-			font-display: swap;
-			src: local('Nunito SemiBold'), local('Nunito-SemiBold'), url(https://fonts.gstatic.com/s/nunito/v11/XRXW3I6Li01BKofA6sKUbuvISTs.woff2) format('woff2');
-			unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
-		}
-		/* latin-ext */
-		@font-face {
-			font-family: 'Nunito';
-			font-style: normal;
-			font-weight: 600;
-			font-display: swap;
-			src: local('Nunito SemiBold'), local('Nunito-SemiBold'), url(https://fonts.gstatic.com/s/nunito/v11/XRXW3I6Li01BKofA6sKUb-vISTs.woff2) format('woff2');
-			unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-		}
-		/* latin */
-		@font-face {
-			font-family: 'Nunito';
-			font-style: normal;
-			font-weight: 600;
-			font-display: swap;
-			src: local('Nunito SemiBold'), local('Nunito-SemiBold'), url(https://fonts.gstatic.com/s/nunito/v11/XRXW3I6Li01BKofA6sKUYevI.woff2) format('woff2');
-			unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-		}
 
-	/* Nunito Bold */
-		/* vietnamese */
-		@font-face {
-			font-family: 'Nunito Bold';
-			font-style: normal;
-			font-weight: 700;
-			font-display: swap;
-			src: local('Nunito Bold'), local('Nunito-Bold'), url(https://fonts.gstatic.com/s/nunito/v11/XRXW3I6Li01BKofAjsOUbuvISTs.woff2) format('woff2');
-			unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
-		}
-		/* latin-ext */
-		@font-face {
-			font-family: 'Nunito Bold';
-			font-style: normal;
-			font-weight: 700;
-			font-display: swap;
-			src: local('Nunito Bold'), local('Nunito-Bold'), url(https://fonts.gstatic.com/s/nunito/v11/XRXW3I6Li01BKofAjsOUb-vISTs.woff2) format('woff2');
-			unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-		}
-		/* latin */
-		@font-face {
-			font-family: 'Nunito Bold';
-			font-style: normal;
-			font-weight: 700;
-			font-display: swap;
-			src: local('Nunito Bold'), local('Nunito-Bold'), url(https://fonts.gstatic.com/s/nunito/v11/XRXW3I6Li01BKofAjsOUYevI.woff2) format('woff2');
-			unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-		}
-
-.nunito {
-	font-family: "Nunito";
+@font-face {
+    font-family: "Helvetica Neue";
+    src: url("../assets/fonts/HelveticaNeue.ttf");
 }
 
-body {
-	background-color: #E9ECED;
-	font-family: "Nunito";
-	color: #637176;
-	// font-size: 15px;
+@font-face {
+    font-family: "Helvetica Neue Light";
+    src: url("../assets/fonts/HelveticaNeue Light.ttf");
 }
 
+@font-face {
+    font-family: "Helvetica Neue Medium";
+    src: url("../assets/fonts/HelveticaNeue Medium.ttf");
+}
+
+@font-face {
+    font-family: "Helvetica Neue Bold";
+    src: url("../assets/fonts/HelveticaNeue Bold.ttf");
+}
+
+@font-face {
+    font-family: "Helvetica Neue";
+    src: url("../assets/fonts/HelveticaNeue Heavy.ttf");
+}
 
 @font-face {
 	font-family: 'icomoon';
@@ -94,23 +50,31 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-.iconU-user:before {
-	content: "\e912";
+body {
+	background-color: #E9ECED;
+	font-family: "Helvetica Neue Medium";
+	color: #637176;
+	font-size: 15px;
 }
+
 .iconU-stockMovement:before {
 	content: "\e91a";
 }
+
 .iconU-user:before {
 	content: "\e91c";
-	font-size: 14px;
+	// font-size: 14px;
+    font-size: 0.875rem;
 }
+
 .iconU-dashboard:before {
 	content: "\e913"
 }
 
 .iconU-purchaseOrder:before {
 	content: "\e914";
-	font-size: 16px;
+    // font-size: 16px;
+    font-size: 1rem;
 }
 
 .iconU-report:before {
@@ -119,12 +83,14 @@ body {
 
 .iconU-salesOrder:before {
 	content: "\e916";
-	font-size: 16px;
+	// font-size: 16px;
+    font-size: 1rem;
 }
 
 .iconU-stockHolding:before {
 	content: "\e91b";
-	font-size: 16px;
+	// font-size: 16px;
+    font-size: 1rem;
 }
 
 .iconU-i:before {
@@ -179,7 +145,7 @@ body {
 
 .iconU-upArrows:after {
 	content: "\e910";
-	font-size: 9px;
+	font-size: 0.5em;
 }
 
 .iconU-downArrow:after {
@@ -248,7 +214,7 @@ body {
 .sidebar {
 	background: #FFFFFF 0% 0% no-repeat padding-box;
 	width: 270px !important;
-	font-family: Helvetica;
+	font-family: "Helvetica Neue Medium";
 }
 
 .sidebar .sidebar-header {
@@ -274,7 +240,7 @@ body {
 
 .sidebar .nav-item {
 	background: #ffffff !important;
-	font-size: 15px;
+	font-size: 15px !important;
 	line-height: 30px;
 }
 
@@ -377,19 +343,16 @@ body {
 	margin-top: -10px;
 }
 
-.about {
-	color: #B4B9BB;
-	font-size: 12px;
+.expandProfile, .expandProfile:hover {
+	color: #B4B9BB !important;
+    font-size: 12px;
+    text-align: center;
 	width: 230px;
 	height: 35px;
-	font-family: Helvetica;
+	font-family: "Helvetica Neue";
 	vertical-align: middle;
-	line-height: 35px;
-}
-
-.about :hover{
-	color: #B4B9BB;
-	text-decoration: none;
+    line-height: 35px;
+    text-decoration: none !important;
 }
 
 // End - User Section
@@ -410,12 +373,13 @@ hr.border-header {
 
 .headerTitle {
 	font-size: 25px;
-	font-family: "Nunito Bold";
+    font-family: "Helvetica Neue Bold";
+    color: #637176;
 }
 
 .breadcrumb-item {
     font-size: 25px;
-    font-family: "Nunito Bold";
+    font-family: "Helvetica Neue Bold";
 }
 
 .breadcrumb-item.active {
@@ -529,13 +493,15 @@ a.breadcrumb:hover {
 	background-color: #FFFFFF;
     color: #637176;
 	border-top: none;
-	vertical-align: middle !important;
+    vertical-align: middle !important;
+    font-family: "Helvetica Neue Medium";
 }
 
 .table td, .table-striped>tbody>tr>td {
 	background-color: #FFFFFF;
     color: #4E4E4E;
 	vertical-align: middle !important;
+    font-family: "Helvetica Neue Light";
 }
 
 // .clickable-row>tbody>tr:hover>td {

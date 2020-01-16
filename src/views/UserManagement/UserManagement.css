@@ -81,7 +81,7 @@ tr td.norm{
 .active{
     font-weight: 500;
     color: #7FC242;
-    font-size: 20px;
+    /* font-size: 20px; */
 }
 
 .suspended{
