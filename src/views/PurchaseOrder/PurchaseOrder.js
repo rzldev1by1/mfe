@@ -18,7 +18,7 @@ class PurchaseOrder extends Component {
         this.potableref = React.createRef()
 
         this.state = {
-            data:[{"menu":"Client", "subMenu":["MLS","MLB"], }, {"menu":"Site", "subMenu":["A","B","C"]},{"menu":"Status", "subMenu":["Open","Close"]},{"menu":"Supplier", "subMenu":["JohnDoe","JohnWick"]},{"menu":"Order Type", "subMenu":["Type 1", "Type 2"]},{"menu":"Area", "subMenu":["A Area", "B Area"]}],
+            data:[{"menu":"Client", "subMenu":["MLS","MLB"], }, {"menu":"Site", "subMenu":["A","B","C"]},{"menu":"Status", "subMenu":["Open","Close"]},{"menu":"Supplier", "subMenu":["JohnDoe","JohnWick"]},{"menu":"Order Type", "subMenu":["Type 1", "Type 2"]}],
             client:null, site:null, status:null, supplier:null, ordertype:null, area:null, quantity:null, search:null,
 
             //filter
@@ -100,7 +100,7 @@ class PurchaseOrder extends Component {
             </div>
 
             <div className='filterbar'>
-                <div style={{display:'flex', width:'80%'}}>
+                <div style={{display:'flex', width:'70%'}}>
                     {
                         this.state.filterclicked ? null :
                         this.state.data.map((data,key) => 
