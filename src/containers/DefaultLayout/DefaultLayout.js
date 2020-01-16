@@ -10,7 +10,7 @@ import { AppAside,
 		// AppSidebarForm,
 		// AppSidebarHeader,
 		// AppSidebarMinimizer,
-		// AppBreadcrumb2 as AppBreadcrumb,
+		AppBreadcrumb2 as AppBreadcrumb,
 		AppSidebarNav2 as AppSidebarNav,
 } from '@coreui/react';
 
@@ -50,9 +50,15 @@ class DefaultLayout extends Component {
         
         return (
             <div className="viewProfile" size="sm">
-                <div className="about" align="center"><a href="" style={{textDecoration:"none"},{color:"#B4B9BB"}}>About</a></div>
-                <div className="about" align="center"><a href="" style={{textDecoration:"none"},{color:"#B4B9BB"}}>Change Password</a></div>
-                <div className="about" align="center"><a href="" style={{textDecoration:"none"},{color:"#B4B9BB"}}><i className="fa fa-power-off" /> Logout</a></div>
+                <div className="expandProfile">
+                    <a className="expandProfile" href="">About</a>
+                </div>
+                <div className="expandProfile">
+                    <a className="expandProfile" href="">Change Password</a>
+                </div>
+                <div className="expandProfile">
+                    <a className="expandProfile" href=""><i className="fa fa-power-off" /> Logout</a>
+                </div>
             </div>
         );
     }
@@ -76,16 +82,16 @@ class DefaultLayout extends Component {
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td rowSpan="2" className="text-center align-middle p-0" style={{ borderTop: "none" }}>
+                                            <td rowSpan="2" className="text-center align-middle p-0">
                                                 {/* <span className="fa fa-user-circle fa-3x" /> */}
-                                                <img className="profilePhoto" src={dummyPic}></img>
+                                                <img className="profilePhoto" src={dummyPic} />
                                             </td>
-                                            <td className="pb-0" style={{ borderTop: "none" }}>
+                                            <td className="pb-0">
                                                 <span className="userName">George Smith</span>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td className="pt-0" style={{ borderTop: "none" }}>
+                                            <td className="pt-0">
                                                 <span className="profileID"> ID:123012131 </span>
                                             </td>
                                         </tr>
