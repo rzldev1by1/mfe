@@ -34,7 +34,7 @@ class Paging extends Component {
     
     showPageNumber = () => {
         return (
-            <div>
+            <div className={this.props.maxPage > 1 ? "bg-transparent card-footer text-left border-company border-top-0 pl-0" : "d-none"}>
                 <span>{this.createPageNumber()} (Total {this.props.totalRows}) </span>
 
                 <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage > 1 ? "" : "-inactive")} onClick={this.backPageClick}>
@@ -92,7 +92,7 @@ class Paging extends Component {
 	}
 
 	render() {
-        return this.props.maxPage > 1 ? this.showPageNumber() : null;
+        return this.showPageNumber();
 	}
 }
 
