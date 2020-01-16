@@ -328,13 +328,12 @@ class StockHolding extends Component {
 							<thead>{this.showHeader()}</thead>
 							<tbody>{this.showData()}</tbody>
 						</Table>
-						<div className="bg-transparent card-footer text-left border-company border-top-0 pl-0">
-							<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-									totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-									currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-									isActive={this.state.isActive}
-									numberEventClick={this.numberEventClick} />
-						</div>
+                        
+                        <Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                                totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                                currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                                isActive={this.state.isActive}
+                                numberEventClick={this.numberEventClick} />
 					</div>
 				</div>
 				break;
@@ -356,20 +355,18 @@ class StockHolding extends Component {
 				<div className="animated fadeIn">
 					<div className="row">
 						<div className="col-12 p-0">
-							<div className="row mb-0 p-0">
+							<div className="row">
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-									<CardBody className="p-0">
+									<CardBody>
 										<Row className="align-items-center">
-											<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-												<FormGroup className="mb-1">
+											<div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0">
+												<FormGroup>
 													<InputGroup>
-														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
-															<Breadcrumb>
-																<BreadcrumbItem active>
-																	Stock Holding Summary
-																	{/*<h4 className="headerTitle font-weight-bold stockholding-title">Stock Holding Summary</h4>**/}
-																</BreadcrumbItem>
-															</Breadcrumb>
+														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
+															{/* <Breadcrumb>
+																<BreadcrumbItem active>Stock Holding Summary</BreadcrumbItem>
+															</Breadcrumb> */}
+                                                            <h4 className="headerTitle">Stock Holding Summary</h4>
 														</div>
 													</InputGroup>
 												</FormGroup>
