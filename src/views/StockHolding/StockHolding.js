@@ -4,8 +4,8 @@ import { Card, CardBody,
 		 Button,
 		//  ButtonDropdown,
 		 FormGroup,
-		 Breadcrumb, BreadcrumbItem,
-         InputGroup,
+		//  Breadcrumb, BreadcrumbItem,
+         Input, InputGroup,
         //  DropdownItem, DropdownMenu, DropdownToggle
 } from 'reactstrap';
 
@@ -125,7 +125,7 @@ class StockHolding extends Component {
                             isLoaded: false,
                             isSearch: false });
             if (error.response) {
-                // self.setState({ notFoundMessage: error.response.data.message })
+                self.setState({ notFoundMessage: error.response.data.message })
             }
             return error;
         })
@@ -149,11 +149,14 @@ class StockHolding extends Component {
 		// if (!searchTerm) { return };
 		let params = {};
 		params.searchParam = form.searchInput.value;
-		if (this.state.filterStockHolding.item["site"].isVisible) params.site = form.filterSite.value;
-		if (this.state.filterStockHolding.item["status"].isVisible) params.status = form.filterStatus.value;
-		if (this.state.filterStockHolding.item["uom"].isVisible) params.UOM = form.filterUom.value;		
+		if (form.filterSite.value) { params.site = form.filterSite.value; }
+		if (form.filterStatus.value) { params.status = form.filterStatus.value; }
+		if (form.filterUoM.value) { params.UOM = form.filterUoM.value; }
 
-        axios.get(endpoint.stockHoldingSummary, { headers: headers })
+        axios.get(endpoint.stockHoldingSummary, {
+            params: params,
+            headers: headers
+        })
 		.then(res => {
 			return res.data;
 		})
@@ -222,7 +225,7 @@ class StockHolding extends Component {
 		}
 	}
 
-	rowClicked = (productCode) => {
+	rowClicked = (productCode, site) => {
 		this.props.history.push("/stock/stockholding/" + encodeURIComponent(productCode));
 		// window.location = "/stock/stockholding/" + encodeURIComponent(productCode);
 		// return <Link className="company-link p-1" to={"/stock/stockholding/" + encodeURIComponent(productCode)}>{productCode}</Link>;
@@ -256,7 +259,7 @@ class StockHolding extends Component {
 	showData = () => {
 		return (
 			this.state.masterResStockHolding.slice(this.state.startIndex, this.state.lastIndex).map((item, idx) => (
-				<tr key={idx} onClick={() => this.rowClicked(item["product"])}>
+				<tr key={idx} onClick={() => this.rowClicked(item["product"], item["site"])}>
 					{this.state.columns.map((column, columnIdx) => {
 						if (column.isVisible) {
 							if (column.id === "onHandQty" ||
@@ -387,34 +390,34 @@ class StockHolding extends Component {
 															<InputGroup>
 																<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
 																	<Card className="form-group row mb-0 border-0">
-																		<div className="input-group p-2">
-																			<div className="col-9 input-group-prepend bg-white">
-																				<span className="input-group-text border-0 bg-white p-0">
-																					<i className="fa fa-search fa-2x iconSpace" />
+																		<div className="input-group searchSection">
+																			<div className="input-group searchBox">
+																				<span className="input-group-text border-0 bg-white ml-2">
+																					{/* <i className="fa fa-search fa-2x iconSpace" /> */}
+                                                                                    <i className="iconU-search" />
 																				</span>
-																				<input type="text" className="form-control searchbox border-0 pt-2" id="searchInput" name="searchInput" placeholder="Enter a Product or Description" />
+																				<input type="text" className="form-control searchInput" id="searchInput" name="searchInput" placeholder="Enter a Product or Description" />
 																			</div>
-																			<div className="col-3 text-right">
-																				<Button className={"filter mr-2" + (this.state.showFilter ? " active" : "")} onClick={this.triggerShowFilter}>
-																					<i className="iconU-filter" />
-																				</Button>
+                                                                            <Button className={"filter" + (this.state.showFilter ? " active" : "")} onClick={this.triggerShowFilter}>
+                                                                                <i className="iconU-filter" />
+                                                                            </Button>
 
-																				<Button type="submit" className="search" onClick={this.searchData}>
-																					<strong>Search</strong>
-																				</Button>
-																			</div>
+                                                                            <Button type="submit" className="search" onClick={this.searchData}>
+                                                                                <strong>Search</strong>
+                                                                            </Button>
 																		</div>
 
-																		<div className={"row p-2" + (this.state.showFilter ? "" : " d-none")}>
-                                                                            <Col lg="1">
-                                                                                <select className="form-control" id="select_1" name="filterSite">
+                                                                        <div className={"input-group filterSection" + (this.state.showFilter ? "" : " d-none")}>
+                                                                            <Col className="filterDropdown arrow-icon">
+                                                                                <select className="form-control selectDropdown" id="filterSite" name="filterSite">
                                                                                     <option value="">Site</option>
                                                                                     <option value="M">Site M</option>
                                                                                     <option value="S">Site S</option>
                                                                                 </select>
                                                                             </Col>
-                                                                            <Col lg="1" className="pl-1">
-                                                                                <select className="form-control" id="select_2" name="filterStatus">
+
+                                                                            <Col className="filterDropdown arrow-icon">
+                                                                                <select className="form-control selectDropdown" id="filterStatus" name="filterStatus">
                                                                                     <option value="">Status</option>
                                                                                     <option value="Q">Status Q</option>
                                                                                     <option value="D">Status D</option>
@@ -423,15 +426,46 @@ class StockHolding extends Component {
                                                                                     <option value="F">Status F</option>
                                                                                 </select>
                                                                             </Col>
-                                                                            <Col lg="1" className="pl-1">
-                                                                                <select className="form-control" id="select_3" name="filterUom">
+
+                                                                            <Col className="filterDropdown arrow-icon">
+                                                                                <select className="form-control selectDropdown" id="filterUoM" name="filterUoM">
                                                                                     <option value="">UoM</option>
                                                                                     <option value="EACH">EACH</option>
                                                                                     <option value="CASE">CASE</option>
                                                                                     <option value="PALLET">PALLET</option>
                                                                                 </select>
                                                                             </Col>
-																		</div>
+                                                                        </div>
+
+																		{/* <div className={"row p-2" + (this.state.showFilter ? "" : " d-none")}>
+                                                                            <Col lg="1" className="arrow-icon">
+                                                                                <select className="form-control filterDropdown" id="select_1" name="filterSite">
+                                                                                    <option value="">Site</option>
+                                                                                    <option value="M">Site M</option>
+                                                                                    <option value="S">Site S</option>
+                                                                                </select>
+                                                                            </Col>
+
+                                                                            <Col lg="1" className="pl-0 arrow-icon">
+                                                                                <select className="form-control filterDropdown" id="select_2" name="filterStatus">
+                                                                                    <option value="">Status</option>
+                                                                                    <option value="Q">Status Q</option>
+                                                                                    <option value="D">Status D</option>
+                                                                                    <option value="E">Status E</option>
+                                                                                    <option value="I">Status I</option>
+                                                                                    <option value="F">Status F</option>
+                                                                                </select>
+                                                                            </Col>
+
+                                                                            <Col lg="1" className="pl-0 arrow-icon">
+                                                                                <select className="form-control filterDropdown" id="select_3" name="filterUom">
+                                                                                    <option value="">UoM</option>
+                                                                                    <option value="EACH">EACH</option>
+                                                                                    <option value="CASE">CASE</option>
+                                                                                    <option value="PALLET">PALLET</option>
+                                                                                </select>
+                                                                            </Col>
+																		</div> */}
 																	</Card>
 																</div>
 															</InputGroup>

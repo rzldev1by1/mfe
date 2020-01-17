@@ -4,19 +4,22 @@ import { Table } from 'reactstrap';
 import { formatDate } from '../../../AppComponent/Helper';
 import Paging from '../../General/Paging';
 
-// import './ForeshadowedBalance.css';
+import './StockHoldingDetails.css';
 
 class ForeshadowedBalance extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			isLoaded: false,
+			setPagination: true,
+
 			currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
 			displayPage: 50,
 			totalRows: 0,
-			maxPage: 0,
+            maxPage: 0,
+            
 			foreshadowedColumn: [
 				{ id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site" },
 				{ id: "id", checkboxLabelText: "Customer ID", tableHeaderText: "Customer ID", isVisible: true, key: "id" },
@@ -25,17 +28,44 @@ class ForeshadowedBalance extends Component {
 				{ id: "qty_rec", checkboxLabelText: "In", tableHeaderText: "In", isVisible: true, key: "" },
 				{ id: "qty_send", checkboxLabelText: "Out", tableHeaderText: "Out", isVisible: true, key: "" },
 				{ id: "balance", checkboxLabelText: "Balance", tableHeaderText: "Balance", isVisible: true, key: "" }
-			],
+            ],
+            
 			balance: 0
 		}
 	}
-	
-	componentDidMount() {
-		this.setState({ balance: 0 });
+
+	componentDidUpdate() {
+		if (this.state.setPagination) {
+			this.setPagination(this.props.foreshadowedBalance);
+		}
+	}
+
+	setPagination = (result) => {
+		let respondRes = result;
+		let totalPage = 0;
+
+		if (respondRes && respondRes.length > 0) {
+			if (respondRes.length > this.state.displayPage) {
+				totalPage = respondRes % this.state.displayPage;
+				if (totalPage > 0 && totalPage < 50) {
+					totalPage = parseInt(respondRes.length / this.state.displayPage) + 1;
+				} else {
+					totalPage = respondRes.length / this.state.displayPage;
+				}
+				this.setState({ maxPage: totalPage });
+			} else {
+				this.setState({ maxPage: 1 });
+			}
+
+			this.setState({ totalRows: respondRes.length,
+							setPagination: false });
+							
+			this.numberEventClick(this.state.currentPage);
+		}
 	}
 
 	changeStartIndex = (currentPage) => {
-		this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
+		this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage});
 	}
 
 	changeLastIndex = (currentPage) => {
@@ -70,19 +100,17 @@ class ForeshadowedBalance extends Component {
 	}
 
 	showBalance = (idx) => {
-		// let finalBalance = this.props.foreshadowedBalance.reduce((acc, cur) => { return parseInt(cur["qty_rec"] - cur["qty_send"] + acc) }, 0);
-		
-		let accBalance = 0;
-		let data = this.props.foreshadowedBalance;
+		let accBalance = this.state.balance;
+		let data = this.props.foreshadowedBalance.slice(this.state.startIndex, this.state.lastIndex);
 
 		if (idx === 0) { 
 			return accBalance = parseInt(data[0]["qty_rec"]) - parseInt(data[0]["qty_send"])
 		};
 
 		for (var i = 0 ; i <= idx ; i++) {
-			accBalance += parseInt(data[i]["qty_rec"]) - parseInt(data[i]["qty_send"]);
-		}
-
+            accBalance += parseInt(data[i]["qty_rec"]) - parseInt(data[i]["qty_send"]);
+        }
+        
 		return accBalance;
 	}
 
@@ -91,11 +119,9 @@ class ForeshadowedBalance extends Component {
 			<tr>
 				{this.state.foreshadowedColumn.map((item, idx) => {
 					if (item.isVisible) {
-						if (item.id === "qty" ||
-							item.id === "weight" ||
-							item.id === "volume") {
-							return <th className="p-3 text-right" key={idx} width="17%">{item.tableHeaderText}</th>
-						}
+						// if (item.id === "qty_rec" || item.id === "qty_send") {
+						// 	return <th className="p-3 text-right" key={idx} width="17%">{item.tableHeaderText}</th>
+						// }
 						return <th className="p-3 text-left" key={idx} width="17%">{item.tableHeaderText}</th>
 					}
 				})}
@@ -105,18 +131,16 @@ class ForeshadowedBalance extends Component {
 
 	showForeshadowedData = () => {
 		return (
-			this.props.foreshadowedBalance.map((item, idx) => (
+			this.props.foreshadowedBalance.slice(this.state.startIndex, this.state.lastIndex).map((item, idx) => (
 				<tr key={idx}>
 					{this.state.foreshadowedColumn.map((column, columnIdx) => {
 						if (column.isVisible) {
-							if (column.id === "qty" ||
-								column.id === "weight" ||
-								column.id === "volume") {
-								return <td key={columnIdx} className="px-3 text-right" width="17%">{item[column.id]}</td>
-							}
+							// if (column.id === "qty_rec" || column.id === "qty_send") {
+							// 	return <td key={columnIdx} className="px-3 text-right" width="17%">{item[column.id]}</td>
+							// }
 
 							if (column.id === "balance") {
-								return <td key={columnIdx} className="px-3 text-right" width="17%">{this.showBalance(idx)}</td>
+								return <td key={columnIdx} className="px-3 text-left" width="17%">{this.showBalance(idx)}</td>
 							}
 
 							return (
@@ -134,18 +158,16 @@ class ForeshadowedBalance extends Component {
 	render() {
 		return (
 			<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-				<Table className="table-condensed table-responsive table-striped rounded-bottom-175 mb-0" size="xl" width="100%">
+				<Table className="table-condensed table-responsive table-striped rounded-bottom-175 mb-0" size="md" width="100%">
 					<thead>{this.showForeshadowedHeader()}</thead>
 					<tbody>{this.showForeshadowedData()}</tbody>
 				</Table>
 
-				<div className="bg-transparent card-footer text-center border-company border-top-0">
-					<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-							totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-							currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-							isActive={this.state.isActive}
-							numberEventClick={this.numberEventClick} />
-				</div>
+                <Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                        totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                        currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                        isActive={this.state.isActive}
+                        numberEventClick={this.numberEventClick} />
 			</div>
 		);
 	}

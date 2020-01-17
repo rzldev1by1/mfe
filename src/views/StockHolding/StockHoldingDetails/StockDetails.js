@@ -4,21 +4,24 @@ import { Table } from 'reactstrap';
 import { formatDate } from '../../../AppComponent/Helper';
 import Paging from '../../General/Paging';
 
-import './StockDetails.css';
+import './StockHoldingDetails.css';
 
 class StockDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			isLoaded: false,
-			displayContent: "INIT",
+			setPagination: true,
+            displayContent: "INIT",
+            
 			currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
 			displayPage: 50,
 			totalRows: 0,
 			maxPage: 0,
-			columns: [
+            
+            columns: [
 				{ id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site" },
 				{ id: "batch", checkboxLabelText: "Batch", tableHeaderText: "Batch", isVisible: true, key: "batch" },
 				{ id: "effective_date", checkboxLabelText: "Rotadate", tableHeaderText: "Rotadate", isVisible: true, key: "" },
@@ -30,6 +33,36 @@ class StockDetails extends Component {
 		}
 	}
 	
+	componentDidUpdate() {
+		if (this.state.setPagination) {
+			this.setPagination(this.props.stockDetails);
+		}
+	}
+
+	setPagination = (result) => {
+		let respondRes = result;
+		let totalPage = 0;
+
+		if (respondRes && respondRes.length > 0) {
+			if (respondRes.length > this.state.displayPage) {
+				totalPage = respondRes % this.state.displayPage;
+				if (totalPage > 0 && totalPage < 50) {
+					totalPage = parseInt(respondRes.length / this.state.displayPage) + 1;
+				} else {
+					totalPage = respondRes.length / this.state.displayPage;
+				}
+				this.setState({ maxPage: totalPage });
+			} else {
+				this.setState({ maxPage: 1 });
+			}
+
+			this.setState({ totalRows: respondRes.length,
+							setPagination: false });
+							
+			this.numberEventClick(this.state.currentPage);
+		}
+	}
+
 	activeTabIndex = (tabIndex) => {
 		this.setState({ activeTabIndex: tabIndex });
 	}
@@ -74,11 +107,11 @@ class StockDetails extends Component {
 			<tr>
 				{this.state.columns.map((item, idx) => {
 					if (item.isVisible) {
-						if (item.id === "qty" ||
-							item.id === "weight" ||
-							item.id === "volume") {
-							return <th className="p-3 text-right" key={idx} width="17%">{item.tableHeaderText}</th>
-						}
+						// if (item.id === "qty" ||
+						// 	item.id === "weight" ||
+						// 	item.id === "volume") {
+						// 	return <th className="p-3 text-right" key={idx} width="17%">{item.tableHeaderText}</th>
+						// }
 						return <th className="p-3 text-left" key={idx} width="17%">{item.tableHeaderText}</th>
 					}
 				})}
@@ -91,11 +124,11 @@ class StockDetails extends Component {
 			this.props.stockDetails.map((item, idx) => (
 				<tr key={idx}>
 					{this.state.columns.map((column, columnIdx) => {
-						if (column.id === "qty" ||
-							column.id === "weight" ||
-							column.id === "volume") {
-							return <td key={columnIdx} className="px-3 text-right" width="17%">{item[column.id]}</td>
-						}
+						// if (column.id === "qty" ||
+						// 	column.id === "weight" ||
+						// 	column.id === "volume") {
+						// 	return <td key={columnIdx} className="px-3 text-right" width="17%">{item[column.id]}</td>
+						// }
 						return (
 							<td key={columnIdx} className="px-3 text-left" width="17%">
 								{column.id === "effective_date" ? formatDate(item[column.id]) : item[column.id]}
@@ -110,18 +143,16 @@ class StockDetails extends Component {
 	render() {
 		return (
 			<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-				<Table className="table-condensed table-responsive table-striped rounded-bottom-175 mb-0" size="xl" width="100%">
+				<Table className="table-condensed table-responsive table-striped rounded-bottom-175 mb-0" size="md" width="100%">
 					<thead>{this.showStockDetailsHeader()}</thead>
 					<tbody>{this.showStockDetailsData()}</tbody>
 				</Table>
 
-				<div className="bg-transparent card-footer text-center border-company border-top-0">
-					<Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-							totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-							currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-							isActive={this.state.isActive}
-							numberEventClick={this.numberEventClick} />
-				</div>
+                <Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                        totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                        currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                        isActive={this.state.isActive}
+                        numberEventClick={this.numberEventClick} />
 			</div>
 		);
 	}
