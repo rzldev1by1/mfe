@@ -83,6 +83,7 @@ export default class Dropdowns extends Component {
     clienthandler = (e) => {
         this.setState({client:e.target.value},()=>{
             this.getordertype(this.state.client, this.state.site)
+            this.props.filter(this.state.client)
         })
         this.getsupplier(e.target.value)
         
@@ -91,20 +92,27 @@ export default class Dropdowns extends Component {
     sitehandler = (e) => {
         this.setState({site:e.target.value},() => {
             this.getordertype(this.state.client, this.state.site)
+            this.props.filter(null,this.state.site)
         })
         
     }
 
     statushandler = (e) => {
-        this.setState({status:e.target.value})
+        this.setState({status:e.target.value}, () => {
+          this.props.filter(null,null,this.state.status)
+        })
     }
 
     ordertypehandler = (e) => {
-        this.setState({ordertype:e.target.value})
+        this.setState({ordertype:e.target.value}, () => {
+          this.props.filter(null,null,null,this.state.ordertype)
+        })
     }
 
     supplierhandler = (e) => {
-        this.setState({supplier:e.target.value})
+        this.setState({supplier:e.target.value}, () => {
+          this.props.filter(null,null,null,null,this.state.supplier)
+        })
     }
 
     render(){        

@@ -74,8 +74,8 @@ class PurchaseOrder extends Component {
         this.setState({showmodal:false})
     }
 
-    search = () => {
-        this.potableref.current.searchPurchaseOrder(this.state.search)
+    search = (client,site,status,ordertype,supplier) => {
+        this.potableref.current.searchPurchaseOrder(this.state.search,client,site,status,ordertype,supplier)
     }
 
     render(){        
@@ -104,7 +104,7 @@ class PurchaseOrder extends Component {
                 <div style={{display:'flex', width:'70%'}}>
                     {
                         this.state.filterclicked ? null :
-                        <Dropdowns filter = {(val) => this.search()}/>
+                        <Dropdowns filter = {(client,site,status,ordertype,supplier) => this.search(client,site,status,ordertype,supplier)}/>
                     }
                 </div>               
             </div>
