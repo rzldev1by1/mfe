@@ -160,15 +160,14 @@ h1{
 
 
 .dropdown{
-	border: 2px solid #D5D8DA;
+	border: 2px solid #D5D8DA !important;
 	border-radius: 5px;
-	width: 90% !important;
 	cursor: pointer;
-	padding:0.3%;
 	margin-right: 1%;
-	padding-top: 1.7%;
-	padding-bottom: 1.9%;
+	color: grey !important;
+	height: 45px;
 }
+
 
 .dropdownexpand{
 	border: 2px solid #D5D8DA;

@@ -9,6 +9,7 @@ import PurchaseOrderTable from './Component/PurchaseOrderTable'
 import Dropdown from './Component/Dropdown'
 import PurchaseOrderCreate from './Component/PurchaseOrderCreate'
 import create from '../../assets/img/brand/button_create@2x.png'
+import Dropdowns from './Component/Dropdowns'
 
 
 class PurchaseOrder extends Component {
@@ -103,9 +104,7 @@ class PurchaseOrder extends Component {
                 <div style={{display:'flex', width:'70%'}}>
                     {
                         this.state.filterclicked ? null :
-                        this.state.data.map((data,key) => 
-                        <Dropdown data={data} key={key} selectedHandler = {(id, value) => this.selectedValue(id, value)}/>                            
-                        )
+                        <Dropdowns filter = {(val) => this.search()}/>
                     }
                 </div>               
             </div>

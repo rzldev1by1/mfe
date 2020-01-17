@@ -174,15 +174,15 @@ class PurchaseOrderTable extends Component {
               {this.state.data.map((data,i) => 
                   <tr className='tr'>
                     <td>{data.site}</td>
-                    <td>{data.order_no}</td>
+                    <td>{data.orderNo}</td>
                     <td>{data.client}</td>
+                    <td>{data.sub_status}</td>
                     <td>{data.status}</td>
-                    <td>{data.status_desc}</td>
-                    <td>{data.date_due}</td>
-                    <td>{data.date_received}</td>
-                    <td>{data.date_released}</td>
-                    <td>{data.date_completed}</td>
-                    <td>{data.ship_to_name}</td>
+                    <td>{data.dateDue}</td>
+                    <td>{data.dateReceived}</td>
+                    <td>{data.dateReleased}</td>
+                    <td>{data.dateCompleted}</td>
+                    <td>{data.supplier}</td>
                     <td className='iconU-option'></td>
                   </tr>
               )}       

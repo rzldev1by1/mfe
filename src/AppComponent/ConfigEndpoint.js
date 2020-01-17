@@ -12,7 +12,15 @@ const endpoint = {
 
     'stockMovement': baseUrl + "stockmovement",
 
-    "purchaseOrder": baseUrl + "purchaseOrder"
+    "purchaseOrder": baseUrl + "purchaseOrder",
+
+    "ddlclient": baseUrl + "dropdown/getclient",
+
+    "ddlsite": baseUrl + "dropdown/getsite",
+
+    "ddlsupplier": baseUrl + "dropdown/getsupplier",
+
+    "ddlordertype": baseUrl + "dropdown/getordertype"
 };
 
 const headers = {
