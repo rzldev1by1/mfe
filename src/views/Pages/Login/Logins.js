@@ -17,6 +17,12 @@ class Logins extends Component{
             passwordClass: "form-control logininput inputWrap",
             usernameValid: true,
             passwordValid: true,
+
+            formValidation: {
+                isSuccess: true,
+                message: ""
+            },
+
             errorMessage: "",
 
             loginClicked: false,
@@ -39,14 +45,13 @@ class Logins extends Component{
         
         (new Authentication()).authenticationHandler(payload)
         .then(result => {
-            self.setState({ isLoad: false,
-                            usernameValid: false, passwordValid: false,
-                            errorMessage: result.message });
-
             if (result.isSuccess) {
                 self.props.history.push("/stock/stockholding");
+                return;
             }
-        })
+
+            self.setState({ isLoad: false, formValidation: result });
+        });
     }
 
     onInputChange = () => {
@@ -57,11 +62,15 @@ class Logins extends Component{
     }
 
     alertComponent = () => {
-        if (this.state.loginClicked && this.state.errorMessage !== "") {
+        const { loginClicked, errorMessage, formValidation } = this.state;
+
+        if (loginClicked && (errorMessage !== "" || formValidation.message !== "")) {
             return (
                 <div className="alertFadeIn" style={{ display: "flex" }}>
                     <span className="iconU-i" />
-                    <div style={{ marginLeft: "0.5%" }}>{this.state.errorMessage}</div>
+                    <div style={{ marginLeft: "0.5%" }}>
+                        {errorMessage !== "" ? errorMessage : formValidation.message}
+                    </div>
                 </div>
             );
         } else {
@@ -73,7 +82,8 @@ class Logins extends Component{
         let isValid = true;
         this.setState({ loginClicked: true,
                         usernameValid: true, passwordValid: true,
-                        errorMessage: "" });
+                        errorMessage: "",
+                        formValidation: { isSuccess: true, message: "" } });
 
         let form = this.loginForm.current;
         let username = form.username.value;
@@ -119,26 +129,27 @@ class Logins extends Component{
                                 <h2>Login</h2>
                             </div>
 
-                            <input type="text" className={this.state.usernameClass + (this.state.usernameValid ? "" : " is-invalid")}
+                            <input type="text" className={this.state.usernameClass + (this.state.usernameValid && this.state.formValidation.isSuccess ? "" : " is-invalid")}
                                     id="username" name="username"
                                     onChange={this.onInputChange}
                                     placeholder="Username" />
 
                             <br/>
 
-                            <input type="password" className={this.state.passwordClass + (this.state.passwordValid ? "" : " is-invalid")}
+                            <input type="password" className={this.state.passwordClass + (this.state.passwordValid && this.state.formValidation.isSuccess ? "" : " is-invalid")}
                                     id="password" name="password"
                                     onChange={this.onInputChange}
                                     placeholder="Password" />
 
                             <this.alertComponent />
+
                             <button className={"btnLogin " + (this.state.isLoad ? "text-center" : "text-left pl-4")} onClick={this.validateForm}>
                                 {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin iconSpace" /> : "Login"}
                             </button>
                             
                             <div className="footer">
                                 <a target='blank' href='https://www.microlistics.com.au/'>© Microlistics {new Date().getFullYear()}</a>
-                                <div style={{ marginRight:'6%' }}>help@microlistics.co.au</div>
+                                <div style={{ marginRight: "6%" }}>help@microlistics.co.au</div>
                             </div>              
                         </div>
                     </form>

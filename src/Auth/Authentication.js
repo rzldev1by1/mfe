@@ -88,30 +88,38 @@ class Authentication {
 				headers: { 'Content-Type': 'application/json' }
 			})
 		    .then(res => {
+                // if (res.data) {
+                //     if (res.data.error) {
+                //         result.isSuccess = false
+                //         result.message = res.data.error.status_code === 401 ? "Username or password is not valid" : res.data.error.message;
+                //         return result;
+                //     } else {
+                //         result.isSuccess = true;
+                //         Authentication.setAuthenticate(res.data);
+                //         // return this.renewToken();
+                //         return result;
+                //     }
+                // } else {
+                //     result.isSuccess = false;
+                //     result.message = res.data.error.message;
+                //     return result;
+                // }
+
                 if (res.data) {
-                    if (res.data.error) {
-                        result.isSuccess = false
-                        result.message = res.data.error.status_code === 401 ? "Username or password is not valid" : res.data.error.message;
-                        return result;
-                    } else {
-                        result.isSuccess = true;
-                        Authentication.setAuthenticate(res.data);
-                        // return this.renewToken();
-                        return result;
-                    }
-                } else {
-                    result.isSuccess = false;
-                    result.message = res.data.error.message;
+                    result.isSuccess = true;
+                    Authentication.setAuthenticate(res.data);
+                    // return this.renewToken();
                     return result;
                 }
             })
             .catch(function (error) {
                 result.isSuccess = false;
+                result.message = "Failed to process your request";
+
                 if (error.response) {
-                    result.message = error.response.status === 401 ? "Username or password is not valid" : "Failed to process your request";
-                } else {
-                    result.message = "Failed to process your request";
+                    result.message = error.response.status ? "Username or password is not valid" : "Failed to process your request";
                 }
+                
                 return result;
             })
         );
