@@ -47,6 +47,10 @@ class PurchaseOrderTable extends Component {
 
   searchPurchaseOrder = (search,client,site,status,ordertype,supplier) => {
     let param = search
+    if(param)
+    {
+      param = param.toUpperCase()
+    }
     let url = '?searchParam='
 
     if(client)
@@ -80,7 +84,7 @@ class PurchaseOrderTable extends Component {
     }
 
     this.props.loadCompleteHandler(false)
-    axios.get(endpoint.purchaseOrder + url + param.toUpperCase(), {
+    axios.get(endpoint.purchaseOrder + url + param, {
       headers: headers
     })
       .then(res => {
