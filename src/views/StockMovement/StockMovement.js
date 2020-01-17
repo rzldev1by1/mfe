@@ -565,40 +565,39 @@ class StockMovement extends Component {
 		return (
 			// console.log(this.state.stockMovement)
 			this.state.stockMovement.map((item, idx) => {
-						return (
-							<tr key={idx}>
-								{this.state.columns.map((column, columnIdx) => {
-									return <td key={columnIdx} className="px-3 text-left">{item[column.id]}</td>
-								})}
-								{this.state.dateColumns.map((dateColumn, dataIdx) => {
-									// if(dateColumn.id === this.state.rangeDate[idx]){
-									// 	return (
-									// 		<td key={dataIdx} className="px-3 text-left">
-									// 			{item[dateColumn.subColumns.id] ? item[dateColumn.subColumns.id] : "-"}
-									// 		</td>
-									// 	)
-									// }
-									// dateColumn.subColumns.map((element, idx) => {
-									// 	console.log(value[element.id])
-									// 	return (
-									// 		<td key={dataIdx} className="px-3 text-left">
-									// 			{value[element.id] ? value[element.id] : "-"}
-									// 		</td>
-									// 	)
-									// });
+				return (
+					<tr key={idx}>
+						{this.state.columns.map((column, columnIdx) => {
+							return <td key={columnIdx} className="px-3 text-left">{item[column.id]}</td>
+						})}
+						{this.state.dateColumns.map((dateColumn, dataIdx) => {
+							if(item.details.date === dateColumn.id){
+								return (
 									dateColumn.subColumns.map((column, columnIdx) => {
-										// console.log(column.id);
-										console.log(item.details[column.id]);
-										return (
-											<td key={columnIdx} className="px-3 text-left">
-												{item.details[column.id] ? item.details[column.id] : "-"}
-											</td>
-										)
-									})
-								})}
-							</tr>
-						);
-					})
+									// console.log(column.id);
+									// console.log(item.details[column.id]);
+									return (
+										<td key={columnIdx} className="px-3 text-left">
+											{item.details[column.id] ? item.details[column.id] : "-"}
+										</td>
+									)
+								}))
+							}else{
+								return (
+									dateColumn.subColumns.map((column, columnIdx) => {
+									// console.log(column.id);
+									// console.log(item.details[column.id]);
+									return (
+										<td key={columnIdx} className="px-3 text-left">
+											-
+										</td>
+									)
+								}))
+							}
+						})}
+					</tr>
+				);
+			})
 		)
 	}
 
