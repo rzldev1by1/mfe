@@ -28,7 +28,7 @@ class PurchaseOrderTable extends Component {
   }
 
   loadPurchaseOrder = () => {
-    axios.get('http://127.0.0.1:8000/purchaseOrder', {
+    axios.get(endpoint.purchaseOrder, {
       headers: headers
     })
       .then(res => {
