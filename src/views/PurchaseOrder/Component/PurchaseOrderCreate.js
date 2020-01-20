@@ -5,11 +5,12 @@
   import oneactive from '../../../assets/img/brand/tab_1_blue@2x.png'
   import twoinactive from '../../../assets/img/brand/tab_2_grey@2x.png'
   import twoactive from '../../../assets/img/brand/tab_2_blue@2x.png'
+  import DayPicker from 'react-day-picker';
+  import 'react-day-picker/lib/style.css';
 
   class PurchaseOrderCreate extends Component{
       constructor(props){
           super(props)
-
           this.state = {
             tab1isactive:true,
             tab2isactive:false,
@@ -42,7 +43,8 @@
                 "menu":'Client',
                 "subMenu":['asd','asds']
               }
-            ]
+            ],
+            
             }
       }
 
@@ -65,7 +67,7 @@
       return(
         <div className='tabcontent'>
           <h3 className='font'>Order Details</h3>
-
+          <DatePicker/>
           <table className='createpotable'>
               <tr>
                   <th>Site</th>
@@ -121,7 +123,7 @@
                   <th style={{width:'5%'}}>Ref4</th>
                   <th style={{width:'6%'}}>Disposition</th>
                   <th style={{width:'1.5%'}}></th>
-              </tr>                  
+              </tr>                               
             </table>
             <div className={'tablerow ' + (this.state.rowlist.length >2 ? 'scroll' : null )}>
               {this.state.rowlist.map((list, i) => this.linedetailsrow(list, i))}

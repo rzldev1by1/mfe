@@ -541,3 +541,14 @@ h3{
 .borderless{
 	border:0px !important;
 }
+
+.DayPicker-Caption, .DayPicker-NavBar{
+	display: none !important;
+}
+
+.datepicker{
+	position: absolute;
+	background-color: white;
+	border-color: 1px solid black !important;
+	border:1px !important;
+}

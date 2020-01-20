@@ -26,7 +26,7 @@ class PurchaseOrder extends Component {
             filterclicked:false,
 
             //modal
-            showmodal:false,
+            showmodal:true,
             complete:false,
         }
     }
