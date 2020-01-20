@@ -182,7 +182,7 @@ class PurchaseOrderTable extends Component {
                     <td>{data.dateReceived}</td>
                     <td>{data.dateReleased}</td>
                     <td>{data.dateCompleted}</td>
-                    <td>{data.supplier}</td>
+                    <td>{data.supplierName}</td>
                     <td className='iconU-option'></td>
                   </tr>
               )}       

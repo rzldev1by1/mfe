@@ -28,7 +28,7 @@ class PurchaseOrderTable extends Component {
   }
 
   loadPurchaseOrder = () => {
-    axios.get(endpoint.purchaseOrder, {
+    axios.get('http://127.0.0.1:8000/purchaseOrder', {
       headers: headers
     })
       .then(res => {
@@ -221,10 +221,12 @@ class PurchaseOrderTable extends Component {
                     <td>{data.dateReceived}</td>
                     <td>{data.dateReleased}</td>
                     <td>{data.dateCompleted}</td>
-                    <td>{data.supplier}</td>
+                    <td>{data.supplierName}</td>
                     <td className='iconU-option'></td>
                   </tr>
-              ) : null}       
+              ) : 
+                <div> No data available </div>
+                }       
           </tbody>
         </table>
       </div>

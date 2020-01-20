@@ -141,12 +141,9 @@ export default class Dropdowns extends Component {
                     <option selected disabled>Status</option>
                     <option value="open">Open</option>
                     <option value="all">All</option>
-                    <option value="available">Available</option>
                     <option value="released">Released</option>
                     <option value="completed">Completed</option>
-                    <option value="rejected">Rejected</option>
                     <option value="unavailable">Unavailable</option>
-                    <option value="inprogress">Release in progress</option>
                 </select>
 
                 <select onChange={(e) => this.ordertypehandler(e)} className="form-control dropdown">
