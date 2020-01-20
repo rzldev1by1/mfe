@@ -215,8 +215,8 @@ class PurchaseOrderTable extends Component {
                     <td>{data.site}</td>
                     <td>{data.orderNo}</td>
                     <td>{data.client}</td>
-                    <td>{data.sub_status}</td>
                     <td>{data.status}</td>
+                    <td>{data.sub_status}</td>
                     <td>{data.dateDue}</td>
                     <td>{data.dateReceived}</td>
                     <td>{data.dateReleased}</td>
