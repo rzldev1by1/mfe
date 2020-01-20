@@ -211,7 +211,7 @@ class PurchaseOrderTable extends Component {
           <tbody>
             
               {this.state.data ? this.state.data.map((data,i) => 
-                  <tr onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/1')} className='tr'>
+                  <tr onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/'+data.orderNo)} className='tr'>
                     <td>{data.site}</td>
                     <td>{data.orderNo}</td>
                     <td>{data.client}</td>

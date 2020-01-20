@@ -22,7 +22,7 @@ export default class PurchaseOrderDetail extends Component {
                     <div className='podbreadcrumb'>
                         <h2 onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder')} className='podtitle'>Purchase Order</h2>
                         <h2 className='podtitle iconU-rightArrow' style={{fontSize:20}}/>
-                        <h2 className='podetails'>PO-001</h2>
+                        <h2 className='podetails'>{window.location.href.split("/").pop()}</h2>
                     </div>
                 </div>
 
