@@ -67,7 +67,6 @@
       return(
         <div className='tabcontent'>
           <h3 className='font'>Order Details</h3>
-          <DatePicker/>
           <table className='createpotable'>
               <tr>
                   <th>Site</th>
