@@ -2,17 +2,153 @@ import React, { Component } from 'react'
 import { Table,Button, Card, CardBody, Label} from 'reactstrap'
 import './UserManagement.css'
 import ModuleAccess from './Component/ModuleAccess'
+import Site from './Component/Site'
+import Client from './Component/Client'
+import {endpoint,headers} from '../../AppComponent/ConfigEndpoint'
+import axios from 'axios'
 
 class UserManagementDetail extends Component{
     constructor(props){
         super(props);
+        this.state = {
+          moduleAccess:[],
+          sites:[],
+          clients:[]
+        }
 
+    }
 
+    componentDidMount(){
+        this.loadModuleAccess("warehouse");
+        this.loadSites();
+        this.loadClients();
+    }
+
+    restuctureData = (sites) => {
+     return sites.map((item,index)=>{
+          let newItem = item;
+          newItem.status = false;
+          return newItem;
+      });
+    }
+
+    loadModuleAccess = (role) => {
+      var self = this;
+      axios.get(endpoint.UserManagement_ModuleAccess, {
+        params: {role:role},
+        headers: headers
+      })
+        .then(res => {
+          var result = [];
+          if(res.status === 200){
+            result = res.data;
+            let newResult = self.restuctureData(result);
+            self.setState({moduleAccess:newResult});
+          }
+          return result;
+        })
+        .catch(error => {
+
+        })
+        .then((result) => {
+          // console.log(result);
+        })
+    }
+
+    loadSites = (role) => {
+      var self = this;
+      axios.get(endpoint.ddlsite, {
+        params: {role:role},
+        headers: headers
+      })
+        .then(res => {
+          var result = [];
+          if(res.status === 200){
+            result = res.data;
+            let newResult = self.restuctureData(result);
+            self.setState({sites:newResult});
+          }
+          return result;
+        })
+        .catch(error => {
+
+        })
+        .then((result) => {
+          // console.log(result);
+        })
+    }
+
+    loadClients = () => {
+      var self = this;
+      axios.get(endpoint.ddlclient, {
+        headers: headers
+      })
+        .then(res => {
+          var result = [];
+          if(res.status === 200){
+            result = res.data;
+            let newResult = self.restuctureData(result);
+            self.setState({clients:newResult});
+          }
+          return result;
+        })
+        .catch(error => {
+
+        })
+        .then((result) => {
+          // console.log(result);
+        })
+    }
+
+    onEnableClick = (e) => {
+      const element = e.target;
+
+      if(element.classList.contains('btn-outline-notActive')){
+          element.classList.remove('btn-outline-notActive')
+          element.classList.add('btn-outline-active')
+          element.innerHTML = "Enable"
+      }
+      else{
+        element.classList.remove('btn-outline-active')
+        element.classList.add('btn-outline-notActive')
+        element.innerHTML = "Disable"
+      }
+    }
+
+    onSiteStatusClick = (e,data) => {
+      if(data){
+        let newState = [...this.state.sites];
+        var newArray = newState.map((item,index) => {
+            item.status = false;
+            if(item.site === data.site)
+              item.status = true;
+
+            return item;
+        });
+
+        this.setState({sites:newArray});
+      }
+    }
+
+    onClientStatusClick = (e,data) => {
+      if(data){
+        let newState = [...this.state.clients];
+        var newArray = newState.map((item,index) => {
+            item.status = false;
+            if(item.code === data.code)
+              item.status = true;
+
+            return item;
+        });
+
+        this.setState({clients:newArray});
+      }
     }
 
     render(){
         const {match} = this.props;
-
+        const {moduleAccess,sites,clients} = this.state;
+        
         return(<div>
            <div className="d-flex mt-4">
                 <div className="flex-fill">
@@ -95,14 +231,14 @@ class UserManagementDetail extends Component{
                                 </div>
                             </div>
                             <div className="d-flex flex-row">
-                                <div className="flex-fill">
-                                    <ModuleAccess />
+                                <div className="flex-fill mr-2">
+                                    <ModuleAccess moduleAccess={moduleAccess} onEnableClick={this.onEnableClick}/>
                                 </div>
-                                <div className="flex-fill">
-                                    Site
+                                <div className="flex-fill mr-2">
+                                    <Site sites={sites} onEnableClick={this.onSiteStatusClick}/>
                                 </div>
-                                <div className="flex-fill">
-                                    Client
+                                <div className="flex-fill mr-2">
+                                    <Client clients={clients} onEnableClick={this.onClientStatusClick}/>
                                 </div>
 
                             </div>

@@ -20,7 +20,9 @@ const endpoint = {
 
     "ddlsupplier": baseUrl + "dropdown/getsupplier",
 
-    "ddlordertype": baseUrl + "dropdown/getordertype"
+    "ddlordertype": baseUrl + "dropdown/getordertype",
+
+    "UserManagement_ModuleAccess": baseUrl + "usermanagement/module"
 };
 
 const headers = {
