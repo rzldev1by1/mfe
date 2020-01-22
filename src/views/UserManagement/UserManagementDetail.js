@@ -34,6 +34,8 @@ class UserManagementDetail extends Component{
 
     loadModuleAccess = (role) => {
       var self = this;
+      let query = ["purchase orders","stock holding", "stock movement", "create sales order"];
+
       axios.get(endpoint.UserManagement_ModuleAccess, {
         params: {role:role},
         headers: headers
@@ -42,7 +44,8 @@ class UserManagementDetail extends Component{
           var result = [];
           if(res.status === 200){
             result = res.data;
-            let newResult = self.restuctureData(result);
+            let newResult = self.restuctureData(result.filter((item) => { return query.indexOf(item.menuname.toLowerCase()) !== -1 }));
+            // let filteredArray = result.filter((item) => { return query.indexOf(item.menuname.toLowerCase()) !== -1 });
             self.setState({moduleAccess:newResult});
           }
           return result;
@@ -148,7 +151,7 @@ class UserManagementDetail extends Component{
     render(){
         const {match} = this.props;
         const {moduleAccess,sites,clients} = this.state;
-        
+
         return(<div>
            <div className="d-flex mt-4">
                 <div className="flex-fill">
