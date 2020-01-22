@@ -136,7 +136,7 @@ class PurchaseOrderTable extends Component {
               {this.props.datahead.map((data,i) => 
                   <tr className='tr'>
                     <td>{data.product}</td>
-                    <td>{data.status_desc}</td>
+                    <td>{data.status_desc.substring(2)}</td>
                     <td>{data.qty_lcd}</td>
                     <td>{data.packdesc_1}</td>
                     <td>{data.qty_processed}</td>
