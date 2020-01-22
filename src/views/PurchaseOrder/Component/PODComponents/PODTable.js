@@ -13,8 +13,7 @@ class PurchaseOrderTable extends Component {
 
     this.state = {
       data:[],
-      tableheader : ['Site','Order No','Client','Status','Status Desc','Date Due','Date Recv','Date Released','Date Completed','Supplier Name'],
-      tablebody : ['A','PO-4312','Josaphat','1','Available','27/01/2020','27/01/2020','27/01/2020','27/01/2020', 'Swann-wq12'],
+      tableheader : ['Product','Status Description','Quantity','UOM','Qty Processed','Weight Process','Rotadate','Disposition','Ref 3','Ref 4'],
       activearrow:mid,
       sortparameter:'order_no',
       sort:true
@@ -26,7 +25,7 @@ class PurchaseOrderTable extends Component {
   }
 
   loadPurchaseOrder = () => {
-    axios.get(endpoint.purchaseOrder, {
+    axios.get('http://127.0.0.1:8000/purchaseOrder/'+window.location.href.split("/").pop(), {
       headers: headers
     })
       .then(res => {
@@ -41,21 +40,6 @@ class PurchaseOrderTable extends Component {
 
   load = () => {
     this.props.loadCompleteHandler(true)
-  }
-
-  searchPurchaseOrder = (search) => {
-    this.props.loadCompleteHandler(false)
-    axios.get(endpoint.purchaseOrder + '?orderNo='+search, {
-      headers: headers
-    })
-      .then(res => {
-        const result = res.data.data
-        this.setState({ data:result })
-        this.load()
-      })
-      .catch(error => {
-        // this.props.history.push("/logins")
-      })
   }
 
   arrowHandler = (e) => {
@@ -173,16 +157,16 @@ class PurchaseOrderTable extends Component {
             
               {this.state.data.map((data,i) => 
                   <tr className='tr'>
-                    <td>{data.site}</td>
-                    <td>{data.orderNo}</td>
-                    <td>{data.client}</td>
-                    <td>{data.sub_status}</td>
-                    <td>{data.status}</td>
-                    <td>{data.dateDue}</td>
+                    <td>{data.product}</td>
+                    <td>{data.status_desc}</td>
+                    <td>{data.qty_lcd}</td>
+                    <td>{data.packdesc_1}</td>
+                    <td>{data.qty_processed}</td>
+                    <td>{data.wgt_processed}</td>
                     <td>{data.dateReceived}</td>
-                    <td>{data.dateReleased}</td>
-                    <td>{data.dateCompleted}</td>
-                    <td>{data.supplierName}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td className='iconU-option'></td>
                   </tr>
               )}       
