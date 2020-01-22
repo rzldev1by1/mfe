@@ -542,9 +542,9 @@ h3{
 	border:0px !important;
 }
 
-.DayPicker-Caption, .DayPicker-NavBar{
+/* .DayPicker-Caption, .DayPicker-NavBar{
 	display: none !important;
-}
+} */
 
 .datepicker{
 	position: absolute;
