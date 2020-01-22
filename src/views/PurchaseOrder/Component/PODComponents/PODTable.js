@@ -12,34 +12,11 @@ class PurchaseOrderTable extends Component {
     super(props)
 
     this.state = {
-      data:[],
       tableheader : ['Product','Status Description','Quantity','UOM','Qty Processed','Weight Process','Rotadate','Disposition','Ref 3','Ref 4'],
       activearrow:mid,
       sortparameter:'order_no',
       sort:true
     }
-  }
-
-  componentDidMount() {
-    this.loadPurchaseOrder()
-  }
-
-  loadPurchaseOrder = () => {
-    axios.get('http://127.0.0.1:8000/purchaseOrder/'+window.location.href.split("/").pop(), {
-      headers: headers
-    })
-      .then(res => {
-        const result = res.data.data
-        this.setState({ data:result })
-        this.load()
-      })
-      .catch(error => {
-        // this.props.history.push("/logins")
-      })
-  }
-
-  load = () => {
-    this.props.loadCompleteHandler(true)
   }
 
   arrowHandler = (e) => {
@@ -139,6 +116,7 @@ class PurchaseOrderTable extends Component {
   }
 
   render(){
+    console.log(this.props.datahead)
     return(
       <div>
         <table className="potable">
@@ -155,7 +133,7 @@ class PurchaseOrderTable extends Component {
           </thead>
           <tbody>
             
-              {this.state.data.map((data,i) => 
+              {this.props.datahead.map((data,i) => 
                   <tr className='tr'>
                     <td>{data.product}</td>
                     <td>{data.status_desc}</td>
@@ -163,10 +141,10 @@ class PurchaseOrderTable extends Component {
                     <td>{data.packdesc_1}</td>
                     <td>{data.qty_processed}</td>
                     <td>{data.wgt_processed}</td>
-                    <td>{data.dateReceived}</td>
+                    <td>{data.rota1}</td>
                     <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{data.ref3}</td>
+                    <td>{data.ref4}</td>
                     <td className='iconU-option'></td>
                   </tr>
               )}       

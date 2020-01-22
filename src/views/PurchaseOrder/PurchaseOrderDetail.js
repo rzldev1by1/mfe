@@ -22,13 +22,15 @@ export default class PurchaseOrderDetail extends Component {
     }
 
     getheader = () => {
+        this.setState({complete:false})
         let param = window.location.href.split("/").pop()
-        axios.get('http://127.0.0.1:8000/purchaseOrder/' + param, {
+        axios.get(endpoint.purchaseOrder + '/' +param, {
           headers: headers
         })
           .then(res => {
             const result = res.data.data
-            this.setState({ datahead:result })
+            this.setState({ datahead:result})
+            
             
           })
           .catch(error => {
@@ -36,8 +38,91 @@ export default class PurchaseOrderDetail extends Component {
           })
     }
 
+    header = () => {
+        let site = this.state.datahead.length ? this.state.datahead[0].site : null
+        let client = this.state.datahead.length ? this.state.datahead[0].client : null
+        let orderNo = this.state.datahead.length ? this.state.datahead[0].order_no : null
+        let orderType = this.state.datahead.length ? this.state.datahead[0].order_type : null
+        let supplierNo = this.state.datahead.length ? this.state.datahead[0].supplier : null
+        let supplierName = this.state.datahead.length ? this.state.datahead[0].ship_to_name : null
+        let customerOrderRef = this.state.datahead.length ? this.state.datahead[0].customer_po_no : null
+        let vendorOrderNo = this.state.datahead.length ? this.state.datahead[0].vendor_ord_no : null
+        let status = this.state.datahead.length ? this.state.datahead[0].status : null
+        let dateDue = this.state.datahead.length ? this.state.datahead[0].date_due : null
+        let dateReleased = this.state.datahead.length ? this.state.datahead[0].date_released : null
+        let dateCompleted = this.state.datahead.length ? this.state.datahead[0].date_completed : null
+
+        return(
+            <div className='podheader fades'>                    
+            <div className='sub'>                        
+                <table style={{width:'60%'}}>
+                    <tr>
+                        <th>Site</th>
+                        <td>{site ? site : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>Client</th>
+                        <td>{client ? client : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>Order No</th>
+                        <td>{orderNo ? orderNo : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>OrderType</th>
+                        <td>{orderType ? orderType : '-'}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div className='sub' style={{width:'70%'}}>
+                <table className='tableborderss' style={{width:'80%'}}>
+                    <tr>
+                        <th>Supplier No</th>
+                        <td>{supplierNo ? supplierNo : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>Supplier Name</th>
+                        <td>{supplierName ? supplierName : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>Customer Order Ref</th>
+                        <td>{customerOrderRef ? customerOrderRef : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>Vendor Order No</th>
+                        <td>{vendorOrderNo ? vendorOrderNo : '-'}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div className='sub'>
+                <table className='tableborderss' style={{width:'80%'}}>
+                    <tr>
+                        <th>Status</th>
+                        <td style={{color:'#7FC242'}}>{status ? status : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>Date Due</th>
+                        <td>{dateDue ? dateDue.substring(0, 11) : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>Date Released</th>
+                        <td>{dateReleased ? dateReleased.substring(0, 11) : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>Date Completed</th>
+                        <td>{dateCompleted ? dateCompleted.substring(0, 11) : '-'}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        )
+    }
+
 
     render(){
+
         return(
             <div className='animated fadeIn pobody'>
                 <div className='header headerss'>
@@ -47,75 +132,15 @@ export default class PurchaseOrderDetail extends Component {
                         <h2 className='podetails'>{window.location.href.split("/").pop()}</h2>
                     </div>
                 </div>
-                <div className='podheader fades'>                    
-                    <div className='sub'>                        
-                        <table style={{width:'60%'}}>
-                            <tr>
-                                <th>Site</th>
-                                <td>{this.state.datahead.length ? this.state.datahead[0].site : null}</td>
-                            </tr>
-                            <tr>
-                                <th>Client</th>
-                                <td>{this.state.datahead.length ? this.state.datahead[0].client : null}</td>
-                            </tr>
-                            <tr>
-                                <th>Order No</th>
-                                <td>{this.state.datahead.length ? this.state.datahead[0].order_no : null}</td>
-                            </tr>
-                            <tr>
-                                <th>OrderType</th>
-                                <td>{this.state.datahead.length ? this.state.datahead[0].order_type : null}</td>
-                            </tr>
-                        </table>
-                    </div>
+                
+                {
+                    this.state.datahead.length ? this.header() : null
+                }
 
-                    <div className='sub' style={{width:'70%'}}>
-                        <table className='tableborderss' style={{width:'80%'}}>
-                            <tr>
-                                <th>Supplier No</th>
-                                <td>{this.state.datahead.length ? this.state.datahead[0].supplier : null}</td>
-                            </tr>
-                            <tr>
-                                <th>Supplier Name</th>
-                                <td>{this.state.datahead.length ? this.state.datahead[0].ship_to_name : null}</td>
-                            </tr>
-                            <tr>
-                                <th>Customer Order Ref</th>
-                                <td>Customer Order Ref</td>
-                            </tr>
-                            <tr>
-                                <th>Vendor Order No</th>
-                                <td>23435353454353</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div className='sub'>
-                        <table className='tableborderss' style={{width:'80%'}}>
-                            <tr>
-                                <th>Status</th>
-                                <td style={{color:'#7FC242'}}>{this.state.datahead.length ? this.state.datahead[0].status : null}</td>
-                            </tr>
-                            <tr>
-                                <th>Date Due</th>
-                                <td>{this.state.datahead.length ? this.state.datahead[0].date_due.substring(0, 11) : null}</td>
-                            </tr>
-                            <tr>
-                                <th>Date Released</th>
-                                <td>{this.state.datahead.length ? this.state.datahead[0].date_released.substring(0, 11) : null}</td>
-                            </tr>
-                            <tr>
-                                <th>Date Completed</th>
-                                <td>{this.state.datahead.length ? this.state.datahead[0].date_completed.substring(0, 11) : null}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>                
-
-                <div className={'tablecontent ' + ( this.state.complete ? 'fades ' : 'hidden')}>
-                    <PODTable ref={this.potableref} className='animated fadeIn' style={{display:'none'}} loadCompleteHandler = {(v) =>  this.setState({complete: v})}/>
+                <div className={'tablecontent ' + ( this.state.datahead.length ? 'fades ' : 'hidden')}>
+                    <PODTable ref={this.potableref} className='animated fadeIn' style={{display:'none'}} datahead = {this.state.datahead}/>
                 </div>
-                <div className={( this.state.complete ? 'hidden': 'spinner')}/>
+                <div className={( this.state.datahead.length ? 'hidden': 'spinner')}/>
             </div>
         )
     }
