@@ -231,20 +231,26 @@ class StockMovement extends Component {
 			],
 			stockMovement: [],
 			dateColumns: [],
+			monthColumns: [],
 			datepickerShow: false,
 			dateRange: this.getInitialdaterange(),
 			dateFrom: null,
 			dateTo: null,
 			dateFromConfirm: false,
 			dateToConfirm: false,
+			monthFromConfirm: false,
+			monthToConfirm: false,
 			dateLoops: {},
 			month: fromMonth,
+			monthFrom: fromMonth,
+			monthTo: fromMonth,
 			datepickerWeekly: {
 				hoverRange: undefined,
 				selectedDays: []
 			},
 			displayPeriod: "day",
 			rangeDate: [],
+			rangeMonth: [],
 
 		}
 	}
@@ -267,6 +273,28 @@ class StockMovement extends Component {
 		return day + ' ' + monthNames[monthIndex] + ' ' + year;
 	}
 
+	formatDateISO = (date) => {
+		var dayIndex = date.getDate();
+		var monthIndex = date.getMonth();
+		var year = date.getFullYear();
+		var day = undefined;
+		var month = undefined;
+
+		if(dayIndex < 9){
+			day = '0' + dayIndex;
+		}else{
+			day = '0' + dayIndex;
+		}
+	  
+		if(monthIndex < 9){
+			month = '0' + (monthIndex + 1) ;
+		}else{
+			month = monthIndex + 1;
+		}
+
+		return year + '-' + month + '-' + day;
+	}
+
 	formatDateDisplay = (date) => {
 		var monthNames = [
 		  "Jan", "Feb", "Mar",
@@ -282,6 +310,21 @@ class StockMovement extends Component {
 		return day + ' ' + monthNames[monthIndex] + ' ' + year;
 	}
 
+	formatMonth = (date) => {
+		var monthNames = [
+		  "January", "February", "March",
+		  "April", "May", "June", "July",
+		  "August", "September", "October",
+		  "November", "December"
+		];
+	  
+		var day = date.getDate();
+		var monthIndex = date.getMonth();
+		var year = date.getFullYear();
+	  
+		return monthNames[monthIndex] + ' ' + year;
+	}
+
 	getInitialdaterange = () => {
 		return {
 		  from: undefined,
@@ -291,10 +334,18 @@ class StockMovement extends Component {
 
 	loadStockMovement = () => {
 		let self = this;
-		const from = this.state.dateFrom;
-		const to = this.state.dateTo;
-		let startDate = from ? new Date(from).toISOString().split('T')[0] : "";
-		let endDate = to ? new Date(to).toISOString().split('T')[0] : "";
+		let from = undefined;
+		let to = undefined;
+		if(this.state.dateFromConfirm !== false && this.state.dateTo !== undefined){
+			from = this.state.dateFrom;
+			to = this.state.dateTo;
+		}
+		if(this.state.monthFromConfirm !== undefined && this.state.monthToConfirm !== undefined){
+			from = this.state.monthFrom;
+			to = this.state.monthTo;
+		}
+		let startDate = from ? this.formatDateISO(new Date(from)) : "";
+		let endDate = to ? this.formatDateISO(new Date(to)) : "";
 		let params = { 
 			startDate: startDate,
 			endDate: endDate,
@@ -343,9 +394,6 @@ class StockMovement extends Component {
 				self.setState({ displayContent: "FOUND",
 								stockMovement: respondRes
 							});
-				// console.log(self.state.stockMovement);
-				// self.numberEventClick(self.state.currentPage);
-				// localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
 			}
 			self.setState({ isLoaded: false});
 		});
@@ -508,6 +556,7 @@ class StockMovement extends Component {
 		e.stopPropagation();
 		this.setState({ 
 			dateFromConfirm: true,
+			monthFromConfirm: false,
 			showDatepickerFrom: false
 		});
 	}
@@ -516,8 +565,39 @@ class StockMovement extends Component {
 		e.stopPropagation();
 		this.setState({
 			dateToConfirm: true,
+			monthToConfirm: false,
 			showDatepickerTo: false
 		});
+	}
+
+	triggerConfirmMonthFrom = (e) => {
+		e.stopPropagation();
+		this.setState({ 
+			dateFromConfirm: false,
+			monthFromConfirm: true,
+			showDatepickerFrom: false
+		});
+	}
+
+	triggerConfirmMonthTo = (e) => {
+		e.stopPropagation();
+		this.setState({
+			dateToConfirm: false,
+			monthToConfirm: true,
+			showDatepickerTo: false
+		});
+	}
+
+	monthFromChange = (date) => {
+		this.setState({
+			monthFrom: date
+		})
+	}
+
+	monthToChange = (date) => {
+		this.setState({
+			monthTo: date
+		})
 	}
 
 	triggerShowContent = (e) => {
@@ -528,7 +608,7 @@ class StockMovement extends Component {
 			 showDatepickerFrom: false,
 			 showDatepickerTo: false
 		});
-		if(this.state.dateFrom !== undefined && this.state.dateTo !== undefined){
+		if(this.state.dateFromConfirm !== false && this.state.dateTo !== undefined){
 			let dateColumns = [];
 			let rangeDate = [];
 			if(dateColumns > 0 && rangeDate > 0){
@@ -539,7 +619,7 @@ class StockMovement extends Component {
 			const to = this.state.dateTo;
 			for (const d = new Date(from); d <= to; d.setDate(d.getDate() + 1)) {
 				dateColumns.push({  
-					id: d.toISOString().split('T')[0], 
+					id: this.formatDateISO(d), 
 					checkboxLabelText: this.formatDate(d), 
 					tableHeaderText: this.formatDate(d),
 					class:"border-left borderless-bottom",
@@ -551,7 +631,7 @@ class StockMovement extends Component {
 					],
 					value: []
 				});
-				rangeDate.push(d.toISOString().split('T')[0]);
+				rangeDate.push(this.formatDateISO(d));
 			}
 
 			this.setState({
@@ -559,23 +639,60 @@ class StockMovement extends Component {
 				rangeDate: rangeDate
 			});
 		}
+		if(this.state.monthFromConfirm !== undefined && this.state.monthToConfirm !== undefined){
+			let monthColumns = [];
+			let rangeMonth = [];
+			if(monthColumns > 0 && rangeMonth > 0){
+				monthColumns = [];
+				rangeMonth = [];
+			}
+			let from = new Date(this.state.monthFrom);
+			let to = new Date(this.state.monthTo);
+			let period = undefined;
+			if(to.getFullYear() > from.getFullYear()){
+				let sumOfPeriod = to.getFullYear() - from.getFullYear();
+				period = ((sumOfPeriod * 12) - from.getMonth()) + to.getMonth();
+			}else{
+				period = to.getMonth() - from.getMonth();
+			}
+			for (let d = 0; d <= period; d++) {
+				let monthValue = new Date(from);
+				monthValue.setMonth(monthValue.getMonth() + d);
+				monthColumns.push({  
+					id: this.formatDateISO(monthValue), 
+					checkboxLabelText: this.formatMonth(monthValue), 
+					tableHeaderText: this.formatMonth(monthValue),
+					class:"border-left borderless-bottom",
+					subColumns: [
+						{ id: "sa_plus", checkboxLabelText: "SA +", tableHeaderText: "SA +", value: [], isVisible: true, key: "sa_plus", class: "border-left" },
+						{ id: "sa_minus", checkboxLabelText: "SA -", tableHeaderText: "SA -", value: [], isVisible: true, key: "sa_minus", class: "" },
+						{ id: "recv_weight", checkboxLabelText: "Rec", tableHeaderText: "Rec", value: [], isVisible: true, key: "recv_weight", class: "" },
+						{ id: "send_weight", checkboxLabelText: "Send", tableHeaderText: "Send", value: [], isVisible: true, key: "send_weight", class: "" }
+					],
+					value: []
+				});
+				rangeMonth.push(this.formatDateISO(monthValue));
+			}
+
+			this.setState({
+				monthColumns: monthColumns,
+				rangeMonth: rangeMonth
+			});
+		}
 	}
 
 	showData = () => {
 		return (
-			// console.log(this.state.stockMovement)
 			this.state.stockMovement.map((item, idx) => {
 				return (
 					<tr key={idx}>
 						{this.state.columns.map((column, columnIdx) => {
 							return <td key={columnIdx} className="px-3 text-left">{item[column.id]}</td>
 						})}
-						{this.state.dateColumns.map((dateColumn, dataIdx) => {
+						{this.state.dateToConfirm ? this.state.dateColumns.map((dateColumn, dataIdx) => {
 							if(item.details.date === dateColumn.id){
 								return (
 									dateColumn.subColumns.map((column, columnIdx) => {
-									// console.log(column.id);
-									// console.log(item.details[column.id]);
 									return (
 										<td key={columnIdx} className="px-3 text-left">
 											{item.details[column.id] ? item.details[column.id] : "-"}
@@ -585,8 +702,6 @@ class StockMovement extends Component {
 							}else{
 								return (
 									dateColumn.subColumns.map((column, columnIdx) => {
-									// console.log(column.id);
-									// console.log(item.details[column.id]);
 									return (
 										<td key={columnIdx} className="px-3 text-left">
 											-
@@ -594,7 +709,28 @@ class StockMovement extends Component {
 									)
 								}))
 							}
-						})}
+						}): null}
+						{this.state.monthToConfirm ? this.state.monthColumns.map((monthColumn, dataIdx) => {
+							if(item.details.date === monthColumn.id){
+								return (
+									monthColumn.subColumns.map((column, columnIdx) => {
+									return (
+										<td key={columnIdx} className="px-3 text-left">
+											{item.details[column.id] ? item.details[column.id] : "-"}
+										</td>
+									)
+								}))
+							}else{
+								return (
+									monthColumn.subColumns.map((column, columnIdx) => {
+									return (
+										<td key={columnIdx} className="px-3 text-left">
+											-
+										</td>
+									)
+								}))
+							}
+						}): null}
 					</tr>
 				);
 			})
@@ -611,7 +747,6 @@ class StockMovement extends Component {
 		const { from, to } = this.state.dateRange;
 		// const modifiers = { start: this.state.from, end: this.state.to };
 		const daysAreSelected = selectedDays.length > 0;
-
 		const modifiers = {
 			hoverRange,
 			selectedRange: daysAreSelected && {
@@ -634,19 +769,30 @@ class StockMovement extends Component {
 								{this.state.columns.map((item, idx) => {
 									return <th className={" text-left " + item.class} key={idx} rowSpan="2" width="20%">{item.tableHeaderText}</th>
 								})}
-								{this.state.dateColumns.map((item, idx) => {
+								{this.state.dateToConfirm ? this.state.dateColumns.map((item, idx) => {
 									return <th className={" text-left " + item.class} key={idx} colSpan="4" width="20%">{item.tableHeaderText}</th>
-								})}
+								}): null}
+								{this.state.monthToConfirm ? this.state.monthColumns.map((item, idx) => {
+									return <th className={" text-left " + item.class} key={idx} colSpan="4" width="20%">{item.tableHeaderText}</th>
+								}): null}
 							</tr>
 							<tr>
-								{this.state.dateColumns.map((item, idx) => {
+								{this.state.dateToConfirm ? this.state.dateColumns.map((item, idx) => {
 									return (
 										item.subColumns !== undefined ? 
 											item.subColumns.map((item, idx) => {
 												return <th className={" text-center blueLabel " + item.class} key={idx} width="15%">{item.tableHeaderText}</th>
 											}) 
 										: "")
-								})}
+								}): ""}
+								{this.state.monthToConfirm ? this.state.monthColumns.map((item, idx) => {
+									return (
+										item.subColumns !== undefined ? 
+											item.subColumns.map((item, idx) => {
+												return <th className={" text-center blueLabel " + item.class} key={idx} width="15%">{item.tableHeaderText}</th>
+											}) 
+										: "")
+								}): ""}
 							</tr>
 						</thead>
 
@@ -696,11 +842,11 @@ class StockMovement extends Component {
 																				
 																				<Label htmlFor="from" className="filter_label from-label">Date From</Label>
 																				<Col className="arrow-icon select-filter">
-																					<Input className="none-appearance" name="from" id="from" onChange={this.handlePeriod} placeholder={(this.state.dateFrom && this.state.dateFromConfirm ? this.formatDate(this.state.dateFrom) : "Select From")} readOnly onClick={this.state.displayPeriod ? (this.state.displayPeriod === "month" ? null : this.triggerShowDatepickerFrom) : null}></Input>
+																					<Input className="none-appearance" name="from" id="from" onChange={this.handlePeriod} placeholder={(this.state.dateFrom && this.state.dateFromConfirm ? this.formatDate(this.state.dateFrom) : (this.state.monthFromConfirm ? this.formatMonth(this.state.monthFrom) : "Select From"))} readOnly onClick={this.state.displayPeriod ? this.triggerShowDatepickerFrom : null}></Input>
 																				</Col>
 																				<Label htmlFor="to" className="filter_label to-label">To</Label>
 																				<Col className="arrow-icon select-filter">
-																					<Input className="none-appearance" name="to" id="to" onChange={this.handlePeriod} placeholder={(this.state.dateTo && this.state.dateToConfirm ? this.formatDate(this.state.dateTo) : "Select To")} readOnly onClick={this.state.displayPeriod ? (this.state.displayPeriod === "month" ? null : this.triggerShowDatepickerTo) : null}></Input>
+																					<Input className="none-appearance" name="to" id="to" onChange={this.handlePeriod} placeholder={(this.state.dateTo && this.state.dateToConfirm ? this.formatDate(this.state.dateTo) : (this.state.monthToConfirm ? this.formatMonth(this.state.monthTo) : "Select From"))} readOnly onClick={this.state.displayPeriod ? this.triggerShowDatepickerTo : null}></Input>
 																				</Col>
 																				{/* <ul className={"select-sm" + (this.state.date.from && this.state.date.to ? " date-info" : "")} id="date" onClick={this.state.displayPeriod ? (this.state.displayPeriod === "month" ? null : this.triggerShowDatepicker) : null}>
 																					<span className="select_label-sm select_label-placeholder-sm" id="datepicker1" ref="datepicker1" name="datepicker1">{from &&
@@ -714,7 +860,7 @@ class StockMovement extends Component {
 																			<div className="col-3 text-right">
 																				{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}
 
-																				<Button type="submit" color="info" className="col-7 search-movement search-btn rounded-175" onClick={this.state.displayPeriod && this.state.dateFrom && this.state.dateTo ? this.triggerShowContent : null}>
+																				<Button type="submit" color="info" className="col-7 search-movement search-btn rounded-175" onClick={this.state.displayPeriod && ((this.state.dateFromConfirm && this.state.dateToConfirm) || (this.state.monthFromConfirm & this.state.monthToConfirm)) ? this.triggerShowContent : null}>
 																					<strong>Search</strong>
 																				</Button>
 																			</div>
@@ -874,7 +1020,91 @@ class StockMovement extends Component {
 																						}
 																					`}</style>
 																				</Helmet>
-																		{}
+																		<div className={(this.state.showDatepickerFrom ? (this.state.displayPeriod === "month" ? "Selectable datepickerdaily-tab col-md-5 col-lg-5 offset-md-3" : "d-none") : "d-none") + " select-from"}>
+																			<DayPicker
+																				month={this.state.monthFrom}
+																				fromMonth={fromMonth}
+																				toMonth={toMonth}
+																				disabledDays={day => day >= fromMonth}
+																				selectedDays={this.state.month}
+																				captionElement={({ date, localeUtils }) => (
+																					<YearMonthForm
+																					date={date}
+																					localeUtils={localeUtils}
+																					onChange={this.monthFromChange}
+																					no={Math.floor(Math.random() * 100000)}
+																					/>
+																				)}
+																				/>
+																				<Helmet>
+																					<style>{`
+																						.showDatepicker{
+																							transition: 1s;
+																						}
+																						.Selectable .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
+																							position: static;
+																							background-color: #f0f8ff !important;
+																							color: #4a90e2;
+																						}
+																						.Selectable .DayPicker-Day {
+																							border-radius: 0 !important;
+																						}
+																						.Selectable .DayPicker-Day--start {
+																							border-top-left-radius: 50% !important;
+																							border-bottom-left-radius: 50% !important;
+																						}
+																						.Selectable .DayPicker-Day--end {
+																							border-top-right-radius: 50% !important;
+																							border-bottom-right-radius: 50% !important;
+																						}
+																						`}</style>
+																				</Helmet>
+																				<Button type="submit" color="info" className="col-3 search-movement search-btn confirm-btn rounded-175" onClick={this.triggerConfirmMonthFrom}>
+																					<strong>Confirm</strong>
+																				</Button>
+																		</div>
+																		<div className={(this.state.showDatepickerTo ? (this.state.displayPeriod === "month" ? "Selectable datepickerdaily-tab col-md-5 col-lg-5 offset-md-6" : "d-none") : "d-none") + " select-from"}>
+																			<DayPicker
+																				month={this.state.monthTo}
+																				fromMonth={fromMonth}
+																				toMonth={toMonth}
+																				disabledDays={day => day < toMonth}
+																				captionElement={({ date, localeUtils }) => (
+																					<YearMonthForm
+																					date={date}
+																					localeUtils={localeUtils}
+																					onChange={this.monthToChange}
+																					no={Math.floor(Math.random() * 100000)}
+																					/>
+																				)}
+																				/>
+																				<Helmet>
+																					<style>{`
+																						.showDatepicker{
+																							transition: 1s;
+																						}
+																						.Selectable .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
+																							position: static;
+																							background-color: #f0f8ff !important;
+																							color: #4a90e2;
+																						}
+																						.Selectable .DayPicker-Day {
+																							border-radius: 0 !important;
+																						}
+																						.Selectable .DayPicker-Day--start {
+																							border-top-left-radius: 50% !important;
+																							border-bottom-left-radius: 50% !important;
+																						}
+																						.Selectable .DayPicker-Day--end {
+																							border-top-right-radius: 50% !important;
+																							border-bottom-right-radius: 50% !important;
+																						}
+																						`}</style>
+																				</Helmet>
+																				<Button type="submit" color="info" className="col-3 search-movement search-btn confirm-btn rounded-175" onClick={this.triggerConfirmMonthTo}>
+																					<strong>Confirm</strong>
+																				</Button>
+																		</div>
 																</div>
 															</InputGroup>
 														</FormGroup>
