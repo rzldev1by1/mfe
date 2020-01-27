@@ -280,10 +280,10 @@ class StockMovement extends Component {
 		var day = undefined;
 		var month = undefined;
 
-		if(dayIndex < 9){
+		if(dayIndex < 10){
 			day = '0' + dayIndex;
 		}else{
-			day = '0' + dayIndex;
+			day = dayIndex;
 		}
 	  
 		if(monthIndex < 9){
@@ -336,11 +336,10 @@ class StockMovement extends Component {
 		let self = this;
 		let from = undefined;
 		let to = undefined;
-		if(this.state.dateFromConfirm !== false && this.state.dateTo !== undefined){
+		if(this.state.displayPeriod === "day" && (this.state.dateFromConfirm !== false && this.state.dateTo !== undefined)){
 			from = this.state.dateFrom;
 			to = this.state.dateTo;
-		}
-		if(this.state.monthFromConfirm !== undefined && this.state.monthToConfirm !== undefined){
+		}else if(this.state.displayPeriod === "month" && (this.state.monthFromConfirm !== undefined && this.state.monthToConfirm !== undefined)){
 			from = this.state.monthFrom;
 			to = this.state.monthTo;
 		}
