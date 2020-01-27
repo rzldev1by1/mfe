@@ -4,7 +4,7 @@ import appCompoent from '../../../../src/AppComponent'
 import mid from '../../../assets/img/brand/field-idle.png'
 import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
-
+import Paging from '../../General/Paging';
 import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
 
 class PurchaseOrderTable extends Component {
@@ -19,7 +19,15 @@ class PurchaseOrderTable extends Component {
       tablebody : ['A','PO-4312','Josaphat','1','Available','27/01/2020','27/01/2020','27/01/2020','27/01/2020', 'Swann-wq12'],
       activearrow:mid,
       sortparameter:'orderNo',
-      sort:true
+      sort:true,
+
+      //pagonation
+      currentPage: 1,
+			startIndex: 0,
+			lastIndex: 0,
+			displayPage: 11,
+			totalRows: 0,
+			maxPage: 0,
     }
   }
 
@@ -27,7 +35,35 @@ class PurchaseOrderTable extends Component {
     this.loadPurchaseOrder()
   }
 
+  setPagination = (result) => {
+		let self = this;
+		let respondRes = result;
+		let totalPage = 0;
+
+		if (respondRes.length > self.state.displayPage) {
+			totalPage = respondRes % self.state.displayPage;
+			if (totalPage > 0 && totalPage < 50) {
+				totalPage = parseInt(respondRes.length / self.state.displayPage) + 1;
+			} else {
+				totalPage = respondRes.length / self.state.displayPage;
+			}
+			self.setState({ maxPage: totalPage });
+		} else {
+			self.setState({ maxPage: 1 });
+		}
+
+		self.setState({ displayContent: "FOUND",
+						masterResStockHolding: respondRes,
+						totalRows: respondRes.length });
+
+		self.numberEventClick(self.state.currentPage);
+	}
+
   loadPurchaseOrder = () => {
+    this.setState({ currentPage: 1,
+                    startIndex: 0, lastIndex: 0,
+                    totalRows: 0, maxPage: 0})
+
     axios.get(endpoint.purchaseOrder, {
       headers: headers
     })
@@ -35,6 +71,7 @@ class PurchaseOrderTable extends Component {
         const result = res.data.data
         this.setState({ data:result })
         this.load()
+        this.setPagination(result);
       })
       .catch(error => {
         // this.props.history.push("/logins")
@@ -46,6 +83,11 @@ class PurchaseOrderTable extends Component {
   }
 
   searchPurchaseOrder = (search,client,site,status,ordertype,supplier) => {
+    
+    this.setState({currentPage: 1,
+      startIndex: 0, lastIndex: 0,
+      totalRows: 0, maxPage: 0})
+
     let param = search
     if(param)
     {
@@ -91,6 +133,7 @@ class PurchaseOrderTable extends Component {
         const result = res.data.data
         this.setState({ data:result })
         this.load()
+        this.setPagination(result)
       })
       .catch(error => {
         // this.props.history.push("/logins")
@@ -193,6 +236,41 @@ class PurchaseOrderTable extends Component {
     this.setState({data:data})
   }
 
+  changeStartIndex = (currentPage) => {
+		this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
+	}
+
+	changeLastIndex = (currentPage) => {
+		this.setState({ lastIndex: parseInt(currentPage) * this.state.displayPage });
+	}
+
+	numberEventClick = (currentPage) => {
+		let page = parseInt(currentPage);
+		this.setState({ currentPage: page });
+		this.changeStartIndex(page);
+		this.changeLastIndex(page);
+	}
+
+	nextPageClick = () => {
+		if (this.state.currentPage < this.state.maxPage) {
+			this.setState((prev) => {
+				currentPage: prev.currentPage++;
+				this.changeStartIndex(prev.currentPage);
+				this.changeLastIndex(prev.currentPage);
+			});
+		}
+	}
+
+	backPageClick = () => {
+		if (this.state.currentPage > 1) {
+			this.setState((prev) => {
+				currentPage: prev.currentPage--;
+				this.changeStartIndex(prev.currentPage);
+				this.changeLastIndex(prev.currentPage);
+			});
+		}
+	}
+
   render(){
     return(
       <div>
@@ -208,9 +286,8 @@ class PurchaseOrderTable extends Component {
               <th className='iconU-edit'></th>
             </tr>
           </thead>
-          <tbody>
-            
-              {this.state.data ? this.state.data.map((data,i) => 
+          <tbody>            
+              {this.state.data ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
                   <tr onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/'+data.orderNo)} className='tr'>
                     <td>{data.site}</td>
                     <td>{data.orderNo}</td>
@@ -229,6 +306,11 @@ class PurchaseOrderTable extends Component {
                 }       
           </tbody>
         </table>
+        <Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                isActive={this.state.isActive}
+                numberEventClick={this.numberEventClick} />
       </div>
     )
   }
