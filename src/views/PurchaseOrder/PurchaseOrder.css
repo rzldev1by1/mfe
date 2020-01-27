@@ -31,6 +31,27 @@ h1{
 	float: right !important;
 }
 
+.inputDate{
+	border: 1px solid #D5D8DA;
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.inputdate:focus{
+	outline: none;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+.dateimg{
+	width: 15px;
+	height: 15px;
+	margin-right: 10px;
+}
+
 .iconU-edit {
 	font-size:1em !important;	
 }
@@ -39,7 +60,8 @@ h1{
 	font-family: "Helvetica Neue Medium" !important;
 	font-size: 1.5em;
 	cursor: pointer;
-	margin-top: 2%;
+	margin-top: 1%;
+	margin-bottom: 1%;
 }
 
 .iconU-edit{
@@ -506,6 +528,22 @@ h3{
 	color: white;
 }
 
+.addline{
+	color: #919191;
+	font-size: larger;
+	margin-top: 10px;
+}
+
+.crt{
+	padding-top:-5px;
+	height: 50px;
+	vertical-align: middle;
+	font-size: small;
+}
+
+.sym{
+	margin-top: 10px;
+}
 
 .tabcontent>.scroll::-webkit-scrollbar {
 	width: 8px !important;

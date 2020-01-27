@@ -5,6 +5,7 @@
   import oneactive from '../../../assets/img/brand/tab_1_blue@2x.png'
   import twoinactive from '../../../assets/img/brand/tab_2_grey@2x.png'
   import twoactive from '../../../assets/img/brand/tab_2_blue@2x.png'
+  import date from '../../../assets/img/brand/field_date@2x.png'
   import DayPicker from 'react-day-picker';
   import 'react-day-picker/lib/style.css';
 
@@ -70,22 +71,28 @@
           <table className='createpotable'>
               <tr>
                   <th>Site</th>
-                  <th>Order No</th>
+                  <th>Order Type</th>
                   <th>Supplier</th>
                   <th>Customer Order Ref</th>
               </tr>
               <tr>
                   <td><input className="form-control inputs" placeholder="Site"/> </td>
-                  <td><input className="form-control inputs" readOnly/> </td>
+                  <td>
+                    <select className="form-control selectinput">
+                      <option selected disabled>Order Type</option>
+                      <option>Type 1</option>
+                      <option>Type 2</option>
+                    </select>
+                  </td>
                   <td><input className="form-control inputs" placeholder="Supplier"/> </td>
                   <td><input className="form-control inputs" placeholder="Customer Order ref."/> </td>
               </tr>
 
               <tr>
                   <th>Client</th>
+                  <th>Order No</th>
                   <th>Order Date</th>
-                  <th>Order Type</th>
-                  <th>Client Order Ref</th>
+                  <th>Vendor Order Ref</th>
               </tr>
               <tr>
                   <td>
@@ -95,14 +102,8 @@
                       <option>John Wick</option>
                     </select>
                   </td>
-                  <td></td>
-                  <td>
-                    <select className="form-control selectinput">
-                      <option selected disabled>Order Type</option>
-                      <option>Type 1</option>
-                      <option>Type 2</option>
-                    </select>
-                  </td>
+                  <td><input className="form-control inputs"  value='PO-003'/></td>
+                  <td><div className='inputDate inputs'><input className="form-control  borderless inputdate"/><img className='dateimg' src={date}/></div></td>                  
                   <td><input className="form-control inputs" inputs placeholder="Vendor Order ref."/> </td>
               </tr>
           </table>
@@ -186,7 +187,7 @@
               </tr>                  
             </table>
             <div className={'tablerow ' + (this.state.rowlist.length >2 ? 'scroll' : null )}>
-              {this.state.rowlist.map((list, i) => this.linedetailsrow(list, i))}
+              {this.state.rowlist.map((list, i) => this.linedetailsrowreview(list, i))}
             </div>
         </div>
       )
@@ -238,6 +239,31 @@
       )
     }
 
+    linedetailsrowreview = (list, i) => {
+      return(
+        <table>
+          <tr>
+              <td hidden id={list.id}></td>
+              <td style={{width:'2%', textAlign:'center'}}><input className="form-control inputs" value={i+1}/></td>
+              <td style={{width:'12%'}}><input className="form-control inputs" placeholder='product'/></td>
+              <td style={{width:'6%'}}>
+                  <select className="form-control selectinput">
+                    <option selected disabled>UOM</option>
+                    <option>each</option>
+                    <option>pallet</option>
+                  </select>
+              </td>
+              <td style={{width:'3%'}}><input className="form-control inputs" placeholder='qty'/></td>
+              <td style={{width:'6%'}}><input className="form-control inputs" placeholder='rota date'/></td>
+              <td style={{width:'6%'}}><input className="form-control inputs" placeholder='batch'/></td>
+              <td style={{width:'5%'}}><input className="form-control inputs" placeholder='ref3'/></td>
+              <td style={{width:'5%'}}><input className="form-control inputs" placeholder='ref4'/></td>
+              <td style={{width:'6%'}}><input className="form-control inputs" placeholder='disposition'/></td>
+            </tr>
+        </table>
+      )
+    }
+
     addline = () => {
       let index = this.state.rowlist.length
       this.setState({rowlist: this.state.rowlist.concat(
@@ -270,7 +296,7 @@
             toggle={true} className={this.classname}>
             <ModalHeader>
               <div className='create'><label className='iconU-edit'/><label className='font'>Create Purchase Order</label></div>
-              <Button color="primary" className='btnsearch' onClick={() => this.close()}><label className='font'>Close</label><label className='iconU-close'/></Button>
+              <Button color="primary" className='btnsearch crt' onClick={() => this.close()}><label className='font'>Close</label><label className='iconU-close sym'/></Button>
             </ModalHeader>
             <ModalHeader className='Tab'>
               <div>
