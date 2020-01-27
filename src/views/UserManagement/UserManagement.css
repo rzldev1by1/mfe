@@ -43,6 +43,20 @@ span.upArrow:before {
     background-color: #E9ECED;
 }
 
+.btn-outline-active{
+	border: 2px solid #22ABE3;
+	border-radius: 7px;
+	color: #22ABE3;
+	width: 80px;
+}
+
+.btn-outline-notActive{
+	color: #D5D8DA;
+	border: 2px solid #D5D8DA;
+	border-radius: 7px;
+	width: 80px;
+}
+
 
 span.client-active{
     border: 2px solid #22ABE3;
