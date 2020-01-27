@@ -42,24 +42,9 @@ class PurchaseOrderTable extends Component {
   }
 
   sortby = (id) => {
-    if(id == 'Site')
+    if(id == 'Product')
     {
-      this.setState({sort:!this.state.sort, sortparameter:'site'})
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
-    else if(id == 'Order No')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'order_no'})
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
-    else if(id == 'Client')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'client'})
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
-    else if(id == 'Status')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'status'})
+      this.setState({sort:!this.state.sort, sortparameter:'product'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
     else if(id == 'Status Description')
@@ -67,29 +52,44 @@ class PurchaseOrderTable extends Component {
       this.setState({sort:!this.state.sort, sortparameter:'status_desc'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
-    else if(id == 'Date Due')
+    else if(id == 'Quantity')
     {
-      this.setState({sort:!this.state.sort, sortparameter:'date_due'})
+      this.setState({sort:!this.state.sort, sortparameter:'qty_lcd'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
-    else if(id == 'Date Received')
+    else if(id == 'UOM')
     {
-      this.setState({sort:!this.state.sort, sortparameter:'date_received'})
+      this.setState({sort:!this.state.sort, sortparameter:'packdesc_1'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
-    else if(id == 'Date Released')
+    else if(id == 'Qty Processed')
+    {
+      this.setState({sort:!this.state.sort, sortparameter:'qty_processed'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+    }
+    else if(id == 'Weight Process')
+    {
+      this.setState({sort:!this.state.sort, sortparameter:'wgt_processed'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+    }
+    else if(id == 'Rotadate')
+    {
+      this.setState({sort:!this.state.sort, sortparameter:'rota1'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+    }
+    else if(id == 'Disposition')
     {
       this.setState({sort:!this.state.sort, sortparameter:'date_released'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
-    else if(id == 'Date Completed')
+    else if(id == 'Ref 3')
     {
-      this.setState({sort:!this.state.sort, sortparameter:'date_completed'})
+      this.setState({sort:!this.state.sort, sortparameter:'ref3'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
-    else if(id == 'Supplier Name')
+    else if(id == 'Ref 4')
     {
-      this.setState({sort:!this.state.sort, sortparameter:'ship_to_name'})
+      this.setState({sort:!this.state.sort, sortparameter:'ref4'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
   }

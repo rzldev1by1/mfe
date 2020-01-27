@@ -55,7 +55,7 @@ export default class PurchaseOrderDetail extends Component {
         return(
             <div className='podheader fades'>                    
             <div className='sub'>                        
-                <table style={{width:'60%'}}>
+                <table style={{width:'70%'}}>
                     <tr>
                         <th>Site</th>
                         <td>{site ? site : '-'}</td>
@@ -76,7 +76,7 @@ export default class PurchaseOrderDetail extends Component {
             </div>
 
             <div className='sub' style={{width:'70%'}}>
-                <table className='tableborderss' style={{width:'80%'}}>
+                <table className='tableborderss' style={{width:'90%'}}>
                     <tr>
                         <th>Supplier No</th>
                         <td>{supplierNo ? supplierNo : '-'}</td>
@@ -96,8 +96,8 @@ export default class PurchaseOrderDetail extends Component {
                 </table>
             </div>
 
-            <div className='sub'>
-                <table className='tableborderss' style={{width:'80%'}}>
+            <div className='sub'  style={{width:'65%'}}>
+                <table className='tableborderss' style={{width:'90%'}}>
                     <tr>
                         <th>Status</th>
                         <td style={{color:'#7FC242'}}>{status ? status : '-'}</td>
