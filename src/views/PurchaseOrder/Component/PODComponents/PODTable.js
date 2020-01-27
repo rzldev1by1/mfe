@@ -12,6 +12,7 @@ class PurchaseOrderTable extends Component {
     super(props)
 
     this.state = {
+      data:this.props.datahead,
       tableheader : ['Product','Status Description','Quantity','UOM','Qty Processed','Weight Process','Rotadate','Disposition','Ref 3','Ref 4'],
       activearrow:mid,
       sortparameter:'order_no',
