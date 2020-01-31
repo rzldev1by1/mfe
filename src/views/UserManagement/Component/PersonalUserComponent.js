@@ -17,7 +17,7 @@ class UserListComponent extends Component{
     }
 
     rowData = () => {
-       
+
         const defaultData = [
             {column1:"value1",column2:"value2",column3:"value3",column4:"value4"},
             {column1:"value1",column2:"value2",column3:"value3",column4:"value4"},
@@ -64,16 +64,16 @@ class UserListComponent extends Component{
                 <Card className="border-account-info">
                     <CardBody className="account-info">
                         <div className="row">
-                            { 
+                            {
                                 this.state.headers.map((element,index)=>{
                                 return  <div className="col-3 headers" key={index}>
                                             <label>{element}</label>
                                         </div>
 
-                                })                                    
+                                })
                             }
                         </div>
-                        
+
                         {
                             this.state.data.map((element,index)=>{
                                 return <div className="row" key={index}>
@@ -81,79 +81,17 @@ class UserListComponent extends Component{
                                             Object.keys(element).map((item,idx) => {
                                                 return <div className="col-3 users" key={idx}>
                                                             <label>{element[item]}</label>
-                                                        </div> 
+                                                        </div>
                                             })
                                         }
                                 </div>
                             })
-                            
+
                         }
-                                   
+
                     </CardBody>
                 </Card>
 
-                         
-                   
-                    {/* <div className="d-flex flex-column">
-                        <div className="d-flex">
-                            { 
-                                this.state.headers.map((element,index)=>{
-                                return  <div className="p-3" key={index}>
-                                            <label>{element}</label>
-                                        </div>
-
-                                })                                    
-                            }
-                        </div>
-                        <div className="d-flex">
-                            {
-                                this.state.data.map((element,index)=>{
-                                    return <div className="p-3" key={index}>
-                                            {
-                                                Object.keys(element).map((item,idx) => {
-                                                    return <label>{element[item]}</label> 
-                                                })
-                                            }
-                                    </div>
-                                })
-                                
-                            }
-                        </div>
-                    </div> */}
-                    
-                   
-                    {/* <table className="table">
-                        <thead>
-                            <tr>
-                                { 
-                                    this.state.headers.map((element,index)=>{
-                                    return <th key={index} className='headers'>
-                                            
-                                                <label className="mt-1 mb-0">{element}</label>  
-                                            
-                                        </th>
-                                    })                                    
-                                }
-                            </tr>
-                        </thead>
-                        <tbody>
-                               {
-                                   this.state.data.map((element,index)=>{
-                                       return <tr key={index}>
-                                                {
-                                                   Object.keys(element).map((item,idx) => {
-                                                       return <td key={idx} className={(item === 'user')?'users':'norm'}>
-                                                            { (item === 'action')?<span className='next'></span>: <label className={((item === 'status')? ((element[item].toLowerCase() === 'active')?'active':'suspended'):'')}>{element[item]}</label> }
-                                                       </td>
-                                                   })
-                                                }
-                                       </tr>
-                                   })
-                               }
-                            
-                            
-                        </tbody>
-                    </table> */}
                 </div>
              )
     }

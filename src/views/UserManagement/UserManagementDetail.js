@@ -6,6 +6,7 @@ import Site from './Component/Site'
 import Client from './Component/Client'
 import {endpoint,headers} from '../../AppComponent/ConfigEndpoint'
 import axios from 'axios'
+import users from './Users.json'
 
 class UserManagementDetail extends Component{
     constructor(props){
@@ -13,15 +14,29 @@ class UserManagementDetail extends Component{
         this.state = {
           moduleAccess:[],
           sites:[],
-          clients:[]
+          clients:[],
+          isModuleLoaded: false,
+          isClientLoaded: false,
+          isSiteLoaded: false,
+          accountInfo:{}
         }
 
     }
 
     componentDidMount(){
+        let id = this.props.match.params.id;
+
+        this.getAccountInfo(id);
         this.loadModuleAccess("warehouse");
         this.loadSites();
         this.loadClients();
+    }
+
+    getAccountInfo = (userid) => {
+        if(users){
+            let user = users.filter((item) => {return item.userid === userid})[0];
+            this.setState({accountInfo:user});
+        }
     }
 
     restuctureData = (sites) => {
@@ -45,8 +60,8 @@ class UserManagementDetail extends Component{
           if(res.status === 200){
             result = res.data;
             let newResult = self.restuctureData(result.filter((item) => { return query.indexOf(item.menuname.toLowerCase()) !== -1 }));
-            // let filteredArray = result.filter((item) => { return query.indexOf(item.menuname.toLowerCase()) !== -1 });
-            self.setState({moduleAccess:newResult});
+
+            self.setState({moduleAccess:newResult,isModuleLoaded:true});
           }
           return result;
         })
@@ -69,7 +84,7 @@ class UserManagementDetail extends Component{
           if(res.status === 200){
             result = res.data;
             let newResult = self.restuctureData(result);
-            self.setState({sites:newResult});
+            self.setState({sites:newResult,isSiteLoaded:true});
           }
           return result;
         })
@@ -91,7 +106,7 @@ class UserManagementDetail extends Component{
           if(res.status === 200){
             result = res.data;
             let newResult = self.restuctureData(result);
-            self.setState({clients:newResult});
+            self.setState({clients:newResult,isClientLoaded:true});
           }
           return result;
         })
@@ -167,7 +182,7 @@ class UserManagementDetail extends Component{
                             <div className="row">
                               <div className="col-12">
                                 <h3>
-                                  <label className="name-account font-bolder">Phil Jones</label>
+                                  <label className="name-account font-bolder">{this.state.accountInfo.user}</label>
                                 </h3>
                               </div>
                             </div>
@@ -185,11 +200,11 @@ class UserManagementDetail extends Component{
                             </div>
                             <div className="row">
                                 <div className="col-4">
-                                    <input type="text" className="form-control" defaultValue="Phil Jones"/>
+                                    <input type="text" className="form-control" defaultValue={this.state.accountInfo.user}/>
                                 </div>
 
                                 <div className="col-4">
-                                    <input type="text" className="form-control" defaultValue={this.props.match.params.id}/>
+                                    <input type="text" className="form-control" defaultValue={this.state.accountInfo.userid}/>
                                 </div>
                                 <div className="col-3">
                                       <label className="account-name">Are you sure you want to suspend this user?</label>
@@ -214,7 +229,7 @@ class UserManagementDetail extends Component{
                             <div className="row">
 
                                 <div className="col-4">
-                                    <input type="text" className="form-control" defaultValue="philjones@ttl.com"/>
+                                    <input type="text" className="form-control" defaultValue={this.state.accountInfo.email}/>
                                 </div>
                                 <div className="col-4">
                                     <label className="account-name">Contact Microlistic for request to reset password</label>
@@ -235,134 +250,17 @@ class UserManagementDetail extends Component{
                             </div>
                             <div className="d-flex flex-row">
                                 <div className="flex-fill mr-2">
-                                    <ModuleAccess moduleAccess={moduleAccess} onEnableClick={this.onEnableClick}/>
+                                    <ModuleAccess moduleAccess={moduleAccess} isLoaded={this.state.isModuleLoaded} onEnableClick={this.onEnableClick}/>
                                 </div>
                                 <div className="flex-fill mr-2">
-                                    <Site sites={sites} onEnableClick={this.onSiteStatusClick}/>
+                                    <Site sites={sites} isLoaded={this.state.isSiteLoaded} onEnableClick={this.onSiteStatusClick}/>
                                 </div>
                                 <div className="flex-fill mr-2">
-                                    <Client clients={clients} onEnableClick={this.onClientStatusClick}/>
+                                    <Client clients={clients} isLoaded={this.state.isClientLoaded} onEnableClick={this.onClientStatusClick}/>
                                 </div>
 
                             </div>
-{
-  /**
 
-  <div className="row">
-  <div className="col-4">
-  <label className="text-bolder">Module Access</label>
-  </div>
-  <div className="col-4">
-  <label className="text-bolder">Site</label>
-  </div>
-  <div className="col-4">
-  <label className="text-bolder">Client</label>
-  </div>
-  </div>
-  <div className="row mb-1">
-  <div className="col-3">
-  <label className="account-name">Stock Holding</label>
-  </div>
-  <div className="col-1">
-  <span className='p-1 m-1 client-active float-right'>Enable</span>
-  </div>
-  <div className="col-3">
-  <label className="account-name">A(Melbourne)</label>
-  </div>
-  <div className="col-1">
-  <span className='p-1 m-1 client-active float-right'>Enable</span>
-  </div>
-  <div className="col-3">
-  <label className="account-name">Aeosop</label>
-  </div>
-  <div className="col-1">
-  <span className='p-1 m-1 client-active float-right'>Enable</span>
-  </div>
-  </div>
-  <div className="row mb-1">
-  <div className="col-3">
-  <label className="account-name">Stock Movement</label>
-  </div>
-  <div className="col-1">
-  <span className='p-1 m-1 client-active float-right'>Enable</span>
-  </div>
-
-  <div className="col-3">
-  <label className="account-name">B(Sydney)</label>
-  </div>
-  <div className="col-1">
-  <span className='p-1 m-1 client-active float-right'>Enable</span>
-  </div>
-  <div className="col-3">
-  <label className="account-name">Nike</label>
-  </div>
-  <div className="col-1">
-  <span className='p-1 m-1 client-active float-right'>Enable</span>
-  </div>
-  </div>
-  <div className="row mb-1">
-  <div className="col-3">
-  <label className="account-name">Sales Order</label>
-  </div>
-  <div className="col-1">
-  <span className='p-1 m-1 client-active float-right'>Enable</span>
-  </div>
-  <div className="col-3">
-  <label className="account-name">C(Adelaide)</label>
-  </div>
-  <div className="col-1">
-  <span className='p-1 m-1 client-active float-right'>Enable</span>
-  </div>
-  <div className="col-3">
-  <label className="account-name">Logitech</label>
-  </div>
-  <div className="col-1">
-  <span className='p-1 m-1 client-active float-right'>Enable</span>
-  </div>
-  </div>
-  <div className="row mb-1">
-  <div className="col-3">
-  <label className="account-name">Purchase Order</label>
-  </div>
-  <div className="col-1">
-  <span className='p-1 m-1 client-notActive float-right'>Disable</span>
-  </div>
-  <div className="col-3">
-  <label className="account-name">N201 (Batam)</label>
-  </div>
-  <div className="col-1">
-  <span className='p-1 m-1 client-notActive float-right'>Disable</span>
-  </div>
-  <div className="col-3">
-  <label className="account-name">Lenovo</label>
-  </div>
-  <div className="col-1">
-  <span className='p-1 m-1 client-notActive float-right'>Disable</span>
-  </div>
-  </div>
-  <div className="row mb-1">
-  <div className="col-3">
-  <label className="account-name">User Management</label>
-  </div>
-  <div className="col-1">
-  <span className='p-1 m-1 client-notActive float-right'>Disable</span>
-  </div>
-  <div className="col-3">
-  <label className="account-name">BP01 (Jakarta)</label>
-  </div>
-  <div className="col-1">
-  <span className='p-1 m-1 client-notActive float-right'>Disable</span>
-  </div>
-  <div className="col-3">
-  <label className="account-name">Samsung</label>
-  </div>
-  <div className="col-1">
-  <span className='p-1 m-1 client-notActive float-right'>Disable</span>
-  </div>
-  </div>
-
-  **/
-}
 
                         </div>
 

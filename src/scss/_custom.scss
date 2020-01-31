@@ -214,6 +214,21 @@ body {
 	}
 }
 
+.form-control{
+  height:50px !important;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 2px solid #E8E8E8 !important;
+  border-radius: 7px !important;
+  opacity: 1 !important;
+}
+
+.form-control:hover{
+  border: 2px solid #969EA1 !important;
+}
+
+.form-control:disabled{
+  border: 2px solid #E8E8E8 !important;
+}
 
 // Start - Sidebar
 
@@ -520,11 +535,11 @@ a.breadcrumb:hover {
 	font-variant: normal;
 	text-transform: none;
 	line-height: 1;
-  
+
 	/* Better Font Rendering =========== */
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	
+
 	content: "\e90f";
 	color: #637176 !important;
 	font-size: 4px;
@@ -533,7 +548,7 @@ a.breadcrumb:hover {
     pointer-events: none;
 	right: 2em;
     padding: 4em;
-    
+
     -webkit-touch-callout: none !important;
     -webkit-user-select: none !important;
     -khtml-user-select: none !important;

@@ -17,7 +17,7 @@ class UserListComponent extends Component{
     }
 
     rowData = () => {
-       
+
         const defaultData = [
             {column1:"value1",column2:"value2",column3:"value3",column4:"value4"},
             {column1:"value1",column2:"value2",column3:"value3",column4:"value4"},
@@ -64,30 +64,30 @@ class UserListComponent extends Component{
     }
 
     render(){
-        
-       
+
+
 
         return(
                 <div className="d-flex">
                     <table className="table">
                         <thead>
                             <tr>
-                                { 
+                                {
                                     this.state.headers.map((element,index)=>{
                                     return <th key={index} className='headers'>
                                             <div className='d-flex flex-row'>
-                                                <label className="mt-1 mb-0">{element}</label> 
+                                                <label className="mt-1 mb-0">{element}</label>
                                                {
-                                                   (element === '')?'': (<div className="d-flex flex-column ml-2"> 
+                                                   (element === '')?'': (<div className="d-flex flex-column ml-2">
                                                                                     <span className="upArrow" style={{height:'10px'}}></span>
                                                                                     <span className="downArrow" style={{height:'10px'}}></span>
                                                                                 </div>)
-                                               } 
-                                               
-                                                
+                                               }
+
+
                                             </div>
                                         </th>
-                                    })                                    
+                                    })
                                 }
                             </tr>
                         </thead>
@@ -97,16 +97,19 @@ class UserListComponent extends Component{
                                        return <tr key={index} onClick={(e)=>{ this.onRowClick(e,element.userid);}}>
                                                 {
                                                    Object.keys(element).map((item,idx) => {
-                                                       return <td key={idx} className={(item === 'user')?'users':'norm'}>
-                                                            { (item === 'action')?<span className='next'></span>: <label className={((item === 'status')? ((element[item].toLowerCase() === 'active')?'active':'suspended'):'')}>{element[item]}</label> }
-                                                       </td>
+                                                      return (item !== 'email')?
+                                                              <td key={idx} className={(item === 'user')?'users':'norm'}>
+                                                               { (item === 'action')?
+                                                               <span className='next'></span>:
+                                                               <label className={((item === 'status')? ((element[item].toLowerCase() === 'active')?'active':'suspended'):'')}>{element[item]}</label> }
+                                                               </td>:""
                                                    })
                                                 }
                                        </tr>
                                    })
                                }
-                            
-                            
+
+
                         </tbody>
                     </table>
                 </div>
