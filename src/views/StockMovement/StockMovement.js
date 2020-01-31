@@ -251,6 +251,9 @@ class StockMovement extends Component {
 			displayPeriod: "day",
 			rangeDate: [],
 			rangeMonth: [],
+			dateLength: undefined,
+			monthLength: undefined,
+			stockMovementLength: undefined,
 
 		}
 	}
@@ -635,7 +638,8 @@ class StockMovement extends Component {
 
 			this.setState({
 				dateColumns: dateColumns,
-				rangeDate: rangeDate
+				rangeDate: rangeDate,
+				dateLength: dateColumns.length
 			});
 		}
 		if(this.state.monthFromConfirm !== undefined && this.state.monthToConfirm !== undefined){
@@ -675,7 +679,8 @@ class StockMovement extends Component {
 
 			this.setState({
 				monthColumns: monthColumns,
-				rangeMonth: rangeMonth
+				rangeMonth: rangeMonth,
+				monthLength: monthColumns.length
 			});
 		}
 	}
@@ -689,46 +694,72 @@ class StockMovement extends Component {
 							return <td key={columnIdx} className="px-3 text-left">{item[column.id]}</td>
 						})}
 						{this.state.dateToConfirm ? this.state.dateColumns.map((dateColumn, dataIdx) => {
-							if(item.details.date === dateColumn.id){
+							if(item.detail.length === this.state.dateLength){
 								return (
-									dateColumn.subColumns.map((column, columnIdx) => {
-									return (
-										<td key={columnIdx} className="px-3 text-left">
-											{item.details[column.id] ? item.details[column.id] : "-"}
-										</td>
-									)
-								}))
+									item.detail.map((subData) => {
+										if(subData.date === dateColumn.id){
+											return (
+												dateColumn.subColumns.map((column, columnIdx) => {
+												return (
+													<td key={columnIdx} className="px-3 text-left">
+														{subData[column.id] ? subData[column.id] : "-"}
+													</td>
+												)
+											}))
+										}
+									})
+								)
 							}else{
 								return (
-									dateColumn.subColumns.map((column, columnIdx) => {
-									return (
-										<td key={columnIdx} className="px-3 text-left">
-											-
-										</td>
-									)
-								}))
+									item.detail.map((subData) => {
+										if(subData.date === dateColumn.id){
+											return (
+												dateColumn.subColumns.map((column, columnIdx) => {
+												return (
+													<td key={columnIdx} className="px-3 text-left">
+														{subData[column.id] ? subData[column.id] : "-"}
+													</td>
+												)
+											}))
+										}else{
+											return (
+												dateColumn.subColumns.map((column, columnIdx) => {
+												return (
+													<td key={columnIdx} className="px-3 text-left">
+														-
+													</td>
+												)
+											}))
+										}
+									})
+								)
 							}
+							
 						}): null}
 						{this.state.monthToConfirm ? this.state.monthColumns.map((monthColumn, dataIdx) => {
-							if(item.details.date === monthColumn.id){
-								return (
-									monthColumn.subColumns.map((column, columnIdx) => {
-									return (
-										<td key={columnIdx} className="px-3 text-left">
-											{item.details[column.id] ? item.details[column.id] : "-"}
-										</td>
-									)
-								}))
-							}else{
-								return (
-									monthColumn.subColumns.map((column, columnIdx) => {
-									return (
-										<td key={columnIdx} className="px-3 text-left">
-											-
-										</td>
-									)
-								}))
-							}
+							return (
+								item.detail.map((subData) => {
+									if(subData.date === monthColumn.id){
+										return (
+											monthColumn.subColumns.map((column, columnIdx) => {
+											return (
+												<td key={columnIdx} className="px-3 text-left">
+													{subData[column.id] ? subData[column.id] : "-"}
+												</td>
+											)
+										}))
+									}else{
+										return (
+											monthColumn.subColumns.map((column, columnIdx) => {
+											return (
+												<td key={columnIdx} className="px-3 text-left">
+													-
+												</td>
+											)
+										}))
+									}
+								})
+							)
 						}): null}
 					</tr>
 				);
