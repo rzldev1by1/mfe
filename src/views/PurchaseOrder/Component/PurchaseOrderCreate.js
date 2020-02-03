@@ -45,6 +45,8 @@
                 "subMenu":['asd','asds']
               }
             ],
+
+            showdatepicker:false
             
             }
       }
@@ -64,6 +66,11 @@
           })
       }
 
+      datePickerHandler = (day) => {
+        this.setState({showdatepicker:!this.state.showdatepicker})
+        this.setState({orderdate:day})
+      }
+
     tab1Content = () => {
       return(
         <div className='tabcontent'>
@@ -76,7 +83,7 @@
                   <th>Customer Order Ref</th>
               </tr>
               <tr>
-                  <td><input className="form-control inputs" placeholder="Site"/> </td>
+                  <td><input className="form-control " placeholder="Site"/> </td>
                   <td>
                     <select className="form-control selectinput">
                       <option selected disabled>Order Type</option>
@@ -84,8 +91,8 @@
                       <option>Type 2</option>
                     </select>
                   </td>
-                  <td><input className="form-control inputs" placeholder="Supplier"/> </td>
-                  <td><input className="form-control inputs" placeholder="Customer Order ref."/> </td>
+                  <td><input className="form-control " placeholder="Supplier"/> </td>
+                  <td><input className="form-control " placeholder="Customer Order ref."/> </td>
               </tr>
 
               <tr>
@@ -102,9 +109,20 @@
                       <option>John Wick</option>
                     </select>
                   </td>
-                  <td><input className="form-control inputs"  value='PO-003'/></td>
-                  <td><div className='inputDate inputs'><input className="form-control  borderless inputdate"/><img className='dateimg' src={date}/></div></td>                  
-                  <td><input className="form-control inputs" inputs placeholder="Vendor Order ref."/> </td>
+                  <td><input className="form-control" value='PO-003'/></td>
+                  <td>
+                    <div className='inputDate '>
+                      <input className="form-control withIcon" value={this.state.orderdate}/>
+                      <img onClick={() => this.datePickerHandler()} className='dateimg' src={date}/>
+                    </div>
+                  </td>                  
+                  <td><input className="form-control "  placeholder="Vendor Order ref."/> </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>{this.state.showdatepicker ? <DatePicker getChosenDay={(day) => this.datePickerHandler(day)}/> : null}</td>
+                <td></td>
               </tr>
           </table>
 
@@ -149,10 +167,10 @@
                   <th>Customer Order Ref</th>
               </tr>
               <tr>
-                  <td><input className="form-control inputs borderless" readOnly/></td>
-                  <td><input className="form-control inputs borderless" readOnly/></td>
-                  <td><input className="form-control inputs borderless" readOnly/></td>
-                  <td><input className="form-control inputs borderless" readOnly/></td>
+                  <td><input className="form-control" readOnly/></td>
+                  <td><input className="form-control" readOnly/></td>
+                  <td><input className="form-control" readOnly/></td>
+                  <td><input className="form-control" readOnly/></td>
               </tr>
 
               <tr>
@@ -162,11 +180,11 @@
                   <th>Client Order Ref</th>
               </tr>
               <tr>
-                  <td><input className="form-control inputs borderless" readOnly/></td>
-                  <td><input className="form-control inputs borderless" readOnly/></td>
-                  <td><input className="form-control inputs borderless" readOnly/></td>
-                  <td><input className="form-control inputs borderless" readOnly/></td>
-              </tr>
+                  <td><input className="form-control" readOnly/></td>
+                  <td><input className="form-control" readOnly/></td>
+                  <td><input className="form-control" readOnly/></td>
+                  <td><input className="form-control" readOnly/></td>
+              </tr>              
           </table>
 
           <br/>

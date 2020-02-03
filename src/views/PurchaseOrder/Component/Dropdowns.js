@@ -16,7 +16,19 @@ export default class Dropdowns extends Component {
             site:null,
             status:null,
             ordertype:null,
-            supplier:null
+            supplier:null,
+
+            clientSelected:'Client',
+            siteSelected:'Site',
+            statusSelected:'Status',
+            ordertypeSelected:'Order Type',
+            supplierSelected:'Supplier',
+
+            clientExpand:false,
+            siteExpand:false,
+            statuseExpand:false,
+            ordertypeeExpand:false,
+            suppliereExpand:false,
         }
     }
 
@@ -80,89 +92,173 @@ export default class Dropdowns extends Component {
           })
       }
 
-    clienthandler = (e) => {
-        this.setState({client:e.target.value},()=>{
-            this.getordertype(this.state.client, this.state.site)
-            this.props.filter(this.state.client)
-        })
-        this.getsupplier(e.target.value)
-        
+    //new Dropdown
+
+    //Client
+    selectedClient = (e) => {
+      this.setState({clientSelected:e.target.textContent}, () =>{
+          this.getordertype(this.state.client, this.state.site)
+          this.props.filter(this.state.client)
+      })
+      this.getsupplier(e.target.id)
+      this.setState({client:e.target.id})
+      this.setState({clientExpand: false})
     }
 
-    sitehandler = (e) => {
-        this.setState({site:e.target.value},() => {
-            this.getordertype(this.state.client, this.state.site)
-            this.props.filter(null,this.state.site)
-        })
-        
+    expandClient = () => {
+      this.setState({
+        clientExpand: !this.state.clientExpand,
+        siteExpand: false,
+        statuseExpand: false,
+        ordertypeeExpand: false,
+        suppliereExpand:false        
+      })
     }
 
-    statushandler = (e) => {
-        this.setState({status:e.target.value}, () => {
-          this.props.filter(null,null,this.state.status)
-        })
+    //Site
+    selectedSite = (e) => {
+      this.setState({siteSelected:e.target.textContent}, () =>{
+          this.getordertype(this.state.client, this.state.site)
+          this.props.filter(null,this.state.site)
+      })
+      this.setState({site:e.target.id})
+      this.setState({siteExpand: false})
     }
 
-    ordertypehandler = (e) => {
-        this.setState({ordertype:e.target.value}, () => {
-          this.props.filter(null,null,null,this.state.ordertype)
-        })
+    expandSite = () => {
+      this.setState({
+        clientExpand: false,
+        siteExpand: !this.state.siteExpand,
+        statuseExpand: false,
+        ordertypeeExpand: false,
+        suppliereExpand:false  
+      })
     }
 
-    supplierhandler = (e) => {
-        this.setState({supplier:e.target.value}, () => {
-          this.props.filter(null,null,null,null,this.state.supplier)
-        })
+    //Status
+    selectedStatus = (e) => {
+      this.setState({statusSelected:e.target.textContent})
+      this.setState({status:e.target.id}, () =>{
+        this.props.filter(null,null,this.state.status)
+    })
+      this.setState({statuseExpand: false})
+    }
+
+    expandStatus = () => {
+      this.setState({
+        clientExpand: false,
+        siteExpand: false,
+        statuseExpand: !this.state.statuseExpand,
+        ordertypeeExpand: false,
+        suppliereExpand:false 
+      })
+    }
+
+    //Order Type
+    selectedOrderType = (e) => {
+      this.setState({ordertypeSelected:e.target.textContent})
+      this.setState({ordertype:e.target.id}, () =>{
+        this.props.filter(null,null,null,this.state.ordertype)
+    })
+      this.setState({ordertypeeExpand: false})
+    }
+
+    expandOrderType = () => {
+      this.setState({
+        clientExpand: false,
+        siteExpand: false,
+        statuseExpand: false,
+        ordertypeeExpand: !this.state.ordertypeeExpand,
+        suppliereExpand:false
+      })
+    }
+
+    //Supplier
+    selectedSupplier = (e) => {
+      this.setState({supplierSelected:e.target.textContent})
+      this.setState({supplier:e.target.id}, () =>{
+        this.props.filter(null,null,null,null,this.state.supplier)
+    })
+      this.setState({suppliereExpand: false})
+    }
+
+    expandSupplier = () => {
+      this.setState({
+        clientExpand: false,
+        siteExpand: false,
+        statuseExpand: false,
+        ordertypeeExpand: false,
+        suppliereExpand:!this.state.suppliereExpand
+      })
     }
 
     render(){        
         return(
             <div style={{display:'flex', width:'100%'}}> 
-                <select onChange={(e) => this.clienthandler(e)} className="form-control dropdown">
-                    <option selected disabled>Client</option>
-                    {
-                        this.state.clientdata.map(
-                            data => <option value={data.code}>{data.name}</option>
-                        )
-                    }               
-                    
-                </select> 
-                
-                <select onChange={(e) => this.sitehandler(e)} className="form-control dropdown">
-                    <option selected disabled>Site</option>
-                    {
-                        this.state.sitedata.map(
-                        data => <option value={data.site}>{data.site}</option>
-                        )
-                    }
-                </select>
+                <div class="dropdown">
+                  <button onClick={() => this.expandClient()} type="button" className="btn dropdown-button dropdown-toggle" data-toggle="dropdown">
+                  {this.state.clientSelected}
+                  </button>
+                  <div class={"dropdown-menu " + (this.state.clientExpand ? "show" : null)}>
+                  {
+                      this.state.clientdata.map(
+                          data => <div onClick={(e) => this.selectedClient(e)} class="dropdown-item" id={data.code}>{data.name}</div>
+                      )
+                  }
+                  </div>
+                </div>
 
-                <select onChange={(e)=> this.statushandler(e)} className="form-control dropdown">
-                    <option selected disabled>Status</option>
-                    <option value="open">Open</option>
-                    <option value="all">All</option>
-                    <option value="released">Released</option>
-                    <option value="completed">Completed</option>
-                    <option value="unavailable">Unavailable</option>
-                </select>
+                <div class="dropdown">
+                  <button onClick={() => this.expandSite()} type="button" className="btn dropdown-button dropdown-toggle" data-toggle="dropdown">
+                  {this.state.siteSelected}
+                  </button>
+                  <div class={"dropdown-menu " + (this.state.siteExpand ? "show" : null)}>
+                  {
+                      this.state.sitedata.map(
+                          data => <div onClick={(e) => this.selectedSite(e)} class="dropdown-item" id={data.site}>{data.site}</div>
+                      )
+                  }
+                  </div>
+                </div>
 
-                <select onChange={(e) => this.ordertypehandler(e)} className="form-control dropdown">
-                    <option selected disabled>Order Type</option>
-                    {
-                        this.state.ordertypedata.map(
-                            data => <option value={data.code}>{data.description}</option>
-                        )
-                    }
-                </select>
-                      
-                <select onChange={(e) => this.supplierhandler(e)} className="form-control dropdown">
-                    <option selected disabled>Supplier</option>
-                    {
-                        this.state.supplierdata.map(
-                            data => <option value={data.supplier_no}>{data.name}</option>
-                        )
-                    }
-                </select>
+                <div class="dropdown">
+                  <button onClick={() => this.expandStatus()} type="button" className="btn dropdown-button dropdown-toggle" data-toggle="dropdown">
+                  {this.state.statusSelected}
+                  </button>
+                  <div class={"dropdown-menu " + (this.state.statuseExpand ? "show" : null)}>
+                          <div onClick={(e) => this.selectedStatus(e)} class="dropdown-item" id="open">Open</div>
+                          <div onClick={(e) => this.selectedStatus(e)} class="dropdown-item" id="all">All</div>
+                          <div onClick={(e) => this.selectedStatus(e)} class="dropdown-item" id="released">Released</div>
+                          <div onClick={(e) => this.selectedStatus(e)} class="dropdown-item" id="completed">Completed</div>
+                          <div onClick={(e) => this.selectedStatus(e)} class="dropdown-item" id="unavailable">Unavailable</div>
+                  </div>
+                </div>
+
+                <div class="dropdown">
+                  <button onClick={() => this.expandOrderType()} type="button" className="btn dropdown-button dropdown-toggle" data-toggle="dropdown">
+                  {this.state.ordertypeSelected}
+                  </button>
+                  <div class={"dropdown-menu " + (this.state.ordertypeeExpand ? "show" : null)}>
+                  {
+                      this.state.ordertypedata.map(
+                          data => <div onClick={(e) => this.selectedOrderType(e)} class="dropdown-item" id={data.code}>{data.description}</div>
+                      )
+                  }
+                  </div>
+                </div>
+
+                <div class="dropdown">
+                  <button onClick={() => this.expandSupplier()} type="button" className="btn dropdown-button dropdown-toggle" data-toggle="dropdown">
+                  {this.state.supplierSelected}
+                  </button>
+                  <div class={"dropdown-menu " + (this.state.suppliereExpand ? "show" : null)}>
+                  {
+                      this.state.supplierdata.map(
+                          data => <div onClick={(e) => this.selectedSupplier(e)} class="dropdown-item" id={data.supplier_no}>{data.name}</div>
+                      )
+                  }
+                  </div>
+                </div>
             </div>
         )
     }
