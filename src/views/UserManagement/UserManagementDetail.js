@@ -223,16 +223,7 @@ class UserManagementDetail extends Component{
                                     <label className="text-bolder">Reset Password</label>
                                 </div>
                                 <div className="col-4">
-                                    <div class="dropdown">
-                                      <button type="button" className="btn dropdown-button dropdown-toggle" data-toggle="dropdown">
-                                        Dropdown button
-                                      </button>
-                                      <div class="dropdown-menu show">
-                                      <a class="dropdown-item" href="#">Link 1</a>
-                                      <a class="dropdown-item active" href="#">Link 2</a>
-                                      <a class="dropdown-item" href="#">Link 3</a>
-                                      </div>
-                                    </div>
+                                  
                                 </div>
                             </div>
                             <div className="row">
