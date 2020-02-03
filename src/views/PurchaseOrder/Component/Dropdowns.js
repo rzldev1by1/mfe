@@ -195,8 +195,8 @@ export default class Dropdowns extends Component {
     render(){        
         return(
             <div style={{display:'flex', width:'100%'}}> 
-                <div class="dropdown">
-                  <button onClick={() => this.expandClient()} type="button" className="btn dropdown-button dropdown-toggle" data-toggle="dropdown">
+                <div class="dropdown dd">
+                  <button onClick={() => this.expandClient()} type="button" className="btn dropdown-button dropdown-toggle po" data-toggle="dropdown">
                   {this.state.clientSelected}
                   </button>
                   <div class={"dropdown-menu " + (this.state.clientExpand ? "show" : null)}>
@@ -208,8 +208,8 @@ export default class Dropdowns extends Component {
                   </div>
                 </div>
 
-                <div class="dropdown">
-                  <button onClick={() => this.expandSite()} type="button" className="btn dropdown-button dropdown-toggle" data-toggle="dropdown">
+                <div class="dropdown dd">
+                  <button onClick={() => this.expandSite()} type="button" className="btn dropdown-button dropdown-toggle po" data-toggle="dropdown">
                   {this.state.siteSelected}
                   </button>
                   <div class={"dropdown-menu " + (this.state.siteExpand ? "show" : null)}>
@@ -221,8 +221,8 @@ export default class Dropdowns extends Component {
                   </div>
                 </div>
 
-                <div class="dropdown">
-                  <button onClick={() => this.expandStatus()} type="button" className="btn dropdown-button dropdown-toggle" data-toggle="dropdown">
+                <div class="dropdown dd">
+                  <button onClick={() => this.expandStatus()} type="button" className="btn dropdown-button dropdown-toggle po" data-toggle="dropdown">
                   {this.state.statusSelected}
                   </button>
                   <div class={"dropdown-menu " + (this.state.statuseExpand ? "show" : null)}>
@@ -234,8 +234,8 @@ export default class Dropdowns extends Component {
                   </div>
                 </div>
 
-                <div class="dropdown">
-                  <button onClick={() => this.expandOrderType()} type="button" className="btn dropdown-button dropdown-toggle" data-toggle="dropdown">
+                <div class="dropdown dd">
+                  <button onClick={() => this.expandOrderType()} type="button" className="btn dropdown-button dropdown-toggle po" data-toggle="dropdown">
                   {this.state.ordertypeSelected}
                   </button>
                   <div class={"dropdown-menu " + (this.state.ordertypeeExpand ? "show" : null)}>
@@ -247,8 +247,8 @@ export default class Dropdowns extends Component {
                   </div>
                 </div>
 
-                <div class="dropdown">
-                  <button onClick={() => this.expandSupplier()} type="button" className="btn dropdown-button dropdown-toggle" data-toggle="dropdown">
+                <div class="dropdown dd">
+                  <button onClick={() => this.expandSupplier()} type="button" className="btn dropdown-button dropdown-toggle po" data-toggle="dropdown">
                   {this.state.supplierSelected}
                   </button>
                   <div class={"dropdown-menu " + (this.state.suppliereExpand ? "show" : null)}>

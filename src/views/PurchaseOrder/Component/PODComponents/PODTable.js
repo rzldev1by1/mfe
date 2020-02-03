@@ -13,7 +13,7 @@ class PurchaseOrderTable extends Component {
 
     this.state = {
       data:this.props.datahead,
-      tableheader : ['Product','Status Description','Quantity','UOM','Qty Processed','Weight Process','Rotadate','Disposition','Ref 3','Ref 4'],
+      tableheader : ['Product','Status Description','Quantity','UOM','Weight','Date','Disposition','Ref 3','Ref 4'],
       activearrow:mid,
       sortparameter:'order_no',
       sort:true
@@ -117,7 +117,6 @@ class PurchaseOrderTable extends Component {
   }
 
   render(){
-    console.log(this.props.datahead)
     return(
       <div>
         <table className="potable">
@@ -140,7 +139,6 @@ class PurchaseOrderTable extends Component {
                     <td>{data.status_desc.substring(2)}</td>
                     <td>{data.qty_lcd}</td>
                     <td>{data.packdesc_1}</td>
-                    <td>{data.qty_processed}</td>
                     <td>{data.wgt_processed}</td>
                     <td>{data.rota1}</td>
                     <td></td>

@@ -202,23 +202,13 @@ h1{
 	cursor: pointer;
 }
 
-/* .dropdown{
-	border: 2px solid #D5D8DA !important;
-	border-radius: 5px;
-	cursor: pointer;
-	margin-right: 1%;
-	color: grey !important;
-	height: 45px;
+.po{
+	width: 170px;
 }
 
-
-.dropdownexpand{
-	border: 2px solid #D5D8DA;
-	border-radius: 5px;
-	width: 9% !important;
-	cursor: pointer;
-  	transition: height 1s;
-} */
+.dd{
+	width: 12%;
+}
 
 .iconU-downArrow{
 	float: right;
