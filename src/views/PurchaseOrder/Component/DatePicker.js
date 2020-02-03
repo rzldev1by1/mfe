@@ -17,43 +17,21 @@ export default class BasicConcepts extends React.Component {
       
     }
   }
+
+  dayclickhandler = (day) => {
+    this.setState({day:day.toLocaleDateString()},()=> this.props.getChosenDay(this.state.day))
+   
+  }
   render() {
     return (
       <div className='datepicker'>
         <table>
           <tr>
-            <td align='center'>
-              <select className='selectinput' onChange={(e)=> this.setState({month:parseInt(e.target.value)+1})}>
-                {this.state.monthNames.map(
-                    (month, i) => <option value={i}>{month}</option>
-                )}
-              </select>
-            </td>
-            <td></td>
-            <td align='center'>
-              <select className='selectinput' onChange={(e)=> this.setState({year:parseInt(e.target.value)})}>
-                {
-                  this.state.monthNames.map(
-                  (month,i) => <option value={new Date().getFullYear()-i}>{new Date().getFullYear()-i}</option>
-                  )
-                }
-              </select>
-            </td>
-          </tr>
-          <tr>
             <td align='center' colSpan='3'>
-            <DayPicker month={new Date(this.state.year, this.state.month-1)} onDayClick={(day)=>this.setState({day:day.toLocaleDateString()})}/>
+            <DayPicker month={new Date(this.state.year, this.state.month-1)} onDayClick={(day)=>this.dayclickhandler(day)}/>
             </td>
           </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td align='center'><button className='primary'>Confirm</button></td>  
-          </tr> 
         </table>
-        <div>{this.state.day}</div>
-        <div>{this.state.month}</div>
-        <div>{this.state.year}</div>
       </div>
     );
   }

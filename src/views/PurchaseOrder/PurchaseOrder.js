@@ -101,7 +101,7 @@ class PurchaseOrder extends Component {
             </div>
 
             <div className='filterbar'>
-                <div style={{display:'flex', width:'70%'}}>
+                <div style={{display:'flex', width:'100%'}}>
                     {
                         this.state.filterclicked ? null :
                         <Dropdowns filter = {(client,site,status,ordertype,supplier) => this.search(client,site,status,ordertype,supplier)}/>

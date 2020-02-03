@@ -32,7 +32,7 @@ h1{
 }
 
 .inputDate{
-	border: 1px solid #D5D8DA;
+	border: 2px solid #D5D8DA;
 	border-radius: 5px;
 	display: flex;
 	align-items: center;
@@ -46,10 +46,27 @@ h1{
 	box-shadow: none !important;
 }
 
+.inputDate:hover{
+	border-color: grey !important;
+}
+
+.withIcon{
+	border-color: white !important;
+	height: 45px !important;
+}
+
+.withIcon:hover{
+	border-color: white !important;
+}
+
 .dateimg{
 	width: 15px;
 	height: 15px;
 	margin-right: 10px;
+}
+
+.dateimg:hover{
+	cursor: pointer;
 }
 
 .iconU-edit {
@@ -180,8 +197,12 @@ h1{
 
 /* Dropdown*/
 
+.dropdown-item:hover{
+	background-color: #20a8d8;
+	cursor: pointer;
+}
 
-.dropdown{
+/* .dropdown{
 	border: 2px solid #D5D8DA !important;
 	border-radius: 5px;
 	cursor: pointer;
@@ -197,7 +218,7 @@ h1{
 	width: 9% !important;
 	cursor: pointer;
   	transition: height 1s;
-}
+} */
 
 .iconU-downArrow{
 	float: right;
