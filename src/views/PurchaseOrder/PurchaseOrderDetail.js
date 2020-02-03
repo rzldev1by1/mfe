@@ -48,6 +48,7 @@ export default class PurchaseOrderDetail extends Component {
         let customerOrderRef = this.state.datahead.length ? this.state.datahead[0].customer_po_no : null
         let vendorOrderNo = this.state.datahead.length ? this.state.datahead[0].vendor_ord_no : null
         let status = this.state.datahead.length ? this.state.datahead[0].status : null
+        let statusDesc = this.state.datahead.length ? this.state.datahead[0].status_desc : null
         let dateDue = this.state.datahead.length ? this.state.datahead[0].date_due : null
         let dateReleased = this.state.datahead.length ? this.state.datahead[0].date_released : null
         let dateCompleted = this.state.datahead.length ? this.state.datahead[0].date_completed : null
@@ -96,7 +97,7 @@ export default class PurchaseOrderDetail extends Component {
                     </tr>
                     <tr>
                         <th>Status</th>
-                        <td style={{color:'#7FC242'}}>{status ? status : '-'}</td>
+                        <td style={{color:'#7FC242'}}>{status ? status+ ' (' +statusDesc.substring(3) + ')' : '-'}</td>
                     </tr>
                     <tr>
                         <th>Date Receive</th>
