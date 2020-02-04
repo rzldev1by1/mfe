@@ -254,19 +254,21 @@ h1{
 
 /* table style*/
 
-.tablecontent{
-	max-height: 600px !important;
+.tablePage{
+	max-height: 650px !important;
+	min-height: 650px !important;
 	overflow-y:scroll;
 	font-size: 1.1em;
 }
 
-
-
-.tablecontent::-webkit-scrollbar {
+.pagiantions{
+	background-color: transparent !important;
+}
+.tablePage::-webkit-scrollbar {
 	width: 8px !important;
   }
 
-.tablecontent::-webkit-scrollbar-thumb {
+.tablePage::-webkit-scrollbar-thumb {
 	background-color: #B4B9BB;
 	border-radius: 5px;
   }
@@ -605,7 +607,7 @@ h3{
 /* pagination */
 
 .paginations{
-	margin-top: 20px;
+	margin-top: 10px !important;
 }
 
 .page{

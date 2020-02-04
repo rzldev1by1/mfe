@@ -25,7 +25,7 @@ class PurchaseOrderTable extends Component {
       currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
-			displayPage: 11,
+			displayPage: 30,
 			totalRows: 0,
 			maxPage: 0,
     }
@@ -273,7 +273,8 @@ class PurchaseOrderTable extends Component {
 
   render(){
     return(
-      <div>
+      <div >
+         <div className='tablePage tablecontent'>
         <table className="potable">
           <thead>
             <tr>
@@ -306,11 +307,15 @@ class PurchaseOrderTable extends Component {
                 }       
           </tbody>
         </table>
-        <Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-                totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-                currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-                isActive={this.state.isActive}
-                numberEventClick={this.numberEventClick} />
+      </div>
+         <div className='paginations'>
+         <Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                  totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                  currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                  isActive={this.state.isActive}
+                  numberEventClick={this.numberEventClick}
+          />
+         </div>
       </div>
     )
   }
