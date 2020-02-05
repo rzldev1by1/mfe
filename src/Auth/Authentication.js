@@ -71,7 +71,10 @@ class Authentication {
 		// 	if (localStorage.getItem(element)) {
 		// 		localStorage.removeItem(element);
 		// 	}
-		// });
+        // });
+
+        let user = Authentication.getUser();
+        localStorage.removeItem(user);
 	}
 
 	static signOut = () => {

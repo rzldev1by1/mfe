@@ -4,8 +4,6 @@ import { Table } from 'reactstrap';
 import { formatDate } from '../../../AppComponent/Helper';
 import Paging from '../../General/Paging';
 
-import './StockHoldingDetails.css';
-
 class StockDetails extends Component {
 	constructor(props) {
 		super(props);
@@ -28,7 +26,7 @@ class StockDetails extends Component {
 				{ id: "receipt_disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: true, key: "" },
 				{ id: "ref3", checkboxLabelText: "Ref 3", tableHeaderText: "Ref 3", isVisible: true, key: "" },
 				{ id: "ref4", checkboxLabelText: "Ref 4", tableHeaderText: "Ref 4", isVisible: true, key: "" },
-				{ id: "weight", checkboxLabelText: "Quantity", tableHeaderText: "Quantity", isVisible: true, key: "" }
+				{ id: "qty_lcd", checkboxLabelText: "Quantity", tableHeaderText: "Quantity", isVisible: true, key: "" }
 			]
 		}
 	}
@@ -107,12 +105,7 @@ class StockDetails extends Component {
 			<tr>
 				{this.state.columns.map((item, idx) => {
 					if (item.isVisible) {
-						// if (item.id === "qty" ||
-						// 	item.id === "weight" ||
-						// 	item.id === "volume") {
-						// 	return <th className="p-3 text-right" key={idx} width="17%">{item.tableHeaderText}</th>
-						// }
-						return <th className="p-3 text-left" key={idx} width="17%">{item.tableHeaderText}</th>
+						return <th className={"p-3" + (item.id === "qty_lcd" ? " text-right" : " text-left")} key={idx}>{item.tableHeaderText}</th>
 					}
 				})}
 			</tr>
@@ -130,7 +123,7 @@ class StockDetails extends Component {
 						// 	return <td key={columnIdx} className="px-3 text-right" width="17%">{item[column.id]}</td>
 						// }
 						return (
-							<td key={columnIdx} className="px-3 text-left" width="17%">
+							<td key={columnIdx} className={"px-3" + (column.id === "qty_lcd" ? " text-right" : " text-left")}>
 								{column.id === "effective_date" ? formatDate(item[column.id]) : item[column.id]}
 							</td>
 						)
@@ -143,7 +136,7 @@ class StockDetails extends Component {
 	render() {
 		return (
 			<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-				<Table className="table-condensed table-responsive table-striped rounded-bottom-175 mb-0" size="md" width="100%">
+				<Table className="table-condensed table-striped rounded-bottom-175 mb-0" size="md" width="100%">
 					<thead>{this.showStockDetailsHeader()}</thead>
 					<tbody>{this.showStockDetailsData()}</tbody>
 				</Table>

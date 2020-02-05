@@ -109,7 +109,7 @@ class PurchaseOrder extends Component {
                 </div>               
             </div>
 
-            <div className={'tablecontent ' + ( this.state.complete ? 'fades ' : 'hidden')}>
+            <div className={' ' + ( this.state.complete ? 'fades ' : 'hidden')}>
                 <PurchaseOrderTable ref={this.potableref} className='animated fadeIn' style={{display:'none'}} loadCompleteHandler = {(v) =>  this.setState({complete: v})}/>
             </div>
             <div className={( this.state.complete ? 'hidden': 'spinner')}/>

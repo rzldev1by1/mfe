@@ -1,21 +1,26 @@
 import React, { Component, Suspense } from 'react';
-import { Redirect, Route, Switch, NavLink } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import * as router from 'react-router-dom';
 import { Container } from 'reactstrap';
-// import { Button, ButtonDropdown, Card, CardBody, CardHeader, Col, Row, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
+// import { Button, ButtonDropdown,
+//          Card, CardBody, CardHeader, 
+//          Col, Row, 
+//          DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 
 import { AppAside,
-		AppSidebar,
-		AppSidebarFooter,
-		// AppSidebarForm,
-		// AppSidebarHeader,
-		// AppSidebarMinimizer,
-		AppBreadcrumb2 as AppBreadcrumb,
-		AppSidebarNav2 as AppSidebarNav,
+		 AppSidebar,
+		 AppSidebarFooter,
+		 // AppSidebarForm,
+		 // AppSidebarHeader,
+		 // AppSidebarMinimizer,
+		//  AppBreadcrumb2 as AppBreadcrumb,
+		 AppSidebarNav2 as AppSidebarNav,
 } from '@coreui/react';
 
 import navigation from '../../_nav';
 import routes from '../../routes';
+
+import Authentication from '../../Auth/Authentication';
 
 import logo from '../../assets/img/brand/logo_ml_large.png';
 import dummyPic from '../../assets/img/brand/userprofile.png';
@@ -34,9 +39,8 @@ class DefaultLayout extends Component {
         };
 	};
 
-	signOut(e) {
-		e.preventDefault()
-		this.props.history.push('/logins')
+	signOut() {
+        Authentication.signOut();
 	}
 
     onUserDropdownClick = () => {
@@ -46,21 +50,23 @@ class DefaultLayout extends Component {
     }
 
     expandUser = () => {
-        if (!this.state.displayMenu) { return null };
-        
-        return (
-            <div className="viewProfile" size="sm">
-                <div className="expandProfile">
-                    <a className="expandProfile" href="">About</a>
+        if (this.state.displayMenu) {
+            return (
+                <div className="viewProfile" size="sm">
+                    <div className="expandProfile">
+                        <a className="expandProfile" href="/">About</a>
+                    </div>
+                    <div className="expandProfile">
+                        <a className="expandProfile" href="/">Change Password</a>
+                    </div>
+                    <div className="expandProfile">
+                        <a className="expandProfile" href="/" onClick={this.signOut}>
+                            <i className="fa fa-power-off" /> Logout
+                        </a>
+                    </div>
                 </div>
-                <div className="expandProfile">
-                    <a className="expandProfile" href="">Change Password</a>
-                </div>
-                <div className="expandProfile">
-                    <a className="expandProfile" href=""><i className="fa fa-power-off" /> Logout</a>
-                </div>
-            </div>
-        );
+            );
+        }
     }
 
     render() {
@@ -84,7 +90,7 @@ class DefaultLayout extends Component {
                                         <tr>
                                             <td rowSpan="2" className="text-center align-middle p-0">
                                                 {/* <span className="fa fa-user-circle fa-3x" /> */}
-                                                <img className="profilePhoto" src={dummyPic} />
+                                                <img className="profilePhoto" src={dummyPic} alt="dummyPic" />
                                             </td>
                                             <td className="pb-0">
                                                 <span className="userName">George Smith</span>
@@ -106,7 +112,7 @@ class DefaultLayout extends Component {
                     </AppSidebar>
                     <main className="main">
                         {/* <AppBreadcrumb appRoutes={routes} router={router}/> */}
-                        <Container fluid className="pl-2">
+                        <Container fluid className="pl-0">
                             <Suspense fallback={this.loading()}>
                                 <Switch>
                                     {routes.map((route, idx) => {

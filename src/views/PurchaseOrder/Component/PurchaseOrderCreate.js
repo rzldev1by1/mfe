@@ -46,8 +46,16 @@
               }
             ],
 
-            showdatepicker:false
-            
+            showdatepicker:false,
+
+            //dropdown
+            clientSelected:'Client',
+            orderTypeSelected:'Order Type',
+            uomSelected:'UOM',
+
+            clientExpand:false,
+            orderTypeExpand:false,
+            uomExpand:false,
             }
       }
 
@@ -108,6 +116,18 @@
                       <option>John Doe</option>
                       <option>John Wick</option>
                     </select>
+                    {/* <div class="dropdown dd">
+                      <button onClick={() => this.expandSupplier()} type="button" className="btn dropdown-button dropdown-toggle po" data-toggle="dropdown">
+                      {this.state.supplierSelected}
+                      </button>
+                      <div class={"dropdown-menu " + (this.state.suppliereExpand ? "show" : null)}>
+                      {
+                          this.state.supplierdata.map(
+                              data => <div onClick={(e) => this.selectedSupplier(e)} class="dropdown-item" id={data.supplier_no}>{data.name}</div>
+                          )
+                      }
+                      </div>
+                    </div> */}
                   </td>
                   <td><input className="form-control" value='PO-003'/></td>
                   <td>

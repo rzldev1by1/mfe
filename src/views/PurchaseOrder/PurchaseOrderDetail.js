@@ -48,9 +48,11 @@ export default class PurchaseOrderDetail extends Component {
         let customerOrderRef = this.state.datahead.length ? this.state.datahead[0].customer_po_no : null
         let vendorOrderNo = this.state.datahead.length ? this.state.datahead[0].vendor_ord_no : null
         let status = this.state.datahead.length ? this.state.datahead[0].status : null
+        let statusDesc = this.state.datahead.length ? this.state.datahead[0].status_desc : null
         let dateDue = this.state.datahead.length ? this.state.datahead[0].date_due : null
         let dateReleased = this.state.datahead.length ? this.state.datahead[0].date_released : null
         let dateCompleted = this.state.datahead.length ? this.state.datahead[0].date_completed : null
+        let dateReceived = this.state.datahead.length ? this.state.datahead[0].date_recd : null
 
         return(
             <div className='podheader fades'>                    
@@ -69,18 +71,18 @@ export default class PurchaseOrderDetail extends Component {
                         <td>{orderNo ? orderNo : '-'}</td>
                     </tr>
                     <tr>
-                        <th>OrderType</th>
+                        <th>Order Type</th>
                         <td>{orderType ? orderType : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>Supplier ID</th>
+                        <td>{supplierNo ? supplierNo : '-'}</td>
                     </tr>
                 </table>
             </div>
 
             <div className='sub' style={{width:'70%'}}>
                 <table className='tableborderss' style={{width:'90%'}}>
-                    <tr>
-                        <th>Supplier No</th>
-                        <td>{supplierNo ? supplierNo : '-'}</td>
-                    </tr>
                     <tr>
                         <th>Supplier Name</th>
                         <td>{supplierName ? supplierName : '-'}</td>
@@ -93,15 +95,20 @@ export default class PurchaseOrderDetail extends Component {
                         <th>Vendor Order No</th>
                         <td>{vendorOrderNo ? vendorOrderNo : '-'}</td>
                     </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td style={{color:'#7FC242'}}>{status ? status+ ' (' +statusDesc.substring(3) + ')' : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>Date Receive</th>
+                        <td>{dateReceived ? dateReceived.substring(0, 11) : '-'}</td>
+                    </tr>
                 </table>
             </div>
 
             <div className='sub'  style={{width:'65%'}}>
                 <table className='tableborderss' style={{width:'90%'}}>
-                    <tr>
-                        <th>Status</th>
-                        <td style={{color:'#7FC242'}}>{status ? status : '-'}</td>
-                    </tr>
+                    
                     <tr>
                         <th>Date Due</th>
                         <td>{dateDue ? dateDue.substring(0, 11) : '-'}</td>
@@ -113,6 +120,12 @@ export default class PurchaseOrderDetail extends Component {
                     <tr>
                         <th>Date Completed</th>
                         <td>{dateCompleted ? dateCompleted.substring(0, 11) : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <th></th>
                     </tr>
                 </table>
             </div>
