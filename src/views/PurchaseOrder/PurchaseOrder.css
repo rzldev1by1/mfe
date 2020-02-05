@@ -142,6 +142,26 @@ h1{
 	justify-content: space-between;
 }
 
+.itemList{
+	position: absolute;
+  	z-index: 1;
+	background-color: white;
+	border: 1.5px solid #22ABE3;
+	border-radius: 5px;
+	margin-top:10px;
+	padding: 0.1%;
+	padding-bottom: 0px;
+}
+
+.tes{
+	border-bottom: none !important;
+}
+
+.tes:hover{
+	background-color: #E8E8E8 !important;
+	z-index: 2;
+}
+
 .tablecontent {
 	margin-top: 1%;
 	padding:1%;
@@ -203,7 +223,7 @@ h1{
 }
 
 .po{
-	width: 170px;
+	width: 95%;
 }
 
 .dd{

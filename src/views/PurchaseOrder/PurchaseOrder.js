@@ -28,6 +28,11 @@ class PurchaseOrder extends Component {
             //modal
             showmodal:false,
             complete:false,
+
+            //autocomplete
+            autoText:null,
+            autoArray:null,
+            autoArrays:[]
         }
     }
 
@@ -77,10 +82,14 @@ class PurchaseOrder extends Component {
     search = (client,site,status,ordertype,supplier) => {
         this.potableref.current.searchPurchaseOrder(this.state.search,client,site,status,ordertype,supplier)
     }
-
-    render(){        
+    
+    render(){ 
         return(
         <div className='animated fadeIn pobody'>
+        <div>{this.state.autoArray}</div>
+            {
+                this.state.autoArrays.map(data => <div onClick={(e) => this.selectedName(e)}>{data}</div>)
+            }
             <div className='header'>
                 <h2 style={{marginTop:'0.2%'}}>Purchase Order</h2>
                 <div className='header2'>
