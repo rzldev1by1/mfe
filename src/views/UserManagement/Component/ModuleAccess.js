@@ -15,7 +15,7 @@ return (
                           <div className="flex-row" key={index}>
                               <label key={item.menuid}>{item.menuname}</label>
                               <button type="button" className={"btn "+((item.status)?"btn-outline-active":"btn-outline-notActive")+" float-right" }
-                              onClick={(e)=>{onEnableClick(e);}}>{(item.status)?"Enable":"Disable"}</button>
+                              onClick={(e)=>{onEnableClick(e,item);}}>{(item.status)?"Enable":"Disable"}</button>
 
                           </div>
                     </div>)

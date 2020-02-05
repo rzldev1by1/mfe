@@ -94,15 +94,16 @@ class UserListComponent extends Component{
                         <tbody>
                                {
                                    this.state.data.map((element,index)=>{
-                                       return <tr key={index} onClick={(e)=>{ this.onRowClick(e,element.userid);}}>
+
+                                       return <tr key={index} onClick={(e)=>{ this.onRowClick(e,element.web_user);}}>
                                                 {
                                                    Object.keys(element).map((item,idx) => {
-                                                      return (item !== 'email')?
+                                                      return (item !== 'email' && item !== 'web_user')?
                                                               <td key={idx} className={(item === 'user')?'users':'norm'}>
                                                                { (item === 'action')?
                                                                <span className='next'></span>:
                                                                <label className={((item === 'status')? ((element[item].toLowerCase() === 'active')?'active':'suspended'):'')}>{element[item]}</label> }
-                                                               </td>:""
+                                                               </td>:null
                                                    })
                                                 }
                                        </tr>
