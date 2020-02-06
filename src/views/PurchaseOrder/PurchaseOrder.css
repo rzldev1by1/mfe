@@ -702,3 +702,7 @@ h3{
 	  align-items: center;
 	  justify-content: center;
   }
+
+  .tet{
+	width: 5rem !important;
+  }

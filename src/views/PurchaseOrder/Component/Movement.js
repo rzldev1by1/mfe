@@ -34,11 +34,10 @@ class Movement extends Component {
         console.log(props.data)
         return(
         <div style={{display:'flex'}}>
-            <Col xs='5'>{props.detail.date ? props.detail.date : '-'}</Col>
-            <Col xs='2'>{props.detail.sa_plus ? props.detail.sa_plus : '-'}</Col>
-            <Col xs='2'>{props.detail.sa_minus ? props.detail.sa_minus : '-'}</Col>
-            <Col xs='2'>{props.detail.recv_weight ? props.detail.recv_weight : '-'}</Col>
-            <Col xs='3'>{props.detail.send_weight ? props.detail.send_weight : '-'}</Col>
+            <div className='tet' xs='2'>{props.detail.sa_plus ? props.detail.sa_plus : '-'}</div>
+            <div className='tet' xs='2'>{props.detail.sa_minus ? props.detail.sa_minus : '-'}</div>
+            <div className='tet' xs='2'>{props.detail.recv_weight ? props.detail.recv_weight : '-'}</div>
+            <div className='tet' xs='3'>{props.detail.send_weight ? props.detail.send_weight : '-'}</div>
         </div>
         )
     }
@@ -47,8 +46,8 @@ class Movement extends Component {
         console.log(this.state.data)
         return(
             <Container className="themed-container conts" fluid={true}>
-               <Row className='cont scrollx'>
-                <Col xs='4'>
+               <Col className='cont scrollx' style={{display:'flex'}}>
+                {/* <Col xs='4'>
                     <Row>
                         <Col xs='1' className='tablez'>Site</Col>
                         <Col xs='2' className='tablez'>Product</Col>
@@ -63,20 +62,22 @@ class Movement extends Component {
                                     <Col xs='2' className='tablez'>{data.product}</Col>
                                     <Col xs='4' className='tablez'>{data.product_name}</Col>
                                     <Col xs='2' className='tablez'>{data.packdesc}</Col>
+                                    <Col display='flex'>
                                     {
-                                        data.detail.map(detail =>
-                                            <Col xs='auto'><this.tableMovement detail={detail}/></Col>
-                                                )
+                                            data.detail.map(detail =>
+                                                <Col display='flex'> <this.tableMovement detail={detail}/> </Col>
+                                                
+                                                        )
                                     }
-                                    
+                                    </Col>
                                 </Row>
                             )
                         }      
-                    
+                     */}
                     
 
 
-                {/* <table align='left' style={{width:'100%'}}>
+                <table align='left' style={{width:'100%'}}>
                     <thead>
                         <tr>
                             <td height='50' rowSpan='2'>Site</td>
@@ -98,18 +99,14 @@ class Movement extends Component {
                                 data.detail.map(detail =>
                                 <td><this.tableMovement detail={detail}/></td>
                                     )
+
                             }
                             </tr>
                         )
                     }                            
                     </tbody>
-                </table> */}
-                </Col>
-                <Col>
-                    sdfds
-                </Col>
-                    
-               </Row>
+                </table>
+               </Col>
             </Container>
         )
     }
