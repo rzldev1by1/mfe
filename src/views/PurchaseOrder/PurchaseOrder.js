@@ -10,7 +10,7 @@ import Dropdown from './Component/Dropdown'
 import PurchaseOrderCreate from './Component/PurchaseOrderCreate'
 import create from '../../assets/img/brand/button_create@2x.png'
 import Dropdowns from './Component/Dropdowns'
-
+import Movement from './Component/Movement'
 
 class PurchaseOrder extends Component {
     constructor(props){
@@ -68,7 +68,7 @@ class PurchaseOrder extends Component {
     }
 
     onchangesearch = (props) => {
-        this.setState({search:props.target.value})        
+        this.setState({search:props.target.value})
     }
 
     openModal = () => {
@@ -118,10 +118,12 @@ class PurchaseOrder extends Component {
                 </div>               
             </div>
 
-            <div className={' ' + ( this.state.complete ? 'fades ' : 'hidden')}>
+            <Movement/>
+
+            {/* <div className={' ' + ( this.state.complete ? 'fades ' : 'hidden')}>
                 <PurchaseOrderTable ref={this.potableref} className='animated fadeIn' style={{display:'none'}} loadCompleteHandler = {(v) =>  this.setState({complete: v})}/>
             </div>
-            <div className={( this.state.complete ? 'hidden': 'spinner')}/>
+            <div className={( this.state.complete ? 'hidden': 'spinner')}/> */}
             <PurchaseOrderCreate showmodal={this.state.showmodal} closemodal={() => this.closeModal()}/>
         </div>
            

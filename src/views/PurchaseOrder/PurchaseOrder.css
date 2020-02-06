@@ -649,3 +649,56 @@ h3{
 	vertical-align: middle;
 	align-items: center;
 }
+
+.cont{
+	background-color: white;
+	border-radius: 5px;
+	margin-top: 1%;
+	margin-bottom: 1%;
+	padding:1% !important;
+	font-size: 0.9rem;
+	max-height: 600px;
+}
+
+.conts{
+	margin-top: 1%;
+	margin-bottom: 1%;
+	padding:1% !important;	
+}
+
+.scrolly{
+	overflow-y:scroll;
+}
+
+.scrolly::-webkit-scrollbar {
+	width: 8px !important;
+  }
+
+.scrolly::-webkit-scrollbar-thumb {
+	background-color: #B4B9BB;
+	border-radius: 5px;
+  }
+  
+.scrollx{
+	overflow:scroll;
+}
+
+.scrollx::-webkit-scrollbar {
+	width: 8px !important;
+  }
+
+.scrollx::-webkit-scrollbar-thumb {
+	background-color: #B4B9BB;
+	border-radius: 5px;
+  }
+
+  .sss{
+	  width: 10rem !important;
+  }
+
+  .tablez{
+	  height: 2.5rem;
+	  border-bottom: 1px solid grey;
+	  align-items: center;
+	  justify-content: center;
+  }
