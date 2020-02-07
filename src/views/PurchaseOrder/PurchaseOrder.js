@@ -117,13 +117,10 @@ class PurchaseOrder extends Component {
                     }
                 </div>               
             </div>
-
-            <Movement/>
-
-            {/* <div className={' ' + ( this.state.complete ? 'fades ' : 'hidden')}>
+            <div className={' ' + ( this.state.complete ? 'fades ' : 'hidden')}>
                 <PurchaseOrderTable ref={this.potableref} className='animated fadeIn' style={{display:'none'}} loadCompleteHandler = {(v) =>  this.setState({complete: v})}/>
             </div>
-            <div className={( this.state.complete ? 'hidden': 'spinner')}/> */}
+            <div className={( this.state.complete ? 'hidden': 'spinner')}/>
             <PurchaseOrderCreate showmodal={this.state.showmodal} closemodal={() => this.closeModal()}/>
         </div>
            
