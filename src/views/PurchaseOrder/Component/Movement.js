@@ -22,7 +22,7 @@ class Movement extends Component {
     }
 
     getData = () => {
-        axios.get(endpoint.stockMovement + '?startDate=2019-01-15&endDate=2019-09-30&filterType=month', {
+        axios.get(endpoint.stockMovement + '?startDate=2019-06-15&endDate=2020-06-30&filterType=month', {
         headers: headers
         })
         .then(res => {
@@ -46,17 +46,14 @@ class Movement extends Component {
     }
 
     pushTable = () => {
-        let dateArray = ['2019-01-15']
-        let startDate = moment('2019-01-15')
-        let endDate = moment('2019-09-30')
-        let startMonth = startDate.format('M')
-        let endMonth = endDate.format('M')
-        while(startMonth < endMonth)
-        {
-            startDate.add(1, 'M')          
+        let dateArray = []
+        let startDate = moment('2019-06-15')
+        let endDate = moment('2020-06-30')
+        while(startDate < endDate)
+        {  
             let newDate = startDate.format('YYYY-MM-DD')
             dateArray.push(newDate)
-            startMonth++
+            startDate.add(1, 'M')   
         }
         this.setState({dateArray:dateArray})
     }
