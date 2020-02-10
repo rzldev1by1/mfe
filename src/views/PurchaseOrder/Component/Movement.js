@@ -9,10 +9,12 @@ class Movement extends Component {
 
         this.state = {
             data:[],            
-            startDate:'2019-07-15',
-            endDate:'2019-09-30',
+            startDate:'2019-01-01',
+            endDate:'2019-12-30',
+            filterType:'month',
             dateArray:[],
-            dataArray:[]
+            dataArray:[],
+            complete:false
         }
     }
 
@@ -22,16 +24,23 @@ class Movement extends Component {
     }
 
     getData = () => {
-        axios.get(endpoint.stockMovement + '?startDate=2019-06-15&endDate=2020-06-30&filterType=month', {
+        axios.get(endpoint.stockMovement + '?startDate='+this.state.startDate+'&endDate='+this.state.endDate+'&filterType='+this.state.filterType, {
         headers: headers
         })
         .then(res => {
         const result = res.data.data
-        this.setState({ data:result })
+        this.setState({ data:result, complete:true })
         })
         .catch(error => {
         // this.props.history.push("/logins")
         })
+    }
+
+    searchData = (start, end, period,complete) =>{
+        this.setState({startDate:start, endDate:end, filterType:period, complete:complete})
+        this.getData()
+        this.pushTable()
+        this.props.isComplete(this.state.complete)
     }
 
     tableMovement = (props) => {
@@ -47,9 +56,9 @@ class Movement extends Component {
 
     pushTable = () => {
         let dateArray = []
-        let startDate = moment('2019-06-15')
-        let endDate = moment('2020-06-30')
-        while(startDate < endDate)
+        let startDate = moment(this.state.startDate)
+        let endDate = moment(this.state.endDate)
+        while(startDate <= endDate)
         {  
             let newDate = startDate.format('YYYY-MM-DD')
             dateArray.push(newDate)
@@ -101,13 +110,12 @@ class Movement extends Component {
                 }
               })
         }
-        console.log(this.state.data)
     }
 
     movementHeader = (date) => {
         return(
         <div>
-            <div>{date}</div>
+            <div style={{textAlign:"center"}}>{moment(date).format('MMMM YYYY')}</div>
             <div style={{display:'flex'}}>
             <div className='tet' xs='2'>SA+</div>
             <div className='tet' xs='2'>SA-</div>
@@ -119,43 +127,12 @@ class Movement extends Component {
     }
 
     render(){
-      
+        this.pushData()
+        this.sortData()
         return(
-            <Container className="themed-container conts" fluid={true}>
-              
-               <Col className='cont scrollx' style={{display:'flex'}}>
-               { this.pushData()}
-               { this.sortData()}
-                {/* <Col xs='4'>
-                    <Row>
-                        <Col xs='1' className='tablez'>Site</Col>
-                        <Col xs='2' className='tablez'>Product</Col>
-                        <Col xs='4' className='tablez'>Description</Col>
-                        <Col xs='2' className='tablez'>UOM</Col>
-                    </Row>
-
-                    {
-                            this.state.data.map((data) => 
-                                <Row>
-                                    <Col xs='1' className='tablez'>{data.site}</Col>
-                                    <Col xs='2' className='tablez'>{data.product}</Col>
-                                    <Col xs='4' className='tablez'>{data.product_name}</Col>
-                                    <Col xs='2' className='tablez'>{data.packdesc}</Col>
-                                    <Col display='flex'>
-                                    {
-                                            data.detail.map(detail =>
-                                                <Col display='flex'> <this.tableMovement detail={detail}/> </Col>
-                                                
-                                                        )
-                                    }
-                                    </Col>
-                                </Row>
-                            )
-                        }      
-                     */}
-                    
-
-
+            <Container className="themed-container conts" fluid={true}>              
+               <Col className={'cont scrollx ' + (this.state.complete ? 'fades' : 'hidden')} style={{display:'flex'}}>
+               
                 <table align='left' style={{width:'100%'}}>
                     <thead>
                         <tr>
@@ -165,7 +142,7 @@ class Movement extends Component {
                             <td rowSpan='2'>UOM</td>
                             { 
                                 this.state.dateArray.map(date =>
-                                    <td>{this.movementHeader(date)}</td>
+                                    <td style={{borderRight:'1.5px solid #E2E2E2',borderLeft:'1.5px solid #E2E2E2'}}>{this.movementHeader(date)}</td>
                                         )
                             }
                         </tr>
@@ -174,14 +151,14 @@ class Movement extends Component {
                     <tbody>
                     {
                         this.state.data.map((data) => 
-                            <tr style={{borderBottom:'1px solid grey'}}>
+                            <tr style={{borderBottom:'1px solid #E2E2E2'}}>
                             <td height='60'>{data.site}</td>
                             <td>{data.product}</td>
                             <td>{data.product_name}</td>
                             <td>{data.packdesc}</td>
                             {
                                 data.detail.map(detail =>
-                                <td><this.tableMovement detail={detail}/></td>
+                                <td style={{borderRight:'1.5px solid #E2E2E2',borderLeft:'1.5px solid #E2E2E2'}}><this.tableMovement detail={detail}/></td>
                                     )
 
                             }
@@ -191,6 +168,7 @@ class Movement extends Component {
                     </tbody>
                 </table>
                </Col>
+               <div className={( this.state.complete ? 'hidden': 'spinner')}/>
             </Container>
         )
     }
