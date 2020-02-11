@@ -14,7 +14,8 @@ class Movement extends Component {
             filterType:'month',
             dateArray:[],
             dataArray:[],
-            complete:false
+            complete:false,
+            pushTableComplete:false
         }
     }
 
@@ -23,13 +24,17 @@ class Movement extends Component {
         this.pushTable()
     }
 
-    getData = () => {
-        axios.get(endpoint.stockMovement + '?startDate='+this.state.startDate+'&endDate='+this.state.endDate+'&filterType='+this.state.filterType, {
+    getData = (start, end, period) => {
+        this.setState({complete:false})
+        let dtStart = start ? start : this.state.startDate
+        let dtEnd = end ? end : this.state.endDate
+        let periods = period ? period : this.state.filterType
+        axios.get(endpoint.stockMovement + '?startDate='+dtStart+'&endDate='+dtEnd+'&filterType='+periods, {
         headers: headers
         })
         .then(res => {
         const result = res.data.data
-        this.setState({ data:result, complete:true })
+        this.setState({ data:result, complete:true }, () => console.log(this.state.data))
         })
         .catch(error => {
         // this.props.history.push("/logins")
@@ -39,8 +44,10 @@ class Movement extends Component {
     searchData = (start, end, period,complete) =>{
         this.setState({startDate:start, endDate:end, filterType:period, complete:complete})
         this.getData()
-        this.pushTable()
-        this.props.isComplete(this.state.complete)
+        if(this.state.data)
+        {
+            this.pushTable()
+        }
     }
 
     tableMovement = (props) => {
@@ -54,17 +61,19 @@ class Movement extends Component {
         )
     }
 
-    pushTable = () => {
+    pushTable = (start,end) => {
         let dateArray = []
-        let startDate = moment(this.state.startDate)
-        let endDate = moment(this.state.endDate)
+        let stDate = start ? start : this.state.startDate
+        let enDate = end ? end : this.state.endDate
+        let startDate = moment(stDate)
+        let endDate = moment(enDate)
         while(startDate <= endDate)
         {  
             let newDate = startDate.format('YYYY-MM-DD')
             dateArray.push(newDate)
             startDate.add(1, 'M')   
         }
-        this.setState({dateArray:dateArray})
+        this.setState({dateArray:dateArray, pushTableComplete:true})
     }
 
     pushData = () => {
@@ -127,8 +136,11 @@ class Movement extends Component {
     }
 
     render(){
-        this.pushData()
-        this.sortData()
+        if(this.state.pushTableComplete)
+        {
+            this.pushData()
+            this.sortData()
+        }
         return(
             <Container className="themed-container conts" fluid={true}>              
                <Col className={'cont scrollx ' + (this.state.complete ? 'fades' : 'hidden')} style={{display:'flex'}}>

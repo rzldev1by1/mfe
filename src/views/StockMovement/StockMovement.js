@@ -12,22 +12,12 @@ import MovementSearch from './Component/MovementSearch'
 class StockMovement extends Component {
 	constructor(props) {
 		super(props)
-
-		this.getStockMovement = React.createRef()
-		
-		this.state = {
-			complete : false
-		}
-		
+		this.getStockMovement = React.createRef()		
 	}
 
 	getStockMovements = (dateFrom, dateTo, period) => {
-		this.setState({complete:false})
-		this.getStockMovement.current.searchData(dateFrom, dateTo, period, this.state.complete)
-	}
-
-	isComplete = (val) => {
-		this.setState({complete:val})
+		this.getStockMovement.current.getData(dateFrom, dateTo, period)
+		this.getStockMovement.current.pushTable(dateFrom,dateTo)
 	}
 
 	render() {
@@ -42,7 +32,7 @@ class StockMovement extends Component {
 				</div>
 
 				<div className='movementBody'>
-					<Movement ref={this.getStockMovement} isComplete={(val) => this.isComplete(val)}/>					
+					<Movement ref={this.getStockMovement}/>
 				</div>
 			</div>
 		)
