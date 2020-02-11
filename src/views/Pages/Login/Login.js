@@ -112,7 +112,7 @@ class Logins extends Component{
                     <source src={videobg} type="video/mp4" />
                 </video>
                 <div className="leftSide content">
-                    <img src={centerLogo} className="mlslogo" />
+                    <img src={centerLogo} className="mlslogo" alt="mlslogo" />
                     <form ref={this.loginForm} onSubmit={(e) => { e.preventDefault(); this.validateForm() }}>
                         <div className="loginInput">
                             <div style={{ marginBottom: "2%" }}>

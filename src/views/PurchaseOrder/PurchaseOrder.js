@@ -10,7 +10,7 @@ import Dropdown from './Component/Dropdown'
 import PurchaseOrderCreate from './Component/PurchaseOrderCreate'
 import create from '../../assets/img/brand/button_create@2x.png'
 import Dropdowns from './Component/Dropdowns'
-
+import Movement from './Component/Movement'
 
 class PurchaseOrder extends Component {
     constructor(props){
@@ -28,6 +28,11 @@ class PurchaseOrder extends Component {
             //modal
             showmodal:false,
             complete:false,
+
+            //autocomplete
+            autoText:null,
+            autoArray:null,
+            autoArrays:[]
         }
     }
 
@@ -63,7 +68,7 @@ class PurchaseOrder extends Component {
     }
 
     onchangesearch = (props) => {
-        this.setState({search:props.target.value})        
+        this.setState({search:props.target.value})
     }
 
     openModal = () => {
@@ -77,10 +82,14 @@ class PurchaseOrder extends Component {
     search = (client,site,status,ordertype,supplier) => {
         this.potableref.current.searchPurchaseOrder(this.state.search,client,site,status,ordertype,supplier)
     }
-
-    render(){        
+    
+    render(){ 
         return(
         <div className='animated fadeIn pobody'>
+        <div>{this.state.autoArray}</div>
+            {
+                this.state.autoArrays.map(data => <div onClick={(e) => this.selectedName(e)}>{data}</div>)
+            }
             <div className='header'>
                 <h2 style={{marginTop:'0.2%'}}>Purchase Order</h2>
                 <div className='header2'>
@@ -108,9 +117,8 @@ class PurchaseOrder extends Component {
                     }
                 </div>               
             </div>
-
-            <div className={'tablecontent ' + ( this.state.complete ? 'fades ' : 'hidden')}>
-                <PurchaseOrderTable ref={this.potableref} className='animated fadeIn' style={{display:'none'}} loadCompleteHandler = {(v) =>  this.setState({complete: v})}/>
+            <div className={' ' + ( this.state.complete ? 'fades ' : 'hidden')}>
+                <PurchaseOrderTable ref={this.potableref} className='animated fadeIn' loadCompleteHandler = {(v) =>  this.setState({complete: v})}/>
             </div>
             <div className={( this.state.complete ? 'hidden': 'spinner')}/>
             <PurchaseOrderCreate showmodal={this.state.showmodal} closemodal={() => this.closeModal()}/>

@@ -454,9 +454,11 @@ hr.border-header {
 // Start - Breadcrumb
 
 .headerTitle {
-	font-size: 25px;
-    font-family: "Helvetica Neue Bold";
+	font-size: 1.75rem;
+    font-family: "Helvetica Neue Medium";
     color: #637176;
+    width: 100%;
+    display: flex;
 }
 
 .breadcrumb-item {
@@ -522,11 +524,12 @@ a.breadcrumb:hover {
     justify-content: space-between;
     align-items: center;
     padding: 15px;
+    border-radius: 5px;
 }
 
 .searchBox {
-    max-width: 80%;
-    border: 2px solid #D5D8DA;
+    max-width: 76%;
+    border: 1px solid #D5D8DA;
     height: 50px;
     border-radius: 5px;
 }
@@ -544,6 +547,13 @@ a.breadcrumb:hover {
     border: none;
 }
 
+.notFoundMessage {
+    padding: 200px;
+    font-size: 3.5em;
+    color: #D5D8DA;
+    vertical-align: middle;
+}
+
 // End - Searchbox
 
 
@@ -556,6 +566,7 @@ a.breadcrumb:hover {
     justify-content: flex-start;
     align-items: center;
     padding: 0 15px 15px;
+    border-radius: 5px;
 }
 
 .filterDropdown {
@@ -566,12 +577,15 @@ a.breadcrumb:hover {
 .selectDropdown {
     -webkit-appearance: none !important;
     cursor: pointer;
+    border: 1px solid #D5D8DA;
+    height: 50px;
+    font-size: 1.1em;
 }
 
 .arrow-icon {
 	position: relative;
 	display: flex;
-	/* padding: 0.4em; */
+	// padding: 0.4em;
 }
 
 .arrow-icon::after {
@@ -590,13 +604,14 @@ a.breadcrumb:hover {
 
 	content: "\e90f";
 	color: #637176 !important;
-	font-size: 4px;
+    font-size: 5px;
+    font-weight: bold;
 	position: absolute;
     cursor: pointer;
     pointer-events: none;
 	right: 2em;
-    padding: 4em;
-
+    padding: 4.5em;
+    
     -webkit-touch-callout: none !important;
     -webkit-user-select: none !important;
     -khtml-user-select: none !important;
@@ -733,3 +748,65 @@ a.breadcrumb:hover {
   }
 
 // End - Spinner
+
+
+// Start - Module Details
+
+.primary-text {
+    /* color: #4E4E4E; */
+    color: #919191;
+    font-family: "Helvetica Neue Medium";
+    font-size: 1.15em;
+}
+
+.secondary-text {
+    /* color: #919191; */
+    color: #1F3334;
+    font-family: "Helvetica Neue Medium";
+    font-size: 1.15em;
+}
+
+.tabTitleText {
+	font-size: 1.5em;
+	/* font-weight: bold; */
+	align-items: center;
+}
+  
+.rowTabCustom {
+	height: 100%;
+	width: 420px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+}
+  
+.columnTabCustom {
+	padding-left: 0px;
+	width: 50px;
+	padding-right: 0px;
+	border-top-width: 1px;
+}
+
+.nav-tabs {
+    border-bottom: none;
+    font-family: "Helvetica Neue Medium";
+}
+
+.nav-tabs .nav-link.nav-link-cust {
+	border: none;
+	height: 75px;
+    color: #919191 !important;
+    background-color: #F7F7F7;
+}
+
+.nav-tabs .nav-link.tab-custom {
+    color: #22ABE3 !important;
+    background-color: #FFFFFF !important;
+	padding-left: 16px;
+	padding-bottom: 8px;
+	padding-right: 16px;
+	padding-top: 8px;
+	border-radius: 0rem;
+}
+
+// End - Module Details

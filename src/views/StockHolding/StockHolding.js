@@ -2,12 +2,8 @@ import React, { Component } from 'react';
 import { Card, CardBody,
 		 Col, Row, Table,
 		 Button,
-		//  ButtonDropdown,
 		 FormGroup,
-		//  Breadcrumb, BreadcrumbItem,
-         Input, InputGroup,
-        //  DropdownItem, DropdownMenu, DropdownToggle
-} from 'reactstrap';
+         InputGroup } from 'reactstrap';
 
 import axios from 'axios';
 // import AppComponent from '../../AppComponent';
@@ -125,7 +121,7 @@ class StockHolding extends Component {
                             isLoaded: false,
                             isSearch: false });
             if (error.response) {
-                self.setState({ notFoundMessage: error.response.data.message })
+                self.setState({ notFoundMessage: error.response.data.message });
             }
             return error;
         })
@@ -236,11 +232,11 @@ class StockHolding extends Component {
 			<tr>
 				{this.state.columns.map((item, idx) => {
 					if (item.isVisible) {
-						if (item.id === "onHandQty" ||
-							item.id === "onHandWeight" ||
-							item.id === "expectedInQty" ||
-							item.id === "expectedInWeight" ||
-							item.id === "expectedOutQty") {
+						if (item.id === "on_hand_qty" ||
+							item.id === "on_hand_weight" ||
+							item.id === "expected_in_qty" ||
+							item.id === "expected_out_qty" ||
+							item.id === "expected_out_qty") {
 							return <th className="p-3 text-right" key={idx} width="10%">{item.tableHeaderText}</th>;
 						}
 
@@ -262,11 +258,11 @@ class StockHolding extends Component {
 				<tr key={idx} onClick={() => this.rowClicked(item["product"], item["site"])}>
 					{this.state.columns.map((column, columnIdx) => {
 						if (column.isVisible) {
-							if (column.id === "onHandQty" ||
-								column.id === "onHandWeight" ||
-								column.id === "expectedInQty" ||
-								column.id === "expectedInWeight" ||
-								column.id === "expectedOutQty") {
+							if (column.id === "on_hand_qty" ||
+								column.id === "on_hand_weight" ||
+								column.id === "expected_in_qty" ||
+								column.id === "expected_out_qty" ||
+								column.id === "expected_out_qty") {
 								return <td key={columnIdx} className="px-3 text-right">{item[column.key]}</td>;
 							}
 
@@ -360,9 +356,9 @@ class StockHolding extends Component {
 						<div className="col-12 p-0">
 							<div className="row">
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-									<CardBody>
+									<CardBody className="pl-0 pb-0">
 										<Row className="align-items-center">
-											<div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0">
+											<div className="col-12 col-lg-12 col-md-12 col-sm-12">
 												<FormGroup>
 													<InputGroup>
 														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
@@ -436,36 +432,6 @@ class StockHolding extends Component {
                                                                                 </select>
                                                                             </Col>
                                                                         </div>
-
-																		{/* <div className={"row p-2" + (this.state.showFilter ? "" : " d-none")}>
-                                                                            <Col lg="1" className="arrow-icon">
-                                                                                <select className="form-control filterDropdown" id="select_1" name="filterSite">
-                                                                                    <option value="">Site</option>
-                                                                                    <option value="M">Site M</option>
-                                                                                    <option value="S">Site S</option>
-                                                                                </select>
-                                                                            </Col>
-
-                                                                            <Col lg="1" className="pl-0 arrow-icon">
-                                                                                <select className="form-control filterDropdown" id="select_2" name="filterStatus">
-                                                                                    <option value="">Status</option>
-                                                                                    <option value="Q">Status Q</option>
-                                                                                    <option value="D">Status D</option>
-                                                                                    <option value="E">Status E</option>
-                                                                                    <option value="I">Status I</option>
-                                                                                    <option value="F">Status F</option>
-                                                                                </select>
-                                                                            </Col>
-
-                                                                            <Col lg="1" className="pl-0 arrow-icon">
-                                                                                <select className="form-control filterDropdown" id="select_3" name="filterUom">
-                                                                                    <option value="">UoM</option>
-                                                                                    <option value="EACH">EACH</option>
-                                                                                    <option value="CASE">CASE</option>
-                                                                                    <option value="PALLET">PALLET</option>
-                                                                                </select>
-                                                                            </Col>
-																		</div> */}
 																	</Card>
 																</div>
 															</InputGroup>

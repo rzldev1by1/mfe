@@ -1,7 +1,7 @@
 import React from 'react';
 import Loadable from 'react-loadable';
 
-import DefaultLayout from './containers/DefaultLayout/DefaultLayout';
+// import DefaultLayout from './containers/DefaultLayout/DefaultLayout';
 
 function Loading() {
 	return <div>Loading...</div>;
@@ -109,6 +109,10 @@ const UsersManagementDetail = Loadable({
 	loading: Loading
 });
 
+const UsersManagementCreate = Loadable({
+	loader: () => import('./views/UserManagement/UserManagementCreate'),
+	loading: Loading
+});
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
 	// { path: '/dashboard', name: 'Dashboard', component: Dashboard },
@@ -167,6 +171,7 @@ const routes = [
 
     { path: '/users-management', exact: true, name: 'User Management', component: UsersManagement },
 		{ path: '/users-management/:id/detail', exact: true, name: 'User Management', component: UsersManagementDetail },
+		{ path: '/users-management/create', exact: true, name: 'User Management', component: UsersManagementCreate },
 ];
 
 export default routes;

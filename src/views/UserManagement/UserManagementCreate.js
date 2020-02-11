@@ -7,8 +7,23 @@ import Client from './Component/Client'
 import {endpoint,headers} from '../../AppComponent/ConfigEndpoint'
 import axios from 'axios'
 import users from './Users.json'
+import {formatDate} from '../../AppComponent/Helper'
+import moment from 'moment';
 
+const today = moment(new Date()).format("DD-MM-YYYY");
 
+const userModel = {
+    "userId":"",
+    "name":"",
+    "email":"",
+    "webGroup":"Warehouse",
+    "lastAccess": today,
+    "lastLogin": today,
+	  "thisAccess": today,
+	  "thisLogin": today,
+    "password":"passwordzz",
+    "userMenu":[]
+}
 
 class UserManagementDetail extends Component{
     constructor(props){
@@ -20,61 +35,18 @@ class UserManagementDetail extends Component{
           isModuleLoaded: false,
           isClientLoaded: false,
           isSiteLoaded: false,
-          accountInfo:{}
+          accountInfo:userModel
         }
 
     }
 
     componentDidMount(){
-        let id = this.props.match.params.id;
-        this.getAccountInfo(id);
+
         this.loadModuleAccess("warehouse");
         this.loadSites();
         this.loadClients();
     }
 
-    restructureAccount = (sources) => {
-      let newAccount = {};
-      let account = sources[0];
-
-      if(account){
-          newAccount.user = account.name;
-          newAccount.email = account.email;
-          newAccount.lastAccess = account.last_access;
-          newAccount.lastLogin = account.last_login;
-          newAccount.thisAccess = account.this_access;
-          newAccount.thisLogin = account.this_login;
-          newAccount.userMenu = account.userMenu;
-          newAccount.userId = account.userid;
-      }
-      return newAccount;
-    }
-
-    getAccountInfo = (userid) => {
-      var self = this;
-      axios.get(endpoint.UserManagement_User_Detail+userid, {
-        headers: headers
-      })
-        .then(res => {
-          var result = [];
-          if(res.status === 200){
-            result = self.restructureAccount(res.data.data);
-            self.setState({accountInfo:result});
-          }
-          return result;
-        })
-        .catch(error => {
-
-        })
-        .then((result) => {
-          // console.log(result);
-        })
-        // if(users){
-        //     let user = users.filter((item) => {return item.userid === userid})[0];
-        //     this.setState({accountInfo:user});
-        // }
-
-    }
 
     restuctureData = (sites) => {
      return sites.map((item,index)=>{
@@ -163,6 +135,16 @@ class UserManagementDetail extends Component{
 
             if(item.menuid === data.menuid){
               item.status = !item.status;
+              if(item.status){
+                userModel.userMenu.push(item.menuid);
+              }else{
+                if(userModel.userMenu.length){
+                  let idx = userModel.userMenu.indexOf(item.menuid);
+                  userModel.userMenu.splice(idx,1);
+                }
+              }
+
+
             }
             return item;
         });
@@ -170,16 +152,7 @@ class UserManagementDetail extends Component{
        this.setState({moduleAccess:newArray});
       }
 
-      // if(element.classList.contains('btn-outline-notActive')){
-      //     element.classList.remove('btn-outline-notActive')
-      //     element.classList.add('btn-outline-active')
-      //     element.innerHTML = "Enable"
-      // }
-      // else{
-      //   element.classList.remove('btn-outline-active')
-      //   element.classList.add('btn-outline-notActive')
-      //   element.innerHTML = "Disable"
-      // }
+
     }
 
     onSiteStatusClick = (e,data) => {
@@ -215,20 +188,57 @@ class UserManagementDetail extends Component{
 
     onChangeName = (e) => {
       const {name,value} = e.target;
-      if(value && value.length > 2){
-         let newText = value.substring(0,2);
+      let newText = value.substring(0,2);
+      let user = {...this.state.accountInfo};
+      let result = this.generateUserID(value);
+      user.name = value;
+      user.userId = newText+result;
+      user.password = result+newText;
 
-          var anysize = 3;//the size of string
-          var charset = "abcdefghijklmnopqrstuvwxyz"; //from where to create
-          let result="";
-          for( var i=0; i < anysize; i++ )
-          result += charset[Math.floor(Math.random() * (value.split('').length))];
+      this.setState({accountInfo:user});
+    }
 
-         let user = {...this.state.accountInfo};
-         user.user = value;
-         user.userid = newText+result;
+    onChangeEmail = (e) => {
+      const {name,value} = e.target;
+      let user = {...this.state.accountInfo};
+      user.email = value;
 
-        this.setState({accountInfo:user});
+      this.setState({accountInfo:user});
+    }
+
+    generateUserID = (textValue) => {
+      let result="";
+
+      if(textValue && textValue.length > 2){
+        var anysize = 3;//the size of string
+        var charset = "abcdefghijklmnopqrstuvwxyz"; //from where to create
+        for( var i=0; i < anysize; i++ )
+        result += charset[Math.floor(Math.random() * (textValue.split('').length))];
+      }
+      return result;
+    }
+
+    saveClick = () => {
+      var self = this;
+      const {name,userId,email,userMenu} = self.state.accountInfo;
+      if(name && userId && email && userMenu.length)
+      {
+
+        let param = {...this.state.accountInfo};
+        axios.post(endpoint.UserManagement_Create,param,{ headers: headers })
+          .then(res => {
+            var result = [];
+            if(res.status === 200){
+            self.props.history.push('usermanagement');
+            }
+            return result;
+          })
+          .catch(error => {
+
+          })
+          .then((result) => {
+            // console.log(result);
+          })
       }
     }
 
@@ -273,7 +283,7 @@ class UserManagementDetail extends Component{
                                 </div>
 
                                 <div className="col-4">
-                                    <input type="text" className="form-control" defaultValue={this.state.accountInfo.userId}/>
+                                    <input type="text" readOnly className="form-control" defaultValue={this.state.accountInfo.userId}/>
                                 </div>
                                 <div className="col-3">
                                       <label className="account-name">Are you sure you want to suspend this user?</label>
@@ -298,7 +308,7 @@ class UserManagementDetail extends Component{
                             <div className="row">
 
                                 <div className="col-4">
-                                    <input type="text" className="form-control" defaultValue={this.state.accountInfo.email}/>
+                                    <input type="text" className="form-control" onChange={(e)=>{this.onChangeEmail(e);}} defaultValue={this.state.accountInfo.email}/>
                                 </div>
                                 <div className="col-4">
                                     <label className="account-name">Contact Microlistic for request to reset password</label>
@@ -329,7 +339,9 @@ class UserManagementDetail extends Component{
                                 </div>
 
                             </div>
-
+                            <div className=" mr-2">
+                                <button className="btn btn-primary float-right" onClick={(e)=>{this.saveClick();}}>Save</button>
+                            </div>
 
                         </div>
 

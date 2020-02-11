@@ -22,7 +22,11 @@ const endpoint = {
 
     "ddlordertype": baseUrl + "dropdown/getordertype",
 
-    "UserManagement_ModuleAccess": baseUrl + "usermanagement/module"
+    "UserManagement_ModuleAccess": baseUrl + "usermanagement/module",
+
+    "UserManagement_Create": baseUrl + "usermanagement/register",
+    "UserManagement_ListUser": baseUrl + "web_user",
+    "UserManagement_User_Detail": baseUrl + "web_user_detail/",
 };
 
 const headers = {

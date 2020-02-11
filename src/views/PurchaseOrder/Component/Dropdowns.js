@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import Dropdown from './Dropdown'
 import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
 export default class Dropdowns extends Component {
     constructor(props){
@@ -29,6 +30,11 @@ export default class Dropdowns extends Component {
             statuseExpand:false,
             ordertypeeExpand:false,
             suppliereExpand:false,
+
+             //autocomplete
+             autoText:null,
+             autoArray:null,
+             autoArrays:[]
         }
     }
 
@@ -192,9 +198,36 @@ export default class Dropdowns extends Component {
       })
     }
 
+    selectedName = (val) => {
+      this.props.filter(val)
+    }
+
+    getName = (e) => {
+          if(e.target.value)
+          {
+            
+            var array = this.state.clientdata.map(data => {return data.name})
+            this.setState({autoArrays:
+                array.filter(val => val.toLowerCase().includes(e.target.value))
+            })
+          }
+          else
+          {
+              this.setState({autoArrays:[]})
+              this.setState({autoArray:null})
+          }
+    }
+
     render(){        
         return(
             <div style={{display:'flex', width:'100%'}}> 
+            {/* <Dropdown dataParam = {this.state.clientdata} selectedName={(val) => this.selectedName(val)}/> */}
+            
+             {/* <input className='form-control' onChange={(e) => this.getName(e)}/> */}
+            {/* <div>{this.state.autoArray}</div> */}
+            {
+                // this.state.autoArrays.map(data => <div className='tes' onClick={(e) => this.selectedName(e)}>{data}</div>)
+            }
                 <div class="dropdown dd">
                   <button onClick={() => this.expandClient()} type="button" className="btn dropdown-button dropdown-toggle po" data-toggle="dropdown">
                   {this.state.clientSelected}

@@ -4,44 +4,51 @@ class Dropdown extends Component {
         super(props)
 
         this.state = {
-            option:false,
-            dropdownexpand:false,
-            selected:this.props.data.menu,
-            id:this.props.data.menu
+            text:null,
+            value:null,
+            expand:false,
+            autoList:[]
         }
     }
 
-    selectedhandler = (props) => {
-        this.setState({selected:props.target.textContent})
-        
-        let id = this.state.id
-        let value = props.target.textContent
-        this.props.selectedHandler(id, value)        
-    }
+    selectedName = (e) => {
 
-    dropdownexpandhandler = () => {
-        this.setState({
-            dropdownexpand: !this.state.dropdownexpand
-        })
-    }
+        if(this.props.dataParam)
+        {
+            let value = Object.keys(this.props.dataParam[0])[0]
+            let text  = Object.keys(this.props.dataParam[0])[1]
 
-    option = (data) => {
-            return (
-                <div>
-                    <div className='option' onClick={(e) => this.selectedhandler(e)}><label className='optionchild'>{data}</label></div>
-                </div>
-            )
-    }
+            this.setState({
+            value: this.props.dataParam.map((data) => {return data.name}).indexOf(e.target.textContent)}, 
+            () => this.setState({expand:false,value:this.props.dataParam[this.state.value].code}, () => this.props.selectedName(this.state.value)))
+        }
+      }
+  
+      getName = (e) => {
+        if(e.target.value)
+        {
+            
+            var array = this.props.dataParam.map(data => {return data.name})
+            this.setState({expand:true, autoList:
+                array.filter(val => val.toLowerCase().includes(e.target.value))
+            })
+        }
+        else
+        {
+            this.setState({autoList:[]})
+            this.setState({expand:false})
+            }
+      }
 
     render(){
         return(
-            <div style={{width:'30%'}}>
-                <div className='dropdown' onClick={() => this.dropdownexpandhandler()}>
-                    <label id='selected' className='selected font'>{this.state.selected}</label> <label className='iconU-downArrow'/>   
-                    {this.props.data.subMenu.map( data => 
-                       this.state.dropdownexpand ? this.option(data) : null
-                    )}
-                </div>
+            <div style={{marginRight:10}}>
+                <input placeholder='Client' className='form-control' onChange={(e) => this.getName(e)}/>
+            <div className={'itemList ' + (this.state.expand ? null : 'hidden')}>
+            {
+                this.state.autoList.map(data => <div className='tes dropdown-item' onClick={(e) => this.selectedName(e)}>{data}</div>)
+            } 
+            </div>
             </div>
         )
     }

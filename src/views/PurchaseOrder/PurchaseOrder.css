@@ -142,6 +142,26 @@ h1{
 	justify-content: space-between;
 }
 
+.itemList{
+	position: absolute;
+  	z-index: 1;
+	background-color: white;
+	border: 1.5px solid #22ABE3;
+	border-radius: 5px;
+	margin-top:10px;
+	padding: 0.1%;
+	padding-bottom: 0px;
+}
+
+.tes{
+	border-bottom: none !important;
+}
+
+.tes:hover{
+	background-color: #E8E8E8 !important;
+	z-index: 2;
+}
+
 .tablecontent {
 	margin-top: 1%;
 	padding:1%;
@@ -203,7 +223,7 @@ h1{
 }
 
 .po{
-	width: 170px;
+	width: 95%;
 }
 
 .dd{
@@ -254,19 +274,21 @@ h1{
 
 /* table style*/
 
-.tablecontent{
-	max-height: 600px !important;
+.tablePage{
+	max-height: 650px !important;
+	min-height: 650px !important;
 	overflow-y:scroll;
 	font-size: 1.1em;
 }
 
-
-
-.tablecontent::-webkit-scrollbar {
+.pagiantions{
+	background-color: transparent !important;
+}
+.tablePage::-webkit-scrollbar {
 	width: 8px !important;
   }
 
-.tablecontent::-webkit-scrollbar-thumb {
+.tablePage::-webkit-scrollbar-thumb {
 	background-color: #B4B9BB;
 	border-radius: 5px;
   }
@@ -605,7 +627,7 @@ h3{
 /* pagination */
 
 .paginations{
-	margin-top: 20px;
+	margin-top: 10px !important;
 }
 
 .page{
@@ -627,3 +649,61 @@ h3{
 	vertical-align: middle;
 	align-items: center;
 }
+
+.cont{
+	background-color: white;
+	border-radius: 5px;
+	margin-top: 1%;
+	margin-bottom: 1%;
+	padding:1% !important;
+	font-size: 0.9rem;
+	max-height: 600px;
+}
+
+.conts{
+	margin-top: 1%;
+	margin-bottom: 1%;
+	padding:1% !important;	
+}
+
+.scrolly{
+	overflow-y:scroll;
+}
+
+.scrolly::-webkit-scrollbar {
+	width: 8px !important;
+  }
+
+.scrolly::-webkit-scrollbar-thumb {
+	background-color: #B4B9BB;
+	border-radius: 5px;
+  }
+  
+.scrollx{
+	overflow:scroll;
+}
+
+.scrollx::-webkit-scrollbar {
+	width: 8px !important;
+  }
+
+.scrollx::-webkit-scrollbar-thumb {
+	background-color: #B4B9BB;
+	border-radius: 5px;
+  }
+
+  .sss{
+	  width: 10rem !important;
+  }
+
+  .tablez{
+	  height: 2.5rem;
+	  border-bottom: 1px solid grey;
+	  align-items: center;
+	  justify-content: center;
+  }
+
+  .tet{
+	width: 5rem !important;
+  }
+

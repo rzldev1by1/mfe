@@ -4,8 +4,6 @@ import { Table } from 'reactstrap';
 import { formatDate } from '../../../AppComponent/Helper';
 import Paging from '../../General/Paging';
 
-import './StockHoldingDetails.css';
-
 class ForeshadowedBalance extends Component {
 	constructor(props) {
 		super(props);
@@ -119,10 +117,12 @@ class ForeshadowedBalance extends Component {
 			<tr>
 				{this.state.foreshadowedColumn.map((item, idx) => {
 					if (item.isVisible) {
-						// if (item.id === "qty_rec" || item.id === "qty_send") {
-						// 	return <th className="p-3 text-right" key={idx} width="17%">{item.tableHeaderText}</th>
-						// }
-						return <th className="p-3 text-left" key={idx} width="17%">{item.tableHeaderText}</th>
+                        if (item.id === "qty_rec" ||
+                            item.id === "qty_send" ||
+                            item.id === "balance") {
+							return <th className="p-3 text-right" key={idx}>{item.tableHeaderText}</th>
+						}
+						return <th className="p-3 text-left" key={idx}>{item.tableHeaderText}</th>
 					}
 				})}
 			</tr>
@@ -135,16 +135,18 @@ class ForeshadowedBalance extends Component {
 				<tr key={idx}>
 					{this.state.foreshadowedColumn.map((column, columnIdx) => {
 						if (column.isVisible) {
-							// if (column.id === "qty_rec" || column.id === "qty_send") {
-							// 	return <td key={columnIdx} className="px-3 text-right" width="17%">{item[column.id]}</td>
-							// }
-
-							if (column.id === "balance") {
-								return <td key={columnIdx} className="px-3 text-left" width="17%">{this.showBalance(idx)}</td>
+                            if (column.id === "qty_rec" ||
+                                column.id === "qty_send" ||
+                                column.id === "balance") {
+								return (
+                                    <td key={columnIdx} className="px-3 text-right">
+                                        {column.id === "balance" ? this.showBalance(idx) : item[column.id]}
+                                    </td>
+                                )
 							}
 
 							return (
-								<td key={columnIdx} className="px-3 text-left" width="17%">
+								<td key={columnIdx} className="px-3 text-left">
 									{column.id === "sm_dtm" ? formatDate(item[column.id]) : item[column.id]}
 								</td>
 							)
@@ -158,7 +160,7 @@ class ForeshadowedBalance extends Component {
 	render() {
 		return (
 			<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-				<Table className="table-condensed table-responsive table-striped rounded-bottom-175 mb-0" size="md" width="100%">
+				<Table className="table-condensed table-striped rounded-bottom-175 mb-0" size="md" width="100%">
 					<thead>{this.showForeshadowedHeader()}</thead>
 					<tbody>{this.showForeshadowedData()}</tbody>
 				</Table>
