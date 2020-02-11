@@ -31,9 +31,7 @@ class StockMovement extends Component {
 					<MovementSearch getStockMovement = {(dateFrom, dateTo, period) => this.getStockMovements(dateFrom, dateTo, period)}/>
 				</div>
 
-				<div className='movementBody'>
 					<Movement ref={this.getStockMovement}/>
-				</div>
 			</div>
 		)
 	}
