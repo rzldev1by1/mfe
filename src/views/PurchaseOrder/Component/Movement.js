@@ -34,7 +34,7 @@ class Movement extends Component {
         })
         .then(res => {
         const result = res.data.data
-        this.setState({ data:result, complete:true }, () => console.log(this.state.data))
+        this.setState({ data:result, complete:true, filterType:periods})
         })
         .catch(error => {
         // this.props.history.push("/logins")
@@ -61,17 +61,32 @@ class Movement extends Component {
         )
     }
 
-    pushTable = (start,end) => {
+    pushTable = (start,end, period) => {
         let dateArray = []
         let stDate = start ? start : this.state.startDate
         let enDate = end ? end : this.state.endDate
+        let periodd = period ? period : this.state.filterType
         let startDate = moment(stDate)
         let endDate = moment(enDate)
         while(startDate <= endDate)
         {  
             let newDate = startDate.format('YYYY-MM-DD')
             dateArray.push(newDate)
-            startDate.add(1, 'M')   
+
+            if(periodd == 'day')
+            {
+                startDate.add('days', 1)
+            }
+
+            else if(periodd == 'week')
+            {
+                startDate.add('days', 7)
+            }
+            else if(periodd == 'month')
+            {
+                startDate.add(1, 'M')
+            }
+               
         }
         this.setState({dateArray:dateArray, pushTableComplete:true})
     }
@@ -122,9 +137,25 @@ class Movement extends Component {
     }
 
     movementHeader = (date) => {
+        let dates = moment(date).format('DD MMMM YYYY')
+        if(this.state.complete)
+        {
+            if(this.state.filterType == 'day')
+            {
+                dates = moment(date).format('DD MMMM YYYY')
+            }
+            else if(this.state.filterType == 'week')
+            {
+                dates = moment(date).format('DD MMMM YYYY')
+            }
+            else if(this.state.filterType == 'month')
+            {
+                dates = moment(date).format('MMMM YYYY')
+            }
+        }
         return(
         <div>
-            <div style={{textAlign:"center"}}>{moment(date).format('MMMM YYYY')}</div>
+            <div style={{textAlign:"center"}}>{dates}</div>
             <div style={{display:'flex'}}>
             <div className='tet' xs='2'>SA+</div>
             <div className='tet' xs='2'>SA-</div>
@@ -144,7 +175,6 @@ class Movement extends Component {
         return(
             <Container className="themed-container conts" fluid={true}>              
                <Col className={'cont scrollx ' + (this.state.complete ? 'fades' : 'hidden')} style={{display:'flex'}}>
-               
                 <table align='left' style={{width:'100%'}}>
                     <thead>
                         <tr>

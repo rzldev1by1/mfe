@@ -17,7 +17,7 @@ class StockMovement extends Component {
 
 	getStockMovements = (dateFrom, dateTo, period) => {
 		this.getStockMovement.current.getData(dateFrom, dateTo, period)
-		this.getStockMovement.current.pushTable(dateFrom,dateTo)
+		this.getStockMovement.current.pushTable(dateFrom,dateTo, period)
 	}
 
 	render() {
