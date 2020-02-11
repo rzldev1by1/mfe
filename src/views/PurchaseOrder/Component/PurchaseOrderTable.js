@@ -6,11 +6,10 @@ import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
 import Paging from '../../General/Paging';
 import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
-
 class PurchaseOrderTable extends Component {
   constructor(props){
     super(props)
-
+   
     this.dropdownref = React.createRef()
 
     this.state = {
@@ -242,7 +241,7 @@ class PurchaseOrderTable extends Component {
 
 	changeLastIndex = (currentPage) => {
 		this.setState({ lastIndex: parseInt(currentPage) * this.state.displayPage });
-	}
+  }
 
 	numberEventClick = (currentPage) => {
 		let page = parseInt(currentPage);
@@ -269,7 +268,28 @@ class PurchaseOrderTable extends Component {
 				this.changeLastIndex(prev.currentPage);
 			});
 		}
-	}
+  }
+  firstPageClick = () => {
+		if (this.state.currentPage > 1) {
+      this.changeStartIndex(1);
+			this.changeLastIndex(1);
+			this.setState( {
+				currentPage:1
+			});
+		}
+  }
+  lastPageClick = () => {
+		if (this.state.currentPage < this.state.maxPage) {
+			this.setState({
+				currentPage: Math.round(this.state.maxPage +1 )},() =>{
+        this.changeStartIndex(this.state.currentPage );
+				this.changeLastIndex(this.state.currentPage);
+        }
+				
+			);
+		}
+  }
+ 
 
   render(){
     return(
@@ -309,12 +329,13 @@ class PurchaseOrderTable extends Component {
         </table>
       </div>
          <div className='paginations'>
-         <Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-                  totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-                  currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-                  isActive={this.state.isActive}
-                  numberEventClick={this.numberEventClick}
-          />
+           <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
+                   backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                   totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                   currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                   isActive={this.state.isActive}
+                   numberEventClick={this.numberEventClick} />
+
          </div>
       </div>
     )
