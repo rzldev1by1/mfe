@@ -149,7 +149,7 @@ class Logins extends Component{
                             
                             <div className="footer">
                                 <a target='blank' href='https://www.microlistics.com.au/'>© Microlistics {new Date().getFullYear()}</a>
-                                <div style={{ marginRight: "6%" }}>help@microlistics.co.au</div>
+                                
                             </div>              
                         </div>
                     </form>
