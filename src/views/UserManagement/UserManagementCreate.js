@@ -156,7 +156,7 @@ class UserManagementDetail extends Component{
     }
 
     onSiteStatusClick = (e,data) => {
-      console.log(data);
+
       if(data){
         let newState = [...this.state.sites];
         var newArray = newState.map((item,index) => {
