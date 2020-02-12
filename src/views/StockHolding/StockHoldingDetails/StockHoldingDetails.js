@@ -169,7 +169,7 @@ class StockHoldingDetails extends Component {
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
 									<div className="form-group row">
 										<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-                                            <CardBody>
+                                            <CardBody className="pb-0">
                                                 <Row className="align-items-center">
                                                     <div className="col-12 col-lg-12 col-md-12 col-sm-12 pr-0">
                                                         <FormGroup>
@@ -185,7 +185,7 @@ class StockHoldingDetails extends Component {
                                                                                     <Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0]["product"] : null}</Label>
                                                                                 </div>
 
-                                                                                <div className="col-3">
+                                                                                <div className="col-3 borderLeft">
                                                                                     <Label className="primary-text">Stock On Hand</Label>
                                                                                 </div>
                                                                                 <div className="col-3">
@@ -201,7 +201,7 @@ class StockHoldingDetails extends Component {
                                                                                     <Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0]["product_name"] : null}</Label>
                                                                                 </div>
 
-                                                                                <div className="col-3">
+                                                                                <div className="col-3 borderLeft">
                                                                                     <Label className="primary-text">Available Qty</Label>
                                                                                 </div>
                                                                                 <div className="col-3">
@@ -216,7 +216,7 @@ class StockHoldingDetails extends Component {
                                                                                 <div className="col-3">
                                                                                     <Label className="secondary-text">{stockDetails.length > 0 ? stockDetails[0].site : null}</Label>
                                                                                 </div>
-                                                                                <div className="col-3">
+                                                                                <div className="col-3 borderLeft">
                                                                                     <Label className="primary-text">Expected In Qty</Label>
                                                                                 </div>
                                                                                 <div className="col-3">
@@ -233,7 +233,7 @@ class StockHoldingDetails extends Component {
                                                                                     <Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0].client : null}</Label>
                                                                                 </div>
 
-                                                                                <div className="col-3">
+                                                                                <div className="col-3 borderLeft">
                                                                                     <Label className="primary-text">Expected Out Qty</Label>
                                                                                 </div>
                                                                                 <div className="col-3">
@@ -250,7 +250,7 @@ class StockHoldingDetails extends Component {
                                                                                     <Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0].packdesc_1 : null}</Label>
                                                                                 </div>
 
-                                                                                <div className="col-3">
+                                                                                <div className="col-3 borderLeft">
                                                                                     <Label className="primary-text">Rotadate Type</Label>
                                                                                 </div>
                                                                                 <div className="col-3">

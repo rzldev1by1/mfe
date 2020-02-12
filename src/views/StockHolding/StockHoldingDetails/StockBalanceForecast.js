@@ -162,16 +162,20 @@ class StockBalanceForecast extends Component {
 	render() {
 		return (
 			<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-				<Table className="table-condensed table-striped rounded-bottom-175 mb-0" size="md" width="100%">
-					<thead>{this.showForeshadowedHeader()}</thead>
-					<tbody>{this.showForeshadowedData()}</tbody>
-				</Table>
+                <div className="tablePage tableContent">
+                    <Table className="table-condensed table-striped rounded-bottom-175 mb-0" size="md" width="100%">
+                        <thead>{this.showForeshadowedHeader()}</thead>
+                        <tbody>{this.showForeshadowedData()}</tbody>
+                    </Table>
+                </div>
 
-                <Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-                        totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-                        currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-                        isActive={this.state.isActive}
-                        numberEventClick={this.numberEventClick} />
+                <div className="mt-2">
+                    <Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                            totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                            currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                            isActive={this.state.isActive}
+                            numberEventClick={this.numberEventClick} />
+                </div>
 			</div>
 		);
 	}
