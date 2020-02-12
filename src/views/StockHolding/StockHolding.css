@@ -11,16 +11,18 @@
 	box-shadow: none;
 }
 
-.editColumnBtn {
+.editColumnBtn, .editColumnBtn:focus {
 	background-color: #FFFFFF;
 	padding: 0.1rem 0.4rem;
 	border-radius: 100%;
-	border: none;
+    border: none !important;
+    outline: none !important;
 }
 
 .editColumnLogo {
 	color: #388DCD;
-	font-size: 11px;	
+    font-size: 1em;
+    text-align: center;
 }
 
 .select, .expand-style, .select-items, .select-options, .select-option {

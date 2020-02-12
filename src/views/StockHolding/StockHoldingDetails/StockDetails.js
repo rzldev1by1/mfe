@@ -20,13 +20,13 @@ class StockDetails extends Component {
 			maxPage: 0,
             
             columns: [
-				{ id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site" },
+				// { id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site" },
 				{ id: "batch", checkboxLabelText: "Batch", tableHeaderText: "Batch", isVisible: true, key: "batch" },
 				{ id: "effective_date", checkboxLabelText: "Rotadate", tableHeaderText: "Rotadate", isVisible: true, key: "" },
 				{ id: "receipt_disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: true, key: "" },
 				{ id: "ref3", checkboxLabelText: "Ref 3", tableHeaderText: "Ref 3", isVisible: true, key: "" },
 				{ id: "ref4", checkboxLabelText: "Ref 4", tableHeaderText: "Ref 4", isVisible: true, key: "" },
-				{ id: "qty_lcd", checkboxLabelText: "Quantity", tableHeaderText: "Quantity", isVisible: true, key: "" }
+				{ id: "qty_lcd", checkboxLabelText: "Quantity", tableHeaderText: "Qty", isVisible: true, key: "" }
 			]
 		}
 	}
@@ -83,21 +83,23 @@ class StockDetails extends Component {
 	nextPageClick = () => {
 		if (this.state.currentPage < this.state.maxPage) {
 			this.setState((prev) => {
-				currentPage: prev.currentPage++;
+				prev.currentPage++;
 				this.changeStartIndex(prev.currentPage);
 				this.changeLastIndex(prev.currentPage);
 			});
-		}
+        }
+        return;
 	}
 
 	backPageClick = () => {
 		if (this.state.currentPage > 1) {
 			this.setState((prev) => {
-				currentPage: prev.currentPage--;
+				prev.currentPage--;
 				this.changeStartIndex(prev.currentPage);
 				this.changeLastIndex(prev.currentPage);
 			});
-		}
+        }
+        return;
 	}
 
 	showStockDetailsHeader = () => {
