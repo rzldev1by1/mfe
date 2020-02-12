@@ -144,7 +144,9 @@ class Movement extends Component {
             }
             else if(this.state.filterType == 'week')
             {
+                let dates2 = moment(date).add('days', 6).format('DD MMMM YYYY')
                 dates = moment(date).format('DD MMMM YYYY')
+                dates = dates + ' - ' + dates2
             }
             else if(this.state.filterType == 'month')
             {
