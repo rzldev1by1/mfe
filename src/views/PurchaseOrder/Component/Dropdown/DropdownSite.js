@@ -33,7 +33,7 @@ export default class DropdownSite extends Component {
     //site
     selectedSite = (e) => {
       this.setState({siteSelected:e.target.textContent}, () =>{
-          this.props.siteVal(this.state.site)
+          this.props.siteValue(this.state.site)
       })
       this.setState({site:e.target.id})
       this.setState({siteExpand: false})
