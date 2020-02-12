@@ -277,7 +277,7 @@ class Movement extends Component {
                                 <td>{this.productHeader()}</td>
                                 { 
                                     this.state.dateArray.map(date =>
-                                        <td style={{borderRight:'1.5px solid #E2E2E2',borderLeft:'1.5px solid #E2E2E2'}}>{this.movementHeader(date)}</td>
+                                        <td style={{borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}>{this.movementHeader(date)}</td>
                                             )
                                 }
                             </tr>
@@ -286,13 +286,13 @@ class Movement extends Component {
                         <tbody>
                         {
                             this.state.data.map((data) =>
-                                <tr style={{borderBottom:'1px solid #E2E2E2'}}>
+                                <tr style={{borderBottom:'1px solid #f5f5f5'}}>
                                 <td height='60'>
                                     <this.productBody site={data.site} product={data.product} product_name={data.product_name} packdesc={data.packdesc} />
                                 </td>
                                 {
                                     data.detail.map(detail =>
-                                    <td width='15%' style={{borderRight:'1.5px solid #E2E2E2',borderLeft:'1.5px solid #E2E2E2'}}><this.tableMovement detail={detail}/></td>
+                                    <td width='15%' style={{borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}><this.tableMovement detail={detail}/></td>
                                         )
 
                                 }
