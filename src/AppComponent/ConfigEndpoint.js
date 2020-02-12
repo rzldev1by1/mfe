@@ -8,7 +8,7 @@ const endpoint = {
 
     'stockHoldingSummary': baseUrl + "stockholding",
     'stockDetail': baseUrl + "stockdetail/",
-    'foreshadowedBalance': baseUrl + "foreshadowedstockbalance/",
+    'stockBalanceForecast': baseUrl + "foreshadowedstockbalance/",
 
     'stockMovement': baseUrl + "stockmovement",
 
