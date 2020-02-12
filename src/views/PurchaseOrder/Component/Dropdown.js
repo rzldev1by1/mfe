@@ -22,9 +22,6 @@ class Dropdown extends Component {
             value: this.props.dataParam.map((data) => {return data.name}).indexOf(e.target.textContent)}, 
             () => this.setState({expand:false,value:this.props.dataParam[this.state.value].code}, () => this.props.selectedName(this.state.value)))
         }
-        
-
-
       }
   
       getName = (e) => {

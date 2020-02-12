@@ -9,6 +9,9 @@
   import DayPicker from 'react-day-picker';
   import 'react-day-picker/lib/style.css';
 
+  import DropdownClient from './Dropdown/DropdownClient'
+  import DropdownSite from './Dropdown/DropdownSite'
+
   class PurchaseOrderCreate extends Component{
       constructor(props){
           super(props)
@@ -91,7 +94,7 @@
                   <th>Customer Order Ref</th>
               </tr>
               <tr>
-                  <td><input className="form-control " placeholder="Site"/> </td>
+                  <td><DropdownSite/></td>
                   <td>
                     <select className="form-control selectinput">
                       <option selected disabled>Order Type</option>
@@ -110,13 +113,7 @@
                   <th>Vendor Order Ref</th>
               </tr>
               <tr>
-                  <td>
-                    <select className="form-control selectinput">
-                      <option selected disabled>Client</option>
-                      <option>John Doe</option>
-                      <option>John Wick</option>
-                    </select>
-                  </td>
+                  <td><DropdownClient/></td>
                   <td><input className="form-control" value='PO-003'/></td>
                   <td>
                     <div className='inputDate '>
