@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
-import {
-    Col,
-    Row,
-    Modal,
-    ModalHeader,
-    ModalBody,
-} from 'reactstrap';
-import './StockHoldingEditColumn.css';
+import { Col, Row,
+         Modal, ModalHeader, ModalBody } from 'reactstrap';
+
+import './EditColumn.css';
 
 export default class SalesOrderEditColumn extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            modalClose: false
-        };
         this.columnForm = React.createRef();
     }
 
@@ -32,12 +25,6 @@ export default class SalesOrderEditColumn extends Component {
         this.props.toggle();
 	}
 
-    modalClose = () => {
-        this.setState((prevState) => {
-			return { modalClose: !prevState.modalClose }
-		});
-	}
-
     setEnableElements = () => {
         // let form = this.columnForm.current;
 
@@ -54,23 +41,22 @@ export default class SalesOrderEditColumn extends Component {
 
     render() {
         return (
-			<Modal className="modal-company animated fadeIn editcol-modal" isOpen={(this.state.modalClose === true) ? !this.props.isOpen : this.props.isOpen}
-					   toggle={this.props.toggle} backdrop="static" style={{ maxWidth: "1200px", width: "1000px" }}>
+			<Modal className="modal-company animated fadeIn editcol-modal" backdrop="static" isOpen={this.props.isOpen} toggle={this.props.toggle}>
                 <ModalHeader tag="div" className="editcol-header">
-                  <div className="row">
-                    <div className="col-10">
-                        <h3><strong>Edit Columns</strong></h3>
-                        <p className="d-block mb-0 p-0">Please select column to show</p>
+                    <div className="row">
+                        <div className="col-10">
+                            <h3><strong>Edit Columns</strong></h3>
+                            <span className="d-block mb-0 p-0">Please select column to show</span>
+                        </div>
+                        <div className="col-2">
+                            <button type="button" className="btnclose-modal circle float-right" onClick={this.props.toggle}>
+                                <i class="fa fa-times" />
+                            </button>
+                        </div>
                     </div>
-                    <div className="col-2">
-                        <button type="button" className="btnclose-modal circle float-right" onClick={this.props.toggle}>
-                          <i class="fa fa-times"></i>
-                        </button>
-                    </div>
-                  </div>
                 </ModalHeader>
                 <ModalBody>
-                    <div className="container-fluid px-4">
+                    <div className="container-fluid px-2">
                         <Row>
                             <Col xs="12">
                                 <form ref={this.columnForm}>
@@ -98,7 +84,7 @@ export default class SalesOrderEditColumn extends Component {
                         <Row className="mt-4">
                             <div className="col-12">
                                 <div className="footer-button">
-                                    <button type="button" className="btn btn-primary btn-editcol" onClick={this.onClickUpdateTable}>Update Table</button>
+                                    <button type="button" className="btn btn-primary btn-editcol" onClick={this.onClickUpdateTable}>Update Column</button>
                                 </div>
                             </div>
                         </Row>

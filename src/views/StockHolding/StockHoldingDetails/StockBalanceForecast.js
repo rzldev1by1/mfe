@@ -4,7 +4,7 @@ import { Table } from 'reactstrap';
 import { formatDate } from '../../../AppComponent/Helper';
 import Paging from '../../General/Paging';
 
-class ForeshadowedBalance extends Component {
+class StockBalanceForecast extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -19,12 +19,12 @@ class ForeshadowedBalance extends Component {
             maxPage: 0,
             
 			foreshadowedColumn: [
-				{ id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site" },
-				{ id: "id", checkboxLabelText: "Customer ID", tableHeaderText: "Customer ID", isVisible: true, key: "id" },
+				// { id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site" },
+				{ id: "id", checkboxLabelText: "Customer No.", tableHeaderText: "Customer No.", isVisible: true, key: "id" },
 				{ id: "order_no", checkboxLabelText: "Order No", tableHeaderText: "Order No", isVisible: true, key: "order_no" },
 				{ id: "sm_dtm", checkboxLabelText: "Order Date", tableHeaderText: "Order Date", isVisible: true, key: "" },
-				{ id: "qty_rec", checkboxLabelText: "In", tableHeaderText: "In", isVisible: true, key: "" },
-				{ id: "qty_send", checkboxLabelText: "Out", tableHeaderText: "Out", isVisible: true, key: "" },
+				{ id: "qty_rec", checkboxLabelText: "Expected In", tableHeaderText: "Expected In", isVisible: true, key: "" },
+				{ id: "qty_send", checkboxLabelText: "Expected Out", tableHeaderText: "Expected Out", isVisible: true, key: "" },
 				{ id: "balance", checkboxLabelText: "Balance", tableHeaderText: "Balance", isVisible: true, key: "" }
             ],
             
@@ -34,7 +34,7 @@ class ForeshadowedBalance extends Component {
 
 	componentDidUpdate() {
 		if (this.state.setPagination) {
-			this.setPagination(this.props.foreshadowedBalance);
+			this.setPagination(this.props.stockBalanceForecast);
 		}
 	}
 
@@ -80,26 +80,28 @@ class ForeshadowedBalance extends Component {
 	nextPageClick = () => {
 		if (this.state.currentPage < this.state.maxPage) {
 			this.setState((prev) => {
-				currentPage: prev.currentPage++;
+				prev.currentPage++;
 				this.changeStartIndex(prev.currentPage);
 				this.changeLastIndex(prev.currentPage);
 			});
-		}
+        }
+        return;
 	}
 
 	backPageClick = () => {
 		if (this.state.currentPage > 1) {
 			this.setState((prev) => {
-				currentPage: prev.currentPage--;
+				prev.currentPage--;
 				this.changeStartIndex(prev.currentPage);
 				this.changeLastIndex(prev.currentPage);
 			});
-		}
+        }
+        return;
 	}
 
 	showBalance = (idx) => {
 		let accBalance = this.state.balance;
-		let data = this.props.foreshadowedBalance.slice(this.state.startIndex, this.state.lastIndex);
+		let data = this.props.stockBalanceForecast.slice(this.state.startIndex, this.state.lastIndex);
 
 		if (idx === 0) { 
 			return accBalance = parseInt(data[0]["qty_rec"]) - parseInt(data[0]["qty_send"])
@@ -131,7 +133,7 @@ class ForeshadowedBalance extends Component {
 
 	showForeshadowedData = () => {
 		return (
-			this.props.foreshadowedBalance.slice(this.state.startIndex, this.state.lastIndex).map((item, idx) => (
+			this.props.stockBalanceForecast.slice(this.state.startIndex, this.state.lastIndex).map((item, idx) => (
 				<tr key={idx}>
 					{this.state.foreshadowedColumn.map((column, columnIdx) => {
 						if (column.isVisible) {
@@ -175,4 +177,4 @@ class ForeshadowedBalance extends Component {
 	}
 }
 
-export default ForeshadowedBalance;
+export default StockBalanceForecast;

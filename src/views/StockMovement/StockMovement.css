@@ -62,6 +62,37 @@
 	text-align: center;
   }
 
+  .productList{
+	min-width: 8rem;
+	text-align: left !important;
+	height: 35px;
+	margin-top: 7px;
+  }
+
+  #site{
+	  min-width: 3.5rem;
+	  margin-right: 1rem;
+  }
+
+  #product{
+	  min-width: 5rem;
+	  margin-right: 1rem;
+  }
+
+  #productName{
+	  min-width: 9rem;
+	  margin-right: 1rem;
+  }
+
+  #uom{
+	  min-width: 4rem;
+	  margin-right: 1rem;
+  }
+
+  .productListBody > .productList{
+	text-align: left !important;
+  }
+
   .movementHeader{
 	  width: 100%;
 	  margin-top: 1%;
@@ -126,4 +157,8 @@
 
 .hidden{
 	display: none !important;
+}
+
+.arrow{
+	width: 0.7em;
 }
