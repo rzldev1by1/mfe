@@ -456,9 +456,6 @@ select option:hover{
 	flex-direction: column !important;
 }
 
-.bodycontent{
-	height: 500px !important;
-}
 
 .tabs{
 	display: flex;
