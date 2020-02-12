@@ -162,3 +162,7 @@
 .arrow{
 	width: 0.7em;
 }
+
+.productHeader > div:hover{
+	cursor: pointer;
+}

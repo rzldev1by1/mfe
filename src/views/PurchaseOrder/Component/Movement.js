@@ -32,7 +32,7 @@ class Movement extends Component {
     }
 
     getData = (start, end, period) => {
-        this.setState({complete:false})
+        this.setState({complete:false, activearrow:mid, sort:true})
         let dtStart = start ? start : this.state.startDate
         let dtEnd = end ? end : this.state.endDate
         let periods = period ? period : this.state.filterType
@@ -167,7 +167,7 @@ class Movement extends Component {
     productHeader = () => {
         return(
             <div>
-                <div style={{display:'flex', borderBottom:'1.5px solid #E2E2E2'}}>
+                <div className='productHeader' style={{display:'flex', borderBottom:'1.5px solid #E2E2E2'}}>
                     <div onClick={(e) => this.arrowHandler(e)} className='productList' id='site' >Site <img className='arrow' src={this.state.activearrow}/></div>
                     <div onClick={(e) => this.arrowHandler(e)} className='productList' id='product' >Product <img className='arrow' src={this.state.activearrow}/></div>
                     <div onClick={(e) => this.arrowHandler(e)} className='productList' id='productName' >Product Name <img className='arrow' src={this.state.activearrow}/></div>
