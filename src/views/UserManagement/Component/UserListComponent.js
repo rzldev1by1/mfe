@@ -64,9 +64,7 @@ class UserListComponent extends Component{
     }
 
     render(){
-
-
-
+    
         return(
                 <div className="d-flex">
                     <table className="table">
@@ -93,7 +91,7 @@ class UserListComponent extends Component{
                         </thead>
                         <tbody>
                                {
-                                   this.state.data.map((element,index)=>{
+                                   this.props.data.map((element,index)=>{
 
                                        return <tr key={index} onClick={(e)=>{ this.onRowClick(e,element.web_user);}}>
                                                 {
