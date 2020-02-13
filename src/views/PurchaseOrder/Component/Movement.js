@@ -14,7 +14,7 @@ class Movement extends Component {
             data:[],            
             startDate:'2019-01-01',
             endDate:'2019-01-28',
-            filterType:'day',
+            filterType:'week',
             dateArray:[],
             dataArray:[],
             complete:false,
