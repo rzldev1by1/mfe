@@ -13,7 +13,7 @@ class Movement extends Component {
         this.state = {
             data:[],            
             startDate:'2019-01-01',
-            endDate:'2019-01-15',
+            endDate:'2019-01-28',
             filterType:'day',
             dateArray:[],
             dataArray:[],
