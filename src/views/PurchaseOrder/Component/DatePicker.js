@@ -1,6 +1,6 @@
 import React from 'react';
 import DayPicker from 'react-day-picker';
-
+import moment from 'moment';
 import 'react-day-picker/lib/style.css';
 
 export default class BasicConcepts extends React.Component {
@@ -8,19 +8,12 @@ export default class BasicConcepts extends React.Component {
     super(props)
 
     this.state = {
-      day: new Date().getDate(),
-      month:parseInt(new Date().getMonth())+1,
-      year: new Date().getFullYear(),
-      monthNames :  ["January", "February", "March", "April", "May", "June",
-                     "July", "August", "September", "October", "November", "December"
-                    ],
-      
+      day: new Date (moment())     
     }
   }
 
   dayclickhandler = (day) => {
-    this.setState({day:day.toLocaleDateString()},()=> this.props.getChosenDay(this.state.day))
-   
+    this.setState({day:day},()=> this.props.getChosenDay(this.state.day))   
   }
   render() {
     return (
@@ -28,7 +21,7 @@ export default class BasicConcepts extends React.Component {
         <table>
           <tr>
             <td align='center' colSpan='3'>
-            <DayPicker month={new Date(this.state.year, this.state.month-1)} onDayClick={(day)=>this.dayclickhandler(day)}/>
+            <DayPicker month={new Date(this.state.day)} onDayClick={(day)=>this.dayclickhandler(day)}/>
             </td>
           </tr>
         </table>

@@ -12,9 +12,9 @@ class Movement extends Component {
 
         this.state = {
             data:[],            
-            startDate:'2019-01-01',
-            endDate:'2019-01-15',
-            filterType:'day',
+            startDate:moment().subtract(27, 'days').format('YYYY-MM-DD'),
+            endDate:moment().format('YYYY-MM-DD'),
+            filterType:'week',
             dateArray:[],
             dataArray:[],
             complete:false,
@@ -144,7 +144,9 @@ class Movement extends Component {
             }
             else if(this.state.filterType == 'week')
             {
+                let dates2 = moment(date).add('days', 6).format('DD MMMM YYYY')
                 dates = moment(date).format('DD MMMM YYYY')
+                dates = dates + ' - ' + dates2
             }
             else if(this.state.filterType == 'month')
             {
@@ -169,6 +171,7 @@ class Movement extends Component {
             <div>
                 <div className='productHeader' style={{display:'flex', borderBottom:'1.5px solid #E2E2E2'}}>
                     <div onClick={(e) => this.arrowHandler(e)} className='productList' id='site' >Site <img className='arrow' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='client' >Client <img className='arrow' src={this.state.activearrow}/></div>
                     <div onClick={(e) => this.arrowHandler(e)} className='productList' id='product' >Product <img className='arrow' src={this.state.activearrow}/></div>
                     <div onClick={(e) => this.arrowHandler(e)} className='productList' id='productName' >Product Name <img className='arrow' src={this.state.activearrow}/></div>
                     <div onClick={(e) => this.arrowHandler(e)} className='productList' id='uom' xs='3'>UOM <img className='arrow' src={this.state.activearrow}/></div>
@@ -182,6 +185,7 @@ class Movement extends Component {
             <div>
                 <div className='productListBody' style={{display:'flex'}}>
                     <div className='productList' id='site' >{props.site}</div>
+                    <div className='productList' id='client' >{props.client}</div>
                     <div className='productList' id='product' >{props.product}</div>
                     <div className='productList' id='productName' >{props.product_name}</div>
                     <div className='productList' id='uom' xs='3'>{props.packdesc}</div>
@@ -288,7 +292,7 @@ class Movement extends Component {
                             this.state.data.map((data) =>
                                 <tr style={{borderBottom:'1px solid #f5f5f5'}}>
                                 <td height='60'>
-                                    <this.productBody site={data.site} product={data.product} product_name={data.product_name} packdesc={data.packdesc} />
+                                    <this.productBody site={data.site} product={data.product} product_name={data.product_name} packdesc={data.packdesc} client={data.client}/>
                                 </td>
                                 {
                                     data.detail.map(detail =>
