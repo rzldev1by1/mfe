@@ -12,8 +12,8 @@ class Movement extends Component {
 
         this.state = {
             data:[],            
-            startDate:'2019-01-01',
-            endDate:'2019-01-28',
+            startDate:moment().format('YYYY-MM-DD'),
+            endDate:moment().add('days',28).format('YYYY-MM-DD'),
             filterType:'week',
             dateArray:[],
             dataArray:[],
