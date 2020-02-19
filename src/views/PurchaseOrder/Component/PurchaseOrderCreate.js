@@ -89,7 +89,7 @@
         this.setState({orderdate:day})
       }
       datePickerRote = (day) => {
-        this.setState({showdateRote:!this.state.showdaterote})
+        this.setState({showdaterote:!this.state.showdaterote})
         this.setState({rotedate:day})
       }
 
@@ -286,17 +286,21 @@
               </td>
               <td style={{width:'6%'}}>
               <div className='inputDate '>
-              <input className="form-control withIcon" value={this.state.orderdate} placeholder='rota date'/>
+              <input className="form-control withIcon" value={this.state.rotedate} placeholder='rota date'/>
               <img onClick={() => this.datePickerRote()} className='dateimg' src={date}/>
               </div>
               </td>
-              {this.state.showdaterote ? <DatePicker getChosenDay={(day) => this.datePickerRote(day)}/> : null}
               <td style={{width:'6%'}}><input className="form-control inputs" placeholder='batch'/></td>
               <td style={{width:'5%'}}><input className="form-control inputs" placeholder='ref3'/></td>
               <td style={{width:'5%'}}><input className="form-control inputs" placeholder='ref4'/></td>
               <td style={{width:'6%'}}><input className="form-control inputs" placeholder='disposition'/></td>
               <td id={list.id} onClick={(e) => this.deletelinehandler(e)} style={{width:'1.5%'}}><div className='iconU-delete'/></td>
             </tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{this.state.showdaterote ? <DatePicker getChosenDay={(day) => this.datePickerRote(day)}/> : null}</td>
         </table>
       )
     }
@@ -319,7 +323,7 @@
               </td>
               <td style={{width:'6%'}}>
               <div className='inputDate '>
-              <input className="form-control withIcon" value={this.state.orderdate} placeholder='rota date'/>
+              <input className="form-control withIcon" value={this.state.rotedate} placeholder='rota date'/>
               <img onClick={() => this.datePickerRote()} className='dateimg' src={date}/>
               </div>
               </td>
@@ -328,6 +332,11 @@
               <td style={{width:'5%'}}><input className="form-control inputs" placeholder='ref4'/></td>
               <td style={{width:'6%'}}><input className="form-control inputs" placeholder='disposition'/></td>
             </tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{this.state.showdaterote ? <DatePicker getChosenDay={(day) => this.datePickerRote(day)}/> : null}</td>
         </table>
       )
     }
@@ -361,20 +370,20 @@
 
       render(){
           return(
-            <Modal isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
+            <Modal  isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }}
             toggle={true} className={this.classname}>
-            <ModalHeader>
+            <ModalHeader    >
               <div className='create'><label className='iconU-edit'/><label className='font'>Create Purchase Order</label></div>
-              <Button color="primary" className='btnsearch crt' onClick={() => this.close()}><label className='font btnLabel'>Close</label><label className='iconU-close sym'/></Button>
+              <p style={{fontSize:'25px'}} color="primary" className='btnsearch ' onClick={() => this.close()}><label className='iconU-close sym'/></p>
             </ModalHeader>
-            <ModalHeader className='Tab'>
+            <ModalHeader className='Tab' >
               <div>
                 Enter delivery and product details to create a new Pruchase Order
                 <div className='tabs'>
-                  <div onClick={() => this.tabhandler()} className={'tab ' + (this.state.tab1isactive ? 'tabisactive' : null)}>
+                  <div style={{color:'#919191'}} onClick={() => this.tabhandler()} className={'tab ' + (this.state.tab1isactive ? 'tabisactive' : null)}>
                     <img className='numberimg' src={this.state.tab1isactive ? oneactive : oneinactive}/> Order & Product Details
                   </div>
-                  <div onClick={() => this.tabhandler()} className={'tab tab-review ' + (this.state.tab2isactive ? 'tabisactive' : null)}>
+                  <div  style={{color:'#919191'}} onClick={() => this.tabhandler()} className={'tab tab-review ' + (this.state.tab2isactive ? 'tabisactive' : null)}>
                     <img className='numberimg' src={this.state.tab2isactive ? twoactive : twoinactive}/> Review
                   </div>
                 </div>
