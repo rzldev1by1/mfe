@@ -114,7 +114,7 @@
                     </select>
                   </td>
                   <td><input className="form-control " placeholder="Supplier"/> </td>
-                  <td><input className="form-control " placeholder="Customer Order ref."/> </td>
+                  <td><input className="form-control " placeholder="Customer Order ref"/> </td>
               </tr>
 
               <tr>
@@ -132,7 +132,7 @@
                       <img onClick={() => this.datePickerHandler()} className='dateimg' src={date}/>
                     </div>
                   </td>                  
-                  <td><input className="form-control "  placeholder="Vendor Order ref."/> </td>
+                  <td><input className="form-control "  placeholder="Vendor Order ref"/> </td>
               </tr>
               <tr>
                 <td></td>
@@ -374,7 +374,7 @@
             toggle={true} className={this.classname}>
             <ModalHeader    >
               <div className='create'><label className='iconU-edit'/><label className='font'>Create Purchase Order</label></div>
-              <p style={{fontSize:'25px'}} color="primary" className='btnsearch ' onClick={() => this.close()}><label className='iconU-close sym'/></p>
+              <p style={{fontSize:'45px',fontFamily: 'sans-serif',width:'100px'}} color="primary" className='search ' onClick={() => this.close()}>X</p>
             </ModalHeader>
             <ModalHeader className='Tab' >
               <div>
