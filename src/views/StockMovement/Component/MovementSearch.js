@@ -89,7 +89,7 @@ export default class MovementSearch extends Component {
                                         {this.state.dateFromText ? this.state.dateFromText : 'Date From'}
                                     </button>
                                     <div class='datePicker'>
-                                    {this.state.dateFromShow ? <DatePicker getChosenDay={(day) => this.dateFromHandler(day)}/> : null}
+                                    {this.state.dateFromShow ? <DatePicker selectedDays={moment(this.state.dateFromSelected)} getChosenDay={(day) => this.dateFromHandler(day)}/> : null}
                                     </div>
                                 </div>                                   
 							</td>

@@ -11,7 +11,7 @@ import { endpoint, headers } from '../../../AppComponent/ConfigEndpoint';
 import { tab1, tab1Inactive, tab2, tab2Inactive } from '../../../AppComponent/Helper';
 
 import StockDetails from './StockDetails';
-import ForeshadowedBalance from './ForeshadowedBalance';
+import StockBalanceForecast from './StockBalanceForecast';
 
 class StockHoldingDetails extends Component {
 	constructor(props) {
@@ -27,7 +27,7 @@ class StockHoldingDetails extends Component {
 			isStockDetails: false,
 			stockDetails: [],
 			isForeshadowedBalance: false,
-            foreshadowedBalance: [],
+            stockBalanceForecast: [],
             
             notFoundMessage: ""
 		}
@@ -97,7 +97,7 @@ class StockHoldingDetails extends Component {
 		let self = this;
 		self.setState({ isLoaded: true });
 
-		axios.get(endpoint.foreshadowedBalance + this.props.history.location.pathname.substring(20), {
+		axios.get(endpoint.stockBalanceForecast + this.props.history.location.pathname.substring(20), {
             headers: headers
         })
 		.then(res => {
@@ -112,7 +112,7 @@ class StockHoldingDetails extends Component {
 		})
 		.then(function(result) {
             if (result.data) {
-                self.setState({ isForeshadowedBalance: true, foreshadowedBalance: result.data });
+                self.setState({ isForeshadowedBalance: true, stockBalanceForecast: result.data });
             }
             self.setState({ isLoaded: false });
             return;
@@ -202,7 +202,39 @@ class StockHoldingDetails extends Component {
                                                                                 </div>
 
                                                                                 <div className="col-3">
-                                                                                    <Label className="primary-text">Allocated Qty</Label>
+                                                                                    <Label className="primary-text">Available Qty</Label>
+                                                                                </div>
+                                                                                <div className="col-3">
+                                                                                    <Label className="secondary-text">{stockDetails.length > 0 ? stockDetails[0].qty_lcd : null}</Label>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div className="row">
+                                                                                <div className="col-3">
+                                                                                    <Label className="primary-text">Site</Label>
+                                                                                </div>
+                                                                                <div className="col-3">
+                                                                                    <Label className="secondary-text">{stockDetails.length > 0 ? stockDetails[0].site : null}</Label>
+                                                                                </div>
+                                                                                <div className="col-3">
+                                                                                    <Label className="primary-text">Expected In Qty</Label>
+                                                                                </div>
+                                                                                <div className="col-3">
+                                                                                    <Label className="secondary-text">{stockDetails.length > 0 ? stockDetails[0].qty_lcd_expected : null}</Label>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div className="row">
+                                                                                <div className="col-3">
+                                                                                    <Label className="primary-text">Client</Label>
+                                                                                </div>
+                                                                                <div className="col-3">
+                                                                                    {/* <Label className="secondary-text">{this.state.UoM}</Label> */}
+                                                                                    <Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0].client : null}</Label>
+                                                                                </div>
+
+                                                                                <div className="col-3">
+                                                                                    <Label className="primary-text">Expected Out Qty</Label>
                                                                                 </div>
                                                                                 <div className="col-3">
                                                                                     <Label className="secondary-text">{stockDetails.length > 0 ? stockDetails[0].qty_lcd_committed : null}</Label>
@@ -219,26 +251,10 @@ class StockHoldingDetails extends Component {
                                                                                 </div>
 
                                                                                 <div className="col-3">
-                                                                                    <Label className="primary-text">Available Qty</Label>
-                                                                                </div>
-                                                                                <div className="col-3">
-                                                                                    <Label className="secondary-text">{stockDetails.length > 0 ? stockDetails[0].qty_lcd : null}</Label>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div className="row">
-                                                                                <div className="col-3">
                                                                                     <Label className="primary-text">Rotadate Type</Label>
                                                                                 </div>
                                                                                 <div className="col-3">
                                                                                     <Label className="secondary-text">{stockDetails.length > 0 ? stockDetails[0].rotadate_type : null} - Receipt Type</Label>
-                                                                                </div>
-
-                                                                                <div className="col-3">
-                                                                                    <Label className="primary-text">On Purchase Qty</Label>
-                                                                                </div>
-                                                                                <div className="col-3">
-                                                                                    <Label className="secondary-text">{stockDetails.length > 0 ? stockDetails[0].qty_lcd_expected : null}</Label>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -257,7 +273,8 @@ class StockHoldingDetails extends Component {
                                                                     <NavLink className={"nav-link-cust" + (activeTab === "1" ? " tab-custom" : "")} active={this.state.activeTab === "1"} onClick={() => this.activeTabIndex("1")}>
                                                                         <div className="row rowTabCustom align-items-center">
                                                                             <span className="tabTitleText">
-                                                                                {activeTab === "1" ? tab1() : tab1Inactive()} Stock Details</span>
+                                                                                {activeTab === "1" ? tab1() : tab1Inactive()} Stock Details
+                                                                            </span>
                                                                         </div>
                                                                     </NavLink>
                                                                 </NavItem>
@@ -266,7 +283,7 @@ class StockHoldingDetails extends Component {
                                                                     <NavLink className={"nav-link-cust" + (activeTab === "2" ? " tab-custom" : "")} active={this.state.activeTab === "2"} onClick={() => this.activeTabIndex("2")}>
                                                                         <div className="row rowTabCustom align-items-center">
                                                                             <span className="tabTitleText">
-                                                                                {activeTab === "2" ? tab2() : tab2Inactive()} Foreshadowed Stock Balance
+                                                                                {activeTab === "2" ? tab2() : tab2Inactive()} Stock Balance Forecast
                                                                             </span>
                                                                         </div>
                                                                     </NavLink>
@@ -285,8 +302,8 @@ class StockHoldingDetails extends Component {
                                                             </TabPane>
 
                                                             <TabPane tabId="2">
-                                                                <ForeshadowedBalance isForeshadowedBalance={this.state.isForeshadowedBalance}
-                                                                                     foreshadowedBalance={this.state.foreshadowedBalance} />
+                                                                <StockBalanceForecast isForeshadowedBalance={this.state.isForeshadowedBalance}
+                                                                                     stockBalanceForecast={this.state.stockBalanceForecast} />
                                                             </TabPane>
                                                         </TabContent>
                                                     </div>

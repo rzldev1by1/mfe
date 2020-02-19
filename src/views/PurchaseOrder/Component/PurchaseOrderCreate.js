@@ -7,6 +7,7 @@
   import twoactive from '../../../assets/img/brand/tab_2_blue@2x.png'
   import date from '../../../assets/img/brand/field_date@2x.png'
   import DayPicker from 'react-day-picker';
+  import './Style/PurchaseOrderCreate.css'
   import 'react-day-picker/lib/style.css';
 
   import DropdownClient from './Dropdown/DropdownClient'
@@ -25,6 +26,7 @@
               orderref:null,
               client:null,
               orderdate:null,
+              rotedate:null,
               ordertype:null,
               vendorref:null,
             },
@@ -32,6 +34,7 @@
               {
                 id:1,
                 productEntry:null,
+                productDes:null,
                 uom:null,
                 qty:null,
                 rodaDate:null,
@@ -42,6 +45,8 @@
               }
             ],
 
+            rowlistidx: 1,
+
             data:[
               {
                 "menu":'Client',
@@ -50,6 +55,7 @@
             ],
 
             showdatepicker:false,
+            showdaterote:false,
 
             //dropdown
             clientSelected:'Client',
@@ -59,6 +65,7 @@
             clientExpand:false,
             orderTypeExpand:false,
             uomExpand:false,
+            siteValue: undefined
             }
       }
 
@@ -81,6 +88,10 @@
         this.setState({showdatepicker:!this.state.showdatepicker})
         this.setState({orderdate:day})
       }
+      datePickerRote = (day) => {
+        this.setState({showdaterote:!this.state.showdaterote})
+        this.setState({rotedate:day})
+      }
 
     tab1Content = () => {
       return(
@@ -94,7 +105,7 @@
                   <th>Customer Order Ref</th>
               </tr>
               <tr>
-                  <td><DropdownSite/></td>
+                  <td><DropdownSite siteValue={(e) => this.setState({ siteValue: e})}/></td>
                   <td>
                     <select className="form-control selectinput">
                       <option selected disabled>Order Type</option>
@@ -134,21 +145,21 @@
           <br/>
           <h3 className='font'>Line Details</h3>
 
-          <table className='tabledetails'>
+          <table className='tabledetails'style={{width:'92%'}}>
               <tr>
                   <th style={{width:'2.5%', textAlign:'center'}}>#</th>
                   <th style={{width:'12%'}}>Product Entry</th>
-                  <th style={{width:'6%'}}>UOM</th>
+                  <th style={{width:'12%'}}>Product Description</th>
                   <th style={{width:'3%'}}>Quantity</th>
+                  <th style={{width:'6%'}}>UOM</th>
                   <th style={{width:'6%'}}>Rota Date</th>
                   <th style={{width:'6%'}}>Batch</th>
                   <th style={{width:'5%'}}>Ref3</th>
                   <th style={{width:'5%'}}>Ref4</th>
                   <th style={{width:'6%'}}>Disposition</th>
-                  <th style={{width:'1.5%'}}></th>
               </tr>                               
             </table>
-            <div className={'tablerow ' + (this.state.rowlist.length >2 ? 'scroll' : null )}>
+            <div className={'tablerow ' + (this.state.rowlist.length >2 ? 'scroll' : null )} style={{width:'92%'}}>
               {this.state.rowlist.map((list, i) => this.linedetailsrow(list, i))}
             </div>
 
@@ -195,21 +206,21 @@
           <br/>
           <h3 className='font'>Line Details</h3>
 
-          <table className='tabledetails'>
-              <tr>
+          <table className='tabledetails'style={{width:'92%'}}>
+              <tr >
                   <th style={{width:'2.5%', textAlign:'center'}}>#</th>
                   <th style={{width:'12%'}}>Porduct Entry</th>
-                  <th style={{width:'6%'}}>UOM</th>
+                  <th style={{width:'12%'}}>Porduct Description</th>
                   <th style={{width:'3%'}}>Quantity</th>
+                  <th style={{width:'6%'}}>UOM</th>
                   <th style={{width:'6%'}}>Rota Date</th>
                   <th style={{width:'6%'}}>Batch</th>
                   <th style={{width:'5%'}}>Ref3</th>
                   <th style={{width:'5%'}}>Ref4</th>
                   <th style={{width:'6%'}}>Disposition</th>
-                  <th style={{width:'1.5%'}}></th>
               </tr>                  
             </table>
-            <div className={'tablerow ' + (this.state.rowlist.length >2 ? 'scroll' : null )}>
+            <div className={'tablerow ' + (this.state.rowlist.length >2 ? 'scroll' : null )} style={{width:'92%'}} >
               {this.state.rowlist.map((list, i) => this.linedetailsrowreview(list, i))}
             </div>
         </div>
@@ -218,13 +229,34 @@
 
     deletelinehandler = (e) => {
       let updated = this.state.rowlist.length
+      
+      // Jika Jumlah produk Entry Lebih dari satu
       if( updated >1){
-        let id = e.currentTarget.id -1
-        delete this.state.rowlist[id]
-        this.setState({rowlist:this.state.rowlist})
+        let id = e.currentTarget.id;
+        for(let i = 0; i < updated; i++){
+            if(this.state.rowlist[i].id == id){
+              this.state.rowlist.splice(i, 1);
+              this.setState({rowlist: this.state.rowlist})
+              this.state.rowlistidx -= 1;
+              let lengthRowlist = this.state.rowlist.length;
+              if(i < lengthRowlist){
+                for(let x = i; x < lengthRowlist; x++){
+                  this.state.rowlist[x].id -= 1;
+                }
+                this.setState({rowlist: this.state.rowlist})
+              }
+              break;
+            }
+        }
+        // this.state.rowlist.map((rowlist, idx) => {
+        //   if (rowlist.id == id) {
+        //       this.state.rowlistidx -= 1;
+        //       this.state.rowlist.splice(idx, 1);
+        //       this.setState({rowlist: this.state.rowlist})
+        //   }
+        // })
         updated = this.state.rowlist.length
-      }
-      else{
+      }else{
         alert('cant delete row')
       }
     }
@@ -240,9 +272,11 @@
       return(
         <table>
           <tr>
-              <td hidden id={list.id}></td>
-              <td style={{width:'2%', textAlign:'center'}}><input className="form-control inputs" value={i+1}/></td>
+              <td hidden id={list.id} ></td>
+              <td style={{width:'2%', textAlign:'center'}}><input className="form-control inputs" value={list.id}/></td>
               <td style={{width:'12%'}}><input className="form-control inputs" placeholder='product'/></td>
+              <td style={{width:'12%'}}><input className="form-control inputs" placeholder='product dec'/></td>
+              <td style={{width:'3%'}}><input className="form-control inputs" placeholder='qty'/></td>
               <td style={{width:'6%'}}>
                   <select className="form-control selectinput">
                     <option selected disabled>UOM</option>
@@ -250,14 +284,23 @@
                     <option>pallet</option>
                   </select>
               </td>
-              <td style={{width:'3%'}}><input className="form-control inputs" placeholder='qty'/></td>
-              <td style={{width:'6%'}}><input className="form-control inputs" placeholder='rota date'/></td>
+              <td style={{width:'6%'}}>
+              <div className='inputDate '>
+              <input className="form-control withIcon" value={this.state.rotedate} placeholder='rota date'/>
+              <img onClick={() => this.datePickerRote()} className='dateimg' src={date}/>
+              </div>
+              </td>
               <td style={{width:'6%'}}><input className="form-control inputs" placeholder='batch'/></td>
               <td style={{width:'5%'}}><input className="form-control inputs" placeholder='ref3'/></td>
               <td style={{width:'5%'}}><input className="form-control inputs" placeholder='ref4'/></td>
               <td style={{width:'6%'}}><input className="form-control inputs" placeholder='disposition'/></td>
               <td id={list.id} onClick={(e) => this.deletelinehandler(e)} style={{width:'1.5%'}}><div className='iconU-delete'/></td>
             </tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{this.state.showdaterote ? <DatePicker getChosenDay={(day) => this.datePickerRote(day)}/> : null}</td>
         </table>
       )
     }
@@ -267,8 +310,10 @@
         <table>
           <tr>
               <td hidden id={list.id}></td>
-              <td style={{width:'2%', textAlign:'center'}}><input className="form-control inputs" value={i+1}/></td>
+              <td style={{width:'2%', textAlign:'center'}}><input className="form-control inputs" value={"A"}/></td>
               <td style={{width:'12%'}}><input className="form-control inputs" placeholder='product'/></td>
+              <td style={{width:'12%'}}><input className="form-control inputs" placeholder='product dec'/></td>
+              <td style={{width:'3%'}}><input className="form-control inputs" placeholder='qty'/></td>
               <td style={{width:'6%'}}>
                   <select className="form-control selectinput">
                     <option selected disabled>UOM</option>
@@ -276,23 +321,33 @@
                     <option>pallet</option>
                   </select>
               </td>
-              <td style={{width:'3%'}}><input className="form-control inputs" placeholder='qty'/></td>
-              <td style={{width:'6%'}}><input className="form-control inputs" placeholder='rota date'/></td>
+              <td style={{width:'6%'}}>
+              <div className='inputDate '>
+              <input className="form-control withIcon" value={this.state.rotedate} placeholder='rota date'/>
+              <img onClick={() => this.datePickerRote()} className='dateimg' src={date}/>
+              </div>
+              </td>
               <td style={{width:'6%'}}><input className="form-control inputs" placeholder='batch'/></td>
               <td style={{width:'5%'}}><input className="form-control inputs" placeholder='ref3'/></td>
               <td style={{width:'5%'}}><input className="form-control inputs" placeholder='ref4'/></td>
               <td style={{width:'6%'}}><input className="form-control inputs" placeholder='disposition'/></td>
             </tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{this.state.showdaterote ? <DatePicker getChosenDay={(day) => this.datePickerRote(day)}/> : null}</td>
         </table>
       )
     }
 
     addline = () => {
-      let index = this.state.rowlist.length
+      this.state.rowlistidx += 1;
       this.setState({rowlist: this.state.rowlist.concat(
         {
-          id:index+1,
+          id:this.state.rowlistidx,
           productEntry:null,
+          productDes:null,
           uom:null,
           qty:null,
           rodaDate:null,
@@ -315,20 +370,20 @@
 
       render(){
           return(
-            <Modal isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
+            <Modal  isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }}
             toggle={true} className={this.classname}>
-            <ModalHeader>
+            <ModalHeader    >
               <div className='create'><label className='iconU-edit'/><label className='font'>Create Purchase Order</label></div>
-              <Button color="primary" className='btnsearch crt' onClick={() => this.close()}><label className='font'>Close</label><label className='iconU-close sym'/></Button>
+              <p style={{fontSize:'25px'}} color="primary" className='btnsearch ' onClick={() => this.close()}><label className='iconU-close sym'/></p>
             </ModalHeader>
-            <ModalHeader className='Tab'>
+            <ModalHeader className='Tab' >
               <div>
                 Enter delivery and product details to create a new Pruchase Order
                 <div className='tabs'>
-                  <div onClick={() => this.tabhandler()} className={'tab ' + (this.state.tab1isactive ? 'tabisactive' : null)}>
+                  <div style={{color:'#919191'}} onClick={() => this.tabhandler()} className={'tab ' + (this.state.tab1isactive ? 'tabisactive' : null)}>
                     <img className='numberimg' src={this.state.tab1isactive ? oneactive : oneinactive}/> Order & Product Details
                   </div>
-                  <div onClick={() => this.tabhandler()} className={'tab ' + (this.state.tab2isactive ? 'tabisactive' : null)}>
+                  <div  style={{color:'#919191'}} onClick={() => this.tabhandler()} className={'tab tab-review ' + (this.state.tab2isactive ? 'tabisactive' : null)}>
                     <img className='numberimg' src={this.state.tab2isactive ? twoactive : twoinactive}/> Review
                   </div>
                 </div>
@@ -341,7 +396,7 @@
             <ModalFooter className='footers'>
               {this.state.tab2isactive ? 
                 this.submit() :  
-                <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch next' ><label className='font'>Next</label></Button>
+                <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch next' ><label className='font btnLabel'>Next</label></Button>
               }
             
             </ModalFooter>

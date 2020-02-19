@@ -3,19 +3,26 @@ import {Container, Row, Col} from 'reactstrap'
 import axios from 'axios';
 import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
 import moment from 'moment';
+import mid from '../../../assets/img/brand/field-idle.png'
+import down from '../../../assets/img/brand/field-bot.png'
+import up from '../../../assets/img/brand/field-top.png'
 class Movement extends Component {
     constructor(props){
         super(props)
 
         this.state = {
             data:[],            
-            startDate:'2019-01-01',
-            endDate:'2019-01-31',
-            filterType:'day',
+            startDate:moment().subtract(27, 'days').format('YYYY-MM-DD'),
+            endDate:moment().format('YYYY-MM-DD'),
+            filterType:'week',
             dateArray:[],
             dataArray:[],
             complete:false,
-            pushTableComplete:false
+            pushTableComplete:false,
+
+            activearrow:mid,
+            sortparameter:null,
+            sort:true,
         }
     }
 
@@ -25,7 +32,7 @@ class Movement extends Component {
     }
 
     getData = (start, end, period) => {
-        this.setState({complete:false})
+        this.setState({complete:false, activearrow:mid, sort:true})
         let dtStart = start ? start : this.state.startDate
         let dtEnd = end ? end : this.state.endDate
         let periods = period ? period : this.state.filterType
@@ -39,15 +46,6 @@ class Movement extends Component {
         .catch(error => {
         // this.props.history.push("/logins")
         })
-    }
-
-    searchData = (start, end, period,complete) =>{
-        this.setState({startDate:start, endDate:end, filterType:period, complete:complete})
-        this.getData()
-        if(this.state.data)
-        {
-            this.pushTable()
-        }
     }
 
     tableMovement = (props) => {
@@ -146,7 +144,9 @@ class Movement extends Component {
             }
             else if(this.state.filterType == 'week')
             {
+                let dates2 = moment(date).add('days', 6).format('DD MMMM YYYY')
                 dates = moment(date).format('DD MMMM YYYY')
+                dates = dates + ' - ' + dates2
             }
             else if(this.state.filterType == 'month')
             {
@@ -169,11 +169,12 @@ class Movement extends Component {
     productHeader = () => {
         return(
             <div>
-                <div style={{display:'flex', borderBottom:'1.5px solid #E2E2E2'}}>
-                    <div className='tet' >Site</div>
-                    <div className='tet' >Product</div>
-                    <div style={{width:'100px !important'}} className='tet' >Product Name</div>
-                    <div className='tet' xs='3'>UOM</div>
+                <div className='productHeader' style={{display:'flex', borderBottom:'1.5px solid #E2E2E2'}}>
+                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='site' >Site <img className='arrow' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='client' >Client <img className='arrow' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='product' >Product <img className='arrow' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='productName' >Product Name <img className='arrow' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='uom' xs='3'>UOM <img className='arrow' src={this.state.activearrow}/></div>
                 </div>
             </div>
             )
@@ -182,15 +183,87 @@ class Movement extends Component {
     productBody = (props) => {
         return(
             <div>
-                <div style={{display:'flex'}}>
-                    <div className='tet' >{props.site}</div>
-                    <div className='tet' >{props.product}</div>
-                    <div className='tet' >{props.product_name}</div>
-                    <div className='tet' xs='3'>{props.packdesc}</div>
+                <div className='productListBody' style={{display:'flex'}}>
+                    <div className='productList' id='site' >{props.site}</div>
+                    <div className='productList' id='client' >{props.client}</div>
+                    <div className='productList' id='product' >{props.product}</div>
+                    <div className='productList' id='productName' >{props.product_name}</div>
+                    <div className='productList' id='uom' xs='3'>{props.packdesc}</div>
                 </div>
             </div>
             )
     }
+
+    arrowHandler = (e) => {
+        let id = e.currentTarget.id
+        let activearrow = this.state
+        if(this.state.activearrow == mid)
+          {
+            this.setState({activearrow:up})
+            this.sortby(id)
+          }
+    
+          if(this.state.activearrow == up)
+          {
+            this.setState({activearrow:down})
+            this.sortby(id)
+          }
+    
+          if(this.state.activearrow == down)
+          {
+            this.setState({activearrow:up})
+            this.sortby(id)
+          }
+      }
+    
+      sortby = (id) => {
+        if(id == 'site')
+        {
+          this.setState({sort:!this.state.sort, sortparameter:'site'}, () =>
+          this.sorting(this.state.data, this.state.sortparameter, this.state.sort))
+        }
+        else if(id == 'client')
+        {
+          this.setState({sort:!this.state.sort, sortparameter:'client'}, () =>
+          this.sorting(this.state.data, this.state.sortparameter, this.state.sort))
+        }
+        else if(id == 'product')
+        {
+          this.setState({sort:!this.state.sort, sortparameter:'product'}, () =>
+          this.sorting(this.state.data, this.state.sortparameter, this.state.sort))
+        }
+        else if(id == 'productName')
+        {
+          this.setState({sort:!this.state.sort, sortparameter:'product_name'}, () =>
+          this.sorting(this.state.data, this.state.sortparameter, this.state.sort))
+        }
+        else if(id == 'uom')
+        {
+          this.setState({sort:!this.state.sort, sortparameter:'packdesc'}, () =>
+          this.sorting(this.state.data, this.state.sortparameter, this.state.sort))
+        }
+      }
+    
+      sorting = (data, param, sort) => {
+        data.sort((a,b) => {
+          if(a[param] !== null && b[param] !== null)
+          {
+            if(sort == false)
+          {
+            if(a[param].toLowerCase() < b[param].toLowerCase()) return -1
+            if(a[param].toLowerCase() > b[param].toLowerCase()) return 1
+            return 0
+          }
+          else if(sort == true)
+          {
+            if(a[param].toLowerCase() < b[param].toLowerCase()) return 1
+            if(a[param].toLowerCase() > b[param].toLowerCase()) return -1
+            return 0
+          }
+          }
+        })
+        this.setState({data:data})
+      }
 
     render(){
         if(this.state.pushTableComplete)
@@ -208,7 +281,7 @@ class Movement extends Component {
                                 <td>{this.productHeader()}</td>
                                 { 
                                     this.state.dateArray.map(date =>
-                                        <td style={{borderRight:'1.5px solid #E2E2E2',borderLeft:'1.5px solid #E2E2E2'}}>{this.movementHeader(date)}</td>
+                                        <td style={{borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}>{this.movementHeader(date)}</td>
                                             )
                                 }
                             </tr>
@@ -217,13 +290,13 @@ class Movement extends Component {
                         <tbody>
                         {
                             this.state.data.map((data) =>
-                                <tr style={{borderBottom:'1px solid #E2E2E2'}}>
+                                <tr style={{borderBottom:'1px solid #f5f5f5'}}>
                                 <td height='60'>
-                                    <this.productBody site={data.site} product={data.product} product_name={data.product_name} packdesc={data.packdesc} />
+                                    <this.productBody site={data.site} product={data.product} product_name={data.product_name} packdesc={data.packdesc} client={data.client}/>
                                 </td>
                                 {
                                     data.detail.map(detail =>
-                                    <td style={{borderRight:'1.5px solid #E2E2E2',borderLeft:'1.5px solid #E2E2E2'}}><this.tableMovement detail={detail}/></td>
+                                    <td width='15%' style={{borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}><this.tableMovement detail={detail}/></td>
                                         )
 
                                 }

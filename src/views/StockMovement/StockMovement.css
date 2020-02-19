@@ -10,30 +10,20 @@
 	margin-top: 1%;
 	margin-bottom: 1%;
 	font-size: 0.9rem;
-	max-height: 650px;
+	max-height: 600px !important;
 }
 
 .conts{
 	margin-top: 1%;
 	margin-bottom: 1%;
 	padding:0.5% !important;
+	
 }
 
-.scrolly{
-	overflow-y:scroll;
-}
-
-.scrolly::-webkit-scrollbar {
-	width: 8px !important;
-  }
-
-.scrolly::-webkit-scrollbar-thumb {
-	background-color: #B4B9BB;
-	border-radius: 5px;
-  }
+/* movement scroll */
   
 .scrollx{
-	overflow:scroll;
+	overflow-x: scroll !important;
 }
 
 .scrollx::-webkit-scrollbar {
@@ -45,6 +35,37 @@
 	background-color: #B4B9BB;
 	border-radius: 5px;
   }
+
+/* product scroll*/
+.scrollx1{
+	overflow-x: scroll !important;
+}
+
+.scrollx1::-webkit-scrollbar {
+	width: 0px !important;
+	height: 8px;
+  }
+
+.scrollx1::-webkit-scrollbar-thumb {
+	background-color: transparent;
+	border-radius: 5px;
+  }
+
+  .scrolly{
+	overflow-y:scroll;
+	overflow-x: hidden;
+}
+
+.scrolly::-webkit-scrollbar {
+	width: 8px !important;
+	height: 8px;
+  }
+
+.scrolly::-webkit-scrollbar-thumb {
+	background-color: #B4B9BB;
+	border-radius: 5px;
+  }
+  
 
   .sss{
 	  width: 10rem !important;
@@ -60,6 +81,42 @@
   .tet{
 	width: 5rem !important;
 	text-align: center;
+  }
+
+  .productList{
+	min-width: 8rem;
+	text-align: left !important;
+	height: 35px;
+	margin-top: 7px;
+  }
+
+  #site{
+	  min-width: 3rem;
+	  margin-right: 1rem;
+  }
+
+  #client{
+	min-width: 3.5rem;
+	margin-right: 1rem;
+  }
+
+  #product{
+	  min-width: 4.5rem;
+	  margin-right: 1rem;
+  }
+
+  #productName{
+	  min-width: 8rem;
+	  margin-right: 1rem;
+  }
+
+  #uom{
+	  min-width: 3.5rem;
+	  margin-right: 1rem;
+  }
+
+  .productListBody > .productList{
+	text-align: left !important;
   }
 
   .movementHeader{
@@ -126,4 +183,12 @@
 
 .hidden{
 	display: none !important;
+}
+
+.arrow{
+	width: 0.7em;
+}
+
+.productHeader > div:hover{
+	cursor: pointer;
 }

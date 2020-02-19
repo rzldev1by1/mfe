@@ -1,0 +1,55 @@
+/* Global */
+
+.tabisactive {
+    background-color: white;
+    color: #22ABE3 !important;
+}
+
+/* 768p Resolution */
+@media(max-width: 1400px){
+    .modal-content {
+        position: absolute;
+        width: 240%;
+        margin-left: -69%;
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
+    
+    .btnLabel{
+        margin-right: 1em;
+    }
+    
+    .font {
+        font-family: "Helvetica Neue Medium" !important;
+        font-size: 134%;    
+        cursor: pointer;
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+
+    .crt {
+        padding-top: 0px;
+        height: 3em;
+        vertical-align: middle;
+        font-size: small;
+    }
+    
+    
+    /* .modal-header {
+        border-bottom: 1px solid #F4F4F4 !important; 
+    }*/
+    
+    .tab-review{
+        min-width: 30%;
+    }
+    
+    .iconU-edit {
+        margin-right: 5%;
+        margin-top: 3% !important;
+        vertical-align: middle !important;
+        cursor: pointer;
+    }
+    .bodycontent {
+        min-height: 410px !important;
+    }
+}

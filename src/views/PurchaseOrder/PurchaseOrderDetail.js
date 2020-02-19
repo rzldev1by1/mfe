@@ -75,14 +75,18 @@ export default class PurchaseOrderDetail extends Component {
                         <td>{orderType ? orderType : '-'}</td>
                     </tr>
                     <tr>
-                        <th>Supplier ID</th>
-                        <td>{supplierNo ? supplierNo : '-'}</td>
+                        <th>Status</th>
+                        <td style={{color:'#7FC242'}}>{status ? status+ ' (' +statusDesc.substring(3) + ')' : '-'}</td>
                     </tr>
                 </table>
             </div>
 
             <div className='sub' style={{width:'70%'}}>
                 <table className='tableborderss' style={{width:'90%'}}>
+                     <tr>
+                        <th>Supplier ID</th>
+                        <td>{supplierNo ? supplierNo : '-'}</td>
+                    </tr>
                     <tr>
                         <th>Supplier Name</th>
                         <td>{supplierName ? supplierName : '-'}</td>
@@ -95,20 +99,16 @@ export default class PurchaseOrderDetail extends Component {
                         <th>Vendor Order No</th>
                         <td>{vendorOrderNo ? vendorOrderNo : '-'}</td>
                     </tr>
-                    <tr>
-                        <th>Status</th>
-                        <td style={{color:'#7FC242'}}>{status ? status+ ' (' +statusDesc.substring(3) + ')' : '-'}</td>
-                    </tr>
-                    <tr>
-                        <th>Date Receive</th>
-                        <td>{dateReceived ? dateReceived.substring(0, 11) : '-'}</td>
-                    </tr>
+                    
                 </table>
             </div>
 
             <div className='sub'  style={{width:'65%'}}>
                 <table className='tableborderss' style={{width:'90%'}}>
-                    
+                <tr>
+                        <th>Date Receive</th>
+                        <td>{dateReceived ? dateReceived.substring(0, 11) : '-'}</td>
+                    </tr>
                     <tr>
                         <th>Date Due</th>
                         <td>{dateDue ? dateDue.substring(0, 11) : '-'}</td>

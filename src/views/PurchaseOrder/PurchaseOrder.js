@@ -103,7 +103,7 @@ class PurchaseOrder extends Component {
             <div className='searchbar'>
                 <div className='inputgroup'>
                     <label className='iconU-search isearch'/>
-                    <input onChange={(e) => this.onchangesearch(e) } type='text' className='searchinput' placeholder='Enter a site, order no. or client'/>
+                    <input onChange={(e) => this.onchangesearch(e) } type='text' className='searchinput' placeholder='Enter a Site, Order No, Client or Supplier'/>
                 </div>
                 <Button onClick={() => this.setState({filterclicked: !this.state.filterclicked})} color="primary" className={'iconU-filter iconU-filters ' + ( this.state.filterclicked ? 'filterclicked' : null)}/>
                 <Button onClick={() => this.search()} color="primary" className='btnsearch'><label className='font'>Search</label></Button>
@@ -113,7 +113,7 @@ class PurchaseOrder extends Component {
                 <div style={{display:'flex', width:'100%'}}>
                     {
                         this.state.filterclicked ? null :
-                        <Dropdowns filter = {(client,site,status,ordertype,supplier) => this.search(client,site,status,ordertype,supplier)}/>
+                        <Dropdowns filter = {(client,site,status,ordertype) => this.search(client,site,status,ordertype)}/>
                     }
                 </div>               
             </div>

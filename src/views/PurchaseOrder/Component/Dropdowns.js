@@ -280,18 +280,6 @@ export default class Dropdowns extends Component {
                   </div>
                 </div>
 
-                <div class="dropdown dd">
-                  <button onClick={() => this.expandSupplier()} type="button" className="btn dropdown-button dropdown-toggle po" data-toggle="dropdown">
-                  {this.state.supplierSelected}
-                  </button>
-                  <div class={"dropdown-menu " + (this.state.suppliereExpand ? "show" : null)}>
-                  {
-                      this.state.supplierdata.map(
-                          data => <div onClick={(e) => this.selectedSupplier(e)} class="dropdown-item" id={data.supplier_no}>{data.name}</div>
-                      )
-                  }
-                  </div>
-                </div>
             </div>
         )
     }
