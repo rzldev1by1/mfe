@@ -27,6 +27,7 @@ const endpoint = {
     "UserManagement_Create": baseUrl + "usermanagement/register",
     "UserManagement_ListUser": baseUrl + "web_user",
     "UserManagement_User_Detail": baseUrl + "web_user_detail/",
+    "UserManagement_Update": baseUrl + "usermanagement/update/",
 };
 
 const headers = {

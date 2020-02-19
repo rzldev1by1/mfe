@@ -7,6 +7,9 @@ import Client from './Component/Client'
 import {endpoint,headers} from '../../AppComponent/ConfigEndpoint'
 import axios from 'axios'
 import users from './Users.json'
+import moment from 'moment';
+
+const today = moment(new Date()).format("DD-MM-YYYY");
 
 
 
@@ -17,10 +20,8 @@ class UserManagementDetail extends Component{
           moduleAccess:[],
           sites:[],
           clients:[],
-          isModuleLoaded: false,
-          isClientLoaded: false,
-          isSiteLoaded: false,
-          accountInfo:{}
+          accountInfo:{},
+          isSaveProgressing:false
         }
 
     }
@@ -28,9 +29,8 @@ class UserManagementDetail extends Component{
     componentDidMount(){
         let id = this.props.match.params.id;
         this.getAccountInfo(id);
-        this.loadModuleAccess("warehouse");
-        this.loadSites();
-        this.loadClients();
+        // this.loadMasterResource();
+
     }
 
     restructureAccount = (sources) => {
@@ -40,14 +40,30 @@ class UserManagementDetail extends Component{
       if(account){
           newAccount.user = account.name;
           newAccount.email = account.email;
-          newAccount.lastAccess = account.last_access;
-          newAccount.lastLogin = account.last_login;
-          newAccount.thisAccess = account.this_access;
-          newAccount.thisLogin = account.this_login;
-          newAccount.userMenu = account.userMenu;
+          newAccount.lastAccess = today;
+          newAccount.lastLogin = today;
+          newAccount.thisAccess = today;
+          newAccount.thisLogin = today;
+          newAccount.userMenu = this.restuctureMenuList(account.module);
           newAccount.userId = account.userid;
       }
       return newAccount;
+    }
+
+    restuctureMenuList= (sources) => {
+      let newUserMenu = [];
+      let userMenu = sources;
+
+      if(userMenu.length){
+          newUserMenu = sources.map((item)=>{
+            let newItem = {};
+            newItem.menuid = item.menu_id;
+            newItem.menuname = item.menu_name;
+            return newItem;
+          });
+          console.log(newUserMenu);
+      }
+      return newUserMenu;
     }
 
     getAccountInfo = (userid) => {
@@ -59,7 +75,7 @@ class UserManagementDetail extends Component{
           var result = [];
           if(res.status === 200){
             result = self.restructureAccount(res.data.data);
-            self.setState({accountInfo:result});
+            self.setState({accountInfo:result},self.loadMasterResource);
           }
           return result;
         })
@@ -84,30 +100,36 @@ class UserManagementDetail extends Component{
       });
     }
 
-    loadModuleAccess = (role) => {
-      var self = this;
-      let query = ["purchase orders","stock holding", "stock movement", "create sales order"];
+    loadMasterResource = () => {
+      let menus = this.readSessionStorage('menus');
+      let sites = this.readSessionStorage('sites');
+      let clients = this.readSessionStorage('clients');
 
-      axios.get(endpoint.UserManagement_ModuleAccess, {
-        params: {role:role},
-        headers: headers
-      })
-        .then(res => {
-          var result = [];
-          if(res.status === 200){
-            result = res.data;
-            let newResult = self.restuctureData(result.filter((item) => { return query.indexOf(item.menuname.toLowerCase()) !== -1 }));
+       menus = this.setMenuBasedUser(menus);
+      if(menus.length && sites.length && clients.length)
+        this.setState({moduleAccess:menus,sites:sites,clients:clients});
+    }
 
-            self.setState({moduleAccess:newResult,isModuleLoaded:true});
-          }
-          return result;
-        })
-        .catch(error => {
+    setMenuBasedUser = (menus) => {
+      const {userMenu} = this.state.accountInfo;
+      if(userMenu.length){
+        userMenu.forEach((item)=>{
+            let idx = menus.findIndex((menu)=> menu.menuid === item.menuid);
+            if(idx>=0){
+              menus[idx]["status"] = true;
+            }
+        });
+      }
+      return menus;
+    }
 
-        })
-        .then((result) => {
-          // console.log(result);
-        })
+    readSessionStorage=(keyName) => {
+      let anyObject = [];
+       if(sessionStorage.getItem(keyName)){
+         anyObject = JSON.parse(sessionStorage.getItem(keyName));
+
+       }
+       return anyObject;
     }
 
     loadSites = (role) => {
@@ -159,27 +181,29 @@ class UserManagementDetail extends Component{
 
       if(data){
         let newState = [...this.state.moduleAccess];
+        let userInfo = {...this.state.accountInfo};
+
+
         var newArray = newState.map((item,index) => {
 
             if(item.menuid === data.menuid){
               item.status = !item.status;
+              if(item.status){
+                userInfo.userMenu.push({"menuid":item.menuid,"menuname":item.menuname});
+              }else{
+                if(userInfo.userMenu.length){
+                  let idx = userInfo.userMenu.findIndex((menu)=> menu.menuid === data.menuid);
+                  userInfo.userMenu.splice(idx,1);
+                }
+              }
             }
             return item;
         });
 
-       this.setState({moduleAccess:newArray});
+       this.setState({moduleAccess:newArray,accountInfo:userInfo});
       }
 
-      // if(element.classList.contains('btn-outline-notActive')){
-      //     element.classList.remove('btn-outline-notActive')
-      //     element.classList.add('btn-outline-active')
-      //     element.innerHTML = "Enable"
-      // }
-      // else{
-      //   element.classList.remove('btn-outline-active')
-      //   element.classList.add('btn-outline-notActive')
-      //   element.innerHTML = "Disable"
-      // }
+
     }
 
     onSiteStatusClick = (e,data) => {
@@ -213,23 +237,86 @@ class UserManagementDetail extends Component{
       }
     }
 
+
     onChangeName = (e) => {
       const {name,value} = e.target;
-      if(value && value.length > 2){
-         let newText = value.substring(0,2);
+      let user = {...this.state.accountInfo};
+      user.user = value;
+      this.setState({accountInfo:user});
+    }
 
-          var anysize = 3;//the size of string
-          var charset = "abcdefghijklmnopqrstuvwxyz"; //from where to create
-          let result="";
-          for( var i=0; i < anysize; i++ )
-          result += charset[Math.floor(Math.random() * (value.split('').length))];
+    onChangeEmail = (e) => {
+      const {name,value} = e.target;
+      let user = {...this.state.accountInfo};
+      user.email = value;
 
-         let user = {...this.state.accountInfo};
-         user.user = value;
-         user.userid = newText+result;
+      this.setState({accountInfo:user});
+    }
 
-        this.setState({accountInfo:user});
+    saveClick = () => {
+
+      let accountInfo = {...this.state.accountInfo};
+
+      let newParam = {};
+      newParam.name = accountInfo.user;
+	    newParam.email = accountInfo.email;
+	    newParam.lastAccess = accountInfo.lastAccess;
+	    newParam.lastLogin = accountInfo.lastLogin;
+	    newParam.thisAccess = accountInfo.thisAccess;
+	    newParam.thisLogin = accountInfo.thisLogin;
+	    newParam.userMenu = this.changeUserMenuToStringArray(accountInfo.userMenu);
+
+      if(newParam.name && newParam.email && newParam.userMenu.length)
+      {
+        let updateReq = this.updateRequest(newParam);
+        this.setState({isSaveProgressing:true},updateReq);
       }
+
+      /*
+      const {name,userId,email,userMenu} = this.state.accountInfo;
+
+
+      **/
+    }
+
+    changeUserMenuToStringArray= (arraySources)=>{
+      var menus = [];
+      if(arraySources.length){
+        menus = arraySources.map((item)=>{
+          return item.menuid;
+        })
+      }
+      return menus;
+    }
+
+    updateRequest = (param) => {
+
+      var self = this;
+      const {name,userId,email,userMenu} = self.state.accountInfo;
+
+      let url = `${endpoint.UserManagement_Update}${userId}`
+
+
+        axios.post(url,param,{ headers: headers })
+          .then(res => {
+            var result = [];
+            if(res.status === 200){
+              self.setState({isSaveProgressing:false});
+              self.gotoUM();
+            }
+            return result;
+          })
+          .catch(error => {
+              console.log("error save",error);
+          })
+          .then((result) => {
+            // console.log(result);
+          })
+
+    }
+
+    gotoUM = () => {
+      this.props.history.push('/users-management');
     }
 
     render(){
@@ -238,101 +325,96 @@ class UserManagementDetail extends Component{
 
         return(<div>
            <div className="d-flex mt-4">
-                <div className="flex-fill">
-                    <h3>
-                        <label className="font-bolder">User Management</label>
-                    </h3>
+                <div className='um-breadcrumb'>
+                    <h2 onClick={() => { this.gotoUM(); }} className='margin-right-breadcrumb-title' style={{cursor:"pointer"}}>User Management</h2>
+                    <h2 className='margin-right-breadcrumb-title iconU-rightArrow' style={{fontSize:20}}/>
+                    <h2 className='breadcrumb-active-title'>{this.state.accountInfo.userId}</h2>
                 </div>
             </div>
             <div className="d-flex pt-4">
-                <Card className="flex-fill">
+                <Card className="flex-fill h-100">
                     <CardBody>
                         <div className="account-detail mt-2">
                             <div className="row">
                               <div className="col-12">
                                 <h3>
-                                  <label className="name-account font-bolder">{this.state.accountInfo.user}</label>
+                                  <label className="name-account font-bolder">User Details</label>
                                 </h3>
                               </div>
                             </div>
-                            <div className="row">
-                                <div className="col-4">
-                                    <label className="text-bolder">Name</label>
-                                </div>
 
-                                <div className="col-4">
-                                    <label className="text-bolder">ID</label>
-                                </div>
-                                <div className="col-4">
-                                      <label className="text-bolder">Suspend User</label>
-                                </div>
+                            <div className="row">
+                            <div className="col-3">
+                                <label className="text-bolder">Name</label>
+                            </div>
+
+                            <div className="col-3">
+                                <label className="text-bolder">Email</label>
+                            </div>
+
+                            <div className="col-3">
+                                <label className="text-bolder">ID</label>
+                            </div>
+                            <div className="col-2">
+                                  <label className="text-bolder">Suspend Users</label>
+                            </div>
+                            <div className="col-1">
+                                  <label className="text-bolder"></label>
+                            </div>
                             </div>
                             <div className="row">
-                                <div className="col-4">
+                                <div className="col-3">
                                     <input type="text" className="form-control" onChange={(e)=>{this.onChangeName(e);}} defaultValue={this.state.accountInfo.user}/>
                                 </div>
 
-                                <div className="col-4">
-                                    <input type="text" className="form-control" defaultValue={this.state.accountInfo.userId}/>
-                                </div>
                                 <div className="col-3">
+                                    <input type="text" name="email" className="form-control" onChange={(e)=>{this.onChangeEmail(e);}} defaultValue={this.state.accountInfo.email}/>
+                                </div>
+
+                                <div className="col-3">
+                                    <input type="text" readOnly className="form-control" defaultValue={this.state.accountInfo.userId}/>
+                                </div>
+                                <div className="col-2">
                                       <label className="account-name">Are you sure you want to suspend this user?</label>
                                 </div>
                                 <div className="col-1">
                                       <span className='p-1 m-2 client-active float-right'>Enable</span>
                                 </div>
                             </div>
-                            <div className="row mt-2">
-                                <div className="col-4">
-                                    <label className="text-bolder">Email</label>
-                                </div>
 
-                                <div className="col-4">
 
-                                    <label className="text-bolder">Reset Password</label>
-                                </div>
-                                <div className="col-4">
-
-                                </div>
-                            </div>
-                            <div className="row">
-
-                                <div className="col-4">
-                                    <input type="text" className="form-control" defaultValue={this.state.accountInfo.email}/>
-                                </div>
-                                <div className="col-4">
-                                    <label className="account-name">Contact Microlistic for request to reset password</label>
-                                    <span className='p-1 client-active float-right'>Reset</span>
-                                </div>
-                                <div className="col-4">
-
-                                </div>
-                            </div>
                         </div>
                         <div className="system mt-4">
                             <div className="row">
                                 <div className="col-12">
                                   <h3>
-                                      <label className="text-bolder">System</label>
+                                      <label className="name-account font-bolder">System</label>
                                   </h3>
                                 </div>
                             </div>
                             <div className="d-flex flex-row">
                                 <div className="flex-fill mr-2">
-                                    <ModuleAccess moduleAccess={moduleAccess} isLoaded={this.state.isModuleLoaded} onEnableClick={this.onModuleAccessClick}/>
+                                    <ModuleAccess moduleAccess={moduleAccess} onEnableClick={this.onModuleAccessClick}/>
                                 </div>
                                 <div className="flex-fill mr-2">
-                                    <Site sites={sites} isLoaded={this.state.isSiteLoaded} onEnableClick={this.onSiteStatusClick}/>
+                                    <Site sites={sites} onEnableClick={this.onSiteStatusClick}/>
                                 </div>
                                 <div className="flex-fill mr-2">
-                                    <Client clients={clients} isLoaded={this.state.isClientLoaded} onEnableClick={this.onClientStatusClick}/>
+                                    <Client clients={clients} onEnableClick={this.onClientStatusClick}/>
                                 </div>
 
                             </div>
 
-
                         </div>
 
+                        <div className="row mt-5">
+                            <div className="col-12">
+                              <button className="btn btn-primary float-right" onClick={(e)=>{this.saveClick();}}>
+                                  <i className= {(this.state.isSaveProgressing)?"mr-2 fa fa-refresh fa-spin ":"fa fa-refresh fa-spin d-none"}></i>
+                                  Submit
+                              </button>
+                            </div>
+                        </div>
                     </CardBody>
                 </Card>
             </div>

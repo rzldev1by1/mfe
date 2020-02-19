@@ -2,11 +2,10 @@ import React, { Component } from 'react'
 import { Table,Button, Card, CardBody, Label} from 'reactstrap'
 import '../UserManagement.css'
 
-const site = ({sites, onEnableClick,isLoaded}) => {
+const site = ({sites, onEnableClick}) => {
 
 return (<div>
         <label className="text-bolder mr-2">Site</label>
-        <i className= {(!isLoaded)?"fa fa-refresh fa-spin":"fa fa-refresh fa-spin d-none"}></i>
         {
             sites.map((item,index) => {
               return (<div className="flex-column mb-3 mr-2" key={index}>

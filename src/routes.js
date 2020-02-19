@@ -64,6 +64,12 @@ function Loading() {
 // 	loading: Loading
 // });
 
+// const SalesOrder = Loadable({
+// 	loader: () => import('./views/Icons/CoreUIIcons'),
+// 	loading: Loading
+// });
+
+
 const StockHolding = Loadable({
 	loader: () => import('./views/StockHolding/StockHolding'),
 	loading: Loading
@@ -94,10 +100,6 @@ const PurchaseOrderDetail = Loadable({
 	loading: Loading
 });
 
-const SalesOrder = Loadable({
-	loader: () => import('./views/Icons/CoreUIIcons'),
-	loading: Loading
-});
 
 const UsersManagement = Loadable({
 	loader: () => import('./views/UserManagement/UserManagement'),
@@ -113,6 +115,11 @@ const UsersManagementCreate = Loadable({
 	loader: () => import('./views/UserManagement/UserManagementCreate'),
 	loading: Loading
 });
+
+const SalesOrder = Loadable({
+	loader: () => import('./views/SalesOrder/SalesOrder'),
+	loading: Loading
+})
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
 	// { path: '/dashboard', name: 'Dashboard', component: Dashboard },
@@ -166,12 +173,13 @@ const routes = [
     { path: '/stock/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
 
     { path: '/purchaseorder', exact:true, name: 'Purchase Order', component: PurchaseOrder },
-	{ path: '/purchaseorder/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrderDetail },
+		{ path: '/purchaseorder/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrderDetail },
     { path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
 
     { path: '/users-management', exact: true, name: 'User Management', component: UsersManagement },
 		{ path: '/users-management/:id/detail', exact: true, name: 'User Management', component: UsersManagementDetail },
 		{ path: '/users-management/create', exact: true, name: 'User Management', component: UsersManagementCreate },
+		{ path: '/sales-orders', exact: true, name: 'Sales Orders', component: SalesOrder }
 ];
 
 export default routes;
