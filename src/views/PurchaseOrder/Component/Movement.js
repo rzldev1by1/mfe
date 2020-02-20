@@ -184,7 +184,7 @@ class Movement extends Component {
                     <div onClick={(e) => this.arrowHandler(e)} className='productList' id='site' >Site <img className='arrow' src={this.state.activearrow}/></div>
                     <div onClick={(e) => this.arrowHandler(e)} className='productList' id='client' >Client <img className='arrow' src={this.state.activearrow}/></div>
                     <div onClick={(e) => this.arrowHandler(e)} className='productList' id='product' >Product <img className='arrow' src={this.state.activearrow}/></div>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='productName' >Descriptions <img className='arrow' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='productName' >Product Name <img className='arrow' src={this.state.activearrow}/></div>
                     <div onClick={(e) => this.arrowHandler(e)} className='productList' id='uom' xs='3'>UOM <img className='arrow' src={this.state.activearrow}/></div>
                 </div>
             </div>
@@ -250,7 +250,7 @@ class Movement extends Component {
         }
         else if(id == 'uom')
         {
-          this.setState({sort:!this.state.sort, sortparameter:'packdesc_1'}, () =>
+          this.setState({sort:!this.state.sort, sortparameter:'packdesc'}, () =>
           this.sorting(this.state.data, this.state.sortparameter, this.state.sort))
         }
       }
