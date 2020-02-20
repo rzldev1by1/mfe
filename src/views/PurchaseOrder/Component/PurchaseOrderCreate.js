@@ -209,8 +209,8 @@
           <table className='tabledetails'style={{width:'92%'}}>
               <tr >
                   <th style={{width:'2.5%', textAlign:'center'}}>#</th>
-                  <th style={{width:'12%'}}>Porduct Entry</th>
-                  <th style={{width:'12%'}}>Porduct Description</th>
+                  <th style={{width:'12%'}}>Product Entry</th>
+                  <th style={{width:'12%'}}>Product Description</th>
                   <th style={{width:'3%'}}>Quantity</th>
                   <th style={{width:'6%'}}>UOM</th>
                   <th style={{width:'6%'}}>Rota Date</th>
@@ -362,7 +362,7 @@
     submit = () => {
       return(
         <React.Fragment>
-          <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch back' ><label className='font'>Back</label></Button>
+          {/* <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch back' ><label className='font'>Back</label></Button> */}
           <Button onClick={() => this.close()} color="primary" className='btnsearch submit' ><label className='font'>Submit</label></Button>        
         </React.Fragment>      
       )
@@ -378,7 +378,7 @@
             </ModalHeader>
             <ModalHeader className='Tab' >
               <div>
-                Enter delivery and product details to create a new Pruchase Order
+                Enter delivery and product details to create a new Purchase Order
                 <div className='tabs'>
                   <div style={{color:'#919191'}} onClick={() => this.tabhandler()} className={'tab ' + (this.state.tab1isactive ? 'tabisactive' : null)}>
                     <img className='numberimg' src={this.state.tab1isactive ? oneactive : oneinactive}/> Order & Product Details

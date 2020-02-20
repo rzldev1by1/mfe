@@ -8,7 +8,7 @@ export default class DropdownSite extends Component {
         this.state = {
             sitedata:[],
             site:null,
-            siteSelected:'site',
+            siteSelected:'Site',
             siteExpand:false,
         }
     }
@@ -47,7 +47,7 @@ export default class DropdownSite extends Component {
     render(){        
         return(
             <div style={{display:'flex', width:'100%'}}> 
-                <div class="dropdown dd">
+                <div class="dropdown dd"style={{width:'55%'}}>
                   <button onClick={() => this.expandSite()} type="button" className="btn dropdown-button dropdown-toggle po" data-toggle="dropdown">
                   {this.state.siteSelected}
                   </button>

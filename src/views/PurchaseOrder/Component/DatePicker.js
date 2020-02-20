@@ -8,7 +8,9 @@ export default class BasicConcepts extends React.Component {
     super(props)
 
     this.state = {
-      day: new Date (moment())     
+      day: new Date (moment()),  
+      month: moment().format('MM') ,
+      year: moment().format('YYYY')
     }
   }
 
@@ -21,7 +23,7 @@ export default class BasicConcepts extends React.Component {
         <table>
           <tr>
             <td align='center' colSpan='3'>
-            <DayPicker month={new Date(this.state.day)} onDayClick={(day)=>this.dayclickhandler(day)}/>
+            <DayPicker month={new Date(parseInt(moment().format('YYYY')) , moment(this.state.day).subtract('M', 1).format('MM'))} onDayClick={(day)=>this.dayclickhandler(day)}/>
             </td>
           </tr>
         </table>
