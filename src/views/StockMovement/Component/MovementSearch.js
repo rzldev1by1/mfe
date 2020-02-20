@@ -27,13 +27,13 @@ export default class MovementSearch extends Component {
     }
 
     periodHanlder = (e) => {
-        this.setState({periodSelected: e.target.id, periodText:e.target.textContent, periodExpand:false})
+        this.setState({periodSelected: e.target.id, periodText:e.target.textContent, periodExpand:false, dateFromShow:true})
     }
 
     dateFromHandler = (day) => {
         let dateFrom = moment(day).format('YYYY-MM-DD')
         let dateFromText = moment(day).format('DD MMMM YYYY')
-        this.setState({dateFromSelected:dateFrom.toString(), dateFromText:dateFromText.toString(), dateFromShow:false})
+        this.setState({dateFromSelected:dateFrom.toString(), dateFromText:dateFromText.toString(), dateFromShow:false, dateToShow:true})
     }
 
     dateToHandler = (day) => {
@@ -81,7 +81,7 @@ export default class MovementSearch extends Component {
                                 </div>
 							</td>
 
-							<td width='8%'>Date From</td>
+							<td width='8%'>Select Date</td>
 
 							<td width='20%'>
                                 <div onMouseLeave={() => this.setState({dateFromShow:false})}>
@@ -94,7 +94,7 @@ export default class MovementSearch extends Component {
                                 </div>                                   
 							</td>
 
-							<td width='8%'>Date To</td>
+							<td width='8%'>Select Date</td>
 
 							<td width='20%'>
                                 <div onMouseLeave={() => this.setState({dateToShow:false})}>
