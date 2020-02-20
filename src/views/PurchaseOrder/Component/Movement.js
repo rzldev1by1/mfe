@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Container, Row, Col} from 'reactstrap'
+import Paging from '../../General/Paging'
 import axios from 'axios';
 import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
 import moment from 'moment';
@@ -23,6 +24,15 @@ class Movement extends Component {
             activearrow:mid,
             sortparameter:null,
             sort:true,
+
+            //pagonation
+            currentPage: 1,
+            startIndex: 0,
+            lastIndex: 0,
+            displayPage: 5,
+            totalRows: 0,
+            maxPage: 0,
+
         }
     }
 
@@ -131,6 +141,7 @@ class Movement extends Component {
                   return 0
                 }
               })
+              
         }
     }
 
@@ -239,7 +250,7 @@ class Movement extends Component {
         }
         else if(id == 'uom')
         {
-          this.setState({sort:!this.state.sort, sortparameter:'packdesc'}, () =>
+          this.setState({sort:!this.state.sort, sortparameter:'packdesc_1'}, () =>
           this.sorting(this.state.data, this.state.sortparameter, this.state.sort))
         }
       }
@@ -264,6 +275,85 @@ class Movement extends Component {
         })
         this.setState({data:data})
       }
+
+      setPagination = (result) => {
+		let self = this;
+		let respondRes = result;
+		let totalPage = 0;
+
+		if (respondRes.length > self.state.displayPage) {
+			totalPage = respondRes % self.state.displayPage;
+			if (totalPage > 0 && totalPage < 50) {
+				totalPage = parseInt(respondRes.length / self.state.displayPage) + 1;
+			} else {
+				totalPage = respondRes.length / self.state.displayPage;
+			}
+			self.setState({ maxPage: totalPage });
+		} else {
+			self.setState({ maxPage: 1 });
+		}
+
+		self.setState({ displayContent: "FOUND",
+						data: respondRes,
+						totalRows: respondRes.length });
+
+		self.numberEventClick(self.state.currentPage);
+	}
+
+    changeStartIndex = (currentPage) => {
+    this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
+	}
+
+    changeLastIndex = (currentPage) => {
+        this.setState({ lastIndex: parseInt(currentPage) * this.state.displayPage });
+  }
+
+	numberEventClick = (currentPage) => {
+		let page = parseInt(currentPage);
+		this.setState({ currentPage: page });
+		this.changeStartIndex(page);
+		this.changeLastIndex(page);
+	}
+
+	nextPageClick = () => {
+		if (this.state.currentPage < this.state.maxPage) {
+			this.setState((prev) => {
+				currentPage: prev.currentPage++;
+				this.changeStartIndex(prev.currentPage);
+				this.changeLastIndex(prev.currentPage);
+			});
+		}
+	}
+
+	backPageClick = () => {
+		if (this.state.currentPage > 1) {
+			this.setState((prev) => {
+				currentPage: prev.currentPage--;
+				this.changeStartIndex(prev.currentPage);
+				this.changeLastIndex(prev.currentPage);
+			});
+		}
+  }
+  firstPageClick = () => {
+		if (this.state.currentPage > 1) {
+      this.changeStartIndex(1);
+			this.changeLastIndex(1);
+			this.setState( {
+				currentPage:1
+			});
+		}
+  }
+  lastPageClick = () => {
+		if (this.state.currentPage < this.state.maxPage) {
+			this.setState({
+				currentPage: Math.round(this.state.maxPage +1 )},() =>{
+        this.changeStartIndex(this.state.currentPage );
+				this.changeLastIndex(this.state.currentPage);
+        }
+				
+			);
+		}
+  }
 
     render(){
         if(this.state.pushTableComplete)
@@ -306,6 +396,15 @@ class Movement extends Component {
                         </tbody>
                     </table>
                 </Col>
+                <div className='paginations'>
+                <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
+                        backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                        totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                        currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                        isActive={this.state.isActive}
+                        numberEventClick={this.numberEventClick} />
+
+                </div>
                 <div className={( this.state.complete ? 'hidden': 'spinner')}/>
                 </Container>
             </div>
