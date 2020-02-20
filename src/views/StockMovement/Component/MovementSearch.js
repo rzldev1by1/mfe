@@ -84,11 +84,11 @@ export default class MovementSearch extends Component {
 							<td width='8%'>Date From</td>
 
 							<td width='20%'>
-                                <div>
+                                <div onMouseLeave={() => this.setState({dateFromShow:false})}>
                                     <button onClick={()=> this.setState({dateFromShow:!this.state.dateFromShow})} className='btn dropdown-button dropdown-toggle ddlMovementDate' data-toggle='dropdown'>
                                         {this.state.dateFromText ? this.state.dateFromText : 'Date From'}
                                     </button>
-                                    <div class='datePicker'>
+                                    <div  class='datePicker'>
                                     {this.state.dateFromShow ? <DatePicker selectedDays={moment(this.state.dateFromSelected)} getChosenDay={(day) => this.dateFromHandler(day)}/> : null}
                                     </div>
                                 </div>                                   
@@ -97,7 +97,7 @@ export default class MovementSearch extends Component {
 							<td width='8%'>Date To</td>
 
 							<td width='20%'>
-                                <div>
+                                <div onMouseLeave={() => this.setState({dateToShow:false})}>
                                     <button onClick={()=> this.setState({dateToShow:!this.state.dateToShow})} className='btn dropdown-button dropdown-toggle ddlMovementDate' data-toggle='dropdown'>
                                         {this.state.dateToText ? this.state.dateToText : 'Date To'}
                                     </button>
