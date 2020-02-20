@@ -81,12 +81,12 @@ export default class MovementSearch extends Component {
                                 </div>
 							</td>
 
-							<td width='8%'>Select Date</td>
+							<td width='8%'>Date From</td>
 
 							<td width='20%'>
                                 <div onMouseLeave={() => this.setState({dateFromShow:false})}>
                                     <button onClick={()=> this.setState({dateFromShow:!this.state.dateFromShow})} className='btn dropdown-button dropdown-toggle ddlMovementDate' data-toggle='dropdown'>
-                                        {this.state.dateFromText ? this.state.dateFromText : 'Date From'}
+                                        {this.state.dateFromText ? this.state.dateFromText : 'Select Date'}
                                     </button>
                                     <div  class='datePicker'>
                                     {this.state.dateFromShow ? <DatePicker selectedDays={moment(this.state.dateFromSelected)} getChosenDay={(day) => this.dateFromHandler(day)}/> : null}
@@ -94,12 +94,12 @@ export default class MovementSearch extends Component {
                                 </div>                                   
 							</td>
 
-							<td width='8%'>Select Date</td>
+							<td width='8%'>Date To</td>
 
 							<td width='20%'>
                                 <div onMouseLeave={() => this.setState({dateToShow:false})}>
                                     <button onClick={()=> this.setState({dateToShow:!this.state.dateToShow})} className='btn dropdown-button dropdown-toggle ddlMovementDate' data-toggle='dropdown'>
-                                        {this.state.dateToText ? this.state.dateToText : 'Date To'}
+                                        {this.state.dateToText ? this.state.dateToText : 'Select Date'}
                                     </button>
                                     <div class='datePicker'>
                                     {this.state.dateToShow ? <DatePicker getChosenDay={(day) => this.dateToHandler(day)}/> : null}
