@@ -167,7 +167,7 @@ export default {
       },
       {
           name: 'SALES ORDERS',
-          url: '/icons',
+          url: '/sales-orders',
           icon: 'iconU-salesOrder',
           // children: [
           //   {

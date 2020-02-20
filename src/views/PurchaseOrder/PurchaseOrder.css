@@ -356,16 +356,16 @@ td{
 /* modal */
 
 .modal-content{
-	position: absolute ;
-	width: 270%;
-	margin-left: -85%;
-	margin-top: 10%;
+	position: absolute;
+    width: 328%;
+    margin-left: -119%;
+    margin-top: 19%;
 }
 
 .modal-header{
-	background-color: #E5E5E5;
+	background-color: #22ABE3;
 	width: 100% !important;
-	color: #919191;
+	color: #FFFF;
 	display: flex !important;
 }
 

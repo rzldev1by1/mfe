@@ -159,6 +159,13 @@ class UserManagement extends Component{
       });
     }
 
+    writeToLocalStorage = (keyName, value) => {
+      if(!sessionStorage.getItem(keyName)){
+        sessionStorage.setItem(keyName,value);
+
+      }
+    }
+
     loadModuleAccess = (role) => {
       var self = this;
       let query = ["purchase orders","stock holding", "stock movement", "create sales order"];
@@ -172,8 +179,7 @@ class UserManagement extends Component{
           if(res.status === 200){
             result = res.data;
             let newResult = self.restuctureData(result.filter((item) => { return query.indexOf(item.menuname.toLowerCase()) !== -1 }));
-
-            self.setState({moduleAccess:newResult,isModuleLoaded:true});
+            self.setState({moduleAccess:newResult,isModuleLoaded:true},self.writeToLocalStorage('menus',JSON.stringify(newResult)));
           }
           return result;
         })
@@ -196,7 +202,7 @@ class UserManagement extends Component{
           if(res.status === 200){
             result = res.data;
             let newResult = self.restuctureData(result);
-            self.setState({sites:newResult,isSiteLoaded:true});
+            self.setState({sites:newResult,isSiteLoaded:true},self.writeToLocalStorage('sites',JSON.stringify(newResult)));
           }
           return result;
         })
@@ -218,7 +224,7 @@ class UserManagement extends Component{
           if(res.status === 200){
             result = res.data;
             let newResult = self.restuctureData(result);
-            self.setState({clients:newResult,isClientLoaded:true});
+            self.setState({clients:newResult,isClientLoaded:true},self.writeToLocalStorage('clients',JSON.stringify(newResult)));
           }
           return result;
         })
@@ -288,7 +294,10 @@ class UserManagement extends Component{
     }
 
     saveClick = () => {
+
+
       this.setState({isSaveProgressing:true},this.saveRequest);
+
 
     }
 
@@ -330,7 +339,7 @@ class UserManagement extends Component{
                     </h3>
                 </div>
                 <div className="flex-fill">
-                    <button className="btn btn-primary float-right" style={{width:'20%'}} onClick={(e)=>{this.onCreateClick()}}>+ add user</button>
+                    <button className="btn btn-primary float-right d-none" style={{width:'20%'}} onClick={(e)=>{this.onCreateClick()}}>+ add user</button>
                 </div>
 
             </div>
@@ -344,12 +353,16 @@ class UserManagement extends Component{
                 <CardBody>
 
                     <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}/>
-                    <ModalNewUser isOpen={this.state.isModalNewOpen} closeModal={this.closeModalPopUp} model={this.state.accountInfo}
-                    onChangeName={this.onChangeName} onChangeEmail={this.onChangeEmail} moduleAccess={this.state.moduleAccess}
-                    isModuleLoaded={this.state.isModuleLoaded} moduleAccessEnableClick={this.onModuleAccessClick}
-                    sites={this.state.sites} isSiteLoaded={this.state.isSiteLoaded} sitesEnableClick={this.onSiteStatusClick}
-                    clients={this.state.clients} isClientLoaded={this.state.isClientLoaded} clientEnableClick={this.onClientStatusClick}
-                    onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing}/>
+                    {
+                      /**
+                      <ModalNewUser isOpen={this.state.isModalNewOpen} closeModal={this.closeModalPopUp} model={this.state.accountInfo}
+                      onChangeName={this.onChangeName} onChangeEmail={this.onChangeEmail} moduleAccess={this.state.moduleAccess}
+                      isModuleLoaded={this.state.isModuleLoaded} moduleAccessEnableClick={this.onModuleAccessClick}
+                      sites={this.state.sites} isSiteLoaded={this.state.isSiteLoaded} sitesEnableClick={this.onSiteStatusClick}
+                      clients={this.state.clients} isClientLoaded={this.state.isClientLoaded} clientEnableClick={this.onClientStatusClick}
+                      onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing}/>
+                      */
+                    }
 
                 </CardBody>
             </Card>
