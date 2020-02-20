@@ -76,7 +76,7 @@ export default class PurchaseOrderDetail extends Component {
                     </tr>
                     <tr>
                         <th>Status</th>
-                        <td style={{color:'#7FC242'}}>{status ? status+ ' (' +statusDesc.substring(3) + ')' : '-'}</td>
+                        <td >{status ? status+ ' (' +statusDesc.substring(3) + ')' : '-'}</td>
                     </tr>
                 </table>
             </div>
@@ -84,7 +84,7 @@ export default class PurchaseOrderDetail extends Component {
             <div className='sub' style={{width:'70%'}}>
                 <table className='tableborderss' style={{width:'90%'}}>
                      <tr>
-                        <th>Supplier ID</th>
+                        <th>Supplier No</th>
                         <td>{supplierNo ? supplierNo : '-'}</td>
                     </tr>
                     <tr>
@@ -106,7 +106,7 @@ export default class PurchaseOrderDetail extends Component {
             <div className='sub'  style={{width:'65%'}}>
                 <table className='tableborderss' style={{width:'90%'}}>
                 <tr>
-                        <th>Date Receive</th>
+                        <th>Date Received</th>
                         <td>{dateReceived ? dateReceived.substring(0, 11) : '-'}</td>
                     </tr>
                     <tr>
@@ -120,12 +120,6 @@ export default class PurchaseOrderDetail extends Component {
                     <tr>
                         <th>Date Completed</th>
                         <td>{dateCompleted ? dateCompleted.substring(0, 11) : '-'}</td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <th></th>
                     </tr>
                 </table>
             </div>
@@ -151,7 +145,7 @@ export default class PurchaseOrderDetail extends Component {
                 }
 
                 <div className={'tablecontent ' + ( this.state.datahead.length ? 'fades ' : 'hidden')}>
-                    <PODTable ref={this.potableref} className='animated fadeIn' style={{display:'none'}} datahead = {this.state.datahead}/>
+                    <PODTable ref={this.potableref} className='animated fadeIn' style={{display:'none'}} datahead = {this.state.datahead}><tr><td>aa</td></tr></PODTable>
                 </div>
                 <div className={( this.state.datahead.length ? 'hidden': 'spinner')}/>
             </div>
