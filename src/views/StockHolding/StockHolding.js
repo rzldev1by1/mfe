@@ -16,13 +16,13 @@ class StockHolding extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isVisible: [],
+			displayContent: "INIT",
 			isLoaded: false,
 			isSearch: false,
-			displayContent: "INIT",
-			showEditColumn: false,
-			showFilter: true,
 			notFoundMessage: "",
+			showFilter: true,
+			isVisible: [],
+			showEditColumn: false,
 
 			currentPage: 1,
 			startIndex: 0,
@@ -32,26 +32,20 @@ class StockHolding extends Component {
 			maxPage: 0,
 
 			columns: [
-				{ id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site", type: "string" },
+                { id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site", type: "string" },
+                { id: "client", checkboxLabelText: "Client", tableHeaderText: "Client", isVisible: true, key: "client", type: "string" },
 				{ id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "product", type: "string" },
 				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "product_name", type: "string" },
-				{ id: "status", checkboxLabelText: "Status", tableHeaderText: "Status", isVisible: true, key: "status", type: "string" },
-				{ id: "uom", checkboxLabelText: "UoM", tableHeaderText: "UoM", isVisible: true, key: "packdesc_1", type: "string" },
+				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: false, key: "status", type: "string" },
+				{ id: "uom", checkboxLabelText: "UOM", tableHeaderText: "UOM", isVisible: true, key: "packdesc_1", type: "string" },
 				{ id: "on_hand_qty", checkboxLabelText: "On Hand Qty", tableHeaderText: "On Hand Qty", isVisible: true, key: "qty_lcd", type: "number" },
 				{ id: "on_hand_weight", checkboxLabelText: "On Hand Weight", tableHeaderText: "On Hand Weight", isVisible: true, key: "weight", type: "number" },
 				{ id: "expected_in_qty", checkboxLabelText: "Expected In Qty", tableHeaderText: "Expected In Qty", isVisible: true, key: "qty_lcd_expected", type: "number" },
 				{ id: "expected_in_weight", checkboxLabelText: "Expected In Weight", tableHeaderText: "Expected In Weight", isVisible: true, key: "wgt_expected", type: "number" },
 				{ id: "expected_out_qty", checkboxLabelText: "Expected Out Qty", tableHeaderText: "Expected Out Qty", isVisible: true, key: "qty_lcd_committed", type: "number" },
 			],
-			filterStockHolding: {
-				item: {
-					"site": { text: "Site", isVisible: true,},
-					"status": { text: "Status", isVisible: true},
-					"uom": { text: "UoM", isVisible: true,}
-				}
-			},
 			masterResStockHolding: []
-		}
+		};
 		this.searchForm = React.createRef();
 	}
 
@@ -106,7 +100,9 @@ class StockHolding extends Component {
 						startIndex: 0, lastIndex: 0,
 						totalRows: 0, maxPage: 0 });
 
-        axios.get(endpoint.stockHoldingSummary, { headers: headers })
+        axios.get(endpoint.stockHoldingSummary, { 
+            headers: headers 
+        })
         .then(res => {
             // res.isSuccess = true;
             // self.setState({ isLoaded: false })
@@ -114,8 +110,7 @@ class StockHolding extends Component {
         })
         .catch(function (error) {
             self.setState({ displayContent: "NOT_FOUND",
-                            isLoaded: false,
-                            isSearch: false });
+                            isLoaded: false, isSearch: false });
             if (error.response) {
                 self.setState({ notFoundMessage: error.response.data.message });
             }
@@ -134,7 +129,7 @@ class StockHolding extends Component {
 		self.setState({ isLoaded: true, isSearch: true,
 						currentPage: 1,
 						startIndex: 0, lastIndex: 0,
-						totalRows: 0, maxPage: 0, displayContent: "NOT_FOUND"});
+						totalRows: 0, maxPage: 0, displayContent: "INIT" });
 
 		let form = self.searchForm.current;
 
@@ -157,7 +152,7 @@ class StockHolding extends Component {
 							isLoaded: false,
 							isSearch: false });
 			if (error.response) {
-				// self.setState({ notFoundMessage: error.response.data.message })
+				self.setState({ notFoundMessage: error.response.data.message });
 			}
 			return error;
 		})
@@ -169,16 +164,16 @@ class StockHolding extends Component {
 		});
 	}
 
-	toggleDisplayMoreColumn = () => {
-		this.setState((prevState) => {
-			return { showEditColumn: !prevState.showEditColumn }
-		});
-	}
-
 	triggerShowFilter = (e) => {
 		e.stopPropagation();
 		this.setState((prevState) => {
 			return { showFilter: !prevState.showFilter };
+		});
+	}
+
+	toggleDisplayMoreColumn = () => {
+		this.setState((prevState) => {
+			return { showEditColumn: !prevState.showEditColumn }
 		});
 	}
 
@@ -296,7 +291,7 @@ class StockHolding extends Component {
 
                                                                             <Col className="filterDropdown arrow-icon">
                                                                                 <select className="form-control selectDropdown" id="filterUoM" name="filterUoM">
-                                                                                    <option value="">UoM</option>
+                                                                                    <option value="">UOM</option>
                                                                                     <option value="EACH">EACH</option>
                                                                                     <option value="CASE">CASE</option>
                                                                                     <option value="PALLET">PALLET</option>
@@ -324,9 +319,9 @@ class StockHolding extends Component {
 					</div>
 				</div>
 				<EditColumn isOpen={this.state.showEditColumn}
-										toggle={this.toggleDisplayMoreColumn}
-										fields={this.state.columns}
-										updateTableColumn={this.updateTableColumn} />
+                            toggle={this.toggleDisplayMoreColumn}
+                            fields={this.state.columns}
+                            updateTableColumn={this.updateTableColumn} />
 			</React.Fragment>
 		);
 	}
