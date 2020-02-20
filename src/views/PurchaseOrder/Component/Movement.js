@@ -185,7 +185,7 @@ class Movement extends Component {
                     <div onClick={(e) => this.arrowHandler(e)} className='productList' id='client' >Client <img className='arrowss' src={this.state.activearrow}/></div>
                     <div onClick={(e) => this.arrowHandler(e)} className='productList' id='product' >Product <img className='arrowss' src={this.state.activearrow}/></div>
                     <div onClick={(e) => this.arrowHandler(e)} className='productList' id='productName' >Product Name <img className='arrowss' src={this.state.activearrow}/></div>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='uom' xs='3'>UOM <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='uom'>UOM <img className='arrowss' src={this.state.activearrow}/></div>
                 </div>
             </div>
             )
@@ -276,85 +276,6 @@ class Movement extends Component {
         this.setState({data:data})
       }
 
-      setPagination = (result) => {
-		let self = this;
-		let respondRes = result;
-		let totalPage = 0;
-
-		if (respondRes.length > self.state.displayPage) {
-			totalPage = respondRes % self.state.displayPage;
-			if (totalPage > 0 && totalPage < 50) {
-				totalPage = parseInt(respondRes.length / self.state.displayPage) + 1;
-			} else {
-				totalPage = respondRes.length / self.state.displayPage;
-			}
-			self.setState({ maxPage: totalPage });
-		} else {
-			self.setState({ maxPage: 1 });
-		}
-
-		self.setState({ displayContent: "FOUND",
-						data: respondRes,
-						totalRows: respondRes.length });
-
-		self.numberEventClick(self.state.currentPage);
-	}
-
-    changeStartIndex = (currentPage) => {
-    this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
-	}
-
-    changeLastIndex = (currentPage) => {
-        this.setState({ lastIndex: parseInt(currentPage) * this.state.displayPage });
-  }
-
-	numberEventClick = (currentPage) => {
-		let page = parseInt(currentPage);
-		this.setState({ currentPage: page });
-		this.changeStartIndex(page);
-		this.changeLastIndex(page);
-	}
-
-	nextPageClick = () => {
-		if (this.state.currentPage < this.state.maxPage) {
-			this.setState((prev) => {
-				currentPage: prev.currentPage++;
-				this.changeStartIndex(prev.currentPage);
-				this.changeLastIndex(prev.currentPage);
-			});
-		}
-	}
-
-	backPageClick = () => {
-		if (this.state.currentPage > 1) {
-			this.setState((prev) => {
-				currentPage: prev.currentPage--;
-				this.changeStartIndex(prev.currentPage);
-				this.changeLastIndex(prev.currentPage);
-			});
-		}
-  }
-  firstPageClick = () => {
-		if (this.state.currentPage > 1) {
-      this.changeStartIndex(1);
-			this.changeLastIndex(1);
-			this.setState( {
-				currentPage:1
-			});
-		}
-  }
-  lastPageClick = () => {
-		if (this.state.currentPage < this.state.maxPage) {
-			this.setState({
-				currentPage: Math.round(this.state.maxPage +1 )},() =>{
-        this.changeStartIndex(this.state.currentPage );
-				this.changeLastIndex(this.state.currentPage);
-        }
-				
-			);
-		}
-  }
-
     render(){
         if(this.state.pushTableComplete)
         {
@@ -363,12 +284,31 @@ class Movement extends Component {
         }
         return(
             <div className={this.state.complete ? 'movementBody' : null}>
-                <Container className="themed-container conts" fluid={true}>              
-                <Col className={'cont scrollx ' + (this.state.complete ? 'fades' : 'hidden')} style={{display:'flex'}}>
-                    <table align='left' style={{width:'100%'}}>
+                <Container className="themed-container conts" fluid={true}> 
+                <div className={'productData scrolly ' + (this.state.complete ? 'fades' : 'hidden')} style={{display:'flex'}}>
+                    <table width='100%' align='left'>
                         <thead>
                             <tr>
                                 <td>{this.productHeader()}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            this.state.data.map((data) =>
+                                <tr style={{borderBottom:'1px solid #f5f5f5'}}>
+                                <td height='50'>
+                                    <this.productBody site={data.site} product={data.product} product_name={data.product_name} packdesc={data.packdesc} client={data.client}/>
+                                </td>
+                                </tr>
+                            )
+                        }                            
+                        </tbody>
+                    </table>
+                </div>             
+                <div className={'movementData scrollx ' + (this.state.complete ? 'fades' : 'hidden')} style={{display:'flex'}}>
+                    <table align='left' style={{width:'100%'}}>
+                        <thead>
+                            <tr>
                                 { 
                                     this.state.dateArray.map(date =>
                                         <td style={{borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}>{this.movementHeader(date)}</td>
@@ -376,17 +316,13 @@ class Movement extends Component {
                                 }
                             </tr>
                         </thead>
-
                         <tbody>
                         {
                             this.state.data.map((data) =>
                                 <tr style={{borderBottom:'1px solid #f5f5f5'}}>
-                                <td height='60'>
-                                    <this.productBody site={data.site} product={data.product} product_name={data.product_name} packdesc={data.packdesc} client={data.client}/>
-                                </td>
                                 {
                                     data.detail.map(detail =>
-                                    <td width='15%' style={{borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}><this.tableMovement detail={detail}/></td>
+                                    <td height='50' width='15%' style={{borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}><this.tableMovement detail={detail}/></td>
                                         )
 
                                 }
@@ -395,15 +331,6 @@ class Movement extends Component {
                         }                            
                         </tbody>
                     </table>
-                </Col>
-                <div className='paginations'>
-                <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
-                        backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-                        totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-                        currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-                        isActive={this.state.isActive}
-                        numberEventClick={this.numberEventClick} />
-
                 </div>
                 <div className={( this.state.complete ? 'hidden': 'spinner')}/>
                 </Container>
