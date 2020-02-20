@@ -51,7 +51,7 @@ export default class DropdownClient extends Component {
     render(){        
         return(
             <div style={{display:'flex', width:'100%'}}> 
-                <div class="dropdown dd">
+                <div class="dropdown dd" style={{width:'55%'}}>
                   <button onClick={() => this.expandClient()} type="button" className="btn dropdown-button dropdown-toggle po" data-toggle="dropdown">
                   {this.state.clientSelected}
                   </button>
