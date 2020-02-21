@@ -1,28 +1,23 @@
 //Fonts
 
 @font-face {
-    font-family: "Helvetica Neue";
+    font-family: "Helvetica Neue Regular";
     src: url("../assets/fonts/HelveticaNeue.ttf");
 }
 
 @font-face {
     font-family: "Helvetica Neue Light";
-    src: url("../assets/fonts/HelveticaNeue Light.ttf");
+    src: url("../assets/fonts/HelveticaNeue-Light.ttf");
 }
 
 @font-face {
     font-family: "Helvetica Neue Medium";
-    src: url("../assets/fonts/HelveticaNeue Medium.ttf");
+    src: url("../assets/fonts/HelveticaNeue-Medium.ttf");
 }
 
 @font-face {
     font-family: "Helvetica Neue Bold";
-    src: url("../assets/fonts/HelveticaNeue Bold.ttf");
-}
-
-@font-face {
-    font-family: "Helvetica Neue";
-    src: url("../assets/fonts/HelveticaNeue Heavy.ttf");
+    src: url("../assets/fonts/HelveticaNeue-Bold.ttf");
 }
 
 @font-face {
@@ -703,8 +698,8 @@ a.breadcrumb:hover {
 }
 
 .tablePage {
-	// max-height: 100%;
-	// min-height: 100%;
+	max-height: fit-content;
+	min-height: fit-content;
 	overflow-y: scroll;
 	// font-size: 1.1em;
 }
@@ -767,9 +762,9 @@ a.breadcrumb:hover {
     color: #4E4E4E;
     // color: #637175;
 	vertical-align: middle !important;
-    font-family: "Helvetica Neue Light";
+    font-family: "Helvetica Neue Regular";
     height: 45px;
-    border-bottom: 2px solid #E2E2E2 !important;
+    border-bottom: 1px solid #E2E2E2 !important;
 }
 
 // .clickable-row>tbody>tr:hover>td {
