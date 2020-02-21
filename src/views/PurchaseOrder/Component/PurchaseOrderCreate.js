@@ -114,7 +114,7 @@
                     </select>
                   </td>
                   <td><input className="form-control " placeholder="Supplier"/> </td>
-                  <td><input className="form-control " placeholder="Customer Order ref"/> </td>
+                  <td><input className="form-control " placeholder="Customer Order Ref"/> </td>
               </tr>
 
               <tr>
@@ -132,7 +132,7 @@
                       <img onClick={() => this.datePickerHandler()} className='dateimg' src={date}/>
                     </div>
                   </td>                  
-                  <td><input className="form-control "  placeholder="Vendor Order ref"/> </td>
+                  <td><input className="form-control "  placeholder="Vendor Order Ref"/> </td>
               </tr>
               <tr>
                 <td></td>
@@ -150,7 +150,7 @@
                   <th style={{width:'2.5%', textAlign:'center'}}>#</th>
                   <th style={{width:'12%'}}>Product Entry</th>
                   <th style={{width:'12%'}}>Product Description</th>
-                  <th style={{width:'3%'}}>Quantity</th>
+                  <th style={{width:'3%'}}>Qty</th>
                   <th style={{width:'6%'}}>UOM</th>
                   <th style={{width:'6%'}}>Rota Date</th>
                   <th style={{width:'6%'}}>Batch</th>
@@ -211,7 +211,7 @@
                   <th style={{width:'2.5%', textAlign:'center'}}>#</th>
                   <th style={{width:'12%'}}>Product Entry</th>
                   <th style={{width:'12%'}}>Product Description</th>
-                  <th style={{width:'3%'}}>Quantity</th>
+                  <th style={{width:'3%'}}>Qty</th>
                   <th style={{width:'6%'}}>UOM</th>
                   <th style={{width:'6%'}}>Rota Date</th>
                   <th style={{width:'6%'}}>Batch</th>
@@ -274,9 +274,9 @@
           <tr>
               <td hidden id={list.id} ></td>
               <td style={{width:'2%', textAlign:'center'}}><input className="form-control inputs" value={list.id}/></td>
-              <td style={{width:'12%'}}><input className="form-control inputs" placeholder='product'/></td>
-              <td style={{width:'12%'}}><input className="form-control inputs" placeholder='product dec'/></td>
-              <td style={{width:'3%'}}><input className="form-control inputs" placeholder='qty'/></td>
+              <td style={{width:'12%'}}><input className="form-control inputs" placeholder='Product'/></td>
+              <td style={{width:'12%'}}><input className="form-control inputs" placeholder='Product Dec'/></td>
+              <td style={{width:'3%'}}><input className="form-control inputs" placeholder='Qty'/></td>
               <td style={{width:'6%'}}>
                   <select className="form-control selectinput">
                     <option selected disabled>UOM</option>
@@ -286,14 +286,14 @@
               </td>
               <td style={{width:'6%'}}>
               <div className='inputDate '>
-              <input className="form-control withIcon" value={this.state.rotedate} placeholder='rota date'/>
+              <input className="form-control withIcon" value={this.state.rotedate} placeholder='Rota Date'/>
               <img onClick={() => this.datePickerRote()} className='dateimg' src={date}/>
               </div>
               </td>
-              <td style={{width:'6%'}}><input className="form-control inputs" placeholder='batch'/></td>
-              <td style={{width:'5%'}}><input className="form-control inputs" placeholder='ref3'/></td>
-              <td style={{width:'5%'}}><input className="form-control inputs" placeholder='ref4'/></td>
-              <td style={{width:'6%'}}><input className="form-control inputs" placeholder='disposition'/></td>
+              <td style={{width:'6%'}}><input className="form-control inputs" placeholder='Batch'/></td>
+              <td style={{width:'5%'}}><input className="form-control inputs" placeholder='Ref3'/></td>
+              <td style={{width:'5%'}}><input className="form-control inputs" placeholder='Ref4'/></td>
+              <td style={{width:'6%'}}><input className="form-control inputs" placeholder='Disposition'/></td>
               <td id={list.id} onClick={(e) => this.deletelinehandler(e)} style={{width:'1.5%'}}><div className='iconU-delete'/></td>
             </tr>
             <td></td>
@@ -311,9 +311,9 @@
           <tr>
               <td hidden id={list.id}></td>
               <td style={{width:'2%', textAlign:'center'}}><input className="form-control inputs" value={"A"}/></td>
-              <td style={{width:'12%'}}><input className="form-control inputs" placeholder='product'/></td>
-              <td style={{width:'12%'}}><input className="form-control inputs" placeholder='product dec'/></td>
-              <td style={{width:'3%'}}><input className="form-control inputs" placeholder='qty'/></td>
+              <td style={{width:'12%'}}><input className="form-control inputs" placeholder='Product'/></td>
+              <td style={{width:'12%'}}><input className="form-control inputs" placeholder='Product Dec'/></td>
+              <td style={{width:'3%'}}><input className="form-control inputs" placeholder='Qty'/></td>
               <td style={{width:'6%'}}>
                   <select className="form-control selectinput">
                     <option selected disabled>UOM</option>
@@ -323,14 +323,14 @@
               </td>
               <td style={{width:'6%'}}>
               <div className='inputDate '>
-              <input className="form-control withIcon" value={this.state.rotedate} placeholder='rota date'/>
+              <input className="form-control withIcon" value={this.state.rotedate} placeholder='Rota Date'/>
               <img onClick={() => this.datePickerRote()} className='dateimg' src={date}/>
               </div>
               </td>
-              <td style={{width:'6%'}}><input className="form-control inputs" placeholder='batch'/></td>
-              <td style={{width:'5%'}}><input className="form-control inputs" placeholder='ref3'/></td>
-              <td style={{width:'5%'}}><input className="form-control inputs" placeholder='ref4'/></td>
-              <td style={{width:'6%'}}><input className="form-control inputs" placeholder='disposition'/></td>
+              <td style={{width:'6%'}}><input className="form-control inputs" placeholder='Batch'/></td>
+              <td style={{width:'5%'}}><input className="form-control inputs" placeholder='Ref3'/></td>
+              <td style={{width:'5%'}}><input className="form-control inputs" placeholder='Ref4'/></td>
+              <td style={{width:'6%'}}><input className="form-control inputs" placeholder='Disposition'/></td>
             </tr>
             <td></td>
             <td></td>
@@ -362,7 +362,7 @@
     submit = () => {
       return(
         <React.Fragment>
-          {/* <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch back' ><label className='font'>Back</label></Button> */}
+          <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch back' ><label className='font'>Back</label></Button>
           <Button onClick={() => this.close()} color="primary" className='btnsearch submit' ><label className='font'>Submit</label></Button>        
         </React.Fragment>      
       )
