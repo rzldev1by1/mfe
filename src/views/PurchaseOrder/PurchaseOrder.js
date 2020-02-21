@@ -216,7 +216,7 @@ class PurchaseOrder extends Component {
             </div>
             
             <div className='searchbar'>
-                <div className='inputgroup'>
+                <div className='inputgroup' style={{width:'82%'}}>
                     <label className='iconU-search isearch'/>
                     <input onChange={(e) => this.onchangesearch(e) } type='text' className='searchinput' placeholder='Enter a Site, Order No, Client or Supplier'/>
                 </div>
