@@ -102,7 +102,7 @@ class PurchaseOrder extends Component {
     }
 
     getclient = () => {
-        axios.get(endpoint.ddlclient, {
+        axios.get(endpoint.getClient, {
           headers: headers
         })
           .then(res => {
@@ -111,11 +111,12 @@ class PurchaseOrder extends Component {
           })
           .catch(error => {
             // this.props.history.push("/logins")
+            console.log(error);
           })
     }
 
       getsite = () => {         
-        axios.get(endpoint.ddlsite, {
+        axios.get(endpoint.getSite, {
           headers: headers
         })
           .then(res => {
@@ -130,7 +131,7 @@ class PurchaseOrder extends Component {
       getordertype = () => {
         if(this.state.clientSelected && this.state.siteSelected)
         {
-            axios.get(endpoint.ddlordertype  + '?client='+this.state.clientSelected + '&site='+this.state.siteSelected, {
+            axios.get(endpoint.getOrderType  + '?client='+this.state.clientSelected + '&site='+this.state.siteSelected, {
                 headers: headers
               })
                 .then(res => {
