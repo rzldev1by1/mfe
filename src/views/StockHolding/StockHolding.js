@@ -8,6 +8,7 @@ import { endpoint, headers } from '../../AppComponent/ConfigEndpoint';
 import HeaderTitle from '../../AppComponent/HeaderTitle';
 import Search from '../../AppComponent/Search';
 import StockHoldingTable from './StockHoldingTable';
+import Paging from '../General/Paging';
 import EditColumn from '../../AppComponent/EditColumn';
 import './StockHolding.css';
 
@@ -27,7 +28,7 @@ class StockHolding extends Component {
 			currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
-			displayPage: 50,
+			displayPage: 5,
 			totalRows: 0,
 			maxPage: 0,
 
@@ -178,7 +179,7 @@ class StockHolding extends Component {
 	}
 
 	changeStartIndex = (currentPage) => {
-		this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
+        this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
 	}
 
 	changeLastIndex = (currentPage) => {
@@ -191,6 +192,16 @@ class StockHolding extends Component {
 		this.changeStartIndex(page);
 		this.changeLastIndex(page);
 	}
+
+    firstPageClick = () => {
+        if (this.state.currentPage > 1) {
+            this.setState({ currentPage: 1 }, () => {
+                this.changeStartIndex(1);
+                this.changeLastIndex(1);
+            });
+        }
+        return;
+    }   
 
 	nextPageClick = () => {
 		if (this.state.currentPage < this.state.maxPage) {
@@ -214,18 +225,25 @@ class StockHolding extends Component {
         return;
 	}
 
+    lastPageClick = () => {
+        if (this.state.currentPage < this.state.maxPage) {
+            let currentPage = parseInt(this.state.maxPage + 1 );
+
+            this.setState({ currentPage: currentPage});
+            this.changeStartIndex(currentPage);
+            this.changeLastIndex(currentPage);
+        }
+        return;
+    }
+
 	render() {
 		let content;
 		switch (this.state.displayContent) {
 			case "FOUND" :
 				content =
                 <StockHoldingTable isSearch={this.state.isSearch}
-                                    backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-                                    totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-                                    currentPage={this.state.currentPage} maxPage={this.state.maxPage}
                                     startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                                     isActive={this.state.isActive}
-                                    numberEventClick={this.numberEventClick}
                                     columns={this.state.columns}
                                     masterResource={this.state.masterResStockHolding}
                                     rowClicked={this.rowClicked}
@@ -247,7 +265,7 @@ class StockHolding extends Component {
 
 		return (
 			<React.Fragment>
-				<div className="animated fadeIn">
+				<div className="animated fadeIn" style={{ height: "100%" }}>
 					<div className="row">
 						<div className="col-12 p-0">
 							<div className="row">
@@ -315,6 +333,18 @@ class StockHolding extends Component {
 									{content}
 								</div>
 							</div>
+
+                            <div className="row mt-0 p-0">
+								<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <Paging lastPageClick={this.lastPageClick} backPageClick={this.backPageClick}
+                                            nextPageClick={this.nextPageClick} firstPageClick={this.firstPageClick}
+                                            totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                                            currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                                            startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+                                            isActive={this.state.isActive}
+                                            numberEventClick={this.numberEventClick} />
+                                </div>
+                            </div>
 						</div>
 					</div>
 				</div>

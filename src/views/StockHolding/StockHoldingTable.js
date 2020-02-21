@@ -58,13 +58,15 @@ const componentTable = (props) => {
                     <tbody>{showData()}</tbody>
                 </Table>
             </div>
-            <div className="mt-2">
-                <Paging backPageClick={props.backPageClick} nextPageClick={props.nextPageClick}
+            {/* <div className="mt-0">
+                <Paging lastPageClick={props.lastPageClick} backPageClick={props.backPageClick}
+                        nextPageClick={props.nextPageClick} firstPageClick={props.firstPageClick}
                         totalRows={props.totalRows} displayPage={props.displayPage}
                         currentPage={props.currentPage} maxPage={props.maxPage}
+                        startIndex={props.startIndex} lastIndex={props.lastIndex}
                         isActive={props.isActive}
                         numberEventClick={props.numberEventClick} />
-            </div>
+            </div> */}
         </div>
     );
 };

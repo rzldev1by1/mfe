@@ -1,4 +1,5 @@
-import React, { Component,Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
+import { InputGroup } from 'reactstrap';
 import './Paging.css';
 
 class Paging extends Component {
@@ -6,13 +7,9 @@ class Paging extends Component {
         super(props);
 
 		this.state = { 
-            data: [this.maxPage],
-			totalRows: props.totalRows,
-            exportExpand: false ,
+            exportExpand: false,
             value: null
         };
-        this.handleChangeSearch = this.handleChangeSearch.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	numberClickEvent = (e) => {
@@ -24,7 +21,7 @@ class Paging extends Component {
 			let pageNumber = [];
 			let totalPage = this.props.maxPage;
 
-			for (let i = 0 ; i <=totalPage; i++) {
+			for (let i = 0 ; i <= totalPage; i++) {
 				pageNumber.push(
 					<li className={"btn btn-paging" + (this.props.currentPage ===  i + 1 ? "-active" : "")}
 						id={i} name="pageNumber" key={i}
@@ -37,44 +34,44 @@ class Paging extends Component {
         }
     }
 
-    handleChangeSearch(event) {
-        this.setState({value: event.target.value});
-        const value = event.target.value.replace(/\+|-/ig, '');
-        this.setState({financialGoal: value});
-      }
+    handleChangeSearch = (e) => {
+        const value = e.target.value.replace(/\+|-/ig, '');
+        this.setState({ value: value });
+    }
+
     handleSubmit = () => {
         this.props.numberEventClick(this.state.value.trim())
     }
      
     showPageNumber = () => {
         return (
-            
-                <div className={this.props.maxPage > 1 ? "card-footer text-left border-company border-top-0 pl-0" : "d-none"}>
-                    <groupbox className="group">
-                        <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage > 1 ? "" : "-inactive")} onClick={this.firstPageClick}>
-                            <i className="fa fa-chevron-left" aria-hidden="true" /><i className="fa fa-chevron-left" aria-hidden="true" />
-                        </button>
-                        <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage > 1 ? "" : "-inactive")} onClick={this.backPageClick}>
-                            <i className="fa fa-chevron-left" aria-hidden="true" />
-                        </button>
-                        
-                         <span>{this.createPageNumber()}</span>
+            <div className={this.props.maxPage > 1 ? "card-footer text-left border-company border-top-0 pl-0 pr-0 bg-transparent" : "d-none"}>
+                <InputGroup className="group">
+                    <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage > 1 ? "" : "-inactive")} onClick={this.firstPageClick}>
+                        <i className="fa fa-angle-double-left fa-2x" aria-hidden="true" />
+                    </button>
+                    <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage > 1 ? "" : "-inactive")} onClick={this.backPageClick}>
+                        <i className="fa fa-angle-left fa-2x" aria-hidden="true" />
+                    </button>
+                    
+                        <span>{this.createPageNumber()}</span>
 
-                         <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage < this.props.maxPage ? "" : "-inactive")} onClick={this.nextPageClick}>
-                             <i className="fa fa-chevron-right  text-center" aria-hidden="true" /> 
-                         </button>
-                         <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage < this.props.maxPage ? "" : "-inactive")} onClick={this.lastPageClick}>
-                            <i className="fa fa-chevron-right  text-center" aria-hidden="true" /><i className="fa fa-chevron-right  text-center" aria-hidden="true" /> 
-                         </button>
-                         <page className={"btn p-0 btn-pagingNav" , "-inactive"}>Go To Page</page>
+                        <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage < this.props.maxPage ? "" : "-inactive")} onClick={this.nextPageClick}>
+                            <i className="fa fa-angle-right fa-2x" aria-hidden="true" /> 
+                        </button>
+                        <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage < this.props.maxPage ? "" : "-inactive")} onClick={this.lastPageClick}>
+                        <i className="fa fa-angle-double-right fa-2x" aria-hidden="true" />
+                        </button>
 
-                         <form onSubmit={this.handleSubmit} style={{ display: "contents" }}>
-                            <input type="number" className=" search_1 btn p-0 "  maxLength="4" value={this.state.financialGoal} 
-                                    style={{marginLeft:10}} onChange={this.handleChangeSearch} />
-                            <button style={{marginLeft:10}}  className="submit_1">Go</button>
-                        </form>
-                    </groupbox>              
-                 <span> Showing {this.props.currentPage} to {Math.round (this.props.maxPage +1)} of {this.props.totalRows} Entries </span>
+                        <span className="p-0">Go To Page</span>
+
+                        <form onSubmit={e => { e.preventDefault() ; this.handleSubmit() }}>
+                        <input type="number" className="search_1" maxLength="4" value={this.state.value} onChange={e => this.handleChangeSearch(e)} />
+                        <button className="submit_1">Go</button>
+                    </form>
+
+                    <span>Showing {this.props.startIndex + 1} to {this.props.currentPage === parseInt(this.props.maxPage + 1) ? this.props.totalRows : this.props.lastIndex} of {this.props.totalRows} Entries</span>
+                </InputGroup>              
                         
                  {/* <ul className={"select-export" + (this.state.exportExpand ? " expand-export" : "")} id="select">
                     <li className="expand-style-export">
@@ -84,7 +81,7 @@ class Paging extends Component {
                 
                     <li className="select_items-export">
                         <input className="select_expand-export" type="radio" name="export" id="export-btn-opener" />
-                        <label className="select_closeLabel-export" htmlFor="export-btn-close" onClick={this.triggerExportExpand}></label>
+                        <label className="select_closeLabel-export" htmlFor="export-btn-close" onClick={this.triggerExportExpand} />
                         <ul className="select_options-export">
                             <li className="select_option-export">
                                 <input className="select_input-export" type="radio" name="export" />
@@ -101,17 +98,11 @@ class Paging extends Component {
                         </ul>
                         <label className="select_expandLabel-export" htmlFor="export-btn-opener" onClick={this.triggerExportExpand} />
                     </li>
-                    </ul> */}
+                </ul> */}
             </div>
-         
-
-            
         );
     }
     
-
-        
-
 	triggerExportExpand = (e) => {
 		e.stopPropagation();
 		this.setState((prevState) => {
@@ -123,10 +114,6 @@ class Paging extends Component {
         this.props.firstPageClick();
     }
 
-    lastPageClick =() =>{
-        this.props.lastPageClick();
-    }
-
 	nextPageClick = () => {
 		this.props.nextPageClick();
 	}
@@ -134,13 +121,15 @@ class Paging extends Component {
 	backPageClick = () => {
 		this.props.backPageClick();
     }
+
+    lastPageClick =() =>{
+        this.props.lastPageClick();
+    }
+
 	render() {
         return this.showPageNumber();
     }
     
-    
-
-
 }
 
 export default Paging;

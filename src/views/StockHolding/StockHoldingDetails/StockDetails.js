@@ -15,7 +15,7 @@ class StockDetails extends Component {
 			currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
-			displayPage: 50,
+			displayPage: 5,
 			totalRows: 0,
 			maxPage: 0,
             
@@ -79,6 +79,16 @@ class StockDetails extends Component {
 		this.changeLastIndex(page);
 	}
 
+    firstPageClick = () => {
+        if (this.state.currentPage > 1) {
+            this.setState({ currentPage: 1 }, () => {
+                this.changeStartIndex(1);
+                this.changeLastIndex(1);
+            });
+        }
+        return;
+    }   
+    
 	nextPageClick = () => {
 		if (this.state.currentPage < this.state.maxPage) {
 			this.setState((prev) => {
@@ -100,6 +110,17 @@ class StockDetails extends Component {
         }
         return;
 	}
+
+    lastPageClick = () => {
+        if (this.state.currentPage < this.state.maxPage) {
+            let currentPage = parseInt(this.state.maxPage + 1 );
+
+            this.setState({ currentPage: currentPage});
+            this.changeStartIndex(currentPage);
+            this.changeLastIndex(currentPage);
+        }
+        return;
+    }
 
 	showStockDetailsHeader = () => {
 		return (
@@ -140,9 +161,11 @@ class StockDetails extends Component {
                     </Table>
                 </div>
                 <div className="mt-2">
-                    <Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                    <Paging firstPageClick={this.firstPageClick} backPageClick={this.backPageClick}
+                            nextPageClick={this.nextPageClick} lastPageClick={this.lastPageClick}
                             totalRows={this.state.totalRows} displayPage={this.state.displayPage}
                             currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                            startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                             isActive={this.state.isActive}
                             numberEventClick={this.numberEventClick} />
                 </div>
