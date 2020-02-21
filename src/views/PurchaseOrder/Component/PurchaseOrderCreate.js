@@ -329,7 +329,7 @@
               <td hidden id={list.id} ></td>
               <td style={{width:'2%', textAlign:'center'}}><input className="form-control inputs" value={list.id}/></td>
               <td style={{width:'12%'}}><input className="form-control inputs" placeholder='Product'/></td>
-              <td style={{width:'12%'}}><input className="form-control inputs" placeholder='Product Dec'/></td>
+              <td style={{width:'12%'}}><input className="form-control inputs" placeholder='Product Description'/></td>
               <td style={{width:'3%'}}><input className="form-control inputs" placeholder='Qty'/></td>
               <td style={{width:'6%'}}>
                   <select className="form-control selectinput">
@@ -366,7 +366,7 @@
               <td hidden id={list.id}></td>
               <td style={{width:'2%', textAlign:'center'}}><input className="form-control inputs" value={"A"}/></td>
               <td style={{width:'12%'}}><input className="form-control inputs" placeholder='Product'/></td>
-              <td style={{width:'12%'}}><input className="form-control inputs" placeholder='Product Dec'/></td>
+              <td style={{width:'12%'}}><input className="form-control inputs" placeholder='Product Description'/></td>
               <td style={{width:'3%'}}><input className="form-control inputs" placeholder='Qty'/></td>
               <td style={{width:'6%'}}>
                   <select className="form-control selectinput">

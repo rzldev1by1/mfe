@@ -44,8 +44,8 @@ class SalesOrder extends Component{
 
   render(){
     return(<div>
-        <div className="mt-3 pl-1">
-            Sales Order
+        <div className="mt-3 pl-1" style={{fontSize:'1.75rem'}}>
+            Sales Orders
         </div>
         <FilterComponent />
         <ListOrderComponent listOrder={this.state.listOrder}/>

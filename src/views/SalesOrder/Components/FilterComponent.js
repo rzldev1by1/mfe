@@ -8,7 +8,7 @@ const FilterComponent = () => {
       <div className='row'>
           <div className='col-xl-10 col-md-8 inputgroup'>
               <label className='iconU-search isearch'/>
-              <input onChange={(e) => this.onchangesearch(e) } type='text' className='searchinput' placeholder='Enter a site, order no. or client'/>
+              <input onChange={(e) => this.onchangesearch(e) } type='text' className='searchinput' placeholder='Enter a Order No or Description'/>
           </div>
           <div className="col-xl-2 col-md-4">
             <Button color="primary" className={'iconU-filter iconU-filters '}/>
