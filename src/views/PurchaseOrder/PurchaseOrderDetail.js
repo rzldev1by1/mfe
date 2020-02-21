@@ -134,7 +134,7 @@ export default class PurchaseOrderDetail extends Component {
             <div className='animated fadeIn pobody'>
                 <div className='header headerss'>
                     <div className='podbreadcrumb'>
-                        <h2 onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder')} className='podtitle'>Purchase Order</h2>
+                        <h2 onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder')} className='podtitle'>Purchase Orders</h2>
                         <h2 className='podtitle iconU-rightArrow' style={{fontSize:20}}/>
                         <h2 className='podetails'>{window.location.href.split("/").pop()}</h2>
                     </div>

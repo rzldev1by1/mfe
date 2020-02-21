@@ -4,7 +4,7 @@ import appCompoent from '../../../../../src/AppComponent'
 import mid from '../../../../../src/assets/img/brand/field-idle.png'
 import down from '../../../../assets/img/brand/field-bot.png'
 import up from '../../../../assets/img/brand/field-top.png'
-import ok from '../../../../assets/img/brand/ok.jpg'
+import ok from '../../../../assets/img/brand/ok.png'
 import minus from '../../../../assets/img/brand/minus.png'
 
 import {endpoint, headers} from '../../../../AppComponent/ConfigEndpoint'
