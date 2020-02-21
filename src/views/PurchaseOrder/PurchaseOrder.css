@@ -354,9 +354,9 @@ td{
 
 .modal-content{
 	position: absolute;
-    width: 328%;
-    margin-left: -119%;
-    margin-top: 19%;
+    width: 302%;
+    margin-left: -100%;
+    margin-top: 10%;
 }
 
 .modal-header{
@@ -699,5 +699,9 @@ h3{
 
   .tet{
 	width: 5rem !important;
+  }
+  .btnleft{
+	margin-left: 87%;
+    margin-bottom: 1%;
   }
 

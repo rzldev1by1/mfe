@@ -97,7 +97,7 @@
       return(
         <div className='tabcontent'>
           <h3 className='font'>Order Details</h3>
-          <table className='createpotable'>
+          <table className='createpotable' style={{width:'100%'}}>
               <tr>
                   <th>Site</th>
                   <th>Order Type</th>
@@ -145,9 +145,9 @@
           <br/>
           <h3 className='font'>Line Details</h3>
 
-          <table className='tabledetails'style={{width:'92%'}}>
+          <table className='tabledetails'style={{width:'100%'}}>
               <tr>
-                  <th style={{width:'2.5%', textAlign:'center'}}>#</th>
+                  <th style={{width:'2%', textAlign:'center'}}>#</th>
                   <th style={{width:'12%'}}>Product Entry</th>
                   <th style={{width:'12%'}}>Product Description</th>
                   <th style={{width:'3%'}}>Qty</th>
@@ -159,7 +159,7 @@
                   <th style={{width:'6%'}}>Disposition</th>
               </tr>                               
             </table>
-            <div className={'tablerow ' + (this.state.rowlist.length >2 ? 'scroll' : null )} style={{width:'92%'}}>
+            <div className={'tablerow ' + (this.state.rowlist.length >2 ? 'scroll' : null )} style={{width:'100%'}}>
               {this.state.rowlist.map((list, i) => this.linedetailsrow(list, i))}
             </div>
 
@@ -175,7 +175,7 @@
         <div className='tabcontent fades'>
           <h3 className='font'>Order Details</h3>
 
-          <table className='createpotable'>
+          <table className='createpotable' style={{width:'100%'}}>
               <tr>
                   <th>Site</th>
                   <th>Order No</th>
@@ -206,9 +206,9 @@
           <br/>
           <h3 className='font'>Line Details</h3>
 
-          <table className='tabledetails'style={{width:'92%'}}>
+          <table className='tabledetails'style={{width:'100%'}}>
               <tr >
-                  <th style={{width:'2.5%', textAlign:'center'}}>#</th>
+                  <th style={{width:'2%', textAlign:'center'}}>#</th>
                   <th style={{width:'12%'}}>Product Entry</th>
                   <th style={{width:'12%'}}>Product Description</th>
                   <th style={{width:'3%'}}>Qty</th>
@@ -220,7 +220,7 @@
                   <th style={{width:'6%'}}>Disposition</th>
               </tr>                  
             </table>
-            <div className={'tablerow ' + (this.state.rowlist.length >2 ? 'scroll' : null )} style={{width:'92%'}} >
+            <div className={'tablerow ' + (this.state.rowlist.length >2 ? 'scroll' : null )} style={{width:'100%'}} >
               {this.state.rowlist.map((list, i) => this.linedetailsrowreview(list, i))}
             </div>
         </div>
@@ -284,7 +284,7 @@
                     <option>pallet</option>
                   </select>
               </td>
-              <td style={{width:'6%'}}>
+              <td style={{width:'6%', height:'10%'}}>
               <div className='inputDate '>
               <input className="form-control withIcon" value={this.state.rotedate} placeholder='Rota Date'/>
               <img onClick={() => this.datePickerRote()} className='dateimg' src={date}/>
@@ -362,8 +362,8 @@
     submit = () => {
       return(
         <React.Fragment>
-          <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch back' ><label className='font'>Back</label></Button>
-          <Button onClick={() => this.close()} color="primary" className='btnsearch submit' ><label className='font'>Submit</label></Button>        
+          {/* <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch back' ><label className='font'>Back</label></Button> */}
+          <Button onClick={() => this.close()} color="primary" className='btnsearch submit btnleft' ><label className='font'>Submit</label></Button>        
         </React.Fragment>      
       )
     }
@@ -373,12 +373,12 @@
             <Modal  isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }}
             toggle={true} className={this.classname}>
             <ModalHeader    >
-              <div className='create'><label className='iconU-edit'/><label className='font'>Create Purchase Order</label></div>
+              <div className='create'><label className='iconU-edit'/><label className='font'>Create Purchase Orders</label></div>
               <p style={{fontSize:'45px',fontFamily: 'sans-serif',width:'100px'}} color="primary" className='search ' onClick={() => this.close()}>X</p>
             </ModalHeader>
             <ModalHeader className='Tab' >
               <div>
-                Enter delivery and product details to create a new Purchase Order
+                Enter delivery and product details to create a new Purchase Orders
                 <div className='tabs'>
                   <div style={{color:'#919191'}} onClick={() => this.tabhandler()} className={'tab ' + (this.state.tab1isactive ? 'tabisactive' : null)}>
                     <img className='numberimg' src={this.state.tab1isactive ? oneactive : oneinactive}/> Order & Product Details
@@ -393,13 +393,10 @@
             <ModalBody className='bodycontent' style={{width:'100%'}}>
               {this.state.tab1isactive ? this.tab1Content() : this.tab2Content()}
             </ModalBody>
-            <ModalFooter className='footers'>
               {this.state.tab2isactive ? 
                 this.submit() :  
-                <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch next' ><label className='font btnLabel'>Next</label></Button>
-              }
-            
-            </ModalFooter>
+                <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch next btnleft' ><label className='font btnLabel '>Next</label></Button>
+              }      
           </Modal>
           )
       }
