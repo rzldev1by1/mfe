@@ -1,6 +1,8 @@
   import React, {Component} from 'react'
   import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
   import DatePicker from './DatePicker'
+  import axios from 'axios'
+  import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
   import oneinactive from '../../../assets/img/brand/tab_1_grey@2x.png'
   import oneactive from '../../../assets/img/brand/tab_1_blue@2x.png'
   import twoinactive from '../../../assets/img/brand/tab_2_grey@2x.png'
@@ -10,8 +12,7 @@
   import './Style/PurchaseOrderCreate.css'
   import 'react-day-picker/lib/style.css';
 
-  import DropdownClient from './Dropdown/DropdownClient'
-  import DropdownSite from './Dropdown/DropdownSite'
+  import Dropdown from '../../../AppComponent/Dropdown'
 
   class PurchaseOrderCreate extends Component{
       constructor(props){
@@ -58,15 +59,22 @@
             showdaterote:false,
 
             //dropdown
-            clientSelected:'Client',
-            orderTypeSelected:'Order Type',
+            sitecrSelected: undefined,
+            clientcrSelected: undefined,
+            orderTypecrSelected: undefined,
             uomSelected:'UOM',
 
             clientExpand:false,
             orderTypeExpand:false,
             uomExpand:false,
-            siteValue: undefined
+            clientdatacr: [],
+            sitedatacr: []
             }
+      }
+
+      componentDidMount = () => {
+        this.getclient();
+        this.getsite();
       }
 
       close = () => {
@@ -93,7 +101,59 @@
         this.setState({rotedate:day})
       }
 
+      getclient = () => {
+        axios.get(endpoint.getClient, {
+          headers: headers
+        })
+          .then(res => {
+            const result = res.data
+            this.setState({ clientdatacr:result })
+          })
+          .catch(error => {
+            // this.props.history.push("/logins")
+            console.log(error);
+          })
+    }
+
+      getsite = () => {         
+        axios.get(endpoint.getSite, {
+          headers: headers
+        })
+          .then(res => {
+            const result = res.data
+            this.setState({ sitedatacr:result })
+          })
+          .catch(error => {
+            // this.props.history.push("/logins")
+          })
+      }
+
+      getSiteSelected = (value) => {
+        this.setState({sitecrSelected: value});
+      }
+
+      getClientSelected = (value) => {
+        this.setState({clientcrSelected: value});
+      }
+
+      getOrderTypeSelected = (value) => {
+        this.setState({orderTypecrSelected: value});
+      }
     tab1Content = () => {
+      let clientName = [];
+      let clientValue = [];
+      let siteData = [];
+      if(this.state.clientdatacr){
+          this.state.clientdatacr.map((data) => {
+              clientName.push(data.name);
+              clientValue.push(data.code);
+          })
+      }
+      if(this.state.sitedatacr){
+          this.state.sitedatacr.map((data) => {
+              siteData.push(data.site);
+          })
+      }
       return(
         <div className='tabcontent'>
           <h3 className='font'>Order Details</h3>
@@ -105,14 +165,8 @@
                   <th>Customer Order Ref</th>
               </tr>
               <tr>
-                  <td><DropdownSite siteValue={(e) => this.setState({ siteValue: e})}/></td>
-                  <td>
-                    <select className="form-control selectinput">
-                      <option selected disabled>Order Type</option>
-                      <option>Type 1</option>
-                      <option>Type 2</option>
-                    </select>
-                  </td>
+                  <td><Dropdown placeHolder="Site" style={{width: "218px"}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected}/></td>
+                  <td><Dropdown placeHolder="Order Type" style={{width: "218px"}} optionList="Type 1,Type 2" optionValue="Type 1,Type 2" getValue={this.getOrderTypeSelected}/></td>
                   <td><input className="form-control " placeholder="Supplier"/> </td>
                   <td><input className="form-control " placeholder="Customer Order Ref"/> </td>
               </tr>
@@ -124,7 +178,7 @@
                   <th>Vendor Order Ref</th>
               </tr>
               <tr>
-                  <td><DropdownClient/></td>
+                  <td><Dropdown placeHolder="Client" style={{width: "218px", zIndex: "0"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected}/></td>
                   <td><input className="form-control" value='PO-003'/></td>
                   <td>
                     <div className='inputDate '>

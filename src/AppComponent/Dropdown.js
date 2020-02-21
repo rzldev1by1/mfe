@@ -4,15 +4,16 @@ const Dropdown = ({placeHolder, optionList, optionValue, style, getValue}) => {
         let optionListData = optionList.split(","); 
         let optionListValue = optionValue.split(",");
         let lastIndex = optionListData.length - 1;
+        const no = Math.floor(Math.random() * 100000) + 1;
         return(
             <React.Fragment>
                 <ul className="select_dropdown" style={ style }>
-                    <input className="select_dropdown_close" type="radio" name={"select" + placeHolder} id={"select-close" + placeHolder} value="" defaultChecked/>
+                    <input className="select_dropdown_close" type="radio" name={"select" + placeHolder + no} id={"select-close" + placeHolder + no} value="" defaultChecked/>
                     <span className="select_dropdown_label select_dropdown_label-placeholder">{placeHolder}</span>
                     
                     <li className="select_dropdown_items">
-                        <input className="select_dropdown_expand" type="radio" name={"select" + placeHolder} value="" id={"select-opener" + placeHolder}/>
-                        <label className="select_dropdown_closeLabel" htmlFor={"select-close" + placeHolder}></label>
+                        <input className="select_dropdown_expand" type="radio" name={"select" + placeHolder + no} value="" id={"select-opener" + placeHolder + no}/>
+                        <label className="select_dropdown_closeLabel" htmlFor={"select-close" + placeHolder + no}></label>
                         
                         <ul className="select_dropdown_options">
                             {/* {this.selectOption()} */}
@@ -20,8 +21,8 @@ const Dropdown = ({placeHolder, optionList, optionValue, style, getValue}) => {
                                 if(idx == 0){
                                     return(
                                             <li key={idx + data} className="select_dropdown_option">
-                                                <input className="select_dropdown_input" type="radio" name={"select" + placeHolder} value={optionListValue[idx]} onClick={(e) => getValue(e.target.value)} id={"select-" + data}/>
-                                                <label className="select_dropdown_label" htmlFor={"select-" + data} style={
+                                                <input className="select_dropdown_input" type="radio" name={"select" + placeHolder + no} value={optionListValue[idx]} onClick={(e) => getValue(e.target.value)} id={"select-" + data + no}/>
+                                                <label className="select_dropdown_label" htmlFor={"select-" + data + no} style={
                                                 {borderTopLeftRadius: "5px",
                                                 borderTopRightRadius: "5px"}}>{data}</label>
                                             </li>
@@ -29,8 +30,8 @@ const Dropdown = ({placeHolder, optionList, optionValue, style, getValue}) => {
                                 }else if(idx == lastIndex){
                                     return(
                                             <li key={idx + data} className="select_dropdown_option">
-                                                <input className="select_dropdown_input" type="radio" name={"select" + placeHolder} value={optionListValue[idx]} onClick={(e) => getValue(e.target.value)} id={"select-" + data}/>
-                                                <label className="select_dropdown_label" htmlFor={"select-" + data} style={
+                                                <input className="select_dropdown_input" type="radio" name={"select" + placeHolder + no} value={optionListValue[idx]} onClick={(e) => getValue(e.target.value)} id={"select-" + data + no}/>
+                                                <label className="select_dropdown_label" htmlFor={"select-" + data + no} style={
                                                 {borderBottomLeftRadius: "5px",
                                                 borderBottomRightRadius: "5px"}}>{data}</label>
                                             </li>
@@ -38,8 +39,8 @@ const Dropdown = ({placeHolder, optionList, optionValue, style, getValue}) => {
                                 }else{
                                     return(
                                             <li key={idx + data} className="select_dropdown_option">
-                                                <input className="select_dropdown_input" type="radio" name={"select" + placeHolder} value={optionListValue[idx]} onClick={(e) => getValue(e.target.value)} id={"select-" + data}/>
-                                                <label className="select_dropdown_label" htmlFor={"select-" + data}>{data}</label>
+                                                <input className="select_dropdown_input" type="radio" name={"select" + placeHolder + no} value={optionListValue[idx]} onClick={(e) => getValue(e.target.value)} id={"select-" + data + no}/>
+                                                <label className="select_dropdown_label" htmlFor={"select-" + data + no}>{data}</label>
                                             </li>
                                     )
                                 }
@@ -47,7 +48,7 @@ const Dropdown = ({placeHolder, optionList, optionValue, style, getValue}) => {
             
                             
                         </ul>
-                        <label className="select_dropdown_expandLabel" htmlFor={"select-opener" + placeHolder}></label>
+                        <label className="select_dropdown_expandLabel" htmlFor={"select-opener" + placeHolder + no}></label>
                     </li>
                 </ul>
             </React.Fragment>

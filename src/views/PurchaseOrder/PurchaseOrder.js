@@ -230,7 +230,6 @@ class PurchaseOrder extends Component {
                         this.state.filterclicked ? null :
                         this.showDropdowns()
                     }
-                    {console.log(this.state.clientSelected)}
                     
                 </div>               
             </div>
