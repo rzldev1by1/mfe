@@ -3,6 +3,7 @@ import { Table,Button, Card, CardBody, Label} from 'reactstrap'
 import "../SalesOrder.css"
 
 
+
 const ListOrderComponent = (props) => {
   const { headers, data } = props.listOrder;
 
