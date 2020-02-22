@@ -28,15 +28,56 @@ table{
   border-radius: 7px;
 }
 
-.iconU-search{
-	vertical-align: middle;
-	color: #D5D8DA !important;
+/* create seles */
+.createpo {
+    float: right !important;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: -1%;
 }
 
-.isearch{
-	margin-top: 0.5%;
+.createpo > .font {
+    font-size: large;
+    margin-left: -5px;
+    padding-right: 15px;
 }
 
+.header{
+	display: flex;
+	margin-top: 1.5%;
+	width: 100% !important;
+	justify-content: space-between;
+}
+
+.header2{
+	margin-top: -10px !important;
+}
+/* create seles and*/
+
+/* search */
+.font{
+	font-family: "Helvetica Neue Medium" !important;
+	font-size: 1.5em;
+	cursor: pointer;
+	margin-top: 1%;
+	margin-bottom: 1%;
+}
+.btnsearch{
+	width: 75%;
+	border-radius: 5px !important;
+	font-size: 90%;
+}
+.rows {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+}
+.xl {
+    max-width: 21%;
+}
+.xl-search {
+    width: 80%;
+}
 .inputgroup{
 	border: 2px solid #D5D8DA;
 	border-radius: 5px;
@@ -48,6 +89,15 @@ table{
 	align-items: center !important;
 	display: flex;
   height:50px;
+}
+
+.iconU-search{
+	vertical-align: middle;
+	color: #D5D8DA !important;
+}
+
+.isearch{
+	margin-top: 0.5%;
 }
 
 .searchinput{
@@ -87,3 +137,5 @@ table{
 	
 	font-size: 1.5em !important;
 }
+
+/* search and */

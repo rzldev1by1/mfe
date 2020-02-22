@@ -428,7 +428,7 @@
             toggle={true} className={this.classname}>
             <ModalHeader    >
               <div className='create'><label className='iconU-edit'/><label className='font'>Create Purchase Orders</label></div>
-              <p style={{fontSize:'45px',fontFamily: 'sans-serif',width:'100px'}} color="primary" className='search ' onClick={() => this.close()}>X</p>
+              <p style={{fontSize:'45px',width:'100px'}} color="primary" className='search iconU-close '  onClick={() => this.close()}></p>
             </ModalHeader>
             <ModalHeader className='Tab' >
               <div>

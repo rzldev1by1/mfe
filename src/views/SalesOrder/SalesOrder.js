@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import ListOrderComponent from './Components/ListOrderComponent'
 import FilterComponent from './Components/FilterComponent'
+import {Button} from 'reactstrap'
+import create from '../../assets/img/brand/button_create@2x.png'
 
 
 class SalesOrder extends Component{
@@ -44,11 +46,30 @@ class SalesOrder extends Component{
 
   render(){
     return(<div>
-        <div className="mt-3 pl-1" style={{fontSize:'1.75rem'}}>
-            Sales Orders
+       <div className='header'>
+          <h2 style={{marginTop:'0.2%'}}>Sales Ordes</h2>
+              <div className='header2'>
+                  <Button  color="primary" className='createpo'>
+                      <img src={create} style={{width:'7%', marginTop:9, marginLeft:15}}/>
+                      <label className='font'>Create Sales Order</label>
+                  </Button>
+                </div>
         </div>
-        <FilterComponent />
+        
+        <FilterComponent >
+        <div className='filterbar'>
+                <div style={{display:'flex', width:'100%'}}>
+                    {/* {
+                        this.state.filterclicked ? null :
+                        this.showDropdowns()
+                    } */}
+                    
+                </div>               
+            </div>
+        </FilterComponent >
         <ListOrderComponent listOrder={this.state.listOrder}/>
+                   
+                
     </div>)
   }
 }
