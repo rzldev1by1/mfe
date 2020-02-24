@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Container, Row, Col} from 'reactstrap'
+import Paging from '../../General/Paging'
 import axios from 'axios';
 import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
 import moment from 'moment';
@@ -23,6 +24,15 @@ class Movement extends Component {
             activearrow:mid,
             sortparameter:null,
             sort:true,
+
+            //pagonation
+            currentPage: 1,
+            startIndex: 0,
+            lastIndex: 0,
+            displayPage: 5,
+            totalRows: 0,
+            maxPage: 0,
+
         }
     }
 
@@ -131,6 +141,7 @@ class Movement extends Component {
                   return 0
                 }
               })
+              
         }
     }
 
@@ -170,11 +181,11 @@ class Movement extends Component {
         return(
             <div>
                 <div className='productHeader' style={{display:'flex', borderBottom:'1.5px solid #E2E2E2'}}>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='site' >Site <img className='arrow' src={this.state.activearrow}/></div>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='client' >Client <img className='arrow' src={this.state.activearrow}/></div>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='product' >Product <img className='arrow' src={this.state.activearrow}/></div>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='productName' >Product Name <img className='arrow' src={this.state.activearrow}/></div>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='uom' xs='3'>UOM <img className='arrow' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='site' >Site <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='client' >Client <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='product' >Product <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='productName' >Product Name <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='uom'>UOM <img className='arrowss' src={this.state.activearrow}/></div>
                 </div>
             </div>
             )
@@ -273,12 +284,31 @@ class Movement extends Component {
         }
         return(
             <div className={this.state.complete ? 'movementBody' : null}>
-                <Container className="themed-container conts" fluid={true}>              
-                <Col className={'cont scrollx ' + (this.state.complete ? 'fades' : 'hidden')} style={{display:'flex'}}>
-                    <table align='left' style={{width:'100%'}}>
+                <Container className="themed-container conts" fluid={true}> 
+                <div className={'productData scrolly ' + (this.state.complete ? 'fades' : 'hidden')} style={{display:'flex'}}>
+                    <table width='100%' align='left'>
                         <thead>
                             <tr>
                                 <td>{this.productHeader()}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            this.state.data.map((data) =>
+                                <tr style={{borderBottom:'1px solid #f5f5f5'}}>
+                                <td height='50'>
+                                    <this.productBody site={data.site} product={data.product} product_name={data.product_name} packdesc={data.packdesc} client={data.client}/>
+                                </td>
+                                </tr>
+                            )
+                        }                            
+                        </tbody>
+                    </table>
+                </div>             
+                <div className={'movementData scrollx ' + (this.state.complete ? 'fades' : 'hidden')} style={{display:'flex'}}>
+                    <table align='left' style={{width:'100%'}}>
+                        <thead>
+                            <tr>
                                 { 
                                     this.state.dateArray.map(date =>
                                         <td style={{borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}>{this.movementHeader(date)}</td>
@@ -286,17 +316,13 @@ class Movement extends Component {
                                 }
                             </tr>
                         </thead>
-
                         <tbody>
                         {
                             this.state.data.map((data) =>
                                 <tr style={{borderBottom:'1px solid #f5f5f5'}}>
-                                <td height='60'>
-                                    <this.productBody site={data.site} product={data.product} product_name={data.product_name} packdesc={data.packdesc} client={data.client}/>
-                                </td>
                                 {
                                     data.detail.map(detail =>
-                                    <td width='15%' style={{borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}><this.tableMovement detail={detail}/></td>
+                                    <td height='50' width='15%' style={{borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}><this.tableMovement detail={detail}/></td>
                                         )
 
                                 }
@@ -305,7 +331,7 @@ class Movement extends Component {
                         }                            
                         </tbody>
                     </table>
-                </Col>
+                </div>
                 <div className={( this.state.complete ? 'hidden': 'spinner')}/>
                 </Container>
             </div>

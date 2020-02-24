@@ -1,28 +1,23 @@
 //Fonts
 
 @font-face {
-    font-family: "Helvetica Neue";
+    font-family: "Helvetica Neue Regular";
     src: url("../assets/fonts/HelveticaNeue.ttf");
 }
 
 @font-face {
     font-family: "Helvetica Neue Light";
-    src: url("../assets/fonts/HelveticaNeue Light.ttf");
+    src: url("../assets/fonts/HelveticaNeue-Light.ttf");
 }
 
 @font-face {
     font-family: "Helvetica Neue Medium";
-    src: url("../assets/fonts/HelveticaNeue Medium.ttf");
+    src: url("../assets/fonts/HelveticaNeue-Medium.ttf");
 }
 
 @font-face {
     font-family: "Helvetica Neue Bold";
-    src: url("../assets/fonts/HelveticaNeue Bold.ttf");
-}
-
-@font-face {
-    font-family: "Helvetica Neue";
-    src: url("../assets/fonts/HelveticaNeue Heavy.ttf");
+    src: url("../assets/fonts/HelveticaNeue-Bold.ttf");
 }
 
 @font-face {
@@ -520,7 +515,7 @@ a.breadcrumb:hover {
 .searchSection {
 	width: 100%;
     display: flex;
-    background-color: white;
+    background-color: #FFFFFF;
     justify-content: space-between;
     align-items: center;
     padding: 15px;
@@ -669,6 +664,20 @@ a.breadcrumb:hover {
     align-self: center;
 }
 
+.editColumnBtn, .editColumnBtn:focus {
+	background-color: #FFFFFF;
+	padding: 0.1rem 0.4rem;
+	border-radius: 100%;
+    border: none !important;
+    outline: none !important;
+}
+
+.editColumnLogo {
+	color: #388DCD;
+    font-size: 1em;
+    text-align: center;
+}
+
 // End - Button
 
 
@@ -679,13 +688,18 @@ a.breadcrumb:hover {
 	color: #FFFFFF;
 }
 
+.borderLeft {
+    border-left: 2px #637176 solid;
+    padding-left: 20px;
+}
+
 .clickable-row {
 	cursor: pointer;
 }
 
 .tablePage {
-	max-height: 650px !important;
-	min-height: 650px !important;
+	max-height: fit-content;
+	min-height: fit-content;
 	overflow-y: scroll;
 	// font-size: 1.1em;
 }
@@ -701,12 +715,12 @@ a.breadcrumb:hover {
 
 .tableContent {
 	// margin-top: 1%;
-	margin-top: 10px;
+	// margin-top: 10px;
 	// padding: 1%;
 	padding: 15px;
 	padding-top: 0;
 	padding-bottom: 0;
-	min-width: 100%;
+    width: 100%;
 	background-color: white;
 	border-radius: 5px;
 }
@@ -728,13 +742,15 @@ a.breadcrumb:hover {
 // }
 
 .table th {
-	background-color: #FFFFFF;
+    background-color: #FFFFFF;
     color: #637176;
+    // color: #B4B9BB;
 	border-top: none;
     vertical-align: middle !important;
     font-family: "Helvetica Neue Medium";
     height: 45px;
     border-bottom: 2px solid #E2E2E2 !important;
+    font-size: 1.1em;
 }
 
 // .table-striped>tbody>tr:nth-child(even)>td{
@@ -742,12 +758,13 @@ a.breadcrumb:hover {
 // }
 
 .table td, .table-striped>tbody>tr>td {
-	background-color: #FFFFFF;
+    background-color: #FFFFFF;
     color: #4E4E4E;
+    // color: #637175;
 	vertical-align: middle !important;
-    font-family: "Helvetica Neue Light";
+    font-family: "Helvetica Neue Regular";
     height: 45px;
-    border-bottom: 2px solid #E2E2E2 !important;
+    border-bottom: 1px solid #E2E2E2 !important;
 }
 
 // .clickable-row>tbody>tr:hover>td {
@@ -805,7 +822,7 @@ a.breadcrumb:hover {
 
 .primary-text {
     /* color: #4E4E4E; */
-    color: #919191;
+    color: #B4B9BB;
     font-family: "Helvetica Neue Medium";
     font-size: 1.15em;
 }
@@ -847,7 +864,7 @@ a.breadcrumb:hover {
 	border: none;
 	height: 75px;
     color: #919191 !important;
-    background-color: #F7F7F7;
+    background-color: #DEE3E5;
 }
 
 .nav-tabs .nav-link.tab-custom {
@@ -857,7 +874,8 @@ a.breadcrumb:hover {
 	padding-bottom: 8px;
 	padding-right: 16px;
 	padding-top: 8px;
-	border-radius: 0rem;
+    border-radius: 0rem;
+    border-radius: 5px;
 }
 
 // End - Module Details

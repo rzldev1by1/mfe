@@ -14,13 +14,12 @@ const endpoint = {
 
     "purchaseOrder": baseUrl + "purchaseOrder",
 
-    "ddlclient": baseUrl + "dropdown/getclient",
+    "salesOrder" : baseUrl + "salesorder",
 
-    "ddlsite": baseUrl + "dropdown/getsite",
-
-    "ddlsupplier": baseUrl + "dropdown/getsupplier",
-
-    "ddlordertype": baseUrl + "dropdown/getordertype",
+    "getClient": baseUrl + "dropdown/getclient",
+    "getSite": baseUrl + "dropdown/getsite",
+    "getSupplier": baseUrl + "dropdown/getsupplier",
+    "getOrderType": baseUrl + "dropdown/getordertype",
 
     "UserManagement_ModuleAccess": baseUrl + "usermanagement/module",
 

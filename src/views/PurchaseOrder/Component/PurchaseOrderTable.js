@@ -14,7 +14,7 @@ class PurchaseOrderTable extends Component {
 
     this.state = {
       data:[],      
-      tableheader : ['Site','Order No','Client','Status','Status Description','Date Due','Date Received','Date Released','Date Completed','Supplier Name'],
+      tableheader : ['Site','Order No','Client','Status','Supplier No','Date Due','Date Received','Date Released','Date Completed','Supplier Name'],
       tablebody : ['A','PO-4312','Josaphat','1','Available','27/01/2020','27/01/2020','27/01/2020','27/01/2020', 'Swann-wq12'],
       activearrow:mid,
       sortparameter:'orderNo',
@@ -182,9 +182,9 @@ class PurchaseOrderTable extends Component {
       this.setState({sort:!this.state.sort, sortparameter:'status'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
-    else if(id == 'Status Description')
+    else if(id == 'Supplier No')
     {
-      this.setState({sort:!this.state.sort, sortparameter:'sub_status'})
+      this.setState({sort:!this.state.sort, sortparameter:'supplier'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
     else if(id == 'Date Due')
@@ -253,93 +253,85 @@ class PurchaseOrderTable extends Component {
 	nextPageClick = () => {
 		if (this.state.currentPage < this.state.maxPage) {
 			this.setState((prev) => {
-				currentPage: prev.currentPage++;
+				prev.currentPage++;
 				this.changeStartIndex(prev.currentPage);
 				this.changeLastIndex(prev.currentPage);
 			});
-		}
+        }
+        return;
 	}
 
 	backPageClick = () => {
 		if (this.state.currentPage > 1) {
 			this.setState((prev) => {
-				currentPage: prev.currentPage--;
+				prev.currentPage--;
 				this.changeStartIndex(prev.currentPage);
 				this.changeLastIndex(prev.currentPage);
 			});
-		}
-  }
-  firstPageClick = () => {
-		if (this.state.currentPage > 1) {
-      this.changeStartIndex(1);
-			this.changeLastIndex(1);
-			this.setState( {
-				currentPage:1
-			});
-		}
-  }
-  lastPageClick = () => {
-		if (this.state.currentPage < this.state.maxPage) {
-			this.setState({
-				currentPage: Math.round(this.state.maxPage +1 )},() =>{
-        this.changeStartIndex(this.state.currentPage );
-				this.changeLastIndex(this.state.currentPage);
         }
-				
-			);
-		}
-  }
- 
+        return;
+	}
 
-  render(){
-    return(
-      <div >
-         <div className='tablePage tablecontent'>
-        <table className="potable">
-          <thead>
-            <tr>
-              {this.state.tableheader.map(header =>
-                <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
-                <img key={header} className='arrow' src={this.state.activearrow}/>
-                </th>
-              )}
-              
-              <th className='iconU-edit'></th>
-            </tr>
-          </thead>
-          <tbody>            
-              {this.state.data ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
-                  <tr onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/'+data.orderNo)} className='tr'>
-                    <td>{data.site}</td>
-                    <td>{data.orderNo}</td>
-                    <td>{data.client}</td>
-                    <td>{data.status}</td>
-                    <td>{data.sub_status.substring(2)}</td>
-                    <td>{data.dateDue}</td>
-                    <td>{data.dateReceived}</td>
-                    <td>{data.dateReleased}</td>
-                    <td>{data.dateCompleted}</td>
-                    <td>{data.supplierName}</td>
-                    <td className='iconU-option'></td>
-                  </tr>
-              ) : 
-                <div> No data available </div>
-                }       
-          </tbody>
-        </table>
-      </div>
-         <div className='paginations'>
-           <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
-                   backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-                   totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-                   currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-                   isActive={this.state.isActive}
-                   numberEventClick={this.numberEventClick} />
+    lastPageClick = () => {
+        if (this.state.currentPage < this.state.maxPage) {
+            let currentPage = parseInt(this.state.maxPage + 1 );
 
-         </div>
-      </div>
-    )
-  }
+            this.setState({ currentPage: currentPage});
+            this.changeStartIndex(currentPage);
+            this.changeLastIndex(currentPage);
+        }
+        return;
+    }
+
+    render() {
+        return (
+            <div>
+                <div className='tablePage tablecontent'>
+                    <table className="potable">
+                        <thead>
+                            <tr>
+                            {this.state.tableheader.map(header =>
+                                <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
+                                <img key={header} className='arrow' src={this.state.activearrow}/>
+                                </th>
+                            )}
+                            
+                            <th className='iconU-edit'></th>
+                            </tr>
+                        </thead>
+                        <tbody>            
+                            {this.state.data ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
+                                <tr onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/'+data.orderNo)} className='tr'>
+                                    <td>{data.site}</td>
+                                    <td>{data.orderNo}</td>
+                                    <td>{data.client}</td>
+                                    <td>{data.status}</td>
+                                    <td>{data.sub_status.substring(2)}</td>
+                                    <td>{data.dateDue}</td>
+                                    <td>{data.dateReceived}</td>
+                                    <td>{data.dateReleased}</td>
+                                    <td>{data.dateCompleted}</td>
+                                    <td>{data.supplierName}</td>
+                                    <td className='iconU-option'></td>
+                                </tr>
+                            ) : 
+                                <div> No data available </div>
+                                }       
+                        </tbody>
+                    </table>
+                </div>
+                <div className='paginations'>
+                    <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
+                            backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                            totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                            currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                            startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+                            isActive={this.state.isActive}
+                            numberEventClick={this.numberEventClick} />
+                </div>
+            </div>
+        );
+    }
 }
 
 export default PurchaseOrderTable

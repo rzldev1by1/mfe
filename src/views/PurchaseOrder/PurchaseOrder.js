@@ -6,7 +6,8 @@ import {
     } from 'reactstrap'
 import axios from 'axios'
 import PurchaseOrderTable from './Component/PurchaseOrderTable'
-import Dropdown from './Component/Dropdown'
+import {endpoint, headers} from '../../AppComponent/ConfigEndpoint'
+import Dropdown from '../../AppComponent/Dropdown'
 import PurchaseOrderCreate from './Component/PurchaseOrderCreate'
 import create from '../../assets/img/brand/button_create@2x.png'
 import Dropdowns from './Component/Dropdowns'
@@ -22,6 +23,10 @@ class PurchaseOrder extends Component {
             data:[{"menu":"Client", "subMenu":["MLS","MLB"], }, {"menu":"Site", "subMenu":["A","B","C"]},{"menu":"Status", "subMenu":["Open","Close"]},{"menu":"Supplier", "subMenu":["JohnDoe","JohnWick"]},{"menu":"Order Type", "subMenu":["Type 1", "Type 2"]}],
             client:null, site:null, status:null, supplier:null, ordertype:null, area:null, quantity:null, search:null,
 
+            clientdata: [],
+            sitedata: [],
+            ordertypedata: [],
+
             //filter
             filterclicked:false,
 
@@ -32,8 +37,21 @@ class PurchaseOrder extends Component {
             //autocomplete
             autoText:null,
             autoArray:null,
-            autoArrays:[]
+            autoArrays:[],
+            siteSelected: undefined,
+            clientSelected: undefined,
+            statusSelected: undefined,
+            orderTypeSelected: undefined,
+
+            orderTypeName: [],
+            orderTypeValue: []
         }
+    }
+
+    componentDidMount = () => {
+        this.getclient();
+        this.getsite();
+        
     }
 
     selectedValue = (id, value) => {
@@ -82,6 +100,103 @@ class PurchaseOrder extends Component {
     search = (client,site,status,ordertype,supplier) => {
         this.potableref.current.searchPurchaseOrder(this.state.search,client,site,status,ordertype,supplier)
     }
+
+    getclient = () => {
+        axios.get(endpoint.getClient, {
+          headers: headers
+        })
+          .then(res => {
+            const result = res.data
+            this.setState({ clientdata:result })
+          })
+          .catch(error => {
+            // this.props.history.push("/logins")
+            console.log(error);
+          })
+    }
+
+      getsite = () => {         
+        axios.get(endpoint.getSite, {
+          headers: headers
+        })
+          .then(res => {
+            const result = res.data
+            this.setState({ sitedata:result })
+          })
+          .catch(error => {
+            // this.props.history.push("/logins")
+          })
+      }
+
+      getordertype = () => {
+        if(this.state.clientSelected && this.state.siteSelected)
+        {
+            axios.get(endpoint.getOrderType  + '?client='+this.state.clientSelected + '&site='+this.state.siteSelected, {
+                headers: headers
+              })
+                .then(res => {
+                  const result = res.data
+                  this.setState({ ordertypedata:result }); 
+                  let orderTypeName = [];
+                  let orderTypeValue = [];
+                  console.log(this.state.ordertypedata)
+                  this.state.ordertypedata.map((data) => {
+                      orderTypeName.push(data.description);
+                      orderTypeValue.push(data.code);
+                  })
+                  this.setState({
+                      orderTypeName: orderTypeName,
+                      orderTypeValue: orderTypeValue
+                  })
+                })
+                .catch(error => {
+                  // this.props.history.push("/logins")
+                })
+        }
+    }
+      getSiteSelected = (value) => {
+        this.setState({siteSelected: value});
+      }
+
+      getClientSelected = (value) => {
+        this.setState({clientSelected: value}, () => {
+            this.getordertype();
+        });
+      }
+
+      getStatusSelected = (value) => {
+        this.setState({statusSelected: value});
+      }
+
+      getOrderTypeSelected = (value) => {
+        this.setState({orderTypeSelected: value});
+      }
+    
+      showDropdowns = () => {
+        let clientName = [];
+        let clientValue = [];
+        let siteData = [];
+        let status = ["Open", "All", "Released", "Completed", "Unavailable"];
+        if(this.state.clientdata){
+            this.state.clientdata.map((data) => {
+                clientName.push(data.name);
+                clientValue.push(data.code);
+            })
+        }
+        if(this.state.sitedata){
+            this.state.sitedata.map((data) => {
+                siteData.push(data.site);
+            })
+        }
+          return(
+              <React.Fragment>
+                  <Dropdown placeHolder="Site" style={{width: "102px", marginRight: "1em"}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected}/>
+                  <Dropdown placeHolder="Client" style={{width: "218px", marginRight: "1em"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected}/>
+                  <Dropdown placeHolder="Status" style={{marginRight: "1em"}} optionList={status.toString()} optionValue={status.toString()} getValue={this.getStatusSelected}/>
+                  <Dropdown placeHolder="Order Type" style={{width: "180px"}} optionList={this.state.orderTypeName.toString()} optionValue={this.state.orderTypeValue.toString()} getValue={this.getStatusSelected}/>
+              </React.Fragment>
+          )
+      }
     
     render(){ 
         return(
@@ -91,7 +206,7 @@ class PurchaseOrder extends Component {
                 this.state.autoArrays.map(data => <div onClick={(e) => this.selectedName(e)}>{data}</div>)
             }
             <div className='header'>
-                <h2 style={{marginTop:'0.2%'}}>Purchase Order</h2>
+                <h2 style={{marginTop:'0.2%'}}>Purchase Orders</h2>
                 <div className='header2'>
                     <Button onClick={() => this.openModal()} color="primary" className='createpo'>
                         <img src={create} style={{width:'7%', marginTop:9, marginLeft:15}}/>
@@ -101,7 +216,7 @@ class PurchaseOrder extends Component {
             </div>
             
             <div className='searchbar'>
-                <div className='inputgroup'>
+                <div className='inputgroup' style={{width:'82%'}}>
                     <label className='iconU-search isearch'/>
                     <input onChange={(e) => this.onchangesearch(e) } type='text' className='searchinput' placeholder='Enter a Site, Order No, Client or Supplier'/>
                 </div>
@@ -113,8 +228,9 @@ class PurchaseOrder extends Component {
                 <div style={{display:'flex', width:'100%'}}>
                     {
                         this.state.filterclicked ? null :
-                        <Dropdowns filter = {(client,site,status,ordertype) => this.search(client,site,status,ordertype)}/>
+                        this.showDropdowns()
                     }
+                    
                 </div>               
             </div>
             <div className={' ' + ( this.state.complete ? 'fades ' : 'hidden')}>

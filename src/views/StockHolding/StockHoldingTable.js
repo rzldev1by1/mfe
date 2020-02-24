@@ -9,7 +9,7 @@ const componentTable = (props) => {
 			<tr>
 				{props.columns.map((item, idx) => {
 					if (item.isVisible) {
-						return <th className={"p-3 " + (item.type === "number" ? "text-right" : "text-left")} key={idx} width="10%">{item.tableHeaderText}</th>;
+						return <th className={"p-3 " + (item.type === "number" ? "text-right" : "text-left")} key={idx}>{item.tableHeaderText}</th>;
                     }
                     return null;
 				})}
@@ -26,7 +26,7 @@ const componentTable = (props) => {
 	function showData() {
 		return (
 			props.masterResource.slice(props.startIndex, props.lastIndex).map((item, idx) => (
-				<tr key={idx} onClick={() => rowClicked(item["product"], item["site"])}>
+				<tr key={idx} onClick={() => rowClicked(item["product"], item["client"], item["site"])}>
 					{props.columns.map((column, columnIdx) => {
 						if (column.isVisible) {
 							return <td key={columnIdx} className={"px-3 " + (column.type === "number" ? "text-right" : "text-left")}>{item[column.key]}</td>;
@@ -35,9 +35,9 @@ const componentTable = (props) => {
 					})}
 					<td className="px-3 text-left">
 						{/* <a href="#" className="dots"> */}
-							<div className="dot"></div>
-							<div className="dot"></div>
-							<div className="dot"></div>
+							<div className="dot" />
+							<div className="dot" />
+							<div className="dot" />
 						{/* </a> */}
 					</td>
 				</tr>
@@ -53,18 +53,20 @@ const componentTable = (props) => {
         <div className="col-12 p-0">
             <div className={props.isSearch ? "spinner" : "d-none"} />
             <div className={props.isSearch ? "d-none" : "tablePage tableContent"}>
-                <Table className="table-condensed table-responsive table-striped clickable-row mb-0" size="sm">
+                <Table className="table-condensed table-striped clickable-row mb-0" size="sm">
                     <thead>{showHeader()}</thead>
                     <tbody>{showData()}</tbody>
                 </Table>
             </div>
-            <div className="mt-2">
-                <Paging backPageClick={props.backPageClick} nextPageClick={props.nextPageClick}
+            {/* <div className="mt-0">
+                <Paging lastPageClick={props.lastPageClick} backPageClick={props.backPageClick}
+                        nextPageClick={props.nextPageClick} firstPageClick={props.firstPageClick}
                         totalRows={props.totalRows} displayPage={props.displayPage}
                         currentPage={props.currentPage} maxPage={props.maxPage}
+                        startIndex={props.startIndex} lastIndex={props.lastIndex}
                         isActive={props.isActive}
                         numberEventClick={props.numberEventClick} />
-            </div>
+            </div> */}
         </div>
     );
 };

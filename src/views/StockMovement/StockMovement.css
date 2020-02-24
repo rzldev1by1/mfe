@@ -4,19 +4,31 @@
 	font-size:1.2rem;
 }
 
-.cont{
+.movementData{
 	background-color: white;
 	border-radius: 5px;
-	margin-top: 1%;
 	margin-bottom: 1%;
 	font-size: 0.9rem;
 	max-height: 600px !important;
+	width: 100%;
+}
+
+.productData{
+	background-color: white;
+	border-radius: 5px;
+	margin-bottom: 1%;
+	font-size: 0.9rem;
+	max-height: 600px !important;
+	margin-right: -1%;
+	width: 45em;
 }
 
 .conts{
 	margin-top: 1%;
-	margin-bottom: 1%;
 	padding:0.5% !important;
+	padding-bottom: 0% !important;
+	display: flex;
+	max-height: 40em;
 	
 }
 
@@ -24,6 +36,7 @@
   
 .scrollx{
 	overflow-x: scroll !important;
+	overflow-y: hidden;
 }
 
 .scrollx::-webkit-scrollbar {
@@ -36,24 +49,11 @@
 	border-radius: 5px;
   }
 
-/* product scroll*/
-.scrollx1{
-	overflow-x: scroll !important;
-}
-
-.scrollx1::-webkit-scrollbar {
-	width: 0px !important;
-	height: 8px;
-  }
-
-.scrollx1::-webkit-scrollbar-thumb {
-	background-color: transparent;
-	border-radius: 5px;
-  }
-
   .scrolly{
 	overflow-y:scroll;
 	overflow-x: hidden;
+	min-width: 30em;
+	padding-right: -1% !important;
 }
 
 .scrolly::-webkit-scrollbar {
@@ -86,7 +86,7 @@
   .productList{
 	min-width: 8rem;
 	text-align: left !important;
-	height: 35px;
+	height: 35.5px;
 	margin-top: 7px;
   }
 
@@ -106,8 +106,8 @@
   }
 
   #productName{
-	  min-width: 8rem;
-	  margin-right: 1rem;
+	  min-width: 9rem;
+	  margin-right: rem;
   }
 
   #uom{
@@ -185,10 +185,15 @@
 	display: none !important;
 }
 
-.arrow{
-	width: 0.7em;
+.arrowss{
+	margin-left: 0.3em;
+	width: 0.6em;
 }
 
 .productHeader > div:hover{
 	cursor: pointer;
+}
+
+.movementTable{
+	overflow: scroll !important;
 }

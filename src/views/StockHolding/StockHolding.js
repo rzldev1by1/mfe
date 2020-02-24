@@ -8,6 +8,7 @@ import { endpoint, headers } from '../../AppComponent/ConfigEndpoint';
 import HeaderTitle from '../../AppComponent/HeaderTitle';
 import Search from '../../AppComponent/Search';
 import StockHoldingTable from './StockHoldingTable';
+import Paging from '../General/Paging';
 import EditColumn from '../../AppComponent/EditColumn';
 import './StockHolding.css';
 
@@ -16,42 +17,36 @@ class StockHolding extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isVisible: [],
+			displayContent: "INIT",
 			isLoaded: false,
 			isSearch: false,
-			displayContent: "INIT",
-			showEditColumn: false,
-			showFilter: true,
 			notFoundMessage: "",
+			showFilter: true,
+			isVisible: [],
+			showEditColumn: false,
 
 			currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
-			displayPage: 50,
+			displayPage: 5,
 			totalRows: 0,
 			maxPage: 0,
 
 			columns: [
-				{ id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site", type: "string" },
+                { id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site", type: "string" },
+                { id: "client", checkboxLabelText: "Client", tableHeaderText: "Client", isVisible: true, key: "client", type: "string" },
 				{ id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "product", type: "string" },
 				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "product_name", type: "string" },
-				{ id: "status", checkboxLabelText: "Status", tableHeaderText: "Status", isVisible: true, key: "status", type: "string" },
-				{ id: "uom", checkboxLabelText: "UoM", tableHeaderText: "UoM", isVisible: true, key: "packdesc_1", type: "string" },
+				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: false, key: "status", type: "string" },
+				{ id: "uom", checkboxLabelText: "UOM", tableHeaderText: "UOM", isVisible: true, key: "packdesc_1", type: "string" },
 				{ id: "on_hand_qty", checkboxLabelText: "On Hand Qty", tableHeaderText: "On Hand Qty", isVisible: true, key: "qty_lcd", type: "number" },
 				{ id: "on_hand_weight", checkboxLabelText: "On Hand Weight", tableHeaderText: "On Hand Weight", isVisible: true, key: "weight", type: "number" },
 				{ id: "expected_in_qty", checkboxLabelText: "Expected In Qty", tableHeaderText: "Expected In Qty", isVisible: true, key: "qty_lcd_expected", type: "number" },
 				{ id: "expected_in_weight", checkboxLabelText: "Expected In Weight", tableHeaderText: "Expected In Weight", isVisible: true, key: "wgt_expected", type: "number" },
 				{ id: "expected_out_qty", checkboxLabelText: "Expected Out Qty", tableHeaderText: "Expected Out Qty", isVisible: true, key: "qty_lcd_committed", type: "number" },
 			],
-			filterStockHolding: {
-				item: {
-					"site": { text: "Site", isVisible: true,},
-					"status": { text: "Status", isVisible: true},
-					"uom": { text: "UoM", isVisible: true,}
-				}
-			},
 			masterResStockHolding: []
-		}
+		};
 		this.searchForm = React.createRef();
 	}
 
@@ -106,7 +101,9 @@ class StockHolding extends Component {
 						startIndex: 0, lastIndex: 0,
 						totalRows: 0, maxPage: 0 });
 
-        axios.get(endpoint.stockHoldingSummary, { headers: headers })
+        axios.get(endpoint.stockHoldingSummary, { 
+            headers: headers 
+        })
         .then(res => {
             // res.isSuccess = true;
             // self.setState({ isLoaded: false })
@@ -114,8 +111,7 @@ class StockHolding extends Component {
         })
         .catch(function (error) {
             self.setState({ displayContent: "NOT_FOUND",
-                            isLoaded: false,
-                            isSearch: false });
+                            isLoaded: false, isSearch: false });
             if (error.response) {
                 self.setState({ notFoundMessage: error.response.data.message });
             }
@@ -134,7 +130,7 @@ class StockHolding extends Component {
 		self.setState({ isLoaded: true, isSearch: true,
 						currentPage: 1,
 						startIndex: 0, lastIndex: 0,
-						totalRows: 0, maxPage: 0, displayContent: "NOT_FOUND"});
+						totalRows: 0, maxPage: 0, displayContent: "INIT" });
 
 		let form = self.searchForm.current;
 
@@ -157,7 +153,7 @@ class StockHolding extends Component {
 							isLoaded: false,
 							isSearch: false });
 			if (error.response) {
-				// self.setState({ notFoundMessage: error.response.data.message })
+				self.setState({ notFoundMessage: error.response.data.message });
 			}
 			return error;
 		})
@@ -169,12 +165,6 @@ class StockHolding extends Component {
 		});
 	}
 
-	toggleDisplayMoreColumn = () => {
-		this.setState((prevState) => {
-			return { showEditColumn: !prevState.showEditColumn }
-		});
-	}
-
 	triggerShowFilter = (e) => {
 		e.stopPropagation();
 		this.setState((prevState) => {
@@ -182,8 +172,14 @@ class StockHolding extends Component {
 		});
 	}
 
+	toggleDisplayMoreColumn = () => {
+		this.setState((prevState) => {
+			return { showEditColumn: !prevState.showEditColumn }
+		});
+	}
+
 	changeStartIndex = (currentPage) => {
-		this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
+        this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
 	}
 
 	changeLastIndex = (currentPage) => {
@@ -196,6 +192,16 @@ class StockHolding extends Component {
 		this.changeStartIndex(page);
 		this.changeLastIndex(page);
 	}
+
+    firstPageClick = () => {
+        if (this.state.currentPage > 1) {
+            this.setState({ currentPage: 1 }, () => {
+                this.changeStartIndex(1);
+                this.changeLastIndex(1);
+            });
+        }
+        return;
+    }   
 
 	nextPageClick = () => {
 		if (this.state.currentPage < this.state.maxPage) {
@@ -219,18 +225,25 @@ class StockHolding extends Component {
         return;
 	}
 
+    lastPageClick = () => {
+        if (this.state.currentPage < this.state.maxPage) {
+            let currentPage = parseInt(this.state.maxPage + 1 );
+
+            this.setState({ currentPage: currentPage});
+            this.changeStartIndex(currentPage);
+            this.changeLastIndex(currentPage);
+        }
+        return;
+    }
+
 	render() {
 		let content;
 		switch (this.state.displayContent) {
 			case "FOUND" :
 				content =
                 <StockHoldingTable isSearch={this.state.isSearch}
-                                    backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-                                    totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-                                    currentPage={this.state.currentPage} maxPage={this.state.maxPage}
                                     startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                                     isActive={this.state.isActive}
-                                    numberEventClick={this.numberEventClick}
                                     columns={this.state.columns}
                                     masterResource={this.state.masterResStockHolding}
                                     rowClicked={this.rowClicked}
@@ -252,7 +265,7 @@ class StockHolding extends Component {
 
 		return (
 			<React.Fragment>
-				<div className="animated fadeIn">
+				<div className="animated fadeIn" style={{ height: "100%" }}>
 					<div className="row">
 						<div className="col-12 p-0">
 							<div className="row">
@@ -296,7 +309,7 @@ class StockHolding extends Component {
 
                                                                             <Col className="filterDropdown arrow-icon">
                                                                                 <select className="form-control selectDropdown" id="filterUoM" name="filterUoM">
-                                                                                    <option value="">UoM</option>
+                                                                                    <option value="">UOM</option>
                                                                                     <option value="EACH">EACH</option>
                                                                                     <option value="CASE">CASE</option>
                                                                                     <option value="PALLET">PALLET</option>
@@ -320,13 +333,25 @@ class StockHolding extends Component {
 									{content}
 								</div>
 							</div>
+
+                            <div className="row mt-0 p-0">
+								<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <Paging lastPageClick={this.lastPageClick} backPageClick={this.backPageClick}
+                                            nextPageClick={this.nextPageClick} firstPageClick={this.firstPageClick}
+                                            totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                                            currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                                            startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+                                            isActive={this.state.isActive}
+                                            numberEventClick={this.numberEventClick} />
+                                </div>
+                            </div>
 						</div>
 					</div>
 				</div>
 				<EditColumn isOpen={this.state.showEditColumn}
-										toggle={this.toggleDisplayMoreColumn}
-										fields={this.state.columns}
-										updateTableColumn={this.updateTableColumn} />
+                            toggle={this.toggleDisplayMoreColumn}
+                            fields={this.state.columns}
+                            updateTableColumn={this.updateTableColumn} />
 			</React.Fragment>
 		);
 	}

@@ -11,20 +11,6 @@
 	box-shadow: none;
 }
 
-.editColumnBtn, .editColumnBtn:focus {
-	background-color: #FFFFFF;
-	padding: 0.1rem 0.4rem;
-	border-radius: 100%;
-    border: none !important;
-    outline: none !important;
-}
-
-.editColumnLogo {
-	color: #388DCD;
-    font-size: 1em;
-    text-align: center;
-}
-
 .select, .expand-style, .select-items, .select-options, .select-option {
 	position: relative;
 	margin: 0;
@@ -222,12 +208,14 @@
 	height: 40px;
 	border-radius: 33px;
 }
+
 .filter-label-show{
 	text-align: left;
 	font-family: 'Nunito';
 	font-size: 16px;
 	color: #388DCD;
 }
+
 .filter-show-btn {
 	background-color: #FFFFFF;
 	padding: 0rem 0.4rem;
@@ -253,7 +241,6 @@
 .cbx-filter span {
 	display: inline-block;
 	vertical-align: middle;
-	
 }
 
 .cbx-filter span:first-child {
@@ -280,7 +267,6 @@
 	stroke-dashoffset: 16px;
 	transition: all 0.3s ease;
 	transition-delay: 0.1s;
-	
 }
 
 .cbx-filter span:last-child {
@@ -314,42 +300,43 @@ button.btnWhite.btn.btn-outline-dark.btn-block:hover a {
 }
 
 button.btnWhite.btn.btn-outline-dark:hover a {
-background-color: #fde80f;
+    background-color: #fde80f;
 }
 
 .float-right {
-	float: right !important; }	
+    float: right !important;
+}	
 
-.textYellowBg:hover{
-	background-color: #fde80f;
-	text-decoration: underline;
-	}
-.smallTitle{
-	display: none;
-	}
-	.form-check {
-		position: relative;
-		display: block;
-		padding-left: 1.25rem; }
-	  
-	  .form-check-input {
-		position: absolute;
-		margin-top: 0.3rem;
-		margin-left: -1.25rem; }
-		.form-check-input:disabled ~ .form-check-label {
-		  color: #73818f; }
-	  
-	  .form-check-label {
-		margin-bottom: 0; }
-	  
-	  .form-check-inline {
-		display: inline-flex;
-		align-items: center;
-		padding-left: 0;
-		margin-right: 0.75rem; }
-		.form-check-inline .form-check-input {
-		  position: static;
-		  margin-top: 0;
-		  margin-right: 0.3125rem;
-		  margin-left: 0; }
+.form-check {
+    position: relative;
+    display: block;
+    padding-left: 1.25rem; }
+    
+.form-check-input {
+    position: absolute;
+    margin-top: 0.3rem;
+    margin-left: -1.25rem;
+}
+
+.form-check-input:disabled ~ .form-check-label {
+    color: #73818f;
+}
+    
+.form-check-label {
+    margin-bottom: 0;
+}
+    
+.form-check-inline {
+    display: inline-flex;
+    align-items: center;
+    padding-left: 0;
+    margin-right: 0.75rem;
+}
+
+.form-check-inline .form-check-input {
+    position: static;
+    margin-top: 0;
+    margin-right: 0.3125rem;
+    margin-left: 0;
+}
 
