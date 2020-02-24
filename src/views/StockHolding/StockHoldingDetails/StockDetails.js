@@ -127,7 +127,8 @@ class StockDetails extends Component {
 			<tr>
 				{this.state.columns.map((item, idx) => {
 					if (item.isVisible) {
-						return <th className={"p-3 " + (item.type === "number" ? "text-right" : "text-left")} key={idx}>{item.tableHeaderText}</th>
+                        // return <th className={"p-3 " + (item.type === "number" ? "text-right" : "text-left")} key={idx}>{item.tableHeaderText}</th>;
+                        return <th className="p-3 text-left" key={idx}>{item.tableHeaderText}</th>;
                     }
                     return null;
 				})}
@@ -141,8 +142,9 @@ class StockDetails extends Component {
 				<tr key={idx}>
 					{this.state.columns.map((column, columnIdx) => {
 						return (
-							<td key={columnIdx} className={"px-3 " + (column.type === "number" ? "text-right" : "text-left")}>
-								{column.id === "effective_date" ? formatDate(item[column.key]) : item[column.key]}
+							// <td key={columnIdx} className={"px-3 " + (column.type === "number" ? "text-right" : "text-left")}>
+                            <td key={columnIdx} className="px-3 text-left">
+                                {column.id === "effective_date" ? formatDate(item[column.key]) : item[column.key]}
 							</td>
 						)
 					})}

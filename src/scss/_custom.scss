@@ -424,7 +424,7 @@ body {
     text-align: center;
 	width: 230px;
 	height: 35px;
-	font-family: "Helvetica Neue";
+	font-family: "Helvetica Neue Medium";
 	vertical-align: middle;
     line-height: 35px;
     text-decoration: none !important;
@@ -689,7 +689,8 @@ a.breadcrumb:hover {
 }
 
 .borderLeft {
-    border-left: 2px #637176 solid;
+    // border-left: 2px #637176 solid;
+    border-left: 2px #B4B9BB solid;
     padding-left: 20px;
 }
 
