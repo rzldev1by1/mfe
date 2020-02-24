@@ -29,8 +29,8 @@ export default class Pagination extends Component {
        }
     }
 
-    goToIndex = (e) => {
-        let index = e.currentTarget.textContent
+    goToPages = (e) => {
+        let index = e
         let startIndex = index
         let endIndex = this.props.rows*startIndex
         startIndex = endIndex-this.props.rows
@@ -59,26 +59,25 @@ export default class Pagination extends Component {
                         page.push(i)
                     }
                 }
-                this.setState({data: page})
-                let currentpage = document.getElementById(this.state.activePage)
+                this.goToPages(this.state.activePage)
             })
 
         }
     }
 
     nextPage = () => {
-        if(this.state.data[2] > this.state.activePage)
+        if(this.state.activePage <= this.state.data[2])
         {
             this.setState({activePage: this.state.activePage+1}, () => {
                 let page = []
-                for(let i = this.state.activePage; i<= this.state.activePage+3; i++)
+                for(let i = this.state.activePage; i<= this.state.totalPage.length; i++)
                 {
                     if(page.length <=2)
                     {
                         page.push(i)
                     }
                 }
-                this.setState({data: page})
+                this.goToPages(this.state.activePage)
             })
         }
     }
@@ -90,10 +89,10 @@ export default class Pagination extends Component {
                     <label onClick={() => this.prevPage()} className='iconU-leftArrow'/>
                     {
                        this.state.data.map(data => 
-                            <button onClick={(e) => this.goToIndex(e)} id={data} type="button" class="btn btn-primary">{data}</button>
+                            <button onClick={(e) => this.goToPages(data)} type="button" class="btn btn-primary">{data}</button>
                         )
                     }                  
-                    <label className='iconU-rightArrow'/>
+                    <label onClick={() => this.nextPage()} className='iconU-rightArrow'/>
                     <label/>
                 </div>
 
@@ -101,7 +100,7 @@ export default class Pagination extends Component {
                     <label id='labelPage'>Go to page</label>
                     <input class="form-control"/>
                     <label id='labelButton'>Go
-                        <label onClick={() => this.nextPage()} className='iconU-rightArrows'/>
+                        <label className='iconU-rightArrows'/>
                     </label>
                 </div>
 
