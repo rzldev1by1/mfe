@@ -8,7 +8,7 @@ class Paging extends Component {
 
 		this.state = { 
             exportExpand: false,
-            value: null
+            value: ""
         };
 	}
 

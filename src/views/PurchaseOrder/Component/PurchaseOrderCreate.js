@@ -139,6 +139,7 @@
       getOrderTypeSelected = (value) => {
         this.setState({orderTypecrSelected: value});
       }
+      
     tab1Content = () => {
       let clientName = [];
       let clientValue = [];
@@ -156,29 +157,31 @@
       }
       return(
         <div className='tabcontent'>
-          <h3 className='font'>Order Details</h3>
+          <h3 className='fonts'>Order Details</h3>
           <table className='createpotable' style={{width:'100%'}}>
               <tr>
                   <th>Site</th>
-                  <th>Order Type</th>
+                  <th>Client</th>
                   <th>Supplier</th>
                   <th>Customer Order Ref</th>
               </tr>
               <tr>
-                  <td><Dropdown placeHolder="Site" style={{width: "218px"}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected}/></td>
-                  <td><Dropdown placeHolder="Order Type" style={{width: "218px"}} optionList="Type 1,Type 2" optionValue="Type 1,Type 2" getValue={this.getOrderTypeSelected}/></td>
+                  <td><input className="form-control " placeholder="Site"/> </td>
+                  <td><input className="form-control " placeholder="Client"/> </td>
+                  {/* <td><Dropdown placeHolder="Site"  style={{minWidth: '100%',width: '1px'}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected}/></td>
+                  <td><Dropdown placeHolder="Client" style={{minWidth: '100%'}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected}/></td> */}
                   <td><input className="form-control " placeholder="Supplier"/> </td>
                   <td><input className="form-control " placeholder="Customer Order Ref"/> </td>
               </tr>
 
               <tr>
-                  <th>Client</th>
+                  <th>Order Type</th>
                   <th>Order No</th>
                   <th>Order Date</th>
                   <th>Vendor Order Ref</th>
               </tr>
               <tr>
-                  <td><Dropdown placeHolder="Client" style={{width: "218px", zIndex: "0"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected}/></td>
+              <td><Dropdown placeHolder="Order Type" style={{width: "100%", zIndex: "0"}} optionList="Type 1,Type 2" optionValue="Type 1,Type 2" getValue={this.getOrderTypeSelected}/></td>
                   <td><input className="form-control" value='PO-003'/></td>
                   <td>
                     <div className='inputDate '>
@@ -197,7 +200,7 @@
           </table>
 
           <br/>
-          <h3 className='font'>Line Details</h3>
+          <h3 className='fonts'>Line Details</h3>
 
           <table className='tabledetails'style={{width:'100%'}}>
               <tr>
@@ -218,6 +221,11 @@
             </div>
 
                 <button onClick={() => this.addline()} type="button" class="btn btn-light font addline">+ Add Line</button>
+
+                {this.state.tab2isactive ? 
+                this.submit() :  
+                <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch next btnleft' ><label className='font btnLabel '>Next</label></Button>
+              } 
                 {
       console.log(this.state.rowlist)}
         </div>
@@ -227,7 +235,7 @@
     tab2Content = () => {
       return(
         <div className='tabcontent fades'>
-          <h3 className='font'>Order Details</h3>
+          <h3 className='fonts'>Order Details</h3>
 
           <table className='createpotable' style={{width:'100%'}}>
               <tr>
@@ -258,7 +266,7 @@
           </table>
 
           <br/>
-          <h3 className='font'>Line Details</h3>
+          <h3 className='fonts'>Line Details</h3>
 
           <table className='tabledetails'style={{width:'100%'}}>
               <tr >
@@ -274,9 +282,15 @@
                   <th style={{width:'6%'}}>Disposition</th>
               </tr>                  
             </table>
+            
             <div className={'tablerow ' + (this.state.rowlist.length >2 ? 'scroll' : null )} style={{width:'100%'}} >
               {this.state.rowlist.map((list, i) => this.linedetailsrowreview(list, i))}
             </div>
+            <tr style={{color:'transparent'}}>1</tr>
+            {this.state.tab2isactive ? 
+                this.submit() :  
+                <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch next btnleft' ><label className='font btnLabel '>Next</label></Button>
+              } 
         </div>
       )
     }
@@ -425,32 +439,32 @@
       render(){
           return(
             <Modal  isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }}
-            toggle={true} className={this.classname}>
+            toggle={true} className="POCreate">
             <ModalHeader    >
               <div className='create'><label className='iconU-edit'/><label className='font'>Create Purchase Orders</label></div>
-              <p style={{fontSize:'45px',width:'100px'}} color="primary" className='search iconU-close '  onClick={() => this.close()}></p>
+              <p style={{fontSize:'45px',width:'100px',fontWeight: '100',fontFamily:'cursive'}} color="primary" className=''  onClick={() => this.close()}>X</p>
             </ModalHeader>
             <ModalHeader className='Tab' >
               <div>
                 Enter delivery and product details to create a new Purchase Orders
                 <div className='tabs'>
-                  <div style={{color:'#919191'}} onClick={() => this.tabhandler()} className={'tab ' + (this.state.tab1isactive ? 'tabisactive' : null)}>
-                    <img className='numberimg' src={this.state.tab1isactive ? oneactive : oneinactive}/> Order & Product Details
+                  <div style={{color:'#919191'}} onClick={() => this.tabhandler()} className={'tab1 ' + (this.state.tab1isactive ? 'tabisactive' : null)}>
+                    <img className='numberimg' src={this.state.tab1isactive ? oneactive : oneinactive}/>  Order & Product Details
                   </div>
-                  <div  style={{color:'#919191'}} onClick={() => this.tabhandler()} className={'tab tab-review ' + (this.state.tab2isactive ? 'tabisactive' : null)}>
-                    <img className='numberimg' src={this.state.tab2isactive ? twoactive : twoinactive}/> Review
+                  <div  style={{color:'#919191'}} onClick={() => this.tabhandler()} className={'tab2 tab-review ' + (this.state.tab2isactive ? 'tabisactive' : null)}>
+                    <img className='numberimg ' src={this.state.tab2isactive ? twoactive : twoinactive}/> Review
                   </div>
                 </div>
               </div>
             </ModalHeader>       
-          
+            
             <ModalBody className='bodycontent' style={{width:'100%'}}>
               {this.state.tab1isactive ? this.tab1Content() : this.tab2Content()}
             </ModalBody>
-              {this.state.tab2isactive ? 
+              {/* {this.state.tab2isactive ? 
                 this.submit() :  
                 <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch next btnleft' ><label className='font btnLabel '>Next</label></Button>
-              }      
+              }       */}
           </Modal>
           )
       }

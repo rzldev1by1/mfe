@@ -9,7 +9,8 @@ const componentTable = (props) => {
 			<tr>
 				{props.columns.map((item, idx) => {
 					if (item.isVisible) {
-						return <th className={"p-3 " + (item.type === "number" ? "text-right" : "text-left")} key={idx}>{item.tableHeaderText}</th>;
+                        // return <th className={"p-3 " + (item.type === "number" ? "text-right" : "text-left")} key={idx}>{item.tableHeaderText}</th>;
+                        return <th className="p-3 text-left" key={idx}>{item.tableHeaderText}</th>;
                     }
                     return null;
 				})}
@@ -29,7 +30,8 @@ const componentTable = (props) => {
 				<tr key={idx} onClick={() => rowClicked(item["product"], item["client"], item["site"])}>
 					{props.columns.map((column, columnIdx) => {
 						if (column.isVisible) {
-							return <td key={columnIdx} className={"px-3 " + (column.type === "number" ? "text-right" : "text-left")}>{item[column.key]}</td>;
+                            // return <td key={columnIdx} className={"px-3 " + (column.type === "number" ? "text-right" : "text-left")}>{item[column.key]}</td>;
+                            return <td key={columnIdx} className="px-3 text-left">{item[column.key]}</td>;
                         }
                         return null;
 					})}

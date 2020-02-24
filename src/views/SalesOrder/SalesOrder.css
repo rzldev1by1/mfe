@@ -62,23 +62,27 @@ table{
 	margin-top: 1%;
 	margin-bottom: 1%;
 }
-.btnsearch{
+.buttonsearch{
 	width: 75%;
 	border-radius: 5px !important;
 	font-size: 90%;
 }
 .rows {
-    display: flex;
+    display: -webkit-box;
     flex-wrap: wrap;
-    margin-right: -15px;
+	margin-right: -15px;
 }
 .xl {
+	flex: 0 0 21%;
     max-width: 21%;
 }
+
 .xl-search {
-    width: 80%;
+    flex: 0 0 79%;
+    max-width: 79%;
 }
-.inputgroup{
+
+.inputgroups{
 	border: 2px solid #D5D8DA;
 	border-radius: 5px;
 	width: 80%;
@@ -96,8 +100,10 @@ table{
 	color: #D5D8DA !important;
 }
 
-.isearch{
-	margin-top: 0.5%;
+.search{
+	margin-top: 2.5%;
+	background-color: transparent;
+	width: 2%;
 }
 
 .searchinput{
@@ -112,18 +118,7 @@ table{
 	font-size: 1.2em;
 }
 
-.searchbar {
-	margin-top: 1%;
-	padding:1%;
-	padding-bottom: 0%;
-	min-width: 100%;
-	background-color: white;
-	border-top-right-radius: 5px;
-	border-top-left-radius: 5px;
-	display: flex;
-	justify-content: space-between;
-	height: 60px;
-}
+
 
 .iconU-filters{
 	height: auto;
@@ -180,8 +175,21 @@ table{
 	padding-right: 2% !important;
 }
 
-.title-text{
-	color:#B4B9BB;
+.hidden{
+	display: none;
+}
+
+.hidden{
+	display: none !important;
+}
+
+.fades{
+	-webkit-animation-name: fade;
+	-webkit-animation-duration: 1s;
+	animation-name: fade;
+	animation-duration: 1s;
+	animation-fill-mode: forwards;
+	-webkit-animation-fill-mode: forwards;
 }
 
 .value-text{

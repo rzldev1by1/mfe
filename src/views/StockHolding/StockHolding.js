@@ -265,7 +265,7 @@ class StockHolding extends Component {
 
 		return (
 			<React.Fragment>
-				<div className="animated fadeIn" style={{ height: "100%" }}>
+				<div className="animated fadeIn">
 					<div className="row">
 						<div className="col-12 p-0">
 							<div className="row">

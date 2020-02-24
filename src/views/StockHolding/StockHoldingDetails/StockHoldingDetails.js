@@ -134,7 +134,7 @@ class StockHoldingDetails extends Component {
 	}
 
 	render() {
-		const { stockHolding, stockDetails, activeTab } = this.state;
+		const { stockHolding, activeTab } = this.state;
 
 		let content;
 		switch (this.state.displayContent) {
@@ -145,8 +145,8 @@ class StockHoldingDetails extends Component {
 						<div className="col-12 p-0">
 							<div className="row">
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-                                    <CardBody className="pb-0">
-                                        <Row className="align-items-center">
+                                    <CardBody className="pb-0 pl-0">
+                                        <Row className="align-items-center pl-0">
                                             <div className="col-12 col-lg-12 col-md-12 col-sm-12 pr-0">
                                                 <FormGroup className="mb-0">
                                                     <InputGroup>
@@ -177,8 +177,8 @@ class StockHoldingDetails extends Component {
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
 									<div className="form-group row">
 										<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-                                            <CardBody className="pb-0">
-                                                <Row className="align-items-center">
+                                            <CardBody className="pb-0 pl-0">
+                                                <Row className="align-items-center ml-0">
                                                     <div className="col-12 col-lg-12 col-md-12 col-sm-12 pr-0">
                                                         <FormGroup>
                                                             <InputGroup>
@@ -273,7 +273,7 @@ class StockHoldingDetails extends Component {
                                                     </div>
                                                 </Row>
 
-                                                <Row className="align-items-center">
+                                                <Row className="align-items-center ml-0">
                                                     <div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
                                                         <Nav tabs>
                                                             <div className="input-group">
@@ -301,7 +301,7 @@ class StockHoldingDetails extends Component {
                                                     </div>
                                                 </Row>
 
-                                                <Row className="align-items-center">
+                                                <Row className="align-items-center ml-0">
                                                     <div className="col-12 col-lg-12 col-md-12 col-sm-12 mt-0 pl-0 pr-0">
                                                         <TabContent className="border-0" activeTab={this.state.activeTab}>
                                                             <TabPane tabId="1">
