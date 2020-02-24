@@ -71,7 +71,7 @@ export default class Pagination extends Component {
                         page.push(i)
                     }
                 }
-                this.setState({data:page})
+                this.setState({data:page, activePage:1})
                 this.goToPages(1)
     }
 
@@ -137,7 +137,7 @@ export default class Pagination extends Component {
                     <label onClick={() => this.prevPage()} className='iconU-leftArrow'/>
                     {
                        this.state.data.map(data => 
-                            <button onClick={(e) => this.goToPages(data)} type="button" class="btn btn-primary">{data}</button>
+                            <button onClick={(e) => this.goToPages(data)} id={data} type="button" className={"btn btn-primary " + (this.state.activePage == data ? 'activePagess' : null )}>{data}</button>
                         )
                     }                  
                     <label onClick={() => this.nextPage()} className='iconU-rightArrow'/>
