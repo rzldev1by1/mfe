@@ -186,6 +186,11 @@ class PurchaseOrderTable extends Component {
       this.setState({sort:!this.state.sort, sortparameter:'supplier'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
+    else if(id == 'Supplier Name')
+    {
+      this.setState({sort:!this.state.sort, sortparameter:'ship_to_name'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+    }
     else if(id == 'Date Due')
     {
       this.setState({sort:!this.state.sort, sortparameter:'dateDue'})
@@ -206,11 +211,7 @@ class PurchaseOrderTable extends Component {
       this.setState({sort:!this.state.sort, sortparameter:'dateCompleted'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
-    else if(id == 'Supplier Name')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'supplier'})
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
+
   }
 
   sorting = (data, param, sort) => {
@@ -304,9 +305,9 @@ class PurchaseOrderTable extends Component {
                                     <td>{data.site}</td>
                                     <td>{data.client}</td>
                                     <td>{data.orderNo}</td>
-                                    <td>{data.sub_status}</td>
+                                    <td>{data.status ? data.status+ ' : ' + data.sub_status.substring(3) + ' ' : '-'}</td>
                                     <td>{data.supplier}</td>
-                                    <td>{data.supplierName}</td>
+                                    <td>{data.ship_to_name}</td>
                                     <td>{data.dateDue}</td>
                                     <td>{data.dateReceived}</td>
                                     <td>{data.dateReleased}</td>
