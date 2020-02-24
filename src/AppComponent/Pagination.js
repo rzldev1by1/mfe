@@ -133,7 +133,7 @@ export default class Pagination extends Component {
         return(
             <div className='bdPagination'>
                 <div className='paginationLine'>                    
-                    <label onClick={() => this.firstPage()}>First</label>
+                    <label onClick={() => this.firstPage()} className='iconU-firstPage'/>
                     <label onClick={() => this.prevPage()} className='iconU-leftArrow'/>
                     {
                        this.state.data.map(data => 
@@ -141,7 +141,7 @@ export default class Pagination extends Component {
                         )
                     }                  
                     <label onClick={() => this.nextPage()} className='iconU-rightArrow'/>
-                    <label onClick={() => this.goToPages(this.state.totalPage[this.state.totalPage.length-1])}>Last</label>
+                    <label onClick={() => this.goToPages(this.state.totalPage[this.state.totalPage.length-1])} className='iconU-lastPage'/>
                 </div>
 
                 <div className='paginationInputPage'>
