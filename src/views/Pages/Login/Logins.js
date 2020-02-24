@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+ import React, {Component} from 'react';
 // import { Button, FormFeedback } from 'reactstrap';
 // import axios from 'axios';
 // import AppComponent from '../../../AppComponent';
@@ -42,7 +42,7 @@ class Logins extends Component{
             "userid": username,
             "password": password
         };
-        
+
         (new Authentication()).authenticationHandler(payload)
         .then(result => {
             if (result.isSuccess) {
@@ -115,7 +115,7 @@ class Logins extends Component{
         }
     }
 
-    render() {             
+    render() {
         return (
             <div className="background fontstyle">
                 <video autoPlay muted loop id="bgvideo">
@@ -146,11 +146,11 @@ class Logins extends Component{
                             <button className={"btnLogin " + (this.state.isLoad ? "text-center" : "text-left pl-4")} onClick={this.validateForm}>
                                 {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin iconSpace" /> : "Login"}
                             </button>
-                            
+
                             <div className="footer">
                                 <a target='blank' href='https://www.microlistics.com.au/'>© Microlistics {new Date().getFullYear()}</a>
-                                
-                            </div>              
+
+                            </div>
                         </div>
                     </form>
                 </div>

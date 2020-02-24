@@ -22,7 +22,7 @@ class Authentication {
 		}
 		// userDetails["expiredDate"] = moment().add(1, 'minutes');
 		// userDetails["now"] = new Date();
-		localStorage.setItem("user", JSON.stringify(userDetails)); 
+		localStorage.setItem("user", JSON.stringify(userDetails));
 	}
 
 	static renewExpiredDate = () => {
@@ -109,6 +109,7 @@ class Authentication {
                 // }
 
                 if (res.data) {
+									 console.log(res);
                     result.isSuccess = true;
                     Authentication.setAuthenticate(res.data);
                     // return this.renewToken();
@@ -122,7 +123,7 @@ class Authentication {
                 if (error.response) {
                     result.message = error.response.status ? "Username or password is not valid" : "Failed to process your request";
                 }
-                
+
                 return result;
             })
         );
@@ -136,7 +137,7 @@ class Authentication {
             axios.post(Authentication.endpoint, {
                 headers: {
                     'token': oldToken,
-                    'Content-Type': 'application/json' 
+                    'Content-Type': 'application/json'
                 }
             })
             .then(res => {

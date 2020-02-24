@@ -7,6 +7,7 @@ import axios from 'axios'
 import {endpoint,headers} from '../../AppComponent/ConfigEndpoint'
 import ModalNewUser from './Component/ModalNewUser'
 import moment from 'moment';
+import query from '../../AppComponent/query_menu_temp'
 
 const today = moment(new Date()).format("DD-MM-YYYY");
 
@@ -14,13 +15,14 @@ const userModel = {
     "userId":"",
     "name":"",
     "email":"",
-    "webGroup":"Warehouse",
+    "webGroup":"Administrator",
     "lastAccess": today,
     "lastLogin": today,
 	  "thisAccess": today,
 	  "thisLogin": today,
     "password":"",
-    "userMenu":[]
+    "userMenu":[],
+    'client':""
 }
 
 
@@ -125,8 +127,8 @@ class UserManagement extends Component{
       let user = {...this.state.accountInfo};
       let result = this.generateUserID(value);
       user.name = value;
-      user.userId = newText+result;
-      user.password = result+newText;
+      user.userId = newText.toLowerCase()+result;
+      user.password = result+newText.toLowerCase();
 
       this.setState({accountInfo:user});
     }
@@ -168,7 +170,7 @@ class UserManagement extends Component{
 
     loadModuleAccess = (role) => {
       var self = this;
-      let query = ["purchase orders","stock holding", "stock movement", "create sales order"];
+      //let query = ["purchase orders","stock holding", "stock movement", "create sales order"];
 
       axios.get(endpoint.UserManagement_ModuleAccess, {
         params: {role:role},
@@ -193,7 +195,7 @@ class UserManagement extends Component{
 
     loadSites = (role) => {
       var self = this;
-      axios.get(endpoint.ddlsite, {
+      axios.get(endpoint.getSite, {
         params: {role:role},
         headers: headers
       })
@@ -215,8 +217,9 @@ class UserManagement extends Component{
     }
 
     loadClients = () => {
+
       var self = this;
-      axios.get(endpoint.ddlclient, {
+      axios.get(endpoint.getClient, {
         headers: headers
       })
         .then(res => {
@@ -280,25 +283,25 @@ class UserManagement extends Component{
 
     onClientStatusClick = (e,data) => {
       if(data){
+        let user = {...this.state.accountInfo};
         let newState = [...this.state.clients];
         var newArray = newState.map((item,index) => {
             item.status = false;
-            if(item.code === data.code)
+            if(item.code === data.code){
               item.status = true;
+              if(item.status)
+                user.client = item.code;
+            }
 
             return item;
         });
 
-        this.setState({clients:newArray});
+        this.setState({clients:newArray,accountInfo:user});
       }
     }
 
     saveClick = () => {
-
-
       this.setState({isSaveProgressing:true},this.saveRequest);
-
-
     }
 
     saveRequest = () => {
@@ -323,8 +326,9 @@ class UserManagement extends Component{
               console.log("error save",error);
           })
           .then((result) => {
-            // console.log(result);
+
           })
+
       }
 
     }
@@ -339,7 +343,7 @@ class UserManagement extends Component{
                     </h3>
                 </div>
                 <div className="flex-fill">
-                    <button className="btn btn-primary float-right d-none" style={{width:'20%'}} onClick={(e)=>{this.onCreateClick()}}>+ add user</button>
+                    <button className="btn btn-primary float-right" style={{width:'20%'}} onClick={(e)=>{this.onCreateClick()}}>+ add user</button>
                 </div>
 
             </div>
@@ -353,16 +357,14 @@ class UserManagement extends Component{
                 <CardBody>
 
                     <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}/>
-                    {
-                      /**
+
                       <ModalNewUser isOpen={this.state.isModalNewOpen} closeModal={this.closeModalPopUp} model={this.state.accountInfo}
                       onChangeName={this.onChangeName} onChangeEmail={this.onChangeEmail} moduleAccess={this.state.moduleAccess}
                       isModuleLoaded={this.state.isModuleLoaded} moduleAccessEnableClick={this.onModuleAccessClick}
                       sites={this.state.sites} isSiteLoaded={this.state.isSiteLoaded} sitesEnableClick={this.onSiteStatusClick}
                       clients={this.state.clients} isClientLoaded={this.state.isClientLoaded} clientEnableClick={this.onClientStatusClick}
                       onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing}/>
-                      */
-                    }
+
 
                 </CardBody>
             </Card>

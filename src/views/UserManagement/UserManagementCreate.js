@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import { Table,Button, Card, CardBody, Label} from 'reactstrap'
 import './UserManagement.css'
@@ -9,6 +10,7 @@ import axios from 'axios'
 import users from './Users.json'
 import {formatDate} from '../../AppComponent/Helper'
 import moment from 'moment';
+import query from '../../AppComponent/query_menu_temp'
 
 const today = moment(new Date()).format("DD-MM-YYYY");
 
@@ -58,7 +60,7 @@ class UserManagementDetail extends Component{
 
     loadModuleAccess = (role) => {
       var self = this;
-      let query = ["purchase orders","stock holding", "stock movement", "create sales order"];
+      //let query = ["purchase orders","stock holding", "stock movement", "create sales order"];
 
       axios.get(endpoint.UserManagement_ModuleAccess, {
         params: {role:role},

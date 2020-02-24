@@ -10,8 +10,7 @@ const client = ({clients, onEnableClick}) => {
   }
 return (<div>
       <label className="text-bolder mr-2">Client</label>
-      {
-        /**
+
 
       {
           clients.map((item,index) => {
@@ -25,11 +24,11 @@ return (<div>
           })
       }
 
-      **/
-    }
 
 
 
+    {
+      /**
       <div>
         <div className="btn-group btn-group-toggle" data-toggle="buttons" >
         <label className="btn btn-outline-primary active">
@@ -40,6 +39,8 @@ return (<div>
         </label>
         </div>
       </div>
+      **/
+    }
 
   </div>)
 

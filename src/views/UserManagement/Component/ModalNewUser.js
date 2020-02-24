@@ -51,12 +51,7 @@ const modalNewUser = (props) => {
                 <div className="col-3">
                     <label className="text-bolder">ID</label>
                 </div>
-                <div className="col-2">
-                      <label className="text-bolder">Password</label>
-                </div>
-                <div className="col-1">
-                      <label className="text-bolder"></label>
-                </div>
+
             </div>
             <div className="row">
                 <div className="col-3">
@@ -69,12 +64,7 @@ const modalNewUser = (props) => {
                 <div className="col-3">
                     <input type="text" name="userid" readOnly className="form-control" defaultValue={model.userId}/>
                 </div>
-                <div className="col-2">
-                      <input type="text" name="password" readOnly className="form-control" defaultValue={model.password}/>
-                </div>
-                <div className="col-1">
-                      <button className="btn btn-refresh-password"><span className="fa fa-refresh sync-symbols"></span></button>
-                </div>
+              
             </div>
             <div className="row mt-4">
                 <div className="col-12">

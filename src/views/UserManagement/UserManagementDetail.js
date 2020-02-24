@@ -46,6 +46,7 @@ class UserManagementDetail extends Component{
           newAccount.thisLogin = today;
           newAccount.userMenu = this.restuctureMenuList(account.module);
           newAccount.userId = account.userid;
+          newAccount.client = account.client;
       }
       return newAccount;
     }
