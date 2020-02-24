@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {Container, Row, Col} from 'reactstrap'
-import Paging from '../../General/Paging'
 import axios from 'axios';
 import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
 import moment from 'moment';
@@ -26,12 +25,8 @@ class Movement extends Component {
             sort:true,
 
             //pagonation
-            currentPage: 1,
-            startIndex: 0,
-            lastIndex: 0,
-            displayPage: 5,
-            totalRows: 0,
-            maxPage: 0,
+            startIndex:0,
+			endIndex:3
 
         }
     }
@@ -52,6 +47,7 @@ class Movement extends Component {
         .then(res => {
         const result = res.data.data
         this.setState({ data:result, complete:true, filterType:periods})
+        this.props.data(result)
         })
         .catch(error => {
         // this.props.history.push("/logins")
@@ -276,6 +272,10 @@ class Movement extends Component {
         this.setState({data:data})
       }
 
+      setSliceValue= (startIndex, endIndex) => {
+        this.setState({startIndex:startIndex, endIndex:endIndex})
+	}
+
     render(){
         if(this.state.pushTableComplete)
         {
@@ -294,7 +294,7 @@ class Movement extends Component {
                         </thead>
                         <tbody>
                         {
-                            this.state.data.map((data) =>
+                            this.state.data.slice(this.state.startIndex,this.state.endIndex).map((data) =>
                                 <tr style={{borderBottom:'1px solid #f5f5f5'}}>
                                 <td height='50'>
                                     <this.productBody site={data.site} product={data.product} product_name={data.product_name} packdesc={data.packdesc} client={data.client}/>
@@ -318,7 +318,7 @@ class Movement extends Component {
                         </thead>
                         <tbody>
                         {
-                            this.state.data.map((data) =>
+                            this.state.data.slice(this.state.startIndex,this.state.endIndex).map((data) =>
                                 <tr style={{borderBottom:'1px solid #f5f5f5'}}>
                                 {
                                     data.detail.map(detail =>
@@ -332,6 +332,7 @@ class Movement extends Component {
                         </tbody>
                     </table>
                 </div>
+               
                 <div className={( this.state.complete ? 'hidden': 'spinner')}/>
                 </Container>
             </div>
