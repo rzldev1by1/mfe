@@ -62,6 +62,19 @@ export default class Pagination extends Component {
        
     }
 
+    firstPage = () => {
+                let page = []
+                for(let i = 1; i<= 3; i++)
+                {
+                    if(page.length <=2)
+                    {
+                        page.push(i)
+                    }
+                }
+                this.setState({data:page})
+                this.goToPages(1)
+    }
+
     prevPage = () => {
         if(this.state.activePage >1)
         {
@@ -105,6 +118,7 @@ export default class Pagination extends Component {
         let val = this.state.activePage
         if(this.state.activePage && this.state.activePage <= this.state.totalPage.length)
         {
+            this.setState({activePage:val})
             this.goToPages(val)
         }
         else
@@ -119,7 +133,7 @@ export default class Pagination extends Component {
         return(
             <div className='bdPagination'>
                 <div className='paginationLine'>                    
-                    <label/>
+                    <label onClick={() => this.firstPage()}>First</label>
                     <label onClick={() => this.prevPage()} className='iconU-leftArrow'/>
                     {
                        this.state.data.map(data => 
@@ -127,7 +141,7 @@ export default class Pagination extends Component {
                         )
                     }                  
                     <label onClick={() => this.nextPage()} className='iconU-rightArrow'/>
-                    <label/>
+                    <label onClick={() => this.goToPages(this.state.totalPage[this.state.totalPage.length-1])}>Last</label>
                 </div>
 
                 <div className='paginationInputPage'>
