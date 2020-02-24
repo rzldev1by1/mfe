@@ -12,12 +12,12 @@ class SalesOrderDetail extends Component {
   render(){
 
     return(<div>
-      <div className="row mt-3">
+      <div className="row mt-3 p-3">
           <h2 onClick={() => { this.props.history.push('/sales-orders'); }} className='mr-3 mt-1' style={{cursor:"pointer"}}> Sales Order Detail</h2>
           <h2 className='pt-2 mr-3 iconU-rightArrow' style={{fontSize:20}}/>
           <h2 className='mt-1 breadcrumb-active'>{this.props.match.params.id}</h2>
       </div>
-      <div>
+      <div className="mt-2">
           <Card>
             <CardBody>
                 <Header />
