@@ -14,8 +14,7 @@ class PurchaseOrderTable extends Component {
 
     this.state = {
       data:[],      
-      tableheader : ['Site','Order No','Client','Status','Supplier No','Date Due','Date Received','Date Released','Date Completed','Supplier Name'],
-      tablebody : ['A','PO-4312','Josaphat','1','Available','27/01/2020','27/01/2020','27/01/2020','27/01/2020', 'Swann-wq12'],
+      tableheader : ['Site','Client','Order No','Status','Supplier No','Supplier Name','Date Due','Date Received','Date Released','Date Completed'],
       activearrow:mid,
       sortparameter:'orderNo',
       sort:true,
@@ -303,15 +302,15 @@ class PurchaseOrderTable extends Component {
                             {this.state.data ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
                                 <tr onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/'+data.orderNo)} className='tr'>
                                     <td>{data.site}</td>
-                                    <td>{data.orderNo}</td>
                                     <td>{data.client}</td>
-                                    <td>{data.status}</td>
-                                    <td>{data.sub_status.substring(2)}</td>
+                                    <td>{data.orderNo}</td>
+                                    <td>{data.sub_status}</td>
+                                    <td>{data.supplier}</td>
+                                    <td>{data.supplierName}</td>
                                     <td>{data.dateDue}</td>
                                     <td>{data.dateReceived}</td>
                                     <td>{data.dateReleased}</td>
                                     <td>{data.dateCompleted}</td>
-                                    <td>{data.supplierName}</td>
                                     <td className='iconU-option'></td>
                                 </tr>
                             ) : 
