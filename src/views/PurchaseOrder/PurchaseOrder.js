@@ -176,7 +176,7 @@ class PurchaseOrder extends Component {
         let clientName = [];
         let clientValue = [];
         let siteData = [];
-        let status = ["Open", "All", "Released", "Completed", "Unavailable"];
+          let status = ["Unavailable", "Available", "Released", "Part Released", "Completed"];
         if(this.state.clientdata){
             this.state.clientdata.map((data) => {
                 clientName.push(data.name);
@@ -209,7 +209,7 @@ class PurchaseOrder extends Component {
                 <h2 style={{marginTop:'0.2%'}}>Purchase Orders</h2>
                 <div className='header2'>
                     <Button onClick={() => this.openModal()} color="primary" className='createpo'>
-                        <img src={create} style={{width:'7%', marginTop:9, marginLeft:15}}/>
+                        <img src={create} style={{width:'7%', marginTop:6, marginLeft:15}}/>
                         <label className='font'>Create Purchase Order</label>
                     </Button>
                 </div>
