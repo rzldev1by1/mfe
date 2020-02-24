@@ -120,6 +120,10 @@ const SalesOrder = Loadable({
 	loader: () => import('./views/SalesOrder/SalesOrder'),
 	loading: Loading
 })
+const SalesOrderDetail = Loadable({
+	loader: () => import('./views/SalesOrder/SalesOrderDetail'),
+	loading: Loading
+})
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
 	// { path: '/dashboard', name: 'Dashboard', component: Dashboard },
@@ -179,7 +183,8 @@ const routes = [
     { path: '/users-management', exact: true, name: 'User Management', component: UsersManagement },
 		{ path: '/users-management/:id/detail', exact: true, name: 'User Management', component: UsersManagementDetail },
 		{ path: '/users-management/create', exact: true, name: 'User Management', component: UsersManagementCreate },
-		{ path: '/sales-orders', exact: true, name: 'Sales Orders', component: SalesOrder }
+		{ path: '/sales-orders', exact: true, name: 'Sales Orders', component: SalesOrder },
+		{ path: '/sales-orders/:id/detail', exact: true, name: 'Sales Orders', component: SalesOrderDetail }
 ];
 
 export default routes;

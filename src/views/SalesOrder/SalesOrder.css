@@ -84,6 +84,10 @@ table{
 }
 
 .iconU-filters:before{
-	
+
 	font-size: 1.5em !important;
+}
+
+.breadcrumb-active{
+    color: #22ABE3;
 }

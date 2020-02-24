@@ -4,7 +4,8 @@ import "../SalesOrder.css"
 
 
 const ListOrderComponent = (props) => {
-  const { headers, data } = props.listOrder;
+  const { listOrder, onRowClick } = props;
+  const { headers, data} = listOrder;
 
   return(
     <div className="d-flex mt-3">
@@ -34,7 +35,7 @@ const ListOrderComponent = (props) => {
     {
       data.map((element,index)=>{
 
-        return <tr key={index} >
+        return <tr key={index} onClick={(e) => {onRowClick(element.orderNo);}}>
         {
           Object.keys(element).map((item,idx) => {
             return <td key={idx}>

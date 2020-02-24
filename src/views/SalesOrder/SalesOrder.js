@@ -28,8 +28,7 @@ class SalesOrder extends Component{
               "status":"1:available","datedue":"27/01/2019","datereceived":"27/01/2019","datereleased":"27/01/2019","datecompleted":"27/01/2019"},
               {"site":"A","client":"Josephat","orderNo":"SO-4312-1217","customer":"Alex Gaskarth","customerName":"Alex Gaskarth",
               "status":"1:available","datedue":"27/01/2019","datereceived":"27/01/2019","datereleased":"27/01/2019","datecompleted":"27/01/2019"},
-              {"site":"A","client":"Josephat","orderNo":"SO-4312-1217","customer":"Alex Gaskarth","customerName":"Alex Gaskarth",
-              "status":"1:available","datedue":"27/01/2019","datereceived":"27/01/2019","datereleased":"27/01/2019","datecompleted":"27/01/2019"},
+              
 
             ],
           }
@@ -42,13 +41,21 @@ class SalesOrder extends Component{
 
   }
 
+  onRowClick = (id) => {
+    const {match,history} = this.props;
+    history.push(`${match.url}/${id}/detail`);
+
+  }
+
   render(){
     return(<div>
         <div className="mt-3 pl-1">
-            Sales Order
+            <h2>
+              <label>Sales Order</label>
+            </h2>
         </div>
         <FilterComponent />
-        <ListOrderComponent listOrder={this.state.listOrder}/>
+        <ListOrderComponent listOrder={this.state.listOrder} onRowClick={this.onRowClick}/>
     </div>)
   }
 }

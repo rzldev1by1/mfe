@@ -85,10 +85,7 @@ class UserManagementDetail extends Component{
         .then((result) => {
           // console.log(result);
         })
-        // if(users){
-        //     let user = users.filter((item) => {return item.userid === userid})[0];
-        //     this.setState({accountInfo:user});
-        // }
+
 
     }
 
@@ -328,7 +325,7 @@ class UserManagementDetail extends Component{
                 <div className='um-breadcrumb'>
                     <h2 onClick={() => { this.gotoUM(); }} className='margin-right-breadcrumb-title' style={{cursor:"pointer"}}>User Management</h2>
                     <h2 className='margin-right-breadcrumb-title iconU-rightArrow' style={{fontSize:20}}/>
-                    <h2 className='breadcrumb-active-title'>{this.state.accountInfo.userId}</h2>
+                    <h2 className='breadcrumb-active-title'>{this.state.accountInfo.user}</h2>
                 </div>
             </div>
             <div className="d-flex pt-4">
@@ -344,42 +341,60 @@ class UserManagementDetail extends Component{
                             </div>
 
                             <div className="row">
-                            <div className="col-3">
+                            <div className="col-2">
                                 <label className="text-bolder">Name</label>
                             </div>
 
-                            <div className="col-3">
+                            <div className="col-2">
                                 <label className="text-bolder">Email</label>
                             </div>
 
-                            <div className="col-3">
+                            <div className="col-2">
                                 <label className="text-bolder">ID</label>
+                            </div>
+                            <div className="col-2">
+                                <label className="text-bolder">New Password</label>
+                            </div>
+                            <div className="col-1">
+
                             </div>
                             <div className="col-2">
                                   <label className="text-bolder">Suspend Users</label>
                             </div>
                             <div className="col-1">
-                                  <label className="text-bolder"></label>
+
                             </div>
+
                             </div>
                             <div className="row">
-                                <div className="col-3">
+                                <div className="col-2">
                                     <input type="text" className="form-control" onChange={(e)=>{this.onChangeName(e);}} defaultValue={this.state.accountInfo.user}/>
                                 </div>
 
-                                <div className="col-3">
+                                <div className="col-2">
                                     <input type="text" name="email" className="form-control" onChange={(e)=>{this.onChangeEmail(e);}} defaultValue={this.state.accountInfo.email}/>
                                 </div>
 
-                                <div className="col-3">
+                                <div className="col-2">
                                     <input type="text" readOnly className="form-control" defaultValue={this.state.accountInfo.userId}/>
                                 </div>
-                                <div className="col-2">
-                                      <label className="account-name">Are you sure you want to suspend this user?</label>
+                                <div className="col-3">
+                                      <div className="col pl-0">
+                                      <label>
+                                          Are you sure you want<br/>
+                                          to create new password?
+                                      </label>
+                                        <span className='p-1 client-active float-right'>New Password</span>
+                                      </div>
                                 </div>
-                                <div className="col-1">
-                                      <span className='p-1 m-2 client-active float-right'>Enable</span>
+                                <div className="col-3">
+                                      <div className="col pl-0">
+                                        <label className="account-name">Are you sure you want <br/> to suspend this user?</label>
+                                        <span className='p-1 client-active float-right'>Enable</span>
+                                      </div>
                                 </div>
+
+
                             </div>
 
 
