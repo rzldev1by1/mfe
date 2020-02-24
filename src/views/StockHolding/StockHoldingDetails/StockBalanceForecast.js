@@ -81,7 +81,8 @@ class StockBalanceForecast extends Component {
 			<tr>
 				{this.state.foreshadowedColumn.map((item, idx) => {
 					if (item.isVisible) {
-						return <th className={"p-3 " + (item.type === "number" ? "text-right" : "text-left")} key={idx}>{item.tableHeaderText}</th>
+                        // return <th className={"p-3 " + (item.type === "number" ? "text-right" : "text-left")} key={idx}>{item.tableHeaderText}</th>;
+                        return <th className="p-3 text-left" key={idx}>{item.tableHeaderText}</th>;
                     }
                     return null;
 				})}
@@ -95,13 +96,19 @@ class StockBalanceForecast extends Component {
 				<tr key={idx}>
 					{this.state.foreshadowedColumn.map((column, columnIdx) => {
 						if (column.isVisible) {
-                            if (column.type === "number") {
-								return (
-                                    <td key={columnIdx} className="px-3 text-right">
-                                        {column.id === "balance" ? this.showBalance(idx) : item[column.key]}
-                                    </td>
+                            // if (column.type === "number") {
+							// 	return (
+                            //         <td key={columnIdx} className="px-3 text-right">
+                            //             {column.id === "balance" ? this.showBalance(idx) : item[column.key]}
+                            //         </td>
+                            //     );
+							// }
+
+                            if (column.id === "balance") {
+                                return (
+                                    <td key={columnIdx} className="px-3 text-left">{this.showBalance(idx)}</td>
                                 );
-							}
+                            }
 
 							return (
 								<td key={columnIdx} className="px-3 text-left">
