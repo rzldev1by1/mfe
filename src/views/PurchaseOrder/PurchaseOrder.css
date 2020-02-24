@@ -74,7 +74,7 @@ h1{
 }
 
 .font{
-	font-family: "Helvetica Neue Medium" !important;
+	font-family: Light 100px/105px "Helvetica Neue Medium" !important;
 	font-size: 1.5em;
 	cursor: pointer;
 	margin-top: 1%;
@@ -354,9 +354,10 @@ td{
 
 .modal-content{
 	position: absolute;
-    width: 302%;
+	width: 302%;
+	background-color: #22ABE3;
     margin-left: -100%;
-    margin-top: 10%;
+	margin-top: 10%;
 }
 
 .modal-header{
@@ -446,7 +447,7 @@ select option:hover{
 }
 
 .Tab{
-	margin-top: -1%;
+	margin-top: -3%;
 	padding-top: 0px !important;
 	padding-bottom: 0px !important;
 	display: flex !important;
@@ -460,7 +461,7 @@ select option:hover{
 	min-width: 100%;
 }
 
-.tab{
+.tab1{
 	margin-right: 2%;
 	background-color: #F7F7F7;
 	padding:3%;
@@ -469,6 +470,23 @@ select option:hover{
 	border-top-right-radius: 6px;
 	border-top-left-radius: 6px;
 	min-width: 55%;
+	font-family: Helvetica;
+}
+
+.tab2{
+	margin-right: 2%;
+	background-color: #F7F7F7;
+	padding:3%;
+	padding-right: 5%;
+	padding-bottom:2%;
+	border-top-right-radius: 6px;
+	border-top-left-radius: 6px;
+	min-width: 30%;
+	font-family: Helvetica;
+}
+
+.fonts{
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 .tab:hover{
@@ -480,7 +498,12 @@ select option:hover{
 }
 
 .tabcontent{
-	padding:1%
+	padding:1%;
+	background-color: #ffff;
+    width: 101.8%;
+    margin-left: -13.5px;
+	margin-top: -16px;
+	margin-bottom: -10px;
 }
 
 /*tab1 content */

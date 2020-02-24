@@ -42,7 +42,7 @@ class Dropdown extends Component {
 
     render(){
         return(
-            <div style={{marginRight:10}}>
+            <div style={{marginRight:100}} >
                 <input placeholder='Client' className='form-control' onChange={(e) => this.getName(e)}/>
             <div className={'itemList ' + (this.state.expand ? null : 'hidden')}>
             {
