@@ -188,7 +188,7 @@ class PurchaseOrderTable extends Component {
     }
     else if(id == 'Supplier Name')
     {
-      this.setState({sort:!this.state.sort, sortparameter:'ship_to_name'})
+      this.setState({sort:!this.state.sort, sortparameter:'supplierName'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
     else if(id == 'Date Due')
@@ -307,7 +307,7 @@ class PurchaseOrderTable extends Component {
                                     <td>{data.orderNo}</td>
                                     <td>{data.status ? data.status+ ' : ' + data.sub_status.substring(3) + ' ' : '-'}</td>
                                     <td>{data.supplier}</td>
-                                    <td>{data.ship_to_name}</td>
+                                    <td>{data.supplierName}</td>
                                     <td>{data.dateDue}</td>
                                     <td>{data.dateReceived}</td>
                                     <td>{data.dateReleased}</td>
