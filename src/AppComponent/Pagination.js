@@ -41,12 +41,12 @@ export default class Pagination extends Component {
         let startIndex = index
         let endIndex = this.props.rows*startIndex
         startIndex = endIndex-this.props.rows
-        if(this.state.activePage+2 <= this.state.totalPage.length)
+        if(index <= this.state.totalPage.length)
         {
             let pages = []
             for(let i=index ; i<= index+3 ; i++)
             {
-                    if(pages.length <= 2)
+                    if(pages.length <= 2 && i <= this.state.totalPage.length)
                     {
                         pages.push(i)
                     }           
