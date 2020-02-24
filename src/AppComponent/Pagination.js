@@ -7,7 +7,11 @@ export default class Pagination extends Component {
 
         this.state= {
             data:[],
-            dataTable:[]
+            dataTable:[],
+            startIndex:0,
+            endIndex:3,
+            activePage:1,
+            totalPage:[],
         }
     }
 
@@ -20,7 +24,7 @@ export default class Pagination extends Component {
        for(let i=1 ; i<= 3 ; i++)
        {
            this.setState(prevState => ({
-               data: [...prevState.data, i], dataTable:data
+               data: [...prevState.data, i], dataTable:data, totalPage: [...prevState.totalPage, i]
            }))
        }
     }
@@ -33,25 +37,60 @@ export default class Pagination extends Component {
         
         let pages = []
         for(let i=index ; i<= index+3 ; i++)
-       {
-           if(pages.length <= 2)
-           {
-            pages.push(i)
-           }
-       }
-       this.setState({data:pages})
-
+        {
+                if(pages.length <= 2)
+                {
+                    pages.push(i)
+                }           
+        }
+       this.setState({activePage:index, data:pages, startIndex:startIndex, endIndex:endIndex})
         this.props.sliceValue(startIndex, endIndex)
+    }
+
+    prevPage = () => {
+        if(this.state.activePage >1)
+        {
+            this.setState({activePage: this.state.activePage-1}, () => {
+                let page = []
+                for(let i = this.state.activePage; i<= this.state.activePage+3; i++)
+                {
+                    if(page.length <=2)
+                    {
+                        page.push(i)
+                    }
+                }
+                this.setState({data: page})
+                let currentpage = document.getElementById(this.state.activePage)
+            })
+
+        }
+    }
+
+    nextPage = () => {
+        if(this.state.data[2] > this.state.activePage)
+        {
+            this.setState({activePage: this.state.activePage+1}, () => {
+                let page = []
+                for(let i = this.state.activePage; i<= this.state.activePage+3; i++)
+                {
+                    if(page.length <=2)
+                    {
+                        page.push(i)
+                    }
+                }
+                this.setState({data: page})
+            })
+        }
     }
     render(){
         return(
             <div className='bdPagination'>
                 <div className='paginationLine'>                    
                     <label/>
-                    <label className='iconU-leftArrow'/>
+                    <label onClick={() => this.prevPage()} className='iconU-leftArrow'/>
                     {
                        this.state.data.map(data => 
-                            <button onClick={(e) => this.goToIndex(e)} type="button" class="btn btn-primary">{data}</button>
+                            <button onClick={(e) => this.goToIndex(e)} id={data} type="button" class="btn btn-primary">{data}</button>
                         )
                     }                  
                     <label className='iconU-rightArrow'/>
@@ -62,13 +101,13 @@ export default class Pagination extends Component {
                     <label id='labelPage'>Go to page</label>
                     <input class="form-control"/>
                     <label id='labelButton'>Go
-                        <label className='iconU-rightArrows'/>
+                        <label onClick={() => this.nextPage()} className='iconU-rightArrows'/>
                     </label>
                 </div>
 
                 <div className='paginationResult'>
                     {'Showing '} 
-                <label> 1 to 50 of {this.state.dataTable.length} </label>
+                <label> {this.state.startIndex+1} to {this.state.endIndex < this.state.dataTable.length ? this.state.endIndex : this.state.dataTable.length} of {this.state.dataTable.length} </label>
                     {' entries '} 
                 </div>
             </div>
