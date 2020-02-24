@@ -21,11 +21,18 @@ export default class Pagination extends Component {
         {
             page = page+1
         }
-       for(let i=1 ; i<= 3 ; i++)
+        page = Math.floor(page)
+       for(let i=1 ; i<= page ; i++)
        {
-           this.setState(prevState => ({
-               data: [...prevState.data, i], dataTable:data, totalPage: [...prevState.totalPage, i]
-           }))
+           if(i <=3)
+           {
+                this.setState(prevState => ({
+                    data: [...prevState.data, i], dataTable:data
+                }))
+           }
+               this.setState(prevState => ({
+                totalPage: [...prevState.totalPage, i]
+            }))
        }
     }
 
@@ -34,17 +41,25 @@ export default class Pagination extends Component {
         let startIndex = index
         let endIndex = this.props.rows*startIndex
         startIndex = endIndex-this.props.rows
-        
-        let pages = []
-        for(let i=index ; i<= index+3 ; i++)
+        if(this.state.activePage+2 <= this.state.totalPage.length)
         {
-                if(pages.length <= 2)
-                {
-                    pages.push(i)
-                }           
+            let pages = []
+            for(let i=index ; i<= index+3 ; i++)
+            {
+                    if(pages.length <= 2)
+                    {
+                        pages.push(i)
+                    }           
+            }
+            this.setState({activePage:index, data:pages, startIndex:startIndex, endIndex:endIndex})
         }
-       this.setState({activePage:index, data:pages, startIndex:startIndex, endIndex:endIndex})
-        this.props.sliceValue(startIndex, endIndex)
+        if(this.state.activePage <= this.state.totalPage.length)
+        {
+            this.setState({startIndex:startIndex, endIndex:endIndex})
+            this.props.sliceValue(startIndex, endIndex)
+        }
+       
+       
     }
 
     prevPage = () => {
@@ -52,7 +67,7 @@ export default class Pagination extends Component {
         {
             this.setState({activePage: this.state.activePage-1}, () => {
                 let page = []
-                for(let i = this.state.activePage; i<= this.state.activePage+3; i++)
+                for(let i = this.state.activePage-3; i<= this.state.activePage; i++)
                 {
                     if(page.length <=2)
                     {
@@ -66,19 +81,38 @@ export default class Pagination extends Component {
     }
 
     nextPage = () => {
-        if(this.state.activePage <= this.state.data[2])
+        if(this.state.activePage <= this.state.totalPage[this.state.totalPage.length-1])
         {
-            this.setState({activePage: this.state.activePage+1}, () => {
-                let page = []
-                for(let i = this.state.activePage; i<= this.state.totalPage.length; i++)
-                {
-                    if(page.length <=2)
+                this.setState({activePage: this.state.activePage+1}, () => {                
+                    if(this.state.activePage+2 <= this.state.totalPage.length)
                     {
-                        page.push(i)
+                        let page = []
+                        for(let i = this.state.activePage; i<= this.state.totalPage.length-1; i++)
+                        {
+                            if(page.length <=2)
+                            {
+                                page.push(i)
+                            }
+                        }
+                        this.setState({data:page})
                     }
-                }
-                this.goToPages(this.state.activePage)
-            })
+                    this.goToPages(this.state.activePage)
+                })
+        }
+    }
+
+    goToHandler = () => {
+        let val = this.state.activePage
+        if(this.state.activePage && this.state.activePage <= this.state.totalPage.length)
+        {
+            this.goToPages(val)
+        }
+        else
+        {
+            alert('maximum pages '+ this.state.totalPage.length)    
+            let el = document.getElementById('goToPage')
+            el.value = null
+            el.focus()
         }
     }
     render(){
@@ -98,8 +132,8 @@ export default class Pagination extends Component {
 
                 <div className='paginationInputPage'>
                     <label id='labelPage'>Go to page</label>
-                    <input class="form-control"/>
-                    <label id='labelButton'>Go
+                    <input onChange={(e) => this.setState({activePage:e.currentTarget.value})} id='goToPage' placeholder={this.state.totalPage.length} class="form-control"/>
+                    <label onClick={() => this.goToHandler()} id='labelButton'>Go
                         <label className='iconU-rightArrows'/>
                     </label>
                 </div>

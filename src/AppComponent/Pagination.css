@@ -92,3 +92,7 @@
     color: #969EA1;
     font-family: 'Helvetica Neue bold';
 }
+
+.paginationInputPage ::placeholder{
+    color: #D5D8DA !important;
+}
