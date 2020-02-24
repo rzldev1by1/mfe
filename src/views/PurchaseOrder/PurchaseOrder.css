@@ -358,6 +358,8 @@ td{
 	background-color: #22ABE3;
     margin-left: -100%;
 	margin-top: 10%;
+	border-bottom-right-radius: 10px !important;
+	border-bottom-left-radius: 10px !important;
 }
 
 .modal-header{
@@ -504,6 +506,9 @@ select option:hover{
     margin-left: -13.5px;
 	margin-top: -16px;
 	margin-bottom: -10px;
+	/* border-radius: 20px !important; */
+	border-bottom-right-radius: 10px !important;
+	border-bottom-left-radius: 10px !important;
 }
 
 /*tab1 content */
