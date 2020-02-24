@@ -104,8 +104,24 @@ class UserManagementDetail extends Component{
       let clients = this.readSessionStorage('clients');
 
        menus = this.setMenuBasedUser(menus);
+       clients = this.setClientBasedUser(clients);
+
       if(menus.length && sites.length && clients.length)
         this.setState({moduleAccess:menus,sites:sites,clients:clients});
+    }
+
+    setClientBasedUser = (clients) => {
+      const {client} = this.state.accountInfo;
+
+      if(clients.length){
+        if(client){
+          let idx = clients.findIndex((item)=> item.code.toLowerCase() === client.toLowerCase());
+          if(idx>=0){
+            clients[idx]["status"] = true;
+          }
+        }
+      }
+      return clients;
     }
 
     setMenuBasedUser = (menus) => {
@@ -205,7 +221,7 @@ class UserManagementDetail extends Component{
     }
 
     onSiteStatusClick = (e,data) => {
-      console.log(data);
+
       if(data){
         let newState = [...this.state.sites];
         var newArray = newState.map((item,index) => {
@@ -222,11 +238,17 @@ class UserManagementDetail extends Component{
 
     onClientStatusClick = (e,data) => {
       if(data){
+        let user = {...this.state.accountInfo};
         let newState = [...this.state.clients];
         var newArray = newState.map((item,index) => {
             item.status = false;
-            if(item.code === data.code)
+            if(item.code === data.code){
               item.status = true;
+
+                if(item.status)
+                  user.client = item.code;
+
+            }
 
             return item;
         });
@@ -263,6 +285,7 @@ class UserManagementDetail extends Component{
 	    newParam.thisAccess = accountInfo.thisAccess;
 	    newParam.thisLogin = accountInfo.thisLogin;
 	    newParam.userMenu = this.changeUserMenuToStringArray(accountInfo.userMenu);
+      newParam.client = accountInfo.client;
 
       if(newParam.name && newParam.email && newParam.userMenu.length)
       {
