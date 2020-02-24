@@ -425,7 +425,7 @@
       render(){
           return(
             <Modal  isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }}
-            toggle={true} className={this.classname}>
+            toggle={true} className="POCreate">
             <ModalHeader    >
               <div className='create'><label className='iconU-edit'/><label className='font'>Create Purchase Orders</label></div>
               <p style={{fontSize:'45px',width:'100px'}} color="primary" className='search iconU-close '  onClick={() => this.close()}></p>
