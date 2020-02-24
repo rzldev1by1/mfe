@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { Table,Button, Card, CardBody, Label} from 'reactstrap'
 import './SalesOrder.css';
-import Header_Left from './Components/Details/Header_Left'
-import Header_Middle from './Components/Details/Header_Middle'
-import Header_Right from './Components/Details/Header_Right'
+import Header from './Components/Details/Header'
+
 
 class SalesOrderDetail extends Component {
   constructor(props) {
@@ -21,11 +20,7 @@ class SalesOrderDetail extends Component {
       <div>
           <Card>
             <CardBody>
-              <div className="d-flex">
-                <Header_Left />
-                <Header_Middle />
-                <Header_Right />
-              </div>
+                <Header />
             </CardBody>
           </Card>
       </div>
