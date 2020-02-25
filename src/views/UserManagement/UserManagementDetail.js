@@ -237,23 +237,22 @@ class UserManagementDetail extends Component{
     }
 
     onClientStatusClick = (e,data) => {
+      let user = {...this.state.accountInfo};
+      
       if(data){
-        let user = {...this.state.accountInfo};
         let newState = [...this.state.clients];
         var newArray = newState.map((item,index) => {
             item.status = false;
             if(item.code === data.code){
               item.status = true;
-
                 if(item.status)
-                  user.client = item.code;
-
+                  user.client = data.code;
             }
 
             return item;
         });
 
-        this.setState({clients:newArray});
+        this.setState({clients:newArray,accountInfo:user});
       }
     }
 
@@ -276,7 +275,7 @@ class UserManagementDetail extends Component{
     saveClick = () => {
 
       let accountInfo = {...this.state.accountInfo};
-
+      console.log(accountInfo);
       let newParam = {};
       newParam.name = accountInfo.user;
 	    newParam.email = accountInfo.email;

@@ -13,7 +13,7 @@ const modalNewUser = (props) => {
   return (
     <div>
         <Modal isOpen={isOpen} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
-        toggle={true} className={className} >
+        toggle={toggle} className={className} >
         <ModalHeader toggle={toggle} className="pb-0 pl-5">
           <div className='create'>
             <label className='iconU-edit mt-1'/>
@@ -64,7 +64,7 @@ const modalNewUser = (props) => {
                 <div className="col-3">
                     <input type="text" name="userid" readOnly className="form-control" defaultValue={model.userId}/>
                 </div>
-              
+
             </div>
             <div className="row mt-4">
                 <div className="col-12">
