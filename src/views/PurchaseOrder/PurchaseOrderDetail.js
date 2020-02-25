@@ -3,7 +3,7 @@ import './PurchaseOrder.css'
 import './PurchaseOrderDetail.css'
 import PODTable from './Component/PODComponents/PODTable'
 import axios from 'axios'
-import {endpoint, headers} from '../../AppComponent/ConfigEndpoint'
+import {endpoint, headers, POheaders} from '../../AppComponent/ConfigEndpoint'
 
 export default class PurchaseOrderDetail extends Component {
     constructor(props){
@@ -25,7 +25,7 @@ export default class PurchaseOrderDetail extends Component {
         this.setState({complete:false})
         let param = window.location.href.split("/").pop()
         axios.get(endpoint.purchaseOrder + '/' +param, {
-          headers: headers
+          headers: POheaders
         })
           .then(res => {
             const result = res.data.data
