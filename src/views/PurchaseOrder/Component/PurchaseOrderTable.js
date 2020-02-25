@@ -217,20 +217,18 @@ class PurchaseOrderTable extends Component {
 
   sorting = (data, param, sort) => {
     data.sort((a,b) => {
-      if(a[param] !== null && b[param] !== null)
-      {
-        if(sort == true)
-      {
-        if(a[param].toLowerCase() < b[param].toLowerCase()) return -1
-        if(a[param].toLowerCase() > b[param].toLowerCase()) return 1
-        return 0
-      }
-      else if(sort == false)
-      {
-        if(a[param].toLowerCase() < b[param].toLowerCase()) return 1
-        if(a[param].toLowerCase() > b[param].toLowerCase()) return -1
-        return 0
-      }
+      if(a[param] !== undefined && b[param] !== undefined){
+        if(sort == true){
+          if(a[param].toLowerCase() < b[param].toLowerCase()) return -1
+          if(a[param].toLowerCase() > b[param].toLowerCase()) return 1
+          return 0
+        }else if(sort == false){
+          if(a[param] !== undefined && b[param] !== undefined){
+            if(a[param].toLowerCase() < b[param].toLowerCase()) return 1
+            if(a[param].toLowerCase() > b[param].toLowerCase()) return -1
+            return 0
+          }
+        }
       }
     })
     this.setState({data:data})
@@ -313,7 +311,7 @@ class PurchaseOrderTable extends Component {
                                     <td>{moment(data.date_received).format("YYYY/MM/DD")}</td>
                                     <td>{moment(data.date_released).format("YYYY/MM/DD")}</td>
                                     <td>{moment(data.date_completed).format("YYYY/MM/DD")}</td>
-                                    <td className='iconU-option'></td>
+                                    <td></td>
                                 </tr>
                             ) : 
                                 <div> No data available </div>

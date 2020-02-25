@@ -52,6 +52,10 @@ body {
 	font-size: 15px;
 }
 
+h2{
+	font-size: 1.4rem;
+}
+
 .iconU-stockMovement:before {
 	content: "\e90e";
 }
@@ -127,6 +131,7 @@ body {
 
 .iconU-rightArrow:before {
 	content: "\e906";
+    font-size: 16px;
 }
 
 .iconU-upArrow:before {

@@ -318,10 +318,14 @@ th.iconU-edit{
 	}
 	
 	.potable tr {
-		border-bottom: 2px solid #f0f0f0  !important;
+		border-bottom: 1.5px solid #f0f0f0  !important;
 		height: 45px !important;
 		font-size: 12px;
 	}
+	.tr{
+		border-bottom: 1.5px solid #E2E2E2 !important;
+	}
+	
 	.tr:hover{
 		background: #f0f0f0 !important;
 		cursor: pointer;
@@ -339,7 +343,8 @@ th.iconU-edit{
 @media(min-width: 1500px){
 	.arrow{
 		margin-left: 7px !important;
-		width: 0.7em;
+		width: 9px;
+		font-weight: bold;
 	}
 	
 	.potable{
@@ -696,9 +701,6 @@ h3{
 
 /* pagination */
 
-.paginations{
-	margin-top: 10px !important;
-}
 
 .page{
 	font-size: larger;
