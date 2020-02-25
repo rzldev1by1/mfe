@@ -512,7 +512,7 @@ select option:hover{
 	padding-bottom:2%;
 	border-top-right-radius: 6px;
 	border-top-left-radius: 6px;
-	min-width: 55%;
+	min-width: 71%;
 	font-family: Helvetica;
 }
 
@@ -540,12 +540,19 @@ select option:hover{
 	background-color: white;
 }
 
+.createdec{
+	margin-left: 10%;
+    margin-top: -3%;
+	width: 580px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
 .tabcontent{
 	padding:1%;
 	background-color: #ffff;
     width: 101.8%;
     margin-left: -13.5px;
-	margin-top: -16px;
+	margin-top: -26px;
 	margin-bottom: -10px;
 	/* border-radius: 20px !important; */
 	border-bottom-right-radius: 10px !important;

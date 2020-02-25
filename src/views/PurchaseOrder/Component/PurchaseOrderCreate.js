@@ -441,13 +441,15 @@
             <Modal  isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }}
             toggle={true} className="POCreate">
             <ModalHeader    >
-              <div className='create'><label className='iconU-edit'/><label className='font'>Create Purchase Orders</label></div>
+              <div className='create' style={{marginLeft:'2%'}}><label className='iconU-edit'/><label className='font'>Create Purchase Orders</label></div>
               <p style={{fontSize:'45px',width:'100px',fontWeight: '100',fontFamily:'cursive'}} color="primary" className=''  onClick={() => this.close()}>X</p>
             </ModalHeader>
             <ModalHeader className='Tab' >
               <div>
+                <div className="createdec">
                 Enter delivery and product details to create a new Purchase Orders
-                <div className='tabs'>
+                </div>
+                <div className='tabs font'>
                   <div style={{color:'#919191'}} onClick={() => this.tabhandler()} className={'tab1 ' + (this.state.tab1isactive ? 'tabisactive' : null)}>
                     <img className='numberimg' src={this.state.tab1isactive ? oneactive : oneinactive}/>  Order & Product Details
                   </div>

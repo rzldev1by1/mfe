@@ -17,16 +17,31 @@ class ListOrderComponent extends Component {
       data:[],      
       tableheader :  ["Site","Client","Order No", "Ship to Name", "Customer Name"," Status", "Date due", "Date Received", "Date Released", "Date Completed"],
       activearrow:mid,
+      sortparameter:'orderNo',
+      
+
+      currentPage: 1,
+			startIndex: 0,
+			lastIndex: 0,
+			displayPage: 30,
+			totalRows: 0,
+			maxPage: 0,
     }
   }
 
 
+  load = () => {
+    this.props.loadCompleteHandler(true)
+  }
 
   componentDidMount(){
     this.loadSalesOrder()
   }
 
   loadSalesOrder = () => {
+    this.setState({ currentPage: 1,
+                    startIndex: 0, lastIndex: 0,
+                    totalRows: 0, maxPage: 0})
 
     axios.get(endpoint.salesOrder, {
       headers: headers
@@ -34,6 +49,7 @@ class ListOrderComponent extends Component {
       .then(res => {
         const result = res.data.data
         this.setState({ data:result })
+        this.load()
       })
       .catch(error => {
         // this.props.history.push("/logins")
@@ -147,15 +163,15 @@ class ListOrderComponent extends Component {
                      <tr>
                        {this.state.tableheader.map(header =>
                         <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
-                           <img key={header} className='arrow' src={this.state.activearrow}/>
+                           <img key={header} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}} src={this.state.activearrow}/>
                         </th>
                               )}  
                               <th className='iconU-edit'></th>
                        </tr>
                     </thead>
                     <tbody>
-                          {this.state.data ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
-                                  <tr  className='tr'>
+                          {this.state.data ? this.state.data.map((data,i) => 
+                                  <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.orderNo + '/detail')} className='tr'>
                                       <td>{data.site}</td>
                                       <td>{data.client}</td>
                                       <td>{data.order_no}</td>
@@ -166,7 +182,7 @@ class ListOrderComponent extends Component {
                                       <td>{data.date_recd}</td>
                                       <td>{data.date_released}</td>
                                       <td>{data.date_completed}</td>
-                                      {/* <td className='iconU-option'></td> */}
+                                      <td className='iconU-option'></td>
                                   </tr>
                               ) : 
                                   <div> No data available </div>

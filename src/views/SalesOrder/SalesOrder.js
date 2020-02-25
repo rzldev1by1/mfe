@@ -3,6 +3,7 @@ import ListOrderComponent from './Components/ListOrderComponent'
 import FilterComponent from './Components/FilterComponent'
 import {Button} from 'reactstrap'
 import create from '../../assets/img/brand/button_create@2x.png'
+import Dropdown from '../../AppComponent/Dropdown'
 import "./SalesOrder.css"
 class SalesOrder extends Component{
   constructor(props) {
@@ -47,6 +48,33 @@ class SalesOrder extends Component{
 closeModal = () => {
     this.setState({showmodal:false})
 }
+
+showDropdowns = () => {
+  let clientName = [];
+  let clientValue = [];
+  let siteData = [];
+    let status = [];
+  if(this.state.clientdata){
+      this.state.clientdata.map((data) => {
+          clientName.push(data.name);
+          clientValue.push(data.code);
+      })
+  }
+  if(this.state.sitedata){
+      this.state.sitedata.map((data) => {
+          siteData.push(data.site);
+      })
+  }
+    return(
+        <React.Fragment>
+            <Dropdown placeHolder="Site" style={{width: "102px", marginRight: "1em"}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected}/>
+            <Dropdown placeHolder="Client" style={{width: "102px", marginRight: "1em"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected}/>
+            <Dropdown placeHolder="Order No" style={{marginRight: "1em"}} optionList={status.toString()} optionValue={status.toString()} getValue={this.getStatusSelected}/>
+
+        </React.Fragment>
+    )
+}
+
   render(){
 console.log(this.state.listOrder)
     return(<div>
@@ -61,12 +89,22 @@ console.log(this.state.listOrder)
         </div> 
           
         <FilterComponent />
-        {/* <div className={' ' + ( this.state.complete ? 'fades ' : 'hidden')}>
+        <div className='filterbar'>
+                <div style={{display:'flex', width:'100%'}}>
+                    {
+                        this.state.filterclicked ? null :
+                        this.showDropdowns()
+                    }
+                    
+                </div>               
+            </div>
+
+        <div className={'' + ( this.state.complete ? 'fades' : 'hidden')}>
         <ListOrderComponent ref={this.potableref} className='animated fadeIn' loadCompleteHandler = {(v) =>  this.setState({complete: v})} />
         </div>
         <div className={( this.state.complete ? 'hidden': 'spinner')}/>
-        <ListOrderComponent showmodal={this.state.showmodal} closemodal={() => this.closeModal()} />       */}
-        <ListOrderComponent/>
+         
+        {/* <ListOrderComponent/> */}
     </div>)
   }
 }
