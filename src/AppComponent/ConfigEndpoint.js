@@ -39,4 +39,12 @@ const headers = {
     'Accept': 'application/json',
 };
 
-export { endpoint, headers };
+const POheaders = {
+    'userLevel': Authentication.getUserLevel(),
+    'companyCode': Authentication.getCompanyCode(),
+    'Authorization': 'Bearer ' + Authentication.getToken(),
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Client': 'MLS'
+};
+export { endpoint, headers, POheaders };

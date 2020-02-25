@@ -51,7 +51,8 @@ class UserManagement extends Component{
               isModuleLoaded: false,
               isClientLoaded: false,
               isSiteLoaded: false,
-              isSaveProgressing:false
+              isSaveProgressing:false,
+
 
         }
     }
@@ -365,6 +366,7 @@ class UserManagement extends Component{
                       clients={this.state.clients} isClientLoaded={this.state.isClientLoaded} clientEnableClick={this.onClientStatusClick}
                       onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing}/>
 
+                    <div className={( this.state.isListLoaded ? 'd-none': 'spinner')}/>
 
                 </CardBody>
             </Card>

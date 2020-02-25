@@ -34,6 +34,7 @@ export default class Pagination extends Component {
                 totalPage: [...prevState.totalPage, i]
             }))
        }
+       this.goToPages(1)
     }
 
     goToPages = (e) => {
@@ -56,9 +57,9 @@ export default class Pagination extends Component {
         if(this.state.activePage <= this.state.totalPage.length)
         {
             this.setState({startIndex:startIndex, endIndex:endIndex})
-            this.props.sliceValue(startIndex, endIndex)
+            
         }
-       
+        this.props.sliceValue(startIndex, endIndex)
        
     }
 
