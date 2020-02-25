@@ -64,53 +64,61 @@ class UserListComponent extends Component{
     }
 
     render(){
-    
+
         return(
                 <div className="d-flex">
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                {
-                                    this.state.headers.map((element,index)=>{
-                                    return <th key={index} className='headers'>
-                                            <div className='d-flex flex-row'>
-                                                <label className="mt-1 mb-0">{element}</label>
-                                               {
-                                                   (element === '')?'': (<div className="d-flex flex-column ml-2">
-                                                                                    <span className="upArrow" style={{height:'10px'}}></span>
-                                                                                    <span className="downArrow" style={{height:'10px'}}></span>
-                                                                                </div>)
-                                               }
+                    <div className="tablePage w-100">
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    {
+                                        this.state.headers.map((element,index)=>{
+                                        return <th key={index} className='headers'>
+                                        <label className="mt-1 mb-0">{element}</label>
+                                        {
+                                          /**
+                                              <div className='d-flex flex-row'>
+                                              <label className="mt-1 mb-0">{element}</label>
+                                              {
+                                              (element === '')?'': (<div className="d-flex flex-column ml-2">
+                                              <span className="upArrow" style={{height:'10px'}}></span>
+                                              <span className="downArrow" style={{height:'10px'}}></span>
+                                              </div>)
+                                            }
 
 
                                             </div>
-                                        </th>
-                                    })
-                                }
-                            </tr>
-                        </thead>
-                        <tbody>
-                               {
-                                   this.props.data.map((element,index)=>{
 
-                                       return <tr key={index} onClick={(e)=>{ this.onRowClick(e,element.web_user);}}>
-                                                {
-                                                   Object.keys(element).map((item,idx) => {
-                                                      return (item !== 'email' && item !== 'web_user')?
-                                                              <td key={idx} className={(item === 'user')?'users':'norm'}>
-                                                               { (item === 'action')?
-                                                               <span className='next'></span>:
-                                                               <label className={((item === 'status')? ((element[item].toLowerCase() === 'active')?'active':'suspended'):'')}>{element[item]}</label> }
-                                                               </td>:null
-                                                   })
-                                                }
-                                       </tr>
-                                   })
-                               }
+                                          **/
+                                        }
+                                            </th>
+                                        })
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                   {
+                                       this.props.data.map((element,index)=>{
+
+                                           return <tr key={index} onClick={(e)=>{ this.onRowClick(e,element.web_user);}}>
+                                                    {
+                                                       Object.keys(element).map((item,idx) => {
+                                                          return (item !== 'email' && item !== 'web_user')?
+                                                                  <td key={idx} className={(item === 'user')?'users':'norm'}>
+                                                                   { (item === 'action')?
+                                                                   <span className='next'></span>:
+                                                                   <label className={((item === 'status')? ((element[item].toLowerCase() === 'active')?'active':'suspended'):'')}>{element[item]}</label> }
+                                                                   </td>:null
+                                                       })
+                                                    }
+                                           </tr>
+                                       })
+                                   }
 
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
              )
     }
