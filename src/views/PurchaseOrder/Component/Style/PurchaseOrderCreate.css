@@ -6,7 +6,7 @@
 }
 
 /* 768p Resolution */
-@media(max-width: 1400px){
+@media(max-width: 1500px){
     .POCreate > .modal-content {
         position: absolute;
         width: 240%;
