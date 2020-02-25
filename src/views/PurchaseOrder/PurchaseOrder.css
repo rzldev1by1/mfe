@@ -14,7 +14,7 @@
 
 .header{
 	display: flex;
-	margin-top: 1.5%;
+	margin-top: 20px;
 	width: 100% !important;
 	justify-content: space-between;
 }
@@ -115,8 +115,7 @@ h1{
 
 /* Search */
 .searchbar {
-	margin-top: 1%;
-	padding:1%;
+	margin-top: 10px;
 	padding-bottom: 0%;
 	min-width: 100%;
 	background-color: white;
@@ -133,7 +132,7 @@ h1{
 }
 
 .filterbar{
-	padding:1%;
+	padding:15px;
 	min-width: 100%;
 	background-color: white;
 	border-bottom-right-radius: 5px;
@@ -163,7 +162,7 @@ h1{
 }
 
 .tablecontent {
-	margin-top: 1%;
+	margin-top: 10px;
 	padding:1%;
 	padding-top: 0%;
 	padding-bottom: 0%;
@@ -301,38 +300,80 @@ th.iconU-edit{
 	color: #22ABE3;
 	text-align: center;
 }
-
-.arrow{
-	margin-left: 20px !important;
-	width: 0.7em;
+@media(max-width: 1500px){
+	.arrow{
+		margin-left: 7px !important;
+		width: 0.7em;
+	}
+	
+	.potable{
+		width: 100%;
+	}
+	
+	.potable th {
+		border-bottom: 1px solid #D5D8DA !important;
+		height: 45px !important;
+		cursor: pointer;
+		font-size: 12px;
+	}
+	
+	.potable tr {
+		border-bottom: 2px solid #f0f0f0  !important;
+		height: 45px !important;
+		font-size: 12px;
+	}
+	.tr:hover{
+		background: #f0f0f0 !important;
+		cursor: pointer;
+	}
+	
+	th{
+		font-family: "Helvetica Neue Bold";
+		color: #B4B9BB;
+	}
+	td{
+		font-family: "Helvetica Neue Regular";
+		color: #637175;
+	}
+}
+@media(min-width: 1500px){
+	.arrow{
+		margin-left: 7px !important;
+		width: 0.7em;
+	}
+	
+	.potable{
+		width: 100%;
+	}
+	
+	.potable th {
+		border-bottom: 1px solid #D5D8DA !important;
+		height: 45px !important;
+		cursor: pointer;
+		font-size: 1rem;
+	}
+	
+	.potable tr {
+		border-bottom: 2px solid #f0f0f0  !important;
+		height: 45px !important;
+		font-size: 1rem;
+	}
+	.tr:hover{
+		background: #f0f0f0 !important;
+		cursor: pointer;
+	}
+	
+	th{
+		font-family: "Helvetica Neue Bold";
+		color: #B4B9BB;
+	}
+	td{
+		font-family: "Helvetica Neue Regular";
+		color: #637175;
+	}
 }
 
-.potable{
-	width: 100%;
-}
 
-.potable th {
-	border-bottom: 2px solid #E2E2E2 !important;
-	height: 45px !important;
-	cursor: pointer;
-	font-size: 1em;
-}
-
-.potable tr {
-	border-bottom: 2px solid #f0f0f0  !important;
-	height: 45px !important;
-}
-.tr:hover{
-	background: #f0f0f0 !important;
-	cursor: pointer;
-}
-
-th{
-	font-family: "Helvetica Neue Medium";
-}
-td{
-	font-family: "Helvetica Neue Medium";
-}
 
 .fades{
 	-webkit-animation-name: fade;

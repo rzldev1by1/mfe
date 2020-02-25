@@ -30,20 +30,20 @@ class StockHolding extends Component {
 			lastIndex: 0,
 			displayPage: 5,
 			totalRows: 0,
-			maxPage: 0,
+            maxPage: 0,
 
 			columns: [
-                { id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site", type: "string" },
-                { id: "client", checkboxLabelText: "Client", tableHeaderText: "Client", isVisible: true, key: "client", type: "string" },
-				{ id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "product", type: "string" },
-				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "product_name", type: "string" },
-				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: false, key: "status", type: "string" },
-				{ id: "uom", checkboxLabelText: "UOM", tableHeaderText: "UOM", isVisible: true, key: "packdesc_1", type: "string" },
-				{ id: "on_hand_qty", checkboxLabelText: "On Hand Qty", tableHeaderText: "On Hand Qty", isVisible: true, key: "qty_lcd", type: "number" },
-				{ id: "on_hand_weight", checkboxLabelText: "On Hand Weight", tableHeaderText: "On Hand Weight", isVisible: true, key: "weight", type: "number" },
-				{ id: "expected_in_qty", checkboxLabelText: "Expected In Qty", tableHeaderText: "Expected In Qty", isVisible: true, key: "qty_lcd_expected", type: "number" },
-				{ id: "expected_in_weight", checkboxLabelText: "Expected In Weight", tableHeaderText: "Expected In Weight", isVisible: true, key: "wgt_expected", type: "number" },
-				{ id: "expected_out_qty", checkboxLabelText: "Expected Out Qty", tableHeaderText: "Expected Out Qty", isVisible: true, key: "qty_lcd_committed", type: "number" },
+                { id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site", type: "string", sort: false },
+                { id: "client", checkboxLabelText: "Client", tableHeaderText: "Client", isVisible: true, key: "client", type: "string", sort: false },
+				{ id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "product", type: "string", sort: false },
+				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "product_name", type: "string", sort: false },
+				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: false, key: "status", type: "string", sort: false },
+				{ id: "uom", checkboxLabelText: "UOM", tableHeaderText: "UOM", isVisible: true, key: "packdesc_1", type: "string", sort: false },
+				{ id: "on_hand_qty", checkboxLabelText: "On Hand Qty", tableHeaderText: "On Hand Qty", isVisible: true, key: "qty_lcd", type: "number", sort: false },
+				{ id: "on_hand_weight", checkboxLabelText: "On Hand Weight", tableHeaderText: "On Hand Weight", isVisible: true, key: "weight", type: "number", sort: false },
+				{ id: "expected_in_qty", checkboxLabelText: "Expected In Qty", tableHeaderText: "Expected In Qty", isVisible: true, key: "qty_lcd_expected", type: "number", sort: false },
+				{ id: "expected_in_weight", checkboxLabelText: "Expected In Weight", tableHeaderText: "Expected In Weight", isVisible: true, key: "wgt_expected", type: "number", sort: false },
+				{ id: "expected_out_qty", checkboxLabelText: "Expected Out Qty", tableHeaderText: "Expected Out Qty", isVisible: true, key: "qty_lcd_committed", type: "number", sort: false },
 			],
 			masterResStockHolding: []
 		};
@@ -205,10 +205,11 @@ class StockHolding extends Component {
 
 	nextPageClick = () => {
 		if (this.state.currentPage < this.state.maxPage) {
-			this.setState((prev) => {
-				prev.currentPage++;
-				this.changeStartIndex(prev.currentPage);
-				this.changeLastIndex(prev.currentPage);
+			this.setState((prev) => { 
+                currentPage: prev.currentPage++;
+            }, () => {
+				this.changeStartIndex(this.state.currentPage);
+				this.changeLastIndex(this.state.currentPage);
 			});
         }
         return;
@@ -216,10 +217,11 @@ class StockHolding extends Component {
 
 	backPageClick = () => {
 		if (this.state.currentPage > 1) {
-			this.setState((prev) => {
-				prev.currentPage--;
-				this.changeStartIndex(prev.currentPage);
-				this.changeLastIndex(prev.currentPage);
+			this.setState((prev) => { 
+                currentPage: prev.currentPage--;
+            }, () => {
+				this.changeStartIndex(this.state.currentPage);
+				this.changeLastIndex(this.state.currentPage);
 			});
         }
         return;
