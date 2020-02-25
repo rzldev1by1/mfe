@@ -35,13 +35,13 @@ const componentTable = (props) => {
                         }
                         return null;
 					})}
-					<td className="px-3 text-left">
+					{/* <td className="px-3 text-left"> */}
 						{/* <a href="#" className="dots"> */}
-							<div className="dot" />
-							<div className="dot" />
-							<div className="dot" />
+							{/* <div className="dot" /> */}
+							{/* <div className="dot" /> */}
+							{/* <div className="dot" /> */}
 						{/* </a> */}
-					</td>
+					{/* </td> */}
 				</tr>
 			))
 		);
