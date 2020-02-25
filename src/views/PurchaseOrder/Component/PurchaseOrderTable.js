@@ -5,7 +5,8 @@ import mid from '../../../assets/img/brand/field-idle.png'
 import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
 import Paging from '../../General/Paging';
-import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
+import {endpoint, headers, POheaders} from '../../../AppComponent/ConfigEndpoint'
+import moment from 'moment'
 class PurchaseOrderTable extends Component {
   constructor(props){
     super(props)
@@ -16,7 +17,7 @@ class PurchaseOrderTable extends Component {
       data:[],      
       tableheader : ['Site','Client','Order No','Status','Supplier No','Supplier Name','Date Due','Date Received','Date Released','Date Completed'],
       activearrow:mid,
-      sortparameter:'orderNo',
+      sortparameter:'order_no',
       sort:true,
 
       //pagonation
@@ -63,7 +64,7 @@ class PurchaseOrderTable extends Component {
                     totalRows: 0, maxPage: 0})
 
     axios.get(endpoint.purchaseOrder, {
-      headers: headers
+      headers: POheaders
     })
       .then(res => {
         const result = res.data.data
@@ -168,7 +169,7 @@ class PurchaseOrderTable extends Component {
     }
     else if(id == 'Order No')
     {
-      this.setState({sort:!this.state.sort, sortparameter:'orderNo'})
+      this.setState({sort:!this.state.sort, sortparameter:'order_no'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
     else if(id == 'Client')
@@ -188,27 +189,27 @@ class PurchaseOrderTable extends Component {
     }
     else if(id == 'Supplier Name')
     {
-      this.setState({sort:!this.state.sort, sortparameter:'supplierName'})
+      this.setState({sort:!this.state.sort, sortparameter:'supplier_name'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
     else if(id == 'Date Due')
     {
-      this.setState({sort:!this.state.sort, sortparameter:'dateDue'})
+      this.setState({sort:!this.state.sort, sortparameter:'date_due'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
     else if(id == 'Date Received')
     {
-      this.setState({sort:!this.state.sort, sortparameter:'dateReceived'})
+      this.setState({sort:!this.state.sort, sortparameter:'date_received'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
     else if(id == 'Date Released')
     {
-      this.setState({sort:!this.state.sort, sortparameter:'dateReleased'})
+      this.setState({sort:!this.state.sort, sortparameter:'date_released'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
     else if(id == 'Date Completed')
     {
-      this.setState({sort:!this.state.sort, sortparameter:'dateCompleted'})
+      this.setState({sort:!this.state.sort, sortparameter:'date_completed'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
 
@@ -216,20 +217,18 @@ class PurchaseOrderTable extends Component {
 
   sorting = (data, param, sort) => {
     data.sort((a,b) => {
-      if(a[param] !== null && b[param] !== null)
-      {
-        if(sort == true)
-      {
-        if(a[param].toLowerCase() < b[param].toLowerCase()) return -1
-        if(a[param].toLowerCase() > b[param].toLowerCase()) return 1
-        return 0
-      }
-      else if(sort == false)
-      {
-        if(a[param].toLowerCase() < b[param].toLowerCase()) return 1
-        if(a[param].toLowerCase() > b[param].toLowerCase()) return -1
-        return 0
-      }
+      if(a[param] !== undefined && b[param] !== undefined){
+        if(sort == true){
+          if(a[param].toLowerCase() < b[param].toLowerCase()) return -1
+          if(a[param].toLowerCase() > b[param].toLowerCase()) return 1
+          return 0
+        }else if(sort == false){
+          if(a[param] !== undefined && b[param] !== undefined){
+            if(a[param].toLowerCase() < b[param].toLowerCase()) return 1
+            if(a[param].toLowerCase() > b[param].toLowerCase()) return -1
+            return 0
+          }
+        }
       }
     })
     this.setState({data:data})
@@ -301,18 +300,18 @@ class PurchaseOrderTable extends Component {
                         </thead>
                         <tbody>            
                             {this.state.data ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
-                                <tr onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/'+data.orderNo)} className='tr'>
+                                <tr onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/'+data.order_no)} className='tr'>
                                     <td>{data.site}</td>
                                     <td>{data.client}</td>
-                                    <td>{data.orderNo}</td>
-                                    <td>{data.status ? data.status+ ' : ' + data.sub_status.substring(3) + ' ' : '-'}</td>
-                                    <td>{data.supplier}</td>
-                                    <td>{data.supplierName}</td>
-                                    <td>{data.dateDue}</td>
-                                    <td>{data.dateReceived}</td>
-                                    <td>{data.dateReleased}</td>
-                                    <td>{data.dateCompleted}</td>
-                                    <td className='iconU-option'></td>
+                                    <td>{data.order_no}</td>
+                                    <td>{data.status}</td>
+                                    <td>{data.supplier_no}</td>
+                                    <td>{data.supplier_name}</td>
+                                    <td>{moment(data.date_due).format("YYYY/MM/DD")}</td>
+                                    <td>{moment(data.date_received).format("YYYY/MM/DD")}</td>
+                                    <td>{moment(data.date_released).format("YYYY/MM/DD")}</td>
+                                    <td>{moment(data.date_completed).format("YYYY/MM/DD")}</td>
+                                    <td></td>
                                 </tr>
                             ) : 
                                 <div> No data available </div>

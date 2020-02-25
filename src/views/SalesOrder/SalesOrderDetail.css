@@ -2,12 +2,12 @@
     display:flex; 
     width:30%; 
     align-items:center;
-    margin-bottom: 13px;
+    margin-bottom: 1%;
     width: 100%;
 }
 .podtitle{
     color: #637176;
-    margin-right: 20px;
+    margin-right: 3%;
 }
 
 .podtitle:hover{
@@ -22,7 +22,7 @@
     background-color: white;
     padding: 1%;
     border-radius: 5px;
-    font-size: 17px;
+    font-size: 1.25em;
 }
 
 
@@ -36,8 +36,7 @@
     color: #B4B9BB;
 }
 .sub > table > tr > td {
-    height: 35px;
-    font-family: "Helvetica Neue Medium";
+    height: 40px;
 }
 
 .tableborderss{

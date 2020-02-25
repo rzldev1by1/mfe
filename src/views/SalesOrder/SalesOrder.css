@@ -95,11 +95,6 @@ table{
   height:50px;
 }
 
-.iconU-search{
-	vertical-align: middle;
-	color: #D5D8DA !important;
-}
-
 .search{
 	margin-top: 2.5%;
 	background-color: transparent;
@@ -118,7 +113,17 @@ table{
 	font-size: 1.2em;
 }
 
-
+.filterbar{
+	padding:15px;
+	min-width: 100%;
+	background-color: white;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	display: flex;
+	justify-content: space-between;
+	margin-top: -41px;
+	font-weight: bold;
+}
 
 .iconU-filters{
 	height: auto;
@@ -171,6 +176,11 @@ table{
 	margin-top: 1%;
 }
 
+.tr:hover{
+	background: #f0f0f0 !important;
+	cursor: pointer;
+}
+
 .createpotable > tr> td{
 	padding-right: 2% !important;
 }
@@ -195,4 +205,58 @@ table{
 .value-text{
 	font-family: Arial, Helvetica, sans-serif;
 	font-weight: 750;
+}
+.iconU-option{
+	font-size: 0.4em !important;
+	color: #B4B9BB !important;
+	text-align: center;
+	vertical-align: middle;
+}
+
+th.iconU-edit{
+	color: #22ABE3;
+	text-align: center;
+}
+.create > .iconU-edit{
+	margin-top: 2.5%;
+}
+
+.iconU-close{
+	margin-left: 5%;
+	vertical-align: middle !important;
+
+}
+.modal-title > .create >.iconU-edit:hover{
+	cursor: default;
+}
+
+.iconU-delete{
+	border:2px solid #e6e6e6;
+	border-radius: 5px;
+	font-size: 1.25em;
+	padding:10%;
+	text-align: center;
+	background-color: #E8E8E8;
+	color: #919191;
+	transition: ease-in;
+}
+
+.iconU-delete:hover{
+	cursor: pointer;
+	transition: ease-in;
+	color: white;
+}
+.iconU-edit {
+	font-size:1em !important;	
+}
+.iconU-edit{
+	margin-right: 5px;
+	margin-top: -8%;
+	vertical-align: middle !important;
+	cursor: pointer;
+}
+
+.iconU-search{
+	vertical-align: middle;
+	color: #D5D8DA !important;
 }
