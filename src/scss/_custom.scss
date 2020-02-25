@@ -186,7 +186,7 @@ body {
 .iconU-search:before {
 	content: "\e913";
 	display: inline-block;
-    font-size: 1.25rem !important;
+    font-size: 1rem !important;
 	vertical-align: middle;
 	color: #D5D8DA !important;
 }
@@ -217,7 +217,7 @@ body {
 	.sidebar-lg-show.sidebar-fixed .app-footer,
 	.sidebar-show.sidebar-fixed .main,
 	.sidebar-show.sidebar-fixed .app-footer {
-		margin-left: 300px !important;
+		margin-left: 294px !important;
 	}
 }
 
@@ -757,11 +757,10 @@ a.breadcrumb:hover {
 
 .table th {
     background-color: #FFFFFF;
-    color: #637176;
-    // color: #B4B9BB;
+    color: #B4B9BB;
 	border-top: none;
     vertical-align: middle !important;
-    font-family: "Helvetica Neue Medium";
+    font-family: "Helvetica Neue Bold";
     height: 45px;
     border-bottom: 2px solid #E2E2E2 !important;
     font-size: 1.1em;
@@ -773,8 +772,7 @@ a.breadcrumb:hover {
 
 .table td, .table-striped>tbody>tr>td {
     background-color: #FFFFFF;
-    color: #4E4E4E;
-    // color: #637175;
+    color: #637175;
 	vertical-align: middle !important;
     font-family: "Helvetica Neue Regular";
     height: 45px;

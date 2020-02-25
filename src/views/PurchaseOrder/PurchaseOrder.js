@@ -8,6 +8,7 @@ import axios from 'axios'
 import PurchaseOrderTable from './Component/PurchaseOrderTable'
 import {endpoint, headers} from '../../AppComponent/ConfigEndpoint'
 import Dropdown from '../../AppComponent/Dropdown'
+import Search from '../../AppComponent/Search'
 import PurchaseOrderCreate from './Component/PurchaseOrderCreate'
 import create from '../../assets/img/brand/button_create@2x.png'
 import Dropdowns from './Component/Dropdowns'
@@ -206,7 +207,7 @@ class PurchaseOrder extends Component {
                 this.state.autoArrays.map(data => <div onClick={(e) => this.selectedName(e)}>{data}</div>)
             }
             <div className='header'>
-                <h2 style={{marginTop:'0.2%'}}>Purchase Orders</h2>
+                <h2 style={{marginTop:'-5px'}}>Purchase Orders</h2>
                 <div className='header2'>
                     <Button onClick={() => this.openModal()} color="primary" className='createpo'>
                         <img src={create} style={{width:'7%', marginTop:6, marginLeft:15}}/>
@@ -216,12 +217,16 @@ class PurchaseOrder extends Component {
             </div>
             
             <div className='searchbar'>
-                <div className='inputgroup' style={{width:'82%'}}>
+                <Search showFilter={this.state.filterclicked}
+                        triggerShowFilter={() => this.setState({filterclicked: !this.state.filterclicked})}
+                        searchData={() => this.search()}
+                        placeholder="Enter a Product or Description" />
+                {/* <div className='inputgroup' style={{width:'82%'}}>
                     <label className='iconU-search isearch'/>
                     <input onChange={(e) => this.onchangesearch(e) } type='text' className='searchinput' placeholder='Enter a Site, Order No, Client or Supplier'/>
                 </div>
                 <Button onClick={() => this.setState({filterclicked: !this.state.filterclicked})} color="primary" className={'iconU-filter iconU-filters ' + ( this.state.filterclicked ? 'filterclicked' : null)}/>
-                <Button onClick={() => this.search()} color="primary" className='btnsearch'><label className='font'>Search</label></Button>
+                <Button onClick={() => this.search()} color="primary" className='btnsearch'><label className='font'>Search</label></Button> */}
             </div>
 
             <div className='filterbar'>
