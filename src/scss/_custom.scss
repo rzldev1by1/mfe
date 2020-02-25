@@ -63,17 +63,17 @@ body {
 }
 
 .iconU-dashboard:before {
-	content: "\e913"
+	content: "\e911"
 }
 
 .iconU-purchaseOrder:before {
-	content: "\e914";
+	content: "\e915";
     // font-size: 16px;
     font-size: 1rem;
 }
 
 .iconU-report:before {
-	content: "\e915";
+	content: "\e912";
 }
 
 .iconU-salesOrder:before {
@@ -83,42 +83,37 @@ body {
 }
 
 .iconU-stockHolding:before {
-	content: "\e914";
+	content: "\e90f";
 	// font-size: 16px;
     font-size: 1rem;
 }
 
 .iconU-i:before {
-	content: "\e918";
+	content: "\e90c";
 }
-
-.iconU-report:before {
-	content: "\e915";
-}
-
 
 .iconU-circledChecked:before {
-	content: "\e900";
+	content: "\e920";
 }
 
 .iconU-checked:before {
-	content: "\e90e";
+	content: "\e91f";
 }
 
 .iconU-close:after {
-	content: "\e901";
+	content: "\e91d";
 }
 
 .iconU-delete:before {
-	content: "\e902";
+	content: "\e925";
 }
 
 .iconU-edit:before {
-	content: "\e903";
+	content: "\e924";
 }
 
 .iconU-filter:before {
-	content: "\e904";
+	content: "\e918";
 	font-size: 1rem;
 }
 
@@ -134,21 +129,25 @@ body {
 	content: "\e906";
 }
 
-.iconU-rightArrows:after {
-	content: "\e906";
+.iconU-lastPage:after {
+	content: "\e908";
+}
+
+.iconU-firstPage:after {
+	content: "\e909";
 }
 
 .iconU-upArrow:before {
-	content: "\e910";
+	content: "\e91c";
 }
 
 .iconU-upArrows:after {
-	content: "\e910";
+	content: "\e91c";
 	font-size: 0.5em;
 }
 
 .iconU-downArrow:after {
-	content: "\e90f";
+	content: "\e91b";
 	font-size: 0.5em;
 }
 
@@ -157,27 +156,23 @@ body {
 }
 
 .iconU-two:before {
-	content: "\e90c";
+	content: "\e904";
 }
 
 .iconU-three:before {
-	content: "\e90b";
+	content: "\e903";
 }
 
 .iconU-option:before {
-	content: "\e908";
+	content: "\e91e";
 }
 
 .iconU-question:before {
-	content: "\e909";
-}
-
-.iconU-rightArrow:before {
-	content: "\e906";
+	content: "\e927";
 }
 
 .iconU-calendar:before {
-	content: "\e90d";
+	content: "\e928";
 }
 
 .iconU-lastPage:before{
@@ -197,8 +192,18 @@ body {
 }
 
 .iconU-field-dropdown:before {
-	content: "\e90f";
+	content: "\e91b";
 }
+
+.iconU-createModal:before {
+    content: "\e90b";
+}
+
+.iconU-logout:before {
+    content: "\e90a";
+}
+
+
 
 
 // Glyphicons Icons
@@ -605,7 +610,7 @@ a.breadcrumb:hover {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
-	content: "\e90f";
+	content: "\e91b";
 	color: #637176 !important;
     font-size: 5px;
     font-weight: bold;
