@@ -7,6 +7,7 @@ import { endpoint, headers } from '../../AppComponent/ConfigEndpoint';
 
 import HeaderTitle from '../../AppComponent/HeaderTitle';
 import Search from '../../AppComponent/Search';
+import Dropdown from '../../AppComponent/Dropdown';
 import StockHoldingTable from './StockHoldingTable';
 import Paging from '../General/Paging';
 import EditColumn from '../../AppComponent/EditColumn';
@@ -23,7 +24,11 @@ class StockHolding extends Component {
 			notFoundMessage: "",
 			showFilter: true,
 			isVisible: [],
-			showEditColumn: false,
+            showEditColumn: false,
+            
+            site: "",
+            status: "",
+            unit: "",
 
 			currentPage: 1,
 			startIndex: 0,
@@ -44,13 +49,18 @@ class StockHolding extends Component {
 				{ id: "expected_in_qty", checkboxLabelText: "Expected In Qty", tableHeaderText: "Expected In Qty", isVisible: true, key: "qty_lcd_expected", type: "number", sort: false },
 				{ id: "expected_in_weight", checkboxLabelText: "Expected In Weight", tableHeaderText: "Expected In Weight", isVisible: true, key: "wgt_expected", type: "number", sort: false },
 				{ id: "expected_out_qty", checkboxLabelText: "Expected Out Qty", tableHeaderText: "Expected Out Qty", isVisible: true, key: "qty_lcd_committed", type: "number", sort: false },
-			],
+            ],
+            masterSite: [],
+            masterStatus: ["All", "Unavailable", "Available", "Released", "Part Released", "Completed"],
+            masterUnit: ["EACH", "CASE", "PALLET"],
 			masterResStockHolding: []
-		};
+        };
+        
 		this.searchForm = React.createRef();
 	}
 
 	componentDidMount() {
+        this.getSite();
 		this.loadStockHolding();
 	}
 
@@ -94,6 +104,25 @@ class StockHolding extends Component {
 		self.numberEventClick(self.state.currentPage);
 	}
 
+    getSite = () => {   
+        let self = this;
+
+        axios.get(endpoint.getSite, {
+          headers: headers
+        })
+        .then(res => {
+            return res.data;
+        })
+        .catch(error => {
+            // this.props.history.push("/logins")
+        })
+        .then(function (result) {
+            if (result) {
+                self.setState({ masterSite: result });
+            }
+        });
+    }
+
     loadStockHolding = () => {
 		let self = this;
 		self.setState({ isLoaded: true, isSearch: true,
@@ -117,7 +146,7 @@ class StockHolding extends Component {
             }
             return error;
         })
-        .then(function(result) {
+        .then(function (result) {
             if (result.data) {
                 self.setPagination(result.data);
             }
@@ -126,20 +155,21 @@ class StockHolding extends Component {
     }
 
 	searchData = () => {
-		let self = this;
+        const { site, status, unit } = this.state;
+        let self = this;
+        
 		self.setState({ isLoaded: true, isSearch: true,
 						currentPage: 1,
 						startIndex: 0, lastIndex: 0,
 						totalRows: 0, maxPage: 0, displayContent: "INIT" });
 
 		let form = self.searchForm.current;
-
-		// if (!searchTerm) { return };
-		let params = {};
+        let params = {};
+        
 		params.searchParam = form.searchInput.value;
-		if (form.filterSite.value) { params.site = form.filterSite.value; }
-		if (form.filterStatus.value) { params.status = form.filterStatus.value; }
-		if (form.filterUoM.value) { params.packdesc_1 = form.filterUoM.value; }
+        if (site !== "") { params.site = site }
+        if (status !== "") { params.status = status }
+        if (unit !== "") { params.unit = unit }
 
         axios.get(endpoint.stockHoldingSummary, {
             params: params,
@@ -164,6 +194,49 @@ class StockHolding extends Component {
 			self.setState({ isLoaded: false, isSearch: false });
 		});
 	}
+
+    selectedSite = (site) => {
+        this.setState({ site: site });
+    }
+
+    selectedStatus = (status) => {
+        this.setState({ status: status });
+    }
+
+    selectedUnit = (unit) => {
+        this.setState({ unit: unit });
+    }
+
+    showDropdown = () => {
+        let masterSite = [];
+        if (this.state.masterSite.length > 0) {
+            this.state.masterSite.map((item) => {
+                masterSite.push(item.site);
+            });
+        }
+
+        let masterStatus = this.state.masterStatus.toString();
+        let masterUnit = this.state.masterUnit.toString();
+
+        return (
+            <div className={"input-group filterSection" + (this.state.showFilter ? "" : " d-none")}>
+                <Dropdown placeHolder="Site"
+                          optionList={masterSite.toString()}
+                          optionValue={masterSite.toString()}
+                          getValue={this.selectedSite} />
+
+                <Dropdown placeHolder="Status"
+                        optionList={masterStatus}
+                        optionValue={masterStatus}
+                        getValue={this.selectedStatus} />
+
+                <Dropdown placeHolder="UOM"
+                        optionList={masterUnit}
+                        optionValue={masterUnit}
+                        getValue={this.selectedUnit} />
+            </div>
+        );
+    }
 
 	triggerShowFilter = (e) => {
 		e.stopPropagation();
@@ -289,35 +362,7 @@ class StockHolding extends Component {
                                                                                 triggerShowFilter={this.triggerShowFilter}
                                                                                 searchData={this.searchData}
                                                                                 placeholder="Enter a Product or Description" />
-                                                                        <div className={"input-group filterSection" + (this.state.showFilter ? "" : " d-none")}>
-                                                                            <Col className="filterDropdown arrow-icon">
-                                                                                <select className="form-control selectDropdown" id="filterSite" name="filterSite">
-                                                                                    <option value="">Site</option>
-                                                                                    <option value="M">Site M</option>
-                                                                                    <option value="S">Site S</option>
-                                                                                </select>
-                                                                            </Col>
-
-                                                                            <Col className="filterDropdown arrow-icon">
-                                                                                <select className="form-control selectDropdown" id="filterStatus" name="filterStatus">
-                                                                                    <option value="">Status</option>
-                                                                                    <option value="Q">Status Q</option>
-                                                                                    <option value="D">Status D</option>
-                                                                                    <option value="E">Status E</option>
-                                                                                    <option value="I">Status I</option>
-                                                                                    <option value="F">Status F</option>
-                                                                                </select>
-                                                                            </Col>
-
-                                                                            <Col className="filterDropdown arrow-icon">
-                                                                                <select className="form-control selectDropdown" id="filterUoM" name="filterUoM">
-                                                                                    <option value="">UOM</option>
-                                                                                    <option value="EACH">EACH</option>
-                                                                                    <option value="CASE">CASE</option>
-                                                                                    <option value="PALLET">PALLET</option>
-                                                                                </select>
-                                                                            </Col>
-                                                                        </div>
+                                                                        {this.showDropdown()}
 																	</Card>
 																</div>
 															</InputGroup>
