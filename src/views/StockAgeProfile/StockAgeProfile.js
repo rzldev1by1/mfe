@@ -141,25 +141,29 @@ class StockAgeProfile extends Component {
         this.changeLastIndex(page);
     }
 
-    nextPageClick = () => {
-        if (this.state.currentPage < this.state.maxPage) {
-            this.setState((prev) => {
-                currentPage : prev.currentPage++;
-                this.changeStartIndex(prev.currentPage);
-                this.changeLastIndex(prev.currentPage);
-            });
+	nextPageClick = () => {
+		if (this.state.currentPage < this.state.maxPage) {
+			this.setState((prev) => { 
+                currentPage: prev.currentPage++;
+            }, () => {
+				this.changeStartIndex(this.state.currentPage);
+				this.changeLastIndex(this.state.currentPage);
+			});
         }
-    }
+        return;
+	}
 
-    backPageClick = () => {
-        if (this.state.currentPage > 1) {
-            this.setState((prev) => {
-                currentPage : prev.currentPage--;
-                this.changeStartIndex(prev.currentPage);
-                this.changeLastIndex(prev.currentPage);
-            });
+	backPageClick = () => {
+		if (this.state.currentPage > 1) {
+			this.setState((prev) => { 
+                currentPage: prev.currentPage--;
+            }, () => {
+				this.changeStartIndex(this.state.currentPage);
+				this.changeLastIndex(this.state.currentPage);
+			});
         }
-    }
+        return;
+	}
 
     render() {
         let content;

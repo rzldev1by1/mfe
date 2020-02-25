@@ -88,13 +88,14 @@ class StockDetails extends Component {
         }
         return;
     }   
-    
+
 	nextPageClick = () => {
 		if (this.state.currentPage < this.state.maxPage) {
-			this.setState((prev) => {
-				prev.currentPage++;
-				this.changeStartIndex(prev.currentPage);
-				this.changeLastIndex(prev.currentPage);
+			this.setState((prev) => { 
+                currentPage: prev.currentPage++;
+            }, () => {
+				this.changeStartIndex(this.state.currentPage);
+				this.changeLastIndex(this.state.currentPage);
 			});
         }
         return;
@@ -102,10 +103,11 @@ class StockDetails extends Component {
 
 	backPageClick = () => {
 		if (this.state.currentPage > 1) {
-			this.setState((prev) => {
-				prev.currentPage--;
-				this.changeStartIndex(prev.currentPage);
-				this.changeLastIndex(prev.currentPage);
+			this.setState((prev) => { 
+                currentPage: prev.currentPage--;
+            }, () => {
+				this.changeStartIndex(this.state.currentPage);
+				this.changeLastIndex(this.state.currentPage);
 			});
         }
         return;
