@@ -1,7 +1,8 @@
 .movementBtnSearch{
-	height: 50px;
+	height: 40px;
 	width: 100%;
-	font-size:1.2rem;
+	font-size:1.1rem;
+	font-family: "Helvetica Neue light";
 }
 
 .movementData{
@@ -130,7 +131,7 @@
 	background-color: white;
 	border-radius: 5px;
 	margin-top: 1.4%;
-	padding: 1%;
+	padding: 20px;
 
   }
 
@@ -149,10 +150,14 @@
 
 .ddlMovement{
 	width: 70%;
+	height: 40px !important;
+	border: 1px solid #d5d8da !important; 
 }
 
 .ddlMovementDate{
 	width: 95%;
+	height: 40px !important;
+	border: 1px solid #d5d8da !important; 
 }
 
 .datePicker{
@@ -200,6 +205,11 @@
 }
 
 .stockMovementParent{
-	margin-left: -0.5%;
-	margin-right: -0.8%;
+	margin-left: -1%;
+	margin-right: -1.4%;
+}
+
+.searchParameterTitle{
+	font-family: "Helvetica Neue Medium";
+	color: #b4b9bb;
 }

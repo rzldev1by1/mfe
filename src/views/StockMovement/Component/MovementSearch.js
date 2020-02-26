@@ -66,7 +66,7 @@ export default class MovementSearch extends Component {
             <div>
                 <table width='100%'>
 						<tr>
-							<td width='4%'>Display Period</td>
+							<td className='searchParameterTitle' width='5.5%'>Display Period</td>
 
 							<td width='10%'>
                                 <div className='dropdown'>
@@ -81,7 +81,7 @@ export default class MovementSearch extends Component {
                                 </div>
 							</td>
 
-							<td width='3%'>Date From</td>
+							<td className='searchParameterTitle' width='4%'>Date From</td>
 
 							<td width='10%'>
                                 <div>
@@ -96,7 +96,7 @@ export default class MovementSearch extends Component {
                                 </div>                                  
 							</td>
 
-							<td width='2.5%'>Date To</td>
+							<td className='searchParameterTitle' width='3%'>Date To</td>
 
 							<td width='10%'>
                                 <div onMouseLeave={() => this.setState({dateToShow:false})}>
@@ -110,7 +110,7 @@ export default class MovementSearch extends Component {
 							</td>
 
 							<td width='5%'>
-                            <Button onClick={()=> this.movementSearch()} className='movementBtnSearch' color="primary">Search</Button>
+                            <Button className='movementSearchButton' onClick={()=> this.movementSearch()} className='movementBtnSearch' color="primary">Search</Button>
 							</td>
 						</tr>
 					</table>
