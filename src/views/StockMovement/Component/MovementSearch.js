@@ -61,56 +61,68 @@ export default class MovementSearch extends Component {
         }
     }
 
+    displayPeriod = () => {
+        return(
+            <div className='displayParent'>
+                <div className='searchParameterTitle dp'>Display Period</div>
+                <div className='dropdown ddlSearchParam'>
+                    <div className='displayButtonToggle'>
+                    <button onClick={() => this.periodExpand()} className='btn dropdown-button ddlMovement' data-toggle='dropdown'>
+                        {this.state.periodSelected ? this.state.periodText :'Display Period'}
+                    </button>
+                    <div className='dropdown-toggle'/>
+                    </div>
+                    <div class={'dropdown-menu ' + (this.state.periodExpand ? 'show' : null)}>
+                        <div onClick={(e) => this.periodHanlder(e)} className='dropdown-item' id='day'>Daily</div>
+                        <div onClick={(e) => this.periodHanlder(e)} className='dropdown-item' id='week'>Weekly</div>
+                        <div onClick={(e) => this.periodHanlder(e)} className='dropdown-item' id='month'>Monthly</div>
+                    </div>
+                </div>
+            </div> 
+        )
+    }
+
+    displayDate = () => {
+        return(
+            <div className='displayParent middles'>
+                <div className='searchParameterTitleDate'>Date From</div>
+                <div onMouseLeave={() => this.setState({dateFromShow:false})}>
+                <div className='displayButtonToggle'>
+                    <button onClick={()=> this.setState({dateFromShow:!this.state.dateFromShow})} className='btn dropdown-button ddlMovementDate' data-toggle='dropdown'>
+                        {this.state.dateFromText ? this.state.dateFromText : 'Select Date'}
+                    </button>
+                    <div className='dropdown-toggle'/>
+                    </div>
+                    <div  class='datePicker'>
+                    {this.state.dateFromShow ? <DatePicker selectedDays={moment(this.state.dateFromSelected)} getChosenDay={(day) => this.dateFromHandler(day)}/> : null}
+                    </div>
+                </div> 
+
+                <div style={{marginLeft:'45px'}} className='searchParameterTitleDate'>Date To</div>
+                <div onMouseLeave={() => this.setState({dateToShow:false})}>
+                <div className='displayButtonToggle'>
+                    <button onClick={()=> this.setState({dateToShow:!this.state.dateToShow})} className='btn dropdown-button ddlMovementDate' data-toggle='dropdown'>
+                        {this.state.dateToText ? this.state.dateToText : 'Select Date'}
+                    </button>
+                    <div className='dropdown-toggle'/>
+                    </div>
+                    <div class='datePicker'>
+                    {this.state.dateToShow ? <DatePicker getChosenDay={(day) => this.dateToHandler(day)}/> : null}
+                    </div>
+                </div>  
+            </div> 
+        )
+    }
+
     render(){
         return(
             <div>
                 <table width='100%'>
 						<tr>
-							<td className='searchParameterTitle' width='5.5%'>Display Period</td>
-
-							<td width='10%'>
-                                <div className='dropdown'>
-                                    <button onClick={() => this.periodExpand()} className='btn dropdown-button dropdown-toggle ddlMovement' data-toggle='dropdown'>
-                                        {this.state.periodSelected ? this.state.periodText :'Display Period'}
-                                    </button>
-                                    <div class={'dropdown-menu ' + (this.state.periodExpand ? 'show' : null)}>
-                                        <div onClick={(e) => this.periodHanlder(e)} className='dropdown-item' id='day'>Daily</div>
-                                        <div onClick={(e) => this.periodHanlder(e)} className='dropdown-item' id='week'>Weekly</div>
-                                        <div onClick={(e) => this.periodHanlder(e)} className='dropdown-item' id='month'>Monthly</div>
-                                    </div>
-                                </div>
-							</td>
-
-							<td className='searchParameterTitle' width='4%'>Date From</td>
-
-							<td width='10%'>
-                                <div>
-                                    <div onMouseLeave={() => this.setState({dateFromShow:false})}>
-                                        <button onClick={()=> this.setState({dateFromShow:!this.state.dateFromShow})} className='btn dropdown-button dropdown-toggle ddlMovementDate' data-toggle='dropdown'>
-                                            {this.state.dateFromText ? this.state.dateFromText : 'Select Date'}
-                                        </button>
-                                        <div  class='datePicker'>
-                                        {this.state.dateFromShow ? <DatePicker selectedDays={moment(this.state.dateFromSelected)} getChosenDay={(day) => this.dateFromHandler(day)}/> : null}
-                                        </div>
-                                    </div> 
-                                </div>                                  
-							</td>
-
-							<td className='searchParameterTitle' width='3%'>Date To</td>
-
-							<td width='10%'>
-                                <div onMouseLeave={() => this.setState({dateToShow:false})}>
-                                    <button onClick={()=> this.setState({dateToShow:!this.state.dateToShow})} className='btn dropdown-button dropdown-toggle ddlMovementDate' data-toggle='dropdown'>
-                                        {this.state.dateToText ? this.state.dateToText : 'Select Date'}
-                                    </button>
-                                    <div class='datePicker'>
-                                    {this.state.dateToShow ? <DatePicker getChosenDay={(day) => this.dateToHandler(day)}/> : null}
-                                    </div>
-                                </div>                                   
-							</td>
-
-							<td width='5%'>
-                            <Button className='movementSearchButton' onClick={()=> this.movementSearch()} className='movementBtnSearch' color="primary">Search</Button>
+							<td width='20%'>{this.displayPeriod()}</td>
+							<td width='36%'>{this.displayDate()}</td>
+							<td  width='8%'>
+                            <Button  onClick={()=> this.movementSearch()} className='movementBtnSearch' color="primary">Search</Button>
 							</td>
 						</tr>
 					</table>

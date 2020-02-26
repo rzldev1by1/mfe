@@ -38,8 +38,7 @@ class StockMovement extends Component {
 						<Pagination sliceValue={(startIndex, endIndex) => this.getStockMovement.current.setSliceValue(startIndex, endIndex)} 
 												ref={this.setPagiantion} data={this.state.data} 
 												rows={3}/> 
-					</div>
-						 
+					</div>						 
 			</div>
 		)
 	}
