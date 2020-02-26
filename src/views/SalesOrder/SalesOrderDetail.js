@@ -24,9 +24,7 @@ class SalesOrderDetail extends Component {
 }
 
     getheaderdetail = () => {
-        this.setState({complete:false})
-        let param = window.location.href.split("/").pop()
-        axios.get(endpoint.salesOrder + '/' +param, {
+        axios.get(endpoint.salesOrder ,{
           headers: headers
         })
           .then(res => {
@@ -190,7 +188,7 @@ class SalesOrderDetail extends Component {
           </div>
           
           {
-              this.state.head.length ? this.head() : alert(this.head)
+              this.state.head.length ? this.head() : null
           }
             {/* <div className={'tablecontent ' + ( this.state.head.length ? 'fades ' : 'hidden')}>
             <SODTable ref={this.potableref} className='animated fadeIn' style={{display:'none'}} head = {this.state.head}><tr></tr></SODTable>
