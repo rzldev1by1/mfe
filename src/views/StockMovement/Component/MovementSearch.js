@@ -66,9 +66,9 @@ export default class MovementSearch extends Component {
             <div>
                 <table width='100%'>
 						<tr>
-							<td width='8%'>Display Period</td>
+							<td width='4%'>Display Period</td>
 
-							<td width='20%'>
+							<td width='10%'>
                                 <div className='dropdown'>
                                     <button onClick={() => this.periodExpand()} className='btn dropdown-button dropdown-toggle ddlMovement' data-toggle='dropdown'>
                                         {this.state.periodSelected ? this.state.periodText :'Display Period'}
@@ -81,22 +81,24 @@ export default class MovementSearch extends Component {
                                 </div>
 							</td>
 
-							<td width='8%'>Date From</td>
+							<td width='3%'>Date From</td>
 
-							<td width='20%'>
-                                <div onMouseLeave={() => this.setState({dateFromShow:false})}>
-                                    <button onClick={()=> this.setState({dateFromShow:!this.state.dateFromShow})} className='btn dropdown-button dropdown-toggle ddlMovementDate' data-toggle='dropdown'>
-                                        {this.state.dateFromText ? this.state.dateFromText : 'Select Date'}
-                                    </button>
-                                    <div  class='datePicker'>
-                                    {this.state.dateFromShow ? <DatePicker selectedDays={moment(this.state.dateFromSelected)} getChosenDay={(day) => this.dateFromHandler(day)}/> : null}
-                                    </div>
-                                </div>                                   
+							<td width='10%'>
+                                <div>
+                                    <div onMouseLeave={() => this.setState({dateFromShow:false})}>
+                                        <button onClick={()=> this.setState({dateFromShow:!this.state.dateFromShow})} className='btn dropdown-button dropdown-toggle ddlMovementDate' data-toggle='dropdown'>
+                                            {this.state.dateFromText ? this.state.dateFromText : 'Select Date'}
+                                        </button>
+                                        <div  class='datePicker'>
+                                        {this.state.dateFromShow ? <DatePicker selectedDays={moment(this.state.dateFromSelected)} getChosenDay={(day) => this.dateFromHandler(day)}/> : null}
+                                        </div>
+                                    </div> 
+                                </div>                                  
 							</td>
 
-							<td width='8%'>Date To</td>
+							<td width='2.5%'>Date To</td>
 
-							<td width='20%'>
+							<td width='10%'>
                                 <div onMouseLeave={() => this.setState({dateToShow:false})}>
                                     <button onClick={()=> this.setState({dateToShow:!this.state.dateToShow})} className='btn dropdown-button dropdown-toggle ddlMovementDate' data-toggle='dropdown'>
                                         {this.state.dateToText ? this.state.dateToText : 'Select Date'}
@@ -107,7 +109,7 @@ export default class MovementSearch extends Component {
                                 </div>                                   
 							</td>
 
-							<td width='10%'>
+							<td width='5%'>
                             <Button onClick={()=> this.movementSearch()} className='movementBtnSearch' color="primary">Search</Button>
 							</td>
 						</tr>

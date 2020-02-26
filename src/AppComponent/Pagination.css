@@ -56,11 +56,11 @@
 }
 
 .paginationInputPage > input{
-    width: 25%;
+    width: 20%;
     border: 2px solid #E2E2E2;
 }
 
-.paginationInputPage > label > .iconU-rightArrows{
+.paginationInputPage > label > .iconU-rightArrow{
     font-size: 0.6vw;
     margin-left: 5px;
 }

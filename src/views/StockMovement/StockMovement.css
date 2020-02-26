@@ -81,6 +81,7 @@
   .tet{
 	width: 5rem !important;
 	text-align: center;
+	margin-bottom: 1px;
   }
 
   .productList{
@@ -121,14 +122,14 @@
 
   .movementHeader{
 	  width: 100%;
-	  margin-top: 1%;
+	  margin-top: 1.5%;
   }
 
   .movementSearch{
 	width: 100%;	
 	background-color: white;
 	border-radius: 5px;
-	margin-top: 1%;
+	margin-top: 1.4%;
 	padding: 1%;
 
   }
@@ -137,7 +138,7 @@
 	width: 100%;	
 	background-color: white;
 	border-radius: 5px;
-	margin-top: 1.5%;
+	margin-top: 1%;
 	padding-bottom: -1% !important;
   }
 
@@ -151,7 +152,7 @@
 }
 
 .ddlMovementDate{
-	width: 60%;
+	width: 95%;
 }
 
 .datePicker{
@@ -196,4 +197,9 @@
 
 .movementTable{
 	overflow: scroll !important;
+}
+
+.stockMovementParent{
+	margin-left: -0.5%;
+	margin-right: -0.8%;
 }

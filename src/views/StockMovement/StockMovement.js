@@ -25,7 +25,7 @@ class StockMovement extends Component {
 
 	render() {
 		return (
-			<div className='animated fadeIn'>
+			<div className='animated fadeIn stockMovementParent'>
 				<div className='movementHeader'>
 					<h2>Stock Movement</h2>
 				</div>
