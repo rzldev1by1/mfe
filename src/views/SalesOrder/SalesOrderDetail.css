@@ -39,6 +39,11 @@
     height: 40px;
 }
 
+.hori{
+    border-left: 2px solid #D5D8DA;
+    height: 34px;
+}
+
 .tableborderss{
     border-left: 2px solid #D5D8DA;
 }

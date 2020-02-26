@@ -89,7 +89,7 @@ console.log(this.state.listOrder)
         </div> 
           
         <FilterComponent />
-        <div className='filterbar'>
+        <div className='dropdown'>
                 <div style={{display:'flex', width:'100%'}}>
                     {
                         this.state.filterclicked ? null :
@@ -103,8 +103,6 @@ console.log(this.state.listOrder)
         <ListOrderComponent ref={this.potableref} className='animated fadeIn' loadCompleteHandler = {(v) =>  this.setState({complete: v})} />
         </div>
         <div className={( this.state.complete ? 'hidden': 'spinner')}/>
-         
-        {/* <ListOrderComponent/> */}
     </div>)
   }
 }
