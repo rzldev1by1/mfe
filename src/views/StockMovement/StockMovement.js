@@ -33,7 +33,11 @@ class StockMovement extends Component {
 				<div className='movementSearch'>
 					<MovementSearch getStockMovement = {(dateFrom, dateTo, period) => this.getStockMovements(dateFrom, dateTo, period)}/>
 				</div>
-					<Movement ref={this.getStockMovement} data={(data) => this.setState({data:data},() => this.setPagiantion.current.getData(this.state.data))}/>
+				<div className={this.state.data.length > 0 ? 'fades' : 'hidden'}>
+				<Movement ref={this.getStockMovement} data={(data) => this.setState({data:data},() => this.setPagiantion.current.getData(this.state.data))}/>
+				</div>
+				<div className={this.state.data.length > 0 ? 'hidden' : 'spinner'}/>
+					
 					<div className={this.state.data.length > 0 ? 'fades' : 'hidden'}>
 						<Pagination sliceValue={(startIndex, endIndex) => this.getStockMovement.current.setSliceValue(startIndex, endIndex)} 
 												ref={this.setPagiantion} data={this.state.data} 
