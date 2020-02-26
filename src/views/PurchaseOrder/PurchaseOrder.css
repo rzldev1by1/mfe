@@ -73,6 +73,13 @@ h1{
 	font-size:1em !important;	
 }
 
+.iconU-createModal {
+	font-size: 130% !important;
+    margin-right: 13px;
+    margin-top: 7px;
+}
+
+
 .font{
 	font-family: Light 100px/105px "Helvetica Neue Medium" !important;
 	font-size: 1.5em;
@@ -547,7 +554,7 @@ select option:hover{
 
 .createdec{
 	margin-left: 10%;
-    margin-top: -3%;
+    margin-top: -1%;
 	width: 580px;
 	font-family: Arial, Helvetica, sans-serif;
 }

@@ -181,7 +181,7 @@
                   <th>Vendor Order Ref</th>
               </tr>
               <tr>
-              <td><Dropdown placeHolder="Order Type" style={{width: "100%", zIndex: "0"}} optionList="Type 1,Type 2" optionValue="Type 1,Type 2" getValue={this.getOrderTypeSelected}/></td>
+              <td><Dropdown placeHolder="Order Type" style={{minWidth: "100%", zIndex: "0"}} optionList="Type 1,Type 2" optionValue="Type 1,Type 2" getValue={this.getOrderTypeSelected}/></td>
                   <td><input className="form-control" value='PO-003'/></td>
                   <td>
                     <div className='inputDate '>
@@ -286,11 +286,12 @@
             <div className={'tablerow ' + (this.state.rowlist.length >2 ? 'scroll' : null )} style={{width:'100%'}} >
               {this.state.rowlist.map((list, i) => this.linedetailsrowreview(list, i))}
             </div>
-            <tr style={{color:'transparent'}}>1</tr>
+            <div style={{marginTop:"7%"}}>
             {this.state.tab2isactive ? 
                 this.submit() :  
-                <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch next btnleft' ><label className='font btnLabel '>Next</label></Button>
+                <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch next btnleft' ></Button>
               } 
+            </div>
         </div>
       )
     }
@@ -430,8 +431,8 @@
     submit = () => {
       return(
         <React.Fragment>
-          {/* <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch back' ><label className='font'>Back</label></Button> */}
-          <Button onClick={() => this.close()} color="primary" className='btnsearch submit btnleft' ><label className='font'>Submit</label></Button>        
+          <Button onClick={() => this.tabhandler()} color="primary" className='btnsearch back' ><label className='font'>Back</label></Button>
+          <Button onClick={() => this.close()} color="primary" className='btnsearch submit btnleft' style={{marginTop:'-50px'}} ><label className='font'>Submit</label></Button>        
         </React.Fragment>      
       )
     }
@@ -441,7 +442,7 @@
             <Modal  isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }}
             toggle={true} className="POCreate">
             <ModalHeader    >
-              <div className='create' style={{marginLeft:'2%'}}><label className='iconU-edit'/><label className='font'>Create Purchase Orders</label></div>
+              <div className='create' style={{marginLeft:'1.5%'}}><label className='iconU-createModal'/><label className='font'>Create Purchase Orders</label></div>
               <p style={{fontSize:'45px',width:'100px',fontWeight: '100',fontFamily:'cursive'}} color="primary" className=''  onClick={() => this.close()}>X</p>
             </ModalHeader>
             <ModalHeader className='Tab' >
@@ -451,10 +452,10 @@
                 </div>
                 <div className='tabs font'>
                   <div style={{color:'#919191'}} onClick={() => this.tabhandler()} className={'tab1 ' + (this.state.tab1isactive ? 'tabisactive' : null)}>
-                    <img className='numberimg' src={this.state.tab1isactive ? oneactive : oneinactive}/>  Order & Product Details
+                    <img className='numberimg' style={{width:"9%"}} src={this.state.tab1isactive ? oneactive : oneinactive}/>  Order & Product Details
                   </div>
                   <div  style={{color:'#919191'}} onClick={() => this.tabhandler()} className={'tab2 tab-review ' + (this.state.tab2isactive ? 'tabisactive' : null)}>
-                    <img className='numberimg ' src={this.state.tab2isactive ? twoactive : twoinactive}/> Review
+                    <img className='numberimg ' style={{width:"22%"}} src={this.state.tab2isactive ? twoactive : twoinactive}/> Review
                   </div>
                 </div>
               </div>
