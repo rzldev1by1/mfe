@@ -149,14 +149,6 @@
 	margin-bottom: 1% !important;
   }
 
-  .movementBody > .themed-container{
-	  padding-bottom: -10px !important;
-  }
-
-  .movementBody{
-	padding-bottom: -100px !important;
-}
-
   .dropdown-item:hover{
 	background-color: #20a8d8;
 	cursor: pointer;
