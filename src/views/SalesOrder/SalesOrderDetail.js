@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Table,Button, Card, CardBody, Label} from 'reactstrap'
 import './SalesOrder.css';
 import './SalesOrderDetail.css'
+// import SODTable from './Components/SODTable'
 import axios from 'axios'
 import {endpoint, headers} from '../../AppComponent/ConfigEndpoint'
 
@@ -11,25 +12,24 @@ class SalesOrderDetail extends Component {
 
     this.potableref = React.createRef()
     this.state={
-      complate : false,
-      datahead:[],
+        complete : false,
+      head:[],
       datadetail:[]
     }
   }
 
   componentDidMount(){
     this.getheaderdetail()
+    // this.load()
 }
 
     getheaderdetail = () => {
-        this.setState({complete:false})
-        let param = window.location.href.split("/").pop()
-        axios.get(endpoint.salesOrder + '/' +param, {
+        axios.get(endpoint.salesOrder ,{
           headers: headers
         })
           .then(res => {
             const result = res.data.data
-            this.setState({ datahead:result})
+            this.setState({ head:result})
             
             
           })
@@ -38,43 +38,33 @@ class SalesOrderDetail extends Component {
           })
     }
     
-    header = () =>{
-      let site = this.state.datahead.length ? this.state.datahead[0].site : null
-      let client = this.state.datahead.length ? this.state.datahead[0].client : null
-      let orderNo = this.state.datahead.length ? this.state.datahead[0].order_no : null
-      let dateDue = this.state.datahead.length ? this.state.datahead[0].date_due : null
-      let orderType = this.state.datahead.length ? this.state.datahead[0].order_type : null
-      let suppliedInFull = this.state.datahead.length ? this.state.datahead[0].supplied_in_full : null
-      let consignmentNumber = this.state.datahead.length ? this.state.datahead[0].consignment_number : null
-      let freightCharge = this.state.datahead.length ? this.state.datahead[0].freight_charge : null
-      let custOrderNumber = this.state.datahead.length ? this.state.datahead[0].cust_order_number : null
-      let customerPoNo = this.state.datahead.length ? this.state.datahead[0].customer_po_no : null
-      let shipToName = this.state.datahead.length ? this.state.datahead[0].ship_to_name : null
-      let dateReceived = this.state.datahead.length ? this.state.datahead[0].date_recd : null
-      let dateReleased = this.state.datahead.length ? this.state.datahead[0].date_released : null
-      let pickStart = this.state.datahead.length ? this.state.datahead[0].pick_start : null
-      let dateCompleted = this.state.datahead.length ? this.state.datahead[0].date_completed : null
-      let area = this.state.datahead.length ? this.state.datahead[0].area: null
-      let customerName = this.state.datahead.length ? this.state.datahead[0].customer_name : null
-      let pod = this.state.datahead.length ? this.state.datahead[0].pod : null
-      let arrivalDateScheduled = this.state.datahead.length ? this.state.datahead[0].arrival_date_scheduled : null
-      let arrivalDateActual = this.state.datahead.length ? this.state.datahead[0].arrival_date_actual: null
-      let departureDateScheduled = this.state.datahead.length ? this.state.datahead[0].departure_date_scheduled : null
-
-      let status = this.state.datahead.length ? this.state.datahead[0].status : null
-      let deliveryAccount = this.state.datahead.length ? this.state.datahead[0].delivery_account : null
-      let acceptedBy = this.state.datahead.length ? this.state.datahead[0].accepted_by: null
-      let signatureDtime= this.state.datahead.length ? this.state.datahead[0].signature_dtime : null
-      let dateLoaded= this.state.datahead.length ? this.state.datahead[0].date_loaded : null
-
-      let loadoutStart = this.state.datahead.length ? this.state.datahead[0].loadout_start: null
-      let loadoutFinish= this.state.datahead.length ? this.state.datahead[0].loadout_finish : null
-      let lineCount= this.state.datahead.length ? this.state.datahead[0].line_count : null
+    head = () =>{
+      let site = this.state.head.length ? this.state.head[0].site : null
+      let client = this.state.head.length ? this.state.head[0].client : null
+      let orderNo = this.state.head.length ? this.state.head[0].order_no : null
+      let dateDue = this.state.head.length ? this.state.head[0].date_due : null
+      let orderType = this.state.head.length ? this.state.head[0].order_type : null
+      let consignmentNumber = this.state.head.length ? this.state.head[0].consignment_number : null
+      let freightCharge = this.state.head.length ? this.state.head[0].freight_charge : null
+      let custOrderNumber = this.state.head.length ? this.state.head[0].cust_order_number : null
+      let customerPoNo = this.state.head.length ? this.state.head[0].customer_po_no : null
+      let shipToName = this.state.head.length ? this.state.head[0].ship_to_name : null
+      let dateReceived = this.state.head.length ? this.state.head[0].date_recd : null
+      let dateReleased = this.state.head.length ? this.state.head[0].date_released : null
+      let pickStart = this.state.head.length ? this.state.head[0].pick_start : null
+      let dateCompleted = this.state.head.length ? this.state.head[0].date_completed : null
+      let customerName = this.state.head.length ? this.state.head[0].customer_name : null
+      let status = this.state.head.length ? this.state.head[0].status : null
+      let deliveryAccount = this.state.head.length ? this.state.head[0].delivery_account : null
+      let dateLoaded= this.state.head.length ? this.state.head[0].date_loaded : null
+      let loadoutStart = this.state.head.length ? this.state.head[0].loadout_start: null
+      let loadoutFinish= this.state.head.length ? this.state.head[0].loadout_finish : null
+      let lineCount= this.state.head.length ? this.state.head[0].line_count : null
 
       return(
         <div className='podheader fades'>                    
             <div className='sub'>                        
-                <table style={{width:'70%'}}>
+                <table style={{width:'100%'}}>
                     <tr>
                         <th>Site</th>
                         <td>{site ? site : '-'}</td>
@@ -89,15 +79,11 @@ class SalesOrderDetail extends Component {
                     </tr>
                     <tr>
                         <th>Order Due</th>
-                        <td>{dateDue ? dateDue : '-'}</td>
+                        <td>{dateDue ? dateDue.substring(0, 11)  : '-'}</td>
                     </tr>
                     <tr>
                         <th>Order Type</th>
                         <td>{orderType ? orderType : '-'}</td>
-                    </tr>
-                    <tr>
-                        <th>Supplied in Full</th>
-                        <td>{suppliedInFull ? suppliedInFull : '-'}</td>
                     </tr>
                     <tr>
                         <th>Consignment No</th>
@@ -108,14 +94,18 @@ class SalesOrderDetail extends Component {
                         <td>{freightCharge ? freightCharge : '-'}</td>
                     </tr>
                     <tr>
-                        <th>Order Type</th>
-                        <td>{orderType ? orderType : '-'}</td>
-                    </tr>
-                    <tr>
                         <th>Customer Order No</th>
                         <td>{custOrderNumber ? custOrderNumber : '-'}</td>
                     </tr>
-                    <tr>
+
+                </table>
+            </div>
+
+            <div className='sub' style={{width:'70%'}}>
+                
+                <table className='tableborderss' style={{width:'100%'}}>
+                    
+                     <tr>
                         <th>Customer PO No</th>
                         <td>{customerPoNo ? customerPoNo : '-'}</td>
                     </tr>
@@ -123,19 +113,13 @@ class SalesOrderDetail extends Component {
                         <th>Ship To Name</th>
                         <td>{shipToName ? shipToName : '-'}</td>
                     </tr>
-
-                </table>
-            </div>
-
-            <div className='sub' style={{width:'70%'}}>
-                <table className='tableborderss' style={{width:'90%'}}>
                      <tr>
                         <th>Date Received</th>
-                        <td>{dateReceived ? dateReceived : '-'}</td>
+                        <td>{dateReceived ? dateReceived.substring(0, 11) : '-'}</td>
                     </tr>
                     <tr>
                         <th>Date Released</th>
-                        <td>{dateReleased ? dateReleased : '-'}</td>
+                        <td>{dateReleased ? dateReleased.substring(0, 11) : '-'}</td>
                     </tr>
                     <tr>
                         <th>Pick Start</th>
@@ -143,34 +127,14 @@ class SalesOrderDetail extends Component {
                     </tr>
                     <tr>
                         <th>Date Complate</th>
-                        <td>{dateCompleted ? dateCompleted : '-'}</td>
-                    </tr>
-                    <tr>
-                        <th>Area</th>
-                        <td>{area ? area : '-'}</td>
+                        <td>{dateCompleted ? dateCompleted.substring(0, 11) : '-'}</td>
                     </tr>
                     <tr>
                         <th>Customer Name</th>
                         <td>{customerName ? customerName : '-'}</td>
                     </tr>
-                    <tr>
-                        <th>POD</th>
-                        <td>{pod ? pod : '-'}</td>
-                    </tr>
-                    <tr>
-                        <th>Arrival Date Scheduled</th>
-                        <td>{arrivalDateScheduled ? arrivalDateScheduled.substring(0, 11) : '-'}</td>
-                    </tr>
-                    <tr>
-                        <th>Arrical Date Actual</th>
-                        <td>{arrivalDateActual ? arrivalDateActual.substring(0, 11) : '-'}</td>
-                    </tr>
-                    <tr>
-                        <th>Departure Date Scheduled</th>
-                        <td>{departureDateScheduled ? departureDateScheduled.substring(0, 11) : '-'}</td>
-                    </tr>
-                    
                 </table>
+                <div className='hori'/>
             </div>
             <div className='sub'  style={{width:'65%'}}>
                 <table className='tableborderss' style={{width:'90%'}}>
@@ -183,16 +147,12 @@ class SalesOrderDetail extends Component {
                         <td>{deliveryAccount ? deliveryAccount : '-'}</td>
                     </tr>
                     <tr>
-                        <th>Accepted By</th>
-                        <td>{acceptedBy ? acceptedBy : '-'}</td>
-                    </tr>
-                    <tr>
-                        <th>Signature Time</th>
-                        <td>{signatureDtime ? signatureDtime : '-'}</td>
-                    </tr>
-                    <tr>
                         <th>Date Loaded</th>
                         <td>{dateLoaded ? dateLoaded.substring(0, 11) : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>Load Released</th>
+                        <td>{}</td>
                     </tr>
                     <tr>
                         <th>Loadout Start</th>
@@ -207,6 +167,7 @@ class SalesOrderDetail extends Component {
                         <td>{lineCount ? lineCount : '-'}</td>
                     </tr>
                 </table>
+                <div className='hori'/>
             </div>
 
         </div>
@@ -220,15 +181,20 @@ class SalesOrderDetail extends Component {
       <div className='animated fadeIn pobody'>
           <div className='header headerss'>
               <div className='podbreadcrumb'>
-                  <h2 onClick={() => window.location.replace(window.location.origin + '/#/sales-orders')} className='podtitle'>Purchase Orders</h2>
+                  <h2 onClick={() => window.location.replace(window.location.origin + '/#/sales-orders')} className='podtitle'>Sales Orders</h2>
                   <h2 className='podtitle iconU-rightArrow' style={{fontSize:20}}/>
                   <h2 className='podetails'>{window.location.href.split("/").pop()}</h2>
               </div>
           </div>
           
           {
-              this.state.datahead.length ? this.header() : null
+              this.state.head.length ? this.head() : null
           }
+            {/* <div className={'tablecontent ' + ( this.state.head.length ? 'fades ' : 'hidden')}>
+            <SODTable ref={this.potableref} className='animated fadeIn' style={{display:'none'}} head = {this.state.head}><tr></tr></SODTable>
+            </div>
+            <div className={( this.state.head.length ? 'hidden': 'spinner')}/> */}
+           
       </div>
     )
   }
