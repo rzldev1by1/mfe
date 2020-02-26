@@ -24,12 +24,9 @@ export default class Pagination extends Component {
         page = Math.floor(page)
        for(let i=1 ; i<= page ; i++)
        {
-           if(i <=3)
-           {
                 this.setState(prevState => ({
                     data: [...prevState.data, i], dataTable:data
                 }))
-           }
                this.setState(prevState => ({
                 totalPage: [...prevState.totalPage, i]
             }))
@@ -111,7 +108,7 @@ export default class Pagination extends Component {
                     <label onClick={() => this.firstPage()} className={'iconU-firstPage ' + (this.state.activePage == 1 ? 'disabledArrows' : null)}/>
                     <label onClick={() => this.prevPage()}  className={'iconU-leftArrow ' + (this.state.activePage == 1 ? 'disabledArrows' : null)}/>
                     {
-                       this.state.data.map(data => 
+                       this.state.totalPage.map(data => 
                             <button onClick={(e) => this.goToPages(data)} id={data} type="button" className={"btn btn-primary " + (this.state.activePage == data ? 'activePagess' : null )}>{data}</button>
                         )
                     }                  
