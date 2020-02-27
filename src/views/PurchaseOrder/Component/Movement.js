@@ -37,6 +37,7 @@ class Movement extends Component {
     }
 
     getData = (start, end, period) => {
+        this.props.isComplete(false)
         this.setState({complete:false, activearrow:mid, sort:true})
         let dtStart = start ? start : this.state.startDate
         let dtEnd = end ? end : this.state.endDate
@@ -47,6 +48,7 @@ class Movement extends Component {
         .then(res => {
         const result = res.data.data
         this.setState({ data:result, complete:true, filterType:periods})
+        this.props.isComplete(true)
         this.props.data(result)
         })
         .catch(error => {
@@ -163,7 +165,7 @@ class Movement extends Component {
         return(
         <div>
             <div style={{textAlign:"center"}}>{dates}</div>
-            <div style={{display:'flex', borderBottom:'1.5px solid #E2E2E2', color:'#22ABE3'}}>
+            <div style={{display:'flex',  borderBottom:'1px solid #d5d8da', color:'#22ABE3'}}>
                 <div className='tet' xs='2'>SA+</div>
                 <div className='tet' xs='2'>SA-</div>
                 <div className='tet' xs='2'>Rec</div>
@@ -176,12 +178,12 @@ class Movement extends Component {
     productHeader = () => {
         return(
             <div>
-                <div className='productHeader' style={{display:'flex', borderBottom:'1.5px solid #E2E2E2'}}>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='site' >Site <img className='arrowss' src={this.state.activearrow}/></div>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='client' >Client <img className='arrowss' src={this.state.activearrow}/></div>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='product' >Product <img className='arrowss' src={this.state.activearrow}/></div>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='productName' >Product Name <img className='arrowss' src={this.state.activearrow}/></div>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='uom'>UOM <img className='arrowss' src={this.state.activearrow}/></div>
+                <div className='productHeader'>
+                    <div onClick={(e) => this.arrowHandler(e)} id='site' >Site <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} id='client' >Client <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} id='product' >Product <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} id='productName' >Product Name <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} id='uom'>UOM <img className='arrowss' src={this.state.activearrow}/></div>
                 </div>
             </div>
             )
@@ -289,7 +291,7 @@ class Movement extends Component {
                     <table width='100%' align='left'>
                         <thead>
                             <tr>
-                                <td>{this.productHeader()}</td>
+                                <td colSpan='2'>{this.productHeader()}</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -307,7 +309,7 @@ class Movement extends Component {
                 </div>             
                 <div className={'movementData scrollx ' + (this.state.complete ? 'fades' : 'hidden')} style={{display:'flex'}}>
                     <table align='left' style={{width:'100%'}}>
-                        <thead>
+                        <thead className='mvmntHead'>
                             <tr>
                                 { 
                                     this.state.dateArray.map(date =>
@@ -316,7 +318,7 @@ class Movement extends Component {
                                 }
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className='mvmntHead'>
                         {
                             this.state.data.slice(this.state.startIndex,this.state.endIndex).map((data) =>
                                 <tr style={{borderBottom:'1px solid #f5f5f5'}}>

@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
+import Paging from '../../General/Paging';
 import mid from '../../../assets/img/brand/field-idle.png'
 import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
 import "../SalesOrder.css"
-
+import moment from 'moment'
 
 class ListOrderComponent extends Component {
   constructor(props){
@@ -17,13 +18,13 @@ class ListOrderComponent extends Component {
       data:[],      
       tableheader :  ["Site","Client","Order No", "Ship to Name", "Customer Name"," Status", "Date due", "Date Received", "Date Released", "Date Completed"],
       activearrow:mid,
-      sortparameter:'orderNo',
-      
+      sortparameter:'order_no',
+      sort : true,
 
       currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
-			displayPage: 30,
+			displayPage: 4,
 			totalRows: 0,
 			maxPage: 0,
     }
@@ -38,6 +39,31 @@ class ListOrderComponent extends Component {
     this.loadSalesOrder()
   }
 
+  setPagination = (result) => {
+		let self = this;
+		let respondRes = result;
+		let totalPage = 0;
+
+		if (respondRes.length > self.state.displayPage) {
+			totalPage = respondRes % self.state.displayPage;
+			if (totalPage > 0 && totalPage < 50) {
+				totalPage = parseInt(respondRes.length / self.state.displayPage) + 1;
+			} else {
+				totalPage = respondRes.length / self.state.displayPage;
+			}
+			self.setState({ maxPage: totalPage });
+		} else {
+			self.setState({ maxPage: 1 });
+		}
+
+		self.setState({ displayContent: "FOUND",
+						masterResStockHolding: respondRes,
+						totalRows: respondRes.length });
+
+		self.numberEventClick(self.state.currentPage);
+	}
+
+
   loadSalesOrder = () => {
     this.setState({ currentPage: 1,
                     startIndex: 0, lastIndex: 0,
@@ -50,6 +76,7 @@ class ListOrderComponent extends Component {
         const result = res.data.data
         this.setState({ data:result })
         this.load()
+        this.setPagination(result);
       })
       .catch(error => {
         // this.props.history.push("/logins")
@@ -129,7 +156,64 @@ class ListOrderComponent extends Component {
     })
     this.setState({data:data})
   }
-  
+  changeStartIndex = (currentPage) => {
+		this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
+	}
+
+	changeLastIndex = (currentPage) => {
+		this.setState({ lastIndex: parseInt(currentPage) * this.state.displayPage });
+  }
+
+	numberEventClick = (currentPage) => {
+		let page = parseInt(currentPage);
+		this.setState({ currentPage: page });
+		this.changeStartIndex(page);
+		this.changeLastIndex(page);
+	}
+
+	nextPageClick = () => {
+		if (this.state.currentPage < this.state.maxPage) {
+			this.setState((prev) => {
+				prev.currentPage++;
+				this.changeStartIndex(prev.currentPage);
+				this.changeLastIndex(prev.currentPage);
+			});
+        }
+        return;
+	}
+
+	backPageClick = () => {
+		if (this.state.currentPage > 1) {
+			this.setState((prev) => {
+				prev.currentPage--;
+				this.changeStartIndex(prev.currentPage);
+				this.changeLastIndex(prev.currentPage);
+			});
+        }
+        return;
+	}
+
+    lastPageClick = () => {
+        if (this.state.currentPage < this.state.maxPage) {
+            let currentPage = parseInt(this.state.maxPage + 1 );
+
+            this.setState({ currentPage: currentPage});
+            this.changeStartIndex(currentPage);
+            this.changeLastIndex(currentPage);
+        }
+        return;
+    }
+    
+    firstPageClick = () => {
+      if (this.state.currentPage > 1) {
+        let currentPage = 1;
+
+        this.setState({ currentPage: currentPage});
+        this.changeStartIndex(currentPage);
+        this.changeLastIndex(currentPage);
+    }
+    return;
+  }
   
   arrowHandler = (e) => {
     let id = e.currentTarget.id
@@ -154,10 +238,9 @@ class ListOrderComponent extends Component {
   }
   
     render(){
-  console.log(this.state.listOrder)
       return(
         <div>
-          <div className='tablePage tablecontent'>
+          <div className='tablePages tablecontent'>
                <table className="potable">
                   <thead>
                      <tr>
@@ -170,19 +253,18 @@ class ListOrderComponent extends Component {
                        </tr>
                     </thead>
                     <tbody>
-                          {this.state.data ? this.state.data.map((data,i) => 
-                                  <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.orderNo + '/detail')} className='tr'>
+                          {this.state.data  ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
+                                  <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.order_no + '/detail')} className='tr'>
                                       <td>{data.site}</td>
                                       <td>{data.client}</td>
                                       <td>{data.order_no}</td>
                                       <td>{data.ship_to_name}</td>
                                       <td>{data.customer_name}</td>
                                       <td>{data.status}</td>
-                                      <td>{data.date_due}</td>
-                                      <td>{data.date_recd}</td>
-                                      <td>{data.date_released}</td>
-                                      <td>{data.date_completed}</td>
-                                      <td className='iconU-option'></td>
+                                      <td>{'' + (data.date_due ? moment(data.date_due).format("YYYY/MM/DD") : '') }</td>
+                                      <td>{'' + (data.date_recd ? moment(data.date_recd).format("YYYY/MM/DD") : '') }</td>
+                                      <td>{'' + (data.date_released ? moment(data.date_released).format("YYYY/MM/DD") : '') }</td>
+                                      <td>{'' + (data.date_completed ? moment(data.date_completed).format("YYYY/MM/DD") : '') }</td>
                                   </tr>
                               ) : 
                                   <div> No data available </div>
@@ -190,7 +272,15 @@ class ListOrderComponent extends Component {
                       </tbody>
                         </table>
             </div>
-                  
+            <div className='paginations'>
+                    <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
+                            backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                            totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                            currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                            startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+                            isActive={this.state.isActive}
+                            numberEventClick={this.numberEventClick}/>
+                </div>    
           </div>)
     }
 }

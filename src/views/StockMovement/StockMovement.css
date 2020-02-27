@@ -1,7 +1,8 @@
 .movementBtnSearch{
-	height: 50px;
+	height: 40px;
 	width: 100%;
-	font-size:1.2rem;
+	font-size:1.1rem;
+	font-family: "Helvetica Neue light";
 }
 
 .movementData{
@@ -20,28 +21,31 @@
 	font-size: 0.9rem;
 	max-height: 600px !important;
 	margin-right: -1%;
-	width: 45em;
+	min-width:31em !important;
 }
 
 .conts{
+	background-color: white;
 	margin-top: 1%;
-	padding:0.5% !important;
-	padding-bottom: 0% !important;
+	margin-right: -2;
+	border-radius: 5px;
+	padding-right:2% !important;
+	padding-left:2% !important;
+	padding-top:0.5% !important;
 	display: flex;
-	max-height: 40em;
-	
 }
 
 /* movement scroll */
   
 .scrollx{
 	overflow-x: scroll !important;
-	overflow-y: hidden;
+	overflow-y: hidden !important;
 }
 
 .scrollx::-webkit-scrollbar {
 	width: 8px !important;
 	height: 8px;
+	margin-bottom: 0px !important;
   }
 
 .scrollx::-webkit-scrollbar-thumb {
@@ -73,11 +77,14 @@
 
   .tablez{
 	  height: 2.5rem;
-	  border-bottom: 1px solid grey;
+	  border-bottom: 1px solid #d5d8da !important;
 	  align-items: center;
 	  justify-content: center;
   }
 
+  .productHeader{
+	  margin-bottom: -0.5px !important;
+  }
   .tet{
 	width: 5rem !important;
 	text-align: center;
@@ -86,9 +93,7 @@
   .productList{
 	min-width: 8rem;
 	text-align: left !important;
-	height: 35.5px;
-	margin-top: 7px;
-  }
+  } 
 
   #site{
 	  min-width: 3rem;
@@ -121,24 +126,21 @@
 
   .movementHeader{
 	  width: 100%;
-	  margin-top: 1%;
+	  margin-top: 1.5%;
   }
 
   .movementSearch{
 	width: 100%;	
 	background-color: white;
 	border-radius: 5px;
-	margin-top: 1%;
-	padding: 1%;
+	margin-top: 1.4%;
+	padding: 20px;
 
   }
 
   .movementBody{
 	width: 100%;	
-	background-color: white;
-	border-radius: 5px;
-	margin-top: 1.5%;
-	padding-bottom: -1% !important;
+	min-height: 37vw;
   }
 
   .dropdown-item:hover{
@@ -147,11 +149,17 @@
 }
 
 .ddlMovement{
-	width: 70%;
+	width: 200px;
+	height: 40px !important;
+	border: 1px solid #d5d8da !important; 
+	text-align: left;
 }
 
 .ddlMovementDate{
-	width: 60%;
+	width: 200px;
+	height: 40px !important;
+	border: 1px solid #d5d8da !important; 
+	text-align: left;
 }
 
 .datePicker{
@@ -194,6 +202,64 @@
 	cursor: pointer;
 }
 
+.productHeader{
+	margin-bottom: 1px;
+	display:flex;
+	border-bottom:1px solid #d5d8da;
+	margin-top: 9px;
+	height: 34px;
+}
+
 .movementTable{
 	overflow: scroll !important;
+}
+
+.stockMovementParent{
+	margin-left: -1%;
+	margin-right: -1.4%;
+}
+
+.displayParent{
+	display: flex;
+	vertical-align: middle;
+	align-items: center;
+	width: 100%;
+}
+
+.ddlSearchParam{
+	width: 65%;
+}
+
+.searchParameterTitle{
+	font-family: "Helvetica Neue Medium";
+	color: #b4b9bb;
+	width: 110px;
+}
+
+.searchParameterTitleDate{
+	margin-right: 10px;
+	font-family: "Helvetica Neue Medium";
+	color: #b4b9bb;
+}
+
+.displayButtons{
+	width: 30%;	
+}
+
+.dateFrom{
+	margin-left: 20px;
+}
+
+.displayButtonToggle{
+	display: flex;
+	
+}
+
+.displayButtonToggle > .dropdown-toggle{
+	margin-left: -30px !important;
+	padding-top: 8px;
+}
+
+.middles{
+	margin-left:30px;
 }

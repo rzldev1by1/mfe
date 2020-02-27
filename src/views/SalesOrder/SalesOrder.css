@@ -67,19 +67,31 @@ table{
 	border-radius: 5px !important;
 	font-size: 90%;
 }
+
 .rows {
     display: -webkit-box;
     flex-wrap: wrap;
 	margin-right: -15px;
 }
+
+.tablecontents {
+	margin-top: 10px;
+	padding:1%;
+	padding-top: 0%;
+	padding-bottom: 0%;
+	min-width: 100%;
+	background-color: white;
+	border-radius: 5px;
+}
+
 .xl {
-	flex: 0 0 21%;
-    max-width: 21%;
+	flex: 0 0 18%;
+    max-width: 18%;
 }
 
 .xl-search {
-    flex: 0 0 79%;
-    max-width: 79%;
+    flex: 0 0 82%;
+    max-width: 82%;
 }
 
 .inputgroups{
@@ -113,7 +125,7 @@ table{
 	font-size: 1.2em;
 }
 
-.filterbar{
+.dropdowns{
 	padding:15px;
 	min-width: 100%;
 	background-color: white;
@@ -149,9 +161,8 @@ table{
 	background-color: white;
 	border-radius: 5px;
 }
-.tablePage{
+.tablePages{
 	max-height: 650px !important;
-	min-height: 650px !important;
 	overflow-y:scroll;
 	font-size: 1.1em;
 }
@@ -260,3 +271,9 @@ th.iconU-edit{
 	vertical-align: middle;
 	color: #D5D8DA !important;
 }
+
+.paginations > .page{
+	vertical-align: middle;
+	align-items: center;
+}
+
