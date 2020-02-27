@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Table,Button, Card, CardBody, Label} from 'reactstrap'
 import './SalesOrder.css';
 import './SalesOrderDetail.css'
-// import SODTable from './Components/SODTable'
+import SODTable from './Components/SODTable'
 import axios from 'axios'
 import {endpoint, headers} from '../../AppComponent/ConfigEndpoint'
 
@@ -22,6 +22,24 @@ class SalesOrderDetail extends Component {
     this.getheaderdetail()
     // this.load()
 }
+
+// getheaderdetail = () => {
+//     this.setState({complete:false})
+//     let param = window.location.href.split("/").pop()
+//     axios.get(endpoint.salesOrder + '/' +param, {
+//       headers: headers
+//     })
+//       .then(res => {
+//         const result = res.data.data
+//         this.setState({ head:result})
+        
+        
+//       })
+//       .catch(error => {
+//         // this.props.history.push("/logins")
+//       })
+// }
+
 
     getheaderdetail = () => {
         axios.get(endpoint.salesOrder ,{
@@ -190,10 +208,10 @@ class SalesOrderDetail extends Component {
           {
               this.state.head.length ? this.head() : null
           }
-            {/* <div className={'tablecontent ' + ( this.state.head.length ? 'fades ' : 'hidden')}>
+            <div className={'tablecontent ' + ( this.state.head.length ? 'fades ' : 'hidden')}>
             <SODTable ref={this.potableref} className='animated fadeIn' style={{display:'none'}} head = {this.state.head}><tr></tr></SODTable>
             </div>
-            <div className={( this.state.head.length ? 'hidden': 'spinner')}/> */}
+            <div className={( this.state.head.length ? 'hidden': 'spinner')}/>
            
       </div>
     )
