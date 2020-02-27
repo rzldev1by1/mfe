@@ -83,7 +83,7 @@
   }
 
   .productHeader{
-	  margin-bottom: -1px !important;
+	  margin-bottom: -0.5px !important;
   }
   .tet{
 	width: 5rem !important;
@@ -93,9 +93,7 @@
   .productList{
 	min-width: 8rem;
 	text-align: left !important;
-	height: 35.5px;
-	margin-top: 7px;
-  }
+  } 
 
   #site{
 	  min-width: 3rem;
@@ -208,6 +206,8 @@
 	margin-bottom: 1px;
 	display:flex;
 	border-bottom:1px solid #d5d8da;
+	margin-top: 9px;
+	height: 34px;
 }
 
 .movementTable{

@@ -179,11 +179,11 @@ class Movement extends Component {
         return(
             <div>
                 <div className='productHeader'>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='site' >Site <img className='arrowss' src={this.state.activearrow}/></div>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='client' >Client <img className='arrowss' src={this.state.activearrow}/></div>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='product' >Product <img className='arrowss' src={this.state.activearrow}/></div>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='productName' >Product Name <img className='arrowss' src={this.state.activearrow}/></div>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='uom'>UOM <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} id='site' >Site <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} id='client' >Client <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} id='product' >Product <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} id='productName' >Product Name <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} id='uom'>UOM <img className='arrowss' src={this.state.activearrow}/></div>
                 </div>
             </div>
             )
@@ -291,7 +291,7 @@ class Movement extends Component {
                     <table width='100%' align='left'>
                         <thead>
                             <tr>
-                                <td>{this.productHeader()}</td>
+                                <td colSpan='2'>{this.productHeader()}</td>
                             </tr>
                         </thead>
                         <tbody>
