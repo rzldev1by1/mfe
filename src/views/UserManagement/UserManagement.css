@@ -44,7 +44,7 @@ span.upArrow:before {
 }
 
 .btn-outline-active{
-	border: 2px solid #22ABE3;
+	border: 1px solid #22ABE3;
 	border-radius: 7px;
 	color: #22ABE3;
 	width: 80px;
@@ -52,20 +52,20 @@ span.upArrow:before {
 
 .btn-outline-notActive{
 	color: #D5D8DA;
-	border: 2px solid #D5D8DA;
+	border: 1px solid #D5D8DA;
 	border-radius: 7px;
 	width: 80px;
 }
 
 
 span.client-active{
-    border: 2px solid #22ABE3;
+    border: 1px solid #22ABE3;
     border-radius: 7px;
     color: #22ABE3;
 }
 
 span.client-notActive{
-    border: 2px solid #D5D8DA;
+    border: 1px solid #D5D8DA;
     border-radius: 7px;
     color: #D5D8DA ;
 }
@@ -310,6 +310,12 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.btn-submit{
+	width: 12%;
+	border-radius: 5px !important;
+	font-size: 90%;
 }
 
 

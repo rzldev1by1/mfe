@@ -11,11 +11,12 @@ return (<div>
           {
             sites.map((item,index) => {
             return (<div className="flex-column mb-3 mr-2" key={index}>
-            <div className="flex-row" key={index}>
-            <label key={item.site}>{item.site}</label>
-            <button type="button" className={"btn "+((item.status)?"btn-outline-active":"btn-outline-notActive")+" float-right" }
-            onClick={(e)=>{onEnableClick(e,item);}}>{(item.status)?"Enable":"Disable"}</button>
-
+            <div className="row" key={index}>
+                <label className="col-7" key={item.site}>{item.site}</label>
+                <button type="button" className={"col-3 btn "+((item.status)?"btn-outline-active":"btn-outline-notActive")+" float-right" }
+                onClick={(e)=>{onEnableClick(e,item);}}>{(item.status)?"Enable":"Disable"}</button>
+                <div className="col-2">
+                </div>
             </div>
             </div>)
           })

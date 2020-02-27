@@ -76,7 +76,7 @@ class UserManagement extends Component{
               newItem.userlevel = item.web_group;
               newItem.client = item.client;
               newItem.lastaccess = item.last_access;
-              newItem.status = "Active";
+              newItem.status = (item.disabled === '1')?'Suspended':'Active';
               newItem.action = "";
               newItem.web_user = item.web_user;
               return newItem;
@@ -353,14 +353,14 @@ class UserManagement extends Component{
     render(){
 
         return(<div>
-            <div className="d-flex pt-4">
+            <div className="d-flex pt-4 mb-3">
                 <div className="flex-fill">
                     <h3>
                         <label>User Management</label>
                     </h3>
                 </div>
                 <div className="flex-fill">
-                    <button className={(this.isValidUser() ?"btn btn-primary float-right":"d-none")} style={{width:'20%'}} onClick={(e)=>{this.onCreateClick()}}>+ add user</button>
+                    <button className={(this.isValidUser() ?"btn btn-primary font-lg font-md font-sm float-right":"d-none")} onClick={(e)=>{this.onCreateClick()}}>+ add user</button>
                 </div>
 
             </div>
@@ -370,7 +370,8 @@ class UserManagement extends Component{
 
             </div>
 
-            <Card>
+            <div className={( this.state.isListLoaded ? 'd-none': 'spinner')}/>
+            <Card className={( this.state.isListLoaded ? '':' d-none ')}>
                 <CardBody>
 
                     <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}/>
@@ -382,7 +383,6 @@ class UserManagement extends Component{
                       clients={this.state.clients} isClientLoaded={this.state.isClientLoaded} clientEnableClick={this.onClientStatusClick}
                       onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing}/>
 
-                    <div className={( this.state.isListLoaded ? 'd-none': 'spinner')}/>
 
                 </CardBody>
             </Card>

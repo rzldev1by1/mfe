@@ -448,13 +448,13 @@ class UserManagementDetail extends Component{
 
                             </div>
 
-                            <div className="row mt-5">
-                                <div className="col-12">
-                                  <button className="btn btn-primary float-right" onClick={(e)=>{this.saveClick();}}>
+                            <div className="d-flex mt-5 mr-3 justify-content-end">
+
+                                  <button className=" font-lg font-md font-sm btn btn-primary btn-submit" onClick={(e)=>{this.saveClick();}}>
                                       <i className= {(this.state.isSaveProgressing)?"mr-2 fa fa-refresh fa-spin ":"fa fa-refresh fa-spin d-none"}></i>
                                       Submit
                                   </button>
-                                </div>
+
                             </div>
                         </div>
                     </CardBody>

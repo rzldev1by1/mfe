@@ -15,9 +15,11 @@ return (<div>
       {
           clients.map((item,index) => {
             return (<div className="flex-column" key={index}>
-                          <div className="flex-row mb-3 mr-2" key={index}>
-                              <label key={item.code}>{ capitalizeFirstLetter(item.name) }</label>
-                              <button type="button" className={"btn "+((item.status)?"btn-outline-active":"btn-outline-notActive")+" float-right" } onClick={(e)=>{onEnableClick(e,item);}}>{(item.status)?"Enable":"Disable"}</button>
+                          <div className="row mb-3 mr-2" key={index}>
+                              <label className="col-8" key={item.code}>{ capitalizeFirstLetter(item.name) }</label>
+                              <button type="button" className={"col-2 btn "+((item.status)?"btn-outline-active":"btn-outline-notActive")+" float-right" } onClick={(e)=>{onEnableClick(e,item);}}>{(item.status)?"Enable":"Disable"}</button>
+                              <div className="col-2">
+                              </div>
                           </div>
                     </div>)
 

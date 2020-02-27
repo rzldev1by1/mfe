@@ -19,8 +19,8 @@ const modalNewUser = (props) => {
             <label className='iconU-edit mt-1'/>
             <label className='font-modal-title mt-1'>Create User</label>
           </div>
-          <Button color="primary" className='btnsearch crt mr-4' onClick={(e)=>{closeModal();}}>
-            <label className='font'>Close</label>
+          <Button color="primary" className='btnsearch crt mr-4 font-lg font-md font-sm' onClick={(e)=>{closeModal();}}>
+            <label className='font-lg font-md font-sm'>Close</label>
             <label className='iconU-close ml-3 mt-2'/>
           </Button>
         </ModalHeader>
@@ -90,7 +90,7 @@ const modalNewUser = (props) => {
         <ModalFooter className='footers'>
           <div className="row">
               <div className="col-12">
-                  <button className="btn btn-primary float-right" onClick={(e)=>{onSaveClick();}}>
+                  <button className="font-lg font-md font-sm btn btn-primary float-right" onClick={(e)=>{onSaveClick();}}>
                       <i className= {(isSaveProgressing)?"mr-2 fa fa-refresh fa-spin ":"fa fa-refresh fa-spin d-none"}></i>
                       Save
                   </button>
