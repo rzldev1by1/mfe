@@ -7,6 +7,7 @@ const endpoint = {
     'userLogin': baseUrl + "userlogin",
 
     'stockHoldingSummary': baseUrl + "stockholding",
+    'stockHoldingDetail': baseUrl + "stockdetail/header/",
     'stockDetail': baseUrl + "stockdetail/",
     'stockBalanceForecast': baseUrl + "foreshadowedstockbalance/",
 
