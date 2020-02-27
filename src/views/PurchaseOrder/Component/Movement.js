@@ -37,6 +37,7 @@ class Movement extends Component {
     }
 
     getData = (start, end, period) => {
+        this.props.isComplete(false)
         this.setState({complete:false, activearrow:mid, sort:true})
         let dtStart = start ? start : this.state.startDate
         let dtEnd = end ? end : this.state.endDate
@@ -47,6 +48,7 @@ class Movement extends Component {
         .then(res => {
         const result = res.data.data
         this.setState({ data:result, complete:true, filterType:periods})
+        this.props.isComplete(true)
         this.props.data(result)
         })
         .catch(error => {

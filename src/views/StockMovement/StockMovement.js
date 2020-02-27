@@ -14,7 +14,8 @@ class StockMovement extends Component {
 		this.state = {
 			data:[],
 			startIndex:0,
-			endIndex:0
+			endIndex:0,
+			isComplete:false
 		}
 	}
 
@@ -33,12 +34,12 @@ class StockMovement extends Component {
 				<div className='movementSearch'>
 					<MovementSearch getStockMovement = {(dateFrom, dateTo, period) => this.getStockMovements(dateFrom, dateTo, period)}/>
 				</div>
-				<div className={this.state.data.length > 0 ? 'fades' : 'hidden'}>
-				<Movement ref={this.getStockMovement} data={(data) => this.setState({data:data},() => this.setPagiantion.current.getData(this.state.data))}/>
+				<div className={this.state.isComplete ? 'fades' : 'hidden'}>
+				<Movement isComplete={(val) => this.setState({isComplete:val})} ref={this.getStockMovement} data={(data) => this.setState({data:data},() => this.setPagiantion.current.getData(this.state.data))}/>
 				</div>
-				<div className={this.state.data.length > 0 ? 'hidden' : 'spinner'}/>
+				<div className={this.state.isComplete ? 'hidden' : 'spinner'}/>
 					
-					<div className={this.state.data.length > 0 ? 'fades' : 'hidden'}>
+					<div className={this.state.isComplete ? 'fades' : 'hidden'}>
 						<Pagination sliceValue={(startIndex, endIndex) => this.getStockMovement.current.setSliceValue(startIndex, endIndex)} 
 												ref={this.setPagiantion} data={this.state.data} 
 												rows={4}/> 
