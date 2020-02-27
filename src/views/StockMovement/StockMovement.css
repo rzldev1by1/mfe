@@ -26,7 +26,7 @@
 	background-color: white;
 	margin-top: 1%;
 	border-radius: 5px;
-	padding-right:2% !important;
+	padding-right:0% !important;
 	padding-left:2% !important;
 	padding-top:0.5% !important;
 	padding-bottom: -110px !important;
@@ -48,6 +48,8 @@
 	width: 8px !important;
 	height: 8px;
 	margin-bottom: 0px !important;
+	background-color: #E9ECED;
+	border-radius: 5px;
   }
 
 .scrollx::-webkit-scrollbar-thumb {
