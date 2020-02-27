@@ -64,8 +64,10 @@ class Authentication {
 
 	static getUserMenu = () => {
 		let user = JSON.parse(localStorage.getItem("user"));
-		if(user)
-			return user["userModules"].map((item)=>{return item.menu_id});
+		if(user){
+			if(user['userModules'].length)
+        	return user['userModules'].map((item)=>{return item.menu_id;})
+		}
 		else
 			return [];
 	}
