@@ -6,8 +6,9 @@ import users from './Users.json'
 import axios from 'axios'
 import {endpoint,headers} from '../../AppComponent/ConfigEndpoint'
 import ModalNewUser from './Component/ModalNewUser'
-import moment from 'moment';
+import moment from 'moment'
 import query from '../../AppComponent/query_menu_temp'
+import Authentication from '../../Auth/Authentication'
 
 const today = moment(new Date()).format("DD-MM-YYYY");
 
@@ -15,7 +16,7 @@ const userModel = {
     "userId":"",
     "name":"",
     "email":"",
-    "webGroup":"Administrator",
+    "webGroup":"Warehouse",
     "lastAccess": today,
     "lastLogin": today,
 	  "thisAccess": today,
@@ -98,7 +99,7 @@ class UserManagement extends Component{
           .then(res => {
             var result = [];
             if(res.status === 200){
-              // console.log(res.data.data);
+
               result = self.restructureUserList(res.data.data);
               self.setState({isListLoaded:true,userList:result});
             }
@@ -108,7 +109,7 @@ class UserManagement extends Component{
 
           })
           .then((result) => {
-            // console.log(result);
+
           })
     }
 
@@ -190,7 +191,7 @@ class UserManagement extends Component{
 
         })
         .then((result) => {
-          // console.log(result);
+
         })
     }
 
@@ -213,7 +214,7 @@ class UserManagement extends Component{
 
         })
         .then((result) => {
-          // console.log(result);
+
         })
     }
 
@@ -236,7 +237,7 @@ class UserManagement extends Component{
 
         })
         .then((result) => {
-          // console.log(result);
+
         })
     }
 
@@ -302,7 +303,12 @@ class UserManagement extends Component{
     }
 
     saveClick = () => {
-      this.setState({isSaveProgressing:true},this.saveRequest);
+
+      const {name,userId,email,userMenu} = this.state.accountInfo;
+      if(name && userId && email && userMenu.length)
+      {
+        this.setState({isSaveProgressing:true},this.saveRequest);
+      }
     }
 
     saveRequest = () => {
@@ -334,6 +340,16 @@ class UserManagement extends Component{
 
     }
 
+    isValidUser = () => {
+      let result = false;
+      let userlevel = Authentication.getUserLevel();
+      if(userlevel){
+        if(userlevel.toLowerCase() === 'administrator')
+          result = true;
+      }
+      return result;
+    }
+
     render(){
 
         return(<div>
@@ -344,7 +360,7 @@ class UserManagement extends Component{
                     </h3>
                 </div>
                 <div className="flex-fill">
-                    <button className="btn btn-primary float-right" style={{width:'20%'}} onClick={(e)=>{this.onCreateClick()}}>+ add user</button>
+                    <button className={(this.isValidUser() ?"btn btn-primary float-right":"d-none")} style={{width:'20%'}} onClick={(e)=>{this.onCreateClick()}}>+ add user</button>
                 </div>
 
             </div>
