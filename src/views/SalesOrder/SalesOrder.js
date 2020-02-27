@@ -89,7 +89,7 @@ console.log(this.state.listOrder)
         </div> 
           
         <FilterComponent />
-        <div className='dropdown'>
+        <div className='dropdowns'>
                 <div style={{display:'flex', width:'100%'}}>
                     {
                         this.state.filterclicked ? null :

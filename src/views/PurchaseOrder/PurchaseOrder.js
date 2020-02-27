@@ -29,7 +29,7 @@ class PurchaseOrder extends Component {
             ordertypedata: [],
 
             //filter
-            filterclicked:false,
+            filterclicked:true,
 
             //modal
             showmodal:false,
@@ -232,8 +232,8 @@ class PurchaseOrder extends Component {
             <div className='filterbar'>
                 <div style={{display:'flex', width:'100%'}}>
                     {
-                        this.state.filterclicked ? null :
-                        this.showDropdowns()
+                        this.state.filterclicked ? this.showDropdowns() :
+                        null
                     }
                     
                 </div>               

@@ -22,8 +22,9 @@ export default class Pagination extends Component {
             page = page+1
         }
         page = Math.floor(page)
+        this.setState({data:[],totalPage:[]})
        for(let i=1 ; i<= page ; i++)
-       {
+       {                
                 this.setState(prevState => ({
                     data: [...prevState.data, i], dataTable:data
                 }))
@@ -32,10 +33,10 @@ export default class Pagination extends Component {
             }))
        }
        this.goToPages(1)
-       this.loadPages(1)
     }
 
     goToPages = (e) => {
+     
         let index = e
         let startIndex = index
         let endIndex = this.props.rows*startIndex
@@ -108,7 +109,7 @@ export default class Pagination extends Component {
                     <label onClick={() => this.firstPage()} className={'iconU-firstPage ' + (this.state.activePage == 1 ? 'disabledArrows' : null)}/>
                     <label onClick={() => this.prevPage()}  className={'iconU-leftArrow ' + (this.state.activePage == 1 ? 'disabledArrows' : null)}/>
                     {
-                       this.state.totalPage.map(data => 
+                       this.state.data.map(data => 
                             <button onClick={(e) => this.goToPages(data)} id={data} type="button" className={"btn btn-primary " + (this.state.activePage == data ? 'activePagess' : null )}>{data}</button>
                         )
                     }                  
@@ -119,8 +120,9 @@ export default class Pagination extends Component {
                 <div className='paginationInputPage'>
                     <label id='labelPage'>Go to page</label>
                     <input onChange={(e) => this.setState({activePage:e.currentTarget.value})} id='goToPage' placeholder={this.state.totalPage.length} class="form-control"/>
-                    <label onClick={() => this.goToHandler()} id='labelButton'>Go
-                        <label className='iconU-rightArrow'/>
+                    <label id='labelButton'>
+                    <label onClick={() => this.goToHandler()} id='labelButton'>Go</label>
+                    <label className='iconU-rightArrow'/>
                     </label>
                 </div>
 

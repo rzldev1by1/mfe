@@ -45,8 +45,10 @@ class Logins extends Component{
 
         (new Authentication()).authenticationHandler(payload)
         .then(result => {
+            
             if (result.isSuccess) {
-                self.props.history.push("/stock/stockholding");
+                self.props.history.push(result.url);
+                // self.props.history.push("/stock/stockholding");
                 return;
             }
 

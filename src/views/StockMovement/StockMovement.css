@@ -2,13 +2,12 @@
 	height: 40px;
 	width: 100%;
 	font-size:1.1rem;
-	font-family: "Helvetica Neue light";
+	font-family: "Helvetica Neue medium";
 }
 
 .movementData{
 	background-color: white;
 	border-radius: 5px;
-	margin-bottom: 1%;
 	font-size: 0.9rem;
 	max-height: 600px !important;
 	width: 100%;
@@ -17,22 +16,25 @@
 .productData{
 	background-color: white;
 	border-radius: 5px;
-	margin-bottom: 1%;
 	font-size: 0.9rem;
 	max-height: 600px !important;
 	margin-right: -1%;
 	min-width:31em !important;
 }
 
-.conts{
+.contsz{
 	background-color: white;
 	margin-top: 1%;
-	margin-right: -2;
 	border-radius: 5px;
-	padding-right:0.5% !important;
-	padding-left:0.5% !important;
+	padding-right:0% !important;
+	padding-left:2% !important;
 	padding-top:0.5% !important;
+	padding-bottom: -110px !important;
 	display: flex;
+}
+
+.movementBody > .themed-container .conts .container-fluid{
+	padding-bottom: -1% !important;
 }
 
 /* movement scroll */
@@ -46,6 +48,8 @@
 	width: 8px !important;
 	height: 8px;
 	margin-bottom: 0px !important;
+	background-color: #E9ECED;
+	border-radius: 5px;
   }
 
 .scrollx::-webkit-scrollbar-thumb {
@@ -83,7 +87,7 @@
   }
 
   .productHeader{
-	  margin-bottom: -1px !important;
+	  margin-bottom: -0.5px !important;
   }
   .tet{
 	width: 5rem !important;
@@ -93,9 +97,7 @@
   .productList{
 	min-width: 8rem;
 	text-align: left !important;
-	height: 35.5px;
-	margin-top: 7px;
-  }
+  } 
 
   #site{
 	  min-width: 3rem;
@@ -142,7 +144,7 @@
 
   .movementBody{
 	width: 100%;	
-	min-height: 700px;
+	min-height: 37vw;
   }
 
   .dropdown-item:hover{
@@ -151,14 +153,14 @@
 }
 
 .ddlMovement{
-	width: 200px;
+	width: 180px;
 	height: 40px !important;
 	border: 1px solid #d5d8da !important; 
 	text-align: left;
 }
 
 .ddlMovementDate{
-	width: 200px;
+	width: 180px;
 	height: 40px !important;
 	border: 1px solid #d5d8da !important; 
 	text-align: left;
@@ -208,6 +210,8 @@
 	margin-bottom: 1px;
 	display:flex;
 	border-bottom:1px solid #d5d8da;
+	margin-top: 9px;
+	height: 34px;
 }
 
 .movementTable{

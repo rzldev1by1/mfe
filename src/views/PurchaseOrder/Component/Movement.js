@@ -37,6 +37,7 @@ class Movement extends Component {
     }
 
     getData = (start, end, period) => {
+        this.props.isComplete(false)
         this.setState({complete:false, activearrow:mid, sort:true})
         let dtStart = start ? start : this.state.startDate
         let dtEnd = end ? end : this.state.endDate
@@ -47,6 +48,7 @@ class Movement extends Component {
         .then(res => {
         const result = res.data.data
         this.setState({ data:result, complete:true, filterType:periods})
+        this.props.isComplete(true)
         this.props.data(result)
         })
         .catch(error => {
@@ -177,11 +179,11 @@ class Movement extends Component {
         return(
             <div>
                 <div className='productHeader'>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='site' >Site <img className='arrowss' src={this.state.activearrow}/></div>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='client' >Client <img className='arrowss' src={this.state.activearrow}/></div>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='product' >Product <img className='arrowss' src={this.state.activearrow}/></div>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='productName' >Product Name <img className='arrowss' src={this.state.activearrow}/></div>
-                    <div onClick={(e) => this.arrowHandler(e)} className='productList' id='uom'>UOM <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} id='site' >Site <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} id='client' >Client <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} id='product' >Product <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} id='productName' >Product Name <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} id='uom'>UOM <img className='arrowss' src={this.state.activearrow}/></div>
                 </div>
             </div>
             )
@@ -274,28 +276,30 @@ class Movement extends Component {
 
       setSliceValue= (startIndex, endIndex) => {
         this.setState({startIndex:startIndex, endIndex:endIndex})
-	}
-
+    }
+    
     render(){
         if(this.state.pushTableComplete)
         {
             this.pushData()
             this.sortData()
         }
+
+       
         return(
             <div className={this.state.complete ? 'movementBody' : null}>
-                <Container className="themed-container conts" fluid={true}> 
+                <Container className="themed-container contsz" fluid={true}> 
                 <div className={'productData scrolly ' + (this.state.complete ? 'fades' : 'hidden')} style={{display:'flex'}}>
                     <table width='100%' align='left'>
                         <thead>
                             <tr>
-                                <td>{this.productHeader()}</td>
+                                <td colSpan='2'>{this.productHeader()}</td>
                             </tr>
                         </thead>
                         <tbody>
                         {
                             this.state.data.slice(this.state.startIndex,this.state.endIndex).map((data) =>
-                                <tr style={{borderBottom:'1px solid #f5f5f5'}}>
+                                <tr id='prData' className='stockMovementHover' style={{borderBottom:'1px solid #f5f5f5'}}>
                                 <td height='50'>
                                     <this.productBody site={data.site} product={data.product} product_name={data.product_name} packdesc={data.packdesc} client={data.client}/>
                                 </td>
@@ -319,7 +323,7 @@ class Movement extends Component {
                         <tbody className='mvmntHead'>
                         {
                             this.state.data.slice(this.state.startIndex,this.state.endIndex).map((data) =>
-                                <tr style={{borderBottom:'1px solid #f5f5f5'}}>
+                                <tr onmouseover={() => this.hover()} id='mvData' className='stockMovementHover' style={{borderBottom:'1px solid #f5f5f5'}}>
                                 {
                                     data.detail.map(detail =>
                                     <td height='50' width='15%' style={{borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}><this.tableMovement detail={detail}/></td>

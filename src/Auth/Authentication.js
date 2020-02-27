@@ -1,12 +1,13 @@
 // import moment from 'moment';
 
 import axios from 'axios';
+import menunav from '../menunav';
 
 import AppComponent from '../AppComponent';
 // import { endpoint } from '../AppComponent/ConfigEndpoint';
 
 class Authentication {
-	static endpoint = "userlogin";
+	static endpoint = "usermanagement/login";
 
 	static isAuthenticated = () => {
 		return !Authentication.getToken() ? false : true;
@@ -35,6 +36,8 @@ class Authentication {
 		return JSON.parse(localStorage.getItem("user"));
 	}
 
+
+
     static getUserLevel = () => {
         let user = Authentication.getUser();
         if (!user) { return false };
@@ -57,6 +60,16 @@ class Authentication {
 		let user = Authentication.getUser();
 		if (!user) { return false };
 		return user["companyCode"];
+	}
+
+	static getUserMenu = () => {
+		let user = JSON.parse(localStorage.getItem("user"));
+		if(user){
+			if(user['userModules'].length)
+        	return user['userModules'].map((item)=>{return item.menu_id;})
+		}
+		else
+			return [];
 	}
 
 	static eraseAllLocalData = () => {
@@ -109,8 +122,15 @@ class Authentication {
                 // }
 
                 if (res.data) {
-									 console.log(res);
+
+
+										let stringMenus = res.data.userModules.length? res.data.userModules.map((item)=>{return item.menu_id;}):[];
+										let menuItems =	menunav.items.filter((item) => { return stringMenus.indexOf(item.key) !== -1 });
+										let accessMenu = menuItems.length ? menuItems[0].url:"/stock/stockholding";
+
+										
                     result.isSuccess = true;
+										result.url = accessMenu;
                     Authentication.setAuthenticate(res.data);
                     // return this.renewToken();
                     return result;
