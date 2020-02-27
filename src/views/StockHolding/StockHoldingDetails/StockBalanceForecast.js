@@ -18,15 +18,6 @@ class StockBalanceForecast extends Component {
 			totalRows: 0,
             maxPage: 0,
             
-			foreshadowedColumn: [
-				{ id: "id", checkboxLabelText: "Customer No.", tableHeaderText: "Customer No.", isVisible: true, key: "id", type: "string" },
-				{ id: "order_no", checkboxLabelText: "Order No", tableHeaderText: "Order No", isVisible: true, key: "order_no", type: "string" },
-				{ id: "sm_dtm", checkboxLabelText: "Order Date", tableHeaderText: "Order Date", isVisible: true, key: "sm_dtm", type: "date" },
-				{ id: "qty_rec", checkboxLabelText: "Expected In", tableHeaderText: "Expected In", isVisible: true, key: "qty_rec", type: "number" },
-				{ id: "qty_send", checkboxLabelText: "Expected Out", tableHeaderText: "Expected Out", isVisible: true, key: "qty_send", type: "number" },
-				{ id: "balance", checkboxLabelText: "Balance", tableHeaderText: "Balance", isVisible: true, key: "balance", type: "number" }
-            ],
-            
 			balance: 0
 		}
 	}
@@ -79,10 +70,15 @@ class StockBalanceForecast extends Component {
 	showForeshadowedHeader = () => {
 		return (
 			<tr>
-				{this.state.foreshadowedColumn.map((item, idx) => {
+				{this.props.foreshadowedColumns.map((item, idx) => {
 					if (item.isVisible) {
                         // return <th className={"p-3 " + (item.type === "number" ? "text-right" : "text-left")} key={idx}>{item.tableHeaderText}</th>;
-                        return <th className="p-3 text-left" key={idx}>{item.tableHeaderText}</th>;
+                        // return (
+                        //     <th className="text-left" id={item.key} key={idx} onClick={() => this.props.arrowHandler("foreshadow",idx, item.key)}>
+                        //         {item.tableHeaderText} <img key={idx} className="sort-icon" src={item.sort} />
+                        //     </th>
+                        // );
+                        return <th className="text-left" key={idx}>{item.tableHeaderText}</th>;
                     }
                     return null;
 				})}
@@ -94,7 +90,7 @@ class StockBalanceForecast extends Component {
 		return (
 			this.props.stockBalanceForecast.slice(this.state.startIndex, this.state.lastIndex).map((item, idx) => (
 				<tr key={idx}>
-					{this.state.foreshadowedColumn.map((column, columnIdx) => {
+					{this.props.foreshadowedColumns.map((column, columnIdx) => {
 						if (column.isVisible) {
                             // if (column.type === "number") {
 							// 	return (
@@ -175,7 +171,6 @@ class StockBalanceForecast extends Component {
     lastPageClick = () => {
         if (this.state.currentPage < this.state.maxPage) {
             let currentPage = parseInt(this.state.maxPage + 1 );
-
             this.setState({ currentPage: currentPage});
             this.changeStartIndex(currentPage);
             this.changeLastIndex(currentPage);
@@ -186,26 +181,20 @@ class StockBalanceForecast extends Component {
 	render() {
 		return (
 			<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
-                <div className="row">
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-                        <div className="tablePage tableContent">
-                            <Table className="table-condensed table-striped rounded-bottom-175 mb-0" size="md" width="100%">
-                                <thead>{this.showForeshadowedHeader()}</thead>
-                                <tbody>{this.showForeshadowedData()}</tbody>
-                            </Table>
-                        </div>
-                    </div>
+                <div className="tablePage tableContent">
+                    <Table className="table-condensed table-striped clickable-row rounded-bottom-175 mb-0" size="md" width="100%">
+                        <thead>{this.showForeshadowedHeader()}</thead>
+                        <tbody>{this.showForeshadowedData()}</tbody>
+                    </Table>
                 </div>
-                <div className="row mt-5">
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-                        <Paging firstPageClick={this.firstPageClick} backPageClick={this.backPageClick}
-                                nextPageClick={this.nextPageClick} lastPageClick={this.lastPageClick}
-                                totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-                                currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-                                startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
-                                isActive={this.state.isActive}
-                                numberEventClick={this.numberEventClick} />
-                    </div>
+                <div className="mt-2">
+                    <Paging firstPageClick={this.firstPageClick} backPageClick={this.backPageClick}
+                            nextPageClick={this.nextPageClick} lastPageClick={this.lastPageClick}
+                            totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                            currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                            startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+                            isActive={this.state.isActive}
+                            numberEventClick={this.numberEventClick} />
                 </div>
             </div>
 		);

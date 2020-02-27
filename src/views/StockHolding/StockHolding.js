@@ -5,6 +5,10 @@ import axios from 'axios';
 // import AppComponent from '../../AppComponent';
 import { endpoint, headers } from '../../AppComponent/ConfigEndpoint';
 
+import mid from '../../assets/img/brand/field-idle.png';
+import down from '../../assets/img/brand/field-bot.png';
+import up from '../../assets/img/brand/field-top.png';
+
 import HeaderTitle from '../../AppComponent/HeaderTitle';
 import Search from '../../AppComponent/Search';
 import Dropdown from '../../AppComponent/Dropdown';
@@ -33,22 +37,22 @@ class StockHolding extends Component {
 			currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
-			displayPage: 5,
+			displayPage: 50,
 			totalRows: 0,
             maxPage: 0,
 
 			columns: [
-                { id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site", type: "string", sort: false },
-                { id: "client", checkboxLabelText: "Client", tableHeaderText: "Client", isVisible: true, key: "client", type: "string", sort: false },
-				{ id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "product", type: "string", sort: false },
-				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "product_name", type: "string", sort: false },
-				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: false, key: "status", type: "string", sort: false },
-				{ id: "uom", checkboxLabelText: "UOM", tableHeaderText: "UOM", isVisible: true, key: "packdesc_1", type: "string", sort: false },
-				{ id: "on_hand_qty", checkboxLabelText: "On Hand Qty", tableHeaderText: "On Hand Qty", isVisible: true, key: "qty_lcd", type: "number", sort: false },
-				{ id: "on_hand_weight", checkboxLabelText: "On Hand Weight", tableHeaderText: "On Hand Weight", isVisible: true, key: "weight", type: "number", sort: false },
-				{ id: "expected_in_qty", checkboxLabelText: "Expected In Qty", tableHeaderText: "Expected In Qty", isVisible: true, key: "qty_lcd_expected", type: "number", sort: false },
-				{ id: "expected_in_weight", checkboxLabelText: "Expected In Weight", tableHeaderText: "Expected In Weight", isVisible: true, key: "wgt_expected", type: "number", sort: false },
-				{ id: "expected_out_qty", checkboxLabelText: "Expected Out Qty", tableHeaderText: "Expected Out Qty", isVisible: true, key: "qty_lcd_committed", type: "number", sort: false },
+                { id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site", type: "string", sort: mid },
+                { id: "client", checkboxLabelText: "Client", tableHeaderText: "Client", isVisible: true, key: "client", type: "string", sort: mid },
+				{ id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "product", type: "string", sort: mid },
+				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "product_name", type: "string", sort: mid },
+				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: false, key: "status", type: "string", sort: mid },
+				{ id: "uom", checkboxLabelText: "UOM", tableHeaderText: "UOM", isVisible: true, key: "packdesc_1", type: "string", sort: mid },
+				{ id: "on_hand_qty", checkboxLabelText: "On Hand Qty", tableHeaderText: "On Hand Qty", isVisible: true, key: "qty_lcd", type: "number", sort: mid },
+				{ id: "on_hand_weight", checkboxLabelText: "On Hand Wgt", tableHeaderText: "On Hand Weight", isVisible: true, key: "weight", type: "number", sort: mid },
+				{ id: "expected_in_qty", checkboxLabelText: "Expected In Qty", tableHeaderText: "Expected In Qty", isVisible: true, key: "qty_lcd_expected", type: "number", sort: mid },
+				{ id: "expected_in_weight", checkboxLabelText: "Expected In Wgt", tableHeaderText: "Expected In Weight", isVisible: true, key: "wgt_expected", type: "number", sort: mid },
+				{ id: "expected_out_qty", checkboxLabelText: "Expected Out Qty", tableHeaderText: "Expected Out Qty", isVisible: true, key: "qty_lcd_committed", type: "number", sort: mid },
             ],
             masterSite: [],
             masterStatus: ["All", "Unavailable", "Available", "Released", "Part Released", "Completed"],
@@ -76,7 +80,7 @@ class StockHolding extends Component {
 
 	updateTableColumn = (columns) => {
 		// // let self = this;
-		// this.setState({ columns: columns });
+		this.setState({ columns: columns });
 		// localStorage.setItem("columnData", JSON.stringify(this.state.columns));
 	}
 
@@ -245,6 +249,45 @@ class StockHolding extends Component {
 		});
 	}
 
+    sortHandler = (idx, sortBy) => {
+        let data = [...this.state.masterResStockHolding];
+
+        data.sort((a, b) => {
+            if (a[sortBy] !== undefined && b[sortBy] !== undefined) {
+                if (this.state.columns[idx]["sort"] === down) {
+                    if (a[sortBy] < b[sortBy]) return -1;
+                    if (a[sortBy] > b[sortBy]) return 1;
+                    return 0;
+                } else {
+                    // if (a[sortBy] !== undefined && b[sortBy] !== undefined) {
+                        if (a[sortBy] < b[sortBy]) return 1;
+                        if (a[sortBy] > b[sortBy]) return -1;
+                        return 0;
+                    // }
+                }
+            }
+        });
+
+        this.setState({ masterResStockHolding: data });
+    }
+
+    arrowHandler = (idx, sortBy) => {
+        let sortColumns = [...this.state.columns];
+        let sortValue = sortColumns[idx]["sort"];
+
+        sortColumns = this.state.columns.map((el) => {
+            el.sort = mid;
+            return el;
+        });
+
+        sortColumns[idx]["sort"] = sortValue !== mid && sortValue === down ? up : down;
+        
+        this.setState({ columns: sortColumns });
+
+
+        this.sortHandler(idx, sortBy);
+    }
+
 	toggleDisplayMoreColumn = () => {
 		this.setState((prevState) => {
 			return { showEditColumn: !prevState.showEditColumn }
@@ -321,9 +364,9 @@ class StockHolding extends Component {
                                     isActive={this.state.isActive}
                                     columns={this.state.columns}
                                     masterResource={this.state.masterResStockHolding}
-                                    rowClicked={this.rowClicked}
                                     toggleDisplayMoreColumn={this.toggleDisplayMoreColumn}
-                                    history={this.props.history} />
+                                    history={this.props.history}
+                                    arrowHandler={this.arrowHandler} />
 				break;
 
 			default :
@@ -343,11 +386,11 @@ class StockHolding extends Component {
 				<div className="animated fadeIn">
 					<div className="row">
 						<div className="col-12 p-0">
-							<div className="row">
+							<div className="row pl-1">
                                 <HeaderTitle headerTitle="Stock Holding Summary" />
 							</div>
 
-							<div className="row mb-0 p-0">
+							<div className="row mb-0 p-0 pl-1">
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
 									<form ref={this.searchForm} onSubmit={e => { e.preventDefault() ; this.searchData() }}>
 										<div className="form-group row mb-0">
@@ -375,13 +418,13 @@ class StockHolding extends Component {
 								</div>
 							</div>
                             
-							<div className="row">
+							<div className="row pt-0 p-0 pl-1">
 								<div className="d-flex col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
 									{content}
 								</div>
 							</div>
 
-                            <div className="row mt-0 p-0">
+                            <div className="row mt-0 p-0 pl-1">
 								<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                     <Paging lastPageClick={this.lastPageClick} backPageClick={this.backPageClick}
                                             nextPageClick={this.nextPageClick} firstPageClick={this.firstPageClick}

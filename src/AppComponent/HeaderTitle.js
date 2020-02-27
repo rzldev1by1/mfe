@@ -12,7 +12,7 @@ const HeaderTitle = (props) => {
                         <FormGroup>
                             <InputGroup>
                                 <div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
-                                    <h4 className="headerTitle">{props.headerTitle}</h4>
+                                    <h2 className="headerTitle">{props.headerTitle}</h2>
                                 </div>
                             </InputGroup>
                         </FormGroup>
