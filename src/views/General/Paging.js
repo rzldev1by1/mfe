@@ -48,19 +48,23 @@ class Paging extends Component {
             <div className={this.props.maxPage > 1 ? "card-footer text-left border-company border-top-0 pl-0 pr-0 bg-transparent" : "d-none"}>
                 <InputGroup className="group">
                     <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage > 1 ? "" : "-inactive")} onClick={this.firstPageClick}>
-                        <i className="fa fa-angle-double-left fa-2x" aria-hidden="true" />
+                        {/* <i className="fa fa-angle-double-left fa-2x" aria-hidden="true" /> */}
+                        <i className="iconU-firstPage" />
                     </button>
                     <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage > 1 ? "" : "-inactive")} onClick={this.backPageClick}>
-                        <i className="fa fa-angle-left fa-2x" aria-hidden="true" />
+                        {/* <i className="fa fa-angle-left fa-2x" aria-hidden="true" /> */}
+                        <i className="iconU-leftArrow" />
                     </button>
                     
                         <span>{this.createPageNumber()}</span>
 
                         <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage < this.props.maxPage ? "" : "-inactive")} onClick={this.nextPageClick}>
-                            <i className="fa fa-angle-right fa-2x" aria-hidden="true" /> 
+                            {/* <i className="fa fa-angle-right fa-2x" aria-hidden="true" />  */}
+                            <i className="iconU-rightArrow" />
                         </button>
                         <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage < this.props.maxPage ? "" : "-inactive")} onClick={this.lastPageClick}>
-                        <i className="fa fa-angle-double-right fa-2x" aria-hidden="true" />
+                            {/* <i className="fa fa-angle-double-right fa-2x" aria-hidden="true" /> */}
+                            <i className="iconU-lastPage" />
                         </button>
 
                         <span className="p-0">Go To Page</span>

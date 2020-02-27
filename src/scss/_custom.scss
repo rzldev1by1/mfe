@@ -127,13 +127,21 @@ h2{
 	content: "\e901";
 }
 
+.iconU-firstPage:before {
+	content: "\e909"
+}
+
 .iconU-leftArrow:before {
 	content: "\e907";
 }
 
 .iconU-rightArrow:before {
 	content: "\e906";
-    font-size: 16px;
+    // font-size: 16px;
+}
+
+.iconU-lastPage:before {
+	content: "\e908"
 }
 
 .iconU-upArrow:before {
@@ -172,14 +180,6 @@ h2{
 
 .iconU-calendar:before {
 	content: "\e928";
-}
-
-.iconU-lastPage:before{
-	content: "\e908"
-}
-
-.iconU-firstPage:before{
-	content: "\e909"
 }
 
 .iconU-search:before {
