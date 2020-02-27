@@ -12,7 +12,7 @@ class SalesOrderDetail extends Component {
 
     this.potableref = React.createRef()
     this.state={
-        complete : false,
+      complete : false,
       head:[],
       datadetail:[]
     }
@@ -42,12 +42,15 @@ class SalesOrderDetail extends Component {
 
 
     getheaderdetail = () => {
-        axios.get(endpoint.salesOrder ,{
+        let url = '?orderNO=SO-6'
+        alert(endpoint.salesOrder + '/123')
+        axios.get(endpoint.salesOrder + url ,{
           headers: headers
         })
           .then(res => {
             const result = res.data.data
             this.setState({ head:result})
+            console.log(result)
             
             
           })
@@ -60,24 +63,27 @@ class SalesOrderDetail extends Component {
       let site = this.state.head.length ? this.state.head[0].site : null
       let client = this.state.head.length ? this.state.head[0].client : null
       let orderNo = this.state.head.length ? this.state.head[0].order_no : null
-      let dateDue = this.state.head.length ? this.state.head[0].date_due : null
       let orderType = this.state.head.length ? this.state.head[0].order_type : null
       let consignmentNumber = this.state.head.length ? this.state.head[0].consignment_number : null
       let freightCharge = this.state.head.length ? this.state.head[0].freight_charge : null
       let custOrderNumber = this.state.head.length ? this.state.head[0].cust_order_number : null
       let customerPoNo = this.state.head.length ? this.state.head[0].customer_po_no : null
-      let shipToName = this.state.head.length ? this.state.head[0].ship_to_name : null
       let dateReceived = this.state.head.length ? this.state.head[0].date_recd : null
       let dateReleased = this.state.head.length ? this.state.head[0].date_released : null
       let pickStart = this.state.head.length ? this.state.head[0].pick_start : null
       let dateCompleted = this.state.head.length ? this.state.head[0].date_completed : null
       let customerName = this.state.head.length ? this.state.head[0].customer_name : null
       let status = this.state.head.length ? this.state.head[0].status : null
-      let deliveryAccount = this.state.head.length ? this.state.head[0].delivery_account : null
-      let dateLoaded= this.state.head.length ? this.state.head[0].date_loaded : null
       let loadoutStart = this.state.head.length ? this.state.head[0].loadout_start: null
       let loadoutFinish= this.state.head.length ? this.state.head[0].loadout_finish : null
-      let lineCount= this.state.head.length ? this.state.head[0].line_count : null
+      let Address1= this.state.head.length ? this.state.head[0].address_1 : null
+      let Address2= this.state.head.length ? this.state.head[0].address_2 : null
+      let Address3= this.state.head.length ? this.state.head[0].address_3 : null
+      let Address4= this.state.head.length ? this.state.head[0].address_4 : null
+      let Address5= this.state.head.length ? this.state.head[0].address_5 : null
+      let postCode= this.state.head.length ? this.state.head[0].postcode : null
+      let country= this.state.head.length ? this.state.head[0].country : null
+      let state= this.state.head.length ? this.state.head[0].state : null
 
       return(
         <div className='podheader fades'>                    
@@ -96,60 +102,62 @@ class SalesOrderDetail extends Component {
                         <td>{orderNo ? orderNo : '-'}</td>
                     </tr>
                     <tr>
-                        <th>Order Due</th>
-                        <td>{dateDue ? dateDue.substring(0, 11)  : '-'}</td>
-                    </tr>
-                    <tr>
                         <th>Order Type</th>
                         <td>{orderType ? orderType : '-'}</td>
                     </tr>
                     <tr>
-                        <th>Consignment No</th>
-                        <td>{consignmentNumber ? consignmentNumber : '-'}</td>
+                        <th>Customer </th>
+                        <td>{customerName ? customerName: '-'}</td>
                     </tr>
                     <tr>
-                        <th>Freight Charge</th>
-                        <td>{freightCharge ? freightCharge : '-'}</td>
-                    </tr>
-                    <tr>
-                        <th>Customer Order No</th>
-                        <td>{custOrderNumber ? custOrderNumber : '-'}</td>
-                    </tr>
-
-                </table>
-            </div>
-
-            <div className='sub' style={{width:'70%'}}>
-                
-                <table className='tableborderss' style={{width:'100%'}}>
-                    
-                     <tr>
                         <th>Customer PO No</th>
                         <td>{customerPoNo ? customerPoNo : '-'}</td>
                     </tr>
                     <tr>
-                        <th>Ship To Name</th>
-                        <td>{shipToName ? shipToName : '-'}</td>
+                        <th>Vendor Order No</th>
+                        <td>{custOrderNumber ? custOrderNumber : '-'}</td>
                     </tr>
-                     <tr>
-                        <th>Date Received</th>
-                        <td>{dateReceived ? dateReceived.substring(0, 11) : '-'}</td>
+                </table>
+            </div>
+
+            <div className='sub' style={{width:'64%'}}>
+                
+                <table className='tableborderss' style={{width:'100%'}}>
+                    <tr>
+                        <th>Address 1</th>
+                        <td>{Address1 ? Address1 : '-'}</td>
                     </tr>
                     <tr>
-                        <th>Date Released</th>
-                        <td>{dateReleased ? dateReleased.substring(0, 11) : '-'}</td>
+                        <th>Address 2</th>
+                        <td>{Address2 ? Address2 : '-'}</td>
                     </tr>
                     <tr>
-                        <th>Pick Start</th>
+                        <th>Address 3</th>
+                        <td>{Address3 ? Address3 : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>Address 4</th>
+                        <td>{Address4 ? Address4 : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>Address 5</th>
+                        <td>{Address5 ? Address5 : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>Suburb</th>
                         <td>{pickStart ? pickStart : '-'}</td>
                     </tr>
                     <tr>
-                        <th>Date Complate</th>
-                        <td>{dateCompleted ? dateCompleted.substring(0, 11) : '-'}</td>
+                        <th>Postcode</th>
+                        <td>{postCode ? postCode : '-'}</td>
                     </tr>
                     <tr>
-                        <th>Customer Name</th>
-                        <td>{customerName ? customerName : '-'}</td>
+                        <th>State</th>
+                        <td>{state ? state : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>Country</th>
+                        <td>{country ? country : '-'}</td>
                     </tr>
                 </table>
                 <div className='hori'/>
@@ -161,16 +169,24 @@ class SalesOrderDetail extends Component {
                         <td>{status ? status : '-'}</td>
                     </tr>
                     <tr>
-                        <th>Delivery Account</th>
-                        <td>{deliveryAccount ? deliveryAccount : '-'}</td>
+                        <th>Delivery Date</th>
+                        <td>{dateReceived ? dateReceived.substring(0, 11) : '-'}</td>
                     </tr>
                     <tr>
-                        <th>Date Loaded</th>
-                        <td>{dateLoaded ? dateLoaded.substring(0, 11) : '-'}</td>
+                        <th>Date Received</th>
+                        <td>{dateReceived ? dateReceived.substring(0, 11) : '-'}</td>
                     </tr>
                     <tr>
-                        <th>Load Released</th>
-                        <td>{}</td>
+                        <th>Date Released</th>
+                        <td>{dateReleased ? dateReleased.substring(0, 11) : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>Dete Complete</th>
+                        <td>{dateCompleted ? dateCompleted.substring(0,11) : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>Load Number</th>
+                        <td>{123213}</td>
                     </tr>
                     <tr>
                         <th>Loadout Start</th>
@@ -181,11 +197,14 @@ class SalesOrderDetail extends Component {
                         <td>{loadoutFinish ? loadoutFinish.substring(0, 11) : '-'}</td>
                     </tr>
                     <tr>
-                        <th>Line Count</th>
-                        <td>{lineCount ? lineCount : '-'}</td>
+                        <th>Consignment No</th>
+                        <td>{consignmentNumber ? consignmentNumber : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>Freight Charge</th>
+                        <td>{freightCharge ? freightCharge : '-'}</td>
                     </tr>
                 </table>
-                <div className='hori'/>
             </div>
 
         </div>

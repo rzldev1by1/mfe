@@ -15,25 +15,16 @@ class StockDetails extends Component {
 			currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
-			displayPage: 5,
+			displayPage: 50,
 			totalRows: 0,
-			maxPage: 0,
-            
-            columns: [
-				{ id: "rotadate", checkboxLabelText: "Rotadate", tableHeaderText: "Rotadate", isVisible: true, key: "rotadate", type: "string" },
-				{ id: "batch", checkboxLabelText: "Batch", tableHeaderText: "Batch", isVisible: true, key: "batch", type: "string" },
-				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: true, key: "disposition", type: "string" },
-				{ id: "ref3", checkboxLabelText: "Ref 3", tableHeaderText: "Ref 3", isVisible: true, key: "ref3", type: "string" },
-				{ id: "ref4", checkboxLabelText: "Ref 4", tableHeaderText: "Ref 4", isVisible: true, key: "ref4", type: "string" },
-				{ id: "qty", checkboxLabelText: "Qty", tableHeaderText: "Qty", isVisible: true, key: "qty", type: "number" }
-			]
-		}
+			maxPage: 0
+        };
 	}
-	
+    
 	componentDidUpdate() {
 		if (this.state.setPagination) {
-			this.setPagination(this.props.stockDetails);
-		}
+            this.setPagination(this.props.stockDetails);
+        }
 	}
 
 	setPagination = (result) => {
@@ -62,6 +53,41 @@ class StockDetails extends Component {
 
 	activeTabIndex = (tabIndex) => {
 		this.setState({ activeTabIndex: tabIndex });
+	}
+
+	showStockDetailsHeader = () => {
+		return (
+			<tr>
+				{this.props.stockDetailsColumns.map((item, idx) => {
+					if (item.isVisible) {
+                        // return <th className={"p-3 " + (item.type === "number" ? "text-right" : "text-left")} key={idx}>{item.tableHeaderText}</th>;
+                        return (
+                            <th className="text-left" id={item.key} key={idx} onClick={() => this.props.arrowHandler("stockDetails", idx, item.key)}>
+                                {item.tableHeaderText} <img key={idx} className="sort-icon" src={item.sort} />
+                            </th>
+                        );
+                    }
+                    return null;
+				})}
+			</tr>
+		);
+	}
+
+	showStockDetailsData = () => {
+		return (
+			this.props.stockDetails.map((item, idx) => (
+				<tr key={idx}>
+					{this.props.stockDetailsColumns.map((column, columnIdx) => {
+						return (
+							// <td key={columnIdx} className={"px-3 " + (column.type === "number" ? "text-right" : "text-left")}>
+                            <td key={columnIdx} className="px-3 text-left">
+                                {column.id === "effective_date" ? formatDate(item[column.key]) : item[column.key]}
+							</td>
+						)
+					})}
+				</tr>
+			))
+		);
 	}
 
 	changeStartIndex = (currentPage) => {
@@ -116,7 +142,6 @@ class StockDetails extends Component {
     lastPageClick = () => {
         if (this.state.currentPage < this.state.maxPage) {
             let currentPage = parseInt(this.state.maxPage + 1 );
-
             this.setState({ currentPage: currentPage});
             this.changeStartIndex(currentPage);
             this.changeLastIndex(currentPage);
@@ -124,42 +149,11 @@ class StockDetails extends Component {
         return;
     }
 
-	showStockDetailsHeader = () => {
-		return (
-			<tr>
-				{this.state.columns.map((item, idx) => {
-					if (item.isVisible) {
-                        // return <th className={"p-3 " + (item.type === "number" ? "text-right" : "text-left")} key={idx}>{item.tableHeaderText}</th>;
-                        return <th className="p-3 text-left" key={idx}>{item.tableHeaderText}</th>;
-                    }
-                    return null;
-				})}
-			</tr>
-		);
-	}
-
-	showStockDetailsData = () => {
-		return (
-			this.props.stockDetails.map((item, idx) => (
-				<tr key={idx}>
-					{this.state.columns.map((column, columnIdx) => {
-						return (
-							// <td key={columnIdx} className={"px-3 " + (column.type === "number" ? "text-right" : "text-left")}>
-                            <td key={columnIdx} className="px-3 text-left">
-                                {column.id === "effective_date" ? formatDate(item[column.key]) : item[column.key]}
-							</td>
-						)
-					})}
-				</tr>
-			))
-		);
-	}
-
 	render() {
 		return (
-			<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
+			<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
                 <div className="tablePage tableContent">
-                    <Table className="table-condensed table-striped rounded-bottom-175 mb-0" size="md" width="100%">
+                    <Table className="table-condensed table-striped clickable-row rounded-bottom-175 mb-0" size="md" width="100%">
                         <thead>{this.showStockDetailsHeader()}</thead>
                         <tbody>{this.showStockDetailsData()}</tbody>
                     </Table>

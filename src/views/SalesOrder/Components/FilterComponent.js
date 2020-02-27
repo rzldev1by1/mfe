@@ -6,7 +6,7 @@ const FilterComponent = () => {
       <CardBody>
       <div className='rows'>
           <div className='xl-search col-md-8 inputgroups'>
-              <label className='iconU-search search'/>
+              <label className='iconU-search'/>
               <input type='text' className='searchinput' placeholder='Enter a Order No or Description'/>
           </div>
           <div className="xl col-md-4">

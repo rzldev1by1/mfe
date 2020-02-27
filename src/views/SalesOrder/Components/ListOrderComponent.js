@@ -18,7 +18,7 @@ class ListOrderComponent extends Component {
       data:[],      
       tableheader :  ["Site","Client","Order No", "Ship to Name", "Customer Name"," Status", "Date due", "Date Received", "Date Released", "Date Completed"],
       activearrow:mid,
-      sortparameter:'order_no',
+      sortparameter:'orderNO',
       sort : true,
 
       currentPage: 1,
@@ -38,6 +38,66 @@ class ListOrderComponent extends Component {
   componentDidMount(){
     this.loadSalesOrder()
   }
+
+
+  searchPurchaseOrder = (search,client,site,status,ordertype,supplier) => {
+    
+    this.setState({currentPage: 1,
+      startIndex: 0, lastIndex: 0,
+      totalRows: 0, maxPage: 0})
+
+    let param = search
+    if(param)
+    {
+      param = param.toUpperCase()
+    }
+    let url = '?searchParam='
+
+    if(client)
+    {
+      param = client
+      url = '?client='
+    }
+
+    else if(site)
+    {
+      param = site
+      url = '?site='
+    }
+
+    else if(status)
+    {
+      param = status
+      url = '?status='
+    }
+
+    else if(ordertype)
+    {
+      param = ordertype
+      url = '?orderType='
+    }
+
+    else if(supplier)
+    {
+      param = supplier
+      url = '?supplier='
+    }
+
+    this.props.loadCompleteHandler(false)
+    axios.get(endpoint.salesOrder + url + param, {
+      headers: headers
+    })
+      .then(res => {
+        const result = res.data.data
+        this.setState({ data:result })
+        this.load()
+        this.setPagination(result)
+      })
+      .catch(error => {
+        // this.props.history.push("/logins")
+      })
+  }
+
 
   setPagination = (result) => {
 		let self = this;
@@ -254,7 +314,7 @@ class ListOrderComponent extends Component {
                     </thead>
                     <tbody>
                           {this.state.data  ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
-                                  <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.order_no + '/detail')} className='tr'>
+                                  <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.orderNO + '/detail')} className='tr'>
                                       <td>{data.site}</td>
                                       <td>{data.client}</td>
                                       <td>{data.order_no}</td>

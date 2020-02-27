@@ -166,12 +166,12 @@
                   <th>Customer Order Ref</th>
               </tr>
               <tr>
-                  <td><input className="form-control " placeholder="Site"/> </td>
-                  <td><input className="form-control " placeholder="Client"/> </td>
+                  <td><input className="form-control put" placeholder="Site"/> </td>
+                  <td><input className="form-control put" placeholder="Client"/> </td>
                   {/* <td><Dropdown placeHolder="Site"  style={{minWidth: '100%',width: '1px'}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected}/></td>
                   <td><Dropdown placeHolder="Client" style={{minWidth: '100%'}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected}/></td> */}
-                  <td><input className="form-control " placeholder="Supplier"/> </td>
-                  <td><input className="form-control " placeholder="Customer Order Ref"/> </td>
+                  <td><input className="form-control put" placeholder="Supplier"/> </td>
+                  <td><input className="form-control put" placeholder="Customer Order Ref"/> </td>
               </tr>
 
               <tr>
@@ -181,15 +181,16 @@
                   <th>Vendor Order Ref</th>
               </tr>
               <tr>
-              <td><Dropdown placeHolder="Order Type" style={{minWidth: "100%", zIndex: "0"}} optionList="Type 1,Type 2" optionValue="Type 1,Type 2" getValue={this.getOrderTypeSelected}/></td>
-                  <td><input className="form-control" value='PO-003'/></td>
+              <td><Dropdown placeHolder="Order Type" style={{minWidth: "100%"}} optionList="Type 1,Type 2" optionValue="Type 1,Type 2" getValue={this.getOrderTypeSelected}/></td>
+              <td><input className="form-control put" placeholder="Order No"/> </td>
                   <td>
                     <div className='inputDate '>
-                      <input className="form-control withIcon" value={this.state.orderdate}/>
+                      <input className="form2" value={this.state.orderdate}/>
+                      {/* <input className="form-control withIcon" value={this.state.orderdate}/> */}
                       <img onClick={() => this.datePickerHandler()} className='dateimg' src={date}/>
                     </div>
                   </td>                  
-                  <td><input className="form-control "  placeholder="Vendor Order Ref"/> </td>
+                  <td><input className="form-control put"  placeholder="Vendor Order Ref"/> </td>
               </tr>
               <tr>
                 <td></td>
@@ -355,7 +356,7 @@
               </td>
               <td style={{width:'6%', height:'10%'}}>
               <div className='inputDate '>
-              <input className="form-control withIcon" value={this.state.rotedate} placeholder='Rota Date'/>
+              <input className="form2" value={this.state.rotedate} placeholder='Rota Date'/>
               <img onClick={() => this.datePickerRote()} className='dateimg' src={date}/>
               </div>
               </td>
@@ -392,7 +393,7 @@
               </td>
               <td style={{width:'6%'}}>
               <div className='inputDate '>
-              <input className="form-control withIcon" value={this.state.rotedate} placeholder='Rota Date'/>
+              <input className="form2" value={this.state.rotedate} placeholder='Rota Date'/>
               <img onClick={() => this.datePickerRote()} className='dateimg' src={date}/>
               </div>
               </td>
@@ -443,7 +444,7 @@
             toggle={true} className="POCreate">
             <ModalHeader    >
               <div className='create' style={{marginLeft:'1.5%'}}><label className='iconU-createModal'/><label className='font'>Create Purchase Orders</label></div>
-              <p style={{fontSize:'45px',width:'100px',fontWeight: '100',fontFamily:'cursive'}} color="primary" className=''  onClick={() => this.close()}>X</p>
+              <p style={{fontSize:'45px',width:'100px',fontWeight: '100',fontFamily:'cursive'}} color="primary" className='iconU-close'  onClick={() => this.close()}></p>
             </ModalHeader>
             <ModalHeader className='Tab' >
               <div>
