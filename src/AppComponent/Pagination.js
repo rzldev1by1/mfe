@@ -120,8 +120,9 @@ export default class Pagination extends Component {
                 <div className='paginationInputPage'>
                     <label id='labelPage'>Go to page</label>
                     <input onChange={(e) => this.setState({activePage:e.currentTarget.value})} id='goToPage' placeholder={this.state.totalPage.length} class="form-control"/>
-                    <label onClick={() => this.goToHandler()} id='labelButton'>Go
-                        <label className='iconU-rightArrow'/>
+                    <label id='labelButton'>
+                    <label onClick={() => this.goToHandler()} id='labelButton'>Go</label>
+                    <label className='iconU-rightArrow'/>
                     </label>
                 </div>
 

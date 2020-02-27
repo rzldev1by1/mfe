@@ -60,9 +60,9 @@
     border: 2px solid #E2E2E2;
 }
 
-.paginationInputPage > label > .iconU-rightArrow{
-    font-size: 0.6vw;
+#labelButton > .iconU-rightArrow{
     margin-left: 5px;
+    
 }
 
 .paginationInputPage > #labelButton{
