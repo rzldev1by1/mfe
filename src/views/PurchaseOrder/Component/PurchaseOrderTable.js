@@ -24,7 +24,7 @@ class PurchaseOrderTable extends Component {
       currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
-			displayPage: 30,
+			displayPage: 15,
 			totalRows: 0,
 			maxPage: 0,
     }
@@ -270,6 +270,16 @@ class PurchaseOrderTable extends Component {
         }
         return;
 	}
+
+  firstPageClick = () => {
+    if (this.state.currentPage > 1) {
+        let currentPage = parseInt(1);
+        this.setState({ currentPage: currentPage});
+        this.changeStartIndex(currentPage);
+        this.changeLastIndex(currentPage);
+    }
+    return;
+}
 
     lastPageClick = () => {
         if (this.state.currentPage < this.state.maxPage) {
