@@ -8,7 +8,6 @@
 .movementData{
 	background-color: white;
 	border-radius: 5px;
-	margin-bottom: 1%;
 	font-size: 0.9rem;
 	max-height: 600px !important;
 	width: 100%;
@@ -17,22 +16,25 @@
 .productData{
 	background-color: white;
 	border-radius: 5px;
-	margin-bottom: 1%;
 	font-size: 0.9rem;
 	max-height: 600px !important;
 	margin-right: -1%;
 	min-width:31em !important;
 }
 
-.conts{
+.contsz{
 	background-color: white;
 	margin-top: 1%;
-	margin-right: -2;
 	border-radius: 5px;
 	padding-right:2% !important;
 	padding-left:2% !important;
 	padding-top:0.5% !important;
+	padding-bottom: -110px !important;
 	display: flex;
+}
+
+.movementBody > .themed-container .conts .container-fluid{
+	padding-bottom: -1% !important;
 }
 
 /* movement scroll */
