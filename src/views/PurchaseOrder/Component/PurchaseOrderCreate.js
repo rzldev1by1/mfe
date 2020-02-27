@@ -173,7 +173,10 @@
                   <td><input className="form-control put" placeholder="Supplier"/> </td>
                   <td><input className="form-control put" placeholder="Customer Order Ref"/> </td>
               </tr>
-              <tr className="line">
+              <tr>
+                <td style={{color:"transparent"}}>1</td>
+              </tr>
+              <tr>
                   <th>Order Type</th>
                   <th>Order No</th>
                   <th>Order Date</th>
@@ -202,6 +205,9 @@
           </table>
 
           <br/>
+              <tr>
+                <td style={{color:"transparent"}}>1</td>
+              </tr>
          
           <h3 className="fonts">Line Details</h3>
           <div className="line">
@@ -290,6 +296,9 @@
             <div className={"tablerow " + (this.state.rowlist.length >2 ? "scroll" : null )} style={{width:"98%"}} >
               {this.state.rowlist.map((list, i) => this.linedetailsrowreview(list, i))}
             </div>
+            <tr>
+                <td style={{color:"transparent"}}>1</td>
+              </tr>
             <div style={{marginTop:"7%"}}>
             {this.state.tab2isactive ? 
                 this.submit() :  
