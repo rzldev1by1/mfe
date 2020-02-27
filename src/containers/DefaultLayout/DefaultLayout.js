@@ -1,10 +1,10 @@
 import React, { Component, Suspense } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, NavLink } from 'react-router-dom';
 import * as router from 'react-router-dom';
 import { Container } from 'reactstrap';
 // import { Button, ButtonDropdown,
-//          Card, CardBody, CardHeader, 
-//          Col, Row, 
+//          Card, CardBody, CardHeader,
+//          Col, Row,
 //          DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 
 import { AppAside,
@@ -24,6 +24,8 @@ import Authentication from '../../Auth/Authentication';
 
 import logo from '../../assets/img/brand/logo_ml_large.png';
 import dummyPic from '../../assets/img/brand/userprofile.png';
+import menunav from '../../menunav';
+import SidebarMenu from './SidebarMenu';
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
 
@@ -33,11 +35,17 @@ class DefaultLayout extends Component {
 
 	constructor() {
 		super();
-	   
+
 		this.state = {
             displayMenu: false,
+						navigationMenu: menunav
         };
+		this.counter = 0;
 	};
+
+	componentDidMount(){
+		this.showMenu()
+	}
 
 	signOut() {
         Authentication.signOut();
@@ -60,7 +68,7 @@ class DefaultLayout extends Component {
                         <a className="expandProfile" href="/">Change Password</a>
                     </div>
                     <div className="expandProfile">
-                        <a className="expandProfile" href="/" onClick={this.signOut}>
+                        <a className="expandProfile" href="/" onClick={(e) => {this.signOut()} }>
                             <i className="fa fa-power-off" /> Logout
                         </a>
                     </div>
@@ -69,7 +77,29 @@ class DefaultLayout extends Component {
         }
     }
 
+
+
+	showMenu = () => {
+			let userLevel = Authentication.getUserLevel();
+			let userMenu = Authentication.getUserMenu();
+			let menuaccess = {...menunav};
+
+			if(userLevel){
+				if(userLevel.toLowerCase() !== 'administrator'){
+					let menuItems = 	menunav.items.filter((item) => { return userMenu.indexOf(item.key) !== -1 });
+					if(menuItems.length)
+					 menuaccess.items = menuItems
+				}
+				this.setState({navigationMenu:menuaccess});
+
+			}
+
+		}
+
+
+
     render() {
+
         return (
             <div className="app">
                 <div className="app-body">
@@ -82,7 +112,15 @@ class DefaultLayout extends Component {
                                 <hr className="border-header" />
                             </div>
 
-                            <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
+
+															{/*
+																<AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
+															**/
+														  }
+
+
+																<SidebarMenu menuItems={this.state.navigationMenu}/>
+
 
                             <div className="userSection" size="sm" onClick={this.onUserDropdownClick}>
                                 <table>
