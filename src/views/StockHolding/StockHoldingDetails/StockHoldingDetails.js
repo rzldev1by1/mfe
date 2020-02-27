@@ -10,6 +10,10 @@ import axios from 'axios';
 import { endpoint, headers } from '../../../AppComponent/ConfigEndpoint';
 import { tab1, tab1Inactive, tab2, tab2Inactive } from '../../../AppComponent/Helper';
 
+import mid from '../../../assets/img/brand/field-idle.png';
+import down from '../../../assets/img/brand/field-bot.png';
+import up from '../../../assets/img/brand/field-top.png';
+
 import StockDetails from './StockDetails';
 import StockBalanceForecast from './StockBalanceForecast';
 
@@ -30,7 +34,26 @@ class StockHoldingDetails extends Component {
 			isForeshadowedBalance: false,
             stockBalanceForecast: [],
             
-            notFoundMessage: ""
+            notFoundMessage: "",
+
+
+            stockDetailsColumns: [
+				{ id: "rotadate", checkboxLabelText: "Rotadate", tableHeaderText: "Rotadate", isVisible: true, key: "rotadate", type: "string", sort: mid },
+				{ id: "batch", checkboxLabelText: "Batch", tableHeaderText: "Batch", isVisible: true, key: "batch", type: "string", sort: mid },
+				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: true, key: "disposition", type: "string", sort: mid },
+				{ id: "ref3", checkboxLabelText: "Ref 3", tableHeaderText: "Ref 3", isVisible: true, key: "ref3", type: "string", sort: mid },
+				{ id: "ref4", checkboxLabelText: "Ref 4", tableHeaderText: "Ref 4", isVisible: true, key: "ref4", type: "string", sort: mid },
+				{ id: "qty", checkboxLabelText: "Qty", tableHeaderText: "Qty", isVisible: true, key: "qty", type: "number", sort: mid }
+            ],
+
+			foreshadowedColumns: [
+				{ id: "id", checkboxLabelText: "Customer No.", tableHeaderText: "Customer No.", isVisible: true, key: "id", type: "string", sort: mid },
+				{ id: "order_no", checkboxLabelText: "Order No", tableHeaderText: "Order No", isVisible: true, key: "order_no", type: "string", sort: mid },
+				{ id: "sm_dtm", checkboxLabelText: "Order Date", tableHeaderText: "Order Date", isVisible: true, key: "sm_dtm", type: "date", sort: mid },
+				{ id: "qty_rec", checkboxLabelText: "Expected In", tableHeaderText: "Expected In", isVisible: true, key: "qty_rec", type: "number", sort: mid },
+				{ id: "qty_send", checkboxLabelText: "Expected Out", tableHeaderText: "Expected Out", isVisible: true, key: "qty_send", type: "number", sort: mid },
+				{ id: "balance", checkboxLabelText: "Balance", tableHeaderText: "Balance", isVisible: true, key: "balance", type: "number", sort: mid }
+            ]
 		}
 	}
 
@@ -40,12 +63,18 @@ class StockHoldingDetails extends Component {
 
 	loadStockHolding = () => {
 		let self = this;
-		let productId = this.props.history.location.pathname.substring(20);
-		let params = { "searchParam": productId };
+        // let productId = this.props.history.location.pathname.substring(20);
+        let productId = decodeURIComponent(this.props.match.params.productId);
+        let client = decodeURIComponent(this.props.match.params.client);
+        let site = decodeURIComponent(this.props.match.params.site);
+		let params = { 
+            "client": client,
+            "site": site
+        };
 
 		self.setState({ isLoaded: true });
 
-		axios.get(endpoint.stockHoldingSummary, {
+		axios.get(endpoint.stockHoldingDetail + productId, {
             params: params,
             headers: headers
 		})
@@ -74,12 +103,15 @@ class StockHoldingDetails extends Component {
 
 	loadStockDetails = () => {
         let self = this;
+        let productId = decodeURIComponent(this.props.match.params.productId);
+        let client = decodeURIComponent(this.props.match.params.client);
+        let site = decodeURIComponent(this.props.match.params.site);
         let params = {
-            "client": self.state.stockHolding[0]["client"],
-            "site": self.state.stockHolding[0]["site"]
+            "client": client,
+            "site": site
         };
 
-		axios.get(endpoint.stockDetail + self.props.history.location.pathname.substring(20), {
+		axios.get(endpoint.stockDetail + productId, {
             params: params,
             headers: headers
         })
@@ -102,11 +134,19 @@ class StockHoldingDetails extends Component {
 
 	loadForeshadowed = () => {
         let self = this;
+        let productId = decodeURIComponent(this.props.match.params.productId);
+        let client = decodeURIComponent(this.props.match.params.client);
+        let site = decodeURIComponent(this.props.match.params.site);
+        let params = {
+            "client": client,
+            "site": site
+        };
         
 		self.setState({ isLoaded: true });
 
-		axios.get(endpoint.stockBalanceForecast + this.props.history.location.pathname.substring(20), {
-            headers: headers
+		axios.get(endpoint.stockBalanceForecast + productId, {
+            headers: headers,
+            params: params
         })
 		.then(res => {
 			// res.isSuccess = true;
@@ -133,6 +173,63 @@ class StockHoldingDetails extends Component {
 		}
 	}
 
+    arrowHandler = (section, idx, sortBy) => {
+        let sortColumns = section === "stockDetails" ? [...this.state.stockDetailsColumns] : [...this.state.foreshadowedColumns];
+        let sortValue = sortColumns[idx]["sort"];
+
+        sortColumns = sortColumns.map((el) => {
+            el.sort = mid;
+            return el;
+        });
+
+        sortColumns[idx]["sort"] = sortValue !== mid && sortValue === down ? up : down;
+        
+        this.setState({ columns: sortColumns });
+
+        this.sortHandler(section, idx, sortBy);
+    }
+
+    sortHandler = (section, idx, sortBy) => {
+        let columns = section === "stockDetails" ? [...this.state.stockDetailsColumns] : [...this.state.foreshadowedColumns];
+        let data = section === "stockDetails" ? [...this.state.stockDetails] : [...this.state.stockBalanceForecast];
+
+        data.sort((a, b) => {
+            if (a[sortBy] !== undefined && b[sortBy] !== undefined) {
+                if (columns[idx]["sort"] === down) {
+                    if (a[sortBy] < b[sortBy]) return -1;
+                    if (a[sortBy] > b[sortBy]) return 1;
+                    return 0;
+                } else {
+                    // if (a[sortBy] !== undefined && b[sortBy] !== undefined) {
+                        if (a[sortBy] < b[sortBy]) return 1;
+                        if (a[sortBy] > b[sortBy]) return -1;
+                        return 0;
+                    // }
+                }
+            }
+        });
+
+        if (section === "stockDetails") {
+            this.setState({ stockDetails: data });
+        } else {
+            this.setState({ stockBalanceForecast: data });
+        }
+    }
+
+    showStockBalanceForecast = (stockHolding) => {
+        let isValid = true;
+
+        if (stockHolding.length > 0) {
+            let stockOnHand = parseInt(stockHolding[0]["stock_on_hand"]);
+            let expectedIn = parseInt(stockHolding[0]["expected_in_qty"]);
+            let expectedOut = parseInt(stockHolding[0]["expected_out_qty"]);
+
+            if (expectedIn === 0 && expectedOut === 0 && (stockOnHand + expectedIn) >= expectedOut) isValid = false;
+        }
+
+        return isValid;
+    }
+
 	render() {
 		const { stockHolding, activeTab } = this.state;
 
@@ -143,9 +240,9 @@ class StockHoldingDetails extends Component {
 				<div className="animated fadeIn">
 					<div className="row">
 						<div className="col-12 p-0">
-							<div className="row">
-								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-                                    <CardBody className="pb-0 pl-0">
+							<div className="row pl-3">
+								<div className="col-12 col-lg-12 col-md-12 col-sm-12 p-0">
+                                    <CardBody className="pt-2 pb-0 pl-1 pt-3">
                                         <Row className="align-items-center pl-0">
                                             <div className="col-12 col-lg-12 col-md-12 col-sm-12 pr-0">
                                                 <FormGroup className="mb-0">
@@ -160,9 +257,9 @@ class StockHoldingDetails extends Component {
                                                                 </BreadcrumbItem>
                                                             </Breadcrumb> */}
                                                             <div className="headerTitle">
-                                                                <h2 style={{ marginRight: "3%" }}>Stock Holding Summary</h2>
-                                                                <h2 style={{ marginRight: "3%" }}><i className="iconU-rightArrow" style={{ fontSize: "20px" }} /></h2>
-                                                                <h2 style={{ marginRight: "3%" }}>{decodeURIComponent(this.props.match.params.product)}</h2>
+                                                                <h2 style={{ marginRight: "20px" }}>Stock Holding Summary</h2>
+                                                                <h2 style={{ marginRight: "20px" }}><i className="iconU-rightArrow" style={{ fontSize: "20px" }} /></h2>
+                                                                <h2 style={{ marginRight: "20px" }}>{decodeURIComponent(this.props.match.params.productId)}</h2>
                                                             </div>
                                                         </div>
                                                     </InputGroup>
@@ -173,11 +270,11 @@ class StockHoldingDetails extends Component {
 								</div>
 							</div>
 
-							<div className="row">
+							<div className="row pl-1">
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
 									<div className="form-group row">
 										<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-                                            <CardBody className="pb-0 pl-0">
+                                            <CardBody className="pb-0 pl-0 pt-2">
                                                 <Row className="align-items-center ml-0">
                                                     <div className="col-12 col-lg-12 col-md-12 col-sm-12 pr-0">
                                                         <FormGroup>
@@ -190,14 +287,14 @@ class StockHoldingDetails extends Component {
                                                                                     <Label className="primary-text">Product</Label>
                                                                                 </div>
                                                                                 <div className="col-4">
-                                                                                    <Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0]["product"] : null}</Label>
+                                                                                    <Label className="secondary-text">{stockHolding[0]["product"]}</Label>
                                                                                 </div>
 
                                                                                 <div className="col-2 borderLeft">
                                                                                     <Label className="primary-text">Stock On Hand</Label>
                                                                                 </div>
                                                                                 <div className="col-4">
-                                                                                    <Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0]["qty_lcd"] : null}</Label>
+                                                                                    <Label className="secondary-text">{stockHolding[0]["stock_on_hand"]}</Label>
                                                                                 </div>
                                                                             </div>
 
@@ -206,14 +303,14 @@ class StockHoldingDetails extends Component {
                                                                                     <Label className="primary-text">Description</Label>
                                                                                 </div>
                                                                                 <div className="col-4">
-                                                                                    <Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0]["product_name"] : null}</Label>
+                                                                                    <Label className="secondary-text">{stockHolding[0]["description"]}</Label>
                                                                                 </div>
 
                                                                                 <div className="col-2 borderLeft">
                                                                                     <Label className="primary-text">Available Qty</Label>
                                                                                 </div>
                                                                                 <div className="col-4">
-                                                                                    <Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0]["qty_lcd"] : null}</Label>
+                                                                                    <Label className="secondary-text">{stockHolding[0]["available_qty"]}</Label>
                                                                                 </div>
                                                                             </div>
 
@@ -222,13 +319,13 @@ class StockHoldingDetails extends Component {
                                                                                     <Label className="primary-text">Site</Label>
                                                                                 </div>
                                                                                 <div className="col-4">
-                                                                                    <Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0]["site"] : null}</Label>
+                                                                                    <Label className="secondary-text">{stockHolding[0]["site"]}</Label>
                                                                                 </div>
                                                                                 <div className="col-2 borderLeft">
                                                                                     <Label className="primary-text">Expected In Qty</Label>
                                                                                 </div>
                                                                                 <div className="col-4">
-                                                                                    <Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0]["qty_lcd_expected"] : null}</Label>
+                                                                                    <Label className="secondary-text">{stockHolding[0]["expected_in_qty"]}</Label>
                                                                                 </div>
                                                                             </div>
 
@@ -245,7 +342,7 @@ class StockHoldingDetails extends Component {
                                                                                     <Label className="primary-text">Expected Out Qty</Label>
                                                                                 </div>
                                                                                 <div className="col-4">
-                                                                                    <Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0]["qty_lcd_committed"] : null}</Label>
+                                                                                    <Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0]["expected_out_qty"] : null}</Label>
                                                                                 </div>
                                                                             </div>
 
@@ -255,15 +352,15 @@ class StockHoldingDetails extends Component {
                                                                                 </div>
                                                                                 <div className="col-4">
                                                                                     {/* <Label className="secondary-text">{this.state.UoM}</Label> */}
-                                                                                    <Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0]["packdesc_1"] : null}</Label>
+                                                                                    <Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0]["uom"] : null}</Label>
                                                                                 </div>
 
-                                                                                {/* <div className="col-2 borderLeft">
+                                                                                <div className="col-2 borderLeft">
                                                                                     <Label className="primary-text">Rotadate Type</Label>
                                                                                 </div>
                                                                                 <div className="col-4">
-                                                                                    <Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0]["rotadate_type"] : null} - Receipt Type</Label>
-                                                                                </div> */}
+                                                                                    <Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0]["rotadate_type"] : null}</Label>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </Card>
@@ -277,7 +374,7 @@ class StockHoldingDetails extends Component {
                                                     <div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
                                                         <Nav tabs>
                                                             <div className="input-group">
-                                                                <NavItem className="col-3 col-lg-3 col-md-3 col-sm-6 pl-0 pr-0">
+                                                                <NavItem className="pl-0 pr-0">
                                                                     <NavLink className={"nav-link-cust" + (activeTab === "1" ? " tab-custom" : "")} active={this.state.activeTab === "1"} onClick={() => this.activeTabIndex("1")}>
                                                                         <div className="row rowTabCustom align-items-center">
                                                                             <span className="tabTitleText">
@@ -287,7 +384,7 @@ class StockHoldingDetails extends Component {
                                                                     </NavLink>
                                                                 </NavItem>
 
-                                                                <NavItem className="col-3 col-lg-3 col-md-3 col-sm-6 pl-2 pr-0">
+                                                                <NavItem className="pl-2 pr-0">
                                                                     <NavLink className={"nav-link-cust" + (activeTab === "2" ? " tab-custom" : "")} active={this.state.activeTab === "2"} onClick={() => this.activeTabIndex("2")}>
                                                                         <div className="row rowTabCustom align-items-center">
                                                                             <span className="tabTitleText">
@@ -304,13 +401,19 @@ class StockHoldingDetails extends Component {
                                                 <Row className="align-items-center ml-0">
                                                     <div className="col-12 col-lg-12 col-md-12 col-sm-12 mt-0 pl-0 pr-0">
                                                         <TabContent className="border-0" activeTab={this.state.activeTab}>
-                                                            <TabPane tabId="1">
+                                                            <TabPane className="p-0" tabId="1">
                                                                 <StockDetails isStockDetails={this.state.isStockDetails}
-                                                                              stockDetails={this.state.stockDetails} />
+                                                                              stockDetails={this.state.stockDetails}
+                                                                              stockDetailsColumns={this.state.stockDetailsColumns}
+                                                                              sortHandler={this.sortHandler}
+                                                                              arrowHandler={this.arrowHandler} />
                                                             </TabPane>
-                                                            <TabPane tabId="2">
+                                                            <TabPane className={this.showStockBalanceForecast(stockHolding) ? "p-0" : "d-none"} tabId="2">
                                                                 <StockBalanceForecast isForeshadowedBalance={this.state.isForeshadowedBalance}
-                                                                                      stockBalanceForecast={this.state.stockBalanceForecast} />
+                                                                                      stockBalanceForecast={this.state.stockBalanceForecast}
+                                                                                      foreshadowedColumns={this.state.foreshadowedColumns}
+                                                                                      sortHandler={this.sortHandler}
+                                                                                      arrowHandler={this.arrowHandler} />
                                                             </TabPane>
                                                         </TabContent>
                                                     </div>

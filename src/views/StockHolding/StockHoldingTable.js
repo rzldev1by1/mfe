@@ -1,21 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Table } from 'reactstrap';
 
-import Paging from '../General/Paging';
+// import Paging from '../General/Paging';
 
-const componentTable = (props) => {
-	function showHeader() {
+class componentTable extends Component {
+	showHeader = () => {
 		return (
 			<tr>
-				{props.columns.map((item, idx) => {
+				{this.props.columns.map((item, idx) => {
 					if (item.isVisible) {
                         // return <th className={"p-3 " + (item.type === "number" ? "text-right" : "text-left")} key={idx}>{item.tableHeaderText}</th>;
-                        return <th className="p-3 text-left" key={idx}>{item.tableHeaderText}</th>;
+                        return (
+                            <th className="text-left" id={item.key} key={idx} onClick={() => this.props.arrowHandler(idx, item.key)}>
+                                {item.tableHeaderText} <img key={idx} className="sort-icon" src={item.sort} />
+                            </th>
+                        );
                     }
                     return null;
 				})}
-				<th className="p-3 text-left">
-					<button type="button" className="editColumnBtn" onClick={props.toggleDisplayMoreColumn}>
+				<th className="text-left">
+					<button type="button" className="editColumnBtn" onClick={this.props.toggleDisplayMoreColumn}>
 						{/* <span className="glyphicon glyphicon-pencil editColumnLogo" /> */}
                         <i className="editColumnLogo iconU-edit" />
 					</button>
@@ -24,53 +28,47 @@ const componentTable = (props) => {
 		);
 	}
 
-	function showData() {
+	showData = () => {
 		return (
-			props.masterResource.slice(props.startIndex, props.lastIndex).map((item, idx) => (
-				<tr key={idx} onClick={() => rowClicked(item["product"], item["client"], item["site"])}>
-					{props.columns.map((column, columnIdx) => {
+			this.props.masterResource.slice(this.props.startIndex, this.props.lastIndex).map((item, idx) => (
+				<tr key={idx} onClick={() => this.rowClicked(item["product"], item["client"], item["site"])}>
+					{this.props.columns.map((column, columnIdx) => {
 						if (column.isVisible) {
                             // return <td key={columnIdx} className={"px-3 " + (column.type === "number" ? "text-right" : "text-left")}>{item[column.key]}</td>;
                             return <td key={columnIdx} className="px-3 text-left">{item[column.key]}</td>;
                         }
                         return null;
 					})}
-					{/* <td className="px-3 text-left"> */}
-						{/* <a href="#" className="dots"> */}
-							{/* <div className="dot" /> */}
-							{/* <div className="dot" /> */}
-							{/* <div className="dot" /> */}
-						{/* </a> */}
-					{/* </td> */}
+					<td className="px-3 text-left">
+						{/* <a href="#" className="dots">
+							<div className="dot" />
+							<div className="dot" />
+							<div className="dot" />
+						</a> */}
+					</td>
 				</tr>
 			))
 		);
     }
     
-	function rowClicked(productCode, site) {
-		props.history.push("/stock/stockholding/" + encodeURIComponent(productCode));
+	rowClicked = (productCode, client, site) => {
+        // this.props.history.push("/stock/stockholding/" + encodeURIComponent(productCode) + "?client=" + encodeURIComponent(client) + "&site=" + encodeURIComponent(site));
+        this.props.history.push(`/stock/stockholding/${productCode}/${client}/${site}`);
 	}
 
-    return (
-        <div className="col-12 p-0">
-            <div className={props.isSearch ? "spinner" : "d-none"} />
-            <div className={props.isSearch ? "d-none" : "tablePage tableContent"}>
-                <Table className="table-condensed table-striped clickable-row mb-0" size="sm">
-                    <thead>{showHeader()}</thead>
-                    <tbody>{showData()}</tbody>
-                </Table>
+    render() {
+        return (
+            <div className="col-12 p-0">
+                <div className={this.props.isSearch ? "spinner" : "d-none"} />
+                <div className={this.props.isSearch ? "d-none" : "tablePage tableContent"}>
+                    <Table className="table-condensed table-striped clickable-row mb-0" size="md">
+                        <thead>{this.showHeader()}</thead>
+                        <tbody>{this.showData()}</tbody>
+                    </Table>
+                </div>
             </div>
-            {/* <div className="mt-0">
-                <Paging lastPageClick={props.lastPageClick} backPageClick={props.backPageClick}
-                        nextPageClick={props.nextPageClick} firstPageClick={props.firstPageClick}
-                        totalRows={props.totalRows} displayPage={props.displayPage}
-                        currentPage={props.currentPage} maxPage={props.maxPage}
-                        startIndex={props.startIndex} lastIndex={props.lastIndex}
-                        isActive={props.isActive}
-                        numberEventClick={props.numberEventClick} />
-            </div> */}
-        </div>
-    );
+        );
+    }
 };
 
 export default componentTable;

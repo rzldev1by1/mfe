@@ -50,7 +50,8 @@ export default class SalesOrderEditColumn extends Component {
                         </div>
                         <div className="col-2">
                             <button type="button" className="btnclose-modal circle float-right" onClick={this.props.toggle}>
-                                <i class="fa fa-times" />
+                                {/* <i class="fa fa-times" /> */}
+                                <i className="iconU-close" />
                             </button>
                         </div>
                     </div>
