@@ -325,6 +325,7 @@ class ListOrderComponent extends Component {
                                       <td>{'' + (data.date_recd ? moment(data.date_recd).format("YYYY/MM/DD") : '') }</td>
                                       <td>{'' + (data.date_released ? moment(data.date_released).format("YYYY/MM/DD") : '') }</td>
                                       <td>{'' + (data.date_completed ? moment(data.date_completed).format("YYYY/MM/DD") : '') }</td>
+                                      <td></td>
                                   </tr>
                               ) : 
                                   <div> No data available </div>
