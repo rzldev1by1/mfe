@@ -276,19 +276,17 @@ class Movement extends Component {
 
       setSliceValue= (startIndex, endIndex) => {
         this.setState({startIndex:startIndex, endIndex:endIndex})
-    }
-    
+	}
+
     render(){
         if(this.state.pushTableComplete)
         {
             this.pushData()
             this.sortData()
         }
-
-       
         return(
             <div className={this.state.complete ? 'movementBody' : null}>
-                <Container className="themed-container contsz" fluid={true}> 
+                <Container className="themed-container conts" fluid={true}> 
                 <div className={'productData scrolly ' + (this.state.complete ? 'fades' : 'hidden')} style={{display:'flex'}}>
                     <table width='100%' align='left'>
                         <thead>
@@ -299,7 +297,7 @@ class Movement extends Component {
                         <tbody>
                         {
                             this.state.data.slice(this.state.startIndex,this.state.endIndex).map((data) =>
-                                <tr id='prData' className='stockMovementHover' style={{borderBottom:'1px solid #f5f5f5'}}>
+                                <tr style={{borderBottom:'1px solid #f5f5f5'}}>
                                 <td height='50'>
                                     <this.productBody site={data.site} product={data.product} product_name={data.product_name} packdesc={data.packdesc} client={data.client}/>
                                 </td>
@@ -323,7 +321,7 @@ class Movement extends Component {
                         <tbody className='mvmntHead'>
                         {
                             this.state.data.slice(this.state.startIndex,this.state.endIndex).map((data) =>
-                                <tr onmouseover={() => this.hover()} id='mvData' className='stockMovementHover' style={{borderBottom:'1px solid #f5f5f5'}}>
+                                <tr style={{borderBottom:'1px solid #f5f5f5'}}>
                                 {
                                     data.detail.map(detail =>
                                     <td height='50' width='15%' style={{borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}><this.tableMovement detail={detail}/></td>

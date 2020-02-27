@@ -65,8 +65,10 @@ class Authentication {
 	static getUserMenu = () => {
 		let user = JSON.parse(localStorage.getItem("user"));
 		if(user){
-			if(user['userModules'].length)
-        	return user['userModules'].map((item)=>{return item.menu_id;})
+			if(user["userModules"]){
+				if(user["userModules"].length)
+					return user["userModules"].map((item)=>{return item.menu_id});
+			}
 		}
 		else
 			return [];
@@ -128,7 +130,7 @@ class Authentication {
 										let menuItems =	menunav.items.filter((item) => { return stringMenus.indexOf(item.key) !== -1 });
 										let accessMenu = menuItems.length ? menuItems[0].url:"/stock/stockholding";
 
-										
+
                     result.isSuccess = true;
 										result.url = accessMenu;
                     Authentication.setAuthenticate(res.data);
