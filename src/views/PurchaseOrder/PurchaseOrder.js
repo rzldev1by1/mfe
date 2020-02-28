@@ -19,6 +19,7 @@ class PurchaseOrder extends Component {
         super(props)
 
         this.potableref = React.createRef()
+        this.searchForm = React.createRef()
 
         this.state = {
             data:[{"menu":"Client", "subMenu":["MLS","MLB"], }, {"menu":"Site", "subMenu":["A","B","C"]},{"menu":"Status", "subMenu":["Open","Close"]},{"menu":"Supplier", "subMenu":["JohnDoe","JohnWick"]},{"menu":"Order Type", "subMenu":["Type 1", "Type 2"]}],
@@ -47,6 +48,8 @@ class PurchaseOrder extends Component {
             orderTypeName: [],
             orderTypeValue: []
         }
+
+        
     }
 
     componentDidMount = () => {
@@ -98,8 +101,9 @@ class PurchaseOrder extends Component {
         this.setState({showmodal:false})
     }
 
-    search = (client,site,status,ordertype,supplier) => {
-        this.potableref.current.searchPurchaseOrder(this.state.search,client,site,status,ordertype,supplier)
+    search = () => {
+        let self = this;
+        self.potableref.current.searchPurchaseOrder(self.state.search,self.state.clientSelected,self.state.siteSelected,self.state.statusSelected,self.state.orderTypeSelected)
     }
 
     getclient = () => {
@@ -132,20 +136,21 @@ class PurchaseOrder extends Component {
       getordertype = () => {
         if(this.state.clientSelected && this.state.siteSelected)
         {
+            let self = this;
             axios.get(endpoint.getOrderType  + '?client='+this.state.clientSelected + '&site='+this.state.siteSelected, {
                 headers: headers
               })
                 .then(res => {
                   const result = res.data
-                  this.setState({ ordertypedata:result }); 
+                  self.setState({ ordertypedata:result }); 
                   let orderTypeName = [];
                   let orderTypeValue = [];
-                  console.log(this.state.ordertypedata)
-                  this.state.ordertypedata.map((data) => {
+                  console.log(self.state.ordertypedata)
+                  self.state.ordertypedata.map((data) => {
                       orderTypeName.push(data.description);
                       orderTypeValue.push(data.code);
                   })
-                  this.setState({
+                  self.setState({
                       orderTypeName: orderTypeName,
                       orderTypeValue: orderTypeValue
                   })
@@ -178,6 +183,7 @@ class PurchaseOrder extends Component {
         let clientValue = [];
         let siteData = [];
           let status = ["Unavailable", "Available", "Released", "Part Released", "Completed", "All"];
+          let statusValue = ["unavailable", "open", "released", "", "completed", "all"];
         if(this.state.clientdata){
             this.state.clientdata.map((data) => {
                 clientName.push(data.name);
@@ -191,10 +197,10 @@ class PurchaseOrder extends Component {
         }
           return(
               <React.Fragment>
-                  <Dropdown placeHolder="Site" style={{width: "102px", marginRight: "1em"}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected}/>
-                  <Dropdown placeHolder="Client" style={{width: "218px", marginRight: "1em"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected}/>
-                  <Dropdown placeHolder="Status" style={{marginRight: "1em"}} optionList={status.toString()} optionValue={status.toString()} getValue={this.getStatusSelected}/>
-                  <Dropdown placeHolder="Order Type" style={{width: "180px"}} optionList={this.state.orderTypeName.toString()} optionValue={this.state.orderTypeValue.toString()} getValue={this.getStatusSelected}/>
+                  <Dropdown placeHolder="Site" style={{width: "102px", marginRight: "1em"}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected.bind(this)}/>
+                  <Dropdown placeHolder="Client" style={{width: "218px", marginRight: "1em"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected.bind(this)}/>
+                  <Dropdown placeHolder="Status" style={{marginRight: "1em"}} optionList={status.toString()} optionValue={statusValue.toString()} getValue={this.getStatusSelected.bind(this)}/>
+                  <Dropdown placeHolder="Order Type" style={{width: "180px"}} optionList={this.state.orderTypeName.toString()} optionValue={this.state.orderTypeValue.toString()} getValue={this.getOrderTypeSelected.bind(this)}/>
               </React.Fragment>
           )
       }
@@ -217,10 +223,12 @@ class PurchaseOrder extends Component {
             </div>
             
             <div className='searchbar'>
-                <Search showFilter={this.state.filterclicked}
+                <Search getValue={(v) => this.setState({search: v})}
+                        showFilter={this.state.filterclicked}
                         triggerShowFilter={() => this.setState({filterclicked: !this.state.filterclicked})}
                         searchData={() => this.search()}
                         placeholder="Enter a Product or Description" />
+                {console.log(this.searchForm)}
                 {/* <div className='inputgroup' style={{width:'82%'}}>
                     <label className='iconU-search isearch'/>
                     <input onChange={(e) => this.onchangesearch(e) } type='text' className='searchinput' placeholder='Enter a Site, Order No, Client or Supplier'/>

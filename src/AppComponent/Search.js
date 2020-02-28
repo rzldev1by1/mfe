@@ -9,7 +9,7 @@ const Search = (props) => {
                     {/* <i className="fa fa-search fa-2x iconSpace" /> */}
                     <i className="iconU-search" />
                 </span>
-                <input type="text" style={{ fontFamily: "Helvetica Neue Regular" }} className="form-control searchInput" id="searchInput" name="searchInput" placeholder={props.placeholder} />
+                <input type="text" style={{ fontFamily: "Helvetica Neue Regular" }} className="form-control searchInput" id="searchInput" name="searchInput" placeholder={props.placeholder} onChange={(e) => props.getValue(e.target.value)} />
             </div>
             <Button className={"filter" + (props.showFilter ? " active" : "")} onClick={props.triggerShowFilter}>
                 <i className="iconU-filter" />

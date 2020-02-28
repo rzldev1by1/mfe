@@ -81,51 +81,42 @@ class PurchaseOrderTable extends Component {
     this.props.loadCompleteHandler(true)
   }
 
-  searchPurchaseOrder = (search,client,site,status,ordertype,supplier) => {
+  searchPurchaseOrder = (search,client,site,status,ordertype) => {
     
     this.setState({currentPage: 1,
       startIndex: 0, lastIndex: 0,
       totalRows: 0, maxPage: 0})
 
     let param = search
+    let url = '?searchParam='+param
     if(param)
     {
       param = param.toUpperCase()
     }
-    let url = '?searchParam='
+    
 
     if(client)
     {
-      param = client
-      url = '?client='
+      url += '&client='+client
     }
 
-    else if(site)
+    if(site)
     {
-      param = site
-      url = '?site='
+      url += '&site='+site
     }
 
-    else if(status)
+    if(status)
     {
-      param = status
-      url = '?status='
+      url += '&status='+status
     }
 
-    else if(ordertype)
+    if(ordertype)
     {
-      param = ordertype
-      url = '?orderType='
-    }
-
-    else if(supplier)
-    {
-      param = supplier
-      url = '?supplier='
+      url += '&orderType='+ordertype
     }
 
     this.props.loadCompleteHandler(false)
-    axios.get(endpoint.purchaseOrder + url + param, {
+    axios.get(endpoint.purchaseOrder + url, {
       headers: headers
     })
       .then(res => {
