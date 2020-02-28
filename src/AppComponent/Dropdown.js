@@ -8,11 +8,11 @@ const Dropdown = ({placeHolder, optionList, optionValue, style, getValue}) => {
         return(
             <React.Fragment>
                 <ul className="select_dropdown filterDropdown" style={ style }>
-                    <input className="select_dropdown_close" type="radio" name={"select" + placeHolder + no} id={"select-close" + placeHolder + no} value="" defaultChecked/>
+                    <input className="select_dropdown_close" type="radio" name={"select" + placeHolder + no} id={"select-close" + placeHolder + no} value="" onClick={(e) => getValue(e.target.value)} defaultChecked/>
                     <span className="select_dropdown_label select_dropdown_label-placeholder">{placeHolder}</span>
                     
                     <li className="select_dropdown_items">
-                        <input className="select_dropdown_expand" type="radio" name={"select" + placeHolder + no} value="" id={"select-opener" + placeHolder + no}/>
+                        <input className="select_dropdown_expand" type="radio" name={"select" + placeHolder + no} value="" onClick={(e) => getValue(e.target.value)} id={"select-opener" + placeHolder + no}/>
                         <label className="select_dropdown_closeLabel" htmlFor={"select-close" + placeHolder + no}></label>
                         
                         <ul className={"select_dropdown_options" + (optionList ? "" : " d-none")}>

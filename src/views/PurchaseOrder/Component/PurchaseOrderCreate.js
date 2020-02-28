@@ -1,6 +1,6 @@
   import React, {Component} from 'react'
   import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-  import DatePicker from './DatePicker'
+  // import DatePicker from './DatePicker'
   import axios from 'axios'
   import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
   import oneinactive from '../../../assets/img/brand/tab_1_grey@2x.png'
@@ -13,6 +13,7 @@
   import 'react-day-picker/lib/style.css';
 
   import Dropdown from '../../../AppComponent/Dropdown'
+  import DatePicker from '../../../AppComponent/DatePicker'
 
   class PurchaseOrderCreate extends Component{
       constructor(props){
@@ -188,18 +189,21 @@
               </td>
               <td><input className="form-control put" placeholder="Order No"/> </td>
                   <td>
-                    <div className="inputDate ">
-                      <input className="form2" placeholder="Order Date" value={this.state.orderdate}/>
-                      {/* <input className="form-control withIcon" value={this.state.orderdate}/> */}
-                      <img onClick={() => this.datePickerHandler()} className="dateimg" src={date}/>
-                    </div>
+                    {/* <div className='inputDate '>
+                      <input className="form2" value={this.state.orderdate}/>
+                      // <input className="form-control withIcon" value={this.state.orderdate}/>
+                      <img onClick={() => this.datePickerHandler()} className='dateimg' src={date}/>
+                    </div> */}
+                    <DatePicker />
                   </td>                  
                   <td><input className="form-control put"  placeholder="Vendor Order Ref"/> </td>
               </tr>
               <tr>
                 <td></td>
                 <td></td>
-                <td>{this.state.showdatepicker ? <DatePicker getChosenDay={(day) => this.datePickerHandler(day)}/> : null}</td>
+                <td>
+                {/* {this.state.showdatepicker ? <DatePicker getChosenDay={(day) => this.datePickerHandler(day)}/> : null} */}
+                </td>
                 <td></td>
               </tr>
           </table>
