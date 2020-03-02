@@ -4,6 +4,7 @@ import FilterComponent from './Components/FilterComponent'
 import {Button} from 'reactstrap'
 import create from '../../assets/img/brand/button_create@2x.png'
 import Dropdown from '../../AppComponent/Dropdown'
+import SalesOrderCreate from './Components/SalesOrderCreate'
 import "./SalesOrder.css"
 class SalesOrder extends Component{
   constructor(props) {
@@ -103,6 +104,7 @@ console.log(this.state.listOrder)
         <ListOrderComponent ref={this.potableref} className='animated fadeIn' loadCompleteHandler = {(v) =>  this.setState({complete: v})} />
         </div>
         <div className={( this.state.complete ? 'hidden': 'spinner')}/>
+        {/* <SalesOrderCreate showmodal={this.state.showmodal} closemodal={() => this.closeModal()}/> */}
     </div>)
   }
 }

@@ -184,7 +184,7 @@ const routes = [
 		{ path: '/users-management/:id/detail', exact: true, name: 'User Management', component: UsersManagementDetail },
 		{ path: '/users-management/create', exact: true, name: 'User Management', component: UsersManagementCreate },
 		{ path: '/sales-orders', exact: true, name: 'Sales Orders', component: SalesOrder },
-		{ path: '/sales-orders/:id/detail', exact: true, name: 'Sales Orders', component: SalesOrderDetail }
+		{ path: '/sales-orders/:orderdetail', exact: true, name: 'Sales Orders', component: SalesOrderDetail }
 ];
 
 export default routes;

@@ -1,6 +1,7 @@
 .btn-paging {
 	font-weight: bold;
-    color: #B4B9BB !important;
+	color: rgb(78, 82, 83) !important;
+	margin-top: 1%;
     /* width: 40px; */
     /* height: 40px; */
     align-items: center !important;
@@ -244,13 +245,17 @@
     padding: 0.3%;
 	text-align: left;
 	max-width: -webkit-max-content;
+	border-bottom-right-radius: 0%;
+	border-top-right-radius: 0%;
 }
 .group2 {
 	background: #FFFFFF 0% 0% no-repeat padding-box;
     border-radius: 5px;
     opacity: 1;
 	max-width: -webkit-max-content;
-	margin-left: 0.1%;
+	margin-left: 0.2%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .text{
@@ -266,8 +271,9 @@
 
 .search_1 {
     position: relative;
-    width: 48px;
-    height: 23px;
+    width: 37px;
+    height: 29px;
+    margin-top: -3px;
     padding-left: 15px;
     margin-left: 13px;
     border-radius: 10px;
@@ -299,6 +305,10 @@
 	margin-top: 22%;
     font-size: 15px;
     margin-left: 13%;
+}
+.icon{
+	font-size: 1.2em;
+	background-color: transparent;
 }
 
 /* end Search */
