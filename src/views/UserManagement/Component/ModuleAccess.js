@@ -6,7 +6,7 @@ const moduleAccess = ({moduleAccess, onEnableClick}) => {
 
 return (
   <div>
-      <label className="text-bolder mr-2">Module Access
+      <label className="text-bolder mr-2 title-label">Module Access
       </label>
       {
           moduleAccess.map((item,index) => {

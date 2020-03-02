@@ -9,7 +9,7 @@ const client = ({clients, onEnableClick}) => {
       return text;
   }
 return (<div>
-      <label className="text-bolder mr-2">Client</label>
+      <label className="text-bolder mr-2 title-label">Client</label>
 
 
       {

@@ -138,6 +138,13 @@ tr td.norm{
   cursor: pointer;
 }
 
+.iconU-edit {
+	font-size:1em !important;
+  margin-right: 5%;
+  vertical-align: middle !important;
+  cursor: pointer;
+}
+
 .font{
 	font-family: "Helvetica Neue Medium" !important;
 	font-size: 1.5em;
@@ -320,6 +327,8 @@ input:checked + .slider:before {
 
 
 
+
+
 /*
 .table-fixed tbody {
     height: 200px;
@@ -367,7 +376,17 @@ input:checked + .slider:before {
 	border-radius: 5px;
 }
 
+.container-user-list{
+	border-radius: 10px;
+}
 
+.title-label{
+	font-size: 20px !important;
+}
+
+.create-user-label{
+	font-size: 20px !important;
+}
 
 
 	/**

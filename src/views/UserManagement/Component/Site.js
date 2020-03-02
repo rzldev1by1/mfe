@@ -5,7 +5,7 @@ import '../UserManagement.css'
 const site = ({sites, onEnableClick}) => {
 
 return (<div>
-        <label className="text-bolder mr-2">Site</label>
+        <label className="text-bolder mr-2 title-label">Site</label>
 
 
           {

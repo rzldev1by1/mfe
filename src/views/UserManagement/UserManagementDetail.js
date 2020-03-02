@@ -49,6 +49,7 @@ class UserManagementDetail extends Component{
           newAccount.userId = account.userid;
           newAccount.client = account.client;
           newAccount.disabled = account.disabled !== 'Y'?false:true;
+          newAccount.passwordChange = account.passwordChange?account.passwordChange:'';
       }
       return newAccount;
     }
@@ -294,6 +295,8 @@ class UserManagementDetail extends Component{
 	    newParam.userMenu = this.changeUserMenuToStringArray(accountInfo.userMenu);
       newParam.client = accountInfo.client;
       newParam.disabled = accountInfo.disabled?'Y':'N';
+      // if(accountInfo.passwordChange !== '')
+      //   newParam.passwordChange = accountInfo.passwordChange;
 
       if(newParam.name && newParam.email && newParam.userMenu.length)
       {
@@ -355,11 +358,18 @@ class UserManagementDetail extends Component{
       this.setState({accountInfo:accountInfo})
     }
 
+    onClickResetPassword = () => {
+      const {accountInfo} = this.state;
+      if(accountInfo.passwordChange === ''){
+        accountInfo.passwordChange = '28-08-1999';
+        this.setState({accountInfo:accountInfo})
+      }
+
+    }
+
     render(){
         const {match} = this.props;
         const {moduleAccess,sites,clients, accountInfo} = this.state;
-
-
 
         return(<div>
            <div className="d-flex mt-4">
@@ -370,7 +380,7 @@ class UserManagementDetail extends Component{
                 </div>
             </div>
             <div className="d-flex pt-4">
-                <Card className="flex-fill h-100">
+                <Card className="container-user-list border-0 flex-fill h-100">
                     <CardBody>
                         <div className={( this.state.isLoadComplete ? 'd-none': 'spinner')}/>
                         <div className={( this.state.isLoadComplete ? ' ': 'd-none')}>
@@ -385,24 +395,24 @@ class UserManagementDetail extends Component{
 
                                 <div className="row">
                                 <div className="col-2">
-                                    <label className="text-bolder">Name</label>
+                                    <label className="text-bolder title-label">Name</label>
                                 </div>
 
                                 <div className="col-2">
-                                    <label className="text-bolder">Email</label>
+                                    <label className="text-bolder title-label">Email</label>
                                 </div>
 
                                 <div className="col-2">
-                                    <label className="text-bolder">ID</label>
+                                    <label className="text-bolder title-label">ID</label>
                                 </div>
                                 <div className="col-2">
-                                    <label className="text-bolder">New Password</label>
+                                    <label className="text-bolder title-label">Reset Password</label>
                                 </div>
                                 <div className="col-1">
 
                                 </div>
                                 <div className="col-2">
-                                      <label className="text-bolder">Suspend Users</label>
+                                      <label className="text-bolder title-label">Suspend Users</label>
                                 </div>
                                 <div className="col-1">
 
@@ -425,9 +435,11 @@ class UserManagementDetail extends Component{
                                           <div className="col pl-0">
                                           <label>
                                               Are you sure you want<br/>
-                                              to create new password?
+                                              to reset password?
                                           </label>
-                                            <span className='p-1 client-active float-right'>New Password</span>
+                                            <span className={'p-1 float-right '  + ((accountInfo.passwordChange === '')? ' client-active':'client-notActive')} onClick={(e)=>{this.onClickResetPassword()}}>
+                                              Reset Password
+                                            </span>
                                           </div>
                                     </div>
                                     <div className="col-3">
@@ -471,7 +483,7 @@ class UserManagementDetail extends Component{
 
                                   <button className=" font-lg font-md font-sm btn btn-primary btn-submit" onClick={(e)=>{this.saveClick();}}>
                                       <i className= {(this.state.isSaveProgressing)?"mr-2 fa fa-refresh fa-spin ":"fa fa-refresh fa-spin d-none"}></i>
-                                      Submit
+                                      <label className="create-user-label mb-0">Save</label>
                                   </button>
 
                             </div>

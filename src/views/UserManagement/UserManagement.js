@@ -23,7 +23,8 @@ const userModel = {
 	  "thisLogin": today,
     "password":"",
     "userMenu":[],
-    'client':""
+    'client':"",
+    "disabled":"N"
 }
 
 
@@ -360,7 +361,10 @@ class UserManagement extends Component{
                     </h3>
                 </div>
                 <div className="flex-fill">
-                    <button className={(this.isValidUser() ?"btn btn-primary font-lg font-md font-sm float-right":"d-none")} onClick={(e)=>{this.onCreateClick()}}>+ add user</button>
+                    <button className={(this.isValidUser() ?"btn btn-primary font-lg font-md font-sm float-right":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
+                    <span className='iconU-edit'/>
+                      <label className="create-user-label">Create user</label>
+                    </button>
                 </div>
 
             </div>
@@ -371,7 +375,7 @@ class UserManagement extends Component{
             </div>
 
             <div className={( this.state.isListLoaded ? 'd-none': 'spinner')}/>
-            <Card className={( this.state.isListLoaded ? '':' d-none ')}>
+            <Card className={( this.state.isListLoaded ? 'container-user-list border-0':' d-none ')}>
                 <CardBody>
 
                     <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}/>

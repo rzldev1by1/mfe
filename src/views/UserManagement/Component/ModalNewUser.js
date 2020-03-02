@@ -41,15 +41,15 @@ const modalNewUser = (props) => {
             </div>
             <div className="row">
                 <div className="col-3">
-                    <label className="text-bolder">Name</label>
+                    <label className="text-bolder title-label">Name</label>
                 </div>
 
                 <div className="col-3">
-                    <label className="text-bolder">Email</label>
+                    <label className="text-bolder title-label">Email</label>
                 </div>
 
                 <div className="col-3">
-                    <label className="text-bolder">ID</label>
+                    <label className="text-bolder title-label">User ID</label>
                 </div>
 
             </div>
@@ -92,7 +92,7 @@ const modalNewUser = (props) => {
               <div className="col-12">
                   <button className="font-lg font-md font-sm btn btn-primary float-right" onClick={(e)=>{onSaveClick();}}>
                       <i className= {(isSaveProgressing)?"mr-2 fa fa-refresh fa-spin ":"fa fa-refresh fa-spin d-none"}></i>
-                      Save
+                        <label className="create-user-label mb-0">Save</label>  
                   </button>
               </div>
           </div>
