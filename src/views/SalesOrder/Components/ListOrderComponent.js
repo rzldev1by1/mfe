@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
+import {endpoint, headers,} from '../../../AppComponent/ConfigEndpoint'
 import Paging from '../../General/Paging';
 import mid from '../../../assets/img/brand/field-idle.png'
 import down from '../../../assets/img/brand/field-bot.png'
@@ -16,15 +16,14 @@ class ListOrderComponent extends Component {
 
     this.state = {
       data:[],      
-      tableheader :  ["Site","Client","Order No", "Ship to Name", "Customer Name"," Status", "Date due", "Date Received", "Date Released", "Date Completed"],
+      tableheader :  ["Site","Client","Order No", "Order Type", "Customer"," Status", "Delivery Date", "Date Received", "Date Released", "Date Completed"],
       activearrow:mid,
       sortparameter:'orderNO',
-      sort : true,
 
       currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
-			displayPage: 4,
+			displayPage:3,
 			totalRows: 0,
 			maxPage: 0,
     }
@@ -314,18 +313,18 @@ class ListOrderComponent extends Component {
                     </thead>
                     <tbody>
                           {this.state.data  ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
-                                  <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.orderNO + '/detail')} className='tr'>
+                                  <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.order_no)} className='tr'>
                                       <td>{data.site}</td>
                                       <td>{data.client}</td>
                                       <td>{data.order_no}</td>
-                                      <td>{data.ship_to_name}</td>
+                                      <td>{data.order_type}</td>
                                       <td>{data.customer_name}</td>
-                                      <td>{data.status}</td>
+                                      <td>{data.status_desc}</td>
                                       <td>{'' + (data.date_due ? moment(data.date_due).format("YYYY/MM/DD") : '') }</td>
                                       <td>{'' + (data.date_recd ? moment(data.date_recd).format("YYYY/MM/DD") : '') }</td>
                                       <td>{'' + (data.date_released ? moment(data.date_released).format("YYYY/MM/DD") : '') }</td>
                                       <td>{'' + (data.date_completed ? moment(data.date_completed).format("YYYY/MM/DD") : '') }</td>
-                                      <td></td>
+                          <td>{console.log(data)}</td>
                                   </tr>
                               ) : 
                                   <div> No data available </div>

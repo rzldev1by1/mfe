@@ -49,26 +49,26 @@ class Paging extends Component {
                 <div style={{display :"flex"}}>
                 <InputGroup className="group1">
                     <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage > 1 ? "" : "-inactive")} onClick={this.firstPageClick}>
-                        <i className=" iconU-firstPage" aria-hidden="true" />
+                        <i className=" iconU-firstPage icon" aria-hidden="true" />
                     </button>
                     <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage > 1 ? "" : "-inactive")} onClick={this.backPageClick}>
                         <i className="fa fa-angle-left fa-2x" aria-hidden="true" />
                     </button>
                     
-                        <span style={{marginTop:"1.9%"}}>{this.createPageNumber()}</span>
+                        <span >{this.createPageNumber()}</span>
 
                         <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage < this.props.maxPage ? "" : "-inactive")} onClick={this.nextPageClick}>
                             <i className="fa fa-angle-right fa-2x" aria-hidden="true" /> 
                         </button>
                         <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage < this.props.maxPage ? "" : "-inactive")} onClick={this.lastPageClick}>
-                        <i className="iconU-lastPage" aria-hidden="true" />
+                        <i className=" iconU-lastPage icon" aria-hidden="true" />
                         </button>
                 </InputGroup>
                 <InputGroup className="group2">
                     <div className="text">
-                        <span className="p-0">Go To Page</span>
+                        <span style={{color:'#B4B9BB'}} className="p-0">Go To Page</span>
                         <form onSubmit={e => { e.preventDefault() ; this.handleSubmit() }}>
-                        <input type="number" className="search_1" maxLength="4" value={this.state.value} onChange={e => this.handleChangeSearch(e)} />
+                        <input type="text" className="search_1" maxLength="4" value={this.state.value} onChange={e => this.handleChangeSearch(e)} />
                         <button className="submit_1" style={{color:"#637175"}}>Go <i className="fa fa-angle-right fa-2x logo" /> </button>
                     </form>
                     </div>

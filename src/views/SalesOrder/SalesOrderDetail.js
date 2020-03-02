@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import { Table,Button, Card, CardBody, Label} from 'reactstrap'
 import './SalesOrder.css';
 import './SalesOrderDetail.css'
 import SODTable from './Components/SODTable'
 import axios from 'axios'
-import {endpoint, headers} from '../../AppComponent/ConfigEndpoint'
+import {endpoint, headers,} from '../../AppComponent/ConfigEndpoint'
 
 class SalesOrderDetail extends Component {
   constructor(props) {
@@ -12,7 +11,7 @@ class SalesOrderDetail extends Component {
 
     this.potableref = React.createRef()
     this.state={
-      complete : false,
+      complete:false,
       head:[],
       datadetail:[]
     }
@@ -20,49 +19,32 @@ class SalesOrderDetail extends Component {
 
   componentDidMount(){
     this.getheaderdetail()
-    // this.load()
 }
 
-// getheaderdetail = () => {
-//     this.setState({complete:false})
-//     let param = window.location.href.split("/").pop()
-//     axios.get(endpoint.salesOrder + '/' +param, {
-//       headers: headers
-//     })
-//       .then(res => {
-//         const result = res.data.data
-//         this.setState({ head:result})
+getheaderdetail = () => {
+      
+    this.setState({complete:false})
+    let param = window.location.href.split("/").pop()
+    axios.get(endpoint.salesOrder + '?orderNO='+ param, {
+        
+      headers: headers
+    })
+      .then(res => {
+        const result = res.data.data
+        this.setState({ head:result})
         
         
-//       })
-//       .catch(error => {
-//         // this.props.history.push("/logins")
-//       })
-// }
+      })
+      .catch(error => {
+        // this.props.history.push("/logins")
+      })
 
-
-    getheaderdetail = () => {
-        let url = '?orderNO=SO-6'
-        alert(endpoint.salesOrder + '/123')
-        axios.get(endpoint.salesOrder + url ,{
-          headers: headers
-        })
-          .then(res => {
-            const result = res.data.data
-            this.setState({ head:result})
-            console.log(result)
-            
-            
-          })
-          .catch(error => {
-            // this.props.history.push("/logins")
-          })
-    }
+}
     
     head = () =>{
       let site = this.state.head.length ? this.state.head[0].site : null
       let client = this.state.head.length ? this.state.head[0].client : null
-      let orderNo = this.state.head.length ? this.state.head[0].order_no : null
+      let orderNo= this.state.head.length ? this.state.head[0].order_no : null
       let orderType = this.state.head.length ? this.state.head[0].order_type : null
       let consignmentNumber = this.state.head.length ? this.state.head[0].consignment_number : null
       let freightCharge = this.state.head.length ? this.state.head[0].freight_charge : null
@@ -84,6 +66,7 @@ class SalesOrderDetail extends Component {
       let postCode= this.state.head.length ? this.state.head[0].postcode : null
       let country= this.state.head.length ? this.state.head[0].country : null
       let state= this.state.head.length ? this.state.head[0].state : null
+      let city= this.state.head.length ? this.state.head[0].city : null
 
       return(
         <div className='podheader fades'>                    
@@ -145,7 +128,7 @@ class SalesOrderDetail extends Component {
                     </tr>
                     <tr>
                         <th>Suburb</th>
-                        <td>{pickStart ? pickStart : '-'}</td>
+                        <td>{city ? city : '-'}</td>
                     </tr>
                     <tr>
                         <th>Postcode</th>
