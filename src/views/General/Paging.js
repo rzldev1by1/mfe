@@ -46,32 +46,43 @@ class Paging extends Component {
     showPageNumber = () => {
         return (
             <div className={this.props.maxPage > 1 ? "card-footer text-left border-company border-top-0 pl-0 pr-0 bg-transparent" : "d-none"}>
-                <InputGroup className="group">
+                <div style={{display :"flex"}}>
+                <InputGroup className="group1">
                     <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage > 1 ? "" : "-inactive")} onClick={this.firstPageClick}>
-                        <i className="fa fa-angle-double-left fa-2x" aria-hidden="true" />
+                        <i className=" iconU-firstPage" aria-hidden="true" />
                     </button>
                     <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage > 1 ? "" : "-inactive")} onClick={this.backPageClick}>
                         <i className="fa fa-angle-left fa-2x" aria-hidden="true" />
                     </button>
                     
-                        <span>{this.createPageNumber()}</span>
+                        <span style={{marginTop:"1.9%"}}>{this.createPageNumber()}</span>
 
                         <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage < this.props.maxPage ? "" : "-inactive")} onClick={this.nextPageClick}>
                             <i className="fa fa-angle-right fa-2x" aria-hidden="true" /> 
                         </button>
                         <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage < this.props.maxPage ? "" : "-inactive")} onClick={this.lastPageClick}>
-                        <i className="fa fa-angle-double-right fa-2x" aria-hidden="true" />
+                        <i className="iconU-lastPage" aria-hidden="true" />
                         </button>
-
+                </InputGroup>
+                <InputGroup className="group2">
+                    <div className="text">
                         <span className="p-0">Go To Page</span>
-
                         <form onSubmit={e => { e.preventDefault() ; this.handleSubmit() }}>
                         <input type="number" className="search_1" maxLength="4" value={this.state.value} onChange={e => this.handleChangeSearch(e)} />
-                        <button className="submit_1">Go</button>
+                        <button className="submit_1" style={{color:"#637175"}}>Go <i className="fa fa-angle-right fa-2x logo" /> </button>
                     </form>
-
-                    <span>Showing {this.props.startIndex + 1} to {this.props.currentPage === parseInt(this.props.maxPage + 1) ? this.props.totalRows : this.props.lastIndex} of {this.props.totalRows} Entries</span>
-                </InputGroup>              
+                    </div>
+                </InputGroup>
+                    <span className="show">
+                        <a style={{color:"#B4B9BB" , marginRight:"2%"}}>Showing</a>
+                        <a style={{marginRight:"2%"}}>{this.props.startIndex + 1}</a>
+                        <a style={{marginRight:"2%"}}>to</a>
+                        <a style={{marginRight:"2%"}}>{this.props.currentPage === parseInt(this.props.maxPage + 1) ? this.props.totalRows : this.props.lastIndex}</a>
+                        <a style={{marginRight:"2%"}}>of</a>
+                        <a style={{marginRight:"2%"}}>{this.props.totalRows}</a>
+                        <a style={{color:"#B4B9BB"}}> Entries</a>
+                    </span>
+                </div>           
                         
                  {/* <ul className={"select-export" + (this.state.exportExpand ? " expand-export" : "")} id="select">
                     <li className="expand-style-export">

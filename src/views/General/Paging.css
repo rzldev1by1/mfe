@@ -237,14 +237,31 @@
 
 /* Search */
 
-.group {
-	width: 100%;
-    background:#FFFFFF 0% 0% no-repeat padding-box;
-	border-radius: 5px;
-	opacity: 1;
-	padding: 5px;
-	text-align: left;    
-    align-items: center;
+.group1 {
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    opacity: 1;
+    padding: 0.3%;
+	text-align: left;
+	max-width: -webkit-max-content;
+}
+.group2 {
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    opacity: 1;
+	max-width: -webkit-max-content;
+	margin-left: 0.1%;
+}
+
+.text{
+	margin-top: 6%;
+    display: inline-flex;
+    margin-left: 21px;
+}
+.show{
+	margin-top: 12px;
+    display: inline-flex;
+    margin-left: 21px;
 }
 
 .search_1 {
@@ -275,7 +292,13 @@
     border: none;
     cursor: pointer;
     color: #969EA1;
-    text-align: center;
+	text-align: center;
+	display: inline-flex;
+}
+.logo{
+	margin-top: 22%;
+    font-size: 15px;
+    margin-left: 13%;
 }
 
 /* end Search */
