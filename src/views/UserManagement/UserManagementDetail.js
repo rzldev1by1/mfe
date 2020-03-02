@@ -48,6 +48,7 @@ class UserManagementDetail extends Component{
           newAccount.userMenu = this.restuctureMenuList(account.module);
           newAccount.userId = account.userid;
           newAccount.client = account.client;
+          newAccount.disabled = account.disabled !== 'Y'?false:true;
       }
       return newAccount;
     }
@@ -75,9 +76,15 @@ class UserManagementDetail extends Component{
       })
         .then(res => {
           var result = [];
+            console.log(res);
           if(res.status === 200){
-            result = self.restructureAccount(res.data.data);
-            self.setState({accountInfo:result,isLoadComplete:true},self.loadMasterResource);
+            if(res.data === ''){
+                this.props.history.push('/users-management');
+            }
+            else{
+              result = self.restructureAccount(res.data.data);
+              self.setState({accountInfo:result,isLoadComplete:true},self.loadMasterResource);
+            }
           }
           return result;
         })
@@ -276,7 +283,7 @@ class UserManagementDetail extends Component{
     saveClick = () => {
 
       let accountInfo = {...this.state.accountInfo};
-      console.log(accountInfo);
+
       let newParam = {};
       newParam.name = accountInfo.user;
 	    newParam.email = accountInfo.email;
@@ -286,6 +293,7 @@ class UserManagementDetail extends Component{
 	    newParam.thisLogin = accountInfo.thisLogin;
 	    newParam.userMenu = this.changeUserMenuToStringArray(accountInfo.userMenu);
       newParam.client = accountInfo.client;
+      newParam.disabled = accountInfo.disabled?'Y':'N';
 
       if(newParam.name && newParam.email && newParam.userMenu.length)
       {
@@ -340,9 +348,18 @@ class UserManagementDetail extends Component{
       this.props.history.push('/users-management');
     }
 
+    onClieckSuspendUser = () => {
+      const {accountInfo} = this.state;
+      accountInfo.disabled = !accountInfo.disabled;
+
+      this.setState({accountInfo:accountInfo})
+    }
+
     render(){
         const {match} = this.props;
-        const {moduleAccess,sites,clients} = this.state;
+        const {moduleAccess,sites,clients, accountInfo} = this.state;
+
+
 
         return(<div>
            <div className="d-flex mt-4">
@@ -416,7 +433,9 @@ class UserManagementDetail extends Component{
                                     <div className="col-3">
                                           <div className="col pl-0">
                                             <label className="account-name">Are you sure you want <br/> to suspend this user?</label>
-                                            <span className='p-1 client-active float-right'>Enable</span>
+                                            <span className={'p-1 float-right '+((!accountInfo.disabled)?'client-active ':' client-notActive ')} onClick={(e)=>{this.onClieckSuspendUser()}}>
+                                            { (!accountInfo.disabled)?'Enable':'Disable' }
+                                            </span>
                                           </div>
                                     </div>
 

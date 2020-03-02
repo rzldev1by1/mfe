@@ -76,7 +76,7 @@ class UserManagement extends Component{
               newItem.userlevel = item.web_group;
               newItem.client = item.client;
               newItem.lastaccess = item.last_access;
-              newItem.status = (item.disabled === '1')?'Suspended':'Active';
+              newItem.status = (item.disabled === 'Y')?'Suspended':'Active';
               newItem.action = "";
               newItem.web_user = item.web_user;
               return newItem;
