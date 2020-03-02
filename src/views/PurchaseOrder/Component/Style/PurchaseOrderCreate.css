@@ -50,3 +50,6 @@
         cursor: pointer;
     }
 }
+::-webkit-input-placeholder{
+	color: red;
+}

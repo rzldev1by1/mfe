@@ -167,12 +167,12 @@
                   <th>Customer Order Ref</th>
               </tr>
               <tr>
-                  <td><input className="form-control put" placeholder="Site"/></td>
-                  <td><input className="form-control put" placeholder="Client"/> </td>
+                  <td><input className="form-control put pec" placeholder="Site"/></td>
+                  <td><input className="form-control put pec" placeholder="Client"/> </td>
                   {/* <td><Dropdown placeHolder="Site"  style={{minWidth: "100%",width: "1px"}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected}/></td>
                   <td><Dropdown placeHolder="Client" style={{minWidth: "100%"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected}/></td> */}
-                  <td><input className="form-control put" placeholder="Supplier"/> </td>
-                  <td><input className="form-control put" placeholder="Customer Order Ref"/> </td>
+                  <td><input className="form-control put pec" placeholder="Supplier"/> </td>
+                  <td><input className="form-control put pec" placeholder="Customer Order Ref"/> </td>
               </tr>
               <tr>
                 <td style={{color:"transparent"}}>1</td>
@@ -187,16 +187,15 @@
               <td>
                 <Dropdown placeHolder="Order Type" style={{minWidth: "100%"}} optionList="Type 1,Type 2" optionValue="Type 1,Type 2" getValue={this.getOrderTypeSelected}/>
               </td>
-              <td><input className="form-control put" placeholder="Order No"/> </td>
+              <td><input className="form-control put pec" placeholder="Order No"/> </td>
                   <td>
-                    {/* <div className='inputDate '>
-                      <input className="form2" value={this.state.orderdate}/>
-                      // <input className="form-control withIcon" value={this.state.orderdate}/>
-                      <img onClick={() => this.datePickerHandler()} className='dateimg' src={date}/>
-                    </div> */}
-                    <DatePicker />
+                    <div className="inputDate ">
+                      <input className="form2 pec" placeholder="Order Date" value={this.state.orderdate}/>
+                      {/* <input className="form-control withIcon" value={this.state.orderdate}/> */}
+                      <img onClick={() => this.datePickerHandler()} className="dateimg" src={date}/>
+                    </div>
                   </td>                  
-                  <td><input className="form-control put"  placeholder="Vendor Order Ref"/> </td>
+                  <td><input className="form-control put pec"  placeholder="Vendor Order Ref"/> </td>
               </tr>
               <tr>
                 <td></td>
@@ -359,27 +358,27 @@
         <table>
           <tr>
               <td hidden id={list.id} ></td>
-              <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs" value={list.id}/></td>
-              <td style={{width:"12%"}}><input className="form-control inputs" placeholder="Product"/></td>
-              <td style={{width:"12%"}}><input className="form-control inputs" placeholder="Product Description"/></td>
-              <td style={{width:"3%"}}><input className="form-control inputs" placeholder="Qty"/></td>
+              <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs pec" value={list.id}/></td>
+              <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product"/></td>
+              <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product Description"/></td>
+              <td style={{width:"3%"}}><input className="form-control inputs pec" placeholder="Qty"/></td>
               <td style={{width:"6%"}}>
-                  <select className="form-control selectinput">
-                    <option selected disabled>UOM</option>
+                  <select className="form-control selectinput ">
+                    <option className="pec" selected disabled>UOM</option>
                     <option>each</option>
                     <option>pallet</option>
                   </select>
               </td>
               <td style={{width:"6%", height:"10%"}}>
               <div className="inputDate ">
-              <input className="form2" value={this.state.rotedate} placeholder="Rota Date"/>
+              <input className="form2 pec" value={this.state.rotedate} placeholder="Rota Date"/>
               <img onClick={() => this.datePickerRote()} className="dateimg" src={date}/>
               </div>
               </td>
-              <td style={{width:"6%"}}><input className="form-control inputs" placeholder="Batch"/></td>
-              <td style={{width:"5%"}}><input className="form-control inputs" placeholder="Ref3"/></td>
-              <td style={{width:"5%"}}><input className="form-control inputs" placeholder="Ref4"/></td>
-              <td style={{width:"6%"}}><input className="form-control inputs" placeholder="Disposition"/></td>
+              <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"/></td>
+              <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref3"/></td>
+              <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref4"/></td>
+              <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Disposition"/></td>
               <td id={list.id} onClick={(e) => this.deletelinehandler(e)} style={{width:"1.5%"}}><div className="iconU-delete"/></td>
             </tr>
             <td></td>
@@ -396,13 +395,13 @@
         <table>
           <tr>
               <td hidden id={list.id}></td>
-              <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs" value={"A"}/></td>
-              <td style={{width:"12%"}}><input className="form-control inputs" placeholder="Product"/></td>
-              <td style={{width:"12%"}}><input className="form-control inputs" placeholder="Product Description"/></td>
-              <td style={{width:"3%"}}><input className="form-control inputs" placeholder="Qty"/></td>
+              <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs pec" value={"A"}/></td>
+              <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product"/></td>
+              <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product Description"/></td>
+              <td style={{width:"3%"}}><input className="form-control inputs pec" placeholder="Qty"/></td>
               <td style={{width:"6%"}}>
                   <select className="form-control selectinput">
-                    <option selected disabled>UOM</option>
+                    <option className="pec" selected disabled>UOM</option>
                     <option>each</option>
                     <option>pallet</option>
                   </select>
@@ -413,10 +412,10 @@
               <img onClick={() => this.datePickerRote()} className="dateimg" src={date}/>
               </div>
               </td>
-              <td style={{width:"6%"}}><input className="form-control inputs" placeholder="Batch"/></td>
-              <td style={{width:"5%"}}><input className="form-control inputs" placeholder="Ref3"/></td>
-              <td style={{width:"5%"}}><input className="form-control inputs" placeholder="Ref4"/></td>
-              <td style={{width:"6%"}}><input className="form-control inputs" placeholder="Disposition"/></td>
+              <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"/></td>
+              <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref3"/></td>
+              <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref4"/></td>
+              <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Disposition"/></td>
             </tr>
             <td></td>
             <td></td>
