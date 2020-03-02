@@ -272,6 +272,16 @@ class PurchaseOrderTable extends Component {
         }
         return;
     }
+    firstPageClick = () => {
+      if (this.state.currentPage > 1) {
+        let currentPage = 1;
+
+        this.setState({ currentPage: currentPage});
+        this.changeStartIndex(currentPage);
+        this.changeLastIndex(currentPage);
+    }
+    return;
+  }
 
     render() {
         return (
