@@ -10,7 +10,7 @@ import moment from 'moment'
 import query from '../../AppComponent/query_menu_temp'
 import Authentication from '../../Auth/Authentication'
 
-const today = moment(new Date()).format("DD-MM-YYYY");
+const today = moment(new Date()).format("YYYY-MM-DD");
 
 const userModel = {
     "userId":"",
