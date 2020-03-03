@@ -33,7 +33,10 @@ class StockHoldingDetails extends Component {
 			stockDetails: [],
 			isForeshadowedBalance: false,
             stockBalanceForecast: [],
-            
+						openingBalance:0,
+						closingBalance:0,
+						openingDate:"",
+						closingDate:"",
             notFoundMessage: "",
 
 
@@ -47,11 +50,12 @@ class StockHoldingDetails extends Component {
             ],
 
 			foreshadowedColumns: [
-				{ id: "id", checkboxLabelText: "Customer No.", tableHeaderText: "Customer No.", isVisible: true, key: "id", type: "string", sort: mid },
-				{ id: "order_no", checkboxLabelText: "Order No", tableHeaderText: "Order No", isVisible: true, key: "order_no", type: "string", sort: mid },
-				{ id: "sm_dtm", checkboxLabelText: "Order Date", tableHeaderText: "Order Date", isVisible: true, key: "sm_dtm", type: "date", sort: mid },
-				{ id: "qty_rec", checkboxLabelText: "Expected In", tableHeaderText: "Expected In", isVisible: true, key: "qty_rec", type: "number", sort: mid },
-				{ id: "qty_send", checkboxLabelText: "Expected Out", tableHeaderText: "Expected Out", isVisible: true, key: "qty_send", type: "number", sort: mid },
+				{ id: "type", checkboxLabelText: "Type of Displacement", tableHeaderText: "Type of Displacement", isVisible: true, key: "type", type: "string", sort: mid },
+				{ id: "id", checkboxLabelText: "Customer No.", tableHeaderText: "Customer No.", isVisible: true, key: "company", type: "string", sort: mid },
+				{ id: "order_no", checkboxLabelText: "Order No", tableHeaderText: "Order No", isVisible: true, key: "orderno", type: "string", sort: mid },
+				{ id: "effectivedate", checkboxLabelText: "Order Date", tableHeaderText: "Order Date", isVisible: true, key: "effectivedate", type: "date", sort: mid },
+				{ id: "qty_rec", checkboxLabelText: "Expected In", tableHeaderText: "Expected In", isVisible: true, key: "qtyexpected", type: "number", sort: mid },
+				{ id: "qtycommitted", checkboxLabelText: "Expected Out", tableHeaderText: "Expected Out", isVisible: true, key: "qtycommitted", type: "number", sort: mid },
 				{ id: "balance", checkboxLabelText: "Balance", tableHeaderText: "Balance", isVisible: true, key: "balance", type: "number", sort: mid }
             ]
 		}
@@ -67,7 +71,7 @@ class StockHoldingDetails extends Component {
         let productId = decodeURIComponent(this.props.match.params.productId);
         let client = decodeURIComponent(this.props.match.params.client);
         let site = decodeURIComponent(this.props.match.params.site);
-		let params = { 
+		let params = {
             "client": client,
             "site": site
         };
@@ -93,7 +97,7 @@ class StockHoldingDetails extends Component {
 				self.setState({ displayContent: "FOUND",
                                 stockHolding: respondRes });
                 // localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
-                
+
                 self.loadStockDetails();
                 self.loadForeshadowed();
             }
@@ -141,7 +145,7 @@ class StockHoldingDetails extends Component {
             "client": client,
             "site": site
         };
-        
+
 		self.setState({ isLoaded: true });
 
 		axios.get(endpoint.stockBalanceForecast + productId, {
@@ -151,6 +155,7 @@ class StockHoldingDetails extends Component {
 		.then(res => {
 			// res.isSuccess = true;
 			// self.setState({ isLoaded: false })
+
 			return res.data;
 		})
 		.catch(function (error) {
@@ -159,8 +164,17 @@ class StockHoldingDetails extends Component {
 			return error;
 		})
 		.then(function(result) {
-            if (result.data) {
-                self.setState({ isForeshadowedBalance: true, stockBalanceForecast: result.data });
+						if (result) {
+								let history = result.history;
+								let openingDate = "";
+								let closingDate = "";
+								if(history.length){
+									openingDate = history[0]["effectivedate"];
+									closingDate = history[history.length - 1]["effectivedate"];
+								}
+                self.setState({ isForeshadowedBalance: true, stockBalanceForecast: result.history,
+									openingBalance:result.openingBalance, closingBalance:result.closingBalance,
+									openingDate:openingDate,closingDate:closingDate });
             }
             self.setState({ isLoaded: false });
             return;
@@ -183,7 +197,7 @@ class StockHoldingDetails extends Component {
         });
 
         sortColumns[idx]["sort"] = sortValue !== mid && sortValue === down ? up : down;
-        
+
         this.setState({ columns: sortColumns });
 
         this.sortHandler(section, idx, sortBy);
@@ -413,7 +427,11 @@ class StockHoldingDetails extends Component {
                                                                                       stockBalanceForecast={this.state.stockBalanceForecast}
                                                                                       foreshadowedColumns={this.state.foreshadowedColumns}
                                                                                       sortHandler={this.sortHandler}
-                                                                                      arrowHandler={this.arrowHandler} />
+                                                                                      arrowHandler={this.arrowHandler}
+																																											openingBalance={this.state.openingBalance}
+																																											openingDate={this.state.openingDate}
+																																											closingBalance={this.state.closingBalance}
+																																											closingDate={this.state.closingDate} />
                                                             </TabPane>
                                                         </TabContent>
                                                     </div>
@@ -423,7 +441,7 @@ class StockHoldingDetails extends Component {
 									</div>
 								</div>
 							</div>
-                        </div>                          
+                        </div>
                     </div>
 				</div>
 			break;
@@ -445,7 +463,7 @@ class StockHoldingDetails extends Component {
 					</div>
 				</div>
         }
-        
+
 		return <React.Fragment>{content}</React.Fragment>;
 	}
 }
