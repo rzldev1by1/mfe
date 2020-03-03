@@ -39,51 +39,51 @@ class ListOrderComponent extends Component {
   }
 
 
-  searchPurchaseOrder = (search,client,site,status,ordertype,supplier) => {
+  searchSalesOrder = (search,client,site,status,ordertype,order_no) => {
     
     this.setState({currentPage: 1,
       startIndex: 0, lastIndex: 0,
       totalRows: 0, maxPage: 0})
 
     let param = search
+    let url = '?searchParam='+param
     if(param)
     {
       param = param.toUpperCase()
     }
-    let url = '?searchParam='
 
     if(client)
     {
       param = client
-      url = '?client='
+      url = '?client='+client
     }
 
-    else if(site)
+    if(site)
     {
       param = site
-      url = '?site='
+      url = '?site='+site
     }
 
-    else if(status)
+    if(status)
     {
       param = status
-      url = '?status='
+      url = '?status='+status
     }
 
-    else if(ordertype)
+    if(ordertype)
     {
       param = ordertype
-      url = '?orderType='
+      url = '?orderType='+ordertype
     }
 
-    else if(supplier)
+    if(order_no)
     {
-      param = supplier
-      url = '?supplier='
+      param = order_no
+      url = '?order_no=' + order_no
     }
 
     this.props.loadCompleteHandler(false)
-    axios.get(endpoint.salesOrder + url + param, {
+    axios.get(endpoint.salesOrder + url, {
       headers: headers
     })
       .then(res => {

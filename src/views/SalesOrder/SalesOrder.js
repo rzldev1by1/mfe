@@ -93,9 +93,7 @@ class SalesOrder extends Component{
       }
 
       getClientSelected = (value) => {
-        this.setState({clientSelected: value}, () => {
-            this.getordertype();
-        });
+        this.setState({clientSelected: value});
       }
 
       showDropdowns = () => {
@@ -117,7 +115,7 @@ class SalesOrder extends Component{
     return(
         <React.Fragment>
             <Dropdown placeHolder="Site" style={{width: "102px", marginRight: "1em"}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected.bind(this)}/>
-            {/* <Dropdown placeHolder="Client" style={{width: "102px", marginRight: "1em"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected.bind(this)}/> */}
+            <Dropdown placeHolder="Client" style={{width: "200px", marginRight: "1em"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected.bind(this)}/>
             {/* <Dropdown placeHolder="Order No" style={{marginRight: "1em"}} optionList={status.toString()} optionValue={status.toString()} getValue={this.getStatusSelected}/> */}
 
         </React.Fragment>
