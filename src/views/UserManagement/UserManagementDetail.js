@@ -9,7 +9,8 @@ import axios from 'axios'
 import users from './Users.json'
 import moment from 'moment';
 
-const today = moment(new Date()).format("DD-MM-YYYY");
+const today = moment(new Date()).format("YYYY-MM-DD");
+const passChanged = '1999-08-28';
 
 
 
@@ -295,8 +296,8 @@ class UserManagementDetail extends Component{
 	    newParam.userMenu = this.changeUserMenuToStringArray(accountInfo.userMenu);
       newParam.client = accountInfo.client;
       newParam.disabled = accountInfo.disabled?'Y':'N';
-      // if(accountInfo.passwordChange !== '')
-      //   newParam.passwordChange = accountInfo.passwordChange;
+      if(accountInfo.passwordChange !== '')
+         newParam.passwordChange = accountInfo.passwordChange;
 
       if(newParam.name && newParam.email && newParam.userMenu.length)
       {
@@ -361,7 +362,7 @@ class UserManagementDetail extends Component{
     onClickResetPassword = () => {
       const {accountInfo} = this.state;
       if(accountInfo.passwordChange === ''){
-        accountInfo.passwordChange = '28-08-1999';
+        accountInfo.passwordChange = passChanged;
         this.setState({accountInfo:accountInfo})
       }
 
