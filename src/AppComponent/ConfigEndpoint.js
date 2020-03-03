@@ -19,6 +19,7 @@ const endpoint = {
 
     "getClient": baseUrl + "dropdown/getclient",
     "getSite": baseUrl + "dropdown/getsite",
+    "OrderNO" : baseUrl + "dropdown/getorderno",
     "getSupplier": baseUrl + "dropdown/getsupplier",
     "getOrderType": baseUrl + "dropdown/getordertype",
 

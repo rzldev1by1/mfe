@@ -5,7 +5,10 @@ import {Button} from 'reactstrap'
 import create from '../../assets/img/brand/button_create@2x.png'
 import Dropdown from '../../AppComponent/Dropdown'
 import Search from '../../AppComponent/Search'
-// import SalesOrderCreate from './Components/SalesOrderCreate'
+import SalesOrderCreate from './Components/SalesOrderCreate'
+import axios from 'axios';
+import {endpoint, headers,} from '../../AppComponent/ConfigEndpoint'
+
 import "./SalesOrder.css"
 class SalesOrder extends Component{
   constructor(props) {
@@ -15,16 +18,15 @@ class SalesOrder extends Component{
       this.state = {
         tableheader : ["Site","Client","Order No", "Ship to Name", "Customer Name"," Status", "Date due", "Date Received", "Date Released", "Date Completed"],    
         search: null, client : null, site: null, status: null, ordertype : null,
+
         siteSelected: undefined,
         clientSelected: undefined,
-        statusSelected: undefined,
-        ordertypeSelected : undefined,
 
         clientdata : [],
         sitedata : [],
 
         //modal
-        showcreate : false,
+        showmodal : false,
         complete : false,
 
          //filter
@@ -33,13 +35,18 @@ class SalesOrder extends Component{
       
   }
 
-
-      openModal = () => {
-          this.setState({showcreate:true})
+        componentDidMount = () => {
+          this.getclient();
+          this.getsite();
+          
       }
 
-      closeCreate = () => {
-          this.setState({showcreate:false})
+      openModal = () => {
+          this.setState({showmodal:true})
+      }
+
+      closeModal = () => {
+          this.setState({showmodal:false})
       }
 
       search =() =>{
@@ -50,6 +57,45 @@ class SalesOrder extends Component{
                                                   self.state.statusSelected,
                                                   self.state.ordertypeSelected,
                                                   )
+      }
+
+      getclient = () => {
+        axios.get(endpoint.getClient, {
+          headers: headers
+        })
+          .then(res => {
+            const result = res.data
+            this.setState({ clientdata:result })
+          })
+          .catch(error => {
+            // this.props.history.push("/logins")
+            console.log(error);
+          })
+    }
+
+      getsite = () => {     
+        console.log(endpoint.getSite)    
+        axios.get(endpoint.getSite, {
+          headers: headers
+        })
+          .then(res => {
+            const result = res.data
+            this.setState({ sitedata:result })
+          })
+          .catch(error => {
+            // this.props.history.push("/logins")
+          })
+      }
+
+
+      getSiteSelected = (value) => {
+        this.setState({siteSelected: value});
+      }
+
+      getClientSelected = (value) => {
+        this.setState({clientSelected: value}, () => {
+            this.getordertype();
+        });
       }
 
       showDropdowns = () => {
@@ -70,9 +116,9 @@ class SalesOrder extends Component{
         }
     return(
         <React.Fragment>
-            <Dropdown placeHolder="Site" style={{width: "102px", marginRight: "1em"}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected}/>
-            <Dropdown placeHolder="Client" style={{width: "102px", marginRight: "1em"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected}/>
-            <Dropdown placeHolder="Order No" style={{marginRight: "1em"}} optionList={status.toString()} optionValue={status.toString()} getValue={this.getStatusSelected}/>
+            <Dropdown placeHolder="Site" style={{width: "102px", marginRight: "1em"}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected.bind(this)}/>
+            {/* <Dropdown placeHolder="Client" style={{width: "102px", marginRight: "1em"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected.bind(this)}/> */}
+            {/* <Dropdown placeHolder="Order No" style={{marginRight: "1em"}} optionList={status.toString()} optionValue={status.toString()} getValue={this.getStatusSelected}/> */}
 
         </React.Fragment>
     )
@@ -84,7 +130,7 @@ console.log(this.state.listOrder)
        <div className='header'>
           <h2 style={{marginTop:'0.2%'}}>Sales Orders</h2>
               <div className='header2'>
-                  <Button  color="primary" className='createpo'>
+                  <Button onClick={() => this.openModal()}   color="primary" className='createpo'>
                       <img src={create} style={{width:'7%', marginTop:9, marginLeft:15}}/>
                       <label className='font'>Create Sales Orders</label>
                   </Button>
@@ -111,7 +157,7 @@ console.log(this.state.listOrder)
         <ListOrderComponent ref={this.potableref} className='animated fadeIn' loadCompleteHandler = {(v) =>  this.setState({complete: v})} />
         </div>
         <div className={( this.state.complete ? 'hidden': 'spinner')}/>
-        {/* <SalesOrderCreate showcreate={this.state.showcreate} closemodal={() => this.closeCreate()}/> */}
+        <SalesOrderCreate showmodal={this.state.showmodal} closemodal={() => this.closeModal()}/>
     </div>)
   }
 }

@@ -72,11 +72,9 @@
     transform: scaleY(-1);
 	background-color: #22ABE3;
 	box-shadow: 0 2px 0 #22ABE3;
-	border-top-left-radius: 33px;
-	border-top-right-radius: 33px;
-	border-bottom-left-radius: 33px;
-	border-bottom-right-radius: 33px;
+	border-radius: 6px;
 	transition: .2s ease-out;
+	margin-top: -47px;
 }
 
 
