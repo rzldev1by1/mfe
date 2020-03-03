@@ -66,7 +66,7 @@ class Paging extends Component {
                 </InputGroup>
                 <InputGroup className="group2">
                     <div className="text">
-                        <span style={{color:'#B4B9BB'}} className="p-0">Go To Page</span>
+                        <span style={{color:'#B4B9BB'}} className="p-0">Go to page</span>
                         <form onSubmit={e => { e.preventDefault() ; this.handleSubmit() }}>
                         <input type="text" className="search_1" maxLength="4" value={this.state.value} onChange={e => this.handleChangeSearch(e)} />
                         <button className="submit_1" style={{color:"#637175"}}>Go <i className="fa fa-angle-right fa-2x logo" /> </button>
@@ -82,8 +82,7 @@ class Paging extends Component {
                         <a style={{marginRight:"2%"}}>{this.props.totalRows}</a>
                         <a style={{color:"#B4B9BB"}}> Entries</a>
                     </span>
-                </div>           
-                        
+                </div>                
                  {/* <ul className={"select-export" + (this.state.exportExpand ? " expand-export" : "")} id="select">
                     <li className="expand-style-export">
                         <input className="select_close-export" type="radio" name="export" id="export-btn-close" value="" />

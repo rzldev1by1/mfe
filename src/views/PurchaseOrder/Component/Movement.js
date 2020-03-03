@@ -22,6 +22,11 @@ class Movement extends Component {
 
             activearrow:mid,
             sortparameter:null,
+            siteSP:mid,
+            clientSP:mid,
+            productSP:mid,
+            productNameSP:mid,
+            uomSP:mid,
             sort:true,
 
             //pagonation
@@ -291,14 +296,14 @@ class Movement extends Component {
                     <table width='100%' align='left'>
                         <thead>
                             <tr>
-                                <td colSpan='2'>{this.productHeader()}</td>
+                                <td  style={{borderRight:'1.5px solid #ededed'}}>{this.productHeader()}</td>
                             </tr>
                         </thead>
                         <tbody>
                         {
                             this.state.data.slice(this.state.startIndex,this.state.endIndex).map((data) =>
                                 <tr style={{borderBottom:'1px solid #f5f5f5'}}>
-                                <td height='50'>
+                                <td height='50' style={{borderRight:'1.5px solid #ededed'}}>
                                     <this.productBody site={data.site} product={data.product} product_name={data.product_name} packdesc={data.packdesc} client={data.client}/>
                                 </td>
                                 </tr>

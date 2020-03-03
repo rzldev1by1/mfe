@@ -108,12 +108,6 @@ table{
   height:50px;
 }
 
-.search{
-	margin-top: 2.5%;
-	background-color: transparent;
-	width: 2%;
-}
-
 .searchinput{
 	margin-left: 1.5% !important;
 	background-color: transparent;
@@ -134,7 +128,7 @@ table{
 	border-bottom-left-radius: 5px;
 	display: flex;
 	justify-content: space-between;
-	margin-top: -41px;
+	margin-top: -16px;
 	font-weight: bold;
 }
 

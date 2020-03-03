@@ -42,7 +42,7 @@ class StockMovement extends Component {
 					<div className={this.state.isComplete ? 'fades' : 'hidden'}>
 						<Pagination sliceValue={(startIndex, endIndex) => this.getStockMovement.current.setSliceValue(startIndex, endIndex)} 
 												ref={this.setPagiantion} data={this.state.data} 
-												rows={4}/> 
+												rows={50}/> 
 					</div>						 
 			</div>
 		)
