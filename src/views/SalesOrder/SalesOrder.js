@@ -4,68 +4,70 @@ import FilterComponent from './Components/FilterComponent'
 import {Button} from 'reactstrap'
 import create from '../../assets/img/brand/button_create@2x.png'
 import Dropdown from '../../AppComponent/Dropdown'
+import Search from '../../AppComponent/Search'
 // import SalesOrderCreate from './Components/SalesOrderCreate'
 import "./SalesOrder.css"
 class SalesOrder extends Component{
   constructor(props) {
-      super(props);
+      super(props)
+      this.potableref = React.createRef()
+      this.searchForm = React.createRef()
       this.state = {
-        tableheader : ["Site","Client","Order No", "Ship to Name", "Customer Name"," Status", "Date due", "Date Received", "Date Released", "Date Completed"],
-          listOrder:{
-            
-            headers:["Site","Client","Order No", "Ship to Name", "Customer Name"," Status", "Date due", "Date Received", "Date Released", "Date Completed"],
+        tableheader : ["Site","Client","Order No", "Ship to Name", "Customer Name"," Status", "Date due", "Date Received", "Date Released", "Date Completed"],    
+        search: null, client : null, site: null, status: null, ordertype : null,
+        siteSelected: undefined,
+        clientSelected: undefined,
+        statusSelected: undefined,
+        ordertypeSelected : undefined,
 
-            data:[
-              {"site":"A","client":"Josephat","orderNo":"SO-4312-1213","customer":"Alex Gaskarth","customerName":"Alex Gaskarth",
-              "status":"1:available","datedue":"27/01/2019","datereceived":"27/01/2019","datereleased":"27/01/2019","datecompleted":"27/01/2019"},
-              {"site":"A","client":"Josephat","orderNo":"SO-4312-1214","customer":"Alex Gaskarth","customerName":"Alex Gaskarth",
-              "status":"1:available","datedue":"27/01/2019","datereceived":"27/01/2019","datereleased":"27/01/2019","datecompleted":"27/01/2019"},
-              {"site":"A","client":"Josephat","orderNo":"SO-4312-1215","customer":"Alex Gaskarth","customerName":"Alex Gaskarth",
-              "status":"1:available","datedue":"27/01/2019","datereceived":"27/01/2019","datereleased":"27/01/2019","datecompleted":"27/01/2019"},
-              {"site":"A","client":"Josephat","orderNo":"SO-4312-1216","customer":"Alex Gaskarth","customerName":"Alex Gaskarth",
-              "status":"1:available","datedue":"27/01/2019","datereceived":"27/01/2019","datereleased":"27/01/2019","datecompleted":"27/01/2019"},
-              {"site":"A","client":"Josephat","orderNo":"SO-4312-1217","customer":"Alex Gaskarth","customerName":"Alex Gaskarth",
-              "status":"1:available","datedue":"27/01/2019","datereceived":"27/01/2019","datereleased":"27/01/2019","datecompleted":"27/01/2019"},
-              {"site":"A","client":"Josephat","orderNo":"SO-4312-1217","customer":"Alex Gaskarth","customerName":"Alex Gaskarth",
-              "status":"1:available","datedue":"27/01/2019","datereceived":"27/01/2019","datereleased":"27/01/2019","datecompleted":"27/01/2019"},
-              {"site":"A","client":"Josephat","orderNo":"SO-4312-1217","customer":"Alex Gaskarth","customerName":"Alex Gaskarth",
-              "status":"1:available","datedue":"27/01/2019","datereceived":"27/01/2019","datereleased":"27/01/2019","datecompleted":"27/01/2019"},
-              {"site":"A","client":"Josephat","orderNo":"SO-4312-1217","customer":"Alex Gaskarth","customerName":"Alex Gaskarth",
-              "status":"1:available","datedue":"27/01/2019","datereceived":"27/01/2019","datereleased":"27/01/2019","datecompleted":"27/01/2019"},
-              {"site":"A","client":"Josephat","orderNo":"SO-4312-1217","customer":"Alex Gaskarth","customerName":"Alex Gaskarth",
-              "status":"1:available","datedue":"27/01/2019","datereceived":"27/01/2019","datereleased":"27/01/2019","datecompleted":"27/01/2019"},
-              
+        clientdata : [],
+        sitedata : [],
 
-            ],
-          }
-          
+        //modal
+        showcreate : false,
+        complete : false,
+
+         //filter
+         filterclicked:false,
       }
       
   }
-  openModal = () => {
-    this.setState({showmodal:true})
-}
 
-closeModal = () => {
-    this.setState({showmodal:false})
-}
 
-showDropdowns = () => {
-  let clientName = [];
-  let clientValue = [];
-  let siteData = [];
-    let status = [];
-  if(this.state.clientdata){
-      this.state.clientdata.map((data) => {
-          clientName.push(data.name);
-          clientValue.push(data.code);
-      })
-  }
-  if(this.state.sitedata){
-      this.state.sitedata.map((data) => {
-          siteData.push(data.site);
-      })
-  }
+      openModal = () => {
+          this.setState({showcreate:true})
+      }
+
+      closeCreate = () => {
+          this.setState({showcreate:false})
+      }
+
+      search =() =>{
+        let self = this;
+        self.potableref.current.searchSalesOrder(self.state.search,
+                                                  self.state.clientSelected,
+                                                  self.state.siteSelected,
+                                                  self.state.statusSelected,
+                                                  self.state.ordertypeSelected,
+                                                  )
+      }
+
+      showDropdowns = () => {
+        let clientName = [];
+        let clientValue = [];
+        let siteData = [];
+          let status = [];
+        if(this.state.clientdata){
+            this.state.clientdata.map((data) => {
+                clientName.push(data.name);
+                clientValue.push(data.code);
+            })
+        }
+        if(this.state.sitedata){
+            this.state.sitedata.map((data) => {
+                siteData.push(data.site);
+            })
+        }
     return(
         <React.Fragment>
             <Dropdown placeHolder="Site" style={{width: "102px", marginRight: "1em"}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected}/>
@@ -89,7 +91,12 @@ console.log(this.state.listOrder)
                 </div>
         </div> 
           
-        <FilterComponent />
+        <Search getValue={(v) => this.setState({search: v})}
+                showFilter={this.state.filterclicked}
+                triggerShowFilter={() => this.setState({filterclicked: !this.state.filterclicked})}
+                searchData={() => this.search()}
+                placeholder="Enter a Product or Description"  />
+
         <div className='dropdowns'>
                 <div style={{display:'flex', width:'100%'}}>
                     {
@@ -104,7 +111,7 @@ console.log(this.state.listOrder)
         <ListOrderComponent ref={this.potableref} className='animated fadeIn' loadCompleteHandler = {(v) =>  this.setState({complete: v})} />
         </div>
         <div className={( this.state.complete ? 'hidden': 'spinner')}/>
-        {/* <SalesOrderCreate showmodal={this.state.showmodal} closemodal={() => this.closeModal()}/> */}
+        {/* <SalesOrderCreate showcreate={this.state.showcreate} closemodal={() => this.closeCreate()}/> */}
     </div>)
   }
 }
