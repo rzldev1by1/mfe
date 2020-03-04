@@ -38,6 +38,12 @@
     align-items: center !important;
 }
 
+.number{
+	cursor: pointer;
+	font-family:Helvetica Neue Light;
+	margin-top: 2px;
+}
+
 
 /* Start - Export Button */
 
@@ -261,7 +267,7 @@
     display: inline-flex;
     margin-left: 21px;
 }
-.show{
+.showing{
 	margin-top: 12px;
     display: inline-flex;
     margin-left: 21px;

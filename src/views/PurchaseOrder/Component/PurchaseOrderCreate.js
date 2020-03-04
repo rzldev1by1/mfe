@@ -460,7 +460,7 @@
                     <ModalHeader style={{marginTop:"1%"}}>
                           <div className="create"><label className="iconU-createModal"/><label className="font"><h2>Create Purchase Orders</h2></label></div>
                             <p color="primary" onClick={() => this.close()}>
-                              <i className="iconU-close" aria-hidden="true" />
+                              <i className="iconU-close mr3" style={{fontSize:"1.6em" , marginLeft:"-3em"}} aria-hidden="true" />
                             </p>
                     </ModalHeader>
 

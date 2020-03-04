@@ -23,10 +23,6 @@ table{
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.card{
-  border:none;
-  border-radius: 7px;
-}
 
 /* create seles */
 
@@ -356,4 +352,22 @@ th.iconU-edit{
 		font-family: "Helvetica Neue Regular";
 		color: #637175;
 	}
+}
+
+
+.createmodal{
+	position: absolute;
+	width: 342%;
+	background-color: #22ABE3;
+	margin-left: -118%;
+    margin-top: 17%;
+	border-bottom-right-radius: 10px !important;
+	border-bottom-left-radius: 10px !important;
+}
+
+.modal-header{
+	background-color: #22ABE3;
+	width: 100% !important;
+	color: #FFFF;
+	display: flex !important;
 }

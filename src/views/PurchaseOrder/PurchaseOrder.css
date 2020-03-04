@@ -527,14 +527,7 @@ select option:hover{
 }
 
 .iconU-close{
-	margin-left: -275%;
 	vertical-align: middle !important;
-	font-size: 32px;
-	width: 69px;
-	height: 69px;
-    font-weight: 100;
-    margin-top: -13px;
-
 }
 
 .btnsearch > .font{
