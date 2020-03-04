@@ -441,21 +441,35 @@ th.iconU-edit{
 
 /* modal */
 
+
+.show{
+	margin-top: none !important;
+	margin-left: none !important;
+}
+
 .modal-content{
+	position: absolute ;
+	width: 270%;
+	margin-left: -85%;
+	margin-top: 20%;
+}
+
+.modal-content > .createModal {
 	position: absolute;
-	width: 342%;
-	background-color: #22ABE3;
-	margin-left: -118%;
-    margin-top: 17%;
-	border-bottom-right-radius: 10px !important;
-	border-bottom-left-radius: 10px !important;
+    width: 124%;
+    background-color: #22ABE3;
+    margin-left: -13%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
 }
 
 .modal-header{
 	background-color: #22ABE3;
-	width: 100% !important;
-	color: #FFFF;
-	display: flex !important;
+    width: 100% !important;
+    color: #FFFF;
+    display: flex !important;
 }
 
 
@@ -543,7 +557,7 @@ select option:hover{
 	border:0px !important;
 }
 
-.Tab{
+.Tabs{
 	margin-top: -3%;
 	padding-top: 0px !important;
 	padding-bottom: 0px !important;

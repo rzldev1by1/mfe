@@ -23,7 +23,7 @@ class PurchaseOrder extends Component {
 
         this.state = {
             data:[{"menu":"Client", "subMenu":["MLS","MLB"], }, {"menu":"Site", "subMenu":["A","B","C"]},{"menu":"Status", "subMenu":["Open","Close"]},{"menu":"Supplier", "subMenu":["JohnDoe","JohnWick"]},{"menu":"Order Type", "subMenu":["Type 1", "Type 2"]}],
-            client:null, site:null, status:null, supplier:null, ordertype:null, area:null, quantity:null, search:null,
+            client:null, site:null, status:null, supplier:null, ordertype:null, area:null, quantity:null, search:"",
 
             clientdata: [],
             sitedata: [],
@@ -249,7 +249,7 @@ class PurchaseOrder extends Component {
             <div className={' ' + ( this.state.complete ? 'fades ' : 'hidden')}>
                 <PurchaseOrderTable ref={this.potableref} className='animated fadeIn' loadCompleteHandler = {(v) =>  this.setState({complete: v})}/>
             </div>
-            <div className={( this.state.complete ? 'hidden': 'spinner')}/>
+            <div className={( this.state.complete ? 'hidden createPoModal': 'spinner')}/>
             <PurchaseOrderCreate showmodal={this.state.showmodal} closemodal={() => this.closeModal()}/>
         </div>
            

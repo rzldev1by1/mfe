@@ -5,15 +5,17 @@
     color: #22ABE3 !important;
 }
 
+
 /* 768p Resolution */
 @media(max-width: 1500px){
-    .POCreate > .modal-content {
+    .POCreate > .modal-contents {
         position: absolute;
         width: 240%;
         margin-left: -69%;
         margin-top: 10%;
         margin-bottom: 10%;
     }
+    
     
     .btnLabel{
         margin-right: 1em;
