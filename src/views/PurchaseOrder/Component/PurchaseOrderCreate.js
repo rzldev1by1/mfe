@@ -455,29 +455,30 @@
 
       render(){
           return(
-            <Modal  isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }}
-            toggle={true} className="POCreate">
-            <ModalHeader style={{marginTop:"1%"}}>
-              <div className="create"><label className="iconU-createModal"/><label className="font"><h2>Create Purchase Orders</h2></label></div>
-                <p color="primary" onClick={() => this.close()}>
-                  <i className="iconU-close" aria-hidden="true" />
-                </p>
-            </ModalHeader>
-            <ModalHeader className="Tab" style={{marginTop:"-40px"}} >
-              <div>
-                <div className="createdec">
-                Enter delivery and product details to create a new Purchase Orders
-                </div>
-                <div className="tabs font">
-                    <div style={{color:"#919191"}} onClick={() => this.tabhandler()} className={"tab1 " + (this.state.tab1isactive ? "tabisactive" : null)}>
-                        <img className="numberimg" style={{width:"9%"}} src={this.state.tab1isactive ? oneactive : oneinactive}/>  Order & Product Details
-                    </div>
-                    <div  style={{color:"#919191"}} onClick={() => this.tabhandler()} className={"tab2 tab-review " + (this.state.tab2isactive ? "tabisactive" : null)}>
-                         <img className="numberimg " style={{width:"22%"}} src={this.state.tab2isactive ? twoactive : twoinactive}/> Review
-                    </div>
-                 </div>
-              </div>
-            </ModalHeader>       
+                <Modal  isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }}toggle={true} >
+                  <div className="createModal">
+                    <ModalHeader style={{marginTop:"1%"}}>
+                          <div className="create"><label className="iconU-createModal"/><label className="font"><h2>Create Purchase Orders</h2></label></div>
+                            <p color="primary" onClick={() => this.close()}>
+                              <i className="iconU-close mr3" style={{fontSize:"1.6em" , marginLeft:"-3em"}} aria-hidden="true" />
+                            </p>
+                    </ModalHeader>
+
+                    <ModalHeader className="Tabs" style={{marginTop:"-40px"}} >
+                          <div>
+                            <div className="createdec">
+                            Enter delivery and product details to create a new Purchase Orders
+                            </div>
+                            <div className="tabs font">
+                                <div style={{color:"#919191"}} onClick={() => this.tabhandler()} className={"tab1 " + (this.state.tab1isactive ? "tabisactive" : null)}>
+                                    <img className="numberimg" style={{width:"9%"}} src={this.state.tab1isactive ? oneactive : oneinactive}/>  Order & Product Details
+                                </div>
+                                <div  style={{color:"#919191"}} onClick={() => this.tabhandler()} className={"tab2 tab-review " + (this.state.tab2isactive ? "tabisactive" : null)}>
+                                    <img className="numberimg " style={{width:"22%"}} src={this.state.tab2isactive ? twoactive : twoinactive}/> Review
+                                </div>
+                            </div>
+                          </div>
+                    </ModalHeader>       
             
             <ModalBody className="bodycontent" style={{width:"100%"}}>
               {this.state.tab1isactive ? this.tab1Content() : this.tab2Content()}
@@ -486,7 +487,8 @@
                 this.submit() :  
                 <Button onClick={() => this.tabhandler()} color="primary" className="btnsearch next btnleft" ><label className="font btnLabel ">Next</label></Button>
               }       */}
-          </Modal>
+              </div>
+          </Modal>    
           )
       }
   }

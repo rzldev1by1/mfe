@@ -17,7 +17,7 @@ class SalesOrder extends Component{
       this.searchForm = React.createRef()
       this.state = {
         tableheader : ["Site","Client","Order No", "Ship to Name", "Customer Name"," Status", "Date due", "Date Received", "Date Released", "Date Completed"],    
-        search: null, client : null, site: null, status: null, ordertype : null,
+        search: "", client : null, site: null, status: null, ordertype : null,
 
         siteSelected: undefined,
         clientSelected: undefined,
@@ -115,8 +115,8 @@ class SalesOrder extends Component{
     return(
         <React.Fragment>
             <Dropdown placeHolder="Site" style={{width: "102px", marginRight: "1em"}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected.bind(this)}/>
-            <Dropdown placeHolder="Client" style={{width: "200px", marginRight: "1em"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected.bind(this)}/>
-            {/* <Dropdown placeHolder="Order No" style={{marginRight: "1em"}} optionList={status.toString()} optionValue={status.toString()} getValue={this.getStatusSelected}/> */}
+            <Dropdown placeHolder="Client" style={{width: "210px", marginRight: "1em"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected.bind(this)}/>
+            <Dropdown placeHolder="Order No" style={{marginRight: "1em"}} optionList="hard,code" optionValue="hard,code" getValue={(v)=> alert(v)}/>
 
         </React.Fragment>
     )
@@ -124,7 +124,7 @@ class SalesOrder extends Component{
 
   render(){
 console.log(this.state.listOrder)
-    return(<div>
+    return(<div style={{marginLeft:"-9px"}}>
        <div className='header'>
           <h2 style={{marginTop:'0.2%'}}>Sales Orders</h2>
               <div className='header2'>

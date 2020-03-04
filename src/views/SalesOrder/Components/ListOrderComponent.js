@@ -18,12 +18,13 @@ class ListOrderComponent extends Component {
       data:[],      
       tableheader :  ["Site","Client","Order No", "Order Type", "Customer"," Status", "Delivery Date", "Date Received", "Date Released", "Date Completed"],
       activearrow:mid,
-      sortparameter:'orderNO',
+      sortparameter:'order_no',
+      // sort :true,
 
       currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
-			displayPage:3,
+			displayPage:5,
 			totalRows: 0,
 			maxPage: 0,
     }
@@ -55,25 +56,25 @@ class ListOrderComponent extends Component {
     if(client)
     {
       param = client
-      url = '?client='+client
+      url = '?client=' + client
     }
 
     if(site)
     {
       param = site
-      url = '?site='+site
+      url = '?site=' + site
     }
 
     if(status)
     {
       param = status
-      url = '?status='+status
+      url = '?status=' + status
     }
 
     if(ordertype)
     {
       param = ordertype
-      url = '?orderType='+ordertype
+      url = '?orderType=' + ordertype
     }
 
     if(order_no)

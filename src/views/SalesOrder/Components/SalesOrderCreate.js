@@ -56,27 +56,26 @@
       
       render(){
           return(
-            <Modal  isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }}toggle={true}>
+            <Modal isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }}toggle={true}>
                 <ModalHeader style={{marginTop:"1%"}}>
-                <div><label className="iconU-createModal"/><label className="font"><h2>Create Purchase Orders</h2></label></div>
+                  <div><label className="iconU-createModal"/><label className="font"><h2>Create Sales Orders</h2></label></div>
                     <p color="primary" onClick={() => this.close()}>
-                    <i className="iconU-close" aria-hidden="true" />
+                      <i className="iconU-close" aria-hidden="true" />
                     </p>
                 </ModalHeader>
+
                 <ModalHeader className="Tab" style={{marginTop:"-40px"}} >
-                <div>
-                    <div className="createdec">
-                    Enter delivery and product details to create a new Purchase Orders
-                    </div>
-                    <div className="tabs font">
-                        <div style={{color:"#919191"}} onClick={() => this.tabhandler()} className={"tab1 " }>
-                            <img className="numberimg" style={{width:"9%"}}/>  Order & Product Details
-                        </div>
-                        <div  style={{color:"#919191"}} onClick={() => this.tabhandler()} className={"tab2 tab-review "}>
-                            <img className="numberimg " style={{width:"22%"}} /> Review
-                        </div>
-                    </div>
-                </div>
+                  <div>
+                    <div className="createdec">Enter delivery and product details to create a new Sales Orders</div>
+                      <div className="tabs font">
+                          <div style={{color:"#919191"}} onClick={() => this.tabhandler()} className={"tab1 " }>
+                              <img className="numberimg" style={{width:"9%"}}/>  Order & Product Details
+                          </div>
+                          <div  style={{color:"#919191"}} onClick={() => this.tabhandler()} className={"tab2 tab-review "}>
+                              <img className="numberimg " style={{width:"22%"}} /> Review
+                          </div>
+                      </div>
+                  </div>
                 </ModalHeader>       
             
             <ModalBody className="bodycontent" style={{width:"100%"}}>

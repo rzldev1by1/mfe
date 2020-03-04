@@ -55,7 +55,7 @@ class Paging extends Component {
                         <i className="fa fa-angle-left fa-2x" aria-hidden="true" />
                     </button>
                     
-                        <span >{this.createPageNumber()}</span>
+                        <span className="number" >{this.createPageNumber()}</span>
 
                         <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage < this.props.maxPage ? "" : "-inactive")} onClick={this.nextPageClick}>
                             <i className="fa fa-angle-right fa-2x" aria-hidden="true" /> 
@@ -73,14 +73,14 @@ class Paging extends Component {
                     </form>
                     </div>
                 </InputGroup>
-                    <span className="show">
+                    <span className="showing">
                         <a style={{color:"#B4B9BB" , marginRight:"2%"}}>Showing</a>
                         <a style={{marginRight:"2%"}}>{this.props.startIndex + 1}</a>
                         <a style={{marginRight:"2%"}}>to</a>
                         <a style={{marginRight:"2%"}}>{this.props.currentPage === parseInt(this.props.maxPage + 1) ? this.props.totalRows : this.props.lastIndex}</a>
                         <a style={{marginRight:"2%"}}>of</a>
                         <a style={{marginRight:"2%"}}>{this.props.totalRows}</a>
-                        <a style={{color:"#B4B9BB"}}> Entries</a>
+                        <a style={{color:"#B4B9BB"}}> entries</a>
                     </span>
                 </div>                
                  {/* <ul className={"select-export" + (this.state.exportExpand ? " expand-export" : "")} id="select">
