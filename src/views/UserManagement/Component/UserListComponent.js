@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Table,Button, Card, CardBody, Label} from 'reactstrap'
 import '../UserManagement.css'
 
+
 class UserListComponent extends Component{
     constructor(props){
         super(props);
@@ -9,7 +10,6 @@ class UserListComponent extends Component{
              headers:this.headers(),
              data: this.rowData()
         }
-
     }
 
     headers = () => {
@@ -75,22 +75,7 @@ class UserListComponent extends Component{
                                         this.state.headers.map((element,index)=>{
                                         return <th key={index} className='headers'>
                                         <label className="mt-1 mb-0">{element}</label>
-                                        {
-                                          /**
-                                              <div className='d-flex flex-row'>
-                                              <label className="mt-1 mb-0">{element}</label>
-                                              {
-                                              (element === '')?'': (<div className="d-flex flex-column ml-2">
-                                              <span className="upArrow" style={{height:'10px'}}></span>
-                                              <span className="downArrow" style={{height:'10px'}}></span>
-                                              </div>)
-                                            }
 
-
-                                            </div>
-
-                                          **/
-                                        }
                                             </th>
                                         })
                                     }
@@ -119,6 +104,7 @@ class UserListComponent extends Component{
                             </tbody>
                         </table>
                     </div>
+
                 </div>
              )
     }

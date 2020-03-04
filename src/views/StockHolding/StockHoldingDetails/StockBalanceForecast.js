@@ -122,7 +122,7 @@ class StockBalanceForecast extends Component {
                 if (column.id === "balance") {
 										balance += parseInt(item["qtyexpected"]) - parseInt(item["qtycommitted"])
                     return (
-                        <td key={columnIdx} className="px-3 text-left">{balance}</td>
+                        <td key={columnIdx} className="px-3 text-left">{item['balance']}</td>
                     );
                 }
 

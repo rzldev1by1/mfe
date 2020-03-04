@@ -9,6 +9,8 @@ import ModalNewUser from './Component/ModalNewUser'
 import moment from 'moment'
 import query from '../../AppComponent/query_menu_temp'
 import Authentication from '../../Auth/Authentication'
+import Paging from './Component/Paging'
+
 
 const today = moment(new Date()).format("YYYY-MM-DD");
 
@@ -54,6 +56,10 @@ class UserManagement extends Component{
               isClientLoaded: false,
               isSiteLoaded: false,
               isSaveProgressing:false,
+              startIndex:0,
+              lastIndex:0,
+              displayRow:10,
+              totalPage:0
 
 
         }
@@ -361,7 +367,7 @@ class UserManagement extends Component{
                     </h3>
                 </div>
                 <div className="flex-fill">
-                    <button className={(this.isValidUser() ?"btn btn-primary font-lg font-md font-sm float-right":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
+                    <button style={{width:"30%"}} className={(this.isValidUser() ?"btn btn-primary font-lg font-md font-sm float-right":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
                     <span className='iconU-edit'/>
                       <label className="create-user-label">Create user</label>
                     </button>
@@ -379,6 +385,8 @@ class UserManagement extends Component{
                 <CardBody>
 
                     <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}/>
+                    <Paging />
+
 
                       <ModalNewUser isOpen={this.state.isModalNewOpen} closeModal={this.closeModalPopUp} model={this.state.accountInfo}
                       onChangeName={this.onChangeName} onChangeEmail={this.onChangeEmail} moduleAccess={this.state.moduleAccess}
