@@ -7,10 +7,10 @@
 
 
 /* 768p Resolution */
-@media(max-width: 1500px){
-    .POCreate > .modal-contents {
+@media(max-width: 1800px){
+    .POCreate > .modal-content {
         position: absolute;
-        width: 240%;
+        width: 240% !important;
         margin-left: -69%;
         margin-top: 10%;
         margin-bottom: 10%;
@@ -50,6 +50,24 @@
         margin-top: 3% !important;
         vertical-align: middle !important;
         cursor: pointer;
+    }
+}
+@media(max-width: 1500px){
+    .POCreate > .modal-content {
+        position: absolute;
+        width: 220% !important;
+        margin-left: -58%;
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
+}
+@media(max-width: 1400px){
+    .POCreate > .modal-content {
+        position: absolute;
+        width: 195% !important;
+        margin-left: -46%;
+        margin-top: 10%;
+        margin-bottom: 10%;
     }
 }
 ::-webkit-input-placeholder{

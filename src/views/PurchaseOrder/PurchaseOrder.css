@@ -440,19 +440,21 @@ th.iconU-edit{
 	to {opacity: 1}}
 
 /* modal */
-
+@media(min-width: 1800px){
+    .POCreate > .modal-content{
+        position: absolute ;
+        width: 270%;
+        margin-left: -85%;
+        margin-top: 20%;
+    }
+}
 
 .show{
 	margin-top: none !important;
 	margin-left: none !important;
 }
 
-.modal-content{
-	position: absolute ;
-	width: 270%;
-	margin-left: -85%;
-	margin-top: 20%;
-}
+
 
 .modal-content > .createModal {
 	position: absolute;
