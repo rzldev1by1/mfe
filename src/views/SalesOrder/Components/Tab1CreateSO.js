@@ -37,10 +37,14 @@ class Tab1CreateSO extends Component{
                 disposition:null,
 
                 siteSelected: undefined,
+
+                rowlistidx: 1,
+
               }
             ],
         }
     }
+
 
     getSiteSelected = (value) => {
       this.setState({siteSelected: value});
@@ -57,6 +61,23 @@ class Tab1CreateSO extends Component{
         .catch(error => {
           // this.props.history.push("/logins")
         })
+    }
+    addline = () => {
+      this.state.rowlistidx -= 1;
+      this.setState({rowlist: this.state.rowlist.concat(
+        {
+          id:this.state.rowlistidx,
+          productEntry:null,
+          productDes:null,
+          uom:null,
+          qty:null,
+          rodaDate:null,
+          batch:null,
+          ref3:null,
+          ref4:null,
+          disposition:null
+        }
+      )})
     }
 
     render= () => {
@@ -87,8 +108,8 @@ class Tab1CreateSO extends Component{
                 <tr>
                 <td><Dropdown placeHolder="Site"  style={{minWidth: "100%", zIndex:"1"}} optionList="M,S" optionValue="M,S" getValue={(v)=>console.log(v)}/></td>
                     <td><Dropdown placeHolder="Order Type" style={{minWidth: "100%"}} optionList="Type 1,Type 2" optionValue="Type 1,Type 2" getValue={(v)=>console.log(v)}/> </td>
-                    <td><input className="form-control put pec" placeholder="Customer PO No"/> </td>
-                    <td><input className="form-control put pec" placeholder="Delivery Instructions"/> </td>
+                    <td><input className="form-control put " placeholder="Customer PO No"/> </td>                 
+                    <td rowspan="3"><textarea className="form-control put dlv" style={{height:"8em"}} placeholder="Delivery Instructions"/></td>
                 </tr>
                 <tr>
                     <th>Order Type</th>
@@ -96,11 +117,11 @@ class Tab1CreateSO extends Component{
                     <th>Order Date</th>
                 </tr>
                 <tr>
-                <td><input className="form-control put pec" placeholder="Supplier"/> </td>
-                <td><input className="form-control put pec" placeholder="Order No"/> </td>
+                <td><input className="form-control put " placeholder="Supplier"/> </td>
+                <td><input className="form-control put " placeholder="Order No"/> </td>
                     <td>
                       <div className="inputDates ">
-                        <input className="dateform pec" placeholder="Order Date" value={this.state.orderdate}/>
+                        <input className="dateform " placeholder="Order Date" value={this.state.orderdate}/>
                         <img onClick={() => this.datePickerHandler()} className="dateimg" src={date}/>
                       </div>
                     </td>                  
@@ -116,10 +137,10 @@ class Tab1CreateSO extends Component{
                     <th>Address 3</th>
                 </tr>
                 <tr>
-                    <td><input className="form-control put pec" placeholder="Costumer"/></td>
-                    <td><input className="form-control put pec" placeholder="Address 1"/> </td>
-                    <td><input className="form-control put pec" placeholder="Address 2"/> </td>
-                    <td><input className="form-control put pec" placeholder="Address 3"/> </td>
+                    <td><input className="form-control put " placeholder="Costumer"/></td>
+                    <td><input className="form-control put " placeholder="Address 1"/> </td>
+                    <td><input className="form-control put " placeholder="Address 2"/> </td>
+                    <td><input className="form-control put " placeholder="Address 3"/> </td>
                 </tr>
                 <tr>
                     <th>Address 4</th>
@@ -128,18 +149,18 @@ class Tab1CreateSO extends Component{
                     <th>Postcode</th>
                 </tr>
                 <tr>
-                    <td><input className="form-control put pec" placeholder="Address 4"/></td>
-                    <td><input className="form-control put pec" placeholder="Address 5"/> </td>
-                    <td><input className="form-control put pec" placeholder="Suburb"/> </td>
-                    <td><input className="form-control put pec" placeholder="Postcode"/> </td>
+                    <td><input className="form-control put " placeholder="Address 4"/></td>
+                    <td><input className="form-control put " placeholder="Address 5"/> </td>
+                    <td><input className="form-control put " placeholder="Suburb"/> </td>
+                    <td><input className="form-control put " placeholder="Postcode"/> </td>
                 </tr>
                 <tr>
                     <th>State</th>
                     <th>Country</th>
                 </tr>
                 <tr>
-                    <td><input className="form-control put pec" placeholder="State"/></td>
-                    <td><input className="form-control put pec" placeholder="Country"/> </td>
+                    <td><input className="form-control put " placeholder="State"/></td>
+                    <td><input className="form-control put " placeholder="Country"/> </td>
                 </tr>
                 <tr>
                   <td></td>
@@ -167,7 +188,8 @@ class Tab1CreateSO extends Component{
                       <th style={{width:"5%"}}>Ref3</th>
                       <th style={{width:"5%"}}>Ref4</th>
                       <th style={{width:"6%"}}>Disposition</th>
-                  </tr>                               
+                  <th style={{width:"6%"}}>Pack Id</th> 
+                  </tr>                             
                 </table>
               </div>
                 <div className={"tablerow " + (this.state.rowlist.length >2 ? "scroll" : null )} style={{width:"98%"}}>
@@ -185,33 +207,35 @@ class Tab1CreateSO extends Component{
           </div>
         )
       }
+      
 
-      linedetailsrow = (list, i) => {
+      linedetailsrow = (list, i,) => {
         return(
           <table>
             <tr>
                 <td hidden id={list.id} ></td>
-                <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs pec" value={list.id}/></td>
-                <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product"/></td>
-                <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product Description"/></td>
-                <td style={{width:"3%"}}><input className="form-control inputs pec" placeholder="Qty"/></td>
+                <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs " value={list.id}/></td>
+                <td style={{width:"12%"}}><input className="form-control inputs " placeholder="Product"/></td>
+                <td style={{width:"12%"}}><input className="form-control inputs " placeholder="Product Description"/></td>
+                <td style={{width:"3%"}}><input className="form-control inputs " placeholder="Qty"/></td>
                 <td style={{width:"6%"}}>
                     <select className="form-control selectinput ">
-                      <option className="pec" selected disabled>UOM</option>
+                      <option className="" selected disabled>UOM</option>
                       <option>each</option>
                       <option>pallet</option>
                     </select>
                 </td>
                 <td style={{width:"6%", height:"10%"}}>
                 <div className="inputDates ">
-                <input className="dateform pec" value={this.state.rotedate} placeholder="Rota Date"/>
+                <input className="dateform " value={this.state.rotedate} placeholder="Rota Date"/>
                 <img onClick={() => this.datePickerRote()} className="dateimg" src={date}/>
                 </div>
                 </td>
-                <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"/></td>
-                <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref3"/></td>
-                <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref4"/></td>
-                <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Disposition"/></td>
+                <td style={{width:"6%"}}><input className="form-control inputs " placeholder="Batch"/></td>
+                <td style={{width:"5%"}}><input className="form-control inputs " placeholder="Ref3"/></td>
+                <td style={{width:"5%"}}><input className="form-control inputs " placeholder="Ref4"/></td>
+                <td style={{width:"6%"}}><input className="form-control inputs " placeholder="Disposition"/></td>
+                <td style={{width:"6%"}}><input className="form-control inputs " placeholder="Pack ID"/></td>
                 <td id={list.id} onClick={(e) => this.deletelinehandler(e)} style={{width:"1.5%"}}><div className="iconU-delete"/></td>
               </tr>
               <td></td>
