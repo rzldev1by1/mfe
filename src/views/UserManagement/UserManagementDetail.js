@@ -66,7 +66,7 @@ class UserManagementDetail extends Component{
             newItem.menuname = item.menu_name;
             return newItem;
           });
-          console.log(newUserMenu);
+          
       }
       return newUserMenu;
     }

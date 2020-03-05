@@ -83,7 +83,7 @@ class UserListComponent extends Component{
                             </thead>
                             <tbody>
                                    {
-                                       this.props.data.map((element,index)=>{
+                                       this.props.data.slice(this.props.startIndex,this.props.lastIndex).map((element,index)=>{
 
                                            return <tr key={index} onClick={(e)=>{ this.onRowClick(e,element.web_user);}}>
                                                     {

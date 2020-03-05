@@ -9,7 +9,7 @@ import ModalNewUser from './Component/ModalNewUser'
 import moment from 'moment'
 import query from '../../AppComponent/query_menu_temp'
 import Authentication from '../../Auth/Authentication'
-import Paging from './Component/Paging'
+import Paging from '../General/Paging'
 
 
 const today = moment(new Date()).format("YYYY-MM-DD");
@@ -56,10 +56,11 @@ class UserManagement extends Component{
               isClientLoaded: false,
               isSiteLoaded: false,
               isSaveProgressing:false,
+              displayRow:10,
+              totalPage:0,
+              currentPage:0,
               startIndex:0,
               lastIndex:0,
-              displayRow:10,
-              totalPage:0
 
 
         }
@@ -70,6 +71,22 @@ class UserManagement extends Component{
         this.loadModuleAccess();
         this.loadClients();
         this.loadSites();
+    }
+
+    calculatePageRow = (listOfRows) => {
+      let totalPage = 0;
+        if(!listOfRows)
+        return;
+
+        if(listOfRows.length){
+          let displayRow = this.state.displayRow;
+          let page = parseInt(listOfRows.length / displayRow);
+          let pageDiv = listOfRows.length % displayRow;
+
+           totalPage = (pageDiv > 0 && pageDiv < displayRow)? (page + 1):page;
+
+        }
+      return totalPage;
     }
 
     restructureUserList = (sources) => {
@@ -93,7 +110,75 @@ class UserManagement extends Component{
         return newUserArray;
     }
 
+    getStartIndex = (currentPage) => {
+      let startIndex = 0;
+      if(currentPage < 1)
+        return;
 
+      let displayRow = this.state.displayRow;
+      startIndex = (currentPage * displayRow) - displayRow;
+
+      return startIndex;
+    }
+
+    getLastIndex = (currentPage) => {
+      let lastIndex = 0;
+      if(currentPage < 1)
+        return;
+
+      let displayRow = this.state.displayRow;
+      lastIndex = currentPage * displayRow;
+
+      return lastIndex;
+    }
+
+    numberEventClick = (currentPage) => {
+  		let page = parseInt(currentPage);
+      let startIndex = this.getStartIndex(page);
+      let lastIndex = this.getLastIndex(page);
+  		this.setState({ currentPage: page,startIndex:startIndex,lastIndex:lastIndex });
+  	}
+
+    nextPageClick = () => {
+      if (this.state.currentPage < this.state.totalPage) {
+        this.setState((prev) => {
+          let currentPage = prev.currentPage + 1;
+          return {
+            currentPage:currentPage,
+            startIndex:this.getStartIndex(currentPage),
+            lastIndex:this.getLastIndex(currentPage)
+          }
+        });
+      }
+
+    }
+
+    backPageClick = () => {
+      if (this.state.currentPage > 1) {
+        this.setState((prev) => {
+          let currentPage = prev.currentPage - 1;
+          return {
+            currentPage:currentPage,
+            startIndex:this.getStartIndex(currentPage),
+            lastIndex:this.getLastIndex(currentPage)
+          }
+        });
+      }
+    }
+
+    lastPageClick = () => {
+      if (this.state.currentPage < this.state.totalPage) {
+        let currentPage = this.state.totalPage;
+        this.setState({ currentPage:currentPage,startIndex:this.getStartIndex(currentPage),lastIndex:this.getLastIndex(currentPage)})
+      }
+    }
+
+    firstPageClick = () => {
+      if (this.state.currentPage > 1) {
+        let currentPage = 1;
+        this.setState({ currentPage:currentPage,startIndex:this.getStartIndex(currentPage),lastIndex:this.getLastIndex(currentPage)})
+      }
+    }
 
     loadUsers = () => {
         // if(users){
@@ -106,9 +191,13 @@ class UserManagement extends Component{
           .then(res => {
             var result = [];
             if(res.status === 200){
+              let totalPage = self.calculatePageRow(res.data.data);
 
+              let startIndex = self.state.startIndex;
+              let lastIndex = self.state.displayRow;
+              let currentPage = parseInt(lastIndex / self.state.displayRow)
               result = self.restructureUserList(res.data.data);
-              self.setState({isListLoaded:true,userList:result});
+              self.setState({isListLoaded:true,userList:result, totalPage:totalPage,startIndex:startIndex,lastIndex:lastIndex,currentPage:currentPage});
             }
             return result;
           })
@@ -384,9 +473,14 @@ class UserManagement extends Component{
             <Card className={( this.state.isListLoaded ? 'container-user-list border-0':' d-none ')}>
                 <CardBody>
 
-                    <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}/>
-                    <Paging />
+                    <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}
+                    startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}/>
 
+                    <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
+                            backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                            totalRows={this.state.displayRow} currentPage={this.state.currentPage} maxPage={(this.state.totalPage -1)}
+                            startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+                            numberEventClick={this.numberEventClick}/>
 
                       <ModalNewUser isOpen={this.state.isModalNewOpen} closeModal={this.closeModalPopUp} model={this.state.accountInfo}
                       onChangeName={this.onChangeName} onChangeEmail={this.onChangeEmail} moduleAccess={this.state.moduleAccess}

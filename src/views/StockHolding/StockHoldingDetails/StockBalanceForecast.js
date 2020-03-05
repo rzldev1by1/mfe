@@ -260,7 +260,7 @@ class StockBalanceForecast extends Component {
 
 		return (
 			<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
-                <div className="tablePage tableContent">
+                <div className={"tablePage tableContent"+(this.props.stockBalanceForecast.length)?" ":" d-none"}>
                     <Table className="table-condensed table-striped clickable-row rounded-bottom-175 mb-0" size="md" width="100%">
                         <thead>{this.showForeshadowedHeader()}</thead>
                         <tbody>
