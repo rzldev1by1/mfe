@@ -245,7 +245,7 @@ class StockHoldingDetails extends Component {
     }
 
 	render() {
-		const { stockHolding, activeTab } = this.state;
+		const { stockHolding, activeTab,stockBalanceForecast } = this.state;
 
 		let content;
 		switch (this.state.displayContent) {
@@ -398,7 +398,7 @@ class StockHoldingDetails extends Component {
                                                                     </NavLink>
                                                                 </NavItem>
 
-                                                                <NavItem className="pl-2 pr-0">
+                                                                <NavItem className={"pl-2 pr-0 "+(stockBalanceForecast.length?'':'d-none')}>
                                                                     <NavLink className={"nav-link-cust" + (activeTab === "2" ? " tab-custom" : "")} active={this.state.activeTab === "2"} onClick={() => this.activeTabIndex("2")}>
                                                                         <div className="row rowTabCustom align-items-center">
                                                                             <span className="tabTitleText">
