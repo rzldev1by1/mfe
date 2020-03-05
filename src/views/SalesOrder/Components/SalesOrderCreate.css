@@ -1,0 +1,160 @@
+.modal-content{
+	position: absolute ;
+	width: 270%;
+	margin-left: -85%;
+	margin-top: 20%;
+}
+.modal-content > .createModals {
+	position: absolute;
+    width: 124%;
+    background-color: #22ABE3;
+    margin-left: -13%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+}
+
+.modal-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.iconU-close{
+	vertical-align: middle !important;
+}
+
+.iconU-createModal {
+	font-size: 130% !important;
+    margin-right: 13px;
+}
+.numberimg{
+    width: 20px;
+    margin-right: 5px;
+    margin-bottom: 4px;
+}
+
+.clickTabs{
+	margin-top: -3%;
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+	display: flex !important;
+	flex-direction: column !important;
+}
+
+.tabs{
+	display: flex;
+	margin-top: 5%;
+	min-width: 100%;
+}
+
+.tab1{
+	margin-right: 2%;
+	background-color: #F7F7F7;
+	padding:3%;
+	padding-right: 10%;
+	padding-bottom:2%;
+	border-top-right-radius: 6px;
+	border-top-left-radius: 6px;
+	min-width: 71%;
+	font-family: Helvetica  Neue Light;
+}
+
+.tab2{
+	margin-right: 2%;
+	background-color: #F7F7F7;
+	padding:3%;
+	padding-right: 5%;
+	padding-bottom:2%;
+	border-top-right-radius: 6px;
+	border-top-left-radius: 6px;
+	min-width: 30%;
+	font-family: Helvetica  Neue Light;
+}
+
+.fonts{
+	font-family: Helvetica  Neue Light;
+}
+
+.tab:hover{
+	cursor: pointer;
+}
+
+.tabisactive{
+	background-color: white;
+}
+
+.createdecs{
+	margin-left: 11.5%;
+    margin-top: -1%;
+	width: 580px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: 100;
+}
+
+
+/* tab */
+
+.tabcontents{
+	padding:2%;
+	background-color: #ffff;
+    width: 101.6%;
+    margin-left: -13.5px;
+	margin-top: -26px;
+	margin-bottom: -10px;
+	border-bottom-right-radius: 10px !important;
+	border-bottom-left-radius: 10px !important;
+}
+
+.inputDates{
+	border: 2px solid #D5D8DA;
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 38px;
+	border-color: rgb(225, 228, 230);
+}
+
+.inputDates:hover{
+	border-color: #D5D8DA !important;
+}
+.dateform {
+    display: block;
+    width: 94%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #5c6873;
+    background-color: #fff;
+	background-clip: padding-box;
+	border-color: #D5D8DA;
+	border: 1px solid #D5D8DA;
+	border-color: transparent;
+    border-radius: 0.25rem;
+    -webkit-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* button */
+.addline:hover{
+	color: white;
+}
+
+.addline{
+	color: #919191;
+	font-size: larger;
+	margin-top: 10px;
+}
+.btnleft{
+	margin-left: 87%;
+    margin-bottom: 1%;
+  }
+  .btnsearch{
+	width: 12%;
+	border-radius: 5px !important;
+	font-size: 90%;
+}
