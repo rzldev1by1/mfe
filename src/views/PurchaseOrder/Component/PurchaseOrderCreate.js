@@ -189,11 +189,7 @@
               </td>
               <td><input className="form-control put pec" placeholder="Order No"/> </td>
                   <td>
-                    <div className="inputDate ">
-                      <input className="form2 pec" placeholder="Order Date" value={this.state.orderdate}/>
-                      {/* <input className="form-control withIcon" value={this.state.orderdate}/> */}
-                      <img onClick={() => this.datePickerHandler()} className="dateimg" src={date}/>
-                    </div>
+                    <DatePicker style={{ minWidth: "100%" }} />
                   </td>                  
                   <td><input className="form-control put pec"  placeholder="Vendor Order Ref"/> </td>
               </tr>

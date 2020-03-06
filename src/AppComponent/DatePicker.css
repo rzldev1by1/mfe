@@ -29,79 +29,12 @@
 	background-color: #FFFFFF;
 	border-radius: 5px;
 	border: 1px solid #D5D8DA;
-	z-index: 1;
 }
 
 .select_date:hover, .select_date:focus-within{
 	transition: 0.2s ease-in;
 	border: 1px solid #22ABE3 !important;
 }
-
-.select_date_expand {
-	width: 0;
-	height: 40px;
-	position: absolute;
-	top: 0;
-	right: 10px;
-}
-
-.select_date_expand::after {
-	content: '\003E';
-    position: absolute;
-    top: 50%;
-    right: 8px;
-    -webkit-transform: translate(-50%, -50%) rotate(90deg) scaleY(1.75);
-    transform: translate(-50%, -50%) rotate(90deg) scaleY(1.75);
-    font-weight: 500;
-    font-size: 10px;
-    pointer-events: none;
-    z-index: 2;
-    -webkit-transition: all 250ms cubic-bezier(.4,.25,.3,1);
-    transition: all 250ms cubic-bezier(.4,.25,.3,1);
-}
-
-.select_date_expand:hover::after {opacity: 1}
-
-.select_date_expand:checked::after {
-	-webkit-transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.75);
-	transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.75);
-}
-		
-.select_date_expandLabel {
-	display: block;
-	width: 100%;
-	height: 40px;
-	position: absolute;
-	top: 0;
-	left: 0;
-	cursor: pointer;
-}
-
-.select_date_close {display: none}
-
-.select_date_closeLabel {
-	width: 100vw;
-	height: 100vh;
-	position: fixed;
-	top: 0;
-	left: 0;
-	display: none;
-}
-
-.select_date_items { 
-	list-style: none;
-	width: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	border-radius: 2px;
-	padding-top: 40px;
-}
-
-.select_date_input {display: none}
-		
-.select_date_options{list-style: none; }
-
 .select_date_label {
 	font-family: "Helvetica Neue Regular";
 	margin-bottom: 0 !important;
@@ -126,52 +59,100 @@
 	background-color: transparent;
 	display: block;
 }
+.select_date_items { 
+	list-style: none;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: 2px;
+	padding-top: 40px;
+}
 
+/* ∞∞ Show/Hide DatePicker ∞∞ */
 
+/* Show/Hide Checkbox */
+.select_date_expand {
+	width: 0;
+	height: 40px;
+	position: absolute;
+	top: 0;
+	right: 10px;
+}
+/* Calendar Icon */
+.select_date_expand::after {
+    content: "\e928";
+    font-family: 'icomoon' !important;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: absolute;
+    top: 34%;
+    right: 8px;
+    font-size: 10px;
+    pointer-events: none;
+    z-index: 2;
+    -webkit-transition: all 250ms cubic-bezier(.4,.25,.3,1);
+    transition: all 250ms cubic-bezier(.4,.25,.3,1);
+}
+.select_date_expand:checked::after {
+    transition: 0.2s ease-in;
+    color: #22ABE3;
+} 
+
+/* Label Close for Checkbox */
+.select_date_closeLabel {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: none;
+}
 .select_date_expand:checked + .select_date_closeLabel {
 	display: block;
 }
 
+ /* Show/Hide DatePicker */
+.select_date_options{
+    display: none;
+}
 .select_date_expand:checked + .select_date_closeLabel + .select_date_options{
-	border: 1px solid #22ABE3;
-	border-radius: 5px;
-	margin-top: 10px;
-}
+    display: block;
+    z-index: 1;    
+    margin-top: 8px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #22ABE3 !important;
+} 
 
-.select_date_close:checked + span + .select_date_items > .select_date_options{
-	border-radius: 5px;
-	margin-top: 10px;
-}
 
-.select_date_expand:checked + .select_date_closeLabel + .select_date_options .select_date_label {
+/* Label Open for Checkbox */		
+.select_date_expandLabel {
+	display: block;
+	width: 100%;
 	height: 40px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	cursor: pointer;
 }
-
-.select_date_expand:checked + .select_date_closeLabel + .select_date_options .select_date_label:hover {
-	font-family: "Helvetica Neue Medium";
-	background-color: #F6F7F9;
-}
-
 .select_date_expand:checked + .select_date_closeLabel + .select_date_options + .select_date_expandLabel {display: none}
 
-.select_date_input:checked + .select_date_label {
-	height: 30px;
-	margin-top: -40px;
-	border-radius: 5px;
-	/* border-bottom: 1px solid #969EA1; */
-}
-.select_date_expand:checked + .select_date {
+/* .select_date_expand:checked + .select_date {
 	display: block;
 	border-bottom-left-radius: 0px !important;
 	border-bottom-right-radius: 0px !important;
-}
-.select_date_expand:checked + .expand-style {
-	width: 225px;
-	height: 40px;
-	cursor: pointer;
-	background-color: #FFFFFF;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
-}
+} */
+
+
+
+
+
+
+		
+
+
