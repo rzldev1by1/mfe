@@ -81,9 +81,6 @@
 	cursor: pointer;
 }
 
-.tabisactive{
-	background-color: white;
-}
 
 .createdecs{
 	margin-left: 11.5%;
@@ -184,4 +181,14 @@
 	cursor: pointer;
 	transition: ease-in;
 	color: white;
+}
+h3{
+	color: #22ABE3;
+}
+.lineTableDtl{
+	width: 97%;
+}
+.isactivefont {
+    background-color: white;
+    color: #22ABE3 !important;
 }

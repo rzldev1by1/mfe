@@ -6,6 +6,7 @@
   import twoinactive from '../../../assets/img/brand/tab_2_grey@2x.png'
   import twoactive from '../../../assets/img/brand/tab_2_blue@2x.png'
   import Tab1CreateSO from './Tab1CreateSO'
+  import Tab2CreateSO from './Tab2CreateSO'
   import axios from 'axios'
   import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
   import date from '../../../assets/img/brand/field_date@2x.png'
@@ -14,6 +15,8 @@
       constructor(props){
           super(props)
           this.state ={
+            tab1isactive:true,
+            tab2isactive:false,
               order : {
                   site : null,
                   orderType : null,
@@ -59,6 +62,12 @@
         //   tab2isactive:false
         //   })
       }
+      tabhandler = () => {
+        this.setState({
+          tab1isactive:!this.state.tab1isactive,
+          tab2isactive:!this.state.tab2isactive
+          })
+      }
       
       render(){
           return(
@@ -75,19 +84,18 @@
                   <div>
                     <div className="createdecs">Enter delivery and product details to create a new Sales Orders</div>
                       <div className="tabs font">
-                          <div style={{color:"#919191"}} onClick={() => this.tabhandler()} className={"tab1 " }>
+                          <div style={{color:"#919191"}} onClick={() => this.tabhandler()} className={"tab1 "  + (this.state.tab1isactive ? "isactivefont" : null) }>
                               <img className="numberimg" style={{width:"9%"}} src={this.state.tab1isactive ? oneactive : oneinactive} />  Order & Product Details
                           </div>
-                          <div  style={{color:"#919191"}} onClick={() => this.tabhandler()} className={"tab2 tab-review "}>
-                              <img className="numberimg " style={{width:"22%"}} src={this.state.tab1isactive ? twoactive : twoinactive} /> Review
+                          <div  style={{color:"#919191"}} onClick={() => this.tabhandler()} className={"tab2 tab-review " + (this.state.tab2isactive ? "isactivefont" : null)}>
+                              <img className="numberimg " style={{width:"22%"}} src={this.state.tab1isactive ?  twoinactive :  twoactive } /> Review
                           </div>
                       </div>
                   </div>
                 </ModalHeader>       
             
-            <ModalBody className="bodycontent" style={{width:"100%"}}>
-              <Tab1CreateSO/>
-              {/* {this.state.tab1isactive ? this.tab1Content() : this.tab2Content()} */}
+            <ModalBody style={{width:"100%"}}>
+              {this.state.tab1isactive ? <Tab1CreateSO/> : <Tab2CreateSO/>}
             </ModalBody>
               {/* {this.state.tab2isactive ? 
                 this.submit() :  
