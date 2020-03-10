@@ -107,7 +107,7 @@
 	margin-bottom: 0 !important;
 }
 
-.select-items { 
+.select-items {
 	list-style: none;
 	width: 100%;
 	position: absolute;
@@ -120,7 +120,7 @@
 .select-input {
 	display: none;
 }
-	
+
 .select-options{
 	list-style: none;
 }
@@ -226,7 +226,7 @@
 
 .filter-close-icon {
 	color: #388DCD;
-	font-size: 8px;	
+	font-size: 8px;
 }
 
 
@@ -305,13 +305,13 @@ button.btnWhite.btn.btn-outline-dark:hover a {
 
 .float-right {
     float: right !important;
-}	
+}
 
 .form-check {
     position: relative;
     display: block;
     padding-left: 1.25rem; }
-    
+
 .form-check-input {
     position: absolute;
     margin-top: 0.3rem;
@@ -321,11 +321,11 @@ button.btnWhite.btn.btn-outline-dark:hover a {
 .form-check-input:disabled ~ .form-check-label {
     color: #73818f;
 }
-    
+
 .form-check-label {
     margin-bottom: 0;
 }
-    
+
 .form-check-inline {
     display: inline-flex;
     align-items: center;
@@ -340,3 +340,6 @@ button.btnWhite.btn.btn-outline-dark:hover a {
     margin-left: 0;
 }
 
+.breadcrumb-active-title{
+    color: #22ABE3;
+}
