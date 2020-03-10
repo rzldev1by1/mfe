@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { Table,Button, Card, CardBody, Label} from 'reactstrap'
 import '../UserManagement.css'
+import mid from '../../../assets/img/brand/field-idle.png'
+import down from '../../../assets/img/brand/field-bot.png'
+import up from '../../../assets/img/brand/field-top.png'
+
 
 
 class UserListComponent extends Component{
@@ -8,7 +12,10 @@ class UserListComponent extends Component{
         super(props);
         this.state= {
              headers:this.headers(),
-             data: this.rowData()
+             data: this.rowData(),
+             activearrow:mid,
+             order:'desc',
+             fieldOrder:'web_user'
         }
     }
 
@@ -60,11 +67,64 @@ class UserListComponent extends Component{
     onRowClick = (e,id) => {
         const {match, history} = this.props.route;
         history.push(`${match.url}/${encodeURIComponent(id)}/detail`);
+    }
+
+    getSortingField = (param) => {
+      let result = "";
+      switch (param) {
+        case "User":
+            result = "user";
+            break;
+        case "User ID":
+            result = "userId";
+            break;
+        case "User Level":
+            result = "web_group";
+            break;
+        case "Client":
+            result = "client";
+            break;
+
+
+        default:
+          result="web_user"
+          break;
+      }
+      return result;
+    }
+
+    onSortingCLick = (e) => {
+        const {id} = e.currentTarget;
+        const {order} = this.state;
+        let fieldOrder = this.getSortingField(id);
+
+        if(order === 'desc'){
+          this.setState({order:'asc',fieldOrder:fieldOrder, activearrow:up});
+        }else{
+          this.setState({order:'desc',fieldOrder:fieldOrder, activearrow:down});
+        }
 
     }
 
-    render(){
+    sorting = (a,b,key,orderBy)=> {
+      if(orderBy === "desc"){
+        return this.sortingDescending(a,b,key);
+      }else{
+        return this.sortingAscending(a,b,key);
+      }
+    }
 
+    sortingAscending = (a,b,key) => {
+      return ((a[key] < b[key])?-1:((a[key] > b[key])?1:0));
+    }
+
+    sortingDescending = (a,b,key) => {
+      return ((a[key] < b[key])? 1:((a[key] > b[key])?-1:0));
+    }
+
+    render(){
+        const {activearrow,order,fieldOrder} = this.state;
+        console.log(this.props.data);
         return(
                 <div className="d-flex">
                     <div className="w-100">
@@ -73,8 +133,12 @@ class UserListComponent extends Component{
                                 <tr>
                                     {
                                         this.state.headers.map((element,index)=>{
-                                        return <th key={index} className='headers'>
-                                        <label className="mt-1 mb-0">{element}</label>
+                                        return <th key={index} className="headers">
+                                        <div key={element} id={element} onClick={(e)=>{this.onSortingCLick(e);}} className="header-sort" >
+                                            {element}
+                                            <img key={element} className="arrow" src={activearrow}/>
+                                        </div>
+
 
                                             </th>
                                         })
@@ -83,7 +147,7 @@ class UserListComponent extends Component{
                             </thead>
                             <tbody>
                                    {
-                                       this.props.data.slice(this.props.startIndex,this.props.lastIndex).map((element,index)=>{
+                                       this.props.data.slice(this.props.startIndex,this.props.lastIndex).sort((a,b)=> this.sorting(a,b,fieldOrder,order)).map((element,index)=>{
 
                                            return <tr key={index} onClick={(e)=>{ this.onRowClick(e,element.web_user);}}>
                                                     {

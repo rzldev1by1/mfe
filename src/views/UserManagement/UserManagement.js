@@ -10,6 +10,7 @@ import moment from 'moment'
 import query from '../../AppComponent/query_menu_temp'
 import Authentication from '../../Auth/Authentication'
 import Paging from '../General/Paging'
+import create from '../../assets/img/brand/button_create@2x.png'
 
 
 const today = moment(new Date()).format("YYYY-MM-DD");
@@ -37,7 +38,7 @@ class UserManagement extends Component{
         this.state ={
             userList : [],
             headers : [
-                'User', 'Userid', 'User Level', 'Client', 'Last Access', 'Status', ''
+                'User', 'User ID', 'User Level', 'Client', 'Last Access', 'Status', ''
                 ],
             personalUser : [
                 {youraccount:"georgesmith@ttl.com", userid:"12345", client:"All Client", site:"All Site"}
@@ -456,9 +457,11 @@ class UserManagement extends Component{
                     </h3>
                 </div>
                 <div className="flex-fill">
-                    <button style={{width:"30%"}} className={(this.isValidUser() ?"btn btn-primary font-lg font-md font-sm float-right":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
-                    <span className='iconU-edit'/>
-                      <label className="create-user-label">Create user</label>
+                    <button style={{width:"40%"}} className={(this.isValidUser() ?"btn btn-primary font-lg font-md font-sm float-right":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
+                          <img src={create} className="mr-2 mb-2" style={{width:'6%'}}/>
+                          <label className="create-user-label">
+                          Create new user
+                          </label>
                     </button>
                 </div>
 
