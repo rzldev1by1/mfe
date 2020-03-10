@@ -244,6 +244,10 @@ class StockHoldingDetails extends Component {
         return isValid;
     }
 
+		gotoSummary = () => {
+			this.props.history.push('/stock/stockholding');
+		}
+
 	render() {
 		const { stockHolding, activeTab,stockBalanceForecast } = this.state;
 
@@ -271,7 +275,7 @@ class StockHoldingDetails extends Component {
                                                                 </BreadcrumbItem>
                                                             </Breadcrumb> */}
                                                             <div className="headerTitle">
-                                                                <h2 style={{ marginRight: "20px" }}>Stock Holding Summary</h2>
+                                                                <h2 onClick={(e)=>{this.gotoSummary()}} style={{ marginRight: "20px", cursor:"pointer" }}>Stock Holding Summary</h2>
                                                                 <h2 style={{ marginRight: "20px" }}><i className="iconU-rightArrow" style={{ fontSize: "20px" }} /></h2>
                                                                 <h2 style={{ marginRight: "20px" }}>{decodeURIComponent(this.props.match.params.productId)}</h2>
                                                             </div>

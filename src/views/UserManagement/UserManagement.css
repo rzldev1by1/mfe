@@ -22,10 +22,14 @@ span.upArrow:before {
 
 }
 
+table td{
+	font-size: 18px !important;
+}
+
 .headers{
     font-weight: 500;
     color: #B4B9BB !important;
-    font-size: 15px;
+    font-size: 18px !important;
 }
 
 .users{
