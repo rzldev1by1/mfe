@@ -452,9 +452,9 @@ class UserManagement extends Component{
         return(<div>
             <div className="d-flex pt-4 mb-3">
                 <div className="flex-fill">
-                    <h3>
-                        <label>User Management</label>
-                    </h3>
+                    <h2 className='margin-right-breadcrumb-title'>
+                        User Management
+                    </h2>
                 </div>
                 <div className="flex-fill">
                     <button style={{width:"40%"}} className={(this.isValidUser() ?"btn btn-primary font-lg font-md font-sm float-right":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
