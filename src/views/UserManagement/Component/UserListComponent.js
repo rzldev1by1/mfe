@@ -124,7 +124,6 @@ class UserListComponent extends Component{
 
     render(){
         const {activearrow,order,fieldOrder} = this.state;
-        console.log(this.props.data);
         return(
                 <div className="d-flex">
                     <div className="w-100">
@@ -136,7 +135,7 @@ class UserListComponent extends Component{
                                         return <th key={index} className="headers">
                                         <div key={element} id={element} onClick={(e)=>{this.onSortingCLick(e);}} className="header-sort" >
                                             {element}
-                                            <img key={element} className="arrow" src={activearrow}/>
+                                            {(element === '')?'': <img key={element} className="arrow" src={activearrow}/>}
                                         </div>
 
 
