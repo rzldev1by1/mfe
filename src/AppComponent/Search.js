@@ -5,7 +5,7 @@ const Search = (props) => {
     return (
         <div className="input-group searchSection">
             <div className="input-group searchBox">
-                <span className="input-group-text border-0 bg-white ml-2" style={{ padding:"0.4rem" }}>
+                <span className="input-group-text border-0 bg-transparent ml-2" style={{ padding:"0.4rem" }}>
                     {/* <i className="fa fa-search fa-2x iconSpace" /> */}
                     <i className="iconU-search" />
                 </span>
