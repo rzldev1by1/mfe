@@ -63,7 +63,7 @@ class Tab1CreateSO extends Component{
         })
     }
     addline = () => {
-      this.state.rowlistidx -= 1;
+      this.state.rowlistidx += 1;
       this.setState({rowlist: this.state.rowlist.concat(
         {
           id:this.state.rowlistidx,
@@ -176,7 +176,7 @@ class Tab1CreateSO extends Component{
            
             <h3 className="fonts">Line Details</h3>
             <div className="line">
-              <table className="tabledetails">
+              <table className="lineTableDtl">
                   <tr>
                       <th style={{width:"2%", textAlign:"center"}}>#</th>
                       <th style={{width:"12%"}}>Product Entry</th>
