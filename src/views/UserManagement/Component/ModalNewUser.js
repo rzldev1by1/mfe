@@ -6,7 +6,7 @@ import Client from './Client'
 
 
 const modalNewUser = (props) => {
-  const { className, isOpen, toggle, closeModal, onChangeName,onChangeEmail, model,
+  const { className, isOpen, toggle, closeModal, onChangeName,onChangeEmail, onChangeCompany, model,
     moduleAccess,isModuleLoaded,moduleAccessEnableClick,sites, isSiteLoaded, sitesEnableClick,
     clients, isClientLoaded, clientEnableClick, onSaveClick, isSaveProgressing} = props;
 
@@ -33,37 +33,44 @@ const modalNewUser = (props) => {
             <ModalBody className='bodycontent pl-5' style={{width:'100%'}}>
             <div className="account-detail mt-2">
             <div className="row">
-            <div className="col-12">
-            <h3>
-            <label className="name-account font-bolder">User Details</label>
-            </h3>
-            </div>
-            </div>
-            <div className="row">
-            <div className="col-3">
-            <label className="text-bolder title-label">Name</label>
-            </div>
-
-            <div className="col-3">
-            <label className="text-bolder title-label">Email</label>
-            </div>
-
-            <div className="col-3">
-            <label className="text-bolder title-label">User ID</label>
-            </div>
-
+              <div className="col-12">
+                  <h3>
+                  <label className="name-account font-bolder">User Details</label>
+                  </h3>
+              </div>
             </div>
             <div className="row">
-            <div className="col-3">
-            <input type="text" name="userName" className="form-control" onChange={(e)=>{onChangeName(e);}} defaultValue={model.user}/>
-            </div>
-            <div className="col-3">
-            <input type="text" name="email" className="form-control" onChange={(e)=>{onChangeEmail(e);}} defaultValue={model.email}/>
-            </div>
+                <div className="col-3">
+                  <label className="text-bolder title-label">Name</label>
+                </div>
 
-            <div className="col-3">
-            <input type="text" name="userid" readOnly className="form-control" defaultValue={model.userId}/>
+                <div className="col-3">
+                  <label className="text-bolder title-label">Email</label>
+                </div>
+
+                <div className="col-3">
+                  <label className="text-bolder title-label">User ID</label>
+                </div>
+
+                <div className="col-3">
+                  <label className="text-bolder title-label">Company</label>
+                </div>
+
             </div>
+            <div className="row">
+                <div className="col-3">
+                    <input type="text" name="userName" className="form-control" onChange={(e)=>{onChangeName(e);}} defaultValue={model.user}/>
+                </div>
+                <div className="col-3">
+                    <input type="text" name="email" className="form-control" onChange={(e)=>{onChangeEmail(e);}} defaultValue={model.email}/>
+                </div>
+
+                <div className="col-3">
+                  <input type="text" name="userid" readOnly className="form-control" defaultValue={model.userId}/>
+                </div>
+                <div className="col-3">
+                  <input type="text" name="company" className="form-control" onChange={(e)=>{onChangeCompany(e);}} defaultValue={model.company}/>
+                </div>
 
             </div>
             <div className="row mt-4">
@@ -97,8 +104,6 @@ const modalNewUser = (props) => {
                 </div>
                 </div>
               </ModalFooter>
-
-
       </Modal>
   </div>
   );

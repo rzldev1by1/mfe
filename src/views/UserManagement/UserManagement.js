@@ -27,7 +27,8 @@ const userModel = {
     "password":"",
     "userMenu":[],
     'client':"",
-    "disabled":"N"
+    "disabled":"N",
+    "company":""
 }
 
 
@@ -104,6 +105,7 @@ class UserManagement extends Component{
               newItem.status = (item.disabled === 'Y')?'Suspended':'Active';
               newItem.action = "";
               newItem.web_user = item.web_user;
+              newItem.company = item.company;
               return newItem;
            });
         }
@@ -229,6 +231,13 @@ class UserManagement extends Component{
       user.userId = newText.toLowerCase()+result;
       user.password = result+newText.toLowerCase();
 
+      this.setState({accountInfo:user});
+    }
+
+    onChangeCompany = (e) => {
+      const {name,value} = e.target;
+      let user = {...this.state.accountInfo};
+      user.company = value;
       this.setState({accountInfo:user});
     }
 
@@ -416,6 +425,8 @@ class UserManagement extends Component{
       {
 
         let param = {...this.state.accountInfo};
+
+
         axios.post(endpoint.UserManagement_Create,param,{ headers: headers })
           .then(res => {
             var result = [];
@@ -432,7 +443,7 @@ class UserManagement extends Component{
           .then((result) => {
 
           })
-
+          
       }
 
     }
@@ -490,7 +501,7 @@ class UserManagement extends Component{
                       isModuleLoaded={this.state.isModuleLoaded} moduleAccessEnableClick={this.onModuleAccessClick}
                       sites={this.state.sites} isSiteLoaded={this.state.isSiteLoaded} sitesEnableClick={this.onSiteStatusClick}
                       clients={this.state.clients} isClientLoaded={this.state.isClientLoaded} clientEnableClick={this.onClientStatusClick}
-                      onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing}/>
+                      onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing} onChangeCompany={this.onChangeCompany}/>
 
 
                 </CardBody>

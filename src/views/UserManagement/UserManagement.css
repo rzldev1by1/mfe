@@ -405,6 +405,30 @@ input:checked + .slider:before {
 	border-top-right-radius: 10px;
 }
 
+.modal-header-popup-reset{
+	height: 140px;
+}
+
+.img-popup-reset{
+		margin: 40px;
+		width: 156px;
+		height: 184px;
+}
+
+.img-popup-reset-success{
+		margin: 40px;
+		width: 272;
+		height: 194px;
+}
+
+.btn-grey {
+    color: #fff;
+    background-color: #D5D8DA;
+    border-color: #D5D8DA;
+}
+
+
+
 
 	/**
 	end toogle button
