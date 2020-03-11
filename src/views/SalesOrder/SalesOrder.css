@@ -73,7 +73,7 @@ table{
 
 .tablecontents {
 	margin-top: 10px;
-	padding:1%;
+	padding:0%;
 	padding-top: 0%;
 	padding-bottom: 0%;
 	min-width: 100%;
@@ -145,7 +145,7 @@ table{
 /* table */
 .tablecontent {
 	margin-top: 1%;
-	padding:1%;
+	padding:0%;
 	padding-top: 0%;
 	padding-bottom: 0%;
 	min-width: 100%;
@@ -189,6 +189,12 @@ table{
 .tr:hover{
 	background: #f0f0f0 !important;
 	cursor: pointer;
+}
+
+.tr td{
+    height: 45px;
+    border-bottom: 1px solid #D5D8DA !important;
+    padding: 0.5rem 1rem 0.5rem 1rem;
 }
 
 .createpotable > tr> td{
@@ -294,12 +300,13 @@ th.iconU-edit{
 	}
 	
 	.potable tr {
-		border-bottom: 1.5px solid #f0f0f0  !important;
+		border-bottom: 1.5px solid #f0f0f0  ;
 		height: 45px !important;
 		font-size: 12px;
 	}
 	.tr{
 		border-bottom: 1.5px solid #E2E2E2 !important;
+		width: 100%;
 	}
 	
 	.tr:hover{
@@ -328,7 +335,7 @@ th.iconU-edit{
 	}
 	
 	.potable th {
-		border-bottom: 1px solid #D5D8DA !important;
+		border-bottom: 1px solid #D5D8DA;
 		height: 45px !important;
 		cursor: pointer;
 		font-size: 1rem;
@@ -371,3 +378,4 @@ th.iconU-edit{
 	color: #FFFF;
 	display: flex !important;
 }
+

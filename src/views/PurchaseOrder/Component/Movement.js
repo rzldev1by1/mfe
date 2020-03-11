@@ -318,7 +318,7 @@ class Movement extends Component {
                             <tr>
                                 { 
                                     this.state.dateArray.map(date =>
-                                        <td style={{borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}>{this.movementHeader(date)}</td>
+                                        <td style={{paddingLeft:'1px',color:'#B4B9BB',borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}>{this.movementHeader(date)}</td>
                                             )
                                 }
                             </tr>

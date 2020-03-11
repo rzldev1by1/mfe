@@ -98,7 +98,7 @@ class Tab1CreateSO extends Component{
         return(
           <div className="tabcontents">
             <h3 className="fonts">Order Details</h3>
-            <table className="createpotable">
+            <table className="createpotables">
                 <tr>
                     <th>Site</th>
                     <th>Order Type</th>
@@ -112,24 +112,19 @@ class Tab1CreateSO extends Component{
                     <td rowspan="3"><textarea className="form-control put dlv" style={{height:"8em"}} placeholder="Delivery Instructions"/></td>
                 </tr>
                 <tr>
+                    <th>Delivery Date</th>
                     <th>Order Type</th>
                     <th>Order No</th>
-                    <th>Order Date</th>
                 </tr>
                 <tr>
+                <td><DatePicker style={{ minWidth: "100%" }}></DatePicker></td>  
                 <td><input className="form-control put " placeholder="Supplier"/> </td>
-                <td><input className="form-control put " placeholder="Order No"/> </td>
-                    <td>
-                      <div className="inputDates ">
-                        <input className="dateform " placeholder="Order Date" value={this.state.orderdate}/>
-                        <img onClick={() => this.datePickerHandler()} className="dateimg" src={date}/>
-                      </div>
-                    </td>                  
+                <td><input className="form-control put " placeholder="Order No"/> </td>                  
                 </tr>
             </table>
             <tr style={{color:"transparent"}}>1</tr>
             <h3 className="fonts">Costumer</h3>
-            <table className="createpotable">
+            <table className="createpotables">
                 <tr>
                     <th>Costumer</th>
                     <th>Address 1</th>
@@ -214,7 +209,7 @@ class Tab1CreateSO extends Component{
           <table>
             <tr>
                 <td hidden id={list.id} ></td>
-                <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs " value={list.id}/></td>
+                <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs " value={list.id} readOnly/></td>
                 <td style={{width:"12%"}}><input className="form-control inputs " placeholder="Product"/></td>
                 <td style={{width:"12%"}}><input className="form-control inputs " placeholder="Product Description"/></td>
                 <td style={{width:"3%"}}><input className="form-control inputs " placeholder="Qty"/></td>

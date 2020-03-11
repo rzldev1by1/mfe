@@ -2,7 +2,7 @@
   import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
   // import DatePicker from './DatePicker'
   import axios from 'axios'
-  import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
+  import {endpoint, headers,} from '../../../AppComponent/ConfigEndpoint'
   import oneinactive from '../../../assets/img/brand/tab_1_grey@2x.png'
   import oneactive from '../../../assets/img/brand/tab_1_blue@2x.png'
   import twoinactive from '../../../assets/img/brand/tab_2_grey@2x.png'
@@ -11,7 +11,7 @@
   import DayPicker from 'react-day-picker';
   import './Style/PurchaseOrderCreate.css'
   import 'react-day-picker/lib/style.css';
-
+  import AutoComplete from '../../General/AutoComplete'
   import Dropdown from '../../../AppComponent/Dropdown'
   import DatePicker from '../../../AppComponent/DatePicker'
 
@@ -39,7 +39,7 @@
                 productDes:null,
                 uom:null,
                 qty:null,
-                rodaDate:null,
+                rotadate:null,
                 batch:null,
                 ref3:null,
                 ref4:null,
@@ -69,13 +69,15 @@
             orderTypeExpand:false,
             uomExpand:false,
             clientdatacr: [],
-            sitedatacr: []
+            sitedatacr: [],
+            supplierdatacr: []
             }
       }
 
       componentDidMount = () => {
         this.getclient();
         this.getsite();
+        this.getsupplier();
       }
 
       close = () => {
@@ -129,6 +131,20 @@
           })
       }
 
+      getsupplier = () => {   
+        axios.get(endpoint.getSupplier, {
+          headers: headers
+        })
+          .then(res => {
+            const result = res.data
+            this.setState({ supplierdatacr:result })
+          })
+         
+          .catch(error => {
+            // this.props.history.push("/logins")
+          })
+      }
+
       getSiteSelected = (value) => {
         this.setState({sitecrSelected: value});
       }
@@ -140,11 +156,17 @@
       getOrderTypeSelected = (value) => {
         this.setState({orderTypecrSelected: value});
       }
+
+      setSuppliers = (e) => {
+        let value = e.target.value
+        this.setState({supplier:value})
+      }
       
     tab1Content = () => {
       let clientName = [];
       let clientValue = [];
       let siteData = [];
+      let supplierData = [];
       if(this.state.clientdatacr){
           this.state.clientdatacr.map((data) => {
               clientName.push(data.name);
@@ -154,8 +176,15 @@
       if(this.state.sitedatacr){
           this.state.sitedatacr.map((data) => {
               siteData.push(data.site);
-          })
+          })  
       }
+      if(this.state.supplierdatacr){
+        this.state.supplierdatacr.map((data) => {
+          supplierData.push(data.name);
+        })  
+    }
+
+      
       return(
         <div className="tabcontent">
           <h3 className="fonts">Order Details</h3>
@@ -167,15 +196,14 @@
                   <th>Customer Order Ref</th>
               </tr>
               <tr>
-                  <td><input className="form-control put pec" placeholder="Site"/></td>
-                  <td><input className="form-control put pec" placeholder="Client"/> </td>
-                  {/* <td><Dropdown placeHolder="Site"  style={{minWidth: "100%",width: "1px"}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected}/></td>
-                  <td><Dropdown placeHolder="Client" style={{minWidth: "100%"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected}/></td> */}
-                  <td><input className="form-control put pec" placeholder="Supplier"/> </td>
-                  <td><input className="form-control put pec" placeholder="Customer Order Ref"/> </td>
+                  <td><AutoComplete suggestions={siteData}/></td>
+                  <td><input className={"form-control put pec" +("1" ? "" : "form-control valid pec") } placeholder="Client"/> </td>
+                  <td><AutoComplete suggestions={supplierData}/></td>
+                  {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form-control put pec" placeholder="Supplier"/> </td> */}
+                  <td><input className="form-control put pec" placeholder="Customer Order Ref" maxLength="40"/> </td>
               </tr>
               <tr>
-                <td style={{color:"transparent"}}>1</td>
+                <th style={{color:"transparent"}}>1</th>
               </tr>
               <tr>
                   <th>Order Type</th>
@@ -185,13 +213,13 @@
               </tr>
               <tr>
               <td>
-                <Dropdown placeHolder="Order Type" style={{minWidth: "100%"}} optionList="Type 1,Type 2" optionValue="Type 1,Type 2" getValue={this.getOrderTypeSelected}/>
+              <AutoComplete suggestions={supplierData}/>
               </td>
-              <td><input className="form-control put pec" placeholder="Order No"/> </td>
+              <td><input className="form-control put pec" placeholder="Order No" minLength="4" maxLength="12"/> </td>
                   <td>
                     <DatePicker style={{ minWidth: "100%" }} />
                   </td>                  
-                  <td><input className="form-control put pec"  placeholder="Vendor Order Ref"/> </td>
+                  <td><input className="form-control put pec"  placeholder="Vendor Order Ref"  maxLength="40"/> </td>
               </tr>
               <tr>
                 <td></td>
@@ -219,7 +247,7 @@
                     <th style={{width:"12%"}}>Product Description</th>
                     <th style={{width:"3%"}}>Qty</th>
                     <th style={{width:"6%"}}>UOM</th>
-                    <th style={{width:"6%"}}>Rota Date</th>
+                    <th style={{width:"11%"}}>Rota Date</th>
                     <th style={{width:"6%"}}>Batch</th>
                     <th style={{width:"5%"}}>Ref3</th>
                     <th style={{width:"5%"}}>Ref4</th>
@@ -243,6 +271,7 @@
       )
     }
 
+
     tab2Content = () => {
       return(
         <div className="tabcontent fades">
@@ -257,14 +286,14 @@
               </tr>
               <tr>
                   <td><input className="form-control" readOnly/></td>
-                  <td><input className="form-control" readOnly/></td>
-                  <td><input className="form-control" readOnly/></td>
+                  <td><input value={this.state.supplier} className="form-control" readOnly/></td>
+                  <td><input value={this.state.supplier} className="form-control" readOnly/></td>
                   <td><input className="form-control" readOnly/></td>
               </tr>
 
               <tr>
                   <th>Client</th>
-                  <th>Order Date</th>
+                  <th>Order No</th>
                   <th>Order Type</th>
                   <th>Client Order Ref</th>
               </tr>
@@ -301,10 +330,12 @@
                 <td style={{color:"transparent"}}>1</td>
               </tr>
             <div style={{marginTop:"7%"}}>
+
             {this.state.tab2isactive ? 
                 this.submit() :  
                 <Button onClick={() => this.tabhandler()} color="primary" className="btnsearch next btnleft" ></Button>
               } 
+              
             </div>
         </div>
       )
@@ -356,10 +387,10 @@
         <table>
           <tr>
               <td hidden id={list.id} ></td>
-              <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs pec" value={list.id}/></td>
-              <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product"/></td>
+              <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs pec" value={list.id} readOnly/></td>
+              <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product"  maxLength="40"/></td>
               <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product Description"/></td>
-              <td style={{width:"3%"}}><input className="form-control inputs pec" placeholder="Qty"/></td>
+              <td style={{width:"3%"}}><input type="number" min="1" className="form-control inputs pec" placeholder="Qty"/></td>
               <td style={{width:"6%"}}>
                   <select className="form-control selectinput ">
                     <option className="pec" selected disabled>UOM</option>
@@ -367,15 +398,10 @@
                     <option>pallet</option>
                   </select>
               </td>
-              <td style={{width:"6%", height:"10%"}}>
-              <div className="inputDate ">
-              <input className="form2 pec" value={this.state.rotedate} placeholder="Rota Date"/>
-              <img onClick={() => this.datePickerRote()} className="dateimg" src={date}/>
-              </div>
-              </td>
-              <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"/></td>
-              <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref3"/></td>
-              <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref4"/></td>
+              <td style={{width:"11%"}}><DatePicker style={{ minWidth: "100%" }} /> </td>
+              <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"  maxLength="30"/></td>
+              <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref3"  maxLength="30"/></td>
+              <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref4"  maxLength="30"/></td>
               <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Disposition"/></td>
               <td id={list.id} onClick={(e) => this.deletelinehandler(e)} style={{width:"1.5%"}}><div className="iconU-delete"/></td>
             </tr>
@@ -393,27 +419,16 @@
         <table>
           <tr>
               <td hidden id={list.id}></td>
-              <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs pec" value={"A"}/></td>
-              <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product"/></td>
-              <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product Description"/></td>
-              <td style={{width:"3%"}}><input className="form-control inputs pec" placeholder="Qty"/></td>
-              <td style={{width:"6%"}}>
-                  <select className="form-control selectinput">
-                    <option className="pec" selected disabled>UOM</option>
-                    <option>each</option>
-                    <option>pallet</option>
-                  </select>
-              </td>
-              <td style={{width:"6%"}}>
-              <div className="inputDate ">
-              <input className="form2" value={this.state.rotedate} placeholder="Rota Date"/>
-              <img onClick={() => this.datePickerRote()} className="dateimg" src={date}/>
-              </div>
-              </td>
-              <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"/></td>
-              <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref3"/></td>
-              <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref4"/></td>
-              <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Disposition"/></td>
+              <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs pec" value={list.id} readOnly/></td>
+              <td style={{width:"12%"}}><input className="form-control inputs pec" readOnly/></td>
+              <td style={{width:"12%"}}><input className="form-control inputs pec" readOnly/></td>
+              <td style={{width:"3%"}}><input className="form-control inputs pec" readOnly/></td>
+              <td style={{width:"6%"}}><input className="form-control inputs pec" readOnly/></td>
+              <td style={{width:"6%"}}><input className="form-control inputs pec" readOnly/></td>
+              <td style={{width:"6%"}}><input className="form-control inputs pec" readOnly/></td>
+              <td style={{width:"5%"}}><input className="form-control inputs pec" readOnly/></td>
+              <td style={{width:"5%"}}><input className="form-control inputs pec" readOnly/></td>
+              <td style={{width:"6%"}}><input className="form-control inputs pec" readOnly/></td>
             </tr>
             <td></td>
             <td></td>
@@ -433,7 +448,7 @@
           productDes:null,
           uom:null,
           qty:null,
-          rodaDate:null,
+          rotadate:null,
           batch:null,
           ref3:null,
           ref4:null,
@@ -442,11 +457,19 @@
       )})
     }
 
+    saveclick = () =>{
+    // let post = productEntry = null
+      axios.post(endpoint.purchaseOrder , { headers: headers,})
+      .then(res =>{
+        console.log(res.data)
+      })
+    }
+
     submit = () => {
       return(
         <React.Fragment>
           <Button onClick={() => this.tabhandler()} color="primary" className="btnsearch back" ><label className="font">Back</label></Button>
-          <Button onClick={() => this.close()} color="primary" className="btnsearch submit btnleft" style={{marginTop:"-50px"}} ><label className="font">Submit</label></Button>        
+          <Button onClick={() => this.saveclick()} color="primary" className="btnsearch submit btnleft" style={{marginTop:"-50px"}} ><label className="font">Submit</label></Button>        
         </React.Fragment>      
       )
     }
@@ -456,7 +479,7 @@
                 <Modal className="POCreate" isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }}toggle={true} >
                   <div className="createModal">
                     <ModalHeader style={{marginTop:"1%"}}>
-                          <div className="create"><label className="iconU-createModal"/><label className="font"><h2>Create Purchase Orders</h2></label></div>
+                          <div className="create"><label className="iconU-createModal"/><label className="font"><h2>Create Purchase Order</h2></label></div>
                             <p color="primary" onClick={() => this.close()}>
                               <i className="iconU-close mr3" style={{fontSize:"1.6em" , marginLeft:"-3em"}} aria-hidden="true" />
                             </p>
@@ -465,7 +488,7 @@
                     <ModalHeader className="Tabs" style={{marginTop:"-40px"}} >
                           <div>
                             <div className="createdec">
-                            Enter delivery and product details to create a new Purchase Orders
+                            Enter delivery and product details to create a new Purchase Order
                             </div>
                             <div className="tabs font">
                                 <div style={{color:"#919191"}} onClick={() => this.tabhandler()} className={"tab1 " + (this.state.tab1isactive ? "tabisactive" : null)}>

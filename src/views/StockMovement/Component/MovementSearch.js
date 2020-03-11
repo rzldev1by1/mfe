@@ -68,7 +68,7 @@ export default class MovementSearch extends Component {
                 <div className='dropdown ddlSearchParam'>
                     <div className='displayButtonToggle'>
                     <button onClick={() => this.periodExpand()} className='btn dropdown-button ddlMovement' data-toggle='dropdown'>
-                        {this.state.periodSelected ? this.state.periodText :'Display Period'}
+                        {this.state.periodSelected ? this.state.periodText :'Select Period'}
                     </button>
                     <div className='dropdown-toggle'/>
                     </div>
@@ -98,7 +98,7 @@ export default class MovementSearch extends Component {
                     </div>
                 </div> 
 
-                <div style={{marginLeft:'45px'}} className='searchParameterTitleDate'>Date To</div>
+                <div style={{marginLeft:'45px'}} className='searchParameterTitleDate'>To</div>
                 <div onMouseLeave={() => this.setState({dateToShow:false})}>
                 <div className='displayButtonToggle'>
                     <button onClick={()=> this.setState({dateToShow:!this.state.dateToShow})} className='btn dropdown-button ddlMovementDate' data-toggle='dropdown'>
