@@ -16,7 +16,7 @@ class ListOrderComponent extends Component {
 
     this.state = {
       data:[],      
-      tableheader :  [null,"Site","Client","Order No", "Order Type", "Customer"," Status", "Delivery Date", "Date Received", "Date Released", "Date Completed"],
+      tableheader :  ["Site","Client","Order No", "Order Type", "Customer"," Status", "Delivery Date", "Date Received", "Date Released", "Date Completed"],
       activearrow:mid,
       sortparameter:'order_no',
       // sort :true,
@@ -315,7 +315,7 @@ class ListOrderComponent extends Component {
                     <tbody>
                           {this.state.data  ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
                                   <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.order_no)} className='tr'>
-                                      <td></td>
+                                      <td style={{display:"none"}}></td>
                                       <td>{data.site}</td>
                                       <td>{data.client}</td>
                                       <td>{data.order_no}</td>
