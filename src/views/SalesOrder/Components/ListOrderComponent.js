@@ -303,7 +303,7 @@ class ListOrderComponent extends Component {
           <div className='tablePages tablecontent'>
                <table className="potable">
                   <thead>
-                     <tr>
+                    <tr className="headerTR">
                        {this.state.tableheader.map(header =>
                         <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
                            <img key={header} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}} src={this.state.activearrow}/>

@@ -156,27 +156,16 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
               <table>
                 <tr>
                     <td hidden id={list.id}></td>
-                    <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs pec" value={"A"}/></td>
-                    <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product"/></td>
-                    <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product Description"/></td>
-                    <td style={{width:"3%"}}><input className="form-control inputs pec" placeholder="Qty"/></td>
-                    <td style={{width:"6%"}}>
-                        <select className="form-control selectinput">
-                          <option className="pec" selected disabled>UOM</option>
-                          <option>each</option>
-                          <option>pallet</option>
-                        </select>
-                    </td>
-                    <td style={{width:"6%"}}>
-                    <div className="inputDates ">
-                    <input className="dateform" value={this.state.rotedate} placeholder="Rota Date"/>
-                    <img onClick={() => this.datePickerRote()} className="dateimg" src={date}/>
-                    </div>
-                    </td>
-                    <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"/></td>
-                    <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref3"/></td>
-                    <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref4"/></td>
-                    <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Disposition"/></td>
+                    <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs pec" value={list.id}  readOnly/></td>
+                    <td style={{width:"12%"}}><input className="form-control inputs pec" readOnly/></td>
+                    <td style={{width:"12%"}}><input className="form-control inputs pec" readOnly/></td>
+                    <td style={{width:"3%"}}><input className="form-control inputs pec"  readOnly/></td>
+                    <td style={{width:"6%"}}><input className="form-control inputs pec"  readOnly/></td>
+                    <td style={{width:"6%"}}><input className="form-control inputs pec"  readOnly/></td>
+                    <td style={{width:"6%"}}><input className="form-control inputs pec"  readOnly/></td>
+                    <td style={{width:"5%"}}><input className="form-control inputs pec"  readOnly/></td>
+                    <td style={{width:"5%"}}><input className="form-control inputs pec"  readOnly/></td>
+                    <td style={{width:"6%"}}><input className="form-control inputs pec"  readOnly/></td>
                   </tr>
                   <td></td>
                   <td></td>

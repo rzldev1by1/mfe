@@ -192,3 +192,11 @@ h3{
     background-color: white;
     color: #22ABE3 !important;
 }
+.createpotables{
+	width: 100%;
+	margin-top: 1%;
+}
+
+.createpotables > tr> td{
+	padding-right: 2% !important;
+}
