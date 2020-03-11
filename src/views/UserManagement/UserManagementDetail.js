@@ -578,6 +578,11 @@ class UserManagementDetail extends Component{
             <div className="d-flex justify-content-center">
                 <img className={this.state.isResetSuccess?"img-popup-reset-success":"img-popup-reset"} src={this.state.isResetSuccess?popupLockSuccess:popupLock} />
             </div>
+
+            <div className="d-flex justify-content-center">
+                {this.state.isResetSuccess?<label style={{fontSize:"50px",color:"#22ABE3"}}>Success!</label>:''}
+            </div>
+
             <div className="d-flex justify-content-center">
                 {this.state.isResetSuccess?<label>Reset password requested!</label>:<label>Do you want to reset your password?</label>}
             </div>
