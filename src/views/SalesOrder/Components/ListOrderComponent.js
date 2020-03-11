@@ -16,7 +16,7 @@ class ListOrderComponent extends Component {
 
     this.state = {
       data:[],      
-      tableheader :  ["Site","Client","Order No", "Order Type", "Customer"," Status", "Delivery Date", "Date Received", "Date Released", "Date Completed"],
+      tableheader :  [null,"Site","Client","Order No", "Order Type", "Customer"," Status", "Delivery Date", "Date Received", "Date Released", "Date Completed"],
       activearrow:mid,
       sortparameter:'order_no',
       // sort :true,
@@ -303,7 +303,7 @@ class ListOrderComponent extends Component {
           <div className='tablePages tablecontent'>
                <table className="potable">
                   <thead>
-                    <tr className="headerTR">
+                    <tr style={{borderBottom:"3px solid #f0f0f0 !important"}}>
                        {this.state.tableheader.map(header =>
                         <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
                            <img key={header} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}} src={this.state.activearrow}/>
@@ -315,6 +315,7 @@ class ListOrderComponent extends Component {
                     <tbody>
                           {this.state.data  ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
                                   <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.order_no)} className='tr'>
+                                      <td></td>
                                       <td>{data.site}</td>
                                       <td>{data.client}</td>
                                       <td>{data.order_no}</td>

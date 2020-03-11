@@ -69,7 +69,8 @@
             orderTypeExpand:false,
             uomExpand:false,
             clientdatacr: [],
-            sitedatacr: []
+            sitedatacr: [],
+            supplierdatacr: []
             }
       }
 
@@ -179,7 +180,7 @@
       }
       if(this.state.supplierdatacr){
         this.state.supplierdatacr.map((data) => {
-            supplierData.push(data.supplier);
+          supplierData.push(data.name);
         })  
     }
 
@@ -200,6 +201,9 @@
                   <td><AutoComplete suggestions={supplierData}/></td>
                   {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form-control put pec" placeholder="Supplier"/> </td> */}
                   <td><input className="form-control put pec" placeholder="Customer Order Ref" maxLength="40"/> </td>
+              </tr>
+              <tr>
+                <th style={{color:"transparent"}}>1</th>
               </tr>
               <tr>
                   <th>Order Type</th>

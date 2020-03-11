@@ -623,7 +623,6 @@ select option:hover{
     margin-left: -13.5px;
 	margin-top: -26px;
 	margin-bottom: -10px;
-	height: 34.4rem;
 	border-bottom-right-radius: 10px !important;
 	border-bottom-left-radius: 10px !important;
 }
@@ -848,7 +847,6 @@ h3{
  
   .bodycontent {
 	min-height: 410px !important;
-	height: 34rem;
 }
 
 .line{

@@ -11,31 +11,32 @@
     background-repeat: no-repeat;
     background-position: 8px 12px;
   } */
-  li {
+  .li {
     display: block;
     text-decoration: none;
-    color: #1f5350;
+    color: #919191;
+    background-color:  #f8f0f0;
   }
   ul {
     list-style: none;
     padding: 0;
   }
-  ul li {
+  ul .li {
     margin-bottom: 10px;
-    margin-left: 10px;
   }
 
-  ul li a:hover {
+  ul .li a:hover {
     color: #b23b61;
     background: #ecd1da;
   }
-  .suggestions li {
+  .suggestions .li {
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
+    z-index: 1;
   }
-  .input[type="autosearch"]:focus + .suggestions li {
+  .input[type="autosearch"]:focus + .suggestions .li {
     height: 63px;
   }
   

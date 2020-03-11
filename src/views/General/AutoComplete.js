@@ -93,7 +93,7 @@ export class Autocomplete extends Component {
               }
 
               return (
-                <li key={suggestion} onClick={onClick}>
+                <li className="li" key={suggestion} onClick={onClick}>
                   {suggestion}
                 </li>
               );
@@ -102,7 +102,7 @@ export class Autocomplete extends Component {
         );
       } else {
         suggestionsListComponent = (
-          <div class="no-suggestions">
+          <div class="no-suggestions" style={{zIndex:"1"}}>
             <em>No suggestions</em>
           </div>
         );
