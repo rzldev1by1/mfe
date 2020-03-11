@@ -114,9 +114,9 @@ class SalesOrder extends Component{
         }
     return(
         <React.Fragment>
-            <Dropdown placeHolder="Site" style={{width: "102px", marginRight: "1em"}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected.bind(this)}/>
-            <Dropdown placeHolder="Client" style={{width: "210px", marginRight: "1em"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected.bind(this)}/>
-            <Dropdown placeHolder="Order No" style={{marginRight: "1em"}} optionList="hard,code" optionValue="hard,code" getValue={(v)=> alert(v)}/>
+            <Dropdown placeHolder="Site" style={{width: "102px", height:"3em"}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected.bind(this)}/>
+            <Dropdown placeHolder="Client" style={{width: "210px", height:"3em"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected.bind(this)}/>
+            <Dropdown placeHolder="Order No" style={{height:"3em"}} optionList="hard,code" optionValue="hard,code" getValue={(v)=> alert(v)}/>
 
         </React.Fragment>
     )
@@ -134,12 +134,13 @@ console.log(this.state.listOrder)
                   </Button>
                 </div>
         </div> 
-          
+        <div style={{marginTop:"15px"}}>
         <Search getValue={(v) => this.setState({search: v})}
                 showFilter={this.state.filterclicked}
                 triggerShowFilter={() => this.setState({filterclicked: !this.state.filterclicked})}
                 searchData={() => this.search()}
                 placeholder="Enter a Product or Description"  />
+        </div>
 
         <div className='dropdowns'>
                 <div style={{display:'flex', width:'100%'}}>

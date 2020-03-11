@@ -223,7 +223,8 @@ class PurchaseOrder extends Component {
             </div>
             
             <div className='searchbar'>
-                <Search getValue={(v) => this.setState({search: v})}
+                <Search style={{marginTop:"none"}}
+                        getValue={(v) => this.setState({search: v})}
                         showFilter={this.state.filterclicked}
                         triggerShowFilter={() => this.setState({filterclicked: !this.state.filterclicked})}
                         searchData={() => this.search()}
