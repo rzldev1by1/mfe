@@ -2,7 +2,7 @@
 	height: 40px;
 	width: 100%;
 	font-size:1.1rem;
-	font-family: "Helvetica Neue light";
+	font-family: "Helvetica Neue Medium";
 }
 
 .movementData{
@@ -12,6 +12,7 @@
 	font-size: 0.9rem;
 	max-height: 600px !important;
 	width: 100%;
+	font-family: "Helvetica Neue Regular";
 }
 
 .productData{
@@ -72,7 +73,7 @@
 	border-radius: 5px;
   }
   
-
+  
   .sss{
 	  width: 10rem !important;
   }
@@ -86,6 +87,9 @@
 
   .productHeader{
 	  margin-bottom: -0.5px !important;
+	  font-family: "Helvetica Neue Bold";
+	  color: #B4B9BB;
+	  padding-left: 10px;
   }
   .tet{
 	width: 5rem !important;
@@ -95,6 +99,8 @@
   .productList{
 	min-width: 8rem;
 	text-align: left !important;
+	font-family: "Helvetica Neue Regular";
+	color: #637175;
   } 
 
   #site{
@@ -163,6 +169,7 @@
 	height: 40px !important;
 	border: 1px solid #d5d8da !important; 
 	text-align: left;
+	margin-left: 5%;
 }
 
 .datePicker{
@@ -211,6 +218,7 @@
 	border-bottom:1px solid #d5d8da;
 	margin-top: 9px;
 	height: 34px;
+	margin-left: -2%;
 }
 
 .movementTable{
@@ -236,7 +244,7 @@
 .searchParameterTitle{
 	font-family: "Helvetica Neue Medium";
 	color: #b4b9bb;
-	width: 110px;
+	width: 120px;
 }
 
 .searchParameterTitleDate{

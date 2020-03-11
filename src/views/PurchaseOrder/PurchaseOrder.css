@@ -129,7 +129,7 @@ h1{
 }
 
 .iconU-edit{
-	margin-right: 5px;
+	margin-right: 3px;
 	margin-top: -8%;
 	vertical-align: middle !important;
 	cursor: pointer;
@@ -211,7 +211,7 @@ h1{
 
 .tablecontent {
 	margin-top: 10px;
-	padding:1%;
+	padding:1px;
 	padding-top: 0%;
 	padding-bottom: 0%;
 	min-width: 100%;
@@ -382,10 +382,12 @@ th.iconU-edit{
 	th{
 		font-family: "Helvetica Neue Bold";
 		color: #B4B9BB;
+		padding-left: 10px;
 	}
 	td{
 		font-family: "Helvetica Neue Regular";
 		color: #637175;
+		padding-left: 10px;
 	}
 }
 @media(min-width: 1500px){
@@ -407,7 +409,7 @@ th.iconU-edit{
 	}
 	
 	.potable tr {
-		border-bottom: 2px solid #f0f0f0  !important;
+		border-bottom: 1px solid #f0f0f0  !important;
 		height: 45px !important;
 		font-size: 1rem;
 	}
@@ -419,10 +421,12 @@ th.iconU-edit{
 	th{
 		font-family: "Helvetica Neue Bold";
 		color: #B4B9BB;
+		padding-left: 10px;
 	}
 	td{
 		font-family: "Helvetica Neue Regular";
 		color: #637175;
+		padding-left: 10px;
 	}
 }
 
@@ -797,7 +801,9 @@ h3{
 .conts{
 	margin-top: 1%;
 	margin-bottom: 1%;
-	padding:1% !important;	
+	padding-top:1% !important;
+	padding-bottom:1% !important;
+
 }
 
 .scrolly{
