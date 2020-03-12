@@ -41,6 +41,10 @@ const modalNewUser = (props) => {
             </div>
             <div className="row">
                 <div className="col-3">
+                <label className="text-bolder title-label">User ID</label>
+                </div>
+
+                <div className="col-3">
                   <label className="text-bolder title-label">Name</label>
                 </div>
 
@@ -48,9 +52,6 @@ const modalNewUser = (props) => {
                   <label className="text-bolder title-label">Email</label>
                 </div>
 
-                <div className="col-3">
-                  <label className="text-bolder title-label">User ID</label>
-                </div>
 
                 <div className="col-3">
                   <label className="text-bolder title-label">Company</label>
@@ -59,15 +60,17 @@ const modalNewUser = (props) => {
             </div>
             <div className="row">
                 <div className="col-3">
-                    <input type="text" name="userName" className="form-control" onChange={(e)=>{onChangeName(e);}} defaultValue={model.user}/>
-                </div>
-                <div className="col-3">
-                    <input type="text" name="email" className="form-control" onChange={(e)=>{onChangeEmail(e);}} defaultValue={model.email}/>
+                    <input type="text" name="userid" readOnly className="form-control" defaultValue={model.userId}/>
                 </div>
 
                 <div className="col-3">
-                  <input type="text" name="userid" readOnly className="form-control" defaultValue={model.userId}/>
+                    <input type="text" name="userName" maxLength="60" className="form-control" onChange={(e)=>{onChangeName(e);}} defaultValue={model.user}/>
                 </div>
+                <div className="col-3">
+                    <input type="email" name="email" className="form-control" onChange={(e)=>{onChangeEmail(e);}} defaultValue={model.email}/>
+
+                </div>
+
                 <div className="col-3">
                   <input type="text" name="company" className="form-control" onChange={(e)=>{onChangeCompany(e);}} defaultValue={model.company}/>
                 </div>

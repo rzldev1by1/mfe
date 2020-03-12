@@ -58,7 +58,7 @@ class UserManagement extends Component{
               isClientLoaded: false,
               isSiteLoaded: false,
               isSaveProgressing:false,
-              displayRow:10,
+              displayRow:50,
               totalPage:0,
               currentPage:0,
               startIndex:0,
@@ -256,7 +256,7 @@ class UserManagement extends Component{
         var anysize = 3;//the size of string
         var charset = "abcdefghijklmnopqrstuvwxyz"; //from where to create
         for( var i=0; i < anysize; i++ )
-        result += charset[Math.floor(Math.random() * (textValue.split('').length))];
+        result += charset[Math.floor(Math.random() * (9))];
       }
       return result;
     }
@@ -443,7 +443,7 @@ class UserManagement extends Component{
           .then((result) => {
 
           })
-          
+
       }
 
     }
