@@ -175,3 +175,31 @@
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
 }
+
+/* Dropdown for Datepicker */
+.select_datepicker_label{
+    font-size: 0.8rem !important;
+    line-height: 30px !important;
+	padding-left: 14px !important;
+}
+.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options .select_datepicker_label {
+	height: 25px !important;
+}
+
+.select_datepicker_label-placeholder{
+    height: 25px !important;
+}
+.select_dropdown_input:checked + .select_datepicker_label {
+	height: 25px !important;
+}
+.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_datepicker_options{
+	margin-top: -5px !important;
+}
+
+.select_dropdown_close:checked + span + .select_dropdown_items > .select_datepicker_options{
+	margin-top: -5px !important;
+}
+.select_datepicker_expand::after {
+    top: 37% !important;
+    right: -5px !important;
+}
