@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table,Button, Card, CardBody, Label} from 'reactstrap'
+import { Table,Button, Card, CardBody, Label, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap'
 import './UserManagement.css'
 import ModuleAccess from './Component/ModuleAccess'
 import Site from './Component/Site'
@@ -8,6 +8,8 @@ import {endpoint,headers} from '../../AppComponent/ConfigEndpoint'
 import axios from 'axios'
 import users from './Users.json'
 import moment from 'moment';
+import popupLock from '../../assets/img/brand/popup_lock.png'
+import popupLockSuccess from '../../assets/img/brand/popup_success_lock.png'
 
 const today = moment(new Date()).format("YYYY-MM-DD");
 const passChanged = '1999-08-28';
@@ -23,7 +25,9 @@ class UserManagementDetail extends Component{
           clients:[],
           accountInfo:{},
           isSaveProgressing:false,
-          isLoadComplete:false
+          isLoadComplete:false,
+          modalPopupResetdisplay:false,
+          isResetSuccess:false,
         }
 
     }
@@ -66,7 +70,7 @@ class UserManagementDetail extends Component{
             newItem.menuname = item.menu_name;
             return newItem;
           });
-          
+
       }
       return newUserMenu;
     }
@@ -282,22 +286,39 @@ class UserManagementDetail extends Component{
       this.setState({accountInfo:user});
     }
 
+    getParam = (passwordChange) => {
+        let newParam = {};
+        let accountInfo = {...this.state.accountInfo};
+        newParam.name = accountInfo.user;
+  	    newParam.email = accountInfo.email;
+  	    newParam.lastAccess = accountInfo.lastAccess;
+  	    newParam.lastLogin = accountInfo.lastLogin;
+  	    newParam.thisAccess = accountInfo.thisAccess;
+  	    newParam.thisLogin = accountInfo.thisLogin;
+  	    newParam.userMenu = this.changeUserMenuToStringArray(accountInfo.userMenu);
+        newParam.client = accountInfo.client;
+        newParam.disabled = accountInfo.disabled?'Y':'N';
+        if(passwordChange !== '')
+           newParam.passwordChange = passChanged;
+
+        return newParam;
+    }
+
     saveClick = () => {
 
-      let accountInfo = {...this.state.accountInfo};
+      // let accountInfo = {...this.state.accountInfo};
 
-      let newParam = {};
-      newParam.name = accountInfo.user;
-	    newParam.email = accountInfo.email;
-	    newParam.lastAccess = accountInfo.lastAccess;
-	    newParam.lastLogin = accountInfo.lastLogin;
-	    newParam.thisAccess = accountInfo.thisAccess;
-	    newParam.thisLogin = accountInfo.thisLogin;
-	    newParam.userMenu = this.changeUserMenuToStringArray(accountInfo.userMenu);
-      newParam.client = accountInfo.client;
-      newParam.disabled = accountInfo.disabled?'Y':'N';
-      if(accountInfo.passwordChange !== '')
-         newParam.passwordChange = accountInfo.passwordChange;
+      let newParam = this.getParam();
+      // newParam.name = accountInfo.user;
+	    // newParam.email = accountInfo.email;
+	    // newParam.lastAccess = accountInfo.lastAccess;
+	    // newParam.lastLogin = accountInfo.lastLogin;
+	    // newParam.thisAccess = accountInfo.thisAccess;
+	    // newParam.thisLogin = accountInfo.thisLogin;
+	    // newParam.userMenu = this.changeUserMenuToStringArray(accountInfo.userMenu);
+      // newParam.client = accountInfo.client;
+      // newParam.disabled = accountInfo.disabled?'Y':'N';
+
 
       if(newParam.name && newParam.email && newParam.userMenu.length)
       {
@@ -322,6 +343,35 @@ class UserManagementDetail extends Component{
       return menus;
     }
 
+    closeModalPopupResetAuto = () => {
+      var self = this;
+      setTimeout(()=>{ self.setState({isResetSuccess:false, modalPopupResetdisplay:false})},5000);
+    }
+
+    resetPassword = (param) => {
+       var self = this;
+       const {name,userId,email,userMenu} = self.state.accountInfo;
+
+       let url = `${endpoint.UserManagement_Update}${userId}`
+
+
+         axios.post(url,param,{ headers: headers })
+           .then(res => {
+             var result = [];
+             if(res.status === 200){
+               self.setState({isSaveProgressing:false, isResetSuccess:true, modalPopupResetdisplay:true},self.closeModalPopupResetAuto);
+               // self.gotoUM();
+             }
+             return result;
+           })
+           .catch(error => {
+               console.log("error save",error);
+           })
+           .then((result) => {
+             // console.log(result);
+           })
+    }
+
     updateRequest = (param) => {
 
       var self = this;
@@ -334,7 +384,7 @@ class UserManagementDetail extends Component{
           .then(res => {
             var result = [];
             if(res.status === 200){
-              self.setState({isSaveProgressing:false});
+              self.setState({isSaveProgressing:false, isResetSuccess:true});
               self.gotoUM();
             }
             return result;
@@ -350,6 +400,7 @@ class UserManagementDetail extends Component{
 
     gotoUM = () => {
       this.props.history.push('/users-management');
+      //users-management/122/detail
     }
 
     onClieckSuspendUser = () => {
@@ -360,12 +411,23 @@ class UserManagementDetail extends Component{
     }
 
     onClickResetPassword = () => {
-      const {accountInfo} = this.state;
-      if(accountInfo.passwordChange === ''){
-        accountInfo.passwordChange = passChanged;
-        this.setState({accountInfo:accountInfo})
-      }
+      // const {accountInfo} = this.state;
+      // if(accountInfo.passwordChange === ''){
+      //   accountInfo.passwordChange = passChanged;
+      //   this.setState({accountInfo:accountInfo})
+      // }
 
+       this.setState({modalPopupResetdisplay:true});
+
+    }
+
+    closeModalPopupReset = () => {
+      this.setState({modalPopupResetdisplay:false});
+    }
+
+    confirmResetPassword = () => {
+        let newParam = this.getParam(passChanged);
+        this.setState({isSaveProgressing:false, modalPopupResetdisplay:false}, this.resetPassword(newParam));
     }
 
     render(){
@@ -492,6 +554,50 @@ class UserManagementDetail extends Component{
                     </CardBody>
                 </Card>
             </div>
+
+            <Modal isOpen={this.state.modalPopupResetdisplay} toggle={this.toggleModalConfirm}
+            centered={true} className={"modal-company modal-sm animated fadeIn"} backdrop="static"
+            onOpened={() => this.state.updateSuccess ? setTimeout(() => this.toogleModalConfirm(), 1000) : {}}>
+          <ModalHeader className="modal-header-popup-reset" toggle={this.toggleModalConfirm}>
+            <div className="d-flex flex-column ml-4">
+                <label style={{fontSize:"25px"}}>
+                  <i className="fa fa-refresh mr-3"></i>
+                    Reset Password
+                </label>
+                <label>
+                Confirm your request to reset password
+                </label>
+            </div>
+            <div className="mr-2">
+                <p color="primary">
+                  <i className="iconU-close mr-3" aria-hidden="true" onClick={(e)=>{this.closeModalPopupReset()}}/>
+                </p>
+            </div>
+          </ModalHeader>
+          <ModalBody>
+            <div className="d-flex justify-content-center">
+                <img className={this.state.isResetSuccess?"img-popup-reset-success":"img-popup-reset"} src={this.state.isResetSuccess?popupLockSuccess:popupLock} />
+            </div>
+
+            <div className="d-flex justify-content-center">
+                {this.state.isResetSuccess?<label style={{fontSize:"50px",color:"#22ABE3"}}>Success!</label>:''}
+            </div>
+
+            <div className="d-flex justify-content-center">
+                {this.state.isResetSuccess?<label>Reset password requested!</label>:<label>Do you want to reset your password?</label>}
+            </div>
+            <div className="d-flex justify-content-center mb-4">
+                {this.state.isResetSuccess? <label>We will send you an email to reset password</label>:<label>Your new password will send to your registered email less than 24 hours</label>}
+            </div>
+
+            <div className="d-flex justify-content-between">
+              {(this.state.isResetSuccess)?'':<button className="font-lg font-md font-sm btn btn-grey ml-4" style={{width:"15%"}} onClick={(e)=>{this.closeModalPopupReset()}}>No</button>}
+
+              {(this.state.isResetSuccess)?'':<button className="font-lg font-md font-sm btn btn-primary mr-4" style={{width:"15%"}} onClick={(e)=>{this.confirmResetPassword()}}>Yes</button>}
+            </div>
+          </ModalBody>
+
+        </Modal>
         </div>)
     }
 

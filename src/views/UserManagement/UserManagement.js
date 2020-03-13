@@ -27,7 +27,8 @@ const userModel = {
     "password":"",
     "userMenu":[],
     'client':"",
-    "disabled":"N"
+    "disabled":"N",
+    "company":""
 }
 
 
@@ -57,7 +58,7 @@ class UserManagement extends Component{
               isClientLoaded: false,
               isSiteLoaded: false,
               isSaveProgressing:false,
-              displayRow:10,
+              displayRow:50,
               totalPage:0,
               currentPage:0,
               startIndex:0,
@@ -104,6 +105,7 @@ class UserManagement extends Component{
               newItem.status = (item.disabled === 'Y')?'Suspended':'Active';
               newItem.action = "";
               newItem.web_user = item.web_user;
+              newItem.company = item.company;
               return newItem;
            });
         }
@@ -232,6 +234,13 @@ class UserManagement extends Component{
       this.setState({accountInfo:user});
     }
 
+    onChangeCompany = (e) => {
+      const {name,value} = e.target;
+      let user = {...this.state.accountInfo};
+      user.company = value;
+      this.setState({accountInfo:user});
+    }
+
     onChangeEmail = (e) => {
       const {name,value} = e.target;
       let user = {...this.state.accountInfo};
@@ -247,7 +256,7 @@ class UserManagement extends Component{
         var anysize = 3;//the size of string
         var charset = "abcdefghijklmnopqrstuvwxyz"; //from where to create
         for( var i=0; i < anysize; i++ )
-        result += charset[Math.floor(Math.random() * (textValue.split('').length))];
+        result += charset[Math.floor(Math.random() * (9))];
       }
       return result;
     }
@@ -416,6 +425,8 @@ class UserManagement extends Component{
       {
 
         let param = {...this.state.accountInfo};
+
+
         axios.post(endpoint.UserManagement_Create,param,{ headers: headers })
           .then(res => {
             var result = [];
@@ -490,7 +501,7 @@ class UserManagement extends Component{
                       isModuleLoaded={this.state.isModuleLoaded} moduleAccessEnableClick={this.onModuleAccessClick}
                       sites={this.state.sites} isSiteLoaded={this.state.isSiteLoaded} sitesEnableClick={this.onSiteStatusClick}
                       clients={this.state.clients} isClientLoaded={this.state.isClientLoaded} clientEnableClick={this.onClientStatusClick}
-                      onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing}/>
+                      onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing} onChangeCompany={this.onChangeCompany}/>
 
 
                 </CardBody>

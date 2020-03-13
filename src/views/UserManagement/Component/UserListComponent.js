@@ -151,7 +151,7 @@ class UserListComponent extends Component{
                                            return <tr key={index} onClick={(e)=>{ this.onRowClick(e,element.web_user);}}>
                                                     {
                                                        Object.keys(element).map((item,idx) => {
-                                                          return (item !== 'email' && item !== 'web_user')?
+                                                          return (item !== 'email' && item !== 'web_user' && item !== 'company')?
                                                                   <td key={idx} className={(item === 'user')?'users':'norm'}>
                                                                    { (item === 'action')?
                                                                    <span className='next'></span>:

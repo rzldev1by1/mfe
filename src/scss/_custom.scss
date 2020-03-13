@@ -388,11 +388,11 @@ h2{
 	background-color: #E9ECED;
 	border-radius: 10px;
 	width: 230px;
-	height: 60px;
+	height: 86px;
 	align-self: center;
 	margin-bottom: 15px;
 	padding: 7px;
-	cursor: pointer;
+	// cursor: pointer;
 }
 
 .profilePhoto {
@@ -414,11 +414,20 @@ h2{
 .profileID {
 	vertical-align: top;
 	color: #969EA1;
-	font-size: 11px;
+	font-size: 12px;
 	font-weight: bold;
 	align-self: center;
 	padding-left: 10px;
 	// opacity: 1;
+}
+
+.Logout{
+	vertical-align: top;
+	color: #20a8d8;
+	font-size: 12px;
+	font-weight: bold;
+	align-self: center;
+	padding-left: 10px;
 }
 
 .viewProfile {

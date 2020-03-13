@@ -102,7 +102,7 @@ export class Autocomplete extends Component {
         );
       } else {
         suggestionsListComponent = (
-          <div class="no-suggestions" style={{zIndex:"1"}}>
+          <div className="no-suggestions">
             <em>No suggestions</em>
           </div>
         );
