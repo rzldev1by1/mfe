@@ -424,7 +424,7 @@
                     <option>pallet</option>
                   </select>
               </td>
-              <td style={{width:"11%"}}><DatePicker style={{ minWidth: "100%" }} /> </td>
+              <td style={{width:"11%"}}><DatePicker style={{ minWidth: "100%" }} field="smallField" /> </td>
               <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"  maxLength="30"/></td>
               <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref3"  maxLength="30"/></td>
               <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref4"  maxLength="30"/></td>
