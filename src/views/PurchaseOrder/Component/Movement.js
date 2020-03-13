@@ -323,7 +323,7 @@ class Movement extends Component {
                                 }
                             </tr>
                         </thead>
-                        <tbody className='mvmntHead'>
+                        <tbody style={{fontSize:'1rem'}} className='mvmntHead'>
                         {
                             this.state.data.slice(this.state.startIndex,this.state.endIndex).map((data) =>
                                 <tr style={{borderBottom:'1px solid #f5f5f5'}}>

@@ -62,8 +62,8 @@ class componentTable extends Component {
                 <div className={this.props.isSearch ? "spinner" : "d-none"} />
                 <div className={this.props.isSearch ? "d-none" : "tablePage tableContent"}>
                     <Table className="table-condensed table-striped clickable-row mb-0" size="md">
-                        <thead>{this.showHeader()}</thead>
-                        <tbody>{this.showData()}</tbody>
+                        <thead >{this.showHeader()}</thead>
+                        <tbody style={{fontSize:'1rem'}}>{this.showData()}</tbody>
                     </Table>
                 </div>
             </div>
