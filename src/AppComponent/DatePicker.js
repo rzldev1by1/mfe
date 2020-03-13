@@ -117,7 +117,7 @@ class DatePicker extends React.Component{
                         <label className="select_date_closeLabel" htmlFor={"select-opener" + placeHolder + no}></label>
                         <div className="select_date_options">
                             <div className="dateInfo">
-                                {this.state.selectedDay ? moment(this.state.selectedDay).format(this.props.shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : "Please Select Date"}
+                                {this.state.selectedDay ? moment(this.state.selectedDay).format(this.props.shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : "Please Select the Date"}
                             </div>
                             <DayPicker
                                 className="datepicker-content"
