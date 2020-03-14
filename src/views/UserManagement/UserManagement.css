@@ -430,6 +430,10 @@ input:checked + .slider:before {
     border-color: #D5D8DA;
 }
 
+.checkbox-hidden{
+	opacity: 0;
+}
+
 
 
 

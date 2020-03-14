@@ -42,7 +42,7 @@ class UserManagement extends Component{
                 'User', 'User ID', 'User Level', 'Client', 'Last Access', 'Status', ''
                 ],
             personalUser : [
-                {youraccount:"georgesmith@ttl.com", userid:"12345", client:"All Client", site:"All Site"}
+                {youraccount:"-", userId:"-", client:"-", site:"-"}
                     ],
             headersPersonal : [
                 'Your Account', 'User ID', 'Client', 'Site'
@@ -112,6 +112,21 @@ class UserManagement extends Component{
 
         return newUserArray;
     }
+    restucturePersonalUser = (sources) => {
+      var newArray = [];
+
+      if(sources){
+          newArray = sources.map((item,index)=>{
+            let newItem = {};
+            newItem.youraccount = item.email;
+            newItem.userId = item.userId;
+            newItem.client = item.client;
+            newItem.site = '-';
+            return newItem;
+          });
+      }
+      return newArray;
+    }
 
     getStartIndex = (currentPage) => {
       let startIndex = 0;
@@ -136,10 +151,12 @@ class UserManagement extends Component{
     }
 
     numberEventClick = (currentPage) => {
-  		let page = parseInt(currentPage);
-      let startIndex = this.getStartIndex(page);
-      let lastIndex = this.getLastIndex(page);
-  		this.setState({ currentPage: page,startIndex:startIndex,lastIndex:lastIndex });
+      if(currentPage <= this.state.totalPage){
+        let page = parseInt(currentPage);
+        let startIndex = this.getStartIndex(page);
+        let lastIndex = this.getLastIndex(page);
+        this.setState({ currentPage: page,startIndex:startIndex,lastIndex:lastIndex });
+      }
   	}
 
     nextPageClick = () => {
@@ -183,6 +200,14 @@ class UserManagement extends Component{
       }
     }
 
+    getUserID = () => {
+      let user = JSON.parse(localStorage.getItem("user"));
+       if(user)
+          return user.userId;
+      else
+          return null;
+    }
+
     loadUsers = () => {
         // if(users){
         //   this.setState({isListLoaded:true,userList:users});
@@ -196,11 +221,15 @@ class UserManagement extends Component{
             if(res.status === 200){
               let totalPage = self.calculatePageRow(res.data.data);
 
+              let userId = self.getUserID()
               let startIndex = self.state.startIndex;
               let lastIndex = self.state.displayRow;
               let currentPage = parseInt(lastIndex / self.state.displayRow)
               result = self.restructureUserList(res.data.data);
-              self.setState({isListLoaded:true,userList:result, totalPage:totalPage,startIndex:startIndex,lastIndex:lastIndex,currentPage:currentPage});
+              let loginUser = self.restucturePersonalUser(result.filter((item)=>{ return item.userId === userId}));
+
+              self.setState({isListLoaded:true,userList:result, personalUser:loginUser, totalPage:totalPage,
+                startIndex:startIndex,lastIndex:lastIndex,currentPage:currentPage});
             }
             return result;
           })
@@ -408,8 +437,9 @@ class UserManagement extends Component{
       }
     }
 
-    saveClick = () => {
 
+    saveClick = () => {
+      console.log(this.state.accountInfo);
       const {name,userId,email,userMenu} = this.state.accountInfo;
       if(name && userId && email && userMenu.length)
       {
@@ -492,7 +522,8 @@ class UserManagement extends Component{
 
                     <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
                             backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-                            totalRows={this.state.displayRow} currentPage={this.state.currentPage} maxPage={(this.state.totalPage -1)}
+                            totalRows={this.state.userList.length} currentPage={this.state.currentPage}
+                            maxPage={(this.state.totalPage)}
                             startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                             numberEventClick={this.numberEventClick}/>
 

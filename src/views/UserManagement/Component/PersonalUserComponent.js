@@ -30,6 +30,7 @@ class UserListComponent extends Component{
 
     componentDidMount(){
         const {headers, data} = this.props;
+
         if(headers){
             if(data){
                 this.setState({headers:headers,data:data})
@@ -58,6 +59,7 @@ class UserListComponent extends Component{
     }
 
     render(){
+        
         return(
                 <div>
 
@@ -65,7 +67,7 @@ class UserListComponent extends Component{
                     <CardBody className="account-info">
                         <div className="row">
                             {
-                                this.state.headers.map((element,index)=>{
+                                this.props.headers.map((element,index)=>{
                                 return  <div className="col-3 headers" key={index}>
                                             <label>{element}</label>
                                         </div>
@@ -75,7 +77,7 @@ class UserListComponent extends Component{
                         </div>
 
                         {
-                            this.state.data.map((element,index)=>{
+                            this.props.data.map((element,index)=>{
                                 return <div className="row" key={index}>
                                         {
                                             Object.keys(element).map((item,idx) => {

@@ -458,6 +458,10 @@ class UserManagementDetail extends Component{
 
                                 <div className="row">
                                 <div className="col-2">
+                                    <label className="text-bolder title-label">User ID</label>
+                                </div>
+
+                                <div className="col-2">
                                     <label className="text-bolder title-label">Name</label>
                                 </div>
 
@@ -465,9 +469,7 @@ class UserManagementDetail extends Component{
                                     <label className="text-bolder title-label">Email</label>
                                 </div>
 
-                                <div className="col-2">
-                                    <label className="text-bolder title-label">ID</label>
-                                </div>
+
                                 <div className="col-2">
                                     <label className="text-bolder title-label">Reset Password</label>
                                 </div>
@@ -483,6 +485,11 @@ class UserManagementDetail extends Component{
 
                                 </div>
                                 <div className="row">
+
+                                    <div className="col-2">
+                                        <input type="text" readOnly className="form-control" defaultValue={this.state.accountInfo.userId}/>
+                                    </div>
+
                                     <div className="col-2">
                                         <input type="text" className="form-control" onChange={(e)=>{this.onChangeName(e);}} defaultValue={this.state.accountInfo.user}/>
                                     </div>
@@ -491,9 +498,7 @@ class UserManagementDetail extends Component{
                                         <input type="text" name="email" className="form-control" onChange={(e)=>{this.onChangeEmail(e);}} defaultValue={this.state.accountInfo.email}/>
                                     </div>
 
-                                    <div className="col-2">
-                                        <input type="text" readOnly className="form-control" defaultValue={this.state.accountInfo.userId}/>
-                                    </div>
+
                                     <div className="col-3">
                                           <div className="col pl-0">
                                           <label>
