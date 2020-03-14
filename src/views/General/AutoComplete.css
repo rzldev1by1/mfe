@@ -14,27 +14,46 @@
   .li {
     display: block;
     text-decoration: none;
-    color: #919191;
-    background-color:  #f8f0f0;
+    color: #3d3d3d;
+    background-color: #fff;
+    position: relative;
+    height: 40px;
+    padding-left: 20px;
+    line-height: 2.5;
+    font-size: 1rem;
+    font-family: "Helvetica Neue Regular";
+    width: 365px;
+    border-radius: 6px;
   }
+  .li:hover{
+		background: #f0f0f0 !important;
+		cursor: pointer;
+	}
   ul {
     list-style: none;
     padding: 0;
   }
-  ul .li {
+  /* ul .li {
     margin-bottom: 10px;
-  }
+  } */
 
   ul .li a:hover {
     color: #b23b61;
     background: #ecd1da;
+  }
+  .suggestions{
+    position: absolute;
+    margin-top: 47px !important;
+    z-index: 4;
+    width: fit-content;
+    border: 1px solid #22ABE3;
+    border-radius: 5px;
   }
   .suggestions .li {
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
-    z-index: 1;
   }
   .input[type="autosearch"]:focus + .suggestions .li {
     height: 63px;
@@ -50,7 +69,9 @@
   }
   .form-input {
     display: block;
-    width: 100%;
+    width: 22%;
+    position: absolute;
+    z-index: 3;
     height: calc(1.5em + 0.75rem + 6px);
     padding: 0.375rem 0.75rem;
     font-size: 0.875rem;
@@ -68,6 +89,18 @@
 .pecs::-webkit-input-placeholder{
 	color:#7C878C !important;
 }
- 
+.no-suggestions{
+  margin-top: 47px;
+  background-color: #fff;
+  border: 1px solid #22ABE3;
+  border-radius: 5px;
+  position: absolute;
+  width: 22%;
+  font-size: 1rem;
+  height: 40px;
+  z-index: 5;
+  padding-left: 20px;
+  line-height: 2.3;
+}
 
   

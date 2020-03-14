@@ -126,10 +126,10 @@ class DefaultLayout extends Component {
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td rowSpan="2" className="text-center align-middle p-0">
-                                                {/* <span className="fa fa-user-circle fa-3x" /> */}
+                                            {/* <td rowSpan="2" className="text-center align-middle p-0">
+                                                <span className="fa fa-user-circle fa-3x" />
                                                 <img className="profilePhoto" src={dummyPic} alt="dummyPic" />
-                                            </td>
+                                            </td> */}
                                             <td className="pb-0">
                                                 <span className="userName">{Authentication.getName()}</span>
                                             </td>
@@ -137,6 +137,13 @@ class DefaultLayout extends Component {
                                         <tr>
                                             <td className="pt-0">
                                                 <span className="profileID"> ID: {Authentication.getId()} </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="pt-0">
+                                                <a className="Logout" href="/" onClick={(e) => {this.signOut()} }>
+                                                    <i className="iconU-logout" /> Logout
+                                                </a>
                                             </td>
                                         </tr>
                                     </tbody>

@@ -69,6 +69,7 @@
             orderTypeExpand:false,
             uomExpand:false,
             clientdatacr: [],
+            orderdatacr: [],
             sitedatacr: [],
             supplierdatacr: []
             }
@@ -78,6 +79,7 @@
         this.getclient();
         this.getsite();
         this.getsupplier();
+        this.getordertype();
       }
 
       close = () => {
@@ -117,6 +119,20 @@
             console.log(error);
           })
     }
+
+    getordertype = () => {
+      axios.get(endpoint.getOrderType, {
+        headers: headers
+      })
+        .then(res => {
+          const result = res.data
+          this.setState({ orderdatacr:result })
+        })
+        .catch(error => {
+          // this.props.history.push("/logins")
+          console.log(error);
+        })
+  }
 
       getsite = () => {         
         axios.get(endpoint.getSite, {
@@ -166,7 +182,8 @@
       let clientName = [];
       let clientValue = [];
       let siteData = [];
-      let supplierData = [];
+      let supplierName = [];
+      let orderData =[];
       if(this.state.clientdatacr){
           this.state.clientdatacr.map((data) => {
               clientName.push(data.name);
@@ -180,9 +197,14 @@
       }
       if(this.state.supplierdatacr){
         this.state.supplierdatacr.map((data) => {
-          supplierData.push(data.name);
-        })  
+            supplierName.push(data.name);
+        })
     }
+    if(this.state.orderdatacr){
+      this.state.orderdatacr.map((data) => {
+          orderData.push(data.code);
+      })
+  }
 
       
       return(
@@ -190,17 +212,21 @@
           <h3 className="fonts">Order Details</h3>
           <table className="createpotable">
               <tr>
-                  <th>Site</th>
-                  <th>Client</th>
-                  <th>Supplier</th>
-                  <th>Customer Order Ref</th>
+                  <th style={{width:"396px"}}>Site</th>
+                  <th style={{width:"396px"}}>Client</th>
+                  <th style={{width:"396px"}}>Supplier</th>
+                  <th style={{width:"396px"}}>Customer Order Ref</th>
               </tr>
               <tr>
-                  <td><AutoComplete suggestions={siteData}/></td>
-                  <td><input className={"form-control put pec" +("1" ? "" : "form-control valid pec") } placeholder="Client"/> </td>
-                  <td><AutoComplete suggestions={supplierData}/></td>
-                  {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form-control put pec" placeholder="Supplier"/> </td> */}
-                  <td><input className="form-control put pec" placeholder="Customer Order Ref" maxLength="40"/> </td>
+                  <td ><AutoComplete suggestions={siteData}/></td>
+                  <td><AutoComplete suggestions={clientName}/></td>
+                  {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
+                  <td><AutoComplete suggestions={supplierName}/></td>
+                  {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form2 put pec" placeholder="Supplier"/> </td> */}
+                  <td><input className="form2 put pec" placeholder="Customer Order Ref" maxLength="40"/> </td>
+              </tr>
+              <tr>
+                <th style={{color:"transparent"}}>1</th>
               </tr>
               <tr>
                 <th style={{color:"transparent"}}>1</th>
@@ -213,13 +239,13 @@
               </tr>
               <tr>
               <td>
-              <AutoComplete suggestions={supplierData}/>
+              <AutoComplete suggestions={orderData}/>
               </td>
-              <td><input className="form-control put pec" placeholder="Order No" minLength="4" maxLength="12"/> </td>
+              <td><input className="form2 put pec" placeholder="Order No" minLength="4" maxLength="12"/> </td>
                   <td>
-                    <DatePicker style={{ minWidth: "100%" }} />
+                    <DatePicker style={{ minWidth: "22%", position:"absolute" }} />
                   </td>                  
-                  <td><input className="form-control put pec"  placeholder="Vendor Order Ref"  maxLength="40"/> </td>
+                  <td><input className="form2 put pec"  placeholder="Vendor Order Ref"  maxLength="40"/> </td>
               </tr>
               <tr>
                 <td></td>
@@ -398,7 +424,7 @@
                     <option>pallet</option>
                   </select>
               </td>
-              <td style={{width:"11%"}}><DatePicker style={{ minWidth: "100%" }} /> </td>
+              <td style={{width:"11%"}}><DatePicker style={{ minWidth: "100%" }} field="smallField" /> </td>
               <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"  maxLength="30"/></td>
               <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref3"  maxLength="30"/></td>
               <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref4"  maxLength="30"/></td>

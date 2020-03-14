@@ -122,13 +122,16 @@
 }
 .select_date_expand:checked + .select_date_closeLabel + .select_date_options{
     display: block;
-    z-index: 1;    
+    z-index: 3;    
     margin-top: 8px;
     background-color: white;
     border-radius: 5px;
     border: 1px solid #22ABE3 !important;
 } 
 
+.select_date_expand:checked + .select_date_closeLabel + .smallField{
+    width: 298px;
+}
 
 /* Label Open for Checkbox */		
 .select_date_expandLabel {
@@ -149,10 +152,14 @@
 } */
 
 
+/* DatePicker Stylesheet */
+.dateInfo{
+    padding-top: 15px;
+    text-align: center;
+    color: #22ABE3;
+    font-family: "Helvetica Neue Medium";
+}
 
-
-
-
-		
-
-
+.datepicker-content{
+    width: 100%;
+}
