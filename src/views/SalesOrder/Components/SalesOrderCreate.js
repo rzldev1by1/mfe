@@ -74,7 +74,7 @@
             <Modal isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }}toggle={true}>
               <div className="createModals">
                 <ModalHeader style={{marginTop:"1%"}}>
-                  <div  style={{display:"inline flex", marginLeft:"32px"}} ><label className="iconU-createModal"/><label className="font"><h2>Create Sales Order</h2></label></div>
+                  <div  style={{display:"inline flex", marginLeft:"30px"}} ><label className="iconU-createModal"/><label className="font"><h2>Create Sales Order</h2></label></div>
                     <p color="primary" onClick={() => this.close()}>
                       <i className="iconU-close"  style={{fontSize:"1.6em" , marginLeft:"-3em"}} aria-hidden="true" />
                     </p>
@@ -95,7 +95,7 @@
                 </ModalHeader>       
             
             <ModalBody style={{width:"100%"}}>
-              {this.state.tab1isactive ? <Tab1CreateSO/> : <Tab2CreateSO/>}
+              {this.state.tab1isactive ? <Tab1CreateSO tabhandler={() => this.tabhandler()}/> : <Tab2CreateSO close={() => this.close()} tabhandler={() => this.tabhandler()} />}
             </ModalBody>
               {/* {this.state.tab2isactive ? 
                 this.submit() :  
