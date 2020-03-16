@@ -21,7 +21,7 @@ class Paging extends Component {
 			let pageNumber = [];
 			let totalPage = this.props.maxPage;
 
-			for (let i = 0 ; i <= totalPage; i++) {
+			for (let i = 0 ; i < totalPage; i++) {
 				pageNumber.push(
 					<li className={"btn btn-paging" + (this.props.currentPage ===  i + 1 ? "-active" : "")}
 						id={i} name="pageNumber" key={i}

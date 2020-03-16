@@ -106,8 +106,6 @@ const modalNewUser = (props) => {
                 </div>
                 </div>
 
-
-
                 <div className="row">
                   <div className="col-12">
                     <button type="button" className="font-lg font-md font-sm btn btn-primary float-right" onClick={onSaveClick}>

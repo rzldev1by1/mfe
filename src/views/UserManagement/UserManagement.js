@@ -140,12 +140,15 @@ class UserManagement extends Component{
     }
 
     getLastIndex = (currentPage) => {
+      const {totalPage,userList} = this.state;
+
       let lastIndex = 0;
       if(currentPage < 1)
         return;
 
       let displayRow = this.state.displayRow;
-      lastIndex = currentPage * displayRow;
+
+      lastIndex = (currentPage !== totalPage)? (currentPage * displayRow):userList.length;
 
       return lastIndex;
     }
@@ -514,18 +517,12 @@ class UserManagement extends Component{
             </div>
 
             <div className={( this.state.isListLoaded ? 'd-none': 'spinner')}/>
-            <Card className={( this.state.isListLoaded ? 'container-user-list border-0':' d-none ')}>
+            <Card className={( this.state.isListLoaded ? 'container-user-list border-0 mb-0':' d-none ')}>
                 <CardBody>
 
                     <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}
                     startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}/>
 
-                    <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
-                            backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-                            totalRows={this.state.userList.length} currentPage={this.state.currentPage}
-                            maxPage={(this.state.totalPage)}
-                            startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
-                            numberEventClick={this.numberEventClick}/>
 
                       <ModalNewUser isOpen={this.state.isModalNewOpen} closeModal={this.closeModalPopUp} model={this.state.accountInfo}
                       onChangeName={this.onChangeName} onChangeEmail={this.onChangeEmail} moduleAccess={this.state.moduleAccess}
@@ -537,6 +534,12 @@ class UserManagement extends Component{
 
                 </CardBody>
             </Card>
+            <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
+            backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+            totalRows={this.state.userList.length} currentPage={this.state.currentPage}
+            maxPage={(this.state.totalPage)}
+            startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+            numberEventClick={this.numberEventClick}/>
         </div>)
     }
 }
