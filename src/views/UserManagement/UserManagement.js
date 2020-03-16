@@ -534,12 +534,15 @@ class UserManagement extends Component{
 
                 </CardBody>
             </Card>
-            <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
-            backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-            totalRows={this.state.userList.length} currentPage={this.state.currentPage}
-            maxPage={(this.state.totalPage)}
-            startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
-            numberEventClick={this.numberEventClick}/>
+
+            <footer>
+              <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
+              backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+              totalRows={this.state.userList.length} currentPage={this.state.currentPage}
+              maxPage={(this.state.totalPage)}
+              startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+              numberEventClick={this.numberEventClick}/>
+            </footer>
         </div>)
     }
 }

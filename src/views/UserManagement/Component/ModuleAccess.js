@@ -14,7 +14,7 @@ return (
 
               return (<div className="flex-column mb-3 mr-2" key={index}>
                             <div className="row" key={index}>
-                                <label className="col-8" key={item.menuid}>{(item.menuname.toLowerCase() === 'create sales order')?'Sales Order':item.menuname}</label>
+                                <label className="col-8" key={item.menuid}>{(item.menuname.toLowerCase() === 'create sales order')?'Sales Orders':item.menuname}</label>
                                 {
                                   /**
                                   <button type="button" className={"col-2 btn "+((item.status)?"btn-outline-active":"btn-outline-notActive") }
