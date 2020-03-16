@@ -80,6 +80,10 @@ class Tab1CreateSO extends Component{
       )})
     }
 
+    tabhandler= () => {
+      this.props.tabhandler()
+    }
+
     render= () => {
       let clientName = [];
       let clientValue = [];
@@ -176,14 +180,15 @@ class Tab1CreateSO extends Component{
                       <th style={{width:"2%", textAlign:"center"}}>#</th>
                       <th style={{width:"12%"}}>Product Entry</th>
                       <th style={{width:"12%"}}>Product Description</th>
-                      <th style={{width:"3%"}}>Qty</th>
-                      <th style={{width:"6%"}}>UOM</th>
-                      <th style={{width:"6%"}}>Rota Date</th>
+                      <th style={{width:"4%"}}>Qty</th>
+                      <th style={{width:"4%"}}>Weight</th>
+                      <th style={{width:"4%"}}>UOM</th>
+                      <th style={{width:"8%"}}>Rota Date</th>
                       <th style={{width:"6%"}}>Batch</th>
                       <th style={{width:"5%"}}>Ref3</th>
                       <th style={{width:"5%"}}>Ref4</th>
-                      <th style={{width:"6%"}}>Disposition</th>
-                  <th style={{width:"6%"}}>Pack Id</th> 
+                      <th style={{width:"5%"}}>Disposition</th>
+                      <th style={{width:"6.3%"}}>Pack Id</th> 
                   </tr>                             
                 </table>
               </div>
@@ -212,19 +217,17 @@ class Tab1CreateSO extends Component{
                 <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs " value={list.id} readOnly/></td>
                 <td style={{width:"12%"}}><input className="form-control inputs " placeholder="Product"/></td>
                 <td style={{width:"12%"}}><input className="form-control inputs " placeholder="Product Description"/></td>
-                <td style={{width:"3%"}}><input className="form-control inputs " placeholder="Qty"/></td>
-                <td style={{width:"6%"}}>
+                <td style={{width:"4%"}}><input className="form-control inputs " placeholder="Qty"/></td>
+                <td style={{width:"4%"}}><input className="form-control inputs " placeholder="Weight"/></td>
+                <td style={{width:"4%"}}>
                     <select className="form-control selectinput ">
                       <option className="" selected disabled>UOM</option>
                       <option>each</option>
                       <option>pallet</option>
                     </select>
                 </td>
-                <td style={{width:"6%", height:"10%"}}>
-                <div className="inputDates ">
-                <input className="dateform " value={this.state.rotedate} placeholder="Rota Date"/>
-                <img onClick={() => this.datePickerRote()} className="dateimg" src={date}/>
-                </div>
+                <td style={{width:"4.5%"}}>
+                <td><DatePicker style={{ minWidth: "115%" }}></DatePicker></td>  
                 </td>
                 <td style={{width:"6%"}}><input className="form-control inputs " placeholder="Batch"/></td>
                 <td style={{width:"5%"}}><input className="form-control inputs " placeholder="Ref3"/></td>

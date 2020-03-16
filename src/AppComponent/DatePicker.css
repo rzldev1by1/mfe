@@ -126,7 +126,8 @@
     margin-top: 8px;
     background-color: white;
     border-radius: 5px;
-    border: 1px solid #22ABE3 !important;
+	border: 1px solid #22ABE3 !important;
+	width: 300px;
 } 
 
 .select_date_expand:checked + .select_date_closeLabel + .smallField{
