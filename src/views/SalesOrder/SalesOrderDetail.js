@@ -201,7 +201,7 @@ getheaderdetail = () => {
       <div className='animated fadeIn pobody'>
           <div className='header headerss'>
               <div className='podbreadcrumb'>
-                  <h2 onClick={() => window.location.replace(window.location.origin + '/#/sales-orders')} className='podtitle'>Sales Orders</h2>
+                  <h2 onClick={() => window.location.replace(window.location.origin + '/#/sales-orders')} className='podtitle'>Sales Order</h2>
                   <h2 className='podtitle iconU-rightArrow' style={{fontSize:20}}/>
                   <h2 className='podetails'>{window.location.href.split("/").pop()}</h2>
               </div>

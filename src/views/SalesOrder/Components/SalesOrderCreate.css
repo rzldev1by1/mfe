@@ -83,7 +83,7 @@
 
 
 .createdecs{
-	margin-left: 11.5%;
+	margin-left: 5.3%;
     margin-top: -1%;
 	width: 580px;
 	font-family: Arial, Helvetica, sans-serif;
@@ -199,4 +199,8 @@ h3{
 
 .createpotables > tr> td{
 	padding-right: 2% !important;
+}
+.back {
+    background-color: #D5D8DA;
+    border: 0px;
 }

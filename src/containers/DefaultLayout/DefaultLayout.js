@@ -150,7 +150,7 @@ class DefaultLayout extends Component {
                                 </table>
                             </div>
 
-                            {this.expandUser()}
+                            {/* {this.expandUser()} */}
                         </Suspense>
                         <AppSidebarFooter />
                         {/* <AppSidebarMinimizer /> */}

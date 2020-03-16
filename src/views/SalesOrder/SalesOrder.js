@@ -30,7 +30,7 @@ class SalesOrder extends Component{
         complete : false,
 
          //filter
-         filterclicked:false,
+         filterclicked:true,
       }
       
   }
@@ -116,7 +116,7 @@ class SalesOrder extends Component{
         <React.Fragment>
             <Dropdown placeHolder="Site" style={{width: "102px", height:"3em"}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected.bind(this)}/>
             <Dropdown placeHolder="Client" style={{width: "210px", height:"3em"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected.bind(this)}/>
-            <Dropdown placeHolder="Order No" style={{height:"3em"}} optionList="hard,code" optionValue="hard,code" getValue={(v)=> alert(v)}/>
+            <Dropdown placeHolder="Order No" style={{height:"3em"}} optionList="hard,code" optionValue="hard,code" getValue={(v)=> console.log(v)}/>
 
         </React.Fragment>
     )
@@ -124,7 +124,7 @@ class SalesOrder extends Component{
 
   render(){
 console.log(this.state.listOrder)
-    return(<div style={{marginLeft:"-9px"}}>
+    return(<div style={{marginLeft:"-9px" , width:"101.5%"}}>
        <div className='header'>
           <h2 style={{marginTop:'0.2%'}}>Sales Orders</h2>
               <div className='header2'>
@@ -135,18 +135,19 @@ console.log(this.state.listOrder)
                 </div>
         </div> 
         <div style={{marginTop:"15px"}}>
-        <Search getValue={(v) => this.setState({search: v})}
-                showFilter={this.state.filterclicked}
-                triggerShowFilter={() => this.setState({filterclicked: !this.state.filterclicked})}
-                searchData={() => this.search()}
-                placeholder="Enter a Product or Description"  />
+        <Search style={{marginTop:"none"}}
+                        getValue={(v) => this.setState({search: v})}
+                        showFilter={this.state.filterclicked}
+                        triggerShowFilter={() => this.setState({filterclicked: !this.state.filterclicked})}
+                        searchData={() => this.search()}
+                        placeholder="Enter a Product or Description" />
+                {console.log(this.searchForm)}
         </div>
 
         <div className='dropdowns'>
                 <div style={{display:'flex', width:'100%'}}>
                     {
-                        this.state.filterclicked ? null :
-                        this.showDropdowns()
+                        this.state.filterclicked ? this.showDropdowns() : null
                     }
                     
                 </div>               

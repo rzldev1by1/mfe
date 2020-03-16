@@ -1,18 +1,26 @@
 .btn-paging {
 	font-weight: bold;
-	color: rgb(78, 82, 83) !important;
+	color: #637176 ;
 	margin-top: 1%;
     /* width: 40px; */
     /* height: 40px; */
-    align-items: center !important;
+	align-items: center !important;
 }
 
-.btn-paging:focus, .btn-paging:hover, .btn-paging-active, .btn-paging-active:hover {
+.btn1{
+	font-size: 18px; 
+}
+
+.btn-paging:focus, .btn-paging-active, .btn-paging-active:hover {
 	background-color: #22ABE3;
     color: #FFFFFF;
     /* width: 40px; */
     /* height: 40px; */
-    align-items: center !important;
+	align-items: center !important;
+}
+
+.btn-paging:hover{
+    color: #22ABE3;
 }
 
 .btn-pagingNav, .btn-pagingNav:hover {
@@ -22,7 +30,12 @@
 	/* background-color: #E0E3F2; */
 	color: #637176;
     box-shadow: none;
-    align-items: center !important;
+	align-items: center !important;
+}
+
+.btn-pagingNav:hover{
+	color: #22ABE3;
+	outline: solid #fff;
 }
 
 .btn-pagingNav-inactive, .btn-pagingNav-inactive:hover, .btn-pagingNav-inactive:focus {
@@ -35,13 +48,14 @@
 	/* color: transparent; */
 	cursor: default;
     box-shadow: none;
-    align-items: center !important;
+	align-items: center !important;
+	outline: solid #fff;
 }
 
 .number{
 	cursor: pointer;
-	font-family:Helvetica Neue Light;
-	margin-top: 2px;
+	font-family:Helvetica Neue Bold;
+	margin-top: -1px;
 }
 
 
