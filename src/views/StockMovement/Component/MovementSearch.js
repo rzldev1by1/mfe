@@ -67,15 +67,15 @@ export default class MovementSearch extends Component {
                 <div className='searchParameterTitle dp'>Display Period</div>
                 <div className='dropdown ddlSearchParam'>
                     <div className='displayButtonToggle'>
-                    <button onClick={() => this.periodExpand()} className='btn dropdown-button ddlMovement' data-toggle='dropdown'>
+                    <button style={{color:'#7c878c'}} onClick={() => this.periodExpand()} className='btn dropdown-button ddlMovement' data-toggle='dropdown'>
                         {this.state.periodSelected ? this.state.periodText :'Select Period'}
                     </button>
                     <div className='dropdown-toggle'/>
                     </div>
                     <div class={'dropdown-menu ' + (this.state.periodExpand ? 'show' : null)}>
-                        <div onClick={(e) => this.periodHanlder(e)} className='dropdown-item' id='day'>Daily</div>
-                        <div onClick={(e) => this.periodHanlder(e)} className='dropdown-item' id='week'>Weekly</div>
-                        <div onClick={(e) => this.periodHanlder(e)} className='dropdown-item' id='month'>Monthly</div>
+                        <div style={{color:'#7c878c'}} onClick={(e) => this.periodHanlder(e)} className='dropdown-item' id='day'>Daily</div>
+                        <div style={{color:'#7c878c'}} onClick={(e) => this.periodHanlder(e)} className='dropdown-item' id='week'>Weekly</div>
+                        <div style={{color:'#7c878c'}} onClick={(e) => this.periodHanlder(e)} className='dropdown-item' id='month'>Monthly</div>
                     </div>
                 </div>
             </div> 
@@ -88,7 +88,7 @@ export default class MovementSearch extends Component {
                 <div className='searchParameterTitleDate'>Date From</div>
                 <div onMouseLeave={() => this.setState({dateFromShow:false})}>
                 <div className='displayButtonToggle'>
-                    <button onClick={()=> this.setState({dateFromShow:!this.state.dateFromShow})} className='btn dropdown-button ddlMovementDate' data-toggle='dropdown'>
+                    <button style={{color:'#7c878c'}} onClick={()=> this.setState({dateFromShow:!this.state.dateFromShow})} className='btn dropdown-button ddlMovementDate' data-toggle='dropdown'>
                         {this.state.dateFromText ? this.state.dateFromText : 'Select Date'}
                     </button>
                     <div className='dropdown-toggle'/>
@@ -101,7 +101,7 @@ export default class MovementSearch extends Component {
                 <div style={{marginLeft:'45px'}} className='searchParameterTitleDate'>To</div>
                 <div onMouseLeave={() => this.setState({dateToShow:false})}>
                 <div className='displayButtonToggle'>
-                    <button onClick={()=> this.setState({dateToShow:!this.state.dateToShow})} className='btn dropdown-button ddlMovementDate' data-toggle='dropdown'>
+                    <button style={{color:'#7c878c'}} onClick={()=> this.setState({dateToShow:!this.state.dateToShow})} className='btn dropdown-button ddlMovementDate' data-toggle='dropdown'>
                         {this.state.dateToText ? this.state.dateToText : 'Select Date'}
                     </button>
                     <div className='dropdown-toggle'/>
