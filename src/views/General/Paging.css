@@ -288,17 +288,17 @@
 }
 
 .search_1 {
-    position: relative;
-    width: 37px;
+	position: relative;
+    width: 42px;
     height: 29px;
     margin-top: -3px;
-    padding-left: 15px;
+    padding-left: 9px;
     margin-left: 13px;
     border-radius: 10px;
     border: none;
-    color: #0F0D0D;;
+    color: #0F0D0D;
     font-weight: 500;
-    background-color: #E2EFF7;;
+    background-color: #E2EFF7;
     border: 1px solid #22ABE3;
     border-radius: 5px;
     opacity: 1;
