@@ -13,16 +13,16 @@ export default {
           key:"menu_inventory_stkMovement"
       },
       {
-          name: 'SALES ORDERS',
-          url: '/sales-orders',
-          icon: 'iconU-salesOrder',
-          key:"menu_orders_highSoOrder"
-      },
-      {
         name: 'PURCHASE ORDERS',
         url: '/purchaseorder',
         icon: 'iconU-purchaseOrder',
         key:"menu_orders_po_open"
+      },
+      {
+          name: 'SALES ORDERS',
+          url: '/sales-orders',
+          icon: 'iconU-salesOrder',
+          key:"menu_orders_highSoOrder"
       },
       {
         name: 'USER MANAGEMENT',
