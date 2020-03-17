@@ -442,7 +442,7 @@ class UserManagement extends Component{
 
 
     saveClick = () => {
-      console.log(this.state.accountInfo);
+
       const {name,userId,email,userMenu} = this.state.accountInfo;
       if(name && userId && email && userMenu.length)
       {
@@ -456,9 +456,7 @@ class UserManagement extends Component{
       const {name,userId,email,userMenu} = self.state.accountInfo;
       if(name && userId && email && userMenu.length)
       {
-
         let param = {...this.state.accountInfo};
-
 
         axios.post(endpoint.UserManagement_Create,param,{ headers: headers })
           .then(res => {
@@ -471,12 +469,12 @@ class UserManagement extends Component{
             return result;
           })
           .catch(error => {
+              self.setState({isSaveProgressing:false});
               console.log("error save",error);
           })
           .then((result) => {
 
           })
-
       }
 
     }
