@@ -305,7 +305,7 @@ class ListOrderComponent extends Component {
                   <thead>
                     <tr style={{borderBottom:"3px solid #f0f0f0 !important"}}>
                        {this.state.tableheader.map(header =>
-                        <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
+                        <th style={{padding: "0.5rem 1rem 0.5rem 1rem"}} key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
                            <img key={header} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}} src={this.state.activearrow}/>
                         </th>
                               )}  
@@ -321,7 +321,7 @@ class ListOrderComponent extends Component {
                                       <td>{data.order_no}</td>
                                       <td>{data.order_type}</td>
                                       <td>{data.customer_name}</td>
-                                      <td>{data.status_desc}</td>
+                                      <td style={{width:"10%"}}>{data.status_desc}</td>
                                       <td>{'' + (data.date_due ? moment(data.date_due).format("YYYY/MM/DD") : '') }</td>
                                       <td>{'' + (data.date_recd ? moment(data.date_recd).format("YYYY/MM/DD") : '') }</td>
                                       <td>{'' + (data.date_released ? moment(data.date_released).format("YYYY/MM/DD") : '') }</td>

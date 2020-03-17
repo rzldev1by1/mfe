@@ -45,6 +45,14 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
             }
         }
 
+        close = () => {
+          this.props.close()
+        }
+        tabhandler= () => {
+          this.props.tabhandler()
+        }
+    
+
         render = () => {
             return(
         <div className="tabcontents">
@@ -142,12 +150,14 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
               <tr>
                   <td style={{color:"transparent"}}>1</td>
                 </tr>
-              <div style={{marginTop:"7%"}}>
+              {/* <div style={{marginTop:"7%"}}>
               {this.state.tab2isactive ? 
                   this.submit() :  
                   <Button onClick={() => this.tabhandler()} color="primary" className="btnsearch next btnleft" ></Button>
                 } 
-              </div>
+              </div> */}
+              <Button onClick={() => this.tabhandler()} color="primary" className="btnsearch back" ><label className="font">Back</label></Button>
+              <Button onClick={() => this.close()} color="primary" className="btnsearch submit btnleft" style={{marginTop:"-50px"}} ><label className="font">Submit</label></Button> 
           </div>)
         }
 

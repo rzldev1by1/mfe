@@ -44,6 +44,18 @@ class Authentication {
         return user["userLevel"];
     }
 
+		static getName = () => {
+				let user = Authentication.getUser();
+				if (!user) { return false };
+				return user["name"];
+		}
+
+		static getId = () => {
+				let user = Authentication.getUser();
+				if (!user) { return false };
+				return user["userId"];
+		}
+
 	static getToken = () => {
 		let user = Authentication.getUser();
 		if (!user) { return false };

@@ -21,9 +21,9 @@ class Paging extends Component {
 			let pageNumber = [];
 			let totalPage = this.props.maxPage;
 
-			for (let i = 0 ; i <= totalPage; i++) {
+			for (let i = 0 ; i < totalPage; i++) {
 				pageNumber.push(
-					<li className={"btn btn-paging" + (this.props.currentPage ===  i + 1 ? "-active" : "")}
+					<li className={"btn btn1 btn-paging" + (this.props.currentPage ===  i + 1 ? "-active" : "")}
 						id={i} name="pageNumber" key={i}
 						onClick={this.numberClickEvent}>
 						{i+1}
@@ -35,12 +35,18 @@ class Paging extends Component {
     }
 
     handleChangeSearch = (e) => {
-        const value = e.target.value.replace(/\+|-/ig, '');
+        const value = (e.target.validity.valid) ? e.target.value : this.state.value;
         this.setState({ value: value });
     }
-
+    
     handleSubmit = () => {
-        this.props.numberEventClick(this.state.value.trim())
+        if(this.state.value > Math.ceil(this.props.maxPage))
+        {
+            alert('max page is '+ Math.ceil(this.props.maxPage))
+        }
+        else{
+            this.props.numberEventClick(this.state.value.trim())
+        }
     }
      
     showPageNumber = () => {
@@ -48,19 +54,19 @@ class Paging extends Component {
             <div className={this.props.maxPage > 1 ? "card-footer text-left border-company border-top-0 pl-0 pr-0 bg-transparent" : "d-none"}>
                 <div style={{display :"flex"}}>
                 <InputGroup className="group1">
-                    <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage > 1 ? "" : "-inactive")} onClick={this.firstPageClick}>
+                    <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage > 1 ? "" : "-inactive ")} onClick={this.firstPageClick}>
                         <i className=" iconU-firstPage icon" aria-hidden="true" />
                     </button>
-                    <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage > 1 ? "" : "-inactive")} onClick={this.backPageClick}>
+                    <button style={{outline:"solid #fff"}}  className={"btn p-0 btn-pagingNav" + (this.props.currentPage > 1 ? "" : "-inactive ")} onClick={this.backPageClick}>
                         <i className="fa fa-angle-left fa-2x" aria-hidden="true" />
                     </button>
                     
                         <span className="number" >{this.createPageNumber()}</span>
 
-                        <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage < this.props.maxPage ? "" : "-inactive")} onClick={this.nextPageClick}>
+                        <button style={{outline:"solid #fff" , marginLeft:"3px"}} className={"btn p-0 btn-pagingNav" + (this.props.currentPage < this.props.maxPage ? "" : "-inactive ")} onClick={this.nextPageClick}>
                             <i className="fa fa-angle-right fa-2x" aria-hidden="true" /> 
                         </button>
-                        <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage < this.props.maxPage ? "" : "-inactive")} onClick={this.lastPageClick}>
+                        <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage < this.props.maxPage ? "" : "-inactive ")} onClick={this.lastPageClick}>
                         <i className=" iconU-lastPage icon" aria-hidden="true" />
                         </button>
                 </InputGroup>
@@ -68,11 +74,21 @@ class Paging extends Component {
                     <div className="text">
                         <span style={{color:'#B4B9BB'}} className="p-0">Go to page</span>
                         <form onSubmit={e => { e.preventDefault() ; this.handleSubmit() }}>
-                        <input type="text" className="search_1" maxLength="4" value={this.state.value} onChange={e => this.handleChangeSearch(e)} />
+                        <input type="text" pattern="[0-9]*"  className="search_1" maxLength="4"  placeholder={ parseInt(this.props.maxPage + 1)} value={this.state.value} onChange={e => this.handleChangeSearch(e)} />
                         <button className="submit_1" style={{color:"#637175"}}>Go <i className="fa fa-angle-right fa-2x logo" /> </button>
                     </form>
                     </div>
                 </InputGroup>
+
+                {/* <InputGroup className="group2">
+                    <label id='labelPage'>Go to page</label>
+                    <input onChange={(e) => this.setState({activePage:e.currentTarget.value})}  placeholder={ parseInt(this.props.maxPage + 1)} id='goToPage' class="form-control"/>
+                    <label id='labelButton'>
+                    <label onClick={() => this.goToHandler()} id='labelButton'>Go</label>
+                    <label className='iconU-rightArrow'/>
+                    </label>
+                </InputGroup> */}
+
                     <span className="showing">
                         <a style={{color:"#B4B9BB" , marginRight:"2%"}}>Showing</a>
                         <a style={{marginRight:"2%"}}>{this.props.startIndex + 1}</a>

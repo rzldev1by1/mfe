@@ -58,6 +58,7 @@ function YearMonthForm({ date, localeUtils, onChange, current }) {
                   firstChecked={true}
                   optionSelected={current.getFullYear()}
                   usedFor="Datepicker"
+                  field="orderDate"
                   />
         {console.log(monthValue, yearValue)}
       {/* <select name="month" onChange={handleChange} value={date.getMonth()}>
@@ -115,7 +116,7 @@ class DatePicker extends React.Component{
                     <li className="select_date_items">
                         <input className="select_date_expand" type="checkbox" name={"select" + placeHolder + no} value="" id={"select-opener" + placeHolder + no}/>
                         <label className="select_date_closeLabel" htmlFor={"select-opener" + placeHolder + no}></label>
-                        <div className="select_date_options">
+                        <div className={"select_date_options" + (this.props.field == "smallField" ? " smallField" : "")}>
                             <div className="dateInfo">
                                 {this.state.selectedDay ? moment(this.state.selectedDay).format(this.props.shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : "Please Select the Date"}
                             </div>

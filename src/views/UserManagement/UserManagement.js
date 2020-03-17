@@ -42,7 +42,7 @@ class UserManagement extends Component{
                 'User', 'User ID', 'User Level', 'Client', 'Last Access', 'Status', ''
                 ],
             personalUser : [
-                {youraccount:"georgesmith@ttl.com", userid:"12345", client:"All Client", site:"All Site"}
+                {youraccount:"-", userId:"-", client:"-", site:"-"}
                     ],
             headersPersonal : [
                 'Your Account', 'User ID', 'Client', 'Site'
@@ -112,6 +112,21 @@ class UserManagement extends Component{
 
         return newUserArray;
     }
+    restucturePersonalUser = (sources) => {
+      var newArray = [];
+
+      if(sources){
+          newArray = sources.map((item,index)=>{
+            let newItem = {};
+            newItem.youraccount = item.email;
+            newItem.userId = item.userId;
+            newItem.client = item.client;
+            newItem.site = '-';
+            return newItem;
+          });
+      }
+      return newArray;
+    }
 
     getStartIndex = (currentPage) => {
       let startIndex = 0;
@@ -125,21 +140,26 @@ class UserManagement extends Component{
     }
 
     getLastIndex = (currentPage) => {
+      const {totalPage,userList} = this.state;
+
       let lastIndex = 0;
       if(currentPage < 1)
         return;
 
       let displayRow = this.state.displayRow;
-      lastIndex = currentPage * displayRow;
+
+      lastIndex = (currentPage !== totalPage)? (currentPage * displayRow):userList.length;
 
       return lastIndex;
     }
 
     numberEventClick = (currentPage) => {
-  		let page = parseInt(currentPage);
-      let startIndex = this.getStartIndex(page);
-      let lastIndex = this.getLastIndex(page);
-  		this.setState({ currentPage: page,startIndex:startIndex,lastIndex:lastIndex });
+      if(currentPage <= this.state.totalPage){
+        let page = parseInt(currentPage);
+        let startIndex = this.getStartIndex(page);
+        let lastIndex = this.getLastIndex(page);
+        this.setState({ currentPage: page,startIndex:startIndex,lastIndex:lastIndex });
+      }
   	}
 
     nextPageClick = () => {
@@ -183,6 +203,14 @@ class UserManagement extends Component{
       }
     }
 
+    getUserID = () => {
+      let user = JSON.parse(localStorage.getItem("user"));
+       if(user)
+          return user.userId;
+      else
+          return null;
+    }
+
     loadUsers = () => {
         // if(users){
         //   this.setState({isListLoaded:true,userList:users});
@@ -196,11 +224,15 @@ class UserManagement extends Component{
             if(res.status === 200){
               let totalPage = self.calculatePageRow(res.data.data);
 
+              let userId = self.getUserID()
               let startIndex = self.state.startIndex;
               let lastIndex = self.state.displayRow;
               let currentPage = parseInt(lastIndex / self.state.displayRow)
               result = self.restructureUserList(res.data.data);
-              self.setState({isListLoaded:true,userList:result, totalPage:totalPage,startIndex:startIndex,lastIndex:lastIndex,currentPage:currentPage});
+              let loginUser = self.restucturePersonalUser(result.filter((item)=>{ return item.userId === userId}));
+
+              self.setState({isListLoaded:true,userList:result, personalUser:loginUser, totalPage:totalPage,
+                startIndex:startIndex,lastIndex:lastIndex,currentPage:currentPage});
             }
             return result;
           })
@@ -408,6 +440,7 @@ class UserManagement extends Component{
       }
     }
 
+
     saveClick = () => {
 
       const {name,userId,email,userMenu} = this.state.accountInfo;
@@ -423,9 +456,7 @@ class UserManagement extends Component{
       const {name,userId,email,userMenu} = self.state.accountInfo;
       if(name && userId && email && userMenu.length)
       {
-
         let param = {...this.state.accountInfo};
-
 
         axios.post(endpoint.UserManagement_Create,param,{ headers: headers })
           .then(res => {
@@ -438,12 +469,12 @@ class UserManagement extends Component{
             return result;
           })
           .catch(error => {
+              self.setState({isSaveProgressing:false});
               console.log("error save",error);
           })
           .then((result) => {
 
           })
-
       }
 
     }
@@ -484,17 +515,12 @@ class UserManagement extends Component{
             </div>
 
             <div className={( this.state.isListLoaded ? 'd-none': 'spinner')}/>
-            <Card className={( this.state.isListLoaded ? 'container-user-list border-0':' d-none ')}>
+            <Card className={( this.state.isListLoaded ? 'container-user-list border-0 mb-0':' d-none ')}>
                 <CardBody>
 
                     <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}
                     startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}/>
 
-                    <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
-                            backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-                            totalRows={this.state.displayRow} currentPage={this.state.currentPage} maxPage={(this.state.totalPage -1)}
-                            startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
-                            numberEventClick={this.numberEventClick}/>
 
                       <ModalNewUser isOpen={this.state.isModalNewOpen} closeModal={this.closeModalPopUp} model={this.state.accountInfo}
                       onChangeName={this.onChangeName} onChangeEmail={this.onChangeEmail} moduleAccess={this.state.moduleAccess}
@@ -506,6 +532,15 @@ class UserManagement extends Component{
 
                 </CardBody>
             </Card>
+
+            <footer>
+              <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
+              backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+              totalRows={this.state.userList.length} currentPage={this.state.currentPage}
+              maxPage={(this.state.totalPage)}
+              startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+              numberEventClick={this.numberEventClick}/>
+            </footer>
         </div>)
     }
 }

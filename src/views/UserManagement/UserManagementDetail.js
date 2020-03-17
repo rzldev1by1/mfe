@@ -11,7 +11,7 @@ import moment from 'moment';
 import popupLock from '../../assets/img/brand/popup_lock.png'
 import popupLockSuccess from '../../assets/img/brand/popup_success_lock.png'
 
-const today = moment(new Date()).format("YYYY-MM-DD");
+const today = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
 const passChanged = '1999-08-28';
 
 
@@ -286,6 +286,18 @@ class UserManagementDetail extends Component{
       this.setState({accountInfo:user});
     }
 
+    generateUserID = (textValue) => {
+      let result="";
+
+      if(textValue && textValue.length > 2){
+        var anysize = 3;//the size of string
+        var charset = "abcdefghijklmnopqrstuvwxyz"; //from where to create
+        for( var i=0; i < anysize; i++ )
+        result += charset[Math.floor(Math.random() * (9))];
+      }
+      return result;
+    }
+
     getParam = (passwordChange) => {
         let newParam = {};
         let accountInfo = {...this.state.accountInfo};
@@ -298,8 +310,11 @@ class UserManagementDetail extends Component{
   	    newParam.userMenu = this.changeUserMenuToStringArray(accountInfo.userMenu);
         newParam.client = accountInfo.client;
         newParam.disabled = accountInfo.disabled?'Y':'N';
-        if(passwordChange !== '')
-           newParam.passwordChange = passChanged;
+        if(passwordChange !== ''){
+            let newText = newParam.name.substring(0,2);
+            let result = this.generateUserID(today);
+            newParam.passwordChange = result+newText.toLowerCase();
+        }
 
         return newParam;
     }
@@ -458,6 +473,10 @@ class UserManagementDetail extends Component{
 
                                 <div className="row">
                                 <div className="col-2">
+                                    <label className="text-bolder title-label">User ID</label>
+                                </div>
+
+                                <div className="col-2">
                                     <label className="text-bolder title-label">Name</label>
                                 </div>
 
@@ -465,9 +484,7 @@ class UserManagementDetail extends Component{
                                     <label className="text-bolder title-label">Email</label>
                                 </div>
 
-                                <div className="col-2">
-                                    <label className="text-bolder title-label">ID</label>
-                                </div>
+
                                 <div className="col-2">
                                     <label className="text-bolder title-label">Reset Password</label>
                                 </div>
@@ -483,6 +500,11 @@ class UserManagementDetail extends Component{
 
                                 </div>
                                 <div className="row">
+
+                                    <div className="col-2">
+                                        <input type="text" readOnly className="form-control" defaultValue={this.state.accountInfo.userId}/>
+                                    </div>
+
                                     <div className="col-2">
                                         <input type="text" className="form-control" onChange={(e)=>{this.onChangeName(e);}} defaultValue={this.state.accountInfo.user}/>
                                     </div>
@@ -491,9 +513,7 @@ class UserManagementDetail extends Component{
                                         <input type="text" name="email" className="form-control" onChange={(e)=>{this.onChangeEmail(e);}} defaultValue={this.state.accountInfo.email}/>
                                     </div>
 
-                                    <div className="col-2">
-                                        <input type="text" readOnly className="form-control" defaultValue={this.state.accountInfo.userId}/>
-                                    </div>
+
                                     <div className="col-3">
                                           <div className="col pl-0">
                                           <label>

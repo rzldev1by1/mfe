@@ -4,7 +4,7 @@ import '../UserManagement.css'
 import mid from '../../../assets/img/brand/field-idle.png'
 import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
-
+import moment from 'moment'
 
 
 class UserListComponent extends Component{
@@ -151,11 +151,15 @@ class UserListComponent extends Component{
                                            return <tr key={index} onClick={(e)=>{ this.onRowClick(e,element.web_user);}}>
                                                     {
                                                        Object.keys(element).map((item,idx) => {
+
                                                           return (item !== 'email' && item !== 'web_user' && item !== 'company')?
                                                                   <td key={idx} className={(item === 'user')?'users':'norm'}>
                                                                    { (item === 'action')?
-                                                                   <span className='next'></span>:
-                                                                   <label className={((item === 'status')? ((element[item].toLowerCase() === 'active')?'active':'suspended'):'')}>{element[item]}</label> }
+                                                                     <span className='next'></span>:
+                                                                     <label className={((item === 'status')? ((element[item].toLowerCase() === 'active')?'active':'suspended'):'')}>
+                                                                      {(item === 'lastaccess')?moment(element[item]).format('DD/MM/YY hh:mm:ss'):element[item]}
+                                                                     </label>
+                                                                   }
                                                                    </td>:null
                                                        })
                                                     }

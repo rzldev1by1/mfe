@@ -131,12 +131,12 @@ class DefaultLayout extends Component {
                                                 <img className="profilePhoto" src={dummyPic} alt="dummyPic" />
                                             </td> */}
                                             <td className="pb-0">
-                                                <span className="userName">George Smith</span>
+                                                <span className="userName">{Authentication.getName()}</span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td className="pt-0">
-                                                <span className="profileID"> ID:123012131 </span>
+                                                <span className="profileID"> ID: {Authentication.getId()} </span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -150,7 +150,7 @@ class DefaultLayout extends Component {
                                 </table>
                             </div>
 
-                            {this.expandUser()}
+                            {/* {this.expandUser()} */}
                         </Suspense>
                         <AppSidebarFooter />
                         {/* <AppSidebarMinimizer /> */}

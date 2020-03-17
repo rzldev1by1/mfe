@@ -430,6 +430,17 @@ input:checked + .slider:before {
     border-color: #D5D8DA;
 }
 
+.checkbox-hidden{
+	opacity: 0;
+}
+
+.footer-pagination {
+    /* position: fixed; */
+    bottom: 0;
+    width: 100%;
+		position: absolute;
+}
+
 
 
 
