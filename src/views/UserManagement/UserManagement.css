@@ -358,7 +358,8 @@ input:checked + .slider:before {
 
 .tablePage{
 	max-height: 550px !important;
-	min-height: 550px !important;
+	min-height: 70vh !important;
+	/* min-height: 550px !important; */
 	overflow-y:auto;
 	font-size: 1.1em;
 }
