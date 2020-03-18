@@ -450,131 +450,133 @@ class UserManagementDetail extends Component{
         const {moduleAccess,sites,clients, accountInfo} = this.state;
 
         return(<div>
-           <div className="d-flex mt-4">
-                <div className='um-breadcrumb'>
-                    <h2 onClick={() => { this.gotoUM(); }} className='margin-right-breadcrumb-title' style={{cursor:"pointer"}}>User Management</h2>
-                    <h2 className='margin-right-breadcrumb-title iconU-rightArrow' style={{fontSize:20}}/>
-                    <h2 className='breadcrumb-active-title'>{this.state.accountInfo.user}</h2>
+            <div className={( this.state.isLoadComplete ? 'd-none': 'spinner')}/>
+            <div className={( this.state.isLoadComplete ? ' ': 'd-none')}>
+
+               <div className="d-flex mt-4">
+                    <div className='um-breadcrumb'>
+                        <h2 onClick={() => { this.gotoUM(); }} className='margin-right-breadcrumb-title' style={{cursor:"pointer"}}>User Management</h2>
+                        <h2 className='margin-right-breadcrumb-title iconU-rightArrow' style={{fontSize:20}}/>
+                        <h2 className='breadcrumb-active-title'>{this.state.accountInfo.user}</h2>
+                    </div>
+                </div>
+                <div className="d-flex pt-4">
+                    <Card className="container-user-list border-0 flex-fill h-100">
+                        <CardBody>
+                            <div >
+                                <div className="account-detail mt-2">
+                                    <div className="row">
+                                      <div className="col-12">
+                                        <h3>
+                                          <label className="name-account font-bolder">User Details</label>
+                                        </h3>
+                                      </div>
+                                    </div>
+
+                                    <div className="row">
+                                    <div className="col-2">
+                                        <label className="text-bolder title-label">User ID</label>
+                                    </div>
+
+                                    <div className="col-2">
+                                        <label className="text-bolder title-label">Name</label>
+                                    </div>
+
+                                    <div className="col-2">
+                                        <label className="text-bolder title-label">Email</label>
+                                    </div>
+
+
+                                    <div className="col-2">
+                                        <label className="text-bolder title-label">Reset Password</label>
+                                    </div>
+                                    <div className="col-1">
+
+                                    </div>
+                                    <div className="col-2">
+                                          <label className="text-bolder title-label">Suspend Users</label>
+                                    </div>
+                                    <div className="col-1">
+
+                                    </div>
+
+                                    </div>
+                                    <div className="row">
+
+                                        <div className="col-2">
+                                            <input type="text" readOnly className="form-control" defaultValue={this.state.accountInfo.userId}/>
+                                        </div>
+
+                                        <div className="col-2">
+                                            <input type="text" className="form-control" onChange={(e)=>{this.onChangeName(e);}} defaultValue={this.state.accountInfo.user}/>
+                                        </div>
+
+                                        <div className="col-2">
+                                            <input type="text" name="email" className="form-control" onChange={(e)=>{this.onChangeEmail(e);}} defaultValue={this.state.accountInfo.email}/>
+                                        </div>
+
+
+                                        <div className="col-3">
+                                              <div className="col pl-0">
+                                              <label>
+                                                  Are you sure you want<br/>
+                                                  to reset password?
+                                              </label>
+                                                <span className={'p-1 float-right '  + ((accountInfo.passwordChange === '')? ' client-active':'client-notActive')} onClick={(e)=>{this.onClickResetPassword()}}>
+                                                  Reset Password
+                                                </span>
+                                              </div>
+                                        </div>
+                                        <div className="col-3">
+                                              <div className="col pl-0">
+                                                <label className="account-name">Are you sure you want <br/> to suspend this user?</label>
+                                                <span className={'p-1 float-right '+((!accountInfo.disabled)?'client-active ':' client-notActive ')} onClick={(e)=>{this.onClieckSuspendUser()}}>
+                                                { (!accountInfo.disabled)?'Enable':'Disable' }
+                                                </span>
+                                              </div>
+                                        </div>
+
+
+                                    </div>
+
+
+                                </div>
+                                <div className="system mt-4">
+                                    <div className="row">
+                                        <div className="col-12">
+                                          <h3>
+                                              <label className="name-account font-bolder">System</label>
+                                          </h3>
+                                        </div>
+                                    </div>
+                                    <div className="d-flex flex-row">
+                                        <div className="flex-fill mr-2">
+                                            <ModuleAccess moduleAccess={moduleAccess} onEnableClick={this.onModuleAccessClick}/>
+                                        </div>
+                                        <div className="flex-fill mr-2">
+                                            <Site sites={sites} onEnableClick={this.onSiteStatusClick}/>
+                                        </div>
+                                        <div className="flex-fill mr-2">
+                                            <Client clients={clients} onEnableClick={this.onClientStatusClick}/>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div className="d-flex mt-5 mr-3 justify-content-end">
+
+                                      <button className=" font-lg font-md font-sm btn btn-primary btn-submit" onClick={(e)=>{this.saveClick();}}>
+                                          <i className= {(this.state.isSaveProgressing)?"mr-2 fa fa-refresh fa-spin ":"fa fa-refresh fa-spin d-none"}></i>
+                                          <label className="create-user-label mb-0">Save</label>
+                                      </button>
+
+                                </div>
+                            </div>
+                        </CardBody>
+                    </Card>
                 </div>
             </div>
-            <div className="d-flex pt-4">
-                <Card className="container-user-list border-0 flex-fill h-100">
-                    <CardBody>
-                        <div className={( this.state.isLoadComplete ? 'd-none': 'spinner')}/>
-                        <div className={( this.state.isLoadComplete ? ' ': 'd-none')}>
-                            <div className="account-detail mt-2">
-                                <div className="row">
-                                  <div className="col-12">
-                                    <h3>
-                                      <label className="name-account font-bolder">User Details</label>
-                                    </h3>
-                                  </div>
-                                </div>
-
-                                <div className="row">
-                                <div className="col-2">
-                                    <label className="text-bolder title-label">User ID</label>
-                                </div>
-
-                                <div className="col-2">
-                                    <label className="text-bolder title-label">Name</label>
-                                </div>
-
-                                <div className="col-2">
-                                    <label className="text-bolder title-label">Email</label>
-                                </div>
-
-
-                                <div className="col-2">
-                                    <label className="text-bolder title-label">Reset Password</label>
-                                </div>
-                                <div className="col-1">
-
-                                </div>
-                                <div className="col-2">
-                                      <label className="text-bolder title-label">Suspend Users</label>
-                                </div>
-                                <div className="col-1">
-
-                                </div>
-
-                                </div>
-                                <div className="row">
-
-                                    <div className="col-2">
-                                        <input type="text" readOnly className="form-control" defaultValue={this.state.accountInfo.userId}/>
-                                    </div>
-
-                                    <div className="col-2">
-                                        <input type="text" className="form-control" onChange={(e)=>{this.onChangeName(e);}} defaultValue={this.state.accountInfo.user}/>
-                                    </div>
-
-                                    <div className="col-2">
-                                        <input type="text" name="email" className="form-control" onChange={(e)=>{this.onChangeEmail(e);}} defaultValue={this.state.accountInfo.email}/>
-                                    </div>
-
-
-                                    <div className="col-3">
-                                          <div className="col pl-0">
-                                          <label>
-                                              Are you sure you want<br/>
-                                              to reset password?
-                                          </label>
-                                            <span className={'p-1 float-right '  + ((accountInfo.passwordChange === '')? ' client-active':'client-notActive')} onClick={(e)=>{this.onClickResetPassword()}}>
-                                              Reset Password
-                                            </span>
-                                          </div>
-                                    </div>
-                                    <div className="col-3">
-                                          <div className="col pl-0">
-                                            <label className="account-name">Are you sure you want <br/> to suspend this user?</label>
-                                            <span className={'p-1 float-right '+((!accountInfo.disabled)?'client-active ':' client-notActive ')} onClick={(e)=>{this.onClieckSuspendUser()}}>
-                                            { (!accountInfo.disabled)?'Enable':'Disable' }
-                                            </span>
-                                          </div>
-                                    </div>
-
-
-                                </div>
-
-
-                            </div>
-                            <div className="system mt-4">
-                                <div className="row">
-                                    <div className="col-12">
-                                      <h3>
-                                          <label className="name-account font-bolder">System</label>
-                                      </h3>
-                                    </div>
-                                </div>
-                                <div className="d-flex flex-row">
-                                    <div className="flex-fill mr-2">
-                                        <ModuleAccess moduleAccess={moduleAccess} onEnableClick={this.onModuleAccessClick}/>
-                                    </div>
-                                    <div className="flex-fill mr-2">
-                                        <Site sites={sites} onEnableClick={this.onSiteStatusClick}/>
-                                    </div>
-                                    <div className="flex-fill mr-2">
-                                        <Client clients={clients} onEnableClick={this.onClientStatusClick}/>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div className="d-flex mt-5 mr-3 justify-content-end">
-
-                                  <button className=" font-lg font-md font-sm btn btn-primary btn-submit" onClick={(e)=>{this.saveClick();}}>
-                                      <i className= {(this.state.isSaveProgressing)?"mr-2 fa fa-refresh fa-spin ":"fa fa-refresh fa-spin d-none"}></i>
-                                      <label className="create-user-label mb-0">Save</label>
-                                  </button>
-
-                            </div>
-                        </div>
-                    </CardBody>
-                </Card>
-            </div>
-
             <Modal isOpen={this.state.modalPopupResetdisplay} toggle={this.toggleModalConfirm}
             centered={true} className={"modal-company modal-sm animated fadeIn"} backdrop="static"
             onOpened={() => this.state.updateSuccess ? setTimeout(() => this.toogleModalConfirm(), 1000) : {}}>
@@ -617,7 +619,7 @@ class UserManagementDetail extends Component{
             </div>
           </ModalBody>
 
-        </Modal>
+          </Modal>
         </div>)
     }
 
