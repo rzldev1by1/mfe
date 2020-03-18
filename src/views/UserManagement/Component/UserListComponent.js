@@ -93,16 +93,70 @@ class UserListComponent extends Component{
       return result;
     }
 
+    setActiveSort = (element) =>{
+      const {id} = element;
+      let sort = id.split('-');
+      console.log(id);
+      if(sort[1] === 'asc'){
+        let elDesc = document.getElementById(`${sort[0]}-desc`);
+
+        if(elDesc.classList.contains('sort-desc-active')){
+          elDesc.classList.remove('sort-desc-active');
+        }
+
+        if(element.classList.contains('sort-asc-active')){
+          element.classList.remove('sort-asc-active');
+        }
+
+          element.classList.add('sort-asc-active');
+
+      }else{
+
+        let elAsc = document.getElementById(`${sort[0]}-asc`);
+
+        if(elAsc.classList.contains('sort-asc-active')){
+          elAsc.classList.remove('sort-asc-active');
+        }
+
+        if(element.classList.contains('sort-desc-active')){
+          element.classList.remove('sort-desc-active');
+        }
+
+        element.classList.add('sort-desc-active');
+
+      }
+    }
+
+    clearSortingActive =()=>{
+      const {headers} = this.state;
+      headers.forEach((item, i) => {
+        if(item !== ''){
+
+          let elDesc = document.getElementById(`${item}-desc`);
+          let elAsc = document.getElementById(`${item}-asc`);
+
+          if(elDesc.classList.contains('sort-desc-active')){
+            elDesc.classList.remove('sort-desc-active');
+          }
+
+          if(elAsc.classList.contains('sort-asc-active')){
+            elAsc.classList.remove('sort-asc-active');
+          }
+        }
+      });
+
+    }
+
     onSortingCLick = (e) => {
         const {id} = e.currentTarget;
+        let currentEl = e.currentTarget;
+        let paramField = id.split('-');
+        let sortBy = paramField[1];
         const {order} = this.state;
-        let fieldOrder = this.getSortingField(id);
-
-        if(order === 'desc'){
-          this.setState({order:'asc',fieldOrder:fieldOrder, activearrow:up});
-        }else{
-          this.setState({order:'desc',fieldOrder:fieldOrder, activearrow:down});
-        }
+        let fieldOrder = this.getSortingField(paramField[0]);
+        this.clearSortingActive();
+        this.setActiveSort(currentEl)
+        this.setState({order:sortBy,fieldOrder:fieldOrder});
 
     }
 
@@ -133,9 +187,23 @@ class UserListComponent extends Component{
                                     {
                                         this.state.headers.map((element,index)=>{
                                         return <th key={index} className="headers">
-                                        <div key={element} id={element} onClick={(e)=>{this.onSortingCLick(e);}} className="header-sort" >
-                                            {element}
-                                            {(element === '')?'': <img key={element} className="arrow" src={activearrow}/>}
+                                        <div key={element} className="header-sort" >
+                                          <div className="d-inline-flex">
+                                              <div className="d-flex flex-row">
+                                                {element}
+                                              </div>
+                                              {
+                                                (element === '')?'': (<div className="d-flex flex-column">
+                                                <span key={index} id={`${element}-desc`} onClick={(e)=>{this.onSortingCLick(e);}} className={'upArrow'} style={{height:'10px',position:'absolute',top:'20px', marginLeft:'10px'}}></span>
+                                                <span key={element} id={`${element}-asc`} onClick={(e)=>{this.onSortingCLick(e);}} className={'downArrow'} style={{height:'10px',position:'absolute',top:'35px', marginLeft:'10px'}}></span>
+                                                </div>)
+                                              }
+
+
+
+                                          </div>
+                                            {/*(element === '')?'': <img key={element} className="arrow" src={activearrow}/>**/}
+
                                         </div>
 
 
