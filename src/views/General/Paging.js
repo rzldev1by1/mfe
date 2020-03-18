@@ -48,10 +48,21 @@ class Paging extends Component {
             this.props.numberEventClick(this.state.value.trim())
         }
     }
-     
-    showPageNumber = () => {
+    
+    pageNumber = () => {
+        if(this.props.maxPage > 1){
+           return this.createPageNumber() 
+        }
+        else
+        {
+           return <li className={"btn btn1 btn-paging" + (this.props.currentPage + 1 ? "-active" : "") } >1</li>
+        }
+    }
+
+    render = () => {
         return (
-            <div className={this.props.maxPage > 1 ? "card-footer text-left border-company border-top-0 pl-0 pr-0 bg-transparent" : "d-none"}>
+            // <div className={this.props.maxPage > 1 ? "card-footer text-left border-company border-top-0 pl-0 pr-0 bg-transparent" : "d-none"}>
+            <div className={"card-footer text-left border-company border-top-0 pl-0 pr-0 bg-transparent"}>
                 <div style={{display :"flex"}}>
                 <InputGroup className="group1">
                     <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage > 1 ? "" : "-inactive ")} onClick={this.firstPageClick}>
@@ -61,7 +72,7 @@ class Paging extends Component {
                         <i className="fa fa-angle-left fa-2x" aria-hidden="true" />
                     </button>
                     
-                        <span className="number" >{this.createPageNumber()}</span>
+                        <span className={"number"} >{this.pageNumber()}</span>
 
                         <button style={{outline:"solid #fff" , marginLeft:"3px"}} className={"btn p-0 btn-pagingNav" + (this.props.currentPage < this.props.maxPage ? "" : "-inactive ")} onClick={this.nextPageClick}>
                             <i className="fa fa-angle-right fa-2x" aria-hidden="true" /> 
@@ -74,26 +85,16 @@ class Paging extends Component {
                     <div className="text">
                         <span style={{color:'#B4B9BB'}} className="p-0">Go to page</span>
                         <form onSubmit={e => { e.preventDefault() ; this.handleSubmit() }}>
-                        <input type="text" pattern="[0-9]*"  className="search_1" maxLength="4"  placeholder={ parseInt(this.props.maxPage + 1)} value={this.state.value} onChange={e => this.handleChangeSearch(e)} />
+                        <input type="text" pattern="[0-9]*"  className="search_1" maxLength="4"  placeholder={Math.ceil(this.props.maxPage)} value={this.state.value} onChange={e => this.handleChangeSearch(e)} />
                         <button className="submit_1" style={{color:"#637175"}}>Go <i className="fa fa-angle-right fa-2x logo" /> </button>
                     </form>
                     </div>
                 </InputGroup>
-
-                {/* <InputGroup className="group2">
-                    <label id='labelPage'>Go to page</label>
-                    <input onChange={(e) => this.setState({activePage:e.currentTarget.value})}  placeholder={ parseInt(this.props.maxPage + 1)} id='goToPage' class="form-control"/>
-                    <label id='labelButton'>
-                    <label onClick={() => this.goToHandler()} id='labelButton'>Go</label>
-                    <label className='iconU-rightArrow'/>
-                    </label>
-                </InputGroup> */}
-
                     <span className="showing">
                         <a style={{color:"#B4B9BB" , marginRight:"2%"}}>Showing</a>
                         <a style={{marginRight:"2%"}}>{this.props.startIndex + 1}</a>
                         <a style={{marginRight:"2%"}}>to</a>
-                        <a style={{marginRight:"2%"}}>{this.props.currentPage === parseInt(this.props.maxPage + 1) ? this.props.totalRows : this.props.lastIndex}</a>
+                        <a style={{marginRight:"2%"}}>{this.props.currentPage === Math.ceil(this.props.maxPage) ? this.props.totalRows : this.props.lastIndex}</a>
                         <a style={{marginRight:"2%"}}>of</a>
                         <a style={{marginRight:"2%"}}>{this.props.totalRows}</a>
                         <a style={{color:"#B4B9BB"}}> entries</a>
@@ -152,10 +153,6 @@ class Paging extends Component {
         this.props.lastPageClick();
     }
 
-	render() {
-        return this.showPageNumber();
-    }
-    
 }
 
 export default Paging;
