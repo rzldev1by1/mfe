@@ -55,7 +55,7 @@ class StockHolding extends Component {
 				{ id: "expected_out_qty", checkboxLabelText: "Expected Out Qty", tableHeaderText: "Expected Out Qty", isVisible: true, key: "qty_lcd_committed", type: "number", sort: mid },
             ],
             masterSite: [],
-            masterStatus: ["All", "Unavailable", "Available", "Released", "Part Released", "Completed"],
+            masterStatus: ["MICROLISTICS BRIS", "Microlistics", "MICROLISTICS MELB"],
             masterUnit: ["EACH", "CASE", "PALLET"],
 			masterResStockHolding: []
         };
@@ -224,17 +224,17 @@ class StockHolding extends Component {
 
         return (
             <div className={"input-group filterSection" + (this.state.showFilter ? "" : " d-none")}>
-                <Dropdown placeHolder="Site"
+                <Dropdown placeHolder="Site" style={{width:'100px'}}
                           optionList={masterSite.toString()}
                           optionValue={masterSite.toString()}
                           getValue={this.selectedSite} />
 
-                <Dropdown placeHolder="Status"
+                <Dropdown placeHolder="Client" style={{width:'218px'}}
                         optionList={masterStatus}
                         optionValue={masterStatus}
                         getValue={this.selectedStatus} />
 
-                <Dropdown placeHolder="UOM"
+                <Dropdown placeHolder="Product"
                         optionList={masterUnit}
                         optionValue={masterUnit}
                         getValue={this.selectedUnit} />
@@ -383,7 +383,7 @@ class StockHolding extends Component {
 
 		return (
 			<React.Fragment>
-				<div className="animated fadeIn">
+				<div className="animated fadeIn tr">
 					<div className="row">
 						<div className="col-12 p-0">
 							<div className="row pl-1">

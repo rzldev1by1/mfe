@@ -43,7 +43,7 @@ class StockHoldingDetails extends Component {
             stockDetailsColumns: [
 				{ id: "rotadate", checkboxLabelText: "Rotadate", tableHeaderText: "Rotadate", isVisible: true, key: "rotadate", type: "string", sort: mid },
 				{ id: "batch", checkboxLabelText: "Batch", tableHeaderText: "Batch", isVisible: true, key: "batch", type: "string", sort: mid },
-				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: true, key: "disposition", type: "string", sort: mid },
+			//	{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: true, key: "disposition", type: "string", sort: mid },
 				{ id: "ref3", checkboxLabelText: "Ref 3", tableHeaderText: "Ref 3", isVisible: true, key: "ref3", type: "string", sort: mid },
 				{ id: "ref4", checkboxLabelText: "Ref 4", tableHeaderText: "Ref 4", isVisible: true, key: "ref4", type: "string", sort: mid },
 				{ id: "qty", checkboxLabelText: "Qty", tableHeaderText: "Qty", isVisible: true, key: "qty", type: "number", sort: mid }
@@ -302,10 +302,10 @@ class StockHoldingDetails extends Component {
                                                                         <div className="col-12 pb-2 pt-3 pl-3">
                                                                             <div className="row">
                                                                                 <div className="col-2">
-                                                                                    <Label className="primary-text">Product</Label>
+                                                                                    <Label className="primary-text">Site</Label>
                                                                                 </div>
                                                                                 <div className="col-4">
-                                                                                    <Label className="secondary-text">{stockHolding[0]["product"]}</Label>
+                                                                                    <Label className="secondary-text">{stockHolding[0]["site"]}</Label>
                                                                                 </div>
 
                                                                                 <div className="col-2 borderLeft">
@@ -318,10 +318,10 @@ class StockHoldingDetails extends Component {
 
                                                                             <div className="row">
                                                                                 <div className="col-2">
-                                                                                    <Label className="primary-text">Description</Label>
+                                                                                    <Label className="primary-text">Client</Label>
                                                                                 </div>
                                                                                 <div className="col-4">
-                                                                                    <Label className="secondary-text">{stockHolding[0]["description"]}</Label>
+                                                                                    <Label className="secondary-text">{stockHolding[0]["client"]}</Label>
                                                                                 </div>
 
                                                                                 <div className="col-2 borderLeft">
@@ -334,10 +334,10 @@ class StockHoldingDetails extends Component {
 
                                                                             <div className="row">
                                                                                 <div className="col-2">
-                                                                                    <Label className="primary-text">Site</Label>
+                                                                                    <Label className="primary-text">Product</Label>
                                                                                 </div>
                                                                                 <div className="col-4">
-                                                                                    <Label className="secondary-text">{stockHolding[0]["site"]}</Label>
+                                                                                    <Label className="secondary-text">{stockHolding[0]["product"]}</Label>
                                                                                 </div>
                                                                                 <div className="col-2 borderLeft">
                                                                                     <Label className="primary-text">Expected In Qty</Label>
@@ -349,11 +349,11 @@ class StockHoldingDetails extends Component {
 
                                                                             <div className="row">
                                                                                 <div className="col-2">
-                                                                                    <Label className="primary-text">Client</Label>
+                                                                                    <Label className="primary-text">Description</Label>
                                                                                 </div>
                                                                                 <div className="col-4">
                                                                                     {/* <Label className="secondary-text">{this.state.UoM}</Label> */}
-                                                                                    <Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0]["client"] : null}</Label>
+                                                                                    <Label className="secondary-text">{stockHolding.length > 0 ? stockHolding[0]["description"] : null}</Label>
                                                                                 </div>
 
                                                                                 <div className="col-2 borderLeft">

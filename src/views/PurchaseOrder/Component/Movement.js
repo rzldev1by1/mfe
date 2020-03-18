@@ -187,7 +187,7 @@ class Movement extends Component {
                     <div onClick={(e) => this.arrowHandler(e)} id='site' >Site <img className='arrowss' src={this.state.activearrow}/></div>
                     <div onClick={(e) => this.arrowHandler(e)} id='client' >Client <img className='arrowss' src={this.state.activearrow}/></div>
                     <div onClick={(e) => this.arrowHandler(e)} id='product' >Product <img className='arrowss' src={this.state.activearrow}/></div>
-                    <div onClick={(e) => this.arrowHandler(e)} id='productName' >Product Name <img className='arrowss' src={this.state.activearrow}/></div>
+                    <div onClick={(e) => this.arrowHandler(e)} id='productName' >Description <img className='arrowss' src={this.state.activearrow}/></div>
                     <div onClick={(e) => this.arrowHandler(e)} id='uom'>UOM <img className='arrowss' src={this.state.activearrow}/></div>
                 </div>
             </div>
@@ -323,10 +323,10 @@ class Movement extends Component {
                                 }
                             </tr>
                         </thead>
-                        <tbody className='mvmntHead'>
+                        <tbody style={{fontSize:'1rem'}} className='mvmntHead'>
                         {
                             this.state.data.slice(this.state.startIndex,this.state.endIndex).map((data) =>
-                                <tr style={{borderBottom:'1px solid #f5f5f5'}}>
+                                <tr style={{borderBottom:'1px solid #f5f5f5'}} className='tr'>
                                 {
                                     data.detail.map(detail =>
                                     <td height='50' width='15%' style={{borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}><this.tableMovement detail={detail}/></td>
