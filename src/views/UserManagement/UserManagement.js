@@ -518,6 +518,7 @@ class UserManagement extends Component{
             <Card className={( this.state.isListLoaded ? 'container-user-list border-0 mb-0':' d-none ')}>
                 <CardBody>
 
+                  
                     <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}
                     startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}/>
 

@@ -179,7 +179,7 @@ class UserListComponent extends Component{
     render(){
         const {activearrow,order,fieldOrder} = this.state;
         return(
-                <div className="d-flex">
+                <div className="d-flex tablePage">
                     <div className="w-100">
                         <table className="table">
                             <thead>
