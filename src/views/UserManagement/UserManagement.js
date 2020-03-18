@@ -223,7 +223,7 @@ class UserManagement extends Component{
             var result = [];
             if(res.status === 200){
               let totalPage = self.calculatePageRow(res.data.data);
-
+              
               let userId = self.getUserID()
               let startIndex = self.state.startIndex;
               let lastIndex = self.state.displayRow;

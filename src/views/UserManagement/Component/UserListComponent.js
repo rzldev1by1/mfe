@@ -14,8 +14,8 @@ class UserListComponent extends Component{
              headers:this.headers(),
              data: this.rowData(),
              activearrow:mid,
-             order:'desc',
-             fieldOrder:'web_user'
+             order:'asc',
+             fieldOrder:'userId'
         }
     }
 
@@ -96,7 +96,7 @@ class UserListComponent extends Component{
     setActiveSort = (element) =>{
       const {id} = element;
       let sort = id.split('-');
-      console.log(id);
+
       if(sort[1] === 'asc'){
         let elDesc = document.getElementById(`${sort[0]}-desc`);
 
@@ -178,6 +178,7 @@ class UserListComponent extends Component{
 
     render(){
         const {activearrow,order,fieldOrder} = this.state;
+
         return(
                 <div className="d-flex tablePage">
                     <div className="w-100">
@@ -194,13 +195,10 @@ class UserListComponent extends Component{
                                               </div>
                                               {
                                                 (element === '')?'': (<div className="d-flex flex-column">
-                                                <span key={index} id={`${element}-desc`} onClick={(e)=>{this.onSortingCLick(e);}} className={'upArrow'} style={{height:'10px',position:'absolute',top:'20px', marginLeft:'10px'}}></span>
-                                                <span key={element} id={`${element}-asc`} onClick={(e)=>{this.onSortingCLick(e);}} className={'downArrow'} style={{height:'10px',position:'absolute',top:'35px', marginLeft:'10px'}}></span>
+                                                <span key={index} id={`${element}-desc`} onClick={(e)=>{this.onSortingCLick(e);}} className={'upArrow float-right'} style={{height:'10px',position:'relative',top:'-7px', marginLeft:'20px'}}></span>
+                                                <span key={element} id={`${element}-asc`} onClick={(e)=>{this.onSortingCLick(e);}} className={'downArrow float-right'} style={{height:'10px',position:'relative',top:'-3px', marginLeft:'20px'}}></span>
                                                 </div>)
                                               }
-
-
-
                                           </div>
                                             {/*(element === '')?'': <img key={element} className="arrow" src={activearrow}/>**/}
 
