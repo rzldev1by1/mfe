@@ -62,24 +62,6 @@ class Tab1CreateSO extends Component{
           // this.props.history.push("/logins")
         })
     }
-    addline = () => {
-      this.state.rowlistidx += 1;
-      this.setState({rowlist: this.state.rowlist.concat(
-        {
-          id:this.state.rowlistidx,
-          productEntry:null,
-          productDes:null,
-          uom:null,
-          qty:null,
-          rodaDate:null,
-          batch:null,
-          ref3:null,
-          ref4:null,
-          disposition:null
-        }
-      )})
-    }
-
     tabhandler= () => {
       this.props.tabhandler()
     }
@@ -208,8 +190,60 @@ class Tab1CreateSO extends Component{
         )
       }
       
+      deletelinehandler = (e) => {
+        let updated = this.state.rowlist.length
+        
+        // Jika Jumlah produk Entry Lebih dari satu
+        if( updated >1){
+          let id = e.currentTarget.id;
+          for(let i = 0; i < updated; i++){
+              if(this.state.rowlist[i].id == id){
+                this.state.rowlist.splice(i, 1);
+                this.setState({rowlist: this.state.rowlist})
+                this.state.rowlistidx -= 1;
+                let lengthRowlist = this.state.rowlist.length;
+                if(i < lengthRowlist){
+                  for(let x = i; x < lengthRowlist; x++){
+                    this.state.rowlist[x].id -= 1;
+                  }
+                  this.setState({rowlist: this.state.rowlist})
+                }
+                break;
+              }
+          }
+          // this.state.rowlist.map((rowlist, idx) => {
+          //   if (rowlist.id == id) {
+          //       this.state.rowlistidx -= 1;
+          //       this.state.rowlist.splice(idx, 1);
+          //       this.setState({rowlist: this.state.rowlist})
+          //   }
+          // })
+          updated = this.state.rowlist.length
+        }else{
+          alert("cant delete row")
+        }
+      }
+  
+      addline = () => {
+        this.state.rowlistidx += 1;
+        this.setState({rowlist: this.state.rowlist.concat(
+          {
+            id:this.state.rowlistidx,
+            productEntry:null,
+            productDes:null,
+            uom:null,
+            qty:null,
+            rodaDate:null,
+            batch:null,
+            ref3:null,
+            ref4:null,
+            disposition:null
+          }
+        )})
+      }
+      
 
-      linedetailsrow = (list, i,) => {
+      linedetailsrow = (list, id,) => {
         return(
           <table>
             <tr>

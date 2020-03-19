@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { InputGroup } from 'reactstrap';
+import { InputGroup } from 'reactstrap'
 import './Paging.css';
 
 class Paging extends Component {
@@ -33,7 +33,46 @@ class Paging extends Component {
 			return pageNumber;
         }
     }
+	// createPageNumber = () => {
+    //     let currentPage = this.props.currentPage
+    //         range       = 3,
+    //         goStart     = 1;  
+    //     let pageNumber = [];
+    //     if (currentPage < (range / 2) + 1 ) {
+    //         goStart = 1;
+    //     }
+    //     else if (currentPage >= (totalPages - (range / 2) ))
+    //     {
+    //         goStart = Math.floor(totalPages - range + 1);
+    //     } 
+    //     else 
+    //     {
+    //         goStart = (currentPage - Math.floor(range / 2));
+    //     }
 
+    //     for (let i = goStart; i <= ((goStart + range) - 1); i++) {
+    //         if (i === currentPage) {
+    //             pageNumber.push(`[${i}]`); // add brackets to indicate current page 
+    //         } else {
+    //             pageNumber.push(i.toString());
+    //         }
+    //     }
+    //     return pageNumber;
+
+	// 	// 	for (let i = goStart; i <= ((goStart + range) - 1); i++) {
+	// 	// 		pageNumber.push(
+	// 	// 			<li className={"btn btn1 btn-paging" + (this.props.currentPage ===  i + 1 ? "-active" : "")}
+	// 	// 				id={i} name="pageNumber" key={i}
+	// 	// 				onClick={this.numberClickEvent}>
+	// 	// 				{i+1}
+	// 	// 			</li>
+	// 	// 		);
+			
+	// 	// 	return pageNumber;
+    //     // }
+    // }
+
+   
     handleChangeSearch = (e) => {
         const value = (e.target.validity.valid) ? e.target.value : this.state.value;
         this.setState({ value: value });

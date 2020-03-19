@@ -71,7 +71,7 @@
       
       render(){
           return(
-            <Modal isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }}toggle={true}>
+            <Modal className="SOCreate " isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }}toggle={true}>
               <div className="createModals">
                 <ModalHeader style={{marginTop:"1%"}}>
                   <div  style={{display:"inline flex", marginLeft:"30px"}} ><label className="iconU-createModal"/><label className="font"><h2>Create Sales Order</h2></label></div>
