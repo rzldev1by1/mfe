@@ -223,7 +223,7 @@ class UserManagement extends Component{
             var result = [];
             if(res.status === 200){
               let totalPage = self.calculatePageRow(res.data.data);
-
+              
               let userId = self.getUserID()
               let startIndex = self.state.startIndex;
               let lastIndex = self.state.displayRow;
@@ -515,32 +515,30 @@ class UserManagement extends Component{
             </div>
 
             <div className={( this.state.isListLoaded ? 'd-none': 'spinner')}/>
-            <Card className={( this.state.isListLoaded ? 'container-user-list border-0 mb-0':' d-none ')}>
+            <div className={( this.state.isListLoaded ? '':' d-none ')}>
+              <Card className="container-user-list border-0 mb-0">
                 <CardBody>
+                <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}
+                startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}/>
 
-                    <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}
-                    startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}/>
-
-
-                      <ModalNewUser isOpen={this.state.isModalNewOpen} closeModal={this.closeModalPopUp} model={this.state.accountInfo}
-                      onChangeName={this.onChangeName} onChangeEmail={this.onChangeEmail} moduleAccess={this.state.moduleAccess}
-                      isModuleLoaded={this.state.isModuleLoaded} moduleAccessEnableClick={this.onModuleAccessClick}
-                      sites={this.state.sites} isSiteLoaded={this.state.isSiteLoaded} sitesEnableClick={this.onSiteStatusClick}
-                      clients={this.state.clients} isClientLoaded={this.state.isClientLoaded} clientEnableClick={this.onClientStatusClick}
-                      onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing} onChangeCompany={this.onChangeCompany}/>
-
-
+                <ModalNewUser isOpen={this.state.isModalNewOpen} closeModal={this.closeModalPopUp} model={this.state.accountInfo}
+                onChangeName={this.onChangeName} onChangeEmail={this.onChangeEmail} moduleAccess={this.state.moduleAccess}
+                isModuleLoaded={this.state.isModuleLoaded} moduleAccessEnableClick={this.onModuleAccessClick}
+                sites={this.state.sites} isSiteLoaded={this.state.isSiteLoaded} sitesEnableClick={this.onSiteStatusClick}
+                clients={this.state.clients} isClientLoaded={this.state.isClientLoaded} clientEnableClick={this.onClientStatusClick}
+                onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing} onChangeCompany={this.onChangeCompany}/>
                 </CardBody>
-            </Card>
+              </Card>
+              <footer>
+                <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
+                backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                totalRows={this.state.userList.length} currentPage={this.state.currentPage}
+                maxPage={(this.state.totalPage)}
+                startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+                numberEventClick={this.numberEventClick}/>
+              </footer>
+            </div>
 
-            <footer>
-              <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
-              backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-              totalRows={this.state.userList.length} currentPage={this.state.currentPage}
-              maxPage={(this.state.totalPage)}
-              startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
-              numberEventClick={this.numberEventClick}/>
-            </footer>
         </div>)
     }
 }

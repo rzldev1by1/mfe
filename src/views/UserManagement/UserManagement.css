@@ -358,7 +358,8 @@ input:checked + .slider:before {
 
 .tablePage{
 	max-height: 550px !important;
-	min-height: 550px !important;
+	min-height: 70vh !important;
+	/* min-height: 550px !important; */
 	overflow-y:auto;
 	font-size: 1.1em;
 }
@@ -439,6 +440,14 @@ input:checked + .slider:before {
     bottom: 0;
     width: 100%;
 		position: absolute;
+}
+
+.sort-desc-active{
+		color: #22ABE3;
+}
+
+.sort-asc-active{
+		color: #22ABE3;
 }
 
 

@@ -24,7 +24,7 @@ class ListOrderComponent extends Component {
       currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
-			displayPage:5,
+			displayPage:2,
 			totalRows: 0,
 			maxPage: 0,
     }
