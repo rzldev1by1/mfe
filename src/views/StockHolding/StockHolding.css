@@ -343,3 +343,55 @@ button.btnWhite.btn.btn-outline-dark:hover a {
 .breadcrumb-active-title{
     color: #22ABE3;
 }
+
+.tablePage1 {
+	max-height: 650px !important;
+	min-height: 450px !important;
+	/* overflow-y: scroll; */
+	font-size: 1.1em;
+	padding-right: 1px;
+	padding-left: 1px;
+}
+
+
+.arrow {
+	margin-left: 7px !important;
+	width: 0.7em;
+}
+
+.shtable {
+	width: 100%;
+}
+
+.shtable th {
+	border-bottom: 1px solid #D5D8DA !important;
+	height: 45px !important;
+	cursor: pointer;
+	font-size: 15px;
+}
+
+th {
+	font-family: "Helvetica Neue Bold";
+	color: #B4B9BB;
+	padding-left: 16px;
+}
+
+td {
+	font-family: "Helvetica Neue Regular";
+	color: #637175;
+	padding-left: 10px;
+}
+
+.shtable tr {
+	border-bottom: 1.5px solid #f0f0f0 !important;
+	height: 45px !important;
+	font-size: 1rem;
+}
+.tr1 {
+	border-bottom: 1.5px solid #E2E2E2 !important;
+}
+
+tbody>.tr1:hover {
+	background-color: #f0f0f0 !important;
+	cursor: pointer;
+}

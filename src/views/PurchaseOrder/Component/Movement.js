@@ -326,7 +326,7 @@ class Movement extends Component {
                         <tbody style={{fontSize:'1rem'}} className='mvmntHead'>
                         {
                             this.state.data.slice(this.state.startIndex,this.state.endIndex).map((data) =>
-                                <tr style={{borderBottom:'1px solid #f5f5f5'}} className='tr'>
+                                <tr style={{borderBottom:'1px solid #f5f5f5'}}>
                                 {
                                     data.detail.map(detail =>
                                     <td height='50' width='15%' style={{borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}><this.tableMovement detail={detail}/></td>

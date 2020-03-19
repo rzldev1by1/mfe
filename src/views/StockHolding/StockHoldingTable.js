@@ -3,7 +3,7 @@ import { Table } from 'reactstrap';
 
 // import Paging from '../General/Paging';
 
-class componentTable extends Component {
+class componentTable extends Component {		
 	showHeader = () => {
 		return (
 			<tr>
@@ -31,7 +31,7 @@ class componentTable extends Component {
 	showData = () => {
 		return (
 			this.props.masterResource.slice(this.props.startIndex, this.props.lastIndex).map((item, idx) => (
-				<tr key={idx} onClick={() => this.rowClicked(item["product"], item["client"], item["site"])}>
+				<tr className='tr1' key={idx} onClick={() => this.rowClicked(item["product"], item["client"], item["site"])}>
 					{this.props.columns.map((column, columnIdx) => {
 						if (column.isVisible) {
                             // return <td key={columnIdx} className={"px-3 " + (column.type === "number" ? "text-right" : "text-left")}>{item[column.key]}</td>;
@@ -39,7 +39,7 @@ class componentTable extends Component {
                         }
                         return null;
 					})}
-					<td className="px-3 text-left">
+				  	<td className="px-3 text-left">
 						{/* <a href="#" className="dots">
 							<div className="dot" />
 							<div className="dot" />
@@ -60,11 +60,16 @@ class componentTable extends Component {
         return (
             <div className="col-12 p-0">
                 <div className={this.props.isSearch ? "spinner" : "d-none"} />
-                <div className={this.props.isSearch ? "d-none" : "tablePage tableContent"}>
-                    <Table className="table-condensed table-striped clickable-row mb-0" size="md">
+                <div className={this.props.isSearch ? "d-none" : "tablePage1 tableContent"}>					
+                    {/* <Table className="table-condensed table-striped clickable-row mb-0" size="md">
+                        <thead >{this.showHeader()}</thead>
+                        <tbody style={{fontSize:'1rem'}}>{this.showData()}</tbody> 
+                    </Table> */}
+
+					<table className="shtable" >
                         <thead >{this.showHeader()}</thead>
                         <tbody style={{fontSize:'1rem'}}>{this.showData()}</tbody>
-                    </Table>
+                    </table>
                 </div>
             </div>
         );
