@@ -310,11 +310,11 @@ class UserManagementDetail extends Component{
   	    newParam.userMenu = this.changeUserMenuToStringArray(accountInfo.userMenu);
         newParam.client = accountInfo.client;
         newParam.disabled = accountInfo.disabled?'Y':'N';
-        if(passwordChange !== ''){
-            let newText = newParam.name.substring(0,2);
-            let result = this.generateUserID(today);
-            newParam.passwordChange = result+newText.toLowerCase();
-        }
+        // if(passwordChange !== ''){
+        //     let newText = newParam.name.substring(0,2);
+        //     let result = this.generateUserID(today);
+        //     newParam.passwordChange = result+newText.toLowerCase();
+        // }
 
         return newParam;
     }
@@ -363,11 +363,18 @@ class UserManagementDetail extends Component{
       setTimeout(()=>{ self.setState({isResetSuccess:false, modalPopupResetdisplay:false})},5000);
     }
 
-    resetPassword = (param) => {
+    resetPassword = () => {
        var self = this;
-       const {name,userId,email,userMenu} = self.state.accountInfo;
+       const {match} = this.props;
+       let web_user_id = match.params.id;
+       const {user,userId,email,userMenu} = this.state.accountInfo;
 
-       let url = `${endpoint.UserManagement_Update}${userId}`
+       let url = `${endpoint.UserManagement_resetpassword}`;
+
+       let newText = user.substring(0,2);
+       let result = this.generateUserID(today);
+       let new_password = result+newText.toLowerCase();
+       let param = {"email":email,"web_user":web_user_id, "new_password":new_password}
 
 
          axios.post(url,param,{ headers: headers })
@@ -375,7 +382,7 @@ class UserManagementDetail extends Component{
              var result = [];
              if(res.status === 200){
                self.setState({isSaveProgressing:false, isResetSuccess:true, modalPopupResetdisplay:true},self.closeModalPopupResetAuto);
-               // self.gotoUM();
+
              }
              return result;
            })
@@ -383,8 +390,10 @@ class UserManagementDetail extends Component{
                console.log("error save",error);
            })
            .then((result) => {
-             // console.log(result);
+
            })
+
+           
     }
 
     updateRequest = (param) => {
@@ -441,8 +450,8 @@ class UserManagementDetail extends Component{
     }
 
     confirmResetPassword = () => {
-        let newParam = this.getParam(passChanged);
-        this.setState({isSaveProgressing:false, modalPopupResetdisplay:false}, this.resetPassword(newParam));
+        // let newParam = this.getParam(passChanged);
+        this.setState({isSaveProgressing:false, modalPopupResetdisplay:false}, this.resetPassword());
     }
 
     render(){
