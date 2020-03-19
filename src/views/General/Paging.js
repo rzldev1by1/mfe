@@ -34,37 +34,32 @@ class Paging extends Component {
     //     }
     // }
 
+
     createPageNumber = () => {
         let current = this.props.currentPage,
             totalPage = this.props.maxPage,
-            delta = 1,
-            left = current - delta,
-            right = current + delta + 1,
+            delta = 2,
+            left = (current - delta ) ,
+            right = (current + delta - 1) ,
             range = [],
-            pageNumber = [],
-            l;
-    
+            pageNumber = [];
+
         for (let i = 0; i <= totalPage; i++) {
-            if (i == totalPage || i >= left && i < right) {
+            if ( i >= left && i < right) {
                 range.push(i);
             }
         }
     
         for (let i of range) {
-            if (l) {
-                if (i - l === 2) {
-                    pageNumber.push(l + 1);
-                } else if (i - l !== 1) {
-                    pageNumber.push('...');
-                }
-            }
+
             pageNumber.push(
                 <li className={"btn btn1 btn-paging" + (this.props.currentPage ===  i + 1 ? "-active" : "")}
                     id={i} name="pageNumber" key={i}
                     onClick={this.numberClickEvent}>
                     {i+1}
                 </li>
-            );
+            ); 
+            
         }
     
         return pageNumber;
