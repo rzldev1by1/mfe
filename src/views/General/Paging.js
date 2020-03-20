@@ -16,62 +16,54 @@ class Paging extends Component {
 		this.props.numberEventClick(e.currentTarget.textContent.trim());
 	}
 
-	createPageNumber = () => {
-		if (this.props.maxPage >1) {
-			let pageNumber = [];
-			let totalPage = this.props.maxPage;
-
-			for (let i = 0 ; i < totalPage; i++) {
-				pageNumber.push(
-					<li className={"btn btn1 btn-paging" + (this.props.currentPage ===  i + 1 ? "-active" : "")}
-						id={i} name="pageNumber" key={i}
-						onClick={this.numberClickEvent}>
-						{i+1}
-					</li>
-				);
-			}
-			return pageNumber;
-        }
-    }
 	// createPageNumber = () => {
-    //     let currentPage = this.props.currentPage
-    //         range       = 3,
-    //         goStart     = 1;  
-    //     let pageNumber = [];
-    //     if (currentPage < (range / 2) + 1 ) {
-    //         goStart = 1;
-    //     }
-    //     else if (currentPage >= (totalPages - (range / 2) ))
-    //     {
-    //         goStart = Math.floor(totalPages - range + 1);
-    //     } 
-    //     else 
-    //     {
-    //         goStart = (currentPage - Math.floor(range / 2));
-    //     }
+	// 	if (this.props.maxPage >1) {
+	// 		let pageNumber = [];
+	// 		let totalPage = this.props.maxPage;
 
-    //     for (let i = goStart; i <= ((goStart + range) - 1); i++) {
-    //         if (i === currentPage) {
-    //             pageNumber.push(`[${i}]`); // add brackets to indicate current page 
-    //         } else {
-    //             pageNumber.push(i.toString());
-    //         }
+	// 		for (let i = 0 ; i < totalPage; i++) {
+	// 			pageNumber.push(
+	// 				<li className={"btn btn1 btn-paging" + (this.props.currentPage ===  i + 1 ? "-active" : "")}
+	// 					id={i} name="pageNumber" key={i}
+	// 					onClick={this.numberClickEvent}>
+	// 					{i+1}
+	// 				</li>
+	// 			);
+	// 		}
+	// 		return pageNumber;
     //     }
-    //     return pageNumber;
-
-	// 	// 	for (let i = goStart; i <= ((goStart + range) - 1); i++) {
-	// 	// 		pageNumber.push(
-	// 	// 			<li className={"btn btn1 btn-paging" + (this.props.currentPage ===  i + 1 ? "-active" : "")}
-	// 	// 				id={i} name="pageNumber" key={i}
-	// 	// 				onClick={this.numberClickEvent}>
-	// 	// 				{i+1}
-	// 	// 			</li>
-	// 	// 		);
-			
-	// 	// 	return pageNumber;
-    //     // }
     // }
 
+
+    createPageNumber = () => {
+        let current = this.props.currentPage,
+            totalPage = this.props.maxPage,
+            delta = 2,
+            left = (current - delta ) ,
+            right = (current + delta - 1) ,
+            range = [],
+            pageNumber = [];
+
+        for (let i = 0; i <= totalPage; i++) {
+            if ( i >= left && i < right) {
+                range.push(i);
+            }
+        }
+    
+        for (let i of range) {
+
+            pageNumber.push(
+                <li className={"btn btn1 btn-paging" + (this.props.currentPage ===  i + 1 ? "-active" : "")}
+                    id={i} name="pageNumber" key={i}
+                    onClick={this.numberClickEvent}>
+                    {i+1}
+                </li>
+            ); 
+            
+        }
+    
+        return pageNumber;
+    }
    
     handleChangeSearch = (e) => {
         const value = (e.target.validity.valid) ? e.target.value : this.state.value;

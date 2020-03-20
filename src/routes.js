@@ -69,6 +69,10 @@ function Loading() {
 // 	loading: Loading
 // });
 
+const Welcome = Loadable({
+	loader: () => import('./views/Welcome/Welcome'),
+	loading: Loading
+});
 
 const StockHolding = Loadable({
 	loader: () => import('./views/StockHolding/StockHolding'),
@@ -169,6 +173,8 @@ const routes = [
 
     // { path: '/dashboard', name: 'Dashboard', component: Dashboard },
 	// { path: '/base', exact: true, name: 'User Control', component: UserManagement },
+
+	{ path: '/Welcome', exact:true, name: 'Welcome', component: Welcome },
 
 	{ path: '/stock', exact: true, name: 'Stock', component: StockHolding },
 	{ path: '/stock/stockholding', exact: true, name: 'Stock Holding', component: StockHolding },
