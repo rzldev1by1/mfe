@@ -39,7 +39,7 @@ class UserManagement extends Component{
         this.state ={
             userList : [],
             headers : [
-                'User', 'User ID', 'User Level', 'Client', 'Last Access', 'Status', ''
+                  'User ID', 'User name', 'User Level','Site', 'Client', 'Last Accessed', 'Status'
                 ],
             personalUser : [
                 {youraccount:"-", userId:"-", client:"-", site:"-"}
@@ -96,14 +96,14 @@ class UserManagement extends Component{
         if(sources.length){
            newUserArray = sources.map((item, index) => {
               let newItem = {};
-              newItem.user = item.name;
               newItem.userId = item.userid;
+              newItem.user = item.name;
               newItem.email = item.email;
               newItem.userlevel = item.web_group;
+              newItem.site = item.site?item.site:'-';
               newItem.client = item.client;
               newItem.lastaccess = item.last_access;
               newItem.status = (item.disabled === 'Y')?'Suspended':'Active';
-              newItem.action = "";
               newItem.web_user = item.web_user;
               newItem.company = item.company;
               return newItem;
@@ -223,7 +223,7 @@ class UserManagement extends Component{
             var result = [];
             if(res.status === 200){
               let totalPage = self.calculatePageRow(res.data.data);
-              
+
               let userId = self.getUserID()
               let startIndex = self.state.startIndex;
               let lastIndex = self.state.displayRow;

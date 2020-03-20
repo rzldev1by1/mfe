@@ -393,7 +393,7 @@ class UserManagementDetail extends Component{
 
            })
 
-           
+
     }
 
     updateRequest = (param) => {
@@ -532,7 +532,7 @@ class UserManagementDetail extends Component{
                                                   to reset password?
                                               </label>
                                                 <span className={'p-1 float-right '  + ((accountInfo.passwordChange === '')? ' client-active':'client-notActive')} onClick={(e)=>{this.onClickResetPassword()}}>
-                                                  Reset Password
+                                                  Reset
                                                 </span>
                                               </div>
                                         </div>

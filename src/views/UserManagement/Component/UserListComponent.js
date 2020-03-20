@@ -187,17 +187,17 @@ class UserListComponent extends Component{
                                 <tr>
                                     {
                                         this.state.headers.map((element,index)=>{
-                                        return <th key={index} className="headers">
+                                        return <th key={index} className="headers p-0">
                                         <div key={element} className="header-sort" >
                                           <div className="d-inline-flex">
                                               <div className="d-flex flex-row">
                                                 {element}
                                               </div>
                                               {
-                                                (element === '')?'': (<div className="d-flex flex-column">
+                                                <div className="d-flex flex-column">
                                                 <span key={index} id={`${element}-desc`} onClick={(e)=>{this.onSortingCLick(e);}} className={'upArrow float-right'} style={{height:'10px',position:'relative',top:'-7px', marginLeft:'20px'}}></span>
                                                 <span key={element} id={`${element}-asc`} onClick={(e)=>{this.onSortingCLick(e);}} className={'downArrow float-right'} style={{height:'10px',position:'relative',top:'-3px', marginLeft:'20px'}}></span>
-                                                </div>)
+                                                </div>
                                               }
                                           </div>
                                             {/*(element === '')?'': <img key={element} className="arrow" src={activearrow}/>**/}
@@ -219,9 +219,8 @@ class UserListComponent extends Component{
                                                        Object.keys(element).map((item,idx) => {
 
                                                           return (item !== 'email' && item !== 'web_user' && item !== 'company')?
-                                                                  <td key={idx} className={(item === 'user')?'users':'norm'}>
-                                                                   { (item === 'action')?
-                                                                     <span className='next'></span>:
+                                                                  <td key={idx} className={'p-0 '+((item === 'user')?'users':'norm')}>
+                                                                   {
                                                                      <label className={((item === 'status')? ((element[item].toLowerCase() === 'active')?'active':'suspended'):'')}>
                                                                       {(item === 'lastaccess')?moment(element[item]).format('DD/MM/YY hh:mm:ss'):element[item]}
                                                                      </label>
