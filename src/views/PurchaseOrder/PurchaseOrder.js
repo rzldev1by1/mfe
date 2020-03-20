@@ -244,7 +244,6 @@ class PurchaseOrder extends Component {
                         this.state.filterclicked ? this.showDropdowns() :
                         null
                     }
-                    
                 </div>               
             </div>
             <div className={' ' + ( this.state.complete ? 'fades ' : 'hidden')}>

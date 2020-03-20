@@ -34,6 +34,7 @@ export class Autocomplete extends Component {
       showSuggestions: true,
       userInput: e.currentTarget.value
     });
+    this.props.handleChange(e.currentTarget.value)
   };
 
   onClick = e => {
@@ -43,6 +44,7 @@ export class Autocomplete extends Component {
       showSuggestions: false,
       userInput: e.currentTarget.innerText
     });
+    this.props.handleChange(e.currentTarget.innerText)
   };
   onKeyDown = e => {
     const { activeSuggestion, filteredSuggestions } = this.state;

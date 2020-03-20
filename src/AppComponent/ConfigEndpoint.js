@@ -15,6 +15,7 @@ const endpoint = {
     'stockMovement': baseUrl + "stockmovement",
 
     "purchaseOrder": baseUrl + "purchaseOrder",
+    "purchaseOrderCreate": baseUrl + "purchaseOrder/store",
 
     "salesOrder" : baseUrl + "salesorder",
 
@@ -34,9 +35,9 @@ const endpoint = {
 };
 
 const headers = {
-    // 'userLevel': Authentication.getUserLevel(),
+    'userLevel': Authentication.getUserLevel(),
     // 'companyCode': Authentication.getCompanyCode(),
-    'userLevel': 'WAREHOUSE',
+    // 'userLevel': 'WAREHOUSE',
     'client': 'MLS',
     'Authorization': 'Bearer ' + Authentication.getToken(),
     'Content-Type': 'application/json',
