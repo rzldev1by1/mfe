@@ -4,7 +4,7 @@ import Authentication from '../Auth/Authentication';
 let baseUrl = AppComponent.getBaseUrl();
 
 const endpoint = {
-    'userLogin': baseUrl + "userlogin",
+    'userLogin': baseUrl + "usermanagement/login",
 
     'stockHoldingSummary': baseUrl + "stockholding",
     'stockHoldingDetail': baseUrl + "stockdetail/header/",
