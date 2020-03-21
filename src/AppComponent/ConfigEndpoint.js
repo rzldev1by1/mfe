@@ -18,6 +18,7 @@ const endpoint = {
     "purchaseOrderCreate": baseUrl + "purchaseOrder/store",
 
     "salesOrder" : baseUrl + "salesorder",
+    "salesOrderCreate": baseUrl + "salesorder/store",
 
     "getClient": baseUrl + "dropdown/getclient",
     "getSite": baseUrl + "dropdown/getsite",

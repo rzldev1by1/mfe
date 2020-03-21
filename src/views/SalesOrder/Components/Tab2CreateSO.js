@@ -1,6 +1,4 @@
 import React,{Component} from 'react'
-import Dropdown from '../../../AppComponent/Dropdown'
-import date from '../../../assets/img/brand/field_date@2x.png'
 import DatePicker from '../../../AppComponent/DatePicker'
 import axios from 'axios'
 import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
@@ -12,6 +10,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
             this.state ={
                 tab1isactive:true,
                 tab2isactive:false,
+                parameters:this.props.parameters ? this.props.parameters : [],
                 order:{
                   site:null,
                   orderno:null,
@@ -45,15 +44,28 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
             }
         }
 
+        createSalesOrder = () =>{
+          axios.post(endpoint.salesOrderCreate, this.state.parameters, { headers: headers})
+          .then(res =>{
+            if(res.status === 200){
+                alert('create sales order successfully')
+                this.props.history.push("sales-orders/" + this.state.orderNo);
+                }
+          })
+          .catch(error => {
+          })
+        }
+
         close = () => {
           this.props.close()
         }
         tabhandler= () => {
-          this.props.tabhandler()
+          this.props.tabhandler(this.state.parameters)
         }
     
 
         render = () => {
+          console.log(this.state.parameters)
             return(
         <div className="tabcontents">
             <h3 className="fonts">Order Details</h3>
@@ -66,22 +78,33 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
                     <th>Delivery Instructions</th>
                 </tr>
                 <tr>
-                    <td><input className="form-control" readOnly/></td>
-                    <td><input className="form-control" readOnly/></td>
-                    <td><input className="form-control" readOnly/></td>
-                    <td rowspan="3"><textarea className="form-control put dlv" style={{height:"8em"}} readOnly/></td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.site} className="form-control" readOnly/></td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.orderType} className="form-control" readOnly/></td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.customerPoNo} className="form-control" readOnly/></td>
+                    <td rowspan="3"><textarea value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.deliveryInstruction} className="form-control put dlv" style={{height:"8em"}} readOnly/></td>
                 </tr>
   
                 <tr>
-                    <th>Order Type</th>
-                    <th>Order No</th>
-                    <th>Order Date</th>
+                    <th>Delivery Date</th>
+                    <th>Supplier</th>
+                    <th>Order No</th>                    
                 </tr>
                 <tr>
-                    <td><input className="form-control" readOnly/></td>
-                    <td><input className="form-control" readOnly/></td>
-                    <td><input className="form-control" readOnly/></td>
-                </tr>              
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.deliveryDate} className="form-control" readOnly/></td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.supplier} className="form-control" readOnly/></td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.vendorOrderNo} className="form-control" readOnly/></td>
+                </tr>  
+                <tr>
+                    <th>First Delivery</th>
+                    <th>Last Delivery</th>
+                    <th>Order Id</th>                    
+                </tr>
+                <tr>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.firstDelivery} className="form-control" readOnly/></td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.lastDelivery} className="form-control" readOnly/></td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.orderId} className="form-control" readOnly/></td>
+                </tr> 
+                            
             </table>
 
             <tr style={{color:"transparent"}}>1</tr>
@@ -94,10 +117,10 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
                     <th>Address 3</th>
                 </tr>
                 <tr>
-                    <td><input className="form-control put " readOnly/></td>
-                    <td><input className="form-control put " readOnly/> </td>
-                    <td><input className="form-control put " readOnly/> </td>
-                    <td><input className="form-control put " readOnly/> </td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.shipToName} className="form-control put " readOnly/></td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.shipToAddress1} className="form-control put " readOnly/> </td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.shipToAddress2} className="form-control put " readOnly/> </td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.shipToAddress3} className="form-control put " readOnly/> </td>
                 </tr>
                 <tr>
                     <th>Address 4</th>
@@ -106,23 +129,18 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
                     <th>Postcode</th>
                 </tr>
                 <tr>
-                    <td><input className="form-control put " readOnly/></td>
-                    <td><input className="form-control put " readOnly/> </td>
-                    <td><input className="form-control put " readOnly/> </td>
-                    <td><input className="form-control put " readOnly/> </td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.shipToAddress4} className="form-control put " readOnly/></td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.shipToAddress5} className="form-control put " readOnly/> </td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.city} className="form-control put " readOnly/> </td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.postCode} className="form-control put " readOnly/> </td>
                 </tr>
                 <tr>
                     <th>State</th>
                     <th>Country</th>
                 </tr>
                 <tr>
-                    <td><input className="form-control put " readOnly/></td>
-                    <td><input className="form-control put " readOnly/> </td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.state} className="form-control put " readOnly/></td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.country} className="form-control put " readOnly/> </td>
                 </tr>
             </table>
   
@@ -141,41 +159,39 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
                     <th style={{width:"5%"}}>Ref3</th>
                     <th style={{width:"5%"}}>Ref4</th>
                     <th style={{width:"6%"}}>Disposition</th>
+                    <th style={{width:"6%"}}>packId</th>
                 </tr>                  
               </table>
               
               <div className={"tablerow " + (this.state.rowlist.length >2 ? "scroll" : null )} style={{width:"98%"}} >
-                {this.state.rowlist.map((list, i) => this.linedetailsrowreview(list, i))}
+                {this.state.parameters.length == 0 ? null : this.state.parameters.orderLines.map((line, i) => 
+                  this.linedetailsrowreview(line, i)
+                )}
               </div>
               <tr>
                   <td style={{color:"transparent"}}>1</td>
                 </tr>
-              {/* <div style={{marginTop:"7%"}}>
-              {this.state.tab2isactive ? 
-                  this.submit() :  
-                  <Button onClick={() => this.tabhandler()} color="primary" className="btnsearch next btnleft" ></Button>
-                } 
-              </div> */}
               <Button onClick={() => this.tabhandler()} color="primary" className="btnsearch back" ><label className="font">Back</label></Button>
-              <Button onClick={() => this.close()} color="primary" className="btnsearch submit btnleft" style={{marginTop:"-50px"}} ><label className="font">Submit</label></Button> 
+              <Button onClick={() => this.createSalesOrder()} color="primary" className="btnsearch submit btnleft" style={{marginTop:"-50px"}} ><label className="font">Submit</label></Button> 
           </div>)
         }
 
-        linedetailsrowreview = (list, i) => {
+        linedetailsrowreview = (line, i) => {
             return(
               <table>
                 <tr>
-                    <td hidden id={list.id}></td>
-                    <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs pec" value={list.id}  readOnly/></td>
-                    <td style={{width:"12%"}}><input className="form-control inputs pec" readOnly/></td>
-                    <td style={{width:"12%"}}><input className="form-control inputs pec" readOnly/></td>
-                    <td style={{width:"3%"}}><input className="form-control inputs pec"  readOnly/></td>
-                    <td style={{width:"6%"}}><input className="form-control inputs pec"  readOnly/></td>
-                    <td style={{width:"6%"}}><input className="form-control inputs pec"  readOnly/></td>
-                    <td style={{width:"6%"}}><input className="form-control inputs pec"  readOnly/></td>
-                    <td style={{width:"5%"}}><input className="form-control inputs pec"  readOnly/></td>
-                    <td style={{width:"5%"}}><input className="form-control inputs pec"  readOnly/></td>
-                    <td style={{width:"6%"}}><input className="form-control inputs pec"  readOnly/></td>
+                    <td hidden id={i+1}></td>
+                    <td style={{width:"2%", textAlign:"center"}}><input value={i+1} className="form-control inputs pec" readOnly/></td>
+                    <td style={{width:"12%"}}><input value={line.product} className="form-control inputs pec" readOnly/></td>
+                    <td style={{width:"12%"}}><input value={line.product} className="form-control inputs pec" readOnly/></td>
+                    <td style={{width:"3%"}}><input value={line.qty} className="form-control inputs pec"  readOnly/></td>
+                    <td style={{width:"6%"}}><input value={line.uom} className="form-control inputs pec"  readOnly/></td>
+                    <td style={{width:"6%"}}><input value={line.rodaDate} className="form-control inputs pec"  readOnly/></td>
+                    <td style={{width:"6%"}}><input value={line.batch} className="form-control inputs pec"  readOnly/></td>
+                    <td style={{width:"5%"}}><input value={line.ref3} className="form-control inputs pec"  readOnly/></td>
+                    <td style={{width:"5%"}}><input value={line.ref4} className="form-control inputs pec"  readOnly/></td>
+                    <td style={{width:"6%"}}><input value={line.disposition} className="form-control inputs pec"  readOnly/></td>
+                    <td style={{width:"6%"}}><input value={line.packId} className="form-control inputs pec"  readOnly/></td>
                   </tr>
                   <td></td>
                   <td></td>

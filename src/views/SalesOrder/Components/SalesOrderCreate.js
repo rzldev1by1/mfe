@@ -9,7 +9,7 @@
   import Tab2CreateSO from './Tab2CreateSO'
   import axios from 'axios'
   import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
-  import date from '../../../assets/img/brand/field_date@2x.png'
+
 
   class SalesOrderCreate extends Component{
       constructor(props){
@@ -17,42 +17,7 @@
           this.state ={
             tab1isactive:true,
             tab2isactive:false,
-              order : {
-                  site : null,
-                  orderType : null,
-                  customerNo : null,
-                  deliveryDate : null,
-                  orderNo : null,
-                  vendorNo : null,
-                  deliveryInst : null             
-            },
-              customer : {
-                  customerName : null,
-                  address1 :null,
-                  address2 :null,
-                  address3 :null,
-                  address4 :null,
-                  address5 :null,
-                  suburb : null,
-                  postCode : null,
-                  state : null,
-                  country : null
-            },
-              linerows :[
-               {
-                  product : null,
-                  productDec : null,
-                  qyt : null,
-                  weight : null,
-                  uom : null,
-                  rotadate : null,
-                  batch : null,
-                  ref3 : null,
-                  ref4 : null,
-                  disposittion : null,
-                  packId : null
-              }
-            ]
+            parameters:[]
           }
       }
       close = () => {
@@ -62,13 +27,13 @@
         //   tab2isactive:false
         //   })
       }
-      tabhandler = () => {
+      tabhandler = (param) => {
         this.setState({
+          parameters:param,
           tab1isactive:!this.state.tab1isactive,
           tab2isactive:!this.state.tab2isactive
           })
       }
-      
       render(){
           return(
             <Modal className="SOCreate " isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }}toggle={true}>
@@ -95,7 +60,7 @@
                 </ModalHeader>       
             
             <ModalBody style={{width:"100%"}}>
-              {this.state.tab1isactive ? <Tab1CreateSO tabhandler={() => this.tabhandler()}/> : <Tab2CreateSO close={() => this.close()} tabhandler={() => this.tabhandler()} />}
+              {this.state.tab1isactive ? <Tab1CreateSO parameters={this.state.parameters} tabhandler={(param) => this.tabhandler(param)}/> : <Tab2CreateSO parameters={this.state.parameters} close={() => this.close()} tabhandler={() => this.tabhandler()} />}
             </ModalBody>
               {/* {this.state.tab2isactive ? 
                 this.submit() :  
