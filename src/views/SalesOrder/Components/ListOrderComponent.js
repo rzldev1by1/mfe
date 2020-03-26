@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import {endpoint, headers,} from '../../../AppComponent/ConfigEndpoint'
-import Paging from '../../General/Paging';
+import Paging from '../../../AppComponent/Paging';
 import mid from '../../../assets/img/brand/field-idle.png'
 import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
@@ -26,7 +26,8 @@ class ListOrderComponent extends Component {
 			lastIndex: 0,
 			displayPage:2,
 			totalRows: 0,
-			maxPage: 0,
+      maxPage: 0,
+
     }
   }
 
@@ -321,7 +322,7 @@ class ListOrderComponent extends Component {
                                       <td>{data.order_no}</td>
                                       <td>{data.order_type}</td>
                                       <td>{data.customer_name}</td>
-                                      <td style={{width:"10%"}}>{data.status_desc}</td>
+                                      <td style={{width:"11%"}}>{data.status_desc}</td>
                                       <td>{'' + (data.date_due ? moment(data.date_due).format("YYYY/MM/DD") : '') }</td>
                                       <td>{'' + (data.date_recd ? moment(data.date_recd).format("YYYY/MM/DD") : '') }</td>
                                       <td>{'' + (data.date_released ? moment(data.date_released).format("YYYY/MM/DD") : '') }</td>

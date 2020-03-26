@@ -238,14 +238,14 @@
 	border-top-right-radius: 22px;
 }
 .pdf-icon {
-	background-image: url(../../scss/vendors/pdf_icon.png);
+	background-image: url(../scss/vendors/pdf_icon.png);
 	background-position: left center;
 	background-repeat: no-repeat;
 
 	padding-left: 35px; /* Or size of icon + spacing */
 }
 .excel-icon {
-	background-image: url(../../scss/vendors/excel_icon.png);
+	background-image: url(../scss/vendors/excel_icon.png);
 	background-position: left center;
 	background-repeat: no-repeat;
 	padding-left: 35px; /* Or size of icon + spacing */

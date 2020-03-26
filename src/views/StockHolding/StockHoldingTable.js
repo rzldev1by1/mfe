@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Table } from 'reactstrap';
 
-// import Paging from '../General/Paging';
 
 class componentTable extends Component {		
 	showHeader = () => {

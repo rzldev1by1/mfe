@@ -12,7 +12,7 @@ import DayPicker from 'react-day-picker';
 import './Style/PurchaseOrderCreate.css'
 import 'react-day-picker/lib/style.css';
 import moment from 'moment'
-import AutoComplete from '../../General/AutoComplete'
+import AutoComplete from '../../../AppComponent/AutoComplete'
 import Dropdown from '../../../AppComponent/Dropdown'
 import DatePicker from '../../../AppComponent/DatePicker'
 

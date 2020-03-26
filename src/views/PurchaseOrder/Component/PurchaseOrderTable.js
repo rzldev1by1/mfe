@@ -4,7 +4,7 @@ import appCompoent from '../../../../src/AppComponent'
 import mid from '../../../assets/img/brand/field-idle.png'
 import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
-import Paging from '../../General/Paging';
+import Paging from '../../../AppComponent/Paging';
 import {endpoint, headers, POheaders} from '../../../AppComponent/ConfigEndpoint'
 import moment from 'moment'
 class PurchaseOrderTable extends Component {

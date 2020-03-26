@@ -9,7 +9,7 @@ import ModalNewUser from './Component/ModalNewUser'
 import moment from 'moment'
 import query from '../../AppComponent/query_menu_temp'
 import Authentication from '../../Auth/Authentication'
-import Paging from '../General/Paging'
+import Paging from '../../AppComponent/Paging'
 import create from '../../assets/img/brand/button_create@2x.png'
 
 
