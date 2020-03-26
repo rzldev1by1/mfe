@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 import Logo from '../../assets/img/brand/portal.png';
+import './Welcome.css'
 class Welcome extends Component{
 render(){
-    return(<div style={{marginLeft:"20%" , marginTop:"10%"}}>
-        <img src={Logo}/>
+    return(
+    <div className="portal">
+        <div className="icon">
+          <img src={Logo}/>
+        </div>
     </div>)
   }
 }
