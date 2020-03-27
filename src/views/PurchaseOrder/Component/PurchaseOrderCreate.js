@@ -244,12 +244,14 @@ class PurchaseOrderCreate extends Component{
               <td>
                   <AutoComplete suggestions={siteData}
                                 suggestionsValue={siteData}
+                                defaultValue={this.state.site}
                                 handleChange={(e) => this.setState({ site: e })}
                   />
               </td>
               <td>
                   <AutoComplete suggestions={clientName}
                                 suggestionsValue={clientValue}
+                                defaultValue={this.state.client}
                                 handleChange={(e) => this.setState({ client: e })}
                   />
               </td>
@@ -257,6 +259,7 @@ class PurchaseOrderCreate extends Component{
               <td>
                   <AutoComplete suggestions={supplierName}
                                 suggestionsValue={supplierName}
+                                defaultValue={this.state.supplier}
                                 handleChange={(e) => this.setState({ supplier: e })}
                   />
               </td>
@@ -281,6 +284,7 @@ class PurchaseOrderCreate extends Component{
             <td>
             <AutoComplete suggestions={orderData}
                           suggestionsValue={orderData}
+                          defaultValue={this.state.orderType}
                           handleChange={(e) => this.setState({ orderType: e })}
             />
             </td>

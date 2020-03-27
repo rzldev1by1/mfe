@@ -16,7 +16,7 @@ export class Autocomplete extends Component {
       activeSuggestion: 0,
       filteredSuggestions: [],
       showSuggestions: false,
-      userInput: ""
+      userInput: null
     };
   }
 
@@ -125,7 +125,7 @@ export class Autocomplete extends Component {
           className="input form-input pecs"
           onChange={onChange}
           onKeyDown={onKeyDown}
-          value={userInput}
+          value={userInput ? userInput : this.props.defaultValue}
         />
         {suggestionsListComponent}
       </React.Fragment>
