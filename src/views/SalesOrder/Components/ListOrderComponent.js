@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import {endpoint, headers,} from '../../../AppComponent/ConfigEndpoint'
 import Paging from '../../../AppComponent/Paging';
+import Export from '../../../AppComponent/Export'
 import mid from '../../../assets/img/brand/field-idle.png'
 import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
@@ -343,6 +344,7 @@ class ListOrderComponent extends Component {
                             startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                             isActive={this.state.isActive}
                             numberEventClick={this.numberEventClick}/>
+                    <Export/>
                 </div>    
           </div>)
     }

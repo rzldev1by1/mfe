@@ -367,7 +367,7 @@ class Tab1CreateSO extends Component{
                 <tr>
                 <td><DatePicker getDate = {(date) => this.setState({deliveryDate:date})} style={{ minWidth: "100%" }}></DatePicker></td>  
                 <td><input onChange = {(e) => this.setState({shipToName:e.target.value})} id='supplier' className="form-control put " placeholder="Supplier"/> </td>
-                <td><input onChange = {(e) => this.setState({vendorOrderNo:e.target.value})} id='orderNo' className="form-control put " placeholder="Order No"/> </td>                  
+                <td><input onChange = {(e) => this.setState({vendorOrderNo:e.target.value})} maxLength="40" id='orderNo' className="form-control put " placeholder="Order No"/> </td>                  
                 </tr>
                 <tr>
                   <th>First Delivery</th>
@@ -391,9 +391,9 @@ class Tab1CreateSO extends Component{
                 </tr>
                 <tr>
                     <td><input onChange={(e) => this.setState({customer:e.target.value})} id='customer' className="form-control put " placeholder="Costumer"/></td>
-                    <td><input onChange={(e) => this.setState({shipToAddress1:e.target.value})} id='address1' className="form-control put " placeholder="Address 1"/> </td>
-                    <td><input onChange={(e) => this.setState({shipToAddress2:e.target.value})} id='address2' className="form-control put " placeholder="Address 2"/> </td>
-                    <td><input onChange={(e) => this.setState({shipToAddress3:e.target.value})} id='address3' className="form-control put " placeholder="Address 3"/> </td>
+                    <td><input onChange={(e) => this.setState({shipToAddress1:e.target.value})} id='address1' maxLength="200" className="form-control put " placeholder="Address 1"/> </td>
+                    <td><input onChange={(e) => this.setState({shipToAddress2:e.target.value})} id='address2' maxLength="201" className="form-control put " placeholder="Address 2"/> </td>
+                    <td><input onChange={(e) => this.setState({shipToAddress3:e.target.value})} id='address3' maxLength="203" className="form-control put " placeholder="Address 3"/> </td>
                 </tr>
                 <tr>
                     <th>Address 4</th>
@@ -402,18 +402,18 @@ class Tab1CreateSO extends Component{
                     <th>Postcode</th>
                 </tr>
                 <tr>
-                    <td><input onChange={(e) => this.setState({shipToAddress4:e.target.value})} id='address4' className="form-control put " placeholder="Address 4"/></td>
-                    <td><input onChange={(e) => this.setState({shipToAddress5:e.target.value})} id='address5' className="form-control put " placeholder="Address 5"/> </td>
-                    <td><input onChange={(e) => this.setState({city:e.target.value})} id='suburb' className="form-control put " placeholder="Suburb"/> </td>
-                    <td><input onChange={(e) => this.setState({postCode:e.target.value})} id='postCode' className="form-control put " placeholder="Postcode"/> </td>
+                    <td><input onChange={(e) => this.setState({shipToAddress4:e.target.value})} id='address4' maxLength="204" className="form-control put " placeholder="Address 4"/></td>
+                    <td><input onChange={(e) => this.setState({shipToAddress5:e.target.value})} id='address5' maxLength="205" className="form-control put " placeholder="Address 5"/> </td>
+                    <td><input onChange={(e) => this.setState({city:e.target.value})} id='suburb' maxLength="150" className="form-control put " placeholder="Suburb"/> </td>
+                    <td><input onChange={(e) => this.setState({postCode:e.target.value})} id='postCode' maxLength="20" className="form-control put " placeholder="Postcode"/> </td>
                 </tr>
                 <tr>
                     <th>State</th>
                     <th>Country</th>
                 </tr>
                 <tr>
-                    <td><input onChange={(e) => this.setState({state:e.target.value})}id='state' className="form-control put " placeholder="State"/></td>
-                    <td><input onChange={(e) => this.setState({country:e.target.value})} id='country' className="form-control put " placeholder="Country"/></td>
+                    <td><input onChange={(e) => this.setState({state:e.target.value})}id='state' maxLength="150" className="form-control put " placeholder="State"/></td>
+                    <td><input onChange={(e) => this.setState({country:e.target.value})} id='country' maxLength="30" className="form-control put " placeholder="Country"/></td>
                 </tr>
             </table>
   
