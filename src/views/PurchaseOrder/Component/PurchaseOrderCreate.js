@@ -15,6 +15,7 @@ import moment from 'moment'
 import AutoComplete from '../../../AppComponent/AutoComplete'
 import Dropdown from '../../../AppComponent/Dropdown'
 import DatePicker from '../../../AppComponent/DatePicker'
+import swal from 'sweetalert'
 
 class PurchaseOrderCreate extends Component{
     constructor(props){
@@ -82,10 +83,17 @@ class PurchaseOrderCreate extends Component{
               orderNo: undefined,
               orderDate: undefined,
               vendorRef: undefined,
-              lineDetails: []
-
-              
+              lineDetails: [],
+              isSaveProgressing: false,
+              createSuccess: false
+                  
           }
+    }
+
+    componentWillReceiveProps = () => {
+        this.setState({
+            showModal: this.props.showmodal
+        })
     }
 
     componentDidMount = () => {
@@ -197,6 +205,7 @@ class PurchaseOrderCreate extends Component{
     let siteData = [];
     let supplierName = [];
     let orderData =[];
+    let orderValue = [];
     if(this.state.clientdatacr){
         this.state.clientdatacr.map((data) => {
             clientName.push(data.name);
@@ -215,7 +224,8 @@ class PurchaseOrderCreate extends Component{
   }
   if(this.state.orderdatacr){
     this.state.orderdatacr.map((data) => {
-        orderData.push(data.code);
+        orderData.push(data.description);
+        orderValue.push(data.code);
     })
 }
 
@@ -233,17 +243,20 @@ class PurchaseOrderCreate extends Component{
             <tr>
               <td>
                   <AutoComplete suggestions={siteData}
+                                suggestionsValue={siteData}
                                 handleChange={(e) => this.setState({ site: e })}
                   />
               </td>
               <td>
                   <AutoComplete suggestions={clientName}
+                                suggestionsValue={clientValue}
                                 handleChange={(e) => this.setState({ client: e })}
                   />
               </td>
                 {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
               <td>
                   <AutoComplete suggestions={supplierName}
+                                suggestionsValue={supplierName}
                                 handleChange={(e) => this.setState({ supplier: e })}
                   />
               </td>
@@ -267,6 +280,7 @@ class PurchaseOrderCreate extends Component{
             <tr>
             <td>
             <AutoComplete suggestions={orderData}
+                          suggestionsValue={orderData}
                           handleChange={(e) => this.setState({ orderType: e })}
             />
             </td>
@@ -520,6 +534,11 @@ class PurchaseOrderCreate extends Component{
   }
 
   saveclick = () =>{
+    this.setState({isSaveProgressing:true}, this.createPO());
+    
+  }
+
+  createPO = () => {
     let self = this;
     let param = {
         orderDetails: [{
@@ -536,15 +555,48 @@ class PurchaseOrderCreate extends Component{
     }
     axios.post(endpoint.purchaseOrderCreate, param, { headers: headers,})
     .then(res =>{
-      if(res.status === 200){
-          self.props.history.push("purchaseorder/" + this.state.orderNo);
-          }
+      if(res.data.message == "Successfully added"){
+            self.setState({
+                isSaveProgressing: false
+            });
+            self.props.closemodal();
+            swal({
+                title: "Success!",
+                text: res.data.message,
+                icon: "success",
+                button: {
+                    text: "Ok",
+                    className: "btn btn-primary"
+                },
+              });
+        }else{
+            self.setState({
+                isSaveProgressing: false
+            });
+            swal({
+                title: "Error!",
+                text: res.data.message,
+                icon: "error",
+                button: {
+                    text: "Ok",
+                    className: "btn btn-primary"
+                },
+              });
+        }
     })
     .catch(error => {
-
-    })
-    .then((result) => {
-      // console.log(result);
+        self.setState({
+            isSaveProgressing: false
+        });
+        swal({
+            title: "Error!",
+            text: error.message,
+            icon: "error",
+            button: {
+                text: "Ok",
+                className: "btn btn-primary"
+            },
+          });
     })
   }
 
@@ -552,7 +604,10 @@ class PurchaseOrderCreate extends Component{
     return(
       <React.Fragment>
         <Button onClick={() => this.tabhandler()} color="primary" className="btnsearch back" ><label className="font">Back</label></Button>
-        <Button onClick={() => this.saveclick()} color="primary" className="btnsearch submit btnleft" style={{marginTop:"-50px"}} ><label className="font">Submit</label></Button>        
+        <Button onClick={() => this.saveclick()} color="primary" className="btnsearch submit btnleft" style={{marginTop:"-50px"}} >
+            <i className= {(this.state.isSaveProgressing)?"mr-2 fa fa-refresh fa-spin ":"fa fa-refresh fa-spin d-none"}></i>
+            <label className="font">Submit</label>
+        </Button>        
       </React.Fragment>      
     )
   }

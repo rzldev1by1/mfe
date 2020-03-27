@@ -12,6 +12,7 @@ export class Autocomplete extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      suggestions: [],
       activeSuggestion: 0,
       filteredSuggestions: [],
       showSuggestions: false,
@@ -20,31 +21,37 @@ export class Autocomplete extends Component {
   }
 
   onChange = e => {
-    const { suggestions } = this.props;
-    const userInput = e.currentTarget.value;
+    const inputValue = e.currentTarget.value;
+    const suggestions = this.props.suggestions;
+    const checkSugesstionValue = suggestions.findIndex((value) => value == inputValue);
+    const userInput = checkSugesstionValue !== -1 ? this.props.suggestionsValue[checkSugesstionValue] : inputValue;
 
     const filteredSuggestions = suggestions.filter(
       suggestion =>
-        suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+        suggestion.toLowerCase().indexOf(inputValue.toLowerCase()) > -1
     );
 
     this.setState({
       activeSuggestion: 0,
       filteredSuggestions,
       showSuggestions: true,
-      userInput: e.currentTarget.value
+      userInput: inputValue
     });
-    this.props.handleChange(e.currentTarget.value)
+    this.props.handleChange(userInput)
   };
 
   onClick = e => {
+    const inputValue = e.currentTarget.innerText;
+    const suggestions = this.props.suggestions;
+    const checkSugesstionValue = suggestions.findIndex((value) => value == inputValue);
+    const userInput = this.props.suggestionsValue[checkSugesstionValue];
     this.setState({
       activeSuggestion: 0,
       filteredSuggestions: [],
       showSuggestions: false,
-      userInput: e.currentTarget.innerText
+      userInput: inputValue
     });
-    this.props.handleChange(e.currentTarget.innerText)
+    this.props.handleChange(userInput)
   };
   onKeyDown = e => {
     const { activeSuggestion, filteredSuggestions } = this.state;
