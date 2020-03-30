@@ -320,6 +320,7 @@ class UserManagement extends Component{
           var result = [];
           if(res.status === 200){
             result = res.data;
+            // console.log(result);
             let newResult = self.restuctureData(result.filter((item) => { return query.indexOf(item.menuname.toLowerCase()) !== -1 }));
             self.setState({moduleAccess:newResult,isModuleLoaded:true},self.writeToLocalStorage('menus',JSON.stringify(newResult)));
           }

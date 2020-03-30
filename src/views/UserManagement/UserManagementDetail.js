@@ -559,7 +559,7 @@ class UserManagementDetail extends Component{
                                               <div className="col pl-0">
                                                 <label className="account-name">Are you sure you want <br/> to suspend this user?</label>
                                                 <span className={'p-1 float-right '+((!accountInfo.disabled)?'client-active ':' client-notActive ')} onClick={(e)=>{this.onClieckSuspendUser()}}>
-                                                { (!accountInfo.disabled)?'Enabled':'Disabled' }
+                                                { (!accountInfo.disabled)?'Suspend':'Disabled' }
                                                 </span>
                                               </div>
                                         </div>
@@ -592,7 +592,10 @@ class UserManagementDetail extends Component{
 
                                 </div>
 
-                                <div className="d-flex mt-5 mr-3 justify-content-end">
+                                <div className="d-flex mt-5 mr-3 justify-content-between">
+                                      <button className=" font-lg font-md font-sm btn btn-primary btn-submit" onClick={(e)=>{this.gotoUM();}}>
+                                          <label className="create-user-label mb-0">Back</label>
+                                      </button>
 
                                       <button className=" font-lg font-md font-sm btn btn-primary btn-submit" onClick={(e)=>{this.saveClick();}}>
                                           <i className= {(this.state.isSaveProgressing)?"mr-2 fa fa-refresh fa-spin ":"fa fa-refresh fa-spin d-none"}></i>
