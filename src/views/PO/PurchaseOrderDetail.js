@@ -5,7 +5,6 @@ import { Card, CardBody,Col, Row, Table,Button,ButtonDropdown,FormGroup,
 
 import axios from 'axios';
 import AppComponent from '../../AppComponent';
-import Paging from '../General/Paging';
 
 
 class PurchaseOrderDetail extends Component{

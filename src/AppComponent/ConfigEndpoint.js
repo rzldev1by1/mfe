@@ -4,7 +4,7 @@ import Authentication from '../Auth/Authentication';
 let baseUrl = AppComponent.getBaseUrl();
 
 const endpoint = {
-    'userLogin': baseUrl + "userlogin",
+    'userLogin': baseUrl + "usermanagement/login",
 
     'stockHoldingSummary': baseUrl + "stockholding",
     'stockHoldingDetail': baseUrl + "stockdetail/header/",
@@ -15,8 +15,10 @@ const endpoint = {
     'stockMovement': baseUrl + "stockmovement",
 
     "purchaseOrder": baseUrl + "purchaseOrder",
+    "purchaseOrderCreate": baseUrl + "purchaseOrder/store",
 
     "salesOrder" : baseUrl + "salesorder",
+    "salesOrderCreate": baseUrl + "salesorder/store",
 
     "getClient": baseUrl + "dropdown/getclient",
     "getSite": baseUrl + "dropdown/getsite",
@@ -34,9 +36,9 @@ const endpoint = {
 };
 
 const headers = {
-    // 'userLevel': Authentication.getUserLevel(),
+    'userLevel': Authentication.getUserLevel(),
     // 'companyCode': Authentication.getCompanyCode(),
-    'userLevel': 'WAREHOUSE',
+    // 'userLevel': 'WAREHOUSE',
     'client': 'MLS',
     'Authorization': 'Bearer ' + Authentication.getToken(),
     'Content-Type': 'application/json',

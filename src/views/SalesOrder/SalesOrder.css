@@ -292,10 +292,11 @@ th.iconU-edit{
 	}
 	
 	.potable th {
-		border-bottom: 1px solid #D5D8DA !important;
+		border-bottom: 2px solid #E2E2E2 !important;
 		height: 45px !important;
 		cursor: pointer;
-		font-size: 12px;
+		font-size: 1em;
+		padding: 0.5rem 0.5rem 0.5rem 1rem
 	}
 	
 	.potable tr {
@@ -338,6 +339,7 @@ th.iconU-edit{
 		height: 45px !important;
 		cursor: pointer;
 		font-size: 1rem;
+		padding: 0.5rem 1rem 0.5rem 1rem
 	}
 	
 	.potable tr {

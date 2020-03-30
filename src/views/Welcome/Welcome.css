@@ -1,0 +1,20 @@
+.icon{
+    margin-left: 21%;
+    margin-top: 17%;
+    width: 149%;
+}
+
+@media(max-width: 1800px){
+    .portal > .icon{
+        margin-left: 21%;
+        margin-top: 17%;
+        width: 149%;
+    }
+}
+@media(max-width: 1500px){
+    .portal > .icon{
+        margin-left: 22%;
+        margin-top: 15%;
+        width: 149%;
+    }
+}

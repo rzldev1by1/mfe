@@ -13,7 +13,7 @@ import HeaderTitle from '../../AppComponent/HeaderTitle';
 import Search from '../../AppComponent/Search';
 import Dropdown from '../../AppComponent/Dropdown';
 import StockHoldingTable from './StockHoldingTable';
-import Paging from '../General/Paging';
+import Paging from '../../AppComponent/Paging';
 import EditColumn from '../../AppComponent/EditColumn';
 import './StockHolding.css';
 

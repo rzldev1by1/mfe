@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Table } from 'reactstrap';
 
 import { formatDate } from '../../../AppComponent/Helper';
-import Paging from '../../General/Paging';
+import Paging from '../../../AppComponent/Paging';
 
 class StockBalanceForecast extends Component {
 	constructor(props) {

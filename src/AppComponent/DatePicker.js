@@ -99,6 +99,7 @@ class DatePicker extends React.Component{
         this.setState({
             selectedDay: selected ? undefined : day,
         });
+        this.props.getDate(moment(selected ? undefined : day).format("YYYY-MM-DD"))
     }
     currentDate = () => {
         return this.state.month;

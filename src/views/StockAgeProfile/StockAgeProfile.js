@@ -8,7 +8,7 @@ import {
     FormGroup,
     InputGroup
 } from 'reactstrap';
-import Paging from '../General/Paging';
+import Paging from '../../AppComponent/Paging';
 import axios from 'axios';
 import AppComponent from '../../AppComponent';
 
