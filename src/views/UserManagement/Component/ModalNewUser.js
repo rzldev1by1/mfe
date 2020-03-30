@@ -8,7 +8,7 @@ import Client from './Client'
 const modalNewUser = (props) => {
   const { className, isOpen, toggle, closeModal, onChangeName,onChangeEmail, onChangeCompany, model,
     moduleAccess,isModuleLoaded,moduleAccessEnableClick,sites, isSiteLoaded, sitesEnableClick,
-    clients, isClientLoaded, clientEnableClick, onSaveClick, isSaveProgressing} = props;
+    clients, isClientLoaded, clientEnableClick, onSaveClick, isSaveProgressing, onModuleEnableAll} = props;
 
     const submitHandler = (event) =>{
       event.preventDefault();
@@ -94,7 +94,7 @@ const modalNewUser = (props) => {
                 </div>
                 <div className="d-flex flex-row">
                 <div className="flex-fill mr-4">
-                <ModuleAccess moduleAccess={moduleAccess} isLoaded={isModuleLoaded} onEnableClick={moduleAccessEnableClick}/>
+                <ModuleAccess moduleAccess={moduleAccess} isLoaded={isModuleLoaded} onEnableClick={moduleAccessEnableClick} onModuleEnableAll={onModuleEnableAll}/>
                 </div>
                 <div className="flex-fill ml-2 mr-4">
                 <Site sites={sites} isLoaded={isSiteLoaded} onEnableClick={sitesEnableClick} onSubmitHandler = {submitHandler}/>

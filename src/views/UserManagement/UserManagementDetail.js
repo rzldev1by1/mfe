@@ -82,7 +82,7 @@ class UserManagementDetail extends Component{
       })
         .then(res => {
           var result = [];
-            console.log(res);
+
           if(res.status === 200){
             if(res.data === ''){
                 this.props.history.push('/users-management');
@@ -231,7 +231,24 @@ class UserManagementDetail extends Component{
        this.setState({moduleAccess:newArray,accountInfo:userInfo});
       }
 
+    }
 
+    onEnabledAllModuleAccess = () => {
+        let newState = [...this.state.moduleAccess];
+        let userInfo = {...this.state.accountInfo};
+        userInfo.userMenu = null;
+        userInfo.userMenu = [];
+
+        var newArray = newState.map((item,index) => {
+              item.status = true;
+              if(item.status){
+                userInfo.userMenu.push({"menuid":item.menuid,"menuname":item.menuname});
+              }
+
+            return item;
+        });
+
+       this.setState({moduleAccess:newArray,accountInfo:userInfo});
     }
 
     onSiteStatusClick = (e,data) => {
@@ -414,11 +431,13 @@ class UserManagementDetail extends Component{
             return result;
           })
           .catch(error => {
+              self.setState({isSaveProgressing:false, isResetSuccess:false});
               console.log("error save",error);
           })
           .then((result) => {
             // console.log(result);
           })
+
 
     }
 
@@ -540,7 +559,7 @@ class UserManagementDetail extends Component{
                                               <div className="col pl-0">
                                                 <label className="account-name">Are you sure you want <br/> to suspend this user?</label>
                                                 <span className={'p-1 float-right '+((!accountInfo.disabled)?'client-active ':' client-notActive ')} onClick={(e)=>{this.onClieckSuspendUser()}}>
-                                                { (!accountInfo.disabled)?'Enable':'Disable' }
+                                                { (!accountInfo.disabled)?'Enabled':'Disabled' }
                                                 </span>
                                               </div>
                                         </div>
@@ -560,7 +579,7 @@ class UserManagementDetail extends Component{
                                     </div>
                                     <div className="d-flex flex-row">
                                         <div className="flex-fill mr-2">
-                                            <ModuleAccess moduleAccess={moduleAccess} onEnableClick={this.onModuleAccessClick}/>
+                                            <ModuleAccess moduleAccess={moduleAccess} onEnableClick={this.onModuleAccessClick} onModuleEnableAll={this.onEnabledAllModuleAccess}/>
                                         </div>
                                         <div className="flex-fill mr-2">
                                             <Site sites={sites} onEnableClick={this.onSiteStatusClick}/>

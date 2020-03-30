@@ -9,7 +9,18 @@ const client = ({clients, onEnableClick}) => {
       return text;
   }
 return (<div>
-      <label className="text-bolder mr-2 title-label">Client</label>
+
+      <div className="flex-column">
+          <div className="row mr-2">
+              <label className="col-8 text-bolder title-label" htmlFor="Client">Client
+              </label>
+              <input className="checkbox-hidden" type="checkbox" id="Client"/>
+              <label className="col-3 btn btn-outline-active">Enabled All</label>
+
+          </div>
+      </div>
+      <div className="d-flex border-bottom mr-2 mb-3">
+      </div>
 
 
       {
@@ -23,8 +34,8 @@ return (<div>
                                 */
                               }
                               <input className="checkbox-hidden" type="checkbox" id={item.code} />
-                              <label htmlFor={item.code}  className={"col-2 btn "+((item.status)?"btn-outline-active":"btn-outline-notActive")} onClick={(e)=>{onEnableClick(e,item);}}>{(item.status)?"Enable":"Disable"}</label>
-                              <div className="col-2">
+                              <label htmlFor={item.code}  className={"col-3 btn "+((item.status)?"btn-outline-active":"btn-outline-notActive")}  onClick={(e)=>{onEnableClick(e,item);}}>{(item.status)?"Enabled":"Disabled"}</label>
+                              <div className="col-1">
                               </div>
                           </div>
                     </div>)

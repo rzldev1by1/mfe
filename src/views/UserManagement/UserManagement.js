@@ -39,7 +39,7 @@ class UserManagement extends Component{
         this.state ={
             userList : [],
             headers : [
-                  'User ID', 'User name', 'User Level','Site', 'Client', 'Last Accessed', 'Status'
+                  'User ID', 'User Name', 'User Level','Site', 'Client', 'Last Accessed', 'Status'
                 ],
             personalUser : [
                 {youraccount:"-", userId:"-", client:"-", site:"-"}
@@ -405,6 +405,23 @@ class UserManagement extends Component{
       }
     }
 
+    onEnabledAllModuleAccess = () => {
+        userModel.userMenu = null;
+        userModel.userMenu = [];
+
+        let newState = [...this.state.moduleAccess];
+        var newArray = newState.map((item,index) => {
+              item.status = true;
+              if(item.status){
+                userModel.userMenu.push(item.menuid);
+              }
+
+            return item;
+        });
+
+       this.setState({moduleAccess:newArray});
+    }
+
     onSiteStatusClick = (e,data) => {
 
       if(data){
@@ -444,6 +461,7 @@ class UserManagement extends Component{
     saveClick = () => {
 
       const {name,userId,email,userMenu} = this.state.accountInfo;
+
       if(name && userId && email && userMenu.length)
       {
         this.setState({isSaveProgressing:true},this.saveRequest);
@@ -526,7 +544,9 @@ class UserManagement extends Component{
                 isModuleLoaded={this.state.isModuleLoaded} moduleAccessEnableClick={this.onModuleAccessClick}
                 sites={this.state.sites} isSiteLoaded={this.state.isSiteLoaded} sitesEnableClick={this.onSiteStatusClick}
                 clients={this.state.clients} isClientLoaded={this.state.isClientLoaded} clientEnableClick={this.onClientStatusClick}
-                onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing} onChangeCompany={this.onChangeCompany}/>
+                onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing} onChangeCompany={this.onChangeCompany}
+                onModuleEnableAll = {this.onEnabledAllModuleAccess}/>
+
                 </CardBody>
               </Card>
               <footer>

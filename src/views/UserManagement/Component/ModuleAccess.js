@@ -2,13 +2,21 @@ import React, { Component } from 'react'
 import { Table,Button, Card, CardBody, Label} from 'reactstrap'
 import '../UserManagement.css'
 
-const moduleAccess = ({moduleAccess, onEnableClick, onSubmitHandler}) => {
+const moduleAccess = ({moduleAccess, onEnableClick, onSubmitHandler, onModuleEnableAll}) => {
 
 return (
   <div>
+        <div className="flex-column mr-2">
+          <div className="row">
+            <label className="col-8 text-bolder title-label" htmlFor="moduleAccess">Module Access
+            </label>
+            <input className="checkbox-hidden" type="checkbox" id="moduleAccess"/>
+            <label className="col-3 btn btn-outline-active" onClick={onModuleEnableAll}>Enabled All</label>
 
-        <label className="text-bolder mr-2 title-label">Module Access
-        </label>
+          </div>
+        </div>
+        <div className="d-flex border-bottom mr-2 mb-3">
+        </div>
         {
             moduleAccess.map((item,index) => {
 
@@ -23,8 +31,8 @@ return (
                                 }
 
                                 <input className="checkbox-hidden" type="checkbox" id={item.menuname} />
-                                <label htmlFor={item.menuname}  className={"col-2 btn "+((item.status)?"btn-outline-active":"btn-outline-notActive")} onClick={(e)=>{onEnableClick(e,item);}}>{(item.status)?"Enable":"Disable"}</label>
-                                <div className="col-2">
+                                <label htmlFor={item.menuname}  className={"col-3 btn "+((item.status)?"btn-outline-active":"btn-outline-notActive")} onClick={(e)=>{onEnableClick(e,item);}}>{(item.status)?"Enabled":"Disabled"}</label>
+                                <div className="col-1">
                                 </div>
                             </div>
                       </div>)
