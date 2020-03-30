@@ -31,8 +31,8 @@ class StockHolding extends Component {
             showEditColumn: false,
             
             site: "",
-            status: "",
             unit: "",
+            status: "",
 
 			currentPage: 1,
 			startIndex: 0,
@@ -53,10 +53,12 @@ class StockHolding extends Component {
 				{ id: "expected_in_qty", checkboxLabelText: "Expected In Qty", tableHeaderText: "Expected In Qty", isVisible: true, key: "qty_lcd_expected", type: "number", sort: mid },
 				{ id: "expected_in_weight", checkboxLabelText: "Expected In Wgt", tableHeaderText: "Expected In Weight", isVisible: true, key: "wgt_expected", type: "number", sort: mid },
 				{ id: "expected_out_qty", checkboxLabelText: "Expected Out Qty", tableHeaderText: "Expected Out Qty", isVisible: true, key: "qty_lcd_committed", type: "number", sort: mid },
+				{ id: "price", checkboxLabelText: "Price", tableHeaderText: "Price", isVisible: false, key: "price", type: "number", sort: mid },
+				{ id: "pallets", checkboxLabelText: "Pallets", tableHeaderText: "Pallets", isVisible: false, key: "pallets", type: "string", sort: mid },
             ],
             masterSite: [],
-            masterStatus: ["MICROLISTICS BRIS", "Microlistics", "MICROLISTICS MELB"],
-            masterUnit: ["EACH", "CASE", "PALLET"],
+            masterUnit: ["MICROLISTICS BRIS", "Microlistics", "MICROLISTICS MELB"],
+            masterStatus: ["OK", "SHORTAGE"],
 			masterResStockHolding: []
         };
         
@@ -172,8 +174,8 @@ class StockHolding extends Component {
         
 		params.searchParam = form.searchInput.value;
         if (site !== "") { params.site = site }
-        if (status !== "") { params.status = status }
         if (unit !== "") { params.unit = unit }
+        if (status !== "") { params.status = status }
 
         axios.get(endpoint.stockHoldingSummary, {
             params: params,
@@ -203,13 +205,14 @@ class StockHolding extends Component {
         this.setState({ site: site });
     }
 
+    selectedUnit = (unit) => {
+        this.setState({ unit: unit });
+	}
+	
     selectedStatus = (status) => {
         this.setState({ status: status });
     }
 
-    selectedUnit = (unit) => {
-        this.setState({ unit: unit });
-    }
 
     showDropdown = () => {
         let masterSite = [];
@@ -219,8 +222,8 @@ class StockHolding extends Component {
             });
         }
 
-        let masterStatus = this.state.masterStatus.toString();
         let masterUnit = this.state.masterUnit.toString();
+        let masterStatus = this.state.masterStatus.toString();
 
         return (
             <div className={"input-group filterSection" + (this.state.showFilter ? "" : " d-none")}>
@@ -229,15 +232,16 @@ class StockHolding extends Component {
                           optionValue={masterSite.toString()}
                           getValue={this.selectedSite} />
 
-                <Dropdown placeHolder="Client" style={{width:'218px'}}
+				<Dropdown placeHolder="Client" style={{width:'218px'}}
+                        optionList={masterUnit}
+                        optionValue={masterUnit}
+                        getValue={this.selectedUnit} />
+
+                <Dropdown placeHolder="Status" 
                         optionList={masterStatus}
                         optionValue={masterStatus}
                         getValue={this.selectedStatus} />
 
-                <Dropdown placeHolder="Product"
-                        optionList={masterUnit}
-                        optionValue={masterUnit}
-                        getValue={this.selectedUnit} />
             </div>
         );
     }
