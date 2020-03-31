@@ -79,6 +79,7 @@ class UserManagement extends Component{
               currentPage:0,
               startIndex:0,
               lastIndex:0,
+              isValidForm:false
 
 
         }
@@ -280,7 +281,7 @@ class UserManagement extends Component{
       user.userId = newText.toLowerCase()+result;
       user.password = result+newText.toLowerCase();
 
-      this.setState({accountInfo:user});
+      this.setState({accountInfo:user, isValidForm:false});
     }
 
     onChangeCompany = (e) => {
@@ -295,7 +296,7 @@ class UserManagement extends Component{
       let user = {...this.state.accountInfo};
       user.email = value;
 
-      this.setState({accountInfo:user});
+      this.setState({accountInfo:user,isValidForm:false});
     }
 
     generateUserID = (textValue) => {
@@ -482,7 +483,9 @@ class UserManagement extends Component{
 
       if(name && userId && email && userMenu.length)
       {
-        this.setState({isSaveProgressing:true},this.saveRequest);
+        this.setState({isSaveProgressing:true,isValidForm:false},this.saveRequest);
+      }else{
+        this.setState({isValidForm:true});
       }
     }
 
@@ -565,7 +568,7 @@ class UserManagement extends Component{
                 sites={this.state.sites} isSiteLoaded={this.state.isSiteLoaded} sitesEnableClick={this.onSiteStatusClick}
                 clients={this.state.clients} isClientLoaded={this.state.isClientLoaded} clientEnableClick={this.onClientStatusClick}
                 onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing} onChangeCompany={this.onChangeCompany}
-                onModuleEnableAll = {this.onEnabledAllModuleAccess}/>
+                onModuleEnableAll = {this.onEnabledAllModuleAccess} isValidForm={this.state.isValidForm}/>
 
                 </CardBody>
               </Card>

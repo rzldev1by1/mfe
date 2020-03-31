@@ -8,7 +8,7 @@ import Client from './Client'
 const modalNewUser = (props) => {
   const { className, isOpen, toggle, closeModal, onChangeName,onChangeEmail, onChangeCompany, model,
     moduleAccess,isModuleLoaded,moduleAccessEnableClick,sites, isSiteLoaded, sitesEnableClick,
-    clients, isClientLoaded, clientEnableClick, onSaveClick, isSaveProgressing, onModuleEnableAll} = props;
+    clients, isClientLoaded, clientEnableClick, onSaveClick, isSaveProgressing, onModuleEnableAll, isValidForm} = props;
 
     const submitHandler = (event) =>{
       event.preventDefault();
@@ -107,8 +107,15 @@ const modalNewUser = (props) => {
                 </div>
 
                 <div className="row">
-                  <div className="col-12">
-                    <button type="button" className="font-lg font-md font-sm btn btn-primary float-right" onClick={onSaveClick}>
+                  <div className="col-10">
+                      <p className="float-right">
+                        <label className={(isValidForm)?"errorText ":" d-none"}>
+                            Please make sure user name, email is valid and module has one enabled
+                        </label>
+                      </p>
+                  </div>
+                  <div className="col-2 pl-5">
+                    <button type="button" className="font-lg font-md font-sm btn btn-primary" onClick={onSaveClick}>
                     <i className= {(isSaveProgressing)?"mr-2 fa fa-refresh fa-spin ":"fa fa-refresh fa-spin d-none"}></i>
                     <label className="create-user-label mb-0">Submit</label>
                     </button>
