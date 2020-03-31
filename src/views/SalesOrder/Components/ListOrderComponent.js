@@ -42,47 +42,38 @@ class ListOrderComponent extends Component {
   }
 
 
-  searchSalesOrder = (search,client,site,status,ordertype,order_no) => {
+  searchSalesOrder =(search,client,site,status,ordertype) => {
     
     this.setState({currentPage: 1,
       startIndex: 0, lastIndex: 0,
       totalRows: 0, maxPage: 0})
 
     let param = search
-    let url = '?searchParam='+param
+    let url = '?searchParam=' + param
     if(param)
     {
       param = param.toUpperCase()
     }
+    
 
     if(client)
     {
-      param = client
-      url = '?client=' + client
+      url += '&client='+client
     }
 
     if(site)
     {
-      param = site
-      url = '?site=' + site
+      url += '&site='+site
     }
 
     if(status)
     {
-      param = status
-      url = '?status=' + status
+      url += '&status='+status
     }
 
     if(ordertype)
     {
-      param = ordertype
-      url = '?orderType=' + ordertype
-    }
-
-    if(order_no)
-    {
-      param = order_no
-      url = '?order_no=' + order_no
+      url += '&orderType='+ordertype
     }
 
     this.props.loadCompleteHandler(false)
@@ -324,10 +315,10 @@ class ListOrderComponent extends Component {
                                       <td>{data.order_type}</td>
                                       <td>{data.customer_name}</td>
                                       <td style={{width:"11%"}}>{data.status_desc}</td>
-                                      <td>{'' + (data.date_due ? moment(data.date_due).format("YYYY/MM/DD") : '') }</td>
-                                      <td>{'' + (data.date_recd ? moment(data.date_recd).format("YYYY/MM/DD") : '') }</td>
-                                      <td>{'' + (data.date_released ? moment(data.date_released).format("YYYY/MM/DD") : '') }</td>
-                                      <td>{'' + (data.date_completed ? moment(data.date_completed).format("YYYY/MM/DD") : '') }</td>
+                                      <td>{'' + (data.date_due ? moment(data.date_due).format("DD/MM/YYYY") : '') }</td>
+                                      <td>{'' + (data.date_recd ? moment(data.date_recd).format("DD/MM/YYYY") : '') }</td>
+                                      <td>{'' + (data.date_released ? moment(data.date_released).format("DD/MM/YYYY") : '') }</td>
+                                      <td>{'' + (data.date_completed ? moment(data.date_completed).format("DD/MM/YYYY") : '') }</td>
                           <td>{console.log(data)}</td>
                                   </tr>
                               ) : 
@@ -344,7 +335,7 @@ class ListOrderComponent extends Component {
                             startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                             isActive={this.state.isActive}
                             numberEventClick={this.numberEventClick}/>
-                    <Export/>
+                    {/* <Export/> */}
                 </div>    
           </div>)
     }

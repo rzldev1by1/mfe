@@ -2,6 +2,8 @@ import React, {Component} from  'react'
 import mid from '../../../../src/assets/img/brand/field-idle.png'
 import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
+import ok from '../../../assets/img/brand/ok.png'
+import invalid from '../../../assets/img/brand/invalid.png'
 
 class SODTable extends Component {
     constructor(props){
@@ -9,7 +11,7 @@ class SODTable extends Component {
 
         this.state ={
             data : this.props.head,
-            bodyheader : ['Line No','Product','Product Description','Qyt','Qyt Processed','Weight','Weight Processed','Completed','OOS','Ref'],
+            bodyheader : ['Line No','Product','Product Description','Qty','Qyt Processed','Weight','Weight Processed','Completed','OOS','Ref'],
             activearrow:mid,
             sortparameter:'order_no',
             sort:true
@@ -119,12 +121,14 @@ class SODTable extends Component {
             <table className="potable">
               <thead>
                 <tr>
-                  {this.state.bodyheader.map(header =>
+                  {/* {this.state.bodyheader.map(header =>
                     <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
                     <img key={header} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}} src={this.state.activearrow}/>
                     </th>
+                  )} */}
+                   {this.state.bodyheader.map(header =>
+                    <th key={header} id={header}>{header} </th>
                   )}
-                  
                   <th className='iconU-edit'></th>
                 </tr>
               </thead>
@@ -141,7 +145,7 @@ class SODTable extends Component {
                         <td>{data.qty_processed}</td>
                         <td>{data.weight}</td>
                         <td>{data.wgt_processed}</td>
-                        <td>{data.completed == "Y" ? "YES" :"NO"}</td>
+                        <td><img style={{width:'15px',height:'13px'}} src={data.completed == "Y" ? ok : invalid} /></td>
                         <td>{data.qty_oos}</td>
                         <td>{data.ref}</td>
                       </tr>

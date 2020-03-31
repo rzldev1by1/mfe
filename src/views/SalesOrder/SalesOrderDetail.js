@@ -67,6 +67,7 @@ getheaderdetail = () => {
       let country= this.state.head.length ? this.state.head[0].country : null
       let state= this.state.head.length ? this.state.head[0].state : null
       let city= this.state.head.length ? this.state.head[0].city : null
+      let statusDesc = this.state.head.length ? this.state.head[0].status_desc : null
 
       return(
         <div className='podheader fades'>                    
@@ -147,9 +148,9 @@ getheaderdetail = () => {
             </div>
             <div className='sub'  style={{width:'65%'}}>
                 <table className='tableborderss' style={{width:'90%'}}>
-                    <tr>
+                <tr>
                         <th>Status</th>
-                        <td>{status ? status : '-'}</td>
+                        <td >{status ? status+ ' (' +statusDesc.substring(3) + ')' : '-'}</td>
                     </tr>
                     <tr>
                         <th>Delivery Date</th>
@@ -164,7 +165,7 @@ getheaderdetail = () => {
                         <td>{dateReleased ? dateReleased.substring(0, 11) : '-'}</td>
                     </tr>
                     <tr>
-                        <th>Dete Complete</th>
+                        <th>Dete Completed</th>
                         <td>{dateCompleted ? dateCompleted.substring(0,11) : '-'}</td>
                     </tr>
                     <tr>
