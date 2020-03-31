@@ -293,7 +293,7 @@ class UserManagementDetail extends Component{
       const {name,value} = e.target;
       let user = {...this.state.accountInfo};
       user.user = value;
-      this.setState({accountInfo:user});
+      this.setState({accountInfo:user, isValidForm:false});
     }
 
     onChangeEmail = (e) => {
@@ -301,7 +301,7 @@ class UserManagementDetail extends Component{
       let user = {...this.state.accountInfo};
       user.email = value;
 
-      this.setState({accountInfo:user});
+      this.setState({accountInfo:user, isValidForm:false});
     }
 
     generateUserID = (textValue) => {
@@ -356,7 +356,7 @@ class UserManagementDetail extends Component{
       if(newParam.name && newParam.email && newParam.userMenu.length)
       {
         let updateReq = this.updateRequest(newParam);
-        this.setState({isSaveProgressing:true},updateReq);
+        this.setState({isSaveProgressing:true, isValidForm:false},updateReq);
       }else{
         this.setState({isValidForm:true});
       }
