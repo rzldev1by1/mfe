@@ -68,7 +68,7 @@ const modalNewUser = (props) => {
                 </div>
                 <div className="row">
                     <div className="col-3">
-                        <input type="text" name="userid" readOnly className="form-control" defaultValue={model.userId}/>
+                        <input type="text" name="userid" readOnly className="form-control" Value={model.userId}/>
                     </div>
 
                     <div className="col-3">

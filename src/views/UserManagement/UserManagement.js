@@ -31,6 +31,22 @@ const userModel = {
     "company":""
 }
 
+// userModel = () => {
+//   this.userId = "";
+//   this.name = "";
+//   this.email = "";
+//   this.webGroup = "Warehouse";
+//   this.lastAccess = today;
+//   this.lastLogin = today;
+//   this.thisAccess = today;
+//   this.thisLogin = today;
+//   this.password ="";
+//   this.userMenu = [];
+//   this.client = "";
+//   this.disabled = "N";
+//   this.company = "";
+// }
+
 
 class UserManagement extends Component{
     constructor(props){
@@ -245,6 +261,7 @@ class UserManagement extends Component{
     }
 
     onCreateClick = () => {
+
         this.setState({isModalNewOpen:!this.state.isModalNewOpen});
         // const {history,match} = this.props;
         // history.push(`${match.url}/create`);
@@ -483,13 +500,15 @@ class UserManagement extends Component{
             if(res.status === 200){
               self.setState({isSaveProgressing:false});
               self.closeModalPopUp();
-              self.loadUsers();
+              window.location.reload();
+              //self.loadUsers();
             }
             return result;
           })
           .catch(error => {
               self.setState({isSaveProgressing:false});
-              console.log("error save",error);
+              self.closeModalPopUp();
+              //console.log("error save",error);
           })
           .then((result) => {
 
