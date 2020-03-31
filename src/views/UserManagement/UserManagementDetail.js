@@ -536,7 +536,7 @@ class UserManagementDetail extends Component{
                                         </div>
 
                                         <div className="col-2">
-                                            <input type="text" className="form-control" onChange={(e)=>{this.onChangeName(e);}} defaultValue={this.state.accountInfo.user}/>
+                                            <input type="text" className="form-control" maxLength="60" onChange={(e)=>{this.onChangeName(e);}} defaultValue={this.state.accountInfo.user}/>
                                         </div>
 
                                         <div className="col-2">
