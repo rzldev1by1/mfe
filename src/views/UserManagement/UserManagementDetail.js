@@ -28,6 +28,7 @@ class UserManagementDetail extends Component{
           isLoadComplete:false,
           modalPopupResetdisplay:false,
           isResetSuccess:false,
+          isValidForm:false
         }
 
     }
@@ -356,6 +357,8 @@ class UserManagementDetail extends Component{
       {
         let updateReq = this.updateRequest(newParam);
         this.setState({isSaveProgressing:true},updateReq);
+      }else{
+        this.setState({isValidForm:true});
       }
 
       /*
@@ -473,6 +476,11 @@ class UserManagementDetail extends Component{
         this.setState({isSaveProgressing:false, modalPopupResetdisplay:false}, this.resetPassword());
     }
 
+    onSubmitHandler = (e) => {
+      e.preventDefault();
+      alert('hello');
+    }
+
     render(){
         const {match} = this.props;
         const {moduleAccess,sites,clients, accountInfo} = this.state;
@@ -492,6 +500,7 @@ class UserManagementDetail extends Component{
                     <Card className="container-user-list border-0 flex-fill h-100">
                         <CardBody>
                             <div >
+                              <form onSubmit={(e)=>{e.preventDefault(); this.saveClick();}}>
                                 <div className="account-detail mt-2">
                                     <div className="row">
                                       <div className="col-12">
@@ -540,7 +549,7 @@ class UserManagementDetail extends Component{
                                         </div>
 
                                         <div className="col-2">
-                                            <input type="text" name="email" className="form-control" onChange={(e)=>{this.onChangeEmail(e);}} defaultValue={this.state.accountInfo.email}/>
+                                            <input type="email" name="email" className="form-control" onChange={(e)=>{this.onChangeEmail(e);}} defaultValue={this.state.accountInfo.email}/>
                                         </div>
 
 
@@ -593,16 +602,24 @@ class UserManagementDetail extends Component{
                                 </div>
 
                                 <div className="d-flex mt-5 mr-3 justify-content-between">
-                                      <button className=" font-lg font-md font-sm btn btn-primary btn-submit" onClick={(e)=>{this.gotoUM();}}>
+                                      <button type="button" className=" font-lg font-md font-sm btn btn-primary btn-submit" onClick={(e)=>{this.gotoUM();}}>
                                           <label className="create-user-label mb-0">Back</label>
                                       </button>
 
-                                      <button className=" font-lg font-md font-sm btn btn-primary btn-submit" onClick={(e)=>{this.saveClick();}}>
+                                      <p>
+                                        <label className={(this.state.isValidForm)?"errorText ":" d-none"}>
+                                            Please make sure user name, email is valid and module has one enabled
+                                        </label>
+                                      </p>
+
+                                      <button type="button" className=" font-lg font-md font-sm btn btn-primary btn-submit" onClick={(e)=>{this.saveClick();}}>
                                           <i className= {(this.state.isSaveProgressing)?"mr-2 fa fa-refresh fa-spin ":"fa fa-refresh fa-spin d-none"}></i>
                                           <label className="create-user-label mb-0">Save</label>
                                       </button>
 
                                 </div>
+                                 <button type="submit" style={{opacity:"0"}}></button>
+                              </form>
                             </div>
                         </CardBody>
                     </Card>
