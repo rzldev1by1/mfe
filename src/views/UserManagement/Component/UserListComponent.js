@@ -45,13 +45,14 @@ class UserListComponent extends Component{
     }
 
     displayCellRow = (cellData) => {
+
         let result = 'norm';
         switch(cellData.toLowerCase()){
             case 'active':
                 result = 'active';
                 break;
             case 'user':
-                result = 'users';
+                result = 'user';
                 break;
             case 'suspended':
                 result = 'suspended';
@@ -71,8 +72,9 @@ class UserListComponent extends Component{
 
     getSortingField = (param) => {
       let result = "";
+      console.log(param);
       switch (param) {
-        case "User":
+        case "User Name":
             result = "user";
             break;
         case "User ID":
@@ -169,11 +171,16 @@ class UserListComponent extends Component{
     }
 
     sortingAscending = (a,b,key) => {
-      return ((a[key] < b[key])?-1:((a[key] > b[key])?1:0));
+      let strA = a[key].toLowerCase();
+      let strB = b[key].toLowerCase();
+
+      return ((strA < strB)?-1:((strA > strB)?1:0));
     }
 
     sortingDescending = (a,b,key) => {
-      return ((a[key] < b[key])? 1:((a[key] > b[key])?-1:0));
+      let strA = a[key].toLowerCase();
+      let strB = b[key].toLowerCase();
+      return ((strA < strB)? 1:((strA > strB)?-1:0));
     }
 
     render(){
