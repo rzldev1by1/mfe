@@ -60,7 +60,7 @@
                 </ModalHeader>       
             
             <ModalBody style={{width:"100%"}}>
-              {this.state.tab1isactive ? <Tab1CreateSO parameters={this.state.parameters} tabhandler={(param) => this.tabhandler(param)}/> : <Tab2CreateSO parameters={this.state.parameters} close={() => this.close()} tabhandler={() => this.tabhandler()} />}
+              {this.state.tab1isactive ? <Tab1CreateSO resources={this.props.resources} parameters={this.state.parameters} tabhandler={(param) => this.tabhandler(param)}/> : <Tab2CreateSO parameters={this.state.parameters} close={() => this.close()} tabhandler={() => this.tabhandler()} />}
             </ModalBody>
               {/* {this.state.tab2isactive ? 
                 this.submit() :  

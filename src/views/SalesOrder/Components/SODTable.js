@@ -11,7 +11,7 @@ class SODTable extends Component {
 
         this.state ={
             data : this.props.head,
-            bodyheader : ['Line No','Product','Product Description','Qty','Qyt Processed','Weight','Weight Processed','Completed','OOS','Ref'],
+            bodyheader : ['Line No','Product','Product Description','Qty','Qty Processed','Weight','Weight Processed','Completed','OOS','Ref'],
             activearrow:mid,
             sortparameter:'order_no',
             sort:true
@@ -129,7 +129,7 @@ class SODTable extends Component {
                    {this.state.bodyheader.map(header =>
                     <th key={header} id={header}>{header} </th>
                   )}
-                  <th className='iconU-edit'></th>
+                  {/* <th className='iconU-edit'></th> */}
                 </tr>
               </thead>
               <tbody>

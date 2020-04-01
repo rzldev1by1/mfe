@@ -25,6 +25,7 @@ const endpoint = {
     "OrderNO" : baseUrl + "dropdown/getorderno",
     "getSupplier": baseUrl + "dropdown/getsupplier",
     "getOrderType": baseUrl + "dropdown/getordertype",
+    "getSoResources": baseUrl + "getsorecources",
 
     "UserManagement_ModuleAccess": baseUrl + "usermanagement/module",
 
