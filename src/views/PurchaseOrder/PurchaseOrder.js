@@ -182,25 +182,46 @@ class PurchaseOrder extends Component {
         let clientName = [];
         let clientValue = [];
         let siteData = [];
+        let siteValue =[];
           let status = ["Unavailable", "Available", "Released", "Part Released", "Completed", "All"];
           let statusValue = ["unavailable", "open", "released", "", "completed", "all"];
+          let orderTypeName = [];
+          let orderTypeValue = [];
         if(this.state.clientdata){
             this.state.clientdata.map((data) => {
                 clientName.push(data.name);
                 clientValue.push(data.code);
             })
+            clientName.push("All");
+            clientValue.push("");
         }
         if(this.state.sitedata){
             this.state.sitedata.map((data) => {
                 siteData.push(data.site);
+                siteValue.push(data.site);
             })
+            siteData.push("All");
+            siteValue.push("");
+        }
+        if(this.state.orderTypeName.length > 1){
+            this.state.orderTypeName.map((data) => {
+                orderTypeName.push(data);
+            })
+            orderTypeName.push("All")
+        }
+        if(this.state.orderTypeValue.length > 1){
+            this.state.orderTypeValue.map((data) => {
+                orderTypeValue.push(data);
+
+            })
+            orderTypeValue.push("")
         }
           return(
               <React.Fragment>
-                  <Dropdown placeHolder="Site" style={{width: "102px", marginRight: "1em"}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected.bind(this)}/>
+                  <Dropdown placeHolder="Site" style={{width: "102px", marginRight: "1em"}} optionList={siteData.toString()} optionValue={siteValue.toString()} getValue={this.getSiteSelected.bind(this)}/>
                   <Dropdown placeHolder="Client" style={{width: "218px", marginRight: "1em"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected.bind(this)}/>
                   <Dropdown placeHolder="Status" style={{marginRight: "1em"}} optionList={status.toString()} optionValue={statusValue.toString()} getValue={this.getStatusSelected.bind(this)}/>
-                  <Dropdown placeHolder="Order Type" style={{width: "180px"}} optionList={this.state.orderTypeName.toString()} optionValue={this.state.orderTypeValue.toString()} getValue={this.getOrderTypeSelected.bind(this)}/>
+                  <Dropdown placeHolder="Order Type" style={{width: "180px"}} optionList={orderTypeName.toString()} optionValue={orderTypeValue.toString()} getValue={this.getOrderTypeSelected.bind(this)}/>
               </React.Fragment>
           )
       }
