@@ -171,21 +171,21 @@ class UserListComponent extends Component{
     }
 
     sortingAscending = (a,b,key) => {
-      let strA = a[key].toLowerCase();
-      let strB = b[key].toLowerCase();
+      let strA = (a[key] && a[key] !== '')?a[key].toLowerCase():a[key];
+      let strB = (b[key] && b[key] !== '')?b[key].toLowerCase():a[key];
 
       return ((strA < strB)?-1:((strA > strB)?1:0));
     }
 
     sortingDescending = (a,b,key) => {
-      let strA = a[key].toLowerCase();
-      let strB = b[key].toLowerCase();
+      let strA = (a[key] && a[key] !== '')?a[key].toLowerCase():a[key];
+      let strB = (b[key] && b[key] !== '')?b[key].toLowerCase():a[key];
       return ((strA < strB)? 1:((strA > strB)?-1:0));
     }
 
     render(){
         const {activearrow,order,fieldOrder} = this.state;
-
+        console.log(this.props.data);
         return(
                 <div className="d-flex tablePage">
                     <div className="w-100">
@@ -225,7 +225,7 @@ class UserListComponent extends Component{
                                                     {
                                                        Object.keys(element).map((item,idx) => {
 
-                                                          return (item !== 'email' && item !== 'web_user' && item !== 'company')?
+                                                          return (item !== 'email' && item !== 'web_user' && item !== 'company' && item !== 'userlevel')?
                                                                   <td key={idx} className={'p-0 '+((item === 'user')?'users':'norm')}>
                                                                    {
                                                                      <label className={((item === 'status')? ((element[item].toLowerCase() === 'active')?'active':'suspended'):'')}>
