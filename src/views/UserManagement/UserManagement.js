@@ -41,7 +41,7 @@ class UserManagement extends Component{
         this.state ={
             userList : [],
             headers : [
-                  'User ID', 'User Name', 'User Level','Site', 'Client', 'Last Accessed', 'Status'
+                  'User ID', 'User Name', 'Site', 'Client', 'Last Accessed', 'Status'
                 ],
             personalUser : [
                 {youraccount:"-", userId:"-", client:"-", site:"-"}
@@ -349,7 +349,7 @@ class UserManagement extends Component{
             }
           );
 
-            let newResult = self.restuctureData(resultMenu);            
+            let newResult = self.restuctureData(resultMenu);
             self.setState({moduleAccess:newResult,isModuleLoaded:true},self.writeToLocalStorage('menus',JSON.stringify(newResult)));
           }
           return result;
