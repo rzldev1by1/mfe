@@ -112,14 +112,14 @@ class DatePicker extends React.Component{
                 <ul className="select_date" style={ this.props.style }>
                     {/* <input type="checkbox" className="select_date_expand" name="select_opener" id={"select-opener" + placeHolder + no}></input> */}
                     {/* <input className="select_date_close" type="radio" name={"select" + placeHolder + no} id={"select-close" + placeHolder + no} value="" defaultChecked/> */}
-                    <span className="select_date_label select_date_label-placeholder">{this.state.selectedDay ? moment(this.state.selectedDay).format(this.props.shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : placeHolder}</span>
+                    <span className="select_date_label select_date_label-placeholder">{this.state.selectedDay ? moment(this.state.selectedDay).format("DD/MM/YYYY") : placeHolder}</span>
                     
                     <li className="select_date_items">
                         <input className="select_date_expand" type="checkbox" name={"select" + placeHolder + no} value="" id={"select-opener" + placeHolder + no}/>
                         <label className="select_date_closeLabel" htmlFor={"select-opener" + placeHolder + no}></label>
                         <div className={"select_date_options" + (this.props.field == "smallField" ? " smallField" : "")}>
                             <div className="dateInfo">
-                                {this.state.selectedDay ? moment(this.state.selectedDay).format(this.props.shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : "Please Select the Date"}
+                            {this.state.selectedDay ? moment(this.state.selectedDay).format(this.props.shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : "Please Select the Date"}
                             </div>
                             <DayPicker
                                 className="datepicker-content"
