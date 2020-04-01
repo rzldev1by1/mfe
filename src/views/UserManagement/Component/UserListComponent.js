@@ -171,21 +171,37 @@ class UserListComponent extends Component{
     }
 
     sortingAscending = (a,b,key) => {
-      let strA = (a[key] && a[key] !== '')?a[key].toLowerCase():a[key];
-      let strB = (b[key] && b[key] !== '')?b[key].toLowerCase():a[key];
-
-      return ((strA < strB)?-1:((strA > strB)?1:0));
+      // let strA = a[key];
+      // let strB = b[key];
+      if(a[key] === b[key])
+        return 0;
+      else if(a[key] === null)
+        return 1;
+      else if(b[key] === null)
+        return -1;
+      else
+        return a[key].toLowerCase() < b[key].toLowerCase()?-1:1;
+      // return ((strA < strB)?-1:((strA > strB)?1:0));
     }
 
     sortingDescending = (a,b,key) => {
-      let strA = (a[key] && a[key] !== '')?a[key].toLowerCase():a[key];
-      let strB = (b[key] && b[key] !== '')?b[key].toLowerCase():a[key];
-      return ((strA < strB)? 1:((strA > strB)?-1:0));
+      let strA = a[key];
+      let strB = b[key];
+      if(strA === strB)
+        return 0;
+      else if(a[key] === null)
+        return 1;
+      else if(b[key] === null)
+        return -1;
+      else
+        return a[key].toLowerCase() < b[key].toLowerCase()?1:-1;
+
+      // return ((strA < strB)? 1:((strA > strB)?-1:0));
     }
 
     render(){
         const {activearrow,order,fieldOrder} = this.state;
-        console.log(this.props.data);
+
         return(
                 <div className="d-flex tablePage">
                     <div className="w-100">
