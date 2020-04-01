@@ -8,6 +8,7 @@ import Search from '../../AppComponent/Search'
 import SalesOrderCreate from './Components/SalesOrderCreate'
 import axios from 'axios';
 import {endpoint, headers,} from '../../AppComponent/ConfigEndpoint'
+import Authentication from '../../Auth/Authentication';
 
 import "./SalesOrder.css"
 class SalesOrder extends Component{
@@ -31,6 +32,9 @@ class SalesOrder extends Component{
 
          //filter
          filterclicked:true,
+
+         //resources
+         resources:[]
       }
       
   }
@@ -38,6 +42,7 @@ class SalesOrder extends Component{
         componentDidMount = () => {
           this.getclient();
           this.getsite();
+          this.getResources();
           
       }
 
@@ -73,8 +78,7 @@ class SalesOrder extends Component{
           })
     }
 
-      getsite = () => {     
-        console.log(endpoint.getSite)    
+      getsite = () => {       
         axios.get(endpoint.getSite, {
           headers: headers
         })
@@ -85,6 +89,28 @@ class SalesOrder extends Component{
           .catch(error => {
             // this.props.history.push("/logins")
           })
+      }
+
+      getResources = () => {
+
+          let  company= Authentication.getCompanyCode()
+          let  client= Authentication.getClient()
+        axios.get(endpoint.getSoResources+'?company='+company+'&&client='+client, {
+          headers:headers
+        })
+
+        .then(res => {
+          let result = res.data
+          let supplier = result.supplier
+          let site     = result.site
+          let orderType= result.orderType
+          let identity = result.identity
+          let param = [supplier, site, orderType, identity]
+          this.setState({resources:param})
+        })
+        .catch(error => {
+
+        })
       }
 
 
@@ -156,7 +182,7 @@ console.log(this.state.listOrder)
         <ListOrderComponent ref={this.potableref} className='animated fadeIn' loadCompleteHandler = {(v) =>  this.setState({complete: v})} />
         </div>
         <div className={( this.state.complete ? 'hidden': 'spinner')}/>
-        <SalesOrderCreate showmodal={this.state.showmodal} closemodal={() => this.closeModal()}/>
+        <SalesOrderCreate resources={this.state.resources} showmodal={this.state.showmodal} closemodal={() => this.closeModal()}/>
     </div>)
   }
 }

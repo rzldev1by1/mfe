@@ -324,6 +324,7 @@ class Tab1CreateSO extends Component{
     }
 
     render= () => {
+      console.log(this.props.resources[0])
       let clientName = [];
       let clientValue = [];
       let siteData = [];

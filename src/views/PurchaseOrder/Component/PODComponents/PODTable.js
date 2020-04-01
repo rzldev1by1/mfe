@@ -15,7 +15,7 @@ class PurchaseOrderTable extends Component {
 
     this.state = {
       data:this.props.datahead,
-      tableheader : ['Line No','Product','Product Description','Qty','UOM','Qty Processed','Weigh','Weigh Processed','Completed','Ref '],
+      tableheader : ['Line No','Product','Product Description','Qty','UOM','Qty Processed','Weigth','Weigth Processed','Completed','Ref '],
       activearrow:mid,
       sortparameter:'order_no',
       sort:true

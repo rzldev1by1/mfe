@@ -25,7 +25,7 @@ class ListOrderComponent extends Component {
       currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
-			displayPage:2,
+			displayPage:50,
 			totalRows: 0,
       maxPage: 0,
 
@@ -302,7 +302,7 @@ class ListOrderComponent extends Component {
                            <img key={header} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}} src={this.state.activearrow}/>
                         </th>
                               )}  
-                              <th className='iconU-edit'></th>
+                              <th></th>
                        </tr>
                     </thead>
                     <tbody>
@@ -313,7 +313,7 @@ class ListOrderComponent extends Component {
                                       <td>{data.client}</td>
                                       <td>{data.order_no}</td>
                                       <td>{data.order_type}</td>
-                                      <td>{data.customer_name}</td>
+                                      <td>{data.customer + ' ( ' + data.customer_name + ' )'}</td>
                                       <td style={{width:"11%"}}>{data.status_desc}</td>
                                       <td>{'' + (data.date_due ? moment(data.date_due).format("DD/MM/YYYY") : '') }</td>
                                       <td>{'' + (data.date_recd ? moment(data.date_recd).format("DD/MM/YYYY") : '') }</td>
