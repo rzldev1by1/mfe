@@ -1,1 +1,1 @@
-export default ["purchase orders","stock holding", "stock movement", "create sales order"];
+export default ["stock holding", "stock movement", "purchase orders", "create sales order"];

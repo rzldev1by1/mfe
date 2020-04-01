@@ -11,6 +11,7 @@ import query from '../../AppComponent/query_menu_temp'
 import Authentication from '../../Auth/Authentication'
 import Paging from '../../AppComponent/Paging'
 import create from '../../assets/img/brand/button_create@2x.png'
+import menunav from '../../menunav';
 
 
 const today = moment(new Date()).format("YYYY-MM-DD");
@@ -31,21 +32,6 @@ const userModel = {
     "company":""
 }
 
-// userModel = () => {
-//   this.userId = "";
-//   this.name = "";
-//   this.email = "";
-//   this.webGroup = "Warehouse";
-//   this.lastAccess = today;
-//   this.lastLogin = today;
-//   this.thisAccess = today;
-//   this.thisLogin = today;
-//   this.password ="";
-//   this.userMenu = [];
-//   this.client = "";
-//   this.disabled = "N";
-//   this.company = "";
-// }
 
 
 class UserManagement extends Component{
@@ -319,14 +305,22 @@ class UserManagement extends Component{
       });
     }
 
+    restuctureDataModule = (sites) => {
+     return sites.map((item,index)=>{
+          let newItem = item;
+          newItem.status = false;
+          return newItem;
+      });
+    }
+
     writeToLocalStorage = (keyName, value) => {
       if(!sessionStorage.getItem(keyName)){
         sessionStorage.setItem(keyName,value);
-
       }
     }
 
     loadModuleAccess = (role) => {
+
       var self = this;
       //let query = ["purchase orders","stock holding", "stock movement", "create sales order"];
 
@@ -336,10 +330,26 @@ class UserManagement extends Component{
       })
         .then(res => {
           var result = [];
+
           if(res.status === 200){
+
+            if(sessionStorage.getItem('menus')){
+              sessionStorage.removeItem('menus');
+            }
+
             result = res.data;
-            // console.log(result);
-            let newResult = self.restuctureData(result.filter((item) => { return query.indexOf(item.menuname.toLowerCase()) !== -1 }));
+            let menuAccessTemp = result.filter((item) => { return query.indexOf(item.menuname.toLowerCase()) !== -1 });
+           let resultMenu =  menunav.items.filter((item)=>{ return item['key'] !== 'usermanagement'}).map((item,idx) =>
+            {
+              let itemMenu = {};
+              let keyName = item['key'];
+              let menuItem = menuAccessTemp.filter((item)=>{ return item.menuid === keyName});
+
+              return menuItem[0];
+            }
+          );
+
+            let newResult = self.restuctureData(resultMenu);            
             self.setState({moduleAccess:newResult,isModuleLoaded:true},self.writeToLocalStorage('menus',JSON.stringify(newResult)));
           }
           return result;
