@@ -364,16 +364,6 @@ class Tab1CreateSO extends Component{
                 <td><Dropdown getValue = {(val) => this.setState({shipToName:val})} placeHolder="Order Type" style={{minWidth: "100%"}} optionList={ this.props.resources.supplier.name} optionValue={ this.props.resources.supplier.code}/><input hidden id='supplier'/></td>                
                 <td><input onChange = {(e) => this.setState({vendorOrderNo:e.target.value})} maxLength="40" id='orderNo' className="form-control put " placeholder="Order No"/> </td>                  
                 </tr>
-                <tr>
-                  <th>First Delivery</th>
-                  <th>Last Delivery</th>
-                  <th>Order Id</th>
-                </tr>
-                <tr>
-                  <td><DatePicker getDate = {(date) => this.setState({firstDelivery:date})} style={{ minWidth: "100%" }}></DatePicker></td>
-                  <td><DatePicker getDate = {(date) => this.setState({lastDelivery:date})} style={{ minWidth: "100%" }}></DatePicker></td>
-                  <td><input onChange = {(e) => this.setState({orderId:e.target.value})} value={this.state.orderId} className="form-control put " placeholder="Order Id"/></td>
-                </tr>
             </table>
             <tr style={{color:"transparent"}}>1</tr>
             <h3 className="fonts">Costumer</h3>
