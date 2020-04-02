@@ -521,7 +521,7 @@ class UserManagement extends Component{
           .catch(error => {
               self.setState({isSaveProgressing:false});
               self.closeModalPopUp();
-              //console.log("error save",error);
+              
           })
           .then((result) => {
 
