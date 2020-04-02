@@ -101,12 +101,7 @@ class SalesOrder extends Component{
 
         .then(res => {
           let result = res.data
-          let supplier = result.supplier
-          let site     = result.site
-          let orderType= result.orderType
-          let identity = result.identity
-          let param = [supplier, site, orderType, identity]
-          this.setState({resources:param})
+          this.setState({resources:result})
         })
         .catch(error => {
 
@@ -148,7 +143,6 @@ class SalesOrder extends Component{
 }
 
   render(){
-console.log(this.state.listOrder)
     return(<div style={{marginLeft:"-9px" , width:"101.5%"}}>
        <div className='header'>
           <h2 style={{marginTop:'0.2%'}}>Sales Orders</h2>

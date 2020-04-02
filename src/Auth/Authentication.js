@@ -77,7 +77,7 @@ class Authentication {
 	static getCompanyCode = () => {
 		let user = Authentication.getUser();
 		if (!user) { return false };
-		return user["companyCode"];
+		return user["company"];
 	}
 
 	static getUserMenu = () => {

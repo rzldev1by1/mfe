@@ -911,4 +911,9 @@ a.breadcrumb:hover {
     border-radius: 5px;
 }
 
+.required-field::after { 
+    content: "*";
+    color: red;
+}
+
 // End - Module Details
