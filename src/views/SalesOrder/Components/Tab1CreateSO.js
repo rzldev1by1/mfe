@@ -13,28 +13,26 @@ class Tab1CreateSO extends Component{
         this.state ={
             tab1isactive:true,
             tab2isactive:false,
-            company:Authentication.getCompanyCode(),
-            client:Authentication.getClient(),
-            site:null,
-            orderId:null,
-            customerPoNo:null,
-            vendorOrderNo:null,
-            customer:null,
-            orderType:null,
-            deliveryDate:null,
-            firstDelivery:null,
-            lastDelivery:null,
-            shipToName:null,
-            shipToAddress1:null,
-            shipToAddress2:null,
-            shipToAddress3:null,
-            shipToAddress4:null,
-            shipToAddress5:null,
-            city:null,
-            postCode:null,
-            state:null,
-            country:null,
-            deliveryInstruction:null,
+            company             : Authentication.getCompanyCode(),            
+            site                : null,  
+            client              : Authentication.getClient(),       
+            orderId             : null,
+            customerOrderRef    : null,
+            vendorOrderRef      : null,
+            customerCode        : null,
+            orderType           : null,
+            deliveryDate        : null,
+            customerName        : null,
+            shipToAddress1      : null,
+            shipToAddress2      : null,
+            shipToAddress3      : null,
+            shipToAddress4      : null,
+            shipToAddress5      : null,
+            city                : null,
+            postCode            : null,
+            state               : null,
+            country             : null,
+            deliveryInstruction : null,
             rowlist:[1],
             header: [],
             parameters:[],
@@ -50,27 +48,9 @@ class Tab1CreateSO extends Component{
         }
     }
 
-
-    getSiteSelected = (value) => {
-      this.setState({siteSelected: value});
-    }
-
     setCustomerPoNoHandler = (e) =>{
       let custPoNo = e.target.value
       this.setState({customerPoNo:custPoNo})
-    }
-
-    getsite = () => {         
-      axios.get(endpoint.getSite, {
-        headers: headers
-      })
-        .then(res => {
-          const result = res.data
-          this.setState({ sitedata:result })
-        })
-        .catch(error => {
-          // this.props.history.push("/logins")
-        })
     }
 
     setParametersHandler = () => {
@@ -79,122 +59,76 @@ class Tab1CreateSO extends Component{
 
       // Order Details
       const{
-        client,
-        site,
-        orderId,
-        customerPoNo,
-        vendorOrderNo,
-        customer,
-        orderType,
-        deliveryDate,
-        firstDelivery,
-        lastDelivery,
-        shipToName,
-        shipToAddress1,
-        shipToAddress2,
-        shipToAddress3,
-        shipToAddress4,
-        shipToAddress5,
-        city,
-        postCode,
-        state,
-        country,
+        site               ,  
+        client             ,       
+        orderId            ,
+        customerOrderRef   ,
+        vendorOrderRef     ,
+        customerCode       ,
+        orderType          ,
+        deliveryDate       ,
+        customerName       ,
+        shipToAddress1     ,
+        shipToAddress2     ,
+        shipToAddress3     ,
+        shipToAddress4     ,
+        shipToAddress5     ,
+        city               ,
+        postCode           ,
+        state              ,
+        country            ,
         deliveryInstruction,
       } = this.state
 
-        if(client == null || client == '')
-        {
-          alert('client cannot be empty')
-          return
-        }
+
         if(site == null || site =='')
         {
           alert('site cannot be empty')
           return
         }
+        if(client == null || client == '')
+        {
+          alert('client cannot be empty')
+          return
+        }        
         if(orderType == null || orderType == '')
         {
           alert('orderType cannot be empty')
           return
-        } 
-        if(customerPoNo == null || customerPoNo == '')
-        {
-          alert('customer po number cannot be empty')
-          return
-        } 
-        if(deliveryInstruction == null || deliveryInstruction == '')
-        {
-          alert('delivery insruction cannot be empty')
-          return
-        }  
-        if(deliveryDate == null || deliveryDate == '')
-        {
-          alert('delivery date cannot be empty')
-          return
-        }
-        if(shipToName == null || shipToName == '')
-        {
-          alert('Supplier cannot be empty')
-          return
-        }
-        if(vendorOrderNo == null || vendorOrderNo == '')
-        {
-          alert('vendor Order No cannot be empty')
-          return
-        }      
-        if(firstDelivery == null || firstDelivery == '')
-        {
-          alert('first delivery cannot be empty')
-          return
-        }
-        if(lastDelivery == null || lastDelivery == '')
-        {
-          alert('last delivery cannot be empty')
-          return
-        }
+        }   
         if(orderId == null || orderId == '')
         {
-          alert('orderId cannot be empty')
+          alert('order No cannot be empty')
+          document.getElementById('orderNo').focus()
           return
         }
-        if(customer == null || customer == '')
+        if(deliveryDate == null || deliveryDate == '')
+        {
+          alert('Delivery Date must have a value')
+          return
+        }
+        if(customerOrderRef == null || customerOrderRef == '')
+        {
+          alert('Customer Order Ref cannot be empty')
+          document.getElementById('customerOrderRef').focus()
+          return
+        }     
+        if(customerCode == null || customerCode == '')
         {
           alert('customer cannot be empty')
+          document.getElementById('customerCode').focus()
           return
         }
         if(shipToAddress1 == null || shipToAddress1 == '')
         {
           alert('Address 1 cannot be empty')
-          return
-        }
-        if(shipToAddress2 == null || shipToAddress2 == '')
-        {
-          alert('Address 2 cannot be empty')
-          return
-        }
-        if(shipToAddress3 == null || shipToAddress3 == '')
-        {
-          alert('Address 3 cannot be empty')
-          return
-        }
-        if(shipToAddress4 == null || shipToAddress4 == '')
-        {
-          alert('Address 4 cannot be empty')
-          return
-        }
-        if(shipToAddress5 == null || shipToAddress5 == '')
-        {
-          alert('Address5 cannot be empty')
-          return
-        }
-        if(city == null || city == '')
-        {
-          alert('suburb cannot be empty')
+          document.getElementById('address1').focus()
           return
         }
         if(postCode == null || postCode == '')
         {
           alert('post code cannot be empty')
+          document.getElementById('postCode').focus()
           return
         }
         if(state == null || state == '')
@@ -224,52 +158,19 @@ class Tab1CreateSO extends Component{
           if(product == '')
           {
             alert('product in line '+number + ' cannot be empty')
-            break;
+            document.getElementById('product_'+number).focus()
+            return
           }
           else if(qty == '' || qty == null)
           {
             alert('quantity in line '+number + ' cannot be empty')
-            break;
-          }
-          else if(weight == '' || weight == null)
-          {
-            alert('weight in line '+number + ' cannot be empty')
-            break;
+            document.getElementById('qty_'+number).focus()
+            return
           }
           else if(uom == '' || uom == null)
           {
             alert('uom in line '+number + ' cannot be empty')
-            break;
-          }
-          else if(rotaDate == '' || rotaDate == null)
-          {
-            alert('rotadate in line '+number + ' cannot be empty')
-            break;
-          }
-          else if(batch == '' || batch == null)
-          {
-            alert('batch in line '+number + ' cannot be empty')
-            break;
-          }
-          else if(ref3 == '' || ref3 == null)
-          {
-            alert('ref3 in line '+number + ' cannot be empty')
-            break;
-          }
-          else if(ref4 == '' || ref4 == null)
-          {
-            alert('ref4 in line '+number + ' cannot be empty')
-            break;
-          }
-          else if(disposition == '' || disposition == null)
-          {
-            alert('disposition in line '+number + ' cannot be empty')
-            break;
-          }
-          else if(packId == '' || packId == null)
-          {
-            alert('pack id in line '+number + ' cannot be empty')
-            break;
+            return
           }
 
           let data = {
@@ -289,17 +190,15 @@ class Tab1CreateSO extends Component{
 
         let param = {
           orderDetails:{
-          client              : client,
           site                : site,
+          client              : client,          
           orderId             : orderId,
-          customerPoNo        : customerPoNo,
-          vendorOrderNo       : vendorOrderNo,
-          customer            : customer,
+          customerOrderRef    : customerOrderRef,
+          vendorOrderRef      : vendorOrderRef,
+          customer            : customerCode,
           orderType           : orderType ,
           deliveryDate        : deliveryDate,
-          firstDelivery       : firstDelivery,
-          lastDelivery        : lastDelivery,
-          shipToName          : shipToName,
+          shipToName          : customerName,
           shipToAddress1      : shipToAddress1,
           shipToAddress2      : shipToAddress2,
           shipToAddress3      : shipToAddress3,
@@ -344,61 +243,71 @@ class Tab1CreateSO extends Component{
             <table className="createpotables">
                 <tr>
                     <th className='required-field'>Site</th>
-                    <th>Order Type</th>
-                    <th>Customer PO No</th>
-                    <th>Delivery Instructions</th>
+                    <th className='required-field'>Client</th>
+                    <th className='required-field'>Order Type</th>
+                    <th className='required-field'>Order No</th>                    
                 </tr>
                 <tr>
-                    <td><Dropdown getValue = {(val) => this.setState({site:val})} placeHolder="Site"  style={{minWidth: "100%", zIndex:"1"}} optionList={ this.props.resources.site.name} optionValue={ this.props.resources.site.code}/></td>
-                    <td><Dropdown getValue = {(val) => this.setState({orderType:val})} placeHolder="Order Type" style={{minWidth: "100%"}} optionList={ this.props.resources.orderType.name} optionValue={ this.props.resources.orderType.code}/><input hidden id='orderType'/></td>
-                    <td><input onChange={(e) => this.setState({customerPoNo:e.target.value})} id='customerPoNo' className="form-control put " placeholder="Customer PO No"/> </td>                 
-                    <td rowspan="3"><textarea onChange={(e) => this.setState({deliveryInstruction:e.target.value})} id='deliveryInstruction' className="form-control put dlv" style={{height:"8em"}} placeholder="Delivery Instructions"/></td>
+                    <td><Dropdown getValue = {(val) => this.setState({site:val})} placeHolder="Site"  style={{minWidth: "100%", zIndex:"1"}} optionList={ this.props.resources.site.name.toString()} optionValue={ this.props.resources.site.code.toString()}/></td>
+                    <td><input readOnly value={Authentication.getClient()} id='client' className="form-control put " placeholder="Client"/> </td>
+                    <td><Dropdown getValue = {(val) => this.setState({orderType:val})} placeHolder="Order Type" style={{minWidth: "100%"}} optionList={ this.props.resources.orderType.name.toString()} optionValue={ this.props.resources.orderType.code.toString()}/><input hidden id='orderType'/></td>
+                    <td><input value={this.state.orderId} onChange={(e) => this.setState({orderId:e.target.value})} id='orderNo' className="form-control put " placeholder="Order No"/> </td>                 
+                    
                 </tr>
                 <tr>
-                    <th>Delivery Date</th>
-                    <th>Supplier</th>
-                    <th>Order No</th>
+                    <th className='required-field'>Delivery Date</th>
+                    <th className='required-field'>Customer Order Ref</th>
+                    <th>Vendor Order Ref</th>                    
                 </tr>
                 <tr>
-                <td><DatePicker getDate = {(date) => this.setState({deliveryDate:date})} style={{ minWidth: "100%" }}></DatePicker></td>  
-                <td><Dropdown getValue = {(val) => this.setState({shipToName:val})} placeHolder="Order Type" style={{minWidth: "100%"}} optionList={ this.props.resources.supplier.name} optionValue={ this.props.resources.supplier.code}/><input hidden id='supplier'/></td>                
-                <td><input onChange = {(e) => this.setState({vendorOrderNo:e.target.value})} maxLength="40" id='orderNo' className="form-control put " placeholder="Order No"/> </td>                  
+                <td><DatePicker getDate = {(date) => this.setState({deliveryDate:date})} style={{ minWidth: "100%" }}></DatePicker></td>                 
+                <td><input value={this.state.customerOrderRef} onChange = {(e) => this.setState({customerOrderRef:e.target.value})} maxLength="40" minLength="4" id='customerOrderRef' className="form-control put " placeholder="Customer Order Ref"/> </td>
+                <td><input value={this.state.vendorOrderRef} onChange = {(e) => this.setState({vendorOrderRef:e.target.value})} maxLength="40" id='vendorOrderRef' className="form-control put " placeholder="Vendor Order Ref"/> </td>                  
+                </tr>
+
+                <tr>
+                  <th>Delivery Instructions</th>
+                </tr>
+                <tr>
+                  <td rowspan="3"><textarea onChange={(e) => this.setState({deliveryInstruction:e.target.value})} id='deliveryInstruction' className="form-control put dlv" style={{height:"8em"}} placeholder="Delivery Instructions"/></td>
                 </tr>
             </table>
             <tr style={{color:"transparent"}}>1</tr>
-            <h3 className="fonts">Costumer</h3>
+            <h3 className="fonts">Customer  Details</h3>
             <table className="createpotables">
                 <tr>
-                    <th>Costumer</th>
-                    <th>Address 1</th>
+                    <th className='required-field'>Customer </th>
+                    <th className='required-field'>Address 1</th>
                     <th>Address 2</th>
                     <th>Address 3</th>
                 </tr>
                 <tr>
-                    <td><input onChange={(e) => this.setState({customer:e.target.value})} id='customer' className="form-control put " placeholder="Costumer" value={this.props.resources.length > 0 ? this.props.resources.identity[0].name : null}/></td>
-                    <td><input onChange={(e) => this.setState({shipToAddress1:e.target.value})} id='address1' maxLength="200" className="form-control put " placeholder="Address 1" value={this.props.resources.length > 0 ? this.props.resources.identity[0].address_1 : null}/> </td>
-                    <td><input onChange={(e) => this.setState({shipToAddress2:e.target.value})} id='address2' maxLength="201" className="form-control put " placeholder="Address 2" value={this.props.resources.length > 0 ? this.props.resources.identity[0].address_2 : null}/> </td>
-                    <td><input onChange={(e) => this.setState({shipToAddress3:e.target.value})} id='address3' maxLength="203" className="form-control put " placeholder="Address 3" value={this.props.resources.length > 0 ? this.props.resources.identity[0].address_3 : null}/> </td>
+                {/* <td><Dropdown getValue = {(val) => this.setState({shipToName:val})} placeHolder="Order Type" style={{minWidth: "100%"}} optionList={ this.props.resources.supplier.name} optionValue={ this.props.resources.supplier.code}/><input hidden id='supplier'/></td>                 */}
+                    <td><input value={this.state.customerCode} onChange={(e) => this.setState({customerCode:e.target.value})} id='customerCode' className="form-control put " placeholder="Costumer" value={this.props.resources.length > 0 ? this.props.resources.identity[0].name : null}/></td>
+                    <td><input value={this.state.address_1} onChange={(e) => this.setState({shipToAddress1:e.target.value})} id='address1' maxLength="200" className="form-control put " placeholder="Address 1" value={this.props.resources.length > 0 ? this.props.resources.identity[0].address_1 : null}/> </td>
+                    <td><input value={this.state.shipToAddress2} onChange={(e) => this.setState({shipToAddress2:e.target.value})} id='address2' maxLength="201" className="form-control put " placeholder="Address 2" value={this.props.resources.length > 0 ? this.props.resources.identity[0].address_2 : null}/> </td>
+                    <td><input value={this.state.shipToAddress3} onChange={(e) => this.setState({shipToAddress3:e.target.value})} id='address3' maxLength="203" className="form-control put " placeholder="Address 3" value={this.props.resources.length > 0 ? this.props.resources.identity[0].address_3 : null}/> </td>
                 </tr>
                 <tr>
                     <th>Address 4</th>
-                    <th>Address 5</th>
+                    <th>Address 5</th>                    
+                </tr>
+                <tr>
+                    <td><input value={this.state.shipToAddress4} onChange={(e) => this.setState({shipToAddress4:e.target.value})} id='address4' maxLength="204" className="form-control put " placeholder="Address 4" value={this.props.resources.length > 0 ? this.props.resources.identity[0].address_4 : null}/></td>
+                    <td><input value={this.state.shipToAddress5} onChange={(e) => this.setState({shipToAddress5:e.target.value})} id='address5' maxLength="205" className="form-control put " placeholder="Address 5" value={this.props.resources.length > 0 ? this.props.resources.identity[0].address_5 : null}/> </td>
+                </tr>
+
+                <tr>
                     <th>Suburb</th>
-                    <th>Postcode</th>
-                </tr>
-                <tr>
-                    <td><input onChange={(e) => this.setState({shipToAddress4:e.target.value})} id='address4' maxLength="204" className="form-control put " placeholder="Address 4" value={this.props.resources.length > 0 ? this.props.resources.identity[0].address_4 : null}/></td>
-                    <td><input onChange={(e) => this.setState({shipToAddress5:e.target.value})} id='address5' maxLength="205" className="form-control put " placeholder="Address 5" value={this.props.resources.length > 0 ? this.props.resources.identity[0].address_5 : null}/> </td>
-                    <td><input onChange={(e) => this.setState({city:e.target.value})} id='suburb' maxLength="150" className="form-control put " placeholder="Suburb" value={this.props.resources.length > 0 ? this.props.resources.identity[0].city : null}/> </td>
-                    <td><input onChange={(e) => this.setState({postCode:e.target.value})} id='postCode' maxLength="20" className="form-control put " placeholder="Postcode" value={this.props.resources.length > 0 ? this.props.resources.identity[0].postcode : null}/> </td>
-                </tr>
-                <tr>
-                    <th>State</th>
+                    <th className='required-field'>Postcode</th>
+                    <th className='required-field'>State</th>
                     <th>Country</th>
                 </tr>
                 <tr>
-                    <td><input onChange={(e) => this.setState({state:e.target.value})}id='state' maxLength="150" className="form-control put " placeholder="State" value={this.props.resources.length > 0 ? this.props.resources.identity[0].state : null}/></td>
-                    <td><input onChange={(e) => this.setState({country:e.target.value})} id='country' maxLength="30" className="form-control put " placeholder="Country" value={this.props.resources.length > 0 ? this.props.resources.identity[0].country : null}/></td>
+                    <td><input value={this.state.city} onChange={(e) => this.setState({city:e.target.value})} id='suburb' maxLength="150" className="form-control put " placeholder="Suburb" value={this.props.resources.length > 0 ? this.props.resources.identity[0].city : null}/> </td>
+                    <td><input value={this.state.postCode} onChange={(e) => this.setState({postCode:e.target.value})} id='postCode' maxLength="20" className="form-control put " placeholder="Postcode" value={this.props.resources.length > 0 ? this.props.resources.identity[0].postcode : null}/> </td>
+                    <td><input value={this.state.state} onChange={(e) => this.setState({state:e.target.value})}id='state' maxLength="150" className="form-control put " placeholder="State" value={this.props.resources.length > 0 ? this.props.resources.identity[0].state : null}/></td>
+                    <td><input value={this.state.country} onChange={(e) => this.setState({country:e.target.value})} id='country' maxLength="30" className="form-control put " placeholder="Country" value={this.props.resources.length > 0 ? this.props.resources.identity[0].country : null}/></td>
                 </tr>
             </table>
   
@@ -412,11 +321,11 @@ class Tab1CreateSO extends Component{
               <table className="lineTableDtl">
                   <tr>
                       <th style={{width:"2%", textAlign:"center"}}>#</th>
-                      <th style={{width:"12%"}}>Product Entry</th>
+                      <th className='required-field' style={{width:"12%"}}>Product</th>
                       <th style={{width:"12%"}}>Product Description</th>
-                      <th style={{width:"4%"}}>Qty</th>
+                      <th className='required-field' style={{width:"4%"}}>Qty</th>
                       <th style={{width:"4%"}}>Weight</th>
-                      <th style={{width:"4%"}}>UOM</th>
+                      <th className='required-field' style={{width:"4%"}}>UOM</th>
                       <th style={{width:"8%"}}>Rota Date</th>
                       <th style={{width:"6%"}}>Batch</th>
                       <th style={{width:"5%"}}>Ref3</th>
@@ -463,6 +372,14 @@ class Tab1CreateSO extends Component{
         this.setState({rowlist: this.state.rowlist.concat(number)
         })
       }
+
+      numberValidation = (e, number) => {
+        if(e.target.value == '-') 
+        {
+          return false
+        document.getElementById(e.target.id).value = null;
+        }
+      }
       
 
       linedetailsrow = (number) => {
@@ -470,11 +387,11 @@ class Tab1CreateSO extends Component{
           <table>
             <tr id={'trId_'+number}>
                 <td hidden id={number} ></td>
-                <td style={{width:"2%", textAlign:"center"}}><input id={'number_'+number} className="form-control inputs " value={number} readOnly/></td>
-                <td style={{width:"12%"}}><input id={'product_'+number} className="form-control inputs " placeholder="Product"/></td>
+                <td style={{width:"2.5%", textAlign:"center"}}><input id={'number_'+number} className="form-control inputs " value={number} readOnly/></td>
+                <td style={{width:"12%"}}><input style={{textTransform:"uppercase"}} id={'product_'+number} className="form-control inputs " placeholder="Product"/></td>
                 <td style={{width:"12%"}}><input id={'productDesc_'+number} className="form-control inputs " placeholder="Product Description"/></td>
-                <td style={{width:"4%"}}><input type='number' id={'qty_'+number} className="form-control inputs " placeholder="Qty"/></td>
-                <td style={{width:"4%"}}><input id={'weight_'+number} className="form-control inputs " placeholder="Weight"/></td>
+                <td style={{width:"5%"}}><input step="1" pattern="\d+" onKeyPress={(e) => this.numberValidation(e, number)} type='number' id={'qty_'+number} className="form-control inputs " placeholder="Qty"/></td>
+                <td style={{width:"5%"}}><input id={'weight_'+number} className="form-control inputs " placeholder="Weight"/></td>
                 <td style={{width:"4%"}}>
                     <select id={'uom_'+number} className="form-control selectinput ">
                       <option className="" selected disabled>UOM</option>

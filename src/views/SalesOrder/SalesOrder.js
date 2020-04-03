@@ -159,7 +159,7 @@ class SalesOrder extends Component{
                         showFilter={this.state.filterclicked}
                         triggerShowFilter={() => this.setState({filterclicked: !this.state.filterclicked})}
                         searchData={() => this.search()}
-                        placeholder="Enter a Product" />
+                        placeholder="Enter a Order No" />
                 {console.log(this.searchForm)}
         </div>
 

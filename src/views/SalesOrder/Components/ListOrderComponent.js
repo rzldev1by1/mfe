@@ -303,7 +303,7 @@ class ListOrderComponent extends Component {
                            <img key={header} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}} src={this.state.activearrow}/>
                         </th>
                               )}  
-                              <th className='iconU-edit'></th>
+                              <th></th>
                        </tr>
                     </thead>
                     <tbody>

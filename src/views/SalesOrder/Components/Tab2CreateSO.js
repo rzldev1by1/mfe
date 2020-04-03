@@ -73,37 +73,35 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
             <table className="createpotable">
                 <tr>
                     <th>Site</th>
+                    <th>Client</th>
                     <th>Order Type</th>
-                    <th>Customer PO No</th>
-                    <th>Delivery Instructions</th>
+                    <th>Order Number</th>
                 </tr>
                 <tr>
                     <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.site} className="form-control" readOnly/></td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.client} className="form-control" readOnly/></td>
                     <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.orderType} className="form-control" readOnly/></td>
-                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.customerPoNo} className="form-control" readOnly/></td>
-                    <td rowspan="3"><textarea value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.deliveryInstruction} className="form-control put dlv" style={{height:"8em"}} readOnly/></td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.orderId} className="form-control" readOnly/></td>
                 </tr>
   
                 <tr>
                     <th>Delivery Date</th>
-                    <th>Supplier</th>
-                    <th>Order No</th>                    
+                    <th>Customer Order Ref</th>
+                    <th>Vendor Order Ref</th>                    
                 </tr>
                 <tr>
                     <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.deliveryDate} className="form-control" readOnly/></td>
-                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.supplier} className="form-control" readOnly/></td>
-                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.vendorOrderNo} className="form-control" readOnly/></td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.customerOrderRef} className="form-control" readOnly/></td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.vendorOrderRef} className="form-control" readOnly/></td>
                 </tr>  
+
                 <tr>
-                    <th>First Delivery</th>
-                    <th>Last Delivery</th>
-                    <th>Order Id</th>                    
+                  <th>Delivery Instruction</th>
                 </tr>
+
                 <tr>
-                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.firstDelivery} className="form-control" readOnly/></td>
-                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.lastDelivery} className="form-control" readOnly/></td>
-                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.orderId} className="form-control" readOnly/></td>
-                </tr> 
+                <td rowspan="3"><textarea value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.deliveryInstruction} className="form-control put dlv" style={{height:"8em"}} readOnly/></td>
+                </tr>
                             
             </table>
 
@@ -117,7 +115,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
                     <th>Address 3</th>
                 </tr>
                 <tr>
-                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.shipToName} className="form-control put " readOnly/></td>
+                    <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.customer} className="form-control put " readOnly/></td>
                     <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.shipToAddress1} className="form-control put " readOnly/> </td>
                     <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.shipToAddress2} className="form-control put " readOnly/> </td>
                     <td><input value={this.state.parameters.length == 0 ? null : this.state.parameters.orderDetails.shipToAddress3} className="form-control put " readOnly/> </td>
@@ -186,7 +184,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
                     <td style={{width:"12%"}}><input value={line.product} className="form-control inputs pec" readOnly/></td>
                     <td style={{width:"3%"}}><input value={line.qty} className="form-control inputs pec"  readOnly/></td>
                     <td style={{width:"6%"}}><input value={line.uom} className="form-control inputs pec"  readOnly/></td>
-                    <td style={{width:"6%"}}><input value={line.rodaDate} className="form-control inputs pec"  readOnly/></td>
+                    <td style={{width:"6%"}}><input value={line.rotaDate} className="form-control inputs pec"  readOnly/></td>
                     <td style={{width:"6%"}}><input value={line.batch} className="form-control inputs pec"  readOnly/></td>
                     <td style={{width:"5%"}}><input value={line.ref3} className="form-control inputs pec"  readOnly/></td>
                     <td style={{width:"5%"}}><input value={line.ref4} className="form-control inputs pec"  readOnly/></td>
