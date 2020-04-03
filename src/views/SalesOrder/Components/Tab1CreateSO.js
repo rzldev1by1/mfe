@@ -102,6 +102,13 @@ class Tab1CreateSO extends Component{
           document.getElementById('orderNo').focus()
           return
         }
+        if(orderId.length < 4)
+        {
+          alert('Order No must have min, 4 characters or more')
+          document.getElementById('orderNo').value = null
+          document.getElementById('orderNo').focus()
+          return
+        }
         if(deliveryDate == null || deliveryDate == '')
         {
           alert('Delivery Date must have a value')
