@@ -43,7 +43,7 @@ const modalNewUser = (props) => {
                 <div className="row">
                   <div className="col-12">
                       <h3>
-                      <label className="name-account font-bolder">User Details</label>
+                      <label className="section-header-text">User Details</label>
                       </h3>
                   </div>
                 </div>
@@ -88,7 +88,7 @@ const modalNewUser = (props) => {
                 <div className="row mt-4">
                 <div className="col-12">
                 <h3>
-                <label className="name-account font-bolder">System</label>
+                <label className="section-header-text">System</label>
                 </h3>
                 </div>
                 </div>

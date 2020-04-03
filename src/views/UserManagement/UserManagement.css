@@ -61,6 +61,18 @@ span.upArrow:before {
 	color: #637176 !important;
 }
 
+.section-header-text{
+	font-family:"Helvetica Neue Light";
+	font-size: 1.667em !important;
+	color: #22ABE3 !important;
+}
+
+.section-value-text{
+	font-family:"Helvetica Neue Regular";
+	font-size: 1em !important;
+	color: #637176 !important;
+}
+
 .norm{
 	color:#969EA1 !important;
 }
@@ -79,6 +91,10 @@ span.upArrow:before {
 }
 
 .btn-outline-active{
+	font-family:"Helvetica Neue Regular";
+	font-size: 1em !important;
+	width:117px;
+	height:40px;
 	border: 1px solid #22ABE3;
 	border-radius: 7px;
 	color: #22ABE3;
@@ -86,6 +102,10 @@ span.upArrow:before {
 }
 
 .btn-outline-notActive{
+	font-family:"Helvetica Neue Regular";
+	font-size: 1em !important;
+	width:117px;
+	height:40px;
 	color: #D5D8DA;
 	border: 1px solid #D5D8DA;
 	border-radius: 7px;

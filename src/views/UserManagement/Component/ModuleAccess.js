@@ -8,10 +8,10 @@ return (
   <div>
         <div className="flex-column mr-2">
           <div className="row">
-            <label className="col-8 text-bolder title-label" htmlFor="moduleAccess">Module Access
+            <label className="col-8 header-text-form" htmlFor="moduleAccess">Module Access
             </label>
             <input className="checkbox-hidden" type="checkbox" id="moduleAccess"/>
-            <label className="col-3 btn btn-outline-active" onClick={onModuleEnableAll}>Enabled All</label>
+            <button type="button" className="col-3 btn btn-outline-active mb-2" onClick={onModuleEnableAll}>Enabled All</button>
 
           </div>
         </div>
@@ -22,7 +22,7 @@ return (
 
               return (<div className="flex-column mb-3 mr-2" key={index}>
                             <div className="row" key={index}>
-                                <label className="col-8" key={item.menuid}>{(item.menuname.toLowerCase() === 'create sales order')?'Sales Orders':item.menuname}</label>
+                                <label className="col-8 section-value-text" key={item.menuid}>{(item.menuname.toLowerCase() === 'create sales order')?'Sales Orders':item.menuname}</label>
                                 {
                                   /**
                                   <button type="button" className={"col-2 btn "+((item.status)?"btn-outline-active":"btn-outline-notActive") }
@@ -31,7 +31,7 @@ return (
                                 }
 
                                 <input className="checkbox-hidden" type="checkbox" id={item.menuname} />
-                                <label htmlFor={item.menuname}  className={"col-3 btn "+((item.status)?"btn-outline-active":"btn-outline-notActive")} onClick={(e)=>{onEnableClick(e,item);}}>{(item.status)?"Enabled":"Disabled"}</label>
+                                <button type="button" htmlFor={item.menuname}  className={"col-3 btn "+((item.status)?"btn-outline-active":"btn-outline-notActive")} onClick={(e)=>{onEnableClick(e,item);}}>{(item.status)?"Enabled":"Disabled"}</button>
                                 <div className="col-1">
                                 </div>
                             </div>
