@@ -247,14 +247,11 @@ class UserManagement extends Component{
     }
 
     onCreateClick = () => {
-
         this.setState({isModalNewOpen:!this.state.isModalNewOpen});
-        // const {history,match} = this.props;
-        // history.push(`${match.url}/create`);
     }
 
     closeModalPopUp = () => {
-      this.setState({isModalNewOpen:!this.state.isModalNewOpen})
+      this.setState({isModalNewOpen:!this.state.isModalNewOpen},()=>{ window.location.reload();})
     }
 
     onChangeName = (e) => {
@@ -434,6 +431,7 @@ class UserManagement extends Component{
     }
 
     onEnabledAllModuleAccess = () => {
+        let account = {...this.state.accountInfo};
         userModel.userMenu = null;
         userModel.userMenu = [];
 
@@ -447,7 +445,9 @@ class UserManagement extends Component{
             return item;
         });
 
-       this.setState({moduleAccess:newArray});
+       account.userMenu = userModel.userMenu;
+
+       this.setState({moduleAccess:newArray,accountInfo:account});
     }
 
     onSiteStatusClick = (e,data) => {
@@ -489,7 +489,7 @@ class UserManagement extends Component{
     saveClick = () => {
 
       const {name,userId,email,userMenu} = this.state.accountInfo;
-
+      console.log(userMenu);
       if(name && userId && email && userMenu.length)
       {
         this.setState({isSaveProgressing:true,isValidForm:false},this.saveRequest);
@@ -630,7 +630,7 @@ class UserManagement extends Component{
 
                 </CardBody>
                 </Card>
-              
+
               <footer>
                 <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
                 backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}

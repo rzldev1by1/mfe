@@ -205,12 +205,12 @@ class UserListComponent extends Component{
         return(
                 <div className="d-flex tablePage">
                     <div className="w-100">
-                        <table className="table1 " >
+                        <table className="table" >
                             <thead>
                                 <tr>
                                     {
                                         this.state.headers.map((element,index)=>{
-                                        return <th key={index} className="headers p-0">
+                                        return <th key={index} className="p-0">
                                         <div key={element} className="header-sort" >
                                           <div className="d-inline-flex">
                                               <div className="d-flex flex-row">

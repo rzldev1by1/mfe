@@ -68,7 +68,7 @@ class UserListComponent extends Component{
                         <div className="row">
                             {
                                 this.props.headers.map((element,index)=>{
-                                return  <div className="col-3 headers" key={index}>
+                                return  <div className="col-3 personal-header-text" key={index}>
                                             <label>{element}</label>
                                         </div>
 
@@ -81,7 +81,7 @@ class UserListComponent extends Component{
                                 return <div className="row" key={index}>
                                         {
                                             Object.keys(element).map((item,idx) => {
-                                                return <div className="col-3 users" key={idx}>
+                                                return <div className="col-3 personal-value-text" key={idx}>
                                                             <label>{element[item]}</label>
                                                         </div>
                                             })
