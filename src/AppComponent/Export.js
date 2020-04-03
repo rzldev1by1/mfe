@@ -27,12 +27,12 @@ class Export extends Component {
                         <input className="select_expand-export" type="radio" name="export" id="export-btn-opener" />
                         <label className="select_closeLabel-export" htmlFor="export-btn-close" onClick={this.triggerExportExpand} />
                         <ul className="select_options-export">
-                            <li className="select_option-export">
+                            {/* <li className="select_option-export">
                                 <input className="select_input-export" type="radio" name="export" />
                                 <label className="select_label-export" htmlFor="Export to PDF">
                                     <span className="pdf-icon"onClick={this.ExportPDF} >Export to PDF</span>
                                 </label>
-                            </li>
+                            </li> */}
                             <li className="select_option-export">
                                 <input className="select_input-export" type="radio" name="export" />
                                 <label className="select_label-export option_radius-export" htmlFor="Export to XLS">

@@ -12,6 +12,7 @@ import Authentication from '../../Auth/Authentication'
 import Paging from '../../AppComponent/Paging'
 import create from '../../assets/img/brand/button_create@2x.png'
 import menunav from '../../menunav';
+import Export from '../../AppComponent/Export'
 
 
 const today = moment(new Date()).format("YYYY-MM-DD");
@@ -638,6 +639,7 @@ class UserManagement extends Component{
                 maxPage={(this.state.totalPage)}
                 startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                 numberEventClick={this.numberEventClick}/>
+                <Export  render={this.render}/>
               </footer>
             </div>
 
