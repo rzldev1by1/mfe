@@ -347,7 +347,9 @@ input:checked + .slider:before {
 	font-size: 90%;
 }
 
-
+.searchBox{
+	max-width: none !important;
+}
 
 
 
@@ -473,6 +475,12 @@ input:checked + .slider:before {
 
 .sort-asc-active{
 		color: #22ABE3;
+}
+
+.text-button{
+font-family: "Helvetica Neue Medium";
+	font-size: 1.25em;
+
 }
 
 

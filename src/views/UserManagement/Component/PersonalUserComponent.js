@@ -59,11 +59,11 @@ class UserListComponent extends Component{
     }
 
     render(){
-        
+
         return(
                 <div>
 
-                <Card className="border-account-info">
+                <Card className="border-account-info mb-3">
                     <CardBody className="account-info">
                         <div className="row">
                             {
