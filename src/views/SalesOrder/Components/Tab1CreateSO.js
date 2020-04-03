@@ -136,11 +136,6 @@ class Tab1CreateSO extends Component{
           alert('state cannot be empty')
           return
         }
-        if(country == null || country == '')
-        {
-          alert('country cannot be empty')
-          return
-        }
        
 
         for(let number = 1 ; number <= rowlistLength ; number++)
