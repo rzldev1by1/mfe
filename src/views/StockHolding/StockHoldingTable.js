@@ -65,7 +65,7 @@ class componentTable extends Component {
                         <tbody style={{fontSize:'1rem'}}>{this.showData()}</tbody> 
                     </Table> */}
 
-					<table className="shtable" >
+					<table className="shtable" id="excel" >
                         <thead >{this.showHeader()}</thead>
                         <tbody style={{fontSize:'1rem'}}>{this.showData()}</tbody>
                     </table>

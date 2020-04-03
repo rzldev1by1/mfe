@@ -7,6 +7,7 @@ import up from '../../../assets/img/brand/field-top.png'
 import Paging from '../../../AppComponent/Paging';
 import {endpoint, headers, POheaders} from '../../../AppComponent/ConfigEndpoint'
 import moment from 'moment'
+import Export from '../../../AppComponent/Export'
 class PurchaseOrderTable extends Component {
   constructor(props){
     super(props)
@@ -287,7 +288,7 @@ class PurchaseOrderTable extends Component {
         return (
             <div>
                 <div className='tablePage tablecontent'>
-                    <table className="potable">
+                    <table className="potable" id="excel">
                         <thead>
                             <tr>
                             {this.state.tableheader.map(header =>
@@ -328,6 +329,7 @@ class PurchaseOrderTable extends Component {
                             startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                             isActive={this.state.isActive}
                             numberEventClick={this.numberEventClick} />
+                    <Export loadPurchaseOrder={this.loadPurchaseOrder} render={this.render}/>
                 </div>
             </div>
         );

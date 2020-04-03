@@ -15,6 +15,7 @@ import Dropdown from '../../AppComponent/Dropdown';
 import StockHoldingTable from './StockHoldingTable';
 import Paging from '../../AppComponent/Paging';
 import EditColumn from '../../AppComponent/EditColumn';
+import Export from '../../AppComponent/Export'
 import './StockHolding.css';
 
 
@@ -370,7 +371,7 @@ class StockHolding extends Component {
                                     masterResource={this.state.masterResStockHolding}
                                     toggleDisplayMoreColumn={this.toggleDisplayMoreColumn}
                                     history={this.props.history}
-                                    arrowHandler={this.arrowHandler} />
+                                    arrowHandler={this.arrowHandler}/>
 				break;
 
 			default :
@@ -436,7 +437,8 @@ class StockHolding extends Component {
                                             currentPage={this.state.currentPage} maxPage={this.state.maxPage}
                                             startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                                             isActive={this.state.isActive}
-                                            numberEventClick={this.numberEventClick} />
+                                            numberEventClick={this.numberEventClick} />		
+									<Export loadStockHolding={this.loadStockHolding}/>
                                 </div>
                             </div>
 						</div>
