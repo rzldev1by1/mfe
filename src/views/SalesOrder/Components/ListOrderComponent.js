@@ -6,6 +6,7 @@ import Export from '../../../AppComponent/Export'
 import mid from '../../../assets/img/brand/field-idle.png'
 import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
+import ExportExl from 'react-html-table-to-excel'
 import "../SalesOrder.css"
 import moment from 'moment'
 
@@ -294,7 +295,7 @@ class ListOrderComponent extends Component {
       return(
         <div>
           <div className='tablePages tablecontent'>
-               <table className="potable">
+               <table className="potable" id="excel">
                   <thead>
                     <tr style={{borderBottom:"3px solid #f0f0f0 !important"}}>
                        {this.state.tableheader.map(header =>
@@ -302,18 +303,17 @@ class ListOrderComponent extends Component {
                            <img key={header} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}} src={this.state.activearrow}/>
                         </th>
                               )}  
-                              <th></th>
+                              <th className='iconU-edit'></th>
                        </tr>
                     </thead>
                     <tbody>
                           {this.state.data  ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
                                   <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.order_no)} className='tr'>
-                                      <td style={{display:"none"}}></td>
                                       <td>{data.site}</td>
                                       <td>{data.client}</td>
                                       <td>{data.order_no}</td>
                                       <td>{data.order_type}</td>
-                                      <td>{data.customer + ' ( ' + data.customer_name + ' )'}</td>
+                                      <td>{data.customer_name}</td>
                                       <td style={{width:"11%"}}>{data.status_desc}</td>
                                       <td>{'' + (data.date_due ? moment(data.date_due).format("DD/MM/YYYY") : '') }</td>
                                       <td>{'' + (data.date_recd ? moment(data.date_recd).format("DD/MM/YYYY") : '') }</td>
@@ -335,7 +335,8 @@ class ListOrderComponent extends Component {
                             startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                             isActive={this.state.isActive}
                             numberEventClick={this.numberEventClick}/>
-                    {/* <Export/> */}
+
+                    <Export loadSalesOrder={this.loadSalesOrder} render={this.render}/>
                 </div>    
           </div>)
     }

@@ -37,7 +37,16 @@ class Tab1CreateSO extends Component{
             deliveryInstruction:null,
             rowlist:[1],
             header: [],
-            parameters:[]
+            parameters:[],
+
+            supplierName : [],
+            supplierVal  : [],
+            
+            siteName     : [],
+            siteVal      : [],
+            
+            orderTypeName: [],
+            orderTypeVal : [],
         }
     }
 
@@ -323,40 +332,25 @@ class Tab1CreateSO extends Component{
       this.props.tabhandler(parameters)
     }
 
+
+
     render= () => {
-      console.log(this.props.resources[0])
-      let clientName = [];
-      let clientValue = [];
-      let siteData = [];
-      if(this.state.clientdatacr){
-          this.state.clientdatacr.map((data) => {
-              clientName.push(data.name);
-              clientValue.push(data.code);
-          })
-      }
-      if(this.state.sitedata){
-          this.state.sitedata.map((data) => {
-              siteData.push(data.site);
-          })
-  
-          let usr = JSON.parse(localStorage.getItem("user"));
-      let clients = usr['client']
-      this.setState({client:clients})
-      }
-      
+      console.log(this.props.resources)
+      console.log(this.props.resources.supplier)
+     
         return(
           <div className="tabcontents">
             <h3 className="fonts">Order Details</h3>
             <table className="createpotables">
                 <tr>
-                    <th>Site</th>
+                    <th className='required-field'>Site</th>
                     <th>Order Type</th>
                     <th>Customer PO No</th>
                     <th>Delivery Instructions</th>
                 </tr>
                 <tr>
-                    <td><Dropdown getValue = {(val) => this.setState({site:val})} placeHolder="Site"  style={{minWidth: "100%", zIndex:"1"}} optionList="M,S" optionValue="M,S"/></td>
-                    <td><Dropdown getValue = {(val) => this.setState({orderType:val})} placeHolder="Order Type" style={{minWidth: "100%"}} optionList="Type 1,Type 2" optionValue="Type 1,Type 2"/><input hidden id='orderType'/></td>
+                    <td><Dropdown getValue = {(val) => this.setState({site:val})} placeHolder="Site"  style={{minWidth: "100%", zIndex:"1"}} optionList={ this.props.resources.site.name} optionValue={ this.props.resources.site.code}/></td>
+                    <td><Dropdown getValue = {(val) => this.setState({orderType:val})} placeHolder="Order Type" style={{minWidth: "100%"}} optionList={ this.props.resources.orderType.name} optionValue={ this.props.resources.orderType.code}/><input hidden id='orderType'/></td>
                     <td><input onChange={(e) => this.setState({customerPoNo:e.target.value})} id='customerPoNo' className="form-control put " placeholder="Customer PO No"/> </td>                 
                     <td rowspan="3"><textarea onChange={(e) => this.setState({deliveryInstruction:e.target.value})} id='deliveryInstruction' className="form-control put dlv" style={{height:"8em"}} placeholder="Delivery Instructions"/></td>
                 </tr>
@@ -367,18 +361,8 @@ class Tab1CreateSO extends Component{
                 </tr>
                 <tr>
                 <td><DatePicker getDate = {(date) => this.setState({deliveryDate:date})} style={{ minWidth: "100%" }}></DatePicker></td>  
-                <td><input onChange = {(e) => this.setState({shipToName:e.target.value})} id='supplier' className="form-control put " placeholder="Supplier"/> </td>
+                <td><Dropdown getValue = {(val) => this.setState({shipToName:val})} placeHolder="Order Type" style={{minWidth: "100%"}} optionList={ this.props.resources.supplier.name} optionValue={ this.props.resources.supplier.code}/><input hidden id='supplier'/></td>                
                 <td><input onChange = {(e) => this.setState({vendorOrderNo:e.target.value})} maxLength="40" id='orderNo' className="form-control put " placeholder="Order No"/> </td>                  
-                </tr>
-                <tr>
-                  <th>First Delivery</th>
-                  <th>Last Delivery</th>
-                  <th>Order Id</th>
-                </tr>
-                <tr>
-                  <td><DatePicker getDate = {(date) => this.setState({firstDelivery:date})} style={{ minWidth: "100%" }}></DatePicker></td>
-                  <td><DatePicker getDate = {(date) => this.setState({lastDelivery:date})} style={{ minWidth: "100%" }}></DatePicker></td>
-                  <td><input onChange = {(e) => this.setState({orderId:e.target.value})} value={this.state.orderId} className="form-control put " placeholder="Order Id"/></td>
                 </tr>
             </table>
             <tr style={{color:"transparent"}}>1</tr>
@@ -391,10 +375,10 @@ class Tab1CreateSO extends Component{
                     <th>Address 3</th>
                 </tr>
                 <tr>
-                    <td><input onChange={(e) => this.setState({customer:e.target.value})} id='customer' className="form-control put " placeholder="Costumer"/></td>
-                    <td><input onChange={(e) => this.setState({shipToAddress1:e.target.value})} id='address1' maxLength="200" className="form-control put " placeholder="Address 1"/> </td>
-                    <td><input onChange={(e) => this.setState({shipToAddress2:e.target.value})} id='address2' maxLength="201" className="form-control put " placeholder="Address 2"/> </td>
-                    <td><input onChange={(e) => this.setState({shipToAddress3:e.target.value})} id='address3' maxLength="203" className="form-control put " placeholder="Address 3"/> </td>
+                    <td><input onChange={(e) => this.setState({customer:e.target.value})} id='customer' className="form-control put " placeholder="Costumer" value={this.props.resources.length > 0 ? this.props.resources.identity[0].name : null}/></td>
+                    <td><input onChange={(e) => this.setState({shipToAddress1:e.target.value})} id='address1' maxLength="200" className="form-control put " placeholder="Address 1" value={this.props.resources.length > 0 ? this.props.resources.identity[0].address_1 : null}/> </td>
+                    <td><input onChange={(e) => this.setState({shipToAddress2:e.target.value})} id='address2' maxLength="201" className="form-control put " placeholder="Address 2" value={this.props.resources.length > 0 ? this.props.resources.identity[0].address_2 : null}/> </td>
+                    <td><input onChange={(e) => this.setState({shipToAddress3:e.target.value})} id='address3' maxLength="203" className="form-control put " placeholder="Address 3" value={this.props.resources.length > 0 ? this.props.resources.identity[0].address_3 : null}/> </td>
                 </tr>
                 <tr>
                     <th>Address 4</th>
@@ -403,18 +387,18 @@ class Tab1CreateSO extends Component{
                     <th>Postcode</th>
                 </tr>
                 <tr>
-                    <td><input onChange={(e) => this.setState({shipToAddress4:e.target.value})} id='address4' maxLength="204" className="form-control put " placeholder="Address 4"/></td>
-                    <td><input onChange={(e) => this.setState({shipToAddress5:e.target.value})} id='address5' maxLength="205" className="form-control put " placeholder="Address 5"/> </td>
-                    <td><input onChange={(e) => this.setState({city:e.target.value})} id='suburb' maxLength="150" className="form-control put " placeholder="Suburb"/> </td>
-                    <td><input onChange={(e) => this.setState({postCode:e.target.value})} id='postCode' maxLength="20" className="form-control put " placeholder="Postcode"/> </td>
+                    <td><input onChange={(e) => this.setState({shipToAddress4:e.target.value})} id='address4' maxLength="204" className="form-control put " placeholder="Address 4" value={this.props.resources.length > 0 ? this.props.resources.identity[0].address_4 : null}/></td>
+                    <td><input onChange={(e) => this.setState({shipToAddress5:e.target.value})} id='address5' maxLength="205" className="form-control put " placeholder="Address 5" value={this.props.resources.length > 0 ? this.props.resources.identity[0].address_5 : null}/> </td>
+                    <td><input onChange={(e) => this.setState({city:e.target.value})} id='suburb' maxLength="150" className="form-control put " placeholder="Suburb" value={this.props.resources.length > 0 ? this.props.resources.identity[0].city : null}/> </td>
+                    <td><input onChange={(e) => this.setState({postCode:e.target.value})} id='postCode' maxLength="20" className="form-control put " placeholder="Postcode" value={this.props.resources.length > 0 ? this.props.resources.identity[0].postcode : null}/> </td>
                 </tr>
                 <tr>
                     <th>State</th>
                     <th>Country</th>
                 </tr>
                 <tr>
-                    <td><input onChange={(e) => this.setState({state:e.target.value})}id='state' maxLength="150" className="form-control put " placeholder="State"/></td>
-                    <td><input onChange={(e) => this.setState({country:e.target.value})} id='country' maxLength="30" className="form-control put " placeholder="Country"/></td>
+                    <td><input onChange={(e) => this.setState({state:e.target.value})}id='state' maxLength="150" className="form-control put " placeholder="State" value={this.props.resources.length > 0 ? this.props.resources.identity[0].state : null}/></td>
+                    <td><input onChange={(e) => this.setState({country:e.target.value})} id='country' maxLength="30" className="form-control put " placeholder="Country" value={this.props.resources.length > 0 ? this.props.resources.identity[0].country : null}/></td>
                 </tr>
             </table>
   
@@ -515,4 +499,10 @@ class Tab1CreateSO extends Component{
   
 
 
-} export default Tab1CreateSO
+}
+
+Tab1CreateSO.defaultProps = {
+  resources:[]
+};
+
+export default Tab1CreateSO

@@ -1,8 +1,8 @@
 import React, {Component, useState} from 'react';
 import './Dropdown.css';
 const Dropdown = ({placeHolder, optionList, optionValue, style, getValue, firstChecked = false, usedFor, optionSelected}) => {
-        let optionListData = optionList.includes(",") ? optionList.split(",") : [optionList]; 
-        let optionListValue = optionValue.includes(",")? optionValue.split(",") : [optionValue];
+        let optionListData = optionList ? optionList.includes(",") ? optionList.split(",") : [optionList] : []; 
+        let optionListValue = optionValue ? optionValue.includes(",")? optionValue.split(",") : [optionValue] : [];
         let lastIndex = optionListData.length - 1;
         const no = Math.floor(Math.random() * 100000) + 1;
         return(

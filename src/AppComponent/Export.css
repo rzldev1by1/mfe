@@ -306,7 +306,32 @@
 .select_options-export{
 	list-style: none;}
 
+.excel{
+	color:#637176;
+	font-size: 16px;
+	line-height: 40px;
+	padding-left: 0px !important;
+	width: 250px;
+	margin-left: -67px;
+}
+
 .select_label-export {
+	transition: all 250ms cubic-bezier(.4,.25,.3,1);
+	display: block;
+    transform: scaleY(-1);
+	height: 0;
+	font-family: Medium 20px/25px Helvetica Neue;
+	font-size: 16px;
+	line-height: 40px;
+	overflow: hidden;
+	color: #637176;
+	background-color: #E0E3F2;
+	cursor: pointer;
+	padding-left: 20px;
+	margin-bottom: 0 !important;
+	user-select: none;
+}
+.select_label-export1 {
 	transition: all 250ms cubic-bezier(.4,.25,.3,1);
 	display: block;
     transform: scaleY(-1);
