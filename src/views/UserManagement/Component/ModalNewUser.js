@@ -43,32 +43,32 @@ const modalNewUser = (props) => {
                 <div className="row">
                   <div className="col-12">
                       <h3>
-                      <label className="name-account font-bolder">User Details</label>
+                      <label className="section-header-text">User Details</label>
                       </h3>
                   </div>
                 </div>
                 <div className="row">
                     <div className="col-3">
-                    <label className="text-bolder title-label">User ID</label>
+                    <label className="header-text-form">User ID</label>
                     </div>
 
                     <div className="col-3">
-                      <label className="text-bolder title-label">Name</label>
+                      <label className="header-text-form">Name</label>
                     </div>
 
                     <div className="col-3">
-                      <label className="text-bolder title-label">Email</label>
+                      <label className="header-text-form">Email</label>
                     </div>
 
 
                     <div className="col-3">
-                      <label className="text-bolder title-label">Company</label>
+                      <label className="header-text-form">Company</label>
                     </div>
 
                 </div>
                 <div className="row">
                     <div className="col-3">
-                        <input type="text" name="userid" readOnly className="form-control" Value={model.userId}/>
+                        <input type="text" name="userid" readOnly className="form-control" value={model.userId}/>
                     </div>
 
                     <div className="col-3">
@@ -88,7 +88,7 @@ const modalNewUser = (props) => {
                 <div className="row mt-4">
                 <div className="col-12">
                 <h3>
-                <label className="name-account font-bolder">System</label>
+                <label className="section-header-text">System</label>
                 </h3>
                 </div>
                 </div>
@@ -107,15 +107,21 @@ const modalNewUser = (props) => {
                 </div>
 
                 <div className="row">
-                  <div className="col-10">
-                      <p className="float-right">
-                        <label className={(isValidForm)?"errorText ":" d-none"}>
-                            Please make sure user name, email is valid and module has one enabled
-                        </label>
-                      </p>
+                  <div className="col-2">
+                    <button type="button" style={{width:"151px"}} className="btn btn-primary btn-submit" onClick={(e)=>{window.location.reload()}}>
+                        <label className="create-user-label mb-0">Back</label>
+                    </button>
+                  </div>
+                  <div className="col-8">
+                        <div className="d-flex justify-content-center">
+                          <label className={(isValidForm)?"errorText ":" d-none"}>
+                              Please make sure user name, email is valid and module has one enabled
+                          </label>
+                        </div>
+
                   </div>
                   <div className="col-2 pl-5">
-                    <button type="button" className="font-lg font-md font-sm btn btn-primary" onClick={onSaveClick}>
+                    <button type="button" style={{width:"151px"}} className="font-lg font-md font-sm btn btn-primary" onClick={onSaveClick}>
                     <i className= {(isSaveProgressing)?"mr-2 fa fa-refresh fa-spin ":"fa fa-refresh fa-spin d-none"}></i>
                     <label className="create-user-label mb-0">Submit</label>
                     </button>

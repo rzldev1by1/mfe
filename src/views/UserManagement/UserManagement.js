@@ -66,9 +66,8 @@ class UserManagement extends Component{
               startIndex:0,
               lastIndex:0,
               isValidForm:false
-
-
         }
+          this.searchForm = React.createRef();
     }
 
     componentDidMount(){
@@ -248,14 +247,11 @@ class UserManagement extends Component{
     }
 
     onCreateClick = () => {
-
         this.setState({isModalNewOpen:!this.state.isModalNewOpen});
-        // const {history,match} = this.props;
-        // history.push(`${match.url}/create`);
     }
 
     closeModalPopUp = () => {
-      this.setState({isModalNewOpen:!this.state.isModalNewOpen})
+      this.setState({isModalNewOpen:!this.state.isModalNewOpen},()=>{ window.location.reload();})
     }
 
     onChangeName = (e) => {
@@ -435,6 +431,7 @@ class UserManagement extends Component{
     }
 
     onEnabledAllModuleAccess = () => {
+        let account = {...this.state.accountInfo};
         userModel.userMenu = null;
         userModel.userMenu = [];
 
@@ -448,7 +445,9 @@ class UserManagement extends Component{
             return item;
         });
 
-       this.setState({moduleAccess:newArray});
+       account.userMenu = userModel.userMenu;
+
+       this.setState({moduleAccess:newArray,accountInfo:account});
     }
 
     onSiteStatusClick = (e,data) => {
@@ -490,7 +489,7 @@ class UserManagement extends Component{
     saveClick = () => {
 
       const {name,userId,email,userMenu} = this.state.accountInfo;
-
+      console.log(userMenu);
       if(name && userId && email && userMenu.length)
       {
         this.setState({isSaveProgressing:true,isValidForm:false},this.saveRequest);
@@ -521,7 +520,7 @@ class UserManagement extends Component{
           .catch(error => {
               self.setState({isSaveProgressing:false});
               self.closeModalPopUp();
-              
+
           })
           .then((result) => {
 
@@ -540,34 +539,83 @@ class UserManagement extends Component{
       return result;
     }
 
+    searchHandler = (e) => {
+      e.preventDefault();
+
+      let currentForm = this.searchForm.current
+      let searchValue = currentForm.searchInput.value;
+
+      if(!searchValue)
+        return;
+
+      let userList = [...this.state.userList];
+      if(userList.length)
+      {
+        let userSearch = userList.filter((item) => {
+         return (item.userId.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1) ||
+          (item.user.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1)});
+
+        this.setState({userList:userSearch});
+      }
+      console.log(this.state.userList);
+    }
+
     render(){
 
         return(<div>
-            <div className="d-flex pt-4 mb-3">
-                <div className="flex-fill">
-                    <h2 className='margin-right-breadcrumb-title'>
-                        User Management
-                    </h2>
+            <div className="pt-4 mb-3">
+                <div className="row">
+                    <div className="col-10 pr-0">
+                      <h2 className='margin-right-breadcrumb-title'>
+                          User Management
+                      </h2>
+                    </div>
+                    <div className="col-2 pl-0 ml-0">
+                        <button style={{width:"199px"}} className={(this.isValidUser() ?"btn btn-primary text-button":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
+                        <img src={create} className="mr-2 mb-1" style={{width:'8%'}}/>
+                        Create user
+                        </button>
+                    </div>
                 </div>
-                <div className="flex-fill">
-                    <button style={{width:"40%"}} className={(this.isValidUser() ?"btn btn-primary font-lg font-md font-sm float-right":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
-                          <img src={create} className="mr-2 mb-2" style={{width:'6%'}}/>
-                          <label className="create-user-label">
-                          Create new user
-                          </label>
-                    </button>
-                </div>
-
             </div>
-            <div className="mb-3">
 
-                    <PersonalUserComponent data={this.state.personalUser} headers={this.state.headersPersonal} />
 
-            </div>
+           <PersonalUserComponent data={this.state.personalUser} headers={this.state.headersPersonal} />
+
 
             <div className={( this.state.isListLoaded ? 'd-none': 'spinner')}/>
             <div className={( this.state.isListLoaded ? '':' d-none ')}>
-              <Card className="container-user-list border-0 mb-0">
+              <div className="mb-3">
+                <Card className="container-user-list border-0 mb-0">
+                <CardBody>
+                <form ref={this.searchForm} onSubmit ={this.searchHandler}>
+                <div className="row">
+                <div className="col-10">
+                <div className="input-group p-0 searchSection">
+                <div className="input-group searchBox w-100">
+                <span className="input-group-text border-0 bg-transparent ml-2" style={{ padding:"0.4rem" }}>
+                <i className="iconU-search" />
+                </span>
+                <input type="text" style={{ fontFamily: "Helvetica Neue Medium", backgroundColor:"transparent" }}
+                className="form-control searchInput" id="searchInput" name="searchInput"
+                placeholder="Enter user id or user name" />
+                </div>
+
+
+                </div>
+                </div>
+                <div className="col-2 m-0">
+                <Button type="submit" style={{width:'174px'}} className="search text-button">
+                Search
+                </Button>
+                </div>
+                </div>
+                </form>
+                </CardBody>
+                </Card>
+              </div>
+
+                <Card className="container-user-list border-0 mb-0">
                 <CardBody>
                 <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}
                 startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}/>
@@ -581,7 +629,8 @@ class UserManagement extends Component{
                 onModuleEnableAll = {this.onEnabledAllModuleAccess} isValidForm={this.state.isValidForm}/>
 
                 </CardBody>
-              </Card>
+                </Card>
+
               <footer>
                 <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
                 backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}

@@ -4,6 +4,7 @@ import './PurchaseOrderDetail.css'
 import PODTable from './Component/PODComponents/PODTable'
 import axios from 'axios'
 import {endpoint, headers, POheaders} from '../../AppComponent/ConfigEndpoint'
+import moment from 'moment';
 
 export default class PurchaseOrderDetail extends Component {
     constructor(props){
@@ -107,19 +108,19 @@ export default class PurchaseOrderDetail extends Component {
                 <table className='tableborderss' style={{width:'90%'}}>
                 <tr>
                         <th>Date Received</th>
-                        <td>{dateReceived ? dateReceived.substring(0, 11) : '-'}</td>
+                        <td>{dateReceived ? moment(dateReceived.substring(0, 11)).format("DD/MM/YYYY") : '-'}</td>
                     </tr>
                     <tr>
                         <th>Date Due</th>
-                        <td>{dateDue ? dateDue.substring(0, 11) : '-'}</td>
+                        <td>{dateDue ? moment(dateDue.substring(0, 11)).format("DD/MM/YYYY") : '-'}</td>
                     </tr>
                     <tr>
                         <th>Date Released</th>
-                        <td>{dateReleased ? dateReleased.substring(0, 11) : '-'}</td>
+                        <td>{dateReleased ? moment(dateReleased.substring(0, 11)).format("DD/MM/YYYY") : '-'}</td>
                     </tr>
                     <tr>
                         <th>Date Completed</th>
-                        <td>{dateCompleted ? dateCompleted.substring(0, 11) : '-'}</td>
+                        <td>{dateCompleted ? moment(dateCompleted.substring(0, 11)).format("DD/MM/YYYY") : '-'}</td>
                     </tr>
                 </table>
             </div>

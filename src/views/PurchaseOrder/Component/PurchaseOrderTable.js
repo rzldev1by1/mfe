@@ -308,10 +308,10 @@ class PurchaseOrderTable extends Component {
                                     <td>{data.status}</td>
                                     <td>{data.supplier_no}</td>
                                     <td>{data.supplier_name}</td>
-                                    <td>{moment(data.date_due).format("YYYY/MM/DD")}</td>
-                                    <td>{moment(data.date_received).format("YYYY/MM/DD")}</td>
-                                    <td>{moment(data.date_released).format("YYYY/MM/DD")}</td>
-                                    <td>{moment(data.date_completed).format("YYYY/MM/DD")}</td>
+                                    <td>{moment(data.date_due).format("DD/MM/YYYY")}</td>
+                                    <td>{moment(data.date_received).format("DD/MM/YYYY")}</td>
+                                    <td>{moment(data.date_released).format("DD/MM/YYYY")}</td>
+                                    <td>{moment(data.date_completed).format("DD/MM/YYYY")}</td>
                                     <td></td>
                                 </tr>
                             ) : 

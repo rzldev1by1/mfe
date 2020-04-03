@@ -125,8 +125,11 @@ class PurchaseOrderTable extends Component {
           <thead>
             <tr>
               {this.state.tableheader.map(header =>
-                <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
-                <img key={header} className='arrow' src={this.state.activearrow}/>
+                <th key={header} 
+                    // onClick={(e) => this.arrowHandler(e)} 
+                    id={header}>
+                        {header} 
+                {/* <img key={header} className='arrow' src={this.state.activearrow}/> */}
                 </th>
               )}
               
@@ -149,7 +152,7 @@ class PurchaseOrderTable extends Component {
                     <td>{data.wgt_processed}</td>
                     <td><img style={{width:'15px',height:'13px'}} src={data.completed == "Y" ? ok :minus} /></td>
                     <td>{data.ref3}</td>
-                    <td className='iconU-option'></td>
+                    <td></td>
                   </tr>
               )}   
                   
