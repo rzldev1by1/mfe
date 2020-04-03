@@ -37,7 +37,7 @@ class Export extends Component {
                                 <input className="select_input-export" type="radio" name="export" />
                                 <label className="select_label-export option_radius-export" htmlFor="Export to XLS">
                                     <span className="excel-icon" >
-                                        <ExportExl className="btn excel" table="excel" filename="Report" sheet="sheet 4"buttonText="Export to XLS"/>
+                                        <ExportExl className="btn excel" table="excel" filename="Report" sheet="sheet 1"buttonText="Export to XLS"/>
                                     </span>
                                 </label>
                             </li>

@@ -309,7 +309,6 @@ class ListOrderComponent extends Component {
                     <tbody>
                           {this.state.data  ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
                                   <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.order_no)} className='tr'>
-                                      <td style={{display:"none"}}></td>
                                       <td>{data.site}</td>
                                       <td>{data.client}</td>
                                       <td>{data.order_no}</td>
