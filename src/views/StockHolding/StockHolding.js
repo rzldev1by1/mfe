@@ -58,7 +58,7 @@ class StockHolding extends Component {
 				{ id: "pallets", checkboxLabelText: "Pallets", tableHeaderText: "Pallets", isVisible: false, key: "pallets", type: "string", sort: mid },
             ],
             masterSite: [],
-            masterUnit: ["MICROLISTICS BRIS", "Microlistics", "MICROLISTICS MELB"],
+            masterUnit: ["MLB", "MLS", "MLM"],
             masterStatus: ["OK", "SHORTAGE"],
 			masterResStockHolding: []
         };
