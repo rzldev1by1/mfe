@@ -531,7 +531,13 @@ class UserManagement extends Component{
     }
     ExportName = () => {
       let filename = ""
-       return filename="Express_UserManagement"
+      let strip = "-"
+      let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      let date = new Date();
+      let date1 = date.getDate();
+      let month = date.getMonth();
+      let year = date.getFullYear();
+       return filename=("Express_UserManagement _" +date1 +strip+ arrmonth[month] +strip+ year) 
     }
 
     isValidUser = () => {
