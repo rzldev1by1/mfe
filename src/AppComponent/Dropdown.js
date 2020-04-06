@@ -21,7 +21,7 @@ const Dropdown = ({placeHolder, optionList, optionValue, style, getValue, firstC
                                 if(idx == 0){
                                     return(
                                             <li key={idx + data} className="select_dropdown_option">
-                                                <input className="select_dropdown_input" type="radio" name={"select" + placeHolder + no} value={optionListValue[idx]} onClick={(e) => getValue(e.target.value)} id={"select-" + data + no} defaultChecked={optionSelected == data || optionSelected == optionListValue[idx] ? true : firstChecked}/>
+                                                <input className="select_dropdown_input" type="radio" name={"select" + placeHolder + no} value={optionListValue[idx]} onClick={(e) => getValue(e.target.value, data)} id={"select-" + data + no} defaultChecked={optionSelected == data || optionSelected == optionListValue[idx] ? true : firstChecked}/>
                                                 <label className={"select_dropdown_label" + (usedFor == "Datepicker" ? " select_datepicker_label" : "")} htmlFor={"select-" + data + no} style={
                                                 {borderTopLeftRadius: "5px",
                                                 borderTopRightRadius: "5px"}}>{data}</label>
@@ -30,7 +30,7 @@ const Dropdown = ({placeHolder, optionList, optionValue, style, getValue, firstC
                                 }else if(idx == lastIndex){
                                     return(
                                             <li key={idx + data} className="select_dropdown_option">
-                                                <input className="select_dropdown_input" type="radio" name={"select" + placeHolder + no} value={optionListValue[idx]} onClick={(e) => getValue(e.target.value)} id={"select-" + data + no} defaultChecked={optionSelected == data || optionSelected == optionListValue[idx] ? true : false} />
+                                                <input className="select_dropdown_input" type="radio" name={"select" + placeHolder + no} value={optionListValue[idx]} onClick={(e) => getValue(e.target.value, data)} id={"select-" + data + no} defaultChecked={optionSelected == data || optionSelected == optionListValue[idx] ? true : false} />
                                                 <label className={"select_dropdown_label" + (usedFor == "Datepicker" ? " select_datepicker_label" : "")} htmlFor={"select-" + data + no} style={
                                                 {borderBottomLeftRadius: "5px",
                                                 borderBottomRightRadius: "5px"}}>{data}</label>

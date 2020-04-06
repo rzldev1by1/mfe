@@ -258,7 +258,7 @@ class PurchaseOrderCreate extends Component{
             <tr>
               <td>
                   <Dropdown placeHolder="Site" 
-                            style={{width: "300px", position: "absolute"}} 
+                            style={{width: "300px", position: "absolute", zIndex: '6'}} 
                             optionList={siteData.toString()} 
                             optionValue={siteData.toString()} 
                             getValue={(e) => this.setState({ site: e })} 
