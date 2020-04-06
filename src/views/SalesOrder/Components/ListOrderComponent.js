@@ -6,7 +6,6 @@ import Export from '../../../AppComponent/Export'
 import mid from '../../../assets/img/brand/field-idle.png'
 import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
-import ExportExl from 'react-html-table-to-excel'
 import "../SalesOrder.css"
 import moment from 'moment'
 
@@ -268,6 +267,10 @@ class ListOrderComponent extends Component {
     }
     return;
   }
+  ExportName = () => {
+    let filename = ""
+     return filename="Express_SalesOrder"
+  }
   
   arrowHandler = (e) => {
     let id = e.currentTarget.id
@@ -336,7 +339,7 @@ class ListOrderComponent extends Component {
                             isActive={this.state.isActive}
                             numberEventClick={this.numberEventClick}/>
 
-                    <Export loadSalesOrder={this.loadSalesOrder} render={this.render}/>
+                    <Export ExportName={this.ExportName}/>
                 </div>    
           </div>)
     }

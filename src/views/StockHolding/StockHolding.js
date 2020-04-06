@@ -359,6 +359,11 @@ class StockHolding extends Component {
         return;
     }
 
+	ExportName = () => {
+		let filename = ""
+		 return filename="Express_StockHolding"
+	  }
+
 	render() {
 		let content;
 		switch (this.state.displayContent) {
@@ -438,7 +443,7 @@ class StockHolding extends Component {
                                             startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                                             isActive={this.state.isActive}
                                             numberEventClick={this.numberEventClick} />		
-									<Export loadStockHolding={this.loadStockHolding}/>
+									<Export ExportName={this.ExportName}/>
                                 </div>
                             </div>
 						</div>

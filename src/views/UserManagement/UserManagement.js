@@ -529,6 +529,10 @@ class UserManagement extends Component{
       }
 
     }
+    ExportName = () => {
+      let filename = ""
+       return filename="Express_UserManagement"
+    }
 
     isValidUser = () => {
       let result = false;
@@ -639,7 +643,7 @@ class UserManagement extends Component{
                 maxPage={(this.state.totalPage)}
                 startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                 numberEventClick={this.numberEventClick}/>
-                <Export  render={this.render}/>
+                <Export ExportName={this.ExportName}/>
               </footer>
             </div>
 
