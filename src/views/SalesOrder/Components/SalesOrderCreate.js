@@ -11,6 +11,7 @@ import Tab2CreateSO from './Tab/Tab2CreateSO'
 import axios from 'axios'
 import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
 import Authentication from '../../../Auth/Authentication';
+import {headerValidation} from '../Components/Validation/Validation'
 
 
 class SalesOrderCreate extends Component{
@@ -346,7 +347,12 @@ class SalesOrderCreate extends Component{
     }
 
     createSalesOrder = () => {
-      alert()
+     
+    }
+
+    validation = () => {
+     let a = headerValidation(this.state.parameters.header)
+     if(a) this.tabhandler()
     }
 
     render(){
@@ -406,6 +412,8 @@ class SalesOrderCreate extends Component{
                                                         setPostCode             = {(data) => this.setPostCode(data)}
                                                         setStates               = {(data) => this.setStates(data)}
                                                         setCountry              = {(data) => this.setCountry(data)}
+
+                                                        validation              = {() => this.validation()}
                                                         
                                                         /> : 
                                         <Tab2CreateSO   parameters          = {this.state.parameters} 

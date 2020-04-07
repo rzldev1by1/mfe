@@ -17,8 +17,8 @@ class Tab1CreateSO extends Component{
     }
 
     
-    setData = () => {     
-      this.props.tabhandler()
+    setData = () => {   
+      this.props.validation()
     }
 
     render= () => {    
