@@ -1,7 +1,7 @@
 import React from 'react';
 import Loadable from 'react-loadable';
 
-import DefaultLayout from './containers/DefaultLayout/DefaultLayout';
+// import DefaultLayout from './containers/DefaultLayout/DefaultLayout';
 
 function Loading() {
 	return <div>Loading...</div>;
@@ -64,6 +64,16 @@ function Loading() {
 // 	loading: Loading
 // });
 
+// const SalesOrder = Loadable({
+// 	loader: () => import('./views/Icons/CoreUIIcons'),
+// 	loading: Loading
+// });
+
+const Welcome = Loadable({
+	loader: () => import('./views/Welcome/Welcome'),
+	loading: Loading
+});
+
 const StockHolding = Loadable({
 	loader: () => import('./views/StockHolding/StockHolding'),
 	loading: Loading
@@ -94,10 +104,6 @@ const PurchaseOrderDetail = Loadable({
 	loading: Loading
 });
 
-const SalesOrder = Loadable({
-	loader: () => import('./views/Icons/CoreUIIcons'),
-	loading: Loading
-});
 
 const UsersManagement = Loadable({
 	loader: () => import('./views/UserManagement/UserManagement'),
@@ -109,6 +115,19 @@ const UsersManagementDetail = Loadable({
 	loading: Loading
 });
 
+const UsersManagementCreate = Loadable({
+	loader: () => import('./views/UserManagement/UserManagementCreate'),
+	loading: Loading
+});
+
+const SalesOrder = Loadable({
+	loader: () => import('./views/SalesOrder/SalesOrder'),
+	loading: Loading
+})
+const SalesOrderDetail = Loadable({
+	loader: () => import('./views/SalesOrder/SalesOrderDetail'),
+	loading: Loading
+})
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
 	// { path: '/dashboard', name: 'Dashboard', component: Dashboard },
@@ -155,18 +174,23 @@ const routes = [
     // { path: '/dashboard', name: 'Dashboard', component: Dashboard },
 	// { path: '/base', exact: true, name: 'User Control', component: UserManagement },
 
+	{ path: '/Welcome', exact:true, name: 'Welcome', component: Welcome },
+
 	{ path: '/stock', exact: true, name: 'Stock', component: StockHolding },
 	{ path: '/stock/stockholding', exact: true, name: 'Stock Holding', component: StockHolding },
-	{ path: '/stock/stockholding/:product', exact: true, name: 'Stock Holding Details', component: StockHoldingDetails },
+	{ path: '/stock/stockholding/:productId/:client/:site', exact: true, name: 'Stock Holding Details', component: StockHoldingDetails },
 	{ path: '/stock/stockmovement', exact: true, name: 'Stock Movement', component: StockMovement },
     { path: '/stock/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
 
     { path: '/purchaseorder', exact:true, name: 'Purchase Order', component: PurchaseOrder },
-	{ path: '/purchaseorder/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrderDetail },
+		{ path: '/purchaseorder/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrderDetail },
     { path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
 
     { path: '/users-management', exact: true, name: 'User Management', component: UsersManagement },
 		{ path: '/users-management/:id/detail', exact: true, name: 'User Management', component: UsersManagementDetail },
+		{ path: '/users-management/create', exact: true, name: 'User Management', component: UsersManagementCreate },
+		{ path: '/sales-orders', exact: true, name: 'Sales Orders', component: SalesOrder },
+		{ path: '/sales-orders/:orderdetail', exact: true, name: 'Sales Orders', component: SalesOrderDetail }
 ];
 
 export default routes;

@@ -4,28 +4,28 @@ import appCompoent from '../../../../src/AppComponent'
 import mid from '../../../assets/img/brand/field-idle.png'
 import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
-import Paging from '../../General/Paging';
-import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
-
+import Paging from '../../../AppComponent/Paging';
+import {endpoint, headers, POheaders} from '../../../AppComponent/ConfigEndpoint'
+import moment from 'moment'
+import Export from '../../../AppComponent/Export'
 class PurchaseOrderTable extends Component {
   constructor(props){
     super(props)
-
+   
     this.dropdownref = React.createRef()
 
     this.state = {
       data:[],      
-      tableheader : ['Site','Order No','Client','Status','Status Desc','Date Due','Date Recv','Date Released','Date Completed','Supplier Name'],
-      tablebody : ['A','PO-4312','Josaphat','1','Available','27/01/2020','27/01/2020','27/01/2020','27/01/2020', 'Swann-wq12'],
+      tableheader : ['Site','Client','Order No','Status','Supplier No','Supplier Name','Date Due','Date Received','Date Released','Date Completed'],
       activearrow:mid,
-      sortparameter:'orderNo',
+      sortparameter:'order_no',
       sort:true,
 
       //pagonation
       currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
-			displayPage: 11,
+			displayPage: 30,
 			totalRows: 0,
 			maxPage: 0,
     }
@@ -65,7 +65,7 @@ class PurchaseOrderTable extends Component {
                     totalRows: 0, maxPage: 0})
 
     axios.get(endpoint.purchaseOrder, {
-      headers: headers
+      headers: POheaders
     })
       .then(res => {
         const result = res.data.data
@@ -82,51 +82,42 @@ class PurchaseOrderTable extends Component {
     this.props.loadCompleteHandler(true)
   }
 
-  searchPurchaseOrder = (search,client,site,status,ordertype,supplier) => {
+  searchPurchaseOrder = (search,client,site,status,ordertype) => {
     
     this.setState({currentPage: 1,
       startIndex: 0, lastIndex: 0,
       totalRows: 0, maxPage: 0})
 
     let param = search
+    let url = '?searchParam='+param
     if(param)
     {
       param = param.toUpperCase()
     }
-    let url = '?searchParam='
+    
 
     if(client)
     {
-      param = client
-      url = '?client='
+      url += '&client='+client
     }
 
-    else if(site)
+    if(site)
     {
-      param = site
-      url = '?site='
+      url += '&site='+site
     }
 
-    else if(status)
+    if(status)
     {
-      param = status
-      url = '?status='
+      url += '&status='+status
     }
 
-    else if(ordertype)
+    if(ordertype)
     {
-      param = ordertype
-      url = '?orderType='
-    }
-
-    else if(supplier)
-    {
-      param = supplier
-      url = '?supplier='
+      url += '&orderType='+ordertype
     }
 
     this.props.loadCompleteHandler(false)
-    axios.get(endpoint.purchaseOrder + url + param, {
+    axios.get(endpoint.purchaseOrder + url, {
       headers: headers
     })
       .then(res => {
@@ -170,7 +161,7 @@ class PurchaseOrderTable extends Component {
     }
     else if(id == 'Order No')
     {
-      this.setState({sort:!this.state.sort, sortparameter:'orderNo'})
+      this.setState({sort:!this.state.sort, sortparameter:'order_no'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
     else if(id == 'Client')
@@ -183,66 +174,75 @@ class PurchaseOrderTable extends Component {
       this.setState({sort:!this.state.sort, sortparameter:'status'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
-    else if(id == 'Status Description')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'sub_status'})
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
-    else if(id == 'Date Due')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'dateDue'})
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
-    else if(id == 'Date Received')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'dateReceived'})
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
-    else if(id == 'Date Released')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'dateReleased'})
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
-    else if(id == 'Date Completed')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'dateCompleted'})
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
-    else if(id == 'Supplier Name')
+    else if(id == 'Supplier No')
     {
       this.setState({sort:!this.state.sort, sortparameter:'supplier'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
+    else if(id == 'Supplier Name')
+    {
+      this.setState({sort:!this.state.sort, sortparameter:'supplier_name'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+    }
+    else if(id == 'Date Due')
+    {
+      this.setState({sort:!this.state.sort, sortparameter:'date_due'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+    }
+    else if(id == 'Date Received')
+    {
+      this.setState({sort:!this.state.sort, sortparameter:'date_received'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+    }
+    else if(id == 'Date Released')
+    {
+      this.setState({sort:!this.state.sort, sortparameter:'date_released'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+    }
+    else if(id == 'Date Completed')
+    {
+      this.setState({sort:!this.state.sort, sortparameter:'date_completed'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+    }
+
   }
 
   sorting = (data, param, sort) => {
     data.sort((a,b) => {
-      if(a[param] !== null && b[param] !== null)
-      {
-        if(sort == true)
-      {
-        if(a[param].toLowerCase() < b[param].toLowerCase()) return -1
-        if(a[param].toLowerCase() > b[param].toLowerCase()) return 1
-        return 0
-      }
-      else if(sort == false)
-      {
-        if(a[param].toLowerCase() < b[param].toLowerCase()) return 1
-        if(a[param].toLowerCase() > b[param].toLowerCase()) return -1
-        return 0
-      }
+      if(a[param] !== undefined && b[param] !== undefined){
+        if(sort == true){
+          if(a[param].toLowerCase() < b[param].toLowerCase()) return -1
+          if(a[param].toLowerCase() > b[param].toLowerCase()) return 1
+          return 0
+        }else if(sort == false){
+          if(a[param] !== undefined && b[param] !== undefined){
+            if(a[param].toLowerCase() < b[param].toLowerCase()) return 1
+            if(a[param].toLowerCase() > b[param].toLowerCase()) return -1
+            return 0
+          }
+        }
       }
     })
     this.setState({data:data})
   }
 
+  ExportName = () => {
+    let filename = ""
+    let strip = "-"
+    let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let date = new Date();
+    let date1 = date.getDate();
+    let month = date.getMonth();
+    let year = date.getFullYear();
+     return filename=("Express_PurchaseOrder_" +date1 +strip+ arrmonth[month] +strip+ year) 
+  }
   changeStartIndex = (currentPage) => {
 		this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
 	}
 
 	changeLastIndex = (currentPage) => {
 		this.setState({ lastIndex: parseInt(currentPage) * this.state.displayPage });
-	}
+  }
 
 	numberEventClick = (currentPage) => {
 		let page = parseInt(currentPage);
@@ -254,66 +254,96 @@ class PurchaseOrderTable extends Component {
 	nextPageClick = () => {
 		if (this.state.currentPage < this.state.maxPage) {
 			this.setState((prev) => {
-				currentPage: prev.currentPage++;
+				prev.currentPage++;
 				this.changeStartIndex(prev.currentPage);
 				this.changeLastIndex(prev.currentPage);
 			});
-		}
+        }
+        return;
 	}
 
 	backPageClick = () => {
 		if (this.state.currentPage > 1) {
 			this.setState((prev) => {
-				currentPage: prev.currentPage--;
+				prev.currentPage--;
 				this.changeStartIndex(prev.currentPage);
 				this.changeLastIndex(prev.currentPage);
 			});
-		}
+        }
+        return;
 	}
 
-  render(){
-    return(
-      <div>
-        <table className="potable">
-          <thead>
-            <tr>
-              {this.state.tableheader.map(header =>
-                <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
-                <img key={header} className='arrow' src={this.state.activearrow}/>
-                </th>
-              )}
-              
-              <th className='iconU-edit'></th>
-            </tr>
-          </thead>
-          <tbody>            
-              {this.state.data ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
-                  <tr onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/'+data.orderNo)} className='tr'>
-                    <td>{data.site}</td>
-                    <td>{data.orderNo}</td>
-                    <td>{data.client}</td>
-                    <td>{data.status}</td>
-                    <td>{data.sub_status.substring(2)}</td>
-                    <td>{data.dateDue}</td>
-                    <td>{data.dateReceived}</td>
-                    <td>{data.dateReleased}</td>
-                    <td>{data.dateCompleted}</td>
-                    <td>{data.supplierName}</td>
-                    <td className='iconU-option'></td>
-                  </tr>
-              ) : 
-                <div> No data available </div>
-                }       
-          </tbody>
-        </table>
-        <Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-                totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-                currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-                isActive={this.state.isActive}
-                numberEventClick={this.numberEventClick} />
-      </div>
-    )
+    lastPageClick = () => {
+        if (this.state.currentPage < this.state.maxPage) {
+            let currentPage = parseInt(this.state.maxPage + 1 );
+
+            this.setState({ currentPage: currentPage});
+            this.changeStartIndex(currentPage);
+            this.changeLastIndex(currentPage);
+        }
+        return;
+    }
+    firstPageClick = () => {
+      if (this.state.currentPage > 1) {
+        let currentPage = 1;
+
+        this.setState({ currentPage: currentPage});
+        this.changeStartIndex(currentPage);
+        this.changeLastIndex(currentPage);
+    }
+    return;
   }
+
+    render() {
+        return (
+            <div>
+                <div className='tablePage tablecontent'>
+                    <table className="potable" id="excel">
+                        <thead>
+                            <tr>
+                            {this.state.tableheader.map(header =>
+                                <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
+                                <img key={header} className='arrow' src={this.state.activearrow}/>
+                                </th>
+                            )}
+                            
+                            <th className='iconU-edit'></th>
+                            </tr>
+                        </thead>
+                        <tbody>            
+                            {this.state.data ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
+                                <tr onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/'+data.order_no)} className='tr'>
+                                    <td style={{textAlign:'center',paddingLeft:'0px'}}>{data.site}</td>
+                                    <td>{data.client}</td>
+                                    <td>{data.order_no}</td>
+                                    <td>{data.status}</td>
+                                    <td>{data.supplier_no}</td>
+                                    <td>{data.supplier_name}</td>
+                                    <td>{moment(data.date_due).format("DD/MM/YYYY")}</td>
+                                    <td>{moment(data.date_received).format("DD/MM/YYYY")}</td>
+                                    <td>{moment(data.date_released).format("DD/MM/YYYY")}</td>
+                                    <td>{moment(data.date_completed).format("DD/MM/YYYY")}</td>
+                                    <td></td>
+                                </tr>
+                            ) : 
+                                <div> No data available </div>
+                                }       
+                        </tbody>
+                    </table>
+                </div>
+                <div className='paginations'>
+                    <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
+                            backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                            totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                            currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                            startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+                            isActive={this.state.isActive}
+                            numberEventClick={this.numberEventClick} />
+                    <Export ExportName={this.ExportName}/>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default PurchaseOrderTable

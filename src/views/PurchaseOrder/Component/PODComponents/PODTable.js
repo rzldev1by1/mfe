@@ -4,6 +4,8 @@ import appCompoent from '../../../../../src/AppComponent'
 import mid from '../../../../../src/assets/img/brand/field-idle.png'
 import down from '../../../../assets/img/brand/field-bot.png'
 import up from '../../../../assets/img/brand/field-top.png'
+import ok from '../../../../assets/img/brand/ok.png'
+import minus from '../../../../assets/img/brand/minus.png'
 
 import {endpoint, headers} from '../../../../AppComponent/ConfigEndpoint'
 
@@ -13,7 +15,7 @@ class PurchaseOrderTable extends Component {
 
     this.state = {
       data:this.props.datahead,
-      tableheader : ['Product','Status Description','Quantity','UOM','Qty Processed','Weight Process','Rotadate','Disposition','Ref 3','Ref 4'],
+      tableheader : ['Line No','Product','Product Description','Qty','UOM','Qty Processed','Weigth','Weigth Processed','Completed','Ref '],
       activearrow:mid,
       sortparameter:'order_no',
       sort:true
@@ -68,6 +70,11 @@ class PurchaseOrderTable extends Component {
       this.setState({sort:!this.state.sort, sortparameter:'qty_processed'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
+    else if(id == 'Completed')
+    {
+      this.setState({sort:!this.state.sort, sortparameter:'completed'})
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+    }
     else if(id == 'Weight Process')
     {
       this.setState({sort:!this.state.sort, sortparameter:'wgt_processed'})
@@ -83,14 +90,9 @@ class PurchaseOrderTable extends Component {
       this.setState({sort:!this.state.sort, sortparameter:'date_released'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
-    else if(id == 'Ref 3')
+    else if(id == 'Ref ')
     {
-      this.setState({sort:!this.state.sort, sortparameter:'ref3'})
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
-    else if(id == 'Ref 4')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'ref4'})
+      this.setState({sort:!this.state.sort, sortparameter:'ref'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
   }
@@ -117,15 +119,17 @@ class PurchaseOrderTable extends Component {
   }
 
   render(){
-    console.log(this.props.datahead)
     return(
       <div>
         <table className="potable">
           <thead>
             <tr>
               {this.state.tableheader.map(header =>
-                <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
-                <img key={header} className='arrow' src={this.state.activearrow}/>
+                <th key={header} 
+                    // onClick={(e) => this.arrowHandler(e)} 
+                    id={header}>
+                        {header} 
+                {/* <img key={header} className='arrow' src={this.state.activearrow}/> */}
                 </th>
               )}
               
@@ -133,22 +137,25 @@ class PurchaseOrderTable extends Component {
             </tr>
           </thead>
           <tbody>
-            
+        
+          
+
               {this.props.datahead.map((data,i) => 
                   <tr className='tr'>
+                    <td>{i+1}</td>
                     <td>{data.product}</td>
-                    <td>{data.status_desc.substring(2)}</td>
+                    <td >{data.status_desc.substring(2)}</td>
                     <td>{data.qty_lcd}</td>
                     <td>{data.packdesc_1}</td>
                     <td>{data.qty_processed}</td>
+                    <td>{data.weight}</td>
                     <td>{data.wgt_processed}</td>
-                    <td>{data.rota1}</td>
-                    <td></td>
+                    <td><img style={{width:'15px',height:'13px'}} src={data.completed == "Y" ? ok :minus} /></td>
                     <td>{data.ref3}</td>
-                    <td>{data.ref4}</td>
-                    <td className='iconU-option'></td>
+                    <td></td>
                   </tr>
-              )}       
+              )}   
+                  
           </tbody>
         </table>
       </div>

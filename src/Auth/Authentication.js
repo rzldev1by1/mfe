@@ -1,12 +1,13 @@
 // import moment from 'moment';
 
 import axios from 'axios';
+import menunav from '../menunav';
 
 import AppComponent from '../AppComponent';
 // import { endpoint } from '../AppComponent/ConfigEndpoint';
 
 class Authentication {
-	static endpoint = "userlogin";
+	static endpoint = "usermanagement/login";
 
 	static isAuthenticated = () => {
 		return !Authentication.getToken() ? false : true;
@@ -22,7 +23,7 @@ class Authentication {
 		}
 		// userDetails["expiredDate"] = moment().add(1, 'minutes');
 		// userDetails["now"] = new Date();
-		localStorage.setItem("user", JSON.stringify(userDetails)); 
+		localStorage.setItem("user", JSON.stringify(userDetails));
 	}
 
 	static renewExpiredDate = () => {
@@ -35,11 +36,31 @@ class Authentication {
 		return JSON.parse(localStorage.getItem("user"));
 	}
 
+
+
     static getUserLevel = () => {
         let user = Authentication.getUser();
         if (!user) { return false };
         return user["userLevel"];
+	}
+	
+	static getClient = () => {
+        let user = Authentication.getUser();
+        if (!user) { return false };
+        return user["client"];
     }
+
+		static getName = () => {
+				let user = Authentication.getUser();
+				if (!user) { return false };
+				return user["name"];
+		}
+
+		static getId = () => {
+				let user = Authentication.getUser();
+				if (!user) { return false };
+				return user["userId"];
+		}
 
 	static getToken = () => {
 		let user = Authentication.getUser();
@@ -56,7 +77,19 @@ class Authentication {
 	static getCompanyCode = () => {
 		let user = Authentication.getUser();
 		if (!user) { return false };
-		return user["companyCode"];
+		return user["company"];
+	}
+
+	static getUserMenu = () => {
+		let user = JSON.parse(localStorage.getItem("user"));
+		if(user){
+			if(user["userModules"]){
+				if(user["userModules"].length)
+					return user["userModules"].map((item)=>{return item.menu_id});
+			}
+		}
+		else
+			return [];
 	}
 
 	static eraseAllLocalData = () => {
@@ -71,7 +104,10 @@ class Authentication {
 		// 	if (localStorage.getItem(element)) {
 		// 		localStorage.removeItem(element);
 		// 	}
-		// });
+        // });
+
+        let user = Authentication.getUser();
+        localStorage.removeItem(user);
 	}
 
 	static signOut = () => {
@@ -106,7 +142,15 @@ class Authentication {
                 // }
 
                 if (res.data) {
+
+
+										let stringMenus = res.data.userModules.length? res.data.userModules.map((item)=>{return item.menu_id;}):[];
+										let menuItems =	menunav.items.filter((item) => { return stringMenus.indexOf(item.key) !== -1 });
+										let accessMenu = menuItems.length ? menuItems[0].url:"/Welcome";
+
+
                     result.isSuccess = true;
+										result.url = accessMenu;
                     Authentication.setAuthenticate(res.data);
                     // return this.renewToken();
                     return result;
@@ -119,7 +163,7 @@ class Authentication {
                 if (error.response) {
                     result.message = error.response.status ? "Username or password is not valid" : "Failed to process your request";
                 }
-                
+
                 return result;
             })
         );
@@ -133,7 +177,7 @@ class Authentication {
             axios.post(Authentication.endpoint, {
                 headers: {
                     'token': oldToken,
-                    'Content-Type': 'application/json' 
+                    'Content-Type': 'application/json'
                 }
             })
             .then(res => {

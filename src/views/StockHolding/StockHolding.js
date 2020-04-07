@@ -1,69 +1,73 @@
 import React, { Component } from 'react';
-import { Card, CardBody,
-		 Col, Row, Table,
-		 Button,
-		//  ButtonDropdown,
-		 FormGroup,
-		//  Breadcrumb, BreadcrumbItem,
-         Input, InputGroup,
-        //  DropdownItem, DropdownMenu, DropdownToggle
-} from 'reactstrap';
+import { Card, Col, Row, FormGroup, InputGroup } from 'reactstrap';
 
 import axios from 'axios';
 // import AppComponent from '../../AppComponent';
 import { endpoint, headers } from '../../AppComponent/ConfigEndpoint';
 
-import Paging from '../General/Paging';
+import mid from '../../assets/img/brand/field-idle.png';
+import down from '../../assets/img/brand/field-bot.png';
+import up from '../../assets/img/brand/field-top.png';
 
+import HeaderTitle from '../../AppComponent/HeaderTitle';
+import Search from '../../AppComponent/Search';
+import Dropdown from '../../AppComponent/Dropdown';
+import StockHoldingTable from './StockHoldingTable';
+import Paging from '../../AppComponent/Paging';
+import EditColumn from '../../AppComponent/EditColumn';
+import Export from '../../AppComponent/Export'
 import './StockHolding.css';
-import StockHoldingEditColumn from './StockHoldingEditColumn';
 
 
 class StockHolding extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isVisible: [],
+			displayContent: "INIT",
 			isLoaded: false,
 			isSearch: false,
-			displayContent: "INIT",
-			showEditColumn: false,
-			showFilter: true,
 			notFoundMessage: "",
+			showFilter: true,
+			isVisible: [],
+            showEditColumn: false,
+            
+            site: "",
+            unit: "",
+            status: "",
 
 			currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
 			displayPage: 50,
 			totalRows: 0,
-			maxPage: 0,
+            maxPage: 0,
 
 			columns: [
-				{ id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site" },
-				{ id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "product" },
-				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "product_name" },
-				{ id: "status", checkboxLabelText: "Status", tableHeaderText: "Status", isVisible: true, key: "status" },
-				{ id: "uom", checkboxLabelText: "UoM", tableHeaderText: "UoM", isVisible: true, key: "packdesc_1" },
-				{ id: "on_hand_qty", checkboxLabelText: "On Hand Qty", tableHeaderText: "On Hand Qty", isVisible: true, key: "qty_lcd" },
-				{ id: "on_hand_weight", checkboxLabelText: "On Hand Weight", tableHeaderText: "On Hand Weight", isVisible: true, key: "weight" },
-				{ id: "expected_in_qty", checkboxLabelText: "Expected In Qty", tableHeaderText: "Expected In Qty", isVisible: true, key: "qty_lcd_expected" },
-				{ id: "expected_out_qty", checkboxLabelText: "Expected In Weight", tableHeaderText: "Expected In Weight", isVisible: true, key: "wgt_expected" },
-				{ id: "expected_out_qty", checkboxLabelText: "Expected Out Qty", tableHeaderText: "Expected Out Qty", isVisible: true, key: "qty_lcd_committed" },
-			],
-			filterStockHolding: {
-				showPopup: false,
-				item: {
-					"site": { text: "Site", isVisible: true,},
-					"status": { text: "Status", isVisible: true},
-					"uom": { text: "UoM", isVisible: true,}
-				}
-			},
+                { id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site", type: "string", sort: mid },
+                { id: "client", checkboxLabelText: "Client", tableHeaderText: "Client", isVisible: true, key: "client", type: "string", sort: mid },
+				{ id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "product", type: "string", sort: mid },
+				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "product_name", type: "string", sort: mid },
+				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: false, key: "status", type: "string", sort: mid },
+				{ id: "uom", checkboxLabelText: "UOM", tableHeaderText: "UOM", isVisible: true, key: "packdesc_1", type: "string", sort: mid },
+				{ id: "on_hand_qty", checkboxLabelText: "On Hand Qty", tableHeaderText: "On Hand Qty", isVisible: true, key: "qty_lcd", type: "number", sort: mid },
+				{ id: "on_hand_weight", checkboxLabelText: "On Hand Wgt", tableHeaderText: "On Hand Weight", isVisible: true, key: "weight", type: "number", sort: mid },
+				{ id: "expected_in_qty", checkboxLabelText: "Expected In Qty", tableHeaderText: "Expected In Qty", isVisible: true, key: "qty_lcd_expected", type: "number", sort: mid },
+				{ id: "expected_in_weight", checkboxLabelText: "Expected In Wgt", tableHeaderText: "Expected In Weight", isVisible: true, key: "wgt_expected", type: "number", sort: mid },
+				{ id: "expected_out_qty", checkboxLabelText: "Expected Out Qty", tableHeaderText: "Expected Out Qty", isVisible: true, key: "qty_lcd_committed", type: "number", sort: mid },
+				{ id: "price", checkboxLabelText: "Price", tableHeaderText: "Price", isVisible: false, key: "price", type: "number", sort: mid },
+				{ id: "pallets", checkboxLabelText: "Pallets", tableHeaderText: "Pallets", isVisible: false, key: "pallets", type: "string", sort: mid },
+            ],
+            masterSite: [],
+            masterUnit: ["MLB", "MLS", "MLM"],
+            masterStatus: ["OK", "SHORTAGE"],
 			masterResStockHolding: []
-		}
+        };
+        
 		this.searchForm = React.createRef();
 	}
 
 	componentDidMount() {
+        this.getSite();
 		this.loadStockHolding();
 	}
 
@@ -79,7 +83,7 @@ class StockHolding extends Component {
 
 	updateTableColumn = (columns) => {
 		// // let self = this;
-		// this.setState({ columns: columns });
+		this.setState({ columns: columns });
 		// localStorage.setItem("columnData", JSON.stringify(this.state.columns));
 	}
 
@@ -107,6 +111,25 @@ class StockHolding extends Component {
 		self.numberEventClick(self.state.currentPage);
 	}
 
+    getSite = () => {   
+        let self = this;
+
+        axios.get(endpoint.getSite, {
+          headers: headers
+        })
+        .then(res => {
+            return res.data;
+        })
+        .catch(error => {
+            // this.props.history.push("/logins")
+        })
+        .then(function (result) {
+            if (result) {
+                self.setState({ masterSite: result });
+            }
+        });
+    }
+
     loadStockHolding = () => {
 		let self = this;
 		self.setState({ isLoaded: true, isSearch: true,
@@ -114,7 +137,9 @@ class StockHolding extends Component {
 						startIndex: 0, lastIndex: 0,
 						totalRows: 0, maxPage: 0 });
 
-        axios.get(endpoint.stockHoldingSummary, { headers: headers })
+        axios.get(endpoint.stockHoldingSummary, { 
+            headers: headers 
+        })
         .then(res => {
             // res.isSuccess = true;
             // self.setState({ isLoaded: false })
@@ -122,14 +147,13 @@ class StockHolding extends Component {
         })
         .catch(function (error) {
             self.setState({ displayContent: "NOT_FOUND",
-                            isLoaded: false,
-                            isSearch: false });
+                            isLoaded: false, isSearch: false });
             if (error.response) {
-                self.setState({ notFoundMessage: error.response.data.message })
+                self.setState({ notFoundMessage: error.response.data.message });
             }
             return error;
         })
-        .then(function(result) {
+        .then(function (result) {
             if (result.data) {
                 self.setPagination(result.data);
             }
@@ -138,20 +162,21 @@ class StockHolding extends Component {
     }
 
 	searchData = () => {
-		let self = this;
+        const { site, status, unit } = this.state;
+        let self = this;
+        
 		self.setState({ isLoaded: true, isSearch: true,
 						currentPage: 1,
 						startIndex: 0, lastIndex: 0,
-						totalRows: 0, maxPage: 0, displayContent: "NOT_FOUND"});
+						totalRows: 0, maxPage: 0, displayContent: "INIT" });
 
 		let form = self.searchForm.current;
-
-		// if (!searchTerm) { return };
-		let params = {};
+        let params = {};
+        
 		params.searchParam = form.searchInput.value;
-		if (form.filterSite.value) { params.site = form.filterSite.value; }
-		if (form.filterStatus.value) { params.status = form.filterStatus.value; }
-		if (form.filterUoM.value) { params.UOM = form.filterUoM.value; }
+        if (site !== "") { params.site = site }
+        if (unit !== "") { params.unit = unit }
+        if (status !== "") { params.status = status }
 
         axios.get(endpoint.stockHoldingSummary, {
             params: params,
@@ -165,7 +190,7 @@ class StockHolding extends Component {
 							isLoaded: false,
 							isSearch: false });
 			if (error.response) {
-				// self.setState({ notFoundMessage: error.response.data.message })
+				self.setState({ notFoundMessage: error.response.data.message });
 			}
 			return error;
 		})
@@ -177,11 +202,50 @@ class StockHolding extends Component {
 		});
 	}
 
-	toggleDisplayMoreColumn = () => {
-		this.setState((prevState) => {
-			return { showEditColumn: !prevState.showEditColumn }
-		});
+    selectedSite = (site) => {
+        this.setState({ site: site });
+    }
+
+    selectedUnit = (unit) => {
+        this.setState({ unit: unit });
 	}
+	
+    selectedStatus = (status) => {
+        this.setState({ status: status });
+    }
+
+
+    showDropdown = () => {
+        let masterSite = [];
+        if (this.state.masterSite.length > 0) {
+            this.state.masterSite.map((item) => {
+                masterSite.push(item.site);
+            });
+        }
+
+        let masterUnit = this.state.masterUnit.toString();
+        let masterStatus = this.state.masterStatus.toString();
+
+        return (
+            <div className={"input-group filterSection" + (this.state.showFilter ? "" : " d-none")}>
+                <Dropdown placeHolder="Site" style={{width:'100px'}}
+                          optionList={masterSite.toString()}
+                          optionValue={masterSite.toString()}
+                          getValue={this.selectedSite} />
+
+				<Dropdown placeHolder="Client" style={{width:'218px'}}
+                        optionList={masterUnit}
+                        optionValue={masterUnit}
+                        getValue={this.selectedUnit} />
+
+                <Dropdown placeHolder="Status" 
+                        optionList={masterStatus}
+                        optionValue={masterStatus}
+                        getValue={this.selectedStatus} />
+
+            </div>
+        );
+    }
 
 	triggerShowFilter = (e) => {
 		e.stopPropagation();
@@ -190,8 +254,53 @@ class StockHolding extends Component {
 		});
 	}
 
+    sortHandler = (idx, sortBy) => {
+        let data = [...this.state.masterResStockHolding];
+
+        data.sort((a, b) => {
+            if (a[sortBy] !== undefined && b[sortBy] !== undefined) {
+                if (this.state.columns[idx]["sort"] === down) {
+                    if (a[sortBy] < b[sortBy]) return -1;
+                    if (a[sortBy] > b[sortBy]) return 1;
+                    return 0;
+                } else {
+                    // if (a[sortBy] !== undefined && b[sortBy] !== undefined) {
+                        if (a[sortBy] < b[sortBy]) return 1;
+                        if (a[sortBy] > b[sortBy]) return -1;
+                        return 0;
+                    // }
+                }
+            }
+        });
+
+        this.setState({ masterResStockHolding: data });
+    }
+
+    arrowHandler = (idx, sortBy) => {
+        let sortColumns = [...this.state.columns];
+        let sortValue = sortColumns[idx]["sort"];
+
+        sortColumns = this.state.columns.map((el) => {
+            el.sort = mid;
+            return el;
+        });
+
+        sortColumns[idx]["sort"] = sortValue !== mid && sortValue === down ? up : down;
+        
+        this.setState({ columns: sortColumns });
+
+
+        this.sortHandler(idx, sortBy);
+    }
+
+	toggleDisplayMoreColumn = () => {
+		this.setState((prevState) => {
+			return { showEditColumn: !prevState.showEditColumn }
+		});
+	}
+
 	changeStartIndex = (currentPage) => {
-		this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
+        this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
 	}
 
 	changeLastIndex = (currentPage) => {
@@ -205,140 +314,75 @@ class StockHolding extends Component {
 		this.changeLastIndex(page);
 	}
 
+    firstPageClick = () => {
+        if (this.state.currentPage > 1) {
+            this.setState({ currentPage: 1 }, () => {
+                this.changeStartIndex(1);
+                this.changeLastIndex(1);
+            });
+        }
+        return;
+    }   
+
 	nextPageClick = () => {
 		if (this.state.currentPage < this.state.maxPage) {
-			this.setState((prev) => {
-				currentPage: prev.currentPage++;
-				this.changeStartIndex(prev.currentPage);
-				this.changeLastIndex(prev.currentPage);
+			this.setState((prev) => { 
+                currentPage: prev.currentPage++;
+            }, () => {
+				this.changeStartIndex(this.state.currentPage);
+				this.changeLastIndex(this.state.currentPage);
 			});
-		}
+        }
+        return;
 	}
 
 	backPageClick = () => {
 		if (this.state.currentPage > 1) {
-			this.setState((prev) => {
-				currentPage: prev.currentPage--;
-				this.changeStartIndex(prev.currentPage);
-				this.changeLastIndex(prev.currentPage);
+			this.setState((prev) => { 
+                currentPage: prev.currentPage--;
+            }, () => {
+				this.changeStartIndex(this.state.currentPage);
+				this.changeLastIndex(this.state.currentPage);
 			});
-		}
+        }
+        return;
 	}
 
-	rowClicked = (productCode, site) => {
-		this.props.history.push("/stock/stockholding/" + encodeURIComponent(productCode));
-		// window.location = "/stock/stockholding/" + encodeURIComponent(productCode);
-		// return <Link className="company-link p-1" to={"/stock/stockholding/" + encodeURIComponent(productCode)}>{productCode}</Link>;
-	}
+    lastPageClick = () => {
+        if (this.state.currentPage < this.state.maxPage) {
+            let currentPage = parseInt(this.state.maxPage + 1 );
 
-	showHeader = () => {
-		return (
-			<tr>
-				{this.state.columns.map((item, idx) => {
-					if (item.isVisible) {
-						if (item.id === "onHandQty" ||
-							item.id === "onHandWeight" ||
-							item.id === "expectedInQty" ||
-							item.id === "expectedInWeight" ||
-							item.id === "expectedOutQty") {
-							return <th className="p-3 text-right" key={idx} width="10%">{item.tableHeaderText}</th>;
-						}
+            this.setState({ currentPage: currentPage});
+            this.changeStartIndex(currentPage);
+            this.changeLastIndex(currentPage);
+        }
+        return;
+    }
 
-						return <th className="p-3 text-left" key={idx} width="10%">{item.tableHeaderText}</th>;
-					}
-				})}
-				<th className="p-3 text-left">
-					<button type="button" className="btn btn-outline-light editColumnBtn"  onClick={this.toggleDisplayMoreColumn}>
-						<span className="glyphicon glyphicon-pencil editColumnLogo" />
-					</button>
-				</th>
-			</tr>
-		);
-	}
-
-	showData = () => {
-		return (
-			this.state.masterResStockHolding.slice(this.state.startIndex, this.state.lastIndex).map((item, idx) => (
-				<tr key={idx} onClick={() => this.rowClicked(item["product"], item["site"])}>
-					{this.state.columns.map((column, columnIdx) => {
-						if (column.isVisible) {
-							if (column.id === "onHandQty" ||
-								column.id === "onHandWeight" ||
-								column.id === "expectedInQty" ||
-								column.id === "expectedInWeight" ||
-								column.id === "expectedOutQty") {
-								return <td key={columnIdx} className="px-3 text-right">{item[column.key]}</td>;
-							}
-
-							return <td key={columnIdx} className="px-3 text-left">{item[column.key]}</td>;
-						}
-					})}
-					<td className="px-3 text-left">
-						{/* <a href="#" className="dots"> */}
-							<div className="dot"></div>
-							<div className="dot"></div>
-							<div className="dot"></div>
-						{/* </a> */}
-					</td>
-				</tr>
-			))
-		);
-	}
-
-	createFilter = (item, key, options) => {
-		return (
-			<ul className={"select" + (item.isVisible ? " expand" : "")}
-				id="select" name="select">
-				<li className="expand-style">
-					<input type="radio" className="select-close" id={item.id + "-close"} name={item.id} value="" />
-					<span className="select-label select-label-placeholder">{item.text}</span>
-				</li>
-
-				<li className="select-items">
-					<input type="radio" className="select-expand" id={item.id + "-opener"} name={item.id} />
-					<label className="select-closeLabel" htmlFor={item.id + "-close"} onClick={() => this.triggerChangeFilter(key)} />
-
-					<ul className="select-options">
-						<li className="select-option">
-							<input type="checkbox" className="inp-cbx-filter d-none"
-								name={item.id} id={item.id + "-test234"} />
-								<label className="select-label option-radius cbx-filter" htmlFor={item.id + "-test234"}>
-									<span>
-										<svg viewBox="0 0 12 10" width="12px" height="10px">
-											<polyline points="1.5 6 4.5 9 10.5 1" />
-										</svg>
-									</span>
-									<span>TEST123</span>
-								</label>
-						</li>
-					</ul>
-
-					<label className="select-expandLabel" htmlFor={item.id + "-opener"} onClick={() => this.triggerChangeFilter(key)} />
-				</li>
-			</ul>
-		);
-	}
+	ExportName = () => {
+		let filename = ""
+		let strip = "-"
+		let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+		let date = new Date();
+		let date1 = date.getDate();
+		let month = date.getMonth();
+		let year = date.getFullYear();
+		 return filename=("Express_StockHolding _" +date1 +strip+ arrmonth[month] +strip+ year) 
+	  }
 
 	render() {
 		let content;
 		switch (this.state.displayContent) {
 			case "FOUND" :
 				content =
-				<div className="col-12 p-0">
-					<div className={this.state.isSearch ? "spinner" : "d-none"} />
-					<div className={this.state.isSearch ? "d-none" : ""}>
-						<Table className="table-condensed table-responsive table-striped clickable-row mb-0" size="sm">
-							<thead>{this.showHeader()}</thead>
-							<tbody>{this.showData()}</tbody>
-						</Table>
-                        
-                        <Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-                                totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-                                currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-                                isActive={this.state.isActive}
-                                numberEventClick={this.numberEventClick} />
-					</div>
-				</div>
+                <StockHoldingTable isSearch={this.state.isSearch}
+                                    startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+                                    isActive={this.state.isActive}
+                                    columns={this.state.columns}
+                                    masterResource={this.state.masterResStockHolding}
+                                    toggleDisplayMoreColumn={this.toggleDisplayMoreColumn}
+                                    history={this.props.history}
+                                    arrowHandler={this.arrowHandler}/>
 				break;
 
 			default :
@@ -355,31 +399,14 @@ class StockHolding extends Component {
 
 		return (
 			<React.Fragment>
-				<div className="animated fadeIn">
+				<div className="animated fadeIn tr">
 					<div className="row">
 						<div className="col-12 p-0">
-							<div className="row">
-								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-									<CardBody>
-										<Row className="align-items-center">
-											<div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-												<FormGroup>
-													<InputGroup>
-														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0">
-															{/* <Breadcrumb>
-																<BreadcrumbItem active>Stock Holding Summary</BreadcrumbItem>
-															</Breadcrumb> */}
-                                                            <h4 className="headerTitle">Stock Holding Summary</h4>
-														</div>
-													</InputGroup>
-												</FormGroup>
-											</div>
-										</Row>
-									</CardBody>
-								</div>
+							<div className="row pl-1">
+                                <HeaderTitle headerTitle="Stock Holding Summary" />
 							</div>
 
-							<div className="row mb-0 p-0">
+							<div className="row mb-0 p-0 pl-1">
 								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
 									<form ref={this.searchForm} onSubmit={e => { e.preventDefault() ; this.searchData() }}>
 										<div className="form-group row mb-0">
@@ -390,82 +417,11 @@ class StockHolding extends Component {
 															<InputGroup>
 																<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
 																	<Card className="form-group row mb-0 border-0">
-																		<div className="input-group searchSection">
-																			<div className="input-group searchBox">
-																				<span className="input-group-text border-0 bg-white ml-2">
-																					{/* <i className="fa fa-search fa-2x iconSpace" /> */}
-                                                                                    <i className="iconU-search" />
-																				</span>
-																				<input type="text" className="form-control searchInput" id="searchInput" name="searchInput" placeholder="Enter a Product or Description" />
-																			</div>
-                                                                            <Button className={"filter" + (this.state.showFilter ? " active" : "")} onClick={this.triggerShowFilter}>
-                                                                                <i className="iconU-filter" />
-                                                                            </Button>
-
-                                                                            <Button type="submit" className="search" onClick={this.searchData}>
-                                                                                <strong>Search</strong>
-                                                                            </Button>
-																		</div>
-
-                                                                        <div className={"input-group filterSection" + (this.state.showFilter ? "" : " d-none")}>
-                                                                            <Col className="filterDropdown arrow-icon">
-                                                                                <select className="form-control selectDropdown" id="filterSite" name="filterSite">
-                                                                                    <option value="">Site</option>
-                                                                                    <option value="M">Site M</option>
-                                                                                    <option value="S">Site S</option>
-                                                                                </select>
-                                                                            </Col>
-
-                                                                            <Col className="filterDropdown arrow-icon">
-                                                                                <select className="form-control selectDropdown" id="filterStatus" name="filterStatus">
-                                                                                    <option value="">Status</option>
-                                                                                    <option value="Q">Status Q</option>
-                                                                                    <option value="D">Status D</option>
-                                                                                    <option value="E">Status E</option>
-                                                                                    <option value="I">Status I</option>
-                                                                                    <option value="F">Status F</option>
-                                                                                </select>
-                                                                            </Col>
-
-                                                                            <Col className="filterDropdown arrow-icon">
-                                                                                <select className="form-control selectDropdown" id="filterUoM" name="filterUoM">
-                                                                                    <option value="">UoM</option>
-                                                                                    <option value="EACH">EACH</option>
-                                                                                    <option value="CASE">CASE</option>
-                                                                                    <option value="PALLET">PALLET</option>
-                                                                                </select>
-                                                                            </Col>
-                                                                        </div>
-
-																		{/* <div className={"row p-2" + (this.state.showFilter ? "" : " d-none")}>
-                                                                            <Col lg="1" className="arrow-icon">
-                                                                                <select className="form-control filterDropdown" id="select_1" name="filterSite">
-                                                                                    <option value="">Site</option>
-                                                                                    <option value="M">Site M</option>
-                                                                                    <option value="S">Site S</option>
-                                                                                </select>
-                                                                            </Col>
-
-                                                                            <Col lg="1" className="pl-0 arrow-icon">
-                                                                                <select className="form-control filterDropdown" id="select_2" name="filterStatus">
-                                                                                    <option value="">Status</option>
-                                                                                    <option value="Q">Status Q</option>
-                                                                                    <option value="D">Status D</option>
-                                                                                    <option value="E">Status E</option>
-                                                                                    <option value="I">Status I</option>
-                                                                                    <option value="F">Status F</option>
-                                                                                </select>
-                                                                            </Col>
-
-                                                                            <Col lg="1" className="pl-0 arrow-icon">
-                                                                                <select className="form-control filterDropdown" id="select_3" name="filterUom">
-                                                                                    <option value="">UoM</option>
-                                                                                    <option value="EACH">EACH</option>
-                                                                                    <option value="CASE">CASE</option>
-                                                                                    <option value="PALLET">PALLET</option>
-                                                                                </select>
-                                                                            </Col>
-																		</div> */}
+                                                                        <Search showFilter={this.state.showFilter}
+                                                                                triggerShowFilter={this.triggerShowFilter}
+                                                                                searchData={this.searchData}
+                                                                                placeholder="Enter a Product or Description" />
+                                                                        {this.showDropdown()}
 																	</Card>
 																</div>
 															</InputGroup>
@@ -477,18 +433,32 @@ class StockHolding extends Component {
 									</form>
 								</div>
 							</div>
-							<div className="row">
+                            
+							<div className="row pt-0 p-0 pl-1">
 								<div className="d-flex col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
 									{content}
 								</div>
 							</div>
+
+                            <div className="row mt-0 p-0 pl-1">
+								<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <Paging lastPageClick={this.lastPageClick} backPageClick={this.backPageClick}
+                                            nextPageClick={this.nextPageClick} firstPageClick={this.firstPageClick}
+                                            totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                                            currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                                            startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+                                            isActive={this.state.isActive}
+                                            numberEventClick={this.numberEventClick} />		
+									<Export ExportName={this.ExportName}/>
+                                </div>
+                            </div>
 						</div>
 					</div>
 				</div>
-				<StockHoldingEditColumn isOpen={this.state.showEditColumn}
-										toggle={this.toggleDisplayMoreColumn}
-										fields={this.state.columns}
-										updateTableColumn={this.updateTableColumn} />
+				<EditColumn isOpen={this.state.showEditColumn}
+                            toggle={this.toggleDisplayMoreColumn}
+                            fields={this.state.columns}
+                            updateTableColumn={this.updateTableColumn} />
 			</React.Fragment>
 		);
 	}

@@ -166,8 +166,13 @@ export default {
           icon: 'iconU-stockMovement',
       },
       {
+        name: 'PURCHASE ORDERS',
+        url: '/purchaseorder',
+        icon: 'iconU-purchaseOrder',
+      },
+      {
           name: 'SALES ORDERS',
-          url: '/icons',
+          url: '/sales-orders',
           icon: 'iconU-salesOrder',
           // children: [
           //   {
@@ -191,11 +196,6 @@ export default {
           // 	icon: 'icon-cursor',
           //   },
           // ],
-    },
-    {
-      name: 'PURCHASE ORDERS',
-      url: '/purchaseorder',
-      icon: 'iconU-purchaseOrder',
     },
     {
       name: 'USER MANAGEMENT',

@@ -1,0 +1,107 @@
+.bdPagination{
+    width: 60%;
+    display: flex;
+    height: 50px;
+    justify-content: space-between;
+    margin-top: 1%;
+}
+
+.paginationLine{
+    background-color: white;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    width: 100%;
+    border-right: 2px solid #E2E2E2;
+    padding:10px;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    align-items: center;
+    align-content: center;
+    vertical-align: middle;
+}
+
+.paginationLine > label{
+    margin:0px;
+}
+
+.paginationLine > label:hover{
+    cursor: pointer;
+}
+
+.paginationLine > button{
+    width: 15%;
+    background-color: white;
+    border:none;
+    color: #969EA1;
+    font-weight: 600;
+}
+
+.paginationInputPage{
+    background-color: white;
+    width: 100%;
+    padding:10px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.paginationInputPage > #labelPage{
+    margin-top: 2%;
+    color:#D5D8DA;
+    font-size: 1vw;
+}
+
+.paginationInputPage > input{
+    width: 20%;
+    border: 2px solid #E2E2E2;
+}
+
+#labelButton > .iconU-rightArrow{
+    margin-left: 5px;
+    
+}
+
+.paginationInputPage > #labelButton{
+    margin-top: 4.5%;
+    color:#969EA1;
+    font-size: 1vw;
+}
+
+.paginationInputPage > #labelButton:hover{
+    color: #22ABE3;
+    cursor: pointer;
+}
+
+.btn-primary:hover{
+    background-color: #22ABE3;
+}
+
+.paginationResult{
+    width: 100%;    
+    padding:15px;
+    vertical-align: middle;
+    padding-top: 13px;
+    color: #B4B9BB;
+}
+
+.paginationResult > label{
+    color: #969EA1;
+    font-family: 'Helvetica Neue bold';
+}
+
+.paginationInputPage ::placeholder{
+    color: #D5D8DA !important;
+}
+
+.activePagess{
+    background-color: #22ABE3 !important;
+    color: white !important;
+}
+
+.disabledArrows{
+    color: #d5d8da;
+}

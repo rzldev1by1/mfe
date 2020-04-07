@@ -4,33 +4,55 @@ import Authentication from '../Auth/Authentication';
 let baseUrl = AppComponent.getBaseUrl();
 
 const endpoint = {
-    'userLogin': baseUrl + "userlogin",
+    'userLogin': baseUrl + "usermanagement/login",
 
     'stockHoldingSummary': baseUrl + "stockholding",
+    'stockHoldingDetail': baseUrl + "stockdetail/header/",
     'stockDetail': baseUrl + "stockdetail/",
-    'foreshadowedBalance': baseUrl + "foreshadowedstockbalance/",
+    // 'stockBalanceForecast': baseUrl + "foreshadowedstockbalance/",
+    'stockBalanceForecast': baseUrl + "stockdetail/forshadowed/",
 
     'stockMovement': baseUrl + "stockmovement",
 
     "purchaseOrder": baseUrl + "purchaseOrder",
+    "purchaseOrderCreate": baseUrl + "purchaseOrder/store",
 
-    "ddlclient": baseUrl + "dropdown/getclient",
+    "salesOrder" : baseUrl + "salesorder",
+    "salesOrderCreate": baseUrl + "salesorder/store",
 
-    "ddlsite": baseUrl + "dropdown/getsite",
+    "getClient": baseUrl + "dropdown/getclient",
+    "getSite": baseUrl + "dropdown/getsite",
+    "OrderNO" : baseUrl + "dropdown/getorderno",
+    "getSupplier": baseUrl + "dropdown/getsupplier",
+    "getOrderType": baseUrl + "dropdown/getordertype",
+    "getSoResources": baseUrl + "getsorecources",
+    "getPOResources": baseUrl + "getporecources",
 
-    "ddlsupplier": baseUrl + "dropdown/getsupplier",
+    "UserManagement_ModuleAccess": baseUrl + "usermanagement/module",
 
-    "ddlordertype": baseUrl + "dropdown/getordertype",
-
-    "UserManagement_ModuleAccess": baseUrl + "usermanagement/module"
+    "UserManagement_Create": baseUrl + "usermanagement/register",
+    "UserManagement_ListUser": baseUrl + "web_user",
+    "UserManagement_User_Detail": baseUrl + "web_user_detail/",
+    "UserManagement_Update": baseUrl + "usermanagement/update/",
+    "UserManagement_resetpassword": baseUrl + "usermanagement/forgot_password",
 };
 
 const headers = {
     'userLevel': Authentication.getUserLevel(),
-    'companyCode': Authentication.getCompanyCode(),
+    // 'companyCode': Authentication.getCompanyCode(),
+    // 'userLevel': 'WAREHOUSE',
+    'client': 'MLS',
     'Authorization': 'Bearer ' + Authentication.getToken(),
     'Content-Type': 'application/json',
     'Accept': 'application/json',
 };
 
-export { endpoint, headers };
+const POheaders = {
+    'userLevel': Authentication.getUserLevel(),
+    'companyCode': Authentication.getCompanyCode(),
+    'Authorization': 'Bearer ' + Authentication.getToken(),
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Client': 'MLS'
+};
+export { endpoint, headers, POheaders };

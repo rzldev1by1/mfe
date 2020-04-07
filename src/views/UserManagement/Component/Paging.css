@@ -1,0 +1,312 @@
+.btn-paging {
+	font-weight: bold;
+	color: rgb(78, 82, 83) !important;
+	margin-top: 1%;
+    /* width: 40px; */
+    /* height: 40px; */
+    align-items: center !important;
+}
+
+.btn-paging:focus, .btn-paging:hover, .btn-paging-active, .btn-paging-active:hover {
+	background-color: #22ABE3;
+    color: #FFFFFF;
+    /* width: 40px; */
+    /* height: 40px; */
+    align-items: center !important;
+}
+
+.btn-pagingNav, .btn-pagingNav:hover {
+	width: 40px;
+	height: 40px;
+	/* border-radius: 50%; */
+	/* background-color: #E0E3F2; */
+	color: #637176;
+    box-shadow: none;
+    align-items: center !important;
+}
+
+.btn-pagingNav-inactive, .btn-pagingNav-inactive:hover, .btn-pagingNav-inactive:focus {
+	width: 40px;
+	height: 40px;
+    /* border-radius: 50%; */
+    color: #B4B9BB !important;
+	/* background: none; */
+	border: none;
+	/* color: transparent; */
+	cursor: default;
+    box-shadow: none;
+    align-items: center !important;
+}
+
+
+/* Start - Export Button */
+
+.select-export, .expand-style-export, .select_items-export, .select_options-export, .select_option-export {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	border-color: inherit;
+}
+
+.select_close-export, .select_expand-export, .select_input-export {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  background: transparent;
+	outline: none;
+	border: none;
+	border-radius: 0;
+	-webkit-appearance: none;
+	   -moz-appearance: none;
+			appearance: none;
+}
+
+.select-export {
+	width: 200px;
+	height: 40px;
+	float: right;
+	text-align: left;
+	cursor: pointer;
+	list-style: none;
+    transform: scaleY(-1);
+	background-color: #22ABE3;
+	box-shadow: 0 2px 0 #22ABE3;
+	border-radius: 6px;
+	transition: .2s ease-out;
+	margin-top: -47px;
+}
+
+
+.expand-export{
+	border-top-left-radius: 22px;
+	border-top-right-radius: 22px;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+	border-bottom: solid #212F61 2px;
+	transition: border-top-left-radius .5s ease, border-top-right-radius .5s ease, border-bottom .5s ease;
+}
+
+.select_expand-export {
+	width: 0;
+	height: 40px;
+	position: absolute;
+	top: 0;
+	right: 10px;
+    transform: scaleY(-1);
+}
+
+.select_expand-export::after {
+	content: '\003E';
+	position: absolute;
+	top: 50%;
+	right: 0;
+	-webkit-transform: translate(-50%, -50%) rotate(90deg) scaleY(1.75);
+			transform: translate(-50%, -50%) rotate(90deg) scaleY(1.75);
+	color: #212F61;
+	font-size: 16px;
+	pointer-events: none;
+	z-index: 2;
+	transition: all 250ms cubic-bezier(.4,.25,.3,1);
+}
+
+.select_expand-export:hover::after {opacity: 1}
+
+.select_expand-export:checked::after {-webkit-transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.75);transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.75);}
+
+.select_expandLabel-export {
+	display: block;
+	width: 100%;
+	height: 40px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	cursor: pointer;
+    margin-bottom: 0 !important;
+}
+
+.select_close-export {display: none}
+
+.select_closeLabel-export {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: none;
+	margin-bottom: 0 !important;
+}
+
+.select_items-export {
+	list-style: none;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: 2px;
+	padding-top: 40px;
+}
+
+.select_input-export {display: none}
+
+.select_options-export{
+	list-style: none;}
+
+.select_label-export {
+	transition: all 250ms cubic-bezier(.4,.25,.3,1);
+	display: block;
+    transform: scaleY(-1);
+	height: 0;
+	font-family: Medium 20px/25px Helvetica Neue;
+	font-size: 16px;
+	line-height: 40px;
+	overflow: hidden;
+	color: #212F61;
+	background-color: #E0E3F2;
+	cursor: pointer;
+	padding-left: 20px;
+	margin-bottom: 0 !important;
+	user-select: none;
+}
+
+.select_label-placeholder-export {
+	height: 40px;
+	text-align: center !important;
+	vertical-align: middle;
+	position: absolute;
+    transform: scaleY(-1);
+	top: 0;
+	left: 0;
+	background-color: transparent;
+	padding-left: 67px;
+}
+
+.select_expand-export:checked + .select_closeLabel-export {
+		display: block;
+	}
+
+.select_expand-export:checked + .select_closeLabel-export + .select_options-export .select_label-export {height: 40px;}
+
+.select_expand-export:checked + .select_closeLabel-export + .select_options-export .select_label-export:hover {background-color: #d3daff}
+
+.select_expand-export:checked + .select_closeLabel-export + .select_options-export + .select_expandLabel-export {display: none}
+
+.select_input-export:checked + .select_label-export {
+	height: 40px;
+	margin-top: -40px;
+	border-top-left-radius: 33px;
+	border-top-right-radius: 33px;
+	border-bottom-left-radius: 33px;
+	border-bottom-right-radius: 33px;
+}
+.select_expand-export:checked + .select-export {
+	display: block;
+}
+.select_expand-export:checked + .expand-style-export {
+	width: 225px;
+	height: 40px;
+	cursor: pointer;
+	background-color: #E0E3F2;
+	box-shadow: 0 2px 0 #E0E3F2;
+	border-top-left-radius: 33px;
+	border-top-right-radius: 33px;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+.option_radius-export{
+	border-top-left-radius: 22px;
+	border-top-right-radius: 22px;
+}
+.pdf-icon {
+	background-image: url(../../../scss/vendors/pdf_icon.png);
+	background-position: left center;
+	background-repeat: no-repeat;
+
+	padding-left: 35px; /* Or size of icon + spacing */
+}
+.excel-icon {
+	background-image: url(../../../scss/vendors/excel_icon.png);
+	background-position: left center;
+	background-repeat: no-repeat;
+	padding-left: 35px; /* Or size of icon + spacing */
+}
+
+/* End - Export Button */
+
+
+/* Search */
+
+.group1 {
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    opacity: 1;
+    padding: 0.3%;
+	text-align: left;
+	max-width: -webkit-max-content;
+	border-bottom-right-radius: 0%;
+	border-top-right-radius: 0%;
+}
+.group2 {
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    opacity: 1;
+	max-width: -webkit-max-content;
+	margin-left: 0.2%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.text{
+	margin-top: 6%;
+    display: inline-flex;
+    margin-left: 21px;
+}
+.show{
+	margin-top: 12px;
+    display: inline-flex;
+    margin-left: 21px;
+}
+
+.search_1 {
+    position: relative;
+    width: 37px;
+    height: 29px;
+    margin-top: -3px;
+    padding-left: 15px;
+    margin-left: 13px;
+    border-radius: 10px;
+    border: none;
+    color: #0F0D0D;;
+    font-weight: 500;
+    background-color: #E2EFF7;;
+    border: 1px solid #22ABE3;
+    border-radius: 5px;
+    opacity: 1;
+}
+
+.submit_1 {
+    width: 35px;
+    height: 23px;
+    margin: 0 13px;
+    background-repeat: no-repeat;
+    background-position: 17px 2px;
+    background-color: transparent;
+    background-size: 20px 20px;
+    -webkit-background-size: 20px 20px;
+    border: none;
+    cursor: pointer;
+    color: #969EA1;
+	text-align: center;
+	display: inline-flex;
+}
+.logo{
+	margin-top: 22%;
+    font-size: 15px;
+    margin-left: 13%;
+}
+.icon{
+	font-size: 1.2em;
+	background-color: transparent;
+}
+
+/* end Search */

@@ -1,33 +1,61 @@
-
 .btn-paging {
 	font-weight: bold;
-	color: #B4B9BB !important;
+	color: #637176 ;
+	margin-top: 1%;
+    /* width: 40px; */
+    /* height: 40px; */
+	align-items: center !important;
 }
 
-.btn-paging:focus, .btn-paging:hover, .btn-paging-active, .btn-paging-active:hover {
+.btn1{
+	font-size: 18px; 
+}
+
+.btn-paging:focus, .btn-paging-active, .btn-paging-active:hover {
 	background-color: #22ABE3;
     color: #FFFFFF;
+    /* width: 40px; */
+    /* height: 40px; */
+	align-items: center !important;
+}
+
+.btn-paging:hover{
+    color: #22ABE3;
 }
 
 .btn-pagingNav, .btn-pagingNav:hover {
-	width: 53px;
-	height: 38px;
+	width: 40px;
+	height: 40px;
 	/* border-radius: 50%; */
 	/* background-color: #E0E3F2; */
 	color: #637176;
-	box-shadow: none;
+    box-shadow: none;
+	align-items: center !important;
+}
+
+.btn-pagingNav:hover{
+	color: #22ABE3;
+	outline: solid #fff;
 }
 
 .btn-pagingNav-inactive, .btn-pagingNav-inactive:hover, .btn-pagingNav-inactive:focus {
-	width: 53px;
-	height: 38px;
+	width: 40px;
+	height: 40px;
     /* border-radius: 50%; */
     color: #B4B9BB !important;
 	/* background: none; */
 	border: none;
 	/* color: transparent; */
 	cursor: default;
-	box-shadow: none;
+    box-shadow: none;
+	align-items: center !important;
+	outline: solid #fff;
+}
+
+.number{
+	cursor: pointer;
+	font-family:Helvetica Neue Bold;
+	margin-top: -1px;
 }
 
 
@@ -62,13 +90,11 @@
 	cursor: pointer;
 	list-style: none;
     transform: scaleY(-1);
-	background-color: #E0E3F2;
-	box-shadow: 0 2px 0 #E0E3F2;
-	border-top-left-radius: 33px;
-	border-top-right-radius: 33px;
-	border-bottom-left-radius: 33px;
-	border-bottom-right-radius: 33px;
+	background-color: #22ABE3;
+	box-shadow: 0 2px 0 #22ABE3;
+	border-radius: 6px;
 	transition: .2s ease-out;
+	margin-top: -47px;
 }
 
 
@@ -143,14 +169,15 @@
 
 .select_input-export {display: none}
 
-.select_options-export{list-style: none;}
+.select_options-export{
+	list-style: none;}
 
 .select_label-export {
 	transition: all 250ms cubic-bezier(.4,.25,.3,1);
 	display: block;
     transform: scaleY(-1);
 	height: 0;
-	font-family: 'Nunito';
+	font-family: Medium 20px/25px Helvetica Neue;
 	font-size: 16px;
 	line-height: 40px;
 	overflow: hidden;
@@ -211,17 +238,96 @@
 	border-top-right-radius: 22px;
 }
 .pdf-icon {
-	background-image: url(../../scss/vendors/pdf_icon.png);
+	background-image: url(../scss/vendors/pdf_icon.png);
 	background-position: left center;
 	background-repeat: no-repeat;
 
 	padding-left: 35px; /* Or size of icon + spacing */
 }
 .excel-icon {
-	background-image: url(../../scss/vendors/excel_icon.png);
+	background-image: url(../scss/vendors/excel_icon.png);
 	background-position: left center;
 	background-repeat: no-repeat;
 	padding-left: 35px; /* Or size of icon + spacing */
 }
 
 /* End - Export Button */
+
+
+/* Search */
+
+.group1 {
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    opacity: 1;
+    padding: 0.3%;
+	text-align: left;
+	max-width: -webkit-max-content;
+	border-bottom-right-radius: 0%;
+	border-top-right-radius: 0%;
+}
+.group2 {
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    opacity: 1;
+	max-width: -webkit-max-content;
+	margin-left: 0.2%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.text{
+	margin-top: 6%;
+    display: inline-flex;
+    margin-left: 21px;
+}
+.showing{
+	margin-top: 12px;
+    display: inline-flex;
+    margin-left: 21px;
+}
+
+.search_1 {
+	position: relative;
+    width: 42px;
+    height: 29px;
+    margin-top: -3px;
+    padding-left: 9px;
+    margin-left: 13px;
+    border-radius: 10px;
+    border: none;
+    color: #0F0D0D;
+    font-weight: 500;
+    background-color: #E2EFF7;
+    border: 1px solid #22ABE3;
+    border-radius: 5px;
+    opacity: 1;
+}
+
+.submit_1 {
+    width: 35px;
+    height: 23px;
+    margin: 0 13px;
+    background-repeat: no-repeat;
+    background-position: 17px 2px;
+    background-color: transparent;
+    background-size: 20px 20px;
+    -webkit-background-size: 20px 20px;
+    border: none;
+    cursor: pointer;
+    color: #969EA1;
+	text-align: center;
+	display: inline-flex;
+}
+.logo{
+	margin-top: 22%;
+    font-size: 15px;
+    margin-left: 13%;
+}
+.icon{
+	font-size: 1.2em;
+	background-color: transparent;
+}
+
+/* end Search */
+

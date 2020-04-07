@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+ import React, {Component} from 'react';
 // import { Button, FormFeedback } from 'reactstrap';
 // import axios from 'axios';
 // import AppComponent from '../../../AppComponent';
@@ -42,11 +42,13 @@ class Logins extends Component{
             "userid": username,
             "password": password
         };
-        
+
         (new Authentication()).authenticationHandler(payload)
         .then(result => {
+            
             if (result.isSuccess) {
-                self.props.history.push("/stock/stockholding");
+                self.props.history.push(result.url);
+                // self.props.history.push("/stock/stockholding");
                 return;
             }
 
@@ -115,14 +117,14 @@ class Logins extends Component{
         }
     }
 
-    render() {             
+    render() {
         return (
             <div className="background fontstyle">
                 <video autoPlay muted loop id="bgvideo">
                     <source src={videobg} type="video/mp4" />
                 </video>
                 <div className="leftSide content">
-                    <img src={centerLogo} className="mlslogo" />
+                    <img src={centerLogo} className="mlslogo" alt="mlslogo" />
                     <form ref={this.loginForm} onSubmit={(e) => { e.preventDefault(); this.validateForm() }}>
                         <div className="loginInput">
                             <div style={{ marginBottom: "1%" }}>
@@ -146,11 +148,11 @@ class Logins extends Component{
                             <button className={"btnLogin " + (this.state.isLoad ? "text-center" : "text-left pl-4")} onClick={this.validateForm}>
                                 {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin iconSpace" /> : "Login"}
                             </button>
-                            
+
                             <div className="footer">
                                 <a target='blank' href='https://www.microlistics.com.au/'>© Microlistics {new Date().getFullYear()}</a>
-                                <div style={{ marginRight: "6%" }}>help@microlistics.co.au</div>
-                            </div>              
+
+                            </div>
                         </div>
                     </form>
                 </div>

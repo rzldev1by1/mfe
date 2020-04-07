@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { Table } from 'reactstrap';
 
 import { formatDate } from '../../../AppComponent/Helper';
-import Paging from '../../General/Paging';
-
-import './StockHoldingDetails.css';
+import Paging from '../../../AppComponent/Paging';
 
 class StockDetails extends Component {
 	constructor(props) {
@@ -19,24 +17,14 @@ class StockDetails extends Component {
 			lastIndex: 0,
 			displayPage: 50,
 			totalRows: 0,
-			maxPage: 0,
-            
-            columns: [
-				{ id: "site", checkboxLabelText: "Site", tableHeaderText: "Site", isVisible: true, key: "site" },
-				{ id: "batch", checkboxLabelText: "Batch", tableHeaderText: "Batch", isVisible: true, key: "batch" },
-				{ id: "effective_date", checkboxLabelText: "Rotadate", tableHeaderText: "Rotadate", isVisible: true, key: "" },
-				{ id: "receipt_disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: true, key: "" },
-				{ id: "ref3", checkboxLabelText: "Ref 3", tableHeaderText: "Ref 3", isVisible: true, key: "" },
-				{ id: "ref4", checkboxLabelText: "Ref 4", tableHeaderText: "Ref 4", isVisible: true, key: "" },
-				{ id: "weight", checkboxLabelText: "Quantity", tableHeaderText: "Quantity", isVisible: true, key: "" }
-			]
-		}
+			maxPage: 0
+        };
 	}
-	
+    
 	componentDidUpdate() {
 		if (this.state.setPagination) {
-			this.setPagination(this.props.stockDetails);
-		}
+            this.setPagination(this.props.stockDetails);
+        }
 	}
 
 	setPagination = (result) => {
@@ -67,6 +55,41 @@ class StockDetails extends Component {
 		this.setState({ activeTabIndex: tabIndex });
 	}
 
+	showStockDetailsHeader = () => {
+		return (
+			<tr>
+				{this.props.stockDetailsColumns.map((item, idx) => {
+					if (item.isVisible) {
+                        // return <th className={"p-3 " + (item.type === "number" ? "text-right" : "text-left")} key={idx}>{item.tableHeaderText}</th>;
+                        return (
+                            <th className="text-left" id={item.key} key={idx} onClick={() => this.props.arrowHandler("stockDetails", idx, item.key)}>
+                                {item.tableHeaderText} <img key={idx} className="sort-icon" src={item.sort} />
+                            </th>
+                        );
+                    }
+                    return null;
+				})}
+			</tr>
+		);
+	}
+
+	showStockDetailsData = () => {
+		return (
+			this.props.stockDetails.map((item, idx) => (
+				<tr key={idx}>
+					{this.props.stockDetailsColumns.map((column, columnIdx) => {
+						return (
+							// <td key={columnIdx} className={"px-3 " + (column.type === "number" ? "text-right" : "text-left")}>
+                            <td key={columnIdx} className="px-3 text-left">
+                                {column.id === "effective_date" ? formatDate(item[column.key]) : item[column.key]}
+							</td>
+						)
+					})}
+				</tr>
+			))
+		);
+	}
+
 	changeStartIndex = (currentPage) => {
 		this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
 	}
@@ -82,77 +105,68 @@ class StockDetails extends Component {
 		this.changeLastIndex(page);
 	}
 
+    firstPageClick = () => {
+        if (this.state.currentPage > 1) {
+            this.setState({ currentPage: 1 }, () => {
+                this.changeStartIndex(1);
+                this.changeLastIndex(1);
+            });
+        }
+        return;
+    }   
+
 	nextPageClick = () => {
 		if (this.state.currentPage < this.state.maxPage) {
-			this.setState((prev) => {
-				currentPage: prev.currentPage++;
-				this.changeStartIndex(prev.currentPage);
-				this.changeLastIndex(prev.currentPage);
+			this.setState((prev) => { 
+                currentPage: prev.currentPage++;
+            }, () => {
+				this.changeStartIndex(this.state.currentPage);
+				this.changeLastIndex(this.state.currentPage);
 			});
-		}
+        }
+        return;
 	}
 
 	backPageClick = () => {
 		if (this.state.currentPage > 1) {
-			this.setState((prev) => {
-				currentPage: prev.currentPage--;
-				this.changeStartIndex(prev.currentPage);
-				this.changeLastIndex(prev.currentPage);
+			this.setState((prev) => { 
+                currentPage: prev.currentPage--;
+            }, () => {
+				this.changeStartIndex(this.state.currentPage);
+				this.changeLastIndex(this.state.currentPage);
 			});
-		}
+        }
+        return;
 	}
 
-	showStockDetailsHeader = () => {
-		return (
-			<tr>
-				{this.state.columns.map((item, idx) => {
-					if (item.isVisible) {
-						// if (item.id === "qty" ||
-						// 	item.id === "weight" ||
-						// 	item.id === "volume") {
-						// 	return <th className="p-3 text-right" key={idx} width="17%">{item.tableHeaderText}</th>
-						// }
-						return <th className="p-3 text-left" key={idx} width="17%">{item.tableHeaderText}</th>
-					}
-				})}
-			</tr>
-		);
-	}
-
-	showStockDetailsData = () => {
-		return (
-			this.props.stockDetails.map((item, idx) => (
-				<tr key={idx}>
-					{this.state.columns.map((column, columnIdx) => {
-						// if (column.id === "qty" ||
-						// 	column.id === "weight" ||
-						// 	column.id === "volume") {
-						// 	return <td key={columnIdx} className="px-3 text-right" width="17%">{item[column.id]}</td>
-						// }
-						return (
-							<td key={columnIdx} className="px-3 text-left" width="17%">
-								{column.id === "effective_date" ? formatDate(item[column.id]) : item[column.id]}
-							</td>
-						)
-					})}
-				</tr>
-			))
-		);
-	}
+    lastPageClick = () => {
+        if (this.state.currentPage < this.state.maxPage) {
+            let currentPage = parseInt(this.state.maxPage + 1 );
+            this.setState({ currentPage: currentPage});
+            this.changeStartIndex(currentPage);
+            this.changeLastIndex(currentPage);
+        }
+        return;
+    }
 
 	render() {
 		return (
-			<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-				<Table className="table-condensed table-responsive table-striped rounded-bottom-175 mb-0" size="md" width="100%">
-					<thead>{this.showStockDetailsHeader()}</thead>
-					<tbody>{this.showStockDetailsData()}</tbody>
-				</Table>
-
-                <Paging backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-                        totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-                        currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-                        isActive={this.state.isActive}
-                        numberEventClick={this.numberEventClick} />
+			<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
+                <div className="tablePage tableContent">
+                    <Table className="table-condensed table-striped clickable-row rounded-bottom-175 mb-0" size="md" width="100%">
+                        <thead>{this.showStockDetailsHeader()}</thead>
+                        <tbody>{this.showStockDetailsData()}</tbody>
+                    </Table>
+                </div>
+                <div className="mt-2">
+                    <Paging firstPageClick={this.firstPageClick} backPageClick={this.backPageClick}
+                            nextPageClick={this.nextPageClick} lastPageClick={this.lastPageClick}
+                            totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                            currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                            startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+                            isActive={this.state.isActive}
+                            numberEventClick={this.numberEventClick} />
+                </div>
 			</div>
 		);
 	}

@@ -3,7 +3,8 @@ import './PurchaseOrder.css'
 import './PurchaseOrderDetail.css'
 import PODTable from './Component/PODComponents/PODTable'
 import axios from 'axios'
-import {endpoint, headers} from '../../AppComponent/ConfigEndpoint'
+import {endpoint, headers, POheaders} from '../../AppComponent/ConfigEndpoint'
+import moment from 'moment';
 
 export default class PurchaseOrderDetail extends Component {
     constructor(props){
@@ -25,7 +26,7 @@ export default class PurchaseOrderDetail extends Component {
         this.setState({complete:false})
         let param = window.location.href.split("/").pop()
         axios.get(endpoint.purchaseOrder + '/' +param, {
-          headers: headers
+          headers: POheaders
         })
           .then(res => {
             const result = res.data.data
@@ -48,9 +49,11 @@ export default class PurchaseOrderDetail extends Component {
         let customerOrderRef = this.state.datahead.length ? this.state.datahead[0].customer_po_no : null
         let vendorOrderNo = this.state.datahead.length ? this.state.datahead[0].vendor_ord_no : null
         let status = this.state.datahead.length ? this.state.datahead[0].status : null
+        let statusDesc = this.state.datahead.length ? this.state.datahead[0].status_desc : null
         let dateDue = this.state.datahead.length ? this.state.datahead[0].date_due : null
         let dateReleased = this.state.datahead.length ? this.state.datahead[0].date_released : null
         let dateCompleted = this.state.datahead.length ? this.state.datahead[0].date_completed : null
+        let dateReceived = this.state.datahead.length ? this.state.datahead[0].date_recd : null
 
         return(
             <div className='podheader fades'>                    
@@ -69,15 +72,19 @@ export default class PurchaseOrderDetail extends Component {
                         <td>{orderNo ? orderNo : '-'}</td>
                     </tr>
                     <tr>
-                        <th>OrderType</th>
+                        <th>Order Type</th>
                         <td>{orderType ? orderType : '-'}</td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td >{status ? status+ ' (' +statusDesc.substring(3) + ')' : '-'}</td>
                     </tr>
                 </table>
             </div>
 
             <div className='sub' style={{width:'70%'}}>
                 <table className='tableborderss' style={{width:'90%'}}>
-                    <tr>
+                     <tr>
                         <th>Supplier No</th>
                         <td>{supplierNo ? supplierNo : '-'}</td>
                     </tr>
@@ -93,26 +100,27 @@ export default class PurchaseOrderDetail extends Component {
                         <th>Vendor Order No</th>
                         <td>{vendorOrderNo ? vendorOrderNo : '-'}</td>
                     </tr>
+                    
                 </table>
             </div>
 
             <div className='sub'  style={{width:'65%'}}>
                 <table className='tableborderss' style={{width:'90%'}}>
-                    <tr>
-                        <th>Status</th>
-                        <td style={{color:'#7FC242'}}>{status ? status : '-'}</td>
+                <tr>
+                        <th>Date Received</th>
+                        <td>{dateReceived ? moment(dateReceived.substring(0, 11)).format("DD/MM/YYYY") : '-'}</td>
                     </tr>
                     <tr>
                         <th>Date Due</th>
-                        <td>{dateDue ? dateDue.substring(0, 11) : '-'}</td>
+                        <td>{dateDue ? moment(dateDue.substring(0, 11)).format("DD/MM/YYYY") : '-'}</td>
                     </tr>
                     <tr>
                         <th>Date Released</th>
-                        <td>{dateReleased ? dateReleased.substring(0, 11) : '-'}</td>
+                        <td>{dateReleased ? moment(dateReleased.substring(0, 11)).format("DD/MM/YYYY") : '-'}</td>
                     </tr>
                     <tr>
                         <th>Date Completed</th>
-                        <td>{dateCompleted ? dateCompleted.substring(0, 11) : '-'}</td>
+                        <td>{dateCompleted ? moment(dateCompleted.substring(0, 11)).format("DD/MM/YYYY") : '-'}</td>
                     </tr>
                 </table>
             </div>
@@ -127,7 +135,7 @@ export default class PurchaseOrderDetail extends Component {
             <div className='animated fadeIn pobody'>
                 <div className='header headerss'>
                     <div className='podbreadcrumb'>
-                        <h2 onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder')} className='podtitle'>Purchase Order</h2>
+                        <h2 onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder')} className='podtitle'>Purchase Orders</h2>
                         <h2 className='podtitle iconU-rightArrow' style={{fontSize:20}}/>
                         <h2 className='podetails'>{window.location.href.split("/").pop()}</h2>
                     </div>
@@ -138,7 +146,7 @@ export default class PurchaseOrderDetail extends Component {
                 }
 
                 <div className={'tablecontent ' + ( this.state.datahead.length ? 'fades ' : 'hidden')}>
-                    <PODTable ref={this.potableref} className='animated fadeIn' style={{display:'none'}} datahead = {this.state.datahead}/>
+                    <PODTable ref={this.potableref} className='animated fadeIn' style={{display:'none'}} datahead = {this.state.datahead}><tr><td>aa</td></tr></PODTable>
                 </div>
                 <div className={( this.state.datahead.length ? 'hidden': 'spinner')}/>
             </div>

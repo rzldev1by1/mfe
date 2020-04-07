@@ -4,7 +4,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import './App.scss';
 
 import { DefaultLayout } from './containers';
-import { Login } from './views/Pages';
+// import { Login } from './views/Pages';
 import { Logins } from './views/Pages';
 // import AnonimRoute from './AppComponent/AnonimRoute';
 // import ProtectedRoute from './AppComponent/ProtectedRoute';
