@@ -228,13 +228,15 @@ class PurchaseOrderTable extends Component {
 
   ExportName = () => {
     let filename = ""
-    let strip = "-"
     let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     let date = new Date();
-    let date1 = date.getDate();
-    let month = date.getMonth();
-    let year = date.getFullYear();
-     return filename=("Express_PurchaseOrder_" +date1 +strip+ arrmonth[month] +strip+ year) 
+    let date1 = date.getDate(),
+        month = date.getMonth(),
+        year = date.getFullYear(),
+        Seconds = date.getSeconds(),
+        Minutes = date.getMinutes(),
+        Hours = date.getHours();
+     return filename=("Microlistics_PurchaseOrder." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)  
   }
   changeStartIndex = (currentPage) => {
 		this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
