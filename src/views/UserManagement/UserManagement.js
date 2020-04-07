@@ -542,23 +542,40 @@ class UserManagement extends Component{
 
     searchHandler = (e) => {
       e.preventDefault();
-
+      console.log(e);
+      let self = this;
+      let param = {};
       let currentForm = this.searchForm.current
       let searchValue = currentForm.searchInput.value;
 
-      if(!searchValue)
-        return;
-
-      let userList = [...this.state.userList];
-      if(userList.length)
-      {
-        let userSearch = userList.filter((item) => {
-         return (item.userId.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1) ||
-          (item.user.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1)});
-
-        this.setState({userList:userSearch});
+      console.log(searchValue);
+      if(searchValue){
+        param.searchParam = searchValue;
+      }else{
+        param.searchParam = "";
       }
-      console.log(this.state.userList);
+
+      console.log(param);
+        let endpoint = 'http://developer.backend.onebyone.io:82/web_user'
+        axios.get(endpoint, {
+          params: param,
+          headers: headers
+        })
+        .then(res => {
+          let result = [];
+            if(res.status == 200){
+                result = self.restructureUserList(res.data.data);
+                self.setState({userList:result});
+            }
+          return result;
+        })
+        .catch( error => {
+            console.log(error);
+        })
+        .then(result => {
+
+        });
+
     }
 
     render(){
@@ -601,7 +618,6 @@ class UserManagement extends Component{
                 className="form-control searchInput" id="searchInput" name="searchInput"
                 placeholder="Enter user id or user name" />
                 </div>
-
 
                 </div>
                 </div>
