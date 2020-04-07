@@ -70,10 +70,15 @@ class SalesOrderCreate extends Component{
     }
 
     tabhandler = () => {
-      this.setState({
-        tab1isactive:!this.state.tab1isactive,
-        tab2isactive:!this.state.tab2isactive
-        })
+      let a = headerValidation(this.state.parameters.header)
+
+      if(a)
+      {
+        this.setState({
+          tab1isactive:!this.state.tab1isactive,
+          tab2isactive:!this.state.tab2isactive
+          })
+      }
     }
 
     // Set Site
