@@ -98,9 +98,24 @@ class PurchaseOrderCreate extends Component{
 
     componentDidMount = () => {
       this.getclient();
-      this.getsite();
-      this.getsupplier();
-      this.getordertype();
+    //   this.getsite();
+    //   this.getsupplier();
+    //   this.getordertype();
+      this.getporesource();
+    }
+
+    getporesource = () => {
+        let self = this;
+        axios.get(endpoint.getPOResources, {
+            headers: headers
+        })
+        .then(res => {
+            self.setState({
+                sitedatacr: res.data.site,
+                supplierdatacr: res.data.supplier,
+                orderdatacr: res.data.orderType
+            });
+        })
     }
 
     close = () => {
@@ -242,26 +257,29 @@ class PurchaseOrderCreate extends Component{
             </tr>
             <tr>
               <td>
-                  <AutoComplete suggestions={siteData}
-                                suggestionsValue={siteData}
-                                defaultValue={this.state.site}
-                                handleChange={(e) => this.setState({ site: e })}
-                  />
-              </td>
+                  <Dropdown placeHolder="Site" 
+                            style={{width: "300px", position: "absolute", zIndex: '6'}} 
+                            optionList={siteData.toString()} 
+                            optionValue={siteData.toString()} 
+                            getValue={(e) => this.setState({ site: e })} 
+                            optionSelected={this.state.site}/>
+             </td>
               <td>
-                  <AutoComplete suggestions={clientName}
-                                suggestionsValue={clientValue}
-                                defaultValue={this.state.client}
-                                handleChange={(e) => this.setState({ client: e })}
-                  />
+                  <Dropdown placeHolder="Client" 
+                            style={{width: "300px", position: "absolute"}} 
+                            optionList={clientName.toString()} 
+                            optionValue={clientValue.toString()} 
+                            getValue={(e) => this.setState({ client: e })} 
+                            optionSelected={this.state.client}/>
               </td>
                 {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
               <td>
-                  <AutoComplete suggestions={supplierName}
-                                suggestionsValue={supplierName}
-                                defaultValue={this.state.supplier}
-                                handleChange={(e) => this.setState({ supplier: e })}
-                  />
+                  <Dropdown placeHolder="Supplier" 
+                            style={{width: "300px", position: "absolute"}} 
+                            optionList={supplierName.toString()} 
+                            optionValue={supplierName.toString()} 
+                            getValue={(e) => this.setState({ supplier: e })} 
+                            optionSelected={this.state.supplier}/>
               </td>
                 {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form2 put pec" placeholder="Supplier"/> </td> */}
               <td>
@@ -282,11 +300,12 @@ class PurchaseOrderCreate extends Component{
             </tr>
             <tr>
             <td>
-            <AutoComplete suggestions={orderData}
-                          suggestionsValue={orderData}
-                          defaultValue={this.state.orderType}
-                          handleChange={(e) => this.setState({ orderType: e })}
-            />
+            <Dropdown   placeHolder="Order Type" 
+                        style={{width: "300px", position: "absolute"}} 
+                        optionList={orderData.toString()} 
+                        optionValue={orderValue.toString()} 
+                        getValue={(e) => this.setState({ orderType: e })} 
+                        optionSelected={this.state.orderType}/>
             </td>
             <td><input className="form2 put pec" placeholder="Order No" minLength="4" maxLength="12" onChange={(e) => this.setState({ orderNo: e.target.value })} /> </td>
                 <td>

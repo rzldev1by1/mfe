@@ -529,6 +529,16 @@ class UserManagement extends Component{
       }
 
     }
+    ExportName = () => {
+      let filename = ""
+      let strip = "-"
+      let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      let date = new Date();
+      let date1 = date.getDate();
+      let month = date.getMonth();
+      let year = date.getFullYear();
+       return filename=("Express_UserManagement _" +date1 +strip+ arrmonth[month] +strip+ year) 
+    }
 
     isValidUser = () => {
       let result = false;
@@ -655,7 +665,7 @@ class UserManagement extends Component{
                 maxPage={(this.state.totalPage)}
                 startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                 numberEventClick={this.numberEventClick}/>
-                <Export  render={this.render}/>
+                <Export ExportName={this.ExportName}/>
               </footer>
             </div>
 

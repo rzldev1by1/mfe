@@ -58,7 +58,7 @@ class StockHolding extends Component {
 				{ id: "pallets", checkboxLabelText: "Pallets", tableHeaderText: "Pallets", isVisible: false, key: "pallets", type: "string", sort: mid },
             ],
             masterSite: [],
-            masterUnit: ["MICROLISTICS BRIS", "Microlistics", "MICROLISTICS MELB"],
+            masterUnit: ["MLB", "MLS", "MLM"],
             masterStatus: ["OK", "SHORTAGE"],
 			masterResStockHolding: []
         };
@@ -359,6 +359,17 @@ class StockHolding extends Component {
         return;
     }
 
+	ExportName = () => {
+		let filename = ""
+		let strip = "-"
+		let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+		let date = new Date();
+		let date1 = date.getDate();
+		let month = date.getMonth();
+		let year = date.getFullYear();
+		 return filename=("Express_StockHolding _" +date1 +strip+ arrmonth[month] +strip+ year) 
+	  }
+
 	render() {
 		let content;
 		switch (this.state.displayContent) {
@@ -438,7 +449,7 @@ class StockHolding extends Component {
                                             startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                                             isActive={this.state.isActive}
                                             numberEventClick={this.numberEventClick} />		
-									<Export loadStockHolding={this.loadStockHolding}/>
+									<Export ExportName={this.ExportName}/>
                                 </div>
                             </div>
 						</div>

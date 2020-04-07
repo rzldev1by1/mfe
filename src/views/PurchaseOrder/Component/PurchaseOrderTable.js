@@ -226,6 +226,16 @@ class PurchaseOrderTable extends Component {
     this.setState({data:data})
   }
 
+  ExportName = () => {
+    let filename = ""
+    let strip = "-"
+    let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let date = new Date();
+    let date1 = date.getDate();
+    let month = date.getMonth();
+    let year = date.getFullYear();
+     return filename=("Express_PurchaseOrder_" +date1 +strip+ arrmonth[month] +strip+ year) 
+  }
   changeStartIndex = (currentPage) => {
 		this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
 	}
@@ -329,7 +339,7 @@ class PurchaseOrderTable extends Component {
                             startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                             isActive={this.state.isActive}
                             numberEventClick={this.numberEventClick} />
-                    <Export loadPurchaseOrder={this.loadPurchaseOrder} render={this.render}/>
+                    <Export ExportName={this.ExportName}/>
                 </div>
             </div>
         );
