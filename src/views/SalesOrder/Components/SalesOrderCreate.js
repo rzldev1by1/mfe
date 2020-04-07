@@ -350,11 +350,6 @@ class SalesOrderCreate extends Component{
      
     }
 
-    validation = () => {
-     let a = headerValidation(this.state.parameters.header)
-     if(a) this.tabhandler()
-    }
-
     render(){
         return(
           <Modal className="SOCreate " isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }}toggle={true}>

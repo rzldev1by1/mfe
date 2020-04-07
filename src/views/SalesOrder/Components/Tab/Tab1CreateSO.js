@@ -1,10 +1,8 @@
 import React,{Component} from 'react'
 import Dropdown from '../../../../AppComponent/Dropdown'
 import DatePicker from '../../../../AppComponent/DatePicker'
-import axios from 'axios'
-import {endpoint, headers} from '../../../../AppComponent/ConfigEndpoint'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import Authentication from '../../../../Auth/Authentication';
+import {headerValidation} from '../../Components/Validation/Validation'
 import AutoComplete from '../../../../AppComponent/AutoComplete'
 
 class Tab1CreateSO extends Component{
@@ -18,7 +16,8 @@ class Tab1CreateSO extends Component{
 
     
     setData = () => {   
-      this.props.validation()
+    let a = headerValidation(this.props.parameters.header)   
+    if(a == true) this.props.tabhandler()
     }
 
     render= () => {    
@@ -294,7 +293,7 @@ class Tab1CreateSO extends Component{
                 {/* <div className={"tablerow " + (this.state.lineDetail.length >2 ? "scroll" : null )} style={{width:"98%"}}>
             
                 </div> */}
-                  <button onClick={() => this.addline()} type="button" class="btn btn-light font addline">+ Add Line</button>  
+                  <button onClick={() => null} type="button" class="btn btn-light font addline">+ Add Line</button>  
                   {this.state.tab2isactive ? this.submit() :  <Button onClick={() => this.setData()} color="primary" className="btnsearch next btnleft" ><label className="font btnLabel ">Next</label></Button>
                 } 
          
