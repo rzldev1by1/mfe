@@ -364,10 +364,13 @@ class StockHolding extends Component {
 		let strip = "-"
 		let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 		let date = new Date();
-		let date1 = date.getDate();
-		let month = date.getMonth();
-		let year = date.getFullYear();
-		 return filename=("Express_StockHolding _" +date1 +strip+ arrmonth[month] +strip+ year) 
+		let date1 = date.getDate(),
+			month = date.getMonth(),
+			year = date.getFullYear(),
+			Seconds = date.getSeconds(),
+			Minutes = date.getMinutes(),
+			Hours = date.getHours();
+		 return filename=("Microlistics_StockHolding." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds) 
 	  }
 
 	render() {
