@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import OrderLineReview from './OrderLineReview'
 
     class Tab2CreateSO extends Component{
         constructor(props){
@@ -99,45 +100,48 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
                 </tr>
                 <tr>
                     <th>Address 4</th>
-                    <th>Address 5</th>
-                    <th>Suburb</th>
-                    <th>Postcode</th>
+                    <th>Address 5</th>                    
                 </tr>
                 <tr>
                     <td><input value={shipToAddress4} className="form-control put " readOnly/></td>
-                    <td><input value={shipToAddress5} className="form-control put " readOnly/> </td>
-                    <td><input value={city} className="form-control put " readOnly/> </td>
-                    <td><input value={postCode} className="form-control put " readOnly/> </td>
+                    <td><input value={shipToAddress5} className="form-control put " readOnly/> </td>                    
                 </tr>
                 <tr>
                     <th>State</th>
                     <th>Country</th>
+                    <th>Suburb</th>
+                    <th>Postcode</th>
                 </tr>
                 <tr>
                     <td><input value={state} className="form-control put " readOnly/></td>
                     <td><input value={country} className="form-control put " readOnly/> </td>
+                    <td><input value={city} className="form-control put " readOnly/> </td>
+                    <td><input value={postCode} className="form-control put " readOnly/> </td>
                 </tr>
             </table>
   
             <br/>
             <h3 className="fonts">Line Details</h3>
   
-            <table className="lineTableDtl">
-                <tr >
-                    <th style={{width:"2%", textAlign:"center"}}>#</th>
-                    <th style={{width:"12%"}}>Product Entry</th>
-                    <th style={{width:"12%"}}>Product Description</th>
-                    <th style={{width:"3%"}}>Qty</th>
-                    <th style={{width:"6%"}}>UOM</th>
-                    <th style={{width:"6%"}}>Rota Date</th>
-                    <th style={{width:"6%"}}>Batch</th>
-                    <th style={{width:"5%"}}>Ref3</th>
-                    <th style={{width:"5%"}}>Ref4</th>
-                    <th style={{width:"6%"}}>Disposition</th>
-                    <th style={{width:"6%"}}>packId</th>
-                </tr>                  
-              </table>
-              
+            <div className="line">
+              <table className="lineTableDtl">
+                  <tr>
+                      <th width ='3.2%' style={{ textAlign:"center"}}>#</th>
+                      <th width ='11.1%'  className='required-field'>Product</th>
+                      <th width ='14.1%'>Product Description</th>
+                      <th width='7.2%' className='required-field'>Qty</th>
+                      <th width='7.2%'>Weight</th>
+                      <th width ='10.1%' className='required-field'>UOM</th>
+                      <th width ='10.1%'>Rota Date</th>
+                      <th width='7.3%' >Batch</th>
+                      <th width='7.3%' >Ref3</th>
+                      <th width='7.3%' >Ref4</th>
+                      <th width ='11.1%'>Disposition</th>
+                      <th width='7.3%'>Pack Id</th> 
+                  </tr>                             
+                </table>
+              </div>
+              <OrderLineReview parameters = {this.props.parameters}/>
               {/* <div className={"tablerow " + (this.state.rowlist.length >2 ? "scroll" : null )} style={{width:"98%"}} >
                 {this.state.parameters.length == 0 ? null : this.state.parameters.orderLines.map((line, i) => 
                   this.linedetailsrowreview(line, i)
@@ -168,10 +172,6 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
                     <td style={{width:"6%"}}><input value={line.disposition} className="form-control inputs pec"  readOnly/></td>
                     <td style={{width:"6%"}}><input value={line.packId} className="form-control inputs pec"  readOnly/></td>
                   </tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
               </table>
             )
           }

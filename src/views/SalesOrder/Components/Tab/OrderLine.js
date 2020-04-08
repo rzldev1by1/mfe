@@ -3,20 +3,36 @@ import Dropdown from '../../../../AppComponent/Dropdown'
 import DatePicker from '../../../../AppComponent/DatePicker'
 
 const OrderLine = (props) => {
+
+    const {
+        number           ,
+        productVal       ,
+        product          ,
+        qty              ,
+        weight           ,
+        uom              ,
+        rotaDate         ,
+        batch            ,              
+        ref3             ,
+        ref4             ,
+        dispositionVal   ,
+        disposition      ,
+        packId           ,
+    } = props.parameters.lineDetail[0]
     return(
-        <div>
+        <div style={{marginBottom:'3%'}}>
            <table>
                <tr>
                    <td width='3%'>
                         <input      className       = "form-control put "
                                     id              = 'rowNumber'
                                     readOnly 
-                                    value           = '10'/>
+                                    value           = '1'/>
                    </td>
 
                    <td>
-                        <Dropdown   optionSelected  = {null}
-                                    getValue        = {(productVal, product) => alert(productVal+ product)} 
+                        <Dropdown   optionSelected  = {productVal}
+                                    getValue        = {(productVal, product) => props.setProduct(productVal, product)} 
                                     placeHolder     = "Product"  
                                     style           = {{minWidth: "100%", zIndex:"1"}} 
                                     optionList      = {props.productdata.name.toString()} 
@@ -27,60 +43,74 @@ const OrderLine = (props) => {
                         <input      className       = "form-control put "
                                     placeholder     = 'Product Name'
                                     readOnly 
-                                    value           = {props.parameters.lineDetail.product}/>
+                                    value           = {product}/>
                    </td>
 
-                   <td width='5%'>
+                   <td width='7%'>
+                        <input      id              = 'qty_'
+                                    type            = 'number'
+                                    className       = "form-control put "
+                                    placeholder     = 'Qty'
+                                    value           = {qty}
+                                    onChange        = {(e) =>props.setQty(e.target.value)}/>
+                   </td>
+
+                   <td width='7%'>
                         <input      className       = "form-control put "
-                                    placeholder     = 'Qty'/>
+                                    placeholder     = 'Weight'
+                                    value           = {weight}
+                                    onChange        = {(e) =>props.setWeight(e.target.value)}/>
                    </td>
 
-                   <td>
-                        <input      className       = "form-control put "
-                                    placeholder     = 'Weight'/>
-                   </td>
-
-                   <td width='5%'>
-                        <Dropdown   optionSelected  = {null}
-                                    getValue        = {(uom) => alert(uom)} 
+                   <td width='7%'>
+                        <Dropdown   optionSelected  = {uom}
+                                    getValue        = {(uom) => props.setUom(uom)} 
                                     placeHolder     = "Uom"  
-                                    style           = {{minWidth: "5%", zIndex:"1"}} 
+                                    style           = {{minWidth: "7%", zIndex:"1"}} 
                                     optionList      = {props.uomdata.toString()} 
                                     optionValue     = {props.uomdata.toString()}/>
                    </td>
 
                    <td>
-                        <DatePicker getDate         = {(date) => this.props.setDeliveryDate(date)} 
+                        <DatePicker getDate         = {(date) => props.setRotaDate(date)} 
                                     style           = {{ minWidth: "100%" }}/>
                    </td>
 
-                   <td width='5%'>
+                   <td width='7%'>
                         <input      className       = "form-control put "
-                                    placeholder     = 'Batch'/>
+                                    placeholder     = 'Batch'
+                                    value           = {batch}
+                                    onChange        = {(e) =>props.setBatch(e.target.value)}/>
                    </td>
 
-                   <td width='5%'>
+                   <td width='7%'>
                         <input      className       = "form-control put "
-                                    placeholder     = 'Ref3'/>
+                                    placeholder     = 'Ref3'
+                                    value           = {ref3}
+                                    onChange        = {(e) =>props.setRef3(e.target.value)}/>
                    </td>
 
-                   <td width='5%'>
+                   <td width='7%'>
                         <input      className       = "form-control put "
-                                    placeholder     = 'Ref4'/>
+                                    placeholder     = 'Ref4'
+                                    value           = {ref4}
+                                    onChange        = {(e) =>props.setRef4(e.target.value)}/>
                    </td>
 
                    <td>
-                        <Dropdown   optionSelected  = {null}
-                                    getValue        = {(dispositionVal, dispositionName) => alert(dispositionVal+dispositionName)} 
+                        <Dropdown   optionSelected  = {dispositionVal}
+                                    getValue        = {(dispositionVal, dispositionName) => props.setDispoisition(dispositionVal, dispositionName)} 
                                     placeHolder     = "Disposition"  
                                     style           = {{minWidth: "100%", zIndex:"1"}} 
                                     optionList      = {props.dispositiondata.name.toString()} 
                                     optionValue     = {props.dispositiondata.code.toString()}/>
                    </td>
 
-                   <td width='5%'>
+                   <td width='7%'>
                         <input      className       = "form-control put "
-                                    placeholder     = 'PackId'/>
+                                    placeholder     = 'PackId'
+                                    value           = {packId}
+                                    onChange        = {(e) =>props.setPackid(e.target.value)}/>
                    </td>
                </tr>
            </table>

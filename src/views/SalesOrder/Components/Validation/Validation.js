@@ -33,12 +33,6 @@ const headerValidation = (header) => {
         alert('delivery date cannot be empty')
         return false
     }
-    if(!header.customerOrderRef || header.customerOrderRef == '')
-    {
-        alert('customer order ref cannot be empty')
-        document.getElementById('customerOrderRef').focus()
-        return false
-    }
 
 
     if(header.customerVal == null || header.customerVal == '')
@@ -58,6 +52,13 @@ const headerValidation = (header) => {
       document.getElementById('postCode').focus()
       return
     }
+    if(header.postCode.length < 4)
+    {
+      alert('post code must have min, 4 characters or more')
+      document.getElementById('postCode').value = null
+      document.getElementById('postCode').focus()
+      return
+    }
     if(header.state == null || header.state == '')
     {
       alert('state cannot be empty')
@@ -68,4 +69,36 @@ const headerValidation = (header) => {
     return true
 }
 
-export{headerValidation}
+const lineDetailValidation = (lineDetail) => {
+  let qty = document.getElementById('qty_')
+  
+  if(!lineDetail.productVal || lineDetail.productVal == '')
+  {
+    alert('product must be choosen')
+    return false 
+  }
+  if(!lineDetail.qty || lineDetail.qty == '')
+  {
+    alert('please insert number format')    
+    qty.focus()
+    qty.value = null
+    return false
+  }
+  if(lineDetail.qty.includes('-') || lineDetail.qty.includes('e'))
+  {
+    alert('please insert number format')
+    qty.focus()
+    qty.value = null
+    return false
+  }
+
+  if(!lineDetail.uom || lineDetail.uom == '')
+  {
+    alert('uom must be choosen')
+    return false
+  }
+  
+  return true
+} 
+
+export{headerValidation, lineDetailValidation}

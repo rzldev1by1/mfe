@@ -25,6 +25,8 @@ class SalesOrder extends Component{
 
         clientdata : [],
         sitedata : [],
+        productdata: [],
+        dispositiondata:[],
 
         //modal
         showmodal : false,
@@ -35,6 +37,7 @@ class SalesOrder extends Component{
 
          //resources
          resources:[],
+         
 
          loaded:false
       }
@@ -45,6 +48,8 @@ class SalesOrder extends Component{
           this.getclient();
           this.getsite();
           this.getResources();
+          this.getProduct()
+          this.getDisposition()
           
       }
 
@@ -110,6 +115,30 @@ class SalesOrder extends Component{
         })
       }
 
+      getProduct = () => {
+        let param = '?client='+Authentication.getClient()
+        axios.get(endpoint.getProduct+param,
+          {
+            headers:headers
+          })
+        .then(res => {
+          let result = res.data 
+          this.setState({productdata:result})
+        })
+      }
+
+      getDisposition = () => {
+        axios.get(endpoint.getDisposition, {
+          headers:headers
+        })
+        .then(res => {
+          let result = res.data
+          this.setState({dispositiondata:result})
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      }
 
       getSiteSelected = (value) => {
         this.setState({siteSelected: value});
@@ -149,7 +178,7 @@ class SalesOrder extends Component{
        <div className='header'>
           <h2 style={{marginTop:'0.2%'}}>Sales Orders</h2>
               <div className='header2'>
-                  <Button onClick={() => this.openModal()}   color="primary" className='createpo'>
+                  <Button onClick={() => this.state.loaded ? this.openModal() : null}   color="primary" className='createpo'>
                       <img src={create} style={{width:'7%', marginTop:9, marginLeft:15}}/>
                       <label className='font'>Create Sales Orders</label>
                   </Button>
@@ -162,7 +191,6 @@ class SalesOrder extends Component{
                         triggerShowFilter={() => this.setState({filterclicked: !this.state.filterclicked})}
                         searchData={() => this.search()}
                         placeholder="Enter a Order No" />
-                {console.log(this.searchForm)}
         </div>
 
         <div className='dropdowns'>
@@ -179,7 +207,11 @@ class SalesOrder extends Component{
         </div>
         <div className={( this.state.complete ? 'hidden': 'spinner')}/>
        {
-         this.state.loaded ?  <SalesOrderCreate resources={this.state.resources} showmodal={this.state.showmodal} closemodal={() => this.closeModal()}/> : null
+         this.state.loaded ?  <SalesOrderCreate productdata     = {this.state.productdata}
+                                                dispositiondata = {this.state.dispositiondata}
+                                                resources       = {this.state.resources} 
+                                                showmodal       = {this.state.showmodal}
+                                                closemodal      = {() => this.closeModal()}/> : null
        }
     </div>)
   }

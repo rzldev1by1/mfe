@@ -2,8 +2,9 @@ import React,{Component} from 'react'
 import Dropdown from '../../../../AppComponent/Dropdown'
 import DatePicker from '../../../../AppComponent/DatePicker'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import {headerValidation} from '../../Components/Validation/Validation'
+import {headerValidation, lineDetailValidation} from '../../Components/Validation/Validation'
 import AutoComplete from '../../../../AppComponent/AutoComplete'
+import OrderLine from './OrderLine'
 
 class Tab1CreateSO extends Component{
     constructor(props){
@@ -16,8 +17,12 @@ class Tab1CreateSO extends Component{
 
     
     setData = () => {   
-    let a = headerValidation(this.props.parameters.header)   
-    if(a == true) this.props.tabhandler()
+    let a = headerValidation(this.props.parameters.header)  
+      if(a){
+        let b = lineDetailValidation(this.props.parameters.lineDetail[0])
+        if(b)this.props.tabhandler()
+      }
+      
     }
 
     render= () => {    
@@ -94,7 +99,7 @@ class Tab1CreateSO extends Component{
                 </tr>
                 <tr>
                     <th className='required-field'>Delivery Date</th>
-                    <th className='required-field'>Customer Order Ref</th>
+                    <th>Customer Order Ref</th>
                     <th>Vendor Order Ref</th>                    
                 </tr>
                 <tr>
@@ -275,25 +280,41 @@ class Tab1CreateSO extends Component{
             <div className="line">
               <table className="lineTableDtl">
                   <tr>
-                      <th style={{width:"2%", textAlign:"center"}}>#</th>
-                      <th className='required-field' style={{width:"12%"}}>Product</th>
-                      <th style={{width:"12%"}}>Product Description</th>
-                      <th className='required-field' style={{width:"4%"}}>Qty</th>
-                      <th style={{width:"4%"}}>Weight</th>
-                      <th className='required-field' style={{width:"4%"}}>UOM</th>
-                      <th style={{width:"8%"}}>Rota Date</th>
-                      <th style={{width:"6%"}}>Batch</th>
-                      <th style={{width:"5%"}}>Ref3</th>
-                      <th style={{width:"5%"}}>Ref4</th>
-                      <th style={{width:"5%"}}>Disposition</th>
-                      <th style={{width:"6.3%"}}>Pack Id</th> 
+                      <th width ='3.2%' style={{ textAlign:"center"}}>#</th>
+                      <th width ='11.1%'  className='required-field'>Product</th>
+                      <th width ='14.1%'>Product Description</th>
+                      <th width='7.2%' className='required-field'>Qty</th>
+                      <th width='7.2%'>Weight</th>
+                      <th width ='10.1%' className='required-field'>UOM</th>
+                      <th width ='10.1%'>Rota Date</th>
+                      <th width='7.3%' >Batch</th>
+                      <th width='7.3%' >Ref3</th>
+                      <th width='7.3%' >Ref4</th>
+                      <th width ='11.1%'>Disposition</th>
+                      <th width='7.3%'>Pack Id</th> 
                   </tr>                             
                 </table>
               </div>
+              <OrderLine  parameters      = {this.props.parameters}
+                          getUom          = {(productVal) => this.props.getUom(productVal)}
+                          uomdata         = {this.props.uomdata}
+                          productdata     = {this.props.productdata}
+                          dispositiondata = {this.props.dispositiondata}
+                          
+                          setProduct              = {(productVal, product) => this.props.setProduct(productVal,product)}
+                          setQty                  = {(qty) => this.props.setQty(qty)}
+                          setWeight               = {(weight) => this.props.setWeight(weight)}
+                          setUom                  = {(uom) => this.props.setUom(uom)}
+                          setRotaDate             = {(rotaDate) => this.props.setRotaDate(rotaDate)}
+                          setBatch                = {(batch) => this.props.setBatch(batch)}
+                          setRef3                 = {(ref3) => this.props.setRef3(ref3)}
+                          setRef4                 = {(ref4) => this.props.setRef4(ref4)}
+                          setDispoisition         = {(disposition, dispositionVal) => this.props.setDispoisition(disposition, dispositionVal)}
+                          setPackid               = {(packid) => this.props.setPackid(packid)}/>
                 {/* <div className={"tablerow " + (this.state.lineDetail.length >2 ? "scroll" : null )} style={{width:"98%"}}>
             
                 </div> */}
-                  <button onClick={() => null} type="button" class="btn btn-light font addline">+ Add Line</button>  
+                  {/* <button onClick={() => null} type="button" class="btn btn-light font addline">+ Add Line</button>   */}
                   {this.state.tab2isactive ? this.submit() :  <Button onClick={() => this.setData()} color="primary" className="btnsearch next btnleft" ><label className="font btnLabel ">Next</label></Button>
                 } 
          
