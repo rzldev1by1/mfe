@@ -337,15 +337,15 @@ class PurchaseOrderCreate extends Component{
           <table className="tabledetails">
               <tr>
                   <th style={{width:"2%", textAlign:"center"}}>#</th>
-                  <th style={{width:"12%"}}>Product Entry</th>
-                  <th style={{width:"12%"}}>Product Description</th>
-                  <th style={{width:"3%"}}>Qty</th>
-                  <th style={{width:"6%"}}>UOM</th>
-                  <th style={{width:"11%"}}>Rota Date</th>
-                  <th style={{width:"6%"}}>Batch</th>
-                  <th style={{width:"5%"}}>Ref3</th>
-                  <th style={{width:"5%"}}>Ref4</th>
-                  <th style={{width:"6%"}}>Disposition</th>
+                  <th style={{width:"12%", paddingLeft:"19px"}}>Product Entry</th>
+                  <th style={{width:"12%", paddingLeft:"9px"}}>Product Description</th>
+                  <th style={{width:"3%", paddingLeft:"10px"}}>Qty</th>
+                  <th style={{width:"6%", paddingLeft:"18px"}}>UOM</th>
+                  <th style={{width:"11%", paddingLeft:"17px"}}>Rota Date</th>
+                  <th style={{width:"6%", paddingLeft:"19px"}}>Batch</th>
+                  <th style={{width:"5%", paddingLeft:"16px"}}>Ref3</th>
+                  <th style={{width:"5%", paddingLeft:"15px"}}>Ref4</th>
+                  <th style={{width:"6%", paddingRight:"23px"}}>Disposition</th>
               </tr>                               
             </table>
           </div>
@@ -488,7 +488,7 @@ class PurchaseOrderCreate extends Component{
             <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs pec" value={list.lineNumber} readOnly/></td>{console.log(self.state.rowlist[i].product)}
             <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product"  maxLength="40" value={self.state.rowlist[i].product} onChange={(e) => self.state.rowlist[i].product = e.target.value}/></td>
             <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product Description" value={self.state.rowlist[i].productDescription} onChange={(e) => self.state.rowlist[i].productDescription = e.target.value}/></td>
-            <td style={{width:"3%"}}><input type="number" min="1" className="form-control inputs pec" placeholder="Qty" value={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
+            <td style={{width:"4.5%"}}><input type="number" min="1" className="form-control inputs pec" placeholder="Qty" value={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
             <td style={{width:"6%"}}>
                 <select className="form-control selectinput " value={self.state.rowlist[i].uom} onChange={(e) => self.state.rowlist[i].uom = e.target.value}>
                   <option className="pec" selected disabled>UOM</option>
@@ -500,7 +500,7 @@ class PurchaseOrderCreate extends Component{
             <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"  maxLength="30" value={self.state.rowlist[i].batch} onChange={(e) => self.state.rowlist[i].batch = e.target.value} /></td>
             <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref3"  maxLength="30" value={self.state.rowlist[i].ref3} onChange={(e) => self.state.rowlist[i].ref3 = e.target.value} /></td>
             <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref4"  maxLength="30" value={self.state.rowlist[i].ref4} onChange={(e) => self.state.rowlist[i].ref4 = e.target.value} /></td>
-            <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Disposition" value={self.state.rowlist[i].disposition} onChange={(e) => self.state.rowlist[i].disposition = e.target.value}/></td>
+            <td style={{width:"6.5%"}}><input className="form-control inputs pec" placeholder="Disposition" value={self.state.rowlist[i].disposition} onChange={(e) => self.state.rowlist[i].disposition = e.target.value}/></td>
             <td id={list.lineNumber} onClick={(e) => this.deletelinehandler(e)} style={{width:"1.5%"}}><div className="iconU-delete"/></td>
           </tr>
           <td></td>
@@ -649,7 +649,7 @@ class PurchaseOrderCreate extends Component{
                   <ModalHeader className="Tabs" style={{marginTop:"-40px"}} >
                         <div>
                           <div className="createdec">
-                          Enter delivery and product details to create a new Purchase Order
+                          Enter order and line details to create a new Purchase Order
                           </div>
                           <div className="tabs font">
                               <div style={{color:"#919191"}} onClick={() => this.tabhandler()} className={"tab1 " + (this.state.tab1isactive ? "tabisactive" : null)}>

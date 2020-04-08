@@ -28,6 +28,8 @@ const endpoint = {
     "getSoResources": baseUrl + "getsorecources",
     "getPOResources": baseUrl + "getporecources",
 
+    "getSoIdentity":baseUrl + "getSoIdentity",
+
     "UserManagement_ModuleAccess": baseUrl + "usermanagement/module",
 
     "UserManagement_Create": baseUrl + "usermanagement/register",

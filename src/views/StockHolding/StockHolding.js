@@ -49,6 +49,7 @@ class StockHolding extends Component {
 				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "product_name", type: "string", sort: mid },
 				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: false, key: "status", type: "string", sort: mid },
 				{ id: "uom", checkboxLabelText: "UOM", tableHeaderText: "UOM", isVisible: true, key: "packdesc_1", type: "string", sort: mid },
+				{ id: "status", checkboxLabelText: "Status", tableHeaderText: "Status", isVisible: true, key: "status", type: "string", sort: mid },
 				{ id: "on_hand_qty", checkboxLabelText: "On Hand Qty", tableHeaderText: "On Hand Qty", isVisible: true, key: "qty_lcd", type: "number", sort: mid },
 				{ id: "on_hand_weight", checkboxLabelText: "On Hand Wgt", tableHeaderText: "On Hand Weight", isVisible: true, key: "weight", type: "number", sort: mid },
 				{ id: "expected_in_qty", checkboxLabelText: "Expected In Qty", tableHeaderText: "Expected In Qty", isVisible: true, key: "qty_lcd_expected", type: "number", sort: mid },

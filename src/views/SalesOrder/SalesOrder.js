@@ -34,7 +34,9 @@ class SalesOrder extends Component{
          filterclicked:true,
 
          //resources
-         resources:[]
+         resources:[],
+
+         loaded:false
       }
       
   }
@@ -101,7 +103,7 @@ class SalesOrder extends Component{
 
         .then(res => {
           let result = res.data
-          this.setState({resources:result})
+          this.setState({resources:result, loaded:true})
         })
         .catch(error => {
 
@@ -176,7 +178,9 @@ class SalesOrder extends Component{
         <ListOrderComponent ref={this.potableref} className='animated fadeIn' loadCompleteHandler = {(v) =>  this.setState({complete: v})} />
         </div>
         <div className={( this.state.complete ? 'hidden': 'spinner')}/>
-        <SalesOrderCreate resources={this.state.resources} showmodal={this.state.showmodal} closemodal={() => this.closeModal()}/>
+       {
+         this.state.loaded ?  <SalesOrderCreate resources={this.state.resources} showmodal={this.state.showmodal} closemodal={() => this.closeModal()}/> : null
+       }
     </div>)
   }
 }
