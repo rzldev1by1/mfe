@@ -99,7 +99,8 @@ class UserManagement extends Component{
     nextClickHandler = (e) => {
       const {name,userId,email,userMenu} = this.state.accountInfo;
       if(name && userId && email && userMenu.length)
-      {
+      { ;
+        let regexMail = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ ;
         this.setState({isValidForm:false},this.setTabActive);
       }else{
         this.setState({isValidForm:true});
