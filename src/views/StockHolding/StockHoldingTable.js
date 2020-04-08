@@ -51,9 +51,9 @@ class componentTable extends Component {
 					{this.props.columns.map((column, columnIdx) => {
 						if (column.isVisible) {
                             // return <td key={columnIdx} className={"px-3 " + (column.type === "number" ? "text-right" : "text-left")}>{item[column.key]}</td>;
-							if(column.id === "status"){
-                                return (item["on_hand_qty"] + item["expected_in_qty"]) >= item["expected_out_qty"] ? "Ok" : "Shortage";
-                            }
+							// if(column.id === "status"){
+                            //     return (item["on_hand_qty"] + item["expected_in_qty"]) >= item["expected_out_qty"] ? "Ok" : "Shortage";
+                            // }
 							return <td key={columnIdx} className="px-3 text-left">{item[column.key]}</td>;
                         }
                         return null;
@@ -68,8 +68,7 @@ class componentTable extends Component {
 				</tr>
 			))
 		);
-    }
-    
+	}    
 	rowClicked = (productCode, client, site) => {
         // this.props.history.push("/stock/stockholding/" + encodeURIComponent(productCode) + "?client=" + encodeURIComponent(client) + "&site=" + encodeURIComponent(site));
         this.props.history.push(`/stock/stockholding/${productCode}/${client}/${site}`);
