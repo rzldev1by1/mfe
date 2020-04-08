@@ -26,6 +26,23 @@ class componentTable extends Component {
 			</tr>
 		);
 	}
+	showHeaderExport = () => {
+		return (
+			<tr>
+				{this.props.columns.map((item, idx) => {
+					if (item.isVisible) {
+                        // return <th className={"p-3 " + (item.type === "number" ? "text-right" : "text-left")} key={idx}>{item.tableHeaderText}</th>;
+                        return (
+                            <th className="text-left" id={item.key} key={idx} onClick={() => this.props.arrowHandler(idx, item.key)}>
+                                {item.tableHeaderText} 
+                            </th>
+                        );
+                    }
+                    return null;
+				})}
+			</tr>
+		);
+	}
 
 	showData = () => {
 		return (
@@ -68,8 +85,12 @@ class componentTable extends Component {
                         <tbody style={{fontSize:'1rem'}}>{this.showData()}</tbody> 
                     </Table> */}
 
-					<table className="shtable" id="excel" >
+					<table className="shtable" >
                         <thead >{this.showHeader()}</thead>
+                        <tbody style={{fontSize:'1rem'}}>{this.showData()}</tbody>
+                    </table>
+					<table className="shtable d-none" id="excel" >
+                        <thead >{this.showHeaderExport()}</thead>
                         <tbody style={{fontSize:'1rem'}}>{this.showData()}</tbody>
                     </table>
                 </div>

@@ -307,12 +307,12 @@ class ListOrderComponent extends Component {
       return(
         <div>
           <div className='tablePages tablecontent'>
-               <table className="potable" id="excel">
+               <table className="potable">
                   <thead>
                     <tr style={{borderBottom:"3px solid #f0f0f0 !important"}}>
                        {this.state.tableheader.map(header =>
                         <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
-                           <img key={header} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}} src={this.state.activearrow}/>
+                           {/* <img key={header} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}} src={this.state.activearrow}/> */}
                         </th>
                               )}  
                               <th></th>
@@ -338,6 +338,39 @@ class ListOrderComponent extends Component {
                                   }  
                       </tbody>
                         </table>
+
+              <table className="potable d-none" id="excel">
+                  <thead>
+                    <tr style={{borderBottom:"3px solid #f0f0f0 !important"}}>
+                       {this.state.tableheader.map(header =>
+                        <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
+                           {/* <img key={header} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}} src={this.state.activearrow}/> */}
+                        </th>
+                              )}  
+                              <th></th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                          {this.state.data  ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
+                                  <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.order_no)} className='tr'>
+                                      <td>{data.site}</td>
+                                      <td>{data.client}</td>
+                                      <td>{data.order_no}</td>
+                                      <td>{data.order_type}</td>
+                                      <td>{data.customer_name}</td>
+                                      <td style={{width:"11%"}}>{data.status_desc}</td>
+                                      <td>{'' + (data.date_due ? moment(data.date_due).format("DD/MM/YYYY") : '') }</td>
+                                      <td>{'' + (data.date_recd ? moment(data.date_recd).format("DD/MM/YYYY") : '') }</td>
+                                      <td>{'' + (data.date_released ? moment(data.date_released).format("DD/MM/YYYY") : '') }</td>
+                                      <td>{'' + (data.date_completed ? moment(data.date_completed).format("DD/MM/YYYY") : '') }</td>
+                          <td>{console.log(data)}</td>
+                                  </tr>
+                              ) : 
+                                  <div> No data available </div>
+                                  }  
+                      </tbody>
+                  </table>
+                        
             </div>
             <div className='paginations'>
                     <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}

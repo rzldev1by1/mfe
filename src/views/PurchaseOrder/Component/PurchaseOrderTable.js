@@ -300,12 +300,45 @@ class PurchaseOrderTable extends Component {
         return (
             <div>
                 <div className='tablePage tablecontent'>
-                    <table className="potable" id="excel">
+                    <table className="potable">
                         <thead>
                             <tr>
                             {this.state.tableheader.map(header =>
                                 <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
                                 <img key={header} className='arrow' src={this.state.activearrow}/>
+                                </th>
+                            )}
+                            
+                            <th className='iconU-edit'></th>
+                            </tr>
+                        </thead>
+                        <tbody>            
+                            {this.state.data ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
+                                <tr onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/'+data.order_no)} className='tr'>
+                                    <td style={{textAlign:'center',paddingLeft:'0px'}}>{data.site}</td>
+                                    <td>{data.client}</td>
+                                    <td>{data.order_no}</td>
+                                    <td>{data.status}</td>
+                                    <td>{data.supplier_no}</td>
+                                    <td>{data.supplier_name}</td>
+                                    <td>{moment(data.date_due).format("DD/MM/YYYY")}</td>
+                                    <td>{moment(data.date_received).format("DD/MM/YYYY")}</td>
+                                    <td>{moment(data.date_released).format("DD/MM/YYYY")}</td>
+                                    <td>{moment(data.date_completed).format("DD/MM/YYYY")}</td>
+                                    <td></td>
+                                </tr>
+                            ) : 
+                                <div> No data available </div>
+                                }       
+                        </tbody>
+                    </table>
+                    
+                    <table className="potable d-none" id="excel">
+                        <thead>
+                            <tr>
+                            {this.state.tableheader.map(header =>
+                                <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
+                                {/* <img key={header} className='arrow' src={this.state.activearrow}/> */}
                                 </th>
                             )}
                             
