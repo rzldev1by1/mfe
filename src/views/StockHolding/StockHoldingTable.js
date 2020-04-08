@@ -26,6 +26,23 @@ class componentTable extends Component {
 			</tr>
 		);
 	}
+	showHeaderExport = () => {
+		return (
+			<tr>
+				{this.props.columns.map((item, idx) => {
+					if (item.isVisible) {
+                        // return <th className={"p-3 " + (item.type === "number" ? "text-right" : "text-left")} key={idx}>{item.tableHeaderText}</th>;
+                        return (
+                            <th className="text-left" id={item.key} key={idx} onClick={() => this.props.arrowHandler(idx, item.key)}>
+                                {item.tableHeaderText} 
+                            </th>
+                        );
+                    }
+                    return null;
+				})}
+			</tr>
+		);
+	}
 
 	showData = () => {
 		return (
@@ -34,7 +51,10 @@ class componentTable extends Component {
 					{this.props.columns.map((column, columnIdx) => {
 						if (column.isVisible) {
                             // return <td key={columnIdx} className={"px-3 " + (column.type === "number" ? "text-right" : "text-left")}>{item[column.key]}</td>;
-                            return <td key={columnIdx} className="px-3 text-left">{item[column.key]}</td>;
+							// if(column.id === "status"){
+                            //     return (item["on_hand_qty"] + item["expected_in_qty"]) >= item["expected_out_qty"] ? "Ok" : "Shortage";
+                            // }
+							return <td key={columnIdx} className="px-3 text-left">{item[column.key]}</td>;
                         }
                         return null;
 					})}
@@ -48,8 +68,7 @@ class componentTable extends Component {
 				</tr>
 			))
 		);
-    }
-    
+	}    
 	rowClicked = (productCode, client, site) => {
         // this.props.history.push("/stock/stockholding/" + encodeURIComponent(productCode) + "?client=" + encodeURIComponent(client) + "&site=" + encodeURIComponent(site));
         this.props.history.push(`/stock/stockholding/${productCode}/${client}/${site}`);
@@ -65,8 +84,12 @@ class componentTable extends Component {
                         <tbody style={{fontSize:'1rem'}}>{this.showData()}</tbody> 
                     </Table> */}
 
-					<table className="shtable" id="excel" >
+					<table className="shtable" >
                         <thead >{this.showHeader()}</thead>
+                        <tbody style={{fontSize:'1rem'}}>{this.showData()}</tbody>
+                    </table>
+					<table className="shtable d-none" id="excel" >
+                        <thead >{this.showHeaderExport()}</thead>
                         <tbody style={{fontSize:'1rem'}}>{this.showData()}</tbody>
                     </table>
                 </div>
