@@ -11,7 +11,7 @@ import query from '../../AppComponent/query_menu_temp'
 import Authentication from '../../Auth/Authentication'
 import Paging from '../../AppComponent/Paging'
 import create from '../../assets/img/brand/button_create@2x.png'
-import menunav from '../../menunav';
+import menunav from '../../menunav'
 import Export from '../../AppComponent/Export'
 
 
@@ -66,7 +66,9 @@ class UserManagement extends Component{
               currentPage:0,
               startIndex:0,
               lastIndex:0,
-              isValidForm:false
+              isValidForm:false,
+              firstTab:true,
+              secondTab:false
         }
           this.searchForm = React.createRef();
     }
@@ -92,6 +94,23 @@ class UserManagement extends Component{
 
         }
       return totalPage;
+    }
+
+    nextClickHandler = (e) => {
+      const {name,userId,email,userMenu} = this.state.accountInfo;
+      if(name && userId && email && userMenu.length)
+      {
+        this.setState({isValidForm:false},this.setTabActive);
+      }else{
+        this.setState({isValidForm:true});
+      }
+
+    }
+
+    setTabActive = () => {
+      this.setState((prev) => {
+        return {firstTab:!prev.firstTab,secondTab:!prev.secondTab}
+      });
     }
 
     restructureUserList = (sources) => {
@@ -490,7 +509,6 @@ class UserManagement extends Component{
     saveClick = () => {
 
       const {name,userId,email,userMenu} = this.state.accountInfo;
-      console.log(userMenu);
       if(name && userId && email && userMenu.length)
       {
         this.setState({isSaveProgressing:true,isValidForm:false},this.saveRequest);
@@ -537,7 +555,7 @@ class UserManagement extends Component{
       let date1 = date.getDate();
       let month = date.getMonth();
       let year = date.getFullYear();
-       return filename=("Express_UserManagement _" +date1 +strip+ arrmonth[month] +strip+ year) 
+       return filename=("Express_UserManagement _" +date1 +strip+ arrmonth[month] +strip+ year)
     }
 
     isValidUser = () => {
@@ -653,7 +671,8 @@ class UserManagement extends Component{
                 sites={this.state.sites} isSiteLoaded={this.state.isSiteLoaded} sitesEnableClick={this.onSiteStatusClick}
                 clients={this.state.clients} isClientLoaded={this.state.isClientLoaded} clientEnableClick={this.onClientStatusClick}
                 onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing} onChangeCompany={this.onChangeCompany}
-                onModuleEnableAll = {this.onEnabledAllModuleAccess} isValidForm={this.state.isValidForm}/>
+                onModuleEnableAll = {this.onEnabledAllModuleAccess} isValidForm={this.state.isValidForm} onNextClickHandler={this.nextClickHandler}
+                firtsTabActive={this.state.firstTab} secondTabActive={this.state.secondTab} onClickTabActive={this.setTabActive} />
 
                 </CardBody>
                 </Card>
