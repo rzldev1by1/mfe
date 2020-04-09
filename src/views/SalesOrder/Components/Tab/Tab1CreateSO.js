@@ -17,12 +17,7 @@ class Tab1CreateSO extends Component{
 
     
     setData = () => {   
-    let a = headerValidation(this.props.parameters.header)  
-      if(a){
-        let b = lineDetailValidation(this.props.parameters.lineDetail[0])
-        if(b)this.props.tabhandler()
-      }
-      
+      this.props.tabhandler()      
     }
 
     render= () => {    
@@ -295,26 +290,36 @@ class Tab1CreateSO extends Component{
                   </tr>                             
                 </table>
               </div>
-              <OrderLine  parameters      = {this.props.parameters}
+              
+              {
+                this.props.parameters.lineDetail.map((data,idx) => {
+                  return(
+                    <OrderLine  parameters      = {data}
+                          idx             = {idx}
                           getUom          = {(productVal) => this.props.getUom(productVal)}
                           uomdata         = {this.props.uomdata}
                           productdata     = {this.props.productdata}
                           dispositiondata = {this.props.dispositiondata}
                           
-                          setProduct              = {(productVal, product) => this.props.setProduct(productVal,product)}
-                          setQty                  = {(qty) => this.props.setQty(qty)}
-                          setWeight               = {(weight) => this.props.setWeight(weight)}
-                          setUom                  = {(uom) => this.props.setUom(uom)}
-                          setRotaDate             = {(rotaDate) => this.props.setRotaDate(rotaDate)}
-                          setBatch                = {(batch) => this.props.setBatch(batch)}
-                          setRef3                 = {(ref3) => this.props.setRef3(ref3)}
-                          setRef4                 = {(ref4) => this.props.setRef4(ref4)}
-                          setDispoisition         = {(disposition, dispositionVal) => this.props.setDispoisition(disposition, dispositionVal)}
-                          setPackid               = {(packid) => this.props.setPackid(packid)}/>
+                          setProduct              = {(productVal, product, idx) => this.props.setProduct(productVal,product, idx)}
+                          setQty                  = {(qty, idx) => this.props.setQty(qty, idx)}
+                          setWeight               = {(weight, idx) => this.props.setWeight(weight, idx)}
+                          setUom                  = {(uom, idx) => this.props.setUom(uom, idx)}
+                          setRotaDate             = {(rotaDate, idx) => this.props.setRotaDate(rotaDate, idx)}
+                          setBatch                = {(batch, idx) => this.props.setBatch(batch, idx)}
+                          setRef3                 = {(ref3, idx) => this.props.setRef3(ref3, idx)}
+                          setRef4                 = {(ref4, idx) => this.props.setRef4(ref4, idx)}
+                          setDispoisition         = {(disposition, dispositionVal, idx) => this.props.setDispoisition(disposition, dispositionVal, idx)}
+                          setPackid               = {(packid, idx) => this.props.setPackid(packid, idx)}
+                          
+                          removeLineHandler       = {(idx) => this.props.removeLineHandler(idx)}/>
+                  )
+                })
+              }
                 {/* <div className={"tablerow " + (this.state.lineDetail.length >2 ? "scroll" : null )} style={{width:"98%"}}>
             
                 </div> */}
-                  {/* <button onClick={() => null} type="button" class="btn btn-light font addline">+ Add Line</button>   */}
+                  <button onClick={() => this.props.addLineHandler()} type="button" class="btn btn-light font addline">+ Add Line</button> 
                   {this.state.tab2isactive ? this.submit() :  <Button onClick={() => this.setData()} color="primary" className="btnsearch next btnleft" ><label className="font btnLabel ">Next</label></Button>
                 } 
          

@@ -74,15 +74,22 @@ class SalesOrderCreate extends Component{
 
     tabhandler = () => {
       let a = headerValidation(this.state.parameters.header)  
-      if(a){
-        let b = lineDetailValidation(this.state.parameters.lineDetail[0])
-        if(b)
-        {
-          this.setState({
-            tab1isactive:!this.state.tab1isactive,
-            tab2isactive:!this.state.tab2isactive
-            })
-        }
+      let param = {...this.state.parameters}
+      if(a)
+      {
+          for(let i = 0 ; i < param.lineDetail.length ; i++)
+          {
+            let idx = i+1
+            let b = lineDetailValidation(param.lineDetail[i], idx)
+            if(!b) return
+            if(b && i == param.lineDetail.length-1)
+            {
+              this.setState({
+                tab1isactive:!this.state.tab1isactive,
+                tab2isactive:!this.state.tab2isactive
+                })
+            }
+          }            
       }
     }
 
@@ -373,89 +380,116 @@ class SalesOrderCreate extends Component{
       })
     }
 
-    setProduct = (productVal, product) => {
+    setProduct = (productVal, product, idx) => {
       let newParam                  = {...this.state.parameters}
-      newParam.lineDetail[0].product   = product
-      newParam.lineDetail[0].productVal   = productVal
+      newParam.lineDetail[idx].product   = product
+      newParam.lineDetail[idx].productVal   = productVal
 
       this.setState({parameters:newParam})
       this.getUom(productVal)
     }
 
-    setQty = (qty) => {
+    setQty = (qty, idx) => {
       let newParam                        = {...this.state.parameters}
-      newParam.lineDetail[0].qty          = qty
+      newParam.lineDetail[idx].qty          = qty
 
       this.setState({parameters:newParam})
     }
 
-    setWeight = (weight) => {
+    setWeight = (weight, idx) => {
       let newParam                    = {...this.state.parameters}
-      newParam.lineDetail[0].weight   = weight
+      newParam.lineDetail[idx].weight   = weight
 
       this.setState({parameters:newParam})
     }
 
-    setUom = (uom) => {
+    setUom = (uom, idx) => {
       let newParam                  = {...this.state.parameters}
-      newParam.lineDetail[0].uom    = uom
+      newParam.lineDetail[idx].uom    = uom
 
       this.setState({parameters:newParam})
     }
 
-    setRotaDate = (rotaDate) => {
+    setRotaDate = (rotaDate, idx) => {
       let newParam                      = {...this.state.parameters}
-      newParam.lineDetail[0].rotaDate   = rotaDate
+      newParam.lineDetail[idx].rotaDate   = rotaDate
 
       this.setState({parameters:newParam})
     }
 
-    setBatch = (batch) => {
+    setBatch = (batch, idx) => {
       let newParam                  = {...this.state.parameters}
-      newParam.lineDetail[0].batch   = batch
+      newParam.lineDetail[idx].batch   = batch
 
       this.setState({parameters:newParam})
     }
 
-    setRef3 = (ref3) => {
+    setRef3 = (ref3, idx) => {
       let newParam                  = {...this.state.parameters}
-      newParam.lineDetail[0].ref3   = ref3
+      newParam.lineDetail[idx].ref3   = ref3
 
       this.setState({parameters:newParam})
     }
 
-    setRef4 = (ref4) => {
+    setRef4 = (ref4, idx) => {
       let newParam                  = {...this.state.parameters}
-      newParam.lineDetail[0].ref4   = ref4
+      newParam.lineDetail[idx].ref4   = ref4
 
       this.setState({parameters:newParam})
     }
 
-    setDispoisition = (dispositionVal, disposition) => {
+    setDispoisition = (dispositionVal, disposition, idx) => {
 
       let newParam                          = {...this.state.parameters}
-      newParam.lineDetail[0].disposition    = disposition
-      newParam.lineDetail[0].dispositionVal = dispositionVal
+      newParam.lineDetail[idx].disposition    = disposition
+      newParam.lineDetail[idx].dispositionVal = dispositionVal
 
       this.setState({parameters:newParam})
 
     }
 
-    setPackid = (packId) => {
-      this.setState(prevState => ({
-        parameters:{
-          ...prevState.parameters,
-          lineDetail:{
-            ...prevState.parameters.lineDetail,
-            packId:packId
-          }
-        }
-      }))
+    setPackid = (packId, idx) => {
+      let newParam                          = {...this.state.parameters}
+      newParam.lineDetail[idx].packId    = packId
+
+      this.setState({parameters:newParam})
+    }
+
+    addLineHandler = () => {
+        let newParam                = {...this.state.parameters}
+        let number                  = parseInt(newParam.lineDetail.length)+1
+        let newLine = {
+          number           : number,
+          productVal       : null,
+          product          : null,
+          qty              : null,
+          weight           : null,
+          uom              : null,
+          rotaDate         : null,
+          batch            : null,              
+          ref3             : null,
+          ref4             : null,
+          dispositionVal   : null,
+          disposition      : null,
+          packId           : null,
+    }
+        newParam.lineDetail         = [...newParam.lineDetail, newLine]
+        this.setState({parameters:newParam})
+    }
+
+    removeLineHandler = (idx) => {
+      let param = {...this.state.parameters}
+      let idxx = idx-1
+      param.lineDetail.splice(idxx, 1)
+
+      param.lineDetail.map((data, idx) => {
+        data.number = idx+1
+      })
+      this.setState({parameters:param})
     }
 
     createSalesOrder = () => {
       let parameters = this.state.parameters
-      console.log(parameters)
       axios.post(endpoint.salesOrderCreate, parameters, {
         headers:headers
       })
@@ -528,17 +562,19 @@ class SalesOrderCreate extends Component{
                                                         setStates               = {(data) => this.setStates(data)}
                                                         setCountry              = {(data) => this.setCountry(data)}
 
-                                                        setProduct              = {(productVal, product) => this.setProduct(productVal,product)}
-                                                        setQty                  = {(qty) => this.setQty(qty)}
-                                                        setWeight               = {(weight) => this.setWeight(weight)}
-                                                        setUom                  = {(uom) => this.setUom(uom)}
-                                                        setRotaDate             = {(rotaDate) => this.setRotaDate(rotaDate)}
-                                                        setBatch                = {(batch) => this.setBatch(batch)}
-                                                        setRef3                 = {(ref3) => this.setRef3(ref3)}
-                                                        setRef4                 = {(ref4) => this.setRef4(ref4)}
-                                                        setDispoisition         = {(dispositionVal, disposition) => this.setDispoisition(dispositionVal, disposition)}
-                                                        setPackid               = {(packid) => this.setPackid(packid)}
+                                                        setProduct              = {(productVal, product, idx) => this.setProduct(productVal,product, idx)}
+                                                        setQty                  = {(qty, idx) => this.setQty(qty, idx)}
+                                                        setWeight               = {(weight, idx) => this.setWeight(weight, idx)}
+                                                        setUom                  = {(uom, idx) => this.setUom(uom, idx)}
+                                                        setRotaDate             = {(rotaDate, idx) => this.setRotaDate(rotaDate, idx)}
+                                                        setBatch                = {(batch, idx) => this.setBatch(batch, idx)}
+                                                        setRef3                 = {(ref3, idx) => this.setRef3(ref3, idx)}
+                                                        setRef4                 = {(ref4, idx) => this.setRef4(ref4, idx)}
+                                                        setDispoisition         = {(dispositionVal, disposition, idx) => this.setDispoisition(dispositionVal, disposition, idx)}
+                                                        setPackid               = {(packid, idx) => this.setPackid(packid, idx)}
 
+                                                        addLineHandler          = {() => this.addLineHandler()}
+                                                        removeLineHandler       = {(idx) => this.removeLineHandler(idx)} 
 
                                                         validation              = {() => this.validation()}
                                                         

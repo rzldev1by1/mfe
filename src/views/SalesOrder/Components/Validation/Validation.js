@@ -69,24 +69,24 @@ const headerValidation = (header) => {
     return true
 }
 
-const lineDetailValidation = (lineDetail) => {
-  let qty = document.getElementById('qty_')
+const lineDetailValidation = (lineDetail, idx) => {
+  let qty = document.getElementById('qty_'+idx)
   
   if(!lineDetail.productVal || lineDetail.productVal == '')
   {
-    alert('product must be choosen')
+    alert('product in line '+idx+' must be choosen')
     return false 
   }
   if(!lineDetail.qty || lineDetail.qty == '')
   {
-    alert('please insert number format')    
+    alert('quantity in line '+idx+' cannot be empty')    
     qty.focus()
     qty.value = null
     return false
   }
   if(lineDetail.qty.includes('-') || lineDetail.qty.includes('e'))
   {
-    alert('please insert number format')
+    alert('please insert number format in line '+idx)
     qty.focus()
     qty.value = null
     return false
@@ -94,7 +94,7 @@ const lineDetailValidation = (lineDetail) => {
 
   if(!lineDetail.uom || lineDetail.uom == '')
   {
-    alert('uom must be choosen')
+    alert('uom in line '+idx+' must be choosen')
     return false
   }
   

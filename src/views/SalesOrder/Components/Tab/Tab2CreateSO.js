@@ -141,7 +141,15 @@ import OrderLineReview from './OrderLineReview'
                   </tr>                             
                 </table>
               </div>
-              <OrderLineReview parameters = {this.props.parameters}/>
+              
+              {
+                this.props.parameters.lineDetail.map((data, idx) => {
+                  return(
+                    <OrderLineReview  parameters = {data}
+                                      idx        = {idx}/>
+                  )
+                })
+              }
               {/* <div className={"tablerow " + (this.state.rowlist.length >2 ? "scroll" : null )} style={{width:"98%"}} >
                 {this.state.parameters.length == 0 ? null : this.state.parameters.orderLines.map((line, i) => 
                   this.linedetailsrowreview(line, i)
