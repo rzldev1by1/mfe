@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Table,Button, Card, CardBody, Label} from 'reactstrap'
 import '../UserManagement.css'
 
-const client = ({clients}) => {
+const clientReview = ({clients}) => {
   function capitalizeFirstLetter(string) {
       let aText = string.toLowerCase();
       let text = aText.charAt(0).toUpperCase() + aText.slice(1)
@@ -55,4 +55,4 @@ return (<div>
 
 }
 
-export default client;
+export default clientReview;

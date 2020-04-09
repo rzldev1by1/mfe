@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Table,Button, Card, CardBody, Label} from 'reactstrap'
 import '../UserManagement.css'
 
-const moduleAccess = ({moduleAccess}) => {
+const moduleAccessReview = ({moduleAccess}) => {
 
 return (
   <div>
@@ -39,4 +39,4 @@ return (
 
 }
 
-export default moduleAccess;
+export default moduleAccessReview;

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Table,Button, Card, CardBody, Label} from 'reactstrap'
 import '../UserManagement.css'
 
-const site = ({sites}) => {
+const siteReview = ({sites}) => {
 
 return (<div>
         <div className="flex-column mr-2">
@@ -49,4 +49,4 @@ return (<div>
 
 }
 
-export default site;
+export default siteReview;
