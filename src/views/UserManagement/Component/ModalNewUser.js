@@ -16,7 +16,7 @@ const modalNewUser = (props) => {
   const { className, isOpen, toggle, closeModal, onChangeName,onChangeEmail, onChangeCompany, model,
     moduleAccess,isModuleLoaded,moduleAccessEnableClick,sites, isSiteLoaded, sitesEnableClick,
     clients, isClientLoaded, clientEnableClick, onSaveClick, isSaveProgressing, onModuleEnableAll, isValidForm,
-    onNextClickHandler, firtsTabActive, secondTabActive, onClickTabActive} = props;
+    onNextClickHandler, firtsTabActive, secondTabActive, onClickTabActive, message} = props;
 
 
     const submitHandler = (event) =>{
@@ -135,7 +135,7 @@ const modalNewUser = (props) => {
                           <div className="col-8">
                               <div className="d-flex justify-content-center">
                                   <label className={(isValidForm)?"errorText ":" d-none"}>
-                                      Please make sure user name, email is valid and module has one enabled
+                                      {message}
                                   </label>
                               </div>
                           </div>
@@ -180,19 +180,19 @@ const modalNewUser = (props) => {
 
                           <div className="row">
                               <div className="col-3">
-                                <label name="userid" className="review-text-value">{model.userId}</label>
+                                <label name="userid" className="form-control border-0 review-text-value">{model.userId}</label>
                               </div>
 
                               <div className="col-3">
-                                <label name="userName" className="review-text-value"> {model.name}</label>
+                                <label name="userName" className="form-control border-0 review-text-value"> {model.name}</label>
                               </div>
 
                               <div className="col-3">
-                                <label name="email" className="review-text-value">{model.email}</label>
+                                <label name="email" className="form-control border-0 review-text-value">{model.email}</label>
                               </div>
 
                               <div className="col-3">
-                                <label name="company" className="review-text-value">{model.company}</label>
+                                <label name="company" className="form-control border-0 review-text-value">{model.company}</label>
                               </div>
                           </div>
 

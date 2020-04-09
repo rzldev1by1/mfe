@@ -17,6 +17,10 @@ import Export from '../../AppComponent/Export'
 
 const today = moment(new Date()).format("YYYY-MM-DD");
 
+const regexMail = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ ;
+const notValidAll = 'Please make sure user name, email is valid and module has one enabled';
+const notValidMail = 'Email is not valid';
+
 const userModel = {
     "userId":"",
     "name":"",
@@ -68,7 +72,8 @@ class UserManagement extends Component{
               lastIndex:0,
               isValidForm:false,
               firstTab:true,
-              secondTab:false
+              secondTab:false,
+              validatorMessage:''
         }
           this.searchForm = React.createRef();
     }
@@ -99,11 +104,13 @@ class UserManagement extends Component{
     nextClickHandler = (e) => {
       const {name,userId,email,userMenu} = this.state.accountInfo;
       if(name && userId && email && userMenu.length)
-      { ;
-        let regexMail = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ ;
-        this.setState({isValidForm:false},this.setTabActive);
+      {
+        if(!email.match(regexMail))
+            this.setState({isValidForm:true,validatorMessage:notValidMail});
+        else
+            this.setState({isValidForm:false},this.setTabActive);
       }else{
-        this.setState({isValidForm:true});
+        this.setState({isValidForm:true,validatorMessage:notValidAll});
       }
 
     }
@@ -673,7 +680,8 @@ class UserManagement extends Component{
                 clients={this.state.clients} isClientLoaded={this.state.isClientLoaded} clientEnableClick={this.onClientStatusClick}
                 onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing} onChangeCompany={this.onChangeCompany}
                 onModuleEnableAll = {this.onEnabledAllModuleAccess} isValidForm={this.state.isValidForm} onNextClickHandler={this.nextClickHandler}
-                firtsTabActive={this.state.firstTab} secondTabActive={this.state.secondTab} onClickTabActive={this.setTabActive} />
+                firtsTabActive={this.state.firstTab} secondTabActive={this.state.secondTab} onClickTabActive={this.setTabActive}
+                message={this.state.validatorMessage} />
 
                 </CardBody>
                 </Card>
