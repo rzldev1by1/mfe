@@ -493,10 +493,15 @@ class PurchaseOrderTable extends Component {
                     <table className="potable d-none" id="excel">
                         <thead>
                             <tr>
-                            {this.state.tableheader.map(header =>
-                                <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
-                                {/* <img key={header} className='arrow' src={this.state.activearrow}/> */}
-                                </th>
+                            {this.state.tableheader.map((header, idx) => {
+                                    if(header.isVisible){
+                                        return (
+                                            <th key={idx} onClick={(e) => this.arrowHandler(e)} id={idx}>{header.id} 
+                                            {/* <img key={header} className='arrow' src={this.state.activearrow}/> */}
+                                            </th>
+                                        )
+                                    }
+                            }
                             )}
                             
                             <th className='iconU-edit'></th>
@@ -504,7 +509,7 @@ class PurchaseOrderTable extends Component {
                         </thead>
                         <tbody>            
                             {this.state.data ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
-                                <tr onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/'+data.order_no)} className='tr'>
+                                <tr key={i} onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/'+data.order_no)} className='tr'>
                                     <td style={{textAlign:'center',paddingLeft:'0px'}}>{data.site}</td>
                                     <td>{data.client}</td>
                                     <td>{data.order_no}</td>
