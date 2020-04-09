@@ -102,7 +102,7 @@ const OrderLine = (props) => {
                                     getValue        = {(dispositionVal, dispositionName) => props.setDispoisition(dispositionVal, dispositionName)} 
                                     placeHolder     = "Disposition"  
                                     style           = {{minWidth: "100%", zIndex:"1"}} 
-                                    optionList      = {props.dispositiondata.name.toString()} 
+                                    optionList      = {props.dispositiondata.code.toString()} 
                                     optionValue     = {props.dispositiondata.code.toString()}/>
                    </td>
 
