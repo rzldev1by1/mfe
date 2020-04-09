@@ -15,8 +15,144 @@ class PurchaseOrderTable extends Component {
     this.dropdownref = React.createRef()
 
     this.state = {
-      data:[],      
-      tableheader : ['Site','Client','Order No','Status','Supplier No','Supplier Name','Date Due','Date Received','Date Released','Date Completed'],
+      data:[],
+      tableheader: [
+          {
+              id: "site", 
+              checkboxLabelText: "Site", 
+              tableHeaderText: "Site", 
+              isVisible: true, 
+              key: "site", 
+              type: "string", 
+              sort: mid
+          },
+          {
+              id: "client", 
+              checkboxLabelText: "Client", 
+              tableHeaderText: "Client", 
+              isVisible: true, 
+              key: "client", 
+              type: "string", 
+              sort: mid
+          },
+          {
+              id: "order_no", 
+              checkboxLabelText: "Order No", 
+              tableHeaderText: "Order No", 
+              isVisible: true, 
+              key: "order_no", 
+              type: "string", 
+              sort: mid
+          },
+          {
+              id: "status", 
+              checkboxLabelText: "Status", 
+              tableHeaderText: "Status", 
+              isVisible: true, 
+              key: "status", 
+              type: "string", 
+              sort: mid
+          },
+          {
+              id: "supplier_no", 
+              checkboxLabelText: "Supplier No", 
+              tableHeaderText: "Supplier No", 
+              isVisible: true, 
+              key: "supplier_no", 
+              type: "string", 
+              sort: mid
+          },
+          {
+              id: "supplier_name", 
+              checkboxLabelText: "Supplier Name", 
+              tableHeaderText: "Supplier Name", 
+              isVisible: true, 
+              key: "supplier_name", 
+              type: "string", 
+              sort: mid
+          },
+          {
+              id: "date_due", 
+              checkboxLabelText: "Date Due", 
+              tableHeaderText: "Date Due", 
+              isVisible: true, 
+              key: "date_due", 
+              type: "string", 
+              sort: mid
+          },
+          {
+              id: "date_received", 
+              checkboxLabelText: "Date Received", 
+              tableHeaderText: "Date Received", 
+              isVisible: true, 
+              key: "date_received", 
+              type: "string", 
+              sort: mid
+          },
+          {
+              id: "date_released", 
+              checkboxLabelText: "Date Released", 
+              tableHeaderText: "Date Released", 
+              isVisible: true, 
+              key: "date_released", 
+              type: "string", 
+              sort: mid
+          },
+          {
+              id: "date_completed", 
+              checkboxLabelText: "Date Completed", 
+              tableHeaderText: "Date Completed", 
+              isVisible: true, 
+              key: "date_completed", 
+              type: "string", 
+              sort: mid
+          },
+        //   {
+        //       id: "rotadate", 
+        //       checkboxLabelText: "Rotadate", 
+        //       tableHeaderText: "Rotadate", 
+        //       isVisible: true, 
+        //       key: "rotadate", 
+        //       type: "string", 
+        //       sort: mid
+        //   },
+        //   {
+        //       id: "batch", 
+        //       checkboxLabelText: "Batch", 
+        //       tableHeaderText: "Batch", 
+        //       isVisible: true, 
+        //       key: "batch", 
+        //       type: "string", 
+        //       sort: mid
+        //   },
+        //   {
+        //       id: "ref3", 
+        //       checkboxLabelText: "Ref 3", 
+        //       tableHeaderText: "Ref 3", 
+        //       isVisible: true, 
+        //       key: "ref3", 
+        //       type: "string", 
+        //       sort: mid
+        //   },
+        //   {
+        //       id: "ref3", 
+        //       checkboxLabelText: "Ref 3", 
+        //       tableHeaderText: "Ref 3", 
+        //       isVisible: true, 
+        //       key: "ref3", 
+        //       type: "string", 
+        //       sort: mid
+        //   },
+        //   {
+        //       id: "ref3", 
+        //       checkboxLabelText: "Ref 3", 
+        //       tableHeaderText: "Ref 3", 
+        //       isVisible: true, 
+        //       key: "ref3", 
+        //       type: "string", 
+        //       sort: mid
+        //   }
+      ],   
       activearrow:mid,
       sortparameter:'order_no',
       sort:true,
@@ -33,6 +169,12 @@ class PurchaseOrderTable extends Component {
 
   componentDidMount() {
     this.loadPurchaseOrder()
+    this.props.getTableHeader(this.state.tableheader)
+  }
+
+  
+  tableheader(){
+      return this.state.tableheader;
   }
 
   setPagination = (result) => {
@@ -303,30 +445,45 @@ class PurchaseOrderTable extends Component {
                     <table className="potable">
                         <thead>
                             <tr>
-                            {this.state.tableheader.map(header =>
-                                <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
-                                <img key={header} className='arrow' src={this.state.activearrow}/>
-                                </th>
+                            {this.state.tableheader.map((header, idx) => {
+                                if(header.isVisible){
+                                    return (
+                                        <th key={idx} onClick={(e) => this.arrowHandler(e)} id={idx}>{header.tableHeaderText} 
+                                            <img key={idx} className='arrow' src={this.state.activearrow}/>
+                                        </th>
+                                    )
+                                }
+
+                             }
+                                
                             )}
                             
-                            <th className='iconU-edit'></th>
+                            <th className='iconU-edit' onClick={this.props.showEditColumn}></th>
                             </tr>
                         </thead>
                         <tbody>            
                             {this.state.data ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
-                                <tr onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/'+data.order_no)} className='tr'>
-                                    <td style={{textAlign:'center',paddingLeft:'0px'}}>{data.site}</td>
-                                    <td>{data.client}</td>
-                                    <td>{data.order_no}</td>
-                                    <td>{data.status}</td>
-                                    <td>{data.supplier_no}</td>
-                                    <td>{data.supplier_name}</td>
-                                    <td>{moment(data.date_due).format("DD/MM/YYYY")}</td>
-                                    <td>{moment(data.date_received).format("DD/MM/YYYY")}</td>
-                                    <td>{moment(data.date_released).format("DD/MM/YYYY")}</td>
-                                    <td>{moment(data.date_completed).format("DD/MM/YYYY")}</td>
+                                <tr key={i} onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/'+data.order_no)} className='tr'>
+                                    {this.state.tableheader.map((column, columnIdx) => {
+                                        if(column.isVisible){
+                                            if(column.key === "site"){
+                                                return(
+                                                        <td style={{textAlign:'center',paddingLeft:'0px'}} key={columnIdx}>{data[column.key]}</td>
+                                                )
+                                            }
+                                            if(column.key.indexOf("date") > 0){
+                                                return(
+                                                        <td key={columnIdx}>{moment(data[column.key]).format("DD/MM/YYYY")}</td>
+                                                )
+                                            }
+                                            return(
+                                                    <td key={columnIdx}>{data[column.key]}</td>
+                                            )
+                                        }
+                                        
+                                    })}
                                     <td></td>
-                                </tr>
+                                </tr>   
                             ) : 
                                 <div> No data available </div>
                                 }       
