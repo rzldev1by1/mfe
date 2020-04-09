@@ -11,6 +11,7 @@ import Dropdown from '../../AppComponent/Dropdown'
 import Search from '../../AppComponent/Search'
 import PurchaseOrderCreate from './Component/PurchaseOrderCreate'
 import create from '../../assets/img/brand/button_create@2x.png'
+import EditColumn from '../../AppComponent/EditColumn'
 import Dropdowns from './Component/Dropdowns'
 import Movement from './Component/Movement'
 
@@ -46,7 +47,9 @@ class PurchaseOrder extends Component {
             orderTypeSelected: undefined,
 
             orderTypeName: [],
-            orderTypeValue: []
+            orderTypeValue: [],
+            showEditColumn: false,
+            tableheader: []
         }
 
         
@@ -55,7 +58,7 @@ class PurchaseOrder extends Component {
     componentDidMount = () => {
         this.getclient();
         this.getsite();
-        
+        this.getordertype();
     }
 
     selectedValue = (id, value) => {
@@ -134,40 +137,36 @@ class PurchaseOrder extends Component {
       }
 
       getordertype = () => {
-        if(this.state.clientSelected && this.state.siteSelected)
-        {
-            let self = this;
-            axios.get(endpoint.getOrderType  + '?client='+this.state.clientSelected + '&site='+this.state.siteSelected, {
-                headers: headers
-              })
-                .then(res => {
-                  const result = res.data
-                  self.setState({ ordertypedata:result }); 
-                  let orderTypeName = [];
-                  let orderTypeValue = [];
-                  console.log(self.state.ordertypedata)
-                  self.state.ordertypedata.map((data) => {
-                      orderTypeName.push(data.description);
-                      orderTypeValue.push(data.code);
-                  })
-                  self.setState({
-                      orderTypeName: orderTypeName,
-                      orderTypeValue: orderTypeValue
-                  })
+        let self = this;
+        axios.get(endpoint.getOrderType  + '?client=MLS&site=M', {
+            headers: headers
+            })
+            .then(res => {
+                const result = res.data
+                self.setState({ ordertypedata:result }); 
+                let orderTypeName = [];
+                let orderTypeValue = [];
+                console.log(self.state.ordertypedata)
+                self.state.ordertypedata.map((data) => {
+                    orderTypeName.push(data.description);
+                    orderTypeValue.push(data.code);
                 })
-                .catch(error => {
-                  // this.props.history.push("/logins")
+                self.setState({
+                    orderTypeName: orderTypeName,
+                    orderTypeValue: orderTypeValue
                 })
-        }
+            })
+            .catch(error => {
+                // this.props.history.push("/logins")
+            })
+        
     }
       getSiteSelected = (value) => {
         this.setState({siteSelected: value});
       }
 
       getClientSelected = (value) => {
-        this.setState({clientSelected: value}, () => {
-            this.getordertype();
-        });
+        this.setState({clientSelected: value});
       }
 
       getStatusSelected = (value) => {
@@ -268,10 +267,20 @@ class PurchaseOrder extends Component {
                 </div>               
             </div>
             <div className={' ' + ( this.state.complete ? 'fades ' : 'hidden')}>
-                <PurchaseOrderTable ref={this.potableref} className='animated fadeIn' loadCompleteHandler = {(v) =>  this.setState({complete: v})}/>
+                <PurchaseOrderTable ref={this.potableref} 
+                                    className='animated fadeIn' 
+                                    loadCompleteHandler = {(v) =>  this.setState({complete: v})} 
+                                    getTableHeader={(e) => this.setState({tableheader: e})} 
+                                    showEditColumn={(e) => this.setState({ showEditColumn: e })}
+                                    />
             </div>
             <div className={( this.state.complete ? 'hidden createPoModal': 'spinner')}/>
             <PurchaseOrderCreate showmodal={this.state.showmodal} closemodal={() => this.closeModal()}/>
+            <EditColumn isOpen={this.state.showEditColumn} 
+                        toggle={() => this.setState({ showEditColumn: false })}        
+                        fields={this.state.tableheader}
+                        updateTableColumn={(columns) => this.setState({ tableheader: columns, tableheaderstatus: true })}       
+                                />
         </div>
            
             

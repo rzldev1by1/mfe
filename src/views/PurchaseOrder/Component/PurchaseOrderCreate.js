@@ -258,7 +258,7 @@ class PurchaseOrderCreate extends Component{
             <tr>
               <td>
                   <Dropdown placeHolder="Site" 
-                            style={{width: "300px", position: "absolute", zIndex: '6'}} 
+                            style={{width: "266px", position: "absolute", zIndex: '6'}} 
                             optionList={siteData.toString()} 
                             optionValue={siteData.toString()} 
                             getValue={(e) => this.setState({ site: e })} 
@@ -266,7 +266,7 @@ class PurchaseOrderCreate extends Component{
              </td>
               <td>
                   <Dropdown placeHolder="Client" 
-                            style={{width: "300px", position: "absolute"}} 
+                            style={{width: "266px", position: "absolute"}} 
                             optionList={clientName.toString()} 
                             optionValue={clientValue.toString()} 
                             getValue={(e) => this.setState({ client: e })} 
@@ -275,7 +275,7 @@ class PurchaseOrderCreate extends Component{
                 {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
               <td>
                   <Dropdown placeHolder="Supplier" 
-                            style={{width: "300px", position: "absolute"}} 
+                            style={{width: "266px", position: "absolute"}} 
                             optionList={supplierName.toString()} 
                             optionValue={supplierName.toString()} 
                             getValue={(e) => this.setState({ supplier: e })} 
@@ -301,7 +301,7 @@ class PurchaseOrderCreate extends Component{
             <tr>
             <td>
             <Dropdown   placeHolder="Order Type" 
-                        style={{width: "300px", position: "absolute"}} 
+                        style={{width: "266px", position: "absolute"}} 
                         optionList={orderData.toString()} 
                         optionValue={orderValue.toString()} 
                         getValue={(e) => this.setState({ orderType: e })} 
