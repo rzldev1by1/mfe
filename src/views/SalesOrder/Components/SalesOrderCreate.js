@@ -501,6 +501,8 @@ class SalesOrderCreate extends Component{
       })
       .then(res => {
         alert('sales order created successfully')
+        this.props.closemodal()
+
       })
       .catch(error => {
         alert('failed to create sales order')
