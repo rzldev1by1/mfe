@@ -479,6 +479,12 @@ class SalesOrderCreate extends Component{
 
     removeLineHandler = (idx) => {
       let param = {...this.state.parameters}
+
+      if(param.lineDetail.length == 1)
+      {
+        alert('line detail must have at least 1 product')
+        return
+      }
       let idxx = idx-1
       param.lineDetail.splice(idxx, 1)
 
