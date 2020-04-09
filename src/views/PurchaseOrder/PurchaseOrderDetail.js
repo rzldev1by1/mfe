@@ -5,6 +5,7 @@ import PODTable from './Component/PODComponents/PODTable'
 import axios from 'axios'
 import {endpoint, headers, POheaders} from '../../AppComponent/ConfigEndpoint'
 import moment from 'moment';
+import EditColumn from '../../AppComponent/EditColumn'
 
 export default class PurchaseOrderDetail extends Component {
     constructor(props){
@@ -14,7 +15,9 @@ export default class PurchaseOrderDetail extends Component {
         this.state = {
             complete:false,
             datahead:[],
-            datadetail:[]
+            datadetail:[],
+            showEditColumn: false,
+            tableheader: []
         }
     }
 
@@ -146,9 +149,20 @@ export default class PurchaseOrderDetail extends Component {
                 }
 
                 <div className={'tablecontent ' + ( this.state.datahead.length ? 'fades ' : 'hidden')}>
-                    <PODTable ref={this.potableref} className='animated fadeIn' style={{display:'none'}} datahead = {this.state.datahead}><tr><td>aa</td></tr></PODTable>
+                    <PODTable ref={this.potableref} 
+                              className='animated fadeIn' 
+                              style={{display:'none'}} 
+                              datahead = {this.state.datahead}
+                              showEditColumn = {() => this.setState({ showEditColumn: true })}
+                              getTableHeader = {(e) => this.setState({ tableheader: e })}
+                              />
                 </div>
                 <div className={( this.state.datahead.length ? 'hidden': 'spinner')}/>
+                <EditColumn isOpen={this.state.showEditColumn} 
+                            toggle={() => this.setState({ showEditColumn: false })}
+                            fields={this.state.tableheader}
+                            updateTableColumn={(e) => this.setState({ tableheader: e })}
+                />
             </div>
         )
     }
