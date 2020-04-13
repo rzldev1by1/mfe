@@ -316,7 +316,7 @@ class ListOrderComponent extends Component {
                     <tr style={{borderBottom:"3px solid #f0f0f0 !important"}}>
                        {this.state.tableheader.map(header =>
                         <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
-                           {/* <img key={header} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}} src={this.state.activearrow}/> */}
+                           <img key={header} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}} src={this.state.activearrow}/>
                         </th>
                               )}  
                               <th></th>
