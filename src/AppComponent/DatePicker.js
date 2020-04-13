@@ -54,7 +54,7 @@ function YearMonthForm({ date, localeUtils, onChange, current }) {
                   optionList={years.toString()}
                   optionValue={years.toString()}
                   getValue={handleChange}
-                  style={{ width: '75px', height: '30px', float: 'left' }}
+                  style={{ width: '75px', height: '30px', float: 'left', marginLeft: "10px" }}
                   firstChecked={true}
                   optionSelected={current.getFullYear()}
                   usedFor="Datepicker"
@@ -85,11 +85,13 @@ class DatePicker extends React.Component{
         this.handleYearMonthChange = this.handleYearMonthChange.bind(this);
         this.handleDayClick = this.handleDayClick.bind(this);
         this.state = {
-            selectedDay: null,
+            selectedDay: props.startDate ? props.startDate : null,
             showDatePicker: false,
             month : fromMonth
         }
     }
+
+
 
     handleYearMonthChange = (month) => {
         this.setState({ month }); 
@@ -124,10 +126,10 @@ class DatePicker extends React.Component{
                             <DayPicker
                                 className="datepicker-content"
                                 tabIndex="-1"
-                                selectedDays={this.state.selectedDay}
+                                selectedDays={this.state.selectedDay ? this.state.selectedDay : (this.props.startDate ? this.props.startDate : null)}
                                 onDayClick={this.handleDayClick}
-                                month={this.state.month}
-                                fromMonth={fromMonth}
+                                month={this.props.startDate ? this.props.startDate : this.state.month}
+                                fromMonth={this.props.startDate ? this.props.startDate : fromMonth}
                                 toMonth={toMonth}
                                 onMonthChange={(e) => this.setState({ month: e })}
                                 captionElement={({ date, localeUtils }) => (
@@ -135,7 +137,7 @@ class DatePicker extends React.Component{
                                     date={date}
                                     localeUtils={localeUtils}
                                     onChange={this.handleYearMonthChange}
-                                    current={this.state.month}
+                                    current={this.props.startDate ? this.props.startDate : this.state.month}
                                     />
                                 )}
                             />
