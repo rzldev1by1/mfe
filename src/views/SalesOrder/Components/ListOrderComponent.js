@@ -8,11 +8,12 @@ import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
 import "../SalesOrder.css"
 import moment from 'moment'
+import Authentication from '../../../Auth/Authentication'
 
 class ListOrderComponent extends Component {
   constructor(props){
     super(props)
-   
+    
     this.dropdownref = React.createRef()
 
     this.state = {
@@ -30,7 +31,11 @@ class ListOrderComponent extends Component {
       maxPage: 0,
 
     }
+
+    this.client = Authentication.getClient()
   }
+
+   
 
 
   load = () => {
@@ -49,31 +54,10 @@ class ListOrderComponent extends Component {
       totalRows: 0, maxPage: 0})
 
     let param = search
-    let url = '?searchParam=' + param
+    let url = '?searchParam=' + param + '&&client=' + this.client
     if(param)
     {
       param = param.toUpperCase()
-    }
-    
-
-    if(client)
-    {
-      url += '&client='+client
-    }
-
-    if(site)
-    {
-      url += '&site='+site
-    }
-
-    if(status)
-    {
-      url += '&status='+status
-    }
-
-    if(ordertype)
-    {
-      url += '&orderType='+ordertype
     }
 
     this.props.loadCompleteHandler(false)
@@ -121,8 +105,9 @@ class ListOrderComponent extends Component {
     this.setState({ currentPage: 1,
                     startIndex: 0, lastIndex: 0,
                     totalRows: 0, maxPage: 0})
-
-    axios.get(endpoint.salesOrder, {
+     
+    let param = '?client='+this.client
+    axios.get(endpoint.salesOrder+param, {
       headers: headers
     })
       .then(res => {
@@ -345,9 +330,9 @@ class ListOrderComponent extends Component {
                                       <td>{data.order_no}</td>
                                       <td>{data.order_type}</td>
                                       <td>{data.customer_name}</td>
-                                      <td style={{width:"11%"}}>{data.status_desc}</td>
-                                      <td>{'' + (data.date_due ? moment(data.date_due).format("DD/MM/YYYY") : '') }</td>
-                                      <td>{'' + (data.date_recd ? moment(data.date_recd).format("DD/MM/YYYY") : '') }</td>
+                                      <td style={{width:"11%"}}>{data.status}</td>
+                                      <td>{'' + (data.delivery_date ? moment(data.delivery_date).format("DD/MM/YYYY") : '') }</td>
+                                      <td>{'' + (data.date_received ? moment(data.date_received).format("DD/MM/YYYY") : '') }</td>
                                       <td>{'' + (data.date_released ? moment(data.date_released).format("DD/MM/YYYY") : '') }</td>
                                       <td>{'' + (data.date_completed ? moment(data.date_completed).format("DD/MM/YYYY") : '') }</td>
                           <td>{console.log(data)}</td>
