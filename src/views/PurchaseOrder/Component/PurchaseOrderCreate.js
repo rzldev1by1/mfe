@@ -311,7 +311,9 @@ class PurchaseOrderCreate extends Component{
                 <td>
                   <DatePicker style={{ minWidth: "22%", position:"absolute" }} 
                               getDate={(e) => this.setState({ orderDate: e })}
+                              startDate={() => {new Date(); this.setState({ orderDate: new Date() })}}
                   />
+                  {console.log(this.state.orderDate)}
                 </td>                  
                 <td><input className="form2 put pec"  placeholder="Vendor Order Ref" onChange={(e) => this.setState({ vendorRef: e.target.value })} maxLength="40"/> </td>
             </tr>
