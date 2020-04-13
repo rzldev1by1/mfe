@@ -380,6 +380,26 @@ class PurchaseOrderTable extends Component {
         Hours = date.getHours();
      return filename=("Microlistics_PurchaseOrder." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)  
   }
+
+  ExportHeader = () =>{
+    let headers = ["Site","Client","Order No", "Order Type", "Customer"," Status", "Delivery Date", "Date Received", "Date Released", "Date Completed"]
+    return headers
+  }
+
+  ExportData = () => {
+    let data = this.state.data.map(elt=> [elt.site, elt.client,
+                                          elt.order_no, elt.status,
+                                          elt.supplier_no, elt.supplier_name,
+                                          elt.date_due, elt.date_received,
+                                          elt.date_released, elt.date_completed ]);
+    return data
+  }
+
+  ExportPDFName = () =>{
+		let name= ""
+		return name=("Purchase Order")
+	  }
+
   changeStartIndex = (currentPage) => {
 		this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
 	}
@@ -536,7 +556,8 @@ class PurchaseOrderTable extends Component {
                             startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                             isActive={this.state.isActive}
                             numberEventClick={this.numberEventClick} />
-                    <Export ExportName={this.ExportName}/>
+                    <Export ExportName={this.ExportName} ExportHeader={this.ExportHeader}
+                            ExportPDFName={this.ExportPDFName} ExportData={this.ExportData}/>
                 </div>
             </div>
         );
