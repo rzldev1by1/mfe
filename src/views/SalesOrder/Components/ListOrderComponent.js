@@ -266,21 +266,7 @@ class ListOrderComponent extends Component {
         this.changeLastIndex(currentPage);
     }
     return;
-  }
-  ExportName = () => {
-    let filename = ""
-    let strip = "-"
-    let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    let date = new Date();
-    let date1 = date.getDate(),
-          month = date.getMonth(),
-          year = date.getFullYear(),
-          Seconds = date.getSeconds(),
-          Minutes = date.getMinutes(),
-          Hours = date.getHours();
-     return filename=("Microlistics_SalesOrder." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)  
-  }
-  
+  }  
   arrowHandler = (e) => {
     let id = e.currentTarget.id
     let activearrow = this.state
@@ -302,7 +288,40 @@ class ListOrderComponent extends Component {
         this.sortby(id)
       }
   }
-  
+
+  ExportName = () => {
+    let filename = ""
+    let strip = "-"
+    let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let date = new Date();
+    let date1 = date.getDate(),
+          month = date.getMonth(),
+          year = date.getFullYear(),
+          Seconds = date.getSeconds(),
+          Minutes = date.getMinutes(),
+          Hours = date.getHours();
+     return filename=("Microlistics_SalesOrder." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)  
+  }
+
+  ExportPDFName = () =>{
+    let name= ""
+    return name=("Sales Order")
+  }
+
+  ExportHeader = () =>{
+    let headers = this.state.tableheader;
+    return headers
+  }
+
+  ExportData = () => {
+    let data = this.state.data.map(elt=> [elt.site, elt.client,
+                                          elt.order_no, elt.order_type,
+                                          elt.customer_name, elt.status_desc,
+                                          elt.date_due, elt.date_recd,
+                                          elt.date_released, elt.date_completed ]);
+    return data
+  }
+
     render(){
       return(
         <div>
@@ -381,7 +400,8 @@ class ListOrderComponent extends Component {
                             isActive={this.state.isActive}
                             numberEventClick={this.numberEventClick}/>
 
-                    <Export ExportName={this.ExportName}/>
+                    <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                            ExportHeader={this.ExportHeader} ExportData={this.ExportData}/>
                 </div>    
           </div>)
     }

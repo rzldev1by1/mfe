@@ -38,6 +38,8 @@
 		"flag-icon-css": "^3.4.6",
 		"font-awesome": "^4.7.0",
 		"formik": "^1.5.1",
+		"jspdf": "^1.5.3",
+		"jspdf-autotable": "^3.4.0",
 		"node-sass": "^4.13.1",
 		"pm2": "^4.2.1",
 		"prop-types": "^15.7.2",
