@@ -12,6 +12,7 @@ import axios from 'axios'
 import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
 import Authentication from '../../../Auth/Authentication';
 import {headerValidation,lineDetailValidation} from '../Components/Validation/Validation'
+import swal from 'sweetalert'
 
 
 class SalesOrderCreate extends Component{
@@ -63,19 +64,84 @@ class SalesOrderCreate extends Component{
             }
           ],
         },
+        
+      validation:{
+        header: {
+          emptySite: null,
+          emptyClient: null,
+          emptyOrderType: null,
+          emptyOrderNo: null,
+          emptyDeliveryDate: null,
+  
+          emptyCustomer: null,
+          emptyShipToAddress1: null,
+          emptyPostCode: null,
+          emptyState: null,
+          }
+      },
         identity:[],
         uomdata:[],        
         }
     }
+
+    
 
     close = () => {
       this.props.closemodal()
     }
 
     tabhandler = () => {
-      let a = headerValidation(this.state.parameters.header)  
+      let a = headerValidation(this.state.parameters.header) 
       let param = {...this.state.parameters}
-      if(a)
+      let validation = {...this.state.validation}
+
+      if(a.length > 0)
+      {
+        for(let i = 0 ; i< a.length ; i++)
+      {
+        let id      = a[i][0]
+        let message = a[i][1]
+        switch(id){
+          case 'site':
+            validation.header.emptySite           = message          
+            break
+          case 'client':
+            validation.header.emptyClient         = message
+            break
+          case 'order type':
+            validation.header.emptyOrderType      = message
+            break
+          case 'order no':
+            validation.header.emptyOrderNo        = message
+            break
+          case 'order no length':
+            validation.header.emptyOrderNo        = message
+          case 'delivery date':
+            validation.header.emptyDeliveryDate    = message
+            break
+          case 'customer':
+            validation.header.emptyCustomer       = message 
+            break
+          case 'ship to address1':
+            validation.header.emptyShipToAddress1 = message 
+            break
+          case 'post code':
+            validation.header.emptyPostCode       = message
+            break 
+          case 'post code length':
+            validation.header.emptyPostCode       = message
+            break 
+          case 'state':
+            validation.header.emptyState          = message
+            break
+          default:
+            return
+        }
+      }
+      }
+      this.setState({validation:validation})
+
+      if(a == true)
       {
           for(let i = 0 ; i < param.lineDetail.length ; i++)
           {
@@ -95,6 +161,12 @@ class SalesOrderCreate extends Component{
 
     // Set Site
     setSite = (siteVal,site) => {
+      let validation = {...this.state.validation}
+      if(siteVal && siteVal.length > 0)
+      {
+        validation.header.emptySite = null
+        this.setState({validation:validation})
+      }
       this.setState(prevState => ({
         parameters: {
           ...prevState.parameters,
@@ -109,6 +181,12 @@ class SalesOrderCreate extends Component{
 
     // Set Client
     setClient = (data) => {
+      let validation = {...this.state.validation}
+      if(data && data.length > 0)
+      {
+        validation.header.emptyClient = null
+        this.setState({validation:validation})
+      }
       this.setState(prevState => ({
         parameters: {
           ...prevState.parameters,
@@ -122,6 +200,12 @@ class SalesOrderCreate extends Component{
 
     // Set Order Type
     setOrderType = (orderTypeVal, orderType) => {
+      let validation = {...this.state.validation}
+      if(orderTypeVal && orderTypeVal.length > 0)
+      {
+        validation.header.emptyOrderType = null
+        this.setState({validation:validation})
+      }
       this.setState(prevState => ({
         parameters: {
           ...prevState.parameters,
@@ -136,6 +220,12 @@ class SalesOrderCreate extends Component{
 
     // Set Order No
     setOrderId = (data) => {
+      let validation = {...this.state.validation}
+      if(data && data.length > 0 && data.length >= 4)
+      {
+        validation.header.emptyOrderNo = null
+        this.setState({validation:validation})
+      }
       this.setState(prevState => ({
         parameters: {
           ...prevState.parameters,
@@ -149,6 +239,12 @@ class SalesOrderCreate extends Component{
 
     // Set Delivery Date
     setDeliveryDate = (data) => {
+      let validation = {...this.state.validation}
+      if(data && data.length > 0)
+      {
+        validation.header.emptyDeliveryDate = null
+        this.setState({validation:validation})
+      }
       this.setState(prevState => ({
         parameters:{
           ...prevState.parameters,
@@ -201,6 +297,12 @@ class SalesOrderCreate extends Component{
 
     // Set Customer
     setCustomer = (customerVal, customer) => {
+      let validation = {...this.state.validation}
+      if(customerVal && customerVal.length > 0)
+      {
+        validation.header.emptyCustomer = null
+        this.setState({validation:validation})
+      }
       this.setState(prevState => ({
         parameters:{
           ...prevState.parameters,
@@ -215,6 +317,12 @@ class SalesOrderCreate extends Component{
 
     // Set Address 1
     setAddress1 = (data) => {
+      let validation = {...this.state.validation}
+      if(data && data.length > 0)
+      {
+        validation.header.emptyShipToAddress1 = null
+        this.setState({validation:validation})
+      }
       this.setState(prevState => ({
         parameters:{
           ...prevState.parameters,
@@ -293,6 +401,12 @@ class SalesOrderCreate extends Component{
 
     // Set Post Code
     setPostCode = (data) => {
+      let validation = {...this.state.validation}
+      if(data && data.length > 0)
+      {
+        validation.header.emptyPostCode = null
+        this.setState({validation:validation})
+      }
       this.setState(prevState => ({
         parameters:{
             ...prevState.parameters,
@@ -306,6 +420,12 @@ class SalesOrderCreate extends Component{
 
     //  Set State
     setStates = (data) => {
+      let validation = {...this.state.validation}
+      if(data && data.length > 0)
+      {
+        validation.header.emptyState = null
+        this.setState({validation:validation})
+      }
       this.setState(prevState => ({
         parameters:{
           ...prevState.parameters,
@@ -357,6 +477,10 @@ class SalesOrderCreate extends Component{
               }
             }
           }))
+          self.setCustomer(result.customer_no, nm)
+          self.setAddress1(result.address_1)
+          self.setPostCode(result.postcode)
+          self.setStates(result.state)
       }).catch(error => {
         // this.props.history.push("/logins")
         console.log(error);
@@ -500,12 +624,75 @@ class SalesOrderCreate extends Component{
         headers:headers
       })
       .then(res => {
-        alert('sales order created successfully')
         this.props.closemodal()
+        swal({
+          title: "Sales order created successfully!",
+          text: res.data.message,
+          icon: "success",
+          button: {
+              text: "Ok",
+              className: "btn btn-primary"
+          },
+        });
+
+        let reset = {
+          header: {
+            company             : Authentication.getCompanyCode(),            
+            site                : null,  
+            siteVal             : null,
+            client              : Authentication.getClient(),       
+            orderId             : null,
+            customerOrderRef    : null,
+            vendorOrderRef      : null,
+            orderType           : null,
+            orderTypeVal        : null,
+            deliveryDate        : null,
+            customer            : this.props.resources.identity ? this.props.resources.identity[0].name : null,
+            customerVal         : this.props.resources.identity ? this.props.resources.identity[0].customer_no : null,
+            shipToAddress1      : this.props.resources.identity ? this.props.resources.identity[0].address_1 : null,
+            shipToAddress2      : this.props.resources.identity ? this.props.resources.identity[0].address_2 : null,
+            shipToAddress3      : this.props.resources.identity ? this.props.resources.identity[0].address_3 : null,
+            shipToAddress4      : this.props.resources.identity ? this.props.resources.identity[0].address_4 : null,
+            shipToAddress5      : this.props.resources.identity ? this.props.resources.identity[0].address_5 : null,
+            city                : this.props.resources.identity ? this.props.resources.identity[0].city : null,
+            postCode            : this.props.resources.identity ? this.props.resources.identity[0].postcode : null,
+            state               : this.props.resources.identity ? this.props.resources.identity[0].state : null,
+            country             : this.props.resources.identity ? this.props.resources.identity[0].country : null, 
+            deliveryInstruction : null,
+          },
+          lineDetail: [
+            {
+              number           : 1,
+              productVal       : null,
+              product          : null,
+              qty              : null,
+              weight           : null,
+              uom              : null,
+              rotaDate         : null,
+              batch            : null,              
+              ref3             : null,
+              ref4             : null,
+              dispositionVal   : null,
+              disposition      : null,
+              packId           : null,
+            }
+          ],
+        }
+
+        this.setState({validation:reset})
 
       })
       .catch(error => {
-        alert('failed to create sales order')
+        swal({
+          title: "Failed to create sales order",
+          text: error.message,
+          icon: "error",
+          button: {
+              text: "Ok",
+              className: "btn btn-primary"
+          },
+        });
+        this.tabhandler()
       })
     }
 
@@ -585,6 +772,8 @@ class SalesOrderCreate extends Component{
                                                         removeLineHandler       = {(idx) => this.removeLineHandler(idx)} 
 
                                                         validation              = {() => this.validation()}
+
+                                                        validationCheck         = {this.state.validation}
                                                         
                                                         /> :
                                         <Tab2CreateSO   parameters          = {this.state.parameters} 

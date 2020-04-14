@@ -1,72 +1,62 @@
 
 const headerValidation = (header) => {
+  let error = []
     if(!header.site || header.site == '')
     {
-        alert('site cannot be empty')
-        return false
+        error.push(['site', 'please select site'])
     }
     if(!header.client || header.client == '')
     {
-        alert('client cannot be empty')
-        return false
+        error.push(['client', 'please select client'])
     }
     if(!header.orderType || header.orderType == '')
     {
-        alert('order type cannot be empty')
-        return false
+        error.push(['order type', 'please select order type'])
     }
     if(!header.orderId || header.orderId == '')
     {
-        alert('order No cannot be empty') 
         document.getElementById('orderId').focus()      
-        return false
+        error.push(['order no', 'order no cannot be empty'])
     }
-    if(header.orderId.length < 4)
+    if(header.orderId && header.orderId.length < 4)
     {
-      alert('Order No must have min, 4 characters or more')
       document.getElementById('orderId').value = null
       document.getElementById('orderId').focus()
-      return false
+      error.push(['order no length', 'order no must have min 4 characters or more'])
     }
     if(!header.deliveryDate || header.deliveryDate == '')
     {
-        alert('delivery date cannot be empty')
-        return false
+        error.push(['delivery date', 'please select delivery date'])
     }
-
 
     if(header.customerVal == null || header.customerVal == '')
     {
-      alert('customer cannot be empty')
-      return
+      error.push(['customer', 'please select customer'])
     }
     if(header.shipToAddress1 == null || header.shipToAddress1 == '')
     {
-      alert('address 1 cannot be empty')
       document.getElementById('shipToAddress1').focus()
-      return
+      error.push(['ship to address1', 'address 1 cannot be empty'])
     }
     if(header.postCode == null || header.postCode == '')
     {
-      alert('post code cannot be empty')
       document.getElementById('postCode').focus()
-      return
+      error.push(['post code', 'post code cannot be empty'])
     }
-    if(header.postCode.length < 4)
+    if(header.postCode && header.postCode.length < 4)
     {
-      alert('post code must have min, 4 characters or more')
       document.getElementById('postCode').value = null
       document.getElementById('postCode').focus()
-      return
+      error.push(['post code length', 'post code must have min, 4 characters or more'])
     }
     if(header.state == null || header.state == '')
     {
-      alert('state cannot be empty')
       document.getElementById('state').focus()
-      return
+      error.push(['state', 'state cannot be empty'])
     }
 
-    return true
+    if(error.length > 0) return error
+    else return true
 }
 
 const lineDetailValidation = (lineDetail, idx) => {
