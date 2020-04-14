@@ -120,7 +120,6 @@ class UserManagement extends Component{
         return {firstTab:!prev.firstTab,secondTab:!prev.secondTab}
       });
     }
-
     restructureUserList = (sources) => {
       let newUserArray = [];
         if(sources.length){
@@ -569,6 +568,20 @@ class UserManagement extends Component{
        return filename=("Microlistics_UserManagement." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds) 
     }
 
+    ExportPDFName = () =>{
+      let name= ""
+      return name=("User Management")
+      }
+
+      ExportHeader = () =>{
+        let headers = this.state.headers
+        return headers
+      }
+      ExportData = () => {
+        let data =  this.state.userList
+        return data
+      }
+
     isValidUser = () => {
       let result = false;
       let userlevel = Authentication.getUserLevel();
@@ -696,7 +709,8 @@ class UserManagement extends Component{
                 maxPage={(this.state.totalPage)}
                 startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                 numberEventClick={this.numberEventClick}/>
-                <Export ExportName={this.ExportName}/>
+                <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                        ExportHeader={this.ExportHeader} ExportData={this.ExportData}/>
               </footer>
             </div>
 

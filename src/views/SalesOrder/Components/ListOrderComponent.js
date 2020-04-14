@@ -301,8 +301,8 @@ class ListOrderComponent extends Component {
   ExportData = () => {
     let data = this.state.data.map(elt=> [elt.site, elt.client,
                                           elt.order_no, elt.order_type,
-                                          elt.customer_name, elt.status_desc,
-                                          elt.date_due, elt.date_recd,
+                                          elt.customer_name, elt.status,
+                                          elt.delivery_date, elt.date_received ,
                                           elt.date_released, elt.date_completed ]);
     return data
   }

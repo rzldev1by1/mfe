@@ -41,7 +41,7 @@ class PurchaseOrderCreate extends Component{
                       productDescription:null,
                       qty:null,
                       uom:null,
-                      rotadate:null,
+                      rotadate: new Date(),
                       batch:null,
                       ref3:null,
                       ref4:null,
@@ -81,7 +81,7 @@ class PurchaseOrderCreate extends Component{
               customerRef: undefined,
               orderType: undefined,
               orderNo: undefined,
-              orderDate: undefined,
+              orderDate: new Date(),
               vendorRef: undefined,
               lineDetails: [],
               isSaveProgressing: false,
@@ -311,7 +311,7 @@ class PurchaseOrderCreate extends Component{
                 <td>
                   <DatePicker style={{ minWidth: "22%", position:"absolute" }} 
                               getDate={(e) => this.setState({ orderDate: e })}
-                              startDate={() => {new Date(); this.setState({ orderDate: new Date() })}}
+                              startDate={new Date()}
                   />
                   {console.log(this.state.orderDate)}
                 </td>                  
@@ -338,16 +338,16 @@ class PurchaseOrderCreate extends Component{
         <div className="line">
           <table className="tabledetails">
               <tr>
-                  <th style={{width:"2%", textAlign:"center"}}>#</th>
-                  <th style={{width:"12%", paddingLeft:"19px"}}>Product Entry</th>
-                  <th style={{width:"12%", paddingLeft:"9px"}}>Product Description</th>
-                  <th style={{width:"3%", paddingLeft:"10px"}}>Qty</th>
-                  <th style={{width:"6%", paddingLeft:"18px"}}>UOM</th>
-                  <th style={{width:"11%", paddingLeft:"17px"}}>Rota Date</th>
-                  <th style={{width:"6%", paddingLeft:"19px"}}>Batch</th>
-                  <th style={{width:"5%", paddingLeft:"16px"}}>Ref3</th>
-                  <th style={{width:"5%", paddingLeft:"15px"}}>Ref4</th>
-                  <th style={{width:"6%", paddingRight:"23px"}}>Disposition</th>
+                  <th style={{width:"2%", textAlign:"center", paddingLeft:"18px"}}>#</th>
+                  <th style={{width:"12%", paddingLeft:"20px"}}>Product</th>
+                  <th style={{width:"12%", paddingLeft:"8px"}}>Product Description</th>
+                  <th style={{width:"3%", paddingLeft:"0px"}}>Qty</th>
+                  <th style={{width:"6%", paddingLeft:"20px"}}>UOM</th>
+                  <th style={{width:"11%", paddingLeft:"13px"}}>Rota Date</th>
+                  <th style={{width:"6%", paddingLeft:"25px"}}>Batch</th>
+                  <th style={{width:"5%", paddingLeft:"18px"}}>Ref3</th>
+                  <th style={{width:"5%", paddingLeft:"13px"}}>Ref4</th>
+                  <th style={{width:"6%", paddingRight:"15px"}}>Disposition</th>
               </tr>                               
             </table>
           </div>
@@ -498,7 +498,7 @@ class PurchaseOrderCreate extends Component{
                   <option>pallet</option>
                 </select>
             </td>
-            <td style={{width:"11%"}}><DatePicker style={{ minWidth: "100%" }} field="smallField" getDate={(e) => self.state.rowlist[i].rotadate = e} /> </td>
+            <td style={{width:"11%"}}><DatePicker style={{ minWidth: "100%" }} field="smallField" getDate={(e) => self.state.rowlist[i].rotadate = e} startDate={new Date()} /> </td>
             <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"  maxLength="30" value={self.state.rowlist[i].batch} onChange={(e) => self.state.rowlist[i].batch = e.target.value} /></td>
             <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref3"  maxLength="30" value={self.state.rowlist[i].ref3} onChange={(e) => self.state.rowlist[i].ref3 = e.target.value} /></td>
             <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref4"  maxLength="30" value={self.state.rowlist[i].ref4} onChange={(e) => self.state.rowlist[i].ref4 = e.target.value} /></td>
@@ -549,7 +549,7 @@ class PurchaseOrderCreate extends Component{
         productDescription:null,
         uom:null,
         qty:null,
-        rotadate:null,
+        rotadate: new Date(),
         batch:null,
         ref3:null,
         ref4:null,

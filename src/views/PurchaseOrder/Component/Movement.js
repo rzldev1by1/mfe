@@ -293,7 +293,7 @@ class Movement extends Component {
             <div className={this.state.complete ? 'movementBody' : null}>
                 <Container className="themed-container conts" fluid={true}> 
                 <div className={'productData scrolly ' + (this.state.complete ? 'fades' : 'hidden')} style={{display:'flex'}}>
-                    <table width='100%' align='left'>
+                    <table width='100%' align='left' id="excel" >
                         <thead>
                             <tr>
                                 <td  style={{borderRight:'1.5px solid #ededed'}}>{this.productHeader()}</td>

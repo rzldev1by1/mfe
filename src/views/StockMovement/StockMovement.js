@@ -4,6 +4,7 @@ import 'react-day-picker/lib/style.css'
 import Movement from '../PurchaseOrder/Component/Movement'
 import MovementSearch from './Component/MovementSearch'
 import Pagination from '../../AppComponent/Pagination'
+import Export from '../../AppComponent/Export'
 
 class StockMovement extends Component {
 	constructor(props) {
@@ -24,6 +25,19 @@ class StockMovement extends Component {
 		this.getStockMovement.current.pushTable(dateFrom,dateTo, period)
 	}
 
+	ExportName = () => {
+		let filename = ""
+		let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+		let date = new Date();
+		let date1 = date.getDate(),
+			  month = date.getMonth(),
+			  year = date.getFullYear(),
+			  Seconds = date.getSeconds(),
+			  Minutes = date.getMinutes(),
+			  Hours = date.getHours();
+		 return filename=("Microlistics_SalesOrder." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)  
+	  }
+
 	render() {
 		return (
 			<div className='animated fadeIn stockMovementParent'>
@@ -43,6 +57,7 @@ class StockMovement extends Component {
 						<Pagination sliceValue={(startIndex, endIndex) => this.getStockMovement.current.setSliceValue(startIndex, endIndex)} 
 												ref={this.setPagiantion} data={this.state.data} 
 												rows={50}/> 
+						<Export ExportName={this.ExportName}/>
 					</div>						 
 			</div>
 		)
