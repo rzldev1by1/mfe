@@ -552,7 +552,6 @@ font-family: "Helvetica Neue Medium";
 	color: #22ABE3;
 }
 
-<<<<<<< HEAD
 .userText{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
@@ -659,8 +658,4 @@ font-family: "Helvetica Neue Medium";
 		max-width: 16.66667%;
 		margin: 0;
 	}
-=======
-.enable-notactive{
-	color: #D5D8DA;
->>>>>>> v.1.0.0
 }

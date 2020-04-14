@@ -205,11 +205,7 @@ class UserListComponent extends Component{
         return(
                 <div className="d-flex tablePage">
                     <div className="w-100">
-<<<<<<< HEAD
-                        <table className="umtable" id="excel" >
-=======
-                        <table className="table">
->>>>>>> v.1.0.0
+                        <table className="umtable">
                             <thead>
                                 <tr>
                                     {
