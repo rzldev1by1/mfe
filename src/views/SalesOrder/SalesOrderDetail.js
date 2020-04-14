@@ -4,6 +4,7 @@ import './SalesOrderDetail.css'
 import SODTable from './Components/SODTable'
 import axios from 'axios'
 import {endpoint, headers,} from '../../AppComponent/ConfigEndpoint'
+import Authentication from '../../Auth/Authentication'
 
 class SalesOrderDetail extends Component {
   constructor(props) {
@@ -15,6 +16,8 @@ class SalesOrderDetail extends Component {
       head:[],
       datadetail:[]
     }
+
+    this.client = Authentication.getClient()
   }
 
   componentDidMount(){
@@ -25,7 +28,8 @@ getheaderdetail = () => {
       
     this.setState({complete:false})
     let param = window.location.href.split("/").pop()
-    axios.get(endpoint.salesOrder + '?orderNO='+ param, {
+    param       = param+'?client='+this.client
+    axios.get(endpoint.salesOrder + '/'+ param, {
         
       headers: headers
     })
@@ -42,32 +46,33 @@ getheaderdetail = () => {
 }
     
     head = () =>{
-      let site = this.state.head.length ? this.state.head[0].site : null
-      let client = this.state.head.length ? this.state.head[0].client : null
-      let orderNo= this.state.head.length ? this.state.head[0].order_no : null
-      let orderType = this.state.head.length ? this.state.head[0].order_type : null
-      let consignmentNumber = this.state.head.length ? this.state.head[0].consignment_number : null
-      let freightCharge = this.state.head.length ? this.state.head[0].freight_charge : null
-      let custOrderNumber = this.state.head.length ? this.state.head[0].cust_order_number : null
-      let customerPoNo = this.state.head.length ? this.state.head[0].customer_po_no : null
-      let dateReceived = this.state.head.length ? this.state.head[0].date_recd : null
-      let dateReleased = this.state.head.length ? this.state.head[0].date_released : null
-      let pickStart = this.state.head.length ? this.state.head[0].pick_start : null
-      let dateCompleted = this.state.head.length ? this.state.head[0].date_completed : null
-      let customerName = this.state.head.length ? this.state.head[0].customer_name : null
-      let status = this.state.head.length ? this.state.head[0].status : null
-      let loadoutStart = this.state.head.length ? this.state.head[0].loadout_start: null
-      let loadoutFinish= this.state.head.length ? this.state.head[0].loadout_finish : null
-      let Address1= this.state.head.length ? this.state.head[0].address_1 : null
-      let Address2= this.state.head.length ? this.state.head[0].address_2 : null
-      let Address3= this.state.head.length ? this.state.head[0].address_3 : null
-      let Address4= this.state.head.length ? this.state.head[0].address_4 : null
-      let Address5= this.state.head.length ? this.state.head[0].address_5 : null
-      let postCode= this.state.head.length ? this.state.head[0].postcode : null
-      let country= this.state.head.length ? this.state.head[0].country : null
-      let state= this.state.head.length ? this.state.head[0].state : null
-      let city= this.state.head.length ? this.state.head[0].city : null
-      let statusDesc = this.state.head.length ? this.state.head[0].status_desc : null
+      let site                  = this.state.head.length ? this.state.head[0].site : null
+      let client                = this.state.head.length ? this.state.head[0].client : null
+      let orderNo               = this.state.head.length ? this.state.head[0].order_no : null
+      let orderType             = this.state.head.length ? this.state.head[0].order_type : null
+      let consignmentNumber     = this.state.head.length ? this.state.head[0].consignment_number : null
+      let freightCharge         = this.state.head.length ? this.state.head[0].freight_charge : null
+      let custOrderNumber       = this.state.head.length ? this.state.head[0].cust_order_number : null
+      let customerPoNo          = this.state.head.length ? this.state.head[0].customer_po_no : null
+      let dateReceived          = this.state.head.length ? this.state.head[0].date_received : null
+      let dateReleased          = this.state.head.length ? this.state.head[0].date_released : null
+      let dateCompleted         = this.state.head.length ? this.state.head[0].date_completed : null
+      let customerName          = this.state.head.length ? this.state.head[0].customer_name : null
+      let status                = this.state.head.length ? this.state.head[0].status : null
+      let vendorOrderNo         = this.state.head.length ? this.state.head[0].vendor_order_no : null
+      let loadNumber            = this.state.head.length ? this.state.head[0].load_number : null
+      let loadoutStart          = this.state.head.length ? this.state.head[0].loadout_start: null
+      let loadoutFinish         = this.state.head.length ? this.state.head[0].loadout_finish : null
+      let Address1              = this.state.head.length ? this.state.head[0].address_1 : null
+      let Address2              = this.state.head.length ? this.state.head[0].address_2 : null
+      let Address3              = this.state.head.length ? this.state.head[0].address_3 : null
+      let Address4              = this.state.head.length ? this.state.head[0].address_4 : null
+      let Address5              = this.state.head.length ? this.state.head[0].address_5 : null
+      let postCode              = this.state.head.length ? this.state.head[0].postcode : null
+      let country               = this.state.head.length ? this.state.head[0].country : null
+      let state                 = this.state.head.length ? this.state.head[0].state : null
+      let city                  = this.state.head.length ? this.state.head[0].city : null
+      let statusDesc            = this.state.head.length ? this.state.head[0].status_desc : null
 
       return(
         <div className='podheader fades'>                    
@@ -150,7 +155,7 @@ getheaderdetail = () => {
                 <table className='tableborderss' style={{width:'90%'}}>
                 <tr>
                         <th>Status</th>
-                        <td >{status ? status+ ' (' +statusDesc.substring(3) + ')' : '-'}</td>
+                        <td >{status ? status : '-'}</td>
                     </tr>
                     <tr>
                         <th>Delivery Date</th>
@@ -165,12 +170,12 @@ getheaderdetail = () => {
                         <td>{dateReleased ? dateReleased.substring(0, 11) : '-'}</td>
                     </tr>
                     <tr>
-                        <th>Dete Completed</th>
+                        <th>Date Completed</th>
                         <td>{dateCompleted ? dateCompleted.substring(0,11) : '-'}</td>
                     </tr>
                     <tr>
                         <th>Load Number</th>
-                        <td>{123213}</td>
+                        <td>{loadNumber ? loadNumber : '-'}</td>
                     </tr>
                     <tr>
                         <th>Loadout Start</th>

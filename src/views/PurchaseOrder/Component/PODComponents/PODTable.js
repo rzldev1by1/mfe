@@ -15,11 +15,112 @@ class PurchaseOrderTable extends Component {
 
     this.state = {
       data:this.props.datahead,
-      tableheader : ['Line No','Product','Product Description','Qty','UOM','Qty Processed','Weigth','Weigth Processed','Completed','Ref '],
+      tableheader: [
+          {
+            id: "line_no", 
+            checkboxLabelText: "Line No", 
+            tableHeaderText: "Line No", 
+            isVisible: true, 
+            key: "line_no", 
+            type: "string"
+          },
+          {
+            id: "product", 
+            checkboxLabelText: "Product", 
+            tableHeaderText: "Product", 
+            isVisible: true, 
+            key: "product", 
+            type: "string"
+          },
+          {
+            id: "status_desc", 
+            checkboxLabelText: "Product Description", 
+            tableHeaderText: "Product Description", 
+            isVisible: true, 
+            key: "status_desc", 
+            type: "string"
+          },
+          {
+            id: "qty_lcd", 
+            checkboxLabelText: "Qty", 
+            tableHeaderText: "Qty", 
+            isVisible: true, 
+            key: "qty_lcd", 
+            type: "string"
+          },
+          {
+            id: "packdesc_1", 
+            checkboxLabelText: "UOM", 
+            tableHeaderText: "UOM", 
+            isVisible: true, 
+            key: "packdesc_1", 
+            type: "string"
+          },
+          {
+            id: "qty_processed", 
+            checkboxLabelText: "Qty Processed", 
+            tableHeaderText: "Qty Processed", 
+            isVisible: true, 
+            key: "qty_processed", 
+            type: "string"
+          },
+          {
+            id: "weight", 
+            checkboxLabelText: "Weight", 
+            tableHeaderText: "Weight", 
+            isVisible: true, 
+            key: "weight", 
+            type: "string"
+          },
+          {
+            id: "wgt_processed", 
+            checkboxLabelText: "Weight Processed", 
+            tableHeaderText: "Weight Processed", 
+            isVisible: true, 
+            key: "wgt_processed", 
+            type: "string"
+          },
+          {
+            id: "completed", 
+            checkboxLabelText: "Completed", 
+            tableHeaderText: "Completed", 
+            isVisible: true, 
+            key: "completed", 
+            type: "string"
+          },
+          {
+            id: "ref3", 
+            checkboxLabelText: "Ref 3", 
+            tableHeaderText: "Ref 3", 
+            isVisible: true, 
+            key: "ref3", 
+            type: "string"
+          },
+          {
+            id: "ref4", 
+            checkboxLabelText: "Ref 4", 
+            tableHeaderText: "Ref 4", 
+            isVisible: false, 
+            key: "ref4", 
+            type: "string"
+          },
+          {
+            id: "disposition", 
+            checkboxLabelText: "Disposition", 
+            tableHeaderText: "Disposition", 
+            isVisible: false, 
+            key: "disposition", 
+            type: "string"
+          }
+      ],
       activearrow:mid,
       sortparameter:'order_no',
       sort:true
     }
+  }
+
+  componentDidMount(){
+      this.props.getTableHeader(this.state.tableheader)
   }
 
   arrowHandler = (e) => {
@@ -124,16 +225,21 @@ class PurchaseOrderTable extends Component {
         <table className="potable">
           <thead>
             <tr>
-              {this.state.tableheader.map(header =>
-                <th key={header} 
-                    // onClick={(e) => this.arrowHandler(e)} 
-                    id={header}>
-                        {header} 
-                {/* <img key={header} className='arrow' src={this.state.activearrow}/> */}
-                </th>
+              {this.state.tableheader.map((header, idx) => {
+                  if(header.isVisible){
+                      return (
+                        <th key={idx} 
+                        // onClick={(e) => this.arrowHandler(e)} 
+                        id={header.id}>
+                            {header.tableHeaderText} 
+                        {/* <img key={header} className='arrow' src={this.state.activearrow}/> */}
+                        </th>
+                      )
+                  }
+              }
               )}
               
-              <th className='iconU-edit'></th>
+              <th className='iconU-edit' onClick={this.props.showEditColumn}></th>
             </tr>
           </thead>
           <tbody>
@@ -141,17 +247,23 @@ class PurchaseOrderTable extends Component {
           
 
               {this.props.datahead.map((data,i) => 
-                  <tr className='tr'>
-                    <td>{i+1}</td>
-                    <td>{data.product}</td>
-                    <td >{data.status_desc.substring(2)}</td>
-                    <td>{data.qty_lcd}</td>
-                    <td>{data.packdesc_1}</td>
-                    <td>{data.qty_processed}</td>
-                    <td>{data.weight}</td>
-                    <td>{data.wgt_processed}</td>
-                    <td><img style={{width:'15px',height:'13px'}} src={data.completed == "Y" ? ok :minus} /></td>
-                    <td>{data.ref3}</td>
+                  <tr key={i} className='tr'>
+                    {this.state.tableheader.map((column, columnIdx) => {
+                        if(column.isVisible){
+                            if(column.id === "line_no"){
+                                return <td key={columnIdx}>{i+1}</td>
+                            }
+                            if(column.id === "status_desc"){
+                                return <td key={columnIdx}>{data[column.id].substring(2)}</td>
+                            }
+                            if(column.id === "completed"){
+                                return <td key={columnIdx}>
+                                            <img style={{width:'15px',height:'13px'}} src={data[column.id] == "Y" ? ok : minus}></img>
+                                       </td>
+                            }
+                            return <td key={columnIdx}>{data[column.id]}</td>
+                        }
+                    })}
                     <td></td>
                   </tr>
               )}   

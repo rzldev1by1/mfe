@@ -8,11 +8,12 @@ import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
 import "../SalesOrder.css"
 import moment from 'moment'
+import Authentication from '../../../Auth/Authentication'
 
 class ListOrderComponent extends Component {
   constructor(props){
     super(props)
-   
+    
     this.dropdownref = React.createRef()
 
     this.state = {
@@ -30,7 +31,11 @@ class ListOrderComponent extends Component {
       maxPage: 0,
 
     }
+
+    this.client = Authentication.getClient()
   }
+
+   
 
 
   load = () => {
@@ -49,31 +54,10 @@ class ListOrderComponent extends Component {
       totalRows: 0, maxPage: 0})
 
     let param = search
-    let url = '?searchParam=' + param
+    let url = '?searchParam=' + param + '&&client=' + this.client
     if(param)
     {
       param = param.toUpperCase()
-    }
-    
-
-    if(client)
-    {
-      url += '&client='+client
-    }
-
-    if(site)
-    {
-      url += '&site='+site
-    }
-
-    if(status)
-    {
-      url += '&status='+status
-    }
-
-    if(ordertype)
-    {
-      url += '&orderType='+ordertype
     }
 
     this.props.loadCompleteHandler(false)
@@ -121,8 +105,9 @@ class ListOrderComponent extends Component {
     this.setState({ currentPage: 1,
                     startIndex: 0, lastIndex: 0,
                     totalRows: 0, maxPage: 0})
-
-    axios.get(endpoint.salesOrder, {
+     
+    let param = '?client='+this.client
+    axios.get(endpoint.salesOrder+param, {
       headers: headers
     })
       .then(res => {
@@ -266,21 +251,7 @@ class ListOrderComponent extends Component {
         this.changeLastIndex(currentPage);
     }
     return;
-  }
-  ExportName = () => {
-    let filename = ""
-    let strip = "-"
-    let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    let date = new Date();
-    let date1 = date.getDate(),
-          month = date.getMonth(),
-          year = date.getFullYear(),
-          Seconds = date.getSeconds(),
-          Minutes = date.getMinutes(),
-          Hours = date.getHours();
-     return filename=("Microlistics_SalesOrder." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)  
-  }
-  
+  }  
   arrowHandler = (e) => {
     let id = e.currentTarget.id
     let activearrow = this.state
@@ -302,17 +273,82 @@ class ListOrderComponent extends Component {
         this.sortby(id)
       }
   }
-  
+
+  ExportName = () => {
+    let filename = ""
+    let strip = "-"
+    let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let date = new Date();
+    let date1 = date.getDate(),
+          month = date.getMonth(),
+          year = date.getFullYear(),
+          Seconds = date.getSeconds(),
+          Minutes = date.getMinutes(),
+          Hours = date.getHours();
+     return filename=("Microlistics_SalesOrder." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)  
+  }
+
+  ExportPDFName = () =>{
+    let name= ""
+    return name=("Sales Order")
+  }
+
+  ExportHeader = () =>{
+    let headers = this.state.tableheader;
+    return headers
+  }
+
+  ExportData = () => {
+    let data = this.state.data.map(elt=> [elt.site, elt.client,
+                                          elt.order_no, elt.order_type,
+                                          elt.customer_name, elt.status,
+                                          elt.delivery_date, elt.date_received ,
+                                          elt.date_released, elt.date_completed ]);
+    return data
+  }
+
     render(){
       return(
         <div>
           <div className='tablePages tablecontent'>
-               <table className="potable" id="excel">
+               <table className="potable">
                   <thead>
                     <tr style={{borderBottom:"3px solid #f0f0f0 !important"}}>
                        {this.state.tableheader.map(header =>
                         <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
                            <img key={header} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}} src={this.state.activearrow}/>
+                        </th>
+                              )}  
+                              <th></th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                          {this.state.data  ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
+                                  <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.order_no)} className='tr'>
+                                      <td>{data.site}</td>
+                                      <td>{data.client}</td>
+                                      <td>{data.order_no}</td>
+                                      <td>{data.order_type}</td>
+                                      <td>{data.customer_name}</td>
+                                      <td style={{width:"11%"}}>{data.status}</td>
+                                      <td>{'' + (data.delivery_date ? moment(data.delivery_date).format("DD/MM/YYYY") : '') }</td>
+                                      <td>{'' + (data.date_received ? moment(data.date_received).format("DD/MM/YYYY") : '') }</td>
+                                      <td>{'' + (data.date_released ? moment(data.date_released).format("DD/MM/YYYY") : '') }</td>
+                                      <td>{'' + (data.date_completed ? moment(data.date_completed).format("DD/MM/YYYY") : '') }</td>
+                          <td>{console.log(data)}</td>
+                                  </tr>
+                              ) : 
+                                  <div> No data available </div>
+                                  }  
+                      </tbody>
+                        </table>
+
+              <table className="potable d-none" id="excel">
+                  <thead>
+                    <tr style={{borderBottom:"3px solid #f0f0f0 !important"}}>
+                       {this.state.tableheader.map(header =>
+                        <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
+                           {/* <img key={header} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}} src={this.state.activearrow}/> */}
                         </th>
                               )}  
                               <th></th>
@@ -337,7 +373,8 @@ class ListOrderComponent extends Component {
                                   <div> No data available </div>
                                   }  
                       </tbody>
-                        </table>
+                  </table>
+                        
             </div>
             <div className='paginations'>
                     <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
@@ -348,7 +385,8 @@ class ListOrderComponent extends Component {
                             isActive={this.state.isActive}
                             numberEventClick={this.numberEventClick}/>
 
-                    <Export ExportName={this.ExportName}/>
+                    <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                            ExportHeader={this.ExportHeader} ExportData={this.ExportData}/>
                 </div>    
           </div>)
     }

@@ -205,7 +205,11 @@ class UserListComponent extends Component{
         return(
                 <div className="d-flex tablePage">
                     <div className="w-100">
+<<<<<<< HEAD
                         <table className="umtable" id="excel" >
+=======
+                        <table className="table">
+>>>>>>> v.1.0.0
                             <thead>
                                 <tr>
                                     {
@@ -220,6 +224,60 @@ class UserListComponent extends Component{
                                                 <div className="d-flex flex-column">
                                                 <span key={index} id={`${element}-desc`} onClick={(e)=>{this.onSortingCLick(e);}} className={'upArrow float-right'} style={{height:'10px',position:'relative',top:'-7px', marginLeft:'20px'}}></span>
                                                 <span key={element} id={`${element}-asc`} onClick={(e)=>{this.onSortingCLick(e);}} className={'downArrow float-right'} style={{height:'10px',position:'relative',top:'-3px', marginLeft:'20px'}}></span>
+                                                </div>
+                                              }
+                                          </div>
+                                            {/*(element === '')?'': <img key={element} className="arrow" src={activearrow}/>**/}
+
+                                        </div>
+
+
+                                            </th>
+                                        })
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody className="hover">
+                                   {
+                                       this.props.data.slice(this.props.startIndex,this.props.lastIndex).sort((a,b)=> this.sorting(a,b,fieldOrder,order)).map((element,index)=>{
+
+                                           return <tr key={index} onClick={(e)=>{ this.onRowClick(e,element.web_user);}}>
+                                                    {
+                                                       Object.keys(element).map((item,idx) => {
+
+                                                          return (item !== 'email' && item !== 'web_user' && item !== 'company' && item !== 'userlevel')?
+                                                                  <td key={idx} className={'p-0 '+((item === 'user')?'users':'norm')}>
+                                                                   {
+                                                                     <label className={((item === 'status')? ((element[item].toLowerCase() === 'active')?'active':'suspended'):'')}>
+                                                                      {(item === 'lastaccess')?moment(element[item]).format('DD/MM/YY hh:mm:ss'):element[item]}
+                                                                     </label>
+                                                                   }
+                                                                   </td>:null
+                                                       })
+                                                    }
+                                           </tr>
+                                       })
+                                   }
+
+
+                            </tbody>
+                        </table>
+
+                        <table className="table d-none" id="excel" >
+                            <thead>
+                                <tr>
+                                    {
+                                        this.state.headers.map((element,index)=>{
+                                        return <th key={index} className="p-0">
+                                        <div key={element} className="header-sort" >
+                                          <div className="d-inline-flex">
+                                              <div className="d-flex flex-row">
+                                                {element}
+                                              </div>
+                                              {
+                                                <div className="d-flex flex-column">
+                                                <span key={index} id={`${element}-desc`} onClick={(e)=>{this.onSortingCLick(e);}}  style={{height:'10px',position:'relative',top:'-7px', marginLeft:'20px'}}></span>
+                                                <span key={element} id={`${element}-asc`} onClick={(e)=>{this.onSortingCLick(e);}}  style={{height:'10px',position:'relative',top:'-3px', marginLeft:'20px'}}></span>
                                                 </div>
                                               }
                                           </div>

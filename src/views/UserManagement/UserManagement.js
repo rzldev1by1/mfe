@@ -11,11 +11,15 @@ import query from '../../AppComponent/query_menu_temp'
 import Authentication from '../../Auth/Authentication'
 import Paging from '../../AppComponent/Paging'
 import create from '../../assets/img/brand/button_create@2x.png'
-import menunav from '../../menunav';
+import menunav from '../../menunav'
 import Export from '../../AppComponent/Export'
 
 
 const today = moment(new Date()).format("YYYY-MM-DD");
+
+const regexMail = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ ;
+const notValidAll = 'Please make sure user name, email is valid and module has one enabled';
+const notValidMail = 'Email is not valid';
 
 const userModel = {
     "userId":"",
@@ -66,7 +70,10 @@ class UserManagement extends Component{
               currentPage:0,
               startIndex:0,
               lastIndex:0,
-              isValidForm:false
+              isValidForm:false,
+              firstTab:true,
+              secondTab:false,
+              validatorMessage:''
         }
           this.searchForm = React.createRef();
     }
@@ -94,6 +101,25 @@ class UserManagement extends Component{
       return totalPage;
     }
 
+    nextClickHandler = (e) => {
+      const {name,userId,email,userMenu} = this.state.accountInfo;
+      if(name && userId && email && userMenu.length)
+      {
+        if(!email.match(regexMail))
+            this.setState({isValidForm:true,validatorMessage:notValidMail});
+        else
+            this.setState({isValidForm:false},this.setTabActive);
+      }else{
+        this.setState({isValidForm:true,validatorMessage:notValidAll});
+      }
+
+    }
+
+    setTabActive = () => {
+      this.setState((prev) => {
+        return {firstTab:!prev.firstTab,secondTab:!prev.secondTab}
+      });
+    }
     restructureUserList = (sources) => {
       let newUserArray = [];
         if(sources.length){
@@ -490,7 +516,6 @@ class UserManagement extends Component{
     saveClick = () => {
 
       const {name,userId,email,userMenu} = this.state.accountInfo;
-      console.log(userMenu);
       if(name && userId && email && userMenu.length)
       {
         this.setState({isSaveProgressing:true,isValidForm:false},this.saveRequest);
@@ -543,6 +568,20 @@ class UserManagement extends Component{
        return filename=("Microlistics_UserManagement." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds) 
     }
 
+    ExportPDFName = () =>{
+      let name= ""
+      return name=("User Management")
+      }
+
+      ExportHeader = () =>{
+        let headers = this.state.headers
+        return headers
+      }
+      ExportData = () => {
+        let data =  this.state.userList
+        return data
+      }
+
     isValidUser = () => {
       let result = false;
       let userlevel = Authentication.getUserLevel();
@@ -555,23 +594,40 @@ class UserManagement extends Component{
 
     searchHandler = (e) => {
       e.preventDefault();
-
+      console.log(e);
+      let self = this;
+      let param = {};
       let currentForm = this.searchForm.current
       let searchValue = currentForm.searchInput.value;
 
-      if(!searchValue)
-        return;
-
-      let userList = [...this.state.userList];
-      if(userList.length)
-      {
-        let userSearch = userList.filter((item) => {
-         return (item.userId.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1) ||
-          (item.user.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1)});
-
-        this.setState({userList:userSearch});
+      console.log(searchValue);
+      if(searchValue){
+        param.searchParam = searchValue;
+      }else{
+        param.searchParam = "";
       }
-      console.log(this.state.userList);
+
+      console.log(param);
+        let endpoint = 'http://developer.backend.onebyone.io:82/web_user'
+        axios.get(endpoint, {
+          params: param,
+          headers: headers
+        })
+        .then(res => {
+          let result = [];
+            if(res.status == 200){
+                result = self.restructureUserList(res.data.data);
+                self.setState({userList:result});
+            }
+          return result;
+        })
+        .catch( error => {
+            console.log(error);
+        })
+        .then(result => {
+
+        });
+
     }
 
     render(){
@@ -615,7 +671,6 @@ class UserManagement extends Component{
                 placeholder="Enter user id or user name" />
                 </div>
 
-
                 </div>
                 </div>
                 {/* <div className="col-2 m-0"> */}
@@ -640,7 +695,9 @@ class UserManagement extends Component{
                 sites={this.state.sites} isSiteLoaded={this.state.isSiteLoaded} sitesEnableClick={this.onSiteStatusClick}
                 clients={this.state.clients} isClientLoaded={this.state.isClientLoaded} clientEnableClick={this.onClientStatusClick}
                 onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing} onChangeCompany={this.onChangeCompany}
-                onModuleEnableAll = {this.onEnabledAllModuleAccess} isValidForm={this.state.isValidForm}/>
+                onModuleEnableAll = {this.onEnabledAllModuleAccess} isValidForm={this.state.isValidForm} onNextClickHandler={this.nextClickHandler}
+                firtsTabActive={this.state.firstTab} secondTabActive={this.state.secondTab} onClickTabActive={this.setTabActive}
+                message={this.state.validatorMessage} />
 
                 </CardBody>
                 </Card>
@@ -652,7 +709,8 @@ class UserManagement extends Component{
                 maxPage={(this.state.totalPage)}
                 startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                 numberEventClick={this.numberEventClick}/>
-                <Export ExportName={this.ExportName}/>
+                <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                        ExportHeader={this.ExportHeader} ExportData={this.ExportData}/>
               </footer>
             </div>
 

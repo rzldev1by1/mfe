@@ -63,7 +63,7 @@ span.upArrow:before {
 
 .section-header-text{
 	font-family:"Helvetica Neue Light";
-	font-size: 1.667em !important;
+	font-size: 25px !important;
 	color: #22ABE3 !important;
 }
 
@@ -242,22 +242,22 @@ span.client-notActive{
 	cursor: default;
 }
 
-.modal-header{
-	border:0px !important;
-}
+
 
 .modal-content{
 	position: absolute ;
 	width: 270%;
 	margin-left: -85%;
 	margin-top: 10%;
+	border: none !important;
+	background-color: transparent !important;
 }
 
 .modal-header{
 	background-color: #22ABE3;
-	width: 100% !important;
-	color: #FFFF;
-	display: flex !important;
+    width: 100% !important;
+    color: #FFFF;
+    display: flex !important;
 }
 
 
@@ -276,6 +276,14 @@ span.client-notActive{
 	border-top-right-radius: 6px;
 	border-top-left-radius: 6px;
 	min-width: 55%;
+	font-family: "Helvetica Neue Light";
+	font-size: 1.875em;
+	color: #919191;
+}
+
+.tab-active{
+	background-color: white;
+	color:#22ABE3;
 }
 
 .tabs{
@@ -437,22 +445,17 @@ input:checked + .slider:before {
 }
 
 .modal-content > .createModal {
-	position: absolute;
+	  position: absolute;
     width: 124%;
     background-color: #22ABE3;
     margin-left: -13%;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
     border-bottom-right-radius: 10px !important;
     border-bottom-left-radius: 10px !important;
 }
 
-.modal-header{
-	background-color: #22ABE3;
-    width: 100% !important;
-    color: #FFFF;
-    display: flex !important;
-}
+
 
 .modal-border-radius{
 	border-top-left-radius: 10px;
@@ -506,21 +509,50 @@ font-family: "Helvetica Neue Medium";
 
 }
 
-
-
-
-	/**
-	end toogle button
-	**/
-
-/* end modal pop up**/
-
-/* .titleText{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-    font-weight: 500;
+.modal-content > .create-modal{
+	position: absolute;
+    width: 124%;
+    background-color: #22ABE3;
+    margin-left: -13%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+	/* background-color: #22ABE3;
+	border: none;
+	border-top-left-radius: 20px !important;
+	border-top-right-radius: 20px !important;
+	border-bottom-left-radius: 10px !important;
+  border-bottom-right-radius: 10px !important; */
 }
 
+.modal-desc-text{
+	font-family: "Helvetica Neue Regular";
+	font-size: 1.25em;
+}
+
+.modal-title-text{
+	font-family: "Helvetica Neue Bold";
+	font-size: 1.56em;
+}
+
+.review-text-value{
+	font-family: "Helvetica Neue Regular" !important;
+	font-size: 15px !important;
+}
+
+.modal-header{
+	border: 0px !important;
+}
+ .tab-content{
+	 border: 0px !important;
+ }
+
+.enable-active{
+	color: #22ABE3;
+}
+
+<<<<<<< HEAD
 .userText{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
@@ -627,4 +659,8 @@ font-family: "Helvetica Neue Medium";
 		max-width: 16.66667%;
 		margin: 0;
 	}
+=======
+.enable-notactive{
+	color: #D5D8DA;
+>>>>>>> v.1.0.0
 }
