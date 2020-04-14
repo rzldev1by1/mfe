@@ -378,9 +378,9 @@ input:checked + .slider:before {
 	font-size: 90%;
 }
 
-.searchBox{
+/* .searchBox{
 	max-width: none !important;
-}
+} */
 
 
 
@@ -552,6 +552,110 @@ font-family: "Helvetica Neue Medium";
 	color: #22ABE3;
 }
 
-.enable-notactive{
-	color: #D5D8DA;
+.userText{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+} */
+.umtable{
+	width: 100%;
+}
+
+.umtable th {
+	border-bottom: 2px solid #E2E2E2 !important;
+	height: 45px !important;
+	cursor: pointer;
+	font-size: 1em;
+}
+
+.umtable tr {
+	border-bottom: 2px solid #f0f0f0  !important;
+	height: 45px !important;
+}
+
+@media(max-width: 1500px){
+	.arrow{
+		margin-left: 7px !important;
+		width: 0.7em;
+	}
+	
+	.umtable{
+		width: 100%;
+	}
+	
+	.umtable th {
+		border-bottom: 2px solid #E2E2E2 !important;
+		height: 45px !important;
+		cursor: pointer;
+		font-size: 1em;
+		padding: 0.5rem 0.5rem 0.5rem 1rem
+	}
+	
+	.umtable tr {
+		border-bottom: 1.5px solid #f0f0f0  ;
+		height: 45px !important;
+		font-size: 12px;
+	}
+	.tr{
+		border-bottom: 1.5px solid #E2E2E2 !important;
+		width: 100%;
+	}
+	
+	.tr:hover{
+		background: #f0f0f0 !important;
+		cursor: pointer;
+	}
+	
+	th{
+		font-family: "Helvetica Neue Bold";
+		color: #B4B9BB;
+	}
+	td{
+		font-family: "Helvetica Neue Regular";
+		color: #637175;
+	}
+}
+@media(min-width: 1500px){
+	.arrow{
+		margin-left: 7px !important;
+		width: 9px;
+		font-weight: bold;
+	}
+	
+	.umtable{
+		width: 100%;
+	}
+	
+	.umtable th {
+		border-bottom: 1px solid #D5D8DA;
+		height: 45px !important;
+		cursor: pointer;
+		font-size: 1rem;
+		padding: 0.5rem 1rem 0.5rem 1rem
+	}
+	
+	.umtable tr {
+		border-bottom: 2px solid #f0f0f0  !important;
+		height: 45px !important;
+		font-size: 1rem;
+	}
+	.tr:hover{
+		background: #f0f0f0 !important;
+		cursor: pointer;
+	}
+	
+	th{
+		font-family: "Helvetica Neue Bold";
+		color: #B4B9BB;
+	}
+	td{
+		font-family: "Helvetica Neue Regular";
+		color: #637175;
+	}
+
+	.btnsearch{
+		flex: 0 0 16.66667%;
+		max-width: 16.66667%;
+		margin: 0;
+	}
 }

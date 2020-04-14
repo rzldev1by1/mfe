@@ -662,7 +662,7 @@ class UserManagement extends Component{
                 <div className="row">
                 <div className="col-10">
                 <div className="input-group p-0 searchSection">
-                <div className="input-group searchBox w-100">
+                <div className="input-group searchBox w-100" style={{maxWidth:"none"}}>
                 <span className="input-group-text border-0 bg-transparent ml-2" style={{ padding:"0.4rem" }}>
                 <i className="iconU-search" />
                 </span>
@@ -673,11 +673,11 @@ class UserManagement extends Component{
 
                 </div>
                 </div>
-                <div className="col-2 m-0">
+                {/* <div className="col-2 m-0"> */}
                 <Button type="submit" style={{width:'174px'}} className="search text-button">
                 Search
                 </Button>
-                </div>
+               
                 </div>
                 </form>
                 </CardBody>
