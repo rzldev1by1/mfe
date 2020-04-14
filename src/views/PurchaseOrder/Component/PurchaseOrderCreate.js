@@ -41,7 +41,7 @@ class PurchaseOrderCreate extends Component{
                       productDescription:null,
                       qty:null,
                       uom:null,
-                      rotadate:null,
+                      rotadate: new Date(),
                       batch:null,
                       ref3:null,
                       ref4:null,
@@ -81,7 +81,7 @@ class PurchaseOrderCreate extends Component{
               customerRef: undefined,
               orderType: undefined,
               orderNo: undefined,
-              orderDate: undefined,
+              orderDate: new Date(),
               vendorRef: undefined,
               lineDetails: [],
               isSaveProgressing: false,
@@ -311,7 +311,7 @@ class PurchaseOrderCreate extends Component{
                 <td>
                   <DatePicker style={{ minWidth: "22%", position:"absolute" }} 
                               getDate={(e) => this.setState({ orderDate: e })}
-                              startDate={() => {new Date(); this.setState({ orderDate: new Date() })}}
+                              startDate={new Date()}
                   />
                   {console.log(this.state.orderDate)}
                 </td>                  
@@ -498,7 +498,7 @@ class PurchaseOrderCreate extends Component{
                   <option>pallet</option>
                 </select>
             </td>
-            <td style={{width:"11%"}}><DatePicker style={{ minWidth: "100%" }} field="smallField" getDate={(e) => self.state.rowlist[i].rotadate = e} /> </td>
+            <td style={{width:"11%"}}><DatePicker style={{ minWidth: "100%" }} field="smallField" getDate={(e) => self.state.rowlist[i].rotadate = e} startDate={new Date()} /> </td>
             <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"  maxLength="30" value={self.state.rowlist[i].batch} onChange={(e) => self.state.rowlist[i].batch = e.target.value} /></td>
             <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref3"  maxLength="30" value={self.state.rowlist[i].ref3} onChange={(e) => self.state.rowlist[i].ref3 = e.target.value} /></td>
             <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref4"  maxLength="30" value={self.state.rowlist[i].ref4} onChange={(e) => self.state.rowlist[i].ref4 = e.target.value} /></td>
@@ -549,7 +549,7 @@ class PurchaseOrderCreate extends Component{
         productDescription:null,
         uom:null,
         qty:null,
-        rotadate:null,
+        rotadate: new Date(),
         batch:null,
         ref3:null,
         ref4:null,
