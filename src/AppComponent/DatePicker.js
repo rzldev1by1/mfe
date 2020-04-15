@@ -101,7 +101,8 @@ class DatePicker extends React.Component{
         this.setState({
             selectedDay: selected ? undefined : day,
         });
-        this.props.getDate(moment(selected ? undefined : day).format("YYYY-MM-DD"))
+        this.props.getDate(moment(selected ? undefined : day).format("YYYY-MM-DD"));
+        this.refs['opener'].checked = !this.refs['opener'].checked;
     }
     currentDate = () => {
         return this.state.month;
@@ -117,7 +118,7 @@ class DatePicker extends React.Component{
                     <span className="select_date_label select_date_label-placeholder">{this.state.selectedDay ? moment(this.state.selectedDay).format("DD/MM/YYYY") : placeHolder}</span>
                     
                     <li className="select_date_items">
-                        <input className="select_date_expand" type="checkbox" name={"select" + placeHolder + no} value="" id={"select-opener" + placeHolder + no}/>
+                        <input className="select_date_expand" ref="opener" type="checkbox" name={"select" + placeHolder + no} value="" id={"select-opener" + placeHolder + no}/>
                         <label className="select_date_closeLabel" htmlFor={"select-opener" + placeHolder + no}></label>
                         <div className={"select_date_options" + (this.props.field == "smallField" ? " smallField" : "")}>
                             <div className="dateInfo">
