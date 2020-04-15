@@ -491,7 +491,7 @@ class PurchaseOrderTable extends Component {
                                                         <td style={{textAlign:'center',paddingLeft:'0px'}} key={columnIdx}>{data[column.key]}</td>
                                                 )
                                             }
-                                            if(column.key.indexOf("date") > 0){
+                                            if(column.key.includes("date")){
                                                 return(
                                                         <td key={columnIdx}>{moment(data[column.key]).format("DD/MM/YYYY")}</td>
                                                 )
