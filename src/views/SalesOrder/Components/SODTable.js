@@ -11,7 +11,7 @@ class SODTable extends Component {
 
         this.state ={
             data : this.props.head,
-            bodyheader : ['Line No','Product','Product Description','Qty','Qty Processed','Weight','Weight Processed','Completed','OOS','Batch', 'Rotadate', 'Ref3', 'Ref4', 'Disposition', 'PackId'],
+            bodyheader : ['Line No','Product','Product Description','Qty','Qty Processed','Weight','Weight Processed','Completed','OOS','Batch', 'Rotadate', 'Ref3', 'Ref4', 'Disposition', 'Pack ID'],
             activearrow:mid,
             sortparameter:'order_no',
             sort:true
