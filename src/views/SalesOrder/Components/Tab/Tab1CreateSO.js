@@ -47,6 +47,42 @@ class Tab1CreateSO extends Component{
 
     } = this.props.parameters.header 
 
+      const {
+        emptySite,
+        emptyClient,
+        emptyOrderType,
+        emptyOrderNo,
+        emptyDeliveryDate,
+
+        emptyCustomer,
+        emptyShipToAddress1,
+        emptyPostCode,
+        emptyState,
+      } = this.props.validationCheck.header
+
+      let emptyClassSite             = 'nmtrField'
+      let emptyClassClient           = 'nmtrField'
+      let emptyClassOrderType        = 'nmtrField'
+      let emptyClassOrderNo          = 'nmtrField'
+      let emptyClassDeliveryate      = 'nmtrField'
+
+      let emptyClassCustomer         = 'nmtrField'
+      let emptyClassShipToAddress1   = 'nmtrField'
+      let emptyClassPostCode         = 'nmtrField'
+      let emptyClassState            = 'nmtrField'
+
+      if(emptySite) emptyClassSite                     = 'mtrFieldSelect'
+      if(emptyClient) emptyClassClient                 = 'mtrField'
+      if(emptyOrderType) emptyClassOrderType           = 'mtrFieldSelect'
+      if(emptyOrderNo) emptyClassOrderNo               = 'mtrField'
+      if(emptyDeliveryDate) emptyClassDeliveryate      = 'mtrField'
+
+      if(emptyCustomer) emptyClassCustomer             = 'mtrFieldSelect'
+      if(emptyShipToAddress1) emptyClassShipToAddress1 = 'mtrField'
+      if(emptyPostCode) emptyClassPostCode             = 'mtrField'
+      if(emptyState) emptyClassState                   = 'mtrField'
+
+
         return(
           <div className="tabcontents">
             <h3 className="fonts">Order Details</h3>
@@ -80,7 +116,7 @@ class Tab1CreateSO extends Component{
                                 getValue        = {(orderTypeVal, orderType) => this.props.setOrderType(orderTypeVal,orderType)} 
                                 placeHolder     = "Order Type" style={{minWidth: "100%"}} 
                                 optionList      = {this.props.resources.orderType.name.toString()} 
-                                optionValue     = {this.props.resources.orderType.code.toString()}/>        
+                                optionValue     = {this.props.resources.orderType.code.toString()}/>     
                     </td>
 
                     <td>
@@ -92,36 +128,49 @@ class Tab1CreateSO extends Component{
                     </td>                 
                     
                 </tr>
+
+                <tr>
+                    <td className={emptyClassSite}>{emptySite}</td>
+                    <td className={emptyClassClient}>{emptyClient}</td>
+                    <td className={emptyClassOrderType}>{emptyOrderType}</td>
+                    <td className={emptyClassOrderNo}>{emptyOrderNo}</td>                    
+                </tr>
+
                 <tr>
                     <th className='required-field'>Delivery Date</th>
                     <th>Customer Order Ref</th>
                     <th>Vendor Order Ref</th>                    
                 </tr>
                 <tr>
-                <td>
-                  <DatePicker getDate   = {(date) => this.props.setDeliveryDate(date)} 
-                              style     = {{ minWidth: "100%" }}/>
-                </td>
+                  <td>
+                    <DatePicker getDate   = {(date) => this.props.setDeliveryDate(date)} 
+                                style     = {{ minWidth: "100%" }}/>
+                  </td>
 
-                <td>
-                  <input  value         = {customerOrderRef} 
-                          onChange      = {(e) => this.props.setCustomerOrderRef(e.target.value)}
-                          maxLength     = "40" 
-                          minLength     = "4" 
-                          id            = 'customerOrderRef' 
-                          className     = "form-control put " 
-                          placeholder   = "Customer Order Ref"/> 
-                </td>
-                
-                <td>
-                  <input  value         = {vendorOrderRef}
-                          onChange      = {(e) => this.props.setVendorOrderRef(e.target.value)}
-                          maxLength     = "40" 
-                          id            = 'vendorOrderRef' 
-                          className     = "form-control put " 
-                          placeholder   = "Vendor Order Ref"/> 
-                </td>     
+                  <td>
+                    <input  value         = {customerOrderRef} 
+                            onChange      = {(e) => this.props.setCustomerOrderRef(e.target.value)}
+                            maxLength     = "40" 
+                            minLength     = "4" 
+                            id            = 'customerOrderRef' 
+                            className     = "form-control put " 
+                            placeholder   = "Customer Order Ref"/> 
+                  </td>
+                  
+                  <td>
+                    <input  value         = {vendorOrderRef}
+                            onChange      = {(e) => this.props.setVendorOrderRef(e.target.value)}
+                            maxLength     = "40" 
+                            id            = 'vendorOrderRef' 
+                            className     = "form-control put " 
+                            placeholder   = "Vendor Order Ref"/> 
+                  </td>    
+                </tr>
 
+                <tr>
+                    <td className={emptyClassDeliveryate}>{emptyDeliveryDate}</td>
+                    <td className='nmtrField'></td>
+                    <td className='nmtrField'></td>                    
                 </tr>
 
                 <tr>
@@ -197,6 +246,14 @@ class Tab1CreateSO extends Component{
                               placeholder = "Address 3" /> 
                     </td>
                 </tr>
+
+                <tr>
+                    <td className={emptyClassCustomer}>{emptyCustomer}</td>
+                    <td className={emptyClassShipToAddress1}>{emptyShipToAddress1}</td>
+                    <td className='nmtrField'></td>
+                    <td className='nmtrField'></td>                    
+                </tr>
+
                 <tr>
                     <th>Address 4</th>
                     <th>Address 5</th>                    
@@ -219,6 +276,11 @@ class Tab1CreateSO extends Component{
                               className   = "form-control put " 
                               placeholder = "Address 5" />
                     </td>
+                </tr>
+
+                <tr>
+                    <td className='nmtrField'></td>
+                    <td className='nmtrField'></td>
                 </tr>
 
                 <tr>
@@ -264,6 +326,13 @@ class Tab1CreateSO extends Component{
                               placeholder = "Country" />
                     </td>
                 </tr>
+
+                <tr>
+                    <td className='nmtrField'></td>
+                    <td className={emptyClassPostCode}>{emptyPostCode}</td>
+                    <td className={emptyClassState}>{emptyState}</td>
+                    <td className='nmtrField'></td>                    
+                </tr>
             </table>
   
             <br/>
@@ -275,7 +344,7 @@ class Tab1CreateSO extends Component{
             <div className="line">
               <table className="lineTableDtl">
                   <tr>
-                      <th width ='3.2%' style={{ textAlign:"center"}}>#</th>
+                      <th width ='3.5%' style={{ textAlign:"center"}}>#</th>
                       <th width ='11.1%'  className='required-field'>Product</th>
                       <th width ='14.1%'>Product Description</th>
                       <th width='7.2%' className='required-field'>Qty</th>

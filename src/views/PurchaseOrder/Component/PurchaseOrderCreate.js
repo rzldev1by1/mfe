@@ -338,16 +338,16 @@ class PurchaseOrderCreate extends Component{
         <div className="line">
           <table className="tabledetails">
               <tr>
-                  <th style={{width:"2%", textAlign:"center"}}>#</th>
-                  <th style={{width:"12%", paddingLeft:"19px"}}>Product Entry</th>
-                  <th style={{width:"12%", paddingLeft:"9px"}}>Product Description</th>
-                  <th style={{width:"3%", paddingLeft:"10px"}}>Qty</th>
-                  <th style={{width:"6%", paddingLeft:"18px"}}>UOM</th>
-                  <th style={{width:"11%", paddingLeft:"17px"}}>Rota Date</th>
-                  <th style={{width:"6%", paddingLeft:"19px"}}>Batch</th>
-                  <th style={{width:"5%", paddingLeft:"16px"}}>Ref3</th>
-                  <th style={{width:"5%", paddingLeft:"15px"}}>Ref4</th>
-                  <th style={{width:"6%", paddingRight:"23px"}}>Disposition</th>
+                  <th style={{width:"2%", textAlign:"center", paddingLeft:"18px"}}>#</th>
+                  <th style={{width:"12%", paddingLeft:"20px"}}>Product</th>
+                  <th style={{width:"12%", paddingLeft:"8px"}}>Product Description</th>
+                  <th style={{width:"3%", paddingLeft:"0px"}}>Qty</th>
+                  <th style={{width:"6%", paddingLeft:"20px"}}>UOM</th>
+                  <th style={{width:"11%", paddingLeft:"13px"}}>Rota Date</th>
+                  <th style={{width:"6%", paddingLeft:"25px"}}>Batch</th>
+                  <th style={{width:"5%", paddingLeft:"18px"}}>Ref3</th>
+                  <th style={{width:"5%", paddingLeft:"13px"}}>Ref4</th>
+                  <th style={{width:"6%", paddingRight:"15px"}}>Disposition</th>
               </tr>                               
             </table>
           </div>
