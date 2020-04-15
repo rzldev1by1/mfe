@@ -115,8 +115,11 @@ class SalesOrder extends Component{
         })
       }
 
-      getProduct = () => {
-        let param = '?client='+Authentication.getClient()
+      getProduct = (clientparam) => {
+        let client = Authentication.getClient()
+
+        if(clientparam) client = clientparam
+        let param = '?client='+client
         axios.get(endpoint.getProduct+param,
           {
             headers:headers
@@ -209,6 +212,7 @@ class SalesOrder extends Component{
        {
          this.state.loaded ?  <SalesOrderCreate clientdata      = {this.state.clientdata}
                                                 productdata     = {this.state.productdata}
+                                                getClientProduct= {(client) => this.getProduct(client)}
                                                 dispositiondata = {this.state.dispositiondata}
                                                 resources       = {this.state.resources} 
                                                 showmodal       = {this.state.showmodal}
