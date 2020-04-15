@@ -578,8 +578,9 @@ class UserManagement extends Component{
         return headers
       }
       ExportData = () => {
-        let data =  this.state.userList
-        return data
+       let data = this.state.userList.map(elt=> [elt.userId, elt.user,elt.site,elt.client,elt.lastaccess,elt.status]);
+       console.log(data)
+       return data
       }
 
     isValidUser = () => {
@@ -660,7 +661,7 @@ class UserManagement extends Component{
                 <CardBody>
                 <form ref={this.searchForm} onSubmit ={this.searchHandler}>
                 <div className="row">
-                <div className="col-10">
+                <div className="searchINP">
                 <div className="input-group p-0 searchSection">
                 <div className="input-group searchBox w-100" style={{maxWidth:"none"}}>
                 <span className="input-group-text border-0 bg-transparent ml-2" style={{ padding:"0.4rem" }}>
@@ -674,7 +675,7 @@ class UserManagement extends Component{
                 </div>
                 </div>
                 {/* <div className="col-2 m-0"> */}
-                <Button type="submit" style={{width:'174px'}} className="search text-button">
+                <Button type="submit" className="search text-button btnsearch">
                 Search
                 </Button>
                

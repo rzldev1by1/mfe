@@ -614,6 +614,13 @@ font-family: "Helvetica Neue Medium";
 		font-family: "Helvetica Neue Regular";
 		color: #637175;
 	}
+	.searchINP{
+		width: 81%;
+	}
+	.btnsearch{
+		width: 174px;
+		margin-left: 19px;
+	}
 }
 @media(min-width: 1500px){
 	.arrow{
@@ -647,15 +654,17 @@ font-family: "Helvetica Neue Medium";
 	th{
 		font-family: "Helvetica Neue Bold";
 		color: #B4B9BB;
+		padding-left: 10px;
 	}
 	td{
 		font-family: "Helvetica Neue Regular";
 		color: #637175;
 	}
-
+	.searchINP{
+		width: 87%;
+	}
 	.btnsearch{
-		flex: 0 0 16.66667%;
-		max-width: 16.66667%;
-		margin: 0;
+		width: 174px;
+		margin-left: 19px;
 	}
 }

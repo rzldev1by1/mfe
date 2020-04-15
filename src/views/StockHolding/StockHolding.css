@@ -398,8 +398,8 @@ tbody>.tr1:hover {
 
 @media(max-width: 1500px){
 	.arrow{
-		margin-left: 7px !important;
-		width: 0.7em;
+		margin-left: 5px !important;
+		width: 0.5em;
 	}
 	
 	.shtable{
@@ -432,6 +432,7 @@ tbody>.tr1:hover {
 	th{
 		font-family: "Helvetica Neue Bold";
 		color: #B4B9BB;
+		padding-left: 10px;
 	}
 	td{
 		font-family: "Helvetica Neue Regular";
