@@ -354,16 +354,16 @@ class Tab1CreateSO extends Component{
             <div className="line">
               <table className="lineTableDtl">
                   <tr>
-                      <th width ='3.5%' style={{ textAlign:"center"}}>#</th>
-                      <th width ='11.1%'  className='required-field'>Product</th>
-                      <th width ='14.1%'>Product Description</th>
-                      <th width='7.2%' className='required-field'>Qty</th>
+                      <th width ='3.7%' style={{ textAlign:"center"}}>#</th>
+                      <th width ='10%'  className='required-field'>Product</th>
+                      <th width ='13%'>Product Description</th>
+                      <th width='8.5%' className='required-field'>Qty</th>
                       <th width='7.2%'>Weight</th>
-                      <th width ='10.1%' className='required-field'>UOM</th>
-                      <th width ='10.1%'>Rota Date</th>
-                      <th width='7.3%' >Batch</th>
-                      <th width='7.3%' >Ref3</th>
-                      <th width='7.3%' >Ref4</th>
+                      <th width ='9.7%' className='required-field'>UOM</th>
+                      <th width ='9.8%'>Rota Date</th>
+                      <th width='6.4%' >Batch</th>
+                      <th width='6%' >Ref3</th>
+                      <th width='6%' >Ref4</th>
                       <th width ='11.1%'>Disposition</th>
                       <th width='7.3%'>Pack Id</th> 
                   </tr>                             

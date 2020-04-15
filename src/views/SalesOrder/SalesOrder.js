@@ -210,7 +210,8 @@ class SalesOrder extends Component{
         </div>
         <div className={( this.state.complete ? 'hidden': 'spinner')}/>
        {
-         this.state.loaded ?  <SalesOrderCreate clientdata      = {this.state.clientdata}
+         this.state.loaded ?  <SalesOrderCreate loadSalesOrder  = {() => this.potableref.current.loadSalesOrder()}
+                                                clientdata      = {this.state.clientdata}
                                                 productdata     = {this.state.productdata}
                                                 getClientProduct= {(client) => this.getProduct(client)}
                                                 dispositiondata = {this.state.dispositiondata}

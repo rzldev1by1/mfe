@@ -692,9 +692,10 @@ class SalesOrderCreate extends Component{
         this.setState({
           parameters:reset,
           tab1isactive:!this.state.tab1isactive,
-          tab2isactive:!this.state.tab2isactive})
-
+          tab2isactive:!this.state.tab2isactive}, () => this.props.loadSalesOrder())
+          
       })
+      
       .catch(error => {
         swal({
           title: "Failed to create sales order",
