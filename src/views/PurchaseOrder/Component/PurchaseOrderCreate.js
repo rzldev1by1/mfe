@@ -409,16 +409,16 @@ class PurchaseOrderCreate extends Component{
 
         <table className="tabledetails">
             <tr >
-                <th style={{width:"2%", textAlign:"center"}}>#</th>
-                <th style={{width:"12%"}}>Product Entry</th>
-                <th style={{width:"12%"}}>Product Description</th>
-                <th style={{width:"3%"}}>Qty</th>
-                <th style={{width:"6%"}}>UOM</th>
-                <th style={{width:"6%"}}>Rota Date</th>
-                <th style={{width:"6%"}}>Batch</th>
-                <th style={{width:"5%"}}>Ref3</th>
-                <th style={{width:"5%"}}>Ref4</th>
-                <th style={{width:"6%"}}>Disposition</th>
+                <th style={{width:"2%", textAlign:"center", paddingLeft:"18px"}}>#</th>
+                <th style={{width:"12%", paddingLeft:"20px"}}>Product</th>
+                <th style={{width:"12%", paddingLeft:"24px"}}>Product Description</th>
+                <th style={{width:"3%", paddingLeft:"29px"}}>Qty</th>
+                <th style={{width:"6%", paddingLeft:"23px"}}>UOM</th>
+                <th style={{width:"6%", paddingLeft:"24px"}}>Rota Date</th>
+                <th style={{width:"6%", paddingLeft:"37px"}}>Batch</th>
+                <th style={{width:"5%", paddingLeft:"25px", paddingRight:"-20px"}}>Ref3</th>
+                <th style={{width:"5%", paddingRigth:"-30px"}}>Ref4</th>
+                <th style={{width:"6%", paddingRight:"-30px"}}>Disposition</th>
             </tr>                  
           </table>
           
@@ -523,9 +523,9 @@ class PurchaseOrderCreate extends Component{
             <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs pec" value={list.lineNumber} readOnly/></td>
             <td style={{width:"12%"}}><input className="form-control inputs pec" value={list.product} readOnly/></td>
             <td style={{width:"12%"}}><input className="form-control inputs pec" value={list.productDescription} readOnly/></td>
-            <td style={{width:"3%"}}><input className="form-control inputs pec" value={list.qty} readOnly/></td>
+            <td style={{width:"3.5%"}}><input className="form-control inputs pec" value={list.qty} readOnly/></td>
             <td style={{width:"6%"}}><input className="form-control inputs pec" value={list.uom} readOnly/></td>
-            <td style={{width:"6%"}}><input className="form-control inputs pec" value={moment(list.rotadate).format("DD MMMM YYYY")} readOnly/></td>
+            <td style={{width:"6.5%"}}><input className="form-control inputs pec" value={moment(list.rotadate).format("DD MMMM YYYY")} readOnly/></td>
             <td style={{width:"6%"}}><input className="form-control inputs pec" value={list.batch} readOnly/></td>
             <td style={{width:"5%"}}><input className="form-control inputs pec" value={list.ref3} readOnly/></td>
             <td style={{width:"5%"}}><input className="form-control inputs pec" value={list.ref4} readOnly/></td>
