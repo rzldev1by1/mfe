@@ -108,16 +108,16 @@ import OrderLineReview from './OrderLineReview'
                     <td><input value={shipToAddress5} className="form-control put " readOnly/> </td>                    
                 </tr>
                 <tr>
-                    <th>State</th>
-                    <th>Country</th>
                     <th>Suburb</th>
                     <th>Postcode</th>
+                    <th>State</th>
+                    <th>Country</th>                    
                 </tr>
                 <tr>
-                    <td><input value={state} className="form-control put " readOnly/></td>
-                    <td><input value={country} className="form-control put " readOnly/> </td>
                     <td><input value={city} className="form-control put " readOnly/> </td>
                     <td><input value={postCode} className="form-control put " readOnly/> </td>
+                    <td><input value={state} className="form-control put " readOnly/></td>
+                    <td><input value={country} className="form-control put " readOnly/> </td>                    
                 </tr>
             </table>
   
