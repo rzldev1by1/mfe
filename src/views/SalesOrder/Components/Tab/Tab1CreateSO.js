@@ -398,7 +398,7 @@ class Tab1CreateSO extends Component{
                 {/* <div className={"tablerow " + (this.state.lineDetail.length >2 ? "scroll" : null )} style={{width:"98%"}}>
             
                 </div> */}
-                  <button onClick={() => this.props.addLineHandler()} type="button" class="btn btn-light font addline">+ Add Line</button> 
+                  <button onClick={() => this.props.addLineHandler()} type="button" className="btn-light font addlineSo">+</button> 
                   {this.state.tab2isactive ? this.submit() :  <Button onClick={() => this.setData()} color="primary" className="btnsearch next btnleft" ><label className="font btnLabel ">Next</label></Button>
                 } 
          
