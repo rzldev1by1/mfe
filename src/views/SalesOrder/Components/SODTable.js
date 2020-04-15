@@ -11,7 +11,7 @@ class SODTable extends Component {
 
         this.state ={
             data : this.props.head,
-            bodyheader : ['Line No','Product','Product Description','Qty','Qty Processed','Weight','Weight Processed','Completed','OOS','Ref'],
+            bodyheader : ['Line No','Product','Product Description','Qty','Qty Processed','Weight','Weight Processed','Completed','OOS','Batch', 'Rotadate', 'Ref3', 'Ref4', 'Disposition', 'PackId'],
             activearrow:mid,
             sortparameter:'order_no',
             sort:true
@@ -22,30 +22,32 @@ class SODTable extends Component {
       render(){
         return(
           <div>
-            <table className="potable">
+            <table className="potable" width='100%'>
               <thead>
                 <tr>
                    {this.state.bodyheader.map(header =>
-                    <th key={header} id={header}>{header} </th>
+                    <th height='50' key={header} id={header}>{header} </th>
                   )}
                 </tr>
               </thead>
-              <tbody>
-            
-              
-    
+              <tbody>    
                   {this.props.head.map((data,i) => 
-                      <tr className='tr'>
-                        <td>{i+1}</td>
-                        <td>{data.product}</td>
-                        <td style={{width :"12%"}} >{data.name}</td>
-                        <td>{data.qty_lcd}</td>
-                        <td>{data.qty_processed}</td>
-                        <td>{data.weight}</td>
-                        <td>{data.wgt_processed}</td>
-                        <td><img style={{width:'15px',height:'13px'}} src={data.completed == "Y" ? ok : invalid} /></td>
-                        <td>{data.qty_oos}</td>
-                        <td>{data.ref}</td>
+                      <tr>
+                        <td height='40'><label style={{marginLeft:'20px'}}>{i+1}</label></td>
+                        <td height='40'>{data.product ? data.product : '-'}</td>
+                        <td height='40'>{data.name ? data.name : '-'}</td>
+                        <td height='40'>{data.qty_lcd ? data.qty_lcd : '-'}</td>
+                        <td height='40'>{data.qty_processed ? data.qty_processed : '-'}</td>
+                        <td height='40'>{data.weight ? data.weight : '-'}</td>
+                        <td height='40'>{data.wgt_processed ? data.wgt_processed : '-'}</td>
+                        <td height='40'> {data.completed ? <img style={{width:'15px',height:'13px'}} src={data.completed == "Y" ? ok : invalid} /> : '-'}</td>
+                        <td height='40'>{data.qty_oos ? data.qty_oos : '-'}</td>                        
+                        <td height='40'>{data.ref ? data.ref : '-'}</td>
+                        <td height='40'>{data.rota1 ? data.rota1 : '-'}</td>
+                        <td height='40'>{data.ref3 ? data.ref3 : '-'}</td>
+                        <td height='40'>{data.ref4 ? data.ref4 : '-'}</td>
+                        <td height='40'>{data.disposition ? data.disposition : '-'}</td>
+                        <td height='40'>{data.packid ? data.packid : '-'}</td>
                       </tr>
                   )}   
                       

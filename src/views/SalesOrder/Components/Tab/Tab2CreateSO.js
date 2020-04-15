@@ -24,7 +24,8 @@ import OrderLineReview from './OrderLineReview'
               company,         
               site,  
               siteVal,
-              client,       
+              client, 
+              clientName,      
               orderId,
               customerOrderRef,
               vendorOrderRef,
@@ -57,7 +58,7 @@ import OrderLineReview from './OrderLineReview'
                 </tr>
                 <tr>
                     <td><input value={siteVal} className="form-control" readOnly/></td>
-                    <td><input value={client} className="form-control" readOnly/></td>
+                    <td><input value={clientName} className="form-control" readOnly/></td>
                     <td><input value={orderType} className="form-control" readOnly/></td>
                     <td><input value={orderId} className="form-control" readOnly/></td>
                 </tr>

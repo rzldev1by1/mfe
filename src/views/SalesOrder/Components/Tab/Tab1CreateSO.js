@@ -81,8 +81,6 @@ class Tab1CreateSO extends Component{
       if(emptyShipToAddress1) emptyClassShipToAddress1 = 'mtrField'
       if(emptyPostCode) emptyClassPostCode             = 'mtrField'
       if(emptyState) emptyClassState                   = 'mtrField'
-
-
         return(
           <div className="tabcontents">
             <h3 className="fonts">Order Details</h3>
@@ -104,11 +102,23 @@ class Tab1CreateSO extends Component{
                     </td>
 
                     <td>
-                      <input  readOnly 
+                      {
+                        this.props.userLevel == 'administrator' ? 
+                        <Dropdown optionSelected  = {client}
+                                  getValue        = {(clientVal, clientName) => this.props.setClient(clientVal, clientName)} 
+                                  placeHolder     = "Client" style={{minWidth: "100%"}} 
+                                  optionList      = {this.props.clientName.toString()} 
+                                  optionValue     = {this.props.clientVal.toString()}/>  
+                        :
+                        <input  readOnly 
                               value             = {client} 
                               id                = 'client' 
                               className         = "form-control put " 
                               placeholder       = "Client"/> 
+                      }
+                      
+
+                      
                     </td>
 
                     <td>

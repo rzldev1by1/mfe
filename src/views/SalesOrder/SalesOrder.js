@@ -207,7 +207,8 @@ class SalesOrder extends Component{
         </div>
         <div className={( this.state.complete ? 'hidden': 'spinner')}/>
        {
-         this.state.loaded ?  <SalesOrderCreate productdata     = {this.state.productdata}
+         this.state.loaded ?  <SalesOrderCreate clientdata      = {this.state.clientdata}
+                                                productdata     = {this.state.productdata}
                                                 dispositiondata = {this.state.dispositiondata}
                                                 resources       = {this.state.resources} 
                                                 showmodal       = {this.state.showmodal}

@@ -36,11 +36,11 @@ const OrderLine = (props) => {
 
                    <td>
                         <Dropdown   optionSelected  = {productVal}
-                                    getValue        = {(product, productVal) => props.setProduct(product, productVal, props.idx)} 
+                                    getValue        = {(productVal, product) => props.setProduct(productVal, product, props.idx)} 
                                     placeHolder     = "Product"  
                                     style           = {{minWidth: "100%", zIndex:idx}} 
                                     optionList      = {props.productdata.code.toString()} 
-                                    optionValue     = {props.productdata.name.toString()}/>
+                                    optionValue     = {props.productdata.code.toString()}/>
                    </td>
 
                    <td>
