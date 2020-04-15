@@ -495,7 +495,7 @@ class SalesOrderCreate extends Component{
     getUom = (productVal) => {
 
       if(productVal == '' || !productVal) return
-      let param = '?client='+Authentication.getClient()+'&&product='+productVal
+      let param = '?client='+this.state.parameters.header.client+'&&product='+productVal
       axios.get(endpoint.getUom+param, 
         {
           headers:headers
@@ -514,9 +514,6 @@ class SalesOrderCreate extends Component{
 
       let index = this.props.productdata.code.indexOf(productVal)
       let name = this.props.productdata.name[index]
-
-      console.log(this.props.productdata)
-      console.log(index+name+productVal)
       newParam.lineDetail[idx].product   = name
       newParam.lineDetail[idx].productVal   = productVal
 
