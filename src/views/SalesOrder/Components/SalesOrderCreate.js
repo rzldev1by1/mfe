@@ -679,7 +679,10 @@ class SalesOrderCreate extends Component{
           ],
         }
 
-        this.setState({validation:reset})
+        this.setState({
+          parameters:reset,
+          tab1isactive:!this.state.tab1isactive,
+          tab2isactive:!this.state.tab2isactive})
 
       })
       .catch(error => {
