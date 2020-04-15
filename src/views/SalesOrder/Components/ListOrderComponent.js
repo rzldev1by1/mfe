@@ -311,7 +311,7 @@ class ListOrderComponent extends Component {
       return(
         <div>
           <div className='tablePages tablecontent'>
-               <table className="potable">
+               <table className="Sotable">
                   <thead>
                     <tr style={{borderBottom:"3px solid #f0f0f0 !important"}}>
                        {this.state.tableheader.map(header =>
@@ -343,7 +343,7 @@ class ListOrderComponent extends Component {
                       </tbody>
                         </table>
 
-              <table className="potable d-none" id="excel">
+              <table className="Sotable d-none" id="excel">
                   <thead>
                     <tr style={{borderBottom:"3px solid #f0f0f0 !important"}}>
                        {this.state.tableheader.map(header =>

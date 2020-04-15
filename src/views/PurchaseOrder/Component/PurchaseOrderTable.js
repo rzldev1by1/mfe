@@ -491,10 +491,16 @@ class PurchaseOrderTable extends Component {
                                                         <td style={{textAlign:'center',paddingLeft:'0px'}} key={columnIdx}>{data[column.key]}</td>
                                                 )
                                             }
-                                            if(column.key.indexOf("date") > 0){
-                                                return(
-                                                        <td key={columnIdx}>{moment(data[column.key]).format("DD/MM/YYYY")}</td>
-                                                )
+                                            if(column.key.includes("date")){
+                                                if(data[column.key]){
+                                                    return(
+                                                            <td key={columnIdx}>{moment(data[column.key]).format("DD/MM/YYYY")}</td>
+                                                    )
+                                                }else{
+                                                    return(
+                                                        <td key={columnIdx}>-</td>
+                                                    )
+                                                }
                                             }
                                             return(
                                                     <td key={columnIdx}>{data[column.key]}</td>
@@ -530,18 +536,32 @@ class PurchaseOrderTable extends Component {
                         <tbody>            
                             {this.state.data ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
                                 <tr key={i} onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/'+data.order_no)} className='tr'>
-                                    <td style={{textAlign:'center',paddingLeft:'0px'}}>{data.site}</td>
-                                    <td>{data.client}</td>
-                                    <td>{data.order_no}</td>
-                                    <td>{data.status}</td>
-                                    <td>{data.supplier_no}</td>
-                                    <td>{data.supplier_name}</td>
-                                    <td>{moment(data.date_due).format("DD/MM/YYYY")}</td>
-                                    <td>{moment(data.date_received).format("DD/MM/YYYY")}</td>
-                                    <td>{moment(data.date_released).format("DD/MM/YYYY")}</td>
-                                    <td>{moment(data.date_completed).format("DD/MM/YYYY")}</td>
+                                    {this.state.tableheader.map((column, columnIdx) => {
+                                        if(column.isVisible){
+                                            if(column.key === "site"){
+                                                return(
+                                                        <td style={{textAlign:'center',paddingLeft:'0px'}} key={columnIdx}>{data[column.key]}</td>
+                                                )
+                                            }
+                                            if(column.key.includes("date")){
+                                                if(data[column.key]){
+                                                    return(
+                                                            <td key={columnIdx}>{moment(data[column.key]).format("DD/MM/YYYY")}</td>
+                                                    )
+                                                }else{
+                                                    return(
+                                                        <td key={columnIdx}>-</td>
+                                                    )
+                                                }
+                                            }
+                                            return(
+                                                    <td key={columnIdx}>{data[column.key]}</td>
+                                            )
+                                        }
+                                        
+                                    })}
                                     <td></td>
-                                </tr>
+                                </tr> 
                             ) : 
                                 <div> No data available </div>
                                 }       

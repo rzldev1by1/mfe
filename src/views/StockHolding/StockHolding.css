@@ -395,3 +395,91 @@ tbody>.tr1:hover {
 	background-color: #f0f0f0 !important;
 	cursor: pointer;
 }
+
+@media(max-width: 1500px){
+	.arrow{
+		margin-left: 5px !important;
+		width: 0.5em;
+	}
+	
+	.shtable{
+		width: 100%;
+	}
+	
+	.shtable th {
+		border-bottom: 2px solid #E2E2E2 !important;
+		height: 45px !important;
+		cursor: pointer;
+		font-size: 1em;
+		padding: 0.5rem 0.5rem 0.5rem 1rem
+	}
+	
+	.shtable tr {
+		border-bottom: 1.5px solid #f0f0f0  ;
+		height: 45px !important;
+		font-size: 12px;
+	}
+	.tr{
+		border-bottom: 1.5px solid #E2E2E2 !important;
+		width: 100%;
+	}
+	
+	.tr:hover{
+		background: #f0f0f0 !important;
+		cursor: pointer;
+	}
+	
+	th{
+		font-family: "Helvetica Neue Bold";
+		color: #B4B9BB;
+		padding-left: 10px;
+	}
+	td{
+		font-family: "Helvetica Neue Regular";
+		color: #637175;
+	}
+}
+@media(min-width: 1500px){
+	.arrow{
+		margin-left: 7px !important;
+		width: 9px;
+		font-weight: bold;
+	}
+	
+	.shtable{
+		width: 100%;
+	}
+	
+	.shtable th {
+		border-bottom: 1px solid #D5D8DA;
+		height: 45px !important;
+		cursor: pointer;
+		font-size: 1rem;
+		padding: 0.5rem 1rem 0.5rem 1rem
+	}
+	
+	.shtable tr {
+		border-bottom: 2px solid #f0f0f0  !important;
+		height: 45px !important;
+		font-size: 1rem;
+	}
+	.tr:hover{
+		background: #f0f0f0 !important;
+		cursor: pointer;
+	}
+	
+	th{
+		font-family: "Helvetica Neue Bold";
+		color: #B4B9BB;
+	}
+	td{
+		font-family: "Helvetica Neue Regular";
+		color: #637175;
+	}
+
+	.btnsearch{
+		flex: 0 0 16.66667%;
+		max-width: 16.66667%;
+		margin: 0;
+	}
+}
