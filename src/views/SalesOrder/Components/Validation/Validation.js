@@ -28,11 +28,6 @@ const headerValidation = (header) => {
     {
         error.push(['delivery date', 'please select delivery date'])
     }
-
-    if(header.customerVal == null || header.customerVal == '')
-    {
-      error.push(['customer', 'please select customer'])
-    }
     if(header.shipToAddress1 == null || header.shipToAddress1 == '')
     {
       document.getElementById('shipToAddress1').focus()
@@ -62,7 +57,7 @@ const headerValidation = (header) => {
 const lineDetailValidation = (lineDetail, idx) => {
   let qty = document.getElementById('qty_'+idx)
   
-  if(!lineDetail.productVal || lineDetail.productVal == '')
+  if(!lineDetail.product || lineDetail.product == '')
   {
     alert('product in line '+idx+' must be choosen')
     return false 

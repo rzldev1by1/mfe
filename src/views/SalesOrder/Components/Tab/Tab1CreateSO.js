@@ -113,7 +113,7 @@ class Tab1CreateSO extends Component{
 
                     <td>
                       <Dropdown optionSelected  = {orderTypeVal}
-                                getValue        = {(orderTypeVal, orderType) => this.props.setOrderType(orderTypeVal,orderType)} 
+                                getValue        = {(orderTypeVal, orderType) => this.props.setOrderType(orderTypeVal,orderTypeVal)} 
                                 placeHolder     = "Order Type" style={{minWidth: "100%"}} 
                                 optionList      = {this.props.resources.orderType.name.toString()} 
                                 optionValue     = {this.props.resources.orderType.code.toString()}/>     
@@ -192,7 +192,7 @@ class Tab1CreateSO extends Component{
             <h3 className="fonts">Customer  Details</h3>
             <table className="createpotables">
                 <tr>
-                    <th className='required-field'>Customer </th>
+                    <th>Customer </th>
                     <th className='required-field'>Address 1</th>
                     <th>Address 2</th>
                     <th>Address 3</th>

@@ -167,7 +167,7 @@ class SalesOrder extends Component{
     return(
         <React.Fragment>
             <Dropdown placeHolder="Site" style={{width: "102px", height:"2.7em"}} optionList={siteData.toString()} optionValue={siteData.toString()} getValue={this.getSiteSelected.bind(this)}/>
-            <Dropdown placeHolder="Client" style={{width: "210px", height:"2.7em"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected.bind(this)}/>
+            <Dropdown placeHolder="Client" style={{width: "210px", height:"2.7em"}} optionList={clientValue.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected.bind(this)}/>
             {/* <Dropdown placeHolder="Order No" style={{height:"1em"}} optionList="hard,code" optionValue="hard,code" getValue={(v)=> console.log(v)}/> */}
         </React.Fragment>
     )

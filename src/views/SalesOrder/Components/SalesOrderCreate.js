@@ -504,7 +504,7 @@ class SalesOrderCreate extends Component{
       })
     }
 
-    setProduct = (productVal, product, idx) => {
+    setProduct = (product, productVal, idx) => {
       let newParam                  = {...this.state.parameters}
       newParam.lineDetail[idx].product   = product
       newParam.lineDetail[idx].productVal   = productVal
