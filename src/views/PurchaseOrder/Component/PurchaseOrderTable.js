@@ -544,9 +544,15 @@ class PurchaseOrderTable extends Component {
                                                 )
                                             }
                                             if(column.key.includes("date")){
-                                                return(
-                                                        <td key={columnIdx}>{moment(data[column.key]).format("DD/MM/YYYY")}</td>
-                                                )
+                                                if(data[column.key]){
+                                                    return(
+                                                            <td key={columnIdx}>{moment(data[column.key]).format("DD/MM/YYYY")}</td>
+                                                    )
+                                                }else{
+                                                    return(
+                                                        <td key={columnIdx}>-</td>
+                                                    )
+                                                }
                                             }
                                             return(
                                                     <td key={columnIdx}>{data[column.key]}</td>
