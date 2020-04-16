@@ -23,6 +23,7 @@ class StockHolding extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			data : [],
 			displayContent: "INIT",
 			isLoaded: false,
 			isSearch: false,
@@ -358,7 +359,23 @@ class StockHolding extends Component {
             this.changeLastIndex(currentPage);
         }
         return;
-    }
+	}
+	
+	loadExport= () => {
+
+		let param = '?client='+this.client
+		axios.get(endpoint.stockHoldingSummary, { 
+            headers: headers 
+        })
+		  .then(res => {
+			const result = res.data.data
+			this.setState({ data:result })
+			this.load()
+		  })
+		  .catch(error => {
+			// this.props.history.push("/logins")
+		  })
+	  }
 
 	ExportName = () => {
 		let filename = ""
@@ -378,6 +395,37 @@ class StockHolding extends Component {
 		let name= ""
 		return name=("Stock Holding")
 	  }
+
+	  ExportHeader = () =>{
+		let header = [];
+		this.state.columns.map((item, index) => { 
+			header.push(item.tableHeaderText)
+		})
+		return header
+	  }
+	
+	//   ExportData = () => {
+	// 	let data = []
+	// 	this.state.masterResStockHolding.map((item, index) => {
+	// 		let dataRow = []
+	// 		this.state.columns.map((column, columnIndex) =>{
+	// 			let dataColumn = []
+	// 			dataColumn.push(item[column.key])
+	// 			dataRow.push(dataColumn)
+	// 			console.log(dataColumn)
+	// 		let Export = this.state.dataColumn.map(elt=> [elt.site])
+	// 			return Export
+	// 		} )
+	// 	} )
+	//   }
+	ExportData = () => {
+		let data = this.state.data.map(elt=> [elt.site, elt.client, elt.product, elt.description, elt.disposition, 
+											  elt.uom, elt.status, elt.on_hand_qty, elt.on_hand_weight, elt.expected_in_qty,
+											  elt.expected_in_weight, elt.expected_out_qty, elt.price, elt.pallets]);
+		return data
+	  }
+
+
 	render() {
 		let content;
 		switch (this.state.displayContent) {
@@ -458,7 +506,7 @@ class StockHolding extends Component {
                                             isActive={this.state.isActive}
                                             numberEventClick={this.numberEventClick} />		
 									 <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
-                            				 />
+                            				 ExportData={this.ExportData} ExportHeader={this.ExportHeader}/>
                                 </div>
                             </div>
 						</div>

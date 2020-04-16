@@ -41,11 +41,13 @@ class PurchaseOrderCreate extends Component{
                       productDescription:null,
                       qty:null,
                       uom:null,
-                      rotadate: new Date(),
+                      rotadate: null,
                       batch:null,
                       ref3:null,
                       ref4:null,
-                      disposition:null
+                      disposition:null,
+                      weight: "20",
+                      orderDate: null
                   }
               ],
               rowlistidx: 1,
@@ -81,7 +83,7 @@ class PurchaseOrderCreate extends Component{
               customerRef: undefined,
               orderType: undefined,
               orderNo: undefined,
-              orderDate: new Date(),
+              orderDate: null,
               vendorRef: undefined,
               lineDetails: [],
               isSaveProgressing: false,
@@ -258,7 +260,7 @@ class PurchaseOrderCreate extends Component{
             <tr>
               <td>
                   <Dropdown placeHolder="Site" 
-                            style={{width: "266px", position: "absolute", zIndex: '6'}} 
+                            style={{width: "22%", position: "absolute", zIndex: '6'}} 
                             optionList={siteData.toString()} 
                             optionValue={siteData.toString()} 
                             getValue={(e) => this.setState({ site: e })} 
@@ -266,24 +268,20 @@ class PurchaseOrderCreate extends Component{
              </td>
               <td>
                   <Dropdown placeHolder="Client" 
-                            style={{width: "266px", position: "absolute"}} 
-                            optionList={clientName.toString()} 
+                            style={{width: "22%", position: "absolute"}} 
+                            optionList={clientValue.toString()} 
                             optionValue={clientValue.toString()} 
                             getValue={(e) => this.setState({ client: e })} 
                             optionSelected={this.state.client}/>
               </td>
                 {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
               <td>
-                  <Dropdown placeHolder="Supplier" 
-                            style={{width: "266px", position: "absolute"}} 
-                            optionList={supplierName.toString()} 
-                            optionValue={supplierName.toString()} 
-                            getValue={(e) => this.setState({ supplier: e })} 
-                            optionSelected={this.state.supplier}/>
+                  {/* <AutoComplete  /> */}
+                            <input className="form2 put pec" placeholder="Supplier" value={this.state.supplier} maxLength="40" onChange={(e) => this.setState({ supplier: e.target.value })}/>
               </td>
                 {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form2 put pec" placeholder="Supplier"/> </td> */}
               <td>
-                  <input className="form2 put pec" placeholder="Customer Order Ref" maxLength="40" onChange={(e) => this.setState({ customerRef: e.target.value })}/>
+                  <input className="form2 put pec" placeholder="Customer Order Ref" value={this.state.customerRef} maxLength="40" onChange={(e) => this.setState({ customerRef: e.target.value })}/>
               </td>
             </tr>
             <tr>
@@ -301,21 +299,21 @@ class PurchaseOrderCreate extends Component{
             <tr>
             <td>
             <Dropdown   placeHolder="Order Type" 
-                        style={{width: "266px", position: "absolute"}} 
+                        style={{width: "22%", position: "absolute"}} 
                         optionList={orderData.toString()} 
                         optionValue={orderValue.toString()} 
                         getValue={(e) => this.setState({ orderType: e })} 
                         optionSelected={this.state.orderType}/>
             </td>
-            <td><input className="form2 put pec" placeholder="Order No" minLength="4" maxLength="12" onChange={(e) => this.setState({ orderNo: e.target.value })} /> </td>
+            <td><input className="form2 put pec" value={this.state.orderNo} placeholder="Order No" minLength="4" maxLength="12" onChange={(e) => this.setState({ orderNo: e.target.value })} /> </td>
                 <td>
                   <DatePicker style={{ minWidth: "22%", position:"absolute" }} 
-                              getDate={(e) => this.setState({ orderDate: e })}
+                              getDate={(e) => {this.setState({ orderDate: e }); this.state.rowlist[0].orderDate = e}}
                               startDate={new Date()}
                   />
                   {console.log(this.state.orderDate)}
                 </td>                  
-                <td><input className="form2 put pec"  placeholder="Vendor Order Ref" onChange={(e) => this.setState({ vendorRef: e.target.value })} maxLength="40"/> </td>
+                <td><input className="form2 put pec" value={this.state.vendorRef}  placeholder="Vendor Order Ref" onChange={(e) => this.setState({ vendorRef: e.target.value })} maxLength="40"/> </td>
             </tr>
             <tr>
               <td></td>
@@ -553,7 +551,9 @@ class PurchaseOrderCreate extends Component{
         batch:null,
         ref3:null,
         ref4:null,
-        disposition:null
+        disposition:null,
+        weight: "20",
+        orderDate: this.state.orderDate
       }
     )})
   }
@@ -572,9 +572,10 @@ class PurchaseOrderCreate extends Component{
           supplier: this.state.supplier,
           customerOrderRef: this.state.customerRef,
           orderType: this.state.orderType,
-          ordeNo: this.state.orderNo,
+          orderNo: this.state.orderNo,
           orderDate: this.state.orderDate,
-          vendorOrderRef: this.state.vendorRef
+          vendorOrderRef: this.state.vendorRef,
+          web_user: "216"
         }],
         lineDetails: [...this.state.rowlist]
     }
@@ -594,6 +595,36 @@ class PurchaseOrderCreate extends Component{
                     className: "btn btn-primary"
                 },
               });
+            self.setState({
+                tab1isactive:true,
+                tab2isactive:false,
+                site: undefined,
+                client: undefined,
+                supplier: undefined,
+                customerRef: undefined,
+                orderType: undefined,
+                orderNo: undefined,
+                orderDate: null,
+                vendorRef: undefined,
+                rowlist:[
+                    {
+                        lineNumber:1,
+                        product:null,
+                        productDescription:null,
+                        qty:null,
+                        uom:null,
+                        rotadate: null,
+                        batch:null,
+                        ref3:null,
+                        ref4:null,
+                        disposition:null,
+                        weight: "20",
+                        orderDate: null
+                        
+                    }
+                ],
+                rowlistidx: 1,
+            })
         }else{
             self.setState({
                 isSaveProgressing: false

@@ -19,12 +19,6 @@ class StockMovement extends Component {
 			isComplete:false
 		}
 	}
-
-	getStockMovements = (dateFrom, dateTo, period) => {
-		this.getStockMovement.current.getData(dateFrom, dateTo, period)
-		this.getStockMovement.current.pushTable(dateFrom,dateTo, period)
-	}
-
 	ExportName = () => {
 		let filename = ""
 		let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -38,6 +32,21 @@ class StockMovement extends Component {
 		 return filename=("Microlistics_SalesOrder." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)  
 	  }
 
+	  ExportPDFName = () =>{
+		let name= ""
+		return name=("Stock Movement")
+	  }
+	
+	  ExportHeader = () =>{
+		let header =  ["Site","Product","Product Name", "packdesc", "Client"," Detail"]
+		return header
+	  }
+	
+	  ExportData = () => {
+		let data = this.state.data.map(elt=> [elt.site, elt.product, elt.product_name, elt.packdesc, elt.client, elt.detail.length]);
+		return data
+	  }
+	  
 	render() {
 		return (
 			<div className='animated fadeIn stockMovementParent'>
@@ -57,7 +66,8 @@ class StockMovement extends Component {
 						<Pagination sliceValue={(startIndex, endIndex) => this.getStockMovement.current.setSliceValue(startIndex, endIndex)} 
 												ref={this.setPagiantion} data={this.state.data} 
 												rows={50}/> 
-						<Export ExportName={this.ExportName}/>
+						<Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+								ExportHeader={this.ExportHeader} ExportData={this.ExportData}/>
 					</div>						 
 			</div>
 		)
