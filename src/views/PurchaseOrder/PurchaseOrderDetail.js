@@ -47,16 +47,16 @@ export default class PurchaseOrderDetail extends Component {
         let client = this.state.datahead.length ? this.state.datahead[0].client : null
         let orderNo = this.state.datahead.length ? this.state.datahead[0].order_no : null
         let orderType = this.state.datahead.length ? this.state.datahead[0].order_type : null
-        let supplierNo = this.state.datahead.length ? this.state.datahead[0].supplier : null
-        let supplierName = this.state.datahead.length ? this.state.datahead[0].ship_to_name : null
-        let customerOrderRef = this.state.datahead.length ? this.state.datahead[0].customer_po_no : null
-        let vendorOrderNo = this.state.datahead.length ? this.state.datahead[0].vendor_ord_no : null
+        let supplierNo = this.state.datahead.length ? this.state.datahead[0].supplier_id : null
+        let supplierName = this.state.datahead.length ? this.state.datahead[0].supplier_name : null
+        let customerOrderRef = this.state.datahead.length ? this.state.datahead[0].customer_order_ref : null
+        let vendorOrderNo = this.state.datahead.length ? this.state.datahead[0].vendor_ord_ref : null
         let status = this.state.datahead.length ? this.state.datahead[0].status : null
-        let statusDesc = this.state.datahead.length ? this.state.datahead[0].status_desc : null
-        let dateDue = this.state.datahead.length ? this.state.datahead[0].date_due : null
+        let statusDesc = this.state.datahead.length ? this.state.datahead[0].status_description : null
+        let dateDue = this.state.datahead.length ? this.state.datahead[0].delivery_date : null
         let dateReleased = this.state.datahead.length ? this.state.datahead[0].date_released : null
         let dateCompleted = this.state.datahead.length ? this.state.datahead[0].date_completed : null
-        let dateReceived = this.state.datahead.length ? this.state.datahead[0].date_recd : null
+        let dateReceived = this.state.datahead.length ? this.state.datahead[0].date_received : null
 
         return(
             <div className='podheader fades'>                    
