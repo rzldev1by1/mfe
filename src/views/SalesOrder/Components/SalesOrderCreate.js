@@ -191,6 +191,8 @@ class SalesOrderCreate extends Component{
       let name = this.props.clientdata.map((data) => {
         if(data.code === clientVal) return data.name
       })
+
+      name =  clientVal + ' ('+name+')'
       this.setState(prevState => ({
         parameters: {
           ...prevState.parameters,
@@ -309,6 +311,7 @@ class SalesOrderCreate extends Component{
         validation.header.emptyCustomer = null
         this.setState({validation:validation})
       }
+      customer = customerVal + ' (' + customer + ')'
       this.setState(prevState => ({
         parameters:{
           ...prevState.parameters,
@@ -713,9 +716,11 @@ class SalesOrderCreate extends Component{
     render(){
       let clientName = [];
         let clientValue = [];
+       
         if(this.props.clientdata){
             this.props.clientdata.map((data) => {
-                clientName.push(data.name);
+              let name =  data.code + ' ('+data.name+')'
+                clientName.push(name);
                 clientValue.push(data.code);
             })
         }

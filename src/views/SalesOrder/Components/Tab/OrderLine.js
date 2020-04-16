@@ -27,7 +27,7 @@ const OrderLine = (props) => {
         <div style={{marginBottom:'1%'}}>
            <table>
                <tr>
-                   <td width='3.5%'>
+                   <td width='4%'>
                         <input      className       = "form-control put "
                                     id              = 'rowNumber'
                                     readOnly 

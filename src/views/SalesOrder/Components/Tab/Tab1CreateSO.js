@@ -25,7 +25,8 @@ class Tab1CreateSO extends Component{
         company,            
         site,  
         siteVal,
-        client,       
+        client,    
+        clientName,   
         orderId,
         customerOrderRef,
         vendorOrderRef,
@@ -104,7 +105,7 @@ class Tab1CreateSO extends Component{
                     <td>
                       {
                         this.props.userLevel == 'administrator' ? 
-                        <Dropdown optionSelected  = {client}
+                        <Dropdown optionSelected  = {clientName}
                                   getValue        = {(clientVal, clientName) => this.props.setClient(clientVal, clientName)} 
                                   placeHolder     = "Client" style={{minWidth: "100%"}} 
                                   optionList      = {this.props.clientName.toString()} 
