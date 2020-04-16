@@ -248,7 +248,7 @@ class PurchaseOrder extends Component {
                         showFilter={this.state.filterclicked}
                         triggerShowFilter={() => this.setState({filterclicked: !this.state.filterclicked})}
                         searchData={() => this.search()}
-                        placeholder="Enter a Product or Description" />
+                        placeholder="Enter an Order No" />
                 {console.log(this.searchForm)}
                 {/* <div className='inputgroup' style={{width:'82%'}}>
                     <label className='iconU-search isearch'/>
