@@ -41,7 +41,7 @@ class PurchaseOrderCreate extends Component{
                       productDescription:null,
                       qty:null,
                       uom:null,
-                      rotadate: new Date(),
+                      rotadate: null,
                       batch:null,
                       ref3:null,
                       ref4:null,
@@ -81,7 +81,7 @@ class PurchaseOrderCreate extends Component{
               customerRef: undefined,
               orderType: undefined,
               orderNo: undefined,
-              orderDate: new Date(),
+              orderDate: null,
               vendorRef: undefined,
               lineDetails: [],
               isSaveProgressing: false,
@@ -267,19 +267,15 @@ class PurchaseOrderCreate extends Component{
               <td>
                   <Dropdown placeHolder="Client" 
                             style={{width: "266px", position: "absolute"}} 
-                            optionList={clientName.toString()} 
+                            optionList={clientValue.toString()} 
                             optionValue={clientValue.toString()} 
                             getValue={(e) => this.setState({ client: e })} 
                             optionSelected={this.state.client}/>
               </td>
                 {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
               <td>
-                  <Dropdown placeHolder="Supplier" 
-                            style={{width: "266px", position: "absolute"}} 
-                            optionList={supplierName.toString()} 
-                            optionValue={supplierName.toString()} 
-                            getValue={(e) => this.setState({ supplier: e })} 
-                            optionSelected={this.state.supplier}/>
+                  {/* <AutoComplete  /> */}
+                            <input className="form2 put pec" placeholder="Supplier" maxLength="40" onChange={(e) => this.setState({ supplier: e.target.value })}/>
               </td>
                 {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form2 put pec" placeholder="Supplier"/> </td> */}
               <td>
