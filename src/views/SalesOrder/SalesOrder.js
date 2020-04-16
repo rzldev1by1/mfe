@@ -98,10 +98,12 @@ class SalesOrder extends Component{
           })
       }
 
-      getResources = () => {
+      getResources = (clientParam) => {
 
           let  company= Authentication.getCompanyCode()
           let  client= Authentication.getClient()
+
+          if(clientParam) client = clientParam
         axios.get(endpoint.getSoResources+'?company='+company+'&&client='+client, {
           headers:headers
         })
@@ -210,7 +212,8 @@ class SalesOrder extends Component{
         </div>
         <div className={( this.state.complete ? 'hidden': 'spinner')}/>
        {
-         this.state.loaded ?  <SalesOrderCreate loadSalesOrder  = {() => this.potableref.current.loadSalesOrder()}
+         this.state.loaded ?  <SalesOrderCreate getResources    = {(client) => this.getResources(client)}
+                                                loadSalesOrder  = {() => this.potableref.current.loadSalesOrder()}
                                                 clientdata      = {this.state.clientdata}
                                                 productdata     = {this.state.productdata}
                                                 getClientProduct= {(client) => this.getProduct(client)}

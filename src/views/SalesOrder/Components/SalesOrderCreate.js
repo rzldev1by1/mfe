@@ -204,6 +204,7 @@ class SalesOrderCreate extends Component{
         }
       }))
       this.props.getClientProduct(clientVal)
+      this.props.getResources(clientVal)
     }
 
     // Set Order Type
