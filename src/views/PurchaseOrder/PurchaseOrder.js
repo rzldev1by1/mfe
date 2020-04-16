@@ -188,7 +188,7 @@ class PurchaseOrder extends Component {
           let orderTypeValue = [];
         if(this.state.clientdata){
             this.state.clientdata.map((data) => {
-                clientName.push(data.name);
+                clientName.push(data.code);
                 clientValue.push(data.code);
             })
             clientName.push("All");

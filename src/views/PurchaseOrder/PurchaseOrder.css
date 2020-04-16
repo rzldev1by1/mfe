@@ -640,7 +640,6 @@ select option:hover{
 	margin-top: 1%;
 }
 .inputs {
-	border-style: double;
 	height: 40px !important;
 	width: 100%;
 	border-color: #e6e6e6;

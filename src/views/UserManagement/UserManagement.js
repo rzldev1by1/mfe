@@ -669,7 +669,7 @@ class UserManagement extends Component{
                 </span>
                 <input type="text" style={{ fontFamily: "Helvetica Neue Medium", backgroundColor:"transparent" }}
                 className="form-control searchInput" id="searchInput" name="searchInput"
-                placeholder="Enter user id or user name" />
+                placeholder="Enter User Id or User Name" />
                 </div>
 
                 </div>
