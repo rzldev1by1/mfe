@@ -27,7 +27,7 @@ const OrderLine = (props) => {
         <div style={{marginBottom:'1%'}}>
            <table>
                <tr>
-                   <td width='3.5%'>
+                   <td width='4%'>
                         <input      className       = "form-control put "
                                     id              = 'rowNumber'
                                     readOnly 
@@ -36,11 +36,11 @@ const OrderLine = (props) => {
 
                    <td>
                         <Dropdown   optionSelected  = {productVal}
-                                    getValue        = {(product, productVal) => props.setProduct(product, productVal, props.idx)} 
+                                    getValue        = {(productVal, product) => props.setProduct(productVal, product, props.idx)} 
                                     placeHolder     = "Product"  
                                     style           = {{minWidth: "100%", zIndex:idx}} 
                                     optionList      = {props.productdata.code.toString()} 
-                                    optionValue     = {props.productdata.name.toString()}/>
+                                    optionValue     = {props.productdata.code.toString()}/>
                    </td>
 
                    <td>
@@ -68,11 +68,11 @@ const OrderLine = (props) => {
                                     onChange        = {(e) =>props.setWeight(e.target.value, props.idx)}/>
                    </td>
 
-                   <td width='7%'>
+                   <td width='3%'>
                         <Dropdown   optionSelected  = {uom}
                                     getValue        = {(uom) => props.setUom(uom, props.idx)} 
-                                    placeHolder     = "Uom"  
-                                    style           = {{minWidth: "7%", zIndex:idx}} 
+                                    placeHolder     = "UOM"  
+                                    style           = {{minWidth: "3%", zIndex:idx}} 
                                     optionList      = {props.uomdata.toString()} 
                                     optionValue     = {props.uomdata.toString()}/>
                    </td>
@@ -82,7 +82,7 @@ const OrderLine = (props) => {
                                     style           = {{ minWidth: "100%" }}/>
                    </td>
 
-                   <td width='7%'>
+                   <td width='6%'>
                         <input      id              = {'batch_'+idx}
                                     className       = "form-control put "
                                     placeholder     = 'Batch'
@@ -90,7 +90,7 @@ const OrderLine = (props) => {
                                     onChange        = {(e) =>props.setBatch(e.target.value, props.idx)}/>
                    </td>
 
-                   <td width='7%'>
+                   <td width='6%'>
                         <input      id              = {'ref3_'+idx}
                                     className       = "form-control put "
                                     placeholder     = 'Ref3'
@@ -98,7 +98,7 @@ const OrderLine = (props) => {
                                     onChange        = {(e) =>props.setRef3(e.target.value, props.idx)}/>
                    </td>
 
-                   <td width='7%'>
+                   <td width='6%'>
                         <input      id              = {'ref4_'+idx}
                                     className       = "form-control put "
                                     placeholder     = 'Ref4'
@@ -115,7 +115,7 @@ const OrderLine = (props) => {
                                     optionValue     = {props.dispositiondata.code.toString()}/>
                    </td>
 
-                   <td width='7%'>
+                   <td width='11%'>
                         <input      id              = {'packId_'+idx}
                                     className       = "form-control put "
                                     placeholder     = 'PackId'

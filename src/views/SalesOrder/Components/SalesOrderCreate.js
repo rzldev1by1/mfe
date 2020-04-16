@@ -26,7 +26,8 @@ class SalesOrderCreate extends Component{
             company             : Authentication.getCompanyCode(),            
             site                : null,  
             siteVal             : null,
-            client              : Authentication.getClient(),       
+            client              : Authentication.getClient(),   
+            clientName          : null,    
             orderId             : null,
             customerOrderRef    : null,
             vendorOrderRef      : null,
@@ -180,22 +181,29 @@ class SalesOrderCreate extends Component{
     }
 
     // Set Client
-    setClient = (data) => {
+    setClient = (clientVal, clientName) => {
       let validation = {...this.state.validation}
-      if(data && data.length > 0)
+      if(clientVal && clientVal.length > 0)
       {
         validation.header.emptyClient = null
         this.setState({validation:validation})
       }
+      let name = this.props.clientdata.map((data) => {
+        if(data.code === clientVal) return data.name
+      })
+
+      name =  clientVal + ' ('+name+')'
       this.setState(prevState => ({
         parameters: {
           ...prevState.parameters,
             header:{
               ...prevState.parameters.header,            
-              client : data,  
+              client : clientVal,  
+              clientName:name
           }
         }
       }))
+      this.props.getClientProduct(clientVal)
     }
 
     // Set Order Type
@@ -303,6 +311,7 @@ class SalesOrderCreate extends Component{
         validation.header.emptyCustomer = null
         this.setState({validation:validation})
       }
+      customer = customerVal + ' (' + customer + ')'
       this.setState(prevState => ({
         parameters:{
           ...prevState.parameters,
@@ -490,7 +499,7 @@ class SalesOrderCreate extends Component{
     getUom = (productVal) => {
 
       if(productVal == '' || !productVal) return
-      let param = '?client='+Authentication.getClient()+'&&product='+productVal
+      let param = '?client='+this.state.parameters.header.client+'&&product='+productVal
       axios.get(endpoint.getUom+param, 
         {
           headers:headers
@@ -504,9 +513,12 @@ class SalesOrderCreate extends Component{
       })
     }
 
-    setProduct = (product, productVal, idx) => {
+    setProduct = (productVal, product, idx) => {
       let newParam                  = {...this.state.parameters}
-      newParam.lineDetail[idx].product   = product
+
+      let index = this.props.productdata.code.indexOf(productVal)
+      let name = this.props.productdata.name[index]
+      newParam.lineDetail[idx].product   = name
       newParam.lineDetail[idx].productVal   = productVal
 
       this.setState({parameters:newParam})
@@ -620,6 +632,7 @@ class SalesOrderCreate extends Component{
 
     createSalesOrder = () => {
       let parameters = this.state.parameters
+      console.log(parameters)
       axios.post(endpoint.salesOrderCreate, parameters, {
         headers:headers
       })
@@ -682,9 +695,10 @@ class SalesOrderCreate extends Component{
         this.setState({
           parameters:reset,
           tab1isactive:!this.state.tab1isactive,
-          tab2isactive:!this.state.tab2isactive})
-
+          tab2isactive:!this.state.tab2isactive}, () => this.props.loadSalesOrder())
+          
       })
+      
       .catch(error => {
         swal({
           title: "Failed to create sales order",
@@ -700,6 +714,16 @@ class SalesOrderCreate extends Component{
     }
 
     render(){
+      let clientName = [];
+        let clientValue = [];
+       
+        if(this.props.clientdata){
+            this.props.clientdata.map((data) => {
+              let name =  data.code + ' ('+data.name+')'
+                clientName.push(name);
+                clientValue.push(data.code);
+            })
+        }
         return(
           <Modal className="SOCreate " isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }}toggle={true}>
             <div className="createModals">
@@ -724,7 +748,10 @@ class SalesOrderCreate extends Component{
                 </div>
               </ModalHeader>       
           <ModalBody style={{width:"100%"}}>
-            {this.state.tab1isactive ?  <Tab1CreateSO   productdata             = {this.props.productdata}
+            {this.state.tab1isactive ?  <Tab1CreateSO   userLevel               = {Authentication.getUserLevel()}
+                                                        clientVal               = {clientValue}
+                                                        clientName              = {clientName}
+                                                        productdata             = {this.props.productdata}
                                                         dispositiondata         = {this.props.dispositiondata}
                                                         resources               = {this.props.resources} 
                                                         parameters              = {this.state.parameters} 
@@ -736,7 +763,7 @@ class SalesOrderCreate extends Component{
                                                         uomdata                 = {this.state.uomdata}
 
                                                         setSite                 = {(siteVal, site) => this.setSite(siteVal, site)}
-                                                        setClient               = {(clientVal, client) => this.setClient(clientVal,client)}
+                                                        setClient               = {(clientVal) => this.setClient(clientVal, clientName)}
                                                         setOrderType            = {(orderTypeVal, orderType) => this.setOrderType(orderTypeVal, orderType)}
 
                                                         setOrderId              = {(data) => this.setOrderId(data)}

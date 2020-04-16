@@ -24,7 +24,8 @@ import OrderLineReview from './OrderLineReview'
               company,         
               site,  
               siteVal,
-              client,       
+              client, 
+              clientName,      
               orderId,
               customerOrderRef,
               vendorOrderRef,
@@ -57,7 +58,7 @@ import OrderLineReview from './OrderLineReview'
                 </tr>
                 <tr>
                     <td><input value={siteVal} className="form-control" readOnly/></td>
-                    <td><input value={client} className="form-control" readOnly/></td>
+                    <td><input value={clientName} className="form-control" readOnly/></td>
                     <td><input value={orderType} className="form-control" readOnly/></td>
                     <td><input value={orderId} className="form-control" readOnly/></td>
                 </tr>
@@ -107,16 +108,16 @@ import OrderLineReview from './OrderLineReview'
                     <td><input value={shipToAddress5} className="form-control put " readOnly/> </td>                    
                 </tr>
                 <tr>
-                    <th>State</th>
-                    <th>Country</th>
                     <th>Suburb</th>
                     <th>Postcode</th>
+                    <th>State</th>
+                    <th>Country</th>                    
                 </tr>
                 <tr>
-                    <td><input value={state} className="form-control put " readOnly/></td>
-                    <td><input value={country} className="form-control put " readOnly/> </td>
                     <td><input value={city} className="form-control put " readOnly/> </td>
                     <td><input value={postCode} className="form-control put " readOnly/> </td>
+                    <td><input value={state} className="form-control put " readOnly/></td>
+                    <td><input value={country} className="form-control put " readOnly/> </td>                    
                 </tr>
             </table>
   

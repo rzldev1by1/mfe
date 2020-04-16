@@ -26,7 +26,7 @@ const headerValidation = (header) => {
     }
     if(!header.deliveryDate || header.deliveryDate == '')
     {
-        error.push(['delivery date', 'please select delivery date'])
+        error.push(['delivery date', ' Delivery Date must have a value'])
     }
     if(header.shipToAddress1 == null || header.shipToAddress1 == '')
     {

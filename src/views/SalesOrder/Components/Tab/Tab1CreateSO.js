@@ -25,7 +25,8 @@ class Tab1CreateSO extends Component{
         company,            
         site,  
         siteVal,
-        client,       
+        client,    
+        clientName,   
         orderId,
         customerOrderRef,
         vendorOrderRef,
@@ -81,8 +82,6 @@ class Tab1CreateSO extends Component{
       if(emptyShipToAddress1) emptyClassShipToAddress1 = 'mtrField'
       if(emptyPostCode) emptyClassPostCode             = 'mtrField'
       if(emptyState) emptyClassState                   = 'mtrField'
-
-
         return(
           <div className="tabcontents">
             <h3 className="fonts">Order Details</h3>
@@ -104,11 +103,23 @@ class Tab1CreateSO extends Component{
                     </td>
 
                     <td>
-                      <input  readOnly 
+                      {
+                        this.props.userLevel == 'administrator' ? 
+                        <Dropdown optionSelected  = {clientName}
+                                  getValue        = {(clientVal, clientName) => this.props.setClient(clientVal, clientName)} 
+                                  placeHolder     = "Client" style={{minWidth: "100%"}} 
+                                  optionList      = {this.props.clientName.toString()} 
+                                  optionValue     = {this.props.clientVal.toString()}/>  
+                        :
+                        <input  readOnly 
                               value             = {client} 
                               id                = 'client' 
                               className         = "form-control put " 
                               placeholder       = "Client"/> 
+                      }
+                      
+
+                      
                     </td>
 
                     <td>
@@ -344,16 +355,16 @@ class Tab1CreateSO extends Component{
             <div className="line">
               <table className="lineTableDtl">
                   <tr>
-                      <th width ='3.5%' style={{ textAlign:"center"}}>#</th>
-                      <th width ='11.1%'  className='required-field'>Product</th>
-                      <th width ='14.1%'>Product Description</th>
-                      <th width='7.2%' className='required-field'>Qty</th>
+                      <th width ='3.7%' style={{ textAlign:"center"}}>#</th>
+                      <th width ='10%'  className='required-field'>Product</th>
+                      <th width ='13%'>Product Description</th>
+                      <th width='8.5%' className='required-field'>Qty</th>
                       <th width='7.2%'>Weight</th>
-                      <th width ='10.1%' className='required-field'>UOM</th>
-                      <th width ='10.1%'>Rota Date</th>
-                      <th width='7.3%' >Batch</th>
-                      <th width='7.3%' >Ref3</th>
-                      <th width='7.3%' >Ref4</th>
+                      <th width ='9.7%' className='required-field'>UOM</th>
+                      <th width ='9.8%'>Rota Date</th>
+                      <th width='6.4%' >Batch</th>
+                      <th width='6%' >Ref3</th>
+                      <th width='6%' >Ref4</th>
                       <th width ='11.1%'>Disposition</th>
                       <th width='7.3%'>Pack Id</th> 
                   </tr>                             
@@ -388,7 +399,7 @@ class Tab1CreateSO extends Component{
                 {/* <div className={"tablerow " + (this.state.lineDetail.length >2 ? "scroll" : null )} style={{width:"98%"}}>
             
                 </div> */}
-                  <button onClick={() => this.props.addLineHandler()} type="button" class="btn btn-light font addline">+ Add Line</button> 
+                  <button onClick={() => this.props.addLineHandler()} type="button" className="btn-light font addlineSo">+</button> 
                   {this.state.tab2isactive ? this.submit() :  <Button onClick={() => this.setData()} color="primary" className="btnsearch next btnleft" ><label className="font btnLabel ">Next</label></Button>
                 } 
          
