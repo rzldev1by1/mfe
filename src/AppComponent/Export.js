@@ -53,7 +53,7 @@ class Export extends Component {
     
         doc.text(title, marginLeft, 40);
         doc.autoTable(content);
-        doc.save(this.props.ExportName())
+        doc.save(this.props.ExportName()+".pdf")
       }
     
     render = () => {

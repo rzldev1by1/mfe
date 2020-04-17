@@ -13,6 +13,7 @@ import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
 import Authentication from '../../../Auth/Authentication';
 import {headerValidation,lineDetailValidation} from '../Components/Validation/Validation'
 import swal from 'sweetalert'
+import moment from 'moment'
 
 
 class SalesOrderCreate extends Component{
@@ -204,6 +205,7 @@ class SalesOrderCreate extends Component{
         }
       }))
       this.props.getClientProduct(clientVal)
+      this.props.getResources(clientVal)
     }
 
     // Set Order Type

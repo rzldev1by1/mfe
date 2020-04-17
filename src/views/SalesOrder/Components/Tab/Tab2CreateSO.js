@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import OrderLineReview from './OrderLineReview'
+import moment from 'moment'
 
     class Tab2CreateSO extends Component{
         constructor(props){
@@ -45,6 +46,9 @@ import OrderLineReview from './OrderLineReview'
               deliveryInstruction,
 
           } = this.props.parameters.header
+
+          let deliveryDates = moment(deliveryDate)
+          deliveryDates = deliveryDates.format('DD/MM/YYYY')
             return(
         <div className="tabcontents">
             <h3 className="fonts">Order Details</h3>
@@ -69,7 +73,7 @@ import OrderLineReview from './OrderLineReview'
                     <th>Vendor Order Ref</th>                    
                 </tr>
                 <tr>
-                    <td><input value={deliveryDate} className="form-control" readOnly/></td>
+                    <td><input value={deliveryDates} className="form-control" readOnly/></td>
                     <td><input value={customerOrderRef} className="form-control" readOnly/></td>
                     <td><input value={vendorOrderRef} className="form-control" readOnly/></td>
                 </tr>  
