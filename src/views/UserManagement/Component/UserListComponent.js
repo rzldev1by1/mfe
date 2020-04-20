@@ -72,7 +72,7 @@ class UserListComponent extends Component{
 
     getSortingField = (param) => {
       let result = "";
-      console.log(param);
+      
       switch (param) {
         case "User Name":
             result = "user";
