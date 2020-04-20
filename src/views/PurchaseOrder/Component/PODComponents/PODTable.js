@@ -17,11 +17,11 @@ class PurchaseOrderTable extends Component {
       data:this.props.datahead,
       tableheader: [
           {
-            id: "line_no", 
+            id: "orig_line_number", 
             checkboxLabelText: "Line No", 
             tableHeaderText: "Line No", 
             isVisible: true, 
-            key: "line_no", 
+            key: "orig_line_number", 
             type: "string"
           },
           {
@@ -33,19 +33,19 @@ class PurchaseOrderTable extends Component {
             type: "string"
           },
           {
-            id: "status_desc", 
+            id: "product_name", 
             checkboxLabelText: "Product Description", 
             tableHeaderText: "Product Description", 
             isVisible: true, 
-            key: "status_desc", 
+            key: "product_name", 
             type: "string"
           },
           {
-            id: "qty_lcd", 
+            id: "quantity", 
             checkboxLabelText: "Qty", 
             tableHeaderText: "Qty", 
             isVisible: true, 
-            key: "qty_lcd", 
+            key: "quantity", 
             type: "string"
           },
           {
@@ -89,10 +89,26 @@ class PurchaseOrderTable extends Component {
             type: "string"
           },
           {
+            id: "batch", 
+            checkboxLabelText: "batch", 
+            tableHeaderText: "batch", 
+            isVisible: true, 
+            key: "batch", 
+            type: "string"
+          },
+          {
+            id: "rotadate", 
+            checkboxLabelText: "Rota Date", 
+            tableHeaderText: "Rota Date", 
+            isVisible: false, 
+            key: "rotadate", 
+            type: "string"
+          },
+          {
             id: "ref3", 
             checkboxLabelText: "Ref 3", 
             tableHeaderText: "Ref 3", 
-            isVisible: true, 
+            isVisible: false, 
             key: "ref3", 
             type: "string"
           },
@@ -153,7 +169,7 @@ class PurchaseOrderTable extends Component {
     }
     else if(id == 'Status Description')
     {
-      this.setState({sort:!this.state.sort, sortparameter:'status_desc'})
+      this.setState({sort:!this.state.sort, sortparameter:'status_description'})
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
     }
     else if(id == 'Quantity')
@@ -253,7 +269,7 @@ class PurchaseOrderTable extends Component {
                             if(column.id === "line_no"){
                                 return <td key={columnIdx}>{i+1}</td>
                             }
-                            if(column.id === "status_desc"){
+                            if(column.id === "status_description"){
                                 return <td key={columnIdx}>{data[column.id].substring(2)}</td>
                             }
                             if(column.id === "completed"){
@@ -261,7 +277,7 @@ class PurchaseOrderTable extends Component {
                                             <img style={{width:'15px',height:'13px'}} src={data[column.id] == "Y" ? ok : minus}></img>
                                        </td>
                             }
-                            return <td key={columnIdx}>{data[column.id]}</td>
+                            return <td key={columnIdx}>{data[column.id] ? data[column.id] : "-"}</td>
                         }
                     })}
                     <td></td>
