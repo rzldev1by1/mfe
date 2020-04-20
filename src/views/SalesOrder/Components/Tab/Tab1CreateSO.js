@@ -150,7 +150,7 @@ class Tab1CreateSO extends Component{
                   <td className='verticalAlignTop'>
                     {
                       this.props.userLevel == 'administrator' ? 
-                      <Dropdown optionSelected  = {clientName}
+                      <Dropdown optionSelected  = {client}
                                 getValue        = {(clientVal, clientName) => this.props.setClient(clientVal, clientName)} 
                                 placeHolder     = "Client" 
                                 style           = {{minWidth: "100%"}} 
