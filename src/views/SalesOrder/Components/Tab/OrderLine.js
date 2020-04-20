@@ -57,6 +57,7 @@ const OrderLine = (props) => {
                                     className       = "form-control put "
                                     placeholder     = 'Qty'
                                     value           = {qty}
+                                    maxLength       = '9'
                                     onChange        = {(e) =>props.setQty(e.target.value, props.idx)}/>
                    </td>
 
@@ -65,6 +66,7 @@ const OrderLine = (props) => {
                                     className       = "form-control put "
                                     placeholder     = 'Weight'
                                     value           = {weight}
+                                    maxLength       = '9'
                                     onChange        = {(e) =>props.setWeight(e.target.value, props.idx)}/>
                    </td>
 
@@ -87,6 +89,7 @@ const OrderLine = (props) => {
                                     className       = "form-control put "
                                     placeholder     = 'Batch'
                                     value           = {batch}
+                                    maxLength       = '9'
                                     onChange        = {(e) =>props.setBatch(e.target.value, props.idx)}/>
                    </td>
 

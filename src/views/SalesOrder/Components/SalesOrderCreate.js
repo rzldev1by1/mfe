@@ -14,6 +14,7 @@ import Authentication from '../../../Auth/Authentication';
 import {headerValidation,lineDetailValidation} from '../Components/Validation/Validation'
 import swal from 'sweetalert'
 import moment from 'moment'
+import {reset} from './resetState'
 
 
 class SalesOrderCreate extends Component{
@@ -34,7 +35,7 @@ class SalesOrderCreate extends Component{
             vendorOrderRef      : null,
             orderType           : null,
             orderTypeVal        : null,
-            deliveryDate        : null,
+            deliveryDate        : moment().format('YYYY-MM-DD'),
             customer            : this.props.resources.identity ? this.props.resources.identity[0].name : null,
             customerVal         : this.props.resources.identity ? this.props.resources.identity[0].customer_no : null,
             shipToAddress1      : this.props.resources.identity ? this.props.resources.identity[0].address_1 : null,
@@ -86,10 +87,17 @@ class SalesOrderCreate extends Component{
         }
     }
 
-    
+    resetState = () => {
+      this.setState({
+        tab1isactive:!this.state.tab1isactive,
+        tab2isactive:!this.state.tab2isactive,
+        parameters:reset(this.props.resources)
+        })
+    }
 
     close = () => {
       this.props.closemodal()
+      if(!this.state.tab1isactive) this.resetState()
     }
 
     tabhandler = () => {
@@ -193,7 +201,7 @@ class SalesOrderCreate extends Component{
         if(data.code === clientVal) return data.name
       })
 
-      name =  clientVal + ' ('+name+')'
+      name =  clientVal + ' ( '+name+' )'
       this.setState(prevState => ({
         parameters: {
           ...prevState.parameters,
@@ -313,7 +321,11 @@ class SalesOrderCreate extends Component{
         validation.header.emptyCustomer = null
         this.setState({validation:validation})
       }
-      customer = customerVal + ' (' + customer + ')'
+
+      let index = this.props.resources.supplier.code.indexOf(customerVal)
+      customer = this.props.resources.supplier.name[index]
+      
+      customer = customerVal + ' ( ' + customer + ' )'
       this.setState(prevState => ({
         parameters:{
           ...prevState.parameters,
@@ -461,6 +473,7 @@ class SalesOrderCreate extends Component{
     }
 
     getIdentity = (customerVal) => {
+      this.setCustomer(customerVal)
       let param = '?client='+Authentication.getClient()+'&&customerNo='+customerVal
       let self = this
       axios.get(endpoint.getSoIdentity+param,{
@@ -474,8 +487,6 @@ class SalesOrderCreate extends Component{
               ...prevState.parameters,
               header:{
                 ...prevState.parameters.header,
-                customer            : nm,
-                customerVal         : result.customer_no,
                 shipToAddress1      : result.address_1,
                 shipToAddress2      : result.address_2,
                 shipToAddress3      : result.address_3,
@@ -634,7 +645,6 @@ class SalesOrderCreate extends Component{
 
     createSalesOrder = () => {
       let parameters = this.state.parameters
-      console.log(parameters)
       axios.post(endpoint.salesOrderCreate, parameters, {
         headers:headers
       })
@@ -650,52 +660,8 @@ class SalesOrderCreate extends Component{
           },
         });
 
-        let reset = {
-          header: {
-            company             : Authentication.getCompanyCode(),            
-            site                : null,  
-            siteVal             : null,
-            client              : Authentication.getClient(),       
-            orderId             : null,
-            customerOrderRef    : null,
-            vendorOrderRef      : null,
-            orderType           : null,
-            orderTypeVal        : null,
-            deliveryDate        : null,
-            customer            : this.props.resources.identity ? this.props.resources.identity[0].name : null,
-            customerVal         : this.props.resources.identity ? this.props.resources.identity[0].customer_no : null,
-            shipToAddress1      : this.props.resources.identity ? this.props.resources.identity[0].address_1 : null,
-            shipToAddress2      : this.props.resources.identity ? this.props.resources.identity[0].address_2 : null,
-            shipToAddress3      : this.props.resources.identity ? this.props.resources.identity[0].address_3 : null,
-            shipToAddress4      : this.props.resources.identity ? this.props.resources.identity[0].address_4 : null,
-            shipToAddress5      : this.props.resources.identity ? this.props.resources.identity[0].address_5 : null,
-            city                : this.props.resources.identity ? this.props.resources.identity[0].city : null,
-            postCode            : this.props.resources.identity ? this.props.resources.identity[0].postcode : null,
-            state               : this.props.resources.identity ? this.props.resources.identity[0].state : null,
-            country             : this.props.resources.identity ? this.props.resources.identity[0].country : null, 
-            deliveryInstruction : null,
-          },
-          lineDetail: [
-            {
-              number           : 1,
-              productVal       : null,
-              product          : null,
-              qty              : null,
-              weight           : null,
-              uom              : null,
-              rotaDate         : null,
-              batch            : null,              
-              ref3             : null,
-              ref4             : null,
-              dispositionVal   : null,
-              disposition      : null,
-              packId           : null,
-            }
-          ],
-        }
-
         this.setState({
-          parameters:reset,
+          parameters:reset(this.props.resources),
           tab1isactive:!this.state.tab1isactive,
           tab2isactive:!this.state.tab2isactive}, () => this.props.loadSalesOrder())
           
@@ -721,7 +687,7 @@ class SalesOrderCreate extends Component{
        
         if(this.props.clientdata){
             this.props.clientdata.map((data) => {
-              let name =  data.code + ' ('+data.name+')'
+              let name =  data.code + ' ( '+data.name+' )'
                 clientName.push(name);
                 clientValue.push(data.code);
             })

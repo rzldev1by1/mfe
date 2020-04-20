@@ -82,121 +82,120 @@ class Tab1CreateSO extends Component{
       if(emptyShipToAddress1) emptyClassShipToAddress1 = 'mtrField'
       if(emptyPostCode) emptyClassPostCode             = 'mtrField'
       if(emptyState) emptyClassState                   = 'mtrField'
+
+      let supplierName = []
+      this.props.resources.supplier.name.map((data, idx) => {
+        let code = this.props.resources.supplier.code[idx]
+        supplierName.push(code+' ( '+ data + ' )')
+      })
         return(
           <div className="tabcontents">
             <h3 className="fonts">Order Details</h3>
             <table className="createpotables">
                 <tr>
                     <th className='required-field'>Site</th>
-                    <th className='required-field'>Client</th>
-                    <th className='required-field'>Order Type</th>
-                    <th className='required-field'>Order No</th>                    
+                    <th className='required-field'>Order Type</th>                    
+                    <th>Customer Order Ref</th>
+                    <th className='required-field'>Delivery Date</th>              
                 </tr>
                 <tr>
                     <td>
                       <Dropdown optionSelected  = {siteVal}
                                 getValue        = {(siteVal, site) => this.props.setSite(siteVal, site)} 
                                 placeHolder     = "Site"  
-                                style           = {{minWidth: "100%", zIndex:"1"}} 
+                                style           = {{minWidth: "100%", zIndex:"3"}} 
                                 optionList      = {this.props.resources.site.name.toString()} 
                                 optionValue     = {this.props.resources.site.code.toString()}/>
                     </td>
 
-                    <td>
-                      {
-                        this.props.userLevel == 'administrator' ? 
-                        <Dropdown optionSelected  = {clientName}
-                                  getValue        = {(clientVal, clientName) => this.props.setClient(clientVal, clientName)} 
-                                  placeHolder     = "Client" style={{minWidth: "100%"}} 
-                                  optionList      = {this.props.clientName.toString()} 
-                                  optionValue     = {this.props.clientVal.toString()}/>  
-                        :
-                        <input  readOnly 
-                              value             = {client} 
-                              id                = 'client' 
-                              className         = "form-control put " 
-                              placeholder       = "Client"/> 
-                      }
-                      
-
-                      
-                    </td>
-
-                    <td>
-                      <Dropdown optionSelected  = {orderTypeVal}
-                                getValue        = {(orderTypeVal, orderType) => this.props.setOrderType(orderTypeVal,orderTypeVal)} 
-                                placeHolder     = "Order Type" style={{minWidth: "100%"}} 
-                                optionList      = {this.props.resources.orderType.name.toString()} 
-                                optionValue     = {this.props.resources.orderType.code.toString()}/>     
-                    </td>
-
-                    <td>
-                      <input  value         = {orderId} 
-                              onChange      = {(e) => this.props.setOrderId(e.target.value)}
-                              id            = 'orderId' 
-                              className     = "form-control put " 
-                              placeholder   = "Order No"/>
-                    </td>                 
                     
+                    <td>
+                          <Dropdown optionSelected  = {orderTypeVal}
+                                    getValue        = {(orderTypeVal, orderType) => this.props.setOrderType(orderTypeVal,orderTypeVal)} 
+                                    placeHolder     = "Order Type" style={{minWidth: "100%"}} 
+                                    optionList      = {this.props.resources.orderType.name.toString()} 
+                                    optionValue     = {this.props.resources.orderType.code.toString()}/>     
+                    </td>
+
+                    <td>
+                      <input  value         = {customerOrderRef} 
+                              onChange      = {(e) => this.props.setCustomerOrderRef(e.target.value)}
+                              maxLength     = "40" 
+                              minLength     = "4" 
+                              id            = 'customerOrderRef' 
+                              className     = "form-control put " 
+                              placeholder   = "Customer Order Ref"/> 
+                    </td>
+
+                    <td>
+                      <DatePicker getDate   = {(date) => this.props.setDeliveryDate(date)} 
+                                  style     = {{ minWidth: "100%" }}/>
+                    </td>
                 </tr>
 
                 <tr>
                     <td className={emptyClassSite}>{emptySite}</td>
-                    <td className={emptyClassClient}>{emptyClient}</td>
                     <td className={emptyClassOrderType}>{emptyOrderType}</td>
-                    <td className={emptyClassOrderNo}>{emptyOrderNo}</td>                    
+                    <td className='nmtrField'></td>
+                    <td className={emptyClassDeliveryate}>{emptyDeliveryDate}</td>                                      
                 </tr>
 
-                <tr>
-                    <th className='required-field'>Delivery Date</th>
-                    <th>Customer Order Ref</th>
-                    <th>Vendor Order Ref</th>                    
+                <tr>     
+                  <th className='required-field'>Client</th>            
+                  <th className='required-field'>Order No</th>
+                  <th>Vendor Order Ref</th>     
+                  <th>Delivery Instructions</th>               
                 </tr>
-                <tr>
-                  <td>
-                    <DatePicker getDate   = {(date) => this.props.setDeliveryDate(date)} 
-                                style     = {{ minWidth: "100%" }}/>
+                <tr>                
+                  <td className='verticalAlignTop'>
+                    {
+                      this.props.userLevel == 'administrator' ? 
+                      <Dropdown optionSelected  = {clientName}
+                                getValue        = {(clientVal, clientName) => this.props.setClient(clientVal, clientName)} 
+                                placeHolder     = "Client" 
+                                style           = {{minWidth: "100%"}} 
+                                optionList      = {this.props.clientName.toString()} 
+                                optionValue     = {this.props.clientVal.toString()}/>  
+                      :
+                      <input  readOnly 
+                            value             = {client} 
+                            id                = 'client' 
+                            className         = "form-control put " 
+                            placeholder       = "Client"/> 
+                    }
+                    <div className={emptyClassClient+ ' verticalAlignTop'}>{emptyClient}</div>
                   </td>
-
-                  <td>
-                    <input  value         = {customerOrderRef} 
-                            onChange      = {(e) => this.props.setCustomerOrderRef(e.target.value)}
-                            maxLength     = "40" 
-                            minLength     = "4" 
-                            id            = 'customerOrderRef' 
+                  <td className='verticalAlignTop'>
+                    <input  value         = {orderId} 
+                            onChange      = {(e) => this.props.setOrderId(e.target.value)}
+                            id            = 'orderId' 
                             className     = "form-control put " 
-                            placeholder   = "Customer Order Ref"/> 
-                  </td>
+                            placeholder   = "Order No"/>
+                    <div className={emptyClassOrderNo}>{emptyOrderNo}</div>
+                  </td>  
                   
-                  <td>
+                  <td className='verticalAlignTop'>
                     <input  value         = {vendorOrderRef}
                             onChange      = {(e) => this.props.setVendorOrderRef(e.target.value)}
                             maxLength     = "40" 
                             id            = 'vendorOrderRef' 
                             className     = "form-control put " 
                             placeholder   = "Vendor Order Ref"/> 
-                  </td>    
-                </tr>
-
-                <tr>
-                    <td className={emptyClassDeliveryate}>{emptyDeliveryDate}</td>
-                    <td className='nmtrField'></td>
-                    <td className='nmtrField'></td>                    
-                </tr>
-
-                <tr>
-                  <th>Delivery Instructions</th>
-                </tr>
-                
-                <tr>
-                  <td rowspan="3">
+                  </td>  
+                  
+                  <td>
                     <textarea value       = {deliveryInstruction}
                               onChange    = {(e) => this.props.setDeliveryInstruction(e.target.value)}
                               id          = 'deliveryInstruction' 
                               className   = "form-control put dlv" 
                               style       = {{height:"8em"}} 
                               placeholder = "Delivery Instructions"/>
-                  </td>
+                  </td>  
+                </tr>
+
+                <tr>                  
+                    <td className='nmtrField'></td>
+                    <td className='nmtrField'></td>                    
                 </tr>
             </table>
             <tr style={{color:"transparent"}}>1</tr>
@@ -222,7 +221,7 @@ class Tab1CreateSO extends Component{
                               getValue        = {(customerVal) => this.props.getIdentity(customerVal)} 
                               placeHolder     = "Customer"  
                               style           = {{minWidth: "100%", zIndex:"1"}} 
-                              optionList      = {this.props.resources.supplier.name.toString()} 
+                              optionList      = {supplierName.toString()} 
                               optionValue     = {this.props.resources.supplier.code.toString()}/>
                       } 
 
@@ -314,7 +313,7 @@ class Tab1CreateSO extends Component{
                       <input  value       = {postCode} 
                               onChange    = {(e) => this.props.setPostCode(e.target.value)}
                               id          = 'postCode' 
-                              maxLength   = "20" 
+                              maxLength   = "5" 
                               className   = "form-control put " 
                               placeholder = "Postcode" /> 
                     </td>
