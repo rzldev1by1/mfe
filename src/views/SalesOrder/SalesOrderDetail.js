@@ -5,6 +5,7 @@ import SODTable from './Components/SODTable'
 import axios from 'axios'
 import {endpoint, headers,} from '../../AppComponent/ConfigEndpoint'
 import Authentication from '../../Auth/Authentication'
+import client from '../UserManagement/Component/Client';
 
 class SalesOrderDetail extends Component {
   constructor(props) {
@@ -27,8 +28,12 @@ class SalesOrderDetail extends Component {
 getheaderdetail = () => {
       
     this.setState({complete:false})
-    let param = window.location.href.split("/").pop()
-    param       = param+'?client='+this.client
+    let param = window.location.href.split("/")
+    let index = param.length
+
+    let client = param[index-2]
+    let orderNo = param[index-1]
+    param       = orderNo+'?client='+client
     axios.get(endpoint.salesOrder + '/'+ param, {
         
       headers: headers

@@ -29,10 +29,9 @@ class ListOrderComponent extends Component {
 			displayPage:50,
 			totalRows: 0,
       maxPage: 0,
+      client: Authentication.getClient()
 
     }
-
-    this.client = Authentication.getClient()
   }
 
    
@@ -47,17 +46,35 @@ class ListOrderComponent extends Component {
   }
 
 
-  searchSalesOrder =(search,client,site,status,ordertype) => {
+  searchSalesOrder =(search,site,client) => {
     
     this.setState({currentPage: 1,
       startIndex: 0, lastIndex: 0,
       totalRows: 0, maxPage: 0})
 
     let param = search
-    let url = '?searchParam=' + param + '&&client=' + this.client
-    if(param)
+    let url = '?searchParam=' + param + '&&client=' + this.state.client
+
+    if(client)
+    {
+      url = '?searchParam=' + param + '&&client=' + client
+      this.setState({client:client})
+    }
+
+    if(site && !client)
+    {
+      url = '?searchParam=' + param + '&&site=' + site
+    }
+
+    if(client && site)
+    {
+      url = '?client=' + client + '&&site=' + site
+    }
+    if(param && client && site)
     {
       param = param.toUpperCase()
+      url = '?searchParam=' + param + '&&client=' + client + '&&site=' + site
+      
     }
 
     this.props.loadCompleteHandler(false)
@@ -106,7 +123,7 @@ class ListOrderComponent extends Component {
                     startIndex: 0, lastIndex: 0,
                     totalRows: 0, maxPage: 0})
      
-    let param = '?client='+this.client
+    let param = '?client='+this.state.client
     axios.get(endpoint.salesOrder+param, {
       headers: headers
     })
@@ -324,7 +341,7 @@ class ListOrderComponent extends Component {
                     </thead>
                     <tbody>
                           {this.state.data  ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
-                                  <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.order_no)} className='tr'>
+                                  <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+this.state.client+'/'+data.order_no)} className='tr'>
                                       <td>{data.site}</td>
                                       <td>{data.client}</td>
                                       <td>{data.order_no}</td>
