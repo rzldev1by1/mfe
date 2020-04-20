@@ -329,7 +329,7 @@ class ListOrderComponent extends Component {
                                       <td>{data.client}</td>
                                       <td>{data.order_no}</td>
                                       <td>{data.order_type}</td>
-                                      <td>{data.customer_name}</td>
+                                      <td>{data.customer+' ( '+data.customer_name+' )'}</td>
                                       <td style={{width:"11%"}}>{data.status}</td>
                                       <td>{'' + (data.delivery_date ? moment(data.delivery_date).format("DD/MM/YYYY") : '') }</td>
                                       <td>{'' + (data.date_received ? moment(data.date_received).format("DD/MM/YYYY") : '') }</td>
@@ -361,7 +361,7 @@ class ListOrderComponent extends Component {
                                       <td>{data.client}</td>
                                       <td>{data.order_no}</td>
                                       <td>{data.order_type}</td>
-                                      <td>{data.customer_name}</td>
+                                      <td>{data.customer +' ('+data.customer_name+ ')'}</td>
                                       <td style={{width:"11%"}}>{data.status_desc}</td>
                                       <td>{'' + (data.date_due ? moment(data.date_due).format("DD/MM/YYYY") : '') }</td>
                                       <td>{'' + (data.date_recd ? moment(data.date_recd).format("DD/MM/YYYY") : '') }</td>

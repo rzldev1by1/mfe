@@ -71,7 +71,7 @@ const lineDetailValidation = (lineDetail, idx) => {
   }
   if(lineDetail.qty.includes('-') || lineDetail.qty.includes('e'))
   {
-    alert('please insert number format in line '+idx)
+    alert('Qty in line '+idx+' must be a positive number, negatives are not allowed')
     qty.focus()
     qty.value = null
     return false
