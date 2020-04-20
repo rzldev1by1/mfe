@@ -1,4 +1,5 @@
-import Authentication from '../../../Auth/Authentication';
+import Authentication from '../../../Auth/Authentication'
+import moment from 'moment'
 const reset = (props) => {
     return {
         header: {
@@ -11,7 +12,7 @@ const reset = (props) => {
             vendorOrderRef      : null,
             orderType           : null,
             orderTypeVal        : null,
-            deliveryDate        : null,
+            deliveryDate        : moment().format('YYYY-MM-DD'),
             customer            : props.identity ? props.identity[0].name : null,
             customerVal         : props.identity ? props.identity[0].customer_no : null,
             shipToAddress1      : props.identity ? props.identity[0].address_1 : null,
