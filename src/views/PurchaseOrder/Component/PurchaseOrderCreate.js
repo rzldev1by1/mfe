@@ -51,7 +51,7 @@ class PurchaseOrderCreate extends Component{
                   }
               ],
               rowlistidx: 1,
-
+    
               data:[
                   {
                       "menu":"Client",
@@ -88,7 +88,7 @@ class PurchaseOrderCreate extends Component{
               lineDetails: [],
               isSaveProgressing: false,
               createSuccess: false
-                  
+                             
           }
     }
 
@@ -129,11 +129,11 @@ class PurchaseOrderCreate extends Component{
     }
 
     tabhandler = () => {
-      this.setState({
-        tab1isactive:!this.state.tab1isactive,
-        tab2isactive:!this.state.tab2isactive
-        })
-    }
+              this.setState({
+                tab1isactive:!this.state.tab1isactive,
+                tab2isactive:!this.state.tab2isactive
+                })
+            }
 
     datePickerHandler = (day) => {
       this.setState({showdatepicker:!this.state.showdatepicker})
@@ -252,9 +252,9 @@ class PurchaseOrderCreate extends Component{
         <h3 className="fonts">Order Details</h3>
         <table className="createpotable">
             <tr>
-                <th style={{width:"396px"}}>Site</th>
-                <th style={{width:"396px"}}>Client</th>
-                <th style={{width:"396px"}}>Supplier</th>
+                <th className='required-field' style={{width:"396px"}}>Site</th>
+                <th className='required-field' style={{width:"396px"}}>Client</th>
+                <th className='required-field' style={{width:"396px"}}>Supplier</th>
                 <th style={{width:"396px"}}>Customer Order Ref</th>
             </tr>
             <tr>
@@ -291,9 +291,9 @@ class PurchaseOrderCreate extends Component{
               <th style={{color:"transparent"}}>1</th>
             </tr>
             <tr>
-                <th>Order Type</th>
-                <th>Order No</th>
-                <th>Order Date</th>
+                <th className='required-field'>Order Type</th>
+                <th className='required-field'>Order No</th>
+                <th className='required-field'>Order Date</th>
                 <th>Vendor Order Ref</th>
             </tr>
             <tr>
@@ -337,10 +337,10 @@ class PurchaseOrderCreate extends Component{
           <table className="tabledetails">
               <tr>
                   <th style={{width:"2%", textAlign:"center", paddingLeft:"18px"}}>#</th>
-                  <th style={{width:"12%", paddingLeft:"20px"}}>Product</th>
-                  <th style={{width:"12%", paddingLeft:"8px"}}>Product Description</th>
-                  <th style={{width:"3%", paddingLeft:"0px"}}>Qty</th>
-                  <th style={{width:"6%", paddingLeft:"20px"}}>UOM</th>
+                  <th className='required-field' style={{width:"12%", paddingLeft:"20px"}}>Product</th>
+                  <th className='required-field' style={{width:"12%", paddingLeft:"8px"}}>Product Description</th>
+                  <th className='required-field' style={{width:"3%", paddingLeft:"0px"}}>Qty</th>
+                  <th className='required-field' style={{width:"6%", paddingLeft:"20px"}}>UOM</th>
                   <th style={{width:"11%", paddingLeft:"13px"}}>Rota Date</th>
                   <th style={{width:"6%", paddingLeft:"25px"}}>Batch</th>
                   <th style={{width:"5%", paddingLeft:"18px"}}>Ref3</th>
