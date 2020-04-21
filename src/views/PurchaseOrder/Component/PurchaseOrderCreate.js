@@ -101,7 +101,7 @@ class PurchaseOrderCreate extends Component{
     componentDidMount = () => {
       this.getclient();
     //   this.getsite();
-    //   this.getsupplier();
+      this.getsupplier();
     //   this.getordertype();
       this.getporesource();
     }
@@ -186,7 +186,7 @@ class PurchaseOrderCreate extends Component{
     }
 
     getsupplier = () => {   
-      axios.get(endpoint.getSupplier, {
+      axios.get(endpoint.getSupplier + "?client=" + headers.client, {
         headers: headers
       })
         .then(res => {
@@ -220,6 +220,7 @@ class PurchaseOrderCreate extends Component{
     let clientName = [];
     let clientValue = [];
     let siteData = [];
+    let supplierNo = [];
     let supplierName = [];
     let orderData =[];
     let orderValue = [];
@@ -236,6 +237,7 @@ class PurchaseOrderCreate extends Component{
     }
     if(this.state.supplierdatacr){
       this.state.supplierdatacr.map((data) => {
+          supplierNo.push(data.supplier_no);
           supplierName.push(data.name);
       })
   }
@@ -276,8 +278,10 @@ class PurchaseOrderCreate extends Component{
               </td>
                 {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
               <td>
-                  {/* <AutoComplete  /> */}
-                            <input className="form2 put pec" placeholder="Supplier" value={this.state.supplier} maxLength="40" onChange={(e) => this.setState({ supplier: e.target.value })}/>
+                <AutoComplete suggestions={supplierName}
+                                    suggestionsValue={supplierNo}
+                                    defaultValue={this.state.supplier}
+                                    handleChange={(e) => this.setState({ supplier: e })} />
               </td>
                 {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form2 put pec" placeholder="Supplier"/> </td> */}
               <td>
@@ -352,7 +356,7 @@ class PurchaseOrderCreate extends Component{
             <div className={"tablerow " + (this.state.rowlist.length >2 ? "scroll" : null )} style={{width:"98%"}}>
               {this.state.rowlist.map((list, i) => this.linedetailsrow(list, i))}
             </div>
-              <button onClick={() => this.addline()} type="button" class="btn btn-light font addline">+ Add Line</button>
+              <button onClick={() => this.addline()} type="button" className="btn btn-light font addline">+ Add Line</button>
 
               {this.state.tab2isactive ? 
               this.submit() :  
@@ -485,7 +489,7 @@ class PurchaseOrderCreate extends Component{
       <table>
         <tr>
             <td hidden id={list.lineNumber} ></td>
-            <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs pec" value={list.lineNumber} readOnly/></td>{console.log(self.state.rowlist[i].product)}
+            <td style={{width:"3.5%", textAlign:"center"}}><input className="form-control inputs pec" style={{ textAlign:"center" }} value={list.lineNumber} readOnly/></td>{console.log(self.state.rowlist[i].product)}
             <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product"  maxLength="40" value={self.state.rowlist[i].product} onChange={(e) => self.state.rowlist[i].product = e.target.value}/></td>
             <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product Description" value={self.state.rowlist[i].productDescription} onChange={(e) => self.state.rowlist[i].productDescription = e.target.value}/></td>
             <td style={{width:"4.5%"}}><input type="number" min="1" className="form-control inputs pec" placeholder="Qty" value={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
@@ -518,7 +522,7 @@ class PurchaseOrderCreate extends Component{
       <table>
         <tr>
             <td hidden id={list.lineNumber}></td>
-            <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs pec" value={list.lineNumber} readOnly/></td>
+            <td style={{width:"3.5%", textAlign:"center"}}><input className="form-control inputs pec" style={{ textAlign:"center" }} value={list.lineNumber} readOnly/></td>
             <td style={{width:"12%"}}><input className="form-control inputs pec" value={list.product} readOnly/></td>
             <td style={{width:"12%"}}><input className="form-control inputs pec" value={list.productDescription} readOnly/></td>
             <td style={{width:"3.5%"}}><input className="form-control inputs pec" value={list.qty} readOnly/></td>
