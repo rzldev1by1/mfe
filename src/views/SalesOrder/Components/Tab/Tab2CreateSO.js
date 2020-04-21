@@ -56,36 +56,29 @@ import moment from 'moment'
             <table className="createpotable">
                 <tr>
                     <th>Site</th>
-                    <th>Client</th>
                     <th>Order Type</th>
-                    <th>Order Number</th>
+                    <th>Customer Order Ref</th>
+                    <th>Delivery Date</th>                    
                 </tr>
                 <tr>
-                    <td><input value={siteVal} className="form-control" readOnly/></td>
-                    <td><input value={clientName} className="form-control" readOnly/></td>
+                    <td><input value={site} className="form-control" readOnly/></td>
                     <td><input value={orderType} className="form-control" readOnly/></td>
-                    <td><input value={orderId} className="form-control" readOnly/></td>
+                    <td><input value={customerOrderRef} className="form-control" readOnly/></td>
+                    <td><input value={deliveryDates} className="form-control" readOnly/></td>                    
                 </tr>
   
                 <tr>
-                    <th>Delivery Date</th>
-                    <th>Customer Order Ref</th>
-                    <th>Vendor Order Ref</th>                    
+                  <th>Client</th>                    
+                  <th>Order Number</th>
+                  <th>Vendor Order Ref</th>    
+                  <th>Delivery Instruction</th>                
                 </tr>
                 <tr>
-                    <td><input value={deliveryDates} className="form-control" readOnly/></td>
-                    <td><input value={customerOrderRef} className="form-control" readOnly/></td>
-                    <td><input value={vendorOrderRef} className="form-control" readOnly/></td>
-                </tr>  
-
-                <tr>
-                  <th>Delivery Instruction</th>
-                </tr>
-
-                <tr>
-                <td rowspan="3"><textarea value={deliveryInstruction} className="form-control put dlv" style={{height:"8em"}} readOnly/></td>
-                </tr>
-                            
+                  <td className='verticalAlignTop'><input value={clientName} className="form-control" readOnly/></td>                   
+                  <td className='verticalAlignTop'><input value={orderId} className="form-control" readOnly/></td>
+                  <td className='verticalAlignTop'><input value={vendorOrderRef} className="form-control" readOnly/></td>
+                  <td><textarea value={deliveryInstruction} className="form-control put dlv" style={{height:"8em"}} readOnly/></td>
+                </tr>        
             </table>
 
             <tr style={{color:"transparent"}}>1</tr>

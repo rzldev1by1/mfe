@@ -601,7 +601,7 @@ class UserManagement extends Component{
       let currentForm = this.searchForm.current
       let searchValue = currentForm.searchInput.value;
 
-      console.log(searchValue);
+      
       if(searchValue){
         param.searchParam = searchValue;
       }else{
@@ -641,8 +641,8 @@ class UserManagement extends Component{
                           User Management
                       </h2>
                     </div>
-                    <div className="col-2 pl-0 ml-0">
-                        <button style={{width:"199px"}} className={(this.isValidUser() ?"btn btn-primary text-button":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
+                    <div className="col-2">
+                        <button style={{width:"199px"}} className={(this.isValidUser() ?"btn btn-primary text-button float-right":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
                         <img src={create} className="mr-2 mb-1" style={{width:'8%'}}/>
                         Create user
                         </button>
@@ -658,30 +658,31 @@ class UserManagement extends Component{
             <div className={( this.state.isListLoaded ? '':' d-none ')}>
               <div className="mb-3">
                 <Card className="container-user-list border-0 mb-0">
-                <CardBody>
-                <form ref={this.searchForm} onSubmit ={this.searchHandler}>
-                <div className="row">
-                <div className="searchINP">
-                <div className="input-group p-0 searchSection">
-                <div className="input-group searchBox w-100" style={{maxWidth:"none"}}>
-                <span className="input-group-text border-0 bg-transparent ml-2" style={{ padding:"0.4rem" }}>
-                <i className="iconU-search" />
-                </span>
-                <input type="text" style={{ fontFamily: "Helvetica Neue Medium", backgroundColor:"transparent" }}
-                className="form-control searchInput" id="searchInput" name="searchInput"
-                placeholder="Enter User Id or User Name" />
-                </div>
-
-                </div>
-                </div>
-                {/* <div className="col-2 m-0"> */}
-                <Button type="submit" className="search text-button btnsearch">
-                Search
-                </Button>
-               
-                </div>
-                </form>
-                </CardBody>
+                    <CardBody>
+                          <form ref={this.searchForm} onSubmit ={this.searchHandler}>
+                              <div className="row">
+                                  <div className="col-10 col-lg-10 col-md-8 col-sm-12 p-0">
+                                      
+                                        <div className="input-group searchSection">
+                                          <div className="input-group searchBox w-100" style={{maxWidth:"none"}}>
+                                              <span className="input-group-text border-0 bg-transparent ml-2" style={{ padding:"0.4rem" }}>
+                                              <i className="iconU-search" />
+                                              </span>
+                                              <input type="text" style={{ fontFamily: "Helvetica Neue Medium", backgroundColor:"transparent" }}
+                                              className="form-control searchInput" id="searchInput" name="searchInput"
+                                              placeholder="Enter User Id or User Name" />
+                                          </div>
+                                        </div>
+                                      
+                                  </div>
+                                  <div className="col-2 col-lg-2 col-md-4 col-sm-12 searchSection">
+                                      <Button type="submit" className="search text-button btnsearch">
+                                          Search
+                                      </Button>
+                                  </div>
+                              </div>
+                          </form>
+                    </CardBody>
                 </Card>
               </div>
 

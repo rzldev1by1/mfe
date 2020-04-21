@@ -72,7 +72,7 @@ class UserListComponent extends Component{
 
     getSortingField = (param) => {
       let result = "";
-      console.log(param);
+      
       switch (param) {
         case "User Name":
             result = "user";
@@ -86,7 +86,12 @@ class UserListComponent extends Component{
         case "Client":
             result = "client";
             break;
-
+        case "Last Accessed":
+            result = 'lastaccess';
+            break;
+        case "Status":
+            result = 'status';
+            break;
 
         default:
           result="web_user"
@@ -179,9 +184,17 @@ class UserListComponent extends Component{
         return 1;
       else if(b[key] === null)
         return -1;
-      else
-        return a[key].toLowerCase() < b[key].toLowerCase()?-1:1;
-      // return ((strA < strB)?-1:((strA > strB)?1:0));
+      else{
+        if(key === 'lastaccess'){
+          let aKey = moment(a[key]);
+          let bKey = moment(b[key]);
+          return aKey.diff(bKey);
+        }else{
+          return a[key].toLowerCase() < b[key].toLowerCase()?-1:1;
+        }
+
+      }
+      
     }
 
     sortingDescending = (a,b,key) => {
@@ -193,15 +206,22 @@ class UserListComponent extends Component{
         return 1;
       else if(b[key] === null)
         return -1;
-      else
-        return a[key].toLowerCase() < b[key].toLowerCase()?1:-1;
+      else{
+        if(key === 'lastaccess'){
+          let aKey = moment(a[key]);
+          let bKey = moment(b[key]);
+          return bKey.diff(aKey);
+        }else{
+          return a[key].toLowerCase() < b[key].toLowerCase()?1:-1;
+        }
+      }
 
       // return ((strA < strB)? 1:((strA > strB)?-1:0));
     }
 
     render(){
         const {activearrow,order,fieldOrder} = this.state;
-
+        
         return(
                 <div className="d-flex tablePage">
                     <div className="w-100">
