@@ -143,12 +143,14 @@ span.client-notActive{
 
 .active{
 	font-family:"Helvetica Neue Medium";
+    
     color: #7FC242;
     font-size: 20px;
 }
 
 .suspended{
 	font-family:"Helvetica Neue Medium";
+    
     color: #FF5275;
     font-size: 20px;
 }
@@ -508,7 +510,7 @@ input:checked + .slider:before {
 }
 
 .text-button{
-	font-family: "Helvetica Neue Medium";
+font-family: "Helvetica Neue Medium";
 	font-size: 1.25em;
 
 }
