@@ -45,13 +45,13 @@ span.upArrow:before {
 
 .personal-header-text{
 	font-family:"Helvetica Neue Bold";
-	font-size: 1em !important;
+	font-size: 15px !important;
 	color: #B4B9BB !important;
 }
 
 .personal-value-text{
 	font-family:"Helvetica Neue Bold";
-	font-size: 1.333em !important;
+	font-size: 20px !important;
 	color: #637176 !important;
 }
 
@@ -74,16 +74,20 @@ span.upArrow:before {
 }
 
 .norm{
+	font-family:"Helvetica Neue Medium";
 	color:#969EA1 !important;
+	font-size: 20px;
 }
 
 .users{
-    color: #637176 !important;
+	font-family:"Helvetica Neue Medium";
+	color: #637176 !important;
+	font-size: 20px;
 }
 
 .border-account-info{
-    border: 3px solid #ffffff;
-    border-radius: 5px;
+    border: 3px solid #FFFFFF;
+	border-radius: 5px;
 }
 
 .account-info{
@@ -138,14 +142,16 @@ span.client-notActive{
 }
 
 .active{
+	font-family:"Helvetica Neue Medium";
     font-weight: 500;
     color: #7FC242;
-    /* font-size: 20px; */
+    font-size: 20px;
 }
 
 .suspended{
+	font-family:"Helvetica Neue Medium";
     font-weight: 500;
-    color: #FF4141;
+    color: #FF5275;
     font-size: 20px;
 }
 
@@ -433,7 +439,7 @@ input:checked + .slider:before {
 }
 
 .container-user-list{
-	border-radius: 10px;
+	border-radius: 5px;
 }
 
 .title-label{
