@@ -83,7 +83,7 @@ class UserListComponent extends Component{
                                         {
                                             Object.keys(element).map((item,idx) => {
                                                 return <div className="col-3 personal-value-text" key={idx}>
-                                                            <label className="mb-0">{element[item]}</label>
+                                                            <label className="mb-0" >{element[item]}</label>
                                                         </div>
                                             })
                                         }
