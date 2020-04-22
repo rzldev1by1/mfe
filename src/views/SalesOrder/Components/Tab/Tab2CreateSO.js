@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import OrderLineReview from './OrderLineReview'
+import OrderLineReview2 from './OrderLineReview2'
 import moment from 'moment'
 
     class Tab2CreateSO extends Component{
@@ -34,6 +35,7 @@ import moment from 'moment'
               orderTypeVal,
               deliveryDate,
               customer,
+              customerVal,
               shipToAddress1,
               shipToAddress2,
               shipToAddress3,
@@ -91,7 +93,7 @@ import moment from 'moment'
                     <th>Address 3</th>
                 </tr>
                 <tr>
-                    <td><input value={customer} className="form-control put " readOnly/></td>
+                    <td><input value={customerVal+ ' ( '+customer+' )'} className="form-control put " readOnly/></td>
                     <td><input value={shipToAddress1} className="form-control put " readOnly/> </td>
                     <td><input value={shipToAddress2} className="form-control put " readOnly/> </td>
                     <td><input value={shipToAddress3} className="form-control put " readOnly/> </td>
@@ -120,39 +122,19 @@ import moment from 'moment'
   
             <br/>
             <h3 className="fonts">Line Details</h3>
-  
-            <div className="line">
-              <table className="lineTableDtl">
-                  <tr>
-                      <th width ='3.2%' style={{ textAlign:"center"}}>#</th>
-                      <th width ='11.1%'  className='required-field'>Product</th>
-                      <th width ='14.1%'>Description</th>
-                      <th width='7.2%' className='required-field'>Qty</th>
-                      <th width='7.2%'>Weight</th>
-                      <th width ='10.1%' className='required-field'>UOM</th>
-                      <th width ='10.1%'>Rota Date</th>
-                      <th width='7.3%' >Batch</th>
-                      <th width='7.3%' >Ref3</th>
-                      <th width='7.3%' >Ref4</th>
-                      <th width ='11.1%'>Disposition</th>
-                      <th width='7.3%'>Pack Id</th> 
-                  </tr>                             
-                </table>
-              </div>
               
               {
                 this.props.parameters.lineDetail.map((data, idx) => {
                   return(
-                    <OrderLineReview  parameters = {data}
+                    <div>
+                      <OrderLineReview  parameters = {data}
                                       idx        = {idx}/>
+                      <OrderLineReview2 parameters = {data}
+                                        idx        = {idx}/>
+                    </div>
                   )
                 })
               }
-              {/* <div className={"tablerow " + (this.state.rowlist.length >2 ? "scroll" : null )} style={{width:"98%"}} >
-                {this.state.parameters.length == 0 ? null : this.state.parameters.orderLines.map((line, i) => 
-                  this.linedetailsrowreview(line, i)
-                )}
-              </div> */}
               <tr>
                   <td style={{color:"transparent"}}>1</td>
                 </tr>
