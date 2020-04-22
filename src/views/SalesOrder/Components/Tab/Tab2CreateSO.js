@@ -82,7 +82,7 @@ import moment from 'moment'
             </table>
 
             <tr style={{color:"transparent"}}>1</tr>
-            <h3 className="fonts">Costumer</h3>
+            <h3 className="fonts">Costumer Details</h3>
             <table className="createpotable">
                 <tr>
                     <th>Costumer</th>
@@ -126,7 +126,7 @@ import moment from 'moment'
                   <tr>
                       <th width ='3.2%' style={{ textAlign:"center"}}>#</th>
                       <th width ='11.1%'  className='required-field'>Product</th>
-                      <th width ='14.1%'>Product Description</th>
+                      <th width ='14.1%'>Description</th>
                       <th width='7.2%' className='required-field'>Qty</th>
                       <th width='7.2%'>Weight</th>
                       <th width ='10.1%' className='required-field'>UOM</th>
