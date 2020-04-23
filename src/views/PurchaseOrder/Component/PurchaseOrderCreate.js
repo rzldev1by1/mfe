@@ -670,7 +670,7 @@ class PurchaseOrderCreate extends Component{
             });
             swal({
                 title: "Error!",
-                text: res.data.message,
+                text: "The Site value must be entered",
                 icon: "error",
                 button: {
                     text: "Ok",
