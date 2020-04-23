@@ -33,7 +33,7 @@ const OrderLine = (props) => {
                          </th>
 
                          <th>
-                              <div id='orderline-header-product-id required-field'><div className='required-field'>Product</div></div>
+                              <div id='orderline-header-product-id'><div className='required-field'>Product</div></div>
                          </th>
 
                          <th>
@@ -41,7 +41,7 @@ const OrderLine = (props) => {
                          </th>
 
                          <th>
-                              <div id='orderline-header-qty-id required-field'><div className='required-field'>Qty</div></div>
+                              <div id='orderline-header-qty-id'><div className='required-field'>Qty</div></div>
                          </th>
 
                          <th>
@@ -49,7 +49,7 @@ const OrderLine = (props) => {
                          </th>
 
                          <th>
-                              <div id='orderline-header-uom-id required-field'><div className='required-field'>UOM</div></div>
+                              <div id='orderline-header-uom-id'><div className='required-field'>UOM</div></div>
                          </th>   
                          
                          <th>
