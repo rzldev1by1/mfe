@@ -47,7 +47,7 @@ class StockHoldingDetails extends Component {
 				{ id: "ref3", checkboxLabelText: "Ref 3", tableHeaderText: "Ref 3", isVisible: true, key: "ref3", type: "string", sort: mid },
 				{ id: "ref4", checkboxLabelText: "Ref 4", tableHeaderText: "Ref 4", isVisible: true, key: "ref4", type: "string", sort: mid },
 				{ id: "qty", checkboxLabelText: "Qty", tableHeaderText: "Qty", isVisible: true, key: "qty", type: "number", sort: mid },
-				{ id: "weight", checkboxLabelText: "Weight", tableHeaderText: "Weigth", isVisible: true, key: "weight", type: "number", sort: mid },
+				{ id: "weight", checkboxLabelText: "Weight", tableHeaderText: "Weight", isVisible: true, key: "weight", type: "number", sort: mid },
 				{ id: "pallet", checkboxLabelText: "Pallet", tableHeaderText: "Pallet", isVisible: true, key: "pallet", type: "string", sort: mid },
 				{ id: "price", checkboxLabelText: "Price", tableHeaderText: "Price", isVisible: true, key: "price", type: "number", sort: mid }
             ],

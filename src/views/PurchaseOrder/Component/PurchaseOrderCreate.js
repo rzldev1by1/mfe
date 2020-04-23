@@ -51,7 +51,7 @@ class PurchaseOrderCreate extends Component{
                   }
               ],
               rowlistidx: 1,
-
+    
               data:[
                   {
                       "menu":"Client",
@@ -75,7 +75,9 @@ class PurchaseOrderCreate extends Component{
               orderdatacr: [],
               sitedatacr: [],
               supplierdatacr: [],
-              
+              dispositioncr: [],
+              uomcr: [],
+
               // Create PO Form 
               site: undefined,
               client: undefined,
@@ -83,12 +85,12 @@ class PurchaseOrderCreate extends Component{
               customerRef: undefined,
               orderType: undefined,
               orderNo: undefined,
-              orderDate: null,
+              orderDate: undefined,
               vendorRef: undefined,
               lineDetails: [],
               isSaveProgressing: false,
               createSuccess: false
-                  
+                             
           }
     }
 
@@ -101,9 +103,10 @@ class PurchaseOrderCreate extends Component{
     componentDidMount = () => {
       this.getclient();
     //   this.getsite();
-    //   this.getsupplier();
+      this.getsupplier();
     //   this.getordertype();
       this.getporesource();
+      this.getdisposition();
     }
 
     getporesource = () => {
@@ -129,11 +132,11 @@ class PurchaseOrderCreate extends Component{
     }
 
     tabhandler = () => {
-      this.setState({
-        tab1isactive:!this.state.tab1isactive,
-        tab2isactive:!this.state.tab2isactive
-        })
-    }
+              this.setState({
+                tab1isactive:!this.state.tab1isactive,
+                tab2isactive:!this.state.tab2isactive
+                })
+            }
 
     datePickerHandler = (day) => {
       this.setState({showdatepicker:!this.state.showdatepicker})
@@ -186,7 +189,7 @@ class PurchaseOrderCreate extends Component{
     }
 
     getsupplier = () => {   
-      axios.get(endpoint.getSupplier, {
+      axios.get(endpoint.getSupplier + "?client=" + headers.client, {
         headers: headers
       })
         .then(res => {
@@ -196,6 +199,32 @@ class PurchaseOrderCreate extends Component{
        
         .catch(error => {
           // this.props.history.push("/logins")
+        })
+    }
+
+    getdisposition = () => {
+        axios.get(endpoint.getDisposition, {
+            headers: headers
+        })
+        .then(res => {
+            const result = res.data;
+            this.setState({ dispositioncr: res.data.code })
+        })
+        .catch(error => {
+
+        })
+    }
+
+    getuom = (i, value) => {
+        axios.get(endpoint.getUom + "?client=" + headers.client + "&product=" + value, {
+            headers: headers
+        })
+        .then(res => {
+            const result = res.data;
+            this.setState({ uomcr: res.data.uom })
+        })
+        .catch(error => {
+            this.setState({ uomcr: [] })
         })
     }
 
@@ -220,6 +249,7 @@ class PurchaseOrderCreate extends Component{
     let clientName = [];
     let clientValue = [];
     let siteData = [];
+    let supplierNo = [];
     let supplierName = [];
     let orderData =[];
     let orderValue = [];
@@ -236,6 +266,7 @@ class PurchaseOrderCreate extends Component{
     }
     if(this.state.supplierdatacr){
       this.state.supplierdatacr.map((data) => {
+          supplierNo.push(data.supplier_no);
           supplierName.push(data.name);
       })
   }
@@ -252,9 +283,9 @@ class PurchaseOrderCreate extends Component{
         <h3 className="fonts">Order Details</h3>
         <table className="createpotable">
             <tr>
-                <th style={{width:"396px"}}>Site</th>
-                <th style={{width:"396px"}}>Client</th>
-                <th style={{width:"396px"}}>Supplier</th>
+                <th className='required-field' style={{width:"396px"}}>Site</th>
+                <th className='required-field' style={{width:"396px"}}>Client</th>
+                <th className='required-field' style={{width:"396px"}}>Supplier</th>
                 <th style={{width:"396px"}}>Customer Order Ref</th>
             </tr>
             <tr>
@@ -276,8 +307,10 @@ class PurchaseOrderCreate extends Component{
               </td>
                 {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
               <td>
-                  {/* <AutoComplete  /> */}
-                            <input className="form2 put pec" placeholder="Supplier" value={this.state.supplier} maxLength="40" onChange={(e) => this.setState({ supplier: e.target.value })}/>
+                <AutoComplete suggestions={supplierName}
+                                    suggestionsValue={supplierNo}
+                                    defaultValue={this.state.supplier}
+                                    handleChange={(e) => this.setState({ supplier: e })} />
               </td>
                 {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form2 put pec" placeholder="Supplier"/> </td> */}
               <td>
@@ -291,14 +324,14 @@ class PurchaseOrderCreate extends Component{
               <th style={{color:"transparent"}}>1</th>
             </tr>
             <tr>
-                <th>Order Type</th>
-                <th>Order No</th>
-                <th>Order Date</th>
+                <th className='required-field'>Order Type</th>
+                <th className='required-field'>Order No</th>
+                <th className='required-field'>Order Date</th>
                 <th>Vendor Order Ref</th>
             </tr>
             <tr>
             <td>
-            <Dropdown   placeHolder="Order Type" 
+            <Dropdown  placeHolder="Order Type" 
                         style={{width: "22%", position: "absolute"}} 
                         optionList={orderData.toString()} 
                         optionValue={orderValue.toString()} 
@@ -309,7 +342,7 @@ class PurchaseOrderCreate extends Component{
                 <td>
                   <DatePicker style={{ minWidth: "22%", position:"absolute" }} 
                               getDate={(e) => {this.setState({ orderDate: e }); this.state.rowlist[0].orderDate = e}}
-                              startDate={new Date()}
+                              defaultValue={this.state.orderDate}
                   />
                   {console.log(this.state.orderDate)}
                 </td>                  
@@ -336,23 +369,23 @@ class PurchaseOrderCreate extends Component{
         <div className="line">
           <table className="tabledetails">
               <tr>
-                  <th style={{width:"2%", textAlign:"center", paddingLeft:"18px"}}>#</th>
-                  <th style={{width:"12%", paddingLeft:"20px"}}>Product</th>
-                  <th style={{width:"12%", paddingLeft:"8px"}}>Product Description</th>
-                  <th style={{width:"3%", paddingLeft:"0px"}}>Qty</th>
-                  <th style={{width:"6%", paddingLeft:"20px"}}>UOM</th>
-                  <th style={{width:"11%", paddingLeft:"13px"}}>Rota Date</th>
-                  <th style={{width:"6%", paddingLeft:"25px"}}>Batch</th>
-                  <th style={{width:"5%", paddingLeft:"18px"}}>Ref3</th>
-                  <th style={{width:"5%", paddingLeft:"13px"}}>Ref4</th>
-                  <th style={{width:"6%", paddingRight:"15px"}}>Disposition</th>
+                <th style={{width:"3.5%", textAlign:"center"}}>#</th>
+                <th className='required-field' style={{width:"12%"}}>Product</th>
+                <th className='required-field' style={{width:"12%"}}>Product Description</th>
+                <th className='required-field' style={{width:"5%"}}>Qty</th>
+                <th className='required-field' style={{width:"6%"}}>UOM</th>
+                <th style={{width:"11%"}}>Rota Date</th>
+                <th style={{width:"6%"}}>Batch</th>
+                <th style={{width:"5%"}}>Ref3</th>
+                <th style={{width:"5%"}}>Ref4</th>
+                <th style={{width:"6%"}}>Disposition</th>
               </tr>                               
             </table>
           </div>
             <div className={"tablerow " + (this.state.rowlist.length >2 ? "scroll" : null )} style={{width:"98%"}}>
               {this.state.rowlist.map((list, i) => this.linedetailsrow(list, i))}
             </div>
-              <button onClick={() => this.addline()} type="button" class="btn btn-light font addline">+ Add Line</button>
+              <button onClick={() => this.addline()} type="button" className="btn btn-light font addline">+ Add Line</button>
 
               {this.state.tab2isactive ? 
               this.submit() :  
@@ -417,7 +450,7 @@ class PurchaseOrderCreate extends Component{
                 <th style={{width:"5%", paddingLeft:"25px", paddingRight:"-20px"}}>Ref3</th>
                 <th style={{width:"5%", paddingRigth:"-30px"}}>Ref4</th>
                 <th style={{width:"6%", paddingRight:"-30px"}}>Disposition</th>
-            </tr>                  
+            </tr>                 
           </table>
           
           <div className={"tablerow " + (this.state.rowlist.length >2 ? "scroll" : null )} style={{width:"98%"}} >
@@ -485,22 +518,28 @@ class PurchaseOrderCreate extends Component{
       <table>
         <tr>
             <td hidden id={list.lineNumber} ></td>
-            <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs pec" value={list.lineNumber} readOnly/></td>{console.log(self.state.rowlist[i].product)}
-            <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product"  maxLength="40" value={self.state.rowlist[i].product} onChange={(e) => self.state.rowlist[i].product = e.target.value}/></td>
-            <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product Description" value={self.state.rowlist[i].productDescription} onChange={(e) => self.state.rowlist[i].productDescription = e.target.value}/></td>
-            <td style={{width:"4.5%"}}><input type="number" min="1" className="form-control inputs pec" placeholder="Qty" value={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
+            <td style={{width:"3.5%", textAlign:"center"}}><input className="form-control inputs pec" style={{ textAlign:"center" }} defaultValue={list.lineNumber} readOnly/></td>{console.log(self.state.rowlist[i].product)}
+            <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product"  maxLength="40" defaultValue={self.state.rowlist[i].product} onChange={(e) => {self.state.rowlist[i].product = e.target.value; this.getuom(i, e.target.value)}}/></td>
+            <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product Description" defaultValue={self.state.rowlist[i].productDescription} onChange={(e) => self.state.rowlist[i].productDescription = e.target.value}/></td>
+            <td style={{width:"4.5%"}}><input type="number" min="1" className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
             <td style={{width:"6%"}}>
-                <select className="form-control selectinput " value={self.state.rowlist[i].uom} onChange={(e) => self.state.rowlist[i].uom = e.target.value}>
-                  <option className="pec" selected disabled>UOM</option>
-                  <option>each</option>
-                  <option>pallet</option>
-                </select>
+                <Dropdown placeHolder="UOM" 
+                            style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
+                            optionList={self.state.uomcr.toString()} 
+                            optionValue={self.state.uomcr.toString()} 
+                            getValue={(e) => self.state.rowlist[i].disposition = e} />
             </td>
-            <td style={{width:"11%"}}><DatePicker style={{ minWidth: "100%" }} field="smallField" getDate={(e) => self.state.rowlist[i].rotadate = e} startDate={new Date()} /> </td>
-            <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"  maxLength="30" value={self.state.rowlist[i].batch} onChange={(e) => self.state.rowlist[i].batch = e.target.value} /></td>
-            <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref3"  maxLength="30" value={self.state.rowlist[i].ref3} onChange={(e) => self.state.rowlist[i].ref3 = e.target.value} /></td>
-            <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref4"  maxLength="30" value={self.state.rowlist[i].ref4} onChange={(e) => self.state.rowlist[i].ref4 = e.target.value} /></td>
-            <td style={{width:"6.5%"}}><input className="form-control inputs pec" placeholder="Disposition" value={self.state.rowlist[i].disposition} onChange={(e) => self.state.rowlist[i].disposition = e.target.value}/></td>
+            <td style={{width:"11%"}}><DatePicker style={{ minWidth: "100%" }} field="smallField" getDate={(e) => self.state.rowlist[i].rotadate = e} defaultValue={self.state.rowlist[i].rotadate} /> </td>
+            <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"  maxLength="30" defaultValue={self.state.rowlist[i].batch} onChange={(e) => self.state.rowlist[i].batch = e.target.value} /></td>
+            <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref3"  maxLength="30" defaultValue={self.state.rowlist[i].ref3} onChange={(e) => self.state.rowlist[i].ref3 = e.target.value} /></td>
+            <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref4"  maxLength="30" defaultValue={self.state.rowlist[i].ref4} onChange={(e) => self.state.rowlist[i].ref4 = e.target.value} /></td>
+            <td style={{width:"6.5%"}}>
+                <Dropdown placeHolder="Dis" 
+                            style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
+                            optionList={self.state.dispositioncr.toString()} 
+                            optionValue={self.state.dispositioncr.toString()} 
+                            getValue={(e) => self.state.rowlist[i].disposition = e} />
+                            </td>
             <td id={list.lineNumber} onClick={(e) => this.deletelinehandler(e)} style={{width:"1.5%"}}><div className="iconU-delete"/></td>
           </tr>
           <td></td>
@@ -518,7 +557,7 @@ class PurchaseOrderCreate extends Component{
       <table>
         <tr>
             <td hidden id={list.lineNumber}></td>
-            <td style={{width:"2%", textAlign:"center"}}><input className="form-control inputs pec" value={list.lineNumber} readOnly/></td>
+            <td style={{width:"3.5%", textAlign:"center"}}><input className="form-control inputs pec" style={{ textAlign:"center" }} value={list.lineNumber} readOnly/></td>
             <td style={{width:"12%"}}><input className="form-control inputs pec" value={list.product} readOnly/></td>
             <td style={{width:"12%"}}><input className="form-control inputs pec" value={list.productDescription} readOnly/></td>
             <td style={{width:"3.5%"}}><input className="form-control inputs pec" value={list.qty} readOnly/></td>

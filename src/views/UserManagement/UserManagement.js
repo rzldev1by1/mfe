@@ -601,7 +601,7 @@ class UserManagement extends Component{
       let currentForm = this.searchForm.current
       let searchValue = currentForm.searchInput.value;
 
-      console.log(searchValue);
+      
       if(searchValue){
         param.searchParam = searchValue;
       }else{
@@ -643,6 +643,8 @@ class UserManagement extends Component{
                     </div>
                     <div className="col-6 pl-0 ml-0 ">
                         <button style={{width:"199px"}} className={(this.isValidUser() ?"btn btn-primary text-button float-right ":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
+                    {/* <div className="col-2">
+                        <button style={{width:"199px"}} className={(this.isValidUser() ?"btn btn-primary text-button float-right":"d-none")} onClick={(e)=>{this.onCreateClick()}}> */}
                         <img src={create} className="mr-2 mb-1" style={{width:'8%'}}/>
                         Create user
                         </button>

@@ -73,11 +73,11 @@ class PurchaseOrderTable extends Component {
             type: "string"
           },
           {
-            id: "wgt_processed", 
+            id: "weight_processed", 
             checkboxLabelText: "Weight Processed", 
             tableHeaderText: "Weight Processed", 
             isVisible: true, 
-            key: "wgt_processed", 
+            key: "weight_processed", 
             type: "string"
           },
           {
@@ -90,8 +90,8 @@ class PurchaseOrderTable extends Component {
           },
           {
             id: "batch", 
-            checkboxLabelText: "batch", 
-            tableHeaderText: "batch", 
+            checkboxLabelText: "Batch", 
+            tableHeaderText: "Batch", 
             isVisible: true, 
             key: "batch", 
             type: "string"

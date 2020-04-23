@@ -128,6 +128,7 @@ export class Autocomplete extends Component {
           value={userInput ? userInput : this.props.defaultValue}
         />
         {suggestionsListComponent}
+        <label className={"closeAutoComplete " + (showSuggestions ? "" : "d-none")} onClick={() => this.setState({ showSuggestions: false })}></label>
       </React.Fragment>
     );
   }

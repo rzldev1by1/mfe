@@ -5,6 +5,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import {headerValidation, lineDetailValidation} from '../../Components/Validation/Validation'
 import AutoComplete from '../../../../AppComponent/AutoComplete'
 import OrderLine from './OrderLine'
+import OrderLine2 from './OrderLine2'
 
 class Tab1CreateSO extends Component{
     constructor(props){
@@ -350,30 +351,12 @@ class Tab1CreateSO extends Component{
                   <td style={{color:"transparent"}}>1</td>
                 </tr>
            
-            <h3 className="fonts">Line Details</h3>
-            <div className="line">
-              <table className="lineTableDtl">
-                  <tr>
-                      <th width ='3.7%' style={{ textAlign:"center"}}>#</th>
-                      <th width ='10%'  className='required-field'>Product</th>
-                      <th width ='13%'>Product Description</th>
-                      <th width='8.5%' className='required-field'>Qty</th>
-                      <th width='7.2%'>Weight</th>
-                      <th width ='9.7%' className='required-field'>UOM</th>
-                      <th width ='9.8%'>Rota Date</th>
-                      <th width='6.4%' >Batch</th>
-                      <th width='6%' >Ref3</th>
-                      <th width='6%' >Ref4</th>
-                      <th width ='11.1%'>Disposition</th>
-                      <th width='7.3%'>Pack Id</th> 
-                  </tr>                             
-                </table>
-              </div>
-              
+            <h3 className="fonts">Line Details</h3>             
               {
                 this.props.parameters.lineDetail.map((data,idx) => {
                   return(
-                    <OrderLine  parameters      = {data}
+                    <div>
+                      <OrderLine  parameters      = {data}
                           idx             = {idx}
                           getUom          = {(productVal) => this.props.getUom(productVal)}
                           uomdata         = {this.props.uomdata}
@@ -392,12 +375,30 @@ class Tab1CreateSO extends Component{
                           setPackid               = {(packid, idx) => this.props.setPackid(packid, idx)}
                           
                           removeLineHandler       = {(idx) => this.props.removeLineHandler(idx)}/>
+
+                      <OrderLine2  parameters      = {data}
+                                  idx             = {idx}
+                                  getUom          = {(productVal) => this.props.getUom(productVal)}
+                                  uomdata         = {this.props.uomdata}
+                                  productdata     = {this.props.productdata}
+                                  dispositiondata = {this.props.dispositiondata}
+                                  
+                                  setProduct              = {(productVal, product, idx) => this.props.setProduct(productVal,product, idx)}
+                                  setQty                  = {(qty, idx) => this.props.setQty(qty, idx)}
+                                  setWeight               = {(weight, idx) => this.props.setWeight(weight, idx)}
+                                  setUom                  = {(uom, idx) => this.props.setUom(uom, idx)}
+                                  setRotaDate             = {(rotaDate, idx) => this.props.setRotaDate(rotaDate, idx)}
+                                  setBatch                = {(batch, idx) => this.props.setBatch(batch, idx)}
+                                  setRef3                 = {(ref3, idx) => this.props.setRef3(ref3, idx)}
+                                  setRef4                 = {(ref4, idx) => this.props.setRef4(ref4, idx)}
+                                  setDispoisition         = {(disposition, dispositionVal, idx) => this.props.setDispoisition(disposition, dispositionVal, idx)}
+                                  setPackid               = {(packid, idx) => this.props.setPackid(packid, idx)}
+                                  
+                                  removeLineHandler       = {(idx) => this.props.removeLineHandler(idx)}/>
+                    </div>
                   )
                 })
-              }
-                {/* <div className={"tablerow " + (this.state.lineDetail.length >2 ? "scroll" : null )} style={{width:"98%"}}>
-            
-                </div> */}
+              }                      
                   <button onClick={() => this.props.addLineHandler()} type="button" className="btn-light font addlineSo">+</button> 
                   {this.state.tab2isactive ? this.submit() :  <Button onClick={() => this.setData()} color="primary" className="btnsearch next btnleft" ><label className="font btnLabel ">Next</label></Button>
                 } 

@@ -324,8 +324,6 @@ class SalesOrderCreate extends Component{
 
       let index = this.props.resources.supplier.code.indexOf(customerVal)
       customer = this.props.resources.supplier.name[index]
-      
-      customer = customerVal + ' ( ' + customer + ' )'
       this.setState(prevState => ({
         parameters:{
           ...prevState.parameters,

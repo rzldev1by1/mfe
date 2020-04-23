@@ -29,7 +29,7 @@ class StockMovement extends Component {
 			  Seconds = date.getSeconds(),
 			  Minutes = date.getMinutes(),
 			  Hours = date.getHours();
-		 return filename=("Microlistics_SalesOrder." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)  
+		 return filename=("Stock_Movement." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)  
 	  }
 
 	  ExportPDFName = () =>{
