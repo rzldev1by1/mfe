@@ -286,7 +286,7 @@ class PurchaseOrderCreate extends Component{
     let orderValue = [];
     if(this.state.clientdatacr){
         this.state.clientdatacr.map((data) => {
-            clientName.push(data.name);
+            clientName.push(data.code + " (" + data.name + ")");
             clientValue.push(data.code);
         })
     }
@@ -332,7 +332,7 @@ class PurchaseOrderCreate extends Component{
               <td>
                   <Dropdown placeHolder="Client" 
                             style={{width: "22%", position: "absolute"}} 
-                            optionList={clientValue.toString()} 
+                            optionList={clientName.toString()} 
                             optionValue={clientValue.toString()} 
                             getValue={(e) => this.setState({ client: e })} 
                             optionSelected={this.state.client}/>
@@ -341,7 +341,7 @@ class PurchaseOrderCreate extends Component{
               <td>
                 <AutoComplete
                                 suggestions={supplierName}
-                                suggestionsValue={supplierNo}
+                                suggestionsValue={supplierName}
                                 defaultValue={this.state.supplier}
                                 handleChange={(e) => this.setState({ supplier: e })} />
               </td>
@@ -572,7 +572,7 @@ class PurchaseOrderCreate extends Component{
                             style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
                             optionList={self.state.uomcr.toString()} 
                             optionValue={self.state.uomcr.toString()} 
-                            getValue={(e) => self.state.rowlist[i].disposition = e} />
+                            getValue={(e) => self.state.rowlist[i].uom = e} />
             </td>
             <td style={{width:"11%"}}><DatePicker style={{ minWidth: "100%" }} field="smallField" getDate={(e) => self.state.rowlist[i].rotadate = e} defaultValue={self.state.rowlist[i].rotadate} /> </td>
             <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"  maxLength="30" defaultValue={self.state.rowlist[i].batch} onChange={(e) => self.state.rowlist[i].batch = e.target.value} /></td>
