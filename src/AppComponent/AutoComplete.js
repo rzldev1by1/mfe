@@ -1,14 +1,7 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import "./AutoComplete.css"
 
 export class Autocomplete extends Component {
-  static propTypes = {
-    suggestions: PropTypes.instanceOf(Array)
-  };
-  static defaultProperty = {
-    suggestions: []
-  };
   constructor(props) {
     super(props);
     this.state = {
@@ -39,6 +32,9 @@ export class Autocomplete extends Component {
         userInput: inputValue
         });
         this.props.handleChange(userInput)
+        if(this.props.getIndex){
+            this.props.getIndex(checkSugesstionValue)
+        }
     }
   };
 
