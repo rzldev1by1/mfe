@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 
 const OrderLineReview = (props) => {
     const {
@@ -103,7 +104,7 @@ const OrderLineReview = (props) => {
                          <div id='orderline-header-rotadate-id'>
                               <input    className       = "form-control put "
                                         readOnly
-                                        value           = {rotaDate}/>
+                                        value           = {moment(rotaDate).format('DD/MM/YYYY')}/>
                          </div>
                     </td>                    
                </tr>
