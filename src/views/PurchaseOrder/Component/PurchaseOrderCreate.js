@@ -560,9 +560,10 @@ class PurchaseOrderCreate extends Component{
                                     listStyle={{width: "100%"}}
                                     listBoxStyle={{width: "14%", marginTop: "10px"}}
                                     placeHolder="Product"
+                                    getIndex={(e) => self.state.rowlist[i].productDescription = self.state.productdesccr[e]}
                                     />
             </td>
-            <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product Description" defaultValue={self.state.rowlist[i].productDescription} onChange={(e) => self.state.rowlist[i].productDescription = e.target.value}/></td>
+            <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Choose a Product First" defaultValue={self.state.rowlist[i].productDescription} readOnly/></td>
             <td style={{width:"4.5%"}}><input type="number" min="1" className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
             <td style={{width:"6%"}}>
                 <Dropdown placeHolder="UOM" 
