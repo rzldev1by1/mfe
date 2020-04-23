@@ -279,6 +279,7 @@ class PurchaseOrderCreate extends Component{
     let clientName = [];
     let clientValue = [];
     let siteData = [];
+    let siteName = [];
     let supplierNo = [];
     let supplierName = [];
     let orderData =[];
@@ -292,6 +293,7 @@ class PurchaseOrderCreate extends Component{
     if(this.state.sitedatacr){
         this.state.sitedatacr.map((data) => {
             siteData.push(data.site);
+            siteName.push(data.site + ":" + data.name)
         })  
     }
     if(this.state.supplierdatacr){
@@ -322,7 +324,7 @@ class PurchaseOrderCreate extends Component{
               <td>
                   <Dropdown placeHolder="Site" 
                             style={{width: "22%", position: "absolute", zIndex: '6'}} 
-                            optionList={siteData.toString()} 
+                            optionList={siteName.toString()} 
                             optionValue={siteData.toString()} 
                             getValue={(e) => this.setState({ site: e })} 
                             optionSelected={this.state.site}/>
