@@ -230,7 +230,7 @@ class UserListComponent extends Component{
                                 <tr>
                                     {
                                         this.state.headers.map((element,index)=>{
-                                        return <th key={index} className="p-0">
+                                        return <th key={index}  >
                                         <div key={element} className="header-sort" >
                                           <div className="d-inline-flex">
                                               <div className="d-flex flex-row">
@@ -262,7 +262,7 @@ class UserListComponent extends Component{
                                                        Object.keys(element).map((item,idx) => {
 
                                                           return (item !== 'email' && item !== 'web_user' && item !== 'company' && item !== 'userlevel')?
-                                                                  <td key={idx} className={'p-0 '+((item === 'user')?'users':'norm')}>
+                                                                  <td key={idx} className={((item === 'user')?'users':'norm')}>
                                                                    {
                                                                      <label className={((item === 'status')? ((element[item].toLowerCase() === 'active')?'active':'suspended'):'')}>
                                                                       {(item === 'lastaccess')?moment(element[item]).format('DD/MM/YY hh:mm:ss'):element[item]}
@@ -284,7 +284,7 @@ class UserListComponent extends Component{
                                 <tr>
                                     {
                                         this.state.headers.map((element,index)=>{
-                                        return <th key={index} className="p-0">
+                                        return <th key={index}  >
                                         <div key={element} className="header-sort" >
                                           <div className="d-inline-flex">
                                               <div className="d-flex flex-row">
@@ -316,7 +316,7 @@ class UserListComponent extends Component{
                                                        Object.keys(element).map((item,idx) => {
 
                                                           return (item !== 'email' && item !== 'web_user' && item !== 'company' && item !== 'userlevel')?
-                                                                  <td key={idx} className={'p-0 '+((item === 'user')?'users':'norm')}>
+                                                                  <td key={idx} className={ ((item === 'user')?'users':'norm')}>
                                                                    {
                                                                      <label className={((item === 'status')? ((element[item].toLowerCase() === 'active')?'active':'suspended'):'')}>
                                                                       {(item === 'lastaccess')?moment(element[item]).format('DD/MM/YY hh:mm:ss'):element[item]}
