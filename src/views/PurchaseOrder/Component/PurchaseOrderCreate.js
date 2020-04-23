@@ -339,7 +339,7 @@ class PurchaseOrderCreate extends Component{
               </td>
                 {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
               <td>
-                <AutoComplete
+                <AutoComplete   placeHolder="Supplier"
                                 suggestions={supplierName}
                                 suggestionsValue={supplierName}
                                 defaultValue={this.state.supplier}
