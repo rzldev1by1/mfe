@@ -233,7 +233,7 @@ class PurchaseOrder extends Component {
                 this.state.autoArrays.map(data => <div onClick={(e) => this.selectedName(e)}>{data}</div>)
             }
             <div className='header'>
-                <h2 style={{marginTop:'-5px'}}>Purchase Orders</h2>
+                <h2  >Purchase Orders</h2>
                 <div className='header2'>
                     <Button onClick={() => this.openModal()} color="primary" className='createpo'>
                         <img src={create} style={{width:'7%', marginTop:6, marginLeft:15}}/>
@@ -241,6 +241,7 @@ class PurchaseOrder extends Component {
                     </Button>
                 </div>
             </div>
+            
             
             <div className='searchbar'>
                 <Search style={{marginTop:"none"}}

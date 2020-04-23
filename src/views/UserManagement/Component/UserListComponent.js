@@ -4,7 +4,7 @@ import '../UserManagement.css'
 import mid from '../../../assets/img/brand/field-idle.png'
 import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
-import moment from 'moment'
+import moment from 'moment' 
 
 
 class UserListComponent extends Component{
@@ -224,7 +224,7 @@ class UserListComponent extends Component{
         
         return(
                 <div className="d-flex tablePage">
-                    <div className="w-100">
+                    <div className="w-100 h-20">
                         <table className="umtable">
                             <thead>
                                 <tr>
@@ -332,8 +332,7 @@ class UserListComponent extends Component{
 
                             </tbody>
                         </table>
-                    </div>
-
+                    </div> 
                 </div>
              )
     }

@@ -1,4 +1,4 @@
-span.next:before {
+/*span.next:before {
 	font-family: "FontAwesome";
    	content: "\f105";
     display: inline-block;
@@ -20,9 +20,9 @@ span.upArrow:before {
     display: inline-block;
     font-weight: 900;
 
-}
+}*/
 
-.table th{
+/*.table th{
 	font-family:"Helvetica Neue Bold";
 	font-size: 1em !important;
 	color: #B4B9BB !important;
@@ -31,7 +31,108 @@ span.upArrow:before {
 .table td{
 	font-family:"Helvetica Neue Medium";
 	font-size: 1.2em !important;
+}*/
+
+
+/* start modal pop up**/
+
+/*.iconU-edit {
+	font-size:1.2em !important;
+  margin-right: 5%;
+  vertical-align: middle !important;
+  cursor: pointer;
+}*/
+
+/*.iconU-edit {
+	font-size:1em !important;
+  margin-right: 5%;
+  vertical-align: middle !important;
+  cursor: pointer;
+}*/
+
+/*.font{
+	font-family: "Helvetica Neue Medium" !important;
+	font-size: 1.5em;
+	cursor: pointer;
+	margin-top: 1%;
+	margin-bottom: 1%;
+}*/
+
+/*.font-modal-title{
+	font-family: "Helvetica Neue Medium" !important;
+	font-size: 1.5em;
+	cursor: pointer;
+	margin-top: 1%;
+	margin-bottom: 1%;
+}*/
+
+/*.create{
+	display: flex;
+	width: 30%;
+}*/
+
+
+/* .searchBox{
+	max-width: none !important;
+} */
+
+
+
+/*
+.table-fixed tbody {
+    height: 200px;
+    overflow-y: auto;
+		overflow-x: hidden;
+    width: 100%;
 }
+
+.table-fixed thead,
+.table-fixed tbody,
+.table-fixed tr,
+.table-fixed td,
+.table-fixed th {
+    display: block;
+}
+
+.table-fixed tbody td,
+.table-fixed thead > tr > th {
+    float: left;
+    position: relative;
+		width:170px;
+
+    &::after {
+        content: '';
+        clear: both;
+        display: block;
+    }
+}
+**/
+
+/*.tablePage{
+	max-height: 550px !important;
+	min-height: 70vh !important; 
+	overflow-y:auto;
+	font-size: 1.1em;
+}
+
+.tablecontent {
+	margin-top: 10px;
+	padding:1%;
+	padding-top: 0%;
+	padding-bottom: 0%;
+	min-width: 100%;
+	background-color: white;
+	border-radius: 5px;
+}*/
+
+/*.create > .iconU-edit{
+	margin-top: 4%;
+}*/
+
+/*.iconU-close{
+	vertical-align: middle !important;
+}*/
+
 
 .hover :hover{
 	background: #f0f0f0 !important;
@@ -53,6 +154,10 @@ span.upArrow:before {
 	font-family:"Helvetica Neue Bold";
 	font-size: 1.333em !important;
 	color: #637176 !important;
+}
+
+label{
+	font-family:"Helvetica Neue Bold";
 }
 
 .header-text-form{
@@ -83,7 +188,7 @@ span.upArrow:before {
 
 .border-account-info{
     border: 3px solid #ffffff;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .account-info{
@@ -140,13 +245,13 @@ span.client-notActive{
 .active{
     font-weight: 500;
     color: #7FC242;
-    /* font-size: 20px; */
+     font-size: 12px; 
 }
 
 .suspended{
     font-weight: 500;
     color: #FF4141;
-    font-size: 20px;
+    font-size: 12px;
 }
 
 .text-bolder{
@@ -174,56 +279,11 @@ span.client-notActive{
 	font-size: 2em !important;
 }
 
-/* start modal pop up**/
-
-.iconU-edit {
-	font-size:1.2em !important;
-  margin-right: 5%;
-  vertical-align: middle !important;
-  cursor: pointer;
-}
-
-.iconU-edit {
-	font-size:1em !important;
-  margin-right: 5%;
-  vertical-align: middle !important;
-  cursor: pointer;
-}
-
-.font{
-	font-family: "Helvetica Neue Medium" !important;
-	font-size: 1.5em;
-	cursor: pointer;
-	margin-top: 1%;
-	margin-bottom: 1%;
-}
-
-.font-modal-title{
-	font-family: "Helvetica Neue Medium" !important;
-	font-size: 1.5em;
-	cursor: pointer;
-	margin-top: 1%;
-	margin-bottom: 1%;
-}
-
-.create{
-	display: flex;
-	width: 30%;
-}
-
 .modal-title > button{
 	width: 10% !important;
 	color: white;
 	background-color: #CBCBCB;
 	border: none;
-}
-
-.create > .iconU-edit{
-	margin-top: 4%;
-}
-
-.iconU-close{
-	vertical-align: middle !important;
 }
 
 .btnsearch > .font{
@@ -378,60 +438,6 @@ input:checked + .slider:before {
 	font-size: 90%;
 }
 
-/* .searchBox{
-	max-width: none !important;
-} */
-
-
-
-/*
-.table-fixed tbody {
-    height: 200px;
-    overflow-y: auto;
-		overflow-x: hidden;
-    width: 100%;
-}
-
-.table-fixed thead,
-.table-fixed tbody,
-.table-fixed tr,
-.table-fixed td,
-.table-fixed th {
-    display: block;
-}
-
-.table-fixed tbody td,
-.table-fixed thead > tr > th {
-    float: left;
-    position: relative;
-		width:170px;
-
-    &::after {
-        content: '';
-        clear: both;
-        display: block;
-    }
-}
-**/
-
-.tablePage{
-	max-height: 550px !important;
-	min-height: 70vh !important;
-	/* min-height: 550px !important; */
-	overflow-y:auto;
-	font-size: 1.1em;
-}
-
-.tablecontent {
-	margin-top: 10px;
-	padding:1%;
-	padding-top: 0%;
-	padding-bottom: 0%;
-	min-width: 100%;
-	background-color: white;
-	border-radius: 5px;
-}
-
 .container-user-list{
 	border-radius: 10px;
 }
@@ -502,12 +508,7 @@ input:checked + .slider:before {
 .sort-asc-active{
 		color: #22ABE3;
 }
-
-.text-button{
-font-family: "Helvetica Neue Medium";
-	font-size: 1.25em;
-
-}
+ 
 
 .modal-content > .create-modal{
 	position: absolute;
@@ -573,6 +574,8 @@ font-family: "Helvetica Neue Medium";
 	height: 45px !important;
 }
 
+
+
 @media(max-width: 1500px){
 	.arrow{
 		margin-left: 7px !important;
@@ -615,11 +618,11 @@ font-family: "Helvetica Neue Medium";
 		color: #637175;
 	}
 	.searchINP{
-		width: 81%;
+		/*width: 81%;*/
 	}
 	.btnsearch{
 		width: 174px;
-		margin-left: 19px;
+		/*margin-left: 19px;*/
 	}
 }
 @media(min-width: 1500px){
@@ -661,10 +664,11 @@ font-family: "Helvetica Neue Medium";
 		color: #637175;
 	}
 	.searchINP{
-		width: 87%;
+		/*width: 87%;*/
 	}
 	.btnsearch{
 		width: 174px;
-		margin-left: 19px;
+		/*margin-left: 19px;*/
 	}
 }
+ 

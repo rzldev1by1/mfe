@@ -118,7 +118,8 @@ class Logins extends Component{
     }
 
     render() {
-        return (
+        return ( 
+
             <div className="background fontstyle">
                 <video autoPlay muted loop id="bgvideo">
                     <source src={videobg} type="video/mp4" />

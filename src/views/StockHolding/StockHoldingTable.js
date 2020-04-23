@@ -77,7 +77,7 @@ class componentTable extends Component {
 
     render() {
         return (
-            <div className="col-12 p-0">
+            <div className="col-12 p-0  tablecontent mt-0">
                 <div className={this.props.isSearch ? "spinner" : "d-none"} />
                 <div className={this.props.isSearch ? "d-none" : "tablePage1 tableContent"}>					
                     {/* <Table className="table-condensed table-striped clickable-row mb-0" size="md">
@@ -87,7 +87,7 @@ class componentTable extends Component {
 
 					<table className="shtable" >
                         <thead >{this.showHeader()}</thead>
-                        <tbody style={{fontSize:'1rem'}}>{this.showData()}</tbody>
+                        <tbody style={{fontSize:'1rem', backgroundColor: 'white'}}>{this.showData()}</tbody>
                     </table>
 					<table className="shtable d-none" id="excel" >
                         <thead >{this.showHeaderExport()}</thead>

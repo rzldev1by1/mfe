@@ -12,7 +12,7 @@ import Authentication from '../../Auth/Authentication'
 import Paging from '../../AppComponent/Paging'
 import create from '../../assets/img/brand/button_create@2x.png'
 import menunav from '../../menunav'
-import Export from '../../AppComponent/Export'
+import Export from '../../AppComponent/Export' 
 
 
 const today = moment(new Date()).format("YYYY-MM-DD");
@@ -633,16 +633,16 @@ class UserManagement extends Component{
 
     render(){
 
-        return(<div>
+        return(<div className='animated fadeIn'>
             <div className="pt-4 mb-3">
                 <div className="row">
-                    <div className="col-10 pr-0">
+                    <div className="col-6 pr-0">
                       <h2 className='margin-right-breadcrumb-title'>
                           User Management
                       </h2>
                     </div>
-                    <div className="col-2 pl-0 ml-0">
-                        <button style={{width:"199px"}} className={(this.isValidUser() ?"btn btn-primary text-button":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
+                    <div className="col-6 pl-0 ml-0 ">
+                        <button style={{width:"199px"}} className={(this.isValidUser() ?"btn btn-primary text-button float-right ":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
                         <img src={create} className="mr-2 mb-1" style={{width:'8%'}}/>
                         Create user
                         </button>
@@ -661,23 +661,28 @@ class UserManagement extends Component{
                 <CardBody>
                 <form ref={this.searchForm} onSubmit ={this.searchHandler}>
                 <div className="row">
-                <div className="searchINP">
-                <div className="input-group p-0 searchSection">
-                <div className="input-group searchBox w-100" style={{maxWidth:"none"}}>
-                <span className="input-group-text border-0 bg-transparent ml-2" style={{ padding:"0.4rem" }}>
-                <i className="iconU-search" />
-                </span>
-                <input type="text" style={{ fontFamily: "Helvetica Neue Medium", backgroundColor:"transparent" }}
-                className="form-control searchInput" id="searchInput" name="searchInput"
-                placeholder="Enter User Id or User Name" />
+                <div className='col-md-10 col-xs-8'>
+                    <div className="searchINP">
+                    <div className="input-group p-0 searchSection">
+                    <div className="input-group searchBox w-100" style={{maxWidth:"none"}}>
+                    <span className="input-group-text border-0 bg-transparent ml-2" style={{ padding:"0.4rem" }}>
+                    <i className="iconU-search" />
+                    </span>
+                    <input type="text" style={{ fontFamily: "Helvetica Neue Medium", backgroundColor:"transparent" }}
+                    className="form-control searchInput" id="searchInput" name="searchInput"
+                    placeholder="Enter User Id or User Name" />
+                    </div>
+                    </div>
+                    </div>
                 </div>
-
+                <div className='col-md-2 col-xs-4'>
+                    <Button type="submit" className="search text-button btn-primary"> 
+                      Search
+                    </Button>
                 </div>
-                </div>
+                
                 {/* <div className="col-2 m-0"> */}
-                <Button type="submit" className="search text-button btnsearch">
-                Search
-                </Button>
+                
                
                 </div>
                 </form>

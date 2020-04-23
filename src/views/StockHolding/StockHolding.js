@@ -230,17 +230,20 @@ class StockHolding extends Component {
 
         return (
             <div className={"input-group filterSection" + (this.state.showFilter ? "" : " d-none")}>
-                <Dropdown placeHolder="Site" style={{width:'100px'}}
-                          optionList={masterSite.toString()}
-                          optionValue={masterSite.toString()}
-                          getValue={this.selectedSite} />
+				<Dropdown placeHolder="Site" 
+						style={{width: "100px", height:"2.7em", marginRight: "1em"}} 
+						optionList={masterSite.toString()}
+						optionValue={masterSite.toString()}
+						getValue={this.selectedSite} />
 
 				<Dropdown placeHolder="Client" style={{width:'218px'}}
+						style={{width: "100px", height:"2.7em", marginRight: "1em"}} 
                         optionList={masterUnit}
                         optionValue={masterUnit}
                         getValue={this.selectedUnit} />
 
                 <Dropdown placeHolder="Status" 
+						style={{width: "140px", height:"2.7em", marginRight: "1em"}} 
                         optionList={masterStatus}
                         optionValue={masterStatus}
                         getValue={this.selectedStatus} />
@@ -455,7 +458,7 @@ class StockHolding extends Component {
 
 		return (
 			<React.Fragment>
-				<div className="animated fadeIn tr">
+				<div className="animated fadeIn ">
 					<div className="row">
 						<div className="col-12 p-0">
 							<div className="row pl-1">

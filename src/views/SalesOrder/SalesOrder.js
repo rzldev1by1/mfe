@@ -170,13 +170,13 @@ class SalesOrder extends Component{
     return(
         <React.Fragment>
             <Dropdown placeHolder="Site" 
-                      style={{width: "102px", height:"2.7em"}} 
+                      style={{width: "102px", height:"2.7em", marginRight: "1em"}} 
                       optionList={siteData.toString()} 
                       optionValue={siteData.toString()} 
                       getValue={this.getSiteSelected.bind(this)}/>
 
             <Dropdown placeHolder="Client" 
-                      style={{width: "210px", height:"2.7em"}} 
+                      style={{width: "210px", height:"2.7em", marginRight: "1em"}} 
                       optionList={clientValue.toString()} 
                       optionValue={clientValue.toString()} 
                       getValue={this.getClientSelected.bind(this)}/>
@@ -186,11 +186,12 @@ class SalesOrder extends Component{
 }
 
   render(){
-    return(<div style={{marginLeft:"-9px" , width:"101.5%"}}>
+    return(
+    <div style={{marginLeft:"-9px" , width:"101.5%"}} className='animated fadeIn'>
        <div className='header'>
           <h2 style={{marginTop:'0.2%'}}>Sales Orders</h2>
               <div className='header2'>
-                  <Button onClick={() => this.state.loaded ? this.openModal() : null}   color="primary" className='createpo'>
+                  <Button onClick={() => this.state.loaded ? this.openModal() : null}   color="primary" className='createbtn'>
                       <img src={create} style={{width:'7%', marginTop:9, marginLeft:15}}/>
                       <label className='font'>Create Sales Orders</label>
                   </Button>
@@ -205,7 +206,7 @@ class SalesOrder extends Component{
                         placeholder="Enter a Order No" />
         </div>
 
-        <div className='dropdowns'>
+        <div className='filterbar'>
                 <div style={{display:'flex', width:'100%'}}>
                     {
                         this.state.filterclicked ? this.showDropdowns() : null
