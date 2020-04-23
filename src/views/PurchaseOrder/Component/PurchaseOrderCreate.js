@@ -77,6 +77,8 @@ class PurchaseOrderCreate extends Component{
               supplierdatacr: [],
               dispositioncr: [],
               uomcr: [],
+              productcr: [],
+              productdesccr: [],
 
               // Create PO Form 
               site: undefined,
@@ -107,6 +109,8 @@ class PurchaseOrderCreate extends Component{
     //   this.getordertype();
       this.getporesource();
       this.getdisposition();
+      this.getproductcode();
+      this.getproductname();
     }
 
     getporesource = () => {
@@ -228,6 +232,32 @@ class PurchaseOrderCreate extends Component{
         })
     }
 
+    getproductcode = () => {
+        axios.get(endpoint.getProduct + "?client=" + headers.client, {
+            headers: headers
+        })
+        .then(res => {
+            const result = res.data;
+            this.setState({ productcr: res.data.code })
+        })
+        .catch(error => {
+            this.setState({ productcr: [] })
+        })
+    }
+
+    getproductname = () => {
+        axios.get(endpoint.getProduct + "?client=" + headers.client, {
+            headers: headers
+        })
+        .then(res => {
+            const result = res.data;
+            this.setState({ productdesccr: res.data.name })
+        })
+        .catch(error => {
+            this.setState({ productcr: [] })
+        })
+    }
+
     getSiteSelected = (value) => {
       this.setState({sitecrSelected: value});
     }
@@ -307,10 +337,11 @@ class PurchaseOrderCreate extends Component{
               </td>
                 {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
               <td>
-                <AutoComplete suggestions={supplierName}
-                                    suggestionsValue={supplierNo}
-                                    defaultValue={this.state.supplier}
-                                    handleChange={(e) => this.setState({ supplier: e })} />
+                <AutoComplete
+                                suggestions={supplierName}
+                                suggestionsValue={supplierNo}
+                                defaultValue={this.state.supplier}
+                                handleChange={(e) => this.setState({ supplier: e })} />
               </td>
                 {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form2 put pec" placeholder="Supplier"/> </td> */}
               <td>
@@ -519,7 +550,18 @@ class PurchaseOrderCreate extends Component{
         <tr>
             <td hidden id={list.lineNumber} ></td>
             <td style={{width:"3.5%", textAlign:"center"}}><input className="form-control inputs pec" style={{ textAlign:"center" }} defaultValue={list.lineNumber} readOnly/></td>{console.log(self.state.rowlist[i].product)}
-            <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product"  maxLength="40" defaultValue={self.state.rowlist[i].product} onChange={(e) => {self.state.rowlist[i].product = e.target.value; this.getuom(i, e.target.value)}}/></td>
+            <td style={{width:"12%"}}>
+                <AutoComplete   useFor="POLineDetails"
+                                suggestions={self.state.productcr}
+                                    suggestionsValue={self.state.productcr}
+                                    defaultValue={self.state.rowlist[i].product}
+                                    handleChange={(e) => {self.state.rowlist[i].product = e; this.getuom(i, e)}} 
+                                    inputStyle={{position: "relative", width: "100%"}}
+                                    listStyle={{width: "100%"}}
+                                    listBoxStyle={{width: "14%", marginTop: "10px"}}
+                                    placeHolder="Product"
+                                    />
+            </td>
             <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product Description" defaultValue={self.state.rowlist[i].productDescription} onChange={(e) => self.state.rowlist[i].productDescription = e.target.value}/></td>
             <td style={{width:"4.5%"}}><input type="number" min="1" className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
             <td style={{width:"6%"}}>

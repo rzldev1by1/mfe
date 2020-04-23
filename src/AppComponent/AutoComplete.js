@@ -21,37 +21,42 @@ export class Autocomplete extends Component {
   }
 
   onChange = e => {
-    const inputValue = e.currentTarget.value;
-    const suggestions = this.props.suggestions;
-    const checkSugesstionValue = suggestions.findIndex((value) => value == inputValue);
-    const userInput = checkSugesstionValue !== -1 ? this.props.suggestionsValue[checkSugesstionValue] : inputValue;
+    if(this.props.suggestions) {
+        const inputValue = e.currentTarget.value;
+        const suggestions = this.props.suggestions;
+        const checkSugesstionValue = suggestions.findIndex((value) => value == inputValue);
+        const userInput = checkSugesstionValue !== -1 ? this.props.suggestionsValue[checkSugesstionValue] : inputValue;
 
-    const filteredSuggestions = suggestions.filter(
-      suggestion =>
-        suggestion.toLowerCase().indexOf(inputValue.toLowerCase()) > -1
-    );
+        const filteredSuggestions = suggestions.filter(
+        suggestion =>
+            suggestion.toLowerCase().indexOf(inputValue.toLowerCase()) > -1
+        );
 
-    this.setState({
-      activeSuggestion: 0,
-      filteredSuggestions,
-      showSuggestions: true,
-      userInput: inputValue
-    });
-    this.props.handleChange(userInput)
+        this.setState({
+        activeSuggestion: 0,
+        filteredSuggestions,
+        showSuggestions: true,
+        userInput: inputValue
+        });
+        this.props.handleChange(userInput)
+    }
   };
 
   onClick = e => {
-    const inputValue = e.currentTarget.innerText;
-    const suggestions = this.props.suggestions;
-    const checkSugesstionValue = suggestions.findIndex((value) => value == inputValue);
-    const userInput = this.props.suggestionsValue[checkSugesstionValue];
-    this.setState({
-      activeSuggestion: 0,
-      filteredSuggestions: [],
-      showSuggestions: false,
-      userInput: inputValue
-    });
-    this.props.handleChange(userInput)
+    if(this.props.suggestions){
+        const inputValue = e.currentTarget.innerText;
+        const suggestions = this.props.suggestions;
+        const checkSugesstionValue = suggestions.findIndex((value) => value == inputValue);
+        const userInput = this.props.suggestionsValue[checkSugesstionValue];
+        this.setState({
+        activeSuggestion: 0,
+        filteredSuggestions: [],
+        showSuggestions: false,
+        userInput: inputValue
+        });
+        this.props.handleChange(userInput)
+    }
+    
   };
   onKeyDown = e => {
     const { activeSuggestion, filteredSuggestions } = this.state;
@@ -90,10 +95,10 @@ export class Autocomplete extends Component {
       }
     } = this;
     let suggestionsListComponent;
-    if (showSuggestions && userInput) {
-      if (filteredSuggestions.length) {
+    if ((showSuggestions && userInput) && this.props.suggestions) {
+      if ((filteredSuggestions.length > 0) && this.props.suggestions) {
         suggestionsListComponent = (
-          <ul class="suggestions">
+          <ul class="suggestions" style={this.props.listBoxStyle ? this.props.listBoxStyle : null}>
             {filteredSuggestions.map((suggestion, index) => {
               let className;
 
@@ -102,7 +107,7 @@ export class Autocomplete extends Component {
               }
 
               return (
-                <li className="li" key={suggestion} onClick={onClick}>
+                <li className="li" key={suggestion} onClick={onClick} style={this.props.listStyle ? this.props.listStyle : null}>
                   {suggestion}
                 </li>
               );
@@ -122,10 +127,12 @@ export class Autocomplete extends Component {
       <React.Fragment>
         <input
           type="autosearch "
-          className="input form-input pecs"
+          className={this.props.className ? this.props.className : "input form-input pecs"}
           onChange={onChange}
           onKeyDown={onKeyDown}
           value={userInput ? userInput : this.props.defaultValue}
+          style={this.props.inputStyle ? this.props.inputStyle : null}
+          placeholder={this.props.placeHolder ? this.props.placeHolder : null}
         />
         {suggestionsListComponent}
         <label className={"closeAutoComplete " + (showSuggestions ? "" : "d-none")} onClick={() => this.setState({ showSuggestions: false })}></label>
