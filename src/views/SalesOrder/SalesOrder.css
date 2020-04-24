@@ -173,10 +173,17 @@ span.upArrow:before {
 	font-size: 1.25em;
 	padding:10%;
 	text-align: center;
+	height: 35px;
 	background-color: #E8E8E8;
 	color: #919191;
 	transition: ease-in;
+<<<<<<< HEAD
+	margin: 0px !important;
+	padding-top: 3px !important;
+}
+=======
 } */
+>>>>>>> 22e45deb932f8e790dd6aac85e5478167466c9ea
 
 /* .iconU-delete:hover{
 	cursor: pointer;
@@ -399,7 +406,7 @@ table{
 .addlineSo{
 	margin-top: -4px;
 	height: 35px;
-	width: 3.45%;
+	width: 65px;
 	font-size: larger !important;
 	display: inline-block;
     font-weight: 400;
@@ -421,3 +428,127 @@ table{
 .verticalAlignTop{
 	vertical-align: top;
 }
+
+#orderline-header-number-id{
+	margin-right:10px;
+	width: 65px;
+	text-align: center;
+}
+
+#orderline-header-product-id{
+	margin-right:10px;
+	width: 200px;
+}
+
+#orderline-header-description-id{
+	margin-right:10px;
+	width: 340px;
+}
+
+#orderline-header-qty-id{
+	margin-right:10px;
+	width: 210px;
+}
+
+#orderline-header-weight-id{
+	margin-right:10px;
+	width: 210px;
+}
+
+#orderline-header-uom-id{
+	margin-right:10px;
+	width: 250px;
+}
+
+#orderline-header-rotadate-id{
+	margin-right:10px;
+
+}
+
+#orderline-header-batch-id{
+	margin-right:10px;
+	width: 240px;
+}
+
+#orderline-header-ref3-id{
+	margin-right:10px;
+	width: 240px;
+}
+
+#orderline-header-ref4-id{
+	margin-right:10px;
+	width: 240px;
+}
+
+#orderline-header-disposition-id{
+	margin-right:10px;
+	width: 260px;
+}
+
+#orderline-header-packid-id{
+	margin-right:10px;
+	width: 240px;
+}
+
+/*value id */
+#orderline-header-number-val-id{
+	margin-right:10px;
+	width: 65px;
+	text-align: center;
+}
+
+#orderline-header-product-val-id{
+	margin-right:10px;
+	width: 200px;
+}
+
+#orderline-header-description-val-id{
+	margin-right:10px;
+	width: 340px;
+}
+
+#orderline-header-qty-val-id{
+	margin-right:10px;
+	width: 210px;
+}
+
+#orderline-header-weight-val-id{
+	margin-right:10px;
+	width: 210px;
+}
+
+#orderline-header-uom-val-id{
+	margin-right:10px;
+	width: 250px;
+}
+
+#orderline-header-rotadate-val-id{
+	margin-right:10px;
+
+}
+
+#orderline-header-batch-val-id{
+	margin-right:10px;
+	width: 240px;
+}
+
+#orderline-header-ref3-val-id{
+	margin-right:10px;
+	width: 240px;
+}
+
+#orderline-header-ref4-val-id{
+	margin-right:10px;
+	width: 240px;
+}
+
+#orderline-header-disposition-val-id{
+	margin-right:10px;
+	width: 260px;
+}
+
+#orderline-header-packid-val-id{
+	margin-right:10px;
+	width: 240px;
+}
+

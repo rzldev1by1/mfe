@@ -80,6 +80,12 @@ class Authentication {
 		return user["company"];
 	}
 
+	static getWebUser = () => {
+		let user = Authentication.getUser();
+		if (!user) { return false };
+		return user["userModules"][0].web_user;
+	}
+
 	static getUserMenu = () => {
 		let user = JSON.parse(localStorage.getItem("user"));
 		if(user){

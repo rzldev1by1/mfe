@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 
 const OrderLineReview = (props) => {
     const {
@@ -17,85 +18,99 @@ const OrderLineReview = (props) => {
         packId           ,
     } = props.parameters
     return(
-        <div style={{marginBottom:'1%'}}>
-           <table>
+     <div style={{marginBottom:'1%'}}>
+          <div className="line">
+          <table className=''>
                <tr>
-                   <td width='3%'>
-                        <input      className       = "form-control put "
-                                    id              = 'rowNumber'
-                                    readOnly 
-                                    value           = {number}/>
-                   </td>
+                    <th>
+                         <div id='orderline-header-number-id'>#</div>
+                    </th>
 
-                   <td>
-                   <input           className       = "form-control put "
-                                    readOnly 
-                                    value           = {productVal}/>
-                   </td>
+                    <th>
+                         <div id='orderline-header-product-id'>Product</div>
+                    </th>
 
-                   <td>
-                        <input      className       = "form-control put "
-                                    readOnly 
-                                    value           = {product}/>
-                   </td>
+                    <th>
+                         <div id='orderline-header-description-id'>Description</div>
+                    </th>
 
-                   <td width='7%'>
-                        <input      className       = "form-control put "
-                                    readOnly
-                                    value           = {qty}/>
-                   </td>
+                    <th>
+                         <div id='orderline-header-qty-id'>Qty</div>
+                    </th>
 
-                   <td width='7%'>
-                        <input      className       = "form-control put "
-                                    readOnly
-                                    value           = {weight}/>
-                   </td>
+                    <th>
+                         <div id='orderline-header-weight-id'>Weight</div>
+                    </th>
 
-                   <td width='7%'>
-                        <input      className       = "form-control put "
-                                    readOnly
-                                    value           = {uom}/>
-                   </td>
-
-                   <td>
-                        <input      className       = "form-control put "
-                                    readOnly
-                                    value           = {rotaDate}/>
-                   </td>
-
-                   <td width='7%'>
-                        <input      className       = "form-control put "
-                                    readOnly
-                                    value           = {batch}/>
-                   </td>
-
-                   <td width='7%'>
-                        <input      className       = "form-control put "
-                                    readOnly
-                                    value           = {ref3}/>
-                   </td>
-
-                   <td width='7%'>
-                        <input      className       = "form-control put "
-                                    readOnly
-                                    value           = {ref4}/>
-                   </td>
-
-                   <td>
-                        <input      className       = "form-control put "
-                                    readOnly
-                                    value           = {disposition}/>    
-                   </td>
-
-                   <td width='7%'>
-                        <input      className       = "form-control put "
-                                    readOnly
-                                    value           = {packId}/>
-                   </td>
+                    <th>
+                         <div id='orderline-header-uom-id'>UOM</div>
+                    </th>   
+                    
+                    <th>
+                         <div id='orderline-header-rotadate-id'>Rota Date</div>
+                    </th>                    
                </tr>
-           </table>
-        </div>
-    )
+               <tr>
+                    <td>
+                         <div id='orderline-header-number-id'>
+                              <input    className       = "form-control put "
+                                        id              = 'rowNumber'
+                                        readOnly 
+                                        value           = {number}/>
+                         </div>
+                    </td>
+
+                    <td>
+                         <div id='orderline-header-product-id'>
+                              <input    className       = "form-control put "
+                                        readOnly 
+                                        value           = {productVal}/>
+                         </div>
+                    </td>
+
+                    <td>
+                         <div id='orderline-header-description-id'>
+                              <input    className       = "form-control put "
+                                        readOnly 
+                                        value           = {product}/>
+                         </div>
+                    </td>
+
+                    <td>
+                         <div id='orderline-header-qty-id'>
+                              <input    className       = "form-control put "
+                                        readOnly
+                                        value           = {qty}/>
+                         </div>
+                    </td>
+
+                    <td>
+                         <div id='orderline-header-weight-id'>
+                              <input    className       = "form-control put "
+                                        readOnly
+                                        value           = {weight}/>
+                         </div>
+                    </td>
+
+                    <td>
+                         <div id='orderline-header-uom-id'>
+                              <input    className       = "form-control put "
+                                        readOnly
+                                        value           = {uom}/>
+                         </div>
+                    </td>   
+                    
+                    <td>
+                         <div id='orderline-header-rotadate-id'>
+                              <input    className       = "form-control put "
+                                        readOnly
+                                        value           = {moment(rotaDate).format('DD/MM/YYYY')}/>
+                         </div>
+                    </td>                    
+               </tr>
+               </table>
+          </div>
+     </div>)
 }
 
 export default OrderLineReview

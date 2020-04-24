@@ -25,112 +25,105 @@ const OrderLine = (props) => {
     
     return(
         <div style={{marginBottom:'1%'}}>
-           <table>
-               <tr>
-                   <td width='4%'>
-                        <input      className       = "form-control put "
-                                    id              = 'rowNumber'
-                                    readOnly 
-                                    value           = {number}/>
-                   </td>
+             <div className="line">
+              <table className=''>
+                    <tr>
+                         <th>
+                              <div id='orderline-header-number-id'>#</div>
+                         </th>
 
-                   <td>
-                        <Dropdown   optionSelected  = {productVal}
-                                    getValue        = {(productVal, product) => props.setProduct(productVal, product, props.idx)} 
-                                    placeHolder     = "Product"  
-                                    style           = {{minWidth: "100%", zIndex:idx}} 
-                                    optionList      = {props.productdata.code.toString()} 
-                                    optionValue     = {props.productdata.code.toString()}/>
-                   </td>
+                         <th>
+                              <div id='orderline-header-product-id'><div className='required-field'>Product</div></div>
+                         </th>
 
-                   <td>
-                        <input      className       = "form-control put "
-                                    placeholder     = 'Product Name'
-                                    readOnly 
-                                    value           = {product}/>
-                   </td>
+                         <th>
+                              <div id='orderline-header-description-id'>Description</div>
+                         </th>
 
-                   <td width='8%'>
-                        <input      id              = {'qty_'+idx}
-                                    type            = 'number'
-                                    maxLength       = '9'
-                                    className       = "form-control put "
-                                    placeholder     = 'Qty'
-                                    value           = {qty}
-                                    maxLength       = '9'
-                                    onChange        = {(e) =>props.setQty(e.target.value, props.idx)}/>
-                   </td>
+                         <th>
+                              <div id='orderline-header-qty-id'><div className='required-field'>Qty</div></div>
+                         </th>
 
-                   <td width='7%'>
-                        <input      id              = {'weight_'+idx}
-                                    className       = "form-control put "
-                                    placeholder     = 'Weight'
-                                    value           = {weight}
-                                    maxLength       = '9'
-                                    onChange        = {(e) =>props.setWeight(e.target.value, props.idx)}/>
-                   </td>
+                         <th>
+                              <div id='orderline-header-weight-id'>Weight</div>
+                         </th>
 
-                   <td width='3%'>
-                        <Dropdown   optionSelected  = {uom}
-                                    getValue        = {(uom) => props.setUom(uom, props.idx)} 
-                                    placeHolder     = "UOM"  
-                                    style           = {{minWidth: "3%", zIndex:idx}} 
-                                    optionList      = {props.uomdata.toString()} 
-                                    optionValue     = {props.uomdata.toString()}/>
-                   </td>
-
-                   <td>
-                        <DatePicker getDate         = {(date) => props.setRotaDate(date, props.idx)} 
-                                    style           = {{ minWidth: "100%" }}/>
-                   </td>
-
-                   <td width='6%'>
-                        <input      id              = {'batch_'+idx}
-                                    className       = "form-control put "
-                                    placeholder     = 'Batch'
-                                    value           = {batch}
-                                    maxLength       = '9'
-                                    onChange        = {(e) =>props.setBatch(e.target.value, props.idx)}/>
-                   </td>
-
-                   <td width='6%'>
-                        <input      id              = {'ref3_'+idx}
-                                    className       = "form-control put "
-                                    placeholder     = 'Ref3'
-                                    value           = {ref3}
-                                    onChange        = {(e) =>props.setRef3(e.target.value, props.idx)}/>
-                   </td>
-
-                   <td width='6%'>
-                        <input      id              = {'ref4_'+idx}
-                                    className       = "form-control put "
-                                    placeholder     = 'Ref4'
-                                    value           = {ref4}
-                                    onChange        = {(e) =>props.setRef4(e.target.value, props.idx)}/>
-                   </td>
-
-                   <td>
-                        <Dropdown   optionSelected  = {dispositionVal}
-                                    getValue        = {(dispositionVal, dispositionName) => props.setDispoisition(dispositionVal, dispositionName, props.idx)} 
-                                    placeHolder     = "Disposition"  
-                                    style           = {{minWidth: "100%", zIndex:idx}} 
-                                    optionList      = {props.dispositiondata.code.toString()} 
-                                    optionValue     = {props.dispositiondata.code.toString()}/>
-                   </td>
-
-                   <td width='11%'>
-                        <input      id              = {'packId_'+idx}
-                                    className       = "form-control put "
-                                    placeholder     = 'PackId'
-                                    value           = {packId}
-                                    onChange        = {(e) =>props.setPackid(e.target.value, props.idx)}/>
-                   </td>
-                   
-                   <td>
-                        <label onClick={() => props.removeLineHandler(idx)} className="iconU-delete"/>
-                   </td>
-               </tr>
-           </table>
+                         <th>
+                              <div id='orderline-header-uom-id'><div className='required-field'>UOM</div></div>
+                         </th>   
+                         
+                         <th>
+                              <div id='orderline-header-rotadate-id'>Rota Date</div>
+                         </th>                    
+                    </tr>        
+                    <tr>
+                         <td>
+                              <div id='orderline-header-number-val-id'>
+                              <input   className       = "form-control put "
+                                        id              = 'rowNumber'
+                                        readOnly 
+                                        value           = {number}/>
+                              </div>
+                         </td>
+                         <td>
+                         <div id='orderline-header-product-val-id'>
+                              <Dropdown   optionSelected  = {productVal}
+                                             getValue        = {(productVal, product) => props.setProduct(productVal, product, props.idx)} 
+                                             placeHolder     = "Product"  
+                                             style           = {{minWidth: "100%", zIndex:idx}} 
+                                             optionList      = {props.productdata.code.toString()} 
+                                             optionValue     = {props.productdata.code.toString()}/>
+                         </div>
+                         </td>
+                         <td>
+                         <div id='orderline-header-description-val-id'>
+                              <input    className       = "form-control put "
+                                        placeholder     = 'Product Name'
+                                        readOnly 
+                                        value           = {product}/>
+                         </div>
+                         </td>
+                         <td>
+                         <div id='orderline-header-qty-val-id'>
+                              <input    id              = {'qty_'+idx}
+                                        type            = 'number'
+                                        maxLength       = '9'
+                                        className       = "form-control put "
+                                        placeholder     = 'Qty'
+                                        value           = {qty}
+                                        maxLength       = '9'
+                                        onChange        = {(e) =>props.setQty(e.target.value, props.idx)}/>
+                         </div>
+                         </td>
+                         <td>
+                         <div id='orderline-header-weight-val-id'>
+                              <input      id              = {'weight_'+idx}
+                                        className       = "form-control put "
+                                        placeholder     = 'Weight'
+                                        value           = {weight}
+                                        maxLength       = '9'
+                                        onChange        = {(e) =>props.setWeight(e.target.value, props.idx)}/> 
+                         </div>
+                         </td>
+                         <td>
+                         <div id='orderline-header-uom-val-id'>
+                              <Dropdown   optionSelected  = {uom}
+                                             getValue        = {(uom) => props.setUom(uom, props.idx)} 
+                                             placeHolder     = "UOM"  
+                                             style           = {{minWidth: "250px", zIndex:idx}} 
+                                             optionList      = {props.uomdata.toString()} 
+                                             optionValue     = {props.uomdata.toString()}/>
+                         </div>
+                         </td>   
+                         <td>
+                         <div id='orderline-header-rotadate-val-id'>
+                              <DatePicker getDate         = {(date) => props.setRotaDate(date, props.idx)} 
+                                             style           = {{ minWidth: "250px" }}/>
+                         </div>
+                         </td>                    
+                    </tr>                             
+              </table>
+            </div> 
         </div>
     )
 }

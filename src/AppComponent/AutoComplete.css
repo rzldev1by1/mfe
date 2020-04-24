@@ -17,7 +17,7 @@
       line-height: 2.5;
       font-size: 1rem;
       font-family: "Helvetica Neue Regular";
-      width: 365px;
+      width: max-content;
       border-radius: 6px;
     }
     .li:hover{
@@ -61,7 +61,7 @@
   }
   .suggestions{
     position: absolute;
-    margin-top: 47px !important;
+    margin-top: 47px;
     z-index: 4;
     width: fit-content;
     border: 1px solid #22ABE3;
@@ -123,6 +123,16 @@
   z-index: 5;
   padding-left: 20px;
   line-height: 2.3;
+}
+
+.closeAutoComplete{
+    display: block;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 2;
 }
 
   

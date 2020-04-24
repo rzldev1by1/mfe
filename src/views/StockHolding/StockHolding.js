@@ -23,6 +23,7 @@ class StockHolding extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			tampil : [],
 			data : [],
 			displayContent: "INIT",
 			isLoaded: false,
@@ -48,7 +49,7 @@ class StockHolding extends Component {
                 { id: "client", checkboxLabelText: "Client", tableHeaderText: "Client", isVisible: true, key: "client", type: "string", sort: mid },
 				{ id: "product", checkboxLabelText: "Product", tableHeaderText: "Product", isVisible: true, key: "product", type: "string", sort: mid },
 				{ id: "description", checkboxLabelText: "Description", tableHeaderText: "Description", isVisible: true, key: "product_name", type: "string", sort: mid },
-				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: false, key: "status", type: "string", sort: mid },
+				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: false, key: "disposition", type: "string", sort: mid },
 				{ id: "uom", checkboxLabelText: "UOM", tableHeaderText: "UOM", isVisible: true, key: "packdesc_1", type: "string", sort: mid },
 				{ id: "status", checkboxLabelText: "Status", tableHeaderText: "Status", isVisible: true, key: "status", type: "string", sort: mid },
 				{ id: "on_hand_qty", checkboxLabelText: "On Hand Qty", tableHeaderText: "On Hand Qty", isVisible: true, key: "on_hand_qty", type: "number", sort: mid },
@@ -230,6 +231,14 @@ class StockHolding extends Component {
 
         return (
             <div className={"input-group filterSection" + (this.state.showFilter ? "" : " d-none")}>
+<<<<<<< HEAD
+                <Dropdown placeHolder="Site" style={{paddingLeft:'15px', width:'100px'}}
+                          optionList={masterSite.toString()}
+                          optionValue={masterSite.toString()}
+                          getValue={this.selectedSite} />
+
+				<Dropdown placeHolder="Client" style={{paddingLeft:'15px', width:'218px'}}
+=======
 				<Dropdown placeHolder="Site" 
 						style={{width: "100px", height:"2.7em", marginRight: "1em"}} 
 						optionList={masterSite.toString()}
@@ -238,6 +247,7 @@ class StockHolding extends Component {
 
 				<Dropdown placeHolder="Client" style={{width:'218px'}}
 						style={{width: "100px", height:"2.7em", marginRight: "1em"}} 
+>>>>>>> 22e45deb932f8e790dd6aac85e5478167466c9ea
                         optionList={masterUnit}
                         optionValue={masterUnit}
                         getValue={this.selectedUnit} />
@@ -406,25 +416,11 @@ class StockHolding extends Component {
 		})
 		return header
 	  }
-	
-	//   ExportData = () => {
-	// 	let data = []
-	// 	this.state.masterResStockHolding.map((item, index) => {
-	// 		let dataRow = []
-	// 		this.state.columns.map((column, columnIndex) =>{
-	// 			let dataColumn = []
-	// 			dataColumn.push(item[column.key])
-	// 			dataRow.push(dataColumn)
-	// 			console.log(dataColumn)
-	// 		let Export = this.state.dataColumn.map(elt=> [elt.site])
-	// 			return Export
-	// 		} )
-	// 	} )
-	//   }
 	ExportData = () => {
-		let data = this.state.data.map(elt=> [elt.site, elt.client, elt.product, elt.description, elt.disposition, 
-											  elt.uom, elt.status, elt.on_hand_qty, elt.on_hand_weight, elt.expected_in_qty,
-											  elt.expected_in_weight, elt.expected_out_qty, elt.price, elt.pallets]);
+		let data = this.state.masterResStockHolding.map(elt=> [elt.site, elt.client, elt.product, elt.product_name, elt.disposition, 
+											  elt.packdesc_1, elt.status, elt.on_hand_qty, elt.weight, elt.expected_in_qty,
+											  elt.expected_in_wgt, elt.expected_out_qty, elt.price, elt.pallet]);
+		console.log(data)
 		return data
 	  }
 

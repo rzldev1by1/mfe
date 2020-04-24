@@ -49,6 +49,7 @@ const headers = {
     'Authorization': 'Bearer ' + Authentication.getToken(),
     'Content-Type': 'application/json',
     'Accept': 'application/json',
+    'WebUser': Authentication.getWebUser()
 };
 
 const POheaders = {
