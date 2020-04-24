@@ -633,7 +633,7 @@ class UserManagement extends Component{
 
     render(){
 
-        return(<div className='animated fadeIn'>
+        return(<div>
             <div className="pt-4 mb-3">
                 <div className="row">
                     <div className="col-6 pr-0">
@@ -691,7 +691,7 @@ class UserManagement extends Component{
               </div>
 
                 <Card className="container-user-list border-0 mb-0">
-                <CardBody>
+                <CardBody className="p-0">
                 <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}
                 startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}/>
 
