@@ -63,11 +63,11 @@ class PurchaseOrderTable extends Component {
               sort: mid
           },
           {
-              id: "supplier_name", 
+              id: "company", 
               checkboxLabelText: "Supplier Name", 
               tableHeaderText: "Supplier Name", 
               isVisible: true, 
-              key: "supplier_name", 
+              key: "company", 
               type: "string", 
               sort: mid
           },
@@ -502,6 +502,18 @@ class PurchaseOrderTable extends Component {
                                                     )
                                                 }
                                             }
+                                            if(column.key == "company"){
+                                                if(data[column.key]){
+                                                    return(
+                                                            <td key={columnIdx}>{data[column.key]}</td>
+                                                    )
+                                                }else{
+                                                    return(
+                                                        <td key={columnIdx}>{data["supplier_name"]}</td>
+                                                    )
+                                                }
+                                            }
+                                            
                                             return(
                                                     <td key={columnIdx}>{data[column.key]}</td>
                                             )
