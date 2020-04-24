@@ -151,8 +151,8 @@ class Logins extends Component{
                             </button>
 
                             <div className="footer">
-                                <a target='blank' href='https://www.microlistics.com.au/'>version css © Microlistics {new Date().getFullYear()} </a>
-                                
+                                <a target='blank' href='https://www.microlistics.com.au/'>© Microlistics {new Date().getFullYear()}</a>
+
                             </div>
                         </div>
                     </form>
