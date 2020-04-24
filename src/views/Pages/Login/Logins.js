@@ -45,7 +45,7 @@ class Logins extends Component{
 
         (new Authentication()).authenticationHandler(payload)
         .then(result => {
-            
+
             if (result.isSuccess) {
                 self.props.history.push(result.url);
                 // self.props.history.push("/stock/stockholding");
@@ -119,6 +119,7 @@ class Logins extends Component{
 
     render() {
         return (
+
             <div className="background fontstyle">
                 <video autoPlay muted loop id="bgvideo">
                     <source src={videobg} type="video/mp4" />
@@ -150,8 +151,8 @@ class Logins extends Component{
                             </button>
 
                             <div className="footer">
-                                <a target='blank' href='https://www.microlistics.com.au/'>© Microlistics {new Date().getFullYear()}</a>
-
+                                <a target='blank' href='https://www.microlistics.com.au/'>version css © Microlistics {new Date().getFullYear()} </a>
+                                
                             </div>
                         </div>
                     </form>

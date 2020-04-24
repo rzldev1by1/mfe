@@ -327,7 +327,7 @@ class ListOrderComponent extends Component {
     render(){
       return(
         <div>
-          <div className='tablePages tablecontent'>
+          <div className='tablePage tablecontent'>
                <table className="Sotable">
                   <thead>
                     <tr style={{borderBottom:"3px solid #f0f0f0 !important"}}>

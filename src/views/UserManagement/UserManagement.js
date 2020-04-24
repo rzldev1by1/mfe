@@ -12,7 +12,7 @@ import Authentication from '../../Auth/Authentication'
 import Paging from '../../AppComponent/Paging'
 import create from '../../assets/img/brand/button_create@2x.png'
 import menunav from '../../menunav'
-import Export from '../../AppComponent/Export'
+import Export from '../../AppComponent/Export' 
 
 
 const today = moment(new Date()).format("YYYY-MM-DD");
@@ -636,13 +636,18 @@ class UserManagement extends Component{
         return(<div>
             <div className="pt-4 mb-3">
                 <div className="row">
-                    <div className="col-10 pr-0">
+                    <div className="col-6 pr-0">
                       <h2 className='margin-right-breadcrumb-title'>
                           User Management
                       </h2>
                     </div>
+<<<<<<< HEAD
                     <div className="col-2">
                         <button style={{width:"199px"}} className={(this.isValidUser() ?"btn btn-primary text-button float-right":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
+=======
+                    <div className="col-6 pl-0 ml-0 ">
+                        <button style={{width:"199px"}} className={(this.isValidUser() ?"btn btn-primary text-button float-right ":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
+>>>>>>> 22e45deb932f8e790dd6aac85e5478167466c9ea
                         <img src={create} className="mr-2 mb-1" style={{width:'8%'}}/>
                         Create user
                         </button>
@@ -658,6 +663,7 @@ class UserManagement extends Component{
             <div className={( this.state.isListLoaded ? '':' d-none ')}>
               <div className="mb-3">
                 <Card className="container-user-list border-0 mb-0">
+<<<<<<< HEAD
                     <CardBody>
                           <form ref={this.searchForm} onSubmit ={this.searchHandler}>
                               <div className="row">
@@ -683,11 +689,42 @@ class UserManagement extends Component{
                               </div>
                           </form>
                     </CardBody>
+=======
+                <CardBody>
+                <form ref={this.searchForm} onSubmit ={this.searchHandler}>
+                <div className="row">
+                <div className='col-md-10 col-xs-8'>
+                    <div className="searchINP">
+                    <div className="input-group p-0 searchSection">
+                    <div className="input-group searchBox w-100" style={{maxWidth:"none"}}>
+                    <span className="input-group-text border-0 bg-transparent ml-2" style={{ padding:"0.4rem" }}>
+                    <i className="iconU-search" />
+                    </span>
+                    <input type="text" style={{ fontFamily: "Helvetica Neue Medium", backgroundColor:"transparent" }}
+                    className="form-control searchInput" id="searchInput" name="searchInput"
+                    placeholder="Enter User Id or User Name" />
+                    </div>
+                    </div>
+                    </div>
+                </div>
+                <div className='col-md-2 col-xs-4'>
+                    <Button type="submit" className="search text-button btn-primary"> 
+                      Search
+                    </Button>
+                </div>
+                
+                {/* <div className="col-2 m-0"> */}
+                
+               
+                </div>
+                </form>
+                </CardBody>
+>>>>>>> 22e45deb932f8e790dd6aac85e5478167466c9ea
                 </Card>
               </div>
 
                 <Card className="container-user-list border-0 mb-0">
-                <CardBody>
+                <CardBody className="p-0">
                 <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}
                 startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}/>
 

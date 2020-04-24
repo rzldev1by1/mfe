@@ -31,13 +31,13 @@ const PurchaseOrderSearch = (props) => {
     return(
         <div className='form-group row rounded-top-175 mb-0 border-0' style={{display:'flex', backgroundColor:'white', height:70,alignItems:'center',width:'100%', marginLeft:0}}>
             <div className="input-group p-2">
-                <div className="input-group-prepend bg-white col-9">
+                <div className="input-group-prepend bg-white col-md-9">
                     <span className="input-group-text border-0 bg-white p-0">
                         <i className="fa fa-search fa-2x iconSpace" />
                     </span>
                     <input type="text" className="form-control border-0 pt-2" id="searchInput" name="searchInput" placeholder="Enter a Site, Order No. or Client" />
                 </div>
-                <div className="col-3 text-right">
+                <div className="col-md-3 text-right">
                     <Button className={"circle"} onClick={()=>onFilterChange()}>
                         <i className="iconU-filter" />
                     </Button>

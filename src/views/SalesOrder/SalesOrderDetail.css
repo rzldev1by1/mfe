@@ -1,4 +1,4 @@
-.podbreadcrumb{
+/* .podbreadcrumb{
     display:flex; 
     width:30%; 
     align-items:center;
@@ -37,17 +37,10 @@
 }
 .sub > table > tr > td {
     height: 40px;
-}
+} */
 
 .hori{
     border-left: 2px solid #D5D8DA;
     height: 34px;
 }
-
-.tableborderss{
-    border-left: 2px solid #D5D8DA;
-}
-
-.tableborderss > tr > th {
-    padding-left: 25px !important;
-}
+ 
