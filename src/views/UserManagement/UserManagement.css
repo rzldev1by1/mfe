@@ -110,7 +110,7 @@ span.upArrow:before {
 
 /*.tablePage{
 	max-height: 550px !important;
-	min-height: 70vh !important; 
+	min-height: 70vh !important;
 	overflow-y:auto;
 	font-size: 1.1em;
 }
@@ -197,7 +197,7 @@ label{
 =======
     border: 3px solid #ffffff;
     border-radius: 10px;
->>>>>>> 22e45deb932f8e790dd6aac85e5478167466c9ea
+
 }
 
 .account-info{
@@ -253,26 +253,14 @@ span.client-notActive{
 
 .active{
 	font-family:"Helvetica Neue Medium";
-    
     color: #7FC242;
-<<<<<<< HEAD
-    font-size: 20px;
-}
-
-.suspended{
-	font-family:"Helvetica Neue Medium";
-    
-    color: #FF5275;
-    font-size: 20px;
-=======
-     font-size: 12px; 
+     font-size: 12px;
 }
 
 .suspended{
     font-weight: 500;
     color: #FF4141;
     font-size: 12px;
->>>>>>> 22e45deb932f8e790dd6aac85e5478167466c9ea
 }
 
 .text-bolder{
@@ -529,7 +517,7 @@ input:checked + .slider:before {
 .sort-asc-active{
 		color: #22ABE3;
 }
- 
+
 
 .modal-content > .create-modal{
 	position: absolute;
@@ -602,11 +590,11 @@ input:checked + .slider:before {
 		margin-left: 7px !important;
 		width: 0.7em;
 	}
-	
+
 	.umtable{
 		width: 100%;
 	}
-	
+
 	.umtable th {
 		border-bottom: 2px solid #E2E2E2 !important;
 		height: 45px !important;
@@ -614,7 +602,7 @@ input:checked + .slider:before {
 		font-size: 1em;
 		padding: 0.5rem 0.5rem 0.5rem 1rem
 	}
-	
+
 	.umtable tr {
 		border-bottom: 1.5px solid #f0f0f0  ;
 		height: 45px !important;
@@ -624,12 +612,12 @@ input:checked + .slider:before {
 		border-bottom: 1.5px solid #E2E2E2 !important;
 		width: 100%;
 	}
-	
+
 	.tr:hover{
 		background: #f0f0f0 !important;
 		cursor: pointer;
 	}
-	
+
 	th{
 		font-family: "Helvetica Neue Bold";
 		color: #B4B9BB;
@@ -652,11 +640,11 @@ input:checked + .slider:before {
 		width: 9px;
 		font-weight: bold;
 	}
-	
+
 	.umtable{
 		width: 100%;
 	}
-	
+
 	.umtable th {
 		border-bottom: 1px solid #D5D8DA;
 		height: 45px !important;
@@ -664,7 +652,7 @@ input:checked + .slider:before {
 		font-size: 1rem;
 		padding: 0.5rem 1rem 0.5rem 1rem
 	}
-	
+
 	.umtable tr {
 		border-bottom: 2px solid #f0f0f0  !important;
 		height: 45px !important;
@@ -674,7 +662,7 @@ input:checked + .slider:before {
 		background: #f0f0f0 !important;
 		cursor: pointer;
 	}
-	
+
 	th{
 		font-family: "Helvetica Neue Bold";
 		color: #B4B9BB;
@@ -692,4 +680,3 @@ input:checked + .slider:before {
 		/*margin-left: 19px;*/
 	}
 }
- 
