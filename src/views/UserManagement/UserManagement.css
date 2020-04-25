@@ -248,13 +248,14 @@ span.client-notActive{
 
 .active{
 	font-family:"Helvetica Neue Medium";
-    color: #7FC242;      font-size: 12px; 
+	color: #7FC242;      
+	font-size: 20px; 
 }
 
 .suspended{
     font-weight: 500;
     color: #FF4141;
-    font-size: 12px;
+    font-size: 20px;
 }
 
 .text-bolder{
