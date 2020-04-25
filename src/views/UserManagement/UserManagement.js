@@ -659,11 +659,7 @@ class UserManagement extends Component{
             <div className={( this.state.isListLoaded ? 'd-none': 'spinner')}/>
             <div className={( this.state.isListLoaded ? '':' d-none ')}>
               <div className="mb-3">
-                <Card className="container-user-list border-0 mb-0">
-<<<<<<< HEAD
-=======
-
->>>>>>> 62e49c8f79a1e3553318676696cf4db989289a4a
+                <Card className="container-user-list border-0 mb-0"> 
                 <CardBody>
                 <form ref={this.searchForm} onSubmit ={this.searchHandler}>
                 <div className="row">
@@ -692,11 +688,7 @@ class UserManagement extends Component{
 
                 </div>
                 </form>
-                </CardBody>
-<<<<<<< HEAD
-=======
-
->>>>>>> 62e49c8f79a1e3553318676696cf4db989289a4a
+                </CardBody> 
                 </Card>
               </div>
 

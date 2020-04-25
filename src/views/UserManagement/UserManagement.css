@@ -190,15 +190,9 @@ label{
 	font-size: 20px;
 }
 
-.border-account-info{
-<<<<<<< HEAD
+.border-account-info{ 
     border: 3px solid #ffffff; 
-	border-radius: 5px;
-=======
-    border: 3px solid #ffffff;
-    border-radius: 10px;
-
->>>>>>> 62e49c8f79a1e3553318676696cf4db989289a4a
+	border-radius: 5px; 
 }
 
 .account-info{
@@ -254,12 +248,7 @@ span.client-notActive{
 
 .active{
 	font-family:"Helvetica Neue Medium";
-    color: #7FC242;
-<<<<<<< HEAD
-     font-size: 12px; 
-=======
-     font-size: 12px;
->>>>>>> 62e49c8f79a1e3553318676696cf4db989289a4a
+    color: #7FC242;      font-size: 12px; 
 }
 
 .suspended{

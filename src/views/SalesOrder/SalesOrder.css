@@ -175,23 +175,11 @@ span.upArrow:before {
 	text-align: center;
 	height: 35px;
 	background-color: #E8E8E8;
-	color: #919191;
-<<<<<<< HEAD
+	color: #919191; 
 	transition: ease-in; 
 	margin: 0px !important;
-	padding-top: 3px !important;
-} 
-} */ 
-=======
-	transition: ease-in;
-<<<<<<< HEAD
-	margin: 0px !important;
-	padding-top: 3px !important;
-}
-=======
+	padding-top: 3px !important; 
 } */
->>>>>>> 22e45deb932f8e790dd6aac85e5478167466c9ea
->>>>>>> 62e49c8f79a1e3553318676696cf4db989289a4a
 
 /* .iconU-delete:hover{
 	cursor: pointer;
