@@ -23,6 +23,7 @@ class StockHolding extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			tampil : [],
 			data : [],
 			displayContent: "INIT",
 			isLoaded: false,
@@ -31,7 +32,7 @@ class StockHolding extends Component {
 			showFilter: true,
 			isVisible: [],
             showEditColumn: false,
-            
+
             site: "",
             unit: "",
             status: "",
@@ -64,7 +65,7 @@ class StockHolding extends Component {
             masterStatus: ["OK", "SHORTAGE"],
 			masterResStockHolding: []
         };
-        
+
 		this.searchForm = React.createRef();
 	}
 
@@ -112,8 +113,8 @@ class StockHolding extends Component {
 
 		self.numberEventClick(self.state.currentPage);
 	}
-	
-    getSite = () => {   
+
+    getSite = () => {
         let self = this;
 
         axios.get(endpoint.getSite, {
@@ -139,13 +140,13 @@ class StockHolding extends Component {
 						startIndex: 0, lastIndex: 0,
 						totalRows: 0, maxPage: 0 });
 
-        axios.get(endpoint.stockHoldingSummary, { 
-            headers: headers 
+        axios.get(endpoint.stockHoldingSummary, {
+            headers: headers
         })
         .then(res => {
             // res.isSuccess = true;
             // self.setState({ isLoaded: false })
-            return res.data;				
+            return res.data;
         })
         .catch(function (error) {
             self.setState({ displayContent: "NOT_FOUND",
@@ -166,7 +167,7 @@ class StockHolding extends Component {
 	searchData = () => {
         const { site, status, unit } = this.state;
         let self = this;
-        
+
 		self.setState({ isLoaded: true, isSearch: true,
 						currentPage: 1,
 						startIndex: 0, lastIndex: 0,
@@ -174,7 +175,7 @@ class StockHolding extends Component {
 
 		let form = self.searchForm.current;
         let params = {};
-        
+
 		params.searchParam = form.searchInput.value;
         if (site !== "") { params.site = site }
         if (unit !== "") { params.unit = unit }
@@ -211,7 +212,7 @@ class StockHolding extends Component {
     selectedUnit = (unit) => {
         this.setState({ unit: unit });
 	}
-	
+
     selectedStatus = (status) => {
         this.setState({ status: status });
     }
@@ -230,20 +231,22 @@ class StockHolding extends Component {
 
         return (
             <div className={"input-group filterSection" + (this.state.showFilter ? "" : " d-none")}>
-				<Dropdown placeHolder="Site" 
-						style={{width: "100px", height:"2.7em", marginRight: "1em"}} 
+
+				<Dropdown placeHolder="Site"
+						style={{width: "100px", height:"2.7em", marginRight: "1em"}}
 						optionList={masterSite.toString()}
 						optionValue={masterSite.toString()}
 						getValue={this.selectedSite} />
 
 				<Dropdown placeHolder="Client" style={{width:'218px'}}
-						style={{width: "100px", height:"2.7em", marginRight: "1em"}} 
+						style={{width: "100px", height:"2.7em", marginRight: "1em"}}
+
                         optionList={masterUnit}
                         optionValue={masterUnit}
                         getValue={this.selectedUnit} />
 
-                <Dropdown placeHolder="Status" 
-						style={{width: "140px", height:"2.7em", marginRight: "1em"}} 
+                <Dropdown placeHolder="Status"
+						style={{width: "140px", height:"2.7em", marginRight: "1em"}}
                         optionList={masterStatus}
                         optionValue={masterStatus}
                         getValue={this.selectedStatus} />
@@ -291,7 +294,7 @@ class StockHolding extends Component {
         });
 
         sortColumns[idx]["sort"] = sortValue !== mid && sortValue === down ? up : down;
-        
+
         this.setState({ columns: sortColumns });
 
 
@@ -327,11 +330,11 @@ class StockHolding extends Component {
             });
         }
         return;
-    }   
+    }
 
 	nextPageClick = () => {
 		if (this.state.currentPage < this.state.maxPage) {
-			this.setState((prev) => { 
+			this.setState((prev) => {
                 currentPage: prev.currentPage++;
             }, () => {
 				this.changeStartIndex(this.state.currentPage);
@@ -343,7 +346,7 @@ class StockHolding extends Component {
 
 	backPageClick = () => {
 		if (this.state.currentPage > 1) {
-			this.setState((prev) => { 
+			this.setState((prev) => {
                 currentPage: prev.currentPage--;
             }, () => {
 				this.changeStartIndex(this.state.currentPage);
@@ -363,12 +366,12 @@ class StockHolding extends Component {
         }
         return;
 	}
-	
+
 	loadExport= () => {
 
 		let param = '?client='+this.client
-		axios.get(endpoint.stockHoldingSummary, { 
-            headers: headers 
+		axios.get(endpoint.stockHoldingSummary, {
+            headers: headers
         })
 		  .then(res => {
 			const result = res.data.data
@@ -391,7 +394,7 @@ class StockHolding extends Component {
 			Seconds = date.getSeconds(),
 			Minutes = date.getMinutes(),
 			Hours = date.getHours();
-		 return filename=("Microlistics_StockHolding." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds) 
+		 return filename=("Microlistics_StockHolding." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)
 	  }
 
 	  ExportPDFName = () =>{
@@ -401,30 +404,16 @@ class StockHolding extends Component {
 
 	  ExportHeader = () =>{
 		let header = [];
-		this.state.columns.map((item, index) => { 
+		this.state.columns.map((item, index) => {
 			header.push(item.tableHeaderText)
 		})
 		return header
 	  }
-	
-	//   ExportData = () => {
-	// 	let data = []
-	// 	this.state.masterResStockHolding.map((item, index) => {
-	// 		let dataRow = []
-	// 		this.state.columns.map((column, columnIndex) =>{
-	// 			let dataColumn = []
-	// 			dataColumn.push(item[column.key])
-	// 			dataRow.push(dataColumn)
-	// 			console.log(dataColumn)
-	// 		let Export = this.state.dataColumn.map(elt=> [elt.site])
-	// 			return Export
-	// 		} )
-	// 	} )
-	//   }
 	ExportData = () => {
-		let data = this.state.data.map(elt=> [elt.site, elt.client, elt.product, elt.description, elt.disposition, 
-											  elt.uom, elt.status, elt.on_hand_qty, elt.on_hand_weight, elt.expected_in_qty,
-											  elt.expected_in_weight, elt.expected_out_qty, elt.price, elt.pallets]);
+		let data = this.state.masterResStockHolding.map(elt=> [elt.site, elt.client, elt.product, elt.product_name, elt.disposition,
+											  elt.packdesc_1, elt.status, elt.on_hand_qty, elt.weight, elt.expected_in_qty,
+											  elt.expected_in_wgt, elt.expected_out_qty, elt.price, elt.pallet]);
+		console.log(data)
 		return data
 	  }
 
@@ -492,7 +481,7 @@ class StockHolding extends Component {
 									</form>
 								</div>
 							</div>
-                            
+
 							<div className="row pt-0 p-0 pl-1">
 								<div className="d-flex col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
 									{content}
@@ -507,7 +496,7 @@ class StockHolding extends Component {
                                             currentPage={this.state.currentPage} maxPage={this.state.maxPage}
                                             startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                                             isActive={this.state.isActive}
-                                            numberEventClick={this.numberEventClick} />		
+                                            numberEventClick={this.numberEventClick} />
 									 <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
                             				 ExportData={this.ExportData} ExportHeader={this.ExportHeader}/>
                                 </div>

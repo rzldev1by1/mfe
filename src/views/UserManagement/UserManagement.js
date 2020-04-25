@@ -12,7 +12,7 @@ import Authentication from '../../Auth/Authentication'
 import Paging from '../../AppComponent/Paging'
 import create from '../../assets/img/brand/button_create@2x.png'
 import menunav from '../../menunav'
-import Export from '../../AppComponent/Export' 
+import Export from '../../AppComponent/Export'
 
 
 const today = moment(new Date()).format("YYYY-MM-DD");
@@ -565,7 +565,7 @@ class UserManagement extends Component{
           Seconds = date.getSeconds(),
           Minutes = date.getMinutes(),
           Hours = date.getHours();
-       return filename=("Microlistics_UserManagement." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds) 
+       return filename=("Microlistics_UserManagement." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)
     }
 
     ExportPDFName = () =>{
@@ -601,7 +601,7 @@ class UserManagement extends Component{
       let currentForm = this.searchForm.current
       let searchValue = currentForm.searchInput.value;
 
-      
+
       if(searchValue){
         param.searchParam = searchValue;
       }else{
@@ -641,10 +641,10 @@ class UserManagement extends Component{
                           User Management
                       </h2>
                     </div>
+
                     <div className="col-6 pl-0 ml-0 ">
                         <button style={{width:"199px"}} className={(this.isValidUser() ?"btn btn-primary text-button float-right ":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
-                    {/* <div className="col-2">
-                        <button style={{width:"199px"}} className={(this.isValidUser() ?"btn btn-primary text-button float-right":"d-none")} onClick={(e)=>{this.onCreateClick()}}> */}
+
                         <img src={create} className="mr-2 mb-1" style={{width:'8%'}}/>
                         Create user
                         </button>
@@ -660,6 +660,10 @@ class UserManagement extends Component{
             <div className={( this.state.isListLoaded ? '':' d-none ')}>
               <div className="mb-3">
                 <Card className="container-user-list border-0 mb-0">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 62e49c8f79a1e3553318676696cf4db989289a4a
                 <CardBody>
                 <form ref={this.searchForm} onSubmit ={this.searchHandler}>
                 <div className="row">
@@ -678,17 +682,21 @@ class UserManagement extends Component{
                     </div>
                 </div>
                 <div className='col-md-2 col-xs-4'>
-                    <Button type="submit" className="search text-button btn-primary"> 
+                    <Button type="submit" className="search text-button btn-primary">
                       Search
                     </Button>
                 </div>
-                
+
                 {/* <div className="col-2 m-0"> */}
-                
-               
+
+
                 </div>
                 </form>
                 </CardBody>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 62e49c8f79a1e3553318676696cf4db989289a4a
                 </Card>
               </div>
 

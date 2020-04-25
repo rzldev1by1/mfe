@@ -304,10 +304,28 @@ p:hover{
     width: 100%;
   }
   .btnLogin{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20%;
-    padding-left: 0px !important;
+    display: flex; 
+    width: 20%; 
+    min-width: 100px;
+    display: block;
+    text-align: center;
   } 
+  .logo{
+      text-align: center;
+      padding-bottom: 20px;
+  }
+  .logo .mlslogo{
+      width: 60%;
+  }
+  .loginInput{
+      text-align: center;
+  }
+  .footer {
+      text-align: center;
+      font-size: 1.2rem;
+      display: block;
+  }
+  .footer .pl-4{
+      padding-left: 0px;
+  }
 }

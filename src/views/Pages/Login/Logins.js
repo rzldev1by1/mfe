@@ -45,7 +45,7 @@ class Logins extends Component{
 
         (new Authentication()).authenticationHandler(payload)
         .then(result => {
-            
+
             if (result.isSuccess) {
                 self.props.history.push(result.url);
                 // self.props.history.push("/stock/stockholding");
@@ -118,14 +118,16 @@ class Logins extends Component{
     }
 
     render() {
-        return ( 
+        return (
 
             <div className="background fontstyle">
                 <video autoPlay muted loop id="bgvideo">
                     <source src={videobg} type="video/mp4" />
                 </video>
-                <div className="leftSide content">
-                    <img src={centerLogo} className="mlslogo" alt="mlslogo" />
+                <div className="leftSide content"> 
+                <div className="logo">
+                    <img src={centerLogo} className="mlslogo" alt="mlslogo" /> 
+                </div>
                     <form ref={this.loginForm} onSubmit={(e) => { e.preventDefault(); this.validateForm() }}>
                         <div className="loginInput">
                             <div style={{ marginBottom: "1%" }}>
