@@ -225,7 +225,7 @@ class UserListComponent extends Component{
         return(
                 <div className="tablePage tablePage-um tablecontent">
                     <div className="">
-                        <table className="umtable">
+                        <table className="defaultTable">
                             <thead>
                                 <tr>
                                     {

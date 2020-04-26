@@ -855,6 +855,88 @@ a.breadcrumb:hover {
 
 // Start - Table
 
+@media(max-width: 1500px){
+	.arrow{
+		margin-left: 7px !important;
+		width: 0.7em;
+	}
+	
+	.defaultTable{
+		width: 100%;
+	}
+	
+	.defaultTable th {
+		border-bottom: 1px solid #D5D8DA !important;
+		height: 45px !important;
+		cursor: pointer;
+		font-size: 12px;
+	}
+	
+	.defaultTable tr {
+		border-bottom: 1.5px solid #f0f0f0  !important;
+		height: 45px !important;
+		font-size: 12px;
+	}
+	.tr{
+		border-bottom: 1.5px solid #E2E2E2 !important;
+	}
+	
+	.tr:hover{
+		background: #f0f0f0 !important;
+		cursor: pointer;
+	}
+	
+	th{
+		font-family: "Helvetica Neue Bold";
+		color: #B4B9BB;
+		padding-left: 10px;
+	}
+	td{
+		font-family: "Helvetica Neue Regular";
+		color: #637175;
+		padding-left: 10px;
+	}
+}
+@media(min-width: 1500px){
+	.arrow{
+		margin-left: 7px !important;
+		width: 9px;
+		font-weight: bold;
+	}
+	
+	.defaultTable{
+		width: 100%;
+	}
+	
+	.defaultTable th {
+		border-bottom: 1px solid #D5D8DA !important;
+		height: 45px !important;
+		cursor: pointer;
+		font-size: 1rem;
+	}
+	
+	.defaultTable tr {
+		border-bottom: 1px solid #f0f0f0  !important;
+		height: 45px !important;
+		font-size: 1rem;
+	}
+	.tr:hover{
+		background: #f0f0f0 !important;
+		cursor: pointer;
+	}
+	
+	th{
+		font-family: "Helvetica Neue Bold";
+		color: #B4B9BB;
+		padding-left: 10px;
+	}
+	td{
+		font-family: "Helvetica Neue Regular";
+		color: #637175;
+		padding-left: 10px;
+	}
+}
+
 .headerBlue {
 	background-color: #388DCD !important;
 	color: #FFFFFF;

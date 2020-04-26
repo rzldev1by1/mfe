@@ -470,7 +470,7 @@ h1{
 
 
 
-@media(max-width: 1500px){
+/* @media(max-width: 1500px){
 	.arrow{
 		margin-left: 7px !important;
 		width: 0.7em;
@@ -550,7 +550,7 @@ h1{
 		color: #637175;
 		padding-left: 10px;
 	}
-}
+} */
 
 
 @-webkit-keyframes fade {

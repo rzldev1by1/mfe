@@ -462,7 +462,7 @@ class PurchaseOrderTable extends Component {
         return (
             <div>
                 <div className='tablePage tablecontent'>
-                    <table className="potable">
+                    <table className="defaultTable">
                         <thead>
                             <tr>
                             {this.state.tableheader.map((header, idx) => {
@@ -528,7 +528,7 @@ class PurchaseOrderTable extends Component {
                         </tbody>
                     </table>
                     
-                    <table className="potable d-none" id="excel">
+                    <table className="defaultTable d-none" id="excel">
                         <thead>
                             <tr>
                             {this.state.tableheader.map((header, idx) => {
