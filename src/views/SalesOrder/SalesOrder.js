@@ -10,7 +10,9 @@ import axios from 'axios';
 import {endpoint, headers,} from '../../AppComponent/ConfigEndpoint'
 import Authentication from '../../Auth/Authentication';
 
+
 import "./SalesOrder.css"
+
 class SalesOrder extends Component{
   constructor(props) {
       super(props)

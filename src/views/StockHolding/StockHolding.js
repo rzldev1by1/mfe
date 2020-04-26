@@ -488,7 +488,7 @@ class StockHolding extends Component {
 								</div>
 							</div>
 
-                            <div className="row mt-0 p-0 pl-1">
+                            {/* <div className="row mt-0 p-0 pl-1">
 								<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                     <Paging lastPageClick={this.lastPageClick} backPageClick={this.backPageClick}
                                             nextPageClick={this.nextPageClick} firstPageClick={this.firstPageClick}
@@ -500,7 +500,21 @@ class StockHolding extends Component {
 									 <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
                             				 ExportData={this.ExportData} ExportHeader={this.ExportHeader}/>
                                 </div>
-                            </div>
+                            </div> */}
+
+						<div className=" p-0"  >
+							<div className='paginations '>
+									<Paging lastPageClick={this.lastPageClick} backPageClick={this.backPageClick}
+                                            nextPageClick={this.nextPageClick} firstPageClick={this.firstPageClick}
+                                            totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                                            currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                                            startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+                                            isActive={this.state.isActive}
+                                            numberEventClick={this.numberEventClick} />
+									<Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                            				 ExportData={this.ExportData} ExportHeader={this.ExportHeader}/>
+                                </div>
+							</div>
 						</div>
 					</div>
 				</div>

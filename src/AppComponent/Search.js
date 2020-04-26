@@ -13,14 +13,14 @@ const Search = (props) => {
                     <input type="text" style={{ fontFamily: "Helvetica Neue Regular", backgroundColor:"transparent" }} className="form-control searchInput" id="searchInput" name="searchInput" placeholder={props.placeholder} onChange={(e) => props.getValue(e.target.value)} />
                 </div>
             </div> 
-            <div className="ml-0   search-column col-2" >  
+            <div className="ml-0 search-column col-2" >  
             <div className="row">
                 <div className="search-column col-sm-3 pl-0" >
                     <Button className={"filter " + (props.showFilter ? " active" : "")} onClick={props.triggerShowFilter}>
                         <i className="iconU-filter" />
                     </Button>    
                 </div> 
-                <div className="search-column col-sm-9  pr-0 ">
+                <div className="search-column col-sm-9  pr-0">
                     <Button type="submit" className=" search" onClick={props.searchData}>
                         Search
                     </Button>

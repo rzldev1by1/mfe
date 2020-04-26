@@ -91,7 +91,8 @@ class Paging extends Component {
     render = () => {
         return (
             // <div className={this.props.maxPage > 1 ? "card-footer text-left border-company border-top-0 pl-0 pr-0 bg-transparent" : "d-none"}>
-            <div className={"card-footer text-left border-company border-top-0 pl-0 pr-0 bg-transparent"}>
+            //<div className={"text-left border-company border-top-0 pl-0 pr-0 bg-transparent"}>
+            <div className="col-9 pl-0 pr-0">
                 <div style={{display :"flex"}}>
                 <InputGroup className="group1">
                     <button className={"btn p-0 btn-pagingNav" + (this.props.currentPage > 1 ? "" : "-inactive ")} onClick={this.firstPageClick}>

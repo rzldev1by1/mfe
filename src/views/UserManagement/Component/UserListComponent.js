@@ -223,8 +223,8 @@ class UserListComponent extends Component{
         const {activearrow,order,fieldOrder} = this.state;
         
         return(
-                <div className="d-flex tablePage">
-                    <div className="w-100 h-20">
+                <div className="tablePage tablePage-um tablecontent">
+                    <div className="">
                         <table className="umtable">
                             <thead>
                                 <tr>

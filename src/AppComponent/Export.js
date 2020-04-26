@@ -59,8 +59,9 @@ class Export extends Component {
     render = () => {
         return (
             // <div className={this.props.maxPage > 1 ? "card-footer text-left border-company border-top-0 pl-0 pr-0 bg-transparent" : "d-none"}>
-            <div className={"card-footer text-left border-company border-top-0 pl-0 pr-0 bg-transparent"} style={{marginTop:"-20px"}}>               
-                 <ul className={"select-export" + (this.state.exportExpand ? " expand-export" : "")} id="select">
+            //<div className={"card-footer text-left border-company border-top-0 pl-0 pr-0 bg-transparent"} style={{marginTop:"-20px"}}>               
+            <div className="col-3 pl-0 pr-0" style={{paddingTop:"7px"}}>
+                 <ul className={"select-export" + (this.state.exportExpand ? " expand-export" : "")} id="select" style={{marginTop:"-2px"}}>
                     <li className="expand-style-export">
                         <input className="select_close-export" type="radio" name="export" id="export-btn-close" value="" />
                         <span className="select_label-export1 select_label-placeholder-export">Export</span>

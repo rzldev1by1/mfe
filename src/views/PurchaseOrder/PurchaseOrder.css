@@ -182,6 +182,8 @@ th.iconU-edit{
 	border-radius: 5px;
   }*/
 
+  /* Disable SCroll */
+html, body {margin: 0; height: 100%; overflow: hidden}
 
 /* Purchase Order CSS*/
 .app-body{
@@ -381,7 +383,7 @@ h1{
 	z-index: 2;
 }
 
-.tablecontent {
+/* .tablecontent {
 	margin-top: 10px;
 	padding:1px;
 	padding-top: 0%;
@@ -389,7 +391,7 @@ h1{
 	min-width: 100%;
 	background-color: white;
 	border-radius: 5px;
-}
+} */
 
 .inputgroup{
 	border: 2px solid #D5D8DA;

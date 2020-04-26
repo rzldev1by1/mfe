@@ -1,3 +1,6 @@
+/* Disable SCroll */
+html, body {margin: 0; height: 100%; overflow: hidden}
+
 .dot {
 	height: 4px;
 	width: 4px;

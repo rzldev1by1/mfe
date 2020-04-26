@@ -580,17 +580,20 @@ class PurchaseOrderTable extends Component {
                         </tbody>
                     </table>
                 </div>
-                <div className='paginations'>
-                    <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
-                            backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-                            totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-                            currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-                            startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
-                            isActive={this.state.isActive}
-                            numberEventClick={this.numberEventClick} />
-                    <Export ExportName={this.ExportName} ExportHeader={this.ExportHeader}
-                            ExportPDFName={this.ExportPDFName} ExportData={this.ExportData}/>
+                <div className=" p-0"  >
+                  <div className='paginations '>
+                      <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
+                              backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                              totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                              currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                              startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+                              isActive={this.state.isActive}
+                              numberEventClick={this.numberEventClick} />
+                      <Export ExportName={this.ExportName} ExportHeader={this.ExportHeader}
+                              ExportPDFName={this.ExportPDFName} ExportData={this.ExportData}/>
+                  </div>
                 </div>
+                
             </div>
         );
     }

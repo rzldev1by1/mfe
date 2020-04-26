@@ -677,8 +677,8 @@ class UserManagement extends Component{
                     </div>
                     </div>
                 </div>
-                <div className='col-md-2 col-xs-4'>
-                    <Button type="submit" className="search text-button btn-primary">
+                <div className='col-md-2 col-xs-4 pl-0'>
+                    <Button type="submit" className="search search-um text-button btn-primary">
                       Search
                     </Button>
                 </div>
@@ -692,10 +692,11 @@ class UserManagement extends Component{
                 </Card>
               </div>
 
-                <Card className="container-user-list border-0 mb-0">
+                <Card className="container-user-list border-0 mb-2">
                 <CardBody className="p-0">
                 <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}
-                startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}/>
+                startIndex={this.state.startIndex} lastIndex={this.state.lastIndex} 
+                className='animated fadeIn'  />
 
                 <ModalNewUser isOpen={this.state.isModalNewOpen} closeModal={this.closeModalPopUp} model={this.state.accountInfo}
                 onChangeName={this.onChangeName} onChangeEmail={this.onChangeEmail} moduleAccess={this.state.moduleAccess}
@@ -710,16 +711,29 @@ class UserManagement extends Component{
                 </CardBody>
                 </Card>
 
-              <footer>
-                <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
-                backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-                totalRows={this.state.userList.length} currentPage={this.state.currentPage}
-                maxPage={(this.state.totalPage)}
-                startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
-                numberEventClick={this.numberEventClick}/>
-                <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
-                        ExportHeader={this.ExportHeader} ExportData={this.ExportData}/>
-              </footer>
+                {/* <div className='paginations '>
+                      <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
+                    backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                    totalRows={this.state.userList.length} currentPage={this.state.currentPage}
+                    maxPage={(this.state.totalPage)}
+                    startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+                    numberEventClick={this.numberEventClick}/>
+                    <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                          ExportHeader={this.ExportHeader} ExportData={this.ExportData}/>
+                </div> */}
+
+                <div className=" p-0"  >
+                  <div className='paginations paginations-um '>
+                      <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
+                        backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                        totalRows={this.state.userList.length} currentPage={this.state.currentPage}
+                        maxPage={(this.state.totalPage)}
+                        startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+                        numberEventClick={this.numberEventClick}/>
+                      <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                          ExportHeader={this.ExportHeader} ExportData={this.ExportData}/>
+                  </div>
+                </div>
             </div>
 
         </div>)
