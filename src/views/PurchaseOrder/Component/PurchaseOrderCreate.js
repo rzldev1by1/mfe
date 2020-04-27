@@ -77,6 +77,8 @@ class PurchaseOrderCreate extends Component{
               supplierdatacr: [],
               dispositioncr: [],
               uomcr: [],
+              productcr: [],
+              productdesccr: [],
 
               // Create PO Form 
               site: undefined,
@@ -107,6 +109,8 @@ class PurchaseOrderCreate extends Component{
     //   this.getordertype();
       this.getporesource();
       this.getdisposition();
+      this.getproductcode();
+      this.getproductname();
     }
 
     getporesource = () => {
@@ -228,6 +232,32 @@ class PurchaseOrderCreate extends Component{
         })
     }
 
+    getproductcode = () => {
+        axios.get(endpoint.getProduct + "?client=" + headers.client, {
+            headers: headers
+        })
+        .then(res => {
+            const result = res.data;
+            this.setState({ productcr: res.data.code })
+        })
+        .catch(error => {
+            this.setState({ productcr: [] })
+        })
+    }
+
+    getproductname = () => {
+        axios.get(endpoint.getProduct + "?client=" + headers.client, {
+            headers: headers
+        })
+        .then(res => {
+            const result = res.data;
+            this.setState({ productdesccr: res.data.name })
+        })
+        .catch(error => {
+            this.setState({ productcr: [] })
+        })
+    }
+
     getSiteSelected = (value) => {
       this.setState({sitecrSelected: value});
     }
@@ -249,19 +279,21 @@ class PurchaseOrderCreate extends Component{
     let clientName = [];
     let clientValue = [];
     let siteData = [];
+    let siteName = [];
     let supplierNo = [];
     let supplierName = [];
     let orderData =[];
     let orderValue = [];
     if(this.state.clientdatacr){
         this.state.clientdatacr.map((data) => {
-            clientName.push(data.name);
+            clientName.push(data.code + " (" + data.name + ")");
             clientValue.push(data.code);
         })
     }
     if(this.state.sitedatacr){
         this.state.sitedatacr.map((data) => {
             siteData.push(data.site);
+            siteName.push(data.site + ":" + data.name)
         })  
     }
     if(this.state.supplierdatacr){
@@ -292,7 +324,7 @@ class PurchaseOrderCreate extends Component{
               <td>
                   <Dropdown placeHolder="Site" 
                             style={{width: "22%", position: "absolute", zIndex: '6'}} 
-                            optionList={siteData.toString()} 
+                            optionList={siteName.toString()} 
                             optionValue={siteData.toString()} 
                             getValue={(e) => this.setState({ site: e })} 
                             optionSelected={this.state.site}/>
@@ -300,17 +332,18 @@ class PurchaseOrderCreate extends Component{
               <td>
                   <Dropdown placeHolder="Client" 
                             style={{width: "22%", position: "absolute"}} 
-                            optionList={clientValue.toString()} 
+                            optionList={clientName.toString()} 
                             optionValue={clientValue.toString()} 
                             getValue={(e) => this.setState({ client: e })} 
                             optionSelected={this.state.client}/>
               </td>
                 {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
               <td>
-                <AutoComplete suggestions={supplierName}
-                                    suggestionsValue={supplierNo}
-                                    defaultValue={this.state.supplier}
-                                    handleChange={(e) => this.setState({ supplier: e })} />
+                <AutoComplete   placeHolder="Supplier"
+                                suggestions={supplierName}
+                                suggestionsValue={supplierName}
+                                defaultValue={this.state.supplier}
+                                handleChange={(e) => this.setState({ supplier: e })} />
               </td>
                 {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form2 put pec" placeholder="Supplier"/> </td> */}
               <td>
@@ -519,15 +552,27 @@ class PurchaseOrderCreate extends Component{
         <tr>
             <td hidden id={list.lineNumber} ></td>
             <td style={{width:"3.5%", textAlign:"center"}}><input className="form-control inputs pec" style={{ textAlign:"center" }} defaultValue={list.lineNumber} readOnly/></td>{console.log(self.state.rowlist[i].product)}
-            <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product"  maxLength="40" defaultValue={self.state.rowlist[i].product} onChange={(e) => {self.state.rowlist[i].product = e.target.value; this.getuom(i, e.target.value)}}/></td>
-            <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Product Description" defaultValue={self.state.rowlist[i].productDescription} onChange={(e) => self.state.rowlist[i].productDescription = e.target.value}/></td>
+            <td style={{width:"12%"}}>
+                <AutoComplete   useFor="POLineDetails"
+                                suggestions={self.state.productcr}
+                                    suggestionsValue={self.state.productcr}
+                                    defaultValue={self.state.rowlist[i].product}
+                                    handleChange={(e) => {self.state.rowlist[i].product = e; this.getuom(i, e)}} 
+                                    inputStyle={{position: "relative", width: "100%"}}
+                                    listStyle={{width: "100%"}}
+                                    listBoxStyle={{width: "14%", marginTop: "10px"}}
+                                    placeHolder="Product"
+                                    getIndex={(e) => self.state.rowlist[i].productDescription = self.state.productdesccr[e]}
+                                    />
+            </td>
+            <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Choose a Product First" defaultValue={self.state.rowlist[i].productDescription} readOnly/></td>
             <td style={{width:"4.5%"}}><input type="number" min="1" className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
             <td style={{width:"6%"}}>
                 <Dropdown placeHolder="UOM" 
                             style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
                             optionList={self.state.uomcr.toString()} 
                             optionValue={self.state.uomcr.toString()} 
-                            getValue={(e) => self.state.rowlist[i].disposition = e} />
+                            getValue={(e) => self.state.rowlist[i].uom = e} />
             </td>
             <td style={{width:"11%"}}><DatePicker style={{ minWidth: "100%" }} field="smallField" getDate={(e) => self.state.rowlist[i].rotadate = e} defaultValue={self.state.rowlist[i].rotadate} /> </td>
             <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"  maxLength="30" defaultValue={self.state.rowlist[i].batch} onChange={(e) => self.state.rowlist[i].batch = e.target.value} /></td>

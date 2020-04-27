@@ -64,10 +64,10 @@ class Movement extends Component {
     tableMovement = (props) => {
         return(
         <div style={{display:'flex'}}>
-            <td className='tet' xs='2'>{props.detail.sa_plus ? props.detail.sa_plus : '-'}</td>
-            <td className='tet' xs='2'>{props.detail.sa_minus ? props.detail.sa_minus : '-'}</td>
-            <td className='tet' xs='2'>{props.detail.recv_weight ? props.detail.recv_weight : '-'}</td>
-            <td className='tet' xs='3'>{props.detail.send_weight ? props.detail.send_weight : '-'}</td>
+            <td key="6" className='tet' xs='2'>{props.detail.sa_plus ? props.detail.sa_plus : '-'}</td>
+            <td key="7" className='tet' xs='2'>{props.detail.sa_minus ? props.detail.sa_minus : '-'}</td>
+            <td key="8" className='tet' xs='2'>{props.detail.recv_weight ? props.detail.recv_weight : '-'}</td>
+            <td key="9" className='tet' xs='3'>{props.detail.send_weight ? props.detail.send_weight : '-'}</td>
         </div>
         )
     }
@@ -169,13 +169,18 @@ class Movement extends Component {
         }
         return(
         <div>
-            <div style={{textAlign:"center"}}>{dates}</div>
-            <div style={{display:'flex',  borderBottom:'1px solid #d5d8da', color:'#22ABE3'}}>
-                <th className='tet' xs='2'>SA+</th>
-                <th className='tet' xs='2'>SA-</th>
-                <th className='tet' xs='2'>Rec</th>
-                <th className='tet' xs='3'>Send</th>
-            </div>
+            <tr>
+              <th colSpan="4" key="6" style={{textAlign:"center"}}>{dates}</th>
+            </tr>
+            <tr>
+                <div style={{display:'flex',  borderBottom:'1px solid #d5d8da', color:'#22ABE3'}}>
+                    <th key="6" className='tet' xs='2'>SA+</th>
+                    <th key="6" className='tet' xs='2'>SA-</th>
+                    <th key="6" className='tet' xs='2'>Rec</th>
+                    <th key="6" className='tet' xs='3'>Send</th>
+                </div>
+            </tr>
+            
         </div>
         )
     }
@@ -184,11 +189,11 @@ class Movement extends Component {
         return(
             <div>
                 <div className='productHeader'>
-                    <th onClick={(e) => this.arrowHandler(e)} id='site' >Site <img className='arrowss' src={this.state.activearrow}/></th>
-                    <th onClick={(e) => this.arrowHandler(e)} id='client' >Client <img className='arrowss' src={this.state.activearrow}/></th>
-                    <th onClick={(e) => this.arrowHandler(e)} id='product' >Product <img className='arrowss' src={this.state.activearrow}/></th>
-                    <th onClick={(e) => this.arrowHandler(e)} id='productName' >Description <img className='arrowss' src={this.state.activearrow}/></th>
-                    <th onClick={(e) => this.arrowHandler(e)} id='uom'>UOM <img className='arrowss' src={this.state.activearrow}/></th>
+                    <th key="1" onClick={(e) => this.arrowHandler(e)} id='site' >Site <img className='arrowss' src={this.state.activearrow}/></th>
+                    <th key="2" onClick={(e) => this.arrowHandler(e)} id='client' >Client <img className='arrowss' src={this.state.activearrow}/></th>
+                    <th key="3" onClick={(e) => this.arrowHandler(e)} id='product' >Product <img className='arrowss' src={this.state.activearrow}/></th>
+                    <th key="4" onClick={(e) => this.arrowHandler(e)} id='productName' >Description <img className='arrowss' src={this.state.activearrow}/></th>
+                    <th key="5" onClick={(e) => this.arrowHandler(e)} id='uom'>UOM <img className='arrowss' src={this.state.activearrow}/></th>
                 </div>
             </div>
             )
@@ -198,11 +203,11 @@ class Movement extends Component {
         return(
             <div>
                 <div className='productListBody' style={{display:'flex'}}>
-                    <td className='productList' id='site' >{props.site}</td>
-                    <td className='productList' id='client' >{props.client}</td>
-                    <td className='productList' id='product' >{props.product}</td>
-                    <td className='productList' id='productName' >{props.product_name}</td>
-                    <td className='productList' id='uom' xs='3'>{props.packdesc}</td>
+                    <td className='productList' id='site'  key="1">{props.site}</td>
+                    <td className='productList' id='client'  key="2">{props.client}</td>
+                    <td className='productList' id='product'  key="3">{props.product}</td>
+                    <td className='productList' id='productName'  key="4">{props.product_name}</td>
+                    <td className='productList' id='uom' xs='3' key="5">{props.packdesc}</td>
                 </div>
             </div>
             )
@@ -296,7 +301,7 @@ class Movement extends Component {
                     <table width='100%' align='left' >
                         <thead>
                             <tr>
-                                <td  style={{borderRight:'1.5px solid #ededed'}}>{this.productHeader()}</td>
+                                <td style={{borderRight:'1.5px solid #ededed'}}>{this.productHeader()}</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -329,7 +334,7 @@ class Movement extends Component {
                                 <tr style={{borderBottom:'1px solid #f5f5f5'}}>
                                 {
                                     data.detail.map(detail =>
-                                    <td height='50' width='15%' style={{borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}><this.tableMovement detail={detail}/></td>
+                                    <td key="6" height='50' width='15%' style={{borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}><this.tableMovement detail={detail}/></td>
                                         )
 
                                 }
@@ -343,11 +348,54 @@ class Movement extends Component {
                     <table width='100%' align='left' id="excel" className="d-none" >
                         <thead>
                             <tr>
-                                <td>{this.productHeader()}</td>
+                                <th key="1" onClick={(e) => this.arrowHandler(e)} id='site' rowspan="2">Site </th>
+                                <th key="2" onClick={(e) => this.arrowHandler(e)} id='client' rowspan="2">Client </th>
+                                <th key="3" onClick={(e) => this.arrowHandler(e)} id='product' rowspan="2">Product </th>
+                                <th key="4" onClick={(e) => this.arrowHandler(e)} id='productName' rowspan="2">Description</th>
+                                <th key="5" onClick={(e) => this.arrowHandler(e)} id='uom' rowspan="2">UOM</th>
+                                {/* <td>{this.productHeader()}</td> */}
                                 { 
                                     this.state.dateArray.map(date =>
-                                        <td>{this.movementHeader(date)}</td>
+                                        {
+                                            let dates = moment(date).format('DD MMMM YYYY')
+                                            if(this.state.complete)
+                                            {
+                                                if(this.state.filterType == 'day')
+                                                {
+                                                    dates = moment(date).format('DD MMMM YYYY')
+                                                }
+                                                else if(this.state.filterType == 'week')
+                                                {
+                                                    let dates2 = moment(date).add('days', 6).format('DD MMMM YYYY')
+                                                    dates = moment(date).format('DD MMMM YYYY')
+                                                    dates = dates + ' - ' + dates2
+                                                }
+                                                else if(this.state.filterType == 'month')
+                                                {
+                                                    dates = moment(date).format('MMMM YYYY')
+                                                }
+                                            }
+                                            return(
+                                            <div>
+                                                <th colSpan="4" key="6" style={{textAlign:"center"}}>{dates}</th>
+                                                
+                                            </div>
                                             )
+                                        }
+                                            )
+                                }
+                            </tr>
+                            <tr>
+                                {this.state.dateArray.map((date, idx) => {
+                                        return(
+                                                <div style={{display:'flex',  borderBottom:'1px solid #d5d8da', color:'#22ABE3'}}>
+                                                    <th key="6" className='tet' xs='2'>SA+</th>
+                                                    <th key="7" className='tet' xs='2'>SA-</th>
+                                                    <th key="8" className='tet' xs='2'>Rec</th>
+                                                    <th key="9" className='tet' xs='3'>Send</th>
+                                                </div>
+                                        )
+                                     }) 
                                 }
                             </tr>
                         </thead>
@@ -355,12 +403,12 @@ class Movement extends Component {
                         {
                             this.state.data.slice(this.state.startIndex,this.state.endIndex).map((data) =>
                                 <tr style={{borderBottom:'1px solid #f5f5f5'}}>
-                                <td>
+                                
                                     <this.productBody site={data.site} product={data.product} product_name={data.product_name} packdesc={data.packdesc} client={data.client}/>
-                                </td>
+                                
                                 {
                                     data.detail.map(detail =>
-                                    <td><this.tableMovement detail={detail}/></td>
+                                    <this.tableMovement detail={detail}/>
                                         )
 
                                 }
