@@ -371,7 +371,7 @@ class PurchaseOrderCreate extends Component{
               <tr>
                 <th style={{width:"3.5%", textAlign:"center"}}>#</th>
                 <th className='required-field' style={{width:"12%"}}>Product</th>
-                <th className='required-field' style={{width:"12%"}}>Product Description</th>
+                <th style={{width:"12%"}}>Description</th>
                 <th className='required-field' style={{width:"5%"}}>Qty</th>
                 <th className='required-field' style={{width:"6%"}}>UOM</th>
                 <th style={{width:"11%"}}>Rota Date</th>
@@ -442,7 +442,7 @@ class PurchaseOrderCreate extends Component{
             <tr >
                 <th style={{width:"2%", textAlign:"center", paddingLeft:"18px"}}>#</th>
                 <th style={{width:"12%", paddingLeft:"20px"}}>Product</th>
-                <th style={{width:"12%", paddingLeft:"24px"}}>Product Description</th>
+                <th style={{width:"12%", paddingLeft:"24px"}}>Description</th>
                 <th style={{width:"3%", paddingLeft:"29px"}}>Qty</th>
                 <th style={{width:"6%", paddingLeft:"23px"}}>UOM</th>
                 <th style={{width:"6%", paddingLeft:"24px"}}>Rota Date</th>
