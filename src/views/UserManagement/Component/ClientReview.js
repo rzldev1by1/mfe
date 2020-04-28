@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import { Table,Button, Card, CardBody, Label} from 'reactstrap'
+import React from 'react'
 import '../UserManagement.css'
 
 const clientReview = ({clients}) => {

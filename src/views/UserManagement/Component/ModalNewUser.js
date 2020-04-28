@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Card,CardBody } from 'reactstrap'
+import React from 'react'
+import { Modal, ModalHeader, ModalBody } from 'reactstrap'
 import ModuleAccess from './ModuleAccess'
 import Site from './Site'
 import Client from './Client'
@@ -49,13 +49,13 @@ const modalNewUser = (props) => {
               <div className="d-flex d-inline-flex">
                   <div className={(firtsTabActive)?"tab ml-3 mr-3 p-3 tab-active ":" tab ml-3 mr-3 p-3 "} onClick={onClickTabActive}>
                       <span className="p-3">
-                          <img className="numberimg" style={{width:"11%", paddingBottom:"8px"}} src={(firtsTabActive)?oneactive:oneinactive}/>
+                          <img className="numberimg" style={{width:"11%", paddingBottom:"8px"}} alt={""} src={(firtsTabActive)?oneactive:oneinactive}/>
                       </span>
                       User Details
                   </div>
                   <div className={(secondTabActive)?"tab p-3 tab-active ":" tab p-3"} onClick={onNextClickHandler}>
                     <span className="p-3">
-                        <img className="numberimg" style={{width:"11%", paddingBottom:"8px"}} src={(secondTabActive)?twoactive:twoinactive}/>
+                        <img className="numberimg" style={{width:"11%", paddingBottom:"8px"}} alt={""} src={(secondTabActive)?twoactive:twoinactive}/>
                     </span>
                       Review
                   </div>
