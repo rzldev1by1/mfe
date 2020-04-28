@@ -172,14 +172,14 @@ class Tab1CreateSO extends Component {
                   optionValue={this.props.clientVal.toString()}
                 />
               ) : (
-                <input
-                  readOnly
-                  value={client}
-                  id="client"
-                  className="form-control put "
-                  placeholder="Client"
-                />
-              )}
+                  <input
+                    readOnly
+                    value={client}
+                    id="client"
+                    className="form-control put "
+                    placeholder="Client"
+                  />
+                )}
               <div className={emptyClassClient + " verticalAlignTop"}>
                 {emptyClient}
               </div>
@@ -187,7 +187,7 @@ class Tab1CreateSO extends Component {
             <td className="verticalAlignTop">
               <input
                 value={orderId}
-                onChange={(e) => this.props.setOrderId(e.target.value)}
+                onChange={(e) => this.props.setOrderId(e.target.value.toUpperCase())}
                 id="orderId"
                 className="form-control put "
                 placeholder="Order No"
@@ -245,20 +245,20 @@ class Tab1CreateSO extends Component {
                   placeholder="Costumer"
                 />
               ) : (
-                // <Dropdown optionSelected  = {customerVal}
-                //         getValue        = {}
-                //         placeHolder     = "Customer"
-                //         style           = {{minWidth: "100%", zIndex:"1"}}
-                //         optionList      = {supplierName.toString()}
-                //         optionValue     = {this.props.resources.supplier.code.toString()}/>
-                <AutoComplete
-                  suggestions={supplierName}
-                  suggestionsValue={this.props.resources.supplier.code}
-                  handleChange={(customerVal, customerName) =>
-                    this.props.getIdentity(customerVal, 1)
-                  }
-                />
-              )}
+                  // <Dropdown optionSelected  = {customerVal}
+                  //         getValue        = {}
+                  //         placeHolder     = "Customer"
+                  //         style           = {{minWidth: "100%", zIndex:"1"}}
+                  //         optionList      = {supplierName.toString()}
+                  //         optionValue     = {this.props.resources.supplier.code.toString()}/>
+                  <AutoComplete
+                    suggestions={supplierName}
+                    suggestionsValue={this.props.resources.supplier.code}
+                    handleChange={(customerVal, customerName) =>
+                      this.props.getIdentity(customerVal, 1)
+                    }
+                  />
+                )}
 
               <input value={customerVal} type="text" id="customerCode" hidden />
             </td>
@@ -468,14 +468,14 @@ class Tab1CreateSO extends Component {
         {this.state.tab2isactive ? (
           this.submit()
         ) : (
-          <Button
-            onClick={() => this.setData()}
-            color="primary"
-            className="btnsearch next btnleft"
-          >
-            <label className="font btnLabel ">Next</label>
-          </Button>
-        )}
+            <Button
+              onClick={() => this.setData()}
+              color="primary"
+              className="btnsearch next btnleft"
+            >
+              <label className="font btnLabel ">Next</label>
+            </Button>
+          )}
       </div>
     );
   };

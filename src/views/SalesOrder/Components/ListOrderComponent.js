@@ -397,7 +397,7 @@ class ListOrderComponent extends Component {
                       <td>{data.order_no}</td>
                       <td>{data.order_type}</td>
                       <td>
-                        {data.customer + " ( " + data.customer_name + " )"}
+                        {data.customer ? data.customer_code + " ( " + data.customer + " )" : '-'}
                       </td>
                       <td style={{ width: "11%" }}>{data.status}</td>
                       <td>
