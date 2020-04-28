@@ -23,6 +23,7 @@ class StockHolding extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			tampil : [],
 			data : [],
 			displayContent: "INIT",
 			isLoaded: false,
@@ -230,12 +231,12 @@ class StockHolding extends Component {
 
         return (
             <div className={"input-group filterSection" + (this.state.showFilter ? "" : " d-none")}>
-                <Dropdown placeHolder="Site" style={{width:'100px'}}
+                <Dropdown placeHolder="Site" style={{marginRight:'15px', width:'100px'}}
                           optionList={masterSite.toString()}
                           optionValue={masterSite.toString()}
                           getValue={this.selectedSite} />
 
-				<Dropdown placeHolder="Client" style={{width:'218px'}}
+				<Dropdown placeHolder="Client" style={{marginRight:'15px', width:'218px'}}
                         optionList={masterUnit}
                         optionValue={masterUnit}
                         getValue={this.selectedUnit} />
@@ -403,25 +404,11 @@ class StockHolding extends Component {
 		})
 		return header
 	  }
-	
-	//   ExportData = () => {
-	// 	let data = []
-	// 	this.state.masterResStockHolding.map((item, index) => {
-	// 		let dataRow = []
-	// 		this.state.columns.map((column, columnIndex) =>{
-	// 			let dataColumn = []
-	// 			dataColumn.push(item[column.key])
-	// 			dataRow.push(dataColumn)
-	// 			console.log(dataColumn)
-	// 		let Export = this.state.dataColumn.map(elt=> [elt.site])
-	// 			return Export
-	// 		} )
-	// 	} )
-	//   }
 	ExportData = () => {
-		let data = this.state.data.map(elt=> [elt.site, elt.client, elt.product, elt.description, elt.disposition, 
-											  elt.uom, elt.status, elt.on_hand_qty, elt.on_hand_weight, elt.expected_in_qty,
-											  elt.expected_in_weight, elt.expected_out_qty, elt.price, elt.pallets]);
+		let data = this.state.masterResStockHolding.map(elt=> [elt.site, elt.client, elt.product, elt.product_name, elt.disposition, 
+											  elt.packdesc_1, elt.status, elt.on_hand_qty, elt.weight, elt.expected_in_qty,
+											  elt.expected_in_wgt, elt.expected_out_qty, elt.price, elt.pallet]);
+		console.log(data)
 		return data
 	  }
 

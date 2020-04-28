@@ -54,11 +54,11 @@ class PurchaseOrderTable extends Component {
               sort: mid
           },
           {
-              id: "supplier_no", 
+              id: "company", 
               checkboxLabelText: "Supplier No", 
               tableHeaderText: "Supplier No", 
               isVisible: true, 
-              key: "supplier_no", 
+              key: "company", 
               type: "string", 
               sort: mid
           },
@@ -502,6 +502,18 @@ class PurchaseOrderTable extends Component {
                                                     )
                                                 }
                                             }
+                                            if(column.key == "company"){
+                                                if(data[column.key]){
+                                                    return(
+                                                            <td key={columnIdx}>{data[column.key]}</td>
+                                                    )
+                                                }else{
+                                                    return(
+                                                        <td key={columnIdx}>{data["supplier_no"]}</td>
+                                                    )
+                                                }
+                                            }
+                                            
                                             return(
                                                     <td key={columnIdx}>{data[column.key]}</td>
                                             )
@@ -551,6 +563,17 @@ class PurchaseOrderTable extends Component {
                                                 }else{
                                                     return(
                                                         <td key={columnIdx}>-</td>
+                                                    )
+                                                }
+                                            }
+                                            if(column.key == "company"){
+                                                if(data[column.key]){
+                                                    return(
+                                                            <td key={columnIdx}>{data[column.key]}</td>
+                                                    )
+                                                }else{
+                                                    return(
+                                                        <td key={columnIdx}>{data["supplier_no"]}</td>
                                                     )
                                                 }
                                             }

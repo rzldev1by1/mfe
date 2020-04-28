@@ -5,6 +5,8 @@ import Movement from '../PurchaseOrder/Component/Movement'
 import MovementSearch from './Component/MovementSearch'
 import Pagination from '../../AppComponent/Pagination'
 import Export from '../../AppComponent/Export'
+import ExportExcel from '../../AppComponent/ExportExcel'
+import moment from 'moment';
 
 class StockMovement extends Component {
 	constructor(props) {
@@ -14,11 +16,73 @@ class StockMovement extends Component {
 		
 		this.state = {
 			data:[],
+			startDate:moment().subtract(27, 'days').format('YYYY-MM-DD'),
+            endDate:moment().format('YYYY-MM-DD'),
 			startIndex:0,
 			endIndex:0,
 			isComplete:false
 		}
 	}
+
+	headersExport = () =>{
+        return(
+            <div>
+                <tr>
+                                <th key="1" onClick={(e) => this.arrowHandler(e)} id='site' rowspan="2">Site </th>
+                                <th key="2" onClick={(e) => this.arrowHandler(e)} id='client' rowspan="2">Client </th>
+                                <th key="3" onClick={(e) => this.arrowHandler(e)} id='product' rowspan="2">Product </th>
+                                <th key="4" onClick={(e) => this.arrowHandler(e)} id='productName' rowspan="2">Description</th>
+                                <th key="5" onClick={(e) => this.arrowHandler(e)} id='uom' rowspan="2">UOM</th>
+                                {/* <td>{this.productHeader()}</td> */}
+                                { 
+                                    this.state.dateArray.map(date =>
+                                        {
+                                            let dates = moment(date).format('DD MMMM YYYY')
+                                            if(this.state.complete)
+                                            {
+                                                if(this.state.filterType == 'day')
+                                                {
+                                                    dates = moment(date).format('DD MMMM YYYY')
+                                                }
+                                                else if(this.state.filterType == 'week')
+                                                {
+                                                    let dates2 = moment(date).add('days', 6).format('DD MMMM YYYY')
+                                                    dates = moment(date).format('DD MMMM YYYY')
+                                                    dates = dates + ' - ' + dates2
+                                                }
+                                                else if(this.state.filterType == 'month')
+                                                {
+                                                    dates = moment(date).format('MMMM YYYY')
+                                                }
+                                            }
+                                            return(
+                                            <div>
+                                                <th colSpan="4" key="6" style={{textAlign:"center"}}>{dates}</th>
+                                                
+                                            </div>
+                                            )
+                                        }
+                                            )
+                                }
+                            </tr>
+                            <tr>
+                                {this.state.dateArray.map((date, idx) => {
+                                        return(
+                                                <div style={{display:'flex',  borderBottom:'1px solid #d5d8da', color:'#22ABE3'}}>
+                                                    <th key="6" className='tet' xs='2'>SA+</th>
+                                                    <th key="7" className='tet' xs='2'>SA-</th>
+                                                    <th key="8" className='tet' xs='2'>Rec</th>
+                                                    <th key="9" className='tet' xs='3'>Send</th>
+                                                </div>
+                                        )
+                                     }) 
+                                }
+                            </tr>
+                        </div>
+                            
+        )
+    }
+
 	ExportName = () => {
 		let filename = ""
 		let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -29,7 +93,7 @@ class StockMovement extends Component {
 			  Seconds = date.getSeconds(),
 			  Minutes = date.getMinutes(),
 			  Hours = date.getHours();
-		 return filename=("Microlistics_SalesOrder." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)  
+		 return filename=("Stock_Movement." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)  
 	  }
 
 	  ExportPDFName = () =>{
@@ -38,12 +102,12 @@ class StockMovement extends Component {
 	  }
 	
 	  ExportHeader = () =>{
-		let header =  ["Site","Product","Product Name", "packdesc", "Client"," Detail"]
+		let header = ["Site","Client","Product", "Description", "UOM",]
 		return header
 	  }
 	
 	  ExportData = () => {
-		let data = this.state.data.map(elt=> [elt.site, elt.product, elt.product_name, elt.packdesc, elt.client, elt.detail.length]);
+		let data = this.state.data.map(elt=> [elt.site, elt.client, elt.product, elt.product_name, elt.packdesc, elt.detail.length]);
 		return data
 	  }
 	  
@@ -66,8 +130,9 @@ class StockMovement extends Component {
 						<Pagination sliceValue={(startIndex, endIndex) => this.getStockMovement.current.setSliceValue(startIndex, endIndex)} 
 												ref={this.setPagiantion} data={this.state.data} 
 												rows={50}/> 
-						<Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
-								ExportHeader={this.ExportHeader} ExportData={this.ExportData}/>
+						{/* <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+								ExportHeader={this.ExportHeader} ExportData={this.ExportData}/> */}
+						<ExportExcel ExportName={this.ExportName}/>
 					</div>						 
 			</div>
 		)

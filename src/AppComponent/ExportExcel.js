@@ -1,11 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { InputGroup } from 'reactstrap'
 import './Export.css';
-import jsPDF from "jspdf";
-import "jspdf-autotable";
 import ExportExl from 'react-html-table-to-excel'
 
-class Export extends Component {
+class ExportExcel extends Component {
 	constructor(props) {
         super(props);
 
@@ -14,41 +12,6 @@ class Export extends Component {
             value: "",
         };
     }
-
-    Date = () => {
-        let dateNow= ""
-        let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        let date = new Date();
-        let date1 = date.getDate(),
-              month = date.getMonth(),
-              year = date.getFullYear();
-         return dateNow=(date1 +"-"+ arrmonth[month] +"-"+ year)  
-      }
-    exportPDF = () => {
-        const unit = "pt";
-        const size = "A4"; // Use A1, A2, A3 or A4
-        const orientation = "landscape"; // portrait or landscape
-
-        const marginLeft = 40;
-        const doc = new jsPDF(orientation, unit, size);
-    
-        doc.setFontSize(15);
-    
-        const title =   this.props.ExportPDFName()+ " Data Microlistics  " + this.Date();
-        const headers = [this.props.ExportHeader()];
-    
-        const data = this.props.ExportData()
-    
-        let content = {
-          startY: 50,
-          head: headers,
-          body: data
-        };
-    
-        doc.text(title, marginLeft, 40);
-        doc.autoTable(content);
-        doc.save(this.props.ExportName()+".pdf")
-      }
     
     render = () => {
         return (
@@ -64,12 +27,6 @@ class Export extends Component {
                         <input className="select_expand-export" type="radio" name="export" id="export-btn-opener" />
                         <label className="select_closeLabel-export" htmlFor="export-btn-close" onClick={this.triggerExportExpand} />
                         <ul className="select_options-export">
-                            <li className="select_option-export">
-                                <input className="select_input-export" type="radio" name="export" />
-                                <label className="select_label-export" htmlFor="Export to PDF">
-                                    <span className="pdf-icon"onClick={() => this.exportPDF()} >Export to PDF</span>
-                                </label>
-                            </li>
                             <li className="select_option-export">
                                 <input className="select_input-export" type="radio" name="export" />
                                 <label className="select_label-export option_radius-export" htmlFor="Export to XLS">
@@ -98,4 +55,4 @@ class Export extends Component {
     }
 }
 
-export default Export;
+export default ExportExcel;
