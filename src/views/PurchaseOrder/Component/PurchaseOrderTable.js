@@ -54,20 +54,20 @@ class PurchaseOrderTable extends Component {
               sort: mid
           },
           {
-              id: "supplier_no", 
+              id: "company", 
               checkboxLabelText: "Supplier No", 
               tableHeaderText: "Supplier No", 
               isVisible: true, 
-              key: "supplier_no", 
+              key: "company", 
               type: "string", 
               sort: mid
           },
           {
-              id: "company", 
+              id: "supplier_name", 
               checkboxLabelText: "Supplier Name", 
               tableHeaderText: "Supplier Name", 
               isVisible: true, 
-              key: "company", 
+              key: "supplier_name", 
               type: "string", 
               sort: mid
           },
@@ -509,7 +509,7 @@ class PurchaseOrderTable extends Component {
                                                     )
                                                 }else{
                                                     return(
-                                                        <td key={columnIdx}>{data["supplier_name"]}</td>
+                                                        <td key={columnIdx}>{data["supplier_no"]}</td>
                                                     )
                                                 }
                                             }
@@ -563,6 +563,17 @@ class PurchaseOrderTable extends Component {
                                                 }else{
                                                     return(
                                                         <td key={columnIdx}>-</td>
+                                                    )
+                                                }
+                                            }
+                                            if(column.key == "company"){
+                                                if(data[column.key]){
+                                                    return(
+                                                            <td key={columnIdx}>{data[column.key]}</td>
+                                                    )
+                                                }else{
+                                                    return(
+                                                        <td key={columnIdx}>{data["supplier_no"]}</td>
                                                     )
                                                 }
                                             }

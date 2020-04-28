@@ -231,16 +231,12 @@ class StockHolding extends Component {
 
         return (
             <div className={"input-group filterSection" + (this.state.showFilter ? "" : " d-none")}>
+                <Dropdown placeHolder="Site" style={{marginRight:'15px', width:'100px'}}
+                          optionList={masterSite.toString()}
+                          optionValue={masterSite.toString()}
+                          getValue={this.selectedSite} />
 
-				<Dropdown placeHolder="Site"
-						style={{width: "100px", height:"2.7em", marginRight: "1em"}}
-						optionList={masterSite.toString()}
-						optionValue={masterSite.toString()}
-						getValue={this.selectedSite} />
-
-				<Dropdown placeHolder="Client" style={{width:'218px'}}
-						style={{width: "100px", height:"2.7em", marginRight: "1em"}}
-
+				<Dropdown placeHolder="Client" style={{marginRight:'15px', width:'218px'}}
                         optionList={masterUnit}
                         optionValue={masterUnit}
                         getValue={this.selectedUnit} />
