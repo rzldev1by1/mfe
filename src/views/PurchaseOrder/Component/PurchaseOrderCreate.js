@@ -558,7 +558,7 @@ class PurchaseOrderCreate extends Component{
                                     suggestionsValue={self.state.productcr}
                                     defaultValue={self.state.rowlist[i].product}
                                     handleChange={(e) => {self.state.rowlist[i].product = e; this.getuom(i, e)}} 
-                                    inputStyle={{position: "relative", width: "100%"}}
+                                    inputStyle={{position: "relative", width: "100%", textTransform: "uppercase"}}
                                     listStyle={{width: "100%"}}
                                     listBoxStyle={{width: "14%", marginTop: "10px"}}
                                     placeHolder="Product"
