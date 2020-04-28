@@ -26,41 +26,6 @@ const OrderLine = (props) => {
       <div className="line">
         <table className="">
           <tr>
-            <th>
-              <div id="orderline-header-number-id">#</div>
-            </th>
-
-            <th>
-              <div id="orderline-header-product-id">
-                <div className="required-field">Product</div>
-              </div>
-            </th>
-
-            <th>
-              <div id="orderline-header-description-id">Description</div>
-            </th>
-
-            <th>
-              <div id="orderline-header-qty-id">
-                <div className="required-field">Qty</div>
-              </div>
-            </th>
-
-            <th>
-              <div id="orderline-header-weight-id">Weight</div>
-            </th>
-
-            <th>
-              <div id="orderline-header-uom-id">
-                <div className="required-field">UOM</div>
-              </div>
-            </th>
-
-            <th>
-              <div id="orderline-header-rotadate-id">Rota Date</div>
-            </th>
-          </tr>
-          <tr>
             <td>
               <div id="orderline-header-number-val-id">
                 <input
@@ -139,6 +104,59 @@ const OrderLine = (props) => {
                   getDate={(date) => props.setRotaDate(date, props.idx)}
                   style={{ minWidth: "250px" }}
                 />
+              </div>
+            </td>
+
+            <td>
+              <div id='orderline-header-batch-val-id'>
+                <input id={'batch_' + idx}
+                  className="form-control put "
+                  placeholder='Batch'
+                  value={batch}
+                  maxLength='9'
+                  onChange={(e) => props.setBatch(e.target.value, props.idx)} />
+              </div>
+            </td>
+            <td>
+              <div id='orderline-header-ref3-val-id'>
+                <input id={'ref3_' + idx}
+                  className="form-control put "
+                  placeholder='Ref3'
+                  value={ref3}
+                  onChange={(e) => props.setRef3(e.target.value, props.idx)} />
+              </div>
+            </td>
+            <td>
+              <div id='orderline-header-ref4-val-id'>
+                <input id={'ref4_' + idx}
+                  className="form-control put "
+                  placeholder='Ref4'
+                  value={ref4}
+                  onChange={(e) => props.setRef4(e.target.value, props.idx)} />
+              </div>
+            </td>
+            <td>
+              <div id='orderline-header-disposition-val-id'>
+                <Dropdown optionSelected={dispositionVal}
+                  getValue={(dispositionVal, dispositionName) => props.setDispoisition(dispositionVal, dispositionName, props.idx)}
+                  placeHolder="Disposition"
+                  style={{ minWidth: "100%", zIndex: idx }}
+                  optionList={props.dispositiondata.code.toString()}
+                  optionValue={props.dispositiondata.code.toString()} />
+              </div>
+            </td>
+            <td>
+              <div id='orderline-header-packid-val-id'>
+                <input id={'packId_' + idx}
+                  className="form-control put "
+                  placeholder='PackId'
+                  value={packId}
+                  onChange={(e) => props.setPackid(e.target.value, props.idx)} />
+              </div>
+            </td>
+            <td>
+              <div id='orderline-header-number-val-id'>
+                <label onClick={() => props.removeLineHandler(idx)} className="iconU-delete" />
               </div>
             </td>
           </tr>
