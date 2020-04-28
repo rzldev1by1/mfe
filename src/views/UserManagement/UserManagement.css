@@ -452,6 +452,12 @@ input:checked + .slider:before {
 	font-size: 20px !important;
 }
 
+.review-title-label{
+	font-family: "Helvetica Neue Bold";
+	/* color:"#D5D8DA" !important; */
+	font-size: 20px !important;
+}
+
 .create-user-label{
 	font-size: 20px !important;
 }
@@ -561,6 +567,15 @@ input:checked + .slider:before {
 
 .enable-active{
 	color: #22ABE3;
+	font-family: "Helvetica Neue Regular";
+	
+	font-size: 18px;
+}
+
+.enable-notactive{
+	font-family: "Helvetica Neue Regular";
+	color: #D5D8DA;
+	font-size: 18px;
 }
 
 .userText{

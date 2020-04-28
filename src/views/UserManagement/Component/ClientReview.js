@@ -12,21 +12,19 @@ return (<div>
 
       <div className="flex-column">
           <div className="row mr-2">
-              <label className="col-8 header-text-form" htmlFor="Client">Client
+              <label className="col-6 review-title-label" style={{color:"#D5D8DA"}} htmlFor="Client">Client
               </label>
           </div>
       </div>
-      <div className="d-flex border-bottom mr-4 mb-3">
-      </div>
+     
       {
           clients.map((item,index) => {
             return (<div className="flex-column" key={index}>
                           <div className="row mb-3 mr-2" key={index}>
-                              <label className="col-8 section-value-text` 1" key={item.code}>{ capitalizeFirstLetter(item.name) }</label>
+                              <label className="col-6 section-value-text" key={item.code}>{ capitalizeFirstLetter(item.name) }</label>
 
                               <label htmlFor={item.code} className={"col-3 "+((item.status)?"enable-active":"enable-notactive")}>{(item.status)?"Enabled":"Disabled"}</label>
-                              <div className="col-1">
-                              </div>
+                              
                           </div>
                     </div>)
 

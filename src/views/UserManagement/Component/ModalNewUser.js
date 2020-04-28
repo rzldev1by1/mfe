@@ -68,10 +68,8 @@ const modalNewUser = (props) => {
 
                       <div className="account-detail mt-2">
                           <div className="row">
-                              <div className="col-12">
-                                  <h3>
-                                  <label className="section-header-text">User Details</label>
-                                  </h3>
+                              <div className="col-12">                                  
+                                  <label className="section-header-text">User Details</label>                                  
                               </div>
                           </div>
                           <div className="row">
@@ -108,9 +106,7 @@ const modalNewUser = (props) => {
 
                           <div className="row mt-4">
                               <div className="col-12">
-                                  <h3>
                                       <label className="section-header-text">System</label>
-                                  </h3>
                               </div>
                           </div>
                           <div className="row">
@@ -129,6 +125,7 @@ const modalNewUser = (props) => {
                       <div className="row">
                           <div className="col-2">
                               <button type="button" style={{width:"151px"}} className="btn btn-primary btn-submit" onClick={(e)=>{window.location.reload()}}>
+                                  <span className="fa fa-angle-left mr-2" style={{fontSize:'1.4rem'}}></span>
                                   <label className="create-user-label mb-0">Back</label>
                               </button>
                           </div>
@@ -162,19 +159,19 @@ const modalNewUser = (props) => {
 
                           <div className="row">
                               <div className="col-3">
-                                <label className="header-text-form">User ID</label>
+                                <label className="review-title-label" style={{color:"#D5D8DA"}}>User ID</label>
                               </div>
 
                               <div className="col-3">
-                                <label className="header-text-form">Name</label>
+                                <label className="review-title-label" style={{color:"#D5D8DA"}}>Name</label>
                               </div>
 
                               <div className="col-3">
-                                <label className="header-text-form">Email</label>
+                                <label className="review-title-label" style={{color:"#D5D8DA"}}>Email</label>
                               </div>
 
                               <div className="col-3">
-                                <label className="header-text-form">Company</label>
+                                <label className="review-title-label" style={{color:"#D5D8DA"}}>Company</label>
                               </div>
                           </div>
 
@@ -220,6 +217,7 @@ const modalNewUser = (props) => {
                       <div className="row">
                       <div className="col-2">
                           <button type="button" style={{width:"151px"}} className="btn btn-primary btn-submit" onClick={onClickTabActive}>
+                          <span className="fa fa-angle-left mr-2" style={{fontSize:'1.4rem'}}></span>
                               <label className="create-user-label mb-0">Back</label>
                           </button>
                       </div>

@@ -646,7 +646,7 @@ class UserManagement extends Component{
                         <button style={{width:"199px"}} className={(this.isValidUser() ?"btn btn-primary text-button float-right ":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
 
                         <img src={create} className="mr-2 mb-1" style={{width:'8%'}}/>
-                        Create user
+                        Create User
                         </button>
                     </div>
                 </div>
