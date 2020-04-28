@@ -100,7 +100,7 @@ export default class PurchaseOrderDetail extends Component {
                         <td>{customerOrderRef ? customerOrderRef : '-'}</td>
                     </tr>
                     <tr>
-                        <th>Vendor Order No</th>
+                        <th>Vendor Order Ref</th>
                         <td>{vendorOrderNo ? vendorOrderNo : '-'}</td>
                     </tr>
                     
