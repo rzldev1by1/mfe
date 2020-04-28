@@ -76,16 +76,16 @@ const modalNewUser = (props) => {
                           </div>
                           <div className="row">
                               <div className="col-3">
-                                  <label className="header-text-form">User ID</label>
+                                  <label className="title-label">User ID</label>
                               </div>
                               <div className="col-3">
-                                  <label className="header-text-form">Name</label>
+                                  <label className="title-label">Name</label>
                               </div>
                               <div className="col-3">
-                                  <label className="header-text-form">Email</label>
+                                  <label className="title-label">Email</label>
                               </div>
                               <div className="col-3">
-                                  <label className="header-text-form">Company</label>
+                                  <label className="title-label">Company</label>
                               </div>
                           </div>
 
@@ -113,14 +113,14 @@ const modalNewUser = (props) => {
                                   </h3>
                               </div>
                           </div>
-                          <div className="d-flex flex-row">
-                              <div className="flex-fill mr-4">
+                          <div className="row">
+                              <div className="col-4">
                                   <ModuleAccess moduleAccess={moduleAccess} isLoaded={isModuleLoaded} onEnableClick={moduleAccessEnableClick} onModuleEnableAll={onModuleEnableAll}/>
                               </div>
-                              <div className="flex-fill ml-2 mr-4">
+                              <div className="col-4 pl-0">
                                   <Site sites={sites} isLoaded={isSiteLoaded} onEnableClick={sitesEnableClick} onSubmitHandler = {submitHandler}/>
                               </div>
-                              <div className="flex-fill ml-2 mr-4">
+                              <div className="col-4">
                                   <Client clients={clients} isLoaded={isClientLoaded} onEnableClick={clientEnableClick} onSubmitHandler = {submitHandler}/>
                               </div>
                           </div>

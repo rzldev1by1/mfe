@@ -12,7 +12,7 @@ return (
             </label>
           </div>
         </div>
-        <div className="d-flex border-bottom mr-2 mb-3">
+        <div className="d-flex border-bottom mr-4 mb-3">
         </div>
         {
             moduleAccess.map((item,index) => {

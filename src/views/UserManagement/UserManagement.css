@@ -202,10 +202,10 @@ label{
 
 .btn-outline-active{
 	font-family:"Helvetica Neue Regular";
-	font-size: 1em !important;
-	width:117px;
-	height:40px;
-	border: 1px solid #22ABE3;
+	font-size: 1rem !important;
+	width:117px !important;
+	height:40px !important;
+	border: 1.5px solid #22ABE3;
 	border-radius: 7px;
 	color: #22ABE3;
 	width: 80px;
@@ -213,11 +213,11 @@ label{
 
 .btn-outline-notActive{
 	font-family:"Helvetica Neue Regular";
-	font-size: 1em !important;
-	width:117px;
-	height:40px;
+	font-size: 1rem !important;
+	width:117px !important;
+	height:40px !important;
 	color: #D5D8DA;
-	border: 1px solid #D5D8DA;
+	border: 1.5px solid #D5D8DA;
 	border-radius: 7px;
 	width: 80px;
 }
@@ -257,11 +257,6 @@ td .active{
     font-weight: 500;
     color: #FF4141;
     font-size: 20px;
-}
-
-.text-bolder{
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 850;
 }
 
 .name-account{
@@ -359,18 +354,22 @@ td .active{
 
 .margin-right-breadcrumb-title{
     color: #637176;
-    margin-right: 1.5%;
+	margin-right: 1.5%;
+	font-family: "Helvetica Neue Medium";
+	font-size: 1.875rem;
 }
 
 .breadcrumb-active-title{
-    color: #22ABE3;
+	color: #22ABE3;
+	font-family: "Helvetica Neue Medium";
+	font-size: 1.875rem;
 }
 
 .um-breadcrumb{
     display:flex;
     width:30%;
     align-items:center;
-    margin-bottom: 1%;
+	/* margin-bottom: 1%; */
     width: 100%;
 }
 
@@ -448,6 +447,8 @@ input:checked + .slider:before {
 }
 
 .title-label{
+	font-family: "Helvetica Neue Bold";
+	color:"#637175";
 	font-size: 20px !important;
 }
 
@@ -493,6 +494,10 @@ input:checked + .slider:before {
     color: #fff;
     background-color: #D5D8DA;
     border-color: #D5D8DA;
+}
+
+.line-border{
+	border-bottom: 1px solid #E8E8E8;
 }
 
 .checkbox-hidden{

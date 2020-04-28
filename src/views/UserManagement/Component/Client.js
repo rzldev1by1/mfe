@@ -12,30 +12,35 @@ return (<div>
 
       <div className="flex-column">
           <div className="row mr-2">
-              <label className="col-8 header-text-form" htmlFor="Client">Client
+              <label className="col-6 title-label p-0" htmlFor="Client">Client
               </label>
               <input className="checkbox-hidden" type="checkbox" id="Client"/>
-              <button type="button" className="col-3 btn btn-outline-active mb-2">Enabled All</button>
-
+              <div className="col-3">
+                  <button type="button" className="btn btn-outline-active mb-2">Enabled All</button>
+              </div>
+          </div>
+          <div className="row mb-2">
+              <div className="col-6 line-border"></div>
+              <div className="col-3 line-border"></div>
+              {/* <div className="col-6 border-bottom ml-3"></div>
+              <div className="col-3 border-bottom"></div> */}
           </div>
       </div>
-      <div className="d-flex border-bottom mr-2 mb-3">
-      </div>
-
-
       {
           clients.map((item,index) => {
             return (<div className="flex-column" key={index}>
                           <div className="row mb-3 mr-2" key={index}>
-                              <label className="col-8 section-value-text` 1" key={item.code}>{ capitalizeFirstLetter(item.name) }</label>
+                              <label className="col-6 section-value-text p-0" key={item.code}>{ capitalizeFirstLetter(item.name) }</label>
                               {
                                 /**
                                 <button type="button" className={"col-2 btn "+((item.status)?"btn-outline-active":"btn-outline-notActive")+" float-right" } onClick={(e)=>{onEnableClick(e,item);}}>{(item.status)?"Enable":"Disable"}</button>
                                 */
                               }
                               <input className="checkbox-hidden" type="checkbox" id={item.code} />
-                              <button type="button" htmlFor={item.code}  className={"col-3 btn "+((item.status)?"btn-outline-active":"btn-outline-notActive")}  onClick={(e)=>{onEnableClick(e,item);}}>{(item.status)?"Enabled":"Disabled"}</button>
-                              <div className="col-1">
+                              <div className="col-3">
+                                <button type="button" htmlFor={item.code}  className={"btn "+((item.status)?"btn-outline-active":"btn-outline-notActive")}  onClick={(e)=>{onEnableClick(e,item);}}>{(item.status)?"Enabled":"Disabled"}</button>
+                              </div>
+                              <div className="col-3">
                               </div>
                           </div>
                     </div>)
