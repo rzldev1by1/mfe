@@ -141,14 +141,14 @@ span.client-notActive{
 	margin-left: 18px;
 }
 
-.active{
+.um-active{
 	font-family:"Helvetica Neue Medium";
     
     color: #7FC242;
     font-size: 20px;
 }
 
-.suspended{
+.um-suspended{
 	font-family:"Helvetica Neue Medium";
     
     color: #FF5275;
