@@ -314,6 +314,7 @@ class PurchaseOrderCreate extends Component {
       <div className="tabcontent">
         <h3 className="fonts">Order Details</h3>
         <table className="createpotable">
+<<<<<<< Updated upstream
           <tr>
             <th className='required-field' style={{ width: "396px" }}>Site</th>
             <th className='required-field' style={{ width: "396px" }}>Client</th>
@@ -363,6 +364,57 @@ class PurchaseOrderCreate extends Component {
             <th>Vendor Order Ref</th>
           </tr>
           <tr>
+=======
+            <tr>
+                <th className='required-field' style={{width:"396px"}}>Site</th>
+                <th className='required-field' style={{width:"396px"}}>Client</th>
+                <th style={{width:"396px"}}>Supplier</th>
+                <th style={{width:"396px"}}>Customer Order Ref</th>
+            </tr>
+            <tr>
+              <td>
+                  <Dropdown placeHolder="Site" 
+                            style={{width: "22%", position: "absolute", zIndex: '6'}} 
+                            optionList={siteName.toString()} 
+                            optionValue={siteData.toString()} 
+                            getValue={(e) => this.setState({ site: e })} 
+                            optionSelected={this.state.site}/>
+             </td>
+              <td>
+                  <Dropdown placeHolder="Client" 
+                            style={{width: "22%", position: "absolute"}} 
+                            optionList={clientName.toString()} 
+                            optionValue={clientValue.toString()} 
+                            getValue={(e) => this.setState({ client: e })} 
+                            optionSelected={this.state.client}/>
+              </td>
+                {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
+              <td>
+                <AutoComplete   placeHolder="Supplier"
+                                suggestions={supplierName}
+                                suggestionsValue={supplierName}
+                                defaultValue={this.state.supplier}
+                                handleChange={(e) => this.setState({ supplier: e })} />
+              </td>
+                {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form2 put pec" placeholder="Supplier"/> </td> */}
+              <td>
+                  <input className="form2 put pec" placeholder="Customer Order Ref" value={this.state.customerRef} maxLength="40" onChange={(e) => this.setState({ customerRef: e.target.value })}/>
+              </td>
+            </tr>
+            <tr>
+              <th style={{color:"transparent"}}>1</th>
+            </tr>
+            <tr>
+              <th style={{color:"transparent"}}>1</th>
+            </tr>
+            <tr>
+                <th className='required-field'>Order Type</th>
+                <th className='required-field'>Order No</th>
+                <th className='required-field'>Order Date</th>
+                <th>Vendor Order Ref</th>
+            </tr>
+            <tr>
+>>>>>>> Stashed changes
             <td>
               <Dropdown placeHolder="Order Type"
                 style={{ width: "22%", position: "absolute" }}
