@@ -385,7 +385,7 @@ class ListOrderComponent extends Component {
                         window.location.replace(
                           window.location.origin +
                           "/#/sales-orders/" +
-                          this.state.client +
+                          data.client +
                           "/" +
                           data.order_no
                         )
