@@ -643,9 +643,7 @@ input:checked + .slider:before {
 		font-family: "Helvetica Neue Regular";
 		color: #637175;
 	}
-	.searchINP{
-		/*width: 81%;*/
-	}
+
 	.btnsearch{
 		width: 174px;
 		/*margin-left: 19px;*/
@@ -690,9 +688,7 @@ input:checked + .slider:before {
 		color: #637175;
 		padding: 0.5rem 1rem 0.5rem 1rem;
 	}
-	.searchINP{
-		/*width: 87%;*/
-	}
+
 	.btnsearch{
 		width: 174px;
 		/*margin-left: 19px;*/
