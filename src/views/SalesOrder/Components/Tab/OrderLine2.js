@@ -100,7 +100,7 @@ const OrderLine2 = (props) => {
                         <div id='orderline-header-packid-val-id'>
                         <input      id              = {'packId_'+idx}
                                     className       = "form-control put "
-                                    placeholder     = 'PackId'
+                                    placeholder     = 'Pack Id'
                                     value           = {packId}
                                     onChange        = {(e) =>props.setPackid(e.target.value, props.idx)}/>
                         </div>

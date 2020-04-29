@@ -58,7 +58,7 @@ const OrderLine = (props) => {
                     </tr>        
                     <tr>
                          <td>
-                              <div id='orderline-header-number-val-id'>
+                              <div id='orderline-header-number-val-id' className="pl-2 pr-2">
                               <input   className       = "form-control put "
                                         id              = 'rowNumber'
                                         readOnly 
