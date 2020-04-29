@@ -6,10 +6,15 @@ import moment from 'moment';
 import mid from '../../../assets/img/brand/field-idle.png'
 import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
+
+
+
 class Movement extends Component {
     constructor(props){
-        super(props)
-
+        super(props);
+        this.hover = this.hover.bind(this);
+        this._checkActiveHover = this._checkActiveHover.bind(this);
+        
         this.state = {
             data:[],            
             startDate:moment().subtract(27, 'days').format('YYYY-MM-DD'),
@@ -31,11 +36,24 @@ class Movement extends Component {
 
             //pagonation
             startIndex:0,
-			endIndex:3
-
+			endIndex:3,
+            hover_stat: null,
+            i:1
+        }
+    }
+    //testing  hover
+    hover(stat,product) {  
+        if(stat=='active'){
+            this.setState({hover_stat: product});
+        }else{
+            this.setState({hover_stat: null});
         }
     }
 
+    _checkActiveHover(product) {
+        return (product == this.state.hover_stat) ? 'hover-active' : "";
+    }
+    
     componentDidMount(){
         this.getData()
         this.pushTable()
@@ -213,6 +231,7 @@ class Movement extends Component {
             )
     }
 
+   
     arrowHandler = (e) => {
         let id = e.currentTarget.id
         let activearrow = this.state
@@ -288,6 +307,9 @@ class Movement extends Component {
         this.setState({startIndex:startIndex, endIndex:endIndex})
 	}
 
+    onMouseEnter(){
+        console.log();
+    }
     render(){
         if(this.state.pushTableComplete)
         {
@@ -306,13 +328,15 @@ class Movement extends Component {
                         </thead>
                         <tbody>
                         {
-                            this.state.data.slice(this.state.startIndex,this.state.endIndex).map((data) =>
-                                <tr style={{borderBottom:'1px solid #f5f5f5'}}>
+                            //testing
+                            this.state.data.slice(this.state.startIndex,this.state.endIndex).map((data) => 
+                                <tr  className={this._checkActiveHover(data.product)} style={{borderBottom:'1px solid #f5f5f5'}} onMouseEnter={() => this.hover('active',data.product)} onMouseLeave={() => this.hover('deactive',data.product)} >
                                 <td height='50' style={{borderRight:'1.5px solid #ededed'}}>
                                     <this.productBody site={data.site} product={data.product} product_name={data.product_name} packdesc={data.packdesc} client={data.client}/>
                                 </td>
                                 </tr>
                             )
+                            
                         }                            
                         </tbody>
                     </table>
@@ -330,8 +354,10 @@ class Movement extends Component {
                         </thead>
                         <tbody style={{fontSize:'1rem'}} className='mvmntHead'>
                         {
+                            //testing
                             this.state.data.slice(this.state.startIndex,this.state.endIndex).map((data) =>
-                                <tr style={{borderBottom:'1px solid #f5f5f5'}}>
+
+                                <tr  style={{borderBottom:'1px solid #f5f5f5'}}  onMouseEnter={() => this.hover('active',data.product)} onMouseLeave={() => this.hover('deactive',data.product)}  className={this._checkActiveHover(data.product)}>
                                 {
                                     data.detail.map(detail =>
                                     <td key="6" height='50' width='15%' style={{borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}><this.tableMovement detail={detail}/></td>
