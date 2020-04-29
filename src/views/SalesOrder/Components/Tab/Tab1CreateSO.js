@@ -400,7 +400,12 @@ class Tab1CreateSO extends Component{
                 })
               }                      
                   <button onClick={() => this.props.addLineHandler()} type="button" className="btn-light font addlineSo">+</button> 
-                  {this.state.tab2isactive ? this.submit() :  <Button onClick={() => this.setData()} color="primary" className="btnsearch next btnleft" ><label className="font btnLabel ">Next</label></Button>
+                  {this.state.tab2isactive ? this.submit() :  <Button onClick={() => this.setData()} color="primary" className="btnsearch next btnleft" >
+                                                                <label className="font btnLabel ">Next
+                                                                
+                                                                  <span className="fa fa-angle-right mr-2" style={{fontSize:'1rem', paddingLeft:"10px"}}></span>
+                                                                </label>
+                                                              </Button>
                 } 
          
           </div>
