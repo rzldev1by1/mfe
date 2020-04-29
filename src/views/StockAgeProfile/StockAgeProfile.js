@@ -58,19 +58,16 @@ class StockAgeProfile extends Component {
             ],
 
             stockAgeProfile: [],
-            //stockAgeProfile: this.loadData(),
+            
             masterResStockAgeProfile: []
         }
         this.searchForm = React.createRef();
-        // this.getLocalStorageColumn();
+        
 
     }
     loadData = () => {
         axios.get(AppComponent.getBaseUrl() + "searchFilterStockAgeProfile", {
-            // headers: { 	'Content-Type': 'application/json', 	'Accept':
-            // 'application/json', 	'companyCode' : localStorage.getItem("companyCode"),
-            // 	'userLevel' : localStorage.getItem("userLevel"), 	'Authorization' : 'Bearer
-            // ' + localStorage.getItem('token') }
+           
         }).then(res => {
             let data = res.data;
 

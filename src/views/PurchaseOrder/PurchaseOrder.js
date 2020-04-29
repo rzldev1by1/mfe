@@ -118,7 +118,7 @@ class PurchaseOrder extends Component {
             this.setState({ clientdata:result })
           })
           .catch(error => {
-            // this.props.history.push("/logins")
+            
             console.log(error);
           })
     }
@@ -132,7 +132,7 @@ class PurchaseOrder extends Component {
             this.setState({ sitedata:result })
           })
           .catch(error => {
-            // this.props.history.push("/logins")
+            
           })
       }
 
@@ -157,7 +157,7 @@ class PurchaseOrder extends Component {
                 })
             })
             .catch(error => {
-                // this.props.history.push("/logins")
+                
             })
         
     }

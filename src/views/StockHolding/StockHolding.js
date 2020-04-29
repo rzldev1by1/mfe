@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, Col, Row, FormGroup, InputGroup } from 'reactstrap';
 
 import axios from 'axios';
-// import AppComponent from '../../AppComponent';
+
 import { endpoint, headers } from '../../AppComponent/ConfigEndpoint';
 
 import mid from '../../assets/img/brand/field-idle.png';
@@ -75,19 +75,13 @@ class StockHolding extends Component {
 	}
 
 	getLocalStorageColumnData = () => {
-		// // let self = this;
-		// if (localStorage.getItem("columnData") && localStorage.getItem("columnData") !== "undefined") {
-		// 	let columnItem = JSON.parse(localStorage.getItem("columnData"));
-		// 	if (columnItem) { this.state.columns = columnItem };
-		// } else {
-		// 	localStorage.setItem("columnData", JSON.stringify(this.state.columns));
-		// }
+	
 	}
 
 	updateTableColumn = (columns) => {
-		// // let self = this;
+		
 		this.setState({ columns: columns });
-		// localStorage.setItem("columnData", JSON.stringify(this.state.columns));
+		
 	}
 
 	setPagination = (result) => {
@@ -144,8 +138,7 @@ class StockHolding extends Component {
             headers: headers 
         })
         .then(res => {
-            // res.isSuccess = true;
-            // self.setState({ isLoaded: false })
+           
             return res.data;				
         })
         .catch(function (error) {
@@ -267,11 +260,11 @@ class StockHolding extends Component {
                     if (a[sortBy] > b[sortBy]) return 1;
                     return 0;
                 } else {
-                    // if (a[sortBy] !== undefined && b[sortBy] !== undefined) {
+                    
                         if (a[sortBy] < b[sortBy]) return 1;
                         if (a[sortBy] > b[sortBy]) return -1;
                         return 0;
-                    // }
+                    
                 }
             }
         });
@@ -374,7 +367,7 @@ class StockHolding extends Component {
 			this.load()
 		  })
 		  .catch(error => {
-			// this.props.history.push("/logins")
+			
 		  })
 	  }
 

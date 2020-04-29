@@ -245,12 +245,7 @@ class Tab1CreateSO extends Component {
                   placeholder="Costumer"
                 />
               ) : (
-                  // <Dropdown optionSelected  = {customerVal}
-                  //         getValue        = {}
-                  //         placeHolder     = "Customer"
-                  //         style           = {{minWidth: "100%", zIndex:"1"}}
-                  //         optionList      = {supplierName.toString()}
-                  //         optionValue     = {this.props.resources.supplier.code.toString()}/>
+                  
                   <AutoComplete
                     suggestions={supplierName}
                     suggestionsValue={this.props.resources.supplier.code}

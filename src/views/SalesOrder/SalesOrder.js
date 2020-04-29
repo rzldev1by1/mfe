@@ -95,7 +95,7 @@ class SalesOrder extends Component {
         this.setState({ clientdata: result });
       })
       .catch((error) => {
-        // this.props.history.push("/logins")
+        
         console.log(error);
       });
   };
@@ -110,7 +110,7 @@ class SalesOrder extends Component {
         this.setState({ sitedata: result });
       })
       .catch((error) => {
-        // this.props.history.push("/logins")
+        
       });
   };
 

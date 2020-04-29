@@ -29,7 +29,7 @@ export default class Dropdowns extends Component {
                   this.setState({ ordertypedata:result })
                 })
                 .catch(error => {
-                  // this.props.history.push("/logins")
+                  
                 })
         }
       }

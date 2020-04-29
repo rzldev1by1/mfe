@@ -63,14 +63,7 @@ class StockBalanceForecast extends Component {
 		let accBalance = this.props.openingBalance;
 		let data = this.props.stockBalanceForecast.slice(this.state.startIndex, this.state.lastIndex);
 
-		//self.setState({balance:accBalance});
-		// if (idx === 0) {
-		// 	return accBalance = parseInt(data[0]["qty_rec"]) - parseInt(data[0]["qty_send"])
-		// };
-		//
-		// for (var i = 0 ; i <= idx ; i++) {
-    //         accBalance += parseInt(data[i]["qty_rec"]) - parseInt(data[i]["qty_send"]);
-    //     }
+		
 
 				for (var i = 0 ; i <= idx ; i++) {
 

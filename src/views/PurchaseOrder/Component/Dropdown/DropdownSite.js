@@ -26,7 +26,7 @@ export default class DropdownSite extends Component {
             this.setState({ sitedata:result })
           })
           .catch(error => {
-            // this.props.history.push("/logins")
+            
           })
       }
 

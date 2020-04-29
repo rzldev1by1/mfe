@@ -60,7 +60,7 @@ class UserManagementDetail extends Component{
 
     loadModuleAccess = (role) => {
       var self = this;
-      //let query = ["purchase orders","stock holding", "stock movement", "create sales order"];
+      
 
       axios.get(endpoint.UserManagement_ModuleAccess, {
         params: {role:role},
@@ -80,7 +80,7 @@ class UserManagementDetail extends Component{
 
         })
         .then((result) => {
-          // console.log(result);
+          
         })
     }
 
@@ -103,7 +103,7 @@ class UserManagementDetail extends Component{
 
         })
         .then((result) => {
-          // console.log(result);
+          
         })
     }
 
@@ -125,7 +125,7 @@ class UserManagementDetail extends Component{
 
         })
         .then((result) => {
-          // console.log(result);
+          
         })
     }
 
@@ -239,7 +239,7 @@ class UserManagementDetail extends Component{
 
           })
           .then((result) => {
-            // console.log(result);
+            
           })
       }
     }
