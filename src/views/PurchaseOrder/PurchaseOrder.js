@@ -202,8 +202,8 @@ class PurchaseOrder extends Component {
             siteData.push("All");
             siteValue.push("");
         }
-        if(this.state.orderTypeName.length > 1){
-            this.state.orderTypeName.map((data) => {
+        if(this.state.orderTypeValue.length > 1){
+            this.state.orderTypeValue.map((data) => {
                 orderTypeName.push(data);
             })
             orderTypeName.push("All")
