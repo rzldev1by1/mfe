@@ -16,6 +16,7 @@ import AutoComplete from '../../../AppComponent/AutoComplete'
 import Dropdown from '../../../AppComponent/Dropdown'
 import DatePicker from '../../../AppComponent/DatePicker'
 import swal from 'sweetalert'
+import { headerValidation, lineValidation } from '../Validation/validation'
 
 class PurchaseOrderCreate extends Component {
   constructor(props) {
@@ -81,18 +82,23 @@ class PurchaseOrderCreate extends Component {
       productdesccr: [],
 
       // Create PO Form 
-      site: undefined,
-      client: undefined,
-      supplier: undefined,
-      customerRef: undefined,
-      orderType: undefined,
-      orderNo: undefined,
-      orderDate: undefined,
-      vendorRef: undefined,
+      site: null,
+      client: null,
+      supplier: null,
+      customerRef: null,
+      orderType: null,
+      orderNo: null,
+      orderDate: null,
+      vendorRef: null,
       lineDetails: [],
       isSaveProgressing: false,
-      createSuccess: false
+      createSuccess: false,
 
+      emptySite: null,
+      emptyClient: null,
+      emptyOrderType: null,
+      emptyOrderNo: null,
+      emptyOrderDate: null
     }
   }
 
@@ -136,6 +142,49 @@ class PurchaseOrderCreate extends Component {
   }
 
   tabhandler = () => {
+
+    const {
+      site,
+      client,
+      supplier,
+      customerRef,
+      orderType,
+      orderNo,
+      orderDate,
+      vendorRef,
+    } = this.state
+
+    let header = {
+      site,
+      client,
+      supplier,
+      customerRef,
+      orderType,
+      orderNo,
+      orderDate,
+      vendorRef
+    }
+    const hv = headerValidation(header)
+    if (hv.length > 0) {
+      for (let i = 0; i < hv.length; i++) {
+        let key = hv[i][0]
+        let message = hv[i][1]
+
+        switch (key) {
+          case 'site':
+            this.setState({ emptySite: message })
+          case 'client':
+            this.setState({ emptyClient: message })
+          case 'orderType':
+            this.setState({ emptyOrderType: message })
+          case 'orderNo':
+            this.setState({ emptyOrderNo: message })
+          case 'orderDate':
+            this.setState({ emptyOrderDate: message })
+        }
+      }
+      return
+    }
     this.setState({
       tab1isactive: !this.state.tab1isactive,
       tab2isactive: !this.state.tab2isactive
@@ -353,9 +402,14 @@ class PurchaseOrderCreate extends Component {
           <tr>
             <th style={{ color: "transparent" }}>1</th>
           </tr>
+
           <tr>
-            <th style={{ color: "transparent" }}>1</th>
+            <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.site ? 'nmtrField' : 'mtrField')}>{this.state.emptySite}</div></td>
+            <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.client ? 'nmtrField' : 'mtrField')}>{this.state.emptyClient}</div></td>
+            <td style={{ width: "396px" }}><div className='po-required' /></td>
+            <td style={{ width: "396px" }}><div className='po-required' /></td>
           </tr>
+
           <tr>
             <th className='required-field'>Order Type</th>
             <th className='required-field'>Order No</th>
@@ -382,12 +436,13 @@ class PurchaseOrderCreate extends Component {
             <td><input className="form2 put pec" value={this.state.vendorRef} placeholder="Vendor Order Ref" onChange={(e) => this.setState({ vendorRef: e.target.value })} maxLength="40" /> </td>
           </tr>
           <tr>
-            <td></td>
-            <td></td>
-            <td>
-              {/* {this.state.showdatepicker ? <DatePicker getChosenDay={(day) => this.datePickerHandler(day)}/> : null} */}
-            </td>
-            <td></td>
+            <th style={{ color: "transparent" }}>1</th>
+          </tr>
+          <tr>
+            <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.orderType ? 'nmtrField' : 'mtrField')}>{this.state.emptyOrderType}</div></td>
+            <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.orderNo ? 'nmtrField' : 'mtrField')}>{this.state.emptyOrderNo}</div></td>
+            <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.orderDate ? 'nmtrField' : 'mtrField')}>{this.state.emptyOrderDate}</div></td>
+            <td className='nmtrField po-required' style={{ width: "396px" }}></td>
           </tr>
         </table>
 
@@ -420,15 +475,16 @@ class PurchaseOrderCreate extends Component {
         </div>
         <button onClick={() => this.addline()} type="button" className="btn btn-light font addline">+ Add Line</button>
 
-        {this.state.tab2isactive ?
-          this.submit() :
-          <Button onClick={() => this.tabhandler()} color="primary" className="btnsearch next btnleft" ><label className="font btnLabel ">Next</label></Button>
+        {
+          this.state.tab2isactive ?
+            this.submit() :
+            <Button onClick={() => this.tabhandler()} color="primary" className="btnsearch next btnleft" ><label className="font btnLabel ">Next</label></Button>
         }
         {
           //   console.log(this.state.rowlist)
         }
 
-      </div>
+      </div >
     )
   }
 

@@ -44,7 +44,7 @@ const OrderLine = (props) => {
                     props.setProduct(productVal, product, props.idx)
                   }
                   placeHolder="Product"
-                  style={{ minWidth: "100%", zIndex: idx }}
+                  style={{ minWidth: "100%", zIndex: props.parametersLength - idx }}
                   optionList={props.productdata.code.toString()}
                   optionValue={props.productdata.code.toString()}
                 />

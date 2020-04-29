@@ -401,7 +401,7 @@ class Tab1CreateSO extends Component {
         </tr>
 
         <h3 className="fonts">Line Details</h3>
-        <div className='scrollx'>
+        <div className='scroll-x-y-visible'>
           <div className="line">
             <table className="">
               <tr>
@@ -466,6 +466,7 @@ class Tab1CreateSO extends Component {
               <div>
                 <OrderLine
                   parameters={data}
+                  parametersLength={this.props.parameters.lineDetail.length}
                   idx={idx}
                   getUom={(productVal) => this.props.getUom(productVal)}
                   uomdata={this.props.uomdata}

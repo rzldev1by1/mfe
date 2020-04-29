@@ -171,26 +171,26 @@ const routes = [
 	// { path: '/users', exact: true,  name: 'Users', component: Users },
 	// { path: '/users/:id', exact: true, name: 'User Details', component: User },
 
-    // { path: '/dashboard', name: 'Dashboard', component: Dashboard },
+	// { path: '/dashboard', name: 'Dashboard', component: Dashboard },
 	// { path: '/base', exact: true, name: 'User Control', component: UserManagement },
 
-	{ path: '/Welcome', exact:true, name: 'Welcome', component: Welcome },
+	{ path: '/Welcome', exact: true, name: 'Welcome', component: Welcome },
 
 	{ path: '/stock', exact: true, name: 'Stock', component: StockHolding },
 	{ path: '/stock/stockholding', exact: true, name: 'Stock Holding', component: StockHolding },
 	{ path: '/stock/stockholding/:productId/:client/:site', exact: true, name: 'Stock Holding Details', component: StockHoldingDetails },
 	{ path: '/stock/stockmovement', exact: true, name: 'Stock Movement', component: StockMovement },
-    { path: '/stock/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
+	{ path: '/stock/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
 
-    { path: '/purchaseorder', exact:true, name: 'Purchase Order', component: PurchaseOrder },
-		{ path: '/purchaseorder/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrderDetail },
-    { path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
+	{ path: '/purchaseorder', exact: true, name: 'Purchase Order', component: PurchaseOrder },
+	{ path: '/purchaseorder/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrderDetail },
+	{ path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
 
-    { path: '/users-management', exact: true, name: 'User Management', component: UsersManagement },
-		{ path: '/users-management/:id/detail', exact: true, name: 'User Management', component: UsersManagementDetail },
-		{ path: '/users-management/create', exact: true, name: 'User Management', component: UsersManagementCreate },
-		{ path: '/sales-orders', exact: true, name: 'Sales Orders', component: SalesOrder },
-		{ path: '/sales-orders/:client/:orderdetail', exact: true, name: 'Sales Orders', component: SalesOrderDetail }
+	{ path: '/users-management', exact: true, name: 'User Management', component: UsersManagement },
+	{ path: '/users-management/:id/detail', exact: true, name: 'User Management', component: UsersManagementDetail },
+	{ path: '/users-management/create', exact: true, name: 'User Management', component: UsersManagementCreate },
+	{ path: '/sales-orders', exact: true, name: 'Sales Orders', component: SalesOrder },
+	{ path: '/sales-orders/:client/:site/:orderdetail', exact: true, name: 'Sales Orders', component: SalesOrderDetail }
 ];
 
 export default routes;

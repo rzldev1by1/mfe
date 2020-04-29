@@ -534,7 +534,13 @@ th.iconU-edit {
 	overflow-y: hidden !important;
 }
 
-.scrollx::-webkit-scrollbar {
+.scroll-x-y-visible{
+  overflow-x: scroll !important;
+  overflow-y: visible !important;
+  z-index: -10;
+}
+
+.scroll-x-y-visible::-webkit-scrollbar {
 	width: 8px !important;
 	height: 8px;
 	margin-bottom: 0px !important;
@@ -542,7 +548,7 @@ th.iconU-edit {
 	border-radius: 5px;
   }
 
-.scrollx::-webkit-scrollbar-thumb {
+.scroll-x-y-visible::-webkit-scrollbar-thumb {
 	background-color: #B4B9BB;
 	border-radius: 5px;
   }

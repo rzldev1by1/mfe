@@ -22,19 +22,30 @@ class SalesOrderDetail extends Component {
     }
 
     componentDidMount() {
-        this.getheaderdetail()
+        this.getProductDetail()
     }
 
-    getheaderdetail = () => {
+    getHeaderDetail = () => {
+        this.setState({ complete: false })
+        let param = window.location.href.split("/")
+        let index = param.length
+
+        let client = param[index - 3]
+        let site = param[index - 2]
+        let orderNo = param[index - 1]
+    }
+
+    getProductDetail = () => {
 
         this.setState({ complete: false })
         let param = window.location.href.split("/")
         let index = param.length
 
-        let client = param[index - 2]
+        let client = param[index - 3]
+        let site = param[index - 2]
         let orderNo = param[index - 1]
-        param = orderNo + '?client=' + client
-        axios.get(endpoint.salesOrder + '/' + param, {
+        param = '?searchParam=' + orderNo + '&&client=' + client + '&&site=' + site
+        axios.get(endpoint.salesOrder + param, {
 
             headers: headers
         })

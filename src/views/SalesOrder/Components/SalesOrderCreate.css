@@ -273,58 +273,6 @@ h3{
     }
 }
 
-.mtrFieldSelect:before{
-    height:20px;
-    color:red;
-    margin-bottom: 5px;
-    margin-top: 3px;
-    -webkit-animation: fadein 0.2s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 0.2s; /* Firefox < 16 */
-        -ms-animation: fadein 0.2s; /* Internet Explorer */
-         -o-animation: fadein 0.2s; /* Opera < 12.1 */
-            animation: fadein 0.2s;
-}
-
-.mtrFieldSelect{
-    height:20px;
-    color:red;
-    margin-bottom: 5px;
-    margin-top: 3px;
-    -webkit-animation: fadein 0.2s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 0.2s; /* Firefox < 16 */
-        -ms-animation: fadein 0.2s; /* Internet Explorer */
-         -o-animation: fadein 0.2s; /* Opera < 12.1 */
-            animation: fadein 0.2s;}
-
-.mtrField:after{
-    height:20px;
-    color:red;
-    margin-bottom: 5px;
-    margin-top: 3px;
-    -webkit-animation: fadein 0.2s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 0.2s; /* Firefox < 16 */
-        -ms-animation: fadein 0.2s; /* Internet Explorer */
-         -o-animation: fadein 0.2s; /* Opera < 12.1 */
-            animation: fadein 0.2s;}
-
-.mtrField{
-    height:20px;
-    color:red;
-    margin-bottom: 5px;
-    margin-top: 3px;
-    -webkit-animation: fadein 0.2s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 0.2s; /* Firefox < 16 */
-        -ms-animation: fadein 0.2s; /* Internet Explorer */
-         -o-animation: fadein 0.2s; /* Opera < 12.1 */
-            animation: fadein 0.2s;}
-
-.nmtrField{
-    height:20px;
-    margin-bottom: 5px;
-    margin-top: 3px;
-    visibility: hidden;
-}
-
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
