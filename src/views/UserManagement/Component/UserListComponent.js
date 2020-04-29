@@ -173,8 +173,7 @@ class UserListComponent extends Component{
     }
 
     sortingAscending = (a,b,key) => {
-      // let strA = a[key];
-      // let strB = b[key];
+      
       if(a[key] === b[key])
         return 0;
       else if(a[key] === null)
@@ -213,7 +212,6 @@ class UserListComponent extends Component{
         }
       }
 
-      // return ((strA < strB)? 1:((strA > strB)?-1:0));
     }
 
     render(){

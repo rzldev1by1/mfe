@@ -30,24 +30,6 @@ return (<div>
           })
       }
 
-
-
-
-    {
-      /**
-      <div>
-        <div className="btn-group btn-group-toggle" data-toggle="buttons" >
-        <label className="btn btn-outline-primary active">
-            <input type="radio" className="form-control" value="aeosop" autoComplete="off" checked="true"/>  Client one
-        </label>
-        <label className="btn btn-outline-primary">
-            <input type="radio" className="form-control" value="all" autoComplete="off"/> All client
-        </label>
-        </div>
-      </div>
-      **/
-    }
-
   </div>)
 
 }

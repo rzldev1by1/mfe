@@ -3,14 +3,6 @@
 	padding: 0 1.8%;
 }
 
-// .main{
-//   position: relative;
-//   min-height: 100vh;
-// }
-
-// .content{
-// 	padding-bottom: 1000px; 
-// }
 
 //Fonts
 @font-face {
@@ -51,9 +43,6 @@
     font-weight: normal;
     font-variant: normal;
     text-transform: none;
-	// line-height: 0.75;
-	// vertical-align: middle;
-    // font-size: 3.5rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -75,7 +64,6 @@ h2{
 
 .iconU-user:before {
 	content: "\e910";
-	// font-size: 14px;
     font-size: 0.875rem;
 }
 
@@ -85,7 +73,6 @@ h2{
 
 .iconU-purchaseOrder:before {
 	content: "\e915";
-    // font-size: 16px;
     font-size: 1rem;
 }
 
@@ -95,13 +82,11 @@ h2{
 
 .iconU-salesOrder:before {
 	content: "\e916";
-	// font-size: 16px;
     font-size: 1rem;
 }
 
 .iconU-stockHolding:before {
 	content: "\e90f";
-	// font-size: 16px;
     font-size: 1rem;
 }
 
@@ -119,8 +104,6 @@ h2{
 
 .iconU-close:before {
     content: "\e929";
-    // font-size: 0.7em;
-    // vertical-align: middle;
 }
 
 .iconU-filters{
@@ -274,20 +257,6 @@ h2{
 	}
 }
 
-
-// .form-control {
-//   height:50px !important;
-//   background: #FFFFFF 0% 0% no-repeat padding-box;
-//   border: 2px solid #E8E8E8 !important;
-//   border-radius: 7px !important;
-//   opacity: 1 !important;
-//   font-size: 0.9375rem !important;
-// }
-
-// .form-control:hover  {
-//   border: 2px solid #969EA1 !important;
-// }
-
 .form-control:disabled {
   border: 2px solid #E8E8E8 !important;
 }
@@ -352,7 +321,6 @@ h2{
 
 .sidebar .sidebar-footer {
 	background: #FFFFFF 0% 0% no-repeat padding-box;
-	// color: #212F61;
 }
 
 .sidebar .nav {
@@ -392,7 +360,7 @@ h2{
 .sidebar .nav-link,
          .nav-link .nav-icon,
          .nav-link .nav-item {
-	// letter-spacing: 0;
+	
 	color: #637176 !important;
 }
 
@@ -402,9 +370,6 @@ h2{
 	background: #ffffff !important;
 }
 
-// .sidebar .nav-item .nav-link:hover {
-// 	border-left: 3px solid #22ABE3 !important;
-// }
 
 .sidebar .nav-link {
 	padding-left: 40px;
@@ -414,16 +379,6 @@ h2{
 	color: #22ABE3 !important;
 	background: #ffffff !important;
 }
-
-// .sidebar .nav-dropdown.open:hover {
-// 	color: #388DCD !important;
-// }
-
-// .sidebar .nav-dropdown-items .nav-item .nav-link.active,
-// .sidebar .nav-dropdown-items .nav-item .nav-link:hover {
-// 	color: #388DCD !important;
-// 	background: #FFFFFF !important;
-// }
 
 .sidebar-minimizer {
 	background: #ffffff !important;
@@ -446,7 +401,6 @@ h2{
 	align-self: center;
 	margin-bottom: 15px;
 	padding: 7px;
-	// cursor: pointer;
 }
 
 .profilePhoto {
@@ -472,7 +426,6 @@ h2{
 	font-weight: bold;
 	align-self: center;
 	padding-left: 10px;
-	// opacity: 1;
 }
 
 .Logout{
@@ -522,7 +475,6 @@ hr.border-header {
 // Start - Breadcrumb
 
 .headerTitle {
-	// font-size: 1.75rem;
     font-family: "Helvetica Neue Medium";
     color: #637176;
     width: 100%;
@@ -564,7 +516,6 @@ a.breadcrumb:hover {
     padding-left: 1rem;
     color: #388DCD;
     font-weight: 900;
-    // content: "&#xf105;";
 }
 
 // End - Breadcrumb
@@ -595,7 +546,6 @@ a.breadcrumb:hover {
     align-items: center;
     padding: 15px;
 	border-radius: 5px;
-	// margin-top: 19px;
 }
 
 .searchBox {
@@ -604,12 +554,6 @@ a.breadcrumb:hover {
     height: 43px;
     border-radius: 5px;
 }
-
-// @media (min-width: 1920px) {
-//     .searchBox {
-//         max-width: 83%;
-// 	}
-// }
 
 .search-column .col-sm-9{
 	padding-left: 0.7em !important;
@@ -752,20 +696,15 @@ a.breadcrumb:hover {
 .arrow-icon {
 	position: relative;
 	display: flex;
-	// padding: 0.4em;
 }
 
 .arrow-icon::after {
-	/* use !important to prevent issues with browser extensions that change fonts */
 	font-family: 'icomoon' !important;
-	/* speak: none; */
 	font-style: normal;
 	font-weight: normal;
 	font-variant: normal;
 	text-transform: none;
 	line-height: 1;
-
-	/* Better Font Rendering =========== */
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
@@ -807,7 +746,6 @@ a.breadcrumb:hover {
 .filter {
 	width: 54px;
 	height: 43px;
-	// border-radius: 50%;
 	background-color: #E9ECED;
     color: #637176;
 	border: none !important;
@@ -835,15 +773,7 @@ a.breadcrumb:hover {
     box-shadow: none !important;
     font-size: 1.25em;
     align-self: center;
-  	// word-wrap: break-word;
 }
- 
-//  @media only screen and (max-width: 767px) {
-// 	.search{
-// 		//margin-top: 8px;
-// 		//width: 100% !important;
-// 	} 
-// }
 
 .default-box-height{
 	height: 50px !important;
@@ -956,7 +886,6 @@ a.breadcrumb:hover {
 }
 
 .borderLeft {
-    // border-left: 2px #637176 solid;
     border-left: 2px #D5D8DF solid;
     padding-left: 20px;
 }
@@ -984,21 +913,10 @@ a.breadcrumb:hover {
 	border-radius: 5px;
 }
 
-// .table {
-// 	max-height: 650px !important;
-// 	min-height: 650px !important;
-// 	overflow-y: scroll;
-// 	font-size: 0.9375em;
-// }
-
 .table::-webkit-scrollbar-thumb {
 	background-color: #CBCBCB;
 	border-radius: 5px;
 }
-
-// .table-striped>tbody>tr:nth-child(odd)>td{
-// 	background-color: #E0E3F2;
-// }
 
 .table th {
     background-color: #FFFFFF;
@@ -1027,14 +945,6 @@ a.breadcrumb:hover {
         font-size: 1em !important;
     }
 }
-
-// .table-striped>tbody>tr:nth-child(even)>td{
-// 	background-color: #F5F7FA;
-// }
-
-// .clickable-row>tbody>tr:hover>td {
-// 	background-color: #E0E3F2;
-// }
 
 .table.noneborder-bottom thead th {
 	border-bottom: none !important;
@@ -1086,14 +996,12 @@ a.breadcrumb:hover {
 // Start - Module Details
 
 .primary-text {
-    /* color: #4E4E4E; */
     color: #B4B9BB;
     font-family: "Helvetica Neue Medium";
     font-size: 1.15em;
 }
 
 .secondary-text {
-    /* color: #919191; */
     color: #1F3334;
     font-family: "Helvetica Neue Medium";
     font-size: 1.15em;
@@ -1101,7 +1009,6 @@ a.breadcrumb:hover {
 
 .tabTitleText {
 	font-size: 1.5em;
-	/* font-weight: bold; */
 	align-items: center;
 }
 
@@ -1138,7 +1045,6 @@ a.breadcrumb:hover {
     background-color: #FFFFFF !important;
 	padding-left: 16px;
 	padding-bottom: 8px;
-	// padding-right: 16px;
 	padding-top: 8px;
     border-radius: 0rem;
     border-radius: 5px;
@@ -1194,18 +1100,12 @@ span.upArrow:before {
 	min-height: 200px; 
 	max-height: 500px;
 	overflow-y: auto;
-	// font-size: 1.1em; 
 	font-size: 1.1em;   
 	clear: both;
 	position: relative;
 }
 
 .paginations{  
-	// position: -webkit-sticky;
-	// position: sticky;
-	// bottom: 0px;
-    //margin-right: -15px;
-	//margin-left: -15px;
 	background-color: #E9ECED;
 	display: flex;
 	flex-wrap: wrap;
@@ -1566,7 +1466,6 @@ font-family: "Helvetica Neue Medium";
 .modal-body {
     position: relative;
 	flex: 1 1 auto; 
-    /* padding: 1rem; */
     padding-left: 1.2rem;
     padding-top: 1rem;
     padding-bottom: 1%;

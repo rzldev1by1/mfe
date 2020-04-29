@@ -36,8 +36,6 @@ class UserManagementDetail extends Component{
     componentDidMount(){
         let id = this.props.match.params.id;
         this.getAccountInfo(id);
-        // this.loadMasterResource();
-
     }
 
     restructureAccount = (sources) => {
@@ -99,7 +97,7 @@ class UserManagementDetail extends Component{
 
         })
         .then((result) => {
-          // console.log(result);
+          
         })
 
 
@@ -180,7 +178,7 @@ class UserManagementDetail extends Component{
 
         })
         .then((result) => {
-          // console.log(result);
+          
         })
     }
 
@@ -202,7 +200,7 @@ class UserManagementDetail extends Component{
 
         })
         .then((result) => {
-          // console.log(result);
+          
         })
     }
 
@@ -328,31 +326,14 @@ class UserManagementDetail extends Component{
   	    newParam.userMenu = this.changeUserMenuToStringArray(accountInfo.userMenu);
         newParam.client = accountInfo.client;
         newParam.disabled = accountInfo.disabled?'Y':'N';
-        // if(passwordChange !== ''){
-        //     let newText = newParam.name.substring(0,2);
-        //     let result = this.generateUserID(today);
-        //     newParam.passwordChange = result+newText.toLowerCase();
-        // }
+        
 
         return newParam;
     }
 
     saveClick = () => {
-
-      // let accountInfo = {...this.state.accountInfo};
-
       let newParam = this.getParam();
-      // newParam.name = accountInfo.user;
-	    // newParam.email = accountInfo.email;
-	    // newParam.lastAccess = accountInfo.lastAccess;
-	    // newParam.lastLogin = accountInfo.lastLogin;
-	    // newParam.thisAccess = accountInfo.thisAccess;
-	    // newParam.thisLogin = accountInfo.thisLogin;
-	    // newParam.userMenu = this.changeUserMenuToStringArray(accountInfo.userMenu);
-      // newParam.client = accountInfo.client;
-      // newParam.disabled = accountInfo.disabled?'Y':'N';
-
-
+      
       if(newParam.name && newParam.email && newParam.userMenu.length)
       {
         let updateReq = this.updateRequest(newParam);
@@ -361,11 +342,6 @@ class UserManagementDetail extends Component{
         this.setState({isValidForm:true});
       }
 
-      /*
-      const {name,userId,email,userMenu} = this.state.accountInfo;
-
-
-      **/
     }
 
     changeUserMenuToStringArray= (arraySources)=>{
@@ -438,7 +414,7 @@ class UserManagementDetail extends Component{
               console.log("error save",error);
           })
           .then((result) => {
-            // console.log(result);
+            
           })
 
 
@@ -446,7 +422,7 @@ class UserManagementDetail extends Component{
 
     gotoUM = () => {
       this.props.history.push('/users-management');
-      //users-management/122/detail
+      
     }
 
     onClieckSuspendUser = () => {
@@ -457,12 +433,6 @@ class UserManagementDetail extends Component{
     }
 
     onClickResetPassword = () => {
-      // const {accountInfo} = this.state;
-      // if(accountInfo.passwordChange === ''){
-      //   accountInfo.passwordChange = passChanged;
-      //   this.setState({accountInfo:accountInfo})
-      // }
-
        this.setState({modalPopupResetdisplay:true});
 
     }
@@ -471,8 +441,7 @@ class UserManagementDetail extends Component{
       this.setState({modalPopupResetdisplay:false});
     }
 
-    confirmResetPassword = () => {
-        // let newParam = this.getParam(passChanged);
+    confirmResetPassword = () => {        
         this.setState({isSaveProgressing:false, modalPopupResetdisplay:false}, this.resetPassword());
     }
 
