@@ -57,7 +57,7 @@ class Movement extends Component {
         this.props.data(result)
         })
         .catch(error => {
-        // this.props.history.push("/logins")
+        
         })
     }
 

@@ -241,9 +241,7 @@ class UserManagement extends Component{
     }
 
     loadUsers = () => {
-        // if(users){
-        //   this.setState({isListLoaded:true,userList:users});
-        // }
+       
         var self = this;
         axios.get(endpoint.UserManagement_ListUser, {
           headers: headers
@@ -345,7 +343,7 @@ class UserManagement extends Component{
     loadModuleAccess = (role) => {
 
       var self = this;
-      //let query = ["purchase orders","stock holding", "stock movement", "create sales order"];
+      
 
       axios.get(endpoint.UserManagement_ModuleAccess, {
         params: {role:role},
@@ -539,7 +537,7 @@ class UserManagement extends Component{
               self.setState({isSaveProgressing:false});
               self.closeModalPopUp();
               window.location.reload();
-              //self.loadUsers();
+              
             }
             return result;
           })

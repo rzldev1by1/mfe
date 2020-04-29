@@ -517,7 +517,7 @@ class SalesOrderCreate extends Component {
         self.setStates(result.state);
       })
       .catch((error) => {
-        // this.props.history.push("/logins")
+      
         console.log(error);
       });
   };

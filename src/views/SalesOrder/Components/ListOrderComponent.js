@@ -92,7 +92,7 @@ class ListOrderComponent extends Component {
         this.setPagination(result);
       })
       .catch((error) => {
-        // this.props.history.push("/logins")
+        
       });
   };
 
@@ -141,7 +141,7 @@ class ListOrderComponent extends Component {
         this.setPagination(result);
       })
       .catch((error) => {
-        // this.props.history.push("/logins")
+        
       });
   };
 

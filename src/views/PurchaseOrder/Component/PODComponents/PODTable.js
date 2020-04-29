@@ -245,10 +245,10 @@ class PurchaseOrderTable extends Component {
                   if(header.isVisible){
                       return (
                         <th key={idx} 
-                        // onClick={(e) => this.arrowHandler(e)} 
+                        
                         id={header.id}>
                             {header.tableHeaderText} 
-                        {/* <img key={header} className='arrow' src={this.state.activearrow}/> */}
+                        
                         </th>
                       )
                   }

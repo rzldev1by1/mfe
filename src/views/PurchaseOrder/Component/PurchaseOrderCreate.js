@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-// import DatePicker from './DatePicker'
+
 import axios from 'axios'
 import { endpoint, headers, } from '../../../AppComponent/ConfigEndpoint'
 import oneinactive from '../../../assets/img/brand/tab_1_grey@2x.png'
@@ -110,9 +110,9 @@ class PurchaseOrderCreate extends Component {
 
   componentDidMount = () => {
     this.getclient();
-    //   this.getsite();
+    
     this.getsupplier();
-    //   this.getordertype();
+    
     this.getporesource();
     this.getdisposition();
     this.getproductcode();
@@ -209,8 +209,7 @@ class PurchaseOrderCreate extends Component {
         this.setState({ clientdatacr: result })
       })
       .catch(error => {
-        // this.props.history.push("/logins")
-        // console.log(error);
+        
       })
   }
 
@@ -223,8 +222,7 @@ class PurchaseOrderCreate extends Component {
         this.setState({ orderdatacr: result })
       })
       .catch(error => {
-        // this.props.history.push("/logins")
-        //   console.log(error);
+        
       })
   }
 
@@ -237,7 +235,7 @@ class PurchaseOrderCreate extends Component {
         this.setState({ sitedatacr: result })
       })
       .catch(error => {
-        // this.props.history.push("/logins")
+        
       })
   }
 
@@ -251,7 +249,7 @@ class PurchaseOrderCreate extends Component {
       })
 
       .catch(error => {
-        // this.props.history.push("/logins")
+        
       })
   }
 
@@ -481,7 +479,7 @@ class PurchaseOrderCreate extends Component {
             <Button onClick={() => this.tabhandler()} color="primary" className="btnsearch next btnleft" ><label className="font btnLabel ">Next</label></Button>
         }
         {
-          //   console.log(this.state.rowlist)
+          
         }
 
       </div >
@@ -581,13 +579,7 @@ class PurchaseOrderCreate extends Component {
           break;
         }
       }
-      // this.state.rowlist.map((rowlist, idx) => {
-      //   if (rowlist.id == id) {
-      //       this.state.rowlistidx -= 1;
-      //       this.state.rowlist.splice(idx, 1);
-      //       this.setState({rowlist: this.state.rowlist})
-      //   }
-      // })
+      
       updated = this.state.rowlist.length
     } else {
       alert("cant delete row")

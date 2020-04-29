@@ -693,12 +693,6 @@ h3{
 	color: white;
 }
 
-/* .sidebar .nav-item .nav-link:hover, .nav-link:hover .nav-icon, .nav-link.active, .nav-link.active .nav-icon {
-	border-radius: 0px !important;
-	background-color: white !important;
-	border-color: white !important;
-} */
-
 .addline:hover{
 	color: white;
 }
@@ -755,9 +749,6 @@ h3{
 	border:0px !important;
 }
 
-/* .DayPicker-Caption, .DayPicker-NavBar{
-	display: none !important;
-} */
 
 .datepicker{
 	position: absolute;

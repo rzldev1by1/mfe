@@ -107,51 +107,7 @@ class PurchaseOrderTable extends Component {
               type: "string", 
               sort: mid
           },
-        //   {
-        //       id: "rotadate", 
-        //       checkboxLabelText: "Rotadate", 
-        //       tableHeaderText: "Rotadate", 
-        //       isVisible: true, 
-        //       key: "rotadate", 
-        //       type: "string", 
-        //       sort: mid
-        //   },
-        //   {
-        //       id: "batch", 
-        //       checkboxLabelText: "Batch", 
-        //       tableHeaderText: "Batch", 
-        //       isVisible: true, 
-        //       key: "batch", 
-        //       type: "string", 
-        //       sort: mid
-        //   },
-        //   {
-        //       id: "ref3", 
-        //       checkboxLabelText: "Ref 3", 
-        //       tableHeaderText: "Ref 3", 
-        //       isVisible: true, 
-        //       key: "ref3", 
-        //       type: "string", 
-        //       sort: mid
-        //   },
-        //   {
-        //       id: "ref3", 
-        //       checkboxLabelText: "Ref 3", 
-        //       tableHeaderText: "Ref 3", 
-        //       isVisible: true, 
-        //       key: "ref3", 
-        //       type: "string", 
-        //       sort: mid
-        //   },
-        //   {
-        //       id: "ref3", 
-        //       checkboxLabelText: "Ref 3", 
-        //       tableHeaderText: "Ref 3", 
-        //       isVisible: true, 
-        //       key: "ref3", 
-        //       type: "string", 
-        //       sort: mid
-        //   }
+        
       ],   
       activearrow:mid,
       sortparameter:'order_no',
@@ -216,7 +172,7 @@ class PurchaseOrderTable extends Component {
         this.setPagination(result);
       })
       .catch(error => {
-        // this.props.history.push("/logins")
+        
       })
   }
 
@@ -269,7 +225,7 @@ class PurchaseOrderTable extends Component {
         this.setPagination(result)
       })
       .catch(error => {
-        // this.props.history.push("/logins")
+        
       })
   }
 
