@@ -3,6 +3,15 @@
 	padding: 0 1.8%;
 }
 
+// .main{
+//   position: relative;
+//   min-height: 100vh;
+// }
+
+// .content{
+// 	padding-bottom: 1000px; 
+// }
+
 //Fonts
 @font-face {
     font-family: "Helvetica Neue Regular";
@@ -684,7 +693,7 @@ a.breadcrumb:hover {
 	margin-left: 1.5% !important;
 	background-color: transparent;
 	width: 95%;
-	height: 54px;
+	height: 43px;
     color: grey;
     box-sizing: border-box;
     border: none;
@@ -796,7 +805,7 @@ a.breadcrumb:hover {
 // Start - Button
 
 .filter {
-	width: 50px;
+	width: 54px;
 	height: 43px;
 	// border-radius: 50%;
 	background-color: #E9ECED;
@@ -835,7 +844,11 @@ a.breadcrumb:hover {
 // 		//width: 100% !important;
 // 	} 
 // }
- 
+
+.default-box-height{
+	height: 50px !important;
+}
+
 .editColumnBtn, .editColumnBtn:focus {
 	background-color: #FFFFFF;
 	padding: 0.1rem 0.4rem;
@@ -1214,32 +1227,32 @@ span.upArrow:before {
 }
 @media(max-width: 1830px) {
 	.tablePage{
-		max-height: 540px;
+		max-height: 530px;
 	}
 }
 @media(max-width: 1710px) { 
 	.tablePage{
-		max-height: 490px;
+		max-height: 479px;
 	}
 }
 @media(max-width: 1520px) {
 	.tablePage{
-		max-height: 400px;
+		max-height: 390px;
 	}
 }
 @media(max-width: 1366px) {
 	.tablePage{
-		max-height: 340px;
+		max-height: 330px;
 	}
 }
 @media(max-width: 1242px) {
 	.tablePage{
-		max-height: 280px;
+		max-height: 270px;
 	}
 } 
 @media(max-width: 1000px) {
 	.tablePage{
-		max-height: 540px;
+		max-height: 520px;
 	}
 
 	.paginations{

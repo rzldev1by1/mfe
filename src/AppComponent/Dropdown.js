@@ -7,7 +7,7 @@ const Dropdown = ({placeHolder, optionList, optionValue, style, getValue, firstC
         const no = Math.floor(Math.random() * 100000) + 1;
         return(
             <React.Fragment>
-                <ul className="select_dropdown" style={ style }>
+                <ul className="select_dropdown " style={ style }>
                     <input className="select_dropdown_close" type="radio" name={"select" + placeHolder + no} id={"select-close" + placeHolder + no} value="" onClick={(e) => getValue(e.target.value)} defaultChecked={firstChecked ? false : true}/>
                     <span className={"select_dropdown_label select_dropdown_label-placeholder" + (usedFor == "Datepicker" ? " select_datepicker_label select_datepicker_label-placeholder" : "")}>{placeHolder}</span>
                     

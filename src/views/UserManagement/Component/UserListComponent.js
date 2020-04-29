@@ -253,7 +253,7 @@ class UserListComponent extends Component{
                                     }
                                 </tr>
                             </thead>
-                            <tbody className="hover">
+                            <tbody className="hover-um">
                                    {
                                        this.props.data.slice(this.props.startIndex,this.props.lastIndex).sort((a,b)=> this.sorting(a,b,fieldOrder,order)).map((element,index)=>{
 
@@ -307,7 +307,7 @@ class UserListComponent extends Component{
                                     }
                                 </tr>
                             </thead>
-                            <tbody className="hover">
+                            <tbody className="hover-um">
                                    {
                                        this.props.data.slice(this.props.startIndex,this.props.lastIndex).sort((a,b)=> this.sorting(a,b,fieldOrder,order)).map((element,index)=>{
 

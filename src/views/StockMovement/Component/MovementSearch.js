@@ -122,7 +122,7 @@ export default class MovementSearch extends Component {
 							<td width='20%'>{this.displayPeriod()}</td>
 							<td width='36%'>{this.displayDate()}</td>
 							<td  width='8%'>
-                            <Button  onClick={()=> this.movementSearch()} className='movementBtnSearch' color="primary">Search</Button>
+                            <Button  onClick={()=> this.movementSearch()} className='movementBtnSearch ' color="primary">Search</Button>
 							</td>
 						</tr>
 					</table>

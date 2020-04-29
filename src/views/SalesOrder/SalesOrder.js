@@ -193,7 +193,7 @@ class SalesOrder extends Component{
        <div className='header'>
           <h2 style={{marginTop:'0.2%'}}>Sales Orders</h2>
               <div className='header2'>
-                  <Button onClick={() => this.state.loaded ? this.openModal() : null}   color="primary" className='createbtn'>
+                  <Button onClick={() => this.state.loaded ? this.openModal() : null}   color="primary" className='default-box-height  createbtn'>
                       <img src={create} style={{width:'7%', marginTop:9, marginLeft:15}}/>
                       <label className='font'>Create Sales Orders</label>
                   </Button>

@@ -235,7 +235,7 @@ class PurchaseOrder extends Component {
             <div className='header'>
                 <h2  >Purchase Orders</h2>
                 <div className='header2'>
-                    <Button onClick={() => this.openModal()} color="primary" className='createpo'>
+                    <Button onClick={() => this.openModal()} color="primary" className='createpo default-box-height'>
                         <img src={create} style={{width:'7%', marginTop:6, marginLeft:15}}/>
                         <label className='font'>Create Purchase Order</label>
                     </Button>

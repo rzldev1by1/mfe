@@ -422,7 +422,7 @@ class PurchaseOrderCreate extends Component{
 
               {this.state.tab2isactive ? 
               this.submit() :  
-              <Button onClick={() => this.tabhandler()} color="primary" className="btnsearch next btnleft" ><label className="font btnLabel ">Next</label></Button>
+              <Button onClick={() => this.tabhandler()} color="primary" className="btnsearch next btnleft" ><label className="font ">Next <i className="fa fa-chevron-right " style={{fontSize: '9pt',paddingLeft: '8px'}}></i> </label></Button>
             } 
               {
   //   console.log(this.state.rowlist)
@@ -743,7 +743,8 @@ class PurchaseOrderCreate extends Component{
   submit = () => {
     return(
       <React.Fragment>
-        <Button onClick={() => this.tabhandler()} color="primary" className="btnsearch back" ><label className="font">Back</label></Button>
+        <Button onClick={() => this.tabhandler()} color="primary" className="btnsearch" ><label className="font"> 
+        <i className="fa fa-chevron-left " style={{fontSize: '9pt',paddingRight: '8px'}}></i> Back  </label></Button>
         <Button onClick={() => this.saveclick()} color="primary" className="btnsearch submit btnleft" style={{marginTop:"-50px"}} >
             <i className= {(this.state.isSaveProgressing)?"mr-2 fa fa-refresh fa-spin ":"fa fa-refresh fa-spin d-none"}></i>
             <label className="font">Submit</label>

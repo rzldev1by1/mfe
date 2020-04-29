@@ -643,7 +643,7 @@ class UserManagement extends Component{
                     </div>
 
                     <div className="col-6 pl-0 ml-0 ">
-                        <button style={{width:"199px"}} className={(this.isValidUser() ?"btn btn-primary text-button float-right ":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
+                        <button style={{width:"199px"}} className={(this.isValidUser() ?"btn btn-primary text-button float-right default-box-height":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
 
                         <img src={create} className="mr-2 mb-1" style={{width:'8%'}}/>
                         Create user
@@ -663,10 +663,10 @@ class UserManagement extends Component{
                 <CardBody>
                 <form ref={this.searchForm} onSubmit ={this.searchHandler}>
                 <div className="row">
-                <div className='col-md-10 col-xs-8'>
+                <div className='pr-3 pl-3 ' style={{width: "86%"}}>
                     <div className="searchINP">
                     <div className="input-group p-0 searchSection">
-                    <div className="input-group searchBox w-100" style={{maxWidth:"none"}}>
+                    <div className="input-group searchBox w-100 default-box-height" style={{maxWidth:"none"}}>
                     <span className="input-group-text border-0 bg-transparent ml-2" style={{ padding:"0.4rem" }}>
                     <i className="iconU-search" />
                     </span>
@@ -677,8 +677,8 @@ class UserManagement extends Component{
                     </div>
                     </div>
                 </div>
-                <div className='col-md-2 col-xs-4 pl-0'>
-                    <Button type="submit" className="search search-um text-button btn-primary">
+                <div className='pr-3' style={{width: "14%"}} >
+                    <Button type="submit" className="default-box-height search search-um text-button btn-primary">
                       Search
                     </Button>
                 </div>
