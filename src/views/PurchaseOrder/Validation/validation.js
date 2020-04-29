@@ -11,7 +11,45 @@ const headerValidation = (header) => {
 }
 
 const lineValidation = (line, idx) => {
-    alert(line.toString())
+    let required = []
+    idx = idx+1
+    const {
+        product,
+        productDescription,
+        qty,
+        uom,
+        rotadate,
+        batch,
+        ref3,
+        ref4,
+        disposition,
+        weight,
+        orderDate
+    } = line
+
+    if(!product)
+    {
+        alert('please select product in line '+idx)
+        return false
+    }
+
+    if(!qty)
+    {
+        alert('qty in line '+idx+' cannot be empty ')
+        return false
+    }
+
+    if(!weight)
+    {
+        alert('weight in line '+idx+' cannot be empty ')
+        return false
+    }
+
+    if(!uom)
+    {
+        alert('please select uom in line '+idx)
+        return false
+    }
     return true
 }
 

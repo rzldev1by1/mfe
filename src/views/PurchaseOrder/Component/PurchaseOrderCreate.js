@@ -165,7 +165,8 @@ class PurchaseOrderCreate extends Component {
       vendorRef
     }
     const hv = headerValidation(header)
-    if (hv.length > 0) {
+    if (hv.length > 0)
+    {
       for (let i = 0; i < hv.length; i++) {
         let key = hv[i][0]
         let message = hv[i][1]
@@ -185,10 +186,20 @@ class PurchaseOrderCreate extends Component {
       }
       return
     }
-    this.setState({
-      tab1isactive: !this.state.tab1isactive,
-      tab2isactive: !this.state.tab2isactive
-    })
+
+    for(let i = 0 ; i < this.state.rowlist.length ; i++)
+    {
+      let lv = lineValidation(this.state.rowlist[i], i)
+
+      if(lv)
+      {
+        this.setState({
+          tab1isactive: !this.state.tab1isactive,
+          tab2isactive: !this.state.tab2isactive
+        })
+      }
+      
+    }
   }
 
   datePickerHandler = (day) => {
