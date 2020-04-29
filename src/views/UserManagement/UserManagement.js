@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Table,Button, Card, CardBody, Label} from 'reactstrap'
+import { Button, Card, CardBody} from 'reactstrap'
 import UserListComponent from './Component/UserListComponent'
 import PersonalUserComponent from './Component/PersonalUserComponent'
-import users from './Users.json'
 import axios from 'axios'
 import {endpoint,headers} from '../../AppComponent/ConfigEndpoint'
 import ModalNewUser from './Component/ModalNewUser'
@@ -282,7 +281,7 @@ class UserManagement extends Component{
     }
 
     onChangeName = (e) => {
-      const {name,value} = e.target;
+      const {value} = e.target;
       let newText = value.substring(0,2);
       let user = {...this.state.accountInfo};
       let result = this.generateUserID(value);
@@ -294,14 +293,14 @@ class UserManagement extends Component{
     }
 
     onChangeCompany = (e) => {
-      const {name,value} = e.target;
+      const {value} = e.target;
       let user = {...this.state.accountInfo};
       user.company = value;
       this.setState({accountInfo:user});
     }
 
     onChangeEmail = (e) => {
-      const {name,value} = e.target;
+      const {value} = e.target;
       let user = {...this.state.accountInfo};
       user.email = value;
 
@@ -364,7 +363,7 @@ class UserManagement extends Component{
             let menuAccessTemp = result.filter((item) => { return query.indexOf(item.menuname.toLowerCase()) !== -1 });
            let resultMenu =  menunav.items.filter((item)=>{ return item['key'] !== 'usermanagement'}).map((item,idx) =>
             {
-              let itemMenu = {};
+              
               let keyName = item['key'];
               let menuItem = menuAccessTemp.filter((item)=>{ return item.menuid === keyName});
 
@@ -555,8 +554,8 @@ class UserManagement extends Component{
 
     }
     ExportName = () => {
-      let filename = ""
-      let strip = "-"
+      let filename = "";
+      
       let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       let date = new Date();
       let date1 = date.getDate(),
@@ -565,12 +564,15 @@ class UserManagement extends Component{
           Seconds = date.getSeconds(),
           Minutes = date.getMinutes(),
           Hours = date.getHours();
-       return filename=("Microlistics_UserManagement." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)
+      filename=("Microlistics_UserManagement." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)
+      
+      return filename;
     }
 
     ExportPDFName = () =>{
       let name= ""
-      return name=("User Management")
+      name =("User Management")
+      return name;
       }
 
       ExportHeader = () =>{
@@ -616,7 +618,7 @@ class UserManagement extends Component{
         })
         .then(res => {
           let result = [];
-            if(res.status == 200){
+            if(res.status === 200){
                 result = self.restructureUserList(res.data.data);
                 self.setState({userList:result});
             }
@@ -645,8 +647,8 @@ class UserManagement extends Component{
                     <div className="col-6 pl-0 ml-0 ">
                         <button style={{width:"199px"}} className={(this.isValidUser() ?"btn btn-primary text-button float-right default-box-height":"d-none")} onClick={(e)=>{this.onCreateClick()}}>
 
-                        <img src={create} className="mr-2 mb-1" style={{width:'8%'}}/>
-                        Create user
+                        <img src={create} alt="create user" className="mr-2 mb-1" style={{width:'8%'}}/>
+                        Create User
                         </button>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Card,CardBody } from 'reactstrap'
+import React from 'react'
+import { Modal, ModalHeader, ModalBody } from 'reactstrap'
 import ModuleAccess from './ModuleAccess'
 import Site from './Site'
 import Client from './Client'
@@ -49,13 +49,13 @@ const modalNewUser = (props) => {
               <div className="d-flex d-inline-flex">
                   <div className={(firtsTabActive)?"tab ml-3 mr-3 p-3 tab-active ":" tab ml-3 mr-3 p-3 "} onClick={onClickTabActive}>
                       <span className="p-3">
-                          <img className="numberimg" style={{width:"11%", paddingBottom:"8px"}} src={(firtsTabActive)?oneactive:oneinactive}/>
+                          <img className="numberimg" style={{width:"11%", paddingBottom:"8px"}} alt={""} src={(firtsTabActive)?oneactive:oneinactive}/>
                       </span>
                       User Details
                   </div>
                   <div className={(secondTabActive)?"tab p-3 tab-active ":" tab p-3"} onClick={onNextClickHandler}>
                     <span className="p-3">
-                        <img className="numberimg" style={{width:"11%", paddingBottom:"8px"}} src={(secondTabActive)?twoactive:twoinactive}/>
+                        <img className="numberimg" style={{width:"11%", paddingBottom:"8px"}} alt={""} src={(secondTabActive)?twoactive:twoinactive}/>
                     </span>
                       Review
                   </div>
@@ -68,24 +68,22 @@ const modalNewUser = (props) => {
 
                       <div className="account-detail mt-2">
                           <div className="row">
-                              <div className="col-12">
-                                  <h3>
-                                  <label className="section-header-text">User Details</label>
-                                  </h3>
+                              <div className="col-12">                                  
+                                  <label className="section-header-text">User Details</label>                                  
                               </div>
                           </div>
                           <div className="row">
                               <div className="col-3">
-                                  <label className="header-text-form">User ID</label>
+                                  <label className="title-label">User ID</label>
                               </div>
                               <div className="col-3">
-                                  <label className="header-text-form">Name</label>
+                                  <label className="title-label">Name</label>
                               </div>
                               <div className="col-3">
-                                  <label className="header-text-form">Email</label>
+                                  <label className="title-label">Email</label>
                               </div>
                               <div className="col-3">
-                                  <label className="header-text-form">Company</label>
+                                  <label className="title-label">Company</label>
                               </div>
                           </div>
 
@@ -108,19 +106,17 @@ const modalNewUser = (props) => {
 
                           <div className="row mt-4">
                               <div className="col-12">
-                                  <h3>
                                       <label className="section-header-text">System</label>
-                                  </h3>
                               </div>
                           </div>
-                          <div className="d-flex flex-row">
-                              <div className="flex-fill mr-4">
+                          <div className="row">
+                              <div className="col-4">
                                   <ModuleAccess moduleAccess={moduleAccess} isLoaded={isModuleLoaded} onEnableClick={moduleAccessEnableClick} onModuleEnableAll={onModuleEnableAll}/>
                               </div>
-                              <div className="flex-fill ml-2 mr-4">
+                              <div className="col-4 pl-0">
                                   <Site sites={sites} isLoaded={isSiteLoaded} onEnableClick={sitesEnableClick} onSubmitHandler = {submitHandler}/>
                               </div>
-                              <div className="flex-fill ml-2 mr-4">
+                              <div className="col-4">
                                   <Client clients={clients} isLoaded={isClientLoaded} onEnableClick={clientEnableClick} onSubmitHandler = {submitHandler}/>
                               </div>
                           </div>
@@ -129,6 +125,7 @@ const modalNewUser = (props) => {
                       <div className="row">
                           <div className="col-2">
                               <button type="button" style={{width:"151px"}} className="btn btn-primary btn-submit" onClick={(e)=>{window.location.reload()}}>
+                                  <span className="fa fa-angle-left mr-2" style={{fontSize:'1.4rem'}}></span>
                                   <label className="create-user-label mb-0">Back</label>
                               </button>
                           </div>
@@ -162,19 +159,19 @@ const modalNewUser = (props) => {
 
                           <div className="row">
                               <div className="col-3">
-                                <label className="header-text-form">User ID</label>
+                                <label className="review-title-label" style={{color:"#D5D8DA"}}>User ID</label>
                               </div>
 
                               <div className="col-3">
-                                <label className="header-text-form">Name</label>
+                                <label className="review-title-label" style={{color:"#D5D8DA"}}>Name</label>
                               </div>
 
                               <div className="col-3">
-                                <label className="header-text-form">Email</label>
+                                <label className="review-title-label" style={{color:"#D5D8DA"}}>Email</label>
                               </div>
 
                               <div className="col-3">
-                                <label className="header-text-form">Company</label>
+                                <label className="review-title-label" style={{color:"#D5D8DA"}}>Company</label>
                               </div>
                           </div>
 
@@ -220,6 +217,7 @@ const modalNewUser = (props) => {
                       <div className="row">
                       <div className="col-2">
                           <button type="button" style={{width:"151px"}} className="btn btn-primary btn-submit" onClick={onClickTabActive}>
+                          <span className="fa fa-angle-left mr-2" style={{fontSize:'1.4rem'}}></span>
                               <label className="create-user-label mb-0">Back</label>
                           </button>
                       </div>

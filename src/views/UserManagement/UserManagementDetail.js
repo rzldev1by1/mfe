@@ -489,14 +489,14 @@ class UserManagementDetail extends Component{
             <div className={( this.state.isLoadComplete ? 'd-none': 'spinner')}/>
             <div className={( this.state.isLoadComplete ? ' ': 'd-none')}>
 
-               <div className="d-flex mt-4">
+               <div className="d-flex mt-4 mb-4">
                     <div className='um-breadcrumb'>
-                        <h2 onClick={() => { this.gotoUM(); }} className='margin-right-breadcrumb-title' style={{cursor:"pointer"}}>User Management</h2>
-                        <h2 className='margin-right-breadcrumb-title iconU-rightArrow' style={{fontSize:20}}/>
-                        <h2 className='breadcrumb-active-title'>{this.state.accountInfo.user}</h2>
+                        <label onClick={() => { this.gotoUM(); }} className='margin-right-breadcrumb-title mb-0' style={{cursor:"pointer"}}>User Management</label>
+                        <label className='margin-right-breadcrumb-title iconU-rightArrow mb-0' style={{fontSize:20}}></label>
+                        <label className='breadcrumb-active-title mb-0'>{this.state.accountInfo.user}</label>
                     </div>
                 </div>
-                <div className="d-flex pt-4">
+                <div className="d-flex">
                     <Card className="container-user-list border-0 flex-fill h-100">
                         <CardBody>
                             <div >
@@ -505,37 +505,33 @@ class UserManagementDetail extends Component{
                                     <div className="row">
                                       <div className="col-12">
                                         <h3>
-                                          <label className="name-account font-bolder">User Details</label>
+                                          <label className="section-header-text">User Details</label>
                                         </h3>
                                       </div>
                                     </div>
 
                                     <div className="row">
                                     <div className="col-2">
-                                        <label className="text-bolder title-label">User ID</label>
+                                        <label className="title-label">User ID</label>
                                     </div>
 
                                     <div className="col-2">
-                                        <label className="text-bolder title-label">Name</label>
+                                        <label className="title-label">Name</label>
                                     </div>
 
                                     <div className="col-2">
-                                        <label className="text-bolder title-label">Email</label>
+                                        <label className="title-label">Email</label>
                                     </div>
 
 
-                                    <div className="col-2">
-                                        <label className="text-bolder title-label">Reset Password</label>
+                                    <div className="col-3 pr-0">
+                                        <label className="title-label">Reset Password</label>
                                     </div>
-                                    <div className="col-1">
-
+                                    
+                                    <div className="col-3 pl-0">
+                                          <label className="title-label">Suspend Users</label>
                                     </div>
-                                    <div className="col-2">
-                                          <label className="text-bolder title-label">Suspend Users</label>
-                                    </div>
-                                    <div className="col-1">
-
-                                    </div>
+                                    
 
                                     </div>
                                     <div className="row">
@@ -553,24 +549,34 @@ class UserManagementDetail extends Component{
                                         </div>
 
 
-                                        <div className="col-3">
-                                              <div className="col pl-0">
-                                              <label>
-                                                  Are you sure you want<br/>
-                                                  to reset password?
-                                              </label>
-                                                <span className={'p-1 float-right '  + ((accountInfo.passwordChange === '')? ' client-active':'client-notActive')} onClick={(e)=>{this.onClickResetPassword()}}>
-                                                  Reset
-                                                </span>
+                                        <div className="col-3 pr-0">
+                                              <div className="row pl-0">
+                                                <div className="col-6" style={{color:"#637176",fontFamily:"Helvetica Neue Regular",fontSize:"1rem"}}>                                                  
+                                                      Are you sure you want<br/>
+                                                      to reset password?                                                  
+                                                </div>
+                                                <div className="col-5">
+                                                  <button type="button" className={"btn "+((accountInfo.passwordChange === '')?"btn-outline-active":"btn-outline-notActive")} onClick={(e)=>{this.onClickResetPassword();}}>Reset</button>
+                                                </div>
                                               </div>
                                         </div>
-                                        <div className="col-3">
-                                              <div className="col pl-0">
-                                                <label className="account-name">Are you sure you want <br/> to suspend this user?</label>
+                                        <div className="col-3 pl-0">
+                                          <div className="row">
+                                              <div className="col-6" style={{color:"#637176",fontFamily:"Helvetica Neue Regular",fontSize:"1rem"}}>
+                                                    Are you sure you want<br/>
+                                                    to suspend this user?                                                  
+                                              </div>
+                                              <div className="col-6">
+                                                  <button type="button" className={"btn "+((!accountInfo.disabled)?"btn-outline-active":"btn-outline-notActive")} onClick={(e)=>{this.onClieckSuspendUser();}}>
+                                                  { (!accountInfo.disabled)?'Suspend':'Disabled' }
+                                                  </button>
+                                              </div>
+                                          </div>
+                                              {/* <div className="col pl-0">
                                                 <span className={'p-1 float-right '+((!accountInfo.disabled)?'client-active ':' client-notActive ')} onClick={(e)=>{this.onClieckSuspendUser()}}>
                                                 { (!accountInfo.disabled)?'Suspend':'Disabled' }
                                                 </span>
-                                              </div>
+                                              </div> */}
                                         </div>
 
 
@@ -582,18 +588,18 @@ class UserManagementDetail extends Component{
                                     <div className="row">
                                         <div className="col-12">
                                           <h3>
-                                              <label className="name-account font-bolder">System</label>
+                                              <label className="section-header-text">System</label>
                                           </h3>
                                         </div>
                                     </div>
-                                    <div className="d-flex flex-row">
-                                        <div className="flex-fill mr-2">
+                                    <div className="row">
+                                        <div className="col-4">
                                             <ModuleAccess moduleAccess={moduleAccess} onEnableClick={this.onModuleAccessClick} onModuleEnableAll={this.onEnabledAllModuleAccess}/>
                                         </div>
-                                        <div className="flex-fill mr-2">
+                                        <div className="col-4 pl-0">
                                             <Site sites={sites} onEnableClick={this.onSiteStatusClick}/>
                                         </div>
-                                        <div className="flex-fill mr-2">
+                                        <div className="col-4">
                                             <Client clients={clients} onEnableClick={this.onClientStatusClick}/>
                                         </div>
 

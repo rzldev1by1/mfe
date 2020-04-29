@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-import { Table,Button, Card, CardBody, Label} from 'reactstrap'
 import '../UserManagement.css'
 import mid from '../../../assets/img/brand/field-idle.png'
-import down from '../../../assets/img/brand/field-bot.png'
-import up from '../../../assets/img/brand/field-top.png'
 import moment from 'moment' 
 
 
@@ -159,7 +156,7 @@ class UserListComponent extends Component{
         let currentEl = e.currentTarget;
         let paramField = id.split('-');
         let sortBy = paramField[1];
-        const {order} = this.state;
+        
         let fieldOrder = this.getSortingField(paramField[0]);
         this.clearSortingActive();
         this.setActiveSort(currentEl)
@@ -220,7 +217,7 @@ class UserListComponent extends Component{
     }
 
     render(){
-        const {activearrow,order,fieldOrder} = this.state;
+        const {order,fieldOrder} = this.state;
         
         return(
                 <div className="tablePage tablePage-um tablecontent">
@@ -231,7 +228,7 @@ class UserListComponent extends Component{
                                     {
                                         this.state.headers.map((element,index)=>{
                                         return <th key={index}  >
-                                        <div key={element} className="header-sort" >
+                                        <div key={element} className="header-sort pl-3" >
                                           <div className="d-inline-flex">
                                               <div className="d-flex flex-row">
                                                 {element}
@@ -262,7 +259,7 @@ class UserListComponent extends Component{
                                                        Object.keys(element).map((item,idx) => {
 
                                                           return (item !== 'email' && item !== 'web_user' && item !== 'company' && item !== 'userlevel')?
-                                                                  <td key={idx} className={((item === 'user')?'users':'norm')}>
+                                                                  <td key={idx} className={((item === 'user')?'users pl-4 ':'norm pl-4 ')}>
                                                                    {
                                                                      <label className={((item === 'status')? ((element[item].toLowerCase() === 'active')?'active':'suspended'):'')}>
                                                                       {(item === 'lastaccess')?moment(element[item]).format('DD/MM/YY hh:mm:ss'):element[item]}
