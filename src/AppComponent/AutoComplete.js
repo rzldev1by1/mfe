@@ -50,7 +50,7 @@ export class Autocomplete extends Component {
         showSuggestions: false,
         userInput: inputValue
         });
-        this.props.handleChange(userInput, this.props.suggestion[checkSugesstionValue])
+        this.props.handleChange(userInput, this.props.suggestions[checkSugesstionValue])
         if(this.props.getIndex){
             this.props.getIndex(checkSugesstionValue)
         }
