@@ -100,7 +100,7 @@ class PurchaseOrderTable extends Component {
             id: "rotadate", 
             checkboxLabelText: "Rota Date", 
             tableHeaderText: "Rota Date", 
-            isVisible: false, 
+            isVisible: true, 
             key: "rotadate", 
             type: "string"
           },
@@ -108,7 +108,7 @@ class PurchaseOrderTable extends Component {
             id: "ref3", 
             checkboxLabelText: "Ref 3", 
             tableHeaderText: "Ref 3", 
-            isVisible: false, 
+            isVisible: true, 
             key: "ref3", 
             type: "string"
           },
@@ -116,7 +116,7 @@ class PurchaseOrderTable extends Component {
             id: "ref4", 
             checkboxLabelText: "Ref 4", 
             tableHeaderText: "Ref 4", 
-            isVisible: false, 
+            isVisible: true, 
             key: "ref4", 
             type: "string"
           },
@@ -124,7 +124,7 @@ class PurchaseOrderTable extends Component {
             id: "disposition", 
             checkboxLabelText: "Disposition", 
             tableHeaderText: "Disposition", 
-            isVisible: false, 
+            isVisible: true, 
             key: "disposition", 
             type: "string"
           }
