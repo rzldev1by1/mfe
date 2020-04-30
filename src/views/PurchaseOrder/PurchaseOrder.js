@@ -138,7 +138,7 @@ class PurchaseOrder extends Component {
 
       getordertype = () => {
         let self = this;
-        axios.get(endpoint.getOrderType  + '?client=MLS&site=M', {
+        axios.get(endpoint.getOrderType  + '?client=' + headers.client, {
             headers: headers
             })
             .then(res => {
