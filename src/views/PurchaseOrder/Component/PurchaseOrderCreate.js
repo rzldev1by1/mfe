@@ -661,7 +661,7 @@ if(v_orderNo === null) v_orderNo = []
                             getValue={(e) => this.getProductValue(e, i)} />
             </td>
             <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Choose a Product First" defaultValue={self.state.rowlist[i].productDescription} readOnly/></td>
-            <td style={{width:"4.5%"}}><input type="number" min="1" className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
+            <td style={{width:"4.5%"}}><input id={'qty_'+i} type="number" min="1" className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
             <td style={{width:"6%"}}>
                 <Dropdown placeHolder="UOM" 
                             style={{width: "100%", zIndex: self.state.rowlist.length - i}} 

@@ -44,6 +44,10 @@ const lineValidation = (line, idx) => {
     if(!qty)
     {
         alert('qty in line '+idx+' cannot be empty ')
+        idx = idx-1
+        idx = 'qty_'+idx
+        const qty = document.getElementById(idx)
+        qty.focus()
         return false
     }
 
