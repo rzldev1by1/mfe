@@ -129,7 +129,7 @@ class DatePicker extends React.Component{
                             <DayPicker
                                 className="datepicker-content"
                                 tabIndex="-1"
-                                selectedDays={this.state.selectedDay}
+                                // selectedDays={this.state.selectedDay}
                                 onDayClick={this.handleDayClick}
                                 month={this.state.month}
                                 fromMonth={fromMonth}

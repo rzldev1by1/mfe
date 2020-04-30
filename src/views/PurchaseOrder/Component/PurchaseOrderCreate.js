@@ -595,7 +595,7 @@ if(v_orderNo === undefined) v_orderNo = []
       let id = e.currentTarget.id;
       for(let i = 0; i < updated; i++){
           if(this.state.rowlist[i].lineNumber == id){
-            this.state.rowlist.splice(i, 1);
+            this.state.rowlist.splice(i-1, 1);
             this.setState({rowlist: this.state.rowlist})
             this.state.rowlistidx -= 1;
             let lengthRowlist = this.state.rowlist.length;
@@ -659,7 +659,8 @@ if(v_orderNo === undefined) v_orderNo = []
                             style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
                             optionList={self.state.productcr.toString()} 
                             optionValue={self.state.productcr.toString()} 
-                            getValue={(e) => this.getProductValue(e, i)} />
+                            getValue={(e) => this.getProductValue(e, i)} 
+                            optionSelected={self.state.rowlist[i].product} />
             </td>
             <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Choose a Product First" defaultValue={self.state.rowlist[i].productDescription} readOnly/></td>
             <td style={{width:"4.5%"}}><input id={'qty_'+i} type="number" min="1" className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
@@ -668,7 +669,8 @@ if(v_orderNo === undefined) v_orderNo = []
                             style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
                             optionList={self.state.uomcr.toString()} 
                             optionValue={self.state.uomcr.toString()} 
-                            getValue={(e) => self.state.rowlist[i].uom = e} />
+                            getValue={(e) => self.state.rowlist[i].uom = e}
+                            optionSelected={self.state.rowlist[i].uom} />
             </td>
             <td style={{width:"11%"}}><DatePicker style={{ minWidth: "100%" }} field="smallField" getDate={(e) => self.state.rowlist[i].rotadate = e} defaultValue={self.state.rowlist[i].rotadate} /> </td>
             <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"  maxLength="30" defaultValue={self.state.rowlist[i].batch} onChange={(e) => self.state.rowlist[i].batch = e.target.value} /></td>
@@ -679,7 +681,9 @@ if(v_orderNo === undefined) v_orderNo = []
                             style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
                             optionList={self.state.dispositioncr.toString()} 
                             optionValue={self.state.dispositioncr.toString()} 
-                            getValue={(e) => self.state.rowlist[i].disposition = e} />
+                            getValue={(e) => self.state.rowlist[i].disposition = e} 
+                            optionSelected={self.state.rowlist[i].disposition}
+                            />
                             </td>
             <td id={list.lineNumber} onClick={(e) => this.deletelinehandler(e)} style={{width:"1.5%"}}><div className="iconU-delete"/></td>
           </tr>
