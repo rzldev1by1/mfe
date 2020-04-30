@@ -513,8 +513,21 @@ class Tab1CreateSO extends Component {
                     </div>
                   )
                 })
-              }                      
-                  <button onClick={() => this.props.addLineHandler()} type="button" className="btn-light font addlineSo">+</button> 
+              }          
+                <div className="row line">
+                    <table>
+                       <tr>
+                         <td>
+                            <div id="orderline-header-number-val-id">
+                              
+                            </div>
+                         </td>
+                         <td className="pl-4">
+                            <button onClick={() => this.props.addLineHandler()} type="button" className="btn-light font addlineSo">+ Add Line</button>                 
+                         </td>
+                       </tr>
+                    </table>
+                </div>            
                   {this.state.tab2isactive ? this.submit() :  <Button onClick={() => this.setData()} color="primary" className="btnsearch next btnleft" >
                                                                 <label className="font btnLabel ">Next
                                                                 

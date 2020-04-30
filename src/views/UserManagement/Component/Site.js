@@ -26,12 +26,7 @@ return (<div>
             return (<div className="flex-column mb-3 mr-2" key={index}>
             <div className="row" key={index}>
                 <label className="col-6 section-value-text" key={item.site}>{item.site}</label>
-                {
-                  /**
-                  <button type="button" className={"col-3 btn "+((item.status)?"btn-outline-active":"btn-outline-notActive")+" float-right" }
-                  onClick={(e)=>{onEnableClick(e,item);}}>{(item.status)?"Enable":"Disable"}</button>
-                  */
-                }
+              
                 <input className="checkbox-hidden" type="checkbox" id={item.site} />
                 <div className="col-3">
                     <button type="button" htmlFor={item.site}  className={"btn "+((item.status)?"btn-outline-active":"btn-outline-notActive")} onClick={(e)=>{onEnableClick(e,item);}}>{(item.status)?"Enabled":"Disabled"}</button>
@@ -43,22 +38,6 @@ return (<div>
             </div>)
           })
         }
-
-
-        {
-          /**
-        <div>
-          <div className="btn-group btn-group-toggle" data-toggle="buttons" >
-          <label className="btn btn-outline-primary active">
-              <input type="radio" className="form-control" value="M" autoComplete="off" checked="true"/>  Site one
-          </label>
-          <label className="btn btn-outline-primary">
-              <input type="radio" className="form-control" value="all" autoComplete="off"/> All site
-          </label>
-          </div>
-        </div>
-        **/
-      }
 
     </div>
 )

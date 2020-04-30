@@ -27,22 +27,6 @@ return (<div>
           })
         }
 
-
-        {
-          /**
-        <div>
-          <div className="btn-group btn-group-toggle" data-toggle="buttons" >
-          <label className="btn btn-outline-primary active">
-              <input type="radio" className="form-control" value="M" autoComplete="off" checked="true"/>  Site one
-          </label>
-          <label className="btn btn-outline-primary">
-              <input type="radio" className="form-control" value="all" autoComplete="off"/> All site
-          </label>
-          </div>
-        </div>
-        **/
-      }
-
     </div>
 )
 

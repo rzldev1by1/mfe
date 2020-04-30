@@ -713,17 +713,7 @@ class UserManagement extends Component{
                 </CardBody>
                 </Card>
 
-                {/* <div className='paginations '>
-                      <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
-                    backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-                    totalRows={this.state.userList.length} currentPage={this.state.currentPage}
-                    maxPage={(this.state.totalPage)}
-                    startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
-                    numberEventClick={this.numberEventClick}/>
-                    <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
-                          ExportHeader={this.ExportHeader} ExportData={this.ExportData}/>
-                </div> */}
-
+              
                 <div className=" p-0"  >
                   <div className='paginations paginations-um '>
                       <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
