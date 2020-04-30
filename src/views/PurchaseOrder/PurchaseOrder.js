@@ -138,11 +138,11 @@ class PurchaseOrder extends Component {
 
       getordertype = () => {
         let self = this;
-        axios.get(endpoint.getOrderType  + '?client=' + headers.client, {
+        axios.get(endpoint.getPOResources, {
             headers: headers
             })
             .then(res => {
-                const result = res.data
+                const result = res.data.orderType
                 self.setState({ ordertypedata:result }); 
                 let orderTypeName = [];
                 let orderTypeValue = [];
