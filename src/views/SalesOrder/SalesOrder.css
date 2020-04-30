@@ -383,6 +383,18 @@ th.iconU-edit {
   display: flex !important;
 }
 
+.addlineSO:hover{
+	color: white;
+}
+
+.addlineSO{
+	color: #919191;
+	font-size: larger; 
+  margin-left: 95px;
+  margin-top: 0px !important;
+  margin-bottom: 10px !important;
+}
+
 .addlineSo {
   margin-top: -4px;
   height: 35px;
@@ -404,6 +416,8 @@ th.iconU-edit {
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    margin-left: 10px;
+    height: 50px;
 }
 
 .icon-u-edit-blue {

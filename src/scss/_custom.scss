@@ -775,9 +775,32 @@ a.breadcrumb:hover {
     align-self: center;
 }
 
+//default box height
 .default-box-height{
 	height: 50px !important;
 }
+
+.form-control{
+	height: 50px !important;
+}
+
+.form2{
+	height: 50px !important;
+}
+
+.select_date{
+	height: 50px !important;
+}
+
+select_date_expandLabel{
+	padding-top: 200px !important;
+}
+
+.inputs{
+	height: 50px !important;
+}
+//end default box height
+
 
 .editColumnBtn, .editColumnBtn:focus {
 	background-color: #FFFFFF;

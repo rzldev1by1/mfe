@@ -206,7 +206,7 @@ class Tab1CreateSO extends Component {
               />
             </td>
 
-            <td>
+            <td className="verticalAlignTop">
               <textarea
                 value={deliveryInstruction}
                 onChange={(e) =>
@@ -235,7 +235,7 @@ class Tab1CreateSO extends Component {
             <th>Address 3</th>
           </tr>
           <tr>
-            <td>
+            <td className="verticalAlignTop">
               {this.props.resources.identity ? (
                 <input
                   value={customer}
@@ -396,142 +396,7 @@ class Tab1CreateSO extends Component {
         </tr>
 
         <h3 className="fonts">Line Details</h3>
-        <div className='scroll-x-y-visible'>
-          <div className="line">
-            <table className="">
-              <tr>
-                <th>
-                  <div id="orderline-header-number-id">#</div>
-                </th>
-
-                <th>
-                  <div id="orderline-header-product-id">
-                    <div className="required-field">Product</div>
-                  </div>
-                </th>
-
-                <th>
-                  <div id="orderline-header-description-id">Description</div>
-                </th>
-
-                <th>
-                  <div id="orderline-header-qty-id">
-                    <div className="required-field">Qty</div>
-                  </div>
-                </th>
-
-                <th>
-                  <div id="orderline-header-weight-id">Weight</div>
-                </th>
-
-                <th>
-                  <div id="orderline-header-uom-id">
-                    <div className="required-field">UOM</div>
-                  </div>
-                </th>
-
-                <th>
-                  <div id="orderline-header-rotadate-id">Rota Date</div>
-                </th>
-
-                <th>
-                  <div id='orderline-header-batch-id'>Batch</div>
-                </th>
-
-                <th>
-                  <div id='orderline-header-ref3-id'>Ref3</div>
-                </th>
-
-                <th>
-                  <div id='orderline-header-ref4-id'>Ref4</div>
-                </th>
-
-                <th>
-                  <div id='orderline-header-disposition-id'>Disposition</div>
-                </th>
-
-                <th>
-                  <div id='orderline-header-packid-id'>Pack Id</div>
-                </th>
-              </tr>
-            </table>
-  
-            <br/>
-                <tr>
-                  <td style={{color:"transparent"}}>1</td>
-                </tr>
-           
-            <h3 className="fonts">Line Details</h3>             
-              {
-                this.props.parameters.lineDetail.map((data,idx) => {
-                  return(
-                    <div>
-                      <OrderLine  parameters      = {data}
-                          idx             = {idx}
-                          getUom          = {(productVal) => this.props.getUom(productVal)}
-                          uomdata         = {this.props.uomdata}
-                          productdata     = {this.props.productdata}
-                          dispositiondata = {this.props.dispositiondata}
-                          
-                          setProduct              = {(productVal, product, idx) => this.props.setProduct(productVal,product, idx)}
-                          setQty                  = {(qty, idx) => this.props.setQty(qty, idx)}
-                          setWeight               = {(weight, idx) => this.props.setWeight(weight, idx)}
-                          setUom                  = {(uom, idx) => this.props.setUom(uom, idx)}
-                          setRotaDate             = {(rotaDate, idx) => this.props.setRotaDate(rotaDate, idx)}
-                          setBatch                = {(batch, idx) => this.props.setBatch(batch, idx)}
-                          setRef3                 = {(ref3, idx) => this.props.setRef3(ref3, idx)}
-                          setRef4                 = {(ref4, idx) => this.props.setRef4(ref4, idx)}
-                          setDispoisition         = {(disposition, dispositionVal, idx) => this.props.setDispoisition(disposition, dispositionVal, idx)}
-                          setPackid               = {(packid, idx) => this.props.setPackid(packid, idx)}
-                          
-                          removeLineHandler       = {(idx) => this.props.removeLineHandler(idx)}/>
-
-                      <OrderLine2  parameters      = {data}
-                                  idx             = {idx}
-                                  getUom          = {(productVal) => this.props.getUom(productVal)}
-                                  uomdata         = {this.props.uomdata}
-                                  productdata     = {this.props.productdata}
-                                  dispositiondata = {this.props.dispositiondata}
-                                  
-                                  setProduct              = {(productVal, product, idx) => this.props.setProduct(productVal,product, idx)}
-                                  setQty                  = {(qty, idx) => this.props.setQty(qty, idx)}
-                                  setWeight               = {(weight, idx) => this.props.setWeight(weight, idx)}
-                                  setUom                  = {(uom, idx) => this.props.setUom(uom, idx)}
-                                  setRotaDate             = {(rotaDate, idx) => this.props.setRotaDate(rotaDate, idx)}
-                                  setBatch                = {(batch, idx) => this.props.setBatch(batch, idx)}
-                                  setRef3                 = {(ref3, idx) => this.props.setRef3(ref3, idx)}
-                                  setRef4                 = {(ref4, idx) => this.props.setRef4(ref4, idx)}
-                                  setDispoisition         = {(disposition, dispositionVal, idx) => this.props.setDispoisition(disposition, dispositionVal, idx)}
-                                  setPackid               = {(packid, idx) => this.props.setPackid(packid, idx)}
-                                  
-                                  removeLineHandler       = {(idx) => this.props.removeLineHandler(idx)}/>
-                    </div>
-                  )
-                })
-              }          
-                <div className="row line">
-                    <table>
-                       <tr>
-                         <td>
-                            <div id="orderline-header-number-val-id">
-                              
-                            </div>
-                         </td>
-                         <td className="pl-4">
-                            <button onClick={() => this.props.addLineHandler()} type="button" className="btn-light font addlineSo">+ Add Line</button>                 
-                         </td>
-                       </tr>
-                    </table>
-                </div>            
-                  {this.state.tab2isactive ? this.submit() :  <Button onClick={() => this.setData()} color="primary" className="btnsearch next btnleft" >
-                                                                <label className="font btnLabel ">Next
-                                                                
-                                                                  <span className="fa fa-angle-right mr-2" style={{fontSize:'1rem', paddingLeft:"10px"}}></span>
-                                                                </label>
-                                                              </Button>
-                } 
-         
-          </div>
+        <div className='scroll-x-y-visible'> 
           {this.props.parameters.lineDetail.map((data, idx) => {
             return (
               <div>
@@ -593,9 +458,9 @@ class Tab1CreateSO extends Component {
           <button
             onClick={() => this.props.addLineHandler()}
             type="button"
-            className="btn-light font addlineSo"
+            className="btn btn-light addlineSO default-box-height"
           >
-            +
+            + Add Line
         </button>
         </div>
 
@@ -605,9 +470,9 @@ class Tab1CreateSO extends Component {
             <Button
               onClick={() => this.setData()}
               color="primary"
-              className="btnsearch next btnleft btn-next"
+              className="btnsearch next btnleft btn-next default-box-height"
             >
-              <label className="font btnLabel ">Next</label>
+              <label className="font btnLabel ">Next<i className="fa fa-chevron-right " style={{fontSize: '10pt', paddingLeft: '5px'}}></i></label>
             </Button>
           )}
       </div>

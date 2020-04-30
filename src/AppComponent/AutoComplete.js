@@ -126,7 +126,7 @@ export class Autocomplete extends Component {
       <React.Fragment>
         <input
           type="autosearch "
-          className={this.props.className ? this.props.className : "input form-input pecs"}
+          className={this.props.className ? this.props.className : "input form-input pecs default-box-height"} 
           onChange={onChange}
           onKeyDown={onKeyDown}
           value={userInput ? userInput : this.props.defaultValue}

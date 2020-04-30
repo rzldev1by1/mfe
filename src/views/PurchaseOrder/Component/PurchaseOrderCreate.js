@@ -484,7 +484,7 @@ class PurchaseOrderCreate extends Component {
             <div className={"tablerow " + (this.state.rowlist.length >2 ? "scroll" : null )} style={{width:"98%"}}>
               {this.state.rowlist.map((list, i) => this.linedetailsrow(list, i))}
             </div>
-              <button onClick={() => this.addline()} type="button" className="btn btn-light font addline">+ Add Line</button>
+              <button onClick={() => this.addline()} type="button" className="btn btn-light  addlinePO default-box-height">+ Add Line</button>
 
               {this.state.tab2isactive ? 
               this.submit() :  

@@ -194,8 +194,8 @@ class Tab2CreateSO extends Component {
         <tr>
           <td style={{ color: "transparent" }}>1</td>
         </tr>
-        <Button onClick={() => this.tabhandler()} color="primary" className="btnsearch back" ><label className="font">Back</label></Button>
-        <Button onClick={() => this.props.createSalesOrder()} color="primary" className="btnsearch submit btnleft" style={{ marginTop: "-50px" }} ><label className="font">Submit</label></Button>
+        <Button onClick={() => this.tabhandler()} color="primary" className="btnsearch default-box-height" ><label className="font"><i className="fa fa-chevron-left" style={{fontSize: '10pt', paddingRight: '3px'}}></i> Back</label></Button>
+        <Button onClick={() => this.props.createSalesOrder()} color="primary" className="btnsearch submit btnleft default-box-height" style={{ marginTop: "-50px" }} ><label className="font">Submit</label></Button>
       </div >)
   }
 
