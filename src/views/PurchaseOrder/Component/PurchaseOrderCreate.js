@@ -836,12 +836,21 @@ class PurchaseOrderCreate extends Component {
         return(
               <Modal className="POCreate" isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }}toggle={true} >
                 <div className="createModal">
-                  <ModalHeader style={{marginTop:"1%"}}>
-                        <div className="create"><label className="iconU-createModal"/><label className="font"><h2>Create Purchase Order</h2></label></div>
-                          <p color="primary" onClick={() => this.close()}>
-                            <i className="iconU-close mr3" style={{fontSize:"1.6em" , marginLeft:"-3em"}} aria-hidden="true" />
-                          </p>
-                  </ModalHeader>
+                <ModalHeader style={{ marginTop: "1%" }}>
+                  <div style={{ display: "inline flex", marginLeft: "30px" }}>
+                    <label className="iconU-createModal" />
+                    <label className="font">
+                      <h2>Create Purchase Order</h2>
+                    </label>
+                  </div>
+                  <p color="primary" onClick={() => this.close()}>
+                    <i
+                      className="iconU-close"
+                      style={{ fontSize: "1.6em", marginLeft: "-3em" }}
+                      aria-hidden="true"
+                    />
+                  </p>
+                </ModalHeader>
 
                   <ModalHeader className="Tabs" style={{marginTop:"-40px"}} >
                         <div>
