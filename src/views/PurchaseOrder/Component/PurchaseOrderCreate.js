@@ -190,8 +190,9 @@ class PurchaseOrderCreate extends Component {
     for(let i = 0 ; i < this.state.rowlist.length ; i++)
     {
       let lv = lineValidation(this.state.rowlist[i], i)
+      if(!lv) return
 
-      if(lv)
+      if(lv && i+1 == this.state.rowlist.length)
       {
         this.setState({
           tab1isactive: !this.state.tab1isactive,
@@ -369,6 +370,21 @@ class PurchaseOrderCreate extends Component {
     })
 }
 
+const {
+      site,
+      client,
+      supplier,
+      customerRef,
+      orderType,
+      orderNo,
+      orderDate,
+      vendorRef
+} = this.state
+
+let v_orderNo = orderNo
+
+if(v_orderNo === null) v_orderNo = []
+
     
     return(
       <div className="tabcontent">
@@ -436,7 +452,7 @@ class PurchaseOrderCreate extends Component {
                         getValue={(e) => this.setState({ orderType: e })} 
                         optionSelected={this.state.orderType}/>
             </td>
-            <td><input className="form2 put pec" value={this.state.orderNo} placeholder="Order No" minLength="4" maxLength="12" onChange={(e) => this.setState({ orderNo: e.target.value })} /> </td>
+            <td><input id='orderNo' className="form2 put pec" value={this.state.orderNo} placeholder="Order No" minLength="4" maxLength="12" onChange={(e) => this.setState({ orderNo: e.target.value })} /> </td>
             <td>
               <DatePicker style={{ minWidth: "22%", position: "absolute" }}
                 getDate={(e) => { this.setState({ orderDate: e }); this.state.rowlist[0].orderDate = e }}
@@ -451,7 +467,7 @@ class PurchaseOrderCreate extends Component {
           </tr>
           <tr>
             <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.orderType ? 'nmtrField' : 'mtrField')}>{this.state.emptyOrderType}</div></td>
-            <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.orderNo ? 'nmtrField' : 'mtrField')}>{this.state.emptyOrderNo}</div></td>
+            <td style={{ width: "396px" }}><div className={'po-required ' + (v_orderNo.length == 0 || v_orderNo.length < 4 ?  'mtrField' : 'nmtrField')}>{this.state.emptyOrderNo}</div></td>
             <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.orderDate ? 'nmtrField' : 'mtrField')}>{this.state.emptyOrderDate}</div></td>
             <td className='nmtrField po-required' style={{ width: "396px" }}></td>
           </tr>
@@ -645,7 +661,7 @@ class PurchaseOrderCreate extends Component {
                             getValue={(e) => this.getProductValue(e, i)} />
             </td>
             <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Choose a Product First" defaultValue={self.state.rowlist[i].productDescription} readOnly/></td>
-            <td style={{width:"4.5%"}}><input type="number" min="1" className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
+            <td style={{width:"4.5%"}}><input id={'qty_'+i} type="number" min="1" className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
             <td style={{width:"6%"}}>
                 <Dropdown placeHolder="UOM" 
                             style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
