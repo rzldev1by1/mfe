@@ -117,7 +117,7 @@ class PurchaseOrderTable extends Component {
       currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
-			displayPage: 30,
+			displayPage: 50,
 			totalRows: 0,
 			maxPage: 0,
     }
