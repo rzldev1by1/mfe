@@ -26,7 +26,7 @@ export default class DropdownClient extends Component {
             this.setState({ clientdata:result })
           })
           .catch(error => {
-            // this.props.history.push("/logins")
+            
           })
       }
 

@@ -118,7 +118,7 @@ class PurchaseOrder extends Component {
             this.setState({ clientdata:result })
           })
           .catch(error => {
-            // this.props.history.push("/logins")
+            
             console.log(error);
           })
     }
@@ -132,7 +132,7 @@ class PurchaseOrder extends Component {
             this.setState({ sitedata:result })
           })
           .catch(error => {
-            // this.props.history.push("/logins")
+            
           })
       }
 
@@ -157,7 +157,7 @@ class PurchaseOrder extends Component {
                 })
             })
             .catch(error => {
-                // this.props.history.push("/logins")
+                
             })
         
     }
@@ -202,8 +202,8 @@ class PurchaseOrder extends Component {
             siteData.push("All");
             siteValue.push("");
         }
-        if(this.state.orderTypeName.length > 1){
-            this.state.orderTypeName.map((data) => {
+        if(this.state.orderTypeValue.length > 1){
+            this.state.orderTypeValue.map((data) => {
                 orderTypeName.push(data);
             })
             orderTypeName.push("All")

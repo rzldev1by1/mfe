@@ -434,7 +434,6 @@ class UserManagementDetail extends Component{
 
     onClickResetPassword = () => {
        this.setState({modalPopupResetdisplay:true});
-
     }
 
     closeModalPopupReset = () => {

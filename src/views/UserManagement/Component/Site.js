@@ -25,8 +25,8 @@ return (<div>
             sites.map((item,index) => {
             return (<div className="flex-column mb-3 mr-2" key={index}>
             <div className="row" key={index}>
-                <label className="col-6 section-value-text" key={item.site}>{item.site}</label>
-              
+                <label className="col-7 section-value-text" key={item.site}>{item.site}</label>
+                
                 <input className="checkbox-hidden" type="checkbox" id={item.site} />
                 <div className="col-3">
                     <button type="button" htmlFor={item.site}  className={"btn "+((item.status)?"btn-outline-active":"btn-outline-notActive")} onClick={(e)=>{onEnableClick(e,item);}}>{(item.status)?"Enabled":"Disabled"}</button>
@@ -37,8 +37,7 @@ return (<div>
             </div>
             </div>)
           })
-        }
-
+        } 
     </div>
 )
 

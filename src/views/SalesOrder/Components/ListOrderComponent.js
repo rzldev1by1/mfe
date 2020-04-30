@@ -92,7 +92,7 @@ class ListOrderComponent extends Component {
         this.setPagination(result);
       })
       .catch((error) => {
-        // this.props.history.push("/logins")
+        
       });
   };
 
@@ -141,7 +141,7 @@ class ListOrderComponent extends Component {
         this.setPagination(result);
       })
       .catch((error) => {
-        // this.props.history.push("/logins")
+        
       });
   };
 
@@ -368,10 +368,10 @@ class ListOrderComponent extends Component {
                   </th>
                 ))}
                 <th>
-                  <div
+                  {/* <div
                     onClick={() => this.props.openEditModal()}
                     className="iconU-edit icon-u-edit-blue"
-                  />
+                  /> */}
                 </th>
               </tr>
             </thead>
@@ -386,6 +386,8 @@ class ListOrderComponent extends Component {
                           window.location.origin +
                           "/#/sales-orders/" +
                           data.client +
+                          "/" +
+                          data.site +
                           "/" +
                           data.order_no
                         )

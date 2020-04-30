@@ -38,7 +38,7 @@ export default class PurchaseOrderDetail extends Component {
             
           })
           .catch(error => {
-            // this.props.history.push("/logins")
+            
           })
     }
 

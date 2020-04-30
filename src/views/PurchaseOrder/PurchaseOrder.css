@@ -457,6 +457,23 @@ h3{
 	overflow-y:scroll;
 }
 
+.iconU-delete{
+	border:2px solid #e6e6e6;
+	border-radius: 5px;
+	font-size: 1.25em;
+	padding:10%;
+	text-align: center;
+	background-color: #E8E8E8;
+	color: #919191;
+	transition: ease-in;
+}
+
+.iconU-delete:hover{
+	cursor: pointer;
+	transition: ease-in;
+	color: white;
+}
+
 .addline:hover{
 	color: white;
 }

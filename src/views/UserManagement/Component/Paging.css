@@ -2,24 +2,21 @@
 	font-weight: bold;
 	color: rgb(78, 82, 83) !important;
 	margin-top: 1%;
-    /* width: 40px; */
-    /* height: 40px; */
+  
     align-items: center !important;
 }
 
 .btn-paging:focus, .btn-paging:hover, .btn-paging-active, .btn-paging-active:hover {
 	background-color: #22ABE3;
     color: #FFFFFF;
-    /* width: 40px; */
-    /* height: 40px; */
+   
     align-items: center !important;
 }
 
 .btn-pagingNav, .btn-pagingNav:hover {
 	width: 40px;
 	height: 40px;
-	/* border-radius: 50%; */
-	/* background-color: #E0E3F2; */
+
 	color: #637176;
     box-shadow: none;
     align-items: center !important;

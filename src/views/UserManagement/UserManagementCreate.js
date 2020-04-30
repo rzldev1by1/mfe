@@ -80,7 +80,7 @@ class UserManagementDetail extends Component{
 
         })
         .then((result) => {
-          // console.log(result);
+          
         })
     }
 
@@ -103,7 +103,7 @@ class UserManagementDetail extends Component{
 
         })
         .then((result) => {
-          // console.log(result);
+          
         })
     }
 
@@ -125,7 +125,7 @@ class UserManagementDetail extends Component{
 
         })
         .then((result) => {
-          // console.log(result);
+          
         })
     }
 

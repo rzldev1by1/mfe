@@ -245,12 +245,7 @@ class Tab1CreateSO extends Component {
                   placeholder="Costumer"
                 />
               ) : (
-                  // <Dropdown optionSelected  = {customerVal}
-                  //         getValue        = {}
-                  //         placeHolder     = "Customer"
-                  //         style           = {{minWidth: "100%", zIndex:"1"}}
-                  //         optionList      = {supplierName.toString()}
-                  //         optionValue     = {this.props.resources.supplier.code.toString()}/>
+                  
                   <AutoComplete
                     suggestions={supplierName}
                     suggestionsValue={this.props.resources.supplier.code}
@@ -401,7 +396,7 @@ class Tab1CreateSO extends Component {
         </tr>
 
         <h3 className="fonts">Line Details</h3>
-        <div className='scrollx'>
+        <div className='scroll-x-y-visible'>
           <div className="line">
             <table className="">
               <tr>
@@ -542,6 +537,7 @@ class Tab1CreateSO extends Component {
               <div>
                 <OrderLine
                   parameters={data}
+                  parametersLength={this.props.parameters.lineDetail.length}
                   idx={idx}
                   getUom={(productVal) => this.props.getUom(productVal)}
                   uomdata={this.props.uomdata}

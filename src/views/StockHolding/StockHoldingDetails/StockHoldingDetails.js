@@ -22,7 +22,7 @@ class StockHoldingDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			// isVisible: [],
+			
 			isLoaded: false,
 			activeTab: "1",
 			displayContent: "INIT",
@@ -70,7 +70,7 @@ class StockHoldingDetails extends Component {
 
 	loadStockHolding = () => {
 		let self = this;
-        // let productId = this.props.history.location.pathname.substring(20);
+        
         let productId = decodeURIComponent(this.props.match.params.productId);
         let client = decodeURIComponent(this.props.match.params.client);
         let site = decodeURIComponent(this.props.match.params.site);
@@ -86,7 +86,7 @@ class StockHoldingDetails extends Component {
             headers: headers
 		})
 		.then(res => {
-			// res.isSuccess = true;
+			
 			return res.data;
 		})
 		.catch(function (error) {
@@ -99,7 +99,7 @@ class StockHoldingDetails extends Component {
 				let respondRes = result.data;
 				self.setState({ displayContent: "FOUND",
                                 stockHolding: respondRes });
-                // localStorage.setItem("masterResStockHolding", JSON.stringify(respondRes));
+                
 
                 self.loadStockDetails();
                 self.loadForeshadowed();
@@ -156,8 +156,7 @@ class StockHoldingDetails extends Component {
             params: params
         })
 		.then(res => {
-			// res.isSuccess = true;
-			// self.setState({ isLoaded: false })
+			
 
 			return res.data;
 		})
@@ -217,11 +216,11 @@ class StockHoldingDetails extends Component {
                     if (a[sortBy] > b[sortBy]) return 1;
                     return 0;
                 } else {
-                    // if (a[sortBy] !== undefined && b[sortBy] !== undefined) {
+                    
                         if (a[sortBy] < b[sortBy]) return 1;
                         if (a[sortBy] > b[sortBy]) return -1;
                         return 0;
-                    // }
+                    
                 }
             }
         });

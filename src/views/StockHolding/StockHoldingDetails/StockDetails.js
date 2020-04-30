@@ -60,7 +60,7 @@ class StockDetails extends Component {
 			<tr>
 				{this.props.stockDetailsColumns.map((item, idx) => {
 					if (item.isVisible) {
-                        // return <th className={"p-3 " + (item.type === "number" ? "text-right" : "text-left")} key={idx}>{item.tableHeaderText}</th>;
+                        
                         return (
                             <th className="text-left" id={item.key} key={idx} onClick={() => this.props.arrowHandler("stockDetails", idx, item.key)}>
                                 {item.tableHeaderText} <img key={idx} className="sort-icon" src={item.sort} />
@@ -79,7 +79,7 @@ class StockDetails extends Component {
 				<tr key={idx}>
 					{this.props.stockDetailsColumns.map((column, columnIdx) => {
 						return (
-							// <td key={columnIdx} className={"px-3 " + (column.type === "number" ? "text-right" : "text-left")}>
+							
                             <td key={columnIdx} className="px-3 text-left">
                                 {column.id === "effective_date" ? formatDate(item[column.key]) : item[column.key]}
 							</td>

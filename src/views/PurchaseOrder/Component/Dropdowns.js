@@ -52,7 +52,7 @@ export default class Dropdowns extends Component {
             this.setState({ clientdata:result })
           })
           .catch(error => {
-            // this.props.history.push("/logins")
+            
           })
       }
 
@@ -65,7 +65,7 @@ export default class Dropdowns extends Component {
             this.setState({ sitedata:result })
           })
           .catch(error => {
-            // this.props.history.push("/logins")
+            
           })
       }
 
@@ -80,7 +80,7 @@ export default class Dropdowns extends Component {
                   this.setState({ ordertypedata:result })
                 })
                 .catch(error => {
-                  // this.props.history.push("/logins")
+                  
                 })
         }
       }
@@ -94,7 +94,7 @@ export default class Dropdowns extends Component {
             this.setState({ supplierdata:result })
           })
           .catch(error => {
-            // this.props.history.push("/logins")
+            
           })
       }
 
@@ -221,13 +221,7 @@ export default class Dropdowns extends Component {
     render(){        
         return(
             <div style={{display:'flex', width:'100%'}}> 
-            {/* <Dropdown dataParam = {this.state.clientdata} selectedName={(val) => this.selectedName(val)}/> */}
-            
-             {/* <input className='form-control' onChange={(e) => this.getName(e)}/> */}
-            {/* <div>{this.state.autoArray}</div> */}
-            {
-                // this.state.autoArrays.map(data => <div className='tes' onClick={(e) => this.selectedName(e)}>{data}</div>)
-            }
+           
                 <div class="dropdown dd">
                   <button onClick={() => this.expandClient()} type="button" className="btn dropdown-button dropdown-toggle po" data-toggle="dropdown">
                   {this.state.clientSelected}
