@@ -123,7 +123,7 @@ class Tab2CreateSO extends Component {
         <br />
         <h3 className="fonts">Line Details</h3>
 
-        <div className='scrollx'>
+        <div className='scroll-x-y-visible'>
           <div className="line">
             <table className=''>
               <tr>
