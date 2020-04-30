@@ -192,14 +192,14 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 .ddlMovement{
 	width: 160px;
-	height: 40px !important;
+	height: 40px ;
 	border: 1px solid #d5d8da !important; 
 	text-align: left;
 }
 
 .ddlMovementDate{
 	width: 160px;
-	height: 40px !important;
+	height: 40px ;
 	border: 1px solid #d5d8da !important; 
 	text-align: left;
 	margin-left: 5%;

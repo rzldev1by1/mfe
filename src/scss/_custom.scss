@@ -950,6 +950,11 @@ a.breadcrumb:hover {
 	}
 }
 
+.hover:hover{
+	background: #f0f0f0 !important;
+	cursor: pointer;
+}
+
 .headerBlue {
 	background-color: #388DCD !important;
 	color: #FFFFFF;
@@ -975,7 +980,7 @@ a.breadcrumb:hover {
 }
 
 .tablecontent {
-	margin-top: 15px;
+	margin-top: 1rem;
 	padding:1px;
 	padding-top: 0%;
 	padding-bottom: 0%;
@@ -1209,45 +1214,45 @@ span.upArrow:before {
 	background-color: #E9ECED;
 	display: flex;
 	flex-wrap: wrap;
-	padding-top: 5px;
-	padding-bottom: 5px;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
 	position: fixed; 
 	bottom: 0; 
 	right: 0;
 	padding-left: 284px !important;
-	padding-right: 0.7%; 
+	padding-right: 0.7%;  
 	width: 100%;
 }
   
  
 @media(max-width: 2100px) {
 	.tablePage{
-		max-height: 630px;
+		max-height: 615px;
 	}
 }
 @media(max-width: 1830px) {
 	.tablePage{
-		max-height: 530px;
+		max-height: 510px;
 	}
 }
 @media(max-width: 1710px) { 
 	.tablePage{
-		max-height: 479px;
+		max-height: 466px;
 	}
 }
 @media(max-width: 1520px) {
 	.tablePage{
-		max-height: 390px;
+		max-height: 380px;
 	}
 }
 @media(max-width: 1366px) {
 	.tablePage{
-		max-height: 330px;
+		max-height: 310px;
 	}
 }
 @media(max-width: 1242px) {
 	.tablePage{
-		max-height: 270px;
+		max-height: 260px;
 	}
 } 
 @media(max-width: 1000px) {

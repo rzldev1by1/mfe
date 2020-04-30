@@ -195,7 +195,7 @@ class SalesOrder extends Component {
       <React.Fragment>
         <Dropdown
           placeHolder="Site"
-          style={{ width: "102px", height: "2.7em" }}
+          style={{ width: "102px" }}
           optionList={siteData.toString()}
           optionValue={siteData.toString()}
           getValue={this.getSiteSelected.bind(this)}
@@ -203,7 +203,7 @@ class SalesOrder extends Component {
 
         <Dropdown
           placeHolder="Client"
-          style={{ width: "210px", height: "2.7em" }}
+          style={{ width: "210px"}}
           optionList={clientValue.toString()}
           optionValue={clientValue.toString()}
           getValue={this.getClientSelected.bind(this)}
@@ -222,7 +222,7 @@ class SalesOrder extends Component {
             <Button
               onClick={() => (this.state.loaded ? this.openModal() : null)}
               color="primary"
-              className="createpo"
+              className="createpo default-box-height"
             >
               <img
                 src={create}

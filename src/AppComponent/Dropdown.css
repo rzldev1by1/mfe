@@ -23,7 +23,8 @@
 
 .select_dropdown {
 	width: 150px;
-	height: 40px;
+	height: 50px;
+	margin-right: 1em;
 	cursor: pointer;
 	list-style: none;
 	background-color: #FFFFFF;
@@ -39,7 +40,7 @@
 
 .select_dropdown_expand {
 	width: 0;
-	height: 40px;
+	height: 50px;
 	position: absolute;
 	top: 0;
 	right: 10px;
@@ -70,7 +71,7 @@
 .select_dropdown_expandLabel {
 	display: block;
 	width: 100%;
-	height: 40px;
+	height: 50px;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -95,7 +96,7 @@
 	top: 0;
 	left: 0;
 	border-radius: 2px;
-	padding-top: 40px;
+	padding-top: 50px;
 }
 
 .select_dropdown_input {display: none}
@@ -110,14 +111,14 @@
 	height: 0;
 	background-color: #FFFFFF;
 	font-size: 1rem;
-	line-height: 40px;
+	line-height: 50px;
 	overflow: hidden;
 	cursor: pointer;
 	padding-left: 20px;
 	user-select: none;
 }
 .select_dropdown_label-placeholder {
-	height: 40px;
+	height: 50px;
 	vertical-align: middle;
 	position: absolute;
 	top: 0;
@@ -156,7 +157,7 @@
 
 .select_dropdown_input:checked + .select_dropdown_label {
 	height: 30px;
-	margin-top: -40px;
+	margin-top: -50px;
 	border-radius: 5px;
 	/* border-bottom: 1px solid #969EA1; */
 }
@@ -167,7 +168,7 @@
 }
 .select_dropdown_expand:checked + .expand-style {
 	width: 225px;
-	height: 40px;
+	height: 50px;
 	cursor: pointer;
 	background-color: #FFFFFF;
 	border-top-left-radius: 5px;

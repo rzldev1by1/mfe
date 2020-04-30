@@ -242,7 +242,7 @@ class StockHolding extends Component {
                         getValue={this.selectedUnit} />
 
                 <Dropdown placeHolder="Status"
-						style={{width: "140px", height:"2.7em", marginRight: "1em"}}
+						style={{width: "140px"}}
                         optionList={masterStatus}
                         optionValue={masterStatus}
                         getValue={this.selectedStatus} />

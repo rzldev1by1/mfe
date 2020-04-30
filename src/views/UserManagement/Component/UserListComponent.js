@@ -221,14 +221,14 @@ class UserListComponent extends Component {
     const { activearrow, order, fieldOrder } = this.state;
 
     return (
-      <div className="d-flex tablePage">
+      <div className="d-flex tablePage tablePage-um">
         <div className="w-100">
           <table className="umtable">
             <thead>
               <tr>
                 {
                   this.state.headers.map((element, index) => {
-                    return <th key={index} className="p-0">
+                    return <th key={index} className="">
                       <div key={element} className="header-sort" >
                         <div className="d-inline-flex">
                           <div className="d-flex flex-row">
@@ -251,16 +251,16 @@ class UserListComponent extends Component {
                 }
               </tr>
             </thead>
-            <tbody className="hover">
+            <tbody className="">
               {
                 this.props.data.slice(this.props.startIndex, this.props.lastIndex).sort((a, b) => this.sorting(a, b, fieldOrder, order)).map((element, index) => {
 
-                  return <tr key={index} onClick={(e) => { this.onRowClick(e, element.web_user); }}>
+                  return <tr  className="hover" key={index} onClick={(e) => { this.onRowClick(e, element.web_user); }}>
                     {
                       Object.keys(element).map((item, idx) => {
 
                         return (item !== 'email' && item !== 'web_user' && item !== 'company' && item !== 'userlevel') ?
-                          <td key={idx} className={'p-0 ' + ((item === 'user') ? 'users' : 'norm')}>
+                          <td key={idx} className={'umtd ' + ((item === 'user') ? 'users' : 'norm')}>
                             {
                               <label className={((item === 'status') ? ((element[item].toLowerCase() === 'active') ? 'um-active' : 'um-suspended') : '')}>
                                 {(item === 'lastaccess') ? moment(element[item]).format('DD/MM/YY hh:mm:ss') : element[item]}
@@ -305,7 +305,7 @@ class UserListComponent extends Component {
                 }
               </tr>
             </thead>
-            <tbody className="hover">
+            <tbody>
               {
                 this.props.data.slice(this.props.startIndex, this.props.lastIndex).sort((a, b) => this.sorting(a, b, fieldOrder, order)).map((element, index) => {
 

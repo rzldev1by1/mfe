@@ -608,7 +608,7 @@ class UserManagementDetail extends Component{
                                 </div>
 
                                 <div className="d-flex mt-5 mr-3 justify-content-between">
-                                      <button type="button" className=" font-lg font-md font-sm btn btn-primary btn-submit" onClick={(e)=>{this.gotoUM();}}>
+                                      <button type="button" className=" font-lg font-md font-sm btn btn-primary btn-submit default-box-height" onClick={(e)=>{this.gotoUM();}}>
                                           <label className="create-user-label mb-0">Back</label>
                                       </button>
 
@@ -618,7 +618,7 @@ class UserManagementDetail extends Component{
                                         </label>
                                       </p>
 
-                                      <button type="button" className=" font-lg font-md font-sm btn btn-primary btn-submit" onClick={(e)=>{this.saveClick();}}>
+                                      <button type="button" className=" font-lg font-md font-sm btn btn-primary btn-submit default-box-height" onClick={(e)=>{this.saveClick();}}>
                                           <i className= {(this.state.isSaveProgressing)?"mr-2 fa fa-refresh fa-spin ":"fa fa-refresh fa-spin d-none"}></i>
                                           <label className="create-user-label mb-0">Save</label>
                                       </button>
