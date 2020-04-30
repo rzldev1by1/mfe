@@ -6,7 +6,12 @@ const headerValidation = (header) => {
     if (!header.client) required.push(['client', 'client value must be entered'])
     if (!header.orderType) required.push(['orderType', 'order type value must be entered']) 
     if (ordNo.length === 0) required.push(['orderNo', 'order no cannot be empty'])
-    if(ordNo.length < 4 && ordNo.length !== 0) required.push(['orderNo', 'order no must have min 4 characters or more'])
+    if(ordNo.length < 4 && ordNo.length !== 0)
+    {
+        const ordNo = document.getElementById('orderNo')
+        ordNo.focus()
+        required.push(['orderNo', 'order no must have min 4 characters or more'])
+    }
     if (!header.orderDate) required.push(['orderDate', 'order date must be entered'])
 
     if (required.length > 0) return required
