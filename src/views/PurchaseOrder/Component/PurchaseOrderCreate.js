@@ -190,8 +190,9 @@ class PurchaseOrderCreate extends Component {
     for(let i = 0 ; i < this.state.rowlist.length ; i++)
     {
       let lv = lineValidation(this.state.rowlist[i], i)
+      if(!lv) return
 
-      if(lv)
+      if(lv && i+1 == this.state.rowlist.length)
       {
         this.setState({
           tab1isactive: !this.state.tab1isactive,
@@ -369,6 +370,21 @@ class PurchaseOrderCreate extends Component {
     })
 }
 
+const {
+      site,
+      client,
+      supplier,
+      customerRef,
+      orderType,
+      orderNo,
+      orderDate,
+      vendorRef
+} = this.state
+
+let v_orderNo = orderNo
+
+if(v_orderNo === null) v_orderNo = []
+
     
     return(
       <div className="tabcontent">
@@ -451,7 +467,7 @@ class PurchaseOrderCreate extends Component {
           </tr>
           <tr>
             <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.orderType ? 'nmtrField' : 'mtrField')}>{this.state.emptyOrderType}</div></td>
-            <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.orderNo ? 'nmtrField' : 'mtrField')}>{this.state.emptyOrderNo}</div></td>
+            <td style={{ width: "396px" }}><div className={'po-required ' + (v_orderNo.length == 0 || v_orderNo.length < 4 ?  'mtrField' : 'nmtrField')}>{this.state.emptyOrderNo}</div></td>
             <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.orderDate ? 'nmtrField' : 'mtrField')}>{this.state.emptyOrderDate}</div></td>
             <td className='nmtrField po-required' style={{ width: "396px" }}></td>
           </tr>
