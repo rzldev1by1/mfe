@@ -384,6 +384,7 @@ const {
 let v_orderNo = orderNo
 
 if(v_orderNo === null) v_orderNo = []
+if(v_orderNo === undefined) v_orderNo = []
 
     
     return(
