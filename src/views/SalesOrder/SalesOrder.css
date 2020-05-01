@@ -573,3 +573,15 @@ th.iconU-edit {
 .btn-next{
   margin-top: 1.5%;
 }
+
+.so-supp{
+  margin-bottom: 15%;  
+}
+
+.so-dropdown-wrapper{
+  display: flex;
+}
+
+.so-dropdown-wrapper > div{
+  margin-right: 3%;
+}

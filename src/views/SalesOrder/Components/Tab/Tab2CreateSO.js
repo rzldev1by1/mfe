@@ -88,12 +88,16 @@ class Tab2CreateSO extends Component {
         <table className="createpotable">
           <tr>
             <th>Customer</th>
+          </tr>
+          <tr>
+            <td><input value={customerVal ? customerVal + ' ( ' + customer + ' )' : null} className="form-control put " readOnly /></td>
+          </tr>
+          <tr>            
             <th>Address 1</th>
             <th>Address 2</th>
             <th>Address 3</th>
           </tr>
-          <tr>
-            <td><input value={customerVal ? customerVal + ' ( ' + customer + ' )' : null} className="form-control put " readOnly /></td>
+          <tr>            
             <td><input value={shipToAddress1} className="form-control put " readOnly /> </td>
             <td><input value={shipToAddress2} className="form-control put " readOnly /> </td>
             <td><input value={shipToAddress3} className="form-control put " readOnly /> </td>

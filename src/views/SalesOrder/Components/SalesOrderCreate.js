@@ -489,8 +489,6 @@ class SalesOrderCreate extends Component {
         headers: headers
       })
       .then((res) => {
-        alert(customerName);
-        return;
         const result = res.data.identity[0];
         let nm = result.name;
         if (!nm) self.setCustomer(result.customer_no, nm);

@@ -179,6 +179,7 @@ class SalesOrder extends Component {
     let clientName = [];
     let clientValue = [];
     let siteData = [];
+    let siteName = [];
     let status = [];
     if (this.state.clientdata) {
       this.state.clientdata.map((data) => {
@@ -188,26 +189,34 @@ class SalesOrder extends Component {
     }
     if (this.state.sitedata) {
       this.state.sitedata.map((data) => {
+        siteName.push(data.site + ' : ' +data.name)
         siteData.push(data.site);
       });
     }
     return (
       <React.Fragment>
-        <Dropdown
+        <div className='so-dropdown-wrapper'>
+          <div>
+          <Dropdown
           placeHolder="Site"
-          style={{ width: "102px", height: "2.7em" }}
-          optionList={siteData.toString()}
+          style={{ width: "142px", height: "2.7em" }}
+          optionList={siteName.toString()}
           optionValue={siteData.toString()}
           getValue={this.getSiteSelected.bind(this)}
         />
-
-        <Dropdown
+          </div>
+          <div>
+          <Dropdown
           placeHolder="Client"
-          style={{ width: "210px", height: "2.7em" }}
+          style={{ width: "142px", height: "2.7em" }}
           optionList={clientValue.toString()}
           optionValue={clientValue.toString()}
           getValue={this.getClientSelected.bind(this)}
         />
+          </div>
+        </div>
+
+       
         {/* <Dropdown placeHolder="Order No" style={{height:"1em"}} optionList="hard,code" optionValue="hard,code" getValue={(v)=> console.log(v)}/> */}
       </React.Fragment>
     );

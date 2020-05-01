@@ -253,8 +253,9 @@ class PurchaseOrderCreate extends Component {
         })
     }
 
-    getsupplier = () => {   
-      axios.get(endpoint.getSupplier + "?client=" + headers.client, {
+    getsupplier = (client) => {  
+      if(!client) client =  headers.client
+      axios.get(endpoint.getSupplier + "?client=" + client, {
         headers: headers
       })
         .then(res => {
@@ -411,7 +412,7 @@ if(v_orderNo === undefined) v_orderNo = []
                 style={{ width: "22%", position: "absolute" }}
                 optionList={clientName.toString()}
                 optionValue={clientValue.toString()}
-                getValue={(e) => this.setState({ client: e })}
+                getValue={(e) => this.setState({ client: e }, this.getsupplier(e))}
                 optionSelected={this.state.client} />
             </td>
             {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
@@ -453,7 +454,7 @@ if(v_orderNo === undefined) v_orderNo = []
                         getValue={(e) => this.setState({ orderType: e })} 
                         optionSelected={this.state.orderType}/>
             </td>
-            <td><input id='orderNo' className="form2 put pec" value={this.state.orderNo} placeholder="Order No" minLength="4" maxLength="12" onChange={(e) => this.setState({ orderNo: e.target.value })} /> </td>
+            <td><input id='orderNo' className="form2 put pec" value={this.state.orderNo} placeholder="Order No" minLength="4" maxLength="12" onChange={(e) => this.setState({ orderNo: e.target.value.toUpperCase()})} /> </td>
             <td>
               <DatePicker style={{ minWidth: "22%", position: "absolute" }}
                 getDate={(e) => { this.setState({ orderDate: e }); this.state.rowlist[0].orderDate = e }}
@@ -461,7 +462,7 @@ if(v_orderNo === undefined) v_orderNo = []
               />
               {console.log(this.state.orderDate)}
             </td>
-            <td><input className="form2 put pec" value={this.state.vendorRef} placeholder="Vendor Order Ref" onChange={(e) => this.setState({ vendorRef: e.target.value })} maxLength="40" /> </td>
+            <td><input className="form2 put pec" value={this.state.vendorRef} maxLength='40' placeholder="Vendor Order Ref" onChange={(e) => this.setState({ vendorRef: e.target.value })} maxLength="40" /> </td>
           </tr>
           <tr>
             <th style={{ color: "transparent" }}>1</th>
@@ -663,7 +664,7 @@ if(v_orderNo === undefined) v_orderNo = []
                             optionSelected={self.state.rowlist[i].product} />
             </td>
             <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Choose a Product First" defaultValue={self.state.rowlist[i].productDescription} readOnly/></td>
-            <td style={{width:"4.5%"}}><input id={'qty_'+i} type="number" min="1" className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
+            <td style={{width:"4.5%"}}><input id={'qty_'+i} type="number" min="1" maxLength='9' className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
             <td style={{width:"6%"}}>
                 <Dropdown placeHolder="UOM" 
                             style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
@@ -749,19 +750,30 @@ if(v_orderNo === undefined) v_orderNo = []
 
   createPO = () => {
     let self = this;
+
+    const {
+      site, 
+      client,
+      supplier,
+      customerRef,
+      orderType,
+      orderNo,
+      orderDate,
+      vendorRef,
+    } = self.state
     let param = {
         orderDetails: [{
-          site: this.state.site,
-          client: this.state.client,
-          supplier: this.state.supplier,
-          customerOrderRef: this.state.customerRef,
-          orderType: this.state.orderType,
-          orderNo: this.state.orderNo,
-          orderDate: this.state.orderDate,
-          vendorOrderRef: this.state.vendorRef,
+          site: site,
+          client: client,
+          supplier: supplier,
+          customerOrderRef: customerRef ? customerRef : null,
+          orderType: orderType,
+          orderNo: orderNo,
+          orderDate: orderDate,
+          vendorOrderRef: vendorRef ? vendorRef : null,
           web_user: "216"
         }],
-        lineDetails: [...this.state.rowlist]
+        lineDetails: [...self.state.rowlist]
     }
     axios.post(endpoint.purchaseOrderCreate, param, { headers: headers,})
     .then(res =>{
