@@ -85,7 +85,7 @@ class DatePicker extends React.Component{
         this.handleYearMonthChange = this.handleYearMonthChange.bind(this);
         this.handleDayClick = this.handleDayClick.bind(this);
         this.state = {
-            selectedDay: props.defaultValue ? props.defaultValue : fromMonth,
+            selectedDay: null,
             showDatePicker: false,
             month : fromMonth
         }
