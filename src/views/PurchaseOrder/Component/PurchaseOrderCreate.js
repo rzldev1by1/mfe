@@ -294,8 +294,9 @@ class PurchaseOrderCreate extends Component {
         })
     }
 
-    getproductcode = () => {
-        axios.get(endpoint.getProduct + "?client=" + headers.client, {
+    getproductcode = (e) => {
+      if(!e) e = headers.client
+        axios.get(endpoint.getProduct + "?client=" + e, {
             headers: headers
         })
         .then(res => {
@@ -307,8 +308,9 @@ class PurchaseOrderCreate extends Component {
         })
     }
 
-    getproductname = () => {
-        axios.get(endpoint.getProduct + "?client=" + headers.client, {
+    getproductname = (e) => {
+      if(!e) e = headers.client
+        axios.get(endpoint.getProduct + "?client=" + e, {
             headers: headers
         })
         .then(res => {
@@ -412,7 +414,7 @@ if(v_orderNo === undefined) v_orderNo = []
                 style={{ width: "22%", position: "absolute" }}
                 optionList={clientName.toString()}
                 optionValue={clientValue.toString()}
-                getValue={(e) => this.setState({ client: e }, this.getsupplier(e))}
+                getValue={(e) => this.setState({ client: e }, this.getsupplier(e), this.getproductcode(e), this.getproductname(e))}
                 optionSelected={this.state.client} />
             </td>
             {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
