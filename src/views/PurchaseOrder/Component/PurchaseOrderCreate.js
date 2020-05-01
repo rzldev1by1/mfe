@@ -390,6 +390,7 @@ if(v_orderNo === null) v_orderNo = []
       <div className="tabcontent">
         <h3 className="fonts">Order Details</h3>
         <table className="createpotable">
+<<<<<<< Updated upstream
           <tr>
             <th className='required-field' style={{ width: "396px" }}>Site</th>
             <th className='required-field' style={{ width: "396px" }}>Client</th>
@@ -444,6 +445,57 @@ if(v_orderNo === null) v_orderNo = []
             <th>Vendor Order Ref</th>
           </tr>
           <tr>
+=======
+            <tr>
+                <th className='required-field' style={{width:"396px"}}>Site</th>
+                <th className='required-field' style={{width:"396px"}}>Client</th>
+                <th style={{width:"396px"}}>Supplier</th>
+                <th style={{width:"396px"}}>Customer Order Ref</th>
+            </tr>
+            <tr>
+              <td>
+                  <Dropdown placeHolder="Site" 
+                            style={{width: "22%", position: "absolute", zIndex: '6'}} 
+                            optionList={siteName.toString()} 
+                            optionValue={siteData.toString()} 
+                            getValue={(e) => this.setState({ site: e })} 
+                            optionSelected={this.state.site}/>
+             </td>
+              <td>
+                  <Dropdown placeHolder="Client" 
+                            style={{width: "22%", position: "absolute"}} 
+                            optionList={clientName.toString()} 
+                            optionValue={clientValue.toString()} 
+                            getValue={(e) => this.setState({ client: e })} 
+                            optionSelected={this.state.client}/>
+              </td>
+                {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
+              <td>
+                <AutoComplete   placeHolder="Supplier"
+                                suggestions={supplierName}
+                                suggestionsValue={supplierName}
+                                defaultValue={this.state.supplier}
+                                handleChange={(e) => this.setState({ supplier: e })} />
+              </td>
+                {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form2 put pec" placeholder="Supplier"/> </td> */}
+              <td>
+                  <input className="form2 put pec" placeholder="Customer Order Ref" value={this.state.customerRef} maxLength="40" onChange={(e) => this.setState({ customerRef: e.target.value })}/>
+              </td>
+            </tr>
+            <tr>
+              <th style={{color:"transparent"}}>1</th>
+            </tr>
+            <tr>
+              <th style={{color:"transparent"}}>1</th>
+            </tr>
+            <tr>
+                <th className='required-field'>Order Type</th>
+                <th className='required-field'>Order No</th>
+                <th className='required-field'>Order Date</th>
+                <th>Vendor Order Ref</th>
+            </tr>
+            <tr>
+>>>>>>> Stashed changes
             <td>
             <Dropdown  placeHolder="Order Type" 
                         style={{width: "22%", position: "absolute"}} 
@@ -486,6 +538,7 @@ if(v_orderNo === null) v_orderNo = []
               <tr>
                 <th style={{width:"3.5%", textAlign:"center"}}>#</th>
                 <th className='required-field' style={{width:"12%"}}>Product</th>
+<<<<<<< Updated upstream
                 <th style={{width:"12%"}}>Description</th>
                 <th className='required-field' style={{width:"5%"}}>Qty</th>
                 <th className='required-field' style={{width:"6%"}}>UOM</th>
@@ -494,6 +547,17 @@ if(v_orderNo === null) v_orderNo = []
                 <th style={{width:"5%"}}>Ref3</th>
                 <th style={{width:"5%"}}>Ref4</th>
                 <th style={{width:"6%"}}>Disposition</th>
+=======
+                <th style={{width:"12%", paddingLeft:"7px"}}>Description</th>
+                <th className='required-field' style={{width:"5%", paddingLeft:"7px"}}>Qty</th>
+                <th style={{width:"5%", paddingLeft:"1px"}}>Weight</th>
+                <th className='required-field' style={{width:"6%", paddingLeft:"1px"}}>UOM</th>
+                <th style={{width:"11%", paddingLeft:"1px"}}>Rota Date</th>
+                <th style={{width:"6%", paddingLeft:"4px"}}>Batch</th>
+                <th style={{width:"5%", paddingLeft:"4px"}}>Ref3</th>
+                <th style={{width:"5%", paddingLeft:"2px"}}>Ref4</th>
+                <th style={{width:"6%", paddingLeft:"1px", paddingRight:"25px"}}>Disposition</th>
+>>>>>>> Stashed changes
               </tr>                               
             </table>
           </div>
@@ -870,7 +934,11 @@ if(v_orderNo === null) v_orderNo = []
 
                   <ModalHeader className="Tabs" style={{marginTop:"-40px"}} >
                         <div>
+<<<<<<< Updated upstream
                           <div className="createdec">
+=======
+                          <div className="createdec" style={{marginLeft:"67px"}}>
+>>>>>>> Stashed changes
                           Enter order and line details to create a new Purchase Order
                           </div>
                           <div className="tabs font">
