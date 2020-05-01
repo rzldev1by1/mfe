@@ -92,7 +92,7 @@ const OrderLine = (props) => {
                   optionSelected={uom}
                   getValue={(uom) => props.setUom(uom, props.idx)}
                   placeHolder="UOM"
-                  style={{ minWidth: "250px", zIndex: idx }}
+                  style={{ zIndex: idx }}
                   optionList={props.uomdata.toString()}
                   optionValue={props.uomdata.toString()}
                 />
@@ -102,7 +102,6 @@ const OrderLine = (props) => {
               <div id="orderline-header-rotadate-val-id">
                 <DatePicker
                   getDate={(date) => props.setRotaDate(date, props.idx)}
-                  style={{ minWidth: "250px" }}
                 />
               </div>
             </td>
