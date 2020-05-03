@@ -2,7 +2,7 @@ const headerValidation = (header) => {
     let required = []
     let ordNo = header.orderNo
     if(ordNo === null) ordNo = []
-    if (!header.site) required.push(['site', 'Ssite value must be entered'])
+    if (!header.site) required.push(['site', 'site value must be entered'])
     if (!header.client) required.push(['client', 'client value must be entered'])
     if (!header.orderType) required.push(['orderType', 'order type value must be entered']) 
     if (ordNo.length === 0) required.push(['orderNo', 'order no cannot be empty'])

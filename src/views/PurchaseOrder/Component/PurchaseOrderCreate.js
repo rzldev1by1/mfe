@@ -253,8 +253,9 @@ class PurchaseOrderCreate extends Component {
         })
     }
 
-    getsupplier = () => {   
-      axios.get(endpoint.getSupplier + "?client=" + headers.client, {
+    getsupplier = (client) => {  
+      if(!client) client =  headers.client
+      axios.get(endpoint.getSupplier + "?client=" + client, {
         headers: headers
       })
         .then(res => {
@@ -293,8 +294,9 @@ class PurchaseOrderCreate extends Component {
         })
     }
 
-    getproductcode = () => {
-        axios.get(endpoint.getProduct + "?client=" + headers.client, {
+    getproductcode = (e) => {
+      if(!e) e = headers.client
+        axios.get(endpoint.getProduct + "?client=" + e, {
             headers: headers
         })
         .then(res => {
@@ -306,8 +308,9 @@ class PurchaseOrderCreate extends Component {
         })
     }
 
-    getproductname = () => {
-        axios.get(endpoint.getProduct + "?client=" + headers.client, {
+    getproductname = (e) => {
+      if(!e) e = headers.client
+        axios.get(endpoint.getProduct + "?client=" + e, {
             headers: headers
         })
         .then(res => {
@@ -384,61 +387,67 @@ const {
 let v_orderNo = orderNo
 
 if(v_orderNo === null) v_orderNo = []
+if(v_orderNo === undefined) v_orderNo = []
 
     
     return(
       <div className="tabcontent">
         <h3 className="fonts">Order Details</h3>
         <table className="createpotable">
-            <tr>
-                <th className='required-field' style={{width:"396px"}}>Site</th>
-                <th className='required-field' style={{width:"396px"}}>Client</th>
-                <th style={{width:"396px"}}>Supplier</th>
-                <th style={{width:"396px"}}>Customer Order Ref</th>
-            </tr>
-            <tr>
-              <td>
-                  <Dropdown placeHolder="Site" 
-                            style={{width: "22%", position: "absolute", zIndex: '6'}} 
-                            optionList={siteName.toString()} 
-                            optionValue={siteData.toString()} 
-                            getValue={(e) => this.setState({ site: e })} 
-                            optionSelected={this.state.site}/>
-             </td>
-              <td>
-                  <Dropdown placeHolder="Client" 
-                            style={{width: "22%", position: "absolute"}} 
-                            optionList={clientName.toString()} 
-                            optionValue={clientValue.toString()} 
-                            getValue={(e) => this.setState({ client: e })} 
-                            optionSelected={this.state.client}/>
-              </td>
-                {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
-              <td>
-                <AutoComplete   placeHolder="Supplier"
-                                suggestions={supplierName}
-                                suggestionsValue={supplierName}
-                                defaultValue={this.state.supplier}
-                                handleChange={(e) => this.setState({ supplier: e })} />
-              </td>
-                {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form2 put pec" placeholder="Supplier"/> </td> */}
-              <td>
-                  <input className="form2 put pec" placeholder="Customer Order Ref" value={this.state.customerRef} maxLength="40" onChange={(e) => this.setState({ customerRef: e.target.value })}/>
-              </td>
-            </tr>
-            <tr>
-              <th style={{color:"transparent"}}>1</th>
-            </tr>
-            <tr>
-              <th style={{color:"transparent"}}>1</th>
-            </tr>
-            <tr>
-                <th className='required-field'>Order Type</th>
-                <th className='required-field'>Order No</th>
-                <th className='required-field'>Order Date</th>
-                <th>Vendor Order Ref</th>
-            </tr>
-            <tr>
+          <tr>
+            <th className='required-field' style={{ width: "396px" }}>Site</th>
+            <th className='required-field' style={{ width: "396px" }}>Client</th>
+            <th style={{ width: "396px" }}>Supplier</th>
+            <th style={{ width: "396px" }}>Customer Order Ref</th>
+          </tr>
+          <tr>
+            <td>
+              <Dropdown placeHolder="Site"
+                style={{ width: "22%", position: "absolute", zIndex: '6' }}
+                optionList={siteName.toString()}
+                optionValue={siteData.toString()}
+                getValue={(e) => this.setState({ site: e })}
+                optionSelected={this.state.site} />
+            </td>
+            <td>
+              <Dropdown placeHolder="Client"
+                style={{ width: "22%", position: "absolute" }}
+                optionList={clientName.toString()}
+                optionValue={clientValue.toString()}
+                getValue={(e) => this.setState({ client: e }, this.getsupplier(e), this.getproductcode(e), this.getproductname(e))}
+                optionSelected={this.state.client} />
+            </td>
+            {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
+            <td>
+              <AutoComplete placeHolder="Supplier"
+                suggestions={supplierName}
+                suggestionsValue={supplierName}
+                defaultValue={this.state.supplier}
+                handleChange={(e) => this.setState({ supplier: e })} />
+            </td>
+            {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form2 put pec" placeholder="Supplier"/> </td> */}
+            <td>
+              <input className="form2 put pec" placeholder="Customer Order Ref" value={this.state.customerRef} maxLength="40" onChange={(e) => this.setState({ customerRef: e.target.value })} />
+            </td>
+          </tr>
+          <tr>
+            <th style={{ color: "transparent" }}>1</th>
+          </tr>
+
+          <tr>
+            <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.site ? 'nmtrField' : 'mtrField')}>{this.state.emptySite}</div></td>
+            <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.client ? 'nmtrField' : 'mtrField')}>{this.state.emptyClient}</div></td>
+            <td style={{ width: "396px" }}><div className='po-required' /></td>
+            <td style={{ width: "396px" }}><div className='po-required' /></td>
+          </tr>
+
+          <tr>
+            <th className='required-field'>Order Type</th>
+            <th className='required-field'>Order No</th>
+            <th className='required-field'>Order Date</th>
+            <th>Vendor Order Ref</th>
+          </tr>
+          <tr>
             <td>
             <Dropdown  placeHolder="Order Type" 
                         style={{width: "22%", position: "absolute"}} 
@@ -447,7 +456,7 @@ if(v_orderNo === null) v_orderNo = []
                         getValue={(e) => this.setState({ orderType: e })} 
                         optionSelected={this.state.orderType}/>
             </td>
-            <td><input id='orderNo' className="form2 put pec" value={this.state.orderNo} placeholder="Order No" minLength="4" maxLength="12" onChange={(e) => this.setState({ orderNo: e.target.value })} /> </td>
+            <td><input id='orderNo' className="form2 put pec" value={this.state.orderNo} placeholder="Order No" minLength="4" maxLength="12" onChange={(e) => this.setState({ orderNo: e.target.value.toUpperCase()})} /> </td>
             <td>
               <DatePicker style={{ minWidth: "22%", position: "absolute" }}
                 getDate={(e) => { this.setState({ orderDate: e }); this.state.rowlist[0].orderDate = e }}
@@ -455,7 +464,7 @@ if(v_orderNo === null) v_orderNo = []
               />
               {console.log(this.state.orderDate)}
             </td>
-            <td><input className="form2 put pec" value={this.state.vendorRef} placeholder="Vendor Order Ref" onChange={(e) => this.setState({ vendorRef: e.target.value })} maxLength="40" /> </td>
+            <td><input className="form2 put pec" value={this.state.vendorRef} maxLength='40' placeholder="Vendor Order Ref" onChange={(e) => this.setState({ vendorRef: e.target.value })} maxLength="40" /> </td>
           </tr>
           <tr>
             <th style={{ color: "transparent" }}>1</th>
@@ -590,7 +599,7 @@ if(v_orderNo === null) v_orderNo = []
       let id = e.currentTarget.id;
       for(let i = 0; i < updated; i++){
           if(this.state.rowlist[i].lineNumber == id){
-            this.state.rowlist.splice(i, 1);
+            this.state.rowlist.splice(i-1, 1);
             this.setState({rowlist: this.state.rowlist})
             this.state.rowlistidx -= 1;
             let lengthRowlist = this.state.rowlist.length;
@@ -654,16 +663,18 @@ if(v_orderNo === null) v_orderNo = []
                             style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
                             optionList={self.state.productcr.toString()} 
                             optionValue={self.state.productcr.toString()} 
-                            getValue={(e) => this.getProductValue(e, i)} />
+                            getValue={(e) => this.getProductValue(e, i)} 
+                            optionSelected={self.state.rowlist[i].product} />
             </td>
             <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Choose a Product First" defaultValue={self.state.rowlist[i].productDescription} readOnly/></td>
-            <td style={{width:"4.5%"}}><input id={'qty_'+i} type="number" min="1" className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
+            <td style={{width:"4.5%"}}><input id={'qty_'+i} type="number" min="1" maxLength='9' className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
             <td style={{width:"6%"}}>
                 <Dropdown placeHolder="UOM" 
                             style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
                             optionList={self.state.uomcr.toString()} 
                             optionValue={self.state.uomcr.toString()} 
-                            getValue={(e) => self.state.rowlist[i].uom = e} />
+                            getValue={(e) => self.state.rowlist[i].uom = e}
+                            optionSelected={self.state.rowlist[i].uom} />
             </td>
             <td style={{width:"11%"}}><DatePicker style={{ minWidth: "100%" }} field="smallField" getDate={(e) => self.state.rowlist[i].rotadate = e} defaultValue={self.state.rowlist[i].rotadate} /> </td>
             <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"  maxLength="30" defaultValue={self.state.rowlist[i].batch} onChange={(e) => self.state.rowlist[i].batch = e.target.value} /></td>
@@ -674,7 +685,9 @@ if(v_orderNo === null) v_orderNo = []
                             style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
                             optionList={self.state.dispositioncr.toString()} 
                             optionValue={self.state.dispositioncr.toString()} 
-                            getValue={(e) => self.state.rowlist[i].disposition = e} />
+                            getValue={(e) => self.state.rowlist[i].disposition = e} 
+                            optionSelected={self.state.rowlist[i].disposition}
+                            />
                             </td>
             <td id={list.lineNumber} onClick={(e) => this.deletelinehandler(e)} style={{width:"1.5%"}}><div className="iconU-delete"/></td>
           </tr>
@@ -740,19 +753,30 @@ if(v_orderNo === null) v_orderNo = []
 
   createPO = () => {
     let self = this;
+
+    const {
+      site, 
+      client,
+      supplier,
+      customerRef,
+      orderType,
+      orderNo,
+      orderDate,
+      vendorRef,
+    } = self.state
     let param = {
         orderDetails: [{
-          site: this.state.site,
-          client: this.state.client,
-          supplier: this.state.supplier,
-          customerOrderRef: this.state.customerRef,
-          orderType: this.state.orderType,
-          orderNo: this.state.orderNo,
-          orderDate: this.state.orderDate,
-          vendorOrderRef: this.state.vendorRef,
+          site: site,
+          client: client,
+          supplier: supplier,
+          customerOrderRef: customerRef ? customerRef : null,
+          orderType: orderType,
+          orderNo: orderNo,
+          orderDate: orderDate,
+          vendorOrderRef: vendorRef ? vendorRef : null,
           web_user: "216"
         }],
-        lineDetails: [...this.state.rowlist]
+        lineDetails: [...self.state.rowlist]
     }
     axios.post(endpoint.purchaseOrderCreate, param, { headers: headers,})
     .then(res =>{

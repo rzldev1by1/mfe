@@ -225,14 +225,10 @@ class Tab1CreateSO extends Component {
             <td className="nmtrField"></td>
           </tr>
         </table>
-        <tr style={{ color: "transparent" }}>1</tr>
         <h3 className="fonts">Customer Details</h3>
         <table className="createpotables">
           <tr>
-            <th>Customer </th>
-            <th className="required-field">Address 1</th>
-            <th>Address 2</th>
-            <th>Address 3</th>
+            <th>Customer </th>            
           </tr>
           <tr>
             <td className="verticalAlignTop">
@@ -246,19 +242,29 @@ class Tab1CreateSO extends Component {
                 />
               ) : (
                   
-                  <AutoComplete
+                  <div className='so-supp'>
+                    <AutoComplete
                     suggestions={supplierName}
                     suggestionsValue={this.props.resources.supplier.code}
                     handleChange={(customerVal, customerName) =>
                       this.props.getIdentity(customerVal, 1)
                     }
                   />
+                  </div>
                 )}
 
               <input value={customerVal} type="text" id="customerCode" hidden />
             </td>
+          </tr>
 
-            <td>
+          <tr>
+            <th className="required-field">Address 1</th>
+            <th>Address 2</th>
+            <th>Address 3</th>
+          </tr>
+
+          <tr>
+          <td>
               <input
                 value={shipToAddress1}
                 onChange={(e) => this.props.setAddress1(e.target.value)}
@@ -291,7 +297,6 @@ class Tab1CreateSO extends Component {
           </tr>
 
           <tr>
-            <td className={emptyClassCustomer}>{emptyCustomer}</td>
             <td className={emptyClassShipToAddress1}>{emptyShipToAddress1}</td>
             <td className="nmtrField"></td>
             <td className="nmtrField"></td>

@@ -436,57 +436,57 @@ th.iconU-edit {
 
 #orderline-header-product-id {
   margin-right: 10px;
-  width: 200px;
+  width: 150px;
 }
 
 #orderline-header-description-id {
   margin-right: 10px;
-  width: 340px;
+  width: 250px;
 }
 
 #orderline-header-qty-id {
   margin-right: 10px;
-  width: 210px;
+  width: 80px;
 }
 
 #orderline-header-weight-id {
   margin-right: 10px;
-  width: 210px;
+  width: 80px;
 }
 
 #orderline-header-uom-id {
   margin-right: 10px;
-  width: 250px;
+  width: 150px;
 }
 
 #orderline-header-rotadate-id {
   margin-right: 10px;
-  width: 250px;
+  width: 150px;
 }
 
 #orderline-header-batch-id {
   margin-right: 10px;
-  width: 240px;
+  width: 160px;
 }
 
 #orderline-header-ref3-id {
   margin-right: 10px;
-  width: 240px;
+  width: 160px;
 }
 
 #orderline-header-ref4-id {
   margin-right: 10px;
-  width: 240px;
+  width: 160px;
 }
 
 #orderline-header-disposition-id {
   margin-right: 10px;
-  width: 260px;
+  width: 150px;
 }
 
 #orderline-header-packid-id {
   margin-right: 10px;
-  width: 240px;
+  width: 160px;
 }
 
 /*value id */
@@ -498,56 +498,57 @@ th.iconU-edit {
 
 #orderline-header-product-val-id {
   margin-right: 10px;
-  width: 200px;
+  width: 150px;
 }
 
 #orderline-header-description-val-id {
   margin-right: 10px;
-  width: 340px;
+  width: 250px;
 }
 
 #orderline-header-qty-val-id {
   margin-right: 10px;
-  width: 210px;
+  width: 80px;
 }
 
 #orderline-header-weight-val-id {
   margin-right: 10px;
-  width: 210px;
+  width: 80px;
 }
 
 #orderline-header-uom-val-id {
   margin-right: 10px;
-  width: 250px;
+  width: 150px;
 }
 
 #orderline-header-rotadate-val-id {
   margin-right: 10px;
+  width: 150px;
 }
 
 #orderline-header-batch-val-id {
   margin-right: 10px;
-  width: 240px;
+  width: 160px;
 }
 
 #orderline-header-ref3-val-id {
   margin-right: 10px;
-  width: 240px;
+  width: 160px;
 }
 
 #orderline-header-ref4-val-id {
   margin-right: 10px;
-  width: 240px;
+  width: 160px;
 }
 
 #orderline-header-disposition-val-id {
   margin-right: 10px;
-  width: 260px;
+  width: 150px;
 }
 
 #orderline-header-packid-val-id {
   margin-right: 10px;
-  width: 240px;
+  width: 160px;
 }
 
 .scrollx{
@@ -593,4 +594,16 @@ th.iconU-edit {
   
 .btn-next{
   margin-top: 1.5%;
+}
+
+.so-supp{
+  margin-bottom: 15%;  
+}
+
+.so-dropdown-wrapper{
+  display: flex;
+}
+
+.so-dropdown-wrapper > div{
+  margin-right: 3%;
 }

@@ -138,11 +138,11 @@ class PurchaseOrder extends Component {
 
       getordertype = () => {
         let self = this;
-        axios.get(endpoint.getOrderType  + '?client=MLS&site=M', {
+        axios.get(endpoint.getPOResources, {
             headers: headers
             })
             .then(res => {
-                const result = res.data
+                const result = res.data.orderType
                 self.setState({ ordertypedata:result }); 
                 let orderTypeName = [];
                 let orderTypeValue = [];
@@ -196,7 +196,7 @@ class PurchaseOrder extends Component {
         }
         if(this.state.sitedata){
             this.state.sitedata.map((data) => {
-                siteData.push(data.site);
+                siteData.push(data.site +' : '+data.name );
                 siteValue.push(data.site);
             })
             siteData.push("All");
