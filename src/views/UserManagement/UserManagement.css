@@ -730,7 +730,7 @@ input:checked + .slider:before {
 }
 
 .search.search-um{
-	width: 100%; 
+	width: 100% !important; 
 }
 
 .tablecontent{

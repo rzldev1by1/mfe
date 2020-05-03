@@ -148,10 +148,10 @@ export default class PurchaseOrderDetail extends Component {
                     this.state.datahead.length ? this.header() : null
                 }
 
-                <div className={'tablecontent ' + ( this.state.datahead.length ? 'fades ' : 'hidden')}>
+                <div className={'tablePage tablecontent ' + ( this.state.datahead.length ? 'fades ' : 'hidden')}>
                     <PODTable ref={this.potableref} 
                               className='animated fadeIn' 
-                              style={{display:'none'}} 
+                              style={{display:'none',marginRight: "0px"}} 
                               datahead = {this.state.datahead}
                               showEditColumn = {() => this.setState({ showEditColumn: true })}
                               getTableHeader = {(e) => this.setState({ tableheader: e })}
