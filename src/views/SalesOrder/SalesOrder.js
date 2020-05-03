@@ -199,7 +199,7 @@ class SalesOrder extends Component {
           <div>
           <Dropdown
           placeHolder="Site"
-          style={{ width: "142px", height: "2.7em" }}
+          style={{ width: "142px"}}
           optionList={siteName.toString()}
           optionValue={siteData.toString()}
           getValue={this.getSiteSelected.bind(this)}
@@ -208,7 +208,7 @@ class SalesOrder extends Component {
           <div>
           <Dropdown
           placeHolder="Client"
-          style={{ width: "142px", height: "2.7em" }}
+          style={{ width: "142px"}}
           optionList={clientValue.toString()}
           optionValue={clientValue.toString()}
           getValue={this.getClientSelected.bind(this)}
