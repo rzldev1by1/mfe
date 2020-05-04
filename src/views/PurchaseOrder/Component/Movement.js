@@ -269,7 +269,7 @@ class Movement extends Component {
                     <th key="2" onClick={(e) => this.arrowHandler(e)} id='client' >Client <img className='arrowss' src={this.state.activearrow}/></th>
                     <th key="3" onClick={(e) => this.arrowHandler(e)} id='product' >Product <img className='arrowss' src={this.state.activearrow}/></th>
                     <th key="4" onClick={(e) => this.arrowHandler(e)} id='productName' >Description <img className='arrowss' src={this.state.activearrow}/></th>
-                    <th key="5" onClick={(e) => this.arrowHandler(e)} id='uom'>UOM <img className='arrowss' src={this.state.activearrow}/></th>
+                    <th key="5" style={{minWidth: 0, marginLeft: 0}} onClick={(e) => this.arrowHandler(e)} id='uom' >UOM <img className='arrowss' src={this.state.activearrow}/></th>
                 </div>
             </div>
             )
