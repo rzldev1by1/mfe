@@ -238,7 +238,7 @@ class PurchaseOrderTable extends Component {
   render(){
     return(
       <div>
-        <table className="defaulTable">
+        <table className="defaultTable">
           <thead>
             <tr>
               {this.state.tableheader.map((header, idx) => {
