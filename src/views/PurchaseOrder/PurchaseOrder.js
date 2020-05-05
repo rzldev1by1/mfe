@@ -188,7 +188,7 @@ class PurchaseOrder extends Component {
           let orderTypeValue = [];
         if(this.state.clientdata){
             this.state.clientdata.map((data) => {
-                clientName.push(data.code);
+                clientName.push(data.code + ' : '+data.name);
                 clientValue.push(data.code);
             })
             clientName.push("All");
@@ -217,7 +217,7 @@ class PurchaseOrder extends Component {
         }
           return(
               <React.Fragment>
-                  <Dropdown placeHolder="Site" style={{width: "102px"}} optionList={siteData.toString()} optionValue={siteValue.toString()} getValue={this.getSiteSelected.bind(this)}/>
+                  <Dropdown placeHolder="Site" style={{width: "160px"}} optionList={siteData.toString()} optionValue={siteValue.toString()} getValue={this.getSiteSelected.bind(this)}/>
                   <Dropdown placeHolder="Client" style={{width: "218px"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected.bind(this)}/>
                   <Dropdown placeHolder="Status" style={{marginRight: "1em"}} optionList={status.toString()} optionValue={statusValue.toString()} getValue={this.getStatusSelected.bind(this)}/>
                   <Dropdown placeHolder="Order Type" style={{width: "180px"}} optionList={orderTypeName.toString()} optionValue={orderTypeValue.toString()} getValue={this.getOrderTypeSelected.bind(this)}/>

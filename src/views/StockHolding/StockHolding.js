@@ -61,7 +61,7 @@ class StockHolding extends Component {
 				{ id: "pallets", checkboxLabelText: "Pallets", tableHeaderText: "Pallets", isVisible: false, key: "pallet", type: "string", sort: mid },
             ],
             masterSite: [],
-            masterUnit: ["MLB", "MLS", "MLM"],
+            masterUnit: ["MLB : MICROLISTICS", "MLS : Microlistics", "MLM : MICROLISTICS"],
             masterStatus: ["OK", "SHORTAGE"],
 			masterResStockHolding: []
         };
@@ -215,7 +215,7 @@ class StockHolding extends Component {
         let masterSite = [];
         if (this.state.masterSite.length > 0) {
             this.state.masterSite.map((item) => {
-                masterSite.push(item.site);
+                masterSite.push(item.site + ' : '+ item.name );
             });
         }
 
@@ -224,12 +224,12 @@ class StockHolding extends Component {
 
         return (
             <div className={"input-group filterSection" + (this.state.showFilter ? "" : " d-none")}>
-                <Dropdown placeHolder="Site" style={{marginRight:'15px', width:'100px'}}
+                <Dropdown placeHolder="Site" style={{marginRight:'15px', width:'160px'}}
                           optionList={masterSite.toString()}
                           optionValue={masterSite.toString()}
                           getValue={this.selectedSite} />
 
-				<Dropdown placeHolder="Client" style={{marginRight:'15px', width:'218px'}}
+				<Dropdown placeHolder="Client" style={{marginRight:'15px', width:'200px'}}
                         optionList={masterUnit}
                         optionValue={masterUnit}
                         getValue={this.selectedUnit} />

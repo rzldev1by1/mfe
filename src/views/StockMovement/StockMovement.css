@@ -301,3 +301,51 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 .middles{
 	margin-left:30px;
 }
+
+@media(max-width: 1500px){
+	.arrowss{
+		margin-left: 0.3em;
+		width: 0.6em;
+	}
+	#site{
+		min-width: 3rem;
+		margin-right: 1rem;
+		margin-left: 1rem;
+	}
+  
+	#client{
+	  min-width: 3.5rem;
+	  margin-right: 1rem;
+	}
+  
+	#product{
+		min-width: 4.5rem;
+		margin-right: 1rem;
+	}
+  
+	#productName{
+		min-width: 9rem;
+		margin-right: rem;
+	}
+  
+	#uom{
+		min-width: 3.5rem;
+		margin-right: 2rem;
+		margin-left: 2px;
+	}
+	.productHeader{
+		margin-bottom: -0.5px !important;
+		font-family: "Helvetica Neue Bold";
+		color: #B4B9BB;
+		padding-left: 10px;
+		font-size: 12px;
+	}
+
+	.productList{
+		min-width: 8rem;
+		text-align: left !important;
+		font-family: "Helvetica Neue Regular";
+		color: #637175;
+		font-size: 100%;
+	  } 
+}

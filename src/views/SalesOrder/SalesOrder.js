@@ -183,7 +183,7 @@ class SalesOrder extends Component {
     let status = [];
     if (this.state.clientdata) {
       this.state.clientdata.map((data) => {
-        clientName.push(data.name);
+        clientName.push(data.code + ' : '+data.name);
         clientValue.push(data.code);
       });
     }
@@ -199,7 +199,7 @@ class SalesOrder extends Component {
           <div>
           <Dropdown
           placeHolder="Site"
-          style={{ width: "142px"}}
+          style={{ width: "160px"}}
           optionList={siteName.toString()}
           optionValue={siteData.toString()}
           getValue={this.getSiteSelected.bind(this)}
@@ -208,8 +208,8 @@ class SalesOrder extends Component {
           <div>
           <Dropdown
           placeHolder="Client"
-          style={{ width: "142px"}}
-          optionList={clientValue.toString()}
+          style={{ width: "200px"}}
+          optionList={clientName.toString()}
           optionValue={clientValue.toString()}
           getValue={this.getClientSelected.bind(this)}
         />
