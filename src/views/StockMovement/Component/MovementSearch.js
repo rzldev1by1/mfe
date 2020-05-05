@@ -98,7 +98,7 @@ export default class MovementSearch extends Component {
                     </div>
                 </div> 
 
-                <div style={{marginLeft:'45px'}} className='searchParameterTitleDate'>To</div>
+                <div style={{marginLeft:'25px'}} className='searchParameterTitleDate'>To</div>
                 <div onMouseLeave={() => this.setState({dateToShow:false})}>
                 <div className='displayButtonToggle'>
                     <button style={{color:'#7c878c'}} onClick={()=> this.setState({dateToShow:!this.state.dateToShow})} className='btn dropdown-button ddlMovementDate default-box-height' data-toggle='dropdown'>
