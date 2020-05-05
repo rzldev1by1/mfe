@@ -40,7 +40,7 @@
 		"jspdf": "^1.5.3",
 		"jspdf-autotable": "^3.4.3",
 		"node-sass": "^4.13.1",
-		"pm2": "^4.2.1",
+		"pm2": "^4.4.0",
 		"prop-types": "^15.7.2",
 		"react": "^16.13.1",
 		"react-app-polyfill": "^1.0.5",
