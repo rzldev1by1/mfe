@@ -6,7 +6,7 @@ const site = ({sites, onEnableClick, onSiteEnableAll}) => {
 return (<div>
         <div className="flex-column mr-2">
             <div className="row">
-                <label className="col-7 title-label" htmlFor="Site">Site
+                <label className="col-6 title-label" htmlFor="Site">Site
                 </label>
                 <input className="checkbox-hidden" type="checkbox" id="Site"/>
                 <div className="col-3">
@@ -14,7 +14,7 @@ return (<div>
                 </div>
             </div>
             <div className="row mb-2">
-              <div className="col-7 line-border ml-3"></div>
+              <div className="col-6 line-border ml-3"></div>
               <div className="col-3 line-border"></div>
             </div>
         </div>
@@ -24,7 +24,7 @@ return (<div>
             sites.map((item,index) => {
             return (<div className="flex-column mb-3 mr-2" key={index}>
             <div className="row" key={index}>
-                <label className="col-7 section-value-text" key={item.site}>{item.site}</label>
+                <label className="col-6 section-value-text" key={item.site}>{item.site}</label>
                 
                 <input className="checkbox-hidden" type="checkbox" id={item.site} />
                 <div className="col-3">
