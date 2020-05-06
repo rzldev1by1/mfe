@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
-import { Table,Button, Card, CardBody, Label} from 'reactstrap'
+import React from 'react'
 import '../UserManagement.css'
 
-const site = ({sites, onEnableClick}) => {
+const site = ({sites, onEnableClick, onSiteEnableAll}) => {
 
 return (<div>
         <div className="flex-column mr-2">
@@ -11,7 +10,7 @@ return (<div>
                 </label>
                 <input className="checkbox-hidden" type="checkbox" id="Site"/>
                 <div className="col-3">
-                  <button type="button" className="btn btn-outline-active mb-2">Enabled All</button>
+                  <button type="button" className="btn btn-outline-active mb-2" onClick={onSiteEnableAll}>Enabled All</button>
                 </div>
             </div>
             <div className="row mb-2">
@@ -25,7 +24,7 @@ return (<div>
             sites.map((item,index) => {
             return (<div className="flex-column mb-3 mr-2" key={index}>
             <div className="row" key={index}>
-                <label className="col-7 section-value-text" key={item.site}>{item.site}</label>
+                <label className="col-6 section-value-text" key={item.site}>{item.site}</label>
                 
                 <input className="checkbox-hidden" type="checkbox" id={item.site} />
                 <div className="col-3">

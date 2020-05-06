@@ -31,7 +31,8 @@ const userModel = {
 	  "thisLogin": today,
     "password":"",
     "userMenu":[],
-    'client':"",
+    'client':null,
+    'site':null,
     "disabled":"N",
     "company":""
 }
@@ -474,19 +475,43 @@ class UserManagement extends Component{
        this.setState({moduleAccess:newArray,accountInfo:account});
     }
 
+    onEnabledAllSite = () => {    
+        
+        let sites = [...this.state.sites];
+        var newArray = sites.map((item,index) => {
+              item.status = true;
+            return item;
+        });
+       this.setState({sites:newArray});
+    }
+
+    onEnabledAllClient = () => {       
+        let clients = [...this.state.clients];
+        var newArray = clients.map((item,index) => {
+              item.status = true;
+            return item;
+        });
+       this.setState({clients:newArray});
+    }
+
     onSiteStatusClick = (e,data) => {
 
       if(data){
+        let user = {...this.state.accountInfo};
         let newState = [...this.state.sites];
+        console.log(newState);
         var newArray = newState.map((item,index) => {
             item.status = false;
-            if(item.site === data.site)
+            if(item.site === data.site){
               item.status = true;
+              if(item.status)
+                user.site = item.site;
+            }
 
             return item;
         });
 
-        this.setState({sites:newArray});
+        this.setState({sites:newArray,accountInfo:user});
       }
     }
 
@@ -595,7 +620,7 @@ class UserManagement extends Component{
 
     searchHandler = (e) => {
       e.preventDefault();
-      console.log(e);
+      
       let self = this;
       let param = {};
       let currentForm = this.searchForm.current
@@ -608,9 +633,10 @@ class UserManagement extends Component{
         param.searchParam = "";
       }
 
-      console.log(param);
-        let endpoint = 'http://developer.backend.onebyone.io:82/web_user'
-        axios.get(endpoint, {
+      
+        let endpointApi = `${endpoint.UserManagement_ListUser}`;
+
+        axios.get(endpointApi, {
           params: param,
           headers: headers
         })
@@ -663,7 +689,7 @@ class UserManagement extends Component{
                 <CardBody>
                 <form ref={this.searchForm} onSubmit ={this.searchHandler}>
                 <div className="row">
-                <div className='pr-3 pl-3 ' style={{width: "86%"}}>
+                <div className='searchColumnUm'>
                     <div className="searchINP">
                     <div className="input-group p-0 searchSection">
                     <div className="input-group searchBox w-100 default-box-height" style={{maxWidth:"none"}}>
@@ -677,14 +703,11 @@ class UserManagement extends Component{
                     </div>
                     </div>
                 </div>
-                <div className='pr-3' style={{width: "14%"}} >
+                <div>
                     <Button type="submit" className="default-box-height search search-um text-button btn-primary">
                       Search
                     </Button>
                 </div>
-
-                {/* <div className="col-2 m-0"> */}
-
 
                 </div>
                 </form>
@@ -701,8 +724,8 @@ class UserManagement extends Component{
                 <ModalNewUser isOpen={this.state.isModalNewOpen} closeModal={this.closeModalPopUp} model={this.state.accountInfo}
                 onChangeName={this.onChangeName} onChangeEmail={this.onChangeEmail} moduleAccess={this.state.moduleAccess}
                 isModuleLoaded={this.state.isModuleLoaded} moduleAccessEnableClick={this.onModuleAccessClick}
-                sites={this.state.sites} isSiteLoaded={this.state.isSiteLoaded} sitesEnableClick={this.onSiteStatusClick}
-                clients={this.state.clients} isClientLoaded={this.state.isClientLoaded} clientEnableClick={this.onClientStatusClick}
+                sites={this.state.sites} isSiteLoaded={this.state.isSiteLoaded} sitesEnableClick={this.onSiteStatusClick} onSiteEnableAll={this.onEnabledAllSite}
+                clients={this.state.clients} isClientLoaded={this.state.isClientLoaded} clientEnableClick={this.onClientStatusClick} onClientEnableAll={this.onEnabledAllClient}
                 onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing} onChangeCompany={this.onChangeCompany}
                 onModuleEnableAll = {this.onEnabledAllModuleAccess} isValidForm={this.state.isValidForm} onNextClickHandler={this.nextClickHandler}
                 firtsTabActive={this.state.firstTab} secondTabActive={this.state.secondTab} onClickTabActive={this.setTabActive}

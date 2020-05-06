@@ -47,7 +47,7 @@
 html, body {margin: 0; height: 100%; overflow: hidden}
 .movementBtnSearch{
 	height: 40px;
-	width: 160px;
+	width: 170px;
 	font-size:1.1rem;
 	font-family: "Helvetica Neue Medium";
 	margin-left: 30%;
@@ -192,14 +192,14 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 }
 
 .ddlMovement{
-	width: 160px;
+	width: 170px;
 	height: 40px ;
 	border: 1px solid #d5d8da !important; 
 	text-align: left;
 }
 
 .ddlMovementDate{
-	width: 160px;
+	width: 170px;
 	height: 40px ;
 	border: 1px solid #d5d8da !important; 
 	text-align: left;
@@ -271,7 +271,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 .searchParameterTitle{
 	font-family: "Helvetica Neue Medium";
 	color: #b4b9bb;
-	width: 120px;
+	width: 159px;
 }
 
 .searchParameterTitleDate{
@@ -295,9 +295,57 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 .displayButtonToggle > .dropdown-toggle{
 	margin-left: -30px !important;
-	padding-top: 8px;
+	padding-top: 14px;
 }
 
 .middles{
 	margin-left:30px;
+}
+
+@media(max-width: 1500px){
+	.arrowss{
+		margin-left: 0.3em;
+		width: 0.6em;
+	}
+	#site{
+		min-width: 3rem;
+		margin-right: 1rem;
+		margin-left: 1rem;
+	}
+  
+	#client{
+	  min-width: 3.5rem;
+	  margin-right: 1rem;
+	}
+  
+	#product{
+		min-width: 4.5rem;
+		margin-right: 1rem;
+	}
+  
+	#productName{
+		min-width: 9rem;
+		margin-right: rem;
+	}
+  
+	#uom{
+		min-width: 3.5rem;
+		margin-right: 2rem;
+		margin-left: 2px;
+	}
+	.productHeader{
+		margin-bottom: -0.5px !important;
+		font-family: "Helvetica Neue Bold";
+		color: #B4B9BB;
+		padding-left: 10px;
+		font-size: 12px;
+	}
+
+	.productList{
+		min-width: 8rem;
+		text-align: left !important;
+		font-family: "Helvetica Neue Regular";
+		color: #637175;
+		font-size: 100%;
+	  } 
 }

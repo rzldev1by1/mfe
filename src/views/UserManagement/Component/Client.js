@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
-import { Table,Button, Card, CardBody, Label} from 'reactstrap'
+import React from 'react'
 import '../UserManagement.css'
 
-const client = ({clients, onEnableClick}) => {
+const client = ({clients, onEnableClick, onClientEnableAll}) => {
   function capitalizeFirstLetter(string) {
       let aText = string.toLowerCase();
       let text = aText.charAt(0).toUpperCase() + aText.slice(1)
@@ -16,7 +15,7 @@ return (<div>
               </label>
               <input className="checkbox-hidden" type="checkbox" id="Client"/>
               <div className="col-3">
-                  <button type="button" className="btn btn-outline-active mb-2">Enabled All</button>
+                  <button type="button" className="btn btn-outline-active mb-2" onClick={onClientEnableAll}>Enabled All</button>
               </div>
           </div>
           <div className="row mb-2">

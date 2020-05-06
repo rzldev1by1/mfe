@@ -15,6 +15,7 @@ class ListOrderComponent extends Component {
     super(props);
 
     this.dropdownref = React.createRef();
+    this._checkActiveSorting = this._checkActiveSorting.bind(this);
 
     this.state = {
       data: [],
@@ -30,6 +31,7 @@ class ListOrderComponent extends Component {
         "Date Released",
         "Date Completed"
       ],
+      activecolumnsort: null,
       activearrow: mid,
       sortparameter: "order_no",
       // sort :true,
@@ -42,6 +44,24 @@ class ListOrderComponent extends Component {
       maxPage: 0,
       client: null
     };
+  }
+
+  _checkActiveSorting(header){ 
+    if(header==this.state.activecolumnsort){ 
+      if (this.state.activearrow == mid) {
+        return up;
+      }
+
+      if (this.state.activearrow == up) {
+        return down;
+      }
+
+      if (this.state.activearrow == down) {
+        return up;
+      }
+    }else{
+      return mid;
+    }
   }
 
   load = () => {
@@ -146,6 +166,7 @@ class ListOrderComponent extends Component {
   };
 
   sortby = (id) => {
+    // console.log(id)
     if (id == "Site") {
       this.setState({ sort: !this.state.sort, sortparameter: "site" });
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
@@ -262,7 +283,10 @@ class ListOrderComponent extends Component {
     return;
   };
   arrowHandler = (e) => {
-    let id = e.currentTarget.id;
+    let id = e.currentTarget.id; 
+    this.setState({ activecolumnsort: id });
+    //console.log(this.state.activecolumnsort);
+
     let activearrow = this.state;
     if (this.state.activearrow == mid) {
       this.setState({ activearrow: up });
@@ -426,7 +450,7 @@ class ListOrderComponent extends Component {
                             ? moment(data.date_completed).format("DD/MM/YYYY")
                             : "")}
                       </td>
-                      <td>{console.log(data)}</td>
+                      <td>{/*console.log(data)*/}</td>
                     </tr>
                   ))
               ) : (
@@ -496,7 +520,7 @@ class ListOrderComponent extends Component {
                             ? moment(data.date_completed).format("DD/MM/YYYY")
                             : "")}
                       </td>
-                      <td>{console.log(data)}</td>
+                      <td>{/*console.log(data)*/}</td>
                     </tr>
                   ))
               ) : (
@@ -545,9 +569,9 @@ class ListOrderComponent extends Component {
                <table className="defaultTable">
                   <thead>
                     <tr style={{borderBottom:"3px solid #f0f0f0 !important"}}>
-                       {this.state.tableheader.map(header =>
-                        <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
-                           <img key={header} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}} src={this.state.activearrow}/>
+                       {this.state.tableheader.map((header, idx) =>
+                        <th key={idx} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
+                           <img key={idx} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}}  src={this._checkActiveSorting(header)}/>
                         </th>
                               )}  
                               <th></th>
@@ -566,7 +590,7 @@ class ListOrderComponent extends Component {
                                       <td>{'' + (data.date_received ? moment(data.date_received).format("DD/MM/YYYY") : '') }</td>
                                       <td>{'' + (data.date_released ? moment(data.date_released).format("DD/MM/YYYY") : '') }</td>
                                       <td>{'' + (data.date_completed ? moment(data.date_completed).format("DD/MM/YYYY") : '') }</td>
-                          <td>{console.log(data)}</td>
+                          <td>{/*console.log(data)*/}</td>
                                   </tr>
                               ) : 
                                   <div> No data available </div>
@@ -574,22 +598,19 @@ class ListOrderComponent extends Component {
                       </tbody>
                         </table>
 
-              <table className="defaultTable d-none" id="excel">
+              <table id="excel">
                   <thead>
-                    <tr style={{borderBottom:"3px solid #f0f0f0 !important"}}>
+                    <tr>
                        {this.state.tableheader.map(header =>
                         <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
-                           {/* <img key={header} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}} src={this.state.activearrow}/> */}
                         </th>
                               )}  
-                              <th></th>
                        </tr>
                     </thead>
                     <tbody>
                           {this.state.data  ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
-                                  <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.order_no)} className='tr'>
-                                      <td>{data.site}</td>
-                                      <td>{data.client}</td>
+                                  <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.order_no)}>
+                                     <td>{data.client}</td>
                                       <td>{data.order_no}</td>
                                       <td>{data.order_type}</td>
                                       <td>{this.modifiedCustomerData(data.customer, data.customer_name)}</td>

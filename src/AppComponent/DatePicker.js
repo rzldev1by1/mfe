@@ -114,7 +114,7 @@ class DatePicker extends React.Component{
         const no = Math.floor(Math.random() * 100000) + 1;
         return(
             <React.Fragment>
-                <ul className="select_date" style={ this.props.style }>
+                <ul className="select_date" style={ this.props.style } tabIndex={this.props.tabIndex ? this.props.tabIndex : null}>
                     {/* <input type="checkbox" className="select_date_expand" name="select_opener" id={"select-opener" + placeHolder + no}></input> */}
                     {/* <input className="select_date_close" type="radio" name={"select" + placeHolder + no} id={"select-close" + placeHolder + no} value="" defaultChecked/> */}
                     <span className="select_date_label select_date_label-placeholder">{this.state.selectedDay ? moment(this.state.selectedDay).format("DD/MM/YYYY") : placeHolder}</span>

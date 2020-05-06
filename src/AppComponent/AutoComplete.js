@@ -132,6 +132,7 @@ export class Autocomplete extends Component {
           value={userInput ? userInput : this.props.defaultValue}
           style={this.props.inputStyle ? this.props.inputStyle : null}
           placeholder={this.props.placeHolder ? this.props.placeHolder : null}
+          tabIndex={this.props.tabIndex ? this.props.tabIndex : null}
         />
         {suggestionsListComponent}
         <label className={"closeAutoComplete " + (showSuggestions ? "" : "d-none")} onClick={() => this.setState({ showSuggestions: false })}></label>

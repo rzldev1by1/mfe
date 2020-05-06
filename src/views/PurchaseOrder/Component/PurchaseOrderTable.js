@@ -13,6 +13,7 @@ class PurchaseOrderTable extends Component {
     super(props)
    
     this.dropdownref = React.createRef()
+    this._checkActiveSorting = this._checkActiveSorting.bind(this);
 
     this.state = {
       data:[],
@@ -110,6 +111,7 @@ class PurchaseOrderTable extends Component {
         
       ],   
       activearrow:mid,
+      activecolumnsort: null,
       sortparameter:'order_no',
       sort:true,
 
@@ -117,9 +119,27 @@ class PurchaseOrderTable extends Component {
       currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
-			displayPage: 30,
+			displayPage: 50,
 			totalRows: 0,
 			maxPage: 0,
+    }
+  }
+
+  _checkActiveSorting(header){ 
+    if(header==this.state.activecolumnsort){ 
+      if (this.state.activearrow == mid) {
+        return up;
+      }
+
+      if (this.state.activearrow == up) {
+        return down;
+      }
+
+      if (this.state.activearrow == down) {
+        return up;
+      }
+    }else{
+      return mid;
     }
   }
 
@@ -230,8 +250,8 @@ class PurchaseOrderTable extends Component {
   }
 
   arrowHandler = (e) => {
-    let id = e.currentTarget.id
-    let activearrow = this.state
+    let id = e.currentTarget.id 
+    this.setState({ activecolumnsort: id });
     if(this.state.activearrow == mid)
       {
         this.setState({activearrow:up})
@@ -425,7 +445,7 @@ class PurchaseOrderTable extends Component {
                                 if(header.isVisible){
                                     return (
                                         <th key={idx} onClick={(e) => this.arrowHandler(e)} id={idx}>{header.tableHeaderText} 
-                                            <img key={idx} className='arrow' src={this.state.activearrow}/>
+                                            <img key={idx} className='arrow' src={this._checkActiveSorting(idx)}/>
                                         </th>
                                     )
                                 }

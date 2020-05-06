@@ -184,7 +184,7 @@ class SalesOrder extends Component {
     let status = [];
     if (this.state.clientdata) {
       this.state.clientdata.map((data) => {
-        clientName.push(data.name);
+        clientName.push(data.code + ' : '+data.name);
         clientValue.push(data.code);
       });
     }
@@ -205,22 +205,24 @@ class SalesOrder extends Component {
       <React.Fragment>
         <div className='so-dropdown-wrapper'>
           <div>
-            <Dropdown
-              placeHolder="Site"
-              style={{ width: "142px" }}
-              optionList={siteName.toString()}
-              optionValue={siteData.toString()}
-              getValue={this.getSiteSelected.bind(this)}
-            />
+          <Dropdown
+          placeHolder="Site"
+          // style={{ width: "142px"}}
+          optionList={siteName.toString()}
+          optionValue={siteData.toString()}
+          getValue={this.getSiteSelected.bind(this)}
+          className="filterDropdown"
+        />
           </div>
           <div>
-            <Dropdown
-              placeHolder="Client"
-              style={{ width: "142px" }}
-              optionList={clientValue.toString()}
-              optionValue={clientValue.toString()}
-              getValue={this.getClientSelected.bind(this)}
-            />
+          <Dropdown
+          placeHolder="Client"
+          // style={{ width: "142px"}}
+          optionList={clientValue.toString()}
+          optionValue={clientValue.toString()}
+          getValue={this.getClientSelected.bind(this)}
+          className="filterDropdown"
+        />
           </div>
 {/* 
           <Dropdown placeHolder="Status" 
@@ -234,9 +236,6 @@ class SalesOrder extends Component {
                     optionValue={orderType.code.toString()} 
                     getValue={this.getOrderTypeSelected.bind(this)}/> */}
         </div>
-
-
-        {/* <Dropdown placeHolder="Order No" style={{height:"1em"}} optionList="hard,code" optionValue="hard,code" getValue={(v)=> console.log(v)}/> */}
       </React.Fragment>
     );
   };

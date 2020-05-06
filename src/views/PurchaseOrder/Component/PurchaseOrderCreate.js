@@ -47,7 +47,7 @@ class PurchaseOrderCreate extends Component {
           ref3: null,
           ref4: null,
           disposition: null,
-          weight: "20",
+          weight:null,
           orderDate: null
         }
       ],
@@ -134,11 +134,47 @@ class PurchaseOrderCreate extends Component {
     }
 
     close = () => {
-      this.props.closemodal()
+      this.props.closemodal() 
+
       this.setState({
         tab1isactive:true,
         tab2isactive:false
-        })
+        });
+        this.setState({
+          tab1isactive:true,
+          tab2isactive:false,
+          site: undefined,
+          client: undefined,
+          supplier: undefined,
+          customerRef: undefined,
+          orderType: undefined,
+          orderNo: [],
+          orderDate: null,
+          vendorRef: undefined, 
+          emptySite: "",
+          emptyClient: "",
+          emptyOrderNo: "",
+          emptyOrderDate: "",
+          emptyOrderType: "",
+          rowlist:[
+              {
+                  lineNumber:1,
+                  product:null,
+                  productDescription:null,
+                  qty:null,
+                  uom:null,
+                  rotadate: null,
+                  batch:null,
+                  ref3:null,
+                  ref4:null,
+                  disposition:null,
+                  weight:null,
+                  orderDate: null
+                  
+              }
+          ],
+          rowlistidx: 1,
+      })
     }
 
   tabhandler = () => {
@@ -407,7 +443,9 @@ if(v_orderNo === undefined) v_orderNo = []
                 optionList={siteName.toString()}
                 optionValue={siteData.toString()}
                 getValue={(e) => this.setState({ site: e })}
-                optionSelected={this.state.site} />
+                optionSelected={this.state.site} 
+                tabIndex="1"  
+              />
             </td>
             <td>
               <Dropdown placeHolder="Client"
@@ -415,7 +453,8 @@ if(v_orderNo === undefined) v_orderNo = []
                 optionList={clientName.toString()}
                 optionValue={clientValue.toString()}
                 getValue={(e) => this.setState({ client: e }, this.getsupplier(e), this.getproductcode(e), this.getproductname(e))}
-                optionSelected={this.state.client} />
+                optionSelected={this.state.client}
+                tabIndex="1"   />
             </td>
             {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
             <td>
@@ -423,11 +462,12 @@ if(v_orderNo === undefined) v_orderNo = []
                 suggestions={supplierName}
                 suggestionsValue={supplierName}
                 defaultValue={this.state.supplier}
-                handleChange={(e) => this.setState({ supplier: e })} />
+                handleChange={(e) => this.setState({ supplier: e })} 
+                tabIndex="1" />
             </td>
             {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form2 put pec" placeholder="Supplier"/> </td> */}
             <td>
-              <input className="form2 put pec" placeholder="Customer Order Ref" value={this.state.customerRef} maxLength="40" onChange={(e) => this.setState({ customerRef: e.target.value })} />
+              <input tabIndex="1" className="form2 put pec" placeholder="Customer Order Ref" value={this.state.customerRef} maxLength="40" onChange={(e) => this.setState({ customerRef: e.target.value })} />
             </td>
           </tr>
           <tr>
@@ -454,17 +494,17 @@ if(v_orderNo === undefined) v_orderNo = []
                         optionList={orderData.toString()} 
                         optionValue={orderValue.toString()} 
                         getValue={(e) => this.setState({ orderType: e })} 
-                        optionSelected={this.state.orderType}/>
+                        optionSelected={this.state.orderType} tabIndex="1"/>
             </td>
-            <td><input id='orderNo' className="form2 put pec" value={this.state.orderNo} placeholder="Order No" minLength="4" maxLength="12" onChange={(e) => this.setState({ orderNo: e.target.value.toUpperCase()})} /> </td>
+            <td><input id='orderNo' tabIndex="1" className="form2 put pec" value={this.state.orderNo} placeholder="Order No" minLength="4" maxLength="12" onChange={(e) => this.setState({ orderNo: e.target.value.toUpperCase()})} /> </td>
             <td>
               <DatePicker style={{ minWidth: "22%", position: "absolute" }}
                 getDate={(e) => { this.setState({ orderDate: e }); this.state.rowlist[0].orderDate = e }}
-                defaultValue={this.state.orderDate}
+                defaultValue={this.state.orderDate}  tabIndex="1"
               />
               {console.log(this.state.orderDate)}
             </td>
-            <td><input className="form2 put pec" value={this.state.vendorRef} maxLength='40' placeholder="Vendor Order Ref" onChange={(e) => this.setState({ vendorRef: e.target.value })} maxLength="40" /> </td>
+            <td><input tabIndex="1" className="form2 put pec" value={this.state.vendorRef} maxLength='40' placeholder="Vendor Order Ref" onChange={(e) => this.setState({ vendorRef: e.target.value })} maxLength="40" /> </td>
           </tr>
           <tr>
             <th style={{ color: "transparent" }}>1</th>
@@ -490,14 +530,14 @@ if(v_orderNo === undefined) v_orderNo = []
               <tr>
                 <th style={{width:"3.5%", textAlign:"center"}}>#</th>
                 <th className='required-field' style={{width:"12%"}}>Product</th>
-                <th style={{width:"12%", paddingLeft:"7px"}}>Description</th>
-                <th className='required-field' style={{width:"5%", paddingLeft:"7px"}}>Qty</th>
-                <th style={{width:"5%", paddingLeft:"1px"}}>Weight</th>
-                <th className='required-field' style={{width:"6%", paddingLeft:"1px"}}>UOM</th>
+                <th style={{width:"12%", paddingLeft:"6px"}}>Description</th>
+                <th className='required-field' style={{width:"5%", paddingLeft:"4px"}}>Qty</th>
+                <th style={{width:"5%", paddingLeft:"3px"}}>Weight</th>
+                <th className='required-field' style={{width:"6%", paddingLeft:"2px"}}>UOM</th>
                 <th style={{width:"11%", paddingLeft:"1px"}}>Rota Date</th>
-                <th style={{width:"6%", paddingLeft:"4px"}}>Batch</th>
-                <th style={{width:"5%", paddingLeft:"4px"}}>Ref3</th>
-                <th style={{width:"5%", paddingLeft:"2px"}}>Ref4</th>
+                <th style={{width:"6%", paddingLeft:"8px"}}>Batch</th>
+                <th style={{width:"5%", paddingLeft:"7px"}}>Ref3</th>
+                <th style={{width:"5%", paddingLeft:"5px"}}>Ref4</th>
                 <th style={{width:"6%", paddingLeft:"1px", paddingRight:"25px"}}>Disposition</th>
               </tr>                               
             </table>
@@ -505,7 +545,7 @@ if(v_orderNo === undefined) v_orderNo = []
             <div className={"tablerow " + (this.state.rowlist.length >2 ? "scroll" : null )} style={{width:"98%"}}>
               {this.state.rowlist.map((list, i) => this.linedetailsrow(list, i))}
             </div>
-              <button onClick={() => this.addline()} type="button" className="btn btn-light  addlinePO default-box-height">+ Add Line</button>
+              <button onClick={() => this.addline()} type="button" className="btn btn-light  addlinePO default-box-height"  tabIndex="2" >+ Add Line</button>
 
               {this.state.tab2isactive ? 
               this.submit() :  
@@ -564,6 +604,7 @@ if(v_orderNo === undefined) v_orderNo = []
                 <th style={{width:"12%", paddingLeft:"20px"}}>Product</th>
                 <th style={{width:"12%", paddingLeft:"24px"}}>Description</th>
                 <th style={{width:"3%", paddingLeft:"29px"}}>Qty</th>
+                <th style={{width:"5%", paddingLeft:"1px"}}>Weight</th>
                 <th style={{width:"6%", paddingLeft:"23px"}}>UOM</th>
                 <th style={{width:"6%", paddingLeft:"24px"}}>Rota Date</th>
                 <th style={{width:"6%", paddingLeft:"37px"}}>Batch</th>
@@ -664,22 +705,23 @@ if(v_orderNo === undefined) v_orderNo = []
                             optionList={self.state.productcr.toString()} 
                             optionValue={self.state.productcr.toString()} 
                             getValue={(e) => this.getProductValue(e, i)} 
-                            optionSelected={self.state.rowlist[i].product} />
+                            optionSelected={self.state.rowlist[i].product}  tabIndex="2" />
             </td>
-            <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Choose a Product First" defaultValue={self.state.rowlist[i].productDescription} readOnly/></td>
-            <td style={{width:"4.5%"}}><input id={'qty_'+i} type="number" min="1" maxLength='9' className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
+            <td style={{width:"12%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Choose a Product First" defaultValue={self.state.rowlist[i].productDescription} readOnly/></td>
+            <td style={{width:"5%"}}><input tabIndex="2"  id={'qty_'+i} type="number" min="1" maxLength='9' className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
+            <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Weight"  maxLength="30" defaultValue={self.state.rowlist[i].weight} onChange={(e) => self.state.rowlist[i].weight = e.target.value} /></td>
             <td style={{width:"6%"}}>
                 <Dropdown placeHolder="UOM" 
                             style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
                             optionList={self.state.uomcr.toString()} 
                             optionValue={self.state.uomcr.toString()} 
                             getValue={(e) => self.state.rowlist[i].uom = e}
-                            optionSelected={self.state.rowlist[i].uom} />
+                            optionSelected={self.state.rowlist[i].uom} tabIndex="2"  />
             </td>
-            <td style={{width:"11%"}}><DatePicker style={{ minWidth: "100%" }} field="smallField" getDate={(e) => self.state.rowlist[i].rotadate = e} defaultValue={self.state.rowlist[i].rotadate} /> </td>
-            <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"  maxLength="30" defaultValue={self.state.rowlist[i].batch} onChange={(e) => self.state.rowlist[i].batch = e.target.value} /></td>
-            <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref3"  maxLength="30" defaultValue={self.state.rowlist[i].ref3} onChange={(e) => self.state.rowlist[i].ref3 = e.target.value} /></td>
-            <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref4"  maxLength="30" defaultValue={self.state.rowlist[i].ref4} onChange={(e) => self.state.rowlist[i].ref4 = e.target.value} /></td>
+            <td style={{width:"11%"}}><DatePicker tabIndex="2"  style={{ minWidth: "100%" }} field="smallField" getDate={(e) => self.state.rowlist[i].rotadate = e} defaultValue={self.state.rowlist[i].rotadate} /> </td>
+            <td style={{width:"6%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Batch"  maxLength="30" defaultValue={self.state.rowlist[i].batch} onChange={(e) => self.state.rowlist[i].batch = e.target.value} /></td>
+            <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Ref3"  maxLength="30" defaultValue={self.state.rowlist[i].ref3} onChange={(e) => self.state.rowlist[i].ref3 = e.target.value} /></td>
+            <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Ref4"  maxLength="30" defaultValue={self.state.rowlist[i].ref4} onChange={(e) => self.state.rowlist[i].ref4 = e.target.value} /></td>
             <td style={{width:"6.5%"}}>
                 <Dropdown placeHolder="Dis" 
                             style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
@@ -687,9 +729,10 @@ if(v_orderNo === undefined) v_orderNo = []
                             optionValue={self.state.dispositioncr.toString()} 
                             getValue={(e) => self.state.rowlist[i].disposition = e} 
                             optionSelected={self.state.rowlist[i].disposition}
+                            tabIndex="2" 
                             />
                             </td>
-            <td id={list.lineNumber} onClick={(e) => this.deletelinehandler(e)} style={{width:"1.5%"}}><div className="iconU-delete"/></td>
+            <td id={list.lineNumber} onClick={(e) => this.deletelinehandler(e)} style={{width:"1.5%"}}  tabIndex="2" ><div className="iconU-delete"/></td>
           </tr>
           <td></td>
           <td></td>
@@ -710,6 +753,7 @@ if(v_orderNo === undefined) v_orderNo = []
             <td style={{width:"12%"}}><input className="form-control inputs pec" value={list.product} readOnly/></td>
             <td style={{width:"12%"}}><input className="form-control inputs pec" value={list.productDescription} readOnly/></td>
             <td style={{width:"3.5%"}}><input className="form-control inputs pec" value={list.qty} readOnly/></td>
+            <td style={{width:"5%"}}><input className="form-control inputs pec" value={list.weight} readOnly/></td>
             <td style={{width:"6%"}}><input className="form-control inputs pec" value={list.uom} readOnly/></td>
             <td style={{width:"6.5%"}}><input className="form-control inputs pec" value={moment(list.rotadate).format("DD MMMM YYYY")} readOnly/></td>
             <td style={{width:"6%"}}><input className="form-control inputs pec" value={list.batch} readOnly/></td>
@@ -740,7 +784,7 @@ if(v_orderNo === undefined) v_orderNo = []
         ref3:null,
         ref4:null,
         disposition:null,
-        weight: "20",
+        weight:null,
         orderDate: this.state.orderDate
       }
     )})
@@ -817,7 +861,7 @@ if(v_orderNo === undefined) v_orderNo = []
                         ref3:null,
                         ref4:null,
                         disposition:null,
-                        weight: "20",
+                        weight:null,
                         orderDate: null
                         
                     }

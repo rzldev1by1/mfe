@@ -61,7 +61,7 @@ class StockHolding extends Component {
 				{ id: "pallets", checkboxLabelText: "Pallets", tableHeaderText: "Pallets", isVisible: false, key: "pallet", type: "string", sort: mid },
             ],
             masterSite: [],
-            masterUnit: ["MLB", "MLS", "MLM"],
+            masterUnit: ["MLB : MICROLISTICS", "MLS : Microlistics", "MLM : MICROLISTICS"],
             masterStatus: ["OK", "SHORTAGE"],
 			masterResStockHolding: []
         };
@@ -215,7 +215,7 @@ class StockHolding extends Component {
         let masterSite = [];
         if (this.state.masterSite.length > 0) {
             this.state.masterSite.map((item) => {
-                masterSite.push(item.site);
+                masterSite.push(item.site + ' : '+ item.name );
             });
         }
 
@@ -224,21 +224,20 @@ class StockHolding extends Component {
 
         return (
             <div className={"input-group filterSection" + (this.state.showFilter ? "" : " d-none")}>
-                <Dropdown placeHolder="Site" style={{marginRight:'15px', width:'100px'}}
+                <Dropdown placeHolder="Site"
                           optionList={masterSite.toString()}
                           optionValue={masterSite.toString()}
-                          getValue={this.selectedSite} />
+                          getValue={this.selectedSite} className="filterDropdown" />
 
-				<Dropdown placeHolder="Client" style={{marginRight:'15px', width:'218px'}}
+				<Dropdown placeHolder="Client"
                         optionList={masterUnit}
                         optionValue={masterUnit}
-                        getValue={this.selectedUnit} />
+                        getValue={this.selectedUnit} className="filterDropdown" />
 
-                <Dropdown placeHolder="Status"
-						style={{width: "140px"}}
+                <Dropdown placeHolder="Status" 
                         optionList={masterStatus}
                         optionValue={masterStatus}
-                        getValue={this.selectedStatus} />
+                        getValue={this.selectedStatus} className="filterDropdown" />
 
             </div>
         );
