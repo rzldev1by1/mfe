@@ -15,17 +15,18 @@ class SalesOrderDetail extends Component {
         this.state = {
             complete: false,
             head: [],
-            datadetail: []
+            line: []
         }
 
         this.client = Authentication.getClient()
     }
 
     componentDidMount() {
+        this.getHeaderDetail()
         this.getProductDetail()
     }
 
-    getHeaderDetail = () => {
+    getProductDetail = () => {
         this.setState({ complete: false })
         let param = window.location.href.split("/")
         let index = param.length
@@ -33,10 +34,20 @@ class SalesOrderDetail extends Component {
         let client = param[index - 3]
         let site = param[index - 2]
         let orderNo = param[index - 1]
+
+        param= '?client=' + client
+
+        axios.get(endpoint.salesOrder +'/' + orderNo + param,{
+            headers:headers
+        })
+        .then(res => {
+            const result = res.data.data
+            this.setState({line:result})
+        })
+
     }
 
-    getProductDetail = () => {
-
+    getHeaderDetail = () => {
         this.setState({ complete: false })
         let param = window.location.href.split("/")
         let index = param.length
@@ -52,13 +63,10 @@ class SalesOrderDetail extends Component {
             .then(res => {
                 const result = res.data.data
                 this.setState({ head: result })
-
-
             })
             .catch(error => {
                 
             })
-
     }
 
     head = () => {
@@ -233,7 +241,7 @@ class SalesOrderDetail extends Component {
                     this.state.head.length ? this.head() : null
                 }
                 <div className={'tablecontent ' + (this.state.head.length ? 'fades ' : 'hidden')}>
-                    <SODTable ref={this.potableref} className='animated fadeIn' style={{ display: 'none' }} head={this.state.head}><tr></tr></SODTable>
+                    <SODTable ref={this.potableref} className='animated fadeIn' style={{ display: 'none' }} head={this.state.line}><tr></tr></SODTable>
                 </div>
                 <div className={(this.state.head.length ? 'hidden' : 'spinner')} />
 

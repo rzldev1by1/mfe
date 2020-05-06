@@ -134,7 +134,8 @@ class PurchaseOrderCreate extends Component {
     }
 
     close = () => {
-      this.props.closemodal()
+      this.props.closemodal() 
+
       this.setState({
         tab1isactive:true,
         tab2isactive:false
@@ -149,7 +150,12 @@ class PurchaseOrderCreate extends Component {
           orderType: undefined,
           orderNo: [],
           orderDate: null,
-          vendorRef: undefined,
+          vendorRef: undefined, 
+          emptySite: "",
+          emptyClient: "",
+          emptyOrderNo: "",
+          emptyOrderDate: "",
+          emptyOrderType: "",
           rowlist:[
               {
                   lineNumber:1,
@@ -452,12 +458,13 @@ if(v_orderNo === undefined) v_orderNo = []
             </td>
             {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
             <td>
-              <AutoComplete placeHolder="Supplier"
-                suggestions={supplierName}
-                suggestionsValue={supplierName}
-                defaultValue={this.state.supplier}
-                handleChange={(e) => this.setState({ supplier: e })} 
-                tabIndex="1" />
+            <AutoComplete placeHolder="Supplier"
+                style={{ width: "22%", position: "absolute", zIndex: '6'  }}
+                optionList={supplierName.toString()}
+                optionValue={supplierName.toString()}
+                getValue={(e) => this.setState({ supplier: e })}
+                optionSelected={this.state.supplier}
+                tabIndex="1"   />
             </td>
             {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form2 put pec" placeholder="Supplier"/> </td> */}
             <td>
@@ -693,13 +700,13 @@ if(v_orderNo === undefined) v_orderNo = []
                                     placeHolder="Product"
                                     getIndex={(e) => self.state.rowlist[i].productDescription = self.state.productdesccr[e]}
                                     /> */}
-
-                <Dropdown placeHolder="Product" 
-                            style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
-                            optionList={self.state.productcr.toString()} 
-                            optionValue={self.state.productcr.toString()} 
-                            getValue={(e) => this.getProductValue(e, i)} 
-                            optionSelected={self.state.rowlist[i].product}  tabIndex="2" />
+                <AutoComplete placeHolder="Product"
+                                style={{width: "100%", zIndex: self.state.rowlist.length - i}}
+                                optionList={self.state.productcr.toString()}
+                                optionValue={self.state.productcr.toString()}
+                                getValue={(e) => this.getProductValue(e, i)}
+                                optionSelected={self.state.rowlist[i].product}
+                                tabIndex="2" uppercase={true}  />
             </td>
             <td style={{width:"12%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Choose a Product First" defaultValue={self.state.rowlist[i].productDescription} readOnly/></td>
             <td style={{width:"5%"}}><input tabIndex="2"  id={'qty_'+i} type="number" min="1" maxLength='9' className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>

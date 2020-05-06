@@ -23,6 +23,7 @@ class SODTable extends Component {
   }
 
   render() {
+    console.log(this.props.head)
     return (
       <div>
         <table className="potable" width='100%'>
