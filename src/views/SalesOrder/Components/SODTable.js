@@ -11,7 +11,10 @@ class SODTable extends Component {
 
     this.state = {
       data: this.props.head,
-      bodyheader: ['Line No', 'Product', 'Description', 'Qty', 'Qty Processed', 'Weight', 'Weight Processed', 'Completed', 'OOS', 'Batch', 'Rotadate', 'Ref3', 'Ref4', 'Disposition', 'Pack ID'],
+
+      // commented based task to do FE that only show 10 field default "10 fields show as default, put the rest on edit columns" 
+      // bodyheader: ['Line No', 'Product', 'Description', 'Qty', 'Qty Processed', 'Weight', 'Weight Processed', 'Completed', 'OOS', 'Batch', 'Rotadate', 'Ref3', 'Ref4', 'Disposition', 'Pack ID'],
+      bodyheader: ['Line No', 'Product', 'Description', 'Qty', 'Qty Processed', 'Weight', 'Weight Processed', 'Completed', 'OOS', 'Batch'],
       activearrow: mid,
       sortparameter: 'order_no',
       sort: true
@@ -43,11 +46,13 @@ class SODTable extends Component {
                 <td height='40'> {data.completed ? <img style={{ width: '15px', height: '13px' }} src={data.completed == "Y" ? ok : invalid} /> : '-'}</td>
                 <td height='40'>{data.qty_oos ? data.qty_oos : '-'}</td>
                 <td height='40'>{data.ref ? data.ref : '-'}</td>
+                {/* commented based task on to do FE that only show 10 fields 
+                    "10 fields show as default, put the rest on edit columns"
                 <td height='40'>{data.rota1 ? data.rota1 : '-'}</td>
                 <td height='40'>{data.ref3 ? data.ref3 : '-'}</td>
                 <td height='40'>{data.ref4 ? data.ref4 : '-'}</td>
                 <td height='40'>{data.disposition ? data.disposition : '-'}</td>
-                <td height='40'>{data.packid ? data.packid : '-'}</td>
+                <td height='40'>{data.packid ? data.packid : '-'}</td> */}
               </tr>
             )}
 
