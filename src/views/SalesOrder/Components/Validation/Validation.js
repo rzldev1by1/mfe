@@ -22,7 +22,7 @@ const headerValidation = (header) => {
     {
       document.getElementById('orderId').value = null
       document.getElementById('orderId').focus()
-      error.push(['order no length', 'order no must have min 4 characters or more'])
+      error.push(['order no length', 'order no must have min 5 characters or more'])
     }
     if(!header.deliveryDate || header.deliveryDate == '')
     {

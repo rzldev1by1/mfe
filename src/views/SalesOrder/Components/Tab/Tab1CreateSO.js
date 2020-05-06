@@ -244,11 +244,13 @@ class Tab1CreateSO extends Component {
                   
                   <div className='so-supp'>
                     <AutoComplete
-                    suggestions={supplierName}
-                    suggestionsValue={this.props.resources.supplier.code}
-                    handleChange={(customerVal, customerName) =>
+                    optionSelected  ={supplierName}
+                    getValue        ={( customerVal, product) =>
                       this.props.getIdentity(customerVal, 1)
-                    }
+                                      }
+                    placeHolder     ="Supplier"
+                    optionList      ={this.props.resources.supplier.name.toString()}
+                    optionValue     ={this.props.resources.supplier.code.toString()}
                   />
                   </div>
                 )}
