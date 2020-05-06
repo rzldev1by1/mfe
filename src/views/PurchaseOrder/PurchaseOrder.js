@@ -188,7 +188,7 @@ class PurchaseOrder extends Component {
           let orderTypeValue = [];
         if(this.state.clientdata){
             this.state.clientdata.map((data) => {
-                clientName.push(data.code + ' : '+data.name);
+                clientName.push(data.code +' : '+data.name );
                 clientValue.push(data.code);
             })
             clientName.push("All");
@@ -251,12 +251,6 @@ class PurchaseOrder extends Component {
                         searchData={() => this.search()}
                         placeholder="Enter an Order No" />
                 {console.log(this.searchForm)}
-                {/* <div className='inputgroup' style={{width:'82%'}}>
-                    <label className='iconU-search isearch'/>
-                    <input onChange={(e) => this.onchangesearch(e) } type='text' className='searchinput' placeholder='Enter a Site, Order No, Client or Supplier'/>
-                </div>
-                <Button onClick={() => this.setState({filterclicked: !this.state.filterclicked})} color="primary" className={'iconU-filter iconU-filters ' + ( this.state.filterclicked ? 'filterclicked' : null)}/>
-                <Button onClick={() => this.search()} color="primary" className='btnsearch'><label className='font'>Search</label></Button> */}
             </div>
 
             <div className='filterbar'>

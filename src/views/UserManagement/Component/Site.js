@@ -1,7 +1,7 @@
 import React from 'react'
 import '../UserManagement.css'
 
-const site = ({sites, onEnableClick}) => {
+const site = ({sites, onEnableClick, onSiteEnableAll}) => {
 
 return (<div>
         <div className="flex-column mr-2">
@@ -10,7 +10,7 @@ return (<div>
                 </label>
                 <input className="checkbox-hidden" type="checkbox" id="Site"/>
                 <div className="col-3">
-                  <button type="button" className="btn btn-outline-active mb-2">Enabled All</button>
+                  <button type="button" className="btn btn-outline-active mb-2" onClick={onSiteEnableAll}>Enabled All</button>
                 </div>
             </div>
             <div className="row mb-2">

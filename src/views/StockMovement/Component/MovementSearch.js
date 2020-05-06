@@ -2,6 +2,9 @@ import React, {Component} from 'react'
 import { Button} from 'reactstrap'
 import DatePicker from './../../PurchaseOrder/Component/DatePicker'
 import moment from 'moment'
+import Dropdown from '../../../AppComponent/Dropdown'
+import axios from 'axios'
+import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
 
 export default class MovementSearch extends Component {
     constructor(props){
@@ -18,8 +21,19 @@ export default class MovementSearch extends Component {
 
             dateToSelected:null,
             dateToText:null,
-            dateToShow:false
+            dateToShow:false,
+
+            //filter
+            filterclicked:true,
+            clientdata: [],
+            sitedata: [],
+            productdata:[],
         }
+    }
+    componentDidMount = () => {
+        this.getclient();
+        this.getsite();
+        this.getproduct();
     }
 
     periodExpand = () => {
@@ -114,6 +128,97 @@ export default class MovementSearch extends Component {
         )
     }
 
+
+      
+    getclient = () => {
+        axios.get(endpoint.getClient, {
+          headers: headers
+        })
+          .then(res => {
+            const result = res.data
+            this.setState({ clientdata:result })
+          })
+          .catch(error => {
+            
+            console.log(error);
+          })
+    }
+
+      getsite = () => {         
+        axios.get(endpoint.getSite, {
+          headers: headers
+        })
+          .then(res => {
+            const result = res.data
+            this.setState({ sitedata:result })
+          })
+          .catch(error => {
+            
+          })
+      }
+
+      getproduct = () => {
+        let self = this;
+        axios.get(endpoint.getProduct + '?client=' + headers.client, {
+          headers: headers
+        })
+          .then(res => {
+            const result = res.data
+            self.setState({ productdata:result })
+          })
+          .catch(error => {
+            
+            console.log(error);
+          })
+    }
+
+      getSiteSelected = (value) => {
+        this.setState({ siteSelected: value });
+      };
+    
+      getClientSelected = (value) => {
+        this.setState({ clientSelected: value });
+      };
+
+      getProductSelected = (value) => {
+        this.setState({ productSelected: value });
+      };
+
+      showDropdowns = () => {
+        let clientName = [];
+        let clientValue = [];
+        let siteData = [];
+        let siteValue =[];
+        let productData = [];
+        let productValue =[];
+        if(this.state.clientdata){
+            this.state.clientdata.map((data) => {
+                clientName.push(data.code + ' : '+data.name );
+                clientValue.push(data.code);
+            })
+        }
+        if(this.state.sitedata){
+            this.state.sitedata.map((data) => {
+                siteData.push(data.site +' : '+data.name );
+                siteValue.push(data.site);
+            })
+        }
+        if(this.state.productdata){
+            productData.push(this.state.productdata.code);
+            productValue.push(this.state.productdata.code);
+    }
+          return(
+              <React.Fragment>
+                  <Dropdown placeHolder="Site" style={{width: "160px"}} optionList={siteData.toString()} optionValue={siteValue.toString()} getValue={this.getSiteSelected.bind(this)}/>
+                  <Dropdown placeHolder="Client" style={{width: "218px"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected.bind(this)}/>
+                  <Dropdown placeHolder="Product" style={{width: "218px"}} optionList={productData.toString()} optionValue={productValue.toString()} getValue={this.getProductSelected.bind(this)}/>
+              </React.Fragment>
+          )
+      }
+
+    triggerShowFilter = () => {
+    this.setState({filterclicked: !this.state.filterclicked})
+    }
     render(){
         return(
             <div>
@@ -121,11 +226,24 @@ export default class MovementSearch extends Component {
 						<tr>
 							<td width='20%'>{this.displayPeriod()}</td>
 							<td width='36%'>{this.displayDate()}</td>
-							<td  width='20%'>
-                            <Button style={{float: "right"}} onClick={()=> this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>
+							<td  width='8%'>
+                            <Button className={"filter default-box-height " + (this.state.filterclicked ? " active" : "")} onClick={this.triggerShowFilter}>
+                                <i className="iconU-filter" />
+                            </Button>   
+                            <Button  style={{marginLeft : "16px"}} onClick={()=> this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>
 							</td>
 						</tr>
 					</table>
+                    <div style={{marginTop:"16px"}}>
+                            <div className='filterbar'>
+                                <div style={{display:'flex', width:'100%'}}>
+                                    {
+                                        this.state.filterclicked ? this.showDropdowns() :
+                                        null
+                                    }
+                                </div>               
+                            </div>
+                        </div>
             </div>
         )
     }
