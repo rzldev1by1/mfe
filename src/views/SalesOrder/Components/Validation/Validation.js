@@ -42,7 +42,7 @@ const headerValidation = (header) => {
     {
       document.getElementById('postCode').value = null
       document.getElementById('postCode').focus()
-      error.push(['post code length', 'post code must have min, 4 characters or more'])
+      error.push(['post code length', 'post code must have min, 5 characters or more'])
     }
     if(header.state == null || header.state == '')
     {
