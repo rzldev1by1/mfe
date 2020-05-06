@@ -401,7 +401,59 @@ class Tab1CreateSO extends Component {
         </tr>
 
         <h3 className="fonts">Line Details</h3>
+        
         <div className='scroll-x-y-visible'> 
+        <table className=''>
+              <tr>
+                <th>
+                  <div id='orderline-header-number-id'>#</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-product-id'>Product</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-description-id'>Description</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-qty-id'>Qty</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-weight-id'>Weight</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-uom-id'>UOM</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-rotadate-id'>Rota Date</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-batch-id'>Batch</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-ref3-id'>Ref3</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-ref4-id'>Ref4</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-disposition-id'>Disposition</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-packid-id'>Pack Id</div>
+                </th>
+              </tr>
+            </table>
           {this.props.parameters.lineDetail.map((data, idx) => {
             return (
               <div>
