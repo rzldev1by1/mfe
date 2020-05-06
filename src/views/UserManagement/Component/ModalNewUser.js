@@ -15,8 +15,8 @@ import twoactive from '../../../assets/img/brand/tab_2_blue@2x.png'
 const modalNewUser = (props) => {
   const { className, isOpen, toggle, closeModal, onChangeName,onChangeEmail, onChangeCompany, model,
     moduleAccess,isModuleLoaded,moduleAccessEnableClick,sites, isSiteLoaded, sitesEnableClick,
-    clients, isClientLoaded, clientEnableClick, onSaveClick, isSaveProgressing, onModuleEnableAll, isValidForm,
-    onNextClickHandler, firtsTabActive, secondTabActive, onClickTabActive, message} = props;
+    clients, isClientLoaded, clientEnableClick, onSaveClick, isSaveProgressing, onModuleEnableAll, onSiteEnableAll, onClientEnableAll,
+    isValidForm, onNextClickHandler, firtsTabActive, secondTabActive, onClickTabActive, message} = props;
 
 
     const submitHandler = (event) =>{
@@ -114,10 +114,10 @@ const modalNewUser = (props) => {
                                   <ModuleAccess moduleAccess={moduleAccess} isLoaded={isModuleLoaded} onEnableClick={moduleAccessEnableClick} onModuleEnableAll={onModuleEnableAll}/>
                               </div>
                               <div className="col-4 pl-0">
-                                  <Site sites={sites} isLoaded={isSiteLoaded} onEnableClick={sitesEnableClick} onSubmitHandler = {submitHandler}/>
+                                  <Site sites={sites} isLoaded={isSiteLoaded} onEnableClick={sitesEnableClick} onSubmitHandler = {submitHandler} onSiteEnableAll = {onSiteEnableAll} />
                               </div>
                               <div className="col-4">
-                                  <Client clients={clients} isLoaded={isClientLoaded} onEnableClick={clientEnableClick} onSubmitHandler = {submitHandler}/>
+                                  <Client clients={clients} isLoaded={isClientLoaded} onEnableClick={clientEnableClick} onSubmitHandler = {submitHandler} onClientEnableAll = {onClientEnableAll}/>
                               </div>
                           </div>
                       </div>
