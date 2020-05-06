@@ -254,7 +254,7 @@ class SalesOrderCreate extends Component {
   // Set Order No
   setOrderId = (data) => {
     let validation = { ...this.state.validation };
-    if (data && data.length > 0 && data.length >= 4) {
+    if (data && data.length > 0 && data.length >= 5) {
       validation.header.emptyOrderNo = null;
       this.setState({ validation: validation });
     }
