@@ -1,6 +1,7 @@
 import React from "react";
 import Dropdown from "../../../../AppComponent/Dropdown";
 import DatePicker from "../../../../AppComponent/DatePicker";
+import AutoComplete from "../../../../AppComponent/AutoComplete";
 
 const OrderLine = (props) => {
   const {
@@ -38,7 +39,7 @@ const OrderLine = (props) => {
             </td>
             <td>
               <div id="orderline-header-product-val-id">
-                <Dropdown
+                <AutoComplete
                   optionSelected={productVal}
                   getValue={(productVal, product) =>
                     props.setProduct(productVal, product, props.idx)
