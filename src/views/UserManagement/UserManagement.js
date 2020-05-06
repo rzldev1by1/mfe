@@ -595,7 +595,7 @@ class UserManagement extends Component{
 
     searchHandler = (e) => {
       e.preventDefault();
-      console.log(e);
+      
       let self = this;
       let param = {};
       let currentForm = this.searchForm.current
@@ -608,9 +608,10 @@ class UserManagement extends Component{
         param.searchParam = "";
       }
 
-      console.log(param);
-        let endpoint = 'http://developer.backend.onebyone.io:82/web_user'
-        axios.get(endpoint, {
+      
+        let endpointApi = `${endpoint.UserManagement_ListUser}`;
+
+        axios.get(endpointApi, {
           params: param,
           headers: headers
         })
