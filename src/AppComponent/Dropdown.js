@@ -1,13 +1,13 @@
 import React, {Component, useState} from 'react';
 import './Dropdown.css';
-const Dropdown = ({placeHolder, optionList, optionValue, style, getValue, firstChecked = false, usedFor, optionSelected}) => {
+const Dropdown = ({placeHolder, optionList, optionValue, style, getValue, firstChecked = false, usedFor, optionSelected,className=""}) => {
         let optionListData = optionList ? optionList.includes(",") ? optionList.split(",") : [optionList] : []; 
         let optionListValue = optionValue ? optionValue.includes(",")? optionValue.split(",") : [optionValue] : [];
         let lastIndex = optionListData.length - 1;
         const no = Math.floor(Math.random() * 100000) + 1;
         return(
             <React.Fragment>
-                <ul className="select_dropdown " style={ style }>
+                <ul className={"select_dropdown "+className} style={ style }>
                     <input className="select_dropdown_close" type="radio" name={"select" + placeHolder + no} id={"select-close" + placeHolder + no} value="" onClick={(e) => getValue(e.target.value)} defaultChecked={firstChecked ? false : true}/>
                     <span className={"select_dropdown_label select_dropdown_label-placeholder" + (usedFor == "Datepicker" ? " select_datepicker_label select_datepicker_label-placeholder" : "")}>{placeHolder}</span>
                     

@@ -47,7 +47,7 @@
 html, body {margin: 0; height: 100%; overflow: hidden}
 .movementBtnSearch{
 	height: 40px;
-	width: 160px;
+	width: 170px;
 	font-size:1.1rem;
 	font-family: "Helvetica Neue Medium";
 	margin-left: 30%;
@@ -192,14 +192,14 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 }
 
 .ddlMovement{
-	width: 160px;
+	width: 170px;
 	height: 40px ;
 	border: 1px solid #d5d8da !important; 
 	text-align: left;
 }
 
 .ddlMovementDate{
-	width: 160px;
+	width: 170px;
 	height: 40px ;
 	border: 1px solid #d5d8da !important; 
 	text-align: left;
@@ -295,7 +295,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 .displayButtonToggle > .dropdown-toggle{
 	margin-left: -30px !important;
-	padding-top: 8px;
+	padding-top: 14px;
 }
 
 .middles{
