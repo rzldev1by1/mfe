@@ -47,7 +47,7 @@ class PurchaseOrderCreate extends Component {
           ref3: null,
           ref4: null,
           disposition: null,
-          weight: "20",
+          weight:null,
           orderDate: null
         }
       ],
@@ -490,14 +490,14 @@ if(v_orderNo === undefined) v_orderNo = []
               <tr>
                 <th style={{width:"3.5%", textAlign:"center"}}>#</th>
                 <th className='required-field' style={{width:"12%"}}>Product</th>
-                <th style={{width:"12%", paddingLeft:"7px"}}>Description</th>
-                <th className='required-field' style={{width:"5%", paddingLeft:"7px"}}>Qty</th>
-                <th style={{width:"5%", paddingLeft:"1px"}}>Weight</th>
-                <th className='required-field' style={{width:"6%", paddingLeft:"1px"}}>UOM</th>
+                <th style={{width:"12%", paddingLeft:"6px"}}>Description</th>
+                <th className='required-field' style={{width:"5%", paddingLeft:"4px"}}>Qty</th>
+                <th style={{width:"5%", paddingLeft:"3px"}}>Weight</th>
+                <th className='required-field' style={{width:"6%", paddingLeft:"2px"}}>UOM</th>
                 <th style={{width:"11%", paddingLeft:"1px"}}>Rota Date</th>
-                <th style={{width:"6%", paddingLeft:"4px"}}>Batch</th>
-                <th style={{width:"5%", paddingLeft:"4px"}}>Ref3</th>
-                <th style={{width:"5%", paddingLeft:"2px"}}>Ref4</th>
+                <th style={{width:"6%", paddingLeft:"8px"}}>Batch</th>
+                <th style={{width:"5%", paddingLeft:"7px"}}>Ref3</th>
+                <th style={{width:"5%", paddingLeft:"5px"}}>Ref4</th>
                 <th style={{width:"6%", paddingLeft:"1px", paddingRight:"25px"}}>Disposition</th>
               </tr>                               
             </table>
@@ -564,6 +564,7 @@ if(v_orderNo === undefined) v_orderNo = []
                 <th style={{width:"12%", paddingLeft:"20px"}}>Product</th>
                 <th style={{width:"12%", paddingLeft:"24px"}}>Description</th>
                 <th style={{width:"3%", paddingLeft:"29px"}}>Qty</th>
+                <th style={{width:"5%", paddingLeft:"1px"}}>Weight</th>
                 <th style={{width:"6%", paddingLeft:"23px"}}>UOM</th>
                 <th style={{width:"6%", paddingLeft:"24px"}}>Rota Date</th>
                 <th style={{width:"6%", paddingLeft:"37px"}}>Batch</th>
@@ -667,7 +668,8 @@ if(v_orderNo === undefined) v_orderNo = []
                             optionSelected={self.state.rowlist[i].product} />
             </td>
             <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Choose a Product First" defaultValue={self.state.rowlist[i].productDescription} readOnly/></td>
-            <td style={{width:"4.5%"}}><input id={'qty_'+i} type="number" min="1" maxLength='9' className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
+            <td style={{width:"5%"}}><input id={'qty_'+i} type="number" min="1" maxLength='9' className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
+            <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Weight"  maxLength="30" defaultValue={self.state.rowlist[i].weight} onChange={(e) => self.state.rowlist[i].weight = e.target.value} /></td>
             <td style={{width:"6%"}}>
                 <Dropdown placeHolder="UOM" 
                             style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
@@ -710,6 +712,7 @@ if(v_orderNo === undefined) v_orderNo = []
             <td style={{width:"12%"}}><input className="form-control inputs pec" value={list.product} readOnly/></td>
             <td style={{width:"12%"}}><input className="form-control inputs pec" value={list.productDescription} readOnly/></td>
             <td style={{width:"3.5%"}}><input className="form-control inputs pec" value={list.qty} readOnly/></td>
+            <td style={{width:"5%"}}><input className="form-control inputs pec" value={list.weight} readOnly/></td>
             <td style={{width:"6%"}}><input className="form-control inputs pec" value={list.uom} readOnly/></td>
             <td style={{width:"6.5%"}}><input className="form-control inputs pec" value={moment(list.rotadate).format("DD MMMM YYYY")} readOnly/></td>
             <td style={{width:"6%"}}><input className="form-control inputs pec" value={list.batch} readOnly/></td>
@@ -740,7 +743,7 @@ if(v_orderNo === undefined) v_orderNo = []
         ref3:null,
         ref4:null,
         disposition:null,
-        weight: "20",
+        weight:null,
         orderDate: this.state.orderDate
       }
     )})
@@ -817,7 +820,7 @@ if(v_orderNo === undefined) v_orderNo = []
                         ref3:null,
                         ref4:null,
                         disposition:null,
-                        weight: "20",
+                        weight:null,
                         orderDate: null
                         
                     }

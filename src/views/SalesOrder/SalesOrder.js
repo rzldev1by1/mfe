@@ -183,7 +183,7 @@ class SalesOrder extends Component {
     let status = [];
     if (this.state.clientdata) {
       this.state.clientdata.map((data) => {
-        clientName.push(data.name);
+        clientName.push(data.code + ' : '+data.name);
         clientValue.push(data.code);
       });
     }

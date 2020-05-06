@@ -61,7 +61,7 @@ class StockHolding extends Component {
 				{ id: "pallets", checkboxLabelText: "Pallets", tableHeaderText: "Pallets", isVisible: false, key: "pallet", type: "string", sort: mid },
             ],
             masterSite: [],
-            masterUnit: ["MLB", "MLS", "MLM"],
+            masterUnit: ["MLB : MICROLISTICS", "MLS : Microlistics", "MLM : MICROLISTICS"],
             masterStatus: ["OK", "SHORTAGE"],
 			masterResStockHolding: []
         };
@@ -215,7 +215,7 @@ class StockHolding extends Component {
         let masterSite = [];
         if (this.state.masterSite.length > 0) {
             this.state.masterSite.map((item) => {
-                masterSite.push(item.site);
+                masterSite.push(item.site + ' : '+ item.name );
             });
         }
 

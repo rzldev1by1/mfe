@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import { Table,Button, Card, CardBody, Label} from 'reactstrap'
+import React from 'react'
 import '../UserManagement.css'
 
 const site = ({sites, onEnableClick}) => {
@@ -7,7 +6,7 @@ const site = ({sites, onEnableClick}) => {
 return (<div>
         <div className="flex-column mr-2">
             <div className="row">
-                <label className="col-6 title-label" htmlFor="Site">Site
+                <label className="col-7 title-label" htmlFor="Site">Site
                 </label>
                 <input className="checkbox-hidden" type="checkbox" id="Site"/>
                 <div className="col-3">
@@ -15,7 +14,7 @@ return (<div>
                 </div>
             </div>
             <div className="row mb-2">
-              <div className="col-6 line-border ml-3"></div>
+              <div className="col-7 line-border ml-3"></div>
               <div className="col-3 line-border"></div>
             </div>
         </div>
