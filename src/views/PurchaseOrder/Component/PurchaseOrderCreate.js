@@ -138,7 +138,37 @@ class PurchaseOrderCreate extends Component {
       this.setState({
         tab1isactive:true,
         tab2isactive:false
-        })
+        });
+        this.setState({
+          tab1isactive:true,
+          tab2isactive:false,
+          site: undefined,
+          client: undefined,
+          supplier: undefined,
+          customerRef: undefined,
+          orderType: undefined,
+          orderNo: [],
+          orderDate: null,
+          vendorRef: undefined,
+          rowlist:[
+              {
+                  lineNumber:1,
+                  product:null,
+                  productDescription:null,
+                  qty:null,
+                  uom:null,
+                  rotadate: null,
+                  batch:null,
+                  ref3:null,
+                  ref4:null,
+                  disposition:null,
+                  weight:null,
+                  orderDate: null
+                  
+              }
+          ],
+          rowlistidx: 1,
+      })
     }
 
   tabhandler = () => {
