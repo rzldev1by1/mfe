@@ -251,6 +251,7 @@ class Tab1CreateSO extends Component {
                     placeHolder     ="Supplier"
                     optionList      ={this.props.resources.supplier.name.toString()}
                     optionValue     ={this.props.resources.supplier.code.toString()}
+                    style={{ minWidth: "100%"}}
                   />
                   </div>
                 )}
