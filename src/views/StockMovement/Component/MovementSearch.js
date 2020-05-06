@@ -226,11 +226,11 @@ export default class MovementSearch extends Component {
 						<tr>
 							<td width='20%'>{this.displayPeriod()}</td>
 							<td width='36%'>{this.displayDate()}</td>
-							<td  width='8%'>
+							<td  width='30%' style={{textAlign: "right"}}>
                             <Button className={"filter default-box-height " + (this.state.filterclicked ? " active" : "")} onClick={this.triggerShowFilter}>
                                 <i className="iconU-filter" />
                             </Button>   
-                            <Button  style={{marginLeft : "16px"}} onClick={()=> this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>
+                            <Button  style={{marginLeft : "15px"}} onClick={()=> this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>
 							</td>
 						</tr>
 					</table>
