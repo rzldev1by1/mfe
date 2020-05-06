@@ -249,7 +249,7 @@ class Tab1CreateSO extends Component {
                       this.props.getIdentity(customerVal, 1)
                                       }
                     placeHolder     ="Supplier"
-                    optionList      ={this.props.resources.supplier.name.toString()}
+                    optionList      ={supplierName.toString()}
                     optionValue     ={this.props.resources.supplier.code.toString()}
                     style={{ minWidth: "100%"}}
                   />
