@@ -95,7 +95,7 @@ class SalesOrder extends Component {
         this.setState({ clientdata: result });
       })
       .catch((error) => {
-        
+
         console.log(error);
       });
   };
@@ -110,7 +110,7 @@ class SalesOrder extends Component {
         this.setState({ sitedata: result });
       })
       .catch((error) => {
-        
+
       });
   };
 
@@ -131,7 +131,7 @@ class SalesOrder extends Component {
         let result = res.data;
         this.setState({ resources: result, loaded: true });
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   getProduct = (clientparam) => {
@@ -180,6 +180,7 @@ class SalesOrder extends Component {
     let clientValue = [];
     let siteData = [];
     let siteName = [];
+    let orderType = [];
     let status = [];
     if (this.state.clientdata) {
       this.state.clientdata.map((data) => {
@@ -189,9 +190,16 @@ class SalesOrder extends Component {
     }
     if (this.state.sitedata) {
       this.state.sitedata.map((data) => {
-        siteName.push(data.site + ' : ' +data.name)
+        siteName.push(data.site + ' : ' + data.name)
         siteData.push(data.site);
       });
+    }
+
+    if(this.state.resources)
+    {
+      let resource = {...this.state.resource}
+      orderType = resource.orderType
+      console.log(this.state.resources)
     }
     return (
       <React.Fragment>
@@ -216,6 +224,17 @@ class SalesOrder extends Component {
           className="filterDropdown"
         />
           </div>
+{/* 
+          <Dropdown placeHolder="Status" 
+                    style={{marginRight: "1em"}} 
+                    optionList={status.toString()} 
+                    optionValue={statusValue.toString()} 
+                    getValue={this.getStatusSelected.bind(this)}/> */}
+          {/* <Dropdown placeHolder="Order Type" 
+                    style={{width: "180px"}} 
+                    optionList={orderType.name.toString()} 
+                    optionValue={orderType.code.toString()} 
+                    getValue={this.getOrderTypeSelected.bind(this)}/> */}
         </div>
       </React.Fragment>
     );
