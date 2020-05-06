@@ -494,7 +494,7 @@ class ListOrderComponent extends Component {
                       <td>{data.client}</td>
                       <td>{data.order_no}</td>
                       <td>{data.order_type}</td>
-                      <td>{data.customer + " (" + data.customer_name + ")"}</td>
+                      <td>{data.customer ? data.customer + " (" + data.customer_name + ")" : data.customer_name}</td>
                       <td style={{ width: "11%" }}>{data.status_desc}</td>
                       <td>
                         {"" +
@@ -556,6 +556,12 @@ class ListOrderComponent extends Component {
     );
   }
 
+   modifiedCustomerData = (code,name) => {
+    if(code && name) return code+' ( '+name+' )'
+    if(!code && name) return name
+    if(!code && !name) return '-'
+  }
+//table used
     render(){
       return(
         <div>
@@ -573,12 +579,12 @@ class ListOrderComponent extends Component {
                     </thead>
                     <tbody>
                           {this.state.data  ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
-                                  <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+this.state.client+'/'+data.order_no)} className='tr'>
+                                  <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.client+'/'+data.site+'/'+data.order_no)} className='tr'>
                                       <td className="umtd">{data.site}</td>
                                       <td>{data.client}</td>
                                       <td>{data.order_no}</td>
                                       <td>{data.order_type}</td>
-                                      <td>{data.customer+' ( '+data.customer_name+' )'}</td>
+                                      <td>{this.modifiedCustomerData(data.customer, data.customer_name)}</td>
                                       <td style={{width:"11%"}}>{data.status}</td>
                                       <td>{'' + (data.delivery_date ? moment(data.delivery_date).format("DD/MM/YYYY") : '') }</td>
                                       <td>{'' + (data.date_received ? moment(data.date_received).format("DD/MM/YYYY") : '') }</td>
@@ -607,10 +613,10 @@ class ListOrderComponent extends Component {
                                      <td>{data.client}</td>
                                       <td>{data.order_no}</td>
                                       <td>{data.order_type}</td>
-                                      <td>{data.customer+' ( '+data.customer_name+' )'}</td>
-                                      <td style={{width:"11%"}}>{data.status}</td>
-                                      <td>{'' + (data.delivery_date ? moment(data.delivery_date).format("DD/MM/YYYY") : '') }</td>
-                                      <td>{'' + (data.date_received ? moment(data.date_received).format("DD/MM/YYYY") : '') }</td>
+                                      <td>{this.modifiedCustomerData(data.customer, data.customer_name)}</td>
+                                      <td style={{width:"11%"}}>{data.status_desc}</td>
+                                      <td>{'' + (data.date_due ? moment(data.date_due).format("DD/MM/YYYY") : '') }</td>
+                                      <td>{'' + (data.date_recd ? moment(data.date_recd).format("DD/MM/YYYY") : '') }</td>
                                       <td>{'' + (data.date_released ? moment(data.date_released).format("DD/MM/YYYY") : '') }</td>
                                       <td>{'' + (data.date_completed ? moment(data.date_completed).format("DD/MM/YYYY") : '') }</td>
                                   </tr>
