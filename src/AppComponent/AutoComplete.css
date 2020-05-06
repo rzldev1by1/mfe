@@ -1,14 +1,14 @@
 /* ∞∞ global ∞∞ */
-.select_dropdown, .expand-style, .select_dropdown_items, .select_dropdown_options, .select_dropdown_option {
+/* .select_dropdown, .expand-style, .select_dropdown_items, .select_dropdown_options, .select_dropdown_option {
 	position: relative;
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 	border-color: inherit;
-}
+} */
 
 /* ∞∞ Input elements ∞∞ */
-.select_dropdown_close, .select_dropdown_expand, .select_dropdown_input {
+/* .select_dropdown_close, .select_dropdown_expand, .select_dropdown_input {
   	color: inherit;
   	font: inherit;
   	margin: 0;
@@ -30,22 +30,22 @@
 	border-radius: 5px;
 	border: 1px solid #D5D8DA;
     z-index: 2;
-}
+} */
 
-.select_dropdown:hover, .select_dropdown:focus-within{
+/* .select_dropdown:hover, .select_dropdown:focus-within{
 	transition: 0.2s ease-in;
 	border: 1px solid #22ABE3 !important;
-}
+} */
 
-.select_dropdown_expand {
+/* .select_dropdown_expand {
 	width: 0;
 	height: 40px;
 	position: absolute;
 	top: 0;
 	right: 10px;
-}
+} */
 
-.select_dropdown_expand::after {
+/* .select_dropdown_expand::after {
 	content: '\003E';
     position: absolute;
     top: 50%;
@@ -58,8 +58,8 @@
     z-index: 2;
     -webkit-transition: all 250ms cubic-bezier(.4,.25,.3,1);
     transition: all 250ms cubic-bezier(.4,.25,.3,1);
-}
-
+} */
+/* 
 .select_dropdown_expand:hover::after {opacity: 1}
 
 .select_dropdown_expand:checked::after {
@@ -125,14 +125,11 @@
 	color: #7C878C;
 	background-color: transparent;
 	display: block;
-}
-
-.search-input{
-    display: none;
-}
+} */
 
 
-.select_dropdown_expand:checked + .select_dropdown_closeLabel {
+
+/* .select_dropdown_expand:checked + .select_dropdown_closeLabel {
 	display: block;
 }
 
@@ -149,8 +146,12 @@
 
 .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options .select_dropdown_label {
 	height: 40px;
-}
+} */
 
+/* 
+.search-input{
+    display: none;
+}
 .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options .search-input {
 	border-bottom: 1px solid #e8e8e8 !important;
     transition: all 250ms cubic-bezier(.4,.25,.3,1);
@@ -173,9 +174,9 @@
 	height: 30px;
 	margin-top: -40px;
 	border-radius: 5px;
-	/* border-bottom: 1px solid #969EA1; */
-}
-.select_dropdown_expand:checked + .select_dropdown {
+	border-bottom: 1px solid #969EA1;
+} */
+/* .select_dropdown_expand:checked + .select_dropdown {
 	display: block;
 	border-bottom-left-radius: 0px !important;
 	border-bottom-right-radius: 0px !important;
@@ -189,10 +190,10 @@
 	border-top-right-radius: 5px;
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
-}
+} */
 
 /* Dropdown for Datepicker */
-.select_datepicker_label{
+/* .select_datepicker_label{
     font-size: 0.8rem !important;
     line-height: 30px !important;
 	padding-left: 14px !important;
@@ -217,4 +218,18 @@
 .select_datepicker_expand::after {
     top: 37% !important;
     right: -5px !important;
+} */
+
+.search-input{
+    display: none;
+}
+.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options .search-input {
+	border-bottom: 1px solid #e8e8e8 !important;
+    transition: all 250ms cubic-bezier(.4,.25,.3,1);
+    display: block;
+    height: 40px !important;
+    line-height: 40px;
+    border: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
