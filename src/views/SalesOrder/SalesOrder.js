@@ -81,7 +81,9 @@ class SalesOrder extends Component {
     self.potableref.current.searchSalesOrder(
       self.state.search,
       self.state.siteSelected,
-      self.state.clientSelected
+      self.state.clientSelected,
+      self.state.status,
+      self.state.ordertype
     );
   };
 
@@ -180,8 +182,11 @@ class SalesOrder extends Component {
     let clientValue = [];
     let siteData = [];
     let siteName = [];
-    let orderType = [];
-    let status = [];
+    let orderTypeName = [];
+    let orderTypeValue = [];
+    let statusName = ["Unavailable", "Open", "Released", "Completed", "All"];
+    let statusValue = ["unavailable", "open", "released", "completed", "all"];
+    let statuss = [];
     if (this.state.clientdata) {
       this.state.clientdata.map((data) => {
         clientName.push(data.code + ' : '+data.name);
@@ -195,46 +200,46 @@ class SalesOrder extends Component {
       });
     }
 
-    if(this.state.resources)
+    if(this.state.resources.orderType !== undefined)
     {
-      let resource = {...this.state.resource}
-      orderType = resource.orderType
-      console.log(this.state.resources)
+      this.state.resources.orderType.name.map((data, i) => {
+        orderTypeName.push(data)
+      })
+      this.state.resources.orderType.code.map((data, i) => {
+        orderTypeValue.push(data)
+      })
     }
+
     return (
       <React.Fragment>
         <div className='so-dropdown-wrapper'>
-          <div>
           <Dropdown
           placeHolder="Site"
-          // style={{ width: "142px"}}
           optionList={siteName.toString()}
           optionValue={siteData.toString()}
           getValue={this.getSiteSelected.bind(this)}
           className="filterDropdown"
         />
-          </div>
-          <div>
           <Dropdown
           placeHolder="Client"
-          // style={{ width: "142px"}}
           optionList={clientValue.toString()}
           optionValue={clientValue.toString()}
           getValue={this.getClientSelected.bind(this)}
           className="filterDropdown"
         />
-          </div>
-{/* 
+
           <Dropdown placeHolder="Status" 
-                    style={{marginRight: "1em"}} 
-                    optionList={status.toString()} 
+                    optionList={statusName.toString()} 
                     optionValue={statusValue.toString()} 
-                    getValue={this.getStatusSelected.bind(this)}/> */}
-          {/* <Dropdown placeHolder="Order Type" 
-                    style={{width: "180px"}} 
-                    optionList={orderType.name.toString()} 
-                    optionValue={orderType.code.toString()} 
-                    getValue={this.getOrderTypeSelected.bind(this)}/> */}
+                    getValue={(code) => this.setState({status:code})}
+                    className="filterDropdown"/>
+
+          <Dropdown placeHolder="Order Type" 
+                    optionList={orderTypeName.toString()} 
+                    optionValue={orderTypeValue.toString()} 
+                    getValue={(code) => this.setState({ordertype:code})}
+                    className="filterDropdown"/>                    
+         
         </div>
       </React.Fragment>
     );

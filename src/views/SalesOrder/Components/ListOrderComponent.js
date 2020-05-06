@@ -72,7 +72,7 @@ class ListOrderComponent extends Component {
     this.loadSalesOrder();
   }
 
-  searchSalesOrder = (search, site, client) => {
+  searchSalesOrder = (search, site, client, status, ordertype) => {
     this.setState({
       currentPage: 1,
       startIndex: 0,
@@ -81,24 +81,35 @@ class ListOrderComponent extends Component {
       maxPage: 0
     });
 
-    let param = search;
-    let url = "?searchParam=" + param;
+    let url = "?searchParam=" + search;
+    
+    let clientP = "&&client=" + client
+    let siteP   = "&&site=" + site
+    let statusP = "&&status=" + status
+    let ordertypeP = "&&orderType=" + ordertype
 
-    if (client) {
-      url = "?searchParam=" + param + "&&client=" + client;
-    }
+    if(site) url = url + siteP
+    if(client) url = url + clientP 
+    if(status) url = url + statusP
+    if(ordertype) url = url + ordertypeP
 
-    if (site && !client) {
-      url = "?searchParam=" + param + "&&site=" + site;
-    }
+    // if (client) {
+    //   url = "?searchParam=" + param + "&&client=" + client;
+    // }
 
-    if (client && site) {
-      url = "?client=" + client + "&&site=" + site;
-    }
-    if (param && client && site) {
-      param = param.toUpperCase();
-      url = "?searchParam=" + param + "&&client=" + client + "&&site=" + site;
-    }
+    // if (site && !client) {
+    //   url = "?searchParam=" + param + "&&site=" + site;
+    // }
+
+    // if (client && site) {
+    //   url = "?client=" + client + "&&site=" + site;
+    // }
+    // if (param && client && site) {
+    //   param = param.toUpperCase();
+    //   url = "?searchParam=" + param + "&&client=" + client + "&&site=" + site;
+    // }
+
+
 
     this.props.loadCompleteHandler(false);
     axios
