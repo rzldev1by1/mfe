@@ -407,7 +407,9 @@ if(v_orderNo === undefined) v_orderNo = []
                 optionList={siteName.toString()}
                 optionValue={siteData.toString()}
                 getValue={(e) => this.setState({ site: e })}
-                optionSelected={this.state.site} />
+                optionSelected={this.state.site} 
+                tabIndex="1"  
+              />
             </td>
             <td>
               <Dropdown placeHolder="Client"
@@ -415,7 +417,8 @@ if(v_orderNo === undefined) v_orderNo = []
                 optionList={clientName.toString()}
                 optionValue={clientValue.toString()}
                 getValue={(e) => this.setState({ client: e }, this.getsupplier(e), this.getproductcode(e), this.getproductname(e))}
-                optionSelected={this.state.client} />
+                optionSelected={this.state.client}
+                tabIndex="1"   />
             </td>
             {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
             <td>
@@ -423,11 +426,12 @@ if(v_orderNo === undefined) v_orderNo = []
                 suggestions={supplierName}
                 suggestionsValue={supplierName}
                 defaultValue={this.state.supplier}
-                handleChange={(e) => this.setState({ supplier: e })} />
+                handleChange={(e) => this.setState({ supplier: e })} 
+                tabIndex="1" />
             </td>
             {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form2 put pec" placeholder="Supplier"/> </td> */}
             <td>
-              <input className="form2 put pec" placeholder="Customer Order Ref" value={this.state.customerRef} maxLength="40" onChange={(e) => this.setState({ customerRef: e.target.value })} />
+              <input tabIndex="1" className="form2 put pec" placeholder="Customer Order Ref" value={this.state.customerRef} maxLength="40" onChange={(e) => this.setState({ customerRef: e.target.value })} />
             </td>
           </tr>
           <tr>
@@ -454,17 +458,17 @@ if(v_orderNo === undefined) v_orderNo = []
                         optionList={orderData.toString()} 
                         optionValue={orderValue.toString()} 
                         getValue={(e) => this.setState({ orderType: e })} 
-                        optionSelected={this.state.orderType}/>
+                        optionSelected={this.state.orderType} tabIndex="1"/>
             </td>
-            <td><input id='orderNo' className="form2 put pec" value={this.state.orderNo} placeholder="Order No" minLength="4" maxLength="12" onChange={(e) => this.setState({ orderNo: e.target.value.toUpperCase()})} /> </td>
+            <td><input id='orderNo' tabIndex="1" className="form2 put pec" value={this.state.orderNo} placeholder="Order No" minLength="4" maxLength="12" onChange={(e) => this.setState({ orderNo: e.target.value.toUpperCase()})} /> </td>
             <td>
               <DatePicker style={{ minWidth: "22%", position: "absolute" }}
                 getDate={(e) => { this.setState({ orderDate: e }); this.state.rowlist[0].orderDate = e }}
-                defaultValue={this.state.orderDate}
+                defaultValue={this.state.orderDate}  tabIndex="1"
               />
               {console.log(this.state.orderDate)}
             </td>
-            <td><input className="form2 put pec" value={this.state.vendorRef} maxLength='40' placeholder="Vendor Order Ref" onChange={(e) => this.setState({ vendorRef: e.target.value })} maxLength="40" /> </td>
+            <td><input tabIndex="1" className="form2 put pec" value={this.state.vendorRef} maxLength='40' placeholder="Vendor Order Ref" onChange={(e) => this.setState({ vendorRef: e.target.value })} maxLength="40" /> </td>
           </tr>
           <tr>
             <th style={{ color: "transparent" }}>1</th>
@@ -505,7 +509,7 @@ if(v_orderNo === undefined) v_orderNo = []
             <div className={"tablerow " + (this.state.rowlist.length >2 ? "scroll" : null )} style={{width:"98%"}}>
               {this.state.rowlist.map((list, i) => this.linedetailsrow(list, i))}
             </div>
-              <button onClick={() => this.addline()} type="button" className="btn btn-light  addlinePO default-box-height">+ Add Line</button>
+              <button onClick={() => this.addline()} type="button" className="btn btn-light  addlinePO default-box-height"  tabIndex="2" >+ Add Line</button>
 
               {this.state.tab2isactive ? 
               this.submit() :  
@@ -665,23 +669,23 @@ if(v_orderNo === undefined) v_orderNo = []
                             optionList={self.state.productcr.toString()} 
                             optionValue={self.state.productcr.toString()} 
                             getValue={(e) => this.getProductValue(e, i)} 
-                            optionSelected={self.state.rowlist[i].product} />
+                            optionSelected={self.state.rowlist[i].product}  tabIndex="2" />
             </td>
-            <td style={{width:"12%"}}><input className="form-control inputs pec" placeholder="Choose a Product First" defaultValue={self.state.rowlist[i].productDescription} readOnly/></td>
-            <td style={{width:"5%"}}><input id={'qty_'+i} type="number" min="1" maxLength='9' className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
-            <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Weight"  maxLength="30" defaultValue={self.state.rowlist[i].weight} onChange={(e) => self.state.rowlist[i].weight = e.target.value} /></td>
+            <td style={{width:"12%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Choose a Product First" defaultValue={self.state.rowlist[i].productDescription} readOnly/></td>
+            <td style={{width:"5%"}}><input tabIndex="2"  id={'qty_'+i} type="number" min="1" maxLength='9' className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
+            <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Weight"  maxLength="30" defaultValue={self.state.rowlist[i].weight} onChange={(e) => self.state.rowlist[i].weight = e.target.value} /></td>
             <td style={{width:"6%"}}>
                 <Dropdown placeHolder="UOM" 
                             style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
                             optionList={self.state.uomcr.toString()} 
                             optionValue={self.state.uomcr.toString()} 
                             getValue={(e) => self.state.rowlist[i].uom = e}
-                            optionSelected={self.state.rowlist[i].uom} />
+                            optionSelected={self.state.rowlist[i].uom} tabIndex="2"  />
             </td>
-            <td style={{width:"11%"}}><DatePicker style={{ minWidth: "100%" }} field="smallField" getDate={(e) => self.state.rowlist[i].rotadate = e} defaultValue={self.state.rowlist[i].rotadate} /> </td>
-            <td style={{width:"6%"}}><input className="form-control inputs pec" placeholder="Batch"  maxLength="30" defaultValue={self.state.rowlist[i].batch} onChange={(e) => self.state.rowlist[i].batch = e.target.value} /></td>
-            <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref3"  maxLength="30" defaultValue={self.state.rowlist[i].ref3} onChange={(e) => self.state.rowlist[i].ref3 = e.target.value} /></td>
-            <td style={{width:"5%"}}><input className="form-control inputs pec" placeholder="Ref4"  maxLength="30" defaultValue={self.state.rowlist[i].ref4} onChange={(e) => self.state.rowlist[i].ref4 = e.target.value} /></td>
+            <td style={{width:"11%"}}><DatePicker tabIndex="2"  style={{ minWidth: "100%" }} field="smallField" getDate={(e) => self.state.rowlist[i].rotadate = e} defaultValue={self.state.rowlist[i].rotadate} /> </td>
+            <td style={{width:"6%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Batch"  maxLength="30" defaultValue={self.state.rowlist[i].batch} onChange={(e) => self.state.rowlist[i].batch = e.target.value} /></td>
+            <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Ref3"  maxLength="30" defaultValue={self.state.rowlist[i].ref3} onChange={(e) => self.state.rowlist[i].ref3 = e.target.value} /></td>
+            <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Ref4"  maxLength="30" defaultValue={self.state.rowlist[i].ref4} onChange={(e) => self.state.rowlist[i].ref4 = e.target.value} /></td>
             <td style={{width:"6.5%"}}>
                 <Dropdown placeHolder="Dis" 
                             style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
@@ -689,9 +693,10 @@ if(v_orderNo === undefined) v_orderNo = []
                             optionValue={self.state.dispositioncr.toString()} 
                             getValue={(e) => self.state.rowlist[i].disposition = e} 
                             optionSelected={self.state.rowlist[i].disposition}
+                            tabIndex="2" 
                             />
                             </td>
-            <td id={list.lineNumber} onClick={(e) => this.deletelinehandler(e)} style={{width:"1.5%"}}><div className="iconU-delete"/></td>
+            <td id={list.lineNumber} onClick={(e) => this.deletelinehandler(e)} style={{width:"1.5%"}}  tabIndex="2" ><div className="iconU-delete"/></td>
           </tr>
           <td></td>
           <td></td>
