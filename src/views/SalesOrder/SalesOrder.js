@@ -217,9 +217,6 @@ class SalesOrder extends Component {
         />
           </div>
         </div>
-
-       
-        {/* <Dropdown placeHolder="Order No" style={{height:"1em"}} optionList="hard,code" optionValue="hard,code" getValue={(v)=> console.log(v)}/> */}
       </React.Fragment>
     );
   };
