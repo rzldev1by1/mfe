@@ -123,7 +123,7 @@ class SalesOrderDetail extends Component {
                             <td>{customerName ? customerName : '-'}</td>
                         </tr>
                         <tr>
-                            <th>Customer PO No</th>
+                            <th>Customer Order Ref</th>
                             <td>{customerPoNo ? customerPoNo : '-'}</td>
                         </tr>
                         <tr>
