@@ -18,7 +18,7 @@ const headerValidation = (header) => {
         document.getElementById('orderId').focus()      
         error.push(['order no', 'order no cannot be empty'])
     }
-    if(header.orderId && header.orderId.length <= 4)
+    if(header.orderId && header.orderId.length < 5)
     {
       document.getElementById('orderId').value = null
       document.getElementById('orderId').focus()
@@ -38,11 +38,11 @@ const headerValidation = (header) => {
       document.getElementById('postCode').focus()
       error.push(['post code', 'post code cannot be empty'])
     }
-    if(header.postCode && header.postCode.length <= 4)
+    if(header.postCode && header.postCode.length < 4)
     {
       document.getElementById('postCode').value = null
       document.getElementById('postCode').focus()
-      error.push(['post code length', 'post code must have min, 5 characters or more'])
+      error.push(['post code length', 'post code must have min, 4 characters or more'])
     }
     if(header.state == null || header.state == '')
     {

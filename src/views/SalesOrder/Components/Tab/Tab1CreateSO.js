@@ -192,7 +192,7 @@ class Tab1CreateSO extends Component {
                 className="form-control put "
                 placeholder="Order No"
               />
-              <div className={emptyClassOrderNo}>{emptyOrderNo}</div>
+              <span className={emptyClassOrderNo}>{emptyOrderNo}</span>
             </td>
 
             <td className="verticalAlignTop">

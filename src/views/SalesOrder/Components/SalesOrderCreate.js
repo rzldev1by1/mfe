@@ -147,6 +147,7 @@ class SalesOrderCreate extends Component {
             break;
           case "order no length":
             validation.header.emptyOrderNo = message;
+            break;
           case "delivery date":
             validation.header.emptyDeliveryDate = message;
             break;
@@ -254,7 +255,7 @@ class SalesOrderCreate extends Component {
   // Set Order No
   setOrderId = (data) => {
     let validation = { ...this.state.validation };
-    if (data && data.length > 0 && data.length >= 5) {
+    if (data && data.length > 0 && data.length > 4) {
       validation.header.emptyOrderNo = null;
       this.setState({ validation: validation });
     }
