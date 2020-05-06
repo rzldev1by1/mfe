@@ -36,14 +36,14 @@ class SODTable extends Component {
               <tr>
                 <td height='40'><label style={{ marginLeft: '20px' }}>{i + 1}</label></td>
                 <td height='40'>{data.product ? data.product : '-'}</td>
-                <td height='40'>{data.name ? data.name : '-'}</td>
-                <td height='40'>{data.qty_lcd ? data.qty_lcd : '-'}</td>
+                <td height='40'>{data.product_description ? data.product_description : '-'}</td>
+                <td height='40'>{data.qty ? data.qty : '-'}</td>
                 <td height='40'>{data.qty_processed ? data.qty_processed : '-'}</td>
                 <td height='40'>{data.weight ? data.weight : '-'}</td>
                 <td height='40'>{data.wgt_processed ? data.wgt_processed : '-'}</td>
                 <td height='40'> {data.completed ? <img style={{ width: '15px', height: '13px' }} src={data.completed == "Y" ? ok : invalid} /> : '-'}</td>
                 <td height='40'>{data.qty_oos ? data.qty_oos : '-'}</td>
-                <td height='40'>{data.ref ? data.ref : '-'}</td>
+                <td height='40'>{data.batch ? data.batch : '-'}</td>
                 <td height='40'>{data.rota1 ? data.rota1 : '-'}</td>
                 <td height='40'>{data.ref3 ? data.ref3 : '-'}</td>
                 <td height='40'>{data.ref4 ? data.ref4 : '-'}</td>

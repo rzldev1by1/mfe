@@ -598,7 +598,7 @@ class ListOrderComponent extends Component {
                       </tbody>
                         </table>
 
-              <table id="excel">
+              <table style={{display:'hidden'}} id="excel">
                   <thead>
                     <tr>
                        {this.state.tableheader.map(header =>
