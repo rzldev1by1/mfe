@@ -706,7 +706,7 @@ if(v_orderNo === undefined) v_orderNo = []
                                 optionValue={self.state.productcr.toString()}
                                 getValue={(e) => this.getProductValue(e, i)}
                                 optionSelected={self.state.rowlist[i].product}
-                                tabIndex="2"   />
+                                tabIndex="2" uppercase={true}  />
             </td>
             <td style={{width:"12%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Choose a Product First" defaultValue={self.state.rowlist[i].productDescription} readOnly/></td>
             <td style={{width:"5%"}}><input tabIndex="2"  id={'qty_'+i} type="number" min="1" maxLength='9' className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
