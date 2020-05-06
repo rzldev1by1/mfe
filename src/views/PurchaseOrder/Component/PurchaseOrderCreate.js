@@ -134,7 +134,8 @@ class PurchaseOrderCreate extends Component {
     }
 
     close = () => {
-      this.props.closemodal()
+      this.props.closemodal() 
+
       this.setState({
         tab1isactive:true,
         tab2isactive:false
@@ -149,7 +150,12 @@ class PurchaseOrderCreate extends Component {
           orderType: undefined,
           orderNo: [],
           orderDate: null,
-          vendorRef: undefined,
+          vendorRef: undefined, 
+          emptySite: "",
+          emptyClient: "",
+          emptyOrderNo: "",
+          emptyOrderDate: "",
+          emptyOrderType: "",
           rowlist:[
               {
                   lineNumber:1,
