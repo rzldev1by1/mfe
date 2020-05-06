@@ -1,5 +1,5 @@
 import React, {Component, useState} from 'react';
-import './Dropdown.css';
+//import './Dropdown.css';
 const Dropdown = ({placeHolder, optionList, optionValue, style, getValue, firstChecked = false, usedFor, optionSelected,className="", tabIndex=""}) => {
         let optionListData = optionList ? optionList.includes(",") ? optionList.split(",") : [optionList] : []; 
         let optionListValue = optionValue ? optionValue.includes(",")? optionValue.split(",") : [optionValue] : [];
