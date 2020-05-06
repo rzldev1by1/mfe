@@ -217,10 +217,10 @@ class PurchaseOrder extends Component {
         }
           return(
               <React.Fragment>
-                  <Dropdown placeHolder="Site" style={{width: "102px"}} optionList={siteData.toString()} optionValue={siteValue.toString()} getValue={this.getSiteSelected.bind(this)}/>
-                  <Dropdown placeHolder="Client" style={{width: "218px"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected.bind(this)}/>
-                  <Dropdown placeHolder="Status" style={{marginRight: "1em"}} optionList={status.toString()} optionValue={statusValue.toString()} getValue={this.getStatusSelected.bind(this)}/>
-                  <Dropdown placeHolder="Order Type" style={{width: "180px"}} optionList={orderTypeName.toString()} optionValue={orderTypeValue.toString()} getValue={this.getOrderTypeSelected.bind(this)}/>
+                  <Dropdown placeHolder="Site"  optionList={siteData.toString()} optionValue={siteValue.toString()} getValue={this.getSiteSelected.bind(this)} className="filterDropdown"/>
+                  <Dropdown placeHolder="Client"  optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected.bind(this)} className="filterDropdown"/>
+                  <Dropdown placeHolder="Status"  optionList={status.toString()} optionValue={statusValue.toString()} getValue={this.getStatusSelected.bind(this)} className="filterDropdown"/>
+                  <Dropdown placeHolder="Order Type" optionList={orderTypeName.toString()} optionValue={orderTypeValue.toString()} getValue={this.getOrderTypeSelected.bind(this)} className="filterDropdown"/>
               </React.Fragment>
           )
       }

@@ -98,7 +98,7 @@ export default class MovementSearch extends Component {
                     </div>
                 </div> 
 
-                <div style={{marginLeft:'25px'}} className='searchParameterTitleDate'>To</div>
+                <div style={{marginLeft:'26px'}} className='searchParameterTitleDate'>To</div>
                 <div onMouseLeave={() => this.setState({dateToShow:false})}>
                 <div className='displayButtonToggle'>
                     <button style={{color:'#7c878c'}} onClick={()=> this.setState({dateToShow:!this.state.dateToShow})} className='btn dropdown-button ddlMovementDate default-box-height' data-toggle='dropdown'>
@@ -121,8 +121,8 @@ export default class MovementSearch extends Component {
 						<tr>
 							<td width='20%'>{this.displayPeriod()}</td>
 							<td width='36%'>{this.displayDate()}</td>
-							<td  width='8%'>
-                            <Button  onClick={()=> this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>
+							<td  width='20%'>
+                            <Button style={{float: "right"}} onClick={()=> this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>
 							</td>
 						</tr>
 					</table>

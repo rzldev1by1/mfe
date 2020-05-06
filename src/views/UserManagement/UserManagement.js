@@ -663,7 +663,7 @@ class UserManagement extends Component{
                 <CardBody>
                 <form ref={this.searchForm} onSubmit ={this.searchHandler}>
                 <div className="row">
-                <div className='pr-3 pl-3 ' style={{width: "86%"}}>
+                <div className='searchColumnUm'>
                     <div className="searchINP">
                     <div className="input-group p-0 searchSection">
                     <div className="input-group searchBox w-100 default-box-height" style={{maxWidth:"none"}}>
@@ -677,7 +677,7 @@ class UserManagement extends Component{
                     </div>
                     </div>
                 </div>
-                <div className='pr-3' style={{width: "14%"}} >
+                <div>
                     <Button type="submit" className="default-box-height search search-um text-button btn-primary">
                       Search
                     </Button>

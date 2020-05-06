@@ -549,22 +549,25 @@ a.breadcrumb:hover {
 }
 
 .searchBox {
-    max-width: 100%;
+    max-width:  100%;
     border: 1px solid #D5D8DA;
     height: 43px;
-    border-radius: 5px;
+	border-radius: 5px;
 }
 
 .search-column{
 	padding-left: 0px !important; 
 	//padding-right: 15px !important;
 }
- 
+
+.search-column{ 
+	flex-basis: calc(100% - 239px);
+}
 
 .searchinput{
 	margin-left: 1.5% !important;
 	background-color: transparent;
-	width: 95%;
+	width: 50% !important;
 	height: 43px;
     color: grey;
     box-sizing: border-box;
@@ -606,6 +609,7 @@ a.breadcrumb:hover {
 .filterDropdown {
     max-width: 200px;
     margin-right: 1em !important;
+	width: 170px !important;
 }
 
 .selectDropdown {
@@ -708,7 +712,7 @@ a.breadcrumb:hover {
 }
 
 .search, .search:hover, .search:focus {
-	width: -webkit-calc(100% - 69px) !important; 
+	width: -webkit-calc(170px) !important; 
 }
 
 //default box height
@@ -735,8 +739,7 @@ select_date_expandLabel{
 .inputs{
 	height: 50px !important;
 }
-//end default box height
-
+//end default box height 
 
 .editColumnBtn, .editColumnBtn:focus {
 	background-color: #FFFFFF;

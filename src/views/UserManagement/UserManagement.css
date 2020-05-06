@@ -730,6 +730,11 @@ input:checked + .slider:before {
 }
 
 .search.search-um{
-	width: 100% !important; 
+	width: 170px !important; 
 }
-	
+
+.searchColumnUm{
+	flex-basis: calc(100% - 185px);
+	padding-left: 20px;
+	padding-right: 20px;
+}
