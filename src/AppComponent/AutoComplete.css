@@ -1,138 +1,220 @@
-/* body {
-    background-color: #ebebeb;
-  } */
-  /* .searchbox {
-    width: 350px;
-    margin: 100px auto;
-  } */
-  @media(min-width: 1500px){
-    .li {
-      display: block;
-      text-decoration: none;
-      color: #3d3d3d;
-      background-color: #fff;
-      position: relative;
-      height: 40px;
-      padding-left: 20px;
-      line-height: 2.5;
-      font-size: 1rem;
-      font-family: "Helvetica Neue Regular";
-      width: max-content;
-      border-radius: 6px;
-    }
-    .li:hover{
-      background: #f0f0f0 !important;
-      cursor: pointer;
-    }
-  }
-
-@media(max-width: 1500px){
-  .li {
-    display: block;
-    text-decoration: none;
-    color: #3d3d3d;
-    background-color: #fff;
-    position: relative;
-    height: 40px;
-    padding-left: 20px;
-    line-height: 2.5;
-    font-size: 1rem;
-    font-family: "Helvetica Neue Regular";
-    width: 298px;
-    border-radius: 6px;
-  }
-  .li:hover{
-		background: #f0f0f0 !important;
-		cursor: pointer;
-  }
+/* ∞∞ global ∞∞ */
+.select_dropdown, .expand-style, .select_dropdown_items, .select_dropdown_options, .select_dropdown_option {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	border-color: inherit;
 }
 
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  /* ul .li {
-    margin-bottom: 10px;
-  } */
-
-  ul .li a:hover {
-    color: #b23b61;
-    background: #ecd1da;
-  }
-  .suggestions{
-    position: absolute;
-    margin-top: 47px;
-    z-index: 4;
-    width: fit-content;
-    border: 1px solid #22ABE3;
-    border-radius: 5px;
-  }
-  .suggestions .li {
-    overflow: hidden;
-    height: 0;
-    -webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-  }
-  .form-input:focus + .suggestions .li {
-    height: 43px;
-  }
-  
-  .byline {
-    text-align: center;
-    font-size: 18px;
-  }
-  .byline a {
-    text-decoration: none;
-    color: #1f5350;
-  }
-
-
-  .form-input {
-    display: block;
-    width: 22%;
-    position: absolute;
-    z-index: 3;
-    height: calc(1.5em + 0.75rem + 6px);
-    padding: 0.375rem 0.75rem;
-    font-size: 0.875rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #5c6873;
-    background-color: #fff;
-    border-color: #D5D8DA;
-    background-clip: padding-box;
-    border: 1px solid #e4e7ea;
-    border-radius: 0.25rem;
-    -webkit-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-.pecs::-webkit-input-placeholder{
-	color:#7C878C !important;
-}
-.no-suggestions{
-  margin-top: 47px;
-  background-color: #fff;
-  border: 1px solid #22ABE3;
-  border-radius: 5px;
-  position: absolute;
-  width: 22%;
-  font-size: 1rem;
-  height: 40px;
-  z-index: 5;
-  padding-left: 20px;
-  line-height: 2.3;
+/* ∞∞ Input elements ∞∞ */
+.select_dropdown_close, .select_dropdown_expand, .select_dropdown_input {
+  	color: inherit;
+  	font: inherit;
+  	margin: 0;
+  	background: transparent;
+		outline: none;
+		border: none;
+		border-radius: 0;
+		-webkit-appearance: none;
+		   -moz-appearance: none;
+		        appearance: none;
 }
 
-.closeAutoComplete{
-    display: block;
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
+.select_dropdown {
+	width: 150px;
+	height: 40px;
+	cursor: pointer;
+	list-style: none;
+	background-color: #FFFFFF;
+	border-radius: 5px;
+	border: 1px solid #D5D8DA;
     z-index: 2;
 }
 
-  
+.select_dropdown:hover, .select_dropdown:focus-within{
+	transition: 0.2s ease-in;
+	border: 1px solid #22ABE3 !important;
+}
+
+.select_dropdown_expand {
+	width: 0;
+	height: 40px;
+	position: absolute;
+	top: 0;
+	right: 10px;
+}
+
+.select_dropdown_expand::after {
+	content: '\003E';
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    -webkit-transform: translate(-50%, -50%) rotate(90deg) scaleY(1.75);
+    transform: translate(-50%, -50%) rotate(90deg) scaleY(1.75);
+    font-weight: 500;
+    font-size: 10px;
+    pointer-events: none;
+    z-index: 2;
+    -webkit-transition: all 250ms cubic-bezier(.4,.25,.3,1);
+    transition: all 250ms cubic-bezier(.4,.25,.3,1);
+}
+
+.select_dropdown_expand:hover::after {opacity: 1}
+
+.select_dropdown_expand:checked::after {
+	-webkit-transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.75);
+	transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.75);
+}
+		
+.select_dropdown_expandLabel {
+	display: block;
+	width: 100%;
+	height: 40px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	cursor: pointer;
+}
+
+.select_dropdown_close {display: none}
+
+.select_dropdown_closeLabel {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: none;
+}
+
+.select_dropdown_items { 
+	list-style: none;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: 2px;
+	padding-top: 40px;
+}
+
+.select_dropdown_input {display: none}
+		
+.select_dropdown_options{list-style: none; }
+
+.select_dropdown_label {
+	font-family: "Helvetica Neue Regular";
+	margin-bottom: 0 !important;
+	transition: all 250ms cubic-bezier(.4,.25,.3,1);
+	display: block;
+	height: 0;
+	background-color: #FFFFFF;
+	font-size: 1rem;
+	line-height: 40px;
+	overflow: hidden;
+	cursor: pointer;
+	padding-left: 20px;
+	user-select: none;
+}
+.select_dropdown_label-placeholder {
+	height: 40px;
+	vertical-align: middle;
+	position: absolute;
+	top: 0;
+	left: 0;
+	color: #7C878C;
+	background-color: transparent;
+	display: block;
+}
+
+.search-input{
+    display: none;
+}
+
+
+.select_dropdown_expand:checked + .select_dropdown_closeLabel {
+	display: block;
+}
+
+.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options{
+	border: 1px solid #22ABE3;
+	border-radius: 5px;
+	margin-top: 10px;
+}
+
+.select_dropdown_close:checked + span + .select_dropdown_items > .select_dropdown_options{
+	border-radius: 5px;
+	margin-top: 10px;
+}
+
+.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options .select_dropdown_label {
+	height: 40px;
+}
+
+.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options .search-input {
+	border-bottom: 1px solid #e8e8e8 !important;
+    transition: all 250ms cubic-bezier(.4,.25,.3,1);
+    display: block;
+    height: 40px !important;
+    line-height: 40px;
+    border: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options .select_dropdown_label:hover {
+	font-family: "Helvetica Neue Medium";
+	background-color: #F6F7F9;
+}
+
+.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options + .select_dropdown_expandLabel {display: none}
+
+.select_dropdown_input:checked + .select_dropdown_label {
+	height: 30px;
+	margin-top: -40px;
+	border-radius: 5px;
+	/* border-bottom: 1px solid #969EA1; */
+}
+.select_dropdown_expand:checked + .select_dropdown {
+	display: block;
+	border-bottom-left-radius: 0px !important;
+	border-bottom-right-radius: 0px !important;
+}
+.select_dropdown_expand:checked + .expand-style {
+	width: 225px;
+	height: 40px;
+	cursor: pointer;
+	background-color: #FFFFFF;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+/* Dropdown for Datepicker */
+.select_datepicker_label{
+    font-size: 0.8rem !important;
+    line-height: 30px !important;
+	padding-left: 14px !important;
+}
+.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options .select_datepicker_label {
+	height: 25px !important;
+}
+
+.select_datepicker_label-placeholder{
+    height: 25px !important;
+}
+.select_dropdown_input:checked + .select_datepicker_label {
+	height: 25px !important;
+}
+.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_datepicker_options{
+	margin-top: -5px !important;
+}
+
+.select_dropdown_close:checked + span + .select_dropdown_items > .select_datepicker_options{
+	margin-top: -5px !important;
+}
+.select_datepicker_expand::after {
+    top: 37% !important;
+    right: -5px !important;
+}
