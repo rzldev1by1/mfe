@@ -413,7 +413,7 @@ class Tab1CreateSO extends Component {
                 </th>
 
                 <th>
-                  <div id='orderline-header-product-id'>Product</div>
+                  <div id='orderline-header-product-id' className='required-field'>Product</div>
                 </th>
 
                 <th>
@@ -421,7 +421,7 @@ class Tab1CreateSO extends Component {
                 </th>
 
                 <th>
-                  <div id='orderline-header-qty-id'>Qty</div>
+                  <div id='orderline-header-qty-id' className='required-field'>Qty</div>
                 </th>
 
                 <th>
@@ -429,7 +429,7 @@ class Tab1CreateSO extends Component {
                 </th>
 
                 <th>
-                  <div id='orderline-header-uom-id'>UOM</div>
+                  <div id='orderline-header-uom-id' className='required-field'>UOM</div>
                 </th>
 
                 <th>
