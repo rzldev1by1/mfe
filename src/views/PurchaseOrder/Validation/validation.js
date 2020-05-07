@@ -10,7 +10,7 @@ const headerValidation = (header) => {
     {
         const ordNo = document.getElementById('orderNo')
         ordNo.focus()
-        required.push(['orderNo', 'order no must have min 4 characters or more'])
+        required.push(['orderNo', 'order no must have min 5 characters or more'])
     }
     if (!header.orderDate) required.push(['orderDate', 'order date must be entered'])
 

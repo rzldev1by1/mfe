@@ -101,7 +101,7 @@ class Tab1CreateSO extends Component {
             <th className="required-field">Delivery Date</th>
           </tr>
           <tr>
-            <td>
+            <td style={{ width: "396px" }}>
               <Dropdown
                 optionSelected={siteVal}
                 getValue={(siteVal, site) => this.props.setSite(siteVal, site)}
@@ -112,7 +112,7 @@ class Tab1CreateSO extends Component {
               />
             </td>
 
-            <td>
+            <td style={{ width: "396px" }}>
               <Dropdown
                 optionSelected={orderTypeVal}
                 getValue={(orderTypeVal, orderType) =>
@@ -125,7 +125,7 @@ class Tab1CreateSO extends Component {
               />
             </td>
 
-            <td>
+            <td style={{ width: "396px" }}>
               <input
                 value={customerOrderRef}
                 onChange={(e) => this.props.setCustomerOrderRef(e.target.value)}
@@ -137,7 +137,7 @@ class Tab1CreateSO extends Component {
               />
             </td>
 
-            <td>
+            <td style={{ width: "396px" }}>
               <DatePicker
                 getDate={(date) => this.props.setDeliveryDate(date)}
                 style={{ minWidth: "100%" }}
@@ -146,10 +146,10 @@ class Tab1CreateSO extends Component {
           </tr>
 
           <tr>
-            <td className={emptyClassSite}>{emptySite}</td>
-            <td className={emptyClassOrderType}>{emptyOrderType}</td>
-            <td className="nmtrField"></td>
-            <td className={emptyClassDeliveryate}>{emptyDeliveryDate}</td>
+            <td style={{ width: "396px" }} className={emptyClassSite}>{emptySite}</td>
+            <td style={{ width: "396px" }} className={emptyClassOrderType}>{emptyOrderType}</td>
+            <td style={{ width: "396px" }} className="nmtrField"></td>
+            <td style={{ width: "396px" }} className={emptyClassDeliveryate}>{emptyDeliveryDate}</td>
           </tr>
 
           <tr>
@@ -159,7 +159,7 @@ class Tab1CreateSO extends Component {
             <th>Delivery Instructions</th>
           </tr>
           <tr>
-            <td className="verticalAlignTop">
+            <td style={{ width: "396px" }} className="verticalAlignTop">
               {this.props.userLevel == "administrator" ? (
                 <Dropdown
                   optionSelected={client}
@@ -184,7 +184,7 @@ class Tab1CreateSO extends Component {
                 {emptyClient}
               </div>
             </td>
-            <td className="verticalAlignTop">
+            <td style={{ width: "396px" }} className="verticalAlignTop">
               <input
                 value={orderId}
                 onChange={(e) => this.props.setOrderId(e.target.value.toUpperCase())}
@@ -195,7 +195,7 @@ class Tab1CreateSO extends Component {
               <span className={emptyClassOrderNo}>{emptyOrderNo}</span>
             </td>
 
-            <td className="verticalAlignTop">
+            <td style={{ width: "396px" }} className="verticalAlignTop">
               <input
                 value={vendorOrderRef}
                 onChange={(e) => this.props.setVendorOrderRef(e.target.value)}
@@ -206,7 +206,7 @@ class Tab1CreateSO extends Component {
               />
             </td>
 
-            <td className="verticalAlignTop">
+            <td style={{ width: "396px" }} className="verticalAlignTop">
               <textarea
                 value={deliveryInstruction}
                 onChange={(e) =>
@@ -221,8 +221,8 @@ class Tab1CreateSO extends Component {
           </tr>
 
           <tr>
-            <td className="nmtrField"></td>
-            <td className="nmtrField"></td>
+            <td style={{ width: "396px" }} className="nmtrField"></td>
+            <td style={{ width: "396px" }} className="nmtrField"></td>
           </tr>
         </table>
         <h3 className="fonts">Customer Details</h3>
@@ -231,7 +231,7 @@ class Tab1CreateSO extends Component {
             <th>Customer </th>            
           </tr>
           <tr>
-            <td className="verticalAlignTop">
+            <td style={{ width: "396px" }} className="verticalAlignTop">
               {this.props.resources.identity ? (
                 <input
                   value={customer}
@@ -267,7 +267,7 @@ class Tab1CreateSO extends Component {
           </tr>
 
           <tr>
-          <td>
+          <td style={{ width: "396px" }}>
               <input
                 value={shipToAddress1}
                 onChange={(e) => this.props.setAddress1(e.target.value)}
@@ -277,7 +277,7 @@ class Tab1CreateSO extends Component {
                 placeholder="Address 1"
               />
             </td>
-            <td>
+            <td style={{ width: "396px" }}>
               <input
                 value={shipToAddress2}
                 onChange={(e) => this.props.setAddress2(e.target.value)}
@@ -287,7 +287,7 @@ class Tab1CreateSO extends Component {
                 placeholder="Address 2"
               />
             </td>
-            <td>
+            <td style={{ width: "396px" }}>
               <input
                 value={shipToAddress3}
                 onChange={(e) => this.props.setAddress3(e.target.value)}
@@ -300,9 +300,9 @@ class Tab1CreateSO extends Component {
           </tr>
 
           <tr>
-            <td className={emptyClassShipToAddress1}>{emptyShipToAddress1}</td>
-            <td className="nmtrField"></td>
-            <td className="nmtrField"></td>
+            <td style={{ width: "396px" }} className={emptyClassShipToAddress1}>{emptyShipToAddress1}</td>
+            <td style={{ width: "396px" }} className="nmtrField"></td>
+            <td style={{ width: "396px" }} className="nmtrField"></td>
           </tr>
 
           <tr>
@@ -310,7 +310,7 @@ class Tab1CreateSO extends Component {
             <th>Address 5</th>
           </tr>
           <tr>
-            <td>
+            <td style={{ width: "396px" }}>
               <input
                 value={shipToAddress4}
                 onChange={(e) => this.props.setAddress4(e.target.value)}
@@ -321,7 +321,7 @@ class Tab1CreateSO extends Component {
               />
             </td>
 
-            <td>
+            <td style={{ width: "396px" }}>
               <input
                 value={shipToAddress5}
                 onChange={(e) => this.props.setAddress5(e.target.value)}
@@ -334,8 +334,8 @@ class Tab1CreateSO extends Component {
           </tr>
 
           <tr>
-            <td className="nmtrField"></td>
-            <td className="nmtrField"></td>
+            <td style={{ width: "396px" }} className="nmtrField"></td>
+            <td style={{ width: "396px" }} className="nmtrField"></td>
           </tr>
 
           <tr>
@@ -345,7 +345,7 @@ class Tab1CreateSO extends Component {
             <th>Country</th>
           </tr>
           <tr>
-            <td>
+            <td style={{ width: "396px" }}>
               <input
                 value={city}
                 onChange={(e) => this.props.setCity(e.target.value)}
@@ -356,7 +356,7 @@ class Tab1CreateSO extends Component {
               />
             </td>
 
-            <td>
+            <td style={{ width: "396px" }}>
               <input
                 value={postCode}
                 onChange={(e) => this.props.setPostCode(e.target.value)}
@@ -367,7 +367,7 @@ class Tab1CreateSO extends Component {
               />
             </td>
 
-            <td>
+            <td style={{ width: "396px" }}>
               <input
                 value={state}
                 onChange={(e) => this.props.setStates(e.target.value)}
@@ -378,7 +378,7 @@ class Tab1CreateSO extends Component {
               />
             </td>
 
-            <td>
+            <td style={{ width: "396px" }}>
               <input
                 value={country}
                 onChange={(e) => this.props.setCountry(e.target.value)}
@@ -391,10 +391,10 @@ class Tab1CreateSO extends Component {
           </tr>
 
           <tr>
-            <td className="nmtrField"></td>
-            <td className={emptyClassPostCode}>{emptyPostCode}</td>
-            <td className={emptyClassState}>{emptyState}</td>
-            <td className="nmtrField"></td>
+            <td style={{ width: "396px" }} className="nmtrField"></td>
+            <td style={{ width: "396px" }} className={emptyClassPostCode}>{emptyPostCode}</td>
+            <td style={{ width: "396px" }} className={emptyClassState}>{emptyState}</td>
+            <td style={{ width: "396px" }} className="nmtrField"></td>
           </tr>
         </table>
 
