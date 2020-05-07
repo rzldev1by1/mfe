@@ -512,7 +512,7 @@ if(v_orderNo === undefined) v_orderNo = []
           </tr>
           <tr>
             <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.orderType ? 'nmtrField' : 'mtrField')}>{this.state.emptyOrderType}</div></td>
-            <td style={{ width: "396px" }}><div className={'po-required ' + (v_orderNo.length == 0 || v_orderNo.length < 4 ?  'mtrField' : 'nmtrField')}>{this.state.emptyOrderNo}</div></td>
+            <td style={{ width: "396px" }}><div className={'po-required ' + (v_orderNo.length == 0 || v_orderNo.length < 5 ?  'mtrField' : 'nmtrField')}>{this.state.emptyOrderNo}</div></td>
             <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.orderDate ? 'nmtrField' : 'mtrField')}>{this.state.emptyOrderDate}</div></td>
             <td className='nmtrField po-required' style={{ width: "396px" }}></td>
           </tr>
