@@ -16,7 +16,7 @@ import {
 } from "../Components/Validation/Validation";
 import swal from "sweetalert";
 import moment from "moment";
-import { reset } from "./resetState";
+import { reset, errMsg } from "./resetState";
 
 class SalesOrderCreate extends Component {
   constructor(props) {
@@ -112,15 +112,16 @@ class SalesOrderCreate extends Component {
 
   resetState = () => {
     this.setState({
-      tab1isactive: !this.state.tab1isactive,
-      tab2isactive: !this.state.tab2isactive,
-      parameters: reset(this.props.resources)
+      tab1isactive: true,
+      tab2isactive: false,
+      parameters: reset(this.props.resources),
+      validation:errMsg
     });
   };
 
   close = () => {
     this.props.closemodal();
-    if (!this.state.tab1isactive) this.resetState();
+    this.resetState();
   };
 
   tabhandler = () => {
