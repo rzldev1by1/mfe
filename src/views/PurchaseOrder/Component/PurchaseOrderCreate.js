@@ -332,7 +332,7 @@ class PurchaseOrderCreate extends Component {
     }
 
     getuom = (i, value) => {
-        axios.get(endpoint.getUom + "?client=" + headers.client + "&product=" + value, {
+        axios.get(endpoint.getUom + "?client=" + this.state.client + "&product=" + value, {
             headers: headers
         })
         .then(res => {
