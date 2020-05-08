@@ -17,6 +17,7 @@ import Dropdown from '../../../AppComponent/Dropdown'
 import DatePicker from '../../../AppComponent/DatePicker'
 import swal from 'sweetalert'
 import { headerValidation, lineValidation } from '../Validation/validation'
+import {orderNoValidation} from '../../SalesOrder/Components/Validation/orderNoValidation'
 
 class PurchaseOrderCreate extends Component {
   constructor(props) {
@@ -98,7 +99,8 @@ class PurchaseOrderCreate extends Component {
       emptyClient: null,
       emptyOrderType: null,
       emptyOrderNo: null,
-      emptyOrderDate: null
+      emptyOrderDate: null,
+      isOrderNoAvailable:true
     }
 }
 
@@ -220,6 +222,13 @@ class PurchaseOrderCreate extends Component {
             this.setState({ emptyOrderDate: message })
         }
       }
+      return
+    }
+    this.setState({ emptyOrderNo: null })
+    if(!this.state.isOrderNoAvailable && !this.state.emptyOrderNo) 
+    {
+      const emptyOrderNoS = 'order no already exist';
+      this.setState({ emptyOrderNo: emptyOrderNoS })
       return
     }
 
@@ -374,6 +383,16 @@ class PurchaseOrderCreate extends Component {
       let value = e.target.value
       this.setState({supplier:value})
     }
+    setOrderNo = (e) => {
+      const orderNumber = e.target.value.toUpperCase()
+      this.setState({ orderNo: orderNumber})
+      const client = this.state
+    
+      orderNoValidation(orderNumber, client.client)
+        .then((data) => {
+          this.setState({isOrderNoAvailable:data})
+        })
+    }
     
   tab1Content = () => {
     let clientName = [];
@@ -423,9 +442,7 @@ const {
 let v_orderNo = orderNo
 
 if(v_orderNo === null) v_orderNo = []
-if(v_orderNo === undefined) v_orderNo = []
-
-    
+if(v_orderNo === undefined) v_orderNo = []    
     return(
       <div className="tabcontent">
         <h3 className="fonts">Order Details</h3>
@@ -497,7 +514,7 @@ if(v_orderNo === undefined) v_orderNo = []
                         getValue={(e) => this.setState({ orderType: e })} 
                         optionSelected={this.state.orderType} tabIndex="1"/>
             </td>
-            <td><input id='orderNo' tabIndex="1" className="form2 put pec" value={this.state.orderNo} placeholder="Order No" minLength="4" maxLength="12" onChange={(e) => this.setState({ orderNo: e.target.value.toUpperCase()})} /> </td>
+            <td><input id='orderNo' tabIndex="1" className="form2 put pec" value={this.state.orderNo} placeholder="Order No" minLength="4" maxLength="12" onChange={(e) => this.setOrderNo(e)} /> </td>
             <td>
               <DatePicker style={{ minWidth: "22%", position: "absolute" }}
                 getDate={(e) => { this.setState({ orderDate: e }); this.state.rowlist[0].orderDate = e }}
@@ -512,7 +529,7 @@ if(v_orderNo === undefined) v_orderNo = []
           </tr>
           <tr>
             <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.orderType ? 'nmtrField' : 'mtrField')}>{this.state.emptyOrderType}</div></td>
-            <td style={{ width: "396px" }}><div className={'po-required ' + (v_orderNo.length == 0 || v_orderNo.length < 5 ?  'mtrField' : 'nmtrField')}>{this.state.emptyOrderNo}</div></td>
+            <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.emptyOrderNo ?  'mtrField' : 'nmtrField')}>{this.state.emptyOrderNo}</div></td>
             <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.orderDate ? 'nmtrField' : 'mtrField')}>{this.state.emptyOrderDate}</div></td>
             <td className='nmtrField po-required' style={{ width: "396px" }}></td>
           </tr>
