@@ -4,7 +4,7 @@ import {headerValidation} from '../../Components/Validation/Validation'
 
 const orderNoValidation = (order_no, client, Validation) => {
     let valid = false
-    axios.post(endpoint.orderCheck, {        
+    return axios.post(endpoint.orderCheck, {        
             "order_no":order_no,
 	        "client":client,
 
@@ -18,9 +18,6 @@ const orderNoValidation = (order_no, client, Validation) => {
     })
     .catch((error) => {
        return false
-    })
-    .then((res) =>{
-       return headerValidation(res)
     })
 }
 

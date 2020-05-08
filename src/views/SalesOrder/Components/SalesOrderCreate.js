@@ -17,6 +17,7 @@ import {
 import swal from "sweetalert";
 import moment from "moment";
 import { reset, errMsg } from "./resetState";
+import {orderNoValidation} from '../Components/Validation/orderNoValidation'
 
 class SalesOrderCreate extends Component {
   constructor(props) {
@@ -98,6 +99,7 @@ class SalesOrderCreate extends Component {
           emptyOrderType: null,
           emptyOrderNo: null,
           emptyDeliveryDate: null,
+          orderNoIsAvailable:true,
 
           emptyCustomer: null,
           emptyShipToAddress1: null,
@@ -172,6 +174,9 @@ class SalesOrderCreate extends Component {
         }
       }
     }
+    if(!validation.header.orderNoIsAvailable && !validation.header.emptyOrderNo) validation.header.emptyOrderNo = 'order no already exist';
+    if(!validation.header.orderNoIsAvailable && a == true) a = false
+    if(validation.header.orderNoIsAvailable && a == true) a = true
     this.setState({ validation: validation });
 
     if (a == true) {
@@ -256,6 +261,11 @@ class SalesOrderCreate extends Component {
   // Set Order No
   setOrderId = (data) => {
     let validation = { ...this.state.validation };
+    orderNoValidation(data, this.state.parameters.header.client)
+    .then((data) => {
+      validation.header.orderNoIsAvailable = data
+      this.setState({validation:validation})
+    })
     if (data && data.length > 0 && data.length > 4) {
       validation.header.emptyOrderNo = null;
       this.setState({ validation: validation });
