@@ -191,7 +191,7 @@ class Movement extends Component {
               <th colSpan="4" key="6" style={{textAlign:"center"}}>{dates}</th>
             </tr>
             <tr>
-                <div style={{display:'flex',  borderBottom:'1px solid #d5d8da', color:'#22ABE3'}}>
+                <div className="borderBottom" style={{display:'flex',  color:'#22ABE3'}}>
                     <th key="6" className='tet' xs='2'>SA+</th>
                     <th key="6" className='tet' xs='2'>SA-</th>
                     <th key="6" className='tet' xs='2'>Rec</th>
@@ -265,11 +265,11 @@ class Movement extends Component {
         return(
             <div>
                 <div className='productHeader'>
-                    <th key="1" onClick={(e) => this.arrowHandler(e)} id='site' >Site <img className='arrowss' src={this.state.activearrow}/></th>
-                    <th key="2" onClick={(e) => this.arrowHandler(e)} id='client' >Client <img className='arrowss' src={this.state.activearrow}/></th>
-                    <th key="3" onClick={(e) => this.arrowHandler(e)} id='product' >Product <img className='arrowss' src={this.state.activearrow}/></th>
-                    <th key="4" onClick={(e) => this.arrowHandler(e)} id='productName' >Description <img className='arrowss' src={this.state.activearrow}/></th>
-                    <th key="5" style={{minWidth: 0, marginLeft: 0}} onClick={(e) => this.arrowHandler(e)} id='uom' >UOM <img className='arrowss' src={this.state.activearrow}/></th>
+                    <th key="1" onClick={(e) => this.arrowHandler(e)} className='headerSite' id='site' >Site <img className='arrowss' src={this.state.activearrow}/></th>
+                    <th key="2" onClick={(e) => this.arrowHandler(e)} className='headerClient' id='client' >Client <img className='arrowss' src={this.state.activearrow}/></th>
+                    <th key="3" onClick={(e) => this.arrowHandler(e)} className='headerProduct' id='product' >Product <img className='arrowss' src={this.state.activearrow}/></th>
+                    <th key="4" onClick={(e) => this.arrowHandler(e)} className='headerProductName' id='productName' >Description <img className='arrowss' src={this.state.activearrow}/></th>
+                    <th key="5" style={{minWidth: 0, marginLeft: 0}} className='headerUom' onClick={(e) => this.arrowHandler(e)} id='uom' >UOM <img className='arrowss' src={this.state.activearrow}/></th>
                 </div>
             </div>
             )
@@ -279,11 +279,11 @@ class Movement extends Component {
         return(
             <div>
                 <div className='productListBody' style={{display:'flex'}}>
-                    <td className='productList' id='site'  key="1">{props.site}</td>
-                    <td className='productList' id='client'  key="2">{props.client}</td>
-                    <td className='productList' id='product'  key="3">{props.product}</td>
-                    <td className='productList' id='productName'  key="4">{props.product_name}</td>
-                    <td className='productList' id='uom' xs='3' key="5">{props.packdesc}</td>
+                    <td className='productList listSite' id='site'  key="1">{props.site}</td>
+                    <td className='productList listClient' id='client'  key="2">{props.client}</td>
+                    <td className='productList listProduct' id='product'  key="3">{props.product}</td>
+                    <td className='productList listProductName' id='productName'  key="4">{props.product_name}</td>
+                    <td className='productList listUom' id='uom' xs='3' key="5">{props.packdesc}</td>
                 </div>
             </div>
             )
@@ -405,7 +405,7 @@ class Movement extends Component {
                             <tr>
                                 { 
                                     this.state.dateArray.map(date =>
-                                        <td style={{paddingLeft:'1px',color:'#B4B9BB',borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}>{this.movementHeader(date)}</td>
+                                        <td style={{paddingLeft:'1px',color:'#B4B9BB',borderRight:'5px solid #ededed',borderLeft:'1.5px solid #ededed'}}>{this.movementHeader(date)}</td>
                                             )
                                 }
                             </tr>
