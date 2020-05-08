@@ -212,14 +212,19 @@ class PurchaseOrderCreate extends Component {
         switch (key) {
           case 'site':
             this.setState({ emptySite: message })
+            break
           case 'client':
             this.setState({ emptyClient: message })
+            break
           case 'orderType':
             this.setState({ emptyOrderType: message })
+            break
           case 'orderNo':
             this.setState({ emptyOrderNo: message })
+            break
           case 'orderDate':
             this.setState({ emptyOrderDate: message })
+            break
         }
       }
       return
@@ -391,6 +396,7 @@ class PurchaseOrderCreate extends Component {
       orderNoValidation(orderNumber, client.client)
         .then((data) => {
           this.setState({isOrderNoAvailable:data})
+          if(data == true) this.setState({emptyOrderNo:null})
         })
     }
     
