@@ -51,11 +51,11 @@ const lineValidation = (line, idx) => {
         return false
     }
 
-    if(!weight)
-    {
-        alert('weight in line '+idx+' cannot be empty ')
-        return false
-    }
+    // if(!weight)
+    // {
+    //     alert('weight in line '+idx+' cannot be empty ')
+    //     return false
+    // }
 
     if(!uom)
     {
