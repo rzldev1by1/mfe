@@ -80,7 +80,7 @@ export default class PurchaseOrderDetail extends Component {
                     </tr>
                     <tr>
                         <th>Status</th>
-                        <td >{status ? status+ ' (' +statusDesc.substring(3) + ')' : '-'}</td>
+                        <td >{status ? status+ ': ' +statusDesc.substring(3)  : '-'}</td>
                     </tr>
                 </table>
             </div>
