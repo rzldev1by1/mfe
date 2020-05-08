@@ -44,7 +44,10 @@
 	display: none !important;
 } */
 
-html, body {margin: 0; height: 100%; overflow: hidden}
+
+/* Disable SCroll */
+html, body {margin: 0 !important; height: 100% !important; overflow: hidden !important}
+ 
 .movementBtnSearch{
 	height: 40px;
 	width: 170px;
@@ -70,7 +73,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 	font-size: 0.9rem;
 	max-height: 600px !important;
 	margin-right: -8px;
-	min-width:33em !important;
+	min-width:42em !important;
 	padding-top: 2px;
 }
 
@@ -121,7 +124,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 	  margin-bottom: -0.5px !important;
 	  font-family: "Helvetica Neue Bold";
 	  color: #B4B9BB;
-	  padding-left: 10px;
+	  /* padding-left: 10px; */
   }
   .tet{
 	width: 5rem !important;
@@ -183,7 +186,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
   .movementBody{
 	width: 100%;	
-	min-height: 37vw;
+	/* min-height: 37vw; */
   }
 
   .dropdown-item:hover{
@@ -239,12 +242,18 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 
 .productHeader{
-	margin-bottom: 1px;
+	margin-bottom: 10px;
 	display:flex;
 	border-bottom:1px solid #d5d8da;
-	margin-top: 9px;
+	margin-top: 12px;
+	padding-bottom: 45px;
 	height: 34px;
 	margin-left: -2%;
+}
+
+.borderBottom{
+	border-bottom: 1px solid #d5d8da !important;
+	padding-bottom: 2px; 
 }
 
 .movementTable{
@@ -302,19 +311,80 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 	margin-left:30px;
 }
 
-@media(max-width: 1500px){
+.headerSite{
+	width: 4em ;
+}
+
+.headerClient{
+	width: 5em !important;
+	padding-left: 0px;
+}
+
+.headerProductName{
+	width: 9.4em !important;
+	padding-left: 0px;
+	margin-right: 1rem;
+}
+
+
+.headerProduct{
+	width: 3.5em !important;
+	padding-left: 0px;
+}
+
+.headerUom{
+	width: 5.2em !important;
+	padding-left: 0px;
+}
+
+.listSite{
+	width: 3.8rem !important;
+	padding-left: 0px;
+}
+
+.listClient{
+	width: 5em !important;
+	padding-left: 0px;
+}
+
+.listProduct{
+	width: 5.2em !important;
+	max-width: 5.2em !important;
+	padding-left: 0px;
+}
+
+.listProductName{
+	width: 9.6em !important;
+	max-width: 9.6em !important;
+	padding-left: 0px;
+} 
+
+
+.headerProduct{
+	width: 5.2em !important;
+	padding-left: 0px;
+}
+
+.headerUom{
+	width: 5.2em !important;
+	padding-left: 0px;
+}
+
+@media(max-width: 1830px){
+	 
+
 	.arrowss{
 		margin-left: 0.3em;
 		width: 0.6em;
 	}
 	#site{
-		min-width: 3rem;
+		min-width: 0rem; 
 		margin-right: 1rem;
 		margin-left: 1rem;
 	}
   
 	#client{
-	  min-width: 3.5rem;
+	  min-width: 0rem;
 	  margin-right: 1rem;
 	}
   
@@ -324,21 +394,28 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 	}
   
 	#productName{
-		min-width: 9rem;
+		min-width: 0rem;
 		margin-right: rem;
 	}
   
 	#uom{
-		min-width: 3.5rem;
-		margin-right: 2rem;
+		min-width: 0rem;
+		margin-right: 1rem;
 		margin-left: 2px;
 	}
+
 	.productHeader{
 		margin-bottom: -0.5px !important;
 		font-family: "Helvetica Neue Bold";
 		color: #B4B9BB;
-		padding-left: 10px;
-		font-size: 12px;
+		/* padding-left: 10px; */
+		font-size: 14px;
+		padding-bottom:6px;
+	}
+
+	
+	.productData{ 
+		min-width:35em !important; 
 	}
 
 	.productList{
@@ -347,5 +424,38 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 		font-family: "Helvetica Neue Regular";
 		color: #637175;
 		font-size: 100%;
-	  } 
+	}
+	 
+	.listSite{
+		width: 2.9rem !important;
+		padding-left: 0px;
+	}
+	
+	.listClient{
+		width: 4.9em !important;
+		padding-left: 0px;
+	}
+	
+	.listProduct{
+		width: 5.0em !important;
+		max-width: 5.0em !important;
+		padding-left: 0px;
+	}
+	
+	.listProductName{
+		width: 9.5em !important;
+		max-width: 9.5em !important;
+		padding-left: 0px;
+	} 
+	
+	
+	.headerProductName{
+		width: 4.3em ;
+		padding-left: 0px;
+	}
+	
+	.headerUom{
+		width: 5.2em !important;
+		padding-left: 0px;
+	}
 }
