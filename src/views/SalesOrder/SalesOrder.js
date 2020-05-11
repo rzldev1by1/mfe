@@ -58,12 +58,11 @@ class SalesOrder extends Component {
 
       showEditColumn: false,
 
-      column:Authentication.getSavedColumn()
+      column:Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column
     };
   }
 
   componentDidMount = () => {
-    this.checkSavedColumnHandler()
     this.getclient();
     this.getsite();
     this.getResources();
@@ -77,10 +76,6 @@ class SalesOrder extends Component {
         newColumn[idx].active = active
         this.setState({column:newColumn}, localStorage.setItem('savedColumn', JSON.stringify(newColumn)))
     
-  }
-
-  checkSavedColumnHandler = () => {
-    if(!localStorage.getItem('savedColumn') || localStorage.getItem('savedColumn') === undefined) localStorage.setItem('savedColumn', JSON.stringify(column)) 
   }
 
   openModal = () => {
