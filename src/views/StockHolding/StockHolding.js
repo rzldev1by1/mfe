@@ -62,7 +62,7 @@ class StockHolding extends Component {
             ],
             masterSite: [],
             masterUnit: ["MLB : MICROLISTICS", "MLS : Microlistics", "MLM : MICROLISTICS"],
-            masterStatus: ["OK", "SHORTAGE"],
+            masterStatus: ["OK", "SHORTAGE","ALL"],
 			masterResStockHolding: []
         };
 
@@ -172,7 +172,7 @@ class StockHolding extends Component {
     }
 
 	searchData = () => {
-        const { site, status, unit } = this.state;
+        const { site, status, unit, clientSelected } = this.state;
         let self = this;
 
 		self.setState({ isLoaded: true, isSearch: true,
@@ -187,6 +187,7 @@ class StockHolding extends Component {
         if (site !== "") { params.site = site }
         if (unit !== "") { params.unit = unit }
         if (status !== "") { params.status = status }
+        if (clientSelected !== "") { params.client = clientSelected }
 
         axios.get(endpoint.stockHoldingSummary, {
             params: params,
@@ -232,40 +233,57 @@ class StockHolding extends Component {
 		let clientName = [];
         let clientValue = [];
         let masterSite = [];
+        let masterSiteValue = [];
+        let Masterstatus = [];
         if (this.state.masterSite.length > 0) {
             this.state.masterSite.map((item) => {
                 masterSite.push(item.site + ' : '+ item.name );
+                masterSiteValue.push(item.site);
 			});
-			masterSite.push("All");
 		}
+		masterSite.push("All");
+		masterSiteValue.push("");
+
 		if(this.state.clientdata){
             this.state.clientdata.map((data) => {
                 clientName.push(data.code + ' : '+data.name );
                 clientValue.push(data.code);
             })
-            clientName.push("All");
-            clientValue.push("");
         }
+		clientName.push("All");
+		clientValue.push("");
 
-        let masterUnit = this.state.masterUnit.toString();
-        let masterStatus = this.state.masterStatus.toString();
+		let masterUnit = this.state.masterUnit.toString();
+		let masterStatus = this.state.masterStatus;
+        let masterStatusValue = [];
+
+		
+        if (this.state.masterStatus.length > 0) {
+            this.state.masterStatus.map((item) => {  
+				if(item=="ALL"){
+					masterStatusValue.push(""); 
+				}else{
+					masterStatusValue.push(item);  
+				}
+			}); 
+		}
 
         return (
             <div className={"input-group filterSection" + (this.state.showFilter ? "" : " d-none")}>
                 <Dropdown 	placeHolder="Site"
 							optionList={masterSite.toString()}
-							optionValue={masterSite.toString()}
+							optionValue={masterSiteValue.toString()}
 							getValue={this.selectedSite} className="filterDropdown" />
 
 				<Dropdown 	placeHolder="Client"
                         	className="filterDropdown"
                             optionList={clientName.toString()} 
                             optionValue={clientValue.toString()} 
-                            getValue={this.getClientSelected.bind(this)}/>
+                            getValue={this.getClientSelected}/>
 
                 <Dropdown 	placeHolder="Status" 
-							optionList={masterStatus}
-							optionValue={masterStatus}
+							optionList={masterStatus.toString()}
+							optionValue={masterStatusValue.toString()}
 							getValue={this.selectedStatus} className="filterDropdown" />
 
             </div>
