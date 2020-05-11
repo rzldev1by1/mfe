@@ -456,7 +456,7 @@ class Movement extends Component {
                         </thead>
                         <tbody>
                         {
-                            this.state.data.slice(this.state.startIndex,this.state.endIndex).map((data) =>
+                            this.state.data.map((data) =>
                                 <tr style={{borderBottom:'1px solid #f5f5f5'}}>
                                 
                                     <this.productBody site={data.site} product={data.product} product_name={data.product_name} packdesc={data.packdesc} client={data.client}/>

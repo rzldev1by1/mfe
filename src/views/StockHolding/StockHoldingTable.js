@@ -65,7 +65,30 @@ class componentTable extends Component {
 				</tr>
 			))
 		);
-	}    
+	}
+	
+	showDataExcel = () => {
+		return (
+			this.props.masterResource.map((item, idx) => (
+				<tr className='tr1' key={idx} onClick={() => this.rowClicked(item["product"], item["client"], item["site"])}>
+					{this.props.columns.map((column, columnIdx) => {
+						if (column.isVisible) {
+                           
+							 if(column.id === "status"){
+                                 return <td key={columnIdx} className="px-3 text-left">{ (item["on_hand_qty"] + item["expected_in_qty"]) >= item["expected_out_qty"] ? "Ok" : "Shortage"}</td>
+                             }
+							return <td key={columnIdx} className="px-3 text-left">{item[column.key]}</td>;
+                        }
+                        return null;
+					})}
+				  	<td className="px-3 text-left">
+					
+					</td>
+				</tr>
+			))
+		);
+	}
+
 	rowClicked = (productCode, client, site) => {
         
         this.props.history.push(`/stock/stockholding/${productCode}/${client}/${site}`);
@@ -87,7 +110,7 @@ class componentTable extends Component {
                     </table>
 					<table className="defaultTable d-none" id="excel" >
                         <thead >{this.showHeaderExport()}</thead>
-                        <tbody style={{fontSize:'1rem'}}>{this.showData()}</tbody>
+                        <tbody style={{fontSize:'1rem'}}>{this.showDataExcel()}</tbody>
                     </table>
                 </div>
             </div>
