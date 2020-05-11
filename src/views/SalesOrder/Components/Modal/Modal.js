@@ -1,32 +1,47 @@
 import React from "react";
 import "./Modal.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
+import iconedit from '../../../../assets/img/brand/modal_create.png'
+import eyeactive from '../../../../assets/img/brand/eyeactive.png'
+import eyeinactive from '../../../../assets/img/brand/eyeinactive.png'
 
 const EditColumn = (props) => {
-  const { showEditColumn } = props;
+  const { showEditColumn, column, editColumnHandler, closeModal } = props;
+
+  const editColumnHandlers = (idx) => {
+    let newColumn = column
+    let active = newColumn[idx].active
+    active = !active
+    editColumnHandler(idx, active)
+  }
   return (
     <Modal isOpen={showEditColumn}>
       <ModalHeader>
-        <div>
-          <div>Edit Column</div>
-          <div className="" />
+        <div className='main-modal'>
+        <div className='edit-column-so-header'>
+          <div className='edit-column-so'>
+            <img src={iconedit}/>
+            <div className='edit-column-so-title'>Edit Column</div>
+          </div>
+          <span className='btnclose-modal' onClick={() => closeModal()}>X</span>
+        </div>
+        <div>Show and hide the column according to your needs, Please select 5 to 10 columns to show</div>
         </div>
       </ModalHeader>
       <ModalBody>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
+        <label className='edit-column-so-font'>Sales Order</label>
+
+        <div className="grid-container">
+          {column.map((data, idx) =>{
+            return(
+            <div  onClick={()=> editColumnHandlers(idx)}
+                  className={"grid-item " + (data.active ? 'edit-column-so-active' : 'edit-column-so-inactive')}>
+                  <img src={data.active ? eyeactive : eyeinactive}/>
+                  {data.name}
+            </div>)
+          })}
+        </div>
       </ModalBody>
-      <ModalFooter>
-        <Button color="primary">Do Something</Button>{" "}
-        <Button color="secondary" onClick={() => props.closeModal()}>
-          Cancel
-        </Button>
-      </ModalFooter>
     </Modal>
   );
 };

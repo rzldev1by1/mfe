@@ -122,6 +122,10 @@ class Authentication {
 		Authentication.setAuthenticate(null);
 	}
 
+	static getSavedColumn = () => {
+		return JSON.parse(localStorage.getItem('savedColumn'))
+	}
+
 	authenticationHandler = (payload) => {
 		let result = {};
 
