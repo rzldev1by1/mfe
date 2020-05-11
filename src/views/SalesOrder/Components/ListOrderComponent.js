@@ -25,7 +25,7 @@ class ListOrderComponent extends Component {
         "Order No",
         "Order Type",
         "Customer",
-        " Status",
+        "Status",
         "Delivery Date",
         "Date Received",
         "Date Released",
@@ -176,46 +176,73 @@ class ListOrderComponent extends Component {
       });
   };
 
-  sortby = (id) => {
-    // console.log(id)
+  sortby = (id) => { 
     if (id == "Site") {
-      this.setState({ sort: !this.state.sort, sortparameter: "site" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+      this.setState({ sort: !this.state.sort, sortparameter: "site" }, () => {
+        //async 
+        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+      });
     } else if (id == "Client") {
-      this.setState({ sort: !this.state.sort, sortparameter: "client" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+      this.setState({ sort: !this.state.sort, sortparameter: "client" }, () => {
+        //async 
+        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+      });
     } else if (id == "Order No") {
-      this.setState({ sort: !this.state.sort, sortparameter: "order_no" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
-    } else if (id == "Ship to Name") {
-      this.setState({ sort: !this.state.sort, sortparameter: "ship_to_name" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
-    } else if (id == "Customer Name") {
-      this.setState({ sort: !this.state.sort, sortparameter: "customer_name" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+      this.setState({ sort: !this.state.sort, sortparameter: "order_no" }, () => {
+        //async 
+        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+      });
+    } else if (id == "Order Type") {
+      this.setState({ sort: !this.state.sort, sortparameter: "order_type" }, () => {
+        //async 
+        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+      });
     } else if (id == "Status") {
-      this.setState({ sort: !this.state.sort, sortparameter: "status" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+      this.setState({ sort: !this.state.sort, sortparameter: "status" }, () => {
+        //async 
+        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+      });
+    } else if (id == "Customer") {
+      this.setState({ sort: !this.state.sort, sortparameter: "customer" }, () => {
+        //async 
+        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+      });
+    }  else if (id == "Delivery Date") {
+      this.setState({ sort: !this.state.sort, sortparameter: "delivery_date" }, () => {
+        //async 
+        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+      });
     } else if (id == "Date Received") {
-      this.setState({ sort: !this.state.sort, sortparameter: "date_due" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
-    } else if (id == "Date Rece") {
-      this.setState({ sort: !this.state.sort, sortparameter: "date_recd" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+      this.setState({ sort: !this.state.sort, sortparameter: "date_received" }, () => {
+        //async 
+        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+      });
     } else if (id == "Date Released") {
-      this.setState({ sort: !this.state.sort, sortparameter: "date_released" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
-    } else if (id == "Supplier Name") {
+      this.setState({ sort: !this.state.sort, sortparameter: "date_released" }, () => {
+        //async 
+        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+      });
+    } else if (id == "Date Completed") {
       this.setState({
         sort: !this.state.sort,
         sortparameter: "date_completed"
+      }, () => {
+        //async 
+        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
       });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
     }
   };
 
-  sorting = (data, param, sort) => {
-    data.sort((a, b) => {
+  sorting = (data, param, sort) => { 
+    data.sort((a, b) => { 
+      if(a[param] == null){
+        a[param] = '';
+      }
+
+      if(b[param] == null){
+        b[param] = '';
+      }
+
       if (a[param] !== null && b[param] !== null) {
         if (sort == true) {
           if (a[param].toLowerCase() < b[param].toLowerCase()) return -1;
