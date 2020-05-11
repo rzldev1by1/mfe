@@ -25,7 +25,7 @@ const column =[
     {id:'loadoutFinish', active:true, name:'Loadout Finish'},
     {id:'consignmentNo', active:true, name:'Consigment No'},
     {id:'freightCharge', active:true, name:'Freight Charge'},
-    {id:'customer', active:true, name:'Customer Code'},
+    {id:'customer', active:false, name:'Customer Code'},
   ]
 
   export {column}

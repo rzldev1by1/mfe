@@ -654,6 +654,10 @@ th.iconU-edit {
   padding: 1em;
 }
 
+.btnclose-modal-so{
+  cursor: pointer;
+}
+
 .grid-item {
   border: 2px solid #22ABE3;
   border-radius: 5px;

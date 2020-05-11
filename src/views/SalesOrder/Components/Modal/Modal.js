@@ -23,7 +23,7 @@ const EditColumn = (props) => {
             <img src={iconedit}/>
             <div className='edit-column-so-title'>Edit Column</div>
           </div>
-          <span className='btnclose-modal' onClick={() => closeModal()}>X</span>
+          <span className='btnclose-modal-so' onClick={() => closeModal()}>X</span>
         </div>
         <div>Show and hide the column according to your needs, Please select 5 to 10 columns to show</div>
         </div>
