@@ -83,7 +83,8 @@ class Authentication {
 	static getWebUser = () => {
 		let user = Authentication.getUser();
 		if (!user) { return false };
-		return user["userModules"][0].web_user;
+		// return user["userModules"][0].web_user;
+		return user["userId"];
 	}
 
 	static getUserMenu = () => {

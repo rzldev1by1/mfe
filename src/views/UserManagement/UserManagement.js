@@ -79,6 +79,8 @@ class UserManagement extends Component{
     }
 
     componentDidMount(){
+      console.log(endpoint);
+      console.log('endpoint');
         this.loadUsers();
         this.loadModuleAccess();
         this.loadClients();
@@ -241,7 +243,6 @@ class UserManagement extends Component{
     }
 
     loadUsers = () => {
-       
         var self = this;
         axios.get(endpoint.UserManagement_ListUser, {
           headers: headers
