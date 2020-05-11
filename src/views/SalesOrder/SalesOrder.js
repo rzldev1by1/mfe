@@ -199,20 +199,24 @@ class SalesOrder extends Component {
     let siteName = [];
     let orderTypeName = [];
     let orderTypeValue = [];
-    let statusName = ["Unavailable", "Open", "Released", "Completed", "All"];
-    let statusValue = ["unavailable", "open", "released", "completed", "all"];
+    let statusName = ["1:Unavailable", "2:Released",  "3:Open","4:Completed", "All"];
+    let statusValue =["Unavailable", "Open", "Released", "Completed", "All"];
     let statuss = [];
     if (this.state.clientdata) {
       this.state.clientdata.map((data) => {
-        clientName.push(data.code + ' : '+data.name);
+        clientName.push(data.code + ' : '+ data.name);
         clientValue.push(data.code);
       });
+      clientName.push("All");
+      clientValue.push("");
     }
     if (this.state.sitedata) {
       this.state.sitedata.map((data) => {
         siteName.push(data.site + ' : ' + data.name)
         siteData.push(data.site);
       });
+      siteName.push("All");
+      siteData.push("");
     }
 
     if(this.state.resources.orderType !== undefined)
@@ -237,7 +241,7 @@ class SalesOrder extends Component {
         />
           <Dropdown
           placeHolder="Client"
-          optionList={clientValue.toString()}
+          optionList={clientName.toString()}
           optionValue={clientValue.toString()}
           getValue={this.getClientSelected.bind(this)}
           className="filterDropdown"

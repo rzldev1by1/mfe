@@ -5,6 +5,7 @@ import moment from 'moment'
 import Dropdown from '../../../AppComponent/Dropdown'
 import axios from 'axios'
 import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
+import AutoComplete from '../../../AppComponent/AutoComplete'
 
 export default class MovementSearch extends Component {
     constructor(props){
@@ -86,7 +87,7 @@ export default class MovementSearch extends Component {
                     </button>
                     <div className='dropdown-toggle'/>
                     </div>
-                    <div class={'dropdown-menu ' + (this.state.periodExpand ? 'show' : null)}>
+                    <div className={'dropdown-menu ' + (this.state.periodExpand ? 'show' : null)}>
                         <div style={{color:'#7c878c'}} onClick={(e) => this.periodHanlder(e)} className='dropdown-item' id='day'>Daily</div>
                         <div style={{color:'#7c878c'}} onClick={(e) => this.periodHanlder(e)} className='dropdown-item' id='week'>Weekly</div>
                         <div style={{color:'#7c878c'}} onClick={(e) => this.periodHanlder(e)} className='dropdown-item' id='month'>Monthly</div>
@@ -107,7 +108,7 @@ export default class MovementSearch extends Component {
                     </button>
                     <div className='dropdown-toggle'/>
                     </div>
-                    <div  class='datePicker'>
+                    <div  className='datePicker'>
                     {this.state.dateFromShow ? <DatePicker selectedDays={moment(this.state.dateFromSelected)} getChosenDay={(day) => this.dateFromHandler(day)}/> : null}
                     </div>
                 </div> 
@@ -120,7 +121,7 @@ export default class MovementSearch extends Component {
                     </button>
                     <div className='dropdown-toggle'/>
                     </div>
-                    <div class='datePicker'>
+                    <div className='datePicker'>
                     {this.state.dateToShow ? <DatePicker getChosenDay={(day) => this.dateToHandler(day)}/> : null}
                     </div>
                 </div>  
@@ -196,12 +197,16 @@ export default class MovementSearch extends Component {
                 clientName.push(data.code + ' : '+data.name );
                 clientValue.push(data.code);
             })
+            clientName.push("All");
+            clientValue.push("");
         }
         if(this.state.sitedata){
             this.state.sitedata.map((data) => {
                 siteData.push(data.site +' : '+data.name );
                 siteValue.push(data.site);
             })
+            siteData.push("All");
+            siteValue.push("");
         }
         if(this.state.productdata){
             productData.push(this.state.productdata.code);
@@ -209,9 +214,22 @@ export default class MovementSearch extends Component {
     }
           return(
               <React.Fragment>
-                  <Dropdown placeHolder="Site" style={{width: "160px"}} optionList={siteData.toString()} optionValue={siteValue.toString()} getValue={this.getSiteSelected.bind(this)}/>
-                  <Dropdown placeHolder="Client" style={{width: "218px"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected.bind(this)}/>
-                  <Dropdown placeHolder="Product" style={{width: "218px"}} optionList={productData.toString()} optionValue={productValue.toString()} getValue={this.getProductSelected.bind(this)}/>
+                  <Dropdown placeHolder="Site" 
+                            className="filterDropdown"
+                            optionList={siteData.toString()}
+                            optionValue={siteValue.toString()} 
+                            getValue={this.getSiteSelected.bind(this)}/>
+                  <Dropdown placeHolder="Client"
+                            className="filterDropdown"
+                            optionList={clientName.toString()} 
+                            optionValue={clientValue.toString()} 
+                            getValue={this.getClientSelected.bind(this)}/>
+                <AutoComplete   placeHolder="Product"
+                                className="filterDropdown"
+                                optionList={productData.toString()} 
+                                optionValue={productValue.toString()} 
+                                getValue={this.getProductSelected.bind(this)}
+                                tabIndex="2" uppercase={true}  />
               </React.Fragment>
           )
       }

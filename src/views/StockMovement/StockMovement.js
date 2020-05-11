@@ -126,7 +126,7 @@ class StockMovement extends Component {
 				</div>
 				<div className={this.state.isComplete ? 'hidden' : 'spinner'}/>
 					
-					<div className={this.state.isComplete ? 'hidden' /*'fades'*/ : 'hidden'}>
+					<div className={this.state.isComplete ? /*'hidden' */'fades' : 'hidden'}>
 						<Pagination sliceValue={(startIndex, endIndex) => this.getStockMovement.current.setSliceValue(startIndex, endIndex)} 
 												ref={this.setPagiantion} data={this.state.data} 
 												rows={50}/> 
