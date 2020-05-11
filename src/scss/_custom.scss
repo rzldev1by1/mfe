@@ -1743,5 +1743,16 @@ font-family: "Helvetica Neue Medium";
     right: -5px !important;
 }
 
+//th cursor pointer
+th{
+	cursor: pointer;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none; 
+	-ms-user-select: none;
+	user-select: none;
+
+}
+//end th cursor pointer
 
 /* ∞∞ End global Dropdown ∞∞ */

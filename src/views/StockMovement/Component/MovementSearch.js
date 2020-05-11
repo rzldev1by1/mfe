@@ -86,7 +86,7 @@ export default class MovementSearch extends Component {
                     </button>
                     <div className='dropdown-toggle'/>
                     </div>
-                    <div class={'dropdown-menu ' + (this.state.periodExpand ? 'show' : null)}>
+                    <div className={'dropdown-menu ' + (this.state.periodExpand ? 'show' : null)}>
                         <div style={{color:'#7c878c'}} onClick={(e) => this.periodHanlder(e)} className='dropdown-item' id='day'>Daily</div>
                         <div style={{color:'#7c878c'}} onClick={(e) => this.periodHanlder(e)} className='dropdown-item' id='week'>Weekly</div>
                         <div style={{color:'#7c878c'}} onClick={(e) => this.periodHanlder(e)} className='dropdown-item' id='month'>Monthly</div>
@@ -107,7 +107,7 @@ export default class MovementSearch extends Component {
                     </button>
                     <div className='dropdown-toggle'/>
                     </div>
-                    <div  class='datePicker'>
+                    <div  className='datePicker'>
                     {this.state.dateFromShow ? <DatePicker selectedDays={moment(this.state.dateFromSelected)} getChosenDay={(day) => this.dateFromHandler(day)}/> : null}
                     </div>
                 </div> 
@@ -120,7 +120,7 @@ export default class MovementSearch extends Component {
                     </button>
                     <div className='dropdown-toggle'/>
                     </div>
-                    <div class='datePicker'>
+                    <div className='datePicker'>
                     {this.state.dateToShow ? <DatePicker getChosenDay={(day) => this.dateToHandler(day)}/> : null}
                     </div>
                 </div>  
