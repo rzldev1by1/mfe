@@ -184,8 +184,8 @@ class SalesOrder extends Component {
     let siteName = [];
     let orderTypeName = [];
     let orderTypeValue = [];
-    let statusName = ["1:Unavailable", "2:Open", "3:Released", "4:Completed", "All"];
-    let statusValue =["1:Unavailable", "2:Open", "3:Released", "4:Completed", "All"];
+    let statusName = ["1:Unavailable", "2:Released",  "3:Open","4:Completed", "All"];
+    let statusValue =["Unavailable", "Open", "Released", "Completed", "All"];
     let statuss = [];
     if (this.state.clientdata) {
       this.state.clientdata.map((data) => {
