@@ -646,7 +646,7 @@ class UserManagementDetail extends Component{
             </div>
 
             <div className="d-flex justify-content-center">
-                {this.state.isResetSuccess?<label style={{fontSize:"50px",color:"#22ABE3"}}>Success!</label>:''}
+                {this.state.isResetSuccess?<label style={{fontSize:"50px",color:"#3366FF"}}>Success!</label>:''}
             </div>
 
             <div className="d-flex justify-content-center">

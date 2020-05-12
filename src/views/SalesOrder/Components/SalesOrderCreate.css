@@ -7,7 +7,7 @@
 .modal-content > .createModals {
 	position: absolute;
     width: 124%;
-    background-color: #22ABE3;
+    background-color: #3366FF;
     margin-left: -13%;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -183,14 +183,14 @@
 	color: white;
 }
 h3{
-	color: #22ABE3;
+	color: #3366FF;
 }
 .lineTableDtl{
 	width: 97%;
 }
 .isactivefont {
     background-color: white;
-    color: #22ABE3 !important;
+    color: #3366FF !important;
 }
 .createpotables{
 	width: 100%;

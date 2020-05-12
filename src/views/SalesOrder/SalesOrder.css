@@ -231,7 +231,7 @@ table{
 }
 
 th.iconU-edit {
-  color: #22abe3;
+  color: #3366FF !important;
   text-align: center;
 }
 .create > .iconU-edit {
@@ -369,7 +369,7 @@ th.iconU-edit {
 .createmodal {
   position: absolute;
   width: 342%;
-  background-color: #22abe3;
+  background-color: #3366FF !important;
   margin-left: -118%;
   margin-top: 17%;
   border-bottom-right-radius: 10px !important;
@@ -377,7 +377,7 @@ th.iconU-edit {
 }
 
 .modal-header {
-  background-color: #22abe3;
+  background-color: #3366FF !important;
   width: 100% !important;
   color: #ffff;
   display: flex !important;
@@ -422,6 +422,7 @@ th.iconU-edit {
 
 .icon-u-edit-blue {
   color: rgb(28, 148, 191);
+  font-size: 1.3em !important;
 }
 
 .verticalAlignTop {
@@ -659,7 +660,7 @@ th.iconU-edit {
 }
 
 .grid-item {
-  border: 2px solid #22ABE3;
+  border: 2px solid #3366FF !important;
   border-radius: 5px;
   padding: 0.5em 1em;
   font-size: 1.2em;
@@ -668,7 +669,7 @@ th.iconU-edit {
 }
 
 .edit-column-so-active{
-  color: #22ABE3;
+  color: #3366FF !important;
   background-color: white;
 }
 
@@ -708,3 +709,27 @@ th.iconU-edit {
 .hidden{
   display: none !important;
 }
+/* 
+.so-search-box{
+  width: 44em;
+  margin-right: 0px !important;
+}
+
+.so-search-section{
+  padding: 0px !important;
+}
+
+.filter-so{
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
+.filters-so{
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
+.search-so-button{
+  padding: 0px !important;
+  margin: 0px !important;
+} */

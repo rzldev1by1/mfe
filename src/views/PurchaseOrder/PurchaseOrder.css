@@ -176,7 +176,7 @@ h1{
 	position: absolute;
   	z-index: 1;
 	background-color: white;
-	border: 1.5px solid #22ABE3;
+	border: 1.5px solid #3366FF;
 	border-radius: 5px;
 	margin-top:10px;
 	padding: 0.1%;
@@ -436,7 +436,7 @@ select option:hover{
 }
 
 h3{
-	color: #22ABE3;
+	color: #3366FF;
 	margin-top: 0px !important;
 }
 

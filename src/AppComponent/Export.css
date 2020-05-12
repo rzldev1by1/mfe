@@ -29,8 +29,8 @@
 	cursor: pointer;
 	list-style: none;
     transform: scaleY(-1);
-	background-color: #22ABE3;
-	box-shadow: 0 2px 0 #22ABE3;
+	background-color: #3366FF;
+	box-shadow: 0 2px 0 #3366FF;
 	border-radius: 6px;
 	transition: .2s ease-out;
 	margin-top: -47px;
@@ -224,8 +224,8 @@
 	cursor: pointer;
 	list-style: none;
     transform: scaleY(-1);
-	background-color: #22ABE3;
-	box-shadow: 0 2px 0 #22ABE3;
+	background-color: #3366FF;
+	box-shadow: 0 2px 0 #3366FF;
 	border-radius: 6px;
 	transition: .2s ease-out;
 	margin-top: -47px;

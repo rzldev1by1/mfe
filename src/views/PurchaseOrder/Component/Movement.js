@@ -193,7 +193,7 @@ class Movement extends Component {
               <th colSpan="4" key="6" style={{textAlign:"center"}}>{dates}</th>
             </tr>
             <tr>
-                <div className="borderBottom" style={{display:'flex',  color:'#22ABE3'}}>
+                <div className="borderBottom" style={{display:'flex',  color:'#3366FF'}}>
                     <th key="6" className='tet' xs='2'>SA+</th>
                     <th key="6" className='tet' xs='2'>SA-</th>
                     <th key="6" className='tet' xs='2'>Rec</th>
@@ -249,7 +249,7 @@ class Movement extends Component {
                             <tr>
                                 {this.state.dateArray.map((date, idx) => {
                                         return(
-                                                <div style={{display:'flex',  borderBottom:'1px solid #d5d8da', color:'#22ABE3'}}>
+                                                <div style={{display:'flex',  borderBottom:'1px solid #d5d8da', color:'#3366FF'}}>
                                                     <th key="6" className='tet' xs='2'>SA+</th>
                                                     <th key="7" className='tet' xs='2'>SA-</th>
                                                     <th key="8" className='tet' xs='2'>Rec</th>

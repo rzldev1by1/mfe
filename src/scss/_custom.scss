@@ -279,7 +279,7 @@ h2{
 }
 
 .btn.dropdown-button:focus {
-    border: 2px solid #22ABE3 !important;
+    border: 2px solid #3366FF !important !important;
 }
 
 .dropdown-menu {
@@ -291,7 +291,7 @@ h2{
 }
 
 .dropdown-menu.show {
-  border: 2px solid #22ABE3 !important;
+  border: 2px solid #3366FF !important !important;
 }
 
 .dropdown-toggle::after {
@@ -341,7 +341,7 @@ h2{
 }
 
 .sidebar .nav-item .nav-link.active {
-	border-left: 4px solid #22ABE3 !important;
+	border-left: 4px solid #3366FF !important !important;
 }
 
 .sidebar .nav-item .nav-link.active:after {
@@ -376,7 +376,7 @@ h2{
 }
 
 .sidebar .nav-link.active, .nav-link.active .nav-icon {
-	color: #22ABE3 !important;
+	color: #3366FF !important !important;
 	background: #ffffff !important;
 }
 
@@ -685,7 +685,7 @@ a.breadcrumb:hover {
 }
 
 .filter.active, .filter.active:focus {
-	background-color: #22ABE3 !important;
+	background-color: #3366FF !important !important;
 	color: #FFFFFF !important;
 }
 
@@ -699,7 +699,7 @@ a.breadcrumb:hover {
 	//width: 180px;
 	max-width: 100%;
 	height: 43px;
-	background-color: #22ABE3;
+	background-color: #3366FF !important;
 	color: #FFFFFF;
 	border: none;
     box-shadow: none !important;
@@ -1009,7 +1009,7 @@ select_date_expandLabel{
 }
 
 .nav-tabs .nav-link.tab-custom {
-    color: #22ABE3 !important;
+    color: #3366FF !important !important;
     background-color: #FFFFFF !important;
 	padding-left: 16px;
 	padding-bottom: 8px;
@@ -1146,7 +1146,7 @@ span.upArrow:before {
 }
 
 th.iconU-edit{
-	color: #22ABE3;
+	color: #3366FF !important;
 	text-align: center;
 }
 
@@ -1317,7 +1317,7 @@ font-family: "Helvetica Neue Medium";
 	}
 
 	.podetails{
-		color: #22ABE3;
+		color: #3366FF !important;
 	}
 	.podheader{
 		display: flex !important;
@@ -1400,7 +1400,7 @@ font-family: "Helvetica Neue Medium";
 	position: absolute;
   	z-index: 1;
 	background-color: white;
-	border: 1.5px solid #22ABE3;
+	border: 1.5px solid #3366FF !important;
 	border-radius: 5px;
 	margin-top:10px;
 	padding: 0.1%;
@@ -1417,7 +1417,7 @@ font-family: "Helvetica Neue Medium";
 .createmodal{
 	position: absolute;
 	width: 342%;
-	background-color: #22ABE3;
+	background-color: #3366FF !important;
 	margin-left: -118%;
     margin-top: 17%;
 	border-bottom-right-radius: 10px !important;
@@ -1425,10 +1425,14 @@ font-family: "Helvetica Neue Medium";
 }
 
 .modal-header{
-	background-color: #22ABE3;
+	background-color: #3366FF !important;
 	width: 100% !important;
 	color: #FFFF;
 	display: flex !important;
+}
+
+.createModals{
+	background-color: #3366FF !important;
 }
 
 .modal-body {
@@ -1455,7 +1459,7 @@ font-family: "Helvetica Neue Medium";
 .modal-content > .createModal {
 	position: absolute;
     width: 124%;
-    background-color: #22ABE3;
+    background-color: #3366FF !important;
     margin-left: -13%;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -1465,6 +1469,11 @@ font-family: "Helvetica Neue Medium";
 
 .modal-header{
 	border:0px !important;
+}
+
+.btn-primary{
+	background-color: #3366FF !important;
+	border-color: #3366FF !important;
 }
 
 //End Modal
@@ -1573,7 +1582,7 @@ font-family: "Helvetica Neue Medium";
 
 .select_dropdown:hover, .select_dropdown:focus-within{
 	transition: 0.2s ease-in;
-	border: 1px solid #22ABE3 !important;
+	border: 1px solid #3366FF !important !important;
 }
 
 .select_dropdown_expand {
@@ -1672,7 +1681,7 @@ font-family: "Helvetica Neue Medium";
 }
 
 .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options{
-	border: 1px solid #22ABE3;
+	border: 1px solid #3366FF !important;
 	border-radius: 5px;
 	margin-top: 10px;
 }
