@@ -10,7 +10,7 @@ import axios from "axios";
 import { endpoint, headers } from "../../AppComponent/ConfigEndpoint";
 import Authentication from "../../Auth/Authentication";
 import EditColumn from "./Components/Modal/Modal";
-
+import {column} from './Components/Validation/defaultColumn'
 import "./SalesOrder.css";
 class SalesOrder extends Component {
   constructor(props) {
@@ -56,7 +56,9 @@ class SalesOrder extends Component {
 
       loaded: false,
 
-      showEditColumn: false
+      showEditColumn: false,
+
+      column:Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column
     };
   }
 
@@ -66,7 +68,15 @@ class SalesOrder extends Component {
     this.getResources();
     this.getProduct();
     this.getDisposition();
+    
   };
+
+  editColumnHandler = (idx, active) => {
+    let newColumn             = this.state.column
+        newColumn[idx].active = active
+        this.setState({column:newColumn}, localStorage.setItem('savedColumn', JSON.stringify(newColumn)))
+    
+  }
 
   openModal = () => {
     this.setState({ showmodal: true });
@@ -289,6 +299,7 @@ class SalesOrder extends Component {
 
         <div className={"" + (this.state.complete ? "fades" : "hidden")}>
           <ListOrderComponent
+            column = {this.state.column}
             openEditModal={() => this.openEditModal()}
             ref={this.potableref}
             className="animated fadeIn"
@@ -310,8 +321,10 @@ class SalesOrder extends Component {
           />
         ) : null}
         <EditColumn
+          editColumnHandler = {(idx, active) => this.editColumnHandler(idx, active)}
           showEditColumn={this.state.showEditColumn}
           closeModal={() => this.setState({ showEditColumn: false })}
+          column = {this.state.column}
         />
       </div>
     );

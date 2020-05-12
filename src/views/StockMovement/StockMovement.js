@@ -68,7 +68,7 @@ class StockMovement extends Component {
                             <tr>
                                 {this.state.dateArray.map((date, idx) => {
                                         return(
-                                                <div style={{display:'flex',  borderBottom:'1px solid #d5d8da', color:'#22ABE3'}}>
+                                                <div style={{display:'flex',  borderBottom:'1px solid #d5d8da', color:'#3366FF'}}>
                                                     <th key="6" className='tet' xs='2'>SA+</th>
                                                     <th key="7" className='tet' xs='2'>SA-</th>
                                                     <th key="8" className='tet' xs='2'>Rec</th>

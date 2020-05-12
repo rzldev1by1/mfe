@@ -108,7 +108,8 @@ class SalesOrderCreate extends Component {
         }
       },
       identity: [],
-      uomdata: []
+      uomdata: [],
+      deleteProcessed:false
     };
   }
 
@@ -657,13 +658,14 @@ class SalesOrderCreate extends Component {
       alert("line detail must have at least 1 product");
       return;
     }
+    this.setState({deleteProcessed:true})
     let idxx = idx - 1;
     param.lineDetail.splice(idxx, 1);
 
     param.lineDetail.map((data, idx) => {
       data.number = idx + 1;
     });
-    this.setState({ parameters: param });
+    this.setState({ parameters: param, deleteProcessed:false });
   };
 
   createSalesOrder = () => {
@@ -841,6 +843,7 @@ class SalesOrderCreate extends Component {
                 removeLineHandler={(idx) => this.removeLineHandler(idx)}
                 validation={() => this.validation()}
                 validationCheck={this.state.validation}
+                deleteProcessed = {this.state.deleteProcessed}
               />
             ) : (
               <Tab2CreateSO

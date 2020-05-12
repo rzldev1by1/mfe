@@ -240,7 +240,7 @@
 	}
 }
 .search-movement:active{
-    background-color: #22ABE3 !important;
+    background-color: #3366FF !important;
     color: white !important;
     transition: 0;
 	font-size: auto;
@@ -262,7 +262,7 @@
 	cursor: pointer;
 }
 .search-btn, .search-btn:hover{
-	background-color: #22ABE3 !important;
+	background-color: #3366FF !important;
 	color: #FFFFFF;
 	border: none;
 	box-shadow: none !important;

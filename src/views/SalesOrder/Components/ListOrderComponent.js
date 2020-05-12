@@ -93,24 +93,6 @@ class ListOrderComponent extends Component {
     if(status) url = url + statusP
     if(ordertype) url = url + ordertypeP
 
-    // if (client) {
-    //   url = "?searchParam=" + param + "&&client=" + client;
-    // }
-
-    // if (site && !client) {
-    //   url = "?searchParam=" + param + "&&site=" + site;
-    // }
-
-    // if (client && site) {
-    //   url = "?client=" + client + "&&site=" + site;
-    // }
-    // if (param && client && site) {
-    //   param = param.toUpperCase();
-    //   url = "?searchParam=" + param + "&&client=" + client + "&&site=" + site;
-    // }
-
-
-
     this.props.loadCompleteHandler(false);
     axios
       .get(endpoint.salesOrder + url, {
@@ -176,86 +158,107 @@ class ListOrderComponent extends Component {
       });
   };
 
-  sortby = (id) => { 
-    if (id == "Site") {
-      this.setState({ sort: !this.state.sort, sortparameter: "site" }, () => {
-        //async 
-        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-      });
-    } else if (id == "Client") {
-      this.setState({ sort: !this.state.sort, sortparameter: "client" }, () => {
-        //async 
-        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-      });
-    } else if (id == "Order No") {
-      this.setState({ sort: !this.state.sort, sortparameter: "order_no" }, () => {
-        //async 
-        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-      });
-    } else if (id == "Order Type") {
-      this.setState({ sort: !this.state.sort, sortparameter: "order_type" }, () => {
-        //async 
-        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-      });
-    } else if (id == "Status") {
-      this.setState({ sort: !this.state.sort, sortparameter: "status" }, () => {
-        //async 
-        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-      });
-    } else if (id == "Customer") {
-      this.setState({ sort: !this.state.sort, sortparameter: "customer" }, () => {
-        //async 
-        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-      });
-    }  else if (id == "Delivery Date") {
-      this.setState({ sort: !this.state.sort, sortparameter: "delivery_date" }, () => {
-        //async 
-        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-      });
-    } else if (id == "Date Received") {
-      this.setState({ sort: !this.state.sort, sortparameter: "date_received" }, () => {
-        //async 
-        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-      });
-    } else if (id == "Date Released") {
-      this.setState({ sort: !this.state.sort, sortparameter: "date_released" }, () => {
-        //async 
-        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-      });
-    } else if (id == "Date Completed") {
-      this.setState({
-        sort: !this.state.sort,
-        sortparameter: "date_completed"
-      }, () => {
-        //async 
-        this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-      });
+  sortby = (id) => {
+    if (id == "site") {
+      this.setState({ sort: !this.state.sort, sortparameter: "site" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    } else if (id == "client") {
+      this.setState({ sort: !this.state.sort, sortparameter: "client" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "orderNo") {
+      this.setState({ sort: !this.state.sort, sortparameter: "orderno" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "orderType") {
+      this.setState({ sort: !this.state.sort, sortparameter: "ordertype" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "customerName") {
+      this.setState({ sort: !this.state.sort, sortparameter: "customername" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "status") {
+      this.setState({ sort: !this.state.sort, sortparameter: "status" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "deliveryDate") {
+      this.setState({ sort: !this.state.sort, sortparameter: "deliverydate" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    } else if (id == "dateReceived") {
+      this.setState({ sort: !this.state.sort, sortparameter: "datereceived" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    } else if (id == "dateReleased") {
+      this.setState({ sort: !this.state.sort, sortparameter: "datereleased" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    } else if (id == "dateCompleted") {
+      this.setState({ sort: !this.state.sort, sortparameter: "datecompleted"});
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "customerPoNo") {
+      this.setState({ sort: !this.state.sort, sortparameter: "customerpono" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "vendorOrderNo") {
+      this.setState({ sort: !this.state.sort, sortparameter: "vendororderno" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "address1") {
+      this.setState({ sort: !this.state.sort, sortparameter: "address1" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "address2") {
+      this.setState({ sort: !this.state.sort, sortparameter: "address2" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "address3") {
+      this.setState({ sort: !this.state.sort, sortparameter: "address3" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "address4") {
+      this.setState({ sort: !this.state.sort, sortparameter: "address4" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "address5") {
+      this.setState({ sort: !this.state.sort, sortparameter: "address5" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "suburb") {
+      this.setState({ sort: !this.state.sort, sortparameter: "city" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "postcode") {
+      this.setState({ sort: !this.state.sort, sortparameter: "postcode" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "state") {
+      this.setState({ sort: !this.state.sort, sortparameter: "state" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "country") {
+      this.setState({ sort: !this.state.sort, sortparameter: "country" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "loadNumber") {
+      this.setState({ sort: !this.state.sort, sortparameter: "loadnumber" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "loadoutStart") {
+      this.setState({ sort: !this.state.sort, sortparameter: "loadoutstart" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "loadoutFinish") {
+      this.setState({ sort: !this.state.sort, sortparameter: "loadoutfinish" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "consigmentNo") {
+      this.setState({ sort: !this.state.sort, sortparameter: "consigmentno" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "freightCharge") {
+      this.setState({ sort: !this.state.sort, sortparameter: "freightcharge" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id == "customer") {
+      this.setState({ sort: !this.state.sort, sortparameter: "customer" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
     }
   };
 
-  sorting = (data, param, sort) => { 
-    data.sort((a, b) => { 
-      if(a[param] == null){
-        a[param] = '';
-      }
-
-      if(b[param] == null){
-        b[param] = '';
-      }
-
+  sorting = (data, param, sort) => {
+    let datas = [...data]
+    datas.sort((a, b) => {
       if (a[param] !== null && b[param] !== null) {
         if (sort == true) {
-          if (a[param].toLowerCase() < b[param].toLowerCase()) return -1;
-          if (a[param].toLowerCase() > b[param].toLowerCase()) return 1;
+          if (a[param] < b[param]) return -1;
+          if (a[param] > b[param]) return 1;
           return 0;
         } else if (sort == false) {
-          if (a[param].toLowerCase() < b[param].toLowerCase()) return 1;
-          if (a[param].toLowerCase() > b[param].toLowerCase()) return -1;
+          if (a[param] < b[param]) return 1;
+          if (a[param] > b[param]) return -1;
           return 0;
         }
       }
     });
-    this.setState({ data: data });
+    this.setState({ data: datas });
   };
   changeStartIndex = (currentPage) => {
     this.setState({
@@ -323,7 +326,6 @@ class ListOrderComponent extends Component {
   arrowHandler = (e) => {
     let id = e.currentTarget.id; 
     this.setState({ activecolumnsort: id });
-    //console.log(this.state.activecolumnsort);
 
     let activearrow = this.state;
     if (this.state.activearrow == mid) {
@@ -407,232 +409,79 @@ class ListOrderComponent extends Component {
     return data;
   };
 
-  render() {
-    return (
-      <div>
-        <div className="tablePages tablecontent">
-          <table className="Sotable">
-            <thead>
-              <tr style={{ borderBottom: "3px solid #f0f0f0 !important" }}>
-                {this.state.tableheader.map((header) => (
-                  <th
-                    key={header}
-                    onClick={(e) => this.arrowHandler(e)}
-                    id={header}
-                  >
-                    {header}
-                    <img
-                      key={header}
-                      className="arrow"
-                      style={{ marginLeft: "0.3em", width: "0.6em" }}
-                      src={this.state.activearrow}
-                    />
-                  </th>
-                ))}
-                <th>
-                  {/* <div
-                    onClick={() => this.props.openEditModal()}
-                    className="iconU-edit icon-u-edit-blue"
-                  /> */}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.data ? (
-                this.state.data
-                  .slice(this.state.startIndex, this.state.lastIndex)
-                  .map((data, i) => (
-                    <tr
-                      onClick={() =>
-                        window.location.replace(
-                          window.location.origin +
-                          "/#/sales-orders/" +
-                          data.client +
-                          "/" +
-                          data.site +
-                          "/" +
-                          data.order_no
-                        )
-                      }
-                      className="tr"
-                    >
-                      <td>{data.site}</td>
-                      <td>{data.client}</td>
-                      <td>{data.order_no}</td>
-                      <td>{data.order_type}</td>
-                      <td>
-                        {data.customer ? data.customer_code + " ( " + data.customer + " )" : '-'}
-                      </td>
-                      <td style={{ width: "11%" }}>{data.status}</td>
-                      <td>
-                        {"" +
-                          (data.delivery_date
-                            ? moment(data.delivery_date).format("DD/MM/YYYY")
-                            : "")}
-                      </td>
-                      <td>
-                        {"" +
-                          (data.date_received
-                            ? moment(data.date_received).format("DD/MM/YYYY")
-                            : "")}
-                      </td>
-                      <td>
-                        {"" +
-                          (data.date_released
-                            ? moment(data.date_released).format("DD/MM/YYYY")
-                            : "")}
-                      </td>
-                      <td>
-                        {"" +
-                          (data.date_completed
-                            ? moment(data.date_completed).format("DD/MM/YYYY")
-                            : "")}
-                      </td>
-                      <td>{/*console.log(data)*/}</td>
-                    </tr>
-                  ))
-              ) : (
-                  <div> No data available </div>
-                )}
-            </tbody>
-          </table>
-
-          <table className="Sotable d-none" id="excel">
-            <thead>
-              <tr style={{ borderBottom: "3px solid #f0f0f0 !important" }}>
-                {this.state.tableheader.map((header) => (
-                  <th
-                    key={header}
-                    onClick={(e) => this.arrowHandler(e)}
-                    id={header}
-                  >
-                    {header}
-                    {/* <img key={header} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}} src={this.state.activearrow}/> */}
-                  </th>
-                ))}
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.data ? (
-                this.state.data
-                  .slice(this.state.startIndex, this.state.lastIndex)
-                  .map((data, i) => (
-                    <tr
-                      onClick={() =>
-                        window.location.replace(
-                          window.location.origin +
-                          "/#/sales-orders/" +
-                          data.order_no
-                        )
-                      }
-                      className="tr"
-                    >
-                      <td>{data.site}</td>
-                      <td>{data.client}</td>
-                      <td>{data.order_no}</td>
-                      <td>{data.order_type}</td>
-                      <td>{data.customer ? data.customer + " (" + data.customer_name + ")" : data.customer_name}</td>
-                      <td style={{ width: "11%" }}>{data.status_desc}</td>
-                      <td>
-                        {"" +
-                          (data.date_due
-                            ? moment(data.date_due).format("DD/MM/YYYY")
-                            : "")}
-                      </td>
-                      <td>
-                        {"" +
-                          (data.date_recd
-                            ? moment(data.date_recd).format("DD/MM/YYYY")
-                            : "")}
-                      </td>
-                      <td>
-                        {"" +
-                          (data.date_released
-                            ? moment(data.date_released).format("DD/MM/YYYY")
-                            : "")}
-                      </td>
-                      <td>
-                        {"" +
-                          (data.date_completed
-                            ? moment(data.date_completed).format("DD/MM/YYYY")
-                            : "")}
-                      </td>
-                      <td>{/*console.log(data)*/}</td>
-                    </tr>
-                  ))
-              ) : (
-                  <div> No data available </div>
-                )}
-            </tbody>
-          </table>
-        </div>
-        <div className="paginations">
-          <Paging
-            firstPageClick={this.firstPageClick}
-            lastPageClick={this.lastPageClick}
-            backPageClick={this.backPageClick}
-            nextPageClick={this.nextPageClick}
-            totalRows={this.state.totalRows}
-            displayPage={this.state.displayPage}
-            currentPage={this.state.currentPage}
-            maxPage={this.state.maxPage}
-            startIndex={this.state.startIndex}
-            lastIndex={this.state.lastIndex}
-            isActive={this.state.isActive}
-            numberEventClick={this.numberEventClick}
-          />
-
-          <Export
-            ExportName={this.ExportName}
-            ExportPDFName={this.ExportPDFName}
-            ExportHeader={this.ExportHeader}
-            ExportData={this.ExportData}
-          />
-        </div>
-      </div>
-    );
-  }
-
    modifiedCustomerData = (code,name) => {
     if(code && name) return code+' ( '+name+' )'
     if(!code && name) return name
     if(!code && !name) return '-'
+  }
+
+  filterDataHandler = (key, value, idx) => {
+    let newValue  = value
+    switch(key){
+      case 'deliverydate' : 
+        if(newValue !== null) newValue = moment(newValue).format("DD/MM/YYYY")
+        break
+      case 'datereceived' :
+        if(newValue !== null) newValue = moment(newValue).format("DD/MM/YYYY")
+        break
+      case 'datereleased' :
+        if(newValue !== null) newValue = moment(newValue).format("DD/MM/YYYY")
+        break
+      case 'datecompleted' :
+        if(newValue !== null) newValue = moment(newValue).format("DD/MM/YYYY")
+        break
+      case 'customername':
+        let cust = [...this.state.data]
+        let code = cust[idx].customer
+        let name = cust[idx].customername
+        newValue = this.modifiedCustomerData(code,name)
+
+
+
+    }
+    return newValue
   }
 //table used
     render(){
       return(
         <div>
           <div className='tablePage tablecontent'>
-               <table className="defaultTable">
+               <table className="defaultTable so-table">
                   <thead>
                     <tr style={{borderBottom:"3px solid #f0f0f0 !important"}}>
-                       {this.state.tableheader.map((header, idx) =>
-                        <th key={idx} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
-                           <img key={idx} className='arrow' style={{marginLeft:'0.3em' , width:'0.6em'}}  src={this._checkActiveSorting(header)}/>
+                       {this.props.column.map((header, idx) =>
+                        <th key     ={idx} 
+                            onClick ={(e) => this.arrowHandler(e)} 
+                            id      ={header.id}
+                            className   = {header.active ? '' : 'hidden'}>
+                            <div className='so-table-header'>
+                              <span>{header.name}</span>
+                              <img  key={idx} 
+                                    className='arrow' 
+                                    style={{marginLeft:'0.3em' , width:'0.6em'}} 
+                                    src={this._checkActiveSorting(header.id)}/>
+                            </div>
+                          
                         </th>
                               )}  
-                              <th></th>
-                       </tr>
-                    </thead>
+                        <th>
+                          <div  onClick={() => this.props.openEditModal()}
+                                className="iconU-edit icon-u-edit-blue"
+                          />
+                        </th>
+                    </tr>
+                  </thead>
                     <tbody>
-                          {this.state.data  ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
-                                  <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.client+'/'+data.site+'/'+data.order_no)} className='tr'>
-                                      <td className="umtd">{data.site}</td>
-                                      <td>{data.client}</td>
-                                      <td>{data.order_no}</td>
-                                      <td>{data.order_type}</td>
-                                      <td>{this.modifiedCustomerData(data.customer, data.customer_name)}</td>
-                                      <td style={{width:"11%"}}>{data.status}</td>
-                                      <td>{'' + (data.delivery_date ? moment(data.delivery_date).format("DD/MM/YYYY") : '') }</td>
-                                      <td>{'' + (data.date_received ? moment(data.date_received).format("DD/MM/YYYY") : '') }</td>
-                                      <td>{'' + (data.date_released ? moment(data.date_released).format("DD/MM/YYYY") : '') }</td>
-                                      <td>{'' + (data.date_completed ? moment(data.date_completed).format("DD/MM/YYYY") : '') }</td>
-                          <td>{/*console.log(data)*/}</td>
-                                  </tr>
-                              ) : 
-                                  <div> No data available </div>
-                                  }  
+                          {
+                            this.state.data  ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => {
+                              const dataa = Object.entries(data)
+                              return(
+                                <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.client+'/'+data.site+'/'+data.orderno)} className='tr'>
+                                        {dataa.map((data, idx) => <td className={'so-table-row ' + (this.props.column[idx].active ? '' : 'hidden')}>{this.filterDataHandler(data[0],data[1], i)}</td>)}
+                                </tr>
+                              )
+                            }) :  <div> No data available </div>
+                          }  
                       </tbody>
                         </table>
 

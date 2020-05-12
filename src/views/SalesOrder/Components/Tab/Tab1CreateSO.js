@@ -459,7 +459,7 @@ class Tab1CreateSO extends Component {
             </table>
           {this.props.parameters.lineDetail.map((data, idx) => {
             return (
-              <div>
+              <div className={this.props.deleteProcessed ? 'hidden' : null}>
                 <OrderLine
                   parameters={data}
                   parametersLength={this.props.parameters.lineDetail.length}
@@ -486,32 +486,6 @@ class Tab1CreateSO extends Component {
                   setPackid={(packid, idx) => this.props.setPackid(packid, idx)}
                   removeLineHandler={(idx) => this.props.removeLineHandler(idx)}
                 />
-
-                {/* <OrderLine2
-                parameters={data}
-                idx={idx}
-                getUom={(productVal) => this.props.getUom(productVal)}
-                uomdata={this.props.uomdata}
-                productdata={this.props.productdata}
-                dispositiondata={this.props.dispositiondata}
-                setProduct={(productVal, product, idx) =>
-                  this.props.setProduct(productVal, product, idx)
-                }
-                setQty={(qty, idx) => this.props.setQty(qty, idx)}
-                setWeight={(weight, idx) => this.props.setWeight(weight, idx)}
-                setUom={(uom, idx) => this.props.setUom(uom, idx)}
-                setRotaDate={(rotaDate, idx) =>
-                  this.props.setRotaDate(rotaDate, idx)
-                }
-                setBatch={(batch, idx) => this.props.setBatch(batch, idx)}
-                setRef3={(ref3, idx) => this.props.setRef3(ref3, idx)}
-                setRef4={(ref4, idx) => this.props.setRef4(ref4, idx)}
-                setDispoisition={(disposition, dispositionVal, idx) =>
-                  this.props.setDispoisition(disposition, dispositionVal, idx)
-                }
-                setPackid={(packid, idx) => this.props.setPackid(packid, idx)}
-                removeLineHandler={(idx) => this.props.removeLineHandler(idx)}
-              /> */}
               </div>
             );
           })}
