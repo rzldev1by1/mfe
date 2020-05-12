@@ -73,7 +73,8 @@ class UserManagement extends Component{
               isValidForm:false,
               firstTab:true,
               secondTab:false,
-              validatorMessage:''
+              validatorMessage:'',
+              webgroup:false
         }
           this.searchForm = React.createRef();
     }
@@ -84,6 +85,10 @@ class UserManagement extends Component{
         this.loadModuleAccess();
         this.loadClients();
         this.loadSites();
+    }
+
+    changeWebgroup = (isWebGroup) => {
+      this.setState({webgroup:isWebGroup});
     }
 
     calculatePageRow = (listOfRows) => {
@@ -729,7 +734,7 @@ class UserManagement extends Component{
                 onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing} onChangeCompany={this.onChangeCompany}
                 onModuleEnableAll = {this.onEnabledAllModuleAccess} isValidForm={this.state.isValidForm} onNextClickHandler={this.nextClickHandler}
                 firtsTabActive={this.state.firstTab} secondTabActive={this.state.secondTab} onClickTabActive={this.setTabActive}
-                message={this.state.validatorMessage} />
+                message={this.state.validatorMessage} changeWebGroup={this.changeWebgroup} isWebGroup={this.state.webgroup} />
 
                 </CardBody>
                 </Card>
