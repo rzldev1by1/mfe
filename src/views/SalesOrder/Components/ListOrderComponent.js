@@ -326,7 +326,6 @@ class ListOrderComponent extends Component {
   arrowHandler = (e) => {
     let id = e.currentTarget.id; 
     this.setState({ activecolumnsort: id });
-    //console.log(this.state.activecolumnsort);
 
     let activearrow = this.state;
     if (this.state.activearrow == mid) {
@@ -475,7 +474,6 @@ class ListOrderComponent extends Component {
                     <tbody>
                           {
                             this.state.data  ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => {
-                              console.log(data)
                               const dataa = Object.entries(data)
                               return(
                                 <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.client+'/'+data.site+'/'+data.orderno)} className='tr'>
