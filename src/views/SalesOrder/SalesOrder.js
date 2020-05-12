@@ -10,7 +10,7 @@ import axios from "axios";
 import { endpoint, headers } from "../../AppComponent/ConfigEndpoint";
 import Authentication from "../../Auth/Authentication";
 import EditColumn from "./Components/Modal/Modal";
-
+import {column} from './Components/Validation/defaultColumn'
 import "./SalesOrder.css";
 class SalesOrder extends Component {
   constructor(props) {
@@ -56,7 +56,9 @@ class SalesOrder extends Component {
 
       loaded: false,
 
-      showEditColumn: false
+      showEditColumn: false,
+
+      column:Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column
     };
   }
 
@@ -66,7 +68,15 @@ class SalesOrder extends Component {
     this.getResources();
     this.getProduct();
     this.getDisposition();
+    
   };
+
+  editColumnHandler = (idx, active) => {
+    let newColumn             = this.state.column
+        newColumn[idx].active = active
+        this.setState({column:newColumn}, localStorage.setItem('savedColumn', JSON.stringify(newColumn)))
+    
+  }
 
   openModal = () => {
     this.setState({ showmodal: true });
@@ -184,20 +194,24 @@ class SalesOrder extends Component {
     let siteName = [];
     let orderTypeName = [];
     let orderTypeValue = [];
-    let statusName = ["Unavailable", "Open", "Released", "Completed", "All"];
-    let statusValue = ["unavailable", "open", "released", "completed", "all"];
+    let statusName = ["1:Unavailable", "2:Released",  "3:Open","4:Completed", "All"];
+    let statusValue =["Unavailable", "Open", "Released", "Completed", "All"];
     let statuss = [];
     if (this.state.clientdata) {
       this.state.clientdata.map((data) => {
-        clientName.push(data.code + ' : '+data.name);
+        clientName.push(data.code + ' : '+ data.name);
         clientValue.push(data.code);
       });
+      clientName.push("All");
+      clientValue.push("");
     }
     if (this.state.sitedata) {
       this.state.sitedata.map((data) => {
         siteName.push(data.site + ' : ' + data.name)
         siteData.push(data.site);
       });
+      siteName.push("All");
+      siteData.push("");
     }
 
     if(this.state.resources.orderType !== undefined)
@@ -222,7 +236,7 @@ class SalesOrder extends Component {
         />
           <Dropdown
           placeHolder="Client"
-          optionList={clientValue.toString()}
+          optionList={clientName.toString()}
           optionValue={clientValue.toString()}
           getValue={this.getClientSelected.bind(this)}
           className="filterDropdown"
@@ -285,6 +299,7 @@ class SalesOrder extends Component {
 
         <div className={"" + (this.state.complete ? "fades" : "hidden")}>
           <ListOrderComponent
+            column = {this.state.column}
             openEditModal={() => this.openEditModal()}
             ref={this.potableref}
             className="animated fadeIn"
@@ -306,8 +321,10 @@ class SalesOrder extends Component {
           />
         ) : null}
         <EditColumn
+          editColumnHandler = {(idx, active) => this.editColumnHandler(idx, active)}
           showEditColumn={this.state.showEditColumn}
           closeModal={() => this.setState({ showEditColumn: false })}
+          column = {this.state.column}
         />
       </div>
     );

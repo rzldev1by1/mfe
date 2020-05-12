@@ -14,6 +14,7 @@ class Movement extends Component {
         super(props);
         this.hover = this.hover.bind(this);
         this._checkActiveHover = this._checkActiveHover.bind(this);
+        this._checkActiveSorting = this._checkActiveSorting.bind(this);
         
         this.state = {
             data:[],            
@@ -26,6 +27,7 @@ class Movement extends Component {
             pushTableComplete:false,
 
             activearrow:mid,
+            activecolumnsort:null,
             sortparameter:null,
             siteSP:mid,
             clientSP:mid,
@@ -265,11 +267,11 @@ class Movement extends Component {
         return(
             <div>
                 <div className='productHeader'>
-                    <th key="1" onClick={(e) => this.arrowHandler(e)} className='headerSite' id='site' >Site <img className='arrowss' src={this.state.activearrow}/></th>
-                    <th key="2" onClick={(e) => this.arrowHandler(e)} className='headerClient' id='client' >Client <img className='arrowss' src={this.state.activearrow}/></th>
-                    <th key="3" onClick={(e) => this.arrowHandler(e)} className='headerProduct' id='product' >Product <img className='arrowss' src={this.state.activearrow}/></th>
-                    <th key="4" onClick={(e) => this.arrowHandler(e)} className='headerProductName' id='productName' >Description <img className='arrowss' src={this.state.activearrow}/></th>
-                    <th key="5" style={{minWidth: 0, marginLeft: 0}} className='headerUom' onClick={(e) => this.arrowHandler(e)} id='uom' >UOM <img className='arrowss' src={this.state.activearrow}/></th>
+                    <th key="1" onClick={(e) => this.arrowHandler(e)} className='headerSite' id='site' >Site <img className='arrowss' src={this._checkActiveSorting('site')}/></th>
+                    <th key="2" onClick={(e) => this.arrowHandler(e)} className='headerClient' id='client' >Client <img className='arrowss' src={this._checkActiveSorting('client')}/></th>
+                    <th key="3" onClick={(e) => this.arrowHandler(e)} className='headerProduct' id='product' >Product <img className='arrowss' src={this._checkActiveSorting('product')}/></th>
+                    <th key="4" onClick={(e) => this.arrowHandler(e)} className='headerProductName' id='productName' >Description <img className='arrowss' src={this._checkActiveSorting('productName')}/></th>
+                    <th key="5" style={{minWidth: 0, marginLeft: 0}} className='headerUom' onClick={(e) => this.arrowHandler(e)} id='uom' >UOM <img className='arrowss' src={this._checkActiveSorting('uom')}/></th>
                 </div>
             </div>
             )
@@ -293,7 +295,8 @@ class Movement extends Component {
     arrowHandler = (e) => {
         let id = e.currentTarget.id
         let activearrow = this.state
-        if(this.state.activearrow == mid)
+        this.setState({ activecolumnsort: id })
+        if(this.state.activearrow == mid )
           {
             this.setState({activearrow:up})
             this.sortby(id)
@@ -310,6 +313,24 @@ class Movement extends Component {
             this.setState({activearrow:up})
             this.sortby(id)
           }
+      }
+    
+      _checkActiveSorting(header){ 
+        if(header==this.state.activecolumnsort){ 
+          if (this.state.activearrow == mid) {
+            return up;
+          }
+    
+          if (this.state.activearrow == up) {
+            return down;
+          }
+    
+          if (this.state.activearrow == down) {
+            return up;
+          }
+        }else{
+          return mid;
+        }
       }
     
       sortby = (id) => {
@@ -435,7 +456,7 @@ class Movement extends Component {
                         </thead>
                         <tbody>
                         {
-                            this.state.data.slice(this.state.startIndex,this.state.endIndex).map((data) =>
+                            this.state.data.map((data) =>
                                 <tr style={{borderBottom:'1px solid #f5f5f5'}}>
                                 
                                     <this.productBody site={data.site} product={data.product} product_name={data.product_name} packdesc={data.packdesc} client={data.client}/>
