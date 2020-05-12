@@ -416,7 +416,7 @@ class ListOrderComponent extends Component {
     if(!code && !name) return '-'
   }
 
-  filterDataHandler = (key, value) => {
+  filterDataHandler = (key, value, idx) => {
     let newValue  = value
     switch(key){
       case 'deliverydate' : 
@@ -431,6 +431,11 @@ class ListOrderComponent extends Component {
       case 'datecompleted' :
         if(newValue !== null) newValue = moment(newValue).format("DD/MM/YYYY")
         break
+      case 'customername':
+        let cust = [...this.state.data]
+        let code = cust[idx].customer
+        newValue = this.modifiedCustomerData(code,newValue)
+
 
 
     }
@@ -473,7 +478,7 @@ class ListOrderComponent extends Component {
                               const dataa = Object.entries(data)
                               return(
                                 <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.client+'/'+data.site+'/'+data.orderno)} className='tr'>
-                                        {dataa.map((data, idx) => <td className={'so-table-row ' + (this.props.column[idx].active ? '' : 'hidden')}>{this.filterDataHandler(data[0],data[1])}</td>)}
+                                        {dataa.map((data, idx) => <td className={'so-table-row ' + (this.props.column[idx].active ? '' : 'hidden')}>{this.filterDataHandler(data[0],data[1], idx)}</td>)}
                                 </tr>
                               )
                             }) :  <div> No data available </div>
