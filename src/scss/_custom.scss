@@ -1683,7 +1683,7 @@ font-family: "Helvetica Neue Medium";
 }
 
 .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options .select_dropdown_label {
-	height: 40px;
+	height: 50px;
 }
 
 .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options .select_dropdown_label:hover {
@@ -1694,7 +1694,7 @@ font-family: "Helvetica Neue Medium";
 .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options + .select_dropdown_expandLabel {display: none}
 
 .select_dropdown_input:checked + .select_dropdown_label {
-	height: 30px;
+	height: 35px;
 	margin-top: -50px;
 	border-radius: 5px;
 	/* border-bottom: 1px solid #969EA1; */
