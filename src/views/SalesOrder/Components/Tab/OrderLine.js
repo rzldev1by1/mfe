@@ -39,7 +39,7 @@ const OrderLine = (props) => {
             </td>
             <td>
               <div id="orderline-header-product-val-id">
-                <AutoComplete
+                <Dropdown
                   optionSelected={productVal}
                   getValue={(productVal, product) =>
                     props.setProduct(productVal, product, props.idx)
