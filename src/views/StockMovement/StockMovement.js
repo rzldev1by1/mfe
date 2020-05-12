@@ -68,7 +68,7 @@ class StockMovement extends Component {
                             <tr>
                                 {this.state.dateArray.map((date, idx) => {
                                         return(
-                                                <div style={{display:'flex',  borderBottom:'1px solid #d5d8da', color:'#22ABE3'}}>
+                                                <div style={{display:'flex',  borderBottom:'1px solid #d5d8da', color:'#3366FF'}}>
                                                     <th key="6" className='tet' xs='2'>SA+</th>
                                                     <th key="7" className='tet' xs='2'>SA-</th>
                                                     <th key="8" className='tet' xs='2'>Rec</th>
@@ -126,7 +126,7 @@ class StockMovement extends Component {
 				</div>
 				<div className={this.state.isComplete ? 'hidden' : 'spinner'}/>
 					
-					<div className={this.state.isComplete ? /*'hidden' */'fades' : 'hidden'}>
+					<div className={this.state.isComplete ?  'hidden' /* 'fades' */ : 'hidden'}>
 						<Pagination sliceValue={(startIndex, endIndex) => this.getStockMovement.current.setSliceValue(startIndex, endIndex)} 
 												ref={this.setPagiantion} data={this.state.data} 
 												rows={50}/> 

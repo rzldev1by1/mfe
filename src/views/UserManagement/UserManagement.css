@@ -37,7 +37,7 @@ label{
 .section-header-text{
 	font-family:"Helvetica Neue Light";
 	font-size: 25px !important;
-	color: #22ABE3 !important;
+	color: #3366FF !important;
 }
 
 .section-value-text{
@@ -72,9 +72,9 @@ label{
 	font-size: 1rem !important;
 	width:117px !important;
 	height:40px !important;
-	border: 1.5px solid #22ABE3;
+	border: 1.5px solid #3366FF;
 	border-radius: 7px;
-	color: #22ABE3;
+	color: #3366FF;
 	width: 80px;
 }
 
@@ -91,9 +91,9 @@ label{
 
 
 span.client-active{
-    border: 1px solid #22ABE3;
+    border: 1px solid #3366FF;
     border-radius: 7px;
-    color: #22ABE3;
+    color: #3366FF;
 }
 
 span.client-notActive{
@@ -127,7 +127,7 @@ span.client-notActive{
 }
 
 .name-account{
-	color: #22ABE3;
+	color: #3366FF;
 }
 
 .loading-2bigger{
@@ -137,9 +137,9 @@ span.client-notActive{
 .btn-refresh-password{
 		height: 50px !important;
 		width: 50px !important;
-		border: 2px solid #22ABE3;
+		border: 2px solid #3366FF;
 		border-radius: 7px;
-		color: #22ABE3;
+		color: #3366FF;
 }
 
 .sync-symbols{
@@ -181,7 +181,7 @@ span.client-notActive{
 }
 
 .modal-header{
-	background-color: #22ABE3;
+	background-color: #3366FF;
     width: 100% !important;
     color: #FFFF;
     display: flex !important;
@@ -210,7 +210,7 @@ span.client-notActive{
 
 .tab-active{
 	background-color: white;
-	color:#22ABE3;
+	color:#3366FF;
 }
 
 .tabs{
@@ -227,7 +227,7 @@ span.client-notActive{
 }
 
 .breadcrumb-active-title{
-	color: #22ABE3;
+	color: #3366FF;
 	font-family: "Helvetica Neue Medium";
 	font-size: 1.875rem;
 }
@@ -332,7 +332,7 @@ input:checked + .slider:before {
 .modal-content > .createModal {
 	  position: absolute;
     width: 124%;
-    background-color: #22ABE3;
+    background-color: #3366FF;
     margin-left: -13%;
     border-top-left-radius: 20px !important;
     border-top-right-radius: 20px !important;
@@ -385,18 +385,18 @@ input:checked + .slider:before {
 }
 
 .sort-desc-active{
-		color: #22ABE3;
+		color: #3366FF;
 }
 
 .sort-asc-active{
-		color: #22ABE3;
+		color: #3366FF;
 }
 
 
 .modal-content > .create-modal{
 	position: absolute;
     width: 124%;
-    background-color: #22ABE3;
+    background-color: #3366FF;
     margin-left: -13%;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -428,7 +428,7 @@ input:checked + .slider:before {
  }
 
 .enable-active{
-	color: #22ABE3;
+	color: #3366FF;
 	font-family: "Helvetica Neue Regular";
 	
 	font-size: 18px;

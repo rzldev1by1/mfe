@@ -326,7 +326,6 @@ class ListOrderComponent extends Component {
   arrowHandler = (e) => {
     let id = e.currentTarget.id; 
     this.setState({ activecolumnsort: id });
-    //console.log(this.state.activecolumnsort);
 
     let activearrow = this.state;
     if (this.state.activearrow == mid) {
@@ -434,7 +433,8 @@ class ListOrderComponent extends Component {
       case 'customername':
         let cust = [...this.state.data]
         let code = cust[idx].customer
-        newValue = this.modifiedCustomerData(code,newValue)
+        let name = cust[idx].customername
+        newValue = this.modifiedCustomerData(code,name)
 
 
 
@@ -474,11 +474,10 @@ class ListOrderComponent extends Component {
                     <tbody>
                           {
                             this.state.data  ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => {
-                              console.log(data)
                               const dataa = Object.entries(data)
                               return(
                                 <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.client+'/'+data.site+'/'+data.orderno)} className='tr'>
-                                        {dataa.map((data, idx) => <td className={'so-table-row ' + (this.props.column[idx].active ? '' : 'hidden')}>{this.filterDataHandler(data[0],data[1], idx)}</td>)}
+                                        {dataa.map((data, idx) => <td className={'so-table-row ' + (this.props.column[idx].active ? '' : 'hidden')}>{this.filterDataHandler(data[0],data[1], i)}</td>)}
                                 </tr>
                               )
                             }) :  <div> No data available </div>
