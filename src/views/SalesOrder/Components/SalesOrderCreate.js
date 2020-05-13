@@ -567,9 +567,12 @@ class SalesOrderCreate extends Component {
 
   setQty = (qty, idx) => {
     let newParam = { ...this.state.parameters };
-    newParam.lineDetail[idx].qty = qty;
-
-    this.setState({ parameters: newParam });
+    if(!isNaN(qty))
+    {
+      qty = qty.replace(/,/g, '')
+      newParam.lineDetail[idx].qty = qty;
+      this.setState({ parameters: newParam });
+    }
   };
 
   setWeight = (weight, idx) => {

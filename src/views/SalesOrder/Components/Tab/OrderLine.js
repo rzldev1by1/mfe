@@ -65,7 +65,6 @@ const OrderLine = (props) => {
               <div id="orderline-header-qty-val-id">
                 <input
                   id={"qty_" + idx}
-                  type="number"
                   maxLength="9"
                   className="form-control put "
                   placeholder="Qty"

@@ -704,6 +704,17 @@ if(v_orderNo === undefined) v_orderNo = []
 
  }
 
+ setQty = (e, i) => {
+  let val = e.target.value
+      if(!isNaN(val))
+      {
+        val = val.replace(/,/g, '')
+        let aa = [...this.state.rowlist]
+        aa[i].qty = val
+        this.setState({rowlist:aa})
+      }
+ }
+
   linedetailsrow = (list, i) => {
     let self = this;
     return(
@@ -732,7 +743,7 @@ if(v_orderNo === undefined) v_orderNo = []
                                 tabIndex="2" uppercase={true}  />
             </td>
             <td style={{width:"12%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Choose a Product First" defaultValue={self.state.rowlist[i].productDescription} readOnly/></td>
-            <td style={{width:"5%"}}><input tabIndex="2"  id={'qty_'+i} type="number" min="1" maxLength='9' className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
+            <td style={{width:"5%"}}><input tabIndex="2"  id={'qty_'+i} min="1" maxLength='9' className="form-control inputs pec" placeholder="Qty" value={self.state.rowlist[i].qty} onChange={(e) => this.setQty(e, i)}/></td>
             <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Weight"  maxLength="30" defaultValue={self.state.rowlist[i].weight} onChange={(e) => self.state.rowlist[i].weight = e.target.value} /></td>
             <td style={{width:"6%"}}>
                 <Dropdown placeHolder="UOM" 
