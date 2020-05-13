@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, ModalHeader, ModalBody } from 'reactstrap'
+import { Modal, ModalHeader, ModalBody, FormFeedback } from 'reactstrap'
 import ModuleAccess from './ModuleAccess'
 import Site from './Site'
 import Client from './Client'
@@ -17,7 +17,7 @@ const modalNewUser = (props) => {
   const { className, isOpen, toggle, closeModal, onChangeName,onChangeEmail, onChangeCompany, model,
     moduleAccess,isModuleLoaded,moduleAccessEnableClick,sites, isSiteLoaded, sitesEnableClick,
     clients, isClientLoaded, clientEnableClick, onSaveClick, isSaveProgressing, onModuleEnableAll, onSiteEnableAll, onClientEnableAll,
-    isValidForm, onNextClickHandler, firtsTabActive, secondTabActive, onClickTabActive, message, changeWebGroup, isWebGroup} = props;
+    isValidForm, onNextClickHandler, firtsTabActive, secondTabActive, onClickTabActive, message, changeWebGroup, isWebGroup, validation} = props;
 
     const submitHandler = (event) =>{
       event.preventDefault();
@@ -110,11 +110,17 @@ const modalNewUser = (props) => {
                                   <input type="text" name="userid" readOnly className="form-control" value={model.userId}/>
                               </div>
                               <div className="col-3">
-                                  <input type="text" name="userName" maxLength="60" className="form-control" onChange={(e)=>{onChangeName(e);}} defaultValue={model.user}/>
+                                  <input type="text" name="userName" maxLength="60" className={`form-control ${validation.name["isValid"]?'':validation.name["invalidClass"]}`} onChange={(e)=>{onChangeName(e);}} defaultValue={model.user}/>
+                                   <FormFeedback>
+                                       name value must be entered
+                                   </FormFeedback>
                               </div>
 
                               <div className="col-3">
-                                  <input type="email" name="email" className="form-control" onChange={(e)=>{onChangeEmail(e);}} defaultValue={model.email}/>
+                                  <input type="email" name="email" className= {`form-control ${validation.email["isValid"]?'':validation.name["invalidClass"]}`} onChange={(e)=>{onChangeEmail(e);}} defaultValue={model.email}/>
+                                  <FormFeedback>
+                                       wrong format email
+                                   </FormFeedback>
                               </div>
 
                               <div className="col-3">
@@ -150,9 +156,9 @@ const modalNewUser = (props) => {
                           </div>
                           <div className="col-8">
                               <div className="d-flex justify-content-center">
-                                  <label className={(isValidForm)?"errorText ":" d-none"}>
+                                  {/* <label className={(isValidForm)?"errorText ":" d-none"}>
                                       {message}
-                                  </label>
+                                  </label> */}
                               </div>
                           </div>
                           <div className="col-2 pl-5">

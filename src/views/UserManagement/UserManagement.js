@@ -56,7 +56,10 @@ class UserManagement extends Component{
             headersPersonal : [
                 'Your Account', 'User ID', 'Client', 'Site'
               ],
-
+              validation:{
+                "name":{isValid:true, invalidClass:"is-invalid"},
+                "email":{isValid:true, invalidClass:"is-invalid"}
+              },
               isListLoaded:false,
               isModalNewOpen:false,
               accountInfo:userModel,
@@ -116,23 +119,39 @@ class UserManagement extends Component{
       return totalPage;
     }
 
-    nextClickHandler = (e) => {
+    checkValidation = () =>{
+      let account = {...this.state.accountInfo};
+      let validation = {...this.state.validation};
+      if(!account.name)
+        validation.name["isValid"] = false;
+      if(!account.email || !account.email.match(regexMail))
+        validation.email["isValid"] = false;
+
+      return validation;
+    }
+
+    nextClickHandler = (e) => { 
       const {name,userId,email,userMenu} = this.state.accountInfo;
+      let validation = this.checkValidation();
 
       if(this.state.webgroup && name && userId && email){ // if admin 
-        if(!email.match(regexMail))
-          this.setState({isValidForm:true,validatorMessage:notValidMail});
-        else
+        if(!email.match(regexMail)){
+          this.setState({isValidForm:true,validatorMessage:notValidMail,validation:validation});
+        }
+        else{
           this.setState({isValidForm:false},this.setTabActive);
-      }else{   /// if regular user
+        }
+      }else if(!this.state.webgroup){   /// if regular user
           if(name && userId && email && userMenu.length)
           {
-            if(!email.match(regexMail))
-                this.setState({isValidForm:true,validatorMessage:notValidMail});
-            else
-                this.setState({isValidForm:false},this.setTabActive);
+            if(!email.match(regexMail)){
+              this.setState({isValidForm:true,validatorMessage:notValidMail,validation:validation});
+            }
+            else{
+              this.setState({isValidForm:false},this.setTabActive);
+            }
           }else{
-            this.setState({isValidForm:true,validatorMessage:notValidAll});
+            this.setState({isValidForm:true,validatorMessage:notValidAll,validation:validation});
           }
 
       }
@@ -307,12 +326,17 @@ class UserManagement extends Component{
       const {value} = e.target;
       let newText = value.substring(0,2);
       let user = {...this.state.accountInfo};
+      let validationName = {...this.state.validation};
       let result = this.generateUserID(value);
       user.name = value;
       user.userId = newText.toLowerCase()+result;
       user.password = result+newText.toLowerCase();
+      if(user.name)
+        validationName.name['isValid'] = true;
+      else
+        validationName.name['isValid'] = false;
 
-      this.setState({accountInfo:user, isValidForm:false});
+      this.setState({accountInfo:user, isValidForm:false, validation:validationName});
     }
 
     onChangeCompany = (e) => {
@@ -325,9 +349,14 @@ class UserManagement extends Component{
     onChangeEmail = (e) => {
       const {value} = e.target;
       let user = {...this.state.accountInfo};
+      let validationMail = {...this.state.validation};
       user.email = value;
+      if(user.email)
+        validationMail.email['isValid'] = true;
+      else
+        validationMail.email['isValid'] = false;
 
-      this.setState({accountInfo:user,isValidForm:false});
+      this.setState({accountInfo:user,isValidForm:false,validation:validationMail});
     }
 
     generateUserID = (textValue) => {
@@ -753,7 +782,7 @@ class UserManagement extends Component{
                 onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing} onChangeCompany={this.onChangeCompany}
                 onModuleEnableAll = {this.onEnabledAllModuleAccess} isValidForm={this.state.isValidForm} onNextClickHandler={this.nextClickHandler}
                 firtsTabActive={this.state.firstTab} secondTabActive={this.state.secondTab} onClickTabActive={this.setTabActive}
-                message={this.state.validatorMessage} changeWebGroup={this.changeWebgroup} isWebGroup={this.state.webgroup} />
+                message={this.state.validatorMessage} changeWebGroup={this.changeWebgroup} isWebGroup={this.state.webgroup} validation={this.state.validation}/>
 
                 </CardBody>
                 </Card>

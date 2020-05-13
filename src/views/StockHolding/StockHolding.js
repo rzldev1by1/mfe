@@ -70,6 +70,7 @@ class StockHolding extends Component {
 	}
 
 	componentDidMount() {
+		console.log(headers);
 		this.getclient();
         this.getSite();
 		this.loadStockHolding();

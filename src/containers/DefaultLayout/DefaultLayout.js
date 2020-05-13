@@ -49,6 +49,7 @@ class DefaultLayout extends Component {
 
 	signOut() {
         Authentication.signOut();
+        Authentication = null;
 	}
 
     onUserDropdownClick = () => {
