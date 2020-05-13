@@ -86,8 +86,7 @@ const modalNewUser = (props) => {
                                            <span className={(isWebGroup)?"flex-fill webgroup-active ":"flex-fill webgroup-notactive"}>Admin User</span>
                                         </label>
                                     </div>
-                                 </div>
-                                  
+                                 </div>                                  
                               </div>
                           </div>
                          
@@ -169,13 +168,21 @@ const modalNewUser = (props) => {
               <div className={(secondTabActive)?" ":"d-none"}>
                   <div className="tab-content pl-5 pr-5 pt-3 pb-3">
                       <div className="account-detail mt-2">
-                          <div className="row">
-                              <div className="col-12">
-                                <h3>
-                                <label className="section-header-text">User Details</label>
-                                </h3>
-                              </div>
-                          </div>
+                            <div className="row">
+                                <div className="col-2">                                  
+                                    <label className="section-header-text">New User</label>                                  
+                                </div>
+                                <div className="col-10">
+                                  <div className="row">
+                                      <div className="col-3">
+                                          <label className="webgroup d-flex justify-content-between">
+                                            <span className={(isWebGroup)?"flex-fill webgroup-review-notactive ":"flex-fill webgroup-review-active"}>Regular User</span>
+                                            <span className={(isWebGroup)?"flex-fill webgroup-review-active ":"flex-fill webgroup-review-notactive"}>Admin User</span>
+                                          </label>
+                                      </div>
+                                  </div>                                  
+                                </div>
+                            </div>
 
                           <div className="row">
                               <div className="col-3">
@@ -213,47 +220,50 @@ const modalNewUser = (props) => {
                               </div>
                           </div>
 
-                          <div className="row mt-4">
-                              <div className="col-12">
-                                <h3>
-                                  <label className="section-header-text">System</label>
-                                </h3>
+                          <div className={(isWebGroup)?"d-none ":""}>
+                              <div className="row mt-4">
+                                  <div className="col-12">
+                                    <h3>
+                                      <label className="section-header-text">System</label>
+                                    </h3>
+                                  </div>
                               </div>
-                          </div>
 
-                          <div className="d-flex flex-row">
-                              <div className="flex-fill mr-4">
-                                  <ModuleAccessReview moduleAccess={moduleAccess}/>
-                              </div>
-                              <div className="flex-fill ml-2 mr-4">
-                                  <SiteReview sites={sites}/>
-                              </div>
-                              <div className="flex-fill ml-2 mr-4">
-                                  <ClientReview clients={clients}/>
+                              <div className="d-flex flex-row">
+                                  <div className="flex-fill mr-4">
+                                      <ModuleAccessReview moduleAccess={moduleAccess}/>
+                                  </div>
+                                  <div className="flex-fill ml-2 mr-4">
+                                      <SiteReview sites={sites}/>
+                                  </div>
+                                  <div className="flex-fill ml-2 mr-4">
+                                      <ClientReview clients={clients}/>
+                                  </div>
                               </div>
                           </div>
+                      
                       </div>
 
                       <div className={`row ${isWebGroup?' user-admin-empty-space':''}`}>
-                      <div className="col-2">
-                          <button type="button" style={{width:"151px"}} className="btn btn-primary btn-submit" onClick={onClickTabActive}>
-                          <span className="fa fa-angle-left mr-2" style={{fontSize:'1.4rem'}}></span>
-                              <label className="create-user-label mb-0">Back</label>
-                          </button>
-                      </div>
-                      <div className="col-8">
+                          <div className="col-2">
+                              <button type="button" style={{width:"151px"}} className="btn btn-primary btn-submit" onClick={onClickTabActive}>
+                              <span className="fa fa-angle-left mr-2" style={{fontSize:'1.4rem'}}></span>
+                                  <label className="create-user-label mb-0">Back</label>
+                              </button>
+                          </div>
+                          <div className="col-8">
 
-                          <div className="d-flex justify-content-center">
+                              <div className="d-flex justify-content-center">
+
+                              </div>
 
                           </div>
-
-                      </div>
-                        <div className="col-2 pl-5">
-                              <button type="button" style={{width:"151px"}} className="font-lg font-md font-sm btn btn-primary" onClick={onSaveClick}>
-                                  <i className= {(isSaveProgressing)?"mr-2 fa fa-refresh fa-spin ":"fa fa-refresh fa-spin d-none"}></i>
-                                  <label className="create-user-label mb-0">Submit</label>
-                              </button>
-                        </div>
+                          <div className="col-2 pl-5">
+                                <button type="button" style={{width:"151px"}} className="font-lg font-md font-sm btn btn-primary" onClick={onSaveClick}>
+                                    <i className= {(isSaveProgressing)?"mr-2 fa fa-refresh fa-spin ":"fa fa-refresh fa-spin d-none"}></i>
+                                    <label className="create-user-label mb-0">Submit</label>
+                                </button>
+                          </div>
                       </div>
 
                    </div>

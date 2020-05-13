@@ -265,14 +265,14 @@ class PurchaseOrder extends Component {
                         showFilter={this.state.filterclicked}
                         triggerShowFilter={() => this.setState({filterclicked: !this.state.filterclicked})}
                         searchData={() => this.search()}
-                        placeholder="Enter an Order No" />
-                {console.log(this.searchForm)}
+                        placeholder="Enter an Order No"
+                        additionalComponent = {this.showDropdowns()} />
             </div>
 
             <div className='filterbar'>
                 <div style={{display:'flex', width:'100%'}}>
                     {
-                        this.state.filterclicked ? this.showDropdowns() :
+                        this.state.filterclicked ? null :
                         null
                     }
                 </div>               
