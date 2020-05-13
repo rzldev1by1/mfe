@@ -44,9 +44,7 @@ const endpoint = {
 
 const headers = {
     'userLevel': Authentication.getUserLevel(),
-    // 'companyCode': Authentication.getCompanyCode(),
-    // 'userLevel': 'WAREHOUSE',
-    'client': 'MLS',
+    'client': Authentication.getClient(),
     'Authorization': 'Bearer ' + Authentication.getToken(),
     'Content-Type': 'application/json',
     'Accept': 'application/json',
