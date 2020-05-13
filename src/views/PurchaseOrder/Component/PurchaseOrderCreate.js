@@ -961,13 +961,13 @@ if(v_orderNo === undefined) v_orderNo = []
                   <p color="primary" onClick={() => this.close()}>
                     <i
                       className="iconU-close"
-                      style={{ fontSize: "1.6em", marginLeft: "-3em" }}
+                      style={{ fontSize: "25px", marginLeft: "-3em" }}
                       aria-hidden="true"
                     />
                   </p>
                 </ModalHeader>
 
-                  <ModalHeader className="Tabs" style={{marginTop:"-40px"}} >
+                  <ModalHeader className="Tabs" style={{marginTop:"-30px"}} >
                         <div>
                           <div className="createdec" style={{marginLeft:"67px"}}>
                           Enter order and line details to create a new Purchase Order

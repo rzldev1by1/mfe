@@ -576,15 +576,23 @@ a.breadcrumb:hover {
     border: none;
     transition:background-color 0.5s ease;
 	outline-color: transparent;
-	font-size: 1.2em;
+	font-size: 20px;
 }
 
-.searchInput, .searchInput::placeholder {
-    font-size: 1.1em;
+.searchInput {
+    font-size: 20px;
     color: #D5D8DA;
     align-self: center;
     border: none;
 }
+
+.searchInput::-webkit-input-placeholder {
+    font-size: 20px;
+    color: #D5D8DA;
+    align-self: center;
+    border: none;
+}
+
 
 .notFoundMessage {
     padding: 200px;
@@ -724,6 +732,7 @@ a.breadcrumb:hover {
 
 .form-control{
 	height: 50px !important;
+	font-size: 18px;
 }
 
 .form2{
@@ -1492,7 +1501,7 @@ font-family: "Helvetica Neue Medium";
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
 	color: rgb(180,185,187) !important;
 	opacity: 0.6 !important; /* Firefox */
-	font-size: 13px !important;
+	font-size: 18px !important;
   }
 
   .mtrFieldSelect:before{
