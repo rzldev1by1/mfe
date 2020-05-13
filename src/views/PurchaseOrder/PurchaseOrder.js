@@ -290,7 +290,8 @@ class PurchaseOrder extends Component {
             <EditColumn isOpen={this.state.showEditColumn} 
                         toggle={() => this.setState({ showEditColumn: false })}        
                         fields={this.state.tableheader}
-                        updateTableColumn={(columns) => this.setState({ tableheader: columns, tableheaderstatus: true })}       
+                        updateTableColumn={(columns) => this.setState({ tableheader: columns, tableheaderstatus: true })}  
+                        modulName="Purchase Order"     
                                 />
         </div>
            

@@ -42,9 +42,14 @@
 	border-bottom: 1px solid #F4F4F4 !important;
 } */
 
+
 .modal-content {
-	border: 0 !important;
-	border-radius: 20px !important;
+	position: absolute;
+	width: 270%;
+	margin-left: -85%;
+	margin-top: 20%;
+	border-radius: 0.3rem;
+	background-color: #F4F4F4 !important;
 }
 
 .btn-editcol {

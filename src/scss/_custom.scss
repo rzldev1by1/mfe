@@ -1843,3 +1843,95 @@ th{
 		opacity: 1;
 	}
 	/* end general paging**/
+
+	// modal edit column
+	.btnclose-modal-edit{
+		cursor: pointer;
+	}
+	
+
+	.edit-column-modal-header{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	  }
+	  
+	  .edit-column-modal-header > span{
+		margin-left: 62em;
+	  }
+	  .edit-column-modal{
+		width: 100% !important;
+		display: flex;
+		align-items: center;
+		margin-bottom: 0.5em;
+	  }
+	  .edit-column-modal > img{
+		margin-right: 0.8em;
+		//@extend: 20% !important;
+	  }
+	  
+	  .edit-column-modal-active{
+		color: #3366FF !important;
+		background-color: white;
+	  }
+	  
+	  .edit-column-modal-inactive{
+		color: #9AA2A5;
+		background-color: #E9ECED;
+		border: none;
+	  }
+	  
+	  .edit-column-modal-title{
+		font-size: x-large;
+		line-height: 1em;
+		white-space: nowrap;
+	  } 
+
+	  .main-modal{
+		padding:1em; 
+	  }
+
+	  .edit-column-modal-inactive{
+		color: #9AA2A5;
+		background-color: #E9ECED;
+		border: none;
+	  }
+	  
+	  .grid-item-edit-column-modal {
+		border: 2px solid #3366FF !important;
+		border-radius: 5px;
+		padding: 0.5em 1em;
+		font-size: 1.2em;
+		display: flex;
+		cursor: pointer;
+	  }
+	  
+	  .edit-column-modal-inactive{
+		color: #9AA2A5;
+		background-color: #E9ECED;
+		border: none;
+	  }
+	  
+	  .edit-column-modal-font{
+		font-size: x-large;
+		font-weight: 100 !important;
+		color: #3366FF;
+		padding-left: 0.5em;
+	  }
+
+	  .grid-container-edit-column-modal {
+		display: grid;
+		grid-gap: 1.6em 1.6em;
+		grid-template-columns: auto auto auto auto auto;
+		padding: 0.8em;
+	  }
+
+	  .grid-container-edit-column-modal >div{
+		display: flex;
+		align-items: center;
+	  }
+	  .grid-container-edit-column-modal >div >img{
+		margin-right: 0.6em;  
+	  }
+
+	//end modal edit column

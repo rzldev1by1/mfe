@@ -73,8 +73,8 @@ class SalesOrder extends Component {
 
   editColumnHandler = (idx, active) => {
     let newColumn             = this.state.column
-        newColumn[idx].active = active
-        this.setState({column:newColumn}, localStorage.setItem('savedColumn', JSON.stringify(newColumn)))
+    newColumn[idx].active     = active
+    this.setState({column:newColumn}, localStorage.setItem('savedColumn', JSON.stringify(newColumn)))
     
   }
 
