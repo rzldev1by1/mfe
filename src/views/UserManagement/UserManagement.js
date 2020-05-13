@@ -19,12 +19,13 @@ const today = moment(new Date()).format("YYYY-MM-DD");
 const regexMail = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ ;
 const notValidAll = 'Please make sure user name, email is valid and module has one enabled';
 const notValidMail = 'Email is not valid';
-
+const webgroupWhs = 'Warehouse';
+const webgroupAdmin = 'Administrator';
 const userModel = {
     "userId":"",
     "name":"",
     "email":"",
-    "webGroup":"Warehouse",
+    "webGroup":webgroupWhs,
     "lastAccess": today,
     "lastLogin": today,
 	  "thisAccess": today,
@@ -36,6 +37,7 @@ const userModel = {
     "disabled":"N",
     "company":""
 }
+
 
 
 
@@ -88,7 +90,14 @@ class UserManagement extends Component{
     }
 
     changeWebgroup = (isWebGroup) => {
-      this.setState({webgroup:isWebGroup});
+      let accountInfo = {...this.state.accountInfo};
+
+      if(isWebGroup)
+          accountInfo.webGroup = webgroupAdmin;
+      else
+          accountInfo.webGroup = webgroupWhs;
+
+      this.setState({webgroup:isWebGroup, accountInfo:accountInfo});
     }
 
     calculatePageRow = (listOfRows) => {
@@ -109,15 +118,25 @@ class UserManagement extends Component{
 
     nextClickHandler = (e) => {
       const {name,userId,email,userMenu} = this.state.accountInfo;
-      if(name && userId && email && userMenu.length)
-      {
+
+      if(this.state.webgroup && name && userId && email){ // if admin 
         if(!email.match(regexMail))
-            this.setState({isValidForm:true,validatorMessage:notValidMail});
+          this.setState({isValidForm:true,validatorMessage:notValidMail});
         else
-            this.setState({isValidForm:false},this.setTabActive);
-      }else{
-        this.setState({isValidForm:true,validatorMessage:notValidAll});
+          this.setState({isValidForm:false},this.setTabActive);
+      }else{   /// if regular user
+          if(name && userId && email && userMenu.length)
+          {
+            if(!email.match(regexMail))
+                this.setState({isValidForm:true,validatorMessage:notValidMail});
+            else
+                this.setState({isValidForm:false},this.setTabActive);
+          }else{
+            this.setState({isValidForm:true,validatorMessage:notValidAll});
+          }
+
       }
+
 
     }
 
@@ -543,22 +562,23 @@ class UserManagement extends Component{
     saveClick = () => {
 
       const {name,userId,email,userMenu} = this.state.accountInfo;
-      if(name && userId && email && userMenu.length)
-      {
+
+      if(this.state.webgroup && name && userId && email){
         this.setState({isSaveProgressing:true,isValidForm:false},this.saveRequest);
       }else{
-        this.setState({isValidForm:true});
+        if(name && userId && email && userMenu.length)
+        {
+          this.setState({isSaveProgressing:true,isValidForm:false},this.saveRequest);
+        }else{
+          this.setState({isValidForm:true});
+        }
       }
     }
 
     saveRequest = () => {
-
       var self = this;
-      const {name,userId,email,userMenu} = self.state.accountInfo;
-      if(name && userId && email && userMenu.length)
-      {
         let param = {...this.state.accountInfo};
-
+      
         axios.post(endpoint.UserManagement_Create,param,{ headers: headers })
           .then(res => {
             var result = [];
@@ -577,9 +597,8 @@ class UserManagement extends Component{
           })
           .then((result) => {
 
-          })
-      }
-
+          });
+         
     }
     ExportName = () => {
       let filename = "";

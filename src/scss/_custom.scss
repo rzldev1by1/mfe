@@ -1843,3 +1843,63 @@ th{
 		opacity: 1;
 	}
 	/* end general paging**/
+
+	/* start um **/
+	.webgroup{
+		background-color: #e4e7ea;
+		display: inline-block;
+		border-radius: 5px;
+		text-align: center;
+	}
+	
+	
+	.webgroup input{
+		display: none;
+	}
+	
+	.webgroup-active{
+		background-color: #ffffff;
+		font-family:"Helvetica Neue Light";
+		font-size: 20px !important;
+		color: $primaryColor!important;
+		margin: 4px;
+		padding: 6px;
+		border-radius: 5px;
+		align-items: stretch;		
+	}
+
+	.webgroup-review-active{
+		background-color: #ffffff;
+		font-family:"Helvetica Neue Light";
+		font-size: 20px !important;
+		color: #bbbcbd !important;
+		margin: 4px;
+		padding: 6px;
+		border-radius: 5px;
+		align-items: stretch;		
+	}
+	
+	.webgroup-notactive{
+		background-color: transparent;
+		font-family:"Helvetica Neue Light";
+		font-size: 20px !important;
+		color: #bbbcbd !important;
+		margin: 4px;
+		padding: 6px;
+		border-radius: 5px;
+	}
+
+	.webgroup-review-notactive{
+		background-color: transparent;
+		font-family:"Helvetica Neue Light";
+		font-size: 20px !important;
+		color: #bbbcbd !important;
+		margin: 4px;
+		padding: 6px;
+		border-radius: 5px;
+	}
+	
+	.user-admin-empty-space{
+		margin-top: 6.25rem;
+	}
+	/* end um **/
