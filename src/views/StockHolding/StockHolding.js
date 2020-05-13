@@ -62,7 +62,7 @@ class StockHolding extends Component {
             ],
             masterSite: [],
             masterUnit: ["MLB : MICROLISTICS", "MLS : Microlistics", "MLM : MICROLISTICS"],
-            masterStatus: ["OK", "SHORTAGE","ALL"],
+            masterStatus: ["Ok", "Shortage","All"],
 			masterResStockHolding: []
         };
 

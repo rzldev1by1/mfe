@@ -15,6 +15,7 @@ class Movement extends Component {
         this.hover = this.hover.bind(this);
         this._checkActiveHover = this._checkActiveHover.bind(this);
         this._checkActiveSorting = this._checkActiveSorting.bind(this);
+        this._setSameHeight = this._setSameHeight.bind(this);
         
         this.state = {
             data:[],            
@@ -193,7 +194,7 @@ class Movement extends Component {
               <th colSpan="4" key="6" style={{textAlign:"center"}}>{dates}</th>
             </tr>
             <tr>
-                <div className="borderBottom" style={{display:'flex',  color:'#3366FF'}}>
+                <div className="" style={{display:'flex',  color:'#22ABE3'}}>
                     <th key="6" className='tet' xs='2'>SA+</th>
                     <th key="6" className='tet' xs='2'>SA-</th>
                     <th key="6" className='tet' xs='2'>Rec</th>
@@ -389,6 +390,13 @@ class Movement extends Component {
     onMouseEnter(){
         console.log();
     }
+
+    _setSameHeight(product) {
+        const height = document.querySelectorAll("[data-foo='"+product+"']").clientHeight; 
+        console.clear();
+        console.log(height);
+    }
+
     render(){
         if(this.state.pushTableComplete)
         {
@@ -402,15 +410,14 @@ class Movement extends Component {
                     <table width='100%' align='left' >
                         <thead>
                             <tr>
-                                <td style={{borderRight:'1.5px solid #ededed'}}>{this.productHeader()}</td>
+                                <td style={{borderRight:'0px solid #ededed'}}>{this.productHeader()}</td>
                             </tr>
                         </thead>
                         <tbody>
-                        {
-                            //testing
+                        { 
                             this.state.data.slice(this.state.startIndex,this.state.endIndex).map((data) => 
                                 <tr  className={this._checkActiveHover(data.product)} style={{borderBottom:'1px solid #f5f5f5'}} onMouseEnter={() => this.hover('active',data.product)} onMouseLeave={() => this.hover('deactive',data.product)} >
-                                <td height='50' style={{borderRight:'1.5px solid #ededed'}}>
+                                <td height='50' style={{borderRight:'0px solid #ededed'}}>
                                     <this.productBody site={data.site} product={data.product} product_name={data.product_name} packdesc={data.packdesc} client={data.client}/>
                                 </td>
                                 </tr>
@@ -426,20 +433,19 @@ class Movement extends Component {
                             <tr>
                                 { 
                                     this.state.dateArray.map(date =>
-                                        <td style={{paddingLeft:'1px',color:'#B4B9BB',borderRight:'5px solid #ededed',borderLeft:'1.5px solid #ededed'}}>{this.movementHeader(date)}</td>
+                                        <td style={{paddingLeft:'1px',color:'#B4B9BB',borderRight:'3px solid #ededed',borderLeft:'0px solid #ededed',borderBottom:'1px solid #d5d8da'}}>{this.movementHeader(date)}</td>
                                             )
                                 }
                             </tr>
                         </thead>
                         <tbody style={{fontSize:'1rem'}} className='mvmntHead'>
-                        {
-                            //testing
+                        { 
                             this.state.data.slice(this.state.startIndex,this.state.endIndex).map((data) =>
 
                                 <tr  style={{borderBottom:'1px solid #f5f5f5'}}  onMouseEnter={() => this.hover('active',data.product)} onMouseLeave={() => this.hover('deactive',data.product)}  className={this._checkActiveHover(data.product)}>
                                 {
                                     data.detail.map(detail =>
-                                    <td key="6" height='50' width='15%' style={{borderRight:'1.5px solid #ededed',borderLeft:'1.5px solid #ededed'}}><this.tableMovement detail={detail}/></td>
+                                    <td key="6" height='50' width='15%' style={{borderRight:'1.5px solid #ededed',borderLeft:'0px solid #ededed'}}><this.tableMovement detail={detail}/></td>
                                         )
 
                                 }

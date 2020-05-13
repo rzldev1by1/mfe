@@ -10,19 +10,25 @@ import oneinactive from '../../../assets/img/brand/tab_1_grey@2x.png'
 import oneactive from '../../../assets/img/brand/tab_1_blue@2x.png'
 import twoinactive from '../../../assets/img/brand/tab_2_grey@2x.png'
 import twoactive from '../../../assets/img/brand/tab_2_blue@2x.png'
+import '../UserManagement.css';
 
 
 const modalNewUser = (props) => {
   const { className, isOpen, toggle, closeModal, onChangeName,onChangeEmail, onChangeCompany, model,
     moduleAccess,isModuleLoaded,moduleAccessEnableClick,sites, isSiteLoaded, sitesEnableClick,
     clients, isClientLoaded, clientEnableClick, onSaveClick, isSaveProgressing, onModuleEnableAll, onSiteEnableAll, onClientEnableAll,
-    isValidForm, onNextClickHandler, firtsTabActive, secondTabActive, onClickTabActive, message} = props;
-
+    isValidForm, onNextClickHandler, firtsTabActive, secondTabActive, onClickTabActive, message, changeWebGroup, isWebGroup} = props;
 
     const submitHandler = (event) =>{
       event.preventDefault();
       onSaveClick();
     }
+
+
+
+    const onChangeFavorite = (event) => {
+      changeWebGroup(event.target.checked);
+    };
 
   return (
     <div>
@@ -68,10 +74,23 @@ const modalNewUser = (props) => {
 
                       <div className="account-detail mt-2">
                           <div className="row">
-                              <div className="col-12">                                  
-                                  <label className="section-header-text">User Details</label>                                  
+                              <div className="col-2">                                  
+                                  <label className="section-header-text">New User</label>                                  
+                              </div>
+                              <div className="col-10">
+                                 <div className="row">
+                                    <div className="col-3">
+                                        <label className="webgroup d-flex justify-content-between">
+                                            <input type="checkbox" onChange={(e) => {onChangeFavorite(e)}}/>
+                                           <span className={(isWebGroup)?"flex-fill webgroup-notactive ":"flex-fill webgroup-active"}>Regular User</span>
+                                           <span className={(isWebGroup)?"flex-fill webgroup-active ":"flex-fill webgroup-notactive"}>Admin User</span>
+                                        </label>
+                                    </div>
+                                 </div>
+                                  
                               </div>
                           </div>
+                         
                           <div className="row">
                               <div className="col-3">
                                   <label className="title-label">User ID</label>
@@ -103,26 +122,27 @@ const modalNewUser = (props) => {
                                   <input type="text" name="company" maxLength="10" className="form-control" onChange={(e)=>{onChangeCompany(e);}} defaultValue={model.company}/>
                               </div>
                           </div>
-
-                          <div className="row mt-4">
-                              <div className="col-12">
-                                      <label className="section-header-text">System</label>
+                          <div className={(isWebGroup)?"d-none ":""}>
+                              <div className="row mt-4">
+                                  <div className="col-12">
+                                          <label className="section-header-text">System</label>
+                                  </div>
                               </div>
-                          </div>
-                          <div className="row">
-                              <div className="col-4">
-                                  <ModuleAccess moduleAccess={moduleAccess} isLoaded={isModuleLoaded} onEnableClick={moduleAccessEnableClick} onModuleEnableAll={onModuleEnableAll}/>
-                              </div>
-                              <div className="col-4 pl-0">
-                                  <Site sites={sites} isLoaded={isSiteLoaded} onEnableClick={sitesEnableClick} onSubmitHandler = {submitHandler} onSiteEnableAll = {onSiteEnableAll} />
-                              </div>
-                              <div className="col-4">
-                                  <Client clients={clients} isLoaded={isClientLoaded} onEnableClick={clientEnableClick} onSubmitHandler = {submitHandler} onClientEnableAll = {onClientEnableAll}/>
+                              <div className="row">
+                                  <div className="col-4">
+                                      <ModuleAccess moduleAccess={moduleAccess} isLoaded={isModuleLoaded} onEnableClick={moduleAccessEnableClick} onModuleEnableAll={onModuleEnableAll}/>
+                                  </div>
+                                  <div className="col-4 pl-0">
+                                      <Site sites={sites} isLoaded={isSiteLoaded} onEnableClick={sitesEnableClick} onSubmitHandler = {submitHandler} onSiteEnableAll = {onSiteEnableAll} />
+                                  </div>
+                                  <div className="col-4">
+                                      <Client clients={clients} isLoaded={isClientLoaded} onEnableClick={clientEnableClick} onSubmitHandler = {submitHandler} onClientEnableAll = {onClientEnableAll}/>
+                                  </div>
                               </div>
                           </div>
                       </div>
 
-                      <div className="row">
+                      <div className={`row ${isWebGroup?' user-admin-empty-space':''}`}>
                           <div className="col-2">
                               <button type="button" style={{width:"151px"}} className="btn btn-primary btn-submit" onClick={(e)=>{window.location.reload()}}>
                                   <span className="fa fa-angle-left mr-2" style={{fontSize:'1.4rem'}}></span>
@@ -214,7 +234,7 @@ const modalNewUser = (props) => {
                           </div>
                       </div>
 
-                      <div className="row">
+                      <div className={`row ${isWebGroup?' user-admin-empty-space':''}`}>
                       <div className="col-2">
                           <button type="button" style={{width:"151px"}} className="btn btn-primary btn-submit" onClick={onClickTabActive}>
                           <span className="fa fa-angle-left mr-2" style={{fontSize:'1.4rem'}}></span>
@@ -223,9 +243,9 @@ const modalNewUser = (props) => {
                       </div>
                       <div className="col-8">
 
-                      <div className="d-flex justify-content-center">
+                          <div className="d-flex justify-content-center">
 
-                      </div>
+                          </div>
 
                       </div>
                         <div className="col-2 pl-5">
