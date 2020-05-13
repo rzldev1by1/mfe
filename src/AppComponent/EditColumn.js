@@ -22,12 +22,12 @@ export default class SalesOrderEditColumn extends Component {
     }
 
     onClickUpdateTable = () => {
-        console.clear()
-        let columns = this.props.fields.map((element) => { 
-            element.isVisible = document.getElementById(element.id).value
-            return element;
-        });
-        this.props.updateTableColumn(columns);
+        // console.clear()
+        // let columns = this.props.fields.map((element) => { 
+        //     element.isVisible = document.getElementById(element.id).value
+        //     return element;
+        // });
+        // this.props.updateTableColumn(columns);
         this.props.toggle();
 	}
 
@@ -109,13 +109,14 @@ export default class SalesOrderEditColumn extends Component {
                         )
                     })}
                     </div>
-                    {/* <Row className="mt-4">
+                    <Row className="mt-4">
                         <div className="col-12">
                             <div className="footer-button">
-                                <button type="button" className="btn btn-primary btn-editcol" onClick={this.onClickUpdateTable}>Update Column</button>
+                                <button type="button" className="btn btn-primary btn-editcol" onClick={this.onClickUpdateTable}> Save </button>
+                             
                             </div>
                         </div>
-                    </Row> */}
+                    </Row>
                 </ModalBody>
             </Modal>
         )
