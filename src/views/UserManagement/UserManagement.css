@@ -606,40 +606,4 @@ input:checked + .slider:before {
 	padding-right: 20px;
 }
 
-.webgroup{
-	background-color: #e4e7ea;
-	display: inline-block;
-	border-radius: 5px;
-	text-align: center;
-}
 
-
-.webgroup input{
-	display: none;
-}
-
-.webgroup-active{
-	background-color: #ffffff;
-	font-family:"Helvetica Neue Light";
-	font-size: 20px !important;
-	color: #22ABE3 !important;
-	margin: 4px;
-	padding: 6px;
-	border-radius: 5px;
-	align-items: stretch;
-    
-}
-
-.webgroup-notactive{
-	background-color: transparent;
-	font-family:"Helvetica Neue Light";
-	font-size: 20px !important;
-	color: #bbbcbd !important;
-	margin: 4px;
-	padding: 6px;
-	border-radius: 5px;
-}
-
-.user-admin-empty-space{
-	margin-top: 6.25rem;
-}

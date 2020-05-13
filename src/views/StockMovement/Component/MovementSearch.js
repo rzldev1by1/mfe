@@ -113,7 +113,7 @@ export default class MovementSearch extends Component {
                     </div>
                 </div> 
 
-                <div style={{marginLeft:'26px'}} className='searchParameterTitleDate'>To</div>
+                <div style={{marginLeft:'26px'}} className='searchParameterTo'>To</div>
                 <div onMouseLeave={() => this.setState({dateToShow:false})}>
                 <div className='displayButtonToggle'>
                     <button style={{color:'#7c878c'}} onClick={()=> this.setState({dateToShow:!this.state.dateToShow})} className='btn dropdown-button ddlMovementDate default-box-height' data-toggle='dropdown'>
@@ -215,17 +215,17 @@ export default class MovementSearch extends Component {
           return(
               <React.Fragment>
                   <Dropdown placeHolder="Site" 
-                            className="filterDropdown"
+                            className="filterDropdowns"
                             optionList={siteData.toString()}
                             optionValue={siteValue.toString()} 
                             getValue={this.getSiteSelected.bind(this)}/>
                   <Dropdown placeHolder="Client"
-                            className="filterDropdown"
+                            className="filterDropdowns"
                             optionList={clientName.toString()} 
                             optionValue={clientValue.toString()} 
                             getValue={this.getClientSelected.bind(this)}/>
                 <AutoComplete   placeHolder="Product"
-                                className="filterDropdown"
+                                className="filterDropdowns"
                                 optionList={productData.toString()} 
                                 optionValue={productValue.toString()} 
                                 getValue={this.getProductSelected.bind(this)}
@@ -244,24 +244,12 @@ export default class MovementSearch extends Component {
 						<tr>
 							<td width='20%'>{this.displayPeriod()}</td>
 							<td width='36%'>{this.displayDate()}</td>
+                            <td className="bar">{this.showDropdowns()}</td>
 							<td  width='30%' style={{textAlign: "right"}}>
-                            <Button className={"filter default-box-height " + (this.state.filterclicked ? " active" : "")} onClick={this.triggerShowFilter}>
-                                <i className="iconU-filter" />
-                            </Button>   
-                            <Button  style={{marginLeft : "15px"}} onClick={()=> this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>
+                            <Button  style={{marginLeft : "15px", marginRight : "14px"}} onClick={()=> this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>
 							</td>
 						</tr>
 					</table>
-                    <div style={{marginTop:"16px"}}>
-                            <div className='filterbar'>
-                                <div style={{display:'flex', width:'100%'}}>
-                                    {
-                                        this.state.filterclicked ? this.showDropdowns() :
-                                        null
-                                    }
-                                </div>               
-                            </div>
-                        </div>
             </div>
         )
     }

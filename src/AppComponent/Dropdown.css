@@ -201,6 +201,6 @@
 	margin-top: -5px !important;
 }
 .select_datepicker_expand::after {
-    top: 37% !important;
-    right: -5px !important;
+    top: 30% !important;
+    right: 1px !important;
 }
