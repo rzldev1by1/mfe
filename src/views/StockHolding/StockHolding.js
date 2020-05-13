@@ -557,7 +557,9 @@ class StockHolding extends Component {
 				<EditColumn isOpen={this.state.showEditColumn}
                             toggle={this.toggleDisplayMoreColumn}
                             fields={this.state.columns}
-                            updateTableColumn={this.updateTableColumn} />
+                            updateTableColumn={this.updateTableColumn} 
+							modulName="Stock Holding"
+							/>
 			</React.Fragment>
 		);
 	}

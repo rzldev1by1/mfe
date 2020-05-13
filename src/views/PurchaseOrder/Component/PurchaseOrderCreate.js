@@ -524,7 +524,7 @@ if(v_orderNo === undefined) v_orderNo = []
             <td>
               <DatePicker style={{ minWidth: "22%", position: "absolute" }}
                 getDate={(e) => { this.setState({ orderDate: e }); this.state.rowlist[0].orderDate = e }}
-                defaultValue={this.state.orderDate}  tabIndex="1"
+                defaultValue={this.state.orderDate}  tabIndex="1" top={true} 
               />
               {console.log(this.state.orderDate)}
             </td>
@@ -704,6 +704,17 @@ if(v_orderNo === undefined) v_orderNo = []
 
  }
 
+ setQty = (e, i) => {
+  let val = e.target.value
+      if(!isNaN(val))
+      {
+        val = val.replace(/,/g, '')
+        let aa = [...this.state.rowlist]
+        aa[i].qty = val
+        this.setState({rowlist:aa})
+      }
+ }
+
   linedetailsrow = (list, i) => {
     let self = this;
     return(
@@ -732,7 +743,7 @@ if(v_orderNo === undefined) v_orderNo = []
                                 tabIndex="2" uppercase={true}  />
             </td>
             <td style={{width:"12%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Choose a Product First" defaultValue={self.state.rowlist[i].productDescription} readOnly/></td>
-            <td style={{width:"5%"}}><input tabIndex="2"  id={'qty_'+i} type="number" min="1" maxLength='9' className="form-control inputs pec" placeholder="Qty" defaultValue={self.state.rowlist[i].qty} onChange={(e) => self.state.rowlist[i].qty = e.target.value}/></td>
+            <td style={{width:"5%"}}><input tabIndex="2"  id={'qty_'+i} min="1" maxLength='9' className="form-control inputs pec" placeholder="Qty" value={self.state.rowlist[i].qty} onChange={(e) => this.setQty(e, i)}/></td>
             <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Weight"  maxLength="30" defaultValue={self.state.rowlist[i].weight} onChange={(e) => self.state.rowlist[i].weight = e.target.value} /></td>
             <td style={{width:"6%"}}>
                 <Dropdown placeHolder="UOM" 
@@ -742,7 +753,7 @@ if(v_orderNo === undefined) v_orderNo = []
                             getValue={(e) => self.state.rowlist[i].uom = e}
                             optionSelected={self.state.rowlist[i].uom} tabIndex="2"  />
             </td>
-            <td style={{width:"11%"}}><DatePicker tabIndex="2"  style={{ minWidth: "100%" }} field="smallField" getDate={(e) => self.state.rowlist[i].rotadate = e} defaultValue={self.state.rowlist[i].rotadate} /> </td>
+            <td style={{width:"11%"}}><DatePicker tabIndex="2" top={true} style={{ minWidth: "100%" }} field="smallField" getDate={(e) => self.state.rowlist[i].rotadate = e} defaultValue={self.state.rowlist[i].rotadate} /> </td>
             <td style={{width:"6%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Batch"  maxLength="30" defaultValue={self.state.rowlist[i].batch} onChange={(e) => self.state.rowlist[i].batch = e.target.value} /></td>
             <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Ref3"  maxLength="30" defaultValue={self.state.rowlist[i].ref3} onChange={(e) => self.state.rowlist[i].ref3 = e.target.value} /></td>
             <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Ref4"  maxLength="30" defaultValue={self.state.rowlist[i].ref4} onChange={(e) => self.state.rowlist[i].ref4 = e.target.value} /></td>

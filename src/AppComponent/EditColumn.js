@@ -4,59 +4,57 @@ import { Col, Row,
 
 import './EditColumn.css';
 
+import iconedit from '../assets/img/brand/modal_create.png'
+import eyeactive from '../assets/img/brand/eyeactive.png'
+import eyeinactive from '../assets/img/brand/eyeinactive.png'
+
 export default class SalesOrderEditColumn extends Component {
     constructor(props) {
         super(props);
         this.columnForm = React.createRef();
+        let modulTitle = "";
     }
-
+ 
     componentDidUpdate() {
-        if (this.props.isOpen) {
-            this.setEnableElements();
-		}
+        // if (this.props.isOpen) {
+        //     this.setEnableElements();
+		// }
     }
 
     onClickUpdateTable = () => {
-        let columns = this.props.fields.map((element) => {
-            element.isVisible = this.columnForm.current[element.id].checked;
-            return element;
-        });
-        this.props.updateTableColumn(columns);
+        // console.clear()
+        // let columns = this.props.fields.map((element) => { 
+        //     element.isVisible = document.getElementById(element.id).value
+        //     return element;
+        // });
+        // this.props.updateTableColumn(columns);
         this.props.toggle();
 	}
 
-    setEnableElements = () => {
-        // let form = this.columnForm.current;
-
-        // let totalCheckedCheckbox = this.props.fields.reduce((acc, cur) => {
-        //     return (form[cur.id].checked ? 1 : 0) + acc;
-        // }, 0);
-
-        // this.props.fields.forEach((item, idx) => {
-        //     if(item.id === 'orderId') return;
-        //     form[item.id].disabled = totalCheckedCheckbox >= 10 && !form[item.id].checked;
-        //     // form[item.id].disabled = totalCheckedCheckbox === 1 && form[item.id].checked;
-        // });
+    setEnableElements = (idx) => {   
+        let newColumn = this.props.fields 
+        let active = newColumn[idx].isVisible 
+        newColumn[idx].isVisible = !active  
+        this.props.updateTableColumn(newColumn);
 	}
 
     render() {
         return (
-			<Modal className="modal-company animated fadeIn editcol-modal" backdrop="static" isOpen={this.props.isOpen} toggle={this.props.toggle}>
-                <ModalHeader tag="div" className="editcol-header">
-                    <div className="row">
-                        <div className="col-10">
-                            <h3><strong>Edit Columns</strong></h3>
-                            <span className="d-block mb-0 p-0">Please select column to show</span>
-                        </div>
-                        <div className="col-2">
-                            <button type="button" className="btnclose-modal circle float-right" onClick={this.props.toggle}>
-                                <i class="fa fa-times" />
-                            </button>
-                        </div>
+			<Modal isOpen={this.props.isOpen} onBackdropPress={() => this.setState({ showmodal: false })}>
+                <ModalHeader className="edit-column-modal-header">
+                <div className='main-modal'>
+                    <div className='edit-column-modal-header'>
+                    <div className='edit-column-modal'>
+                        <img src={iconedit}/>
+                        <div className='edit-column-modal-title'>Edit Column</div>
+                    </div>
+                    <span className='btnclose-modal-edit' onClick={this.props.toggle}>X</span>
+                    </div>
+                    <div>Show and hide the column according to your needs, Please select 5 to 10 columns to show</div>
                     </div>
                 </ModalHeader>
                 <ModalBody>
-                    <div className="container-fluid px-2">
+                    {/* <div className="container-fluid px-2">
                         <Row>
                             <Col xs="12">
                                 <form ref={this.columnForm}>
@@ -88,7 +86,37 @@ export default class SalesOrderEditColumn extends Component {
                                 </div>
                             </div>
                         </Row>
+                    </div> */}
+
+                    
+                    <label className='edit-column-modal-font'>{this.props.modulName}</label> 
+                    <div className="grid-container-edit-column-modal">
+                        
+
+                    {this.props.fields.map((data, idx) =>{
+                        return( 
+                        <div  onClick={()=> this.setEnableElements(idx)}
+                            className={"grid-item-edit-column-modal " + (data.isVisible ? 'edit-column-modal-active' : 'edit-column-modal-inactive')}>
+                            <img src={data.isVisible ? eyeactive : eyeinactive}/>
+                            {data.checkboxLabelText}
+                            <input type="checkbox" className="eye"
+                                id={data.id} name={data.id}
+                                defaultChecked={data.isVisible} value={this.props.fields[idx].isVisible}
+                                disabled={data.isDisabled}
+                                // onChange={this.setEnableElements} 
+                                hidden="hidden"/>
+                        </div> 
+                        )
+                    })}
                     </div>
+                    <Row className="mt-4">
+                        <div className="col-12">
+                            <div className="footer-button">
+                                <button type="button" className="btn btn-primary btn-editcol" onClick={this.onClickUpdateTable}> Save </button>
+                             
+                            </div>
+                        </div>
+                    </Row>
                 </ModalBody>
             </Modal>
         )

@@ -254,6 +254,8 @@ class PurchaseOrderTable extends Component {
                   }
               }
               )}
+
+              <th className='iconU-edit' onClick={this.props.showEditColumn}></th>
             </tr>
           </thead>
           <tbody>
