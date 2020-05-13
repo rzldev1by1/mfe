@@ -42,6 +42,9 @@
 	border-bottom: 1px solid #F4F4F4 !important;
 } */
 
+.modal-body{
+	background-color: #F4F4F4 !important;
+}
 
 .modal-content {
 	position: absolute;
