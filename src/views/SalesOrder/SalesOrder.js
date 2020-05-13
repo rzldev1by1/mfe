@@ -223,24 +223,19 @@ class SalesOrder extends Component {
         orderTypeValue.push(data)
       })
     }
-
     return (
       <React.Fragment>
-        <div className='so-dropdown-wrapper'>
-          <Dropdown
-          placeHolder="Site"
-          optionList={siteName.toString()}
-          optionValue={siteData.toString()}
-          getValue={this.getSiteSelected.bind(this)}
-          className="filterDropdown"
-        />
-          <Dropdown
-          placeHolder="Client"
-          optionList={clientName.toString()}
-          optionValue={clientValue.toString()}
-          getValue={this.getClientSelected.bind(this)}
-          className="filterDropdown"
-        />
+          <Dropdown placeHolder="Site"
+                    optionList={siteName.toString()}
+                    optionValue={siteData.toString()}
+                    getValue={this.getSiteSelected.bind(this)}
+                    className="filterDropdown"/>
+
+          <Dropdown placeHolder="Client"
+                    optionList={clientName.toString()}
+                    optionValue={clientValue.toString()}
+                    getValue={this.getClientSelected.bind(this)}
+                    className="filterDropdown"/>
 
           <Dropdown placeHolder="Status" 
                     optionList={statusName.toString()} 
@@ -252,9 +247,7 @@ class SalesOrder extends Component {
                     optionList={orderTypeName.toString()} 
                     optionValue={orderTypeValue.toString()} 
                     getValue={(code) => this.setState({ordertype:code})}
-                    className="filterDropdown"/>                    
-         
-        </div>
+                    className="filterDropdown"/> 
       </React.Fragment>
     );
   };
@@ -287,13 +280,13 @@ class SalesOrder extends Component {
               this.setState({ filterclicked: !this.state.filterclicked })
             }
             searchData={() => this.search()}
-            placeholder="Enter a Order No"
-          />
+            placeholder="Enter an Order No"
+            additionalComponent = {this.showDropdowns()}/>
         </div>
 
         <div className="dropdowns">
           <div style={{ display: "flex", width: "100%" }}>
-            {this.state.filterclicked ? this.showDropdowns() : null}
+            {this.state.filterclicked ? null : null }
           </div>
         </div>
 
