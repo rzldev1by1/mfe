@@ -283,7 +283,7 @@ class SalesOrder extends Component {
               this.setState({ filterclicked: !this.state.filterclicked })
             }
             searchData={() => this.search()}
-            placeholder="Enter a Order No"
+            placeholder="Enter an Order No"
             additionalComponent = {this.showDropdowns()}
           />
         </div>
