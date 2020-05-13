@@ -162,6 +162,7 @@ export default class PurchaseOrderDetail extends Component {
                             toggle={() => this.setState({ showEditColumn: false })}
                             fields={this.state.tableheader}
                             updateTableColumn={(e) => this.setState({ tableheader: e })}
+                            modulName="Purchase Order Detail"
                 />
             </div>
         )
