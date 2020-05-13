@@ -561,7 +561,8 @@ a.breadcrumb:hover {
 }
 
 .search-column{ 
-	flex-basis: calc(100% - 239px);
+	width: 39.1% !important;
+	margin-right: 0.5em;
 }
 
 .searchinput{
@@ -609,7 +610,7 @@ a.breadcrumb:hover {
 .filterDropdown {
     max-width: 300px;
     margin-right: 1em !important;
-	width: 207px !important;
+	width: 20%!important;
 }
 
 .selectDropdown {
@@ -712,7 +713,7 @@ a.breadcrumb:hover {
 }
 
 .search, .search:hover, .search:focus {
-	width: -webkit-calc(170px) !important; 
+	width: 15% !important; 
 }
 
 //default box height
@@ -1761,6 +1762,11 @@ th{
 	-ms-user-select: none;
 	user-select: none;
 
+}
+
+.search-column-right{
+	width: 60%;
+	display: flex;
 }
 //end th cursor pointer
 
