@@ -48,7 +48,7 @@ const modalNewUser = (props) => {
             </ModalHeader>
             <ModalHeader className='Tab pt-0 d-flex flex-column' style={{border:"none !important"}}>
               <div className="modal-desc-text" style={{marginLeft:"75px"}}>
-                Enter user details to create new user
+                Enter user details to create New User
               </div>
             </ModalHeader>
             <ModalHeader className="pb-0">
@@ -100,9 +100,9 @@ const modalNewUser = (props) => {
                               <div className="col-3">
                                   <label className="title-label">Email</label>
                               </div>
-                              <div className="col-3">
+                              {/* <div className="col-3">
                                   <label className="title-label">Company</label>
-                              </div>
+                              </div> */}
                           </div>
 
                           <div className="row">
@@ -123,9 +123,9 @@ const modalNewUser = (props) => {
                                    </FormFeedback>
                               </div>
 
-                              <div className="col-3">
+                              {/* <div className="col-3">
                                   <input type="text" name="company" maxLength="10" className="form-control" onChange={(e)=>{onChangeCompany(e);}} defaultValue={model.company}/>
-                              </div>
+                              </div> */}
                           </div>
                           <div className={(isWebGroup)?"d-none ":""}>
                               <div className="row mt-4">
@@ -147,8 +147,9 @@ const modalNewUser = (props) => {
                           </div>
                       </div>
 
-                      <div className={`row ${isWebGroup?' user-admin-empty-space':''}`}>
-                          <div className="col-2">
+                      
+                      <div className={`d-flex justify-content-between ${isWebGroup?' user-admin-empty-space':''}`}>
+                          <div className="col-2 pl-0">
                               <button type="button" style={{width:"151px"}} className="btn btn-primary btn-submit" onClick={(e)=>{window.location.reload()}}>
                                   <span className="fa fa-angle-left mr-2" style={{fontSize:'1.4rem'}}></span>
                                   <label className="create-user-label mb-0">Back</label>
@@ -161,8 +162,8 @@ const modalNewUser = (props) => {
                                   </label> */}
                               </div>
                           </div>
-                          <div className="col-2 pl-5">
-                              <button type="button" style={{width:"151px"}} className="font-lg font-md font-sm btn btn-primary" onClick={onNextClickHandler}>
+                          <div className="col-2 pr-0">
+                              <button type="button" style={{width:"151px"}} className="font-lg font-md font-sm btn btn-primary float-right" onClick={onNextClickHandler}>
                                   <label className="create-user-label mb-0">Next</label>
                               </button>
                           </div>
@@ -250,8 +251,8 @@ const modalNewUser = (props) => {
                       
                       </div>
 
-                      <div className={`row ${isWebGroup?' user-admin-empty-space':''}`}>
-                          <div className="col-2">
+                      <div className={`d-flex justify-content-between ${isWebGroup?' user-admin-empty-space':''}`}>
+                          <div className="col-2 pl-0">
                               <button type="button" style={{width:"151px"}} className="btn btn-primary btn-submit" onClick={onClickTabActive}>
                               <span className="fa fa-angle-left mr-2" style={{fontSize:'1.4rem'}}></span>
                                   <label className="create-user-label mb-0">Back</label>
@@ -264,8 +265,8 @@ const modalNewUser = (props) => {
                               </div>
 
                           </div>
-                          <div className="col-2 pl-5">
-                                <button type="button" style={{width:"151px"}} className="font-lg font-md font-sm btn btn-primary" onClick={onSaveClick}>
+                          <div className="col-2 pr-0">
+                                <button type="button" style={{width:"151px"}} className="font-lg font-md font-sm btn btn-primary float-right" onClick={onSaveClick}>
                                     <i className= {(isSaveProgressing)?"mr-2 fa fa-refresh fa-spin ":"fa fa-refresh fa-spin d-none"}></i>
                                     <label className="create-user-label mb-0">Submit</label>
                                 </button>

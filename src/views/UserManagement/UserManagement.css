@@ -601,4 +601,9 @@ input:checked + .slider:before {
 	background-color: #ffffff;;
 }
 
+.modal-dialog.create-confirmation{
+	max-width: 200px !important;
+	/* top:40%; */
+	
+}
 

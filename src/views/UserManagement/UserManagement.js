@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Card, CardBody} from 'reactstrap'
+import { Button, Card, CardBody, Modal, ModalBody, ModalHeader} from 'reactstrap'
 import UserListComponent from './Component/UserListComponent'
 import PersonalUserComponent from './Component/PersonalUserComponent'
 import axios from 'axios'
@@ -10,6 +10,7 @@ import query from '../../AppComponent/query_menu_temp'
 import Authentication from '../../Auth/Authentication'
 import Paging from '../../AppComponent/Paging'
 import create from '../../assets/img/brand/button_create@2x.png'
+import logo_confirm from '../../assets/img/brand/LOGO5@2x.png'
 import menunav from '../../menunav'
 import Export from '../../AppComponent/Export'
 
@@ -79,7 +80,8 @@ class UserManagement extends Component{
               firstTab:true,
               secondTab:false,
               validatorMessage:'',
-              webgroup:false
+              webgroup:false,
+              succesCreate: false,
         }
           this.searchForm = React.createRef();
     }
@@ -319,7 +321,7 @@ class UserManagement extends Component{
     }
 
     closeModalPopUp = () => {
-      this.setState({isModalNewOpen:!this.state.isModalNewOpen},()=>{ window.location.reload();})
+      this.setState({isModalNewOpen:!this.state.isModalNewOpen},()=>{window.location.reload();})
     }
 
     onChangeName = (e) => {
@@ -394,10 +396,7 @@ class UserManagement extends Component{
     }
 
     loadModuleAccess = (role) => {
-
       var self = this;
-      
-
       axios.get(endpoint.UserManagement_ModuleAccess, {
         params: {role:role},
         headers: headers
@@ -460,7 +459,6 @@ class UserManagement extends Component{
     }
 
     loadClients = () => {
-
       var self = this;
       axios.get(endpoint.getClient, {
         headers: headers
@@ -612,15 +610,14 @@ class UserManagement extends Component{
           .then(res => {
             var result = [];
             if(res.status === 200){
-              self.setState({isSaveProgressing:false});
-              self.closeModalPopUp();
-              window.location.reload();
+              self.setState({isSaveProgressing:false,isModalNewOpen:false,succesCreate:true});
+              //self.closeModalPopUp();              
               
             }
             return result;
           })
           .catch(error => {
-              self.setState({isSaveProgressing:false});
+              self.setState({isSaveProgressing:false,succesCreate:false});
               self.closeModalPopUp();
 
           })
@@ -708,6 +705,10 @@ class UserManagement extends Component{
 
         });
 
+    }
+
+    closeConfirmDialog = () => {
+      this.setState({succesCreate:false},() => {window.location.reload();});
     }
 
     render(){
@@ -803,6 +804,24 @@ class UserManagement extends Component{
                   </div>
                 </div>
             </div>
+
+            <Modal className="create-confirmation" isOpen={this.state.succesCreate} centered={true} 
+              onOpened={() => this.state.succesCreate ? setTimeout(() => { this.closeConfirmDialog() }, 3000) : {}}>              
+              <ModalBody style={{backgroundColor:"#D5D8DA"}}>
+                  <div className="d-flex d-inline-flex">
+                        <img src={logo_confirm} alt="logo" style={{width:"20%",height:"20%"}}/>
+                        <label className="pl-3 font">
+                            Thank You <br/>
+                            you have created a new <br/>
+                            {(this.state.webgroup)?' Admin User ':' User '} for {this.state.accountInfo.client} Warehouse.<br/>
+                            {(this.state.webgroup)?' Admin User ':' User '} {this.state.accountInfo.name} Warehouse <br/>
+                            will receive an email shortly to create <br/>
+                            their new password and access the portal
+                        </label>
+                    </div>                    
+              </ModalBody>
+
+          </Modal>
 
         </div>)
     }
