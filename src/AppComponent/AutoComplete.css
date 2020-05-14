@@ -125,7 +125,7 @@
 }
 
 .select_autocomplete_expand:checked + .select_autocomplete_closeLabel + .select_autocomplete_options{
-    max-height: 200px;
+    max-height: 250px;
     overflow: scroll;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
