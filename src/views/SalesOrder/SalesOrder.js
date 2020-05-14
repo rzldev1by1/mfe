@@ -284,11 +284,11 @@ class SalesOrder extends Component {
             additionalComponent = {this.showDropdowns()}/>
         </div>
 
-        <div className="dropdowns">
+        {/* <div className="dropdowns">
           <div style={{ display: "flex", width: "100%" }}>
             {this.state.filterclicked ? null : null }
           </div>
-        </div>
+        </div> */}
 
         <div className={"" + (this.state.complete ? "fades" : "hidden")}>
           <ListOrderComponent
