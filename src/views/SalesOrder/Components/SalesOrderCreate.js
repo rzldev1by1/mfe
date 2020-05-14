@@ -105,7 +105,15 @@ class SalesOrderCreate extends Component {
           emptyShipToAddress1: null,
           emptyPostCode: null,
           emptyState: null
-        }
+        },
+
+        orderLine:[
+          {
+            emptyProduct:null,
+            emptyQty:null,
+            emptyUom:null
+          }
+        ]
       },
       identity: [],
       uomdata: [],

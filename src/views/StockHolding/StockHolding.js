@@ -270,7 +270,7 @@ class StockHolding extends Component {
 		}
 
         return (
-            <div className={"input-group filterSection" + (this.state.showFilter ? "" : " d-none")}>
+			<React.Fragment>
                 <Dropdown 	placeHolder="Site"
 							optionList={masterSite.toString()}
 							optionValue={masterSiteValue.toString()}
@@ -286,8 +286,7 @@ class StockHolding extends Component {
 							optionList={masterStatus.toString()}
 							optionValue={masterStatusValue.toString()}
 							getValue={this.selectedStatus} className="filterDropdown" />
-
-            </div>
+			</React.Fragment>
         );
     }
 
@@ -504,8 +503,8 @@ class StockHolding extends Component {
                                                                         <Search showFilter={this.state.showFilter}
                                                                                 triggerShowFilter={this.triggerShowFilter}
                                                                                 searchData={this.searchData}
-                                                                                placeholder="Enter a Product or Description" />
-                                                                        {this.showDropdown()}
+																				placeholder="Enter a Product or Description"
+																				additionalComponent={this.showDropdown()} />
 																	</Card>
 																</div>
 															</InputGroup>
