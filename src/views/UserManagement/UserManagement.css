@@ -332,8 +332,6 @@ input:checked + .slider:before {
     border-bottom-left-radius: 10px !important;
 }
 
-
-
 .modal-border-radius{
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
@@ -597,6 +595,10 @@ input:checked + .slider:before {
 	flex-basis: calc(100% - 185px);
 	padding-left: 15px;
 	padding-right: 15px;
+}
+
+.um-reset-modal-body{
+	background-color: #ffffff;;
 }
 
 
