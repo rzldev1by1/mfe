@@ -209,6 +209,12 @@
     border-bottom: 1px solid #e6e6e6 !important;
 }
 
+.search-input-focus{
+    box-shadow: none !important;
+    border-color: #3366FF !important;
+    border-bottom: 1px solid #e6e6e6 !important;
+  }
+
 .search-input-placeholder::placeholder{
     text-transform: none;
 }
