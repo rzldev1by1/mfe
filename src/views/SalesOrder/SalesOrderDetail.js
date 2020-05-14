@@ -90,11 +90,11 @@ class SalesOrderDetail extends Component {
         let loadNumber = this.state.head.length ? this.state.head[0].load_number : null
         let loadoutStart = this.state.head.length ? this.state.head[0].loadout_start : null
         let loadoutFinish = this.state.head.length ? this.state.head[0].loadout_finish : null
-        let Address1 = this.state.head.length ? this.state.head[0].address_1 : null
-        let Address2 = this.state.head.length ? this.state.head[0].address_2 : null
-        let Address3 = this.state.head.length ? this.state.head[0].address_3 : null
-        let Address4 = this.state.head.length ? this.state.head[0].address_4 : null
-        let Address5 = this.state.head.length ? this.state.head[0].address_5 : null
+        let Address1 = this.state.head.length ? this.state.head[0].address1 : null
+        let Address2 = this.state.head.length ? this.state.head[0].address2 : null
+        let Address3 = this.state.head.length ? this.state.head[0].address3 : null
+        let Address4 = this.state.head.length ? this.state.head[0].address4 : null
+        let Address5 = this.state.head.length ? this.state.head[0].address5 : null
         let postCode = this.state.head.length ? this.state.head[0].postcode : null
         let country = this.state.head.length ? this.state.head[0].country : null
         let state = this.state.head.length ? this.state.head[0].state : null
