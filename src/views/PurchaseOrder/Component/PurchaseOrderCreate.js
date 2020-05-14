@@ -100,7 +100,9 @@ class PurchaseOrderCreate extends Component {
       emptyOrderType: null,
       emptyOrderNo: null,
       emptyOrderDate: null,
-      isOrderNoAvailable:true
+      isOrderNoAvailable:true,
+
+      nextClicked:false
     }
 }
 
@@ -240,17 +242,35 @@ class PurchaseOrderCreate extends Component {
     for(let i = 0 ; i < this.state.rowlist.length ; i++)
     {
       let lv = lineValidation(this.state.rowlist[i], i)
-      if(!lv) return
+      if(!lv) this.setState({nextClicked:true})
 
       if(lv && i+1 == this.state.rowlist.length)
       {
         this.setState({
           tab1isactive: !this.state.tab1isactive,
-          tab2isactive: !this.state.tab2isactive
+          tab2isactive: !this.state.tab2isactive,
+          nextClicked:false
         })
       }
       
     }
+  }
+
+  addLineValidation = () => {
+    for (let i = 0; i < this.state.rowlist.length; i++) {
+      var b = lineValidation(this.state.rowlist[i], i);
+    }
+
+    if (!b)
+    {
+      this.setState({nextClicked:true})
+      return false;
+    } 
+    if(b)
+    {
+      this.setState({nextClicked:false})
+      return true
+    } 
   }
 
     datePickerHandler = (day) => {
@@ -526,7 +546,6 @@ if(v_orderNo === undefined) v_orderNo = []
                 getDate={(e) => { this.setState({ orderDate: e }); this.state.rowlist[0].orderDate = e }}
                 defaultValue={this.state.orderDate}  tabIndex="1" top={true} 
               />
-              {console.log(this.state.orderDate)}
             </td>
             <td><input tabIndex="1" className="form2 put pec" value={this.state.vendorRef} maxLength='40' placeholder="Vendor Order Ref" onChange={(e) => this.setState({ vendorRef: e.target.value })} maxLength="40" /> </td>
           </tr>
@@ -566,7 +585,7 @@ if(v_orderNo === undefined) v_orderNo = []
               </tr>                               
             </table>
           </div>
-            <div className={"tablerow " + (this.state.rowlist.length >2 ? "scroll" : null )} style={{width:"98%"}}>
+            <div className={"tablerow "} style={{width:"98%"}}>
               {this.state.rowlist.map((list, i) => this.linedetailsrow(list, i))}
             </div>
               <button onClick={() => this.addline()} type="button" className="btn btn-light  addlinePO default-box-height"  tabIndex="2" >+ Add Line</button>
@@ -574,11 +593,7 @@ if(v_orderNo === undefined) v_orderNo = []
               {this.state.tab2isactive ? 
               this.submit() :  
               <Button onClick={() => this.tabhandler()} color="primary" className="btnsearch next btnleft" ><label className="font ">Next <i className="fa fa-chevron-right " style={{fontSize: '9pt',paddingLeft: '8px'}}></i> </label></Button>
-            } 
-              {
-  //   console.log(this.state.rowlist)
-    }
-     
+            }      
       </div>
     )
   }
@@ -658,7 +673,6 @@ if(v_orderNo === undefined) v_orderNo = []
 
   deletelinehandler = (e) => {
     let updated = this.state.rowlist.length
-    
     // Jika Jumlah produk Entry Lebih dari satu
     if( updated >1){
       let id = e.currentTarget.id;
@@ -717,11 +731,19 @@ if(v_orderNo === undefined) v_orderNo = []
 
   linedetailsrow = (list, i) => {
     let self = this;
+
+    let mProduct  = 'nmtrField'
+    let mQty      = 'nmtrField'
+    let mUom      = 'nmtrField'
+    
+    if(!list.product && this.state.nextClicked) mProduct = 'mtrField'
+    if(!list.qty && this.state.nextClicked) mQty = 'mtrField'
+    if(!list.uom && this.state.nextClicked) mUom = 'mtrField'
     return(
       <table>
         <tr>
             <td hidden id={list.lineNumber} ></td>
-            <td style={{width:"3.5%", textAlign:"center"}}><input className="form-control inputs pec" style={{ textAlign:"center" }} defaultValue={list.lineNumber} readOnly/></td>{console.log(self.state.rowlist[i].product)}
+            <td style={{width:"3.5%", textAlign:"center"}}><input className="form-control inputs pec" style={{ textAlign:"center" }} defaultValue={list.lineNumber} readOnly/></td>
             <td style={{width:"12%"}}>
                 {/* <AutoComplete   useFor="POLineDetails"
                                 suggestions={self.state.productcr}
@@ -769,12 +791,25 @@ if(v_orderNo === undefined) v_orderNo = []
                             </td>
             <td id={list.lineNumber} onClick={(e) => this.deletelinehandler(e)} style={{width:"1.5%"}}  tabIndex="2" ><div className="iconU-delete"/></td>
           </tr>
+          <tr>
+            <td hidden id={list.lineNumber}></td>
+            <td style={{width:"3.5%", textAlign:""}}></td>
+            <td style={{width:"12%"}} className={'po-order-line-required ' + (mProduct)}>please select product</td>
+            <td style={{width:"12%"}}></td>
+            <td style={{width:"3.5%"}} className={'po-order-line-required ' + (mQty)}>qty cannot be empty</td>
+            <td style={{width:"5%"}}></td>
+            <td style={{width:"6%"}} className={'po-order-line-required ' + (mUom)}>please select uom</td>
+            <td style={{width:"6.5%"}}></td>
+            <td style={{width:"6%"}}></td>
+            <td style={{width:"5%"}}></td>
+            <td style={{width:"5%"}}></td>
+            <td style={{width:"6%"}}></td>
+          </tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>{this.state.showdaterote ? <DatePicker getChosenDay={(day) => this.datePickerRote(day)}/> : null}</td>
-          {console.log(self.state.rowlist)}
       </table>
     )
   }
@@ -806,23 +841,27 @@ if(v_orderNo === undefined) v_orderNo = []
   }
 
   addline = () => {
-    this.state.rowlistidx += 1;
-    this.setState({rowlist: this.state.rowlist.concat(
-      {
-        lineNumber:this.state.rowlistidx,
-        product:null,
-        productDescription:null,
-        uom:null,
-        qty:null,
-        rotadate: new Date(),
-        batch:null,
-        ref3:null,
-        ref4:null,
-        disposition:null,
-        weight:null,
-        orderDate: this.state.orderDate
-      }
-    )})
+    const clear = this.addLineValidation()
+    if(clear)
+    {
+      this.state.rowlistidx += 1;
+      this.setState({rowlist: this.state.rowlist.concat(
+        {
+          lineNumber:this.state.rowlistidx,
+          product:null,
+          productDescription:null,
+          uom:null,
+          qty:null,
+          rotadate: new Date(),
+          batch:null,
+          ref3:null,
+          ref4:null,
+          disposition:null,
+          weight:null,
+          orderDate: this.state.orderDate
+        }
+      )})
+    }    
   }
 
   saveclick = () =>{

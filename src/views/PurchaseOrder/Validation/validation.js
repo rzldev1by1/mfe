@@ -19,28 +19,19 @@ const headerValidation = (header) => {
 }
 
 const lineValidation = (line, idx) => {
-    let required = []
     idx = idx+1
     const {
         product,
-        productDescription,
         qty,
         uom,
-        rotadate,
-        batch,
-        ref3,
-        ref4,
-        disposition,
-        weight,
-        orderDate
     } = line
 
-    if(!product)
+    if(!product || product == '')
     {
         return false
     }
 
-    if(!qty)
+    if(!qty || qty == '')
     {
         idx = idx-1
         idx = 'qty_'+idx
@@ -49,7 +40,7 @@ const lineValidation = (line, idx) => {
         return false
     }
 
-    if(!uom)
+    if(!uom || uom == '')
     {
         return false
     }

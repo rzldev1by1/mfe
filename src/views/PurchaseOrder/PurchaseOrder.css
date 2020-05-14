@@ -451,7 +451,6 @@ h3{
 
 .tablerow{
 	width: 83%;
-	max-height: 120px;
 }
 
 .scroll{
@@ -554,7 +553,6 @@ h3{
 	margin-bottom: 1%;
 	padding:1% !important;
 	font-size: 0.9rem;
-	max-height: 600px;
 }
 
 .conts{
@@ -597,6 +595,11 @@ h3{
 
 .pec::-webkit-input-placeholder{
 	color:#7C878C !important;
+}
+
+.po-order-line-required{
+	height: 0.5em !important;
+	vertical-align: top;
 }
 
 
