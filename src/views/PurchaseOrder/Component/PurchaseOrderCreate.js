@@ -304,7 +304,7 @@ class PurchaseOrderCreate extends Component {
     }
 
     getsupplier = (client) => {  
-      if(!client) client =  headers.client
+      if(!client) client =  headers.client ? headers.client : "MLS"
       axios.get(endpoint.getSupplier + "?client=" + client, {
         headers: headers
       })
@@ -345,7 +345,7 @@ class PurchaseOrderCreate extends Component {
     }
 
     getproductcode = (e) => {
-      if(!e) e = headers.client
+      if(!e) e = headers.client ? headers.client : "MLS"
         axios.get(endpoint.getProduct + "?client=" + e, {
             headers: headers
         })
@@ -359,7 +359,7 @@ class PurchaseOrderCreate extends Component {
     }
 
     getproductname = (e) => {
-      if(!e) e = headers.client
+      if(!e) e = headers.client ? headers.client : "MLS"
         axios.get(endpoint.getProduct + "?client=" + e, {
             headers: headers
         })
@@ -566,7 +566,7 @@ if(v_orderNo === undefined) v_orderNo = []
               </tr>                               
             </table>
           </div>
-            <div className={"tablerow " + (this.state.rowlist.length >2 ? "scroll" : null )} style={{width:"98%"}}>
+            <div style={{width:"98%"}}>
               {this.state.rowlist.map((list, i) => this.linedetailsrow(list, i))}
             </div>
               <button onClick={() => this.addline()} type="button" className="btn btn-light  addlinePO default-box-height"  tabIndex="2" >+ Add Line</button>
