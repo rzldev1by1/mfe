@@ -22,8 +22,8 @@ import routes from '../../routes';
 
 import Authentication from '../../Auth/Authentication';
 
-import logo from '../../assets/img/brand/logo_ml_large.png';
-import dummyPic from '../../assets/img/brand/userprofile.png';
+import logo from '../../assets/img/brand/LOGO2.png';
+import dummyPic from '../../assets/img/brand/User-Icon.png';
 import menunav from '../../menunav';
 import SidebarMenu from './SidebarMenu';
 
@@ -78,8 +78,6 @@ class DefaultLayout extends Component {
         }
     }
 
-
-
 	showMenu = () => {
 			let userLevel = Authentication.getUserLevel();
 			let userMenu = Authentication.getUserMenu();
@@ -95,22 +93,19 @@ class DefaultLayout extends Component {
 
 			}
 
-		}
-
-
-
+        }
+        
     render() {
 
         return (
             <div className="app">
                 <div className="app-body">
-                    <AppSidebar className="sidebar-fullheight" fixed display="lg">
+                    <AppSidebar className="sidebar-fullheight" fixed display="lg"  style={{backgroundColor:"#2F275D"}}>
                         {/* <AppSidebarHeader /> */}
                         {/* <AppSidebarForm /> */}
                         <Suspense>
-                            <div className="p-0 sidebar-header">
-                                <img className="navbar-brand-full" src={logo} alt="" style={{ width: 200, height: 58 }} />
-                                <hr className="border-header" />
+                            <div className="p-0 sidebar-header"  style={{backgroundColor:"#2F275D"}}>
+                                <img src={logo} alt="" className="sideLogo"/>
                             </div>
 
 
@@ -124,13 +119,10 @@ class DefaultLayout extends Component {
 
 
                             <div className="userSection" size="sm" onClick={this.onUserDropdownClick}>
-                                <table>
-                                    <tbody>
                                         <tr>
-                                            {/* <td rowSpan="2" className="text-center align-middle p-0">
-                                                <span className="fa fa-user-circle fa-3x" />
+                                            <td rowSpan="2" className="text-center align-middle p-0">
                                                 <img className="profilePhoto" src={dummyPic} alt="dummyPic" />
-                                            </td> */}
+                                            </td>
                                             <td className="pb-0">
                                                 <span className="userName">{Authentication.getName()}</span>
                                             </td>
@@ -140,16 +132,19 @@ class DefaultLayout extends Component {
                                                 <span className="profileID"> ID: {Authentication.getId()} </span>
                                             </td>
                                         </tr>
+                            </div>
+                                <div className="userLogout" size="sm">
                                         <tr>
                                             <td className="pt-0">
+                                                <a className="LogoutIcon" href="/" onClick={(e) => {this.signOut()} }>
+                                                    <i className="iconU-logout" /> 
+                                                </a>
                                                 <a className="Logout" href="/" onClick={(e) => {this.signOut()} }>
-                                                    <i className="iconU-logout" /> Logout
+                                                    Logout
                                                 </a>
                                             </td>
                                         </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                </div>
 
                             {/* {this.expandUser()} */}
                         </Suspense>

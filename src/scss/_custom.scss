@@ -362,13 +362,14 @@ h2{
          .nav-link .nav-icon,
          .nav-link .nav-item {
 	
-	color: #637176 !important;
+	color: #FFF !important;
+	background-color: #2F275D;
 }
 
 .sidebar .nav-item .nav-link:hover,
 		 .nav-item .nav-link:hover .nav-icon {
 	color: #B4B9BB  !important;
-	background: #ffffff !important;
+	background: #2F275D !important;
 }
 
 
@@ -378,7 +379,7 @@ h2{
 
 .sidebar .nav-link.active, .nav-link.active .nav-icon {
 	color: $primaryColor !important !important;
-	background: #ffffff !important;
+	background: #2F275D !important;
 }
 
 .sidebar-minimizer {
@@ -389,53 +390,75 @@ h2{
 	color: #919191 !important;
 }
 
+.sideLogo{
+	width: 20%;
+    margin-left: -60%;
+    margin-top: 10%;
+    margin-bottom: 7%;
+}
+
 // End - Sidebar
 
 
 // Start - User section
 
 .userSection {
-	background-color: #E9ECED;
+	background-color: #2F275D ;
 	border-radius: 10px;
 	width: 230px;
-	height: 86px;
 	align-self: center;
-	margin-bottom: 15px;
 	padding: 7px;
+	margin-left: -20%;
+    margin-bottom: -5%;
+}
+.userLogout {
+	background-color: #2F275D ;
+	border-radius: 10px;
+	width: 230px;
+	align-self: center;
+	padding: 7px;
+	margin-left: -4%;
+    margin-bottom: 8%;
 }
 
 .profilePhoto {
-	width: 47px;
-	height: 47px;
+	width: 58%;
 }
 
 .userName {
-	font-weight: bold;
-	font-size: 18px;
-	text-align: left;
-	letter-spacing: 0;
-	color: #637176;
-	align-self: center;
-	padding-left: 10px;
-	padding-top: 5px;
+    font-weight: bold;
+    font-size: 21px;
+    /* text-align: left; */
+    /* letter-spacing: 0; */
+    color: #FFF;
+    align-self: center;
+    /* padding-left: 10px; */
+    /* padding-top: 5px; */
 }
 
 .profileID {
+    vertical-align: top;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: bold;
+    align-self: center;
+    /* padding-left: 10px; */
+}
+
+.LogoutIcon{
 	vertical-align: top;
-	color: #969EA1;
-	font-size: 12px;
-	font-weight: bold;
-	align-self: center;
-	padding-left: 10px;
+    color: #FFF;
+    font-size: 43PX;
+    font-weight: bold;
+    align-self: center
 }
 
 .Logout{
-	vertical-align: top;
-	color: #20a8d8;
-	font-size: 12px;
-	font-weight: bold;
-	align-self: center;
-	padding-left: 10px;
+	vertical-align: 13px;
+    color: #FFF;
+    font-size: 20Px;
+    font-weight: bold;
+	margin-left: 39px;
 }
 
 .viewProfile {
@@ -546,7 +569,7 @@ a.breadcrumb:hover {
     justify-content: space-between;
     align-items: center;
 	padding: 15px;
-	//padding-bottom: 5px;
+	padding-bottom: 15px;
 	border-radius: 5px;
 }
 
@@ -577,23 +600,15 @@ a.breadcrumb:hover {
     border: none;
     transition:background-color 0.5s ease;
 	outline-color: transparent;
-	font-size: 20px;
+	font-size: 1.2em;
 }
 
-.searchInput {
-    font-size: 20px;
+.searchInput, .searchInput::placeholder {
+    font-size: 1.1em;
     color: #D5D8DA;
     align-self: center;
     border: none;
 }
-
-.searchInput::-webkit-input-placeholder {
-    font-size: 20px;
-    color: #D5D8DA;
-    align-self: center;
-    border: none;
-}
-
 
 .notFoundMessage {
     padding: 200px;
@@ -733,7 +748,6 @@ a.breadcrumb:hover {
 
 .form-control{
 	height: 50px !important;
-	font-size: 18px;
 }
 
 .form2{
@@ -1502,7 +1516,7 @@ font-family: "Helvetica Neue Medium";
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
 	color: rgb(180,185,187) !important;
 	opacity: 0.6 !important; /* Firefox */
-	font-size: 18px !important;
+	font-size: 13px !important;
   }
 
   .mtrFieldSelect:before{
@@ -1802,17 +1816,16 @@ th{
 
 /* input[type=button]{  */
 	.btnLogin {
-		height: 60px;
-		width: 28%;
+		height: 50px;
+		width: 10%;
 		box-sizing: border-box;
 		border: none;
-		border-radius: 9px;
-		margin: 17px auto;
-		transition: background-color 0.5s ease;
-		background-color: #3366FF !important;
+		border-radius: 4px;
+		margin: 10px auto;
+		transition:background-color 0.5s ease;
+		background-color: $primaryColor!important;
 		color: white;
-		font-size: 21px;
-		margin-top: 19%;
+		font-size: 18px;
 	}
 	
 	/* input[type=button]:active{ */

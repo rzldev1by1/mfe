@@ -49,6 +49,7 @@ class componentTable extends Component {
 		return (
 			this.props.masterResource.slice(this.props.startIndex, this.props.lastIndex).map((item, idx) => (
 				<tr className='tr1' key={idx} onClick={() => this.rowClicked(item["product"], item["client"], item["site"])}>
+					
 					{this.props.columns.map((column, columnIdx) => {
 						if (column.isVisible) {
                            

@@ -119,10 +119,10 @@ class StockMovement extends Component {
 				</div>
 
 				<div className='movementSearch'>
-					<MovementSearch getStockMovement = {(dateFrom, dateTo, period) => this.getStockMovements(dateFrom, dateTo, period)}/>
+					<MovementSearch getStockMovement = {this.getStockMovement} />
 				</div>
 				<div className={this.state.isComplete ? 'fades' : 'hidden'}>
-				<Movement isComplete={(val) => this.setState({isComplete:val})} ref={this.getStockMovement} data={(data) => this.setState({data:data},() => this.setPagiantion.current.getData(this.state.data))}/>
+				<Movement ref={this.getStockMovement} isComplete={(val) => this.setState({isComplete:val})} data={(data) => this.setState({data:data},() => this.setPagiantion.current.getData(this.state.data))}/>
 				</div>
 				<div className={this.state.isComplete ? 'hidden' : 'spinner'}/>
 					
@@ -132,12 +132,12 @@ class StockMovement extends Component {
 												rows={50}/> 
 						<ExportExcel ExportName={this.ExportName}/>
 					</div>
-					
-					<div className={this.state.isComplete ?  'fades paginations' : 'hidden'}>
+					 
+					{/* <div className={this.state.isComplete ?  'fades paginations' : 'hidden'}>
 						<div style={{marginLeft:"88%"}}>
 							<ExportExcel ExportName={this.ExportName}/>
 						</div>
-					</div>						 
+					</div>						  */}
 			</div>
 		)
 	}

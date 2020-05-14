@@ -32,8 +32,9 @@ export default class MovementSearch extends Component {
             client:null,
             site:null,
             search:"",
-            siteSelected: undefined,
-            clientSelected: undefined,
+            siteSelected: "",
+            clientSelected: "",
+            productSelected: ""
         }
     }
     componentDidMount = () => {
@@ -77,7 +78,13 @@ export default class MovementSearch extends Component {
         }
         else
         {
-            this.props.getStockMovement(this.state.dateFromSelected, this.state.dateToSelected, this.state.periodSelected)
+            this.props.getStockMovement.current.getData(this.state.dateFromSelected, 
+                this.state.dateToSelected, 
+                this.state.periodSelected, 
+                this.state.siteSelected, 
+                this.state.clientSelected, 
+                this.state.productSelected
+            )
         }
     }
 
@@ -285,8 +292,8 @@ export default class MovementSearch extends Component {
 							<td width='36%'>{this.displayDate()}</td>
                             <td className="bar">{this.showDropdowns()}</td>
 							<td  width='30%' style={{textAlign: "right"}}>
-                            {/* <Button  style={{marginLeft : "15px", marginRight : "14px"}} onClick={()=> this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button> */}
-                            <Button  style={{marginLeft : "15px", marginRight : "14px"}} onClick={()=> this.search()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>
+                            <Button  style={{marginLeft : "15px", marginRight : "14px"}} onClick={()=> this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>
+                            {/* <Button  style={{marginLeft : "15px", marginRight : "14px"}} onClick={()=> this.search()} className='movementBtnSearch default-box-height ' color="primary">Search</Button> */}
 							</td>
 						</tr>
 					</table>

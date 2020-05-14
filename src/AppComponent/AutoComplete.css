@@ -125,7 +125,7 @@
 }
 
 .select_autocomplete_expand:checked + .select_autocomplete_closeLabel + .select_autocomplete_options{
-    max-height: 200px;
+    max-height: 250px;
     overflow: scroll;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -208,6 +208,12 @@
 .search-input:focus{
     border-bottom: 1px solid #e6e6e6 !important;
 }
+
+.search-input-focus{
+    box-shadow: none !important;
+    border-color: #3366FF !important;
+    border-bottom: 1px solid #e6e6e6 !important;
+  }
 
 .search-input-placeholder::placeholder{
     text-transform: none;

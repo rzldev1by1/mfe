@@ -62,20 +62,21 @@ class Movement extends Component {
         this.pushTable()
     }
 
-    getData = (start, end, period) => {
+    getData = (start, end, period, site="", client="", product="") => {
         this.props.isComplete(false)
         this.setState({complete:false, activearrow:mid, sort:true})
         let dtStart = start ? start : this.state.startDate
         let dtEnd = end ? end : this.state.endDate
         let periods = period ? period : this.state.filterType
-        axios.get(endpoint.stockMovement + '?startDate='+dtStart+'&endDate='+dtEnd+'&filterType='+periods, {
+        axios.get(endpoint.stockMovement + '?startDate='+dtStart+'&endDate='+dtEnd+'&filterType='+periods+'&client='+client+'&site='+site+'&product='+product, {
         headers: headers
         })
         .then(res => {
         const result = res.data.data
         this.setState({ data:result, complete:true, filterType:periods})
-        this.props.isComplete(true)
         this.props.data(result)
+        this.pushTable(dtStart, dtEnd,periods)  
+        this.props.isComplete(true)
         })
         .catch(error => {
         
@@ -93,7 +94,7 @@ class Movement extends Component {
         )
     }
 
-    pushTable = (start,end, period) => {
+    pushTable = (start,end, period) => { 
         let dateArray = []
         let stDate = start ? start : this.state.startDate
         let enDate = end ? end : this.state.endDate
@@ -121,6 +122,31 @@ class Movement extends Component {
                
         }
         this.setState({dateArray:dateArray, pushTableComplete:true})
+
+        let data = this.state.data
+        for(let i = 0 ; i < data.length ; i ++)
+        {
+            let availableDate = []
+            for(let x = 0 ; x < data[i].detail.length ; x++)
+            {
+                availableDate.push(data[i].detail[x].date)
+            }
+            for(let y = 0 ; y < dateArray.length ; y ++)
+            {
+                if(!availableDate.includes(dateArray[y]))
+                {
+                    let dataFormat =  {
+                        'date': dateArray[y], 
+                        'sa_plus':'-',  
+                        'sa_minus':'-',  
+                        'recv_weight':'-', 
+                        'send_weight':'-'
+                    }
+                    data[i].detail.push(dataFormat)
+                }
+            }
+            //console.log(availableDate);
+        }
     }
 
     pushData = () => {
@@ -132,7 +158,6 @@ class Movement extends Component {
             {
                 availableDate.push(data[i].detail[x].date)
             }
-
             for(let y = 0 ; y < this.state.dateArray.length ; y ++)
             {
                 if(!availableDate.includes(this.state.dateArray[y]))
@@ -147,6 +172,7 @@ class Movement extends Component {
                     data[i].detail.push(dataFormat)
                 }
             }
+            //console.log(availableDate);
         }
     }
 
@@ -400,7 +426,7 @@ class Movement extends Component {
     render(){
         if(this.state.pushTableComplete)
         {
-            this.pushData()
+            // this.pushData()
             this.sortData()
         }
         return(
