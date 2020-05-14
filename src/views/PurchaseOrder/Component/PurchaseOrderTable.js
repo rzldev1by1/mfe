@@ -167,7 +167,7 @@ class PurchaseOrderTable extends Component {
 			}
 			self.setState({ maxPage: totalPage });
 		} else {
-			self.setState({ maxPage: 1 });
+			self.setState({ maxPage: 2 });
 		}
 
 		self.setState({ displayContent: "FOUND",
