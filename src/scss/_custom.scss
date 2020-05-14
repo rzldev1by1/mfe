@@ -1801,16 +1801,17 @@ th{
 
 /* input[type=button]{  */
 	.btnLogin {
-		height: 50px;
-		width: 10%;
+		height: 60px;
+		width: 28%;
 		box-sizing: border-box;
 		border: none;
-		border-radius: 4px;
-		margin: 10px auto;
-		transition:background-color 0.5s ease;
-		background-color: $primaryColor!important;
+		border-radius: 9px;
+		margin: 17px auto;
+		transition: background-color 0.5s ease;
+		background-color: #3366FF !important;
 		color: white;
-		font-size: 18px;
+		font-size: 21px;
+		margin-top: 19%;
 	}
 	
 	/* input[type=button]:active{ */
