@@ -1099,46 +1099,46 @@ span.upArrow:before {
 }
   
  
-@media(max-width: 2100px) {
-	.tablePage{
-		max-height: 675px;
-	}
-}
-@media(max-width: 1830px) {
-	.tablePage{
-		max-height: 575px;
-	}
-}
-@media(max-width: 1710px) { 
-	.tablePage{
-		max-height: 525px;
-	}
-}
-@media(max-width: 1520px) {
-	.tablePage{
-		max-height: 440px;
-	}
-}
-@media(max-width: 1366px) {
-	.tablePage{
-		max-height: 375px;
-	}
-}
-@media(max-width: 1242px) {
-	.tablePage{
-		max-height: 320px;
-	}
-} 
-@media(max-width: 1000px) {
-	.tablePage{
-		max-height: 520px;
-	}
+// @media(max-width: 2100px) {
+// 	.tablePage{
+// 		max-height: 675px;
+// 	}
+// }
+// @media(max-width: 1830px) {
+// 	.tablePage{
+// 		max-height: 575px;
+// 	}
+// }
+// @media(max-width: 1710px) { 
+// 	.tablePage{
+// 		max-height: 525px;
+// 	}
+// }
+// @media(max-width: 1520px) {
+// 	.tablePage{
+// 		max-height: 440px;
+// 	}
+// }
+// @media(max-width: 1366px) {
+// 	.tablePage{
+// 		max-height: 375px;
+// 	}
+// }
+// @media(max-width: 1242px) {
+// 	.tablePage{
+// 		max-height: 320px;
+// 	}
+// } 
+// @media(max-width: 1000px) {
+// 	.tablePage{
+// 		max-height: 520px;
+// 	}
 
-	.paginations{
-		position: relative;
-		padding-left: 0px !important;
-	}
-}
+// 	.paginations{
+// 		position: relative;
+// 		padding-left: 0px !important;
+// 	}
+// }
 
 .tablePage::-webkit-scrollbar {
 	width: 8px !important;
