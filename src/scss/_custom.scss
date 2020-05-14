@@ -254,7 +254,7 @@ h2{
 	.sidebar-lg-show.sidebar-fixed .app-footer,
 	.sidebar-show.sidebar-fixed .main,
 	.sidebar-show.sidebar-fixed .app-footer {
-		margin-left: 294px !important;
+		margin-left: 120px !important;
 	}
 }
 
@@ -1116,8 +1116,8 @@ span.upArrow:before {
 	position: fixed; 
 	bottom: 0; 
 	right: 0;
-	padding-left: 284px !important;
-	padding-right: 0.7%;  
+	padding-left: 109px !important;
+	padding-right: 0.9%;  
 	width: 100%;
 }
   
@@ -2051,3 +2051,9 @@ th{
 		color: $primaryColor;
 	}
 	/* end um **/
+
+	// title
+	.header h2{
+		font-size: 30px !important;
+		padding-left: 15px;
+	}
