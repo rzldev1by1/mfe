@@ -17,13 +17,22 @@ const OrderLine = (props) => {
     ref4,
     dispositionVal,
     disposition,
-    packId
+    packId,
+
   } = props.parameters;
 
+  const nextClicked = props.nextClicked
   let idx = props.idx + 1;
 
+  let eProduct = 'nmtrField'
+  let eUom     = 'nmtrField'
+  let eQty     = 'nmtrField'
+
+  if(!productVal && nextClicked) eProduct = 'mtrField'
+  if(!qty && nextClicked) eQty = 'mtrField'
+  if(!uom && nextClicked) eUom = 'mtrField'
   return (
-    <div style={{ marginBottom: "1%" }}>
+    <div style={{ marginBottom: "2%" }}>
       <div className="line">
         <table className="">
           <tr>
@@ -152,10 +161,78 @@ const OrderLine = (props) => {
                   value={packId}
                   onChange={(e) => props.setPackid(e.target.value, props.idx)} />
               </div>
-            </td>
+            </td>            
             <td>
               <div id='orderline-header-number-val-id'>
                 <label onClick={() => props.removeLineHandler(idx)} className="iconU-delete" />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div id="orderline-header-number-val-id">
+                
+              </div>
+            </td>
+            <td>
+              <div id="orderline-header-product-val-id" className={eProduct}>
+                please select product
+              </div>
+            </td>
+            <td>
+              <div id="orderline-header-description-val-id">
+                
+              </div>
+            </td>
+            <td>
+              <div id="orderline-header-qty-val-id" className={eQty}>
+                please select qty
+              </div>
+            </td>
+            <td>
+              <div id="orderline-header-weight-val-id">
+                
+              </div>
+            </td>
+            <td>
+              <div id="orderline-header-uom-val-id" className={eUom}>
+                please select uom
+              </div>
+            </td>
+            <td>
+              <div id="orderline-header-rotadate-val-id">
+                
+              </div>
+            </td>
+
+            <td>
+              <div id='orderline-header-batch-val-id'>
+                
+              </div>
+            </td>
+            <td>
+              <div id='orderline-header-ref3-val-id'>
+                
+              </div>
+            </td>
+            <td>
+              <div id='orderline-header-ref4-val-id'>
+                
+              </div>
+            </td>
+            <td>
+              <div id='orderline-header-disposition-val-id'>
+                
+              </div>
+            </td>
+            <td>
+              <div id='orderline-header-packid-val-id'>
+                
+              </div>
+            </td>            
+            <td>
+              <div id='orderline-header-number-val-id'>
+               
               </div>
             </td>
           </tr>

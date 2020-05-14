@@ -109,7 +109,8 @@ class SalesOrderCreate extends Component {
       },
       identity: [],
       uomdata: [],
-      deleteProcessed:false
+      deleteProcessed:false,
+      nextClicked: false
     };
   }
 
@@ -180,10 +181,11 @@ class SalesOrderCreate extends Component {
     if(validation.header.orderNoIsAvailable && a == true) a = true
     this.setState({ validation: validation });
 
-    if (a == true) {
+    if (a == true) {      
       for (let i = 0; i < param.lineDetail.length; i++) {
         let idx = i + 1;
         let b = lineDetailValidation(param.lineDetail[i], idx);
+        this.setState({nextClicked:true})
         if (!b) return;
         if (b && i == param.lineDetail.length - 1) {
           this.setState({
@@ -634,27 +636,51 @@ class SalesOrderCreate extends Component {
 
     this.setState({ parameters: newParam });
   };
+  
+  addLineValidation = () => {
+    let param = { ...this.state.parameters };    
+    for (let i = 0; i < param.lineDetail.length; i++) {
+      let idx = i + 1;
+      var b = lineDetailValidation(param.lineDetail[i], idx);
+    }
+
+    if (!b)
+    {
+      this.setState({nextClicked:true})
+      return false;
+    } 
+    if(b)
+    {
+      this.setState({nextClicked:false})
+      return true
+    } 
+  }
 
   addLineHandler = () => {
-    let newParam = { ...this.state.parameters };
-    let number = parseInt(newParam.lineDetail.length) + 1;
-    let newLine = {
-      number: number,
-      productVal: null,
-      product: null,
-      qty: null,
-      weight: null,
-      uom: null,
-      rotaDate: null,
-      batch: null,
-      ref3: null,
-      ref4: null,
-      dispositionVal: null,
-      disposition: null,
-      packId: null
-    };
-    newParam.lineDetail = [...newParam.lineDetail, newLine];
-    this.setState({ parameters: newParam });
+    const clear = this.addLineValidation()
+    const length = this.state.parameters.lineDetail.length
+    if(clear && length < 10)
+    {
+      let newParam = { ...this.state.parameters };
+      let number = parseInt(newParam.lineDetail.length) + 1;
+      let newLine = {
+        number: number,
+        productVal: null,
+        product: null,
+        qty: null,
+        weight: null,
+        uom: null,
+        rotaDate: null,
+        batch: null,
+        ref3: null,
+        ref4: null,
+        dispositionVal: null,
+        disposition: null,
+        packId: null
+      };
+      newParam.lineDetail = [...newParam.lineDetail, newLine];
+      this.setState({ parameters: newParam });
+    }    
   };
 
   removeLineHandler = (idx) => {
@@ -850,6 +876,8 @@ class SalesOrderCreate extends Component {
                 validation={() => this.validation()}
                 validationCheck={this.state.validation}
                 deleteProcessed = {this.state.deleteProcessed}
+                nextClicked = {this.state.nextClicked}
+
               />
             ) : (
               <Tab2CreateSO

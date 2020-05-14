@@ -3,7 +3,8 @@
 // import axios from 'axios';
 // import AppComponent from '../../../AppComponent';
 import Authentication from '../../../Auth/Authentication';
-import centerLogo from '../../../assets/img/brand/login_microlisticslogo@2x.png';
+import Logo from '../../../assets/img/brand/LOGO.png';
+import LoginBackground from '../../../assets/img/brand/Login-Background-Fin.png';
 import videobg from '../../../assets/img/brand/microlisticsvideos.mp4';
 
 import './Logins.css'
@@ -121,41 +122,41 @@ class Logins extends Component{
         return (
 
             <div className="background fontstyle">
-                <video autoPlay muted loop id="bgvideo">
-                    <source src={videobg} type="video/mp4" />
-                </video>
+                <img src={LoginBackground} className="login-background" /> 
                 <div className="leftSide content"> 
-                <div className="logo">
-                    <img src={centerLogo} className="mlslogo" alt="mlslogo" /> 
-                </div>
                     <form ref={this.loginForm} onSubmit={(e) => { e.preventDefault(); this.validateForm() }}>
-                        <div className="loginInput">
-                            <div style={{ marginBottom: "1%" }}>
-                                <h2>Login</h2>
+                        <div className="bodyLogin">
+                            <div className="loginInput">
+                                <div style={{ marginBottom: "5%" }}>
+                                <img src={Logo} className="mlslogo" alt="mlslogo" /> 
+                                </div>
+
+                                <input type="text" className={this.state.usernameClass + (this.state.usernameValid && this.state.formValidation.isSuccess ? "" : " is-invalid")}
+                                        id="username" name="username"
+                                        onChange={this.onInputChange}
+                                        placeholder="Enter your username here"/>
+
+                                <br/>
+
+                                <input type="password" className={this.state.passwordClass + (this.state.passwordValid && this.state.formValidation.isSuccess ? "" : " is-invalid")}
+                                        id="password" name="password"
+                                        onChange={this.onInputChange}
+                                        placeholder="Enter your password here"
+                                        style={{marginTop: "2%"}} />
+
+                                <this.alertComponent />
+
+                                <button className={"btnLogin " + (this.state.isLoad ? "text-center" : "text-left pl-4")} onClick={this.validateForm}>
+                                    {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin iconSpace" /> : "Login"}
+                                </button>
+                                <a className="forgetPassword">Forget Password ?</a>
                             </div>
-
-                            <input type="text" className={this.state.usernameClass + (this.state.usernameValid && this.state.formValidation.isSuccess ? "" : " is-invalid")}
-                                    id="username" name="username"
-                                    onChange={this.onInputChange}
-                                    placeholder="Username" />
-
-                            <br/>
-
-                            <input type="password" className={this.state.passwordClass + (this.state.passwordValid && this.state.formValidation.isSuccess ? "" : " is-invalid")}
-                                    id="password" name="password"
-                                    onChange={this.onInputChange}
-                                    placeholder="Password" />
-
-                            <this.alertComponent />
-
-                            <button className={"btnLogin " + (this.state.isLoad ? "text-center" : "text-left pl-4")} onClick={this.validateForm}>
-                                {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin iconSpace" /> : "Login"}
-                            </button>
-
-                            <div className="footer">
+                            <a className="textDown">Privacy and Policy</a>
+                            <div className="vertikal"/>
+                            <a className="textDown">Terms and Conditions</a>
+                        </div>
+                        <div className="footer">
                                 <a target='blank' href='https://www.microlistics.com.au/'>© Microlistics {new Date().getFullYear()}</a>
-
-                            </div>
                         </div>
                     </form>
                 </div>

@@ -29,6 +29,11 @@ export default class MovementSearch extends Component {
             clientdata: [],
             sitedata: [],
             productdata:[],
+            client:null,
+            site:null,
+            search:"",
+            siteSelected: undefined,
+            clientSelected: undefined,
         }
     }
     componentDidMount = () => {
@@ -129,7 +134,41 @@ export default class MovementSearch extends Component {
         )
     }
 
+    search = () => {
+        this.potableref.searchMove( this.state.search,
+                                            this.state.clientSelected,
+                                            this.state.siteSelected,)
+    }
 
+    load = () => {
+        this.props.loadCompleteHandler(true)
+      }
+    
+    searchMove = (search,client,site) => {
+        let param = search
+        let url = '?searchParam='+param
+        if(param)
+        { param = param.toUpperCase() }
+        
+        if(client)
+        { url += '&client='+client }
+    
+        if(site)
+        { url += '&site='+site }
+    
+        this.props.loadCompleteHandler(false)
+        axios.get(endpoint.stockMovement + url, {
+          headers: headers
+        })
+          .then(res => {
+            const result = res.data.data
+            this.setState({ data:result })
+            this.load(result)
+          })
+          .catch(error => {
+            
+          })
+      }
       
     getclient = () => {
         axios.get(endpoint.getClient, {
@@ -246,7 +285,8 @@ export default class MovementSearch extends Component {
 							<td width='36%'>{this.displayDate()}</td>
                             <td className="bar">{this.showDropdowns()}</td>
 							<td  width='30%' style={{textAlign: "right"}}>
-                            <Button  style={{marginLeft : "15px", marginRight : "14px"}} onClick={()=> this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>
+                            {/* <Button  style={{marginLeft : "15px", marginRight : "14px"}} onClick={()=> this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button> */}
+                            <Button  style={{marginLeft : "15px", marginRight : "14px"}} onClick={()=> this.search()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>
 							</td>
 						</tr>
 					</table>

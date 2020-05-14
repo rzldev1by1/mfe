@@ -5,7 +5,8 @@ import SODTable from './Components/SODTable'
 import axios from 'axios'
 import { endpoint, headers, } from '../../AppComponent/ConfigEndpoint'
 import Authentication from '../../Auth/Authentication'
-import client from '../UserManagement/Component/Client';
+import client from '../UserManagement/Component/Client'
+import EditColumn from '../../AppComponent/EditColumn'
 
 class SalesOrderDetail extends Component {
     constructor(props) {
@@ -15,9 +16,11 @@ class SalesOrderDetail extends Component {
         this.state = {
             complete: false,
             head: [],
-            line: []
+            line: [], 
+            tableheader: [],
+            showEditColumn: false
         }
-
+        
         this.client = Authentication.getClient()
     }
 
@@ -241,10 +244,22 @@ class SalesOrderDetail extends Component {
                     this.state.head.length ? this.head() : null
                 }
                 <div className={'tablecontent ' + (this.state.head.length ? 'fades ' : 'hidden')}>
-                    <SODTable ref={this.potableref} className='animated fadeIn' style={{ display: 'none' }} head={this.state.line}><tr></tr></SODTable>
+                    <SODTable ref={this.potableref} 
+                    className='animated fadeIn' 
+                    style={{ display: 'none' }} 
+                    head={this.state.line} 
+                    showEditColumn = {() => this.setState({ showEditColumn: true })}
+                    getTableHeader = {(e) => this.setState({ tableheader: e })}
+                    ><tr></tr></SODTable>
                 </div>
                 <div className={(this.state.head.length ? 'hidden' : 'spinner')} />
 
+                <EditColumn isOpen={this.state.showEditColumn} 
+                            toggle={() => this.setState({ showEditColumn: false })}
+                            fields={this.state.tableheader}
+                            updateTableColumn={(e) => this.setState({ tableheader: e })}
+                            modulName="Sales Order Detail" 
+                />
             </div>
         )
     }

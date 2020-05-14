@@ -269,14 +269,14 @@ class PurchaseOrder extends Component {
                         additionalComponent = {this.showDropdowns()} />
             </div>
 
-            <div className='filterbar'>
+            {/* <div className='filterbar'>
                 <div style={{display:'flex', width:'100%'}}>
                     {
                         this.state.filterclicked ? null :
                         null
                     }
                 </div>               
-            </div>
+            </div> */}
             <div className={' ' + ( this.state.complete ? 'fades ' : 'hidden')}>
                 <PurchaseOrderTable ref={this.potableref} 
                                     className='animated fadeIn' 

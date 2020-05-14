@@ -48,7 +48,13 @@ export default class SalesOrderEditColumn extends Component {
                         <img src={iconedit}/>
                         <div className='edit-column-modal-title'>Edit Column</div>
                     </div>
-                    <span className='btnclose-modal-edit' onClick={this.props.toggle}>X</span>
+                    <span className='btnclose-modal-edit' onClick={this.props.toggle}>
+                    <i
+                      className="iconU-close"
+                      style={{ fontSize: "25px" }}
+                      aria-hidden="true"
+                    />
+                    </span>
                     </div>
                     <div>Show and hide the column according to your needs, Please select 5 to 10 columns to show</div>
                     </div>
