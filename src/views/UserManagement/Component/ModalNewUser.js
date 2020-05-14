@@ -204,9 +204,9 @@ const modalNewUser = (props) => {
                                 <label className="review-title-label" style={{color:"#D5D8DA"}}>Email</label>
                               </div>
 
-                              <div className="col-3">
+                              {/* <div className="col-3">
                                 <label className="review-title-label" style={{color:"#D5D8DA"}}>Company</label>
-                              </div>
+                              </div> */}
                           </div>
 
                           <div className="row">
@@ -222,9 +222,9 @@ const modalNewUser = (props) => {
                                 <label name="email" className="form-control border-0 review-text-value">{model.email}</label>
                               </div>
 
-                              <div className="col-3">
+                              {/* <div className="col-3">
                                 <label name="company" className="form-control border-0 review-text-value">{model.company}</label>
-                              </div>
+                              </div> */}
                           </div>
 
                           <div className={(isWebGroup)?"d-none ":""}>
