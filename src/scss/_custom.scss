@@ -60,11 +60,12 @@ h2{
 
 .iconU-stockMovement:before {
 	content: "\e90e";
+	font-size: 1.3rem;
 }
 
 .iconU-user:before {
 	content: "\e910";
-    font-size: 0.875rem;
+    font-size: 1.3rem;
 }
 
 .iconU-dashboard:before {
@@ -73,7 +74,7 @@ h2{
 
 .iconU-purchaseOrder:before {
 	content: "\e915";
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 
 .iconU-report:before {
@@ -82,12 +83,12 @@ h2{
 
 .iconU-salesOrder:before {
 	content: "\e916";
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 
 .iconU-stockHolding:before {
 	content: "\e90f";
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 
 .iconU-i:before {
@@ -308,15 +309,24 @@ h2{
 
 
 // Start - Sidebar
-
+@media (min-width: 992px){
+	.sidebar-fixed .sidebar {
+		background: #2F275D 0% 0% no-repeat padding-box;
+		font-family: "Helvetica Neue Medium";
+		width: 95px;
+	}
+}
 .sidebar {
-	background: #FFFFFF 0% 0% no-repeat padding-box;
-	width: 270px !important;
-	font-family: "Helvetica Neue Medium";
+	width: 95px;
 }
 
-.sidebar .sidebar-header {
-	background: #FFFFFF 0% 0% no-repeat padding-box;
+.sidebar:hover{
+	width: 270px;
+}
+
+
+.sidebar .sidebar-header{
+	background: transparent 0% 0% no-repeat padding-box;
 	width: 270px;
 }
 
@@ -332,14 +342,24 @@ h2{
 
 .sidebar .sidebar-nav {
 	position: relative;
+	width: 95px;
+}
+.sidebar .sidebar-nav:hover{
+	position: relative;
 	width: 270px;
 }
 
 .sidebar .nav-item {
-	background: #ffffff !important;
+	background: #ffffff ;
 	font-size: 15px !important;
 	line-height: 30px;
 }
+
+.sidebar .nav-name {
+	color: #FFF ;
+	display: contents;
+}
+
 
 .sidebar .nav-item .nav-link.active {
 	border-left: 4px solid $primaryColor !important !important;
@@ -378,7 +398,7 @@ h2{
 }
 
 .sidebar .nav-link.active, .nav-link.active .nav-icon {
-	color: $primaryColor !important !important;
+	// color: $primaryColor !important !important;
 	background: #2F275D !important;
 }
 
@@ -394,7 +414,7 @@ h2{
 	width: 20%;
     margin-left: -60%;
     margin-top: 10%;
-    margin-bottom: 7%;
+    margin-bottom: 13%;
 }
 
 // End - Sidebar
@@ -402,27 +422,14 @@ h2{
 
 // Start - User section
 
-.userSection {
-	background-color: #2F275D ;
-	border-radius: 10px;
-	width: 230px;
-	align-self: center;
-	padding: 7px;
-	margin-left: -20%;
-    margin-bottom: -5%;
-}
-.userLogout {
-	background-color: #2F275D ;
-	border-radius: 10px;
-	width: 230px;
-	align-self: center;
-	padding: 7px;
-	margin-left: -4%;
-    margin-bottom: 8%;
+.userLogout{
+	margin-bottom: 32px;
 }
 
 .profilePhoto {
-	width: 58%;
+	width: 24%;
+    margin-left: -40%;
+    margin-bottom: 5%;
 }
 
 .userName {
@@ -432,33 +439,34 @@ h2{
     /* letter-spacing: 0; */
     color: #FFF;
     align-self: center;
-    /* padding-left: 10px; */
-    /* padding-top: 5px; */
+	margin-left: -250%;
 }
+
 
 .profileID {
     vertical-align: top;
     color: #FFF;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     align-self: center;
-    /* padding-left: 10px; */
+	margin-left: -241%;
 }
 
 .LogoutIcon{
 	vertical-align: top;
     color: #FFF;
-    font-size: 43PX;
+    font-size: 26Px;
     font-weight: bold;
-    align-self: center
+	align-self: center;
+	margin-left: 29%;
 }
 
 .Logout{
-	vertical-align: 13px;
+    vertical-align: 10px;
     color: #FFF;
-    font-size: 20Px;
+    font-size: 15Px;
     font-weight: bold;
-	margin-left: 39px;
+    margin-left: 38px;
 }
 
 .viewProfile {

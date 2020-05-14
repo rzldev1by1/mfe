@@ -100,11 +100,11 @@ class DefaultLayout extends Component {
         return (
             <div className="app">
                 <div className="app-body">
-                    <AppSidebar className="sidebar-fullheight" fixed display="lg"  style={{backgroundColor:"#2F275D"}}>
+                    <AppSidebar fixed display="lg">
                         {/* <AppSidebarHeader /> */}
                         {/* <AppSidebarForm /> */}
                         <Suspense>
-                            <div className="p-0 sidebar-header"  style={{backgroundColor:"#2F275D"}}>
+                            <div className="p-0 sidebar-header">
                                 <img src={logo} alt="" className="sideLogo"/>
                             </div>
 
@@ -113,12 +113,11 @@ class DefaultLayout extends Component {
 																<AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
 															**/
 														  }
+                                                          
+							<SidebarMenu menuItems={this.state.navigationMenu}/>
 
 
-																<SidebarMenu menuItems={this.state.navigationMenu}/>
-
-
-                            <div className="userSection" size="sm" onClick={this.onUserDropdownClick}>
+                            <div className="p-0 sidebar-header" onClick={this.onUserDropdownClick}>
                                         <tr>
                                             <td rowSpan="2" className="text-center align-middle p-0">
                                                 <img className="profilePhoto" src={dummyPic} alt="dummyPic" />
@@ -133,13 +132,13 @@ class DefaultLayout extends Component {
                                             </td>
                                         </tr>
                             </div>
-                                <div className="userLogout" size="sm">
+                                <div className="userLogout  p-0 sidebar-header">
                                         <tr>
                                             <td className="pt-0">
-                                                <a className="LogoutIcon" href="/" onClick={(e) => {this.signOut()} }>
+                                                <span className="LogoutIcon" >
                                                     <i className="iconU-logout" /> 
-                                                </a>
-                                                <a className="Logout" href="/" onClick={(e) => {this.signOut()} }>
+                                                </span>
+                                                <a className="Logout rotate-90" href="/" onClick={(e) => {this.signOut()} }>
                                                     Logout
                                                 </a>
                                             </td>
