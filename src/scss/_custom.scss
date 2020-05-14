@@ -397,6 +397,12 @@ h2{
 	padding-left: 40px;
 }
 
+.sidebar .nav-user {
+	padding-left: 80px !important ; 
+	padding-right: 20px !important;
+}
+
+
 .sidebar .nav-link.active, .nav-link.active .nav-icon {
 	// color: $primaryColor !important !important;
 	background: #2F275D !important;
@@ -424,12 +430,23 @@ h2{
 
 .userLogout{
 	margin-bottom: 32px;
+	margin-top: 10px;
+	margin-left: -15px;
 }
 
 .profilePhoto {
-	width: 24%;
-    margin-left: -40%;
+	width: 100%;
+    margin-left: -30%;
     margin-bottom: 5%;
+}
+
+.divProfilePhoto {
+	padding-left: 30px !important;
+	width: 85px;
+}
+.divLogout {
+	padding-left: 45px !important;
+	width: 110px;
 }
 
 .userName {
@@ -437,9 +454,8 @@ h2{
     font-size: 15px;
     /* text-align: left; */
     /* letter-spacing: 0; */
-    color: #FFF;
-    align-self: center;
-	margin-left: -250%;
+    color: #FFF; 
+	//margin-left: -250%;
 }
 
 
@@ -448,8 +464,8 @@ h2{
     color: #FFF;
     font-size: 12px;
     font-weight: bold;
-    align-self: center;
-	margin-left: -241%;
+    //align-self: center;
+	// margin-left: -241%;
 }
 
 .LogoutIcon{
@@ -458,7 +474,7 @@ h2{
     font-weight: bold;
     align-self: center;
     margin-left: -34%;
-    width: 15%;
+    width: 60%;
 }
 
 .Logout{
@@ -466,7 +482,7 @@ h2{
     color: #FFF;
     font-size: 15Px;
     font-weight: bold;
-    margin-left: 30px;
+    margin-left: 2px;
 }
 
 .viewProfile {

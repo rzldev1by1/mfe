@@ -120,23 +120,31 @@ class DefaultLayout extends Component {
 
                             <div className="p-0 sidebar-header" onClick={this.onUserDropdownClick}>
                                         <tr>
-                                            <td rowSpan="2" className="text-center align-middle p-0">
+                                            <td rowSpan="3" className="text-center align-middle p-0 divProfilePhoto" >
+                                           
+    
                                                 <img className="profilePhoto" src={dummyPic} alt="dummyPic" />
-                                            </td>
-                                            <td className="pb-0">
+                                            </td> 
+                                        </tr>
+                                        <tr> 
+                                            <td className="pt-0">
                                                 <span className="userName">{Authentication.getName()}</span>
+                                                <br />
+                                                <span className="profileID">  ID: {Authentication.getId()} </span>
                                             </td>
                                         </tr>
-                                        <tr>
+                                        {/* <tr> 
                                             <td className="pt-0">
                                                 <span className="profileID"> ID: {Authentication.getId()} </span>
                                             </td>
-                                        </tr>
+                                        </tr> */}
                             </div>
                                 <div className="userLogout  p-0 sidebar-header">
                                         <tr>
-                                            <td className="pt-0">
+                                            <td className="divLogout" >
                                                 <img src={logout} alt="" className="LogoutIcon"/>
+                                            </td>
+                                            <td style={{paddingLeft:'0px'}}> 
                                                 <a className="Logout rotate-90" href="/" onClick={(e) => {this.signOut()} }>
                                                     Logout
                                                 </a>
