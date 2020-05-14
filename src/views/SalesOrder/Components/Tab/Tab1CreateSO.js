@@ -167,7 +167,7 @@ class Tab1CreateSO extends Component {
                     this.props.setClient(clientVal, clientName)
                   }
                   placeHolder="Client"
-                  style={{ minWidth: "100%" }}
+                  style={{ minWidth: "100%", zIndex:10 }}
                   optionList={this.props.clientName.toString()}
                   optionValue={this.props.clientVal.toString()}
                 />

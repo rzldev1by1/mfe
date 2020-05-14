@@ -154,7 +154,7 @@ table{
   border-radius: 5px;
 } */
 .tablePages {
-  max-height: 650px !important;
+  /* max-height: 650px !important; */
   overflow-y: scroll;
   font-size: 1.1em;
 }

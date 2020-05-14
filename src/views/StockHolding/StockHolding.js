@@ -63,7 +63,8 @@ class StockHolding extends Component {
             masterSite: [],
             masterUnit: ["MLB : MICROLISTICS", "MLS : Microlistics", "MLM : MICROLISTICS"],
             masterStatus: ["Ok", "Shortage","All"],
-			masterResStockHolding: []
+			masterResStockHolding: [],
+			statusFilter: 'All'
         };
 
 		this.searchForm = React.createRef();
@@ -175,6 +176,9 @@ class StockHolding extends Component {
 	searchData = () => {
         const { site, status, unit, clientSelected } = this.state;
         let self = this;
+		
+		console.clear();
+		self.setState({statusFilter: status}); 
 
 		self.setState({ isLoaded: true, isSearch: true,
 						currentPage: 1,
@@ -465,7 +469,9 @@ class StockHolding extends Component {
                                     masterResource={this.state.masterResStockHolding}
                                     toggleDisplayMoreColumn={this.toggleDisplayMoreColumn}
                                     history={this.props.history}
-                                    arrowHandler={this.arrowHandler}/>
+                                    arrowHandler={this.arrowHandler}
+									statusFilter={this.state.statusFilter}
+									/>
 				break;
 
 			default :

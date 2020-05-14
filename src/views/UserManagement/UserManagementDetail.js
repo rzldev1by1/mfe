@@ -509,11 +509,11 @@ class UserManagementDetail extends Component{
                                         <label className="title-label">User ID</label>
                                     </div>
 
-                                    <div className="col-2">
+                                    <div className="col-3">
                                         <label className="title-label">Name</label>
                                     </div>
 
-                                    <div className="col-2">
+                                    <div className="col-3">
                                         <label className="title-label">Email</label>
                                     </div>
 
@@ -522,9 +522,9 @@ class UserManagementDetail extends Component{
                                         <label className="title-label">Reset Password</label>
                                     </div>
                                     
-                                    <div className="col-3 pl-0">
+                                    {/* <div className="col-3 pl-0">
                                           <label className="title-label">Suspend Users</label>
-                                    </div>
+                                    </div> */}
                                     
 
                                     </div>
@@ -534,27 +534,27 @@ class UserManagementDetail extends Component{
                                             <input type="text" readOnly className="form-control" defaultValue={this.state.accountInfo.userId}/>
                                         </div>
 
-                                        <div className="col-2">
+                                        <div className="col-3">
                                             <input type="text" className="form-control" maxLength="60" onChange={(e)=>{this.onChangeName(e);}} defaultValue={this.state.accountInfo.user}/>
                                         </div>
 
-                                        <div className="col-2">
+                                        <div className="col-3">
                                             <input type="email" name="email" className="form-control" onChange={(e)=>{this.onChangeEmail(e);}} defaultValue={this.state.accountInfo.email}/>
                                         </div>
 
 
-                                        <div className="col-3 pr-0">
+                                        <div className="col-4 pr-0">
                                               <div className="row pl-0">
                                                 <div className="col-6" style={{color:"#637176",fontFamily:"Helvetica Neue Regular",fontSize:"1rem"}}>                                                  
                                                       Are you sure you want<br/>
-                                                      to reset password?                                                  
+                                                      to create new password?                                                  
                                                 </div>
                                                 <div className="col-5">
                                                   <button type="button" className={"btn "+((accountInfo.passwordChange === '')?"btn-outline-active":"btn-outline-notActive")} onClick={(e)=>{this.onClickResetPassword();}}>Reset</button>
                                                 </div>
                                               </div>
                                         </div>
-                                        <div className="col-3 pl-0">
+                                        {/* <div className="col-3 pl-0">
                                           <div className="row">
                                               <div className="col-6" style={{color:"#637176",fontFamily:"Helvetica Neue Regular",fontSize:"1rem"}}>
                                                     Are you sure you want<br/>
@@ -567,7 +567,7 @@ class UserManagementDetail extends Component{
                                               </div>
                                           </div>
                                               
-                                        </div>
+                                        </div> */}
 
 
                                     </div>
@@ -640,7 +640,7 @@ class UserManagementDetail extends Component{
                 </p>
             </div>
           </ModalHeader>
-          <ModalBody>
+          <ModalBody className="um-reset-modal-body">
             <div className="d-flex justify-content-center">
                 <img className={this.state.isResetSuccess?"img-popup-reset-success":"img-popup-reset"} src={this.state.isResetSuccess?popupLockSuccess:popupLock} />
             </div>

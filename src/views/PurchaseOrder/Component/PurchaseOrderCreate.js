@@ -324,7 +324,7 @@ class PurchaseOrderCreate extends Component {
     }
 
     getsupplier = (client) => {  
-      if(!client) client =  headers.client
+      if(!client) client =  headers.client ? headers.client : "MLS"
       axios.get(endpoint.getSupplier + "?client=" + client, {
         headers: headers
       })
@@ -365,7 +365,7 @@ class PurchaseOrderCreate extends Component {
     }
 
     getproductcode = (e) => {
-      if(!e) e = headers.client
+      if(!e) e = headers.client ? headers.client : "MLS"
         axios.get(endpoint.getProduct + "?client=" + e, {
             headers: headers
         })
@@ -379,7 +379,7 @@ class PurchaseOrderCreate extends Component {
     }
 
     getproductname = (e) => {
-      if(!e) e = headers.client
+      if(!e) e = headers.client ? headers.client : "MLS"
         axios.get(endpoint.getProduct + "?client=" + e, {
             headers: headers
         })

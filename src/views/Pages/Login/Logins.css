@@ -165,6 +165,20 @@
         transition: background-color 0.5s ease;
     }
 
+    .btnLogin {
+        height: 60px;
+        width: 32%;
+        box-sizing: border-box;
+        border: none;
+        border-radius: 9px;
+        margin: 17px auto;
+        transition: background-color 0.5s ease;
+        background-color: #3366FF !important;
+        color: white;
+        font-size: 25px;
+        margin-top: 13%;
+    }
+
     ::placeholder{
         font-size: 20px;
     }
@@ -178,32 +192,17 @@
     min-width: 100%;
     min-height: 100%;
   }
-
-  /* .login-background {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
-  } */
   
   .content {
     position: fixed;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: transparent;
     color: #f1f1f1;
     width: 100%;
     padding: 20px;
     min-width: 100%;
     min-height: 100%;
   }
-
-  /* .mlslogo{
-    width: 19%;
-    margin-left: -0.5%;
-    margin-top: 9.5%;
-    margin-bottom: 0.5%;
-  } */
 
 p{    
     color: white;
@@ -238,30 +237,6 @@ p:hover{
     margin-right: 6%;   
     margin-top: 4%; 
 }
-
-/* .bodyLogin{
-    margin-left: 6%;
-    margin-top: 11%;
-    background-color: #fff;
-    width: 32%;
-    height: 588px;
-    border-radius: 3%;
-} */
-
-/* .logininput{    
-    margin-bottom: 1%;
-    width: 90%;
-    height: 50px;
-    display: inline-block;
-    color: black;
-    padding: 10px;
-    box-sizing: border-box;
-    border: none;
-    border-radius: 4px;
-    margin: auto;
-    transition:background-color 0.5s ease;
-    border: 2px solid transparent;
-} */
 
 .logininputrequired{    
     margin-bottom: 1%;
@@ -300,35 +275,6 @@ p:hover{
     float: right;
     color: orange;
 }
-/* .inputWrap{
-    width: 82%;
-    padding:6%;
-    border-radius: 12px;
-    margin-bottom: 1%;
-    border-width: 2px;
-    border-color: #a1aeb9;
-    font-size: 26px;
-}
-
-.forgetPassword{
-    color: #3366FF !important;
-    font-size: 22px;
-    font-weight: initial;
-    margin-left: 30px;
-    font-family: "Helvetica Neue Regular";
-}
-.textDown{
-    color: #a1aeb9 !important;
-    font-size: 19px;
-    margin-left: 40px;
-}
-.vertikal{
-    border: 1px #a1aeb9 solid;
-    height: 15px;
-    width: 0px;
-    display: inline-table;
-    margin-left: 42px;
-} */
 
 .loader {
     font-size: 28px;
@@ -381,18 +327,6 @@ p:hover{
 .icon > img{
     width: 35%;
 }
-
-/* .footer{
-    color: white;
-    font-size: 160%;
-    display: flex;
-    justify-content: space-between!important;
-    width: 100%;
-    margin-top: 4%;
-    margin-left: 143px;
-    font-family: Arial, Helvetica, sans-serif;
-    letter-spacing: 0;
-} */
 
 .footer > a{
     color: white;

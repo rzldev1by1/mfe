@@ -1,14 +1,14 @@
 /* ∞∞ global ∞∞ */
-/* .select_dropdown, .expand-style, .select_dropdown_items, .select_dropdown_options, .select_dropdown_option {
+.select_autocomplete, .expand-style, .select_autocomplete_items, .select_autocomplete_options, .select_autocomplete_option {
 	position: relative;
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 	border-color: inherit;
-} */
+}
 
 /* ∞∞ Input elements ∞∞ */
-/* .select_dropdown_close, .select_dropdown_expand, .select_dropdown_input {
+.select_autocomplete_close, .select_autocomplete_expand, .select_autocomplete_input {
   	color: inherit;
   	font: inherit;
   	margin: 0;
@@ -21,31 +21,24 @@
 		        appearance: none;
 }
 
-.select_dropdown {
+.select_autocomplete {
 	width: 150px;
-	height: 40px;
+	height: 50px;
 	cursor: pointer;
 	list-style: none;
 	background-color: #FFFFFF;
-	border-radius: 5px;
-	border: 1px solid #D5D8DA;
     z-index: 2;
-} */
+}
 
-/* .select_dropdown:hover, .select_dropdown:focus-within{
-	transition: 0.2s ease-in;
-	border: 1px solid #3366FF !important;
-} */
-
-/* .select_dropdown_expand {
+.select_autocomplete_expand {
 	width: 0;
-	height: 40px;
+	/* height: 50px; */
 	position: absolute;
-	top: 0;
+	top: -25px;
 	right: 10px;
-} */
+}
 
-/* .select_dropdown_expand::after {
+.select_autocomplete_expand::after {
 	content: '\003E';
     position: absolute;
     top: 50%;
@@ -58,28 +51,28 @@
     z-index: 2;
     -webkit-transition: all 250ms cubic-bezier(.4,.25,.3,1);
     transition: all 250ms cubic-bezier(.4,.25,.3,1);
-} */
-/* 
-.select_dropdown_expand:hover::after {opacity: 1}
+}
 
-.select_dropdown_expand:checked::after {
+.select_autocomplete_expand:hover::after {opacity: 1}
+
+.select_autocomplete_expand:checked::after {
 	-webkit-transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.75);
 	transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.75);
 }
 		
-.select_dropdown_expandLabel {
+.select_autocomplete_expandLabel {
 	display: block;
 	width: 100%;
-	height: 40px;
+	height: 50px;
 	position: absolute;
 	top: 0;
 	left: 0;
 	cursor: pointer;
 }
 
-.select_dropdown_close {display: none}
+.select_autocomplete_close {display: none}
 
-.select_dropdown_closeLabel {
+.select_autocomplete_closeLabel {
 	width: 100vw;
 	height: 100vh;
 	position: fixed;
@@ -88,21 +81,29 @@
 	display: none;
 }
 
-.select_dropdown_items { 
+
+.select_autocomplete_items { 
+	border: 1px solid #3366FF;
+	border-radius: 5px;
 	list-style: none;
 	width: 100%;
-	position: absolute;
+	/* position: absolute; */
 	top: 0;
 	left: 0;
-	border-radius: 2px;
-	padding-top: 40px;
+    /* padding-top: 50px; */
+    border-top: 0;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
 }
 
-.select_dropdown_input {display: none}
+.select_autocomplete_items_closed{
+    border-bottom: 0 !important;
+}
+.select_autocomplete_input {display: none}
 		
-.select_dropdown_options{list-style: none; }
+.select_autocomplete_options{list-style: none; }
 
-.select_dropdown_label {
+.select_autocomplete_label {
 	font-family: "Helvetica Neue Regular";
 	margin-bottom: 0 !important;
 	transition: all 250ms cubic-bezier(.4,.25,.3,1);
@@ -110,120 +111,34 @@
 	height: 0;
 	background-color: #FFFFFF;
 	font-size: 1rem;
-	line-height: 40px;
+	line-height: 50px;
 	overflow: hidden;
 	cursor: pointer;
 	padding-left: 20px;
 	user-select: none;
 }
-.select_dropdown_label-placeholder {
-	height: 40px;
-	vertical-align: middle;
-	position: absolute;
-	top: 0;
-	left: 0;
-	color: #7C878C;
-	background-color: transparent;
-	display: block;
-} */
 
 
 
-/* .select_dropdown_expand:checked + .select_dropdown_closeLabel {
+.select_autocomplete_expand:checked + .select_autocomplete_closeLabel {
 	display: block;
 }
 
-.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options{
-	border: 1px solid #3366FF;
-	border-radius: 5px;
-	margin-top: 10px;
+.select_autocomplete_expand:checked + .select_autocomplete_closeLabel + .select_autocomplete_options{
+    max-height: 250px;
+    overflow: scroll;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background: #FFFFFF;
+	/* margin-top: 10px; */
 }
 
-.select_dropdown_close:checked + span + .select_dropdown_items > .select_dropdown_options{
-	border-radius: 5px;
-	margin-top: 10px;
+
+.select_autocomplete_expand:checked + .select_autocomplete_closeLabel + .select_autocomplete_options .select_autocomplete_label {
+	height: 50px;
 }
 
-.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options .select_dropdown_label {
-	height: 40px;
-} */
-
-/* 
-.search-input{
-    display: none;
-}
-.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options .search-input {
-	border-bottom: 1px solid #e8e8e8 !important;
-    transition: all 250ms cubic-bezier(.4,.25,.3,1);
-    display: block;
-    height: 40px !important;
-    line-height: 40px;
-    border: none;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options .select_dropdown_label:hover {
-	font-family: "Helvetica Neue Medium";
-	background-color: #F6F7F9;
-}
-
-.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options + .select_dropdown_expandLabel {display: none}
-
-.select_dropdown_input:checked + .select_dropdown_label {
-	height: 30px;
-	margin-top: -40px;
-	border-radius: 5px;
-	border-bottom: 1px solid #969EA1;
-} */
-/* .select_dropdown_expand:checked + .select_dropdown {
-	display: block;
-	border-bottom-left-radius: 0px !important;
-	border-bottom-right-radius: 0px !important;
-}
-.select_dropdown_expand:checked + .expand-style {
-	width: 225px;
-	height: 40px;
-	cursor: pointer;
-	background-color: #FFFFFF;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
-} */
-
-/* Dropdown for Datepicker */
-/* .select_datepicker_label{
-    font-size: 0.8rem !important;
-    line-height: 30px !important;
-	padding-left: 14px !important;
-}
-.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options .select_datepicker_label {
-	height: 25px !important;
-}
-
-.select_datepicker_label-placeholder{
-    height: 25px !important;
-}
-.select_dropdown_input:checked + .select_datepicker_label {
-	height: 25px !important;
-}
-.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_datepicker_options{
-	margin-top: -5px !important;
-}
-
-.select_dropdown_close:checked + span + .select_dropdown_items > .select_datepicker_options{
-	margin-top: -5px !important;
-}
-.select_datepicker_expand::after {
-    top: 37% !important;
-    right: -5px !important;
-} */
-
-.search-input{
-    display: none;
-}
-.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options .search-input {
+.select_autocomplete_expand:checked + .select_autocomplete_closeLabel + .select_autocomplete_options .search-input {
 	border-bottom: 1px solid #e8e8e8 !important;
     transition: all 250ms cubic-bezier(.4,.25,.3,1);
     display: block;
@@ -233,3 +148,86 @@
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
+
+.select_autocomplete_expand:checked + .select_autocomplete_closeLabel + .select_autocomplete_options .select_autocomplete_label:hover {
+	font-family: "Helvetica Neue Medium";
+	background-color: #F6F7F9;
+}
+
+.select_autocomplete_expand:checked + .select_autocomplete_closeLabel + .select_autocomplete_options + .select_autocomplete_expandLabel {display: none}
+
+.select_autocomplete_expand:checked + .select_autocomplete {
+	display: block;
+	border-bottom-left-radius: 0px !important;
+	border-bottom-right-radius: 0px !important;
+}
+.select_autocomplete_expand:checked + .expand-style {
+	width: 225px;
+	height: 50px;
+	cursor: pointer;
+	background-color: #FFFFFF;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+/* Dropdown for Datepicker */
+.select_datepicker_label{
+    font-size: 0.8rem !important;
+    line-height: 30px !important;
+	padding-left: 14px !important;
+}
+.select_autocomplete_expand:checked + .select_autocomplete_closeLabel + .select_autocomplete_options .select_datepicker_label {
+	height: 25px !important;
+}
+
+.select_datepicker_label-placeholder{
+    height: 25px !important;
+}
+.select_autocomplete_input:checked + .select_datepicker_label {
+	height: 25px !important;
+}
+.select_autocomplete_expand:checked + .select_datepicker_options{
+	margin-top: -5px !important;
+}
+
+.select_autocomplete_close:checked + span + .select_autocomplete_items > .select_datepicker_options{
+	margin-top: -5px !important;
+}
+.select_datepicker_expand::after {
+    top: 37% !important;
+    right: -5px !important;
+}
+
+.search-input{
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.search-input:focus{
+    border-bottom: 1px solid #e6e6e6 !important;
+}
+
+.search-input-focus{
+    box-shadow: none !important;
+    border-color: #3366FF !important;
+    border-bottom: 1px solid #e6e6e6 !important;
+  }
+
+.search-input-placeholder::placeholder{
+    text-transform: none;
+}
+/* .search-input{
+    display: none;
+}
+.select_autocomplete_expand:checked + .select_autocomplete_closeLabel + .select_autocomplete_options .search-input {
+	border-bottom: 1px solid #e8e8e8 !important;
+    transition: all 250ms cubic-bezier(.4,.25,.3,1);
+    display: block;
+    height: 50px !important;
+    line-height: 50px;
+    border: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+} */

@@ -731,42 +731,44 @@ class UserManagement extends Component{
                 </div>
             </div>
 
+            <Card className="border-account-info mb-3">
+              <CardBody className="account-info p-0">
+                  <PersonalUserComponent data={this.state.personalUser} headers={this.state.headersPersonal} />
+                  <Card className="border-0 mb-0" style={{borderRadius:"0px"}}> 
+                      <CardBody className="pt-1 pl-0 pr-0 pb-0">
+                        <form ref={this.searchForm} onSubmit ={this.searchHandler}>
+                          <div className="row">
+                              <div className='searchColumnUm'>
+                                  <div className="searchINP">
+                                      <div className="input-group p-0 searchSection">
+                                            <div className="input-group um-searchBox w-100 default-box-height" style={{maxWidth:"none"}}>
+                                                <span className="input-group-text border-0 bg-transparent ml-2" style={{ padding:"0.4rem" }}>
+                                                    <i className="iconU-search" />
+                                                </span>
+                                                <input type="text" style={{ fontFamily: "Helvetica Neue Medium", backgroundColor:"transparent" }}
+                                                  className="form-control searchInput" id="searchInput" name="searchInput"
+                                                  placeholder="Enter User Id or User Name" />
+                                            </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div>
+                                <Button type="submit" className="default-box-height search search-um text-button btn-primary">
+                                    Search
+                                </Button>
+                              </div>
 
-           <PersonalUserComponent data={this.state.personalUser} headers={this.state.headersPersonal} />
+                          </div>
+                      </form>
+                      </CardBody> 
+                  </Card>
+              </CardBody>
+            </Card>
 
 
             <div className={( this.state.isListLoaded ? 'd-none': 'spinner')}/>
             <div className={( this.state.isListLoaded ? '':' d-none ')}>
-              <div className="mb-3">
-                <Card className="container-user-list border-0 mb-0"> 
-                <CardBody>
-                <form ref={this.searchForm} onSubmit ={this.searchHandler}>
-                <div className="row">
-                <div className='searchColumnUm'>
-                    <div className="searchINP">
-                    <div className="input-group p-0 searchSection">
-                    <div className="input-group searchBox w-100 default-box-height" style={{maxWidth:"none"}}>
-                    <span className="input-group-text border-0 bg-transparent ml-2" style={{ padding:"0.4rem" }}>
-                    <i className="iconU-search" />
-                    </span>
-                    <input type="text" style={{ fontFamily: "Helvetica Neue Medium", backgroundColor:"transparent" }}
-                    className="form-control searchInput" id="searchInput" name="searchInput"
-                    placeholder="Enter User Id or User Name" />
-                    </div>
-                    </div>
-                    </div>
-                </div>
-                <div>
-                    <Button type="submit" className="default-box-height search search-um text-button btn-primary">
-                      Search
-                    </Button>
-                </div>
-
-                </div>
-                </form>
-                </CardBody> 
-                </Card>
-              </div>
+             
 
                 <Card className="container-user-list border-0 mb-2">
                 <CardBody className="p-0">

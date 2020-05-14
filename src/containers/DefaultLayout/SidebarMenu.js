@@ -11,7 +11,7 @@ const SidebarMenu = (props) => {
       {
        (menuItems)? menuItems.items.map((item,index)=>{
           return <li className="nav-item" key={item.key}>
-          <NavLink className="nav-link" activeClassName="active" to={item.url} >
+          <NavLink className="nav-link"  activeClassName="active" to={item.url} >
               <i className={"nav-icon "+ item.icon}>
               </i>
               {item.name}
