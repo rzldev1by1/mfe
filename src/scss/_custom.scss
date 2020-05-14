@@ -545,7 +545,7 @@ a.breadcrumb:hover {
     justify-content: space-between;
     align-items: center;
 	padding: 15px;
-	padding-bottom: 5px;
+	//padding-bottom: 5px;
 	border-radius: 5px;
 }
 
@@ -1101,32 +1101,32 @@ span.upArrow:before {
  
 @media(max-width: 2100px) {
 	.tablePage{
-		max-height: 665px;
+		max-height: 675px;
 	}
 }
 @media(max-width: 1830px) {
 	.tablePage{
-		max-height: 560px;
+		max-height: 575px;
 	}
 }
 @media(max-width: 1710px) { 
 	.tablePage{
-		max-height: 508px;
+		max-height: 525px;
 	}
 }
 @media(max-width: 1520px) {
 	.tablePage{
-		max-height: 425px;
+		max-height: 440px;
 	}
 }
 @media(max-width: 1366px) {
 	.tablePage{
-		max-height: 360px;
+		max-height: 375px;
 	}
 }
 @media(max-width: 1242px) {
 	.tablePage{
-		max-height: 300px;
+		max-height: 320px;
 	}
 } 
 @media(max-width: 1000px) {
