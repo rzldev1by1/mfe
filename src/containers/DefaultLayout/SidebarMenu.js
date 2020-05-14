@@ -6,7 +6,6 @@ const SidebarMenu = (props) => {
     const {menuItems} = props;
 
   return (
-    <div className="scrollbar-container sidebar-nav">
       <ul className="nav">
       {
        (menuItems)? menuItems.items.map((item,index)=>{
@@ -20,8 +19,7 @@ const SidebarMenu = (props) => {
           </li>
         }):""
       }
-      </ul>
-    </div>
+      </ul> 
   )
 }
 

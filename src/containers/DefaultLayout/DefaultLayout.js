@@ -23,7 +23,7 @@ import routes from '../../routes';
 import Authentication from '../../Auth/Authentication';
 
 import logo from '../../assets/img/brand/LOGO2.png';
-import logout from '../../assets/img/brand/logout.png';
+import logout from '../../assets/img/brand/logout2.png';
 import dummyPic from '../../assets/img/brand/User-Icon.png';
 import menunav from '../../menunav';
 import SidebarMenu from './SidebarMenu';
@@ -114,11 +114,11 @@ class DefaultLayout extends Component {
 																<AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
 															**/
 														  }
-                                                          
+                                   
+                    <div className="scrollbar-container sidebar-nav">                     
 							<SidebarMenu menuItems={this.state.navigationMenu}/>
 
-
-                            <div className="p-0 sidebar-header" onClick={this.onUserDropdownClick}>
+                            <div className="p-0 sidebar-header" style={{textAlign: 'left',marginTop: '30px'}} onClick={this.onUserDropdownClick}>
                                         <tr>
                                             <td rowSpan="3" className="text-center align-middle p-0 divProfilePhoto" >
                                            
@@ -140,17 +140,13 @@ class DefaultLayout extends Component {
                                         </tr> */}
                             </div>
                                 <div className="userLogout  p-0 sidebar-header">
-                                        <tr>
-                                            <td className="divLogout" >
-                                                <img src={logout} alt="" className="LogoutIcon"/>
-                                            </td>
-                                            <td style={{paddingLeft:'0px'}}> 
-                                                <a className="Logout rotate-90" href="/" onClick={(e) => {this.signOut()} }>
-                                                    Logout
-                                                </a>
-                                            </td>
-                                        </tr>
+                                    <ul className="nav">
+                                        <li class="nav-item"><a class="nav-link" href="/" onClick={(e) => {this.signOut()} }><img src={logout} alt="" className="LogoutIcon"/><i class="nav-icon "></i><div class="nav-name Logout">Logout</div></a></li>
+                                    </ul>
                                 </div>
+                    </div>                                         
+
+                           
 
                             {/* {this.expandUser()} */}
                         </Suspense>
