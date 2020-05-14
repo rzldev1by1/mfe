@@ -32,9 +32,9 @@ export default class MovementSearch extends Component {
             client:null,
             site:null,
             search:"",
-            siteSelected: null,
-            clientSelected: null,
-            productSelected: null
+            siteSelected: "",
+            clientSelected: "",
+            productSelected: ""
         }
     }
     componentDidMount = () => {
