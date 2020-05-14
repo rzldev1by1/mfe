@@ -427,7 +427,7 @@ class Movement extends Component {
         if(this.state.pushTableComplete)
         {
             // this.pushData()
-            // this.sortData()
+            this.sortData()
         }
         return(
             <div className={this.state.complete ? 'movementBody' : null}>
