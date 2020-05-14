@@ -602,4 +602,7 @@ h3{
 	vertical-align: top;
 }
 
+.po-hidden{
+	display: none !important;
+}
 

@@ -102,7 +102,8 @@ class PurchaseOrderCreate extends Component {
       emptyOrderDate: null,
       isOrderNoAvailable:true,
 
-      nextClicked:false
+      nextClicked:false,
+      reset: false
     }
 }
 
@@ -330,7 +331,7 @@ class PurchaseOrderCreate extends Component {
       })
         .then(res => {
           const result = res.data
-          this.setState({ supplierdatacr:result })
+          this.setState({ supplierdatacr:result, reset:false })
         })
        
         .catch(error => {
@@ -472,7 +473,7 @@ if(v_orderNo === undefined) v_orderNo = []
     return(
       <div className="tabcontent">
         <h3 className="fonts">Order Details</h3>
-        <table className="createpotable">
+        <table className={"createpotable "}>
           <tr>
             <th className='required-field' style={{ width: "396px" }}>Site</th>
             <th className='required-field' style={{ width: "396px" }}>Client</th>
@@ -495,7 +496,7 @@ if(v_orderNo === undefined) v_orderNo = []
                 style={{ width: "22%", position: "absolute" }}
                 optionList={clientName.toString()}
                 optionValue={clientValue.toString()}
-                getValue={(e) => this.setState({ client: e }, this.getsupplier(e), this.getproductcode(e), this.getproductname(e))}
+                getValue={(e) => this.setState({ client: e, supplier:null, supplierName:null, reset:true }, this.getsupplier(e), this.getproductcode(e), this.getproductname(e))}
                 optionSelected={this.state.client}
                 tabIndex="1"   />
             </td>
@@ -507,6 +508,7 @@ if(v_orderNo === undefined) v_orderNo = []
                 optionValue={supplierName.toString()}
                 getValue={(e) => this.setState({ supplier: e })}
                 optionSelected={this.state.supplier}
+                className={this.state.reset ? ' po-hidden' : null}
                 tabIndex="1"   />
             </td>
             {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form2 put pec" placeholder="Supplier"/> </td> */}
