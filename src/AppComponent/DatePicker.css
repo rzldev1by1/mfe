@@ -168,3 +168,8 @@
 .datepicker-content{
     width: 100%;
 }
+.DayPicker-Day {
+    padding: 0 !important;
+    width: 2.2em;
+    height: 2.2em;
+}
