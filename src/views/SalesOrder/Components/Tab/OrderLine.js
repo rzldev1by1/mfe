@@ -17,11 +17,20 @@ const OrderLine = (props) => {
     ref4,
     dispositionVal,
     disposition,
-    packId
+    packId,
+
   } = props.parameters;
 
+  const nextClicked = props.nextClicked
   let idx = props.idx + 1;
 
+  let eProduct = 'nmtrField'
+  let eUom     = 'nmtrField'
+  let eQty     = 'nmtrField'
+
+  if(!productVal && nextClicked) eProduct = 'mtrField'
+  if(!qty && nextClicked) eQty = 'mtrField'
+  if(!uom && nextClicked) eUom = 'mtrField'
   return (
     <div style={{ marginBottom: "2%" }}>
       <div className="line">
@@ -166,7 +175,7 @@ const OrderLine = (props) => {
               </div>
             </td>
             <td>
-              <div id="orderline-header-product-val-id" className='mtrField'>
+              <div id="orderline-header-product-val-id" className={eProduct}>
                 please select product
               </div>
             </td>
@@ -176,7 +185,7 @@ const OrderLine = (props) => {
               </div>
             </td>
             <td>
-              <div id="orderline-header-qty-val-id" className='mtrField'>
+              <div id="orderline-header-qty-val-id" className={eQty}>
                 please select qty
               </div>
             </td>
@@ -186,7 +195,7 @@ const OrderLine = (props) => {
               </div>
             </td>
             <td>
-              <div id="orderline-header-uom-val-id" className='mtrField'>
+              <div id="orderline-header-uom-val-id" className={eUom}>
                 please select uom
               </div>
             </td>

@@ -485,6 +485,7 @@ class Tab1CreateSO extends Component {
                   }
                   setPackid={(packid, idx) => this.props.setPackid(packid, idx)}
                   removeLineHandler={(idx) => this.props.removeLineHandler(idx)}
+                  nextClicked = {this.props.nextClicked}
                 />
               </div>
             );
