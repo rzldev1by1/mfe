@@ -15,7 +15,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 .personal-header-text{
 	font-family:"Helvetica Neue Bold";
 	font-size: 15px !important;
-	color: #B4B9BB !important;
+	color: #959DA0 !important;
 }
 
 .personal-value-text{
@@ -116,31 +116,22 @@ span.client-notActive{
 
 .um-active{
 	font-family:"Helvetica Neue Medium";
-	color: #7FC242;      
+	color: #05E0BD;      
 	font-size: 18px; 
 }
 
 .um-suspended{
 	font-family:"Helvetica Neue Medium";
-    
-    color: #FF5275; 
+    color: #F94548; 
 }
 
-.name-account{
-	color: #3366FF;
-}
+
 
 .loading-2bigger{
 	font-size: 2.5em;
 }
 
-.btn-refresh-password{
-		height: 50px !important;
-		width: 50px !important;
-		border: 2px solid #3366FF;
-		border-radius: 7px;
-		color: #3366FF;
-}
+
 
 .sync-symbols{
 	font-size: 2em !important;
@@ -311,6 +302,7 @@ input:checked + .slider:before {
 
 .container-user-list{
 	border-radius: 5px;
+	max-height: 100vh;
 }
 
 .title-label{
@@ -562,32 +554,33 @@ input:checked + .slider:before {
 
 @media(max-width: 2100px) {
 	.tablePage.tablePage-um{
-		max-height: 540px;
+		/* max-height: 540px; */
+		max-height: 100vh;
 	}
 }
 @media(max-width: 1830px) {
 	.tablePage.tablePage-um{
-		max-height: 440px;
+		max-height: 100vh;
 	}
 }
 @media(max-width: 1710px) { 
 	.tablePage.tablePage-um{
-		max-height: 390px;
+		max-height: 100vh;
 	}
 }
 @media(max-width: 1520px) {
 	.tablePage.tablePage-um{
-		max-height: 300px;
+		max-height: 100vh;
 	}
 }
 @media(max-width: 1366px) {
 	.tablePage.tablePage-um{
-		max-height: 230px;
+		max-height: 100vh;
 	}
 }
 @media(max-width: 1242px) {
 	.tablePage.tablePage-um{
-		max-height: 50px;
+		max-height: 100vh;
 	}
 } 
 

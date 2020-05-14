@@ -1068,7 +1068,7 @@ span.upArrow:before {
 /* table style*/ 
 .tablePage{ 
 	min-height: 200px; 
-	max-height: 500px;
+	max-height: 100vh;
 	overflow-y: auto;
 	font-size: 1.1em;   
 	clear: both;
@@ -2000,5 +2000,22 @@ th{
 	
 	.user-admin-empty-space{
 		margin-top: 6.25rem;
+	}
+
+	.um-searchBox {
+		max-width:  100%;
+		border: none;
+		height: 43px;		
+	}
+
+	.name-account{
+		color: $primaryColor;
+	}
+	
+	.btn-refresh-password{
+		height: 50px !important;
+		width: 50px !important;
+		border: 2px solid $primaryColor;
+		color: $primaryColor;
 	}
 	/* end um **/
