@@ -1,20 +1,41 @@
-.icon{
-    margin-left: 21%;
-    margin-top: 17%;
-    width: 149%;
-}
+.content {
+    position: fixed;
+    bottom: 0;
+    color: #f1f1f1;
+    background: transparent;
+    width: 100%;
+    padding: 20px;
+    min-width: 100%;
+    min-height: 100%;
+  }
 
-@media(max-width: 1800px){
-    .portal > .icon{
-        margin-left: 21%;
-        margin-top: 17%;
-        width: 149%;
-    }
+@media(min-width: 1500px){
+    .login-background {
+        position: fixed;
+        right: -53px;
+        bottom: 0;
+        min-width: 100%;
+        min-height: 100%;
+      }
+      .mlslogo{
+        width: 19%;
+        margin-left: 30%;
+        margin-top: 13.5%;
+        margin-bottom: 0.5%;
+      }
 }
 @media(max-width: 1500px){
-    .portal > .icon{
-        margin-left: 22%;
-        margin-top: 15%;
-        width: 149%;
+    .login-background {
+        position: fixed;
+        right: -40px;
+        bottom: 0;
+        min-width: 100%;
+        min-height: 100%;
+      }
+      .mlslogo {
+        width: 19%;
+        margin-left: 25.5%;
+        margin-top: 22.5%;
+        margin-bottom: 0.5%;
     }
 }
