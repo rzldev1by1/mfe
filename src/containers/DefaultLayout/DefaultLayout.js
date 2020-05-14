@@ -23,6 +23,7 @@ import routes from '../../routes';
 import Authentication from '../../Auth/Authentication';
 
 import logo from '../../assets/img/brand/LOGO2.png';
+import logout from '../../assets/img/brand/logout.png';
 import dummyPic from '../../assets/img/brand/User-Icon.png';
 import menunav from '../../menunav';
 import SidebarMenu from './SidebarMenu';
@@ -135,9 +136,7 @@ class DefaultLayout extends Component {
                                 <div className="userLogout  p-0 sidebar-header">
                                         <tr>
                                             <td className="pt-0">
-                                                <span className="LogoutIcon" >
-                                                    <i className="iconU-logout" /> 
-                                                </span>
+                                                <img src={logout} alt="" className="LogoutIcon"/>
                                                 <a className="Logout rotate-90" href="/" onClick={(e) => {this.signOut()} }>
                                                     Logout
                                                 </a>
