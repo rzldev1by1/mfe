@@ -105,6 +105,8 @@ class DefaultLayout extends Component {
                         {/* <AppSidebarHeader /> */}
                         {/* <AppSidebarForm /> */}
                         <Suspense>
+                            
+                    <div className="scrollbar-container sidebar-nav"> 
                             <div className="p-0 sidebar-header">
                                 <img src={logo} alt="" className="sideLogo"/>
                             </div>
@@ -114,8 +116,7 @@ class DefaultLayout extends Component {
 																<AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
 															**/
 														  }
-                                   
-                    <div className="scrollbar-container sidebar-nav">                     
+                                                       
 							<SidebarMenu menuItems={this.state.navigationMenu}/>
 
                             <div className="p-0 sidebar-header" style={{textAlign: 'left',marginTop: '30px'}} onClick={this.onUserDropdownClick}>
