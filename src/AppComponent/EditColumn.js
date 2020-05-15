@@ -11,6 +11,9 @@ import eyeinactive from '../assets/img/brand/eyeinactive.png'
 export default class SalesOrderEditColumn extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            newColumn: []
+        }
         this.columnForm = React.createRef();
         let modulTitle = "";
     }
@@ -27,7 +30,7 @@ export default class SalesOrderEditColumn extends Component {
         //     element.isVisible = document.getElementById(element.id).value
         //     return element;
         // });
-        // this.props.updateTableColumn(columns);
+        this.props.updateTableColumn(this.state.newColumn);
         this.props.toggle();
 	}
 
@@ -35,7 +38,7 @@ export default class SalesOrderEditColumn extends Component {
         let newColumn = this.props.fields 
         let active = newColumn[idx].isVisible 
         newColumn[idx].isVisible = !active  
-        this.props.updateTableColumn(newColumn);
+        this.setState({ newColumn: newColumn });
 	}
 
     render() {
