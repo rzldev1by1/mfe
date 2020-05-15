@@ -56,7 +56,7 @@ export default class SalesOrderEditColumn extends Component {
                     />
                     </span>
                     </div>
-                    <div>Show and hide the column according to your needs, Please select 5 to 10 columns to show</div>
+                    <div>Show and hide the column according to your needs. Please select 5 to 10 columns to show.</div>
                     </div>
                 </ModalHeader>
                 <ModalBody>
