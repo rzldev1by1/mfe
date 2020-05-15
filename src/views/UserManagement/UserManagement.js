@@ -657,6 +657,10 @@ class UserManagement extends Component{
        console.log(data)
        return data
       }
+      ExportFont = () => {
+        let Font = "10";
+        return Font;
+      };
 
     isValidUser = () => {
       let result = false;
@@ -799,8 +803,8 @@ class UserManagement extends Component{
                         maxPage={(this.state.totalPage)}
                         startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                         numberEventClick={this.numberEventClick}/>
-                      <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
-                          ExportHeader={this.ExportHeader} ExportData={this.ExportData}/>
+                       <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                              ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont}/>
                   </div>
                 </div>
             </div>
