@@ -87,7 +87,7 @@ class UserManagement extends Component{
     }
 
     componentDidMount(){
-      
+       console.log(headers);
         this.loadUsers();
         this.loadModuleAccess();
         this.loadClients();
