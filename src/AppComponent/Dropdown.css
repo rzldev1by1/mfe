@@ -35,7 +35,7 @@
 
 .select_dropdown:hover, .select_dropdown:focus-within{
 	transition: 0.2s ease-in;
-	border: 1px solid #22ABE3 !important;
+	border: 1px solid #3366FF !important;
 }
 
 .select_dropdown_expand {
@@ -134,7 +134,7 @@
 }
 
 .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options{
-	border: 1px solid #22ABE3;
+	border: 1px solid #3366FF;
 	border-radius: 5px;
 	margin-top: 10px;
 }
@@ -156,7 +156,7 @@
 .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options + .select_dropdown_expandLabel {display: none}
 
 .select_dropdown_input:checked + .select_dropdown_label {
-	height: 30px;
+	height: 35px;
 	margin-top: -50px;
 	border-radius: 5px;
 	/* border-bottom: 1px solid #969EA1; */
@@ -201,6 +201,6 @@
 	margin-top: -5px !important;
 }
 .select_datepicker_expand::after {
-    top: 37% !important;
-    right: -5px !important;
+    top: 30% !important;
+    right: 1px !important;
 }

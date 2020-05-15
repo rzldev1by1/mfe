@@ -61,15 +61,18 @@ class StockHolding extends Component {
 				{ id: "pallets", checkboxLabelText: "Pallets", tableHeaderText: "Pallets", isVisible: false, key: "pallet", type: "string", sort: mid },
             ],
             masterSite: [],
-            masterUnit: ["MLB", "MLS", "MLM"],
-            masterStatus: ["OK", "SHORTAGE"],
-			masterResStockHolding: []
+            masterUnit: ["MLB : MICROLISTICS", "MLS : Microlistics", "MLM : MICROLISTICS"],
+            masterStatus: ["Ok", "Shortage","All"],
+			masterResStockHolding: [],
+			statusFilter: 'All'
         };
 
 		this.searchForm = React.createRef();
 	}
 
 	componentDidMount() {
+		console.log(headers);
+		this.getclient();
         this.getSite();
 		this.loadStockHolding();
 	}
@@ -125,6 +128,19 @@ class StockHolding extends Component {
                 self.setState({ masterSite: result });
             }
         });
+	}
+	getclient = () => {
+        axios.get(endpoint.getClient, {
+          headers: headers
+        })
+          .then(res => {
+            const result = res.data
+            this.setState({ clientdata:result })
+          })
+          .catch(error => {
+            
+            console.log(error);
+          })
     }
 
     loadStockHolding = () => {
@@ -158,8 +174,11 @@ class StockHolding extends Component {
     }
 
 	searchData = () => {
-        const { site, status, unit } = this.state;
+        const { site, status, unit, clientSelected } = this.state;
         let self = this;
+		
+		console.clear();
+		self.setState({statusFilter: status}); 
 
 		self.setState({ isLoaded: true, isSearch: true,
 						currentPage: 1,
@@ -173,6 +192,7 @@ class StockHolding extends Component {
         if (site !== "") { params.site = site }
         if (unit !== "") { params.unit = unit }
         if (status !== "") { params.status = status }
+        if (clientSelected !== "") { params.client = clientSelected }
 
         axios.get(endpoint.stockHoldingSummary, {
             params: params,
@@ -208,39 +228,69 @@ class StockHolding extends Component {
 
     selectedStatus = (status) => {
         this.setState({ status: status });
-    }
+	}
+	getClientSelected = (value) => {
+        this.setState({ clientSelected: value });
+      };
 
 
     showDropdown = () => {
+		let clientName = [];
+        let clientValue = [];
         let masterSite = [];
+        let masterSiteValue = [];
+        let Masterstatus = [];
         if (this.state.masterSite.length > 0) {
             this.state.masterSite.map((item) => {
-                masterSite.push(item.site);
-            });
-        }
+                masterSite.push(item.site + ' : '+ item.name );
+                masterSiteValue.push(item.site);
+			});
+		}
+		masterSite.push("All");
+		masterSiteValue.push("");
 
-        let masterUnit = this.state.masterUnit.toString();
-        let masterStatus = this.state.masterStatus.toString();
+		if(this.state.clientdata){
+            this.state.clientdata.map((data) => {
+                clientName.push(data.code + ' : '+data.name );
+                clientValue.push(data.code);
+            })
+        }
+		clientName.push("All");
+		clientValue.push("");
+
+		let masterUnit = this.state.masterUnit.toString();
+		let masterStatus = this.state.masterStatus;
+        let masterStatusValue = [];
+
+		
+        if (this.state.masterStatus.length > 0) {
+            this.state.masterStatus.map((item) => {  
+				if(item=="ALL"){
+					masterStatusValue.push(""); 
+				}else{
+					masterStatusValue.push(item);  
+				}
+			}); 
+		}
 
         return (
-            <div className={"input-group filterSection" + (this.state.showFilter ? "" : " d-none")}>
-                <Dropdown placeHolder="Site" style={{marginRight:'15px', width:'100px'}}
-                          optionList={masterSite.toString()}
-                          optionValue={masterSite.toString()}
-                          getValue={this.selectedSite} />
+			<React.Fragment>
+                <Dropdown 	placeHolder="Site"
+							optionList={masterSite.toString()}
+							optionValue={masterSiteValue.toString()}
+							getValue={this.selectedSite} className="filterDropdown" />
 
-				<Dropdown placeHolder="Client" style={{marginRight:'15px', width:'218px'}}
-                        optionList={masterUnit}
-                        optionValue={masterUnit}
-                        getValue={this.selectedUnit} />
+				<Dropdown 	placeHolder="Client"
+                        	className="filterDropdown"
+                            optionList={clientName.toString()} 
+                            optionValue={clientValue.toString()} 
+                            getValue={this.getClientSelected}/>
 
-                <Dropdown placeHolder="Status"
-						style={{width: "140px"}}
-                        optionList={masterStatus}
-                        optionValue={masterStatus}
-                        getValue={this.selectedStatus} />
-
-            </div>
+                <Dropdown 	placeHolder="Status" 
+							optionList={masterStatus.toString()}
+							optionValue={masterStatusValue.toString()}
+							getValue={this.selectedStatus} className="filterDropdown" />
+			</React.Fragment>
         );
     }
 
@@ -405,6 +455,10 @@ class StockHolding extends Component {
 		console.log(data)
 		return data
 	  }
+	  ExportFont = () => {
+		let Font = "8";
+		return Font;
+	  };
 
 
 	render() {
@@ -419,7 +473,9 @@ class StockHolding extends Component {
                                     masterResource={this.state.masterResStockHolding}
                                     toggleDisplayMoreColumn={this.toggleDisplayMoreColumn}
                                     history={this.props.history}
-                                    arrowHandler={this.arrowHandler}/>
+                                    arrowHandler={this.arrowHandler}
+									statusFilter={this.state.statusFilter}
+									/>
 				break;
 
 			default :
@@ -457,8 +513,8 @@ class StockHolding extends Component {
                                                                         <Search showFilter={this.state.showFilter}
                                                                                 triggerShowFilter={this.triggerShowFilter}
                                                                                 searchData={this.searchData}
-                                                                                placeholder="Enter a Product or Description" />
-                                                                        {this.showDropdown()}
+																				placeholder="Enter a Product or Description"
+																				additionalComponent={this.showDropdown()} />
 																	</Card>
 																</div>
 															</InputGroup>
@@ -500,8 +556,8 @@ class StockHolding extends Component {
                                             startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                                             isActive={this.state.isActive}
                                             numberEventClick={this.numberEventClick} />
-									<Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
-                            				 ExportData={this.ExportData} ExportHeader={this.ExportHeader}/>
+									 <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                              				ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont}/>
                                 </div>
 							</div>
 						</div>
@@ -510,7 +566,9 @@ class StockHolding extends Component {
 				<EditColumn isOpen={this.state.showEditColumn}
                             toggle={this.toggleDisplayMoreColumn}
                             fields={this.state.columns}
-                            updateTableColumn={this.updateTableColumn} />
+                            updateTableColumn={this.updateTableColumn} 
+							modulName="Stock Holding"
+							/>
 			</React.Fragment>
 		);
 	}

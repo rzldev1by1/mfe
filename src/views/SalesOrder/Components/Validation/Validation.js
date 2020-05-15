@@ -1,4 +1,3 @@
-
 const headerValidation = (header) => {
   let error = []
     if(!header.site || header.site == '')
@@ -18,11 +17,11 @@ const headerValidation = (header) => {
         document.getElementById('orderId').focus()      
         error.push(['order no', 'order no cannot be empty'])
     }
-    if(header.orderId && header.orderId.length < 4)
+    if(header.orderId && header.orderId.length < 5)
     {
       document.getElementById('orderId').value = null
       document.getElementById('orderId').focus()
-      error.push(['order no length', 'order no must have min 4 characters or more'])
+      error.push(['order no length', 'order no must have min 5 characters or more'])
     }
     if(!header.deliveryDate || header.deliveryDate == '')
     {
@@ -59,19 +58,16 @@ const lineDetailValidation = (lineDetail, idx) => {
   
   if(!lineDetail.product || lineDetail.product == '')
   {
-    alert('product in line '+idx+' must be choosen')
     return false 
   }
   if(!lineDetail.qty || lineDetail.qty == '')
-  {
-    alert('quantity in line '+idx+' cannot be empty')    
+  {  
     qty.focus()
     qty.value = null
     return false
   }
   if(lineDetail.qty.includes('-') || lineDetail.qty.includes('e'))
   {
-    alert('Qty in line '+idx+' must be a positive number, negatives are not allowed')
     qty.focus()
     qty.value = null
     return false
@@ -79,7 +75,6 @@ const lineDetailValidation = (lineDetail, idx) => {
 
   if(!lineDetail.uom || lineDetail.uom == '')
   {
-    alert('uom in line '+idx+' must be choosen')
     return false
   }
   

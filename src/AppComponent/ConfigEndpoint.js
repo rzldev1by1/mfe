@@ -27,6 +27,7 @@ const endpoint = {
     "getOrderType": baseUrl + "dropdown/getordertype",
     "getSoResources": baseUrl + "getsorecources",
     "getPOResources": baseUrl + "getporecources",
+    "orderCheck": baseUrl + "orderCheck",
 
     "getSoIdentity":baseUrl + "getSoIdentity",
     "getProduct": baseUrl + "dropdown/getProduct",
@@ -43,13 +44,11 @@ const endpoint = {
 
 const headers = {
     'userLevel': Authentication.getUserLevel(),
-    // 'companyCode': Authentication.getCompanyCode(),
-    // 'userLevel': 'WAREHOUSE',
-    'client': 'MLS',
+    'client': Authentication.getClient(),
     'Authorization': 'Bearer ' + Authentication.getToken(),
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'WebUser': Authentication.getWebUser()
+    'WebUser': Authentication.getWebUser(),
 };
 
 const POheaders = {
@@ -58,6 +57,8 @@ const POheaders = {
     'Authorization': 'Bearer ' + Authentication.getToken(),
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Client': 'MLS'
+    'Client': Authentication.getClient()
 };
-export { endpoint, headers, POheaders };
+
+const getUserSite = Authentication.getSite()
+export { endpoint, headers, POheaders, getUserSite };

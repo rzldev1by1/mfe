@@ -38,12 +38,17 @@ class Paging extends Component {
         let current = this.props.currentPage,
             totalPage = this.props.maxPage,
             delta = 1,
-            left = current - delta - 2,
-            right = current + delta + 1,
+            left = current - delta - 1,
+            right = current + delta + 0,
             range = [],
             pageNumber = [],
             l;
-    
+            
+            if(current<2){
+                right = current + delta + 1;
+                left = current - delta - 1;
+            }
+
         for (let i = 0; i <= totalPage; i++) {
             if (i == totalPage || i >= left && i < right) {
                 range.push(i);

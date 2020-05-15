@@ -11,12 +11,112 @@ class SODTable extends Component {
 
     this.state = {
       data: this.props.head,
-      bodyheader: ['Line No', 'Product', 'Description', 'Qty', 'Qty Processed', 'Weight', 'Weight Processed', 'Completed', 'OOS', 'Batch', 'Rotadate', 'Ref3', 'Ref4', 'Disposition', 'Pack ID'],
+
+      // commented based task to do FE that only show 10 field default "10 fields show as default, put the rest on edit columns" 
+      //bodyheader: ['Line No', 'Product', 'Description', 'Qty', 'Qty Processed', 'Weight', 'Weight Processed', 'Completed', 'OOS', 'Batch', 'Rotadate', 'Ref3', 'Ref4', 'Disposition', 'Pack ID'],
+      // bodyheader: ['Line No', 'Product', 'Description', 'Qty', 'Qty Processed', 'Weight', 'Weight Processed', 'Completed', 'OOS', 'Batch'],
+      tableheader: [
+        { 
+          id: "line",
+          tableHeaderText: "Line No", 
+          checkboxLabelText: "Line No", 
+          isVisible: true,  
+        },
+        { 
+          id: "product",
+          tableHeaderText: "Product", 
+          checkboxLabelText: "Product", 
+          isVisible: true,  
+        },
+        { 
+          id: "product_description",
+          tableHeaderText: "Description", 
+          checkboxLabelText: "Description", 
+          isVisible: true,  
+        },
+        { 
+          id: "qty",
+          tableHeaderText: "Qty", 
+          checkboxLabelText: "Qty", 
+          isVisible: true,  
+        },
+        { 
+          id: "qty_processed",
+          tableHeaderText: "Qty Processed", 
+          checkboxLabelText: "Qty Processed", 
+          isVisible: true,  
+        },
+        { 
+          id: "weight",
+          tableHeaderText: "Weight", 
+          checkboxLabelText: "Weight", 
+          isVisible: true,  
+        },
+        { 
+          id: "weight_processed",
+          tableHeaderText: "Weight Processed", 
+          checkboxLabelText: "Weight Processed", 
+          isVisible: true,  
+        },
+        { 
+          id: "completed",
+          tableHeaderText: "Completed", 
+          checkboxLabelText: "Completed", 
+          isVisible: true,  
+        },
+        { 
+          id: "oos",
+          tableHeaderText: "OOS", 
+          checkboxLabelText: "OOS", 
+          isVisible: true,  
+        },
+        { 
+          id: "batch",
+          tableHeaderText: "Batch", 
+          checkboxLabelText: "Batch", 
+          isVisible: true,  
+        },
+        { 
+          id: "ref2",
+          tableHeaderText: "Rotadate", 
+          checkboxLabelText: "Rotadate", 
+          isVisible: true,  
+        },
+        { 
+          id: "ref3",
+          tableHeaderText: "Ref3", 
+          checkboxLabelText: "Ref3", 
+          isVisible: true,  
+        },
+        { 
+          id: "ref4",
+          tableHeaderText: "Ref4", 
+          checkboxLabelText: "Ref4", 
+          isVisible: true,  
+        },
+        { 
+          id: "disposition",
+          tableHeaderText: "Disposition", 
+          checkboxLabelText: "Disposition", 
+          isVisible: true,  
+        },
+        { 
+          id: "pack_id",
+          tableHeaderText: "Pack ID", 
+          checkboxLabelText: "Pack ID", 
+          isVisible: true,  
+        },
+      ],
       activearrow: mid,
       sortparameter: 'order_no',
+      checkboxLabelText: 'order_no',
       sort: true
 
     }
+  }
+
+  componentDidMount(){
+    this.props.getTableHeader(this.state.tableheader)
   }
 
   render() {
@@ -25,29 +125,37 @@ class SODTable extends Component {
         <table className="potable" width='100%'>
           <thead>
             <tr>
-              {this.state.bodyheader.map(header =>
-                <th height='50' key={header} id={header}>{header} </th>
-              )}
+              {this.state.tableheader.map((data,idx) =>{
+                if(data.isVisible){
+                    return (
+                      <th height='50' key={data.tableHeaderText} id={data.tableHeaderText}>{data.tableHeaderText} </th>
+                    )
+                } 
+              })
+              
+              }
+              
+              <th className='iconU-edit' onClick={this.props.showEditColumn}></th>
             </tr>
           </thead>
           <tbody>
             {this.props.head.map((data, i) =>
               <tr>
-                <td height='40'><label style={{ marginLeft: '20px' }}>{i + 1}</label></td>
-                <td height='40'>{data.product ? data.product : '-'}</td>
-                <td height='40'>{data.name ? data.name : '-'}</td>
-                <td height='40'>{data.qty_lcd ? data.qty_lcd : '-'}</td>
-                <td height='40'>{data.qty_processed ? data.qty_processed : '-'}</td>
-                <td height='40'>{data.weight ? data.weight : '-'}</td>
-                <td height='40'>{data.wgt_processed ? data.wgt_processed : '-'}</td>
-                <td height='40'> {data.completed ? <img style={{ width: '15px', height: '13px' }} src={data.completed == "Y" ? ok : invalid} /> : '-'}</td>
-                <td height='40'>{data.qty_oos ? data.qty_oos : '-'}</td>
-                <td height='40'>{data.ref ? data.ref : '-'}</td>
-                <td height='40'>{data.rota1 ? data.rota1 : '-'}</td>
-                <td height='40'>{data.ref3 ? data.ref3 : '-'}</td>
-                <td height='40'>{data.ref4 ? data.ref4 : '-'}</td>
-                <td height='40'>{data.disposition ? data.disposition : '-'}</td>
-                <td height='40'>{data.packid ? data.packid : '-'}</td>
+                {this.state.tableheader.map((column, columnIdx) => {
+                  if(column.isVisible){ 
+                      if(column.id === "line_no"){
+                          return <td key={columnIdx}><label style={{ marginLeft: '20px' }}>{i + 1}</label></td>
+                      }
+
+                      if(column.id === "completed"){
+                        return <td height='40'> {data.completed ? <img style={{ width: '15px', height: '13px' }} src={data.completed == "Y" ? ok : invalid} /> : '-'}</td>
+                      }
+
+                      return <td height='40'>{data[column.id] ? data[column.id] : '-'}</td>
+                    }
+                       
+                  })
+                }         
               </tr>
             )}
 

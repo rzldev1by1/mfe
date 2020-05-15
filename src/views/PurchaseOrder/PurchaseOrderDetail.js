@@ -45,6 +45,7 @@ export default class PurchaseOrderDetail extends Component {
     header = () => {
         let site = this.state.datahead.length ? this.state.datahead[0].site : null
         let client = this.state.datahead.length ? this.state.datahead[0].client : null
+        let client_name = this.state.datahead.length ? this.state.datahead[0].client_name : null
         let orderNo = this.state.datahead.length ? this.state.datahead[0].order_no : null
         let orderType = this.state.datahead.length ? this.state.datahead[0].order_type : null
         let supplierNo = this.state.datahead.length ? this.state.datahead[0].supplier_id : null
@@ -61,14 +62,14 @@ export default class PurchaseOrderDetail extends Component {
         return(
             <div className='podheader fades'>                    
             <div className='sub'>                        
-                <table style={{width:'70%'}}>
+                <table style={{width:'90%'}}>
                     <tr>
                         <th>Site</th>
                         <td>{site ? site : '-'}</td>
                     </tr>
                     <tr>
                         <th>Client</th>
-                        <td>{client ? client : '-'}</td>
+                        <td>{client ? client+": "+client_name : '-'}</td>
                     </tr>
                     <tr>
                         <th>Order No</th>
@@ -80,7 +81,7 @@ export default class PurchaseOrderDetail extends Component {
                     </tr>
                     <tr>
                         <th>Status</th>
-                        <td >{status ? status+ ' (' +statusDesc.substring(3) + ')' : '-'}</td>
+                        <td >{status ? status+ ': ' +statusDesc.substring(3)  : '-'}</td>
                     </tr>
                 </table>
             </div>
@@ -162,6 +163,7 @@ export default class PurchaseOrderDetail extends Component {
                             toggle={() => this.setState({ showEditColumn: false })}
                             fields={this.state.tableheader}
                             updateTableColumn={(e) => this.setState({ tableheader: e })}
+                            modulName="Purchase Order Detail"
                 />
             </div>
         )

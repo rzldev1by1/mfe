@@ -68,7 +68,7 @@ class StockMovement extends Component {
                             <tr>
                                 {this.state.dateArray.map((date, idx) => {
                                         return(
-                                                <div style={{display:'flex',  borderBottom:'1px solid #d5d8da', color:'#22ABE3'}}>
+                                                <div style={{display:'flex',  borderBottom:'1px solid #d5d8da', color:'#3366FF'}}>
                                                     <th key="6" className='tet' xs='2'>SA+</th>
                                                     <th key="7" className='tet' xs='2'>SA-</th>
                                                     <th key="8" className='tet' xs='2'>Rec</th>
@@ -119,21 +119,25 @@ class StockMovement extends Component {
 				</div>
 
 				<div className='movementSearch'>
-					<MovementSearch getStockMovement = {(dateFrom, dateTo, period) => this.getStockMovements(dateFrom, dateTo, period)}/>
+					<MovementSearch getStockMovement = {this.getStockMovement} />
 				</div>
 				<div className={this.state.isComplete ? 'fades' : 'hidden'}>
-				<Movement isComplete={(val) => this.setState({isComplete:val})} ref={this.getStockMovement} data={(data) => this.setState({data:data},() => this.setPagiantion.current.getData(this.state.data))}/>
+				<Movement ref={this.getStockMovement} isComplete={(val) => this.setState({isComplete:val})} data={(data) => this.setState({data:data},() => this.setPagiantion.current.getData(this.state.data))}/>
 				</div>
 				<div className={this.state.isComplete ? 'hidden' : 'spinner'}/>
 					
-					<div className={this.state.isComplete ? 'fades' : 'hidden'}>
+					<div className={this.state.isComplete ?  'hidden' /* 'fades' */ : 'hidden'}>
 						<Pagination sliceValue={(startIndex, endIndex) => this.getStockMovement.current.setSliceValue(startIndex, endIndex)} 
 												ref={this.setPagiantion} data={this.state.data} 
 												rows={50}/> 
-						{/* <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
-								ExportHeader={this.ExportHeader} ExportData={this.ExportData}/> */}
 						<ExportExcel ExportName={this.ExportName}/>
-					</div>						 
+					</div>
+					 
+					{/* <div className={this.state.isComplete ?  'fades paginations' : 'hidden'}>
+						<div style={{marginLeft:"88%"}}>
+							<ExportExcel ExportName={this.ExportName}/>
+						</div>
+					</div>						  */}
 			</div>
 		)
 	}

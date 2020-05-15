@@ -13,6 +13,7 @@ class PurchaseOrderTable extends Component {
     super(props)
    
     this.dropdownref = React.createRef()
+    this._checkActiveSorting = this._checkActiveSorting.bind(this);
 
     this.state = {
       data:[],
@@ -24,7 +25,7 @@ class PurchaseOrderTable extends Component {
               isVisible: true, 
               key: "site", 
               type: "string", 
-              sort: mid
+              sort: mid 
           },
           {
               id: "client", 
@@ -33,7 +34,7 @@ class PurchaseOrderTable extends Component {
               isVisible: true, 
               key: "client", 
               type: "string", 
-              sort: mid
+              sort: mid 
           },
           {
               id: "order_no", 
@@ -42,7 +43,7 @@ class PurchaseOrderTable extends Component {
               isVisible: true, 
               key: "order_no", 
               type: "string", 
-              sort: mid
+              sort: mid 
           },
           {
               id: "status", 
@@ -51,16 +52,16 @@ class PurchaseOrderTable extends Component {
               isVisible: true, 
               key: "status", 
               type: "string", 
-              sort: mid
+              sort: mid 
           },
           {
-              id: "company", 
+              id: "supplier_no", 
               checkboxLabelText: "Supplier No", 
               tableHeaderText: "Supplier No", 
               isVisible: true, 
               key: "company", 
               type: "string", 
-              sort: mid
+              sort: mid 
           },
           {
               id: "supplier_name", 
@@ -69,7 +70,7 @@ class PurchaseOrderTable extends Component {
               isVisible: true, 
               key: "supplier_name", 
               type: "string", 
-              sort: mid
+              sort: mid 
           },
           {
               id: "date_due", 
@@ -78,7 +79,7 @@ class PurchaseOrderTable extends Component {
               isVisible: true, 
               key: "date_due", 
               type: "string", 
-              sort: mid
+              sort: mid 
           },
           {
               id: "date_received", 
@@ -87,7 +88,7 @@ class PurchaseOrderTable extends Component {
               isVisible: true, 
               key: "date_received", 
               type: "string", 
-              sort: mid
+              sort: mid 
           },
           {
               id: "date_released", 
@@ -96,7 +97,7 @@ class PurchaseOrderTable extends Component {
               isVisible: true, 
               key: "date_released", 
               type: "string", 
-              sort: mid
+              sort: mid 
           },
           {
               id: "date_completed", 
@@ -105,21 +106,40 @@ class PurchaseOrderTable extends Component {
               isVisible: true, 
               key: "date_completed", 
               type: "string", 
-              sort: mid
+              sort: mid 
           },
         
       ],   
       activearrow:mid,
-      sortparameter:'order_no',
+      activecolumnsort: null,
+      sortparameter:null,
       sort:true,
 
       //pagonation
       currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
-			displayPage: 30,
+			displayPage: 50,
 			totalRows: 0,
 			maxPage: 0,
+    }
+  }
+
+  _checkActiveSorting(header){ 
+    if(header==this.state.activecolumnsort){ 
+      if (this.state.activearrow == mid) {
+        return up;
+      }
+
+      if (this.state.activearrow == up) {
+        return down;
+      }
+
+      if (this.state.activearrow == down) {
+        return up;
+      }
+    }else{
+      return mid;
     }
   }
 
@@ -147,7 +167,7 @@ class PurchaseOrderTable extends Component {
 			}
 			self.setState({ maxPage: totalPage });
 		} else {
-			self.setState({ maxPage: 1 });
+			self.setState({ maxPage: 2 });
 		}
 
 		self.setState({ displayContent: "FOUND",
@@ -230,8 +250,8 @@ class PurchaseOrderTable extends Component {
   }
 
   arrowHandler = (e) => {
-    let id = e.currentTarget.id
-    let activearrow = this.state
+    let id = e.currentTarget.id;
+    this.setState({ activecolumnsort: id });
     if(this.state.activearrow == mid)
       {
         this.setState({activearrow:up})
@@ -252,62 +272,26 @@ class PurchaseOrderTable extends Component {
   }
 
   sortby = (id) => {
-    if(id == 'Site')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'site'})
+    console.log(id);
+    this.setState({sort:!this.state.sort, sortparameter:id}, () => {
+      //async 
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
-    else if(id == 'Order No')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'order_no'})
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
-    else if(id == 'Client')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'client'})
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
-    else if(id == 'Status')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'status'})
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
-    else if(id == 'Supplier No')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'supplier'})
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
-    else if(id == 'Supplier Name')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'supplier_name'})
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
-    else if(id == 'Date Due')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'date_due'})
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
-    else if(id == 'Date Received')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'date_received'})
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
-    else if(id == 'Date Released')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'date_released'})
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
-    else if(id == 'Date Completed')
-    {
-      this.setState({sort:!this.state.sort, sortparameter:'date_completed'})
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
-    }
-
+    });
   }
 
   sorting = (data, param, sort) => {
-    data.sort((a,b) => {
+    console.log(param,sort); 
+    data.sort((a,b) => { 
+
       if(a[param] !== undefined && b[param] !== undefined){
+        if(a[param] == null){
+          a[param] = '';
+        }
+  
+        if(b[param] == null){
+          b[param] = '';
+        }
+
         if(sort == true){
           if(a[param].toLowerCase() < b[param].toLowerCase()) return -1
           if(a[param].toLowerCase() > b[param].toLowerCase()) return 1
@@ -341,6 +325,10 @@ class PurchaseOrderTable extends Component {
     let headers = ["Site","Client","Order No", "Order Type", "Customer"," Status", "Delivery Date", "Date Received", "Date Released", "Date Completed"]
     return headers
   }
+  ExportFont = () => {
+    let Font = "10";
+    return Font;
+  };
 
   ExportData = () => {
     let data = this.state.data.map(elt=> [elt.site, elt.client,
@@ -424,8 +412,8 @@ class PurchaseOrderTable extends Component {
                             {this.state.tableheader.map((header, idx) => {
                                 if(header.isVisible){
                                     return (
-                                        <th key={idx} onClick={(e) => this.arrowHandler(e)} id={idx}>{header.tableHeaderText} 
-                                            <img key={idx} className='arrow' src={this.state.activearrow}/>
+                                        <th key={idx} onClick={(e) => this.arrowHandler(e)} id={header.id}>{header.tableHeaderText} 
+                                            <img key={idx} className='arrow' src={this._checkActiveSorting(header.id)}/>
                                         </th>
                                     )
                                 }
@@ -502,7 +490,7 @@ class PurchaseOrderTable extends Component {
                             </tr>
                         </thead>
                         <tbody>            
-                            {this.state.data ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => 
+                            {this.state.data ?  this.state.data.map((data,i)=> 
                                 <tr key={i} onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/'+data.order_no)} className='tr'>
                                     {this.state.tableheader.map((column, columnIdx) => {
                                         if(column.isVisible){
@@ -556,8 +544,8 @@ class PurchaseOrderTable extends Component {
                               startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                               isActive={this.state.isActive}
                               numberEventClick={this.numberEventClick} />
-                      <Export ExportName={this.ExportName} ExportHeader={this.ExportHeader}
-                              ExportPDFName={this.ExportPDFName} ExportData={this.ExportData}/>
+                      <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                              ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont}/>
                   </div>
                 </div>
                 

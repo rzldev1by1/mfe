@@ -2,7 +2,7 @@
 
 .tabisactive {
     background-color: white;
-    color: #22ABE3 !important;
+    color: #3366FF !important;
 }
 
 
@@ -64,9 +64,8 @@
         margin-top: 10%;
         margin-bottom: 10%;
     }
-}
+} 
 
 .po-required{
-    margin-top: 4%;
-    height: 20px;
+	margin-top: 9% !important;
 }

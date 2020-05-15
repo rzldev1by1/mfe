@@ -101,18 +101,19 @@ class Tab1CreateSO extends Component {
             <th className="required-field">Delivery Date</th>
           </tr>
           <tr>
-            <td>
+            <td style={{ width: "396px" }}>
               <Dropdown
                 optionSelected={siteVal}
                 getValue={(siteVal, site) => this.props.setSite(siteVal, site)}
                 placeHolder="Site"
-                style={{ minWidth: "100%", zIndex: "3" }}
+                style={{ minWidth: "100%", zIndex: 20 }}
                 optionList={this.props.resources.site.name.toString()}
                 optionValue={this.props.resources.site.code.toString()}
+                tabIndex='1'
               />
             </td>
 
-            <td>
+            <td style={{ width: "396px" }}>
               <Dropdown
                 optionSelected={orderTypeVal}
                 getValue={(orderTypeVal, orderType) =>
@@ -122,10 +123,11 @@ class Tab1CreateSO extends Component {
                 style={{ minWidth: "100%" }}
                 optionList={this.props.resources.orderType.name.toString()}
                 optionValue={this.props.resources.orderType.code.toString()}
+                tabIndex='1'
               />
             </td>
 
-            <td>
+            <td style={{ width: "396px" }}>
               <input
                 value={customerOrderRef}
                 onChange={(e) => this.props.setCustomerOrderRef(e.target.value)}
@@ -134,22 +136,24 @@ class Tab1CreateSO extends Component {
                 id="customerOrderRef"
                 className="form-control put "
                 placeholder="Customer Order Ref"
+                tabIndex='1'
               />
             </td>
 
-            <td>
+            <td style={{ width: "396px" }}>
               <DatePicker
                 getDate={(date) => this.props.setDeliveryDate(date)}
                 style={{ minWidth: "100%" }}
+                tabIndex='1'
               />
             </td>
           </tr>
 
           <tr>
-            <td className={emptyClassSite}>{emptySite}</td>
-            <td className={emptyClassOrderType}>{emptyOrderType}</td>
-            <td className="nmtrField"></td>
-            <td className={emptyClassDeliveryate}>{emptyDeliveryDate}</td>
+            <td style={{ width: "396px" }} className={emptyClassSite}>{emptySite}</td>
+            <td style={{ width: "396px" }} className={emptyClassOrderType}>{emptyOrderType}</td>
+            <td style={{ width: "396px" }} className="nmtrField"></td>
+            <td style={{ width: "396px" }} className={emptyClassDeliveryate}>{emptyDeliveryDate}</td>
           </tr>
 
           <tr>
@@ -159,7 +163,7 @@ class Tab1CreateSO extends Component {
             <th>Delivery Instructions</th>
           </tr>
           <tr>
-            <td className="verticalAlignTop">
+            <td style={{ width: "396px" }} className="verticalAlignTop">
               {this.props.userLevel == "administrator" ? (
                 <Dropdown
                   optionSelected={client}
@@ -167,9 +171,10 @@ class Tab1CreateSO extends Component {
                     this.props.setClient(clientVal, clientName)
                   }
                   placeHolder="Client"
-                  style={{ minWidth: "100%" }}
+                  style={{ minWidth: "100%", zIndex:10 }}
                   optionList={this.props.clientName.toString()}
                   optionValue={this.props.clientVal.toString()}
+                  tabIndex='1'
                 />
               ) : (
                   <input
@@ -178,24 +183,26 @@ class Tab1CreateSO extends Component {
                     id="client"
                     className="form-control put "
                     placeholder="Client"
+                    tabIndex='1'
                   />
                 )}
               <div className={emptyClassClient + " verticalAlignTop"}>
                 {emptyClient}
               </div>
             </td>
-            <td className="verticalAlignTop">
+            <td style={{ width: "396px" }} className="verticalAlignTop">
               <input
                 value={orderId}
                 onChange={(e) => this.props.setOrderId(e.target.value.toUpperCase())}
                 id="orderId"
                 className="form-control put "
                 placeholder="Order No"
+                tabIndex='1'
               />
-              <div className={emptyClassOrderNo}>{emptyOrderNo}</div>
+              <span className={emptyClassOrderNo}>{emptyOrderNo}</span>
             </td>
 
-            <td className="verticalAlignTop">
+            <td style={{ width: "396px" }} className="verticalAlignTop">
               <input
                 value={vendorOrderRef}
                 onChange={(e) => this.props.setVendorOrderRef(e.target.value)}
@@ -203,10 +210,11 @@ class Tab1CreateSO extends Component {
                 id="vendorOrderRef"
                 className="form-control put "
                 placeholder="Vendor Order Ref"
+                tabIndex='1'
               />
             </td>
 
-            <td className="verticalAlignTop">
+            <td style={{ width: "396px" }} className="verticalAlignTop">
               <textarea
                 value={deliveryInstruction}
                 onChange={(e) =>
@@ -216,13 +224,14 @@ class Tab1CreateSO extends Component {
                 className="form-control put dlv"
                 style={{ height: "8em" }}
                 placeholder="Delivery Instructions"
+                tabIndex='1'
               />
             </td>
           </tr>
 
           <tr>
-            <td className="nmtrField"></td>
-            <td className="nmtrField"></td>
+            <td style={{ width: "396px" }} className="nmtrField"></td>
+            <td style={{ width: "396px" }} className="nmtrField"></td>
           </tr>
         </table>
         <h3 className="fonts">Customer Details</h3>
@@ -231,7 +240,7 @@ class Tab1CreateSO extends Component {
             <th>Customer </th>            
           </tr>
           <tr>
-            <td className="verticalAlignTop">
+            <td style={{ width: "396px" }} className="verticalAlignTop">
               {this.props.resources.identity ? (
                 <input
                   value={customer}
@@ -239,21 +248,27 @@ class Tab1CreateSO extends Component {
                   id="customerName"
                   className="form-control put "
                   placeholder="Costumer"
+                  tabIndex='2'
                 />
               ) : (
                   
                   <div className='so-supp'>
                     <AutoComplete
-                    suggestions={supplierName}
-                    suggestionsValue={this.props.resources.supplier.code}
-                    handleChange={(customerVal, customerName) =>
+                    optionSelected  ={supplierName}
+                    getValue        ={( customerVal, product) =>
                       this.props.getIdentity(customerVal, 1)
-                    }
+                                      }
+                    placeHolder     ="Supplier"
+                    optionList      ={supplierName.toString()}
+                    optionValue     ={this.props.resources.supplier.code.toString()}
+                    style={{ minWidth: "100%"}}
+                    tabIndex='2'
                   />
                   </div>
                 )}
 
-              <input value={customerVal} type="text" id="customerCode" hidden />
+              <input value={customerVal} type="text" id="customerCode" 
+                  tabIndex='2' hidden />
             </td>
           </tr>
 
@@ -264,7 +279,7 @@ class Tab1CreateSO extends Component {
           </tr>
 
           <tr>
-          <td>
+          <td style={{ width: "396px" }}>
               <input
                 value={shipToAddress1}
                 onChange={(e) => this.props.setAddress1(e.target.value)}
@@ -272,9 +287,10 @@ class Tab1CreateSO extends Component {
                 maxLength="200"
                 className="form-control put "
                 placeholder="Address 1"
+                tabIndex='2'
               />
             </td>
-            <td>
+            <td style={{ width: "396px" }}>
               <input
                 value={shipToAddress2}
                 onChange={(e) => this.props.setAddress2(e.target.value)}
@@ -282,9 +298,10 @@ class Tab1CreateSO extends Component {
                 maxLength="201"
                 className="form-control put "
                 placeholder="Address 2"
+                tabIndex='2'
               />
             </td>
-            <td>
+            <td style={{ width: "396px" }}>
               <input
                 value={shipToAddress3}
                 onChange={(e) => this.props.setAddress3(e.target.value)}
@@ -292,14 +309,15 @@ class Tab1CreateSO extends Component {
                 maxLength="203"
                 className="form-control put "
                 placeholder="Address 3"
+                tabIndex='2'
               />
             </td>
           </tr>
 
           <tr>
-            <td className={emptyClassShipToAddress1}>{emptyShipToAddress1}</td>
-            <td className="nmtrField"></td>
-            <td className="nmtrField"></td>
+            <td style={{ width: "396px" }} className={emptyClassShipToAddress1}>{emptyShipToAddress1}</td>
+            <td style={{ width: "396px" }} className="nmtrField"></td>
+            <td style={{ width: "396px" }} className="nmtrField"></td>
           </tr>
 
           <tr>
@@ -307,7 +325,7 @@ class Tab1CreateSO extends Component {
             <th>Address 5</th>
           </tr>
           <tr>
-            <td>
+            <td style={{ width: "396px" }}>
               <input
                 value={shipToAddress4}
                 onChange={(e) => this.props.setAddress4(e.target.value)}
@@ -315,10 +333,11 @@ class Tab1CreateSO extends Component {
                 maxLength="204"
                 className="form-control put "
                 placeholder="Address 4"
+                tabIndex='2'
               />
             </td>
 
-            <td>
+            <td style={{ width: "396px" }}>
               <input
                 value={shipToAddress5}
                 onChange={(e) => this.props.setAddress5(e.target.value)}
@@ -326,13 +345,14 @@ class Tab1CreateSO extends Component {
                 maxLength="205"
                 className="form-control put "
                 placeholder="Address 5"
+                tabIndex='2'
               />
             </td>
           </tr>
 
           <tr>
-            <td className="nmtrField"></td>
-            <td className="nmtrField"></td>
+            <td style={{ width: "396px" }} className="nmtrField"></td>
+            <td style={{ width: "396px" }} className="nmtrField"></td>
           </tr>
 
           <tr>
@@ -342,7 +362,7 @@ class Tab1CreateSO extends Component {
             <th>Country</th>
           </tr>
           <tr>
-            <td>
+            <td style={{ width: "396px" }}>
               <input
                 value={city}
                 onChange={(e) => this.props.setCity(e.target.value)}
@@ -350,10 +370,11 @@ class Tab1CreateSO extends Component {
                 maxLength="150"
                 className="form-control put "
                 placeholder="Suburb"
+                tabIndex='2'
               />
             </td>
 
-            <td>
+            <td style={{ width: "396px" }}>
               <input
                 value={postCode}
                 onChange={(e) => this.props.setPostCode(e.target.value)}
@@ -361,10 +382,11 @@ class Tab1CreateSO extends Component {
                 maxLength="5"
                 className="form-control put "
                 placeholder="Postcode"
+                tabIndex='2'
               />
             </td>
 
-            <td>
+            <td style={{ width: "396px" }}>
               <input
                 value={state}
                 onChange={(e) => this.props.setStates(e.target.value)}
@@ -372,10 +394,11 @@ class Tab1CreateSO extends Component {
                 maxLength="150"
                 className="form-control put "
                 placeholder="State"
+                tabIndex='2'
               />
             </td>
 
-            <td>
+            <td style={{ width: "396px" }}>
               <input
                 value={country}
                 onChange={(e) => this.props.setCountry(e.target.value)}
@@ -383,15 +406,16 @@ class Tab1CreateSO extends Component {
                 maxLength="30"
                 className="form-control put "
                 placeholder="Country"
+                tabIndex='2'
               />
             </td>
           </tr>
 
           <tr>
-            <td className="nmtrField"></td>
-            <td className={emptyClassPostCode}>{emptyPostCode}</td>
-            <td className={emptyClassState}>{emptyState}</td>
-            <td className="nmtrField"></td>
+            <td style={{ width: "396px" }} className="nmtrField"></td>
+            <td style={{ width: "396px" }} className={emptyClassPostCode}>{emptyPostCode}</td>
+            <td style={{ width: "396px" }} className={emptyClassState}>{emptyState}</td>
+            <td style={{ width: "396px" }} className="nmtrField"></td>
           </tr>
         </table>
 
@@ -401,10 +425,62 @@ class Tab1CreateSO extends Component {
         </tr>
 
         <h3 className="fonts">Line Details</h3>
+        
         <div className='scroll-x-y-visible'> 
+        <table className=''>
+              <tr>
+                <th>
+                  <div id='orderline-header-number-id'>#</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-product-id' className='required-field'>Product</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-description-id'>Description</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-qty-id' className='required-field'>Qty</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-weight-id'>Weight</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-uom-id' className='required-field'>UOM</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-rotadate-id'>Rota Date</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-batch-id'>Batch</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-ref3-id'>Ref3</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-ref4-id'>Ref4</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-disposition-id'>Disposition</div>
+                </th>
+
+                <th>
+                  <div id='orderline-header-packid-id'>Pack Id</div>
+                </th>
+              </tr>
+            </table>
           {this.props.parameters.lineDetail.map((data, idx) => {
             return (
-              <div>
+              <div className={this.props.deleteProcessed ? 'hidden' : null}>
                 <OrderLine
                   parameters={data}
                   parametersLength={this.props.parameters.lineDetail.length}
@@ -430,33 +506,8 @@ class Tab1CreateSO extends Component {
                   }
                   setPackid={(packid, idx) => this.props.setPackid(packid, idx)}
                   removeLineHandler={(idx) => this.props.removeLineHandler(idx)}
+                  nextClicked = {this.props.nextClicked}
                 />
-
-                {/* <OrderLine2
-                parameters={data}
-                idx={idx}
-                getUom={(productVal) => this.props.getUom(productVal)}
-                uomdata={this.props.uomdata}
-                productdata={this.props.productdata}
-                dispositiondata={this.props.dispositiondata}
-                setProduct={(productVal, product, idx) =>
-                  this.props.setProduct(productVal, product, idx)
-                }
-                setQty={(qty, idx) => this.props.setQty(qty, idx)}
-                setWeight={(weight, idx) => this.props.setWeight(weight, idx)}
-                setUom={(uom, idx) => this.props.setUom(uom, idx)}
-                setRotaDate={(rotaDate, idx) =>
-                  this.props.setRotaDate(rotaDate, idx)
-                }
-                setBatch={(batch, idx) => this.props.setBatch(batch, idx)}
-                setRef3={(ref3, idx) => this.props.setRef3(ref3, idx)}
-                setRef4={(ref4, idx) => this.props.setRef4(ref4, idx)}
-                setDispoisition={(disposition, dispositionVal, idx) =>
-                  this.props.setDispoisition(disposition, dispositionVal, idx)
-                }
-                setPackid={(packid, idx) => this.props.setPackid(packid, idx)}
-                removeLineHandler={(idx) => this.props.removeLineHandler(idx)}
-              /> */}
               </div>
             );
           })}

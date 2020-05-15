@@ -109,6 +109,7 @@ const UsersManagement = Loadable({
 	loader: () => import('./views/UserManagement/UserManagement'),
 	loading: Loading
 });
+// const UsersManagement = React.lazy(() => import('./views/UserManagement/UserManagement') );
 
 const UsersManagementDetail = Loadable({
 	loader: () => import('./views/UserManagement/UserManagementDetail'),

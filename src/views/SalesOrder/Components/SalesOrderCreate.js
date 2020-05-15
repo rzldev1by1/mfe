@@ -16,7 +16,8 @@ import {
 } from "../Components/Validation/Validation";
 import swal from "sweetalert";
 import moment from "moment";
-import { reset } from "./resetState";
+import { reset, errMsg } from "./resetState";
+import {orderNoValidation} from '../Components/Validation/orderNoValidation'
 
 class SalesOrderCreate extends Component {
   constructor(props) {
@@ -98,6 +99,7 @@ class SalesOrderCreate extends Component {
           emptyOrderType: null,
           emptyOrderNo: null,
           emptyDeliveryDate: null,
+          orderNoIsAvailable:true,
 
           emptyCustomer: null,
           emptyShipToAddress1: null,
@@ -106,21 +108,24 @@ class SalesOrderCreate extends Component {
         }
       },
       identity: [],
-      uomdata: []
+      uomdata: [],
+      deleteProcessed:false,
+      nextClicked: false
     };
   }
 
   resetState = () => {
     this.setState({
-      tab1isactive: !this.state.tab1isactive,
-      tab2isactive: !this.state.tab2isactive,
-      parameters: reset(this.props.resources)
+      tab1isactive: true,
+      tab2isactive: false,
+      parameters: reset(this.props.resources),
+      validation:errMsg
     });
   };
 
   close = () => {
     this.props.closemodal();
-    if (!this.state.tab1isactive) this.resetState();
+    this.resetState();
   };
 
   tabhandler = () => {
@@ -147,6 +152,7 @@ class SalesOrderCreate extends Component {
             break;
           case "order no length":
             validation.header.emptyOrderNo = message;
+            break;
           case "delivery date":
             validation.header.emptyDeliveryDate = message;
             break;
@@ -170,12 +176,16 @@ class SalesOrderCreate extends Component {
         }
       }
     }
+    if(!validation.header.orderNoIsAvailable && !validation.header.emptyOrderNo) validation.header.emptyOrderNo = 'order no already exist';
+    if(!validation.header.orderNoIsAvailable && a == true) a = false
+    if(validation.header.orderNoIsAvailable && a == true) a = true
     this.setState({ validation: validation });
 
-    if (a == true) {
+    if (a == true) {      
       for (let i = 0; i < param.lineDetail.length; i++) {
         let idx = i + 1;
         let b = lineDetailValidation(param.lineDetail[i], idx);
+        this.setState({nextClicked:true})
         if (!b) return;
         if (b && i == param.lineDetail.length - 1) {
           this.setState({
@@ -254,7 +264,12 @@ class SalesOrderCreate extends Component {
   // Set Order No
   setOrderId = (data) => {
     let validation = { ...this.state.validation };
-    if (data && data.length > 0 && data.length >= 4) {
+    orderNoValidation(data, this.state.parameters.header.client)
+    .then((data) => {
+      validation.header.orderNoIsAvailable = data
+      this.setState({validation:validation})
+    })
+    if (data && data.length > 0 && data.length > 4) {
       validation.header.emptyOrderNo = null;
       this.setState({ validation: validation });
     }
@@ -554,9 +569,15 @@ class SalesOrderCreate extends Component {
 
   setQty = (qty, idx) => {
     let newParam = { ...this.state.parameters };
-    newParam.lineDetail[idx].qty = qty;
-
-    this.setState({ parameters: newParam });
+    let aa = isNaN(qty)
+    if(aa == false)
+    {     
+      qty = qty.replace(/,/g, '')
+      newParam.lineDetail[idx].qty = qty;
+      this.setState({ parameters: newParam });
+    }
+    
+    
   };
 
   setWeight = (weight, idx) => {
@@ -615,27 +636,51 @@ class SalesOrderCreate extends Component {
 
     this.setState({ parameters: newParam });
   };
+  
+  addLineValidation = () => {
+    let param = { ...this.state.parameters };    
+    for (let i = 0; i < param.lineDetail.length; i++) {
+      let idx = i + 1;
+      var b = lineDetailValidation(param.lineDetail[i], idx);
+    }
+
+    if (!b)
+    {
+      this.setState({nextClicked:true})
+      return false;
+    } 
+    if(b)
+    {
+      this.setState({nextClicked:false})
+      return true
+    } 
+  }
 
   addLineHandler = () => {
-    let newParam = { ...this.state.parameters };
-    let number = parseInt(newParam.lineDetail.length) + 1;
-    let newLine = {
-      number: number,
-      productVal: null,
-      product: null,
-      qty: null,
-      weight: null,
-      uom: null,
-      rotaDate: null,
-      batch: null,
-      ref3: null,
-      ref4: null,
-      dispositionVal: null,
-      disposition: null,
-      packId: null
-    };
-    newParam.lineDetail = [...newParam.lineDetail, newLine];
-    this.setState({ parameters: newParam });
+    const clear = this.addLineValidation()
+    const length = this.state.parameters.lineDetail.length
+    if(clear && length < 10)
+    {
+      let newParam = { ...this.state.parameters };
+      let number = parseInt(newParam.lineDetail.length) + 1;
+      let newLine = {
+        number: number,
+        productVal: null,
+        product: null,
+        qty: null,
+        weight: null,
+        uom: null,
+        rotaDate: null,
+        batch: null,
+        ref3: null,
+        ref4: null,
+        dispositionVal: null,
+        disposition: null,
+        packId: null
+      };
+      newParam.lineDetail = [...newParam.lineDetail, newLine];
+      this.setState({ parameters: newParam });
+    }    
   };
 
   removeLineHandler = (idx) => {
@@ -645,13 +690,14 @@ class SalesOrderCreate extends Component {
       alert("line detail must have at least 1 product");
       return;
     }
+    this.setState({deleteProcessed:true})
     let idxx = idx - 1;
     param.lineDetail.splice(idxx, 1);
 
     param.lineDetail.map((data, idx) => {
       data.number = idx + 1;
     });
-    this.setState({ parameters: param });
+    this.setState({ parameters: param, deleteProcessed:false });
   };
 
   createSalesOrder = () => {
@@ -829,6 +875,9 @@ class SalesOrderCreate extends Component {
                 removeLineHandler={(idx) => this.removeLineHandler(idx)}
                 validation={() => this.validation()}
                 validationCheck={this.state.validation}
+                deleteProcessed = {this.state.deleteProcessed}
+                nextClicked = {this.state.nextClicked}
+
               />
             ) : (
               <Tab2CreateSO

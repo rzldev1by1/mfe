@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Card, CardBody} from 'reactstrap'
+import { Button, Card, CardBody, Modal, ModalBody, ModalHeader} from 'reactstrap'
 import UserListComponent from './Component/UserListComponent'
 import PersonalUserComponent from './Component/PersonalUserComponent'
 import axios from 'axios'
@@ -10,6 +10,7 @@ import query from '../../AppComponent/query_menu_temp'
 import Authentication from '../../Auth/Authentication'
 import Paging from '../../AppComponent/Paging'
 import create from '../../assets/img/brand/button_create@2x.png'
+import logo_confirm from '../../assets/img/brand/LOGO5@2x.png'
 import menunav from '../../menunav'
 import Export from '../../AppComponent/Export'
 
@@ -19,22 +20,25 @@ const today = moment(new Date()).format("YYYY-MM-DD");
 const regexMail = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ ;
 const notValidAll = 'Please make sure user name, email is valid and module has one enabled';
 const notValidMail = 'Email is not valid';
-
+const webgroupWhs = 'Warehouse';
+const webgroupAdmin = 'Administrator';
 const userModel = {
     "userId":"",
     "name":"",
     "email":"",
-    "webGroup":"Warehouse",
+    "webGroup":webgroupWhs,
     "lastAccess": today,
     "lastLogin": today,
 	  "thisAccess": today,
 	  "thisLogin": today,
     "password":"",
     "userMenu":[],
-    'client':"",
+    'client':null,
+    'site':null,
     "disabled":"N",
     "company":""
 }
+
 
 
 
@@ -53,7 +57,10 @@ class UserManagement extends Component{
             headersPersonal : [
                 'Your Account', 'User ID', 'Client', 'Site'
               ],
-
+              validation:{
+                "name":{isValid:true, invalidClass:"is-invalid"},
+                "email":{isValid:true, invalidClass:"is-invalid"}
+              },
               isListLoaded:false,
               isModalNewOpen:false,
               accountInfo:userModel,
@@ -72,16 +79,30 @@ class UserManagement extends Component{
               isValidForm:false,
               firstTab:true,
               secondTab:false,
-              validatorMessage:''
+              validatorMessage:'',
+              webgroup:false,
+              succesCreate: false,
         }
           this.searchForm = React.createRef();
     }
 
     componentDidMount(){
+      
         this.loadUsers();
         this.loadModuleAccess();
         this.loadClients();
         this.loadSites();
+    }
+
+    changeWebgroup = (isWebGroup) => {
+      let accountInfo = {...this.state.accountInfo};
+
+      if(isWebGroup)
+          accountInfo.webGroup = webgroupAdmin;
+      else
+          accountInfo.webGroup = webgroupWhs;
+
+      this.setState({webgroup:isWebGroup, accountInfo:accountInfo});
     }
 
     calculatePageRow = (listOfRows) => {
@@ -100,17 +121,43 @@ class UserManagement extends Component{
       return totalPage;
     }
 
-    nextClickHandler = (e) => {
+    checkValidation = () =>{
+      let account = {...this.state.accountInfo};
+      let validation = {...this.state.validation};
+      if(!account.name)
+        validation.name["isValid"] = false;
+      if(!account.email || !account.email.match(regexMail))
+        validation.email["isValid"] = false;
+
+      return validation;
+    }
+
+    nextClickHandler = (e) => { 
       const {name,userId,email,userMenu} = this.state.accountInfo;
-      if(name && userId && email && userMenu.length)
-      {
-        if(!email.match(regexMail))
-            this.setState({isValidForm:true,validatorMessage:notValidMail});
-        else
-            this.setState({isValidForm:false},this.setTabActive);
-      }else{
-        this.setState({isValidForm:true,validatorMessage:notValidAll});
+      let validation = this.checkValidation();
+
+      if(this.state.webgroup && name && userId && email){ // if admin 
+        if(!email.match(regexMail)){
+          this.setState({isValidForm:true,validatorMessage:notValidMail,validation:validation});
+        }
+        else{
+          this.setState({isValidForm:false},this.setTabActive);
+        }
+      }else if(!this.state.webgroup){   /// if regular user
+          if(name && userId && email && userMenu.length)
+          {
+            if(!email.match(regexMail)){
+              this.setState({isValidForm:true,validatorMessage:notValidMail,validation:validation});
+            }
+            else{
+              this.setState({isValidForm:false},this.setTabActive);
+            }
+          }else{
+            this.setState({isValidForm:true,validatorMessage:notValidAll,validation:validation});
+          }
+
       }
+
 
     }
 
@@ -240,7 +287,6 @@ class UserManagement extends Component{
     }
 
     loadUsers = () => {
-       
         var self = this;
         axios.get(endpoint.UserManagement_ListUser, {
           headers: headers
@@ -275,19 +321,24 @@ class UserManagement extends Component{
     }
 
     closeModalPopUp = () => {
-      this.setState({isModalNewOpen:!this.state.isModalNewOpen},()=>{ window.location.reload();})
+      this.setState({isModalNewOpen:!this.state.isModalNewOpen},()=>{window.location.reload();})
     }
 
     onChangeName = (e) => {
       const {value} = e.target;
       let newText = value.substring(0,2);
       let user = {...this.state.accountInfo};
+      let validationName = {...this.state.validation};
       let result = this.generateUserID(value);
       user.name = value;
       user.userId = newText.toLowerCase()+result;
       user.password = result+newText.toLowerCase();
+      if(user.name)
+        validationName.name['isValid'] = true;
+      else
+        validationName.name['isValid'] = false;
 
-      this.setState({accountInfo:user, isValidForm:false});
+      this.setState({accountInfo:user, isValidForm:false, validation:validationName});
     }
 
     onChangeCompany = (e) => {
@@ -300,9 +351,14 @@ class UserManagement extends Component{
     onChangeEmail = (e) => {
       const {value} = e.target;
       let user = {...this.state.accountInfo};
+      let validationMail = {...this.state.validation};
       user.email = value;
+      if(user.email)
+        validationMail.email['isValid'] = true;
+      else
+        validationMail.email['isValid'] = false;
 
-      this.setState({accountInfo:user,isValidForm:false});
+      this.setState({accountInfo:user,isValidForm:false,validation:validationMail});
     }
 
     generateUserID = (textValue) => {
@@ -340,10 +396,7 @@ class UserManagement extends Component{
     }
 
     loadModuleAccess = (role) => {
-
       var self = this;
-      
-
       axios.get(endpoint.UserManagement_ModuleAccess, {
         params: {role:role},
         headers: headers
@@ -406,7 +459,6 @@ class UserManagement extends Component{
     }
 
     loadClients = () => {
-
       var self = this;
       axios.get(endpoint.getClient, {
         headers: headers
@@ -474,19 +526,43 @@ class UserManagement extends Component{
        this.setState({moduleAccess:newArray,accountInfo:account});
     }
 
+    onEnabledAllSite = () => {    
+        
+        let sites = [...this.state.sites];
+        var newArray = sites.map((item,index) => {
+              item.status = true;
+            return item;
+        });
+       this.setState({sites:newArray});
+    }
+
+    onEnabledAllClient = () => {       
+        let clients = [...this.state.clients];
+        var newArray = clients.map((item,index) => {
+              item.status = true;
+            return item;
+        });
+       this.setState({clients:newArray});
+    }
+
     onSiteStatusClick = (e,data) => {
 
       if(data){
+        let user = {...this.state.accountInfo};
         let newState = [...this.state.sites];
+        console.log(newState);
         var newArray = newState.map((item,index) => {
             item.status = false;
-            if(item.site === data.site)
+            if(item.site === data.site){
               item.status = true;
+              if(item.status)
+                user.site = item.site;
+            }
 
             return item;
         });
 
-        this.setState({sites:newArray});
+        this.setState({sites:newArray,accountInfo:user});
       }
     }
 
@@ -513,43 +589,42 @@ class UserManagement extends Component{
     saveClick = () => {
 
       const {name,userId,email,userMenu} = this.state.accountInfo;
-      if(name && userId && email && userMenu.length)
-      {
+
+      if(this.state.webgroup && name && userId && email){
         this.setState({isSaveProgressing:true,isValidForm:false},this.saveRequest);
       }else{
-        this.setState({isValidForm:true});
+        if(name && userId && email && userMenu.length)
+        {
+          this.setState({isSaveProgressing:true,isValidForm:false},this.saveRequest);
+        }else{
+          this.setState({isValidForm:true});
+        }
       }
     }
 
     saveRequest = () => {
-
       var self = this;
-      const {name,userId,email,userMenu} = self.state.accountInfo;
-      if(name && userId && email && userMenu.length)
-      {
         let param = {...this.state.accountInfo};
-
+      
         axios.post(endpoint.UserManagement_Create,param,{ headers: headers })
           .then(res => {
             var result = [];
             if(res.status === 200){
-              self.setState({isSaveProgressing:false});
-              self.closeModalPopUp();
-              window.location.reload();
+              self.setState({isSaveProgressing:false,isModalNewOpen:false,succesCreate:true});
+              //self.closeModalPopUp();              
               
             }
             return result;
           })
           .catch(error => {
-              self.setState({isSaveProgressing:false});
+              self.setState({isSaveProgressing:false,succesCreate:false});
               self.closeModalPopUp();
 
           })
           .then((result) => {
 
-          })
-      }
-
+          });
+         
     }
     ExportName = () => {
       let filename = "";
@@ -582,6 +657,10 @@ class UserManagement extends Component{
        console.log(data)
        return data
       }
+      ExportFont = () => {
+        let Font = "10";
+        return Font;
+      };
 
     isValidUser = () => {
       let result = false;
@@ -595,7 +674,7 @@ class UserManagement extends Component{
 
     searchHandler = (e) => {
       e.preventDefault();
-      console.log(e);
+      
       let self = this;
       let param = {};
       let currentForm = this.searchForm.current
@@ -608,9 +687,10 @@ class UserManagement extends Component{
         param.searchParam = "";
       }
 
-      console.log(param);
-        let endpoint = 'http://developer.backend.onebyone.io:82/web_user'
-        axios.get(endpoint, {
+      
+        let endpointApi = `${endpoint.UserManagement_ListUser}`;
+
+        axios.get(endpointApi, {
           params: param,
           headers: headers
         })
@@ -629,6 +709,10 @@ class UserManagement extends Component{
 
         });
 
+    }
+
+    closeConfirmDialog = () => {
+      this.setState({succesCreate:false},() => {window.location.reload();});
     }
 
     render(){
@@ -652,45 +736,44 @@ class UserManagement extends Component{
                 </div>
             </div>
 
+            <Card className="border-account-info mb-3">
+              <CardBody className="account-info p-0">
+                  <PersonalUserComponent data={this.state.personalUser} headers={this.state.headersPersonal} />
+                  <Card className="border-0 mb-0" style={{borderRadius:"0px"}}> 
+                      <CardBody className="pt-1 pl-0 pr-0 pb-0">
+                        <form ref={this.searchForm} onSubmit ={this.searchHandler}>
+                          <div className="row" style={{padding:"15px"}}>
+                              <div className='searchColumnUm'>
+                                  <div className="searchINP">
+                                      <div className="input-group p-0 searchSection"  style={{border:"1px solid #D5D8DA"}}>
+                                            <div className="input-group um-searchBox w-100 default-box-height" style={{maxWidth:"none"}}>
+                                                <span className="input-group-text border-0 bg-transparent ml-2" style={{ padding:"0.4rem" }}>
+                                                    <i className="iconU-search" />
+                                                </span>
+                                                <input type="text" style={{ fontFamily: "Helvetica Neue Medium", backgroundColor:"transparent" }}
+                                                  className="form-control searchInput" id="searchInput" name="searchInput"
+                                                  placeholder="Enter User Id or User Name" />
+                                            </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div>
+                                <Button type="submit" className="default-box-height search search-um text-button btn-primary">
+                                    Search
+                                </Button>
+                              </div>
 
-           <PersonalUserComponent data={this.state.personalUser} headers={this.state.headersPersonal} />
+                          </div>
+                      </form>
+                      </CardBody> 
+                  </Card>
+              </CardBody>
+            </Card>
 
 
             <div className={( this.state.isListLoaded ? 'd-none': 'spinner')}/>
             <div className={( this.state.isListLoaded ? '':' d-none ')}>
-              <div className="mb-3">
-                <Card className="container-user-list border-0 mb-0"> 
-                <CardBody>
-                <form ref={this.searchForm} onSubmit ={this.searchHandler}>
-                <div className="row">
-                <div className='pr-3 pl-3 ' style={{width: "86%"}}>
-                    <div className="searchINP">
-                    <div className="input-group p-0 searchSection">
-                    <div className="input-group searchBox w-100 default-box-height" style={{maxWidth:"none"}}>
-                    <span className="input-group-text border-0 bg-transparent ml-2" style={{ padding:"0.4rem" }}>
-                    <i className="iconU-search" />
-                    </span>
-                    <input type="text" style={{ fontFamily: "Helvetica Neue Medium", backgroundColor:"transparent" }}
-                    className="form-control searchInput" id="searchInput" name="searchInput"
-                    placeholder="Enter User Id or User Name" />
-                    </div>
-                    </div>
-                    </div>
-                </div>
-                <div className='pr-3' style={{width: "14%"}} >
-                    <Button type="submit" className="default-box-height search search-um text-button btn-primary">
-                      Search
-                    </Button>
-                </div>
-
-                {/* <div className="col-2 m-0"> */}
-
-
-                </div>
-                </form>
-                </CardBody> 
-                </Card>
-              </div>
+             
 
                 <Card className="container-user-list border-0 mb-2">
                 <CardBody className="p-0">
@@ -701,12 +784,12 @@ class UserManagement extends Component{
                 <ModalNewUser isOpen={this.state.isModalNewOpen} closeModal={this.closeModalPopUp} model={this.state.accountInfo}
                 onChangeName={this.onChangeName} onChangeEmail={this.onChangeEmail} moduleAccess={this.state.moduleAccess}
                 isModuleLoaded={this.state.isModuleLoaded} moduleAccessEnableClick={this.onModuleAccessClick}
-                sites={this.state.sites} isSiteLoaded={this.state.isSiteLoaded} sitesEnableClick={this.onSiteStatusClick}
-                clients={this.state.clients} isClientLoaded={this.state.isClientLoaded} clientEnableClick={this.onClientStatusClick}
+                sites={this.state.sites} isSiteLoaded={this.state.isSiteLoaded} sitesEnableClick={this.onSiteStatusClick} onSiteEnableAll={this.onEnabledAllSite}
+                clients={this.state.clients} isClientLoaded={this.state.isClientLoaded} clientEnableClick={this.onClientStatusClick} onClientEnableAll={this.onEnabledAllClient}
                 onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing} onChangeCompany={this.onChangeCompany}
                 onModuleEnableAll = {this.onEnabledAllModuleAccess} isValidForm={this.state.isValidForm} onNextClickHandler={this.nextClickHandler}
                 firtsTabActive={this.state.firstTab} secondTabActive={this.state.secondTab} onClickTabActive={this.setTabActive}
-                message={this.state.validatorMessage} />
+                message={this.state.validatorMessage} changeWebGroup={this.changeWebgroup} isWebGroup={this.state.webgroup} validation={this.state.validation}/>
 
                 </CardBody>
                 </Card>
@@ -720,11 +803,29 @@ class UserManagement extends Component{
                         maxPage={(this.state.totalPage)}
                         startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                         numberEventClick={this.numberEventClick}/>
-                      <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
-                          ExportHeader={this.ExportHeader} ExportData={this.ExportData}/>
+                       <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                              ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont}/>
                   </div>
                 </div>
             </div>
+
+            <Modal className="create-confirmation" isOpen={this.state.succesCreate} centered={true} 
+              onOpened={() => this.state.succesCreate ? setTimeout(() => { this.closeConfirmDialog() }, 3000) : {}}>              
+              <ModalBody style={{backgroundColor:"#D5D8DA"}}>
+                  <div className="d-flex d-inline-flex">
+                        <img src={logo_confirm} alt="logo" style={{width:"20%",height:"20%"}}/>
+                        <label className="pl-3 font">
+                            Thank You <br/>
+                            you have created a new <br/>
+                            {(this.state.webgroup)?' Admin User ':' User '} for {this.state.accountInfo.client} Warehouse.<br/>
+                            {(this.state.webgroup)?' Admin User ':' User '} {this.state.accountInfo.name} Warehouse <br/>
+                            will receive an email shortly to create <br/>
+                            their new password and access the portal
+                        </label>
+                    </div>                    
+              </ModalBody>
+
+          </Modal>
 
         </div>)
     }

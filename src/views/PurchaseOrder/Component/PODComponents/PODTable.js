@@ -34,8 +34,8 @@ class PurchaseOrderTable extends Component {
           },
           {
             id: "product_name", 
-            checkboxLabelText: "Product Description", 
-            tableHeaderText: "Product Description", 
+            checkboxLabelText: "Description", 
+            tableHeaderText: "Description", 
             isVisible: true, 
             key: "product_name", 
             type: "string"
@@ -238,7 +238,7 @@ class PurchaseOrderTable extends Component {
   render(){
     return(
       <div>
-        <table className="defaulTable">
+        <table className="defaultTable">
           <thead>
             <tr>
               {this.state.tableheader.map((header, idx) => {
@@ -254,6 +254,8 @@ class PurchaseOrderTable extends Component {
                   }
               }
               )}
+
+              <th className='iconU-edit' onClick={this.props.showEditColumn}></th>
             </tr>
           </thead>
           <tbody>

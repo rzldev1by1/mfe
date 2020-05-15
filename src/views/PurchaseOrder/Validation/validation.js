@@ -6,11 +6,11 @@ const headerValidation = (header) => {
     if (!header.client) required.push(['client', 'client value must be entered'])
     if (!header.orderType) required.push(['orderType', 'order type value must be entered']) 
     if (ordNo.length === 0) required.push(['orderNo', 'order no cannot be empty'])
-    if(ordNo.length < 4 && ordNo.length !== 0)
+    if(ordNo.length < 5 && ordNo.length !== 0)
     {
         const ordNo = document.getElementById('orderNo')
         ordNo.focus()
-        required.push(['orderNo', 'order no must have min 4 characters or more'])
+        required.push(['orderNo', 'order no must have min 5 characters or more'])
     }
     if (!header.orderDate) required.push(['orderDate', 'order date must be entered'])
 
@@ -19,31 +19,20 @@ const headerValidation = (header) => {
 }
 
 const lineValidation = (line, idx) => {
-    let required = []
     idx = idx+1
     const {
         product,
-        productDescription,
         qty,
         uom,
-        rotadate,
-        batch,
-        ref3,
-        ref4,
-        disposition,
-        weight,
-        orderDate
     } = line
 
-    if(!product)
+    if(!product || product == '')
     {
-        alert('please select product in line '+idx)
         return false
     }
 
-    if(!qty)
+    if(!qty || qty == '')
     {
-        alert('qty in line '+idx+' cannot be empty ')
         idx = idx-1
         idx = 'qty_'+idx
         const qty = document.getElementById(idx)
@@ -51,15 +40,8 @@ const lineValidation = (line, idx) => {
         return false
     }
 
-    if(!weight)
+    if(!uom || uom == '')
     {
-        alert('weight in line '+idx+' cannot be empty ')
-        return false
-    }
-
-    if(!uom)
-    {
-        alert('please select uom in line '+idx)
         return false
     }
     return true

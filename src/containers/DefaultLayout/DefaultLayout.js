@@ -22,8 +22,9 @@ import routes from '../../routes';
 
 import Authentication from '../../Auth/Authentication';
 
-import logo from '../../assets/img/brand/logo_ml_large.png';
-import dummyPic from '../../assets/img/brand/userprofile.png';
+import logo from '../../assets/img/brand/LOGO2.png';
+import logout from '../../assets/img/brand/logout2.png';
+import dummyPic from '../../assets/img/brand/User-Icon.png';
 import menunav from '../../menunav';
 import SidebarMenu from './SidebarMenu';
 
@@ -49,6 +50,7 @@ class DefaultLayout extends Component {
 
 	signOut() {
         Authentication.signOut();
+        Authentication = null;
 	}
 
     onUserDropdownClick = () => {
@@ -77,8 +79,6 @@ class DefaultLayout extends Component {
         }
     }
 
-
-
 	showMenu = () => {
 			let userLevel = Authentication.getUserLevel();
 			let userMenu = Authentication.getUserMenu();
@@ -94,22 +94,21 @@ class DefaultLayout extends Component {
 
 			}
 
-		}
-
-
-
+        }
+        
     render() {
 
         return (
             <div className="app">
                 <div className="app-body">
-                    <AppSidebar className="sidebar-fullheight" fixed display="lg">
+                    <AppSidebar fixed display="lg">
                         {/* <AppSidebarHeader /> */}
                         {/* <AppSidebarForm /> */}
                         <Suspense>
+                            
+                    <div className="scrollbar-container sidebar-nav"> 
                             <div className="p-0 sidebar-header">
-                                <img className="navbar-brand-full" src={logo} alt="" style={{ width: 200, height: 58 }} />
-                                <hr className="border-header" />
+                                <img src={logo} alt="" className="sideLogo"/>
                             </div>
 
 
@@ -117,38 +116,35 @@ class DefaultLayout extends Component {
 																<AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
 															**/
 														  }
-
-
-																<SidebarMenu menuItems={this.state.navigationMenu}/>
-
-
-                            <div className="userSection" size="sm" onClick={this.onUserDropdownClick}>
-                                <table>
-                                    <tbody>
+                                                       
+							<SidebarMenu menuItems={this.state.navigationMenu}/>
+                            
+                            <div style={{position: "absolute", bottom:'0px'}}>
+                            <div className="p-0 sidebar-header" style={{textAlign: 'left',marginTop: '30px'}} onClick={this.onUserDropdownClick}>
                                         <tr>
-                                            {/* <td rowSpan="2" className="text-center align-middle p-0">
-                                                <span className="fa fa-user-circle fa-3x" />
+                                            <td rowSpan="3" className="text-center align-middle p-0 divProfilePhoto" >
+                                           
+    
                                                 <img className="profilePhoto" src={dummyPic} alt="dummyPic" />
-                                            </td> */}
-                                            <td className="pb-0">
+                                            </td> 
+                                        </tr>
+                                        <tr> 
+                                            <td className="pt-0">
                                                 <span className="userName">{Authentication.getName()}</span>
+                                                <br />
+                                                <span className="profileID">  ID: {Authentication.getId()} </span>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="pt-0">
-                                                <span className="profileID"> ID: {Authentication.getId()} </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="pt-0">
-                                                <a className="Logout" href="/" onClick={(e) => {this.signOut()} }>
-                                                    <i className="iconU-logout" /> Logout
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                        </tr> 
                             </div>
+                            <div className="userLogout  p-0 sidebar-header">
+                                <ul className="nav">
+                                    <li class="nav-item"><a class="nav-link" href="/" onClick={(e) => {this.signOut()} }><img src={logout} alt="" className="LogoutIcon"/><i class="nav-icon "></i><div class="nav-name Logout">Logout</div></a></li>
+                                </ul>
+                            </div>
+                            </div>
+                    </div>                                         
+
+                           
 
                             {/* {this.expandUser()} */}
                         </Suspense>

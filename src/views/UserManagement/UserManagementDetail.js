@@ -54,6 +54,7 @@ class UserManagementDetail extends Component{
           newAccount.client = account.client;
           newAccount.disabled = account.disabled !== 'Y'?false:true;
           newAccount.passwordChange = account.passwordChange?account.passwordChange:'';
+          newAccount.site = account.site;
       }
       return newAccount;
     }
@@ -250,19 +251,43 @@ class UserManagementDetail extends Component{
        this.setState({moduleAccess:newArray,accountInfo:userInfo});
     }
 
-    onSiteStatusClick = (e,data) => {
+    onEnabledAllSite = () => {    
+      let userInfo = {...this.state.accountInfo};
+      let sites = [...this.state.sites];
+      var newArray = sites.map((item,index) => {
+            item.status = true;
+          return item;
+      });
+      userInfo.site = null;
+     this.setState({sites:newArray,accountInfo:userInfo});
+  }
 
+  onEnabledAllClient = () => { 
+      let userInfo = {...this.state.accountInfo};      
+      let clients = [...this.state.clients];
+      var newArray = clients.map((item,index) => {
+            item.status = true;
+          return item;
+      });
+      userInfo.client = null;
+     this.setState({clients:newArray,accountInfo:userInfo});
+  }
+
+    onSiteStatusClick = (e,data) => {
       if(data){
+        let user = {...this.state.accountInfo};
         let newState = [...this.state.sites];
         var newArray = newState.map((item,index) => {
             item.status = false;
             if(item.site === data.site)
               item.status = true;
+              if(item.status)
+                  user.site = data.site;
 
             return item;
         });
 
-        this.setState({sites:newArray});
+        this.setState({sites:newArray,accountInfo:user});
       }
     }
 
@@ -325,6 +350,7 @@ class UserManagementDetail extends Component{
   	    newParam.thisLogin = accountInfo.thisLogin;
   	    newParam.userMenu = this.changeUserMenuToStringArray(accountInfo.userMenu);
         newParam.client = accountInfo.client;
+        newParam.site = accountInfo.site;
         newParam.disabled = accountInfo.disabled?'Y':'N';
         
 
@@ -395,11 +421,11 @@ class UserManagementDetail extends Component{
     updateRequest = (param) => {
 
       var self = this;
-      const {name,userId,email,userMenu} = self.state.accountInfo;
+      const {userId} = self.state.accountInfo;
 
-      let url = `${endpoint.UserManagement_Update}${userId}`
+      let url = `${endpoint.UserManagement_Update}${userId}`;
 
-
+      
         axios.post(url,param,{ headers: headers })
           .then(res => {
             var result = [];
@@ -415,7 +441,7 @@ class UserManagementDetail extends Component{
           })
           .then((result) => {
             
-          })
+          });
 
 
     }
@@ -446,7 +472,7 @@ class UserManagementDetail extends Component{
 
     onSubmitHandler = (e) => {
       e.preventDefault();
-      alert('hello');
+      
     }
 
     render(){
@@ -483,11 +509,11 @@ class UserManagementDetail extends Component{
                                         <label className="title-label">User ID</label>
                                     </div>
 
-                                    <div className="col-2">
+                                    <div className="col-3">
                                         <label className="title-label">Name</label>
                                     </div>
 
-                                    <div className="col-2">
+                                    <div className="col-3">
                                         <label className="title-label">Email</label>
                                     </div>
 
@@ -496,9 +522,9 @@ class UserManagementDetail extends Component{
                                         <label className="title-label">Reset Password</label>
                                     </div>
                                     
-                                    <div className="col-3 pl-0">
+                                    {/* <div className="col-3 pl-0">
                                           <label className="title-label">Suspend Users</label>
-                                    </div>
+                                    </div> */}
                                     
 
                                     </div>
@@ -508,27 +534,27 @@ class UserManagementDetail extends Component{
                                             <input type="text" readOnly className="form-control" defaultValue={this.state.accountInfo.userId}/>
                                         </div>
 
-                                        <div className="col-2">
+                                        <div className="col-3">
                                             <input type="text" className="form-control" maxLength="60" onChange={(e)=>{this.onChangeName(e);}} defaultValue={this.state.accountInfo.user}/>
                                         </div>
 
-                                        <div className="col-2">
+                                        <div className="col-3">
                                             <input type="email" name="email" className="form-control" onChange={(e)=>{this.onChangeEmail(e);}} defaultValue={this.state.accountInfo.email}/>
                                         </div>
 
 
-                                        <div className="col-3 pr-0">
+                                        <div className="col-4 pr-0">
                                               <div className="row pl-0">
                                                 <div className="col-6" style={{color:"#637176",fontFamily:"Helvetica Neue Regular",fontSize:"1rem"}}>                                                  
                                                       Are you sure you want<br/>
-                                                      to reset password?                                                  
+                                                      to create new password?                                                  
                                                 </div>
                                                 <div className="col-5">
                                                   <button type="button" className={"btn "+((accountInfo.passwordChange === '')?"btn-outline-active":"btn-outline-notActive")} onClick={(e)=>{this.onClickResetPassword();}}>Reset</button>
                                                 </div>
                                               </div>
                                         </div>
-                                        <div className="col-3 pl-0">
+                                        {/* <div className="col-3 pl-0">
                                           <div className="row">
                                               <div className="col-6" style={{color:"#637176",fontFamily:"Helvetica Neue Regular",fontSize:"1rem"}}>
                                                     Are you sure you want<br/>
@@ -540,12 +566,8 @@ class UserManagementDetail extends Component{
                                                   </button>
                                               </div>
                                           </div>
-                                              {/* <div className="col pl-0">
-                                                <span className={'p-1 float-right '+((!accountInfo.disabled)?'client-active ':' client-notActive ')} onClick={(e)=>{this.onClieckSuspendUser()}}>
-                                                { (!accountInfo.disabled)?'Suspend':'Disabled' }
-                                                </span>
-                                              </div> */}
-                                        </div>
+                                              
+                                        </div> */}
 
 
                                     </div>
@@ -565,10 +587,10 @@ class UserManagementDetail extends Component{
                                             <ModuleAccess moduleAccess={moduleAccess} onEnableClick={this.onModuleAccessClick} onModuleEnableAll={this.onEnabledAllModuleAccess}/>
                                         </div>
                                         <div className="col-4 pl-0">
-                                            <Site sites={sites} onEnableClick={this.onSiteStatusClick}/>
+                                            <Site sites={sites} onEnableClick={this.onSiteStatusClick} onSiteEnableAll={this.onEnabledAllSite}/>
                                         </div>
                                         <div className="col-4">
-                                            <Client clients={clients} onEnableClick={this.onClientStatusClick}/>
+                                            <Client clients={clients} onEnableClick={this.onClientStatusClick} onClientEnableAll={this.onEnabledAllClient}/>
                                         </div>
 
                                     </div>
@@ -618,13 +640,13 @@ class UserManagementDetail extends Component{
                 </p>
             </div>
           </ModalHeader>
-          <ModalBody>
+          <ModalBody className="um-reset-modal-body">
             <div className="d-flex justify-content-center">
                 <img className={this.state.isResetSuccess?"img-popup-reset-success":"img-popup-reset"} src={this.state.isResetSuccess?popupLockSuccess:popupLock} />
             </div>
 
             <div className="d-flex justify-content-center">
-                {this.state.isResetSuccess?<label style={{fontSize:"50px",color:"#22ABE3"}}>Success!</label>:''}
+                {this.state.isResetSuccess?<label style={{fontSize:"50px",color:"#3366FF"}}>Success!</label>:''}
             </div>
 
             <div className="d-flex justify-content-center">

@@ -46,5 +46,20 @@ const reset = (props) => {
         }
     }
 
-    export {reset}
+    const errMsg = {
+      header: {
+        emptySite: null,
+        emptyClient: null,
+        emptyOrderType: null,
+        emptyOrderNo: null,
+        emptyDeliveryDate: null,
+
+        emptyCustomer: null,
+        emptyShipToAddress1: null,
+        emptyPostCode: null,
+        emptyState: null
+      }
+    }
+
+    export {reset, errMsg}
     

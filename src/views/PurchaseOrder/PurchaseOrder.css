@@ -59,7 +59,8 @@ h1{
     width: 22%;
     height: calc(1.5em + 0.75rem + 2px);
     padding: 0.375rem 0.75rem;
-    font-size: 0.875rem;
+	/* font-size: 0.875rem; */
+	font-size: 18px;
 	font-weight: 400;
 	position: absolute;
 	z-index: 0;
@@ -176,7 +177,7 @@ h1{
 	position: absolute;
   	z-index: 1;
 	background-color: white;
-	border: 1.5px solid #22ABE3;
+	border: 1.5px solid #3366FF;
 	border-radius: 5px;
 	margin-top:10px;
 	padding: 0.1%;
@@ -436,7 +437,7 @@ select option:hover{
 }
 
 h3{
-	color: #22ABE3;
+	color: #3366FF;
 	margin-top: 0px !important;
 }
 
@@ -450,7 +451,6 @@ h3{
 
 .tablerow{
 	width: 83%;
-	max-height: 120px;
 }
 
 .scroll{
@@ -553,7 +553,6 @@ h3{
 	margin-bottom: 1%;
 	padding:1% !important;
 	font-size: 0.9rem;
-	max-height: 600px;
 }
 
 .conts{
@@ -596,5 +595,14 @@ h3{
 
 .pec::-webkit-input-placeholder{
 	color:#7C878C !important;
+}
+
+.po-order-line-required{
+	height: 0.5em !important;
+	vertical-align: top;
+}
+
+.po-hidden{
+	display: none !important;
 }
 

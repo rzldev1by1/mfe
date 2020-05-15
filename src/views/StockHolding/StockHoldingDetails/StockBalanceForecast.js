@@ -263,7 +263,7 @@ class StockBalanceForecast extends Component {
 												</tbody>
                     </Table>
                 </div>
-                <div className="mt-2">
+                <div className="paginations">
                     <Paging firstPageClick={this.firstPageClick} backPageClick={this.backPageClick}
                             nextPageClick={this.nextPageClick} lastPageClick={this.lastPageClick}
                             totalRows={this.state.totalRows} displayPage={this.state.displayPage}

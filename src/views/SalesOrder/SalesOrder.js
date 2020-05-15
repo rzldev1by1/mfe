@@ -10,7 +10,7 @@ import axios from "axios";
 import { endpoint, headers } from "../../AppComponent/ConfigEndpoint";
 import Authentication from "../../Auth/Authentication";
 import EditColumn from "./Components/Modal/Modal";
-
+import {column} from './Components/Validation/defaultColumn'
 import "./SalesOrder.css";
 class SalesOrder extends Component {
   constructor(props) {
@@ -56,7 +56,9 @@ class SalesOrder extends Component {
 
       loaded: false,
 
-      showEditColumn: false
+      showEditColumn: false,
+
+      column:Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column
     };
   }
 
@@ -66,7 +68,15 @@ class SalesOrder extends Component {
     this.getResources();
     this.getProduct();
     this.getDisposition();
+    
   };
+
+  editColumnHandler = (idx, active) => {
+    let newColumn             = this.state.column
+    newColumn[idx].active     = active
+    this.setState({column:newColumn}, localStorage.setItem('savedColumn', JSON.stringify(newColumn)))
+    
+  }
 
   openModal = () => {
     this.setState({ showmodal: true });
@@ -81,7 +91,9 @@ class SalesOrder extends Component {
     self.potableref.current.searchSalesOrder(
       self.state.search,
       self.state.siteSelected,
-      self.state.clientSelected
+      self.state.clientSelected,
+      self.state.status,
+      self.state.ordertype
     );
   };
 
@@ -95,7 +107,7 @@ class SalesOrder extends Component {
         this.setState({ clientdata: result });
       })
       .catch((error) => {
-        
+
         console.log(error);
       });
   };
@@ -110,7 +122,7 @@ class SalesOrder extends Component {
         this.setState({ sitedata: result });
       })
       .catch((error) => {
-        
+
       });
   };
 
@@ -131,7 +143,7 @@ class SalesOrder extends Component {
         let result = res.data;
         this.setState({ resources: result, loaded: true });
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   getProduct = (clientparam) => {
@@ -180,44 +192,62 @@ class SalesOrder extends Component {
     let clientValue = [];
     let siteData = [];
     let siteName = [];
-    let status = [];
+    let orderTypeName = [];
+    let orderTypeValue = [];
+    let statusName = ["1:Unavailable", "2:Released",  "3:Open","4:Completed", "All"];
+    let statusValue =["Unavailable", "Open", "Released", "Completed", "All"];
+    let statuss = [];
     if (this.state.clientdata) {
       this.state.clientdata.map((data) => {
-        clientName.push(data.name);
+        clientName.push(data.code + ' : '+ data.name);
         clientValue.push(data.code);
       });
+      clientName.push("All");
+      clientValue.push("");
     }
     if (this.state.sitedata) {
       this.state.sitedata.map((data) => {
-        siteName.push(data.site + ' : ' +data.name)
+        siteName.push(data.site + ' : ' + data.name)
         siteData.push(data.site);
       });
+      siteName.push("All");
+      siteData.push("");
+    }
+
+    if(this.state.resources.orderType !== undefined)
+    {
+      this.state.resources.orderType.name.map((data, i) => {
+        orderTypeName.push(data)
+      })
+      this.state.resources.orderType.code.map((data, i) => {
+        orderTypeValue.push(data)
+      })
     }
     return (
       <React.Fragment>
-        <div className='so-dropdown-wrapper'>
-          <div>
-          <Dropdown
-          placeHolder="Site"
-          style={{ width: "142px"}}
-          optionList={siteName.toString()}
-          optionValue={siteData.toString()}
-          getValue={this.getSiteSelected.bind(this)}
-        />
-          </div>
-          <div>
-          <Dropdown
-          placeHolder="Client"
-          style={{ width: "142px"}}
-          optionList={clientValue.toString()}
-          optionValue={clientValue.toString()}
-          getValue={this.getClientSelected.bind(this)}
-        />
-          </div>
-        </div>
+          <Dropdown placeHolder="Site"
+                    optionList={siteName.toString()}
+                    optionValue={siteData.toString()}
+                    getValue={this.getSiteSelected.bind(this)}
+                    className="filterDropdown"/>
 
-       
-        {/* <Dropdown placeHolder="Order No" style={{height:"1em"}} optionList="hard,code" optionValue="hard,code" getValue={(v)=> console.log(v)}/> */}
+          <Dropdown placeHolder="Client"
+                    optionList={clientName.toString()}
+                    optionValue={clientValue.toString()}
+                    getValue={this.getClientSelected.bind(this)}
+                    className="filterDropdown"/>
+
+          <Dropdown placeHolder="Status" 
+                    optionList={statusName.toString()} 
+                    optionValue={statusValue.toString()} 
+                    getValue={(code) => this.setState({status:code})}
+                    className="filterDropdown"/>
+
+          <Dropdown placeHolder="Order Type" 
+                    optionList={orderTypeName.toString()} 
+                    optionValue={orderTypeValue.toString()} 
+                    getValue={(code) => this.setState({ordertype:code})}
+                    className="filterDropdown"/> 
       </React.Fragment>
     );
   };
@@ -250,18 +280,19 @@ class SalesOrder extends Component {
               this.setState({ filterclicked: !this.state.filterclicked })
             }
             searchData={() => this.search()}
-            placeholder="Enter a Order No"
-          />
+            placeholder="Enter an Order No"
+            additionalComponent = {this.showDropdowns()}/>
         </div>
 
-        <div className="dropdowns">
+        {/* <div className="dropdowns">
           <div style={{ display: "flex", width: "100%" }}>
-            {this.state.filterclicked ? this.showDropdowns() : null}
+            {this.state.filterclicked ? null : null }
           </div>
-        </div>
+        </div> */}
 
         <div className={"" + (this.state.complete ? "fades" : "hidden")}>
           <ListOrderComponent
+            column = {this.state.column}
             openEditModal={() => this.openEditModal()}
             ref={this.potableref}
             className="animated fadeIn"
@@ -283,8 +314,10 @@ class SalesOrder extends Component {
           />
         ) : null}
         <EditColumn
+          editColumnHandler = {(idx, active) => this.editColumnHandler(idx, active)}
           showEditColumn={this.state.showEditColumn}
           closeModal={() => this.setState({ showEditColumn: false })}
+          column = {this.state.column}
         />
       </div>
     );

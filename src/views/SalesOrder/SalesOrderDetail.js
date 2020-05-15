@@ -5,7 +5,8 @@ import SODTable from './Components/SODTable'
 import axios from 'axios'
 import { endpoint, headers, } from '../../AppComponent/ConfigEndpoint'
 import Authentication from '../../Auth/Authentication'
-import client from '../UserManagement/Component/Client';
+import client from '../UserManagement/Component/Client'
+import EditColumn from '../../AppComponent/EditColumn'
 
 class SalesOrderDetail extends Component {
     constructor(props) {
@@ -15,17 +16,20 @@ class SalesOrderDetail extends Component {
         this.state = {
             complete: false,
             head: [],
-            datadetail: []
+            line: [], 
+            tableheader: [],
+            showEditColumn: false
         }
-
+        
         this.client = Authentication.getClient()
     }
 
     componentDidMount() {
+        this.getHeaderDetail()
         this.getProductDetail()
     }
 
-    getHeaderDetail = () => {
+    getProductDetail = () => {
         this.setState({ complete: false })
         let param = window.location.href.split("/")
         let index = param.length
@@ -33,10 +37,20 @@ class SalesOrderDetail extends Component {
         let client = param[index - 3]
         let site = param[index - 2]
         let orderNo = param[index - 1]
+
+        param= '?client=' + client
+
+        axios.get(endpoint.salesOrder +'/' + orderNo + param,{
+            headers:headers
+        })
+        .then(res => {
+            const result = res.data.data
+            this.setState({line:result})
+        })
+
     }
 
-    getProductDetail = () => {
-
+    getHeaderDetail = () => {
         this.setState({ complete: false })
         let param = window.location.href.split("/")
         let index = param.length
@@ -52,38 +66,35 @@ class SalesOrderDetail extends Component {
             .then(res => {
                 const result = res.data.data
                 this.setState({ head: result })
-
-
             })
             .catch(error => {
                 
             })
-
     }
 
     head = () => {
         let site = this.state.head.length ? this.state.head[0].site : null
         let client = this.state.head.length ? this.state.head[0].client : null
-        let orderNo = this.state.head.length ? this.state.head[0].order_no : null
-        let orderType = this.state.head.length ? this.state.head[0].order_type : null
-        let consignmentNumber = this.state.head.length ? this.state.head[0].consignment_number : null
-        let freightCharge = this.state.head.length ? this.state.head[0].freight_charge : null
-        let custOrderNumber = this.state.head.length ? this.state.head[0].cust_order_number : null
-        let customerPoNo = this.state.head.length ? this.state.head[0].customer_po_no : null
-        let dateReceived = this.state.head.length ? this.state.head[0].date_received : null
-        let dateReleased = this.state.head.length ? this.state.head[0].date_released : null
-        let dateCompleted = this.state.head.length ? this.state.head[0].date_completed : null
-        let customerName = this.state.head.length ? this.state.head[0].customer_name : null
+        let orderNo = this.state.head.length ? this.state.head[0].orderno : null
+        let orderType = this.state.head.length ? this.state.head[0].ordertype : null
+        let consignmentNumber = this.state.head.length ? this.state.head[0].consignmentnumber : null
+        let freightCharge = this.state.head.length ? this.state.head[0].freightcharge : null
+        let custOrderNumber = this.state.head.length ? this.state.head[0].custordernumber : null
+        let customerPoNo = this.state.head.length ? this.state.head[0].customerpono : null
+        let dateReceived = this.state.head.length ? this.state.head[0].datereceived : null
+        let dateReleased = this.state.head.length ? this.state.head[0].datereleased : null
+        let dateCompleted = this.state.head.length ? this.state.head[0].datecompleted : null
+        let customerName = this.state.head.length ? this.state.head[0].customername : null
         let status = this.state.head.length ? this.state.head[0].status : null
-        let vendorOrderNo = this.state.head.length ? this.state.head[0].vendor_order_no : null
-        let loadNumber = this.state.head.length ? this.state.head[0].load_number : null
-        let loadoutStart = this.state.head.length ? this.state.head[0].loadout_start : null
-        let loadoutFinish = this.state.head.length ? this.state.head[0].loadout_finish : null
-        let Address1 = this.state.head.length ? this.state.head[0].address_1 : null
-        let Address2 = this.state.head.length ? this.state.head[0].address_2 : null
-        let Address3 = this.state.head.length ? this.state.head[0].address_3 : null
-        let Address4 = this.state.head.length ? this.state.head[0].address_4 : null
-        let Address5 = this.state.head.length ? this.state.head[0].address_5 : null
+        let vendorOrderNo = this.state.head.length ? this.state.head[0].vendororderno : null
+        let loadNumber = this.state.head.length ? this.state.head[0].loadnumber : null
+        let loadoutStart = this.state.head.length ? this.state.head[0].loadoutstart : null
+        let loadoutFinish = this.state.head.length ? this.state.head[0].loadoutfinish : null
+        let Address1 = this.state.head.length ? this.state.head[0].address1 : null
+        let Address2 = this.state.head.length ? this.state.head[0].address2 : null
+        let Address3 = this.state.head.length ? this.state.head[0].address3 : null
+        let Address4 = this.state.head.length ? this.state.head[0].address4 : null
+        let Address5 = this.state.head.length ? this.state.head[0].address5 : null
         let postCode = this.state.head.length ? this.state.head[0].postcode : null
         let country = this.state.head.length ? this.state.head[0].country : null
         let state = this.state.head.length ? this.state.head[0].state : null
@@ -115,7 +126,7 @@ class SalesOrderDetail extends Component {
                             <td>{customerName ? customerName : '-'}</td>
                         </tr>
                         <tr>
-                            <th>Customer PO No</th>
+                            <th>Customer Order Ref</th>
                             <td>{customerPoNo ? customerPoNo : '-'}</td>
                         </tr>
                         <tr>
@@ -233,10 +244,22 @@ class SalesOrderDetail extends Component {
                     this.state.head.length ? this.head() : null
                 }
                 <div className={'tablecontent ' + (this.state.head.length ? 'fades ' : 'hidden')}>
-                    <SODTable ref={this.potableref} className='animated fadeIn' style={{ display: 'none' }} head={this.state.head}><tr></tr></SODTable>
+                    <SODTable ref={this.potableref} 
+                    className='animated fadeIn' 
+                    style={{ display: 'none' }} 
+                    head={this.state.line} 
+                    showEditColumn = {() => this.setState({ showEditColumn: true })}
+                    getTableHeader = {(e) => this.setState({ tableheader: e })}
+                    ><tr></tr></SODTable>
                 </div>
                 <div className={(this.state.head.length ? 'hidden' : 'spinner')} />
 
+                <EditColumn isOpen={this.state.showEditColumn} 
+                            toggle={() => this.setState({ showEditColumn: false })}
+                            fields={this.state.tableheader}
+                            updateTableColumn={(e) => this.setState({ tableheader: e })}
+                            modulName="Sales Order Detail" 
+                />
             </div>
         )
     }

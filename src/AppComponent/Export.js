@@ -24,31 +24,70 @@ class Export extends Component {
               year = date.getFullYear();
          return dateNow=(date1 +"-"+ arrmonth[month] +"-"+ year)  
       }
+    // exportPDF = () => {
+    //     const unit = "pt";
+    //     const size = "A4"; // Use A1, A2, A3 or A4
+    //     const orientation = "landscape"; // portrait or landscape
+
+    //     const marginLeft = 40;
+    //     const doc = new jsPDF(orientation, unit, size);
+    
+    //     doc.setFontSize(15);
+    
+    //     const title =   this.props.ExportPDFName()+ " Data Microlistics  " + this.Date();
+    //     const headers = [this.props.ExportHeader()];
+    
+    //     const data = this.props.ExportData()
+    
+    //     let content = {
+    //       startY: 50,
+    //       head: headers,
+    //       body: data
+    //     };
+    
+    //     doc.text(title, marginLeft, 40);
+    //     doc.autoTable(content);
+    //     doc.save(this.props.ExportName()+".pdf")
+    //   }
+
     exportPDF = () => {
+        const marginLeft = 40;
+
+        const doc = this.examples();
+        const data = this.props.ExportData()
+    
+        doc.save(this.props.ExportName()+".pdf")
+      }
+
+      examples = () => {
         const unit = "pt";
         const size = "A4"; // Use A1, A2, A3 or A4
         const orientation = "landscape"; // portrait or landscape
-
-        const marginLeft = 40;
         const doc = new jsPDF(orientation, unit, size);
-    
-        doc.setFontSize(15);
-    
-        const title =   this.props.ExportPDFName()+ " Data Microlistics  " + this.Date();
-        const headers = [this.props.ExportHeader()];
-    
-        const data = this.props.ExportData()
-    
-        let content = {
-          startY: 50,
-          head: headers,
-          body: data
-        };
-    
-        doc.text(title, marginLeft, 40);
-        doc.autoTable(content);
-        doc.save(this.props.ExportName()+".pdf")
+
+        // From HTML
+        doc.autoTable({ html: '.table' })
+      
+        // From Javascript
+        var finalY = doc.previousAutoTable.finalY || 10
+        doc.text( this.props.ExportPDFName()+ " Data Microlistics  " + this.Date() , 14, finalY + 15)
+        doc.autoTable({
+          startY: finalY + 20,
+          head: [this.props.ExportHeader()],
+          body: this.props.ExportData(),
+          styles: { cellPadding: 0.5, fontSize: this.props.ExportFont() },
+        })
+      
+        finalY = doc.previousAutoTable.finalY
+        doc.autoTable({
+          startY: finalY + 20,
+          html: '.table',
+          useCss: true,
+        })
+      
+        return doc
       }
+   
     
     render = () => {
         return (

@@ -28,12 +28,12 @@
 	list-style: none;
 	background-color: #FFFFFF;
 	border-radius: 5px;
-	border: 1px solid #D5D8DA;
+	/* border: 1px solid #D5D8DA; */
 }
 
 .select_date:hover, .select_date:focus-within{
 	transition: 0.2s ease-in;
-	border: 1px solid #22ABE3 !important;
+	/* border: 1px solid #22ABE3 !important; */
 }
 .select_date_label {
 	font-family: "Helvetica Neue Regular";
@@ -90,7 +90,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     position: absolute;
-    top: 34%;
+    top: 44%;
     right: 8px;
     font-size: 10px;
     pointer-events: none;
@@ -100,7 +100,7 @@
 }
 .select_date_expand:checked::after {
     transition: 0.2s ease-in;
-    color: #22ABE3;
+    color: #3366FF;
 } 
 
 /* Label Close for Checkbox */
@@ -122,12 +122,16 @@
 }
 .select_date_expand:checked + .select_date_closeLabel + .select_date_options{
     display: block;
-    z-index: 3;    
+    z-index: 100;    
     margin-top: 8px;
     background-color: white;
     border-radius: 5px;
-	border: 1px solid #22ABE3 !important;
+	border: 1px solid #3366FF !important;
 	width: 300px;
+} 
+
+.select_date_expand:checked + .select_date_closeLabel + .top{
+    margin-top: -440px !important;
 } 
 
 .select_date_expand:checked + .select_date_closeLabel + .smallField{
@@ -157,10 +161,15 @@
 .dateInfo{
     padding-top: 15px;
     text-align: center;
-    color: #22ABE3;
+    color: #3366FF;
     font-family: "Helvetica Neue Medium";
 }
 
 .datepicker-content{
     width: 100%;
+}
+.DayPicker-Day {
+    padding: 0 !important;
+    width: 2.2em;
+    height: 2.2em;
 }

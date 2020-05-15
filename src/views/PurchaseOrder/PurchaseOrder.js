@@ -182,13 +182,13 @@ class PurchaseOrder extends Component {
         let clientValue = [];
         let siteData = [];
         let siteValue =[];
-          let status = ["Unavailable", "Open", "Released", "Completed", "All"];
-          let statusValue = ["unavailable", "open", "released", "completed", "all"];
+          let status =["1:Unavailable", "2:Released",  "3:Open","4:Completed", "All"];
+          let statusValue = ["Unavailable", "Open", "Released", "Completed", "All"];
           let orderTypeName = [];
           let orderTypeValue = [];
         if(this.state.clientdata){
             this.state.clientdata.map((data) => {
-                clientName.push(data.code);
+                clientName.push(data.code +' : '+data.name );
                 clientValue.push(data.code);
             })
             clientName.push("All");
@@ -217,10 +217,26 @@ class PurchaseOrder extends Component {
         }
           return(
               <React.Fragment>
-                  <Dropdown placeHolder="Site" style={{width: "102px"}} optionList={siteData.toString()} optionValue={siteValue.toString()} getValue={this.getSiteSelected.bind(this)}/>
-                  <Dropdown placeHolder="Client" style={{width: "218px"}} optionList={clientName.toString()} optionValue={clientValue.toString()} getValue={this.getClientSelected.bind(this)}/>
-                  <Dropdown placeHolder="Status" style={{marginRight: "1em"}} optionList={status.toString()} optionValue={statusValue.toString()} getValue={this.getStatusSelected.bind(this)}/>
-                  <Dropdown placeHolder="Order Type" style={{width: "180px"}} optionList={orderTypeName.toString()} optionValue={orderTypeValue.toString()} getValue={this.getOrderTypeSelected.bind(this)}/>
+                  <Dropdown placeHolder="Site"
+                            className="filterDropdown"
+                            optionList={siteData.toString()}
+                            optionValue={siteValue.toString()}
+                            getValue={this.getSiteSelected.bind(this)}/>
+                  <Dropdown placeHolder="Client"
+                            className="filterDropdown"
+                            optionList={clientName.toString()}
+                            optionValue={clientValue.toString()}
+                            getValue={this.getClientSelected.bind(this)}/>
+                  <Dropdown placeHolder="Status"
+                            className="filterDropdown"
+                            optionList={status.toString()}
+                            optionValue={statusValue.toString()}
+                            getValue={this.getStatusSelected.bind(this)}/>
+                  <Dropdown placeHolder="Order Type"
+                            className="filterDropdown"
+                            optionList={orderTypeName.toString()}
+                            optionValue={orderTypeValue.toString()}
+                            getValue={this.getOrderTypeSelected.bind(this)}/>
               </React.Fragment>
           )
       }
@@ -249,24 +265,18 @@ class PurchaseOrder extends Component {
                         showFilter={this.state.filterclicked}
                         triggerShowFilter={() => this.setState({filterclicked: !this.state.filterclicked})}
                         searchData={() => this.search()}
-                        placeholder="Enter an Order No" />
-                {console.log(this.searchForm)}
-                {/* <div className='inputgroup' style={{width:'82%'}}>
-                    <label className='iconU-search isearch'/>
-                    <input onChange={(e) => this.onchangesearch(e) } type='text' className='searchinput' placeholder='Enter a Site, Order No, Client or Supplier'/>
-                </div>
-                <Button onClick={() => this.setState({filterclicked: !this.state.filterclicked})} color="primary" className={'iconU-filter iconU-filters ' + ( this.state.filterclicked ? 'filterclicked' : null)}/>
-                <Button onClick={() => this.search()} color="primary" className='btnsearch'><label className='font'>Search</label></Button> */}
+                        placeholder="Enter an Order No"
+                        additionalComponent = {this.showDropdowns()} />
             </div>
 
-            <div className='filterbar'>
+            {/* <div className='filterbar'>
                 <div style={{display:'flex', width:'100%'}}>
                     {
-                        this.state.filterclicked ? this.showDropdowns() :
+                        this.state.filterclicked ? null :
                         null
                     }
                 </div>               
-            </div>
+            </div> */}
             <div className={' ' + ( this.state.complete ? 'fades ' : 'hidden')}>
                 <PurchaseOrderTable ref={this.potableref} 
                                     className='animated fadeIn' 
@@ -280,7 +290,8 @@ class PurchaseOrder extends Component {
             <EditColumn isOpen={this.state.showEditColumn} 
                         toggle={() => this.setState({ showEditColumn: false })}        
                         fields={this.state.tableheader}
-                        updateTableColumn={(columns) => this.setState({ tableheader: columns, tableheaderstatus: true })}       
+                        updateTableColumn={(columns) => this.setState({ tableheader: columns, tableheaderstatus: true })}  
+                        modulName="Purchase Order"     
                                 />
         </div>
            
