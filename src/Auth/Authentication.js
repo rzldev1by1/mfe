@@ -49,6 +49,11 @@ class Authentication {
         if (!user) { return false };
         return user["client"];
     }
+    static getSite = () => {
+        let user = Authentication.getUser();
+        if (!user) { return false };
+        return user["site"];
+    }
 
 		static getName = () => {
 				let user = Authentication.getUser();

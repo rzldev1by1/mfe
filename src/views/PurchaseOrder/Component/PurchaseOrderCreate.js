@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 
 import axios from 'axios'
-import {endpoint, headers,} from '../../../AppComponent/ConfigEndpoint'
+import {endpoint, headers, getUserSite} from '../../../AppComponent/ConfigEndpoint'
 import oneinactive from '../../../assets/img/brand/tab_1_grey@2x.png'
 import oneactive from '../../../assets/img/brand/tab_1_blue@2x.png'
 import twoinactive from '../../../assets/img/brand/tab_2_grey@2x.png'
@@ -432,14 +432,24 @@ class PurchaseOrderCreate extends Component {
     let orderValue = [];
     if(this.state.clientdatacr){
         this.state.clientdatacr.map((data) => {
-            clientName.push(data.code + " (" + data.name + ")");
-            clientValue.push(data.code);
+            if(data.code == headers.client){
+                clientName.push(data.code + " (" + data.name + ")");
+                clientValue.push(data.code);
+            }else if(headers.client == null){
+                clientName.push(data.code + " (" + data.name + ")");
+                clientValue.push(data.code);
+            }
         })
     }
     if(this.state.sitedatacr){
         this.state.sitedatacr.map((data) => {
-            siteData.push(data.site);
-            siteName.push(data.site + ":" + data.name)
+            if(data.site == getUserSite){
+                siteData.push(data.site);
+                siteName.push(data.site + ":" + data.name)
+            }else if(getUserSite == null){
+                siteData.push(data.site);
+                siteName.push(data.site + ":" + data.name)
+            }
         })  
     }
     if(this.state.supplierdatacr){
