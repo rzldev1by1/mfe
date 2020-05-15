@@ -87,18 +87,12 @@
 
 
 .select_autocomplete_items { 
-	border: 1px solid #3366FF;
-	border-radius: 5px;
 	list-style: none;
 	width: 100%;
 	/* position: absolute; */
 	top: 0;
 	left: 0;
     /* padding-top: 50px; */
-    border-top: 0;
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
-    overflow: auto;
 }
 
 .select_autocomplete_items_closed{
@@ -130,6 +124,11 @@
 }
 
 .select_autocomplete_expand:checked + .select_autocomplete_closeLabel + .select_autocomplete_options{
+	border: 1px solid #3366FF;
+	border-radius: 5px;
+    border-top: 0;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
     max-height: 250px;
     overflow: auto;
     border-bottom-left-radius: 5px;
