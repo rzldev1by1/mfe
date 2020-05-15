@@ -43,7 +43,12 @@ class Paging extends Component {
             range = [],
             pageNumber = [],
             l;
-    
+            
+            if(current<2){
+                right = current + delta + 1;
+                left = current - delta - 1;
+            }
+
         for (let i = 0; i <= totalPage; i++) {
             if (i == totalPage || i >= left && i < right) {
                 range.push(i);

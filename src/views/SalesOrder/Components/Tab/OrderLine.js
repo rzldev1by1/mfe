@@ -43,6 +43,7 @@ const OrderLine = (props) => {
                   id="rowNumber"
                   readOnly
                   value={number}
+                  tabIndex='3'
                 />
               </div>
             </td>
@@ -57,6 +58,7 @@ const OrderLine = (props) => {
                   style={{ minWidth: "100%", zIndex: props.parametersLength - idx }}
                   optionList={props.productdata.code.toString()}
                   optionValue={props.productdata.code.toString()}
+                  tabIndex='3'
                 />
               </div>
             </td>
@@ -67,6 +69,7 @@ const OrderLine = (props) => {
                   placeholder="Product Name"
                   readOnly
                   value={product}
+                  tabIndex='3'
                 />
               </div>
             </td>
@@ -80,6 +83,7 @@ const OrderLine = (props) => {
                   value={qty}
                   maxLength="9"
                   onChange={(e) => props.setQty(e.target.value, props.idx)}
+                  tabIndex='3'
                 />
               </div>
             </td>
@@ -92,6 +96,7 @@ const OrderLine = (props) => {
                   value={weight}
                   maxLength="9"
                   onChange={(e) => props.setWeight(e.target.value, props.idx)}
+                  tabIndex='3'
                 />
               </div>
             </td>
@@ -104,6 +109,7 @@ const OrderLine = (props) => {
                   style={{ zIndex: idx }}
                   optionList={props.uomdata.toString()}
                   optionValue={props.uomdata.toString()}
+                  tabIndex='3'
                 />
               </div>
             </td>
@@ -111,6 +117,7 @@ const OrderLine = (props) => {
               <div id="orderline-header-rotadate-val-id">
                 <DatePicker
                   getDate={(date) => props.setRotaDate(date, props.idx)}
+                  tabIndex='3'
                 />
               </div>
             </td>
@@ -122,7 +129,8 @@ const OrderLine = (props) => {
                   placeholder='Batch'
                   value={batch}
                   maxLength='9'
-                  onChange={(e) => props.setBatch(e.target.value, props.idx)} />
+                  onChange={(e) => props.setBatch(e.target.value, props.idx)}
+                  tabIndex='3' />
               </div>
             </td>
             <td>
@@ -131,7 +139,8 @@ const OrderLine = (props) => {
                   className="form-control put "
                   placeholder='Ref3'
                   value={ref3}
-                  onChange={(e) => props.setRef3(e.target.value, props.idx)} />
+                  onChange={(e) => props.setRef3(e.target.value, props.idx)}
+                  tabIndex='3' />
               </div>
             </td>
             <td>
@@ -140,7 +149,8 @@ const OrderLine = (props) => {
                   className="form-control put "
                   placeholder='Ref4'
                   value={ref4}
-                  onChange={(e) => props.setRef4(e.target.value, props.idx)} />
+                  onChange={(e) => props.setRef4(e.target.value, props.idx)}
+                  tabIndex='3' />
               </div>
             </td>
             <td>
@@ -150,7 +160,8 @@ const OrderLine = (props) => {
                   placeHolder="Disposition"
                   style={{ minWidth: "100%", zIndex: idx }}
                   optionList={props.dispositiondata.code.toString()}
-                  optionValue={props.dispositiondata.code.toString()} />
+                  optionValue={props.dispositiondata.code.toString()}
+                  tabIndex='3' />
               </div>
             </td>
             <td>
@@ -159,11 +170,12 @@ const OrderLine = (props) => {
                   className="form-control put "
                   placeholder='Pack ID'
                   value={packId}
-                  onChange={(e) => props.setPackid(e.target.value, props.idx)} />
+                  onChange={(e) => props.setPackid(e.target.value, props.idx)}
+                  tabIndex='3' />
               </div>
             </td>            
             <td>
-              <div id='orderline-header-number-val-id'>
+              <div id='orderline-header-number-val-id'  tabIndex='3'>
                 <label onClick={() => props.removeLineHandler(idx)} className="iconU-delete" />
               </div>
             </td>

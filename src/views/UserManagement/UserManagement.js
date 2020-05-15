@@ -657,6 +657,10 @@ class UserManagement extends Component{
        console.log(data)
        return data
       }
+      ExportFont = () => {
+        let Font = "10";
+        return Font;
+      };
 
     isValidUser = () => {
       let result = false;
@@ -738,10 +742,10 @@ class UserManagement extends Component{
                   <Card className="border-0 mb-0" style={{borderRadius:"0px"}}> 
                       <CardBody className="pt-1 pl-0 pr-0 pb-0">
                         <form ref={this.searchForm} onSubmit ={this.searchHandler}>
-                          <div className="row">
+                          <div className="row" style={{padding:"15px"}}>
                               <div className='searchColumnUm'>
                                   <div className="searchINP">
-                                      <div className="input-group p-0 searchSection">
+                                      <div className="input-group p-0 searchSection"  style={{border:"1px solid #D5D8DA"}}>
                                             <div className="input-group um-searchBox w-100 default-box-height" style={{maxWidth:"none"}}>
                                                 <span className="input-group-text border-0 bg-transparent ml-2" style={{ padding:"0.4rem" }}>
                                                     <i className="iconU-search" />
@@ -799,8 +803,8 @@ class UserManagement extends Component{
                         maxPage={(this.state.totalPage)}
                         startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                         numberEventClick={this.numberEventClick}/>
-                      <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
-                          ExportHeader={this.ExportHeader} ExportData={this.ExportData}/>
+                       <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                              ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont}/>
                   </div>
                 </div>
             </div>

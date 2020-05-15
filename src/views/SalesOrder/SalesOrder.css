@@ -11,10 +11,12 @@ span.upArrow:before {
   font-weight: 900;
 }
 
+
+
 .headers {
   font-weight: 500;
   color: #b4b9bb !important;
-  font-size: 15px;
+  font-size: 30px;
 }
 
 table {

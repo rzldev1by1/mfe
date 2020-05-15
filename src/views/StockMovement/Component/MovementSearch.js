@@ -40,7 +40,7 @@ export default class MovementSearch extends Component {
     componentDidMount = () => {
         this.getclient();
         this.getsite();
-        this.getproduct();
+        //this.getproduct();
     }
 
     periodExpand = () => {
@@ -90,12 +90,12 @@ export default class MovementSearch extends Component {
 
     displayPeriod = () => {
         return(
-            <div className='displayParent'>
-                <div className='searchParameterTitle dp'>Display Period</div>
+            <div className=''>
+                {/* <div className='searchParameterTitle dp'>Display Period</div> */}
                 <div className='dropdown ddlSearchParam'>
                     <div className='displayButtonToggle'>
                     <button style={{color:'#7c878c'}} onClick={() => this.periodExpand()} className='btn dropdown-button ddlMovement default-box-height' data-toggle='dropdown'>
-                        {this.state.periodSelected ? this.state.periodText :'Select Period'}
+                        {this.state.periodSelected ? this.state.periodText :'Display Period'}
                     </button>
                     <div className='dropdown-toggle'/>
                     </div>
@@ -182,8 +182,10 @@ export default class MovementSearch extends Component {
           headers: headers
         })
           .then(res => {
-            const result = res.data
-            this.setState({ clientdata:result })
+            const result = res.data 
+            let productData = [];
+            this.setState({ clientdata:result });
+            
           })
           .catch(error => {
             
@@ -206,15 +208,19 @@ export default class MovementSearch extends Component {
 
       getproduct = () => {
         let self = this;
-        axios.get(endpoint.getProduct + '?client=' + headers.client, {
+
+        //reset
+        let tmp_data = [] 
+        self.setState({ productdata:tmp_data })
+
+        axios.get(endpoint.getProduct + '?client=' + this.state.clientSelected, {
           headers: headers
         })
           .then(res => {
             const result = res.data
             self.setState({ productdata:result })
           })
-          .catch(error => {
-            
+          .catch(error => { 
             console.log(error);
           })
     }
@@ -224,12 +230,16 @@ export default class MovementSearch extends Component {
       };
     
       getClientSelected = (value) => {
-        this.setState({ clientSelected: value });
+          console.log(value)
+        this.setState({ clientSelected: value }, () => { //async
+            this.getproduct();
+        });
       };
 
       getProductSelected = (value) => {
         this.setState({ productSelected: value });
       };
+ 
 
       showDropdowns = () => {
         let clientName = [];
@@ -257,7 +267,7 @@ export default class MovementSearch extends Component {
         if(this.state.productdata){
             productData.push(this.state.productdata.code);
             productValue.push(this.state.productdata.code);
-    }
+        }
           return(
               <React.Fragment>
                   <Dropdown placeHolder="Site" 
@@ -288,7 +298,7 @@ export default class MovementSearch extends Component {
             <div>
                 <table width='100%'>
 						<tr>
-							<td width='20%'>{this.displayPeriod()}</td>
+							<td width='10%'>{this.displayPeriod()}</td>
 							<td width='36%'>{this.displayDate()}</td>
                             <td className="bar">{this.showDropdowns()}</td>
 							<td  width='30%' style={{textAlign: "right"}}>

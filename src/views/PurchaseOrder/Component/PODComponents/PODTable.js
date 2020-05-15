@@ -34,8 +34,8 @@ class PurchaseOrderTable extends Component {
           },
           {
             id: "product_name", 
-            checkboxLabelText: "Product Description", 
-            tableHeaderText: "Product Description", 
+            checkboxLabelText: "Description", 
+            tableHeaderText: "Description", 
             isVisible: true, 
             key: "product_name", 
             type: "string"

@@ -20,16 +20,10 @@ class ListOrderComponent extends Component {
     this.state = {
       data: [],
       tableheader: [
-        "Site",
-        "Client",
-        "Order No",
-        "Order Type",
-        "Customer",
-        "Status",
-        "Delivery Date",
-        "Date Received",
-        "Date Released",
-        "Date Completed"
+        "Site", "Client", "Order No", "Order Type", "Customer","Status","Delivery Date",
+        "Date Received","Date Released","Date Completed","Customer Po No","Vendor Order No" ,
+        "Address 1","Address 2","Address 3","Address 4","Address 5","Suburb","Post Code","state",
+        "Country"
       ],
       activecolumnsort: null,
       activearrow: mid,
@@ -388,6 +382,10 @@ class ListOrderComponent extends Component {
     let name = "";
     return (name = "Sales Order");
   };
+  ExportFont = () => {
+    let Font = "6";
+    return Font;
+  };
 
   ExportHeader = () => {
     let headers = this.state.tableheader;
@@ -398,14 +396,31 @@ class ListOrderComponent extends Component {
     let data = this.state.data.map((elt) => [
       elt.site,
       elt.client,
-      elt.order_no,
-      elt.order_type,
-      elt.customer_name,
+      elt.orderno,
+      elt.ordertype,
+      elt.customername,
       elt.status,
-      elt.delivery_date,
-      elt.date_received,
-      elt.date_released,
-      elt.date_completed
+      elt.deliverydate,
+      elt.datereceived,
+      elt.datereleased,
+      elt.datecompleted,
+      elt.customerpono,
+      elt.vendororderno,
+      elt.address1,
+      elt.address2,
+      elt.address3,
+      elt.address4,
+      elt.address5,
+      elt.city,
+      elt.postcode,
+      elt.state,
+      elt.country,
+      elt.loadnumber,
+      elt.loadoutstart,
+      elt.loadoutfinish,
+      elt.consigmentno,
+      elt.freightcharge,
+      elt.customer
     ]);
     return data;
   };
@@ -487,34 +502,34 @@ class ListOrderComponent extends Component {
                       </tbody>
                         </table>
 
-              <table style={{display:'none'}} id="excel">
+              <table id="excel">
                   <thead>
                     <tr>
-                       {this.state.tableheader.map(header =>
-                        <th key={header} onClick={(e) => this.arrowHandler(e)} id={header}>{header} 
+                       {this.props.column.map((header, idx) =>
+                        <th key     ={idx} 
+                            onClick ={(e) => this.arrowHandler(e)} 
+                            id      ={header.id}>
+                            <div><span>{header.name}</span></div>               
                         </th>
                               )}  
-                       </tr>
-                    </thead>
+                        <th>
+                          <div  onClick={() => this.props.openEditModal()}/>
+                        </th>
+                    </tr>
+                  </thead>
                     <tbody>
-                          {this.state.data  ? this.state.data.map((data,i) => 
-                                  <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.order_no)}>
-                                    <td className="umtd">{data.site}</td>
-                                      <td>{data.client}</td>
-                                      <td>{data.order_no}</td>
-                                      <td>{data.order_type}</td>
-                                      <td>{this.modifiedCustomerData(data.customer, data.customer_name)}</td>
-                                      <td style={{width:"11%"}}>{data.status}</td>
-                                      <td>{'' + (data.delivery_date ? moment(data.delivery_date).format("DD/MM/YYYY") : '') }</td>
-                                      <td>{'' + (data.date_received ? moment(data.date_received).format("DD/MM/YYYY") : '') }</td>
-                                      <td>{'' + (data.date_released ? moment(data.date_released).format("DD/MM/YYYY") : '') }</td>
-                                      <td>{'' + (data.date_completed ? moment(data.date_completed).format("DD/MM/YYYY") : '') }</td>
-                                  </tr>
-                              ) : 
-                                  <div> No data available </div>
-                                  }  
+                          {
+                            this.state.data  ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data,i) => {
+                              const dataa = Object.entries(data)
+                              return(
+                                <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.client+'/'+data.site+'/'+data.orderno)} className='tr'>
+                                        {dataa.map((data, idx) => <td className={'so-table-row ' + (this.props.column[idx].active ? '' : 'hidden')}>{this.filterDataHandler(data[0],data[1], i)}</td>)}
+                                </tr>
+                              )
+                            }) :  <div> No data available </div>
+                          }  
                       </tbody>
-                  </table>
+                        </table>
                         
             </div>
             <div className='paginations'>
@@ -527,7 +542,7 @@ class ListOrderComponent extends Component {
                             numberEventClick={this.numberEventClick}/>
 
                     <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
-                            ExportHeader={this.ExportHeader} ExportData={this.ExportData}/>
+                            ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont}/>
                 </div>    
           </div>)
     }

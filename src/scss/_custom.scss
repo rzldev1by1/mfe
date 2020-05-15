@@ -60,11 +60,12 @@ h2{
 
 .iconU-stockMovement:before {
 	content: "\e90e";
+	font-size: 1.3rem;
 }
 
 .iconU-user:before {
 	content: "\e910";
-    font-size: 0.875rem;
+    font-size: 1.3rem;
 }
 
 .iconU-dashboard:before {
@@ -73,7 +74,7 @@ h2{
 
 .iconU-purchaseOrder:before {
 	content: "\e915";
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 
 .iconU-report:before {
@@ -82,12 +83,12 @@ h2{
 
 .iconU-salesOrder:before {
 	content: "\e916";
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 
 .iconU-stockHolding:before {
 	content: "\e90f";
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 
 .iconU-i:before {
@@ -253,7 +254,7 @@ h2{
 	.sidebar-lg-show.sidebar-fixed .app-footer,
 	.sidebar-show.sidebar-fixed .main,
 	.sidebar-show.sidebar-fixed .app-footer {
-		margin-left: 294px !important;
+		margin-left: 120px !important;
 	}
 }
 
@@ -308,15 +309,24 @@ h2{
 
 
 // Start - Sidebar
-
+@media (min-width: 992px){
+	.sidebar-fixed .sidebar {
+		background: #2F275D 0% 0% no-repeat padding-box;
+		font-family: "Helvetica Neue Medium";
+		width: 95px;
+	}
+}
 .sidebar {
-	background: #FFFFFF 0% 0% no-repeat padding-box;
-	width: 270px !important;
-	font-family: "Helvetica Neue Medium";
+	width: 95px;
 }
 
-.sidebar .sidebar-header {
-	background: #FFFFFF 0% 0% no-repeat padding-box;
+.sidebar:hover{
+	width: 270px;
+}
+
+
+.sidebar .sidebar-header{
+	background: transparent 0% 0% no-repeat padding-box;
 	width: 270px;
 }
 
@@ -327,19 +337,29 @@ h2{
 .sidebar .nav {
 	width: 270px;
 	flex-direction: column;
-	min-height: 100%;
+	min-height: 75%;
 }
 
 .sidebar .sidebar-nav {
+	position: relative;
+	width: 95px;
+}
+.sidebar .sidebar-nav:hover{
 	position: relative;
 	width: 270px;
 }
 
 .sidebar .nav-item {
-	background: #ffffff !important;
+	background: #ffffff ;
 	font-size: 15px !important;
 	line-height: 30px;
 }
+
+.sidebar .nav-name {
+	color: #FFF ;
+	display: contents;
+}
+
 
 .sidebar .nav-item .nav-link.active {
 	border-left: 4px solid $primaryColor !important !important;
@@ -377,8 +397,14 @@ h2{
 	padding-left: 40px;
 }
 
+.sidebar .nav-user {
+	padding-left: 80px !important ; 
+	padding-right: 20px !important;
+}
+
+
 .sidebar .nav-link.active, .nav-link.active .nav-icon {
-	color: $primaryColor !important !important;
+	// color: $primaryColor !important !important;
 	background: #2F275D !important;
 }
 
@@ -394,71 +420,72 @@ h2{
 	width: 20%;
     margin-left: -60%;
     margin-top: 10%;
-    margin-bottom: 7%;
+    margin-bottom: 13%;
 }
 
+.sidebar .nav-item .nav-item2{
+	padding-left: 20px;
+}
 // End - Sidebar
 
 
 // Start - User section
 
-.userSection {
-	background-color: #2F275D ;
-	border-radius: 10px;
-	width: 230px;
-	align-self: center;
-	padding: 7px;
-	margin-left: -20%;
-    margin-bottom: -5%;
-}
-.userLogout {
-	background-color: #2F275D ;
-	border-radius: 10px;
-	width: 230px;
-	align-self: center;
-	padding: 7px;
-	margin-left: -4%;
-    margin-bottom: 8%;
+.userLogout{
+	margin-bottom: 32px;
+	margin-top: 10px;
+	margin-left: -15px;
 }
 
 .profilePhoto {
-	width: 58%;
+	width: 100%;
+    margin-left: -30%;
+    margin-bottom: 5%;
+}
+
+.divProfilePhoto {
+	padding-left: 30px !important;
+	width: 85px;
+}
+.divLogout {
+	padding-left: 45px !important;
+	width: 110px;
 }
 
 .userName {
-    font-weight: bold;
+    // font-weight: bold;
     font-size: 15px;
     /* text-align: left; */
     /* letter-spacing: 0; */
-    color: #FFF;
-    align-self: center;
-    /* padding-left: 10px; */
-    /* padding-top: 5px; */
+    color: #FFF; 
+	//margin-left: -250%;
 }
+
 
 .profileID {
     vertical-align: top;
     color: #FFF;
-    font-size: 14px;
-    font-weight: bold;
-    align-self: center;
-    /* padding-left: 10px; */
+    font-size: 15px;
+    // font-weight: bold;
+    //align-self: center;
+	// margin-left: -241%;
 }
 
 .LogoutIcon{
 	vertical-align: top;
     color: #FFF;
-    font-size: 43PX;
     font-weight: bold;
-    align-self: center
+    align-self: left;
+    margin-left: -43%;
+    width: 18%;
 }
 
 .Logout{
-	vertical-align: 13px;
+    vertical-align: 10px;
     color: #FFF;
-    font-size: 20Px;
-    font-weight: bold;
-	margin-left: 39px;
+    font-size: 15px;
+    // font-weight: bold;
+    margin-left: 5px;
 }
 
 .viewProfile {
@@ -600,7 +627,7 @@ a.breadcrumb:hover {
     border: none;
     transition:background-color 0.5s ease;
 	outline-color: transparent;
-	font-size: 1.2em;
+	font-size: 18px;
 }
 
 .searchInput, .searchInput::placeholder {
@@ -608,6 +635,10 @@ a.breadcrumb:hover {
     color: #D5D8DA;
     align-self: center;
     border: none;
+}
+
+.searchInput::placeholder{
+	font-size: 18px !important;
 }
 
 .notFoundMessage {
@@ -747,7 +778,8 @@ a.breadcrumb:hover {
 }
 
 .form-control{
-	height: 50px !important;
+    height: 50px !important;
+    overflow: hidden;
 }
 
 .form2{
@@ -1108,8 +1140,8 @@ span.upArrow:before {
 	position: fixed; 
 	bottom: 0; 
 	right: 0;
-	padding-left: 284px !important;
-	padding-right: 0.7%;  
+	padding-left: 109px !important;
+	padding-right: 0.9%;  
 	width: 100%;
 }
   
@@ -1516,8 +1548,9 @@ font-family: "Helvetica Neue Medium";
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
 	color: rgb(180,185,187) !important;
 	opacity: 0.6 !important; /* Firefox */
-	font-size: 13px !important;
+	font-size: 15px !important;
   }
+  
 
   .mtrFieldSelect:before{
     height:20px;
@@ -1604,6 +1637,10 @@ font-family: "Helvetica Neue Medium";
 	border-radius: 5px;
 	border: 1px solid #D5D8DA;
     z-index: 2;
+}
+
+.dropdown_closed{
+    overflow: hidden;
 }
 
 .select_dropdown:hover, .select_dropdown:focus-within{
@@ -1696,7 +1733,7 @@ font-family: "Helvetica Neue Medium";
 	position: absolute;
 	top: 0;
 	left: 0;
-	color: #7C878C;
+	color: #D5D8E7;
 	background-color: transparent;
 	display: block;
 }
@@ -1709,7 +1746,8 @@ font-family: "Helvetica Neue Medium";
 .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options{
 	border: 1px solid $primaryColor !important;
 	border-radius: 5px;
-	margin-top: 10px;
+    margin-top: 10px;
+    overflow: auto;
 }
 
 .select_dropdown_close:checked + span + .select_dropdown_items > .select_dropdown_options{
@@ -1775,7 +1813,7 @@ font-family: "Helvetica Neue Medium";
 }
 .select_datepicker_expand::after {
     top: 30% !important;
-    right: -1px !important;
+    right: 1px !important;
 }
 
 //th cursor pointer
@@ -2043,3 +2081,9 @@ th{
 		color: $primaryColor;
 	}
 	/* end um **/
+
+	// title
+	.header h2{
+		font-size: 30px !important;
+		padding-left: 15px;
+	}

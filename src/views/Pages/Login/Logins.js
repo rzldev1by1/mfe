@@ -149,7 +149,7 @@ class Logins extends Component{
                                 <button className={"btnLogin " + (this.state.isLoad ? "text-center" : "text-left pl-4")} onClick={this.validateForm}>
                                     {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin iconSpace" /> : "Login"}
                                 </button>
-                                <a className="forgetPassword">Forget Password ?</a>
+                                <a className="forgetPassword">Forgot Password ?</a>
                             </div>
                             <a className="textDown">Privacy and Policy</a>
                             <div className="vertikal"/>
