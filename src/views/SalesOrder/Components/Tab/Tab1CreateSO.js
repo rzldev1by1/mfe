@@ -377,6 +377,8 @@ class Tab1CreateSO extends Component {
             <td style={{ width: "396px" }}>
               <input
                 value={postCode}
+                type='number'
+                onKeyPress={(e) => this.props.checkQty(e)}
                 onChange={(e) => this.props.setPostCode(e.target.value)}
                 id="postCode"
                 maxLength="5"
