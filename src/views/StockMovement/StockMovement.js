@@ -126,18 +126,12 @@ class StockMovement extends Component {
 				</div>
 				<div className={this.state.isComplete ? 'hidden' : 'spinner'}/>
 					
-					{/* <div className={this.state.isComplete ?  'fades'  : 'hidden'}>
+					<div className={this.state.isComplete ?   'fades paginations' : 'hidden'}>
 						<Pagination sliceValue={(startIndex, endIndex) => this.getStockMovement.current.setSliceValue(startIndex, endIndex)} 
 												ref={this.setPagiantion} data={this.state.data} 
 												rows={50}/> 
 						<ExportExcel ExportName={this.ExportName}/>
-					</div> */}
-					 
-					<div className={this.state.isComplete ?  'fades paginations' : 'hidden'}>
-						<div style={{marginLeft:"88%"}}>
-							<ExportExcel ExportName={this.ExportName}/>
-						</div>
-					</div>						 
+					</div>				 
 			</div>
 		)
 	}
