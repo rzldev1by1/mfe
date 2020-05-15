@@ -131,7 +131,7 @@ class AutoComplete extends Component{
         const {placeHolder, optionList, optionValue, style, getValue, firstChecked = false, usedFor, optionSelected} = this.props;
         return(
             <React.Fragment>
-                <ul className="select_autocomplete" style={ style }>
+                <ul className="select_autocomplete" style={ style } tabIndex={this.props.tabIndex}>
                     <input type="text" id="search" style={ this.props.uppercase ? { textTransform: "uppercase" } : null} name="search" className={"form-control search-input-placeholder " + (this.state.data == "openAutocomplete" ? "search-input search-input-focus" : "")} onChange={(e) => {this.onChange(e);}} autoComplete="off" onFocus={() => this.setState({ data: "openAutocomplete" })} placeHolder={placeHolder} value={(this.state.data != "openAutocomplete") && (this.state.data != "closeAutocomplete") ? this.state.data : null}/>
                     <input className="select_autocomplete_close" type="radio" name={"select" + placeHolder + this.state.no} id={"select-close" + placeHolder + this.state.no} checked={this.state.data == "closeAutocomplete" ? true : false} onChange={(e) => {this.setState({ data: "closeAutocomplete" })}} defaultChecked={firstChecked ? false : true}/>
                     {/* <span className={"select_autocomplete_label select_autocomplete_label-placeholder" + (usedFor == "Datepicker" ? " select_datepicker_label select_datepicker_label-placeholder" : "")}>{placeHolder}</span> */}

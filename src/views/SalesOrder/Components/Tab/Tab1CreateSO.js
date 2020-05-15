@@ -106,7 +106,7 @@ class Tab1CreateSO extends Component {
                 optionSelected={siteVal}
                 getValue={(siteVal, site) => this.props.setSite(siteVal, site)}
                 placeHolder="Site"
-                style={{ minWidth: "100%", zIndex: "3" }}
+                style={{ minWidth: "100%", zIndex: 20 }}
                 optionList={this.props.resources.site.name.toString()}
                 optionValue={this.props.resources.site.code.toString()}
               />
@@ -167,7 +167,7 @@ class Tab1CreateSO extends Component {
                     this.props.setClient(clientVal, clientName)
                   }
                   placeHolder="Client"
-                  style={{ minWidth: "100%" }}
+                  style={{ minWidth: "100%", zIndex:10 }}
                   optionList={this.props.clientName.toString()}
                   optionValue={this.props.clientVal.toString()}
                 />
