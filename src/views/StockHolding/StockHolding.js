@@ -455,6 +455,10 @@ class StockHolding extends Component {
 		console.log(data)
 		return data
 	  }
+	  ExportFont = () => {
+		let Font = "8";
+		return Font;
+	  };
 
 
 	render() {
@@ -552,8 +556,8 @@ class StockHolding extends Component {
                                             startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                                             isActive={this.state.isActive}
                                             numberEventClick={this.numberEventClick} />
-									<Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
-                            				 ExportData={this.ExportData} ExportHeader={this.ExportHeader}/>
+									 <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                              				ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont}/>
                                 </div>
 							</div>
 						</div>

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 
 import axios from 'axios'
-import {endpoint, headers,} from '../../../AppComponent/ConfigEndpoint'
+import {endpoint, headers, getUserSite} from '../../../AppComponent/ConfigEndpoint'
 import oneinactive from '../../../assets/img/brand/tab_1_grey@2x.png'
 import oneactive from '../../../assets/img/brand/tab_1_blue@2x.png'
 import twoinactive from '../../../assets/img/brand/tab_2_grey@2x.png'
@@ -258,19 +258,24 @@ class PurchaseOrderCreate extends Component {
   }
 
   addLineValidation = () => {
-    for (let i = 0; i < this.state.rowlist.length; i++) {
-      var b = lineValidation(this.state.rowlist[i], i);
-    }
-
-    if (!b)
-    {
-      this.setState({nextClicked:true})
-      return false;
-    } 
-    if(b)
-    {
-      this.setState({nextClicked:false})
-      return true
+    if(this.state.rowlist.length > 0){
+        for (let i = 0; i < this.state.rowlist.length; i++) {
+            var b = lineValidation(this.state.rowlist[i], i);
+          }
+      
+          if (!b)
+          {
+            this.setState({nextClicked:true})
+            return false;
+          } 
+          if(b)
+          {
+            this.setState({nextClicked:false})
+            return true
+          }
+    }else{
+        this.setState({nextClicked:false})
+        return true
     } 
   }
 
@@ -325,7 +330,7 @@ class PurchaseOrderCreate extends Component {
     }
 
     getsupplier = (client) => {  
-      if(!client) client =  headers.client ? headers.client : "MLS"
+      if(!client) client =  this.state.client
       axios.get(endpoint.getSupplier + "?client=" + client, {
         headers: headers
       })
@@ -366,7 +371,7 @@ class PurchaseOrderCreate extends Component {
     }
 
     getproductcode = (e) => {
-      if(!e) e = headers.client ? headers.client : "MLS"
+      if(!e) e = this.state.client
         axios.get(endpoint.getProduct + "?client=" + e, {
             headers: headers
         })
@@ -380,7 +385,7 @@ class PurchaseOrderCreate extends Component {
     }
 
     getproductname = (e) => {
-      if(!e) e = headers.client ? headers.client : "MLS"
+      if(!e) e = this.state.client
         axios.get(endpoint.getProduct + "?client=" + e, {
             headers: headers
         })
@@ -432,14 +437,24 @@ class PurchaseOrderCreate extends Component {
     let orderValue = [];
     if(this.state.clientdatacr){
         this.state.clientdatacr.map((data) => {
-            clientName.push(data.code + " (" + data.name + ")");
-            clientValue.push(data.code);
+            if(data.code == headers.client){
+                clientName.push(data.code + " (" + data.name + ")");
+                clientValue.push(data.code);
+            }else if((headers.client == null) || (headers.client == "")){
+                clientName.push(data.code + " (" + data.name + ")");
+                clientValue.push(data.code);
+            }
         })
     }
     if(this.state.sitedatacr){
         this.state.sitedatacr.map((data) => {
-            siteData.push(data.site);
-            siteName.push(data.site + ":" + data.name)
+            if(data.site == getUserSite){
+                siteData.push(data.site);
+                siteName.push(data.site + ":" + data.name)
+            }else if((getUserSite == null) || (getUserSite == "")){
+                siteData.push(data.site);
+                siteName.push(data.site + ":" + data.name)
+            }
         })  
     }
     if(this.state.supplierdatacr){
@@ -535,7 +550,7 @@ if(v_orderNo === undefined) v_orderNo = []
           </tr>
           <tr>
             <td>
-            <Dropdown  placeHolder="Order Type" 
+            <AutoComplete  placeHolder="Order Type" 
                         style={{width: "22%", position: "absolute"}} 
                         optionList={orderData.toString()} 
                         optionValue={orderValue.toString()} 
@@ -673,6 +688,7 @@ if(v_orderNo === undefined) v_orderNo = []
     )
   }
 
+<<<<<<< HEAD
   setOrderDetailInitialValue = () => {
     let orderdetail = {
                         "lineNumber": 0,
@@ -736,6 +752,7 @@ if(v_orderNo === undefined) v_orderNo = []
     // }else{
     //   alert("cant delete row")
     // }
+
   }
 
   selectedValue = (id, value) => {
@@ -901,7 +918,25 @@ if(v_orderNo === undefined) v_orderNo = []
           orderDate: this.state.orderDate
         }
       )})
-    }    
+    } else if(this.state.rowlist.length < 1){
+        this.state.rowlistidx += 1;
+        this.setState({rowlist: this.state.rowlist.concat(
+            {
+            lineNumber:this.state.rowlistidx,
+            product:null,
+            productDescription:null,
+            uom:null,
+            qty:null,
+            rotadate: new Date(),
+            batch:null,
+            ref3:null,
+            ref4:null,
+            disposition:null,
+            weight:null,
+            orderDate: this.state.orderDate
+            }
+        )})
+    }   
   }
 
   saveclick = () =>{

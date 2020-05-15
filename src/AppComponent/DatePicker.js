@@ -85,7 +85,7 @@ class DatePicker extends React.Component{
         this.handleYearMonthChange = this.handleYearMonthChange.bind(this);
         this.handleDayClick = this.handleDayClick.bind(this);
         this.state = {
-            selectedDay: null,
+            selectedDay: new Date(),
             showDatePicker: false,
             month : fromMonth
         }
@@ -105,7 +105,7 @@ class DatePicker extends React.Component{
         });
         this.props.getDate(moment(selected ? undefined : day).format("YYYY-MM-DD"))
         this.setState({ showDatePicker: false });
-        this.refs['dateValue'].value = moment(day).format("YYYY-MM-DD");
+        this.refs['dateValue'].value = moment(day).format("DD-MM-YYYY");
     }
     currentDate = () => {
         return this.state.month;
@@ -114,10 +114,11 @@ class DatePicker extends React.Component{
     dateValueProcess = (e) => {
         if(e.target.value.length >= 10) {
             let value = e.target.value.split("");
-            let month = value[5] + value[6];
-            let date = value[8] + value[9];
+            let year = value[6] + value[7] + value[8] + value[9]
+            let month = value[3] + value[4];
+            let date = value[0] + value[1];
             if((month <= 12) && (date <= 31 )){
-                this.setState({ selectedDay: new Date(e.target.value), month: new Date(e.target.value) })
+                this.setState({ selectedDay: new Date(year + "-" + month + "-" + date), month: new Date(year + "-" + month + "-" + date) })
             }
         };
     }
@@ -130,10 +131,10 @@ class DatePicker extends React.Component{
 
     dateValueFormat = (e) => {
         if(/^[0-9]+$/.test(e.key)){
-            if(e.target.value.length == 4) {
+            if(e.target.value.length == 2) {
                 e.target.value += "-";
             };
-            if(e.target.value.length == 7) {
+            if(e.target.value.length == 5) {
                 e.target.value += "-"
             };
         }
@@ -150,10 +151,10 @@ class DatePicker extends React.Component{
                 <ul className="select_date" style={ this.props.style } tabIndex={this.props.tabIndex ? this.props.tabIndex : null}>
                       <input type="text" 
                                 ref="dateValue"
-                                placeholder="YYYY-MM-DD" 
+                                placeholder="DD-MM-YYYY" 
                                 className="form-control" 
                                 maxLength="10"
-                                defaultValue={this.state.selectedDay ? moment(this.state.selectedDay).format("YYYY-MM-DD") : null} 
+                                defaultValue={moment(this.state.selectedDay).format("DD-MM-YYYY")} 
                                 onChange={(e) => {this.dateValueProcess(e)} }
                                 onFocus={() => this.setState({ showDatePicker: true })}
                                 onKeyUp={(e) => this.dateValueFormat(e)}

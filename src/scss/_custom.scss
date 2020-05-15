@@ -613,7 +613,7 @@ a.breadcrumb:hover {
 }
 
 .search-column{ 
-	width: 39.1% !important;
+	width: 30% !important;
 	margin-right: 0.5em;
 }
 
@@ -627,7 +627,7 @@ a.breadcrumb:hover {
     border: none;
     transition:background-color 0.5s ease;
 	outline-color: transparent;
-	font-size: 1.2em;
+	font-size: 18px;
 }
 
 .searchInput, .searchInput::placeholder {
@@ -635,6 +635,10 @@ a.breadcrumb:hover {
     color: #D5D8DA;
     align-self: center;
     border: none;
+}
+
+.searchInput::placeholder{
+	font-size: 18px !important;
 }
 
 .notFoundMessage {
@@ -774,7 +778,8 @@ a.breadcrumb:hover {
 }
 
 .form-control{
-	height: 50px !important;
+    height: 50px !important;
+    overflow: hidden;
 }
 
 .form2{
@@ -1550,8 +1555,9 @@ font-family: "Helvetica Neue Medium";
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
 	color: rgb(180,185,187) !important;
 	opacity: 0.6 !important; /* Firefox */
-	font-size: 13px !important;
+	font-size: 15px !important;
   }
+  
 
   .mtrFieldSelect:before{
     height:20px;
@@ -1638,6 +1644,10 @@ font-family: "Helvetica Neue Medium";
 	border-radius: 5px;
 	border: 1px solid #D5D8DA;
     z-index: 2;
+}
+
+.dropdown_closed{
+    overflow: hidden;
 }
 
 .select_dropdown:hover, .select_dropdown:focus-within{
@@ -1730,7 +1740,7 @@ font-family: "Helvetica Neue Medium";
 	position: absolute;
 	top: 0;
 	left: 0;
-	color: #7C878C;
+	color: #D5D8E7;
 	background-color: transparent;
 	display: block;
 }
@@ -1743,7 +1753,8 @@ font-family: "Helvetica Neue Medium";
 .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options{
 	border: 1px solid $primaryColor !important;
 	border-radius: 5px;
-	margin-top: 10px;
+    margin-top: 10px;
+    overflow: auto;
 }
 
 .select_dropdown_close:checked + span + .select_dropdown_items > .select_dropdown_options{
@@ -1809,7 +1820,7 @@ font-family: "Helvetica Neue Medium";
 }
 .select_datepicker_expand::after {
     top: 30% !important;
-    right: -1px !important;
+    right: 1px !important;
 }
 
 //th cursor pointer
@@ -1824,7 +1835,7 @@ th{
 }
 
 .search-column-right{
-	width: 60%;
+	width: 69%;
 	display: flex;
 }
 //end th cursor pointer
