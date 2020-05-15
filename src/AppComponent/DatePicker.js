@@ -168,12 +168,12 @@ class DatePicker extends React.Component{
                         <label className="select_date_closeLabel" htmlFor={"select-opener" + placeHolder + no} onClick={() => this.setState({ showDatePicker: false })}></label>
                         <div className={"select_date_options " + (this.props.field == "smallField " ? " smallField " : "") + (this.props.top ? "top" : "")}>
                             <div className="dateInfo">
-                            {this.state.selectedDay ? moment(this.state.selectedDay).format(this.props.shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : "Please Select the Date"}
+                            {this.state.selectedDay ? moment(this.state.selectedDay).format(this.props.shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : moment().format("DD MMMM YYYY")}
                             </div>
                             <DayPicker
                                 className="datepicker-content"
                                 tabIndex="-1"
-                                selectedDays={this.state.selectedDay}
+                                selectedDays={this.state.selectedDay ? this.state.selectedDay : new Date()}
                                 onDayClick={this.handleDayClick}
                                 month={this.state.month}
                                 fromMonth={fromMonth}
