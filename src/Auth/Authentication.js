@@ -46,8 +46,12 @@ class Authentication {
 	
 	static getClient = () => {
         let user = Authentication.getUser();
-        if (!user) { return false };
-        return user["client"];
+		if (!user) { return "false" };
+		if(user["client"]){ //check empty or not
+			return user["client"];
+		}else{
+			return "";
+		};
     }
     static getSite = () => {
         let user = Authentication.getUser();
@@ -162,7 +166,8 @@ class Authentication {
 
 										let stringMenus = res.data.userModules.length? res.data.userModules.map((item)=>{return item.menu_id;}):[];
 										let menuItems =	menunav.items.filter((item) => { return stringMenus.indexOf(item.key) !== -1 });
-										let accessMenu = menuItems.length ? menuItems[0].url:"/Welcome";
+										// let accessMenu = menuItems.length ? menuItems[0].url:"/Welcome";
+										let accessMenu = ""? menuItems[0].url:"/Welcome";
 
 
                     result.isSuccess = true;
