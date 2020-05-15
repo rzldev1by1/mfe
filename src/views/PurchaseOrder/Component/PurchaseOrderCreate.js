@@ -688,7 +688,7 @@ if(v_orderNo === undefined) v_orderNo = []
     )
   }
 
-<<<<<<< HEAD
+
   setOrderDetailInitialValue = () => {
     let orderdetail = {
                         "lineNumber": 0,
