@@ -688,27 +688,71 @@ if(v_orderNo === undefined) v_orderNo = []
     )
   }
 
-  deletelinehandler = (e) => {
-    let updated = this.state.rowlist.length
-    // Jika Jumlah produk Entry Lebih dari satu
-    let id = e.currentTarget.id;
-      for(let i = 0; i < updated; i++){
-          if(this.state.rowlist[i].lineNumber == id){
-            this.state.rowlist.splice(i-1, 1);
-            this.setState({rowlist: this.state.rowlist})
-            this.state.rowlistidx -= 1;
-            let lengthRowlist = this.state.rowlist.length;
-            if(i < lengthRowlist){
-              for(let x = i; x < lengthRowlist; x++){
-                this.state.rowlist[x].lineNumber -= 1;
-              }
-              this.setState({rowlist: this.state.rowlist})
-            }
-            break;
-          }
-      }
+<<<<<<< HEAD
+  setOrderDetailInitialValue = () => {
+    let orderdetail = {
+                        "lineNumber": 0,
+                        "product": null,
+                        "productDescription": null,
+                        "qty": null,
+                        "uom": null,
+                        "rotadate": null,
+                        "batch": null,
+                        "ref3": null,
+                        "ref4": null,
+                        "disposition": null,
+                        "weight":null,
+                        "orderDate": null
+                      }
+    return orderdetail;
+  }
+
+  deletelinehandler = (e, idx) => {
+    
+    let orderDetail = [...this.state.rowlist];    
+    orderDetail.splice(idx,1);
+
+    if(orderDetail.length < 1){
+      let item = this.setOrderDetailInitialValue();
+    //  orderDetail.push({"lineNumber": 0,"product": null,"productDescription": null,"qty": null,"uom": null,"rotadate": null,
+    //     "batch": null,"ref3": null,"ref4": null,"disposition": null,"weight":null,"orderDate": null
+    //   });
+      orderDetail.push(item);
+    }
+
+    let newRowList = orderDetail.map((item,index) => { 
+                      item.lineNumber = index +1; 
+                      return item;
+                    });
+    
+    this.setState({rowlist: newRowList},()=>{ console.log(this.state.rowlist); })
+    
+
+    // let updated = this.state.rowlist.length
+    // // Jika Jumlah produk Entry Lebih dari satu
+    // if( updated >1){
+    //   let id = e.currentTarget.id;
+    //   for(let i = 0; i < updated; i++){
+    //       if(this.state.rowlist[i].lineNumber == id){
+    //         this.state.rowlist.splice(i-1, 1);
+    //         this.setState({rowlist: this.state.rowlist})
+    //         this.state.rowlistidx -= 1;
+    //         let lengthRowlist = this.state.rowlist.length;
+    //         if(i < lengthRowlist){
+    //           for(let x = i; x < lengthRowlist; x++){
+    //             this.state.rowlist[x].lineNumber -= 1;
+    //           }
+    //           this.setState({rowlist: this.state.rowlist})
+    //         }
+    //         break;
+    //       }
+    //   }
       
-      updated = this.state.rowlist.length
+    //   updated = this.state.rowlist.length
+    // }else{
+    //   alert("cant delete row")
+    // }
+
   }
 
   selectedValue = (id, value) => {
@@ -802,7 +846,7 @@ if(v_orderNo === undefined) v_orderNo = []
                             tabIndex="2" 
                             />
                             </td>
-            <td id={list.lineNumber} onClick={(e) => this.deletelinehandler(e)} style={{width:"1.5%"}}  tabIndex="2" ><div className="iconU-delete"/></td>
+            <td id={list.lineNumber} onClick={(e) => this.deletelinehandler(e,i)} style={{width:"1.5%"}}  tabIndex="2" ><div className="iconU-delete"/></td>
           </tr>
           <tr>
             <td hidden id={list.lineNumber}></td>
