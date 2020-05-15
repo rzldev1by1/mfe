@@ -568,18 +568,16 @@ class SalesOrderCreate extends Component {
     this.getUom(productVal);
   };
 
-  setQty = (qty, idx) => {
-    let newParam = { ...this.state.parameters };
-    let aa = isNaN(qty)
-    if(aa == false)
-    {     
-      qty = qty.replace(/,/g, '')
-      newParam.lineDetail[idx].qty = qty;
-      this.setState({ parameters: newParam });
-    }
-    
-    
+  checkQty = (e) => {
+    const blocked = ['.', ',', 'e', '-']
+    if(blocked.includes(e.key)) e.preventDefault()    
   };
+
+  setQty = (value , idx) => {
+    let newParam = { ...this.state.parameters };
+    newParam.lineDetail[idx].qty = value
+    this.setState({ parameters: newParam });
+  }
 
   setWeight = (weight, idx) => {
     let newParam = { ...this.state.parameters };
@@ -860,6 +858,7 @@ class SalesOrderCreate extends Component {
                 setProduct={(productVal, product, idx) =>
                   this.setProduct(productVal, product, idx)
                 }
+                checkQty = {(e) => this.checkQty(e)}
                 setQty={(qty, idx) => this.setQty(qty, idx)}
                 setWeight={(weight, idx) => this.setWeight(weight, idx)}
                 setUom={(uom, idx) => this.setUom(uom, idx)}

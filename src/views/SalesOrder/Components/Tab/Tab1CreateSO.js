@@ -492,6 +492,7 @@ class Tab1CreateSO extends Component {
                   setProduct={(productVal, product, idx) =>
                     this.props.setProduct(productVal, product, idx)
                   }
+                  checkQty={(e) => this.props.checkQty(e)}
                   setQty={(qty, idx) => this.props.setQty(qty, idx)}
                   setWeight={(weight, idx) => this.props.setWeight(weight, idx)}
                   setUom={(uom, idx) => this.props.setUom(uom, idx)}

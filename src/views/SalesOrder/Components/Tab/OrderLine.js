@@ -78,10 +78,12 @@ const OrderLine = (props) => {
                 <input
                   id={"qty_" + idx}
                   maxLength="9"
+                  type='number'
                   className="form-control put "
                   placeholder="Qty"
                   value={qty}
                   maxLength="9"
+                  onKeyPress = {(e) => props.checkQty(e)}
                   onChange={(e) => props.setQty(e.target.value, props.idx)}
                   tabIndex='3'
                 />
