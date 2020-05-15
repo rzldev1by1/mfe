@@ -500,7 +500,7 @@ class ListOrderComponent extends Component {
                       </tbody>
                         </table>
 
-              <table id="excel">
+              <table id="excel" className="d-none">
                   <thead>
                     <tr>
                        {this.props.column.map((header, idx) =>
@@ -527,7 +527,7 @@ class ListOrderComponent extends Component {
                             }) :  <div> No data available </div>
                           }  
                       </tbody>
-                        </table>
+                </table>
                         
             </div>
             <div className='paginations'>
