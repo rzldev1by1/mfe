@@ -1143,37 +1143,44 @@ span.upArrow:before {
  
 @media(max-width: 2100px) {
 	.tablePage{
-		max-height: 675px;
+		// max-height: 675px;
+		max-height: 100vh;
 	}
 }
 @media(max-width: 1830px) {
 	.tablePage{
-		max-height: 575px;
+		// max-height: 575px;
+		max-height: 100vh;
 	}
 }
 @media(max-width: 1710px) { 
 	.tablePage{
-		max-height: 525px;
+		// max-height: 525px;
+		max-height: 100vh;
 	}
 }
 @media(max-width: 1520px) {
 	.tablePage{
-		max-height: 440px;
+		// max-height: 440px;
+		max-height: 100vh;
 	}
 }
 @media(max-width: 1366px) {
 	.tablePage{
-		max-height: 375px;
+		// max-height: 375px;
+		max-height: 100vh;
 	}
 }
 @media(max-width: 1242px) {
 	.tablePage{
-		max-height: 320px;
+		// max-height: 320px;
+		max-height: 100vh;
 	}
 } 
 @media(max-width: 1000px) {
 	.tablePage{
-		max-height: 520px;
+		// max-height: 520px;
+		max-height: 100vh;
 	}
 
 	.paginations{
