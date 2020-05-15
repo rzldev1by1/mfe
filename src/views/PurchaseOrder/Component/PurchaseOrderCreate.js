@@ -550,7 +550,7 @@ if(v_orderNo === undefined) v_orderNo = []
           </tr>
           <tr>
             <td>
-            <Dropdown  placeHolder="Order Type" 
+            <AutoComplete  placeHolder="Order Type" 
                         style={{width: "22%", position: "absolute"}} 
                         optionList={orderData.toString()} 
                         optionValue={orderValue.toString()} 
