@@ -109,6 +109,7 @@ class Tab1CreateSO extends Component {
                 style={{ minWidth: "100%", zIndex: 20 }}
                 optionList={this.props.resources.site.name.toString()}
                 optionValue={this.props.resources.site.code.toString()}
+                tabIndex='1'
               />
             </td>
 
@@ -122,6 +123,7 @@ class Tab1CreateSO extends Component {
                 style={{ minWidth: "100%" }}
                 optionList={this.props.resources.orderType.name.toString()}
                 optionValue={this.props.resources.orderType.code.toString()}
+                tabIndex='1'
               />
             </td>
 
@@ -134,6 +136,7 @@ class Tab1CreateSO extends Component {
                 id="customerOrderRef"
                 className="form-control put "
                 placeholder="Customer Order Ref"
+                tabIndex='1'
               />
             </td>
 
@@ -141,6 +144,7 @@ class Tab1CreateSO extends Component {
               <DatePicker
                 getDate={(date) => this.props.setDeliveryDate(date)}
                 style={{ minWidth: "100%" }}
+                tabIndex='1'
               />
             </td>
           </tr>
@@ -170,6 +174,7 @@ class Tab1CreateSO extends Component {
                   style={{ minWidth: "100%", zIndex:10 }}
                   optionList={this.props.clientName.toString()}
                   optionValue={this.props.clientVal.toString()}
+                  tabIndex='1'
                 />
               ) : (
                   <input
@@ -178,6 +183,7 @@ class Tab1CreateSO extends Component {
                     id="client"
                     className="form-control put "
                     placeholder="Client"
+                    tabIndex='1'
                   />
                 )}
               <div className={emptyClassClient + " verticalAlignTop"}>
@@ -191,6 +197,7 @@ class Tab1CreateSO extends Component {
                 id="orderId"
                 className="form-control put "
                 placeholder="Order No"
+                tabIndex='1'
               />
               <span className={emptyClassOrderNo}>{emptyOrderNo}</span>
             </td>
@@ -203,6 +210,7 @@ class Tab1CreateSO extends Component {
                 id="vendorOrderRef"
                 className="form-control put "
                 placeholder="Vendor Order Ref"
+                tabIndex='1'
               />
             </td>
 
@@ -216,6 +224,7 @@ class Tab1CreateSO extends Component {
                 className="form-control put dlv"
                 style={{ height: "8em" }}
                 placeholder="Delivery Instructions"
+                tabIndex='1'
               />
             </td>
           </tr>
@@ -239,6 +248,7 @@ class Tab1CreateSO extends Component {
                   id="customerName"
                   className="form-control put "
                   placeholder="Costumer"
+                  tabIndex='2'
                 />
               ) : (
                   
@@ -252,11 +262,13 @@ class Tab1CreateSO extends Component {
                     optionList      ={supplierName.toString()}
                     optionValue     ={this.props.resources.supplier.code.toString()}
                     style={{ minWidth: "100%"}}
+                    tabIndex='2'
                   />
                   </div>
                 )}
 
-              <input value={customerVal} type="text" id="customerCode" hidden />
+              <input value={customerVal} type="text" id="customerCode" 
+                  tabIndex='2' hidden />
             </td>
           </tr>
 
@@ -275,6 +287,7 @@ class Tab1CreateSO extends Component {
                 maxLength="200"
                 className="form-control put "
                 placeholder="Address 1"
+                tabIndex='2'
               />
             </td>
             <td style={{ width: "396px" }}>
@@ -285,6 +298,7 @@ class Tab1CreateSO extends Component {
                 maxLength="201"
                 className="form-control put "
                 placeholder="Address 2"
+                tabIndex='2'
               />
             </td>
             <td style={{ width: "396px" }}>
@@ -295,6 +309,7 @@ class Tab1CreateSO extends Component {
                 maxLength="203"
                 className="form-control put "
                 placeholder="Address 3"
+                tabIndex='2'
               />
             </td>
           </tr>
@@ -318,6 +333,7 @@ class Tab1CreateSO extends Component {
                 maxLength="204"
                 className="form-control put "
                 placeholder="Address 4"
+                tabIndex='2'
               />
             </td>
 
@@ -329,6 +345,7 @@ class Tab1CreateSO extends Component {
                 maxLength="205"
                 className="form-control put "
                 placeholder="Address 5"
+                tabIndex='2'
               />
             </td>
           </tr>
@@ -353,6 +370,7 @@ class Tab1CreateSO extends Component {
                 maxLength="150"
                 className="form-control put "
                 placeholder="Suburb"
+                tabIndex='2'
               />
             </td>
 
@@ -364,6 +382,7 @@ class Tab1CreateSO extends Component {
                 maxLength="5"
                 className="form-control put "
                 placeholder="Postcode"
+                tabIndex='2'
               />
             </td>
 
@@ -375,6 +394,7 @@ class Tab1CreateSO extends Component {
                 maxLength="150"
                 className="form-control put "
                 placeholder="State"
+                tabIndex='2'
               />
             </td>
 
@@ -386,6 +406,7 @@ class Tab1CreateSO extends Component {
                 maxLength="30"
                 className="form-control put "
                 placeholder="Country"
+                tabIndex='2'
               />
             </td>
           </tr>
