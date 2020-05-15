@@ -258,19 +258,24 @@ class PurchaseOrderCreate extends Component {
   }
 
   addLineValidation = () => {
-    for (let i = 0; i < this.state.rowlist.length; i++) {
-      var b = lineValidation(this.state.rowlist[i], i);
-    }
-
-    if (!b)
-    {
-      this.setState({nextClicked:true})
-      return false;
-    } 
-    if(b)
-    {
-      this.setState({nextClicked:false})
-      return true
+    if(this.state.rowlist.length > 0){
+        for (let i = 0; i < this.state.rowlist.length; i++) {
+            var b = lineValidation(this.state.rowlist[i], i);
+          }
+      
+          if (!b)
+          {
+            this.setState({nextClicked:true})
+            return false;
+          } 
+          if(b)
+          {
+            this.setState({nextClicked:false})
+            return true
+          }
+    }else{
+        this.setState({nextClicked:false})
+        return true
     } 
   }
 
@@ -325,7 +330,7 @@ class PurchaseOrderCreate extends Component {
     }
 
     getsupplier = (client) => {  
-      if(!client) client =  headers.client ? headers.client : "MLS"
+      if(!client) client =  this.state.client
       axios.get(endpoint.getSupplier + "?client=" + client, {
         headers: headers
       })
@@ -366,7 +371,7 @@ class PurchaseOrderCreate extends Component {
     }
 
     getproductcode = (e) => {
-      if(!e) e = headers.client ? headers.client : "MLS"
+      if(!e) e = this.state.client
         axios.get(endpoint.getProduct + "?client=" + e, {
             headers: headers
         })
@@ -380,7 +385,7 @@ class PurchaseOrderCreate extends Component {
     }
 
     getproductname = (e) => {
-      if(!e) e = headers.client ? headers.client : "MLS"
+      if(!e) e = this.state.client
         axios.get(endpoint.getProduct + "?client=" + e, {
             headers: headers
         })
@@ -686,8 +691,7 @@ if(v_orderNo === undefined) v_orderNo = []
   deletelinehandler = (e) => {
     let updated = this.state.rowlist.length
     // Jika Jumlah produk Entry Lebih dari satu
-    if( updated >1){
-      let id = e.currentTarget.id;
+    let id = e.currentTarget.id;
       for(let i = 0; i < updated; i++){
           if(this.state.rowlist[i].lineNumber == id){
             this.state.rowlist.splice(i-1, 1);
@@ -705,9 +709,6 @@ if(v_orderNo === undefined) v_orderNo = []
       }
       
       updated = this.state.rowlist.length
-    }else{
-      alert("cant delete row")
-    }
   }
 
   selectedValue = (id, value) => {
@@ -873,7 +874,25 @@ if(v_orderNo === undefined) v_orderNo = []
           orderDate: this.state.orderDate
         }
       )})
-    }    
+    } else if(this.state.rowlist.length < 1){
+        this.state.rowlistidx += 1;
+        this.setState({rowlist: this.state.rowlist.concat(
+            {
+            lineNumber:this.state.rowlistidx,
+            product:null,
+            productDescription:null,
+            uom:null,
+            qty:null,
+            rotadate: new Date(),
+            batch:null,
+            ref3:null,
+            ref4:null,
+            disposition:null,
+            weight:null,
+            orderDate: this.state.orderDate
+            }
+        )})
+    }   
   }
 
   saveclick = () =>{
