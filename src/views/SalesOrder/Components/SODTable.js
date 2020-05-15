@@ -122,7 +122,7 @@ class SODTable extends Component {
   render() {
     return (
       <div>
-        <table className="potable" width='100%'>
+        <table className="defaultTable so-table" width='100%'>
           <thead>
             <tr>
               {this.state.tableheader.map((data,idx) =>{

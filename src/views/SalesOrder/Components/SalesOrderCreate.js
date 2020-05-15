@@ -37,7 +37,8 @@ class SalesOrderCreate extends Component {
           vendorOrderRef: null,
           orderType: null,
           orderTypeVal: null,
-          deliveryDate: moment().format("YYYY-MM-DD"),
+          deliveryDate: null,
+          // deliveryDate: moment().format("YYYY-MM-DD"),
           customer: this.props.resources.identity
             ? this.props.resources.identity[0].name
             : null,
@@ -690,14 +691,13 @@ class SalesOrderCreate extends Component {
       alert("line detail must have at least 1 product");
       return;
     }
-    this.setState({deleteProcessed:true})
     let idxx = idx - 1;
     param.lineDetail.splice(idxx, 1);
 
     param.lineDetail.map((data, idx) => {
       data.number = idx + 1;
     });
-    this.setState({ parameters: param, deleteProcessed:false });
+    this.setState({ parameters: param, deleteProcessed:true}, () => this.setState({deleteProcessed:false}));
   };
 
   createSalesOrder = () => {
