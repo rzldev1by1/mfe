@@ -1,18 +1,24 @@
 import React from "react";
 import "./Modal.css";
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
+import { Col, Row,
+  Modal, ModalHeader, ModalBody } from 'reactstrap';
 import iconedit from '../../../../assets/img/brand/modal_create.png'
 import eyeactive from '../../../../assets/img/brand/eyeactive.png'
 import eyeinactive from '../../../../assets/img/brand/eyeinactive.png'
 
 const EditColumn = (props) => {
-  const { showEditColumn, column, editColumnHandler, closeModal } = props;
+  const { showEditColumn, column, editColumnHandler, closeModal, saveColumnHandler } = props;
 
   const editColumnHandlers = (idx) => {
     let newColumn = column
     let active = newColumn[idx].active
     active = !active
     editColumnHandler(idx, active)
+  }
+
+  const saveColumnHandlers = () => {
+    saveColumnHandler()
+    closeModal()
   }
   return (
     <Modal isOpen={showEditColumn}>
@@ -41,7 +47,16 @@ const EditColumn = (props) => {
             </div>)
           })}
         </div>
+        <Row className="mt-4">
+                        <div className="col-12">
+                            <div className="footer-button">
+                                <button type="button" className="btn btn-primary btn-editcol" onClick={() => saveColumnHandlers()}> Save </button>
+                             
+                            </div>
+                        </div>
+                    </Row>
       </ModalBody>
+      
     </Modal>
   );
 };

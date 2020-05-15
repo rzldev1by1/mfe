@@ -58,7 +58,8 @@ class SalesOrder extends Component {
 
       showEditColumn: false,
 
-      column:Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column
+      column:Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column,
+      updatedColumn:Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column
     };
   }
 
@@ -72,11 +73,16 @@ class SalesOrder extends Component {
   };
 
   editColumnHandler = (idx, active) => {
-    let newColumn             = this.state.column
+    let newColumn             = this.state.updatedColumn
     newColumn[idx].active     = active
-    this.setState({column:newColumn}, localStorage.setItem('savedColumn', JSON.stringify(newColumn)))
+    this.setState({updatedColumn:newColumn})
     
-  }
+  };
+
+  saveColumnHandler = () => {
+    let updateColumn = [...this.state.updatedColumn]
+    this.setState({column:updateColumn}, localStorage.setItem('savedColumn', JSON.stringify(this.state.column)))
+  }; 
 
   openModal = () => {
     this.setState({ showmodal: true });
@@ -129,7 +135,8 @@ class SalesOrder extends Component {
   getResources = (clientParam) => {
     let company = Authentication.getCompanyCode();
     let client = Authentication.getClient();
-
+    if(!company) company = null
+    if(!client) client = null
     if (clientParam) client = clientParam;
     axios
       .get(
@@ -148,7 +155,7 @@ class SalesOrder extends Component {
 
   getProduct = (clientparam) => {
     let client = Authentication.getClient();
-
+    if(!client) client = null
     if (clientparam) client = clientparam;
     let param = "?client=" + client;
     axios
@@ -195,7 +202,7 @@ class SalesOrder extends Component {
     let orderTypeName = [];
     let orderTypeValue = [];
     let statusName = ["1:Unavailable", "2:Released",  "3:Open","4:Completed", "All"];
-    let statusValue =["Unavailable", "Open", "Released", "Completed", "All"];
+    let statusValue =["unavailable", "released", "open", "completed", 'all'];
     let statuss = [];
     if (this.state.clientdata) {
       this.state.clientdata.map((data) => {
@@ -317,7 +324,8 @@ class SalesOrder extends Component {
           editColumnHandler = {(idx, active) => this.editColumnHandler(idx, active)}
           showEditColumn={this.state.showEditColumn}
           closeModal={() => this.setState({ showEditColumn: false })}
-          column = {this.state.column}
+          column = {this.state.updatedColumn}
+          saveColumnHandler = {() => this.saveColumnHandler()}
         />
       </div>
     );

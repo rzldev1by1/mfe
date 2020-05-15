@@ -48,7 +48,7 @@ const modalNewUser = (props) => {
             </ModalHeader>
             <ModalHeader className='Tab pt-0 d-flex flex-column' style={{border:"none !important"}}>
               <div className="modal-desc-text" style={{marginLeft:"75px"}}>
-                Enter user details to create New User
+                Enter user details to create a New User
               </div>
             </ModalHeader>
             <ModalHeader className="pb-0">

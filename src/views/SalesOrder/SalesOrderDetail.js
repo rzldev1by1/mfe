@@ -227,9 +227,7 @@ class SalesOrderDetail extends Component {
         )
     }
 
-
     render() {
-
         return (
             <div className='animated fadeIn pobody'>
                 <div className='header headerss'>
@@ -254,12 +252,12 @@ class SalesOrderDetail extends Component {
                 </div>
                 <div className={(this.state.head.length ? 'hidden' : 'spinner')} />
 
-                <EditColumn isOpen={this.state.showEditColumn} 
+                {this.state.showEditColumn ? <EditColumn isOpen={this.state.showEditColumn} 
                             toggle={() => this.setState({ showEditColumn: false })}
                             fields={this.state.tableheader}
                             updateTableColumn={(e) => this.setState({ tableheader: e })}
                             modulName="Sales Order Detail" 
-                />
+                /> : null}
             </div>
         )
     }
