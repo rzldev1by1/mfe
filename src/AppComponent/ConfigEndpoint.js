@@ -48,7 +48,7 @@ const headers = {
     'Authorization': 'Bearer ' + Authentication.getToken(),
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'WebUser': Authentication.getWebUser()
+    'WebUser': Authentication.getWebUser(),
 };
 
 const POheaders = {
@@ -59,4 +59,6 @@ const POheaders = {
     'Accept': 'application/json',
     'Client': Authentication.getClient()
 };
-export { endpoint, headers, POheaders };
+
+const getUserSite = Authentication.getSite()
+export { endpoint, headers, POheaders, getUserSite };

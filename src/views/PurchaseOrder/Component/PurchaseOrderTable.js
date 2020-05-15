@@ -325,6 +325,10 @@ class PurchaseOrderTable extends Component {
     let headers = ["Site","Client","Order No", "Order Type", "Customer"," Status", "Delivery Date", "Date Received", "Date Released", "Date Completed"]
     return headers
   }
+  ExportFont = () => {
+    let Font = "10";
+    return Font;
+  };
 
   ExportData = () => {
     let data = this.state.data.map(elt=> [elt.site, elt.client,
@@ -540,8 +544,8 @@ class PurchaseOrderTable extends Component {
                               startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                               isActive={this.state.isActive}
                               numberEventClick={this.numberEventClick} />
-                      <Export ExportName={this.ExportName} ExportHeader={this.ExportHeader}
-                              ExportPDFName={this.ExportPDFName} ExportData={this.ExportData}/>
+                      <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                              ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont}/>
                   </div>
                 </div>
                 

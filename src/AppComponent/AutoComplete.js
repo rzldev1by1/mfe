@@ -11,7 +11,7 @@ class AutoComplete extends Component{
         }
     }
 
-    componentWillReceiveProps(){
+    componentWillReceiveProps(newProps){
         if(this.state.content === null){
             const {placeHolder, optionList, optionValue, style, getValue, firstChecked = false, usedFor, optionSelected} = this.props;
             let optionListData = optionList ? optionList.includes(",") ? optionList.split(",") : [optionList] : []; 
@@ -41,6 +41,33 @@ class AutoComplete extends Component{
         }
         if((this.props.optionList === undefined) || (this.props.optionList === null)){
             const {placeHolder, optionList, optionValue, style, getValue, firstChecked = false, usedFor, optionSelected} = this.props;
+            let optionListData = optionList ? optionList.includes(",") ? optionList.split(",") : [optionList] : []; 
+            let optionListValue = optionValue ? optionValue.includes(",")? optionValue.split(",") : [optionValue] : [];
+            let lastIndex = optionListData.length - 1;
+            this.setState({
+                content: optionList ? optionListData.map((data, idx) => {
+                    if(idx == lastIndex){
+                        return(
+                                <li key={idx + data} className="select_autocomplete_option">
+                                    <input className="select_autocomplete_input" type="radio" name={"select" + placeHolder + this.state.no} value={optionListValue[idx]} checked={this.state.data == optionListValue[idx] ? true : false} onChange={(e) => {getValue(e.target.value, data); this.setState({ data: e.target.value })}} id={"select-" + data + this.state.no} defaultChecked={optionSelected == data || optionSelected == optionListValue[idx] ? true : false} />
+                                    <label className={"select_autocomplete_label" + (usedFor == "Datepicker" ? " select_datepicker_label" : "")} htmlFor={"select-" + data + this.state.no} style={
+                                    {borderBottomLeftRadius: "5px",
+                                    borderBottomRightRadius: "5px"}}>{data}</label>
+                                </li>
+                        )
+                    }else{
+                        return(
+                                <li key={idx + data} className="select_autocomplete_option">
+                                    <input className="select_autocomplete_input" type="radio" name={"select" + placeHolder + this.state.no} value={optionListValue[idx]} checked={this.state.data == optionListValue[idx] ? true : false} onChange={(e) => {getValue(e.target.value, data); this.setState({ data: e.target.value })}} id={"select-" + data + this.state.no} defaultChecked={optionSelected == data || optionSelected == optionListValue[idx] ? true : false} />
+                                    <label className={"select_autocomplete_label" + (usedFor ? " select_datepicker_label" : "")} htmlFor={"select-" + data + this.state.no}>{data}</label>
+                                </li>
+                        )
+                    }
+                }) : null
+            })
+        }
+        if(newProps.optionList != this.props.optionList){
+            const {placeHolder, optionList, optionValue, style, getValue, firstChecked = false, usedFor, optionSelected} = newProps;
             let optionListData = optionList ? optionList.includes(",") ? optionList.split(",") : [optionList] : []; 
             let optionListValue = optionValue ? optionValue.includes(",")? optionValue.split(",") : [optionValue] : [];
             let lastIndex = optionListData.length - 1;
