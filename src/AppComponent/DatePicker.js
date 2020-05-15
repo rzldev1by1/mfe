@@ -153,7 +153,7 @@ class DatePicker extends React.Component{
                                 placeholder="YYYY-MM-DD" 
                                 className="form-control" 
                                 maxLength="10"
-                                defaultValue={this.state.selectedDay ? moment(this.state.selectedDay).format("YYYY-MM-DD") : null} 
+                                defaultValue={this.state.selectedDay ? moment(this.state.selectedDay).format("YYYY-MM-DD") : moment().format("YYYY-MM-DD")} 
                                 onChange={(e) => {this.dateValueProcess(e)} }
                                 onFocus={() => this.setState({ showDatePicker: true })}
                                 onKeyUp={(e) => this.dateValueFormat(e)}
