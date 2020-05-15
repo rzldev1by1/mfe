@@ -30,6 +30,10 @@
     z-index: 2;
 }
 
+.autocomplete_closed{
+    overflow: hidden;
+}
+
 .select_autocomplete_expand {
 	width: 0;
 	/* height: 50px; */
@@ -94,6 +98,7 @@
     border-top: 0;
     border-top-right-radius: 0;
     border-top-left-radius: 0;
+    overflow: auto;
 }
 
 .select_autocomplete_items_closed{
@@ -196,8 +201,8 @@
 	margin-top: -5px !important;
 }
 .select_datepicker_expand::after {
-    top: 37% !important;
-    right: -5px !important;
+    top: 30% !important;
+    right: 1px !important;
 }
 
 .search-input{
