@@ -135,7 +135,8 @@ class SalesOrder extends Component {
   getResources = (clientParam) => {
     let company = Authentication.getCompanyCode();
     let client = Authentication.getClient();
-
+    if(!company) company = null
+    if(!client) client = null
     if (clientParam) client = clientParam;
     axios
       .get(
@@ -154,7 +155,7 @@ class SalesOrder extends Component {
 
   getProduct = (clientparam) => {
     let client = Authentication.getClient();
-
+    if(!client) client = null
     if (clientparam) client = clientparam;
     let param = "?client=" + client;
     axios

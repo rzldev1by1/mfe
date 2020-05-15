@@ -73,7 +73,6 @@ class ListOrderComponent extends Component {
   }
 
   searchSalesOrder = (search, site, client, status, ordertype) => {
-    alert(ordertype)
     this.setState({
       currentPage: 1,
       startIndex: 0,
@@ -487,7 +486,7 @@ class ListOrderComponent extends Component {
                       </tbody>
                         </table>
 
-              <table style={{display:'none'}} id="excel">
+              <table id="excel" className="d-none">
                   <thead>
                     <tr>
                        {this.state.tableheader.map(header =>
@@ -514,7 +513,7 @@ class ListOrderComponent extends Component {
                                   <div> No data available </div>
                                   }  
                       </tbody>
-                  </table>
+                </table>
                         
             </div>
             <div className='paginations'>
