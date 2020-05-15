@@ -73,6 +73,7 @@ class ListOrderComponent extends Component {
   }
 
   searchSalesOrder = (search, site, client, status, ordertype) => {
+    alert(ordertype)
     this.setState({
       currentPage: 1,
       startIndex: 0,
@@ -478,6 +479,7 @@ class ListOrderComponent extends Component {
                               return(
                                 <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/'+data.client+'/'+data.site+'/'+data.orderno)} className='tr'>
                                         {dataa.map((data, idx) => <td className={'so-table-row ' + (this.props.column[idx].active ? '' : 'hidden')}>{this.filterDataHandler(data[0],data[1], i)}</td>)}
+                                        <td></td>
                                 </tr>
                               )
                             }) :  <div> No data available </div>

@@ -248,7 +248,7 @@ class Tab1CreateSO extends Component {
                     getValue        ={( customerVal, product) =>
                       this.props.getIdentity(customerVal, 1)
                                       }
-                    placeHolder     ="Supplier"
+                    placeHolder     ="Customer"
                     optionList      ={supplierName.toString()}
                     optionValue     ={this.props.resources.supplier.code.toString()}
                     style={{ minWidth: "100%"}}
@@ -459,7 +459,7 @@ class Tab1CreateSO extends Component {
             </table>
           {this.props.parameters.lineDetail.map((data, idx) => {
             return (
-              <div className={this.props.deleteProcessed ? 'hidden' : null}>
+              this.props.deleteProcessed ? null :
                 <OrderLine
                   parameters={data}
                   parametersLength={this.props.parameters.lineDetail.length}
@@ -487,7 +487,6 @@ class Tab1CreateSO extends Component {
                   removeLineHandler={(idx) => this.props.removeLineHandler(idx)}
                   nextClicked = {this.props.nextClicked}
                 />
-              </div>
             );
           })}
           <button
