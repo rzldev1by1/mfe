@@ -440,7 +440,7 @@ class PurchaseOrderCreate extends Component {
             if(data.code == headers.client){
                 clientName.push(data.code + " (" + data.name + ")");
                 clientValue.push(data.code);
-            }else if(headers.client == null){
+            }else if((headers.client == null) || (headers.client == "")){
                 clientName.push(data.code + " (" + data.name + ")");
                 clientValue.push(data.code);
             }
@@ -451,7 +451,7 @@ class PurchaseOrderCreate extends Component {
             if(data.site == getUserSite){
                 siteData.push(data.site);
                 siteName.push(data.site + ":" + data.name)
-            }else if(getUserSite == null){
+            }else if((getUserSite == null) || (getUserSite == "")){
                 siteData.push(data.site);
                 siteName.push(data.site + ":" + data.name)
             }
