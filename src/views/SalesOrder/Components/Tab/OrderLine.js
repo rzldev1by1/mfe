@@ -108,7 +108,7 @@ const OrderLine = (props) => {
                   optionSelected={uom}
                   getValue={(uom) => props.setUom(uom, props.idx)}
                   placeHolder="UOM"
-                  style={{ zIndex: idx }}
+                  style={{ zIndex: props.parametersLength - idx }}
                   optionList={props.uomdata.toString()}
                   optionValue={props.uomdata.toString()}
                   tabIndex='3'
