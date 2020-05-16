@@ -86,7 +86,11 @@ class Authentication {
 	static getCompanyCode = () => {
 		let user = Authentication.getUser();
 		if (!user) { return false };
-		return user["company"];
+		if(user["company"]){ //check empty or not
+			return user["company"];
+		}else{
+			return "";
+		}; 
 	}
 
 	static getWebUser = () => {

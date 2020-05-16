@@ -1146,46 +1146,46 @@ span.upArrow:before {
 }
   
  
-@media(max-width: 2100px) {
+@media(max-width: 2100px) { //zoom 67%
 	.tablePage{
-		// max-height: 675px;
-		max-height: 100vh;
+		max-height: 665px;
+		//max-height: 100vh;
 	}
 }
-@media(max-width: 1830px) {
+@media(max-width: 1830px) {  //zoom 75%
 	.tablePage{
-		// max-height: 575px;
-		max-height: 100vh;
+		max-height: 565px;
+		//max-height: 100vh;
 	}
 }
-@media(max-width: 1710px) { 
+@media(max-width: 1710px) {  //zoom 80%
 	.tablePage{
-		// max-height: 525px;
-		max-height: 100vh;
+		max-height: 515px;
+		//max-height: 100vh;
 	}
 }
-@media(max-width: 1520px) {
+@media(max-width: 1520px) {  //zoom 90%
 	.tablePage{
-		// max-height: 440px;
-		max-height: 100vh;
+		max-height: 430px;
+		//max-height: 100vh;
 	}
 }
-@media(max-width: 1366px) {
+@media(max-width: 1366px) {  //zoom 100%
 	.tablePage{
-		// max-height: 375px;
-		max-height: 100vh;
+		max-height: 360px;
+		//max-height: 100vh;
 	}
 }
-@media(max-width: 1242px) {
+@media(max-width: 1242px) {  //zoom 110%
 	.tablePage{
-		// max-height: 320px;
-		max-height: 100vh;
+		max-height: 300px;
+		//max-height: 100vh;
 	}
 } 
 @media(max-width: 1000px) {
 	.tablePage{
-		// max-height: 520px;
-		max-height: 100vh;
+		max-height: 300px;
+		//max-height: 100vh;
 	}
 
 	.paginations{
