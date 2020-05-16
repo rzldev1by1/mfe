@@ -119,7 +119,8 @@ const OrderLine = (props) => {
               <div id="orderline-header-rotadate-val-id">
                 <DatePicker
                   getDate={(date) => props.setRotaDate(date, props.idx)}
-                  tabIndex='3'
+                  tabIndex='2'
+                  top={true}
                 />
               </div>
             </td>
