@@ -7,7 +7,8 @@ class AutoComplete extends Component{
             content: null,
             datacount: [],
             no: Math.floor(Math.random() * 100000) + 1,
-            data: "closeAutocomplete"
+            data: "closeAutocomplete",
+            optionSelected: null
         }
     }
 
@@ -36,7 +37,8 @@ class AutoComplete extends Component{
                                 </li>
                         )
                     }
-                }) : null
+                }) : null,
+                data: newProps.optionSelected ? newProps.optionSelected : "closeAutocomplete"
             })
         }
         if((this.props.optionList === undefined) || (this.props.optionList === null)){
@@ -63,7 +65,8 @@ class AutoComplete extends Component{
                                 </li>
                         )
                     }
-                }) : null
+                }) : null,
+                data: newProps.optionSelected ? newProps.optionSelected : "closeAutocomplete"
             })
         }
         if(newProps.optionList != this.props.optionList){
@@ -93,7 +96,9 @@ class AutoComplete extends Component{
                 }) : null
             })
         }
-        
+        if(this.props.optionSelected !== newProps.optionSelected){
+            this.setState({ data: newProps.optionSelected ? newProps.optionSelected : "closeAutocomplete" })
+        }
     }
 
     onChange = (e) => {
@@ -159,8 +164,8 @@ class AutoComplete extends Component{
         return(
             <React.Fragment>
                 <ul className={"select_autocomplete " + (this.state.data == "closeAutocomplete" ? "autocomplete_closed" : "" )} style={ style } tabIndex={this.props.tabIndex}>
-                    <input type="text" id="search" style={ this.props.uppercase ? { textTransform: "uppercase" } : null} name="search" className={"form-control search-input-placeholder " + (this.state.data == "openAutocomplete" ? "search-input search-input-focus" : "")} onChange={(e) => {this.onChange(e);}} autoComplete="off" onFocus={() => this.setState({ data: "openAutocomplete" })} placeHolder={placeHolder} value={(this.state.data != "openAutocomplete") && (this.state.data != "closeAutocomplete") ? this.state.data : (this.props.optionSelected ? this.props.optionSelected : null)}/>
-                    <input className="select_autocomplete_close" type="radio" name={"select" + placeHolder + this.state.no} id={"select-close" + placeHolder + this.state.no} checked={this.state.data == "closeAutocomplete" ? true : false} onChange={(e) => {this.setState({ data: "closeAutocomplete" })}} defaultChecked={firstChecked ? false : true}/>
+                    <input type="text" ref="searchInput" id="search" style={ this.props.uppercase ? { textTransform: "uppercase" } : null} name="search" className={"form-control search-input-placeholder " + (this.state.data == "openAutocomplete" ? "search-input search-input-focus" : "")} onChange={(e) => {this.onChange(e);}} autoComplete="off" onFocus={(e) => {this.setState({ data: "openAutocomplete" })}} placeHolder={placeHolder} value={(this.state.data != "openAutocomplete") && (this.state.data != "closeAutocomplete") ? this.state.data : (this.state.optionSelected ? this.state.optionSelected : null)}/>
+                    <input className="select_autocomplete_close" type="radio" name={"select" + placeHolder + this.state.no} id={"select-close" + placeHolder + this.state.no} checked={this.state.data == "closeAutocomplete" ? true : false} onChange={(e) => {getValue(null); this.setState({ data: "closeAutocomplete" })}} defaultChecked={firstChecked ? false : true}/>
                     {/* <span className={"select_autocomplete_label select_autocomplete_label-placeholder" + (usedFor == "Datepicker" ? " select_datepicker_label select_datepicker_label-placeholder" : "")}>{placeHolder}</span> */}
                     
                     <li className={"select_autocomplete_items" + (this.state.data != "openAutocomplete" ? " select_autocomplete_items_closed" : "")}>
