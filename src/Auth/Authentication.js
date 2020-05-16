@@ -55,8 +55,12 @@ class Authentication {
     }
     static getSite = () => {
         let user = Authentication.getUser();
-        if (!user) { return false };
-        return user["site"];
+		if (!user) { return "false" };
+		if(user["site"]){ //check empty or not
+			return user["site"];
+		}else{
+			return "";
+		};
     }
 
 		static getName = () => {

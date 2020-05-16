@@ -136,6 +136,14 @@ class ListOrderComponent extends Component {
   };
 
   loadSalesOrder = () => {
+    const site = Authentication.getSite()
+    const client = Authentication.getClient()
+    let param = '?'
+
+
+    if(client) param = param +'client='+client
+    if(site) param = param + '&&site=' + site
+
     this.setState({
       currentPage: 1,
       startIndex: 0,
@@ -144,7 +152,7 @@ class ListOrderComponent extends Component {
       maxPage: 0
     });
     axios
-      .get(endpoint.salesOrder, {
+      .get(endpoint.salesOrder+param, {
         headers: headers
       })
       .then((res) => {

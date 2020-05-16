@@ -232,17 +232,40 @@ class SalesOrder extends Component {
     }
     return (
       <React.Fragment>
-          <Dropdown placeHolder="Site"
+
+                  {Authentication.getUserLevel() == "administrator" ? (
+                    <Dropdown placeHolder="Site"
                     optionList={siteName.toString()}
                     optionValue={siteData.toString()}
                     getValue={this.getSiteSelected.bind(this)}
                     className="filterDropdown"/>
+                    ) : (
+                      <input
+                        readOnly
+                        value={Authentication.getSite()}
+                        id="site"
+                        className="form-control put filterDropdown"
+                        placeholder="Site"
+                        tabIndex='1'
+                      />
+                    )}
 
-          <Dropdown placeHolder="Client"
+                  {Authentication.getUserLevel() == "administrator" ? (
+                    <Dropdown placeHolder="Client"
                     optionList={clientName.toString()}
                     optionValue={clientValue.toString()}
                     getValue={this.getClientSelected.bind(this)}
                     className="filterDropdown"/>
+                    ) : (
+                      <input
+                        readOnly
+                        value={Authentication.getClient()}
+                        id="site"
+                        className="form-control put filterDropdown"
+                        placeholder="Site"
+                        tabIndex='1'
+                      />
+                    )}
 
           <Dropdown placeHolder="Status" 
                     optionList={statusName.toString()} 

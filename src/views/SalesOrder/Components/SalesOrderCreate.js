@@ -29,7 +29,7 @@ class SalesOrderCreate extends Component {
         header: {
           company: Authentication.getCompanyCode(),
           site: null,
-          siteVal: null,
+          siteVal: Authentication.getSite(),
           client: Authentication.getClient(),
           clientName: null,
           orderId: null,
@@ -357,7 +357,7 @@ class SalesOrderCreate extends Component {
         ...prevState.parameters,
         header: {
           ...prevState.parameters.header,
-          customer: customer,
+          customer: customerVal + ' ( '+customer+' )',
           customerVal: customerVal
         }
       }

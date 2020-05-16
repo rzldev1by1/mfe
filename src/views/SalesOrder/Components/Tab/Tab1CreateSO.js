@@ -102,15 +102,28 @@ class Tab1CreateSO extends Component {
           </tr>
           <tr>
             <td style={{ width: "396px" }}>
-              <Dropdown
-                optionSelected={siteVal}
-                getValue={(siteVal, site) => this.props.setSite(siteVal, site)}
-                placeHolder="Site"
-                style={{ minWidth: "100%", zIndex: 20 }}
-                optionList={this.props.resources.site.name.toString()}
-                optionValue={this.props.resources.site.code.toString()}
-                tabIndex='1'
-              />
+              
+
+                {this.props.userLevel == "administrator" ? (
+                    <Dropdown
+                      optionSelected={siteVal}
+                      getValue={(siteVal, site) => this.props.setSite(siteVal, site)}
+                      placeHolder="Site"
+                      style={{ minWidth: "100%", zIndex: 20 }}
+                      optionList={this.props.resources.site.name.toString()}
+                      optionValue={this.props.resources.site.code.toString()}
+                      tabIndex='1'
+                    />
+                  ) : (
+                      <input
+                        readOnly
+                        value={siteVal}
+                        id="site"
+                        className="form-control put "
+                        placeholder="Site"
+                        tabIndex='1'
+                      />
+                    )}
             </td>
 
             <td style={{ width: "396px" }}>
@@ -254,7 +267,7 @@ class Tab1CreateSO extends Component {
                   
                   <div className='so-supp'>
                     <AutoComplete
-                    optionSelected  ={supplierName}
+                    optionSelected  ={customer}
                     getValue        ={( customerVal, product) =>
                       this.props.getIdentity(customerVal, 1)
                                       }

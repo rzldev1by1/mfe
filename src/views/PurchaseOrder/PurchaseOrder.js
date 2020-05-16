@@ -14,6 +14,7 @@ import create from '../../assets/img/brand/button_create@2x.png'
 import EditColumn from '../../AppComponent/EditColumn'
 import Dropdowns from './Component/Dropdowns'
 import Movement from './Component/Movement'
+import Authentication from '../../Auth/Authentication'
 
 class PurchaseOrder extends Component {
     constructor(props){
@@ -217,16 +218,40 @@ class PurchaseOrder extends Component {
         }
           return(
               <React.Fragment>
-                  <Dropdown placeHolder="Site"
-                            className="filterDropdown"
-                            optionList={siteData.toString()}
-                            optionValue={siteValue.toString()}
-                            getValue={this.getSiteSelected.bind(this)}/>
-                  <Dropdown placeHolder="Client"
-                            className="filterDropdown"
-                            optionList={clientName.toString()}
-                            optionValue={clientValue.toString()}
-                            getValue={this.getClientSelected.bind(this)}/>
+                  {Authentication.getUserLevel() == "administrator" ? (
+                    <Dropdown placeHolder="Site"
+                    className="filterDropdown"
+                    optionList={siteData.toString()}
+                    optionValue={siteValue.toString()}
+                    getValue={this.getSiteSelected.bind(this)}/>
+                    ) : (
+                      <input
+                        readOnly
+                        value={Authentication.getSite()}
+                        id="site"
+                        className="form-control put filterDropdown"
+                        placeholder="Site"
+                        tabIndex='1'
+                      />
+                    )}
+
+                  {Authentication.getUserLevel() == "administrator" ? (
+                    <Dropdown placeHolder="Client"
+                    className="filterDropdown"
+                    optionList={clientName.toString()}
+                    optionValue={clientValue.toString()}
+                    getValue={this.getClientSelected.bind(this)}/>
+                    ) : (
+                      <input
+                        readOnly
+                        value={Authentication.getClient()}
+                        id="site"
+                        className="form-control put filterDropdown"
+                        placeholder="Site"
+                        tabIndex='1'
+                      />
+                    )}
+                  
                   <Dropdown placeHolder="Status"
                             className="filterDropdown"
                             optionList={status.toString()}

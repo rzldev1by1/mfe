@@ -18,6 +18,7 @@ import DatePicker from '../../../AppComponent/DatePicker'
 import swal from 'sweetalert'
 import { headerValidation, lineValidation } from '../Validation/validation'
 import {orderNoValidation} from '../../SalesOrder/Components/Validation/orderNoValidation'
+import Authentication from '../../../Auth/Authentication'
 
 class PurchaseOrderCreate extends Component {
   constructor(props) {
@@ -83,8 +84,8 @@ class PurchaseOrderCreate extends Component {
       productdesccr: [],
 
       // Create PO Form 
-      site: null,
-      client: null,
+      site: Authentication.getSite() ? Authentication.getSite() : null,
+      client: Authentication.getClient() ? Authentication.getClient() : null,
       supplier: null,
       customerRef: null,
       orderType: null,
@@ -497,23 +498,47 @@ if(v_orderNo === undefined) v_orderNo = []
           </tr>
           <tr>
             <td>
-              <Dropdown placeHolder="Site"
+              {
+                Authentication.getUserLevel() === 'administrator' ?
+                <Dropdown placeHolder="Site"
                 style={{ width: "22%", position: "absolute", zIndex: '6' }}
                 optionList={siteName.toString()}
                 optionValue={siteData.toString()}
                 getValue={(e) => this.setState({ site: e })}
                 optionSelected={this.state.site} 
                 tabIndex="1"  
-              />
+              /> : <input
+                    readOnly
+                    value={this.state.site}
+                    id="site"
+                    className="form-control put"
+                    placeholder="Site"
+                    tabIndex='1'
+                  />
+              }
             </td>
             <td>
-              <Dropdown placeHolder="Client"
+
+            {
+                Authentication.getUserLevel() === 'administrator' ? 
+                <Dropdown placeHolder="Client"
                 style={{ width: "22%", position: "absolute" }}
                 optionList={clientName.toString()}
                 optionValue={clientValue.toString()}
                 getValue={(e) => this.setState({ client: e, supplier:null, supplierName:null, reset:true }, this.getsupplier(e), this.getproductcode(e), this.getproductname(e))}
                 optionSelected={this.state.client}
-                tabIndex="1"   />
+                tabIndex="1"   /> : 
+                <input
+                readOnly
+                value={this.state.client}
+                id="site"
+                className="form-control put"
+                placeholder="Site"
+                tabIndex='1'
+              />
+
+            }
+              
             </td>
             {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
             <td>
