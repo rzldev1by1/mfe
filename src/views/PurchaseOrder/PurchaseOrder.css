@@ -76,10 +76,21 @@ h1{
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+.so-inputs{
+	position: relative;
+	min-width: 100%;
+}
+
 .put{
 	height: 38px;
 	border-color: #D5D8DA;
 }
+
+.cor{
+	position: relative;
+	min-width: 100%;
+}
+
 .valid{
 	height: 38px;
     border-color: #f86c6b;

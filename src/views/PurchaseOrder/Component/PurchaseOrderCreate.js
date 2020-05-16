@@ -497,11 +497,11 @@ if(v_orderNo === undefined) v_orderNo = []
             <th style={{ width: "396px" }}>Customer Order Ref</th>
           </tr>
           <tr>
-            <td>
+            <td style={{ width: "396px" }}>
               {
                 Authentication.getUserLevel() === 'administrator' ?
                 <Dropdown placeHolder="Site"
-                style={{ width: "22%", position: "absolute", zIndex: '6' }}
+                style={{ minWidth: "100%", zIndex: '6' }}
                 optionList={siteName.toString()}
                 optionValue={siteData.toString()}
                 getValue={(e) => this.setState({ site: e })}
@@ -517,12 +517,12 @@ if(v_orderNo === undefined) v_orderNo = []
                   />
               }
             </td>
-            <td>
+            <td style={{ width: "396px" }}>
 
             {
                 Authentication.getUserLevel() === 'administrator' ? 
                 <Dropdown placeHolder="Client"
-                style={{ width: "22%", position: "absolute" }}
+                style={{ minWidth: "100%" }}
                 optionList={clientName.toString()}
                 optionValue={clientValue.toString()}
                 getValue={(e) => this.setState({ client: e, supplier:null, supplierName:null, reset:true }, this.getsupplier(e), this.getproductcode(e), this.getproductname(e))}
@@ -540,10 +540,10 @@ if(v_orderNo === undefined) v_orderNo = []
             }
               
             </td>
-            {/* <td><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
-            <td>
+            {/* <td style={{ width: "396px" }}><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
+            <td style={{ width: "396px" }}>
             <AutoComplete placeHolder="Supplier"
-                style={{ width: "22%", position: "absolute", zIndex: '6'  }}
+                style={{ minWidth: "100%", zIndex: '6'  }}
                 optionList={supplierName.toString()}
                 optionValue={supplierName.toString()}
                 getValue={(e) => this.setState({ supplier: e })}
@@ -551,9 +551,9 @@ if(v_orderNo === undefined) v_orderNo = []
                 className={this.state.reset ? ' po-hidden' : null}
                 tabIndex="1"   />
             </td>
-            {/* <td><input onChange={(e) => this.setSuppliers(e)} className="form2 put pec" placeholder="Supplier"/> </td> */}
-            <td>
-              <input tabIndex="1" className="form2 put pec" placeholder="Customer Order Ref" value={this.state.customerRef} maxLength="40" onChange={(e) => this.setState({ customerRef: e.target.value })} />
+            {/* <td style={{ width: "396px" }}><input onChange={(e) => this.setSuppliers(e)} className="form2 put pec" placeholder="Supplier"/> </td> */}
+            <td style={{ width: "396px" }}>
+              <input tabIndex="1" className="form2 put pec cor" placeholder="Customer Order Ref" value={this.state.customerRef} maxLength="40" onChange={(e) => this.setState({ customerRef: e.target.value })} />
             </td>
           </tr>
           <tr>
@@ -574,22 +574,22 @@ if(v_orderNo === undefined) v_orderNo = []
             <th>Vendor Order Ref</th>
           </tr>
           <tr>
-            <td>
+            <td style={{ width: "396px" }}>
             <AutoComplete  placeHolder="Order Type" 
-                        style={{width: "22%", position: "absolute"}} 
+                        style={{minWidth:'100%'}} 
                         optionList={orderData.toString()} 
                         optionValue={orderValue.toString()} 
                         getValue={(e) => this.setState({ orderType: e })} 
                         optionSelected={this.state.orderType} tabIndex="1"/>
             </td>
-            <td><input id='orderNo' tabIndex="1" className="form2 put pec" value={this.state.orderNo} placeholder="Order No" minLength="4" maxLength="12" onChange={(e) => this.setOrderNo(e)} /> </td>
-            <td>
-              <DatePicker style={{ minWidth: "22%", position: "absolute" }}
+            <td style={{ width: "396px" }}><input id='orderNo' tabIndex="1" className="form2 put pec so-inputs" value={this.state.orderNo} placeholder="Order No" minLength="4" maxLength="12" onChange={(e) => this.setOrderNo(e)} /> </td>
+            <td style={{ width: "396px" }}>
+              <DatePicker style={{ minWidth:'100%' }}
                 getDate={(e) => { this.setState({ orderDate: e }); this.state.rowlist[0].orderDate = e }}
                 defaultValue={this.state.orderDate}  tabIndex="1" top={true} 
               />
             </td>
-            <td><input tabIndex="1" className="form2 put pec" value={this.state.vendorRef} maxLength='40' placeholder="Vendor Order Ref" onChange={(e) => this.setState({ vendorRef: e.target.value })} maxLength="40" /> </td>
+            <td style={{ width: "396px" }}><input tabIndex="1" className="form2 put pec so-inputs" value={this.state.vendorRef} maxLength='40' placeholder="Vendor Order Ref" onChange={(e) => this.setState({ vendorRef: e.target.value })} maxLength="40" /> </td>
           </tr>
           <tr>
             <th style={{ color: "transparent" }}>1</th>
