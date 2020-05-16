@@ -36,8 +36,8 @@ class SalesOrder extends Component {
       status: null,
       ordertype: null,
 
-      siteSelected: null,
-      clientSelected: null,
+      siteSelected: Authentication.getSite() ? Authentication.getSite() : null,
+      clientSelected: Authentication.getClient() ? Authentication.getClient() : null,
 
       clientdata: [],
       sitedata: [],

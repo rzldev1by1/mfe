@@ -42,8 +42,8 @@ class PurchaseOrder extends Component {
             autoText:null,
             autoArray:null,
             autoArrays:[],
-            siteSelected: undefined,
-            clientSelected: undefined,
+            siteSelected: Authentication.getSite() ? Authentication.getSite() : null,
+            clientSelected: Authentication.getClient() ? Authentication.getClient() : null,
             statusSelected: undefined,
             orderTypeSelected: undefined,
 
