@@ -92,7 +92,7 @@ class DatePicker extends React.Component{
     }
 
     componentDidMount() {
-        this.props.getDate(moment().format("YYYY-MM-DD"))
+        // this.props.getDate(moment().format("YYYY-MM-DD"))
     }
 
     handleYearMonthChange = (month) => {
