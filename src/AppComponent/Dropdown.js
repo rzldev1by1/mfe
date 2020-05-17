@@ -1,60 +1,76 @@
 import React, {Component, useState} from 'react';
+import { render } from 'enzyme';
 //import './Dropdown.css';
-const Dropdown = ({placeHolder, optionList, optionValue, style, getValue, firstChecked = false, usedFor, optionSelected,className="", tabIndex=""}) => {
-        let optionListData = optionList ? optionList.includes(",") ? optionList.split(",") : [optionList] : []; 
-        let optionListValue = optionValue ? optionValue.includes(",")? optionValue.split(",") : [optionValue] : [];
-        let lastIndex = optionListData.length - 1;
-        let closed = true;
-        let selectDropdownRef = null;
-        const no = Math.floor(Math.random() * 100000) + 1;
-        return(
-            <React.Fragment>
-                <ul className={"select_dropdown "+className + " dropdown_closed"} ref={(selectDropdown) => { selectDropdownRef = selectDropdown }} style={ style } tabIndex={tabIndex} >
-                    <input className="select_dropdown_close" type="radio" name={"select" + placeHolder + no} id={"select-close" + placeHolder + no} value="" onClick={(e) => {getValue(e.target.value); selectDropdownRef.className = "select_dropdown "+className + " dropdown_closed"}}  defaultChecked={firstChecked ? false : true}/>
-                    <span className={"select_dropdown_label select_dropdown_label-placeholder" + (usedFor == "Datepicker" ? " select_datepicker_label select_datepicker_label-placeholder" : "")}>{placeHolder}</span>
-                    
-                    <li className="select_dropdown_items">
-                        <input className={"select_dropdown_expand" + (usedFor == "Datepicker" ? " select_datepicker_expand" : "")} type="radio" name={"select" + placeHolder + no} value="" onClick={(e) => {getValue(e.target.value); selectDropdownRef.className = "select_dropdown "+className}} id={"select-opener" + placeHolder + no}/>
-                        <label className="select_dropdown_closeLabel" htmlFor={"select-close" + placeHolder + no}></label>
+class Dropdown extends Component{
+        constructor(props){
+            super(props);
+            this.state = {
+                no: Math.floor(Math.random() * 100000) + 1
+            }
+        }
+
+        shouldComponentUpdate(){
+            return true
+        }
+
+        render(){
+            const {placeHolder, optionList, optionValue, style, getValue, firstChecked = false, usedFor, optionSelected,className="", tabIndex=""} = this.props;
+            let optionListData = optionList ? optionList.includes(",") ? optionList.split(",") : [optionList] : []; 
+            let optionListValue = optionValue ? optionValue.includes(",")? optionValue.split(",") : [optionValue] : [];
+            let lastIndex = optionListData.length - 1;
+            let closed = true;
+            let selectDropdownRef = null;
+            const no = Math.floor(Math.random() * 100000) + 1;
+            return(
+                <React.Fragment>
+                    <ul className={"select_dropdown "+className + " dropdown_closed"} ref={(selectDropdown) => { selectDropdownRef = selectDropdown }} style={ style } tabIndex={tabIndex} >
+                        <input className="select_dropdown_close" type="radio" name={"select" + placeHolder + this.state.no} id={"select-close" + placeHolder + this.state.no} value="" onClick={(e) => {getValue(e.target.value); selectDropdownRef.className = "select_dropdown "+className + " dropdown_closed"}}  defaultChecked={firstChecked ? false : true}/>
+                        <span className={"select_dropdown_label select_dropdown_label-placeholder" + (usedFor == "Datepicker" ? " select_datepicker_label select_datepicker_label-placeholder" : "")}>{placeHolder}</span>
                         
-                        <ul className={"select_dropdown_options" + (optionList ? "" : " d-none") + (usedFor == "Datepicker" ? " select_datepicker_options" : "")}>
-                            {/* {this.selectOption()} */}
-                            {optionList ? optionListData.map((data, idx) => {
-                                if(idx == 0){
-                                    return(
-                                            <li key={idx + data} className="select_dropdown_option">
-                                                <input className="select_dropdown_input" type="radio" name={"select" + placeHolder + no} value={optionListValue[idx]} onClick={(e) => {getValue(e.target.value, data); selectDropdownRef.className = "select_dropdown "+className + " dropdown_closed"}} id={"select-" + data + no} defaultChecked={optionSelected == data || optionSelected == optionListValue[idx] ? true : firstChecked}/>
-                                                <label className={"select_dropdown_label" + (usedFor == "Datepicker" ? " select_datepicker_label" : "")} htmlFor={"select-" + data + no} style={
-                                                {borderTopLeftRadius: "5px",
-                                                borderTopRightRadius: "5px"}}>{data}</label>
-                                            </li>
-                                    )
-                                }else if(idx == lastIndex){
-                                    return(
-                                            <li key={idx + data} className="select_dropdown_option">
-                                                <input className="select_dropdown_input" type="radio" name={"select" + placeHolder + no} value={optionListValue[idx]} onClick={(e) => {getValue(e.target.value, data); selectDropdownRef.className = "select_dropdown "+className + " dropdown_closed"}} id={"select-" + data + no} defaultChecked={optionSelected == data || optionSelected == optionListValue[idx] ? true : false} />
-                                                <label className={"select_dropdown_label" + (usedFor == "Datepicker" ? " select_datepicker_label" : "")} htmlFor={"select-" + data + no} style={
-                                                {borderBottomLeftRadius: "5px",
-                                                borderBottomRightRadius: "5px"}}>{data}</label>
-                                            </li>
-                                    )
-                                }else{
-                                    return(
-                                            <li key={idx + data} className="select_dropdown_option">
-                                                <input className="select_dropdown_input" type="radio" name={"select" + placeHolder + no} value={optionListValue[idx]} onClick={(e) => {getValue(e.target.value, data); selectDropdownRef.className = "select_dropdown "+className + " dropdown_closed"}} id={"select-" + data + no} defaultChecked={optionSelected == data || optionSelected == optionListValue[idx] ? true : false} />
-                                                <label className={"select_dropdown_label" + (usedFor ? " select_datepicker_label" : "")} htmlFor={"select-" + data + no}>{data}</label>
-                                            </li>
-                                    )
-                                }
-                            }) : null}
-            
+                        <li className="select_dropdown_items">
+                            <input className={"select_dropdown_expand" + (usedFor == "Datepicker" ? " select_datepicker_expand" : "")} type="radio" name={"select" + placeHolder + this.state.no} value="" onClick={(e) => {getValue(e.target.value); selectDropdownRef.className = "select_dropdown "+className}} id={"select-opener" + placeHolder + this.state.no}/>
+                            <label className="select_dropdown_closeLabel" htmlFor={"select-close" + placeHolder + this.state.no}></label>
                             
-                        </ul>
-                        <label className="select_dropdown_expandLabel" htmlFor={"select-opener" + placeHolder + no}></label>
-                    </li>
-                </ul>
-            </React.Fragment>
-        )
+                            <ul className={"select_dropdown_options" + (optionList ? "" : " d-none") + (usedFor == "Datepicker" ? " select_datepicker_options" : "")}>
+                                {/* {this.selectOption()} */}
+                                {optionList ? optionListData.map((data, idx) => {
+                                    if(idx == 0){
+                                        return(
+                                                <li key={idx + data} className="select_dropdown_option">
+                                                    <input className="select_dropdown_input" type="radio" name={"select" + placeHolder + this.state.no} value={optionListValue[idx]} onClick={(e) => {getValue(e.target.value, data); selectDropdownRef.className = "select_dropdown "+className + " dropdown_closed"}} id={"select-" + data + this.state.no} defaultChecked={optionSelected == data || optionSelected == optionListValue[idx] ? true : firstChecked}/>
+                                                    <label className={"select_dropdown_label" + (usedFor == "Datepicker" ? " select_datepicker_label" : "")} htmlFor={"select-" + data + this.state.no} style={
+                                                    {borderTopLeftRadius: "5px",
+                                                    borderTopRightRadius: "5px"}}>{data}</label>
+                                                </li>
+                                        )
+                                    }else if(idx == lastIndex){
+                                        return(
+                                                <li key={idx + data} className="select_dropdown_option">
+                                                    <input className="select_dropdown_input" type="radio" name={"select" + placeHolder + this.state.no} value={optionListValue[idx]} onClick={(e) => {getValue(e.target.value, data); selectDropdownRef.className = "select_dropdown "+className + " dropdown_closed"}} id={"select-" + data + this.state.no} defaultChecked={optionSelected == data || optionSelected == optionListValue[idx] ? true : false} />
+                                                    <label className={"select_dropdown_label" + (usedFor == "Datepicker" ? " select_datepicker_label" : "")} htmlFor={"select-" + data + this.state.no} style={
+                                                    {borderBottomLeftRadius: "5px",
+                                                    borderBottomRightRadius: "5px"}}>{data}</label>
+                                                </li>
+                                        )
+                                    }else{
+                                        return(
+                                                <li key={idx + data} className="select_dropdown_option">
+                                                    <input className="select_dropdown_input" type="radio" name={"select" + placeHolder + this.state.no} value={optionListValue[idx]} onClick={(e) => {getValue(e.target.value, data); selectDropdownRef.className = "select_dropdown "+className + " dropdown_closed"}} id={"select-" + data + this.state.no} defaultChecked={optionSelected == data || optionSelected == optionListValue[idx] ? true : false} />
+                                                    <label className={"select_dropdown_label" + (usedFor ? " select_datepicker_label" : "")} htmlFor={"select-" + data + this.state.no}>{data}</label>
+                                                </li>
+                                        )
+                                    }
+                                }) : null}
+                
+                                
+                            </ul>
+                            <label className="select_dropdown_expandLabel" htmlFor={"select-opener" + placeHolder + this.state.no}></label>
+                        </li>
+                    </ul>
+                </React.Fragment>
+            )  
+        }
+        
 }
 
 export default Dropdown;
