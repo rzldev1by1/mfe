@@ -729,9 +729,10 @@ if(v_orderNo === undefined) v_orderNo = []
                 this.state.rowlist[x].lineNumber -= 1;
               }
               this.setState({rowlist: this.state.rowlist})
-              this.refs['orderLine'+lengthRowlist].reset()
 
             }
+            this.refs['orderLine'+this.state.rowlist.length].reset()
+            this.forceUpdate()
                 console.log(this.state.rowlist)
             break;
           }
@@ -831,7 +832,7 @@ if(v_orderNo === undefined) v_orderNo = []
             <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Ref3"  maxLength="30" defaultValue={this.state.rowlist[i].ref3} onChange={(e) => {this.state.rowlist[i].ref3 = e.target.value; this.setState({ rowlist: this.state.rowlist })}} /></td>
             <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Ref4"  maxLength="30" defaultValue={this.state.rowlist[i].ref4} onChange={(e) => {this.state.rowlist[i].ref4 = e.target.value; this.setState({ rowlist: this.state.rowlist })}} /></td>
             <td style={{width:"6.5%"}}>
-                <Dropdown placeHolder="Dis" 
+                <AutoComplete placeHolder="Dis" 
                             style={{width: "100%", zIndex: this.state.rowlist.length - i}} 
                             optionList={this.state.dispositioncr.toString()} 
                             optionValue={this.state.dispositioncr.toString()} 
