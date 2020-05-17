@@ -110,7 +110,7 @@
 	height: 0;
 	background-color: #FFFFFF;
 	font-size: 1rem;
-	line-height: 50px;
+	line-height: 48px;
 	overflow: hidden;
 	cursor: pointer;
 	padding-left: 20px;
@@ -129,7 +129,7 @@
     border-top: 0;
     border-top-right-radius: 0;
     border-top-left-radius: 0;
-    max-height: 250px;
+    max-height: 192px;
     overflow: auto;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -139,7 +139,7 @@
 
 
 .select_autocomplete_expand:checked + .select_autocomplete_closeLabel + .select_autocomplete_options .select_autocomplete_label {
-	height: 50px;
+	height: 48px;
 }
 
 .select_autocomplete_expand:checked + .select_autocomplete_closeLabel + .select_autocomplete_options .search-input {
