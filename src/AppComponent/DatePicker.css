@@ -135,7 +135,7 @@
 } 
 
 .select_date_expand:checked + .select_date_closeLabel + .fixed-top-position{
-    margin-top: -75vw !important;
+    margin-top: -49vw !important;
     position: fixed;
 }
 
