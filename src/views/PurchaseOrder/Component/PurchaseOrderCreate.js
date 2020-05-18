@@ -847,11 +847,11 @@ if(v_orderNo === undefined) v_orderNo = []
           <tr>
             <td hidden id={list.lineNumber}></td>
             <td style={{width:"3.5%", textAlign:""}}></td>
-            <td style={{width:"12%"}} className={'po-order-line-required ' + (mProduct)}>please select product</td>
+            <td style={{width:"12%"}} className={'po-order-line-required ' + (mProduct)}>Please select product</td>
             <td style={{width:"12%"}}></td>
-            <td style={{width:"3.5%"}} className={'po-order-line-required ' + (mQty)}>qty cannot be empty</td>
+            <td style={{width:"3.5%"}} className={'po-order-line-required ' + (mQty)}>Qty cannot be empty</td>
             <td style={{width:"5%"}}></td>
-            <td style={{width:"6%"}} className={'po-order-line-required ' + (mUom)}>please select uom</td>
+            <td style={{width:"6%"}} className={'po-order-line-required ' + (mUom)}>Please select uom</td>
             <td style={{width:"6.5%"}}></td>
             <td style={{width:"6%"}}></td>
             <td style={{width:"5%"}}></td>
