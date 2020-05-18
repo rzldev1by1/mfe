@@ -8,7 +8,7 @@
 	border-color: inherit;
 }
 
-.select_close-export, .select_expand-export, .select_input-export {
+.select_close-export, .select_expand-export, .select_input-export  {
   color: inherit;
   font: inherit;
   margin: 0;
@@ -19,18 +19,6 @@
 	-webkit-appearance: none;
 	   -moz-appearance: none;
 			appearance: none;
-}
-
-
-
-
-.expand-export{
-	border-top-left-radius: 22px;
-	border-top-right-radius: 22px;
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
-	border-bottom: solid #212F61 2px;
-	transition: border-top-left-radius .5s ease, border-top-right-radius .5s ease, border-bottom .5s ease;
 }
 
 .select_expand-export {
@@ -71,7 +59,7 @@
     margin-bottom: 0 !important;
 }
 
-.select_close-export {display: none}
+.select_close-export {display: none,}
 
 .select_closeLabel-export {
 	width: 100vw;
@@ -83,85 +71,70 @@
 	margin-bottom: 0 !important;
 }
 
-.select_items-export {
-	list-style: none;
-	width: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	border-radius: 2px;
-	padding-top: 50px;
-}
-
 .select_input-export {display: none}
 
 .select_options-export{
 	list-style: none;}
 
-.select_label-export {
-	transition: all 250ms cubic-bezier(.4,.25,.3,1);
-	display: block;
-    transform: scaleY(-1);
-	height: 0;
-	font-family: Medium 20px/25px Helvetica Neue;
-	font-size: 16px;
-	line-height: 50px;
-	overflow: hidden;
-	color: #fff;
-	background-color: #E0E3F2;
-	cursor: pointer;
-	padding-left: 20px;
-	margin-bottom: 0 !important;
-	user-select: none;
-}
-
-.select_label-placeholder-export {
-	height: 50px;
-	text-align: center !important;
-	vertical-align: middle;
-	position: absolute;
-    transform: scaleY(-1);
-	top: 0;
-	left: 0;
-	background-color: transparent;
-	padding-left: 67px;
-}
 
 .select_expand-export:checked + .select_closeLabel-export {
 		display: block;
 	}
 
-.select_expand-export:checked + .select_closeLabel-export + .select_options-export .select_label-export {height: 50px;}
+.select_expand-export:checked + .select_closeLabel-export + .select_options-export .select_label-export + .option_radius-export + .option-radius-export-pdf {height: 50px;}
 
-.select_expand-export:checked + .select_closeLabel-export + .select_options-export .select_label-export:hover {background-color: #d3daff}
+.select_expand-export:checked + .select_closeLabel-export + .select_options-export .select_label-export:hover {background-color: #d3daff; color: black;}
 
-.select_expand-export:checked + .select_closeLabel-export + .select_options-export + .select_expandLabel-export {display: none}
+.select_expand-export:checked + .select_closeLabel-export + .select_options-export + .select_expandLabel-export + .option_radius-export + .option-radius-export-pdf{display: none; border: none;} 
 
-.select_input-export:checked + .select_label-export {
-	height: 50px;
-	margin-top: -50px;
-	border-top-left-radius: 33px;
-	border-top-right-radius: 33px;
-	border-bottom-left-radius: 33px;
-	border-bottom-right-radius: 33px;
-}
 .select_expand-export:checked + .select-export {
 	display: block;
 }
-.select_expand-export:checked + .expand-style-export {
-	width: 225px;
-	height: 50px;
-	cursor: pointer;
-	background-color: #E0E3F2;
-	box-shadow: 0 2px 0 #E0E3F2;
-	border-top-left-radius: 33px;
-	border-top-right-radius: 33px;
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
-}
 .option_radius-export{
-	border-top-left-radius: 22px;
-	border-top-right-radius: 22px;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+}
+.option-radius-export-pdf{
+	border-bottom-left-radius:7px ;
+	border-bottom-right-radius:7px ;
+	margin-top :10px;
+}
+.border-xcl{
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	border-top: 1.5px solid #3366FF ;
+	border-left: 1.5px solid #3366FF ;
+	border-right: 1.5px solid #3366FF ;
+	margin-left: -18px;
+    width: 110%;
+}
+.border-pdf{
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    border-bottom: 1.5px solid #3366FF;
+    border-left: 1.5px solid #3366FF;
+    border-right: 1.5px solid #3366FF;
+    width: 110%;
+	margin-left: -18px;
+	height: 48px;
+	text-align: center;
+}
+
+.border-exl-radius{
+	border-radius: 7px;
+	margin-top: 10px;
+}
+
+.border-Excel{
+	border-radius: 7px;
+	border: 1.5px solid #3366FF;
+	margin-left: -18px;
+	width: 110%;
+	height: 49px;
+}
+
+#label{
+	border: none;
 }
 .pdf-icon {
 	background-image: url(../scss/vendors/pdf_icon.png);
@@ -175,6 +148,7 @@
 	background-position: left center;
 	background-repeat: no-repeat;
 	padding-left: 35px; /* Or size of icon + spacing */
+	margin-left: 26px;
 }
 
 /* End - Export Button */
@@ -182,15 +156,7 @@
 
 /* Start - Export Button */
 
-.select-export, .expand-style-export, .select_items-export, .select_options-export, .select_option-export {
-	position: relative;
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	border-color: inherit;
-}
-
-.select_close-export, .select_expand-export, .select_input-export {
+.select_close-export, .select_expand-export + .select_input-export {
   color: inherit;
   font: inherit;
   margin: 0;
@@ -204,67 +170,6 @@
 }
 
 
-
-
-.expand-export{
-	border-top-left-radius: 22px;
-	border-top-right-radius: 22px;
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
-	border-bottom: solid #212F61 2px;
-	transition: border-top-left-radius .5s ease, border-top-right-radius .5s ease, border-bottom .5s ease;
-}
-
-.select_expand-export {
-	width: 0;
-	height: 50px;
-	position: absolute;
-	top: 0;
-	right: 10px;
-    transform: scaleY(-1);
-}
-
-.select_expand-export::after {
-	content: '\003E';
-	position: absolute;
-	top: 50%;
-	right: 0;
-	-webkit-transform: translate(-50%, -50%) rotate(90deg) scaleY(1.75);
-			transform: translate(-50%, -50%) rotate(90deg) scaleY(1.75);
-	color: #212F61;
-	font-size: 16px;
-	pointer-events: none;
-	z-index: 2;
-	transition: all 250ms cubic-bezier(.4,.25,.3,1);
-}
-
-.select_expand-export:hover::after {opacity: 1}
-
-.select_expand-export:checked::after {-webkit-transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.75);transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.75);}
-
-.select_expandLabel-export {
-	display: block;
-	width: 100%;
-	height: 50px;
-	position: absolute;
-	top: 0;
-	left: 0;
-	cursor: pointer;
-    margin-bottom: 0 !important;
-}
-
-.select_close-export {display: none}
-
-.select_closeLabel-export {
-	width: 100vw;
-	height: 100vh;
-	position: fixed;
-	top: 0;
-	left: 0;
-	display: none;
-	margin-bottom: 0 !important;
-}
-
 .select_items-export {
 	list-style: none;
 	width: 100%;
@@ -275,11 +180,6 @@
 	padding-top: 50px;
 }
 
-.select_input-export {display: none}
-
-.select_options-export{
-	list-style: none;}
-
 .excel{
 	color:#637176;
 	font-size: 16px;
@@ -287,6 +187,7 @@
 	padding-left: 0px !important;
 	width: 250px;
 	margin-left: -67px;
+	margin-top:-9px;
 }
 
 .select_label-export {
@@ -332,56 +233,6 @@
 	left: 0;
 	background-color: transparent;
 	padding-left: 67px;
-}
-
-.select_expand-export:checked + .select_closeLabel-export {
-		display: block;
-	}
-
-.select_expand-export:checked + .select_closeLabel-export + .select_options-export .select_label-export {height: 50px;}
-
-.select_expand-export:checked + .select_closeLabel-export + .select_options-export .select_label-export:hover {background-color: #d3daff}
-
-.select_expand-export:checked + .select_closeLabel-export + .select_options-export + .select_expandLabel-export {display: none}
-
-.select_input-export:checked + .select_label-export {
-	height: 50px;
-	margin-top: -50px;
-	border-top-left-radius: 33px;
-	border-top-right-radius: 33px;
-	border-bottom-left-radius: 33px;
-	border-bottom-right-radius: 33px;
-}
-.select_expand-export:checked + .select-export {
-	display: block;
-}
-.select_expand-export:checked + .expand-style-export {
-	width: 225px;
-	height: 50px;
-	cursor: pointer;
-	background-color: #E0E3F2;
-	box-shadow: 0 2px 0 #E0E3F2;
-	border-top-left-radius: 33px;
-	border-top-right-radius: 33px;
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
-}
-.option_radius-export{
-	border-top-left-radius: 22px;
-	border-top-right-radius: 22px;
-}
-.pdf-icon {
-	background-image: url(../scss/vendors/pdf_icon.png);
-	background-position: left center;
-	background-repeat: no-repeat;
-
-	padding-left: 35px; /* Or size of icon + spacing */
-}
-.excel-icon {
-	background-image: url(../scss/vendors/excel_icon.png);
-	background-position: left center;
-	background-repeat: no-repeat;
-	padding-left: 35px; /* Or size of icon + spacing */
 }
 
 /* End - Export Button */
