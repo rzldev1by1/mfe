@@ -489,7 +489,7 @@ if(v_orderNo === null) v_orderNo = []
 if(v_orderNo === undefined) v_orderNo = []    
     return(
       <div className="tabcontent">
-        <h3 className="fonts">Order Details</h3>
+        <h3 className="fonts so-header-title">Order Details</h3>
         <table className={"createpotable "}>
           <tr>
             <th className='required-field' style={{ width: "396px" }}>Site</th>
@@ -610,7 +610,7 @@ if(v_orderNo === undefined) v_orderNo = []
               <td style={{color:"transparent"}}>1</td>
             </tr>
        
-        <h3 className="fonts">Line Details</h3>
+        <h3 className="fonts so-header-title">Line Details</h3>
         <div className="line">
           <table className="tabledetails">
               <tr>
@@ -645,7 +645,7 @@ if(v_orderNo === undefined) v_orderNo = []
   tab2Content = () => {
     return(
       <div className="tabcontent fades">
-        <h3 className="fonts">Order Details</h3>
+        <h3 className="fonts so-header-title">Order Details</h3>
 
         <table className="createpotable">
             <tr>
@@ -678,7 +678,7 @@ if(v_orderNo === undefined) v_orderNo = []
         </table>
 
         <br/>
-        <h3 className="fonts">Line Details</h3>
+        <h3 className="fonts so-header-title">Line Details</h3>
 
         <table className="tabledetails">
             <tr >

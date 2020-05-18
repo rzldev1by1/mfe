@@ -2,26 +2,26 @@ const headerValidation = (header) => {
   let error = []
     if(!header.site || header.site == '')
     {
-        error.push(['site', 'please select site'])
+        error.push(['site', 'Please select site'])
     }
     if(!header.client || header.client == '')
     {
-        error.push(['client', 'please select client'])
+        error.push(['client', 'Please select client'])
     }
     if(!header.orderType || header.orderType == '')
     {
-        error.push(['order type', 'please select order type'])
+        error.push(['order type', 'Please select order type'])
     }
     if(!header.orderId || header.orderId == '')
     {
         document.getElementById('orderId').focus()      
-        error.push(['order no', 'order no cannot be empty'])
+        error.push(['order no', 'Order no cannot be empty'])
     }
     if(header.orderId && header.orderId.length < 5)
     {
       document.getElementById('orderId').value = null
       document.getElementById('orderId').focus()
-      error.push(['order no length', 'order no must have min 5 characters or more'])
+      error.push(['order no length', 'Order no must have min 5 characters or more'])
     }
     if(!header.deliveryDate || header.deliveryDate == '')
     {
@@ -30,23 +30,23 @@ const headerValidation = (header) => {
     if(header.shipToAddress1 == null || header.shipToAddress1 == '')
     {
       document.getElementById('shipToAddress1').focus()
-      error.push(['ship to address1', 'address 1 cannot be empty'])
+      error.push(['ship to address1', 'Address 1 cannot be empty'])
     }
     if(header.postCode == null || header.postCode == '')
     {
       document.getElementById('postCode').focus()
-      error.push(['post code', 'post code cannot be empty'])
+      error.push(['post code', 'Post code cannot be empty'])
     }
     if(header.postCode && header.postCode.length < 4)
     {
       document.getElementById('postCode').value = null
       document.getElementById('postCode').focus()
-      error.push(['post code length', 'post code must have min, 4 characters or more'])
+      error.push(['post code length', 'Post code must have min, 4 characters or more'])
     }
     if(header.state == null || header.state == '')
     {
       document.getElementById('state').focus()
-      error.push(['state', 'state cannot be empty'])
+      error.push(['state', 'State cannot be empty'])
     }
 
     if(error.length > 0) return error

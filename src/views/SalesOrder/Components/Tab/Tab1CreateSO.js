@@ -92,7 +92,7 @@ class Tab1CreateSO extends Component {
     });
     return (
       <div className="tabcontents">
-        <h3 className="fonts">Order Details</h3>
+        <h3 className="fonts so-header-title">Order Details</h3>
         <table className="createpotables">
           <tr>
             <th className="required-field">Site</th>
@@ -163,10 +163,10 @@ class Tab1CreateSO extends Component {
           </tr>
 
           <tr>
-            <td style={{ width: "396px" }} className={emptyClassSite}>{emptySite}</td>
-            <td style={{ width: "396px" }} className={emptyClassOrderType}>{emptyOrderType}</td>
+            <td style={{ width: "396px" }} className={'error-msg-margin ' + emptyClassSite}>{emptySite}</td>
+            <td style={{ width: "396px" }} className={'error-msg-margin ' + emptyClassOrderType}>{emptyOrderType}</td>
             <td style={{ width: "396px" }} className="nmtrField"></td>
-            <td style={{ width: "396px" }} className={emptyClassDeliveryate}>{emptyDeliveryDate}</td>
+            <td style={{ width: "396px" }} className={'error-msg-margin-delivery-date ' + emptyClassDeliveryate}>{emptyDeliveryDate}</td>
           </tr>
 
           <tr>
@@ -199,7 +199,7 @@ class Tab1CreateSO extends Component {
                     tabIndex='1'
                   />
                 )}
-              <div className={emptyClassClient + " verticalAlignTop"}>
+              <div className={'error-msg-margin-delivery-client ' + emptyClassClient + " verticalAlignTop"}>
                 {emptyClient}
               </div>
             </td>
@@ -212,7 +212,7 @@ class Tab1CreateSO extends Component {
                 placeholder="Order No"
                 tabIndex='1'
               />
-              <span className={emptyClassOrderNo}>{emptyOrderNo}</span>
+              <span className={'error-msg-margin-delivery-ordNo ' + emptyClassOrderNo}>{emptyOrderNo}</span>
             </td>
 
             <td style={{ width: "396px" }} className="verticalAlignTop">
@@ -247,7 +247,7 @@ class Tab1CreateSO extends Component {
             <td style={{ width: "396px" }} className="nmtrField"></td>
           </tr>
         </table>
-        <h3 className="fonts">Customer Details</h3>
+        <h3 className="fonts so-header-title">Customer Details</h3>
         <table className="createpotables">
           <tr>
             <th>Customer </th>            
@@ -328,7 +328,7 @@ class Tab1CreateSO extends Component {
           </tr>
 
           <tr>
-            <td style={{ width: "396px" }} className={emptyClassShipToAddress1}>{emptyShipToAddress1}</td>
+            <td style={{ width: "396px" }} className={'error-msg-margin-delivery-addr1 ' + emptyClassShipToAddress1}>{emptyShipToAddress1}</td>
             <td style={{ width: "396px" }} className="nmtrField"></td>
             <td style={{ width: "396px" }} className="nmtrField"></td>
           </tr>
@@ -428,8 +428,8 @@ class Tab1CreateSO extends Component {
 
           <tr>
             <td style={{ width: "396px" }} className="nmtrField"></td>
-            <td style={{ width: "396px" }} className={emptyClassPostCode}>{emptyPostCode}</td>
-            <td style={{ width: "396px" }} className={emptyClassState}>{emptyState}</td>
+            <td style={{ width: "396px" }} className={'error-msg-margin-delivery-postcode ' + emptyClassPostCode}>{emptyPostCode}</td>
+            <td style={{ width: "396px" }} className={'error-msg-margin-delivery-state ' + emptyClassState}>{emptyState}</td>
             <td style={{ width: "396px" }} className="nmtrField"></td>
           </tr>
         </table>
@@ -439,7 +439,7 @@ class Tab1CreateSO extends Component {
           <td style={{ color: "transparent" }}>1</td>
         </tr>
 
-        <h3 className="fonts">Line Details</h3>
+        <h3 className="fonts so-header-title">Line Details</h3>
         
         <div className='scroll-x-y-visible'> 
         <table className=''>
@@ -529,7 +529,7 @@ class Tab1CreateSO extends Component {
           <button
             onClick={() => this.props.addLineHandler()}
             type="button"
-            className="btn btn-light addlineSO default-box-height"
+            className="btn btn-light addlineSO default-box-height so-add-line"
           >
             + Add Line
         </button>

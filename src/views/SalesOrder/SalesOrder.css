@@ -502,6 +502,7 @@ th.iconU-edit {
 #orderline-header-product-val-id {
   margin-right: 10px;
   width: 150px;
+  white-space: nowrap;
 }
 
 #orderline-header-description-val-id {
@@ -512,6 +513,7 @@ th.iconU-edit {
 #orderline-header-qty-val-id {
   margin-right: 10px;
   width: 80px;
+  white-space: nowrap;
 }
 
 #orderline-header-weight-val-id {
@@ -799,4 +801,48 @@ th.iconU-edit {
 .footer-button {
 	padding-right: 1rem !important;
 	margin-bottom: 80px;
+}
+
+.so-add-line{
+  margin-top: 1%;
+}
+
+.error-msg-margin{
+  padding-left: 2em;
+}
+
+.error-msg-margin-delivery-date{
+  padding-left: 1.5em;
+}
+
+.error-msg-margin-delivery-ordNo{
+  padding-left: 0.9em;
+}
+
+.error-msg-margin-delivery-addr1{
+  padding-left: 1.3em;
+}
+
+.error-msg-margin-delivery-postcode{
+  padding-left: 1.5em;
+}
+
+.error-msg-margin-delivery-state{
+  padding-left: 1.5em;
+}
+
+.error-msg-margin-delivery-client{
+  padding-left: 1.3em;
+}
+
+.error-msg-margin-prd{
+  padding-left: 0.8em;
+}
+
+.error-msg-margin-qty{
+  padding-left: 0.8em;
+}
+
+.error-msg-margin-uom{
+  padding-left: 1.3em;
 }
