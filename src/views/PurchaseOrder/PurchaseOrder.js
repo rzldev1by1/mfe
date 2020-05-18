@@ -152,7 +152,7 @@ class PurchaseOrder extends Component {
                 self.setState({ ordertypedata:result }); 
                 let orderTypeName = [];
                 let orderTypeValue = [];
-                console.log(self.state.ordertypedata)
+                // console.log(self.state.ordertypedata)
                 self.state.ordertypedata.map((data) => {
                     orderTypeName.push(data.description);
                     orderTypeValue.push(data.code);

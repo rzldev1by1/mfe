@@ -121,8 +121,8 @@ class PurchaseOrderCreate extends Component {
     //   this.getordertype();
       this.getporesource();
       this.getdisposition();
-      this.getproductcode();
-      this.getproductname();
+      // this.getproductcode();
+      // this.getproductname();
     }
 
     getporesource = () => {
@@ -371,22 +371,32 @@ class PurchaseOrderCreate extends Component {
         })
     }
 
-    getproductcode = (e) => {
-      if(!e) e = this.state.client
+    getproductcode = (e) => {      
+      if(!e) e = this.state.client;
+
+      if( e !== '' && e !== null)
+      {        
         axios.get(endpoint.getProduct + "?client=" + e, {
             headers: headers
         })
         .then(res => {
             const result = res.data;
-            this.setState({ productcr: res.data.code })
+            this.setState({ productcr: res.data.code });
         })
         .catch(error => {
             this.setState({ productcr: [] })
         })
+      }else{
+        this.setState({ productcr: [] });
+      }
+
     }
 
     getproductname = (e) => {
       if(!e) e = this.state.client
+
+      if( e !== '' && e !== null)
+      {   
         axios.get(endpoint.getProduct + "?client=" + e, {
             headers: headers
         })
@@ -397,6 +407,9 @@ class PurchaseOrderCreate extends Component {
         .catch(error => {
             this.setState({ productcr: [] })
         })
+      }else{
+        this.setState({ productcr: [] });
+      }
     }
 
     getSiteSelected = (value) => {
@@ -526,7 +539,11 @@ if(v_orderNo === undefined) v_orderNo = []
                 style={{ minWidth: "100%" }}
                 optionList={clientName.toString()}
                 optionValue={clientValue.toString()}
-                getValue={(e) => this.setState({ client: e, supplier:null, supplierName:null, reset:true }, this.getsupplier(e), this.getproductcode(e), this.getproductname(e))}
+                getValue={(e) => this.setState({ client: e, supplier:null, supplierName:null, reset:true },()=>{
+                  this.getsupplier(this.state.client); 
+                  this.getproductcode(this.state.client); 
+                  this.getproductname(this.state.client);
+                })}
                 optionSelected={this.state.client}
                 tabIndex="1"   /> : 
                 <input
@@ -847,11 +864,11 @@ if(v_orderNo === undefined) v_orderNo = []
           <tr>
             <td hidden id={list.lineNumber}></td>
             <td style={{width:"3.5%", textAlign:""}}></td>
-            <td style={{width:"12%"}} className={'po-order-line-required ' + (mProduct)}>please select product</td>
+            <td style={{width:"12%"}} className={'po-order-line-required ' + (mProduct)}>Please select product</td>
             <td style={{width:"12%"}}></td>
-            <td style={{width:"3.5%"}} className={'po-order-line-required ' + (mQty)}>qty cannot be empty</td>
+            <td style={{width:"3.5%"}} className={'po-order-line-required ' + (mQty)}>Qty cannot be empty</td>
             <td style={{width:"5%"}}></td>
-            <td style={{width:"6%"}} className={'po-order-line-required ' + (mUom)}>please select uom</td>
+            <td style={{width:"6%"}} className={'po-order-line-required ' + (mUom)}>Please select uom</td>
             <td style={{width:"6.5%"}}></td>
             <td style={{width:"6%"}}></td>
             <td style={{width:"5%"}}></td>
