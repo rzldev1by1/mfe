@@ -64,7 +64,8 @@ class StockHolding extends Component {
             masterUnit: ["MLB : MICROLISTICS", "MLS : Microlistics", "MLM : MICROLISTICS"],
             masterStatus: ["Ok", "Shortage","All"],
 			masterResStockHolding: [],
-			statusFilter: 'All'
+			statusFilter: 'All',
+			resetDropdownProcessed:false
         };
 
 		this.searchForm = React.createRef();
@@ -231,7 +232,11 @@ class StockHolding extends Component {
 	}
 	getClientSelected = (value) => {
         this.setState({ clientSelected: value });
-      };
+	  };
+	  
+	resetDropdown = () => {
+		this.setState({site:null,status:null,clientSelected:null,resetDropdownProcessed:true}, () => this.setState({resetDropdownProcessed:false}))
+	}
 
 
     showDropdown = () => {
@@ -514,7 +519,8 @@ class StockHolding extends Component {
                                                                                 triggerShowFilter={this.triggerShowFilter}
                                                                                 searchData={this.searchData}
 																				placeholder="Enter a Product or Description"
-																				additionalComponent={this.showDropdown()} />
+																				additionalComponent={this.state.resetDropdownProcessed ? null : this.showDropdown()}
+																				resetDropdown = {() => this.resetDropdown()}/>
 																	</Card>
 																</div>
 															</InputGroup>

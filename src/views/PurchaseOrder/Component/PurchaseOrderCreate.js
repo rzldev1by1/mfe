@@ -417,6 +417,7 @@ class PurchaseOrderCreate extends Component {
     }
     setOrderNo = (e) => {
       const orderNumber = e.target.value.toUpperCase()
+      if(orderNumber.length > 4) this.setState({emptyOrderNo:null})
       this.setState({ orderNo: orderNumber})
       const client = this.state
     
