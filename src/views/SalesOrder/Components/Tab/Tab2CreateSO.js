@@ -53,7 +53,7 @@ class Tab2CreateSO extends Component {
     deliveryDates = deliveryDates.format('DD/MM/YYYY')
     return (
       <div className="tabcontents">
-        <h3 className="fonts">Order Details</h3>
+        <h3 className="fonts so-header-title">Order Details</h3>
 
         <table className="createpotable">
           <tr>
@@ -84,7 +84,7 @@ class Tab2CreateSO extends Component {
         </table>
 
         <tr style={{ color: "transparent" }}>1</tr>
-        <h3 className="fonts">Customer Details</h3>
+        <h3 className="fonts so-header-title">Customer Details</h3>
         <table className="createpotable">
           <tr>
             <th>Customer</th>
@@ -125,7 +125,7 @@ class Tab2CreateSO extends Component {
         </table>
 
         <br />
-        <h3 className="fonts">Line Details</h3>
+        <h3 className="fonts so-header-title">Line Details</h3>
 
         <div className='scroll-x-y-visible'>
           <div className="line">
