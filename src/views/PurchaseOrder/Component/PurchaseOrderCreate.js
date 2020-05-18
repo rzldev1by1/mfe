@@ -121,8 +121,8 @@ class PurchaseOrderCreate extends Component {
     //   this.getordertype();
       this.getporesource();
       this.getdisposition();
-      this.getproductcode();
-      this.getproductname();
+      // this.getproductcode();
+      // this.getproductname();
     }
 
     getporesource = () => {
@@ -371,22 +371,32 @@ class PurchaseOrderCreate extends Component {
         })
     }
 
-    getproductcode = (e) => {
-      if(!e) e = this.state.client
+    getproductcode = (e) => {      
+      if(!e) e = this.state.client;
+
+      if( e !== '' && e !== null)
+      {        
         axios.get(endpoint.getProduct + "?client=" + e, {
             headers: headers
         })
         .then(res => {
             const result = res.data;
-            this.setState({ productcr: res.data.code })
+            this.setState({ productcr: res.data.code });
         })
         .catch(error => {
             this.setState({ productcr: [] })
         })
+      }else{
+        this.setState({ productcr: [] });
+      }
+
     }
 
     getproductname = (e) => {
       if(!e) e = this.state.client
+
+      if( e !== '' && e !== null)
+      {   
         axios.get(endpoint.getProduct + "?client=" + e, {
             headers: headers
         })
@@ -397,6 +407,9 @@ class PurchaseOrderCreate extends Component {
         .catch(error => {
             this.setState({ productcr: [] })
         })
+      }else{
+        this.setState({ productcr: [] });
+      }
     }
 
     getSiteSelected = (value) => {
@@ -526,7 +539,11 @@ if(v_orderNo === undefined) v_orderNo = []
                 style={{ minWidth: "100%" }}
                 optionList={clientName.toString()}
                 optionValue={clientValue.toString()}
-                getValue={(e) => this.setState({ client: e, supplier:null, supplierName:null, reset:true }, this.getsupplier(e), this.getproductcode(e), this.getproductname(e))}
+                getValue={(e) => this.setState({ client: e, supplier:null, supplierName:null, reset:true },()=>{
+                  this.getsupplier(this.state.client); 
+                  this.getproductcode(this.state.client); 
+                  this.getproductname(this.state.client);
+                })}
                 optionSelected={this.state.client}
                 tabIndex="1"   /> : 
                 <input
