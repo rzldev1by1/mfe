@@ -140,11 +140,11 @@ class PurchaseOrderCreate extends Component {
     }
 
     close = () => {
-      this.props.closemodal() 
-
+      this.props.closemodal()  
       this.setState({
         tab1isactive:true,
-        tab2isactive:false
+        tab2isactive:false,
+        nextClicked: false
         });
         this.setState({
           tab1isactive:true,
@@ -179,7 +179,7 @@ class PurchaseOrderCreate extends Component {
                   
               }
           ],
-          rowlistidx: 1,
+          rowlistidx: 1
       })
     }
 
@@ -556,9 +556,9 @@ if(v_orderNo === undefined) v_orderNo = []
               <input tabIndex="1" className="form2 put pec cor" placeholder="Customer Order Ref" value={this.state.customerRef} maxLength="40" onChange={(e) => this.setState({ customerRef: e.target.value })} />
             </td>
           </tr>
-          <tr>
+          {/* <tr>
             <th style={{ color: "transparent" }}>1</th>
-          </tr>
+          </tr> */}
 
           <tr>
             <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.site ? 'nmtrField' : 'mtrField')}>{this.state.emptySite}</div></td>
@@ -591,9 +591,9 @@ if(v_orderNo === undefined) v_orderNo = []
             </td>
             <td style={{ width: "396px" }}><input tabIndex="1" className="form2 put pec so-inputs" value={this.state.vendorRef} maxLength='40' placeholder="Vendor Order Ref" onChange={(e) => this.setState({ vendorRef: e.target.value })} maxLength="40" /> </td>
           </tr>
-          <tr>
+          {/* <tr>
             <th style={{ color: "transparent" }}>1</th>
-          </tr>
+          </tr> */}
           <tr>
             <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.orderType ? 'nmtrField' : 'mtrField')}>{this.state.emptyOrderType}</div></td>
             <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.emptyOrderNo ?  'mtrField' : 'nmtrField')}>{this.state.emptyOrderNo}</div></td>
