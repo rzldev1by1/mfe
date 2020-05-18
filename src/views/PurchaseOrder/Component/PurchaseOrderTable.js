@@ -115,7 +115,7 @@ class PurchaseOrderTable extends Component {
       sortparameter:null,
       sort:true,
 
-      //pagonation
+      //pagination
       currentPage: 1,
 			startIndex: 0,
 			lastIndex: 0,
@@ -167,7 +167,7 @@ class PurchaseOrderTable extends Component {
 			}
 			self.setState({ maxPage: totalPage });
 		} else {
-			self.setState({ maxPage: 2 });
+			self.setState({ maxPage: 1 });
 		}
 
 		self.setState({ displayContent: "FOUND",
