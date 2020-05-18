@@ -6,6 +6,8 @@ import down from '../../../../assets/img/brand/field-bot.png'
 import up from '../../../../assets/img/brand/field-top.png'
 import ok from '../../../../assets/img/brand/ok.png'
 import minus from '../../../../assets/img/brand/minus.png'
+import Paging from '../../../../AppComponent/Paging';
+import Export from '../../../../AppComponent/Export'
 
 import {endpoint, headers} from '../../../../AppComponent/ConfigEndpoint'
 
@@ -131,7 +133,15 @@ class PurchaseOrderTable extends Component {
       ],
       activearrow:mid,
       sortparameter:'order_no',
-      sort:true
+      sort:true,
+
+      //pagination
+      currentPage: 1,
+      startIndex: 0,
+      lastIndex: 0,
+      displayPage: 1,
+      totalRows: 0,
+      maxPage: 0
     }
   }
 
@@ -235,10 +245,159 @@ class PurchaseOrderTable extends Component {
     this.setState({data:data})
   }
 
+  
+  setPagination = (result) => {
+		let self = this;
+		let respondRes = result;
+		let totalPage = 0;
+
+		if (respondRes.length > self.state.displayPage) {
+			totalPage = respondRes % self.state.displayPage;
+			if (totalPage > 0 && totalPage < 1) {
+				totalPage = parseInt(respondRes.length / self.state.displayPage) + 1;
+			} else {
+				totalPage = respondRes.length / self.state.displayPage;
+			}
+			self.setState({ maxPage: totalPage });
+		} else {
+			self.setState({ maxPage: 1 });
+    } 
+     
+		self.setState({  totalRows: Object.keys(result.data).length+1 }); 
+      self.numberEventClick(self.state.currentPage);
+      self.changeLastIndex(self.state.currentPage);
+    }
+
+    changeStartIndex = (currentPage) => {
+		this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
+	}
+
+	changeLastIndex = (currentPage) => {
+		this.setState({ lastIndex: parseInt(currentPage) * this.state.displayPage });
+  }
+
+	numberEventClick = (currentPage) => {
+		let page = parseInt(currentPage);
+		this.setState({ currentPage: page });
+		this.changeStartIndex(page);
+		this.changeLastIndex(page);
+	}
+
+	nextPageClick = () => {
+		if (this.state.currentPage < this.state.maxPage) {
+			this.setState((prev) => {
+				prev.currentPage++;
+				this.changeStartIndex(prev.currentPage);
+				this.changeLastIndex(prev.currentPage);
+			});
+        }
+        return;
+	}
+
+	backPageClick = () => {
+		if (this.state.currentPage > 1) {
+			this.setState((prev) => {
+				prev.currentPage--;
+				this.changeStartIndex(prev.currentPage);
+				this.changeLastIndex(prev.currentPage);
+			});
+        }
+        return;
+	}
+
+    lastPageClick = () => {
+        if (this.state.currentPage < this.state.maxPage) {
+            let currentPage = parseInt(this.state.maxPage + 1 );
+
+            this.setState({ currentPage: currentPage});
+            this.changeStartIndex(currentPage);
+            this.changeLastIndex(currentPage);
+        }
+        return;
+    }
+    firstPageClick = () => {
+      if (this.state.currentPage > 1) {
+        let currentPage = 1;
+
+        this.setState({ currentPage: currentPage});
+        this.changeStartIndex(currentPage);
+        this.changeLastIndex(currentPage);
+    }
+    return;
+  }
+  
+  ExportName = () => {
+    let filename = ""
+    let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let date = new Date();
+    let date1 = date.getDate(),
+        month = date.getMonth(),
+        year = date.getFullYear(),
+        Seconds = date.getSeconds(),
+        Minutes = date.getMinutes(),
+        Hours = date.getHours();
+     return filename=("Microlistics_PurchaseOrderDetails." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)  
+  }
+
+  ExportHeader = () =>{
+    //let headers = ["Site","Client","Order No", "Order Type", "Customer"," Status", "Delivery Date", "Date Received", "Date Released", "Date Completed"]
+   // return headers
+   let headers = [];
+   this.state.tableheader.map((header, idx) => { 
+          headers.push(header.tableHeaderText); 
+    });
+    return headers
+  }
+
+  ExportFont = () => {
+    let Font = "10";
+    return Font;
+  };
+
+  ExportData = () => {
+    let datax = this.props.datahead.map(elt=> [elt.orig_line_number,   
+      elt.product,  
+      elt.product_name,  
+      elt.quantity,  
+      elt.packdesc_1,  
+      elt.qty_processed,  
+      elt.weight,  
+      elt.weight_processed,   
+      elt.batch,  
+      elt.rotadate, 
+      elt.ref3, 
+      elt.ref4,  
+      elt.disposition
+    ]); 
+    console.log("--------------------------------");
+    console.log(datax);
+    return datax;
+
+    // let data = [];
+    // this.props.datahead.map((datax,i) =>  
+    // {
+    //   let tmp_arr = [];
+    //   this.state.tableheader.map((column, columnIdx) => {
+    //     if(column.isVisible){ 
+    //           tmp_arr[columnIdx] = datax[column.id]; 
+    //     }
+    // });
+    // data.push(tmp_arr);
+    // console.log("--------------------------------");
+    // console.log(data);
+    // return data;  
+  // });
+}
+
+  ExportPDFName = () =>{
+		let name= ""
+		return name=("Purchase Order Detail")
+  }
+    
   render(){
     return(
       <div>
-        <table className="defaultTable">
+        <table className="defaultTable" id="excel">
           <thead>
             <tr>
               {this.state.tableheader.map((header, idx) => {
@@ -286,6 +445,21 @@ class PurchaseOrderTable extends Component {
                   
           </tbody>
         </table>
+
+        
+          <div className=" p-0"  >
+              <div className='paginations '>
+                  <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
+                          backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                          totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                          currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                          startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+                          isActive={this.state.isActive}
+                          numberEventClick={this.numberEventClick} />
+                  <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                          ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont}/>
+              </div>
+          </div>
       </div>
     )
   }

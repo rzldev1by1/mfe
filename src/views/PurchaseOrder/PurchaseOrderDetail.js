@@ -17,7 +17,7 @@ export default class PurchaseOrderDetail extends Component {
             datahead:[],
             datadetail:[],
             showEditColumn: false,
-            tableheader: []
+            tableheader: [],
         }
     }
 
@@ -33,15 +33,17 @@ export default class PurchaseOrderDetail extends Component {
         })
           .then(res => {
             const result = res.data.data
-            this.setState({ datahead:result})
-            
+            this.setState({ datahead:result}) 
+            this.potableref.current.setPagination(res)
             
           })
           .catch(error => {
             
           })
     }
+    
 
+    
     header = () => {
         let site = this.state.datahead.length ? this.state.datahead[0].site : null
         let client = this.state.datahead.length ? this.state.datahead[0].client : null
@@ -151,12 +153,13 @@ export default class PurchaseOrderDetail extends Component {
 
                 <div className={'tablePage tablecontent ' + ( this.state.datahead.length ? 'fades ' : 'hidden')}>
                     <PODTable ref={this.potableref} 
-                              className='animated fadeIn' 
-                              style={{display:'none',marginRight: "0px"}} 
-                              datahead = {this.state.datahead}
-                              showEditColumn = {() => this.setState({ showEditColumn: true })}
-                              getTableHeader = {(e) => this.setState({ tableheader: e })}
-                              />
+                            className='animated fadeIn' 
+                            style={{display:'none',marginRight: "0px"}} 
+                            datahead = {this.state.datahead}
+                            showEditColumn = {() => this.setState({ showEditColumn: true })}
+                            getTableHeader = {(e) => this.setState({ tableheader: e })}
+                            
+                    />
                 </div>
                 <div className={( this.state.datahead.length ? 'hidden': 'spinner')}/>
                 <EditColumn isOpen={this.state.showEditColumn} 
@@ -165,7 +168,9 @@ export default class PurchaseOrderDetail extends Component {
                             updateTableColumn={(e) => this.setState({ tableheader: e })}
                             modulName="Purchase Order Detail"
                 />
-            </div>
+
+             
+            </div> 
         )
     }
 }
