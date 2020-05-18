@@ -134,6 +134,11 @@
     margin-top: -440px !important;
 } 
 
+.select_date_expand:checked + .select_date_closeLabel + .fixed-top-position{
+    margin-top: -49vw !important;
+    position: fixed;
+}
+
 .select_date_expand:checked + .select_date_closeLabel + .smallField{
     width: 298px;
 }

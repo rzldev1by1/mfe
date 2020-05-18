@@ -120,7 +120,7 @@ const OrderLine = (props) => {
                 <DatePicker
                   getDate={(date) => props.setRotaDate(date, props.idx)}
                   tabIndex='2'
-                  top={true}
+                  fixedTop={true}
                 />
               </div>
             </td>

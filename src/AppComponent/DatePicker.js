@@ -166,7 +166,7 @@ class DatePicker extends React.Component{
                     {/* <li className="select_date_items"> */}
                         <input className="select_date_expand" ref="opener" type="checkbox" name={"select" + placeHolder + no} value="" checked={this.state.showDatePicker} id={"select-opener" + placeHolder + no}/>
                         <label className="select_date_closeLabel" htmlFor={"select-opener" + placeHolder + no} onClick={() => this.setState({ showDatePicker: false })}></label>
-                        <div className={"select_date_options " + (this.props.field == "smallField " ? " smallField " : "") + (this.props.top ? "top" : "")}>
+                        <div className={"select_date_options " + (this.props.field == "smallField " ? " smallField " : "") + ((this.props.top && !this.props.fixedTop) ? "top" : "") + ((this.props.top && this.props.fixedTop) || this.props.fixedTop ? "fixed-top-position" : "")}>
                             <div className="dateInfo">
                             {this.state.selectedDay ? moment(this.state.selectedDay).format(this.props.shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : moment().format("DD MMMM YYYY")}
                             </div>

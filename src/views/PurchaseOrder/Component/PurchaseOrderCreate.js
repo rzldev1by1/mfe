@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, useState} from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 
 import axios from 'axios'
@@ -140,11 +140,11 @@ class PurchaseOrderCreate extends Component {
     }
 
     close = () => {
-      this.props.closemodal() 
-
+      this.props.closemodal()  
       this.setState({
         tab1isactive:true,
-        tab2isactive:false
+        tab2isactive:false,
+        nextClicked: false
         });
         this.setState({
           tab1isactive:true,
@@ -179,7 +179,7 @@ class PurchaseOrderCreate extends Component {
                   
               }
           ],
-          rowlistidx: 1,
+          rowlistidx: 1
       })
     }
 
@@ -557,9 +557,9 @@ if(v_orderNo === undefined) v_orderNo = []
               <input tabIndex="1" className="form2 put pec cor" placeholder="Customer Order Ref" value={this.state.customerRef} maxLength="40" onChange={(e) => this.setState({ customerRef: e.target.value })} />
             </td>
           </tr>
-          <tr>
+          {/* <tr>
             <th style={{ color: "transparent" }}>1</th>
-          </tr>
+          </tr> */}
 
           <tr>
             <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.site ? 'nmtrField' : 'mtrField')}>{this.state.emptySite}</div></td>
@@ -592,9 +592,9 @@ if(v_orderNo === undefined) v_orderNo = []
             </td>
             <td style={{ width: "396px" }}><input tabIndex="1" className="form2 put pec so-inputs" value={this.state.vendorRef} maxLength='40' placeholder="Vendor Order Ref" onChange={(e) => this.setState({ vendorRef: e.target.value })} maxLength="40" /> </td>
           </tr>
-          <tr>
+          {/* <tr>
             <th style={{ color: "transparent" }}>1</th>
-          </tr>
+          </tr> */}
           <tr>
             <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.orderType ? 'nmtrField' : 'mtrField')}>{this.state.emptyOrderType}</div></td>
             <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.emptyOrderNo ?  'mtrField' : 'nmtrField')}>{this.state.emptyOrderNo}</div></td>
@@ -715,71 +715,34 @@ if(v_orderNo === undefined) v_orderNo = []
   }
 
 
-  setOrderDetailInitialValue = () => {
-    let orderdetail = {
-                        "lineNumber": 0,
-                        "product": null,
-                        "productDescription": null,
-                        "qty": null,
-                        "uom": null,
-                        "rotadate": null,
-                        "batch": null,
-                        "ref3": null,
-                        "ref4": null,
-                        "disposition": null,
-                        "weight":null,
-                        "orderDate": null
-                      }
-    return orderdetail;
-  }
+  deletelinehandler = (e, i) => {
+    let updated = this.state.rowlist.length
+    // Jika Jumlah produk Entry Lebih dari satu
+    let id = e.currentTarget.id;
+      for(let i = 0; i < updated; i++){
+          if(this.state.rowlist[i].lineNumber == id){
+            this.state.rowlist.splice(i, 1);
+            this.setState({rowlist: this.state.rowlist})
+            this.state.rowlistidx -= 1;
+            let lengthRowlist = this.state.rowlist.length;
+            if(i < lengthRowlist){
+              for(let x = i; x < lengthRowlist; x++){
+                this.state.rowlist[x].lineNumber -= 1;
+              }
+              this.setState({rowlist: this.state.rowlist})
 
-  deletelinehandler = (e, idx) => {
-    
-    let orderDetail = [...this.state.rowlist];    
-    orderDetail.splice(idx,1);
-
-    if(orderDetail.length < 1){
-      let item = this.setOrderDetailInitialValue();
-    //  orderDetail.push({"lineNumber": 0,"product": null,"productDescription": null,"qty": null,"uom": null,"rotadate": null,
-    //     "batch": null,"ref3": null,"ref4": null,"disposition": null,"weight":null,"orderDate": null
-    //   });
-      orderDetail.push(item);
-    }
-
-    let newRowList = orderDetail.map((item,index) => { 
-                      item.lineNumber = index +1; 
-                      return item;
-                    });
-    
-    this.setState({rowlist: newRowList},()=>{ console.log(this.state.rowlist); })
-    
-
-    // let updated = this.state.rowlist.length
-    // // Jika Jumlah produk Entry Lebih dari satu
-    // if( updated >1){
-    //   let id = e.currentTarget.id;
-    //   for(let i = 0; i < updated; i++){
-    //       if(this.state.rowlist[i].lineNumber == id){
-    //         this.state.rowlist.splice(i-1, 1);
-    //         this.setState({rowlist: this.state.rowlist})
-    //         this.state.rowlistidx -= 1;
-    //         let lengthRowlist = this.state.rowlist.length;
-    //         if(i < lengthRowlist){
-    //           for(let x = i; x < lengthRowlist; x++){
-    //             this.state.rowlist[x].lineNumber -= 1;
-    //           }
-    //           this.setState({rowlist: this.state.rowlist})
-    //         }
-    //         break;
-    //       }
-    //   }
+            }
+            this.refs['orderLine'+this.state.rowlist.length].reset()
+            this.forceUpdate()
+                console.log(this.state.rowlist)
+            break;
+          }
+      }
       
-    //   updated = this.state.rowlist.length
-    // }else{
-    //   alert("cant delete row")
-    // }
-
+      updated = this.state.rowlist.length
   }
+  
+  
 
   selectedValue = (id, value) => {
     if(id == "Saya")
@@ -828,6 +791,7 @@ if(v_orderNo === undefined) v_orderNo = []
     if(!list.qty && this.state.nextClicked) mQty = 'mtrField'
     if(!list.uom && this.state.nextClicked) mUom = 'mtrField'
     return(
+    <form ref={"orderLine" + list.lineNumber}>
       <table>
         <tr>
             <td hidden id={list.lineNumber} ></td>
@@ -844,40 +808,41 @@ if(v_orderNo === undefined) v_orderNo = []
                                     placeHolder="Product"
                                     getIndex={(e) => self.state.rowlist[i].productDescription = self.state.productdesccr[e]}
                                     /> */}
-                <AutoComplete placeHolder="Product"
-                                style={{width: "100%", zIndex: self.state.rowlist.length - i}}
-                                optionList={self.state.productcr.toString()}
-                                optionValue={self.state.productcr.toString()}
+                <AutoComplete   ref={"product" + list.lineNumber}
+                                placeHolder="Product"
+                                style={{width: "100%", zIndex: this.state.rowlist.length - i}}
+                                optionList={this.state.productcr.toString()}
+                                optionValue={this.state.productcr.toString()}
                                 getValue={(e) => this.getProductValue(e, i)}
-                                optionSelected={self.state.rowlist[i].product}
+                                optionSelected={this.state.rowlist[i].product}
                                 tabIndex="2" uppercase={true}  />
             </td>
-            <td style={{width:"12%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Choose a Product First" defaultValue={self.state.rowlist[i].productDescription} readOnly/></td>
-            <td style={{width:"5%"}}><input tabIndex="2" type='number'  id={'qty_'+i} min="1" maxLength='9' className="form-control inputs pec" placeholder="Qty" value={self.state.rowlist[i].qty} onKeyPress={(e) => this.checkQty(e)} onChange={(e) => this.setQty(e, i)}/></td>
-            <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Weight"  maxLength="30" defaultValue={self.state.rowlist[i].weight} onChange={(e) => self.state.rowlist[i].weight = e.target.value} /></td>
+            <td style={{width:"12%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Choose a Product First" defaultValue={this.state.rowlist[i].productDescription} readOnly/></td>
+            <td style={{width:"5%"}}><input tabIndex="2" type='number'  id={'qty_'+i} min="1" maxLength='9' className="form-control inputs pec" placeholder="Qty" value={this.state.rowlist[i].qty} onKeyPress={(e) => this.checkQty(e)} onChange={(e) => this.setQty(e, i)}/></td>
+            <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Weight"  maxLength="30" defaultValue={this.state.rowlist[i].weight} onChange={(e) => {this.state.rowlist[i].weight = e.target.value; this.setState({ rowlist: this.state.rowlist })}} /></td>
             <td style={{width:"6%"}}>
                 <Dropdown placeHolder="UOM" 
-                            style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
-                            optionList={self.state.uomcr.toString()} 
-                            optionValue={self.state.uomcr.toString()} 
-                            getValue={(e) => self.state.rowlist[i].uom = e}
-                            optionSelected={self.state.rowlist[i].uom} tabIndex="2"  />
+                            style={{width: "100%", zIndex: this.state.rowlist.length - i}} 
+                            optionList={this.state.uomcr.toString()} 
+                            optionValue={this.state.uomcr.toString()} 
+                            getValue={(e) => {this.state.rowlist[i].uom = e; this.setState({ rowlist: this.state.rowlist })}}
+                            optionSelected={this.state.rowlist[i].uom} tabIndex="2"  />
             </td>
-            <td style={{width:"11%"}}><DatePicker tabIndex="2" top={true} style={{ minWidth: "100%" }} field="smallField" getDate={(e) => self.state.rowlist[i].rotadate = e} defaultValue={self.state.rowlist[i].rotadate} /> </td>
-            <td style={{width:"6%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Batch"  maxLength="30" defaultValue={self.state.rowlist[i].batch} onChange={(e) => self.state.rowlist[i].batch = e.target.value} /></td>
-            <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Ref3"  maxLength="30" defaultValue={self.state.rowlist[i].ref3} onChange={(e) => self.state.rowlist[i].ref3 = e.target.value} /></td>
-            <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Ref4"  maxLength="30" defaultValue={self.state.rowlist[i].ref4} onChange={(e) => self.state.rowlist[i].ref4 = e.target.value} /></td>
+            <td style={{width:"11%"}}><DatePicker tabIndex="2" top={true} style={{ minWidth: "100%" }} field="smallField" getDate={(e) => this.state.rowlist[i].rotadate = e} defaultValue={this.state.rowlist[i].rotadate} /> </td>
+            <td style={{width:"6%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Batch"  maxLength="30" defaultValue={this.state.rowlist[i].batch} onChange={(e) => {this.state.rowlist[i].batch = e.target.value; this.setState({ rowlist: this.state.rowlist })}} /></td>
+            <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Ref3"  maxLength="30" defaultValue={this.state.rowlist[i].ref3} onChange={(e) => {this.state.rowlist[i].ref3 = e.target.value; this.setState({ rowlist: this.state.rowlist })}} /></td>
+            <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Ref4"  maxLength="30" defaultValue={this.state.rowlist[i].ref4} onChange={(e) => {this.state.rowlist[i].ref4 = e.target.value; this.setState({ rowlist: this.state.rowlist })}} /></td>
             <td style={{width:"6.5%"}}>
-                <Dropdown placeHolder="Dis" 
-                            style={{width: "100%", zIndex: self.state.rowlist.length - i}} 
-                            optionList={self.state.dispositioncr.toString()} 
-                            optionValue={self.state.dispositioncr.toString()} 
-                            getValue={(e) => self.state.rowlist[i].disposition = e} 
-                            optionSelected={self.state.rowlist[i].disposition}
+                <AutoComplete placeHolder="Dis" 
+                            style={{width: "100%", zIndex: this.state.rowlist.length - i}} 
+                            optionList={this.state.dispositioncr.toString()} 
+                            optionValue={this.state.dispositioncr.toString()} 
+                            getValue={(e) => {this.state.rowlist[i].disposition = e; this.setState({ rowlist: this.state.rowlist })}} 
+                            optionSelected={this.state.rowlist[i].disposition}
                             tabIndex="2" 
                             />
                             </td>
-            <td id={list.lineNumber} onClick={(e) => this.deletelinehandler(e,i)} style={{width:"1.5%"}}  tabIndex="2" ><div className="iconU-delete"/></td>
+            <td id={list.lineNumber} onClick={(e) => this.deletelinehandler(e, i)} style={{width:"1.5%"}}  tabIndex="2" ><div className="iconU-delete"/></td>
           </tr>
           <tr>
             <td hidden id={list.lineNumber}></td>
@@ -899,6 +864,7 @@ if(v_orderNo === undefined) v_orderNo = []
           <td></td>
           <td>{this.state.showdaterote ? <DatePicker getChosenDay={(day) => this.datePickerRote(day)}/> : null}</td>
       </table>
+      </form>
     )
   }
 
