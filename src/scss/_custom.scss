@@ -464,7 +464,7 @@ h2{
 
 .profileID {
     vertical-align: top;
-    color: #FFF;
+    color: #959DA0;
     font-size: 15px;
     // font-weight: bold;
     //align-self: center;
@@ -480,12 +480,21 @@ h2{
     width: 18%;
 }
 
-.Logout{
+.LogoutDiv{
     vertical-align: 10px;
-    color: #FFF;
-    font-size: 15px;
-    // font-weight: bold;
-    margin-left: 5px;
+    // color: #FFF;
+    // font-size: 14px;
+	// font-weight: bold; 
+	padding-top: 100px; 
+}
+
+.LogoutLink{ 
+    color: #959DA0;
+}
+
+.LogoutLink:hover{ 
+	color: white;
+	text-decoration: none;
 }
 
 .viewProfile {
