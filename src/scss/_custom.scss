@@ -1133,7 +1133,7 @@ span.upArrow:before {
 /* table style*/ 
 .tablePage{ 
 	min-height: 200px; 
-	max-height: 100vh;
+	max-height: 100vh !important;
 	overflow-y: auto;
 	font-size: 1.1em;   
 	clear: both;
