@@ -14,7 +14,7 @@ const Search = (props) => {
             </div> 
             <div className='search-column-right'>
             {props.additionalComponent}
-                    <Button className={"filter default-box-height " + (props.showFilter ? " active" : "")} onClick={props.triggerShowFilter}>
+                    <Button className={"filter default-box-height " + (props.showFilter ? " active" : "")} onClick={props.resetDropdown}>
                         <i className="iconU-filter" />
                     </Button>   
                     <Button type="submit" className="default-box-height search" onClick={props.searchData} style={{marginLeft:'15px' }}>

@@ -50,7 +50,8 @@ class PurchaseOrder extends Component {
             orderTypeName: [],
             orderTypeValue: [],
             showEditColumn: false,
-            tableheader: []
+            tableheader: [],
+            resetDropdownProcessed:false
         }
 
         
@@ -60,6 +61,10 @@ class PurchaseOrder extends Component {
         this.getclient();
         this.getsite();
         this.getordertype();
+    }
+
+    resetDropdown = () => {
+      this.setState({siteSelected:null,clientSelected:null,statusSelected:null,orderTypeSelected:null, resetDropdownProcessed:true}, () => this.setState({resetDropdownProcessed:false}))
     }
 
     selectedValue = (id, value) => {
@@ -287,11 +292,11 @@ class PurchaseOrder extends Component {
             <div className='searchbar'>
                 <Search style={{marginTop:"none"}}
                         getValue={(v) => this.setState({search: v})}
-                        showFilter={this.state.filterclicked}
                         triggerShowFilter={() => this.setState({filterclicked: !this.state.filterclicked})}
                         searchData={() => this.search()}
                         placeholder="Enter an Order No"
-                        additionalComponent = {this.showDropdowns()} />
+                        additionalComponent = {this.state.resetDropdownProcessed ? null : this.showDropdowns()}
+                        resetDropdown = {() => this.resetDropdown()}/>
             </div>
 
             {/* <div className='filterbar'>

@@ -140,11 +140,11 @@ class PurchaseOrderCreate extends Component {
     }
 
     close = () => {
-      this.props.closemodal() 
-
+      this.props.closemodal()  
       this.setState({
         tab1isactive:true,
-        tab2isactive:false
+        tab2isactive:false,
+        nextClicked: false
         });
         this.setState({
           tab1isactive:true,
@@ -179,7 +179,7 @@ class PurchaseOrderCreate extends Component {
                   
               }
           ],
-          rowlistidx: 1,
+          rowlistidx: 1
       })
     }
 
@@ -430,6 +430,7 @@ class PurchaseOrderCreate extends Component {
     }
     setOrderNo = (e) => {
       const orderNumber = e.target.value.toUpperCase()
+      if(orderNumber.length > 4) this.setState({emptyOrderNo:null})
       this.setState({ orderNo: orderNumber})
       const client = this.state
     
@@ -501,7 +502,7 @@ if(v_orderNo === null) v_orderNo = []
 if(v_orderNo === undefined) v_orderNo = []    
     return(
       <div className="tabcontent">
-        <h3 className="fonts">Order Details</h3>
+        <h3 className="fonts so-header-title">Order Details</h3>
         <table className={"createpotable "}>
           <tr>
             <th className='required-field' style={{ width: "396px" }}>Site</th>
@@ -573,9 +574,9 @@ if(v_orderNo === undefined) v_orderNo = []
               <input tabIndex="1" className="form2 put pec cor" placeholder="Customer Order Ref" value={this.state.customerRef} maxLength="40" onChange={(e) => this.setState({ customerRef: e.target.value })} />
             </td>
           </tr>
-          <tr>
+          {/* <tr>
             <th style={{ color: "transparent" }}>1</th>
-          </tr>
+          </tr> */}
 
           <tr>
             <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.site ? 'nmtrField' : 'mtrField')}>{this.state.emptySite}</div></td>
@@ -608,9 +609,9 @@ if(v_orderNo === undefined) v_orderNo = []
             </td>
             <td style={{ width: "396px" }}><input tabIndex="1" className="form2 put pec so-inputs" value={this.state.vendorRef} maxLength='40' placeholder="Vendor Order Ref" onChange={(e) => this.setState({ vendorRef: e.target.value })} maxLength="40" /> </td>
           </tr>
-          <tr>
+          {/* <tr>
             <th style={{ color: "transparent" }}>1</th>
-          </tr>
+          </tr> */}
           <tr>
             <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.orderType ? 'nmtrField' : 'mtrField')}>{this.state.emptyOrderType}</div></td>
             <td style={{ width: "396px" }}><div className={'po-required ' + (this.state.emptyOrderNo ?  'mtrField' : 'nmtrField')}>{this.state.emptyOrderNo}</div></td>
@@ -626,7 +627,7 @@ if(v_orderNo === undefined) v_orderNo = []
               <td style={{color:"transparent"}}>1</td>
             </tr>
        
-        <h3 className="fonts">Line Details</h3>
+        <h3 className="fonts so-header-title">Line Details</h3>
         <div className="line">
           <table className="tabledetails">
               <tr>
@@ -661,7 +662,7 @@ if(v_orderNo === undefined) v_orderNo = []
   tab2Content = () => {
     return(
       <div className="tabcontent fades">
-        <h3 className="fonts">Order Details</h3>
+        <h3 className="fonts so-header-title">Order Details</h3>
 
         <table className="createpotable">
             <tr>
@@ -694,7 +695,7 @@ if(v_orderNo === undefined) v_orderNo = []
         </table>
 
         <br/>
-        <h3 className="fonts">Line Details</h3>
+        <h3 className="fonts so-header-title">Line Details</h3>
 
         <table className="tabledetails">
             <tr >

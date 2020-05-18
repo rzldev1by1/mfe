@@ -32,7 +32,7 @@ const OrderLine = (props) => {
   if(!qty && nextClicked) eQty = 'mtrField'
   if(!uom && nextClicked) eUom = 'mtrField'
   return (
-    <div style={{ marginBottom: "2%" }}>
+    <div >
       <div className="line">
         <table className="">
           <tr>
@@ -42,7 +42,7 @@ const OrderLine = (props) => {
                   className="form-control put "
                   id="rowNumber"
                   readOnly
-                  value={number}
+                  value={idx}
                   tabIndex='3'
                 />
               </div>
@@ -190,8 +190,8 @@ const OrderLine = (props) => {
               </div>
             </td>
             <td>
-              <div id="orderline-header-product-val-id" className={eProduct}>
-                please select product
+              <div id="orderline-header-product-val-id" className={'error-msg-margin-prd ' + eProduct}>
+                Please select product
               </div>
             </td>
             <td>
@@ -200,8 +200,8 @@ const OrderLine = (props) => {
               </div>
             </td>
             <td>
-              <div id="orderline-header-qty-val-id" className={eQty}>
-                please select qty
+              <div id="orderline-header-qty-val-id" className={'error-msg-margin-qty ' + eQty}>
+                Please select qty
               </div>
             </td>
             <td>
@@ -210,8 +210,8 @@ const OrderLine = (props) => {
               </div>
             </td>
             <td>
-              <div id="orderline-header-uom-val-id" className={eUom}>
-                please select uom
+              <div id="orderline-header-uom-val-id" className={'error-msg-margin-uom ' + eUom}>
+                Please select uom
               </div>
             </td>
             <td>

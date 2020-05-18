@@ -496,9 +496,10 @@ class SalesOrderCreate extends Component {
   };
 
   getIdentity = (customerVal, customerName) => {
+    const {client} = this.state.parameters.header
     this.setCustomer(customerVal);
     let param =
-      "?client=" + Authentication.getClient() + "&&customerNo=" + customerVal;
+      "?client=" + client + "&&customerNo=" + customerVal;
     let self = this;
     axios
       .get(endpoint.getSoIdentity + param, {

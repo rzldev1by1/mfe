@@ -59,7 +59,9 @@ class SalesOrder extends Component {
       showEditColumn: false,
 
       column:Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column,
-      updatedColumn:Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column
+      updatedColumn:Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column,
+
+      resetDropdownProcessed:false
     };
   }
 
@@ -102,6 +104,10 @@ class SalesOrder extends Component {
       self.state.ordertype
     );
   };
+
+  resetDropdown = () => {
+    this.setState({resetDropdownProcessed:true,site:null,client:null,status:null,ordertype:null}, () => this.setState({resetDropdownProcessed:false}))
+  }
 
   getclient = () => {
     axios
@@ -201,8 +207,8 @@ class SalesOrder extends Component {
     let siteName = [];
     let orderTypeName = [];
     let orderTypeValue = [];
-    let statusName = ["0:Unavailable", "2:Released",  "3:Open","4:Completed", "All"];
-    let statusValue =["unavailable", "released", "open", "completed", 'all'];
+    let statusName = ["0:Unavailable","1:Available", "2:Released",  "3:Open","4:Completed", "All"];
+    let statusValue =["unavailable","available", "released", "open", "completed", 'all'];
     let statuss = [];
     if (this.state.clientdata) {
       this.state.clientdata.map((data) => {
@@ -230,54 +236,55 @@ class SalesOrder extends Component {
         orderTypeValue.push(data)
       })
     }
+
+    const {client,site,status,ordertype} = this.state
     return (
       <React.Fragment>
-
-                  {Authentication.getUserLevel() == "administrator" ? (
-                    <Dropdown placeHolder="Site"
+        {Authentication.getUserLevel() == "administrator" ? (
+          <Dropdown optionSelected  ={site}
+                    placeHolder="Site"
                     optionList={siteName.toString()}
                     optionValue={siteData.toString()}
                     getValue={this.getSiteSelected.bind(this)}
                     className="filterDropdown"/>
-                    ) : (
-                      <input
-                        readOnly
-                        value={Authentication.getSite()}
-                        id="site"
-                        className="form-control put filterDropdown"
-                        placeholder="Site"
-                        tabIndex='1'
-                      />
-                    )}
+          ) : (
+            <input  readOnly
+                    value={Authentication.getSite()}
+                    id="site"
+                    className="form-control put filterDropdown"
+                    placeholder="Site"
+                    tabIndex='1'/>
+          )}
 
-                  {Authentication.getUserLevel() == "administrator" ? (
-                    <Dropdown placeHolder="Client"
+        {Authentication.getUserLevel() == "administrator" ? (
+          <Dropdown optionSelected={client}
+                    placeHolder="Client"
                     optionList={clientName.toString()}
                     optionValue={clientValue.toString()}
                     getValue={this.getClientSelected.bind(this)}
                     className="filterDropdown"/>
-                    ) : (
-                      <input
-                        readOnly
-                        value={Authentication.getClient()}
-                        id="site"
-                        className="form-control put filterDropdown"
-                        placeholder="Site"
-                        tabIndex='1'
-                      />
-                    )}
+          ) : (
+            <input  readOnly
+                    value={Authentication.getClient()}
+                    id="site"
+                    className="form-control put filterDropdown"
+                    placeholder="Site"
+                    tabIndex='1'/>
+          )}
 
-          <Dropdown placeHolder="Status" 
-                    optionList={statusName.toString()} 
-                    optionValue={statusValue.toString()} 
-                    getValue={(code) => this.setState({status:code})}
-                    className="filterDropdown"/>
+            <Dropdown optionSelected={status}
+                      placeHolder="Status" 
+                      optionList={statusName.toString()} 
+                      optionValue={statusValue.toString()} 
+                      getValue={(code) => this.setState({status:code})}
+                      className="filterDropdown"/>
 
-          <Dropdown placeHolder="Order Type" 
-                    optionList={orderTypeName.toString()} 
-                    optionValue={orderTypeValue.toString()} 
-                    getValue={(code) => this.setState({ordertype:code})}
-                    className="filterDropdown"/> 
+            <Dropdown optionSelected={ordertype}
+                      placeHolder="Order Type" 
+                      optionList={orderTypeName.toString()} 
+                      optionValue={orderTypeValue.toString()} 
+                      getValue={(code) => this.setState({ordertype:code})}
+                      className="filterDropdown"/> 
       </React.Fragment>
     );
   };
@@ -305,13 +312,13 @@ class SalesOrder extends Component {
           <Search
             style={{ marginTop: "none" }}
             getValue={(v) => this.setState({ search: v })}
-            showFilter={this.state.filterclicked}
             triggerShowFilter={() =>
               this.setState({ filterclicked: !this.state.filterclicked })
             }
             searchData={() => this.search()}
             placeholder="Enter an Order No"
-            additionalComponent = {this.showDropdowns()}/>
+            additionalComponent = {this.state.resetDropdownProcessed ? null : this.showDropdowns()}
+            resetDropdown = {() => this.resetDropdown()}/>
         </div>
 
         {/* <div className="dropdowns">

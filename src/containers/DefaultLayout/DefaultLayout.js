@@ -120,7 +120,7 @@ class DefaultLayout extends Component {
 							<SidebarMenu menuItems={this.state.navigationMenu}/>
                             
                             <div style={{position: "absolute", bottom:'0px'}}>
-                            <div className="p-0 sidebar-header" style={{textAlign: 'left',marginTop: '30px'}} onClick={this.onUserDropdownClick}>
+                            <div className="p-0 sidebar-header " style={{marginBottom:"60px",textAlign: 'left',marginTop: '30px'}} onClick={this.onUserDropdownClick}>
                                         <tr>
                                             <td rowSpan="3" className="text-center align-middle p-0 divProfilePhoto" >
                                            
@@ -129,18 +129,24 @@ class DefaultLayout extends Component {
                                             </td> 
                                         </tr>
                                         <tr> 
-                                            <td className="pt-0">
+                                            <td className="" style={{paddingTop:"20px"}}>
                                                 <span className="userName">{Authentication.getName()}</span>
                                                 <br />
                                                 <span className="profileID">  ID: {Authentication.getId()} </span>
+                                                <br />
+                                                <span className="Logout">  
+                                                <a className="LogoutLink" href="/" onClick={(e) => {this.signOut()} }>
+                                                   <div style={{paddingTop: '5px'}}>LOGOUT</div>
+                                                </a>
+                                                 </span>
                                             </td>
                                         </tr> 
                             </div>
-                            <div className="userLogout  p-0 sidebar-header">
+                            {/* <div className="userLogout  p-0 sidebar-header">
                                 <ul className="nav">
                                     <li class="nav-item"><a class="nav-link" href="/" onClick={(e) => {this.signOut()} }><img src={logout} alt="" className="LogoutIcon"/><i class="nav-icon "></i><div class="nav-name Logout">Logout</div></a></li>
                                 </ul>
-                            </div>
+                            </div> */}
                             </div>
                     </div>                                         
 
