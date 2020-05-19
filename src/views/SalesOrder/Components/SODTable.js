@@ -4,6 +4,8 @@ import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
 import ok from '../../../assets/img/brand/ok.png'
 import invalid from '../../../assets/img/brand/invalid.png'
+import Paging from "../../../AppComponent/Paging";
+import Export from "../../../AppComponent/Export";
 
 class SODTable extends Component {
   constructor(props) {
@@ -110,7 +112,15 @@ class SODTable extends Component {
       activearrow: mid,
       sortparameter: 'order_no',
       checkboxLabelText: 'order_no',
-      sort: true
+      sort: true,
+
+      //pagination
+      currentPage: 1,
+      startIndex: 0,
+      lastIndex: 0,
+      displayPage: 1,
+      totalRows: 0,
+      maxPage: 0
 
     }
   }
@@ -119,10 +129,148 @@ class SODTable extends Component {
     this.props.getTableHeader(this.state.tableheader)
   }
 
+  setPagination = (result) => {
+		let self = this;
+		let respondRes = result;
+		let totalPage = 0;
+
+		if (respondRes.length > self.state.displayPage) {
+			totalPage = respondRes % self.state.displayPage;
+			if (totalPage > 0 && totalPage < 1) {
+				totalPage = parseInt(respondRes.length / self.state.displayPage) + 1;
+			} else {
+				totalPage = respondRes.length / self.state.displayPage;
+			}
+			self.setState({ maxPage: totalPage });
+		} else {
+			self.setState({ maxPage: 1 });
+    }  
+		self.setState({  totalRows: Object.keys(result.data).length }); 
+    self.numberEventClick(self.state.currentPage);
+    self.changeLastIndex(self.state.currentPage);
+  }
+
+  changeStartIndex = (currentPage) => {
+		this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
+	}
+
+	changeLastIndex = (currentPage) => {
+		this.setState({ lastIndex: parseInt(currentPage) * this.state.displayPage });
+  }
+
+	numberEventClick = (currentPage) => {
+		let page = parseInt(currentPage);
+		this.setState({ currentPage: page });
+		this.changeStartIndex(page);
+		this.changeLastIndex(page);
+	}
+
+	nextPageClick = () => {
+		if (this.state.currentPage < this.state.maxPage) {
+			this.setState((prev) => {
+				prev.currentPage++;
+				this.changeStartIndex(prev.currentPage);
+				this.changeLastIndex(prev.currentPage);
+			});
+        }
+        return;
+	}
+
+	backPageClick = () => {
+		if (this.state.currentPage > 1) {
+			this.setState((prev) => {
+				prev.currentPage--;
+				this.changeStartIndex(prev.currentPage);
+				this.changeLastIndex(prev.currentPage);
+			});
+        }
+        return;
+	}
+
+    lastPageClick = () => {
+        if (this.state.currentPage < this.state.maxPage) {
+            let currentPage = parseInt(this.state.maxPage + 1 );
+
+            this.setState({ currentPage: currentPage});
+            this.changeStartIndex(currentPage);
+            this.changeLastIndex(currentPage);
+        }
+        return;
+    }
+    firstPageClick = () => {
+      if (this.state.currentPage > 1) {
+        let currentPage = 1;
+
+        this.setState({ currentPage: currentPage});
+        this.changeStartIndex(currentPage);
+        this.changeLastIndex(currentPage);
+    }
+    return;
+  }
+
+  
+  ExportName = () => {
+    let filename = ""
+    let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let date = new Date();
+    let date1 = date.getDate(),
+        month = date.getMonth(),
+        year = date.getFullYear(),
+        Seconds = date.getSeconds(),
+        Minutes = date.getMinutes(),
+        Hours = date.getHours();
+     return filename=("Microlistics_PurchaseOrderDetails." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)  
+  }
+
+  ExportHeader = () =>{
+    //let headers = ["Site","Client","Order No", "Order Type", "Customer"," Status", "Delivery Date", "Date Received", "Date Released", "Date Completed"]
+   // return headers
+   let headers = [];
+   this.state.tableheader.map((header, idx) => { 
+          headers.push(header.tableHeaderText); 
+    });
+    return headers
+  }
+
+  ExportFont = () => {
+    let Font = "10";
+    return Font;
+  };
+
+  ExportData = () => {
+    console.log(this.props.head);
+    let i = 1;
+    let datax = this.props.head.map(elt=> [
+      i++,   
+      elt.product,  
+      elt.product_description,  
+      elt.qty,  
+      elt.qty_processed,  
+      elt.weight,  
+      elt.weight_processed, 
+      elt.completed, 
+      elt.oos,  
+      elt.batch,  
+      elt.ref2, 
+      elt.ref3, 
+      elt.ref4,  
+      elt.disposition,
+      elt.pack_id
+    ]
+    );  
+    return datax; 
+  }
+  
+  ExportPDFName = () =>{
+		let name= ""
+		return name=("Sales Order Detail")
+  }
+
   render() {
     return (
       <div>
-        <table className="defaultTable so-table" width='100%'>
+        <div className="tablePage tablePageSo">
+        <table className="defaultTable so-table" width='100%' id="excel">
           <thead>
             <tr>
               {this.state.tableheader.map((data,idx) =>{
@@ -161,6 +309,20 @@ class SODTable extends Component {
 
           </tbody>
         </table>
+        </div>
+        <div className=" p-0"  >
+            <div className='paginations paginationSO'>
+                <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
+                        backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                        totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                        currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                        startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+                        isActive={this.state.isActive}
+                        numberEventClick={this.numberEventClick} />
+                <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                        ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont}/>
+            </div>
+        </div>
       </div>
     )
   }

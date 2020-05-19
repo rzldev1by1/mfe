@@ -4,4 +4,31 @@
     border-left: 2px solid #D5D8DA;
     height: 34px;
 }
- 
+
+@media(max-width: 2750px) { 
+	.tablePageSo{
+		max-height: 540px; 
+	}
+}
+@media(max-width: 2100px) { 
+	.tablePageSo{
+		max-height: 270px; 
+	}
+}
+@media(max-width: 1830px) {   
+	.tablePageSo{
+        min-height: 0px !important;
+		max-height: 185px !important; 
+	}
+}
+@media(max-width: 1710px) {  
+	.tablePageSo{
+        min-height: 0px !important;
+		max-height: 135px !important; 
+	}
+} 
+
+.paginationSO{
+    padding-left: 120px !important;
+    padding-right: 1.6% !important;
+}

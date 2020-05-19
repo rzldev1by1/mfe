@@ -12,7 +12,7 @@ class SalesOrderDetail extends Component {
     constructor(props) {
         super(props);
 
-        this.potableref = React.createRef()
+        this.sotableref = React.createRef()
         this.state = {
             complete: false,
             head: [],
@@ -46,6 +46,7 @@ class SalesOrderDetail extends Component {
         .then(res => {
             const result = res.data.data
             this.setState({line:result})
+            this.sotableref.current.setPagination(res)
         })
 
     }
@@ -242,7 +243,7 @@ class SalesOrderDetail extends Component {
                     this.state.head.length ? this.head() : null
                 }
                 <div className={'tablecontent ' + (this.state.head.length ? 'fades ' : 'hidden')}>
-                    <SODTable ref={this.potableref} 
+                    <SODTable ref={this.sotableref} 
                     className='animated fadeIn' 
                     style={{ display: 'none' }} 
                     head={this.state.line} 
