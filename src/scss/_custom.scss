@@ -938,6 +938,7 @@ select_date_expandLabel{
 }
 
 .tablecontent {
+	bottom: 0em !important;
 	margin-top: 1rem;
 	padding:1px;
 	padding-top: 0%;
@@ -1603,7 +1604,6 @@ font-family: "Helvetica Neue Medium";
             animation: fadein 0.2s;}
 
 .mtrField{
-	white-space: nowrap !important;
     height:20px;
     color:red;
     margin-bottom: 5px;
