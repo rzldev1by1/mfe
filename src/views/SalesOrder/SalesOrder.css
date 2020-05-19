@@ -444,7 +444,7 @@ th.iconU-edit {
 
 #orderline-header-description-id {
   margin-right: 10px;
-  width: 250px;
+  width: 230px;
 }
 
 #orderline-header-qty-id {
@@ -507,7 +507,7 @@ th.iconU-edit {
 
 #orderline-header-description-val-id {
   margin-right: 10px;
-  width: 250px;
+  width: 230px;
 }
 
 #orderline-header-qty-val-id {
@@ -563,8 +563,11 @@ th.iconU-edit {
 }
 
 .scroll-x-y-visible{
-  overflow-x: scroll !important;
-  overflow-y: visible !important;
+  overflow-y: visible;
+overflow-x: scroll;
+
+overflow-y: visible;
+overflow-x: scroll;
   z-index: -10;
 }
 
@@ -809,31 +812,31 @@ th.iconU-edit {
 }
 
 .error-msg-margin{
-  padding-left: 2em;
+  padding-left: 1.7em;
 }
 
 .error-msg-margin-delivery-date{
-  padding-left: 1.5em;
+  padding-left: 1.3em;
 }
 
 .error-msg-margin-delivery-ordNo{
-  padding-left: 0.9em;
+  padding-left: 0.7em;
 }
 
 .error-msg-margin-delivery-addr1{
-  padding-left: 1.3em;
+  padding-left: 1.2em;
 }
 
 .error-msg-margin-delivery-postcode{
-  padding-left: 1.5em;
+  padding-left: 1.3em;
 }
 
 .error-msg-margin-delivery-state{
-  padding-left: 1.5em;
+  padding-left: 1.3em;
 }
 
 .error-msg-margin-delivery-client{
-  padding-left: 1.3em;
+  padding-left: 1.1em;
 }
 
 .error-msg-margin-prd{
@@ -841,9 +844,9 @@ th.iconU-edit {
 }
 
 .error-msg-margin-qty{
-  padding-left: 0.8em;
+  padding-left: 0.6em;
 }
 
 .error-msg-margin-uom{
-  padding-left: 1.3em;
+  padding-left: 1.1em;
 }

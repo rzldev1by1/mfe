@@ -6,7 +6,7 @@ import down from '../../../../assets/img/brand/field-bot.png'
 import up from '../../../../assets/img/brand/field-top.png'
 import ok from '../../../../assets/img/brand/ok.png'
 import minus from '../../../../assets/img/brand/minus.png'
-import Paging from '../../../../AppComponent/Paging';
+import Paging from '../../../../AppComponent/Paging'
 import Export from '../../../../AppComponent/Export'
 
 import {endpoint, headers} from '../../../../AppComponent/ConfigEndpoint'
@@ -253,7 +253,7 @@ class PurchaseOrderTable extends Component {
 
 		if (respondRes.length > self.state.displayPage) {
 			totalPage = respondRes % self.state.displayPage;
-			if (totalPage > 0 && totalPage < 1) {
+			if (totalPage > 0 && totalPage < 50) {
 				totalPage = parseInt(respondRes.length / self.state.displayPage) + 1;
 			} else {
 				totalPage = respondRes.length / self.state.displayPage;

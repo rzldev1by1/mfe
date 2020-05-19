@@ -494,6 +494,7 @@ h3{
 	font-size: larger; 
 	margin-left: 84px;
 	margin-top: 0.2rem;
+	margin-bottom: 1rem;
 }
 .crt{
 	padding-top:-5px;
@@ -609,6 +610,7 @@ h3{
 }
 
 .po-order-line-required{
+	white-space: nowrap;
 	height: 0.5em !important;
 	vertical-align: top;
 }
@@ -617,3 +619,6 @@ h3{
 	display: none !important;
 }
 
+#rowNumber{
+	text-align: center;
+}

@@ -8,22 +8,24 @@
 @media(max-width: 2750px) { 
 	.tablePageSo{
 		max-height: 540px; 
+		min-height: 540px; 
 	}
 }
 @media(max-width: 2100px) { 
 	.tablePageSo{
 		max-height: 270px; 
+		min-height: 270px; 
 	}
 }
 @media(max-width: 1830px) {   
 	.tablePageSo{
-        min-height: 0px !important;
+        min-height: 185px !important;
 		max-height: 185px !important; 
 	}
 }
 @media(max-width: 1710px) {  
 	.tablePageSo{
-        min-height: 0px !important;
+        min-height: 135px !important;
 		max-height: 135px !important; 
 	}
 } 
