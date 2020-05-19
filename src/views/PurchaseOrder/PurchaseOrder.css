@@ -609,7 +609,6 @@ h3{
 }
 
 .po-order-line-required{
-	width: 100%;
 	white-space: nowrap;
 	height: 0.5em !important;
 	vertical-align: top;
@@ -618,4 +617,3 @@ h3{
 .po-hidden{
 	display: none !important;
 }
-
