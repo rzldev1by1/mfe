@@ -1,7 +1,7 @@
 import React from 'react'
 import '../UserManagement.css'
 
-const moduleAccess = ({moduleAccess, onEnableClick, onSubmitHandler, onModuleEnableAll}) => {
+const moduleAccess = ({moduleAccess, onEnableClick, onSubmitHandler, onModuleEnableAll, isEnableAllModule}) => {
  
 return (
   <div>
@@ -11,7 +11,7 @@ return (
             </label>
             <input className="checkbox-hidden" type="checkbox" id="moduleAccess"/>
             <div className="col-3">
-                <button type="button" className="btn btn-outline-active mb-2" onClick={onModuleEnableAll}>Enabled All</button>
+<button type="button" className={`btn mb-2 ${isEnableAllModule?'btn-outline-All-notActive':'btn-outline-All-active'} `} onClick={onModuleEnableAll}> {(isEnableAllModule)?"Disable All":"Enabled All"}</button>
             </div>
 
           </div>

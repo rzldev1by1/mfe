@@ -17,7 +17,8 @@ const modalNewUser = (props) => {
   const { className, isOpen, toggle, closeModal, onChangeName,onChangeEmail, onChangeCompany, model,
     moduleAccess,isModuleLoaded,moduleAccessEnableClick,sites, isSiteLoaded, sitesEnableClick,
     clients, isClientLoaded, clientEnableClick, onSaveClick, isSaveProgressing, onModuleEnableAll, onSiteEnableAll, onClientEnableAll,
-    isValidForm, onNextClickHandler, firtsTabActive, secondTabActive, onClickTabActive, message, changeWebGroup, isWebGroup, validation} = props;
+    isValidForm, onNextClickHandler, firtsTabActive, secondTabActive, onClickTabActive, message, changeWebGroup, isWebGroup, 
+    validation, isEnableAllModule, isEnableAllSite, isEnableAllClient} = props;
 
     const submitHandler = (event) =>{
       event.preventDefault();
@@ -135,13 +136,13 @@ const modalNewUser = (props) => {
                               </div>
                               <div className="row">
                                   <div className="col-4">
-                                      <ModuleAccess moduleAccess={moduleAccess} isLoaded={isModuleLoaded} onEnableClick={moduleAccessEnableClick} onModuleEnableAll={onModuleEnableAll}/>
+                                      <ModuleAccess moduleAccess={moduleAccess} isLoaded={isModuleLoaded} onEnableClick={moduleAccessEnableClick} onModuleEnableAll={onModuleEnableAll} isEnableAllModule={isEnableAllModule}/>
                                   </div>
                                   <div className="col-4 pl-0">
-                                      <Site sites={sites} isLoaded={isSiteLoaded} onEnableClick={sitesEnableClick} onSubmitHandler = {submitHandler} onSiteEnableAll = {onSiteEnableAll} />
+                                      <Site sites={sites} isLoaded={isSiteLoaded} onEnableClick={sitesEnableClick} onSubmitHandler = {submitHandler} onSiteEnableAll = {onSiteEnableAll} isEnableAllSite={isEnableAllSite}/>
                                   </div>
                                   <div className="col-4">
-                                      <Client clients={clients} isLoaded={isClientLoaded} onEnableClick={clientEnableClick} onSubmitHandler = {submitHandler} onClientEnableAll = {onClientEnableAll}/>
+                                      <Client clients={clients} isLoaded={isClientLoaded} onEnableClick={clientEnableClick} onSubmitHandler = {submitHandler} onClientEnableAll = {onClientEnableAll} isEnableAllClient={isEnableAllClient}/>
                                   </div>
                               </div>
                           </div>
