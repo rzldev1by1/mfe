@@ -6,6 +6,9 @@ import moment from 'moment';
 import mid from '../../../assets/img/brand/field-idle.png'
 import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
+import Paging from '../../../AppComponent/Paging'
+import Export from '../../../AppComponent/Export'
+import ExportExcel from '../../../AppComponent/ExportExcel'
 
 
 
@@ -37,11 +40,13 @@ class Movement extends Component {
             uomSP:mid,
             sort:true,
 
-            //pagonation
-            startIndex:0,
-			endIndex:3,
-            hover_stat: null,
-            i:1
+            //pagination
+            currentPage: 1,
+            startIndex: 0,
+            lastIndex: 0,
+            displayPage: 1,
+            totalRows: 0,
+            maxPage: 0
         }
     }
     //testing  hover
@@ -73,10 +78,12 @@ class Movement extends Component {
         })
         .then(res => {
         const result = res.data.data
+        this.setPagination(res)
         this.setState({ data:result, complete:true, filterType:periods})
+        this.props.isComplete(true)
         this.props.data(result)
         this.pushTable(dtStart, dtEnd,periods)  
-        this.props.isComplete(true)
+        this.potableref.current.setPagination(res) 
         })
         .catch(error => {
         
@@ -409,9 +416,9 @@ class Movement extends Component {
         this.setState({data:data})
       }
 
-      setSliceValue= (startIndex, endIndex) => {
-        this.setState({startIndex:startIndex, endIndex:endIndex})
-	}
+    //   setSliceValue= (startIndex, endIndex) => {
+    //     this.setState({startIndex:startIndex, endIndex:endIndex})
+	// }
 
     onMouseEnter(){
         console.log();
@@ -423,6 +430,174 @@ class Movement extends Component {
         console.log(height);
     }
 
+    
+  setPagination = (result) => {
+        let self = this;
+        let respondRes = result;
+        let totalPage = 0;
+        console.log(result.data)
+        if (respondRes.length > self.state.displayPage) {
+            totalPage = respondRes % self.state.displayPage;
+            if (totalPage > 0 && totalPage < 50) {
+                totalPage = parseInt(respondRes.length / self.state.displayPage) + 1;
+            } else {
+                totalPage = respondRes.length / self.state.displayPage;
+            }
+            self.setState({ maxPage: totalPage });
+        } else {
+            self.setState({ maxPage: 1 });
+    } 
+    
+        self.setState({  totalRows: Object.keys(result.data.data).length }); 
+    self.numberEventClick(self.state.currentPage);
+    self.changeLastIndex(self.state.currentPage);
+    }
+
+    changeStartIndex = (currentPage) => {
+        this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
+    }
+
+    changeLastIndex = (currentPage) => {
+        this.setState({ lastIndex: parseInt(currentPage) * this.state.displayPage });
+    }
+
+    numberEventClick = (currentPage) => {
+        let page = parseInt(currentPage);
+        this.setState({ currentPage: page });
+        this.changeStartIndex(page);
+        this.changeLastIndex(page);
+    }
+
+    nextPageClick = () => {
+        if (this.state.currentPage < this.state.maxPage) {
+            this.setState((prev) => {
+                prev.currentPage++;
+                this.changeStartIndex(prev.currentPage);
+                this.changeLastIndex(prev.currentPage);
+            });
+        }
+        return;
+    }
+
+    backPageClick = () => {
+        if (this.state.currentPage > 1) {
+            this.setState((prev) => {
+                prev.currentPage--;
+                this.changeStartIndex(prev.currentPage);
+                this.changeLastIndex(prev.currentPage);
+            });
+        }
+        return;
+    }
+
+    lastPageClick = () => {
+        if (this.state.currentPage < this.state.maxPage) {
+            let currentPage = parseInt(this.state.maxPage + 1 );
+
+            this.setState({ currentPage: currentPage});
+            this.changeStartIndex(currentPage);
+            this.changeLastIndex(currentPage);
+        }
+        return;
+    }
+    firstPageClick = () => {
+    if (this.state.currentPage > 1) {
+        let currentPage = 1;
+
+        this.setState({ currentPage: currentPage});
+        this.changeStartIndex(currentPage);
+        this.changeLastIndex(currentPage);
+    }
+    return;
+    }
+
+    headersExport = () =>{
+        return(
+            <div>
+                <tr>
+                                <th key="1" onClick={(e) => this.arrowHandler(e)} id='site' rowspan="2">Site </th>
+                                <th key="2" onClick={(e) => this.arrowHandler(e)} id='client' rowspan="2">Client </th>
+                                <th key="3" onClick={(e) => this.arrowHandler(e)} id='product' rowspan="2">Product </th>
+                                <th key="4" onClick={(e) => this.arrowHandler(e)} id='productName' rowspan="2">Description</th>
+                                <th key="5" onClick={(e) => this.arrowHandler(e)} id='uom' rowspan="2">UOM</th>
+                                {/* <td>{this.productHeader()}</td> */}
+                                { 
+                                    this.state.dateArray.map(date =>
+                                        {
+                                            let dates = moment(date).format('DD MMMM YYYY')
+                                            if(this.state.complete)
+                                            {
+                                                if(this.state.filterType == 'day')
+                                                {
+                                                    dates = moment(date).format('DD MMMM YYYY')
+                                                }
+                                                else if(this.state.filterType == 'week')
+                                                {
+                                                    let dates2 = moment(date).add('days', 6).format('DD MMMM YYYY')
+                                                    dates = moment(date).format('DD MMMM YYYY')
+                                                    dates = dates + ' - ' + dates2
+                                                }
+                                                else if(this.state.filterType == 'month')
+                                                {
+                                                    dates = moment(date).format('MMMM YYYY')
+                                                }
+                                            }
+                                            return(
+                                            <div>
+                                                <th colSpan="4" key="6" style={{textAlign:"center"}}>{dates}</th>
+                                                
+                                            </div>
+                                            )
+                                        }
+                                            )
+                                }
+                            </tr>
+                            <tr>
+                                {this.state.dateArray.map((date, idx) => {
+                                        return(
+                                                <div style={{display:'flex',  borderBottom:'1px solid #d5d8da', color:'#3366FF'}}>
+                                                    <th key="6" className='tet' xs='2'>SA+</th>
+                                                    <th key="7" className='tet' xs='2'>SA-</th>
+                                                    <th key="8" className='tet' xs='2'>Rec</th>
+                                                    <th key="9" className='tet' xs='3'>Send</th>
+                                                </div>
+                                        )
+                                     }) 
+                                }
+                            </tr>
+                        </div>
+                            
+        )
+    }
+
+	ExportName = () => {
+		let filename = ""
+		let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+		let date = new Date();
+		let date1 = date.getDate(),
+			  month = date.getMonth(),
+			  year = date.getFullYear(),
+			  Seconds = date.getSeconds(),
+			  Minutes = date.getMinutes(),
+			  Hours = date.getHours();
+		 return filename=("Stock_Movement." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)  
+	  }
+
+	  ExportPDFName = () =>{
+		let name= ""
+		return name=("Stock Movement")
+	  }
+	
+	  ExportHeader = () =>{
+		let header = ["Site","Client","Product", "Description", "UOM",]
+		return header
+	  }
+	
+	  ExportData = () => {
+		let data = this.state.data.map(elt=> [elt.site, elt.client, elt.product, elt.product_name, elt.packdesc, elt.detail.length]);
+		return data
+      }
+      
     render(){
         if(this.state.pushTableComplete)
         {
@@ -506,6 +681,21 @@ class Movement extends Component {
                     </table>          
                 <div className={( this.state.complete ? 'hidden': 'spinner')}/>
                 </Container>
+
+
+                
+                <div className=" p-0"  >
+                  <div className='paginations '>
+                      <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
+                              backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                              totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                              currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                              startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+                              isActive={this.state.isActive}
+                              numberEventClick={this.numberEventClick} />
+                      {((this.state.data.length>0)?<ExportExcel ExportName={this.ExportName}/>:null)}
+                  </div>
+                </div>
             </div>
         )
     }
