@@ -148,7 +148,7 @@ class DatePicker extends React.Component{
         const no = Math.floor(Math.random() * 100000) + 1;
         return(
             <React.Fragment>
-                <ul className="select_date" style={ this.props.style } tabIndex={this.props.tabIndex ? this.props.tabIndex : null}>
+                <ul className={"select_date " + (this.state.showDatePicker && (this.props.for == "SalesOrderCreate") ? "datepickerForOrderLine" : "")} style={ this.props.style } tabIndex={this.props.tabIndex ? this.props.tabIndex : null}>
                       <input type="text" 
                                 ref="dateValue"
                                 placeholder="DD-MM-YYYY" 
