@@ -494,6 +494,7 @@ h3{
 	font-size: larger; 
 	margin-left: 84px;
 	margin-top: 0.2rem;
+	margin-bottom: 1rem;
 }
 .crt{
 	padding-top:-5px;
@@ -616,4 +617,8 @@ h3{
 
 .po-hidden{
 	display: none !important;
+}
+
+#rowNumber{
+	text-align: center;
 }

@@ -10,6 +10,7 @@ import twoactive from '../../../assets/img/brand/tab_2_blue@2x.png'
 import date from '../../../assets/img/brand/field_date@2x.png'
 import DayPicker from 'react-day-picker';
 import './Style/PurchaseOrderCreate.css'
+import '../../SalesOrder/SalesOrder.css'
 import 'react-day-picker/lib/style.css';
 import moment from 'moment'
 import AutoComplete from '../../../AppComponent/AutoComplete'
@@ -628,7 +629,7 @@ if(v_orderNo === undefined) v_orderNo = []
             </tr>
        
         <h3 className="fonts so-header-title">Line Details</h3>
-        <div className="line">
+        <div className="scroll-x-y-visible">
           <table className="tabledetails">
               <tr>
                 <th><div id='orderline-header-number-id'>#</div></th>
@@ -649,8 +650,9 @@ if(v_orderNo === undefined) v_orderNo = []
                 this.linedetailsrow(list, i)
               )
             })}
+             <button onClick={() => this.addline()} type="button" className="btn btn-light  addlinePO default-box-height so-add-line"  tabIndex="2" >+ Add Line</button>
           </div>
-              <button onClick={() => this.addline()} type="button" className="btn btn-light  addlinePO default-box-height"  tabIndex="2" >+ Add Line</button>
+             
 
               {this.state.tab2isactive ? 
               this.submit() :  
@@ -928,7 +930,11 @@ if(v_orderNo === undefined) v_orderNo = []
                               tabIndex="2" />
                 </div>
             </td>
-            <td id={list.lineNumber} onClick={(e) => this.deletelinehandler(e, i)} style={{width:"1.5%"}}  tabIndex="2" ><div className="iconU-delete"/></td>
+            <td>
+                <div id='orderline-header-number-val-id' tabIndex="3">
+                  <label onClick={(e) => this.deletelinehandler(e, i)} className="iconU-delete"></label>
+                </div>
+            </td>
           </tr>
           <tr>
             <td>
@@ -965,11 +971,6 @@ if(v_orderNo === undefined) v_orderNo = []
                 <div id='orderline-header-disposition-val-id'></div>
             </td>
           </tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>{this.state.showdaterote ? <DatePicker getChosenDay={(day) => this.datePickerRote(day)}/> : null}</td>
       </table>
       </form>
     )
