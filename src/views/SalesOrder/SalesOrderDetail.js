@@ -73,6 +73,13 @@ class SalesOrderDetail extends Component {
             })
     }
 
+    modifiedCustomerData = (code,name) => {
+        if(code && name) return code+' ( '+name+' )'
+        if(!code && name) return name
+        if(!code && !name) return '-'
+        if(code && !name) return code
+      }
+
     head = () => {
         let site = this.state.head.length ? this.state.head[0].site : null
         let client = this.state.head.length ? this.state.head[0].client : null
@@ -85,6 +92,7 @@ class SalesOrderDetail extends Component {
         let dateReceived = this.state.head.length ? this.state.head[0].datereceived : null
         let dateReleased = this.state.head.length ? this.state.head[0].datereleased : null
         let dateCompleted = this.state.head.length ? this.state.head[0].datecompleted : null
+        let customer = this.state.head.length ? this.state.head[0].customer : null
         let customerName = this.state.head.length ? this.state.head[0].customername : null
         let status = this.state.head.length ? this.state.head[0].status : null
         let vendorOrderNo = this.state.head.length ? this.state.head[0].vendororderno : null
@@ -101,7 +109,6 @@ class SalesOrderDetail extends Component {
         let state = this.state.head.length ? this.state.head[0].state : null
         let city = this.state.head.length ? this.state.head[0].city : null
         let statusDesc = this.state.head.length ? this.state.head[0].status_desc : null
-
         return (
             <div className='podheader fades'>
                 <div className='sub'>
@@ -124,7 +131,7 @@ class SalesOrderDetail extends Component {
                         </tr>
                         <tr>
                             <th>Customer </th>
-                            <td>{customerName ? customerName : '-'}</td>
+                            <td>{this.modifiedCustomerData(customer, customerName)}</td>
                         </tr>
                         <tr>
                             <th>Customer Order Ref</th>
