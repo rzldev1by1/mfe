@@ -248,8 +248,7 @@ class SalesOrderDetail extends Component {
                     style={{ display: 'none' }} 
                     head={this.state.line} 
                     showEditColumn = {() => this.setState({ showEditColumn: true })}
-                    getTableHeader = {(e) => this.setState({ tableheader: e })}
-                    ><tr></tr></SODTable>
+                    getTableHeader = {(e) => this.setState({ tableheader: e })}/>
                 </div>
                 <div className={(this.state.head.length ? 'hidden' : 'spinner')} />
 
