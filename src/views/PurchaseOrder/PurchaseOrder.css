@@ -612,6 +612,7 @@ h3{
 .po-order-line-required{
 	white-space: nowrap;
 	height: 0.5em !important;
+	margin-top: -5px !important;
 	vertical-align: top;
 }
 
