@@ -1,4 +1,8 @@
-
+@media(max-width: 2750px) { /* //zoom 50% */
+	.tablePagePo{
+		max-height: 780px !important; 
+	}
+}
 @media(max-width: 2100px) { /* //zoom 67% */
 	.tablePagePo{
 		max-height: 490px !important;
