@@ -524,6 +524,7 @@ th.iconU-edit {
 #orderline-header-uom-val-id {
   margin-right: 10px;
   width: 150px;
+  white-space: nowrap;
 }
 
 #orderline-header-rotadate-val-id {
