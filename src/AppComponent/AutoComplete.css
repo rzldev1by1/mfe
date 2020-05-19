@@ -129,7 +129,7 @@
     border-top: 0;
     border-top-right-radius: 0;
     border-top-left-radius: 0;
-    max-height: 192px;
+    max-height: 188px;
     overflow: auto;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -139,7 +139,7 @@
 
 
 .select_autocomplete_expand:checked + .select_autocomplete_closeLabel + .select_autocomplete_options .select_autocomplete_label {
-	height: 48px;
+	height: 47px;
 }
 
 .select_autocomplete_expand:checked + .select_autocomplete_closeLabel + .select_autocomplete_options .search-input {
@@ -235,3 +235,7 @@
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 } */
+.autoCompleteForOrderLine{
+    position: absolute;
+    margin-top: -25px;
+}
