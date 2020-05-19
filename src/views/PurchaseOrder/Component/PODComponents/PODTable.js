@@ -262,13 +262,13 @@ class PurchaseOrderTable extends Component {
 		} else {
 			self.setState({ maxPage: 1 });
     } 
-     
-		self.setState({  totalRows: Object.keys(result.data).length+1 }); 
+      
+		self.setState({  totalRows: Object.keys(result.data.data).length }); 
       self.numberEventClick(self.state.currentPage);
       self.changeLastIndex(self.state.currentPage);
-    }
+  }
 
-    changeStartIndex = (currentPage) => {
+  changeStartIndex = (currentPage) => {
 		this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
 	}
 
@@ -397,55 +397,56 @@ class PurchaseOrderTable extends Component {
   render(){
     return(
       <div>
-        <table className="defaultTable" id="excel">
-          <thead>
-            <tr>
-              {this.state.tableheader.map((header, idx) => {
-                  if(header.isVisible){
-                      return (
-                        <th key={idx} 
-                        
-                        id={header.id}>
-                            {header.tableHeaderText} 
-                        
-                        </th>
-                      )
+          <div className="tablePage tablePagePo">
+            <table className="defaultTable" id="excel">
+              <thead>
+                <tr>
+                  {this.state.tableheader.map((header, idx) => {
+                      if(header.isVisible){
+                          return (
+                            <th key={idx} 
+                            
+                            id={header.id}>
+                                {header.tableHeaderText} 
+                            
+                            </th>
+                          )
+                      }
                   }
-              }
-              )}
+                  )}
 
-              <th className='iconU-edit' onClick={this.props.showEditColumn}></th>
-            </tr>
-          </thead>
-          <tbody>
-        
-          
+                  <th className='iconU-edit' onClick={this.props.showEditColumn}></th>
+                </tr>
+              </thead>
+              <tbody>
+            
+              
 
-              {this.props.datahead.map((data,i) => 
-                  <tr key={i} className='tr'>
-                    {this.state.tableheader.map((column, columnIdx) => {
-                        if(column.isVisible){
-                            if(column.id === "line_no"){
-                                return <td key={columnIdx}>{i+1}</td>
+                  {this.props.datahead.map((data,i) => 
+                      <tr key={i} className='tr'>
+                        {this.state.tableheader.map((column, columnIdx) => {
+                            if(column.isVisible){
+                                if(column.id === "line_no"){
+                                    return <td key={columnIdx}>{i+1}</td>
+                                }
+                                if(column.id === "status_description"){
+                                    return <td key={columnIdx}>{data[column.id].substring(2)}</td>
+                                }
+                                if(column.id === "completed"){
+                                    return <td key={columnIdx}>
+                                                <img style={{width:'15px',height:'13px'}} src={data[column.id] == "Y" ? ok : minus}></img>
+                                          </td>
+                                }
+                                return <td key={columnIdx}>{data[column.id] ? data[column.id] : "-"}</td>
                             }
-                            if(column.id === "status_description"){
-                                return <td key={columnIdx}>{data[column.id].substring(2)}</td>
-                            }
-                            if(column.id === "completed"){
-                                return <td key={columnIdx}>
-                                            <img style={{width:'15px',height:'13px'}} src={data[column.id] == "Y" ? ok : minus}></img>
-                                       </td>
-                            }
-                            return <td key={columnIdx}>{data[column.id] ? data[column.id] : "-"}</td>
-                        }
-                    })}
-                    <td></td>
-                  </tr>
-              )}   
-                  
-          </tbody>
-        </table>
-
+                        })}
+                        <td></td>
+                      </tr>
+                  )}   
+                      
+              </tbody>
+            </table>
+          </div>
         
           <div className=" p-0"  >
               <div className='paginations '>

@@ -33,6 +33,9 @@ export default class PurchaseOrderDetail extends Component {
         })
           .then(res => {
             const result = res.data.data
+            for(let x=0; x<50; x++){
+                result.push(res.data.data); 
+            }
             this.setState({ datahead:result}) 
             this.potableref.current.setPagination(res)
             
