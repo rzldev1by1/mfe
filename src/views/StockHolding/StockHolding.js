@@ -295,6 +295,10 @@ class StockHolding extends Component {
 							optionList={masterStatus.toString()}
 							optionValue={masterStatusValue.toString()}
 							getValue={this.selectedStatus} className="filterDropdown" />
+				
+				
+				{/* empty dropdown sementara -dimas */}
+				<div style={{width:"20%"}}></div>
 			</React.Fragment>
         );
     }
@@ -501,7 +505,7 @@ class StockHolding extends Component {
 					<div className="row">
 						<div className="col-12 p-0">
 							<div className="row pl-1">
-                                <HeaderTitle headerTitle="Stock Holding" />
+                                <HeaderTitle headerTitle="Stock Holding Summary" />
 							</div>
 
 							<div className="row mb-0 p-0 pl-1">
