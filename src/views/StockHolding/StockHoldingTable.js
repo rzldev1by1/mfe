@@ -99,7 +99,7 @@ class componentTable extends Component {
         return (
             <div className="col-12 p-0  tablecontent mt-0">
                 <div className={this.props.isSearch ? "spinner" : "d-none"} />
-                <div className={this.props.isSearch ? "d-none" : "tablePage tableContent"}>					
+                <div className={this.props.isSearch ? "d-none" : "tablePage tablePageSH tableContent"}>					
                     {/* <Table className="table-condensed table-striped clickable-row mb-0" size="md">
                         <thead >{this.showHeader()}</thead>
                         <tbody style={{fontSize:'1rem'}}>{this.showData()}</tbody> 

@@ -505,7 +505,7 @@ class StockHolding extends Component {
 					<div className="row">
 						<div className="col-12 p-0">
 							<div className="row pl-1">
-                                <HeaderTitle headerTitle="Stock Holding Summary" />
+                                <HeaderTitle headerTitle="Stock Holding" />
 							</div>
 
 							<div className="row mb-0 p-0 pl-1">
