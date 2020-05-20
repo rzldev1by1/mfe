@@ -11,7 +11,7 @@ class componentTable extends Component {
 					if (item.isVisible) {
                         
                         return (
-                            <th className="text-left" id={item.key} key={idx} onClick={() => this.props.arrowHandler(idx, item.key)}>
+                            <th className="text-left" style={{width:`${item.width}`}} id={item.key} key={idx} onClick={() => this.props.arrowHandler(idx, item.key)}>
                                 {item.tableHeaderText} <img key={idx} className="sort-icon" src={item.sort} />
                             </th>
                         );
