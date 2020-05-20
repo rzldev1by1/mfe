@@ -1666,7 +1666,7 @@ font-family: "Helvetica Neue Medium";
 }
 
 .select_dropdown:hover, .select_dropdown:focus-within{
-	transition: 0.2s ease-in;
+	// transition: 0.2s ease-in;
 	border: 1px solid $primaryColor !important !important;
 }
 
@@ -1755,7 +1755,7 @@ font-family: "Helvetica Neue Medium";
 	position: absolute;
 	top: 0;
 	left: 0;
-	color: #D5D8E7;
+	color: #bebebe;
 	background-color: transparent;
 	display: block;
 }
@@ -1836,6 +1836,10 @@ font-family: "Helvetica Neue Medium";
 .select_datepicker_expand::after {
     top: 30% !important;
     right: 1px !important;
+}
+.dropDownForOrderLine{
+    position: absolute;
+    margin-top: -25px;
 }
 
 //th cursor pointer

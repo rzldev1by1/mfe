@@ -987,7 +987,7 @@ if(v_orderNo === undefined) v_orderNo = []
             <td style={{width:"3.5%"}}><input className="form-control inputs pec" value={list.qty} readOnly/></td>
             <td style={{width:"5%"}}><input className="form-control inputs pec" value={list.weight} readOnly/></td>
             <td style={{width:"6%"}}><input className="form-control inputs pec" value={list.uom} readOnly/></td>
-            <td style={{width:"6.5%"}}><input className="form-control inputs pec" value={moment(list.rotadate).format("DD MMMM YYYY")} readOnly/></td>
+            <td style={{width:"6.5%"}}><input className="form-control inputs pec" value={list.rotadate ? moment(list.rotadate).format("DD MMMM YYYY") : null} readOnly/></td>
             <td style={{width:"6%"}}><input className="form-control inputs pec" value={list.batch} readOnly/></td>
             <td style={{width:"5%"}}><input className="form-control inputs pec" value={list.ref3} readOnly/></td>
             <td style={{width:"5%"}}><input className="form-control inputs pec" value={list.ref4} readOnly/></td>

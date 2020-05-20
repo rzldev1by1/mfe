@@ -82,6 +82,9 @@ class UserManagement extends Component{
               validatorMessage:'',
               webgroup:false,
               succesCreate: false,
+              isEnableAllModule:false,
+              isEnableAllSite:false,
+              isEnableAllClient:false,
         }
           this.searchForm = React.createRef();
     }
@@ -166,6 +169,7 @@ class UserManagement extends Component{
         return {firstTab:!prev.firstTab,secondTab:!prev.secondTab}
       });
     }
+
     restructureUserList = (sources) => {
       let newUserArray = [];
         if(sources.length){
@@ -187,6 +191,8 @@ class UserManagement extends Component{
 
         return newUserArray;
     }
+
+
     restucturePersonalUser = (sources) => {
       var newArray = [];
 
@@ -508,12 +514,13 @@ class UserManagement extends Component{
 
     onEnabledAllModuleAccess = () => {
         let account = {...this.state.accountInfo};
+        let isEnableAllModule = this.state.isEnableAllModule;
         userModel.userMenu = null;
         userModel.userMenu = [];
 
         let newState = [...this.state.moduleAccess];
         var newArray = newState.map((item,index) => {
-              item.status = true;
+              item.status = !isEnableAllModule;
               if(item.status){
                 userModel.userMenu.push(item.menuid);
               }
@@ -523,26 +530,27 @@ class UserManagement extends Component{
 
        account.userMenu = userModel.userMenu;
 
-       this.setState({moduleAccess:newArray,accountInfo:account});
+       this.setState({moduleAccess:newArray,accountInfo:account,isEnableAllModule:!isEnableAllModule});
     }
 
     onEnabledAllSite = () => {    
-        
+      let isEnableAllSite = this.state.isEnableAllSite;
         let sites = [...this.state.sites];
         var newArray = sites.map((item,index) => {
-              item.status = true;
+              item.status = !isEnableAllSite;
             return item;
         });
-       this.setState({sites:newArray});
+       this.setState({sites:newArray,isEnableAllSite:!isEnableAllSite});
     }
 
     onEnabledAllClient = () => {       
+        let isEnableAllClient = this.state.isEnableAllClient;
         let clients = [...this.state.clients];
         var newArray = clients.map((item,index) => {
-              item.status = true;
+              item.status = !isEnableAllClient;
             return item;
         });
-       this.setState({clients:newArray});
+       this.setState({clients:newArray,isEnableAllClient:!isEnableAllClient});
     }
 
     onSiteStatusClick = (e,data) => {
@@ -789,7 +797,9 @@ class UserManagement extends Component{
                 onSaveClick={this.saveClick} isSaveProgressing={this.state.isSaveProgressing} onChangeCompany={this.onChangeCompany}
                 onModuleEnableAll = {this.onEnabledAllModuleAccess} isValidForm={this.state.isValidForm} onNextClickHandler={this.nextClickHandler}
                 firtsTabActive={this.state.firstTab} secondTabActive={this.state.secondTab} onClickTabActive={this.setTabActive}
-                message={this.state.validatorMessage} changeWebGroup={this.changeWebgroup} isWebGroup={this.state.webgroup} validation={this.state.validation}/>
+                message={this.state.validatorMessage} changeWebGroup={this.changeWebgroup} isWebGroup={this.state.webgroup} validation={this.state.validation}
+                isEnableAllModule={this.state.isEnableAllModule} isEnableAllSite={this.state.isEnableAllSite} 
+                isEnableAllClient={this.state.isEnableAllClient}/>
 
                 </CardBody>
                 </Card>

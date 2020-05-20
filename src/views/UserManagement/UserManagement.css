@@ -89,6 +89,30 @@ label{
 	width: 80px;
 }
 
+.btn-outline-All-active{
+	font-family:"Helvetica Neue Regular";
+	font-size: 1rem !important;
+	width:117px !important;
+	height:40px !important;
+	border: 1.5px solid #3366FF;
+	border-radius: 7px;
+	background-color: #3366FF;
+	color: #ffffff;
+	width: 80px;
+}
+
+.btn-outline-All-notActive{
+	font-family:"Helvetica Neue Regular";
+	font-size: 1rem !important;
+	width:117px !important;
+	height:40px !important;
+	background-color: #D5D8DA;
+	color: #ffffff;
+	border: 1.5px solid #D5D8DA;
+	border-radius: 7px;
+	width: 80px;
+}
+
 
 span.client-active{
     border: 1px solid #3366FF;

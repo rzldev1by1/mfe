@@ -50,12 +50,13 @@ const OrderLine = (props) => {
             <td>
               <div id="orderline-header-product-val-id">
                 <AutoComplete
+                  usedFor="SalesOrderCreate"
                   optionSelected={productVal}
                   getValue={(productVal, product) =>
                     props.setProduct(productVal, product, props.idx)
                   }
                   placeHolder="Product"
-                  style={{ minWidth: "100%", zIndex: props.parametersLength - idx }}
+                  style={{ zIndex: props.parametersLength - idx }}
                   optionList={props.productdata.code.toString()}
                   optionValue={props.productdata.code.toString()}
                   tabIndex='3'
@@ -105,6 +106,7 @@ const OrderLine = (props) => {
             <td>
               <div id="orderline-header-uom-val-id">
                 <Dropdown
+                  usedFor="SalesOrderCreate"
                   optionSelected={uom}
                   getValue={(uom) => props.setUom(uom, props.idx)}
                   placeHolder="UOM"
@@ -116,13 +118,13 @@ const OrderLine = (props) => {
               </div>
             </td>
             <td>
-              <div id="orderline-header-rotadate-val-id">
                 <DatePicker
+                  for="SalesOrderCreate"
+                  style={{marginRight: "10px", width: "150px"}}
                   getDate={(date) => props.setRotaDate(date, props.idx)}
-                  tabIndex='2'
-                  fixedTop={true}
+                  tabIndex='3'
+                  top={true}
                 />
-              </div>
             </td>
 
             <td>
@@ -161,7 +163,7 @@ const OrderLine = (props) => {
                 <Dropdown optionSelected={dispositionVal}
                   getValue={(dispositionVal, dispositionName) => props.setDispoisition(dispositionVal, dispositionName, props.idx)}
                   placeHolder="Disposition"
-                  style={{ minWidth: "100%", zIndex: idx }}
+                  style={{ zIndex: props.parametersLength - idx }}
                   optionList={props.dispositiondata.code.toString()}
                   optionValue={props.dispositiondata.code.toString()}
                   tabIndex='3' />

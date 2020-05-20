@@ -31,8 +31,8 @@
 	/* border: 1px solid #D5D8DA; */
 }
 
-.select_date:hover, .select_date:focus-within{
-	transition: 0.2s ease-in;
+.select_date:focus{
+	transition: 0.2s;
 	/* border: 1px solid #22ABE3 !important; */
 }
 .select_date_label {
@@ -177,4 +177,8 @@
     padding: 0 !important;
     width: 2.2em;
     height: 2.2em;
+}
+.datepickerForOrderLine{
+    position: absolute;
+    margin-top: -25px;
 }
