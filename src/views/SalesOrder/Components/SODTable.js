@@ -5,7 +5,7 @@ import up from '../../../assets/img/brand/field-top.png'
 import ok from '../../../assets/img/brand/ok.png'
 import invalid from '../../../assets/img/brand/invalid.png'
 import Paging from "../../../AppComponent/Paging";
-import Export from "../../../AppComponent/Export";
+import SODExport from "./SODExport";
 
 class SODTable extends Component {
   constructor(props) {
@@ -17,6 +17,21 @@ class SODTable extends Component {
       // commented based task to do FE that only show 10 field default "10 fields show as default, put the rest on edit columns" 
       //bodyheader: ['Line No', 'Product', 'Description', 'Qty', 'Qty Processed', 'Weight', 'Weight Processed', 'Completed', 'OOS', 'Batch', 'Rotadate', 'Ref3', 'Ref4', 'Disposition', 'Pack ID'],
       // bodyheader: ['Line No', 'Product', 'Description', 'Qty', 'Qty Processed', 'Weight', 'Weight Processed', 'Completed', 'OOS', 'Batch'],
+      
+      //header excel
+      headerExcelColumn: [
+        [{id:'site',text:'Site'},{id:'address1',text:'Address 1'},{id:'status',text:'Status'}],
+        [{id:'client',text:'Client'},{id:'address2',text:'Address 2'},{id:'datereceived',text:'Delivery Date'}], 
+        [{id:'orderno',text:'Order No'},{id:'address3',text:'Address 3'},{id:'datereceived',text:'Date Received'}],
+        [{id:'ordertype',text:'Order Type'},{id:'address4',text:'Address 4'},{id:'datereleased',text:'Date Released'}],  
+        [{id:'customername',text:'Customer'},{id:'address5',text:'Address 5'},{id:'datecompleted',text:'Date Completed'}],
+        [{id:'customerpono',text:'Customer Order Ref'},{id:'city',text:'Suburb'},{id:'loadNumber',text:'Load Number'}],  
+        [{id:'custordernumber',text:'Vendor Order Ref'},{id:'postcode',text:'Postcode'},{id:'loadoutstart',text:'Loadout Start'}],   
+        [{id:null,text:null},{id:'state',text:'State'},{id:'loadoutfinish',text:'Loadout Finish'}],  
+        [{id:null,text:null},{id:'country',text:'Country'},{id:'consignmentnumber',text:'Consignment No'}],  
+        [{id:null,text:null},{id:null,text:null},{id:'freightcharge',text:'Freight Charge'}]
+      ],
+
       tableheader: [
         { 
           id: "line",
@@ -120,14 +135,15 @@ class SODTable extends Component {
       lastIndex: 0,
       displayPage: 1,
       totalRows: 0,
-      maxPage: 0
-
+      maxPage: 0,
+  
     }
   }
 
   componentDidMount(){
-    this.props.getTableHeader(this.state.tableheader)
+    this.props.getTableHeader(this.state.tableheader) 
   }
+ 
 
   setPagination = (result) => {
 		let self = this;
@@ -270,7 +286,7 @@ class SODTable extends Component {
     return (
       <div>
         <div className="tablePage tablePageSo">
-        <table className="defaultTable so-table" width='100%' id="excel">
+        <table className="defaultTable so-table" width='100%'>
           <thead>
             <tr>
               {this.state.tableheader.map((data,idx) =>{
@@ -309,6 +325,66 @@ class SODTable extends Component {
 
           </tbody>
         </table>
+
+        <table style={{display: 'none'}} id="excel"> 
+            
+            { this.state.headerExcelColumn.map((col,index) => { 
+                return(
+                  <tr>
+                        <th colSpan='2' style={{textAlign:'left'}}>{(col.length) ? col[0].text : null}</th>
+                        <td colSpan='2'>
+                          {(this.props.header.length && col.length) ? this.props.header[0][col[0].id] : '-'}
+                        </td>
+                        <td colSpan='1'></td>
+                        <th colSpan='2' style={{textAlign:'left'}}>{(col.length) ? col[1].text : null}</th>
+                        <td colSpan='3'>
+                          {(this.props.header.length && col.length) ? this.props.header[0][col[1].id] : '-'}
+                        </td>
+                        <td colSpan='1'></td>
+                        <th colSpan='2' style={{textAlign:'left'}}>{(col.length) ? col[2].text : null}</th>
+                        <td colSpan='2'>
+                          {(this.props.header.length && col.length) ? this.props.header[0][col[2].id] : '-'}
+                        </td>
+                  </tr> 
+                )
+            })} 
+
+            <tr><td colSpan="14"> </td></tr>
+
+                <tr>
+                  {this.state.tableheader.map((header, idx) => {
+                      if(header.isVisible){
+                          return (
+                            <th key={idx} 
+                            
+                            id={header.id}>
+                                {header.tableHeaderText} 
+                            
+                            </th>
+                          )
+                      }
+                  }
+                  )}
+
+                  <th className='iconU-edit' onClick={this.props.showEditColumn}></th>
+                </tr> 
+                {this.props.head.map((data, i) =>
+              <tr>
+                {this.state.tableheader.map((column, columnIdx) => {
+                      if(column.isVisible){ 
+                          if(column.id === "line_no"){
+                              return <td key={columnIdx}><label style={{ marginLeft: '20px' }}>{i + 1}</label></td>
+                          }else{
+                              return <td height='40'>{data[column.id] ? data[column.id] : '-'}</td>
+                          }
+                        }
+                          
+                      })
+                    }         
+                  </tr>
+                )}
+            </table>
+
         </div>
         <div className=" p-0"  >
             <div className='paginations paginationSO'>
@@ -319,7 +395,7 @@ class SODTable extends Component {
                         startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                         isActive={this.state.isActive}
                         numberEventClick={this.numberEventClick} />
-                <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                <SODExport ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
                         ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont}/>
             </div>
         </div>

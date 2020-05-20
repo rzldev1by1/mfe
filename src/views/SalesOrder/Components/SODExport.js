@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { InputGroup } from 'reactstrap'
-import '../../../../AppComponent/Export.css';
+import '../../../AppComponent/Export.css';
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import ExportExl from 'react-html-table-to-excel'
 
-class PODExport extends Component {
+class SODExport extends Component {
 	constructor(props) {
         super(props);
 
@@ -136,4 +136,4 @@ class PODExport extends Component {
     }
 }
 
-export default PODExport;
+export default SODExport;

@@ -138,23 +138,23 @@ export default class PurchaseOrderDetail extends Component {
             {/* Header for pdf */} 
             <table id="headerPdf" style={{display: 'none'}}>
             <tr> 
-                    <th width="20%">Site</th>
+                    <th>Site</th>
                     <td>{site ? site : '-'}</td>
                     <td></td>
-                    <th width="20%">Supplier No</th>
+                    <th>Supplier No</th>
                     <td>{supplierNo ? supplierNo : '-'}</td>
                     <td></td>
-                    <th width="20%">Date Received</th>
+                    <th>Date Received</th>
                     <td>{dateReceived ? moment(dateReceived.substring(0, 11)).format("DD/MM/YYYY") : '-'}</td> 
             </tr> 
             <tr> 
-                    <th width="20%">Client</th>
+                    <th>Client</th>
                     <td>{client ? client+": "+client_name : '-'}</td>
                     <td></td>
-                    <th width="20%">Supplier Name</th>
+                    <th>Supplier Name</th>
                     <td>{supplierName ? supplierName : '-'}</td>
                     <td></td>
-                    <th width="20%">Date Due</th>
+                    <th>Date Due</th>
                     <td>{dateDue ? moment(dateDue.substring(0, 11)).format("DD/MM/YYYY") : '-'}</td> 
             </tr>
             <tr> 

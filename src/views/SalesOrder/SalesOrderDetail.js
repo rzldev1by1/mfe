@@ -229,6 +229,109 @@ class SalesOrderDetail extends Component {
                             <td>{freightCharge ? freightCharge : '-'}</td>
                         </tr>
                     </table>
+
+                    <table id="headerPdf" style={{display: 'none'}}>
+                    <tr> 
+                    <th>Site</th>
+                            <td>{site ? site : '-'}</td>
+                            <td></td>
+                            <th>Address 1</th>
+                            <td>{Address1 ? Address1 : '-'}</td>
+                            <td></td>
+                            <th>Status</th>
+                            <td >{status ? status : '-'}</td>
+                    </tr> 
+                    <tr> 
+                            <th>Client</th>
+                            <td>{client ? client : '-'}</td>
+                            <td></td>
+                            <th>Address 2</th>
+                            <td>{Address2 ? Address2 : '-'}</td>
+                            <td></td>
+                            <th>Delivery Date</th>
+                            <td>{dateReceived ? dateReceived.substring(0, 11) : '-'}</td>
+                    </tr>
+                    <tr> 
+                            <th>Order No</th>
+                            <td>{orderNo ? orderNo : '-'}</td>
+                            <td></td>
+                            <th>Address 3</th>
+                            <td>{Address3 ? Address3 : '-'}</td>
+                            <td></td>
+                            <th>Date Received</th>
+                            <td>{dateReceived ? dateReceived.substring(0, 11) : '-'}</td>
+                    </tr>
+                    <tr> 
+                            <th>Order Type</th>
+                            <td>{orderType ? orderType : '-'}</td>
+                            <td></td>
+                            <th>Address 4</th>
+                            <td>{Address4 ? Address4 : '-'}</td>
+                            <td></td>
+                            <th>Date Released</th>
+                            <td>{dateReleased ? dateReleased.substring(0, 11) : '-'}</td>
+                    </tr>
+                    <tr> 
+                            <th>Customer </th>
+                            <td>{this.modifiedCustomerData(customer, customerName)}</td>
+                            <td></td>
+                            <th>Address 5</th>
+                            <td>{Address5 ? Address5 : '-'}</td>
+                            <td></td>
+                            <th>Date Completed</th>
+                            <td>{dateCompleted ? dateCompleted.substring(0, 11) : '-'}</td>
+                    </tr>
+                    <tr> 
+                            <th>Customer Order Ref</th>
+                            <td>{customerPoNo ? customerPoNo : '-'}</td>
+                            <td></td>
+                            <th>Suburb</th>
+                            <td>{city ? city : '-'}</td>
+                            <td></td>
+                            <th>Load Number</th>
+                            <td>{loadNumber ? loadNumber : '-'}</td>
+                    </tr>
+                    <tr> 
+                            <th>Vendor Order Ref</th>
+                            <td>{custOrderNumber ? custOrderNumber : '-'}</td>
+                            <td></td>
+                            <th>Postcode</th>
+                            <td>{postCode ? postCode : '-'}</td>
+                            <td></td>
+                            <th>Loadout Start</th>
+                            <td>{loadoutStart ? loadoutStart.substring(0, 11) : '-'}</td>
+                    </tr>
+                    <tr> 
+                            <th></th>
+                            <td></td>
+                            <td></td>
+                            <th>State</th>
+                            <td>{state ? state : '-'}</td>
+                            <td></td>
+                            <th>Loadout Finish</th>
+                            <td>{loadoutFinish ? loadoutFinish.substring(0, 11) : '-'}</td>
+                    </tr>
+                    <tr> 
+                            <th></th>
+                            <td></td>
+                            <td></td>
+                            <th>Country</th>
+                            <td>{country ? country : '-'}</td>
+                            <td></td>
+                            <th>Consignment No</th>
+                            <td>{consignmentNumber ? consignmentNumber : '-'}</td>
+                    </tr>
+                    <tr> 
+                            <th></th>
+                            <td></td>
+                            <td></td>
+                            <th></th>
+                            <td></td>
+                            <td></td>
+                            <th>Freight Charge</th>
+                            <td>{freightCharge ? freightCharge : '-'}</td>
+                    </tr>
+            </table>
                 </div>
 
             </div>
@@ -254,6 +357,7 @@ class SalesOrderDetail extends Component {
                     className='animated fadeIn' 
                     style={{ display: 'none' }} 
                     head={this.state.line} 
+                    header={this.state.head} 
                     showEditColumn = {() => this.setState({ showEditColumn: true })}
                     getTableHeader = {(e) => this.setState({ tableheader: e })}/>
                 </div>
