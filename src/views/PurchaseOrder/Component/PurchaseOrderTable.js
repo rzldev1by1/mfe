@@ -167,7 +167,7 @@ class PurchaseOrderTable extends Component {
 			}
 			self.setState({ maxPage: totalPage });
 		} else {
-			self.setState({ maxPage: 2 });
+			self.setState({ maxPage: 1 });
 		}
 
 		self.setState({ displayContent: "FOUND",
@@ -183,7 +183,7 @@ class PurchaseOrderTable extends Component {
                     totalRows: 0, maxPage: 0})
 
     axios.get(endpoint.purchaseOrder, {
-      headers: POheaders
+      headers: headers
     })
       .then(res => {
         const result = res.data.data
