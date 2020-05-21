@@ -1331,50 +1331,24 @@ font-family: "Helvetica Neue Medium";
 	margin-bottom: 1%;
 }
 
-.scrolly{
-	overflow-y:scroll;
+.scrollx {
+  overflow-x: scroll !important;
 }
-
-.scrolly::-webkit-scrollbar {
-	width: 8px !important;
-  }
-
-.scrolly::-webkit-scrollbar-thumb {
-	background-color: #B4B9BB;
-	border-radius: 5px;
-  }
-  
-.scrollx{
-	overflow:scroll;
+.scrolly {
+  overflow-y: scroll !important;
 }
-
+.scrolly::-webkit-scrollbar,
 .scrollx::-webkit-scrollbar {
-	width: 8px !important;
-  }
-
-.scrollx::-webkit-scrollbar-thumb {
-	background-color: #B4B9BB;
-	border-radius: 5px;
-  }
-
-  .scrolly{
-	overflow-y:scroll;
-	overflow-x: hidden;
-	min-width: 30em;
-	padding-right: -1% !important;
+  width: 8px !important;
+  height: 8px !important;
+}
+.scrollx::-webkit-scrollbar-thumb,
+.scrolly::-webkit-scrollbar-thumb {
+  background-color: #b4b9bb;
+  border-radius: 5px;
 }
 
-.scrolly::-webkit-scrollbar {
-	width: 8px !important;
-	height: 8px;
-  }
-
-.scrolly::-webkit-scrollbar-thumb {
-	background-color: #B4B9BB;
-	border-radius: 5px;
-  }
-
-  .datePicker{
+.datePicker{
 	position: absolute;
 	background-color: white;
 	z-index: 1;
