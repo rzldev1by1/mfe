@@ -119,6 +119,7 @@ class UserManagementDetail extends Component{
 
        menus = this.setMenuBasedUser(menus);
        clients = this.setClientBasedUser(clients);
+       sites = this.setSiteBasedUser(sites);
 
       if(menus.length && sites.length && clients.length)
         this.setState({moduleAccess:menus,sites:sites,clients:clients});
@@ -149,6 +150,20 @@ class UserManagementDetail extends Component{
         });
       }
       return menus;
+    }
+
+    setSiteBasedUser = (sites) => {
+      const {site} = this.state.accountInfo;
+      if(sites.length){
+          if(site){
+            let idx = sites.findIndex((item)=> item.site.toLowerCase() === site.toLowerCase());
+            if(idx>=0){
+              sites[idx]["status"] = true;
+            }
+          }
+
+      }
+      return sites;
     }
 
     readSessionStorage=(keyName) => {

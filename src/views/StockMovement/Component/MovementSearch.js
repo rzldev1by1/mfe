@@ -6,6 +6,7 @@ import Dropdown from '../../../AppComponent/Dropdown'
 import axios from 'axios'
 import {endpoint, headers} from '../../../AppComponent/ConfigEndpoint'
 import AutoComplete from '../../../AppComponent/AutoComplete'
+import DropdownPeriod from './DropdownPeriod'
 
 export default class MovementSearch extends Component {
     constructor(props){
@@ -47,8 +48,12 @@ export default class MovementSearch extends Component {
         this.setState({periodExpand: !this.state.periodExpand})
     }
 
-    periodHanlder = (e) => {
-        this.setState({periodSelected: e.target.id, periodText:e.target.textContent, periodExpand:false, dateFromShow:true})
+    periodHanlder = (any) => {
+        // alert(any.periodSelected);
+        this.setState({periodSelected: any.periodSelected, 
+            periodText:any.periodText, 
+            periodExpand:false, 
+            dateFromShow:true});
     }
 
     dateFromHandler = (day) => {
@@ -298,7 +303,8 @@ export default class MovementSearch extends Component {
             <div>
                 <table width='100%'>
 						<tr>
-							<td width='10%'>{this.displayPeriod()}</td>
+							{/* <td width='10%'>{this.displayPeriod()}</td> */}
+							<td width='10%'><DropdownPeriod periodHandler={this.periodHanlder}/> </td>
 							<td width='36%'>{this.displayDate()}</td>
                             <td className="bar">{this.showDropdowns()}</td>
 							<td  width='30%' style={{textAlign: "right"}}>

@@ -188,8 +188,8 @@ class PurchaseOrder extends Component {
         let clientValue = [];
         let siteData = [];
         let siteValue =[];
-          let status =["1:Unavailable", "2:Released",  "3:Open","4:Completed", "All"];
-          let statusValue = ["Unavailable", "Open", "Released", "Completed", "All"];
+        let status = ["0:Unavailable","1:Available", "2:Released",  "3:Open","4:Completed", "All"];
+        let statusValue =["unavailable","available", "released", "open", "completed", 'all'];
           let orderTypeName = [];
           let orderTypeValue = [];
         if(this.state.clientdata){

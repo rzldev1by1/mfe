@@ -3,8 +3,8 @@ import './StockMovement.css'
 import 'react-day-picker/lib/style.css'
 import Movement from '../PurchaseOrder/Component/Movement'
 import MovementSearch from './Component/MovementSearch'
-import Pagination from '../../AppComponent/Pagination'
-import Export from '../../AppComponent/Export'
+//import Pagination from '../../AppComponent/Pagination'
+//import Export from '../../AppComponent/Export'
 import ExportExcel from '../../AppComponent/ExportExcel'
 import moment from 'moment';
 
@@ -122,16 +122,16 @@ class StockMovement extends Component {
 					<MovementSearch getStockMovement = {this.getStockMovement} />
 				</div>
 				<div className={this.state.isComplete ? 'fades' : 'hidden'}>
-				<Movement ref={this.getStockMovement} isComplete={(val) => this.setState({isComplete:val})} data={(data) => this.setState({data:data},() => this.setPagiantion.current.getData(this.state.data))}/>
+				<Movement ref={this.getStockMovement} isComplete={(val) => this.setState({isComplete:val})} data={this.state.data}/>
 				</div>
 				<div className={this.state.isComplete ? 'hidden' : 'spinner'}/>
 					
-					<div className={this.state.isComplete ?   'fades paginations' : 'hidden'}>
+					{/* <div className={this.state.isComplete ?   'fades paginations' : 'hidden'}>
 						<Pagination sliceValue={(startIndex, endIndex) => this.getStockMovement.current.setSliceValue(startIndex, endIndex)} 
 												ref={this.setPagiantion} data={this.state.data} 
 												rows={50}/> 
-						<ExportExcel ExportName={this.ExportName}/>
-					</div>				 
+						{((this.state.data.length>0)?<ExportExcel ExportName={this.ExportName}/>:null)}
+					</div>				  */}
 			</div>
 		)
 	}

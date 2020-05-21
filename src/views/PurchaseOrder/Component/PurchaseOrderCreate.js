@@ -10,6 +10,7 @@ import twoactive from '../../../assets/img/brand/tab_2_blue@2x.png'
 import date from '../../../assets/img/brand/field_date@2x.png'
 import DayPicker from 'react-day-picker';
 import './Style/PurchaseOrderCreate.css'
+import '../../SalesOrder/SalesOrder.css'
 import 'react-day-picker/lib/style.css';
 import moment from 'moment'
 import AutoComplete from '../../../AppComponent/AutoComplete'
@@ -628,27 +629,30 @@ if(v_orderNo === undefined) v_orderNo = []
             </tr>
        
         <h3 className="fonts so-header-title">Line Details</h3>
-        <div className="line">
+        <div className="scroll-x-y-visible">
           <table className="tabledetails">
               <tr>
-                <th style={{width:"3.5%", textAlign:"center"}}>#</th>
-                <th className='required-field' style={{width:"12%"}}>Product</th>
-                <th style={{width:"12%", paddingLeft:"6px"}}>Description</th>
-                <th className='required-field' style={{width:"5%", paddingLeft:"4px"}}>Qty</th>
-                <th style={{width:"5%", paddingLeft:"3px"}}>Weight</th>
-                <th className='required-field' style={{width:"6%", paddingLeft:"2px"}}>UOM</th>
-                <th style={{width:"11%", paddingLeft:"1px"}}>Rota Date</th>
-                <th style={{width:"6%", paddingLeft:"8px"}}>Batch</th>
-                <th style={{width:"5%", paddingLeft:"7px"}}>Ref3</th>
-                <th style={{width:"5%", paddingLeft:"5px"}}>Ref4</th>
-                <th style={{width:"6%", paddingLeft:"1px", paddingRight:"25px"}}>Disposition</th>
+                <th><div id='orderline-header-number-id'>#</div></th>
+                <th><div id='orderline-header-product-id'>Product</div></th>
+                <th><div id='orderline-header-description-id'>Description</div></th>
+                <th><div id='orderline-header-qty-id'>Qty</div></th>
+                <th><div id='orderline-header-weight-id'>Weight</div></th>
+                <th><div id='orderline-header-uom-id'>UOM</div></th>
+                <th><div id='orderline-header-rotadate-id'>Rota Date</div></th>
+                <th><div id='orderline-header-batch-id'>Batch</div></th>
+                <th><div id='orderline-header-ref3-id'>Ref3</div></th>
+                <th><div id='orderline-header-ref4-id'>Ref4</div></th>
+                <th><div id='orderline-header-disposition-id'>Disposition</div></th>
               </tr>                               
             </table>
+            {this.state.rowlist.map((list, i) => {
+              return(
+                this.linedetailsrow(list, i)
+              )
+            })}
+             <button onClick={() => this.addline()} type="button" className="btn btn-light  addlinePO default-box-height so-add-line"  tabIndex="2" >+ Add Line</button>
           </div>
-            <div className={"tablerow "} style={{width:"98%"}}>
-              {this.state.rowlist.map((list, i) => this.linedetailsrow(list, i))}
-            </div>
-              <button onClick={() => this.addline()} type="button" className="btn btn-light  addlinePO default-box-height"  tabIndex="2" >+ Add Line</button>
+             
 
               {this.state.tab2isactive ? 
               this.submit() :  
@@ -811,75 +815,162 @@ if(v_orderNo === undefined) v_orderNo = []
     <form ref={"orderLine" + list.lineNumber}>
       <table>
         <tr>
-            <td hidden id={list.lineNumber} ></td>
-            <td style={{width:"3.5%", textAlign:"center"}}><input className="form-control inputs pec" style={{ textAlign:"center" }} defaultValue={list.lineNumber} readOnly/></td>
-            <td style={{width:"12%"}}>
-                {/* <AutoComplete   useFor="POLineDetails"
-                                suggestions={self.state.productcr}
-                                    suggestionsValue={self.state.productcr}
-                                    defaultValue={self.state.rowlist[i].product}
-                                    handleChange={(e) => {self.state.rowlist[i].product = e; this.getuom(i, e)}} 
-                                    inputStyle={{position: "relative", width: "100%"}}
-                                    listStyle={{width: "100%"}}
-                                    listBoxStyle={{width: "14%", marginTop: "10px"}}
-                                    placeHolder="Product"
-                                    getIndex={(e) => self.state.rowlist[i].productDescription = self.state.productdesccr[e]}
-                                    /> */}
-                <AutoComplete   ref={"product" + list.lineNumber}
-                                placeHolder="Product"
-                                style={{width: "100%", zIndex: this.state.rowlist.length - i}}
-                                optionList={this.state.productcr.toString()}
-                                optionValue={this.state.productcr.toString()}
-                                getValue={(e) => this.getProductValue(e, i)}
-                                optionSelected={this.state.rowlist[i].product}
-                                tabIndex="2" uppercase={true}  />
+            <td>
+              <div id="orderline-header-number-val-id">
+                <input  className="form-control put "
+                        id="rowNumber"
+                        readOnly
+                        defaultValue={list.lineNumber} 
+                        readOnly/>
+              </div>              
             </td>
-            <td style={{width:"12%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Choose a Product First" defaultValue={this.state.rowlist[i].productDescription} readOnly/></td>
-            <td style={{width:"5%"}}><input tabIndex="2" type='number'  id={'qty_'+i} min="1" maxLength='9' className="form-control inputs pec" placeholder="Qty" value={this.state.rowlist[i].qty} onKeyPress={(e) => this.checkQty(e)} onChange={(e) => this.setQty(e, i)}/></td>
-            <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Weight"  maxLength="30" defaultValue={this.state.rowlist[i].weight} onChange={(e) => {this.state.rowlist[i].weight = e.target.value; this.setState({ rowlist: this.state.rowlist })}} /></td>
-            <td style={{width:"6%"}}>
+            <td>
+                <div id="orderline-header-product-val-id">
+                  <AutoComplete   ref={"product" + list.lineNumber}
+                                  placeHolder="Product"
+                                  style={{width: "100%", zIndex: this.state.rowlist.length - i}}
+                                  optionList={this.state.productcr.toString()}
+                                  optionValue={this.state.productcr.toString()}
+                                  getValue={(e) => this.getProductValue(e, i)}
+                                  optionSelected={this.state.rowlist[i].product}
+                                  tabIndex="2" uppercase={true}  />
+                </div>                
+            </td>
+            <td>
+              <div id='orderline-header-description-val-id'>
+                <input  tabIndex="2"  
+                        className="form-control inputs pec" 
+                        placeholder="Choose a Product First" 
+                        defaultValue={this.state.rowlist[i].productDescription} 
+                        readOnly/>
+              </div>
+            </td>
+            <td>
+              <div id='orderline-header-qty-val-id'>
+                <input  tabIndex="2" 
+                        type='number'  
+                        id={'qty_'+i} 
+                        min="1" 
+                        maxLength='9' 
+                        className="form-control inputs pec" 
+                        placeholder="Qty" 
+                        value={this.state.rowlist[i].qty} 
+                        onKeyPress={(e) => this.checkQty(e)} 
+                        onChange={(e) => this.setQty(e, i)}/>
+              </div>
+            </td>
+            <td>
+              <div id='orderline-header-weight-val-id'>
+                <input  tabIndex="2"  
+                        className="form-control inputs pec" 
+                        placeholder="Weight"  
+                        maxLength="30" 
+                        defaultValue={this.state.rowlist[i].weight} 
+                        onChange={(e) => {this.state.rowlist[i].weight = e.target.value; this.setState({ rowlist: this.state.rowlist })}} />
+              </div>
+            </td>
+            <td>
+              <div id='orderline-header-uom-val-id'>
                 <Dropdown placeHolder="UOM" 
-                            style={{width: "100%", zIndex: this.state.rowlist.length - i}} 
-                            optionList={this.state.uomcr.toString()} 
-                            optionValue={this.state.uomcr.toString()} 
-                            getValue={(e) => {this.state.rowlist[i].uom = e; this.setState({ rowlist: this.state.rowlist })}}
-                            optionSelected={this.state.rowlist[i].uom} tabIndex="2"  />
+                              style={{width: "100%", zIndex: this.state.rowlist.length - i}} 
+                              optionList={this.state.uomcr.toString()} 
+                              optionValue={this.state.uomcr.toString()} 
+                              getValue={(e) => {this.state.rowlist[i].uom = e; this.setState({ rowlist: this.state.rowlist })}}
+                              optionSelected={this.state.rowlist[i].uom} tabIndex="2"  />
+              </div>                
             </td>
-            <td style={{width:"11%"}}><DatePicker tabIndex="2" top={true} style={{ minWidth: "100%" }} field="smallField" getDate={(e) => this.state.rowlist[i].rotadate = e} defaultValue={this.state.rowlist[i].rotadate} /> </td>
-            <td style={{width:"6%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Batch"  maxLength="30" defaultValue={this.state.rowlist[i].batch} onChange={(e) => {this.state.rowlist[i].batch = e.target.value; this.setState({ rowlist: this.state.rowlist })}} /></td>
-            <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Ref3"  maxLength="30" defaultValue={this.state.rowlist[i].ref3} onChange={(e) => {this.state.rowlist[i].ref3 = e.target.value; this.setState({ rowlist: this.state.rowlist })}} /></td>
-            <td style={{width:"5%"}}><input tabIndex="2"  className="form-control inputs pec" placeholder="Ref4"  maxLength="30" defaultValue={this.state.rowlist[i].ref4} onChange={(e) => {this.state.rowlist[i].ref4 = e.target.value; this.setState({ rowlist: this.state.rowlist })}} /></td>
-            <td style={{width:"6.5%"}}>
-                <AutoComplete placeHolder="Dis" 
-                            style={{width: "100%", zIndex: this.state.rowlist.length - i}} 
-                            optionList={this.state.dispositioncr.toString()} 
-                            optionValue={this.state.dispositioncr.toString()} 
-                            getValue={(e) => {this.state.rowlist[i].disposition = e; this.setState({ rowlist: this.state.rowlist })}} 
-                            optionSelected={this.state.rowlist[i].disposition}
-                            tabIndex="2" 
-                            />
-                            </td>
-            <td id={list.lineNumber} onClick={(e) => this.deletelinehandler(e, i)} style={{width:"1.5%"}}  tabIndex="2" ><div className="iconU-delete"/></td>
+            <td>
+              <div id='orderline-header-rotadate-val-id'>
+                <DatePicker tabIndex="2" 
+                            top={true} 
+                            style={{ minWidth: "100%" }} 
+                            field="smallField" 
+                            getDate={(e) => this.state.rowlist[i].rotadate = e} 
+                            defaultValue={this.state.rowlist[i].rotadate} />
+              </div>
+            </td>
+            <td>
+              <div id='orderline-header-batch-val-id'>
+                <input  tabIndex="2"  
+                        className="form-control inputs pec" 
+                        placeholder="Batch"  
+                        maxLength="30" 
+                        defaultValue={this.state.rowlist[i].batch} 
+                        onChange={(e) => {this.state.rowlist[i].batch = e.target.value; this.setState({ rowlist: this.state.rowlist })}} />
+              </div>
+            </td>
+            <td>
+              <div id='orderline-header-ref3-val-id'>
+                <input  tabIndex="2"  
+                        className="form-control inputs pec" 
+                        placeholder="Ref3"  
+                        maxLength="30" 
+                        defaultValue={this.state.rowlist[i].ref3} 
+                        onChange={(e) => {this.state.rowlist[i].ref3 = e.target.value; this.setState({ rowlist: this.state.rowlist })}} />
+              </div>
+            </td>
+            <td>
+              <div id='orderline-header-ref4-val-id'>
+                <input  tabIndex="2"  
+                        className="form-control inputs pec" 
+                        placeholder="Ref4"  
+                        maxLength="30" 
+                        defaultValue={this.state.rowlist[i].ref4} 
+                        onChange={(e) => {this.state.rowlist[i].ref4 = e.target.value; this.setState({ rowlist: this.state.rowlist })}} />
+              </div>
+            </td>
+            <td>
+                <div id='orderline-header-disposition-val-id'>
+                  <AutoComplete placeHolder="Dis" 
+                              style={{width: "100%", zIndex: this.state.rowlist.length - i}} 
+                              optionList={this.state.dispositioncr.toString()} 
+                              optionValue={this.state.dispositioncr.toString()} 
+                              getValue={(e) => {this.state.rowlist[i].disposition = e; this.setState({ rowlist: this.state.rowlist })}} 
+                              optionSelected={this.state.rowlist[i].disposition}
+                              tabIndex="2" />
+                </div>
+            </td>
+            <td>
+                <div id='orderline-header-number-val-id' tabIndex="3">
+                  <label onClick={(e) => this.deletelinehandler(e, i)} className="iconU-delete"></label>
+                </div>
+            </td>
           </tr>
           <tr>
-            <td hidden id={list.lineNumber}></td>
-            <td style={{width:"3.5%", textAlign:""}}></td>
-            <td style={{width:"12%"}} className={'po-order-line-required ' + (mProduct)}>Please select product</td>
-            <td style={{width:"12%"}}></td>
-            <td style={{width:"3.5%"}} className={'po-order-line-required ' + (mQty)}>Qty cannot be empty</td>
-            <td style={{width:"5%"}}></td>
-            <td style={{width:"6%"}} className={'po-order-line-required ' + (mUom)}>Please select uom</td>
-            <td style={{width:"6.5%"}}></td>
-            <td style={{width:"6%"}}></td>
-            <td style={{width:"5%"}}></td>
-            <td style={{width:"5%"}}></td>
-            <td style={{width:"6%"}}></td>
+            <td>
+              <div id="orderline-header-number-val-id"></div>              
+            </td>
+            <td>
+                <div id="orderline-header-product-val-id" className={'po-order-line-required ' + (mProduct)}>Please select product</div>                
+            </td>
+            <td>
+              <div id='orderline-header-description-val-id'></div>
+            </td>
+            <td>
+              <div id='orderline-header-qty-val-id' className={'po-order-line-required ' + (mQty)}>Qty cannot be empty</div>
+            </td>
+            <td>
+              <div id='orderline-header-weight-val-id'></div>
+            </td>
+            <td>
+              <div id='orderline-header-uom-val-id' className={'po-order-line-required ' + (mUom)}>Please select uom</div>                
+            </td>
+            <td>
+              <div id='orderline-header-rotadate-val-id'></div>
+            </td>
+            <td>
+              <div id='orderline-header-batch-val-id'></div>
+            </td>
+            <td>
+              <div id='orderline-header-ref3-val-id'></div>
+            </td>
+            <td>
+              <div id='orderline-header-ref4-val-id'></div>
+            </td>
+            <td>
+                <div id='orderline-header-disposition-val-id'></div>
+            </td>
           </tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>{this.state.showdaterote ? <DatePicker getChosenDay={(day) => this.datePickerRote(day)}/> : null}</td>
       </table>
       </form>
     )
@@ -896,7 +987,7 @@ if(v_orderNo === undefined) v_orderNo = []
             <td style={{width:"3.5%"}}><input className="form-control inputs pec" value={list.qty} readOnly/></td>
             <td style={{width:"5%"}}><input className="form-control inputs pec" value={list.weight} readOnly/></td>
             <td style={{width:"6%"}}><input className="form-control inputs pec" value={list.uom} readOnly/></td>
-            <td style={{width:"6.5%"}}><input className="form-control inputs pec" value={moment(list.rotadate).format("DD MMMM YYYY")} readOnly/></td>
+            <td style={{width:"6.5%"}}><input className="form-control inputs pec" value={list.rotadate ? moment(list.rotadate).format("DD MMMM YYYY") : null} readOnly/></td>
             <td style={{width:"6%"}}><input className="form-control inputs pec" value={list.batch} readOnly/></td>
             <td style={{width:"5%"}}><input className="form-control inputs pec" value={list.ref3} readOnly/></td>
             <td style={{width:"5%"}}><input className="form-control inputs pec" value={list.ref4} readOnly/></td>

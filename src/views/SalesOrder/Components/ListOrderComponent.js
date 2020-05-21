@@ -440,6 +440,7 @@ class ListOrderComponent extends Component {
     if(code && name) return code+' ( '+name+' )'
     if(!code && name) return name
     if(!code && !name) return '-'
+    if(code && !name) return code
   }
 
   filterDataHandler = (key, value, idx) => {

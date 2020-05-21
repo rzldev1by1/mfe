@@ -486,3 +486,8 @@ tbody>.tr1:hover {
 		margin: 0;
 	} */
 }
+ 
+
+.xlsHeaderAlign {
+	text-align: left !important;
+}

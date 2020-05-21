@@ -1,39 +1,46 @@
 @media(max-width: 2750px) { /* //zoom 50% */
 	.tablePagePo{
 		max-height: 780px !important; 
+		min-height: 780px !important; 
 	}
 }
 @media(max-width: 2100px) { /* //zoom 67% */
 	.tablePagePo{
 		max-height: 490px !important;
+		min-height: 490px !important;
 	}
 }
 @media(max-width: 1830px) {  /* //zoom 75% */
 	.tablePagePo{
 		max-height: 400px !important;
+		min-height: 400px !important;
 	}
 }
 @media(max-width: 1710px) {  /* //zoom 80% */
 	.tablePagePo{
 		max-height: 352px !important;
+		min-height: 352px !important;
 	}
 }
 @media(max-width: 1520px) {  /* //zoom 90% */
 	.tablePagePo{
 		max-height: 270px !important;
+		min-height: 270px !important;
 	}
 }
 @media(max-width: 1366px) {  /* //zoom 100% */
 	.tablePagePo{
 		max-height: 205px !important;
+		min-height: 205px !important;
 	}
 }
 @media(max-width: 1242px) {  /* //zoom 110% */
 	.tablePagePo{
-		min-height: 0px !important;
+		min-height: 150px !important;
 		max-height: 150px !important;
-	}
-	.tablePage{
-		min-height: 0px !important; 
-	}
+	} 
 }  
+
+.xlsHeaderAlign {
+	text-align: left !important;
+}

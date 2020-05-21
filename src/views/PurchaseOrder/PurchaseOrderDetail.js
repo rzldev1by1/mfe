@@ -32,10 +32,8 @@ export default class PurchaseOrderDetail extends Component {
           headers: POheaders
         })
           .then(res => {
+            console.log(res);
             const result = res.data.data
-            for(let x=0; x<50; x++){
-                result.push(res.data.data); 
-            }
             this.setState({ datahead:result}) 
             this.potableref.current.setPagination(res)
             
@@ -45,7 +43,10 @@ export default class PurchaseOrderDetail extends Component {
           })
     }
     
-
+    getState = (statex) => {
+        console.log(this.state.site);
+        return this.state[statex];
+    }
     
     header = () => {
         let site = this.state.datahead.length ? this.state.datahead[0].site : null
@@ -133,6 +134,55 @@ export default class PurchaseOrderDetail extends Component {
                     </tr>
                 </table>
             </div>
+
+            {/* Header for pdf */} 
+            <table id="headerPdf" style={{display: 'none'}}>
+            <tr> 
+                    <th>Site</th>
+                    <td>{site ? site : '-'}</td>
+                    <td></td>
+                    <th>Supplier No</th>
+                    <td>{supplierNo ? supplierNo : '-'}</td>
+                    <td></td>
+                    <th>Date Received</th>
+                    <td>{dateReceived ? moment(dateReceived.substring(0, 11)).format("DD/MM/YYYY") : '-'}</td> 
+            </tr> 
+            <tr> 
+                    <th>Client</th>
+                    <td>{client ? client+": "+client_name : '-'}</td>
+                    <td></td>
+                    <th>Supplier Name</th>
+                    <td>{supplierName ? supplierName : '-'}</td>
+                    <td></td>
+                    <th>Date Due</th>
+                    <td>{dateDue ? moment(dateDue.substring(0, 11)).format("DD/MM/YYYY") : '-'}</td> 
+            </tr>
+            <tr> 
+                    <th>Order No</th>
+                    <td>{orderNo ? orderNo : '-'}</td>
+                    <td></td>
+                    <th>Customer Order Ref</th>
+                    <td>{customerOrderRef ? customerOrderRef : '-'}</td>
+                    <td></td>
+                    <th>Date Released</th>
+                    <td>{dateReleased ? moment(dateReleased.substring(0, 11)).format("DD/MM/YYYY") : '-'}</td> 
+            </tr>
+            <tr> 
+                    <th>Order Type</th>
+                    <td>{orderType ? orderType : '-'}</td>
+                    <td></td>
+                    <th>Vendor Order Ref</th>
+                    <td>{vendorOrderNo ? vendorOrderNo : '-'}</td>
+                    <td></td>
+                    <th>Date Completed</th>
+                    <td>{dateCompleted ? moment(dateCompleted.substring(0, 11)).format("DD/MM/YYYY") : '-'}</td>
+            </tr>
+            <tr> 
+                        <th>Status</th>
+                        <td >{status ? status+ ': ' +statusDesc.substring(3)  : '-'}</td>
+            </tr>
+            </table>
+
         </div>
         )
     }
@@ -161,7 +211,7 @@ export default class PurchaseOrderDetail extends Component {
                             datahead = {this.state.datahead}
                             showEditColumn = {() => this.setState({ showEditColumn: true })}
                             getTableHeader = {(e) => this.setState({ tableheader: e })}
-                            
+                            getState = {this.getState}
                     />
                 </div>
                 <div className={( this.state.datahead.length ? 'hidden': 'spinner')}/>

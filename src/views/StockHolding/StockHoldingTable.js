@@ -11,7 +11,7 @@ class componentTable extends Component {
 					if (item.isVisible) {
                         
                         return (
-                            <th className="text-left" id={item.key} key={idx} onClick={() => this.props.arrowHandler(idx, item.key)}>
+                            <th className="text-left" style={{width:`${item.width}`}} id={item.key} key={idx} onClick={() => this.props.arrowHandler(idx, item.key)}>
                                 {item.tableHeaderText} <img key={idx} className="sort-icon" src={item.sort} />
                             </th>
                         );
@@ -99,7 +99,7 @@ class componentTable extends Component {
         return (
             <div className="col-12 p-0  tablecontent mt-0">
                 <div className={this.props.isSearch ? "spinner" : "d-none"} />
-                <div className={this.props.isSearch ? "d-none" : "tablePage tableContent"}>					
+                <div className={this.props.isSearch ? "d-none" : "tablePage tablePageSH tableContent"}>					
                     {/* <Table className="table-condensed table-striped clickable-row mb-0" size="md">
                         <thead >{this.showHeader()}</thead>
                         <tbody style={{fontSize:'1rem'}}>{this.showData()}</tbody> 

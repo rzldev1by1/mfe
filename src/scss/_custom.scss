@@ -489,7 +489,8 @@ h2{
 }
 
 .LogoutLink{ 
-    color: #959DA0;
+	color: #959DA0;
+	font-size: 14px;
 }
 
 .LogoutLink:hover{ 
@@ -539,7 +540,7 @@ hr.border-header {
     color: #637176;
     width: 100%;
 	display: flex;
-	font-size: 30px !important;
+	font-size: 30px;
 }
 
 .breadcrumb-item {
@@ -1133,8 +1134,8 @@ span.upArrow:before {
 
 /* table style*/ 
 .tablePage{ 
-	min-height: 200px; 
-	max-height: 100vh !important;
+	// min-height: calc(100vh - 40vh  ) !important;
+	//max-height: calc(100vh) !important;
 	overflow-y: auto;
 	font-size: 1.1em;   
 	clear: both;
@@ -1153,50 +1154,55 @@ span.upArrow:before {
 	padding-left: 109px !important;
 	padding-right: 0.9%;  
 	width: 100%;
+    z-index:1;
 }
   
- 
+// table page ini pengaruh sama modul (PO Sum, SO sum, SH summary) sisanya di modul css masing"
+@media(max-width: 2750px) { /* //zoom 50% */
+	.tablePage{
+		max-height: 960px ; 
+		min-height: 960px ; 
+	}
+}
+
 @media(max-width: 2100px) { //zoom 67%
 	.tablePage{
 		max-height: 665px;
-		//max-height: 100vh;
+		min-height: 665px; 
 	}
 }
 @media(max-width: 1830px) {  //zoom 75%
 	.tablePage{
 		max-height: 565px;
-		//max-height: 100vh;
+		min-height: 565px; 
 	}
 }
 @media(max-width: 1710px) {  //zoom 80%
 	.tablePage{
 		max-height: 515px;
-		//max-height: 100vh;
+		min-height: 515px; 
 	}
 }
 @media(max-width: 1520px) {  //zoom 90%
 	.tablePage{
 		max-height: 430px;
-		//max-height: 100vh;
+		min-height: 430px; 
 	}
 }
 @media(max-width: 1366px) {  //zoom 100%
 	.tablePage{
 		max-height: 360px;
-		//max-height: 100vh;
+		min-height: 360px; 
 	}
 }
 @media(max-width: 1242px) {  //zoom 110%
 	.tablePage{
 		max-height: 300px;
-		//max-height: 100vh;
+		min-height: 300px; 
 	}
 } 
-@media(max-width: 1000px) {
-	.tablePage{
-		max-height: 300px;
-		//max-height: 100vh;
-	}
+
+@media(max-width: 1000px) { 
 
 	.paginations{
 		position: relative;
@@ -1635,7 +1641,7 @@ font-family: "Helvetica Neue Medium";
 }
 
 .select_dropdown:hover, .select_dropdown:focus-within{
-	transition: 0.2s ease-in;
+	// transition: 0.2s ease-in;
 	border: 1px solid $primaryColor !important !important;
 }
 
@@ -1724,7 +1730,7 @@ font-family: "Helvetica Neue Medium";
 	position: absolute;
 	top: 0;
 	left: 0;
-	color: #D5D8E7;
+	color: #bebebe;
 	background-color: transparent;
 	display: block;
 }
@@ -1805,6 +1811,10 @@ font-family: "Helvetica Neue Medium";
 .select_datepicker_expand::after {
     top: 30% !important;
     right: 1px !important;
+}
+.dropDownForOrderLine{
+    position: absolute;
+    margin-top: -25px;
 }
 
 //th cursor pointer

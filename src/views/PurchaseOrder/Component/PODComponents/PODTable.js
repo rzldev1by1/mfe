@@ -6,8 +6,8 @@ import down from '../../../../assets/img/brand/field-bot.png'
 import up from '../../../../assets/img/brand/field-top.png'
 import ok from '../../../../assets/img/brand/ok.png'
 import minus from '../../../../assets/img/brand/minus.png'
-import Paging from '../../../../AppComponent/Paging';
-import Export from '../../../../AppComponent/Export'
+import Paging from '../../../../AppComponent/Paging'
+import PODExport from './PODExport'
 
 import {endpoint, headers} from '../../../../AppComponent/ConfigEndpoint'
 
@@ -253,7 +253,7 @@ class PurchaseOrderTable extends Component {
 
 		if (respondRes.length > self.state.displayPage) {
 			totalPage = respondRes % self.state.displayPage;
-			if (totalPage > 0 && totalPage < 1) {
+			if (totalPage > 0 && totalPage < 50) {
 				totalPage = parseInt(respondRes.length / self.state.displayPage) + 1;
 			} else {
 				totalPage = respondRes.length / self.state.displayPage;
@@ -355,7 +355,8 @@ class PurchaseOrderTable extends Component {
   };
 
   ExportData = () => {
-    let datax = this.props.datahead.map(elt=> [elt.orig_line_number,   
+    let i = 1;
+    let line_data = this.props.datahead.map(elt=> [i++,   
       elt.product,  
       elt.product_name,  
       elt.quantity,  
@@ -363,15 +364,37 @@ class PurchaseOrderTable extends Component {
       elt.qty_processed,  
       elt.weight,  
       elt.weight_processed,   
+      elt.completed,   
       elt.batch,  
       elt.rotadate, 
       elt.ref3, 
       elt.ref4,  
       elt.disposition
-    ]); 
-    console.log("--------------------------------");
-    console.log(datax);
-    return datax;
+    ]);  
+
+    let header = this.props.datahead[0]; 
+    let header_data =  [
+      header.site,
+      header.client,
+      header.client_name,
+      header.order_no,
+      header.order_type,
+      header.supplier_id,
+      header.supplier_name,
+      header.customer_order_ref,
+      header.vendor_ord_ref,
+      header.vendor_ord_ref,
+      header.status,
+      header.status_description,
+      header.delivery_date,
+      header.date_released,
+      header.date_completed,
+      header.date_received 
+    ];
+
+    console.log("------------------");
+    console.log(header_data);
+    return line_data;
 
     // let data = [];
     // this.props.datahead.map((datax,i) =>  
@@ -397,8 +420,9 @@ class PurchaseOrderTable extends Component {
   render(){
     return(
       <div>
+
           <div className="tablePage tablePagePo">
-            <table className="defaultTable" id="excel">
+            <table className="defaultTable">
               <thead>
                 <tr>
                   {this.state.tableheader.map((header, idx) => {
@@ -446,8 +470,116 @@ class PurchaseOrderTable extends Component {
                       
               </tbody>
             </table>
+
+            <table style={{display: 'none'}} id="excel"> 
+
+            <tr>
+                      <th colSpan='2' style={{textAlign:'left'}}>Site</th>
+                      <td colSpan='2'>
+                        {this.props.datahead.length ? this.props.datahead[0].site : '-'}
+                      </td>
+                      <td colSpan='1'></td>
+                      <th colSpan='2' style={{textAlign:'left'}}>Supplier No</th>
+                      <td colSpan='2'>
+                        {this.props.datahead.length ? this.props.datahead[0].supplier_id : '-' }
+                      </td>
+                      <td colSpan='1'></td>
+                      <th colSpan='2' style={{textAlign:'left'}}>Date Received</th>
+                      <td colSpan='2'>
+                         {this.props.datahead.length ? this.props.datahead[0].date_received : '-'}
+                      </td>
+            </tr>
+            <tr>
+                      <th colSpan='2' style={{textAlign:'left'}}>Client</th>
+                      <td colSpan='2'>
+                        {this.props.datahead.length ? this.props.datahead[0].client : '-'}
+                      </td>
+                      <td colSpan='1'></td>
+                      <th colSpan='2' style={{textAlign:'left'}}>Supplier Name</th>
+                      <td colSpan='2'>
+                        {this.props.datahead.length ? this.props.datahead[0].supplier_name : '-' }
+                      </td>
+                      <td colSpan='1'></td>
+                      <th colSpan='2' style={{textAlign:'left'}}>Date Due</th>
+                      <td colSpan='2'>
+                         {this.props.datahead.length ? this.props.datahead[0].delivery_date : '-'}
+                      </td>
+            </tr>
+            <tr>
+                      <th colSpan='2' style={{textAlign:'left'}}>Order No</th>
+                      <td colSpan='2'>
+                        {this.props.datahead.length ? this.props.datahead[0].order_no : '-'}
+                      </td>
+                      <td colSpan='1'></td>
+                      <th colSpan='2' style={{textAlign:'left'}}>Customer Order Ref</th>
+                      <td colSpan='2'>
+                        {this.props.datahead.length ? this.props.datahead[0].customer_order_ref : '-' }
+                      </td>
+                      <td colSpan='1'></td>
+                      <th colSpan='2' style={{textAlign:'left'}}>Date Released</th>
+                      <td colSpan='2'>
+                         {this.props.datahead.length ? this.props.datahead[0].date_released : '-'}
+                      </td>
+            </tr>
+            <tr>
+                      <th colSpan='2' style={{textAlign:'left'}}>Order Type</th>
+                      <td colSpan='2'>
+                        {this.props.datahead.length ? this.props.datahead[0].order_type : '-'}
+                      </td>
+                      <td colSpan='1'></td>
+                      <th colSpan='2' style={{textAlign:'left'}}>Vendor Order Ref</th>
+                      <td colSpan='2'>
+                        {this.props.datahead.length ? this.props.datahead[0].vendor_ord_ref : '-' }
+                      </td>
+                      <td colSpan='1'></td>
+                      <th colSpan='2' style={{textAlign:'left'}}>Date Completed</th>
+                      <td colSpan='2'>
+                         {this.props.datahead.length ? this.props.datahead[0].date_completed : '-'}
+                      </td>
+            </tr>
+            <tr>
+                      <th colSpan='2' style={{textAlign:'left'}}>Status</th>
+                      <td colSpan='2'>
+                        {this.props.datahead.length ? this.props.datahead[0].status : '-'}
+                      </td> 
+            </tr>
+
+            <tr><td colSpan="14"> </td></tr>
+
+                <tr>
+                  {this.state.tableheader.map((header, idx) => {
+                      if(header.isVisible){
+                          return (
+                            <th key={idx} 
+                            
+                            id={header.id}>
+                                {header.tableHeaderText} 
+                            
+                            </th>
+                          )
+                      }
+                  }
+                  )}
+
+                  <th className='iconU-edit' onClick={this.props.showEditColumn}></th>
+                </tr> 
+                  {this.props.datahead.map((data,i) => 
+                      <tr key={i} className='tr'>
+                        {this.state.tableheader.map((column, columnIdx) => {
+                            if(column.isVisible){
+                                if(column.id === "line_no"){
+                                    return <td key={columnIdx}>{i+1}</td>
+                                }else{
+                                  return <td key={columnIdx}>{data[column.id] ? data[column.id] : "-"}</td>
+                                }
+                            }
+                        })}
+                        <td></td>
+                      </tr>
+                  )}    
+            </table>
           </div>
-        
+                
           <div className=" p-0"  >
               <div className='paginations '>
                   <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
@@ -457,7 +589,7 @@ class PurchaseOrderTable extends Component {
                           startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                           isActive={this.state.isActive}
                           numberEventClick={this.numberEventClick} />
-                  <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                  <PODExport ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
                           ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont}/>
               </div>
           </div>

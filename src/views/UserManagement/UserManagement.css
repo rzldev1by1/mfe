@@ -89,6 +89,30 @@ label{
 	width: 80px;
 }
 
+.btn-outline-All-active{
+	font-family:"Helvetica Neue Regular";
+	font-size: 1rem !important;
+	width:117px !important;
+	height:40px !important;
+	border: 1.5px solid #3366FF;
+	border-radius: 7px;
+	background-color: #3366FF;
+	color: #ffffff;
+	width: 80px;
+}
+
+.btn-outline-All-notActive{
+	font-family:"Helvetica Neue Regular";
+	font-size: 1rem !important;
+	width:117px !important;
+	height:40px !important;
+	background-color: #D5D8DA;
+	color: #ffffff;
+	border: 1.5px solid #D5D8DA;
+	border-radius: 7px;
+	width: 80px;
+}
+
 
 span.client-active{
     border: 1px solid #3366FF;
@@ -550,39 +574,51 @@ input:checked + .slider:before {
 	}
 }
 
+@media(max-width: 2750px) { /* //zoom 50% */
+	.tablePage.tablePage-um{
+		max-height: 880px !important; 
+		min-height: 880px !important; 
+	}
+}
+
 @media(max-width: 2100px) {
 	.tablePage.tablePage-um{
-		max-height: 570px;
-		/* max-height: 100vh; */
+		max-height: 570px !important; 
+		min-height: 570px !important; 
 	}
 }
 @media(max-width: 1830px) {
 	.tablePage.tablePage-um{
-		max-height: 470px;
+		max-height: 470px !important;
+		min-height: 470px !important;
 		/* max-height: 100vh; */
 	}
 }
 @media(max-width: 1710px) { 
 	.tablePage.tablePage-um{
-		max-height: 420px;
+		max-height: 420px !important;
+		min-height: 420px !important;
 		/* max-height: 100vh; */
 	}
 }
 @media(max-width: 1520px) {
 	.tablePage.tablePage-um{
-		max-height: 330px;
+		max-height: 330px !important;
+		min-height: 330px !important;
 		/* max-height: 100vh; */
 	}
 }
 @media(max-width: 1366px) {
 	.tablePage.tablePage-um{
-		max-height: 260px;
+		max-height: 260px !important;
+		min-height: 260px !important;
 		/* max-height: 100vh; */
 	}
 }
 @media(max-width: 1242px) {
 	.tablePage.tablePage-um{
-		max-height: 70px;
+		max-height: 210px !important;
+		min-height: 210px !important;
 		/* max-height: 100vh; */
 	}
 } 
