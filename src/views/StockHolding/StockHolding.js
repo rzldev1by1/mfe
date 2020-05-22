@@ -122,7 +122,7 @@ class StockHolding extends Component {
             return res.data;
         })
         .catch(error => {
-            // this.props.history.push("/logins")
+            // this.props.history.push("/login")
         })
         .then(function (result) {
             if (result) {

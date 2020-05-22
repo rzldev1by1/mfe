@@ -1,145 +1,97 @@
-import React, {Component} from 'react';
-// import { Button, FormFeedback } from 'reactstrap';
-// import axios from 'axios';
-// import AppComponent from '../../../AppComponent';
-import Authentication from '../../../Auth/Authentication';
-import centerLogo from '../../../assets/img/brand/login_microlisticslogo@2x.png';
-import videobg from '../../../assets/img/brand/microlisticsvideos.mp4';
+import React, { Component } from 'react'
+import Authentication from '../../../Auth/Authentication'
+import Logo from '../../../assets/img/brand/LOGO.png'
+// import videobg from '../../assets/img/brand/microlisticsvideos.mp4'
 
-import './Logins.css'
+import './Login.css'
 
-class Logins extends Component{
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            usernameClass: "form-control logininput inputWrap",
-            passwordClass: "form-control logininput inputWrap",
-            usernameValid: true,
-            passwordValid: true,
-            errorMessage: "",
-
-            loginClicked: false,
-            isLoad: false
-        };
-        this.loginForm = React.createRef();
+class Logins extends Component {
+    state = {
+        formValidation: {
+            username: true,
+            password: true
+        },
+        errorMessage: "",
+        isLoad: false
     }
 
-    authenticateUser = () => {
-        let self = this;
-        self.setState({ isLoad: true });
-
-        let form = this.loginForm.current;
-        let username = form.username.value;
-        let password = form.password.value;
-        let payload = {
-            "userid": username,
-            "password": password
-        };
-        
-        (new Authentication()).authenticationHandler(payload)
-        .then(result => {
-            self.setState({ isLoad: false,
-                            usernameValid: false, passwordValid: false,
-                            errorMessage: result.message });
-
-            if (result.isSuccess) {
-                self.props.history.push("/stock/stockholding");
-            }
-        })
-    }
-
-    onInputChange = () => {
-        this.setState({ loginClicked: false,
-                        usernameValid: true, passwordValid: true,
-                        usernameClass: "form-control logininput inputWrap",
-                        passwordClass: "form-control logininput inputWrap" });
-    }
-
-    alertComponent = () => {
-        if (this.state.loginClicked && this.state.errorMessage !== "") {
-            return (
-                <div className="alertFadeIn" style={{ display: "flex" }}>
-                    <span className="iconU-i" />
-                    <div style={{ marginLeft: "0.5%" }}>{this.state.errorMessage}</div>
-                </div>
-            );
+    validateForm = (e) => {
+        e.preventDefault()
+        this.setState({ isLoad: true })
+        let errorMessage = ''
+        const username = e.target.username.value
+        const password = e.target.password.value
+        if (username && password) {
+            const payload = { "userid": username, "password": password }
+            const auth = new Authentication()
+            auth.authenticationHandler(payload).then(result => {
+                if (result.isSuccess) {
+                    this.props.history.push(result.url)
+                    // this.props.history.push("/stock/stockholding")
+                    return
+                } else {
+                    errorMessage = result.message
+                }
+                this.setState({ isLoad: false, errorMessage, formValidation: { username: true, password: true } })
+            })
         } else {
-            return <div className="errormessage" />;
+            let formValidation = {
+                username: username.length ? true : false,
+                password: password.length ? true : false,
+            }
+            if (!password) {
+                errorMessage = "Password is required"
+            }
+            if (!username) {
+                errorMessage = "Username is required"
+            }
+            if (!username && !password) {
+                errorMessage = "Username and Password are required"
+            }
+            this.setState({ isLoad: false, formValidation, errorMessage })
+
         }
     }
 
-    validateForm = () => {
-        let isValid = true;
-        this.setState({ loginClicked: true,
-                        usernameValid: true, passwordValid: true,
-                        errorMessage: "" });
-
-        let form = this.loginForm.current;
-        let username = form.username.value;
-        let password = form.password.value;
-
-
-        if (!username) {
-            this.setState({ usernameValid: false,
-                            errorMessage: "Username is required" });
-            isValid = false;
-        }
-
-        if (!password) {
-            this.setState({ passwordValid: false,
-                            errorMessage: "Password is required" });
-            isValid = false;
-        }
-
-        if (!username && !password) {
-            this.setState({ usernameValid: false,
-                            passwordValid: false,
-                            errorMessage: "Username and Password are required" });
-            isValid = false;
-        }
-
-
-        if (isValid) {
-            this.authenticateUser();
-        }
-    }
-
-    render() {             
+    render() {
+        const { errorMessage, formValidation } = this.state
         return (
-            <div className="background fontstyle">
-                <video autoPlay muted loop id="bgvideo">
-                    <source src={videobg} type="video/mp4" />
-                </video>
-                <div className="leftSide content">
-                    <img src={centerLogo} className="mlslogo" alt="mlslogo" />
-                    <form ref={this.loginForm} onSubmit={(e) => { e.preventDefault(); this.validateForm() }}>
-                        <div className="loginInput">
-                            <div style={{ marginBottom: "2%" }}>
-                                <h1>Login</h1>
+            <div className="login">
+                <div className="container-fluid">
+                    <form className="col-xs-12 col-sm-8 col-lg-4 offset-lg-1" onSubmit={this.validateForm}>
+                        <div className="card">
+                            <div className="card-body">
+                                <img src={Logo} className="logo mb-5" alt="mlslogo" />
+                                <input className={'form-control  ' + (formValidation.username ? "" : " is-invalid")}
+                                    type="text" name="username"
+                                    placeholder="Enter your username here" />
+                                <br />
+                                <input className={'form-control ' + (formValidation.password ? "" : " is-invalid")}
+                                    type="password" name="password"
+                                    placeholder="Enter your password here"
+                                />
+                                <div className={'error ' + (errorMessage ? ' alertFadeIn' : '')}>
+                                    {errorMessage && <div><span className="iconU-i" /> {errorMessage}</div>}
+                                </div>
+                                <div className="row">
+                                    <div className="col-sm-4">
+                                        <button type="submit" className="btn btn-primary btn-login col-12 py-2">
+                                            {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin" /> : "Login"}
+                                        </button>
+                                    </div>
+                                    <div className="col-sm-8 mt-3">
+                                        <a href="#forgot" className="ml-4">Forgot Password ?</a>
+                                    </div>
+                                </div>
+                                <div className="links mt-3">
+                                    <a href="#privacy">Privacy and Policy</a>
+                                    <span className="ml-4 mr-4">&nbsp | &nbsp</span>
+                                    <a href="#terms">Terms and Conditions</a>
+                                </div>
                             </div>
-
-                            <input type="text" className={this.state.usernameClass + (this.state.usernameValid ? "" : " is-invalid")}
-                                    id="username" name="username"
-                                    onChange={this.onInputChange}
-                                    placeholder="Username" />
-
-                            <br/>
-
-                            <input type="password" className={this.state.passwordClass + (this.state.passwordValid ? "" : " is-invalid")}
-                                    id="password" name="password"
-                                    onChange={this.onInputChange}
-                                    placeholder="Password" />
-
-                            <this.alertComponent />
-                            <button className={"btnLogin " + (this.state.isLoad ? "text-center" : "text-left pl-4")} onClick={this.validateForm}>
-                                {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin iconSpace" /> : "Login"}
-                            </button>
-                            
-                            <div className="footer">
-                                <div>© Microlistics Logistics {new Date().getFullYear()}</div>
-                                <div style={{ width: "78%", float: "right" }}>help@microlistics.co.au</div>
-                            </div>              
+                        </div>
+                        <div className="copyright offset-1">
+                            <a target='blank' href='https://www.microlistics.com.au/'>© Microlistics {new Date().getFullYear()}</a>
                         </div>
                     </form>
                 </div>
