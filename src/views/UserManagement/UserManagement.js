@@ -740,37 +740,35 @@ class UserManagement extends Component {
           <CardBody className="account-info p-0">
             <PersonalUserComponent data={this.state.personalUser} headers={this.state.headersPersonal} />
           </CardBody>
-          <CardBody className="p-0 m-0 w-100">
-                <form ref={this.searchForm} onSubmit={this.searchHandler}>
-                  <div className="row searchColumnUm">
-                    <div className='col-11'>
-                      <div className="searchINP">
-                        <div className="input-group p-0 searchSection">
-                          <div className="input-group um-searchBox default-box-height" style={{ maxWidth: "none" }}>
-                            <span className="input-group-text border-0 bg-transparent ml-2" style={{ padding: "0.4rem" }}>
-                              <i className="iconU-search" />
-                            </span>
-                            <input type="text"
-                              className="form-control searchInput" id="searchInput" name="searchInput"
-                              placeholder="Enter User Id or User Name" />
-                          </div>
-                        </div>
+          <CardBody className="w-100">
+            <form ref={this.searchForm} onSubmit={this.searchHandler}>
+              <div className="row searchColumnUm">
+                <div className='col-11'>
+                  <div className="searchINP">
+                    <div className="input-group p-0 searchSection">
+                      <div className="input-group um-searchBox default-box-height" style={{ maxWidth: "none" }}>
+                        <span className="input-group-text border-0 bg-transparent ml-2" style={{ padding: "0.4rem" }}>
+                          <i className="iconU-search" />
+                        </span>
+                        <input type="text"
+                          className="form-control searchInput" id="searchInput" name="searchInput"
+                          placeholder="Enter User Id or User Name" />
                       </div>
                     </div>
-                    <div className="col-1">
-                      <Button type="submit" className="w-100 default-box-height search search-um text-button btn-primary"> Search </Button>
-                    </div>
-
                   </div>
-                </form>
-              </CardBody>
+                </div>
+                <div className="col-1">
+                  <Button type="submit" className="w-100 default-box-height search search-um text-button btn-primary"> Search </Button>
+                </div>
+
+              </div>
+            </form>
+          </CardBody>
         </Card>
 
 
         <div className={(this.state.isListLoaded ? 'd-none' : 'spinner')} />
         <div className={(this.state.isListLoaded ? '' : ' d-none ')}>
-
-
           <Card className="container-user-list border-0 mb-2 w-100">
             <CardBody className="p-0">
               <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}

@@ -4,10 +4,7 @@ body {
   height: 100%;
   overflow: hidden;
 }
-.card-body {
-  padding: 0 !important;
-  margin: 0 !important;
-}
+
 .hover-um :hover {
   background: #f0f0f0 !important;
   cursor: pointer;
@@ -630,7 +627,8 @@ input:checked + .slider:before {
 
 .searchColumnUm {
   flex-basis: calc(100% - 185px);
-  padding: 15px;
+  padding: 0;
+  margin: -15px -30px !important;
 }
 .searchSection {
   border: 1px solid #d5d8da;
