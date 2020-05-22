@@ -161,9 +161,9 @@
   margin-left: 5%;
 }
 
-.bord {
+/* .bord {
   border-right: 1px solid #e2e2e2 !important;
-}
+} */
 
 @-webkit-keyframes fade {
   from {
@@ -182,18 +182,18 @@
   }
 }
 
-.arrowss {
+/* .arrowss {
   margin-left: 0.3em;
   width: 0.6em;
-}
+} */
 
-.hover:hover {
+/* .hover:hover {
   background: #f0f0f0 !important;
-}
+} */
 
-.hover-active {
+/* .hover-active {
   background: #f0f0f0 !important;
-}
+} */
 
 /* .productHeader {
   margin-bottom: 10px;

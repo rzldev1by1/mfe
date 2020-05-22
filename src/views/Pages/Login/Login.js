@@ -58,7 +58,7 @@ class Logins extends Component {
         return (
             <div className="login">
                 <div className="container-fluid">
-                    <form className="col-xs-12 col-sm-8 col-lg-4 offset-lg-1" onSubmit={this.validateForm}>
+                    <form className="offset-lg-1" onSubmit={this.validateForm}>
                         <div className="card">
                             <div className="card-body">
                                 <img src={Logo} className="logo mb-5" alt="mlslogo" />
@@ -75,22 +75,22 @@ class Logins extends Component {
                                 </div>
                                 <div className="row">
                                     <div className="col-sm-4">
-                                        <button type="submit" className="btn btn-primary btn-login col-12 py-2">
+                                        <button type="submit" className="btn btn-primary btn-login col-12">
                                             {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin" /> : "Login"}
                                         </button>
                                     </div>
                                     <div className="col-sm-8 mt-3">
-                                        <a href="#forgot" className="ml-4">Forgot Password ?</a>
+                                        <a href="#forgot">Forgot Password ?</a>
                                     </div>
                                 </div>
                                 <div className="links mt-3">
                                     <a href="#privacy">Privacy and Policy</a>
-                                    <span className="ml-4 mr-4">&nbsp | &nbsp</span>
+                                    <span> &nbsp; | &nbsp; </span>
                                     <a href="#terms">Terms and Conditions</a>
                                 </div>
                             </div>
                         </div>
-                        <div className="copyright offset-1">
+                        <div className="copyright offset-lg-1 mt-5">
                             <a target='blank' href='https://www.microlistics.com.au/'>© Microlistics {new Date().getFullYear()}</a>
                         </div>
                     </form>

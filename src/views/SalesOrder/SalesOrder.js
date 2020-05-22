@@ -10,7 +10,10 @@ import axios from "axios";
 import { endpoint, headers } from "../../AppComponent/ConfigEndpoint";
 import Authentication from "../../Auth/Authentication";
 import EditColumn from "./Components/Modal/Modal";
-import {column} from './Components/Validation/defaultColumn'
+import { column } from './Components/Validation/defaultColumn'
+import { FaPencilAlt } from "react-icons/fa"
+import HeaderTitle from '../../AppComponent/HeaderTitle'
+
 import "./SalesOrder.css";
 class SalesOrder extends Component {
   constructor(props) {
@@ -58,10 +61,10 @@ class SalesOrder extends Component {
 
       showEditColumn: false,
 
-      column:Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column,
-      updatedColumn:Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column,
+      column: Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column,
+      updatedColumn: Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column,
 
-      resetDropdownProcessed:false
+      resetDropdownProcessed: false
     };
   }
 
@@ -71,20 +74,20 @@ class SalesOrder extends Component {
     this.getResources();
     this.getProduct();
     this.getDisposition();
-    
+
   };
 
   editColumnHandler = (idx, active) => {
-    let newColumn             = this.state.updatedColumn
-    newColumn[idx].active     = active
-    this.setState({updatedColumn:newColumn})
-    
+    let newColumn = this.state.updatedColumn
+    newColumn[idx].active = active
+    this.setState({ updatedColumn: newColumn })
+
   };
 
   saveColumnHandler = () => {
     let updateColumn = [...this.state.updatedColumn]
-    this.setState({column:updateColumn}, localStorage.setItem('savedColumn', JSON.stringify(this.state.column)))
-  }; 
+    this.setState({ column: updateColumn }, localStorage.setItem('savedColumn', JSON.stringify(this.state.column)))
+  };
 
   openModal = () => {
     this.setState({ showmodal: true });
@@ -106,7 +109,7 @@ class SalesOrder extends Component {
   };
 
   resetDropdown = () => {
-    this.setState({resetDropdownProcessed:true,site:null,client:null,status:null,ordertype:null}, () => this.setState({resetDropdownProcessed:false}))
+    this.setState({ resetDropdownProcessed: true, site: null, client: null, status: null, ordertype: null }, () => this.setState({ resetDropdownProcessed: false }))
   }
 
   getclient = () => {
@@ -141,8 +144,8 @@ class SalesOrder extends Component {
   getResources = (clientParam) => {
     let company = Authentication.getCompanyCode();
     let client = Authentication.getClient();
-    if(!company) company = null
-    if(!client) client = null
+    if (!company) company = null
+    if (!client) client = null
     if (clientParam) client = clientParam;
     axios
       .get(
@@ -161,7 +164,7 @@ class SalesOrder extends Component {
 
   getProduct = (clientparam) => {
     let client = Authentication.getClient();
-    if(!client) client = null
+    if (!client) client = null
     if (clientparam) client = clientparam;
     let param = "?client=" + client;
     axios
@@ -207,12 +210,12 @@ class SalesOrder extends Component {
     let siteName = [];
     let orderTypeName = [];
     let orderTypeValue = [];
-    let statusName = ["0:Unavailable","1:Available", "2:Released",  "3:Open","4:Completed", "All"];
-    let statusValue =["unavailable","available", "released", "open", "completed", 'all'];
+    let statusName = ["0:Unavailable", "1:Available", "2:Released", "3:Open", "4:Completed", "All"];
+    let statusValue = ["unavailable", "available", "released", "open", "completed", 'all'];
     let statuss = [];
     if (this.state.clientdata) {
       this.state.clientdata.map((data) => {
-        clientName.push(data.code + ' : '+ data.name);
+        clientName.push(data.code + ' : ' + data.name);
         clientValue.push(data.code);
       });
       clientName.push("All");
@@ -227,8 +230,7 @@ class SalesOrder extends Component {
       siteData.push("");
     }
 
-    if(this.state.resources.orderType !== undefined)
-    {
+    if (this.state.resources.orderType !== undefined) {
       this.state.resources.orderType.name.map((data, i) => {
         orderTypeName.push(data)
       })
@@ -237,127 +239,120 @@ class SalesOrder extends Component {
       })
     }
 
-    const {client,site,status,ordertype} = this.state
+    const { client, site, status, ordertype } = this.state
     return (
       <React.Fragment>
         {Authentication.getUserLevel() == "administrator" ? (
-          <Dropdown optionSelected  ={site}
-                    placeHolder="Site"
-                    optionList={siteName.toString()}
-                    optionValue={siteData.toString()}
-                    getValue={this.getSiteSelected.bind(this)}
-                    className="filterDropdown"/>
-          ) : (
-            <input  readOnly
-                    value={Authentication.getSite()}
-                    id="site"
-                    className="form-control put filterDropdown"
-                    placeholder="Site"
-                    tabIndex='1'/>
+          <Dropdown optionSelected={site}
+            placeHolder="Site"
+            optionList={siteName.toString()}
+            optionValue={siteData.toString()}
+            getValue={this.getSiteSelected.bind(this)}
+            className="filterDropdown" />
+        ) : (
+            <input readOnly
+              value={Authentication.getSite()}
+              id="site"
+              className="form-control put filterDropdown"
+              placeholder="Site"
+              tabIndex='1' />
           )}
 
         {Authentication.getUserLevel() == "administrator" ? (
           <Dropdown optionSelected={client}
-                    placeHolder="Client"
-                    optionList={clientName.toString()}
-                    optionValue={clientValue.toString()}
-                    getValue={this.getClientSelected.bind(this)}
-                    className="filterDropdown"/>
-          ) : (
-            <input  readOnly
-                    value={Authentication.getClient()}
-                    id="site"
-                    className="form-control put filterDropdown"
-                    placeholder="Site"
-                    tabIndex='1'/>
+            placeHolder="Client"
+            optionList={clientName.toString()}
+            optionValue={clientValue.toString()}
+            getValue={this.getClientSelected.bind(this)}
+            className="filterDropdown" />
+        ) : (
+            <input readOnly
+              value={Authentication.getClient()}
+              id="site"
+              className="form-control put filterDropdown"
+              placeholder="Site"
+              tabIndex='1' />
           )}
 
-            <Dropdown optionSelected={status}
-                      placeHolder="Status" 
-                      optionList={statusName.toString()} 
-                      optionValue={statusValue.toString()} 
-                      getValue={(code) => this.setState({status:code})}
-                      className="filterDropdown"/>
+        <Dropdown optionSelected={status}
+          placeHolder="Status"
+          optionList={statusName.toString()}
+          optionValue={statusValue.toString()}
+          getValue={(code) => this.setState({ status: code })}
+          className="filterDropdown" />
 
-            <Dropdown optionSelected={ordertype}
-                      placeHolder="Order Type" 
-                      optionList={orderTypeName.toString()} 
-                      optionValue={orderTypeValue.toString()} 
-                      getValue={(code) => this.setState({ordertype:code})}
-                      className="filterDropdown"/> 
+        <Dropdown optionSelected={ordertype}
+          placeHolder="Order Type"
+          optionList={orderTypeName.toString()}
+          optionValue={orderTypeValue.toString()}
+          getValue={(code) => this.setState({ ordertype: code })}
+          className="filterDropdown" />
       </React.Fragment>
     );
   };
 
   render() {
     return (
-      <div style={{ marginLeft: "-9px", width: "101.5%" }}>
-        <div className="header">
-          <h2 style={{ marginTop: "0.2%" }}>Sales Orders</h2>
-          <div className="header2">
-            <Button
-              onClick={() => (this.state.loaded ? this.openModal() : null)}
-              color="primary"
-              className="createpo default-box-height"
-            >
-              <img
-                src={create}
-                style={{ width: "7%", marginTop: 9, marginLeft: 15 }}
-              />
-              <label className="font">Create Sales Orders</label>
+      <React.Fragment>
+        <HeaderTitle
+          title="Sales Orders"
+          button={
+            <Button onClick={this.openModal} color="primary" className='btn btn-primary float-right'>
+              <FaPencilAlt className="mb-2" /> &nbsp; <label className='font'>Create Sales Order</label>
             </Button>
+          }
+        />
+        <div className="app-container animated fadeIn">
+          <div style={{ marginTop: "15px" }}>
+            <Search
+              style={{ marginTop: "none" }}
+              getValue={(v) => this.setState({ search: v })}
+              triggerShowFilter={() =>
+                this.setState({ filterclicked: !this.state.filterclicked })
+              }
+              searchData={() => this.search()}
+              placeholder="Enter an Order No"
+              additionalComponent={this.state.resetDropdownProcessed ? null : this.showDropdowns()}
+              resetDropdown={() => this.resetDropdown()} />
           </div>
-        </div>
-        <div style={{ marginTop: "15px" }}>
-          <Search
-            style={{ marginTop: "none" }}
-            getValue={(v) => this.setState({ search: v })}
-            triggerShowFilter={() =>
-              this.setState({ filterclicked: !this.state.filterclicked })
-            }
-            searchData={() => this.search()}
-            placeholder="Enter an Order No"
-            additionalComponent = {this.state.resetDropdownProcessed ? null : this.showDropdowns()}
-            resetDropdown = {() => this.resetDropdown()}/>
-        </div>
 
-        {/* <div className="dropdowns">
+          {/* <div className="dropdowns">
           <div style={{ display: "flex", width: "100%" }}>
             {this.state.filterclicked ? null : null }
           </div>
         </div> */}
 
-        <div className={"" + (this.state.complete ? "fades" : "hidden")}>
-          <ListOrderComponent
-            column = {this.state.column}
-            openEditModal={() => this.openEditModal()}
-            ref={this.potableref}
-            className="animated fadeIn"
-            loadCompleteHandler={(v) => this.setState({ complete: v })}
+          <div className={"" + (this.state.complete ? "fades" : "hidden")}>
+            <ListOrderComponent
+              column={this.state.column}
+              openEditModal={() => this.openEditModal()}
+              ref={this.potableref}
+              loadCompleteHandler={(v) => this.setState({ complete: v })}
+            />
+          </div>
+          <div className={this.state.complete ? "hidden" : "spinner"} />
+          {this.state.loaded ? (
+            <SalesOrderCreate
+              getResources={(client) => this.getResources(client)}
+              loadSalesOrder={() => this.potableref.current.loadSalesOrder()}
+              clientdata={this.state.clientdata}
+              productdata={this.state.productdata}
+              getClientProduct={(client) => this.getProduct(client)}
+              dispositiondata={this.state.dispositiondata}
+              resources={this.state.resources}
+              showmodal={this.state.showmodal}
+              closemodal={() => this.closeModal()}
+            />
+          ) : null}
+          <EditColumn
+            editColumnHandler={(idx, active) => this.editColumnHandler(idx, active)}
+            showEditColumn={this.state.showEditColumn}
+            closeModal={() => this.setState({ showEditColumn: false })}
+            column={this.state.updatedColumn}
+            saveColumnHandler={() => this.saveColumnHandler()}
           />
         </div>
-        <div className={this.state.complete ? "hidden" : "spinner"} />
-        {this.state.loaded ? (
-          <SalesOrderCreate
-            getResources={(client) => this.getResources(client)}
-            loadSalesOrder={() => this.potableref.current.loadSalesOrder()}
-            clientdata={this.state.clientdata}
-            productdata={this.state.productdata}
-            getClientProduct={(client) => this.getProduct(client)}
-            dispositiondata={this.state.dispositiondata}
-            resources={this.state.resources}
-            showmodal={this.state.showmodal}
-            closemodal={() => this.closeModal()}
-          />
-        ) : null}
-        <EditColumn
-          editColumnHandler = {(idx, active) => this.editColumnHandler(idx, active)}
-          showEditColumn={this.state.showEditColumn}
-          closeModal={() => this.setState({ showEditColumn: false })}
-          column = {this.state.updatedColumn}
-          saveColumnHandler = {() => this.saveColumnHandler()}
-        />
-      </div>
+      </React.Fragment>
     );
   }
 }

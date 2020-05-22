@@ -82,7 +82,7 @@ class Movement extends Component {
             // const result = DummyData
             this.setPagination(res)
             this.setState({ data: result, complete: true, filterType: periods })
-            this.props.data(result)
+            // this.props.data(result)
             this.pushTable(dtStart, dtEnd, periods)
             this.props.isComplete(true)
             this.potableref.current.setPagination(res)
@@ -529,17 +529,15 @@ class Movement extends Component {
                     <div className={(this.state.complete ? 'hidden' : 'spinner')} />
                 </Container>
 
-                <div className=" p-0"  >
-                    <div className='paginations '>
-                        <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
-                            backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-                            totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-                            currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-                            startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
-                            isActive={this.state.isActive}
-                            numberEventClick={this.numberEventClick} />
-                        {((this.state.data.length > 0) ? <ExportExcel ExportName={this.ExportName} /> : null)}
-                    </div>
+                <div className='fixed-bottom paginations'>
+                    <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
+                        backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
+                        totalRows={this.state.totalRows} displayPage={this.state.displayPage}
+                        currentPage={this.state.currentPage} maxPage={this.state.maxPage}
+                        startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
+                        isActive={this.state.isActive}
+                        numberEventClick={this.numberEventClick} />
+                    {((this.state.data.length > 0) ? <ExportExcel ExportName={this.ExportName} /> : null)}
                 </div>
             </div>
         )
