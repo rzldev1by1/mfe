@@ -299,7 +299,7 @@ class PurchaseOrderCreate extends Component {
           this.setState({ clientdatacr:result })
         })
         .catch(error => {
-          // this.props.history.push("/logins")
+          // this.props.history.push("/login")
           // console.log(error);
         })
   }
@@ -313,7 +313,7 @@ class PurchaseOrderCreate extends Component {
         this.setState({ orderdatacr:result })
       })
       .catch(error => {
-        // this.props.history.push("/logins")
+        // this.props.history.push("/login")
       //   console.log(error);
       })
 }
@@ -327,7 +327,7 @@ class PurchaseOrderCreate extends Component {
           this.setState({ sitedatacr:result })
         })
         .catch(error => {
-          // this.props.history.push("/logins")
+          // this.props.history.push("/login")
         })
     }
 
@@ -342,7 +342,7 @@ class PurchaseOrderCreate extends Component {
         })
        
         .catch(error => {
-          // this.props.history.push("/logins")
+          // this.props.history.push("/login")
         })
     }
 
