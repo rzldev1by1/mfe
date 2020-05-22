@@ -6,9 +6,9 @@ import './App.scss';
 import { DefaultLayout } from './containers';
 // import AnonimRoute from './AppComponent/AnonimRoute';
 // import ProtectedRoute from './AppComponent/ProtectedRoute';
+import Login from './views/Pages/Login/Login';
 
 // const DefaultLayout = React.lazy(() => import('./containers/DefaultLayout'));
-const Login = React.lazy(() => import('./views/Pages/Login/Login'));
 const Register = React.lazy(() => import('./views/Pages/Register/Register'));
 const Page404 = React.lazy(() => import('./views/Pages/Page404/Page404'));
 const Page500 = React.lazy(() => import('./views/Pages/Page500/Page500'));
