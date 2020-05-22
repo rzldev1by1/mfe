@@ -505,33 +505,15 @@ class StockHolding extends Component {
 			<React.Fragment>
 				<HeaderTitle title="Stock Holding Summary" />
 				<div className="animated fadeIn app-container">
-					<div className="row mb-0 p-0 pl-1">
-						<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-							<form ref={this.searchForm} onSubmit={e => { e.preventDefault(); this.searchData() }}>
-								<div className="form-group row mb-0">
-									<div className="col-12 col-lg-12 col-md-12 col-sm-12 mb-0">
-										<Row className="align-items-center mb-0">
-											<div className="col-12 col-lg-12 col-md-12 col-sm-12 mb-0">
-												<FormGroup>
-													<InputGroup>
-														<div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-															<Card className="form-group row mb-0 border-0">
-																<Search showFilter={this.state.showFilter}
-																	triggerShowFilter={this.triggerShowFilter}
-																	searchData={this.searchData}
-																	placeholder="Enter a Product or Description"
-																	additionalComponent={this.state.resetDropdownProcessed ? null : this.showDropdown()}
-																	resetDropdown={() => this.resetDropdown()} />
-															</Card>
-														</div>
-													</InputGroup>
-												</FormGroup>
-											</div>
-										</Row>
-									</div>
-								</div>
-							</form>
-						</div>
+					<div className="card w-100 mb-3">
+						<form ref={this.searchForm} onSubmit={e => { e.preventDefault(); this.searchData() }}>
+							<Search showFilter={this.state.showFilter}
+								triggerShowFilter={this.triggerShowFilter}
+								searchData={this.searchData}
+								placeholder="Enter a Product or Description"
+								additionalComponent={this.state.resetDropdownProcessed ? null : this.showDropdown()}
+								resetDropdown={() => this.resetDropdown()} />
+						</form>
 					</div>
 
 					<div className="row pt-0 p-0 pl-1">

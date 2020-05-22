@@ -21,7 +21,7 @@ class StockMovement extends Component {
 			<React.Fragment>
 				<HeaderTitle title="Stock Movement" />
 				<div className='animated fadeIn app-container'>
-					<div className="card">
+					<div className="card w-100">
 						<MovementSearch getStockMovement={this.getStockMovement} />
 					</div>
 					<div className={this.state.isComplete ? 'fades' : 'hidden'}>

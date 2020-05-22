@@ -303,9 +303,8 @@ class SalesOrder extends Component {
           }
         />
         <div className="app-container animated fadeIn">
-          <div style={{ marginTop: "15px" }}>
+          <div>
             <Search
-              style={{ marginTop: "none" }}
               getValue={(v) => this.setState({ search: v })}
               triggerShowFilter={() =>
                 this.setState({ filterclicked: !this.state.filterclicked })

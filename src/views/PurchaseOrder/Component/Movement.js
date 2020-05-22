@@ -85,7 +85,7 @@ class Movement extends Component {
             // this.props.data(result)
             this.pushTable(dtStart, dtEnd, periods)
             this.props.isComplete(true)
-            this.potableref.current.setPagination(res)
+            // this.potableref.current.setPagination(res)
         } catch (error) {
             console.log(error)
         }
