@@ -456,11 +456,11 @@ class Movement extends Component {
                         <table>
                             <thead>
                                 <tr height="72" className="border-bottom border-right text-center">
-                                    <th onClick={this.arrowHandler} id='site'>Site <img className='arrowss' src={this._checkActiveSorting('site')} alt="site" /></th>
-                                    <th onClick={this.arrowHandler} id='client'>Client <img className='arrowss' src={this._checkActiveSorting('client')} alt="client" /></th>
-                                    <th onClick={this.arrowHandler} id='product'>Product <img className='arrowss' src={this._checkActiveSorting('product')} alt="product" /></th>
-                                    <th className="text-left" onClick={this.arrowHandler} id='productName'>Description <img className='arrowss' src={this._checkActiveSorting('productName')} alt="productName" /></th>
-                                    <th onClick={this.arrowHandler} id='uom'>UOM <img className='arrowss' src={this._checkActiveSorting('uom')} alt="uom" /></th>
+                                    <th onClick={this.arrowHandler} id='site'>Site <img className='sort-icon' src={this._checkActiveSorting('site')} alt="site" /></th>
+                                    <th onClick={this.arrowHandler} id='client'>Client <img className='sort-icon' src={this._checkActiveSorting('client')} alt="client" /></th>
+                                    <th onClick={this.arrowHandler} id='product'>Product <img className='sort-icon' src={this._checkActiveSorting('product')} alt="product" /></th>
+                                    <th className="text-left" onClick={this.arrowHandler} id='productName'>Description <img className='sort-icon' src={this._checkActiveSorting('productName')} alt="productName" /></th>
+                                    <th onClick={this.arrowHandler} id='uom'>UOM <img className='sort-icon' src={this._checkActiveSorting('uom')} alt="uom" /></th>
                                 </tr>
                             </thead>
                             <tbody>

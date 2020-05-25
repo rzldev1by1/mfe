@@ -482,12 +482,13 @@ class ListOrderComponent extends Component {
                     onClick={(e) => this.arrowHandler(e)}
                     id={header.id}
                     className={header.active ? '' : 'hidden'}>
-                    <div className='so-table-header'>
+                    <div>
                       <span>{header.name}</span>
                       <img key={idx}
-                        className='arrow'
-                        style={{ marginLeft: '0.3em', width: '0.6em' }}
-                        src={this._checkActiveSorting(header.id)} />
+                        className='sort-icon'
+                        src={this._checkActiveSorting(header.id)}
+                        alt={idx}
+                      />
                     </div>
 
                   </th>
