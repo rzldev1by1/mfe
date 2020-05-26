@@ -62,8 +62,6 @@ class PurchaseOrderCreate extends Component {
           "subMenu": ["asd", "asds"]
         }
       ],
-
-      showdatepicker: false,
       showdaterote: false,
 
       //dropdown
@@ -104,8 +102,9 @@ class PurchaseOrderCreate extends Component {
       emptyOrderDate: null,
       isOrderNoAvailable: true,
 
-      nextClicked: false,
-      reset: false
+      nextClicked:false,
+      reset: false,
+      isDatepickerShow: false
     }
   }
 
@@ -621,7 +620,7 @@ class PurchaseOrderCreate extends Component {
         </tr>
 
         <h3 className="fonts so-header-title">Line Details</h3>
-        <div className="scroll-x-y-visible">
+        <div className={"scroll-x-y-visible " + (this.state.isDatepickerShow ? "isDatepickerShow" : "")}>
           <table className="tabledetails">
             <tr>
               <th><div id='orderline-header-number-id'>#</div></th>
@@ -871,12 +870,13 @@ class PurchaseOrderCreate extends Component {
             </td>
             <td>
               <div id='orderline-header-rotadate-val-id'>
-                <DatePicker tabIndex="2"
-                  top={true}
-                  style={{ minWidth: "100%" }}
-                  field="smallField"
-                  getDate={(e) => this.state.rowlist[i].rotadate = e}
-                  defaultValue={this.state.rowlist[i].rotadate} />
+                <DatePicker tabIndex="2" 
+                            top={true} 
+                            style={{ minWidth: "100%" }} 
+                            field="smallField" 
+                            getDate={(e) => this.state.rowlist[i].rotadate = e} 
+                            defaultValue={this.state.rowlist[i].rotadate} 
+                            showDatePicker={(e) => this.setState({ isDatepickerShow: e })}/>
               </div>
             </td>
             <td>

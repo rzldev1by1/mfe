@@ -69,3 +69,8 @@
 .po-required{
 	/* margin-top: 9% !important; */
 }
+
+.isDatepickerShow{
+    padding-top: 360px;
+    margin-top: -360px;
+}
