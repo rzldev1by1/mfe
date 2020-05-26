@@ -609,7 +609,7 @@ class UserManagementDetail extends Component{
                                         <div className="col-4 pl-0">
                                             <Site sites={sites} onEnableClick={this.onSiteStatusClick} onSiteEnableAll={this.onEnabledAllSite} isEnableAllSite={this.state.isEnableAllSite}/>
                                         </div>
-                                        <div className="col-4" style={{overflowY:"auto",maxHeight:"400px"}}>
+                                        <div className="col-4 um-client-scrollbar">
                                             <Client clients={clients} onEnableClick={this.onClientStatusClick} onClientEnableAll={this.onEnabledAllClient} isEnableAllClient={this.state.isEnableAllClient}/>
                                         </div>
 
