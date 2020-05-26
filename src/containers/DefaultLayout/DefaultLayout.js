@@ -7,14 +7,15 @@ import { Container } from 'reactstrap';
 //          Col, Row,
 //          DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 
-import { AppAside,
-		 AppSidebar,
-		 AppSidebarFooter,
-		 // AppSidebarForm,
-		 // AppSidebarHeader,
-		 // AppSidebarMinimizer,
-		//  AppBreadcrumb2 as AppBreadcrumb,
-		 AppSidebarNav2 as AppSidebarNav,
+import {
+    AppAside,
+    AppSidebar,
+    AppSidebarFooter,
+    // AppSidebarForm,
+    // AppSidebarHeader,
+    // AppSidebarMinimizer,
+    //  AppBreadcrumb2 as AppBreadcrumb,
+    AppSidebarNav2 as AppSidebarNav,
 } from '@coreui/react';
 
 import navigation from '../../_nav';
@@ -32,26 +33,26 @@ const DefaultAside = React.lazy(() => import('./DefaultAside'));
 
 class DefaultLayout extends Component {
 
-	loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
+    loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
-	constructor() {
-		super();
+    constructor() {
+        super();
 
-		this.state = {
+        this.state = {
             displayMenu: false,
-						navigationMenu: menunav
+            navigationMenu: menunav
         };
-		this.counter = 0;
-	};
+        this.counter = 0;
+    };
 
-	componentDidMount(){
-		this.showMenu()
-	}
+    componentDidMount() {
+        this.showMenu()
+    }
 
-	signOut() {
+    signOut() {
         Authentication.signOut();
         Authentication = null;
-	}
+    }
 
     onUserDropdownClick = () => {
         this.setState((prevState) => {
@@ -70,7 +71,7 @@ class DefaultLayout extends Component {
                         <a className="expandProfile" href="/">Change Password</a>
                     </div>
                     <div className="expandProfile">
-                        <a className="expandProfile" href="/" onClick={(e) => {this.signOut()} }>
+                        <a className="expandProfile" href="/" onClick={(e) => { this.signOut() }}>
                             <i className="fa fa-power-off" /> Logout
                         </a>
                     </div>
@@ -79,23 +80,23 @@ class DefaultLayout extends Component {
         }
     }
 
-	showMenu = () => {
-			let userLevel = Authentication.getUserLevel();
-			let userMenu = Authentication.getUserMenu();
-			let menuaccess = {...menunav};
+    showMenu = () => {
+        let userLevel = Authentication.getUserLevel();
+        let userMenu = Authentication.getUserMenu();
+        let menuaccess = { ...menunav };
 
-			if(userLevel){
-				if(userLevel.toLowerCase() !== 'administrator'){
-					let menuItems = 	menunav.items.filter((item) => { return userMenu.indexOf(item.key) !== -1 });
-					if(menuItems.length)
-					 menuaccess.items = menuItems
-				}
-				this.setState({navigationMenu:menuaccess});
-
-			}
+        if (userLevel) {
+            if (userLevel.toLowerCase() !== 'administrator') {
+                let menuItems = menunav.items.filter((item) => { return userMenu.indexOf(item.key) !== -1 });
+                if (menuItems.length)
+                    menuaccess.items = menuItems
+            }
+            this.setState({ navigationMenu: menuaccess });
 
         }
-        
+
+    }
+
     render() {
 
         return (
@@ -105,52 +106,52 @@ class DefaultLayout extends Component {
                         {/* <AppSidebarHeader /> */}
                         {/* <AppSidebarForm /> */}
                         <Suspense>
-                            
-                    <div className="scrollbar-container sidebar-nav"> 
-                            <div className="p-0 sidebar-header">
-                                <img src={logo} alt="" className="sideLogo"/>
-                            </div>
+
+                            <div className="scrollbar-container sidebar-nav">
+                                <div className="p-0 sidebar-header">
+                                    <img src={logo} alt="" className="sideLogo" />
+                                </div>
 
 
-															{/*
+                                {/*
 																<AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
 															**/
-														  }
-                                                       
-							<SidebarMenu menuItems={this.state.navigationMenu}/>
-                            
-                            <div style={{position: "absolute", bottom:'0px'}}>
-                            <div className="p-0 sidebar-header " style={{marginBottom:"60px",textAlign: 'left',marginTop: '30px'}} onClick={this.onUserDropdownClick}>
+                                }
+
+                                <SidebarMenu menuItems={this.state.navigationMenu} />
+
+                                <div style={{ position: "absolute", bottom: '0px' }}>
+                                    <div className="p-0 sidebar-header " style={{ marginBottom: "60px", textAlign: 'left', marginTop: '30px' }} onClick={this.onUserDropdownClick}>
                                         <tr>
                                             <td rowSpan="3" className="text-center align-middle p-0 divProfilePhoto" >
-                                           
-    
+
+
                                                 <img className="profilePhoto" src={dummyPic} alt="dummyPic" />
-                                            </td> 
+                                            </td>
                                         </tr>
-                                        <tr> 
-                                            <td className="" style={{paddingTop:"20px"}}>
+                                        <tr>
+                                            <td className="" style={{ paddingTop: "20px" }}>
                                                 <span className="userName">{Authentication.getName()}</span>
                                                 <br />
                                                 <span className="profileID">  ID: {Authentication.getId()} </span>
                                                 <br />
-                                                <span className="Logout">  
-                                                <a className="LogoutLink" href="/" onClick={(e) => {this.signOut()} }>
-                                                   <div style={{paddingTop: '5px'}}>LOGOUT</div>
-                                                </a>
-                                                 </span>
+                                                <span className="Logout">
+                                                    <a className="LogoutLink" href="/" onClick={(e) => { this.signOut() }}>
+                                                        <div style={{ paddingTop: '5px' }}>LOGOUT</div>
+                                                    </a>
+                                                </span>
                                             </td>
-                                        </tr> 
-                            </div>
-                            {/* <div className="userLogout  p-0 sidebar-header">
+                                        </tr>
+                                    </div>
+                                    {/* <div className="userLogout  p-0 sidebar-header">
                                 <ul className="nav">
                                     <li class="nav-item"><a class="nav-link" href="/" onClick={(e) => {this.signOut()} }><img src={logout} alt="" className="LogoutIcon"/><i class="nav-icon "></i><div class="nav-name Logout">Logout</div></a></li>
                                 </ul>
                             </div> */}
+                                </div>
                             </div>
-                    </div>                                         
 
-                           
+
 
                             {/* {this.expandUser()} */}
                         </Suspense>
@@ -174,7 +175,7 @@ class DefaultLayout extends Component {
                                                 )} />
                                         ) : (null);
                                     })}
-                                    <Redirect from="/" to="/logins" />
+                                    <Redirect from="/" to="/login" />
                                 </Switch>
                             </Suspense>
                         </Container>
@@ -192,7 +193,7 @@ class DefaultLayout extends Component {
                 </AppFooter> */}
             </div>
         );
-	}
+    }
 }
 
 export default DefaultLayout;

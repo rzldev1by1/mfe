@@ -426,7 +426,9 @@ class StockHoldingDetails extends Component {
                                                                               stockDetails={this.state.stockDetails}
                                                                               stockDetailsColumns={this.state.stockDetailsColumns}
                                                                               sortHandler={this.sortHandler}
-                                                                              arrowHandler={this.arrowHandler} />
+                                                                              arrowHandler={this.arrowHandler}
+                                                                              stockholding={this.state.stockHolding} 
+                                                                              />
                                                             </TabPane>
                                                             <TabPane className={this.showStockBalanceForecast(stockHolding) ? "p-0" : "d-none"} tabId="2">
                                                                 <StockBalanceForecast isForeshadowedBalance={this.state.isForeshadowedBalance}
@@ -434,10 +436,10 @@ class StockHoldingDetails extends Component {
                                                                                       foreshadowedColumns={this.state.foreshadowedColumns}
                                                                                       sortHandler={this.sortHandler}
                                                                                       arrowHandler={this.arrowHandler}
-																																											openingBalance={this.state.openingBalance}
-																																											openingDate={this.state.openingDate}
-																																											closingBalance={this.state.closingBalance}
-																																											closingDate={this.state.closingDate} />
+                                                                                        openingBalance={this.state.openingBalance}
+                                                                                        openingDate={this.state.openingDate}
+                                                                                        closingBalance={this.state.closingBalance}
+                                                                                        closingDate={this.state.closingDate} />
                                                             </TabPane>
                                                         </TabContent>
                                                     </div>

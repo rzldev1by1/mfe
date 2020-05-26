@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Col, Row,
-         Modal, ModalHeader, ModalBody } from 'reactstrap';
+import {
+    Col, Row,
+    Modal, ModalHeader, ModalBody
+} from 'reactstrap';
 
 import './EditColumn.css';
 
@@ -17,11 +19,11 @@ export default class SalesOrderEditColumn extends Component {
         this.columnForm = React.createRef();
         let modulTitle = "";
     }
- 
+
     componentDidUpdate() {
         // if (this.props.isOpen) {
         //     this.setEnableElements();
-		// }
+        // }
     }
 
     onClickUpdateTable = () => {
@@ -32,34 +34,34 @@ export default class SalesOrderEditColumn extends Component {
         // });
         this.props.updateTableColumn(this.state.newColumn);
         this.props.toggle();
-	}
+    }
 
-    setEnableElements = (idx) => {   
-        let newColumn = this.props.fields 
-        let active = newColumn[idx].isVisible 
-        newColumn[idx].isVisible = !active  
+    setEnableElements = (idx) => {
+        let newColumn = this.props.fields
+        let active = newColumn[idx].isVisible
+        newColumn[idx].isVisible = !active
         this.setState({ newColumn: newColumn });
-	}
+    }
 
     render() {
         return (
-			<Modal isOpen={this.props.isOpen} onBackdropPress={() => this.setState({ showmodal: false })}>
+            <Modal isOpen={this.props.isOpen} onBackdropPress={() => this.setState({ showmodal: false })}>
                 <ModalHeader className="edit-column-modal-header">
-                <div className='main-modal'>
-                    <div className='edit-column-modal-header'>
-                    <div className='edit-column-modal'>
-                        <img src={iconedit}/>
-                        <div className='edit-column-modal-title'>Edit Column</div>
-                    </div>
-                    <span className='btnclose-modal-edit' onClick={this.props.toggle}>
-                    <i
-                      className="iconU-close"
-                      style={{ fontSize: "25px" }}
-                      aria-hidden="true"
-                    />
-                    </span>
-                    </div>
-                    <div>Show and hide the column according to your needs. Please select 5 to 10 columns to show.</div>
+                    <div className='main-modal'>
+                        <div className='edit-column-modal-header'>
+                            <div className='edit-column-modal'>
+                                <img src={iconedit} />
+                                <div className='edit-column-modal-title'>Edit Column</div>
+                            </div>
+                            <span className='btnclose-modal-edit' onClick={this.props.toggle}>
+                                <i
+                                    className="iconU-close"
+                                    style={{ fontSize: "25px" }}
+                                    aria-hidden="true"
+                                />
+                            </span>
+                        </div>
+                        <div>Show and hide the column according to your needs. Please select 5 to 10 columns to show.</div>
                     </div>
                 </ModalHeader>
                 <ModalBody>
@@ -97,32 +99,33 @@ export default class SalesOrderEditColumn extends Component {
                         </Row>
                     </div> */}
 
-                    
-                    <label className='edit-column-modal-font'>{this.props.modulName}</label> 
-                    <div className="grid-container-edit-column-modal">
-                        
 
-                    {this.props.fields.map((data, idx) =>{
-                        return( 
-                        <div  onClick={()=> this.setEnableElements(idx)}
-                            className={"grid-item-edit-column-modal " + (data.isVisible ? 'edit-column-modal-active' : 'edit-column-modal-inactive')}>
-                            <img src={data.isVisible ? eyeactive : eyeinactive}/>
-                            {data.checkboxLabelText}
-                            <input type="checkbox" className="eye"
-                                id={data.id} name={data.id}
-                                defaultChecked={data.isVisible} value={this.props.fields[idx].isVisible}
-                                disabled={data.isDisabled}
-                                // onChange={this.setEnableElements} 
-                                hidden="hidden"/>
-                        </div> 
-                        )
-                    })}
+                    <label className='edit-column-modal-font'>{this.props.modulName}</label>
+                    <div className="grid-container-edit-column-modal">
+
+
+                        {this.props.fields.map((data, idx) => {
+                            return (
+                                <div key={idx}
+                                    onClick={() => this.setEnableElements(idx)}
+                                    className={"grid-item-edit-column-modal " + (data.isVisible ? 'edit-column-modal-active' : 'edit-column-modal-inactive')}>
+                                    <img src={data.isVisible ? eyeactive : eyeinactive} alt=''/>
+                                    {data.checkboxLabelText}
+                                    <input type="checkbox" className="eye"
+                                        id={data.id} name={data.id}
+                                        defaultChecked={data.isVisible} value={this.props.fields[idx].isVisible}
+                                        disabled={data.isDisabled}
+                                        // onChange={this.setEnableElements} 
+                                        hidden="hidden" />
+                                </div>
+                            )
+                        })}
                     </div>
                     <Row className="mt-4">
                         <div className="col-12">
                             <div className="footer-button">
                                 <button type="button" className="btn btn-primary btn-editcol" onClick={this.onClickUpdateTable}> Save </button>
-                             
+
                             </div>
                         </div>
                     </Row>

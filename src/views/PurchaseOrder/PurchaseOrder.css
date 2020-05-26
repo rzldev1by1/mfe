@@ -3,25 +3,21 @@
 html, body {margin: 0; height: 100%; overflow: hidden}
 
 /* Purchase Order CSS*/
-.app-body{
+/* .app-body{
 	background-color:  #E9ECED;
-}
+} */
 
-.container-fluid{
-	padding-left:0px !important
-}
-
-.pobody{
+/* .pobody{
 	margin-left: -12px;
 	margin-right: -12px;
-}
+} */
 
-.header{
+/* .header{
 	display: flex;
 	margin-top: 20px;
 	width: 100% !important;
 	justify-content: space-between;
-}
+} */
 
 .hidden{
 	display: none !important;
