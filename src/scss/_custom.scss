@@ -1154,8 +1154,8 @@ span.upArrow:before {
 
 /* table style*/
 .tablePage {
-  min-height: 200px;
-  max-height: 100vh !important;
+  //min-height: 200px;
+  //max-height: 100vh !important;
   overflow-y: auto;
   font-size: 1.1em;
   clear: both;
@@ -1166,7 +1166,7 @@ span.upArrow:before {
   background-color: #e9eced;
   display: flex;
   flex-wrap: wrap;
-  padding: 15px 30px 10px 123px;
+  padding: 15px 30px 15px 123px;
   z-index: 10;
   width: 100%;
 }
@@ -1176,46 +1176,60 @@ span.upArrow:before {
   border-radius: 5px !important;
 }
 
+@media(max-width: 2750px) {
+   /* //zoom 50% */
+	.tablePage{
+		max-height: 990px ; 
+		min-height: 990px ; 
+	}
+}
+
 @media (max-width: 2100px) {
   //zoom 67%
   .tablePage {
-    max-height: 665px;
-    //max-height: 100vh;
+		//max-height: 100vh;
+    max-height: 680px;
+		min-height: 680px; 
   }
 }
 @media (max-width: 1830px) {
   //zoom 75%
-  .tablePage {
-    max-height: 565px;
-    //max-height: 100vh;
-  }
+  .tablePage{
+		//max-height: 100vh;
+		max-height: 580px;
+		min-height: 580px; 
+	}
 }
 @media (max-width: 1710px) {
   //zoom 80%
   .tablePage {
-    max-height: 515px;
-    //max-height: 100vh;
+		//max-height: 100vh;
+		max-height: 525px;
+		min-height: 525px; 
   }
 }
 @media (max-width: 1520px) {
   //zoom 90%
   .tablePage {
-    max-height: 430px;
-    //max-height: 100vh;
+		//max-height: 100vh;
+		max-height: 440px;
+		min-height: 440px; 
   }
 }
 @media (max-width: 1366px) {
   //zoom 100%
   .tablePage {
-    max-height: 360px;
-    //max-height: 100vh;
+		//max-height: 100vh;
+		max-height: 370px;
+		min-height: 370px; 
   }
 }
 @media (max-width: 1242px) {
   //zoom 110%
   .tablePage {
-    max-height: 300px;
     //max-height: 100vh;
+    max-height: 310px;
+		min-height: 310px; 
   }
 }
 @media (max-width: 1000px) {
@@ -1775,8 +1789,9 @@ th.iconU-edit {
   + .select_dropdown_options {
   border: 1px solid $secondaryColor !important;
   border-radius: 5px;
-  // margin-top: 10px;
   overflow: auto;
+    max-height: 188px;
+    margin-top: 10px;
 }
 
 .select_dropdown_close:checked
@@ -1787,11 +1802,8 @@ th.iconU-edit {
   margin-top: 10px;
 }
 
-.select_dropdown_expand:checked
-  + .select_dropdown_closeLabel
-  + .select_dropdown_options
-  .select_dropdown_label {
-  height: 50px;
+.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options .select_dropdown_label {
+	height: 47px;
 }
 
 .select_dropdown_expand:checked
@@ -2166,3 +2178,7 @@ th {
   font-size: 28px;
 }
 //End Font Size
+
+.btn-create{
+  padding: 6px 20px 6px 20px;
+}
