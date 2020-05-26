@@ -57,7 +57,7 @@ class UserManagement extends Component {
         { youraccount: "-", userId: "-", client: "-", site: "-" }
       ],
       headersPersonal: [
-        'Your Account', 'User ID', 'Client', 'Site'
+        'Email Address', 'User ID', 'Client', 'Site'
       ],
       validation: {
         "name": { isValid: true, invalidClass: "is-invalid" },

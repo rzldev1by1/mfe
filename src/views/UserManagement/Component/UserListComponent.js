@@ -228,7 +228,7 @@ class UserListComponent extends Component {
                 {
                   this.state.headers.map((element, index) => {
                     return <th key={index} className="">
-                      <div key={element} className="sort-icon" >
+                      <div key={element} >
                         <div className="d-inline-flex">
                           <div className="d-flex flex-row">
                             {element}
