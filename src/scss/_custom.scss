@@ -1789,8 +1789,9 @@ th.iconU-edit {
   + .select_dropdown_options {
   border: 1px solid $secondaryColor !important;
   border-radius: 5px;
-  // margin-top: 10px;
   overflow: auto;
+    max-height: 188px;
+    margin-top: 10px;
 }
 
 .select_dropdown_close:checked
@@ -1801,11 +1802,8 @@ th.iconU-edit {
   margin-top: 10px;
 }
 
-.select_dropdown_expand:checked
-  + .select_dropdown_closeLabel
-  + .select_dropdown_options
-  .select_dropdown_label {
-  height: 50px;
+.select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options .select_dropdown_label {
+	height: 47px;
 }
 
 .select_dropdown_expand:checked
