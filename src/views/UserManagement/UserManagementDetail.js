@@ -513,8 +513,7 @@ class UserManagementDetail extends Component{
                 </div>
                 <div className="d-flex">
                     <Card className="container-user-list border-0 flex-fill h-100">
-                        <CardBody>
-                            <div >
+                        <CardBody>                            
                               <form onSubmit={(e)=>{e.preventDefault(); this.saveClick();}}>
                                 <div className="account-detail mt-2">
                                     <div className="row">
@@ -530,11 +529,11 @@ class UserManagementDetail extends Component{
                                         <label className="title-label">User ID</label>
                                     </div>
 
-                                    <div className="col-3">
+                                    <div className="col-2">
                                         <label className="title-label">Name</label>
                                     </div>
 
-                                    <div className="col-3">
+                                    <div className="col-2">
                                         <label className="title-label">Email</label>
                                     </div>
 
@@ -543,9 +542,9 @@ class UserManagementDetail extends Component{
                                         <label className="title-label">Reset Password</label>
                                     </div>
                                     
-                                    {/* <div className="col-3 pl-0">
+                                    <div className="col-3 pl-0">
                                           <label className="title-label">Suspend Users</label>
-                                    </div> */}
+                                    </div>
                                     
 
                                     </div>
@@ -555,16 +554,16 @@ class UserManagementDetail extends Component{
                                             <input type="text" readOnly className="form-control" defaultValue={this.state.accountInfo.userId}/>
                                         </div>
 
-                                        <div className="col-3">
+                                        <div className="col-2">
                                             <input type="text" className="form-control" maxLength="60" onChange={(e)=>{this.onChangeName(e);}} defaultValue={this.state.accountInfo.user}/>
                                         </div>
 
-                                        <div className="col-3">
+                                        <div className="col-2">
                                             <input type="email" name="email" className="form-control" onChange={(e)=>{this.onChangeEmail(e);}} defaultValue={this.state.accountInfo.email}/>
                                         </div>
 
 
-                                        <div className="col-4 pr-0">
+                                        <div className="col-3 pr-0">
                                               <div className="row pl-0">
                                                 <div className="col-6" style={{color:"#637176",fontFamily:"Helvetica Neue Regular",fontSize:"1rem"}}>                                                  
                                                       Are you sure you want<br/>
@@ -575,7 +574,7 @@ class UserManagementDetail extends Component{
                                                 </div>
                                               </div>
                                         </div>
-                                        {/* <div className="col-3 pl-0">
+                                        <div className="col-3 pl-0">
                                           <div className="row">
                                               <div className="col-6" style={{color:"#637176",fontFamily:"Helvetica Neue Regular",fontSize:"1rem"}}>
                                                     Are you sure you want<br/>
@@ -588,7 +587,7 @@ class UserManagementDetail extends Component{
                                               </div>
                                           </div>
                                               
-                                        </div> */}
+                                        </div>
 
 
                                     </div>
@@ -610,7 +609,7 @@ class UserManagementDetail extends Component{
                                         <div className="col-4 pl-0">
                                             <Site sites={sites} onEnableClick={this.onSiteStatusClick} onSiteEnableAll={this.onEnabledAllSite} isEnableAllSite={this.state.isEnableAllSite}/>
                                         </div>
-                                        <div className="col-4">
+                                        <div className="col-4" style={{overflowY:"auto",maxHeight:"400px"}}>
                                             <Client clients={clients} onEnableClick={this.onClientStatusClick} onClientEnableAll={this.onEnabledAllClient} isEnableAllClient={this.state.isEnableAllClient}/>
                                         </div>
 
@@ -637,7 +636,7 @@ class UserManagementDetail extends Component{
                                 </div>
                                  <button type="submit" style={{opacity:"0"}}></button>
                               </form>
-                            </div>
+                            
                         </CardBody>
                     </Card>
                 </div>

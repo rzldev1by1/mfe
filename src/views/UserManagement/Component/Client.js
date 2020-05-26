@@ -2,6 +2,7 @@ import React from 'react'
 import '../UserManagement.css'
 
 const client = ({clients, onEnableClick, onClientEnableAll, isEnableAllClient}) => {
+
   function capitalizeFirstLetter(string) {
       let aText = string.toLowerCase();
       let text = aText.charAt(0).toUpperCase() + aText.slice(1)
