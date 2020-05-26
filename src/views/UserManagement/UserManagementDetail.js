@@ -28,7 +28,10 @@ class UserManagementDetail extends Component{
           isLoadComplete:false,
           modalPopupResetdisplay:false,
           isResetSuccess:false,
-          isValidForm:false
+          isValidForm:false,
+          isEnableAllModule: false,
+          isEnableAllSite: false,
+          isEnableAllClient: false,
         }
 
     }
@@ -250,12 +253,13 @@ class UserManagementDetail extends Component{
 
     onEnabledAllModuleAccess = () => {
         let newState = [...this.state.moduleAccess];
+        let isEnableAllModule = this.state.isEnableAllModule;
         let userInfo = {...this.state.accountInfo};
         userInfo.userMenu = null;
         userInfo.userMenu = [];
 
         var newArray = newState.map((item,index) => {
-              item.status = true;
+              item.status = !isEnableAllModule;
               if(item.status){
                 userInfo.userMenu.push({"menuid":item.menuid,"menuname":item.menuname});
               }
@@ -263,29 +267,31 @@ class UserManagementDetail extends Component{
             return item;
         });
 
-       this.setState({moduleAccess:newArray,accountInfo:userInfo});
+       this.setState({moduleAccess:newArray,accountInfo:userInfo, isEnableAllModule: !isEnableAllModule});
     }
 
-    onEnabledAllSite = () => {    
+    onEnabledAllSite = () => {  
+      let isEnableAllSite = this.state.isEnableAllSite;  
       let userInfo = {...this.state.accountInfo};
       let sites = [...this.state.sites];
       var newArray = sites.map((item,index) => {
-            item.status = true;
+            item.status = !isEnableAllSite;
           return item;
       });
       userInfo.site = null;
-     this.setState({sites:newArray,accountInfo:userInfo});
+     this.setState({sites:newArray,accountInfo:userInfo, isEnableAllSite: !isEnableAllSite});
   }
 
   onEnabledAllClient = () => { 
+      let isEnableAllClient = this.state.isEnableAllClient;
       let userInfo = {...this.state.accountInfo};      
       let clients = [...this.state.clients];
       var newArray = clients.map((item,index) => {
-            item.status = true;
+            item.status = !isEnableAllClient;
           return item;
       });
       userInfo.client = null;
-     this.setState({clients:newArray,accountInfo:userInfo});
+     this.setState({clients:newArray,accountInfo:userInfo, isEnableAllClient: !isEnableAllClient});
   }
 
     onSiteStatusClick = (e,data) => {
@@ -599,13 +605,13 @@ class UserManagementDetail extends Component{
                                     </div>
                                     <div className="row">
                                         <div className="col-4">
-                                            <ModuleAccess moduleAccess={moduleAccess} onEnableClick={this.onModuleAccessClick} onModuleEnableAll={this.onEnabledAllModuleAccess}/>
+                                            <ModuleAccess moduleAccess={moduleAccess} onEnableClick={this.onModuleAccessClick} onModuleEnableAll={this.onEnabledAllModuleAccess} isEnableAllModule={this.state.isEnableAllModule}/>
                                         </div>
                                         <div className="col-4 pl-0">
-                                            <Site sites={sites} onEnableClick={this.onSiteStatusClick} onSiteEnableAll={this.onEnabledAllSite}/>
+                                            <Site sites={sites} onEnableClick={this.onSiteStatusClick} onSiteEnableAll={this.onEnabledAllSite} isEnableAllSite={this.state.isEnableAllSite}/>
                                         </div>
                                         <div className="col-4">
-                                            <Client clients={clients} onEnableClick={this.onClientStatusClick} onClientEnableAll={this.onEnabledAllClient}/>
+                                            <Client clients={clients} onEnableClick={this.onClientStatusClick} onClientEnableAll={this.onEnabledAllClient} isEnableAllClient={this.state.isEnableAllClient}/>
                                         </div>
 
                                     </div>
