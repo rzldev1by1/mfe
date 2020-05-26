@@ -922,7 +922,7 @@ class PurchaseOrderCreate extends Component {
             </td>
             <td>
               <div id='orderline-header-number-val-id' tabIndex="3">
-                <label onClick={(e) => this.deletelinehandler(e, i)} className="iconU-delete"></label>
+                <label id={list.lineNumber} onClick={(e) => this.deletelinehandler(e, i)} className="iconU-delete"></label>
               </div>
             </td>
           </tr>
