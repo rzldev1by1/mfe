@@ -744,7 +744,9 @@ class PurchaseOrderCreate extends Component {
           this.setState({ rowlist: this.state.rowlist })
 
         }
-        this.refs['orderLine' + this.state.rowlist.length].reset()
+        if (this.refs['orderLine' + this.state.rowlist.length]){  
+            this.refs['orderLine' + this.state.rowlist.length].reset()
+        }
         this.forceUpdate()
         console.log(this.state.rowlist)
         break;
