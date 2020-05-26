@@ -807,6 +807,10 @@ overflow-x: scroll;
 	margin-bottom: 80px;
 }
 
+.so-tab-1{
+  padding-left: 1.2em !important;
+}
+
 .so-add-line{
   margin-top: 1%;
 }

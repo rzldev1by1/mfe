@@ -787,11 +787,11 @@ class SalesOrderCreate extends Component {
                   style={{ color: "#919191" }}
                   onClick={() => this.tabhandler()}
                   className={
-                    "tab1 " + (this.state.tab1isactive ? "isactivefont" : null)
+                    "tab1 so-tab-1 " + (this.state.tab1isactive ? "isactivefont" : null)
                   }
                 >
                   <img
-                    className="numberimg"
+                    className="numberimg so-tab-number"
                     style={{ width: "9%" }}
                     src={this.state.tab1isactive ? oneactive : oneinactive}
                   />{" "}
