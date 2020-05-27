@@ -204,26 +204,22 @@ class SalesOrder extends Component {
   };
 
   showDropdowns = () => {
-    let clientName = [];
-    let clientValue = [];
-    let siteData = [];
-    let siteName = [];
-    let orderTypeName = [];
-    let orderTypeValue = [];
+    let clientName = ["All"];
+    let clientValue = ["all"];
+    let siteData = ["all"];
+    let siteName = ["All"];
+    let orderTypeName = ["All"];
+    let orderTypeValue = ["all"];
     let statusName = ["All","0:Unavailable", "1:Available", "2:Released", "3:Open", "4:Completed"];
     let statusValue = ['all',"unavailable", "available", "released", "open", "completed"];
     let statuss = [];
-    if (this.state.clientdata) {
-      clientName.push("All");
-      clientValue.push("");
+    if (this.state.clientdata) { 
       this.state.clientdata.map((data) => {
         clientName.push(data.code + ' : ' + data.name);
         clientValue.push(data.code);
       });
     }
-    if (this.state.sitedata) {
-      siteName.push("All");
-      siteData.push("");
+    if (this.state.sitedata) { 
       this.state.sitedata.map((data) => {
         siteName.push(data.site + ' : ' + data.name)
         siteData.push(data.site);

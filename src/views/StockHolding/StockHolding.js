@@ -247,22 +247,18 @@ class StockHolding extends Component {
 
 
 	showDropdown = () => {
-		let clientName = [];
-		let clientValue = [];
-		let masterSite = [];
-		let masterSiteValue = [];
-		let Masterstatus = [];
-		masterSite.push("All");
-		masterSiteValue.push("");
+		let clientName = ["All"];
+		let clientValue = ["all"];
+		let masterSite = ["All"];
+		let masterSiteValue = ["all"];
+		let Masterstatus = []; 
 		if (this.state.masterSite.length > 0) {
 			this.state.masterSite.map((item) => {
 				masterSite.push(item.site + ' : ' + item.name);
 				masterSiteValue.push(item.site);
 			});
 		}
-
-		clientName.push("All");
-		clientValue.push("");
+ 
 		if (this.state.clientdata) {
 			this.state.clientdata.map((data) => {
 				clientName.push(data.code + ' : ' + data.name);
