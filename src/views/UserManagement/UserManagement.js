@@ -730,14 +730,14 @@ class UserManagement extends Component {
       <HeaderTitle
         title="User Management"
         button={
-          <Button onClick={this.onCreateClick} color="primary" className='btn btn-primary float-right'>
+          <Button onClick={this.onCreateClick} color="primary" className='btn btn-primary float-right btn-create'>
             <FaPencilAlt className="mb-2" /> &nbsp; <label className='font'>Create User</label>
           </Button>
         }
       />
       <div className="app-container">
         <Card className="border-account-info mb-3 w-100">
-          <CardBody className="account-info p-0">
+          <CardBody className="account-info card-body-um p-0">
             <PersonalUserComponent data={this.state.personalUser} headers={this.state.headersPersonal} />
           </CardBody>
           <CardBody className="w-100">
@@ -757,7 +757,7 @@ class UserManagement extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="col-1">
+                <div className="col-1" style={{paddingLeft: '0px'}}>
                   <Button type="submit" className="w-100 default-box-height search search-um text-button btn-primary"> Search </Button>
                 </div>
 
@@ -769,8 +769,8 @@ class UserManagement extends Component {
 
         <div className={(this.state.isListLoaded ? 'd-none' : 'spinner')} />
         <div className={(this.state.isListLoaded ? '' : ' d-none ')}>
-          <Card className="container-user-list border-0 mb-2 w-100">
-            <CardBody className="p-0">
+          <Card className="container-user-list  border-0 mb-2 w-100">
+            <CardBody className=" card-body-um p-0">
               <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}
                 startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                 className='animated fadeIn' />

@@ -1,7 +1,7 @@
 .header-title {
   background-color: #e9eced;
   z-index: 10;
-  padding: 10px 15px 10px 105px;
+  padding: 10px 15px 10px 125px;
 }
 .header-title .card {
   background-color: transparent;
@@ -293,7 +293,7 @@ h2 {
   .sidebar-lg-show.sidebar-fixed .app-footer,
   .sidebar-show.sidebar-fixed .main,
   .sidebar-show.sidebar-fixed .app-footer {
-    margin-left: 120px !important;
+    margin-left: 140px !important;
   }
 }
 
@@ -350,7 +350,8 @@ h2 {
   .sidebar-fixed .sidebar {
     background: #2f275d 0% 0% no-repeat padding-box;
     font-family: 'Helvetica Neue Medium';
-    width: 95px;
+    width: 116px;
+    //width: 95px;
   }
 }
 .sidebar {
@@ -358,13 +359,13 @@ h2 {
   z-index: 99;
 }
 
-.sidebar:hover {
-  width: 270px;
-}
+// .sidebar:hover {
+//   width: 270px;
+// }
 
 .sidebar .sidebar-header {
   background: transparent 0% 0% no-repeat padding-box;
-  width: 270px;
+  width: 116px;
 }
 
 .sidebar .sidebar-footer {
@@ -388,23 +389,19 @@ h2 {
 
 .sidebar .nav-item {
   background: #ffffff;
-  font-size: 15px !important;
-  line-height: 30px;
+  font-size: 12px !important;
+  line-height: 20px;
 }
 
-.sidebar .nav-name {
-  color: #fff;
-  display: contents;
-}
 
 .sidebar .nav-item .nav-link.active {
   border-left: 4px solid $primaryColor !important !important;
 }
 
 .sidebar .nav-item .nav-link.active:after {
-  border-top: 8px solid transparent;
-  border-bottom: 9px solid transparent;
-  border-right: 11px solid #e9eced;
+  //border-top: 8px solid transparent;
+  //border-bottom: 9px solid transparent;
+  //border-right: 11px solid #e9eced;
   content: '';
   position: absolute;
   bottom: 18px;
@@ -412,24 +409,43 @@ h2 {
   left: 100%;
   margin-left: -10px;
   align-self: middle;
+  color: #b4b9bb !important;
+}
+
+.sidebar .nav-link{
+  padding: 0.5rem 1rem  !important;
 }
 
 .sidebar .nav-link,
 .nav-link .nav-icon,
 .nav-link .nav-item {
-  color: #fff !important;
+  transition: 0.3s;
+  color: #b4b9bb !important;
   background-color: #2f275d;
 }
 
 .sidebar .nav-item .nav-link:hover,
 .nav-item .nav-link:hover .nav-icon {
-  color: #b4b9bb !important;
+  color: #3366FF !important;
   background: #2f275d !important;
 }
 
-.sidebar .nav-link {
-  padding-left: 40px;
+
+.sidebar .nav-name {
+  color: white;
+  //display: contents; 
+  opacity: 0 !important;
+  transition: 0.3s;
 }
+
+.nav-item:hover .nav-name{
+  opacity: 1 !important;
+  color: #3366FF;
+}
+
+// .sidebar .nav-link {
+//   padding-left: 40px;
+// }
 
 .sidebar .nav-user {
   padding-left: 80px !important ;
@@ -440,7 +456,13 @@ h2 {
 .nav-link.active .nav-icon {
   // color: $primaryColor !important !important;
   background: #2f275d !important;
+  color: white !important; 
 }
+
+//  .sidebar .nav-item:hover .nav-link.active .nav-icon,
+//  .sidebar .nav-item:hover .nav-link.active .nav-name { 
+//   color: white !important; 
+// }
 
 .sidebar-minimizer {
   background: #ffffff !important;
@@ -451,8 +473,7 @@ h2 {
 }
 
 .sideLogo {
-  width: 20%;
-  margin-left: -60%;
+  width: 50%; 
   margin-top: 10%;
   margin-bottom: 13%;
 }
@@ -471,23 +492,34 @@ h2 {
 }
 
 .profilePhoto {
-  width: 100%;
-  margin-left: -30%;
-  margin-bottom: 5%;
+  width: 50%; 
 }
 
 .divProfilePhoto {
-  padding-left: 30px !important;
-  width: 85px;
+  text-align: center;
+  bottom: 0px;
+  position: absolute;
+  padding-bottom: 20px;
 }
 .divLogout {
   padding-left: 45px !important;
   width: 110px;
 }
+ 
+.divProfileText{
+  padding-top: 10px;
+  opacity: 0 !important;
+  transition: 0.3s;
+}
+
+.divProfilePhoto:hover .divProfileText{
+  opacity: 1 !important;
+}
+
 
 .userName {
   // font-weight: bold;
-  font-size: 15px;
+  font-size: 16px;
   /* text-align: left; */
   /* letter-spacing: 0; */
   color: #fff;
@@ -496,8 +528,8 @@ h2 {
 
 .profileID {
   vertical-align: top;
-  color: #959da0;
-  font-size: 15px;
+  color: white;
+  font-size: 12px;
   // font-weight: bold;
   //align-self: center;
   // margin-left: -241%;
@@ -519,15 +551,19 @@ h2 {
   // font-weight: bold;
   padding-top: 100px;
 }
+ 
 
 .LogoutLink {
-  color: #959da0;
+  color: white;
+  text-decoration: none; 
+  font-size: 12px;
 }
 
 .LogoutLink:hover {
   color: white;
   text-decoration: none;
 }
+
 
 .viewProfile {
   background-color: #e9eced;
@@ -1167,7 +1203,7 @@ span.upArrow:before {
   background-color: #e9eced;
   display: flex;
   flex-wrap: wrap;
-  padding: 15px 30px 15px 123px;
+  padding: 15px 30px 15px 143px;
   z-index: 10;
   width: 100%;
 }
