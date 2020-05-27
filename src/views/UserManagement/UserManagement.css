@@ -569,49 +569,49 @@ input:checked + .slider:before {
 @media (max-width: 2750px) {
   /* //zoom 50% */
   .tablePage.tablePage-um {
-    max-height: 880px !important;
-    min-height: 880px !important;
+    max-height: 900px !important;
+    min-height: 900px !important;
   }
 }
 
 @media (max-width: 2100px) {
   .tablePage.tablePage-um {
-    max-height: 570px !important;
-    min-height: 570px !important;
+    max-height: 590px !important;
+    min-height: 590px !important;
   }
 }
 @media (max-width: 1830px) {
   .tablePage.tablePage-um {
-    max-height: 470px !important;
-    min-height: 470px !important;
+    max-height: 490px !important;
+    min-height: 490px !important;
     /* max-height: 100vh; */
   }
 }
 @media (max-width: 1710px) {
   .tablePage.tablePage-um {
-    max-height: 420px !important;
-    min-height: 420px !important;
+    max-height: 440px !important;
+    min-height: 440px !important;
     /* max-height: 100vh; */
   }
 }
 @media (max-width: 1520px) {
   .tablePage.tablePage-um {
-    max-height: 330px !important;
-    min-height: 330px !important;
+    max-height: 350px !important;
+    min-height: 350px !important;
     /* max-height: 100vh; */
   }
 }
 @media (max-width: 1366px) {
   .tablePage.tablePage-um {
-    max-height: 260px !important;
-    min-height: 260px !important;
+    max-height: 280px !important;
+    min-height: 280px !important;
     /* max-height: 100vh; */
   }
 }
 @media (max-width: 1242px) {
   .tablePage.tablePage-um {
-    max-height: 210px !important;
-    min-height: 210px !important;
+    max-height: 230px !important;
+    min-height: 230px !important;
     /* max-height: 100vh; */
   }
 }
@@ -655,4 +655,8 @@ input:checked + .slider:before {
 .um-client-scrollbar{
   overflow-y: auto;
   height:400px;
+}
+
+.card-body-um{
+  padding: 0px !important;
 }
