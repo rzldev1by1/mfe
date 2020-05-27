@@ -183,31 +183,31 @@ class PurchaseOrder extends Component {
     let clientValue = [];
     let siteData = [];
     let siteValue = [];
-    let status = ["1:Unavailable", "2:Released", "3:Open", "4:Completed", "All"];
-    let statusValue = ["Unavailable", "Open", "Released", "Completed", "All"];
+    let status = [ "All","0:Unavailable","1:Available", "2:Released", "3:Open", "4:Completed"];
+    let statusValue = ["all","unavailable","available", "released", "open", "completed"];
     let orderTypeName = [];
     let orderTypeValue = [];
     if (this.state.clientdata) {
+      clientName.push("All");
+      clientValue.push("");
       this.state.clientdata.map((data) => {
         clientName.push(data.code + ' : ' + data.name);
         clientValue.push(data.code);
       })
-      clientName.push("All");
-      clientValue.push("");
     }
     if (this.state.sitedata) {
+      siteData.push("All");
+      siteValue.push("");
       this.state.sitedata.map((data) => {
         siteData.push(data.site + ' : ' + data.name);
         siteValue.push(data.site);
       })
-      siteData.push("All");
-      siteValue.push("");
     }
     if (this.state.orderTypeValue.length > 1) {
+      orderTypeName.push("All")
       this.state.orderTypeValue.map((data) => {
         orderTypeName.push(data);
       })
-      orderTypeName.push("All")
     }
     if (this.state.orderTypeValue.length > 1) {
       this.state.orderTypeValue.map((data) => {
@@ -272,7 +272,7 @@ class PurchaseOrder extends Component {
         <HeaderTitle
           title="Purchase Orders"
           button={
-            <Button onClick={this.openModal} color="primary" className='btn btn-primary float-right'>
+            <Button onClick={this.openModal} color="primary" className='btn btn-primary float-right btn-create'>
               <FaPencilAlt className="mb-2" /> &nbsp; <label className='font'>Create Purchase Order</label>
             </Button>
           }

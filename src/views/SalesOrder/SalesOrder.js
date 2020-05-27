@@ -210,24 +210,24 @@ class SalesOrder extends Component {
     let siteName = [];
     let orderTypeName = [];
     let orderTypeValue = [];
-    let statusName = ["0:Unavailable", "1:Available", "2:Released", "3:Open", "4:Completed", "All"];
-    let statusValue = ["unavailable", "available", "released", "open", "completed", 'all'];
+    let statusName = ["All","0:Unavailable", "1:Available", "2:Released", "3:Open", "4:Completed"];
+    let statusValue = ['all',"unavailable", "available", "released", "open", "completed"];
     let statuss = [];
     if (this.state.clientdata) {
+      clientName.push("All");
+      clientValue.push("");
       this.state.clientdata.map((data) => {
         clientName.push(data.code + ' : ' + data.name);
         clientValue.push(data.code);
       });
-      clientName.push("All");
-      clientValue.push("");
     }
     if (this.state.sitedata) {
+      siteName.push("All");
+      siteData.push("");
       this.state.sitedata.map((data) => {
         siteName.push(data.site + ' : ' + data.name)
         siteData.push(data.site);
       });
-      siteName.push("All");
-      siteData.push("");
     }
 
     if (this.state.resources.orderType !== undefined) {
@@ -297,7 +297,7 @@ class SalesOrder extends Component {
         <HeaderTitle
           title="Sales Orders"
           button={
-            <Button onClick={this.openModal} color="primary" className='btn btn-primary float-right'>
+            <Button onClick={this.openModal} color="primary" className='btn btn-primary float-right btn-create'>
               <FaPencilAlt className="mb-2" /> &nbsp; <label className='font'>Create Sales Order</label>
             </Button>
           }

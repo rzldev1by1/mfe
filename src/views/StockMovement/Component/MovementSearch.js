@@ -246,21 +246,24 @@ export default class MovementSearch extends Component {
         let siteValue = [];
         let productData = [];
         let productValue = [];
+
+        clientName.push("All");
+        clientValue.push("");
         if (this.state.clientdata) {
             this.state.clientdata.map((data) => {
                 clientName.push(data.code + ' : ' + data.name);
                 clientValue.push(data.code);
             })
-            clientName.push("All");
-            clientValue.push("");
         }
+
+        
+        siteData.push("All");
+        siteValue.push("");
         if (this.state.sitedata) {
             this.state.sitedata.map((data) => {
                 siteData.push(data.site + ' : ' + data.name);
                 siteValue.push(data.site);
             })
-            siteData.push("All");
-            siteValue.push("");
         }
         if (this.state.productdata) {
             productData.push(this.state.productdata.code);

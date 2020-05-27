@@ -62,7 +62,7 @@ class StockHolding extends Component {
 			],
 			masterSite: [],
 			masterUnit: ["MLB : MICROLISTICS", "MLS : Microlistics", "MLM : MICROLISTICS"],
-			masterStatus: ["Ok", "Shortage", "All"],
+			masterStatus: ["All","Ok", "Shortage"],
 			masterResStockHolding: [],
 			statusFilter: 'All',
 			resetDropdownProcessed: false
@@ -252,23 +252,23 @@ class StockHolding extends Component {
 		let masterSite = [];
 		let masterSiteValue = [];
 		let Masterstatus = [];
+		masterSite.push("All");
+		masterSiteValue.push("");
 		if (this.state.masterSite.length > 0) {
 			this.state.masterSite.map((item) => {
 				masterSite.push(item.site + ' : ' + item.name);
 				masterSiteValue.push(item.site);
 			});
 		}
-		masterSite.push("All");
-		masterSiteValue.push("");
 
+		clientName.push("All");
+		clientValue.push("");
 		if (this.state.clientdata) {
 			this.state.clientdata.map((data) => {
 				clientName.push(data.code + ' : ' + data.name);
 				clientValue.push(data.code);
 			})
 		}
-		clientName.push("All");
-		clientValue.push("");
 
 		let masterUnit = this.state.masterUnit.toString();
 		let masterStatus = this.state.masterStatus;
@@ -503,7 +503,7 @@ class StockHolding extends Component {
 
 		return (
 			<React.Fragment>
-				<HeaderTitle title="Stock Holding Summary" />
+				<HeaderTitle title="Stock Holding" />
 				<div className="animated fadeIn app-container">
 					<div className="card w-100 mb-3">
 						<form ref={this.searchForm} onSubmit={e => { e.preventDefault(); this.searchData() }}>

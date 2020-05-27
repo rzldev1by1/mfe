@@ -28,7 +28,10 @@ class UserManagementDetail extends Component{
           isLoadComplete:false,
           modalPopupResetdisplay:false,
           isResetSuccess:false,
-          isValidForm:false
+          isValidForm:false,
+          isEnableAllModule: false,
+          isEnableAllSite: false,
+          isEnableAllClient: false,
         }
 
     }
@@ -250,12 +253,13 @@ class UserManagementDetail extends Component{
 
     onEnabledAllModuleAccess = () => {
         let newState = [...this.state.moduleAccess];
+        let isEnableAllModule = this.state.isEnableAllModule;
         let userInfo = {...this.state.accountInfo};
         userInfo.userMenu = null;
         userInfo.userMenu = [];
 
         var newArray = newState.map((item,index) => {
-              item.status = true;
+              item.status = !isEnableAllModule;
               if(item.status){
                 userInfo.userMenu.push({"menuid":item.menuid,"menuname":item.menuname});
               }
@@ -263,29 +267,31 @@ class UserManagementDetail extends Component{
             return item;
         });
 
-       this.setState({moduleAccess:newArray,accountInfo:userInfo});
+       this.setState({moduleAccess:newArray,accountInfo:userInfo, isEnableAllModule: !isEnableAllModule});
     }
 
-    onEnabledAllSite = () => {    
+    onEnabledAllSite = () => {  
+      let isEnableAllSite = this.state.isEnableAllSite;  
       let userInfo = {...this.state.accountInfo};
       let sites = [...this.state.sites];
       var newArray = sites.map((item,index) => {
-            item.status = true;
+            item.status = !isEnableAllSite;
           return item;
       });
       userInfo.site = null;
-     this.setState({sites:newArray,accountInfo:userInfo});
+     this.setState({sites:newArray,accountInfo:userInfo, isEnableAllSite: !isEnableAllSite});
   }
 
   onEnabledAllClient = () => { 
+      let isEnableAllClient = this.state.isEnableAllClient;
       let userInfo = {...this.state.accountInfo};      
       let clients = [...this.state.clients];
       var newArray = clients.map((item,index) => {
-            item.status = true;
+            item.status = !isEnableAllClient;
           return item;
       });
       userInfo.client = null;
-     this.setState({clients:newArray,accountInfo:userInfo});
+     this.setState({clients:newArray,accountInfo:userInfo, isEnableAllClient: !isEnableAllClient});
   }
 
     onSiteStatusClick = (e,data) => {
@@ -507,8 +513,7 @@ class UserManagementDetail extends Component{
                 </div>
                 <div className="d-flex">
                     <Card className="container-user-list border-0 flex-fill h-100">
-                        <CardBody>
-                            <div >
+                        <CardBody>                            
                               <form onSubmit={(e)=>{e.preventDefault(); this.saveClick();}}>
                                 <div className="account-detail mt-2">
                                     <div className="row">
@@ -524,11 +529,11 @@ class UserManagementDetail extends Component{
                                         <label className="title-label">User ID</label>
                                     </div>
 
-                                    <div className="col-3">
+                                    <div className="col-2">
                                         <label className="title-label">Name</label>
                                     </div>
 
-                                    <div className="col-3">
+                                    <div className="col-2">
                                         <label className="title-label">Email</label>
                                     </div>
 
@@ -537,9 +542,9 @@ class UserManagementDetail extends Component{
                                         <label className="title-label">Reset Password</label>
                                     </div>
                                     
-                                    {/* <div className="col-3 pl-0">
+                                    <div className="col-3 pl-0">
                                           <label className="title-label">Suspend Users</label>
-                                    </div> */}
+                                    </div>
                                     
 
                                     </div>
@@ -549,16 +554,16 @@ class UserManagementDetail extends Component{
                                             <input type="text" readOnly className="form-control" defaultValue={this.state.accountInfo.userId}/>
                                         </div>
 
-                                        <div className="col-3">
+                                        <div className="col-2">
                                             <input type="text" className="form-control" maxLength="60" onChange={(e)=>{this.onChangeName(e);}} defaultValue={this.state.accountInfo.user}/>
                                         </div>
 
-                                        <div className="col-3">
+                                        <div className="col-2">
                                             <input type="email" name="email" className="form-control" onChange={(e)=>{this.onChangeEmail(e);}} defaultValue={this.state.accountInfo.email}/>
                                         </div>
 
 
-                                        <div className="col-4 pr-0">
+                                        <div className="col-3 pr-0">
                                               <div className="row pl-0">
                                                 <div className="col-6" style={{color:"#637176",fontFamily:"Helvetica Neue Regular",fontSize:"1rem"}}>                                                  
                                                       Are you sure you want<br/>
@@ -569,7 +574,7 @@ class UserManagementDetail extends Component{
                                                 </div>
                                               </div>
                                         </div>
-                                        {/* <div className="col-3 pl-0">
+                                        <div className="col-3 pl-0">
                                           <div className="row">
                                               <div className="col-6" style={{color:"#637176",fontFamily:"Helvetica Neue Regular",fontSize:"1rem"}}>
                                                     Are you sure you want<br/>
@@ -582,7 +587,7 @@ class UserManagementDetail extends Component{
                                               </div>
                                           </div>
                                               
-                                        </div> */}
+                                        </div>
 
 
                                     </div>
@@ -599,13 +604,13 @@ class UserManagementDetail extends Component{
                                     </div>
                                     <div className="row">
                                         <div className="col-4">
-                                            <ModuleAccess moduleAccess={moduleAccess} onEnableClick={this.onModuleAccessClick} onModuleEnableAll={this.onEnabledAllModuleAccess}/>
+                                            <ModuleAccess moduleAccess={moduleAccess} onEnableClick={this.onModuleAccessClick} onModuleEnableAll={this.onEnabledAllModuleAccess} isEnableAllModule={this.state.isEnableAllModule}/>
                                         </div>
                                         <div className="col-4 pl-0">
-                                            <Site sites={sites} onEnableClick={this.onSiteStatusClick} onSiteEnableAll={this.onEnabledAllSite}/>
+                                            <Site sites={sites} onEnableClick={this.onSiteStatusClick} onSiteEnableAll={this.onEnabledAllSite} isEnableAllSite={this.state.isEnableAllSite}/>
                                         </div>
-                                        <div className="col-4">
-                                            <Client clients={clients} onEnableClick={this.onClientStatusClick} onClientEnableAll={this.onEnabledAllClient}/>
+                                        <div className="col-4 um-client-scrollbar">
+                                            <Client clients={clients} onEnableClick={this.onClientStatusClick} onClientEnableAll={this.onEnabledAllClient} isEnableAllClient={this.state.isEnableAllClient}/>
                                         </div>
 
                                     </div>
@@ -631,7 +636,7 @@ class UserManagementDetail extends Component{
                                 </div>
                                  <button type="submit" style={{opacity:"0"}}></button>
                               </form>
-                            </div>
+                            
                         </CardBody>
                     </Card>
                 </div>

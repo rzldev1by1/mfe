@@ -744,7 +744,9 @@ class PurchaseOrderCreate extends Component {
           this.setState({ rowlist: this.state.rowlist })
 
         }
-        this.refs['orderLine' + this.state.rowlist.length].reset()
+        if (this.refs['orderLine' + this.state.rowlist.length]){  
+            this.refs['orderLine' + this.state.rowlist.length].reset()
+        }
         this.forceUpdate()
         console.log(this.state.rowlist)
         break;
@@ -922,7 +924,7 @@ class PurchaseOrderCreate extends Component {
             </td>
             <td>
               <div id='orderline-header-number-val-id' tabIndex="3">
-                <label onClick={(e) => this.deletelinehandler(e, i)} className="iconU-delete"></label>
+                <label id={list.lineNumber} onClick={(e) => this.deletelinehandler(e, i)} className="iconU-delete"></label>
               </div>
             </td>
           </tr>
