@@ -203,13 +203,14 @@ class PurchaseOrder extends Component {
         siteValue.push(data.site);
       })
     }
-    if (this.state.orderTypeValue.length > 1) {
-      orderTypeName.push("All")
+    if (this.state.orderTypeValue.length > 1) { 
+      orderTypeName.push("All"); 
       this.state.orderTypeValue.map((data) => {
         orderTypeName.push(data);
       })
-    }
+    } 
     if (this.state.orderTypeValue.length > 1) {
+      orderTypeValue.push("all"); 
       this.state.orderTypeValue.map((data) => {
         orderTypeValue.push(data);
 
