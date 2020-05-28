@@ -30,14 +30,14 @@
 }
 @media(max-width: 1366px) {  /* //zoom 100% */
 	.tablePagePo{
-		max-height: 205px !important;
-		min-height: 205px !important;
+		max-height: 180px !important;
+		min-height: 180px !important;
 	}
 }
 @media(max-width: 1242px) {  /* //zoom 110% */
 	.tablePagePo{
-		min-height: 150px !important;
-		max-height: 150px !important;
+		min-height: 115px !important;
+		max-height: 115px !important;
 	} 
 }  
 

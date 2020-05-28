@@ -28,7 +28,7 @@ a {
 .card-body {
   padding: 30px !important;
 }
-input {
+.inputLogin {
   width: 85% !important;
   border-radius: 10px !important;
   font-size: 110% !important;

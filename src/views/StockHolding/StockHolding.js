@@ -298,6 +298,9 @@ class StockHolding extends Component {
 					optionList={masterStatus.toString()}
 					optionValue={masterStatusValue.toString()}
 					getValue={this.selectedStatus} className="filterDropdown" />
+				
+				{/* empty dropdown sementara -dimas */}
+				<div style={{width:"20%"}}></div>
 			</React.Fragment>
 		);
 	}
