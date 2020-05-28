@@ -350,15 +350,21 @@ class SalesOrderCreate extends Component {
       this.setState({ validation: validation });
     }
 
-    let index = this.props.resources.supplier.code.indexOf(customerVal);
-    customer = this.props.resources.supplier.name[index];
+    let supplierName = [];
+    this.props.resources.supplier.name.map((data, idx) => {
+      let code = this.props.resources.supplier.code[idx];
+      supplierName.push(code + " ( " + data + " )");
+    });
+
+    let index = supplierName.indexOf(customerVal);
+    customer = this.props.resources.supplier.code[index];
     this.setState((prevState) => ({
       parameters: {
         ...prevState.parameters,
         header: {
           ...prevState.parameters.header,
-          customer: customerVal + ' ( '+customer+' )',
-          customerVal: customerVal
+          customer: customerVal,
+          customerVal: customer
         }
       }
     }));
@@ -498,8 +504,14 @@ class SalesOrderCreate extends Component {
   getIdentity = (customerVal, customerName) => {
     const {client} = this.state.parameters.header
     this.setCustomer(customerVal);
+    let supplierName = [];
+        this.props.resources.supplier.name.map((data, idx) => {
+          let code = this.props.resources.supplier.code[idx];
+          supplierName.push(code + " ( " + data + " )");
+        });
+        let index = supplierName.indexOf(customerVal);
     let param =
-      "?client=" + client + "&&customerNo=" + customerVal;
+      "?client=" + client + "&&customerNo=" + this.props.resources.supplier.code[index];
     let self = this;
     axios
       .get(endpoint.getSoIdentity + param, {
@@ -508,7 +520,13 @@ class SalesOrderCreate extends Component {
       .then((res) => {
         const result = res.data.identity[0];
         let nm = result.name;
-        if (!nm) self.setCustomer(result.customer_no, nm);
+        let supplierName = [];
+        self.props.resources.supplier.name.map((data, idx) => {
+          let code = self.props.resources.supplier.code[idx];
+          supplierName.push(code + " ( " + data + " )");
+        });
+        let index = self.props.resources.supplier.code.indexOf(result.customer_no);
+        if (customerVal) self.setCustomer(supplierName[index], nm);
         self.setState((prevState) => ({
           parameters: {
             ...prevState.parameters,
@@ -526,7 +544,6 @@ class SalesOrderCreate extends Component {
             }
           }
         }));
-        self.setCustomer(result.customer_no, nm);
         self.setAddress1(result.address_1);
         self.setPostCode(result.postcode);
         self.setStates(result.state);
