@@ -72,7 +72,7 @@ export default class DropdownPeriod extends Component {
 
     render() {
         return (
-            <div className='dropdown'>
+            <div className='dropdown' ref={node=> {this.node = node}} >
                 <div className='displayButtonToggle'>
                     <button style={{ color: '#7c878c' }} onClick={() => this.dropdownExpand()} className='btn dropdown-button ddlMovement default-box-height' data-toggle='dropdown'>
                         {this.state.periodSelected ? this.state.periodText : 'Display Period'}
