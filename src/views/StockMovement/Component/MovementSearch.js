@@ -7,6 +7,7 @@ import axios from 'axios'
 import { endpoint, headers } from '../../../AppComponent/ConfigEndpoint'
 import AutoComplete from '../../../AppComponent/AutoComplete'
 import DropdownPeriod from './DropdownPeriod'
+import Authentication from '../../../Auth/Authentication'
 
 export default class MovementSearch extends Component {
     constructor(props) {
@@ -268,17 +269,45 @@ export default class MovementSearch extends Component {
             productValue.push(this.state.productdata.code);
         }
         return (
-            <React.Fragment>
-                <Dropdown placeHolder="Site"
-                    className="filterDropdowns"
-                    optionList={siteData.toString()}
-                    optionValue={siteValue.toString()}
-                    getValue={this.getSiteSelected.bind(this)} />
-                <Dropdown placeHolder="Client"
+            <React.Fragment> 
+                
+				{Authentication.getUserLevel() == "administrator" ? (
+						<Dropdown placeHolder="Site"
+                        className="filterDropdowns"
+                        optionList={siteData.toString()}
+                        optionValue={siteValue.toString()}
+                        getValue={this.getSiteSelected.bind(this)} />
+				) : (
+						<input
+						readOnly
+						value={Authentication.getSite()}
+						id="site"
+						className="form-control put"
+						placeholder="Site"
+                        tabIndex='1'
+                        style={{width: "170px",marginRight:'1em'}}
+						/>
+				)}
+ 
+
+                {Authentication.getUserLevel() == "administrator" ? (
+                    <Dropdown placeHolder="Client"
                     className="filterDropdowns"
                     optionList={clientName.toString()}
                     optionValue={clientValue.toString()}
-                    getValue={this.getClientSelected.bind(this)} />
+                    getValue={this.getClientSelected.bind(this)}  />
+                ) : (
+                    <input
+                    readOnly
+                    value={Authentication.getClient()}
+                    id="site"
+                    className="form-control put "
+                    placeholder="Site"
+                    tabIndex='1'
+                    style={{width: "170px",marginRight:'1em'}}
+                    />
+                )}
+                
                 <AutoComplete placeHolder="Product"
                     className="filterDropdowns"
                     optionList={productData.toString()}

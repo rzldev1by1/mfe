@@ -157,7 +157,7 @@ class StockHolding extends Component {
 		let site_ = Authentication.getSite() 
 		let url = ""
 		if(site_ !== ""){
-			url = '?site=' + Authentication.getSite() 
+			url = '?site=' + site_
 		}
   
 		axios.get(endpoint.stockHoldingSummary+url, {
