@@ -491,3 +491,54 @@ tbody>.tr1:hover {
 .xlsHeaderAlign {
 	text-align: left !important;
 }
+
+.cardSH{
+	width: 100% !important;
+}
+
+.cardbodySH{
+	padding: 0px !important;
+}
+
+@media(max-width: 2750px) { /* //zoom 50% */
+	.tablePageSh{
+		max-height: 800px !important; 
+		min-height: 800px !important; 
+	}
+}
+@media(max-width: 2100px) { /* //zoom 67% */
+	.tablePageSh{
+		max-height: 490px !important;
+		min-height: 490px !important;
+	}
+}
+@media(max-width: 1830px) {  /* //zoom 75% */
+	.tablePageSh{
+		max-height: 390px !important;
+		min-height: 390px !important;
+	}
+}
+@media(max-width: 1710px) {  /* //zoom 80% */
+	.tablePageSh{
+		max-height: 342px !important;
+		min-height: 342px !important;
+	}
+}
+@media(max-width: 1520px) {  /* //zoom 90% */
+	.tablePageSh{
+		max-height: 250px !important;
+		min-height: 250px !important;
+	}
+}
+@media(max-width: 1366px) {  /* //zoom 100% */
+	.tablePageSh{
+		max-height: 185px !important;
+		min-height: 185px !important;
+	}
+}
+@media(max-width: 1242px) {  /* //zoom 110% */
+	.tablePageSh{
+		min-height: 90px !important;
+		max-height: 90px !important;
+	} 
+}  

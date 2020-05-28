@@ -16,6 +16,7 @@ import up from '../../../assets/img/brand/field-top.png';
 
 import StockDetails from './StockDetails';
 import StockBalanceForecast from './StockBalanceForecast';
+import '../StockHolding.css';
 
 
 class StockHoldingDetails extends Component {
@@ -170,7 +171,7 @@ class StockHoldingDetails extends Component {
 								let history = result.history;
 								let openingDate = "";
 								let closingDate = "";
-								if(history.length){
+								if(history === undefined || history === null){
 									openingDate = history[0]["effectivedate"];
 									closingDate = history[history.length - 1]["effectivedate"];
 								}
@@ -258,49 +259,29 @@ class StockHoldingDetails extends Component {
 			case "FOUND" :
 				content =
 				<div className="animated fadeIn">
+                    <div class="header-title fixed-top">
+                        <div class="container-fluid">
+                            <div class="card">
+                            <h2 onClick={(e)=>{this.gotoSummary()}} style={{ marginRight: "20px", cursor:"pointer", display: "inline-block" }}>Stock Holding</h2>
+                            <h2 style={{ marginRight: "20px", display: "inline-block" }}><i className="iconU-rightArrow" style={{ fontSize: "20px" }} /></h2>
+                            <h2 style={{ marginRight: "20px", display: "inline-block",color:"#3366FF" }}>{decodeURIComponent(this.props.match.params.productId)}</h2>
+                            </div>
+                        </div>
+                    </div>
 					<div className="row">
-						<div className="col-12 p-0">
-							<div className="row pl-3">
-								<div className="col-12 col-lg-12 col-md-12 col-sm-12 p-0">
-                                    <CardBody className="pt-2 pb-0 pl-1 pt-3">
-                                        <Row className="align-items-center pl-0">
-                                            <div className="col-12 col-lg-12 col-md-12 col-sm-12 pr-0">
-                                                <FormGroup className="mb-0">
-                                                    <InputGroup>
-                                                        <div className="col-12 col-12 col-lg-12 col-md-12 col-sm-12 p-0">
-                                                            {/* <Breadcrumb>
-                                                                <BreadcrumbItem>
-                                                                    <a href="#" className="breadcrumb">Detailed Information</a>
-                                                                </BreadcrumbItem>
-                                                                <BreadcrumbItem active>
-                                                                    {decodeURIComponent(this.props.match.params.product)}
-                                                                </BreadcrumbItem>
-                                                            </Breadcrumb> */}
-                                                            <div className="headerTitle">
-                                                                <h2 onClick={(e)=>{this.gotoSummary()}} style={{ marginRight: "20px", cursor:"pointer" }}>Stock Holding</h2>
-                                                                <h2 style={{ marginRight: "20px" }}><i className="iconU-rightArrow" style={{ fontSize: "20px" }} /></h2>
-                                                                <h2 style={{ marginRight: "20px",color:"#3366FF" }}>{decodeURIComponent(this.props.match.params.productId)}</h2>
-                                                            </div>
-                                                        </div>
-                                                    </InputGroup>
-                                                </FormGroup>
-                                            </div>
-                                        </Row>
-                                    </CardBody>
-								</div>
-							</div>
+						<div className="col-12"> 
 
-							<div className="row pl-1">
-								<div className="col-12 col-lg-12 col-md-12 col-sm-12">
+							<div className="row pl-1" style={{paddingTop: '80px'}}>
+								<div className="col-12 col-lg-12 col-md-12 col-sm-12 pr-0">
 									<div className="form-group row">
 										<div className="col-12 col-lg-12 col-md-12 col-sm-12">
-                                            <CardBody className="pb-0 pl-0 pt-2">
+                                            <CardBody className="pb-0 pl-0 pt-2 cardbodySH" >
                                                 <Row className="align-items-center ml-0">
                                                     <div className="col-12 col-lg-12 col-md-12 col-sm-12 pr-0">
                                                         <FormGroup>
                                                             <InputGroup>
                                                                 <div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0">
-                                                                    <Card className="form-group row rounded-top-05 mb-0 border-0">
+                                                                    <Card className="form-group row rounded-top-05 mb-0 border-0 w-100">
                                                                         <div className="col-12 pb-2 pt-3 pl-3">
                                                                             <div className="row">
                                                                                 <div className="col-2">
@@ -418,8 +399,8 @@ class StockHoldingDetails extends Component {
                                                     </div>
                                                 </Row>
 
-                                                <Row className="align-items-center ml-0">
-                                                    <div className="col-12 col-lg-12 col-md-12 col-sm-12 mt-0 pl-0 pr-0">
+                                                <Row className="align-items-center ml-0"> 
+                                                    <div className="col-12 col-lg-12 col-md-12 col-sm-12 mt-0 pl-0 " style={{paddingRight: '30px'}}>
                                                         <TabContent className="border-0" activeTab={this.state.activeTab}>
                                                             <TabPane className="p-0" tabId="1">
                                                                 <StockDetails isStockDetails={this.state.isStockDetails}

@@ -249,7 +249,7 @@ class StockDetails extends Component {
 	render() {
 		return (
 			<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
-                <div className="tablePage tableContent">
+                <div className="tablePage tablePageSh tableContent">
                     <Table className="table-condensed table-striped clickable-row rounded-bottom-175 mb-0" size="md" width="100%">
                         <thead>{this.showStockDetailsHeader()}</thead>
                         <tbody>{this.showStockDetailsData()}</tbody>
@@ -317,7 +317,7 @@ class StockDetails extends Component {
 						</tr>  
 					</table>
                 </div>
-                <div className=" paginations">
+                <div className="fixed-bottom paginations">
                     <Paging firstPageClick={this.firstPageClick} backPageClick={this.backPageClick}
                             nextPageClick={this.nextPageClick} lastPageClick={this.lastPageClick}
                             totalRows={this.state.totalRows} displayPage={this.state.displayPage}

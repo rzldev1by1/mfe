@@ -62,11 +62,11 @@ class Logins extends Component {
                         <div className="card">
                             <div className="card-body">
                                 <img src={Logo} className="logo mb-5" alt="mlslogo" />
-                                <input className={'form-control  ' + (formValidation.username ? "" : " is-invalid")}
+                                <input className={'form-control  inputLogin ' + (formValidation.username ? "" : " is-invalid")}
                                     type="text" name="username"
                                     placeholder="Enter your username here" />
                                 <br />
-                                <input className={'form-control ' + (formValidation.password ? "" : " is-invalid")}
+                                <input className={'form-control inputLogin ' + (formValidation.password ? "" : " is-invalid")}
                                     type="password" name="password"
                                     placeholder="Enter your password here"
                                 />

@@ -51,7 +51,8 @@ class PurchaseOrderCreate extends Component {
           ref4: null,
           disposition: null,
           weight: null,
-          orderDate: null
+          orderDate: null,
+          uomlists: []
         }
       ],
       rowlistidx: 1,
@@ -358,10 +359,12 @@ class PurchaseOrderCreate extends Component {
     })
       .then(res => {
         const result = res.data;
-        this.setState({ uomcr: res.data.uom })
+        this.state.rowlist[i].uomlists = result.uom
+        this.setState({ rowlist: this.state.rowlist })
       })
       .catch(error => {
-        this.setState({ uomcr: [] })
+        this.state.rowlist[i].uomlists = []
+        this.setState({ rowlist: this.state.rowlist })
       })
   }
 
@@ -864,8 +867,8 @@ class PurchaseOrderCreate extends Component {
               <div id='orderline-header-uom-val-id'>
                 <Dropdown placeHolder="UOM"
                   style={{ width: "100%", zIndex: this.state.rowlist.length - i }}
-                  optionList={this.state.uomcr.toString()}
-                  optionValue={this.state.uomcr.toString()}
+                  optionList={this.state.rowlist[i].uomlists ? this.state.rowlist[i].uomlists.toString() : []}
+                  optionValue={this.state.rowlist[i].uomlists ? this.state.rowlist[i].uomlists.toString() : []}
                   getValue={(e) => { this.state.rowlist[i].uom = e; this.setState({ rowlist: this.state.rowlist }) }}
                   optionSelected={this.state.rowlist[i].uom} tabIndex="2" />
               </div>

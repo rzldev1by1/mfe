@@ -387,7 +387,7 @@ class SODTable extends Component {
 
         </div>
         <div className=" p-0"  >
-            <div className='paginations paginationSO'>
+            <div className='fixed-bottom paginations paginationSO'>
                 <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
                         backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
                         totalRows={this.state.totalRows} displayPage={this.state.displayPage}

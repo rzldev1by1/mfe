@@ -30,8 +30,8 @@ export default class MovementSearch extends Component {
             clientdata: [],
             sitedata: [],
             productdata: [],
-            client: null,
-            site: null,
+            client: "",
+            site: "",
             search: "",
             siteSelected: "",
             clientSelected: "",
@@ -41,6 +41,7 @@ export default class MovementSearch extends Component {
     componentDidMount = () => {
         this.getclient();
         this.getsite();
+        this.getSiteSelected(null)
         //this.getproduct();
     }
 
@@ -240,15 +241,13 @@ export default class MovementSearch extends Component {
 
 
     showDropdowns = () => {
-        let clientName = [];
-        let clientValue = [];
-        let siteData = [];
-        let siteValue = [];
-        let productData = [];
-        let productValue = [];
-
-        clientName.push("All");
-        clientValue.push("");
+        let clientName = ["All"];
+        let clientValue = ["all"];
+        let siteData = ["All"];
+        let siteValue = ["all"];
+        let productData = ["All"];
+        let productValue = ["all"];
+ 
         if (this.state.clientdata) {
             this.state.clientdata.map((data) => {
                 clientName.push(data.code + ' : ' + data.name);
@@ -257,8 +256,7 @@ export default class MovementSearch extends Component {
         }
 
         
-        siteData.push("All");
-        siteValue.push("");
+        
         if (this.state.sitedata) {
             this.state.sitedata.map((data) => {
                 siteData.push(data.site + ' : ' + data.name);
