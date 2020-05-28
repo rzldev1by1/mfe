@@ -13,6 +13,7 @@ import EditColumn from "./Components/Modal/Modal";
 import { column } from './Components/Validation/defaultColumn'
 import { FaPencilAlt } from "react-icons/fa"
 import HeaderTitle from '../../AppComponent/HeaderTitle'
+import DD from '../../AppComponent/Dropdown/index'
 
 import "./SalesOrder.css";
 class SalesOrder extends Component {
@@ -314,14 +315,14 @@ class SalesOrder extends Component {
               additionalComponent={this.state.resetDropdownProcessed ? null : this.showDropdowns()}
               resetDropdown={() => this.resetDropdown()} />
           </div>
-
-          {/* <div className="dropdowns">
+          <div className="dropdowns">
           <div style={{ display: "flex", width: "100%" }}>
             {this.state.filterclicked ? null : null }
           </div>
-        </div> */}
+        </div>
 
-          <div className={"" + (this.state.complete ? "fades" : "hidden")}>
+
+         <div className={"" + (this.state.complete ? "fades" : "hidden")}>
             <ListOrderComponent
               column={this.state.column}
               openEditModal={() => this.openEditModal()}

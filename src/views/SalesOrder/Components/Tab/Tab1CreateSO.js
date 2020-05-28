@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Dropdown from "../../../../AppComponent/Dropdown";
+import DD from '../../../../AppComponent/Dropdown/index'
 import DatePicker from "../../../../AppComponent/DatePicker";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import {

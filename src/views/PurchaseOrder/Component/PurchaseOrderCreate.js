@@ -1067,7 +1067,7 @@ class PurchaseOrderCreate extends Component {
         orderNo: orderNo,
         orderDate: orderDate,
         vendorOrderRef: vendorRef ? vendorRef : null,
-        web_user: "216"
+        web_user: Authentication.getWebUser()
       }],
       lineDetails: [...self.state.rowlist]
     }
