@@ -269,9 +269,9 @@ class Tab1CreateSO extends Component {
                   <div className='so-supp'>
                     <AutoComplete
                     optionSelected  ={customer}
-                    getValueFromOnClick={( customerVal, product) =>
-                        this.props.getIdentity(customerVal, product)}
-                    getValueFromOnChange={(value) => {this.props.setCustomer(null, value)}}
+                    getValue        ={( customerVal, product) =>
+                      this.props.getIdentity(customerVal, 1)
+                                      }
                     placeHolder     ="Customer"
                     optionList      ={supplierName.toString()}
                     optionValue     ={supplierName.toString()}
