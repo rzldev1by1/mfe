@@ -16,6 +16,7 @@ import StockHoldingTable from './StockHoldingTable';
 import Paging from '../../AppComponent/Paging';
 import EditColumn from '../../AppComponent/EditColumn';
 import Export from '../../AppComponent/Export'
+import Authentication from '../../Auth/Authentication'
 import './StockHolding.css';
 
 
@@ -152,8 +153,14 @@ class StockHolding extends Component {
 			startIndex: 0, lastIndex: 0,
 			totalRows: 0, maxPage: 0
 		});
-
-		axios.get(endpoint.stockHoldingSummary, {
+		
+		let site_ = Authentication.getSite() 
+		let url = ""
+		if(site_ !== ""){
+			url = '?site=' + Authentication.getSite() 
+		}
+  
+		axios.get(endpoint.stockHoldingSummary+url, {
 			headers: headers
 		})
 			.then(res => {
@@ -282,17 +289,42 @@ class StockHolding extends Component {
 		}
 
 		return (
-			<React.Fragment>
-				<Dropdown placeHolder="Site"
-					optionList={masterSite.toString()}
-					optionValue={masterSiteValue.toString()}
-					getValue={this.selectedSite} className="filterDropdown" />
+			<React.Fragment> 
+				
+				{Authentication.getUserLevel() == "administrator" ? (
+						<Dropdown placeHolder="Site" 
+						optionList={masterSite.toString()}
+						optionValue={masterSiteValue.toString()}
+						getValue={this.selectedSite} className="filterDropdown"  />
+				) : (
+						<input
+						readOnly
+						value={Authentication.getSite()}
+						id="site"
+						className="form-control put filterDropdown"
+						placeholder="Site"
+						tabIndex='1'
+						/>
+				)}
+ 
 
+				{Authentication.getUserLevel() == "administrator" ? (
 				<Dropdown placeHolder="Client"
+					className="filterDropdown"
 					className="filterDropdown"
 					optionList={clientName.toString()}
 					optionValue={clientValue.toString()}
 					getValue={this.getClientSelected} />
+				) : (
+					<input
+					readOnly
+					value={Authentication.getClient()}
+					id="client"
+					className="form-control put filterDropdown"
+					placeholder="Client"
+					tabIndex='1'
+					/>
+				)}
 
 				<Dropdown placeHolder="Status"
 					optionList={masterStatus.toString()}
