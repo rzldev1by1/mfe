@@ -558,7 +558,7 @@ class PurchaseOrderCreate extends Component {
               <AutoComplete placeHolder="Supplier"
                 style={{ minWidth: "100%", zIndex: '6' }}
                 optionList={supplierName.toString()}
-                optionValue={supplierName.toString()}
+                optionValue={supplierNo.toString()}
                 getValue={(e) => this.setState({ supplier: e })}
                 optionSelected={this.state.supplier}
                 className={this.state.reset ? ' po-hidden' : null}
