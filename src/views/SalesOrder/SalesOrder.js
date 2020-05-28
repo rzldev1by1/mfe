@@ -39,6 +39,7 @@ class SalesOrder extends Component {
       site: null,
       status: null,
       ordertype: null,
+      ordertypefilter: null,
 
       siteSelected: Authentication.getSite() ? Authentication.getSite() : null,
       clientSelected: Authentication.getClient() ? Authentication.getClient() : null,
@@ -110,7 +111,7 @@ class SalesOrder extends Component {
   };
 
   resetDropdown = () => {
-    this.setState({ resetDropdownProcessed: true, site: null, client: null, status: null, ordertype: null }, () => this.setState({ resetDropdownProcessed: false }))
+    this.setState({ resetDropdownProcessed: true, site: null, client: null, status: null, ordertype: null , ordertypefilter: null }, () => this.setState({ resetDropdownProcessed: false }))
   }
 
   getclient = () => {
@@ -211,6 +212,8 @@ class SalesOrder extends Component {
     let siteName = ["All"];
     let orderTypeName = ["All"];
     let orderTypeValue = ["all"];
+    let orderTypeFilterName = ["All"];
+    let orderTypeFilterValue = ["all"];
     let statusName = ["All","0:Unavailable", "1:Available", "2:Released", "3:Open", "4:Completed"];
     let statusValue = ['all',"unavailable", "available", "released", "open", "completed"];
     let statuss = [];
@@ -236,7 +239,18 @@ class SalesOrder extends Component {
       })
     }
 
-    const { client, site, status, ordertype } = this.state
+    if (this.state.resources.orderTypeFilter !== undefined) {
+      this.state.resources.orderTypeFilter.name.map((data, i) => {
+        orderTypeFilterName.push(data)
+      })
+      this.state.resources.orderTypeFilter.code.map((data, i) => {
+        orderTypeFilterValue.push(data)
+      })
+    }
+
+    console.log(orderTypeFilterValue)
+
+    const { client, site, status, ordertype, ordertypefilter } = this.state
     return (
       <React.Fragment>
         {Authentication.getUserLevel() == "administrator" ? (
@@ -280,8 +294,8 @@ class SalesOrder extends Component {
 
         <Dropdown optionSelected={ordertype}
           placeHolder="Order Type"
-          optionList={orderTypeName.toString()}
-          optionValue={orderTypeValue.toString()}
+          optionList={orderTypeFilterName.toString()}
+          optionValue={orderTypeFilterValue.toString()}
           getValue={(code) => this.setState({ ordertype: code })}
           className="filterDropdown" />
       </React.Fragment>

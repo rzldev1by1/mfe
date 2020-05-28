@@ -158,10 +158,21 @@ export default class MovementSearch extends Component {
         let param = search
         let url = '?searchParam=' + param
         if (param) { param = param.toUpperCase() }
+  
+        let client_ = Authentication.getClient()  
+		if(client_ !== ""){
+			url = '&site=' + client_
+		}else  if (client) { 
+            url += '&client=' + client 
+        }
+       
 
-        if (client) { url += '&client=' + client }
-
-        if (site) { url += '&site=' + site }
+        let site_ = Authentication.getSite()  
+		if(site_ !== ""){
+			url = '&site=' + site_
+		}else if (site) { 
+            url += '&site=' + site 
+        }
 
         this.props.loadCompleteHandler(false)
         axios.get(endpoint.stockMovement + url, {

@@ -32,6 +32,7 @@ class PurchaseOrder extends Component {
       clientdata: [],
       sitedata: [],
       ordertypedata: [],
+      ordertypefilterdata: [],
 
       //filter
       filterclicked: true,
@@ -51,6 +52,8 @@ class PurchaseOrder extends Component {
 
       orderTypeName: [],
       orderTypeValue: [],
+      orderTypeFilterName: [],
+      orderTypeFilterValue: [],
       showEditColumn: false,
       tableheader: [],
       resetDropdownProcessed: false
@@ -144,18 +147,32 @@ class PurchaseOrder extends Component {
     })
       .then(res => {
         const result = res.data.orderType
+        const result2 = res.data.orderTypeFilter
         self.setState({ ordertypedata: result });
+        self.setState({ ordertypefilterdata: result2 });
         let orderTypeName = [];
         let orderTypeValue = [];
-        // console.log(self.state.ordertypedata)
+        let orderTypeFilterName = [];
+        let orderTypeFilterValue = [];
+        
         self.state.ordertypedata.map((data) => {
           orderTypeName.push(data.description);
-          orderTypeValue.push(data.code);
+          orderTypeValue.push(data.code); 
         })
+        
+        self.state.ordertypefilterdata.map((data) => {
+          orderTypeFilterName.push(data.description);
+          orderTypeFilterValue.push(data.code); 
+        })
+
         self.setState({
           orderTypeName: orderTypeName,
-          orderTypeValue: orderTypeValue
+          orderTypeValue: orderTypeValue,
+          orderTypeFilterName: orderTypeFilterName,
+          orderTypeFilterValue: orderTypeFilterValue
         })
+        console.log(self.state.orderTypeFilterValue)
+        
       })
       .catch(error => {
 
@@ -187,6 +204,8 @@ class PurchaseOrder extends Component {
     let statusValue = ["all","unavailable","available", "released", "open", "completed"];
     let orderTypeName = ["All"];
     let orderTypeValue = ["all"];
+    let orderTypeFilterName = ["All"];
+    let orderTypeFilterValue = ["all"];
     if (this.state.clientdata) { 
       this.state.clientdata.map((data) => {
         clientName.push(data.code + ' : ' + data.name);
@@ -211,6 +230,15 @@ class PurchaseOrder extends Component {
       })
       orderTypeValue.push("")
     }
+
+    
+    if (this.state.orderTypeFilterValue.length > 1) {  
+      this.state.orderTypeFilterValue.map((data) => {
+        orderTypeFilterName.push(data);
+        orderTypeFilterValue.push(data);
+      })
+    }  
+
     return (
       <React.Fragment>
         {Authentication.getUserLevel() == "administrator" ? (
@@ -254,8 +282,8 @@ class PurchaseOrder extends Component {
           getValue={this.getStatusSelected.bind(this)} />
         <Dropdown placeHolder="Order Type"
           className="filterDropdown"
-          optionList={orderTypeName.toString()}
-          optionValue={orderTypeValue.toString()}
+          optionList={orderTypeFilterName.toString()}
+          optionValue={orderTypeFilterValue.toString()}
           getValue={this.getOrderTypeSelected.bind(this)} />
       </React.Fragment>
     )
