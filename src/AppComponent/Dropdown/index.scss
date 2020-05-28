@@ -1,0 +1,97 @@
+.font-medium{
+    font-size: medium;
+}
+
+.dd-main{
+    cursor: pointer;
+    display: flex;
+    
+    .no-flip{
+        
+        transform: rotate(0deg);
+        transition: ease transform 0.3s;
+    }
+}
+
+.flip{
+    transform: rotate(180deg);
+        transition: ease transform 0.3s;
+        -webkit-transform: rotate(180deg) scaleX(-1) ;
+	transform: rotate(180deg) scaleX(-1) ;
+        
+}
+
+// .select_dropdown_expand:hover::after {opacity: 1}
+
+// .select_dropdown_expand:checked::after {
+// 	-webkit-transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.75);
+// 	transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.75);
+// }
+
+.dd-list{
+    overflow-y: scroll;
+    max-height: 300px;
+    background-color: white;
+    transition: max-height ease-out 0.3s;
+    z-index: 10;
+    position: absolute;
+    width: 91.2%;
+}
+
+.dd-list-hidden{
+    max-height: 0px;
+    overflow-y: scroll;
+    background-color: white;
+    transition: max-height ease 0.3s;
+    z-index: 10;
+    position: absolute;
+    width: 91.2%;
+}
+
+.dd-list-item{
+    vertical-align: middle;
+    line-height: 3em;
+    padding-left: 1em;
+    transition: line-height ease-out 0.3s;
+    opacity: 1;
+}
+
+.dd-list-item-hidden{
+    vertical-align: middle;
+    line-height: 0em;
+    padding-left: 1em;
+    opacity: 0;
+    transition: line-height ease-out 0.3s;
+
+}
+
+.dd-list:hover{
+    cursor: pointer;
+}
+
+.dd-list >div:hover{
+    background-color: #F6F7F9;
+}
+
+.dd-error-message{
+    font-size: small;
+    color: red;  
+    opacity: 1;
+    transition: ease 0.3s;
+}
+
+.dd-error-message-hidden{
+    font-size: small;
+    color: red;  
+    opacity: 0;
+    transition: ease 0.3s;
+}
+
+.dd-title{
+    color: #D5D8DA;
+    font-size: 1.2em;
+}
+
+.wwww{
+    width: 100%;
+}
