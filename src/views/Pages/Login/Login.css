@@ -88,3 +88,37 @@ a {
 .term-and-condition{
   cursor: pointer;
 }
+
+.policy-title{
+  background-color: #D5D8DA;
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  padding-left: 0.8em;
+  color: #8E8F8F;
+  font-weight: lighter !important;
+  line-height: 2em;
+}
+
+.text-area-policy{
+  color: #8E8F8F;
+  font-size: small !important;
+  height: 11.6em !important;
+  overflow-y: scroll;
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+}
+
+.text-area-policy::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+.text-area-policy::-webkit-scrollbar-thumb {
+  background-color: #b4b9bb;
+  border-radius: 5px;
+}
+
+.policy-button{
+  margin-top: 1em;
+  margin-left: -0.9em;
+  width: 15em;
+}
