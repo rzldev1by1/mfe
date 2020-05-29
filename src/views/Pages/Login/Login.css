@@ -52,6 +52,7 @@ a {
   padding-top: 20px;
   color: #f44336;
 }
+
 .copyright a {
   color: #fff;
 }
@@ -81,5 +82,9 @@ a {
 
 .form-login-change{
   color: #3B69F6;
+  cursor: pointer;
+}
+
+.term-and-condition{
   cursor: pointer;
 }
