@@ -184,7 +184,7 @@ const routes = [
 	{ path: '/stock/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
 
 	{ path: '/purchaseorder', exact: true, name: 'Purchase Order', component: PurchaseOrder },
-	{ path: '/purchaseorder/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrderDetail },
+	{ path: '/purchaseorder/:client/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrderDetail },
 	{ path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
 
 	{ path: '/users-management', exact: true, name: 'User Management', component: UsersManagement },

@@ -425,7 +425,7 @@ class PurchaseOrderTable extends Component {
             </thead>
             <tbody>
               {this.state.data ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data, i) =>
-                <tr key={i} onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/' + data.order_no)} className='tr'>
+                <tr key={i} onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/'+data.client +'/'+data.order_no)} className='tr'>
                   {this.state.tableheader.map((column, columnIdx) => {
                     if (column.isVisible) {
                       if (column.key === "site") {
