@@ -58,19 +58,19 @@
   padding-right: 20px !important;
 }
 
-#site {
+.put #site {
   width: 15%;
 }
-#client {
+.put #client {
   width: 15%;
 }
-#product {
+.put #product {
   width: 17%;
 }
-#productName {
+.put #productName {
   width: 33%;
 }
-#uom {
+.put #uom {
   width: 15%;
 }
 
