@@ -36,7 +36,13 @@ export default class MovementSearch extends Component {
             search: "",
             siteSelected: "",
             clientSelected: "",
-            productSelected: ""
+            productSelected: "",
+
+            //errmsg
+            searchClicked:false,
+            emptyPeriod:false,
+            emptyDateFrom:false,
+            emptyDateTo:false
         }
     }
     componentDidMount = () => {
@@ -73,14 +79,15 @@ export default class MovementSearch extends Component {
     }
 
     movementSearch = () => {
+        this.setState({searchClicked:true})
         if (!this.state.dateFromSelected) {
-            alert('please select date from')
+           
         }
         else if (!this.state.dateToSelected) {
-            alert('please select date to')
+           
         }
         else if (!this.state.periodSelected) {
-            alert('please select period')
+           
         }
         else {
             this.props.getStockMovement.current.getData(this.state.dateFromSelected,
@@ -126,6 +133,8 @@ export default class MovementSearch extends Component {
                     <div className='datePicker'>
                         {this.state.dateFromShow ? <DatePicker selectedDays={moment(this.state.dateFromSelected)} getChosenDay={(day) => this.dateFromHandler(day)} /> : null}
                     </div>
+                    <div id='date-from' className={(!this.state.dateFromSelected) && (this.state.searchClicked) ? 'stock-err' : 'stock-err-hidden'}>Please select date from</div>
+                           
                 </div>
 
                 <div style={{ marginLeft: '26px' }} className='searchParameterTo'>To</div>
@@ -139,6 +148,7 @@ export default class MovementSearch extends Component {
                     <div className='datePicker'>
                         {this.state.dateToShow ? <DatePicker getChosenDay={(day) => this.dateToHandler(day)} /> : null}
                     </div>
+                    <div id='date-to' className={(!this.state.dateToSelected) && (this.state.searchClicked) ? 'stock-err' : 'stock-err-hidden'}>Please select date to</div>
                 </div>
             </div>
         )
@@ -334,16 +344,21 @@ export default class MovementSearch extends Component {
     }
     render() {
         return (
-            <div className="row p-3">
-                {/* <div className="col">{this.displayPeriod()}</div> */}
-                <div className="col"><DropdownPeriod periodHandler={this.periodHanlder} /> </div>
-                <div className="col">{this.displayDate()}</div>
-                <div className="col" style={{ display: 'flex' }}>{this.showDropdowns()}</div>
-                <div className="col">
-                    <Button onClick={() => this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>
-                    {/* <Button  style={{marginLeft : "15px", marginRight : "14px"}} onClick={()=> this.search()} className='movementBtnSearch default-box-height ' color="primary">Search</Button> */}
-                </div>
-            </div>
+            <React.Fragment>
+<div className="row p-3">
+                            {/* <div className="col">{this.displayPeriod()}</div> */}
+                            <div className="col"><DropdownPeriod periodHandler={this.periodHanlder} /> 
+                                <div id='period' className={(!this.state.periodSelected) && (this.state.searchClicked) ? 'stock-err' : 'stock-err-hidden'}>Please select display period</div> 
+                            </div>
+                            <div className="col">{this.displayDate()}</div>
+                            <div className="col" style={{ display: 'flex' }}>{this.showDropdowns()}</div>
+                            <div className="col">
+                                <Button onClick={() => this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>
+                                {/* <Button  style={{marginLeft : "15px", marginRight : "14px"}} onClick={()=> this.search()} className='movementBtnSearch default-box-height ' color="primary">Search</Button> */}
+                            </div>
+                        </div>
+            </React.Fragment>
+                        
         )
     }
 }

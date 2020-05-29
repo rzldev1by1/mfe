@@ -280,3 +280,37 @@
 .divFilter {
   display: inline-block;
 }
+
+.stock-main-err{
+  display: flex;
+}
+
+#period{
+  margin-left: 0.8em;
+}
+
+#date-from{
+  margin-left: 1.5em;
+  white-space: nowrap;
+}
+
+#date-to{
+  margin-left: 1.5em;
+  white-space: nowrap;
+}
+
+.stock-err{
+  color: red;
+  font-size: small;
+  margin-bottom: -20px;
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+.stock-err-hidden{
+  color: red;
+  font-size: small;
+  opacity: 0;
+  transition: opacity 0.3s;
+  margin-bottom: -20px;
+}
