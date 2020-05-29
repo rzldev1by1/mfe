@@ -168,14 +168,14 @@ class StockHoldingDetails extends Component {
 		})
 		.then(function(result) {
 						if (result) {
-								let history = result.history;
+								let history = result;
 								let openingDate = "";
 								let closingDate = "";
 								if(history === undefined || history === null){
 									openingDate = history[0]["effectivedate"];
 									closingDate = history[history.length - 1]["effectivedate"];
-								}
-                self.setState({ isForeshadowedBalance: true, stockBalanceForecast: result.history,
+                                }
+                self.setState({ isForeshadowedBalance: true, stockBalanceForecast: result[0],
 									openingBalance:result.openingBalance, closingBalance:result.closingBalance,
 									openingDate:openingDate,closingDate:closingDate });
             }
@@ -241,7 +241,10 @@ class StockHoldingDetails extends Component {
             let expectedIn = parseInt(stockHolding[0]["expected_in_qty"]);
             let expectedOut = parseInt(stockHolding[0]["expected_out_qty"]);
 
-            if (expectedIn === 0 && expectedOut === 0 && (stockOnHand + expectedIn) >= expectedOut) isValid = false;
+            // if (expectedIn === 0 && expectedOut === 0 && (stockOnHand + expectedIn) >= expectedOut) isValid = false;
+
+            if ((stockOnHand + expectedIn) >= expectedOut) isValid = false;
+
         }
 
         return isValid;

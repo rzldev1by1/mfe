@@ -262,7 +262,7 @@ class UserListComponent extends Component {
                           <td key={idx} className={'umtd ' + ((item === 'user') ? 'users' : 'norm')}>
                             {
                               <label className={((item === 'status') ? ((element[item].toLowerCase() === 'active') ? 'um-active' : 'um-suspended') : '')}>
-                                {(item === 'lastaccess') ? moment(element[item]).format('DD/MM/YY hh:mm:ss') : element[item]}
+                                {(item === 'lastaccess') ? ((element[item]===null)?'':moment(element[item]).format('DD/MM/YY hh:mm:ss')) : element[item]}
                               </label>
                             }
                           </td> : null

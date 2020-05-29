@@ -1,6 +1,6 @@
 .header-title {
   background-color: #e9eced;
-  z-index: 10;
+  z-index: 1;
   padding: 15px 15px 10px 125px;
 }
 .header-title .card {
@@ -365,7 +365,7 @@ h2 {
 }
 .sidebar {
   width: 95px;
-  z-index: 99;
+  z-index: 2 !important;
 }
 
 // .sidebar:hover {
@@ -1213,7 +1213,7 @@ span.upArrow:before {
   display: flex;
   flex-wrap: wrap;
   padding: 15px 30px 15px 143px;
-  z-index: 10;
+  z-index: 1;
   width: 100%;
 }
 .paginations .search_1{
