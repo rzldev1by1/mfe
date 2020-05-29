@@ -61,3 +61,25 @@ a {
     background-size: cover;
   }
 }
+
+.email-message{
+  font-size: small;
+  color: #959DA0;
+  margin-left: 1em;
+}
+
+.form-show{
+  opacity: 1;
+  transition: opacity 0.1s;
+}
+
+.form-hidden{
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.1s;
+}
+
+.form-login-change{
+  color: #3B69F6;
+  cursor: pointer;
+}
