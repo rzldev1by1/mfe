@@ -150,17 +150,13 @@ class DefaultLayout extends Component {
                                 <Switch>
                                     {routes.map((route, idx) => {
                                         return route.component ? (
-                                            <Route
-                                                key={idx}
-                                                path={route.path}
-                                                exact={route.exact}
-                                                name={route.name}
+                                            <Route key={idx} path={route.path} exact={route.exact} name={route.name} 
                                                 render={props => (
                                                     <route.component {...props} />
                                                 )} />
                                         ) : (null);
                                     })}
-                                    <Redirect from="/" to="/login" />
+                                    <Redirect from="/" to="/Welcome" />
                                 </Switch>
                             </Suspense>
                         </Container>
