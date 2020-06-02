@@ -9,6 +9,10 @@ import AppComponent from '../AppComponent';
 class Authentication {
 	static endpoint = "usermanagement/login";
 
+	static staticMethod() {
+		return 'static method has been called.';
+	}
+
 	static isAuthenticated = () => {
 		return !Authentication.getToken() ? false : true;
 	}
