@@ -55,6 +55,15 @@ class PurchaseOrderTable extends Component {
           sort: mid
         },
         {
+          id: "order_type",
+          checkboxLabelText: "Order Type",
+          tableHeaderText: "Order Type",
+          isVisible: true,
+          key: "order_type",
+          type: "string",
+          sort: mid
+        },
+        {
           id: "supplier_no",
           checkboxLabelText: "Supplier No",
           tableHeaderText: "Supplier No",
@@ -73,11 +82,11 @@ class PurchaseOrderTable extends Component {
           sort: mid
         },
         {
-          id: "date_due",
+          id: "delivery_date",
           checkboxLabelText: "Date Due",
           tableHeaderText: "Date Due",
           isVisible: true,
-          key: "date_due",
+          key: "delivery_date",
           type: "string",
           sort: mid
         },
@@ -105,6 +114,24 @@ class PurchaseOrderTable extends Component {
           tableHeaderText: "Date Completed",
           isVisible: true,
           key: "date_completed",
+          type: "string",
+          sort: mid
+        },
+        {
+          id: "customer_order_ref",
+          checkboxLabelText: "Customer Order Ref",
+          tableHeaderText: "Customer Order Ref",
+          isVisible: false,
+          key: "customer_order_ref",
+          type: "string",
+          sort: mid
+        },
+        {
+          id: "vendor_ord_ref",
+          checkboxLabelText: "Vendor Order Ref",
+          tableHeaderText: "Vendor Order Ref",
+          isVisible: false,
+          key: "vendor_ord_ref",
           type: "string",
           sort: mid
         },
