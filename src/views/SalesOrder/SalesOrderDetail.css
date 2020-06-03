@@ -19,13 +19,13 @@
 }
 @media(max-width: 1830px) {   
 	.tablePageSo{
-        min-height: 185px !important;
-		max-height: 185px !important; 
+        min-height: 130px !important;
+		max-height: 130px !important; 
 	}
 }
 @media(max-width: 1710px) {  
 	.tablePageSo{
-        min-height: 135px !important;
-		max-height: 135px !important; 
+        min-height: 85px !important;
+		max-height: 85px !important; 
 	}
 } 

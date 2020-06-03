@@ -10,6 +10,10 @@ class Authentication {
 	static endpoint = "usermanagement/login";
 	static resetPassword = 'usermanagement/request_reset_password';
 
+	static staticMethod() {
+		return 'static method has been called.';
+	}
+
 	static isAuthenticated = () => {
 		return !Authentication.getToken() ? false : true;
 	}

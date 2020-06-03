@@ -429,7 +429,7 @@ h2 {
 .nav-link .nav-icon,
 .nav-link .nav-item {
   transition: 0.3s;
-  color: #b4b9bb !important;
+  color: #637175 !important;
   background-color: #2f275d;
 }
 
@@ -2095,6 +2095,7 @@ th {
   font-size: 1.2em;
   display: flex;
   cursor: pointer;
+  user-select: none;
 }
 
 .edit-column-modal-inactive {
@@ -2235,4 +2236,8 @@ th {
 
 .btn-create{
   padding: 6px 20px 6px 20px;
+}
+
+.invalid-error-padding{
+  padding-left: 12px;;
 }

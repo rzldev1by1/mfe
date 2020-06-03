@@ -23,8 +23,8 @@ class Dropdown extends Component{
             const no = Math.floor(Math.random() * 100000) + 1;
             return(
                 <React.Fragment>
-                    <ul className={"select_dropdown "+className + " dropdown_closed" + (!this.state.close && (this.props.usedFor == "SalesOrderCreate") ? " dropDownForOrderLine" : "" )} ref={(selectDropdown) => { selectDropdownRef = selectDropdown }} style={ style } tabIndex={tabIndex} >
-                        <input className="select_dropdown_close" type="radio" name={"select" + placeHolder + this.state.no} id={"select-close" + placeHolder + this.state.no} value="" onClick={(e) => {getValue(e.target.value); this.setState({ close: true }); selectDropdownRef.className = "select_dropdown "+className + " dropdown_closed"}}  defaultChecked={firstChecked ? false : true}/>
+                    <ul className={"select_dropdown "+className + " dropdown_closed" + (!this.state.close && (this.props.usedFor == "SalesOrderCreate") ? " dropDownForOrderLine" : "" )} ref={(selectDropdown) => { selectDropdownRef = selectDropdown }} style={ style } tabIndex={tabIndex} onKeyDown={(e) => {if(e.key == "Escape"){ this.refs["closeDropdown"].checked = true }}}>
+                        <input ref="closeDropdown" className="select_dropdown_close" type="radio" name={"select" + placeHolder + this.state.no} id={"select-close" + placeHolder + this.state.no} value="" onClick={(e) => {getValue(e.target.value); this.setState({ close: true }); selectDropdownRef.className = "select_dropdown "+className + " dropdown_closed"}}  defaultChecked={firstChecked ? false : true}/>
                         <span className={"select_dropdown_label select_dropdown_label-placeholder" + (usedFor == "Datepicker" ? " select_datepicker_label select_datepicker_label-placeholder" : "")}>{placeHolder}</span>
                         
                         <li className="select_dropdown_items">

@@ -161,9 +161,9 @@ class SODTable extends Component {
 		} else {
 			self.setState({ maxPage: 1 });
     }  
-		self.setState({  totalRows: Object.keys(result.data).length }); 
+		self.setState({  totalRows: Object.keys(result.data.data).length }); 
     self.numberEventClick(self.state.currentPage);
-    self.changeLastIndex(self.state.currentPage);
+    self.changeLastIndex(self.state.currentPage); 
   }
 
   changeStartIndex = (currentPage) => {

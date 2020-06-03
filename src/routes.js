@@ -1,5 +1,6 @@
 import React from 'react';
 import Loadable from 'react-loadable';
+import DefaultLayout from './containers/DefaultLayout';
 
 // import DefaultLayout from './containers/DefaultLayout/DefaultLayout';
 
@@ -175,8 +176,8 @@ const routes = [
 	// { path: '/dashboard', name: 'Dashboard', component: Dashboard },
 	// { path: '/base', exact: true, name: 'User Control', component: UserManagement },
 
+	{ path: '/', exact: true, name: 'Default', component: DefaultLayout },
 	{ path: '/Welcome', exact: true, name: 'Welcome', component: Welcome },
-
 	{ path: '/stock', exact: true, name: 'Stock', component: StockHolding },
 	{ path: '/stock/stockholding', exact: true, name: 'Stock Holding', component: StockHolding },
 	{ path: '/stock/stockholding/:productId/:client/:site', exact: true, name: 'Stock Holding Details', component: StockHoldingDetails },

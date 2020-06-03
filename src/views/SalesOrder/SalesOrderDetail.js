@@ -46,6 +46,7 @@ class SalesOrderDetail extends Component {
         .then(res => {
             const result = res.data.data
             this.setState({line:result})
+            console.log(res)
             this.sotableref.current.setPagination(res)
         })
 
