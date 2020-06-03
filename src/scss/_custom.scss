@@ -1,7 +1,7 @@
 .header-title {
   background-color: #e9eced;
-  z-index: 1;
-  padding: 15px 15px 10px 125px;
+  z-index: 10;
+  padding: 10px 15px 10px 125px;
 }
 .header-title .card {
   background-color: transparent;
@@ -14,7 +14,7 @@
 .app-container {
   z-index: -1;
   // height: 100vh;
-  margin-top: 80px;
+  margin-top: 70px;
 }
 
 //Fonts
@@ -365,7 +365,7 @@ h2 {
 }
 .sidebar {
   width: 95px;
-  z-index: 2 !important;
+  z-index: 99;
 }
 
 // .sidebar:hover {
@@ -1213,7 +1213,7 @@ span.upArrow:before {
   display: flex;
   flex-wrap: wrap;
   padding: 15px 30px 15px 143px;
-  z-index: 1;
+  z-index: 10;
   width: 100%;
 }
 .paginations .search_1{
@@ -1225,8 +1225,8 @@ span.upArrow:before {
 @media(max-width: 2750px) {
    /* //zoom 50% */
 	.tablePage{
-		max-height: 980px ; 
-		min-height: 980px ; 
+		max-height: 990px ; 
+		min-height: 990px ; 
 	}
 }
 
@@ -1234,40 +1234,40 @@ span.upArrow:before {
   //zoom 67%
   .tablePage {
 		//max-height: 100vh;
-    max-height: 670px;
-		min-height: 670px; 
+    max-height: 680px;
+		min-height: 680px; 
   }
 }
 @media (max-width: 1830px) {
   //zoom 75%
   .tablePage{
 		//max-height: 100vh;
-		max-height: 570px;
-		min-height: 570px; 
+		max-height: 580px;
+		min-height: 580px; 
 	}
 }
 @media (max-width: 1710px) {
   //zoom 80%
   .tablePage {
 		//max-height: 100vh;
-		max-height: 520px;
-		min-height: 520px; 
+		max-height: 525px;
+		min-height: 525px; 
   }
 }
 @media (max-width: 1520px) {
   //zoom 90%
   .tablePage {
 		//max-height: 100vh;
-		max-height: 430px;
-		min-height: 430px; 
+		max-height: 440px;
+		min-height: 440px; 
   }
 }
 @media (max-width: 1366px) {
   //zoom 100%
   .tablePage {
 		//max-height: 100vh;
-		max-height: 360px;
-		min-height: 360px; 
+		max-height: 370px;
+		min-height: 370px; 
   }
 }
 @media (max-width: 1242px) {
@@ -1440,7 +1440,7 @@ th.iconU-edit {
 }
 .podtitle {
   color: #637176;
-  margin-right: 10px;
+  margin-right: 3%;
 }
 
 .podtitle:hover {
@@ -2205,7 +2205,7 @@ th {
 // title
 .header h2 {
   font-size: 30px !important;
-  padding-left: 25px;
+  padding-left: 15px;
 }
 
 .so-header-title {
