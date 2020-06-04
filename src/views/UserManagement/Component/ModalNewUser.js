@@ -35,7 +35,7 @@ const modalNewUser = (props) => {
     <div>
 
         <Modal isOpen={isOpen} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
-        toggle={toggle} className={className} >
+        toggle={toggle} className={className} contentClassName="modal-content-um">
           <div className="create-modal">
             <ModalHeader toggle={toggle} className="mt-2 pl-5 pb-0 mb-0">
               <div className='create'>
