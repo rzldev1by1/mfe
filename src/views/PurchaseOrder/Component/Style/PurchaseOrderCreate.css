@@ -66,10 +66,10 @@
     }
 } 
 
-.po-required{
-	/* margin-top: 9% !important; */
-}
-
+.so-add-line{
+    margin-top: 1%;
+  }
+  
 .isDatepickerShow{
     padding-top: 360px;
     margin-top: -360px;
