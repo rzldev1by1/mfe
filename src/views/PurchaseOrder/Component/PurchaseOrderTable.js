@@ -83,8 +83,8 @@ class PurchaseOrderTable extends Component {
         },
         {
           id: "delivery_date",
-          checkboxLabelText: "Date Due",
-          tableHeaderText: "Date Due",
+          checkboxLabelText: "Delivery Date",
+          tableHeaderText: "Delivery Date",
           isVisible: true,
           key: "delivery_date",
           type: "string",
