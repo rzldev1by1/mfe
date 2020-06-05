@@ -289,3 +289,11 @@
 
 /* end Search */
 
+.modal-content-paging{ 
+	width: 110% !important;
+	margin-top: -10% !important;
+	margin-left: 0% !important; 
+	background-color: #D5D8DA;
+	padding: 20px; 
+	border-radius: 10px !important;
+}

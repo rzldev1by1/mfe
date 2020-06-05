@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { InputGroup } from 'reactstrap'
+import { InputGroup,  Modal, ModalBody, ModalHeader } from 'reactstrap'
 import './Paging.css';
+import logo_confirm from '../assets/img/brand/LOGO5@2x.png'
 
 class Paging extends Component {
 	constructor(props) {
@@ -8,7 +9,8 @@ class Paging extends Component {
 
 		this.state = { 
             exportExpand: false,
-            value: ""
+            value: "",
+            notifPaging: false
         };
 	}
 
@@ -71,11 +73,18 @@ class Paging extends Component {
         const value = (e.target.validity.valid) ? e.target.value : this.state.value;
         this.setState({ value: value });
     }
+
+    closeConfirmDialog = () => {
+       this.setState({ notifPaging: false });
+    }
     
     handleSubmit = () => {
+        console.log(this.state.value, Math.ceil(this.props.maxPage))
         if(this.state.value > Math.ceil(this.props.maxPage))
         {
-            alert('max page is '+ Math.ceil(this.props.maxPage))
+            this.setState({
+                notifPaging:true
+            })
         }
         else{
             this.props.numberEventClick(this.state.value.trim())
@@ -119,7 +128,7 @@ class Paging extends Component {
                     <div className="text">
                         <span style={{color:'#B4B9BB'}} className="p-0">Go to page</span>
                         <form onSubmit={e => { e.preventDefault() ; this.handleSubmit() }}>
-                        <input type="text" pattern="[0-9]*"  className="search_1" maxLength="4"  placeholder={Math.ceil(this.props.maxPage)} value={this.state.value} onChange={e => this.handleChangeSearch(e)} />
+                        <input required type="text" pattern="[0-9]*"  className="search_1" maxLength="4"  placeholder={Math.ceil(this.props.maxPage)} value={this.state.value} onChange={e => this.handleChangeSearch(e)} />
                         <button className="submit_1" style={{color:"#637175"}}>Go <i className="fa fa-angle-right fa-2x logo" /> </button>
                     </form>
                     </div>
@@ -160,7 +169,26 @@ class Paging extends Component {
                         <label className="select_expandLabel-export" htmlFor="export-btn-opener" onClick={this.triggerExportExpand} />
                     </li>
                 </ul> */}
+
+
+            <Modal isOpen={this.state.notifPaging} centered={true}  
+             onOpened={() => this.state.notifPaging ? setTimeout(() => { this.closeConfirmDialog() }, 3000) : {}}
+                contentClassName="modal-content-paging"
+                >
+                <ModalBody >
+                <div className="d-flex d-inline-flex">
+                    <img src={logo_confirm} alt="logo" style={{ width: "20%", height: "20%" }} />
+                    <label className="pl-3 font">
+                    Only {Math.ceil(this.props.maxPage)} page are available on this 
+                    <br /> screen, please try again. <br />
+                    
+                    </label>
+                </div>
+                </ModalBody> 
+            </Modal>
             </div>
+
+            
         );
     }
     
