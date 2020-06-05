@@ -1,133 +1,131 @@
 import React from 'react';
 import Loadable from 'react-loadable';
-import DefaultLayout from './containers/DefaultLayout';
-
-// import DefaultLayout from './containers/DefaultLayout/DefaultLayout';
+import DefaultLayout from 'components/DefaultLayout';
 
 function Loading() {
 	return <div>Loading...</div>;
 }
 
-// const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
-// const Cards = React.lazy(() => import('./views/Base/Cards'));
-// const Carousels = React.lazy(() => import('./views/Base/Carousels'));
-// const Collapses = React.lazy(() => import('./views/Base/Collapses'));
-// const Dropdowns = React.lazy(() => import('./views/Base/Dropdowns'));
-// const Forms = React.lazy(() => import('./views/Base/Forms'));
-// const Jumbotrons = React.lazy(() => import('./views/Base/Jumbotrons'));
-// const ListGroups = React.lazy(() => import('./views/Base/ListGroups'));
-// const Navbars = React.lazy(() => import('./views/Base/Navbars'));
-// const Navs = React.lazy(() => import('./views/Base/Navs'));
-// const Paginations = React.lazy(() => import('./views/Base/Paginations'));
-// const Popovers = React.lazy(() => import('./views/Base/Popovers'));
-// const ProgressBar = React.lazy(() => import('./views/Base/ProgressBar'));
-// const Switches = React.lazy(() => import('./views/Base/Switches'));
-// const Tables = React.lazy(() => import('./views/Base/Tables'));
-// const Tabs = React.lazy(() => import('./views/Base/Tabs'));
-// const Tooltips = React.lazy(() => import('./views/Base/Tooltips'));
-// const BrandButtons = React.lazy(() => import('./views/Buttons/BrandButtons'));
-// const ButtonDropdowns = React.lazy(() => import('./views/Buttons/ButtonDropdowns'));
-// const ButtonGroups = React.lazy(() => import('./views/Buttons/ButtonGroups'));
-// const Buttons = React.lazy(() => import('./views/Buttons/Buttons'));
-// const Charts = React.lazy(() => import('./views/Charts'));
-// const Dashboard = React.lazy(() => import('./views/Dashboard'));
-// const CoreUIIcons = React.lazy(() => import('./views/Icons/CoreUIIcons'));
-// const Flags = React.lazy(() => import('./views/Icons/Flags'));
-// const FontAwesome = React.lazy(() => import('./views/Icons/FontAwesome'));
-// const SimpleLineIcons = React.lazy(() => import('./views/Icons/SimpleLineIcons'));
-// const Alerts = React.lazy(() => import('./views/Notifications/Alerts'));
-// const Badges = React.lazy(() => import('./views/Notifications/Badges'));
-// const Modals = React.lazy(() => import('./views/Notifications/Modals'));
-// const Colors = React.lazy(() => import('./views/Theme/Colors'));
-// const Typography = React.lazy(() => import('./views/Theme/Typography'));
-// const Widgets = React.lazy(() => import('./views/Widgets/Widgets'));
-// const Users = React.lazy(() => import('./views/Users/Users'));
-// const User = React.lazy(() => import('./views/Users/User'));
+// const Breadcrumbs = React.lazy(() => import('./pages/Base/Breadcrumbs'));
+// const Cards = React.lazy(() => import('./pages/Base/Cards'));
+// const Carousels = React.lazy(() => import('./pages/Base/Carousels'));
+// const Collapses = React.lazy(() => import('./pages/Base/Collapses'));
+// const Dropdowns = React.lazy(() => import('./pages/Base/Dropdowns'));
+// const Forms = React.lazy(() => import('./pages/Base/Forms'));
+// const Jumbotrons = React.lazy(() => import('./pages/Base/Jumbotrons'));
+// const ListGroups = React.lazy(() => import('./pages/Base/ListGroups'));
+// const Navbars = React.lazy(() => import('./pages/Base/Navbars'));
+// const Navs = React.lazy(() => import('./pages/Base/Navs'));
+// const Paginations = React.lazy(() => import('./pages/Base/Paginations'));
+// const Popovers = React.lazy(() => import('./pages/Base/Popovers'));
+// const ProgressBar = React.lazy(() => import('./pages/Base/ProgressBar'));
+// const Switches = React.lazy(() => import('./pages/Base/Switches'));
+// const Tables = React.lazy(() => import('./pages/Base/Tables'));
+// const Tabs = React.lazy(() => import('./pages/Base/Tabs'));
+// const Tooltips = React.lazy(() => import('./pages/Base/Tooltips'));
+// const BrandButtons = React.lazy(() => import('./pages/Buttons/BrandButtons'));
+// const ButtonDropdowns = React.lazy(() => import('./pages/Buttons/ButtonDropdowns'));
+// const ButtonGroups = React.lazy(() => import('./pages/Buttons/ButtonGroups'));
+// const Buttons = React.lazy(() => import('./pages/Buttons/Buttons'));
+// const Charts = React.lazy(() => import('./pages/Charts'));
+// const Dashboard = React.lazy(() => import('./pages/Dashboard'));
+// const CoreUIIcons = React.lazy(() => import('./pages/Icons/CoreUIIcons'));
+// const Flags = React.lazy(() => import('./pages/Icons/Flags'));
+// const FontAwesome = React.lazy(() => import('./pages/Icons/FontAwesome'));
+// const SimpleLineIcons = React.lazy(() => import('./pages/Icons/SimpleLineIcons'));
+// const Alerts = React.lazy(() => import('./pages/Notifications/Alerts'));
+// const Badges = React.lazy(() => import('./pages/Notifications/Badges'));
+// const Modals = React.lazy(() => import('./pages/Notifications/Modals'));
+// const Colors = React.lazy(() => import('./pages/Theme/Colors'));
+// const Typography = React.lazy(() => import('./pages/Theme/Typography'));
+// const Widgets = React.lazy(() => import('./pages/Widgets/Widgets'));
+// const Users = React.lazy(() => import('./pages/Users/Users'));
+// const User = React.lazy(() => import('./pages/Users/User'));
 
 
 // const SalesOrder = Loadable({
-// 	loader: () => import('./views/SalesOrder/SalesOrder'),
+// 	loader: () => import('./pages/SalesOrder/SalesOrder'),
 // 	loading: Loading
 // });
 
 // const DefaultLayout = Loadable({
-// 	loader: () => import('./containers/DefaultLayout/DefaultLayout'),
+// 	loader: () => import('components/DefaultLayout'),
 // 	loading: Loading
 // });
 
 // const Dashboard = Loadable({
-// 	loader: () => import('./views/Dashboard'),
+// 	loader: () => import('./pages/Dashboard'),
 // 	loading: Loading
 // });
 
 // const UserManagement = Loadable({
-// 	loader: () => import('./views/Users/Users'),
+// 	loader: () => import('./pages/Users/Users'),
 // 	loading: Loading
 // });
 
 // const SalesOrder = Loadable({
-// 	loader: () => import('./views/Icons/CoreUIIcons'),
+// 	loader: () => import('./pages/Icons/CoreUIIcons'),
 // 	loading: Loading
 // });
 
 const Welcome = Loadable({
-	loader: () => import('./views/Welcome/Welcome'),
+	loader: () => import('./pages/Welcome/Welcome'),
 	loading: Loading
 });
 
 const StockHolding = Loadable({
-	loader: () => import('./views/StockHolding/StockHolding'),
+	loader: () => import('./pages/StockHolding/StockHolding'),
 	loading: Loading
 });
 
 const StockHoldingDetails = Loadable({
-	loader: () => import('./views/StockHolding/StockHoldingDetails/StockHoldingDetails'),
+	loader: () => import('./pages/StockHolding/StockHoldingDetails/StockHoldingDetails'),
 	loading: Loading
 });
 
 const StockMovement = Loadable({
-	loader: () => import('./views/StockMovement/StockMovement'),
+	loader: () => import('./pages/StockMovement/StockMovement'),
 	loading: Loading
 });
 
 const StockAgeProfile = Loadable({
-	loader: () => import('./views/StockAgeProfile/StockAgeProfile'),
+	loader: () => import('./pages/StockAgeProfile/StockAgeProfile'),
 	loading: Loading
 });
 
 const PurchaseOrder = Loadable({
-	loader: () => import('./views/PurchaseOrder/PurchaseOrder'),
+	loader: () => import('./pages/PurchaseOrder/PurchaseOrder'),
 	loading: Loading
 });
 
 const PurchaseOrderDetail = Loadable({
-	loader: () => import('./views/PurchaseOrder/PurchaseOrderDetail'),
+	loader: () => import('./pages/PurchaseOrder/PurchaseOrderDetail'),
 	loading: Loading
 });
 
 
 const UsersManagement = Loadable({
-	loader: () => import('./views/UserManagement/UserManagement'),
+	loader: () => import('./pages/UserManagement/UserManagement'),
 	loading: Loading
 });
-// const UsersManagement = React.lazy(() => import('./views/UserManagement/UserManagement') );
+// const UsersManagement = React.lazy(() => import('./pages/UserManagement/UserManagement') );
 
 const UsersManagementDetail = Loadable({
-	loader: () => import('./views/UserManagement/UserManagementDetail'),
+	loader: () => import('./pages/UserManagement/UserManagementDetail'),
 	loading: Loading
 });
 
 const UsersManagementCreate = Loadable({
-	loader: () => import('./views/UserManagement/UserManagementCreate'),
+	loader: () => import('./pages/UserManagement/UserManagementCreate'),
 	loading: Loading
 });
 
 const SalesOrder = Loadable({
-	loader: () => import('./views/SalesOrder/SalesOrder'),
+	loader: () => import('./pages/SalesOrder/SalesOrder'),
 	loading: Loading
 })
 const SalesOrderDetail = Loadable({
-	loader: () => import('./views/SalesOrder/SalesOrderDetail'),
+	loader: () => import('./pages/SalesOrder/SalesOrderDetail'),
 	loading: Loading
 })
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config

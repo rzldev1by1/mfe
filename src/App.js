@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 // import { renderRoutes } from 'react-router-config';
-import './App.scss';
+import 'assets/App.scss';
 
-import { DefaultLayout } from './containers';
-import AnonimRoute from './AppComponent/AnonimRoute';
-import ProtectedRoute from './AppComponent/ProtectedRoute';
-import Login from './views/Pages/Login/Login';
+import DefaultLayout from 'components/DefaultLayout';
+// import AnonimRoute from 'components/AnonimRoute';
+import ProtectedRoute from 'components/ProtectedRoute';
+import Login from 'pages/Login';
 
-// const DefaultLayout = React.lazy(() => import('./containers/DefaultLayout'));
- const Register = React.lazy(() => import('./views/Pages/Register/Register'));
-// const Page404 = React.lazy(() => import('./views/Pages/Page404/Page404'));
-// const Page500 = React.lazy(() => import('./views/Pages/Page500/Page500'));
+ const Register = React.lazy(() => import('pages/Register'));
+// const Page404 = React.lazy(() => import('pages/Page404'));
+// const Page500 = React.lazy(() => import('pages/Page500'));
 
 // const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
