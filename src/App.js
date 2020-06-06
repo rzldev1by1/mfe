@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-// import { renderRoutes } from 'react-router-config';
 import 'assets/App.scss';
 
 import DefaultLayout from 'components/DefaultLayout';
-// import AnonimRoute from 'components/AnonimRoute';
 import ProtectedRoute from 'components/ProtectedRoute';
 import Login from 'pages/Login';
 

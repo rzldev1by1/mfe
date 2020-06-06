@@ -1,11 +1,6 @@
 import React, { Component, Suspense } from 'react';
+import { connect } from 'react-redux';
 import { Redirect, Route, Switch, NavLink } from 'react-router-dom';
-import * as router from 'react-router-dom';
-import { Container } from 'reactstrap';
-// import { Button, ButtonDropdown,
-//          Card, CardBody, CardHeader,
-//          Col, Row,
-//          DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 
 import {
     AppAside,
@@ -47,9 +42,8 @@ class DefaultLayout extends Component {
         this.showMenu()
     }
 
-    signOut() {
-        helpers.signOut();
-        helpers = null;
+    signOut = (e) =>{
+        this.props.dispatch({ type: 'SET_AUTH', data: null })
     }
 
     onUserDropdownClick = () => {
@@ -96,7 +90,7 @@ class DefaultLayout extends Component {
     }
 
     render() {
-
+        const { store } = this.props
         return (
             <div className="app">
                 <div className="app-body">
@@ -118,17 +112,17 @@ class DefaultLayout extends Component {
 
                                 <SidebarMenu menuItems={this.state.navigationMenu} />
 
-                                
-                                <div rowSpan="3" className="divProfilePhoto" > 
-                                     <img className="profilePhoto" src={dummyPic} alt="dummyPic" />
 
-                                     <div className="divProfileText"> 
-                                        <span className="userName">{helpers.getName()}</span> <br />
-                                        <span className="profileID">  ID: {helpers.getId()} </span> <br /> 
-                                        <a className="LogoutLink" href="/" onClick={(e) => { this.signOut() }}>
-                                        <div style={{ paddingTop: '5px' }}>LOGOUT</div>
+                                <div rowSpan="3" className="divProfilePhoto" >
+                                    <img className="profilePhoto" src={dummyPic} alt="dummyPic" />
+
+                                    <div className="divProfileText">
+                                        <span className="userName">{store.user.name}</span> <br />
+                                        <span className="profileID">  ID: {store.user.userId} </span> <br />
+                                        <a className="LogoutLink" href="#/logout" onClick={this.signOut}>
+                                            <div style={{ paddingTop: '5px' }}>LOGOUT</div>
                                         </a>
-                                     </div>
+                                    </div>
                                 </div>
 
 
@@ -143,12 +137,12 @@ class DefaultLayout extends Component {
                     </AppSidebar>
                     <main className="main">
                         {/* <AppBreadcrumb appRoutes={routes} router={router}/> */}
-                        <Container fluid className="pl-0">
+                        <div className="container-fluid pl-0">
                             <Suspense fallback={this.loading()}>
                                 <Switch>
                                     {routes.map((route, idx) => {
                                         return route.component ? (
-                                            <Route key={idx} path={route.path} exact={route.exact} name={route.name} 
+                                            <Route key={idx} path={route.path} exact={route.exact} name={route.name}
                                                 render={props => (
                                                     <route.component {...props} />
                                                 )} />
@@ -157,7 +151,7 @@ class DefaultLayout extends Component {
                                     <Redirect from="/" to="/Welcome" />
                                 </Switch>
                             </Suspense>
-                        </Container>
+                        </div>
                     </main>
                     <AppAside fixed>
                         <Suspense fallback={this.loading()}>
@@ -174,5 +168,6 @@ class DefaultLayout extends Component {
         );
     }
 }
-
-export default DefaultLayout;
+const mapStateToProps = (store) => ({ store })
+const mapDispatchToProps = (dispatch) => ({ dispatch })
+export default connect(mapStateToProps, mapDispatchToProps)(DefaultLayout)

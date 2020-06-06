@@ -121,6 +121,7 @@ class SalesOrder extends Component {
       })
       .then((res) => {
         const result = res.data;
+        console.log(result)
         this.setState({ clientdata: result });
       })
       .catch((error) => {
@@ -216,7 +217,7 @@ class SalesOrder extends Component {
     let orderTypeFilterValue = ["all"];
     let statusName = ["All","0: Unavailable", "1: Available", "2: Released", "3: Part Released", "4: Completed", "<>4: Open"];
     let statusValue = ['all',"unavailable", "available", "released", "part_released", "completed", "open"];
-    let statuss = [];
+    // let statuss = [];
     if (this.state.clientdata) { 
       this.state.clientdata.map((data) => {
         clientName.push(data.code + ' : ' + data.name);
@@ -248,7 +249,7 @@ class SalesOrder extends Component {
       })
     }
 
-    console.log(orderTypeFilterValue)
+    // console.log(orderTypeFilterValue)
 
     const { client, site, status, ordertype, ordertypefilter } = this.state
     return (

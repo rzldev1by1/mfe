@@ -24,12 +24,11 @@ import Dashboard from './Dashboard';
 import { CoreUIIcons, Flags, FontAwesome, SimpleLineIcons } from './Icons';
 import { Alerts, Badges, Modals } from './Notifications';
 import { Login, Page404, Page500, Register } from './Pages';
-import { Colors, Typography } from './Theme';
-import Widgets from './Widgets';
+import { Colors, Typography } from 'components/Theme';
+import Widgets from 'components/Widgets';
 
 import StockHolding from './StockHolding/StockHolding';
 import StockAgeProfile from './StockAgeProfile/StockAgeProfile';
-import PurchaseOrderDetail from './PO/PurchaseOrderDetail';
 
 export {
   Badges,
