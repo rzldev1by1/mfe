@@ -1,7 +1,7 @@
 import React from "react";
-import Dropdown from "components/Dropdown";
-import DatePicker from "components/DatePicker";
-import AutoComplete from "components/AutoComplete";
+import Dropdown from "shared/Dropdown";
+import DatePicker from "shared/DatePicker";
+import AutoComplete from "shared/AutoComplete";
 
 const OrderLine = (props) => {
   const {

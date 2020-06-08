@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {endpoint, headers,} from 'components/ConfigEndpoint'
+import {endpoint, headers,} from 'shared/ConfigEndpoint'
 
 const orderNoValidation = (order_no, client, Validation) => {
     let valid = false

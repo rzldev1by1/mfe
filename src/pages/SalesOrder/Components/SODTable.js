@@ -4,7 +4,7 @@ import down from 'assets/img/brand/field-bot.png'
 import up from 'assets/img/brand/field-top.png'
 import ok from 'assets/img/brand/ok.png'
 import invalid from 'assets/img/brand/invalid.png'
-import Paging from "components/Paging";
+import Paging from "shared/Paging";
 import SODExport from "./SODExport";
 
 class SODTable extends Component {

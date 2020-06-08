@@ -5,12 +5,12 @@ import './UserManagement.css'
 import ModuleAccess from './Component/ModuleAccess'
 import Site from './Component/Site'
 import Client from './Component/Client'
-import {endpoint,headers} from 'components/ConfigEndpoint'
+import {endpoint,headers} from 'shared/ConfigEndpoint'
 import axios from 'axios'
 import users from './Users.json'
-import {formatDate} from 'components/Helper'
+import {formatDate} from 'shared/Helper'
 import moment from 'moment';
-import query from 'components/query_menu_temp'
+import query from 'shared/query_menu_temp'
 
 const today = moment(new Date()).format("DD-MM-YYYY");
 

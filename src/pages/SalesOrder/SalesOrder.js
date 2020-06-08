@@ -1,18 +1,19 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import ListOrderComponent from "./Components/ListOrderComponent";
 // import FilterComponent from "/components/FilterComponent";
 import { Button } from "reactstrap";
 // import create from "assets/img/brand/button_create@2x.png";
-import Dropdown from "components/Dropdown";
-import Search from "components/Search";
+import Dropdown from "shared/Dropdown";
+import Search from "shared/Search";
 import SalesOrderCreate from "./Components/SalesOrderCreate";
 import axios from "axios";
-import { endpoint, headers } from "components/ConfigEndpoint";
+import { endpoint, headers } from "shared/ConfigEndpoint";
 import helpers from "helpers";
 import EditColumn from "./Components/Modal/Modal";
 import { column } from './Components/Validation/defaultColumn'
 import { FaPencilAlt } from "react-icons/fa"
-import HeaderTitle from 'components/HeaderTitle'
+import HeaderTitle from 'shared/HeaderTitle'
 // import DD from 'components/Dropdown/index'
 
 import "./SalesOrder.css";
@@ -41,8 +42,9 @@ class SalesOrder extends Component {
       ordertype: null,
       ordertypefilter: null,
 
-      siteSelected: helpers.getSite() ? helpers.getSite() : null,
-      clientSelected: helpers.getClient() ? helpers.getClient() : null,
+      siteSelected: props.store.user ? props.store.user.site : null,
+      clientSelected: props.store.user ? props.store.user.client : null,
+      companySelected: props.store.company ? props.store.user.company : null,
 
       clientdata: [],
       sitedata: [],
@@ -111,54 +113,42 @@ class SalesOrder extends Component {
   };
 
   resetDropdown = () => {
-    this.setState({ resetDropdownProcessed: true, site: null, client: null, status: null, ordertype: null , ordertypefilter: null }, () => this.setState({ resetDropdownProcessed: false }))
+    this.setState({ resetDropdownProcessed: true, site: null, client: null, status: null, ordertype: null, ordertypefilter: null }, () => this.setState({ resetDropdownProcessed: false }))
   }
 
   getclient = () => {
-    axios
-      .get(endpoint.getClient, {
-        headers: headers
-      })
+    axios.get(endpoint.getClient, { headers: headers })
       .then((res) => {
+        console.log(endpoint.getClient, res.data)
         const result = res.data;
-        console.log(result)
         this.setState({ clientdata: result });
       })
       .catch((error) => {
-
         console.log(error);
       });
   };
 
   getsite = () => {
-    axios
-      .get(endpoint.getSite, {
-        headers: headers
-      })
+    axios.get(endpoint.getSite, { headers: headers })
       .then((res) => {
+        console.log(endpoint.getSite, res.data)
         const result = res.data;
         this.setState({ sitedata: result });
       })
       .catch((error) => {
-
+        console.log(error);
       });
   };
 
   getResources = (clientParam) => {
-    let company = helpers.getCompanyCode();
-    let client = helpers.getClient();
+    let company = this.state.companySelected
+    let client = this.state.clientSelected
     if (!company) company = null
     if (!client) client = null
     if (clientParam) client = clientParam;
-    axios
-      .get(
-        endpoint.getSoResources + "?company=" + company + "&&client=" + client,
-        {
-          headers: headers
-        }
-      )
-
+    axios.get(endpoint.getSoResources + "?company=" + company + "&&client=" + client, { headers: headers })
       .then((res) => {
+        console.log(endpoint.getSoResources + "?company=" + company + "&&client=" + client, res.data)
         let result = res.data;
         this.setState({ resources: result, loaded: true });
       })
@@ -166,25 +156,20 @@ class SalesOrder extends Component {
   };
 
   getProduct = (clientparam) => {
-    let client = helpers.getClient();
+    let client = this.state.clientSelected
     if (!client) client = null
     if (clientparam) client = clientparam;
     let param = "?client=" + client;
-    axios
-      .get(endpoint.getProduct + param, {
-        headers: headers
-      })
+    axios.get(endpoint.getProduct + param, { headers: headers })
       .then((res) => {
+        console.log(endpoint.getProduct + param, res.data)
         let result = res.data;
         this.setState({ productdata: result });
       });
   };
 
   getDisposition = () => {
-    axios
-      .get(endpoint.getDisposition, {
-        headers: headers
-      })
+    axios.get(endpoint.getDisposition, { headers: headers })
       .then((res) => {
         let result = res.data;
         this.setState({ dispositiondata: result });
@@ -215,16 +200,16 @@ class SalesOrder extends Component {
     let orderTypeValue = ["all"];
     let orderTypeFilterName = ["All"];
     let orderTypeFilterValue = ["all"];
-    let statusName = ["All","0: Unavailable", "1: Available", "2: Released", "3: Part Released", "4: Completed", "<>4: Open"];
-    let statusValue = ['all',"unavailable", "available", "released", "part_released", "completed", "open"];
+    let statusName = ["All", "0: Unavailable", "1: Available", "2: Released", "3: Part Released", "4: Completed", "<>4: Open"];
+    let statusValue = ['all', "unavailable", "available", "released", "part_released", "completed", "open"];
     // let statuss = [];
-    if (this.state.clientdata) { 
+    if (this.state.clientdata) {
       this.state.clientdata.map((data) => {
         clientName.push(data.code + ' : ' + data.name);
         clientValue.push(data.code);
       });
     }
-    if (this.state.sitedata) { 
+    if (this.state.sitedata) {
       this.state.sitedata.map((data) => {
         siteName.push(data.site + ' : ' + data.name)
         siteData.push(data.site);
@@ -250,8 +235,7 @@ class SalesOrder extends Component {
     }
 
     // console.log(orderTypeFilterValue)
-
-    const { client, site, status, ordertype, ordertypefilter } = this.state
+    const { client, site, status, ordertype, siteSelected, clientSelected } = this.state
     return (
       <React.Fragment>
         {helpers.getUserLevel() == "administrator" ? (
@@ -263,7 +247,7 @@ class SalesOrder extends Component {
             className="filterDropdown" />
         ) : (
             <input readOnly
-              value={helpers.getSite()}
+              value={siteSelected}
               id="site"
               className="form-control put filterDropdown"
               placeholder="Site"
@@ -279,7 +263,7 @@ class SalesOrder extends Component {
             className="filterDropdown" />
         ) : (
             <input readOnly
-              value={helpers.getClient()}
+              value={clientSelected}
               id="site"
               className="form-control put filterDropdown"
               placeholder="Site"
@@ -327,13 +311,13 @@ class SalesOrder extends Component {
               resetDropdown={() => this.resetDropdown()} />
           </div>
           <div className="dropdowns">
-          <div style={{ display: "flex", width: "100%" }}>
-            {this.state.filterclicked ? null : null }
+            <div style={{ display: "flex", width: "100%" }}>
+              {this.state.filterclicked ? null : null}
+            </div>
           </div>
-        </div>
 
 
-         <div className={"" + (this.state.complete ? "fades" : "hidden")}>
+          <div className={"" + (this.state.complete ? "fades" : "hidden")}>
             <ListOrderComponent
               column={this.state.column}
               openEditModal={() => this.openEditModal()}
@@ -368,4 +352,6 @@ class SalesOrder extends Component {
   }
 }
 
-export default SalesOrder;
+const mapStateToProps = (store) => ({ store })
+const mapDispatchToProps = (dispatch) => ({ dispatch })
+export default connect(mapStateToProps, mapDispatchToProps)(SalesOrder);

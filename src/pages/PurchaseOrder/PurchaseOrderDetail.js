@@ -3,9 +3,9 @@ import './PurchaseOrder.css'
 import './PurchaseOrderDetail.css'
 import PODTable from './Component/PODComponents/PODTable'
 import axios from 'axios'
-import {endpoint, headers, POheaders} from 'components/ConfigEndpoint'
+import {endpoint, headers, POheaders} from 'shared/ConfigEndpoint'
 import moment from 'moment';
-import EditColumn from 'components/EditColumn'
+import EditColumn from 'shared/EditColumn'
 
 export default class PurchaseOrderDetail extends Component {
     constructor(props){

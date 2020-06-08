@@ -7,8 +7,8 @@ import { Card, CardBody,
 		 TabContent, TabPane } from 'reactstrap';
 
 import axios from 'axios';
-import { endpoint, headers } from 'components/ConfigEndpoint';
-import { tab1, tab1Inactive, tab2, tab2Inactive } from 'components/Helper';
+import { endpoint, headers } from 'shared/ConfigEndpoint';
+import { tab1, tab1Inactive, tab2, tab2Inactive } from 'shared/Helper';
 
 import mid from 'assets/img/brand/field-idle.png';
 import down from 'assets/img/brand/field-bot.png';

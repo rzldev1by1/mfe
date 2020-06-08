@@ -1,41 +1,14 @@
-.content {
-    position: fixed;
-    bottom: 0;
-    color: #f1f1f1;
-    background: transparent;
-    width: 100%;
-    padding: 20px;
-    min-width: 100%;
-    min-height: 100%;
-  }
-
-@media(min-width: 1500px){
-    .login-background {
-        position: fixed;
-        right: -45px;
-        bottom: 0;
-        min-width: 100%;
-        min-height: 100%;
-      }
-      .mlslogo{
-        width: 19%;
-        margin-left: 36%;
-        margin-top: 13.5%;
-        margin-bottom: 0.5%;
-      }
+.welcome{
+  height: 100vh;
+  width: 100vw;
+  background-image: url('../../assets/img/brand/Home-Background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
-@media(max-width: 1500px){
-    .login-background {
-        position: fixed;
-        right: -40px;
-        bottom: 0;
-        min-width: 100%;
-        min-height: 100%;
-      }
-      .mlslogo {
-        width: 19%;
-        margin-left: 33%;
-        margin-top: 22.5%;
-        margin-bottom: 0.5%;
-    }
+.welcome img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 19%;
 }

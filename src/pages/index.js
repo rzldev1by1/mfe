@@ -24,8 +24,8 @@ import Dashboard from './Dashboard';
 import { CoreUIIcons, Flags, FontAwesome, SimpleLineIcons } from './Icons';
 import { Alerts, Badges, Modals } from './Notifications';
 import { Login, Page404, Page500, Register } from './Pages';
-import { Colors, Typography } from 'components/Theme';
-import Widgets from 'components/Widgets';
+import { Colors, Typography } from 'shared/Theme';
+import Widgets from 'shared/Widgets';
 
 import StockHolding from './StockHolding/StockHolding';
 import StockAgeProfile from './StockAgeProfile/StockAgeProfile';

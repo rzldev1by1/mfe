@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { InputGroup } from 'reactstrap'
-import 'components/Export.css';
+import 'shared/Export.css';
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import ExportExl from 'react-html-table-to-excel'

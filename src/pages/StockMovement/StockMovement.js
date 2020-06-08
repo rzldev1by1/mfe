@@ -3,7 +3,7 @@ import './StockMovement.css'
 import 'react-day-picker/lib/style.css'
 import Movement from '../PurchaseOrder/Component/Movement'
 import MovementSearch from './Component/MovementSearch'
-import HeaderTitle from 'components/HeaderTitle'
+import HeaderTitle from 'shared/HeaderTitle'
 
 class StockMovement extends Component {
 	constructor(props) {

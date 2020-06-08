@@ -3,19 +3,19 @@ import { Card, Col, Row, FormGroup, InputGroup } from 'reactstrap';
 
 import axios from 'axios';
 
-import { endpoint, headers } from 'components/ConfigEndpoint';
+import { endpoint, headers } from 'shared/ConfigEndpoint';
 
 import mid from 'assets/img/brand/field-idle.png';
 import down from 'assets/img/brand/field-bot.png';
 import up from 'assets/img/brand/field-top.png';
 
-import HeaderTitle from 'components/HeaderTitle';
-import Search from 'components/Search';
-import Dropdown from 'components/Dropdown';
+import HeaderTitle from 'shared/HeaderTitle';
+import Search from 'shared/Search';
+import Dropdown from 'shared/Dropdown';
 import StockHoldingTable from './StockHoldingTable';
-import Paging from 'components/Paging';
-import EditColumn from 'components/EditColumn';
-import Export from 'components/Export'
+import Paging from 'shared/Paging';
+import EditColumn from 'shared/EditColumn';
+import Export from 'shared/Export'
 import helpers from 'helpers'
 import './StockHolding.css';
 

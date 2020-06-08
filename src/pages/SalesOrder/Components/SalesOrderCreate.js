@@ -8,7 +8,7 @@ import twoactive from "assets/img/brand/tab_2_blue@2x.png";
 import Tab1CreateSO from "./Tab/Tab1CreateSO";
 import Tab2CreateSO from "./Tab/Tab2CreateSO";
 import axios from "axios";
-import { endpoint, headers } from "components/ConfigEndpoint";
+import { endpoint, headers } from "shared/ConfigEndpoint";
 import helpers from "helpers";
 import {
   headerValidation,

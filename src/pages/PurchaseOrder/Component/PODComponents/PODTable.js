@@ -4,7 +4,7 @@ import down from 'assets/img/brand/field-bot.png'
 import up from 'assets/img/brand/field-top.png'
 import ok from 'assets/img/brand/ok.png'
 import minus from 'assets/img/brand/minus.png'
-import Paging from 'components/Paging'
+import Paging from 'shared/Paging'
 import PODExport from './PODExport'
 
 class PurchaseOrderTable extends Component {

@@ -6,11 +6,12 @@ import {
     AppAside,
     AppSidebar,
     AppSidebarFooter,
-    // AppSidebarForm,
-    // AppSidebarHeader,
-    // AppSidebarMinimizer,
-    //  AppBreadcrumb2 as AppBreadcrumb,
-    // AppSidebarNav2 as AppSidebarNav,
+    AppSidebarForm,
+    AppSidebarHeader,
+    AppSidebarMinimizer,
+    AppBreadcrumb2 as AppBreadcrumb,
+    AppSidebarNav2 as AppSidebarNav,
+    AppFooter,
 } from '@coreui/react';
 
 import routes from '../routes';
@@ -23,6 +24,7 @@ import menunav from '../_nav';
 import SidebarMenu from './SidebarMenu';
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
+const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
 
 class DefaultLayout extends Component {
 
@@ -42,7 +44,7 @@ class DefaultLayout extends Component {
         this.showMenu()
     }
 
-    signOut = (e) =>{
+    signOut = (e) => {
         this.props.dispatch({ type: 'SET_AUTH', data: null })
     }
 
@@ -95,8 +97,8 @@ class DefaultLayout extends Component {
             <div className="app">
                 <div className="app-body">
                     <AppSidebar fixed display="lg">
-                        {/* <AppSidebarHeader /> */}
-                        {/* <AppSidebarForm /> */}
+                        <AppSidebarHeader />
+                        <AppSidebarForm />
                         <Suspense>
 
                             <div className="scrollbar-container ">
@@ -137,21 +139,19 @@ class DefaultLayout extends Component {
                     </AppSidebar>
                     <main className="main">
                         {/* <AppBreadcrumb appRoutes={routes} router={router}/> */}
-                        <div className="container-fluid pl-0">
-                            <Suspense fallback={this.loading()}>
-                                <Switch>
-                                    {routes.map((route, idx) => {
-                                        return route.component ? (
-                                            <Route key={idx} path={route.path} exact={route.exact} name={route.name}
-                                                render={props => (
-                                                    <route.component {...props} />
-                                                )} />
-                                        ) : (null);
-                                    })}
-                                    <Redirect from="/" to="/Welcome" />
-                                </Switch>
-                            </Suspense>
-                        </div>
+                        <Suspense fallback={this.loading()}>
+                            <Switch>
+                                {routes.map((route, idx) => {
+                                    return route.component ? (
+                                        <Route key={idx} path={route.path} exact={route.exact} name={route.name}
+                                            render={props => (
+                                                <route.component {...props} />
+                                            )} />
+                                    ) : (null);
+                                })}
+                                <Redirect from="/" to="/Welcome" />
+                            </Switch>
+                        </Suspense>
                     </main>
                     <AppAside fixed>
                         <Suspense fallback={this.loading()}>

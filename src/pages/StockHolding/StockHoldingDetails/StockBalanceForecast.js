@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Table } from 'reactstrap';
 
-import { formatDate } from 'components/Helper';
-import Paging from 'components/Paging';
+import { formatDate } from 'shared/Helper';
+import Paging from 'shared/Paging';
 
 class StockBalanceForecast extends Component {
 	constructor(props) {

@@ -4,7 +4,7 @@ import './UserManagement.css'
 import ModuleAccess from './Component/ModuleAccess'
 import Site from './Component/Site'
 import Client from './Component/Client'
-import {endpoint,headers} from 'components/ConfigEndpoint'
+import {endpoint,headers} from 'shared/ConfigEndpoint'
 import axios from 'axios'
 import users from './Users.json'
 import moment from 'moment';

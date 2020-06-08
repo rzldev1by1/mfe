@@ -8,7 +8,7 @@ import {
     FormGroup,
     InputGroup
 } from 'reactstrap';
-import Paging from 'components/Paging';
+import Paging from 'shared/Paging';
 import axios from 'axios';
 
 const baseURL = process.env.REACT_APP_API_URL

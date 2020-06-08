@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import Dropdown from "components/Dropdown";
-import DD from 'components/Dropdown/index'
-import DatePicker from "components/DatePicker";
+import Dropdown from "shared/Dropdown";
+import DD from 'shared/Dropdown/index'
+import DatePicker from "shared/DatePicker";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import {
   headerValidation,
   lineDetailValidation
 } from "../Validation/Validation";
-import AutoComplete from "components/AutoComplete";
+import AutoComplete from "shared/AutoComplete";
 import OrderLine from "./OrderLine";
 import OrderLine2 from "./OrderLine2";
 

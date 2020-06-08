@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { Container, Row, Col } from 'reactstrap'
 import axios from 'axios';
-import { endpoint, headers } from 'components/ConfigEndpoint'
+import { endpoint, headers } from 'shared/ConfigEndpoint'
 import moment from 'moment';
 import mid from 'assets/img/brand/field-idle.png'
 import down from 'assets/img/brand/field-bot.png'
 import up from 'assets/img/brand/field-top.png'
 // import DummyData from './Movement.json'
-import Paging from 'components/Paging'
-import Export from 'components/Export'
-import ExportExcel from 'components/ExportExcel'
+import Paging from 'shared/Paging'
+import Export from 'shared/Export'
+import ExportExcel from 'shared/ExportExcel'
 
 
 

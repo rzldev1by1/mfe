@@ -4,17 +4,17 @@ import { FaPencilAlt } from "react-icons/fa"
 import UserListComponent from './Component/UserListComponent'
 import PersonalUserComponent from './Component/PersonalUserComponent'
 import axios from 'axios'
-import { endpoint, headers } from 'components/ConfigEndpoint'
+import { endpoint, headers } from 'shared/ConfigEndpoint'
 import ModalNewUser from './Component/ModalNewUser'
 import moment from 'moment'
-import query from 'components/query_menu_temp'
+import query from 'shared/query_menu_temp'
 import helpers from 'helpers'
-import Paging from 'components/Paging'
-import HeaderTitle from 'components/HeaderTitle'
+import Paging from 'shared/Paging'
+import HeaderTitle from 'shared/HeaderTitle'
 import create from 'assets/img/brand/button_create@2x.png'
 import logo_confirm from 'assets/img/brand/LOGO5@2x.png'
 import menunav from '../../_nav'
-import Export from 'components/Export'
+import Export from 'shared/Export'
 
 
 const today = moment(new Date()).format("YYYY-MM-DD");

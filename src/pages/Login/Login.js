@@ -6,8 +6,6 @@ import Logo from 'assets/img/brand/LOGO.png'
 // import videobg from 'assets/img/brand/microlisticsvideos.mp4'
 import './Login.css'
 
-const mapStateToProps = (store) => ({ store })
-const mapDispatchToProps = (dispatch) => ({ dispatch })
 class Logins extends Component {
     state = {
         formValidation: {
@@ -278,4 +276,6 @@ class Logins extends Component {
         )
     }
 }
+const mapStateToProps = (store) => ({ store })
+const mapDispatchToProps = (dispatch) => ({ dispatch })
 export default connect(mapStateToProps, mapDispatchToProps)(Logins);

@@ -7,16 +7,16 @@ import {
 import axios from 'axios'
 import { FaPencilAlt } from "react-icons/fa"
 import PurchaseOrderTable from './Component/PurchaseOrderTable'
-import { endpoint, headers } from 'components/ConfigEndpoint'
-import Dropdown from 'components/Dropdown'
-import Search from 'components/Search'
+import { endpoint, headers } from 'shared/ConfigEndpoint'
+import Dropdown from 'shared/Dropdown'
+import Search from 'shared/Search'
 import PurchaseOrderCreate from './Component/PurchaseOrderCreate'
 import create from 'assets/img/brand/button_create@2x.png'
-import EditColumn from 'components/EditColumn'
+import EditColumn from 'shared/EditColumn'
 import Dropdowns from './Component/Dropdowns'
 import Movement from './Component/Movement'
 import helpers from 'helpers'
-import HeaderTitle from 'components/HeaderTitle'
+import HeaderTitle from 'shared/HeaderTitle'
 
 class PurchaseOrder extends Component {
   constructor(props) {

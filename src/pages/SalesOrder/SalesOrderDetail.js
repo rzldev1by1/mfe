@@ -3,9 +3,9 @@ import './SalesOrder.css';
 import './SalesOrderDetail.css'
 import SODTable from './Components/SODTable'
 import axios from 'axios'
-import { endpoint, headers, } from 'components/ConfigEndpoint'
+import { endpoint, headers, } from 'shared/ConfigEndpoint'
 import helpers from 'helpers'
-import EditColumn from 'components/EditColumn'
+import EditColumn from 'shared/EditColumn'
 
 class SalesOrderDetail extends Component {
     constructor(props) {

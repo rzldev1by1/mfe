@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-import {endpoint, headers} from 'components/ConfigEndpoint'
+import {endpoint, headers} from 'shared/ConfigEndpoint'
 export default class DropdownSite extends Component {
     constructor(props){
         super(props)

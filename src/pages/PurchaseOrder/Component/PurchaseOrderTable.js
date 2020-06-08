@@ -3,10 +3,10 @@ import axios from 'axios'
 import mid from 'assets/img/brand/field-idle.png'
 import down from 'assets/img/brand/field-bot.png'
 import up from 'assets/img/brand/field-top.png'
-import Paging from 'components/Paging';
-import { endpoint, headers } from 'components/ConfigEndpoint'
+import Paging from 'shared/Paging';
+import { endpoint, headers } from 'shared/ConfigEndpoint'
 import moment from 'moment'
-import Export from 'components/Export'
+import Export from 'shared/Export'
 
 class PurchaseOrderTable extends Component {
   constructor(props) {

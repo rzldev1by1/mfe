@@ -177,7 +177,7 @@ class Helpers {
 						result.isSuccess = true;
 						result.redirect = accessMenu;
 						result.data = res.data
-						// this.setAuthenticate(res.data);
+						this.setAuthenticate(res.data);
 						// return this.renewToken();
 						return result;
 					}

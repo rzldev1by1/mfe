@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { endpoint, headers } from "components/ConfigEndpoint";
-import Paging from "components/Paging";
-import Export from "components/Export";
+import { endpoint, headers } from "shared/ConfigEndpoint";
+import Paging from "shared/Paging";
+import Export from "shared/Export";
 import mid from "assets/img/brand/field-idle.png";
 import down from "assets/img/brand/field-bot.png";
 import up from "assets/img/brand/field-top.png";

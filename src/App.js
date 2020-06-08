@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import 'assets/App.scss';
 
-import DefaultLayout from 'components/DefaultLayout';
-import ProtectedRoute from 'components/ProtectedRoute';
+import DefaultLayout from 'shared/DefaultLayout';
+import ProtectedRoute from 'shared/ProtectedRoute';
 import Login from 'pages/Login';
 
  const Register = React.lazy(() => import('pages/Register'));
