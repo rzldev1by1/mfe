@@ -173,12 +173,12 @@ class Helpers {
 						// let menuItems = menunav.items.filter((item) => { return stringMenus.indexOf(item.key) !== -1 });
 						// let accessMenu = menuItems.length ? menuItems[0].url:"/Welcome";
 						let accessMenu = "/Welcome";
-
+						console.log(res.data)
 						result.isSuccess = true;
 						result.redirect = accessMenu;
 						result.data = res.data
-						// this.setAuthenticate(res.data);
-						// return this.renewToken();
+						this.setAuthenticate(res.data);
+						this.renewToken();
 						return result;
 					}
 				})
