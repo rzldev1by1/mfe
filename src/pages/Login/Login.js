@@ -116,7 +116,7 @@ class Logins extends Component {
 
     loginForm(errorMessage, formValidation) {
         return (
-            <form className={"" + (this.state.forgotPassword ? 'form-hidden' : 'form-show')} onSubmit={this.validateForm}>
+            <form className={"mt-3 " + (this.state.forgotPassword ? 'form-hidden' : 'form-show')} onSubmit={this.validateForm}>
                 <input className={'form-control  inputLogin ' + (formValidation.username ? "" : " is-invalid")}
                     type="text" name="username"
                     placeholder="Enter your username here" />
@@ -144,7 +144,7 @@ class Logins extends Component {
 
     forgotPasswordForm(errorMessage, formValidation) {
         return (
-            <form className={"" + (this.state.forgotPassword ? 'form-show' : 'form-hidden')} onSubmit={this.validateForm}>
+            <form className={"mt-3 " + (this.state.forgotPassword ? 'form-show' : 'form-hidden')} onSubmit={this.validateForm}>
                 <input onChange={() => this.hideErrorMessageHandler()} className={'form-control  inputLogin ' + (this.state.emailValidation ? "" : " is-invalid")}
                     type="text" name="email"
                     placeholder="Enter your email address here" />
@@ -171,7 +171,7 @@ class Logins extends Component {
 
     termAndCondition() {
         return (
-            <div className='privacy-and-term'>
+            <div className='privacy-and-term mt-3 mb-3'>
                 <div className='policy-title inputLogin'>TERM AND CONDITIONS</div>
                 <div className='form-control text-area-policy inputLogin'> GDPR privacy policy requirements
                 Article 12 of the GDPR requires that you communicate information about your processing of personal data in a way that is:
@@ -196,10 +196,12 @@ class Logins extends Component {
                 You must be mindful of getting all of the relevant and required information about your website into your GDPR privacy policy.
                 </div>
 
-                <div className="col-sm-4 policy-button">
-                    <button onClick={() => this.exitPolicyHandler()} type="button" className="btn btn-primary btn-login col-12">
-                        {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin " /> : "Back"}
-                    </button>
+                <div className="row mt-5">
+                    <div className="col-sm-4">
+                        <button onClick={() => this.exitPolicyHandler()} type="button" className="btn btn-primary btn-login col-12">
+                            {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin " /> : "Back"}
+                        </button>
+                    </div>
                 </div>
             </div>
         )
@@ -207,7 +209,7 @@ class Logins extends Component {
 
     privacyAndPolicy() {
         return (
-            <div className='privacy-and-term'>
+            <div className='privacy-and-term mt-3 mb-3'>
                 <div className='policy-title inputLogin'>PRIVACY AND POLICY</div>
                 <div className='form-control text-area-policy inputLogin'> GDPR privacy policy requirements
                 Article 12 of the GDPR requires that you communicate information about your processing of personal data in a way that is:
@@ -232,10 +234,12 @@ class Logins extends Component {
                 You must be mindful of getting all of the relevant and required information about your website into your GDPR privacy policy.
                 </div>
 
-                <div className="col-sm-4 policy-button">
-                    <button onClick={() => this.exitPolicyHandler()} type="button" className="btn btn-primary btn-login col-12">
-                        {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin " /> : "Back"}
-                    </button>
+                <div className="row mt-5">
+                    <div className="col-sm-4">
+                        <button onClick={() => this.exitPolicyHandler()} type="button" className="btn btn-primary btn-login col-12">
+                            {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin " /> : "Back"}
+                        </button>
+                    </div>
                 </div>
             </div>
         )
@@ -251,9 +255,9 @@ class Logins extends Component {
         return (
             <div className="login">
                 <div className="container-fluid">
-                    <div className="card offset-lg-1">
+                    <div className="card col-md-8 col-lg-4 offset-md-1">
                         <div className="card-body">
-                            <img src={Logo} className="logo mb-5" alt="mlslogo" />
+                            <img src={Logo} className="logo mb-2" alt="mlslogo" />
                             {
                                 formComponent
                                 // this.state.forgotPassword ? this.forgotPasswordForm(errorMessage, formValidation) : this.loginForm(errorMessage, formValidation)
@@ -265,7 +269,7 @@ class Logins extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="copyright offset-lg-1 mt-5">
+                    <div className="copyright offset-md-1 mt-5">
                         <a target='blank' href='https://www.microlistics.com.au/'>© Microlistics {new Date().getFullYear()}</a>
                     </div>
                 </div>

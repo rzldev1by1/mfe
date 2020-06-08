@@ -1,13 +1,8 @@
-html {
-  height: 100vh;
-  width: 100vw;
-}
 .login {
   background-image: url('../../assets/img/brand/Login-Background-Fin.png');
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
-  width: 100vw;
   display: flex;
   align-items: center;
   font-size: 110%;
@@ -19,25 +14,14 @@ a {
 .logo {
   width: 100px;
 }
-.offset-lg-1 {
-  margin-left: 4%;
-}
-.card {
-  width: 500px;
-}
 .card-body {
   padding: 30px !important;
 }
 .inputLogin {
-  width: 85% !important;
+  /* width: 85% !important; */
   border-radius: 10px !important;
   font-size: 110% !important;
 }
-/* ::placeholder,
-::-webkit-input-placeholder,
-:-ms-input-placeholder {
-  font-size: 110% !important;
-} */
 .btn-login {
   height: 50px;
   font-size: 110%;
@@ -52,55 +36,47 @@ a {
   padding-top: 20px;
   color: #f44336;
 }
-
 .copyright a {
   color: #fff;
+  margin-left: 4%;
 }
-@media (max-width: 768px) {
+@media (width: 1024px) {
   .login {
-    font-size: 90%;
-    background-size: cover;
+    width: 120%;
+  }
+}
+@media (min-width: 1024px) {
+  .offset-md-1 {
+    margin-left: 4%;
   }
 }
 
-.email-message{
+.email-message {
   font-size: small;
-  color: #959DA0;
+  color: #959da0;
   margin-left: 1em;
 }
 
-.form-show{
-  opacity: 1;
-  transition: opacity 0.1s;
+.form-login-change {
+  color: #3b69f6;
+  cursor: pointer;
 }
-
-.form-hidden{
-  opacity: 0;
-  transition: opacity 0.1s;
-  cursor: default;
-}
-
-.form-login-change{
-  color: #3B69F6;
+.term-and-condition {
   cursor: pointer;
 }
 
-.term-and-condition{
-  cursor: pointer;
-}
-
-.policy-title{
-  background-color: #D5D8DA;
+.policy-title {
+  background-color: #d5d8da;
   border-bottom-left-radius: 0px !important;
   border-bottom-right-radius: 0px !important;
   padding-left: 0.8em;
-  color: #8E8F8F;
+  color: #8e8f8f;
   font-weight: lighter !important;
   line-height: 2em;
 }
 
-.text-area-policy{
-  color: #8E8F8F;
+.text-area-policy {
+  color: #8e8f8f;
   font-size: small !important;
   height: 11.6em !important;
   overflow-y: scroll;
@@ -117,7 +93,7 @@ a {
   border-radius: 5px;
 }
 
-.policy-button{
+.policy-button {
   margin-top: 1em;
   margin-left: -0.9em;
   width: 15em;
