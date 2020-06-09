@@ -32,7 +32,7 @@ class Logins extends Component {
                 helpers.authenticationHandler(payload).then(result => {
                     console.log(result)
                     if (result.isSuccess) {
-                        this.props.dispatch({ type: 'SET_AUTH', data: result.data })
+                        this.props.dispatch({ type: 'set', user: result.data })
                         this.props.history.push(result.redirect)
                     } else {
                         errorMessage = result.message
@@ -129,7 +129,7 @@ class Logins extends Component {
                 <div className="row">
                     <div className="col-sm-4">
                         <button type="submit" className="btn btn-primary btn-login col-12">
-                            {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin" /> : "Login"}
+                            {this.state.isLoad ? <i className="fa fa-refresh fa-2x fa-spin" /> : 'Login'}
                         </button>
                     </div>
                     <div className="col-sm-8 mt-3">
@@ -147,16 +147,14 @@ class Logins extends Component {
                     type="text" name="email"
                     placeholder="Enter your email address here" />
                 <span className='email-message'>Enter your email address to find your acccount</span>
-                <input className={'form-control  inputLogin form-hidden '}
-                    type="text" name="none"
-                    placeholder="Enter your email address here" />
+                
                 <div className={'error ' + (errorMessage ? ' alertFadeIn' : '')}>
                     {errorMessage && <div><span className="iconU-i" /> {errorMessage}</div>}
                 </div>
                 <div className="row">
                     <div className="col-sm-4 white-space">
                         <button type="submit" className="btn btn-primary btn-login col-12">
-                            {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin " /> : "Send"}
+                            {this.state.isLoad ? <i className="fa fa-refresh fa-2x fa-spin " /> : "Send"}
                         </button>
                     </div>
                     <div className="col-sm-8 mt-3">

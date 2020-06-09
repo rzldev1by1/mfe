@@ -1,4 +1,7 @@
 // Variable overrides
-// $primaryColor: #3366FF;
-// $secondaryColor: #e0e0e0;
+$theme-colors: (
+  "primary": #39f,
+  "secondary": #e0e0e0,
+  "danger": #ff4136,
+);
 $enable-responsive-font-sizes:true;

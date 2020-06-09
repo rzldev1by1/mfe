@@ -8,7 +8,7 @@ const loading = (
 		<div className="sk-spinner sk-spinner-pulse"></div>
 	</div>
 )
-const TheLayout = React.lazy(() => import('shared/TheLayout'))
+const TheLayout = React.lazy(() => import('shared/container/TheLayout'))
 const Register = React.lazy(() => import('pages/Register/Register'))
 const Login = React.lazy(() => import('pages/Login/Login'))
 

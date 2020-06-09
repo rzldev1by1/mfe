@@ -1,0 +1,23 @@
+.form-inline {
+  padding: 20px !important;
+}
+ul.pagination {
+  margin-bottom: 0;
+}
+.page-link {
+  border: none;
+}
+
+.card-body {
+  padding: 5px;
+}
+
+.page-2 input {
+  width: 50px;
+  text-align: center;
+  margin-top: 2px;
+  margin-left: 10px;
+}
+.page-3{
+  margin-top: 5px;
+}

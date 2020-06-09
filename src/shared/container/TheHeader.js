@@ -3,21 +3,21 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   CHeader,
   CToggler,
-  CHeaderBrand,
+  // CHeaderBrand,
   // CHeaderNav,
   // CHeaderNavItem,
   // CHeaderNavLink,
   // CLink,
   CSubheader,
   CBreadcrumbRouter,
-  CBreadcrumb,
-  CBreadcrumbItem,
+  // CBreadcrumb,
+  // CBreadcrumbItem,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import Logo from 'assets/img/LOGO.png'
+// import Logo from 'assets/img/LOGO.png'
 
 // routes config
-import routes from '../routes'
+import routes from '../../routes'
 
 const TheHeader = () => {
   const dispatch = useDispatch()
