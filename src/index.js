@@ -1,12 +1,8 @@
 import 'react-app-polyfill/ie9'; // For IE 9-11 support
 import 'react-app-polyfill/stable';
-// import 'react-app-polyfill/ie11'; // For IE 11 support
 import './polyfill'
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
@@ -15,6 +11,10 @@ import storage from 'redux-persist/lib/storage'
 import { PersistGate } from 'redux-persist/integration/react'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { rootReducer } from './store'
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+import { icons } from 'assets/icons'
+React.icons = icons
 
 const persistedReducer = persistReducer({ key: 'root', storage }, rootReducer)
 const middleware = composeWithDevTools(applyMiddleware(thunk))

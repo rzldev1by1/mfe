@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import Logo from 'assets/img/brand/LOGO1.png';
+import Logo from 'assets/img/LOGO1.png';
 import './Welcome.css'
 class Welcome extends Component {
   render() {
     return <div className="welcome">
-      <img src={Logo} className="mlslogo" alt="mlslogo" />
+      <img src={Logo} className="logo" alt="logo" />
     </div>
   }
 }

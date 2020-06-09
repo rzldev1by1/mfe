@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import swal from 'sweetalert'
+// import swal from 'sweetalert'
 import helpers from 'helpers'
-import Logo from 'assets/img/brand/LOGO.png'
+import Logo from 'assets/img/LOGO.png'
 // import videobg from 'assets/img/brand/microlisticsvideos.mp4'
 import './Login.css'
 
@@ -74,14 +74,14 @@ class Logins extends Component {
                 }
                 else {
                     this.hideErrorMessageHandler(errorMessage)
-                    swal({
-                        title: "Request sent!",
-                        icon: "success",
-                        button: {
-                            text: "Ok",
-                            className: "btn btn-primary",
-                        },
-                    });
+                    // swal({
+                    //     title: "Request sent!",
+                    //     icon: "success",
+                    //     button: {
+                    //         text: "Ok",
+                    //         className: "btn btn-primary",
+                    //     },
+                    // });
                     setTimeout(() => this.redirectPageHandler(), 1500)
                 }
             })
