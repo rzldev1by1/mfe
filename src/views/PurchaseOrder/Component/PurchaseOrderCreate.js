@@ -1169,7 +1169,7 @@ class PurchaseOrderCreate extends Component {
       <Modal className="POCreate" isOpen={this.props.showmodal} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 800 }} toggle={true} >
         <div className="createModal">
           <ModalHeader style={{ marginTop: "1%" }}>
-            <div style={{ display: "inline flex", marginLeft: "30px" }}>
+            <div style={{ display: "inline flex", marginLeft: "27px" }}>
               <label className="iconU-createModal" />
               <label className="font">
                 <h2>Create Purchase Order</h2>
@@ -1186,7 +1186,7 @@ class PurchaseOrderCreate extends Component {
 
           <ModalHeader className="Tabs" style={{ marginTop: "-30px" }} >
             <div>
-              <div className="createdec" style={{ marginLeft: "67px" }}>
+              <div className="createdec" style={{ marginLeft: "64px" }}>
                 Enter order and line details to create a new Purchase Order
                           </div>
               <div className="tabs font">

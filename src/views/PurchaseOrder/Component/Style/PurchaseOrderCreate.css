@@ -67,7 +67,8 @@
 } 
 
 .po-required{
-	/* margin-top: 9% !important; */
+    /* margin-top: 9% !important; */
+    font-size: 13px;
 }
 
 .isDatepickerShow{
