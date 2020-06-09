@@ -8,6 +8,7 @@ import AppComponent from '../AppComponent';
 
 class Authentication {
 	static endpoint = "usermanagement/login";
+	static resetPassword = 'usermanagement/request_reset_password';
 
 	static staticMethod() {
 		return 'static method has been called.';
@@ -145,6 +146,23 @@ class Authentication {
 
 	static getSavedColumn = () => {
 		return JSON.parse(localStorage.getItem('savedColumn'))
+	}
+
+	requestResetPasswordHandler = (payload) => {
+		return (
+            axios.post(AppComponent.getBaseUrl() + Authentication.resetPassword, payload,
+			{
+				headers: { 'Content-Type': 'application/json' }
+			})
+		    .then(res => {
+                if (res.data) {
+                    return res;
+                }
+            })
+            .catch(function (error) {
+                return error.response.data;
+            })
+        );
 	}
 
 	authenticationHandler = (payload) => {

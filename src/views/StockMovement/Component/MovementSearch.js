@@ -48,7 +48,7 @@ export default class MovementSearch extends Component {
     componentDidMount = () => {
         this.getclient();
         this.getsite();
-        this.getSiteSelected(null)
+        this.getSiteSelected('')
         //this.getproduct();
     }
 

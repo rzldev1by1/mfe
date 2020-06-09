@@ -180,7 +180,7 @@ span.client-notActive {
   cursor: default;
 }
 
-.modal-content {
+.modal-content-um {
   position: absolute;
   width: 270%;
   margin-left: -85%;
@@ -188,6 +188,7 @@ span.client-notActive {
   border: none !important;
   background-color: transparent !important;
 }
+ 
 
 .modal-header {
   background-color: #3366ff;

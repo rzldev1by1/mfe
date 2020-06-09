@@ -71,6 +71,10 @@
     font-size: 13px;
 }
 
+.so-add-line{
+    margin-top: 1%;
+  }
+  
 .isDatepickerShow{
     padding-top: 360px;
     margin-top: -360px;

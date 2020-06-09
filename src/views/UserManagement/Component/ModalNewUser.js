@@ -35,7 +35,7 @@ const modalNewUser = (props) => {
     <div>
 
         <Modal isOpen={isOpen} modalTransition={{ timeout: 700 }} backdropTransition={{ timeout: 1300 }}
-        toggle={toggle} className={className} >
+        toggle={toggle} className={className} contentClassName="modal-content-um">
           <div className="create-modal">
             <ModalHeader toggle={toggle} className="mt-2 pl-5 pb-0 mb-0">
               <div className='create'>
@@ -54,13 +54,13 @@ const modalNewUser = (props) => {
             </ModalHeader>
             <ModalHeader className="pb-0">
               <div className="d-flex d-inline-flex">
-                  <div className={(firtsTabActive)?"tab ml-3 mr-3 p-3 tab-active ":" tab ml-3 mr-3 p-3 "} onClick={onClickTabActive}>
+                  <div className={(firtsTabActive)?"tab ml-3 mr-3 pl-0 pr-3 tab-active ":" tab ml-3 mr-3 pl-0 pr-3 "} onClick={onClickTabActive}>
                       <span className="p-3">
                           <img className="numberimg" style={{width:"11%", paddingBottom:"8px"}} alt={""} src={(firtsTabActive)?oneactive:oneinactive}/>
                       </span>
                       User Details
                   </div>
-                  <div className={(secondTabActive)?"tab p-3 tab-active ":" tab p-3"} onClick={onNextClickHandler}>
+                  <div className={(secondTabActive)?"tab pl-0 pr-3 tab-active ":" tab pl-0 pr-3"} onClick={onNextClickHandler}>
                     <span className="p-3">
                         <img className="numberimg" style={{width:"11%", paddingBottom:"8px"}} alt={""} src={(secondTabActive)?twoactive:twoinactive}/>
                     </span>
@@ -70,7 +70,7 @@ const modalNewUser = (props) => {
             </ModalHeader>
             <ModalBody className='pt-0 w-100 pl-1 pr-1 pb-1'>
               <div className={(firtsTabActive)?" ":"d-none"}>
-                  <div className="tab-content pl-5 pr-5 pt-3 pb-3">
+                  <div className="tab-content pr-5 pt-3 pb-3" style={{paddingLeft:"40px"}}>
                       <form onSubmit={submitHandler}>
 
                       <div className="account-detail mt-2">
@@ -111,15 +111,15 @@ const modalNewUser = (props) => {
                                   <input type="text" name="userid" readOnly className="form-control" value={model.userId}/>
                               </div>
                               <div className="col-3">
-                                  <input type="text" name="userName" maxLength="60" className={`form-control ${validation.name["isValid"]?'':validation.name["invalidClass"]}`} onChange={(e)=>{onChangeName(e);}} defaultValue={model.user}/>
-                                   <FormFeedback>
+                                  <input type="text" name="userName" placeholder="Enter a surename" maxLength="60" className={`form-control ${validation.name["isValid"]?'':validation.name["invalidClass"]}`} onChange={(e)=>{onChangeName(e);}} defaultValue={model.user}/>
+                                   <FormFeedback className="invalid-error-padding">
                                        name value must be entered
                                    </FormFeedback>
                               </div>
 
                               <div className="col-3">
-                                  <input type="email" name="email" className= {`form-control ${validation.email["isValid"]?'':validation.name["invalidClass"]}`} onChange={(e)=>{onChangeEmail(e);}} defaultValue={model.email}/>
-                                  <FormFeedback>
+                                  <input type="email" name="email" placeholder="Enter an email address" className= {`form-control ${validation.email["isValid"]?'':validation.name["invalidClass"]}`} onChange={(e)=>{onChangeEmail(e);}} defaultValue={model.email}/>
+                                  <FormFeedback className="invalid-error-padding">
                                        wrong format email
                                    </FormFeedback>
                               </div>
@@ -135,7 +135,7 @@ const modalNewUser = (props) => {
                                   </div>
                               </div>
                               <div className="row">
-                                  <div className="col-4">
+                                  <div className="col-4 pl-0">
                                       <ModuleAccess moduleAccess={moduleAccess} isLoaded={isModuleLoaded} onEnableClick={moduleAccessEnableClick} onModuleEnableAll={onModuleEnableAll} isEnableAllModule={isEnableAllModule}/>
                                   </div>
                                   <div className="col-4 pl-0">
@@ -174,7 +174,7 @@ const modalNewUser = (props) => {
                   </div>
               </div>
               <div className={(secondTabActive)?" ":"d-none"}>
-                  <div className="tab-content pl-5 pr-5 pt-3 pb-3">
+                  <div className="tab-content pr-5 pt-3 pb-3" style={{paddingLeft:"40px"}}>
                       <div className="account-detail mt-2">
                             <div className="row">
                                 <div className="col-2">                                  

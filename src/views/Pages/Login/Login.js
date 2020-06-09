@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import swal from 'sweetalert'
 import Authentication from '../../../Auth/Authentication'
 import Logo from '../../../assets/img/brand/LOGO.png'
 // import videobg from '../../assets/img/brand/microlisticsvideos.mp4'
@@ -39,7 +40,8 @@ class Logins extends Component {
                     }
                     this.setState({ isLoad: false, errorMessage, formValidation: { username: true, password: true } })
                 })
-            } else {
+            }            
+            else {
                 let formValidation = {
                     username: username.length ? true : false,
                     password: password.length ? true : false,
@@ -59,12 +61,33 @@ class Logins extends Component {
         }
 
         if(this.state.forgotPassword){
-            this.setState({ isLoad: true })
             const email = e.target.email.value
+            const payload = { "email": email}
+            let errorMessage = ''
             if(email.length === 0)
             {
                 this.setState({emailValidation:false, isLoad:false})
             }
+            this.setState({ isLoad: true })            
+            
+                const auth = new Authentication()
+                auth.requestResetPasswordHandler(payload).then(result => {
+                    if(result.status === 400){
+                        this.setState({ isLoad: false, errorMessage:result.message, emailValidation:false })
+                    }
+                    else{
+                        this.hideErrorMessageHandler(errorMessage)
+                        swal({
+                            title: "Request sent!",
+                            icon: "success",
+                            button: {
+                              text: "Ok",
+                              className: "btn btn-primary",
+                            },
+                          });
+                          setTimeout(() => this.redirectPageHandler(), 1500)
+                    }
+                })
         }
     }
 
@@ -82,6 +105,14 @@ class Logins extends Component {
 
     exitPolicyHandler = () => {
         this.setState({policy: false, forgotPassword:false})
+    }
+
+    redirectPageHandler = () => {
+        window.location.replace(window.location.origin);
+    }
+
+    hideErrorMessageHandler = (errorMessage) => {
+        this.setState({ isLoad: false, errorMessage,  emailValidation:true})
     }
 
     loginForm(errorMessage, formValidation){
@@ -115,7 +146,7 @@ class Logins extends Component {
     forgotPasswordForm(errorMessage, formValidation){
         return(
             <form className={"" + (this.state.forgotPassword ? 'form-show' : 'form-hidden')} onSubmit={this.validateForm}>
-                <input className={'form-control  inputLogin ' + (this.state.emailValidation ? "" : " is-invalid")}
+                <input onChange={() => this.hideErrorMessageHandler()} className={'form-control  inputLogin ' + (this.state.emailValidation ? "" : " is-invalid")}
                     type="text" name="email"
                     placeholder="Enter your email address here" />
                     <span className='email-message'>Enter your email address to find your acccount</span>

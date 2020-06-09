@@ -33,7 +33,7 @@ const OrderLine = (props) => {
   if(!uom && nextClicked) eUom = 'mtrField'
   return (
     <div >
-      <div className="line">
+      <div className>
         <table className="">
           <tr>
             <td>

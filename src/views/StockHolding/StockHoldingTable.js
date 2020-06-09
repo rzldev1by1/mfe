@@ -17,9 +17,8 @@ class componentTable extends Component {
 					}
 					return null;
 				})}
-				<th className="text-left">
+				<th className="text-left" style={{width: '1%'}}>
 					<button type="button" className="editColumnBtn" onClick={this.props.toggleDisplayMoreColumn}>
-
 						<i className="editColumnLogo iconU-edit" />
 					</button>
 				</th>

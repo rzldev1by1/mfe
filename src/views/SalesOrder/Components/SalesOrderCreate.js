@@ -120,7 +120,8 @@ class SalesOrderCreate extends Component {
       tab1isactive: true,
       tab2isactive: false,
       parameters: reset(this.props.resources),
-      validation:errMsg
+      validation:errMsg,
+      nextClicked:false
     });
   };
 
