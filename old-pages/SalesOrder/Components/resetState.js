@@ -1,12 +1,12 @@
-import helpers from 'helpers'
+import Authentication from '../../../Auth/Authentication'
 import moment from 'moment'
 const reset = (props) => {
     return {
         header: {
-            company             : helpers.getCompanyCode(),            
+            company             : Authentication.getCompanyCode(),            
             site                : null,  
             siteVal             : null,
-            client              : helpers.getClient(),       
+            client              : Authentication.getClient(),       
             orderId             : null,
             customerOrderRef    : null,
             vendorOrderRef      : null,

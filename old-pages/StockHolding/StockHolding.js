@@ -3,20 +3,20 @@ import { Card, Col, Row, FormGroup, InputGroup } from 'reactstrap';
 
 import axios from 'axios';
 
-import { endpoint, headers } from 'shared/ConfigEndpoint';
+import { endpoint, headers } from '../../AppComponent/ConfigEndpoint';
 
-import mid from 'assets/img/brand/field-idle.png';
-import down from 'assets/img/brand/field-bot.png';
-import up from 'assets/img/brand/field-top.png';
+import mid from '../../assets/img/brand/field-idle.png';
+import down from '../../assets/img/brand/field-bot.png';
+import up from '../../assets/img/brand/field-top.png';
 
-import HeaderTitle from 'shared/HeaderTitle';
-import Search from 'shared/Search';
-import Dropdown from 'shared/Dropdown';
+import HeaderTitle from '../../AppComponent/HeaderTitle';
+import Search from '../../AppComponent/Search';
+import Dropdown from '../../AppComponent/Dropdown';
 import StockHoldingTable from './StockHoldingTable';
-import Paging from 'shared/Paging';
-import EditColumn from 'shared/EditColumn';
-import Export from 'shared/Export'
-import helpers from 'helpers'
+import Paging from '../../AppComponent/Paging';
+import EditColumn from '../../AppComponent/EditColumn';
+import Export from '../../AppComponent/Export'
+import Authentication from '../../Auth/Authentication'
 import './StockHolding.css';
 
 
@@ -154,7 +154,7 @@ class StockHolding extends Component {
 			totalRows: 0, maxPage: 0
 		});
 		
-		let site_ = helpers.getSite() 
+		let site_ = Authentication.getSite() 
 		let url = ""
 		if(site_ !== ""){
 			url = '?site=' + site_
@@ -291,7 +291,7 @@ class StockHolding extends Component {
 		return (
 			<React.Fragment> 
 				
-				{helpers.getUserLevel() == "administrator" ? (
+				{Authentication.getUserLevel() == "administrator" ? (
 						<Dropdown placeHolder="Site" 
 						optionList={masterSite.toString()}
 						optionValue={masterSiteValue.toString()}
@@ -299,7 +299,7 @@ class StockHolding extends Component {
 				) : (
 						<input
 						readOnly
-						value={helpers.getSite()}
+						value={Authentication.getSite()}
 						id="site"
 						className="form-control put filterDropdown"
 						placeholder="Site"
@@ -308,7 +308,7 @@ class StockHolding extends Component {
 				)}
  
 
-				{helpers.getUserLevel() == "administrator" ? (
+				{Authentication.getUserLevel() == "administrator" ? (
 				<Dropdown placeHolder="Client"
 					className="filterDropdown"
 					className="filterDropdown"
@@ -318,7 +318,7 @@ class StockHolding extends Component {
 				) : (
 					<input
 					readOnly
-					value={helpers.getClient()}
+					value={Authentication.getClient()}
 					id="client"
 					className="form-control put filterDropdown"
 					placeholder="Client"

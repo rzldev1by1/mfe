@@ -4,12 +4,12 @@ import './UserManagement.css'
 import ModuleAccess from './Component/ModuleAccess'
 import Site from './Component/Site'
 import Client from './Component/Client'
-import {endpoint,headers} from 'shared/ConfigEndpoint'
+import {endpoint,headers} from '../../AppComponent/ConfigEndpoint'
 import axios from 'axios'
 import users from './Users.json'
 import moment from 'moment';
-import popupLock from 'assets/img/brand/popup_lock.png'
-import popupLockSuccess from 'assets/img/brand/popup_success_lock.png'
+import popupLock from '../../assets/img/brand/popup_lock.png'
+import popupLockSuccess from '../../assets/img/brand/popup_success_lock.png'
 
 const today = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
 const passChanged = '1999-08-28';

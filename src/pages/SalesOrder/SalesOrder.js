@@ -4,10 +4,17 @@ import {
   CBadge,
   CButton,
   CCard,
+  CCardHeader,
   CCardBody,
-  CCardTitle
+  CCardTitle,
+  CRow,
+  CCol,
 } from '@coreui/react'
+import Select from 'react-select'
 import DataTable from 'shared/table/DataTable'
+import States from './dummy/states'
+import './SalesOrder.css'
+
 const usersData = [
   { id: 0, name: 'John Doe', registered: '2018/01/01', role: 'Guest', status: 'Pending' },
   { id: 1, name: 'Samppa Nori', registered: '2018/01/01', role: 'Member', status: 'Active' },
@@ -59,18 +66,62 @@ const getBadge = (status) => {
     default: return 'primary'
   }
 }
+// '/#/sales-orders/' + data.client + '/' + data.site + '/' + data.orderno
 class SalesOrder extends React.PureComponent {
+  state = {
+    site: null,
+    client: null,
+    status: null,
+    orderType: null,
+  }
   render() {
-    return <div>
-
+    const siteData = States
+    const clientData = States
+    const statusData = States
+    const orderTypeData = States
+    return <React.Fragment>
       <CCard className="bg-transparent mb-3">
-          <CCardTitle className="text-info m-0">Sales Orders <button className="btn btn-info float-right">Create</button></CCardTitle>
+        <CCardTitle className="text-info m-0">Sales Orders <button className="btn btn-primary float-right">Create</button></CCardTitle>
+      </CCard>
+
+      <CCard>
+        <CCardBody>
+          <CRow>
+            <CCol md={3} className="px"><input type="text" className="form-control" placeholder="Search" /></CCol>
+            <CCol md={2} className="px">
+              <Select name="site" placeholder="Site"
+                value={this.state.site} options={siteData}
+                onChange={(val) => this.setState({ site: val })}
+              />
+            </CCol>
+            <CCol md={2} className="px">
+              <Select name="client" placeholder="Client"
+                value={this.state.client} options={clientData}
+                onChange={(val) => this.setState({ client: val })}
+              />
+            </CCol>
+            <CCol md={2} className="px">
+              <Select name="status" placeholder="Status"
+                value={this.state.status} options={statusData}
+                onChange={(val) => this.setState({ status: val })}
+              />
+            </CCol>
+            <CCol md={2} className="px">
+              <Select name="orderType" placeholder="Order Type"
+                value={this.state.orderType} options={orderTypeData}
+                onChange={(val) => this.setState({ orderType: val })}
+              />
+            </CCol>
+            <CCol md={1}><button className="btn btn-outline-primary float-right">Search</button></CCol>
+          </CRow>
+        </CCardBody>
       </CCard>
 
       <DataTable
-        className="h-80 scroll-y"
+        className="h-70 scroll-y"
         fields={fields}
         data={usersData}
+        onClick={(item, index, col, e) => console.log(item, index, col, e)}
         customFields={{
           'status':
             (item) => (
@@ -88,7 +139,7 @@ class SalesOrder extends React.PureComponent {
             },
         }}
       />
-    </div>
+    </React.Fragment>
   }
 }
 const mapStateToProps = (store) => ({ store })

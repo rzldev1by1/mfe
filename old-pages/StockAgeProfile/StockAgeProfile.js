@@ -8,10 +8,10 @@ import {
     FormGroup,
     InputGroup
 } from 'reactstrap';
-import Paging from 'shared/Paging';
+import Paging from '../../AppComponent/Paging';
 import axios from 'axios';
+import AppComponent from '../../AppComponent';
 
-const baseURL = process.env.REACT_APP_API_URL
 class StockAgeProfile extends Component {
     constructor(props) {
         super(props);
@@ -66,7 +66,7 @@ class StockAgeProfile extends Component {
 
     }
     loadData = () => {
-        axios.get(baseURL + "searchFilterStockAgeProfile", {
+        axios.get(AppComponent.getBaseUrl() + "searchFilterStockAgeProfile", {
            
         }).then(res => {
             let data = res.data;

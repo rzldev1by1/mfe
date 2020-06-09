@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Table, Button, Card, CardBody, Label } from 'reactstrap'
 import '../UserManagement.css'
-import mid from 'assets/img/brand/field-idle.png'
+import mid from '../../../assets/img/brand/field-idle.png'
 import moment from 'moment' 
 
 

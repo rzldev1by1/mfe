@@ -4,17 +4,17 @@ import { FaPencilAlt } from "react-icons/fa"
 import UserListComponent from './Component/UserListComponent'
 import PersonalUserComponent from './Component/PersonalUserComponent'
 import axios from 'axios'
-import { endpoint, headers } from 'shared/ConfigEndpoint'
+import { endpoint, headers } from '../../AppComponent/ConfigEndpoint'
 import ModalNewUser from './Component/ModalNewUser'
 import moment from 'moment'
-import query from 'shared/query_menu_temp'
-import helpers from 'helpers'
-import Paging from 'shared/Paging'
-import HeaderTitle from 'shared/HeaderTitle'
-import create from 'assets/img/brand/button_create@2x.png'
-import logo_confirm from 'assets/img/brand/LOGO5@2x.png'
-import menunav from '../../_nav'
-import Export from 'shared/Export'
+import query from '../../AppComponent/query_menu_temp'
+import Authentication from '../../Auth/Authentication'
+import Paging from '../../AppComponent/Paging'
+import HeaderTitle from '../../AppComponent/HeaderTitle'
+import create from '../../assets/img/brand/button_create@2x.png'
+import logo_confirm from '../../assets/img/brand/LOGO5@2x.png'
+import menunav from '../../menunav'
+import Export from '../../AppComponent/Export'
 
 
 const today = moment(new Date()).format("YYYY-MM-DD");
@@ -673,7 +673,7 @@ class UserManagement extends Component {
 
   isValidUser = () => {
     let result = false;
-    let userlevel = helpers.getUserLevel();
+    let userlevel = Authentication.getUserLevel();
     if (userlevel) {
       if (userlevel.toLowerCase() === 'administrator')
         result = true;

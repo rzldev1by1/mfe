@@ -7,12 +7,12 @@ import { Card, CardBody,
 		 TabContent, TabPane } from 'reactstrap';
 
 import axios from 'axios';
-import { endpoint, headers } from 'shared/ConfigEndpoint';
-import { tab1, tab1Inactive, tab2, tab2Inactive } from 'shared/Helper';
+import { endpoint, headers } from '../../../AppComponent/ConfigEndpoint';
+import { tab1, tab1Inactive, tab2, tab2Inactive } from '../../../AppComponent/Helper';
 
-import mid from 'assets/img/brand/field-idle.png';
-import down from 'assets/img/brand/field-bot.png';
-import up from 'assets/img/brand/field-top.png';
+import mid from '../../../assets/img/brand/field-idle.png';
+import down from '../../../assets/img/brand/field-bot.png';
+import up from '../../../assets/img/brand/field-top.png';
 
 import StockDetails from './StockDetails';
 import StockBalanceForecast from './StockBalanceForecast';

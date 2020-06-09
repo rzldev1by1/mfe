@@ -7,16 +7,16 @@ import {
 import axios from 'axios'
 import { FaPencilAlt } from "react-icons/fa"
 import PurchaseOrderTable from './Component/PurchaseOrderTable'
-import { endpoint, headers } from 'shared/ConfigEndpoint'
-import Dropdown from 'shared/Dropdown'
-import Search from 'shared/Search'
+import { endpoint, headers } from '../../AppComponent/ConfigEndpoint'
+import Dropdown from '../../AppComponent/Dropdown'
+import Search from '../../AppComponent/Search'
 import PurchaseOrderCreate from './Component/PurchaseOrderCreate'
-import create from 'assets/img/brand/button_create@2x.png'
-import EditColumn from 'shared/EditColumn'
+import create from '../../assets/img/brand/button_create@2x.png'
+import EditColumn from '../../AppComponent/EditColumn'
 import Dropdowns from './Component/Dropdowns'
 import Movement from './Component/Movement'
-import helpers from 'helpers'
-import HeaderTitle from 'shared/HeaderTitle'
+import Authentication from '../../Auth/Authentication'
+import HeaderTitle from '../../AppComponent/HeaderTitle'
 
 class PurchaseOrder extends Component {
   constructor(props) {
@@ -45,8 +45,8 @@ class PurchaseOrder extends Component {
       autoText: null,
       autoArray: null,
       autoArrays: [],
-      siteSelected: helpers.getSite() ? helpers.getSite() : null,
-      clientSelected: helpers.getClient() ? helpers.getClient() : null,
+      siteSelected: Authentication.getSite() ? Authentication.getSite() : null,
+      clientSelected: Authentication.getClient() ? Authentication.getClient() : null,
       statusSelected: undefined,
       orderTypeSelected: undefined,
 
@@ -241,7 +241,7 @@ class PurchaseOrder extends Component {
 
     return (
       <React.Fragment>
-        {helpers.getUserLevel() == "administrator" ? (
+        {Authentication.getUserLevel() == "administrator" ? (
           <Dropdown placeHolder="Site"
             className="filterDropdown"
             optionList={siteData.toString()}
@@ -250,7 +250,7 @@ class PurchaseOrder extends Component {
         ) : (
             <input
               readOnly
-              value={helpers.getSite()}
+              value={Authentication.getSite()}
               id="site"
               className="form-control put filterDropdown"
               placeholder="Site"
@@ -258,7 +258,7 @@ class PurchaseOrder extends Component {
             />
           )}
 
-        {helpers.getUserLevel() == "administrator" ? (
+        {Authentication.getUserLevel() == "administrator" ? (
           <Dropdown placeHolder="Client"
             className="filterDropdown"
             optionList={clientName.toString()}
@@ -267,7 +267,7 @@ class PurchaseOrder extends Component {
         ) : (
             <input
               readOnly
-              value={helpers.getClient()}
+              value={Authentication.getClient()}
               id="site"
               className="form-control put filterDropdown"
               placeholder="Site"

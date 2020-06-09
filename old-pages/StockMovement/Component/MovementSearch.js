@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { Button } from 'reactstrap'
 import DatePicker from './../../PurchaseOrder/Component/DatePicker'
 import moment from 'moment'
-import Dropdown from 'shared/Dropdown'
+import Dropdown from '../../../AppComponent/Dropdown'
 import axios from 'axios'
-import { endpoint, headers } from 'shared/ConfigEndpoint'
-import AutoComplete from 'shared/AutoComplete'
+import { endpoint, headers } from '../../../AppComponent/ConfigEndpoint'
+import AutoComplete from '../../../AppComponent/AutoComplete'
 import DropdownPeriod from './DropdownPeriod'
-import helpers from 'helpers'
+import Authentication from '../../../Auth/Authentication'
 
 export default class MovementSearch extends Component {
     constructor(props) {
@@ -169,7 +169,7 @@ export default class MovementSearch extends Component {
         let url = '?searchParam=' + param
         if (param) { param = param.toUpperCase() }
   
-        let client_ = helpers.getClient()  
+        let client_ = Authentication.getClient()  
 		if(client_ !== ""){
 			url = '&site=' + client_
 		}else  if (client) { 
@@ -177,7 +177,7 @@ export default class MovementSearch extends Component {
         }
        
 
-        let site_ = helpers.getSite()  
+        let site_ = Authentication.getSite()  
 		if(site_ !== ""){
 			url = '&site=' + site_
 		}else if (site) { 
@@ -292,7 +292,7 @@ export default class MovementSearch extends Component {
         return (
             <React.Fragment> 
                 
-				{helpers.getUserLevel() == "administrator" ? (
+				{Authentication.getUserLevel() == "administrator" ? (
 						<Dropdown placeHolder="Site"
                         className="filterDropdowns"
                         optionList={siteData.toString()}
@@ -301,7 +301,7 @@ export default class MovementSearch extends Component {
 				) : (
 						<input
 						readOnly
-						value={helpers.getSite()}
+						value={Authentication.getSite()}
 						id="site"
 						className="form-control put"
 						placeholder="Site"
@@ -311,7 +311,7 @@ export default class MovementSearch extends Component {
 				)}
  
 
-                {helpers.getUserLevel() == "administrator" ? (
+                {Authentication.getUserLevel() == "administrator" ? (
                     <Dropdown placeHolder="Client"
                     className="filterDropdowns"
                     optionList={clientName.toString()}
@@ -320,7 +320,7 @@ export default class MovementSearch extends Component {
                 ) : (
                     <input
                     readOnly
-                    value={helpers.getClient()}
+                    value={Authentication.getClient()}
                     id="site"
                     className="form-control put "
                     placeholder="Site"

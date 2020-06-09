@@ -4,9 +4,9 @@ import {
   Col, Row,
   Modal, ModalHeader, ModalBody
 } from 'reactstrap';
-import iconedit from 'assets/img/brand/modal_create.png'
-import eyeactive from 'assets/img/brand/eyeactive.png'
-import eyeinactive from 'assets/img/brand/eyeinactive.png'
+import iconedit from '../../../../assets/img/brand/modal_create.png'
+import eyeactive from '../../../../assets/img/brand/eyeactive.png'
+import eyeinactive from '../../../../assets/img/brand/eyeinactive.png'
 
 const EditColumn = (props) => {
   const { showEditColumn, column, editColumnHandler, closeModal, saveColumnHandler } = props;

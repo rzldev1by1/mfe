@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { endpoint, headers } from "shared/ConfigEndpoint";
-import Paging from "shared/Paging";
-import Export from "/components/Export";
-import mid from "assets/img/brand/field-idle.png";
-import down from "assets/img/brand/field-bot.png";
-import up from "assets/img/brand/field-top.png";
+import { endpoint, headers } from "../../../AppComponent/ConfigEndpoint";
+import Paging from "../../../AppComponent/Paging";
+import Export from "../../../AppComponent/Export";
+import mid from "../../../assets/img/brand/field-idle.png";
+import down from "../../../assets/img/brand/field-bot.png";
+import up from "../../../assets/img/brand/field-top.png";
 import "../SalesOrder.css";
 import moment from "moment";
-import helpers from "helpers";
+import Authentication from "../../../Auth/Authentication";
 
 class ListOrderComponent extends Component {
   constructor(props) {

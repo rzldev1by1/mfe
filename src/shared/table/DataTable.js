@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import { findDOMNode } from 'react-dom'
 import {
   CCard,
   // CCardHeader,
@@ -9,13 +10,18 @@ import {
   CRow,
   CCol,
 } from '@coreui/react'
+import CIcon from '@coreui/icons-react'
 import './DataTable.css'
-
 const DataTable = (props) => {
   const [pagination, setPagination] = useState({
     activePage: 1,
     itemsPerPage: 5,
   })
+  const refTable = useRef();
+  useEffect(() => {
+    // <button className="btn btn-sm float-right"><CIcon name="cil-applications-settings" alt="CoreUI Icons Settings" /></button>
+    // const rightEl = refTable.current.children[0].children[1].children[0]
+  }, []);
   const gotoPage = (e) => {
     if (e.target.value) {
       setPagination({ ...pagination, activePage: parseInt(e.target.value) })
@@ -24,13 +30,34 @@ const DataTable = (props) => {
   const startIndex = (pagination.activePage - 1) * pagination.itemsPerPage
   const endIndex = startIndex + pagination.itemsPerPage
   const pages = parseInt(props.data.length / pagination.itemsPerPage)
+  // form-inline justify-content-sm-end
   return (
     <React.Fragment>
       <CCard className={props.className}>
+        {/* <div className="row my-2 mx-0">
+          <div className="col form-inline p-0">
+            <label className="mr-2">Filter:</label><input className="form-control" type="text" placeholder="type string..." value="" />
+          </div>
+          <div className="col p-0">
+            <div className="form-inline justify-content-sm-end">
+              <label>Items per page:</label>
+              <select className="form-control mx-2 mr-4">
+                <option value="" disabled="" hidden="">5</option>
+                <option val="5">5</option>
+                <option val="10">10</option>
+                <option val="20">20</option>
+                <option val="50">50</option>
+              </select>
+              <button className="btn btn-sm float-right"><CIcon name="cil-applications-settings" alt="CoreUI Icons Settings" /></button>
+            </div>
+          </div>
+        </div> */}
+
         <CDataTable
+          innerRef={refTable}
           items={props.data}
           fields={props.fields}
-          // columnFilter
+          columnFilter
           tableFilter
           itemsPerPageSelect
           hover
@@ -40,7 +67,8 @@ const DataTable = (props) => {
           itemsPerPage={pagination.itemsPerPage}
           activePage={pagination.activePage}
           // pagination={pagination}
-          onRowClick={(item, index, col, e) => console.log(item, index, col, e)}
+
+          onRowClick={props.onClick}
           // onPageChange={(val) => console.log('new page:', val)}
           // onPagesChange={(val) => console.log('new pages:', val)}
           onPaginationChange={(val) => setPagination({ ...pagination, itemsPerPage: val })}

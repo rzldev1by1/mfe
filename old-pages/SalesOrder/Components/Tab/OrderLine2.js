@@ -1,6 +1,6 @@
 import React from 'react'
-import Dropdown from 'shared/Dropdown'
-import DatePicker from 'shared/DatePicker'
+import Dropdown from '../../../../AppComponent/Dropdown'
+import DatePicker from '../../../../AppComponent/DatePicker'
 
 const OrderLine2 = (props) => {
 

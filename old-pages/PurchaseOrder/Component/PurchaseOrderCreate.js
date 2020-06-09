@@ -2,24 +2,24 @@ import React, { Component, useState } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 
 import axios from 'axios'
-import { endpoint, headers, getUserSite } from 'shared/ConfigEndpoint'
-import oneinactive from 'assets/img/brand/tab_1_grey@2x.png'
-import oneactive from 'assets/img/brand/tab_1_blue@2x.png'
-import twoinactive from 'assets/img/brand/tab_2_grey@2x.png'
-import twoactive from 'assets/img/brand/tab_2_blue@2x.png'
-import date from 'assets/img/brand/field_date@2x.png'
+import { endpoint, headers, getUserSite } from '../../../AppComponent/ConfigEndpoint'
+import oneinactive from '../../../assets/img/brand/tab_1_grey@2x.png'
+import oneactive from '../../../assets/img/brand/tab_1_blue@2x.png'
+import twoinactive from '../../../assets/img/brand/tab_2_grey@2x.png'
+import twoactive from '../../../assets/img/brand/tab_2_blue@2x.png'
+import date from '../../../assets/img/brand/field_date@2x.png'
 import DayPicker from 'react-day-picker';
 import './Style/PurchaseOrderCreate.css'
 import '../../SalesOrder/SalesOrder.css'
 import 'react-day-picker/lib/style.css';
 import moment from 'moment'
-import AutoComplete from 'shared/AutoComplete'
-import Dropdown from 'shared/Dropdown'
-import DatePicker from 'shared/DatePicker'
+import AutoComplete from '../../../AppComponent/AutoComplete'
+import Dropdown from '../../../AppComponent/Dropdown'
+import DatePicker from '../../../AppComponent/DatePicker'
 import swal from 'sweetalert'
 import { headerValidation, lineValidation } from '../Validation/validation'
 import { orderNoValidation } from '../../SalesOrder/Components/Validation/orderNoValidation'
-import helpers from 'helpers'
+import Authentication from '../../../Auth/Authentication'
 
 class PurchaseOrderCreate extends Component {
   constructor(props) {
@@ -84,8 +84,8 @@ class PurchaseOrderCreate extends Component {
       productdesccr: [],
 
       // Create PO Form 
-      site: helpers.getSite() ? helpers.getSite() : null,
-      client: helpers.getClient() ? helpers.getClient() : null,
+      site: Authentication.getSite() ? Authentication.getSite() : null,
+      client: Authentication.getClient() ? Authentication.getClient() : null,
       supplier: null,
       customerRef: null,
       orderType: null,
@@ -508,7 +508,7 @@ class PurchaseOrderCreate extends Component {
           <tr>
             <td style={{ width: "396px" }}>
               {
-                helpers.getUserLevel() === 'administrator' ?
+                Authentication.getUserLevel() === 'administrator' ?
                   <Dropdown placeHolder="Site"
                     style={{ minWidth: "100%", zIndex: '6' }}
                     optionList={siteName.toString()}
@@ -529,7 +529,7 @@ class PurchaseOrderCreate extends Component {
             <td style={{ width: "396px" }}>
 
               {
-                helpers.getUserLevel() === 'administrator' ?
+                Authentication.getUserLevel() === 'administrator' ?
                   <Dropdown placeHolder="Client"
                     style={{ minWidth: "100%" }}
                     optionList={clientName.toString()}
@@ -1070,7 +1070,7 @@ class PurchaseOrderCreate extends Component {
         orderNo: orderNo,
         orderDate: orderDate,
         vendorOrderRef: vendorRef ? vendorRef : null,
-        web_user: helpers.getWebUser()
+        web_user: Authentication.getWebUser()
       }],
       lineDetails: [...self.state.rowlist]
     }

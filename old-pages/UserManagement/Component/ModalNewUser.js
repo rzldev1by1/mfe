@@ -6,10 +6,10 @@ import Client from './Client'
 import ModuleAccessReview from './ModuleAccessReview'
 import SiteReview from './SiteReview'
 import ClientReview from './ClientReview'
-import oneinactive from 'assets/img/brand/tab_1_grey@2x.png'
-import oneactive from 'assets/img/brand/tab_1_blue@2x.png'
-import twoinactive from 'assets/img/brand/tab_2_grey@2x.png'
-import twoactive from 'assets/img/brand/tab_2_blue@2x.png'
+import oneinactive from '../../../assets/img/brand/tab_1_grey@2x.png'
+import oneactive from '../../../assets/img/brand/tab_1_blue@2x.png'
+import twoinactive from '../../../assets/img/brand/tab_2_grey@2x.png'
+import twoactive from '../../../assets/img/brand/tab_2_blue@2x.png'
 import '../UserManagement.css';
 
 

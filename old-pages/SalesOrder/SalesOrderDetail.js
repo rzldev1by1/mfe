@@ -3,9 +3,10 @@ import './SalesOrder.css';
 import './SalesOrderDetail.css'
 import SODTable from './Components/SODTable'
 import axios from 'axios'
-import { endpoint, headers, } from 'shared/ConfigEndpoint'
-import helpers from 'helpers'
-import EditColumn from 'shared/EditColumn'
+import { endpoint, headers, } from '../../AppComponent/ConfigEndpoint'
+import Authentication from '../../Auth/Authentication'
+import client from '../UserManagement/Component/Client'
+import EditColumn from '../../AppComponent/EditColumn'
 
 class SalesOrderDetail extends Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class SalesOrderDetail extends Component {
             showEditColumn: false
         }
         
-        this.client = helpers.getClient()
+        this.client = Authentication.getClient()
     }
 
     componentDidMount() {

@@ -1,22 +1,23 @@
 import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import "./SalesOrderCreate.css";
-import oneinactive from "assets/img/brand/tab_1_grey@2x.png";
-import oneactive from "assets/img/brand/tab_1_blue@2x.png";
-import twoinactive from "assets/img/brand/tab_2_grey@2x.png";
-import twoactive from "assets/img/brand/tab_2_blue@2x.png";
+import oneinactive from "../../../assets/img/brand/tab_1_grey@2x.png";
+import oneactive from "../../../assets/img/brand/tab_1_blue@2x.png";
+import twoinactive from "../../../assets/img/brand/tab_2_grey@2x.png";
+import twoactive from "../../../assets/img/brand/tab_2_blue@2x.png";
 import Tab1CreateSO from "./Tab/Tab1CreateSO";
 import Tab2CreateSO from "./Tab/Tab2CreateSO";
 import axios from "axios";
-import { endpoint, headers } from "shared/ConfigEndpoint";
-import helpers from "helpers";
+import { endpoint, headers } from "../../../AppComponent/ConfigEndpoint";
+import Authentication from "../../../Auth/Authentication";
 import {
   headerValidation,
   lineDetailValidation
-} from "./Validation/Validation";
-import {orderNoValidation} from './Validation/orderNoValidation'
+} from "../Components/Validation/Validation";
 import swal from "sweetalert";
+import moment from "moment";
 import { reset, errMsg } from "./resetState";
+import {orderNoValidation} from '../Components/Validation/orderNoValidation'
 
 class SalesOrderCreate extends Component {
   constructor(props) {
@@ -26,10 +27,10 @@ class SalesOrderCreate extends Component {
       tab2isactive: false,
       parameters: {
         header: {
-          company: helpers.getCompanyCode(),
+          company: Authentication.getCompanyCode(),
           site: null,
-          siteVal: helpers.getSite(),
-          client: helpers.getClient(),
+          siteVal: Authentication.getSite(),
+          client: Authentication.getClient(),
           clientName: null,
           orderId: null,
           customerOrderRef: null,
@@ -835,7 +836,7 @@ class SalesOrderCreate extends Component {
           <ModalBody style={{ width: "100%" }}>
             {this.state.tab1isactive ? (
               <Tab1CreateSO
-                userLevel={helpers.getUserLevel()}
+                userLevel={Authentication.getUserLevel()}
                 clientVal={clientValue}
                 clientName={clientName}
                 productdata={this.props.productdata}

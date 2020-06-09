@@ -1,5 +1,5 @@
 .form-inline {
-  padding: 20px !important;
+  padding: 0 12px !important;
 }
 ul.pagination {
   margin-bottom: 0;
@@ -20,4 +20,7 @@ ul.pagination {
 }
 .page-3{
   margin-top: 5px;
+}
+.form-inline .justify-content-sm-end select{
+  margin-right: 20px !important;
 }
