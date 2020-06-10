@@ -206,26 +206,16 @@ class SalesOrder extends Component {
   };
 
   showDropdowns = () => {
-    // let clientName = ["All"];
-    // let clientValue = ["all"];
-    // let siteData = ["all"];
-    // let siteName = ["All"];
-    // let orderTypeName = ["All"];
-    // let orderTypeValue = ["all"];
-    // let orderTypeFilterName = ["All"];
-    // let orderTypeFilterValue = ["all"];
-    // let statusName = ["All","0: Unavailable", "1: Available", "2: Released", "3: Part Released", "4: Completed", "<>4: Open"];
-    // let statusValue = ['all',"unavailable", "available", "released", "part_released", "completed", "open"];
-    let clientName = [ ];
-    let clientValue = [ ];
-    let siteData = [ ];
-    let siteName = [ ];
-    let orderTypeName = [ ];
-    let orderTypeValue = [ ];
-    let orderTypeFilterName = [ ];
-    let orderTypeFilterValue = [ ];
-    let statusName = ["0: Unavailable", "1: Available", "2: Released", "3: Part Released", "4: Completed", "<>4: Open"];
-    let statusValue = ["unavailable", "available", "released", "part_released", "completed", "open"];
+    let clientName = ["All"];
+    let clientValue = ["all"];
+    let siteData = ["all"];
+    let siteName = ["All"];
+    let orderTypeName = ["All"];
+    let orderTypeValue = ["all"];
+    let orderTypeFilterName = ["All"];
+    let orderTypeFilterValue = ["all"];
+    let statusName = ["All","0: Unavailable", "1: Available", "2: Released", "3: Part Released", "4: Completed", "<>4: Open"];
+    let statusValue = ['all',"unavailable", "available", "released", "part_released", "completed", "open"];
     let statuss = [];
     if (this.state.clientdata) { 
       this.state.clientdata.map((data) => {

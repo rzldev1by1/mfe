@@ -196,26 +196,16 @@ class PurchaseOrder extends Component {
   }
 
   showDropdowns = () => {
-    // let clientName = ["All"];
-    // let clientValue = ["all"];
-    // let siteData = ["All"];
-    // let siteValue = ["all"];
-    // let status = [ "All" ,"0: Unavailable","1: Available", "2: Released", "3: Part Released", "4: Completed","<>4: Open"];
-    // let statusValue = ["all" ,"unavailable","available", "released", "part_released", "completed","open"];
-    // let orderTypeName = ["All"];
-    // let orderTypeValue = ["all"];
-    // let orderTypeFilterName = ["All"];
-    // let orderTypeFilterValue = ["all"];
-    let clientName = [ ];
-    let clientValue = [ ];
-    let siteData = [ ];
-    let siteValue = [ ];
-    let status = [ "0: Unavailable","1: Available", "2: Released", "3: Part Released", "4: Completed","4: Open"];
-    let statusValue = ["unavailable","available", "released", "part_released", "completed","open"];
-    let orderTypeName = [ ];
-    let orderTypeValue = [ ];
-    let orderTypeFilterName = [ ];
-    let orderTypeFilterValue = [ ];
+    let clientName = ["All"];
+    let clientValue = ["all"];
+    let siteData = ["All"];
+    let siteValue = ["all"];
+    let status = [ "All" ,"0: Unavailable","1: Available", "2: Released", "3: Part Released", "4: Completed","<>4: Open"];
+    let statusValue = ["all" ,"unavailable","available", "released", "part_released", "completed","open"];
+    let orderTypeName = ["All"];
+    let orderTypeValue = ["all"];
+    let orderTypeFilterName = ["All"];
+    let orderTypeFilterValue = ["all"];
     if (this.state.clientdata) { 
       this.state.clientdata.map((data) => {
         clientName.push(data.code + ' : ' + data.name);

@@ -63,11 +63,9 @@ class StockHolding extends Component {
 			],
 			masterSite: [],
 			masterUnit: ["MLB : MICROLISTICS", "MLS : Microlistics", "MLM : MICROLISTICS"],
-			// masterStatus: ["All","Ok", "Shortage"],
-			masterStatus: ["Ok", "Shortage"],
+			masterStatus: ["All","Ok", "Shortage"],
 			masterResStockHolding: [],
-			// statusFilter: 'All',
-			statusFilter: [],
+			statusFilter: 'All',
 			resetDropdownProcessed: false
 		};
 
@@ -256,14 +254,10 @@ class StockHolding extends Component {
 
 
 	showDropdown = () => {
-		// let clientName = ["All"];
-		// let clientValue = ["all"];
-		// let masterSite = ["All"];
-		// let masterSiteValue = ["all"];
-		let clientName = [ ];
-		let clientValue = [ ];
-		let masterSite = [ ];
-		let masterSiteValue = [ ];
+		let clientName = ["All"];
+		let clientValue = ["all"];
+		let masterSite = ["All"];
+		let masterSiteValue = ["all"];
 		let Masterstatus = []; 
 		if (this.state.masterSite.length > 0) {
 			this.state.masterSite.map((item) => {
