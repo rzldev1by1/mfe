@@ -100,7 +100,11 @@
 }
 .select_autocomplete_input {display: none}
 		
-.select_autocomplete_options{list-style: none; }
+.select_autocomplete_options{
+    list-style: none;
+    max-height: 188px;
+    overflow: auto;
+ }
 
 .select_autocomplete_label {
 	font-family: "Helvetica Neue Regular";
@@ -129,8 +133,6 @@
     border-top: 0;
     border-top-right-radius: 0;
     border-top-left-radius: 0;
-    max-height: 188px;
-    overflow: auto;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     background: #FFFFFF;
