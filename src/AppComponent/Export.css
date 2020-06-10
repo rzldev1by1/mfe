@@ -118,6 +118,7 @@
 	margin-left: -18px;
 	height: 48px;
 	text-align: center;
+	cursor: pointer;
 }
 
 .border-exl-radius{
@@ -140,7 +141,7 @@
 	background-image: url(../scss/vendors/pdf_icon.png);
 	background-position: left center;
 	background-repeat: no-repeat;
-
+	cursor: pointer;
 	padding-left: 35px; /* Or size of icon + spacing */
 }
 .excel-icon {

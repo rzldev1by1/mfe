@@ -63,7 +63,7 @@ class StockHolding extends Component {
 			],
 			masterSite: [],
 			masterUnit: ["MLB : MICROLISTICS", "MLS : Microlistics", "MLM : MICROLISTICS"],
-			masterStatus: ["All","Ok", "Shortage"],
+			masterStatus: ["All Status","Ok", "Shortage"],
 			masterResStockHolding: [],
 			statusFilter: 'All',
 			resetDropdownProcessed: false
@@ -254,9 +254,9 @@ class StockHolding extends Component {
 
 
 	showDropdown = () => {
-		let clientName = ["All"];
+		let clientName = ["All Client"];
 		let clientValue = ["all"];
-		let masterSite = ["All"];
+		let masterSite = ["All Site"];
 		let masterSiteValue = ["all"];
 		let Masterstatus = []; 
 		if (this.state.masterSite.length > 0) {
