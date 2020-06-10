@@ -105,7 +105,8 @@ class PurchaseOrderCreate extends Component {
 
       nextClicked:false,
       reset: false,
-      isDatepickerShow: false
+      isDatepickerShow: false,
+      isAutoCompleteExpand: false
     }
   }
 
@@ -623,7 +624,7 @@ class PurchaseOrderCreate extends Component {
         </tr>
 
         <h3 className="fonts so-header-title">Line Details</h3>
-        <div className={"scroll-x-y-visible " + (this.state.isDatepickerShow ? "isDatepickerShow" : "")}>
+        <div className={"scroll-x-y-visible " + (this.state.isDatepickerShow ? "isDatepickerShow " : "") + (this.state.isAutoCompleteExpand ? " isAutoCompleteExpand" : "")}>
           <table className="tabledetails">
             <tr>
               <th><div id='orderline-header-number-id'>#</div></th>
@@ -827,7 +828,8 @@ class PurchaseOrderCreate extends Component {
                   optionValue={this.state.productcr.toString()}
                   getValue={(e) => this.getProductValue(e, i)}
                   optionSelected={this.state.rowlist[i].product}
-                  tabIndex="2" uppercase={true} />
+                  tabIndex="2" uppercase={true}
+                  isOpen={(val) => {this.setState({ isAutoCompleteExpand: val})}} />
               </div>
             </td>
             <td>
@@ -922,7 +924,8 @@ class PurchaseOrderCreate extends Component {
                   optionValue={this.state.dispositioncr.toString()}
                   getValue={(e) => { this.state.rowlist[i].disposition = e; this.setState({ rowlist: this.state.rowlist }) }}
                   optionSelected={this.state.rowlist[i].disposition}
-                  tabIndex="2" />
+                  tabIndex="2"
+                  isOpen={(val) => {this.setState({ isAutoCompleteExpand: val})}} />
               </div>
             </td>
             <td>
