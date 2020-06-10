@@ -263,11 +263,11 @@ export default class MovementSearch extends Component {
 
 
     showDropdowns = () => {
-        let clientName = ["All"];
+        let clientName = ["All Client"];
         let clientValue = ["all"];
-        let siteData = ["All"];
+        let siteData = ["All Site"];
         let siteValue = ["all"];
-        let productData = ["All"];
+        let productData = ["All Product"];
         let productValue = ["all"];
  
         if (this.state.clientdata) {
@@ -330,7 +330,7 @@ export default class MovementSearch extends Component {
                 )}
                 
                 <AutoComplete placeHolder="Product"
-                    className="filterDropdowns"
+                    className=" filterDropdowns"
                     optionList={productData.toString()}
                     optionValue={productValue.toString()}
                     getValue={this.getProductSelected.bind(this)}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table,Button, Card, CardBody, Label, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap'
+import { Table,Button, Card, CardBody, Label, Modal, ModalHeader, ModalBody, ModalFooter, Breadcrumb,BreadcrumbItem} from 'reactstrap'
 import './UserManagement.css'
 import ModuleAccess from './Component/ModuleAccess'
 import Site from './Component/Site'
@@ -500,19 +500,24 @@ class UserManagementDetail extends Component{
         const {match} = this.props;
         const {moduleAccess,sites,clients, accountInfo} = this.state;
 
-        return(<div>
-            <div className={( this.state.isLoadComplete ? 'd-none': 'spinner')}/>
-            <div className={( this.state.isLoadComplete ? ' ': 'd-none')}>
+        return(<div className="user-list-container">
+            {/* <div className={( this.state.isLoadComplete ? 'd-none': 'spinner')}/>*/}
+            <div className={( this.state.isLoadComplete ? ' h-100': 'd-none')}> 
 
-               <div className="d-flex mt-4 mb-4">
-                    <div className='um-breadcrumb'>
-                        <label onClick={() => { this.gotoUM(); }} className='margin-right-breadcrumb-title mb-0' style={{cursor:"pointer"}}>User Management</label>
+               <div className="d-flex">
+                        {/* <label onClick={() => { this.gotoUM(); }} className='margin-right-breadcrumb-title mb-0' style={{cursor:"pointer"}}>User Management</label>
                         <label className='margin-right-breadcrumb-title iconU-rightArrow mb-0' style={{fontSize:20}}></label>
-                        <label className='breadcrumb-active-title mb-0'>{this.state.accountInfo.user}</label>
-                    </div>
+                        <label className='breadcrumb-active-title mb-0'>{this.state.accountInfo.user}</label> */}
+                         <Breadcrumb className="mb-2" tag="div" listTag="div" listClassName="um-breadcrumb-title">
+                            <BreadcrumbItem>
+                                <label onClick={() => { this.gotoUM(); }} className='mb-0' style={{cursor:"pointer"}}>User Management</label>
+                            </BreadcrumbItem>
+                            <BreadcrumbItem active>{this.state.accountInfo.user}</BreadcrumbItem>
+                        </Breadcrumb>
+                                      
                 </div>
-                <div className="d-flex">
-                    <Card className="container-user-list border-0 flex-fill h-100">
+                <div className="d-flex h-100">
+                    <Card className="container-user-list border-0 flex-fill h-75">
                         <CardBody>                            
                               <form onSubmit={(e)=>{e.preventDefault(); this.saveClick();}}>
                                 <div className="account-detail mt-2">
@@ -617,24 +622,26 @@ class UserManagementDetail extends Component{
 
                                 </div>
 
-                                <div className="d-flex mt-5 mr-3 justify-content-between">
-                                      <button type="button" className=" font-lg font-md font-sm btn btn-primary btn-submit default-box-height" onClick={(e)=>{this.gotoUM();}}>
-                                          <label className="create-user-label mb-0">Back</label>
-                                      </button>
+                                <div className="bottom-ofpage pr-5">
+                                    <div className="d-flex mt-5 mr-5 justify-content-between">
+                                          <button type="button" className=" font-lg font-md font-sm btn btn-primary btn-submit default-box-height" onClick={(e)=>{this.gotoUM();}}>
+                                              <label className="create-user-label mb-0">Back</label>
+                                          </button>
 
-                                      <p>
-                                        <label className={(this.state.isValidForm)?"errorText ":" d-none"}>
-                                            Please make sure user name, email is valid and module has one enabled
-                                        </label>
-                                      </p>
+                                          <p>
+                                            <label className={(this.state.isValidForm)?"errorText ":" d-none"}>
+                                                Please make sure user name, email is valid and module has one enabled
+                                            </label>
+                                          </p>
 
-                                      <button type="button" className=" font-lg font-md font-sm btn btn-primary btn-submit default-box-height" onClick={(e)=>{this.saveClick();}}>
-                                          <i className= {(this.state.isSaveProgressing)?"mr-2 fa fa-refresh fa-spin ":"fa fa-refresh fa-spin d-none"}></i>
-                                          <label className="create-user-label mb-0">Save</label>
-                                      </button>
-
+                                          <button type="button" className=" font-lg font-md font-sm btn btn-primary btn-submit default-box-height" onClick={(e)=>{this.saveClick();}}>
+                                              <i className= {(this.state.isSaveProgressing)?"mr-2 fa fa-refresh fa-spin ":"fa fa-refresh fa-spin d-none"}></i>
+                                              <label className="create-user-label mb-0">Save</label>
+                                          </button>
+                                    </div>
+                                    <button type="submit" style={{opacity:"0"}}></button>
                                 </div>
-                                 <button type="submit" style={{opacity:"0"}}></button>
+                                
                               </form>
                             
                         </CardBody>

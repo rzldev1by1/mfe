@@ -5,6 +5,7 @@ body {
   overflow: hidden;
 }
 
+
 .hover-um :hover {
   background: #f0f0f0 !important;
   cursor: pointer;
@@ -324,7 +325,6 @@ input:checked + .slider:before {
 
 .container-user-list {
   border-radius: 5px;
-  max-height: 100vh;
 }
 
 .title-label {
@@ -660,4 +660,23 @@ input:checked + .slider:before {
 
 .card-body-um{
   padding: 0px !important;
+}
+
+.user-list-container{
+  height: 100vh;
+}
+
+.user-detail-container{
+  height: 80vh;
+  position: relative;
+}
+
+.bottom-ofpage{
+  position: absolute;
+  bottom: 3rem;
+  width: 100%;
+}
+
+.um-breadcrumb-title{
+  padding-left: 27px;
 }
