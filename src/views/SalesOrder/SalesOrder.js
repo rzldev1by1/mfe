@@ -206,15 +206,15 @@ class SalesOrder extends Component {
   };
 
   showDropdowns = () => {
-    let clientName = ["All"];
+    let clientName = ["All Client"];
     let clientValue = ["all"];
     let siteData = ["all"];
-    let siteName = ["All"];
-    let orderTypeName = ["All"];
+    let siteName = ["All Site"];
+    let orderTypeName = ["All Order Type"];
     let orderTypeValue = ["all"];
-    let orderTypeFilterName = ["All"];
+    let orderTypeFilterName = ["All Order Type"];
     let orderTypeFilterValue = ["all"];
-    let statusName = ["All","0: Unavailable", "1: Available", "2: Released", "3: Part Released", "4: Completed", "<>4: Open"];
+    let statusName = ["All Status","0: Unavailable", "1: Available", "2: Released", "3: Part Released", "4: Completed", "<>4: Open"];
     let statusValue = ['all',"unavailable", "available", "released", "part_released", "completed", "open"];
     let statuss = [];
     if (this.state.clientdata) { 
@@ -255,7 +255,7 @@ class SalesOrder extends Component {
       <React.Fragment>
         {Authentication.getUserLevel() == "administrator" ? (
           <Dropdown optionSelected={site}
-            placeHolder="All Site"
+            placeHolder="Site"
             optionList={siteName.toString()}
             optionValue={siteData.toString()}
             getValue={this.getSiteSelected.bind(this)}
@@ -271,7 +271,7 @@ class SalesOrder extends Component {
 
         {Authentication.getUserLevel() == "administrator" ? (
           <Dropdown optionSelected={client}
-            placeHolder="All Client"
+            placeHolder="Client"
             optionList={clientName.toString()}
             optionValue={clientValue.toString()}
             getValue={this.getClientSelected.bind(this)}
@@ -286,14 +286,14 @@ class SalesOrder extends Component {
           )}
 
         <Dropdown optionSelected={status}
-          placeHolder="All Status"
+          placeHolder="Status"
           optionList={statusName.toString()}
           optionValue={statusValue.toString()}
           getValue={(code) => this.setState({ status: code })}
           className="filterDropdown" />
 
         <Dropdown optionSelected={ordertype}
-          placeHolder="All Order Type"
+          placeHolder="Order Type"
           optionList={orderTypeFilterName.toString()}
           optionValue={orderTypeFilterValue.toString()}
           getValue={(code) => this.setState({ ordertype: code })}

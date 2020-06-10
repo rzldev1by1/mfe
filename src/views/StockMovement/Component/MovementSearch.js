@@ -263,11 +263,11 @@ export default class MovementSearch extends Component {
 
 
     showDropdowns = () => {
-        let clientName = ["All"];
+        let clientName = ["All Client"];
         let clientValue = ["all"];
-        let siteData = ["All"];
+        let siteData = ["All Site"];
         let siteValue = ["all"];
-        let productData = ["All"];
+        let productData = ["All Product"];
         let productValue = ["all"];
  
         if (this.state.clientdata) {
@@ -293,7 +293,7 @@ export default class MovementSearch extends Component {
             <React.Fragment> 
                 
 				{Authentication.getUserLevel() == "administrator" ? (
-						<Dropdown placeHolder="All Site"
+						<Dropdown placeHolder="Site"
                         className="filterDropdowns"
                         optionList={siteData.toString()}
                         optionValue={siteValue.toString()}
@@ -312,7 +312,7 @@ export default class MovementSearch extends Component {
  
 
                 {Authentication.getUserLevel() == "administrator" ? (
-                    <Dropdown placeHolder="All Client"
+                    <Dropdown placeHolder="Client"
                     className="filterDropdowns"
                     optionList={clientName.toString()}
                     optionValue={clientValue.toString()}
@@ -329,7 +329,7 @@ export default class MovementSearch extends Component {
                     />
                 )}
                 
-                <AutoComplete placeHolder="All Product"
+                <AutoComplete placeHolder="Product"
                     className="filterDropdowns"
                     optionList={productData.toString()}
                     optionValue={productValue.toString()}
