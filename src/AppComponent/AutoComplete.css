@@ -220,7 +220,8 @@
   }
 
 .search-input-placeholder::placeholder{
-    text-transform: none;
+	text-transform: none;
+	color: rgb(45, 47, 48) !important;
 }
 /* .search-input{
     display: none;

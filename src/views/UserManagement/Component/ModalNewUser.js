@@ -113,14 +113,16 @@ const modalNewUser = (props) => {
                               <div className="col-3">
                                   <input type="text" name="userName" placeholder="Enter a surename" maxLength="60" className={`form-control ${validation.name["isValid"]?'':validation.name["invalidClass"]}`} onChange={(e)=>{onChangeName(e);}} defaultValue={model.user}/>
                                    <FormFeedback className="invalid-error-padding">
-                                       name value must be entered
+                                       {/* name value must be entered */}
+                                       The company value must be entered
                                    </FormFeedback>
                               </div>
 
                               <div className="col-3">
                                   <input type="email" name="email" placeholder="Enter an email address" className= {`form-control ${validation.email["isValid"]?'':validation.name["invalidClass"]}`} onChange={(e)=>{onChangeEmail(e);}} defaultValue={model.email}/>
                                   <FormFeedback className="invalid-error-padding">
-                                       wrong format email
+                                       {/* wrong format email */}
+                                       Invalid format (eg. microlistics@test.com)
                                    </FormFeedback>
                               </div>
 
