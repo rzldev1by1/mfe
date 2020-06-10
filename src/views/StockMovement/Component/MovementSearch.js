@@ -330,7 +330,7 @@ export default class MovementSearch extends Component {
                 )}
                 
                 <AutoComplete placeHolder="Product"
-                    className="filterDropdowns"
+                    className=" filterDropdowns"
                     optionList={productData.toString()}
                     optionValue={productValue.toString()}
                     getValue={this.getProductSelected.bind(this)}
