@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Card, CardBody, Modal, ModalBody, ModalHeader } from 'reactstrap'
+import { Button, Card, CardBody, Modal, ModalBody, ModalHeader, Label} from 'reactstrap'
 import { FaPencilAlt } from "react-icons/fa"
 import UserListComponent from './Component/UserListComponent'
 import PersonalUserComponent from './Component/PersonalUserComponent'
@@ -663,7 +663,7 @@ class UserManagement extends Component {
   }
   ExportData = () => {
     let data = this.state.userList.map(elt => [elt.userId, elt.user, elt.site, elt.client, elt.lastaccess, elt.status]);
-    console.log(data)
+    
     return data
   }
   ExportFont = () => {
@@ -730,7 +730,7 @@ class UserManagement extends Component {
       <HeaderTitle
         title="User Management"
         button={
-          <Button onClick={this.onCreateClick} color="primary" className='btn btn-primary float-right btn-create'>
+          <Button onClick={this.onCreateClick} color="primary" className='float-right btn-create'>
             <FaPencilAlt className="mb-2" /> &nbsp; <label className='font'>Create User</label>
           </Button>
         }
@@ -758,7 +758,12 @@ class UserManagement extends Component {
                   </div>
                 </div>
                 <div className="col-1" style={{paddingLeft: '0px'}}>
-                  <Button type="submit" className="w-100 default-box-height search search-um text-button btn-primary"> Search </Button>
+                  {/* <Button type="submit" color="primary" className="w-100 default-box-height search search-um text-button"> 
+                      <label className='font'>Search</label>
+                  </Button> */}
+                  <Button type="submit" color="primary" className='w-100 h-100 btn-create'>
+                      <label className='font'>Search</label>
+                  </Button>
                 </div>
 
               </div>
@@ -769,13 +774,17 @@ class UserManagement extends Component {
 
         <div className={(this.state.isListLoaded ? 'd-none' : 'spinner')} />
         <div className={(this.state.isListLoaded ? '' : ' d-none ')}>
-          <Card className="container-user-list  border-0 mb-2 w-100">
-            <CardBody className=" card-body-um p-0">
+          <Card className="container-user-list user-list-container  border-0 mb-2 w-100">
+            <CardBody className=" card-body-um p-0 h-100">
               <UserListComponent data={this.state.userList} headers={this.state.headers} route={this.props}
                 startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                 className='animated fadeIn' />
+            </CardBody>
+          </Card>
+        </div>
 
-              <ModalNewUser isOpen={this.state.isModalNewOpen} closeModal={this.closeModalPopUp} model={this.state.accountInfo}
+        
+        <ModalNewUser isOpen={this.state.isModalNewOpen} closeModal={this.closeModalPopUp} model={this.state.accountInfo}
                 onChangeName={this.onChangeName} onChangeEmail={this.onChangeEmail} moduleAccess={this.state.moduleAccess}
                 isModuleLoaded={this.state.isModuleLoaded} moduleAccessEnableClick={this.onModuleAccessClick}
                 sites={this.state.sites} isSiteLoaded={this.state.isSiteLoaded} sitesEnableClick={this.onSiteStatusClick} onSiteEnableAll={this.onEnabledAllSite}
@@ -786,10 +795,6 @@ class UserManagement extends Component {
                 message={this.state.validatorMessage} changeWebGroup={this.changeWebgroup} isWebGroup={this.state.webgroup} validation={this.state.validation}
                 isEnableAllModule={this.state.isEnableAllModule} isEnableAllSite={this.state.isEnableAllSite}
                 isEnableAllClient={this.state.isEnableAllClient} />
-
-            </CardBody>
-          </Card>
-        </div>
 
         <Modal className="create-confirmation" isOpen={this.state.succesCreate} centered={true}
           onOpened={() => this.state.succesCreate ? setTimeout(() => { this.closeConfirmDialog() }, 3000) : {}}>
