@@ -615,13 +615,17 @@ hr.border-header {
 // End - Border
 
 // Start - Breadcrumb
+.breadcrumb-area{
+  padding: 16px 16px 16px 125px;
+}
+
 .breadcrumb-item {
-  font-size: 25px;
-  font-family: 'Helvetica Neue Bold';
+  font-size: 1.875rem;
+  font-family: 'Helvetica Neue Medium';
 }
 
 .breadcrumb-item.active {
-  color: #637176;
+  color: $primaryColor;
 }
 
 .breadcrumb {
@@ -629,6 +633,7 @@ hr.border-header {
   border-radius: 0;
   border: none;
   background: none;
+  margin-bottom: 0px;
 }
 
 a.breadcrumb {
@@ -648,7 +653,7 @@ a.breadcrumb:hover {
   display: inline-block;
   padding-right: 1rem;
   padding-left: 1rem;
-  color: #388dcd;
+  color: #637176;
   font-weight: 900;
 }
 
