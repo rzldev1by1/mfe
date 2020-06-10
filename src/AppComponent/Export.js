@@ -16,8 +16,14 @@ class Export extends Component {
         };
     }
 
-    handleClickOutside(event) { 
-        //console.log(this.refs["closeDropdown"])
+    handleClickOutside(e) { 
+        e.stopPropagation(); 
+        let class_ = e.target.className
+        console.log(class_)
+        if(class_=='pdf-icon' || class_=='btn excel' || class_=='border-pdf'){
+            return 0;
+        }
+
         if(this.refs["closeDropdown"] === undefined ){
             return 0;
         }else{
@@ -98,8 +104,8 @@ class Export extends Component {
                             <li className="select_option-export">
                                 <input className="select_input-export" type="radio" name="export" />
                                 <label className="select_label-export option-radius-export-pdf" htmlFor="Export to PDF">
-                                    <label className="border-pdf">
-                                      <span className="pdf-icon"onClick={() => this.exportPDF()} >Export to PDF</span>
+                                    <label className="border-pdf"  onClick={() => this.exportPDF()}>
+                                      <span className="pdf-icon" onClick={() => this.exportPDF()} >Export to PDF</span>
                                     </label>
                                 </label>
                             </li>
