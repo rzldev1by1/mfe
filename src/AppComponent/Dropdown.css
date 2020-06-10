@@ -123,7 +123,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	color: #7C878C;
+	color: #7C878C !important;
 	background-color: transparent;
 	display: block;
 }

@@ -196,16 +196,26 @@ class PurchaseOrder extends Component {
   }
 
   showDropdowns = () => {
-    let clientName = ["All"];
-    let clientValue = ["all"];
-    let siteData = ["All"];
-    let siteValue = ["all"];
-    let status = [ "All" ,"0: Unavailable","1: Available", "2: Released", "3: Part Released", "4: Completed","<>4: Open"];
-    let statusValue = ["all" ,"unavailable","available", "released", "part_released", "completed","open"];
-    let orderTypeName = ["All"];
-    let orderTypeValue = ["all"];
-    let orderTypeFilterName = ["All"];
-    let orderTypeFilterValue = ["all"];
+    // let clientName = ["All"];
+    // let clientValue = ["all"];
+    // let siteData = ["All"];
+    // let siteValue = ["all"];
+    // let status = [ "All" ,"0: Unavailable","1: Available", "2: Released", "3: Part Released", "4: Completed","<>4: Open"];
+    // let statusValue = ["all" ,"unavailable","available", "released", "part_released", "completed","open"];
+    // let orderTypeName = ["All"];
+    // let orderTypeValue = ["all"];
+    // let orderTypeFilterName = ["All"];
+    // let orderTypeFilterValue = ["all"];
+    let clientName = [ ];
+    let clientValue = [ ];
+    let siteData = [ ];
+    let siteValue = [ ];
+    let status = [ "0: Unavailable","1: Available", "2: Released", "3: Part Released", "4: Completed","4: Open"];
+    let statusValue = ["unavailable","available", "released", "part_released", "completed","open"];
+    let orderTypeName = [ ];
+    let orderTypeValue = [ ];
+    let orderTypeFilterName = [ ];
+    let orderTypeFilterValue = [ ];
     if (this.state.clientdata) { 
       this.state.clientdata.map((data) => {
         clientName.push(data.code + ' : ' + data.name);
@@ -242,7 +252,7 @@ class PurchaseOrder extends Component {
     return (
       <React.Fragment>
         {Authentication.getUserLevel() == "administrator" ? (
-          <Dropdown placeHolder="Site"
+          <Dropdown placeHolder="All Site"
             className="filterDropdown"
             optionList={siteData.toString()}
             optionValue={siteValue.toString()}
@@ -259,7 +269,7 @@ class PurchaseOrder extends Component {
           )}
 
         {Authentication.getUserLevel() == "administrator" ? (
-          <Dropdown placeHolder="Client"
+          <Dropdown placeHolder="All Client"
             className="filterDropdown"
             optionList={clientName.toString()}
             optionValue={clientValue.toString()}
@@ -275,12 +285,12 @@ class PurchaseOrder extends Component {
             />
           )}
 
-        <Dropdown placeHolder="Status"
+        <Dropdown placeHolder="All Status"
           className="filterDropdown"
           optionList={status.toString()}
           optionValue={statusValue.toString()}
           getValue={this.getStatusSelected.bind(this)} />
-        <Dropdown placeHolder="Order Type"
+        <Dropdown placeHolder="All Order Type"
           className="filterDropdown"
           optionList={orderTypeFilterName.toString()}
           optionValue={orderTypeFilterValue.toString()}

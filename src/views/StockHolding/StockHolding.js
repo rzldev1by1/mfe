@@ -63,9 +63,11 @@ class StockHolding extends Component {
 			],
 			masterSite: [],
 			masterUnit: ["MLB : MICROLISTICS", "MLS : Microlistics", "MLM : MICROLISTICS"],
-			masterStatus: ["All","Ok", "Shortage"],
+			// masterStatus: ["All","Ok", "Shortage"],
+			masterStatus: ["Ok", "Shortage"],
 			masterResStockHolding: [],
-			statusFilter: 'All',
+			// statusFilter: 'All',
+			statusFilter: [],
 			resetDropdownProcessed: false
 		};
 
@@ -254,10 +256,14 @@ class StockHolding extends Component {
 
 
 	showDropdown = () => {
-		let clientName = ["All"];
-		let clientValue = ["all"];
-		let masterSite = ["All"];
-		let masterSiteValue = ["all"];
+		// let clientName = ["All"];
+		// let clientValue = ["all"];
+		// let masterSite = ["All"];
+		// let masterSiteValue = ["all"];
+		let clientName = [ ];
+		let clientValue = [ ];
+		let masterSite = [ ];
+		let masterSiteValue = [ ];
 		let Masterstatus = []; 
 		if (this.state.masterSite.length > 0) {
 			this.state.masterSite.map((item) => {
@@ -292,7 +298,7 @@ class StockHolding extends Component {
 			<React.Fragment> 
 				
 				{Authentication.getUserLevel() == "administrator" ? (
-						<Dropdown placeHolder="Site" 
+						<Dropdown placeHolder="All Site" 
 						optionList={masterSite.toString()}
 						optionValue={masterSiteValue.toString()}
 						getValue={this.selectedSite} className="filterDropdown"  />
@@ -309,7 +315,7 @@ class StockHolding extends Component {
  
 
 				{Authentication.getUserLevel() == "administrator" ? (
-				<Dropdown placeHolder="Client"
+				<Dropdown placeHolder="All Client"
 					className="filterDropdown"
 					className="filterDropdown"
 					optionList={clientName.toString()}
@@ -326,7 +332,7 @@ class StockHolding extends Component {
 					/>
 				)}
 
-				<Dropdown placeHolder="Status"
+				<Dropdown placeHolder="All Status"
 					optionList={masterStatus.toString()}
 					optionValue={masterStatusValue.toString()}
 					getValue={this.selectedStatus} className="filterDropdown" />

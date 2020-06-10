@@ -263,12 +263,18 @@ export default class MovementSearch extends Component {
 
 
     showDropdowns = () => {
-        let clientName = ["All"];
-        let clientValue = ["all"];
-        let siteData = ["All"];
-        let siteValue = ["all"];
-        let productData = ["All"];
-        let productValue = ["all"];
+        // let clientName = ["All"];
+        // let clientValue = ["all"];
+        // let siteData = ["All"];
+        // let siteValue = ["all"];
+        // let productData = ["All"];
+        // let productValue = ["all"];
+        let clientName = [ ];
+        let clientValue = [ ];
+        let siteData = [ ];
+        let siteValue = [ ];
+        let productData = [ ];
+        let productValue = [ ];
  
         if (this.state.clientdata) {
             this.state.clientdata.map((data) => {
@@ -293,7 +299,7 @@ export default class MovementSearch extends Component {
             <React.Fragment> 
                 
 				{Authentication.getUserLevel() == "administrator" ? (
-						<Dropdown placeHolder="Site"
+						<Dropdown placeHolder="All Site"
                         className="filterDropdowns"
                         optionList={siteData.toString()}
                         optionValue={siteValue.toString()}
@@ -312,7 +318,7 @@ export default class MovementSearch extends Component {
  
 
                 {Authentication.getUserLevel() == "administrator" ? (
-                    <Dropdown placeHolder="Client"
+                    <Dropdown placeHolder="All Client"
                     className="filterDropdowns"
                     optionList={clientName.toString()}
                     optionValue={clientValue.toString()}
@@ -329,7 +335,7 @@ export default class MovementSearch extends Component {
                     />
                 )}
                 
-                <AutoComplete placeHolder="Product"
+                <AutoComplete placeHolder="All Product"
                     className="filterDropdowns"
                     optionList={productData.toString()}
                     optionValue={productValue.toString()}

@@ -441,9 +441,16 @@ h2 {
 
 
 .sidebar .nav-name {
-  color: white;
+  color: white ;
   //display: contents; 
   opacity: 0 !important;
+  transition: 0.3s;
+}
+.sidebar .nav-link.active,
+.nav-link.active  .nav-name {
+  color: white ;
+  //display: contents; 
+  opacity: 1 !important;
   transition: 0.3s;
 }
 
@@ -707,7 +714,7 @@ a.breadcrumb:hover {
 .searchInput,
 .searchInput::placeholder {
   font-size: 1.1em;
-  color: #d5d8da;
+  color: #d5d8da !important;
   align-self: center;
   border: none;
 }
@@ -1625,7 +1632,7 @@ th.iconU-edit {
 //end general css
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: rgb(180, 185, 187) !important;
+  color: rgb(180, 185, 187);
   opacity: 0.6 !important; /* Firefox */
   font-size: 15px !important;
 }
@@ -1829,7 +1836,7 @@ th.iconU-edit {
   position: absolute;
   top: 0;
   left: 0;
-  color: #d5d8e7;
+  color: #6c6d74 !important;
   background-color: transparent;
   display: block;
 }
