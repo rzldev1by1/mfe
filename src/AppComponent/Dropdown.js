@@ -4,14 +4,26 @@ import { render } from 'enzyme';
 class Dropdown extends Component{
         constructor(props){
             super(props);
+            this.handleClickOutside = this.handleClickOutside.bind(this);
             this.state = {
                 no: Math.floor(Math.random() * 100000) + 1,
                 close: true
             }
         }
 
-        shouldComponentUpdate(){
-            return true
+        handleClickOutside(event) {  
+            //console.log(this.refs["closeDropdown"])
+            if(this.refs["closeDropdown"] === undefined ){
+                return 0;
+            }else{
+                if(this.refs["closeDropdown"].checked===false){
+                    this.refs["closeDropdown"].checked = true 
+                }  
+            }
+        }
+
+        componentDidMount() {
+            document.addEventListener('mousedown', this.handleClickOutside);
         }
 
         render(){

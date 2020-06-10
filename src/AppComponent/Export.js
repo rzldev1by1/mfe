@@ -8,12 +8,24 @@ import ExportExl from 'react-html-table-to-excel'
 class Export extends Component {
 	constructor(props) {
         super(props);
-
+        this.handleClickOutside = this.handleClickOutside.bind(this);
 		this.state = { 
             exportExpand: false,
             value: "",
+            closeChecked: true
         };
     }
+
+    handleClickOutside(event) { 
+        //console.log(this.refs["closeDropdown"])
+        if(this.refs["closeDropdown"] === undefined ){
+            return 0;
+        }else{
+            if(this.refs["closeDropdown"].checked===false){
+                this.refs["closeDropdown"].checked = true 
+            }  
+        }
+    } 
 
     Date = () => {
         let dateNow= ""
@@ -32,6 +44,11 @@ class Export extends Component {
     
         doc.save(this.props.ExportName()+".pdf")
       }
+
+      componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside);
+      }
+
 
       examples = () => {
         const unit = "pt";
@@ -68,9 +85,9 @@ class Export extends Component {
             // <div className={this.props.maxPage > 1 ? "card-footer text-left border-company border-top-0 pl-0 pr-0 bg-transparent" : "d-none"}>
             // <div className={"card-footer text-left border-company border-top-0 pl-0 pr-0 bg-transparent"} style={{marginTop:"-20px"}}>               
             <div className="col-3 pl-0 pr-0" style={{paddingTop:"7px"}}>
-                 <ul className={"select-export" + (this.state.exportExpand ? "" : "")} id="select" style={{marginTop:"-2px"}}>
+                 <ul className={"select-export" + (this.state.exportExpand ? "" : "")} id="select" style={{marginTop:"-2px"}} onKeyDown={(e) => {if(e.keyCode === 27){ this.refs["closeDropdown"].checked = true }}}>
                     <li className="expand-style-export" >
-                        <input className="select_close-export" type="radio" name="export" id="export-btn-close" value="" />
+                        <input ref="closeDropdown"   className="select_close-export" type="radio" name="export" id="export-btn-close" value="" />
                         <span className="select_label-export1 select_label-placeholder-export">Export</span>
                     </li>
                 
@@ -109,11 +126,12 @@ class Export extends Component {
     }
     
 	triggerExportExpand = (e) => {
-		e.stopPropagation();
-		this.setState((prevState) => {
+        e.stopPropagation();
+		this.setState((prevState) => { 
 			return { exportExpand: !prevState.exportExpand };
-		});
+        }); 
     }
+ 
 }
 
 export default Export;
