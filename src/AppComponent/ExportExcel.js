@@ -13,8 +13,10 @@ class Export extends Component {
             exportExpand: false,
             value: "",
         };
+
+        
+        console.log(this.props.ExportName)
     }
-   
     
     render = () => {
         return (

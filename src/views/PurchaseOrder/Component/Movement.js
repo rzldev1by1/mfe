@@ -46,11 +46,14 @@ class Movement extends Component {
             lastIndex: 0,
             displayPage: 1,
             totalRows: 0,
-            maxPage: 0
+            maxPage: 0,
+
+            //increment
+            length_detail : []
         }
     }
 
-    //testing  hover
+    // hover
     hover(e, stat, product) {
         if (stat === 'active') {
             this.setState({ hover_stat: product });
@@ -72,9 +75,12 @@ class Movement extends Component {
         try {
             this.props.isComplete(false)
             this.setState({ complete: false, activearrow: mid, sort: true })
-            let dtStart = start ? start : this.state.startDate
-            let dtEnd = end ? end : this.state.endDate
-            let periods = period ? period : this.state.filterType
+            // let dtStart = start ? start : this.state.startDate
+            // let dtEnd = end ? end : this.state.endDate
+            // let periods = period ? period : this.state.filterType
+            let dtStart = '2019-02-27'
+            let dtEnd = '2019-02-28'
+            let periods = 'day'
             const res = await axios.get(endpoint.stockMovement + '?startDate=' + dtStart + '&endDate=' + dtEnd + '&filterType=' + periods + '&client=' + client + '&site=' + site + '&product=' + product, {
                 headers: headers
             })
@@ -86,6 +92,11 @@ class Movement extends Component {
             this.pushTable(dtStart, dtEnd, periods)
             this.props.isComplete(true)
             // this.potableref.current.setPagination(res)
+
+            this.setState({
+                length_detail: res.data.data[0].detail
+            })
+            console.log(this.state.productSPlength_detail)
         } catch (error) {
             console.log(error)
         }
@@ -285,8 +296,7 @@ class Movement extends Component {
     setPagination = (result) => {
         let self = this;
         let respondRes = result;
-        let totalPage = 0;
-        console.log(result.data)
+        let totalPage = 0; 
         if (respondRes.length > self.state.displayPage) {
             totalPage = respondRes % self.state.displayPage;
             if (totalPage > 0 && totalPage < 50) {
@@ -449,33 +459,34 @@ class Movement extends Component {
             // this.pushData()
             this.sortData()
         }
+        let x = 1;
         return (
             <div className={this.state.complete ? 'fades' : 'hidden'}>
-                <Container className="themed-container conts" fluid={true}>
+                <Container className="themed-container conts" fluid={true} >
                     <div className="product-data">
                         <table>
                             <thead>
                                 <tr height="72" className="border-bottom border-right text-center">
-                                    <th onClick={this.arrowHandler} id='site'>Site <img className='sort-icon' src={this._checkActiveSorting('site')} alt="site" /></th>
-                                    <th onClick={this.arrowHandler} id='client'>Client <img className='sort-icon' src={this._checkActiveSorting('client')} alt="client" /></th>
-                                    <th onClick={this.arrowHandler} id='product'>Product <img className='sort-icon' src={this._checkActiveSorting('product')} alt="product" /></th>
-                                    <th className="text-left" onClick={this.arrowHandler} id='productName'>Description <img className='sort-icon' src={this._checkActiveSorting('productName')} alt="productName" /></th>
-                                    <th onClick={this.arrowHandler} id='uom'>UOM <img className='sort-icon' src={this._checkActiveSorting('uom')} alt="uom" /></th>
+                                    <th className="put" style={{textAlign: 'left'}} onClick={this.arrowHandler} id='site'>Site <img className='sort-icon' src={this._checkActiveSorting('site')} alt="site" /></th>
+                                    <th className="put"  style={{textAlign: 'left'}} onClick={this.arrowHandler} id='client'>Client <img className='sort-icon' src={this._checkActiveSorting('client')} alt="client" /></th>
+                                    <th className="put"  style={{textAlign: 'left'}} onClick={this.arrowHandler} id='product'>Product <img className='sort-icon' src={this._checkActiveSorting('product')} alt="product" /></th>
+                                    <th className="put"  style={{textAlign: 'left'}} className="put text-left" onClick={this.arrowHandler} id='productName'>Description <img className='sort-icon' src={this._checkActiveSorting('productName')} alt="productName" /></th>
+                                    <th className="put"  style={{textAlign: 'left'}} onClick={this.arrowHandler} id='uom'>UOM <img className='sort-icon' src={this._checkActiveSorting('uom')} alt="uom" /></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody>  
                                 {this.state.data.slice(this.state.startIndex, this.state.endIndex).map((data, index) =>
-                                    <tr key={index} height="50"
+                                    <tr ref={"row"+index} key={index} height="50"
                                         className={this._checkActiveHover(data.product) + " border-bottom border-right text-center"}
-                                        onMouseEnter={(e) => this.hover(e, 'active', data.product)}
-                                        onMouseLeave={(e) => this.hover(e, 'deactive', data.product)}
+                                        // onMouseEnter={(e) => this.hover(e, 'active', data.product)}
+                                        // onMouseLeave={(e) => this.hover(e, 'deactive', data.product)}
                                     >
-                                        <td>{data.site}</td>
-                                        <td>{data.client}</td>
-                                        <td>{data.product}</td>
-                                        <td className="text-left">{data.product_name}</td>
-                                        <td>{data.packdesc}</td>
-                                    </tr>
+                                        <td style={{textAlign: 'left'}}>{data.site}</td>
+                                        <td style={{textAlign: 'left'}}>{data.client}</td>
+                                        <td style={{textAlign: 'left'}}>{data.product}</td>
+                                        <td style={{textAlign: 'left'}} className="text-left">{data.product_name}</td>
+                                        <td style={{textAlign: 'left'}}>{data.packdesc}</td>
+                                    </tr>  
                                 )}
                             </tbody>
                         </table>
@@ -504,19 +515,18 @@ class Movement extends Component {
                             </thead>
                             <tbody>
                                 {this.state.data.slice(this.state.startIndex, this.state.endIndex).map((data, index) =>
-                                    <tr key={index} height="50"
-                                        className={this._checkActiveHover(data.product) + " border-bottom border-top"}
-                                        onMouseEnter={(e) => this.hover(e, 'active', data.product)}
-                                        onMouseLeave={(e) => this.hover(e, 'deactive', data.product)}
+                                    
+                                    <tr key={index} 
+                                        className={this._checkActiveHover(data.product) + " border-bottom border-top"} 
                                     >
                                         {data.detail.map(detail =>
                                             <td height='50' className="border-right">
                                                 <table>
-                                                    <tr>
-                                                        <td width="25%">{detail.sa_plus ? detail.sa_plus : '-'}</td>
-                                                        <td width="25%">{detail.sa_minus ? detail.sa_minus : '-'}</td>
-                                                        <td width="25%">{detail.recv_weight ? detail.recv_weight : '-'}</td>
-                                                        <td width="25%">{detail.send_weight ? detail.send_weight : '-'}</td>
+                                                    <tr height={(this.refs['row'+index])?this.refs['row'+index].clientHeight+'px':'50px'}> 
+                                                        <td width="25%" style={{textAlign: "right"}}> {detail.sa_plus ? detail.sa_plus : '-'}</td>
+                                                        <td width="25%" style={{textAlign: "right"}}>{detail.sa_minus ? detail.sa_minus : '-'}</td>
+                                                        <td width="25%" style={{textAlign: "right"}}>{detail.recv_weight ? detail.recv_weight : '-'}</td>
+                                                        <td width="25%" style={{textAlign: "right"}}>{detail.send_weight ? detail.send_weight : '-'}</td>
                                                     </tr>
                                                 </table>
                                             </td>
@@ -528,6 +538,59 @@ class Movement extends Component {
                     </div>
                     <div className={(this.state.complete ? 'hidden' : 'spinner')} />
                 </Container>
+                     
+
+                {/* Excel Table */}
+                <table id="excel" style={{display: 'none'}}>
+                    <thead>
+                        <tr  className="border-bottom border-right text-center">
+                            <th>Site </th>
+                            <th>Client </th>
+                            <th>Product </th>
+                            <th>Description </th>
+                            <th>UOM </th>
+                            {this.state.dateArray.map((date, index) =>
+                                <th key={index} className="movement-header text-center border-right">
+                                    <table>
+                                        <tr>
+                                            <th colSpan="4">{this.formatDate(date)}</th>
+                                        </tr>
+                                        <tr>
+                                            <th width="25%">SA+</th>
+                                            <th width="25%">SA-</th>
+                                            <th width="25%">Rec</th>
+                                            <th width="25%">Send</th>
+                                        </tr>
+                                    </table>
+                                </th>
+                            )}
+                        </tr>
+                    </thead>
+                    <tbody>  
+                        {this.state.data.slice(this.state.startIndex, this.state.endIndex).map((data, index) =>
+                            <tr ref={"row"+index} key={index} 
+                                className={this._checkActiveHover(data.product) + " border-bottom border-right text-center"}
+                            >
+                                <td style={{textAlign: 'left'}}>{data.site}</td>
+                                <td style={{textAlign: 'left'}}>{data.client}</td>
+                                <td style={{textAlign: 'left'}}>{data.product}</td>
+                                <td style={{textAlign: 'left'}} className="text-left">{data.product_name}</td>
+                                <td style={{textAlign: 'left'}}>{data.packdesc}</td>
+                                {data.detail.map(detail => 
+                                <td>
+                                <table>
+                                    <td style={{textAlign: "right"}}> {detail.sa_plus ? detail.sa_plus : '-'}</td>
+                                    <td style={{textAlign: "right"}}>{detail.sa_minus ? detail.sa_minus : '-'}</td>
+                                    <td style={{textAlign: "right"}}>{detail.recv_weight ? detail.recv_weight : '-'}</td>
+                                    <td style={{textAlign: "right"}}>{detail.send_weight ? detail.send_weight : '-'}</td>
+                                </table>
+                                </td>
+                                )}
+                            </tr>  
+                        )}
+                    </tbody>
+                </table>
+
 
                 <div className='fixed-bottom paginations'>
                     <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
@@ -537,7 +600,7 @@ class Movement extends Component {
                         startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
                         isActive={this.state.isActive}
                         numberEventClick={this.numberEventClick} />
-                    {((this.state.data.length > 0) ? <ExportExcel ExportName={this.ExportName} /> : null)}
+                     <ExportExcel ExportName={this.ExportName} />
                 </div>
             </div>
         )
