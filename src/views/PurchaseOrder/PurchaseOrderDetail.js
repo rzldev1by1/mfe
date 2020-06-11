@@ -125,7 +125,7 @@ export default class PurchaseOrderDetail extends Component {
                         <td>{dateReceived ? moment(dateReceived.substring(0, 11)).format("DD/MM/YYYY") : '-'}</td>
                     </tr>
                     <tr>
-                        <th>Date Due</th>
+                        <th>Order Date</th>
                         <td>{dateDue ? moment(dateDue.substring(0, 11)).format("DD/MM/YYYY") : '-'}</td>
                     </tr>
                     <tr>

@@ -461,17 +461,17 @@ class PurchaseOrderCreate extends Component {
       this.state.sitedatacr.map((data) => {
         if (data.site == getUserSite) {
           siteData.push(data.site);
-          siteName.push(data.site + ":" + data.name)
+          siteName.push(data.site + "  : " + data.name)
         } else if ((getUserSite == null) || (getUserSite == "")) {
           siteData.push(data.site);
-          siteName.push(data.site + ":" + data.name)
+          siteName.push(data.site + "  : " + data.name)
         }
       })
     }
     if (this.state.supplierdatacr) {
       this.state.supplierdatacr.map((data) => {
-        supplierNo.push(data.supplier_no);
-        supplierName.push(data.name);
+        supplierNo.push(data.supplier_no + " : " + "Supplier 1");
+        supplierName.push(data.supplier_no + " : " + "Supplier 1");
       })
     }
     if (this.state.orderdatacr) {
