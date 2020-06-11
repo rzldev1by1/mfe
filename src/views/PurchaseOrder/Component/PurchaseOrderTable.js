@@ -83,8 +83,8 @@ class PurchaseOrderTable extends Component {
         },
         {
           id: "delivery_date",
-          checkboxLabelText: "Delivery Date",
-          tableHeaderText: "Delivery Date",
+          checkboxLabelText: "Order Date",
+          tableHeaderText: "Order Date",
           isVisible: true,
           key: "delivery_date",
           type: "string",
@@ -347,7 +347,7 @@ class PurchaseOrderTable extends Component {
   }
 
   ExportHeader = () => {
-    let headers = ["Site", "Client", "Order No", "Order Type", "Customer", " Status", "Delivery Date", "Date Received", "Date Released", "Date Completed"]
+    let headers = ["Site", "Client", "Order No", "Order Type", "Customer", " Status", "Order Date", "Date Received", "Date Released", "Date Completed"]
     return headers
   }
   ExportFont = () => {

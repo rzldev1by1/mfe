@@ -45,8 +45,8 @@ class StockHoldingDetails extends Component {
                 { id: "batch", checkboxLabelText: "Batch", tableHeaderText: "Batch", isVisible: true, key: "batch", type: "string", sort: mid },
 				{ id: "rotadate", checkboxLabelText: "Rotadate", tableHeaderText: "Rotadate", isVisible: true, key: "rotadate", type: "string", sort: mid },
 				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: true, key: "disposition", type: "string", sort: mid },
-				{ id: "ref3", checkboxLabelText: "Ref 3", tableHeaderText: "Ref 3", isVisible: true, key: "ref3", type: "string", sort: mid },
-				{ id: "ref4", checkboxLabelText: "Ref 4", tableHeaderText: "Ref 4", isVisible: true, key: "ref4", type: "string", sort: mid },
+				{ id: "ref3", checkboxLabelText: "Ref3", tableHeaderText: "Ref3", isVisible: true, key: "ref3", type: "string", sort: mid },
+				{ id: "ref4", checkboxLabelText: "Ref4", tableHeaderText: "Ref4", isVisible: true, key: "ref4", type: "string", sort: mid },
 				{ id: "qty", checkboxLabelText: "Qty", tableHeaderText: "Qty", isVisible: true, key: "qty", type: "number", sort: mid },
 				{ id: "weight", checkboxLabelText: "Weight", tableHeaderText: "Weight", isVisible: true, key: "weight", type: "number", sort: mid },
 				{ id: "pallet", checkboxLabelText: "Pallet", tableHeaderText: "Pallet", isVisible: true, key: "pallet", type: "string", sort: mid },
@@ -262,9 +262,9 @@ class StockHoldingDetails extends Component {
 			case "FOUND" :
 				content =
 				<div className="animated fadeIn">
-                    <div class="header-title fixed-top">
-                        <div class="container-fluid">
-                            <div class="card">
+                    <div className="header-title fixed-top">
+                        <div className="container-fluid">
+                            <div className="card">
                             <h2 onClick={(e)=>{this.gotoSummary()}} style={{ marginRight: "20px", cursor:"pointer", display: "inline-block" }}>Stock Holding</h2>
                             <h2 style={{ marginRight: "20px", display: "inline-block" }}><i className="iconU-rightArrow" style={{ fontSize: "20px" }} /></h2>
                             <h2 style={{ marginRight: "20px", display: "inline-block",color:"#3366FF" }}>{decodeURIComponent(this.props.match.params.productId)}</h2>

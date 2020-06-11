@@ -68,6 +68,7 @@ class StockDetails extends Component {
 
 	showStockDetailsHeader = () => {
 		return (
+			
 			<tr>
 				{this.props.stockDetailsColumns.map((item, idx) => {
 					if (item.isVisible) {
@@ -81,17 +82,20 @@ class StockDetails extends Component {
                     return null;
 				})}
 			</tr>
+			
 		);
 	}
 
 	showStockDetailsHeaderExcel = () => {
 		return (
+			
 			<tr>
 				{this.props.stockDetailsColumns.map((item, idx) => {
+					
 					if (item.isVisible) {
                         
                         return (
-                            <th>
+                            <th key={idx}>
                                 {item.tableHeaderText}
                             </th>
                         );
@@ -99,23 +103,28 @@ class StockDetails extends Component {
                     return null;
 				})}
 			</tr>
+			
 		);
 	}
 
 	showStockDetailsData = () => {
 		return (
-			this.props.stockDetails.map((item, idx) => (
-				<tr key={idx}>
-					{this.props.stockDetailsColumns.map((column, columnIdx) => {
-						return (
+			
+				
+					this.props.stockDetails.map((item, idx) => (
+						<tr key={idx}>
+							{this.props.stockDetailsColumns.map((column, columnIdx) => {
+								return (
+									
+									<td key={columnIdx} className="px-3 text-left">
+										{column.id === "effective_date" ? formatDate(item[column.key]) : item[column.key]}
+									</td>
+								)
+							})}
+						</tr>
+					))
 							
-                            <td key={columnIdx} className="px-3 text-left">
-                                {column.id === "effective_date" ? formatDate(item[column.key]) : item[column.key]}
-							</td>
-						)
-					})}
-				</tr>
-			))
+			
 		);
 	}
 
@@ -251,15 +260,20 @@ class StockDetails extends Component {
 			<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
                 <div className="tablePage tablePageSh tableContent">
                     <Table className="table-condensed table-striped clickable-row rounded-bottom-175 mb-0" size="md" width="100%">
-                        <thead>{this.showStockDetailsHeader()}</thead>
-                        <tbody>{this.showStockDetailsData()}</tbody>
+                        <thead>
+							{this.showStockDetailsHeader()}
+						</thead> 
+                        <tbody>
+							{this.showStockDetailsData()}
+						</tbody>
                     </Table>
 
-					
+{/* 					
                     <Table  style={{display: 'none'}} id="excel">
+					
 					{ this.state.headerExcelColumn.map((col,index) => { 
 						return(
-						<tr>
+						<tr key={index}>
 								<th colSpan='2' style={{textAlign:'left'}}>{(col.length) ? col[0].text : null}</th>
 								<td colSpan='2'>
 								{(this.props.stockholding.length && col.length) ? this.props.stockholding[0][col[0].id] : '-'}
@@ -271,51 +285,18 @@ class StockDetails extends Component {
 								</td> 
 						</tr> 
 						)
-					})} 
+					})
+					}
+					
+					
 
 					<tr><td colSpan="14"> </td></tr>
 					
                        {this.showStockDetailsHeaderExcel()}
                        {this.showStockDetailsData()}
-                    </Table>
+                    </Table> */}
 
-					<table id="headerPdf" style={{display: 'none'}}>
-						<tr> 
-							<th>Site</th>
-							<td>{this.props.stockholding.length ? this.props.stockholding[0].site : '-'}</td>
-							<td></td>  
-							<th>Status</th>
-							<td >{this.props.stockholding.length ? this.props.stockholding[0].stock_on_hand : '-'}</td>
-						</tr> 
-						<tr> 
-							<th>Client</th>
-							<td>{this.props.stockholding.length ? this.props.stockholding[0].client : '-'}</td>
-							<td></td> 
-							<th>Available Qty</th>
-							<td >{this.props.stockholding.length ? this.props.stockholding[0].available_qty : '-'}</td>
-						</tr> 
-						<tr> 
-							<th>Product</th>
-							<td>{this.props.stockholding.length ? this.props.stockholding[0].product : '-'}</td>
-							<td></td> 
-							<th>Expected In Qty</th>
-							<td >{this.props.stockholding.length ? this.props.stockholding[0].expected_in_qty : '-'}</td>
-						</tr>  
-						<tr> 
-							<th>Description</th>
-							<td>{this.props.stockholding.length ? this.props.stockholding[0].description : '-'}</td>
-							<td></td> 
-							<th>Expected Out Qty</th>
-							<td >{this.props.stockholding.length ? this.props.stockholding[0].expected_out_qty : '-'}</td>
-						</tr>  
-						<tr> 
-							<th>UOM</th>
-							<td>{this.props.stockholding.length ? this.props.stockholding[0].uom : '-'}</td>
-							<td></td> 
-							<th>Rotadate Type</th>
-							<td >{this.props.stockholding.length ? this.props.stockholding[0].rotadate_type : '-'}</td>
-						</tr>  
-					</table>
+					{/*  */}
                 </div>
                 <div className="fixed-bottom paginations">
                     <Paging firstPageClick={this.firstPageClick} backPageClick={this.backPageClick}

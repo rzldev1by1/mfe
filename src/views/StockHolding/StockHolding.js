@@ -185,6 +185,13 @@ class StockHolding extends Component {
 			});
 	}
 
+	searchTextValue = (paramText) => {
+		if(paramText)	
+			return paramText;
+		else
+			return "";
+	}
+
 	searchData = () => {
 		const { site, status, unit, clientSelected } = this.state;
 		let self = this;
@@ -542,6 +549,7 @@ class StockHolding extends Component {
 								triggerShowFilter={this.triggerShowFilter}
 								searchData={this.searchData}
 								placeholder="Enter a Product or Description"
+								getValue={this.searchTextValue}
 								additionalComponent={this.state.resetDropdownProcessed ? null : this.showDropdown()}
 								resetDropdown={() => this.resetDropdown()} />
 						</form>
