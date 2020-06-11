@@ -751,7 +751,7 @@ class UserManagement extends Component {
                           <i className="iconU-search" />
                         </span>
                         <input type="text"
-                          className="form-control searchInput" id="searchInput" name="searchInput"
+                          className="form-control searchInput border-0" id="searchInput" name="searchInput"
                           placeholder="Enter User Id or User Name" />
                       </div>
                     </div>
