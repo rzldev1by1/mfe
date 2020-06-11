@@ -714,18 +714,15 @@ a.breadcrumb:hover {
   transition: background-color 0.5s ease;
   outline-color: transparent;
   font-size: 18px;
-}
-
-.searchInput,
-.searchInput::placeholder {
-  font-size: 1.1em;
-  color: #d5d8da !important;
-  align-self: center;
-  border: none;
+  color: #637176;
 }
 
 .searchInput::placeholder {
   font-size: 18px !important;
+  // font-size: 1.1em;
+  color: #d5d8da !important;
+  align-self: center;
+  border: none;
 }
 
 .notFoundMessage {
@@ -1811,6 +1808,7 @@ th.iconU-edit {
   left: 0;
   border-radius: 2px;
   padding-top: 50px;
+  color: #637176;
 }
 
 .select_dropdown_input {
@@ -1842,7 +1840,7 @@ th.iconU-edit {
   position: absolute;
   top: 0;
   left: 0;
-  color: #6c6d74 !important;
+  color: #d5d8da !important;
   background-color: transparent;
   display: block;
 }

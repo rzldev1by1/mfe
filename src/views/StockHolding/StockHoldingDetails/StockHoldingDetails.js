@@ -262,9 +262,9 @@ class StockHoldingDetails extends Component {
 			case "FOUND" :
 				content =
 				<div className="animated fadeIn">
-                    <div class="header-title fixed-top">
-                        <div class="container-fluid">
-                            <div class="card">
+                    <div className="header-title fixed-top">
+                        <div className="container-fluid">
+                            <div className="card">
                             <h2 onClick={(e)=>{this.gotoSummary()}} style={{ marginRight: "20px", cursor:"pointer", display: "inline-block" }}>Stock Holding</h2>
                             <h2 style={{ marginRight: "20px", display: "inline-block" }}><i className="iconU-rightArrow" style={{ fontSize: "20px" }} /></h2>
                             <h2 style={{ marginRight: "20px", display: "inline-block",color:"#3366FF" }}>{decodeURIComponent(this.props.match.params.productId)}</h2>
