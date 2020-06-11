@@ -1,371 +1,147 @@
-import React, { Component } from "react";
-import ListOrderComponent from "./Components/ListOrderComponent";
-// import FilterComponent from "/components/FilterComponent";
-import { Button } from "reactstrap";
-// import create from "assets/img/brand/button_create@2x.png";
-import Dropdown from "components/Dropdown";
-import Search from "components/Search";
-import SalesOrderCreate from "./Components/SalesOrderCreate";
-import axios from "axios";
-import { endpoint, headers } from "components/ConfigEndpoint";
-import helpers from "helpers";
-import EditColumn from "./Components/Modal/Modal";
-import { column } from './Components/Validation/defaultColumn'
-import { FaPencilAlt } from "react-icons/fa"
-import HeaderTitle from 'components/HeaderTitle'
-// import DD from 'components/Dropdown/index'
+import React from 'react'
+import { connect } from 'react-redux'
+import {
+  CBadge,
+  CButton,
+  CCard,
+  CCardHeader,
+  CCardBody,
+  CCardTitle,
+  CRow,
+  CCol,
+} from '@coreui/react'
+import Select from 'react-select'
+import DataTable from 'shared/table/DataTable'
+import States from './dummy/states'
+import './SalesOrder.css'
 
-import "./SalesOrder.css";
-class SalesOrder extends Component {
-  constructor(props) {
-    super(props);
-    this.potableref = React.createRef();
-    this.searchForm = React.createRef();
-    this.state = {
-      tableheader: [
-        "Site",
-        "Client",
-        "Order No",
-        "Ship to Name",
-        "Customer Name",
-        " Status",
-        "Date due",
-        "Date Received",
-        "Date Released",
-        "Date Completed"
-      ],
-      search: "",
-      client: null,
-      site: null,
-      status: null,
-      ordertype: null,
-      ordertypefilter: null,
+const usersData = [
+  { id: 0, name: 'John Doe', registered: '2018/01/01', role: 'Guest', status: 'Pending' },
+  { id: 1, name: 'Samppa Nori', registered: '2018/01/01', role: 'Member', status: 'Active' },
+  { id: 2, name: 'Estavan Lykos', registered: '2018/02/01', role: 'Staff', status: 'Banned' },
+  { id: 3, name: 'Chetan Mohamed', registered: '2018/02/01', role: 'Admin', status: 'Inactive' },
+  { id: 4, name: 'Derick Maximinus', registered: '2018/03/01', role: 'Member', status: 'Pending' },
+  { id: 5, name: 'Friderik Dávid', registered: '2018/01/21', role: 'Staff', status: 'Active' },
+  { id: 6, name: 'Yiorgos Avraamu', registered: '2018/01/01', role: 'Member', status: 'Active' },
+  { id: 7, name: 'Avram Tarasios', registered: '2018/02/01', role: 'Staff', status: 'Banned' },
+  { id: 8, name: 'Quintin Ed', registered: '2018/02/01', role: 'Admin', status: 'Inactive' },
+  { id: 9, name: 'Enéas Kwadwo', registered: '2018/03/01', role: 'Member', status: 'Pending' },
+  { id: 10, name: 'Agapetus Tadeáš', registered: '2018/01/21', role: 'Staff', status: 'Active' },
+  { id: 11, name: 'Carwyn Fachtna', registered: '2018/01/01', role: 'Member', status: 'Active' },
+  { id: 12, name: 'Nehemiah Tatius', registered: '2018/02/01', role: 'Staff', status: 'Banned' },
+  { id: 13, name: 'Ebbe Gemariah', registered: '2018/02/01', role: 'Admin', status: 'Inactive' },
+  { id: 14, name: 'Eustorgios Amulius', registered: '2018/03/01', role: 'Member', status: 'Pending' },
+  { id: 15, name: 'Leopold Gáspár', registered: '2018/01/21', role: 'Staff', status: 'Active' },
+  { id: 16, name: 'Pompeius René', registered: '2018/01/01', role: 'Member', status: 'Active' },
+  { id: 17, name: 'Paĉjo Jadon', registered: '2018/02/01', role: 'Staff', status: 'Banned' },
+  { id: 18, name: 'Micheal Mercurius', registered: '2018/02/01', role: 'Admin', status: 'Inactive' },
+  { id: 19, name: 'Ganesha Dubhghall', registered: '2018/03/01', role: 'Member', status: 'Pending' },
+  { id: 20, name: 'Hiroto Šimun', registered: '2018/01/21', role: 'Staff', status: 'Active' },
+  { id: 21, name: 'Vishnu Serghei', registered: '2018/01/01', role: 'Member', status: 'Active' },
+  { id: 22, name: 'Zbyněk Phoibos', registered: '2018/02/01', role: 'Staff', status: 'Banned' },
+  { id: 23, name: 'Aulus Agmundr', registered: '2018/01/01', role: 'Member', status: 'Pending' },
+  { id: 42, name: 'Ford Prefect', registered: '2001/05/25', role: 'Alien', status: 'Don\'t panic!' }
+]
 
-      siteSelected: helpers.getSite() ? helpers.getSite() : null,
-      clientSelected: helpers.getClient() ? helpers.getClient() : null,
+const fields = [
+  { key: 'name', _style: { width: '40%' } },
+  { key: 'role', _style: { width: '20%' } },
+  { key: 'status', _style: { width: '20%' } },
+  'registered',
+  {
+    key: 'show_details',
+    label: '',
+    _style: { width: '1%' },
+    sorter: false,
+    filter: false
+  },
+]
 
-      clientdata: [],
-      sitedata: [],
-      productdata: [],
-      dispositiondata: [],
-
-      //modal
-      showmodal: false,
-      complete: false,
-
-      //filter
-      filterclicked: true,
-
-      //resources
-      resources: [],
-
-      loaded: false,
-
-      showEditColumn: false,
-
-      column: helpers.getSavedColumn() ? helpers.getSavedColumn() : column,
-      updatedColumn: helpers.getSavedColumn() ? helpers.getSavedColumn() : column,
-
-      resetDropdownProcessed: false
-    };
-  }
-
-  componentDidMount = () => {
-    this.getclient();
-    this.getsite();
-    this.getResources();
-    this.getProduct();
-    this.getDisposition();
-
-  };
-
-  editColumnHandler = (idx, active) => {
-    let newColumn = this.state.updatedColumn
-    newColumn[idx].active = active
-    this.setState({ updatedColumn: newColumn })
-
-  };
-
-  saveColumnHandler = () => {
-    let updateColumn = [...this.state.updatedColumn]
-    this.setState({ column: updateColumn }, localStorage.setItem('savedColumn', JSON.stringify(this.state.column)))
-  };
-
-  openModal = () => {
-    this.setState({ showmodal: true });
-  };
-
-  closeModal = () => {
-    this.setState({ showmodal: false });
-  };
-
-  search = () => {
-    let self = this;
-    self.potableref.current.searchSalesOrder(
-      self.state.search,
-      self.state.siteSelected,
-      self.state.clientSelected,
-      self.state.status,
-      self.state.ordertype
-    );
-  };
-
-  resetDropdown = () => {
-    this.setState({ resetDropdownProcessed: true, site: null, client: null, status: null, ordertype: null , ordertypefilter: null }, () => this.setState({ resetDropdownProcessed: false }))
-  }
-
-  getclient = () => {
-    axios
-      .get(endpoint.getClient, {
-        headers: headers
-      })
-      .then((res) => {
-        const result = res.data;
-        console.log(result)
-        this.setState({ clientdata: result });
-      })
-      .catch((error) => {
-
-        console.log(error);
-      });
-  };
-
-  getsite = () => {
-    axios
-      .get(endpoint.getSite, {
-        headers: headers
-      })
-      .then((res) => {
-        const result = res.data;
-        this.setState({ sitedata: result });
-      })
-      .catch((error) => {
-
-      });
-  };
-
-  getResources = (clientParam) => {
-    let company = helpers.getCompanyCode();
-    let client = helpers.getClient();
-    if (!company) company = null
-    if (!client) client = null
-    if (clientParam) client = clientParam;
-    axios
-      .get(
-        endpoint.getSoResources + "?company=" + company + "&&client=" + client,
-        {
-          headers: headers
-        }
-      )
-
-      .then((res) => {
-        let result = res.data;
-        this.setState({ resources: result, loaded: true });
-      })
-      .catch((error) => { });
-  };
-
-  getProduct = (clientparam) => {
-    let client = helpers.getClient();
-    if (!client) client = null
-    if (clientparam) client = clientparam;
-    let param = "?client=" + client;
-    axios
-      .get(endpoint.getProduct + param, {
-        headers: headers
-      })
-      .then((res) => {
-        let result = res.data;
-        this.setState({ productdata: result });
-      });
-  };
-
-  getDisposition = () => {
-    axios
-      .get(endpoint.getDisposition, {
-        headers: headers
-      })
-      .then((res) => {
-        let result = res.data;
-        this.setState({ dispositiondata: result });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  getSiteSelected = (value) => {
-    this.setState({ siteSelected: value });
-  };
-
-  getClientSelected = (value) => {
-    this.setState({ clientSelected: value });
-  };
-
-  openEditModal = () => {
-    this.setState({ showEditColumn: true });
-  };
-
-  showDropdowns = () => {
-    let clientName = ["All"];
-    let clientValue = ["all"];
-    let siteData = ["all"];
-    let siteName = ["All"];
-    let orderTypeName = ["All"];
-    let orderTypeValue = ["all"];
-    let orderTypeFilterName = ["All"];
-    let orderTypeFilterValue = ["all"];
-    let statusName = ["All","0: Unavailable", "1: Available", "2: Released", "3: Part Released", "4: Completed", "<>4: Open"];
-    let statusValue = ['all',"unavailable", "available", "released", "part_released", "completed", "open"];
-    // let statuss = [];
-    if (this.state.clientdata) { 
-      this.state.clientdata.map((data) => {
-        clientName.push(data.code + ' : ' + data.name);
-        clientValue.push(data.code);
-      });
-    }
-    if (this.state.sitedata) { 
-      this.state.sitedata.map((data) => {
-        siteName.push(data.site + ' : ' + data.name)
-        siteData.push(data.site);
-      });
-    }
-
-    if (this.state.resources.orderType !== undefined) {
-      this.state.resources.orderType.name.map((data, i) => {
-        orderTypeName.push(data)
-      })
-      this.state.resources.orderType.code.map((data, i) => {
-        orderTypeValue.push(data)
-      })
-    }
-
-    if (this.state.resources.orderTypeFilter !== undefined) {
-      this.state.resources.orderTypeFilter.name.map((data, i) => {
-        orderTypeFilterName.push(data)
-      })
-      this.state.resources.orderTypeFilter.code.map((data, i) => {
-        orderTypeFilterValue.push(data)
-      })
-    }
-
-    // console.log(orderTypeFilterValue)
-
-    const { client, site, status, ordertype, ordertypefilter } = this.state
-    return (
-      <React.Fragment>
-        {helpers.getUserLevel() == "administrator" ? (
-          <Dropdown optionSelected={site}
-            placeHolder="Site"
-            optionList={siteName.toString()}
-            optionValue={siteData.toString()}
-            getValue={this.getSiteSelected.bind(this)}
-            className="filterDropdown" />
-        ) : (
-            <input readOnly
-              value={helpers.getSite()}
-              id="site"
-              className="form-control put filterDropdown"
-              placeholder="Site"
-              tabIndex='1' />
-          )}
-
-        {helpers.getUserLevel() == "administrator" ? (
-          <Dropdown optionSelected={client}
-            placeHolder="Client"
-            optionList={clientName.toString()}
-            optionValue={clientValue.toString()}
-            getValue={this.getClientSelected.bind(this)}
-            className="filterDropdown" />
-        ) : (
-            <input readOnly
-              value={helpers.getClient()}
-              id="site"
-              className="form-control put filterDropdown"
-              placeholder="Site"
-              tabIndex='1' />
-          )}
-
-        <Dropdown optionSelected={status}
-          placeHolder="Status"
-          optionList={statusName.toString()}
-          optionValue={statusValue.toString()}
-          getValue={(code) => this.setState({ status: code })}
-          className="filterDropdown" />
-
-        <Dropdown optionSelected={ordertype}
-          placeHolder="Order Type"
-          optionList={orderTypeFilterName.toString()}
-          optionValue={orderTypeFilterValue.toString()}
-          getValue={(code) => this.setState({ ordertype: code })}
-          className="filterDropdown" />
-      </React.Fragment>
-    );
-  };
-
-  render() {
-    return (
-      <React.Fragment>
-        <HeaderTitle
-          title="Sales Orders"
-          button={
-            <Button onClick={this.openModal} color="primary" className='btn btn-primary float-right btn-create'>
-              <FaPencilAlt className="mb-2" /> &nbsp; <label className='font'>Create Sales Order</label>
-            </Button>
-          }
-        />
-        <div className="app-container animated fadeIn">
-          <div>
-            <Search
-              getValue={(v) => this.setState({ search: v })}
-              triggerShowFilter={() =>
-                this.setState({ filterclicked: !this.state.filterclicked })
-              }
-              searchData={() => this.search()}
-              placeholder="Enter an Order No"
-              additionalComponent={this.state.resetDropdownProcessed ? null : this.showDropdowns()}
-              resetDropdown={() => this.resetDropdown()} />
-          </div>
-          <div className="dropdowns">
-          <div style={{ display: "flex", width: "100%" }}>
-            {this.state.filterclicked ? null : null }
-          </div>
-        </div>
-
-
-         <div className={"" + (this.state.complete ? "fades" : "hidden")}>
-            <ListOrderComponent
-              column={this.state.column}
-              openEditModal={() => this.openEditModal()}
-              ref={this.potableref}
-              loadCompleteHandler={(v) => this.setState({ complete: v })}
-            />
-          </div>
-          <div className={this.state.complete ? "hidden" : "spinner"} />
-          {this.state.loaded ? (
-            <SalesOrderCreate
-              getResources={(client) => this.getResources(client)}
-              loadSalesOrder={() => this.potableref.current.loadSalesOrder()}
-              clientdata={this.state.clientdata}
-              productdata={this.state.productdata}
-              getClientProduct={(client) => this.getProduct(client)}
-              dispositiondata={this.state.dispositiondata}
-              resources={this.state.resources}
-              showmodal={this.state.showmodal}
-              closemodal={() => this.closeModal()}
-            />
-          ) : null}
-          <EditColumn
-            editColumnHandler={(idx, active) => this.editColumnHandler(idx, active)}
-            showEditColumn={this.state.showEditColumn}
-            closeModal={() => this.setState({ showEditColumn: false })}
-            column={this.state.updatedColumn}
-            saveColumnHandler={() => this.saveColumnHandler()}
-          />
-        </div>
-      </React.Fragment>
-    );
+const getBadge = (status) => {
+  switch (status) {
+    case 'Active': return 'success'
+    case 'Inactive': return 'secondary'
+    case 'Pending': return 'warning'
+    case 'Banned': return 'danger'
+    default: return 'primary'
   }
 }
+// '/#/sales-orders/' + data.client + '/' + data.site + '/' + data.orderno
+class SalesOrder extends React.PureComponent {
+  state = {
+    site: null,
+    client: null,
+    status: null,
+    orderType: null,
+  }
+  render() {
+    const siteData = States
+    const clientData = States
+    const statusData = States
+    const orderTypeData = States
+    return <React.Fragment>
+      <CCard className="bg-transparent mb-3">
+        <CCardTitle className="text-info m-0">Sales Orders <button className="btn btn-primary float-right">Create</button></CCardTitle>
+      </CCard>
 
-export default SalesOrder;
+      <CCard>
+        <CCardBody>
+          <CRow>
+            <CCol md={3} className="px"><input type="text" className="form-control" placeholder="Search" /></CCol>
+            <CCol md={2} className="px">
+              <Select name="site" placeholder="Site"
+                value={this.state.site} options={siteData}
+                onChange={(val) => this.setState({ site: val })}
+              />
+            </CCol>
+            <CCol md={2} className="px">
+              <Select name="client" placeholder="Client"
+                value={this.state.client} options={clientData}
+                onChange={(val) => this.setState({ client: val })}
+              />
+            </CCol>
+            <CCol md={2} className="px">
+              <Select name="status" placeholder="Status"
+                value={this.state.status} options={statusData}
+                onChange={(val) => this.setState({ status: val })}
+              />
+            </CCol>
+            <CCol md={2} className="px">
+              <Select name="orderType" placeholder="Order Type"
+                value={this.state.orderType} options={orderTypeData}
+                onChange={(val) => this.setState({ orderType: val })}
+              />
+            </CCol>
+            <CCol md={1}><button className="btn btn-outline-primary float-right">Search</button></CCol>
+          </CRow>
+        </CCardBody>
+      </CCard>
+
+      <DataTable
+        className="h-70 scroll-y"
+        fields={fields}
+        data={usersData}
+        onClick={(item, index, col, e) => console.log(item, index, col, e)}
+        customFields={{
+          'status':
+            (item) => (
+              <td>
+                <CBadge color={getBadge(item.status)}> {item.status} </CBadge>
+              </td>
+            ),
+          'show_details':
+            item => {
+              return (
+                <td className="py-2">
+                  <CButton color="primary" variant="outline" shape="square" size="sm" > Show </CButton>
+                </td>
+              )
+            },
+        }}
+      />
+    </React.Fragment>
+  }
+}
+const mapStateToProps = (store) => ({ store })
+const mapDispatchToProps = (dispatch) => ({ dispatch })
+export default connect(mapStateToProps, mapDispatchToProps)(SalesOrder);
