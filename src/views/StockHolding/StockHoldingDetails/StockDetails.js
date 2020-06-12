@@ -187,7 +187,7 @@ class StockDetails extends Component {
 			Seconds = date.getSeconds(),
 			Minutes = date.getMinutes(),
 			Hours = date.getHours();
-		 return filename=("Microlistics_PurchaseOrderDetails." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)  
+		 return filename=("Microlistics_StockHoldingDetails." +date1 +"-"+ arrmonth[month] +"-"+ year+"."+Hours+"-"+Minutes+"-"+Seconds)  
 	  }
 	
 	  ExportHeader = () =>{
@@ -267,6 +267,11 @@ class StockDetails extends Component {
 							{this.showStockDetailsData()}
 						</tbody>
                     </Table>
+
+					<table className="defaultTable d-none" id="excel" >
+						<thead>{this.showStockDetailsHeaderExcel()}</thead>
+						<tbody style={{ fontSize: '1rem' }}>{this.showStockDetailsData()}</tbody>
+					</table>
 
 {/* 					
                     <Table  style={{display: 'none'}} id="excel">

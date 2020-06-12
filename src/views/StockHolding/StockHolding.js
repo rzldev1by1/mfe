@@ -88,6 +88,11 @@ class StockHolding extends Component {
 
 	}
 
+	unAuthorizeAAccess = (error) => {
+		if(error.status === 401)
+			this.props.history.push('/login');
+	}
+
 	setPagination = (result) => {
 		let self = this;
 		let respondRes = result;
@@ -124,7 +129,7 @@ class StockHolding extends Component {
 				return res.data;
 			})
 			.catch(error => {
-				// this.props.history.push("/login")
+				this.unAuthorizeAAccess(error);
 			})
 			.then(function (result) {
 				if (result) {
@@ -141,7 +146,7 @@ class StockHolding extends Component {
 				this.setState({ clientdata: result })
 			})
 			.catch(error => {
-				console.log(error);
+				this.unAuthorizeAAccess(error);
 			})
 	}
 
@@ -164,10 +169,10 @@ class StockHolding extends Component {
 			headers: headers
 		})
 			.then(res => {
-
 				return res.data;
 			})
 			.catch(function (error) {
+				self.unAuthorizeAAccess(error);
 				self.setState({
 					displayContent: "NOT_FOUND",
 					isLoaded: false, isSearch: false
@@ -222,6 +227,7 @@ class StockHolding extends Component {
 				return res.data;
 			})
 			.catch(function (error) {
+				self.unAuthorizeAAccess(error);
 				self.setState({
 					displayContent: "NOT_FOUND",
 					isLoaded: false,

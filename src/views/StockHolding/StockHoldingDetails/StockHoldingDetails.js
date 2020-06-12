@@ -67,6 +67,11 @@ class StockHoldingDetails extends Component {
 
 	componentDidMount() {
 		this.loadStockHolding();
+    }
+    
+    unAuthorizeAAccess = (error) => {
+		if(error.status === 401)
+			this.props.history.push('/login');
 	}
 
 	loadStockHolding = () => {
@@ -91,6 +96,7 @@ class StockHoldingDetails extends Component {
 			return res.data;
 		})
 		.catch(function (error) {
+            self.unAuthorizeAAccess(error);
             self.setState({ displayContent: "NOT_FOUND",
                             notFoundMessage: error.response ? error.response.data.message : "Failed to process your data" });
 			return error;
@@ -128,6 +134,7 @@ class StockHoldingDetails extends Component {
 			return res.data;
 		})
 		.catch(function (error) {
+            self.unAuthorizeAAccess(error);
             self.setState({ displayContent: "NOT_FOUND",
                             notFoundMessage: error.response ? error.response.data.message : "Failed to process your data" });
 			return error;
@@ -147,21 +154,21 @@ class StockHoldingDetails extends Component {
         let site = decodeURIComponent(this.props.match.params.site);
         let params = {
             "client": client,
+            "product":productId,
             "site": site
         };
 
-		self.setState({ isLoaded: true });
+        self.setState({ isLoaded: true });        
 
-		axios.get(endpoint.stockBalanceForecast + productId, {
+		axios.get(endpoint.stockBalanceForecast, {
             headers: headers,
             params: params
         })
-		.then(res => {
-			
-
+		.then(res => {			
 			return res.data;
 		})
 		.catch(function (error) {
+            self.unAuthorizeAAccess(error);
             self.setState({ displayContent: "NOT_FOUND",
                             notFoundMessage: error.response ? error.response.data.message : "Failed to process your data" });
 			return error;

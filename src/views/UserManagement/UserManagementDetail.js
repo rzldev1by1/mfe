@@ -98,13 +98,18 @@ class UserManagementDetail extends Component{
           return result;
         })
         .catch(error => {
-
+            self.unAuthorizeAAccess(error);
         })
         .then((result) => {
           
         })
 
 
+    }
+
+    unAuthorizeAAccess = (error) => {
+      if(error.status === 401)
+        this.props.history.push('/login');
     }
 
     restuctureData = (sites) => {
