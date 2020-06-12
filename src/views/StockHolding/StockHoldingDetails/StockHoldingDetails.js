@@ -169,8 +169,8 @@ class StockHoldingDetails extends Component {
 		})
 		.catch(function (error) {
             self.unAuthorizeAAccess(error);
-            self.setState({ displayContent: "NOT_FOUND",
-                            notFoundMessage: error.response ? error.response.data.message : "Failed to process your data" });
+            // self.setState({ displayContent: "NOT_FOUND",
+            //                 notFoundMessage: error.response ? error.response.data.message : "Failed to process your data" });
 			return error;
 		})
 		.then(function(result) {
@@ -263,7 +263,7 @@ class StockHoldingDetails extends Component {
 
 	render() {
 		const { stockHolding, activeTab,stockBalanceForecast } = this.state;
-
+        console.log(stockBalanceForecast);
 		let content;
 		switch (this.state.displayContent) {
 			case "FOUND" :
@@ -395,7 +395,7 @@ class StockHoldingDetails extends Component {
                                                                     </NavLink>
                                                                 </NavItem>
 
-                                                                <NavItem className={"pl-2 pr-0 "+(stockBalanceForecast.length?'':'d-none')}>
+                                                                <NavItem className={"pl-2 pr-0 "+(stockBalanceForecast && stockBalanceForecast.length > 0?'':'d-none')}>
                                                                     <NavLink className={"nav-link-cust" + (activeTab === "2" ? " tab-custom" : "")} active={this.state.activeTab === "2"} onClick={() => this.activeTabIndex("2")}>
                                                                         <div className="row rowTabCustom align-items-center">
                                                                             <span className="tabTitleText">

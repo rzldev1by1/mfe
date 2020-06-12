@@ -126,8 +126,10 @@ class StockBalanceForecast extends Component {
 	}
 
 	openingRecord = () => {
-		let stockbalanceForecast = [...this.props.stockBalanceForecast][0];
-		console.log(stockbalanceForecast);
+		let stockbalanceForecast = {};
+
+		if(this.props.stockBalanceForecast && this.props.stockBalanceForecast.length > 0){
+			stockbalanceForecast = [...this.props.stockBalanceForecast][0];
 
 		return (
 			<tr>
@@ -155,6 +157,10 @@ class StockBalanceForecast extends Component {
 					})}
 			</tr>
 		)
+		}
+		else{
+			return null;
+		}
 	}
 
 	closingRecord = () => {
@@ -254,7 +260,7 @@ class StockBalanceForecast extends Component {
                         <thead>{this.showForeshadowedHeader()}</thead>
                         <tbody>
 												{this.openingRecord()}
-												{this.showForeshadowedData()}
+												{/* {this.showForeshadowedData()} */}
 												{/* {this.closingRecord()} */}
 												</tbody>
                     </Table>
