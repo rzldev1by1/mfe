@@ -118,7 +118,7 @@ class PurchaseOrderCreate extends Component {
 
   componentDidMount = () => {
     this.getclient();
-    //   this.getsite();
+      this.getsite();
     this.getsupplier();
     //   this.getordertype();
     this.getporesource();
@@ -134,7 +134,6 @@ class PurchaseOrderCreate extends Component {
     })
       .then(res => {
         self.setState({
-          sitedatacr: res.data.site,
           supplierdatacr: res.data.supplier,
           orderdatacr: res.data.orderType
         });
