@@ -59,17 +59,11 @@ class StockBalanceForecast extends Component {
 	}
 
 	showBalance = (idx) => {
-
 		let accBalance = this.props.openingBalance;
 		let data = this.props.stockBalanceForecast.slice(this.state.startIndex, this.state.lastIndex);
-
-		
-
-				for (var i = 0 ; i <= idx ; i++) {
-
-						accBalance += parseInt(data[idx]["qtyexpected"]) - parseInt(data[idx]["qtycommitted"]);
-
-		    }
+		for (var i = 0 ; i <= idx ; i++) {
+				accBalance += parseInt(data[idx]["qtyexpected"]) - parseInt(data[idx]["qtycommitted"]);
+		}
 
 		return accBalance;
 	}
@@ -79,7 +73,6 @@ class StockBalanceForecast extends Component {
 			<tr>
 				{this.props.foreshadowedColumns.map((item, idx) => {
 					if (item.isVisible) {
-
                         return <th className="text-left" key={idx}>{item.tableHeaderText}</th>;
                     }
                     return null;
@@ -112,12 +105,12 @@ class StockBalanceForecast extends Component {
 				<tr key={idx}>
 					{this.props.foreshadowedColumns.map((column, columnIdx) => {
 						if (column.isVisible) {
-                if (column.id === "balance") {
-										balance += parseInt(item["qtyexpected"]) - parseInt(item["qtycommitted"])
-                    return (
-                        <td key={columnIdx} className="px-3 text-left">{item['balance']}</td>
-                    );
-                }
+							if (column.id === "balance") {
+								balance += parseInt(item["qtyexpected"]) - parseInt(item["qtycommitted"])
+								return (
+									<td key={columnIdx} className="px-3 text-left">{item['balance']}</td>
+								);
+							}
 
 							return (
 								<td key={columnIdx} className="px-3 text-left">
@@ -133,6 +126,11 @@ class StockBalanceForecast extends Component {
 	}
 
 	openingRecord = () => {
+		let stockbalanceForecast = {};
+
+		if(this.props.stockBalanceForecast && this.props.stockBalanceForecast.length > 0){
+			stockbalanceForecast = [...this.props.stockBalanceForecast][0];
+
 		return (
 			<tr>
 					{this.props.foreshadowedColumns.map((column, columnIdx) => {
@@ -159,6 +157,10 @@ class StockBalanceForecast extends Component {
 					})}
 			</tr>
 		)
+		}
+		else{
+			return null;
+		}
 	}
 
 	closingRecord = () => {
@@ -258,8 +260,8 @@ class StockBalanceForecast extends Component {
                         <thead>{this.showForeshadowedHeader()}</thead>
                         <tbody>
 												{this.openingRecord()}
-												{this.showForeshadowedData()}
-												{this.closingRecord()}
+												{/* {this.showForeshadowedData()} */}
+												{/* {this.closingRecord()} */}
 												</tbody>
                     </Table>
                 </div>

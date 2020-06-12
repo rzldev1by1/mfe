@@ -53,7 +53,7 @@ class StockHolding extends Component {
 				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: false, key: "disposition",width:'5%', type: "string", sort: mid },
 				{ id: "uom", checkboxLabelText: "UOM", tableHeaderText: "UOM", isVisible: true, key: "packdesc_1", type: "string",width:'5%', sort: mid },
 				{ id: "status", checkboxLabelText: "Status", tableHeaderText: "Status", isVisible: true, key: "status", type: "string",width:'5%', sort: mid },
-				{ id: "on_hand_qty", checkboxLabelText: "On Hand Qty", tableHeaderText: "On Hand Qty", isVisible: true, key: "on_hand_qty",width:'5%', type: "number", sort: mid },
+				{ id: "on_hand_qty", checkboxLabelText: "Stock On Hand", tableHeaderText: "Stock On Hand", isVisible: true, key: "on_hand_qty",width:'5%', type: "number", sort: mid },
 				{ id: "weight", checkboxLabelText: "On Hand Wgt", tableHeaderText: "On Hand Weight", isVisible: true, key: "weight",width:'5%', type: "number", sort: mid },
 				{ id: "expected_in_qty", checkboxLabelText: "Expected In Qty", tableHeaderText: "Expected In Qty", isVisible: true, key: "expected_in_qty",width:'5%', type: "number", sort: mid },
 				{ id: "expected_in_wgt", checkboxLabelText: "Expected In Wgt", tableHeaderText: "Expected In Weight", isVisible: true, key: "expected_in_wgt",width:'5%', type: "number", sort: mid },
@@ -86,6 +86,11 @@ class StockHolding extends Component {
 
 		this.setState({ columns: columns });
 
+	}
+
+	unAuthorizeAAccess = (error) => {
+		if(error.status === 401)
+			this.props.history.push('/login');
 	}
 
 	setPagination = (result) => {
@@ -124,7 +129,7 @@ class StockHolding extends Component {
 				return res.data;
 			})
 			.catch(error => {
-				// this.props.history.push("/login")
+				this.unAuthorizeAAccess(error);
 			})
 			.then(function (result) {
 				if (result) {
@@ -141,7 +146,7 @@ class StockHolding extends Component {
 				this.setState({ clientdata: result })
 			})
 			.catch(error => {
-				console.log(error);
+				this.unAuthorizeAAccess(error);
 			})
 	}
 
@@ -164,10 +169,10 @@ class StockHolding extends Component {
 			headers: headers
 		})
 			.then(res => {
-
 				return res.data;
 			})
 			.catch(function (error) {
+				self.unAuthorizeAAccess(error);
 				self.setState({
 					displayContent: "NOT_FOUND",
 					isLoaded: false, isSearch: false
@@ -222,6 +227,7 @@ class StockHolding extends Component {
 				return res.data;
 			})
 			.catch(function (error) {
+				self.unAuthorizeAAccess(error);
 				self.setState({
 					displayContent: "NOT_FOUND",
 					isLoaded: false,

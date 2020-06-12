@@ -67,6 +67,11 @@ class StockHoldingDetails extends Component {
 
 	componentDidMount() {
 		this.loadStockHolding();
+    }
+    
+    unAuthorizeAAccess = (error) => {
+		if(error.status === 401)
+			this.props.history.push('/login');
 	}
 
 	loadStockHolding = () => {
@@ -91,6 +96,7 @@ class StockHoldingDetails extends Component {
 			return res.data;
 		})
 		.catch(function (error) {
+            self.unAuthorizeAAccess(error);
             self.setState({ displayContent: "NOT_FOUND",
                             notFoundMessage: error.response ? error.response.data.message : "Failed to process your data" });
 			return error;
@@ -128,6 +134,7 @@ class StockHoldingDetails extends Component {
 			return res.data;
 		})
 		.catch(function (error) {
+            self.unAuthorizeAAccess(error);
             self.setState({ displayContent: "NOT_FOUND",
                             notFoundMessage: error.response ? error.response.data.message : "Failed to process your data" });
 			return error;
@@ -147,23 +154,23 @@ class StockHoldingDetails extends Component {
         let site = decodeURIComponent(this.props.match.params.site);
         let params = {
             "client": client,
+            "product":productId,
             "site": site
         };
 
-		self.setState({ isLoaded: true });
+        self.setState({ isLoaded: true });        
 
-		axios.get(endpoint.stockBalanceForecast + productId, {
+		axios.get(endpoint.stockBalanceForecast, {
             headers: headers,
             params: params
         })
-		.then(res => {
-			
-
+		.then(res => {			
 			return res.data;
 		})
 		.catch(function (error) {
-            self.setState({ displayContent: "NOT_FOUND",
-                            notFoundMessage: error.response ? error.response.data.message : "Failed to process your data" });
+            self.unAuthorizeAAccess(error);
+            // self.setState({ displayContent: "NOT_FOUND",
+            //                 notFoundMessage: error.response ? error.response.data.message : "Failed to process your data" });
 			return error;
 		})
 		.then(function(result) {
@@ -256,7 +263,7 @@ class StockHoldingDetails extends Component {
 
 	render() {
 		const { stockHolding, activeTab,stockBalanceForecast } = this.state;
-
+        console.log(stockBalanceForecast);
 		let content;
 		switch (this.state.displayContent) {
 			case "FOUND" :
@@ -388,7 +395,7 @@ class StockHoldingDetails extends Component {
                                                                     </NavLink>
                                                                 </NavItem>
 
-                                                                <NavItem className={"pl-2 pr-0 "+(stockBalanceForecast.length?'':'d-none')}>
+                                                                <NavItem className={"pl-2 pr-0 "+(stockBalanceForecast && stockBalanceForecast.length > 0?'':'d-none')}>
                                                                     <NavLink className={"nav-link-cust" + (activeTab === "2" ? " tab-custom" : "")} active={this.state.activeTab === "2"} onClick={() => this.activeTabIndex("2")}>
                                                                         <div className="row rowTabCustom align-items-center">
                                                                             <span className="tabTitleText">
