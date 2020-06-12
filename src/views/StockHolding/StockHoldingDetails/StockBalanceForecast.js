@@ -126,6 +126,9 @@ class StockBalanceForecast extends Component {
 	}
 
 	openingRecord = () => {
+		let stockbalanceForecast = [...this.props.stockBalanceForecast][0];
+		console.log(stockbalanceForecast);
+
 		return (
 			<tr>
 					{this.props.foreshadowedColumns.map((column, columnIdx) => {
