@@ -8,6 +8,7 @@ import ok from '../../../../assets/img/brand/ok.png'
 import minus from '../../../../assets/img/brand/minus.png'
 import Paging from '../../../../AppComponent/Paging'
 import PODExport from './PODExport'
+import moment from 'moment'
 
 import {endpoint, headers} from '../../../../AppComponent/ConfigEndpoint'
 
@@ -456,6 +457,9 @@ class PurchaseOrderTable extends Component {
                                 if(column.id === "status_description"){
                                     return <td key={columnIdx}>{data[column.id].substring(2)}</td>
                                 }
+                                if(column.id.includes("date")){
+                                    return <td key={columnIdx}>{data[column.id] ? moment(data[column.id]).format("DD/MM/YYYY") : "-"}</td>
+                                }
                                 if(column.id === "completed"){
                                     return <td key={columnIdx}>
                                                 <img style={{width:'15px',height:'13px'}} src={data[column.id] == "Y" ? ok : minus}></img>
@@ -569,9 +573,19 @@ class PurchaseOrderTable extends Component {
                             if(column.isVisible){
                                 if(column.id === "line_no"){
                                     return <td key={columnIdx}>{i+1}</td>
-                                }else{
-                                  return <td key={columnIdx}>{data[column.id] ? data[column.id] : "-"}</td>
                                 }
+                                if(column.id === "status_description"){
+                                    return <td key={columnIdx}>{data[column.id].substring(2)}</td>
+                                }
+                                if(column.id.includes("date")){
+                                    return <td key={columnIdx}>{data[column.id] ? moment(data[column.id]).format("DD/MM/YYYY") : "-"}</td>
+                                }
+                                if(column.id === "completed"){
+                                    return <td key={columnIdx}>
+                                                <img style={{width:'15px',height:'13px'}} src={data[column.id] == "Y" ? ok : minus}></img>
+                                          </td>
+                                }
+                                return <td key={columnIdx}>{data[column.id] ? data[column.id] : "-"}</td>
                             }
                         })}
                         <td></td>
