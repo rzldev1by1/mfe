@@ -1,145 +1,179 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import axios from 'axios'
 import {
-  CBadge,
   CButton,
   CCard,
-  CCardHeader,
   CCardBody,
-  CCardTitle,
   CRow,
   CCol,
 } from '@coreui/react'
 import Select from 'react-select'
+
 import DataTable from 'shared/table/DataTable'
-import States from './dummy/states'
+import HeaderTitle from 'shared/container/TheHeader'
+import SalesOrderCreate from './SalesOrderCreate'
+import DummyData from './dummy/data.json'
 import './SalesOrder.css'
 
-const usersData = [
-  { id: 0, name: 'John Doe', registered: '2018/01/01', role: 'Guest', status: 'Pending' },
-  { id: 1, name: 'Samppa Nori', registered: '2018/01/01', role: 'Member', status: 'Active' },
-  { id: 2, name: 'Estavan Lykos', registered: '2018/02/01', role: 'Staff', status: 'Banned' },
-  { id: 3, name: 'Chetan Mohamed', registered: '2018/02/01', role: 'Admin', status: 'Inactive' },
-  { id: 4, name: 'Derick Maximinus', registered: '2018/03/01', role: 'Member', status: 'Pending' },
-  { id: 5, name: 'Friderik Dávid', registered: '2018/01/21', role: 'Staff', status: 'Active' },
-  { id: 6, name: 'Yiorgos Avraamu', registered: '2018/01/01', role: 'Member', status: 'Active' },
-  { id: 7, name: 'Avram Tarasios', registered: '2018/02/01', role: 'Staff', status: 'Banned' },
-  { id: 8, name: 'Quintin Ed', registered: '2018/02/01', role: 'Admin', status: 'Inactive' },
-  { id: 9, name: 'Enéas Kwadwo', registered: '2018/03/01', role: 'Member', status: 'Pending' },
-  { id: 10, name: 'Agapetus Tadeáš', registered: '2018/01/21', role: 'Staff', status: 'Active' },
-  { id: 11, name: 'Carwyn Fachtna', registered: '2018/01/01', role: 'Member', status: 'Active' },
-  { id: 12, name: 'Nehemiah Tatius', registered: '2018/02/01', role: 'Staff', status: 'Banned' },
-  { id: 13, name: 'Ebbe Gemariah', registered: '2018/02/01', role: 'Admin', status: 'Inactive' },
-  { id: 14, name: 'Eustorgios Amulius', registered: '2018/03/01', role: 'Member', status: 'Pending' },
-  { id: 15, name: 'Leopold Gáspár', registered: '2018/01/21', role: 'Staff', status: 'Active' },
-  { id: 16, name: 'Pompeius René', registered: '2018/01/01', role: 'Member', status: 'Active' },
-  { id: 17, name: 'Paĉjo Jadon', registered: '2018/02/01', role: 'Staff', status: 'Banned' },
-  { id: 18, name: 'Micheal Mercurius', registered: '2018/02/01', role: 'Admin', status: 'Inactive' },
-  { id: 19, name: 'Ganesha Dubhghall', registered: '2018/03/01', role: 'Member', status: 'Pending' },
-  { id: 20, name: 'Hiroto Šimun', registered: '2018/01/21', role: 'Staff', status: 'Active' },
-  { id: 21, name: 'Vishnu Serghei', registered: '2018/01/01', role: 'Member', status: 'Active' },
-  { id: 22, name: 'Zbyněk Phoibos', registered: '2018/02/01', role: 'Staff', status: 'Banned' },
-  { id: 23, name: 'Aulus Agmundr', registered: '2018/01/01', role: 'Member', status: 'Pending' },
-  { id: 42, name: 'Ford Prefect', registered: '2001/05/25', role: 'Alien', status: 'Don\'t panic!' }
-]
-
-const fields = [
-  { key: 'name', _style: { width: '40%' } },
-  { key: 'role', _style: { width: '20%' } },
-  { key: 'status', _style: { width: '20%' } },
-  'registered',
-  {
-    key: 'show_details',
-    label: '',
-    _style: { width: '1%' },
-    sorter: false,
-    filter: false
-  },
-]
-
-const getBadge = (status) => {
-  switch (status) {
-    case 'Active': return 'success'
-    case 'Inactive': return 'secondary'
-    case 'Pending': return 'warning'
-    case 'Banned': return 'danger'
-    default: return 'primary'
-  }
-}
-// '/#/sales-orders/' + data.client + '/' + data.site + '/' + data.orderno
 class SalesOrder extends React.PureComponent {
   state = {
+    search: '',
     site: null,
     client: null,
     status: null,
     orderType: null,
+    resources: [],
+    fields: [
+      { key: 'site', label: 'Site' },
+      { key: 'client', label: 'Client' },
+      { key: 'orderno', label: 'OrderNo' },
+      { key: 'ordertype', label: 'OrderType' },
+      { key: 'customername', label: 'Customer Name' },
+      { key: 'status', label: 'Status' },
+    ], //userFields
+    data: [], //UserData,
+    create: false,
+    detail: {},
+  }
+  componentDidMount = () => {
+    this.getSite()
+    this.getClient()
+    this.getStatus()
+    this.getResources()
+    this.getProduct()
+    this.searchSalesOrder()
+  }
+  getSite = async () => {
+    const { data } = await axios.get("/dropdown/getsite")
+    const siteData = data.map(s => ({ value: s.site, label: `${s.name}` }))
+    const site = { value: 'all', label: 'All' }
+    siteData.splice(0, 0, site)
+    this.setState({ siteData })
+  }
+  getClient = async () => {
+    const { data } = await axios.get("/dropdown/getclient")
+    const clientData = data.map(s => ({ value: s.code, label: `${s.name}` }))
+    const client = { value: 'all', label: 'All' }
+    clientData.splice(0, 0, client)
+    this.setState({ clientData })
+  }
+  getStatus = async () => {
+    const status = { value: 'all', label: 'All' }
+    const statusData = [
+      status,
+      { value: "unavailable", label: 'Unavailable' },
+      { value: "available", label: 'Available' },
+      { value: "released", label: 'Released' },
+      { value: "part_released", label: 'Part Released' },
+      { value: "completed", label: 'Completed' },
+      { value: "open", label: 'Open' },
+    ];
+    this.setState({ statusData })
+  }
+  getResources = async () => {
+    const { user } = this.props.store
+    if (user) {
+      const { data } = await axios.get(`/getsorecources?company=${user.company}&client=${user.client}`)
+      const orderTypeData = data.orderType.code.map((c, i) => (
+        { value: c, label: data.orderType.name[i] }
+      ))
+      const orderType = { value: 'all', label: 'All' }
+      orderTypeData.splice(0, 0, orderType)
+      this.setState({ resources: data, orderTypeData })
+    }
+  }
+  getProduct = async () => {
+    // const { user } = this.props.store
+    // const { data } = await axios.get(`/dropdown/getProduct?client=${user.client}`)
+    // console.log(data)
+  }
+  searchSalesOrder = async () => {
+    console.log('load sales order')
+    // const { search, site, client, orderType } = this.state
+    // let urls = []
+    // urls.push('searchParam=' + search ? search : '')
+    // urls.push('site=' + (site ? site.value : 'all'))
+    // urls.push('client=' + (client ? client.value : 'all'))
+    // urls.push('orderType=' + (orderType ? orderType.value : 'all'))
+    // const { data } = await axios.get(`/salesorder?` + urls.join('&'))
+    // if (data.data.length) {
+    //   console.log(JSON.stringify(data.data))
+    //   console.log(Object.keys(data.data[0]))
+    //   this.setState({ data: data.data, fields })
+    // } else {
+    //   this.setState({ data: [] })
+    // }
+    this.setState({ data: DummyData })
+  }
+  showDetails = (item, index, col, e) => {
+    const url = '/sales-orders/' + item.client + '/' + item.site + '/' + item.orderno
+    this.props.history.push(url)
+  }
+  toggle = (value) => {
+    this.setState({ create: value ? value : !this.state.create })
   }
   render() {
-    const siteData = States
-    const clientData = States
-    const statusData = States
-    const orderTypeData = States
-    return <React.Fragment>
-      <CCard className="bg-transparent mb-3">
-        <CCardTitle className="text-info m-0">Sales Orders <button className="btn btn-primary float-right">Create</button></CCardTitle>
-      </CCard>
+    const { siteData, fields, data,
+      site, clientData, client, statusData, status, orderTypeData, orderType,
+      create,
+    } = this.state
+    const breadcrumb = [
+      { to: '/', label: 'Home' },
+      { to: '', label: 'Sales Order', active: true },
+    ]
+    return <div className="sales-order">
+      <HeaderTitle
+        breadcrumb={breadcrumb}
+        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right">Create Sales Order</CButton>}
+      />
 
+      <SalesOrderCreate show={!!create} toggle={this.toggle} />
       <CCard>
-        <CCardBody>
+        <CCardBody className="p-2">
           <CRow>
-            <CCol md={3} className="px"><input type="text" className="form-control" placeholder="Search" /></CCol>
-            <CCol md={2} className="px">
+            <CCol sm="4" lg="3">
+              <input type="text" className="form-control" placeholder="Search"
+                onChange={e => this.setState({ search: e.target.value })}
+              />
+            </CCol>
+            <CCol sm="4" lg="2">
               <Select name="site" placeholder="Site"
-                value={this.state.site} options={siteData}
+                value={site} options={siteData}
                 onChange={(val) => this.setState({ site: val })}
               />
             </CCol>
-            <CCol md={2} className="px">
+            <CCol sm="4" lg="2">
               <Select name="client" placeholder="Client"
-                value={this.state.client} options={clientData}
+                value={client} options={clientData}
                 onChange={(val) => this.setState({ client: val })}
               />
             </CCol>
-            <CCol md={2} className="px">
+            <CCol sm="4" lg="2">
               <Select name="status" placeholder="Status"
-                value={this.state.status} options={statusData}
+                value={status} options={statusData}
                 onChange={(val) => this.setState({ status: val })}
               />
             </CCol>
-            <CCol md={2} className="px">
+            <CCol sm="4" lg="2">
               <Select name="orderType" placeholder="Order Type"
-                value={this.state.orderType} options={orderTypeData}
+                value={orderType} options={orderTypeData}
                 onChange={(val) => this.setState({ orderType: val })}
               />
             </CCol>
-            <CCol md={1}><button className="btn btn-outline-primary float-right">Search</button></CCol>
+            <CCol sm="4" lg="1">
+              <button className="btn btn-outline-primary float-right" onClick={this.searchSalesOrder}>Search</button>
+            </CCol>
           </CRow>
         </CCardBody>
       </CCard>
 
       <DataTable
-        className="h-70 scroll-y"
         fields={fields}
-        data={usersData}
-        onClick={(item, index, col, e) => console.log(item, index, col, e)}
-        customFields={{
-          'status':
-            (item) => (
-              <td>
-                <CBadge color={getBadge(item.status)}> {item.status} </CBadge>
-              </td>
-            ),
-          'show_details':
-            item => {
-              return (
-                <td className="py-2">
-                  <CButton color="primary" variant="outline" shape="square" size="sm" > Show </CButton>
-                </td>
-              )
-            },
-        }}
+        data={data}
+        onClick={this.showDetails}
       />
-    </React.Fragment>
+    </div>
   }
 }
 const mapStateToProps = (store) => ({ store })

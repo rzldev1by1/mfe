@@ -1,26 +1,54 @@
-.form-inline {
+.datatables .col-sm-6 {
   padding: 0 12px !important;
 }
+.datatables .table thead th {
+  position: sticky !important;
+  font-weight: 400 !important;
+  font-size: 90% !important;
+  color: #9e9e9e !important;
+  top: 0px;
+  border-top: 0px solid #d8dbe0;
+  border-bottom: 0px solid #d8dbe0;
+  background-color: #fff;
+}
+.datatables th:first {
+  padding-top: 10px !important;
+}
+.datatables th:before,
+.datatables th:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+.datatables th:after {
+  bottom: 0px;
+  border-bottom: 1px solid #d8dbe0;
+}
+
+/* pagination */
 ul.pagination {
   margin-bottom: 0;
+  justify-content: center !important;
+  background-color: #fff;
+}
+.pagination li a {
+  padding-top: 15px;
+  height: 50px;
 }
 .page-link {
-  border: none;
+  border: none !important;
 }
-
-.card-body {
-  padding: 5px;
+.page-2{
+  /* border-left: 1px solid #d8dbe0; */
+  padding: 10px;
+  background-color: #fff;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
-
 .page-2 input {
   width: 50px;
-  text-align: center;
-  margin-top: 2px;
-  margin-left: 10px;
 }
-.page-3{
-  margin-top: 5px;
-}
-.form-inline .justify-content-sm-end select{
-  margin-right: 20px !important;
+.page-3 {
+  margin-top: 15px !important;
 }

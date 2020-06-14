@@ -1,21 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { findDOMNode } from 'react-dom'
 import {
   CCard,
   // CCardHeader,
   CCardBody,
+  CCardGroup,
   CPagination,
   CDataTable,
   CButton,
   CRow,
   CCol,
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+// import CIcon from '@coreui/icons-react'
 import './DataTable.css'
+
 const DataTable = (props) => {
   const [pagination, setPagination] = useState({
     activePage: 1,
-    itemsPerPage: 5,
+    itemsPerPage: props.pagination ? props.pagination.itemsPerPage : 50,
   })
   const refTable = useRef();
   useEffect(() => {
@@ -30,10 +31,9 @@ const DataTable = (props) => {
   const startIndex = (pagination.activePage - 1) * pagination.itemsPerPage
   const endIndex = startIndex + pagination.itemsPerPage
   const pages = parseInt(props.data.length / pagination.itemsPerPage)
-  // form-inline justify-content-sm-end
   return (
     <React.Fragment>
-      <CCard className={props.className}>
+      <CCard className={'datatables ' + props.className} >
         {/* <div className="row my-2 mx-0">
           <div className="col form-inline p-0">
             <label className="mr-2">Filter:</label><input className="form-control" type="text" placeholder="type string..." value="" />
@@ -57,17 +57,16 @@ const DataTable = (props) => {
           innerRef={refTable}
           items={props.data}
           fields={props.fields}
-          columnFilter
-          tableFilter
-          itemsPerPageSelect
           hover
           sorter
+          columnFilter={props.columnFilter}
+          tableFilter={props.tableFilter}
+          itemsPerPageSelect={props.itemsPerPageSelect}
           // loading
           // footer
+          // pagination
           itemsPerPage={pagination.itemsPerPage}
           activePage={pagination.activePage}
-          // pagination={pagination}
-
           onRowClick={props.onClick}
           // onPageChange={(val) => console.log('new page:', val)}
           // onPagesChange={(val) => console.log('new pages:', val)}
@@ -81,30 +80,28 @@ const DataTable = (props) => {
       </CCard>
 
       <CRow>
-        <CCol md="5" className="mb-0">
-          <CCard>
-            <CCardBody className="p-0">
-              <CRow>
-                <CCol md="6" className="page-1 text-center">
-                  <CPagination
-                    limit={3}
-                    activePage={pagination.activePage}
-                    pages={pages > 0 ? pages : 1}
-                    onActivePageChange={(i) => setPagination({ ...pagination, activePage: i > 1 ? i : 1 })}
-                  />
-                </CCol>
-                <CCol md="6" className="border-left page-2 d-flex flex-row">
-                  <span className="text-muted mt-1 mr-1">Go to page</span>
-                  <input type="number" className="form-control form-control-sm" onChange={gotoPage} min="1" />
-                  <span className="text-muted mt-1 ml-3">Go ></span>
-                </CCol>
-              </CRow>
-            </CCardBody>
-          </CCard>
+        <CCol lg="6" xl="6" >
+          <CCardGroup>
+            <CCard>
+              <CPagination
+                limit={3}
+                activePage={pagination.activePage}
+                pages={pages > 0 ? pages : 1}
+                onActivePageChange={(i) => setPagination({ ...pagination, activePage: i > 1 ? i : 1 })}
+              />
+            </CCard>
+            <CCard>
+              <div className="page-2 d-flex justify-content-center">
+                <span className="text-muted mt-1 mr-3">Go to page</span>
+                <input type="number" className="form-control form-control-sm" onChange={gotoPage} min="1" />
+                <span className="text-muted mt-1 ml-3">Go ></span>
+              </div>
+            </CCard>
+          </CCardGroup>
+          <div className="page-3 pl-3 text-muted float-left">Showing <b>{startIndex + 1} to {endIndex} of {props.data.length}</b> entries</div>
         </CCol>
-        <CCol md="7">
-          <label className="page-3 text-muted">Showing <b>{startIndex + 1} to {endIndex} of {props.data.length}</b> entries</label>
-          <CButton color="info" className="float-right"> Export </CButton>
+        <CCol lg="6" xl="6">
+          <CButton color="primary" size="lg" className="float-right"> Export </CButton>
         </CCol>
       </CRow>
     </React.Fragment>

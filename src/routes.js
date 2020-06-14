@@ -2,9 +2,9 @@ import React from 'react';
 // import Loadable from 'react-loadable';
 // import DefaultLayout from 'shared/DefaultLayout';
 
-function Loading() {
-	return <div>Loading...</div>;
-}
+// function Loading() {
+// 	return <div>Loading...</div>;
+// }
 
 // const Breadcrumbs = React.lazy(() => import('./pages/Base/Breadcrumbs'));
 const Welcome = React.lazy(() => import('./pages/Welcome/Welcome'));
@@ -26,8 +26,8 @@ const routes = [
 	// { path: '/users-management', exact: true, name: 'User Management', component: UsersManagement },
 	// { path: '/users-management/:id/detail', exact: true, name: 'User Management', component: UsersManagementDetail },
 	// { path: '/users-management/create', exact: true, name: 'User Management', component: UsersManagementCreate },
+	{ path: '/sales-orders/:client/:site/:orderno', exact: true, name: 'Sales Order Detail', component: SalesOrderDetail },
 	{ path: '/sales-orders', exact: true, name: 'Sales Orders', component: SalesOrder },
-	{ path: '/sales-orders/:client/:site/:orderdetail', exact: true, name: 'Sales Orders', component: SalesOrderDetail }
 ];
 
 export default routes;

@@ -30,7 +30,6 @@ class Logins extends Component {
                 const payload = { "userid": username, "password": password }
 
                 helpers.authenticationHandler(payload).then(result => {
-                    console.log(result)
                     if (result.isSuccess) {
                         this.props.dispatch({ type: 'set', user: result.data })
                         this.props.history.push(result.redirect)

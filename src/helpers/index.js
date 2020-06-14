@@ -1,14 +1,10 @@
 // import moment from 'moment';
 
 import axios from 'axios';
-const baseURL = process.env.REACT_APP_API_URL
-const options = {
-	headers: { 'Content-Type': 'application/json' }
-}
-class Helpers {
-	static endpoint = "usermanagement/login";
-	static resetPassword = 'usermanagement/request_reset_password';
 
+const baseUrl = process.env.REACT_APP_API_URL;
+const options = { headers: { 'Content-Type': 'application/json' } }
+class Helpers {
 	static staticMethod() {
 		return 'static method has been called.';
 	}
@@ -149,7 +145,7 @@ class Helpers {
 
 	static requestResetPasswordHandler = (payload) => {
 		return (
-			axios.post(baseURL + this.resetPassword, payload, options)
+			axios.post(baseUrl + "/usermanagement/request_reset_password", payload, options)
 				.then(res => {
 					if (res.data) {
 						return res;
@@ -165,7 +161,7 @@ class Helpers {
 		let result = {};
 
 		return (
-			axios.post(baseURL + this.endpoint, payload, options)
+			axios.post(baseUrl + "/usermanagement/login", payload, options)
 				.then(res => {
 					if (res.data) {
 						result.isSuccess = true;
@@ -192,7 +188,7 @@ class Helpers {
 		let result = {};
 
 		return (
-			axios.post(this.endpoint, {
+			axios.post(baseUrl + "/usermanagement/login", {
 				headers: {
 					'token': oldToken,
 					'Content-Type': 'application/json'

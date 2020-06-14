@@ -3,6 +3,7 @@ const INITIAL_STATE = {
   asideShow: false,
   darkMode: false,
   user: null,
+  loading: true,
 }
 
 // REDUCERS

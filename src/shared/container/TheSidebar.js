@@ -14,9 +14,8 @@ import {
 } from '@coreui/react'
 import Logo from 'assets/img/LOGO2.png'
 import UserIcon from 'assets/img/User-Icon.png';
-
-// sidebar nav config
 import navigation from './_nav'
+import './TheSidebar.css'
 
 const TheSidebar = () => {
   const dispatch = useDispatch()
@@ -50,14 +49,14 @@ const TheSidebar = () => {
       </CSidebarNav>
       <ul className="c-sidebar-nav c-sidebar-bottom">
         <li className="c-sidebar-nav-item">
-          <a className="c-sidebar-nav-link logout" href="#/logout" onClick={signOut}>
+          <span className="c-sidebar-nav-link logout">
             <img src={UserIcon} alt="logout-icon"/>
             <div className="ml-3">
               <span>{user.name}</span> <br />
               <span>ID: {user.userId} </span> <br />
-              <span> LOGOUT </span>
+              <a href="#/logout" onClick={signOut}> LOGOUT </a>
             </div>
-          </a>
+          </span>
         </li>
       </ul>
       {/* <CSidebarMinimizer className="c-d-md-down-none" /> */}

@@ -1,0 +1,41 @@
+
+/* sidebar style start */
+@media (min-width: 992px) {
+  .c-wrapper {
+    margin-left: 80px !important;
+  }
+}
+.c-sidebar-unfoldable:not(:hover).c-sidebar-lg-show {
+  width: 80px;
+}
+.c-sidebar-brand,
+.c-sidebar-bottom .logout {
+  background-color: darken(#376BFB, 10%) !important;
+}
+.c-sidebar {
+  background-color: #376BFB;
+}
+.c-sidebar-nav-icon {
+  height: 25px;
+  margin-left: -5px !important;
+  margin-right: 15px !important;
+}
+.c-sidebar-bottom {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 0 !important;
+}
+.c-sidebar-bottom .logout:hover {
+  background-color: rgba(0, 0, 21, 0.2);
+}
+.c-sidebar-bottom .logout img {
+  height: 40px;
+  margin-left: 5px !important;
+  margin-right: 10px !important;
+}
+.c-sidebar-bottom .logout a {
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+}
+/* sidebar style end */

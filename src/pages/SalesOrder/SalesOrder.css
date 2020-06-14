@@ -1,8 +1,13 @@
-.css-yk16xz-control {
-  min-height: 35px !important;
-  height: 30px !important;
-  border: 1px solid !important;
-  border-color: #e4e7ea !important;
+/* Sales Order List */
+.sales-order .table-responsive{
+  height: 75vh;
 }
-.css-g1d714-ValueContainer{
+
+
+/* Sales Order Detail */
+.sales-order-detail .section-1 .col{
+  padding: 5px 20px;
+}
+.sales-order-detail .table-responsive{
+  height: 48vh;
 }
