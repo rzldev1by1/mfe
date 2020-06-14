@@ -1,16 +1,10 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import {
-  CCreateElement,
   CSidebar,
   CSidebarBrand,
   CSidebarNav,
-  CSidebarNavDivider,
-  CSidebarNavTitle,
-  // CSidebarMinimizer,
-  CSidebarNavDropdown,
-  CSidebarNavItem,
-  // CSidebarFooter,
 } from '@coreui/react'
 import Logo from 'assets/img/LOGO2.png'
 import UserIcon from 'assets/img/User-Icon.png';
@@ -37,7 +31,7 @@ const TheSidebar = () => {
         <img src={Logo} className="c-sidebar-brand-minimized" height="35" alt="logo" />
       </CSidebarBrand>
       <CSidebarNav>
-        <CCreateElement
+        {/* <CCreateElement
           items={navigation}
           components={{
             CSidebarNavDivider,
@@ -45,12 +39,15 @@ const TheSidebar = () => {
             CSidebarNavItem,
             CSidebarNavTitle
           }}
-        />
+        /> */}
+        {navigation.map((n, i) => <li key={i} className="c-sidebar-nav-item">
+          <Link to={n.to} className="c-sidebar-nav-link"><i className={`c-sidebar-nav-icon ${n.icon}`}></i>{n.name}</Link>
+        </li>)}
       </CSidebarNav>
       <ul className="c-sidebar-nav c-sidebar-bottom">
         <li className="c-sidebar-nav-item">
           <span className="c-sidebar-nav-link logout">
-            <img src={UserIcon} alt="logout-icon"/>
+            <img src={UserIcon} alt="logout-icon" />
             <div className="ml-3">
               <span>{user.name}</span> <br />
               <span>ID: {user.userId} </span> <br />

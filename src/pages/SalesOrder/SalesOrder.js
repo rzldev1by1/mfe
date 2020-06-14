@@ -10,12 +10,20 @@ import {
 } from '@coreui/react'
 import Select from 'react-select'
 
-import DataTable from 'shared/table/DataTable'
+// import DataTable from 'shared/table/DataTable'
+import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
 import SalesOrderCreate from './SalesOrderCreate'
 import DummyData from './dummy/data.json'
 import './SalesOrder.css'
-
+const columns = [
+  { accessor: 'site', Header: 'Site' },
+  { accessor: 'client', Header: 'Client' },
+  { accessor: 'orderno', Header: 'OrderNo' },
+  { accessor: 'ordertype', Header: 'OrderType' },
+  { accessor: 'customername', Header: 'Customer Name' },
+  { accessor: 'status', Header: 'Status' },
+]
 class SalesOrder extends React.PureComponent {
   state = {
     search: '',
@@ -24,15 +32,8 @@ class SalesOrder extends React.PureComponent {
     status: null,
     orderType: null,
     resources: [],
-    fields: [
-      { key: 'site', label: 'Site' },
-      { key: 'client', label: 'Client' },
-      { key: 'orderno', label: 'OrderNo' },
-      { key: 'ordertype', label: 'OrderType' },
-      { key: 'customername', label: 'Customer Name' },
-      { key: 'status', label: 'Status' },
-    ], //userFields
-    data: [], //UserData,
+    fields: columns,
+    data: [],
     create: false,
     detail: {},
   }
@@ -168,11 +169,16 @@ class SalesOrder extends React.PureComponent {
         </CCardBody>
       </CCard>
 
-      <DataTable
+      {/* <DataTable
         fields={fields}
         data={data}
         onClick={this.showDetails}
-      />
+      /> */}
+
+      <CustomTable
+        data={data}
+        fields={fields}
+        onClick={this.showDetails} />
     </div>
   }
 }

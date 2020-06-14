@@ -18,7 +18,7 @@
 
 // Core-UI component style
 .c-app {
-  background-image: url("../../assets/img/Home-Background.png");
+  background-image: url("../img/Home-Background.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -62,3 +62,138 @@
   width: 98.5% !important;
 }
 /* dropdown style end */
+
+/* fonts start */
+@font-face {
+  font-family: "Helvetica Neue Regular";
+  src: url("../fonts/HelveticaNeue.ttf");
+}
+@font-face {
+  font-family: "Helvetica Neue Light";
+  src: url("../fonts/HelveticaNeue-Light.ttf");
+}
+@font-face {
+  font-family: "Helvetica Neue Medium";
+  src: url("../fonts/HelveticaNeue-Medium.ttf");
+}
+@font-face {
+  font-family: "Helvetica Neue Bold";
+  src: url("../fonts/HelveticaNeue-Bold.ttf");
+}
+@font-face {
+  font-family: "icomoon";
+  src: url("../fonts/icomoon.eot?t60pg3");
+  src: url("../fonts/icomoon.eot?t60pg3#iefix") format("embedded-opentype"),
+    url("../fonts/icomoon.ttf?t60pg3") format("truetype"),
+    url("../fonts/icomoon.woff?t60pg3") format("woff"),
+    url("../fonts/icomoon.svg?t60pg3#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="iconU-"],
+[class*=" iconU-"] {
+  font-family: "icomoon" !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.iconU-stockMovement:before {
+  content: "\e90e";
+}
+.iconU-user:before {
+  content: "\e910";
+}
+.iconU-dashboard:before {
+  content: "\e911";
+}
+.iconU-purchaseOrder:before {
+  content: "\e915";
+}
+.iconU-report:before {
+  content: "\e912";
+}
+.iconU-salesOrder:before {
+  content: "\e916";
+}
+.iconU-stockHolding:before {
+  content: "\e90f";
+}
+.iconU-i:before {
+  content: "\e90c";
+}
+.iconU-circledChecked:before {
+  content: "\e920";
+}
+.iconU-checked:before {
+  content: "\e91f";
+}
+.iconU-close:before {
+  content: "\e929";
+}
+.iconU-delete:before {
+  content: "\e925";
+}
+.iconU-edit:before {
+  content: "\e924";
+}
+.iconU-filter:before {
+  content: "\e918";
+}
+.iconU-information:before {
+  content: "\e901";
+}
+.iconU-leftArrow:before {
+  content: "\e907";
+}
+.iconU-rightArrow:before {
+  content: "\e906";
+}
+.iconU-upArrow:before {
+  content: "\e91c";
+}
+.iconU-upArrows:after {
+  content: "\e91c";
+}
+.iconU-downArrow:after {
+  content: "\e91b";
+}
+.iconU-one:before {
+  content: "\e905";
+}
+.iconU-two:before {
+  content: "\e904";
+}
+.iconU-three:before {
+  content: "\e903";
+}
+.iconU-option:before {
+  content: "\e91e";
+}
+.iconU-question:before {
+  content: "\e927";
+}
+.iconU-calendar:before {
+  content: "\e928";
+}
+.iconU-lastPage:before {
+  content: "\e908";
+}
+.iconU-firstPage:before {
+  content: "\e909";
+}
+.iconU-search:before {
+  content: "\e913";
+}
+.iconU-field-dropdown:before {
+  content: "\e91b";
+}
+.iconU-createModal:before {
+  content: "\e90b";
+}
+.iconU-logout:before {
+  content: "\e90a";
+}
+/* fonts end */

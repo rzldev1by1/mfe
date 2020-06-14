@@ -1,0 +1,213 @@
+.react-table{
+  height: 75vh;
+}
+
+.btn-light{
+  background-color: #fff !important;
+}
+.pagination-block {
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.alert-text {
+  border: 0px;
+  padding: 0px;
+  display: contents;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.font {
+  font-family: sans-serif;
+}
+
+.text-14 {
+  font-size: 14px;
+}
+
+.text-15 {
+  font-size: 15px;
+}
+
+.text-16 {
+  font-size: 16px;
+}
+
+.text-20 {
+  font-size: 20px;
+}
+
+.pd-0 {
+  padding: 0px;
+}
+
+.mr-l-10 {
+  margin-left: 10px;
+}
+
+.bg-blue {
+  background-color: #007bff;
+}
+
+.grid {
+  display: grid;
+}
+
+.flex {
+  display: flex;
+}
+
+.color-text-header {
+  color: #aebbb0
+}
+
+.color-text-primary {
+  color: white;
+}
+
+.color-text-blue {
+  color: #007bff;
+}
+
+.current-color {
+  color: currentColor;
+}
+
+.icon-header {
+  color: #aebbb0;
+  stroke: #aebbb0;
+  stroke-width: 1px;
+}
+
+.edit-column {
+  text-align: center;
+  cursor: pointer;
+}
+
+.react-table {
+  border: none;
+  background-color: white;
+  padding: 5px 0px 15px;
+  border-radius: 4px;
+}
+
+.paging {
+  background-color: white;
+  padding: 5px;
+  margin-top: 10px;
+  border-radius: 5px;
+  height: 39px;
+  text-align: center;
+}
+
+.btn-paging {
+  margin: 0px 3px;
+  width: 24px;
+  height: 24px;
+  box-shadow: none !important;
+}
+
+.col-go-page {
+  padding-right: 15px;
+}
+
+.go-page {
+  padding: 5px; background-color: white; border-radius: 5px;
+  margin-top: 10px; justify-content: center;
+}
+
+.text-go-page {
+  font-family: sans-serif;
+  font-size: 14px;
+  align-self: center;
+}
+
+.form-go-page {
+  padding: 4px 5px; font-size: 13px;
+  width: 40px; height: auto; margin-left: 3px;
+}
+
+.col-text-entries {
+  border-radius: 5px;
+  display: flex;
+  margin-top: 10px;
+  align-self: center;
+}
+
+.col-button {
+  margin-top: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.btn-go {
+  margin: 0px 3px 0px 5px;
+  box-shadow: none !important;
+}
+
+.btn-export {
+  margin: 0px 3px;
+}
+
+.mod-title {
+  padding: 0px 5px;
+}
+
+.close-modal {
+  align-self: center;
+  text-align: right;
+}
+
+.mod-body {
+  padding: 16px 0px;
+}
+
+.mod-body-title {
+  padding: 0px 16px;
+}
+
+.btn-edit-column {
+  border-width: 2px; text-align: left; height: 100%;
+}
+
+.mod-footer {
+  border: 0px; padding-top: 0px;
+}
+
+.mod-btn-save {
+  padding: 6px 35px;
+}
+
+/* breakpoints xs */
+
+@media only screen and (max-width: 599.95px) {
+  .col-go-page {
+      padding-right: 0px;
+      padding-left: 0px;
+  }
+  .col-button {
+      display: grid;
+      flex-direction: row;
+      padding: 0px;
+  }
+}
+
+/* breakpoints sm */
+
+@media only screen and (max-width: 959.95px) {
+  .col-go-page {
+      padding-left: 0px;
+  }
+  .col-text-entries {
+      justify-content: center;
+  }
+  .col-button {
+      display: grid;
+      flex-direction: row;
+      padding: 0px 0px 0px 15px;
+  }
+}
