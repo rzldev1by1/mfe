@@ -31,31 +31,22 @@ const TheSidebar = () => {
         <img src={Logo} className="c-sidebar-brand-minimized" height="35" alt="logo" />
       </CSidebarBrand>
       <CSidebarNav>
-        {/* <CCreateElement
-          items={navigation}
-          components={{
-            CSidebarNavDivider,
-            CSidebarNavDropdown,
-            CSidebarNavItem,
-            CSidebarNavTitle
-          }}
-        /> */}
         {navigation.map((n, i) => <li key={i} className="c-sidebar-nav-item">
           <Link to={n.to} className="c-sidebar-nav-link"><i className={`c-sidebar-nav-icon ${n.icon}`}></i>{n.name}</Link>
         </li>)}
       </CSidebarNav>
-      <ul className="c-sidebar-nav c-sidebar-bottom">
+      <CSidebarNav className="c-sidebar-bottom">
         <li className="c-sidebar-nav-item">
           <span className="c-sidebar-nav-link logout">
             <img src={UserIcon} alt="logout-icon" />
             <div className="ml-3">
               <span>{user.name}</span> <br />
               <span>ID: {user.userId} </span> <br />
-              <a href="#/logout" onClick={signOut}> LOGOUT </a>
+              <button onClick={signOut} className="btn btn-primary btn-sm"> LOGOUT </button>
             </div>
           </span>
         </li>
-      </ul>
+      </CSidebarNav>
       {/* <CSidebarMinimizer className="c-d-md-down-none" /> */}
     </CSidebar>
   )

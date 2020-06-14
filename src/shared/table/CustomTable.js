@@ -2,7 +2,7 @@ import React from 'react'
 import ReactTable from 'react-table-v6'
 import 'react-table-v6/react-table.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Button, FormControl, Container, Row, Col, Modal, Alert } from 'react-bootstrap'
+import { Button, FormControl, Container, Row, Col, Modal, span } from 'react-bootstrap'
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
 import { MdSkipNext, MdSkipPrevious, MdClose } from 'react-icons/md'
 import { IoIosArrowDown } from 'react-icons/io'
@@ -171,17 +171,14 @@ class CustomTable extends React.Component {
         header && header.map((data, index) => {
             let name = data.Header
             if (editColumn[index] === undefined) {
-                let icon = <span>
-                    <Alert className="alert-text color-text-header">
-                        {name}
-                    </Alert>
-                    {/* <svg class="bi bi-chevron-expand" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M3.646 9.146a.5.5 0 0 1 .708 0L8 12.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708zm0-2.292a.5.5 0 0 0 .708 0L8 3.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708z" />
-                    </svg> */}
-
-                    <svg className="icon-header" stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                let icon = <span className="span-text color-text-header">
+                    {name}
+                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z"></path>
                     </svg>
+                    {/* <svg class="bi bi-chevron-expand" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M3.646 9.146a.5.5 0 0 1 .708 0L8 12.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708zm0-2.292a.5.5 0 0 0 .708 0L8 3.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708z" />
+                        </svg> */}
                 </span>
 
                 let obj = {
@@ -214,107 +211,117 @@ class CustomTable extends React.Component {
         const { // data, columns
             page, button, btnStat, goPage, showModal, editColumn, editColumnTemp
         } = this.state
-        const { data, fields, pageSize } = this.props
+        let { data, fields, onClick, pageSize = 30 } = this.props
         const maxPage = Math.round(data.length / pageSize)
         const length = Math.round(data.length)
         const bottom = Math.round((page * pageSize) + 1)
         const top = ((bottom + pageSize) - 1) > length ? length : (bottom + pageSize) - 1
+        console.log(top)
         // header with icon
         const headerIcon = this.headerIcon(fields, editColumnTemp)
-        console.log(fields)
         return (
             <div>
                 <ReactTable
+                    columns={headerIcon}
                     data={data}
                     showPagination={false}
                     page={page}
                     defaultPageSize={pageSize}
                     className="react-table"
                     style={{ border: 'none' }}
+                    minRows={10}
                     // style header text
-                    getTheadThProps={() => {
+                    // getTheadThProps={() => {
+                    //     return {
+                    //         style: {
+                    //             textAlign: 'left', boxShadow: 'none',
+                    //            Family: 'sans-serif',Weight: 'bold',Size: 14,
+                    //             whiteSpace: 'normal', alignSelf: 'center',
+                    //             borderRight: '0px solid rgba(0,0,0,0.05)'
+                    //         }
+                    //     }
+                    // }}
+                    // // style header
+                    // getTheadProps={() => {
+                    //     return {
+                    //         style: {
+                    //             padding: 0, backgroundColor: 'white',Family: 'sans-serif',
+                    //             borderStyle: 'solid', borderWidth: '0px 0px 2px', borderColor: '#efeff9de',
+                    //             borderRadius: 0,Size: 14
+                    //         }
+                    //     }
+                    // }}
+                    // // style body
+                    // getTrProps={() => {
+                    //     return {
+                    //         style: {
+                    //             padding: 0, backgroundColor: 'white',Family: 'sans-serif',
+                    //             borderStyle: 'solid', borderWidth: '0px 0px 1px', borderColor: '#efeff9de',
+                    //             borderRadius: 0,Size: 14
+                    //         }
+                    //     }
+                    // }}
+                    // getTdProps={() => {
+                    //     return {
+                    //         style: {
+                    //             padding: '9px 5px', borderRight: '0px solid rgba(0,0,0,0.02)'
+                    //         }
+                    //     }
+                    // }}
+                    getTdProps={(state, rowInfo, column, instance) => {
                         return {
+                            onClick: (e, handleOriginal) => {
+                                !!onClick && onClick(rowInfo.original, state, column, e, instance)
+                            },
                             style: {
-                                textAlign: 'left', boxShadow: 'none',
-                                fontFamily: 'sans-serif', fontWeight: 'bold', fontSize: 14,
-                                whiteSpace: 'normal', alignSelf: 'center',
-                                borderRight: '0px solid rgba(0,0,0,0.05)'
+                                cursor: !!onClick && 'pointer'
                             }
                         }
                     }}
-                    // style header
-                    getTheadProps={() => {
-                        return {
-                            style: {
-                                padding: 0, backgroundColor: 'white', fontFamily: 'sans-serif',
-                                borderStyle: 'solid', borderWidth: '0px 0px 2px', borderColor: '#efeff9de',
-                                borderRadius: 0, fontSize: 14
-                            }
-                        }
-                    }}
-                    // style body
-                    getTrProps={() => {
-                        return {
-                            style: {
-                                padding: 0, backgroundColor: 'white', fontFamily: 'sans-serif',
-                                borderStyle: 'solid', borderWidth: '0px 0px 1px', borderColor: '#efeff9de',
-                                borderRadius: 0, fontSize: 14
-                            }
-                        }
-                    }}
-                    getTdProps={() => {
-                        return {
-                            style: {
-                                padding: '9px 5px', borderRight: '0px solid rgba(0,0,0,0.02)'
-                            }
-                        }
-                    }}
-                    // header
-                    columns={headerIcon}
-                ></ReactTable>
+                />
 
                 <Container fluid>
                     <Row>
-                        <Col xs={12} sm={6} md={6} lg={3} xl={3} className="pd-0">
+                        <Col xs={12} sm={6} md={6} lg={3} xl={3} className="p-0">
                             <div className="paging">
                                 <Button
-                                    variant="light" className="btn-paging pd-0"
+                                    variant="light" className="btn-paging p-0"
                                     onClick={this.handlePrevEnd.bind(this)}
                                 >
                                     <MdSkipPrevious />
                                 </Button>
                                 <Button
-                                    variant="light" className="btn-paging pd-0"
+                                    variant="light" className="btn-paging p-0"
                                     onClick={this.handlePrev.bind(this, page, maxPage)}
                                 >
                                     <GrFormPrevious />
                                 </Button>
                                 <Button
-                                    variant={btnStat === 'left' ? 'primary' : 'light'} className="btn-paging pd-0 text-14"
+                                    variant={btnStat === 'left' ? 'primary' : 'light'} className="btn-paging p-0 text-14"
                                     onClick={this.handlePageNum.bind(this, button[0], maxPage)}
                                 >
                                     {button[0]}
                                 </Button>
                                 <Button
-                                    variant={btnStat === 'mid' ? 'primary' : 'light'} className="btn-paging pd-0 text-14"
+                                    variant={btnStat === 'mid' ? 'primary' : 'light'} className="btn-paging p-0 text-14"
                                     onClick={this.handlePageNum.bind(this, button[1], maxPage)}
                                 >
                                     {button[1]}
                                 </Button>
                                 <Button
-                                    variant={btnStat === 'right' ? 'primary' : 'light'} className="btn-paging pd-0 text14"
+                                    variant={btnStat === 'right' ? 'primary' : 'light'} className="btn-paging p-0 text14"
                                     onClick={this.handlePageNum.bind(this, button[2], maxPage)}
                                 >
                                     {button[2]}
                                 </Button>
                                 <Button
-                                    variant="light" className="btn-paging pd-0"
+                                    variant="light" className="btn-paging p-0"
                                     onClick={this.handleNext.bind(this, page, maxPage)}
                                 >
                                     <GrFormNext />
                                 </Button>
                                 <Button
-                                    variant="light" className="btn-paging pd-0"
+                                    variant="light" className="btn-paging p-0"
                                     onClick={this.handleNextEnd.bind(this, maxPage)}
                                 >
                                     <MdSkipNext />
@@ -323,33 +330,24 @@ class CustomTable extends React.Component {
                         </Col>
                         <Col xs={12} sm={6} md={6} lg={3} xl={3} className="col-go-page">
                             <div className="go-page flex">
-                                <Alert className="alert-text text-go-page">
-                                    {'Go to Page'}
-                                </Alert>
+                                <span className="p-2">Go to Page</span>
                                 <FormControl
                                     placeholder=""
                                     className="form-go-page"
                                     value={goPage}
                                     onChange={this.handleChangeGoPage.bind(this, maxPage)}
                                     onKeyPress={this.handleKeyPress.bind(this)}
+                                    type="number"
                                 />
-                                <Button variant="light" className="btn-go pd-0">
-                                    {'Go'}<GrFormNext />
-                                </Button>
+                                <Button variant="light" className="btn-go p-0 pl-3"> Go <GrFormNext /> </Button>
                             </div>
                         </Col>
-                        <Col xs={12} sm={6} md={6} lg={3} xl={3} className="col-text-entries pd-0">
-                            <Alert className="alert-text font text-15">
-                                {'Showing'}
-                            </Alert>
-                            <Alert className="alert-text font text-15 bold">
-                                {` ${bottom} to ${top} of ${length} `}
-                            </Alert>
-                            <Alert className="alert-text font text-15">
-                                {'entries'}
-                            </Alert>
+                        <Col xs={12} sm={6} md={6} lg={3} xl={3} className="col-text-entries p-0 text-15">
+                            <span> Showing </span>
+                            <b> &nbsp; {`${bottom} to ${top} of ${length} `} </b>
+                            <span> {'entries'} </span>
                         </Col>
-                        <Col xs={12} sm={6} md={6} lg={3} xl={3} className="col-button pd-0">
+                        <Col xs={12} sm={6} md={6} lg={3} xl={3} className="col-button p-0">
                             <Button variant="primary" className="btn-export">
                                 {'Export'}<IoIosArrowDown className="mr-l-10" />
                             </Button>
@@ -364,20 +362,20 @@ class CustomTable extends React.Component {
                     <Modal.Header className="bg-blue">
                         <Container>
                             <Row>
-                                <Col xs={10} sm={10} md={10} lg={10} xl={10} className="pd-0 grid">
+                                <Col xs={10} sm={10} md={10} lg={10} xl={10} className="p-0 grid">
                                     <div className="flex">
                                         <FaRegEdit color='white' size={25} />
                                         <div className="mod-title">
-                                            <Alert className="alert-text font text-20 color-text-primary">
+                                            <span className="span-text text-20 color-text-primary">
                                                 {'Edit Column'}
-                                            </Alert>
+                                            </span>
                                         </div>
                                     </div>
-                                    <Alert className="alert-text font text-16 color-text-primary">
+                                    <span className="span-text text-16 color-text-primary">
                                         {`Show and hide the column to your needs. Please select 5 to ${fields && fields.length} column to show.`}
-                                    </Alert>
+                                    </span>
                                 </Col>
-                                <Col xs={2} sm={2} md={2} lg={2} xl={2} className="pd-0 close-modal">
+                                <Col xs={2} sm={2} md={2} lg={2} xl={2} className="p-0 close-modal">
                                     <Button onClick={this.closeModal.bind(this, false, editColumnTemp)}>
                                         <MdClose color='white' size={30} />
                                     </Button>
@@ -388,9 +386,9 @@ class CustomTable extends React.Component {
                     <Modal.Body className="mod-body">
                         <Container>
                             <Row className="mod-body-title">
-                                <Alert className="alert-text font text-20 text-primary">
+                                <span className="span-text text-20 text-primary">
                                     {'Purchase Order'}
-                                </Alert>
+                                </span>
                             </Row>
 
                             <Row xl={5} lg={4} md={3} sm={3} xs={2} className="mx-1">
@@ -414,11 +412,7 @@ class CustomTable extends React.Component {
                         </Container>
                     </Modal.Body>
                     <Modal.Footer className="mod-footer">
-                        <Button variant="primary" className="mod-btn-save"
-                            onClick={this.saveEdit.bind(this, editColumn)}
-                        >
-                            {'Save'}
-                        </Button>
+                        <Button variant="primary" className="mod-btn-save" onClick={this.saveEdit.bind(this, editColumn)} >Save</Button>
                     </Modal.Footer>
                 </Modal>
             </div >

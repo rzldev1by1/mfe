@@ -1,13 +1,12 @@
 /* Sales Order List */
-.sales-order .table-responsive{
-  height: 75vh;
+.sales-order .react-table {
+  height: 78vh;
 }
-
 
 /* Sales Order Detail */
-.sales-order-detail .section-1 .col{
-  padding: 5px 20px;
+.sales-order-detail .react-table{
+  height: 46vh;
 }
-.sales-order-detail .table-responsive{
-  height: 48vh;
+.sales-order-detail .section-1 .col {
+  padding: 5px 20px;
 }

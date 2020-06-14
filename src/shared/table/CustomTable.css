@@ -1,8 +1,4 @@
-.react-table{
-  height: 75vh;
-}
-
-.btn-light{
+.btn-light {
   background-color: #fff !important;
 }
 .pagination-block {
@@ -40,10 +36,6 @@
   font-size: 20px;
 }
 
-.pd-0 {
-  padding: 0px;
-}
-
 .mr-l-10 {
   margin-left: 10px;
 }
@@ -61,7 +53,7 @@
 }
 
 .color-text-header {
-  color: #aebbb0
+  color: #aebbb0;
 }
 
 .color-text-primary {
@@ -74,12 +66,6 @@
 
 .current-color {
   color: currentColor;
-}
-
-.icon-header {
-  color: #aebbb0;
-  stroke: #aebbb0;
-  stroke-width: 1px;
 }
 
 .edit-column {
@@ -97,16 +83,18 @@
 .paging {
   background-color: white;
   padding: 5px;
+  padding-top: 10px;
   margin-top: 10px;
   border-radius: 5px;
-  height: 39px;
+  height: 50px;
   text-align: center;
+  font-size: 15px;
 }
 
 .btn-paging {
   margin: 0px 3px;
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   box-shadow: none !important;
 }
 
@@ -115,8 +103,15 @@
 }
 
 .go-page {
-  padding: 5px; background-color: white; border-radius: 5px;
-  margin-top: 10px; justify-content: center;
+  height: 50px;
+  padding: 5px;
+  background-color: white;
+  border-radius: 5px;
+  margin-top: 10px;
+  justify-content: center;
+}
+.go-page span{
+  align-self: center;
 }
 
 .text-go-page {
@@ -126,8 +121,10 @@
 }
 
 .form-go-page {
-  padding: 4px 5px; font-size: 13px;
-  width: 40px; height: auto; margin-left: 3px;
+  padding: 4px 5px;
+  width: 40px;
+  height: auto;
+  margin-left: 3px;
 }
 
 .col-text-entries {
@@ -171,11 +168,14 @@
 }
 
 .btn-edit-column {
-  border-width: 2px; text-align: left; height: 100%;
+  border-width: 2px;
+  text-align: left;
+  height: 100%;
 }
 
 .mod-footer {
-  border: 0px; padding-top: 0px;
+  border: 0px;
+  padding-top: 0px;
 }
 
 .mod-btn-save {
@@ -186,13 +186,13 @@
 
 @media only screen and (max-width: 599.95px) {
   .col-go-page {
-      padding-right: 0px;
-      padding-left: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
   }
   .col-button {
-      display: grid;
-      flex-direction: row;
-      padding: 0px;
+    display: grid;
+    flex-direction: row;
+    padding: 0px;
   }
 }
 
@@ -200,14 +200,22 @@
 
 @media only screen and (max-width: 959.95px) {
   .col-go-page {
-      padding-left: 0px;
+    padding-left: 0px;
   }
   .col-text-entries {
-      justify-content: center;
+    justify-content: center;
   }
   .col-button {
-      display: grid;
-      flex-direction: row;
-      padding: 0px 0px 0px 15px;
+    display: grid;
+    flex-direction: row;
+    padding: 0px 0px 0px 15px;
   }
+}
+
+.rt-tbody .rt-tr:hover {
+  background-color: #eee;
+}
+.-sort-asc,
+.-sort-desc {
+  box-shadow: none !important;
 }

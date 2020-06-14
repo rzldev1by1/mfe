@@ -107,7 +107,8 @@ class SalesOrder extends React.PureComponent {
     // }
     this.setState({ data: DummyData })
   }
-  showDetails = (item, index, col, e) => {
+  showDetails = (item, c, d, e, f) => {
+    console.log(d, d, e, f)
     const url = '/sales-orders/' + item.client + '/' + item.site + '/' + item.orderno
     this.props.history.push(url)
   }
@@ -119,13 +120,9 @@ class SalesOrder extends React.PureComponent {
       site, clientData, client, statusData, status, orderTypeData, orderType,
       create,
     } = this.state
-    const breadcrumb = [
-      { to: '/', label: 'Home' },
-      { to: '', label: 'Sales Order', active: true },
-    ]
     return <div className="sales-order">
       <HeaderTitle
-        breadcrumb={breadcrumb}
+        breadcrumb={[{ to: '', label: 'Sales Order', active: true }]}
         button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right">Create Sales Order</CButton>}
       />
 

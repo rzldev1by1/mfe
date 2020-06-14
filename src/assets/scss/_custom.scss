@@ -30,13 +30,19 @@
 }
 
 /* breadcrumb style start */
+.breadcrumb {
+  background-color: transparent !important;
+}
 .breadcrumb-item {
   font-size: 150%;
   color: $primary !important;
 }
 .breadcrumb-item a {
-  text-decoration: none;
+  text-decoration: none !important;
   color: $secondary;
+}
+.breadcrumb-item a:hover {
+  color: $primary;
 }
 /* breadcrumb style end*/
 

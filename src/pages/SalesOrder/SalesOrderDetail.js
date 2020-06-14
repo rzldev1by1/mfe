@@ -8,7 +8,8 @@ import {
   CCol,
 } from '@coreui/react'
 
-import DataTable from 'shared/table/DataTable'
+// import DataTable from 'shared/table/DataTable'
+import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
 import './SalesOrder.css'
 
@@ -33,8 +34,16 @@ class SalesOrderDetail extends React.PureComponent {
     const { orderno, client, site } = this.props.match.params
     const url = `/salesorder/${orderno}?client=${client}&site=${site}`
     const { data } = await axios.get(url)
+    const capitalize = (str, lower = false) =>
+      (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
+    ;
     if (data.data.length) {
-      this.setState({ products: data.data, fields: Object.keys(data.data[0]) })
+      const fields = Object.entries(data.data[0]).map(([accessor], i) => {
+        return {
+          accessor, Header: capitalize(accessor.replace('_',' '))
+        }
+      })
+      this.setState({ products: data.data, fields })
     }
   }
   render() {
@@ -42,9 +51,8 @@ class SalesOrderDetail extends React.PureComponent {
     const { detail, products, fields } = this.state
     return <div className="sales-order-detail">
       <HeaderTitle breadcrumb={[
-        { to: '/', label: 'Home' },
         { to: '/sales-orders', label: 'Sales Order' },
-        { to: '', label: 'Detail', active: true },
+        { to: '', label: this.props.match.params.orderno, active: true },
       ]} />
       <CCardGroup className="section-1 mt-2 mb-4">
         <CCard>
@@ -88,7 +96,7 @@ class SalesOrderDetail extends React.PureComponent {
         </CCard>
       </CCardGroup>
 
-      <DataTable
+      <CustomTable
         fields={fields}
         data={products}
       />
