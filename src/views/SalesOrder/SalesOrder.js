@@ -232,7 +232,10 @@ class SalesOrder extends Component {
 
     if (this.state.resources.orderType !== undefined) {
       this.state.resources.orderType.name.map((data, i) => {
-        orderTypeName.push(data)
+        let combine = null
+        let cCode = this.state.resources.orderType.code[i]
+        combine = cCode+ ' : ' + data
+        orderTypeName.push(combine)
       })
       this.state.resources.orderType.code.map((data, i) => {
         orderTypeValue.push(data)
@@ -247,8 +250,6 @@ class SalesOrder extends Component {
         orderTypeFilterValue.push(data)
       })
     }
-
-    console.log(orderTypeFilterValue)
 
     const { client, site, status, ordertype, ordertypefilter } = this.state
     return (
@@ -294,8 +295,8 @@ class SalesOrder extends Component {
 
         <Dropdown optionSelected={ordertype}
           placeHolder="Order Type"
-          optionList={orderTypeFilterName.toString()}
-          optionValue={orderTypeFilterValue.toString()}
+          optionList={orderTypeName.toString()}
+          optionValue={orderTypeValue.toString()}
           getValue={(code) => this.setState({ ordertype: code })}
           className="filterDropdown" />
       </React.Fragment>

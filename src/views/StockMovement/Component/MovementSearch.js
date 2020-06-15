@@ -122,7 +122,7 @@ export default class MovementSearch extends Component {
     displayDate = () => {
         return (
             <div className='displayParent middles'>
-                <div className='searchParameterTitleDate'>Date From</div>
+                <div className='searchParameterTitleDate' style={{marginRight: 0}}>Date From</div>
                 <div onMouseLeave={() => this.setState({ dateFromShow: false })}>
                     <div className='displayButtonToggle'>
                         <button style={{ color: '#7c878c' }} onClick={() => this.setState({ dateFromShow: !this.state.dateFromShow })} className='btn dropdown-button ddlMovementDate default-box-height' data-toggle='dropdown'>
@@ -275,9 +275,7 @@ export default class MovementSearch extends Component {
                 clientName.push(data.code + ' : ' + data.name);
                 clientValue.push(data.code);
             })
-        }
-
-        
+        } 
         
         if (this.state.sitedata) {
             this.state.sitedata.map((data) => {
@@ -294,10 +292,11 @@ export default class MovementSearch extends Component {
                 
 				{Authentication.getUserLevel() == "administrator" ? (
 						<Dropdown placeHolder="Site"
-                        className="filterDropdowns"
+                        className=""
                         optionList={siteData.toString()}
                         optionValue={siteValue.toString()}
-                        getValue={this.getSiteSelected.bind(this)} />
+                        getValue={this.getSiteSelected.bind(this)}
+                        style={{width: "31%"}} />
 				) : (
 						<input
 						readOnly
@@ -306,17 +305,17 @@ export default class MovementSearch extends Component {
 						className="form-control put"
 						placeholder="Site"
                         tabIndex='1'
-                        style={{width: "170px",marginRight:'1em'}}
+                        style={{width: "31%",marginRight:'1em'}}
 						/>
 				)}
  
 
                 {Authentication.getUserLevel() == "administrator" ? (
-                    <Dropdown placeHolder="Client"
-                    className="filterDropdowns"
+                    <Dropdown placeHolder="Client" 
                     optionList={clientName.toString()}
                     optionValue={clientValue.toString()}
-                    getValue={this.getClientSelected.bind(this)}  />
+                    getValue={this.getClientSelected.bind(this)}
+                    style={{width: "31%",marginRight:'1em'}}  />
                 ) : (
                     <input
                     readOnly
@@ -325,16 +324,18 @@ export default class MovementSearch extends Component {
                     className="form-control put "
                     placeholder="Site"
                     tabIndex='1'
-                    style={{width: "170px",marginRight:'1em'}}
+                    style={{width: "31%",marginRight:'1em'}}
                     />
                 )}
                 
                 <AutoComplete placeHolder="Product"
-                    className=" filterDropdowns"
+                    className=""
                     optionList={productData.toString()}
                     optionValue={productValue.toString()}
                     getValue={this.getProductSelected.bind(this)}
-                    tabIndex="2" uppercase={true} />
+                    tabIndex="2" uppercase={true} 
+                    style={{width: "38%"}}
+                    />
             </React.Fragment>
         )
     }
@@ -347,12 +348,12 @@ export default class MovementSearch extends Component {
             <React.Fragment>
 <div className="row p-3">
                             {/* <div className="col">{this.displayPeriod()}</div> */}
-                            <div className="col"><DropdownPeriod periodHandler={this.periodHanlder} /> 
+                            <div className="col-sm-2"><DropdownPeriod periodHandler={this.periodHanlder} /> 
                                 <div id='period' className={(!this.state.periodSelected) && (this.state.searchClicked) ? 'stock-err' : 'stock-err-hidden'}>Please select display period</div> 
                             </div>
-                            <div className="col">{this.displayDate()}</div>
-                            <div className="col" style={{ display: 'flex' }}>{this.showDropdowns()}</div>
-                            <div className="col">
+                            <div className="col-sm-4">{this.displayDate()}</div>
+                            <div className="col-sm-4" style={{ display: 'flex', maxWidth: '37%', flex: '40%', paddingLeft: 0 }}>{this.showDropdowns()}</div>
+                            <div className="col-sm-1 " style={{position: 'absolute', right: 0}}>
                                 <Button onClick={() => this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>
                                 {/* <Button  style={{marginLeft : "15px", marginRight : "14px"}} onClick={()=> this.search()} className='movementBtnSearch default-box-height ' color="primary">Search</Button> */}
                             </div>

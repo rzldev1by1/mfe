@@ -440,6 +440,7 @@ th.iconU-edit {
 #orderline-header-product-id {
   margin-right: 10px;
   width: 224px;
+  display: flex;
 }
 
 #orderline-header-description-id {
@@ -450,6 +451,7 @@ th.iconU-edit {
 #orderline-header-qty-id {
   margin-right: 10px;
   width: 80px;
+  display: flex;
 }
 
 #orderline-header-weight-id {
@@ -460,6 +462,7 @@ th.iconU-edit {
 #orderline-header-uom-id {
   margin-right: 10px;
   width: 150px;
+  display: flex;
 }
 
 #orderline-header-rotadate-id {

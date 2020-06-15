@@ -91,6 +91,14 @@ class Tab1CreateSO extends Component {
       let code = this.props.resources.supplier.code[idx];
       supplierName.push(code + " ( " + data + " )");
     });
+
+    let orderTypeName = []
+    this.props.resources.orderType.name.map((data, i) => {
+      let combine = null
+      let cCode = this.props.resources.orderType.code[i]
+      combine = cCode+ ' : ' + data
+      orderTypeName.push(combine)
+    })
     return (
       <div className="tabcontents">
         <h3 className="fonts so-header-title">Order Details</h3>
@@ -135,7 +143,7 @@ class Tab1CreateSO extends Component {
                 }
                 placeHolder="Order Type"
                 style={{ minWidth: "100%" }}
-                optionList={this.props.resources.orderType.name.toString()}
+                optionList={orderTypeName.toString()}
                 optionValue={this.props.resources.orderType.code.toString()}
                 tabIndex='1'
               />
