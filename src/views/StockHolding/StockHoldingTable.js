@@ -10,7 +10,7 @@ class componentTable extends Component {
 					if (item.isVisible) {
 
 						return (
-							<th className="text-left" style={{ width: `${item.width}` }} id={item.key} key={idx} onClick={() => this.props.arrowHandler(idx, item.key)}>
+							<th className={`text-left`} style={{ width: `${item.width}` }} id={item.key} key={idx} onClick={() => this.props.arrowHandler(idx, item.key)}>
 								{item.tableHeaderText} <img key={idx} className="sort-icon" src={item.sort} />
 							</th>
 						);
@@ -103,8 +103,28 @@ class componentTable extends Component {
                         <tbody style={{fontSize:'1rem'}}>{this.showData()}</tbody> 
                     </Table> */}
 
-					<table className="defaultTable " >
-						<thead >{this.showHeader()}</thead>
+					<table className="defaultTable table table-responsive" >
+						{/* <thead >{this.showHeader()}</thead> */}
+						<thead>
+							<tr>
+								{this.props.columns.map((item, idx) => {
+									
+									if (item.isVisible) {
+										return (
+											<th className={`text-left`} style={item.style} id={item.key} key={idx} onClick={() => this.props.arrowHandler(idx, item.key)}>
+												{item.tableHeaderText} <img key={idx} className="sort-icon" src={item.sort} />
+											</th>
+										);
+									}
+									return null;
+								})}
+								<th className="text-left" style={{width: '1%'}}>
+									<button type="button" className="editColumnBtn" onClick={this.props.toggleDisplayMoreColumn}>
+										<i className="editColumnLogo iconU-edit" />
+									</button>
+								</th>
+							</tr>
+						</thead>
 						<tbody style={{ fontSize: '1rem', backgroundColor: 'white' }}>{this.showData()}</tbody>
 					</table>
 					<table className="defaultTable d-none" id="excel" >

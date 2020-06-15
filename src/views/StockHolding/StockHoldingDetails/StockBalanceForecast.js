@@ -130,14 +130,15 @@ class StockBalanceForecast extends Component {
 
 		if(this.props.stockBalanceForecast && this.props.stockBalanceForecast.length > 0){
 			stockbalanceForecast = [...this.props.stockBalanceForecast][0];
-
+			let effectivedate = stockbalanceForecast["available orders"][0].effectivedate;
+			console.log(stockbalanceForecast);
 		return (
 			<tr>
 					{this.props.foreshadowedColumns.map((column, columnIdx) => {
 						if (column.isVisible) {
 								if (column.id === "balance") {
 										return (
-												<td key={columnIdx} className="px-3 text-left">{this.props.openingBalance}</td>
+												<td key={columnIdx} className="px-3 text-left">{stockbalanceForecast["opening balance"]}</td>
 										);
 								}
 
@@ -149,7 +150,7 @@ class StockBalanceForecast extends Component {
 
 								return (
 									<td key={columnIdx} className="px-3 text-left">
-										{column.id === "effectivedate" ? formatDate(this.props.openingDate) : ''}
+										{column.id === "effectivedate" ? formatDate(effectivedate) : ''}
 									</td>
 								);
 						 }
@@ -255,7 +256,8 @@ class StockBalanceForecast extends Component {
 
 		return (
 			<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
-                <div className={"tablePage tableContent"+(this.props.stockBalanceForecast.length)?" ":" d-none"}>
+				{/* +(this.props.stockBalanceForecast.length)?" ":" d-none" */}
+                <div className={"tablePage tableContent"}> 
                     <Table className="table-condensed table-striped clickable-row rounded-bottom-175 mb-0" size="md" width="100%">
                         <thead>{this.showForeshadowedHeader()}</thead>
                         <tbody>
