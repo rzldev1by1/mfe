@@ -41,8 +41,8 @@
 .product-data td {
   padding: 0 10px;
   overflow: hidden;
-  white-space: nowrap;
-  /* word-wrap: break-word !important; */
+  /* white-space: nowrap; */
+  word-wrap: break-word !important;
 }
 .movement-data td {
 	padding: 0 15px;
@@ -60,17 +60,17 @@
 }
 
 #site.put  {
-  width: 12%;
+  width: 14%;
   padding-left: 20px !important;
 }
 #client.put  {
   width: 15%;
 }
 #product.put  {
-  width: 18%;
+  width: 22%;
 }
 #productName.put  {
-  width: 35%;
+  width: 30%;
   word-wrap: break-word;
 }
 #uom.put  {

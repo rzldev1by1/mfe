@@ -18,7 +18,7 @@ class Movement extends Component {
         super(props);
         this.hover = this.hover.bind(this);
         this._checkActiveHover = this._checkActiveHover.bind(this);
-        this._checkActiveSorting = this._checkActiveSorting.bind(this);
+        this._checkActiveSorting = this._checkActiveSorting.bind(this); 
 
         this.state = {
             data: [],
@@ -49,7 +49,7 @@ class Movement extends Component {
             maxPage: 0,
 
             //increment
-            length_detail : []
+            dataLength: 0
         }
     }
 
@@ -77,27 +77,52 @@ class Movement extends Component {
             this.setState({ complete: false, activearrow: mid, sort: true })
             let dtStart = start ? start : this.state.startDate
             let dtEnd = end ? end : this.state.endDate
-            let periods = period ? period : this.state.filterType 
+            let periods = period ? period : this.state.filterType  
             const res = await axios.get(endpoint.stockMovement + '?startDate=' + dtStart + '&endDate=' + dtEnd + '&filterType=' + periods + '&client=' + client + '&site=' + site + '&product=' + product, {
                 headers: headers
             })
             const result = res.data.data
             // const result = DummyData
             this.setPagination(res)
-            this.setState({ data: result, complete: true, filterType: periods })
+            this.setState({ data: result, complete: true, filterType: periods, dataLength: res.data.data.length })
             // this.props.data(result)
             this.pushTable(dtStart, dtEnd, periods)
             this.props.isComplete(true)
             // this.potableref.current.setPagination(res)
 
-            this.setState({
-                length_detail: res.data.data[0].detail
-            })
-            console.log(this.state.productSPlength_detail)
+            
         } catch (error) {
             console.log(error)
         }
     }
+
+    componentDidUpdate(){
+        this.setHeight() 
+        window.addEventListener("resize", this.displayWindowSize);
+    }
+
+    displayWindowSize = () => {
+        // console.log('zoom')
+        this.setHeight()
+    }
+    
+    setHeight = () => {
+        let i = this.state.dataLength
+        // console.log(i)
+        let j = 0 
+        while(j<i){
+        //   let xyz = (document.getElementById('row'+j))?document.getElementById('row'+j).style.height:'0';
+        let xyz = document.getElementById('row'+j)  
+        if(xyz){
+            let client_height = xyz.clientHeight
+            if(client_height>0){
+                document.getElementById('row2-'+j).setAttribute("style","height:"+client_height+"px");
+                document.getElementById('row'+j).setAttribute("style","height:"+client_height+"px");
+            }
+        }
+           j++;      
+        }
+    }   
 
     pushTable = (start, end, period) => {
         let dateArray = []
@@ -122,7 +147,6 @@ class Movement extends Component {
             }
 
         }
-        this.setState({ dateArray: dateArray, pushTableComplete: true })
 
         let data = this.state.data
         for (let i = 0; i < data.length; i++) {
@@ -142,6 +166,8 @@ class Movement extends Component {
                     data[i].detail.push(dataFormat)
                 }
             }
+            
+            this.setState({ dateArray: dateArray, pushTableComplete: true })
             //console.log(availableDate);
         }
     }
@@ -453,15 +479,15 @@ class Movement extends Component {
 
     render() {
         if (this.state.pushTableComplete) {
-            // this.pushData()
-            this.sortData()
+            // this.pushData() 
+            this.sortData() 
         }
         let x = 1;
         return (
             <div className={this.state.complete ? 'fades' : 'hidden'}>
                 <Container className="themed-container conts" fluid={true} >
                     <div className="product-data">
-                        <table>
+                        <table style={{tableLayout: 'fixed'}}>
                             <thead>
                                 <tr height="72" className="border-bottom border-right text-center">
                                     <th className="put" style={{textAlign: 'left'}} onClick={this.arrowHandler} id='site'>Site <img className='sort-icon' src={this._checkActiveSorting('site')} alt="site" /></th>
@@ -473,12 +499,13 @@ class Movement extends Component {
                             </thead>
                             <tbody>  
                                 {this.state.data.slice(this.state.startIndex, this.state.endIndex).map((data, index) =>
-                                    <tr ref={"row"+index} key={index} height="50"
+                                    <tr ref={"row"+index} id={"row"+index} key={index}  
                                         className={this._checkActiveHover(data.product) + " border-bottom border-right text-center"}
                                         // onMouseEnter={(e) => this.hover(e, 'active', data.product)}
                                         // onMouseLeave={(e) => this.hover(e, 'deactive', data.product)}
+                                        height="72px"
                                     >
-                                        <td style={{textAlign: 'left'}}>{data.site}</td>
+                                        <td  style={{textAlign: 'left'}}>{data.site}</td>
                                         <td style={{textAlign: 'left'}}>{data.client}</td>
                                         <td style={{textAlign: 'left'}}>{data.product}</td>
                                         <td style={{textAlign: 'left'}} className="text-left">{data.product_name}</td>
@@ -490,7 +517,7 @@ class Movement extends Component {
                     </div>
 
                     <div className="movement-data">
-                        <table>
+                        <table  style={{tableLayout: 'fixed'}}>
                             <thead>
                                 <tr height="72" className="border-bottom">
                                     {this.state.dateArray.map((date, index) =>
@@ -513,13 +540,13 @@ class Movement extends Component {
                             <tbody>
                                 {this.state.data.slice(this.state.startIndex, this.state.endIndex).map((data, index) =>
                                     
-                                    <tr key={index} 
+                                    <tr  height="72px" id={"row2-"+index} key={index} 
                                         className={this._checkActiveHover(data.product) + " border-bottom border-top"} 
                                     >
                                         {data.detail.map(detail =>
-                                            <td height='50' className="border-right">
+                                            <td className="border-right">
                                                 <table>
-                                                    <tr height={(this.refs['row'+index])?this.refs['row'+index].clientHeight+'px':'50px'}> 
+                                                    <tr> 
                                                         <td width="25%" style={{textAlign: "right"}}> {detail.sa_plus ? detail.sa_plus : '-'}</td>
                                                         <td width="25%" style={{textAlign: "right"}}>{detail.sa_minus ? detail.sa_minus : '-'}</td>
                                                         <td width="25%" style={{textAlign: "right"}}>{detail.recv_weight ? detail.recv_weight : '-'}</td>
