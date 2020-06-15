@@ -179,8 +179,7 @@ class Paging extends Component {
                 <div className="d-flex d-inline-flex">
                     <img src={logo_confirm} alt="logo" style={{ width: "20%", height: "20%" }} />
                     <label className="pl-3 font">
-                    Only {Math.ceil(this.props.maxPage)} page are available on this 
-                    <br /> screen, please try again. <br />
+                    Only {Math.ceil(this.props.maxPage)} page are available on this screen, please try again. <br />
                     
                     </label>
                 </div>
