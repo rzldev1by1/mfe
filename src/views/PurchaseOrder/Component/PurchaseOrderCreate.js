@@ -629,11 +629,11 @@ class PurchaseOrderCreate extends Component {
           <table className="tabledetails">
             <tr>
               <th><div id='orderline-header-number-id'>#</div></th>
-              <th><div id='orderline-header-product-id'>Product</div></th>
+              <th><div id='orderline-header-product-id'>Product <th className='required-field'/></div></th>
               <th><div id='orderline-header-description-id'>Description</div></th>
-              <th><div id='orderline-header-qty-id'>Qty</div></th>
+              <th><div id='orderline-header-qty-id'>Qty <th className='required-field'/></div></th>
               <th><div id='orderline-header-weight-id'>Weight</div></th>
-              <th><div id='orderline-header-uom-id'>UOM</div></th>
+              <th><div id='orderline-header-uom-id'>UOM <th className='required-field'/></div></th>
               <th><div id='orderline-header-rotadate-id'>Rota Date</div></th>
               <th><div id='orderline-header-batch-id'>Batch</div></th>
               <th><div id='orderline-header-ref3-id'>Ref3</div></th>
@@ -825,12 +825,13 @@ class PurchaseOrderCreate extends Component {
                 <AutoComplete ref={"product" + list.lineNumber}
                   placeHolder="Product"
                   style={{ width: "100%", zIndex: this.state.rowlist.length - i }}
+                  maxLength="30"
                   optionList={this.state.productcr.toString()}
                   optionValue={this.state.productcr.toString()}
                   getValue={(e) => this.getProductValue(e, i)}
                   optionSelected={this.state.rowlist[i].product}
                   tabIndex="2" uppercase={true}
-                  isOpen={(val) => {this.setState({ isAutoCompleteExpand: val})}} />
+                  isOpen={(val) => {this.setState({ isAutoCompleteExpand: val})}}/>
               </div>
             </td>
             <td>
