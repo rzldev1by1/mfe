@@ -156,7 +156,9 @@ class PurchaseOrder extends Component {
         let orderTypeFilterValue = [];
         
         self.state.ordertypedata.map((data) => {
-          orderTypeName.push(data.description);
+          let combine = null
+          combine = data.code + ' : ' + data.description
+          orderTypeName.push(combine);
           orderTypeValue.push(data.code); 
         })
         
@@ -282,8 +284,8 @@ class PurchaseOrder extends Component {
           getValue={this.getStatusSelected.bind(this)} />
         <Dropdown placeHolder="Order Type"
           className="filterDropdown"
-          optionList={orderTypeFilterName.toString()}
-          optionValue={orderTypeFilterValue.toString()}
+          optionList={this.state.orderTypeName.toString()}
+          optionValue={this.state.orderTypeValue.toString()}
           getValue={this.getOrderTypeSelected.bind(this)} />
       </React.Fragment>
     )

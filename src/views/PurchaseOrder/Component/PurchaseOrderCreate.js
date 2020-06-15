@@ -475,7 +475,9 @@ class PurchaseOrderCreate extends Component {
     }
     if (this.state.orderdatacr) {
       this.state.orderdatacr.map((data) => {
-        orderData.push(data.description);
+        let combine = null
+        combine = data.code + ' : ' + data.description
+        orderData.push(combine);
         orderValue.push(data.code);
       })
     }
@@ -588,7 +590,7 @@ class PurchaseOrderCreate extends Component {
           </tr>
           <tr>
             <td style={{ width: "396px" }}>
-              <AutoComplete placeHolder="Order Type"
+              <Dropdown placeHolder="Order Type"
                 style={{ minWidth: '100%' }}
                 optionList={orderData.toString()}
                 optionValue={orderValue.toString()}
