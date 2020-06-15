@@ -58,6 +58,7 @@ export default class PurchaseOrderDetail extends Component {
         let client_name = this.state.datahead.length ? this.state.datahead[0].client_name : null
         let orderNo = this.state.datahead.length ? this.state.datahead[0].order_no : null
         let orderType = this.state.datahead.length ? this.state.datahead[0].order_type : null
+        let isisTask = this.state.datahead.length ? this.state.datahead[0].isis_task : null
         let supplierNo = this.state.datahead.length ? this.state.datahead[0].supplier_id : null
         let supplierName = this.state.datahead.length ? this.state.datahead[0].supplier_name : null
         let customerOrderRef = this.state.datahead.length ? this.state.datahead[0].customer_order_ref : null
@@ -90,8 +91,8 @@ export default class PurchaseOrderDetail extends Component {
                         <td>{orderType ? orderType : '-'}</td>
                     </tr>
                     <tr>
-                        <th>Status</th>
-                        <td >{status ? status+ ': ' +statusDesc.substring(3)  : '-'}</td>
+                        <th>Task</th>
+                        <td >{isisTask ? isisTask : '-'}</td>
                     </tr>
                 </table>
             </div>
@@ -114,7 +115,10 @@ export default class PurchaseOrderDetail extends Component {
                         <th>Vendor Order Ref</th>
                         <td>{vendorOrderNo ? vendorOrderNo : '-'}</td>
                     </tr>
-                    
+                    <tr>
+                        <th>Status</th>
+                        <td >{status ? status+ ': ' +statusDesc.substring(3)  : '-'}</td>
+                    </tr>
                 </table>
             </div>
 

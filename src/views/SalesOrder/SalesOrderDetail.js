@@ -82,10 +82,12 @@ class SalesOrderDetail extends Component {
       }
 
     head = () => {
+        console.log(this.state.head)
         let site = this.state.head.length ? this.state.head[0].site : null
         let client = this.state.head.length ? this.state.head[0].client : null
         let orderNo = this.state.head.length ? this.state.head[0].orderno : null
         let orderType = this.state.head.length ? this.state.head[0].ordertype : null
+        let isisTask = this.state.head.length ? this.state.head[0].isistask : null
         let consignmentNumber = this.state.head.length ? this.state.head[0].consignmentnumber : null
         let freightCharge = this.state.head.length ? this.state.head[0].freightcharge : null
         let custOrderNumber = this.state.head.length ? this.state.head[0].custordernumber : null
@@ -129,6 +131,10 @@ class SalesOrderDetail extends Component {
                         <tr>
                             <th>Order Type</th>
                             <td>{orderType ? orderType : '-'}</td>
+                        </tr>
+                        <tr>
+                            <th>Task</th>
+                            <td>{isisTask ? isisTask : '-'}</td>
                         </tr>
                         <tr>
                             <th>Customer </th>

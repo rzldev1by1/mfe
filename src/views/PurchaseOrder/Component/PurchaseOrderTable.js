@@ -64,6 +64,15 @@ class PurchaseOrderTable extends Component {
           sort: mid
         },
         {
+          id: "isis_task",
+          checkboxLabelText: "Task",
+          tableHeaderText: "Task",
+          isVisible: true,
+          key: "isis_task",
+          type: "string",
+          sort: mid
+        },
+        {
           id: "supplier_no",
           checkboxLabelText: "Supplier No",
           tableHeaderText: "Supplier No",
@@ -231,7 +240,7 @@ class PurchaseOrderTable extends Component {
     this.props.loadCompleteHandler(true)
   }
 
-  searchPurchaseOrder = (search, client, site, status, ordertype) => {
+  searchPurchaseOrder = (search, client, site, status, ordertype, task) => {
 
     this.setState({
       currentPage: 1,
@@ -260,6 +269,10 @@ class PurchaseOrderTable extends Component {
 
     if (ordertype) {
       url += '&orderType=' + ordertype
+    }
+
+    if(task){
+      url += '&task=' + task
     }
 
     this.props.loadCompleteHandler(false)
@@ -297,7 +310,6 @@ class PurchaseOrderTable extends Component {
   }
 
   sortby = (id) => {
-    console.log(id);
     this.setState({ sort: !this.state.sort, sortparameter: id }, () => {
       //async 
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
@@ -305,7 +317,6 @@ class PurchaseOrderTable extends Component {
   }
 
   sorting = (data, param, sort) => {
-    console.log(param, sort);
     data.sort((a, b) => {
 
       if (a[param] !== undefined && b[param] !== undefined) {

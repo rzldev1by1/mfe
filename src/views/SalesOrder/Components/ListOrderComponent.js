@@ -72,7 +72,7 @@ class ListOrderComponent extends Component {
     this.loadSalesOrder();
   }
 
-  searchSalesOrder = (search, site, client, status, ordertype) => {
+  searchSalesOrder = (search, site, client, status, ordertype,task) => {
     this.setState({
       currentPage: 1,
       startIndex: 0,
@@ -87,11 +87,13 @@ class ListOrderComponent extends Component {
     let siteP = "&&site=" + site
     let statusP = "&&status=" + status
     let ordertypeP = "&&orderType=" + ordertype
+    let taskP = "&&task=" + task
 
     if (site) url = url + siteP
     if (client) url = url + clientP
     if (status) url = url + statusP
     if (ordertype) url = url + ordertypeP
+    if(task) url = url + taskP
 
     this.props.loadCompleteHandler(false);
     axios
@@ -178,6 +180,9 @@ class ListOrderComponent extends Component {
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
     } else if (id === "orderType") {
       this.setState({ sort: !this.state.sort, sortparameter: "ordertype" });
+      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+    }else if (id === "isisTask") {
+      this.setState({ sort: !this.state.sort, sortparameter: "isisTask" });
       this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
     } else if (id === "customerName") {
       this.setState({ sort: !this.state.sort, sortparameter: "customername" });
