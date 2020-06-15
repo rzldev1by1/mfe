@@ -75,12 +75,9 @@ class Movement extends Component {
         try {
             this.props.isComplete(false)
             this.setState({ complete: false, activearrow: mid, sort: true })
-            // let dtStart = start ? start : this.state.startDate
-            // let dtEnd = end ? end : this.state.endDate
-            // let periods = period ? period : this.state.filterType 
-            let dtStart = '2019-02-27'
-            let dtEnd = '2019-03-10'
-            let periods = 'day'
+            let dtStart = start ? start : this.state.startDate
+            let dtEnd = end ? end : this.state.endDate
+            let periods = period ? period : this.state.filterType  
             const res = await axios.get(endpoint.stockMovement + '?startDate=' + dtStart + '&endDate=' + dtEnd + '&filterType=' + periods + '&client=' + client + '&site=' + site + '&product=' + product, {
                 headers: headers
             })
