@@ -263,11 +263,11 @@ export default class MovementSearch extends Component {
 
 
     showDropdowns = () => {
-        let clientName = ["All Client"];
+        let clientName = ["All Clients"];
         let clientValue = ["all"];
-        let siteData = ["All Site"];
+        let siteData = ["All Sites"];
         let siteValue = ["all"];
-        let productData = ["All Product"];
+        let productData = ["All Products"];
         let productValue = ["all"];
  
         if (this.state.clientdata) {

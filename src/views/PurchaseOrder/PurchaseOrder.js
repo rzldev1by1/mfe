@@ -231,13 +231,13 @@ class PurchaseOrder extends Component {
   }
 
   showDropdowns = () => {
-    let clientName = ["All Client"];
+    let clientName = ["All Clients"];
     let clientValue = ["all"];
-    let siteData = ["All Site"];
+    let siteData = ["All Sites"];
     let siteValue = ["all"];
     let status = [ "All Status","All Open" ,"0: Unavailable","1: Available", "2: Released", "3: Part Released", "4: Completed"];
     let statusValue = ["all" ,"open","unavailable","available", "released", "part_released", "completed"];
-    let orderTypeName = ["All Order Type"];
+    let orderTypeName = ["All Order Types"];
     let orderTypeValue = ["all"];
     let orderTypeFilterName = ["All Order Type"];
     let orderTypeFilterValue = ["all"];

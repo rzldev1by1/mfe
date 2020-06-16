@@ -267,9 +267,9 @@ class StockHolding extends Component {
 
 
 	showDropdown = () => {
-		let clientName = ["All Client"];
+		let clientName = ["All Clients"];
 		let clientValue = ["all"];
-		let masterSite = ["All Site"];
+		let masterSite = ["All Sites"];
 		let masterSiteValue = ["all"];
 		let Masterstatus = []; 
 		if (this.state.masterSite.length > 0) {
