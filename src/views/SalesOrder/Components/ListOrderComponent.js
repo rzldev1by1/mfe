@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { endpoint, headers } from "../../../AppComponent/ConfigEndpoint";
-import Paging from "../../../AppComponent/Paging";
+import Paging from "../../../AppComponent/PagingNew";
 import Export from "../../../AppComponent/Export";
 import mid from "../../../assets/img/brand/field-idle.png";
 import down from "../../../assets/img/brand/field-bot.png";
@@ -19,6 +19,7 @@ class ListOrderComponent extends Component {
 
     this.state = {
       data: [],
+      main:[],
       tableheader: [
         "Site",
         "Client",
@@ -101,7 +102,7 @@ class ListOrderComponent extends Component {
         headers: headers
       })
       .then((res) => {
-        const result = res.data.data;
+        const result = res.data;
         this.setState({ data: result });
         this.load();
         this.setPagination(result);
@@ -137,7 +138,7 @@ class ListOrderComponent extends Component {
     self.numberEventClick(self.state.currentPage);
   };
 
-  loadSalesOrder = () => {
+  loadSalesOrder = (page) => {
     const site = Authentication.getSite()
     const client = Authentication.getClient()
     let param = '?'
@@ -145,6 +146,7 @@ class ListOrderComponent extends Component {
 
     if (client) param = param + 'client=' + client
     if (site) param = param + '&&site=' + site
+    if(page) param = param + '&&page=' +page
 
     this.setState({
       currentPage: 1,
@@ -158,10 +160,10 @@ class ListOrderComponent extends Component {
         headers: headers
       })
       .then((res) => {
-        const result = res.data.data;
-        this.setState({ data: result });
+        const result = res.data.data.data;
+        this.setState({ data: result, main:res.data.data }, () =>console.log(this.state.main));
         this.load();
-        this.setPagination(result);
+        // this.setPagination(result);
       })
       .catch((error) => {
 
@@ -474,8 +476,10 @@ class ListOrderComponent extends Component {
     }
     return newValue
   }
+  
   //table used
   render() {
+    const {data, main} = this.state
     return (
       <React.Fragment>
         <div className='tablePage tablecontent'>
@@ -507,7 +511,7 @@ class ListOrderComponent extends Component {
             </thead>
             <tbody>
               {
-                this.state.data ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data, i) => {
+                main.data ? main.data.map((data, i) => {
                   const dataa = Object.entries(data)
                   return (
                     <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/' + data.client + '/' + data.site + '/' + data.orderno)} className='tr'>
@@ -536,7 +540,7 @@ class ListOrderComponent extends Component {
               </tr>
             </thead>
             <tbody>
-              {
+              {/* {
                 this.state.data ? this.state.data.map((data, i) => {
                   const dataa = Object.entries(data)
                   return (
@@ -546,7 +550,7 @@ class ListOrderComponent extends Component {
                     </tr>
                   )
                 }) : <div> No data available </div>
-              }
+              } */}
             </tbody>
           </table>
 
@@ -559,7 +563,23 @@ class ListOrderComponent extends Component {
             currentPage={this.state.currentPage} maxPage={this.state.maxPage}
             startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
             isActive={this.state.isActive}
-            numberEventClick={this.numberEventClick} />
+            numberEventClick={this.numberEventClick}
+            
+            //new props
+            totalRows = {main.total}
+            from = {main.from}
+            to = {main.to}
+            firstPage = {1}
+            lastPage = {main.last_page}
+            currentPage = {main.current_page}
+            nextPage = {(page) => this.loadSalesOrder(page)}
+            prevPage = {(page) => this.loadSalesOrder(page)}
+            toFirstPage = {(page) => this.loadSalesOrder(page)}
+            toLastPage = {(page) => this.loadSalesOrder(page)}
+            toClickedPage = {(page) => this.loadSalesOrder(page)}
+            toSpecificPage = {(page) => this.loadSalesOrder(page)}
+
+            />
           <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
             ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} />
         </div>
