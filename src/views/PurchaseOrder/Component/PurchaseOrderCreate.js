@@ -634,7 +634,7 @@ class PurchaseOrderCreate extends Component {
               <th><div id='orderline-header-qty-id'>Qty <th className='required-field'/></div></th>
               <th><div id='orderline-header-weight-id'>Weight</div></th>
               <th><div id='orderline-header-uom-id'>UOM <th className='required-field'/></div></th>
-              <th><div id='orderline-header-rotadate-id'>Rota Date</div></th>
+              <th><div id='orderline-header-rotadate-id'>Rotadate</div></th>
               <th><div id='orderline-header-batch-id'>Batch</div></th>
               <th><div id='orderline-header-ref3-id'>Ref3</div></th>
               <th><div id='orderline-header-ref4-id'>Ref4</div></th>

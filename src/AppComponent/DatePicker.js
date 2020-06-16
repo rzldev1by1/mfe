@@ -165,7 +165,7 @@ class DatePicker extends React.Component {
                 <ul className={"select_date " + (this.state.showDatePicker && (this.props.for == "SalesOrderCreate") ? "datepickerForOrderLine" : "")} style={ this.props.style } tabIndex={this.props.tabIndex ? this.props.tabIndex : null}>
                       <input type="text" 
                                 ref="dateValue"
-                                placeholder="DD-MM-YYYY" 
+                                placeholder="DD/MM/YYYY" 
                                 className="form-control" 
                                 maxLength="10"
                                 defaultValue={this.state.selectedDays ? moment(this.state.selectedDay).format("DD-MM-YYYY") : null} 
