@@ -102,10 +102,10 @@ class ListOrderComponent extends Component {
         headers: headers
       })
       .then((res) => {
-        const result = res.data;
-        this.setState({ data: result });
+        const result = res.data.data;
+        this.setState({ main: result });
         this.load();
-        this.setPagination(result);
+        // this.setPagination(result);
       })
       .catch((error) => {
 
