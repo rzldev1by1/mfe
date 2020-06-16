@@ -1040,8 +1040,11 @@ select_date_expandLabel {
   font-family: 'Helvetica Neue Bold';
   height: 45px;
   border-bottom: 1px solid #d5d8da !important;
-  font-size: 11px;
-  padding: 0.5rem 1rem 0.5rem 1rem;
+  font-size: 18px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 0px;
 }
 
 .table td {
@@ -1051,15 +1054,15 @@ select_date_expandLabel {
   font-family: 'Helvetica Neue Regular';
   height: 45px;
   border-bottom: 1px solid #e9eced !important;
-  font-size: 11px;
+  font-size: 18px;
 }
 
 @media (min-width: 1920px) {
-  .table th,
-  td {
-    font-family: 'Helvetica Neue Regular';
-    font-size: 18px !important;
-  }
+  // .table th,
+  // td {
+  //   font-family: 'Helvetica Neue Regular';
+  //   // font-size: 18px !important;
+  // }
 }
 
 .table.noneborder-bottom thead th {
@@ -1212,6 +1215,7 @@ span.upArrow:before {
   //min-height: 200px;
   //max-height: 100vh !important;
   overflow-y: auto;
+  overflow-x: auto;
   font-size: 1.1em;
   clear: both;
   position: relative;

@@ -52,13 +52,13 @@ class componentTable extends Component {
 						if (column.isVisible) {
 
 							if (column.id === "status") {
-								return <td key={columnIdx} className="px-3 text-left">{(item["on_hand_qty"] + item["expected_in_qty"]) >= item["expected_out_qty"] ? "Ok" : "Shortage"}</td>
+								return <td key={columnIdx} className="pl-3 pr-0 text-left">{(item["on_hand_qty"] + item["expected_in_qty"]) >= item["expected_out_qty"] ? "Ok" : "Shortage"}</td>
 							}
-							return <td key={columnIdx} className="px-3 text-left">{item[column.key]}</td>;
+							return <td key={columnIdx} className="pl-3 pr-0 text-left">{item[column.key]}</td>;
 						}
 						return null;
 					})}
-					<td className="px-3 text-left">
+					<td className="pl-3 pr-0 text-left">
 
 					</td>
 				</tr>
@@ -74,13 +74,13 @@ class componentTable extends Component {
 						if (column.isVisible) {
 
 							if (column.id === "status") {
-								return <td key={columnIdx} className="px-3 text-left">{(item["on_hand_qty"] + item["expected_in_qty"]) >= item["expected_out_qty"] ? "Ok" : "Shortage"}</td>
+								return <td key={columnIdx} className="pl-2 text-left">{(item["on_hand_qty"] + item["expected_in_qty"]) >= item["expected_out_qty"] ? "Ok" : "Shortage"}</td>
 							}
-							return <td key={columnIdx} className="px-3 text-left">{item[column.key]}</td>;
+							return <td key={columnIdx} className="pl-2 text-left">{item[column.key]}</td>;
 						}
 						return null;
 					})}
-					<td className="px-3 text-left">
+					<td className="pl-2 text-left">
 
 					</td>
 				</tr>
@@ -97,13 +97,13 @@ class componentTable extends Component {
 		return (
 			<div className="col-12 p-0  tablecontent mt-0">
 				<div className={this.props.isSearch ? "spinner" : "d-none"} />
-				<div className={this.props.isSearch ? "d-none" : "tablePage tablePageSH tableContent"}>
+				<div className={this.props.isSearch ? "d-none" : "table-responsive tablePage tablePageSH tableContent"}>
 					{/* <Table className="table-condensed table-striped clickable-row mb-0" size="md">
                         <thead >{this.showHeader()}</thead>
                         <tbody style={{fontSize:'1rem'}}>{this.showData()}</tbody> 
                     </Table> */}
 
-					<table className="defaultTable table table-responsive" >
+					<table className="defaultTable table" >
 						{/* <thead >{this.showHeader()}</thead> */}
 						<thead>
 							<tr>
