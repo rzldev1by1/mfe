@@ -29,6 +29,7 @@ const endpoint = {
     "getSoResources": baseUrl + "getsorecources",
     "getPOResources": baseUrl + "getporecources",
     "orderCheck": baseUrl + "orderCheck",
+    "getTask" : baseUrl + "dropdown/getIsisTask",
 
     "getSoIdentity":baseUrl + "getSoIdentity",
     "getProduct": baseUrl + "dropdown/getProduct",

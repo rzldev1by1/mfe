@@ -90,7 +90,9 @@ class Movement extends Component {
             this.props.isComplete(true)
             // this.potableref.current.setPagination(res)
 
-            
+            this.setState({
+                length_detail: res.data.data[0].detail
+            })    
         } catch (error) {
             console.log(error)
         }
@@ -459,7 +461,7 @@ class Movement extends Component {
             Seconds = date.getSeconds(),
             Minutes = date.getMinutes(),
             Hours = date.getHours();
-        return filename = ("Stock_Movement." + date1 + "-" + arrmonth[month] + "-" + year + "." + Hours + "-" + Minutes + "-" + Seconds)
+        return filename = ("Microlistics_StockMovement." + date1 + "-" + arrmonth[month] + "-" + year + "." + Hours + "-" + Minutes + "-" + Seconds)
     }
 
     ExportPDFName = () => {

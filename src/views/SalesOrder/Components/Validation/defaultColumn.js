@@ -3,6 +3,7 @@ const column =[
     {id:'client', active:true, name:'Client'},
     {id:'orderNo', active:true, name:'Order No'},
     {id:'orderType', active:true, name:'Order Type'},
+    {id:'isisTask', active:true, name:'Task'},
     {id:'customerName', active:true, name:'Customer'},        
     {id:'status', active:true, name:'Status'},
     {id:'deliveryDate', active:true, name:'Delivery Date'},

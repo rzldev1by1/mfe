@@ -5,7 +5,7 @@ import mid from '../../../../../src/assets/img/brand/field-idle.png'
 import down from '../../../../assets/img/brand/field-bot.png'
 import up from '../../../../assets/img/brand/field-top.png'
 import ok from '../../../../assets/img/brand/ok.png'
-import minus from '../../../../assets/img/brand/minus.png'
+import wrong from '../../../../assets/img/brand/wrong.png'
 import Paging from '../../../../AppComponent/Paging'
 import PODExport from './PODExport'
 import moment from 'moment'
@@ -102,7 +102,7 @@ class PurchaseOrderTable extends Component {
           {
             id: "rotadate", 
             checkboxLabelText: "Rota Date", 
-            tableHeaderText: "Rota Date", 
+            tableHeaderText: "Rotadate", 
             isVisible: true, 
             key: "rotadate", 
             type: "string"
@@ -110,7 +110,7 @@ class PurchaseOrderTable extends Component {
           {
             id: "ref3", 
             checkboxLabelText: "Ref 3", 
-            tableHeaderText: "Ref 3", 
+            tableHeaderText: "Ref3", 
             isVisible: true, 
             key: "ref3", 
             type: "string"
@@ -118,7 +118,7 @@ class PurchaseOrderTable extends Component {
           {
             id: "ref4", 
             checkboxLabelText: "Ref 4", 
-            tableHeaderText: "Ref 4", 
+            tableHeaderText: "Ref4", 
             isVisible: true, 
             key: "ref4", 
             type: "string"
@@ -462,7 +462,7 @@ class PurchaseOrderTable extends Component {
                                 }
                                 if(column.id === "completed"){
                                     return <td key={columnIdx}>
-                                                <img style={{width:'15px',height:'13px'}} src={data[column.id] == "Y" ? ok : minus}></img>
+                                                <img style={{width:'15px',height:'13px'}} src={data[column.id] == "Y" ? ok : wrong}></img>
                                           </td>
                                 }
                                 return <td key={columnIdx}>{data[column.id] ? data[column.id] : "-"}</td>
@@ -582,7 +582,7 @@ class PurchaseOrderTable extends Component {
                                 }
                                 if(column.id === "completed"){
                                     return <td key={columnIdx}>
-                                                <img style={{width:'15px',height:'13px'}} src={data[column.id] == "Y" ? ok : minus}></img>
+                                                <img style={{width:'15px',height:'13px'}} src={data[column.id] == "Y" ? ok : wrong}></img>
                                           </td>
                                 }
                                 return <td key={columnIdx}>{data[column.id] ? data[column.id] : "-"}</td>

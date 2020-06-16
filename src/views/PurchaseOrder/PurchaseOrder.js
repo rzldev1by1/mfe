@@ -17,6 +17,7 @@ import Dropdowns from './Component/Dropdowns'
 import Movement from './Component/Movement'
 import Authentication from '../../Auth/Authentication'
 import HeaderTitle from '../../AppComponent/HeaderTitle'
+import { array } from 'prop-types'
 
 class PurchaseOrder extends Component {
   constructor(props) {
@@ -33,6 +34,7 @@ class PurchaseOrder extends Component {
       sitedata: [],
       ordertypedata: [],
       ordertypefilterdata: [],
+      taskData:[],
 
       //filter
       filterclicked: true,
@@ -49,6 +51,7 @@ class PurchaseOrder extends Component {
       clientSelected: Authentication.getClient() ? Authentication.getClient() : null,
       statusSelected: undefined,
       orderTypeSelected: undefined,
+      taskSelected:undefined,
 
       orderTypeName: [],
       orderTypeValue: [],
@@ -109,8 +112,8 @@ class PurchaseOrder extends Component {
   }
 
   search = () => {
-    let self = this;
-    self.potableref.current.searchPurchaseOrder(self.state.search, self.state.clientSelected, self.state.siteSelected, self.state.statusSelected, self.state.orderTypeSelected)
+    const {search, clientSelected, siteSelected, statusSelected, orderTypeSelected, taskSelected} = this.state;
+    this.potableref.current.searchPurchaseOrder(search, clientSelected, siteSelected, statusSelected, orderTypeSelected, taskSelected)
   }
 
   getclient = () => {
@@ -120,6 +123,22 @@ class PurchaseOrder extends Component {
       .then(res => {
         const result = res.data
         this.setState({ clientdata: result })
+      })
+      .catch(error => {
+
+        console.log(error);
+      })
+  }
+
+  getTask = () => {
+    const {clientSelected,siteSelected} = this.state
+    let param = '?client='+clientSelected+'&&site='+siteSelected+'&&order=po'
+    axios.get(endpoint.getTask+param, {
+      headers: headers
+    })
+      .then(res => {
+        const result = res.data
+        this.setState({ taskData: result })
       })
       .catch(error => {
 
@@ -182,11 +201,25 @@ class PurchaseOrder extends Component {
 
   }
   getSiteSelected = (value) => {
-    this.setState({ siteSelected: value });
+    this.setState({ siteSelected: value }, () => {
+      if(this.state.clientSelected)
+      {
+        this.getTask();
+      }
+    });
   }
 
   getClientSelected = (value) => {
-    this.setState({ clientSelected: value });
+    this.setState({ clientSelected: value }, () => {
+      if(this.state.siteSelected)
+      {
+        this.getTask();
+      }
+    });
+  }
+
+  getTaskSelected = (value) => {
+    this.setState({taskSelected: value})
   }
 
   getStatusSelected = (value) => {
@@ -208,6 +241,8 @@ class PurchaseOrder extends Component {
     let orderTypeValue = ["all"];
     let orderTypeFilterName = ["All Order Type"];
     let orderTypeFilterValue = ["all"];
+    let taskValue = ["All"];
+    let taskName  = ["All"];
     if (this.state.clientdata) { 
       this.state.clientdata.map((data) => {
         clientName.push(data.code + ' : ' + data.name);
@@ -240,6 +275,13 @@ class PurchaseOrder extends Component {
         orderTypeFilterValue.push(data);
       })
     }  
+    
+    const {taskData} = this.state
+    if(taskData)
+    {
+      taskName = taskName.concat(taskData.name)
+      taskValue = taskValue.concat(taskData.code)      
+    }
 
     return (
       <React.Fragment>
@@ -287,6 +329,11 @@ class PurchaseOrder extends Component {
           optionList={this.state.orderTypeName.toString()}
           optionValue={this.state.orderTypeValue.toString()}
           getValue={this.getOrderTypeSelected.bind(this)} />
+        <Dropdown placeHolder="Task"
+        className="filterDropdown"
+        optionList={taskName.toString()}
+        optionValue={taskValue.toString()}
+        getValue={this.getTaskSelected.bind(this)} />
       </React.Fragment>
     )
   }

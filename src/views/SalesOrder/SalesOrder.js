@@ -39,6 +39,7 @@ class SalesOrder extends Component {
       site: null,
       status: null,
       ordertype: null,
+      task:null,
       ordertypefilter: null,
 
       siteSelected: Authentication.getSite() ? Authentication.getSite() : null,
@@ -48,6 +49,7 @@ class SalesOrder extends Component {
       sitedata: [],
       productdata: [],
       dispositiondata: [],
+      taskData:[],
 
       //modal
       showmodal: false,
@@ -106,7 +108,8 @@ class SalesOrder extends Component {
       self.state.siteSelected,
       self.state.clientSelected,
       self.state.status,
-      self.state.ordertype
+      self.state.ordertype,
+      self.state.task
     );
   };
 
@@ -142,6 +145,22 @@ class SalesOrder extends Component {
 
       });
   };
+
+  getTask = () => {
+    const {clientSelected,siteSelected} = this.state
+    let param = '?client='+clientSelected+'&&site='+siteSelected+'&&order=so'
+    axios.get(endpoint.getTask+param, {
+      headers: headers
+    })
+      .then(res => {
+        const result = res.data
+        this.setState({ taskData: result })
+      })
+      .catch(error => {
+
+        console.log(error);
+      })
+  }
 
   getResources = (clientParam) => {
     let company = Authentication.getCompanyCode();
@@ -194,11 +213,15 @@ class SalesOrder extends Component {
   };
 
   getSiteSelected = (value) => {
-    this.setState({ siteSelected: value });
+    this.setState({ siteSelected: value },() => {
+      if(this.state.siteSelected) this.getTask()
+    });
   };
 
   getClientSelected = (value) => {
-    this.setState({ clientSelected: value });
+    this.setState({ clientSelected: value },() => {
+      if(this.state.siteSelected) this.getTask()
+    });
   };
 
   openEditModal = () => {
@@ -251,7 +274,14 @@ class SalesOrder extends Component {
       })
     }
 
-    const { client, site, status, ordertype, ordertypefilter } = this.state
+    const { client, site, status, ordertype, ordertypefilter,taskData,task } = this.state
+    let taskName = ["All"];
+    let taskValue = ["All"];
+    if(taskData)
+    {
+      taskName = taskName.concat(taskData.name)
+      taskValue = taskValue.concat(taskData.code)      
+    }
     return (
       <React.Fragment>
         {Authentication.getUserLevel() == "administrator" ? (
@@ -299,6 +329,13 @@ class SalesOrder extends Component {
           optionValue={orderTypeValue.toString()}
           getValue={(code) => this.setState({ ordertype: code })}
           className="filterDropdown" />
+
+        <Dropdown optionSelected={task}
+                  placeHolder="Task"
+                  optionList={taskName.toString()}
+                  optionValue={taskValue.toString()}
+                  getValue={(code) => this.setState({ task: code })}
+                  className="filterDropdown" />
       </React.Fragment>
     );
   };
