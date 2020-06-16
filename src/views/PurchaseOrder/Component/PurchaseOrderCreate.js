@@ -563,7 +563,8 @@ class PurchaseOrderCreate extends Component {
                 optionValue={supplierNo.toString()}
                 getValue={(e) => this.setState({ supplier: e })}
                 optionSelected={this.state.supplier}
-                className={this.state.reset ? ' po-hidden' : null}
+                // className={this.state.reset ? ' po-hidden' : null}
+                className={this.state.reset}
                 tabIndex="1" />
             </td>
             {/* <td style={{ width: "396px" }}><input onChange={(e) => this.setSuppliers(e)} className="form2 put pec" placeholder="Supplier"/> </td> */}
@@ -629,7 +630,7 @@ class PurchaseOrderCreate extends Component {
           <table className="tabledetails">
             <tr>
               <th><div id='orderline-header-number-id'>#</div></th>
-              <th><div id='orderline-header-product-id'>Product <th className='required-field'/></div></th>
+              <th><div id='orderline-header-product-id' >Product <th className='required-field'/></div></th>
               <th><div id='orderline-header-description-id'>Description</div></th>
               <th><div id='orderline-header-qty-id'>Qty <th className='required-field'/></div></th>
               <th><div id='orderline-header-weight-id'>Weight</div></th>
@@ -699,17 +700,17 @@ class PurchaseOrderCreate extends Component {
 
         <table className="tabledetails">
           <tr >
-            <th style={{ width: "2%", textAlign: "center", paddingLeft: "18px" }}>#</th>
+            <th style={{ width: "3%", textAlign: "center", paddingLeft: "18px" }}>#</th>
             <th style={{ width: "12%", paddingLeft: "20px" }}>Product</th>
             <th style={{ width: "12%", paddingLeft: "24px" }}>Description</th>
-            <th style={{ width: "3%", paddingLeft: "29px" }}>Qty</th>
-            <th style={{ width: "5%", paddingLeft: "1px" }}>Weight</th>
+            <th style={{ width: "4%", paddingLeft: "29px" }}>Qty</th>
+            <th style={{ width: "4%", paddingLeft: "1px" }}>Weight</th>
             <th style={{ width: "6%", paddingLeft: "23px" }}>UOM</th>
             <th style={{ width: "6%", paddingLeft: "24px" }}>Rota Date</th>
             <th style={{ width: "6%", paddingLeft: "37px" }}>Batch</th>
-            <th style={{ width: "5%", paddingLeft: "25px", paddingRight: "-20px" }}>Ref3</th>
+            <th style={{ width: "6%", paddingLeft: "25px", paddingRight: "-20px" }}>Ref3</th>
             <th style={{ width: "5%", paddingRigth: "-30px" }}>Ref4</th>
-            <th style={{ width: "6%", paddingRight: "-30px" }}>Disposition</th>
+            <th style={{ width: "3%", paddingRight: "-30px" }}>Disposition</th>
           </tr>
         </table>
 
