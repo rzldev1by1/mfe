@@ -275,7 +275,7 @@ class SalesOrder extends Component {
     }
 
     const { client, site, status, ordertype, ordertypefilter,taskData,task } = this.state
-    let taskName = ["All"];
+    let taskName = ["All Tasks"];
     let taskValue = ["All"];
     if(taskData)
     {

@@ -242,7 +242,7 @@ class PurchaseOrder extends Component {
     let orderTypeFilterName = ["All Order Type"];
     let orderTypeFilterValue = ["all"];
     let taskValue = ["All"];
-    let taskName  = ["All"];
+    let taskName  = ["All Tasks"];
     if (this.state.clientdata) { 
       this.state.clientdata.map((data) => {
         clientName.push(data.code + ' : ' + data.name);
