@@ -869,13 +869,15 @@ class PurchaseOrderCreate extends Component {
               </div>
             </td>
             <td>
-              <div id='orderline-header-uom-val-id'>
-                <Dropdown placeHolder="UOM"
+             <div id='orderline-header-uom-val-id'>
+                <AutoComplete placeHolder="UOM"
                   style={{ width: "100%", zIndex: this.state.rowlist.length - i }}
                   optionList={this.state.rowlist[i].uomlists ? this.state.rowlist[i].uomlists.toString() : []}
                   optionValue={this.state.rowlist[i].uomlists ? this.state.rowlist[i].uomlists.toString() : []}
                   getValue={(e) => { this.state.rowlist[i].uom = e; this.setState({ rowlist: this.state.rowlist }) }}
-                  optionSelected={this.state.rowlist[i].uom} tabIndex="2" />
+                  optionSelected={this.state.rowlist[i].disposition}
+                  tabIndex="2"
+                  isOpen={(val) => {this.setState({ isAutoCompleteExpand: val})}} />
               </div>
             </td>
             <td>
