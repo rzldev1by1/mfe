@@ -44,10 +44,10 @@ class componentTable extends Component {
 	}
 
 	showData = () => {
+		const {masterResource} = this.props
 		return (
-			this.props.masterResource.slice(this.props.startIndex, this.props.lastIndex).map((item, idx) => (
+			masterResource.map((item, idx) => (
 				<tr className='tr1' key={idx} onClick={() => this.rowClicked(item["product"], item["client"], item["site"])}>
-
 					{this.props.columns.map((column, columnIdx) => {
 						if (column.isVisible) {
 
@@ -67,8 +67,9 @@ class componentTable extends Component {
 	}
 
 	showDataExcel = () => {
+		const {masterResource} = this.props
 		return (
-			this.props.masterResource.map((item, idx) => (
+			masterResource.map((item, idx) => (
 				<tr className='tr1' key={idx} onClick={() => this.rowClicked(item["product"], item["client"], item["site"])}>
 					{this.props.columns.map((column, columnIdx) => {
 						if (column.isVisible) {
