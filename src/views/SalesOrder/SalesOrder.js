@@ -229,13 +229,13 @@ class SalesOrder extends Component {
   };
 
   showDropdowns = () => {
-    let clientName = ["All Client"];
+    let clientName = ["All Clients"];
     let clientValue = ["all"];
     let siteData = ["all"];
-    let siteName = ["All Site"];
-    let orderTypeName = ["All Order Type"];
+    let siteName = ["All Sites"];
+    let orderTypeName = ["All Order Types"];
     let orderTypeValue = ["all"];
-    let orderTypeFilterName = ["All Order Type"];
+    let orderTypeFilterName = ["All Order Types"];
     let orderTypeFilterValue = ["all"];
     let statusName = ["All Status","0: Unavailable", "1: Available", "2: Released", "3: Part Released", "4: Completed", "<>4: Open"];
     let statusValue = ['all',"unavailable", "available", "released", "part_released", "completed", "open"];
@@ -275,7 +275,7 @@ class SalesOrder extends Component {
     }
 
     const { client, site, status, ordertype, ordertypefilter,taskData,task } = this.state
-    let taskName = ["All"];
+    let taskName = ["All Tasks"];
     let taskValue = ["All"];
     if(taskData)
     {

@@ -690,7 +690,7 @@ class PurchaseOrderCreate extends Component {
           <tr>
             <td><input className="form-control" value={this.state.orderType} readOnly /></td>
             <td><input className="form-control" value={this.state.orderNo} readOnly /></td>
-            <td><input className="form-control" value={moment(this.state.orderDate).format("DD MMMM YYYY")} readOnly /></td>
+            <td><input className="form-control" value={moment(this.state.orderDate).format("DD/MM/YYYY")} readOnly /></td>
             <td><input className="form-control" value={this.state.vendorRef} readOnly /></td>
           </tr>
         </table>
@@ -706,7 +706,7 @@ class PurchaseOrderCreate extends Component {
             <th style={{ width: "4%", paddingLeft: "29px" }}>Qty</th>
             <th style={{ width: "4%", paddingLeft: "1px" }}>Weight</th>
             <th style={{ width: "6%", paddingLeft: "23px" }}>UOM</th>
-            <th style={{ width: "6%", paddingLeft: "24px" }}>Rota Date</th>
+            <th style={{ width: "6%", paddingLeft: "24px" }}>Rotadate</th>
             <th style={{ width: "6%", paddingLeft: "37px" }}>Batch</th>
             <th style={{ width: "6%", paddingLeft: "25px", paddingRight: "-20px" }}>Ref3</th>
             <th style={{ width: "5%", paddingRigth: "-30px" }}>Ref4</th>
@@ -988,7 +988,7 @@ class PurchaseOrderCreate extends Component {
           <td style={{ width: "3.5%" }}><input className="form-control inputs pec" value={list.qty} readOnly /></td>
           <td style={{ width: "5%" }}><input className="form-control inputs pec" value={list.weight} readOnly /></td>
           <td style={{ width: "6%" }}><input className="form-control inputs pec" value={list.uom} readOnly /></td>
-          <td style={{ width: "6.5%" }}><input className="form-control inputs pec" value={list.rotadate ? moment(list.rotadate).format("DD MMMM YYYY") : null} readOnly /></td>
+          <td style={{ width: "6.5%" }}><input className="form-control inputs pec" value={list.rotadate ? moment(list.rotadate).format("DD/MM/YYYY") : null} readOnly /></td>
           <td style={{ width: "6%" }}><input className="form-control inputs pec" value={list.batch} readOnly /></td>
           <td style={{ width: "5%" }}><input className="form-control inputs pec" value={list.ref3} readOnly /></td>
           <td style={{ width: "5%" }}><input className="form-control inputs pec" value={list.ref4} readOnly /></td>

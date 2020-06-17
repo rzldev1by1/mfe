@@ -4,7 +4,7 @@ import appCompoent from '../../../../src/AppComponent'
 import mid from '../../../assets/img/brand/field-idle.png'
 import down from '../../../assets/img/brand/field-bot.png'
 import up from '../../../assets/img/brand/field-top.png'
-import Paging from '../../../AppComponent/Paging';
+import Paging from '../../../AppComponent/PagingNew';
 import { endpoint, headers } from '../../../AppComponent/ConfigEndpoint'
 import moment from 'moment'
 import Export from '../../../AppComponent/Export'
@@ -16,7 +16,7 @@ class PurchaseOrderTable extends Component {
     this._checkActiveSorting = this._checkActiveSorting.bind(this);
 
     this.state = {
-      data: [],
+      main: [],
       tableheader: [
         {
           id: "site",
@@ -189,47 +189,24 @@ class PurchaseOrderTable extends Component {
     return this.state.tableheader;
   }
 
-  setPagination = (result) => {
-    let self = this;
-    let respondRes = result;
-    let totalPage = 0;
 
-    if (respondRes.length > self.state.displayPage) {
-      totalPage = respondRes % self.state.displayPage;
-      if (totalPage > 0 && totalPage < 50) {
-        totalPage = parseInt(respondRes.length / self.state.displayPage) + 1;
-      } else {
-        totalPage = respondRes.length / self.state.displayPage;
-      }
-      self.setState({ maxPage: totalPage });
-    } else {
-      self.setState({ maxPage: 1 });
-    }
-
-    self.setState({
-      displayContent: "FOUND",
-      masterResStockHolding: respondRes,
-      totalRows: respondRes.length
-    });
-
-    self.numberEventClick(self.state.currentPage);
-  }
-
-  loadPurchaseOrder = () => {
+  loadPurchaseOrder = (page) => {
     this.setState({
       currentPage: 1,
       startIndex: 0, lastIndex: 0,
       totalRows: 0, maxPage: 0
     })
 
-    axios.get(endpoint.purchaseOrder, {
+    let param = '?'
+    if(page) param = param + 'page=' +page
+
+    axios.get(endpoint.purchaseOrder+param, {
       headers: headers
     })
       .then(res => {
         const result = res.data.data
-        this.setState({ data: result })
+        this.setState({ main: result })
         this.load()
-        this.setPagination(result);
       })
       .catch(error => {
 
@@ -281,9 +258,8 @@ class PurchaseOrderTable extends Component {
     })
       .then(res => {
         const result = res.data.data
-        this.setState({ data: result })
+        this.setState({ main: result })
         this.load()
-        this.setPagination(result)
       })
       .catch(error => {
 
@@ -367,7 +343,7 @@ class PurchaseOrderTable extends Component {
   };
 
   ExportData = () => {
-    let data = this.state.data.map(elt => [elt.site, elt.client,
+    let data = this.state.main.data.map(elt => [elt.site, elt.client,
     elt.order_no, elt.status,
     elt.supplier_no, elt.supplier_name,
     elt.date_due, elt.date_received,
@@ -380,65 +356,8 @@ class PurchaseOrderTable extends Component {
     return name = ("Purchase Order")
   }
 
-  changeStartIndex = (currentPage) => {
-    this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
-  }
-
-  changeLastIndex = (currentPage) => {
-    this.setState({ lastIndex: parseInt(currentPage) * this.state.displayPage });
-  }
-
-  numberEventClick = (currentPage) => {
-    let page = parseInt(currentPage);
-    this.setState({ currentPage: page });
-    this.changeStartIndex(page);
-    this.changeLastIndex(page);
-  }
-
-  nextPageClick = () => {
-    if (this.state.currentPage < this.state.maxPage) {
-      this.setState((prev) => {
-        prev.currentPage++;
-        this.changeStartIndex(prev.currentPage);
-        this.changeLastIndex(prev.currentPage);
-      });
-    }
-    return;
-  }
-
-  backPageClick = () => {
-    if (this.state.currentPage > 1) {
-      this.setState((prev) => {
-        prev.currentPage--;
-        this.changeStartIndex(prev.currentPage);
-        this.changeLastIndex(prev.currentPage);
-      });
-    }
-    return;
-  }
-
-  lastPageClick = () => {
-    if (this.state.currentPage < this.state.maxPage) {
-      let currentPage = parseInt(this.state.maxPage + 1);
-
-      this.setState({ currentPage: currentPage });
-      this.changeStartIndex(currentPage);
-      this.changeLastIndex(currentPage);
-    }
-    return;
-  }
-  firstPageClick = () => {
-    if (this.state.currentPage > 1) {
-      let currentPage = 1;
-
-      this.setState({ currentPage: currentPage });
-      this.changeStartIndex(currentPage);
-      this.changeLastIndex(currentPage);
-    }
-    return;
-  }
-
   render() {
+    const {data} = this.state.main
     return (
       <div>
         <div className='tablePage tablecontent'>
@@ -462,7 +381,7 @@ class PurchaseOrderTable extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.data ? this.state.data.slice(this.state.startIndex, this.state.lastIndex).map((data, i) =>
+              {data ? data.map((data, i) =>
                 <tr key={i} onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/'+data.client +'/'+data.order_no)} className='tr'>
                   {this.state.tableheader.map((column, columnIdx) => {
                     if (column.isVisible) {
@@ -526,7 +445,7 @@ class PurchaseOrderTable extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.data ? this.state.data.map((data, i) =>
+              {this.state.main.data ? this.state.main.data.map((data, i) =>
                 <tr key={i} onClick={() => window.location.replace(window.location.origin + '/#/purchaseorder/' + data.order_no)} className='tr'>
                   {this.state.tableheader.map((column, columnIdx) => {
                     if (column.isVisible) {
@@ -572,13 +491,21 @@ class PurchaseOrderTable extends Component {
           </table>
         </div>
         <div className='paginations fixed-bottom'>
-          <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
-            backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-            totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-            currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-            startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
-            isActive={this.state.isActive}
-            numberEventClick={this.numberEventClick} />
+        <Paging 
+            //new props
+            totalRows = {this.state.main.total}
+            from = {this.state.main.from}
+            to = {this.state.main.to}
+            firstPage = {1}
+            lastPage = {this.state.main.last_page}
+            currentPage = {this.state.main.current_page}
+            nextPage = {(page) => this.loadPurchaseOrder(page)}
+            prevPage = {(page) => this.loadPurchaseOrder(page)}
+            toFirstPage = {(page) => this.loadPurchaseOrder(page)}
+            toLastPage = {(page) => this.loadPurchaseOrder(page)}
+            toClickedPage = {(page) => this.loadPurchaseOrder(page)}
+            toSpecificPage = {(page) => this.loadPurchaseOrder(page)}
+            />
           <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
             ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} />
         </div>

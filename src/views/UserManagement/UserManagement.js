@@ -9,7 +9,7 @@ import ModalNewUser from './Component/ModalNewUser'
 import moment from 'moment'
 import query from '../../AppComponent/query_menu_temp'
 import Authentication from '../../Auth/Authentication'
-import Paging from '../../AppComponent/Paging'
+import Paging from '../../AppComponent/PagingNew'
 import HeaderTitle from '../../AppComponent/HeaderTitle'
 import create from '../../assets/img/brand/button_create@2x.png'
 import logo_confirm from '../../assets/img/brand/LOGO5@2x.png'
@@ -69,6 +69,7 @@ class UserManagement extends Component {
       moduleAccess: [],
       sites: [],
       clients: [],
+      main:[],
       isModuleLoaded: false,
       isClientLoaded: false,
       isSiteLoaded: false,
@@ -293,9 +294,11 @@ class UserManagement extends Component {
       return null;
   }
 
-  loadUsers = () => {
+  loadUsers = (page) => {
     var self = this;
-    axios.get(endpoint.UserManagement_ListUser, {
+    let url = '?'
+    if(page) url += 'page=' + page
+    axios.get(endpoint.UserManagement_ListUser+url, {
       headers: headers
     })
       .then(res => {
@@ -307,12 +310,12 @@ class UserManagement extends Component {
           let startIndex = self.state.startIndex;
           let lastIndex = self.state.displayRow;
           let currentPage = parseInt(lastIndex / self.state.displayRow)
-          result = self.restructureUserList(res.data.data);
+          result = self.restructureUserList(res.data.data.data);
           let loginUser = self.restucturePersonalUser(result.filter((item) => { return item.userId === userId }));
 
           self.setState({
             isListLoaded: true, userList: result, personalUser: loginUser, totalPage: totalPage,
-            startIndex: startIndex, lastIndex: lastIndex, currentPage: currentPage
+            startIndex: startIndex, lastIndex: lastIndex, currentPage: currentPage, main:res.data.data
           });
         }
         return result;
@@ -706,8 +709,8 @@ class UserManagement extends Component {
       .then(res => {
         let result = [];
         if (res.status === 200) {
-          result = self.restructureUserList(res.data.data);
-          self.setState({ userList: result });
+          result = self.restructureUserList(res.data.data.data);
+          self.setState({ userList: result, main:res.data.data });
         }
         return result;
       })
@@ -814,12 +817,21 @@ class UserManagement extends Component {
         </Modal>
       </div>
       <div className='paginations fixed-bottom '>
-        <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
-          backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-          totalRows={this.state.userList.length} currentPage={this.state.currentPage}
-          maxPage={(this.state.totalPage)}
-          startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
-          numberEventClick={this.numberEventClick} />
+      <Paging 
+					//new props
+					totalRows = {this.state.main.total}
+					from = {this.state.main.from}
+					to = {this.state.main.to}
+					firstPage = {1}
+					lastPage = {this.state.main.last_page}
+					currentPage = {this.state.main.current_page}
+					nextPage = {(page) => this.loadUsers(page)}
+					prevPage = {(page) => this.loadUsers(page)}
+					toFirstPage = {(page) => this.loadUsers(page)}
+					toLastPage = {(page) => this.loadUsers(page)}
+					toClickedPage = {(page) => this.loadUsers(page)}
+					toSpecificPage = {(page) => this.loadUsers(page)}
+					/>
         <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
           ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} />
       </div>

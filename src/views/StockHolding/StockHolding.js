@@ -13,7 +13,7 @@ import HeaderTitle from '../../AppComponent/HeaderTitle';
 import Search from '../../AppComponent/Search';
 import Dropdown from '../../AppComponent/Dropdown';
 import StockHoldingTable from './StockHoldingTable';
-import Paging from '../../AppComponent/Paging';
+import Paging from '../../AppComponent/PagingNew';
 import EditColumn from '../../AppComponent/EditColumn';
 import Export from '../../AppComponent/Export'
 import Authentication from '../../Auth/Authentication'
@@ -26,6 +26,7 @@ class StockHolding extends Component {
 		this.state = {
 			tampil: [],
 			data: [],
+			main:[],
 			displayContent: "INIT",
 			isLoaded: false,
 			isSearch: false,
@@ -116,7 +117,7 @@ class StockHolding extends Component {
 			totalRows: respondRes.length
 		});
 
-		self.numberEventClick(self.state.currentPage);
+		// self.numberEventClick(self.state.currentPage);
 	}
 
 	getSite = () => {
@@ -150,7 +151,7 @@ class StockHolding extends Component {
 			})
 	}
 
-	loadStockHolding = () => {
+	loadStockHolding = (page) => {
 		let self = this;
 		self.setState({
 			isLoaded: true, isSearch: true,
@@ -160,17 +161,20 @@ class StockHolding extends Component {
 		});
 		
 		let site_ = Authentication.getSite() 
-		let url = ""
+		let url = "?"
+		let pages = '&&page='+page
 		if(site_ !== ""){
-			url = '?site=' + site_
+			url = 'site=' + site_
 		}
+
+		if(page) url+=  pages
   
 		axios.get(endpoint.stockHoldingSummary+url, {
 			headers: headers
 		})
 			.then(res => {
 				// console.log(res.data.data.data);
-				return res.data.data;
+				return res.data;
 			})
 			.catch(function (error) {
 				self.unAuthorizeAAccess(error);
@@ -184,11 +188,12 @@ class StockHolding extends Component {
 				return error;
 			})
 			.then(function (result) {
-				console.log(result);
-				if (result.data) {					
-					self.setPagination(result.data);
+				console.log(result.data.data);
+				if (result.data.data) {					
+					self.setPagination(result.data.data);
 				}
-				self.setState({ isLoaded: false, isSearch: false });
+				// self.setState({ isLoaded: false, isSearch: false });
+				self.setState({ isLoaded: false, isSearch: false, main:result.data, masterResStockHolding:result.data.data, displayContent:"FOUND"});
 			});
 	}
 
@@ -241,10 +246,7 @@ class StockHolding extends Component {
 				return error;
 			})
 			.then(function (result) {
-				if (result.data) {
-					self.setPagination(result.data);
-				}
-				self.setState({ isLoaded: false, isSearch: false });
+				self.setState({ isLoaded: false, isSearch: false, main:result.data, masterResStockHolding:result.data.data, displayContent:"FOUND", isLoaded:false, isSearch:false});;
 			});
 	}
 
@@ -269,9 +271,9 @@ class StockHolding extends Component {
 
 
 	showDropdown = () => {
-		let clientName = ["All Client"];
+		let clientName = ["All Clients"];
 		let clientValue = ["all"];
-		let masterSite = ["All Site"];
+		let masterSite = ["All Sites"];
 		let masterSiteValue = ["all"];
 		let Masterstatus = []; 
 		if (this.state.masterSite.length > 0) {
@@ -404,66 +406,6 @@ class StockHolding extends Component {
 		});
 	}
 
-	changeStartIndex = (currentPage) => {
-		this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
-	}
-
-	changeLastIndex = (currentPage) => {
-		this.setState({ lastIndex: parseInt(currentPage) * this.state.displayPage });
-	}
-
-	numberEventClick = (currentPage) => {
-		let page = parseInt(currentPage);
-		this.setState({ currentPage: page });
-		this.changeStartIndex(page);
-		this.changeLastIndex(page);
-	}
-
-	firstPageClick = () => {
-		if (this.state.currentPage > 1) {
-			this.setState({ currentPage: 1 }, () => {
-				this.changeStartIndex(1);
-				this.changeLastIndex(1);
-			});
-		}
-		return;
-	}
-
-	nextPageClick = () => {
-		if (this.state.currentPage < this.state.maxPage) {
-			this.setState((prev) => {
-				currentPage: prev.currentPage++;
-			}, () => {
-				this.changeStartIndex(this.state.currentPage);
-				this.changeLastIndex(this.state.currentPage);
-			});
-		}
-		return;
-	}
-
-	backPageClick = () => {
-		if (this.state.currentPage > 1) {
-			this.setState((prev) => {
-				currentPage: prev.currentPage--;
-			}, () => {
-				this.changeStartIndex(this.state.currentPage);
-				this.changeLastIndex(this.state.currentPage);
-			});
-		}
-		return;
-	}
-
-	lastPageClick = () => {
-		if (this.state.currentPage < this.state.maxPage) {
-			let currentPage = parseInt(this.state.maxPage + 1);
-
-			this.setState({ currentPage: currentPage });
-			this.changeStartIndex(currentPage);
-			this.changeLastIndex(currentPage);
-		}
-		return;
-	}
-
 	loadExport = () => {
 
 		let param = '?client=' + this.client
@@ -571,13 +513,21 @@ class StockHolding extends Component {
 				</div>
 
 				<div className="fixed-bottom paginations">
-					<Paging lastPageClick={this.lastPageClick} backPageClick={this.backPageClick}
-						nextPageClick={this.nextPageClick} firstPageClick={this.firstPageClick}
-						totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-						currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-						startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
-						isActive={this.state.isActive}
-						numberEventClick={this.numberEventClick} />
+				<Paging 
+					//new props
+					totalRows = {this.state.main.total}
+					from = {this.state.main.from}
+					to = {this.state.main.to}
+					firstPage = {1}
+					lastPage = {this.state.main.last_page}
+					currentPage = {this.state.main.current_page}
+					nextPage = {(page) => this.loadStockHolding(page)}
+					prevPage = {(page) => this.loadStockHolding(page)}
+					toFirstPage = {(page) => this.loadStockHolding(page)}
+					toLastPage = {(page) => this.loadStockHolding(page)}
+					toClickedPage = {(page) => this.loadStockHolding(page)}
+					toSpecificPage = {(page) => this.loadStockHolding(page)}
+					/>
 					<Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
 						ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} />
 				</div>
