@@ -400,66 +400,6 @@ class StockHolding extends Component {
 		});
 	}
 
-	changeStartIndex = (currentPage) => {
-		this.setState({ startIndex: (parseInt(currentPage) * this.state.displayPage) - this.state.displayPage });
-	}
-
-	changeLastIndex = (currentPage) => {
-		this.setState({ lastIndex: parseInt(currentPage) * this.state.displayPage });
-	}
-
-	numberEventClick = (currentPage) => {
-		let page = parseInt(currentPage);
-		this.setState({ currentPage: page });
-		this.changeStartIndex(page);
-		this.changeLastIndex(page);
-	}
-
-	firstPageClick = () => {
-		if (this.state.currentPage > 1) {
-			this.setState({ currentPage: 1 }, () => {
-				this.changeStartIndex(1);
-				this.changeLastIndex(1);
-			});
-		}
-		return;
-	}
-
-	nextPageClick = () => {
-		if (this.state.currentPage < this.state.maxPage) {
-			this.setState((prev) => {
-				currentPage: prev.currentPage++;
-			}, () => {
-				this.changeStartIndex(this.state.currentPage);
-				this.changeLastIndex(this.state.currentPage);
-			});
-		}
-		return;
-	}
-
-	backPageClick = () => {
-		if (this.state.currentPage > 1) {
-			this.setState((prev) => {
-				currentPage: prev.currentPage--;
-			}, () => {
-				this.changeStartIndex(this.state.currentPage);
-				this.changeLastIndex(this.state.currentPage);
-			});
-		}
-		return;
-	}
-
-	lastPageClick = () => {
-		if (this.state.currentPage < this.state.maxPage) {
-			let currentPage = parseInt(this.state.maxPage + 1);
-
-			this.setState({ currentPage: currentPage });
-			this.changeStartIndex(currentPage);
-			this.changeLastIndex(currentPage);
-		}
-		return;
-	}
-
 	loadExport = () => {
 
 		let param = '?client=' + this.client
