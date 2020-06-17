@@ -53,11 +53,11 @@ class StockHolding extends Component {
 				{ id: "disposition", checkboxLabelText: "Disposition", tableHeaderText: "Disposition", isVisible: false, key: "disposition",type: "string",style:{width:"5%"}, sort: mid },
 				{ id: "uom", checkboxLabelText: "UOM", tableHeaderText: "UOM", isVisible: true, key: "packdesc_1", type: "string",style:{width:"5%"}, sort: mid },
 				{ id: "status", checkboxLabelText: "Status", tableHeaderText: "Status", isVisible: true, key: "status", type: "string",style:{width:"5%"}, sort: mid },
-				{ id: "on_hand_qty", checkboxLabelText: "Stock On Hand", tableHeaderText: "Stock On Hand", isVisible: true, key: "on_hand_qty",type: "number",style:{width:"10%"}, sort: mid },
-				{ id: "weight", checkboxLabelText: "On Hand Wgt", tableHeaderText: "On Hand Weight", isVisible: true, key: "weight", type: "number",style:{width:"10%"}, sort: mid },
-				{ id: "expected_in_qty", checkboxLabelText: "Expected In Qty", tableHeaderText: "Expected In Qty", isVisible: true, key: "expected_in_qty",type: "number",style:{width:"10%"}, sort: mid },
-				{ id: "expected_in_wgt", checkboxLabelText: "Expected In Wgt", tableHeaderText: "Expected In Weight", isVisible: true, key: "expected_in_wgt", type: "number",style:{width:"10%"}, sort: mid },
-				{ id: "expected_out_qty", checkboxLabelText: "Expected Out Qty", tableHeaderText: "Expected Out Qty", isVisible: true, key: "expected_out_qty", type: "number",style:{width:"10%"}, sort: mid },
+				{ id: "on_hand_qty", checkboxLabelText: "Stock On Hand", tableHeaderText: "Stock \n On Hand", isVisible: true, key: "on_hand_qty",type: "number",style:{width:"10%"}, sort: mid },
+				{ id: "weight", checkboxLabelText: "On Hand Wgt", tableHeaderText: "On Hand \n Weight", isVisible: true, key: "weight", type: "number",style:{width:"10%"}, sort: mid },
+				{ id: "expected_in_qty", checkboxLabelText: "Expected In Qty", tableHeaderText: "Expected \n In Qty", isVisible: true, key: "expected_in_qty",type: "number",style:{width:"10%"}, sort: mid },
+				{ id: "expected_in_wgt", checkboxLabelText: "Expected In Wgt", tableHeaderText: "Expected \n In Weight", isVisible: true, key: "expected_in_wgt", type: "number",style:{width:"10%"}, sort: mid },
+				{ id: "expected_out_qty", checkboxLabelText: "Expected Out Qty", tableHeaderText: "Expected \n Out Qty", isVisible: true, key: "expected_out_qty", type: "number",style:{width:"10%"}, sort: mid },
 				{ id: "price", checkboxLabelText: "Price", tableHeaderText: "Price", isVisible: false, key: "price", type: "number",style:{width:"5%"}, sort: mid },
 				{ id: "pallets", checkboxLabelText: "Pallets", tableHeaderText: "Pallets", isVisible: false, key: "pallet",type: "string",style:{width:"5%"}, sort: mid },
 			],
@@ -169,7 +169,8 @@ class StockHolding extends Component {
 			headers: headers
 		})
 			.then(res => {
-				return res.data;
+				// console.log(res.data.data.data);
+				return res.data.data;
 			})
 			.catch(function (error) {
 				self.unAuthorizeAAccess(error);
@@ -183,7 +184,8 @@ class StockHolding extends Component {
 				return error;
 			})
 			.then(function (result) {
-				if (result.data) {
+				console.log(result);
+				if (result.data) {					
 					self.setPagination(result.data);
 				}
 				self.setState({ isLoaded: false, isSearch: false });

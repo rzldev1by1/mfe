@@ -421,7 +421,7 @@ class StockHoldingDetails extends Component {
                                                                               stockholding={this.state.stockHolding} 
                                                                               />
                                                             </TabPane>
-                                                            <TabPane className={this.showStockBalanceForecast(stockHolding) ? "p-0" : "d-none"} tabId="2">
+                                                            <TabPane className={"p-0"} tabId="2">
                                                                 <StockBalanceForecast isForeshadowedBalance={this.state.isForeshadowedBalance}
                                                                                       stockBalanceForecast={this.state.stockBalanceForecast}
                                                                                       foreshadowedColumns={this.state.foreshadowedColumns}

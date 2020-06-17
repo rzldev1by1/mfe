@@ -99,65 +99,75 @@ class StockBalanceForecast extends Component {
 	}
 
 	showForeshadowedData = () => {
-		let balance = this.props.openingBalance;
-		return (
-			this.props.stockBalanceForecast.slice(this.state.startIndex, this.state.lastIndex).map((item, idx) => (
-				<tr key={idx}>
-					{this.props.foreshadowedColumns.map((column, columnIdx) => {
-						if (column.isVisible) {
-							if (column.id === "balance") {
-								balance += parseInt(item["qtyexpected"]) - parseInt(item["qtycommitted"])
+		// let balance = this.props.openingBalance;
+		if(this.props.stockBalanceForecast && this.props.stockBalanceForecast.length > 0){
+			let stockBalanceForecast = {...this.props.stockBalanceForecast[0]};
+			
+			let balance = parseInt(stockBalanceForecast["opening balance"]);
+			return (
+					
+				stockBalanceForecast["available orders"].map((item, idx) => {
+					return	(<tr key={idx}>
+						{this.props.foreshadowedColumns.map((column, columnIdx) => {
+							if (column.isVisible) {
+								if (column.id === "balance") {
+									balance += parseInt(item["qtyexpected"]) - parseInt(item["qtycommitted"])
+									return (
+										<td key={columnIdx} className="px-3 text-left">{balance}</td>
+									);
+								}
+	
 								return (
-									<td key={columnIdx} className="px-3 text-left">{item['balance']}</td>
+									<td key={columnIdx} className="px-3 text-left">
+										{column.id === "effectivedate" ? item[column.key] : this.checkValue(column.id,item[column.key])}
+									</td>
 								);
 							}
-
-							return (
-								<td key={columnIdx} className="px-3 text-left">
-									{column.id === "effectivedate" ? formatDate(item[column.key]) : this.checkValue(column.id,item[column.key])}
-								</td>
-							);
-                        }
-                        return null;
-					})}
-				</tr>
-			))
-		);
+							return null;
+							 })}
+						</tr>)
+					}
+				)
+			);
+		}else{
+			return null;
+		}
+		
 	}
 
 	openingRecord = () => {
 		let stockbalanceForecast = {};
 
 		if(this.props.stockBalanceForecast && this.props.stockBalanceForecast.length > 0){
-			stockbalanceForecast = [...this.props.stockBalanceForecast][0];
-			let effectivedate = stockbalanceForecast["available orders"][0].effectivedate;
-			console.log(stockbalanceForecast);
+			let stockBalanceForecast = {...this.props.stockBalanceForecast[0]};
+			let initialBalance = parseInt(stockBalanceForecast["opening balance"]);
+			
 		return (
 			<tr>
-					{this.props.foreshadowedColumns.map((column, columnIdx) => {
-						if (column.isVisible) {
-								if (column.id === "balance") {
-										return (
-												<td key={columnIdx} className="px-3 text-left">{stockbalanceForecast["opening balance"]}</td>
-										);
+						{this.props.foreshadowedColumns.map((column, columnIdx) => {
+							if (column.isVisible) {
+								if (column.id === "type") {
+									return (
+											<td key={columnIdx} className="px-3 text-left">Opening Balance</td>
+									);
 								}
 
-								if (column.id === "type") {
-										return (
-												<td key={columnIdx} className="px-3 text-left">Opening Balance</td>
-										);
+								if (column.id === "balance") {
+									return (
+										<td key={columnIdx} className="px-3 text-left">{initialBalance}</td>
+									);
 								}
 
 								return (
 									<td key={columnIdx} className="px-3 text-left">
-										{column.id === "effectivedate" ? formatDate(effectivedate) : ''}
+										{''}
 									</td>
 								);
-						 }
-								return null;
-					})}
-			</tr>
-		)
+							}
+							return null;
+						})}
+					</tr>
+			)
 		}
 		else{
 			return null;
@@ -262,9 +272,9 @@ class StockBalanceForecast extends Component {
                         <thead>{this.showForeshadowedHeader()}</thead>
                         <tbody>
 												{this.openingRecord()}
-												{/* {this.showForeshadowedData()} */}
+												{this.showForeshadowedData()}
 												{/* {this.closingRecord()} */}
-												</tbody>
+						</tbody>
                     </Table>
                 </div>
                 <div className="paginations">
