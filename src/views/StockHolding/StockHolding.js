@@ -173,7 +173,7 @@ class StockHolding extends Component {
 			headers: headers
 		})
 			.then(res => {
-				// console.log(res.data.data.data);
+				
 				return res.data;
 			})
 			.catch(function (error) {

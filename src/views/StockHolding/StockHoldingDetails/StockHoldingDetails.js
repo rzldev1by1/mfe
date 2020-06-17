@@ -263,7 +263,7 @@ class StockHoldingDetails extends Component {
 
 	render() {
 		const { stockHolding, activeTab,stockBalanceForecast } = this.state;
-        console.log(stockBalanceForecast);
+        
 		let content;
 		switch (this.state.displayContent) {
 			case "FOUND" :
