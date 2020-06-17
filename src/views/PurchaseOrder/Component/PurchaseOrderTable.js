@@ -258,7 +258,7 @@ class PurchaseOrderTable extends Component {
     })
       .then(res => {
         const result = res.data.data
-        this.setState({ data: result })
+        this.setState({ main: result })
         this.load()
       })
       .catch(error => {
