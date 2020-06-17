@@ -188,7 +188,7 @@ class StockHolding extends Component {
 				return error;
 			})
 			.then(function (result) {
-				console.log(result.data.data);
+				
 				if (result.data.data) {					
 					self.setPagination(result.data.data);
 				}

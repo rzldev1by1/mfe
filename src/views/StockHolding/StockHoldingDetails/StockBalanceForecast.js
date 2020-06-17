@@ -98,8 +98,7 @@ class StockBalanceForecast extends Component {
 		return result;
 	}
 
-	showForeshadowedData = () => {
-		// let balance = this.props.openingBalance;
+	showForeshadowedData = () => {		
 		if(this.props.stockBalanceForecast && this.props.stockBalanceForecast.length > 0){
 			let stockBalanceForecast = {...this.props.stockBalanceForecast[0]};
 			
@@ -135,6 +134,61 @@ class StockBalanceForecast extends Component {
 		
 	}
 
+	showStockExpiryData = () => {		
+		if(this.props.stockBalanceForecast && this.props.stockBalanceForecast.length > 0){
+			let stockBalanceForecast = {...this.props.stockBalanceForecast[0]};
+			let availableStock = stockBalanceForecast["available orders"];
+			
+			let lastIndex = availableStock.length - 1;
+			
+			let balance = availableStock[lastIndex]["closingbalance"];
+			
+			return (
+					
+				stockBalanceForecast["stock expiry"].map((item, idx) => {
+					
+					return	(<tr key={idx}>
+						{this.props.foreshadowedColumns.map((column, columnIdx) => {
+							if (column.isVisible) {
+								if (column.id === "balance") {
+									balance -= parseInt(item["quantity"])
+									return (
+										<td key={columnIdx} className="px-3 text-left">{balance}</td>
+									);
+								}
+								else if (column.id === "qtycommitted") {
+									
+									return (
+										<td key={columnIdx} className="px-3 text-left">{item["quantity"]}</td>
+									);
+								}
+								else if(column.id === 'type'){
+									return (
+										<td key={columnIdx} className="px-3 text-left">Stock Expires</td>
+									);
+
+								}
+	
+								return (
+									<td key={columnIdx} className="px-3 text-left">
+										{column.id === "effectivedate" ? item["stockexpirydate"] : ""}
+									</td>
+								);
+							}
+							return null;
+							 })}
+						</tr>)
+					}
+				)
+			);
+		}else{
+			return null;
+		}
+		
+	}
+
+	
+
 	openingRecord = () => {
 		let stockbalanceForecast = {};
 
@@ -158,6 +212,8 @@ class StockBalanceForecast extends Component {
 									);
 								}
 
+								
+
 								return (
 									<td key={columnIdx} className="px-3 text-left">
 										{''}
@@ -175,32 +231,50 @@ class StockBalanceForecast extends Component {
 	}
 
 	closingRecord = () => {
+		if(this.props.stockBalanceForecast && this.props.stockBalanceForecast.length > 0){
+			let stockBalanceForecast = {...this.props.stockBalanceForecast[0]};
+			let availableStock = stockBalanceForecast["available orders"];
+			let stockExpiry = stockBalanceForecast["stock expiry"];
+			let lastIndex = availableStock.length - 1;
+			
+			let lastAvailableStockBalance = availableStock[lastIndex]["closingbalance"];
+			let sumStockExpiryQty = 0;
+
+			stockExpiry.forEach((item,idx) => {
+				sumStockExpiryQty += parseInt(item.quantity);
+			})			
+			
+			let closingBalance = lastAvailableStockBalance - sumStockExpiryQty;			
 		return (
 			<tr>
 					{this.props.foreshadowedColumns.map((column, columnIdx) => {
 						if (column.isVisible) {
 								if (column.id === "balance") {
 										return (
-												<td key={columnIdx} className="px-3 text-left">{this.props.closingBalance}</td>
+												<td key={columnIdx} className="px-3 text-left">{closingBalance}</td>
 										);
 								}
 
 								if (column.id === "type") {
-										return (
-												<td key={columnIdx} className="px-3 text-left">Closing Balance</td>
-										);
+									return (
+										<td key={columnIdx} className="px-3 text-left">{"Closing Balance"}</td>
+									);
 								}
 
 								return (
 									<td key={columnIdx} className="px-3 text-left">
-										{column.id === "effectivedate" ? formatDate(this.props.closingDate) : ''}
+										 {''}
 									</td>
 								);
 						 }
-								return null;
+						return null;
 					})}
 			</tr>
-		)
+			)
+		}
+		else{
+			return null;
+		}
 	}
 
 	changeStartIndex = (currentPage) => {
@@ -273,7 +347,8 @@ class StockBalanceForecast extends Component {
                         <tbody>
 												{this.openingRecord()}
 												{this.showForeshadowedData()}
-												{/* {this.closingRecord()} */}
+												{this.showStockExpiryData()}
+												{this.closingRecord()}
 						</tbody>
                     </Table>
                 </div>
