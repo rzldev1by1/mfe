@@ -114,7 +114,7 @@ class Paging extends Component {
                     <div className="text">
                         <span style={{color:'#B4B9BB'}} className="p-0">Go to page</span>
                         <form onSubmit={e => { e.preventDefault() ; this.handleSubmit(lastPage,toSpecificPage) }}>
-                        <input required type="text" pattern="[0-9]*"  className="search_1" maxLength="4"  placeholder={Math.ceil(this.props.maxPage)} value={this.state.value} onChange={e => this.handleChangeSearch(e)} />
+                        <input required type="text" pattern="[0-9]*"  className="search_1" maxLength="4"  placeholder={lastPage} value={this.state.value} onChange={e => this.handleChangeSearch(e)} />
                         <button className="submit_1" style={{color:"#637175"}}>Go <i className="fa fa-angle-right fa-2x logo" /> </button>
                     </form>
                     </div>

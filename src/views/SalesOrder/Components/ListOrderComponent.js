@@ -105,37 +105,10 @@ class ListOrderComponent extends Component {
         const result = res.data.data;
         this.setState({ main: result });
         this.load();
-        // this.setPagination(result);
       })
       .catch((error) => {
 
       });
-  };
-
-  setPagination = (result) => {
-    let self = this;
-    let respondRes = result;
-    let totalPage = 0;
-
-    if (respondRes.length > self.state.displayPage) {
-      totalPage = respondRes % self.state.displayPage;
-      if (totalPage > 0 && totalPage < 50) {
-        totalPage = parseInt(respondRes.length / self.state.displayPage) + 1;
-      } else {
-        totalPage = respondRes.length / self.state.displayPage;
-      }
-      self.setState({ maxPage: totalPage });
-    } else {
-      self.setState({ maxPage: 1 });
-    }
-
-    self.setState({
-      displayContent: "FOUND",
-      masterResStockHolding: respondRes,
-      totalRows: respondRes.length
-    });
-
-    self.numberEventClick(self.state.currentPage);
   };
 
   loadSalesOrder = (page) => {
@@ -163,7 +136,6 @@ class ListOrderComponent extends Component {
         const result = res.data.data.data;
         this.setState({ data: result, main:res.data.data }, () =>console.log(this.state.main));
         this.load();
-        // this.setPagination(result);
       })
       .catch((error) => {
 
@@ -275,69 +247,7 @@ class ListOrderComponent extends Component {
     });
     this.setState({ data: datas });
   };
-  changeStartIndex = (currentPage) => {
-    this.setState({
-      startIndex:
-        parseInt(currentPage) * this.state.displayPage - this.state.displayPage
-    });
-  };
 
-  changeLastIndex = (currentPage) => {
-    this.setState({
-      lastIndex: parseInt(currentPage) * this.state.displayPage
-    });
-  };
-
-  numberEventClick = (currentPage) => {
-    let page = parseInt(currentPage);
-    this.setState({ currentPage: page });
-    this.changeStartIndex(page);
-    this.changeLastIndex(page);
-  };
-
-  nextPageClick = () => {
-    if (this.state.currentPage < this.state.maxPage) {
-      this.setState((prev) => {
-        prev.currentPage++;
-        this.changeStartIndex(prev.currentPage);
-        this.changeLastIndex(prev.currentPage);
-      });
-    }
-    return;
-  };
-
-  backPageClick = () => {
-    if (this.state.currentPage > 1) {
-      this.setState((prev) => {
-        prev.currentPage--;
-        this.changeStartIndex(prev.currentPage);
-        this.changeLastIndex(prev.currentPage);
-      });
-    }
-    return;
-  };
-
-  lastPageClick = () => {
-    if (this.state.currentPage < this.state.maxPage) {
-      let currentPage = parseInt(this.state.maxPage + 1);
-
-      this.setState({ currentPage: currentPage });
-      this.changeStartIndex(currentPage);
-      this.changeLastIndex(currentPage);
-    }
-    return;
-  };
-
-  firstPageClick = () => {
-    if (this.state.currentPage > 1) {
-      let currentPage = 1;
-
-      this.setState({ currentPage: currentPage });
-      this.changeStartIndex(currentPage);
-      this.changeLastIndex(currentPage);
-    }
-    return;
-  };
   arrowHandler = (e) => {
     let id = e.currentTarget.id;
     this.setState({ activecolumnsort: id });
@@ -540,8 +450,8 @@ class ListOrderComponent extends Component {
               </tr>
             </thead>
             <tbody>
-              {/* {
-                this.state.data ? this.state.data.map((data, i) => {
+            {
+                main.data ? main.data.map((data, i) => {
                   const dataa = Object.entries(data)
                   return (
                     <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/' + data.client + '/' + data.site + '/' + data.orderno)} className='tr'>
@@ -550,21 +460,14 @@ class ListOrderComponent extends Component {
                     </tr>
                   )
                 }) : <div> No data available </div>
-              } */}
+              }
             </tbody>
           </table>
 
         </div>
 
         <div className='fixed-bottom paginations m-0'>
-          <Paging firstPageClick={this.firstPageClick} lastPageClick={this.lastPageClick}
-            backPageClick={this.backPageClick} nextPageClick={this.nextPageClick}
-            totalRows={this.state.totalRows} displayPage={this.state.displayPage}
-            currentPage={this.state.currentPage} maxPage={this.state.maxPage}
-            startIndex={this.state.startIndex} lastIndex={this.state.lastIndex}
-            isActive={this.state.isActive}
-            numberEventClick={this.numberEventClick}
-            
+          <Paging 
             //new props
             totalRows = {main.total}
             from = {main.from}
