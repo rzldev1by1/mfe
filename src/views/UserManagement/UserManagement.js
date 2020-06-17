@@ -709,8 +709,8 @@ class UserManagement extends Component {
       .then(res => {
         let result = [];
         if (res.status === 200) {
-          result = self.restructureUserList(res.data.data);
-          self.setState({ userList: result });
+          result = self.restructureUserList(res.data.data.data);
+          self.setState({ userList: result, main:res.data.data });
         }
         return result;
       })
