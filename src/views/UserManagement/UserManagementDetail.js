@@ -654,9 +654,9 @@ class UserManagementDetail extends Component{
                 </div>
             </div>
             <Modal isOpen={this.state.modalPopupResetdisplay} toggle={this.toggleModalConfirm}
-            centered={true} className={"modal-company modal-lg animated fadeIn"} backdrop="static"
+            centered={true} className={"animated fadeIn"} backdrop="static"
             onOpened={() => this.state.updateSuccess ? setTimeout(() => this.toogleModalConfirm(), 1000) : {}}>
-          <ModalHeader className="modal-header-popup-reset" toggle={this.toggleModalConfirm}>
+           <ModalHeader className="modal-header-popup-reset" toggle={this.toggleModalConfirm}>
             <div className="d-flex flex-column ml-4">
                 <label style={{fontSize:"25px"}}>
                   <i className="fa fa-refresh mr-3"></i>
