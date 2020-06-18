@@ -1,5 +1,5 @@
 const column =[
-  {id:'rn', active:true, name:'No'},
+  {id:'rn', active:false, name:'No'},
     {id:'site', active:true, name:'Site'},
     {id:'client', active:true, name:'Client'},
     {id:'orderno', active:true, name:'Order No'},
