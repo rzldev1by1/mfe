@@ -661,6 +661,12 @@ class PurchaseOrderCreate extends Component {
 
 
   tab2Content = () => {
+    const {supplier,supplierdatacr} = this.state
+    let supplierName = null;
+    supplierdatacr.map((data,i) => {
+      if(data.supplier_no === supplier) supplierName = data.supplier_no + ' : ' + data.name
+    })
+    
     return (
       <div className="tabcontent fades">
         <h3 className="fonts so-header-title">Order Details</h3>
@@ -674,8 +680,8 @@ class PurchaseOrderCreate extends Component {
           </tr>
           <tr>
             <td><input className="form-control" value={this.state.site} readOnly /></td>
-            <td><input value={this.state.supplier} value={this.state.client} className="form-control" readOnly /></td>
-            <td><input value={this.state.supplier} value={this.state.supplier} className="form-control" readOnly /></td>
+            <td><input value={this.state.client} className="form-control" readOnly /></td>
+            <td><input value={supplierName}  className="form-control" readOnly /></td>
             <td><input className="form-control" value={this.state.customerRef} readOnly /></td>
           </tr>
           <tr>
