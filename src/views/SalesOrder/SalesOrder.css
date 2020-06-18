@@ -197,7 +197,7 @@ table{
 .tr td {
   height: 45px;
   border-bottom: 1px solid #d5d8da !important;
-  padding: 0.5rem 1rem 0.5rem 1rem;
+  /* padding: 0.5rem 1rem 0.5rem 1rem; */
 }
 
 .createpotable > tr > td {
