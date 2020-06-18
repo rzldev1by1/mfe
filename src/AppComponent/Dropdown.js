@@ -31,7 +31,7 @@ class Dropdown extends Component{
                             <input className={"select_dropdown_expand" + (usedFor == "Datepicker" ? " select_datepicker_expand" : "")} type="radio" name={"select" + placeHolder + this.state.no} value="" onClick={(e) => {getValue(e.target.value); selectDropdownRef.className = "select_dropdown "+className + (!this.state.close && (this.props.usedFor == "SalesOrderCreate") ? " dropDownForOrderLine" : "" )}} id={"select-opener" + placeHolder + this.state.no}/>
                             <label className="select_dropdown_closeLabel" htmlFor={"select-close" + placeHolder + this.state.no}></label>
                             
-                            <ul className={"select_dropdown_options" + (optionList ? "" : " d-none") + (usedFor == "Datepicker" ? " select_datepicker_options" : "")}>
+                            <ul className={"select_dropdown_options" + (optionList ? "" : " d-none") + (usedFor == "Datepicker" ? " select_datepicker_options" : "") + (this.props.showAll ? " showAllLists" : "")}>
                                 {/* {this.selectOption()} */}
                                 {optionList ? optionListData.map((data, idx) => {
                                     if(idx == 0){

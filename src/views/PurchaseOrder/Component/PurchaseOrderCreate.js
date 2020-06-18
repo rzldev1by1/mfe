@@ -448,10 +448,10 @@ class PurchaseOrderCreate extends Component {
     if (this.state.clientdatacr) {
       this.state.clientdatacr.map((data) => {
         if (data.code == headers.client) {
-          clientName.push(data.code + " (" + data.name + ")");
+          clientName.push(data.code + " ( " + data.name + " )");
           clientValue.push(data.code);
         } else if ((headers.client == null) || (headers.client == "")) {
-          clientName.push(data.code + " (" + data.name + ")");
+          clientName.push(data.code + " ( " + data.name + " )");
           clientValue.push(data.code);
         }
       })
@@ -661,12 +661,28 @@ class PurchaseOrderCreate extends Component {
 
 
   tab2Content = () => {
-    const {supplier,supplierdatacr} = this.state
+    const {supplier,supplierdatacr,site,sitedatacr,client,clientdatacr,orderType,orderdatacr} = this.state
     let supplierName = null;
+    let siteName = null;
+    let clientName = null;
+    let orderData = null;
+
     supplierdatacr.map((data,i) => {
       if(data.supplier_no === supplier) supplierName = data.supplier_no + ' : ' + data.name
     })
-    
+
+    sitedatacr.map((data,i) => {
+      if(data.site === site) siteName = data.site + ' : ' + data.name
+    })
+
+    clientdatacr.map((data,i) => {
+      if(data.code === client) clientName = data.code + ' ( ' + data.name + ' ) '
+    })
+
+    orderdatacr.map((data,i) => {
+      if(data.code === orderType) orderData = data.code + ' : ' + data.description
+    })
+
     return (
       <div className="tabcontent fades">
         <h3 className="fonts so-header-title">Order Details</h3>
@@ -679,8 +695,8 @@ class PurchaseOrderCreate extends Component {
             <th style={{ width: "396px" }}>Customer Order Ref</th>
           </tr>
           <tr>
-            <td><input className="form-control" value={this.state.site} readOnly /></td>
-            <td><input value={this.state.client} className="form-control" readOnly /></td>
+            <td><input className="form-control" value={siteName} readOnly /></td>
+            <td><input value={clientName} className="form-control" readOnly /></td>
             <td><input value={supplierName}  className="form-control" readOnly /></td>
             <td><input className="form-control" value={this.state.customerRef} readOnly /></td>
           </tr>
@@ -694,7 +710,7 @@ class PurchaseOrderCreate extends Component {
             <th>Vendor Order Ref</th>
           </tr>
           <tr>
-            <td><input className="form-control" value={this.state.orderType} readOnly /></td>
+            <td><input className="form-control" value={orderData} readOnly /></td>
             <td><input className="form-control" value={this.state.orderNo} readOnly /></td>
             <td><input className="form-control" value={moment(this.state.orderDate).format("DD/MM/YYYY")} readOnly /></td>
             <td><input className="form-control" value={this.state.vendorRef} readOnly /></td>
