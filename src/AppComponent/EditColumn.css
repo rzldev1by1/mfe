@@ -47,7 +47,10 @@
 }
 
 .modal-content {
-	position: absolute;	
+	position: absolute;
+	width: 290%;
+	margin-left: -95%;
+	margin-top: 20%;
 	border-radius: 0.3rem;
 	background-color: #F4F4F4 !important;
 }
