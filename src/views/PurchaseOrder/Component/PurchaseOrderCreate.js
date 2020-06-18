@@ -724,13 +724,13 @@ class PurchaseOrderCreate extends Component {
           <tr >
             <th style={{ width: "3%", textAlign: "center", paddingLeft: "18px" }}>#</th>
             <th style={{ width: "12%", paddingLeft: "20px" }}>Product</th>
-            <th style={{ width: "12%", paddingLeft: "24px" }}>Description</th>
-            <th style={{ width: "4%", paddingLeft: "29px" }}>Qty</th>
-            <th style={{ width: "4%", paddingLeft: "1px" }}>Weight</th>
+            <th style={{ width: "12%", paddingLeft: "18px" }}>Description</th>
+            <th style={{ width: "4%", paddingLeft: "16px" }}>Qty</th>
+            <th style={{ width: "4%", paddingLeft: "2px" }}>Weight</th>
             <th style={{ width: "6%", paddingLeft: "23px" }}>UOM</th>
-            <th style={{ width: "6%", paddingLeft: "24px" }}>Rotadate</th>
-            <th style={{ width: "6%", paddingLeft: "37px" }}>Batch</th>
-            <th style={{ width: "6%", paddingLeft: "25px", paddingRight: "-20px" }}>Ref3</th>
+            <th style={{ width: "6%", paddingLeft: "22px" }}>Rotadate</th>
+            <th style={{ width: "6%", paddingLeft: "34px" }}>Batch</th>
+            <th style={{ width: "6%", paddingLeft: "31px", paddingRight: "-20px" }}>Ref3</th>
             <th style={{ width: "5%", paddingRigth: "-30px" }}>Ref4</th>
             <th style={{ width: "3%", paddingRight: "-30px" }}>Disposition</th>
           </tr>
