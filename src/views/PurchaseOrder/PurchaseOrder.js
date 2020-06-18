@@ -290,7 +290,8 @@ class PurchaseOrder extends Component {
             className="filterDropdown"
             optionList={siteData.toString()}
             optionValue={siteValue.toString()}
-            getValue={this.getSiteSelected.bind(this)} />
+            getValue={this.getSiteSelected.bind(this)}
+            showAll={true} />
         ) : (
             <input
               readOnly
@@ -307,7 +308,8 @@ class PurchaseOrder extends Component {
             className="filterDropdown"
             optionList={clientName.toString()}
             optionValue={clientValue.toString()}
-            getValue={this.getClientSelected.bind(this)} />
+            getValue={this.getClientSelected.bind(this)}
+            showAll={true} />
         ) : (
             <input
               readOnly
@@ -323,17 +325,20 @@ class PurchaseOrder extends Component {
           className="filterDropdown"
           optionList={status.toString()}
           optionValue={statusValue.toString()}
-          getValue={this.getStatusSelected.bind(this)} />
+          getValue={this.getStatusSelected.bind(this)}
+          showAll={true} />
         <Dropdown placeHolder="Order Type"
           className="filterDropdown"
           optionList={this.state.orderTypeName.toString()}
           optionValue={this.state.orderTypeValue.toString()}
-          getValue={this.getOrderTypeSelected.bind(this)} />
+          getValue={this.getOrderTypeSelected.bind(this)}
+          showAll={true} />
         <Dropdown placeHolder="Task"
         className="filterDropdown"
         optionList={taskName.toString()}
         optionValue={taskValue.toString()}
-        getValue={this.getTaskSelected.bind(this)} />
+        getValue={this.getTaskSelected.bind(this)}
+        showAll={true} />
       </React.Fragment>
     )
   }
