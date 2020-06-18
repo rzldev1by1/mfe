@@ -45,7 +45,7 @@ class SalesOrderDetail extends Component {
         })
         .then(res => {
             const result = res.data.data
-            this.setState({line:result})
+            this.setState({line:result,complete:true})
             console.log(res)
             this.sotableref.current.setPagination(res)
         })
@@ -67,7 +67,7 @@ class SalesOrderDetail extends Component {
         })
             .then(res => {
                 const result = res.data.data
-                this.setState({ head: result })
+                this.setState({ head: result, complete:true })
             })
             .catch(error => {
                 
@@ -357,9 +357,9 @@ class SalesOrderDetail extends Component {
                 </div>
 
                 {
-                    this.state.head.length ? this.head() : null
+                    this.state.complete ? this.head() : null
                 }
-                <div className={'tablecontent ' + (this.state.head.length ? 'fades ' : 'hidden')}>
+                <div className={'tablecontent ' + (this.state.complete? 'fades ' : 'hidden')}>
                     <SODTable ref={this.sotableref} 
                     className='animated fadeIn' 
                     style={{ display: 'none' }} 
@@ -368,7 +368,7 @@ class SalesOrderDetail extends Component {
                     showEditColumn = {() => this.setState({ showEditColumn: true })}
                     getTableHeader = {(e) => this.setState({ tableheader: e })}/>
                 </div>
-                <div className={(this.state.head.length ? 'hidden' : 'spinner')} />
+                <div className={(this.state.complete ? 'hidden' : 'spinner')} />
 
                 {this.state.showEditColumn ? <EditColumn isOpen={this.state.showEditColumn} 
                             toggle={() => this.setState({ showEditColumn: false })}
