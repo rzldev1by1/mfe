@@ -66,7 +66,7 @@ class SalesOrderDetail extends Component {
             headers: headers
         })
             .then(res => {
-                const result = res.data.data
+                const result = res.data.data.data
                 this.setState({ head: result, complete:true })
             })
             .catch(error => {
