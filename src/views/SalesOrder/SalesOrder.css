@@ -12,7 +12,6 @@ span.upArrow:before {
 }
 
 
-
 .headers {
   font-weight: 500;
   color: #b4b9bb !important;
@@ -769,6 +768,14 @@ overflow-x: scroll;
 	/* background-color: #F4F4F4 !important; */
 }
 
+.modal-content > .so-edit-column {
+  	position: absolute;
+  	width: 290%;
+  	margin-left: -95%;
+  	margin-top: 20%;
+  	border-radius: 0.3rem;
+  	background-color: #F4F4F4 !important;
+}
 
 .btn-editcol {  
 	padding: 0.5em 1em;

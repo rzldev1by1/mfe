@@ -45,7 +45,8 @@ export default class SalesOrderEditColumn extends Component {
 
     render() {
         return (
-            <Modal size="lg" isOpen={this.props.isOpen} onBackdropPress={() => this.setState({ showmodal: false })}>
+            <Modal isOpen={this.props.isOpen} onBackdropPress={() => this.setState({ showmodal: false })}>
+                <div className="ge-edit-column-modal">
                 <ModalHeader className="edit-column-modal-header">
                     <div className='main-modal'>
                         <div className='edit-column-modal-header'>
@@ -130,6 +131,7 @@ export default class SalesOrderEditColumn extends Component {
                         </div>
                     </Row>
                 </ModalBody>
+                </div>
             </Modal>
         )
     }

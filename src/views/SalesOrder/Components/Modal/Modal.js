@@ -24,6 +24,7 @@ const EditColumn = (props) => {
   }
   return (
     <Modal isOpen={showEditColumn}>
+      <div className="so-edit-column">
       <ModalHeader>
         <div className='main-modal'>
           <div className='edit-column-so-header'>
@@ -59,6 +60,7 @@ const EditColumn = (props) => {
         </Row>
       </ModalBody>
 
+      </div>
     </Modal>
   );
 };

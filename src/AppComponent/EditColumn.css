@@ -46,7 +46,7 @@
 	/* background-color: #F4F4F4 !important; */
 }
 
-.modal-content {
+.modal-content > .ge-edit-column-modal {
 	position: absolute;
 	width: 290%;
 	margin-left: -95%;
