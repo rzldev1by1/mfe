@@ -469,7 +469,7 @@ class PurchaseOrderCreate extends Component {
     }
     if (this.state.supplierdatacr) {
       this.state.supplierdatacr.map((data) => {
-        supplierNo.push(data.supplier_no + " : " + data.name);
+        supplierNo.push(data.supplier_no );
         supplierName.push(data.supplier_no + " : " + data.name);
       })
     }
@@ -557,7 +557,7 @@ class PurchaseOrderCreate extends Component {
             </td>
             {/* <td style={{ width: "396px" }}><input className={"form2 put pec" +("1" ? "" : "form2 valid pec") } placeholder="Client"/> </td> */}
             <td style={{ width: "396px" }}>
-              <AutoComplete placeHolder="Supplier"
+              <Dropdown placeHolder="Supplier"
                 style={{ minWidth: "100%", zIndex: '6' }}
                 optionList={supplierName.toString()}
                 optionValue={supplierNo.toString()}
