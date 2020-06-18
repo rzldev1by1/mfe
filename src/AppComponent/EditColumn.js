@@ -45,7 +45,7 @@ export default class SalesOrderEditColumn extends Component {
 
     render() {
         return (
-            <Modal isOpen={this.props.isOpen} onBackdropPress={() => this.setState({ showmodal: false })}>
+            <Modal size="lg" isOpen={this.props.isOpen} onBackdropPress={() => this.setState({ showmodal: false })}>
                 <ModalHeader className="edit-column-modal-header">
                     <div className='main-modal'>
                         <div className='edit-column-modal-header'>
