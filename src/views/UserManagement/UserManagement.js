@@ -798,8 +798,8 @@ class UserManagement extends Component {
                 message={this.state.validatorMessage} changeWebGroup={this.changeWebgroup} isWebGroup={this.state.webgroup} validation={this.state.validation}
                 isEnableAllModule={this.state.isEnableAllModule} isEnableAllSite={this.state.isEnableAllSite}
                 isEnableAllClient={this.state.isEnableAllClient} />
-
-        <Modal className="create-confirmation" isOpen={this.state.succesCreate} centered={true}
+        
+        <Modal isOpen={this.state.succesCreate} centered={true}
           onOpened={() => this.state.succesCreate ? setTimeout(() => { this.closeConfirmDialog() }, 3000) : {}}>
           <ModalBody style={{ backgroundColor: "#D5D8DA" }}>
             <div className="d-flex d-inline-flex">
