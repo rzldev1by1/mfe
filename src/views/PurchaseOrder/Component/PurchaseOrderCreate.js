@@ -469,8 +469,8 @@ class PurchaseOrderCreate extends Component {
     }
     if (this.state.supplierdatacr) {
       this.state.supplierdatacr.map((data) => {
-        supplierNo.push(data.supplier_no + " : " + "Supplier 1");
-        supplierName.push(data.supplier_no + " : " + "Supplier 1");
+        supplierNo.push(data.supplier_no + " : " + data.name);
+        supplierName.push(data.supplier_no + " : " + data.name);
       })
     }
     if (this.state.orderdatacr) {
@@ -871,7 +871,7 @@ class PurchaseOrderCreate extends Component {
             <td>
              <div id='orderline-header-uom-val-id'>
                 <AutoComplete placeHolder="UOM"
-                  style={{ width: "100%", zIndex: this.state.rowlist.length - i }}
+                  tyle={{ width: "100%", zIndex: this.state.rowlist.length - i }}
                   optionList={this.state.rowlist[i].uomlists ? this.state.rowlist[i].uomlists.toString() : []}
                   optionValue={this.state.rowlist[i].uomlists ? this.state.rowlist[i].uomlists.toString() : []}
                   getValue={(e) => { this.state.rowlist[i].uom = e; this.setState({ rowlist: this.state.rowlist }) }}
