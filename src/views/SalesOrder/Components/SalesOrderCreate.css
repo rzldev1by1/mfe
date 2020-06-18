@@ -1,4 +1,4 @@
-.modal-content{
+.modal-content > .createModals{
 	position: absolute ;
 	width: 270%;
 	margin-left: -85%;

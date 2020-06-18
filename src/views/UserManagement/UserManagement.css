@@ -404,7 +404,7 @@ input:checked + .slider:before {
   color: #3366ff;
 }
 
-.modal-content > .create-modal {
+.modal-content > .um-create-modal {
   position: absolute;
   width: 124%;
   background-color: #3366ff;
