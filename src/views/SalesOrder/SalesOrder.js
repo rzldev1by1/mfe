@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import ListOrderComponent from "./Components/ListOrderComponent";
-import FilterComponent from "./Components/FilterComponent";
 import { Button } from "reactstrap";
-import create from "../../assets/img/brand/button_create@2x.png";
 import Dropdown from "../../AppComponent/Dropdown";
 import Search from "../../AppComponent/Search";
+import VersioningComponent from "../../AppComponent/VersioningComponent";
 import SalesOrderCreate from "./Components/SalesOrderCreate";
 import axios from "axios";
 import { endpoint, headers } from "../../AppComponent/ConfigEndpoint";
@@ -67,6 +66,8 @@ class SalesOrder extends Component {
 
       column: Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column,
       updatedColumn: Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column,
+      // column:  column,
+      // updatedColumn:  column,
 
       resetDropdownProcessed: false
     };
@@ -80,6 +81,11 @@ class SalesOrder extends Component {
     this.getDisposition();
 
   };
+
+  unAuthorizeAAccess = (error) => {
+		if(error.status === 401)
+			this.props.history.push('/login');
+	}
 
   editColumnHandler = (idx, active) => {
     let newColumn = this.state.updatedColumn
@@ -127,7 +133,7 @@ class SalesOrder extends Component {
         this.setState({ clientdata: result });
       })
       .catch((error) => {
-
+        this.unAuthorizeAAccess(error)
         console.log(error);
       });
   };
@@ -142,7 +148,7 @@ class SalesOrder extends Component {
         this.setState({ sitedata: result });
       })
       .catch((error) => {
-
+        this.unAuthorizeAAccess(error)
       });
   };
 
@@ -157,7 +163,7 @@ class SalesOrder extends Component {
         this.setState({ taskData: result })
       })
       .catch(error => {
-
+        this.unAuthorizeAAccess(error)
         console.log(error);
       })
   }
@@ -180,7 +186,9 @@ class SalesOrder extends Component {
         let result = res.data;
         this.setState({ resources: result, loaded: true });
       })
-      .catch((error) => { });
+      .catch((error) => {
+        this.unAuthorizeAAccess(error)
+       });
   };
 
   getProduct = (clientparam) => {
@@ -195,7 +203,10 @@ class SalesOrder extends Component {
       .then((res) => {
         let result = res.data;
         this.setState({ productdata: result });
-      });
+      })
+      .catch((error) => {
+        this.unAuthorizeAAccess(error)
+       });;
   };
 
   getDisposition = () => {
@@ -208,6 +219,7 @@ class SalesOrder extends Component {
         this.setState({ dispositiondata: result });
       })
       .catch((error) => {
+        this.unAuthorizeAAccess(error)
         console.log(error);
       });
   };
@@ -343,6 +355,7 @@ class SalesOrder extends Component {
   render() {
     return (
       <React.Fragment>
+        <VersioningComponent/>
         <HeaderTitle
           title="Sales Orders"
           button={
