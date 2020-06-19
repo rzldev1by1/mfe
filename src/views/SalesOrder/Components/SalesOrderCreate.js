@@ -502,6 +502,11 @@ class SalesOrderCreate extends Component {
     }));
   };
 
+  unAuthorizeAAccess = (error) => {
+		if(error.status === 401)
+			this.props.history.push('/login');
+	}
+
   getIdentity = (customerVal, customerName) => {
     const {client} = this.state.parameters.header
     this.setCustomer(customerVal);
@@ -550,7 +555,7 @@ class SalesOrderCreate extends Component {
         self.setStates(result.state);
       })
       .catch((error) => {
-      
+        this.unAuthorizeAAccess(error)
         console.log(error);
       });
   };
@@ -571,6 +576,7 @@ class SalesOrderCreate extends Component {
         this.setState({ uomdata: result });
       })
       .catch((error) => {
+        this.unAuthorizeAAccess(error)
         console.log(error);
       });
   };
@@ -733,7 +739,11 @@ class SalesOrderCreate extends Component {
             text: "Ok",
             className: "btn btn-primary"
           }
-        });
+        })
+        .catch((error) => {
+          this.unAuthorizeAAccess(error)
+        })
+        ;
 
         this.setState(
           {
