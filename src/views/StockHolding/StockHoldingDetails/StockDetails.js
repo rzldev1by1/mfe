@@ -116,7 +116,7 @@ class StockDetails extends Component {
 							{this.props.stockDetailsColumns.map((column, columnIdx) => {
 								return (
 									
-									<td key={columnIdx} className="px-3 text-left">
+									<td key={columnIdx} className="px-3 text-left" width={(column.width ? column.width : '')}>
 										{column.id === "effective_date" ? formatDate(item[column.key]) : item[column.key]}
 									</td>
 								)
