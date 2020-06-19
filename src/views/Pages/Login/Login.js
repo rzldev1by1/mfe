@@ -2,9 +2,12 @@ import React, { Component } from 'react'
 import swal from 'sweetalert'
 import Authentication from '../../../Auth/Authentication'
 import Logo from '../../../assets/img/brand/LOGO.png'
+import {Card, CardBody} from 'reactstrap';
 // import videobg from '../../assets/img/brand/microlisticsvideos.mp4'
 
 import './Login.css'
+
+const cardStyle = {backgroundColor:"transparent", border:"none", color:"#FFFFFF"};
 
 class Logins extends Component {
     state = {
@@ -253,6 +256,12 @@ class Logins extends Component {
         return (
             <div className="login">
                 <div className="container-fluid">
+                    <Card className="offset-lg-1" style={cardStyle}>
+                        <div className="pb-5">
+                           {`v${process.env.REACT_APP_VERSION}`}
+                        </div>                         
+                    </Card>
+
                     <div className="card offset-lg-1">
                             <div className="card-body">
                                 <img src={Logo} className="logo mb-5" alt="mlslogo" />
