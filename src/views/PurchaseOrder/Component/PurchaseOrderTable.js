@@ -184,6 +184,48 @@ class PurchaseOrderTable extends Component {
     this.props.getTableHeader(this.state.tableheader)
   }
 
+  defaultSort = (param1, param2, param3) => {
+    this.state.main.data.sort((a, b) => {
+
+      if (((a[param1] !== undefined && b[param1] !== undefined) && (a[param2] !== undefined && b[param2] !== undefined)) && (a[param3] !== undefined && b[param3] !== undefined)) {
+        if (a[param1] == null) {
+          a[param1] = '';
+        }
+
+        if (b[param1] == null) {
+          b[param1] = '';
+        }
+
+        if (a[param2] == null) {
+            a[param2] = '';
+        }
+
+        if (b[param2] == null) {
+            b[param2] = '';
+        }
+
+        if (a[param3] == null) {
+            a[param3] = '';
+        }
+
+        if (b[param3] == null) {
+            b[param3] = '';
+        }
+
+          if (a[param1].toLowerCase() < b[param1].toLowerCase()) return -1
+          if (a[param1].toLowerCase() > b[param1].toLowerCase()) return 1
+
+          if (a[param2].toLowerCase() < b[param2].toLowerCase()) return -1
+          if (a[param2].toLowerCase() > b[param2].toLowerCase()) return 1
+
+          if (a[param3].toLowerCase() < b[param3].toLowerCase()) return -1
+          if (a[param3].toLowerCase() > b[param3].toLowerCase()) return 1
+          return 0
+      }
+    })
+    this.setState({ main: {...this.state.main, data: this.state.main.data}  })
+  }
+
 
   tableheader() {
     return this.state.tableheader;
@@ -207,7 +249,7 @@ class PurchaseOrderTable extends Component {
         const result = res.data.data
         this.setState({ main: result })
         this.load()
-        this.arrowHandler("site")
+        this.defaultSort("site", "client", "order_no")
       })
       .catch(error => {
 
