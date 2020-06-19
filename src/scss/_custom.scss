@@ -1821,7 +1821,7 @@ th.iconU-edit {
 
 .select_dropdown_options {
   list-style: none;
-  max-height: 188px;
+  max-height: 270px;
 }
 
 .select_dropdown_label {
@@ -1838,6 +1838,7 @@ th.iconU-edit {
   padding-left: 20px;
   user-select: none;
 }
+
 .select_dropdown_label-placeholder {
   height: 50px;
   vertical-align: middle;
@@ -1871,7 +1872,10 @@ th.iconU-edit {
 }
 
 .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options .select_dropdown_label {
-	height: 47px;
+    line-height: 25px !important;
+    height: fit-content !important;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .select_dropdown_expand:checked
@@ -1890,7 +1894,7 @@ th.iconU-edit {
 }
 
 .select_dropdown_input:checked + .select_dropdown_label {
-  height: 35px;
+  height: fit-content !important;
   margin-top: -50px;
   border-radius: 5px;
   /* border-bottom: 1px solid #969EA1; */
