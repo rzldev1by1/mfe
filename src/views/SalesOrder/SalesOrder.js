@@ -65,10 +65,10 @@ class SalesOrder extends Component {
 
       showEditColumn: false,
 
-      // column: Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column,
-      // updatedColumn: Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column,
-      column:  column,
-      updatedColumn:  column,
+      column: Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column,
+      updatedColumn: Authentication.getSavedColumn() ? Authentication.getSavedColumn() : column,
+      // column:  column,
+      // updatedColumn:  column,
 
       resetDropdownProcessed: false
     };
