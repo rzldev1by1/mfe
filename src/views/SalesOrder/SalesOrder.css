@@ -12,7 +12,6 @@ span.upArrow:before {
 }
 
 
-
 .headers {
   font-weight: 500;
   color: #b4b9bb !important;
@@ -197,7 +196,7 @@ table{
 .tr td {
   height: 45px;
   border-bottom: 1px solid #d5d8da !important;
-  padding: 0.5rem 1rem 0.5rem 1rem;
+  /* padding: 0.5rem 1rem 0.5rem 1rem; */
 }
 
 .createpotable > tr > td {
@@ -769,13 +768,13 @@ overflow-x: scroll;
 	/* background-color: #F4F4F4 !important; */
 }
 
-.modal-content {
-	position: absolute;
-	width: 290%;
-	margin-left: -95%;
-	margin-top: 20%;
-	border-radius: 0.3rem;
-	background-color: #F4F4F4 !important;
+.modal-content > .so-edit-column {
+  	position: absolute;
+  	width: 290%;
+  	margin-left: -95%;
+  	margin-top: 20%;
+  	border-radius: 0.3rem;
+  	background-color: #F4F4F4 !important;
 }
 
 .btn-editcol {  

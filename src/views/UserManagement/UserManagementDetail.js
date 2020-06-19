@@ -653,10 +653,12 @@ class UserManagementDetail extends Component{
                     </Card>
                 </div>
             </div>
+            {/* this.state.modalPopupResetdisplay */}
             <Modal isOpen={this.state.modalPopupResetdisplay} toggle={this.toggleModalConfirm}
-            centered={true} className={"modal-company modal-lg animated fadeIn"} backdrop="static"
+            centered={true} className={"animated fadeIn"} backdrop="static"
             onOpened={() => this.state.updateSuccess ? setTimeout(() => this.toogleModalConfirm(), 1000) : {}}>
-          <ModalHeader className="modal-header-popup-reset" toggle={this.toggleModalConfirm}>
+           <div className="um-confirmation-modal">
+           <ModalHeader className="modal-header-popup-reset" toggle={this.toggleModalConfirm}>
             <div className="d-flex flex-column ml-4">
                 <label style={{fontSize:"25px"}}>
                   <i className="fa fa-refresh mr-3"></i>
@@ -672,7 +674,7 @@ class UserManagementDetail extends Component{
                 </p>
             </div>
           </ModalHeader>
-          <ModalBody className="um-reset-modal-body">
+            <ModalBody className="um-reset-modal-body">
             <div className="d-flex justify-content-center">
                 <img className={this.state.isResetSuccess?"img-popup-reset-success":"img-popup-reset"} src={this.state.isResetSuccess?popupLockSuccess:popupLock} />
             </div>
@@ -694,7 +696,7 @@ class UserManagementDetail extends Component{
               {(this.state.isResetSuccess)?'':<button className="font-lg font-md font-sm btn btn-primary mr-4" style={{width:"15%"}} onClick={(e)=>{this.confirmResetPassword()}}>Yes</button>}
             </div>
           </ModalBody>
-
+          </div>
           </Modal>
         </div>)
     }

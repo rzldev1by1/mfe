@@ -448,10 +448,10 @@ class PurchaseOrderCreate extends Component {
     if (this.state.clientdatacr) {
       this.state.clientdatacr.map((data) => {
         if (data.code == headers.client) {
-          clientName.push(data.code + " (" + data.name + ")");
+          clientName.push(data.code + " ( " + data.name + " )");
           clientValue.push(data.code);
         } else if ((headers.client == null) || (headers.client == "")) {
-          clientName.push(data.code + " (" + data.name + ")");
+          clientName.push(data.code + " ( " + data.name + " )");
           clientValue.push(data.code);
         }
       })
@@ -661,6 +661,28 @@ class PurchaseOrderCreate extends Component {
 
 
   tab2Content = () => {
+    const {supplier,supplierdatacr,site,sitedatacr,client,clientdatacr,orderType,orderdatacr} = this.state
+    let supplierName = null;
+    let siteName = null;
+    let clientName = null;
+    let orderData = null;
+
+    supplierdatacr.map((data,i) => {
+      if(data.supplier_no === supplier) supplierName = data.supplier_no + ' : ' + data.name
+    })
+
+    sitedatacr.map((data,i) => {
+      if(data.site === site) siteName = data.site + ' : ' + data.name
+    })
+
+    clientdatacr.map((data,i) => {
+      if(data.code === client) clientName = data.code + ' ( ' + data.name + ' ) '
+    })
+
+    orderdatacr.map((data,i) => {
+      if(data.code === orderType) orderData = data.code + ' : ' + data.description
+    })
+
     return (
       <div className="tabcontent fades">
         <h3 className="fonts so-header-title">Order Details</h3>
@@ -673,9 +695,9 @@ class PurchaseOrderCreate extends Component {
             <th style={{ width: "396px" }}>Customer Order Ref</th>
           </tr>
           <tr>
-            <td><input className="form-control" value={this.state.site} readOnly /></td>
-            <td><input value={this.state.supplier} value={this.state.client} className="form-control" readOnly /></td>
-            <td><input value={this.state.supplier} value={this.state.supplier} className="form-control" readOnly /></td>
+            <td><input className="form-control" value={siteName} readOnly /></td>
+            <td><input value={clientName} className="form-control" readOnly /></td>
+            <td><input value={supplierName}  className="form-control" readOnly /></td>
             <td><input className="form-control" value={this.state.customerRef} readOnly /></td>
           </tr>
           <tr>
@@ -688,7 +710,7 @@ class PurchaseOrderCreate extends Component {
             <th>Vendor Order Ref</th>
           </tr>
           <tr>
-            <td><input className="form-control" value={this.state.orderType} readOnly /></td>
+            <td><input className="form-control" value={orderData} readOnly /></td>
             <td><input className="form-control" value={this.state.orderNo} readOnly /></td>
             <td><input className="form-control" value={moment(this.state.orderDate).format("DD/MM/YYYY")} readOnly /></td>
             <td><input className="form-control" value={this.state.vendorRef} readOnly /></td>
@@ -702,13 +724,13 @@ class PurchaseOrderCreate extends Component {
           <tr >
             <th style={{ width: "3%", textAlign: "center", paddingLeft: "18px" }}>#</th>
             <th style={{ width: "12%", paddingLeft: "20px" }}>Product</th>
-            <th style={{ width: "12%", paddingLeft: "24px" }}>Description</th>
-            <th style={{ width: "4%", paddingLeft: "29px" }}>Qty</th>
-            <th style={{ width: "4%", paddingLeft: "1px" }}>Weight</th>
+            <th style={{ width: "12%", paddingLeft: "18px" }}>Description</th>
+            <th style={{ width: "4%", paddingLeft: "16px" }}>Qty</th>
+            <th style={{ width: "4%", paddingLeft: "2px" }}>Weight</th>
             <th style={{ width: "6%", paddingLeft: "23px" }}>UOM</th>
-            <th style={{ width: "6%", paddingLeft: "24px" }}>Rotadate</th>
-            <th style={{ width: "6%", paddingLeft: "37px" }}>Batch</th>
-            <th style={{ width: "6%", paddingLeft: "25px", paddingRight: "-20px" }}>Ref3</th>
+            <th style={{ width: "6%", paddingLeft: "22px" }}>Rotadate</th>
+            <th style={{ width: "6%", paddingLeft: "34px" }}>Batch</th>
+            <th style={{ width: "6%", paddingLeft: "31px", paddingRight: "-20px" }}>Ref3</th>
             <th style={{ width: "5%", paddingRigth: "-30px" }}>Ref4</th>
             <th style={{ width: "3%", paddingRight: "-30px" }}>Disposition</th>
           </tr>

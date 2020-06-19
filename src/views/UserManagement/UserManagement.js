@@ -798,9 +798,10 @@ class UserManagement extends Component {
                 message={this.state.validatorMessage} changeWebGroup={this.changeWebgroup} isWebGroup={this.state.webgroup} validation={this.state.validation}
                 isEnableAllModule={this.state.isEnableAllModule} isEnableAllSite={this.state.isEnableAllSite}
                 isEnableAllClient={this.state.isEnableAllClient} />
-
-        <Modal className="create-confirmation" isOpen={this.state.succesCreate} centered={true}
+        
+        <Modal isOpen={this.state.succesCreate} centered={true}
           onOpened={() => this.state.succesCreate ? setTimeout(() => { this.closeConfirmDialog() }, 3000) : {}}>
+            <div className="um-confirmation-modal">
           <ModalBody style={{ backgroundColor: "#D5D8DA" }}>
             <div className="d-flex d-inline-flex">
               <img src={logo_confirm} alt="logo" style={{ width: "20%", height: "20%" }} />
@@ -813,7 +814,7 @@ class UserManagement extends Component {
               </label>
             </div>
           </ModalBody>
-
+            </div>
         </Modal>
       </div>
       <div className='paginations fixed-bottom '>

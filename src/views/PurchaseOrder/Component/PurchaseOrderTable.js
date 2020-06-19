@@ -149,7 +149,7 @@ class PurchaseOrderTable extends Component {
       activearrow: mid,
       activecolumnsort: null,
       sortparameter: null,
-      sort: true,
+      sort: false,
 
       //pagination
       currentPage: 1,
@@ -168,11 +168,11 @@ class PurchaseOrderTable extends Component {
       }
 
       if (this.state.activearrow == up) {
-        return down;
+        return up;
       }
 
       if (this.state.activearrow == down) {
-        return up;
+        return down;
       }
     } else {
       return mid;
@@ -207,6 +207,7 @@ class PurchaseOrderTable extends Component {
         const result = res.data.data
         this.setState({ main: result })
         this.load()
+        this.arrowHandler("site")
       })
       .catch(error => {
 
@@ -267,7 +268,7 @@ class PurchaseOrderTable extends Component {
   }
 
   arrowHandler = (e) => {
-    let id = e.currentTarget.id;
+    let id = e.currentTarget ? e.currentTarget.id : e;
     this.setState({ activecolumnsort: id });
     if (this.state.activearrow == mid) {
       this.setState({ activearrow: up })
@@ -288,7 +289,7 @@ class PurchaseOrderTable extends Component {
   sortby = (id) => {
     this.setState({ sort: !this.state.sort, sortparameter: id }, () => {
       //async 
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort)
+      this.sorting(this.state.main.data, this.state.sortparameter, this.state.sort)
     });
   }
 
@@ -317,7 +318,7 @@ class PurchaseOrderTable extends Component {
         }
       }
     })
-    this.setState({ data: data })
+    this.setState({ main: {...this.state.main, data: data}  })
   }
 
   ExportName = () => {
@@ -355,6 +356,7 @@ class PurchaseOrderTable extends Component {
     let name = ""
     return name = ("Purchase Order")
   }
+
 
   render() {
     const {data} = this.state.main

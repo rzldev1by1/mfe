@@ -404,11 +404,19 @@ input:checked + .slider:before {
   color: #3366ff;
 }
 
-.modal-content > .create-modal {
+.modal-content > .um-create-modal {
   position: absolute;
   width: 124%;
   background-color: #3366ff;
   margin-left: -13%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+}
+
+.modal-content > .um-confirmation-modal {
+  width: 100%;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px !important;

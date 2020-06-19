@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
+    <title>Email</title>   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body{
+            font-size: 18px;
+        }
+        .background-blue{
+            background-image: url('./assets/img/Login-Background-Fin.png');
+            background-size: cover;
+            background-repeat: no-repeat;            
+        }
+        .logo-white{
+            height: 120px;
+            width: 120px;
+        }
+        .body-card{
+            background-image: url('./assets/img/Home-Background.png');  
+            background-size: cover;
+            background-repeat: no-repeat;                       
+        }
+        .sub-text{
+            color: #959DA0;
+        }
+        .content{
+            padding: 2rem 3rem 2rem 3rem;
+        }
+
+       
+        
+
+    </style>
+  </head>
+  <body class="d-flex justify-content-center">
+    <div class="d-flex flex-column pt-3 w-50 h-100 background-blue">        
+        <div class="d-flex m-auto">
+            <img class="logo-white" src="assets/img/LOGO.png">
+            </img>
+        </div>    
+        <div class="mt-3 ml-1 mr-1 mb-1 body-card">
+            <div class="pl-5 mt-5">
+                <div class="row font-weight-bold">
+                    {title: New User Password}
+                </div>
+                <div class="row font-weight-bold mb-3 sub-text">
+                    To: { user-email }
+                </div>
+            </div>
+            <div style="background-color: #ffffff;">
+                <div class="row pl-5 pr-5 mt-3 mb-5 pt-3 pb-3">
+                    {
+                    <label class="font-weight-bold">Hi { user-name }, </br>
+                    <span class="sub-text mb-3">
+                        Congratulations, your new Microlistics account is all setup.
+                    </span>
+                    <div class="row mt-3">
+                        <div class="col-sm-2">Login </div><div class="col-sm-6">http://microlistics.tech/#/login </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">Username </div><div class="col-sm-6"> {Username}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-2">Password </div><div class="col-sm-6"> { Password }</div>
+                    </div>
+                    
+                    <span class="sub-text mt-3 mb-5">
+                        Please login with your new account details to get started. Don't forget to update your password as son as possible.
+                    </span>
+                    </br>
+                    </br>
+                    </br>
+                    <span class="mb-3">
+                        <span class="sub-text">Best Regards</span> 
+                        </br>
+                        <span class="font-weight-bold">Microlistics Support</span>
+                    </span>
+                    
+    
+                    </label>
+    
+                    
+                    }
+                </div>
+            </div>    
+            <div class="pl-5 mb-5">
+                <div class="row font-weight-bold">
+                    If you any assistance in this matter, please contact &nbsp <a href="/#"> Microlistics Help</a>
+                </div>
+                <div class="row font-weight-bold">
+                    <a href="/#">Privacy policy</a> &nbsp | &nbsp  <a href="/#">Terms and Conditions</a>
+                </div>
+            </div>     
+                
+        </div>    
+           
+    </div>
+    
+    
+  </body>
+</html>
