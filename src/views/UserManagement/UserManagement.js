@@ -60,8 +60,8 @@ class UserManagement extends Component {
         'Email Address', 'User ID', 'Client', 'Site'
       ],
       validation: {
-        "name": { isValid: true, invalidClass: "is-invalid" },
-        "email": { isValid: true, invalidClass: "is-invalid" }
+        "name": { isValid: true, invalidClass: "is-invalid",message:"" },
+        "email": { isValid: true, invalidClass: "is-invalid",message:"" }
       },
       isListLoaded: false,
       isModalNewOpen: false,
@@ -365,12 +365,36 @@ class UserManagement extends Component {
     let user = { ...this.state.accountInfo };
     let validationMail = { ...this.state.validation };
     user.email = value;
-    if (user.email)
+    if (user.email){
       validationMail.email['isValid'] = true;
-    else
+      validationMail.email['message'] = "";
+    }
+    else{
       validationMail.email['isValid'] = false;
+      validationMail.email['message'] = "Invalid format (eg. microlistics@test.com)";
+    }
 
     this.setState({ accountInfo: user, isValidForm: false, validation: validationMail });
+  }
+
+  onBlurEmail = (e) => {
+    const { value } = e.target;
+    let userList = [...this.state.userList];
+    let validationMail = { ...this.state.validation };
+    let emailExist = userList.filter((item)=> { return item.email === value });
+
+    if (emailExist.length > 0){
+      console.log(emailExist);
+      validationMail.email['isValid'] = false;
+      validationMail.email['message'] = `Email already exist with user ${emailExist[0].user}`;
+    }
+    else{
+      validationMail.email['isValid'] = true;
+      validationMail.email['message'] = ""
+    }
+      
+
+    this.setState({validation: validationMail})
   }
 
   generateUserID = (textValue) => {
@@ -729,7 +753,7 @@ class UserManagement extends Component {
 
   render() {
 
-    return <React.Fragment>
+    return <React.Fragment>      
       <HeaderTitle
         title="User Management"
         button={
@@ -797,7 +821,7 @@ class UserManagement extends Component {
                 firtsTabActive={this.state.firstTab} secondTabActive={this.state.secondTab} onClickTabActive={this.setTabActive}
                 message={this.state.validatorMessage} changeWebGroup={this.changeWebgroup} isWebGroup={this.state.webgroup} validation={this.state.validation}
                 isEnableAllModule={this.state.isEnableAllModule} isEnableAllSite={this.state.isEnableAllSite}
-                isEnableAllClient={this.state.isEnableAllClient} />
+                isEnableAllClient={this.state.isEnableAllClient} onBlurEmail={this.onBlurEmail} />
         
         <Modal isOpen={this.state.succesCreate} centered={true}
           onOpened={() => this.state.succesCreate ? setTimeout(() => { this.closeConfirmDialog() }, 3000) : {}}>

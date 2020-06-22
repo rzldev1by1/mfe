@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Table,Button, Card, CardBody, Label, Modal, ModalHeader, ModalBody, ModalFooter, Breadcrumb,BreadcrumbItem} from 'reactstrap'
+import { Table,Button, Card, CardBody, Label, Modal, ModalHeader, ModalBody, ModalFooter, 
+  Breadcrumb,BreadcrumbItem, FormFeedback} from 'reactstrap'
 import './UserManagement.css'
 import ModuleAccess from './Component/ModuleAccess'
 import Site from './Component/Site'
@@ -32,6 +33,12 @@ class UserManagementDetail extends Component{
           isEnableAllModule: false,
           isEnableAllSite: false,
           isEnableAllClient: false,
+          validation: {
+            "name": { isValid: true, invalidClass: "is-invalid",message:"" },
+            "email": { isValid: true, invalidClass: "is-invalid",message:"" }
+          },
+          main:[],
+          userList:[]
         }
 
     }
@@ -39,6 +46,7 @@ class UserManagementDetail extends Component{
     componentDidMount(){
         let id = this.props.match.params.id;
         this.getAccountInfo(id);
+        this.loadUser();
     }
 
     restructureAccount = (sources) => {
@@ -119,6 +127,80 @@ class UserManagementDetail extends Component{
           return newItem;
       });
     }
+
+    restructureUserList = (sources) => {
+      let newUserArray = [];
+      if (sources.length) {
+        newUserArray = sources.map((item, index) => {
+          let newItem = {};
+          newItem.userId = item.userid;
+          newItem.user = item.name;
+          newItem.email = item.email;
+          newItem.userlevel = item.web_group;
+          newItem.site = item.site ? item.site : '-';
+          newItem.client = item.client;
+          newItem.lastaccess = item.last_access;
+          newItem.status = (item.disabled === 'Y') ? 'Suspended' : 'Active';
+          newItem.web_user = item.web_user;
+          newItem.company = item.company;
+          return newItem;
+        });
+      }
+  
+      return newUserArray;
+    }
+
+    loadUser = () => {
+      
+      let self = this;
+      let param = {};
+      let validationMail = { ...this.state.validation };
+  
+      param.searchParam = "";
+      
+          let endpointApi = `${endpoint.UserManagement_ListUser}`;
+      
+          axios.get(endpointApi, {
+            params: param,
+            headers: headers
+          })
+            .then(res => {
+              let result = [];
+              if (res.status === 200) {
+                result = self.restructureUserList(res.data.data.data);
+                
+                this.setState({userList:result,main:res.data.data})
+                
+              }
+              return result;
+            })
+            .catch(error => {
+              console.log(error);
+            })
+            .then(result => {
+      
+            });
+      
+    }
+
+    onBlurEmail = (e) => {
+      const { value } = e.target;
+      let userList = [...this.state.userList];
+      let validationMail = { ...this.state.validation };
+      let emailExist = userList.filter((item)=> { return item.email === value });
+
+      if (emailExist.length > 0){                  
+        validationMail.email['isValid'] = false;
+        validationMail.email['message'] = `Email already exist with user ${emailExist[0].user}`;
+      }
+      else{
+        validationMail.email['isValid'] = true;
+        validationMail.email['message'] = ""
+      }
+
+      this.setState({validation: validationMail});
+    }
+
 
     loadMasterResource = () => {
       let menus = this.readSessionStorage('menus');
@@ -569,7 +651,12 @@ class UserManagementDetail extends Component{
                                         </div>
 
                                         <div className="col-2">
-                                            <input type="email" name="email" className="form-control" onChange={(e)=>{this.onChangeEmail(e);}} defaultValue={this.state.accountInfo.email}/>
+                                            <input type="email" name="email" className={`form-control ${this.state.validation.email["isValid"]?'':this.state.validation.name["invalidClass"]}`} onBlur={(e) => {this.onBlurEmail(e)}} onChange={(e)=>{this.onChangeEmail(e);}} defaultValue={this.state.accountInfo.email}/>
+                                            <FormFeedback className="invalid-error-padding">
+                                              {/* wrong format email */}
+                                              {/* Invalid format (eg. microlistics@test.com) */}
+                                              {this.state.validation.email["message"]}
+                                          </FormFeedback>
                                         </div>
 
 

@@ -89,10 +89,7 @@ class StockHolding extends Component {
 
 	}
 
-	unAuthorizeAAccess = (error) => {
-		if(error.status === 401)
-			this.props.history.push('/login');
-	}
+	
 
 	setPagination = (result) => {
 		let self = this;
@@ -118,6 +115,13 @@ class StockHolding extends Component {
 		});
 
 		// self.numberEventClick(self.state.currentPage);
+	}
+
+	unAuthorizeAAccess = (error) => {
+		if(error.status === 401)
+			this.props.history.push('/login');
+		else if(error.status === 400)
+			this.props.history.push('/login');
 	}
 
 	getSite = () => {

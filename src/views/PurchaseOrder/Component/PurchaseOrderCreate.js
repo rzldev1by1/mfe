@@ -848,7 +848,7 @@ class PurchaseOrderCreate extends Component {
                 <AutoComplete ref={"product" + list.lineNumber}
                   placeHolder="Product"
                   style={{ width: "100%", zIndex: this.state.rowlist.length - i }}
-                  maxLength="30"
+                  maxLength="60"
                   optionList={this.state.productcr.toString()}
                   optionValue={this.state.productcr.toString()}
                   getValue={(e) => this.getProductValue(e, i)}

@@ -73,9 +73,6 @@ class VersioningComponent extends Component {
     }
 
 
-
-    
-
     render() {
         return (
             <div>

@@ -18,7 +18,7 @@ const modalNewUser = (props) => {
     moduleAccess,isModuleLoaded,moduleAccessEnableClick,sites, isSiteLoaded, sitesEnableClick,
     clients, isClientLoaded, clientEnableClick, onSaveClick, isSaveProgressing, onModuleEnableAll, onSiteEnableAll, onClientEnableAll,
     isValidForm, onNextClickHandler, firtsTabActive, secondTabActive, onClickTabActive, message, changeWebGroup, isWebGroup, 
-    validation, isEnableAllModule, isEnableAllSite, isEnableAllClient} = props;
+    validation, isEnableAllModule, isEnableAllSite, isEnableAllClient, onBlurEmail} = props;
 
     const submitHandler = (event) =>{
       event.preventDefault();
@@ -119,10 +119,11 @@ const modalNewUser = (props) => {
                               </div>
 
                               <div className="col-3">
-                                  <input type="email" name="email" placeholder="Enter an email address" className= {`form-control ${validation.email["isValid"]?'':validation.name["invalidClass"]}`} onChange={(e)=>{onChangeEmail(e);}} defaultValue={model.email}/>
+                                  <input type="email" name="email" placeholder="Enter an email address" className= {`form-control ${validation.email["isValid"]?'':validation.name["invalidClass"]}`} onChange={(e)=>{onChangeEmail(e);}} onBlur={(e) => {onBlurEmail(e)}} defaultValue={model.email}/>
                                   <FormFeedback className="invalid-error-padding">
                                        {/* wrong format email */}
-                                       Invalid format (eg. microlistics@test.com)
+                                       {/* Invalid format (eg. microlistics@test.com) */}
+                                       {validation.email["message"]}
                                    </FormFeedback>
                               </div>
 
