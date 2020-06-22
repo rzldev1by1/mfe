@@ -29,6 +29,7 @@ class VersioningComponent extends Component {
     // }
 
     componentDidMount() {
+        console.log(`current version ${global.appVersion}`);
         this.checkVersion();        
         
     }
@@ -39,8 +40,6 @@ class VersioningComponent extends Component {
         .then((meta) => {
           const latestVersion = meta.version;
           const currentVersion = global.appVersion;
-          console.log(`latest version ${latestVersion}`);
-          console.log(`current version ${currentVersion}`);
           const shouldForceRefresh = semverGreaterThan(latestVersion, currentVersion);
           
           if (shouldForceRefresh) {
