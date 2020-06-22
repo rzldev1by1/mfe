@@ -30,9 +30,7 @@ class VersioningComponent extends Component {
 
     componentDidMount() {
         // this.checkVersion();        
-        //local storage            
-        let storage = {...localStorage};
-        console.log(storage);
+        
     }
 
     checkVersion = () => {
@@ -41,7 +39,8 @@ class VersioningComponent extends Component {
         .then((meta) => {
           const latestVersion = meta.version;
           const currentVersion = global.appVersion;
-
+          console.log(`latest version ${latestVersion}`);
+          console.log(`current version ${currentVersion}`);
           const shouldForceRefresh = semverGreaterThan(latestVersion, currentVersion);
           
           if (shouldForceRefresh) {
