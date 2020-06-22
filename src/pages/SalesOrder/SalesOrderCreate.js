@@ -30,7 +30,7 @@ class SalesOrderCreate extends React.PureComponent {
           activeKey={this.state.key}
           onSelect={(key) => this.setState({ key })}
         >
-          <Tab eventKey="detail" title={() => <div>Order & Product Details</div>}>
+          <Tab eventKey="detail" title="Order & Product Details">
             <DetailsTab {...this.props} />
           </Tab>
           <Tab eventKey="review" title="Review">

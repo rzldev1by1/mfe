@@ -14,16 +14,16 @@
 }
 
 /* Sales Order Create */
-.sales-order-create .nav-tabs {
+.nav-tabs {
   margin-left: 26px;
 }
-.sales-order-create .tab-content {
+.tab-content {
   padding: 0;
   margin: 0;
   background-color: #fff;
   color: #000;
 }
-.sales-order-create .modal .nav-link {
+.modal .nav-link {
   background-color: #e9eced;
   color: #959da0;
 }

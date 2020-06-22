@@ -26,10 +26,10 @@ const columns = [
   { accessor: 'task', Header: 'Task' },
   { accessor: 'customername', Header: 'Customer' },
   { accessor: 'status', Header: 'Status' },
-  { accessor: 'deliverydate', Header: 'Delivery Date'},
-  { accessor: 'datereceived', Header: 'Date Received'},
-  { accessor: 'datereleased', Header: 'Date Released'},
-  { accessor: 'datecompleted', Header: 'Date Completed'},
+  { accessor: 'deliverydate', Header: 'Delivery Date' },
+  { accessor: 'datereceived', Header: 'Date Received' },
+  { accessor: 'datereleased', Header: 'Date Released' },
+  { accessor: 'datecompleted', Header: 'Date Completed' },
   // { accessor: 'customerpono', Header: 'Customer PO'},
   // { accessor: 'vendororderno', Header: 'Vendor Order No'},
   // { accessor: 'address1', Header: 'Address1'},
@@ -79,7 +79,8 @@ class SalesOrder extends React.PureComponent {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    this.setState({ dimension: { width: window.innerWidth, height: window.innerHeight } });
+    const height = (window.innerHeight - 116) * 0.87
+    this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {
     const { data } = await axios.get("/dropdown/getsite")
@@ -227,7 +228,7 @@ class SalesOrder extends React.PureComponent {
 
       <CustomTable
         title="Sales Order"
-        height={(dimension.height - 116) * 0.87}
+        height={dimension.height}
         data={data}
         fields={fields}
         onClick={this.showDetails}

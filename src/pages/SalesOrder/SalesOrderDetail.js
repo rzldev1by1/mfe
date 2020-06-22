@@ -12,8 +12,8 @@ import HeaderTitle from 'shared/container/TheHeader'
 import './SalesOrder.css'
 
 class SalesOrderDetail extends React.Component {
-  section1 = React.createRef();
-  section2 = React.createRef()
+  // get element height to calculate table height
+  section1 = React.createRef()
   state = {
     dimension: { width: 0, height: 0 },
     detail: {},
@@ -29,9 +29,7 @@ class SalesOrderDetail extends React.Component {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    console.log(this.section2)
     const height = (window.innerHeight - this.section1.current.clientHeight - 60) * 0.82
-    console.log(`${window.innerHeight}-${this.section1.current.clientHeight}-${this.section2.current.clientHeight} = ${height}`)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getDetail = async () => {
@@ -106,7 +104,6 @@ class SalesOrderDetail extends React.Component {
 
       <CustomTable
         title="Sales Orders Details"
-        ref={this.section2}
         height={this.state.dimension.height}
         fields={fields}
         data={products}
