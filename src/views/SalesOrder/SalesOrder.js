@@ -397,6 +397,7 @@ class SalesOrder extends Component {
               getResources={(client) => this.getResources(client)}
               loadSalesOrder={() => this.potableref.current.loadSalesOrder()}
               clientdata={this.state.clientdata}
+              sitedata={this.state.sitedata}
               productdata={this.state.productdata}
               getClientProduct={(client) => this.getProduct(client)}
               dispositiondata={this.state.dispositiondata}

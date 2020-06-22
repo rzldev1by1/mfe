@@ -772,12 +772,22 @@ class SalesOrderCreate extends Component {
   render() {
     let clientName = [];
     let clientValue = [];
+    let siteName = [];
+    let siteData = [];
 
     if (this.props.clientdata) {
       this.props.clientdata.map((data) => {
         let name = data.code + " ( " + data.name + " )";
         clientName.push(name);
         clientValue.push(data.code);
+      });
+    }
+
+    if (this.props.sitedata) {
+      this.props.sitedata.map((data) => {
+        let name = data.site + ": " + data.name ;
+        siteName.push(name);
+        siteData.push(data.site);
       });
     }
     return (
@@ -849,6 +859,8 @@ class SalesOrderCreate extends Component {
                 userLevel={Authentication.getUserLevel()}
                 clientVal={clientValue}
                 clientName={clientName}
+                siteVal={siteData}
+                siteName={siteName}
                 productdata={this.props.productdata}
                 dispositiondata={this.props.dispositiondata}
                 resources={this.props.resources}

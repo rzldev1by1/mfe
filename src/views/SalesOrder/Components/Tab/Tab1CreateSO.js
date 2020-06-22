@@ -119,8 +119,8 @@ class Tab1CreateSO extends Component {
                       getValue={(siteVal, site) => this.props.setSite(siteVal, site)}
                       placeHolder="Site"
                       style={{ minWidth: "100%", zIndex: 20 }}
-                      optionList={this.props.resources.site.name.toString()}
-                      optionValue={this.props.resources.site.code.toString()}
+                      optionList={this.props.siteName.toString()}
+                      optionValue={this.props.siteVal.toString()}
                       tabIndex='1'
                     />
                   ) : (
