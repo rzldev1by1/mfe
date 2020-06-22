@@ -59,7 +59,7 @@ class SalesOrder extends React.PureComponent {
     resources: [],
     fields: columns,
     data: [],
-    create: true,
+    create: false,
     detail: {},
     dimension: { width: 0, height: 0 }
   }

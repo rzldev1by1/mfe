@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import {
   CSidebar,
   // CSidebarBrand,
@@ -13,9 +13,9 @@ import './TheSidebar.css'
 
 const TheSidebar = () => {
   const dispatch = useDispatch()
+  const location = useLocation()
   const show = useSelector(state => state.sidebarShow)
   const user = useSelector(state => state.user)
-
   const signOut = (e) => {
     dispatch({ type: 'set', user: null })
   }
@@ -39,14 +39,15 @@ const TheSidebar = () => {
           MICROLISTICS
         </li>
 
-        {navigation.map((n, i) =>
-          <li key={i} className="c-sidebar-item links my-2">
-            <Link to={n.to}>
+        {navigation.map((n, i) => {
+          const active = location.pathname === n.to ? 'text-white' : ''
+          return <li key={i} className="c-sidebar-item links my-2">
+            <Link to={n.to} className={active}>
               <i className={`m-0 c-sidebar-nav-icon ${n.icon}`}></i>
               <div>{n.name}</div>
             </Link>
           </li>
-        )}
+        })}
       </CSidebarNav>
       <ul className="sidebar-nav-bottom">
         <li className="c-sidebar-item">

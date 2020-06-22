@@ -160,19 +160,13 @@ class Helpers {
 	static authenticationHandler = async (payload) => {
 		let result = {}
 		try {
-			const localuser = JSON.parse(localStorage.getItem('user'))
-			this.setAuthenticate(localuser);
-			result.isSuccess = true;
-			result.redirect = "/";
-			result.data = localuser
-
-			// const { data } = await axios.post(baseUrl + "/usermanagement/login", payload, options)
-			// if (data) {
-			// 	result.isSuccess = true;
-			// 	result.redirect = "/";
-			// 	result.data = data
-			// 	this.setAuthenticate(data);
-			// }
+			const { data } = await axios.post(baseUrl + "/usermanagement/login", payload, options)
+			if (data) {
+				result.isSuccess = true;
+				result.redirect = "/";
+				result.data = data
+				this.setAuthenticate(data);
+			}
 			return result;
 		} catch (error) {
 			result.isSuccess = false;
