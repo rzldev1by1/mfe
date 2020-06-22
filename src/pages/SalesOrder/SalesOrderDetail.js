@@ -3,46 +3,54 @@ import axios from 'axios'
 import {
   CCard,
   CCardBody,
-  CCardGroup,
   CRow,
   CCol,
 } from '@coreui/react'
 
-// import DataTable from 'shared/table/DataTable'
 import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
 import './SalesOrder.css'
 
-class SalesOrderDetail extends React.PureComponent {
+class SalesOrderDetail extends React.Component {
+  section1 = React.createRef();
+  section2 = React.createRef()
   state = {
+    dimension: { width: 0, height: 0 },
     detail: {},
     products: [],
   }
   componentDidMount() {
+    this.updateDimension();
+    window.addEventListener('resize', this.updateDimension);
     this.getDetail()
     this.getProducts()
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimension);
+  }
+  updateDimension = () => {
+    console.log(this.section2)
+    const height = (window.innerHeight - this.section1.current.clientHeight - 60) * 0.82
+    console.log(`${window.innerHeight}-${this.section1.current.clientHeight}-${this.section2.current.clientHeight} = ${height}`)
+    this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getDetail = async () => {
     const { orderno, client, site } = this.props.match.params
     const url = `/salesorder?searchParam=${orderno}&client=${client}&site=${site}`
     const { data } = await axios.get(url)
-    if (data.data.length) {
-      this.setState({ detail: data.data[0] })
+    if (!!data.data) {
+      this.setState({ detail: data.data.data[0] })
     }
   }
   getProducts = async () => {
     const { orderno, client, site } = this.props.match.params
     const url = `/salesorder/${orderno}?client=${client}&site=${site}`
     const { data } = await axios.get(url)
-    const capitalize = (str, lower = false) =>
-      (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
-    ;
+    const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     if (data.data.length) {
-      const fields = Object.entries(data.data[0]).map(([accessor], i) => {
-        return {
-          accessor, Header: capitalize(accessor.replace('_',' '))
-        }
-      })
+      const fields = Object.entries(data.data[0]).map(([accessor], i) => ({
+        accessor, Header: capitalize(accessor.replace('_', ' '))
+      }))
       this.setState({ products: data.data, fields })
     }
   }
@@ -54,49 +62,52 @@ class SalesOrderDetail extends React.PureComponent {
         { to: '/sales-orders', label: 'Sales Order' },
         { to: '', label: this.props.match.params.orderno, active: true },
       ]} />
-      <CCardGroup className="section-1 mt-2 mb-4">
+      <div ref={this.section1} className="card-group section-1 mb-4" >
         <CCard>
           <CCardBody>
-            <CRow><CCol className="text-muted">Site</CCol> <CCol><b>{detail.site}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Client</CCol> <CCol><b>{detail.client}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Order No</CCol> <CCol><b>{detail.orderno || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Order Type</CCol> <CCol><b>{detail.ordertype || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Customer ID</CCol> <CCol><b>{detail.customer || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Customer Name</CCol> <CCol><b>{detail.customername || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Customer Order Ref</CCol> <CCol><b>{detail.customerpono || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Vendor Order Ref</CCol> <CCol><b>{detail.vendororderno || '-'}</b></CCol></CRow>
+            <CRow><CCol className="text-light-gray">Site</CCol> <CCol>{detail.site}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Client</CCol> <CCol>{detail.client}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Order No</CCol> <CCol>{detail.orderno || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Order Type</CCol> <CCol>{detail.ordertype || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Customer ID</CCol> <CCol>{detail.customer || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Customer Name</CCol> <CCol>{detail.customername || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Customer Order Ref</CCol> <CCol>{detail.customerpono || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Vendor Order Ref</CCol> <CCol>{detail.vendororderno || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>
         <CCard>
           <CCardBody>
-            <CRow><CCol className="text-muted">Address 1</CCol> <CCol><b>{detail.address1 || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Address 2</CCol> <CCol><b>{detail.address2 || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Address 3</CCol> <CCol><b>{detail.address3 || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Address 4</CCol> <CCol><b>{detail.address4 || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Address 5</CCol> <CCol><b>{detail.address5 || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Suburb</CCol> <CCol><b>{detail.suburb || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Postcode</CCol> <CCol><b>{detail.postcode || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">State</CCol> <CCol><b>{detail.state || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Country</CCol> <CCol><b>{detail.country || '-'}</b></CCol></CRow>
+            <CRow><CCol className="text-light-gray">Address 1</CCol> <CCol>{detail.address1 || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Address 2</CCol> <CCol>{detail.address2 || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Address 3</CCol> <CCol>{detail.address3 || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Address 4</CCol> <CCol>{detail.address4 || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Address 5</CCol> <CCol>{detail.address5 || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Suburb</CCol> <CCol>{detail.suburb || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Postcode</CCol> <CCol>{detail.postcode || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">State</CCol> <CCol>{detail.state || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Country</CCol> <CCol>{detail.country || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>
         <CCard>
           <CCardBody>
-            <CRow><CCol className="text-muted">Status</CCol> <CCol><b>{detail.status || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Delivary Date</CCol> <CCol><b>{detail.deliverydate || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Date Received</CCol> <CCol><b>{detail.datereceived || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Date Released</CCol> <CCol><b>{detail.datereleased || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Date Completed</CCol> <CCol><b>{detail.datecompleted || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Load Number</CCol> <CCol><b>{detail.loadnumber || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Loadout Start</CCol> <CCol><b>{detail.loadoutstart || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Loadout Finish</CCol> <CCol><b>{detail.loadoutfinish || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Consignment No</CCol> <CCol><b>{detail.consignmentno || '-'}</b></CCol></CRow>
-            <CRow><CCol className="text-muted">Freight Charge</CCol> <CCol><b>{detail.freightcharge || '-'}</b></CCol></CRow>
+            <CRow><CCol className="text-light-gray">Status</CCol> <CCol>{detail.status || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Delivary Date</CCol> <CCol>{detail.deliverydate || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Date Received</CCol> <CCol>{detail.datereceived || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Date Released</CCol> <CCol>{detail.datereleased || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Date Completed</CCol> <CCol>{detail.datecompleted || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Load Number</CCol> <CCol>{detail.loadnumber || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Loadout Start</CCol> <CCol>{detail.loadoutstart || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Loadout Finish</CCol> <CCol>{detail.loadoutfinish || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Consignment No</CCol> <CCol>{detail.consignmentno || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Freight Charge</CCol> <CCol>{detail.freightcharge || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>
-      </CCardGroup>
+      </div>
 
       <CustomTable
+        title="Sales Orders Details"
+        ref={this.section2}
+        height={this.state.dimension.height}
         fields={fields}
         data={products}
       />

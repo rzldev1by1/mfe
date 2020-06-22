@@ -14,7 +14,7 @@ class SalesOrderCreate extends React.PureComponent {
   }
   render() {
     const { show, toggle } = this.props
-    return <Modal show={show} onHide={toggle} size="xl" className="sales-order-create">
+    return <Modal show={show} onHide={() => toggle()} size="xl" className="sales-order-create" >
       <Modal.Body className="bg-primary p-0">
         <Row className="p-4">
           <Col xs={10}>
@@ -22,7 +22,7 @@ class SalesOrderCreate extends React.PureComponent {
             <span className="pl-4">Enter Order and line details to create a new purchase order</span>
           </Col>
           <Col xs={2} className="text-right">
-            <i className="iconU-close"></i>
+            <i className="iconU-close pointer" onClick={() => toggle()}></i>
           </Col>
         </Row>
         <Tabs
@@ -30,7 +30,7 @@ class SalesOrderCreate extends React.PureComponent {
           activeKey={this.state.key}
           onSelect={(key) => this.setState({ key })}
         >
-          <Tab eventKey="detail" title="Order & Product Details">
+          <Tab eventKey="detail" title={() => <div>Order & Product Details</div>}>
             <DetailsTab {...this.props} />
           </Tab>
           <Tab eventKey="review" title="Review">

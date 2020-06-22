@@ -10,8 +10,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './CustomTable.css'
 
 class CustomTable extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       page: 0,
       button: [1, 2, 3],
@@ -128,7 +128,7 @@ class CustomTable extends React.Component {
 
   showColumn = (header, index, length) => {
     const { editColumn } = this.state
-    let max = (length - Object.keys(editColumn).length) > 5
+    let max = (length - Object.keys(editColumn).length) > 1
     let hide = editColumn[index] === undefined
 
     if (hide && max) {
@@ -156,10 +156,7 @@ class CustomTable extends React.Component {
   }
 
   saveEdit = (editColumn) => {
-    this.setState({
-      editColumnTemp: editColumn,
-      showModal: false
-    })
+    this.setState({ editColumnTemp: editColumn, showModal: false })
   }
 
   headerIcon = (header, editColumn) => {
@@ -169,17 +166,18 @@ class CustomTable extends React.Component {
       if (editColumn[index] === undefined) {
         let icon = <span className="text-light-gray">
           {name}
-          <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z"></path>
-          </svg>
-          {/* <svg class="bi bi-chevron-expand" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M3.646 9.146a.5.5 0 0 1 .708 0L8 12.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708zm0-2.292a.5.5 0 0 0 .708 0L8 3.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708z" />
-                        </svg> */}
+          {data.sortable ?
+            <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z"></path>
+            </svg> : null
+          }
         </span>
 
         let obj = {
           "Header": icon,
-          "accessor": data.accessor
+          "accessor": data.accessor,
+          'sortable': data.sortable || false,
+          'resizable': data.resizable || false,
         }
         return listHeader = [...listHeader, obj]
       } else {
@@ -191,15 +189,12 @@ class CustomTable extends React.Component {
     let obj = {
       'Header': editBtn,
       'accessor': 'editBtn',
-      'sortable': false,
-      'resizable': false,
       'width': 50,
       'style': {
         textAlign: 'center'
       }
     }
     listHeader = [...listHeader, obj]
-
     return listHeader
   }
 
@@ -207,7 +202,7 @@ class CustomTable extends React.Component {
     const { // data, columns
       page, button, btnStat, goPage, showModal, editColumn, editColumnTemp
     } = this.state
-    let { data, fields, onClick, pageSize = 30 } = this.props
+    let { title, data, fields, onClick, pageSize = 50, height } = this.props
     const maxPage = Math.round(data.length / pageSize)
     const length = Math.round(data.length)
     const bottom = Math.round((page * pageSize) + 1)
@@ -221,7 +216,7 @@ class CustomTable extends React.Component {
           showPagination={false}
           page={page}
           defaultPageSize={pageSize}
-          style={{ border: 'none' }}
+          style={{ border: 'none', height }}
           minRows={10}
           getTdProps={(state, rowInfo, column, instance) => {
             return {
@@ -246,7 +241,7 @@ class CustomTable extends React.Component {
                     <span className="font-20 text-white">Edit Column</span>
                   </div>
                   <span className="text-white">
-                    {`Show and hide the column to your needs. Please select 5 to ${fields && fields.length} column to show.`}
+                    {`Show and hide the column according to your needs. Please select columns to show`}
                   </span>
                 </Col>
                 <Col xs={2} sm={2} md={2} lg={2} xl={2} className="p-0 text-right">
@@ -259,17 +254,19 @@ class CustomTable extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <Row xl={5} lg={4} md={3} sm={3} xs={2} className="mx-1">
+              <Col className="text-primary font-20 p-2">{title}</Col>
+            </Row>
+            <Row xl={5} lg={4} md={3} sm={3} xs={2} className="mx-1">
               {
                 fields && fields.map((item, index) => {
                   return (
                     <Col key={index} className="p-2">
-                      <Button variant={!editColumn[index] ? 'outline-primary' : 'secondary'}
-                        // style={{ backgroundColor: !editColumn[index] ? 'white' : '#efefef' }}
-                        block onClick={this.showColumn.bind(this, item.Header, index, fields.length)}
+                      <button className={`text-left btn btn-block ${!editColumn[index] ? 'btn-outline-primary' : 'btn-light-gray'}`}
+                        onClick={this.showColumn.bind(this, item.Header, index, fields.length)}
                       >
                         {!editColumn[index] ? <AiOutlineEye size={25} /> : <AiOutlineEyeInvisible size={25} />}
                         <b className="p-0"> {item.Header} </b>
-                      </Button>
+                      </button>
                     </Col>
                   )
                 })
@@ -283,7 +280,7 @@ class CustomTable extends React.Component {
 
 
 
-        <Container fluid className="my-4">
+        <Container fluid className="mt-4">
           <Row>
             <Col xs={12} sm={6} md={6} lg={3} xl={3} className="p-0">
               <div className="paging">

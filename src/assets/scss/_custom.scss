@@ -2,12 +2,22 @@
 body {
   font-family: "Rubik";
 }
-input:focus {
-  box-shadow: none !important;
+/* @font-face {
+  font-family: "Helvetica Neue Regular";
+  src: url("../fonts/HelveticaNeue.ttf");
 }
-button:focus {
-  box-shadow: none !important;
+@font-face {
+  font-family: "Helvetica Neue Light";
+  src: url("../fonts/HelveticaNeue-Light.ttf");
 }
+@font-face {
+  font-family: "Helvetica Neue Medium";
+  src: url("../fonts/HelveticaNeue-Medium.ttf");
+}
+@font-face {
+  font-family: "Helvetica Neue Bold";
+  src: url("../fonts/HelveticaNeue-Bold.ttf");
+} */
 
 // fix fa-spin rotating arround center
 .fa-spin {
@@ -16,6 +26,13 @@ button:focus {
 }
 
 // Custom style
+
+input:focus {
+  box-shadow: none !important;
+}
+button:focus {
+  box-shadow: none !important;
+}
 .bg-transparent {
   box-shadow: none !important;
   border: none !important;
@@ -44,8 +61,14 @@ button:focus {
   background-color: #b4b9bb;
   border-radius: 5px;
 }
-
-
+.pointer {
+  cursor: pointer;
+}
+.modal-header,
+.modal-body,
+.modal-footer {
+  border: none !important;
+}
 .text-light-gray {
   color: #b4b9bb;
 }
@@ -76,6 +99,13 @@ button:focus {
 }
 .c-header-toggler-icon {
   margin-left: -30px !important;
+}
+@media (min-height: 1025px), (min-width: 1024px) {
+  // disable vertical scrolling on desktop
+  body,
+  .c-wrapper {
+    overflow-y: hidden !important;
+  }
 }
 
 /* breadcrumb style start */
@@ -122,25 +152,12 @@ button:focus {
   margin: 0 1% !important;
   width: 98.5% !important;
 }
+.css-g1d714-ValueContainer {
+  color: #000;
+}
 /* dropdown style end */
 
-/* fonts start */
-@font-face {
-  font-family: "Helvetica Neue Regular";
-  src: url("../fonts/HelveticaNeue.ttf");
-}
-@font-face {
-  font-family: "Helvetica Neue Light";
-  src: url("../fonts/HelveticaNeue-Light.ttf");
-}
-@font-face {
-  font-family: "Helvetica Neue Medium";
-  src: url("../fonts/HelveticaNeue-Medium.ttf");
-}
-@font-face {
-  font-family: "Helvetica Neue Bold";
-  src: url("../fonts/HelveticaNeue-Bold.ttf");
-}
+/* icomoon start */
 @font-face {
   font-family: "icomoon";
   src: url("../fonts/icomoon.eot?t60pg3");
@@ -257,4 +274,4 @@ button:focus {
 .iconU-logout:before {
   content: "\e90a";
 }
-/* fonts end */
+/* icomoon end */

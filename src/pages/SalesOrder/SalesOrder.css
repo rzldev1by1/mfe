@@ -1,18 +1,11 @@
-@media (height: 1080px) {
-  .sales-order .react-table {
-    height: 76vh;
-  }
-  .sales-order-detail .react-table {
-    height: 44vh;
-  }
+.required::after {
+  content: " *";
+  color: #e55353;
 }
-@media (max-height: 800px) {
-  .sales-order .react-table {
-    height: 65vh;
-  }
-  .sales-order-detail .react-table {
-    height: 32vh;
-  }
+
+/* Sales Order List */
+.sales-order .input-group input {
+  border-color: #ced4da;
 }
 
 /* Sales Order Detail */
@@ -21,63 +14,45 @@
 }
 
 /* Sales Order Create */
-.modal-header,
-.modal-body,
-.modal-footer {
-  border: none !important;
-}
-.nav-tabs {
+.sales-order-create .nav-tabs {
   margin-left: 26px;
 }
-.tab-content {
+.sales-order-create .tab-content {
   padding: 0;
   margin: 0;
   background-color: #fff;
   color: #000;
 }
-.modal .nav-link {
+.sales-order-create .modal .nav-link {
   background-color: #e9eced;
   color: #959da0;
 }
-.modal-desc {
+.sales-order-create .modal-desc {
   padding-left: 36px;
 }
-.required::after {
-  content: " *";
-  color: #e55353;
-}
-
-
-/* sales-order-create */
-.sales-order-create label{
+.sales-order-create label {
   color: #b4b9bb;
   margin-bottom: 0;
 }
-.orderline table {
+.sales-order-create .orderline table {
   z-index: 99 !important;
 }
-/* .orderline [class*="col-"] {
+/* .sales-order-create .orderline [class*="col-"] {
   padding: 0 10px !important;
 } */
-.orderline .c-1 {
+.sales-order-create .orderline .c-1 {
   width: 50px;
 }
-.orderline .c-2 {
+.sales-order-create .orderline .c-2 {
   width: 100px;
 }
-.orderline .c-3 {
+.sales-order-create .orderline .c-3 {
   width: 150px;
 }
-.orderline .c-4 {
+.sales-order-create .orderline .c-4 {
   width: 200px;
 }
-.orderline-row {
+.sales-order-create .orderline-row {
   position: sticky;
   z-index: 99;
 }
-
-/* .css-2b097c-container,
-.select_date {
-  position: absolute !important;
-  z-index: 999 !important;
-} */

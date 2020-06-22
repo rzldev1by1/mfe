@@ -1,6 +1,8 @@
 import React from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import Select from 'react-select'
+import axios from 'axios'
+import _ from 'lodash'
 import DatePicker from 'shared/DatePicker'
 
 const Required = ({ error, id }) => {
@@ -46,15 +48,67 @@ const validation = (val) => {
   return error
 }
 
+// fix synthetic event warning
+const debounceEventHandler = (...args) => {
+  const debounced = _.debounce(...args)
+  return (e) => {
+    e.persist()
+    return debounced(e)
+  }
+}
+
 class CreateTab extends React.Component {
   state = {
     site: null, client: null, status: null, orderType: null,
     orderLine: [{}], error: {},
+    siteData: [], clientData: [], orderTypeData: []
+  }
+  // remove first option (all)
+  componentDidUpdate(nextProps) {
+    let { siteData, clientData, orderTypeData } = this.props
+    if (siteData && nextProps.siteData !== siteData) {
+      siteData.splice(0, 1)
+      this.setState({ siteData })
+    }
+    if (clientData && nextProps.clientData !== clientData) {
+      clientData.splice(0, 1)
+      this.setState({ clientData })
+    }
+    if (orderTypeData && nextProps.orderTypeData !== orderTypeData) {
+      orderTypeData.splice(0, 1)
+      this.setState({ orderTypeData })
+    }
   }
   handleChange = (e) => {
     const { name, value } = e.target
     this.setState({ [name]: value })
   }
+  checkOrderId = async (e) => {
+    let { error, client } = this.state
+    let orderId = e.target.value
+    if (!client) {
+      error.orderId = 'Please select client first'
+      return this.setState({ error })
+    }
+    delete error.orderId
+    console.log('find order no:', client.value, orderId)
+    if (orderId) {
+      const { data } = await axios.post('/orderCheck', {
+        "client": client.value,
+        "order_no": orderId
+      })
+      if (data.message !== 'available') {
+        error.orderId = 'Order number exist'
+      }
+    }
+    this.setState({ error, orderId })
+  }
+  findCustomer = (val) => {
+    if (val) {
+      console.log('find customer: ', val)
+    }
+  }
+
   addLine = (id) => {
     this.setState({ orderLine: [...this.state.orderLine, {}] })
   }
@@ -75,29 +129,31 @@ class CreateTab extends React.Component {
     }
   }
   render() {
-    const { error, site, client, orderType, orderLine, customer } = this.state
-    const { siteData, clientData, orderTypeData } = this.props
+    const { error, site, client, orderType, orderLine, customer,
+      siteData, clientData, orderTypeData
+    } = this.state
     return <Container className="p-4">
       <h3 className="text-primary font-20">Order Details</h3>
       <Row className="pt-1">
         <Col lg="3">
           <label className="required">Site</label>
-          <Select value={site} options={siteData} onChange={val => this.setState({ site: val })} required />
+          <Select value={site} options={siteData} onChange={val => this.setState({ site: val })} placeholder="Site" required />
           <Required id="site" error={error} />
         </Col>
         <Col lg="3">
           <label className="required">Order Type</label>
-          <Select value={orderType} options={orderTypeData} onChange={val => this.setState({ orderType: val })} required />
+          <Select value={orderType} options={orderTypeData} onChange={val => this.setState({ orderType: val })} placeholder="Order Type" required />
           <Required id="orderType" error={error} />
         </Col>
         <Col lg="3">
           <label>Customer Order Ref</label>
-          <input name="customerOrderRef" type="text" onChange={this.handleChange} onChange={this.handleChange} className="form-control" placeholder="" />
+          <input name="customerOrderRef" type="text" onChange={this.handleChange} className="form-control" placeholder="Customer Order Ref" />
         </Col>
         <Col lg="3">
           <label className="required">Delivery Date</label>
           <DatePicker
             className="form-control"
+            placeholder="Delivery Date"
             getDate={(date) => this.setState({ deliveryDate: date })}
           />
           <Required id="deliveryDate" error={error} />
@@ -106,12 +162,12 @@ class CreateTab extends React.Component {
       <Row className="pt-1">
         <Col lg="3">
           <label className="required">Client</label>
-          <Select value={client} options={clientData} onChange={val => this.setState({ client: val })} required />
+          <Select value={client} options={clientData} onChange={val => this.setState({ client: val })} placeholder="Client" required />
           <Required id="client" error={error} />
         </Col>
         <Col lg="3">
           <label className="required">Order No</label>
-          <input name="orderId" type="text" onChange={this.handleChange} className="form-control" placeholder="Order No" required />
+          <input name="orderId" type="text" onChange={debounceEventHandler(this.checkOrderId, 300)} className="form-control text-uppercase" placeholder="Order No" required />
           <Required id="orderId" error={error} />
         </Col>
         <Col lg="3">
@@ -120,7 +176,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label>Delivery Instructions</label>
-          <input name="deliveryInstruction" type="text" onChange={this.handleChange} className="form-control" placeholder="Delivery Instructions" required />
+          <textarea name="deliveryInstruction" type="text" onChange={this.handleChange} className="form-control" placeholder="Delivery Instructions" required />
         </Col>
       </Row>
 
@@ -128,7 +184,9 @@ class CreateTab extends React.Component {
       <Row className="pt-1">
         <Col lg="3">
           <label>Customer</label>
-          <Select value={customer} options={siteData} onChange={val => this.setState({ customer: val })} />
+          <Select value={customer} options={[]} placeholder="Customer Name or ID"
+            onInputChange={_.debounce(this.findCustomer, 300)} onChange={val => this.setState({ customer: val })}
+          />
         </Col>
       </Row>
       <Row className="pt-1">
@@ -173,7 +231,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label>Country</label>
-          <input name="country" type="text" onChange={this.handleChange} className="form-control" placeholder="" />
+          <input name="country" type="text" onChange={this.handleChange} className="form-control" placeholder="Country" />
         </Col>
       </Row>
 
@@ -200,19 +258,19 @@ class CreateTab extends React.Component {
           <tbody>
             {orderLine.length && orderLine.map((ld, i) => {
               return <tr className="py-1 text-center orderline-row">
-                <td><input value={i + 1} className="form-control text-center" readOnly /></td>
-                <td><DatePicker className="form-control" getDate={(date) => { console.log(date) }} /></td>
-                <td><Select value={site} options={siteData} onChange={val => this.setState({ site: val })} required /></td>
-                <td><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Choose a product first" readOnly /></td>
-                <td><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Qty" /></td>
-                <td><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Weight" /></td>
-                <td><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="UOM" /></td>
-                <td><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Batch" /></td>
-                <td><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Ref 3" /></td>
-                <td><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Ref 4" /></td>
-                <td><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Disposition" /></td>
-                <td><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Pack ID" /></td>
-                <td>
+                <td className="px-1"><input value={i + 1} className="form-control text-center" readOnly /></td>
+                <td className="px-1"><DatePicker className="form-control" getDate={(date) => { console.log(date) }} placeholder="Select Date"/></td>
+                <td className="px-1"><Select value={site} options={siteData} onChange={val => this.setState({ site: val })} placeholder="Product" required /></td>
+                <td className="px-1"><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Choose a product first" readOnly /></td>
+                <td className="px-1"><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Qty" /></td>
+                <td className="px-1"><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Weight" /></td>
+                <td className="px-1"><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="UOM" /></td>
+                <td className="px-1"><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Batch" /></td>
+                <td className="px-1"><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Ref 3" /></td>
+                <td className="px-1"><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Ref 4" /></td>
+                <td className="px-1"><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Disposition" /></td>
+                <td className="px-1"><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Pack ID" /></td>
+                <td className="px-1">
                   <button className="btn btn-light-gray btn-block" onClick={() => this.removeLine(i)}><i className="iconU-delete"></i></button>
                 </td>
               </tr>
