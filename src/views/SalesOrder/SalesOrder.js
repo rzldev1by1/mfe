@@ -79,6 +79,7 @@ class SalesOrder extends Component {
     this.getResources();
     this.getProduct();
     this.getDisposition();
+
   };
 
   unAuthorizeAAccess = (error) => {

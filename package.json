@@ -82,14 +82,8 @@
 	"scripts": {
 		"generate-build-version": "node generate-build-version",
     	"prebuild": "npm run generate-build-version",
-<<<<<<< HEAD
 		"start": "react-scripts start",
-		"build-js": "react-scripts build",
-		"build": "react-scripts build-js",
-=======
-		"start": "react-scripts start",		
 		"build": "react-scripts build",
->>>>>>> 18ab63a0302271a0bb83afeb6ee68b95db484114
 		"test": "react-scripts test",
 		"test:cov": "npm test -- --coverage --watchAll=false",
 		"test:debug": "react-scripts --inspect-brk test --runInBand",
