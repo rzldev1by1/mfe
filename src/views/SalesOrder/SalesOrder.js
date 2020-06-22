@@ -355,7 +355,7 @@ class SalesOrder extends Component {
   render() {
     return (
       <React.Fragment>
-        {/* <VersioningComponent/> */}
+        <VersioningComponent/>
         <HeaderTitle
           title="Sales Orders"
           button={

@@ -40,7 +40,7 @@ class VersioningComponent extends Component {
           const currentVersion = global.appVersion;
 
           const shouldForceRefresh = semverGreaterThan(latestVersion, currentVersion);
-          console.log(shouldForceRefresh);
+          
           if (shouldForceRefresh) {
             console.log(`We have a new version - ${latestVersion}. Should force refresh`);
             console.log('Clearing cache and hard reloading...')
