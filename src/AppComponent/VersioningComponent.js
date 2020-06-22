@@ -29,7 +29,7 @@ class VersioningComponent extends Component {
     // }
 
     componentDidMount() {
-        // this.checkVersion();        
+        this.checkVersion();        
         
     }
 
