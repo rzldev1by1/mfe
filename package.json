@@ -80,8 +80,11 @@
 		"react-scripts": "^3.3.0"
 	},
 	"scripts": {
+		"generate-build-version": "node generate-build-version",
+    	"prebuild": "npm run generate-build-version",
 		"start": "react-scripts start",
-		"build": "react-scripts build",
+		"build-js": "react-scripts build",
+		"build": "react-scripts build-js",
 		"test": "react-scripts test",
 		"test:cov": "npm test -- --coverage --watchAll=false",
 		"test:debug": "react-scripts --inspect-brk test --runInBand",
