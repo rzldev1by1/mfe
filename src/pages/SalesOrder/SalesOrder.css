@@ -1,12 +1,83 @@
-/* Sales Order List */
-.sales-order .react-table {
-  height: 78vh;
+@media (height: 1080px) {
+  .sales-order .react-table {
+    height: 76vh;
+  }
+  .sales-order-detail .react-table {
+    height: 44vh;
+  }
+}
+@media (max-height: 800px) {
+  .sales-order .react-table {
+    height: 65vh;
+  }
+  .sales-order-detail .react-table {
+    height: 32vh;
+  }
 }
 
 /* Sales Order Detail */
-.sales-order-detail .react-table{
-  height: 46vh;
-}
 .sales-order-detail .section-1 .col {
-  padding: 5px 20px;
+  padding: auto 20px;
 }
+
+/* Sales Order Create */
+.modal-header,
+.modal-body,
+.modal-footer {
+  border: none !important;
+}
+.nav-tabs {
+  margin-left: 26px;
+}
+.tab-content {
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  color: #000;
+}
+.modal .nav-link {
+  background-color: #e9eced;
+  color: #959da0;
+}
+.modal-desc {
+  padding-left: 36px;
+}
+.required::after {
+  content: " *";
+  color: #e55353;
+}
+
+
+/* sales-order-create */
+.sales-order-create label{
+  color: #b4b9bb;
+  margin-bottom: 0;
+}
+.orderline table {
+  z-index: 99 !important;
+}
+/* .orderline [class*="col-"] {
+  padding: 0 10px !important;
+} */
+.orderline .c-1 {
+  width: 50px;
+}
+.orderline .c-2 {
+  width: 100px;
+}
+.orderline .c-3 {
+  width: 150px;
+}
+.orderline .c-4 {
+  width: 200px;
+}
+.orderline-row {
+  position: sticky;
+  z-index: 99;
+}
+
+/* .css-2b097c-container,
+.select_date {
+  position: absolute !important;
+  z-index: 999 !important;
+} */

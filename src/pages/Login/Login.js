@@ -19,7 +19,7 @@ class Logins extends Component {
         policy: false
     }
 
-    validateForm = (e) => {
+    validateForm = async (e) => {
         e.preventDefault()
         let errorMessage = ''
         if (!this.state.forgotPassword) {
@@ -28,16 +28,14 @@ class Logins extends Component {
             const password = e.target.password.value
             if (username && password) {
                 const payload = { "userid": username, "password": password }
-
-                helpers.authenticationHandler(payload).then(result => {
-                    if (result.isSuccess) {
-                        this.props.dispatch({ type: 'set', user: result.data })
-                        this.props.history.push(result.redirect)
-                    } else {
-                        errorMessage = result.message
-                    }
-                    this.setState({ isLoad: false, errorMessage, formValidation: { username: true, password: true } })
-                })
+                const result = await helpers.authenticationHandler(payload)
+                if (result.isSuccess) {
+                    this.props.dispatch({ type: 'set', user: result.data })
+                    this.props.history.push(result.redirect)
+                } else {
+                    errorMessage = result.message
+                }
+                this.setState({ isLoad: false, errorMessage, formValidation: { username: true, password: true } })
             }
             else {
                 let formValidation = {
@@ -146,7 +144,7 @@ class Logins extends Component {
                     type="text" name="email"
                     placeholder="Enter your email address here" />
                 <span className='email-message'>Enter your email address to find your acccount</span>
-                
+
                 <div className={'error ' + (errorMessage ? ' alertFadeIn' : '')}>
                     {errorMessage && <div><span className="iconU-i" /> {errorMessage}</div>}
                 </div>

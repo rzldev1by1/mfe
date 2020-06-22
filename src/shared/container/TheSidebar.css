@@ -1,41 +1,54 @@
-
 /* sidebar style start */
 @media (min-width: 992px) {
   .c-wrapper {
-    margin-left: 80px !important;
+    margin-left: 100px !important;
   }
 }
+@media (max-width: 768px) {
+  .logo-text {
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+  }
+}
+.logo-text {
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+  margin: 0 auto;
+  font-size: 12px;
+}
+
+.c-sidebar,
 .c-sidebar-unfoldable:not(:hover).c-sidebar-lg-show {
-  width: 80px;
+  width: 100px;
+  background-color: #2f295c;
+  font-size: 14px;
 }
-.c-sidebar-brand,
-.c-sidebar-bottom .logout {
-  background-color: darken(#376BFB, 10%) !important;
+.c-sidebar li {
+  list-style-type: none;
 }
-.c-sidebar {
-  background-color: #376BFB;
-}
-.c-sidebar-nav-icon {
-  height: 25px;
-  margin-left: -5px !important;
-  margin-right: 15px !important;
-}
-.c-sidebar-bottom {
-  display: flex;
-  justify-content: flex-end;
-  padding-bottom: 0 !important;
-}
-.c-sidebar-bottom .logout:hover {
-  background-color: rgba(0, 0, 21, 0.2);
-}
-.c-sidebar-bottom .logout img {
-  height: 40px;
-  margin-left: 5px !important;
-  margin-right: 10px !important;
-}
-.c-sidebar-bottom .logout a {
-  color: #fff;
-  cursor: pointer;
+.c-sidebar li a {
   text-decoration: none;
+}
+.c-sidebar-item {
+  text-align: center;
+  cursor: pointer;
+  font-size: 11px;
+}
+.c-sidebar-item div {
+  visibility: hidden;
+}
+.c-sidebar-item:hover div {
+  visibility: visible;
+}
+.c-sidebar-item.links {
+  word-spacing: 100px;
+}
+
+.sidebar-nav-bottom {
+  display: flex;
+  justify-content: center;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0;
 }
 /* sidebar style end */

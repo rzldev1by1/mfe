@@ -9,6 +9,8 @@ import {
   CCol,
 } from '@coreui/react'
 import Select from 'react-select'
+import { FaPencilAlt } from 'react-icons/fa'
+import { IoIosArrowDown } from 'react-icons/io'
 
 // import DataTable from 'shared/table/DataTable'
 import CustomTable from 'shared/table/CustomTable'
@@ -34,7 +36,7 @@ class SalesOrder extends React.PureComponent {
     resources: [],
     fields: columns,
     data: [],
-    create: false,
+    create: true,
     detail: {},
   }
   componentDidMount = () => {
@@ -98,10 +100,9 @@ class SalesOrder extends React.PureComponent {
     // urls.push('client=' + (client ? client.value : 'all'))
     // urls.push('orderType=' + (orderType ? orderType.value : 'all'))
     // const { data } = await axios.get(`/salesorder?` + urls.join('&'))
-    // if (data.data.length) {
-    //   console.log(JSON.stringify(data.data))
-    //   console.log(Object.keys(data.data[0]))
-    //   this.setState({ data: data.data, fields })
+    // console.log(data.data.data)
+    // if (data.data.data) {
+    //   this.setState({ data: data.data.data })
     // } else {
     //   this.setState({ data: [] })
     // }
@@ -116,66 +117,69 @@ class SalesOrder extends React.PureComponent {
     this.setState({ create: value ? value : !this.state.create })
   }
   render() {
-    const { siteData, fields, data,
-      site, clientData, client, statusData, status, orderTypeData, orderType,
-      create,
-    } = this.state
+    const { fields, data, siteData, site, clientData, client, statusData, status, orderTypeData, orderType, create, } = this.state
     return <div className="sales-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Sales Order', active: true }]}
-        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right">Create Sales Order</CButton>}
+        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right">
+          <FaPencilAlt />  &nbsp; Create Sales Order
+          </CButton>}
       />
 
-      <SalesOrderCreate show={!!create} toggle={this.toggle} />
       <CCard>
-        <CCardBody className="p-2">
+        <CCardBody className="px-4 py-2">
           <CRow>
-            <CCol sm="4" lg="3">
+            <CCol sm="4" lg="3" className="px-1">
               <input type="text" className="form-control" placeholder="Search"
                 onChange={e => this.setState({ search: e.target.value })}
               />
             </CCol>
-            <CCol sm="4" lg="2">
+            <CCol sm="4" lg="2" className="px-1">
               <Select name="site" placeholder="Site"
                 value={site} options={siteData}
                 onChange={(val) => this.setState({ site: val })}
               />
             </CCol>
-            <CCol sm="4" lg="2">
+            <CCol sm="4" lg="2" className="px-1">
               <Select name="client" placeholder="Client"
                 value={client} options={clientData}
                 onChange={(val) => this.setState({ client: val })}
               />
             </CCol>
-            <CCol sm="4" lg="2">
+            <CCol sm="4" lg="2" className="px-1">
               <Select name="status" placeholder="Status"
                 value={status} options={statusData}
                 onChange={(val) => this.setState({ status: val })}
               />
             </CCol>
-            <CCol sm="4" lg="2">
+            <CCol sm="4" lg="2" className="px-1">
               <Select name="orderType" placeholder="Order Type"
                 value={orderType} options={orderTypeData}
                 onChange={(val) => this.setState({ orderType: val })}
               />
             </CCol>
-            <CCol sm="4" lg="1">
-              <button className="btn btn-outline-primary float-right" onClick={this.searchSalesOrder}>Search</button>
+            <CCol sm="4" lg="1" className="px-1">
+              <button className="btn btn-block btn-primary float-right" onClick={this.searchSalesOrder}>Search</button>
             </CCol>
           </CRow>
         </CCardBody>
       </CCard>
 
-      {/* <DataTable
-        fields={fields}
-        data={data}
-        onClick={this.showDetails}
-      /> */}
-
       <CustomTable
         data={data}
         fields={fields}
-        onClick={this.showDetails} />
+        pagination={{ pageSize: 50, limit: 4 }}
+        onClick={this.showDetails}
+        export={<CButton className="btn btn-primary px-4">Export <IoIosArrowDown /></CButton>}
+      />
+
+      <SalesOrderCreate
+        show={!!create} toggle={this.toggle}
+        siteData={siteData}
+        clientData={clientData}
+        statusData={statusData}
+        orderTypeData={orderTypeData}
+      />
     </div>
   }
 }

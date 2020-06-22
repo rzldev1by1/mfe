@@ -157,30 +157,31 @@ class Helpers {
 		);
 	}
 
-	static authenticationHandler = (payload) => {
-		let result = {};
+	static authenticationHandler = async (payload) => {
+		let result = {}
+		try {
+			const localuser = JSON.parse(localStorage.getItem('user'))
+			this.setAuthenticate(localuser);
+			result.isSuccess = true;
+			result.redirect = "/";
+			result.data = localuser
 
-		return (
-			axios.post(baseUrl + "/usermanagement/login", payload, options)
-				.then(res => {
-					if (res.data) {
-						result.isSuccess = true;
-						result.redirect = "/";
-						result.data = res.data
-						this.setAuthenticate(res.data);
-						// return this.renewToken();
-						return result;
-					}
-				})
-				.catch(function (error) {
-					result.isSuccess = false;
-					result.message = "Failed to process your request";
-					if (error.response) {
-						result.message = error.response.status ? "Username or password is not valid" : "Failed to process your request";
-					}
-					return result;
-				})
-		);
+			// const { data } = await axios.post(baseUrl + "/usermanagement/login", payload, options)
+			// if (data) {
+			// 	result.isSuccess = true;
+			// 	result.redirect = "/";
+			// 	result.data = data
+			// 	this.setAuthenticate(data);
+			// }
+			return result;
+		} catch (error) {
+			result.isSuccess = false;
+			result.message = "Failed to process your request";
+			if (error.response) {
+				result.message = error.response.status ? "Username or password is not valid" : "Failed to process your request";
+			}
+			return result;
+		}
 	}
 
 	static renewToken = () => {

@@ -1,3 +1,14 @@
+*,
+body {
+  font-family: "Rubik";
+}
+input:focus {
+  box-shadow: none !important;
+}
+button:focus {
+  box-shadow: none !important;
+}
+
 // fix fa-spin rotating arround center
 .fa-spin {
   width: initial !important;
@@ -15,10 +26,48 @@
 .scroll-y {
   overflow-y: auto;
 }
+.scroll-x-y {
+  overflow-y: auto;
+  overflow-x: auto;
+  z-index: -99 !important;
+}
+.scrolly::-webkit-scrollbar,
+.scrollx::-webkit-scrollbar,
+.scroll-x-y::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 5px;
+}
+.scrollx::-webkit-scrollbar-thumb,
+.scrolly::-webkit-scrollbar-thumb,
+.scroll-x-y::-webkit-scrollbar-thumb {
+  background-color: #b4b9bb;
+  border-radius: 5px;
+}
+
+
+.text-light-gray {
+  color: #b4b9bb;
+}
+.btn-light-gray {
+  color: #fff !important;
+  background-color: #b4b9bb !important;
+  border: 1px solid #b4b9bb !important;
+}
+.btn-light-gray:hover {
+  background-color: darken(#b4b9bb, 10) !important;
+}
+
+.font-12 {
+  font-size: 12px;
+}
+.font-20 {
+  font-size: 20px;
+}
 
 // Core-UI component style
 .c-app {
-  background-image: url("../img/Home-Background.png");
+  background-color: #e9eced;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -35,14 +84,20 @@
 }
 .breadcrumb-item {
   font-size: 150%;
-  color: $primary !important;
+  color: $secondary !important;
 }
 .breadcrumb-item a {
   text-decoration: none !important;
-  color: $secondary;
+  color: $primary;
 }
 .breadcrumb-item a:hover {
-  color: $primary;
+  color: $secondary;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  content: ">" !important;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  content: ">" !important;
 }
 /* breadcrumb style end*/
 
@@ -50,7 +105,7 @@
 .css-1pahdxg-control,
 .css-yk16xz-control {
   min-height: 35px !important;
-  height: 35px !important;
+  height: 40px !important;
   border: 1px solid !important;
   border: 1px solid #e4e7ea !important;
 }

@@ -1,60 +1,45 @@
 import React from 'react'
-import {
-  CButton,
-  CBadge,
-  CModal,
-  CModalHeader,
-  CModalFooter,
-  CModalBody,
-  CTabs,
-  CTabContent,
-  CTabPane,
-  CNav,
-  CNavItem,
-  CNavLink,
-} from '@coreui/react'
+import { Row, Col, Tabs, Tab, Modal } from 'react-bootstrap'
+// import { FaRegEdit, FaPencilAlt } from 'react-icons/fa'
+import DetailsTab from './tabs/DetailsTab.js'
+import ReviewTab from './tabs/ReviewTab'
 
-const lorem = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.'
 class SalesOrderCreate extends React.PureComponent {
+  state = {
+    key: 'detail',
+    data: []
+  }
   onActiveTabChange = (e) => {
     console.log(e)
   }
   render() {
-    const {show, toggle} = this.props
-    return <CModal
-      show={show}
-      onClose={toggle}
-      size="xl"
-    >
-      {/* <CModalHeader closeButton>Modal title</CModalHeader> */}
-      <CModalBody>
-        <CTabs activeTab="detail"
-          onActiveTabChange={this.onActiveTabChange}
+    const { show, toggle } = this.props
+    return <Modal show={show} onHide={toggle} size="xl" className="sales-order-create">
+      <Modal.Body className="bg-primary p-0">
+        <Row className="p-4">
+          <Col xs={10}>
+            <i className="iconU-createModal font-20"></i><span className="font-20 pl-2">Create Sales Order</span> <br />
+            <span className="pl-4">Enter Order and line details to create a new purchase order</span>
+          </Col>
+          <Col xs={2} className="text-right">
+            <i className="iconU-close"></i>
+          </Col>
+        </Row>
+        <Tabs
+          id="controlled-tab-example"
+          activeKey={this.state.key}
+          onSelect={(key) => this.setState({ key })}
         >
-          <CNav variant="tabs">
-            <CNavItem>
-              <CNavLink data-tab="detail">
-                <CBadge color="primary">1</CBadge>Order & Product Details
-            </CNavLink>
-            </CNavItem>
-            <CNavItem>
-              <CNavLink data-tab="review"> Review </CNavLink>
-            </CNavItem>
-          </CNav>
-          <CTabContent>
-            <CTabPane data-tab="detail">
-              {`1. ${lorem}`}
-            </CTabPane>
-            <CTabPane data-tab="review">
-              {`2. ${lorem}`}
-            </CTabPane>
-          </CTabContent>
-        </CTabs>
-      </CModalBody>
-      <CModalFooter>
-        <CButton color="primary">Next <i className="fa fa-chevron-right "></i></CButton>
-      </CModalFooter>
-    </CModal>
+          <Tab eventKey="detail" title="Order & Product Details">
+            <DetailsTab {...this.props} />
+          </Tab>
+          <Tab eventKey="review" title="Review">
+            <ReviewTab />
+          </Tab>
+        </Tabs>
+      </Modal.Body>
+      <Modal.Footer></Modal.Footer>
+    </Modal>
   }
 }
 export default SalesOrderCreate
