@@ -7,7 +7,8 @@ global.appVersion = process.env.REACT_APP_VERSION;
 const semverGreaterThan = (versionA, versionB) => {
   const versionsA = versionA.split(/\./g);
   const versionsB = versionB.split(/\./g);
-
+  console.log(versionA)
+  console.log(versionB)
   while (versionsA.length || versionsB.length) {
     const a = Number(versionsA.shift());
     const b = Number(versionsB.shift());
@@ -41,6 +42,7 @@ class VersioningComponent extends Component {
 
           const shouldForceRefresh = semverGreaterThan(latestVersion, currentVersion);
           console.log(shouldForceRefresh);
+          console.log(currentVersion)
           if (shouldForceRefresh) {
             console.log(`We have a new version - ${latestVersion}. Should force refresh`);
             console.log('Clearing cache and hard reloading...')
