@@ -158,6 +158,8 @@ class PurchaseOrderTable extends Component {
       displayPage: 50,
       totalRows: 0,
       maxPage: 0,
+
+      search: true
     }
   }
 
@@ -239,15 +241,15 @@ class PurchaseOrderTable extends Component {
       totalRows: 0, maxPage: 0
     })
 
-    let param = '?'
-    if(page) param = param + 'page=' +page
+    let param = '?status=open'
+    if(page) param = param + '&page=' +page
 
     axios.get(endpoint.purchaseOrder+param, {
       headers: headers
     })
       .then(res => {
         const result = res.data.data
-        this.setState({ main: result })
+        this.setState({ main: result, search: false })
         this.load()
         this.defaultSort("site", "client", "order_no")
       })
@@ -260,7 +262,7 @@ class PurchaseOrderTable extends Component {
     this.props.loadCompleteHandler(true)
   }
 
-  searchPurchaseOrder = (search, client, site, status, ordertype, task) => {
+  searchPurchaseOrder = (search, client, site, status, ordertype, task, page) => {
 
     this.setState({
       currentPage: 1,
@@ -295,13 +297,17 @@ class PurchaseOrderTable extends Component {
       url += '&task=' + task
     }
 
+    if(page){
+        url += '&page=' + page
+    }
+
     this.props.loadCompleteHandler(false)
     axios.get(endpoint.purchaseOrder + url, {
       headers: headers
     })
       .then(res => {
         const result = res.data.data
-        this.setState({ main: result })
+        this.setState({ main: result, search: true })
         this.load()
       })
       .catch(error => {
@@ -543,12 +549,12 @@ class PurchaseOrderTable extends Component {
             firstPage = {1}
             lastPage = {this.state.main.last_page}
             currentPage = {this.state.main.current_page}
-            nextPage = {(page) => this.loadPurchaseOrder(page)}
-            prevPage = {(page) => this.loadPurchaseOrder(page)}
-            toFirstPage = {(page) => this.loadPurchaseOrder(page)}
-            toLastPage = {(page) => this.loadPurchaseOrder(page)}
-            toClickedPage = {(page) => this.loadPurchaseOrder(page)}
-            toSpecificPage = {(page) => this.loadPurchaseOrder(page)}
+            nextPage = {(page) => this.state.search ? this.searchPurchaseOrder(this.props.searchValue, page) : this.loadPurchaseOrder(page)}
+            prevPage = {(page) => this.state.search ? this.searchPurchaseOrder(this.props.searchValue, page) : this.loadPurchaseOrder(page)}
+            toFirstPage = {(page) => this.state.search ? this.searchPurchaseOrder(this.props.searchValue, page) : this.loadPurchaseOrder(page)}
+            toLastPage = {(page) => this.state.search ? this.searchPurchaseOrder(this.props.searchValue, page) : this.loadPurchaseOrder(page)}
+            toClickedPage = {(page) => this.state.search ? this.searchPurchaseOrder(this.props.searchValue, page) : this.loadPurchaseOrder(page)}
+            toSpecificPage = {(page) => this.state.search ? this.searchPurchaseOrder(this.props.searchValue, page) : this.loadPurchaseOrder(page)}
             />
           <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
             ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} />
