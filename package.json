@@ -82,11 +82,7 @@
 	"scripts": {
 		"generate-build-version": "node generate-build-version",
     	"prebuild": "npm run generate-build-version",
-<<<<<<< HEAD
 		"start": "react-scripts start",		
-=======
-		"start": "react-scripts start",
->>>>>>> a854877650b58d46be75e6a254105bbf61af371b
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"test:cov": "npm test -- --coverage --watchAll=false",
