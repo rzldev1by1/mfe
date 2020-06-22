@@ -23,13 +23,16 @@ const semverGreaterThan = (versionA, versionB) => {
 
 class VersioningComponent extends Component {
     
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
      
-    }
+    // }
 
     componentDidMount() {
-        this.checkVersion();        
+        // this.checkVersion();        
+        //local storage            
+        let storage = {...localStorage};
+        console.log(storage);
     }
 
     checkVersion = () => {

@@ -15,6 +15,7 @@ import create from '../../assets/img/brand/button_create@2x.png'
 import logo_confirm from '../../assets/img/brand/LOGO5@2x.png'
 import menunav from '../../menunav'
 import Export from '../../AppComponent/Export'
+import VersionComponent from '../../AppComponent/VersioningComponent'
 
 
 const today = moment(new Date()).format("YYYY-MM-DD");
@@ -754,6 +755,7 @@ class UserManagement extends Component {
   render() {
 
     return <React.Fragment>      
+      <VersionComponent />
       <HeaderTitle
         title="User Management"
         button={
