@@ -44,16 +44,17 @@ class VersioningComponent extends Component {
           if (shouldForceRefresh) {
             console.log(`We have a new version - ${latestVersion}. Should force refresh`);
             console.log('Clearing cache and hard reloading...')
-            if (caches) {
-              // Service worker cache should be cleared with caches.delete()
-              caches.keys().then(function(names) {
-                for (let name of names) caches.delete(name);
-              });
-            }
+            // if (caches) {
+            //   // Service worker cache should be cleared with caches.delete()
+            //   caches.keys().then(function(names) {
+            //     for (let name of names) caches.delete(name);
+            //   });
+            // }
 
-            //local storage
-            
+            //local storage            
             let storage = {...localStorage};
+            console.log(storage);
+            
             let keys = Object.keys(storage);
             if(keys && keys.length){
                 keys.forEach((item) => {
