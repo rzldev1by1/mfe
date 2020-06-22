@@ -54,7 +54,7 @@ class VersioningComponent extends Component {
             //local storage            
             let storage = {...localStorage};
             console.log(storage);
-            
+
             let keys = Object.keys(storage);
             if(keys && keys.length){
                 keys.forEach((item) => {
