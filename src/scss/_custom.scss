@@ -1257,7 +1257,10 @@ span.upArrow:before {
 		//max-height: 100vh;
 		max-height: 580px;
 		min-height: 580px; 
-	}
+  }
+  
+ 
+
 }
 @media (max-width: 1710px) {
   //zoom 80%
@@ -2260,6 +2263,36 @@ th {
   padding-left: 12px;;
 }
 
-// .showAllLists{
-//     max-height: 100% !important;
-// }
+.stock-holding-table{
+  table-layout: fixed;
+  width: 100%;  
+}
+
+@media(min-width:500px) and (max-width:1199px){
+  .stock-holding-table.table th{
+    font-size: 8px;
+  }
+
+  .stock-holding-table.table td{
+    font-size: 8px;
+  }
+}
+
+@media(min-width:1200px) and (max-width:1499px){
+  .stock-holding-table.table th{
+    font-size: 10px;
+  }
+
+  .stock-holding-table.table td{
+    font-size: 10px;
+  }
+}
+@media(min-width:1500px) and (max-width:1800px){
+  .stock-holding-table.table th{
+    font-size: 14px;
+  }
+
+  .stock-holding-table.table td{
+    font-size: 14px;
+  }
+}
