@@ -1,16 +1,25 @@
 import React from 'react'
 import { Row, Col, Tabs, Tab, Modal } from 'react-bootstrap'
 // import { FaRegEdit, FaPencilAlt } from 'react-icons/fa'
+import _ from 'lodash'
 import DetailsTab from './tabs/DetailsTab.js'
 import ReviewTab from './tabs/ReviewTab'
 
 class SalesOrderCreate extends React.PureComponent {
   state = {
     key: 'detail',
-    data: []
+    data: {}
   }
   onActiveTabChange = (e) => {
     console.log(e)
+  }
+  onSelectTab = (key) => {
+    let { data } = this.state
+    if (key === 'review' && _.isEmpty(data)) {
+      console.log('review disabled until form filled')
+      return null
+    }
+    this.setState({ key })
   }
   render() {
     const { show, toggle } = this.props
@@ -28,7 +37,7 @@ class SalesOrderCreate extends React.PureComponent {
         <Tabs
           id="controlled-tab-example"
           activeKey={this.state.key}
-          onSelect={(key) => this.setState({ key })}
+          onSelect={this.onSelectTab}
         >
           <Tab eventKey="detail" title="Order & Product Details">
             <DetailsTab {...this.props} />
@@ -38,7 +47,6 @@ class SalesOrderCreate extends React.PureComponent {
           </Tab>
         </Tabs>
       </Modal.Body>
-      <Modal.Footer></Modal.Footer>
     </Modal>
   }
 }

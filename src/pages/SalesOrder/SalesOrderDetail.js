@@ -46,9 +46,18 @@ class SalesOrderDetail extends React.Component {
     const { data } = await axios.get(url)
     const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     if (data.data.length) {
-      const fields = Object.entries(data.data[0]).map(([accessor], i) => ({
-        accessor, Header: capitalize(accessor.replace('_', ' '))
-      }))
+      const fields = Object.entries(data.data[0]).map(([accessor], i) => {
+        let columns = {
+          accessor, Header: capitalize(accessor.replace('_', ' '))
+        }
+        if (accessor === 'completed') {
+          columns.Cell = (row) => {
+            console.log(row.original.completed)
+            return <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`}></i>
+          }
+        }
+        return columns
+      })
       this.setState({ products: data.data, fields })
     }
   }

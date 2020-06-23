@@ -11,6 +11,7 @@
 /* Sales Order Detail */
 .sales-order-detail .section-1 .col {
   padding: auto 20px;
+  line-height: 2;
 }
 
 /* Sales Order Create */
@@ -30,9 +31,9 @@
 .sales-order-create .modal-desc {
   padding-left: 36px;
 }
-.sales-order-create label {
-  color: #b4b9bb;
-  margin-bottom: 0;
+.sales-order-create ::placeholder,
+.css-1wa3eu0-placeholder {
+  color: #b4b9bb !important;
 }
 .sales-order-create .orderline table {
   z-index: 99 !important;
@@ -51,8 +52,4 @@
 }
 .sales-order-create .orderline .c-4 {
   width: 200px;
-}
-.sales-order-create .orderline-row {
-  position: sticky;
-  z-index: 99;
 }

@@ -61,7 +61,7 @@ class CreateTab extends React.Component {
   state = {
     site: null, client: null, status: null, orderType: null,
     orderLine: [{}], error: {},
-    siteData: [], clientData: [], orderTypeData: []
+    siteData: this.props.siteData, clientData: this.props.clientData, orderTypeData: this.props.orderTypeData
   }
   // remove first option (all)
   componentDidUpdate(nextProps) {
@@ -128,29 +128,30 @@ class CreateTab extends React.Component {
       console.log(orderType)
     }
   }
+  
   render() {
     const { error, site, client, orderType, orderLine, customer,
       siteData, clientData, orderTypeData
     } = this.state
-    return <Container className="p-4">
+    return <Container className="px-5 py-4">
       <h3 className="text-primary font-20">Order Details</h3>
-      <Row className="pt-1">
+      <Row>
         <Col lg="3">
-          <label className="required">Site</label>
+          <label className="text-muted mb-0 required">Site</label>
           <Select value={site} options={siteData} onChange={val => this.setState({ site: val })} placeholder="Site" required />
           <Required id="site" error={error} />
         </Col>
         <Col lg="3">
-          <label className="required">Order Type</label>
+          <label className="text-muted mb-0 required">Order Type</label>
           <Select value={orderType} options={orderTypeData} onChange={val => this.setState({ orderType: val })} placeholder="Order Type" required />
           <Required id="orderType" error={error} />
         </Col>
         <Col lg="3">
-          <label>Customer Order Ref</label>
+          <label className="text-muted mb-0">Customer Order Ref</label>
           <input name="customerOrderRef" type="text" onChange={this.handleChange} className="form-control" placeholder="Customer Order Ref" />
         </Col>
         <Col lg="3">
-          <label className="required">Delivery Date</label>
+          <label className="text-muted mb-0 required">Delivery Date</label>
           <DatePicker
             className="form-control"
             placeholder="Delivery Date"
@@ -159,107 +160,107 @@ class CreateTab extends React.Component {
           <Required id="deliveryDate" error={error} />
         </Col>
       </Row>
-      <Row className="pt-1">
+      <Row>
         <Col lg="3">
-          <label className="required">Client</label>
+          <label className="text-muted mb-0 required">Client</label>
           <Select value={client} options={clientData} onChange={val => this.setState({ client: val })} placeholder="Client" required />
           <Required id="client" error={error} />
         </Col>
         <Col lg="3">
-          <label className="required">Order No</label>
+          <label className="text-muted mb-0 required">Order No</label>
           <input name="orderId" type="text" onChange={debounceEventHandler(this.checkOrderId, 300)} className="form-control text-uppercase" placeholder="Order No" required />
           <Required id="orderId" error={error} />
         </Col>
         <Col lg="3">
-          <label>Vendor Order Ref</label>
+          <label className="text-muted mb-0">Vendor Order Ref</label>
           <input name="vendorOrderRef" type="text" onChange={this.handleChange} className="form-control" placeholder="Vendor Order Ref" />
         </Col>
         <Col lg="3">
-          <label>Delivery Instructions</label>
+          <label className="text-muted mb-0">Delivery Instructions</label>
           <textarea name="deliveryInstruction" type="text" onChange={this.handleChange} className="form-control" placeholder="Delivery Instructions" required />
         </Col>
       </Row>
 
-      <h3 className="text-primary font-20 mt-4">Customer Details</h3>
-      <Row className="pt-1">
-        <Col lg="3">
-          <label>Customer</label>
+      <h3 className="text-primary font-20">Customer Details</h3>
+      <Row>
+        <Col lg="3" className="mb-3">
+          <label className="text-muted mb-0">Customer</label>
           <Select value={customer} options={[]} placeholder="Customer Name or ID"
             onInputChange={_.debounce(this.findCustomer, 300)} onChange={val => this.setState({ customer: val })}
           />
         </Col>
       </Row>
-      <Row className="pt-1">
+      <Row>
         <Col lg="3">
-          <label className="required">Address 1</label>
+          <label className="text-muted mb-0 required">Address 1</label>
           <input name="shipToAddress1" type="text" onChange={this.handleChange} className="form-control" placeholder="Address 1" required />
           <Required id="shipToAddress1" error={error} />
         </Col>
         <Col lg="3">
-          <label>Address 2</label>
+          <label className="text-muted mb-0">Address 2</label>
           <input name="shipToAddress2" type="text" onChange={this.handleChange} className="form-control" placeholder="Address 2" />
         </Col>
         <Col lg="3">
-          <label>Address 3</label>
+          <label className="text-muted mb-0">Address 3</label>
           <input name="shipToAddress3" type="text" onChange={this.handleChange} className="form-control" placeholder="Address 3" />
         </Col>
       </Row>
-      <Row className="pt-1">
-        <Col lg="3">
-          <label>Address 4</label>
+      <Row>
+        <Col lg="3" className="mb-3">
+          <label className="text-muted mb-0">Address 4</label>
           <input name="shipToAddress4" type="text" onChange={this.handleChange} className="form-control" placeholder="Address 4" />
         </Col>
         <Col lg="3">
-          <label>Address 5</label>
+          <label className="text-muted mb-0">Address 5</label>
           <input name="shipToAddress5" type="text" onChange={this.handleChange} className="form-control" placeholder="Address 5" />
         </Col>
       </Row>
-      <Row className="pt-1">
+      <Row>
         <Col lg="3">
-          <label>Suburb</label>
+          <label className="text-muted mb-0">Suburb</label>
           <input name="city" type="text" onChange={this.handleChange} className="form-control" placeholder="Suburb" />
         </Col>
         <Col lg="3">
-          <label className="required">Postcode</label>
+          <label className="text-muted mb-0 required">Postcode</label>
           <input name="postCode" type="text" onChange={this.handleChange} className="form-control" placeholder="Postcode" required />
           <Required id="postCode" error={error} />
         </Col>
         <Col lg="3">
-          <label className="required">State</label>
+          <label className="text-muted mb-0 required">State</label>
           <input name="state" type="text" onChange={this.handleChange} className="form-control" placeholder="State" required />
           <Required id="state" error={error} />
         </Col>
         <Col lg="3">
-          <label>Country</label>
+          <label className="text-muted mb-0">Country</label>
           <input name="country" type="text" onChange={this.handleChange} className="form-control" placeholder="Country" />
         </Col>
       </Row>
 
-      <h3 className="text-primary font-20 mt-4">Line Details</h3>
+      <h3 className="text-primary font-20">Line Details</h3>
       <div className="orderline scroll-x-y mb-2 pb-2">
         <table>
           <thead>
             <tr className="text-light-gray">
               <td><div className="c-1 text-center">#</div></td>
-              <td><div className="c-3">Rotadate</div></td>
               <td><div className="c-3 required">Product</div></td>
               <td><div className="c-4">Description</div></td>
               <td><div className="c-3 required">Qty</div></td>
               <td><div className="c-2">Weight</div></td>
               <td><div className="c-3 required">UOM</div></td>
+              <td><div className="c-3">Rotadate</div></td>
               <td><div className="c-2">Batch</div></td>
               <td><div className="c-2">Ref3</div></td>
               <td><div className="c-2">Ref4</div></td>
               <td><div className="c-2">Dispotition</div></td>
               <td><div className="c-3">Pack ID</div></td>
-              <td><div className="c-1">Action</div></td>
+              <td><div className="c-1"></div></td>
             </tr>
           </thead>
           <tbody>
             {orderLine.length && orderLine.map((ld, i) => {
               return <tr className="py-1 text-center orderline-row">
                 <td className="px-1"><input value={i + 1} className="form-control text-center" readOnly /></td>
-                <td className="px-1"><DatePicker className="form-control" getDate={(date) => { console.log(date) }} placeholder="Select Date"/></td>
+                <td className="px-1"><DatePicker className="form-control" getDate={(date) => { console.log(date) }} placeholder="Select Date" /></td>
                 <td className="px-1"><Select value={site} options={siteData} onChange={val => this.setState({ site: val })} placeholder="Product" required /></td>
                 <td className="px-1"><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Choose a product first" readOnly /></td>
                 <td className="px-1"><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Qty" /></td>

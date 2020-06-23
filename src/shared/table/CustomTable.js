@@ -162,10 +162,9 @@ class CustomTable extends React.Component {
   headerIcon = (header, editColumn) => {
     let listHeader = []
     header && header.map((data, index) => {
-      let name = data.Header
       if (editColumn[index] === undefined) {
-        let icon = <span className="text-light-gray">
-          {name}
+        let withIcon = <span className="text-light-gray">
+          {data.Header}
           {data.sortable ?
             <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z"></path>
@@ -174,11 +173,14 @@ class CustomTable extends React.Component {
         </span>
 
         let obj = {
-          "Header": icon,
+          "Header": withIcon,
           "accessor": data.accessor,
           'sortable': data.sortable || false,
           'resizable': data.resizable || false,
+          // 'style': { textAlign: 'right' },
+          'Cell': data.Cell,
         }
+
         return listHeader = [...listHeader, obj]
       } else {
         return listHeader = [...listHeader]
@@ -190,9 +192,7 @@ class CustomTable extends React.Component {
       'Header': editBtn,
       'accessor': 'editBtn',
       'width': 50,
-      'style': {
-        textAlign: 'center'
-      }
+      'style': { textAlign: 'center' }
     }
     listHeader = [...listHeader, obj]
     return listHeader
@@ -216,14 +216,20 @@ class CustomTable extends React.Component {
           showPagination={false}
           page={page}
           defaultPageSize={pageSize}
-          style={{ border: 'none', height }}
+          style={{ height }}
           minRows={10}
+          // getTheadThProps={(state, rowInfo, column, instance)=>{
+          //   console.log(instance)
+          //   return {
+          //     style: { cursor: !!onClick && 'pointer', textAlign: isNaN(rowInfo?.original[column.id]) ? 'left' : 'right' }
+          //   }
+          // }}
           getTdProps={(state, rowInfo, column, instance) => {
             return {
               onClick: (e, handleOriginal) => {
                 !!onClick && onClick(rowInfo.original, state, column, e, instance)
               },
-              style: { cursor: !!onClick && 'pointer' }
+              style: { cursor: !!onClick && 'pointer', textAlign: isNaN(rowInfo?.original[column.id]) ? 'left' : 'right' }
             }
           }}
           {...this.props}
