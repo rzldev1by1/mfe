@@ -29,9 +29,7 @@ class VersioningComponent extends Component {
     // }
 
     componentDidMount() {
-        console.log(`current version ${global.appVersion}`);
         this.checkVersion();        
-        
     }
 
     checkVersion = () => {
@@ -54,7 +52,7 @@ class VersioningComponent extends Component {
 
             //local storage            
             let storage = {...localStorage};
-            console.log(storage);
+            
 
             let keys = Object.keys(storage);
             if(keys && keys.length){
