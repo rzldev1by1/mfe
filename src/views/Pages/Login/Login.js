@@ -119,6 +119,14 @@ class Logins extends Component {
     }
 
     loginForm(errorMessage, formValidation){
+        let expiredSession = localStorage.getItem('expiredSession')
+        if(expiredSession){ 
+                errorMessage= 'Sorry, you have been automaticly \n logged out due to inactivity';
+                setTimeout(() => {
+                    localStorage.removeItem('expiredSession');
+                }, 1000);
+        }
+
         return(
             <form className={"" + (this.state.forgotPassword ? 'form-hidden' : 'form-show')} onSubmit={this.validateForm}>
                         <input className={'form-control  inputLogin ' + (formValidation.username ? "" : " is-invalid")}
@@ -129,7 +137,7 @@ class Logins extends Component {
                             type="password" name="password"
                             placeholder="Enter your password here"
                         />
-                        <div className={'error ' + (errorMessage ? ' alertFadeIn' : '')}>
+                        <div style={{whiteSpace: 'pre-line'}} className={'error ' + (errorMessage ? ' alertFadeIn' : '')}>
                             {errorMessage && <div><span className="iconU-i" /> {errorMessage}</div>}
                         </div>
                         <div className="row">
