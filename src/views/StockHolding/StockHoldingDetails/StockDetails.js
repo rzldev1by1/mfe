@@ -259,14 +259,16 @@ class StockDetails extends Component {
 		return (
 			<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
                 <div className="tablePage tablePageSh tableContent table-responsive">
-                    <Table className="table-condensed table-striped clickable-row rounded-bottom-175 mb-0" size="md" width="100%">
+					{/* <Table className="table-condensed  table-striped clickable-row rounded-bottom-175 mb-0" size="md" width="100%"> */}
+					<table className="defaultTable ">
                         <thead>
 							{this.showStockDetailsHeader()}
 						</thead> 
                         <tbody>
 							{this.showStockDetailsData()}
 						</tbody>
-                    </Table>
+                    </table>
+					{/* </Table> */}
 
 					<table className="defaultTable d-none" id="excel" >
 						<thead>{this.showStockDetailsHeaderExcel()}</thead>

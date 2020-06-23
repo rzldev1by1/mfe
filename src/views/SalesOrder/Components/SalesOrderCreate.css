@@ -252,11 +252,46 @@ h3{
 @media(max-width: 1400px){
     .SOCreate > .modal-content {
         position: absolute;
-        width: 195% !important;
-        margin-left: -46%;
-        margin-top: 10%;
+        width: 71% !important;
+        margin-left: 15%;
+        margin-top: -4%;
         margin-bottom: 10%;
     }
+    .btnLabel{
+        margin-right: 1em;
+    }
+    
+    .font {
+        font-family: "Helvetica Neue Medium" !important;
+        font-size: 108%;    
+        cursor: pointer;
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+    .fonts{
+        font-family: Helvetica  Neue Light;
+        font-size: 133%;
+    }
+
+    .crt {
+        padding-top: 0px;
+        height: 3em;
+        vertical-align: middle;
+        font-size: small;
+    }
+    
+    
+    .tab-review{
+        min-width: 10%;
+    }
+    
+    .iconU-edit {
+        margin-right: 5%;
+        margin-top: 3% !important;
+        vertical-align: middle !important;
+        cursor: pointer;
+    }
+    
 }
 
 @keyframes fadein {

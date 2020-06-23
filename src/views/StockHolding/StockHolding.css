@@ -532,7 +532,7 @@ tbody>.tr1:hover {
 }
 @media(max-width: 1366px) {  /* //zoom 100% */
 	.tablePageSh{
-		max-height: 165px !important;
+		max-height: 381px !important;
 		min-height: 165px !important;
 	}
 }
