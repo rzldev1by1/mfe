@@ -56,7 +56,7 @@ const OrderLine = (props) => {
                     props.setProduct(productVal, product, props.idx)
                   }
                   placeHolder="Product"
-                  style={{ zIndex: props.parametersLength - idx }}
+                  style={{ width: "224px",  zIndex: props.parametersLength - idx }}
                   optionList={props.productdata.code.toString()}
                   optionValue={props.productdata.code.toString()}
                   tabIndex='3'
