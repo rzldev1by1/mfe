@@ -266,7 +266,7 @@ class Logins extends Component {
                 <div className="container-fluid">
                     <Card className="offset-lg-1" style={cardStyle}>
                         <div className="pb-5">
-                           {`v${process.env.REACT_APP_VERSION}`}
+                           { (process.env.REACT_APP_VERSION !== 'undefined')? process.env.REACT_APP_VERSION:''}
                         </div>                         
                     </Card>
 
