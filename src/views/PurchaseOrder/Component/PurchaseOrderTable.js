@@ -17,7 +17,7 @@ class PurchaseOrderTable extends Component {
 
     this.state = {
       main: [],
-      tableheader: [
+      tableheader: localStorage.getItem("columnDataPO") ? JSON.parse(localStorage.getItem("columnDataPO")) : [
         {
           id: "site",
           checkboxLabelText: "Site",

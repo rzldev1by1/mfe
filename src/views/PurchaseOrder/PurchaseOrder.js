@@ -396,7 +396,8 @@ class PurchaseOrder extends Component {
             <PurchaseOrderTable ref={this.potableref}
               className='animated fadeIn'
               loadCompleteHandler={(v) => this.setState({ complete: v })}
-              getTableHeader={(e) => this.getLocalStoreColumnDataItem(e)}
+              getTableHeader={(e) => this.setState({ tableheader: e })}
+            //   getTableHeader={(e) => this.getLocalStoreColumnDataItem(e)}
               showEditColumn={(e) => this.setState({ showEditColumn: e })}
               searchValue={search, clientSelected, siteSelected, statusSelected, orderTypeSelected, taskSelected}
             />
