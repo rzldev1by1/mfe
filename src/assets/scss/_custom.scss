@@ -26,14 +26,13 @@ body {
 }
 
 // Custom style
-
 input:focus {
   box-shadow: none !important;
 }
 button:focus {
   box-shadow: none !important;
 }
-.bg-transparent {
+.no-border {
   box-shadow: none !important;
   border: none !important;
 }
@@ -80,7 +79,6 @@ button:focus {
 .btn-light-gray:hover {
   background-color: darken(#b4b9bb, 10) !important;
 }
-
 .font-12 {
   font-size: 12px;
 }

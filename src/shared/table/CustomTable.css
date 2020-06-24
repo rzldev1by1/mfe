@@ -144,6 +144,7 @@
   border-bottom: 2px solid #E0E2E4;
 }
 .rt-th {
+  height: 46px;
   border-right: none !important;
   padding: 10px 10px !important;
 }

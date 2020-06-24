@@ -83,7 +83,7 @@ class SalesOrderDetail extends React.Component {
       ]} />
       <div ref={this.section1} className="card-group section-1 mb-4" >
         <CCard>
-          <CCardBody>
+          <CCardBody className="p-0 m-4 border-right">
             <CRow><CCol className="text-light-gray">Site</CCol> <CCol>{detail.site}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Client</CCol> <CCol>{detail.client}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Order No</CCol> <CCol>{detail.orderno || '-'}</CCol></CRow>
@@ -95,7 +95,7 @@ class SalesOrderDetail extends React.Component {
           </CCardBody>
         </CCard>
         <CCard>
-          <CCardBody>
+          <CCardBody className="p-0 m-4 border-right">
             <CRow><CCol className="text-light-gray">Address 1</CCol> <CCol>{detail.address1 || '-'}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Address 2</CCol> <CCol>{detail.address2 || '-'}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Address 3</CCol> <CCol>{detail.address3 || '-'}</CCol></CRow>
@@ -108,7 +108,7 @@ class SalesOrderDetail extends React.Component {
           </CCardBody>
         </CCard>
         <CCard>
-          <CCardBody>
+          <CCardBody className="p-0 m-4">
             <CRow><CCol className="text-light-gray">Status</CCol> <CCol>{detail.status || '-'}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Delivary Date</CCol> <CCol>{this.formatDate(detail.deliverydate)}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Date Received</CCol> <CCol>{this.formatDate(detail.datereceived)}</CCol></CRow>
