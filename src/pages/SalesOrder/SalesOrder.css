@@ -31,16 +31,14 @@
 .sales-order-create .modal-desc {
   padding-left: 36px;
 }
+.sales-order ::placeholder,
 .sales-order-create ::placeholder,
-.css-1wa3eu0-placeholder {
+.sales-order-create .css-1wa3eu0-placeholder {
   color: #b4b9bb !important;
 }
 .sales-order-create .orderline table {
   z-index: 99 !important;
 }
-/* .sales-order-create .orderline [class*="col-"] {
-  padding: 0 10px !important;
-} */
 .sales-order-create .orderline .c-1 {
   width: 50px;
 }

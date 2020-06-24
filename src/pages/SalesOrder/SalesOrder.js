@@ -22,14 +22,14 @@ const columns = [
   { accessor: 'site', Header: 'Site', sortable: true },
   { accessor: 'client', Header: 'Client', sortable: true },
   { accessor: 'orderno', Header: 'Order No', sortable: true },
-  { accessor: 'ordertype', Header: 'Order Type' },
-  { accessor: 'task', Header: 'Task' },
-  { accessor: 'customername', Header: 'Customer' },
-  { accessor: 'status', Header: 'Status' },
-  { accessor: 'deliverydate', Header: 'Delivery Date' },
-  { accessor: 'datereceived', Header: 'Date Received' },
-  { accessor: 'datereleased', Header: 'Date Released' },
-  { accessor: 'datecompleted', Header: 'Date Completed' },
+  { accessor: 'ordertype', Header: 'Order Type', sortable: true },
+  { accessor: 'task', Header: 'Task', sortable: true },
+  { accessor: 'customername', Header: 'Customer', sortable: true },
+  { accessor: 'status', Header: 'Status', sortable: true },
+  { accessor: 'deliverydate', Header: 'Delivery Date', sortable: true },
+  { accessor: 'datereceived', Header: 'Date Received', sortable: true },
+  { accessor: 'datereleased', Header: 'Date Released', sortable: true },
+  { accessor: 'datecompleted', Header: 'Date Completed', sortable: true },
   // { accessor: 'customerpono', Header: 'Customer PO'},
   // { accessor: 'vendororderno', Header: 'Vendor Order No'},
   // { accessor: 'address1', Header: 'Address1'},
@@ -84,36 +84,35 @@ class SalesOrder extends React.PureComponent {
   }
   getSite = async () => {
     const { data } = await axios.get("/dropdown/getsite")
-    const siteData = data.map(s => ({ value: s.site, label: `${s.name}` }))
+    const siteData = data.map(d => ({ value: d.site, label: `${d.site} : ${d.name}` }))
     const site = { value: 'all', label: 'All Site' }
     siteData.splice(0, 0, site)
     this.setState({ siteData })
   }
   getClient = async () => {
     const { data } = await axios.get("/dropdown/getclient")
-    const clientData = data.map(s => ({ value: s.code, label: `${s.name}` }))
+    const clientData = data.map(d => ({ value: d.code, label: `${d.code} : ${d.name}` }))
     const client = { value: 'all', label: 'All Client' }
     clientData.splice(0, 0, client)
     this.setState({ clientData })
   }
   getStatus = async () => {
-    const status = { value: 'all', label: 'All Status' }
     const statusData = [
-      status,
-      { value: "unavailable", label: 'Unavailable' },
-      { value: "available", label: 'Available' },
-      { value: "released", label: 'Released' },
-      { value: "part_released", label: 'Part Released' },
-      { value: "completed", label: 'Completed' },
-      { value: "open", label: 'Open' },
+      { value: "open", label: 'All Open' },
+      { value: 'all', label: 'All Status' },
+      { value: "unavailable", label: '0: Unavailable' },
+      { value: "available", label: '1: Available' },
+      { value: "released", label: '2: Released' },
+      { value: "part_released", label: '3: Part Released' },
+      { value: "completed", label: '4: Completed' },
     ];
     this.setState({ statusData })
   }
   getTask = async () => {
     const { client, site } = this.state
     if (client && site) {
-      const { data } = await axios.get(`/dropdown/getIsisTask?client=${client}&site=${site}&order=so`)
-      const taskData = data.map(s => ({ value: s.site, label: `${s.name}` }))
+      const { data } = await axios.get(`/dropdown/getIsisTask?client=${client.value}&site=${site.value}&order=so`)
+      const taskData = data.code.map((c, i) => ({ value: c, label: `${data.code[i]}: ${data.name[i]}` }))
       const task = { value: 'all', label: 'All Task' }
       taskData.splice(0, 0, task)
       this.setState({ taskData })
@@ -123,9 +122,8 @@ class SalesOrder extends React.PureComponent {
     const { user } = this.props.store
     if (user) {
       const { data } = await axios.get(`/getsorecources?company=${user.company}&client=${user.client}`)
-      const orderTypeData = data.orderType.code.map((c, i) => (
-        { value: c, label: data.orderType.name[i] }
-      ))
+      const { code, name } = data.orderType
+      const orderTypeData = code.map((c, i) => ({ value: c, label: `${code[i]}: ${name[i]}` }))
       const orderType = { value: 'all', label: 'All' }
       orderTypeData.splice(0, 0, orderType)
       this.setState({ resources: data, orderTypeData })
@@ -166,7 +164,7 @@ class SalesOrder extends React.PureComponent {
     } = this.state
     return <div className="sales-order">
       <HeaderTitle
-        breadcrumb={[{ to: '', label: 'Sales Order', active: true }]}
+        breadcrumb={[{ to: '', label: 'Sales Orders', active: true }]}
         button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right">
           <FaPencilAlt />  &nbsp; Create Sales Order
           </CButton>}
@@ -188,15 +186,13 @@ class SalesOrder extends React.PureComponent {
                 <CCol sm={4} lg={2} className="px-1">
                   <Select name="site" placeholder="Site"
                     value={site} options={siteData}
-                    onChange={(val) => this.setState({ site: val }, () => {
-
-                    })}
+                    onChange={(val) => this.setState({ site: val }, () => this.getTask())}
                   />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-1">
                   <Select name="client" placeholder="Client"
                     value={client} options={clientData}
-                    onChange={(val) => this.setState({ client: val })}
+                    onChange={(val) => this.setState({ client: val }, () => this.getTask())}
                   />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-1">

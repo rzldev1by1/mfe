@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import moment from 'moment'
 import {
   CCard,
   CCardBody,
@@ -10,12 +11,32 @@ import {
 import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
 import './SalesOrder.css'
-
+const columns = [
+  { accessor: "line", Header: "Line No" },
+  { accessor: "product", Header: "Product" },
+  { accessor: "product_description", Header: "Description" },
+  { accessor: "qty", Header: "Qty" },
+  { accessor: "qty_processed", Header: "Qty Processed" },
+  { accessor: "weight", Header: "Weight" },
+  { accessor: "weight_processed", Header: "Weight Processed" },
+  {
+    accessor: "completed", Header: "Completed",
+    Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+  },
+  { accessor: "oos", Header: "OOS" },
+  { accessor: "batch", Header: "Batch" },
+  { accessor: "ref2", Header: "Ref2" },
+  { accessor: "ref3", Header: "Ref3" },
+  { accessor: "ref4", Header: "Ref4" },
+  { accessor: "disposition", Header: "Disposition" },
+  { accessor: "pack_id", Header: "Pack ID" }
+]
 class SalesOrderDetail extends React.Component {
-  // get element height to calculate table height
+  // ref to get element height and calculate table height
   section1 = React.createRef()
   state = {
     dimension: { width: 0, height: 0 },
+    fields: columns,
     detail: {},
     products: [],
   }
@@ -44,22 +65,13 @@ class SalesOrderDetail extends React.Component {
     const { orderno, client, site } = this.props.match.params
     const url = `/salesorder/${orderno}?client=${client}&site=${site}`
     const { data } = await axios.get(url)
-    const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
+    // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     if (data.data.length) {
-      const fields = Object.entries(data.data[0]).map(([accessor], i) => {
-        let columns = {
-          accessor, Header: capitalize(accessor.replace('_', ' '))
-        }
-        if (accessor === 'completed') {
-          columns.Cell = (row) => {
-            console.log(row.original.completed)
-            return <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`}></i>
-          }
-        }
-        return columns
-      })
-      this.setState({ products: data.data, fields })
+      this.setState({ products: data.data })
     }
+  }
+  formatDate = (date) => {
+    return date ? moment(date).format('DD/MM/YYYY') : '-'
   }
   render() {
     // const { match, history } = this.props
@@ -98,13 +110,13 @@ class SalesOrderDetail extends React.Component {
         <CCard>
           <CCardBody>
             <CRow><CCol className="text-light-gray">Status</CCol> <CCol>{detail.status || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Delivary Date</CCol> <CCol>{detail.deliverydate || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Date Received</CCol> <CCol>{detail.datereceived || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Date Released</CCol> <CCol>{detail.datereleased || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Date Completed</CCol> <CCol>{detail.datecompleted || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Delivary Date</CCol> <CCol>{this.formatDate(detail.deliverydate)}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Date Received</CCol> <CCol>{this.formatDate(detail.datereceived)}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Date Released</CCol> <CCol>{this.formatDate(detail.datereleased)}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Date Completed</CCol> <CCol>{this.formatDate(detail.datecompleted)}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Load Number</CCol> <CCol>{detail.loadnumber || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Loadout Start</CCol> <CCol>{detail.loadoutstart || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Loadout Finish</CCol> <CCol>{detail.loadoutfinish || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Loadout Start</CCol> <CCol>{this.formatDate(detail.loadoutstart)}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Loadout Finish</CCol> <CCol>{this.formatDate(detail.loadoutfinish)}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Consignment No</CCol> <CCol>{detail.consignmentno || '-'}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Freight Charge</CCol> <CCol>{detail.freightcharge || '-'}</CCol></CRow>
           </CCardBody>

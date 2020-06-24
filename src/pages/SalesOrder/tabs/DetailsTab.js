@@ -23,12 +23,6 @@ const validation = (val) => {
   if (!deliveryDate) {
     error.deliveryDate = 'Delivery date must have a value'
   }
-  if (!orderId) {
-    error.orderId = 'Order no. cannot be empty'
-  }
-  if (!!orderId && orderId.length < 4) {
-    error.orderId = 'Order no. must have min 5 characters'
-  }
   if (!shipToAddress1) {
     error.shipToAddress1 = 'Address 1 cannot be empty'
   }
@@ -88,6 +82,14 @@ class CreateTab extends React.Component {
     let orderId = e.target.value
     if (!client) {
       error.orderId = 'Please select client first'
+    }
+    if (!orderId) {
+      error.orderId = 'Order no. cannot be empty'
+    }
+    if (!!orderId && orderId.length < 4) {
+      error.orderId = 'Order no. must have min 5 characters'
+    }
+    if (error.orderId) {
       return this.setState({ error })
     }
     delete error.orderId
@@ -128,7 +130,7 @@ class CreateTab extends React.Component {
       console.log(orderType)
     }
   }
-  
+
   render() {
     const { error, site, client, orderType, orderLine, customer,
       siteData, clientData, orderTypeData
