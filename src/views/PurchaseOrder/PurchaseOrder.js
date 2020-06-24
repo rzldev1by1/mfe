@@ -71,6 +71,19 @@ class PurchaseOrder extends Component {
     this.getordertype();
   }
 
+  getLocalStoreColumnDataItem = (value) => {
+    let self = this;
+    if (localStorage.getItem("columnDataPO") && localStorage.getItem("columnDataPO") !== "undefined") {
+        let columnItem = JSON.parse(localStorage.getItem("columnDataPO"));
+        if (columnItem) { 
+            this.setState({tableheader:columnItem });
+        };
+    } else {
+        this.setState({ tableheader: value })
+        localStorage.setItem("columnDataPO", JSON.stringify(value));
+    }
+}
+
   resetDropdown = () => {
     this.setState({ siteSelected: null, clientSelected: null, statusSelected: null, orderTypeSelected: null, resetDropdownProcessed: true }, () => this.setState({ resetDropdownProcessed: false }))
   }
@@ -383,7 +396,7 @@ class PurchaseOrder extends Component {
             <PurchaseOrderTable ref={this.potableref}
               className='animated fadeIn'
               loadCompleteHandler={(v) => this.setState({ complete: v })}
-              getTableHeader={(e) => this.setState({ tableheader: e })}
+              getTableHeader={(e) => this.getLocalStoreColumnDataItem(e)}
               showEditColumn={(e) => this.setState({ showEditColumn: e })}
               searchValue={search, clientSelected, siteSelected, statusSelected, orderTypeSelected, taskSelected}
             />
@@ -394,7 +407,8 @@ class PurchaseOrder extends Component {
           <EditColumn isOpen={this.state.showEditColumn}
             toggle={() => this.setState({ showEditColumn: false })}
             fields={this.state.tableheader}
-            updateTableColumn={(columns) => this.setState({ tableheader: columns, tableheaderstatus: true })}
+            updateTableColumn={(columns) => {this.setState({ tableheader: columns, tableheaderstatus: true }); 
+                                                localStorage.setItem("columnDataPO", JSON.stringify(columns));}}
             modulName="Purchase Order"
           />
         </div>

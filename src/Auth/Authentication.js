@@ -120,21 +120,23 @@ class Authentication {
 	}
 
 	static eraseAllLocalData = () => {
-		// let localStorageKeys = [
-		// 	"filterDataItem",
-		// 	"columnDataItem",
-		// 	"masterDataList",
-		// 	"end"
-		// ];
+		let localStorageKeys = [
+            Authentication.getUser(),
+            "columnDataPO",
+			// "filterDataItem",
+			// "columnDataItem",
+			// "masterDataList",
+			// "end"
+		];
 
-		// localStorageKeys.forEach(element => {
-		// 	if (localStorage.getItem(element)) {
-		// 		localStorage.removeItem(element);
-		// 	}
-        // });
+		localStorageKeys.forEach(element => {
+			if (localStorage.getItem(element)) {
+				localStorage.removeItem(element);
+			}
+        });
 
-        let user = Authentication.getUser();
-        localStorage.removeItem(user); 
+        // let user = Authentication.getUser();
+        // localStorage.removeItem(user); 
 	}
 
 	static expiredTokenCheck = (code) => {

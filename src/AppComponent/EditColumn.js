@@ -32,7 +32,7 @@ export default class SalesOrderEditColumn extends Component {
         //     element.isVisible = document.getElementById(element.id).value
         //     return element;
         // });
-        this.props.updateTableColumn(this.state.newColumn);
+        this.props.updateTableColumn(this.state.newColumn.length > 0 ? this.state.newColumn : this.props.fields);
         this.props.toggle();
     }
 
