@@ -49,7 +49,7 @@ class PurchaseOrder extends Component {
       autoArrays: [],
       siteSelected: Authentication.getSite() ? Authentication.getSite() : null,
       clientSelected: Authentication.getClient() ? Authentication.getClient() : null,
-      statusSelected: undefined,
+      statusSelected: "open",
       orderTypeSelected: undefined,
       taskSelected:undefined,
 
@@ -235,8 +235,8 @@ class PurchaseOrder extends Component {
     let clientValue = ["all"];
     let siteData = ["All Sites"];
     let siteValue = ["all"];
-    let status = [ "All Status","All Open" ,"0: Unavailable","1: Available", "2: Released", "3: Part Released", "4: Completed"];
-    let statusValue = ["all" ,"open","unavailable","available", "released", "part_released", "completed"];
+    let status = [ "All Open" ,"All Status","0: Unavailable","1: Available", "2: Released", "3: Part Released", "4: Completed"];
+    let statusValue = ["open","all" ,"unavailable","available", "released", "part_released", "completed"];
     let orderTypeName = ["All Order Types"];
     let orderTypeValue = ["all"];
     let orderTypeFilterName = ["All Order Type"];
@@ -291,7 +291,7 @@ class PurchaseOrder extends Component {
             optionList={siteData.toString()}
             optionValue={siteValue.toString()}
             getValue={this.getSiteSelected.bind(this)}
-            showAll={true} />
+             />
         ) : (
             <input
               readOnly
@@ -309,7 +309,7 @@ class PurchaseOrder extends Component {
             optionList={clientName.toString()}
             optionValue={clientValue.toString()}
             getValue={this.getClientSelected.bind(this)}
-            showAll={true} />
+             />
         ) : (
             <input
               readOnly
@@ -326,24 +326,27 @@ class PurchaseOrder extends Component {
           optionList={status.toString()}
           optionValue={statusValue.toString()}
           getValue={this.getStatusSelected.bind(this)}
-          showAll={true} />
+          optionSelected={this.state.statusSelected}
+
+           />
         <Dropdown placeHolder="Order Type"
           className="filterDropdown"
           optionList={this.state.orderTypeName.toString()}
           optionValue={this.state.orderTypeValue.toString()}
           getValue={this.getOrderTypeSelected.bind(this)}
-          showAll={true} />
+           />
         <Dropdown placeHolder="Task"
         className="filterDropdown"
         optionList={taskName.toString()}
         optionValue={taskValue.toString()}
         getValue={this.getTaskSelected.bind(this)}
-        showAll={true} />
+         />
       </React.Fragment>
     )
   }
 
   render() {
+    const {search, clientSelected, siteSelected, statusSelected, orderTypeSelected, taskSelected} = this.state;
     return (
       <React.Fragment>
         <HeaderTitle
@@ -382,6 +385,7 @@ class PurchaseOrder extends Component {
               loadCompleteHandler={(v) => this.setState({ complete: v })}
               getTableHeader={(e) => this.setState({ tableheader: e })}
               showEditColumn={(e) => this.setState({ showEditColumn: e })}
+              searchValue={search, clientSelected, siteSelected, statusSelected, orderTypeSelected, taskSelected}
             />
           </div>
 
