@@ -460,23 +460,23 @@ class PurchaseOrderCreate extends Component {
       this.state.sitedatacr.map((data) => {
         if (data.site == getUserSite) {
           siteData.push(data.site);
-          siteName.push(data.site + "  : " + data.name)
+          siteName.push(data.site + ": " + data.name)
         } else if ((getUserSite == null) || (getUserSite == "")) {
           siteData.push(data.site);
-          siteName.push(data.site + "  : " + data.name)
+          siteName.push(data.site + ": " + data.name)
         }
       })
     }
     if (this.state.supplierdatacr) {
       this.state.supplierdatacr.map((data) => {
         supplierNo.push(data.supplier_no );
-        supplierName.push(data.supplier_no + " : " + data.name);
+        supplierName.push(data.supplier_no + ": " + data.name);
       })
     }
     if (this.state.orderdatacr) {
       this.state.orderdatacr.map((data) => {
         let combine = null
-        combine = data.code + ' : ' + data.description
+        combine = data.code + ': ' + data.description
         orderData.push(combine);
         orderValue.push(data.code);
       })
@@ -668,11 +668,11 @@ class PurchaseOrderCreate extends Component {
     let orderData = null;
 
     supplierdatacr.map((data,i) => {
-      if(data.supplier_no === supplier) supplierName = data.supplier_no + ' : ' + data.name
+      if(data.supplier_no === supplier) supplierName = data.supplier_no + ': ' + data.name
     })
 
     sitedatacr.map((data,i) => {
-      if(data.site === site) siteName = data.site + ' : ' + data.name
+      if(data.site === site) siteName = data.site + ': ' + data.name
     })
 
     clientdatacr.map((data,i) => {
@@ -680,7 +680,7 @@ class PurchaseOrderCreate extends Component {
     })
 
     orderdatacr.map((data,i) => {
-      if(data.code === orderType) orderData = data.code + ' : ' + data.description
+      if(data.code === orderType) orderData = data.code + ': ' + data.description
     })
 
     return (

@@ -7,8 +7,7 @@ global.appVersion = process.env.REACT_APP_VERSION;
 const semverGreaterThan = (versionA, versionB) => {
   const versionsA = versionA.split(/\./g);
   const versionsB = versionB.split(/\./g);
-  console.log(versionA)
-  console.log(versionB)
+
   while (versionsA.length || versionsB.length) {
     const a = Number(versionsA.shift());
     const b = Number(versionsB.shift());
@@ -24,10 +23,10 @@ const semverGreaterThan = (versionA, versionB) => {
 
 class VersioningComponent extends Component {
     
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
      
-    }
+    // }
 
     componentDidMount() {
         this.checkVersion();        
@@ -39,23 +38,22 @@ class VersioningComponent extends Component {
         .then((meta) => {
           const latestVersion = meta.version;
           const currentVersion = global.appVersion;
-
           const shouldForceRefresh = semverGreaterThan(latestVersion, currentVersion);
-          console.log(shouldForceRefresh);
-          console.log(currentVersion)
+          
           if (shouldForceRefresh) {
             console.log(`We have a new version - ${latestVersion}. Should force refresh`);
             console.log('Clearing cache and hard reloading...')
-            if (caches) {
-              // Service worker cache should be cleared with caches.delete()
-              caches.keys().then(function(names) {
-                for (let name of names) caches.delete(name);
-              });
-            }
+            // if (caches) {
+            //   // Service worker cache should be cleared with caches.delete()
+            //   caches.keys().then(function(names) {
+            //     for (let name of names) caches.delete(name);
+            //   });
+            // }
 
-            //local storage
-            
+            //local storage            
             let storage = {...localStorage};
+            
+
             let keys = Object.keys(storage);
             if(keys && keys.length){
                 keys.forEach((item) => {
@@ -74,6 +72,9 @@ class VersioningComponent extends Component {
         });
     }
 
+
+
+    
 
     render() {
         return (

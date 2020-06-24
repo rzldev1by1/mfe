@@ -343,7 +343,8 @@ class StockBalanceForecast extends Component {
 			<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
 				{/* +(this.props.stockBalanceForecast.length)?" ":" d-none" */}
                 <div className={"tablePage tablePageSh tableContent"}> 
-                    <Table className="table-condensed table-striped clickable-row rounded-bottom-175 mb-0" size="md" width="100%">
+                    {/* <Table className="table-condensed table-striped clickable-row rounded-bottom-175 mb-0" size="md" width="100%"> */}
+					<table className="defaultTable">
                         <thead>{this.showForeshadowedHeader()}</thead>
                         <tbody>
 												{this.openingRecord()}
@@ -351,7 +352,8 @@ class StockBalanceForecast extends Component {
 												{this.showStockExpiryData()}
 												{this.closingRecord()}
 						</tbody>
-                    </Table>
+					</table>
+					{/* </Table> */}
                 </div>
                 <div className="fixed-bottom paginations">
                     <Paging firstPageClick={this.firstPageClick} backPageClick={this.backPageClick}

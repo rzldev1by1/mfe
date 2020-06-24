@@ -1,7 +1,7 @@
 // import moment from 'moment';
 
 import axios from 'axios';
-import menunav from '../menunav';
+import menunav from '../menunav'; 
 
 import AppComponent from '../AppComponent';
 // import { endpoint } from '../AppComponent/ConfigEndpoint';
@@ -9,7 +9,7 @@ import AppComponent from '../AppComponent';
 class Authentication {
 	static endpoint = "usermanagement/login";
 	static resetPassword = 'usermanagement/request_reset_password';
-
+  
 	static staticMethod() {
 		return 'static method has been called.';
 	}
@@ -40,8 +40,6 @@ class Authentication {
 	static getUser = () => {
 		return JSON.parse(localStorage.getItem("user"));
 	}
-
-
 
     static getUserLevel = () => {
         let user = Authentication.getUser();
@@ -136,7 +134,16 @@ class Authentication {
         // });
 
         let user = Authentication.getUser();
-        localStorage.removeItem(user);
+        localStorage.removeItem(user); 
+	}
+
+	static expiredTokenCheck = (code) => {
+		if(code===401 || code===400){
+			//token expired 
+			localStorage.setItem("expiredSession", "true");
+			Authentication.signOut() 
+			window.location = "/"; 
+		}
 	}
 
 	static signOut = () => {
