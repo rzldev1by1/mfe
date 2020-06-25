@@ -720,25 +720,32 @@ class PurchaseOrderCreate extends Component {
         <br />
         <h3 className="fonts so-header-title">Line Details</h3>
 
-        <table className="tabledetails">
-          <tr >
-            <th style={{ width: "3.5%", textAlign: "center", paddingLeft: "18px" }}>#</th>
-            <th style={{ width: "19%", paddingLeft: "20px" }}>Product</th>
-            <th style={{ width: "18%", paddingLeft: "18px" }}>Description</th>
-            <th style={{ width: "4.5%", paddingLeft: "16px" }}>Qty</th>
-            <th style={{ width: "5%", paddingLeft: "2px" }}>Weight</th>
-            <th style={{ width: "6%", paddingLeft: "23px" }}>UOM</th>
-            <th style={{ width: "6.5%", paddingLeft: "22px" }}>Rotadate</th>
-            <th style={{ width: "6%", paddingLeft: "34px" }}>Batch</th>
-            <th style={{ width: "5%", paddingLeft: "31px", paddingRight: "-20px" }}>Ref3</th>
-            <th style={{ width: "5%", paddingRigth: "-30px" }}>Ref4</th>
-            <th style={{ width: "2%", paddingRight: "-30px" }}>Disposition</th>
-          </tr>
-        </table>
-
-        <div className={"tablerow " + (this.state.rowlist.length > 2 ? "scroll" : null)} style={{ width: "98%" }} >
-          {this.state.rowlist.map((list, i) => this.linedetailsrowreview(list, i))}
+        <div className="scroll-x-y-visible ">
+          <table className="tabledetails">
+            <tr>
+              <th><div id='orderline-header-number-id'>#</div></th>
+              <th><div id='orderline-header-product-id' >Product <th className='required-field'/></div></th>
+              <th><div id='orderline-header-description-id'>Description</div></th>
+              <th><div id='orderline-header-qty-id'>Qty <th className='required-field'/></div></th>
+              <th><div id='orderline-header-weight-id'>Weight</div></th>
+              <th><div id='orderline-header-uom-id'>UOM <th className='required-field'/></div></th>
+              <th><div id='orderline-header-rotadate-id'>Rotadate</div></th>
+              <th><div id='orderline-header-batch-id'>Batch</div></th>
+              <th><div id='orderline-header-ref3-id'>Ref3</div></th>
+              <th><div id='orderline-header-ref4-id'>Ref4</div></th>
+              <th><div id='orderline-header-disposition-id'>Disposition</div></th>
+            </tr>
+          </table>
+          {this.state.rowlist.map((list, i) => {
+            return (
+              this.linedetailsrowreview(list, i)
+            )
+          })}
         </div>
+
+        {/* <div className={"tablerow " + (this.state.rowlist.length > 2 ? "scroll" : null)} style={{ width: "98%" }} >
+          {this.state.rowlist.map((list, i) => this.linedetailsrowreview(list, i))}
+        </div> */}
         <tr>
           <td style={{ color: "transparent" }}>1</td>
         </tr>
@@ -1008,17 +1015,61 @@ class PurchaseOrderCreate extends Component {
       <table>
         <tr>
           <td hidden id={list.lineNumber}></td>
-          <td style={{ width: "3.5%", textAlign: "center" }}><input className="form-control inputs pec" style={{ textAlign: "center" }} value={list.lineNumber} readOnly /></td>
-          <td style={{ width: "19%" }}><input className="form-control inputs pec" value={list.product} readOnly /></td>
-          <td style={{ width: "18%" }}><input className="form-control inputs pec" value={list.productDescription} readOnly /></td>
-          <td style={{ width: "4.5%" }}><input className="form-control inputs pec" value={list.qty} readOnly /></td>
-          <td style={{ width: "5%" }}><input className="form-control inputs pec" value={list.weight} readOnly /></td>
-          <td style={{ width: "6%" }}><input className="form-control inputs pec" value={list.uom} readOnly /></td>
-          <td style={{ width: "6.5%" }}><input className="form-control inputs pec" value={list.rotadate ? moment(list.rotadate).format("DD/MM/YYYY") : null} readOnly /></td>
-          <td style={{ width: "6%" }}><input className="form-control inputs pec" value={list.batch} readOnly /></td>
-          <td style={{ width: "5%" }}><input className="form-control inputs pec" value={list.ref3} readOnly /></td>
-          <td style={{ width: "5%" }}><input className="form-control inputs pec" value={list.ref4} readOnly /></td>
-          <td style={{ width: "6%" }}><input className="form-control inputs pec" value={list.disposition} readOnly /></td>
+          <td>
+            <div id="orderline-header-number-val-id">
+              <input className="form-control inputs pec" style={{ textAlign: "center" }} value={list.lineNumber} readOnly />
+            </div>
+          </td>
+          <td >
+            <div id='orderline-header-product-val-id'>
+              <input className="form-control inputs pec" value={list.product} readOnly />
+            </div>
+          </td>
+          <td >
+            <div id="orderline-header-description-val-id">
+              <input className="form-control inputs pec" value={list.productDescription} readOnly />
+            </div>
+          </td>
+          <td >
+            <div id="orderline-header-qty-val-id">
+              <input className="form-control inputs pec" value={list.qty} readOnly />
+            </div>
+          </td>
+          <td >
+            <div id="orderline-header-weight-val-id">
+              <input className="form-control inputs pec" value={list.weight} readOnly />
+            </div>
+          </td>
+          <td >
+            <div id="orderline-header-uom-val-id">
+              <input className="form-control inputs pec" value={list.uom} readOnly />
+            </div>
+          </td>
+          <td >
+            <div id="orderline-header-rotadate-val-id">
+              <input className="form-control inputs pec" value={list.rotadate ? moment(list.rotadate).format("DD/MM/YYYY") : null} readOnly />
+            </div>
+          </td>
+          <td >
+            <div id="orderline-header-batch-val-id">
+              <input className="form-control inputs pec" value={list.batch} readOnly />
+            </div>
+          </td>
+          <td >
+            <div id="orderline-header-ref3-val-id">
+              <input className="form-control inputs pec" value={list.ref3} readOnly />
+            </div>
+          </td>
+          <td >
+            <div id="orderline-header-ref4-val-id">
+              <input className="form-control inputs pec" value={list.ref4} readOnly />
+            </div>
+          </td>
+          <td >
+            <div id="orderline-header-disposition-val-id">
+              <input className="form-control inputs pec" value={list.disposition} readOnly />
+            </div>
+          </td>
         </tr>
         <td></td>
         <td></td>
