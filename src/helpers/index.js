@@ -160,7 +160,7 @@ class Helpers {
 	static authenticationHandler = async (payload) => {
 		let result = {}
 		try {
-			const { data } = await axios.post(baseUrl + "/usermanagement/login", payload, options)
+			const { data } = await axios.post(baseUrl + "usermanagement/login", payload, options)
 			if (data) {
 				result.isSuccess = true;
 				result.redirect = "/";
