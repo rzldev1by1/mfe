@@ -96,6 +96,7 @@
   -moz-osx-font-smoothing: grayscale;
   position: absolute;
   top: 30%;
+  color: #b4b9bb;
   right: 8px;
   font-size: 10px;
   pointer-events: none;
