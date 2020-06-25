@@ -722,17 +722,17 @@ class PurchaseOrderCreate extends Component {
 
         <table className="tabledetails">
           <tr >
-            <th style={{ width: "3%", textAlign: "center", paddingLeft: "18px" }}>#</th>
-            <th style={{ width: "12%", paddingLeft: "20px" }}>Product</th>
-            <th style={{ width: "12%", paddingLeft: "18px" }}>Description</th>
-            <th style={{ width: "4%", paddingLeft: "16px" }}>Qty</th>
-            <th style={{ width: "4%", paddingLeft: "2px" }}>Weight</th>
+            <th style={{ width: "3.5%", textAlign: "center", paddingLeft: "18px" }}>#</th>
+            <th style={{ width: "19%", paddingLeft: "20px" }}>Product</th>
+            <th style={{ width: "18%", paddingLeft: "18px" }}>Description</th>
+            <th style={{ width: "4.5%", paddingLeft: "16px" }}>Qty</th>
+            <th style={{ width: "5%", paddingLeft: "2px" }}>Weight</th>
             <th style={{ width: "6%", paddingLeft: "23px" }}>UOM</th>
-            <th style={{ width: "6%", paddingLeft: "22px" }}>Rotadate</th>
+            <th style={{ width: "6.5%", paddingLeft: "22px" }}>Rotadate</th>
             <th style={{ width: "6%", paddingLeft: "34px" }}>Batch</th>
-            <th style={{ width: "6%", paddingLeft: "31px", paddingRight: "-20px" }}>Ref3</th>
+            <th style={{ width: "5%", paddingLeft: "31px", paddingRight: "-20px" }}>Ref3</th>
             <th style={{ width: "5%", paddingRigth: "-30px" }}>Ref4</th>
-            <th style={{ width: "3%", paddingRight: "-30px" }}>Disposition</th>
+            <th style={{ width: "2%", paddingRight: "-30px" }}>Disposition</th>
           </tr>
         </table>
 
@@ -1009,9 +1009,9 @@ class PurchaseOrderCreate extends Component {
         <tr>
           <td hidden id={list.lineNumber}></td>
           <td style={{ width: "3.5%", textAlign: "center" }}><input className="form-control inputs pec" style={{ textAlign: "center" }} value={list.lineNumber} readOnly /></td>
-          <td style={{ width: "12%" }}><input className="form-control inputs pec" value={list.product} readOnly /></td>
-          <td style={{ width: "12%" }}><input className="form-control inputs pec" value={list.productDescription} readOnly /></td>
-          <td style={{ width: "3.5%" }}><input className="form-control inputs pec" value={list.qty} readOnly /></td>
+          <td style={{ width: "19%" }}><input className="form-control inputs pec" value={list.product} readOnly /></td>
+          <td style={{ width: "18%" }}><input className="form-control inputs pec" value={list.productDescription} readOnly /></td>
+          <td style={{ width: "4.5%" }}><input className="form-control inputs pec" value={list.qty} readOnly /></td>
           <td style={{ width: "5%" }}><input className="form-control inputs pec" value={list.weight} readOnly /></td>
           <td style={{ width: "6%" }}><input className="form-control inputs pec" value={list.uom} readOnly /></td>
           <td style={{ width: "6.5%" }}><input className="form-control inputs pec" value={list.rotadate ? moment(list.rotadate).format("DD/MM/YYYY") : null} readOnly /></td>
