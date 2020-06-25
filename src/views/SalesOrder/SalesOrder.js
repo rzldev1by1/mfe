@@ -36,7 +36,7 @@ class SalesOrder extends Component {
       search: "",
       client: null,
       site: null,
-      status: null,
+      status: "open",
       ordertype: null,
       task:null,
       ordertypefilter: null,
