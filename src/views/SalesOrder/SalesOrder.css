@@ -438,13 +438,13 @@ th.iconU-edit {
 
 #orderline-header-product-id {
   margin-right: 10px;
-  width: 224px;
+  width: 362px;
   display: flex;
 }
 
 #orderline-header-description-id {
   margin-right: 10px;
-  width: 230px;
+  width: 362px;
 }
 
 #orderline-header-qty-id {
@@ -503,13 +503,13 @@ th.iconU-edit {
 
 #orderline-header-product-val-id {
   margin-right: 10px;
-  width: 224px;
+  width: 362px;
   white-space: nowrap;
 }
 
 #orderline-header-description-val-id {
   margin-right: 10px;
-  width: 230px;
+  width: 362px;
 }
 
 #orderline-header-qty-val-id {
