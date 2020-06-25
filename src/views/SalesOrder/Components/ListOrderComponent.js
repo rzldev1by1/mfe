@@ -145,94 +145,94 @@ class ListOrderComponent extends Component {
   sortby = (id) => {
     if (id === "site") {
       this.setState({ sort: !this.state.sort, sortparameter: "site" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+      this.sorting(this.state.main, id, this.state.sort);
     } else if (id === "client") {
       this.setState({ sort: !this.state.sort, sortparameter: "client" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
-    } else if (id === "orderNo") {
+      this.sorting(this.state.main, id, this.state.sort);
+    } else if (id === "orderno") {
       this.setState({ sort: !this.state.sort, sortparameter: "orderno" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
-    } else if (id === "orderType") {
+      this.sorting(this.state.main, id, this.state.sort);
+    } else if (id === "ordertype") {
       this.setState({ sort: !this.state.sort, sortparameter: "ordertype" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
-    }else if (id === "isisTask") {
-      this.setState({ sort: !this.state.sort, sortparameter: "isisTask" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
-    } else if (id === "customerName") {
+      this.sorting(this.state.main, id, this.state.sort);
+    }else if (id === "isistask") {
+      this.setState({ sort: !this.state.sort, sortparameter: "isistask" });
+      this.sorting(this.state.main, id, this.state.sort);
+    } else if (id === "customername") {
       this.setState({ sort: !this.state.sort, sortparameter: "customername" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+      this.sorting(this.state.main, id, this.state.sort);
     } else if (id === "status") {
       this.setState({ sort: !this.state.sort, sortparameter: "status" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
-    } else if (id === "deliveryDate") {
+      this.sorting(this.state.main, id, this.state.sort);
+    } else if (id === "deliverydate") {
       this.setState({ sort: !this.state.sort, sortparameter: "deliverydate" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
-    } else if (id === "dateReceived") {
+      this.sorting(this.state.main, id, this.state.sort);
+    } else if (id === "datereceived") {
       this.setState({ sort: !this.state.sort, sortparameter: "datereceived" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
-    } else if (id === "dateReleased") {
+      this.sorting(this.state.main, id, this.state.sort);
+    } else if (id === "datereleased") {
       this.setState({ sort: !this.state.sort, sortparameter: "datereleased" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
-    } else if (id === "dateCompleted") {
+      this.sorting(this.state.main, id, this.state.sort);
+    } else if (id === "datecompleted") {
       this.setState({ sort: !this.state.sort, sortparameter: "datecompleted" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
-    } else if (id === "customerPoNo") {
+      this.sorting(this.state.main, id, this.state.sort);
+    } else if (id === "customerpono") {
       this.setState({ sort: !this.state.sort, sortparameter: "customerpono" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
-    } else if (id === "vendorOrderNo") {
+      this.sorting(this.state.main, id, this.state.sort);
+    } else if (id === "vendororderno") {
       this.setState({ sort: !this.state.sort, sortparameter: "vendororderno" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+      this.sorting(this.state.main, id, this.state.sort);
     } else if (id === "address1") {
       this.setState({ sort: !this.state.sort, sortparameter: "address1" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+      this.sorting(this.state.main, id, this.state.sort);
     } else if (id === "address2") {
       this.setState({ sort: !this.state.sort, sortparameter: "address2" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+      this.sorting(this.state.main, id, this.state.sort);
     } else if (id === "address3") {
       this.setState({ sort: !this.state.sort, sortparameter: "address3" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+      this.sorting(this.state.main, id, this.state.sort);
     } else if (id === "address4") {
       this.setState({ sort: !this.state.sort, sortparameter: "address4" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+      this.sorting(this.state.main, id, this.state.sort);
     } else if (id === "address5") {
       this.setState({ sort: !this.state.sort, sortparameter: "address5" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+      this.sorting(this.state.main, id, this.state.sort);
     } else if (id === "suburb") {
       this.setState({ sort: !this.state.sort, sortparameter: "city" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+      this.sorting(this.state.main, id, this.state.sort);
     } else if (id === "postcode") {
       this.setState({ sort: !this.state.sort, sortparameter: "postcode" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+      this.sorting(this.state.main, id, this.state.sort);
     } else if (id === "state") {
       this.setState({ sort: !this.state.sort, sortparameter: "state" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+      this.sorting(this.state.main, id, this.state.sort);
     } else if (id === "country") {
       this.setState({ sort: !this.state.sort, sortparameter: "country" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
-    } else if (id === "loadNumber") {
+      this.sorting(this.state.main, id, this.state.sort);
+    } else if (id === "loadnumber") {
       this.setState({ sort: !this.state.sort, sortparameter: "loadnumber" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
-    } else if (id === "loadoutStart") {
+      this.sorting(this.state.main, id, this.state.sort);
+    } else if (id === "loadoutstart") {
       this.setState({ sort: !this.state.sort, sortparameter: "loadoutstart" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
-    } else if (id === "loadoutFinish") {
+      this.sorting(this.state.main, id, this.state.sort);
+    } else if (id === "loadoutfinish") {
       this.setState({ sort: !this.state.sort, sortparameter: "loadoutfinish" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
-    } else if (id === "consigmentNo") {
+      this.sorting(this.state.main, id, this.state.sort);
+    } else if (id === "consigmentno") {
       this.setState({ sort: !this.state.sort, sortparameter: "consigmentno" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
-    } else if (id === "freightCharge") {
+      this.sorting(this.state.main, id, this.state.sort);
+    } else if (id === "freightcharge") {
       this.setState({ sort: !this.state.sort, sortparameter: "freightcharge" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+      this.sorting(this.state.main, id, this.state.sort);
     } else if (id === "customer") {
       this.setState({ sort: !this.state.sort, sortparameter: "customer" });
-      this.sorting(this.state.data, this.state.sortparameter, this.state.sort);
+      this.sorting(this.state.main, id, this.state.sort);
     }
   };
 
   sorting = (data, param, sort) => {
-    let datas = [...data]
-    datas.sort((a, b) => {
+    let datas = {...data}
+    datas.data.sort((a, b) => {
       if (a[param] !== null && b[param] !== null) {
         if (sort === true) {
           if (a[param] < b[param]) return -1;
@@ -245,7 +245,7 @@ class ListOrderComponent extends Component {
         }
       }
     });
-    this.setState({ data: datas });
+    this.setState({ main: datas });
   };
 
   arrowHandler = (e) => {
