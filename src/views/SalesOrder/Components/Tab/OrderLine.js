@@ -98,6 +98,8 @@ const OrderLine = (props) => {
                   placeholder="Weight"
                   value={weight}
                   maxLength="9"
+                  type='number'
+                  onKeyPress={(e) => props.checkQty(e)}
                   onChange={(e) => props.setWeight(e.target.value, props.idx)}
                   tabIndex='3'
                 />
