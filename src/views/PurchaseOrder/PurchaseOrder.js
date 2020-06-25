@@ -182,8 +182,8 @@ class PurchaseOrder extends Component {
         const result2 = res.data.orderTypeFilter
         self.setState({ ordertypedata: result });
         self.setState({ ordertypefilterdata: result2 });
-        let orderTypeName = [];
-        let orderTypeValue = [];
+        let orderTypeName = ['All Order Types'];
+        let orderTypeValue = ['all'];
         let orderTypeFilterName = [];
         let orderTypeFilterValue = [];
         
