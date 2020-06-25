@@ -145,7 +145,7 @@ class Helpers {
 
 	static requestResetPasswordHandler = (payload) => {
 		return (
-			axios.post(baseUrl + "usermanagement/request_reset_password", payload, options)
+			axios.post(baseUrl + "/usermanagement/request_reset_password", payload, options)
 				.then(res => {
 					if (res.data) {
 						return res;
@@ -160,7 +160,7 @@ class Helpers {
 	static authenticationHandler = async (payload) => {
 		let result = {}
 		try {
-			const { data } = await axios.post(baseUrl + "usermanagement/login", payload, options)
+			const { data } = await axios.post(baseUrl + "/usermanagement/login", payload, options)
 			if (data) {
 				result.isSuccess = true;
 				result.redirect = "/";
