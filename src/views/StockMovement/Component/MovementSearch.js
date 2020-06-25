@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Button } from 'reactstrap'
-import DatePicker from './../../PurchaseOrder/Component/DatePicker'
+// import DatePicker from './../../PurchaseOrder/Component/DatePicker'
 import moment from 'moment'
 import Dropdown from '../../../AppComponent/Dropdown'
+import DatePicker from '../../../AppComponent/DatePicker'
 import axios from 'axios'
 import { endpoint, headers } from '../../../AppComponent/ConfigEndpoint'
 import AutoComplete from '../../../AppComponent/AutoComplete'
@@ -351,7 +352,19 @@ export default class MovementSearch extends Component {
                             <div className="col-sm-2"><DropdownPeriod periodHandler={this.periodHanlder} /> 
                                 <div id='period' className={(!this.state.periodSelected) && (this.state.searchClicked) ? 'stock-err' : 'stock-err-hidden'}>Please select display period</div> 
                             </div>
-                            <div className="col-sm-4">{this.displayDate()}</div>
+                            <div className="col-2">
+                                {/* {this.displayDate()} */}
+                                <DatePicker style={{ minWidth: '100%' }}
+                                    getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
+                                    defaultValue={this.state.dateFromSelected} tabIndex="1"
+                                />
+                            </div>
+                            <div className="col-2">
+                                <DatePicker style={{ minWidth: '100%' }}
+                                    getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
+                                    defaultValue={this.state.dateToSelected} tabIndex="1"
+                                />
+                            </div>
                             <div className="col-sm-4" style={{ display: 'flex', maxWidth: '37%', flex: '40%', paddingLeft: 0 }}>{this.showDropdowns()}</div>
                             <div className="col-sm-1 " style={{position: 'absolute', right: 0}}>
                                 <Button onClick={() => this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>
