@@ -189,7 +189,7 @@ class PurchaseOrder extends Component {
         
         self.state.ordertypedata.map((data) => {
           let combine = null
-          combine = data.code + ' : ' + data.description
+          combine = data.code + ': ' + data.description
           orderTypeName.push(combine);
           orderTypeValue.push(data.code); 
         })
@@ -258,13 +258,13 @@ class PurchaseOrder extends Component {
     let taskName  = ["All Tasks"];
     if (this.state.clientdata) { 
       this.state.clientdata.map((data) => {
-        clientName.push(data.code + ' : ' + data.name);
+        clientName.push(data.code + ': ' + data.name);
         clientValue.push(data.code);
       })
     }
     if (this.state.sitedata) { 
       this.state.sitedata.map((data) => {
-        siteData.push(data.site + ' : ' + data.name);
+        siteData.push(data.site + ': ' + data.name);
         siteValue.push(data.site);
       })
     }

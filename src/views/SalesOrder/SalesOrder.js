@@ -254,13 +254,13 @@ class SalesOrder extends Component {
     let statuss = [];
     if (this.state.clientdata) { 
       this.state.clientdata.map((data) => {
-        clientName.push(data.code + ' : ' + data.name);
+        clientName.push(data.code + ': ' + data.name);
         clientValue.push(data.code);
       });
     }
     if (this.state.sitedata) { 
       this.state.sitedata.map((data) => {
-        siteName.push(data.site + ' : ' + data.name)
+        siteName.push(data.site + ': ' + data.name)
         siteData.push(data.site);
       });
     }
@@ -269,7 +269,7 @@ class SalesOrder extends Component {
       this.state.resources.orderType.name.map((data, i) => {
         let combine = null
         let cCode = this.state.resources.orderType.code[i]
-        combine = cCode+ ' : ' + data
+        combine = cCode+ ': ' + data
         orderTypeName.push(combine)
       })
       this.state.resources.orderType.code.map((data, i) => {
