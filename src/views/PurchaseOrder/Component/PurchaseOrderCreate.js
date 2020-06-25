@@ -883,10 +883,12 @@ class PurchaseOrderCreate extends Component {
             <td>
               <div id='orderline-header-weight-val-id'>
                 <input tabIndex="2"
+                type='number'
                   className="form-control inputs pec"
                   placeholder="Weight"
                   maxLength="30"
                   defaultValue={this.state.rowlist[i].weight}
+                  onKeyPress={(e) => this.checkQty(e)}
                   onChange={(e) => { this.state.rowlist[i].weight = e.target.value; this.setState({ rowlist: this.state.rowlist }) }} />
               </div>
             </td>
@@ -1071,6 +1073,11 @@ class PurchaseOrderCreate extends Component {
       })
     }
   }
+
+  checkQty = (e) => {
+    const blocked = ['.', ',', 'e', '-']
+    if(blocked.includes(e.key)) e.preventDefault()    
+  };
 
   saveclick = () => {
     this.setState({ isSaveProgressing: true }, this.createPO());
