@@ -145,7 +145,7 @@ class Helpers {
 
 	static requestResetPasswordHandler = (payload) => {
 		return (
-			axios.post(baseUrl + "/usermanagement/request_reset_password", payload, options)
+			axios.post(baseUrl + "usermanagement/request_reset_password", payload, options)
 				.then(res => {
 					if (res.data) {
 						return res;
