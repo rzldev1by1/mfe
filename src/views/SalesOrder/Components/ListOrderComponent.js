@@ -372,6 +372,12 @@ class ListOrderComponent extends Component {
       case 'datereleased':
         if (newValue !== null) newValue = moment(newValue).format("DD/MM/YYYY")
         break
+      case 'loadoutfinish':
+          if (newValue !== null) newValue = moment(newValue).format("DD/MM/YYYY")
+          break
+      case 'loadoutstart':
+        if (newValue !== null) newValue = moment(newValue).format("DD/MM/YYYY")
+        break
       case 'datecompleted':
         if (newValue !== null) newValue = moment(newValue).format("DD/MM/YYYY")
         break
@@ -419,8 +425,9 @@ class ListOrderComponent extends Component {
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody>{console.log(main.data)}
               {
+                
                 main.data ? main.data.map((data, i) => {
                   const dataa = Object.entries(data)
                   return (
