@@ -108,7 +108,7 @@ class componentTable extends Component {
                         <tbody style={{fontSize:'1rem'}}>{this.showData()}</tbody> 
                     </Table> */}
 
-					<table className="defaultTable" /* "table stock-holding-table" */ >
+					<table className="defaultTable" >
 						{/* <thead >{this.showHeader()}</thead> */}
 						<thead>
 							<tr>
@@ -116,7 +116,7 @@ class componentTable extends Component {
 									
 									if (item.isVisible) {
 										return (
-											<th className={`${item.alignText === 'text-left'?"text-left":"text-center"}`} style={item.style} id={item.key} key={idx} onClick={() => this.props.arrowHandler(idx, item.key)}>
+											<th className={`${item.alignText === 'text-left'?" text-left ":" text-center "}`} style={item.style} id={item.key} key={idx} onClick={() => this.props.arrowHandler(idx, item.key)}>
 												{item.tableHeaderText} <img key={idx} className="sort-icon" src={item.sort} />
 											</th>
 										);
