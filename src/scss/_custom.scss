@@ -2305,36 +2305,39 @@ th {
   padding-left: 12px;;
 }
 
-.stock-holding-table{
-  table-layout: fixed;
-  width: 100%;  
+.stock-holding-table.defaultTable{
+  padding: 0.5rem;
+}
+
+.stock-holding-table.defaultTable .sort-icon{
+  margin-left: 2px;
 }
 
 @media(min-width:500px) and (max-width:1199px){
-  .stock-holding-table.table th{
+  .stock-holding-table.defaultTable th{
     font-size: 8px;
   }
 
-  .stock-holding-table.table td{
+  .stock-holding-table.defaultTable td{
     font-size: 8px;
   }
 }
 
 @media(min-width:1200px) and (max-width:1499px){
-  .stock-holding-table.table th{
-    font-size: 10px;
+  .stock-holding-table.defaultTable th{
+    font-size: 9px;
   }
 
-  .stock-holding-table.table td{
-    font-size: 10px;
+  .stock-holding-table.defaultTable td{
+    font-size: 9px;
   }
 }
 @media(min-width:1500px) and (max-width:1800px){
-  .stock-holding-table.table th{
-    font-size: 14px;
+  .stock-holding-table.defaultTable th{
+    font-size: 12px;
   }
 
-  .stock-holding-table.table td{
-    font-size: 14px;
+  .stock-holding-table.defaultTable td{
+    font-size: 12px;
   }
 }
