@@ -375,12 +375,12 @@ class SODTable extends Component {
                           if(column.id === "line_no"){
                               return <td key={columnIdx}><label style={{ marginLeft: '20px' }}>{i + 1}</label></td>
                           }else{
-                              return <td height='40'>{data[column.id] ? data[column.id] : '-'}</td>
+                              return <td className={column.id === 'qty' ? 'align-right' : null} height='40'>{data[column.id] ? data[column.id] : '-'}</td>
                           }
                         }
                           
                       })
-                    }         
+                    }
                   </tr>
                 )}
             </table>
