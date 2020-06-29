@@ -12,18 +12,15 @@ import Select from 'react-select'
 import { FaPencilAlt } from 'react-icons/fa'
 import { IoIosArrowDown } from 'react-icons/io'
 import { endpoint, headers } from "../../pages/StockHolding/Endpoint/ConfigEndpoint";
-// import DataTable from 'shared/table/DataTable'
 import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
-// import SalesOrderCreate from './SalesOrderCreate'
-// import './SalesOrder.css'
 const columns = [
   { accessor: 'site', Header: 'Site', sortable: true },
   { accessor: 'client', Header: 'Client', sortable: true },
   { accessor: 'product', Header: 'Product', sortable: true },
   { accessor: 'product_name', Header: 'Description', sortable: true  },
   { accessor: 'disposition', Header: 'Disposition', sortable: true },
-  // { accessor: 'uom', Header: 'UOM', sortable: true },
+  { accessor: 'packdesc_1', Header: 'UOM', sortable: true },
   { accessor: 'status', Header: 'Status', sortable: true },
   { accessor: 'on_hand_qty', Header: 'Stock on Hand', sortable: true },
   { accessor: 'expected_in_qty', Header: 'Expected In Qty', sortable: true },
@@ -102,7 +99,7 @@ class StockHolding extends React.PureComponent {
     urls.push('client=' + (client ? client.value : 'all'))
     urls.push('orderType=' + (orderType ? orderType.value : 'all'))
     let param = '?'
-    const { data } =     axios.get(endpoint.stockHoldingSummary + param, {
+    const { data } =     axios.get(endpoint.stockHoldingSummary + param + urls.join('&'), {
                           headers: headers
                         })
                         .then((res) => {
@@ -135,7 +132,7 @@ class StockHolding extends React.PureComponent {
       dimension, fields, data, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData, taskData
     } = this.state
-    return <div className="sales-order">
+    return <div>
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Stock Holding', active: true }]}
         button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right d-none">
@@ -177,7 +174,11 @@ class StockHolding extends React.PureComponent {
                   />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-1">
-                  <button className="btn btn-block btn-primary float-right" onClick={this.searchStockHolding}>Search</button>
+                </CCol>
+                <CCol sm={4} lg={2} className="px-1">
+                </CCol>
+                <CCol sm={4} lg={2} className="px-1">
+                  <button className="btn btn-block btn-primary" onClick={this.searchStockHolding}>Search</button>
                 </CCol>
               </CRow>
             </CCol>
