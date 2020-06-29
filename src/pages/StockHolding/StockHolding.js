@@ -14,6 +14,7 @@ import { IoIosArrowDown } from 'react-icons/io'
 import { endpoint, headers } from "../../pages/StockHolding/Endpoint/ConfigEndpoint";
 import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
+import './StockHolding.css'
 const columns = [
   { accessor: 'site', Header: 'Site', sortable: true },
   { accessor: 'client', Header: 'Client', sortable: true },
@@ -66,15 +67,14 @@ class StockHolding extends React.PureComponent {
 
   getSite = async () => {
     const { data } = await axios.get("/dropdown/getsite")
-    const siteData = data.map(s => ({ value: s.site, label: `${s.name}` }))
+    const siteData = data.map(d => ({ value: d.site, label: `${d.site} : ${d.name}` }))
     const site = { value: 'all', label: 'All Site' }
     siteData.splice(0, 0, site)
     this.setState({ siteData })
   }
-
   getClient = async () => {
     const { data } = await axios.get("/dropdown/getclient")
-    const clientData = data.map(s => ({ value: s.code, label: `${s.name}` }))
+    const clientData = data.map(d => ({ value: d.code, label: `${d.code} : ${d.name}` }))
     const client = { value: 'all', label: 'All Client' }
     clientData.splice(0, 0, client)
     this.setState({ clientData })
@@ -104,6 +104,13 @@ class StockHolding extends React.PureComponent {
                         })
                         .then((res) => {
                           const result = res.data.data.data;
+                          result.map((item, idx) => {
+                              if((item["on_hand_qty"] + item["expected_in_qty"]) >= item["expected_out_qty"]){
+                              item['status'] = [<a className="status-ok">Ok</a> ]
+                              }else{
+                                item['status'] =  [<a className="status-shortage">Shortage</a> ]
+                              }
+                          } )
                           this.setState({ data: result, main:res.data.data }, () =>console.log(this.state.main));
                         })
                         .catch((error) => {
@@ -136,7 +143,7 @@ class StockHolding extends React.PureComponent {
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Stock Holding', active: true }]}
         button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right d-none">
-          <FaPencilAlt />  &nbsp; Create Sales Order
+          <FaPencilAlt />
           </CButton>}
       />
 
