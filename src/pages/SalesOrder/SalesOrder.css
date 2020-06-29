@@ -2,6 +2,9 @@
 .sales-order .input-group input {
   border-color: #ced4da;
 }
+.sales-order .c-subheader-nav-link{
+  margin-right: 15px;
+}
 
 /* Sales Order Detail */
 .sales-order-detail .section-1 .col {

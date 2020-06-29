@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import moment from 'moment'
+import _ from 'lodash'
 import {
   CButton,
   CCard,
@@ -9,15 +11,14 @@ import {
   CCol,
 } from '@coreui/react'
 import Select from 'react-select'
-import { FaPencilAlt } from 'react-icons/fa'
 import { IoIosArrowDown } from 'react-icons/io'
-
-// import DataTable from 'shared/table/DataTable'
 import CustomTable from 'shared/table/CustomTable'
+import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader'
 import SalesOrderCreate from './SalesOrderCreate'
 // import DummyData from './dummy/data.json'
 import './SalesOrder.css'
+
 const columns = [
   { accessor: 'site', Header: 'Site', sortable: true },
   { accessor: 'client', Header: 'Client', sortable: true },
@@ -59,6 +60,7 @@ class SalesOrder extends React.PureComponent {
     resources: [],
     fields: columns,
     data: [],
+    pagination: {},
     create: false,
     detail: {},
     dimension: { width: 0, height: 0 }
@@ -112,7 +114,7 @@ class SalesOrder extends React.PureComponent {
     const { client, site } = this.state
     if (client && site) {
       const { data } = await axios.get(`/dropdown/getIsisTask?client=${client.value}&site=${site.value}&order=so`)
-      const taskData = data.code.map((c, i) => ({ value: c, label: `${data.code[i]}: ${data.name[i]}` }))
+      const taskData = data.code.map((c, i) => ({ value: c, label: `${data.name[i]}` }))
       const task = { value: 'all', label: 'All Task' }
       taskData.splice(0, 0, task)
       this.setState({ taskData })
@@ -135,16 +137,33 @@ class SalesOrder extends React.PureComponent {
     // console.log(data)
   }
   searchSalesOrder = async () => {
-    console.log('load sales order')
-    const { search, site, client, orderType } = this.state
+    let { search, site, client, orderType, task, pagination } = this.state
     let urls = []
     urls.push('searchParam=' + search ? search : '')
     urls.push('site=' + (site ? site.value : 'all'))
     urls.push('client=' + (client ? client.value : 'all'))
     urls.push('orderType=' + (orderType ? orderType.value : 'all'))
+    urls.push('page=' + (pagination.active || 1))
+    console.log('load sales order', urls.join('&'), task)
     const { data } = await axios.get(`/salesorder?` + urls.join('&'))
     if (data?.data?.data) {
-      this.setState({ data: data.data.data })
+      const modifiedData = data.data.data.map(m => {
+        m.deliverydate = moment(m.deliverydate).format('DD/MM/YYYY')
+        m.datereceived = moment(m.datereceived).format('DD/MM/YYYY')
+        m.datereleased = moment(m.datereleased).format('DD/MM/YYYY')
+        m.datecompleted = moment(m.datecompleted).format('DD/MM/YYYY')
+        m.loadoutstart = moment(m.loadoutstart).format('DD/MM/YYYY')
+        m.loadoutfinish = moment(m.loadoutfinish).format('DD/MM/YYYY')
+        return m
+      })
+      this.setState({
+        pagination: {
+          active: pagination.active || data.data.current_page,
+          show: data.data.per_page,
+          total: data.data.total
+        },
+        data: modifiedData
+      })
     } else {
       this.setState({ data: [] })
     }
@@ -159,15 +178,14 @@ class SalesOrder extends React.PureComponent {
   }
   render() {
     const {
-      dimension, fields, data, site, client, status, orderType, create, task,
+      dimension, fields, data, pagination, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData, taskData
     } = this.state
+    console.log(pagination)
     return <div className="sales-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Sales Orders', active: true }]}
-        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right">
-          <FaPencilAlt />  &nbsp; Create Sales Order
-          </CButton>}
+        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right">Create Sales Order</CButton>}
       />
 
       <CCard>
@@ -228,7 +246,14 @@ class SalesOrder extends React.PureComponent {
         data={data}
         fields={fields}
         onClick={this.showDetails}
-        export={<CButton className="btn btn-primary px-4">Export <IoIosArrowDown /></CButton>}
+      />
+      <CustomPagination
+        data={data}
+        pagination={pagination}
+        goto={(active) => {
+          this.setState({ pagination: { ...pagination, active } }, () => this.searchSalesOrder())
+        }}
+        export={<CButton className="btn btn-primary float-right px-4 btn-export">Export <IoIosArrowDown /></CButton>}
       />
 
       <SalesOrderCreate

@@ -262,12 +262,12 @@ class CreateTab extends React.Component {
             {orderLine.length && orderLine.map((ld, i) => {
               return <tr className="py-1 text-center orderline-row">
                 <td className="px-1"><input value={i + 1} className="form-control text-center" readOnly /></td>
-                <td className="px-1"><DatePicker className="form-control" getDate={(date) => { console.log(date) }} placeholder="Select Date" /></td>
                 <td className="px-1"><Select value={site} options={siteData} onChange={val => this.setState({ site: val })} placeholder="Product" required /></td>
                 <td className="px-1"><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Choose a product first" readOnly /></td>
                 <td className="px-1"><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Qty" /></td>
                 <td className="px-1"><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Weight" /></td>
                 <td className="px-1"><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="UOM" /></td>
+                <td className="px-1"><DatePicker className="form-control" getDate={(date) => { console.log(date) }} placeholder="Select Date" /></td>
                 <td className="px-1"><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Batch" /></td>
                 <td className="px-1"><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Ref 3" /></td>
                 <td className="px-1"><input name="" type="text" onChange={this.handleChange} className="form-control" placeholder="Ref 4" /></td>
