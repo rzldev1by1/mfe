@@ -347,24 +347,47 @@ export default class MovementSearch extends Component {
     render() {
         return (
             <React.Fragment>
-<div className="row p-3">
+                        <div className="row p-3">
                             {/* <div className="col">{this.displayPeriod()}</div> */}
                             <div className="col-sm-2"><DropdownPeriod periodHandler={this.periodHanlder} /> 
                                 <div id='period' className={(!this.state.periodSelected) && (this.state.searchClicked) ? 'stock-err' : 'stock-err-hidden'}>Please select display period</div> 
                             </div>
-                            <div className="col-2">
-                                {/* {this.displayDate()} */}
+                            {/* <div className="col-4">
+                                {this.displayDate()}
+                            </div> */}
+                            <div className="col-sm-5">
+                                <div className='displayParent middles'>
+                                    <div className='searchParameterTitleDate' style={{marginRight: "2%"}}>Date From</div>
+                                    <DatePicker style={{ minWidth: '40%' }}
+                                        getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
+                                        defaultValue={this.state.dateFromSelected} tabIndex="1" placeHolder="Select Date"
+                                    />
+
+                                    <div className='searchParameterTitleDate' style={{marginLeft: "2%", marginRight: "2%"}}>To</div>
+                                    <DatePicker style={{ minWidth: '40%' }}
+                                        getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
+                                        defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date"
+                                    />  
+                                </div>
+                            </div>
+                            {/* <div className="col-2 list-inline">
+                                <div className='searchParameterTitleDate' style={{marginRight: 0}}>Date From</div>
                                 <DatePicker style={{ minWidth: '100%' }}
                                     getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
-                                    defaultValue={this.state.dateFromSelected} tabIndex="1"
+                                    defaultValue={this.state.dateFromSelected} tabIndex="1" placeHolder="Select Date"
                                 />
                             </div>
-                            <div className="col-2">
+                            <div className="col-2 list-inline">
+                                <div className='searchParameterTitleDate' style={{marginRight: 0}}>To</div>
                                 <DatePicker style={{ minWidth: '100%' }}
                                     getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
-                                    defaultValue={this.state.dateToSelected} tabIndex="1"
+                                    defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date"
                                 />
-                            </div>
+                            </div> */}
+                                        
+                                    
+                                
+                            
                             <div className="col-sm-4" style={{ display: 'flex', maxWidth: '37%', flex: '40%', paddingLeft: 0 }}>{this.showDropdowns()}</div>
                             <div className="col-sm-1 " style={{position: 'absolute', right: 0}}>
                                 <Button onClick={() => this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>

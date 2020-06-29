@@ -432,7 +432,7 @@ class ListOrderComponent extends Component {
                   const dataa = Object.entries(data)
                   return (
                     <tr onClick={() => window.location.replace(window.location.origin + '/#/sales-orders/' + data.client + '/' + data.site + '/' + data.orderno)} className='tr'>
-                      {dataa.map((data, idx) => <td className={'so-table-row ' + (this.props.column[idx].active ? '' : 'hidden')}>{this.filterDataHandler(data[0], data[1], i)}</td>)}
+                      {dataa.map((data, idx) => <td className={'so-table-row ' + (this.props.column[idx].active ? '' : 'hidden ') + (this.props.column[idx].id === 'loadnumber' ? ' align-right ' : null) + (this.props.column[idx].id === 'postCode' ? ' align-right' : null)}>{this.filterDataHandler(data[0], data[1], i)}</td>)}
                       <td></td>
                     </tr>
                   )

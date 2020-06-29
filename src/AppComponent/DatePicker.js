@@ -4,10 +4,46 @@ import Dropdown from './Dropdown';
 import './DatePicker.css';
 import 'react-day-picker/lib/style.css';
 import moment from 'moment';
+import { Button } from 'reactstrap';
 
 const currentYear = new Date().getFullYear();
 const fromMonth = new Date();
 const toMonth = new Date(currentYear + 10, 11);
+  
+  function Navbar({
+    nextMonth,
+    previousMonth,
+    onPreviousClick,
+    onNextClick,
+    className,
+    localeUtils,
+  }) {
+    const months = localeUtils.getMonths();
+    const prev = months[previousMonth.getMonth()];
+    const next = months[nextMonth.getMonth()];
+    const styleLeft = {
+      float: 'left',
+      color: "#637175",
+      backgroundColor: "#E9ECED",
+      borderColor: "#E9ECED"
+    };
+    const styleRight = {
+      float: 'right',
+      color: "#637175",
+      backgroundColor: "#E9ECED",
+      borderColor: "#E9ECED"
+    };
+    return (
+      <div className={className} style={{marginTop: "14px", marginLeft: "19px", marginRight: "19px"}}>
+        <Button color="secondary" style={styleLeft} onClick={() => onPreviousClick()}>
+            <i className="iconU-leftArrow" style={{ fontSize: "10px" }}></i>
+        </Button>
+        <Button color="secondary" style={styleRight} onClick={() => onNextClick()}>
+            <i className="iconU-rightArrow" style={{ fontSize: "10px" }}></i>
+        </Button>
+      </div>
+    );
+  }
 
 function YearMonthForm({ date, localeUtils, onChange, current, fromMonth, toMonth }) {
     const months = localeUtils.getMonths();
@@ -40,12 +76,12 @@ function YearMonthForm({ date, localeUtils, onChange, current, fromMonth, toMont
     })
 
     return (
-        <form className="DayPicker-Caption">
+        <form className="DayPicker-Caption" style={{ marginTop: "-16px", padding: "0 1.87em" }}>
             <Dropdown placeHolder="Month"
                 optionList={months.toString()}
                 optionValue={monthsIndex.toString()}
                 getValue={handleChange}
-                style={{ width: '100px', height: '30px', float: 'left' }}
+                style={{ width: '100px', height: '35px', float: 'left', marginRight: "0.6em" }}
                 firstChecked={true}
                 optionSelected={current.getMonth()}
                 usedFor="Datepicker"
@@ -54,7 +90,7 @@ function YearMonthForm({ date, localeUtils, onChange, current, fromMonth, toMont
                 optionList={years.toString()}
                 optionValue={years.toString()}
                 getValue={handleChange}
-                style={{ width: '75px', height: '30px', float: 'left', marginLeft: "10px" }}
+                style={{ width: '75px', height: '35px', float: 'left', marginRight: "0" }}
                 firstChecked={true}
                 optionSelected={current.getFullYear()}
                 usedFor="Datepicker"
@@ -165,7 +201,7 @@ class DatePicker extends React.Component {
                 <ul className={"select_date " + (this.state.showDatePicker && (this.props.for == "SalesOrderCreate") ? "datepickerForOrderLine" : "")} style={ this.props.style } tabIndex={this.props.tabIndex ? this.props.tabIndex : null}>
                       <input type="text" 
                                 ref="dateValue"
-                                placeholder="DD/MM/YYYY" 
+                                placeholder={this.props.placeHolder ? this.props.placeHolder : "DD/MM/YYYY"} 
                                 className="form-control" 
                                 maxLength="10"
                                 defaultValue={this.state.selectedDays ? moment(this.state.selectedDay).format("DD/MM/YYYY") : null} 
@@ -203,6 +239,7 @@ class DatePicker extends React.Component {
                                     toMonth={new Date(new Date(this.state.month).getFullYear() + 10, 11)}
                                 />
                             )}
+                            navbarElement={<Navbar />}
                         />
                     </div>
                     {/* <label className="select_date_expandLabel" htmlFor={"select-opener" + placeHolder + no}></label> */}

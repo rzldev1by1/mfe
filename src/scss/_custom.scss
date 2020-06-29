@@ -168,7 +168,6 @@ h2 {
 
 .iconU-rightArrow:before {
   content: '\e906';
-  font-size: 16px;
 }
 
 .iconU-upArrow:before {
@@ -1963,7 +1962,7 @@ th.iconU-edit {
 /* Dropdown for Datepicker */
 .select_datepicker_label {
   font-size: 0.8rem !important;
-  line-height: 30px !important;
+  line-height: 31px !important;
   padding-left: 14px !important;
 }
 .select_dropdown_expand:checked
@@ -1992,7 +1991,7 @@ th.iconU-edit {
   margin-top: -5px !important;
 }
 .select_datepicker_expand::after {
-  top: 30% !important;
+  top: 32% !important;
   right: 1px !important;
 }
 .dropDownForOrderLine {
@@ -2305,36 +2304,44 @@ th {
   padding-left: 12px;;
 }
 
-.stock-holding-table{
-  table-layout: fixed;
-  width: 100%;  
+.stock-holding-table.defaultTable{
+  padding: 0.5rem;
+}
+
+.stock-holding-table.defaultTable .sort-icon{
+  margin-left: 2px;
 }
 
 @media(min-width:500px) and (max-width:1199px){
-  .stock-holding-table.table th{
+  .stock-holding-table.defaultTable th{
     font-size: 8px;
   }
 
-  .stock-holding-table.table td{
+  .stock-holding-table.defaultTable td{
     font-size: 8px;
   }
 }
 
 @media(min-width:1200px) and (max-width:1499px){
-  .stock-holding-table.table th{
-    font-size: 10px;
+  .stock-holding-table.defaultTable th{
+    font-size: 9px;
   }
 
-  .stock-holding-table.table td{
-    font-size: 10px;
+  .stock-holding-table.defaultTable td{
+    font-size: 9px;
   }
 }
 @media(min-width:1500px) and (max-width:1800px){
-  .stock-holding-table.table th{
-    font-size: 14px;
+  .stock-holding-table.defaultTable th{
+    font-size: 12px;
   }
 
-  .stock-holding-table.table td{
-    font-size: 14px;
+  .stock-holding-table.defaultTable td{
+    font-size: 12px;
   }
+}
+
+.align-right{
+  text-align: right;
+  padding-right:1rem;
 }

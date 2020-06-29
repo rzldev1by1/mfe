@@ -291,9 +291,12 @@ class SODTable extends Component {
             <tr>
               {this.state.tableheader.map((data,idx) =>{
                 if(data.isVisible){
-                    return (
-                      <th height='50' key={data.tableHeaderText} id={data.tableHeaderText}>{data.tableHeaderText} </th>
-                    )
+                  if(data.tableHeaderText === 'Weight') return <th height='50' className='align-right' key={data.tableHeaderText} id={data.tableHeaderText}>{data.tableHeaderText} </th>
+                  if(data.tableHeaderText === 'Qty Processed') return <th height='50' className='align-right' key={data.tableHeaderText} id={data.tableHeaderText}>{data.tableHeaderText} </th>
+                  if(data.tableHeaderText === 'Weight Processed') return <th height='50' className='align-right' key={data.tableHeaderText} id={data.tableHeaderText}>{data.tableHeaderText} </th>
+                  if(data.tableHeaderText === 'Pack ID') return <th height='50' className='align-right' key={data.tableHeaderText} id={data.tableHeaderText}>{data.tableHeaderText} </th>
+                  else return <th height='50' key={data.tableHeaderText} id={data.tableHeaderText}>{data.tableHeaderText} </th>
+                    
                 } 
               })
               
@@ -307,14 +310,13 @@ class SODTable extends Component {
               <tr>
                 {this.state.tableheader.map((column, columnIdx) => {
                   if(column.isVisible){ 
-                      if(column.id === "line_no"){
-                          return <td key={columnIdx}><label style={{ marginLeft: '20px' }}>{i + 1}</label></td>
-                      }
-
-                      if(column.id === "completed"){
-                        return <td height='40'> {data.completed ? <img style={{ width: '15px', height: '13px' }} src={data.completed == "Y" ? ok : invalid} /> : '-'}</td>
-                      }
-
+                      if(column.id === "line_no") return <td key={columnIdx}><label style={{ marginLeft: '20px' }}>{i + 1}</label></td>
+                      if(column.id === "completed") return <td height='40'> {data.completed ? <img style={{ width: '15px', height: '13px' }} src={data.completed == "Y" ? ok : invalid} /> : '-'}</td>
+                      if(column.id === 'qty') return <td className='align-right' height='40'>{data[column.id] ? data[column.id] : '-'}</td>
+                      if(column.id === 'qty_processed') return <td className='align-right' height='40'>{data[column.id] ? data[column.id] : '-'}</td>
+                      if(column.id === 'weight') return <td className='align-right pr-8' height='40'>{data[column.id] ? data[column.id] : '-'}</td>
+                      if(column.id === 'weight_processed') return <td className='align-right pr-8' height='40'>{data[column.id] ? data[column.id] : '-'}</td>
+                      if(column.id === 'pack_id') return <td className='align-right pr-8' height='40'>{data[column.id] ? data[column.id] : '-'}</td>
                       return <td height='40'>{data[column.id] ? data[column.id] : '-'}</td>
                     }
                        

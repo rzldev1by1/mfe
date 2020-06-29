@@ -34,7 +34,7 @@ const EditColumn = (props) => {
             </div>
             <span className='btnclose-modal-so iconU-close' onClick={() => closeModal()} />
           </div>
-          <div>Show and hide the column according to your needs, Please select 5 to 10 columns to show</div>
+          <div>Show and hide the  column according to your needs. Please select columns to show.</div>
         </div>
       </ModalHeader>
       <ModalBody>

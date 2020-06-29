@@ -113,7 +113,7 @@ export default class Pagination extends Component {
                             <button onClick={(e) => this.goToPages(data)} id={data} type="button" className={"btn btn-primary " + (this.state.activePage == data ? 'activePagess' : null )}>{data}</button>
                         )
                     }                  
-                    <label onClick={() => this.nextPage()} className={'iconU-rightArrow ' + (this.state.activePage == this.state.totalPage.length ? 'disabledArrows' : null)}/>
+                    <label onClick={() => this.nextPage()} className={'iconU-rightArrow ' + (this.state.activePage == this.state.totalPage.length ? 'disabledArrows' : null)} style={{ fontSize: "16px" }}/>
                     <label onClick={() => this.goToPages(this.state.totalPage[this.state.totalPage.length-1])} className={'iconU-lastPage ' + (this.state.activePage == this.state.totalPage.length ? 'disabledArrows' : null)}/>
                 </div>
 
@@ -122,7 +122,7 @@ export default class Pagination extends Component {
                     <input onChange={(e) => this.setState({activePage:e.currentTarget.value})} id='goToPage' placeholder={this.state.totalPage.length} class="form-control"/>
                     <label id='labelButton'>
                     <label onClick={() => this.goToHandler()} id='labelButton'>Go</label>
-                    <label className='iconU-rightArrow'/>
+                    <label className='iconU-rightArrow' style={{ fontSize: "16px" }}/>
                     </label>
                 </div>
 
