@@ -175,8 +175,13 @@
 }
 .DayPicker-Day {
     padding: 0 !important;
-    width: 2.2em;
-    height: 2.2em;
+}
+.DayPicker-Week{
+    height: 36px;
+}
+.DayPicker-Weekday{
+    min-width: 35px;
+    min-height: 35px;
 }
 .datepickerForOrderLine{
     position: absolute;

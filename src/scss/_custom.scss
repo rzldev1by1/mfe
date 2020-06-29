@@ -168,7 +168,6 @@ h2 {
 
 .iconU-rightArrow:before {
   content: '\e906';
-  font-size: 16px;
 }
 
 .iconU-upArrow:before {
@@ -1963,7 +1962,7 @@ th.iconU-edit {
 /* Dropdown for Datepicker */
 .select_datepicker_label {
   font-size: 0.8rem !important;
-  line-height: 30px !important;
+  line-height: 31px !important;
   padding-left: 14px !important;
 }
 .select_dropdown_expand:checked
@@ -1992,7 +1991,7 @@ th.iconU-edit {
   margin-top: -5px !important;
 }
 .select_datepicker_expand::after {
-  top: 30% !important;
+  top: 32% !important;
   right: 1px !important;
 }
 .dropDownForOrderLine {
