@@ -11,7 +11,7 @@ import {
 import Select from 'react-select'
 import { FaPencilAlt } from 'react-icons/fa'
 import { IoIosArrowDown } from 'react-icons/io'
-
+import { endpoint, headers } from "../../pages/StockHolding/Endpoint/ConfigEndpoint";
 // import DataTable from 'shared/table/DataTable'
 import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
@@ -23,7 +23,7 @@ const columns = [
   { accessor: 'product', Header: 'Product', sortable: true },
   { accessor: 'product_name', Header: 'Description', sortable: true  },
   { accessor: 'disposition', Header: 'Disposition', sortable: true },
-  { accessor: 'uom', Header: 'UOM', sortable: true },
+  // { accessor: 'uom', Header: 'UOM', sortable: true },
   { accessor: 'status', Header: 'Status', sortable: true },
   { accessor: 'on_hand_qty', Header: 'Stock on Hand', sortable: true },
   { accessor: 'expected_in_qty', Header: 'Expected In Qty', sortable: true },
@@ -101,8 +101,17 @@ class StockHolding extends React.PureComponent {
     urls.push('site=' + (site ? site.value : 'all'))
     urls.push('client=' + (client ? client.value : 'all'))
     urls.push('orderType=' + (orderType ? orderType.value : 'all'))
+    let param = '?'
+    const { data } =     axios.get(endpoint.stockHoldingSummary + param, {
+                          headers: headers
+                        })
+                        .then((res) => {
+                          const result = res.data.data.data;
+                          this.setState({ data: result, main:res.data.data }, () =>console.log(this.state.main));
+                        })
+                        .catch((error) => {
 
-    const { data } = await axios.get(`/stockholding?` + urls.join('&'))
+                        });
 
     if (data?.data?.data) {
       this.setState({ data: data.data.data })
