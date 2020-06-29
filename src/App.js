@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom'
 import 'assets/scss/style.scss'
+import axios from 'axios'
 
 const loading = (
 	<div className="pt-3 text-center">
@@ -13,6 +14,19 @@ const Register = React.lazy(() => import('pages/Register/Register'))
 const Login = React.lazy(() => import('pages/Login/Login'))
 
 class ProtectedRoute extends React.Component {
+	constructor(props) {
+		super(props)
+		if (props.store.user) {
+			const { token, userLevel, client, webUser } = props.store.user
+			axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+			axios.defaults.headers.common['Content-Type'] = 'application/json';
+			axios.defaults.headers.common['Accept'] = 'application/json';
+			axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+			axios.defaults.headers.common['userLevel'] = userLevel;
+			axios.defaults.headers.common['client'] = client;
+			axios.defaults.headers.common['webUser'] = webUser;
+		}
+	}
 	render() {
 		const { component: Component, store, ...others } = this.props
 		const renderRoute = props => {

@@ -1,145 +1,270 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import axios from 'axios'
+import moment from 'moment'
+import _ from 'lodash'
 import {
-  CBadge,
   CButton,
   CCard,
-  CCardHeader,
   CCardBody,
-  CCardTitle,
   CRow,
   CCol,
 } from '@coreui/react'
 import Select from 'react-select'
-import DataTable from 'shared/table/DataTable'
-import States from './dummy/states'
+import { IoIosArrowDown } from 'react-icons/io'
+import CustomTable from 'shared/table/CustomTable'
+import CustomPagination from 'shared/table/CustomPagination'
+import HeaderTitle from 'shared/container/TheHeader'
+import SalesOrderCreate from './SalesOrderCreate'
+// import DummyData from './dummy/data.json'
 import './SalesOrder.css'
 
-const usersData = [
-  { id: 0, name: 'John Doe', registered: '2018/01/01', role: 'Guest', status: 'Pending' },
-  { id: 1, name: 'Samppa Nori', registered: '2018/01/01', role: 'Member', status: 'Active' },
-  { id: 2, name: 'Estavan Lykos', registered: '2018/02/01', role: 'Staff', status: 'Banned' },
-  { id: 3, name: 'Chetan Mohamed', registered: '2018/02/01', role: 'Admin', status: 'Inactive' },
-  { id: 4, name: 'Derick Maximinus', registered: '2018/03/01', role: 'Member', status: 'Pending' },
-  { id: 5, name: 'Friderik Dávid', registered: '2018/01/21', role: 'Staff', status: 'Active' },
-  { id: 6, name: 'Yiorgos Avraamu', registered: '2018/01/01', role: 'Member', status: 'Active' },
-  { id: 7, name: 'Avram Tarasios', registered: '2018/02/01', role: 'Staff', status: 'Banned' },
-  { id: 8, name: 'Quintin Ed', registered: '2018/02/01', role: 'Admin', status: 'Inactive' },
-  { id: 9, name: 'Enéas Kwadwo', registered: '2018/03/01', role: 'Member', status: 'Pending' },
-  { id: 10, name: 'Agapetus Tadeáš', registered: '2018/01/21', role: 'Staff', status: 'Active' },
-  { id: 11, name: 'Carwyn Fachtna', registered: '2018/01/01', role: 'Member', status: 'Active' },
-  { id: 12, name: 'Nehemiah Tatius', registered: '2018/02/01', role: 'Staff', status: 'Banned' },
-  { id: 13, name: 'Ebbe Gemariah', registered: '2018/02/01', role: 'Admin', status: 'Inactive' },
-  { id: 14, name: 'Eustorgios Amulius', registered: '2018/03/01', role: 'Member', status: 'Pending' },
-  { id: 15, name: 'Leopold Gáspár', registered: '2018/01/21', role: 'Staff', status: 'Active' },
-  { id: 16, name: 'Pompeius René', registered: '2018/01/01', role: 'Member', status: 'Active' },
-  { id: 17, name: 'Paĉjo Jadon', registered: '2018/02/01', role: 'Staff', status: 'Banned' },
-  { id: 18, name: 'Micheal Mercurius', registered: '2018/02/01', role: 'Admin', status: 'Inactive' },
-  { id: 19, name: 'Ganesha Dubhghall', registered: '2018/03/01', role: 'Member', status: 'Pending' },
-  { id: 20, name: 'Hiroto Šimun', registered: '2018/01/21', role: 'Staff', status: 'Active' },
-  { id: 21, name: 'Vishnu Serghei', registered: '2018/01/01', role: 'Member', status: 'Active' },
-  { id: 22, name: 'Zbyněk Phoibos', registered: '2018/02/01', role: 'Staff', status: 'Banned' },
-  { id: 23, name: 'Aulus Agmundr', registered: '2018/01/01', role: 'Member', status: 'Pending' },
-  { id: 42, name: 'Ford Prefect', registered: '2001/05/25', role: 'Alien', status: 'Don\'t panic!' }
+const columns = [
+  { accessor: 'site', Header: 'Site', sortable: true },
+  { accessor: 'client', Header: 'Client', sortable: true },
+  { accessor: 'orderno', Header: 'Order No', sortable: true },
+  { accessor: 'ordertype', Header: 'Order Type', sortable: true },
+  { accessor: 'task', Header: 'Task', sortable: true },
+  { accessor: 'customername', Header: 'Customer', sortable: true },
+  { accessor: 'status', Header: 'Status', sortable: true },
+  { accessor: 'deliverydate', Header: 'Delivery Date', sortable: true },
+  { accessor: 'datereceived', Header: 'Date Received', sortable: true },
+  { accessor: 'datereleased', Header: 'Date Released', sortable: true },
+  { accessor: 'datecompleted', Header: 'Date Completed', sortable: true },
+  // { accessor: 'customerpono', Header: 'Customer PO'},
+  // { accessor: 'vendororderno', Header: 'Vendor Order No'},
+  // { accessor: 'address1', Header: 'Address1'},
+  // { accessor: 'address2', Header: 'Address2'},
+  // { accessor: 'address3', Header: 'Address3'},
+  // { accessor: 'address4', Header: 'Address4'},
+  // { accessor: 'address5', Header: 'Address5'},
+  // { accessor: 'suburb', Header: 'Suburb'},
+  // { accessor: 'postcode', Header: 'Postcode'},
+  // { accessor: 'state', Header: 'State'},
+  // { accessor: 'country', Header: 'Country'},
+  // { accessor: 'loadnumber', Header: 'Load Number'},
+  // { accessor: 'loadoutstart', Header: 'Load Start'},
+  // { accessor: 'loadoutfinish', Header: 'Load Finish'},
+  // { accessor: 'consignmentno', Header: 'Consignment No'},
+  // { accessor: 'freightcharge', Header: 'Freight Charge'},
+  // { accessor: 'customer', Header: 'Customer Code'},
 ]
-
-const fields = [
-  { key: 'name', _style: { width: '40%' } },
-  { key: 'role', _style: { width: '20%' } },
-  { key: 'status', _style: { width: '20%' } },
-  'registered',
-  {
-    key: 'show_details',
-    label: '',
-    _style: { width: '1%' },
-    sorter: false,
-    filter: false
-  },
-]
-
-const getBadge = (status) => {
-  switch (status) {
-    case 'Active': return 'success'
-    case 'Inactive': return 'secondary'
-    case 'Pending': return 'warning'
-    case 'Banned': return 'danger'
-    default: return 'primary'
-  }
-}
-// '/#/sales-orders/' + data.client + '/' + data.site + '/' + data.orderno
 class SalesOrder extends React.PureComponent {
   state = {
+    search: '',
     site: null,
     client: null,
     status: null,
     orderType: null,
+    task: null,
+    resources: [],
+    fields: columns,
+    data: [],
+    pagination: {},
+    create: false,
+    detail: {},
+    dimension: { width: 0, height: 0 }
+  }
+  componentDidMount = () => {
+    // set automatic table height
+    this.updateDimension();
+    window.addEventListener('resize', this.updateDimension);
+
+    this.getSite()
+    this.getClient()
+    this.getStatus()
+    this.getResources()
+    this.getProduct()
+    this.searchSalesOrder()
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimension);
+  }
+  updateDimension = () => {
+    const height = (window.innerHeight - 116) * 0.87
+    this.setState({ dimension: { width: window.innerWidth, height } });
+  }
+  getSite = async () => {
+    const { data } = await axios.get("/dropdown/getsite")
+    const siteData = data.map(d => ({ value: d.site, label: `${d.site} : ${d.name}` }))
+    const site = { value: 'all', label: 'All Site' }
+    siteData.splice(0, 0, site)
+    this.setState({ siteData })
+  }
+  getClient = async () => {
+    const { data } = await axios.get("/dropdown/getclient")
+    const clientData = data.map(d => ({ value: d.code, label: `${d.code} : ${d.name}` }))
+    const client = { value: 'all', label: 'All Client' }
+    clientData.splice(0, 0, client)
+    this.setState({ clientData })
+  }
+  getStatus = async () => {
+    const statusData = [
+      { value: "open", label: 'All Open' },
+      { value: 'all', label: 'All Status' },
+      { value: "unavailable", label: '0: Unavailable' },
+      { value: "available", label: '1: Available' },
+      { value: "released", label: '2: Released' },
+      { value: "part_released", label: '3: Part Released' },
+      { value: "completed", label: '4: Completed' },
+    ];
+    this.setState({ statusData })
+  }
+  getTask = async () => {
+    const { client, site } = this.state
+    if (client && site) {
+      const { data } = await axios.get(`/dropdown/getIsisTask?client=${client.value}&site=${site.value}&order=so`)
+      const taskData = data.code.map((c, i) => ({ value: c, label: `${data.name[i]}` }))
+      const task = { value: 'all', label: 'All Task' }
+      taskData.splice(0, 0, task)
+      this.setState({ taskData })
+    }
+  }
+  getResources = async () => {
+    const { user } = this.props.store
+    if (user) {
+      const { data } = await axios.get(`/getsorecources?company=${user.company}&client=${user.client}`)
+      const { code, name } = data.orderType
+      const orderTypeData = code.map((c, i) => ({ value: c, label: `${code[i]}: ${name[i]}` }))
+      const orderType = { value: 'all', label: 'All' }
+      orderTypeData.splice(0, 0, orderType)
+      this.setState({ resources: data, orderTypeData })
+    }
+  }
+  getProduct = async () => {
+    // const { user } = this.props.store
+    // const { data } = await axios.get(`/dropdown/getProduct?client=${user.client}`)
+    // console.log(data)
+  }
+  searchSalesOrder = async () => {
+    let { search, site, client, orderType, task, pagination } = this.state
+    let urls = []
+    urls.push('searchParam=' + search ? search : '')
+    urls.push('site=' + (site ? site.value : 'all'))
+    urls.push('client=' + (client ? client.value : 'all'))
+    urls.push('orderType=' + (orderType ? orderType.value : 'all'))
+    urls.push('page=' + (pagination.active || 1))
+    console.log('load sales order', urls.join('&'), task)
+    const { data } = await axios.get(`/salesorder?` + urls.join('&'))
+    if (data?.data?.data) {
+      const modifiedData = data.data.data.map(m => {
+        m.deliverydate = moment(m.deliverydate).format('DD/MM/YYYY')
+        m.datereceived = moment(m.datereceived).format('DD/MM/YYYY')
+        m.datereleased = moment(m.datereleased).format('DD/MM/YYYY')
+        m.datecompleted = moment(m.datecompleted).format('DD/MM/YYYY')
+        m.loadoutstart = moment(m.loadoutstart).format('DD/MM/YYYY')
+        m.loadoutfinish = moment(m.loadoutfinish).format('DD/MM/YYYY')
+        return m
+      })
+      this.setState({
+        pagination: {
+          active: pagination.active || data.data.current_page,
+          show: data.data.per_page,
+          total: data.data.total
+        },
+        data: modifiedData
+      })
+    } else {
+      this.setState({ data: [] })
+    }
+    // this.setState({ data: DummyData })
+  }
+  showDetails = (item) => {
+    const url = '/sales-orders/' + item.client + '/' + item.site + '/' + item.orderno
+    this.props.history.push(url)
+  }
+  toggle = (value) => {
+    this.setState({ create: value ? value : !this.state.create })
   }
   render() {
-    const siteData = States
-    const clientData = States
-    const statusData = States
-    const orderTypeData = States
-    return <React.Fragment>
-      <CCard className="bg-transparent mb-3">
-        <CCardTitle className="text-info m-0">Sales Orders <button className="btn btn-primary float-right">Create</button></CCardTitle>
-      </CCard>
+    const {
+      dimension, fields, data, pagination, site, client, status, orderType, create, task,
+      siteData, clientData, statusData, orderTypeData, taskData
+    } = this.state
+    console.log(pagination)
+    return <div className="sales-order">
+      <HeaderTitle
+        breadcrumb={[{ to: '', label: 'Sales Orders', active: true }]}
+        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right">Create Sales Order</CButton>}
+      />
 
       <CCard>
-        <CCardBody>
-          <CRow>
-            <CCol md={3} className="px"><input type="text" className="form-control" placeholder="Search" /></CCol>
-            <CCol md={2} className="px">
-              <Select name="site" placeholder="Site"
-                value={this.state.site} options={siteData}
-                onChange={(val) => this.setState({ site: val })}
-              />
+        <CCardBody className="px-4 py-2">
+          <CRow className="row">
+            <CCol lg={3} className="px-1">
+              <div className="input-group">
+                <div className="input-group-prepend">
+                  <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
+                </div>
+                <input type="text" className="form-control border-left-0" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
+              </div>
             </CCol>
-            <CCol md={2} className="px">
-              <Select name="client" placeholder="Client"
-                value={this.state.client} options={clientData}
-                onChange={(val) => this.setState({ client: val })}
-              />
+            <CCol lg={9}>
+              <CRow>
+                <CCol sm={4} lg={2} className="px-1">
+                  <Select name="site" placeholder="Site"
+                    value={site} options={siteData}
+                    onChange={(val) => this.setState({ site: val }, () => this.getTask())}
+                  />
+                </CCol>
+                <CCol sm={4} lg={2} className="px-1">
+                  <Select name="client" placeholder="Client"
+                    value={client} options={clientData}
+                    onChange={(val) => this.setState({ client: val }, () => this.getTask())}
+                  />
+                </CCol>
+                <CCol sm={4} lg={2} className="px-1">
+                  <Select name="status" placeholder="Status"
+                    value={status} options={statusData}
+                    onChange={(val) => this.setState({ status: val })}
+                  />
+                </CCol>
+                <CCol sm={4} lg={2} className="px-1">
+                  <Select name="orderType" placeholder="Order Type"
+                    value={orderType} options={orderTypeData}
+                    onChange={(val) => this.setState({ orderType: val })}
+                  />
+                </CCol>
+                <CCol sm={4} lg={2} className="px-1">
+                  <Select name="task" placeholder="Task"
+                    value={task} options={taskData}
+                    onChange={(val) => this.setState({ task: val })}
+                  />
+                </CCol>
+                <CCol sm={4} lg={2} className="px-1">
+                  <button className="btn btn-block btn-primary float-right" onClick={this.searchSalesOrder}>Search</button>
+                </CCol>
+              </CRow>
             </CCol>
-            <CCol md={2} className="px">
-              <Select name="status" placeholder="Status"
-                value={this.state.status} options={statusData}
-                onChange={(val) => this.setState({ status: val })}
-              />
-            </CCol>
-            <CCol md={2} className="px">
-              <Select name="orderType" placeholder="Order Type"
-                value={this.state.orderType} options={orderTypeData}
-                onChange={(val) => this.setState({ orderType: val })}
-              />
-            </CCol>
-            <CCol md={1}><button className="btn btn-outline-primary float-right">Search</button></CCol>
           </CRow>
         </CCardBody>
       </CCard>
 
-      <DataTable
-        className="h-70 scroll-y"
+      <CustomTable
+        title="Sales Order"
+        height={dimension.height}
+        data={data}
         fields={fields}
-        data={usersData}
-        onClick={(item, index, col, e) => console.log(item, index, col, e)}
-        customFields={{
-          'status':
-            (item) => (
-              <td>
-                <CBadge color={getBadge(item.status)}> {item.status} </CBadge>
-              </td>
-            ),
-          'show_details':
-            item => {
-              return (
-                <td className="py-2">
-                  <CButton color="primary" variant="outline" shape="square" size="sm" > Show </CButton>
-                </td>
-              )
-            },
-        }}
+        onClick={this.showDetails}
       />
-    </React.Fragment>
+      <CustomPagination
+        data={data}
+        pagination={pagination}
+        goto={(active) => {
+          this.setState({ pagination: { ...pagination, active } }, () => this.searchSalesOrder())
+        }}
+        export={<CButton className="btn btn-primary float-right px-4 btn-export">Export <IoIosArrowDown /></CButton>}
+      />
+
+      <SalesOrderCreate
+        show={!!create}
+        toggle={this.toggle}
+        siteData={siteData}
+        clientData={clientData}
+        statusData={statusData}
+        orderTypeData={orderTypeData}
+      />
+    </div>
   }
 }
 const mapStateToProps = (store) => ({ store })

@@ -5,7 +5,6 @@ import classNames from 'classnames'
 import TheContent from './TheContent'
 import TheSidebar from './TheSidebar'
 import TheAside from './TheAside'
-import TheHeader from './TheHeader'
 // import TheFooter from './TheFooter'
 
 const TheLayout = () => {
@@ -17,12 +16,11 @@ const TheLayout = () => {
 
   return (
     <div className={classes}>
-      <TheSidebar/>
-      <TheAside/>
+      <TheSidebar />
+      <TheAside />
       <div className="c-wrapper">
-        <TheHeader/>
         <div className="c-body">
-          <TheContent/>
+          <TheContent />
         </div>
         {/* <TheFooter/> */}
       </div>

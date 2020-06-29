@@ -1,14 +1,10 @@
 // import moment from 'moment';
 
 import axios from 'axios';
-const baseURL = process.env.REACT_APP_API_URL
-const options = {
-	headers: { 'Content-Type': 'application/json' }
-}
-class Helpers {
-	static endpoint = "usermanagement/login";
-	static resetPassword = 'usermanagement/request_reset_password';
 
+const baseUrl = process.env.REACT_APP_API_URL;
+const options = { headers: { 'Content-Type': 'application/json' } }
+class Helpers {
 	static staticMethod() {
 		return 'static method has been called.';
 	}
@@ -149,7 +145,7 @@ class Helpers {
 
 	static requestResetPasswordHandler = (payload) => {
 		return (
-			axios.post(baseURL + this.resetPassword, payload, options)
+			axios.post(baseUrl + "/usermanagement/request_reset_password", payload, options)
 				.then(res => {
 					if (res.data) {
 						return res;
@@ -161,30 +157,25 @@ class Helpers {
 		);
 	}
 
-	static authenticationHandler = (payload) => {
-		let result = {};
-
-		return (
-			axios.post(baseURL + this.endpoint, payload, options)
-				.then(res => {
-					if (res.data) {
-						result.isSuccess = true;
-						result.redirect = "/";
-						result.data = res.data
-						this.setAuthenticate(res.data);
-						// return this.renewToken();
-						return result;
-					}
-				})
-				.catch(function (error) {
-					result.isSuccess = false;
-					result.message = "Failed to process your request";
-					if (error.response) {
-						result.message = error.response.status ? "Username or password is not valid" : "Failed to process your request";
-					}
-					return result;
-				})
-		);
+	static authenticationHandler = async (payload) => {
+		let result = {}
+		try {
+			const { data } = await axios.post(baseUrl + "/usermanagement/login", payload, options)
+			if (data) {
+				result.isSuccess = true;
+				result.redirect = "/";
+				result.data = data
+				this.setAuthenticate(data);
+			}
+			return result;
+		} catch (error) {
+			result.isSuccess = false;
+			result.message = "Failed to process your request";
+			if (error.response) {
+				result.message = error.response.status ? "Username or password is not valid" : "Failed to process your request";
+			}
+			return result;
+		}
 	}
 
 	static renewToken = () => {
@@ -192,7 +183,7 @@ class Helpers {
 		let result = {};
 
 		return (
-			axios.post(this.endpoint, {
+			axios.post(baseUrl + "/usermanagement/login", {
 				headers: {
 					'token': oldToken,
 					'Content-Type': 'application/json'

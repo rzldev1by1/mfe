@@ -7,36 +7,36 @@
   align-items: center;
   font-size: 110%;
 }
-a {
+.login a {
   text-decoration: none !important;
   cursor: pointer;
 }
-.logo {
+.login .logo {
   width: 100px;
 }
-.card-body {
+.login .card-body {
   padding: 30px !important;
 }
-.inputLogin {
+.login .inputLogin {
   /* width: 85% !important; */
   border-radius: 10px !important;
   font-size: 110% !important;
 }
-.btn-login {
+.login .btn-login {
   height: 50px;
   font-size: 110%;
 }
-.links a,
-.links span {
+.login .links a,
+.login .links span {
   color: #cbcbcb;
   font-size: 90% !important;
 }
-.error {
+.login .error {
   height: 80px;
   padding-top: 20px;
   color: #f44336;
 }
-.copyright a {
+.login .copyright a {
   color: #fff;
   margin-left: 4%;
 }
@@ -46,26 +46,26 @@ a {
   }
 }
 @media (min-width: 1024px) {
-  .offset-md-1 {
+  .login .offset-md-1 {
     margin-left: 4%;
   }
 }
 
-.email-message {
+.login .email-message {
   font-size: small;
   color: #959da0;
   margin-left: 1em;
 }
 
-.form-login-change {
+.login .form-login-change {
   color: #3b69f6;
   cursor: pointer;
 }
-.term-and-condition {
+.login .term-and-condition {
   cursor: pointer;
 }
 
-.policy-title {
+.login .policy-title {
   background-color: #d5d8da;
   border-bottom-left-radius: 0px !important;
   border-bottom-right-radius: 0px !important;
@@ -75,25 +75,25 @@ a {
   line-height: 2em;
 }
 
-.text-area-policy {
+.login .text-area-policy {
   color: #8e8f8f;
   font-size: small !important;
-  height: 11.6em !important;
+  height: 11.login .6em !important;
   overflow-y: scroll;
   border-top-left-radius: 0px !important;
   border-top-right-radius: 0px !important;
 }
 
-.text-area-policy::-webkit-scrollbar {
+.login .text-area-policy::-webkit-scrollbar {
   width: 8px !important;
 }
 
-.text-area-policy::-webkit-scrollbar-thumb {
+.login .text-area-policy::-webkit-scrollbar-thumb {
   background-color: #b4b9bb;
   border-radius: 5px;
 }
 
-.policy-button {
+.login .policy-button {
   margin-top: 1em;
   margin-left: -0.9em;
   width: 15em;
