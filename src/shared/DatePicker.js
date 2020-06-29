@@ -4,10 +4,46 @@ import Dropdown from './Dropdown';
 import './DatePicker.css';
 import 'react-day-picker/lib/style.css';
 import moment from 'moment';
+import { Button } from 'reactstrap';
 
 const currentYear = new Date().getFullYear();
 const fromMonth = new Date();
 const toMonth = new Date(currentYear + 10, 11);
+  
+  function Navbar({
+    nextMonth,
+    previousMonth,
+    onPreviousClick,
+    onNextClick,
+    className,
+    localeUtils,
+  }) {
+    const months = localeUtils.getMonths();
+    const prev = months[previousMonth.getMonth()];
+    const next = months[nextMonth.getMonth()];
+    const styleLeft = {
+      float: 'left',
+      color: "#637175",
+      backgroundColor: "#E9ECED",
+      borderColor: "#E9ECED"
+    };
+    const styleRight = {
+      float: 'right',
+      color: "#637175",
+      backgroundColor: "#E9ECED",
+      borderColor: "#E9ECED"
+    };
+    return (
+      <div className={className} style={{marginTop: "14px", marginLeft: "19px", marginRight: "19px", position: "relative"}}>
+        <Button color="secondary" style={styleLeft} onClick={() => onPreviousClick()}>
+            <i className="iconU-leftArrow" style={{ fontSize: "10px" }}></i>
+        </Button>
+        <Button color="secondary" style={styleRight} onClick={() => onNextClick()}>
+            <i className="iconU-rightArrow" style={{ fontSize: "10px" }}></i>
+        </Button>
+      </div>
+    );
+  }
 
 function YearMonthForm({ date, localeUtils, onChange, current, fromMonth, toMonth }) {
     const months = localeUtils.getMonths();
@@ -40,12 +76,12 @@ function YearMonthForm({ date, localeUtils, onChange, current, fromMonth, toMont
     })
 
     return (
-        <form className="DayPicker-Caption">
+        <form className="DayPicker-Caption" style={{ marginTop: "-16px", padding: "0 1.87em" }}>
             <Dropdown placeHolder="Month"
                 optionList={months.toString()}
                 optionValue={monthsIndex.toString()}
                 getValue={handleChange}
-                style={{ width: '100px', height: '30px', float: 'left' }}
+                style={{ width: '100px', height: '35px', float: 'left', marginRight: "0.6em" }}
                 firstChecked={true}
                 optionSelected={current.getMonth()}
                 usedFor="Datepicker"
@@ -54,7 +90,7 @@ function YearMonthForm({ date, localeUtils, onChange, current, fromMonth, toMont
                 optionList={years.toString()}
                 optionValue={years.toString()}
                 getValue={handleChange}
-                style={{ width: '75px', height: '30px', float: 'left', marginLeft: "10px" }}
+                style={{ width: '75px', height: '35px', float: 'left', marginRight: "0" }}
                 firstChecked={true}
                 optionSelected={current.getFullYear()}
                 usedFor="Datepicker"
@@ -92,7 +128,7 @@ class DatePicker extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.showDatePicker) {
+        if(this.props.showDatePicker){
             this.props.showDatePicker(this.state.showDatePicker)
         }
     }
@@ -107,7 +143,7 @@ class DatePicker extends React.Component {
         });
         this.props.getDate(moment(selected ? undefined : day).format("YYYY-MM-DD"))
         this.setState({ showDatePicker: false });
-        this.refs['dateValue'].value = moment(day).format("DD/MM/YY");
+        this.refs['dateValue'].value = moment(day).format("DD/MM/YYYY");
     }
     currentDate = () => {
         return this.state.month;
@@ -133,10 +169,10 @@ class DatePicker extends React.Component {
 
     dateValueFormat = (e) => {
         if (/^[0-9]+$/.test(e.key)) {
-            if (e.target.value.length === 2) {
+            if (e.target.value.length == 2) {
                 e.target.value += "-";
             };
-            if (e.target.value.length === 5) {
+            if (e.target.value.length == 5) {
                 e.target.value += "-"
             };
         }
@@ -145,14 +181,14 @@ class DatePicker extends React.Component {
 
     openDatePicker = () => {
         this.setState({ showDatePicker: true })
-        if (this.props.showDatePicker) {
+        if(this.props.showDatePicker){
             this.props.showDatePicker(true)
         }
     }
 
     closeDatePicker = () => {
         this.setState({ showDatePicker: false })
-        if (this.props.showDatePicker) {
+        if(this.props.showDatePicker){
             this.props.showDatePicker(false)
         }
     }
@@ -160,29 +196,29 @@ class DatePicker extends React.Component {
     render() {
         let placeHolder = "Select Date";
         const no = Math.floor(Math.random() * 100000) + 1;
-        const {placeholder} = this.props
         return (
             <React.Fragment>
-                <ul className={"select_date " + (this.state.showDatePicker && (this.props.for === "SalesOrderCreate") ? "datepickerForOrderLine" : "")} style={this.props.style} tabIndex={this.props.tabIndex ? this.props.tabIndex : null}>
-                    <input type="text"
-                        ref="dateValue"
-                        placeholder={placeholder}
-                        className="form-control"
-                        maxLength="10"
-                        defaultValue={this.state.selectedDays ? moment(this.state.selectedDay).format("DD/MM/YY") : null}
-                        onChange={(e) => { this.dateValueProcess(e) }}
-                        onFocus={() => this.openDatePicker()}
-                        onKeyUp={(e) => this.dateValueFormat(e)}
-                        onKeyDown={(e) => this.disabledAlpha(e)}
-                        pattern={/^[-+]?[0-9]+$/} />
+                <ul className={"select_date " + (this.state.showDatePicker && (this.props.for == "SalesOrderCreate") ? "datepickerForOrderLine" : "")} style={ this.props.style } tabIndex={this.props.tabIndex ? this.props.tabIndex : null}>
+                      <input type="text" 
+                                ref="dateValue"
+                                placeholder={this.props.placeHolder ? this.props.placeHolder : "DD/MM/YYYY"} 
+                                className="form-control" 
+                                maxLength="10"
+                                defaultValue={this.state.selectedDays ? moment(this.state.selectedDay).format("DD/MM/YYYY") : null} 
+                                onChange={(e) => {this.dateValueProcess(e)} }
+                                onFocus={() => this.openDatePicker()}
+                                onKeyUp={(e) => this.dateValueFormat(e)}
+                                onKeyDown={(e) => this.disabledAlpha(e)}
+                                style={this.props.formStyle}
+                                pattern={/^[-+]?[0-9]+$/} />
                     {/* <input className="select_date_close" type="radio" name={"select" + placeHolder + no} id={"select-close" + placeHolder + no} value="" defaultChecked/> */}
                     {/* <span className="select_date_label select_date_label-placeholder">{this.state.selectedDay ? moment(this.state.selectedDay).format("DD/MM/YYYY") : placeHolder}</span> */}
 
                     {/* <li className="select_date_items"> */}
-                    <input className="select_date_expand" ref="opener" type="checkbox" name={"select" + placeHolder + no} value="" checked={this.state.showDatePicker} id={"select-opener" + placeHolder + no} />
-                    <label className="select_date_closeLabel" htmlFor={"select-opener" + placeHolder + no} onClick={() => this.closeDatePicker()}></label>
-                    <div className={"select_date_options " + (this.props.field === "smallField " ? " smallField " : "") + ((this.props.top && !this.props.fixedTop) ? "top" : "") + ((this.props.top && this.props.fixedTop) || this.props.fixedTop ? "fixed-top-position" : "")}>
-                        <div className="dateInfo">
+                        <input className="select_date_expand" ref="opener" type="checkbox" name={"select" + placeHolder + no} value="" checked={this.state.showDatePicker} id={"select-opener" + placeHolder + no}/>
+                        <label className="select_date_closeLabel" htmlFor={"select-opener" + placeHolder + no} onClick={() => this.closeDatePicker()}></label>
+                        <div className={"select_date_options " + (this.props.field == "smallField " ? " smallField " : "") + ((this.props.top && !this.props.fixedTop) ? "top" : "") + ((this.props.top && this.props.fixedTop) || this.props.fixedTop ? "fixed-top-position" : "")}>
+                            <div className="dateInfo">
                             {this.state.selectedDay ? moment(this.state.selectedDay).format(this.props.shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : moment().format("DD MMMM YYYY")}
                         </div>
                         <DayPicker
@@ -194,16 +230,17 @@ class DatePicker extends React.Component {
                             fromMonth={fromMonth}
                             toMonth={toMonth}
                             onMonthChange={(e) => this.setState({ month: e })}
-                            // captionElement={({ date, localeUtils }) => (
-                            //     <YearMonthForm
-                            //         date={date}
-                            //         localeUtils={localeUtils}
-                            //         onChange={this.handleYearMonthChange}
-                            //         current={this.state.month}
-                            //         fromMonth={this.state.month}
-                            //         toMonth={new Date(new Date(this.state.month).getFullYear() + 10, 11)}
-                            //     />
-                            // )}
+                            captionElement={({ date, localeUtils }) => (
+                                <YearMonthForm
+                                    date={date}
+                                    localeUtils={localeUtils}
+                                    onChange={this.handleYearMonthChange}
+                                    current={this.state.month}
+                                    fromMonth={this.state.month}
+                                    toMonth={new Date(new Date(this.state.month).getFullYear() + 10, 11)}
+                                />
+                            )}
+                            navbarElement={<Navbar />}
                         />
                     </div>
                     {/* <label className="select_date_expandLabel" htmlFor={"select-opener" + placeHolder + no}></label> */}
