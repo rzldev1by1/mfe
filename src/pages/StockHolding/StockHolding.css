@@ -1,0 +1,15 @@
+.status-ok{
+    color: rgb(209, 204, 204) !important;
+    background: transparent;
+    padding: 5px;
+    border-radius: 6px;
+    border: solid 1.5px rgb(149, 146, 146);
+    font-size: 9px;
+}
+.status-shortage{
+    color: white !important;
+    background: red;
+    padding: 5px;
+    font-size: 9px;
+    border-radius: 6px;
+}

@@ -8,14 +8,15 @@ import React from 'react';
 
 // const Breadcrumbs = React.lazy(() => import('./pages/Base/Breadcrumbs'));
 const Welcome = React.lazy(() => import('./pages/Welcome/Welcome'));
+const StockHolding = React.lazy(() => import('./pages/StockHolding/StockHolding'));
 const SalesOrder = React.lazy(() => import('./pages/SalesOrder/SalesOrder'));
 const SalesOrderDetail = React.lazy(() => import('./pages/SalesOrder/SalesOrderDetail'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
 	{ path: '/', exact: true, name: 'Microlistics', component: Welcome },
-	// { path: '/stockholding', exact: true, name: 'Stock Holding', component: StockHolding },
-	// { path: '/stockholding/:productId/:client/:site', exact: true, name: 'Stock Holding Details', component: StockHoldingDetails },
+	{ path: '/stock-holding', exact: true, name: 'Stock Holding', component: StockHolding },
+	// { path: '/stock-holding/:productId/:client/:site', exact: true, name: 'Stock Holding Details', component: StockHoldingDetails },
 	// { path: '/stockmovement', exact: true, name: 'Stock Movement', component: StockMovement },
 	// { path: '/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
 
