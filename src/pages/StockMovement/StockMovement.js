@@ -80,7 +80,7 @@ class StockMovement extends React.PureComponent {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - 116) * 0.87
+    const height = (window.innerHeight - 116) * 0.84
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {
@@ -397,17 +397,17 @@ class StockMovement extends React.PureComponent {
                     <CCol lg={3} className="px-1 text-light-gray custom-filter-text">
                       Date From 
                     </CCol>
-                    <CCol  lg={4} className="px-1"> 
+                    <CCol  lg={4} className="px-1 " > 
                         <DatePicker style={{ minWidth: '100%' }}
                             formStyle={{height:'50px'}}
                             getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
                             defaultValue={this.state.dateFromSelected} tabIndex="1" placeHolder="Select Date"
                         /> 
                     </CCol>
-                    <CCol  lg={1} className="px-1  text-light-gray custom-filter-text">
+                    <CCol  lg={1} className="text-light-gray custom-filter-text px-1">
                       To
                     </CCol>
-                    <CCol  lg={4} className="px-1">
+                    <CCol  lg={4} className="px-1 " >
                         <DatePicker style={{ minWidth: '100%', height:'50px' }}
                             formStyle={{height:'50px'}}
                             getDate={(e) => { this.setState({ dateToSelected: e.toString() })}}

@@ -22,7 +22,7 @@
 }
 
 .select_date {
-	width: 150px;
+	/* width: 150px; */
 	height: 40px;
 	cursor: pointer;
 	list-style: none;

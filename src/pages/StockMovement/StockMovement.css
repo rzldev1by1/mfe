@@ -73,3 +73,5 @@
   transition: opacity 0.3s;
   margin-bottom: -20px;
 }
+ 
+.rt-th { min-height: 100%;}
