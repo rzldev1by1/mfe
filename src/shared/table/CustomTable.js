@@ -5,6 +5,8 @@ import { Button, Container, Row, Col, Modal } from 'react-bootstrap'
 import { MdClose } from 'react-icons/md'
 import { FaRegEdit, FaPencilAlt } from 'react-icons/fa'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
+
+import CustomPagination from 'shared/table/CustomPagination'
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
 
@@ -139,6 +141,12 @@ class CustomTable extends React.Component {
             }
           }}
           {...this.props}
+        />
+        <CustomPagination
+          data={data}
+          pagination={pagination}
+          goto={this.props.goto}
+          export={this.props.export}
         />
         <Modal
           show={showModal} size='xl' centered
