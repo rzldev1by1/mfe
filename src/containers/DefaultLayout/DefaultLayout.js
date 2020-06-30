@@ -23,7 +23,8 @@ import routes from '../../routes';
 
 import Authentication from '../../Auth/Authentication';
 
-import logo from '../../assets/img/brand/LOGO2.png';
+import logo from '../../assets/img/brand/LOGO WHITE 8.png';
+import lvertical from '../../assets/img/brand/mls-vertical.png';
 import logout from '../../assets/img/brand/logout2.png';
 import dummyPic from '../../assets/img/brand/User-Icon.png';
 import menunav from '../../menunav';
@@ -111,6 +112,10 @@ class DefaultLayout extends Component {
                                 <div className="p-0 sidebar-header">
                                     <img src={logo} alt="" className="sideLogo" />
                                 </div>
+                                <div className="p-0 sidebar-header  vertical-logo">
+                                    <img src={lvertical} alt="" className='logo-vertical' />
+                                </div>
+                                
 
 
                                 {/*

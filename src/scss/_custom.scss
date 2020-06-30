@@ -39,6 +39,11 @@
 }
 
 @font-face {
+  font-family: 'Rubik Medium';
+  src: url('../assets//fonts//Rubik-Medium.ttf');
+}
+
+@font-face {
   font-family: 'icomoon';
   src: url('./logo/fonts/icomoon.eot?t60pg3');
   src: url('./logo/fonts/icomoon.eot?t60pg3#iefix') format('embedded-opentype'),
@@ -62,7 +67,7 @@
 
 body {
   background-color: #e9eced;
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
   color: #637176;
   font-size: 15px;
 }
@@ -2342,6 +2347,16 @@ th {
 }
 
 .align-right{
-  text-align: right;
+  text-align: right !important;
   padding-right:1rem;
+}
+
+.logo-vertical{
+  width: 7rem;
+  transform: rotate(90deg);
+}
+
+.vertical-logo{
+  margin-top: 4rem;
+  margin-bottom: 3.5rem;
 }
