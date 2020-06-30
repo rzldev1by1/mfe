@@ -30,7 +30,7 @@ class Logins extends Component {
                 const payload = { "userid": username, "password": password }
                 const result = await helpers.authenticationHandler(payload)
                 if (result.isSuccess) {
-                    this.props.dispatch({ type: 'set', user: result.data })
+                    this.props.dispatch({ type: 'LOGIN', data: result.data })
                     this.props.history.push(result.redirect)
                 } else {
                     errorMessage = result.message

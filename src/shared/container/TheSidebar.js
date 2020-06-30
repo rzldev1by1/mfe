@@ -17,7 +17,7 @@ const TheSidebar = () => {
   const show = useSelector(state => state.sidebarShow)
   const user = useSelector(state => state.user)
   const signOut = (e) => {
-    dispatch({ type: 'set', user: null })
+    dispatch({ type: 'LOGOUT' })
   }
   return (
     <CSidebar

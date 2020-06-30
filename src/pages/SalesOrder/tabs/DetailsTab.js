@@ -127,7 +127,8 @@ class CreateTab extends React.Component {
     if (error) {
       return this.setState({ error })
     } else {
-      console.log(orderType)
+      const details = { site: site.value, client: client.value, orderType: orderType.value, orderId }
+      console.log(details)
     }
   }
 

@@ -1,19 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import endpoints from 'helpers/endpoints'
 import moment from 'moment'
-import _ from 'lodash'
-import {
-  CButton,
-  CCard,
-  CCardBody,
-  CRow,
-  CCol,
-} from '@coreui/react'
+import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react'
 import Select from 'react-select'
 import { IoIosArrowDown } from 'react-icons/io'
 import CustomTable from 'shared/table/CustomTable'
-import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader'
 import SalesOrderCreate from './SalesOrderCreate'
 // import DummyData from './dummy/data.json'
@@ -31,23 +24,23 @@ const columns = [
   { accessor: 'datereceived', Header: 'Date Received', sortable: true },
   { accessor: 'datereleased', Header: 'Date Released', sortable: true },
   { accessor: 'datecompleted', Header: 'Date Completed', sortable: true },
-  // { accessor: 'customerpono', Header: 'Customer PO'},
-  // { accessor: 'vendororderno', Header: 'Vendor Order No'},
-  // { accessor: 'address1', Header: 'Address1'},
-  // { accessor: 'address2', Header: 'Address2'},
-  // { accessor: 'address3', Header: 'Address3'},
-  // { accessor: 'address4', Header: 'Address4'},
-  // { accessor: 'address5', Header: 'Address5'},
-  // { accessor: 'suburb', Header: 'Suburb'},
-  // { accessor: 'postcode', Header: 'Postcode'},
-  // { accessor: 'state', Header: 'State'},
-  // { accessor: 'country', Header: 'Country'},
-  // { accessor: 'loadnumber', Header: 'Load Number'},
-  // { accessor: 'loadoutstart', Header: 'Load Start'},
-  // { accessor: 'loadoutfinish', Header: 'Load Finish'},
-  // { accessor: 'consignmentno', Header: 'Consignment No'},
-  // { accessor: 'freightcharge', Header: 'Freight Charge'},
-  // { accessor: 'customer', Header: 'Customer Code'},
+  { accessor: 'customerpono', Header: 'Customer PO'},
+  { accessor: 'vendororderno', Header: 'Vendor Order No'},
+  { accessor: 'address1', Header: 'Address1'},
+  { accessor: 'address2', Header: 'Address2'},
+  { accessor: 'address3', Header: 'Address3'},
+  { accessor: 'address4', Header: 'Address4'},
+  { accessor: 'address5', Header: 'Address5'},
+  { accessor: 'suburb', Header: 'Suburb'},
+  { accessor: 'postcode', Header: 'Postcode'},
+  { accessor: 'state', Header: 'State'},
+  { accessor: 'country', Header: 'Country'},
+  { accessor: 'loadnumber', Header: 'Load Number'},
+  { accessor: 'loadoutstart', Header: 'Load Start'},
+  { accessor: 'loadoutfinish', Header: 'Load Finish'},
+  { accessor: 'consignmentno', Header: 'Consignment No'},
+  { accessor: 'freightcharge', Header: 'Freight Charge'},
+  { accessor: 'customer', Header: 'Customer Code'},
 ]
 class SalesOrder extends React.PureComponent {
   state = {
@@ -61,7 +54,7 @@ class SalesOrder extends React.PureComponent {
     fields: columns,
     data: [],
     pagination: {},
-    create: false,
+    create: true,
     detail: {},
     dimension: { width: 0, height: 0 }
   }
@@ -85,14 +78,14 @@ class SalesOrder extends React.PureComponent {
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {
-    const { data } = await axios.get("/dropdown/getsite")
+    const { data } = await axios.get(endpoints.getSite)
     const siteData = data.map(d => ({ value: d.site, label: `${d.site} : ${d.name}` }))
     const site = { value: 'all', label: 'All Site' }
     siteData.splice(0, 0, site)
     this.setState({ siteData })
   }
   getClient = async () => {
-    const { data } = await axios.get("/dropdown/getclient")
+    const { data } = await axios.get(endpoints.getClient)
     const clientData = data.map(d => ({ value: d.code, label: `${d.code} : ${d.name}` }))
     const client = { value: 'all', label: 'All Client' }
     clientData.splice(0, 0, client)
@@ -113,7 +106,7 @@ class SalesOrder extends React.PureComponent {
   getTask = async () => {
     const { client, site } = this.state
     if (client && site) {
-      const { data } = await axios.get(`/dropdown/getIsisTask?client=${client.value}&site=${site.value}&order=so`)
+      const { data } = await axios.get(`${endpoints.getIsisTask}?client=${client.value}&site=${site.value}&order=so`)
       const taskData = data.code.map((c, i) => ({ value: c, label: `${data.name[i]}` }))
       const task = { value: 'all', label: 'All Task' }
       taskData.splice(0, 0, task)
@@ -123,7 +116,7 @@ class SalesOrder extends React.PureComponent {
   getResources = async () => {
     const { user } = this.props.store
     if (user) {
-      const { data } = await axios.get(`/getsorecources?company=${user.company}&client=${user.client}`)
+      const { data } = await axios.get(`${endpoints.getSoResources}?company=${user.company}&client=${user.client}`)
       const { code, name } = data.orderType
       const orderTypeData = code.map((c, i) => ({ value: c, label: `${code[i]}: ${name[i]}` }))
       const orderType = { value: 'all', label: 'All' }
@@ -245,15 +238,12 @@ class SalesOrder extends React.PureComponent {
         height={dimension.height}
         data={data}
         fields={fields}
-        onClick={this.showDetails}
-      />
-      <CustomPagination
-        data={data}
         pagination={pagination}
+        onClick={this.showDetails}
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchSalesOrder())
         }}
-        export={<CButton className="btn btn-primary float-right px-4 btn-export">Export <IoIosArrowDown /></CButton>}
+        export={<button className="btn btn-primary float-right px-4 btn-export">Export <IoIosArrowDown /></button>}
       />
 
       <SalesOrderCreate
