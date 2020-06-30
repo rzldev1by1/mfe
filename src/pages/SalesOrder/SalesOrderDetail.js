@@ -6,11 +6,14 @@ import {
   CCardBody,
   CRow,
   CCol,
+  CButton,
 } from '@coreui/react'
-
+import { IoIosArrowDown } from 'react-icons/io'
 import CustomTable from 'shared/table/CustomTable'
+import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader'
 import './SalesOrder.css'
+
 const columns = [
   { accessor: "line", Header: "Line No" },
   { accessor: "product", Header: "Product" },
@@ -128,6 +131,13 @@ class SalesOrderDetail extends React.Component {
         height={this.state.dimension.height}
         fields={fields}
         data={products}
+      />
+      <CustomPagination
+        data={products}
+        // pagination={pagination}
+        // goto={(active) => {
+        //   this.setState({ pagination: { ...pagination, active } }, () => this.getProducts())
+        // }}
       />
     </div>
   }
