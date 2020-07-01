@@ -1013,6 +1013,10 @@ select_date_expandLabel {
     width: 100%;
   }
 
+  .defaultTable.stockholding-summary {
+    width: 120%;
+  }
+
   .defaultTable th {
     border-bottom: 1px solid #d5d8da !important;
     height: 45px !important;
@@ -2327,20 +2331,20 @@ th {
 
 @media(min-width:500px) and (max-width:1023px){
   .defaultTable{
-    width:140%;
+    width:150%;
   }
 }
 
-@media(min-width:1024px) and (max-width:1439px){
+@media(min-width:1024px) and (max-width:1500px){
   .defaultTable{
     width:120%;
   }
 }
-@media(min-width:1440px) and (max-width:1800px){
-  .defaultTable{
-    width:100%;
-  }
-}
+// @media(min-width:1440px) and (max-width:1800px){
+//   .defaultTable{
+//     width:100%;
+//   }
+// }
 
 .align-right{
   text-align: right !important;

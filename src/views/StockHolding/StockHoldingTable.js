@@ -108,7 +108,7 @@ class componentTable extends Component {
                         <tbody style={{fontSize:'1rem'}}>{this.showData()}</tbody> 
                     </Table> */}
 
-					<table className="defaultTable" >
+					<table className="defaultTable stockholding-summary" >
 						{/* <thead >{this.showHeader()}</thead> */}
 						<thead>
 							<tr>
