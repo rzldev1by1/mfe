@@ -428,8 +428,13 @@ class PurchaseOrderTable extends Component {
                 <tr>
                   {this.state.tableheader.map((header, idx) => {
                       if(header.isVisible){
+                        let right = null
+                                if(header.id === 'qty') right = 'align-right'
+                                if(header.id === 'qty_processed') right = 'align-right'
+                                if(header.id === 'weight') right = 'align-right'
+                                if(header.id === 'weight_processed') right = 'align-right'
                           return (
-                            <th key={idx} 
+                            <th className={right} key={idx} 
                             
                             id={header.id}>
                                 {header.tableHeaderText} 
@@ -465,7 +470,12 @@ class PurchaseOrderTable extends Component {
                                                 <img style={{width:'15px',height:'13px'}} src={data[column.id] == "Y" ? ok : wrong}></img>
                                           </td>
                                 }
-                                return <td key={columnIdx}>{data[column.id] ? data[column.id] : "-"}</td>
+                                let right = null
+                                if(column.id === 'qty') right = 'align-right'
+                                if(column.id === 'qty_processed') right = 'align-right'
+                                if(column.id === 'weight') right = 'align-right'
+                                if(column.id === 'weight_processed') right = 'align-right'
+                                return <td className={right} key={columnIdx}>{data[column.id] ? data[column.id] : "-"}</td>
                             }
                         })}
                         <td></td>

@@ -72,9 +72,13 @@ class StockDetails extends Component {
 			<tr>
 				{this.props.stockDetailsColumns.map((item, idx) => {
 					if (item.isVisible) {
-                        
+                        let right = "text-left";
+						if(item.id === 'qty') right = 'align-right'
+						if(item.id === 'weight') right = 'align-right'
+						if(item.id === 'pallet') right = 'align-right'
+						if(item.id === 'price') right = 'align-right'
                         return (
-                            <th className="text-left" id={item.key} key={idx} onClick={() => this.props.arrowHandler("stockDetails", idx, item.key)}>
+                            <th className={right} id={item.key} key={idx} onClick={() => this.props.arrowHandler("stockDetails", idx, item.key)}>
                                 {item.tableHeaderText} <img key={idx} className="sort-icon" src={item.sort} />
                             </th>
                         );
@@ -93,9 +97,13 @@ class StockDetails extends Component {
 				{this.props.stockDetailsColumns.map((item, idx) => {
 					
 					if (item.isVisible) {
-                        
+                        let right = null;
+						if(item.id === 'qty') right = 'align-right'
+						if(item.id === 'weight') right = 'align-right'
+						if(item.id === 'pallet') right = 'align-right'
+						if(item.id === 'price') right = 'align-right'
                         return (
-                            <th key={idx}>
+                            <th className={right} key={idx}>
                                 {item.tableHeaderText}
                             </th>
                         );
@@ -114,9 +122,14 @@ class StockDetails extends Component {
 					this.props.stockDetails.map((item, idx) => (
 						<tr key={idx}>
 							{this.props.stockDetailsColumns.map((column, columnIdx) => {
+								let right = null;
+								if(column.id === 'qty') right = 'align-right'
+								if(column.id === 'weight') right = 'align-right'
+								if(column.id === 'pallet') right = 'align-right'
+								if(column.id === 'price') right = 'align-right'
 								return (
 									
-									<td key={columnIdx} className="px-3 text-left" width={(column.width ? column.width : '')}>
+									<td key={columnIdx} className={`px-3 text-left ${right}`} width={(column.width ? column.width : '')}>
 										{column.id === "effective_date" ? formatDate(item[column.key]) : item[column.key]}
 									</td>
 								)

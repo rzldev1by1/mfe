@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import swal from 'sweetalert'
 import Authentication from '../../../Auth/Authentication'
-import Logo from '../../../assets/img/brand/LOGO.png'
+import Logo from '../../../assets/img/brand/microlistics-new-logo.png'
 import {Card, CardBody} from 'reactstrap';
 // import videobg from '../../assets/img/brand/microlisticsvideos.mp4'
 

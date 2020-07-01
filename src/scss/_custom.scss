@@ -39,6 +39,11 @@
 }
 
 @font-face {
+  font-family: 'Rubik Medium';
+  src: url('../assets//fonts//Rubik-Medium.ttf');
+}
+
+@font-face {
   font-family: 'icomoon';
   src: url('./logo/fonts/icomoon.eot?t60pg3');
   src: url('./logo/fonts/icomoon.eot?t60pg3#iefix') format('embedded-opentype'),
@@ -62,7 +67,7 @@
 
 body {
   background-color: #e9eced;
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
   color: #637176;
   font-size: 15px;
 }
@@ -357,7 +362,7 @@ h2 {
 @media (min-width: 992px) {
   .sidebar-fixed .sidebar {
     background: #2f275d 0% 0% no-repeat padding-box;
-    font-family: 'Helvetica Neue Medium';
+    font-family: 'Rubik Medium';
     width: 116px;
     //width: 95px;
   }
@@ -596,7 +601,7 @@ h2 {
   text-align: center;
   width: 230px;
   height: 35px;
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
   vertical-align: middle;
   line-height: 35px;
   text-decoration: none !important;
@@ -620,7 +625,7 @@ hr.border-header {
 
 .breadcrumb-item {
   font-size: 1.875rem;
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
 }
 
 .breadcrumb-item.active {
@@ -1158,13 +1163,13 @@ select_date_expandLabel {
 
 .primary-text {
   color: #b4b9bb;
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
   font-size: 1.25em;
 }
 
 .secondary-text {
   color: #1f3334;
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
   font-size: 1.25em;
 }
 
@@ -1190,7 +1195,7 @@ select_date_expandLabel {
 
 .nav-tabs {
   border-bottom: none;
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
 }
 
 .nav-tabs .nav-link.nav-link-cust {
@@ -1418,12 +1423,12 @@ th.iconU-edit {
 }
 
 .text-button {
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
   font-size: 1.25em;
 }
 
 .font-modal-title {
-  font-family: 'Helvetica Neue Medium' !important;
+  font-family: 'Rubik Medium' !important;
   font-size: 1.5em;
   cursor: pointer;
   margin-top: 1%;
@@ -1457,7 +1462,7 @@ th.iconU-edit {
 }
 
 .font {
-  font-family: 'Helvetica Neue Medium' !important;
+  font-family: 'Rubik Medium' !important;
   font-size: 1.5em;
   cursor: pointer;
   margin-top: 1%;
@@ -1674,7 +1679,7 @@ th.iconU-edit {
 
 .norm {
   //font default
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
   color: #969ea1 !important;
   font-size: 12px;
 }
@@ -1926,7 +1931,7 @@ th.iconU-edit {
   + .select_dropdown_closeLabel
   + .select_dropdown_options
   .select_dropdown_label:hover {
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
   background-color: #f6f7f9;
 }
 
@@ -2342,6 +2347,16 @@ th {
 }
 
 .align-right{
-  text-align: right;
+  text-align: right !important;
   padding-right:1rem;
+}
+
+.logo-vertical{
+  width: 7rem;
+  transform: rotate(90deg);
+}
+
+.vertical-logo{
+  margin-top: 4rem;
+  margin-bottom: 3.5rem;
 }
