@@ -1,16 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import {
-        CButton,
-        CCard,
-        CCardBody,
-        CRow,
-        CCol,
-                  } from '@coreui/react'
+import { CButton, CCard, CCardBody, CRow, CCol,} from '@coreui/react'
 import Select from 'react-select'
 import { FaPencilAlt } from 'react-icons/fa'
 import { IoIosArrowDown } from 'react-icons/io'
+import endpoints from 'helpers/endpoints'
 import { endpoint, headers } from "../../pages/StockHolding/Endpoint/ConfigEndpoint";
 import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
@@ -22,7 +17,7 @@ const columns = [
   { accessor: 'product_name', Header: 'Description', sortable: true  },
   { accessor: 'disposition', Header: 'Disposition', sortable: true },
   { accessor: 'packdesc_1', Header: 'UOM', sortable: true },
-  { accessor: 'status', Header: 'Status', sortable: true },
+  { accessor: 'status', Header: ' Status ', sortable: true },
   { accessor: 'on_hand_qty', Header: 'Stock on Hand', sortable: true },
   { accessor: 'expected_in_qty', Header: 'Expected In Qty', sortable: true },
   { accessor: 'expected_in_wty', Header: 'Expected In Wty', sortable: true },
@@ -66,20 +61,19 @@ class StockHolding extends React.PureComponent {
   }
 
   getSite = async () => {
-    const { data } = await axios.get("/dropdown/getsite")
+    const { data } = await axios.get(endpoints.getSite)
     const siteData = data.map(d => ({ value: d.site, label: `${d.site} : ${d.name}` }))
     const site = { value: 'all', label: 'All Site' }
     siteData.splice(0, 0, site)
     this.setState({ siteData })
   }
   getClient = async () => {
-    const { data } = await axios.get("/dropdown/getclient")
+    const { data } = await axios.get(endpoints.getClient)
     const clientData = data.map(d => ({ value: d.code, label: `${d.code} : ${d.name}` }))
     const client = { value: 'all', label: 'All Client' }
     clientData.splice(0, 0, client)
     this.setState({ clientData })
   }
-
   getStatus = async () => {
     const status = { value: 'all', label: 'All Status' }
     const statusData = [
@@ -98,8 +92,7 @@ class StockHolding extends React.PureComponent {
     urls.push('site=' + (site ? site.value : 'all'))
     urls.push('client=' + (client ? client.value : 'all'))
     urls.push('orderType=' + (orderType ? orderType.value : 'all'))
-    let param = '?'
-    const { data } =     axios.get(endpoint.stockHoldingSummary + param + urls.join('&'), {
+    const { data } =     axios.get(`/stockholding?` + urls.join('&'), {
                           headers: headers
                         })
                         .then((res) => {
@@ -126,7 +119,7 @@ class StockHolding extends React.PureComponent {
   }
 
   showDetails = (item) => {
-    const url = '/stock-holding/' + item.client + '/' + item.site + '/' + item.orderno
+    const url = '/stock-holding/' + item.client + '/' + item.site + '/' + item.product
     this.props.history.push(url)
   }
 
