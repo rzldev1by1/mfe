@@ -301,14 +301,14 @@ h2 {
   content: '\e106';
 }
 
-@media (min-width: 992px) {
-  .sidebar-lg-show.sidebar-fixed .main,
-  .sidebar-lg-show.sidebar-fixed .app-footer,
-  .sidebar-show.sidebar-fixed .main,
-  .sidebar-show.sidebar-fixed .app-footer {
-    margin-left: 140px !important;
-  }
-}
+// @media (min-width: 992px) {
+//   .sidebar-lg-show.sidebar-fixed .main,
+//   .sidebar-lg-show.sidebar-fixed .app-footer,
+//   .sidebar-show.sidebar-fixed .main,
+//   .sidebar-show.sidebar-fixed .app-footer {
+//     margin-left: 140px !important;
+//   }
+// }
 
 .form-control:disabled {
   border: 2px solid #e8e8e8 !important;
@@ -360,6 +360,14 @@ h2 {
 
 // Start - Sidebar
 @media (min-width: 992px) {
+
+  .sidebar-lg-show.sidebar-fixed .main,
+  .sidebar-lg-show.sidebar-fixed .app-footer,
+  .sidebar-show.sidebar-fixed .main,
+  .sidebar-show.sidebar-fixed .app-footer {
+    margin-left: 140px !important;
+  }
+
   .sidebar-fixed .sidebar {
     background: #2f275d 0% 0% no-repeat padding-box;
     font-family: 'Rubik Medium';
@@ -2317,32 +2325,20 @@ th {
   margin-left: 2px;
 }
 
-@media(min-width:500px) and (max-width:1199px){
-  .stock-holding-table.defaultTable th{
-    font-size: 8px;
-  }
-
-  .stock-holding-table.defaultTable td{
-    font-size: 8px;
+@media(min-width:500px) and (max-width:1023px){
+  .defaultTable{
+    width:140%;
   }
 }
 
-@media(min-width:1200px) and (max-width:1499px){
-  .stock-holding-table.defaultTable th{
-    font-size: 9px;
-  }
-
-  .stock-holding-table.defaultTable td{
-    font-size: 9px;
+@media(min-width:1024px) and (max-width:1439px){
+  .defaultTable{
+    width:120%;
   }
 }
-@media(min-width:1500px) and (max-width:1800px){
-  .stock-holding-table.defaultTable th{
-    font-size: 12px;
-  }
-
-  .stock-holding-table.defaultTable td{
-    font-size: 12px;
+@media(min-width:1440px) and (max-width:1800px){
+  .defaultTable{
+    width:100%;
   }
 }
 
