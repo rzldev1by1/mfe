@@ -161,7 +161,8 @@ button:focus {
 /* icomoon start */
 @font-face {
   font-family: "icomoon";
-  src: url("../fonts/icomoon.eot?t60pg3");
+  src: url("../fonts/icomoon.eot?t60pg3"),
+    url("../fonts/stockageprofile/icomoon.eot?t60pg3");
   src: url("../fonts/icomoon.eot?t60pg3#iefix") format("embedded-opentype"),
     url("../fonts/icomoon.ttf?t60pg3") format("truetype"),
     url("../fonts/icomoon.woff?t60pg3") format("woff"),
@@ -169,6 +170,19 @@ button:focus {
   font-weight: normal;
   font-style: normal;
 }
+
+// @font-face {
+//   font-family: "stockageprofile";
+//   src: url("../fonts/stockageprofile/icomoon.eot?t60pg3");
+//   src: url("../fonts/stockageprofile/icomoon.eot?t60pg3#iefix")
+//       format("embedded-opentype"),
+//     url("../fonts/stockageprofile/icomoon.ttf?t60pg3") format("truetype"),
+//     url("../fonts/stockageprofile/icomoon.woff?t60pg3") format("woff"),
+//     url("../fonts/stockageprofile/icomoon.svg?t60pg3#icomoon") format("svg");
+//   font-weight: normal;
+//   font-style: normal;
+// }
+
 [class^="iconU-"],
 [class*=" iconU-"] {
   font-family: "icomoon" !important;
@@ -181,6 +195,9 @@ button:focus {
 }
 .iconU-stockMovement:before {
   content: "\e90e";
+}
+.iconU-stockAgeProfile:before {
+  content: "\e900 ";
 }
 .iconU-user:before {
   content: "\e910";

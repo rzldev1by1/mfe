@@ -15,6 +15,13 @@ export default [
   },
   {
     _tag: 'CSidebarNavItem',
+    name: 'STOCK AGE PROFILE',
+    to: '/stock-age-profile',
+    icon: 'iconU-stockAgeProfile',
+    key: "menu_inventory_stkAgeProfile"
+  },
+  {
+    _tag: 'CSidebarNavItem',
     name: 'PURCHASE ORDERS',
     to: '/purchase-order',
     icon: 'iconU-purchaseOrder',
