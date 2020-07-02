@@ -71,6 +71,17 @@ class Movement extends Component {
         this.pushTable()
     }
 
+    unAuthorizeAAccess = (error) => {
+        if(error.response !== undefined)
+        {
+            const errorCode = error.response.status
+		if(errorCode === 401)
+			this.props.history.push('/login');
+		else if(errorCode === 400)
+			this.props.history.push('/login');
+        }
+	}
+
     getData = async (start, end, period, site = "", client = "", product = "") => {
         try {
             this.props.isComplete(false)
@@ -94,7 +105,7 @@ class Movement extends Component {
                 length_detail: res.data.data[0].detail
             })    
         } catch (error) {
-            console.log(error)
+            this.unAuthorizeAAccess(error)
         }
     }
 

@@ -233,6 +233,13 @@ class PurchaseOrderTable extends Component {
     return this.state.tableheader;
   }
 
+  unAuthorizeAAccess = (error) => {
+		const errorCode = error.response.status
+		if(errorCode === 401)
+			this.props.history.push('/login');
+		else if(errorCode === 400)
+			this.props.history.push('/login');
+	}
 
   loadPurchaseOrder = (page) => {
     this.setState({
@@ -254,7 +261,7 @@ class PurchaseOrderTable extends Component {
         this.defaultSort("site", "client", "order_no")
       })
       .catch(error => {
-
+        this.unAuthorizeAAccess(error)
       })
   }
 

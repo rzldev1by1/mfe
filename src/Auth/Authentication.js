@@ -28,6 +28,7 @@ class Authentication {
 		}
 		// userDetails["expiredDate"] = moment().add(1, 'minutes');
 		// userDetails["now"] = new Date();
+		console.log(userDetails.token)
 		localStorage.setItem("user", JSON.stringify(userDetails));
 	}
 
@@ -199,7 +200,6 @@ class Authentication {
                 //     result.message = res.data.error.message;
                 //     return result;
                 // }
-
                 if (res.data) {
 
 
@@ -208,9 +208,9 @@ class Authentication {
 										// let accessMenu = menuItems.length ? menuItems[0].url:"/Welcome";
 										let accessMenu = "/Welcome";
 
-
+										console.log(res.data)
                     result.isSuccess = true;
-										result.url = accessMenu;
+					result.url = accessMenu;
                     Authentication.setAuthenticate(res.data);
                     // return this.renewToken();
                     return result;
