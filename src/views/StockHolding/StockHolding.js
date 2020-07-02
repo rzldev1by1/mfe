@@ -118,9 +118,10 @@ class StockHolding extends Component {
 	}
 
 	unAuthorizeAAccess = (error) => {
-		if(error.status === 401)
+		const errorCode = error.response.status
+		if(errorCode === 401)
 			this.props.history.push('/login');
-		else if(error.status === 400)
+		else if(errorCode === 400)
 			this.props.history.push('/login');
 	}
 
@@ -178,7 +179,7 @@ class StockHolding extends Component {
 		})
 			.then(res => {
 				
-				return res.data;
+				return res;
 			})
 			.catch(function (error) {
 				self.unAuthorizeAAccess(error);
@@ -192,12 +193,15 @@ class StockHolding extends Component {
 				return error;
 			})
 			.then(function (result) {
-				
-				if (result.data.data) {					
-					self.setPagination(result.data.data);
+				if (result.data !== undefined) {					
+					self.setPagination(result.data.data.data);
+					// self.setState({ isLoaded: false, isSearch: false });
+				self.setState({ isLoaded: false, isSearch: false, main:result.data, masterResStockHolding:result.data.data.data, displayContent:"FOUND"});
 				}
-				// self.setState({ isLoaded: false, isSearch: false });
-				self.setState({ isLoaded: false, isSearch: false, main:result.data, masterResStockHolding:result.data.data, displayContent:"FOUND"});
+				else{
+					self.unAuthorizeAAccess(result);
+				}
+				
 			});
 	}
 
