@@ -365,7 +365,7 @@ export default class MovementSearch extends Component {
 
                                     <div className='searchParameterTitleDate' style={{marginLeft: "2%", marginRight: "2%"}}>To</div>
                                     <DatePicker style={{ minWidth: '40%' }}
-                                        getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
+                                        getDate={(e) => { this.setState({ dateToSelected: e.toString() })}}
                                         defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date"
                                     />  
                                 </div>
