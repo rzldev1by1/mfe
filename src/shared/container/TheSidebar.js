@@ -6,7 +6,7 @@ import {
   // CSidebarBrand,
   CSidebarNav,
 } from '@coreui/react'
-import Logo from 'assets/img/LOGO2.png'
+import Logo from 'assets/img/logo-white.png'
 import UserIcon from 'assets/img/User-Icon.png';
 import navigation from './_nav'
 import './TheSidebar.css'
@@ -33,7 +33,7 @@ const TheSidebar = () => {
       </CSidebarBrand> */}
       <CSidebarNav>
         <li className="c-sidebar-item my-2">
-          <Link to="/"><img src={Logo} height="40" alt="logo" /></Link>
+          <Link to="/"><img src={Logo} height="35" alt="logo" /></Link>
         </li>
         <li className="c-sidebar-item my-2 mb-4 logo-text">
           MICROLISTICS

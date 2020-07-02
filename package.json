@@ -50,6 +50,7 @@
     "react-redux": "7.2.0",
     "react-router-dom": "^5.2.0",
     "react-select": "^3.1.0",
+    "react-table-hoc-fixed-columns": "^2.3.1",
     "react-table-v6": "^6.8.6",
     "react-text-mask-hoc": "^0.11.0",
     "redux-devtools-extension": "^2.13.8",

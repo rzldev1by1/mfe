@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import endpoints from 'helpers/endpoints'
 import moment from 'moment'
 import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react'
 import Select from 'react-select'
 import { IoIosArrowDown } from 'react-icons/io'
+
+import endpoints from 'helpers/endpoints'
 import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
 import SalesOrderCreate from './SalesOrderCreate'
@@ -13,34 +14,34 @@ import SalesOrderCreate from './SalesOrderCreate'
 import './SalesOrder.css'
 
 const columns = [
-  { accessor: 'site', Header: 'Site', sortable: true },
-  { accessor: 'client', Header: 'Client', sortable: true },
-  { accessor: 'orderno', Header: 'Order No', sortable: true },
-  { accessor: 'ordertype', Header: 'Order Type', sortable: true },
-  { accessor: 'task', Header: 'Task', sortable: true },
-  { accessor: 'customername', Header: 'Customer', sortable: true },
-  { accessor: 'status', Header: 'Status', sortable: true },
-  { accessor: 'deliverydate', Header: 'Delivery Date', sortable: true },
-  { accessor: 'datereceived', Header: 'Date Received', sortable: true },
-  { accessor: 'datereleased', Header: 'Date Released', sortable: true },
-  { accessor: 'datecompleted', Header: 'Date Completed', sortable: true },
-  { accessor: 'customerpono', Header: 'Customer PO'},
-  { accessor: 'vendororderno', Header: 'Vendor Order No'},
-  { accessor: 'address1', Header: 'Address1'},
-  { accessor: 'address2', Header: 'Address2'},
-  { accessor: 'address3', Header: 'Address3'},
-  { accessor: 'address4', Header: 'Address4'},
-  { accessor: 'address5', Header: 'Address5'},
-  { accessor: 'suburb', Header: 'Suburb'},
-  { accessor: 'postcode', Header: 'Postcode'},
-  { accessor: 'state', Header: 'State'},
-  { accessor: 'country', Header: 'Country'},
-  { accessor: 'loadnumber', Header: 'Load Number'},
-  { accessor: 'loadoutstart', Header: 'Load Start'},
-  { accessor: 'loadoutfinish', Header: 'Load Finish'},
-  { accessor: 'consignmentno', Header: 'Consignment No'},
-  { accessor: 'freightcharge', Header: 'Freight Charge'},
-  { accessor: 'customer', Header: 'Customer Code'},
+  { accessor: 'site', Header: 'Site', width: 50 },
+  { accessor: 'client', Header: 'Client', width: 100 },
+  { accessor: 'orderno', Header: 'Order No', width: 100 },
+  { accessor: 'ordertype', Header: 'Order Type', width: 120 },
+  { accessor: 'task', Header: 'Task', width: 100 },
+  { accessor: 'customername', Header: 'Customer', width: 250 },
+  { accessor: 'status', Header: 'Status', width: 120 },
+  { accessor: 'deliverydate', Header: 'Delivery Date', width: 120 },
+  { accessor: 'datereceived', Header: 'Date Received', width: 120 },
+  { accessor: 'datereleased', Header: 'Date Released', width: 120 },
+  { accessor: 'datecompleted', Header: 'Date Completed', width: 120 },
+  { accessor: 'customerpono', Header: 'Customer PO' },
+  { accessor: 'vendororderno', Header: 'Vendor Order No' },
+  { accessor: 'address1', Header: 'Address1' },
+  { accessor: 'address2', Header: 'Address2' },
+  { accessor: 'address3', Header: 'Address3' },
+  { accessor: 'address4', Header: 'Address4' },
+  { accessor: 'address5', Header: 'Address5' },
+  { accessor: 'suburb', Header: 'Suburb' },
+  { accessor: 'postcode', Header: 'Postcode' },
+  { accessor: 'state', Header: 'State' },
+  { accessor: 'country', Header: 'Country' },
+  { accessor: 'loadnumber', Header: 'Load Number' },
+  { accessor: 'loadoutstart', Header: 'Load Start' },
+  { accessor: 'loadoutfinish', Header: 'Load Finish' },
+  { accessor: 'consignmentno', Header: 'Consignment No' },
+  { accessor: 'freightcharge', Header: 'Freight Charge' },
+  { accessor: 'customer', Header: 'Customer Code' },
 ]
 class SalesOrder extends React.PureComponent {
   state = {
@@ -54,7 +55,7 @@ class SalesOrder extends React.PureComponent {
     fields: columns,
     data: [],
     pagination: {},
-    create: true,
+    create: false,
     detail: {},
     dimension: { width: 0, height: 0 }
   }
@@ -67,7 +68,6 @@ class SalesOrder extends React.PureComponent {
     this.getClient()
     this.getStatus()
     this.getResources()
-    this.getProduct()
     this.searchSalesOrder()
   }
   componentWillUnmount() {
@@ -124,11 +124,6 @@ class SalesOrder extends React.PureComponent {
       this.setState({ resources: data, orderTypeData })
     }
   }
-  getProduct = async () => {
-    // const { user } = this.props.store
-    // const { data } = await axios.get(`/dropdown/getProduct?client=${user.client}`)
-    // console.log(data)
-  }
   searchSalesOrder = async () => {
     let { search, site, client, orderType, task, pagination } = this.state
     let urls = []
@@ -138,7 +133,7 @@ class SalesOrder extends React.PureComponent {
     urls.push('orderType=' + (orderType ? orderType.value : 'all'))
     urls.push('page=' + (pagination.active || 1))
     console.log('load sales order', urls.join('&'), task)
-    const { data } = await axios.get(`/salesorder?` + urls.join('&'))
+    const { data } = await axios.get(`${endpoints.salesOrder}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
         m.deliverydate = moment(m.deliverydate).format('DD/MM/YYYY')
@@ -174,11 +169,10 @@ class SalesOrder extends React.PureComponent {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData, taskData
     } = this.state
-    console.log(pagination)
     return <div className="sales-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Sales Orders', active: true }]}
-        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right">Create Sales Order</CButton>}
+        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right px-3">Create Sales Order</CButton>}
       />
 
       <CCard>

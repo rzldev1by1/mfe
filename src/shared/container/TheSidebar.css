@@ -14,7 +14,7 @@
   writing-mode: vertical-lr;
   text-orientation: mixed;
   margin: 0 auto;
-  font-size: 12px;
+  font-size: 120% !important;
 }
 
 .c-sidebar,
