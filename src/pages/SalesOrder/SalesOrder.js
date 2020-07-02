@@ -81,7 +81,7 @@ class SalesOrder extends React.PureComponent {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - 116) * 0.83
+    const height = (window.innerHeight - 116) * 0.87
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {
