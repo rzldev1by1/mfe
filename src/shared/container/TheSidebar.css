@@ -3,6 +3,12 @@
   .c-wrapper {
     margin-left: 100px !important;
   }
+  .logo-text{
+    margin-bottom: 30px !important;
+  }
+  .sidebar-nav-menu .c-sidebar-item{
+    padding: 10px 0;
+  }
 }
 @media (max-width: 768px) {
   .logo-text {
@@ -13,14 +19,17 @@
 .logo-text {
   writing-mode: vertical-lr;
   text-orientation: mixed;
+  font-size: 120% !important;
   margin: 0 auto;
-  font-size: 12px;
 }
 
+.c-sidebar-nav-icon{
+  font-size: 200% !important;
+}
 .c-sidebar,
 .c-sidebar-unfoldable:not(:hover).c-sidebar-lg-show {
   width: 100px;
-  background-color: #2f295c;
+  background-color: #2d1b46;
   font-size: 14px;
 }
 .c-sidebar li {
@@ -29,18 +38,13 @@
 .c-sidebar li a {
   text-decoration: none;
 }
-.c-sidebar-item {
+
+.sidebar-nav-menu .c-sidebar-item {
   text-align: center;
   cursor: pointer;
   font-size: 11px;
 }
-.c-sidebar-item div {
-  visibility: hidden;
-}
-.c-sidebar-item:hover div {
-  visibility: visible;
-}
-.c-sidebar-item.links {
+.sidebar-nav-menu .c-sidebar-item.links {
   word-spacing: 100px;
 }
 

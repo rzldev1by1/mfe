@@ -22,7 +22,7 @@ const TheHeader = (props) => {
 
   const toggleSidebarMobile = () => {
     const val = [false, 'responsive'].includes(sidebarShow) ? true : 'responsive'
-    dispatch({ type: 'set', sidebarShow: val })
+    dispatch({ type: 'SIDEBAR', data: val })
   }
 
   return (
@@ -34,7 +34,7 @@ const TheHeader = (props) => {
         inHeader
         title="Toggle Light/Dark Mode"
         className="ml-3 d-lg-none"
-        onClick={() => dispatch({ type: 'set', darkMode: !darkMode })}
+        onClick={() => dispatch({ type: 'DARKMODE', data: !darkMode })}
       >
         <CIcon name="cil-moon" className="c-d-dark-none" alt="CoreUI Icons Moon" />
         <CIcon name="cil-sun" className="c-d-default-none" alt="CoreUI Icons Sun" />
@@ -58,7 +58,7 @@ const TheHeader = (props) => {
           inHeader
           title="Toggle Light/Dark Mode"
           className="ml-3"
-          onClick={() => dispatch({ type: 'set', darkMode: !darkMode })}
+          onClick={() => dispatch({ type: 'DARKMODE', data: !darkMode })}
         >
           <CIcon name="cil-moon" className="c-d-dark-none" alt="CoreUI Icons Moon" />
           <CIcon name="cil-sun" className="c-d-default-none" alt="CoreUI Icons Sun" />
