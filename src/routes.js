@@ -24,6 +24,7 @@ const routes = [
 	// { path: '/purchaseorder/:client/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrderDetail },
 	// { path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
 
+	// { path: '/users-management', exact: true, name: 'User Management', component: UserManagement },
 	{ path: '/stock-age-profile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
 	// { path: '/users-management/:id/detail', exact: true, name: 'User Management', component: UsersManagementDetail },
 	// { path: '/users-management/create', exact: true, name: 'User Management', component: UsersManagementCreate },
