@@ -14,11 +14,11 @@ const getColumnWidth = (rows, accessor, headerText) => {
     ...rows.map(row => {
       let value = '';
       if (typeof accessor === 'string') {
-        value = _.get(row, accessor);
-        
+        value = _.get(row, accessor);  
       } else {
         value = accessor(row);
       }
+
       
       if (typeof value === 'number') return value.toString().length;
       return (value || '').length;
