@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import swal from 'sweetalert'
 import Authentication from '../../../Auth/Authentication'
-import Logo from '../../../assets/img/brand/LOGO.png'
+import Logo from '../../../assets/img/brand/microlistics-new-logo.png'
 import {Card, CardBody} from 'reactstrap';
 // import videobg from '../../assets/img/brand/microlisticsvideos.mp4'
 
@@ -35,7 +35,8 @@ class Logins extends Component {
                 const auth = new Authentication()
                 auth.authenticationHandler(payload).then(result => {
                     if (result.isSuccess) {
-                        this.props.history.push(result.url)
+                        window.location.href = ''
+                        // this.props.history.push(result.url)
                         // this.props.history.push("/stock/stockholding")
                         return
                     } else {

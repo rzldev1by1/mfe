@@ -34,7 +34,7 @@ const toMonth = new Date(currentYear + 10, 11);
       borderColor: "#E9ECED"
     };
     return (
-      <div className={className} style={{marginTop: "14px", marginLeft: "19px", marginRight: "19px"}}>
+      <div className={className} style={{marginTop: "14px", marginLeft: "19px", marginRight: "19px", position: "relative"}}>
         <Button color="secondary" style={styleLeft} onClick={() => onPreviousClick()}>
             <i className="iconU-leftArrow" style={{ fontSize: "10px" }}></i>
         </Button>

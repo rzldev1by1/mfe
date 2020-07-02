@@ -297,7 +297,7 @@ export default class MovementSearch extends Component {
                         optionList={siteData.toString()}
                         optionValue={siteValue.toString()}
                         getValue={this.getSiteSelected.bind(this)}
-                        style={{width: "31%"}} />
+                        style={{width: "30%"}} />
 				) : (
 						<input
 						readOnly
@@ -306,7 +306,7 @@ export default class MovementSearch extends Component {
 						className="form-control put"
 						placeholder="Site"
                         tabIndex='1'
-                        style={{width: "31%",marginRight:'1em'}}
+                        style={{width: "30%",marginRight:'1em'}}
 						/>
 				)}
  
@@ -316,7 +316,7 @@ export default class MovementSearch extends Component {
                     optionList={clientName.toString()}
                     optionValue={clientValue.toString()}
                     getValue={this.getClientSelected.bind(this)}
-                    style={{width: "31%",marginRight:'1em'}}  />
+                    style={{width: "30%",marginRight:'1em'}}  />
                 ) : (
                     <input
                     readOnly
@@ -325,7 +325,7 @@ export default class MovementSearch extends Component {
                     className="form-control put "
                     placeholder="Site"
                     tabIndex='1'
-                    style={{width: "31%",marginRight:'1em'}}
+                    style={{width: "30%",marginRight:'1em'}}
                     />
                 )}
                 
@@ -335,7 +335,7 @@ export default class MovementSearch extends Component {
                     optionValue={productValue.toString()}
                     getValue={this.getProductSelected.bind(this)}
                     tabIndex="2" uppercase={true} 
-                    style={{width: "38%"}}
+                    style={{width: "40%"}}
                     />
             </React.Fragment>
         )
@@ -355,7 +355,7 @@ export default class MovementSearch extends Component {
                             {/* <div className="col-4">
                                 {this.displayDate()}
                             </div> */}
-                            <div className="col-sm-5">
+                            <div className="col-sm-4">
                                 <div className='displayParent middles'>
                                     <div className='searchParameterTitleDate' style={{marginRight: "2%"}}>Date From</div>
                                     <DatePicker style={{ minWidth: '40%' }}
@@ -369,28 +369,10 @@ export default class MovementSearch extends Component {
                                         defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date"
                                     />  
                                 </div>
-                            </div>
-                            {/* <div className="col-2 list-inline">
-                                <div className='searchParameterTitleDate' style={{marginRight: 0}}>Date From</div>
-                                <DatePicker style={{ minWidth: '100%' }}
-                                    getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
-                                    defaultValue={this.state.dateFromSelected} tabIndex="1" placeHolder="Select Date"
-                                />
-                            </div>
-                            <div className="col-2 list-inline">
-                                <div className='searchParameterTitleDate' style={{marginRight: 0}}>To</div>
-                                <DatePicker style={{ minWidth: '100%' }}
-                                    getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
-                                    defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date"
-                                />
-                            </div> */}
-                                        
-                                    
-                                
-                            
-                            <div className="col-sm-4" style={{ display: 'flex', maxWidth: '37%', flex: '40%', paddingLeft: 0 }}>{this.showDropdowns()}</div>
-                            <div className="col-sm-1 " style={{position: 'absolute', right: 0}}>
-                                <Button onClick={() => this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>
+                            </div> 
+                            <div className="col-sm-5" style={{ display: 'flex', maxWidth: '37%', flex: '40%', paddingLeft: 0 }}>{this.showDropdowns()}</div>
+                            <div className="col-sm-1 " style={{flex: '0 0 10%', maxWidth:'10%'}} >
+                                <Button style={{width: '100%'}} onClick={() => this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>
                                 {/* <Button  style={{marginLeft : "15px", marginRight : "14px"}} onClick={()=> this.search()} className='movementBtnSearch default-box-height ' color="primary">Search</Button> */}
                             </div>
                         </div>
