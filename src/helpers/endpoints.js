@@ -1,8 +1,8 @@
 export default {
-  getSite: 'dropdown/getsite',
-  getClient: 'dropdown/getclient',
-  getIsisTask: 'dropdown/getIsisTask',
-  getProduct: 'dropdown/getProduct',
+  getSite: '/dropdown/getsite',
+  getClient: '/dropdown/getclient',
+  getIsisTask: '/dropdown/getIsisTask',
+  getProduct: '/dropdown/getProduct',
   getUom: "/dropdown/getuom",
   getDisposition: "/dropdown/getdisposition",
 
@@ -11,7 +11,7 @@ export default {
 
   stockHoldingSummary: "/stockholding",
   stockHoldingDetail: "/stockdetail/header/",
-  stockDetail: "stockdetail",
+  stockDetail: "/stockdetail",
   stockBalanceForecast: "/foreshadowedstockbalance/",
 
   stockMovement: "/stockmovement",
@@ -19,9 +19,9 @@ export default {
   purchaseOrder: "/purchaseOrder",
   purchaseOrderCreate: "/purchaseOrder/store",
 
-  salesOrder: 'salesorder',
-  getSoResources: 'getsorecources',
+  salesOrder: '/salesorder',
   salesOrderCreate: "/salesorder/store",
+  getSoResources: '/getsorecources',
 
   getOrderNo: "/dropdown/getorderno",
   getSupplier: "/dropdown/getsupplier",

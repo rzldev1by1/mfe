@@ -85,21 +85,19 @@ class CustomTable extends React.Component {
     header && header.map((h, index) => {
       if (!editColumn[index]) {
         let withIcon = <span className="text-light-gray">
-          {h.Header}
-          {h.sortable ?
-            <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+          {h.Header} {h.sortable === false ?
+            null : <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z"></path>
-            </svg> : null
+            </svg>
           }
         </span>
         let obj = {
           Header: withIcon,
           Cell: h.Cell,
           accessor: h.accessor,
-          sortable: h.sortable || false,
+          sortable: h.sortable === false ? false : true,
           resizable: h.resizable || false,
-          width: getColumnWidth(data, h.accessor, h.Header),
-          // width: h.Header.length * 15,
+          width: h.width || getColumnWidth(data, h.accessor, h.Header),
         }
         return listHeader = [...listHeader, obj]
       } else {

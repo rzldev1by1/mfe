@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-// import swal from 'sweetalert'
-import helpers from 'helpers'
-import Logo from 'assets/img/LOGO.png'
+// import helpers from 'helpers'
+import axios from 'axios'
+import Logo from 'assets/img/login-logo.png'
 // import videobg from 'assets/img/brand/microlisticsvideos.mp4'
 import './Login.css'
 
+const baseUrl = process.env.REACT_APP_API_URL;
+const version = process.env.REACT_APP_VERSION || ''
 class Logins extends Component {
     state = {
         formValidation: {
@@ -28,12 +30,18 @@ class Logins extends Component {
             const password = e.target.password.value
             if (username && password) {
                 const payload = { "userid": username, "password": password }
-                const result = await helpers.authenticationHandler(payload)
-                if (result.isSuccess) {
-                    this.props.dispatch({ type: 'LOGIN', data: result.data })
-                    this.props.history.push(result.redirect)
-                } else {
-                    errorMessage = result.message
+                // const result = await helpers.authenticationHandler(payload)
+                try {
+                    const { data } = await axios.post(baseUrl + "/usermanagement/login", payload)
+                    if (data) {
+                        this.props.dispatch({ type: 'LOGIN', data })
+                        this.props.history.push('/')
+                    }
+                } catch (error) {
+                    errorMessage = "Failed to process your request";
+                    if (error.response) {
+                        errorMessage = error.response.status ? "Username or password is not valid" : "Failed to process your request";
+                    }
                 }
                 this.setState({ isLoad: false, errorMessage, formValidation: { username: true, password: true } })
             }
@@ -64,24 +72,18 @@ class Logins extends Component {
                 this.setState({ emailValidation: false, isLoad: false })
             }
             this.setState({ isLoad: true })
-
-            helpers.requestResetPasswordHandler(payload).then(result => {
+            try {
+                const result = await axios.post(baseUrl + "/usermanagement/request_reset_password", payload)
                 if (result.status === 400) {
                     this.setState({ isLoad: false, errorMessage: result.message, emailValidation: false })
-                }
-                else {
+                } else {
                     this.hideErrorMessageHandler(errorMessage)
-                    // swal({
-                    //     title: "Request sent!",
-                    //     icon: "success",
-                    //     button: {
-                    //         text: "Ok",
-                    //         className: "btn btn-primary",
-                    //     },
-                    // });
-                    setTimeout(() => this.redirectPageHandler(), 1500)
+                    setTimeout(() => this.props.history.push('/'), 1500)
                 }
-            })
+            } catch (error) {
+                const errorMessage = error.response.data.message
+                this.setState({ isLoad: false, errorMessage })
+            }
         }
     }
 
@@ -248,6 +250,10 @@ class Logins extends Component {
         return (
             <div className="login">
                 <div className="container-fluid">
+                    <div className="offset-md-1 mb-4">
+                        <span className="text-white">{version}</span>
+                    </div>
+                    <br/>
                     <div className="card col-md-8 col-lg-4 offset-md-1">
                         <div className="card-body">
                             <img src={Logo} className="logo mb-2" alt="mlslogo" />
@@ -262,8 +268,8 @@ class Logins extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="copyright offset-md-1 mt-5">
-                        <a target='blank' href='https://www.microlistics.com.au/'>© Microlistics {new Date().getFullYear()}</a>
+                    <div className="offset-md-1 mt-5">
+                        <a className="text-white " target='blank' href='https://www.microlistics.com.au/'>© Microlistics {new Date().getFullYear()}</a>
                     </div>
                 </div>
             </div>
