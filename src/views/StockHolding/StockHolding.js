@@ -500,7 +500,7 @@ class StockHolding extends Component {
 		return (
 			<React.Fragment>
 				<HeaderTitle title="Stock Holding" />
-				Test
+				Test2
 				<div className="animated fadeIn app-container">
 					<div className="card w-100 mb-3">
 						<form ref={this.searchForm} onSubmit={e => { e.preventDefault(); this.searchData() }}>
