@@ -18,14 +18,13 @@ const getColumnWidth = (rows, accessor, headerText) => {
         
       } else {
         value = accessor(row);
-      }      
-
+      }
+      
       if (typeof value === 'number') return value.toString().length;
       return (value || '').length;
     }),
     headerText.length
   );
-  
   return cellLength * 12
 }
 
@@ -81,7 +80,6 @@ class CustomTable extends React.Component {
   }
 
   headerIcon = (data, header, editColumn) => {
-    console.log(editColumn)
     let listHeader = []
     header && header.map((h, index) => {
       if (!editColumn[index]) {
