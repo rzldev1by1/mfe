@@ -18,7 +18,6 @@ const getColumnWidth = (rows, accessor, headerText) => {
       } else {
         value = accessor(row);
       }
-      
       if (typeof value === 'number') return value.toString().length;
       return (value || '').length;
     }),
