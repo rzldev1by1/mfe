@@ -454,14 +454,14 @@ h2 {
 
 .sidebar .nav-name {
   color: white ;
-  //display: contents; 
+  //display: contents;
   opacity: 0 !important;
   transition: 0.3s;
 }
 .sidebar .nav-link.active,
 .nav-link.active  .nav-name {
   color: white ;
-  //display: contents; 
+  //display: contents;
   opacity: 1 !important;
   transition: 0.3s;
 }
@@ -484,12 +484,12 @@ h2 {
 .nav-link.active .nav-icon {
   // color: $primaryColor !important !important;
   background: #2f275d !important;
-  color: white !important; 
+  color: white !important;
 }
 
 //  .sidebar .nav-item:hover .nav-link.active .nav-icon,
-//  .sidebar .nav-item:hover .nav-link.active .nav-name { 
-//   color: white !important; 
+//  .sidebar .nav-item:hover .nav-link.active .nav-name {
+//   color: white !important;
 // }
 
 .sidebar-minimizer {
@@ -501,7 +501,7 @@ h2 {
 }
 
 .sideLogo {
-  width: 50%; 
+  width: 50%;
   margin-top: 10%;
   margin-bottom: 13%;
 }
@@ -520,7 +520,7 @@ h2 {
 }
 
 .profilePhoto {
-  width: 50%; 
+  width: 50%;
 }
 
 .divProfilePhoto {
@@ -533,7 +533,7 @@ h2 {
   padding-left: 45px !important;
   width: 110px;
 }
- 
+
 .divProfileText{
   padding-top: 10px;
   opacity: 0 !important;
@@ -579,11 +579,11 @@ h2 {
   // font-weight: bold;
   padding-top: 100px;
 }
- 
+
 
 .LogoutLink {
   color: white;
-  text-decoration: none; 
+  text-decoration: none;
   font-size: 12px;
 }
 
@@ -1067,6 +1067,7 @@ select_date_expandLabel {
 
 .tablePage::-webkit-scrollbar {
   width: 1px !important;
+  
 }
 
 .tablePage::-webkit-scrollbar-thumb {
@@ -1295,8 +1296,8 @@ span.upArrow:before {
 @media(max-width: 2750px) {
    /* //zoom 50% */
 	.tablePage{
-		max-height: 990px ; 
-		min-height: 990px ; 
+		max-height: 990px ;
+		min-height: 990px ;
 	}
 }
 
@@ -1305,7 +1306,7 @@ span.upArrow:before {
   .tablePage {
 		//max-height: 100vh;
     max-height: 680px;
-		min-height: 680px; 
+		min-height: 680px;
   }
 }
 @media (max-width: 1830px) {
@@ -1313,10 +1314,10 @@ span.upArrow:before {
   .tablePage{
 		//max-height: 100vh;
 		max-height: 580px;
-		min-height: 580px; 
+		min-height: 580px;
   }
-  
- 
+
+
 
 }
 @media (max-width: 1710px) {
@@ -1324,7 +1325,7 @@ span.upArrow:before {
   .tablePage {
 		//max-height: 100vh;
 		max-height: 525px;
-		min-height: 525px; 
+		min-height: 525px;
   }
 }
 @media (max-width: 1520px) {
@@ -1332,7 +1333,7 @@ span.upArrow:before {
   .tablePage {
 		//max-height: 100vh;
 		max-height: 440px;
-		min-height: 440px; 
+		min-height: 440px;
   }
 }
 @media (max-width: 1366px) {
@@ -1340,7 +1341,7 @@ span.upArrow:before {
   .tablePage {
 		//max-height: 100vh;
 		max-height: 370px;
-		min-height: 370px; 
+		min-height: 370px;
   }
 }
 @media (max-width: 1242px) {
@@ -1348,7 +1349,7 @@ span.upArrow:before {
   .tablePage {
     //max-height: 100vh;
     max-height: 310px;
-		min-height: 310px; 
+		min-height: 310px;
   }
 }
 @media (max-width: 1000px) {
@@ -1365,6 +1366,7 @@ span.upArrow:before {
 
 .tablePage::-webkit-scrollbar {
   width: 8px !important;
+  height: 8px !important;
 }
 
 .tablePage::-webkit-scrollbar-thumb {
@@ -2342,14 +2344,14 @@ th {
 @media(min-width:1500px) and (max-width:1799px){
   .defaultTable.stockholding-summary{
     width:130%;
-  }  
+  }
 }
 
 @media(min-width:1800px){
   .defaultTable.stockholding-summary{
     width:100%;
   }
-  
+
 }
 
 .align-right{
