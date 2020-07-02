@@ -1074,7 +1074,6 @@ select_date_expandLabel {
   border-radius: 5px;
 }
 
-
 .tablecontent {
   margin-top: 1rem;
   padding: 1px;
@@ -2340,11 +2339,18 @@ th {
     width:120%;
   }
 }
-// @media(min-width:1440px) and (max-width:1800px){
-//   .defaultTable{
-//     width:100%;
-//   }
-// }
+@media(min-width:1500px) and (max-width:1799px){
+  .defaultTable.stockholding-summary{
+    width:130%;
+  }  
+}
+
+@media(min-width:1800px){
+  .defaultTable.stockholding-summary{
+    width:100%;
+  }
+  
+}
 
 .align-right{
   text-align: right !important;
