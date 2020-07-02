@@ -17,7 +17,7 @@ const getColumnWidth = (rows, accessor, headerText) => {
         value = _.get(row, accessor);
         
       } else {
-        value = accessor(row);        
+        value = accessor(row);
       }      
 
       if (typeof value === 'number') return value.toString().length;
@@ -120,7 +120,7 @@ class CustomTable extends React.Component {
   }
 
   render() {
-    const { showModal, editColumn, editColumnTemp } = this.state    
+    const { showModal, editColumn, editColumnTemp } = this.state
     let { title, data, fields, onClick, height, pagination } = this.props
     const headerIcon = this.headerIcon(data, fields, editColumnTemp)
     return (
