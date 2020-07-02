@@ -295,6 +295,14 @@ class UserManagement extends Component {
       return null;
   }
 
+  unAuthorizeAAccess = (error) => {
+		const errorCode = error.response.status
+		if(errorCode === 401)
+			this.props.history.push('/login');
+		else if(errorCode === 400)
+			this.props.history.push('/login');
+	}
+
   loadUsers = (page) => {
     var self = this;
     let url = '?'
@@ -322,10 +330,7 @@ class UserManagement extends Component {
         return result;
       })
       .catch(error => {
-
-      })
-      .then((result) => {
-
+        this.unAuthorizeAAccess(error)
       })
   }
 
