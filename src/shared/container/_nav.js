@@ -17,7 +17,7 @@ export default [
     _tag: 'CSidebarNavItem',
     name: 'STOCK AGE PROFILE',
     to: '/stock-age-profile',
-    icon: 'iconU-stockAgeProfile',
+    icon: 'stockageprofile-stockAgeProfile',
     key: "menu_inventory_stkAgeProfile"
   },
   {

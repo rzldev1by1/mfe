@@ -124,6 +124,7 @@ class SalesOrder extends React.PureComponent {
     const { user } = this.props.store
     if (user) {
       const { data } = await axios.get(`/getsorecources?company=${user.company}&client=${user.client}`)
+      console.log(data)
       const { code, name } = data.orderType
       const orderTypeData = code.map((c, i) => ({ value: c, label: `${code[i]}: ${name[i]}` }))
       const orderType = { value: 'all', label: 'All' }
@@ -146,6 +147,8 @@ class SalesOrder extends React.PureComponent {
     urls.push('page=' + (pagination.active || 1))
     console.log('load sales order', urls.join('&'), task)
     const { data } = await axios.get(`/salesorder?` + urls.join('&'))
+    console.log(urls.join('&'))
+    console.log(data)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
         m.deliverydate = moment(m.deliverydate).format('DD/MM/YYYY')
