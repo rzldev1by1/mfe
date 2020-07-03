@@ -12,7 +12,8 @@
   cursor: pointer;
 }
 .login .logo {
-  width: 100px;
+  width: 250px;
+  margin-left: -1.5rem;
 }
 .login .card-body {
   padding: 30px !important;

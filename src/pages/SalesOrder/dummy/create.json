@@ -1,0 +1,44 @@
+{
+  "header": {
+    "company": "",
+    "site": "A: Australis A",
+    "siteVal": "A",
+    "client": "AESOP",
+    "clientName": "AESOP ( Aesop,,,,,,,,,, )",
+    "orderId": "12345",
+    "customerOrderRef": null,
+    "vendorOrderRef": null,
+    "orderType": "PI2S",
+    "orderTypeVal": "PI2S",
+    "deliveryDate": "2020-07-01",
+    "customer": null,
+    "customerVal": null,
+    "shipToAddress1": "Kal",
+    "shipToAddress2": null,
+    "shipToAddress3": null,
+    "shipToAddress4": null,
+    "shipToAddress5": null,
+    "city": null,
+    "postCode": "99896",
+    "state": "Kol",
+    "country": null,
+    "deliveryInstruction": null
+  },
+  "lineDetail": [
+    {
+      "number": 1,
+      "productVal": "1001",
+      "product": "product 1001",
+      "qty": "2",
+      "weight": null,
+      "uom": "CARTON",
+      "rotaDate": null,
+      "batch": null,
+      "ref3": null,
+      "ref4": null,
+      "dispositionVal": null,
+      "disposition": null,
+      "packId": null
+    }
+  ]
+}

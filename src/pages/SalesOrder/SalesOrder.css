@@ -1,8 +1,11 @@
 /* Sales Order List */
-.sales-order .input-group input {
-  border-color: #ced4da;
+.sales-order .input-group,
+.sales-order .input-group input,
+.sales-order-create input.form-control {
+  height: 40px !important;
+  border-color: #e4e7ea !important;
 }
-.sales-order .c-subheader-nav-link{
+.sales-order .c-subheader-nav-link {
   margin-right: 15px;
 }
 
@@ -26,6 +29,7 @@
 }
 .nav-tabs {
   margin-left: 26px;
+  border: none;
 }
 .tab-content {
   padding: 0;
@@ -36,6 +40,16 @@
 .modal .nav-link {
   background-color: #eee;
   color: #959da0;
+  border: none;
+  font-size: 20px;
+  padding-left: 20px;
+}
+.modal .nav-link.active {
+  background-color: #fff;
+  color: #376bfb;
+}
+.sales-order-create textarea {
+  min-height: 35px !important;
 }
 .sales-order-create .modal-desc {
   padding-left: 36px;
@@ -59,4 +73,16 @@
 }
 .sales-order-create .orderline .c-4 {
   width: 200px;
+}
+.w-400 {
+  width: 400px !important;
+}
+.w-600 {
+  width: 600px !important;
+}
+.orderline-row td {
+  vertical-align: top;
+}
+.orderline-row td *{
+  z-index: 999;
 }
