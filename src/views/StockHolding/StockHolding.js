@@ -254,7 +254,7 @@ class StockHolding extends Component {
 				return error;
 			})
 			.then(function (result) {
-				self.setState({ isLoaded: false, isSearch: false, main:result.data, masterResStockHolding:result.data.data, displayContent:"FOUND", isLoaded:false, isSearch:false});;
+				self.setState({ isLoaded: false, isSearch: false, main:result.data.data, masterResStockHolding:result.data.data, displayContent:"FOUND", isLoaded:false, isSearch:false});;
 			});
 	}
 
