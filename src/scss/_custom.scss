@@ -2331,13 +2331,13 @@ th {
 }
 
 @media(min-width:500px) and (max-width:1023px){
-  .defaultTable{
+  .defaultTable.stockholding-summary{
     width:150%;
   }
 }
 
-@media(min-width:1024px) and (max-width:1500px){
-  .defaultTable{
+@media(min-width:1024px) and (max-width:1499px){
+  .defaultTable.stockholding-summary{
     width:120%;
   }
 }
