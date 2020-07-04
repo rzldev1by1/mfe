@@ -12,7 +12,7 @@ const StockHolding = React.lazy(() => import('./pages/StockHolding/StockHolding'
 const StockHoldingDetail = React.lazy(() => import('./pages/StockHolding/StockHoldingDetail'));
 const SalesOrder = React.lazy(() => import('./pages/SalesOrder/SalesOrder'));
 const SalesOrderDetail = React.lazy(() => import('./pages/SalesOrder/SalesOrderDetail'));
-const StockAgeProfile = React.lazy(() => import('./pages/StockAgeProfile/StockAgeProfile'));
+// const StockAgeProfile = React.lazy(() => import('./pages/StockAgeProfile/StockAgeProfile'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -27,7 +27,7 @@ const routes = [
 	// { path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
 
 	// { path: '/users-management', exact: true, name: 'User Management', component: UsersManagement },
-	{ path: '/stock-age-profile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
+	// { path: '/stock-age-profile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
 	// { path: '/users-management/:id/detail', exact: true, name: 'User Management', component: UsersManagementDetail },
 	// { path: '/users-management/create', exact: true, name: 'User Management', component: UsersManagementCreate },
 	{ path: '/sales-orders/:client/:site/:orderno', exact: true, name: 'Sales Order Detail', component: SalesOrderDetail },
