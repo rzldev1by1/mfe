@@ -131,18 +131,19 @@ class SalesOrder extends Component {
 			this.props.history.push('/login');
 	}
 
-  getclient = () => {
+  getclient = () => { 
     axios
       .get(endpoint.getClient, {
         headers: headers
       })
-      .then(res => {return res})
+      //.then(res => {return res})
       .then((res) => {
-        this.unAuthorizeAAccess(res)
         const result = res.data;
-        this.setState({ clientdata: result });
+        this.setState({ clientdata: result }); 
+        console.log(res)
       })
       .catch((error) => {
+        this.unAuthorizeAAccess(error)
       });
   };
 
