@@ -374,13 +374,13 @@ button.btnWhite.btn.btn-outline-dark:hover a {
 }
 
 th {
-	font-family: "Helvetica Neue Bold";
+	font-family: "Rubik Medium";
 	color: #B4B9BB;
 	padding-left: 16px;
 }
 
 td {
-	font-family: "Helvetica Neue Regular";
+	font-family: "Rubik Medium";
 	color: #637175;
 	padding-left: 10px;
 }
@@ -433,12 +433,12 @@ tbody>.tr1:hover {
 	}
 	
 	th{
-		font-family: "Helvetica Neue Bold";
+		font-family: "Rubik Medium";
 		color: #B4B9BB;
 		padding-left: 10px;
 	}
 	td{
-		font-family: "Helvetica Neue Regular";
+		font-family: "Rubik Medium";
 		color: #637175;
 	}
 }
@@ -472,11 +472,11 @@ tbody>.tr1:hover {
 	}
 	
 	th{
-		font-family: "Helvetica Neue Bold";
+		font-family: "Rubik Medium";
 		color: #B4B9BB;
 	}
 	td{
-		font-family: "Helvetica Neue Regular";
+		font-family: "Rubik Medium";
 		color: #637175;
 	}
 

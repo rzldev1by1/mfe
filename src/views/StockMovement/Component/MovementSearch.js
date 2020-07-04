@@ -360,13 +360,15 @@ export default class MovementSearch extends Component {
                                     <div className='searchParameterTitleDate' style={{marginRight: "2%"}}>Date From</div>
                                     <DatePicker style={{ minWidth: '40%' }}
                                         getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
-                                        defaultValue={this.state.dateFromSelected} tabIndex="1" placeHolder="Select Date"
+                                        defaultValue={this.state.dateFromSelected} tabIndex="1" placeHolder="Select Date" fromMonth={this.props.fromMonth}
+                                        toMonth={this.props.toMonth}
                                     />
 
                                     <div className='searchParameterTitleDate' style={{marginLeft: "2%", marginRight: "2%"}}>To</div>
                                     <DatePicker style={{ minWidth: '40%' }}
                                         getDate={(e) => { this.setState({ dateToSelected: e.toString() })}}
-                                        defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date"
+                                        defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date" fromMonth={this.props.fromMonth}
+                                        toMonth={this.props.toMonth}
                                     />  
                                 </div>
                             </div> 

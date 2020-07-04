@@ -107,7 +107,7 @@
  }
 
 .select_autocomplete_label {
-	font-family: "Helvetica Neue Regular";
+	font-family: "Rubik Medium";
 	margin-bottom: 0 !important;
 	/* transition: all 250ms cubic-bezier(.4,.25,.3,1); */
 	display: block;
@@ -156,7 +156,7 @@
 }
 
 .select_autocomplete_expand:checked + .select_autocomplete_closeLabel + .select_autocomplete_options .select_autocomplete_label:hover {
-	font-family: "Helvetica Neue Medium";
+	font-family: "Rubik Medium";
 	background-color: #F6F7F9;
 }
 

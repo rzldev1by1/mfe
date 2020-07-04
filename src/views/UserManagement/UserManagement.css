@@ -16,47 +16,47 @@ body {
 }
 
 .personal-header-text {
-  font-family: 'Helvetica Neue Bold';
+  font-family: 'Rubik Medium';
   font-size: 15px !important;
   color: #959da0 !important;
 }
 
 .personal-value-text {
-  font-family: 'Helvetica Neue Bold';
+  font-family: 'Rubik Medium';
   font-size: 18px !important;
   color: #637176 !important;
 }
 
 label {
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
 }
 
 .header-text-form {
-  font-family: 'Helvetica Neue Bold';
+  font-family: 'Rubik Medium';
   font-size: 1.333em !important;
   color: #637176 !important;
 }
 
 .section-header-text {
-  font-family: 'Helvetica Neue Light';
+  font-family: 'Rubik Medium';
   font-size: 25px !important;
   color: #3366ff !important;
 }
 
 .section-value-text {
-  font-family: 'Helvetica Neue Regular';
+  font-family: 'Rubik Medium';
   font-size: 1em !important;
   color: #637176 !important;
 }
 
 .norm {
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
   color: #969ea1 !important;
   font-size: 18px;
 }
 
 .users {
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
   color: #637176 !important;
   font-size: 18px;
 }
@@ -71,7 +71,7 @@ label {
 }
 
 .btn-outline-active {
-  font-family: 'Helvetica Neue Regular';
+  font-family: 'Rubik Medium';
   font-size: 1rem !important;
   width: 117px !important;
   height: 40px !important;
@@ -82,7 +82,7 @@ label {
 }
 
 .btn-outline-notActive {
-  font-family: 'Helvetica Neue Regular';
+  font-family: 'Rubik Medium';
   font-size: 1rem !important;
   width: 117px !important;
   height: 40px !important;
@@ -93,7 +93,7 @@ label {
 }
 
 .btn-outline-All-active {
-  font-family: 'Helvetica Neue Regular';
+  font-family: 'Rubik Medium';
   font-size: 1rem !important;
   width: 117px !important;
   height: 40px !important;
@@ -105,7 +105,7 @@ label {
 }
 
 .btn-outline-All-notActive {
-  font-family: 'Helvetica Neue Regular';
+  font-family: 'Rubik Medium';
   font-size: 1rem !important;
   width: 117px !important;
   height: 40px !important;
@@ -141,13 +141,13 @@ span.client-notActive {
 }
 
 .um-active {
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
   color: #05e0bd;
   font-size: 18px;
 }
 
 .um-suspended {
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
   color: #f94548;
 }
 
@@ -213,7 +213,7 @@ span.client-notActive {
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
   min-width: 55%;
-  font-family: 'Helvetica Neue Light';
+  font-family: 'Rubik Medium';
   font-size: 1.875em;
   color: #919191;
 }
@@ -232,13 +232,13 @@ span.client-notActive {
 .margin-right-breadcrumb-title {
   color: #637176;
   margin-right: 1.5%;
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
   font-size: 1.875rem;
 }
 
 .breadcrumb-active-title {
   color: #3366ff;
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
   font-size: 1.875rem;
 }
 
@@ -290,7 +290,7 @@ span.client-notActive {
   transition: 0.4s;
 }
 input {
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
   background-color: 'transparent';
 }
 
@@ -328,13 +328,13 @@ input:checked + .slider:before {
 }
 
 .title-label {
-  font-family: 'Helvetica Neue Bold';
+  font-family: 'Rubik Medium';
   color: '#637175';
   font-size: 18px !important;
 }
 
 .review-title-label {
-  font-family: 'Helvetica Neue Bold';
+  font-family: 'Rubik Medium';
   /* color:"#D5D8DA" !important; */
   font-size: 18px !important;
 }
@@ -424,17 +424,17 @@ input:checked + .slider:before {
 }
 
 .modal-desc-text {
-  font-family: 'Helvetica Neue Regular';
+  font-family: 'Rubik Medium';
   font-size: 1.25em;
 }
 
 .modal-title-text {
-  font-family: 'Helvetica Neue Bold';
+  font-family: 'Rubik Medium';
   font-size: 1.56em;
 }
 
 .review-text-value {
-  font-family: 'Helvetica Neue Regular' !important;
+  font-family: 'Rubik Medium' !important;
   font-size: 15px !important;
 }
 
@@ -447,19 +447,19 @@ input:checked + .slider:before {
 
 .enable-active {
   color: #3366ff;
-  font-family: 'Helvetica Neue Regular';
+  font-family: 'Rubik Medium';
 
   font-size: 18px;
 }
 
 .enable-notactive {
-  font-family: 'Helvetica Neue Regular';
+  font-family: 'Rubik Medium';
   color: #d5d8da;
   font-size: 18px;
 }
 
 .userText {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Rubik Medium";
   font-size: 18px;
   font-weight: 700;
 }
@@ -513,11 +513,11 @@ input:checked + .slider:before {
   }
 
   th {
-    font-family: 'Helvetica Neue Bold';
+    font-family: 'Rubik Medium';
     color: #b4b9bb;
   }
   td {
-    font-family: 'Helvetica Neue Regular';
+    font-family: 'Rubik Medium';
     color: #637175;
   }
 
@@ -556,12 +556,12 @@ input:checked + .slider:before {
   }
 
   th {
-    font-family: 'Helvetica Neue Bold';
+    font-family: 'Rubik Medium';
     color: #b4b9bb;
     padding-left: 10px;
   }
   td {
-    font-family: 'Helvetica Neue Regular';
+    font-family: 'Rubik Medium';
     color: #637175;
   }
 

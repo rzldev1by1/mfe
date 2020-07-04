@@ -133,6 +133,10 @@ class PurchaseOrderCreate extends Component {
       headers: headers
     })
       .then(res => {
+        let orderType = res.data.orderType;
+        orderType.sort((a, b) => {
+            return a["code"].localeCompare(b["code"]);
+        } )
         self.setState({
           supplierdatacr: res.data.supplier,
           orderdatacr: res.data.orderType
@@ -304,6 +308,9 @@ class PurchaseOrderCreate extends Component {
     })
       .then(res => {
         const result = res.data
+        result.sort((a, b) => {
+            return a["code"].localeCompare(b["code"]);
+        } )
         this.setState({ orderdatacr: result })
       })
       .catch(error => {

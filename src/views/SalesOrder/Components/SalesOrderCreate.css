@@ -48,7 +48,7 @@
 	border-top-right-radius: 6px;
 	border-top-left-radius: 6px;
 	min-width: 71%;
-	font-family: Helvetica  Neue Light;
+	font-family: Rubik Medium;
 }
 
 .tab2{
@@ -60,11 +60,11 @@
 	border-top-right-radius: 6px;
 	border-top-left-radius: 6px;
 	min-width: 30%;
-	font-family: Helvetica  Neue Light;
+	font-family: Rubik Medium;
 }
 
 .fonts{
-	font-family: Helvetica  Neue Light;
+	font-family: Rubik Medium;
 }
 
 .tab:hover{
@@ -76,7 +76,7 @@
 	margin-left: 11.3%;
     margin-top: -1%;
 	width: 580px;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: "Rubik Medium";
 	font-weight: 100;
 }
 
@@ -214,7 +214,7 @@ h3{
     }
     
     .font {
-        font-family: "Helvetica Neue Medium" !important;
+        font-family: "Rubik Medium" !important;
         font-size: 134%;    
         cursor: pointer;
         margin-top: 1%;
@@ -262,14 +262,14 @@ h3{
     }
     
     .font {
-        font-family: "Helvetica Neue Medium" !important;
+        font-family: "Rubik Medium" !important;
         font-size: 108%;    
         cursor: pointer;
         margin-top: 1%;
         margin-bottom: 1%;
     }
     .fonts{
-        font-family: Helvetica  Neue Light;
+        font-family: Rubik Medium;
         font-size: 133%;
     }
 

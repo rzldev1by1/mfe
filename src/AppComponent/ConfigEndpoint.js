@@ -30,6 +30,8 @@ const endpoint = {
     "getPOResources": baseUrl + "getporecources",
     "orderCheck": baseUrl + "orderCheck",
     "getTask" : baseUrl + "dropdown/getIsisTask",
+    "getStockDateRange" : baseUrl + "stockdaterange",
+
 
     "getSoIdentity":baseUrl + "getSoIdentity",
     "getProduct": baseUrl + "dropdown/getProduct",
@@ -42,6 +44,7 @@ const endpoint = {
     "UserManagement_User_Detail": baseUrl + "web_user_detail/",
     "UserManagement_Update": baseUrl + "usermanagement/update/",
     "UserManagement_resetpassword": baseUrl + "usermanagement/forgot_password",
+
 };
 
 const headers = {

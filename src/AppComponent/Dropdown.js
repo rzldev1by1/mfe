@@ -14,6 +14,10 @@ class Dropdown extends Component{
             return true
         }
 
+        componentDidMount(){
+            if(this.props.isOpen) { this.props.isOpen(false) }
+        }
+
         render(){
             const {placeHolder, optionList, optionValue, style, getValue, firstChecked = false, usedFor, optionSelected,className="", tabIndex=""} = this.props;
             let optionListData = optionList ? optionList.includes(",") ? optionList.split(",") : [optionList] : []; 

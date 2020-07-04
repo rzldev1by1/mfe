@@ -5,7 +5,7 @@
   height: 40px;
   width: 170px;
   font-size: 1.1rem;
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
   /* margin-left: 30%; */
   float: right;
 }
@@ -113,7 +113,7 @@
 /* .productList {
   min-width: 8rem;
   text-align: left !important;
-  font-family: 'Helvetica Neue Regular';
+  font-family: 'Rubik Medium';
   color: #637175;
   font-size: 1rem;
 } */
@@ -236,20 +236,20 @@
 }
 
 .searchParameterTitle {
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
   color: #b4b9bb;
   width: 160px;
 }
 
 .searchParameterTitleDate {
   margin-right: 10px;
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
   color: #b4b9bb;
   /* width: 94px; */
 }
 .searchParameterTo {
   margin-right: 10px;
-  font-family: 'Helvetica Neue Medium';
+  font-family: 'Rubik Medium';
   color: #b4b9bb;
   width: 20px;
 }
