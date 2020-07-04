@@ -1993,14 +1993,15 @@ th.iconU-edit {
   + .select_dropdown_closeLabel
   + .select_dropdown_options
   .select_datepicker_label {
-  height: 25px !important;
+  height: 28px !important;
+  padding-top: 2px !important;
 }
 
 .select_datepicker_label-placeholder {
-  height: 25px !important;
+  height: 28px !important;
 }
 .select_dropdown_input:checked + .select_datepicker_label {
-  height: 25px !important;
+  height: 28px !important;
 }
 .select_dropdown_expand:checked
   + .select_dropdown_closeLabel
