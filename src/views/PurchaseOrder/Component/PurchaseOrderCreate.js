@@ -1092,7 +1092,7 @@ class PurchaseOrderCreate extends Component {
             productDescription: null,
             uom: null,
             qty: null,
-            rotadate: new Date(),
+            rotadate: null,
             batch: null,
             ref3: null,
             ref4: null,
