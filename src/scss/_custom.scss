@@ -737,6 +737,8 @@ a.breadcrumb:hover {
   border: none;
 }
 
+
+
 .notFoundMessage {
   padding: 200px;
   font-size: 3.5em;
@@ -925,6 +927,10 @@ select_date_expandLabel {
 
       .inputs {
         height: 40px !important;
+      }
+
+      .searchinput{
+          margin-top: 0.4rem;
       }
 
       .searchInput::placeholder {
