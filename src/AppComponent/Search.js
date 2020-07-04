@@ -8,12 +8,10 @@ const Search = (props) => {
                 <div className="input-group searchBox default-box-height">
                     <span className="input-group-text border-0 bg-transparent ml-2" style={{ padding: "0.4rem" }}>
                         <i className="iconU-search" />
-                    </span>
-<<<<<<< HEAD
+                    </span> 
                     <input type="text" style={{   backgroundColor: "transparent"  }} className="form-control searchInput border-0" id="searchInput" name="searchInput" placeholder={props.placeholder} onChange={(e) => props.getValue(e.target.value)} />
-=======
                     <input type="text" style={{ fontFamily: "Helvetica Neue Regular", backgroundColor: "transparent" }} className="form-control searchInput border-0" id="searchInput" name="searchInput" placeholder={props.placeholder} onChange={(e) => props.getValue(e.target.value)} />
->>>>>>> cbabddcaf39dffe6bde0891e046d899f2eb39a63
+
                 </div>
             </div>
             <div className='search-column-right'>
