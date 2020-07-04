@@ -36,7 +36,7 @@ class SalesOrder extends Component {
       search: "",
       client: null,
       site: null,
-      status: null,
+      status: "open",
       ordertype: null,
       task:null,
       ordertypefilter: null,
@@ -123,18 +123,27 @@ class SalesOrder extends Component {
     this.setState({ resetDropdownProcessed: true, site: null, client: null, status: null, ordertype: null , ordertypefilter: null }, () => this.setState({ resetDropdownProcessed: false }))
   }
 
-  getclient = () => {
+  unAuthorizeAAccess = (error) => {
+		const errorCode = error.response.status
+		if(errorCode === 401)
+			this.props.history.push('/login');
+		else if(errorCode === 400)
+			this.props.history.push('/login');
+	}
+
+  getclient = () => { 
     axios
       .get(endpoint.getClient, {
         headers: headers
       })
+      //.then(res => {return res})
       .then((res) => {
         const result = res.data;
-        this.setState({ clientdata: result });
+        this.setState({ clientdata: result }); 
+        console.log(res)
       })
       .catch((error) => {
         this.unAuthorizeAAccess(error)
-        console.log(error);
       });
   };
 
@@ -385,6 +394,7 @@ class SalesOrder extends Component {
 
          <div className={"" + (this.state.complete ? "fades" : "hidden")}>
             <ListOrderComponent
+              history={this.props.history}
               column={this.state.column}
               openEditModal={() => this.openEditModal()}
               ref={this.potableref}

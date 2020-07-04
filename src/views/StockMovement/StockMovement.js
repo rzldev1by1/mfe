@@ -26,6 +26,7 @@ class StockMovement extends Component {
 					</div>
 					<div className={this.state.isComplete ? 'fades' : 'hidden'}>
 						<Movement
+							history = {this.props.history}
 							ref={this.getStockMovement}
 							isComplete={(val) => this.setState({ isComplete: val })}
 							data={(data) => this.setState({ data: data }, () => this.setPagination.current.getData(this.state.data))}
