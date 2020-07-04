@@ -32,8 +32,7 @@ const OrderLine = (props) => {
   if(!qty && nextClicked) eQty = 'mtrField'
   if(!uom && nextClicked) eUom = 'mtrField'
   return (
-    <div >
-      <div className>
+    <div > 
         <table className="">
           <tr>
             <td>
@@ -106,9 +105,8 @@ const OrderLine = (props) => {
               </div>
             </td>
             <td>
-              <div id="orderline-header-uom-val-id">
-                <Dropdown
-                  usedFor="SalesOrderCreate"
+              <div id="orderline-header-uom-val-id ">
+                <Dropdown 
                   optionSelected={uom}
                   getValue={(uom) => props.setUom(uom, props.idx)}
                   placeHolder="UOM"
@@ -116,17 +114,18 @@ const OrderLine = (props) => {
                   optionList={props.uomdata.toString()}
                   optionValue={props.uomdata.toString()}
                   tabIndex='3'
-                />
+                />  
               </div>
             </td>
             <td>
-                <DatePicker
-                  for="SalesOrderCreate"
+            <div id='orderline-header-rotadate-val-id'>
+                <DatePicker 
                   style={{marginRight: "10px", width: "150px"}}
                   getDate={(date) => props.setRotaDate(date, props.idx)}
                   tabIndex='3'
                   top={true}
                 />
+                 </div>
             </td>
 
             <td>
@@ -255,8 +254,7 @@ const OrderLine = (props) => {
               </div>
             </td>
           </tr>
-        </table>
-      </div>
+        </table> 
     </div>
   );
 };
