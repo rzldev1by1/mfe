@@ -12,6 +12,7 @@ const StockHolding = React.lazy(() => import('./pages/StockHolding/StockHolding'
 const StockHoldingDetail = React.lazy(() => import('./pages/StockHolding/StockHoldingDetail'));
 const SalesOrder = React.lazy(() => import('./pages/SalesOrder/SalesOrder'));
 const SalesOrderDetail = React.lazy(() => import('./pages/SalesOrder/SalesOrderDetail'));
+const PurchaseOrders = React.lazy(() => import('./pages/PurchaseOrders/PurchaseOrders'));
 // const StockAgeProfile = React.lazy(() => import('./pages/StockAgeProfile/StockAgeProfile'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
@@ -22,7 +23,7 @@ const routes = [
 	// { path: '/stockmovement', exact: true, name: 'Stock Movement', component: StockMovement },
 	// { path: '/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
 
-	// { path: '/purchaseorder', exact: true, name: 'Purchase Order', component: PurchaseOrder },
+	{ path: '/purchase-order', exact: true, name: 'Purchase Order', component: PurchaseOrders },
 	// { path: '/purchaseorder/:client/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrderDetail },
 	// { path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
 
