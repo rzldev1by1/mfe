@@ -10,7 +10,7 @@ const Search = (props) => {
                         <i className="iconU-search" />
                     </span> 
                     <input type="text" style={{   backgroundColor: "transparent"  }} className="form-control searchInput border-0" id="searchInput" name="searchInput" placeholder={props.placeholder} onChange={(e) => props.getValue(e.target.value)} />
-                    <input type="text" style={{ fontFamily: "Helvetica Neue Regular", backgroundColor: "transparent" }} className="form-control searchInput border-0" id="searchInput" name="searchInput" placeholder={props.placeholder} onChange={(e) => props.getValue(e.target.value)} />
+                    {/* <input type="text" style={{ fontFamily: "Helvetica Neue Regular", backgroundColor: "transparent" }} className="form-control searchInput border-0" id="searchInput" name="searchInput" placeholder={props.placeholder} onChange={(e) => props.getValue(e.target.value)} /> */}
 
                 </div>
             </div>
