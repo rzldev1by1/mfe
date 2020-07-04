@@ -53,8 +53,8 @@
     font-size: 10px;
     pointer-events: none;
     z-index: 2;
-    -webkit-transition: all 250ms cubic-bezier(.4,.25,.3,1);
-    transition: all 250ms cubic-bezier(.4,.25,.3,1);
+    /* -webkit-transition: all 250ms cubic-bezier(.4,.25,.3,1);
+    transition: all 250ms cubic-bezier(.4,.25,.3,1); */
 }
 
 .select_autocomplete_expand:hover::after {opacity: 1}
@@ -109,7 +109,7 @@
 .select_autocomplete_label {
 	font-family: "Helvetica Neue Regular";
 	margin-bottom: 0 !important;
-	transition: all 250ms cubic-bezier(.4,.25,.3,1);
+	/* transition: all 250ms cubic-bezier(.4,.25,.3,1); */
 	display: block;
 	height: 0;
 	background-color: #FFFFFF;
@@ -146,7 +146,7 @@
 
 .select_autocomplete_expand:checked + .select_autocomplete_closeLabel + .select_autocomplete_options .search-input {
 	border-bottom: 1px solid #e8e8e8 !important;
-    transition: all 250ms cubic-bezier(.4,.25,.3,1);
+    /* transition: all 250ms cubic-bezier(.4,.25,.3,1); */
     display: block;
     height: 50px !important;
     line-height: 50px;
