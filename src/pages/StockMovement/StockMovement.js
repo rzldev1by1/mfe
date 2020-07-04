@@ -15,6 +15,7 @@ import { FaPencilAlt } from 'react-icons/fa'
 import { IoIosArrowDown } from 'react-icons/io'
  
 import StockMovementTable from './StockMovementTable/StockMovementTable'
+import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader' 
 import {endpoint} from 'shared/utility/ConfigEndpoint' 
 import './StockMovement.css' 
@@ -62,7 +63,8 @@ class StockMovement extends React.PureComponent {
 
     dateToSelected: null,
     dateToText: null,
-    dateToShow: false
+    dateToShow: false,
+    pagination: {},
   }
   componentDidMount = () => {
     // set automatic table height
@@ -76,6 +78,26 @@ class StockMovement extends React.PureComponent {
     //this.searchStockMovement() 
     this.load_data('','','week') 
   }
+
+  periodHandler = (val) => {
+      // alert(any.periodSelected);
+      this.setState({
+          periodExpand: false,
+          dateFromShow: true,
+          filterType: val
+      });
+      this.openDatePicker('from')
+  }
+
+  openDatePicker = (type) => {
+    console.log(type)
+    if(type=='from'){
+      this.refs["dateFrom"].openDatePicker() 
+    }else if(type=="to"){
+      this.refs["dateTo"].openDatePicker()  
+    }
+  }
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimension);
   }
@@ -158,18 +180,19 @@ class StockMovement extends React.PureComponent {
     }
   }
 
-  setHeader = async () => {
+  setHeader = async (periods) => {
     let header = [
       {
         Header: '', 
         headerStyle: {backgroundColor: 'white', textAlign: 'left'},
-        headerClassName: 'borderRight', 
-        "fixed": "left",
+        headerClassName: 'borderRight noBorderBottom ', 
+        "fixed": "left", 
         columns: [{
           Header: 'Site',
           accessor: 'site',
           headerStyle: {textAlign: 'left'},
-          style: {textAlign: 'left', paddingLeft: '15px'},
+          style: {textAlign: 'left', paddingLeft: '15px'}, 
+          headerClassName: 'borderBottom noPaddingTop', 
           sortable: true ,
           width: 70
         },{
@@ -179,7 +202,8 @@ class StockMovement extends React.PureComponent {
           style: {textAlign: 'left'},
           sortable: true, 
           width: 90,
-          className: 'wrap-text'
+          className: 'wrap-text',
+          headerClassName: 'borderBottom noPaddingTop', 
         },
         {
           Header: 'Product',
@@ -188,7 +212,8 @@ class StockMovement extends React.PureComponent {
           style: {textAlign: 'left'},
           sortable: true, 
           width: 130,
-          className: 'wrap-all'
+          className: 'wrap-all',
+          headerClassName: 'borderBottom noPaddingTop', 
         },
         {
           Header: 'Description',
@@ -197,7 +222,8 @@ class StockMovement extends React.PureComponent {
           style: {textAlign: 'left'},
           sortable: true, 
           width: 200,
-          className: 'word-warp'
+          className: 'word-warp',
+          headerClassName: 'borderBottom noPaddingTop', 
         },
         {
           Header: 'UOM',
@@ -206,43 +232,43 @@ class StockMovement extends React.PureComponent {
           style: {textAlign: 'left'},
           sortable: true,
           className: 'borderRight',
-          headerClassName: 'borderRight', 
+          headerClassName: 'borderRight borderBottom noPaddingTop', 
           width: 100
         },
       ]}
     ]
      
     this.state.dateArray.map((date, idx) => { 
-          let dates = moment(date).format('DD MMMM YYYY')
-          if (this.state.complete) {
-              if (this.state.filterType == 'day') {
-                  dates = moment(date).format('DD MMMM YYYY')
-              }
-              else if (this.state.filterType == 'week') {
-                  let dates2 = moment(date).add('days', 6).format('DD MMMM YYYY')
-                  dates = moment(date).format('DD MMMM YYYY')
-                  dates = dates + ' - ' + dates2
-              }
-              else if (this.state.filterType == 'month') {
-                  dates = moment(date).format('MMMM YYYY')
-              }
-          } 
-
+          let dates = moment(date).format('DD MMMM YYYY') 
+            if (periods == 'day') {
+                dates = moment(date).format('DD MMMM YYYY')
+            }
+            else if (periods == 'week') {
+                let dates2 = moment(date).add('days', 6).format('DD MMMM YYYY')
+                dates = moment(date).format('DD MMMM YYYY')
+                dates = dates + ' - ' + dates2
+            }
+            else if (periods == 'month') {
+                dates = moment(date).format('MMMM YYYY')
+            } 
+            
           let tmp_header = {
                 Header: dates, 
-                headerStyle: {backgroundColor: 'white'},
-                headerClassName: 'borderRight',
+                headerStyle: {backgroundColor: 'white' },
+                headerClassName: 'borderRight dateHeader noBorderBottom ', 
                 columns: [
                   {
                     Header: 'SA+',
                     accessor: 'sa_plus_'+date,
                     className: 'text-right',
+                    headerClassName: 'borderBottom ', 
                     Cell: '-'
                   },
                   {
                     Header: 'SA-',
                     accessor: 'sa_minus_'+date,
                     className: 'text-right',
+                    headerClassName: 'borderBottom', 
                     Cell: '-'
                   },
                   {
@@ -250,12 +276,13 @@ class StockMovement extends React.PureComponent {
                     accessor: 'rec_'+date,
                     Cell: '-',
                     className: 'text-right',
+                    headerClassName: 'borderBottom', 
                   },
                   {
                     Header: 'Send',
                     accessor: 'send_'+date,
                     className: 'borderRight text-right',
-                    headerClassName: 'borderRight',
+                    headerClassName: 'borderRight borderBottom',
                     Cell: '-'
                   }
               ]
@@ -332,7 +359,7 @@ class StockMovement extends React.PureComponent {
         }
         this.setState({ dateArray: dateArray, pushTableComplete: true }, function (){
           //set header
-          this.setHeader()
+          this.setHeader(periods)
         })
  
         axios.get(endpoint.stockMovement+'?'+paramUrl.join('&')).then(res => {
@@ -357,15 +384,17 @@ class StockMovement extends React.PureComponent {
     const {
       dimension, fields, data, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData, taskData, data_table, filterType,filterData,
-      product, productData, periodSelected
+      product, productData, periodSelected, pagination,dateFromShow
     } = this.state
     
-    //custom style react-select
+    //custom style react-select 
+    
     const customStyles = {
       option: (styles, state) => ({
         ...styles,
         cursor: 'pointer',
-        height: '50px'
+        // height: '50px',
+        paddingBottom: '10px'
       }),
       control: (styles) => ({
         ...styles,
@@ -383,32 +412,37 @@ class StockMovement extends React.PureComponent {
         <CCardBody className="px-4 py-3">
           <CRow className="row"> 
           
-          <CCol lg={2} className="px-1">
-                  <Select name="filterType" placeholder="Display Period"
-                    value={filterType} options={filterData} 
-                    onChange={(val) => this.setState({ filterType: val })}
-                    styles={customStyles}
-                  />
-                  <div id='period' className={(!periodSelected) ? 'stock-err' : 'stock-err-hidden'}>Please select display period</div>
-          </CCol>
 
-          <CCol lg={4}> 
-              <CRow className="">  
-                    <CCol lg={3} className="px-1 text-light-gray custom-filter-text">
+          <CCol lg={7}  style={{flex: '0 0 55%'}}> 
+              <CRow className="">   
+                    <CCol lg={3} className="px-1" >
+                      <div style={{width: '100%'}}>
+                            <Select name="filterType" placeholder="Display Period"
+                              value={filterType} options={filterData} 
+                              onChange={(val) => this.periodHandler( val )}
+                              styles={customStyles}
+                            />
+                            <div id='period' className={(!periodSelected) ? 'stock-err' : 'stock-err-hidden'}>Please select display period</div>
+                      </div>
+                    </CCol>
+                    <CCol lg={2} className="px-1 text-light-gray custom-filter-text">
                       Date From 
                     </CCol>
-                    <CCol  lg={4} className="px-1 " > 
+                    <CCol  lg={3} className="px-1 " > 
                         <DatePicker style={{ minWidth: '100%' }}
+                            ref="dateFrom"
                             formStyle={{height:'50px'}}
                             getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
                             defaultValue={this.state.dateFromSelected} tabIndex="1" placeHolder="Select Date"
+                            onChange={(e) => {this.openDatePicker('to')}}
                         /> 
                     </CCol>
-                    <CCol  lg={1} className="text-light-gray custom-filter-text px-1">
+                    <CCol  lg={1} className="text-light-gray custom-filter-text2  px-1" style={{flex: '0 0 0.7%'}}>
                       To
                     </CCol>
-                    <CCol  lg={4} className="px-1 " >
+                    <CCol  lg={3} className="px-1" > 
                         <DatePicker style={{ minWidth: '100%', height:'50px' }}
+                            ref="dateTo"
                             formStyle={{height:'50px'}}
                             getDate={(e) => { this.setState({ dateToSelected: e.toString() })}}
                             defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date"
@@ -416,9 +450,9 @@ class StockMovement extends React.PureComponent {
                     </CCol>
                   </CRow>
           </CCol>
-            <CCol lg={6}>
+            <CCol lg={5} style={{flex: '0 0 45%', maxWidth: '47%'}}>
               <CRow> 
-                <CCol sm={4} lg={3} className="px-1">
+                <CCol sm={4} lg={3} className="px-1" >
                 <Select name="site" placeholder="Site"
                     value={site} options={siteData}
                     onChange={(val) => this.setState({ site: val })}
@@ -433,14 +467,14 @@ class StockMovement extends React.PureComponent {
                     styles={customStyles}
                   />
                 </CCol> 
-                <CCol sm={4} lg={4} className="px-1">
+                <CCol sm={4} lg={4} className="px-1"  style={{flex: '0 0 30%'}}>
                   <Select name="product" placeholder="Product" 
                     value={product} options={productData}
                     onChange={(val) => this.setState({ product: val })}
                     styles={customStyles}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-1" style={{flex: '0 0 20%', maxWidth: '20%'}}>
                   <button className="btn btn-block btn-primary float-right custom-height-btn" onClick={this.searchStockMovement}>Search</button>
                 </CCol>
               </CRow>
@@ -457,6 +491,16 @@ class StockMovement extends React.PureComponent {
         onClick={this.showDetails}
         export={<CButton className="btn btn-primary px-4">Export <IoIosArrowDown /></CButton>}
       /> 
+
+      <CustomPagination
+        data={data}
+        pagination={pagination}
+        goto={(active) => {
+          this.setState({ pagination: { ...pagination, active } }, () => this.searchStockMovement())
+        }}
+        export={<CButton className="btn btn-primary float-right px-4 btn-export">Export <IoIosArrowDown /></CButton>}
+      />
+
     </div>
   }
 }

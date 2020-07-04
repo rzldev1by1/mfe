@@ -170,11 +170,11 @@ class StockMovementTable extends React.Component {
 
   headerIcon = (header, editColumn) => {
     let listHeader = []
-    header && header.map((data, index) => {
+    header && header.map((data, i) => {
       let listColumn = []
-      if (editColumn[index] === undefined) { 
+      if (editColumn[i] === undefined) { 
           data.columns.map((datax, index) => {
-            let withIcon = <span className="text-light-gray">
+            let withIcon = <span className={i==0?"text-light-gray":'blueColor'}>
               {datax.Header}
               {datax.sortable ?
                 <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
@@ -239,7 +239,7 @@ class StockMovementTable extends React.Component {
           page={page}
           defaultPageSize={pageSize}
           style={{ height }}
-          minRows={10}
+          minRows={0}
           // getTheadThProps={(state, rowInfo, column, instance)=>{
           //   console.log(instance)
           //   return {
@@ -309,78 +309,7 @@ class StockMovementTable extends React.Component {
 
 
 
-        <Container fluid className="mt-2">
-          <Row>
-            <Col xs={12} sm={6} md={6} lg={3} xl={3} className="p-0">
-              <div className="paging">
-                <Button
-                  variant="light" className="btn-paging p-0"
-                  onClick={this.handlePrevEnd.bind(this)}
-                >
-                  <MdSkipPrevious />
-                </Button>
-                <Button
-                  variant="light" className="btn-paging p-0"
-                  onClick={this.handlePrev.bind(this, page, maxPage)}
-                >
-                  <GrFormPrevious />
-                </Button>
-                <Button
-                  variant={btnStat === 'left' ? 'primary' : 'light'} className="btn-paging p-0"
-                  onClick={this.handlePageNum.bind(this, button[0], maxPage)}
-                >
-                  {button[0]}
-                </Button>
-                <Button
-                  variant={btnStat === 'mid' ? 'primary' : 'light'} className="btn-paging p-0"
-                  onClick={this.handlePageNum.bind(this, button[1], maxPage)}
-                >
-                  {button[1]}
-                </Button>
-                <Button
-                  variant={btnStat === 'right' ? 'primary' : 'light'} className="btn-paging p-0"
-                  onClick={this.handlePageNum.bind(this, button[2], maxPage)}
-                >
-                  {button[2]}
-                </Button>
-                <Button
-                  variant="light" className="btn-paging p-0"
-                  onClick={this.handleNext.bind(this, page, maxPage)}
-                >
-                  <GrFormNext />
-                </Button>
-                <Button
-                  variant="light" className="btn-paging p-0"
-                  onClick={this.handleNextEnd.bind(this, maxPage)}
-                >
-                  <MdSkipNext />
-                </Button>
-              </div>
-            </Col>
-            <Col xs={12} sm={6} md={6} lg={3} xl={3} className="col-go-page">
-              <div className="go-page d-flex">
-                <span className="p-2">Go to Page</span>
-                <FormControl
-                  placeholder=""
-                  className="form-go-page"
-                  value={goPage}
-                  onChange={this.handleChangeGoPage.bind(this, maxPage)}
-                  onKeyPress={this.handleKeyPress.bind(this)}
-                  type="number"
-                />
-                <Button variant="light" className="btn-go p-0 pl-3"> Go <GrFormNext /> </Button>
-              </div>
-            </Col>
-            <Col xs={12} sm={6} md={6} lg={3} xl={3} className="col-text-entries p-0">
-              <span> Showing </span>
-              <b> &nbsp; {`${bottom} to ${top} of ${length} `} </b>
-              &nbsp; entries
-            </Col>
-            <Col xs={12} sm={6} md={6} lg={3} xl={3} className="btn-export">
-              {this.props.export}
-            </Col>
-          </Row>
-        </Container>
+        
 
       </React.Fragment>
     )

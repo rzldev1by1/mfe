@@ -74,4 +74,34 @@
   margin-bottom: -20px;
 }
  
-.rt-th { min-height: 100%;}
+.myCustomPrefix__value-container > div {
+  width: auto !important;
+}
+
+
+.custom-filter-text{ 
+  display:table-cell;
+  vertical-align: middle;
+  text-align: right;
+  line-height: 50px;
+}
+
+.custom-filter-text2{  
+  display:table-cell;
+  vertical-align: middle;
+  text-align: right;
+  line-height: 50px;
+}
+
+.custom-height-btn{
+  height: 50px;
+}
+
+
+@media(max-width:1100px){
+  
+  .custom-filter-text{  
+    line-height: 25px;
+  }
+
+}

@@ -8,7 +8,6 @@ import React from 'react';
 
 // const Breadcrumbs = React.lazy(() => import('./pages/Base/Breadcrumbs'));
 const Welcome = React.lazy(() => import('./pages/Welcome/Welcome'));
-const StockHolding = React.lazy(() => import('./pages/StockHolding/StockHolding'));
 const SalesOrder = React.lazy(() => import('./pages/SalesOrder/SalesOrder'));
 const SalesOrderDetail = React.lazy(() => import('./pages/SalesOrder/SalesOrderDetail'));
 const StockMovement = React.lazy(() => import('./pages/StockMovement/StockMovement'));
@@ -16,8 +15,8 @@ const StockMovement = React.lazy(() => import('./pages/StockMovement/StockMoveme
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
 	{ path: '/', exact: true, name: 'Microlistics', component: Welcome },
-	{ path: '/stock-holding', exact: true, name: 'Stock Holding', component: StockHolding },
-	// { path: '/stock-holding/:productId/:client/:site', exact: true, name: 'Stock Holding Details', component: StockHoldingDetails },
+	// { path: '/stockholding', exact: true, name: 'Stock Holding', component: StockHolding },
+	// { path: '/stockholding/:productId/:client/:site', exact: true, name: 'Stock Holding Details', component: StockHoldingDetails },
 	// { path: '/stockmovement', exact: true, name: 'Stock Movement', component: StockMovement },
 	// { path: '/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
 
@@ -30,7 +29,7 @@ const routes = [
 	// { path: '/users-management/create', exact: true, name: 'User Management', component: UsersManagementCreate },
 	{ path: '/sales-orders/:client/:site/:orderno', exact: true, name: 'Sales Order Detail', component: SalesOrderDetail },
 	{ path: '/sales-orders', exact: true, name: 'Sales Orders', component: SalesOrder },
-	{ path: '/stock-movement', exact: true, name: 'Sales Orders', component: StockMovement },
+	{ path: '/stock-movement', exact: true, name: 'Stock Movement', component: StockMovement },
 ];
 
 export default routes;
