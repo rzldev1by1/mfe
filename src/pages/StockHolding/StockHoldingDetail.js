@@ -12,34 +12,24 @@ import { IoIosArrowDown } from 'react-icons/io'
 import CustomTable from 'shared/table/CustomTable'
 import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader'
-// import './SalesOrder.css'
+import './StockHolding.css'
 
-const columns = [
-  { accessor: "type", Header: "Line No" },
-  { accessor: "id", Header: "Product" },
-  { accessor: "order_no", Header: "Description" },
-  { accessor: "qty", Header: "Qty" },
-  { accessor: "qty_processed", Header: "Qty Processed" },
-  { accessor: "weight", Header: "Weight" },
-  { accessor: "weight_processed", Header: "Weight Processed" },
-  {
-    accessor: "completed", Header: "Completed",
-    Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
-  },
-  { accessor: "oos", Header: "OOS" },
-  { accessor: "batch", Header: "Batch" },
-  { accessor: "ref2", Header: "Ref2" },
-  { accessor: "ref3", Header: "Ref3" },
-  { accessor: "ref4", Header: "Ref4" },
-  { accessor: "disposition", Header: "Disposition" },
-  { accessor: "pack_id", Header: "Pack ID" }
-]
 class SalesOrderDetail extends React.Component {
   // ref to get element height and calculate table height
   section1 = React.createRef()
   state = {
     dimension: { width: 0, height: 0 },
-    fields: columns,
+    stockDetail: [
+                  { accessor: "batch", Header: "Batch",sortable: true },
+                  { accessor: "rotadate", Header: "Rotadate",sortable: true },
+                  { accessor: "ref3", Header: "Ref3",sortable: true },
+                  { accessor: "ref4", Header: "Ref4",sortable: true },
+                  { accessor: "qty", Header: "Qty",sortable: true },
+                  { accessor: "weight", Header: "Weight",sortable: true },
+                  { accessor: "pallet", Header: "Pallet",sortable: true },
+                  { accessor: "Price", Header: "Price", sortable: true },
+                
+                ],
     detail: {},
     products: [],
   }
@@ -57,30 +47,29 @@ class SalesOrderDetail extends React.Component {
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getDetail = async () => {
-    const { product, client, site } = this.props.match.params
-    const url = `/stock-holding?searchParam=${product}&client=${client}&site=${site}`
+    const { product, client, site} = this.props.match.params
+    const url = ""
     const { data } = await axios.get(url)
-    console.log(data)
     if (!!data.data) {
       this.setState({ detail: data.data.data[0] })
     }
   }
-  // getProducts = async () => {
-  //   const { product, client, site } = this.props.match.params
-  //   const url = `/foreshadowedstockbalance/${product}?client=${client}&site=${site}`
-  //   const { data } = await axios.get(url)
-  //   // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
-  //   if (data.data.length) {
-  //     this.setState({ products: data.data })
-  //   }
-  // }
+  getProducts = async () => {
+    const { product, client, site } = this.props.match.params
+    const url = `/stockdetail/${product}?client=${client}&site=${site}`
+    const { data } = await axios.get(url)
+    // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
+    if (data.data.length) {
+      this.setState({ products: data.data })
+    }
+  }
   formatDate = (date) => {
     return date ? moment(date).format('DD/MM/YYYY') : '-'
   }
   render() {
     // const { match, history } = this.props
-    const { detail, products, fields } = this.state
-    return <div className="sales-order-detail">
+    const { detail, products, stockDetail } = this.state
+    return <div className="order-detail">
       <HeaderTitle breadcrumb={[
         { to: '/stock-holding', label: 'Stock Holding' },
         { to: '', label: this.props.match.params.product, active: true },
@@ -101,15 +90,15 @@ class SalesOrderDetail extends React.Component {
             <CRow><CCol className="text-light-gray">Available Qty</CCol>  <CCol>{detail.expected_in_qty || '-'}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Expected in Qty</CCol>  <CCol>{detail.expected_in_wyt || '-'}</CCol> </CRow>
             <CRow><CCol className="text-light-gray">Expected Out Qty</CCol>  <CCol>{detail.expected_out_qty || '-'}</CCol> </CRow>
-            <CRow><CCol className="text-light-gray">Rotadate Type</CCol>  <CCol>{detail.rotadet_type || '-'}</CCol> </CRow>
+            <CRow><CCol className="text-light-gray">Rotadate Type</CCol>  <CCol>{detail.rotadete_type || '-'}</CCol> </CRow>
           </CCardBody>
         </CCard>
       </div>
 
       <CustomTable
-        title="Sales Orders Details"
+        title="Stock Holding"
         height={this.state.dimension.height}
-        fields={fields}
+        fields={stockDetail}
         data={products}
       />
       <CustomPagination

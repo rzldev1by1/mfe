@@ -16,3 +16,36 @@
 .input-height{
     height: 40px;
 }
+.form-control::-moz-placeholder {
+    color: rgb(192, 187, 187);
+  }
+  .form-control:-ms-input-placeholder {
+    color: rgb(192, 187, 187);
+  }
+  .form-control::-webkit-input-placeholder {
+    color: rgb(192, 187, 187);
+  }
+
+  /* Sales Order List */
+.table-summary .input-group,
+.table-summary .input-group input,
+ input.form-control {
+  height: 40px !important;
+  border-color: #e4e7ea !important;
+}
+.table-summary .c-subheader-nav-link {
+  margin-right: 15px;
+}
+
+/* Order Detail */
+.order-detail .section-1 .col {
+  line-height: 2;
+}
+.order-detail .card {
+  box-shadow: none !important;
+}
+@media (min-width: 800px) {
+  .order-detail .border-right {
+    border-right: 2px solid #eee !important;
+  }
+}

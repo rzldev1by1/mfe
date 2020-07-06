@@ -8,23 +8,23 @@ import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader'
 
 const columns = [
-  { accessor: "site", Header: "Site" },
-  { accessor: "client", Header: "Client" },
-  { accessor: "order_no", Header: "Order No" },
-  { accessor: "status", Header: "Status" },
-  { accessor: "order_type", Header: "Order Type" },
-  { accessor: "supplier_no", Header: "Supplier No" },
-  { accessor: "supplier_name", Header: "Supplier Name" },
+  { accessor: "orig_line_number", Header: "Line No" },
+  { accessor: "product", Header: "Product" },
+  { accessor: "product_name", Header: "Description" },
+  { accessor: "quantity", Header: "Qty", width: 50 },
+  { accessor: "packdesc_1", Header: "UOM", width: 80 },
+  { accessor: "qty_processed", Header: "Qty Processed" },
+  { accessor: "weight", Header: "Weight" },
+  { accessor: "weight_processed", Header: "Weight Processed" },
   {
     accessor: "completed", Header: "Completed",
     Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
-  { accessor: "delivery_date", Header: "Delivery Date" },
-  { accessor: "date_received", Header: "Date Received" },
-  { accessor: "date_released", Header: "Date Released" },
-  { accessor: "date_completed", Header: "Date Completed" },
-  { accessor: "customer_order_ref", Header: "Customer_order_ref" },
-  { accessor: "vendor_order_ref", Header: "Vendor_order_ref" },
+  { accessor: "batch", Header: "Batch", width: 80 },
+  { accessor: "rotadate", Header: "Rota Date" },
+  { accessor: "ref3", Header: "Ref3" },
+  { accessor: "ref4", Header: "Ref4" },
+  { accessor: "disposition", Header: "Disposition" },
 ]
 class PurchaseOrdersDetail extends React.Component {
   // ref to get element height and calculate table height
@@ -72,7 +72,7 @@ class PurchaseOrdersDetail extends React.Component {
   render() {
     // const { match, history } = this.props
     const { detail, products, fields } = this.state
-    return <div className="purchase-order-detail">
+    return <div className="order-detail">
       <HeaderTitle breadcrumb={[
         { to: '/purchase-order', label: 'Purchase Order' },
         { to: '', label: this.props.match.params.orderdetail, active: true },

@@ -9,19 +9,19 @@ import { IoIosArrowDown } from 'react-icons/io'
 import endpoints from 'helpers/endpoints'
 import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
-
+import './../StockHolding/StockHolding.css'
 const columns = [
-  { accessor: 'site', Header: 'Site', width: 50 },
-  { accessor: 'client', Header: 'Client', width: 100 },
-  { accessor: 'order_no', Header: 'Order No', width: 120 },
-  { accessor: 'status', Header: 'Status', width: 120 },
-  { accessor: 'order_type', Header: 'Order Type', width: 120 },
-  { accessor: 'supplier_no', Header: 'Supplier No', width: 100 },
-  { accessor: 'supplier_name', Header: 'Supplier No', width: 250 },
-  { accessor: 'delivery_date', Header: 'Delivery Date', width: 250 },
-  { accessor: 'date_received', Header: 'Date Received', width: 250 },
-  { accessor: 'date_released', Header: 'Date Released', width: 250 },
-  { accessor: 'date_completed', Header: 'Date Completed', width: 120 },
+  { accessor: 'site', Header: 'Site', },
+  { accessor: 'client', Header: 'Client', },
+  { accessor: 'order_no', Header: 'Order No', },
+  { accessor: 'status', Header: 'Status', },
+  { accessor: 'order_type', Header: 'Order Type', },
+  { accessor: 'supplier_no', Header: 'Supplier No', },
+  { accessor: 'supplier_name', Header: 'Supplier No',  },
+  { accessor: 'delivery_date', Header: 'Delivery Date',  },
+  { accessor: 'date_received', Header: 'Date Received', },
+  { accessor: 'date_released', Header: 'Date Released',},
+  { accessor: 'date_completed', Header: 'Date Completed', },
   { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
   { accessor: 'vendor_order_ref', Header: 'Vendor Order No' },
 ]
@@ -61,14 +61,14 @@ class PurchaseOrders extends React.PureComponent {
   }
   getSite = async () => {
     const { data } = await axios.get(endpoints.getSite)
-    const siteData = data.map(d => ({ value: d.site, label: `${d.site} : ${d.name}` }))
+    const siteData = data.map(d => ({ value: d.site, label: `${d.site}: ${d.name}` }))
     const site = { value: 'all', label: 'All Site' }
     siteData.splice(0, 0, site)
     this.setState({ siteData })
   }
   getClient = async () => {
     const { data } = await axios.get(endpoints.getClient)
-    const clientData = data.map(d => ({ value: d.code, label: `${d.code} : ${d.name}` }))
+    const clientData = data.map(d => ({ value: d.code, label: `${d.code}: ${d.name}` }))
     const client = { value: 'all', label: 'All Client' }
     clientData.splice(0, 0, client)
     this.setState({ clientData })
@@ -118,12 +118,10 @@ class PurchaseOrders extends React.PureComponent {
     const { data } = await axios.get(`${endpoints.purchaseOrder}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
-        m.deliverydate = moment(m.deliverydate).format('DD/MM/YYYY')
-        m.datereceived = moment(m.datereceived).format('DD/MM/YYYY')
-        m.datereleased = moment(m.datereleased).format('DD/MM/YYYY')
-        m.datecompleted = moment(m.datecompleted).format('DD/MM/YYYY')
-        m.loadoutstart = moment(m.loadoutstart).format('DD/MM/YYYY')
-        m.loadoutfinish = moment(m.loadoutfinish).format('DD/MM/YYYY')
+        m.delivery_date = moment(m.delivery_date).format('DD/MM/YYYY')
+        m.date_received = moment(m.date_received).format('DD/MM/YYYY')
+        m.date_released = moment(m.date_released).format('DD/MM/YYYY')
+        m.date_completed = moment(m.date_completed).format('DD/MM/YYYY')
         return m
       })
       this.setState({
@@ -151,7 +149,7 @@ class PurchaseOrders extends React.PureComponent {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData, taskData
     } = this.state
-    return <div className="Pruchase-order">
+    return <div className="table-summary">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Pruchase Orders', active: true }]}
         button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right px-3">Create Pruchase Order</CButton>}
@@ -165,7 +163,7 @@ class PurchaseOrders extends React.PureComponent {
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
                 </div>
-                <input type="text" className="form-control border-left-0" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
+                <input type="text" className="form-control border-left-0 input-height" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
               </div>
             </CCol>
             <CCol lg={9}>
