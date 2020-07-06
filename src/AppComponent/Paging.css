@@ -40,7 +40,7 @@
 
 .number{
 	cursor: pointer;
-	font-family:Rubik Medium;
+	/* font-family:Rubik Medium; */
 	margin-top: -1px;
 }
 
@@ -149,7 +149,7 @@
 	display: block;
     transform: scaleY(-1);
 	height: 0;
-	font-family: Medium 20px/25px Rubik Medium;
+	font-family: Regular 20px/25px Rubik;
 	font-size: 16px;
 	line-height: 50px;
 	overflow: hidden;
@@ -254,7 +254,7 @@
     display: inline-flex;
     margin-left: 21px;
 }
-.showing{
+.showing{ 
 	margin-top: 21px;
     display: inline-flex;
     margin-left: 21px;
@@ -296,4 +296,9 @@
 	background-color: #D5D8DA;
 	padding: 20px; 
 	border-radius: 10px !important;
+}
+
+.showing > .rubikMedium {
+	font-family: 'Rubik Medium' !important;
+	font-weight: bold;
 }

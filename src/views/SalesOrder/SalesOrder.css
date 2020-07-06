@@ -17,11 +17,7 @@ span.upArrow:before {
   color: #b4b9bb !important;
   font-size: 30px;
 }
-
-table {
-  font-family: "Rubik Medium";
-}
-
+ 
 /* create seles */
 
 .createpo {
@@ -51,13 +47,11 @@ table {
 /* create seles end*/
 
 table{
-  font-family: "Rubik Medium";
   font-weight: 750;
 }
 
 /* search */
 .font {
-  font-family: "Rubik Medium" !important;
   font-size: 1.5em;
   cursor: pointer;
   margin-top: 1%;
@@ -221,7 +215,6 @@ table{
 }
 
 .value-text {
-  font-family: "Rubik Medium";
   font-weight: 750;
 }
 .iconU-option {
@@ -320,11 +313,9 @@ th.iconU-edit {
 /* table */
 
   th {
-    font-family: "Rubik Medium";
     color: #b4b9bb;
   }
   td {
-    font-family: "Rubik Medium";
     color: #637175;
   }
 }
@@ -358,11 +349,9 @@ th.iconU-edit {
   }
 
   th {
-    font-family: "Rubik Medium";
     color: #b4b9bb;
   }
   td {
-    font-family: "Rubik Medium";
     color: #637175;
   }
 }
@@ -754,7 +743,6 @@ overflow-x: scroll;
 }
 
 .editcol-header {
-	font-family: "Rubik Medium";
 	padding: 27px 48px;
 	display: inline;
 	border-bottom: 1px solid #F4F4F4 !important;
@@ -855,4 +843,9 @@ overflow-x: scroll;
 
 .error-msg-margin-uom{
   padding-left: 1.1em;
+}
+
+.createpotables > tr > th{ 
+  color: #d5d8da !important;
+	font-weight: normal;
 }
