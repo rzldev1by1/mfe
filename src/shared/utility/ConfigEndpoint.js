@@ -40,6 +40,7 @@ const endpoint = {
     "UserManagement_User_Detail": baseUrl + "/web_user_detail/",
     "UserManagement_Update": baseUrl + "/usermanagement/update/",
     "UserManagement_resetpassword": baseUrl + "/usermanagement/forgot_password",
+    "getStockDateRange" : baseUrl + "/stockdaterange"
 };
 
 const headers = {

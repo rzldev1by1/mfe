@@ -65,6 +65,8 @@ class StockMovement extends React.PureComponent {
     dateToText: null,
     dateToShow: false,
     pagination: {},
+    minDate: null,
+    maxDate: null
   }
   componentDidMount = () => {
     // set automatic table height
@@ -77,6 +79,16 @@ class StockMovement extends React.PureComponent {
     this.getResources() 
     //this.searchStockMovement() 
     this.load_data('','','week') 
+    this.getStockDate();
+  } 
+
+  getStockDate = () => {
+      axios.get(endpoint.getStockDateRange)
+      .then((res) => {
+          let maxDate = res.data.data[0].max_date;
+          this.setState({ minDate: res.data.data[0].min_date, maxDate: res.data.data[0].max_date})
+          console.log(res.data.data[0].min_date + "|" + res.data.data[0].max_date)
+      })
   }
 
   periodHandler = (val) => {
@@ -384,7 +396,7 @@ class StockMovement extends React.PureComponent {
     const {
       dimension, fields, data, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData, taskData, data_table, filterType,filterData,
-      product, productData, periodSelected, pagination,dateFromShow
+      product, productData, periodSelected, pagination,dateFromShow, minDate,maxDate
     } = this.state
     
     //custom style react-select 
@@ -435,6 +447,7 @@ class StockMovement extends React.PureComponent {
                             getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
                             defaultValue={this.state.dateFromSelected} tabIndex="1" placeHolder="Select Date"
                             onChange={(e) => {this.openDatePicker('to')}}
+                            fromMonth={minDate} toMonth={maxDate}
                         /> 
                     </CCol>
                     <CCol  lg={1} className="text-light-gray custom-filter-text2  px-1" style={{flex: '0 0 0.7%'}}>
