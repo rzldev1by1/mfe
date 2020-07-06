@@ -40,7 +40,7 @@
 
 .number{
 	cursor: pointer;
-	font-family:Helvetica Neue Bold;
+	font-family:Rubik Medium;
 	margin-top: -1px;
 }
 
@@ -149,7 +149,7 @@
 	display: block;
     transform: scaleY(-1);
 	height: 0;
-	font-family: Medium 20px/25px Helvetica Neue;
+	font-family: Medium 20px/25px Rubik Medium;
 	font-size: 16px;
 	line-height: 50px;
 	overflow: hidden;

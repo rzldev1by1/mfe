@@ -376,7 +376,7 @@ select option:hover{
 	border-top-right-radius: 6px;
 	border-top-left-radius: 6px;
 	min-width: 71%;
-	font-family: Helvetica  Neue Light;
+	font-family: "Rubik Medium";
 }
 
 .tab2{
@@ -388,11 +388,11 @@ select option:hover{
 	border-top-right-radius: 6px;
 	border-top-left-radius: 6px;
 	min-width: 30%;
-	font-family: Helvetica  Neue Light;
+	font-family: "Rubik Medium";
 }
 
 .fonts{
-	font-family: Helvetica  Neue Light;
+	font-family: "Rubik Medium";
 }
 
 .tab:hover{
@@ -407,7 +407,7 @@ select option:hover{
 	margin-left: 11.5%;
     margin-top: -1%;
 	width: 580px;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: "Rubik Medium";
 	font-weight: 100;
 }
 
