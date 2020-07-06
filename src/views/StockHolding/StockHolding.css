@@ -373,14 +373,12 @@ button.btnWhite.btn.btn-outline-dark:hover a {
 	font-size: 15px;
 }
 
-th {
-	font-family: "Rubik Medium";
+th { 
 	color: #B4B9BB;
 	padding-left: 16px;
 }
 
-td {
-	font-family: "Rubik Medium";
+td { 
 	color: #637175;
 	padding-left: 10px;
 }
@@ -432,13 +430,11 @@ tbody>.tr1:hover {
 		cursor: pointer;
 	}
 	
-	th{
-		font-family: "Rubik Medium";
+	th{ 
 		color: #B4B9BB;
 		padding-left: 10px;
 	}
-	td{
-		font-family: "Rubik Medium";
+	td{ 
 		color: #637175;
 	}
 }
@@ -471,12 +467,10 @@ tbody>.tr1:hover {
 		cursor: pointer;
 	}
 	
-	th{
-		font-family: "Rubik Medium";
+	th{ 
 		color: #B4B9BB;
 	}
-	td{
-		font-family: "Rubik Medium";
+	td{ 
 		color: #637175;
 	}
 

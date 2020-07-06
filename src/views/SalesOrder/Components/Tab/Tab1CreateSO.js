@@ -451,7 +451,7 @@ class Tab1CreateSO extends Component {
         <h3 className="fonts so-header-title">Line Details</h3>
         
         <div className='scroll-x-y-visible'> 
-        <table className=''>
+        <table className='createpotables'>
               <tr>
                 <th>
                   <div id='orderline-header-number-id'>#</div>

@@ -376,7 +376,7 @@ select option:hover{
 	border-top-right-radius: 6px;
 	border-top-left-radius: 6px;
 	min-width: 71%;
-	font-family: "Rubik Medium";
+	font-family: "Rubik Regular";
 }
 
 .tab2{
@@ -388,11 +388,11 @@ select option:hover{
 	border-top-right-radius: 6px;
 	border-top-left-radius: 6px;
 	min-width: 30%;
-	font-family: "Rubik Medium";
+	font-family: "Rubik Regular";
 }
 
 .fonts{
-	font-family: "Rubik Medium";
+	font-family: "Rubik Regular";
 }
 
 .tab:hover{
@@ -619,4 +619,15 @@ h3{
 
 #rowNumber{
 	text-align: center;
+}
+
+
+.createpotable > tr > th{ 
+	color: #d5d8da !important;
+	font-weight: normal;
+  }
+
+.tabledetails > tr > th {
+	color: #d5d8da !important;
+	font-weight: normal;
 }
