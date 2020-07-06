@@ -143,7 +143,7 @@ class DatePicker extends React.Component {
         });
         this.props.getDate(moment(selected ? undefined : day).format("YYYY-MM-DD"))
         this.setState({ showDatePicker: false });
-        this.refs['dateValue'].value = moment(day).format("DD-MM-YYYY");
+        this.refs['dateValue'].value = moment(day).format("DD/MM/YYYY");
     }
     currentDate = () => {
         return this.state.month;
@@ -170,10 +170,10 @@ class DatePicker extends React.Component {
     dateValueFormat = (e) => {
         if (/^[0-9]+$/.test(e.key)) {
             if (e.target.value.length == 2) {
-                e.target.value += "-";
+                e.target.value += "/";
             };
             if (e.target.value.length == 5) {
-                e.target.value += "-"
+                e.target.value += "/"
             };
         }
 
