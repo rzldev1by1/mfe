@@ -6,24 +6,23 @@ import Select from 'react-select'
 import { FaPencilAlt } from 'react-icons/fa'
 import { IoIosArrowDown } from 'react-icons/io'
 import endpoints from 'helpers/endpoints'
-import { endpoint, headers } from "../../pages/StockHolding/Endpoint/ConfigEndpoint";
 import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
 import './StockHolding.css'
 const columns = [
   { accessor: 'site', Header: 'Site', sortable: true },
   { accessor: 'client', Header: 'Client', sortable: true },
-  { accessor: 'product', Header: 'Product', sortable: true },
+  { accessor: 'product', Header: 'Product', sortable: true, width: 90 },
   { accessor: 'product_name', Header: 'Description', sortable: true  },
   { accessor: 'disposition', Header: 'Disposition', sortable: true },
   { accessor: 'packdesc_1', Header: 'UOM', sortable: true },
   { accessor: 'status', Header: ' Status ', sortable: true },
-  { accessor: 'on_hand_qty', Header: 'Stock on Hand', sortable: true },
-  { accessor: 'expected_in_qty', Header: 'Expected In Qty', sortable: true },
-  { accessor: 'expected_in_wty', Header: 'Expected In Wty', sortable: true },
-  { accessor: 'expected_out_qty', Header: 'Expected Out Qty', sortable: true },
-  { accessor: 'prince', Header: 'Price', sortable: true },
-  { accessor: 'pallets', Header: 'Pallets', sortable: true },
+  { accessor: 'on_hand_qty', Header: 'Stock on Hand', sortable: true,  width: 140 },
+  { accessor: 'expected_in_qty', Header: 'Expected In Qty', sortable: true,  width: 135  },
+  { accessor: 'expected_in_wgt', Header: 'Expected In Weight', sortable: true,  width: 155 },
+  { accessor: 'expected_out_qty', Header: 'Expected Out Qty', sortable: true, width: 145  },
+  { accessor: 'prince', Header: 'Price', sortable: true, width: 70  },
+  { accessor: 'pallets', Header: 'Pallets', sortable: true, width: 70  },
 ]
 class StockHolding extends React.PureComponent {
   state = {
@@ -86,15 +85,13 @@ class StockHolding extends React.PureComponent {
   
   searchStockHolding = async () => {
     console.log('load stock holding')
-    const { search, site, client, orderType } = this.state
+    const { search, site, client, status } = this.state
     let urls = []
-    urls.push('searchParam=' + search ? search : '')
-    urls.push('site=' + (site ? site.value : 'all'))
-    urls.push('client=' + (client ? client.value : 'all'))
-    urls.push('orderType=' + (orderType ? orderType.value : 'all'))
-    const { data } =     axios.get(`/stockholding?` + urls.join('&'), {
-                          headers: headers
-                        })
+    if(search) urls.push('searchParam=' + search)
+    if(site) urls.push('site=' + site.value)
+    if(client) urls.push('client=' + client.value)
+    if(status) urls.push('status=' + status.value)
+    const { data } =     axios.get(`/stockholding?` + urls.join('&'))
                         .then((res) => {
                           const result = res.data.data.data;
                           result.map((item, idx) => {
@@ -119,7 +116,7 @@ class StockHolding extends React.PureComponent {
   }
 
   showDetails = (item) => {
-    const url = '/stock-holding/' + item.client + '/' + item.site + '/' + item.product
+    const url = '/stock-holding' + item.product + '/' + item.client + '/' + item.site
     this.props.history.push(url)
   }
 
@@ -129,8 +126,8 @@ class StockHolding extends React.PureComponent {
   
   render() {
     const {
-      dimension, fields, data, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData, taskData
+      dimension, fields, data, site, client, status, 
+      siteData, clientData, statusData, 
     } = this.state
     return <div>
       <HeaderTitle
@@ -192,7 +189,7 @@ class StockHolding extends React.PureComponent {
         data={data}
         fields={fields}
         onClick={this.showDetails}
-        export={<CButton className="btn btn-primary px-4">Export <IoIosArrowDown /></CButton>}
+        export={<CButton className="btn btn-primary px-4 float-right">Export <IoIosArrowDown /></CButton>}
       />
 
       {/* <SalesOrderCreate

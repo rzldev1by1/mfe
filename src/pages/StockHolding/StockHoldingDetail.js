@@ -15,9 +15,9 @@ import HeaderTitle from 'shared/container/TheHeader'
 // import './SalesOrder.css'
 
 const columns = [
-  { accessor: "line", Header: "Line No" },
-  { accessor: "product", Header: "Product" },
-  { accessor: "product_description", Header: "Description" },
+  { accessor: "type", Header: "Line No" },
+  { accessor: "id", Header: "Product" },
+  { accessor: "order_no", Header: "Description" },
   { accessor: "qty", Header: "Qty" },
   { accessor: "qty_processed", Header: "Qty Processed" },
   { accessor: "weight", Header: "Weight" },
@@ -65,15 +65,15 @@ class SalesOrderDetail extends React.Component {
       this.setState({ detail: data.data.data[0] })
     }
   }
-  getProducts = async () => {
-    const { product, client, site } = this.props.match.params
-    const url = `/stock-holding/${product}?client=${client}&site=${site}`
-    const { data } = await axios.get(url)
-    // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
-    if (data.data.length) {
-      this.setState({ products: data.data })
-    }
-  }
+  // getProducts = async () => {
+  //   const { product, client, site } = this.props.match.params
+  //   const url = `/foreshadowedstockbalance/${product}?client=${client}&site=${site}`
+  //   const { data } = await axios.get(url)
+  //   // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
+  //   if (data.data.length) {
+  //     this.setState({ products: data.data })
+  //   }
+  // }
   formatDate = (date) => {
     return date ? moment(date).format('DD/MM/YYYY') : '-'
   }

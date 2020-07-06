@@ -13,18 +13,19 @@ const StockHoldingDetail = React.lazy(() => import('./pages/StockHolding/StockHo
 const SalesOrder = React.lazy(() => import('./pages/SalesOrder/SalesOrder'));
 const SalesOrderDetail = React.lazy(() => import('./pages/SalesOrder/SalesOrderDetail'));
 const PurchaseOrders = React.lazy(() => import('./pages/PurchaseOrders/PurchaseOrders'));
+const PurchaseOrdersDetail = React.lazy(() => import('./pages/PurchaseOrders/PurchaseOrdersDetail'));
 // const StockAgeProfile = React.lazy(() => import('./pages/StockAgeProfile/StockAgeProfile'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
 	{ path: '/', exact: true, name: 'Microlistics', component: Welcome },
 	{ path: '/stock-holding', exact: true, name: 'Stock Holding', component: StockHolding },
-	{ path: '/stock-holding/:product/:client/:site', exact: true, name: 'Stock Holding Detail', component: StockHoldingDetail },
+	{ path: '/stock-holding:product/:client/:site', exact: true, name: 'Stock Holding Detail', component: StockHoldingDetail },
 	// { path: '/stockmovement', exact: true, name: 'Stock Movement', component: StockMovement },
 	// { path: '/stockageprofile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
 
 	{ path: '/purchase-order', exact: true, name: 'Purchase Order', component: PurchaseOrders },
-	// { path: '/purchaseorder/:client/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrderDetail },
+	{ path: '/purchase-order/:client/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrdersDetail },
 	// { path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
 
 	// { path: '/users-management', exact: true, name: 'User Management', component: UsersManagement },
