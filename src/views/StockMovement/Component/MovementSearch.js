@@ -65,6 +65,16 @@ export default class MovementSearch extends Component {
             periodExpand: false,
             dateFromShow: true
         });
+        this.openDatePicker('from')
+    }
+
+    openDatePicker = (type) => {
+      console.log(type)
+      if(type=='from'){
+        this.refs["dateFrom"].openDatePicker() 
+      }else if(type=="to"){
+        this.refs["dateTo"].openDatePicker()  
+      }
     }
 
     dateFromHandler = (day) => {
@@ -358,7 +368,9 @@ export default class MovementSearch extends Component {
                             <div className="col-sm-4">
                                 <div className='displayParent middles'>
                                     <div className='searchParameterTitleDate' style={{marginRight: "2%"}}>Date From</div>
-                                    <DatePicker style={{ minWidth: '40%' }}
+                                    <DatePicker style={{ minWidth: '40%' }} 
+                                        ref="dateFrom"
+                                        onChange={(e) => {this.openDatePicker('to')}}
                                         getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
                                         defaultValue={this.state.dateFromSelected} tabIndex="1" placeHolder="Select Date" fromMonth={this.props.fromMonth}
                                         toMonth={this.props.toMonth}
@@ -366,6 +378,7 @@ export default class MovementSearch extends Component {
 
                                     <div className='searchParameterTitleDate' style={{marginLeft: "2%", marginRight: "2%"}}>To</div>
                                     <DatePicker style={{ minWidth: '40%' }}
+                                        ref="dateTo"
                                         getDate={(e) => { this.setState({ dateToSelected: e.toString() })}}
                                         defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date" fromMonth={this.props.fromMonth}
                                         toMonth={this.props.toMonth}
