@@ -123,7 +123,8 @@ class DatePicker extends React.Component {
         this.state = {
             selectedDay: null,
             showDatePicker: false,
-            month: fromMonth
+            month: fromMonth,
+            monthChange: false
         }
     }
 
@@ -134,7 +135,7 @@ class DatePicker extends React.Component {
     }
 
     handleYearMonthChange = (month) => {
-        this.setState({ month });
+        this.setState({ month, monthChange: true });
     }
 
     handleDayClick = (day, { selected }) => {
@@ -228,7 +229,7 @@ class DatePicker extends React.Component {
                             tabIndex="-1"
                             selectedDays={this.state.selectedDay ? this.state.selectedDay : (this.props.fromMonth ? new Date(this.props.fromMonth) : new Date())}
                             onDayClick={this.handleDayClick}
-                            month={this.props.fromMonth ? new Date(this.props.fromMonth) : this.state.month}
+                            month={this.props.fromMonth ? (this.state.monthChange ? this.state.month : new Date(this.props.fromMonth)) : this.state.month}
                             fromMonth={this.props.fromMonth ? new Date(this.props.fromMonth) : this.state.month}
                             toMonth={this.props.toMonth ? new Date(new Date(this.props.toMonth).getFullYear(), 11) : new Date(new Date(this.state.month).getFullYear() + 10, 11)}
                             onMonthChange={(e) => this.setState({ month: e })}
@@ -237,7 +238,7 @@ class DatePicker extends React.Component {
                                     date={date}
                                     localeUtils={localeUtils}
                                     onChange={this.handleYearMonthChange}
-                                    current={this.props.fromMonth ? new Date(this.props.fromMonth) : this.state.month}
+                                    current={this.props.fromMonth ? (this.state.monthChange ? this.state.month : new Date(this.props.fromMonth)) : this.state.month}
                                     fromMonth={this.props.fromMonth ? new Date(this.props.fromMonth) : this.state.month}
                                     toMonth={this.props.toMonth ? new Date(new Date(this.props.toMonth).getFullYear(), 11) : new Date(new Date(this.state.month).getFullYear() + 10, 11)}
 

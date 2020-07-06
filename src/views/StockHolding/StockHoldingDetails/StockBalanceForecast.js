@@ -73,7 +73,7 @@ class StockBalanceForecast extends Component {
 			<tr>
 				{this.props.foreshadowedColumns.map((item, idx) => {
 					if (item.isVisible) {
-                        return <th className="text-left" key={idx}>{item.tableHeaderText}</th>;
+                        return <th className={this.checkNumberField(item.id)} key={idx}>{item.tableHeaderText}</th>;
                     }
                     return null;
 				})}
@@ -98,6 +98,10 @@ class StockBalanceForecast extends Component {
 		return result;
 	}
 
+	checkNumberField = (id) => {
+		if(id === 'qty_rec' || id === 'qtycommitted' || id === 'balance') return 'text-right number-right'
+	}
+
 	showForeshadowedData = () => {		
 		if(this.props.stockBalanceForecast && this.props.stockBalanceForecast.length > 0){
 			let stockBalanceForecast = {...this.props.stockBalanceForecast[0]};
@@ -112,12 +116,12 @@ class StockBalanceForecast extends Component {
 								if (column.id === "balance") {
 									balance += parseInt(item["qtyexpected"]) - parseInt(item["qtycommitted"])
 									return (
-										<td key={columnIdx} className="px-3 text-left">{balance}</td>
+										<td key={columnIdx} className="px-3 text-right number-right">{balance}</td>
 									);
 								}
 	
 								return (
-									<td key={columnIdx} className="px-3 text-left">
+									<td key={columnIdx} className={"px-3 " + (this.checkNumberField(column.id))}>
 										{column.id === "effectivedate" ? item[column.key] : this.checkValue(column.id,item[column.key])}
 									</td>
 								);
@@ -208,7 +212,7 @@ class StockBalanceForecast extends Component {
 
 								if (column.id === "balance") {
 									return (
-										<td key={columnIdx} className="px-3 text-left">{initialBalance}</td>
+										<td key={columnIdx} className="px-3 text-right number-right">{initialBalance}</td>
 									);
 								}
 
@@ -251,7 +255,7 @@ class StockBalanceForecast extends Component {
 						if (column.isVisible) {
 								if (column.id === "balance") {
 										return (
-												<td key={columnIdx} className="px-3 text-left">{closingBalance}</td>
+												<td key={columnIdx} className="px-3 text-right number-right">{closingBalance}</td>
 										);
 								}
 

@@ -494,6 +494,10 @@ tbody>.tr1:hover {
 	padding: 0px !important;
 }
 
+.number-right{
+	padding-right: 2rem !important;
+}
+
 @media(max-width: 2750px) { /* //zoom 50% */
 	.tablePageSh{
 		max-height: 790px !important; 
