@@ -43,12 +43,12 @@
 	margin-right: 2%;
 	background-color: #F7F7F7;
 	padding:3%;
-	padding-right: 10%;
+	padding-right: 8%;
 	padding-bottom:2%;
 	border-top-right-radius: 6px;
 	border-top-left-radius: 6px;
 	min-width: 71%;
-	font-family: Rubik Medium;
+	font-family: 'Rubik regular';
 }
 
 .tab2{
@@ -60,11 +60,11 @@
 	border-top-right-radius: 6px;
 	border-top-left-radius: 6px;
 	min-width: 30%;
-	font-family: Rubik Medium;
+	font-family: 'Rubik Regular';
 }
 
 .fonts{
-	font-family: Rubik Medium;
+	font-family: 'Rubik Regular';
 }
 
 .tab:hover{
@@ -76,7 +76,7 @@
 	margin-left: 11.3%;
     margin-top: -1%;
 	width: 580px;
-	font-family: "Rubik Medium";
+	font-family: 'Rubik Regular';
 	font-weight: 100;
 }
 
@@ -214,7 +214,7 @@ h3{
     }
     
     .font {
-        font-family: "Rubik Medium" !important;
+        font-family: "Rubik regular" !important;
         font-size: 134%;    
         cursor: pointer;
         margin-top: 1%;
@@ -262,14 +262,14 @@ h3{
     }
     
     .font {
-        font-family: "Rubik Medium" !important;
+        font-family: "Rubik regular" !important;
         font-size: 108%;    
         cursor: pointer;
         margin-top: 1%;
         margin-bottom: 1%;
     }
     .fonts{
-        font-family: Rubik Medium;
+        font-family: Rubik regular;
         font-size: 133%;
     }
 

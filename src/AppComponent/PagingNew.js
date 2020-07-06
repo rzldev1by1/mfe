@@ -121,11 +121,11 @@ class Paging extends Component {
                 </InputGroup>
                     <span className="showing">
                         <a style={{color:"#B4B9BB" , marginRight:"2%"}}>Showing</a>
-                        <a style={{marginRight:"2%"}}>{from}</a>
-                        <a style={{marginRight:"2%"}}>to</a>
-                        <a style={{marginRight:"2%"}}>{to}</a>
-                        <a style={{marginRight:"2%"}}>of</a>
-                        <a style={{marginRight:"2%"}}>{totalRows}</a>
+                        <a className="rubikMedium" style={{marginRight:"2%"}}>{from}</a>
+                        <a className="rubikMedium" style={{marginRight:"2%"}}>to</a>
+                        <a className="rubikMedium" style={{marginRight:"2%"}}>{to}</a>
+                        <a className="rubikMedium" style={{marginRight:"2%"}}>of</a>
+                        <a className="rubikMedium" style={{marginRight:"2%"}}>{totalRows}</a>
                         <a style={{color:"#B4B9BB"}}> entries</a>
                     </span>
                 </div>      
