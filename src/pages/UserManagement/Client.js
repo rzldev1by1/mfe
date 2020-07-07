@@ -12,7 +12,7 @@ return (<div>
 
       <div className="flex-column">
           <div className="d-flex mr-2">
-              <label className="col-6 title-label p-0" htmlFor="Client">Client
+              <label className="col-6 p-0" htmlFor="Client">Client
               </label>
               {/* <input className="checkbox-hidden" type="checkbox" id="Client"/> */}
               <div className="col-3">

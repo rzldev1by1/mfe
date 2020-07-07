@@ -2,11 +2,11 @@ import React from 'react'
 import './UserManagement.css'
 
 const site = ({sites, onEnableClick, onSiteEnableAll, isEnableAllSite}) => {
-console.log(sites);
+
 return (<div>
         <div className="flex-column mr-2">
             <div className="d-flex">
-                <label className="col-6 title-label" htmlFor="Site">Site
+                <label className="col-6 title-label px-0" htmlFor="Site">Site
                 </label>
                 {/* <input className="checkbox-hidden" type="checkbox" id="Site"/> */}
                 <div className="col-3">
@@ -27,7 +27,7 @@ return (<div>
             (sites && sites.length) ? sites.map((item,index) => {
             return (<div className="flex-column mb-3 mr-2" key={index}>
             <div className="d-flex" key={index}>
-                <label className="col-6 section-value-text" key={item.site}>{`${item.site} : ${item.name}`}</label>
+                <label className="col-6 section-value-text px-0" key={item.site}>{`${item.site} : ${item.name}`}</label>
                 
                 {/* <input className="checkbox-hidden" type="checkbox" id={item.site} /> */}
                 <div className="col-3">

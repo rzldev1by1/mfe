@@ -7,7 +7,7 @@ return (
   <div>
         <div className="flex-column mr-2">
           <div className="d-flex">
-            <label className="col-6 title-label" htmlFor="moduleAccess">Module Access
+            <label className="col-6 title-label px-0" htmlFor="moduleAccess">Module Access
             </label>
             {/* <input className="checkbox-hidden" type="checkbox" id="moduleAccess"/> */}
             <div className="col-3">
@@ -28,7 +28,7 @@ return (
 
               return (<div className="flex-column mb-3 mr-2" key={index}>
                             <div className="d-flex" key={index}>
-                                <label className="col-6 section-value-text" key={item.menuid}>{(item.menuname.toLowerCase() === 'create sales order')?'Sales Orders':item.menuname}</label>
+                                <label className="col-6 section-value-text px-0" key={item.menuid}>{(item.menuname.toLowerCase() === 'create sales order')?'Sales Orders':item.menuname}</label>
                                
                                 {/* <input className="checkbox-hidden" type="checkbox" id={item.menuname} /> */}
                                 <div className="col-3">

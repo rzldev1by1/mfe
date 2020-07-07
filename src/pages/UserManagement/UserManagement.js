@@ -139,7 +139,7 @@ class UserManagemen extends Component {
                             </CCol>
                             <CCol lg={2}>
                                 <CRow>
-                                    <CCol sm={8} lg={10} md={12} className="px-1">
+                                    <CCol sm={8} lg={12} md={12} className="px-1">
                                         <button className="btn btn-block btn-primary float-right" onClick={this.searchHandler}>Search</button>                                        
                                     </CCol>
                                 </CRow>

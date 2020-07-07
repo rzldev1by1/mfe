@@ -15,3 +15,15 @@ export function readFromLocalStorage (keyName){
     return result;
 }
 
+export function generateUserID(textValue){
+    let result = "";
+
+    if (textValue && textValue.length > 2) {
+      var anysize = 3;//the size of string
+      var charset = "abcdefghijklmnopqrstuvwxyz"; //from where to create
+      for (var i = 0; i < anysize; i++)
+        result += charset[Math.floor(Math.random() * (9))];
+    }
+    return result;
+  }
+
