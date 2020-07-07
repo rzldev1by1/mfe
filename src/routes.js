@@ -11,6 +11,7 @@ const Welcome = React.lazy(() => import('./pages/Welcome/Welcome'));
 const StockHolding = React.lazy(() => import('./pages/StockHolding/StockHolding'));
 const SalesOrder = React.lazy(() => import('./pages/SalesOrder/SalesOrder'));
 const SalesOrderDetail = React.lazy(() => import('./pages/SalesOrder/SalesOrderDetail'));
+const StockMovement = React.lazy(() => import('./pages/StockMovement/StockMovement'));
 const UserManagement = React.lazy(() => import('./pages/UserManagement/UserManagement'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
@@ -30,6 +31,7 @@ const routes = [
 	// { path: '/users-management/create', exact: true, name: 'User Management', component: UsersManagementCreate },
 	{ path: '/sales-orders/:client/:site/:orderno', exact: true, name: 'Sales Order Detail', component: SalesOrderDetail },
 	{ path: '/sales-orders', exact: true, name: 'Sales Orders', component: SalesOrder },
+	{ path: '/stock-movement', exact: true, name: 'Sales Orders', component: StockMovement },
 ];
 
 export default routes;
