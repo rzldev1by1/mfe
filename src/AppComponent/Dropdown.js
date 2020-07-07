@@ -16,6 +16,7 @@ class Dropdown extends Component{
 
         componentDidMount(){
             if(this.props.isOpen) { this.props.isOpen(false) }
+            if(this.props.open) {this.refs.opener.click()}
         }
 
         render(){
@@ -68,7 +69,7 @@ class Dropdown extends Component{
                 
                                 
                             </ul>
-                            <label className="select_dropdown_expandLabel" htmlFor={"select-opener" + placeHolder + this.state.no} onClick={() => this.setState({ close: false })}></label>
+                            <label ref="opener" className="select_dropdown_expandLabel" htmlFor={"select-opener" + placeHolder + this.state.no} onClick={() => this.setState({ close: false })}></label>
                         </li>
                     </ul>
                 </React.Fragment>
