@@ -29,7 +29,7 @@ class PurchaseOrder extends Component {
     this.state = {
       data: [{ "menu": "Client", "subMenu": ["MLS", "MLB"], }, { "menu": "Site", "subMenu": ["A", "B", "C"] }, { "menu": "Status", "subMenu": ["Open", "Close"] }, { "menu": "Supplier", "subMenu": ["JohnDoe", "JohnWick"] }, { "menu": "Order Type", "subMenu": ["Type 1", "Type 2"] }],
       client: null, site: null, status: null, supplier: null, ordertype: null, area: null, quantity: null, search: "",
-
+      activeDropdown:[{id:'site', open:false},{id:'client', open:false},{id:'status', open:false},{id:'type', open:false},{id:'task', open:false}],
       clientdata: [],
       sitedata: [],
       ordertypedata: [],
@@ -289,7 +289,7 @@ class PurchaseOrder extends Component {
       })
     }  
     
-    const {taskData} = this.state
+    const {taskData,activeDropdown} = this.state
     if(taskData)
     {
       taskName = taskName.concat(taskData.name)
@@ -301,6 +301,9 @@ class PurchaseOrder extends Component {
         {Authentication.getUserLevel() == "administrator" ? (
           <Dropdown placeHolder="Site"
             className="filterDropdown"
+            open={activeDropdown[0].open}
+            id='site'
+            onclick={(id) => dropdownCheck(id)}
             optionList={siteData.toString()}
             optionValue={siteValue.toString()}
             getValue={this.getSiteSelected.bind(this)}
@@ -319,6 +322,7 @@ class PurchaseOrder extends Component {
         {Authentication.getUserLevel() == "administrator" ? (
           <Dropdown placeHolder="Client"
             className="filterDropdown"
+            open={activeDropdown[1].open}
             optionList={clientName.toString()}
             optionValue={clientValue.toString()}
             getValue={this.getClientSelected.bind(this)}
@@ -336,6 +340,7 @@ class PurchaseOrder extends Component {
 
         <Dropdown placeHolder="Status"
           className="filterDropdown"
+          open={activeDropdown[2].open}
           optionList={status.toString()}
           optionValue={statusValue.toString()}
           getValue={this.getStatusSelected.bind(this)}
@@ -344,12 +349,14 @@ class PurchaseOrder extends Component {
            />
         <Dropdown placeHolder="Order Type"
           className="filterDropdown"
+          open={activeDropdown[3].open}
           optionList={this.state.orderTypeName.toString()}
           optionValue={this.state.orderTypeValue.toString()}
           getValue={this.getOrderTypeSelected.bind(this)}
            />
         <Dropdown placeHolder="Task"
         className="filterDropdown"
+        open={activeDropdown[4].open}
         optionList={taskName.toString()}
         optionValue={taskValue.toString()}
         getValue={this.getTaskSelected.bind(this)}
