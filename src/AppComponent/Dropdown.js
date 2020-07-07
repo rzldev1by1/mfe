@@ -17,6 +17,7 @@ class Dropdown extends Component{
         componentDidMount(){
             if(this.props.isOpen) { this.props.isOpen(false) }
             if(this.props.open) {this.refs.opener.click()}
+            if(this.props.id && this.props.onClick){ this.props.onClick(this.props.id) }
         }
 
         render(){
