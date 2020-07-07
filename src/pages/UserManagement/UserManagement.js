@@ -5,6 +5,11 @@ import CustomPagination from 'shared/table/CustomPagination'
 import axios from 'axios'
 import HeaderTitle from 'shared/container/TheHeader'
 import { IoIosArrowDown } from 'react-icons/io'
+import endpoint from '../../helpers/endpoints'
+import UMCustomTable from './UserManagementTable'
+import CreateUM from './UserManagementCreate'
+import * as utility from './UmUtility'
+import './UserManagement.css'
 
 const columns = [
     { accessor: 'userid', Header: 'User ID', sortable: true },
@@ -19,17 +24,22 @@ class UserManagemen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            search: '',
             fields: columns,
+            loginInfo: {},
             data: [],
             dimension: { width: 0, height: 0 },
             pagination: {},
+            modalShow:false
         }
     }
 
     componentDidMount = () => {
         this.updateDimension();
         window.addEventListener('resize', this.updateDimension);
-        this.loadUser();
+        this.searchHandler();
+        this.loadPersonalLogin();
+       
     }
 
     componentWillUnmount = () => {
@@ -37,20 +47,42 @@ class UserManagemen extends Component {
     }
 
     updateDimension = () => {
-        const height = (window.innerHeight * 0.50);
+        // const height = (window.innerHeight * 0.50);
+        const height = (window.innerHeight - 116) * 0.55;
         this.setState({ dimension: { width: window.innerWidth, height } });
     }
 
-    loadUser = async () => {
-        const { data } = await axios.get("/web_user");
-        //    console.log(data);
-        this.setState({ data: data.data.data });
+
+    loadPersonalLogin = () => {
+        let userInfo = utility.readFromLocalStorage("user");
+        this.setState({ loginInfo: userInfo });
+    }
+
+    searchHandler = async (e) => {
+        const { search, pagination } = this.state;
+        let urls = [];
+        urls.push(`searchParam=${search ? search : ''}`);
+        urls.push(`page=${pagination.active || 1}`)
+
+        const { data } = await axios.get(`${endpoint.userManagementListUser}?${urls.join('&')}`)
+        this.setState({
+            data: data.data.data, pagination: {
+                active: pagination.active || data.data.current_page,
+                show: data.data.per_page,
+                total: data.data.total
+            }
+        });
+
+    }
+
+    toggle = () => {
+        this.setState((state) => ({modalShow:!state.modalShow}));
     }
 
 
     render() {
 
-        const { data, fields, pagination, dimension } = this.state;
+        const { loginInfo, data, fields, pagination, dimension, modalShow } = this.state;
 
         return (
             <div>
@@ -58,14 +90,47 @@ class UserManagemen extends Component {
                     breadcrumb={[{ to: '', label: 'User Management', active: true }]}
                     button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right">Create New User</CButton>}
                 />
-                <CCard className="bg-transparent border-dark">
+                <CCard className="bg-transparent border-white">
                     <CCardBody >
-                        asdasdasd
+                        <CRow>
+                            <CCol sm="2" className="user-login-info-header">
+                                Your Account
+                            </CCol>
+                            <CCol sm="2" className="user-login-info-header">
+                                User Id
+                            </CCol>
+                            <CCol sm="2" className="user-login-info-header">
+                                Client
+                            </CCol>
+                            <CCol sm="2" className="user-login-info-header">
+                                Site
+                            </CCol>
+                        </CRow>
+                        <CRow>
+                            <CCol sm="2" className="user-login-info-value">
+                                {loginInfo.email}
+                            </CCol>
+                            <CCol sm="2" className="user-login-info-value">
+                                {loginInfo.userId}
+                            </CCol>
+                            <CCol sm="2" className="user-login-info-value">
+                                {loginInfo.client}
+                            </CCol>
+                            <CCol sm="2" className="user-login-info-value">
+                                {loginInfo.site}
+                            </CCol>
+                        </CRow>
                     </CCardBody>
-                    <CCardBody className="px-4 py-2 bg-info">
+                    <CCardBody className="px-4 py-2 bg-white">
                         <CRow className="row">
                             <CCol lg={10} className="px-1">
-                                <div className="input-group my-1">
+                                {/* <div className="input-group">
+                                    <div className="input-group-prepend">
+                                        <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
+                                    </div>
+                                    <input type="text" className="form-control border-left-0" placeholder="Enter User ID or Username" onChange={e => this.setState({ search: e.target.value })} />
+                                </div> */}
+                                <div className="input-group">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
                                     </div>
@@ -75,22 +140,16 @@ class UserManagemen extends Component {
                             <CCol lg={2}>
                                 <CRow>
                                     <CCol sm={8} lg={10} md={12} className="px-1">
-                                        <button className="btn btn-block btn-primary float-right" onClick={this.searchSalesOrder}>Search</button>
+                                        <button className="btn btn-block btn-primary float-right" onClick={this.searchHandler}>Search</button>                                        
                                     </CCol>
                                 </CRow>
                             </CCol>
                         </CRow>
                     </CCardBody>
                 </CCard>
-                <CustomTable title="User Management" height={dimension.height} fields={fields} data={data} onClick={() => { }} />
-                <CustomPagination
-                    data={data}
-                    pagination={pagination}
-                    goto={(active) => {
-                        this.setState({ pagination: { ...pagination, active } }, () => this.searchSalesOrder())
-                    }}
-                    export={<CButton className="btn btn-primary float-right px-4 btn-export">Export <IoIosArrowDown /></CButton>}
-                />
+                <UMCustomTable title="User Management" height={dimension.height} fields={fields} data={data} onClick={() => { }} />
+                <CustomPagination data={data} pagination={pagination} goto={(active => { this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler()) })} export={this.props.export}/>
+                <CreateUM show={modalShow} toggle={this.toggle} />
             </div>
         )
     }

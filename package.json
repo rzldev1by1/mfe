@@ -53,7 +53,6 @@
     "react-table-v6": "^6.8.6",
     "reactstrap": "^8.5.1",
     "redux": "^4.0.5",
-    "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",

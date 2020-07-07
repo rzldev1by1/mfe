@@ -1,0 +1,74 @@
+.user-login-info-header{
+    color: #959DA0;    
+}
+.user-login-info-value{
+    color: #637176;    
+}
+.bg-white{
+    background-color: #FFFFFF;
+}
+
+.border-white{
+    border: 2px solid !important;
+    border-color: #FFFFFF !important;
+}
+
+.webgroup {
+    background-color: #e4e7ea;
+    display: inline-block;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .webgroup input {
+    display: none;
+  }
+  
+  .webgroup-active {
+    background-color: #ffffff;
+    font-family: 'Rubik Regular';
+    font-size: 20px !important;
+    color: #376bfb !important;
+    margin: 4px;
+    padding: 6px;
+    border-radius: 5px;
+    align-items: stretch;
+  }
+
+  .webgroup-notactive {
+    background-color: transparent;
+    font-family: 'Rubik Regular';
+    font-size: 20px !important;
+    color: #bbbcbd !important;
+    margin: 4px;
+    padding: 6px;
+    border-radius: 5px;
+  }
+  
+  
+
+/** Modal create **/
+.nav-tabs {
+    margin-left: 26px;
+    border: none;
+  }
+  .tab-content {
+    padding: 0;
+    margin: 0;
+    background-color: #fff;
+    color: #000;
+  }
+  .modal .nav-link {
+    background-color: #eee;
+    color: #959da0;
+    border: none;
+    font-size: 20px;
+    padding-left: 20px;
+  }
+  .modal .nav-link.active {
+    background-color: #fff;
+    color: #376bfb;
+  }
+
+
+/** End modal create **/
