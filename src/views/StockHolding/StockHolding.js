@@ -119,10 +119,13 @@ class StockHolding extends Component {
 
 	unAuthorizeAAccess = (error) => {
 		const errorCode = error.response.status
-		if(errorCode === 401)
+		if(errorCode === 401){
+			localStorage.setItem("expiredSession",true);
 			this.props.history.push('/login');
-		else if(errorCode === 400)
+		}else if(errorCode === 400){
+			localStorage.setItem("expiredSession",true);
 			this.props.history.push('/login');
+		}
 	}
 
 	getSite = () => {

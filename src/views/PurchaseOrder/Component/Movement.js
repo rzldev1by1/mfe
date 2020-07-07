@@ -75,10 +75,13 @@ class Movement extends Component {
         if(error.response !== undefined)
         {
             const errorCode = error.response.status
-		if(errorCode === 401)
-			this.props.history.push('/login');
-		else if(errorCode === 400)
-			this.props.history.push('/login');
+            if(errorCode === 401){
+                localStorage.setItem("expiredSession",true);
+                this.props.history.push('/login');
+            }else if(errorCode === 400){
+                localStorage.setItem("expiredSession",true);
+                this.props.history.push('/login');
+            }
         }
 	}
 
