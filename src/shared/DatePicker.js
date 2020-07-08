@@ -21,6 +21,7 @@ const toMonth = new Date(currentYear + 10, 11);
     const months = localeUtils.getMonths();
     const prev = months[previousMonth.getMonth()];
     const next = months[nextMonth.getMonth()];
+    console.log(months, prev, next)
     const styleLeft = {
       float: 'left',
       color: "#637175",
@@ -123,7 +124,8 @@ class DatePicker extends React.Component {
         this.state = {
             selectedDay: null,
             showDatePicker: false,
-            month: fromMonth
+            month: fromMonth,
+            monthChange: false
         }
     }
 
@@ -134,7 +136,7 @@ class DatePicker extends React.Component {
     }
 
     handleYearMonthChange = (month) => {
-        this.setState({ month });
+        this.setState({ month, monthChange: true });
     }
 
     handleDayClick = (day, { selected }) => {
@@ -143,7 +145,10 @@ class DatePicker extends React.Component {
         });
         this.props.getDate(moment(selected ? undefined : day).format("YYYY-MM-DD"))
         this.setState({ showDatePicker: false });
-        this.refs['dateValue'].value = moment(day).format("DD-MM-YYYY");
+        this.refs['dateValue'].value = moment(day).format("DD/MM/YYYY");
+        if(this.props.onChange){
+            this.props.onChange()
+        }
     }
     currentDate = () => {
         return this.state.month;
@@ -170,10 +175,10 @@ class DatePicker extends React.Component {
     dateValueFormat = (e) => {
         if (/^[0-9]+$/.test(e.key)) {
             if (e.target.value.length == 2) {
-                e.target.value += "-";
+                e.target.value += "/";
             };
             if (e.target.value.length == 5) {
-                e.target.value += "-"
+                e.target.value += "/"
             };
         }
 
@@ -209,9 +214,8 @@ class DatePicker extends React.Component {
                                 onFocus={() => this.openDatePicker()}
                                 onKeyUp={(e) => this.dateValueFormat(e)}
                                 onKeyDown={(e) => this.disabledAlpha(e)}
-                                pattern={/^[-+]?[0-9]+$/}
                                 style={this.props.formStyle}
-                                 />
+                                pattern={/^[-+]?[0-9]+$/} />
                     {/* <input className="select_date_close" type="radio" name={"select" + placeHolder + no} id={"select-close" + placeHolder + no} value="" defaultChecked/> */}
                     {/* <span className="select_date_label select_date_label-placeholder">{this.state.selectedDay ? moment(this.state.selectedDay).format("DD/MM/YYYY") : placeHolder}</span> */}
 
@@ -227,7 +231,7 @@ class DatePicker extends React.Component {
                             tabIndex="-1"
                             selectedDays={this.state.selectedDay ? this.state.selectedDay : (this.props.fromMonth ? new Date(this.props.fromMonth) : new Date())}
                             onDayClick={this.handleDayClick}
-                            month={this.props.fromMonth ? new Date(this.props.fromMonth) : this.state.month}
+                            month={this.props.fromMonth ? (this.state.monthChange ? this.state.month : new Date(this.props.fromMonth)) : this.state.month}
                             fromMonth={this.props.fromMonth ? new Date(this.props.fromMonth) : this.state.month}
                             toMonth={this.props.toMonth ? new Date(new Date(this.props.toMonth).getFullYear(), 11) : new Date(new Date(this.state.month).getFullYear() + 10, 11)}
                             onMonthChange={(e) => this.setState({ month: e })}
@@ -236,7 +240,7 @@ class DatePicker extends React.Component {
                                     date={date}
                                     localeUtils={localeUtils}
                                     onChange={this.handleYearMonthChange}
-                                    current={this.props.fromMonth ? new Date(this.props.fromMonth) : this.state.month}
+                                    current={this.props.fromMonth ? (this.state.monthChange ? this.state.month : new Date(this.props.fromMonth)) : this.state.month}
                                     fromMonth={this.props.fromMonth ? new Date(this.props.fromMonth) : this.state.month}
                                     toMonth={this.props.toMonth ? new Date(new Date(this.props.toMonth).getFullYear(), 11) : new Date(new Date(this.state.month).getFullYear() + 10, 11)}
 

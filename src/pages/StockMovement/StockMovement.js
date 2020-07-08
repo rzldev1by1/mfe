@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios' 
 import moment from 'moment';
+import { FontAwesomeIcon } from "font-awesome";
 
 import {
   CButton,
@@ -10,7 +11,7 @@ import {
   CRow,
   CCol,
 } from '@coreui/react'
-import Select from 'react-select'
+import Select, { components } from 'react-select'
 import { FaPencilAlt } from 'react-icons/fa'
 import { IoIosArrowDown } from 'react-icons/io'
  
@@ -29,6 +30,16 @@ const columns = [
   { accessor: 'product_name', Header: 'Description', sortable: true },
   { accessor: 'packdesc', Header: 'UOM', sortable: true }
 ]
+ 
+
+const DropdownIndicator = props => {
+  return (
+    <components.DropdownIndicator {...props}>
+      "asd"
+    </components.DropdownIndicator>
+  );
+};
+
 class StockMovement extends React.PureComponent {
   state = {
     search: '',
@@ -81,7 +92,7 @@ class StockMovement extends React.PureComponent {
     this.load_data('','','week') 
     this.getStockDate();
   } 
-
+  
   getStockDate = () => {
       axios.get(endpoint.getStockDateRange)
       .then((res) => {
@@ -432,6 +443,7 @@ class StockMovement extends React.PureComponent {
                             <Select name="filterType" placeholder="Display Period"
                               value={filterType} options={filterData} 
                               onChange={(val) => this.periodHandler( val )}
+                              components={{ DropdownIndicator }}
                               styles={customStyles}
                             />
                             <div id='period' className={(!periodSelected) ? 'stock-err' : 'stock-err-hidden'}>Please select display period</div>
@@ -459,6 +471,7 @@ class StockMovement extends React.PureComponent {
                             formStyle={{height:'50px'}}
                             getDate={(e) => { this.setState({ dateToSelected: e.toString() })}}
                             defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date"
+                            fromMonth={minDate} toMonth={maxDate}
                         /> 
                     </CCol>
                   </CRow>
