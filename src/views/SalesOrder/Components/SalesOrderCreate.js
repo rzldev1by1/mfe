@@ -798,7 +798,7 @@ class SalesOrderCreate extends Component {
         backdropTransition={{ timeout: 800 }}
         toggle={true}
       >
-        <div className="createModals">
+        <div className="createmodal">
           <ModalHeader style={{ marginTop: "1%" }}>
             <div style={{ display: "inline flex", marginLeft: "30px" }}>
               <label className="iconU-createModal" />

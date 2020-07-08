@@ -1650,9 +1650,9 @@ th.iconU-edit {
 .createModals {
   background-color: $primaryColor !important;
   position: absolute;
-  width: 120%;
+  width: 80rem !important;
   background-color: #3366FF;
-  margin-left: -5.9%;
+  margin-left: -5rem !important;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px !important;
@@ -2352,19 +2352,36 @@ th {
   .defaultTable.stockholding-summary{
     width:120%;
   }
+
+  .createmodal{
+    width: 80rem !important;
+    margin-top: -3rem;
+    margin-left: -5rem !important;
+  }
 }
 @media(min-width:1500px) and (max-width:1799px){
   .defaultTable.stockholding-summary{
     width:130%;
   }
+
+  .createmodal{
+    width: 80rem !important;
+    margin-top: -3rem;
+    margin-left: -6rem !important;
+  }
 }
 
-@media(min-width:1800px){
+@media(min-width:1800px) and (max-width:1850px){
   .defaultTable.stockholding-summary{
     width:100%;
   }
-
+  .createmodal{
+    width: 100rem !important;
+    margin-top: -3rem;
+    margin-left: -12rem !important;
+  }
 }
+
 
 .align-right{
   text-align: right !important;

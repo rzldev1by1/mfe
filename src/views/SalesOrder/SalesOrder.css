@@ -356,7 +356,7 @@ th.iconU-edit {
   }
 }
 
-.createmodal {
+/* .createmodal {
   position: absolute;
   width: 342%;
   background-color: #3366FF !important;
@@ -364,7 +364,7 @@ th.iconU-edit {
   margin-top: 17%;
   border-bottom-right-radius: 10px !important;
   border-bottom-left-radius: 10px !important;
-}
+} */
 
 .modal-header {
   background-color: #3366FF !important;
