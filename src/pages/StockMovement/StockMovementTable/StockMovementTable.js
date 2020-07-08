@@ -257,58 +257,7 @@ class StockMovementTable extends React.Component {
           {...this.props}
         />
 
-        <Modal
-          show={showModal} size='xl' centered
-          onHide={this.closeModal.bind(this, false, editColumnTemp)}
-        >
-          <Modal.Header className="bg-primary">
-            <Container>
-              <Row>
-                <Col xs={10} sm={10} md={10} lg={10} xl={10}>
-                  <div className="d-flex">
-                    <FaRegEdit color='white' size={25} /> &nbsp;
-                    <span className="font-20 text-white">Edit Column</span>
-                  </div>
-                  <span className="text-white">
-                    {`Show and hide the column according to your needs. Please select columns to show`}
-                  </span>
-                </Col>
-                <Col xs={2} sm={2} md={2} lg={2} xl={2} className="p-0 text-right">
-                  <Button onClick={this.closeModal.bind(this, false, editColumnTemp)}>
-                    <MdClose color='white' size={30} />
-                  </Button>
-                </Col>
-              </Row>
-            </Container>
-          </Modal.Header>
-          <Modal.Body>
-            <Row xl={5} lg={4} md={3} sm={3} xs={2} className="mx-1">
-              <Col className="text-primary font-20 p-2">{title}</Col>
-            </Row>
-            <Row xl={5} lg={4} md={3} sm={3} xs={2} className="mx-1">
-              {
-                fields && fields.map((item, index) => {
-                  return (
-                    <Col key={index} className="p-2">
-                      <button className={`text-left btn btn-block ${!editColumn[index] ? 'btn-outline-primary' : 'btn-light-gray'}`}
-                        onClick={this.showColumn.bind(this, item.Header, index, fields.length)}
-                      >
-                        {!editColumn[index] ? <AiOutlineEye size={25} /> : <AiOutlineEyeInvisible size={25} />}
-                        <b className="p-0"> {item.Header} </b>
-                      </button>
-                    </Col>
-                  )
-                })
-              }
-            </Row>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" className="px-5" onClick={this.saveEdit.bind(this, editColumn)} >Save</Button>
-          </Modal.Footer>
-        </Modal>
-
-
-
+        
         
 
       </React.Fragment>

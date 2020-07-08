@@ -1,8 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios' 
-import moment from 'moment';
-import { FontAwesomeIcon } from "font-awesome";
+import moment from 'moment'; 
 
 import {
   CButton,
@@ -16,6 +15,7 @@ import { FaPencilAlt } from 'react-icons/fa'
 import { IoIosArrowDown } from 'react-icons/io'
  
 import StockMovementTable from './StockMovementTable/StockMovementTable'
+// import CustomPagination from './StockMovementPagination/StockMovementPagination'
 import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader' 
 import {endpoint} from 'shared/utility/ConfigEndpoint' 
@@ -31,14 +31,6 @@ const columns = [
   { accessor: 'packdesc', Header: 'UOM', sortable: true }
 ]
  
-
-const DropdownIndicator = props => {
-  return (
-    <components.DropdownIndicator {...props}>
-      "asd"
-    </components.DropdownIndicator>
-  );
-};
 
 class StockMovement extends React.PureComponent {
   state = {
@@ -442,8 +434,7 @@ class StockMovement extends React.PureComponent {
                       <div style={{width: '100%'}}>
                             <Select name="filterType" placeholder="Display Period"
                               value={filterType} options={filterData} 
-                              onChange={(val) => this.periodHandler( val )}
-                              components={{ DropdownIndicator }}
+                              onChange={(val) => this.periodHandler( val )} 
                               styles={customStyles}
                             />
                             <div id='period' className={(!periodSelected) ? 'stock-err' : 'stock-err-hidden'}>Please select display period</div>
@@ -501,7 +492,7 @@ class StockMovement extends React.PureComponent {
                   />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-1" style={{flex: '0 0 20%', maxWidth: '20%'}}>
-                  <button className="btn btn-block btn-primary float-right custom-height-btn" onClick={this.searchStockMovement}>Search</button>
+                  <button className="btn btn-block btn-primary float-right custom-height-btn" onClick={this.searchStockMovement}>SEARCH</button>
                 </CCol>
               </CRow>
             </CCol>
@@ -515,7 +506,7 @@ class StockMovement extends React.PureComponent {
         data={data_table}
         fields={fields}
         onClick={this.showDetails}
-        export={<CButton className="btn btn-primary px-4">Export <IoIosArrowDown /></CButton>}
+        export={<CButton className="btn btn-primary px-4">EXPORT <IoIosArrowDown /></CButton>}
       /> 
 
       <CustomPagination
@@ -524,7 +515,7 @@ class StockMovement extends React.PureComponent {
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchStockMovement())
         }}
-        export={<CButton className="btn btn-primary float-right px-4 btn-export">Export <IoIosArrowDown /></CButton>}
+        export={<CButton className="btn btn-primary float-right px-4 btn-export">EXPORT <IoIosArrowDown /></CButton>}
       />
 
     </div>
