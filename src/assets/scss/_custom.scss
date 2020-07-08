@@ -68,13 +68,14 @@ button:focus {
 }
 .modal-header,
 .modal-body,
-.modal-footer {
+.modal-footer,
+.modal-content {
   border: none !important;
 }
-.text-purple{
+.text-purple {
   color: #5e44e8;
 }
-.text-blue{
+.text-blue {
   color: #3366ff;
 }
 .text-light-gray {
@@ -96,8 +97,8 @@ button:focus {
 }
 
 // Core-UI component style
-.c-app {
-  background-color: #e9eced;
+.c-app, .c-header{
+  background-color: #e9eced !important;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -156,8 +157,9 @@ button:focus {
   border-top-left-radius: 0 !important;
   border-top-right-radius: 0 !important;
   border-top: none !important;
-  margin: 0 1% !important;
-  width: 98.5% !important;
+  margin: 0 !important;
+  margin-left: 1px !important;
+  width: 99.5% !important;
 }
 .css-g1d714-ValueContainer {
   color: #000;
