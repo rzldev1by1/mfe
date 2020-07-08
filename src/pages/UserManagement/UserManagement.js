@@ -88,7 +88,7 @@ class UserManagemen extends Component {
             <div>
                 <HeaderTitle
                     breadcrumb={[{ to: '', label: 'User Management', active: true }]}
-                    button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right">Create New User</CButton>}
+                    button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right">CREATE USER</CButton>}
                 />
                 <CCard className="bg-transparent border-white">
                     <CCardBody >
@@ -123,7 +123,7 @@ class UserManagemen extends Component {
                     </CCardBody>
                     <CCardBody className="px-4 py-2 bg-white">
                         <CRow className="row">
-                            <CCol lg={10} className="px-1">
+                            <CCol lg={11} className="px-1">
                                 {/* <div className="input-group">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
@@ -137,10 +137,10 @@ class UserManagemen extends Component {
                                     <input type="text" className="form-control border-left-0" placeholder="Enter User ID or Username" onChange={e => this.setState({ search: e.target.value })} />
                                 </div>
                             </CCol>
-                            <CCol lg={2}>
+                            <CCol lg={1}>
                                 <CRow>
                                     <CCol sm={8} lg={12} md={12} className="px-1">
-                                        <button className="btn btn-block btn-primary float-right" onClick={this.searchHandler}>Search</button>                                        
+                                        <button className="btn btn-block btn-primary float-right" onClick={this.searchHandler}>SEARCH</button>                                        
                                     </CCol>
                                 </CRow>
                             </CCol>

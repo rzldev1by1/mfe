@@ -1,36 +1,17 @@
 import React from 'react'
 import { Row, Col, Tabs, Tab, Modal, Container } from 'react-bootstrap'
-import ModuleAccess from '../ModuleAccess'
-import Site from '../Site'
-import Client from '../Client'
+import ModuleAccess from '../ModuleAccessReview'
+import Site from '../SiteReview'
+import Client from '../ClientReview'
 import axios from 'axios'
-import endpoint from '../../../helpers/endpoints'
 import * as utility from '../UmUtility'
 
 
-
-class NewUser extends React.PureComponent {
-
-    state = {
-        sites: [],
-        client: [],
-        moduleAccess: []
-    }
-
-    componentDidMount() {
-        
-    }
-
-    
-
-    
-
-
+class Review extends React.PureComponent {
 
     render() {
-        const { isAdmin, user, onModuleEnableClick, onSiteEnableClick, onClientEnableClick,
-            moduleAccess, sites, clients } = this.props;
-        // const { moduleAccess, sites, clients } = this.state;
+        const { isAdmin, user, moduleAccess, sites, clients } = this.props;
+        
         return (
             <Container className="px-5 py-4">
                 <Row>
@@ -41,9 +22,9 @@ class NewUser extends React.PureComponent {
                         <Row>
                             <Col lg="6" md="9" sm="12" >
                                 <label className="webgroup d-flex justify-content-between">
-                                    <input type="checkbox" onChange={(e) => { this.props.onWebGroupSelect(e); }} />
-                                    <span className={`${isAdmin ? "flex-fill webgroup-notactive" : "flex-fill webgroup-active"}`}>Regular User</span>
-                                    <span className={`${isAdmin ? "flex-fill webgroup-active" : "flex-fill webgroup-notactive"}`}>Admin User</span>
+                                    <input type="checkbox" />
+                                    <span className={`flex-fill ${isAdmin ? "webgroup-review-notactive" : " webgroup-review-active"}`}>Regular User</span>
+                                    <span className={`flex-fill ${isAdmin ? "webgroup-review-active" : " webgroup-review-notactive"}`}>Admin User</span>
                                 </label>
                             </Col>
                         </Row>
@@ -65,17 +46,19 @@ class NewUser extends React.PureComponent {
 
                 <Row>
                     <Col lg="4">
-                        <input type="text" name="userid" readOnly className="form-control" value={user.userId} />
+                        <label name="userid" style={{backgroundColor:'#F6F7F9'}} readOnly className="form-control">
+                        {user.userId}
+                        </label>
                     </Col>
                     <Col lg="4">
-                        <input type="text" name="userName" placeholder="Enter a surename" maxLength="60" className={`form-control`} onChange={(e) => { this.props.onChangeName(e); }} value={user.name || ''} />
+                        <label name="userName" style={{color:'#959DA0'}} maxLength="60" className={`form-control`}>{user.name || ''}</label>
                         {/* <FormFeedback className="invalid-error-padding">
                       name value must be entered
                                    </FormFeedback> */}
                     </Col>
 
                     <Col lg="4">
-                        <input type="email" name="email" placeholder="Enter an email address" className={`form-control`} onChange={(e) => { this.props.onChangeEmail(e); }} value={user.email || ''} />
+                        <label name="email" style={{color:'#959DA0'}} className={`form-control`} >{user.email || ''} </label>
                         {/* <FormFeedback className="invalid-error-padding">
                       wrong format email
                                    </FormFeedback> */}
@@ -90,13 +73,13 @@ class NewUser extends React.PureComponent {
                 </Row>
                 <Row className={`${isAdmin ? 'd-none' : ''}`}>
                     <Col lg="4">
-                        <ModuleAccess moduleAccess={moduleAccess} onEnableClick={onModuleEnableClick} onModuleEnableAll={this.onModuleEnableAllClick} />
+                        <ModuleAccess moduleAccess={moduleAccess} />
                     </Col>
                     <Col lg="4">
-                        <Site sites={sites} onEnableClick={onSiteEnableClick} onSiteEnableAll={this.onSiteEnableAllClick} isEnableAllSite={false} />
+                        <Site sites={sites} />
                     </Col>
                     <Col lg="4">
-                        <Client clients={clients} onEnableClick={onClientEnableClick} onClientEnableAll={this.onClientEnableAllClick} />
+                        <Client clients={clients}/>
                     </Col>
                 </Row>
             </Container>
@@ -104,4 +87,4 @@ class NewUser extends React.PureComponent {
     }
 }
 
-export default NewUser;
+export default Review;

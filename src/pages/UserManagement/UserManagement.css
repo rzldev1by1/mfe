@@ -91,7 +91,56 @@
     width: 80px;
   }
   
+  .line-border {
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  .client-areas{
+    height:350px;
+    overflow-y: auto;
+  }
+
+  .webgroup-review-active {
+    background-color: #ffffff;
+    font-size: 20px !important;
+    color: #bbbcbd !important;
+    margin: 4px;
+    padding: 6px;
+    border-radius: 5px;
+    align-items: stretch;
+  }
+
+  .webgroup-review-notactive {
+    background-color: transparent;    
+    font-size: 20px !important;
+    color: #bbbcbd !important;
+    margin: 4px;
+    padding: 6px;
+    border-radius: 5px;
+  }
   
+  .enable-active {
+    
+    font-size: 1rem !important;
+    width: 117px !important;
+    height: 40px !important;
+    color: #959DA0;
+    border: 1.5px solid #959DA0;
+    border-radius: 7px;
+    width: 80px;
+    background-color: #FFFFFF;
+  }
+  
+  .enable-notactive {    
+    font-size: 1rem !important;
+    width: 117px !important;
+    height: 40px !important;
+    color: #E8E8E8;
+    border: 1.5px solid #E8E8E8;
+    border-radius: 7px;
+    width: 80px;
+    background-color: #FFFFFF;
+  }
 
 /** Modal create **/
 .nav-tabs {
