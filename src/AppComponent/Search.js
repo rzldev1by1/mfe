@@ -20,7 +20,7 @@ const Search = (props) => {
                     <i className="iconU-filter" />
                 </Button> */}
                 <Button type="submit" className="default-box-height search" onClick={props.searchData} style={{ marginLeft: '15px' }}>
-                    Search
+                    SEARCH
                 </Button>
             </div>
         </div>

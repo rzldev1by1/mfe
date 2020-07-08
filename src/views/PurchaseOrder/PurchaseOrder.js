@@ -304,6 +304,7 @@ class PurchaseOrder extends Component {
       taskName = taskName.concat(taskData.name)
       taskValue = taskValue.concat(taskData.code)      
     }
+    console.log(this.state.activeDropdown)
     return (
       <React.Fragment>
         {Authentication.getUserLevel() == "administrator" ? (
@@ -389,7 +390,7 @@ class PurchaseOrder extends Component {
           title="Purchase Orders"
           button={
             <Button onClick={this.openModal} color="primary" className='btn btn-primary float-right btn-create'>
-              <FaPencilAlt className="mb-2" /> &nbsp; <label className='font'>Create Purchase Order</label>
+              <FaPencilAlt className="mb-2" /> &nbsp; <label className='font'>CREATE PURCHASE ORDER</label>
             </Button>
           }
         />

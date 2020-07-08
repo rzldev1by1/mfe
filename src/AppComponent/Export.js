@@ -94,7 +94,7 @@ class Export extends Component {
                  <ul className={"select-export" + (this.state.exportExpand ? "" : "")} id="select" style={{marginTop:"-2px"}} onKeyDown={(e) => {if(e.keyCode === 27){ this.refs["closeDropdown"].checked = true }}}>
                     <li className="expand-style-export" >
                         <input ref="closeDropdown"   className="select_close-export" type="radio" name="export" id="export-btn-close" value="" />
-                        <span className="select_label-export1 select_label-placeholder-export">Export</span>
+                        <span className="select_label-export1 select_label-placeholder-export">EXPORT</span>
                     </li>
                 
                     <li className="select_items-export">
@@ -105,7 +105,7 @@ class Export extends Component {
                                 <input className="select_input-export" type="radio" name="export" />
                                 <label className="select_label-export option-radius-export-pdf" htmlFor="Export to PDF">
                                     <label className="border-pdf"  onClick={() => this.exportPDF()}>
-                                      <span className="pdf-icon" onClick={() => this.exportPDF()} >Export to PDF</span>
+                                      <span className="pdf-icon" onClick={() => this.exportPDF()} >Export to> PDF</span>
                                     </label>
                                 </label>
                             </li>
