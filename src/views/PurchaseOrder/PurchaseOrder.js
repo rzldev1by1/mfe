@@ -243,6 +243,15 @@ class PurchaseOrder extends Component {
     this.setState({ orderTypeSelected: value });
   }
 
+  dropdownCheck = (id) => {
+    let dropdown = [...this.state.activeDropdown]
+    dropdown.map(dd => {
+      if(id === dd.id) dd.open = true
+      else dd.open = false
+    })
+    this.setState({activeDropdown:dropdown}, () => console.log(this.state.activeDropdown))
+  }
+
   showDropdowns = () => {
     let clientName = ["All Clients"];
     let clientValue = ["all"];
@@ -295,15 +304,14 @@ class PurchaseOrder extends Component {
       taskName = taskName.concat(taskData.name)
       taskValue = taskValue.concat(taskData.code)      
     }
-
     return (
       <React.Fragment>
         {Authentication.getUserLevel() == "administrator" ? (
           <Dropdown placeHolder="Site"
             className="filterDropdown"
             open={activeDropdown[0].open}
-            id='site'
-            onclick={(id) => dropdownCheck(id)}
+            id={'site'}
+            onClick={(id) => this.dropdownCheck(id)}
             optionList={siteData.toString()}
             optionValue={siteValue.toString()}
             getValue={this.getSiteSelected.bind(this)}
@@ -323,6 +331,8 @@ class PurchaseOrder extends Component {
           <Dropdown placeHolder="Client"
             className="filterDropdown"
             open={activeDropdown[1].open}
+            id={'client'}
+            onClick={(id) => this.dropdownCheck(id)}
             optionList={clientName.toString()}
             optionValue={clientValue.toString()}
             getValue={this.getClientSelected.bind(this)}
@@ -341,6 +351,8 @@ class PurchaseOrder extends Component {
         <Dropdown placeHolder="Status"
           className="filterDropdown"
           open={activeDropdown[2].open}
+          id={'status'}
+          onClick={(id) => this.dropdownCheck(id)}
           optionList={status.toString()}
           optionValue={statusValue.toString()}
           getValue={this.getStatusSelected.bind(this)}
@@ -350,6 +362,8 @@ class PurchaseOrder extends Component {
         <Dropdown placeHolder="Order Type"
           className="filterDropdown"
           open={activeDropdown[3].open}
+          id={'type'}
+          onClick={(id) => this.dropdownCheck(id)}
           optionList={this.state.orderTypeName.toString()}
           optionValue={this.state.orderTypeValue.toString()}
           getValue={this.getOrderTypeSelected.bind(this)}
@@ -357,6 +371,8 @@ class PurchaseOrder extends Component {
         <Dropdown placeHolder="Task"
         className="filterDropdown"
         open={activeDropdown[4].open}
+        id={'task'}
+        onClick={(id) => this.dropdownCheck(id)}
         optionList={taskName.toString()}
         optionValue={taskValue.toString()}
         getValue={this.getTaskSelected.bind(this)}

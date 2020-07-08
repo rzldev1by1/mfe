@@ -26,6 +26,7 @@ class Dropdown extends Component{
             let lastIndex = optionListData.length - 1;
             let selectDropdownRef = null;
             const no = Math.floor(Math.random() * 100000) + 1;
+            alert(this.props.open)
             return(
                 <React.Fragment>
                     <ul className={"select_dropdown "+className + " dropdown_closed" + (!this.state.close && (this.props.usedFor == "SalesOrderCreate") ? " dropDownForOrderLine" : "" )} ref={(selectDropdown) => { selectDropdownRef = selectDropdown }} style={ style } tabIndex={tabIndex} onKeyDown={(e) => {if(e.key == "Escape"){ this.refs["closeDropdown"].checked = true }}}>
