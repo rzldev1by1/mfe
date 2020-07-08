@@ -387,7 +387,7 @@ export default class MovementSearch extends Component {
                             </div> 
                             <div className="col-sm-5" style={{ display: 'flex', maxWidth: '37%', flex: '40%', paddingLeft: 0 }}>{this.showDropdowns()}</div>
                             <div className="col-sm-1 " style={{flex: '0 0 10%', maxWidth:'10%'}} >
-                                <Button style={{width: '100%'}} onClick={() => this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">Search</Button>
+                                <Button style={{width: '100%'}} onClick={() => this.movementSearch()} className='movementBtnSearch default-box-height ' color="primary">SEARCH</Button>
                                 {/* <Button  style={{marginLeft : "15px", marginRight : "14px"}} onClick={()=> this.search()} className='movementBtnSearch default-box-height ' color="primary">Search</Button> */}
                             </div>
                         </div>

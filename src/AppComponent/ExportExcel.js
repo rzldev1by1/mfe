@@ -26,7 +26,7 @@ class Export extends Component {
                  <ul className={"select-export" + (this.state.exportExpand ? "" : "")} id="select" style={{marginTop:"-2px"}}>
                     <li className="expand-style-export" >
                         <input className="select_close-export" type="radio" name="export" id="export-btn-close" value="" />
-                        <span className="select_label-export1 select_label-placeholder-export">Export</span>
+                        <span className="select_label-export1 select_label-placeholder-export">EXPORT</span>
                     </li>
                 
                     <li className="select_items-export">
