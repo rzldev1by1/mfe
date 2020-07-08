@@ -123,7 +123,7 @@ class SalesOrderDetail extends React.Component {
                   </CCardBody>
                 </CCard>
                 <CCard>
-                  <CCardBody className="p-0 m-4 border-right">
+                  <CCardBody className="p-0 m-4 ">
                     <CRow><CCol className="text-light-gray">Stock On Hand</CCol>  <CCol>{stock_on_hand || '-'}</CCol> </CRow>
                     <CRow><CCol className="text-light-gray">Available Qty</CCol>  <CCol>{available_qty || '-'}</CCol></CRow>
                     <CRow><CCol className="text-light-gray">Expected in Qty</CCol>  <CCol>{expected_in_qty || '-'}</CCol> </CRow>
@@ -133,7 +133,7 @@ class SalesOrderDetail extends React.Component {
                 </CCard>
               </div>
 
-              <Row className="align-items-center ml-0">
+              <Row className="align-items-center ml-0" style={{width:"max-content"}}>
                   <div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
                   <Nav tabs>
                       <div className="input-group">
@@ -161,9 +161,9 @@ class SalesOrderDetail extends React.Component {
                     </div>
                 </Row>
         
-                <Row className="align-items-center ml-0"> 
-                    <div className="col-12 col-lg-12 col-md-12 col-sm-12 mt-0 pl-0 " style={{paddingRight: '30px'}}>
-                        <TabContent className="border-0" activeTab={this.state.activeTab}>
+                <Row className=""> 
+                    <div className="col-12 col-lg-12 col-md-12 col-sm-12 mt-0 pl-0 ">
+                        <TabContent className="border-0 tableTab" activeTab={this.state.activeTab}>
                             <TabPane className="p-0" tabId="1">
                               <CustomTable  title="Stock Detail"
                                             height={this.state.dimension.height}

@@ -194,17 +194,8 @@ class StockHolding extends React.PureComponent {
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchStockHolding ())
         }}
-        export={<button className="btn btn-primary float-right px-4 btn-export">EXPORT <IoIosArrowDown /></button>}
+        export={<button className="btn btn-primary float-right px-4 btn-export"> EXPORT</button>}
       />
-
-      {/* <SalesOrderCreate
-        show={!!create}
-        toggle={this.toggle}
-        siteData={siteData}
-        clientData={clientData}
-        statusData={statusData}
-        orderTypeData={orderTypeData}
-      /> */}
     </div>
   }
 }

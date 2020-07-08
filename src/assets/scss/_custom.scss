@@ -24,6 +24,46 @@ body {
   width: initial !important;
   height: initial !important;
 }
+.status-available{
+  color: #FFF !important;
+  background-color: #d1cccc;
+  border-radius: 5px;
+  /* border: solid 1.5px #959292; */
+  font-size: 12px;
+  padding: 6px;
+}
+.status-Unavailable{
+  color: #FFF !important;
+  background-color: #c82525;
+  border-radius: 5px;
+  /* border: solid 1.5px #959292; */
+  font-size: 12px;
+  padding: 6px;
+}
+.status-complete{
+  color: #555050 !important;
+  background-color: transparent;
+  border-radius: 5px;
+  border: solid 1px #555050 ; 
+  font-size: 12px;
+  padding: 6px;
+}
+.status-partRelease{
+  color: #555050 !important;
+  background-color: transparent;
+  border-radius: 5px;
+  border: solid 1px #555050; 
+  font-size: 12px;
+  padding: 6px;
+}
+.status-Release{
+  color: #555050 (209, 204, 204) !important;
+  background: transparent;
+  border-radius: 5px;
+  border: solid 1px #555050  ; 
+  font-size: 12px;
+  padding: 6px;
+}
 
 // Custom style
 input:focus {

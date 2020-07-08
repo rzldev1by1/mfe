@@ -14,7 +14,7 @@ const columns = [
   { accessor: 'site', Header: 'Site', },
   { accessor: 'client', Header: 'Client', },
   { accessor: 'order_no', Header: 'Order No', },
-  { accessor: 'status', Header: 'Status', width: 110  },
+  { accessor: 'status', Header: 'Status', width: 140  },
   { accessor: 'order_type', Header: 'Order Type', },
   { accessor: 'supplier_no', Header: 'Supplier No', },
   { accessor: 'supplier_name', Header: 'Supplier No',width: 210  },
@@ -107,12 +107,13 @@ class PurchaseOrders extends React.PureComponent {
     }
   }
   searchPurchaseOrder = async () => {
-    let { search, site, client, orderType, task, pagination } = this.state
+    let { search, site, client, orderType, task, pagination,status } = this.state
     let urls = []
     urls.push('searchParam=' + search ? search : '')
     urls.push('site=' + (site ? site.value : 'all'))
     urls.push('client=' + (client ? client.value : 'all'))
     urls.push('orderType=' + (orderType ? orderType.value : 'all'))
+    urls.push('status=' + (status ? status.value : 'all'))
     urls.push('page=' + (pagination.active || 1))
     console.log('load Purchase order', urls.join('&'), task)
     const { data } = await axios.get(`${endpoints.purchaseOrder}?${urls.join('&')}`)
@@ -124,6 +125,21 @@ class PurchaseOrders extends React.PureComponent {
         m.date_completed = moment(m.date_completed).format('DD/MM/YYYY')
         return m
       })
+      modifiedData.map((item, idx) => {
+        if((item["status"]) === "1: Available"){
+          item['status'] = [<a className="status-available">AVAILABLE</a> ]
+        }if((item["status"]) ==="0: Unavailable"){
+          item['status'] = [<a className="status-Unavailable">UNAVAILABLE</a> ]
+        }if((item["status"]) ==="2: Released"){
+          item['status'] = [<a className="status-Release">RELEASED</a> ]
+        }if((item["status"]) ==="3: Part Released"){
+          item['status'] = [<a className="status-partRelease">PART RELEASED</a> ]
+        }if((item["status"]) ==="4: Completed"){
+          item['status'] = [<a className="status-complete">COMPLETED</a> ]
+        }if((item["status"]) ==="All Open"){
+          item['status'] = [<a className="status-ok">ALL OPEN</a> ]
+        }
+      } )
       this.setState({
         pagination: {
           active: pagination.active || data.data.current_page,
@@ -217,17 +233,8 @@ class PurchaseOrders extends React.PureComponent {
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchPurchaseOrder())
         }}
-        export={<button className="btn btn-primary float-right px-4 btn-export">EXPORT <IoIosArrowDown /></button>}
+        export={<button className="btn btn-primary float-right px-4 btn-export"> EXPORT</button>}
       />
-{/* 
-      <SalesOrderCreate
-        show={!!create}
-        toggle={this.toggle}
-        siteData={siteData}
-        clientData={clientData}
-        statusData={statusData}
-        orderTypeData={orderTypeData}
-      /> */}
     </div>
   }
 }
