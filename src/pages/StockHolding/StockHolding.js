@@ -176,7 +176,7 @@ class StockHolding extends React.PureComponent {
                 <CCol sm={4} lg={2} className="px-1">
                 </CCol>
                 <CCol sm={4} lg={2} className="px-1">
-                  <button className="btn btn-block btn-primary" onClick={this.searchStockHolding}>Search</button>
+                  <button className="btn btn-block btn-primary" onClick={this.searchStockHolding}>SEARCH</button>
                 </CCol>
               </CRow>
             </CCol>
@@ -194,7 +194,7 @@ class StockHolding extends React.PureComponent {
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchStockHolding ())
         }}
-        export={<button className="btn btn-primary float-right px-4 btn-export">Export <IoIosArrowDown /></button>}
+        export={<button className="btn btn-primary float-right px-4 btn-export">EXPORT <IoIosArrowDown /></button>}
       />
 
       {/* <SalesOrderCreate

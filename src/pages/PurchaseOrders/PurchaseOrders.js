@@ -14,10 +14,10 @@ const columns = [
   { accessor: 'site', Header: 'Site', },
   { accessor: 'client', Header: 'Client', },
   { accessor: 'order_no', Header: 'Order No', },
-  { accessor: 'status', Header: 'Status', },
+  { accessor: 'status', Header: 'Status', width: 110  },
   { accessor: 'order_type', Header: 'Order Type', },
   { accessor: 'supplier_no', Header: 'Supplier No', },
-  { accessor: 'supplier_name', Header: 'Supplier No',  },
+  { accessor: 'supplier_name', Header: 'Supplier No',width: 210  },
   { accessor: 'delivery_date', Header: 'Delivery Date',  },
   { accessor: 'date_received', Header: 'Date Received', },
   { accessor: 'date_released', Header: 'Date Released',},
@@ -50,7 +50,7 @@ class PurchaseOrders extends React.PureComponent {
     this.getClient()
     this.getStatus()
     this.getResources()
-    this.searchPruchaseOrder()
+    this.searchPurchaseOrder()
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimension);
@@ -106,7 +106,7 @@ class PurchaseOrders extends React.PureComponent {
       this.setState({ resources: data, orderTypeData })
     }
   }
-  searchPruchaseOrder = async () => {
+  searchPurchaseOrder = async () => {
     let { search, site, client, orderType, task, pagination } = this.state
     let urls = []
     urls.push('searchParam=' + search ? search : '')
@@ -114,7 +114,7 @@ class PurchaseOrders extends React.PureComponent {
     urls.push('client=' + (client ? client.value : 'all'))
     urls.push('orderType=' + (orderType ? orderType.value : 'all'))
     urls.push('page=' + (pagination.active || 1))
-    console.log('load Pruchase order', urls.join('&'), task)
+    console.log('load Purchase order', urls.join('&'), task)
     const { data } = await axios.get(`${endpoints.purchaseOrder}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
@@ -151,8 +151,8 @@ class PurchaseOrders extends React.PureComponent {
     } = this.state
     return <div className="table-summary">
       <HeaderTitle
-        breadcrumb={[{ to: '', label: 'Pruchase Orders', active: true }]}
-        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right px-3">Create Pruchase Order</CButton>}
+        breadcrumb={[{ to: '', label: 'Purchase Orders', active: true }]}
+        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right px-3">Create Purchase Order</CButton>}
       />
 
       <CCard>
@@ -199,7 +199,7 @@ class PurchaseOrders extends React.PureComponent {
                   />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-1">
-                  <button className="btn btn-block btn-primary float-right" onClick={this.searchPruchaseOrder}>Search</button>
+                  <button className="btn btn-block btn-primary float-right" onClick={this.searchPurchaseOrder}>SEARCH</button>
                 </CCol>
               </CRow>
             </CCol>
@@ -208,16 +208,16 @@ class PurchaseOrders extends React.PureComponent {
       </CCard>
 
       <CustomTable
-        title="Pruchase Order"
+        title="Purchase Order"
         height={dimension.height}
         data={data}
         fields={fields}
         pagination={pagination}
         onClick={this.showDetails}
         goto={(active) => {
-          this.setState({ pagination: { ...pagination, active } }, () => this.searchPruchaseOrder())
+          this.setState({ pagination: { ...pagination, active } }, () => this.searchPurchaseOrder())
         }}
-        export={<button className="btn btn-primary float-right px-4 btn-export">Export <IoIosArrowDown /></button>}
+        export={<button className="btn btn-primary float-right px-4 btn-export">EXPORT <IoIosArrowDown /></button>}
       />
 {/* 
       <SalesOrderCreate

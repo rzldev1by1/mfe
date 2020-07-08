@@ -8,7 +8,7 @@
 }
 .status-shortage{
     color: white !important;
-    background: red;
+    background: rgb(199, 33, 33);
     padding: 6px;
     font-size: 12px;
     border-radius: 3px;
@@ -16,6 +16,18 @@
 .input-height{
     height: 40px;
 }
+
+.nav-tabs .nav-link.tab-custom {
+  color: #2f275d !important;
+  background-color: #ffffff !important;
+  padding-left: 24px;
+  padding-right: 27px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
 .form-control::-moz-placeholder {
     color: rgb(192, 187, 187);
   }
