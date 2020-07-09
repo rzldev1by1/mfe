@@ -18,14 +18,25 @@
 }
 
 .nav-tabs .nav-link.tab-custom {
-  color: #2f275d !important;
+  color: #3f6efb !important;
   background-color: #ffffff !important;
   padding-left: 24px;
   padding-right: 27px;
   padding-bottom: 8px;
   padding-top: 8px;
-  border-radius: 5px;
-  font-size: 20px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border: solid 0px;
+}
+
+.tab-header{
+  width: max-content;
+  margin-left: -1px !important;
+}
+.numberic{
+    margin-right: 5px;
+    width: 19px;
+    padding-bottom: 4.9px;
 }
 
 .tableTab{

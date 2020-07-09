@@ -36,6 +36,7 @@ class SalesOrderDetail extends React.Component {
                   ],
     detail: {},
     products: [],
+    forecast: [],
     datahead:[],
     activeTab: "1",
   }
@@ -88,7 +89,7 @@ class SalesOrderDetail extends React.Component {
     const url = `/stockbal?client=${client}&product=${product}&site=${site}`
     const { data } = await axios.get(url)
     if (data) {
-      this.setState({ products: data[0][0]['available orders'] })
+      this.setState({ forecast: data[0][0]['available orders'] })
     }
   }
   formatDate = (date) => {
@@ -96,7 +97,7 @@ class SalesOrderDetail extends React.Component {
   }
   render() {
     // const { match, history } = this.props
-    const { detail, products, stockDetail, activeTab, ForesCast, forescast } = this.state
+    const { detail, products, stockDetail, activeTab, ForesCast, forecast} = this.state
     let site = this.state.datahead.length ? this.state.datahead[0].site : null
     let client = this.state.datahead.length ? this.state.datahead[0].client : null
     let product = this.state.datahead.length ? this.state.datahead[0].product : null
@@ -133,7 +134,7 @@ class SalesOrderDetail extends React.Component {
                 </CCard>
               </div>
 
-              <Row className="align-items-center ml-0" style={{width:"max-content"}}>
+              <Row className="align-items-center tab-header">
                   <div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
                   <Nav tabs>
                       <div className="input-group">
@@ -147,7 +148,7 @@ class SalesOrderDetail extends React.Component {
                                  </NavLink>
                             </NavItem>
 
-                            <NavItem className={"pl-2 pr-0 "}>
+                            <NavItem className={"pl-2 pr-0 " + (this.state.forecast.length > 0 ? null : "d-none")}>
                                   <NavLink className={"nav-link-cust" + (activeTab === "2" ? " tab-custom" : "")} active={this.state.activeTab === "2"} onClick={() => this.activeTabIndex("2")}>
                                       <div className="row rowTabCustom align-items-center">
                                             <span className="tabTitleText">
@@ -175,7 +176,7 @@ class SalesOrderDetail extends React.Component {
                                <CustomTable  title="Stock ForesCast"
                                             height={this.state.dimension.height}
                                             fields={ForesCast}
-                                            data={products}
+                                            data={forecast}
                                           />                                 
                               </TabPane>
                           </TabContent>

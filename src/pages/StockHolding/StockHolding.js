@@ -97,9 +97,9 @@ class StockHolding extends React.PureComponent {
       const modifiedData = data.data.data;
           modifiedData.map((item, idx) => {
             if((item["on_hand_qty"] + item["expected_in_qty"]) >= item["expected_out_qty"]){
-              item['status'] = [<a className="status-ok">Ok</a> ]
+              item['status'] = [<a className="status-ok">OK</a> ]
             }else{
-              item['status'] =  [<a className="status-shortage">Shortage</a> ]
+              item['status'] =  [<a className="status-shortage">SHORTAGE</a> ]
             }
           } )
       this.setState({
