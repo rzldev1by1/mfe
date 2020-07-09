@@ -18,13 +18,14 @@ class ProtectedRoute extends React.Component {
 		super(props)
 		if (props.store.user) {
 			const { token, userLevel, client, webUser } = props.store.user
+			console.log(client)
 			axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 			axios.defaults.headers.common['Content-Type'] = 'application/json';
 			axios.defaults.headers.common['Accept'] = 'application/json';
 			axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-			axios.defaults.headers.common['userLevel'] = userLevel;
-			axios.defaults.headers.common['client'] = client;
-			axios.defaults.headers.common['webUser'] = webUser;
+			axios.defaults.headers.common['userLevel'] = userLevel || '';
+			axios.defaults.headers.common['client'] = client || '';
+			axios.defaults.headers.common['webUser'] = webUser || '';
 		}
 	}
 	render() {
