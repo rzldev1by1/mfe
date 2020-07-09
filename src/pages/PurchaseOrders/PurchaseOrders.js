@@ -4,12 +4,13 @@ import axios from 'axios'
 import moment from 'moment'
 import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react'
 import Select from 'react-select'
-import { IoIosArrowDown } from 'react-icons/io'
 
 import endpoints from 'helpers/endpoints'
 import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
 import './../StockHolding/StockHolding.css'
+import './PurchaseOrder.css'
+
 const columns = [
   { accessor: 'site', Header: 'Site', },
   { accessor: 'client', Header: 'Client', },

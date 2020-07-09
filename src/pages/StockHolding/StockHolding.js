@@ -92,7 +92,6 @@ class StockHolding extends React.PureComponent {
     urls.push('client=' + (client ? client.value : 'all'))
     urls.push('status=' + (status ? status.value : 'all'))
     urls.push('page=' + (pagination.active || 1))
-    console.log('load sales order', urls.join('&'))
     const { data } = await axios.get(`${endpoints.stockHoldingSummary}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data;

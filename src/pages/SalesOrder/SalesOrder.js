@@ -132,7 +132,6 @@ class SalesOrder extends React.PureComponent {
     urls.push('client=' + (client ? client.value : 'all'))
     urls.push('orderType=' + (orderType ? orderType.value : 'all'))
     urls.push('page=' + (pagination.active || 1))
-    console.log('load sales order', urls.join('&'), task)
     const { data } = await axios.get(`${endpoints.salesOrder}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
