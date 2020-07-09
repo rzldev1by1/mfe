@@ -42,7 +42,7 @@ class Reset extends React.PureComponent {
                         <div className="d-flex justify-content-between pb-3">
                             {(isResetSuccess) ? '' : <button className="font-lg font-md font-sm btn btn-grey ml-4" style={{ width: "15%" }} onClick={(e) => { toggle() }}>No</button>}
 
-                            {(isResetSuccess) ? '' : <button className="font-lg font-md font-sm btn btn-primary mr-4" style={{ width: "15%" }} onClick={(e) => { this.confirmResetPassword() }}>Yes</button>}
+                            {(isResetSuccess) ? '' : <button className="font-lg font-md font-sm btn btn-primary mr-4" style={{ width: "15%" }} onClick={(e) => { this.props.confirmResetPassword() }}>Yes</button>}
                         </div>
                     </Col>
                 </Row>

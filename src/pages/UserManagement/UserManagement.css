@@ -164,6 +164,10 @@
     border-color: #d5d8da;
   }
 
+  .client-pr{
+    padding-right: 1.7rem;
+  }
+
 /** Modal create **/
 .nav-tabs {
     margin-left: 26px;

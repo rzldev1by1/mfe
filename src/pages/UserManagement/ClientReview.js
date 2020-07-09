@@ -12,19 +12,20 @@ const clientReview = ({clients}) => {
       let text = aText.charAt(0).toUpperCase() + aText.slice(1)
       return text;
   }
-return (<div className="client-areas">
+return (<div>
 
       <div className="flex-column">
-          <div className="row mr-2">
+          <div className="row">
               <label className="col-6 text-muted" htmlFor="Client">Client
               </label>
           </div>
       </div>
      
+      <div className="client-areas">
       {
          (clients && clients.length)? clients.map((item,index) => {
             return (<div className="flex-column" key={index}>
-                          <div className="row mb-3 mr-2" key={index}>
+                          <div className="row mb-3" key={index}>
                               <label className="col-6 text-muted" key={item.code}>{ capitalizeFirstLetter(item.name) }</label>
 
                              <div className="col-6">
@@ -37,7 +38,7 @@ return (<div className="client-areas">
 
           }):null
       }
-
+      </div>
   </div>)
 
 }

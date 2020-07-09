@@ -137,12 +137,12 @@ class UserManagementDetail extends Component {
         this.setState({ clients: clients });
     }
 
-    
+
 
     onEnabledAllModuleAccess = () => {
         let newState = [...this.state.moduleAccess];
         let isEnableAllModule = this.state.isEnableAllModule;
-        let newArray = newState.map((item,index) => {
+        let newArray = newState.map((item, index) => {
             let newItem = item;
             newItem.status = !isEnableAllModule;
             return newItem;
@@ -153,23 +153,23 @@ class UserManagementDetail extends Component {
 
     onEnabledAllSite = () => {
         let isEnableAllSite = this.state.isEnableAllSite;
-        
+
         let sites = [...this.state.sites];
         var newArray = sites.map((item, index) => {
             item.status = !isEnableAllSite;
             return item;
         });
-        
+
         this.setState({ sites: newArray, isEnableAllSite: !isEnableAllSite });
     }
 
     onEnabledAllClient = () => {
-        let isEnableAllClient = this.state.isEnableAllClient;        
+        let isEnableAllClient = this.state.isEnableAllClient;
         let clients = [...this.state.clients];
         var newArray = clients.map((item, index) => {
             item.status = !isEnableAllClient;
             return item;
-        });        
+        });
         this.setState({ clients: newArray, isEnableAllClient: !isEnableAllClient });
     }
 
@@ -182,14 +182,14 @@ class UserManagementDetail extends Component {
             return item;
         });
 
-        let isEnableAll = newModules.filter((item) => { return item.status === true}).length;
-        let isEnableAllModule = (moduleAccess.length === isEnableAll)?true:false;
+        let isEnableAll = newModules.filter((item) => { return item.status === true }).length;
+        let isEnableAllModule = (moduleAccess.length === isEnableAll) ? true : false;
 
-        this.setState({ moduleAccess: newModules,isEnableAllModule:isEnableAllModule});
+        this.setState({ moduleAccess: newModules, isEnableAllModule: isEnableAllModule });
     }
 
     onSiteStatusClick = (e, index) => {
-        let sites = [...this.state.sites];          
+        let sites = [...this.state.sites];
         let newSites = sites.map((item, idx) => {
             if (idx === index) {
                 item.status = true;
@@ -198,10 +198,10 @@ class UserManagementDetail extends Component {
             }
             return item;
         });
-        let isEnableAll = newSites.filter((item) => { return item.status === true}).length;
-        let isEnableAllSite = (sites.length === isEnableAll)?true:false;
+        let isEnableAll = newSites.filter((item) => { return item.status === true }).length;
+        let isEnableAllSite = (sites.length === isEnableAll) ? true : false;
 
-        this.setState({ sites: newSites,isEnableAllSite:isEnableAllSite});
+        this.setState({ sites: newSites, isEnableAllSite: isEnableAllSite });
     }
 
     onClientStatusClick = (e, index) => {
@@ -214,10 +214,10 @@ class UserManagementDetail extends Component {
             }
             return item;
         });
-        let isEnableAll = newClients.filter((item) => { return item.status === true}).length;
-        let isEnableAllClient = (clients.length === isEnableAll)?true:false;
+        let isEnableAll = newClients.filter((item) => { return item.status === true }).length;
+        let isEnableAllClient = (clients.length === isEnableAll) ? true : false;
 
-        this.setState({ clients: newClients, isEnableAllClient:isEnableAllClient });
+        this.setState({ clients: newClients, isEnableAllClient: isEnableAllClient });
     }
 
 
@@ -249,7 +249,20 @@ class UserManagementDetail extends Component {
     }
 
     getParam = (passwordChange) => {
+        const { moduleAccess, sites, clients } = this.state;
+
         let newParam = {};
+        let userMenu = moduleAccess.filter((item) => { return item.status === true; })
+            .map((item, index) => {
+                return item.menuid;
+            });
+        let site = sites.find((item, index) => {
+            return item.status === true;
+        });
+        let client = clients.find((item, index) => {
+            return item.status === true;
+        });
+
         let accountInfo = { ...this.state.accountInfo };
         newParam.name = accountInfo.user;
         newParam.email = accountInfo.email;
@@ -257,9 +270,9 @@ class UserManagementDetail extends Component {
         newParam.lastLogin = accountInfo.lastLogin;
         newParam.thisAccess = accountInfo.thisAccess;
         newParam.thisLogin = accountInfo.thisLogin;
-        newParam.userMenu = this.changeUserMenuToStringArray(accountInfo.userMenu);
-        newParam.client = accountInfo.client;
-        newParam.site = accountInfo.site;
+        newParam.userMenu = userMenu;
+        newParam.client = client.code;
+        newParam.site = site.site;
         newParam.disabled = accountInfo.disabled ? 'Y' : 'N';
 
 
@@ -298,31 +311,18 @@ class UserManagementDetail extends Component {
         let web_user_id = match.params.id;
         const { user, userId, email, userMenu } = this.state.accountInfo;
 
-        let url = `${endpoint.UserManagement_resetpassword}`;
+        let url = `${endpoint.userManagementresetpassword}`;
 
         let newText = user.substring(0, 2);
         let result = this.generateUserID(today);
         let new_password = result + newText.toLowerCase();
         let param = { "email": email, "web_user": web_user_id, "new_password": new_password }
 
-
-        //  axios.post(url,param,{ headers: headers })
-        //    .then(res => {
-        //      var result = [];
-        //      if(res.status === 200){
-        //        self.setState({isSaveProgressing:false, isResetSuccess:true, modalPopupResetdisplay:true},self.closeModalPopupResetAuto);
-
-        //      }
-        //      return result;
-        //    })
-        //    .catch(error => {
-        //        console.log("error save",error);
-        //    })
-        //    .then((result) => {
-
-        //    })
-
-
+        const {data,status} = axios.post(url,param);
+        if(status === 200){
+            this.setState({isSaveProgressing:false, isResetSuccess:true, modalPopupResetdisplay:true},self.closeModalPopupResetAuto);
+        }
+          
     }
 
     updateRequest = async (param) => {
@@ -377,18 +377,16 @@ class UserManagementDetail extends Component {
         const { moduleAccess, sites, clients, accountInfo } = this.state;
 
 
-        return (<div>
-            <div className={(this.state.isLoadComplete ? 'd-none' : 'spinner')} />
+        return (<div className="w-100 h-100">
+            {/* <div className={(this.state.isLoadComplete ? 'd-none' : 'spinner')} />
             <div className={(this.state.isLoadComplete ? ' ' : 'd-none')}>
-
-                <div className="d-flex mt-4 mb-4">
-                    <HeaderTitle breadcrumb={[
+            </div> */}
+                
+                <HeaderTitle breadcrumb={[
                         { to: '/users-management', label: 'User Management' },
                         { to: '', label: accountInfo.user, active: true },
                     ]} />
-                </div>
-                <div className="d-flex">
-                    <CCard className="container-user-list border-0 flex-fill h-100">
+                <CCard className="h-75">
                         <CCardBody>
                             <form onSubmit={(e) => { e.preventDefault(); this.saveClick(); }}>
                                 <div className="account-detail mt-2">
@@ -515,14 +513,14 @@ class UserManagementDetail extends Component {
 
                         </CCardBody>
                     </CCard>
-                </div>
+                
 
 
                 <ResetModal show={this.state.modalPopupResetdisplay}
                     toggle={this.closeModalPopupReset}
                     isResetSuccess={this.state.isResetSuccess}
                     confirmResetPassword={this.confirmResetPassword} />
-            </div>
+            
         </div>)
     }
 
