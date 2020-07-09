@@ -132,13 +132,6 @@ class SalesOrderDetail extends React.Component {
         fields={fields}
         data={products}
       />
-      <CustomPagination
-        data={products}
-        // pagination={pagination}
-        // goto={(active) => {
-        //   this.setState({ pagination: { ...pagination, active } }, () => this.getProducts())
-        // }}
-      />
     </div>
   }
 }
