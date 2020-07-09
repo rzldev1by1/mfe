@@ -75,7 +75,6 @@ class UserManagementDetail extends Component {
                 newItem.menuname = item.menu_name;
                 return newItem;
             });
-
         }
         return newUserMenu;
     }
@@ -138,113 +137,87 @@ class UserManagementDetail extends Component {
         this.setState({ clients: clients });
     }
 
-    onModuleAccessClick = (e, data) => {
-
-        if (data) {
-            let newState = [...this.state.moduleAccess];
-            let userInfo = { ...this.state.accountInfo };
-
-
-            var newArray = newState.map((item, index) => {
-
-                if (item.menuid === data.menuid) {
-                    item.status = !item.status;
-                    if (item.status) {
-                        userInfo.userMenu.push({ "menuid": item.menuid, "menuname": item.menuname });
-                    } else {
-                        if (userInfo.userMenu.length) {
-                            let idx = userInfo.userMenu.findIndex((menu) => menu.menuid === data.menuid);
-                            userInfo.userMenu.splice(idx, 1);
-                        }
-                    }
-                }
-                return item;
-            });
-
-            this.setState({ moduleAccess: newArray, accountInfo: userInfo });
-        }
-
-    }
+    
 
     onEnabledAllModuleAccess = () => {
         let newState = [...this.state.moduleAccess];
         let isEnableAllModule = this.state.isEnableAllModule;
-        let userInfo = { ...this.state.accountInfo };
-        userInfo.userMenu = null;
-        userInfo.userMenu = [];
+        let newArray = newState.map((item,index) => {
+            let newItem = item;
+            newItem.status = !isEnableAllModule;
+            return newItem;
+        })
 
-        var newArray = newState.map((item, index) => {
-            item.status = !isEnableAllModule;
-            if (item.status) {
-                userInfo.userMenu.push({ "menuid": item.menuid, "menuname": item.menuname });
-            }
-
-            return item;
-        });
-
-        this.setState({ moduleAccess: newArray, accountInfo: userInfo, isEnableAllModule: !isEnableAllModule });
+        this.setState({ moduleAccess: newArray, isEnableAllModule: !isEnableAllModule });
     }
 
     onEnabledAllSite = () => {
         let isEnableAllSite = this.state.isEnableAllSite;
-        let userInfo = { ...this.state.accountInfo };
+        
         let sites = [...this.state.sites];
         var newArray = sites.map((item, index) => {
             item.status = !isEnableAllSite;
             return item;
         });
-        userInfo.site = null;
-        this.setState({ sites: newArray, accountInfo: userInfo, isEnableAllSite: !isEnableAllSite });
+        
+        this.setState({ sites: newArray, isEnableAllSite: !isEnableAllSite });
     }
 
     onEnabledAllClient = () => {
-        let isEnableAllClient = this.state.isEnableAllClient;
-        let userInfo = { ...this.state.accountInfo };
+        let isEnableAllClient = this.state.isEnableAllClient;        
         let clients = [...this.state.clients];
         var newArray = clients.map((item, index) => {
             item.status = !isEnableAllClient;
             return item;
+        });        
+        this.setState({ clients: newArray, isEnableAllClient: !isEnableAllClient });
+    }
+
+    onModuleAccessClick = (e, index) => {
+        let moduleAccess = [...this.state.moduleAccess];
+        let newModules = moduleAccess.map((item, idx) => {
+            if (idx === index) {
+                item.status = !item.status;
+            }
+            return item;
         });
-        userInfo.client = null;
-        this.setState({ clients: newArray, accountInfo: userInfo, isEnableAllClient: !isEnableAllClient });
+
+        let isEnableAll = newModules.filter((item) => { return item.status === true}).length;
+        let isEnableAllModule = (moduleAccess.length === isEnableAll)?true:false;
+
+        this.setState({ moduleAccess: newModules,isEnableAllModule:isEnableAllModule});
     }
 
-    onSiteStatusClick = (e, data) => {
-        if (data) {
-            let user = { ...this.state.accountInfo };
-            let newState = [...this.state.sites];
-            var newArray = newState.map((item, index) => {
+    onSiteStatusClick = (e, index) => {
+        let sites = [...this.state.sites];          
+        let newSites = sites.map((item, idx) => {
+            if (idx === index) {
+                item.status = true;
+            } else {
                 item.status = false;
-                if (item.site === data.site)
-                    item.status = true;
-                if (item.status)
-                    user.site = data.site;
+            }
+            return item;
+        });
+        let isEnableAll = newSites.filter((item) => { return item.status === true}).length;
+        let isEnableAllSite = (sites.length === isEnableAll)?true:false;
 
-                return item;
-            });
-
-            this.setState({ sites: newArray, accountInfo: user });
-        }
+        this.setState({ sites: newSites,isEnableAllSite:isEnableAllSite});
     }
 
-    onClientStatusClick = (e, data) => {
-        let user = { ...this.state.accountInfo };
-
-        if (data) {
-            let newState = [...this.state.clients];
-            var newArray = newState.map((item, index) => {
+    onClientStatusClick = (e, index) => {
+        let clients = [...this.state.clients];
+        let newClients = clients.map((item, idx) => {
+            if (idx === index) {
+                item.status = true;
+            } else {
                 item.status = false;
-                if (item.code === data.code) {
-                    item.status = true;
-                    if (item.status)
-                        user.client = data.code;
-                }
+            }
+            return item;
+        });
+        let isEnableAll = newClients.filter((item) => { return item.status === true}).length;
+        let isEnableAllClient = (clients.length === isEnableAll)?true:false;
 
-                return item;
-            });
-
-            this.setState({ clients: newArray, accountInfo: user });
-        }
+        this.setState({ clients: newClients, isEnableAllClient:isEnableAllClient });
     }
 
 
@@ -296,8 +269,8 @@ class UserManagementDetail extends Component {
     saveClick = () => {
         let newParam = this.getParam();
 
-        if (newParam.name && newParam.email && newParam.userMenu.length) {            
-            this.setState({ isSaveProgressing: true},() => {this.updateRequest(newParam);});
+        if (newParam.name && newParam.email && newParam.userMenu.length) {
+            this.setState({ isSaveProgressing: true }, () => { this.updateRequest(newParam); });
         } else {
             this.setState({ isValidForm: true });
         }
@@ -360,9 +333,9 @@ class UserManagementDetail extends Component {
         let url = `${endpoint.userManagementUpdate}${userId}`;
 
         const { data, status } = await axios.post(url, param);
-        if (status === 200){            
+        if (status === 200) {
             this.setState({ isSaveProgressing: false, isResetSuccess: true });
-        }else{
+        } else {
             this.setState({ isSaveProgressing: false, isResetSuccess: false });
         }
 
@@ -407,7 +380,7 @@ class UserManagementDetail extends Component {
         return (<div>
             <div className={(this.state.isLoadComplete ? 'd-none' : 'spinner')} />
             <div className={(this.state.isLoadComplete ? ' ' : 'd-none')}>
-            
+
                 <div className="d-flex mt-4 mb-4">
                     <HeaderTitle breadcrumb={[
                         { to: '/users-management', label: 'User Management' },
@@ -543,12 +516,12 @@ class UserManagementDetail extends Component {
                         </CCardBody>
                     </CCard>
                 </div>
-            
 
-            <ResetModal show={this.state.modalPopupResetdisplay}
-                toggle={this.closeModalPopupReset}
-                isResetSuccess={this.state.isResetSuccess}
-                confirmResetPassword={this.confirmResetPassword} />
+
+                <ResetModal show={this.state.modalPopupResetdisplay}
+                    toggle={this.closeModalPopupReset}
+                    isResetSuccess={this.state.isResetSuccess}
+                    confirmResetPassword={this.confirmResetPassword} />
             </div>
         </div>)
     }
