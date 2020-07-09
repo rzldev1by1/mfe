@@ -20,11 +20,14 @@ class UserManagementCreate extends React.PureComponent {
       password: '',
       email: '',
       disabled: 'N',
+      site:'',
+      client:'',
       webGroup: false
     },
     sites: [],
     client: [],
-    moduleAccess: []
+    moduleAccess: [],
+    saveProgress:false
     // data: { "header": { "site": { "value": "A", "label": "A : Australis A" }, "client": { "value": "AESOP", "label": "AESOP : Aesop" }, "orderType": { "value": "MVKT", "label": "MVKT: Move Orders" }, "orderId": "AB29123", "shipToAddress1": "Ark Street 12", "postCode": "291923", "state": "Victoria", "deliveryDate": "2020-07-02" }, "lineDetail": [{ "product": "product 1001", "productVal": { "value": "1001", "label": "1001", "i": 0 }, "qty": "2", "uom": { "value": "CARTON", "label": "CARTON" }, "disposition": "G", "dispositionVal": { "value": "G", "label": "G", "i": 9 } }] }
   }
 
@@ -120,6 +123,7 @@ class UserManagementCreate extends React.PureComponent {
   onActiveTabChange = (e) => {
     console.log(e)
   }
+
   onSelectTab = (key) => {
     // let { header, lineDetail } = this.state.data
     //   if (key === 'review' && !Object.keys(header).length && !lineDetail.length) {
@@ -153,28 +157,55 @@ class UserManagementCreate extends React.PureComponent {
     const { value } = e.target;
     let user = { ...this.state.user };
     user.email = value;
-    this.setState({ user: user }, () => (console.log(this.state.user)));
-  }
-
-
-
-  getSite = () => {
-    let sites = JSON.parse(utility.readFromLocalStorage("sites"));
-    this.setState({ ...this.state, sites });
+    this.setState({ user: user });
   }
 
 
   onWebGroupSelect = (event) => {
     let user = { ...this.state.user };
-    user.disabled = "N";
     user.webGroup = event.target.checked;
     this.setState({ isAdmin: event.target.checked, user: user });
+  }
+
+  onSubmit = () => {
+    this.setState({saveProgress:true},() => {
+      this.submit();
+    })
+  }
+
+  submit = async () => {
+    const {user,moduleAccess,clients, sites} = this.state;
+    let userInfo = {...user};
+    let userMenu = moduleAccess.filter((item) => { return item.status === true; })
+    .map((item,index) => { 
+      return item.menuid;
+    });
+    let site = sites.find((item,index) => {
+      return item.status === true;
+    });
+    let client = clients.find((item,index) => {
+      return item.status === true;
+    });
+
+    userInfo.userMenu = userMenu;
+    userInfo.site = site.site;
+    userInfo.client = client.code;
+
+    const { status, data } = await axios.post(endpoint.userManagementCreate, userInfo);
+    if(status === 200){
+      this.setState({saveProgress:false},() => { 
+        this.props.toggle();
+        this.props.afterSuccess();
+      });;
+    }
+
   }
 
 
   render() {
     const { show, toggle } = this.props
-    const { user, isAdmin, moduleAccess, sites, clients } = this.state
+    const { user, isAdmin, moduleAccess, sites, clients,saveProgress } = this.state
+
     return <Modal show={show} onHide={() => toggle()} size="xl" className="sales-order-create" >
       <Modal.Body className="bg-primary p-0">
         <Row className="p-4">
@@ -192,10 +223,16 @@ class UserManagementCreate extends React.PureComponent {
               onChangeName={this.onChangeName} onChangeEmail={this.onChangeEmail}
               onModuleEnableClick={this.onModuleEnableClick} onSiteEnableClick={this.onSiteEnableClick}
               onClientEnableClick={this.onClientEnableClick}
-              moduleAccess={moduleAccess} sites={sites} clients={clients} />
+              moduleAccess={moduleAccess} sites={sites} clients={clients} next={this.onSelectTab}/>
           </Tab>
           <Tab eventKey="review" title={`2. Review`}>
-            <Review user={user} isAdmin={isAdmin} moduleAccess={moduleAccess} sites={sites} clients={clients} />
+            <Review user={user} isAdmin={isAdmin} 
+            moduleAccess={moduleAccess} 
+            sites={sites} 
+            clients={clients} 
+            next={this.onSelectTab}
+            submitProgress={saveProgress}
+            submit={this.onSubmit} />
           </Tab>
         </Tabs>
       </Modal.Body>

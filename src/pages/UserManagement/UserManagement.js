@@ -79,6 +79,11 @@ class UserManagemen extends Component {
         this.setState((state) => ({modalShow:!state.modalShow}));
     }
 
+    showDetails = (item) => {        
+        const url = `/users-management/${item.web_user}/detail`;
+        this.props.history.push(url)
+      }
+
 
     render() {
 
@@ -147,9 +152,12 @@ class UserManagemen extends Component {
                         </CRow>
                     </CCardBody>
                 </CCard>
-                <UMCustomTable title="User Management" height={dimension.height} fields={fields} data={data} onClick={() => { }} />
+                <UMCustomTable 
+                title="User Management"
+                 height={dimension.height} 
+                 fields={fields} data={data} onClick={this.showDetails} />
                 <CustomPagination data={data} pagination={pagination} goto={(active => { this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler()) })} export={this.props.export}/>
-                <CreateUM show={modalShow} toggle={this.toggle} />
+                <CreateUM show={modalShow} toggle={this.toggle} afterSuccess={this.searchHandler}/>
             </div>
         )
     }

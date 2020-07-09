@@ -18,12 +18,12 @@ class NewUser extends React.PureComponent {
     }
 
     componentDidMount() {
-        
+
     }
 
-    
 
-    
+
+
 
 
 
@@ -97,6 +97,13 @@ class NewUser extends React.PureComponent {
                     </Col>
                     <Col lg="4">
                         <Client clients={clients} onEnableClick={onClientEnableClick} onClientEnableAll={this.onClientEnableAllClick} />
+                    </Col>
+                </Row>
+                <Row className="mt-4">
+                    <Col lg={2}></Col>
+                    <Col lg={8}></Col>
+                    <Col lg={2} className="text-right">
+                        <button className="btn btn-primary" onClick={(e) => {this.props.next('review')}}>{'Next >'}</button>
                     </Col>
                 </Row>
             </Container>
