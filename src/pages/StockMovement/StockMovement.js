@@ -10,7 +10,7 @@ import {
   CRow,
   CCol,
 } from '@coreui/react'
-import Select, { components } from 'react-select'
+import Select from 'react-select'
 import { FaPencilAlt } from 'react-icons/fa'
 import { IoIosArrowDown } from 'react-icons/io'
  
@@ -18,7 +18,7 @@ import StockMovementTable from './StockMovementTable/StockMovementTable'
 // import CustomPagination from './StockMovementPagination/StockMovementPagination'
 import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader' 
-import {endpoint} from 'shared/utility/ConfigEndpoint' 
+import endpoints from 'helpers/endpoints'
 import './StockMovement.css' 
 import DatePicker from 'shared/DatePicker'
 import AutoComplete from 'shared/AutoComplete'
@@ -86,7 +86,7 @@ class StockMovement extends React.PureComponent {
   } 
   
   getStockDate = () => {
-      axios.get(endpoint.getStockDateRange)
+      axios.get(endpoints.stockDateRange)
       .then((res) => {
           let maxDate = res.data.data[0].max_date;
           this.setState({ minDate: res.data.data[0].min_date, maxDate: res.data.data[0].max_date})
@@ -152,7 +152,7 @@ class StockMovement extends React.PureComponent {
       let tmp_data = []
       self.setState({ productdata: tmp_data }) 
 
-      axios.get(endpoint.getProduct + '?client=' + this.state.client.value )
+      axios.get(endpoints.getProduct + '?client=' + this.state.client.value )
           .then(res => {
               const data = res.data 
               const productdata = data.code.map((c, i) => ({ value: c, label: `${data.code[i]}: ${data.name[i]}` }))
@@ -377,7 +377,7 @@ class StockMovement extends React.PureComponent {
           this.setHeader(periods)
         })
  
-        axios.get(endpoint.stockMovement+'?'+paramUrl.join('&')).then(res => {
+        axios.get(endpoints.stockMovement+'?'+paramUrl.join('&')).then(res => { 
             //get result 
             const result = res.data.data 
 
@@ -403,21 +403,7 @@ class StockMovement extends React.PureComponent {
     } = this.state
     
     //custom style react-select 
-    
-    const customStyles = {
-      option: (styles, state) => ({
-        ...styles,
-        cursor: 'pointer',
-        // height: '50px',
-        paddingBottom: '10px'
-      }),
-      control: (styles) => ({
-        ...styles,
-        cursor: 'pointer',
-        height: '50px'
-      })
-    }
-
+     
     return <div className="sales-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Stock Movement', active: true }]} 
@@ -434,8 +420,7 @@ class StockMovement extends React.PureComponent {
                       <div style={{width: '100%'}}>
                             <Select name="filterType" placeholder="Display Period"
                               value={filterType} options={filterData} 
-                              onChange={(val) => this.periodHandler( val )} 
-                              styles={customStyles}
+                              onChange={(val) => this.periodHandler( val )}  
                             />
                             <div id='period' className={(!periodSelected) ? 'stock-err' : 'stock-err-hidden'}>Please select display period</div>
                       </div>
@@ -472,23 +457,20 @@ class StockMovement extends React.PureComponent {
                 <CCol sm={4} lg={3} className="px-1" >
                 <Select name="site" placeholder="Site"
                     value={site} options={siteData}
-                    onChange={(val) => this.setState({ site: val })}
-                    styles={customStyles}
+                    onChange={(val) => this.setState({ site: val })} 
                   />
                 </CCol>
                 
                 <CCol sm={4} lg={3} className="px-1">
                   <Select name="client" placeholder="Client"
                     value={client} options={clientData}
-                    onChange={(val) => this.setState({ client: val }, () => this.getproduct())}
-                    styles={customStyles}
+                    onChange={(val) => this.setState({ client: val }, () => this.getproduct())} 
                   />
                 </CCol> 
                 <CCol sm={4} lg={4} className="px-1"  style={{flex: '0 0 30%'}}>
                   <Select name="product" placeholder="Product" 
                     value={product} options={productData}
-                    onChange={(val) => this.setState({ product: val })}
-                    styles={customStyles}
+                    onChange={(val) => this.setState({ product: val })} 
                   />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-1" style={{flex: '0 0 20%', maxWidth: '20%'}}>

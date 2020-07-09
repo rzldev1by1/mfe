@@ -1,63 +1,4 @@
-/* Sales Order List */
-.sales-order .input-group input {
-  border-color: #ced4da;
-}
-
-/* Sales Order Detail */
-.sales-order-detail .section-1 .col {
-  line-height: 2;
-}
-.sales-order-detail .card {
-  box-shadow: none !important;
-}
-@media (min-width: 800px) {
-  .sales-order-detail .border-right {
-    border-right: 2px solid #eee !important;
-  }
-}
-
-/* Sales Order Create */
-.required::after {
-  content: " *";
-  color: #e55353;
-}
-.nav-tabs {
-  margin-left: 26px;
-}
-.tab-content {
-  padding: 0;
-  margin: 0;
-  background-color: #fff;
-  color: #000;
-}
-.modal .nav-link {
-  background-color: #eee;
-  color: #959da0;
-}
-.sales-order-create .modal-desc {
-  padding-left: 36px;
-}
-.sales-order ::placeholder,
-.sales-order-create ::placeholder,
-.sales-order-create .css-1wa3eu0-placeholder {
-  color: #b4b9bb !important;
-}
-.sales-order-create .orderline table {
-  z-index: 99 !important;
-}
-.sales-order-create .orderline .c-1 {
-  width: 50px;
-}
-.sales-order-create .orderline .c-2 {
-  width: 100px;
-}
-.sales-order-create .orderline .c-3 {
-  width: 150px;
-}
-.sales-order-create .orderline .c-4 {
-  width: 200px;
-}
-
+ 
 .stock-err{
   color: red;
   font-size: small;
@@ -104,4 +45,14 @@
     line-height: 25px;
   }
 
+}
+
+.css-csfvol-control{
+  border-color: #ced4da !important ;
+}
+ 
+
+div[class*="css-"][class*="-control"] {
+  height: 50px !important;
+  cursor: pointer;
 }
