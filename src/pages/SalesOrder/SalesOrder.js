@@ -116,7 +116,7 @@ class SalesOrder extends React.PureComponent {
   getResources = async () => {
     const { user } = this.props.store
     if (user) {
-      const { data } = await axios.get(`${endpoints.getSoResources}?company=${user.company}&client=${user.client}`)
+      const { data } = await axios.get(`${endpoints.getSoResources}?company=${user.company || ''}&client=${user.client || ''}`)
       const { code, name } = data.orderType
       const orderTypeData = code.map((c, i) => ({ value: c, label: `${code[i]}: ${name[i]}` }))
       const orderType = { value: 'all', label: 'All' }
