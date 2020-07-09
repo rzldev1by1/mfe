@@ -10,7 +10,7 @@ const TheLayout = () => {
   return (
     <div className={`c-app c-default-layout ${darkMode && 'c-dark-theme'}`}>
       <TheSidebar />
-      <TheAside />
+      {/* <TheAside /> */}
       <div className="c-wrapper">
         <div className="c-body">
           <TheContent />
