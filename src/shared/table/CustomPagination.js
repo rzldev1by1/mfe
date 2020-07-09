@@ -17,7 +17,6 @@ class CustomPagination extends React.Component {
   componentDidUpdate = (nextProps) => {
     let { pagination } = this.props
     if (pagination && nextProps.pagination !== pagination) {
-      console.log('set pagination')
       this.setState({ pagination })
     }
   }
@@ -70,7 +69,7 @@ class CustomPagination extends React.Component {
             <CCard className="col-lg-5">
               <div className="page-2 d-flex justify-content-center">
                 <span className="text-muted mt-1 mr-3">Go to page</span>
-                <input type="number" className="form-control form-control-sm" onChange={this.onChange} min="1" />
+                <input type="number" className="form-control form-control-sm" onChange={this.onChange} min="1" max={pages > 0 ? pages : 1} />
                 <span className="text-muted mt-1 ml-3 pointer" onClick={this.goToPage}>{'Go >'}</span>
               </div>
             </CCard>

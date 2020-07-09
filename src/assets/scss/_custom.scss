@@ -24,7 +24,6 @@ body {
   width: initial !important;
   height: initial !important;
 }
-
 // Custom style
 input:focus {
   box-shadow: none !important;
@@ -68,8 +67,15 @@ button:focus {
 }
 .modal-header,
 .modal-body,
-.modal-footer {
+.modal-footer,
+.modal-content {
   border: none !important;
+}
+.text-purple {
+  color: #5e44e8;
+}
+.text-blue {
+  color: #3366ff;
 }
 .text-light-gray {
   color: #b4b9bb;
@@ -90,8 +96,8 @@ button:focus {
 }
 
 // Core-UI component style
-.c-app {
-  background-color: #e9eced;
+.c-app, .c-header{
+  background-color: #e9eced !important;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -150,8 +156,9 @@ button:focus {
   border-top-left-radius: 0 !important;
   border-top-right-radius: 0 !important;
   border-top: none !important;
-  margin: 0 1% !important;
-  width: 98.5% !important;
+  margin: 0 !important;
+  margin-left: 1px !important;
+  width: 99.5% !important;
 }
 .css-g1d714-ValueContainer {
   color: #000;
@@ -169,6 +176,19 @@ button:focus {
   font-weight: normal;
   font-style: normal;
 }
+
+// @font-face {
+//   font-family: "stockageprofile";
+//   src: url("../fonts/stockageprofile/icomoon.eot?t60pg3");
+//   src: url("../fonts/stockageprofile/icomoon.eot?t60pg3#iefix")
+//       format("embedded-opentype"),
+//     url("../fonts/stockageprofile/icomoon.ttf?t60pg3") format("truetype"),
+//     url("../fonts/stockageprofile/icomoon.woff?t60pg3") format("woff"),
+//     url("../fonts/stockageprofile/icomoon.svg?t60pg3#icomoon") format("svg");
+//   font-weight: normal;
+//   font-style: normal;
+// }
+
 [class^="iconU-"],
 [class*=" iconU-"] {
   font-family: "icomoon" !important;
@@ -179,8 +199,23 @@ button:focus {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+[class^="stockageprofile-"],
+[class*=" stockageprofile-"] {
+  font-family: "stockageprofile" !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .iconU-stockMovement:before {
   content: "\e90e";
+}
+.stockageprofile-stockAgeProfile:before {
+  content: "\e900 ";
 }
 .iconU-user:before {
   content: "\e910";

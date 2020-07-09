@@ -1,51 +1,72 @@
 import React from 'react'
-import { Row, Col, Tabs, Tab, Modal } from 'react-bootstrap'
-// import { FaRegEdit, FaPencilAlt } from 'react-icons/fa'
-import _ from 'lodash'
+import { Modal } from 'react-bootstrap'
+import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
+// import _ from 'lodash'
 import DetailsTab from './tabs/DetailsTab.js'
 import ReviewTab from './tabs/ReviewTab'
 
 class SalesOrderCreate extends React.PureComponent {
   state = {
     key: 'detail',
-    data: {}
+    data: { header: {}, lineDetail: [] },
+    // data: { "header": { "site": { "value": "A", "label": "A : Australis A" }, "client": { "value": "AESOP", "label": "AESOP : Aesop" }, "orderType": { "value": "MVKT", "label": "MVKT: Move Orders" }, "orderId": "AB29123", "shipToAddress1": "Ark Street 12", "postCode": "291923", "state": "Victoria", "deliveryDate": "2020-07-02" }, "lineDetail": [{ "product": "product 1001", "productVal": { "value": "1001", "label": "1001", "i": 0 }, "qty": "2", "uom": { "value": "CARTON", "label": "CARTON" }, "disposition": "G", "dispositionVal": { "value": "G", "label": "G", "i": 9 } }] }
   }
   onActiveTabChange = (e) => {
-    console.log(e)
+    console.log('onActiveTabChange', e)
   }
   onSelectTab = (key) => {
-    let { data } = this.state
-    if (key === 'review' && _.isEmpty(data)) {
+    let { header, lineDetail } = this.state.data
+    if (key === 'review' && !Object.keys(header).length && !lineDetail.length) {
       console.log('review disabled until form filled')
       return null
     }
     this.setState({ key })
   }
+  setData = (data) => {
+    if (data.header && data.lineDetail) {
+      this.setState({ data, key: 'review' })
+    }
+  }
+  onHide = () => {
+    this.props.toggle()
+    this.setState({ key: 'detail', data: { header: {}, lineDetail: [] } })
+  }
   render() {
-    const { show, toggle } = this.props
-    return <Modal show={show} onHide={() => toggle()} size="xl" className="sales-order-create" >
+    const { data, key } = this.state
+    return <Modal show={this.props.show} onHide={this.onHide} size="xl" className="sales-order-create" >
       <Modal.Body className="bg-primary p-0">
-        <Row className="p-4">
+        <Row className="px-5 py-3">
           <Col xs={10}>
             <i className="iconU-createModal font-20"></i><span className="font-20 pl-2">Create Sales Order</span> <br />
-            <span className="pl-4">Enter Order and line details to create a new purchase order</span>
+            <span>Enter Order and line details to create a new purchase order</span>
           </Col>
           <Col xs={2} className="text-right">
-            <i className="iconU-close pointer" onClick={() => toggle()}></i>
+            <i className="iconU-close pointer" onClick={this.onHide}></i>
           </Col>
         </Row>
-        <Tabs
-          id="controlled-tab-example"
-          activeKey={this.state.key}
-          onSelect={this.onSelectTab}
-        >
-          <Tab eventKey="detail" title="Order & Product Details">
-            <DetailsTab {...this.props} />
-          </Tab>
-          <Tab eventKey="review" title="Review">
-            <ReviewTab />
-          </Tab>
-        </Tabs>
+        <Nav tabs>
+          <NavItem><NavLink className={key === 'detail' ? 'active' : null} onClick={() => this.onSelectTab('detail')}>
+            <div className={`badge badge-pill badge-${key === 'detail' ? 'primary' : 'secondary'}`}>1</div> Order & Product Details
+          </NavLink></NavItem>
+          <NavItem><NavLink className={key === 'review' ? 'active' : null} onClick={() => this.onSelectTab('review')}>
+            <div className={`badge badge-pill badge-${key === 'review' ? 'primary' : 'secondary'}`}>2</div> Review
+          </NavLink></NavItem>
+        </Nav>
+        <TabContent activeTab={this.state.key}>
+          <TabPane tabId="detail">
+            <DetailsTab
+              data={data}
+              submit={this.setData}
+              {...this.props} />
+          </TabPane>
+          <TabPane tabId="review">
+            <ReviewTab
+              data={data}
+              back={() => this.onSelectTab('detail')}
+              submit={this.setData}
+              hide={this.onHide} />
+          </TabPane>
+        </TabContent>
       </Modal.Body>
     </Modal>
   }

@@ -6,7 +6,7 @@ import {
   // CSidebarBrand,
   CSidebarNav,
 } from '@coreui/react'
-import Logo from 'assets/img/LOGO2.png'
+import Logo from 'assets/img/logo-white.png'
 import UserIcon from 'assets/img/User-Icon.png';
 import navigation from './_nav'
 import './TheSidebar.css'
@@ -17,7 +17,7 @@ const TheSidebar = () => {
   const show = useSelector(state => state.sidebarShow)
   const user = useSelector(state => state.user)
   const signOut = (e) => {
-    dispatch({ type: 'set', user: null })
+    dispatch({ type: 'LOGOUT' })
   }
   return (
     <CSidebar
@@ -31,16 +31,17 @@ const TheSidebar = () => {
         <img src={Logo} className="c-sidebar-brand-full" height="35" alt="logo" />
         <img src={Logo} className="c-sidebar-brand-minimized" height="35" alt="logo" />
       </CSidebarBrand> */}
-      <CSidebarNav>
+      <ul className="sidebar-nav-header">
         <li className="c-sidebar-item my-2">
-          <Link to="/"><img src={Logo} height="40" alt="logo" /></Link>
+          <Link to="/"><img src={Logo} height="35" alt="logo" /></Link>
         </li>
-        <li className="c-sidebar-item my-2 mb-4 logo-text">
-          MICROLISTICS
+        <li className="c-sidebar-item my-2 logo-text">
+          Microlistics
         </li>
-
+      </ul>
+      <CSidebarNav className="sidebar-nav-menu">
         {navigation.map((n, i) => {
-          const active = location.pathname === n.to ? 'text-white' : ''
+          const active = location.pathname === n.to ? 'text-white' : 'text-purple'
           return <li key={i} className="c-sidebar-item links my-2">
             <Link to={n.to} className={active}>
               <i className={`m-0 c-sidebar-nav-icon ${n.icon}`}></i>

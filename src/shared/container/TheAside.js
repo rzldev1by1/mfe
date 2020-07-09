@@ -20,8 +20,8 @@ import CIcon from '@coreui/icons-react'
 const TheAside = () => {
   const show = useSelector(state => state.asideShow)
   const dispatch = useDispatch()
-  const setState = (state) => dispatch({type: 'set', asideShow: state})
-  
+  const setState = (state) => dispatch({ type: 'ASIDE', data: state })
+
   return (
     <CSidebar
       aside
@@ -31,7 +31,7 @@ const TheAside = () => {
       show={show}
       onShowChange={(state) => setState(state)}
     >
-      <CSidebarClose onClick={() => setState(false) } />
+      <CSidebarClose onClick={() => setState(false)} />
       <CTabs>
         <CNav variant='tabs' className='nav-underline nav-underline-primary'>
           <CNavItem>
@@ -42,8 +42,8 @@ const TheAside = () => {
           <CNavItem>
             <CNavLink>
               <CIcon name="cil-speech" alt="CoreUI Icons Speech" />
-              </CNavLink>
-            </CNavItem>
+            </CNavLink>
+          </CNavItem>
           <CNavItem>
             <CNavLink>
               <CIcon name="cil-settings" alt="CoreUI Icons Settings" />
@@ -56,10 +56,10 @@ const TheAside = () => {
           <CTabPane>
             <CListGroup accent>
               <CListGroupItem
-                accent="secondary" 
+                accent="secondary"
                 className="bg-light text-center font-weight-bold text-muted text-uppercase c-small"
               >
-                  Today
+                Today
               </CListGroupItem>
               <CListGroupItem accent="warning" href="#" className="list-group-item-divider">
                 <div className="c-avatar float-right">
@@ -86,11 +86,11 @@ const TheAside = () => {
                 <small className="text-muted"><CIcon name="cib-skype" />  On-line</small>
               </CListGroupItem>
               <hr className="transparent mx-3 my-0" />
-              <CListGroupItem 
-                color="secondary" 
+              <CListGroupItem
+                color="secondary"
                 className="bg-light text-center font-weight-bold text-muted text-uppercase c-small"
               >
-                  Tomorrow
+                Tomorrow
               </CListGroupItem>
               <CListGroupItem accent="danger" href="#" className="list-group-item-divider">
                 <div>New UI Project - <strong>deadline</strong></div>
