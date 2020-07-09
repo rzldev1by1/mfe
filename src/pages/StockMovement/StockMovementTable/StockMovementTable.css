@@ -1,0 +1,230 @@
+.btn-light {
+  background-color: #fff !important;
+}
+.pagination-block {
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.alert-text {
+  border: 0px;
+  padding: 0px;
+  display: contents;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.edit-column {
+  text-align: center;
+  cursor: pointer;
+  margin-top: -2px !important;
+}
+
+.paging {
+  background-color: white;
+  border-radius: 5px;
+  height: 50px;
+  text-align: center;
+  font-size: 15px;
+  padding-top: 8px;
+} 
+
+.btn-paging {
+  margin: 0px 3px;
+  width: 32px;
+  height: 32px;
+  box-shadow: none !important;
+}
+
+.col-go-page {
+  padding-right: 15px;
+}
+
+.go-page {
+  height: 50px;
+  padding: 5px;
+  background-color: white;
+  border-radius: 5px;
+  justify-content: center;
+}
+.go-page span {
+  align-self: center;
+}
+
+.text-go-page {
+  font-size: 14px;
+  align-self: center;
+}
+
+.form-go-page {
+  padding: 4px 5px;
+  width: 40px;
+  height: auto;
+  margin-left: 3px;
+}
+
+.col-text-entries {
+  border-radius: 5px;
+  display: flex;
+  align-self: center;
+}
+.btn-go {
+  margin: 0px 3px 0px 5px;
+  box-shadow: none !important;
+}
+
+
+.mod-title {
+  padding: 0px 5px;
+}
+
+.modal-footer{
+  border: none;
+}
+ 
+
+@media only screen and (max-width: 599.95px) {
+  .col-go-page {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+  .col-button {
+    display: grid;
+    flex-direction: row;
+    padding: 0px;
+  }
+}
+
+/* breakpoints sm */
+
+@media only screen and (max-width: 959.95px) {
+  .col-go-page {
+    padding-left: 0px;
+  }
+  .col-text-entries {
+    justify-content: center;
+  }
+  .col-button {
+    display: grid;
+    flex-direction: row;
+    padding: 0px 0px 0px 15px;
+  }
+}
+
+.rt-table {
+  border: none;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.rt-tbody .rt-tr:hover {
+  background-color: #eee;
+}
+.-sort-asc,
+.-sort-desc {
+  box-shadow: none !important;
+}
+
+.rt-thead {
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;   
+}
+.rt-th {
+  height: 46px;
+  border-right: none !important;
+  border-bottom: 1px solid #E0E2E4;
+  padding: 10px 10px !important; 
+}
+.rt-th svg{
+  margin-top: -3px;
+}
+.rt-th:focus {
+  color: red !important;
+}
+.rt-td:first-child{
+  padding-left: 10px !important;
+}
+.rt-td {
+  padding: 10px 10px !important;
+  border-right: none !important;
+}
+
+.ReactTable .rt-tbody .rt-tr-group:last-child{
+  border-bottom: solid 1px rgba(0,0,0,0.05);
+}
+
+.borderRight {
+  border-right: 1px solid #d5d8da !important;
+}
+
+.borderBottom {
+  border-bottom: 2px solid #d5d8da !important;
+}
+
+.noBorderBottom {
+  border-bottom: 0px !important;
+}
+
+.wrap-all{
+  white-space: normal !important;
+  word-break: break-all !important;
+}
+
+.word-warp{
+  white-space: break-spaces !important; 
+}
+ 
+
+.ReactTable .rt-thead {
+  flex: none !important;
+}
+
+.ReactTable .rt-tr {
+  flex: none !important;
+}
+
+.ReactTable .rt-tr-group {
+  flex: none !important;
+}
+
+.dateHeader {
+  padding-top: 10px !important;
+}
+
+.rt-th { min-height: 100%;}
+
+.rthfc.-sp .rt-thead.-headerGroups{
+  border-bottom: 0px !important;
+}
+
+
+.rt-tr > .noPaddingTop {
+  padding-top: 0px !important;
+}
+
+.ReactTable .rt-thead.-header > .rt-tr > .rt-th:focus {
+  outline: none;
+}
+
+
+.ReactTable .rt-thead.-headerGroups:focus {
+  color: #b4b9bb !important;
+}
+
+.ReactTable .rt-thead.-headerGroups > .rt-tr > .rt-th:focus {
+  color: #b4b9bb !important;
+  border: 0px solid !important;
+  outline: none;
+}
+
+.ReactTable .rt-thead.-headerGroups > .rt-tr > .rt-th {
+  padding-bottom: 0px !important;
+  height: 30px; 
+}
+
+.blueColor{
+  color: #3366FF !important;
+}

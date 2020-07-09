@@ -104,7 +104,7 @@
 .select_dropdown_options{list-style: none; }
 
 .select_dropdown_label {
-	font-family: "Helvetica Neue Regular";
+	font-family: "Rubik Medium";
 	margin-bottom: 0 !important;
 	transition: all 250ms cubic-bezier(.4,.25,.3,1);
 	display: block;
@@ -123,7 +123,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	color: #7C878C;
+	color: #7C878C !important;
 	background-color: transparent;
 	display: block;
 }
@@ -149,7 +149,7 @@
 }
 
 .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options .select_dropdown_label:hover {
-	font-family: "Helvetica Neue Medium";
+	font-family: "Rubik Medium";
 	background-color: #F6F7F9;
 }
 
