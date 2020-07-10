@@ -31,14 +31,15 @@ const TheSidebar = () => {
         <img src={Logo} className="c-sidebar-brand-full" height="35" alt="logo" />
         <img src={Logo} className="c-sidebar-brand-minimized" height="35" alt="logo" />
       </CSidebarBrand> */}
-      <CSidebarNav className="sidebar-nav-menu">
+      <ul className="sidebar-nav-header">
         <li className="c-sidebar-item my-2">
           <Link to="/"><img src={Logo} height="35" alt="logo" /></Link>
         </li>
         <li className="c-sidebar-item my-2 logo-text">
           Microlistics
         </li>
-
+      </ul>
+      <CSidebarNav className="sidebar-nav-menu">
         {navigation.map((n, i) => {
           const active = location.pathname === n.to ? 'text-white' : 'text-purple'
           return <li key={i} className="c-sidebar-item links my-2">

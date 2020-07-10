@@ -1,0 +1,58 @@
+ 
+.stock-err{
+  color: red;
+  font-size: small;
+  margin-bottom: -20px;
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+.stock-err-hidden{
+  color: red;
+  font-size: small;
+  opacity: 0;
+  transition: opacity 0.3s;
+  margin-bottom: -20px;
+}
+ 
+.myCustomPrefix__value-container > div {
+  width: auto !important;
+}
+
+
+.custom-filter-text{ 
+  display:table-cell;
+  vertical-align: middle;
+  text-align: right;
+  line-height: 50px;
+}
+
+.custom-filter-text2{  
+  display:table-cell;
+  vertical-align: middle;
+  text-align: right;
+  line-height: 50px;
+}
+
+.custom-height-btn{
+  height: 50px;
+}
+
+
+@media(max-width:1100px){
+  
+  .custom-filter-text{  
+    line-height: 25px;
+  }
+
+}
+
+.css-csfvol-control{
+  border-color: #ced4da !important ;
+}
+ 
+
+div[class*="css-"][class*="-control"] {
+  height: 50px !important;
+  cursor: pointer;
+}
