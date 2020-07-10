@@ -37,9 +37,10 @@ class ReviewTab extends React.Component {
     let lineDetails = lineDetail
 
     const { data } = await axios.post(endpoint.purchaseOrderCreate, { orderDetails, lineDetails })
-    if (data === 'create successfully') {
+    console.log(data)
+    if (data.message === 'Successfully added') {
       this.setState({ status: 'success' })
-      this.props.submit({ header: {}, lineDetail: [] })
+      this.props.submit({ header: {}, lineDetail: [], orderDetails:[{}] })
       setTimeout(() => this.props.hide(), 1500)
     }
   }
@@ -102,7 +103,7 @@ class ReviewTab extends React.Component {
               <td><div className="c-2">Batch</div></td>
               <td><div className="c-2">Ref3</div></td>
               <td><div className="c-2">Ref4</div></td>
-              <td><div className="c-2">Dispotition</div></td>
+              <td><div className="c-2">Disposition</div></td>
               <td><div className="c-3">Pack ID</div></td>
               <td><div className="c-1"></div></td>
             </tr>
