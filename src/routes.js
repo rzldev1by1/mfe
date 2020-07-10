@@ -15,6 +15,8 @@ const SalesOrderDetail = React.lazy(() => import('./pages/SalesOrder/SalesOrderD
 const PurchaseOrders = React.lazy(() => import('./pages/PurchaseOrders/PurchaseOrders'));
 const PurchaseOrdersDetail = React.lazy(() => import('./pages/PurchaseOrders/PurchaseOrdersDetail'));
 const StockMovement = React.lazy(() => import('./pages/StockMovement/StockMovement'));
+const UsersManagement = React.lazy(() => import('./pages/UserManagement/UserManagement'));
+const UsersManagementDetail = React.lazy(() => import('./pages/UserManagement/UserManagementDetail'));
 // const StockAgeProfile = React.lazy(() => import('./pages/StockAgeProfile/StockAgeProfile'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
@@ -29,9 +31,9 @@ const routes = [
 	{ path: '/purchase-order/:client/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrdersDetail },
 	// { path: '/icons', exact: true, name: 'Sales Order', component: SalesOrder },
 
-	// { path: '/users-management', exact: true, name: 'User Management', component: UsersManagement },
+	{ path: '/users-management', exact: true, name: 'User Management', component: UsersManagement },
 	// { path: '/stock-age-profile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
-	// { path: '/users-management/:id/detail', exact: true, name: 'User Management', component: UsersManagementDetail },
+	{ path: '/users-management/:id/detail', exact: true, name: 'User Management', component: UsersManagementDetail },
 	// { path: '/users-management/create', exact: true, name: 'User Management', component: UsersManagementCreate },
 	{ path: '/sales-orders/:client/:site/:orderno', exact: true, name: 'Sales Order Detail', component: SalesOrderDetail },
 	{ path: '/sales-orders', exact: true, name: 'Sales Orders', component: SalesOrder },

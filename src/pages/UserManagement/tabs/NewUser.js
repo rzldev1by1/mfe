@@ -29,7 +29,8 @@ class NewUser extends React.PureComponent {
 
     render() {
         const { isAdmin, user, onModuleEnableClick, onSiteEnableClick, onClientEnableClick,
-            moduleAccess, sites, clients } = this.props;
+            moduleAccess, sites, clients, isEnableAllSite, isEnableAllClient, isEnableAllModule,
+            onModuleEnableAllClick, onClientEnableAllClick, onSiteEnableAllClick } = this.props;
         // const { moduleAccess, sites, clients } = this.state;
         return (
             <Container className="px-5 py-4">
@@ -90,13 +91,13 @@ class NewUser extends React.PureComponent {
                 </Row>
                 <Row className={`${isAdmin ? 'd-none' : ''}`}>
                     <Col lg="4">
-                        <ModuleAccess moduleAccess={moduleAccess} onEnableClick={onModuleEnableClick} onModuleEnableAll={this.onModuleEnableAllClick} />
+                        <ModuleAccess moduleAccess={moduleAccess} onEnableClick={onModuleEnableClick} onModuleEnableAll={onModuleEnableAllClick} isEnableAllModule={isEnableAllModule} />
                     </Col>
                     <Col lg="4">
-                        <Site sites={sites} onEnableClick={onSiteEnableClick} onSiteEnableAll={this.onSiteEnableAllClick} isEnableAllSite={false} />
+                        <Site sites={sites} onEnableClick={onSiteEnableClick} onSiteEnableAll={onSiteEnableAllClick} isEnableAllSite={isEnableAllSite} />
                     </Col>
                     <Col lg="4">
-                        <Client clients={clients} onEnableClick={onClientEnableClick} onClientEnableAll={this.onClientEnableAllClick} />
+                        <Client clients={clients} onEnableClick={onClientEnableClick} onClientEnableAll={onClientEnableAllClick} isEnableAllClient={isEnableAllClient} />
                     </Col>
                 </Row>
                 <Row className="mt-4">

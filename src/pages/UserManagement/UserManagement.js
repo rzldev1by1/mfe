@@ -48,7 +48,7 @@ class UserManagemen extends Component {
 
     updateDimension = () => {
         // const height = (window.innerHeight * 0.50);
-        const height = (window.innerHeight - 116) * 0.55;
+        const height = (window.innerHeight - 116) * 0.70;
         this.setState({ dimension: { width: window.innerWidth, height } });
     }
 
