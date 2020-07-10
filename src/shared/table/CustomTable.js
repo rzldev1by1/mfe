@@ -17,17 +17,14 @@ const getColumnWidth = (rows, accessor, headerText) => {
       let value = '';
       if (typeof accessor === 'string') {
         value = _.get(row, accessor);
-        
       } else {
-        value = accessor(row);        
-      }      
-
+        value = accessor(row);
+      }
       if (typeof value === 'number') return value.toString().length;
       return (value || '').length;
     }),
     headerText.length
   );
-  
   return cellLength * 12
 }
 
@@ -83,7 +80,6 @@ class CustomTable extends React.Component {
   }
 
   headerIcon = (data, header, editColumn) => {
-    console.log(editColumn)
     let listHeader = []
     header && header.map((h, index) => {
       if (!editColumn[index]) {
@@ -120,7 +116,7 @@ class CustomTable extends React.Component {
   }
 
   render() {
-    const { showModal, editColumn, editColumnTemp } = this.state    
+    const { showModal, editColumn, editColumnTemp } = this.state
     let { title, data, fields, onClick, height, pagination } = this.props
     const headerIcon = this.headerIcon(data, fields, editColumnTemp)
     return (

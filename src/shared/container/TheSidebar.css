@@ -1,19 +1,20 @@
-/* sidebar style start */
 @media (min-width: 992px) {
   .c-wrapper {
     margin-left: 100px !important;
   }
-  .logo-text{
-    margin-bottom: 30px !important;
-  }
-  .sidebar-nav-menu .c-sidebar-item{
-    padding: 10px 0;
+  .c-sidebar-item{
+    padding: 5px 0;
   }
 }
 @media (max-width: 768px) {
   .logo-text {
     writing-mode: horizontal-tb !important;
     text-orientation: mixed !important;
+  }
+}
+@media (max-height: 800px){
+  .c-sidebar-item a div {
+    display: none;
   }
 }
 .logo-text {
@@ -39,15 +40,18 @@
   text-decoration: none;
 }
 
-.sidebar-nav-menu .c-sidebar-item {
+.c-sidebar-item {
   text-align: center;
   cursor: pointer;
   font-size: 11px;
 }
-.sidebar-nav-menu .c-sidebar-item.links {
+.c-sidebar-item.links {
   word-spacing: 100px;
 }
-
+.sidebar-nav-header{
+  padding: 0 !important;
+  margin: 0 !important;
+}
 .sidebar-nav-bottom {
   display: flex;
   justify-content: center;
@@ -55,4 +59,3 @@
   cursor: pointer;
   padding: 0;
 }
-/* sidebar style end */

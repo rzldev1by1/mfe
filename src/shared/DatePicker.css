@@ -22,8 +22,8 @@
 }
 
 .select_date {
-	/* width: 150px; */
-	height: 40px;
+	width: 100%;
+	height: 50px;
 	cursor: pointer;
 	list-style: none;
 	background-color: #FFFFFF;
@@ -36,7 +36,7 @@
 	/* border: 1px solid #22ABE3 !important; */
 }
 .select_date_label {
-	font-family: "Helvetica Neue Regular";
+	font-family: "Rubik Medium";
 	margin-bottom: 0 !important;
 	transition: all 250ms cubic-bezier(.4,.25,.3,1);
 	display: block;
@@ -167,7 +167,7 @@
     padding-top: 15px;
     text-align: center;
     color: #3366FF;
-    font-family: "Helvetica Neue Medium";
+    font-family: "Rubik Medium";
 }
 
 .datepicker-content{
