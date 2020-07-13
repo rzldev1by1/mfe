@@ -444,7 +444,7 @@ class UserManagementDetail extends Component {
                                                       to create new password?
                                                 </div>
                                                 <div className="col-5">
-                                                    <button type="button" className={"btn " + ((accountInfo.passwordChange === '') ? "btn-outline-active" : "btn-outline-notActive")} onClick={(e) => { this.onClickResetPassword(); }}>Reset</button>
+                                                    <button type="button" className={"btn " + ((accountInfo.passwordChange === '') ? "btn-outline-active" : "btn-outline-notActive")} onClick={(e) => { this.onClickResetPassword(); }}>RESET</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -456,7 +456,7 @@ class UserManagementDetail extends Component {
                                               </div>
                                                 <div className="col-6">
                                                     <button type="button" className={"btn " + ((!accountInfo.disabled) ? "btn-outline-active" : "btn-outline-notActive")} onClick={(e) => { this.onClieckSuspendUser(); }}>
-                                                        {(!accountInfo.disabled) ? 'Suspend' : 'Disabled'}
+                                                        {(!accountInfo.disabled) ? 'SUSPEND' : 'DISABLED'}
                                                     </button>
                                                 </div>
                                             </div>
@@ -493,7 +493,7 @@ class UserManagementDetail extends Component {
 
                                 <div className="d-flex mt-5 mr-3 justify-content-between">
                                     <button type="button" className=" font-lg font-md font-sm btn btn-primary btn-submit default-box-height" onClick={(e) => { this.gotoUM(); }}>
-                                        <label className="create-user-label mb-0">Back</label>
+                                        <label className="create-user-label mb-0">BACK</label>
                                     </button>
 
                                     <p>
@@ -504,7 +504,7 @@ class UserManagementDetail extends Component {
 
                                     <button type="button" className=" font-lg font-md font-sm btn btn-primary btn-submit default-box-height" onClick={(e) => { this.saveClick(); }}>
                                         <i className={(this.state.isSaveProgressing) ? "mr-2 fa fa-refresh fa-spin " : "fa fa-refresh fa-spin d-none"}></i>
-                                        <label className="create-user-label mb-0">Save</label>
+                                        <label className="create-user-label mb-0">SAVE</label>
                                     </button>
 
                                 </div>

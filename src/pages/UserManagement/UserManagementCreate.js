@@ -8,7 +8,10 @@ import Review from './tabs/Review'
 import _ from 'lodash'
 
 const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement'];
-
+const webgroup = {
+  WAREHOUSE: 'Warehouse',
+  ADMIN: 'Adminitrator'
+}
 class UserManagementCreate extends React.PureComponent {
   state = {
     key: 'new',
@@ -22,7 +25,7 @@ class UserManagementCreate extends React.PureComponent {
       disabled: 'N',
       site: '',
       client: '',
-      webGroup: false
+      webGroup: webgroup.WAREHOUSE
     },
     sites: [],
     client: [],
@@ -158,13 +161,24 @@ class UserManagementCreate extends React.PureComponent {
     console.log(e)
   }
 
+  AllIsValid = () => {
+    const { moduleAccess} = this.state;
+    let user = { ...this.state.user };
+    let isValid = false;
+    let userMenu = moduleAccess.filter((item) => { return item.status === true; })
+
+    if (user.webGroup === webgroup.ADMIN)
+      isValid = (user.name && user.email) ? true : false;
+    else {
+      isValid = (user.name && user.email && (userMenu && userMenu.length)) ? true : false;
+    }
+
+    return isValid;
+  }
+
   onSelectTab = (key) => {
-    // let { header, lineDetail } = this.state.data
-    //   if (key === 'review' && !Object.keys(header).length && !lineDetail.length) {
-    //     console.log('review disabled until form filled')
-    //     return null
-    //   }
-    this.setState({ key })
+    if (this.AllIsValid())
+      this.setState({ key })
   }
 
   setData = (data) => {
@@ -197,7 +211,7 @@ class UserManagementCreate extends React.PureComponent {
 
   onWebGroupSelect = (event) => {
     let user = { ...this.state.user };
-    user.webGroup = event.target.checked;
+    user.webGroup = event.target.checked ? webgroup.ADMIN : webgroup.WAREHOUSE;
     this.setState({ isAdmin: event.target.checked, user: user });
   }
 
@@ -214,6 +228,8 @@ class UserManagementCreate extends React.PureComponent {
       .map((item, index) => {
         return item.menuid;
       });
+    let adminMenu = moduleAccess.map((item, index) => { return item.menuid; });
+
     let site = sites.find((item, index) => {
       return item.status === true;
     });
@@ -221,18 +237,33 @@ class UserManagementCreate extends React.PureComponent {
       return item.status === true;
     });
 
-    userInfo.userMenu = userMenu;
-    userInfo.site = site.site;
-    userInfo.client = client.code;
+    userInfo.userMenu = (user.webGroup === webgroup.ADMIN) ? adminMenu : userMenu;
+    userInfo.site = (user.webGroup === webgroup.ADMIN) ? null : site.site;
+    userInfo.client = (user.webGroup === webgroup.ADMIN) ? null : client.code;
 
     const { status, data } = await axios.post(endpoint.userManagementCreate, userInfo);
     if (status === 200) {
       this.setState({ saveProgress: false }, () => {
-        this.props.toggle();
+        this.onHideModal();
         this.props.afterSuccess();
       });;
     }
 
+  }
+
+  onHideModal = () => {
+    let user = {
+      name: '',
+      userId: '',
+      password: '',
+      email: '',
+      disabled: 'N',
+      site: '',
+      client: '',
+      webGroup: webgroup.WAREHOUSE
+    }
+    this.setState({user:user},()=>{this.props.toggle()})
+    
   }
 
 
@@ -240,7 +271,7 @@ class UserManagementCreate extends React.PureComponent {
     const { show, toggle } = this.props
     const { user, isAdmin, moduleAccess, sites, clients, saveProgress, isEnableAllClient, isEnableAllSite, isEnableAllModule } = this.state
 
-    return <Modal show={show} onHide={() => toggle()} size="xl" className="sales-order-create" >
+    return <Modal show={show} onHide={() => this.onHideModal()} size="xl" className="sales-order-create" >
       <Modal.Body className="bg-primary p-0">
         <Row className="p-4">
           <Col xs={10}>
@@ -248,7 +279,7 @@ class UserManagementCreate extends React.PureComponent {
             <span className="pl-4">Enter user details to create a New User</span>
           </Col>
           <Col xs={2} className="text-right">
-            <i className="iconU-close pointer" onClick={() => toggle()}></i>
+            <i className="iconU-close pointer" onClick={() => this.onHideModal()}></i>
           </Col>
         </Row>
         <Tabs id="controlled-tab-example" activeKey={this.state.key} onSelect={this.onSelectTab}>

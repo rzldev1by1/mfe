@@ -1,3 +1,8 @@
+.um-summary .input-group input{
+  height: 40px !important;
+  border-color: #e4e7ea !important;
+}
+
 .user-login-info-header{
     color: #959DA0;    
 }
@@ -98,6 +103,7 @@
   .client-areas{
     height:350px;
     overflow-y: auto;
+    overflow-x: hidden;
   }
 
   .webgroup-review-active {
@@ -166,6 +172,14 @@
 
   .client-pr{
     padding-right: 1.7rem;
+  }
+
+  .um-active {    
+    color: #05e0bd;
+  }
+  
+  .um-suspended {
+    color: #f94548;
   }
 
 /** Modal create **/

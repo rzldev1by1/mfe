@@ -52,9 +52,10 @@ class UMCustomTable extends React.Component {
     }
   
     headerIcon = (data, header, editColumn) => {
-      console.log(editColumn)
+     
       let listHeader = []
       header && header.map((h, index) => {
+        
         if (!editColumn[index]) {
           let withIcon = <span className="text-light-gray">
             {h.Header} {h.sortable === false ?
@@ -68,8 +69,10 @@ class UMCustomTable extends React.Component {
             Cell: h.Cell,
             accessor: h.accessor,
             sortable: h.sortable === false ? false : true,
-            resizable: h.resizable || false
+            resizable: h.resizable || false,
+            width:h.width
           }
+         
           return listHeader = [...listHeader, obj]
         } else {
           return listHeader = [...listHeader]

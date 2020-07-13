@@ -12,12 +12,12 @@ import * as utility from './UmUtility'
 import './UserManagement.css'
 
 const columns = [
-    { accessor: 'userid', Header: 'User ID', sortable: true },
-    { accessor: 'name', Header: 'User Name', sortable: true },
-    { accessor: 'site', Header: 'Site', sortable: true },
-    { accessor: 'client', Header: 'Client', sortable: true },
-    { accessor: 'last_access', Header: 'Last Accessed', sortable: true },
-    { accessor: 'disabled', Header: 'Status', sortable: true },
+    { accessor: 'userid', Header: 'User ID', width:220, sortable: true },
+    { accessor: 'name', Header: 'User Name', width:320, sortable: true },
+    { accessor: 'site', Header: 'Site', width:120, sortable: true },
+    { accessor: 'client', Header: 'Client', width:180, sortable: true },
+    { accessor: 'last_access', Header: 'Last Accessed', width:220, sortable: true },
+    { accessor: 'disabled', Header: 'Status', width:220, sortable: true },
 ]
 
 class UserManagemen extends Component {
@@ -30,7 +30,7 @@ class UserManagemen extends Component {
             data: [],
             dimension: { width: 0, height: 0 },
             pagination: {},
-            modalShow:false
+            modalShow: false
         }
     }
 
@@ -39,7 +39,7 @@ class UserManagemen extends Component {
         window.addEventListener('resize', this.updateDimension);
         this.searchHandler();
         this.loadPersonalLogin();
-       
+
     }
 
     componentWillUnmount = () => {
@@ -65,8 +65,14 @@ class UserManagemen extends Component {
         urls.push(`page=${pagination.active || 1}`)
 
         const { data } = await axios.get(`${endpoint.userManagementListUser}?${urls.join('&')}`)
+        let result = data.data.data.map((item, index) => {
+            let newItem = item;
+            newItem.disabled = (item.disabled === 'Y') ? 'Suspended' : 'Active';
+            return newItem;
+        })
+        console.log(result);
         this.setState({
-            data: data.data.data, pagination: {
+            data: result, pagination: {
                 active: pagination.active || data.data.current_page,
                 show: data.data.per_page,
                 total: data.data.total
@@ -76,13 +82,13 @@ class UserManagemen extends Component {
     }
 
     toggle = () => {
-        this.setState((state) => ({modalShow:!state.modalShow}));
+        this.setState((state) => ({ modalShow: !state.modalShow }));
     }
 
-    showDetails = (item) => {        
+    showDetails = (item) => {
         const url = `/users-management/${item.web_user}/detail`;
         this.props.history.push(url)
-      }
+    }
 
 
     render() {
@@ -90,7 +96,7 @@ class UserManagemen extends Component {
         const { loginInfo, data, fields, pagination, dimension, modalShow } = this.state;
 
         return (
-            <div>
+            <div className="um-summary">
                 <HeaderTitle
                     breadcrumb={[{ to: '', label: 'User Management', active: true }]}
                     button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right">CREATE USER</CButton>}
@@ -129,35 +135,33 @@ class UserManagemen extends Component {
                     <CCardBody className="px-4 py-2 bg-white">
                         <CRow className="row">
                             <CCol lg={11} className="px-1">
-                                {/* <div className="input-group">
-                                    <div className="input-group-prepend">
-                                        <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
-                                    </div>
-                                    <input type="text" className="form-control border-left-0" placeholder="Enter User ID or Username" onChange={e => this.setState({ search: e.target.value })} />
-                                </div> */}
                                 <div className="input-group">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
                                     </div>
                                     <input type="text" className="form-control border-left-0" placeholder="Enter User ID or Username" onChange={e => this.setState({ search: e.target.value })} />
-                                </div>
+                                </div>                                
                             </CCol>
                             <CCol lg={1}>
                                 <CRow>
                                     <CCol sm={8} lg={12} md={12} className="px-1">
-                                        <button className="btn btn-block btn-primary float-right" onClick={this.searchHandler}>SEARCH</button>                                        
-                                    </CCol>
+                                        <button className="btn btn-block btn-primary float-right" onClick={this.searchHandler}>SEARCH</button>
+                                    </CCol>                                    
                                 </CRow>
                             </CCol>
                         </CRow>
                     </CCardBody>
                 </CCard>
-                <UMCustomTable 
-                title="User Management"
-                 height={dimension.height} 
-                 fields={fields} data={data} onClick={this.showDetails} />
-                <CustomPagination data={data} pagination={pagination} goto={(active => { this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler()) })} export={this.props.export}/>
-                <CreateUM show={modalShow} toggle={this.toggle} afterSuccess={this.searchHandler}/>
+                <UMCustomTable
+                    title="User Management"
+                    height={dimension.height}
+                    fields={fields} data={data} onClick={this.showDetails}
+                />
+                <CustomPagination data={data}
+                    pagination={pagination}
+                    goto={(active => { this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler()) })}
+                    export={<button className="btn btn-primary float-right px-4 btn-export">EXPORT <IoIosArrowDown /></button>} />
+                <CreateUM show={modalShow} toggle={this.toggle} afterSuccess={this.searchHandler} />
             </div>
         )
     }

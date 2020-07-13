@@ -98,6 +98,7 @@ class CustomTable extends React.Component {
           resizable: h.resizable || false,
           width: h.width || getColumnWidth(data, h.accessor, h.Header),
         }
+       
         return listHeader = [...listHeader, obj]
       } else {
         return listHeader = [...listHeader]
@@ -112,6 +113,7 @@ class CustomTable extends React.Component {
       style: { textAlign: 'center' }
     }
     listHeader = [...listHeader, obj]
+    console.log(listHeader);
     return listHeader
   }
 
@@ -126,7 +128,7 @@ class CustomTable extends React.Component {
           data={data}
           showPagination={false}
           style={{ height }}
-          getTdProps={(state, rowInfo, column, instance) => {
+          getTdProps={(state, rowInfo, column, instance) => {            
             return {
               onClick: (e, handleOriginal) => {
                 !!onClick && onClick(rowInfo.original, state, column, e, instance)
