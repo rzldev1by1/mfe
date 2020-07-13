@@ -26,7 +26,7 @@ return (<div>
          (clients && clients.length)? clients.map((item,index) => {
             return (<div className="flex-column" key={index}>
                           <div className="row mb-3" key={index}>
-                              <label className="col-6 text-muted" key={item.code}>{ capitalizeFirstLetter(item.name) }</label>
+                              <label className="col-6 text-muted py-2 " key={item.code}>{ capitalizeFirstLetter(item.name) }</label>
 
                              <div className="col-6">
                               <button type="button" htmlFor={item.code} className={"px-1 "+((item.status)?"enable-active":"enable-notactive")}>{`${item.status?enable.toUpperCase():disable.toUpperCase()}`}</button>

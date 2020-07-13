@@ -20,7 +20,7 @@ const siteReview = ({ sites }) => {
            (sites && sites.length)? sites.map((item, index) => {
                 return (<div className="flex-column mb-3 mr-2" key={index}>
                     <div className="row" style={{ height: "40px" }} key={index}>
-                        <label className="col-6 text-muted" key={item.site}>{`${item.site} : ${item.name}`}</label>
+                        <label className="col-6 text-muted py-2" key={item.site}>{`${item.site} : ${item.name}`}</label>
 
                         <div className="col-6">
                             <button type="button" className={"px-1 " + ((item.status) ? "enable-active" : "enable-notactive")}>{`${item.status?enable.toUpperCase():disable.toUpperCase()}`}</button>

@@ -16,7 +16,7 @@ const client = ({ clients, onEnableClick, onClientEnableAll, isEnableAllClient }
     return (<div>
         <div className="flex-column line-border my-3">
             <div className="d-flex">
-                <label className="text-muted col-6 p-0" htmlFor="Client">Client
+                <label className="text-muted col-6 p-0 py-2" htmlFor="Client">Client
               </label>
                 {/* <input className="checkbox-hidden" type="checkbox" id="Client"/> */}
                 <div className="col-6">
@@ -31,7 +31,7 @@ const client = ({ clients, onEnableClick, onClientEnableAll, isEnableAllClient }
                 (clients && client.length) ? clients.map((item, index) => {
                     return (<div className="flex-column" key={index}>
                         <div className="d-flex mb-3" key={index}>
-                            <label className="text-muted col-6 section-value-text p-0" key={item.code}>{capitalizeFirstLetter(item.name)}</label>
+                            <label className="text-muted col-6 section-value-text p-0 py-2" key={item.code}>{capitalizeFirstLetter(item.name)}</label>
 
                             {/* <input className="checkbox-hidden" type="checkbox" id={item.code} /> */}
                             <div className="col-6">

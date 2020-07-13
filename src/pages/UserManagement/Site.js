@@ -11,7 +11,7 @@ const disable = 'Disabled';
 return (<div>
         <div className="flex-column line-border mr-2 my-3">
             <div className="d-flex">
-                <label className="col-6 text-muted px-0" htmlFor="Site">Site
+                <label className="col-6 text-muted px-0 py-2" htmlFor="Site">Site
                 </label>
                 {/* <input className="checkbox-hidden" type="checkbox" id="Site"/> */}
                 <div className="col-6">
@@ -25,7 +25,7 @@ return (<div>
             (sites && sites.length) ? sites.map((item,index) => {
             return (<div className="flex-column mb-3 mr-2" key={index}>
             <div className="d-flex" key={index}>
-                <label className="col-6 text-muted px-0" key={item.site}>{`${item.site} : ${item.name}`}</label>
+                <label className="col-6 text-muted px-0 py-2" key={item.site}>{`${item.site} : ${item.name}`}</label>
                 
                 {/* <input className="checkbox-hidden" type="checkbox" id={item.site} /> */}
                 <div className="col-6">

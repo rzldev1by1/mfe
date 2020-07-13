@@ -36,7 +36,7 @@ class NewUser extends React.PureComponent {
             <Container className="px-5 py-4">
                 <Row>
                     <Col lg="2">
-                        <h3 className="text-primary font-20">New User</h3>
+                        <h3 className="text-primary font-20" style={{paddingTop:'11px',paddingBottom:'11px'}}>New User</h3>
                     </Col>
                     <Col lg="10">
                         <Row>
