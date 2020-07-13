@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import React from 'react'
+import { connect } from 'react-redux';
 import ReactTable from 'react-table-v6'
 import { Button, Container, Row, Col, Modal } from 'react-bootstrap'
 import { MdClose } from 'react-icons/md'
@@ -9,6 +10,7 @@ import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 import CustomPagination from 'shared/table/CustomPagination'
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
+import SalesOrder from '../../pages/SalesOrder/SalesOrder'
 
 // automatic column width
 const getColumnWidth = (rows, accessor, headerText) => {
@@ -31,11 +33,80 @@ const getColumnWidth = (rows, accessor, headerText) => {
 class CustomTable extends React.Component {
   constructor(props) {
     super(props);
+    this.dragged = null;
+    this.reorder = [];
+    let tables = localStorage.getItem("tables") ? JSON.parse(localStorage.getItem("tables")) : [];
+    if(tables.length > 0){
+        tables.map((data, idx) => {
+            if(data.title == props.title){
+                this.reorder = data.reorderIdx
+            }
+        });
+    } 
     this.state = {
       showModal: false,
       editColumn: {},
-      editColumnTemp: {}
+      editColumnTemp: {},
+      trigger: 0
     }
+  }
+
+  mountEvents() {
+    const headers = Array.prototype.slice.call(
+      document.querySelectorAll(".draggable-header")
+    );
+
+    headers.forEach((header, i) => {
+      header.setAttribute("draggable", true);
+      //the dragged header
+      header.ondragstart = e => {
+        e.stopPropagation();
+        this.dragged = i;
+      };
+
+      header.ondrag = e => e.stopPropagation;
+
+      //the dropped header
+      header.ondragover = e => {
+        e.preventDefault();
+      };
+
+      header.ondrop = e => {
+        e.preventDefault();
+        const { target, dataTransfer } = e;
+        this.reorder.push({ a: i, b: this.dragged });
+        this.setState({ trigger: Math.random() });
+
+        let tables = localStorage.getItem("tables") ? JSON.parse(localStorage.getItem("tables")) : [];
+        if(tables.length > 0){
+            tables.map((data, index) => {
+                if(data.title == this.props.title){
+                    tables.splice(index, 1);
+                }
+            })
+            tables.push({
+                userId: this.props.store.user.userId,
+                title: this.props.title,
+                reorderIdx: this.reorder
+            })
+        }else{
+            tables.push({
+                userId: this.props.store.user.userId,
+                title: this.props.title,
+                reorderIdx: this.reorder
+            })
+        }
+        localStorage.setItem("tables", JSON.stringify(tables));
+      };
+    });
+  }
+
+  componentDidMount() {
+    this.mountEvents();
+  }
+
+  componentDidUpdate() {
+    this.mountEvents();
   }
 
   showModal = (show) => {
@@ -83,7 +154,7 @@ class CustomTable extends React.Component {
     let listHeader = []
     header && header.map((h, index) => {
       if (!editColumn[index]) {
-        let withIcon = <span className="text-light-gray">
+        let withIcon = <span className="text-light-gray draggable-header">
           {h.Header} {h.sortable === false ?
             null : <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z"></path>
@@ -117,8 +188,10 @@ class CustomTable extends React.Component {
 
   render() {
     const { showModal, editColumn, editColumnTemp } = this.state
-    let { title, data, fields, onClick, height, pagination } = this.props
-    const headerIcon = this.headerIcon(data, fields, editColumnTemp)
+    let { title, data, fields, onClick, height, pagination } = this.props  
+    let headerIcon = this.headerIcon(data, fields, editColumnTemp);
+    this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
+    
     return (
       <React.Fragment>
         <ReactTable
@@ -199,4 +272,6 @@ class CustomTable extends React.Component {
   }
 }
 
-export default CustomTable
+const mapStateToProps = (store) => ({ store })
+const mapDispatchToProps = (dispatch) => ({ dispatch })
+export default connect(mapStateToProps, mapDispatchToProps)(CustomTable)
