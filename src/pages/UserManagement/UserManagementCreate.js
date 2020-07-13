@@ -1,5 +1,6 @@
 import React from 'react'
-import { Row, Col, Tabs, Tab, Modal, Container } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
+import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 import * as utility from './UmUtility'
 import axios from 'axios'
 import endpoint from '../../helpers/endpoints'
@@ -162,7 +163,7 @@ class UserManagementCreate extends React.PureComponent {
   }
 
   AllIsValid = () => {
-    const { moduleAccess} = this.state;
+    const { moduleAccess } = this.state;
     let user = { ...this.state.user };
     let isValid = false;
     let userMenu = moduleAccess.filter((item) => { return item.status === true; })
@@ -262,19 +263,19 @@ class UserManagementCreate extends React.PureComponent {
       client: '',
       webGroup: webgroup.WAREHOUSE
     }
-    this.setState({user:user},()=>{this.props.toggle()})
-    
+    this.setState({ user: user }, () => { this.props.toggle() })
+
   }
 
 
   render() {
     const { show, toggle } = this.props
-    const { user, isAdmin, moduleAccess, sites, clients, saveProgress, isEnableAllClient, isEnableAllSite, isEnableAllModule } = this.state
+    const { user, key, isAdmin, moduleAccess, sites, clients, saveProgress, isEnableAllClient, isEnableAllSite, isEnableAllModule } = this.state
 
     return <Modal show={show} onHide={() => this.onHideModal()} size="xl" className="sales-order-create" >
       <Modal.Body className="bg-primary p-0">
         <Row className="p-4">
-          <Col xs={10}>
+          <Col xs={10} style={{paddingLeft:'40px'}}>
             <i className="iconU-createModal font-20"></i><span className="font-20 pl-2">Create User</span> <br />
             <span className="pl-4">Enter user details to create a New User</span>
           </Col>
@@ -282,8 +283,19 @@ class UserManagementCreate extends React.PureComponent {
             <i className="iconU-close pointer" onClick={() => this.onHideModal()}></i>
           </Col>
         </Row>
-        <Tabs id="controlled-tab-example" activeKey={this.state.key} onSelect={this.onSelectTab}>
-          <Tab eventKey="new" title={`1. User Details`}>
+        <Nav tabs>
+          <NavItem>
+            <NavLink className={key === 'new' ? 'active' : null} onClick={() => this.onSelectTab('new')}>
+              <div className={`badge badge-pill badge-${key === 'new' ? 'primary' : 'secondary'}`}>1</div> User Details
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink className={key === 'review' ? 'active' : null} onClick={() => this.onSelectTab('review')}>
+              <div className={`badge badge-pill badge-${key === 'review' ? 'primary' : 'secondary'}`}>2</div> Review
+            </NavLink></NavItem>
+        </Nav>
+        <TabContent activeTab={key}>
+          <TabPane tabId="new">
             <NewUser user={user} isAdmin={isAdmin} onWebGroupSelect={this.onWebGroupSelect}
               onChangeName={this.onChangeName} onChangeEmail={this.onChangeEmail}
               onModuleEnableClick={this.onModuleEnableClick} onSiteEnableClick={this.onSiteEnableClick}
@@ -293,8 +305,8 @@ class UserManagementCreate extends React.PureComponent {
               onModuleEnableAllClick={this.onModuleEnableAllClick}
               onClientEnableAllClick={this.onClientEnableAllClick}
               onSiteEnableAllClick={this.onSiteEnableAllClick} />
-          </Tab>
-          <Tab eventKey="review" title={`2. Review`}>
+          </TabPane>
+          <TabPane tabId="review">
             <Review user={user} isAdmin={isAdmin}
               moduleAccess={moduleAccess}
               sites={sites}
@@ -302,8 +314,9 @@ class UserManagementCreate extends React.PureComponent {
               next={this.onSelectTab}
               submitProgress={saveProgress}
               submit={this.onSubmit} />
-          </Tab>
-        </Tabs>
+          </TabPane>
+        </TabContent>
+        
       </Modal.Body>
     </Modal>
   }
