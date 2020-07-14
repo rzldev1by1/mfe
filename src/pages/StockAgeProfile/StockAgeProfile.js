@@ -129,7 +129,7 @@ class StockAgeProfile extends Component {
   }
 
   updateDimension = () => {
-    const height = (window.innerHeight - 116) * 0.855;
+    const height = (window.innerHeight - 116) * 0.83;
     // const height = {overflow: 'visible', height: heightAdjust}
     this.setState({ dimension: { width: window.innerWidth, height } });
   };
@@ -254,6 +254,7 @@ class StockAgeProfile extends Component {
           fields={fields}
           overflow="scroll"
           noDataText={"Please Wait..."}
+          className="stock-age-profile"
         />
         <CustomPagination
           data={data}
