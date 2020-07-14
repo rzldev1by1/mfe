@@ -137,10 +137,10 @@ class StockHolding extends React.PureComponent {
           </CButton>}
       />
 
-      <CCard>
+      <CCard className="card-shadow">
         <CCardBody className="search-padding">
           <CRow className="row">
-            <CCol lg={3} className="px-1">
+            <CCol lg={4} className="px-1">
               <div className="input-group ">
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
@@ -148,9 +148,9 @@ class StockHolding extends React.PureComponent {
                 <input type="text" className="form-control border-left-0 input-height " placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
               </div>
             </CCol>
-            <CCol lg={9}>
+            <CCol lg={7}>
               <CRow>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={3} className="px-1">
                   <Select name="site" placeholder="Site"
                     value={site} options={siteData}
                     onChange={(val) => this.setState({ site: val }, () => {
@@ -158,26 +158,22 @@ class StockHolding extends React.PureComponent {
                     })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={3} className="px-1">
                   <Select name="client" placeholder="Client"
                     value={client} options={clientData}
                     onChange={(val) => this.setState({ client: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={3} className="px-1">
                   <Select name="status" placeholder="Status"
                     value={status} options={statusData}
                     onChange={(val) => this.setState({ status: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
-                </CCol>
-                <CCol sm={4} lg={2} className="px-1">
-                </CCol>
-                <CCol sm={4} lg={2} className="px-1">
-                  <button className="btn btn-block btn-primary" onClick={this.searchStockHolding}>SEARCH</button>
-                </CCol>
               </CRow>
+            </CCol>
+            <CCol lg={1} className="px-1">
+                  <button className="btn btn-block btn-primary" onClick={this.searchStockHolding}>SEARCH</button>
             </CCol>
           </CRow>
         </CCardBody>

@@ -73,6 +73,9 @@
 .table-summary .c-subheader-nav-link {
   margin-right: 15px;
 }
+.card-shadow{
+  box-shadow:none !important
+}
 
 /* Order Detail */
 .order-detail .section-1 .col {
