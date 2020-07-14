@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactTable from 'react-table-v6'
 import 'react-table-v6/react-table.css'
-// import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './StockMovementTable.css'
 
 // import mid from 'assets/img/field-idle.png'
