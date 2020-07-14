@@ -8,7 +8,7 @@
 }
 .status-shortage{
     color: white !important;
-    background: rgb(199, 33, 33);
+    background: #F94548;
     padding: 6px;
     font-size: 12px;
     border-radius: 3px;
@@ -18,19 +18,39 @@
 }
 
 .nav-tabs .nav-link.tab-custom {
-  color: #2f275d !important;
+  color: #3f6efb !important;
   background-color: #ffffff !important;
   padding-left: 24px;
   padding-right: 27px;
   padding-bottom: 8px;
   padding-top: 8px;
-  border-radius: 5px;
-  font-size: 20px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border: solid 0px;
+}
+
+.tab-header{
+  width: max-content;
+  margin-left: -1px !important;
+}
+.numberic{
+    margin-right: 5px;
+    width: 19px;
+    padding-bottom: 4.9px;
 }
 
 .tableTab{
   margin-left: 14px;
   margin-top: -4px;
+}
+.rt-table {
+  margin-top: -0.4rem;
+}
+.search-padding{
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+  padding-right: 1.4rem;
+  padding-left: 1.4rem;
 }
 
 .form-control::-moz-placeholder {
@@ -52,6 +72,9 @@
 }
 .table-summary .c-subheader-nav-link {
   margin-right: 15px;
+}
+.card-shadow{
+  box-shadow:none !important
 }
 
 /* Order Detail */
