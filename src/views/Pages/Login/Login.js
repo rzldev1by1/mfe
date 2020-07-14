@@ -125,7 +125,7 @@ class Logins extends Component {
                 errorMessage= 'Sorry, you have been automaticly \n logged out due to inactivity';
                 setTimeout(() => {
                     localStorage.removeItem('expiredSession');
-                }, 1000);
+                }, 3000);
         }
 
         return(
