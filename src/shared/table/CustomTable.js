@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React from 'react'
 import ReactTable from 'react-table-v6'
-import { Button, Container, Row, Col, Modal } from 'react-bootstrap'
+import { Button, Container, Row, Col, Modal,Nav, NavItem, NavLink, TabPane, TabContent  } from 'react-bootstrap'
 import { MdClose } from 'react-icons/md'
 import { FaRegEdit, FaPencilAlt } from 'react-icons/fa'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
@@ -34,9 +34,15 @@ class CustomTable extends React.Component {
     this.state = {
       showModal: false,
       editColumn: {},
-      editColumnTemp: {}
+      editColumnTemp: {},
+      activeTab: "1",
     }
   }
+  activeTabIndex = (tabIndex) => {
+		if (this.state.activeTab !== tabIndex) {
+			this.setState({ activeTab: tabIndex });
+		}
+	}
 
   showModal = (show) => {
     this.setState({ showModal: show })
@@ -116,7 +122,7 @@ class CustomTable extends React.Component {
   }
 
   render() {
-    const { showModal, editColumn, editColumnTemp } = this.state
+    const { showModal, editColumn, editColumnTemp, activeTab } = this.state
     let { title, data, fields, onClick, height, pagination } = this.props
     const headerIcon = this.headerIcon(data, fields, editColumnTemp)
     return (
@@ -173,7 +179,35 @@ class CustomTable extends React.Component {
             <Row xl={5} lg={4} md={3} sm={3} xs={2} className="mx-1">
               <Col className="text-primary font-20 p-2">{title}</Col>
             </Row>
-            <Row xl={5} lg={4} md={3} sm={3} xs={2} className="mx-1">
+            <Row className="align-items-center rename-columns">
+                  <div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
+                  <Nav tabs>
+                      <div className="input-group">
+                          <NavItem className="pl-0 pr-0">                         
+                                  <NavLink  className={"nav-link-cust tab-color" + (activeTab === "1" ? " tab-rename" : "")} active={this.state.activeTab === "1"} onClick={() => this.activeTabIndex("1")}>
+                                      <div className="row rowTabCustom align-items-center">
+                                          <span className="tabTitleText">
+                                          {activeTab === "1" }TOGGLE COLUMN
+                                          </span>
+                                      </div>
+                                 </NavLink>
+                            </NavItem>
+
+                            <NavItem className={"pl-2 pr-0 "}>
+                                  <NavLink className={"nav-link-cust tab-color" + (activeTab === "2" ? " tab-rename" : "")} active={this.state.activeTab === "2"} onClick={() => this.activeTabIndex("2")}>
+                                      <div className="row rowTabCustom align-items-center">
+                                            <span className="tabTitleText">
+                                            {activeTab === "2" } RENAME COLUMN
+                                            </span>
+                                      </div>
+                                  </NavLink>
+                          </NavItem>
+                        </div>
+                    </Nav>
+                    </div>
+                </Row>
+            <Row activeTab={this.state.activeTab}>
+              <Row xl={5} lg={10} className="mx-1"  >
               {
                 fields && fields.map((item, index) => {
                   return (
@@ -188,6 +222,7 @@ class CustomTable extends React.Component {
                   )
                 })
               }
+              </Row>
             </Row>
           </Modal.Body>
           <Modal.Footer>
