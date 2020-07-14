@@ -1,7 +1,8 @@
 import _ from 'lodash'
 import React from 'react'
 import ReactTable from 'react-table-v6'
-import { Button, Container, Row, Col, Modal,Nav, NavItem, NavLink, TabPane, TabContent  } from 'react-bootstrap'
+import { Button, Container, Row, Col, Modal,Nav,} from 'react-bootstrap'
+import {  NavItem, NavLink, TabPane, TabContent } from 'reactstrap';
 import { MdClose } from 'react-icons/md'
 import { FaRegEdit, FaPencilAlt } from 'react-icons/fa'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
@@ -38,9 +39,9 @@ class CustomTable extends React.Component {
       activeTab: "1",
     }
   }
-  activeTabIndex = (tabIndex) => {
-		if (this.state.activeTab !== tabIndex) {
-			this.setState({ activeTab: tabIndex });
+  activeTabIndex(tab){
+		if (this.state.activeTab !== tab) {
+			this.setState({ activeTab: tab });
 		}
 	}
 
@@ -184,7 +185,7 @@ class CustomTable extends React.Component {
                   <Nav tabs>
                       <div className="input-group">
                           <NavItem className="pl-0 pr-0">                         
-                                  <NavLink  className={"nav-link-cust tab-color" + (activeTab === "1" ? " tab-rename" : "")} active={this.state.activeTab === "1"} onClick={() => this.activeTabIndex("1")}>
+                                  <NavLink  className={"nav-link-cust tab-color" + (activeTab === "1" ? " tab-rename" : "")} active={this.state.activeTab === "1"} onClick={() => { this.activeTabIndex("1"); }}>
                                       <div className="row rowTabCustom align-items-center">
                                           <span className="tabTitleText">
                                           {activeTab === "1" }TOGGLE COLUMN
@@ -194,7 +195,7 @@ class CustomTable extends React.Component {
                             </NavItem>
 
                             <NavItem className={"pl-2 pr-0 "}>
-                                  <NavLink className={"nav-link-cust tab-color" + (activeTab === "2" ? " tab-rename" : "")} active={this.state.activeTab === "2"} onClick={() => this.activeTabIndex("2")}>
+                                  <NavLink className={"nav-link-cust tab-color" + (activeTab === "2" ? " tab-rename" : "")}  active={this.state.activeTab === "2"} onClick={() => { this.activeTabIndex("2"); }}>
                                       <div className="row rowTabCustom align-items-center">
                                             <span className="tabTitleText">
                                             {activeTab === "2" } RENAME COLUMN
@@ -206,24 +207,44 @@ class CustomTable extends React.Component {
                     </Nav>
                     </div>
                 </Row>
-            <Row activeTab={this.state.activeTab}>
-              <Row xl={5} lg={10} className="mx-1"  >
-              {
-                fields && fields.map((item, index) => {
-                  return (
-                    <Col key={index} className="p-2">
-                      <button className={`text-left btn btn-block ${!editColumn[index] ? 'btn-outline-primary' : 'btn-light-gray'}`}
-                        onClick={this.showColumn.bind(this, item.Header, index, fields.length)}
-                      >
-                        {!editColumn[index] ? <AiOutlineEye size={25} /> : <AiOutlineEyeInvisible size={25} />}
-                        <b className="p-0"> {item.Header} </b>
-                      </button>
+                <Row>
+                    <Col sm="12" md="12" lg="12">
+                        <TabContent activeTab={this.state.activeTab}>
+                            <TabPane tabId="1">
+                                  <Row xl={5} lg={10} className="mx-1"  >
+                                  {
+                                    fields && fields.map((item, index) => {
+                                      return (
+                                        <Col key={index} className="p-2">
+                                          <button className={`text-left btn btn-block ${!editColumn[index] ? 'btn-outline-primary' : 'btn-light-gray'}`}
+                                            onClick={this.showColumn.bind(this, item.Header, index, fields.length)}
+                                          >
+                                            {!editColumn[index] ? <AiOutlineEye size={25} /> : <AiOutlineEyeInvisible size={25} />}
+                                            <b className="p-0"> {item.Header} </b>
+                                          </button>
+                                        </Col>
+                                      )
+                                    })
+                                  }
+                                  </Row>
+                            </TabPane >
+                            <TabPane tabId="2">
+                                  <Row xl={5} lg={10} className="mx-1"  >
+                                  {
+                                    fields && fields.map((item, index) => {
+                                      return (
+                                        <Col key={index} className="p-2">
+                                          <input placeholder={item.Header} className={`text-left form-control `}>
+                                          </input>
+                                        </Col>
+                                      )
+                                    })
+                                  }
+                                  </Row>
+                            </TabPane >
+                        </TabContent>
                     </Col>
-                  )
-                })
-              }
-              </Row>
-            </Row>
+								</Row>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="primary" className="px-5" onClick={this.saveEdit.bind(this, editColumn)} >Save</Button>
