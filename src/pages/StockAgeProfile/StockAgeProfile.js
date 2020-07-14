@@ -190,7 +190,7 @@ class StockAgeProfile extends Component {
       clientData,
     } = this.state;
     return (
-      <div>
+      <div className="stock-age-profile">
         <HeaderTitle
           breadcrumb={[{ to: "", label: "Stock Age Profile", active: true }]}
         />

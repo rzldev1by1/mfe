@@ -1,10 +1,10 @@
-.ReactTable > .rt-table > .rt-tbody {
+.stock-age-profile > .ReactTable > .rt-table > .rt-tbody {
   min-width: 1600px !important;
 }
-.ReactTable > .rt-table > .-headerGroups {
+.stock-age-profile > .ReactTable > .rt-table > .-headerGroups {
   min-width: 1600px !important;
 }
-.ReactTable > .rt-table > .-header {
+.stock-age-profile > .ReactTable > .rt-table > .-header {
   min-width: 1600px !important;
 }
 
@@ -22,74 +22,84 @@
 }
 
 /* scrollbar */
-.rt-tbody::-webkit-scrollbar {
+.stock-age-profile > .rt-tbody::-webkit-scrollbar {
   width: 8px !important;
 }
 
-.rt-tbody::-webkit-scrollbar-thumb {
+.stock-age-profile > .rt-tbody::-webkit-scrollbar-thumb {
   background-color: #b4b9bb;
   border-radius: 15px !important;
 }
 /* ---------------------------------------- */
 
-.ReactTable .rt-thead > .rt-tr > .p-r-2 {
+.stock-age-profile > .ReactTable .rt-thead > .rt-tr > .p-r-2 {
   padding-left: 2rem !important;
   width: 50px !important;
 }
 
-.ReactTable .rt-thead > .rt-tr > .w-200 {
+.stock-age-profile > .ReactTable .rt-thead > .rt-tr > .w-200 {
   width: 200px !important;
 }
-.ReactTable .rt-thead > .rt-tr > .w-50 {
+.stock-age-profile > .ReactTable .rt-thead > .rt-tr > .w-50 {
   width: 50px !important;
 }
-.rt-tr-group > .rt-tr > .rt-td:first-child {
+.stock-age-profile > .rt-tr-group > .rt-tr > .rt-td:first-child {
   padding-left: 2rem !important;
   width: 50px !important;
 }
 
-.rt-tr-group > .rt-tr > .w-200 {
+.stock-age-profile > .rt-tr-group > .rt-tr > .w-200 {
   width: 200px !important;
 }
 
-.rt-tr-group > .rt-tr > .w-50 {
+.stock-age-profile > .rt-tr-group > .rt-tr > .w-50 {
   width: 50px !important;
 }
 
-.ReactTable .rt-td {
+.stock-age-profile > .ReactTable .rt-td {
   white-space: pre-wrap !important;
 }
 
-.ReactTable .rt-thead > .rt-tr > .link-color > div > .text-light-gray {
+.stock-age-profile
+  > .ReactTable
+  .rt-thead
+  > .rt-tr
+  > .link-color
+  > div
+  > .text-light-gray {
   color: #3366ff !important;
   padding-top: 0px !important;
 }
 
-.ReactTable .rt-thead > .rt-tr > .padding-top-0 {
+.stock-age-profile > .ReactTable .rt-thead > .rt-tr > .padding-top-0 {
   margin-top: -15px !important;
 }
 
-.ReactTable .rt-thead > .rt-tr > .link-color {
+.stock-age-profile > .ReactTable .rt-thead > .rt-tr > .link-color {
   padding-top: 0px !important;
 }
 
-.ReactTable .rt-thead.-headerGroups {
+.stock-age-profile > .ReactTable .rt-thead.-headerGroups {
   background: white !important;
   border-bottom: none !important;
   color: #b4b9bb !important;
 }
 
-.ReactTable .rt-thead.-headerGroups:focus {
+.stock-age-profile > .ReactTable .rt-thead.-headerGroups:focus {
   color: #b4b9bb !important;
 }
 
-.ReactTable .rt-thead.-headerGroups > .rt-tr > .rt-th:focus {
+.stock-age-profile
+  > .ReactTable
+  .rt-thead.-headerGroups
+  > .rt-tr
+  > .rt-th:focus {
   color: #b4b9bb !important;
   border: 0px solid !important;
   outline: none !important;
 }
 
-.ReactTable .rt-thead.-header > .rt-tr > .rt-th:focus {
+.stock-age-profile > .ReactTable .rt-thead.-header > .rt-tr > .rt-th:focus {
   outline: none !important;
 }
 .card > .card-body > .row > div > .input-group > .form-control {
@@ -103,33 +113,37 @@
   border-bottom: #e4e7ea !important; */
 }
 
-.ReactTable .rt-thead.-headerGroups > .rt-tr > .rt-th {
+.stock-age-profile > .ReactTable .rt-thead.-headerGroups > .rt-tr > .rt-th {
   padding-bottom: 0px !important;
   height: 30px;
   padding-top: 0.4rem !important;
 }
 
-.ReactTable .rt-thead.-header > .rt-tr > .rt-th {
+.stock-age-profile > .ReactTable > .rt-table > .rt-thead > .rt-tr > .rt-th {
+  border-bottom: none !important;
+}
+
+.stock-age-profile > .ReactTable .rt-thead.-header > .rt-tr > .rt-th {
   height: 30px;
   margin-top: -5px;
 }
 
-.ReactTable .rt-thead.-header {
+.stock-age-profile > .ReactTable .rt-thead.-header {
   height: 20px !important;
 }
 
-.rt-tr > .border-right {
+.stock-age-profile > .rt-tr > .border-right {
   border-right: 1px solid #b4b9bb !important;
 }
-.rt-tr > .border-left {
+.stock-age-profile > .rt-tr > .border-left {
   border-left: 1px solid #b4b9bb !important;
 }
 
-.rt-tr > .border-left:first-child {
+.stock-age-profile > .rt-tr > .border-left:first-child {
   border-left: none !important;
 }
 
-.rt-tr > .padding-top-0 {
+.stock-age-profile > .rt-tr > .padding-top-0 {
   padding-top: 0px !important;
 }
 
