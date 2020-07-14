@@ -8,8 +8,6 @@ import Select from 'react-select'
 import endpoints from 'helpers/endpoints'
 import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
-import './../StockHolding/StockHolding.css'
-import './../SalesOrder/SalesOrder.css'
 import './PurchaseOrder.css'
 import PurchaseOrderCreate from './PurchaseOrderCreate'
 
