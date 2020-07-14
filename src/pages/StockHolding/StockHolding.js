@@ -138,7 +138,7 @@ class StockHolding extends React.PureComponent {
       />
 
       <CCard>
-        <CCardBody className="px-4 py-2">
+        <CCardBody className="search-padding">
           <CRow className="row">
             <CCol lg={3} className="px-1">
               <div className="input-group ">

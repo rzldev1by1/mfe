@@ -169,11 +169,11 @@ class PurchaseOrders extends React.PureComponent {
     return <div className="table-summary">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Purchase Orders', active: true }]}
-        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right px-3">Create Purchase Order</CButton>}
+        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right px-3">CREATE PURCHASE ORDER</CButton>}
       />
 
       <CCard>
-        <CCardBody className="px-4 py-2">
+        <CCardBody className="search-padding">
           <CRow className="row">
             <CCol lg={3} className="px-1">
               <div className="input-group">

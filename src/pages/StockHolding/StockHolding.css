@@ -43,6 +43,15 @@
   margin-left: 14px;
   margin-top: -4px;
 }
+.rt-table {
+  margin-top: -0.4rem;
+}
+.search-padding{
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+  padding-right: 1.4rem;
+  padding-left: 1.4rem;
+}
 
 .form-control::-moz-placeholder {
     color: rgb(192, 187, 187);

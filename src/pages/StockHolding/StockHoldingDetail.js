@@ -113,7 +113,7 @@ class SalesOrderDetail extends React.Component {
                 { to: '/stock-holding', label: 'Stock Holding' },
                 { to: '', label: this.props.match.params.product, active: true },
               ]} />
-              <div ref={this.section1} className="card-group section-1 mb-4" >
+              <div ref={this.section1} className="card-group section-1 mb-3" >
                 <CCard>
                   <CCardBody className="p-0 m-4 border-right">
                     <CRow><CCol className="text-light-gray">Site</CCol><CCol>{site || '-'}</CCol> </CRow>
