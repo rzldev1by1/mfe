@@ -414,9 +414,9 @@ class StockMovement extends React.PureComponent {
           <CRow className="row"> 
           
 
-          <CCol lg={7}  style={{flex: '0 0 55%'}}> 
-              <CRow className="">   
-                    <CCol lg={3} className="px-1" >
+          <CCol className='SM-col'> 
+              <CRow>   
+                    <CCol lg={3} className="displayPeriod-col px-1" >
                       <div style={{width: '100%'}}>
                             <Select name="filterType" placeholder="Display Period"
                               value={filterType} options={filterData} 
@@ -425,10 +425,10 @@ class StockMovement extends React.PureComponent {
                             <div id='period' className={(!periodSelected) ? 'stock-err' : 'stock-err-hidden'}>Please select display period</div>
                       </div>
                     </CCol>
-                    <CCol lg={2} className="px-1 text-light-gray custom-filter-text">
+                    <CCol lg={2} className="dateFromLabel-col px-1 text-light-gray">
                       Date From 
                     </CCol>
-                    <CCol  lg={3} className="px-1 " > 
+                    <CCol  lg={3} className="dateFrom-col px-1 " > 
                         <DatePicker style={{ minWidth: '100%' }}
                             ref="dateFrom"
                             formStyle={{height:'50px'}}
@@ -438,10 +438,10 @@ class StockMovement extends React.PureComponent {
                             fromMonth={minDate} toMonth={maxDate}
                         /> 
                     </CCol>
-                    <CCol  lg={1} className="text-light-gray custom-filter-text2  px-1" style={{flex: '0 0 0.7%'}}>
+                    <CCol  lg={1} className="dateToLabel-col text-light-gray px-1">
                       To
                     </CCol>
-                    <CCol  lg={3} className="px-1" > 
+                    <CCol  lg={3} className="dateTo-col px-1" > 
                         <DatePicker style={{ minWidth: '100%', height:'50px' }}
                             ref="dateTo"
                             formStyle={{height:'50px'}}
@@ -452,28 +452,28 @@ class StockMovement extends React.PureComponent {
                     </CCol>
                   </CRow>
           </CCol>
-            <CCol lg={5} style={{flex: '0 0 45%', maxWidth: '47%'}}>
+            <CCol lg={5} className="sm-second-col">
               <CRow> 
-                <CCol sm={4} lg={3} className="px-1" >
+                <CCol sm={4} lg={3} className="px-1 site-col" >
                 <Select name="site" placeholder="Site"
                     value={site} options={siteData}
                     onChange={(val) => this.setState({ site: val })} 
                   />
                 </CCol>
                 
-                <CCol sm={4} lg={3} className="px-1">
+                <CCol sm={4} lg={3} className="px-1 client-col">
                   <Select name="client" placeholder="Client"
                     value={client} options={clientData}
                     onChange={(val) => this.setState({ client: val }, () => this.getproduct())} 
                   />
                 </CCol> 
-                <CCol sm={4} lg={4} className="px-1"  style={{flex: '0 0 30%'}}>
+                <CCol sm={4} lg={4} className="px-1 product-col"  style={{flex: '0 0 30%'}}>
                   <Select name="product" placeholder="Product" 
                     value={product} options={productData}
                     onChange={(val) => this.setState({ product: val })} 
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1" style={{flex: '0 0 20%', maxWidth: '20%'}}>
+                <CCol sm={4} lg={2} className="px-1 searchButton-col" style={{flex: '0 0 20%', maxWidth: '20%'}}>
                   <button className="btn btn-block btn-primary float-right custom-height-btn" onClick={this.searchStockMovement}>SEARCH</button>
                 </CCol>
               </CRow>
