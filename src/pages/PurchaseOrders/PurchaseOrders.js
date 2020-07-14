@@ -8,8 +8,8 @@ import Select from 'react-select'
 import endpoints from 'helpers/endpoints'
 import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
-import './../StockHolding/StockHolding.css'
 import './PurchaseOrder.css'
+import PurchaseOrderCreate from './PurchaseOrderCreate'
 
 const columns = [
   { accessor: 'site', Header: 'Site', },
@@ -99,9 +99,8 @@ class PurchaseOrders extends React.PureComponent {
   getResources = async () => {
     const { user } = this.props.store
     if (user) {
-      const { data } = await axios.get(`${endpoints.getSoResources}?company=${user.company}&client=${user.client}`)
-      const { code, name } = data.orderType
-      const orderTypeData = code.map((c, i) => ({ value: c, label: `${code[i]}: ${name[i]}` }))
+      const { data } = await axios.get(`${endpoints.getPOResources}?company=${user.company}&client=${user.client}`)
+      const orderTypeData = data.orderType.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.description}` }))
       const orderType = { value: 'all', label: 'All' }
       orderTypeData.splice(0, 0, orderType)
       this.setState({ resources: data, orderTypeData })
@@ -155,7 +154,7 @@ class PurchaseOrders extends React.PureComponent {
     // this.setState({ data: DummyData })
   }
   showDetails = (item) => {
-    const url = '/purchase-order/' + item.client + '/' + item.order_no 
+    const url = '/purchase-order/' + item.client + '/' + item.order_no
     this.props.history.push(url)
   }
   toggle = (value) => {
@@ -164,7 +163,7 @@ class PurchaseOrders extends React.PureComponent {
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData, taskData
+      siteData, clientData, statusData, orderTypeData, taskData,
     } = this.state
     return <div className="table-summary">
       <HeaderTitle
@@ -235,6 +234,15 @@ class PurchaseOrders extends React.PureComponent {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchPurchaseOrder())
         }}
         export={<button className="btn btn-primary float-right px-4 btn-export"> EXPORT</button>}
+      />
+
+      <PurchaseOrderCreate
+        show={!!create}
+        toggle={this.toggle}
+        siteData={siteData}
+        clientData={clientData}
+        statusData={statusData}
+        orderTypeData={orderTypeData}
       />
     </div>
   }
