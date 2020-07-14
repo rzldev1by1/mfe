@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { CButton, CCard, CCardBody, CRow, CCol } from "@coreui/react";
 import "./StockAgeProfile.css";
+import endpoints from 'helpers/endpoints'
 import StockAgeProfileTable from "./Table/StockAgeProfileTable";
 import CustomPagination from "shared/table/CustomPagination";
 import axios from "axios";
@@ -134,7 +135,7 @@ class StockAgeProfile extends Component {
   };
 
   getSite = async () => {
-    const { data } = await axios.get("/dropdown/getsite");
+    const { data } = await axios.get(endpoints.getSite);
     const siteData = data.map((d) => ({
       value: d.site,
       label: `${d.site}: ${d.name}`,
@@ -144,7 +145,7 @@ class StockAgeProfile extends Component {
     this.setState({ siteData });
   };
   getClient = async () => {
-    const { data } = await axios.get("/dropdown/getclient");
+    const { data } = await axios.get(endpoints.getClient);
     const clientData = data.map((d) => ({
       value: d.code,
       label: `${d.code}: ${d.name}`,
@@ -161,7 +162,7 @@ class StockAgeProfile extends Component {
     if (site) urls.push("site=" + site.value);
     if (client) urls.push("client=" + client.value);
     urls.push("page=" + (pagination.active || 1));
-    const { data } = await axios.get("/stockageprofile?" + urls.join("&"));
+    const { data } = await axios.get(endpoints.stockAgeProfile + "?" + urls.join("&"));
     console.log(data);
     if (data?.data) {
       const getData = data.data;
