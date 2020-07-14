@@ -9,14 +9,15 @@ import endpoint from '../../helpers/endpoints'
 import UMCustomTable from './UserManagementTable'
 import CreateUM from './UserManagementCreate'
 import * as utility from './UmUtility'
+import moment from 'moment'
 import './UserManagement.css'
 
 const columns = [
     { accessor: 'userid', Header: 'User ID', width:220, sortable: true },
     { accessor: 'name', Header: 'User Name', width:320, sortable: true },
-    { accessor: 'site', Header: 'Site', width:120, sortable: true },
+    { accessor: 'site', Header: 'Site', width:150, sortable: true },
     { accessor: 'client', Header: 'Client', width:180, sortable: true },
-    { accessor: 'last_access', Header: 'Last Accessed', width:220, sortable: true },
+    { accessor: 'last_access', Header: 'Last Accessed', width:250, sortable: true },
     { accessor: 'disabled', Header: 'Status', width:220, sortable: true },
 ]
 
@@ -54,8 +55,9 @@ class UserManagemen extends Component {
 
 
     loadPersonalLogin = () => {
-        let userInfo = utility.readFromLocalStorage("user");
-        this.setState({ loginInfo: userInfo });
+        let userInfo = utility.readFromLocalStorage("persist:root");
+        let user = JSON.parse(userInfo.user)
+        this.setState({ loginInfo: user });
     }
 
     searchHandler = async (e) => {
@@ -66,11 +68,12 @@ class UserManagemen extends Component {
 
         const { data } = await axios.get(`${endpoint.userManagementListUser}?${urls.join('&')}`)
         let result = data.data.data.map((item, index) => {
-            let newItem = item;
-            newItem.disabled = (item.disabled === 'Y') ? 'Suspended' : 'Active';
+            let newItem = item;            
+            newItem.last_access = (item.last_access)? moment(item.last_access).format('DD/MM/YYYY hh:mm:ss'):'';
+            newItem.disabled = (item.disabled === 'Y') ? [<label className="um-suspended">{'Suspended'}</label>] : [<label className="um-active">{'Active'}</label>];
             return newItem;
         })
-        console.log(result);
+        // console.log(result);
         this.setState({
             data: result, pagination: {
                 active: pagination.active || data.data.current_page,
