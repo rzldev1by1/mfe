@@ -51,7 +51,7 @@ class CustomPagination extends React.Component {
     const pages = parseInt(total / show)
     return (
       // <CContainer fluid>
-      <CRow className="mt-4">
+      <CRow className="mt-3">
         <CCol lg="5">
           <CCardGroup>
             <CCard className="col-lg-7">

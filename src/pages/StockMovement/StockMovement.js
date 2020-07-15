@@ -117,7 +117,7 @@ class StockMovement extends React.PureComponent {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - 116) * 0.84
+    const height = (window.innerHeight - 280)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {

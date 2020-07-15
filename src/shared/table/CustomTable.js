@@ -10,7 +10,6 @@ import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 import CustomPagination from 'shared/table/CustomPagination'
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
-import SalesOrder from '../../pages/SalesOrder/SalesOrder'
 
 // automatic column width
 const getColumnWidth = (rows, accessor, headerText) => {
@@ -73,14 +72,14 @@ class CustomTable extends React.Component {
 
       header.ondrop = e => {
         e.preventDefault();
-        const { target, dataTransfer } = e;
+        // const { target, dataTransfer } = e;
         this.reorder.push({ a: i, b: this.dragged });
         this.setState({ trigger: Math.random() });
 
         let tables = localStorage.getItem("tables") ? JSON.parse(localStorage.getItem("tables")) : [];
         if(tables.length > 0){
             tables.map((data, index) => {
-                if(data.title == this.props.title){
+                if(data.title === this.props.title){
                     tables.splice(index, 1);
                 }
             })
