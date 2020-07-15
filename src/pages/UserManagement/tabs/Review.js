@@ -46,25 +46,25 @@ class Review extends React.PureComponent {
 
                 <Row>
                     <Col lg="4">
-                        <label name="userid" style={{ backgroundColor: '#F6F7F9' }} readOnly className="form-control">
+                        <label name="userid" style={{ backgroundColor: '#F6F7F9' }} readOnly className="form-control mb-0">
                             {user.userId}
                         </label>
                     </Col>
                     <Col lg="4">
-                        <label name="userName" style={{ color: '#959DA0' }} maxLength="60" className={`form-control`}>{user.name || ''}</label>
+                        <label name="userName" style={{ color: '#959DA0' }} maxLength="60" className={`form-control mb-0`}>{user.name || ''}</label>
                         {/* <FormFeedback className="invalid-error-padding">
                       name value must be entered
                                    </FormFeedback> */}
                     </Col>
 
                     <Col lg="4">
-                        <label name="email" style={{ color: '#959DA0' }} className={`form-control`} >{user.email || ''} </label>
+                        <label name="email" style={{ color: '#959DA0' }} className={`form-control mb-0`} >{user.email || ''} </label>
                         {/* <FormFeedback className="invalid-error-padding">
                       wrong format email
                                    </FormFeedback> */}
                     </Col>
                 </Row>
-                <Row className={`${isAdmin ? 'd-none' : ''}`}>
+                <Row className={`mt-3 ${isAdmin ? 'd-none' : ''}`}>
 
                     <Col className="col-12">
                         <h3 className="text-primary font-20">System</h3>
@@ -84,7 +84,7 @@ class Review extends React.PureComponent {
                 </Row>
                 <Row className="mt-4">
                     <Col lg={2} className="text-left">
-                        <button className="btn btn-primary" onClick={(e) => { this.props.next('new') }}>{'< BACK'}</button>
+                        <button className="btn btn-primary" onClick={(e) => { this.props.next('new') }}>{'BACK'}</button>
                     </Col>
                     <Col lg={8}></Col>
                     <Col lg={2} className="text-right">

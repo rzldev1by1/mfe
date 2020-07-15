@@ -82,7 +82,7 @@ class NewUser extends React.PureComponent {
                                    </FormFeedback> */}
                     </Col>
                 </Row>
-                <Row className={`${isAdmin ? 'd-none' : ''}`}>
+                <Row className={`mt-3 ${isAdmin ? 'd-none' : ''}`}>
 
                     <Col className="col-12">
                         <h3 className="text-primary font-20">System</h3>
@@ -104,7 +104,7 @@ class NewUser extends React.PureComponent {
                     <Col lg={2}></Col>
                     <Col lg={8}></Col>
                     <Col lg={2} className="text-right">
-                        <button className="btn btn-primary" onClick={(e) => {this.props.next('review')}}>{'NEXT >'}</button>
+                        <button className="btn btn-primary" onClick={(e) => {this.props.next('review')}}>{'NEXT'}</button>
                     </Col>
                 </Row>
             </Container>

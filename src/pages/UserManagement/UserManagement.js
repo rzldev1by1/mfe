@@ -107,37 +107,37 @@ class UserManagemen extends Component {
                 <CCard className="bg-transparent border-white">
                     <CCardBody >
                         <CRow>
-                            <CCol sm="2" className="user-login-info-header">
+                            <CCol lg="3" md="3" sm="2" className="user-login-info-header">
                                 Your Account
                             </CCol>
-                            <CCol sm="2" className="user-login-info-header">
+                            <CCol lg="3" md="3" sm="2" className="user-login-info-header">
                                 User Id
                             </CCol>
-                            <CCol sm="2" className="user-login-info-header">
+                            <CCol lg="3" md="3" sm="2" className="user-login-info-header">
                                 Client
                             </CCol>
-                            <CCol sm="2" className="user-login-info-header">
+                            <CCol lg="3" md="3" sm="2" className="user-login-info-header">
                                 Site
                             </CCol>
                         </CRow>
                         <CRow>
-                            <CCol sm="2" className="user-login-info-value">
+                            <CCol lg="3" md="3" sm="2" className="user-login-info-value">
                                 {loginInfo.email}
                             </CCol>
-                            <CCol sm="2" className="user-login-info-value">
+                            <CCol lg="3" md="3" sm="2" className="user-login-info-value">
                                 {loginInfo.userId}
                             </CCol>
-                            <CCol sm="2" className="user-login-info-value">
+                            <CCol lg="3" md="3" sm="2" className="user-login-info-value">
                                 {loginInfo.client}
                             </CCol>
-                            <CCol sm="2" className="user-login-info-value">
+                            <CCol lg="3" md="3" sm="2" className="user-login-info-value">
                                 {loginInfo.site}
                             </CCol>
                         </CRow>
                     </CCardBody>
                     <CCardBody className="px-4 py-2 bg-white">
                         <CRow className="row">
-                            <CCol lg={11} className="px-1">
+                            <CCol xl={11} lg={10} md={10} sm={12} className="px-1">
                                 <div className="input-group">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
@@ -145,7 +145,7 @@ class UserManagemen extends Component {
                                     <input type="text" className="form-control border-left-0" placeholder="Enter User ID or Username" onChange={e => this.setState({ search: e.target.value })} />
                                 </div>                                
                             </CCol>
-                            <CCol lg={1}>
+                            <CCol xl={1} lg={2} md={2} sm={12}>
                                 <CRow>
                                     <CCol sm={8} lg={12} md={12} className="px-1">
                                         <button className="btn btn-block btn-primary float-right" onClick={this.searchHandler}>SEARCH</button>

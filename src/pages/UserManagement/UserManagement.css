@@ -183,7 +183,7 @@
   }
 
 /** Modal create **/
-.tab-content {
+.um-create .tab-content {
   padding: 0;
   margin: 0;
   background-color: #fff;
@@ -191,7 +191,7 @@
   /* overflow: hidden; */
 }
 
-.nav-link {
+.um-create .nav-link {
   background-color: #eee;
   color: #959da0 !important;
   border: none !important;
@@ -200,11 +200,11 @@
   margin-left: 5px !important;
   cursor: pointer;
 }
-.nav-link.active {
+.um-create .nav-link.active {
   background-color: #fff !important;
   color: #376bfb !important;
 }
-.nav-tabs {
+.um-create .nav-tabs {
   margin-left: 26px;
   border: none;
 }

@@ -15,7 +15,7 @@ import moment from 'moment';
 
 const today = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
 const passChanged = '1999-08-28';
-const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement'];
+const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'stock age profile'];
 
 class UserManagementDetail extends Component {
     constructor(props) {
@@ -424,15 +424,15 @@ class UserManagementDetail extends Component {
                                     </div>
                                     <div className="row">
 
-                                        <div className="col-2">
+                                        <div className="col-2 pr-0">
                                             <input type="text" readOnly className="form-control" value={accountInfo.userId} />
                                         </div>
 
-                                        <div className="col-2">
+                                        <div className="col-2 pr-0">
                                             <input type="text" className="form-control" maxLength="60" onChange={(e) => { this.onChangeName(e); }} value={accountInfo.user} />
                                         </div>
 
-                                        <div className="col-2">
+                                        <div className="col-2 pr-0">
                                             <input type="email" name="email" className="form-control" onChange={(e) => { this.onChangeEmail(e); }} value={accountInfo.email} />
                                         </div>
 
