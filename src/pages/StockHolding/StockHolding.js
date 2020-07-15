@@ -57,7 +57,7 @@ class StockHolding extends React.PureComponent {
   }
 
   updateDimension = () => {
-    const height = (window.innerHeight - 116) * 0.87
+    const height = (window.innerHeight - 270)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
 
@@ -175,7 +175,7 @@ class StockHolding extends React.PureComponent {
                 <CCol sm={4} lg={2} className="px-1">
                 </CCol>
                 <CCol sm={4} lg={2} className="px-1">
-                  <button className="btn btn-block btn-primary" onClick={this.searchStockHolding}>SEARCH</button>
+                  <button className="btn btn-search btn-primary" onClick={this.searchStockHolding}>SEARCH</button>
                 </CCol>
               </CRow>
             </CCol>

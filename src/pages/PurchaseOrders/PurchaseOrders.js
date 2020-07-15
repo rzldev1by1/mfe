@@ -57,7 +57,7 @@ class PurchaseOrders extends React.PureComponent {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - 116) * 0.87
+    const height = (window.innerHeight - 270)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {
@@ -168,13 +168,13 @@ class PurchaseOrders extends React.PureComponent {
     return <div className="table-summary">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Purchase Orders', active: true }]}
-        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right px-3">Create Purchase Order</CButton>}
+        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right">Create Purchase Order</CButton>}
       />
 
-      <CCard>
-        <CCardBody className="px-4 py-2">
+      <CCard className="mb-3">
+        <CCardBody className="p-3">
           <CRow className="row">
-            <CCol lg={3} className="px-1">
+            <CCol lg={3} className="pr-1">
               <div className="input-group">
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
@@ -214,8 +214,8 @@ class PurchaseOrders extends React.PureComponent {
                     onChange={(val) => this.setState({ task: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
-                  <button className="btn btn-block btn-primary float-right" onClick={this.searchPurchaseOrder}>SEARCH</button>
+                <CCol sm={4} lg={2} className="pl-1">
+                  <button className="btn btn-search btn-primary float-right" onClick={this.searchPurchaseOrder}>SEARCH</button>
                 </CCol>
               </CRow>
             </CCol>
