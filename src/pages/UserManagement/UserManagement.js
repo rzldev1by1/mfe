@@ -68,7 +68,9 @@ class UserManagemen extends Component {
 
         const { data } = await axios.get(`${endpoint.userManagementListUser}?${urls.join('&')}`)
         let result = data.data.data.map((item, index) => {
-            let newItem = item;            
+            let newItem = item;
+            newItem.site = (item.site && item.site !== '')? item.site:'All';           
+            newItem.client = (item.client && item.client !== '')? item.client:'All';           
             newItem.last_access = (item.last_access)? moment(item.last_access).format('DD/MM/YYYY hh:mm:ss'):'';
             newItem.disabled = (item.disabled === 'Y') ? [<label className="um-suspended">{'Suspended'}</label>] : [<label className="um-active">{'Active'}</label>];
             return newItem;
@@ -128,10 +130,10 @@ class UserManagemen extends Component {
                                 {loginInfo.userId}
                             </CCol>
                             <CCol lg="3" md="3" sm="2" className="user-login-info-value">
-                                {loginInfo.client}
+                                {`${loginInfo.client && loginInfo.client !== ''?loginInfo.client:'All'}`}
                             </CCol>
-                            <CCol lg="3" md="3" sm="2" className="user-login-info-value">
-                                {loginInfo.site}
+                            <CCol lg="3" md="3" sm="2" className="user-login-info-value">                                
+                                {`${loginInfo.site && loginInfo.site !== ''?loginInfo.site:'All'}`}
                             </CCol>
                         </CRow>
                     </CCardBody>
