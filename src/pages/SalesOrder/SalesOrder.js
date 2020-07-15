@@ -25,7 +25,7 @@ const columns = [
   { accessor: 'datereceived', Header: 'Date Received', width: 120 },
   { accessor: 'datereleased', Header: 'Date Released', width: 120 },
   { accessor: 'datecompleted', Header: 'Date Completed', width: 120 },
-  { accessor: 'customerpono', Header: 'Customer PO' },
+  { accessor: 'customerpono', Header: 'Customer Order Ref' },
   { accessor: 'vendororderno', Header: 'Vendor Order No' },
   { accessor: 'address1', Header: 'Address1' },
   { accessor: 'address2', Header: 'Address2' },
@@ -101,7 +101,7 @@ class SalesOrder extends React.PureComponent {
       { value: "part_released", label: '3: Part Released' },
       { value: "completed", label: '4: Completed' },
     ];
-    this.setState({ statusData })
+    this.setState({ statusData, status: statusData[0] })
   }
   getTask = async () => {
     const { client, site } = this.state
@@ -125,22 +125,24 @@ class SalesOrder extends React.PureComponent {
     }
   }
   searchSalesOrder = async () => {
-    let { search, site, client, orderType, task, pagination } = this.state
+    let { search, site, client, orderType, status, pagination } = this.state
     let urls = []
     urls.push('searchParam=' + search ? search : '')
     urls.push('site=' + (site ? site.value : 'all'))
     urls.push('client=' + (client ? client.value : 'all'))
     urls.push('orderType=' + (orderType ? orderType.value : 'all'))
+    urls.push('status=' + (status ? status.value : 'all'))
     urls.push('page=' + (pagination.active || 1))
+    // console.log(`${endpoints.salesOrder}?${urls.join('&')}`)
     const { data } = await axios.get(`${endpoints.salesOrder}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
-        m.deliverydate = moment(m.deliverydate).format('DD/MM/YYYY')
-        m.datereceived = moment(m.datereceived).format('DD/MM/YYYY')
-        m.datereleased = moment(m.datereleased).format('DD/MM/YYYY')
-        m.datecompleted = moment(m.datecompleted).format('DD/MM/YYYY')
-        m.loadoutstart = moment(m.loadoutstart).format('DD/MM/YYYY')
-        m.loadoutfinish = moment(m.loadoutfinish).format('DD/MM/YYYY')
+        m.deliverydate = m.deliverydate ? moment(m.deliverydate).format('DD/MM/YYYY') : ''
+        m.datereceived = m.datereceived ? moment(m.datereceived).format('DD/MM/YYYY') : ''
+        m.datereleased = m.datereleased ? moment(m.datereleased).format('DD/MM/YYYY') : ''
+        m.datecompleted = m.datecompleted ? moment(m.datecompleted).format('DD/MM/YYYY') : ''
+        m.loadoutstart = m.loadoutstart ? moment(m.loadoutstart).format('DD/MM/YYYY') : ''
+        m.loadoutfinish = m.loadoutfinish ? moment(m.loadoutfinish).format('DD/MM/YYYY') : ''
         return m
       })
       this.setState({
@@ -200,7 +202,7 @@ class SalesOrder extends React.PureComponent {
                   />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-1">
-                  <Select name="status" placeholder="Status"
+                  <Select name="status"
                     value={status} options={statusData}
                     onChange={(val) => this.setState({ status: val })}
                   />
@@ -218,7 +220,7 @@ class SalesOrder extends React.PureComponent {
                   />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-1">
-                  <button className="btn btn-block btn-primary float-right" onClick={this.searchSalesOrder}>Search</button>
+                  <button className="btn btn-primary float-right" onClick={this.searchSalesOrder}>Search</button>
                 </CCol>
               </CRow>
             </CCol>

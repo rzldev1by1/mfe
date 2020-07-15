@@ -6,22 +6,21 @@ import 'react-day-picker/lib/style.css';
 import moment from 'moment';
 import { Button } from 'reactstrap';
 
-const currentYear = new Date().getFullYear();
-const fromMonth = new Date();
-const toMonth = new Date(currentYear + 10, 11);
+// const currentYear = new Date().getFullYear();
+// const fromMonth = new Date();
+// const toMonth = new Date(currentYear + 10, 11);
   
   function Navbar({
-    nextMonth,
-    previousMonth,
+    // nextMonth,
+    // previousMonth,
     onPreviousClick,
     onNextClick,
     className,
-    localeUtils,
+    // localeUtils,
   }) {
-    const months = localeUtils.getMonths();
-    const prev = months[previousMonth.getMonth()];
-    const next = months[nextMonth.getMonth()];
-    console.log(months, prev, next)
+    // const months = localeUtils.getMonths();
+    // const prev = months[previousMonth.getMonth()];
+    // const next = months[nextMonth.getMonth()];
     const styleLeft = {
       float: 'left',
       color: "#637175",
@@ -124,7 +123,7 @@ class DatePicker extends React.Component {
         this.state = {
             selectedDay: null,
             showDatePicker: false,
-            month: fromMonth,
+            month: new Date(),
             monthChange: false
         }
     }

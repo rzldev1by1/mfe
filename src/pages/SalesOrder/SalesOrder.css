@@ -23,35 +23,10 @@
 }
 
 /* Sales Order Create */
-.required::after {
+.sales-order-create .required::after {
   content: " *";
   color: #e55353;
 }
-.tab-content {
-  padding: 0;
-  margin: 0;
-  background-color: #fff;
-  color: #000;
-  /* overflow: hidden; */
-}
-.nav-link {
-  background-color: #eee;
-  color: #959da0 !important;
-  border: none !important;
-  font-size: 20px;
-  padding-left: 20px;
-  margin-left: 5px !important;
-  cursor: pointer;
-}
-.nav-link.active {
-  background-color: #fff !important;
-  color: #376bfb !important;
-}
-.nav-tabs {
-  margin-left: 26px;
-  border: none;
-}
-
 .sales-order-create textarea {
   min-height: 35px !important;
 }
