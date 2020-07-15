@@ -805,6 +805,7 @@ class UserManagement extends Component {
               </label>
             </div>
           </ModalBody>
+          
         </Modal>
       </div>
       <div className='paginations fixed-bottom '>
