@@ -13,17 +13,17 @@ import './StockHolding.css'
 const columns = [
   { accessor: 'site', Header: 'Site', sortable: true },
   { accessor: 'client', Header: 'Client', sortable: true },
-  { accessor: 'product', Header: 'Product', sortable: true, width: 90 },
+  { accessor: 'product', Header: 'Product', sortable: true, width: 90, style: {textAlign: 'left' }},
   { accessor: 'product_name', Header: 'Description', sortable: true  },
   { accessor: 'disposition', Header: 'Disposition', sortable: true },
-  { accessor: 'packdesc_1', Header: 'UOM', sortable: true },
+  { accessor: 'packdesc_1', Header: 'UOM', width: 90,  sortable: true },
   { accessor: 'status', Header: ' Status ', sortable: true },
   { accessor: 'on_hand_qty', Header: 'Stock on Hand', sortable: true,  width: 140 },
   { accessor: 'expected_in_qty', Header: 'Expected In Qty', sortable: true,  width: 145  },
   { accessor: 'expected_in_wgt', Header: 'Expected In Weight', sortable: true,  width: 170 },
   { accessor: 'expected_out_qty', Header: 'Expected Out Qty', sortable: true, width: 155  },
-  { accessor: 'prince', Header: ' Price ', sortable: true,},
-  { accessor: 'pallets', Header: 'Pallets', sortable: true,},
+  { accessor: 'price', Header: ' Price ', width: 150,  sortable: true,},
+  { accessor: 'pallets', Header: 'Pallets', width: 150,  sortable: true},
 ]
 class StockHolding extends React.PureComponent {
   state = {
@@ -175,7 +175,7 @@ class StockHolding extends React.PureComponent {
                 <CCol sm={4} lg={2} className="px-1">
                 </CCol>
                 <CCol sm={4} lg={2} className="px-1">
-                  <button className="btn btn-block btn-primary" onClick={this.searchStockHolding}>SEARCH</button>
+                  <button className="btn btn-primary float-right stockHolding" onClick={this.searchStockHolding}>SEARCH</button>
                 </CCol>
               </CRow>
             </CCol>

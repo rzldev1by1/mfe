@@ -66,3 +66,27 @@
     border-right: 2px solid #eee !important;
   }
 }
+
+.btn.stockHolding{
+  max-width: 100px;
+  width: 100px;
+}
+
+@media (max-width: 992px) {
+  .btn.stockHolding{
+    max-width: 100%;
+    width: 100%;
+  }
+}
+ 
+.stockDetails .nav-tabs{
+	margin-left: -6px;
+}
+
+.stockDetails .tabColumn{
+	padding: 10px !important;
+}
+
+.stockDetails .ReactTable .rt-tbody{
+  display: block !important;
+}

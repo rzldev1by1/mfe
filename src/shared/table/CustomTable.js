@@ -167,6 +167,7 @@ class CustomTable extends React.Component {
           accessor: h.accessor,
           sortable: h.sortable === false ? false : true,
           resizable: h.resizable || false,
+          style: h.style || null,
           width: h.width || getColumnWidth(data, h.accessor, h.Header),
         }
         return listHeader = [...listHeader, obj]
@@ -199,6 +200,8 @@ class CustomTable extends React.Component {
           data={data}
           showPagination={false}
           style={{ height }}
+          noDataText={"Please Wait..."}
+          minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
             return {
               onClick: (e, handleOriginal) => {

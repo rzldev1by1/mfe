@@ -346,3 +346,8 @@ button:focus {
   content: "\e90a";
 }
 /* icomoon end */
+
+//disable shadow in card
+.card {
+  box-shadow: none !important;
+}

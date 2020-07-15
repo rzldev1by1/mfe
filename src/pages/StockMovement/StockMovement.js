@@ -404,13 +404,13 @@ class StockMovement extends React.PureComponent {
     
     //custom style react-select 
      
-    return <div className="sales-order">
+    return <div className="stockMovement">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Stock Movement', active: true }]} 
       />
 
       <CCard style={{zIndex: '999'}}>
-        <CCardBody className="px-4 py-3">
+        <CCardBody className="px-4 py-3 stockMovement">
           <CRow className="row"> 
           
 
@@ -418,7 +418,7 @@ class StockMovement extends React.PureComponent {
               <CRow>   
                     <CCol lg={3} className="displayPeriod-col px-1" >
                       <div style={{width: '100%'}}>
-                            <Select name="filterType" placeholder="Display Period"
+                            <Select name="filterType" className="stockMovement" placeholder="Display Period"
                               value={filterType} options={filterData} 
                               onChange={(val) => this.periodHandler( val )}  
                             />
@@ -428,10 +428,9 @@ class StockMovement extends React.PureComponent {
                     <CCol lg={2} className="dateFromLabel-col px-1 text-light-gray">
                       Date From 
                     </CCol>
-                    <CCol  lg={3} className="dateFrom-col px-1 " > 
+                    <CCol  lg={3} className="dateFrom-col px-1 stockMovement" > 
                         <DatePicker style={{ minWidth: '100%' }}
-                            ref="dateFrom"
-                            formStyle={{height:'50px'}}
+                            ref="dateFrom" 
                             getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
                             defaultValue={this.state.dateFromSelected} tabIndex="1" placeHolder="Select Date"
                             onChange={(e) => {this.openDatePicker('to')}}
@@ -441,10 +440,9 @@ class StockMovement extends React.PureComponent {
                     <CCol  lg={1} className="dateToLabel-col text-light-gray px-1">
                       To
                     </CCol>
-                    <CCol  lg={3} className="dateTo-col px-1" > 
+                    <CCol  lg={3} className="dateTo-col px-1 stockMovement" > 
                         <DatePicker style={{ minWidth: '100%', height:'50px' }}
-                            ref="dateTo"
-                            formStyle={{height:'50px'}}
+                            ref="dateTo" 
                             getDate={(e) => { this.setState({ dateToSelected: e.toString() })}}
                             defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date"
                             fromMonth={minDate} toMonth={maxDate}
@@ -455,26 +453,26 @@ class StockMovement extends React.PureComponent {
             <CCol lg={5} className="sm-second-col">
               <CRow> 
                 <CCol sm={4} lg={3} className="px-1 site-col" >
-                <Select name="site" placeholder="Site"
+                <Select className="stockMovement" name="site" placeholder="Site"
                     value={site} options={siteData}
                     onChange={(val) => this.setState({ site: val })} 
                   />
                 </CCol>
                 
                 <CCol sm={4} lg={3} className="px-1 client-col">
-                  <Select name="client" placeholder="Client"
+                  <Select className="stockMovement"  name="client" placeholder="Client"
                     value={client} options={clientData}
                     onChange={(val) => this.setState({ client: val }, () => this.getproduct())} 
                   />
                 </CCol> 
                 <CCol sm={4} lg={4} className="px-1 product-col"  style={{flex: '0 0 30%'}}>
-                  <Select name="product" placeholder="Product" 
+                  <Select className="stockMovement"  name="product" placeholder="Product" 
                     value={product} options={productData}
                     onChange={(val) => this.setState({ product: val })} 
                   />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-1 searchButton-col" style={{flex: '0 0 20%', maxWidth: '20%'}}>
-                  <button className="btn btn-block btn-primary float-right custom-height-btn" onClick={this.searchStockMovement}>SEARCH</button>
+                  <button className="btn btn-block btn-primary float-right stockMovement" onClick={this.searchStockMovement}>SEARCH</button>
                 </CCol>
               </CRow>
             </CCol>
