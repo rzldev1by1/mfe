@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { CButton, CCard, CCardBody, CRow, CCol } from "@coreui/react";
-import "./StockAgeProfile.css";
+import "./StockAgeProfile.scss";
 import endpoints from 'helpers/endpoints'
 import StockAgeProfileTable from "./Table/StockAgeProfileTable";
 import CustomPagination from "shared/table/CustomPagination";
@@ -16,12 +16,10 @@ const columns = [
     columns: [
       {
         accessor: "site",
-        // width:'500px',
         Header: "Site",
         sortable: true,
         headerClassName: "padding-top-0 p-r-2",
         className:"p-r-2",
-        maxWidth: 700,
       },
       {
         accessor: "client",
@@ -45,9 +43,9 @@ const columns = [
       {
         accessor: "packdesc_1",
         Header: "UOM",
-        className: "w-50",
+        className: "",
         sortable: true,
-        headerClassName: "padding-top-0 w-50",
+        headerClassName: "padding-top-0",
       },
     ],
   },
@@ -207,7 +205,7 @@ class StockAgeProfile extends Component {
                   </div>
                   <input
                     type="text"
-                    className="form-control border-left-0"
+                    className="form-control pl-0 border-left-0"
                     placeholder="Enter a Product or Description"
                     onChange={(e) => this.setState({ search: e.target.value })}
                   />
@@ -233,7 +231,7 @@ class StockAgeProfile extends Component {
                       onChange={(val) => this.setState({ client: val })}
                     />
                   </CCol>
-                  <CCol sm={12} lg={7} />
+                  <CCol />
                   <CCol sm={4} lg={1} className="pr-0 pl-3 w-4vw">
                     <button
                       className="btn btn-search btn-primary float-right"
@@ -254,6 +252,7 @@ class StockAgeProfile extends Component {
           fields={fields}
           overflow="scroll"
           noDataText={"Please Wait..."}
+          minRows='0'
         />
         <CustomPagination
           data={data}
