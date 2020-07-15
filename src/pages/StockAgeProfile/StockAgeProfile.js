@@ -129,7 +129,7 @@ class StockAgeProfile extends Component {
   }
 
   updateDimension = () => {
-    const height = (window.innerHeight - 116) * 0.855;
+    const height = (window.innerHeight - 280);
     // const height = {overflow: 'visible', height: heightAdjust}
     this.setState({ dimension: { width: window.innerWidth, height } });
   };
@@ -195,7 +195,7 @@ class StockAgeProfile extends Component {
           breadcrumb={[{ to: "", label: "Stock Age Profile", active: true }]}
         />
 
-        <CCard className="mb-3">
+        <CCard className="mb-4">
           <CCardBody className="px-3 py-3 h-4">
             <CRow className="row mr-0 ml-0">
               <CCol lg={3} className="px-0">
@@ -236,7 +236,7 @@ class StockAgeProfile extends Component {
                   <CCol sm={12} lg={7} />
                   <CCol sm={4} lg={1} className="pr-0 pl-3 w-4vw">
                     <button
-                      className="btn btn-block btn-primary float-right"
+                      className="btn btn-search btn-primary float-right"
                       onClick={this.getStockAgeProfile}
                     >
                       SEARCH

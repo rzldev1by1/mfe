@@ -74,7 +74,7 @@ class SalesOrder extends React.PureComponent {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - 116) * 0.87
+    const height = (window.innerHeight - 270)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {
@@ -173,13 +173,13 @@ class SalesOrder extends React.PureComponent {
     return <div className="sales-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Sales Orders', active: true }]}
-        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right px-3">Create Sales Order</CButton>}
+        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right">Create Sales Order</CButton>}
       />
 
-      <CCard>
-        <CCardBody className="px-4 py-2">
-          <CRow className="row">
-            <CCol lg={3} className="px-1">
+      <CCard className="mb-3">
+        <CCardBody className="p-3">
+          <CRow>
+            <CCol lg={3} className="pr-1">
               <div className="input-group">
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
@@ -219,8 +219,8 @@ class SalesOrder extends React.PureComponent {
                     onChange={(val) => this.setState({ task: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
-                  <button className="btn btn-primary float-right" onClick={this.searchSalesOrder}>Search</button>
+                <CCol sm={4} lg={2} className="pl-1">
+                  <button className="btn btn-search btn-primary float-right" onClick={this.searchSalesOrder}>SEARCH</button>
                 </CCol>
               </CRow>
             </CCol>
@@ -238,7 +238,7 @@ class SalesOrder extends React.PureComponent {
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchSalesOrder())
         }}
-        export={<button className="btn btn-primary float-right px-4 btn-export">Export <IoIosArrowDown /></button>}
+        export={<button className="btn btn-primary float-right px-4 btn-export">EXPORT <IoIosArrowDown /></button>}
       />
 
       <SalesOrderCreate

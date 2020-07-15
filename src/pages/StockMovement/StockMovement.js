@@ -117,7 +117,7 @@ class StockMovement extends React.PureComponent {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - 116) * 0.84
+    const height = (window.innerHeight - 280)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {
@@ -474,7 +474,7 @@ class StockMovement extends React.PureComponent {
                   />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-1 searchButton-col" style={{flex: '0 0 20%', maxWidth: '20%'}}>
-                  <button className="btn btn-block btn-primary float-right custom-height-btn" onClick={this.searchStockMovement}>SEARCH</button>
+                  <button className="btn btn-search btn-primary float-right custom-height-btn" onClick={this.searchStockMovement}>SEARCH</button>
                 </CCol>
               </CRow>
             </CCol>

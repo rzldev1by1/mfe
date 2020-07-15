@@ -1,10 +1,4 @@
 /* Sales Order List */
-.sales-order .input-group,
-.sales-order .input-group input,
-.sales-order-create input.form-control {
-  height: 40px !important;
-  border-color: #e4e7ea !important;
-}
 .sales-order .c-subheader-nav-link {
   margin-right: 15px;
 }

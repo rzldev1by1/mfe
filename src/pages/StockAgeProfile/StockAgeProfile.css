@@ -8,14 +8,6 @@
   min-width: 1600px !important;
 }
 
-.c-sidebar-item {
-  margin-top: 0px !important;
-  margin-bottom: 0px !important;
-}
-.c-app:not(.c-legacy-theme):not(.c-dark-theme) .card {
-  box-shadow: none !important;
-}
-
 .l-r-0 {
   margin-left: 0px !important;
   margin-right: 0px !important;
@@ -24,6 +16,9 @@
 /* scrollbar */
 .stock-age-profile > .rt-tbody::-webkit-scrollbar {
   width: 8px !important;
+}
+.stock-age-profile > .rt-resizable-header-content {
+  color: #b4b9bb;
 }
 
 .stock-age-profile > .rt-tbody::-webkit-scrollbar-thumb {
@@ -89,11 +84,7 @@
   color: #b4b9bb !important;
 }
 
-.stock-age-profile
-  > .ReactTable
-  .rt-thead.-headerGroups
-  > .rt-tr
-  > .rt-th:focus {
+.stock-age-profile > .ReactTable .rt-thead.-headerGroups > .rt-tr > .rt-th:focus {
   color: #b4b9bb !important;
   border: 0px solid !important;
   outline: none !important;
@@ -155,20 +146,6 @@
   align-items: center;
 }
 
-.css-g1d714-ValueContainer {
-  padding: 2px 15px !important;
-}
-
-.input-group,
-.input-group > .form-control,
-.css-yk16xz-control,
-.btn-block,
-.css-g1d714-ValueContainer,
-.css-1pahdxg-control {
-  max-height: 50px !important;
-  height: 50px !important;
-}
-
 /* .w-4vw > button {
   width: 5vw !important;
 }
@@ -201,32 +178,3 @@
 } */
 
 /* -------------------------------------------------------------- */
-
-.rt-resizable-header-content {
-  color: #b4b9bb;
-}
-
-@media (min-width: 768px) {
-  .c-main > .container-fluid,
-  .c-main > .container-sm,
-  .c-main > .container-md,
-  .c-main > .container-lg,
-  .c-main > .container-xl {
-    padding-right: 1rem;
-    padding-left: 1rem;
-  }
-}
-
-/* pagination */
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
-}
