@@ -29,16 +29,16 @@ class SalesOrderCreate extends React.PureComponent {
   }
   onHide = () => {
     this.props.toggle()
-    this.setState({ key: 'detail', data: { header: {}, lineDetail: [] } })
+    this.setState({ key: 'detail', data: { header: {}, lineDetail: [], orderDetails:[{}] } })
   }
   render() {
     const { data, key } = this.state
-    return <Modal show={this.props.show} onHide={this.onHide} size="xl" className="sales-order-create" >
+    return <Modal show={this.props.show} onHide={this.onHide} size="xl" className="purchase-order-create" >
       <Modal.Body className="bg-primary p-0">
         <Row className="px-5 py-3">
           <Col xs={10}>
-            <span className="font-20"><i className="iconU-createModal font-20"></i> Sales Order</span> <br />
-            <span className="pl-4"> &nbsp;Enter Order and line details to create a new order</span>
+            <i className="iconU-createModal font-20"></i><span className="font-20 pl-2">Create Purchase Order</span> <br />
+            <span>Enter Order and line details to create a new purchase order</span>
           </Col>
           <Col xs={2} className="text-right">
             <i className="iconU-close pointer" onClick={this.onHide}></i>
@@ -72,3 +72,4 @@ class SalesOrderCreate extends React.PureComponent {
   }
 }
 export default SalesOrderCreate
+

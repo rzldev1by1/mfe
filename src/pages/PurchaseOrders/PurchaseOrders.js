@@ -8,8 +8,8 @@ import Select from 'react-select'
 import endpoints from 'helpers/endpoints'
 import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
-import './../StockHolding/StockHolding.css'
 import './PurchaseOrder.css'
+import PurchaseOrderCreate from './PurchaseOrderCreate'
 
 const columns = [
   { accessor: 'site', Header: 'Site', },
@@ -57,7 +57,7 @@ class PurchaseOrders extends React.PureComponent {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - 116) * 0.87
+    const height = (window.innerHeight - 270)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {
@@ -99,9 +99,8 @@ class PurchaseOrders extends React.PureComponent {
   getResources = async () => {
     const { user } = this.props.store
     if (user) {
-      const { data } = await axios.get(`${endpoints.getSoResources}?company=${user.company}&client=${user.client}`)
-      const { code, name } = data.orderType
-      const orderTypeData = code.map((c, i) => ({ value: c, label: `${code[i]}: ${name[i]}` }))
+      const { data } = await axios.get(`${endpoints.getPOResources}?company=${user.company}&client=${user.client}`)
+      const orderTypeData = data.orderType.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.description}` }))
       const orderType = { value: 'all', label: 'All' }
       orderTypeData.splice(0, 0, orderType)
       this.setState({ resources: data, orderTypeData })
@@ -155,7 +154,7 @@ class PurchaseOrders extends React.PureComponent {
     // this.setState({ data: DummyData })
   }
   showDetails = (item) => {
-    const url = '/purchase-order/' + item.client + '/' + item.order_no 
+    const url = '/purchase-order/' + item.client + '/' + item.order_no
     this.props.history.push(url)
   }
   toggle = (value) => {
@@ -164,18 +163,18 @@ class PurchaseOrders extends React.PureComponent {
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData, taskData
+      siteData, clientData, statusData, orderTypeData, taskData,
     } = this.state
     return <div className="table-summary">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Purchase Orders', active: true }]}
-        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right px-3">Create Purchase Order</CButton>}
+        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right">Create Purchase Order</CButton>}
       />
 
-      <CCard>
-        <CCardBody className="px-4 py-2">
+      <CCard className="mb-3">
+        <CCardBody className="p-3">
           <CRow className="row">
-            <CCol lg={3} className="px-1">
+            <CCol lg={3} className="pr-1">
               <div className="input-group">
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
@@ -215,8 +214,8 @@ class PurchaseOrders extends React.PureComponent {
                     onChange={(val) => this.setState({ task: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
-                  <button className="btn btn-block btn-primary float-right" onClick={this.searchPurchaseOrder}>SEARCH</button>
+                <CCol sm={4} lg={2} className="pl-1">
+                  <button className="btn btn-search btn-primary float-right" onClick={this.searchPurchaseOrder}>SEARCH</button>
                 </CCol>
               </CRow>
             </CCol>
@@ -235,6 +234,15 @@ class PurchaseOrders extends React.PureComponent {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchPurchaseOrder())
         }}
         export={<button className="btn btn-primary float-right px-4 btn-export"> EXPORT</button>}
+      />
+
+      <PurchaseOrderCreate
+        show={!!create}
+        toggle={this.toggle}
+        siteData={siteData}
+        clientData={clientData}
+        statusData={statusData}
+        orderTypeData={orderTypeData}
       />
     </div>
   }

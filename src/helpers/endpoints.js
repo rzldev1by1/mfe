@@ -41,4 +41,6 @@ export default {
   
   stockMovement: "/stockmovement",
   stockDateRange: "/stockdaterange",
+
+  stockAgeProfile:"/stockageprofile",
 }

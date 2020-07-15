@@ -18,7 +18,7 @@
   color: #555050 !important;
   background-color: transparent;
   border-radius: 5px;
-  border: solid 1px #555050 ; 
+  border: solid 1px #555050 ;
   font-size: 12px;
   padding: 6px;
 }
@@ -26,7 +26,7 @@
   color: #555050 !important;
   background-color: transparent;
   border-radius: 5px;
-  border: solid 1px #555050; 
+  border: solid 1px #555050;
   font-size: 12px;
   padding: 6px;
 }
@@ -34,7 +34,80 @@
   color: #555050 (209, 204, 204) !important;
   background: transparent;
   border-radius: 5px;
-  border: solid 1px #555050  ; 
+  border: solid 1px #555050  ;
   font-size: 12px;
   padding: 6px;
+}
+
+/* Sales Order Create */
+.required::after {
+  content: " *";
+  color: #e55353;
+}
+.tab-content {
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  color: #000;
+  /* overflow: hidden; */
+}
+.nav-link {
+  background-color: #eee;
+  color: #959da0 !important;
+  border: none !important;
+  font-size: 20px;
+  padding-left: 20px;
+  margin-left: 5px !important;
+  cursor: pointer;
+}
+.nav-link.active {
+  background-color: #fff !important;
+  color: #376bfb !important;
+}
+.nav-tabs {
+  margin-left: 26px;
+  border: none;
+}
+
+.purchase-order-create textarea {
+  min-height: 35px !important;
+}
+.purchase-order-create .modal-desc {
+  padding-left: 36px;
+}
+.purchase-order ::placeholder,
+.purchase-order-create ::placeholder,
+.purchase-order-create .css-1wa3eu0-placeholder {
+  color: #b4b9bb !important;
+}
+.purchase-order-create .text-error {
+  padding-left: 10px;
+}
+.c-50 {
+  width: 50px !important;
+}
+.c-100 {
+  width: 100px !important;
+}
+.c-150 {
+  width: 150px !important;
+}
+.c-200 {
+  width: 200px !important;
+}
+.c-400 {
+  width: 400px !important;
+}
+.c-600 {
+  width: 600px !important;
+}
+.orderline-row td {
+  vertical-align: top;
+}
+.orderline .absolute {
+  position: absolute !important;
+  z-index: 99;
+}
+.orderline .right {
+  right: 22% !important;
 }
