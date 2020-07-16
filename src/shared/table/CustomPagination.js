@@ -66,18 +66,18 @@ class CustomPagination extends React.Component {
                 lastButton={<BsChevronBarRight />}
               />
             </CCard>
-            <CCard className="col-lg-5">
+            <CCard className="col-lg-5 px-0">
               <div className="page-2 d-flex justify-content-center">
-                <span className="text-muted py-2 mr-3">Go to page</span>
+                <span className="text-muted py-2">Go to page</span>
                 <input
                   type="number"
-                  className="form-control form-control-sm"
+                  className="form-control form-control-sm mx-3"
                   onChange={this.onChange}
                   min="1"
                   max={pages > 0 ? pages : 1}
                 />
                 <span
-                  className="text-muted py-2 ml-3 pointer"
+                  className="text-muted py-2 pointer"
                   onClick={this.goToPage}
                 >
                   {"Go >"}
@@ -86,10 +86,10 @@ class CustomPagination extends React.Component {
             </CCard>
           </CCardGroup>
         </CCol>
-        <CCol lg="4" className="mt-3">
+        <CCol lg="4" className="py-4">
           <span>Showing <b> &nbsp; {`${startIndex + 1} to ${endIndex} of ${total} `} </b> &nbsp; entries</span>
         </CCol>
-        <CCol lg="4">
+        <CCol lg="4" className="px-0">
           {this.props.export}
         </CCol>
       </CRow>

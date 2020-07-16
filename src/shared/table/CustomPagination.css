@@ -16,7 +16,7 @@ ul.pagination {
   background-color: none;
 }
 .page-2 {
-  padding: 12px;
+  padding: 12px 0px;
   background-color: #fff;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
