@@ -4,20 +4,16 @@ import axios from 'axios'
 import { CButton, CCard, CCardBody, CRow, CCol,} from '@coreui/react'
 import Select from 'react-select'
 import { FaPencilAlt } from 'react-icons/fa'
-import { IoIosArrowDown } from 'react-icons/io'
-import moment from 'moment'
 import endpoints from 'helpers/endpoints'
 import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
 import './StockHolding.css'
-import { AiFillBoxPlot } from 'react-icons/ai'
-const headerTable = [
-  
-]
+
+
 const columns = [
                     { 
                       accessor: 'Site', 
-                      Header: 'site', 
+                      Header: 'Site', 
                       sortable: true 
                     },
                     { 
@@ -47,7 +43,7 @@ const columns = [
                     },
                     { 
                       accessor: 'status', 
-                      Header: ' Status ', 
+                      Header: 'Status', 
                       sortable: true 
                     },
                     { 
@@ -73,7 +69,7 @@ const columns = [
                       width: 155  },
                     { 
                       accessor: 'prince',
-                      Header: ' Price ', 
+                      Header: 'Price', 
                       sortable: true,},
                     { 
                       accessor: 'pallets', 
@@ -96,7 +92,8 @@ class StockHolding extends React.PureComponent {
     create: false,
     pagination: {},
     detail: {},
-    dimension: { width: 0, height: 0 }
+    dimension: { width: 0, height: 0 },
+    products: []
   }
   componentDidMount = () => {
     // set automatic table height
@@ -108,6 +105,7 @@ class StockHolding extends React.PureComponent {
     this.getStatus()
     this.searchStockHolding()
     this.headerStockHolding()
+
   }
 
 
@@ -119,6 +117,32 @@ class StockHolding extends React.PureComponent {
   updateDimension = () => {
     const height = (window.innerHeight - 116) * 0.87
     this.setState({ dimension: { width: window.innerWidth, height } });
+  }
+
+  renameSubmit = (e) => {
+    const fields = this.state.fields;
+    const changedField = e;
+    const changedFieldAccessor = [];
+    const changedFieldHeader = [];
+
+    changedField.map((item, idx) => {
+      changedFieldAccessor.push(item.accessor);
+      changedFieldHeader.push(item.header);
+    })
+
+    field.map((item, idx) => {
+      if(item.accessor == changedFieldAccessor[idx]){
+        item.header = changedFieldHeader[idx];
+      }
+    });
+
+    let products = this.state.products;
+
+    const payload = {"SITE":site,}
+
+                    const { data } = await axios.post("/putStockholdingColumn?client=TTL ")
+                        this.props.history.push(data)
+    return
   }
 
   getSite = async () => {
@@ -145,8 +169,6 @@ class StockHolding extends React.PureComponent {
     this.setState({ statusData })
   }
   headerStockHolding = async () => {
-    // const {data} = await axios.get(`${endpoints.getStockHoldingHearder}?client=ANTEC`)
-    // const { product, client, site } = this.props.match.params
     const url = `${endpoints.getStockHoldingHearder}?client=ANTEC`
     const { data } = await axios.get(url)
     console.log(data.data[0].CLIENT)
@@ -165,7 +187,7 @@ class StockHolding extends React.PureComponent {
     })
     console.log(header)
     if (data.data.length) {
-      this.setState({ products: data.data,fields:header })
+      this.setState({ products: data.data[0],fields:header })
     }
   }
   searchStockHolding  = async () => {
@@ -208,7 +230,7 @@ class StockHolding extends React.PureComponent {
   toggle = (value) => {
     this.setState({ create: value ? value : !this.state.create })
   }
-  
+
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, siteData, clientData, statusData, 
@@ -270,6 +292,7 @@ class StockHolding extends React.PureComponent {
         fields={fields}
         pagination={pagination}
         onClick={this.showDetails}
+        renameSubmit={this.renameSubmit}
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchStockHolding ())
         }}

@@ -37,6 +37,7 @@ class CustomTable extends React.Component {
       editColumn: {},
       editColumnTemp: {},
       activeTab: "1",
+      changedColumns: []
     }
   }
   activeTabIndex(tab){
@@ -120,6 +121,29 @@ class CustomTable extends React.Component {
     }
     listHeader = [...listHeader, obj]
     return listHeader
+  }
+
+  changedColumn = (e) => {
+    let changedColumns = this.state.changedColumns;
+
+    changedColumns.map((item, idx) => {
+      if(item.accessor){
+        if(item.accessor == e.target.name){
+          changedColumns.splice(idx, 1)
+        }
+      }
+    })
+
+    changedColumns.push({
+      accessor: e.target.name,
+      header: e.target.value
+    })
+
+    this.setState({ changedColumns: changedColumns });
+  }
+
+  renameSubmit = (e) =>{
+    this.props.renameSubmit(this.state.changedColumns);
   }
 
   render() {
@@ -235,14 +259,14 @@ class CustomTable extends React.Component {
                                     fields && fields.map((item, index) => {
                                       return (
                                         <Col key={index} className="p-2">
-                                          <input placeholder={item.Header} className={`text-left form-rename `}>
+                                          <input placeholder={item.Header} name={item.accessor} sortable={item.sortable} onChange={this.changedColumn} className={`text-left form-rename `}>
                                           </input>
                                         </Col>
                                       )
                                     })
                                   }
                                   </Row>
-                                  <Button variant="primary" className="px-5 float-right" onClick={this.toogleModalConfirm} >Rename</Button>
+                                  <Button variant="primary" className="px-5 float-right" onClick={this.renameSubmit} >Rename</Button>
                             </TabPane >
                         </TabContent>
                     </Col>
