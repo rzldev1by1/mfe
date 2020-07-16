@@ -13,12 +13,12 @@ import moment from 'moment'
 import './UserManagement.css'
 
 const columns = [
-    { accessor: 'userid', Header: 'User ID', width:220, sortable: true },
-    { accessor: 'name', Header: 'User Name', width:320, sortable: true },
-    { accessor: 'site', Header: 'Site', width:150, sortable: true },
-    { accessor: 'client', Header: 'Client', width:180, sortable: true },
-    { accessor: 'last_access', Header: 'Last Accessed', width:250, sortable: true },
-    { accessor: 'disabled', Header: 'Status', width:220, sortable: true },
+    { accessor: 'userid', Header: 'User ID', width: 220, sortable: true },
+    { accessor: 'name', Header: 'User Name', width: 320, sortable: true },
+    { accessor: 'site', Header: 'Site', width: 150, sortable: true },
+    { accessor: 'client', Header: 'Client', width: 180, sortable: true },
+    { accessor: 'last_access', Header: 'Last Accessed', width: 250, sortable: true },
+    { accessor: 'disabled', Header: 'Status', width: 220, sortable: true },
 ]
 
 class UserManagemen extends Component {
@@ -69,9 +69,9 @@ class UserManagemen extends Component {
         const { data } = await axios.get(`${endpoint.userManagementListUser}?${urls.join('&')}`)
         let result = data.data.data.map((item, index) => {
             let newItem = item;
-            newItem.site = (item.site && item.site !== '')? item.site:'All';           
-            newItem.client = (item.client && item.client !== '')? item.client:'All';           
-            newItem.last_access = (item.last_access)? moment(item.last_access).format('DD/MM/YYYY hh:mm:ss'):'';
+            newItem.site = (item.site && item.site !== '') ? item.site : 'All';
+            newItem.client = (item.client && item.client !== '') ? item.client : 'All';
+            newItem.last_access = (item.last_access) ? moment(item.last_access).format('DD/MM/YYYY hh:mm:ss') : '';
             newItem.disabled = (item.disabled === 'Y') ? [<label className="um-suspended">{'Suspended'}</label>] : [<label className="um-active">{'Active'}</label>];
             return newItem;
         })
@@ -104,7 +104,7 @@ class UserManagemen extends Component {
             <div className="um-summary">
                 <HeaderTitle
                     breadcrumb={[{ to: '', label: 'User Management', active: true }]}
-                    button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right">CREATE USER</CButton>}
+                    button={<CButton onClick={this.toggle} className="btn btn-primary btn-create float-right">CREATE USER</CButton>}
                 />
                 <CCard className="bg-transparent border-white">
                     <CCardBody >
@@ -130,10 +130,10 @@ class UserManagemen extends Component {
                                 {loginInfo.userId}
                             </CCol>
                             <CCol lg="3" md="3" sm="2" className="user-login-info-value">
-                                {`${loginInfo.client && loginInfo.client !== ''?loginInfo.client:'All'}`}
+                                {`${loginInfo.client && loginInfo.client !== '' ? loginInfo.client : 'All'}`}
                             </CCol>
-                            <CCol lg="3" md="3" sm="2" className="user-login-info-value">                                
-                                {`${loginInfo.site && loginInfo.site !== ''?loginInfo.site:'All'}`}
+                            <CCol lg="3" md="3" sm="2" className="user-login-info-value">
+                                {`${loginInfo.site && loginInfo.site !== '' ? loginInfo.site : 'All'}`}
                             </CCol>
                         </CRow>
                     </CCardBody>
@@ -145,13 +145,13 @@ class UserManagemen extends Component {
                                         <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
                                     </div>
                                     <input type="text" className="form-control border-left-0" placeholder="Enter User ID or Username" onChange={e => this.setState({ search: e.target.value })} />
-                                </div>                                
+                                </div>
                             </CCol>
                             <CCol xl={1} lg={2} md={2} sm={12}>
                                 <CRow>
                                     <CCol sm={8} lg={12} md={12} className="px-1">
-                                        <button className="btn btn-block btn-primary float-right" onClick={this.searchHandler}>SEARCH</button>
-                                    </CCol>                                    
+                                        <button className="btn btn-search btn-primary float-right" onClick={this.searchHandler}>SEARCH</button>
+                                    </CCol>
                                 </CRow>
                             </CCol>
                         </CRow>

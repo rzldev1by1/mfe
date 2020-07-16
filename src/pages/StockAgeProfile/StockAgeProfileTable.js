@@ -6,27 +6,7 @@ import { MdClose } from "react-icons/md";
 import { FaRegEdit, FaPencilAlt } from "react-icons/fa";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import "react-table-v6/react-table.css";
-import "./StockAgeProfileTable.css";
-
-// automatic column width
-const getColumnWidth = (rows, accessor, headerText) => {
-  const cellLength = Math.max(
-    ...rows.map((row) => {
-      let value = "";
-      if (typeof accessor === "string") {
-        value = _.get(row, accessor);
-      } else {
-        // value = accessor(row);
-      }
-
-      if (typeof value === "number") return value.toString().length;
-      return (value || "").length;
-    }),
-    headerText.length
-  );
-
-  return cellLength * 12;
-};
+import "shared/table/CustomTable.css";
 
 class StockAgeProfileTable extends React.Component {
   constructor(props) {
@@ -78,50 +58,6 @@ class StockAgeProfileTable extends React.Component {
   saveEdit = (editColumn) => {
     this.setState({ editColumnTemp: editColumn, showModal: false });
   };
-
-  // headerIcon = (data, header, editColumn) => {
-  //   console.log(editColumn)
-  //   let listHeader = []
-  //   header && header.map((h, index) => {
-  //     if (!editColumn[index]) {
-  //       let withIcon = <span className="text-light-gray">
-  //         {h.Header}
-  //         {h.sortable ? (
-  //           <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-  //             <path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z"></path>
-  //           </svg>) : null
-  //         }
-  //       </span>
-  //       let obj = {
-  //         Header: withIcon,
-  //         // Cell: h.Cell,
-  //         accessor: h.accessor,
-  //         sortable: h.sortable || false,
-  //         resizable: h.resizable || false,
-  //         style: h.style || null,
-  //         className: h.className || null,
-  //         headerClassName: h.headerClassName || null,
-  //         headerStyle: h.headerStyle || null,
-  //         width: h.width || undefined,
-  //         width: getColumnWidth(data, h.accessor, h.Header),
-  //         // width: h.Header.length * 15,
-  //       }
-  //       return listHeader = [...listHeader, obj]
-  //     } else {
-  //       return listHeader = [...listHeader]
-  //     }
-  //   })
-
-  // let editBtn = <div className="edit-column" onClick={this.showModal.bind(this, true)}><i className="iconU-edit text-primary" /></div>
-  //   let obj = {
-  //     Header: editBtn,
-  //     accessor: 'editBtn',
-  //     width: 50,
-  //     style: { textAlign: 'center' }
-  //   }
-  //   listHeader = [...listHeader, obj]
-  //   return listHeader
-  // }
 
   headerIcon = (header, editColumn) => {
     let listHeader = [];

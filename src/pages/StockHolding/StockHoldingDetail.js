@@ -107,7 +107,7 @@ class SalesOrderDetail extends React.Component {
     let expected_in_qty= this.state.datahead.length ? this.state.datahead[0].expected_in_qty : null
     let expected_out_qty= this.state.datahead.length ? this.state.datahead[0].expected_out_qty : null
     let rotadate_type= this.state.datahead.length ? this.state.datahead[0].rotadate_type : null
-    return <div className="order-detail">
+    return <div className="stock-holding-detail">
               <HeaderTitle breadcrumb={[
                 { to: '/stock-holding', label: 'Stock Holding' },
                 { to: '', label: this.props.match.params.product, active: true },

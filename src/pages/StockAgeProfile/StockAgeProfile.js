@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { CButton, CCard, CCardBody, CRow, CCol } from "@coreui/react";
 import "./StockAgeProfile.scss";
 import endpoints from 'helpers/endpoints'
-import StockAgeProfileTable from "./Table/StockAgeProfileTable";
+import StockAgeProfileTable from "./StockAgeProfileTable";
 import CustomPagination from "shared/table/CustomPagination";
 import axios from "axios";
 import HeaderTitle from "shared/container/TheHeader";
@@ -193,10 +193,10 @@ class StockAgeProfile extends Component {
           breadcrumb={[{ to: "", label: "Stock Age Profile", active: true }]}
         />
 
-        <CCard className="mb-4">
-          <CCardBody className="px-3 py-3 h-4">
-            <CRow className="row mr-0 ml-0">
-              <CCol lg={3} className="px-0">
+        <CCard className="mb-3">
+          <CCardBody className="p-3">
+            <CRow>
+              <CCol lg={3} className="pr-2">
                 <div className="input-group">
                   <div className="input-group-prepend">
                     <span className="input-group-text border-right-0 bg-white">
@@ -211,9 +211,9 @@ class StockAgeProfile extends Component {
                   />
                 </div>
               </CCol>
-              <CCol lg={9} className="pr-0">
-                <CRow className="l-r-0">
-                  <CCol sm={4} lg={2} className="px-0">
+              <CCol lg={9}>
+                <CRow>
+                  <CCol sm={4} lg={2} className="px-2">
                     <Select
                       name="site"
                       placeholder="Site"
@@ -222,7 +222,7 @@ class StockAgeProfile extends Component {
                       onChange={(val) => this.setState({ site: val })}
                     />
                   </CCol>
-                  <CCol sm={4} lg={2} className="pl-3 pr-0">
+                  <CCol sm={4} lg={2} className="px-2">
                     <Select
                       name="client"
                       placeholder="Client"
@@ -232,13 +232,8 @@ class StockAgeProfile extends Component {
                     />
                   </CCol>
                   <CCol />
-                  <CCol sm={4} lg={1} className="pr-0 pl-3 w-4vw">
-                    <button
-                      className="btn btn-search btn-primary float-right"
-                      onClick={this.getStockAgeProfile}
-                    >
-                      SEARCH
-                    </button>
+                  <CCol sm={4} lg={1} className="pl-2">
+                    <button className="btn btn-search btn-primary float-right" onClick={this.getStockAgeProfile} > SEARCH </button>
                   </CCol>
                 </CRow>
               </CCol>

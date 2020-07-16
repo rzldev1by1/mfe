@@ -129,7 +129,7 @@ class StockHolding extends React.PureComponent {
     const {
       dimension, fields, data, pagination, site, client, status, siteData, clientData, statusData, 
     } = this.state
-    return <div className="table-summary">
+    return <div className="stock-holding">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Stock Holding', active: true }]}
         button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right d-none">
@@ -138,9 +138,9 @@ class StockHolding extends React.PureComponent {
       />
 
       <CCard>
-        <CCardBody className="px-4 py-2">
-          <CRow className="row">
-            <CCol lg={3} className="px-1">
+        <CCardBody className="p-3">
+          <CRow>
+            <CCol lg={3} className="pr-2">
               <div className="input-group ">
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
@@ -150,7 +150,7 @@ class StockHolding extends React.PureComponent {
             </CCol>
             <CCol lg={9}>
               <CRow>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                   <Select name="site" placeholder="Site"
                     value={site} options={siteData}
                     onChange={(val) => this.setState({ site: val }, () => {
@@ -158,23 +158,23 @@ class StockHolding extends React.PureComponent {
                     })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                   <Select name="client" placeholder="Client"
                     value={client} options={clientData}
                     onChange={(val) => this.setState({ client: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                   <Select name="status" placeholder="Status"
                     value={status} options={statusData}
                     onChange={(val) => this.setState({ status: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="pl-2">
                   <button className="btn btn-primary float-right stockHolding" onClick={this.searchStockHolding}>SEARCH</button>
                 </CCol>
               </CRow>
