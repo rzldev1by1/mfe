@@ -139,7 +139,7 @@ class UserManagemen extends Component {
                     </CCardBody>
                     <CCardBody className="px-4 py-2 bg-white">
                         <CRow className="row">
-                            <CCol xl={11} lg={10} md={10} sm={12} className="px-1">
+                            <CCol xl={11} lg={10} md={10} sm={12} className="p-2">
                                 <div className="input-group">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>

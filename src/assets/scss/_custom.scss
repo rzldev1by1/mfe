@@ -17,8 +17,11 @@ button:focus {
   box-shadow: none !important;
 }
 .no-border {
-  box-shadow: none !important;
   border: none !important;
+}
+.no-shadow,
+.card {
+  box-shadow: none !important;
 }
 .scroll-x {
   overflow-x: auto;
@@ -44,7 +47,7 @@ button:focus {
   background-color: #b4b9bb;
   border-radius: 5px;
 }
-.margin-auto{
+.margin-auto {
   margin: auto;
 }
 .pointer {
@@ -127,7 +130,7 @@ input.form-control,
 .um-detail,
 .sales-order-detail,
 .stock-holding,
-.stock-holding-detail{
+.stock-holding-detail {
   .rt-th {
     line-height: 40px !important;
   }
@@ -206,8 +209,3 @@ header {
   color: #000;
 }
 /* dropdown style end */
-
-//disable shadow in card
-.card {
-  box-shadow: none !important;
-}
