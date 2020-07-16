@@ -170,6 +170,27 @@ button:focus {
 /* dropdown style end */
 
 /* rename column */
+.form-rename{
+  display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    background-clip: padding-box;
+    border: 1px solid;
+    color: #92979c;
+    background-color: #fff;
+    border-color: #e4e7ea;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-rename:hover{
+  border-color: #376BFB !important;
+}
+
 .rename-columns{
      width: -moz-max-content;
      color : rgb(88, 87, 87);
@@ -184,6 +205,9 @@ button:focus {
      padding-right: 8px;
      padding-top: 1px;
      padding-top: 2px;
+}
+.rename-columns:hover{
+  cursor: pointer;
 }
 .tab-rename {
   background-color: #ffffff !important;

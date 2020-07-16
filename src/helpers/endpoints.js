@@ -13,6 +13,7 @@ export default {
   stockHoldingDetail: "/stockdetail/header/",
   stockDetail: "/stockdetail",
   stockBalanceForecast: "/foreshadowedstockbalance/",
+  getStockHoldingHearder:"/getStockholdingColumn",
 
   stockMovement: "/stockmovement",
 

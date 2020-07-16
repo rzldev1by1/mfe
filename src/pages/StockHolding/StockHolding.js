@@ -10,20 +10,76 @@ import endpoints from 'helpers/endpoints'
 import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
 import './StockHolding.css'
+import { AiFillBoxPlot } from 'react-icons/ai'
+const headerTable = [
+  
+]
 const columns = [
-  { accessor: 'site', Header: 'Site', sortable: true },
-  { accessor: 'client', Header: 'Client', sortable: true },
-  { accessor: 'product', Header: 'Product', sortable: true, width: 90 },
-  { accessor: 'product_name', Header: 'Description', sortable: true  },
-  { accessor: 'disposition', Header: 'Disposition', sortable: true },
-  { accessor: 'packdesc_1', Header: 'UOM', sortable: true },
-  { accessor: 'status', Header: ' Status ', sortable: true },
-  { accessor: 'on_hand_qty', Header: 'Stock on Hand', sortable: true,  width: 140 },
-  { accessor: 'expected_in_qty', Header: 'Expected In Qty', sortable: true,  width: 145  },
-  { accessor: 'expected_in_wgt', Header: 'Expected In Weight', sortable: true,  width: 170 },
-  { accessor: 'expected_out_qty', Header: 'Expected Out Qty', sortable: true, width: 155  },
-  { accessor: 'prince', Header: ' Price ', sortable: true,},
-  { accessor: 'pallets', Header: 'Pallets', sortable: true,},
+                    { 
+                      accessor: 'Site', 
+                      Header: 'site', 
+                      sortable: true 
+                    },
+                    { 
+                      accessor: 'client', 
+                      Header: 'Client', 
+                      sortable: true },
+                    { 
+                      accessor: 'product', 
+                      Header: 'Product', 
+                      sortable: true, 
+                      width: 90 
+                    },
+                    { 
+                      accessor: 'product_name', 
+                      Header: 'Description', 
+                      sortable: true  
+                    },
+                    { 
+                      accessor: 'disposition', 
+                      Header: 'Disposition', 
+                      sortable: true 
+                    },
+                    { 
+                      accessor: 'packdesc_1', 
+                      Header: 'UOM', 
+                      sortable: true 
+                    },
+                    { 
+                      accessor: 'status', 
+                      Header: ' Status ', 
+                      sortable: true 
+                    },
+                    { 
+                      accessor: 'on_hand_qty', 
+                      Header: 'Stock on Hand', 
+                      sortable: true,  
+                      width: 140 },
+                    { 
+                      accessor: 'expected_in_qty', 
+                      Header: 'Expected In Qty', 
+                      sortable: true,  
+                      width: 145  },
+                    { 
+                      accessor: 'expected_in_wgt', 
+                      Header: 'Expected In Weight', 
+                      sortable: true,  
+                      width: 170 
+                    },
+                    { 
+                      accessor: 'expected_out_qty', 
+                      Header: 'Expected Out Qty', 
+                      sortable: true, 
+                      width: 155  },
+                    { 
+                      accessor: 'prince',
+                      Header: ' Price ', 
+                      sortable: true,},
+                    { 
+                      accessor: 'pallets', 
+                      Header: 'Pallets', 
+                      sortable: true,
+                    },
 ]
 class StockHolding extends React.PureComponent {
   state = {
@@ -36,6 +92,7 @@ class StockHolding extends React.PureComponent {
     resources: [],
     fields: columns,
     data: [],
+    headerSH:[],
     create: false,
     pagination: {},
     detail: {},
@@ -50,7 +107,10 @@ class StockHolding extends React.PureComponent {
     this.getClient()
     this.getStatus()
     this.searchStockHolding()
+    this.headerStockHolding()
   }
+
+
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimension);
@@ -83,6 +143,30 @@ class StockHolding extends React.PureComponent {
       { value: "Shortage", label: 'Shortage' },
     ];
     this.setState({ statusData })
+  }
+  headerStockHolding = async () => {
+    // const {data} = await axios.get(`${endpoints.getStockHoldingHearder}?client=ANTEC`)
+    // const { product, client, site } = this.props.match.params
+    const url = `${endpoints.getStockHoldingHearder}?client=ANTEC`
+    const { data } = await axios.get(url)
+    console.log(data.data[0].CLIENT)
+    let header = []
+    Object.values(data.data[0]).map((data) => { 
+      let headerTable = {
+        accessor: 'Site', 
+        Header: 'site', 
+        sortable: true 
+      }
+
+      headerTable.Header= data 
+      headerTable.accessor= data 
+      header.push(headerTable)
+     
+    })
+    console.log(header)
+    if (data.data.length) {
+      this.setState({ products: data.data,fields:header })
+    }
   }
   searchStockHolding  = async () => {
     let { search, site, client, status, pagination } = this.state
@@ -180,7 +264,7 @@ class StockHolding extends React.PureComponent {
       </CCard>
 
       <CustomTable
-        title="Sales Order"
+        title="Stock Holding"
         height={dimension.height}
         data={data}
         fields={fields}

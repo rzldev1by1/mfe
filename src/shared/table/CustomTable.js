@@ -227,6 +227,7 @@ class CustomTable extends React.Component {
                                     })
                                   }
                                   </Row>
+                                  <Button variant="primary" className="px-5 float-right" onClick={this.saveEdit.bind(this, editColumn)} >Save</Button>
                             </TabPane >
                             <TabPane tabId="2">
                                   <Row xl={5} lg={10} className="mx-1"  >
@@ -234,20 +235,21 @@ class CustomTable extends React.Component {
                                     fields && fields.map((item, index) => {
                                       return (
                                         <Col key={index} className="p-2">
-                                          <input placeholder={item.Header} className={`text-left form-control `}>
+                                          <input placeholder={item.Header} className={`text-left form-rename `}>
                                           </input>
                                         </Col>
                                       )
                                     })
                                   }
                                   </Row>
+                                  <Button variant="primary" className="px-5 float-right" onClick={this.toogleModalConfirm} >Rename</Button>
                             </TabPane >
                         </TabContent>
                     </Col>
 								</Row>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" className="px-5" onClick={this.saveEdit.bind(this, editColumn)} >Save</Button>
+            {/* <Button variant="primary" className="px-5" onClick={this.saveEdit.bind(this, editColumn)} >Save</Button> */}
           </Modal.Footer>
         </Modal>
       </React.Fragment>
