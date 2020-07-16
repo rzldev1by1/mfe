@@ -60,6 +60,7 @@
     "react-scripts": "^3.4.1"
   },
   "scripts": {
+    "install": "cp .env.sample .env",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
