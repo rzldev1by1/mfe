@@ -3,6 +3,10 @@
   border-color: #e4e7ea !important;
 }
 
+.um-summary .input-group .input-group-prepend{
+  height: 40px !important;  
+}
+
 .user-login-info-header{
     color: #959DA0;    
 }
@@ -199,14 +203,17 @@
   padding-left: 20px;
   margin-left: 5px !important;
   cursor: pointer;
+  font-family: Rubik !important;
 }
 .um-create .nav-link.active {
   background-color: #fff !important;
   color: #376bfb !important;
 }
+
 .um-create .nav-tabs {
   margin-left: 26px;
   border: none;
+  font-family: Rubik !important;
 }
 
 
