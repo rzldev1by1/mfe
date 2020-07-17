@@ -12,7 +12,7 @@ import { IoIosArrowDown } from 'react-icons/io'
 import CustomTable from 'shared/table/CustomTable'
 import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader'
-import './SalesOrder.css'
+import './SalesOrder.scss'
 
 const columns = [
   { accessor: "line", Header: "Line No" },
@@ -53,7 +53,7 @@ class SalesOrderDetail extends React.Component {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - this.section1.current.clientHeight - 60) * 0.82
+    const height = (window.innerHeight - this.section1.current.clientHeight - 160)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getDetail = async () => {

@@ -8,20 +8,20 @@ import Select from 'react-select'
 import endpoints from 'helpers/endpoints'
 import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
-import './../StockHolding/StockHolding.css'
 import './PurchaseOrder.css'
+import PurchaseOrderCreate from './PurchaseOrderCreate'
 
 const columns = [
   { accessor: 'site', Header: 'Site', },
   { accessor: 'client', Header: 'Client', },
   { accessor: 'order_no', Header: 'Order No', },
-  { accessor: 'status', Header: 'Status', width: 140  },
+  { accessor: 'status', Header: 'Status', width: 140 },
   { accessor: 'order_type', Header: 'Order Type', },
   { accessor: 'supplier_no', Header: 'Supplier No', },
-  { accessor: 'supplier_name', Header: 'Supplier No',width: 210  },
-  { accessor: 'delivery_date', Header: 'Delivery Date',  },
+  { accessor: 'supplier_name', Header: 'Supplier No', width: 210 },
+  { accessor: 'delivery_date', Header: 'Delivery Date', },
   { accessor: 'date_received', Header: 'Date Received', },
-  { accessor: 'date_released', Header: 'Date Released',},
+  { accessor: 'date_released', Header: 'Date Released', },
   { accessor: 'date_completed', Header: 'Date Completed', },
   { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
   { accessor: 'vendor_order_ref', Header: 'Vendor Order No' },
@@ -57,7 +57,7 @@ class PurchaseOrders extends React.PureComponent {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - 116) * 0.87
+    const height = (window.innerHeight - 270)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {
@@ -99,16 +99,15 @@ class PurchaseOrders extends React.PureComponent {
   getResources = async () => {
     const { user } = this.props.store
     if (user) {
-      const { data } = await axios.get(`${endpoints.getSoResources}?company=${user.company}&client=${user.client}`)
-      const { code, name } = data.orderType
-      const orderTypeData = code.map((c, i) => ({ value: c, label: `${code[i]}: ${name[i]}` }))
+      const { data } = await axios.get(`${endpoints.getPOResources}?company=${user.company}&client=${user.client}`)
+      const orderTypeData = data.orderType.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.description}` }))
       const orderType = { value: 'all', label: 'All' }
       orderTypeData.splice(0, 0, orderType)
       this.setState({ resources: data, orderTypeData })
     }
   }
   searchPurchaseOrder = async () => {
-    let { search, site, client, orderType, task, pagination,status } = this.state
+    let { search, site, client, orderType, task, pagination, status } = this.state
     let urls = []
     urls.push('searchParam=' + search ? search : '')
     urls.push('site=' + (site ? site.value : 'all'))
@@ -127,20 +126,20 @@ class PurchaseOrders extends React.PureComponent {
         return m
       })
       modifiedData.map((item, idx) => {
-        if((item["status"]) === "1: Available"){
-          item['status'] = [<a className="status-available">AVAILABLE</a> ]
-        }if((item["status"]) ==="0: Unavailable"){
-          item['status'] = [<a className="status-Unavailable">UNAVAILABLE</a> ]
-        }if((item["status"]) ==="2: Released"){
-          item['status'] = [<a className="status-Release">RELEASED</a> ]
-        }if((item["status"]) ==="3: Part Released"){
-          item['status'] = [<a className="status-partRelease">PART RELEASED</a> ]
-        }if((item["status"]) ==="4: Completed"){
-          item['status'] = [<a className="status-complete">COMPLETED</a> ]
-        }if((item["status"]) ==="All Open"){
-          item['status'] = [<a className="status-ok">ALL OPEN</a> ]
+        if ((item["status"]) === "1: Available") {
+          item['status'] = [<a className="status-available">AVAILABLE</a>]
+        } if ((item["status"]) === "0: Unavailable") {
+          item['status'] = [<a className="status-Unavailable">UNAVAILABLE</a>]
+        } if ((item["status"]) === "2: Released") {
+          item['status'] = [<a className="status-Release">RELEASED</a>]
+        } if ((item["status"]) === "3: Part Released") {
+          item['status'] = [<a className="status-partRelease">PART RELEASED</a>]
+        } if ((item["status"]) === "4: Completed") {
+          item['status'] = [<a className="status-complete">COMPLETED</a>]
+        } if ((item["status"]) === "All Open") {
+          item['status'] = [<a className="status-ok">ALL OPEN</a>]
         }
-      } )
+      })
       this.setState({
         pagination: {
           active: pagination.active || data.data.current_page,
@@ -155,7 +154,7 @@ class PurchaseOrders extends React.PureComponent {
     // this.setState({ data: DummyData })
   }
   showDetails = (item) => {
-    const url = '/purchase-order/' + item.client + '/' + item.order_no 
+    const url = '/purchase-order/' + item.client + '/' + item.order_no
     this.props.history.push(url)
   }
   toggle = (value) => {
@@ -164,18 +163,18 @@ class PurchaseOrders extends React.PureComponent {
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData, taskData
+      siteData, clientData, statusData, orderTypeData, taskData,
     } = this.state
-    return <div className="table-summary">
+    return <div className="purchase-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Purchase Orders', active: true }]}
-        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right px-3">Create Purchase Order</CButton>}
+        button={<CButton onClick={this.toggle} className="btn btn-primary btn-create float-right">Create Purchase Order</CButton>}
       />
 
-      <CCard>
-        <CCardBody className="px-4 py-2">
+      <CCard className="mb-3">
+        <CCardBody className="p-3">
           <CRow className="row">
-            <CCol lg={3} className="px-1">
+            <CCol lg={3} className="pr-1">
               <div className="input-group">
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
@@ -185,38 +184,38 @@ class PurchaseOrders extends React.PureComponent {
             </CCol>
             <CCol lg={9}>
               <CRow>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                   <Select name="site" placeholder="Site"
                     value={site} options={siteData}
                     onChange={(val) => this.setState({ site: val }, () => this.getTask())}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                   <Select name="client" placeholder="Client"
                     value={client} options={clientData}
                     onChange={(val) => this.setState({ client: val }, () => this.getTask())}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                   <Select name="status" placeholder="Status"
                     value={status} options={statusData}
                     onChange={(val) => this.setState({ status: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                   <Select name="orderType" placeholder="Order Type"
                     value={orderType} options={orderTypeData}
                     onChange={(val) => this.setState({ orderType: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                   <Select name="task" placeholder="Task"
                     value={task} options={taskData}
                     onChange={(val) => this.setState({ task: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
-                  <button className="btn btn-block btn-primary float-right" onClick={this.searchPurchaseOrder}>SEARCH</button>
+                <CCol sm={4} lg={2} className="pl-1">
+                  <button className="btn btn-search btn-primary float-right" onClick={this.searchPurchaseOrder}>SEARCH</button>
                 </CCol>
               </CRow>
             </CCol>
@@ -235,6 +234,15 @@ class PurchaseOrders extends React.PureComponent {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchPurchaseOrder())
         }}
         export={<button className="btn btn-primary float-right px-4 btn-export"> EXPORT</button>}
+      />
+
+      <PurchaseOrderCreate
+        show={!!create}
+        toggle={this.toggle}
+        siteData={siteData}
+        clientData={clientData}
+        statusData={statusData}
+        orderTypeData={orderTypeData}
       />
     </div>
   }

@@ -21,9 +21,8 @@
 }
 .rt-th {
   text-align: left;
-  height: 46px;
+  padding: 0 10px !important;
   border-right: none !important;
-  padding: 12px 10px !important;
 }
 .rt-th svg {
   margin-top: -3px;

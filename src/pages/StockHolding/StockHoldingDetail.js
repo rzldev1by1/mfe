@@ -55,7 +55,7 @@ class SalesOrderDetail extends React.Component {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - this.section1.current.clientHeight - 60) * 0.82
+    const height = (window.innerHeight - this.section1.current.clientHeight - 160)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getDetail = async () => {
@@ -107,7 +107,7 @@ class SalesOrderDetail extends React.Component {
     let expected_in_qty= this.state.datahead.length ? this.state.datahead[0].expected_in_qty : null
     let expected_out_qty= this.state.datahead.length ? this.state.datahead[0].expected_out_qty : null
     let rotadate_type= this.state.datahead.length ? this.state.datahead[0].rotadate_type : null
-    return <div className="order-detail">
+    return <div className="stock-holding-detail">
               <HeaderTitle breadcrumb={[
                 { to: '/stock-holding', label: 'Stock Holding' },
                 { to: '', label: this.props.match.params.product, active: true },
@@ -134,12 +134,12 @@ class SalesOrderDetail extends React.Component {
               </div>
 
               <Row className="align-items-center ml-0" style={{width:"max-content"}}>
-                  <div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
+                  <div className="stockDetails col-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
                   <Nav tabs>
                       <div className="input-group">
                           <NavItem className="pl-0 pr-0">                         
                                   <NavLink  className={"nav-link-cust" + (activeTab === "1" ? " tab-custom" : "")} active={this.state.activeTab === "1"} onClick={() => this.activeTabIndex("1")}>
-                                      <div className="row rowTabCustom align-items-center">
+                                      <div className="row rowTabCustom align-items-center tabColumn">
                                           <span className="tabTitleText">
                                           {activeTab === "1" ? tab1() : tab1Inactive()} Stock Details
                                           </span>
@@ -149,7 +149,7 @@ class SalesOrderDetail extends React.Component {
 
                             <NavItem className={"pl-2 pr-0 "}>
                                   <NavLink className={"nav-link-cust" + (activeTab === "2" ? " tab-custom" : "")} active={this.state.activeTab === "2"} onClick={() => this.activeTabIndex("2")}>
-                                      <div className="row rowTabCustom align-items-center">
+                                      <div className="row rowTabCustom align-items-center tabColumn">
                                             <span className="tabTitleText">
                                             {activeTab === "2" ? tab2() : tab2Inactive()} Stock Balance Forecast
                                             </span>
@@ -164,14 +164,14 @@ class SalesOrderDetail extends React.Component {
                 <Row className=""> 
                     <div className="col-12 col-lg-12 col-md-12 col-sm-12 mt-0 pl-0 ">
                         <TabContent className="border-0 tableTab" activeTab={this.state.activeTab}>
-                            <TabPane className="p-0" tabId="1">
+                            <TabPane className="p-0 stockDetails" tabId="1">
                               <CustomTable  title="Stock Detail"
                                             height={this.state.dimension.height}
                                             fields={stockDetail}
                                             data={products}
                                           />
                            </TabPane>
-                            <TabPane className={""} tabId="2">
+                            <TabPane className="stockDetails" tabId="2">
                                <CustomTable  title="Stock ForesCast"
                                             height={this.state.dimension.height}
                                             fields={ForesCast}
