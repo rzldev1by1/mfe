@@ -57,7 +57,7 @@ class StockHolding extends React.PureComponent {
   }
 
   updateDimension = () => {
-    const height = (window.innerHeight - 270)
+    const height = (window.innerHeight - 250)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
 
@@ -193,7 +193,11 @@ class StockHolding extends React.PureComponent {
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchStockHolding ())
         }}
-        export={<button className="btn btn-primary float-right px-4 btn-export"> EXPORT</button>}
+        export={
+          <button className="btn d-flex btn-primary float-right align-items-center px-3 btn-export"> 
+            <div className="export-export pr-3"/>
+            EXPORT
+          </button>}
       />
     </div>
   }

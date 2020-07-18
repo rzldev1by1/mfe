@@ -3,7 +3,7 @@ import { CButton, CCard, CCardBody, CRow, CCol } from "@coreui/react";
 import "./StockAgeProfile.scss";
 import endpoints from 'helpers/endpoints'
 import StockAgeProfileTable from "./Table/StockAgeProfileTable";
-import CustomPagination from "shared/table/CustomPagination";
+import CustomPagination from "shared/table/CustomPagination2";
 import axios from "axios";
 import HeaderTitle from "shared/container/TheHeader";
 import Select from "react-select";
@@ -127,7 +127,7 @@ class StockAgeProfile extends Component {
   }
 
   updateDimension = () => {
-    const height = (window.innerHeight - 280);
+    const height = (window.innerHeight - 250);
     // const height = {overflow: 'visible', height: heightAdjust}
     this.setState({ dimension: { width: window.innerWidth, height } });
   };
