@@ -16,7 +16,7 @@ import { IoIosArrowDown } from 'react-icons/io'
  
 import StockMovementTable from './StockMovementTable/StockMovementTable'
 // import CustomPagination from './StockMovementPagination/StockMovementPagination'
-import CustomPagination from 'shared/table/CustomPagination'
+import CustomPagination from 'shared/table/CustomPagination2'
 import HeaderTitle from 'shared/container/TheHeader' 
 import endpoints from 'helpers/endpoints'
 import './StockMovement.scss' 
@@ -493,7 +493,10 @@ class StockMovement extends React.PureComponent {
       goto={(active) => {
         this.setState({ pagination: { ...pagination, active } }, () => this.searchStockMovement())
       }}
-      export={<CButton className="btn btn-primary float-right px-4 btn-export">EXPORT <IoIosArrowDown /></CButton>}
+      export={<CButton className="btn btn-primary d-flex float-right px-3 align-items-center btn-export">
+      <div className="export-export pr-3"/>
+      EXPORT
+    </CButton>}
     />
 
   </div>

@@ -1,0 +1,269 @@
+.stock-age-profile {
+  .row {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+    div {
+      .card-group {
+        .card:last-child {
+          div {
+            input {
+              height: 30px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .c-header {
+    .c-subheader {
+      .breadcrumb {
+        padding-left: 1rem !important;
+      }
+    }
+  }
+
+  /* SEACRH */
+  .card {
+    .card-body {
+      .row {
+        div {
+          .input-group {
+            .form-control {
+              max-height: 50px !important;
+              height: 50px !important;
+            }
+            max-height: 50px !important;
+            height: 50px !important;
+            input {
+              :focus {
+                // height: 7.2vh !important;
+                // outline: none !important;
+                // border-left: olive;
+              }
+            }
+          }
+          .l-r-0 {
+            .px-0 {
+              .css-2b097c-container {
+                border: none !important;
+                .css-yk16xz-control {
+                  max-height: 50px !important;
+                  height: 50px !important;
+                  .css-g1d714-ValueContainer {
+                    padding-left: 0.8rem !important;
+                  }
+
+                  :focus {
+                    padding-left: 1rem !important;
+                  }
+                }
+              }
+            }
+            .pl-3 {
+              .css-2b097c-container {
+                border: none !important;
+                .css-yk16xz-control {
+                  max-height: 50px !important;
+                  height: 50px !important;
+                  .css-g1d714-ValueContainer {
+                    padding-left: 0.8rem !important;
+                  }
+                  :focus {
+                  }
+                }
+              }
+            }
+          }
+        }
+        .col-lg-9 {
+          .row {
+            .col-lg-1 {
+              .btn {
+                height: 50px !important;
+                letter-spacing: 1px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* TABLE */
+  .ReactTable {
+    border: none !important;
+    .rt-table {
+      .rt-thead {
+        .rt-tr {
+          .rt-th {
+            border-left: none !important;
+          }
+          .rt-th:first-child {
+            padding-left: 1.8rem !important;
+          }
+        }
+      }
+      .rt-tbody {
+        .rt-tr-group {
+          .rt-tr {
+            .border-right {
+              border-right: 1px solid #d8dbe0 !important;
+            }
+            .rt-td:first-child {
+              padding-left: 1.8rem !important;
+            }
+          }
+        }
+      }
+    }
+    .rt-thead {
+      .rt-tr {
+        .padding-top-0 {
+          margin-top: -20px !important;
+        }
+        .link-color {
+          padding-top: 0px !important;
+          div {
+            .text-light-gray {
+              color: #3366ff !important;
+              padding-top: 0px !important;
+            }
+          }
+        }
+      }
+    }
+    .rt-thead.-headerGroups {
+      background: white !important;
+      border-bottom: none !important;
+      color: #b4b9bb !important;
+      .rt-tr {
+        .rt-th {
+          padding-bottom: 0px !important;
+          height: 30px;
+        }
+      }
+    }
+    .rt-thead.-header {
+      .rt-tr {
+        .rt-th:focus {
+          outline: none;
+        }
+      }
+    }
+    .-header {
+      .rt-tr {
+        height: 25px !important;
+        .rt-th {
+          border-bottom: none !important;
+        }
+      }
+    }
+    .-headerGroups {
+      .rt-tr {
+        .rt-th {
+          border-bottom: none !important;
+        }
+      }
+    }
+  }
+
+  //   Pagination
+  .mt-4 {
+    margin-top: 1rem !important;
+    .col-lg-5 {
+      padding: 0px 0px;
+      .card-group {
+        .card {
+          box-shadow: none !important;
+        }
+      }
+    }
+  }
+}
+
+/* SEACRH */
+
+.c-app:not(.c-legacy-theme):not(.c-dark-theme) .stock-age-profile > .card {
+  box-shadow: none !important;
+}
+/* ---------------------------------------------- */
+
+/* scrollbar */
+.stock-age-profile > .ReactTable > .rt-table > .rt-tbody::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+.stock-age-profile
+  > .ReactTable
+  > .rt-table
+  > .rt-tbody::-webkit-scrollbar-thumb {
+  background-color: #b4b9bb;
+  border-radius: 15px !important;
+}
+/* ---------------------------------------- */
+.btn-block,
+.css-g1d714-ValueContainer,
+.css-1pahdxg-control {
+  max-height: 50px !important;
+  height: 50px !important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.stock-age-profile > input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.stock-age-profile > input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+@media (min-width: 571px) and (max-width: 1000px) {
+  .stock-age-profile {
+    .card {
+      .card-body {
+        .row {
+          .col-lg-9 {
+            padding-left: 0px !important;
+            .row {
+              padding-top: 1rem !important;
+              div:nth-child(4) {
+                padding-top: 1rem !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 570px) {
+  .stock-age-profile {
+    .card {
+      .card-body {
+        .row {
+          .col-lg-9 {
+            padding-left: 0px !important;
+            .row {
+              padding-top: 1rem !important;
+              .col-lg-2:nth-child(2) {
+                padding: 1rem 0rem !important;
+              }
+              div:nth-child(4) {
+                padding-top: 0px !important;
+                padding-left: 0px !important;
+                .btn {
+                  width: 100%;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

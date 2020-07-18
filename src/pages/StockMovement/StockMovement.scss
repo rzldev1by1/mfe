@@ -1,0 +1,172 @@
+.stockMovement {
+  .row {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+    div {
+      .card-group {
+        .card:last-child {
+          div {
+            input {
+              height: 30px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  /* SEACRH */
+  .card {
+    .card-body {
+      .row {
+        .SM-col {
+          .row {
+            .displayPeriod-col {
+              div {
+                .css-2b097c-container {
+                  border: none !important;
+                }
+              }
+            }
+            .dateFrom-col {
+              ul {
+                input {
+                }
+              }
+            }
+            .dateTo-col {
+              ul {
+                input {
+                }
+              }
+            }
+          }
+        }
+        .sm-second-col {
+          .row {
+            .site-col {
+              .css-2b097c-container {
+                border: none !important;
+              }
+            }
+            .client-col {
+              .css-2b097c-container {
+                border: none !important;
+              }
+            }
+            .product-col {
+              .css-2b097c-container {
+                border: none !important;
+              }
+            }
+            .searchButton-col {
+              button {
+              }
+            }
+          }
+        }
+        div {
+          .input-group {
+            .form-control {
+              max-height: 50px !important;
+              height: 50px !important;
+            }
+            max-height: 50px !important;
+            height: 50px !important;
+            input {
+              :focus {
+                // height: 7.2vh !important;
+                // outline: none !important;
+                // border-left: olive;
+              }
+            }
+          }
+          .l-r-0 {
+            .px-0 {
+              .css-2b097c-container {
+                border: none !important;
+                .css-yk16xz-control {
+                  max-height: 50px !important;
+                  height: 50px !important;
+                  .css-g1d714-ValueContainer {
+                    padding-left: 0.8rem !important;
+                  }
+
+                  :focus {
+                    padding-left: 1rem !important;
+                  }
+                }
+              }
+            }
+            .pl-3 {
+              .css-2b097c-container {
+                border: none !important;
+                .css-yk16xz-control {
+                  max-height: 50px !important;
+                  height: 50px !important;
+                  .css-g1d714-ValueContainer {
+                    padding-left: 0.8rem !important;
+                  }
+                  :focus {
+                  }
+                }
+              }
+            }
+          }
+        }
+        .col-lg-9 {
+          .row {
+            .col-lg-1 {
+              .btn {
+                letter-spacing: 1px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .ReactTable {
+    border: none !important;
+  }
+}
+
+/* scrollbar */
+.stockMovement > .ReactTable > .rt-table > .rt-tbody::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+.stockMovement > .ReactTable > .rt-table > .rt-tbody::-webkit-scrollbar-thumb {
+  background-color: #b4b9bb;
+  border-radius: 15px !important;
+}
+/* ---------------------------------------- */
+@media (max-width: 1670px) {
+  .stockMovement {
+    .card {
+      .card-body {
+        .row {
+          .sm-second-col {
+            .searchButton-col {
+              flex: 0 0 20% !important;
+              max-width: 25% !important;
+              padding-left: 1.5rem !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 1400px) {
+  .stockMovement {
+    .card {
+      .card-body {
+        flex-direction: column !important;
+        .sm-second-col {
+          padding-top: 1rem !important;
+        }
+      }
+    }
+  }
+}
