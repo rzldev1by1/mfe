@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { CButton, CCard, CCardBody, CRow, CCol } from "@coreui/react";
-import "./StockAgeProfile.css";
+import "./StockAgeProfile.scss";
 import endpoints from 'helpers/endpoints'
 import StockAgeProfileTable from "./Table/StockAgeProfileTable";
 import CustomPagination from "shared/table/CustomPagination";
@@ -16,12 +16,10 @@ const columns = [
     columns: [
       {
         accessor: "site",
-        // width:'500px',
         Header: "Site",
         sortable: true,
         headerClassName: "padding-top-0 p-r-2",
         className:"p-r-2",
-        maxWidth: 700,
       },
       {
         accessor: "client",
@@ -45,9 +43,9 @@ const columns = [
       {
         accessor: "packdesc_1",
         Header: "UOM",
-        className: "w-50",
+        // className: "w-50",
         sortable: true,
-        headerClassName: "padding-top-0 w-50",
+        headerClassName: "padding-top-0",
       },
     ],
   },
@@ -195,7 +193,7 @@ class StockAgeProfile extends Component {
           breadcrumb={[{ to: "", label: "Stock Age Profile", active: true }]}
         />
 
-        <CCard className="mb-4">
+        <CCard className="mb-3">
           <CCardBody className="px-3 py-3 h-4">
             <CRow className="row mr-0 ml-0">
               <CCol lg={3} className="px-0">
@@ -215,7 +213,7 @@ class StockAgeProfile extends Component {
               </CCol>
               <CCol lg={9} className="pr-0">
                 <CRow className="l-r-0">
-                  <CCol sm={4} lg={2} className="px-0">
+                  <CCol sm={6} lg={2} className="px-0">
                     <Select
                       name="site"
                       placeholder="Site"
@@ -224,7 +222,7 @@ class StockAgeProfile extends Component {
                       onChange={(val) => this.setState({ site: val })}
                     />
                   </CCol>
-                  <CCol sm={4} lg={2} className="pl-3 pr-0">
+                  <CCol sm={6} lg={2} className="pl-3 pr-0">
                     <Select
                       name="client"
                       placeholder="Client"
@@ -234,7 +232,7 @@ class StockAgeProfile extends Component {
                     />
                   </CCol>
                   <CCol sm={12} lg={7} />
-                  <CCol sm={4} lg={1} className="pr-0 pl-3 w-4vw">
+                  <CCol sm={12} lg={1} className="pr-0 pl-3 w-4vw">
                     <button
                       className="btn btn-search btn-primary float-right"
                       onClick={this.getStockAgeProfile}
@@ -264,9 +262,9 @@ class StockAgeProfile extends Component {
             );
           }}
           export={
-            <CButton className="btn btn-primary float-right px-3 btn-export d-flex">
-              <span className="export-export pr-3"/>
-              Export
+            <CButton className="btn btn-primary float-right px-4 btn-export">
+              {/* <span className="export-export pr-3"/> */}
+              EXPORT
 
             </CButton>
           }
