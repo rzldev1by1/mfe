@@ -201,6 +201,15 @@
   background-color: #b4b9bb;
   border-radius: 15px !important;
 }
+
+.stock-age-profile > .ReactTable > .rt-table::-webkit-scrollbar {
+  height: 8px !important;
+}
+
+.stock-age-profile > .ReactTable > .rt-table::-webkit-scrollbar-thumb {
+  background-color: #b4b9bb;
+  border-radius: 15px !important;
+}
 /* ---------------------------------------- */
 .btn-block,
 .css-g1d714-ValueContainer,

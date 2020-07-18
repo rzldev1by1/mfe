@@ -140,6 +140,15 @@
   background-color: #b4b9bb;
   border-radius: 15px !important;
 }
+
+.stockMovement > .ReactTable > .rt-table::-webkit-scrollbar {
+  height: 8px !important;
+}
+
+.stockMovement > .ReactTable > .rt-table::-webkit-scrollbar-thumb {
+  background-color: #b4b9bb;
+  border-radius: 15px !important;
+}
 /* ---------------------------------------- */
 @media (max-width: 1670px) {
   .stockMovement {
