@@ -14,6 +14,9 @@
       }
     }
   }
+  .css-1wa3eu0-placeholder {
+    color: #b4b9bb !important;
+  }
   /* SEACRH */
   .card {
     .card-body {
@@ -59,7 +62,10 @@
               }
             }
             .searchButton-col {
-              button {
+              .btn {
+                width: 100px;
+                height: 50px;
+                letter-spacing: 1px !important;
               }
             }
           }
@@ -113,15 +119,6 @@
             }
           }
         }
-        .col-lg-9 {
-          .row {
-            .col-lg-1 {
-              .btn {
-                letter-spacing: 1px !important;
-              }
-            }
-          }
-        }
       }
     }
   }
@@ -150,23 +147,7 @@
   border-radius: 15px !important;
 }
 /* ---------------------------------------- */
-@media (max-width: 1670px) {
-  .stockMovement {
-    .card {
-      .card-body {
-        .row {
-          .sm-second-col {
-            .searchButton-col {
-              flex: 0 0 20% !important;
-              max-width: 25% !important;
-              padding-left: 1.5rem !important;
-            }
-          }
-        }
-      }
-    }
-  }
-}
+
 @media (max-width: 1400px) {
   .stockMovement {
     .card {
@@ -174,6 +155,118 @@
         flex-direction: column !important;
         .sm-second-col {
           padding-top: 1rem !important;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1787px) {
+  .stockMovement {
+    .card {
+      .card-body {
+        .main-con {
+          flex-direction: column !important;
+          // display: block !important;
+          .sm-second-col {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
+            padding-top: 1rem !important;
+            .site-col {
+              padding-left: 0px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 576px) and (max-width: 991px) {
+  .stockMovement {
+    .card {
+      .card-body {
+        .main-con {
+          flex-direction: column !important;
+          // display: block !important;
+          .SM-col {
+            .row {
+              .displayPeriod-col {
+                padding-right: 0px !important;
+              }
+              .dateFromLabel-col,
+              .dateToLabel-col {
+                flex: 0 0 100% !important;
+                max-width: 100% !important;
+                padding: 0.8rem 0rem !important;
+              }
+            }
+          }
+          .sm-second-col {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
+            padding-top: 1rem !important;
+            .site-col {
+              padding-left: 0px !important;
+            }
+            .product-col {
+              flex: 0 0 33% !important;
+              padding-right: 0px !important;
+            }
+            .searchButton-col {
+              padding-left: 0px !important;
+              padding-top: 1rem !important;
+              flex: 0 0 100% !important;
+              max-width: 100% !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .stockMovement {
+    .card {
+      .card-body {
+        .main-con {
+          flex-direction: column !important;
+          // display: block !important;
+          .SM-col {
+            .row {
+              .displayPeriod-col {
+                padding-right: 0px !important;
+              }
+              .dateFromLabel-col,
+              .dateToLabel-col {
+                flex: 0 0 100% !important;
+                max-width: 100% !important;
+                padding: 0.8rem 0rem !important;
+              }
+            }
+          }
+          .sm-second-col {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
+            padding-top: 1rem !important;
+            .site-col {
+              padding: 0px !important;
+            }
+            .client-col {
+              padding: 1rem 0rem !important;
+            }
+            .product-col {
+              flex: 0 0 100% !important;
+              padding-right: 0px !important;
+            }
+            .searchButton-col {
+              padding-left: 0px !important;
+              padding-top: 1rem !important;
+              flex: 0 0 100% !important;
+              max-width: 100% !important;
+            }
+          }
         }
       }
     }

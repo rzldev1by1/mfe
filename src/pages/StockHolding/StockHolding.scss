@@ -23,6 +23,9 @@
   .css-2b097c-container {
     border: none !important;
   }
+  .css-1wa3eu0-placeholder {
+    color: #b4b9bb !important;
+  }
   /* SEACRH */
   .card {
     .card-body {
@@ -35,12 +38,11 @@
             }
             max-height: 50px !important;
             height: 50px !important;
-            input {
-              //   height: 5.2vh !important;
-              :focus {
-                // height: 7.2vh !important;
-                // outline: none !important;
-                // border-left: olive;
+            .input-group-prepend {
+              .input-group-text {
+                .iconU-search {
+                  color: #b4b9bb !important;
+                }
               }
             }
           }
@@ -81,7 +83,7 @@
         }
         .col-lg-9 {
           .row {
-            .col-lg-2 {
+            .col-lg-2:last-child {
               .btn {
                 width: 100px;
                 height: 50px;

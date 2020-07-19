@@ -412,7 +412,7 @@ class StockMovement extends React.PureComponent {
 
     <CCard style={{zIndex: '999'}} className="mb-3">
       <CCardBody className="px-3 py-3 stockMovement">
-        <CRow className="row"> 
+        <CRow className="main-con"> 
           <CCol className='SM-col px-0'> 
             <CRow className="align-items-center">   
               <CCol lg={4} className="displayPeriod-col pl-0 pr-5" >
