@@ -15,13 +15,13 @@ const columns = [
   { accessor: 'site', Header: 'Site', },
   { accessor: 'client', Header: 'Client', },
   { accessor: 'order_no', Header: 'Order No', },
-  { accessor: 'status', Header: 'Status', width: 140  },
+  { accessor: 'status', Header: 'Status', width: 140 },
   { accessor: 'order_type', Header: 'Order Type', },
   { accessor: 'supplier_no', Header: 'Supplier No', },
-  { accessor: 'supplier_name', Header: 'Supplier No',width: 210  },
-  { accessor: 'delivery_date', Header: 'Delivery Date',  },
+  { accessor: 'supplier_name', Header: 'Supplier No', width: 210 },
+  { accessor: 'delivery_date', Header: 'Delivery Date', },
   { accessor: 'date_received', Header: 'Date Received', },
-  { accessor: 'date_released', Header: 'Date Released',},
+  { accessor: 'date_released', Header: 'Date Released', },
   { accessor: 'date_completed', Header: 'Date Completed', },
   { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
   { accessor: 'vendor_order_ref', Header: 'Vendor Order No' },
@@ -107,7 +107,7 @@ class PurchaseOrders extends React.PureComponent {
     }
   }
   searchPurchaseOrder = async () => {
-    let { search, site, client, orderType, task, pagination,status } = this.state
+    let { search, site, client, orderType, task, pagination, status } = this.state
     let urls = []
     urls.push('searchParam=' + search ? search : '')
     urls.push('site=' + (site ? site.value : 'all'))
@@ -126,20 +126,20 @@ class PurchaseOrders extends React.PureComponent {
         return m
       })
       modifiedData.map((item, idx) => {
-        if((item["status"]) === "1: Available"){
-          item['status'] = [<a className="status-available">AVAILABLE</a> ]
-        }if((item["status"]) ==="0: Unavailable"){
-          item['status'] = [<a className="status-Unavailable">UNAVAILABLE</a> ]
-        }if((item["status"]) ==="2: Released"){
-          item['status'] = [<a className="status-Release">RELEASED</a> ]
-        }if((item["status"]) ==="3: Part Released"){
-          item['status'] = [<a className="status-partRelease">PART RELEASED</a> ]
-        }if((item["status"]) ==="4: Completed"){
-          item['status'] = [<a className="status-complete">COMPLETED</a> ]
-        }if((item["status"]) ==="All Open"){
-          item['status'] = [<a className="status-ok">ALL OPEN</a> ]
+        if ((item["status"]) === "1: Available") {
+          item['status'] = [<a className="status-available">AVAILABLE</a>]
+        } if ((item["status"]) === "0: Unavailable") {
+          item['status'] = [<a className="status-Unavailable">UNAVAILABLE</a>]
+        } if ((item["status"]) === "2: Released") {
+          item['status'] = [<a className="status-Release">RELEASED</a>]
+        } if ((item["status"]) === "3: Part Released") {
+          item['status'] = [<a className="status-partRelease">PART RELEASED</a>]
+        } if ((item["status"]) === "4: Completed") {
+          item['status'] = [<a className="status-complete">COMPLETED</a>]
+        } if ((item["status"]) === "All Open") {
+          item['status'] = [<a className="status-ok">ALL OPEN</a>]
         }
-      } )
+      })
       this.setState({
         pagination: {
           active: pagination.active || data.data.current_page,
@@ -165,10 +165,10 @@ class PurchaseOrders extends React.PureComponent {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData, taskData,
     } = this.state
-    return <div className="table-summary">
+    return <div className="purchase-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Purchase Orders', active: true }]}
-        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right">Create Purchase Order</CButton>}
+        button={<CButton onClick={this.toggle} className="btn btn-primary btn-create float-right">Create Purchase Order</CButton>}
       />
 
       <CCard className="mb-3">
@@ -184,31 +184,31 @@ class PurchaseOrders extends React.PureComponent {
             </CCol>
             <CCol lg={9}>
               <CRow>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                   <Select name="site" placeholder="Site"
                     value={site} options={siteData}
                     onChange={(val) => this.setState({ site: val }, () => this.getTask())}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                   <Select name="client" placeholder="Client"
                     value={client} options={clientData}
                     onChange={(val) => this.setState({ client: val }, () => this.getTask())}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                   <Select name="status" placeholder="Status"
                     value={status} options={statusData}
                     onChange={(val) => this.setState({ status: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                   <Select name="orderType" placeholder="Order Type"
                     value={orderType} options={orderTypeData}
                     onChange={(val) => this.setState({ orderType: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                   <Select name="task" placeholder="Task"
                     value={task} options={taskData}
                     onChange={(val) => this.setState({ task: val })}

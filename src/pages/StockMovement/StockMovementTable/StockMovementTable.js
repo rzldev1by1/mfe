@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactTable from 'react-table-v6'
-import 'react-table-v6/react-table.css'
-// import 'bootstrap/dist/css/bootstrap.min.css'
+import 'react-table-v6/react-table.css' 
 import './StockMovementTable.css'
 
 // import mid from 'assets/img/field-idle.png'
@@ -123,20 +122,15 @@ class StockMovementTable extends React.Component {
 
     return (
       <React.Fragment>
+        <div className="stockMovement">
         <ReactTableFixedColumns
           columns={headerIcon}
           data={data}
           showPagination={false}
           page={page}
           defaultPageSize={pageSize}
-          style={{ height }}
-          minRows={0}
-          // getTheadThProps={(state, rowInfo, column, instance)=>{
-          //   console.log(instance)
-          //   return {
-          //     style: { cursor: !!onClick && 'pointer', textAlign: isNaN(rowInfo?.original[column.id]) ? 'left' : 'right' }
-          //   }
-          // }}
+          style={{ height }} 
+          minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
             return {
               onClick: (e, handleOriginal) => {
@@ -147,6 +141,7 @@ class StockMovementTable extends React.Component {
           }}
           {...this.props}
         />
+        </div>
       </React.Fragment>
     )
   }

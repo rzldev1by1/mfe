@@ -1,28 +1,20 @@
-.status-available{
-  color: #FFF !important;
+.status-available {
+  color: #fff !important;
   background-color: #d1cccc;
   border-radius: 5px;
   /* border: solid 1.5px #959292; */
   font-size: 12px;
   padding: 6px;
 }
-.status-Unavailable{
-  color: #FFF !important;
+.status-Unavailable {
+  color: #fff !important;
   background-color: #c82525;
   border-radius: 5px;
   /* border: solid 1.5px #959292; */
   font-size: 12px;
   padding: 6px;
 }
-.status-complete{
-  color: #555050 !important;
-  background-color: transparent;
-  border-radius: 5px;
-  border: solid 1px #555050 ;
-  font-size: 12px;
-  padding: 6px;
-}
-.status-partRelease{
+.status-complete {
   color: #555050 !important;
   background-color: transparent;
   border-radius: 5px;
@@ -30,11 +22,19 @@
   font-size: 12px;
   padding: 6px;
 }
-.status-Release{
+.status-partRelease {
+  color: #555050 !important;
+  background-color: transparent;
+  border-radius: 5px;
+  border: solid 1px #555050;
+  font-size: 12px;
+  padding: 6px;
+}
+.status-Release {
   color: #555050 (209, 204, 204) !important;
   background: transparent;
   border-radius: 5px;
-  border: solid 1px #555050  ;
+  border: solid 1px #555050;
   font-size: 12px;
   padding: 6px;
 }
@@ -68,7 +68,10 @@
   margin-left: 26px;
   border: none;
 }
-
+.purchase-order .rt-th,
+.purchase-order-details .rt-th {
+  line-height: 40px !important;
+}
 .purchase-order-create textarea {
   min-height: 35px !important;
 }
