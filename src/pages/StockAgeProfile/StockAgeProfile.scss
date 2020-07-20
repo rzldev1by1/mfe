@@ -26,6 +26,11 @@
   .iconU-search {
     color: #b4b9bb !important;
   }
+
+  .c-app:not(.c-legacy-theme):not(.c-dark-theme) .stock-age-profile > .card {
+    box-shadow: none !important;
+  }
+
   /* SEACRH */
   .card {
     .card-body {
@@ -87,6 +92,31 @@
                 letter-spacing: 1px !important;
               }
             }
+            @media (min-width: 571px) and (max-width: 1000px) {
+              padding-top: 1rem !important;
+              div:nth-child(4) {
+                padding-top: 1rem !important;
+              }
+            }
+            @media (max-width: 570px) {
+              padding-top: 1rem !important;
+              .col-lg-2:nth-child(2) {
+                padding: 1rem 0rem !important;
+              }
+              div:nth-child(4) {
+                padding-top: 0px !important;
+                padding-left: 0px !important;
+                .btn {
+                  width: 100%;
+                }
+              }
+            }
+          }
+          @media (min-width: 571px) and (max-width: 1000px) {
+            padding-left: 0px !important;
+          }
+          @media (max-width: 570px) {
+            padding-left: 0px !important;
           }
         }
       }
@@ -185,97 +215,9 @@
   }
 }
 
-/* SEACRH */
-
-.c-app:not(.c-legacy-theme):not(.c-dark-theme) .stock-age-profile > .card {
-  box-shadow: none !important;
-}
-/* ---------------------------------------------- */
-
-/* scrollbar */
-.stock-age-profile > .ReactTable > .rt-table > .rt-tbody::-webkit-scrollbar {
-  width: 8px !important;
-}
-
-.stock-age-profile
-  > .ReactTable
-  > .rt-table
-  > .rt-tbody::-webkit-scrollbar-thumb {
-  background-color: #b4b9bb;
-  border-radius: 15px !important;
-}
-
-.stock-age-profile > .ReactTable > .rt-table::-webkit-scrollbar {
-  height: 8px !important;
-}
-
-.stock-age-profile > .ReactTable > .rt-table::-webkit-scrollbar-thumb {
-  background-color: #b4b9bb;
-  border-radius: 15px !important;
-}
-/* ---------------------------------------- */
 .btn-block,
 .css-g1d714-ValueContainer,
 .css-1pahdxg-control {
   max-height: 50px !important;
   height: 50px !important;
-}
-
-/* Chrome, Safari, Edge, Opera */
-.stock-age-profile > input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-.stock-age-profile > input[type="number"] {
-  -moz-appearance: textfield;
-}
-
-@media (min-width: 571px) and (max-width: 1000px) {
-  .stock-age-profile {
-    .card {
-      .card-body {
-        .row {
-          .col-lg-9 {
-            padding-left: 0px !important;
-            .row {
-              padding-top: 1rem !important;
-              div:nth-child(4) {
-                padding-top: 1rem !important;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 570px) {
-  .stock-age-profile {
-    .card {
-      .card-body {
-        .row {
-          .col-lg-9 {
-            padding-left: 0px !important;
-            .row {
-              padding-top: 1rem !important;
-              .col-lg-2:nth-child(2) {
-                padding: 1rem 0rem !important;
-              }
-              div:nth-child(4) {
-                padding-top: 0px !important;
-                padding-left: 0px !important;
-                .btn {
-                  width: 100%;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
 }

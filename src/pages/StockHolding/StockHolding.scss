@@ -85,11 +85,36 @@
           .row {
             .col-lg-2:last-child {
               .btn {
-                width: 100px;
+                width: 105px;
                 height: 50px;
                 letter-spacing: 1px !important;
               }
             }
+            @media (min-width: 571px) and (max-width: 1000px) {
+              padding-top: 1rem !important;
+              .col-lg-2:nth-child(6) {
+                padding-top: 1rem !important;
+              }
+            }
+            @media (max-width: 570px) {
+              padding-top: 1rem !important;
+              .col-lg-2:nth-child(2) {
+                padding: 1rem 0rem !important;
+              }
+              .col-lg-2:nth-child(6) {
+                padding-top: 1rem !important;
+                .btn {
+                  width: 100%;
+                }
+              }
+            }
+          }
+          @media (min-width: 571px) and (max-width: 1000px) {
+            padding-left: 0px !important;
+          }
+
+          @media (max-width: 570px) {
+            padding-left: 0px !important;
           }
         }
       }
@@ -137,72 +162,20 @@
           }
         }
       }
-    }
-  }
-}
-
-/* scrollbar */
-.stockHolding > .ReactTable > .rt-table > .rt-tbody::-webkit-scrollbar {
-  width: 8px !important;
-}
-
-.stockHolding > .ReactTable > .rt-table > .rt-tbody::-webkit-scrollbar-thumb {
-  background-color: #b4b9bb;
-  border-radius: 15px !important;
-}
-
-.stockHolding > .ReactTable > .rt-table::-webkit-scrollbar {
-  height: 8px !important;
-}
-
-.stockHolding > .ReactTable > .rt-table::-webkit-scrollbar-thumb {
-  background-color: #b4b9bb;
-  border-radius: 15px !important;
-}
-/* ---------------------------------------- */
-
-@media (min-width: 571px) and (max-width: 1000px) {
-  .stockHolding {
-    .card {
-      .card-body {
-        .row {
-          .col-lg-9 {
-            padding-left: 0px !important;
-            .row {
-              padding-top: 1rem !important;
-              .col-lg-2:nth-child(6) {
-                padding-top: 1rem !important;
-              }
-            }
-          }
-        }
+      .rt-tbody::-webkit-scrollbar {
+        width: 8px !important;
+      }
+      .rt-tbody::-webkit-scrollbar-thumb {
+        background-color: #b4b9bb;
+        border-radius: 15px !important;
       }
     }
-  }
-}
-
-@media (max-width: 570px) {
-  .stockHolding {
-    .card {
-      .card-body {
-        .row {
-          .col-lg-9 {
-            padding-left: 0px !important;
-            .row {
-              padding-top: 1rem !important;
-              .col-lg-2:nth-child(2) {
-                padding: 1rem 0rem !important;
-              }
-              .col-lg-2:nth-child(6) {
-                padding-top: 1rem !important;
-                .btn {
-                  width: 100%;
-                }
-              }
-            }
-          }
-        }
-      }
+    .rt-table::-webkit-scrollbar {
+      height: 8px !important;
+    }
+    .rt-table::-webkit-scrollbar-thumb {
+      background-color: #b4b9bb;
+      border-radius: 15px !important;
     }
   }
 }

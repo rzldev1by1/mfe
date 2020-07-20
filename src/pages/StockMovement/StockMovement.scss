@@ -29,17 +29,27 @@
                   border: none !important;
                 }
               }
-            }
-            .dateFrom-col {
-              ul {
-                input {
-                }
+              @media (min-width: 576px) and (max-width: 991px) {
+                padding-right: 0px !important;
+              }
+              @media (max-width: 575px) {
+                padding-right: 0px !important;
               }
             }
-            .dateTo-col {
-              ul {
-                input {
-                }
+            @media (min-width: 576px) and (max-width: 991px) {
+              .dateFromLabel-col,
+              .dateToLabel-col {
+                flex: 0 0 100% !important;
+                max-width: 100% !important;
+                padding: 0.8rem 0rem !important;
+              }
+            }
+            @media (max-width: 575px) {
+              .dateFromLabel-col,
+              .dateToLabel-col {
+                flex: 0 0 100% !important;
+                max-width: 100% !important;
+                padding: 0.8rem 0rem !important;
               }
             }
           }
@@ -50,24 +60,79 @@
               .css-2b097c-container {
                 border: none !important;
               }
+              @media (min-width: 992px) and (max-width: 1787px) {
+                padding-left: 0px !important;
+              }
+              @media (min-width: 576px) and (max-width: 991px) {
+                padding-left: 0px !important;
+              }
+              @media (max-width: 575px) {
+                padding: 0px !important;
+              }
             }
             .client-col {
               .css-2b097c-container {
                 border: none !important;
+              }
+              @media (max-width: 575px) {
+                padding: 1rem 0rem !important;
               }
             }
             .product-col {
               .css-2b097c-container {
                 border: none !important;
               }
+              @media (min-width: 576px) and (max-width: 991px) {
+                flex: 0 0 33% !important;
+                padding-right: 0px !important;
+              }
+
+              @media (max-width: 575px) {
+                flex: 0 0 100% !important;
+                padding-right: 0px !important;
+              }
             }
             .searchButton-col {
               .btn {
-                width: 100px;
+                width: 105px;
                 height: 50px;
                 letter-spacing: 1px !important;
+
+                @media (max-width: 575px) {
+                  width: 100% !important;
+                }
+              }
+              @media (min-width: 576px) and (max-width: 991px) {
+                padding-left: 0px !important;
+                padding-top: 1rem !important;
+                flex: 0 0 100% !important;
+                max-width: 100% !important;
+              }
+              @media (max-width: 575px) {
+                padding-left: 0px !important;
+                padding-top: 1rem !important;
+                flex: 0 0 100% !important;
+                max-width: 100% !important;
               }
             }
+          }
+          @media (max-width: 1400px) {
+            padding-top: 1rem !important;
+          }
+          @media (min-width: 992px) and (max-width: 1787px) {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
+            padding-top: 1rem !important;
+          }
+          @media (min-width: 576px) and (max-width: 991px) {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
+            padding-top: 1rem !important;
+          }
+          @media (max-width: 575px) {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
+            padding-top: 1rem !important;
           }
         }
         div {
@@ -78,13 +143,6 @@
             }
             max-height: 50px !important;
             height: 50px !important;
-            input {
-              :focus {
-                // height: 7.2vh !important;
-                // outline: none !important;
-                // border-left: olive;
-              }
-            }
           }
           .l-r-0 {
             .px-0 {
@@ -112,12 +170,28 @@
                   .css-g1d714-ValueContainer {
                     padding-left: 0.8rem !important;
                   }
-                  :focus {
-                  }
                 }
               }
             }
           }
+        }
+      }
+      @media (max-width: 1400px) {
+        flex-direction: column !important;
+      }
+      @media (min-width: 992px) and (max-width: 1787px) {
+        .main-con {
+          flex-direction: column !important;
+        }
+      }
+      @media (min-width: 576px) and (max-width: 991px) {
+        .main-con {
+          flex-direction: column !important;
+        }
+      }
+      @media (max-width: 575px) {
+        .main-con {
+          flex-direction: column !important;
         }
       }
     }
@@ -130,151 +204,6 @@
         .rt-tr {
           .rt-th {
             text-align: center !important;
-          }
-        }
-      }
-    }
-  }
-}
-
-/* scrollbar */
-.stockMovement > .ReactTable > .rt-table > .rt-tbody::-webkit-scrollbar {
-  width: 8px !important;
-}
-
-.stockMovement > .ReactTable > .rt-table > .rt-tbody::-webkit-scrollbar-thumb {
-  background-color: #b4b9bb;
-  border-radius: 15px !important;
-}
-
-.stockMovement > .ReactTable > .rt-table::-webkit-scrollbar {
-  height: 8px !important;
-}
-
-.stockMovement > .ReactTable > .rt-table::-webkit-scrollbar-thumb {
-  background-color: #b4b9bb;
-  border-radius: 15px !important;
-}
-/* ---------------------------------------- */
-
-@media (max-width: 1400px) {
-  .stockMovement {
-    .card {
-      .card-body {
-        flex-direction: column !important;
-        .sm-second-col {
-          padding-top: 1rem !important;
-        }
-      }
-    }
-  }
-}
-
-@media (min-width: 992px) and (max-width: 1787px) {
-  .stockMovement {
-    .card {
-      .card-body {
-        .main-con {
-          flex-direction: column !important;
-          // display: block !important;
-          .sm-second-col {
-            flex: 0 0 100% !important;
-            max-width: 100% !important;
-            padding-top: 1rem !important;
-            .site-col {
-              padding-left: 0px !important;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-@media (min-width: 576px) and (max-width: 991px) {
-  .stockMovement {
-    .card {
-      .card-body {
-        .main-con {
-          flex-direction: column !important;
-          // display: block !important;
-          .SM-col {
-            .row {
-              .displayPeriod-col {
-                padding-right: 0px !important;
-              }
-              .dateFromLabel-col,
-              .dateToLabel-col {
-                flex: 0 0 100% !important;
-                max-width: 100% !important;
-                padding: 0.8rem 0rem !important;
-              }
-            }
-          }
-          .sm-second-col {
-            flex: 0 0 100% !important;
-            max-width: 100% !important;
-            padding-top: 1rem !important;
-            .site-col {
-              padding-left: 0px !important;
-            }
-            .product-col {
-              flex: 0 0 33% !important;
-              padding-right: 0px !important;
-            }
-            .searchButton-col {
-              padding-left: 0px !important;
-              padding-top: 1rem !important;
-              flex: 0 0 100% !important;
-              max-width: 100% !important;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 575px) {
-  .stockMovement {
-    .card {
-      .card-body {
-        .main-con {
-          flex-direction: column !important;
-          // display: block !important;
-          .SM-col {
-            .row {
-              .displayPeriod-col {
-                padding-right: 0px !important;
-              }
-              .dateFromLabel-col,
-              .dateToLabel-col {
-                flex: 0 0 100% !important;
-                max-width: 100% !important;
-                padding: 0.8rem 0rem !important;
-              }
-            }
-          }
-          .sm-second-col {
-            flex: 0 0 100% !important;
-            max-width: 100% !important;
-            padding-top: 1rem !important;
-            .site-col {
-              padding: 0px !important;
-            }
-            .client-col {
-              padding: 1rem 0rem !important;
-            }
-            .product-col {
-              flex: 0 0 100% !important;
-              padding-right: 0px !important;
-            }
-            .searchButton-col {
-              padding-left: 0px !important;
-              padding-top: 1rem !important;
-              flex: 0 0 100% !important;
-              max-width: 100% !important;
-            }
           }
         }
       }
