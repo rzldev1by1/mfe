@@ -103,7 +103,7 @@
 
   .webgroup-review-active {
     background-color: #ffffff;
-    font-size: 20px !important;
+    
     color: #bbbcbd !important;
     margin: 4px;
     padding: 6px;
@@ -113,7 +113,7 @@
 
   .webgroup-review-notactive {
     background-color: transparent;    
-    font-size: 20px !important;
+    
     color: #bbbcbd !important;
     margin: 4px;
     padding: 6px;
@@ -178,7 +178,7 @@
   }
 
 /** Modal create **/
-.um-create .tab-content {
+.tab-content {
   padding: 0;
   margin: 0;
   background-color: #fff;
@@ -186,7 +186,7 @@
   /* overflow: hidden; */
 }
 
-.um-create .nav-link {
+.nav-link {
   background-color: #eee;
   color: #959da0 !important;
   border: none !important;
@@ -196,16 +196,28 @@
   cursor: pointer;
   font-family: Rubik !important;
 }
-.um-create .nav-link.active {
+.nav-link.active {
   background-color: #fff !important;
   color: #376bfb !important;
 }
-
-.um-create .nav-tabs {
+.nav-tabs {
   margin-left: 26px;
   border: none;
   font-family: Rubik !important;
 }
 
 
+
 /** End modal create **/
+
+.um-create .form-control{
+  font-size: 1.25rem;
+}
+
+.text-title{
+  color: #D5D8DA;
+}
+
+.um-review label.form-control{
+  height: 50px !important;
+}

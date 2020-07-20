@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactTable from 'react-table-v6'
+import CustomPagination from 'shared/table/CustomPagination'
+import { IoIosArrowDown } from 'react-icons/io'
 class UMCustomTable extends React.Component {
     constructor(props) {
       super(props);
@@ -94,7 +96,9 @@ class UMCustomTable extends React.Component {
             columns={headerIcon}
             data={data}
             showPagination={false}
+            noDataText={"Please Wait..."}
             style={{ height }}
+            minRows='0'
             getTdProps={(state, rowInfo, column, instance) => {
               return {
                 onClick: (e, handleOriginal) => {
@@ -108,7 +112,10 @@ class UMCustomTable extends React.Component {
             }}
             {...this.props}
           />
-          
+          <CustomPagination data={data}
+                    pagination={pagination}
+                    goto={this.props.goto}
+                    export={this.props.export} />
          
         </React.Fragment>
       )

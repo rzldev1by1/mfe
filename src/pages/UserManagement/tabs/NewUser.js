@@ -52,33 +52,35 @@ class NewUser extends React.PureComponent {
                 </Row>
 
                 <Row>
-                    <Col lg="4">
-                        <label className="text-muted">User ID</label>
+                    <Col sm="4">
+                        <label className="text-title font-xl">User ID</label>                        
                     </Col>
-                    <Col lg="4">
-                        <label className="text-muted">Name</label>
+                    <Col sm="4">
+                        <label className="text-title font-xl">Email</label>
                     </Col>
-                    <Col lg="4">
-                        <label className="text-muted">Email</label>
+                    <Col sm="4">
+                        <label className="text-title font-xl">Name</label>
                     </Col>
 
                 </Row>
 
                 <Row>
-                    <Col lg="4">
+                    <Col sm="4">
                         <input type="text" name="userid" readOnly className="form-control" value={user.userId} />
+                        <div>
+                            <span className="text-title">Auto Generated</span>
+                        </div>
                     </Col>
-                    <Col lg="4">
-                        <input type="text" name="userName" placeholder="Enter a surename" maxLength="60" className={`form-control`} onChange={(e) => { this.props.onChangeName(e); }} value={user.name || ''} />
-                        {/* <FormFeedback className="invalid-error-padding">
-                      name value must be entered
-                                   </FormFeedback> */}
-                    </Col>
-
-                    <Col lg="4">
+                    <Col sm="4">
                         <input type="email" name="email" placeholder="Enter an email address" className={`form-control`} onChange={(e) => { this.props.onChangeEmail(e); }} value={user.email || ''} />
                         {/* <FormFeedback className="invalid-error-padding">
                       wrong format email
+                                   </FormFeedback> */}
+                    </Col>
+                    <Col sm="4">
+                        <input type="text" name="userName" placeholder="Enter a username" maxLength="60" className={`form-control`} onChange={(e) => { this.props.onChangeName(e); }} value={user.name || ''} />
+                        {/* <FormFeedback className="invalid-error-padding">
+                      name value must be entered
                                    </FormFeedback> */}
                     </Col>
                 </Row>

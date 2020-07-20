@@ -11,7 +11,7 @@ return (
   <div>
         <div className="flex-column mr-2">
           <div className="row">
-              <label className="col-6 text-muted" htmlFor="moduleAccess">Module Access
+              <label className="col-6 text-muted font-lg" htmlFor="moduleAccess">Module Access
               </label>
           </div>
         </div>
@@ -21,10 +21,10 @@ return (
 
               return (<div className="flex-column mb-3 mr-2" key={index}>
                             <div className="row" style={{height:"40px"}} key={index}>
-                                <label className="col-6 text-muted py-2 " key={item.menuid}>{(item.menuname.toLowerCase() === 'create sales order')?'Sales Orders':item.menuname}</label>
+                                <label className="col-6 text-muted py-2 font-lg " key={item.menuid}>{(item.menuname.toLowerCase() === 'create sales order')?'Sales Orders':item.menuname}</label>
 
                                 <div className="col-6">
-                                  <button type="button" className={"px-1 "+((item.status)?"enable-active":"enable-notactive")}>{`${item.status?enable.toUpperCase():disable.toUpperCase()}`}</button>
+                                  <button type="button" className={"px-1 font-lg "+((item.status)?"enable-active":"enable-notactive")}>{`${item.status?enable.toUpperCase():disable.toUpperCase()}`}</button>
                                 </div>
                             </div>
                       </div>)
