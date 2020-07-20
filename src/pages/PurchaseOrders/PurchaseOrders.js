@@ -63,7 +63,7 @@ class PurchaseOrders extends React.PureComponent {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - 116) * 0.87
+    const height = (window.innerHeight - 270)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {
@@ -174,16 +174,16 @@ class PurchaseOrders extends React.PureComponent {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData, taskData,
     } = this.state
-    return <div className="table-summary">
+    return <div className="purchase-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Purchase Orders', active: true }]}
-        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right px-3">CREATE PURCHASE ORDER</CButton>}
+        button={<CButton onClick={this.toggle} className="btn btn-primary btn-create float-right">CREATE PURCHASE ORDER</CButton>}
       />
 
-      <CCard>
-        <CCardBody className="px-4 py-2">
+      <CCard className="mb-3">
+        <CCardBody className="p-3">
           <CRow className="row">
-            <CCol lg={3} className="px-1">
+            <CCol lg={3} className="pr-1">
               <div className="input-group">
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
@@ -193,37 +193,37 @@ class PurchaseOrders extends React.PureComponent {
             </CCol>
             <CCol lg={9}>
               <CRow>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                   <Select name="site" placeholder="Site"
                     value={site} options={siteData}
                     onChange={(val) => this.setState({ site: val }, () => this.getTask())}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                   <Select name="client" placeholder="Client"
                     value={client} options={clientData}
                     onChange={(val) => this.setState({ client: val }, () => this.getTask())}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                   <Select name="status" placeholder="Status"
                     value={status} options={statusData}
                     onChange={(val) => this.setState({ status: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                   <Select name="orderType" placeholder="Order Type"
                     value={orderType} options={orderTypeData}
                     onChange={(val) => this.setState({ orderType: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="px-2">
                   <Select name="task" placeholder="Task"
                     value={task} options={taskData}
                     onChange={(val) => this.setState({ task: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol sm={4} lg={2} className="pl-1">
                   <button className="btn btn-block btn-primary float-right" onClick={this.searchPurchaseOrder}>SEARCH</button>
                 </CCol>
               </CRow>
