@@ -1,9 +1,8 @@
 import React from 'react'
 import axios from 'axios'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import moment from 'moment'
-import {CCard,CCardBody,CRow,CCol,CButton,} from '@coreui/react'
-import { IoIosArrowDown } from 'react-icons/io'
+import { CCard, CCardBody, CRow, CCol, CButton, } from '@coreui/react'
 import CustomTable from 'shared/table/CustomTable'
 import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader'
@@ -16,28 +15,28 @@ const columns = [
   { accessor: "packdesc_1", Header: "UOM", width: 80 },
   { accessor: "qty_processed", Header: "Qty Processed", width: 130 },
   { accessor: "weight", Header: "Weight" },
-  { accessor: "weight_processed", Header: "Weight Processed", width: 140  },
+  { accessor: "weight_processed", Header: "Weight Processed", width: 140 },
   {
     accessor: "completed", Header: "Completed",
     Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
   { accessor: "batch", Header: "Batch", width: 90 },
   { accessor: "rotadate", Header: "Rota Date" },
-  { accessor: "ref3", Header: "Ref3", width: 80  },
-  { accessor: "ref4", Header: "Ref4", width: 80  },
+  { accessor: "ref3", Header: "Ref3", width: 80 },
+  { accessor: "ref4", Header: "Ref4", width: 80 },
   { accessor: "disposition", Header: "Disposition" },
 ]
 class PurchaseOrdersDetail extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     // ref to get element height and calculate table height
-  this.section1 = React.createRef()
-  this.state = {
-    dimension: { width: 0, height: 0 },
-    fields: columns,
-    detail: {},
-    products: [],
-  }
+    this.section1 = React.createRef()
+    this.state = {
+      dimension: { width: 0, height: 0 },
+      fields: columns,
+      detail: {},
+      products: [],
+    }
   }
   componentDidMount() {
     this.updateDimension();
@@ -53,7 +52,7 @@ class PurchaseOrdersDetail extends React.Component {
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getDetail = async () => {
-    const { orderdetail, client} = this.props.match.params
+    const { orderdetail, client } = this.props.match.params
     const url = `/purchaseOrder?searchParam=${client}&orderdetail=${orderdetail}`
     const { data } = await axios.get(url)
     if (!!data.data) {
@@ -61,9 +60,8 @@ class PurchaseOrdersDetail extends React.Component {
     }
   }
   getProducts = async () => {
-    const { orderdetail, client} = this.props.match.params
+    const { orderdetail, client } = this.props.match.params
     const url = `/purchaseOrder/${client}/${orderdetail}`
-    console.log(this.props.match.params)
     const { data } = await axios.get(url)
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     if (data.data.length) {
@@ -76,13 +74,13 @@ class PurchaseOrdersDetail extends React.Component {
 
   siteCheck = (siteVal) => {
     return this.props.site.map(data => {
-      if(data.value === siteVal) return data.label
+      if (data.value === siteVal) return data.label
     })
   }
 
   clientCheck = (clientVal) => {
     return this.props.client.map(data => {
-      if(data.value === clientVal) return data.label
+      if (data.value === clientVal) return data.label
     })
   }
 
@@ -97,7 +95,7 @@ class PurchaseOrdersDetail extends React.Component {
       <div ref={this.section1} className="card-group section-1 mb-4 pod" >
         <CCard>
           <CCardBody className="p-0 m-4">
-            <CRow><CCol className="text-light-gray">Site</CCol> <CCol>{ this.siteCheck(detail.site)  || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Site</CCol> <CCol>{this.siteCheck(detail.site) || '-'}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Client</CCol> <CCol>{this.clientCheck(detail.client) || '-'}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Order No</CCol> <CCol>{detail.order_no || '-'}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Order Type</CCol> <CCol>{detail.order_type || '-'}</CCol></CRow>
@@ -130,18 +128,18 @@ class PurchaseOrdersDetail extends React.Component {
       />
       <CustomPagination
         data={products}
-        // pagination={pagination}
-        // goto={(active) => {
-        //   this.setState({ pagination: { ...pagination, active } }, () => this.getProducts())
-        // }}
+      // pagination={pagination}
+      // goto={(active) => {
+      //   this.setState({ pagination: { ...pagination, active } }, () => this.getProducts())
+      // }}
       />
     </div>
   }
 }
 
 const mapStateToProps = state => {
-  return{
-    site : state.site,
+  return {
+    site: state.site,
     client: state.client
   }
 }

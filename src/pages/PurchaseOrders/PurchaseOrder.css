@@ -69,6 +69,10 @@
   border: none;
 }
 
+.purchase-order .rt-th,
+.purchase-order-details .rt-th {
+  line-height: 40px !important;
+}
 .purchase-order-create textarea {
   min-height: 35px !important;
 }

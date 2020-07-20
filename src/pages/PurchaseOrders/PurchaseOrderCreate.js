@@ -30,7 +30,7 @@ class SalesOrderCreate extends React.PureComponent {
   }
   onHide = () => {
     this.props.toggle()
-    this.setState({ key: 'detail', data: { header: {}, lineDetail: [], orderDetails:[{}] } })
+    this.setState({ key: 'detail', data: { header: {}, lineDetail: [], orderDetails: [{}] } })
   }
   render() {
     const { data, key } = this.state
