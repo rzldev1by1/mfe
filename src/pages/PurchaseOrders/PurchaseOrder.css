@@ -1,20 +1,28 @@
-.status-available {
-  color: #fff !important;
+.status-available{
+  color: #FFF !important;
   background-color: #d1cccc;
   border-radius: 5px;
   /* border: solid 1.5px #959292; */
   font-size: 12px;
   padding: 6px;
 }
-.status-Unavailable {
-  color: #fff !important;
+.status-Unavailable{
+  color: #FFF !important;
   background-color: #c82525;
   border-radius: 5px;
   /* border: solid 1.5px #959292; */
   font-size: 12px;
   padding: 6px;
 }
-.status-complete {
+.status-complete{
+  color: #555050 !important;
+  background-color: transparent;
+  border-radius: 5px;
+  border: solid 1px #555050 ;
+  font-size: 12px;
+  padding: 6px;
+}
+.status-partRelease{
   color: #555050 !important;
   background-color: transparent;
   border-radius: 5px;
@@ -22,19 +30,11 @@
   font-size: 12px;
   padding: 6px;
 }
-.status-partRelease {
-  color: #555050 !important;
-  background-color: transparent;
-  border-radius: 5px;
-  border: solid 1px #555050;
-  font-size: 12px;
-  padding: 6px;
-}
-.status-Release {
+.status-Release{
   color: #555050 (209, 204, 204) !important;
   background: transparent;
   border-radius: 5px;
-  border: solid 1px #555050;
+  border: solid 1px #555050  ;
   font-size: 12px;
   padding: 6px;
 }
@@ -68,6 +68,7 @@
   margin-left: 26px;
   border: none;
 }
+
 .purchase-order .rt-th,
 .purchase-order-details .rt-th {
   line-height: 40px !important;
@@ -113,4 +114,19 @@
 }
 .orderline .right {
   right: 22% !important;
+}
+
+.po-lh-1{
+  line-height: 1rem;
+}
+
+.pod .card {
+  box-shadow: transparent;
+}
+
+.pod .card .card-body .row{
+  padding-bottom: 0.5rem !important;
+}
+.pod .card .card-body .row:last-child{
+  padding-bottom: 0px !important;
 }
