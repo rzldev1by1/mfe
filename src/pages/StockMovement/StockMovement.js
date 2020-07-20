@@ -16,7 +16,7 @@ import { IoIosArrowDown } from 'react-icons/io'
  
 import StockMovementTable from './StockMovementTable/StockMovementTable'
 // import CustomPagination from './StockMovementPagination/StockMovementPagination'
-import CustomPagination from 'shared/table/CustomPagination2'
+import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader' 
 import endpoints from 'helpers/endpoints'
 import './StockMovement.scss' 

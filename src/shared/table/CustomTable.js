@@ -7,7 +7,7 @@ import { MdClose } from 'react-icons/md'
 import { FaRegEdit, FaPencilAlt } from 'react-icons/fa'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 
-import CustomPagination from 'shared/table/CustomPagination2'
+import CustomPagination from 'shared/table/CustomPagination'
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
 

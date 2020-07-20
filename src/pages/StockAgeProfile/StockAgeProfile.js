@@ -3,7 +3,7 @@ import { CButton, CCard, CCardBody, CRow, CCol } from "@coreui/react";
 import "./StockAgeProfile.scss";
 import endpoints from 'helpers/endpoints'
 import StockAgeProfileTable from "./Table/StockAgeProfileTable";
-import CustomPagination from "shared/table/CustomPagination2";
+import CustomPagination from "shared/table/CustomPagination";
 import axios from "axios";
 import HeaderTitle from "shared/container/TheHeader";
 import Select from "react-select";
