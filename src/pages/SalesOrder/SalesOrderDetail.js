@@ -12,7 +12,7 @@ import { IoIosArrowDown } from 'react-icons/io'
 import CustomTable from 'shared/table/CustomTable'
 import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader'
-import './SalesOrder.css'
+import './SalesOrder.scss'
 
 const columns = [
   { accessor: "line", Header: "Line No" },

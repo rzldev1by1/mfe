@@ -16,12 +16,12 @@ input:focus {
 button:focus {
   box-shadow: none !important;
 }
-.btn {
-  height: 40px;
-}
 .no-border {
-  box-shadow: none !important;
   border: none !important;
+}
+.no-shadow,
+.card {
+  box-shadow: none !important;
 }
 .scroll-x {
   overflow-x: auto;
@@ -46,6 +46,9 @@ button:focus {
 .scroll-x-y::-webkit-scrollbar-thumb {
   background-color: #b4b9bb;
   border-radius: 5px;
+}
+.margin-auto {
+  margin: auto;
 }
 .pointer {
   cursor: pointer;
@@ -103,16 +106,34 @@ button:focus {
   margin-left: 26px;
   border: none;
 }
+// .input-group,
+// .input-group input,
 .input-group,
-.input-group input,
 input.form-control,
-.btn-search {
+.input-group-text {
   height: 50px !important;
   border-color: #e4e7ea !important;
 }
-.btn-search {
+.btn {
+  height: 50px !important;
   padding-left: 20px;
   padding-right: 20px;
+  color: #fff;
+}
+::placeholder {
+  color: #b4b9bb !important;
+}
+
+.sales-order,
+.sales-order-detail,
+.um-summary,
+.um-detail,
+.sales-order-detail,
+.stock-holding,
+.stock-holding-detail {
+  .rt-th {
+    line-height: 40px !important;
+  }
 }
 
 // Core-UI component style
@@ -165,8 +186,10 @@ header {
 .css-1pahdxg-control,
 .css-yk16xz-control {
   height: 50px !important;
-  border: 1px solid !important;
-  border: 1px solid #e4e7ea !important;
+  border-color: #e4e7ea !important;
+}
+.css-1wa3eu0-placeholder {
+  color: #b4b9bb !important;
 }
 .css-1okebmr-indicatorSeparator {
   display: none;
@@ -186,8 +209,3 @@ header {
   color: #000;
 }
 /* dropdown style end */
-
-//disable shadow in card
-.card {
-  box-shadow: none !important;
-}

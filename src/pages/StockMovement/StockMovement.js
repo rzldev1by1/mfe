@@ -1,19 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import axios from 'axios' 
-import moment from 'moment'; 
-
-import {
-  CButton,
-  CCard,
-  CCardBody,
-  CRow,
-  CCol,
-} from '@coreui/react'
+import axios from 'axios'
+import moment from 'moment';
+import { CButton, CCard, CCardBody, CRow, CCol, } from '@coreui/react'
 import Select from 'react-select'
-import { FaPencilAlt } from 'react-icons/fa'
 import { IoIosArrowDown } from 'react-icons/io'
- 
+
 import StockMovementTable from './StockMovementTable/StockMovementTable'
 // import CustomPagination from './StockMovementPagination/StockMovementPagination'
 import CustomPagination from 'shared/table/CustomPagination'
@@ -21,7 +13,7 @@ import HeaderTitle from 'shared/container/TheHeader'
 import endpoints from 'helpers/endpoints'
 import './StockMovement.scss' 
 import DatePicker from 'shared/DatePicker'
-import AutoComplete from 'shared/AutoComplete'
+import './StockMovement.css'
 
 const columns = [
   { accessor: 'site', Header: 'Site', sortable: true },
@@ -53,9 +45,9 @@ class StockMovement extends React.PureComponent {
     filterType: 'week',
     productData: [],
     filterData: [
-      {'value':'day','label':'Daily'},
-      {'value':'week','label':'Weekly'},
-      {'value':'month','label':'Monthly'}
+      { 'value': 'day', 'label': 'Daily' },
+      { 'value': 'week', 'label': 'Weekly' },
+      { 'value': 'month', 'label': 'Monthly' }
     ],
     complete: false,
     periodSelected: 1,
@@ -78,12 +70,12 @@ class StockMovement extends React.PureComponent {
     this.getSite()
     this.getClient()
     this.getStatus()
-    this.getResources() 
+    this.getResources()
     //this.searchStockMovement() 
-    this.load_data('','','week') 
+    this.load_data('', '', 'week')
     this.getStockDate();
-  } 
-  
+  }
+
   getStockDate = () => {
     axios.get(endpoints.stockDateRange)
     .then((res) => {
@@ -105,10 +97,10 @@ class StockMovement extends React.PureComponent {
 
   openDatePicker = (type) => {
     console.log(type)
-    if(type=='from'){
-      this.refs["dateFrom"].openDatePicker() 
-    }else if(type=="to"){
-      this.refs["dateTo"].openDatePicker()  
+    if (type == 'from') {
+      this.refs["dateFrom"].openDatePicker()
+    } else if (type == "to") {
+      this.refs["dateTo"].openDatePicker()
     }
   }
 
@@ -145,7 +137,7 @@ class StockMovement extends React.PureComponent {
     ];
     this.setState({ statusData })
   }
-  
+
   getproduct = () => {
     let self = this; 
     let tmp_data = []
@@ -174,20 +166,20 @@ class StockMovement extends React.PureComponent {
       orderTypeData.splice(0, 0, orderType)
       this.setState({ resources: data, orderTypeData })
     }
-  } 
+  }
 
   searchStockMovement = async () => {
     console.log('Load Stock Movement')
     this.setState({
       periodSelected: 1
     })
-    const { periods, site, client, filterType, product, dateFromSelected, dateToSelected, periodSelected } = this.state  
-    console.log(site.value, client.value, product.value) 
+    const { periods, site, client, filterType, product, dateFromSelected, dateToSelected, periodSelected } = this.state
+    console.log(site.value, client.value, product.value)
     console.log(filterType.value)
-    
-    if(filterType.value){
+
+    if (filterType.value) {
       this.load_data(dateFromSelected, dateToSelected, filterType.value, site.value, client.value, product.value)
-    }else{
+    } else {
       this.setState({
         periodSelected: ''
       })
@@ -197,59 +189,60 @@ class StockMovement extends React.PureComponent {
   setHeader = async (periods) => {
     let header = [
       {
-        Header: '', 
-        headerStyle: {backgroundColor: 'white', textAlign: 'left'},
-        headerClassName: 'borderRight noBorderBottom ', 
-        "fixed": "left", 
+        Header: '',
+        headerStyle: { backgroundColor: 'white', textAlign: 'left' },
+        headerClassName: 'borderRight noBorderBottom ',
+        "fixed": "left",
         columns: [{
           Header: 'Site',
           accessor: 'site',
-          headerStyle: {textAlign: 'left'},
-          style: {textAlign: 'left', paddingLeft: '15px'}, 
-          headerClassName: 'borderBottom noPaddingTop', 
-          sortable: true ,
+          headerStyle: { textAlign: 'left' },
+          style: { textAlign: 'left', paddingLeft: '15px' },
+          headerClassName: 'borderBottom noPaddingTop',
+          sortable: true,
           width: 70
-        },{
+        }, {
           Header: 'Client',
           accessor: 'client',
-          headerStyle: {textAlign: 'left'},
-          style: {textAlign: 'left'},
-          sortable: true, 
+          headerStyle: { textAlign: 'left' },
+          style: { textAlign: 'left' },
+          sortable: true,
           width: 90,
           className: 'wrap-text',
-          headerClassName: 'borderBottom noPaddingTop', 
+          headerClassName: 'borderBottom noPaddingTop',
         },
         {
           Header: 'Product',
           accessor: 'product',
-          headerStyle: {textAlign: 'left'},
-          style: {textAlign: 'left'},
-          sortable: true, 
+          headerStyle: { textAlign: 'left' },
+          style: { textAlign: 'left' },
+          sortable: true,
           width: 130,
           className: 'wrap-all',
-          headerClassName: 'borderBottom noPaddingTop', 
+          headerClassName: 'borderBottom noPaddingTop',
         },
         {
           Header: 'Description',
           accessor: 'product_name',
-          headerStyle: {textAlign: 'left'},
-          style: {textAlign: 'left'},
-          sortable: true, 
+          headerStyle: { textAlign: 'left' },
+          style: { textAlign: 'left' },
+          sortable: true,
           width: 200,
           className: 'word-warp',
-          headerClassName: 'borderBottom noPaddingTop', 
+          headerClassName: 'borderBottom noPaddingTop',
         },
         {
           Header: 'UOM',
           accessor: 'packdesc',
-          headerStyle: {textAlign: 'left'},
-          style: {textAlign: 'left'},
+          headerStyle: { textAlign: 'left' },
+          style: { textAlign: 'left' },
           sortable: true,
           className: 'borderRight',
-          headerClassName: 'borderRight borderBottom noPaddingTop', 
+          headerClassName: 'borderRight borderBottom noPaddingTop',
           width: 100
         },
-      ]}
+        ]
+      }
     ]
      
     this.state.dateArray.map((date, idx) => { 
@@ -305,33 +298,33 @@ class StockMovement extends React.PureComponent {
     }) 
     console.log('----- header -----');
     console.log(header);
-    this.setState({fields: header})
+    this.setState({ fields: header })
   }
 
-  setData = async () => { 
+  setData = async () => {
     let tmp_data = []
-    this.state.data.map((datas, idx) => { 
+    this.state.data.map((datas, idx) => {
       let tmp_row = {
-        'site':datas.site,
-        'client':datas.client,
-        'packdesc':datas.packdesc,
-        'product':datas.product,
-        'product_name':datas.product_name
+        'site': datas.site,
+        'client': datas.client,
+        'packdesc': datas.packdesc,
+        'product': datas.product,
+        'product_name': datas.product_name
       }
 
-      let detail = datas.detail 
-      detail.map((details) => {   
+      let detail = datas.detail
+      detail.map((details) => {
         let dates = details.date
-        tmp_row['sa_plus_'+dates] = details.sa_plus
-        tmp_row['sa_minus_'+dates] = details.sa_minus
-        tmp_row['rec_'+dates] = details.recv_weight
-        tmp_row['send_'+dates] = details.send_weight
-      }) 
+        tmp_row['sa_plus_' + dates] = details.sa_plus
+        tmp_row['sa_minus_' + dates] = details.sa_minus
+        tmp_row['rec_' + dates] = details.recv_weight
+        tmp_row['send_' + dates] = details.send_weight
+      })
       tmp_data.push(tmp_row)
-    }) 
+    })
     console.log('----- Data -----');
     console.log(tmp_data);
-    this.setState({data_table: tmp_data})
+    this.setState({ data_table: tmp_data })
   }
 
   load_data = async (dtStart, dtEnd, periods, site = "", client = "", product = "") => {
@@ -340,7 +333,6 @@ class StockMovement extends React.PureComponent {
       // let dtEnd = '2019-02-28'
       // let periods = 'day'
       let paramUrl = []
-        
       let dateArray = []
       let stDate = dtStart ? dtStart : this.state.startDate
       let enDate = dtEnd ? dtEnd : this.state.endDate
@@ -388,7 +380,7 @@ class StockMovement extends React.PureComponent {
         console.log(error) 
       })
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
  }
 

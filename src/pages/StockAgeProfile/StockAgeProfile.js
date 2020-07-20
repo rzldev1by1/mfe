@@ -205,7 +205,7 @@ class StockAgeProfile extends Component {
                   </div>
                   <input
                     type="text"
-                    className="form-control border-left-0"
+                    className="form-control pl-0 border-left-0"
                     placeholder="Enter a Product or Description"
                     onChange={(e) => this.setState({ search: e.target.value })}
                   />
@@ -252,6 +252,7 @@ class StockAgeProfile extends Component {
           fields={fields}
           overflow="scroll"
           noDataText={"Please Wait..."}
+          minRows='0'
         />
         <CustomPagination
           data={data}

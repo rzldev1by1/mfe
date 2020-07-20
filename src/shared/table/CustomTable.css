@@ -3,42 +3,41 @@
 .-sort-desc {
   box-shadow: none !important;
 }
-.custom-table .rt-table,
+.rt-table,
 .ReactTable {
   border: none !important;
   background-color: white;
   border-radius: 4px;
 }
-.custom-table .rt-tbody .custom-table .rt-tr:hover {
+.rt-tbody .rt-tr:hover {
   background-color: #eee;
 }
-.custom-table .rt-thead {
+.rt-thead {
   padding: 0 !important;
   margin: 0 !important;
   box-shadow: none !important;
   border-bottom: 2px solid #e0e2e4;
   text-align: left;
 }
-.custom-table .rt-th {
+.rt-th {
   text-align: left;
   padding: 0 10px !important;
   border-right: none !important;
-  line-height: 40px !important;
 }
-.custom-table .rt-th svg {
+.rt-th svg {
   margin-top: -3px;
 }
-.custom-table .rt-th:focus {
+.rt-th:focus {
   outline: 0;
 }
-.custom-table .rt-td:first-child {
+.rt-td:first-child {
   padding-left: 10px !important;
 }
-.custom-table .rt-td {
+.rt-td {
   padding: 10px 10px !important;
   border-right: none !important;
 }
-.custom-table .rt-tr-group {
+.rt-tr-group {
   left: 0 !important;
   padding: 0 !important;
 }

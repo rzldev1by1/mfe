@@ -44,10 +44,7 @@ const TheSidebar = () => {
         {navigation.map((n, i) => {
           const active = location.pathname === n.to ? 'text-white' : 'text-purple'
           return <li key={i} className="c-sidebar-item links">
-            <Link to={n.to} className={active}
-              onMouseEnter={() => setHover(n.to)}
-              onMouseLeave={() => setHover(null)}
-            >
+            <Link to={n.to} className={active} onMouseEnter={() => setHover(n.to)} onMouseLeave={() => setHover(null)} >
               <i className={`m-0 c-sidebar-nav-icon ${hover === n.to ? n.icon + '-hover' : n.icon}`}></i>
               <div>{n.name}</div>
             </Link>
@@ -56,7 +53,7 @@ const TheSidebar = () => {
       </CSidebarNav>
       <ul className="sidebar-nav-bottom m-0 p-0">
         <li className="c-sidebar-item">
-          <img src={UserIcon} height="50" alt="logout-icon" />
+        <i className="m-0 c-sidebar-nav-icon nav-profile"></i>
           <div className=" text-left">
             <div className="user-name">{user.name}</div>
             <div className="user-id">ID: {user.userId} </div>

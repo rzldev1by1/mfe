@@ -26,7 +26,7 @@ const TheHeader = (props) => {
   }
 
   return (
-    <CHeader withSubheader className="no-border">
+    <CHeader withSubheader className="no-border no-shadow">
       {/* 
       <CToggler
         inHeader
@@ -38,11 +38,11 @@ const TheHeader = (props) => {
         <CIcon name="cil-sun" className="c-d-default-none" alt="CoreUI Icons Sun" />
       </CToggler> */}
 
-      <CSubheader className="bg-transparent no-border my-1">
+      <CSubheader className="bg-transparent no-border no-shadow my-1">
         <CToggler inHeader className="p-0 d-lg-none" onClick={toggleSidebarMobile} />
         {/* <CToggler inHeader onClick={toggleSidebar} className="p-0 d-md-down-none" /> */}
         {/* <CBreadcrumbRouter className="border-0 c-subheader-nav mr-auto" routes={routes} /> */}
-        <CBreadcrumb className="no-border mr-auto m-0 py-3">
+        <CBreadcrumb className="no-border no-shadow mr-auto m-0 py-3">
           {props.breadcrumb ? props.breadcrumb.map((b, i) => {
             return b.active ? <CBreadcrumbItem key={i} active>{b.label}</CBreadcrumbItem>
               : <CBreadcrumbItem key={i}><Link to={b.to}>{b.label}</Link></CBreadcrumbItem>
