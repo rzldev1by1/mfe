@@ -101,45 +101,45 @@ class UserManagemen extends Component {
         const { loginInfo, data, fields, pagination, dimension, modalShow } = this.state;
 
         return (
-            <div className="um-summary">
+            <div className="um-summary pt-1">
                 <HeaderTitle
                     breadcrumb={[{ to: '', label: 'User Management', active: true }]}
                     button={<CButton onClick={this.toggle} className="btn btn-primary btn-create float-right">CREATE USER</CButton>}
                 />
-                <CCard className="bg-transparent border-white">
-                    <CCardBody >
+                <CCard className="bg-transparent border-white mt-1 mb-3">
+                    <CCardBody className="p-3">
                         <CRow>
-                            <CCol lg="3" md="3" sm="2" className="user-login-info-header">
+                            <CCol sm="2" className="user-login-info-header">
                                 Your Account
                             </CCol>
-                            <CCol lg="3" md="3" sm="2" className="user-login-info-header">
+                            <CCol sm="2" className="user-login-info-header">
                                 User Id
                             </CCol>
-                            <CCol lg="3" md="3" sm="2" className="user-login-info-header">
+                            <CCol sm="2" className="user-login-info-header">
                                 Client
                             </CCol>
-                            <CCol lg="3" md="3" sm="2" className="user-login-info-header">
+                            <CCol sm="2" className="user-login-info-header">
                                 Site
                             </CCol>
                         </CRow>
-                        <CRow>
-                            <CCol lg="3" md="3" sm="2" className="user-login-info-value">
+                        <CRow className="mt-2">
+                            <CCol sm="2" className="user-login-info-value">
                                 {loginInfo.email}
                             </CCol>
-                            <CCol lg="3" md="3" sm="2" className="user-login-info-value">
+                            <CCol sm="2" className="user-login-info-value">
                                 {loginInfo.userId}
                             </CCol>
-                            <CCol lg="3" md="3" sm="2" className="user-login-info-value">
+                            <CCol sm="2" className="user-login-info-value">
                                 {`${loginInfo.client && loginInfo.client !== '' ? loginInfo.client : 'All'}`}
                             </CCol>
-                            <CCol lg="3" md="3" sm="2" className="user-login-info-value">
+                            <CCol sm="2" className="user-login-info-value">
                                 {`${loginInfo.site && loginInfo.site !== '' ? loginInfo.site : 'All'}`}
                             </CCol>
                         </CRow>
                     </CCardBody>
-                    <CCardBody className="px-4 py-2 bg-white">
-                        <CRow className="row">
-                            <CCol xl={11} lg={10} md={10} sm={12} className="p-2">
+                    <CCardBody className="p-3 bg-white">
+                        <CRow>
+                            <CCol xl={11} lg={10} md={10} sm={12}>
                                 <div className="input-group">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
@@ -147,12 +147,8 @@ class UserManagemen extends Component {
                                     <input type="text" className="form-control border-left-0" placeholder="Enter User ID or Username" onChange={e => this.setState({ search: e.target.value })} />
                                 </div>
                             </CCol>
-                            <CCol xl={1} lg={2} md={2} sm={12}>
-                                <CRow>
-                                    <CCol sm={8} lg={12} md={12} className="px-1">
-                                        <button className="btn btn-search btn-primary float-right" onClick={this.searchHandler}>SEARCH</button>
-                                    </CCol>
-                                </CRow>
+                            <CCol xl={1} lg={2} md={2} sm={12} className="pl-0">
+                                <button className="btn btn-search btn-primary float-right w-100" onClick={this.searchHandler}>SEARCH</button>                                
                             </CCol>
                         </CRow>
                     </CCardBody>
