@@ -70,6 +70,10 @@ nav .pagination li:last-child {
 nav .pagination li:last-child .page-link {
   padding-right: 0px !important;
 }
+.row {
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
 
 .container-fluid div div .pagination-custom div .card-group .card nav {
   padding-top: 2px !important;
