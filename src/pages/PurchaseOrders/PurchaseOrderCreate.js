@@ -1,4 +1,5 @@
 import React from 'react'
+import Numeral from "numeral";
 import { Modal } from 'react-bootstrap'
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 // import _ from 'lodash'

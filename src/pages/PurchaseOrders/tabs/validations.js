@@ -3,31 +3,31 @@ export default (values) => {
   let error = {}
   let { site, client, orderId, orderType, orderDate, shipToAddress1, postCode, state, orderLine } = values
   if (!site) {
-    error.site = 'Please select site'
+    error.site = 'Site must be entered'
   }
   if (!orderId) {
-    error.orderId = 'Order No. cannot be empty'
+    error.orderId = 'Order Number must be entered'
   }
   if (!orderType) {
-    error.orderType = 'Please select order type'
+    error.orderType = 'Order Type must be entered'
   }
   if (!client) {
-    error.client = 'Please select client'
+    error.client = 'Client must be entered'
   }
   if (!orderDate) {
-    error.orderDate = 'Order date must have a value'
+    error.orderDate = 'Order Date must be entered'
   }
   if (!shipToAddress1) {
-    error.shipToAddress1 = 'Address 1 cannot be empty'
+    error.shipToAddress1 = 'Address 1 must be entered'
   }
   if (!postCode) {
-    error.postCode = 'Postcode cannot be empty'
+    error.postCode = 'Postcode must be entered'
   }
   if (!!postCode && postCode.length < 4) {
     error.postCode = 'Postcode must have min 4 characters'
   }
   if (!state) {
-    error.state = 'State cannot be empty'
+    error.state = 'State must be entered'
   }
 
   if (orderLine.length) {
@@ -36,13 +36,13 @@ export default (values) => {
       const object = orderLine[i];
       error.orderLine[i] = {}
       if (!object.productVal) {
-        error.orderLine[i].productVal = 'Product cannot be empty'
+        error.orderLine[i].productVal = 'Product must be entered'
       }
       if (!object.qty) {
-        error.orderLine[i].qty = 'Qty cannot be empty'
+        error.orderLine[i].qty = 'Qty must be entered'
       }
       if (!object.uom) {
-        error.orderLine[i].uom = 'UOM cannot be empty'
+        error.orderLine[i].uom = 'UOM must be entered'
       }
       if (Object.keys(error.orderLine[i]).length < 1) {
         error.orderLine.splice(i, 1)
