@@ -1,4 +1,5 @@
 import React from 'react'
+import Numeral from "numeral";
 import { Modal } from 'react-bootstrap'
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 // import _ from 'lodash'
@@ -29,7 +30,7 @@ class SalesOrderCreate extends React.PureComponent {
   }
   onHide = () => {
     this.props.toggle()
-    this.setState({ key: 'detail', data: { header: {}, lineDetail: [], orderDetails:[{}] } })
+    this.setState({ key: 'detail', data: { header: {}, lineDetail: [], orderDetails: [{}] } })
   }
   render() {
     const { data, key } = this.state

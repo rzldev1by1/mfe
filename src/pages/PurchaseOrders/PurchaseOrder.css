@@ -69,6 +69,10 @@
   border: none;
 }
 
+.purchase-order .rt-th,
+.purchase-order-details .rt-th {
+  line-height: 40px !important;
+}
 .purchase-order-create textarea {
   min-height: 35px !important;
 }
@@ -110,4 +114,19 @@
 }
 .orderline .right {
   right: 22% !important;
+}
+
+.po-lh-1{
+  line-height: 1rem;
+}
+
+.pod .card {
+  box-shadow: transparent;
+}
+
+.pod .card .card-body .row{
+  padding-bottom: 0.5rem !important;
+}
+.pod .card .card-body .row:last-child{
+  padding-bottom: 0px !important;
 }

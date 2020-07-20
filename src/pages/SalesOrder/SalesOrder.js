@@ -11,7 +11,7 @@ import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
 import SalesOrderCreate from './SalesOrderCreate'
 // import DummyData from './dummy/data.json'
-import './SalesOrder.css'
+import './SalesOrder.scss'
 
 const columns = [
   { accessor: 'site', Header: 'Site', width: 50 },
@@ -173,13 +173,13 @@ class SalesOrder extends React.PureComponent {
     return <div className="sales-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Sales Orders', active: true }]}
-        button={<CButton onClick={this.toggle} className="c-subheader-nav-link btn btn-primary text-white float-right">Create Sales Order</CButton>}
+        button={<CButton onClick={this.toggle} className="btn btn-primary btn-create float-right">Create Sales Order</CButton>}
       />
 
       <CCard className="mb-3">
         <CCardBody className="p-3">
           <CRow>
-            <CCol lg={3} className="pr-1">
+            <CCol lg={3} className="pr-2">
               <div className="input-group">
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
@@ -189,37 +189,37 @@ class SalesOrder extends React.PureComponent {
             </CCol>
             <CCol lg={9}>
               <CRow>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol lg={2} className="px-2">
                   <Select name="site" placeholder="Site"
                     value={site} options={siteData}
                     onChange={(val) => this.setState({ site: val }, () => this.getTask())}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol lg={2} className="px-2">
                   <Select name="client" placeholder="Client"
                     value={client} options={clientData}
                     onChange={(val) => this.setState({ client: val }, () => this.getTask())}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol lg={2} className="px-2">
                   <Select name="status"
                     value={status} options={statusData}
                     onChange={(val) => this.setState({ status: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol lg={2} className="px-2">
                   <Select name="orderType" placeholder="Order Type"
                     value={orderType} options={orderTypeData}
                     onChange={(val) => this.setState({ orderType: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-1">
+                <CCol lg={2} className="px-2">
                   <Select name="task" placeholder="Task"
                     value={task} options={taskData}
                     onChange={(val) => this.setState({ task: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="pl-1">
+                <CCol lg={2} className="pl-2">
                   <button className="btn btn-search btn-primary float-right" onClick={this.searchSalesOrder}>SEARCH</button>
                 </CCol>
               </CRow>

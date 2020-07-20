@@ -1,7 +1,6 @@
 import React from 'react'
 import { Modal } from 'react-bootstrap'
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
-// import _ from 'lodash'
 import DetailsTab from './tabs/DetailsTab.js'
 import ReviewTab from './tabs/ReviewTab'
 
