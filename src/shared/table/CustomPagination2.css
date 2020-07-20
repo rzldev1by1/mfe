@@ -36,6 +36,43 @@ ul.pagination {
   height: 50px;
 }
 
+nav .pagination li:first-child {
+  margin-left: 0px !important;
+  text-align: left !important;
+}
+nav .pagination li:first-child .page-link {
+  padding-left: 0px !important;
+}
+
+nav .pagination li:nth-child(2) {
+  margin-left: 0px !important;
+  text-align: left !important;
+}
+
+nav .pagination li:nth-child(2) .page-link {
+  padding-left: 0px !important;
+}
+
+nav .pagination li:nth-child(4) {
+  margin-right: 0px !important;
+  text-align: right !important;
+}
+
+nav .pagination li:nth-child(4) .page-link {
+  padding-right: 0px !important;
+}
+
+nav .pagination li:nth-child(5) {
+  margin-right: 0px !important;
+  text-align: right !important;
+}
+
+nav .pagination li:nth-child(5) .page-link {
+  padding-right: 0px !important;
+}
+.container-fluid div div .pagination-custom div .card-group .card nav {
+  padding-top: 2px !important;
+}
 @media (min-width: 1459px) and (max-width: 1787px) {
   .container-fluid div div .pagination-custom .col-lg-4:first-child {
     flex: 0 0 41.66667% !important;

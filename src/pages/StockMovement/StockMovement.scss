@@ -125,6 +125,15 @@
 
   .ReactTable {
     border: none !important;
+    .rt-table {
+      .-headerGroups {
+        .rt-tr {
+          .rt-th {
+            text-align: center !important;
+          }
+        }
+      }
+    }
   }
 }
 
