@@ -24,6 +24,8 @@ class CreateTab extends React.Component {
     overflow: [],
     orderLine: [{}], error: {},
     siteData: this.props.siteData, clientData: this.props.clientData, orderTypeData: this.props.orderTypeData,
+    isDatepickerShow: false
+
     // orderId: 'AB29123', shipToAddress1: 'Ark Street 12', postCode: '291923', state: 'Victoria',
   }
   componentDidMount() {
@@ -297,7 +299,7 @@ class CreateTab extends React.Component {
       </Row>
 
       <h3 className="text-primary font-20">Line Details</h3>
-      <div className={`orderline mb-2 pb-2 scroll-x-y`}>
+      <div className={`orderline mb-2 pb-2 scroll-x-y`} style={this.state.isDatepickerShow ? {paddingTop: "400px", marginTop: "-400px"} : null}>
         {/* ${this.state.overflow ? 'scroll-x-y' : null} */}
         <table>
           <thead>
@@ -308,12 +310,12 @@ class CreateTab extends React.Component {
               <td><div className="c-100 required">Qty</div></td>
               <td><div className="c-100">Weight</div></td>
               <td><div className="c-150 required">UOM</div></td>
-              <td><div className="c-150">Rotadate</div></td>
               <td><div className="c-100">Batch</div></td>
               <td><div className="c-100">Ref3</div></td>
               <td><div className="c-100">Ref4</div></td>
               <td><div className="c-150">Disposition</div></td>
               <td><div className="c-150">Pack ID</div></td>
+              <td><div className="c-150">Rotadate</div></td>
               <td><div className="c-50"></div></td>
             </tr>
           </thead>
@@ -351,16 +353,6 @@ class CreateTab extends React.Component {
                     className={`c-150 ${overflow[i] && overflow[i].uom ? 'absolute right' : null}`} placeholder="UOM" />
                   <Required id="uom" error={error.orderLine && error.orderLine[i]} />
                 </td>
-                <td className="p-0 m-0">
-                  <DatePicker getDate={(date) => {
-                    let { orderLine } = this.state
-                    orderLine[i].rotaDate = date
-                    this.setState({ orderLine })
-                  }}
-                    onDateOpen={() => this.toggleOverflow(i, 'rotaDate', true)}
-                    onDateClose={() => this.toggleOverflow(i, 'rotaDate', false)}
-                    className={`form-control ${overflow[i] && overflow[i].date ? 'absolute right' : null}`} placeholder="Select Date" />
-                </td>
                 <td className="px-1">
                   <input name="batch" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Batch" />
                 </td>
@@ -380,6 +372,18 @@ class CreateTab extends React.Component {
                 </td>
                 <td className="px-1">
                   <input name="packId" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Pack ID" />
+                </td>
+                <td className="p-0 m-0">
+                  <DatePicker top={true} getDate={(date) => {
+                    let { orderLine } = this.state
+                    orderLine[i].rotaDate = date
+                    this.setState({ orderLine })
+                  }}
+                    isShow={this.state.isDatepickerShow}
+                    onDateOpen={() => this.toggleOverflow(i, 'rotaDate', true)}
+                    onDateClose={() => this.toggleOverflow(i, 'rotaDate', false)}
+                    showDatePicker={(e) => this.setState({ isDatepickerShow: e })}
+                    className={`form-control ${overflow[i] && overflow[i].date ? 'absolute right' : null}`} placeholder="Select Date" />
                 </td>
                 <td className="px-1">
                   <button className="btn btn-light-gray btn-block" onClick={() => this.removeLine(i)}><i className="iconU-delete"></i></button>
