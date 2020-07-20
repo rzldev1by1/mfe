@@ -277,4 +277,4 @@ class CustomTable extends React.Component {
 const mapStateToProps = (store) => ({ store })
 const mapDispatchToProps = (dispatch) => ({ dispatch })
 export default connect(mapStateToProps, mapDispatchToProps)(CustomTable)
-StateToProps, mapDispatchToProps)(CustomTable)
+
