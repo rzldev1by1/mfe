@@ -41,7 +41,7 @@ class CustomTable extends React.Component {
                 this.reorder = data.reorderIdx
             }
         });
-    } 
+    }
     this.state = {
       showModal: false,
       editColumn: {},
@@ -188,10 +188,10 @@ class CustomTable extends React.Component {
 
   render() {
     const { showModal, editColumn, editColumnTemp } = this.state
-    let { title, data, fields, onClick, height, pagination } = this.props  
+    let { title, data, fields, onClick, height, pagination } = this.props
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
-    
+
     return (
       <React.Fragment>
         <ReactTable
@@ -277,3 +277,4 @@ class CustomTable extends React.Component {
 const mapStateToProps = (store) => ({ store })
 const mapDispatchToProps = (dispatch) => ({ dispatch })
 export default connect(mapStateToProps, mapDispatchToProps)(CustomTable)
+
