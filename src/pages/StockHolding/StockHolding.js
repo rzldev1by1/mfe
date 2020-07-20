@@ -93,7 +93,8 @@ class StockHolding extends React.PureComponent {
     pagination: {},
     detail: {},
     dimension: { width: 0, height: 0 },
-    products: []
+    products: [],
+    columnsPayload: []
   }
   componentDidMount = () => {
     // set automatic table height
@@ -119,7 +120,7 @@ class StockHolding extends React.PureComponent {
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
 
-  renameSubmit = (e) => {
+  renameSubmit = async (e) => {
     const fields = this.state.fields;
     const changedField = e;
     const changedFieldAccessor = [];
@@ -130,19 +131,58 @@ class StockHolding extends React.PureComponent {
       changedFieldHeader.push(item.header);
     })
 
-    field.map((item, idx) => {
-      if(item.accessor == changedFieldAccessor[idx]){
-        item.header = changedFieldHeader[idx];
-      }
+    fields.map((item, idx) => {
+      changedFieldAccessor.map((data, idx) => {
+        if(item.accessor == data){
+          item.Header = changedFieldHeader[idx];
+        }
+      });
     });
 
-    let products = this.state.products;
+    this.setState({ fields: fields });
 
-    const payload = {"SITE":site,}
+    let payload = {};
+    let payloadIndex = Object.keys(this.state.products);
+    let defaultValues = Object.values(this.state.products);
+    let fieldsAccessor = changedFieldAccessor;
 
-                    const { data } = await axios.post("/putStockholdingColumn?client=TTL ")
-                        this.props.history.push(data)
-    return
+    fieldsAccessor.map((data, idx) => {
+        let uppercaseAccessor = data;
+        let index = uppercaseAccessor.split(" ");
+        index.splice(index.length-1, 1)
+        fieldsAccessor[idx] = index.join("_")
+    })
+
+    payloadIndex.map((data, idx) => {
+        let uppercaseAccessor = data;
+        let index = uppercaseAccessor.split(" ");
+        payloadIndex[idx] = index.join("_")
+    })
+
+    let newPayload = {};
+
+
+    for (let i = 0; i < Object.keys(this.state.products).length; i++) {
+        fieldsAccessor.map((data, idx) => {
+            if(payloadIndex[i] == data){
+                payload[data] = changedFieldHeader[idx];
+            }else{
+                payload[payloadIndex[i]] = defaultValues[i];
+            }
+        })
+        
+    }
+
+    this.setState({ columnsPayload: payload })
+
+    const baseUrl = process.env.REACT_APP_API_URL;
+
+    try{
+        const { data } = await axios.post(baseUrl + "/putStockholdingColumn?client=ANTEC", payload)
+        console.log(data);
+    }catch(error){
+        console.log(error)
+    }
   }
 
   getSite = async () => {
@@ -181,7 +221,7 @@ class StockHolding extends React.PureComponent {
       }
 
       headerTable.Header= data 
-      headerTable.accessor= data 
+      headerTable.accessor= data
       header.push(headerTable)
      
     })

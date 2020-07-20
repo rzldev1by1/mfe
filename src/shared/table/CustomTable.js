@@ -126,24 +126,27 @@ class CustomTable extends React.Component {
   changedColumn = (e) => {
     let changedColumns = this.state.changedColumns;
 
-    changedColumns.map((item, idx) => {
-      if(item.accessor){
-        if(item.accessor == e.target.name){
-          changedColumns.splice(idx, 1)
-        }
-      }
-    })
-
-    changedColumns.push({
-      accessor: e.target.name,
-      header: e.target.value
-    })
-
-    this.setState({ changedColumns: changedColumns });
+    if(e.target.value.length > 0){
+        changedColumns.map((item, idx) => {
+            if(item.accessor){
+              if(item.accessor == e.target.name){
+                changedColumns.splice(idx, 1)
+              }
+            }
+          })
+      
+          changedColumns.push({
+            accessor: e.target.name,
+            header: e.target.value
+          })
+      
+          this.setState({ changedColumns: changedColumns });
+    }
   }
 
   renameSubmit = (e) =>{
     this.props.renameSubmit(this.state.changedColumns);
+    this.setState({ showModal: false })
   }
 
   render() {
