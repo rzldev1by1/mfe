@@ -8,6 +8,7 @@ import endpoints from 'helpers/endpoints'
 import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
 import './StockHolding.css'
+import { object } from 'prop-types'
 
 
 const columns = [
@@ -48,7 +49,7 @@ const columns = [
                     },
                     { 
                       accessor: 'on_hand_qty', 
-                      Header: 'Stock on Hand', 
+                      Header: 'Stock On Hand', 
                       sortable: true,  
                       width: 140 },
                     { 
@@ -147,16 +148,19 @@ class StockHolding extends React.PureComponent {
     let fieldsAccessor = changedFieldAccessor;
 
     fieldsAccessor.map((data, idx) => {
-        let uppercaseAccessor = data;
-        let index = uppercaseAccessor.split(" ");
-        index.splice(index.length-1, 1)
-        fieldsAccessor[idx] = index.join("_")
+        if(data.includes(" ")){
+            let uppercaseAccessor = data;
+            let index = uppercaseAccessor.split(" ");
+            fieldsAccessor[idx] = index.join("_")
+        }
     })
 
     payloadIndex.map((data, idx) => {
-        let uppercaseAccessor = data;
-        let index = uppercaseAccessor.split(" ");
-        payloadIndex[idx] = index.join("_")
+        if(data.includes(" ")){
+            let uppercaseAccessor = data;
+            let index = uppercaseAccessor.split(" ");
+            payloadIndex[idx] = index.join("_")
+        }
     })
 
     let newPayload = {};
@@ -165,13 +169,17 @@ class StockHolding extends React.PureComponent {
     for (let i = 0; i < Object.keys(this.state.products).length; i++) {
         fieldsAccessor.map((data, idx) => {
             if(payloadIndex[i] == data){
-                payload[data] = changedFieldHeader[idx];
-            }else{
-                payload[payloadIndex[i]] = defaultValues[i];
+                payload[payloadIndex[i]] = changedFieldHeader[idx];
+                payloadIndex.splice(i, 1);
+                defaultValues.splice(i, 1)
             }
         })
         
     }
+
+    payloadIndex.map((data, idx) => {
+        payload[data] = defaultValues[idx];
+    })  
 
     this.setState({ columnsPayload: payload })
 
@@ -213,7 +221,8 @@ class StockHolding extends React.PureComponent {
     const { data } = await axios.get(url)
     console.log(data.data[0].CLIENT)
     let header = []
-    Object.values(data.data[0]).map((data) => { 
+    let accessor = Object.keys(data.data[0])
+    Object.values(data.data[0]).map((data, idx) => { 
       let headerTable = {
         accessor: 'Site', 
         Header: 'site', 
@@ -221,7 +230,7 @@ class StockHolding extends React.PureComponent {
       }
 
       headerTable.Header= data 
-      headerTable.accessor= data
+      headerTable.accessor= accessor[idx]
       header.push(headerTable)
      
     })
