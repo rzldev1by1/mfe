@@ -377,7 +377,7 @@ class UserManagementDetail extends Component {
         const { moduleAccess, sites, clients, accountInfo } = this.state;
 
 
-        return (<div className="w-100 h-100">
+        return (<div className="um-detail w-100 h-100">
             {/* <div className={(this.state.isLoadComplete ? 'd-none' : 'spinner')} />
             <div className={(this.state.isLoadComplete ? ' ' : 'd-none')}>
             </div> */}

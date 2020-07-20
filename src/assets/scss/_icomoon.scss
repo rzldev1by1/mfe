@@ -141,13 +141,12 @@
 }
 
 @font-face {
-  font-family: "navigation";
-  src: url("../icons/navigation/icomoon.eot?1spbh7");
-  src: url("../icons/navigation/icomoon.eot?1spbh7#iefix")
-      format("embedded-opentype"),
-    url("../icons/navigation/icomoon.ttf?1spbh7") format("truetype"),
-    url("../icons/navigation/icomoon.woff?1spbh7") format("woff"),
-    url("../icons/navigation/icomoon.svg?1spbh7#icomoon") format("svg");
+  font-family: 'navigation';
+  src:  url('../icons/navigation/icomoon.eot?7ssg65');
+  src:  url('../icons/navigation/icomoon.eot?7ssg65#iefix') format('embedded-opentype'),
+    url('../icons/navigation/icomoon.ttf?7ssg65') format('truetype'),
+    url('../icons/navigation/icomoon.woff?7ssg65') format('woff'),
+    url('../icons/navigation/icomoon.svg?7ssg65#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -163,39 +162,42 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.nav-so-hover:before {
-  content: "\5001";
-}
-.nav-so:before {
-  content: "\500";
-}
-.nav-um-hover:before {
-  content: "\6001";
-}
-.nav-um:before {
-  content: "\600";
-}
-.nav-sap-hover:before {
-  content: "\7001";
-}
-.nav-sap:before {
-  content: "\700";
-}
-.nav-sm:before {
-  content: "\800";
-}
-.nav-sm-hover:before {
-  content: "\8001";
-}
-.nav-sh-hover:before {
-  content: "\9001";
-}
-.nav-sh:before {
-  content: "\900";
-}
 .nav-po:before {
-  content: "\10001";
+  content: "\e900";
 }
 .nav-po-hover:before {
-  content: "\1000";
+  content: "\e901";
+}
+.nav-sh:before {
+  content: "\e902";
+}
+.nav-sh-hover:before {
+  content: "\e903";
+}
+.nav-sm:before {
+  content: "\e904";
+}
+.nav-sm-hover:before {
+  content: "\e905";
+}
+.nav-sap:before {
+  content: "\e906";
+}
+.nav-sap-hover:before {
+  content: "\e907";
+}
+.nav-um:before {
+  content: "\e908";
+}
+.nav-um-hover:before {
+  content: "\e909";
+}
+.nav-so:before {
+  content: "\e90a";
+}
+.nav-so-hover:before {
+  content: "\e90b";
+}
+.nav-profile:before {
+  content: "\e90c";
 }
