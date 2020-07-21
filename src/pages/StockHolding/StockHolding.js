@@ -51,7 +51,8 @@ const columns = [
                       accessor: 'status', 
                       Header: 'Status', 
                       placeholder: 'Status', 
-                      sortable: true 
+                      sortable: true,
+                      width: 100 
                     },
                     { 
                       accessor: 'on_hand_qty', 
