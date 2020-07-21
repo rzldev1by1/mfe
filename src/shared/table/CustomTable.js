@@ -41,7 +41,7 @@ class CustomTable extends React.Component {
                 this.reorder = data.reorderIdx
             }
         });
-    } 
+    }
     this.state = {
       showModal: false,
       editColumn: {},
@@ -191,7 +191,7 @@ class CustomTable extends React.Component {
     let { title, data, fields, onClick, height, pagination,request_status } = this.props  
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
-    
+
     return (
       <React.Fragment>
         <ReactTable
@@ -224,7 +224,7 @@ class CustomTable extends React.Component {
           show={showModal} size='xl' centered
           onHide={this.closeModal.bind(this, false, editColumnTemp)}
         >
-          <Modal.Header className="bg-primary">
+          <Modal.Header className="bg-primary py-5">
             <Container>
               <Row>
                 <Col xs={10} sm={10} md={10} lg={10} xl={10}>
@@ -266,7 +266,7 @@ class CustomTable extends React.Component {
             </Row>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" className="px-5" onClick={this.saveEdit.bind(this, editColumn)} >Save</Button>
+            <Button variant="primary" className="px-5" onClick={this.saveEdit.bind(this, editColumn)} >SAVE</Button>
           </Modal.Footer>
         </Modal>
       </React.Fragment>

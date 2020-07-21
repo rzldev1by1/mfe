@@ -5,6 +5,7 @@ import './DatePicker.css';
 import 'react-day-picker/lib/style.css';
 import moment from 'moment';
 import { Button } from 'reactstrap';
+import ReactResizeDetector from 'react-resize-detector';
 
 // const currentYear = new Date().getFullYear();
 // const fromMonth = new Date();
@@ -124,9 +125,20 @@ class DatePicker extends React.Component {
             selectedDay: null,
             showDatePicker: false,
             month: new Date(),
-            monthChange: false
+            monthChange: false,
+            top: null,
+            left: null
         }
     }
+
+    // componentDidUpdate(prevProps, prevState){
+    //     const datepicker = document.getElementsByClassName("select_date_options");
+    //     const width = datepicker[1].clientWidth+6;
+
+    //     if(this.state.left != width){
+    //         this.setState({ left: width })
+    //     }
+    // }
 
     componentDidMount() {
         if (this.props.showDatePicker) {
@@ -222,33 +234,47 @@ class DatePicker extends React.Component {
                     {/* <li className="select_date_items"> */}
                     <input className="select_date_expand" ref="opener" type="checkbox" name={"select" + placeHolder + no} value="" checked={this.state.showDatePicker} id={"select-opener" + placeHolder + no} />
                     <label className="select_date_closeLabel" htmlFor={"select-opener" + placeHolder + no} onClick={() => this.closeDatePicker()}></label>
-                    <div className={"select_date_options " + (this.props.field === "smallField " ? " smallField " : "") + ((this.props.top && !this.props.fixedTop) ? "top" : "") + ((this.props.top && this.props.fixedTop) || this.props.fixedTop ? "fixed-top-position" : "")}>
-                        <div className="dateInfo">
-                            {this.state.selectedDay ? moment(this.state.selectedDay).format(this.props.shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : (this.props.fromMonth ? moment(this.props.fromMonth).format("DD MMMM YYYY") : moment().format("DD MMMM YYYY"))}
-                        </div>
-                        <DayPicker
-                            className="datepicker-content"
-                            tabIndex="-1"
-                            selectedDays={this.state.selectedDay ? this.state.selectedDay : (this.props.fromMonth ? new Date(this.props.fromMonth) : new Date())}
-                            onDayClick={this.handleDayClick}
-                            month={this.props.fromMonth ? (this.state.monthChange ? this.state.month : new Date(this.props.fromMonth)) : this.state.month}
-                            fromMonth={this.props.fromMonth ? new Date(this.props.fromMonth) : this.state.month}
-                            toMonth={this.props.toMonth ? new Date(new Date(this.props.toMonth).getFullYear(), 11) : new Date(new Date(this.state.month).getFullYear() + 10, 11)}
-                            onMonthChange={(e) => this.setState({ month: e })}
-                            captionElement={({ date, localeUtils }) => (
-                                <YearMonthForm
-                                    date={date}
-                                    localeUtils={localeUtils}
-                                    onChange={this.handleYearMonthChange}
-                                    current={this.props.fromMonth ? (this.state.monthChange ? this.state.month : new Date(this.props.fromMonth)) : this.state.month}
+                    <ReactResizeDetector
+                        handleWidth handleHeight
+                        refreshRate={2000}
+                    // bounds={true}
+                    // onResize={contentRect => {
+                    // this.setState({ top: contentRect.bounds.height, left: contentRect.bounds.width })
+                    // }}
+                    >
+                        {({ width, height }) => (
+                            <div
+                                // onHeightReady={height => this.setState({ top: "-"+(height)+"px" })} 
+                                className={"select_date_options " + (this.props.field === "smallField " ? " smallField " : "") + ((this.props.top && this.props.fixedTop) || this.props.fixedTop ? "fixed-top-position" : "")}
+                                style={((this.props.top && !this.props.fixedTop)) ? { marginTop: "-" + height + "px", marginLeft: "-" + (width + 6) + "px" } : null}>
+                                <div className="dateInfo">
+                                    {this.state.selectedDay ? moment(this.state.selectedDay).format(this.props.shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : (this.props.fromMonth ? moment(this.props.fromMonth).format("DD MMMM YYYY") : moment().format("DD MMMM YYYY"))}
+                                </div>
+                                <DayPicker
+                                    className="datepicker-content"
+                                    tabIndex="-1"
+                                    selectedDays={this.state.selectedDay ? this.state.selectedDay : (this.props.fromMonth ? new Date(this.props.fromMonth) : new Date())}
+                                    onDayClick={this.handleDayClick}
+                                    month={this.props.fromMonth ? (this.state.monthChange ? this.state.month : new Date(this.props.fromMonth)) : this.state.month}
                                     fromMonth={this.props.fromMonth ? new Date(this.props.fromMonth) : this.state.month}
                                     toMonth={this.props.toMonth ? new Date(new Date(this.props.toMonth).getFullYear(), 11) : new Date(new Date(this.state.month).getFullYear() + 10, 11)}
+                                    onMonthChange={(e) => this.setState({ month: e })}
+                                    captionElement={({ date, localeUtils }) => (
+                                        <YearMonthForm
+                                            date={date}
+                                            localeUtils={localeUtils}
+                                            onChange={this.handleYearMonthChange}
+                                            current={this.props.fromMonth ? (this.state.monthChange ? this.state.month : new Date(this.props.fromMonth)) : this.state.month}
+                                            fromMonth={this.props.fromMonth ? new Date(this.props.fromMonth) : this.state.month}
+                                            toMonth={this.props.toMonth ? new Date(new Date(this.props.toMonth).getFullYear(), 11) : new Date(new Date(this.state.month).getFullYear() + 10, 11)}
 
+                                        />
+                                    )}
+                                    navbarElement={<Navbar />}
                                 />
-                            )}
-                            navbarElement={<Navbar />}
-                        />
-                    </div>
+                            </div>
+                        )}
+                    </ReactResizeDetector>
                     {/* <label className="select_date_expandLabel" htmlFor={"select-opener" + placeHolder + no}></label> */}
                     {/* </li> */}
                 </ul>
