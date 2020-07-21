@@ -16,7 +16,7 @@ import './SalesOrder.scss'
 const columns = [
   { accessor: 'site', Header: 'Site', width: 50 },
   { accessor: 'client', Header: 'Client', width: 100 },
-  { accessor: 'orderno', Header: 'Order No', width: 100 },
+  { accessor: 'orderno', Header: 'Order No', width: 100, style:{textAlign: 'left'} },
   { accessor: 'ordertype', Header: 'Order Type', width: 120 },
   { accessor: 'task', Header: 'Task', width: 100 },
   { accessor: 'customername', Header: 'Customer', width: 250 },
@@ -57,7 +57,8 @@ class SalesOrder extends React.PureComponent {
     pagination: {},
     create: false,
     detail: {},
-    dimension: { width: 0, height: 0 }
+    dimension: { width: 0, height: 0 },
+    request_status: 'Please Wait...'
   }
   componentDidMount = () => {
     // set automatic table height
@@ -108,7 +109,7 @@ class SalesOrder extends React.PureComponent {
     if (client && site) {
       const { data } = await axios.get(`${endpoints.getIsisTask}?client=${client.value}&site=${site.value}&order=so`)
       const taskData = data.code.map((c, i) => ({ value: c, label: `${data.name[i]}` }))
-      const task = { value: 'all', label: 'All Task' }
+      const task = { value: 'All', label: 'All Task' }
       taskData.splice(0, 0, task)
       this.setState({ taskData })
     }
@@ -125,16 +126,20 @@ class SalesOrder extends React.PureComponent {
     }
   }
   searchSalesOrder = async () => {
-    let { search, site, client, orderType, status, pagination } = this.state
+    let { search, site, client, orderType, status,task, pagination, request_status } = this.state
+    this.setState({ data: [] })
+    this.setState({ request_status: "Please Wait..."  })
     let urls = []
-    urls.push('searchParam=' + search ? search : '')
+    urls.push('searchParam=' + (search ? search : ''))
     urls.push('site=' + (site ? site.value : 'all'))
     urls.push('client=' + (client ? client.value : 'all'))
     urls.push('orderType=' + (orderType ? orderType.value : 'all'))
     urls.push('status=' + (status ? status.value : 'all'))
+    urls.push('task=' + (task ? task.value : 'All'))
     urls.push('page=' + (pagination.active || 1))
     // console.log(`${endpoints.salesOrder}?${urls.join('&')}`)
     const { data } = await axios.get(`${endpoints.salesOrder}?${urls.join('&')}`)
+    console.log(data)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
         m.deliverydate = m.deliverydate ? moment(m.deliverydate).format('DD/MM/YYYY') : ''
@@ -145,6 +150,9 @@ class SalesOrder extends React.PureComponent {
         m.loadoutfinish = m.loadoutfinish ? moment(m.loadoutfinish).format('DD/MM/YYYY') : ''
         return m
       })
+      if(data.data.total<1){
+        this.setState({ request_status: "No Data Found"  })
+      }
       this.setState({
         pagination: {
           active: pagination.active || data.data.current_page,
@@ -153,7 +161,8 @@ class SalesOrder extends React.PureComponent {
         },
         data: modifiedData
       })
-    } else {
+    } else { 
+      this.setState({ request_status: "No Data Found" })
       this.setState({ data: [] })
     }
     // this.setState({ data: DummyData })
@@ -168,7 +177,7 @@ class SalesOrder extends React.PureComponent {
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData, taskData
+      siteData, clientData, statusData, orderTypeData, taskData, request_status
     } = this.state
     return <div className="sales-order">
       <HeaderTitle
@@ -238,6 +247,7 @@ class SalesOrder extends React.PureComponent {
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchSalesOrder())
         }}
+        request_status={this.state.request_status}
         export={<button className="btn btn-primary float-right px-4 btn-export">EXPORT <IoIosArrowDown /></button>}
       />
 

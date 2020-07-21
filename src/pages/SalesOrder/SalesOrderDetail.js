@@ -26,7 +26,7 @@ const columns = [
     accessor: "completed", Header: "Completed",
     Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
-  { accessor: "oos", Header: "OOS" },
+  { accessor: "oos", Header: "OOS", width: 50 },
   { accessor: "batch", Header: "Batch" },
   { accessor: "ref2", Header: "Ref2" },
   { accessor: "ref3", Header: "Ref3" },
@@ -87,11 +87,12 @@ class SalesOrderDetail extends React.Component {
       <div ref={this.section1} className="card-group section-1 mb-4" >
         <CCard>
           <CCardBody className="p-0 m-4 border-right">
-            <CRow><CCol className="text-light-gray">Site</CCol> <CCol>{detail.site}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Client</CCol> <CCol>{detail.client}</CCol></CRow>
+    <CRow><CCol className="text-light-gray">Site</CCol> <CCol>{detail.site}: {detail.site_name}</CCol></CRow>
+    <CRow><CCol className="text-light-gray">Client</CCol> <CCol>{detail.client}: {detail.client_name}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Order No</CCol> <CCol>{detail.orderno || '-'}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Order Type</CCol> <CCol>{detail.ordertype || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Customer ID</CCol> <CCol>{detail.customer || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Task</CCol> <CCol>{detail.customer || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Customer No.</CCol> <CCol>{detail.customer || '-'}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Customer Name</CCol> <CCol>{detail.customername || '-'}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Customer Order Ref</CCol> <CCol>{detail.customerpono || '-'}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Vendor Order Ref</CCol> <CCol>{detail.vendororderno || '-'}</CCol></CRow>
