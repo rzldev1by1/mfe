@@ -8,73 +8,92 @@ import endpoints from 'helpers/endpoints'
 import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
 import './StockHolding.css'
-import { object } from 'prop-types'
 
 
 const columns = [
                     { 
                       accessor: 'site', 
-                      Header: 'Site', 
+                      Header: 'Site',
+                      placeholder: 'Site', 
                       sortable: true 
                     },
                     { 
                       accessor: 'client', 
                       Header: 'Client', 
+                      placeholder: 'Client', 
                       sortable: true },
                     { 
                       accessor: 'product', 
                       Header: 'Product', 
+                      placeholder: 'Product', 
                       sortable: true, 
                       width: 90 
                     },
                     { 
                       accessor: 'product_name', 
                       Header: 'Description', 
+                      placeholder: 'Description', 
                       sortable: true  
                     },
                     { 
                       accessor: 'disposition', 
                       Header: 'Disposition', 
+                      placeholder: 'Disposition', 
                       sortable: true 
                     },
                     { 
                       accessor: 'packdesc_1', 
                       Header: 'UOM', 
+                      placeholder: 'UOM', 
                       sortable: true 
                     },
                     { 
                       accessor: 'status', 
                       Header: 'Status', 
-                      sortable: true 
+                      placeholder: 'Status', 
+                      sortable: true,
+                      width: 100 
                     },
                     { 
                       accessor: 'on_hand_qty', 
                       Header: 'Stock On Hand', 
+                      placeholder: 'Stock on Hand', 
                       sortable: true,  
                       width: 140 },
                     { 
+                      accessor: 'on_hand_wgy', 
+                      Header: 'On Hand WGT', 
+                      placeholder: 'On Hand WGT', 
+                      sortable: true,  
+                      width: 145  },
+                    { 
                       accessor: 'expected_in_qty', 
                       Header: 'Expected In Qty', 
+                      placeholder: 'Expected In Qty', 
                       sortable: true,  
                       width: 145  },
                     { 
                       accessor: 'expected_in_wgt', 
                       Header: 'Expected In Weight', 
+                      placeholder: 'Expected In Weight', 
                       sortable: true,  
                       width: 170 
                     },
                     { 
                       accessor: 'expected_out_qty', 
                       Header: 'Expected Out Qty', 
+                      placeholder: 'Expected Out Qty', 
                       sortable: true, 
                       width: 155  },
                     { 
                       accessor: 'prince',
                       Header: 'Price', 
+                      placeholder: 'Price', 
                       sortable: true,},
                     { 
                       accessor: 'pallets', 
                       Header: 'Pallets', 
+                      placeholder: 'Pallets', 
                       sortable: true,
                     },
 ]
@@ -89,7 +108,6 @@ class StockHolding extends React.PureComponent {
     resources: [],
     fields: columns,
     data: [],
-    headerSH:[],
     create: false,
     pagination: {},
     detail: {},
