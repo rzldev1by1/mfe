@@ -27,7 +27,7 @@
   .webgroup-active {
     background-color: #ffffff;
     /* font-family: 'Rubik Regular'; */
-    font-size: 20px !important;
+    /* font-size: 0.875rem !important; */
     color: #376bfb !important;
     margin: 4px;
     padding: 6px;
@@ -38,7 +38,7 @@
   .webgroup-notactive {
     background-color: transparent;
     /* font-family: 'Rubik Regular'; */
-    font-size: 20px !important;
+    /* font-size: 20px !important; */
     color: #bbbcbd !important;
     margin: 4px;
     padding: 6px;
@@ -47,8 +47,8 @@
 
   .btn-outline-active {
     /* font-family: 'Rubik Regular'; */
-    font-size: 1rem !important;
-    width: 117px !important;
+    /* font-size: 1rem !important; */
+    width: 100px !important;
     height: 40px !important;
     border: 1.5px solid #3366ff;
     border-radius: 7px;
@@ -58,8 +58,8 @@
   
   .btn-outline-notActive {
     /* font-family: 'Rubik Regular'; */
-    font-size: 1rem !important;
-    width: 117px !important;
+    /* font-size: 1rem !important; */
+    width: 100px !important;
     height: 40px !important;
     color: #d5d8da;
     border: 1.5px solid #d5d8da;
@@ -69,8 +69,8 @@
   
   .btn-outline-All-active {
     /* font-family: 'Rubik Regular'; */
-    font-size: 1rem !important;
-    width: 117px !important;
+    /* font-size: 1rem !important; */
+    width: 100px !important;
     height: 40px !important;
     border: 1.5px solid #3366ff;
     border-radius: 7px;
@@ -210,14 +210,17 @@
 
 /** End modal create **/
 
-.um-create .form-control{
-  font-size: 1.25rem;
-}
-
 .text-title{
   color: #D5D8DA;
 }
 
 .um-review label.form-control{
   height: 50px !important;
+  line-height: 2.5;
+}
+
+.um-summary .border-user-info{
+  border-top: 2px solid #fff;
+  border-right: 2px solid #fff;
+  border-left: 2px solid #fff;
 }

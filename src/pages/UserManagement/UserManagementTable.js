@@ -54,7 +54,8 @@ class UMCustomTable extends React.Component {
     }
   
     headerIcon = (data, header, editColumn) => {
-     
+     const {dimension} = this.props;
+
       let listHeader = []
       header && header.map((h, index) => {
         
@@ -72,7 +73,8 @@ class UMCustomTable extends React.Component {
             accessor: h.accessor,
             sortable: h.sortable === false ? false : true,
             resizable: h.resizable || false,
-            width:h.width
+            width: h.width
+            
           }
          
           return listHeader = [...listHeader, obj]

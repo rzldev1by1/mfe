@@ -16,7 +16,7 @@ return (<div>
 
       <div className="flex-column">
           <div className="row">
-              <label className="col-6 text-muted font-lg" htmlFor="Client">Client
+              <label className="col-6 text-muted" htmlFor="Client">Client
               </label>
           </div>
       </div>
@@ -26,10 +26,10 @@ return (<div>
          (clients && clients.length)? clients.map((item,index) => {
             return (<div className="flex-column" key={index}>
                           <div className="row mb-3" key={index}>
-                              <label className="col-6 text-muted py-2 font-lg " key={item.code}>{ capitalizeFirstLetter(item.name) }</label>
+                              <label className="col-6 text-muted py-2 " key={item.code}>{ capitalizeFirstLetter(item.name) }</label>
 
                              <div className="col-6">
-                              <button type="button" htmlFor={item.code} className={"px-1 font-lg "+((item.status)?"enable-active":"enable-notactive")}>{`${item.status?enable.toUpperCase():disable.toUpperCase()}`}</button>
+                              <button type="button" htmlFor={item.code} className={"px-1 "+((item.status)?"enable-active":"enable-notactive")}>{`${item.status?enable.toUpperCase():disable.toUpperCase()}`}</button>
 
                              </div>
                               

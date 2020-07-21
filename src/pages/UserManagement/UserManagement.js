@@ -13,13 +13,13 @@ import moment from 'moment'
 import './UserManagement.css'
 
 const columns = [
-    { accessor: 'userid', Header: 'User ID', width: 150, sortable: true },
-    { accessor: 'web_group', Header: 'User Level', width: 150, sortable: true },
-    { accessor: 'name', Header: 'Username', width: 180, sortable: true },
-    { accessor: 'site', Header: 'Site', width: 120, sortable: true },
-    { accessor: 'client', Header: 'Client', width: 120, sortable: true },
+    { accessor: 'userid', Header: 'User ID', width: 160, sortable: true },
+    { accessor: 'name', Header: 'Username', width: 210, sortable: true },
+    { accessor: 'site', Header: 'Site', width: 130, sortable: true },
+    { accessor: 'client', Header: 'Client', width: 130, sortable: true },
+    { accessor: 'web_group', Header: 'User Level', width: 160, sortable: true },
     { accessor: 'last_access', Header: 'Last Accessed', width: 180, sortable: true },
-    { accessor: 'disabled', Header: 'Status', width: 220, sortable: true },
+    { accessor: 'disabled', Header: 'Status', width: 120, sortable: true },
 ]
 
 class UserManagemen extends Component {
@@ -109,8 +109,8 @@ class UserManagemen extends Component {
                     breadcrumb={[{ to: '', label: 'User Management', active: true }]}
                     button={<CButton onClick={this.toggle} className="btn btn-primary btn-create float-right">CREATE USER</CButton>}
                 />
-                <CCard className="bg-transparent border-white mt-1 mb-3">
-                    <CCardBody className="p-3">
+                <CCard className="bg-transparent mb-3">
+                    <CCardBody className="p-3 border-user-info" >
                         <CRow>
                             <CCol sm="2" className="user-login-info-header">
                                 User Id
@@ -169,6 +169,7 @@ class UserManagemen extends Component {
                     fields={fields} 
                     data={data} 
                     onClick={this.showDetails}
+                    dimension={dimension}
                     goto={(active) => {
                         this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler())
                       }}

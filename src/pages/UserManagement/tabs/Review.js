@@ -15,16 +15,16 @@ class Review extends React.PureComponent {
         return (
             <Container className="px-5 py-4">
                 <Row>
-                    <Col lg="2">
+                    <Col lg="2" className="pr-0">
                         <h3 style={{paddingTop:'11px',paddingBottom:'11px'}} className="text-primary font-20">New User</h3>
                     </Col>
-                    <Col lg="10">
+                    <Col lg="10" className="pl-0">
                         <Row>
-                            <Col lg="6" md="9" sm="12" >
+                            <Col lg="6" md="9" sm="12" className="pl-0">
                                 <label className="webgroup d-flex justify-content-between">
                                     <input type="checkbox" />
-                                    <span className={`flex-fill font-xl ${isAdmin ? "webgroup-review-notactive" : " webgroup-review-active"}`}>Regular User</span>
-                                    <span className={`flex-fill font-xl ${isAdmin ? "webgroup-review-active" : " webgroup-review-notactive"}`}>Admin User</span>
+                                    <span className={`flex-fill ${isAdmin ? "webgroup-review-notactive" : " webgroup-review-active"}`}>REGULAR USER</span>
+                                    <span className={`flex-fill ${isAdmin ? "webgroup-review-active" : " webgroup-review-notactive"}`}>ADMIN USER</span>
                                 </label>
                             </Col>
                         </Row>
@@ -33,13 +33,13 @@ class Review extends React.PureComponent {
 
                 <Row>
                     <Col lg="4">
-                        <label className="font-xl text-title">User ID</label>
+                        <label className="mb-0 text-muted">User ID</label>
                     </Col>
                     <Col lg="4">
-                        <label className="font-xl text-title">Email</label>
+                        <label className="mb-0 text-muted">Email</label>
                     </Col>
                     <Col lg="4">
-                        <label className="font-xl text-title">Name</label>
+                        <label className="mb-0 text-muted">Name</label>
                     </Col>
 
                 </Row>
@@ -50,7 +50,7 @@ class Review extends React.PureComponent {
                             {user.userId}
                         </label>
                         <div>
-                            <span className="text-title">Auto Generated</span>
+                            <span className="text-title font-sm">Auto Generated</span>
                         </div>
                     </Col>
                     <Col lg="4">
@@ -81,11 +81,11 @@ class Review extends React.PureComponent {
                 </Row>
                 <Row className="mt-4">
                     <Col lg={2} className="text-left">
-                        <button className="btn btn-primary" onClick={(e) => { this.props.next('new') }}>{'BACK'}</button>
+                        <button className="btn btn-primary font-lg" onClick={(e) => { this.props.next('new') }}>{'BACK'}</button>
                     </Col>
                     <Col lg={8}></Col>
                     <Col lg={2} className="text-right">
-                        <button className="btn btn-primary" onClick={(e) => { this.props.submit() }}>
+                        <button className="btn btn-primary font-lg" onClick={(e) => { this.props.submit() }}>
                             <i className={`mx-1 fa fa-refresh ${submitProgress ? "fa-spin" : "d-none"}`}></i>
                             {'SUBMIT'}
                         </button>

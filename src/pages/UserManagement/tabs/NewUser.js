@@ -35,16 +35,16 @@ class NewUser extends React.PureComponent {
         return (
             <Container className="px-5 py-4">
                 <Row>
-                    <Col lg="2">
+                    <Col lg="2" className="pr-0">
                         <h3 className="text-primary font-20" style={{paddingTop:'11px',paddingBottom:'11px'}}>New User</h3>
                     </Col>
-                    <Col lg="10">
+                    <Col lg="10" className="pl-0">
                         <Row>
-                            <Col lg="6" md="9" sm="12" >
+                            <Col lg="6" md="9" sm="12" className="pl-0">
                                 <label className="webgroup d-flex justify-content-between">
                                     <input type="checkbox" onChange={(e) => { this.props.onWebGroupSelect(e); }} />
-                                    <span className={`${isAdmin ? "flex-fill webgroup-notactive" : "flex-fill webgroup-active"}`}>Regular User</span>
-                                    <span className={`${isAdmin ? "flex-fill webgroup-active" : "flex-fill webgroup-notactive"}`}>Admin User</span>
+                                    <span className={`flex-fill ${isAdmin ? " webgroup-notactive" : " webgroup-active"}`}>REGULAR USER</span>
+                                    <span className={`flex-fill ${isAdmin ? " webgroup-active" : " webgroup-notactive"}`}>ADMIN USER</span>
                                 </label>
                             </Col>
                         </Row>
@@ -53,13 +53,13 @@ class NewUser extends React.PureComponent {
 
                 <Row>
                     <Col sm="4">
-                        <label className="text-title font-xl">User ID</label>                        
+                        <label className="mb-0 text-muted">User ID</label>                        
                     </Col>
                     <Col sm="4">
-                        <label className="text-title font-xl">Email</label>
+                        <label className="mb-0 text-muted">Email</label>
                     </Col>
                     <Col sm="4">
-                        <label className="text-title font-xl">Name</label>
+                        <label className="mb-0 text-muted">Name</label>
                     </Col>
 
                 </Row>
@@ -68,7 +68,7 @@ class NewUser extends React.PureComponent {
                     <Col sm="4">
                         <input type="text" name="userid" readOnly className="form-control" value={user.userId} />
                         <div>
-                            <span className="text-title">Auto Generated</span>
+                            <span className="text-title font-sm">Auto Generated</span>
                         </div>
                     </Col>
                     <Col sm="4">
@@ -106,7 +106,7 @@ class NewUser extends React.PureComponent {
                     <Col lg={2}></Col>
                     <Col lg={8}></Col>
                     <Col lg={2} className="text-right">
-                        <button className="btn btn-primary" onClick={(e) => {this.props.next('review')}}>{'NEXT'}</button>
+                        <button className="btn btn-primary font-lg" onClick={(e) => {this.props.next('review')}}>{'NEXT'}</button>
                     </Col>
                 </Row>
             </Container>
