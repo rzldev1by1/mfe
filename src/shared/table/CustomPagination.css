@@ -71,10 +71,17 @@ nav .pagination li:last-child .page-link {
   padding-right: 0px !important;
 }
 
+.row {
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
+
 .container-fluid div div .pagination-custom div .card-group .card nav {
   padding-top: 2px !important;
 }
-
+.card-group .card:last-child div input {
+  height: 30px !important;
+}
 @media (min-width: 1459px) and (max-width: 1787px) {
   .container-fluid div div .pagination-custom .col-lg-4:first-child {
     flex: 0 0 41.66667% !important;
