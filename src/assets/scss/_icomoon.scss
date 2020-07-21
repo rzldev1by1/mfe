@@ -19,7 +19,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.export-export:before {
+  content: "\e9100";
+  font-size: 25px;
+}
 @font-face {
   font-family: "icomoon";
   src: url("../fonts/icomoon.eot?t60pg3");
