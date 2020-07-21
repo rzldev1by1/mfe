@@ -191,7 +191,7 @@ class CustomTable extends React.Component {
                     <FaRegEdit color='white' size={25} /> &nbsp;
                     <span className="font-20 text-white">Edit Column</span>
                   </div>
-                  <span className="text-white">
+                  <span style={{marginLeft:"29px"}} className="text-white">
                     {`Show and hide the column according to your needs. Please select columns to show`}
                   </span>
                 </Col>

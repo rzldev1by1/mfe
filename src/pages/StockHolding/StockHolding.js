@@ -93,7 +93,7 @@ const columns = [
                     { 
                       accessor: 'pallets', 
                       Header: 'Pallets', 
-                      placeholder: 'Pallets', 
+                      placeholder: 'Pallets aaa', 
                       sortable: true,
                     },
 ]
@@ -167,9 +167,11 @@ class StockHolding extends React.PureComponent {
 
     fieldsAccessor.map((data, idx) => {
         if(data.includes(" ")){
-            let uppercaseAccessor = data;
+            let uppercaseAccessor = data.toUpperCase();
             let index = uppercaseAccessor.split(" ");
             fieldsAccessor[idx] = index.join("_")
+        }else{
+          fieldsAccessor[idx] = data.toUpperCase()
         }
     })
 
@@ -237,7 +239,6 @@ class StockHolding extends React.PureComponent {
   headerStockHolding = async () => {
     const url = `${endpoints.getStockHoldingHearder}?client=ANTEC`
     const { data } = await axios.get(url)
-    console.log(data.data[0].CLIENT)
     let header = []
     let accessor = Object.keys(data.data[0]);
     accessor.map((data, idx) => {
@@ -253,12 +254,19 @@ class StockHolding extends React.PureComponent {
     })
     Object.values(data.data[0]).map((data, idx) => { 
       let headerTable = {
-        accessor: 'Site', 
+        accessor: 'site', 
         Header: 'site', 
+        placeholder: 'site' , 
         sortable: true 
       }
-
+      let plach = this.state.fields
+      plach.map((data, idx) => {
+        let plachData = data.placeholder 
+        console.log(plachData)
+        headerTable.placeholder= plachData 
+      })
       headerTable.Header= data 
+      // headerTable.placeholder= plachData 
       headerTable.accessor= accessor[idx] 
       header.push(headerTable)
      
