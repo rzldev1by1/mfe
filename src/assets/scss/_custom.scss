@@ -209,3 +209,23 @@ header {
   color: #000;
 }
 /* dropdown style end */
+
+// scrollbar
+.ReactTable > .rt-table > .rt-tbody::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+.ReactTable > .rt-table > .rt-tbody::-webkit-scrollbar-thumb {
+  background-color: #b4b9bb;
+  border-radius: 15px !important;
+}
+
+.ReactTable > .rt-table::-webkit-scrollbar {
+  height: 8px !important;
+}
+
+.ReactTable > .rt-table::-webkit-scrollbar-thumb {
+  background-color: #b4b9bb;
+  border-radius: 15px !important;
+}
+// -----------------------------------------

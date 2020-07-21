@@ -1,4 +1,4 @@
-.stock-age-profile {
+.stockHolding {
   .row {
     margin-right: 0px !important;
     margin-left: 0px !important;
@@ -13,24 +13,19 @@
         }
       }
     }
-  }
-
-  .c-header {
-    .c-subheader {
-      .breadcrumb {
-        padding-left: 1rem !important;
+    div:nth-last-child(1) {
+      .btn {
+        letter-spacing: 1px !important;
       }
     }
   }
-  .css-1wa3eu0-placeholder,
-  .iconU-search {
+
+  .css-2b097c-container {
+    border: none !important;
+  }
+  .css-1wa3eu0-placeholder {
     color: #b4b9bb !important;
   }
-
-  .c-app:not(.c-legacy-theme):not(.c-dark-theme) .stock-age-profile > .card {
-    box-shadow: none !important;
-  }
-
   /* SEACRH */
   .card {
     .card-body {
@@ -43,11 +38,11 @@
             }
             max-height: 50px !important;
             height: 50px !important;
-            input {
-              :focus {
-                // height: 7.2vh !important;
-                // outline: none !important;
-                // border-left: olive;
+            .input-group-prepend {
+              .input-group-text {
+                .iconU-search {
+                  color: #b4b9bb !important;
+                }
               }
             }
           }
@@ -64,6 +59,7 @@
 
                   :focus {
                     padding-left: 1rem !important;
+                    height: 5.2vh !important;
                   }
                 }
               }
@@ -78,6 +74,7 @@
                     padding-left: 0.8rem !important;
                   }
                   :focus {
+                    height: 5.2vh !important;
                   }
                 }
               }
@@ -86,15 +83,16 @@
         }
         .col-lg-9 {
           .row {
-            .col-lg-1 {
+            .col-lg-2:last-child {
               .btn {
-                height: 50px !important;
+                width: 105px;
+                height: 50px;
                 letter-spacing: 1px !important;
               }
             }
             @media (min-width: 571px) and (max-width: 1000px) {
               padding-top: 1rem !important;
-              div:nth-child(4) {
+              .col-lg-2:nth-child(6) {
                 padding-top: 1rem !important;
               }
             }
@@ -103,9 +101,8 @@
               .col-lg-2:nth-child(2) {
                 padding: 1rem 0rem !important;
               }
-              div:nth-child(4) {
-                padding-top: 0px !important;
-                padding-left: 0px !important;
+              .col-lg-2:nth-child(6) {
+                padding-top: 1rem !important;
                 .btn {
                   width: 100%;
                 }
@@ -115,6 +112,7 @@
           @media (min-width: 571px) and (max-width: 1000px) {
             padding-left: 0px !important;
           }
+
           @media (max-width: 570px) {
             padding-left: 0px !important;
           }
@@ -123,101 +121,61 @@
     }
   }
 
-  /* TABLE */
   .ReactTable {
-    border: none !important;
     .rt-table {
       .rt-thead {
+        border-bottom: 1px #b4b9bb solid;
+        box-shadow: none !important;
         .rt-tr {
+          height: 50px !important;
+          text-align: left !important;
           .rt-th {
-            border-left: none !important;
+            height: 50px !important;
+            padding: 1rem 0.5rem !important;
           }
           .rt-th:first-child {
             padding-left: 1.8rem !important;
+            text-align: left !important;
           }
+          .rt-th:focus {
+            outline: none !important;
+          }
+          .rt-th:last-child {
+            .rt-resizable-header-content {
+              .edit-column {
+                padding-top: 5px;
+              }
+            }
+            outline: none !important;
+          }
+        }
+        .rt-tr:last-child {
+          text-align: center !important;
         }
       }
       .rt-tbody {
         .rt-tr-group {
           .rt-tr {
-            .border-right {
-              border-right: 1px solid #d8dbe0 !important;
-            }
             .rt-td:first-child {
               padding-left: 1.8rem !important;
             }
           }
         }
       }
-    }
-    .rt-thead {
-      .rt-tr {
-        .padding-top-0 {
-          margin-top: -20px !important;
-        }
-        .link-color {
-          padding-top: 0px !important;
-          div {
-            .text-light-gray {
-              color: #3366ff !important;
-              padding-top: 0px !important;
-            }
-          }
-        }
+      .rt-tbody::-webkit-scrollbar {
+        width: 8px !important;
+      }
+      .rt-tbody::-webkit-scrollbar-thumb {
+        background-color: #b4b9bb;
+        border-radius: 15px !important;
       }
     }
-    .rt-thead.-headerGroups {
-      background: white !important;
-      border-bottom: none !important;
-      color: #b4b9bb !important;
-      .rt-tr {
-        .rt-th {
-          padding-bottom: 0px !important;
-          height: 30px;
-        }
-      }
+    .rt-table::-webkit-scrollbar {
+      height: 8px !important;
     }
-    .rt-thead.-header {
-      .rt-tr {
-        .rt-th:focus {
-          outline: none;
-        }
-      }
-    }
-    .-header {
-      .rt-tr {
-        height: 25px !important;
-        .rt-th {
-          border-bottom: none !important;
-        }
-      }
-    }
-    .-headerGroups {
-      .rt-tr {
-        .rt-th {
-          border-bottom: none !important;
-        }
-      }
+    .rt-table::-webkit-scrollbar-thumb {
+      background-color: #b4b9bb;
+      border-radius: 15px !important;
     }
   }
-
-  //   Pagination
-  .mt-4 {
-    margin-top: 1rem !important;
-    .col-lg-5 {
-      padding: 0px 0px;
-      .card-group {
-        .card {
-          box-shadow: none !important;
-        }
-      }
-    }
-  }
-}
-
-.btn-block,
-.css-g1d714-ValueContainer,
-.css-1pahdxg-control {
-  max-height: 50px !important;
-  height: 50px !important;
 }

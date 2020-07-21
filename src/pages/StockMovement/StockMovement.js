@@ -7,9 +7,11 @@ import Select from 'react-select'
 import { IoIosArrowDown } from 'react-icons/io'
 
 import StockMovementTable from './StockMovementTable/StockMovementTable'
+// import CustomPagination from './StockMovementPagination/StockMovementPagination'
 import CustomPagination from 'shared/table/CustomPagination'
-import HeaderTitle from 'shared/container/TheHeader'
+import HeaderTitle from 'shared/container/TheHeader' 
 import endpoints from 'helpers/endpoints'
+import './StockMovement.scss' 
 import DatePicker from 'shared/DatePicker'
 import './StockMovement.css'
 
@@ -20,8 +22,7 @@ const columns = [
   { accessor: 'product_name', Header: 'Description', sortable: true },
   { accessor: 'packdesc', Header: 'UOM', sortable: true }
 ]
-
-
+ 
 class StockMovement extends React.PureComponent {
   state = {
     search: '',
@@ -77,18 +78,19 @@ class StockMovement extends React.PureComponent {
 
   getStockDate = () => {
     axios.get(endpoints.stockDateRange)
-      .then((res) => {
-        this.setState({ minDate: res.data.data[0].min_date, maxDate: res.data.data[0].max_date })
-        console.log(res.data.data[0].min_date + "|" + res.data.data[0].max_date)
-      })
+    .then((res) => {
+      let maxDate = res.data.data[0].max_date;
+      this.setState({ minDate: res.data.data[0].min_date, maxDate: res.data.data[0].max_date})
+      console.log(res.data.data[0].min_date + "|" + res.data.data[0].max_date)
+    })
   }
 
   periodHandler = (val) => {
+    // alert(any.periodSelected);
     this.setState({
       periodExpand: false,
       dateFromShow: true,
-      filterType: val,
-      periodSelected: true,
+      filterType: val
     });
     this.openDatePicker('from')
   }
@@ -106,7 +108,7 @@ class StockMovement extends React.PureComponent {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - 280)
+    const height = (window.innerHeight - 250)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {
@@ -137,22 +139,22 @@ class StockMovement extends React.PureComponent {
   }
 
   getproduct = () => {
-    let self = this;
+    let self = this; 
     let tmp_data = []
-    self.setState({ productdata: tmp_data })
+    self.setState({ productdata: tmp_data }) 
 
-    axios.get(endpoints.getProduct + '?client=' + this.state.client.value)
-      .then(res => {
-        const data = res.data
+    axios.get(endpoints.getProduct + '?client=' + this.state.client.value )
+    .then(res => {
+        const data = res.data 
         const productdata = data.code.map((c, i) => ({ value: c, label: `${data.code[i]}: ${data.name[i]}` }))
         const tmp = { value: 'all', label: 'All Product' }
         productdata.splice(0, 0, tmp)
         this.setState({ productData: productdata })
-
-      })
-      .catch(error => {
+        
+    })
+    .catch(error => {
         console.log(error);
-      })
+    })
   }
   getResources = async () => {
     const { user } = this.props.store
@@ -242,50 +244,50 @@ class StockMovement extends React.PureComponent {
         ]
       }
     ]
-
-    this.state.dateArray.map((date, idx) => {
-      let dates = moment(date).format('DD MMMM YYYY')
-      if (periods == 'day') {
-        dates = moment(date).format('DD MMMM YYYY')
-      }
-      else if (periods == 'week') {
-        let dates2 = moment(date).add('days', 6).format('DD MMMM YYYY')
-        dates = moment(date).format('DD MMMM YYYY')
-        dates = dates + ' - ' + dates2
-      }
-      else if (periods == 'month') {
-        dates = moment(date).format('MMMM YYYY')
-      }
-
+     
+    this.state.dateArray.map((date, idx) => { 
+      let dates = moment(date).format('DD MMMM YYYY') 
+        if (periods == 'day') {
+            dates = moment(date).format('DD MMMM YYYY')
+        }
+        else if (periods == 'week') {
+            let dates2 = moment(date).add('days', 6).format('DD MMMM YYYY')
+            dates = moment(date).format('DD MMMM YYYY')
+            dates = dates + ' - ' + dates2
+        }
+        else if (periods == 'month') {
+            dates = moment(date).format('MMMM YYYY')
+        } 
+            
       let tmp_header = {
-        Header: dates,
-        headerStyle: { backgroundColor: 'white' },
-        headerClassName: 'borderRight dateHeader noBorderBottom ',
+        Header: dates, 
+        headerStyle: {backgroundColor: 'white' },
+        headerClassName: 'borderRight dateHeader noBorderBottom ', 
         columns: [
           {
             Header: 'SA+',
-            accessor: 'sa_plus_' + date,
+            accessor: 'sa_plus_'+date,
             className: 'text-right',
-            headerClassName: 'borderBottom ',
+            headerClassName: 'borderBottom ', 
             Cell: '-'
           },
           {
             Header: 'SA-',
-            accessor: 'sa_minus_' + date,
+            accessor: 'sa_minus_'+date,
             className: 'text-right',
-            headerClassName: 'borderBottom',
+            headerClassName: 'borderBottom', 
             Cell: '-'
           },
           {
             Header: 'Rec',
-            accessor: 'rec_' + date,
+            accessor: 'rec_'+date,
             Cell: '-',
             className: 'text-right',
-            headerClassName: 'borderBottom',
+            headerClassName: 'borderBottom', 
           },
           {
             Header: 'Send',
-            accessor: 'send_' + date,
+            accessor: 'send_'+date,
             className: 'borderRight text-right',
             headerClassName: 'borderRight borderBottom',
             Cell: '-'
@@ -293,7 +295,7 @@ class StockMovement extends React.PureComponent {
         ]
       }
       header.push(tmp_header)
-    })
+    }) 
     console.log('----- header -----');
     console.log(header);
     this.setState({ fields: header })
@@ -326,161 +328,170 @@ class StockMovement extends React.PureComponent {
   }
 
   load_data = async (dtStart, dtEnd, periods, site = "", client = "", product = "") => {
-    try {
+    try {  
       // let dtStart = '2019-02-26'
       // let dtEnd = '2019-02-28'
       // let periods = 'day'
       let paramUrl = []
-
       let dateArray = []
       let stDate = dtStart ? dtStart : this.state.startDate
       let enDate = dtEnd ? dtEnd : this.state.endDate
-      let startDate = moment(stDate)
+      let startDate = moment(stDate) 
       let endDate = moment(enDate)
       let periodd = periods ? periods : this.state.filterType
 
-      paramUrl.push('startDate=' + (stDate ? stDate : ''))
+      paramUrl.push('startDate=' +(stDate ? stDate : ''))
       paramUrl.push('endDate=' + (enDate ? enDate : ''))
-      paramUrl.push('filterType=' + (periods ? periods : ''))
-      paramUrl.push('client=' + (client ? client : ''))
-      paramUrl.push('site=' + (site ? site : ''))
-      paramUrl.push('product=' + (product ? product : ''))
+      paramUrl.push('filterType=' + (periods ? periods: '')) 
+      paramUrl.push('client=' + (client ? client: '')) 
+      paramUrl.push('site=' + (site ? site: '')) 
+      paramUrl.push('product=' + (product ? product: ''))  
 
       //set array date
       while (startDate <= endDate) {
-        let newDate = startDate.format('YYYY-MM-DD')
-        dateArray.push(newDate)
+          let newDate = startDate.format('YYYY-MM-DD')
+          dateArray.push(newDate)
 
-        if (periodd === 'day') {
-          startDate.add('days', 1)
-        }
+          if (periodd === 'day') {
+              startDate.add('days', 1)
+          }
 
-        else if (periodd === 'week') {
-          startDate.add('days', 7)
-        }
-        else if (periodd === 'month') {
-          startDate.add(1, 'M')
-        }
+          else if (periodd === 'week') {
+              startDate.add('days', 7)
+          }
+          else if (periodd === 'month') {
+              startDate.add(1, 'M')
+          }
       }
-      this.setState({ dateArray: dateArray, pushTableComplete: true }, function () {
+      this.setState({ dateArray: dateArray, pushTableComplete: true }, function (){
         //set header
         this.setHeader(periods)
       })
 
-      axios.get(endpoints.stockMovement + '?' + paramUrl.join('&')).then(res => {
-        //get result 
-        const result = res.data.data
+      axios.get(endpoints.stockMovement+'?'+paramUrl.join('&')).then(res => { 
+          //get result 
+          const result = res.data.data 
 
-        this.setState({ data: result }, function () {
-          this.setData()
-        })
+          this.setState({ data: result }, function(){
+              this.setData()
+          }) 
       })
-        .catch(error => {
-          console.log(error)
-        })
+      .catch(error => {
+        console.log(error) 
+      })
     } catch (error) {
       console.log(error)
     }
-  }
+ }
+
   toggle = (value) => {
     this.setState({ create: value ? value : !this.state.create })
   }
+
   render() {
     const {
       dimension, fields, data, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData, taskData, data_table, filterType, filterData,
-      product, productData, periodSelected, pagination, dateFromShow, minDate, maxDate
-    } = this.state
+      siteData, clientData, statusData, orderTypeData, taskData, data_table, filterType,filterData,
+      product, productData, periodSelected, pagination,dateFromShow, minDate,maxDate
+  } = this.state
+    
+  //custom style react-select 
+     
+  return <div className="stockMovement">
+    <HeaderTitle
+      breadcrumb={[{ to: '', label: 'Stock Movement', active: true }]} 
+    />
 
-    //custom style react-select 
-
-    return <div className="stock-movement">
-      <HeaderTitle
-        breadcrumb={[{ to: '', label: 'Stock Movement', active: true }]}
-      />
-
-      <CCard style={{ zIndex: '999' }}>
-        <CCardBody className="p-3">
-          <CRow>
-            <CCol lg={2} className="pr-2" >
-              <Select name="filterType" placeholder="Display Period"
-                value={filterType} options={filterData}
-                onChange={(val) => this.periodHandler(val)}
-              />
-              {!periodSelected ? <span className="text-danger">Please select display period</span> : null}
-
-            </CCol>
-            <CCol lg={4}>
-              <CRow>
-                <CCol lg={2} className="px-2 text-light-gray margin-auto text-center">Date From</CCol>
-                <CCol lg={4} className="px-2">
-                  <DatePicker
-                    ref="dateFrom"
-                    getDate={(e) => { this.setState({ dateFromSelected: e.toString() }) }}
-                    defaultValue={this.state.dateFromSelected} tabIndex="1" placeHolder="Select Date"
-                    onChange={(e) => { this.openDatePicker('to') }}
-                    fromMonth={minDate} toMonth={maxDate}
+    <CCard style={{zIndex: '999'}} className="mb-3">
+      <CCardBody className="px-3 py-3 stockMovement">
+        <CRow className="main-con"> 
+          <CCol className='SM-col px-0'> 
+            <CRow className="align-items-center">   
+              <CCol lg={4} className="displayPeriod-col pl-0 pr-5" >
+                <div style={{width: '100%'}}>
+                  <Select name="filterType" className="stockMovement" placeholder="Display Period"
+                    value={filterType} options={filterData} 
+                    onChange={(val) => this.periodHandler( val )}  
                   />
-                </CCol>
-                <CCol lg={2} className="px-2 text-light-gray margin-auto text-center">Date To</CCol>
-                <CCol lg={4} className="px-2">
-                  <DatePicker
-                    ref="dateTo"
-                    getDate={(e) => { this.setState({ dateToSelected: e.toString() }) }}
-                    defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date"
-                    fromMonth={minDate} toMonth={maxDate}
-                  />
-                </CCol>
-              </CRow>
-            </CCol>
-            <CCol lg={4}>
-              <CRow>
-                <CCol lg={4} className="px-2">
-                  <Select name="site" placeholder="Site"
-                    value={site} options={siteData}
-                    onChange={(val) => this.setState({ site: val })}
-                  />
-                </CCol>
-                <CCol lg={4} className="px-2">
-                  <Select name="client" placeholder="Client"
-                    value={client} options={clientData}
-                    onChange={(val) => this.setState({ client: val }, () => this.getproduct())}
-                  />
-                </CCol>
-                <CCol lg={4} className="px-2">
-                  <Select name="product" placeholder="Product"
-                    value={product} options={productData}
-                    onChange={(val) => this.setState({ product: val })}
-                  />
-                </CCol>
-              </CRow>
-            </CCol>
-            <CCol lg={2}>
-              <button className="btn btn-search btn-primary float-right" onClick={this.searchStockMovement}>SEARCH</button>
-            </CCol>
-          </CRow>
-        </CCardBody>
-      </CCard>
+                  {/* <div id='period' className={(!periodSelected) ? 'stock-err' : 'stock-err-hidden'}>Please select display period</div> */}
+                </div>
+              </CCol>
+              <CCol sm={1} className="dateFromLabel-col pl-0 text-light-gray">
+                Date From 
+              </CCol>
+              <CCol  lg={3} className="dateFrom-col px-0 stockMovement" > 
+                <DatePicker style={{ minWidth: '100%' }}
+                  ref="dateFrom" 
+                  getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
+                  defaultValue={this.state.dateFromSelected} tabIndex="1" placeHolder="Select Date"
+                  onChange={(e) => {this.openDatePicker('to')}}
+                  fromMonth={minDate} toMonth={maxDate}
+                />
+              </CCol>
+              <div className="dateToLabel-col text-light-gray px-3">
+                To
+              </div>
+              <CCol  lg={3} className="dateTo-col stockMovement pl-0 pr-0" > 
+                  <DatePicker style={{ minWidth: '100%', height:'50px' }}
+                      ref="dateTo" 
+                      getDate={(e) => { this.setState({ dateToSelected: e.toString() })}}
+                      defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date"
+                      fromMonth={minDate} toMonth={maxDate}
+                  /> 
+              </CCol>
+            </CRow>
+          </CCol>
+          <CCol lg={5} className="sm-second-col px-0">
+            <CRow> 
+              <CCol sm={4} lg={3} className="px-3 site-col" >
+              <Select className="stockMovement" name="site" placeholder="Site"
+                  value={site} options={siteData}
+                  onChange={(val) => this.setState({ site: val })} 
+                />
+              </CCol>
+              <CCol sm={4} lg={3} className="pr-3 pl-0 client-col">
+                <Select className="stockMovement"  name="client" placeholder="Client"
+                  value={client} options={clientData}
+                  onChange={(val) => this.setState({ client: val }, () => this.getproduct())} 
+                />
+              </CCol> 
+              <CCol sm={4} lg={4} className="pr-3 pl-0 product-col"  style={{flex: '0 0 30%'}}>
+                <Select className="stockMovement"  name="product" placeholder="Product" 
+                  value={product} options={productData}
+                  onChange={(val) => this.setState({ product: val })} 
+                />
+              </CCol>
+              <CCol sm={4} lg={2} className="pr-0 pl-5 searchButton-col" style={{flex: '0 0 20%', maxWidth: '20%'}}>
+                <button className="btn btn-block btn-primary float-right stockMovement" onClick={this.searchStockMovement}>SEARCH</button>
+              </CCol>
+            </CRow>
+          </CCol>
+        </CRow>
+      </CCardBody>
+    </CCard>
 
-      <StockMovementTable
-        title="Stock Movement"
-        height={dimension.height}
-        data={data_table}
-        fields={fields}
-        onClick={this.showDetails}
-        export={<CButton className="btn btn-primary px-4">EXPORT <IoIosArrowDown /></CButton>}
-      />
+    <StockMovementTable
+      title="Stock Movement"
+      height={dimension.height}
+      data={data_table}
+      fields={fields}
+      onClick={this.showDetails}
+      export={<CButton className="btn btn-primary px-4">EXPORT <IoIosArrowDown /></CButton>}
+    /> 
 
-      <CustomPagination
-        data={data}
-        pagination={pagination}
-        goto={(active) => {
-          this.setState({ pagination: { ...pagination, active } }, () => this.searchStockMovement())
-        }}
-        export={<CButton className="btn btn-primary float-right px-4 btn-export">EXPORT <IoIosArrowDown /></CButton>}
-      />
+    <CustomPagination
+      data={data}
+      pagination={pagination}
+      goto={(active) => {
+        this.setState({ pagination: { ...pagination, active } }, () => this.searchStockMovement())
+      }}
+      export={<CButton className="btn btn-primary d-flex float-right px-3 align-items-center btn-export">
+      <div className="export-export pr-3"/>
+      EXPORT
+    </CButton>}
+    />
 
-    </div>
+  </div>
   }
 }
 const mapStateToProps = (store) => ({ store })

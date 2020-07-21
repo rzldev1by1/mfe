@@ -15,32 +15,38 @@ const columns = [
   { accessor: 'site', Header: 'Site', },
   { accessor: 'client', Header: 'Client', },
   { accessor: 'order_no', Header: 'Order No', },
-  { accessor: 'status', Header: 'Status', width: 140 },
   { accessor: 'order_type', Header: 'Order Type', },
+  { accessor: 'isis_task', Header: 'Task', },
   { accessor: 'supplier_no', Header: 'Supplier No', },
-  { accessor: 'supplier_name', Header: 'Supplier No', width: 210 },
+  { accessor: 'supplier_name', Header: 'Supplier Name', width: 210 },
+  { accessor: 'status', Header: 'Status', width: 140 },
   { accessor: 'delivery_date', Header: 'Delivery Date', },
   { accessor: 'date_received', Header: 'Date Received', },
   { accessor: 'date_released', Header: 'Date Released', },
   { accessor: 'date_completed', Header: 'Date Completed', },
-  { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
-  { accessor: 'vendor_order_ref', Header: 'Vendor Order No' },
+  // { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
+  // { accessor: 'vendor_order_ref', Header: 'Vendor Order No' },
 ]
 class PurchaseOrders extends React.PureComponent {
-  state = {
-    search: '',
-    site: null,
-    client: null,
-    status: null,
-    orderType: null,
-    task: null,
-    resources: [],
-    fields: columns,
-    data: [],
-    pagination: {},
-    create: false,
-    detail: {},
-    dimension: { width: 0, height: 0 }
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      search: '',
+      site: null,
+      client: null,
+      status: null,
+      orderType: null,
+      task: null,
+      resources: [],
+      fields: columns,
+      data: [],
+      pagination: {},
+      create: false,
+      detail: {},
+      dimension: { width: 0, height: 0 }
+    }
+
   }
   componentDidMount = () => {
     // set automatic table height
@@ -72,6 +78,7 @@ class PurchaseOrders extends React.PureComponent {
     const clientData = data.map(d => ({ value: d.code, label: `${d.code}: ${d.name}` }))
     const client = { value: 'all', label: 'All Client' }
     clientData.splice(0, 0, client)
+    this.props.dispatch({ type: 'CLIENT', data: clientData })
     this.setState({ clientData })
   }
   getStatus = async () => {
@@ -101,8 +108,10 @@ class PurchaseOrders extends React.PureComponent {
     if (user) {
       const { data } = await axios.get(`${endpoints.getPOResources}?company=${user.company}&client=${user.client}`)
       const orderTypeData = data.orderType.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.description}` }))
+      const site = data.site.map(data => ({ value: data.site, label: `${data.site}: ${data.name}` }))
       const orderType = { value: 'all', label: 'All' }
       orderTypeData.splice(0, 0, orderType)
+      this.props.dispatch({ type: 'SITE', data: site })
       this.setState({ resources: data, orderTypeData })
     }
   }
@@ -168,7 +177,7 @@ class PurchaseOrders extends React.PureComponent {
     return <div className="purchase-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Purchase Orders', active: true }]}
-        button={<CButton onClick={this.toggle} className="btn btn-primary btn-create float-right">Create Purchase Order</CButton>}
+        button={<CButton onClick={this.toggle} className="btn btn-primary btn-create float-right">CREATE PURCHASE ORDER</CButton>}
       />
 
       <CCard className="mb-3">
