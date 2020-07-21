@@ -13,7 +13,7 @@ import { object } from 'prop-types'
 
 const columns = [
                     { 
-                      accessor: 'Site', 
+                      accessor: 'site', 
                       Header: 'Site', 
                       sortable: true 
                     },
@@ -221,7 +221,18 @@ class StockHolding extends React.PureComponent {
     const { data } = await axios.get(url)
     console.log(data.data[0].CLIENT)
     let header = []
-    let accessor = Object.keys(data.data[0])
+    let accessor = Object.keys(data.data[0]);
+    accessor.map((data, idx) => {
+        let lowerCase = data.toLowerCase();
+        if(lowerCase.includes(" ")){
+            let split = lowerCase.split(" ");
+            let result = split.join("_");
+            accessor[idx] = result
+        }else{
+            accessor[idx] = lowerCase
+        }
+        
+    })
     Object.values(data.data[0]).map((data, idx) => { 
       let headerTable = {
         accessor: 'Site', 
@@ -230,13 +241,16 @@ class StockHolding extends React.PureComponent {
       }
 
       headerTable.Header= data 
-      headerTable.accessor= accessor[idx]
+      headerTable.accessor= accessor[idx] 
       header.push(headerTable)
      
     })
     console.log(header)
     if (data.data.length) {
-      this.setState({ products: data.data[0],fields:header })
+      this.setState({ 
+          products: data.data[0],
+          fields: header 
+        })
     }
   }
   searchStockHolding  = async () => {
