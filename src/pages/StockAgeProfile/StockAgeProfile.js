@@ -260,7 +260,7 @@ class StockAgeProfile extends Component {
           export={
             <CButton className="btn btn-primary float-right px-3 btn-export d-flex">
               <span className="export-export pr-3"/>
-              Export
+              EXPORT
 
             </CButton>
           }

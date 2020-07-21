@@ -35,3 +35,122 @@ ul.pagination {
 .btn-export {
   height: 50px;
 }
+
+nav .pagination li:first-child {
+  margin-left: 0px !important;
+  text-align: left !important;
+}
+nav .pagination li:first-child .page-link {
+  padding-left: 0px !important;
+}
+
+nav .pagination li:nth-child(2) {
+  margin-left: 0px !important;
+  text-align: left !important;
+}
+
+nav .pagination li:nth-child(2) .page-link {
+  padding-left: 0px !important;
+}
+
+nav .pagination li:nth-last-child(2) {
+  margin-right: 0px !important;
+  text-align: right !important;
+}
+
+nav .pagination li:nth-last-child(2) .page-link {
+  padding-right: 0px !important;
+}
+
+nav .pagination li:last-child {
+  margin-right: 0px !important;
+  text-align: right !important;
+}
+
+nav .pagination li:last-child .page-link {
+  padding-right: 0px !important;
+}
+.row {
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
+
+.container-fluid div div .pagination-custom div .card-group .card nav {
+  padding-top: 2px !important;
+}
+.card-group .card:last-child div input {
+  height: 30px !important;
+}
+@media (min-width: 1459px) and (max-width: 1787px) {
+  .container-fluid div div .pagination-custom .col-lg-4:first-child {
+    flex: 0 0 41.66667% !important;
+    max-width: 41.66667% !important;
+  }
+  .container-fluid div div .pagination-custom .col-lg-4:nth-child(2) {
+    flex: 0 0 25% !important;
+    max-width: 25% !important;
+  }
+}
+
+@media (min-width: 1234px) and (max-width: 1459px) {
+  .container-fluid div div .pagination-custom .col-lg-4:first-child {
+    flex: 0 0 50% !important;
+    max-width: 50% !important;
+  }
+  .container-fluid div div .pagination-custom .col-lg-4:nth-child(2) {
+    flex: 0 0 25% !important;
+    max-width: 25% !important;
+  }
+  .container-fluid div div .pagination-custom .col-lg-4:last-child {
+    flex: 0 0 25% !important;
+    max-width: 25% !important;
+  }
+}
+
+@media (min-width: 1046px) and (max-width: 1233px) {
+  .container-fluid div div .pagination-custom .col-lg-4:first-child {
+    flex: 0 0 58.33333% !important;
+    max-width: 58.33333% !important;
+  }
+  .container-fluid div div .pagination-custom .col-lg-4:nth-child(2) {
+    flex: 0 0 25% !important;
+    max-width: 25% !important;
+  }
+  .container-fluid div div .pagination-custom .col-lg-4:last-child {
+    flex: 0 0 16.66667%;
+    max-width: 16.66667%;
+  }
+}
+
+@media (min-width: 990px) and (max-width: 1045px) {
+  .container-fluid div div .pagination-custom .col-lg-4:first-child {
+    flex: 0 0 66.66667% !important;
+    max-width: 66.66667% !important;
+  }
+  .container-fluid div div .pagination-custom .col-lg-4:nth-child(2) {
+    flex: 0 0 25% !important;
+    max-width: 25% !important;
+  }
+  .container-fluid div div .pagination-custom .col-lg-4:last-child {
+    flex: 0 0 8.33333%;
+    max-width: 8.33333%;
+  }
+}
+
+@media (max-width: 989px) {
+  .container-fluid div div .pagination-custom .col-lg-4:first-child {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .container-fluid div div .pagination-custom .col-lg-4:nth-child(2) {
+    padding: 1rem 0rem !important;
+    flex: 0 0 50% !important;
+    max-width: 50% !important;
+  }
+  .container-fluid div div .pagination-custom .col-lg-4:last-child {
+    flex: 0 0 50% !important;
+    max-width: 50% !important;
+    padding: 1rem 0rem !important;
+  }
+}
