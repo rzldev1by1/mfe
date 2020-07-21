@@ -12,7 +12,7 @@ import 'react-table-v6/react-table.css'
 import './CustomTable.css'
 
 // automatic column width
-const getColumnWidth = (rows, accessor, headerText) => {
+const getColumnWidth = (rows, accessor, headerText,) => {
   const cellLength = Math.max(
     ...rows.map(row => {
       let value = '';
@@ -262,14 +262,14 @@ class CustomTable extends React.Component {
                                     fields && fields.map((item, index) => {
                                       return (
                                         <Col key={index} className="p-2">
-                                          <input placeholder={item.Header} name={item.accessor} sortable={item.sortable} onChange={this.changedColumn} className={`text-left form-rename `}>
+                                          <input placeholder={item.placeholder} name={item.accessor} sortable={item.sortable} onChange={this.changedColumn} className={`text-left form-rename `}>
                                           </input>
                                         </Col>
                                       )
                                     })
                                   }
                                   </Row>
-                                  <Button variant="primary" className="px-5 float-right" onClick={this.renameSubmit} >Rename</Button>
+                                  <Button variant="primary" className="px-3 float-right" onClick={this.renameSubmit} >DONE</Button>
                             </TabPane >
                         </TabContent>
                     </Col>
