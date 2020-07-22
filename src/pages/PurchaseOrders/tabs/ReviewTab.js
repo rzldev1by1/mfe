@@ -18,7 +18,6 @@ class ReviewTab extends React.Component {
     for (const k of keys) {
       header[k] = header[k] || null
     }
-    console.log(lineDetail)
     lineDetail = lineDetail.map((l, i) => {
       l.number = i + 1
       l.productDescription = l.product || null
@@ -37,7 +36,6 @@ class ReviewTab extends React.Component {
     let lineDetails = lineDetail
 
     const { data } = await axios.post(endpoint.purchaseOrderCreate, { orderDetails, lineDetails })
-    console.log(data)
     if (data.message === 'Successfully added') {
       this.setState({ status: 'success' })
       this.props.submit({ header: {}, lineDetail: [], orderDetails:[{}] })
@@ -48,7 +46,6 @@ class ReviewTab extends React.Component {
   render() {
     const { header, lineDetail, orderDetails } = this.props.data
     const od = orderDetails
-    console.log(od)
     return <Container className="px-5 py-4">
       <h3 className="text-primary font-20">Order Details</h3>
       <Row>

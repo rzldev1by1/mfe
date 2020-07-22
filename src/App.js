@@ -25,6 +25,14 @@ class ProtectedRoute extends React.Component {
 			axios.defaults.headers.common['userLevel'] = userLevel || '';
 			axios.defaults.headers.common['client'] = client || '';
 			axios.defaults.headers.common['webUser'] = webUser || '';
+			axios.interceptors.response.use(response => {
+				return response;
+			}, function (error) {
+				if (error.response.status === 401) {
+					props.dispatch({ type: 'LOGOUT' })
+				}
+				return Promise.reject(error);
+			});
 		}
 	}
 	render() {

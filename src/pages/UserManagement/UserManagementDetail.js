@@ -8,6 +8,7 @@ import endpoint from '../../helpers/endpoints'
 import axios from 'axios'
 import HeaderTitle from 'shared/container/TheHeader'
 import ResetModal from './ModalPopup/Reset'
+import * as utility from './UmUtility'
 
 import moment from 'moment';
 // import popupLock from '../../assets/img/brand/popup_lock.png'
@@ -33,6 +34,7 @@ class UserManagementDetail extends Component {
             isEnableAllModule: false,
             isEnableAllSite: false,
             isEnableAllClient: false,
+            loginInfo:{}
         }
 
     }
@@ -40,6 +42,7 @@ class UserManagementDetail extends Component {
     componentDidMount() {
         let id = this.props.match.params.id;
         this.getAccountInfo(id);
+        this.loadPersonalLogin();
     }
 
     restructureAccount = (sources) => {
@@ -372,9 +375,15 @@ class UserManagementDetail extends Component {
 
     }
 
+    loadPersonalLogin = () => {
+        let userInfo = utility.readFromLocalStorage("persist:root");
+        let user = JSON.parse(userInfo.user)        
+        this.setState({ loginInfo: user });        
+    }
+
     render() {
         const { match } = this.props;
-        const { moduleAccess, sites, clients, accountInfo } = this.state;
+        const { moduleAccess, sites, clients, accountInfo, loginInfo } = this.state;
 
 
         return (<div className="um-detail w-100 h-100">
@@ -416,7 +425,7 @@ class UserManagementDetail extends Component {
                                             <label className="text-title-detail">Reset Password</label>
                                         </div>
 
-                                        <div className="col-3 pl-0">
+                                        <div className={`col-3 pl-0 ${accountInfo.userId === loginInfo.userId? 'd-none':''}`}>
                                             <label className="text-title-detail">Suspend Users</label>
                                         </div>
 
@@ -448,7 +457,7 @@ class UserManagementDetail extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-3 pl-0">
+                                        <div className={`col-3 pl-0 ${accountInfo.userId === loginInfo.userId? 'd-none':''}`}>
                                             <div className="row">
                                                 <div className="col-6 text-title-detail" >
                                                     Are you sure you want<br />
@@ -468,7 +477,7 @@ class UserManagementDetail extends Component {
 
 
                                 </div>
-                                <div className="system mt-4">
+                                <div className={`system mt-4 ${accountInfo.userId === loginInfo.userId? 'd-none':''}`}>
                                     <div className="row">
                                         <div className="col-12">
                                             <h3>

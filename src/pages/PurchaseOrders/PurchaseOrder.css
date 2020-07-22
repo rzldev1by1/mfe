@@ -38,6 +38,15 @@
   font-size: 12px;
   padding: 6px;
 }
+.rt-table {
+  margin-top: -0.4rem;
+}
+.search-padding{
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+  padding-right: 1.4rem;
+  padding-left: 1.4rem;
+}
 
 /* Sales Order Create */
 .required::after {
