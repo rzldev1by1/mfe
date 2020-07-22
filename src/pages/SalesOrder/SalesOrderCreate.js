@@ -33,7 +33,7 @@ class SalesOrderCreate extends React.PureComponent {
         <Row className="px-5 py-3">
           <Col xs={10}>
             <span className="font-20"><i className="iconU-createModal font-20"></i> Sales Order</span> <br />
-            <span className="pl-4"> &nbsp;Enter Order and line details to create a new order</span>
+            <span>Enter Order and line details to create a new order</span>
           </Col>
           <Col xs={2} className="text-right">
             <i className="iconU-close pointer" onClick={this.onHide}></i>

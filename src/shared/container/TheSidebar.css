@@ -8,8 +8,9 @@
 }
 @media (max-height: 768px) {
   .logo-text {
-    writing-mode: horizontal-tb !important;
-    text-orientation: mixed !important;
+    display: none;
+    /* writing-mode: horizontal-tb !important; */
+    /* text-orientation: mixed !important; */
   }
   .c-sidebar-item {
     margin-top: 2px !important;
@@ -21,9 +22,6 @@
   text-orientation: mixed;
   font-size: 120% !important;
   margin: 0 auto;
-}
-.c-sidebar-nav-icon {
-  font-size: 200% !important;
 }
 .c-sidebar,
 .c-sidebar-unfoldable:not(:hover).c-sidebar-lg-show {
@@ -47,6 +45,15 @@
 .c-sidebar-item.links {
   word-spacing: 100px;
 }
+.c-sidebar-nav-icon {
+  height: 25px;
+}
+.c-sidebar-nav-icon.um{
+  height: 20px;
+}
+.c-sidebar-nav-icon-profile {
+  height: 45px;
+}
 .sidebar-nav-header {
   padding: 0 !important;
   margin: 0 !important;
@@ -56,7 +63,4 @@
   justify-content: center;
   font-size: 12px;
   cursor: pointer;
-}
-.nav-profile {
-  font-size: 40px !important;
 }
