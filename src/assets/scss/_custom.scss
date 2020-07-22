@@ -210,6 +210,22 @@ header {
 }
 /* dropdown style end */
 
+.status-ok {
+  color: rgb(209, 204, 204) !important;
+  background: transparent;
+  padding: 5px;
+  border-radius: 6px;
+  border: solid 1.5px rgb(149, 146, 146);
+  font-size: 12px;
+}
+.status-shortage {
+  color: white !important;
+  background: #f94548;
+  padding: 6px;
+  font-size: 12px;
+  border-radius: 3px;
+}
+
 // scrollbar
 .ReactTable > .rt-table > .rt-tbody::-webkit-scrollbar {
   width: 8px !important;
