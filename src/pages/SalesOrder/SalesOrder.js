@@ -20,7 +20,7 @@ const columns = [
   { accessor: 'ordertype', Header: 'Order Type', width: 120 },
   { accessor: 'task', Header: 'Task', width: 100 },
   { accessor: 'customername', Header: 'Customer', width: 250 },
-  { accessor: 'status', Header: 'Status', width: 120 },
+  { accessor: 'status', Header: 'Status', width: 150 },
   { accessor: 'deliverydate', Header: 'Delivery Date', width: 120 },
   { accessor: 'datereceived', Header: 'Date Received', width: 120 },
   { accessor: 'datereleased', Header: 'Date Released', width: 120 },
@@ -150,6 +150,21 @@ class SalesOrder extends React.PureComponent {
         m.loadoutstart = m.loadoutstart ? moment(m.loadoutstart).format('DD/MM/YYYY') : ''
         m.loadoutfinish = m.loadoutfinish ? moment(m.loadoutfinish).format('DD/MM/YYYY') : ''
         return m
+      })       
+      modifiedData.map((item, idx) => {
+        if ((item["status"]) === "1: Available") {
+          item['status'] = [<a className="status-available">AVAILABLE</a>]
+        } if ((item["status"]) === "0: Not Available") {
+          item['status'] = [<a className="status-Unavailable">UNAVAILABLE</a>]
+        } if ((item["status"]) === "2: Released") {
+          item['status'] = [<a className="status-Release">RELEASED</a>]
+        } if ((item["status"]) === "3: Part Released") {
+          item['status'] = [<a className="status-partRelease">PART RELEASED</a>]
+        } if ((item["status"]) === "4: Completed") {
+          item['status'] = [<a className="status-complete">COMPLETED</a>]
+        } if ((item["status"]) === "All Open") {
+          item['status'] = [<a className="status-ok">ALL OPEN</a>]
+        }
       })
       if(data.data.total<1){
         this.setState({ request_status: "No Data Found"  })
