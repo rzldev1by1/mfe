@@ -86,14 +86,14 @@ const columns = [
                       sortable: true, 
                       width: 155  },
                     { 
-                      accessor: 'prince',
+                      accessor: 'price',
                       Header: 'Price', 
                       placeholder: 'Price', 
                       sortable: true,},
                     { 
                       accessor: 'pallets', 
                       Header: 'Pallets', 
-                      placeholder: 'Pallets aaa', 
+                      placeholder: 'Pallets', 
                       sortable: true,
                     },
 ]
@@ -207,18 +207,17 @@ class StockHolding extends React.PureComponent {
 
     try{
       const urlAntec = await axios.post(baseUrl + "/putStockholdingColumn?client=ANTEC", payload)
-      // const urlBega = await axios.post(baseUrl + "/putStockholdingColumn?client=BEGA", payload)
-      // const urlAesop = await axios.post(baseUrl + "/putStockholdingColumn?client=AESOP", payload)
-      // const urlClucth = await axios.post(baseUrl + "/putStockholdingColumn?client=CLUCTH", payload)
-      // const urlExquira = await axios.post(baseUrl + "/putStockholdingColumn?client=EXQUIRA", payload)
-      // const urlLedvance = await axios.post(baseUrl + "/putStockholdingColumn?client=LEDVANCE", payload)
-      // const urlOnestop = await axios.post(baseUrl + "/putStockholdingColumn?client=ONESTOP", payload)
-      // const urlStartrack = await axios.post(baseUrl + "/putStockholdingColumn?client=STARTRACK", payload)
-      // const urlTatura = await axios.post(baseUrl + "/putStockholdingColumn?client=TATURA", payload)
-      // const urlTtl = await axios.post(baseUrl + "/putStockholdingColumn?client=TTL", payload)
-      // const urlTtchem = await axios.post(baseUrl + "/putStockholdingColumn?client=TTCHEM", payload)
-        const { data } = urlAntec
-        //  + urlBega + urlAesop + urlClucth + urlExquira + urlLedvance + urlOnestop + urlStartrack + urlTatura + urlTtl + urlTtchem
+      const urlBega = await axios.post(baseUrl + "/putStockholdingColumn?client=BEGA", payload)
+      const urlAesop = await axios.post(baseUrl + "/putStockholdingColumn?client=AESOP", payload)
+      const urlClucth = await axios.post(baseUrl + "/putStockholdingColumn?client=CLUCTH", payload)
+      const urlExquira = await axios.post(baseUrl + "/putStockholdingColumn?client=EXQUIRA", payload)
+      const urlLedvance = await axios.post(baseUrl + "/putStockholdingColumn?client=LEDVANCE", payload)
+      const urlOnestop = await axios.post(baseUrl + "/putStockholdingColumn?client=ONESTOP", payload)
+      const urlStartrack = await axios.post(baseUrl + "/putStockholdingColumn?client=STARTRACK", payload)
+      const urlTatura = await axios.post(baseUrl + "/putStockholdingColumn?client=TATURA", payload)
+      const urlTtl = await axios.post(baseUrl + "/putStockholdingColumn?client=TTL", payload)
+      const urlTtchem = await axios.post(baseUrl + "/putStockholdingColumn?client=TTCHEM", payload)
+        const { data } = urlAntec + urlBega + urlAesop + urlClucth + urlExquira + urlLedvance + urlOnestop + urlStartrack + urlTatura + urlTtl + urlTtchem
         console.log(data);
     }catch(error){
         console.log(error)
