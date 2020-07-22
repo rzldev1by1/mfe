@@ -19,6 +19,10 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, ...rest }) => {
       return { ...state, sidebarShow: data }
     case 'DARKMODE':
       return { ...state, darkMode: data }
+    case 'CLIENT':
+      return { ...state, client: data }
+    case 'SITE' :
+      return { ...state, site: data }
     default:
       return state
   }

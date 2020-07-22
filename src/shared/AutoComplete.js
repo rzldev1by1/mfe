@@ -118,8 +118,6 @@ class AutoComplete extends Component{
                                     }
                                 }) : null    
                             }
-            
-                            {/* {console.log(this.state.data)} */}
                         </ul>
                         {/* <label className="select_autocomplete_expandLabel" htmlFor={"select-opener" + placeHolder + this.state.no}></label> */}
                     </li>

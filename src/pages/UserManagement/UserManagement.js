@@ -70,7 +70,6 @@ class UserManagemen extends Component {
         urls.push(`page=${pagination.active || 1}`)
 
         const { data } = await axios.get(`${endpoint.userManagementListUser}?${urls.join('&')}`)
-        console.log(data);
         let result = data.data.data.map((item, index) => {
             let newItem = item;
             newItem.site = (item.site && item.site !== '') ? item.site : 'All';
@@ -79,7 +78,6 @@ class UserManagemen extends Component {
             newItem.disabled = (item.disabled === 'Y') ? [<label className="um-suspended">{'Suspended'}</label>] : [<label className="um-active">{'Active'}</label>];
             return newItem;
         })
-        // console.log(result);
         this.setState({
             data: result, pagination: {
                 active: pagination.active || data.data.current_page,
