@@ -250,3 +250,15 @@
   display: flex;
   align-items: center;
 }
+
+.text-row-centre{  
+  padding-top: 14px !important;
+  padding-bottom: 5px !important;
+}
+
+.um-summary .ReactTable .rt-table .rt-thead .rt-tr .rt-th:first-child{
+  padding-left: 1rem !important;
+}
+.um-summary .ReactTable .rt-table .rt-tbody .rt-tr-group .rt-td:first-child{
+  padding-left: 1rem !important;
+}

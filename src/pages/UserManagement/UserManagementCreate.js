@@ -46,7 +46,6 @@ class UserManagementCreate extends React.PureComponent {
 
   loadModuleAccess = async () => {
     const { data } = await axios.get(endpoint.userManagementModuleAccess)
-    console.log(data);
     let menus = data.filter((item) => { return menuAvailable.indexOf(item.menuname.toLowerCase()) !== -1 })
       .map((item, index) => {
         let newItem = item;
@@ -280,7 +279,7 @@ class UserManagementCreate extends React.PureComponent {
 
 
   render() {
-    const { show, toggle } = this.props
+    const { show, toggle, users } = this.props
     const { user, key, isAdmin, moduleAccess, sites, clients, saveProgress, isEnableAllClient, isEnableAllSite, isEnableAllModule } = this.state
 
     return <Modal show={show} onHide={() => this.onHideModal()} size="xl" className="um-create" >
@@ -319,7 +318,8 @@ class UserManagementCreate extends React.PureComponent {
               isEnableAllClient={isEnableAllClient} isEnableAllSite={isEnableAllSite} isEnableAllModule={isEnableAllModule}
               onModuleEnableAllClick={this.onModuleEnableAllClick}
               onClientEnableAllClick={this.onClientEnableAllClick}
-              onSiteEnableAllClick={this.onSiteEnableAllClick} />
+              onSiteEnableAllClick={this.onSiteEnableAllClick}
+              users={users} />
           </TabPane>
           <TabPane tabId="review">
             <Review user={user} isAdmin={isAdmin}

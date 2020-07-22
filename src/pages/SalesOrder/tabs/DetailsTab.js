@@ -134,7 +134,6 @@ class CreateTab extends React.Component {
     let { error, client } = this.state
     let orderId = e.target.value
     this.setState({ orderId: orderId.toUpperCase() })
-    // console.log('find order no:', client, orderId)
     if (!client) {
       error.orderId = 'Please select client first'
       return this.setState({ error })
@@ -159,7 +158,7 @@ class CreateTab extends React.Component {
   }
   findCustomer = (val) => {
     if (val) {
-      console.log('find customer: ', val)
+      // console.log('find customer: ', val)
     }
   }
 

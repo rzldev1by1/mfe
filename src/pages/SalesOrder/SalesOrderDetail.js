@@ -78,7 +78,6 @@ class SalesOrderDetail extends React.Component {
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     if (data.data.length) {
       this.setState({ products: data.data })
-      console.log(data)
     }else{ 
       this.setState({ request_status: "No Data Found"  })
     } 

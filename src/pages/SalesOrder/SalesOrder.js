@@ -16,7 +16,7 @@ import './SalesOrder.scss'
 const columns = [
   { accessor: 'site', Header: 'Site', width: 50 },
   { accessor: 'client', Header: 'Client', width: 100 },
-  { accessor: 'orderno', Header: 'Order No', width: 100, style:{textAlign: 'left'} },
+  { accessor: 'orderno', Header: 'Order No', style: { textAlign: 'left' }, width: 100 },
   { accessor: 'ordertype', Header: 'Order Type', width: 120 },
   { accessor: 'task', Header: 'Task', width: 100 },
   { accessor: 'customername', Header: 'Customer', width: 250 },
@@ -116,7 +116,6 @@ class SalesOrder extends React.PureComponent {
   }
   getResources = async () => {
     const { user } = this.props.store
-    console.log(user)
     if (user) {
       const { data } = await axios.get(`${endpoints.getSoResources}?company=${user.company || ''}&client=${user.client || ''}`)
       const { code, name } = data.orderType
@@ -127,9 +126,8 @@ class SalesOrder extends React.PureComponent {
     }
   }
   searchSalesOrder = async () => {
-    let { search, site, client, orderType, status,task, pagination, request_status } = this.state
-    this.setState({ data: [] })
-    this.setState({ request_status: "Please Wait..."  })
+    let { search, site, client, orderType, status, task, pagination } = this.state
+    this.setState({ data: [], request_status: "Please Wait..." })
     let urls = []
     urls.push('searchParam=' + (search ? search : ''))
     urls.push('site=' + (site ? site.value : 'all'))
@@ -138,9 +136,7 @@ class SalesOrder extends React.PureComponent {
     urls.push('status=' + (status ? status.value : 'all'))
     urls.push('task=' + (task ? task.value : 'All'))
     urls.push('page=' + (pagination.active || 1))
-    // console.log(`${endpoints.salesOrder}?${urls.join('&')}`)
     const { data } = await axios.get(`${endpoints.salesOrder}?${urls.join('&')}`)
-    console.log(data)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
         m.deliverydate = m.deliverydate ? moment(m.deliverydate).format('DD/MM/YYYY') : ''
@@ -150,7 +146,7 @@ class SalesOrder extends React.PureComponent {
         m.loadoutstart = m.loadoutstart ? moment(m.loadoutstart).format('DD/MM/YYYY') : ''
         m.loadoutfinish = m.loadoutfinish ? moment(m.loadoutfinish).format('DD/MM/YYYY') : ''
         return m
-      })       
+      })
       modifiedData.map((item, idx) => {
         if ((item["status"]) === "1: Available") {
           item['status'] = [<a className="status-available">AVAILABLE</a>]
@@ -166,8 +162,8 @@ class SalesOrder extends React.PureComponent {
           item['status'] = [<a className="status-ok">ALL OPEN</a>]
         }
       })
-      if(data.data.total<1){
-        this.setState({ request_status: "No Data Found"  })
+      if (data.data.total < 1) {
+        this.setState({ request_status: "No Data Found" })
       }
       this.setState({
         pagination: {
@@ -177,7 +173,7 @@ class SalesOrder extends React.PureComponent {
         },
         data: modifiedData
       })
-    } else { 
+    } else {
       this.setState({ request_status: "No Data Found" })
       this.setState({ data: [] })
     }
@@ -193,12 +189,12 @@ class SalesOrder extends React.PureComponent {
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData, taskData, request_status
+      siteData, clientData, statusData, orderTypeData, taskData
     } = this.state
     return <div className="sales-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Sales Orders', active: true }]}
-        button={<CButton onClick={this.toggle} className="btn btn-primary btn-create float-right">Create Sales Order</CButton>}
+        button={<CButton onClick={this.toggle} className="btn btn-primary btn-create float-right">CREATE SALES ORDER</CButton>}
       />
 
       <CCard className="mb-3">
@@ -209,7 +205,7 @@ class SalesOrder extends React.PureComponent {
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
                 </div>
-                <input type="text" className="form-control border-left-0" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
+                <input type="text" className="form-control pl-0 border-left-0" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
               </div>
             </CCol>
             <CCol lg={9}>

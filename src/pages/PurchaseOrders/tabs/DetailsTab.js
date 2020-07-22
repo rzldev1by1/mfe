@@ -33,7 +33,7 @@ class CreateTab extends React.Component {
       orderDetails: [{}],
       orderLine: [{}],
       error: {},
-      siteData: this.props.siteData, clientData: this.props.clientData, orderTypeData: this.props.orderTypeData, supplierData:this.props.supplierData,
+      siteData: this.props.siteData, clientData: this.props.clientData, orderTypeData: this.props.orderTypeData, supplierData: this.props.supplierData,
       datepickerStatus: [],
       UOMStatus: [],
       dispositionStatus: [],
@@ -41,11 +41,6 @@ class CreateTab extends React.Component {
       // orderId: 'AB29123', shipToAddress1: 'Ark Street 12', postCode: '291923', state: 'Victoria',
     }
   }
-
-  componentDidMount() {
-    console.log(this.state.user)
-  }
-
   componentDidMount() {
     this.getDisposition()
   }
@@ -215,7 +210,7 @@ class CreateTab extends React.Component {
   }
   findCustomer = (val) => {
     if (val) {
-      console.log('find customer: ', val)
+      // console.log('find customer: ', val)
     }
   }
 
@@ -351,8 +346,8 @@ class CreateTab extends React.Component {
                 <td className="px-1">
                   <Select value={o.productVal || ''}
                     options={productData}
-                    onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
-                    onMenuClose={() => {productStatus[i] = false; this.setState({ productStatus: productStatus })}}
+                    onMenuOpen={() => { productStatus[i] = true; this.setState({ productStatus: productStatus }) }}
+                    onMenuClose={() => { productStatus[i] = false; this.setState({ productStatus: productStatus }) }}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
                     className={`c-400 ${overflow[i] && overflow[i].productVal ? 'absolute' : null}`} placeholder="Product" required />
                   <Required id="productVal" error={error.orderLine && error.orderLine[i]} />
@@ -371,12 +366,12 @@ class CreateTab extends React.Component {
                   <Select value={o.uom || ''}
                     options={uomData}
                     onMenuOpen={() => {
-                        UOMStatus[i] = true; 
-                        this.setState({ UOMStatus: UOMStatus })
+                      UOMStatus[i] = true;
+                      this.setState({ UOMStatus: UOMStatus })
                     }}
                     onMenuClose={() => {
-                        UOMStatus[i] = false; 
-                        this.setState({ UOMStatus: UOMStatus })
+                      UOMStatus[i] = false;
+                      this.setState({ UOMStatus: UOMStatus })
                     }}
                     onChange={(val) => this.lineSelectChange(i, 'uom', val)}
                     className={`c-150 ${overflow[i] && overflow[i].uom ? 'absolute right' : null}`} placeholder="UOM" />
@@ -394,15 +389,15 @@ class CreateTab extends React.Component {
                 <td className="px-1">
                   <Select value={o.dispositionVal || ''}
                     options={dispositionData}
-                    onMenuOpen={() => {dispositionStatus[i] = true; this.setState({ dispositionStatus: dispositionStatus })}}
-                    onMenuClose={() => {dispositionStatus[i] = false; this.setState({ dispositionStatus: dispositionStatus })}}
+                    onMenuOpen={() => { dispositionStatus[i] = true; this.setState({ dispositionStatus: dispositionStatus }) }}
+                    onMenuClose={() => { dispositionStatus[i] = false; this.setState({ dispositionStatus: dispositionStatus }) }}
                     onChange={(val) => this.lineSelectChange(i, 'dispositionVal', val)}
                     className={`c-150 ${overflow[i] && overflow[i].dispositionVal ? 'absolute right' : null}`} placeholder="Disposition" />
                 </td>
                 <td className="p-0 m-0">
                   <DatePicker
                     top={true}
-                    showDatePicker={(e) => {datepickerStatus[i] = e; this.setState({ datepickerStatus: datepickerStatus })}}
+                    showDatePicker={(e) => { datepickerStatus[i] = e; this.setState({ datepickerStatus: datepickerStatus }) }}
                     getDate={(date) => {
                       let { orderLine } = this.state
                       orderLine[i].rotaDate = date
