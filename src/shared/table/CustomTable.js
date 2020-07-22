@@ -6,8 +6,9 @@ import {  NavItem, NavLink, TabPane, TabContent } from 'reactstrap';
 import { MdClose } from 'react-icons/md'
 import { FaRegEdit, FaPencilAlt } from 'react-icons/fa'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
-
 import CustomPagination from 'shared/table/CustomPagination'
+import axios from 'axios'
+import endpoints from 'helpers/endpoints'
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
 
@@ -37,8 +38,15 @@ class CustomTable extends React.Component {
       editColumn: {},
       editColumnTemp: {},
       activeTab: "1",
-      changedColumns: []
+      changedColumns: [],
+      fields : this.props.fields,
+      urlHeader : this.props.urlHeader,
+      products : []
     }
+  }
+  componentDidMount = () => {
+    this.headerRename()
+
   }
   activeTabIndex(tab){
 		if (this.state.activeTab !== tab) {
@@ -122,6 +130,142 @@ class CustomTable extends React.Component {
     listHeader = [...listHeader, obj]
     return listHeader
   }
+  headerRename = async () => {
+    const url = this.props.UrlHeader()
+    const { data } = await axios.get(url)
+    let header = []
+    let accessor = Object.keys(data.data[0]);
+    accessor.map((data, idx) => {
+        let lowerCase = data.toLowerCase();
+        if(lowerCase.includes(" ")){
+            let split = lowerCase.split(" ");
+            let result = split.join("_");
+            accessor[idx] = result
+        }else{
+            accessor[idx] = lowerCase
+        }
+        
+    })
+    let placeholder =  Object.keys(data.data[0]);
+    placeholder.map((data, idx) => {
+      let lowerCase = data.toLowerCase();
+      if(lowerCase.includes(" ")){
+        let split = lowerCase.split(" ");
+        let result = split.join(" ");
+          placeholder[idx] = result
+      }else{
+        placeholder[idx] = lowerCase
+      }
+      
+  })
+    Object.values(data.data[0]).map((data, idx) => { 
+      let headerTable = {
+        accessor: 'site', 
+        Header: 'site', 
+        placeholder: 'site' , 
+        sortable: true 
+      }
+      headerTable.Header= data 
+      headerTable.placeholder = placeholder[idx]  
+      headerTable.accessor= accessor[idx] 
+      header.push(headerTable)
+     
+    })
+    console.log(header)
+    if (data.data.length) {
+      this.setState({ 
+          products: data.data[0],
+          fields: header 
+        })
+    }
+  }
+
+
+  renameSubmits = async (e) => {
+    const fields = this.state.fields;
+    const changedField = e;
+    const changedFieldAccessor = [];
+    const changedFieldHeader = [];
+
+    changedField.map((item, idx) => {
+      changedFieldAccessor.push(item.accessor);
+      changedFieldHeader.push(item.header);
+    })
+
+    fields.map((item, idx) => {
+      changedFieldAccessor.map((data, idx) => {
+        if(item.accessor == data){
+          item.Header = changedFieldHeader[idx];
+        }
+      });
+    });
+
+    this.setState({ fields: fields });
+
+    let payload = {};
+    let payloadIndex = Object.keys(this.state.products);
+    let defaultValues = Object.values(this.state.products);
+    let fieldsAccessor = changedFieldAccessor;
+
+    fieldsAccessor.map((data, idx) => {
+        if(data.includes(" ")){
+            let uppercaseAccessor = data.toUpperCase();
+            let index = uppercaseAccessor.split(" ");
+            fieldsAccessor[idx] = index.join("_")
+        }else{
+          fieldsAccessor[idx] = data.toUpperCase()
+        }
+    })
+
+    payloadIndex.map((data, idx) => {
+        if(data.includes(" ")){
+            let uppercaseAccessor = data;
+            let index = uppercaseAccessor.split(" ");
+            payloadIndex[idx] = index.join("_")
+        }
+    })
+
+    let newPayload = {};
+
+
+    for (let i = 0; i < Object.keys(this.state.products).length; i++) {
+        fieldsAccessor.map((data, idx) => {
+            if(payloadIndex[i] == data){
+                payload[payloadIndex[i]] = changedFieldHeader[idx];
+                payloadIndex.splice(i, 1);
+                defaultValues.splice(i, 1)
+            }
+        })
+        
+    }
+
+    payloadIndex.map((data, idx) => {
+        payload[data] = defaultValues[idx];
+    })  
+
+    this.setState({ columnsPayload: payload })
+
+    const baseUrl = process.env.REACT_APP_API_URL;
+
+    try{
+      const urlAntec = await axios.post(baseUrl + this.props.UrlAntec(), payload)
+      const urlBega = await axios.post(baseUrl + this.props.UrlBega(), payload)
+      const urlAesop = await axios.post(baseUrl + this.props.UrlAesop(), payload)
+      const urlClucth = await axios.post(baseUrl + this.props.UrlClucth(), payload)
+      const urlExquira = await axios.post(baseUrl + this.props.UrlExquira(), payload)
+      const urlLedvance = await axios.post(baseUrl + this.props.UrlLedvance(), payload)
+      const urlOnestop = await axios.post(baseUrl + this.props.UrlOnestop(), payload)
+      const urlStartrack = await axios.post(baseUrl + this.props.UrlStartrack(), payload)
+      const urlTatura = await axios.post(baseUrl + this.props.UrlTatura(), payload)
+      const urlTtl = await axios.post(baseUrl + this.props.UrlTtl(), payload)
+      const urlTtchem = await axios.post(baseUrl + this.props.UrlTtchem(), payload)
+        const { data } = urlAntec + urlBega + urlAesop + urlClucth + urlExquira + urlLedvance + urlOnestop + urlStartrack + urlTatura + urlTtl + urlTtchem
+        console.log(data);
+    }catch(error){
+        console.log(error)
+    }
+  }
+
 
   changedColumn = (e) => {
     let changedColumns = this.state.changedColumns;
@@ -145,13 +289,13 @@ class CustomTable extends React.Component {
   }
 
   renameSubmit = (e) =>{
-    this.props.renameSubmit(this.state.changedColumns);
+    this.renameSubmits(this.state.changedColumns);
     this.setState({ showModal: false })
   }
 
   render() {
-    const { showModal, editColumn, editColumnTemp, activeTab } = this.state
-    let { title, data, fields, onClick, height, pagination } = this.props
+    const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
+    let { title, data, onClick, height, pagination } = this.props
     const headerIcon = this.headerIcon(data, fields, editColumnTemp)
     return (
       <React.Fragment>
