@@ -34,6 +34,9 @@ button:focus {
   overflow-x: auto;
   z-index: -99 !important;
 }
+.btn{
+  letter-spacing: 1px !important;
+}
 .scrolly::-webkit-scrollbar,
 .scrollx::-webkit-scrollbar,
 .scroll-x-y::-webkit-scrollbar {
