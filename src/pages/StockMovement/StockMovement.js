@@ -1,27 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import axios from 'axios' 
-import moment from 'moment'; 
-
-import {
-  CButton,
-  CCard,
-  CCardBody,
-  CRow,
-  CCol,
-} from '@coreui/react'
+import axios from 'axios'
+import moment from 'moment';
+import { CButton, CCard, CCardBody, CRow, CCol, } from '@coreui/react'
 import Select from 'react-select'
-import { FaPencilAlt } from 'react-icons/fa'
 import { IoIosArrowDown } from 'react-icons/io'
- 
+
 import StockMovementTable from './StockMovementTable/StockMovementTable'
 // import CustomPagination from './StockMovementPagination/StockMovementPagination'
 import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader' 
 import endpoints from 'helpers/endpoints'
-import './StockMovement.css' 
+import './StockMovement.scss' 
 import DatePicker from 'shared/DatePicker'
-import AutoComplete from 'shared/AutoComplete'
+import './StockMovement.css'
 
 const columns = [
   { accessor: 'site', Header: 'Site', sortable: true },
@@ -31,7 +23,6 @@ const columns = [
   { accessor: 'packdesc', Header: 'UOM', sortable: true }
 ]
  
-
 class StockMovement extends React.PureComponent {
   state = {
     search: '',
@@ -54,9 +45,9 @@ class StockMovement extends React.PureComponent {
     filterType: 'week',
     productData: [],
     filterData: [
-      {'value':'day','label':'Daily'},
-      {'value':'week','label':'Weekly'},
-      {'value':'month','label':'Monthly'}
+      { 'value': 'day', 'label': 'Daily' },
+      { 'value': 'week', 'label': 'Weekly' },
+      { 'value': 'month', 'label': 'Monthly' }
     ],
     complete: false,
     periodSelected: 1,
@@ -79,37 +70,37 @@ class StockMovement extends React.PureComponent {
     this.getSite()
     this.getClient()
     this.getStatus()
-    this.getResources() 
+    this.getResources()
     //this.searchStockMovement() 
-    this.load_data('','','week') 
+    this.load_data('', '', 'week')
     this.getStockDate();
-  } 
-  
+  }
+
   getStockDate = () => {
-      axios.get(endpoints.stockDateRange)
-      .then((res) => {
-          let maxDate = res.data.data[0].max_date;
-          this.setState({ minDate: res.data.data[0].min_date, maxDate: res.data.data[0].max_date})
-          console.log(res.data.data[0].min_date + "|" + res.data.data[0].max_date)
-      })
+    axios.get(endpoints.stockDateRange)
+    .then((res) => {
+      let maxDate = res.data.data[0].max_date;
+      this.setState({ minDate: res.data.data[0].min_date, maxDate: res.data.data[0].max_date})
+      console.log(res.data.data[0].min_date + "|" + res.data.data[0].max_date)
+    })
   }
 
   periodHandler = (val) => {
-      // alert(any.periodSelected);
-      this.setState({
-          periodExpand: false,
-          dateFromShow: true,
-          filterType: val
-      });
-      this.openDatePicker('from')
+    // alert(any.periodSelected);
+    this.setState({
+      periodExpand: false,
+      dateFromShow: true,
+      filterType: val
+    });
+    this.openDatePicker('from')
   }
 
   openDatePicker = (type) => {
     console.log(type)
-    if(type=='from'){
-      this.refs["dateFrom"].openDatePicker() 
-    }else if(type=="to"){
-      this.refs["dateTo"].openDatePicker()  
+    if (type == 'from') {
+      this.refs["dateFrom"].openDatePicker()
+    } else if (type == "to") {
+      this.refs["dateTo"].openDatePicker()
     }
   }
 
@@ -117,7 +108,7 @@ class StockMovement extends React.PureComponent {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - 116) * 0.84
+    const height = (window.innerHeight - 250)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {
@@ -146,24 +137,24 @@ class StockMovement extends React.PureComponent {
     ];
     this.setState({ statusData })
   }
-  
-  getproduct = () => {
-      let self = this; 
-      let tmp_data = []
-      self.setState({ productdata: tmp_data }) 
 
-      axios.get(endpoints.getProduct + '?client=' + this.state.client.value )
-          .then(res => {
-              const data = res.data 
-              const productdata = data.code.map((c, i) => ({ value: c, label: `${data.code[i]}: ${data.name[i]}` }))
-              const tmp = { value: 'all', label: 'All Product' }
-              productdata.splice(0, 0, tmp)
-              this.setState({ productData: productdata })
-              
-          })
-          .catch(error => {
-              console.log(error);
-          })
+  getproduct = () => {
+    let self = this; 
+    let tmp_data = []
+    self.setState({ productdata: tmp_data }) 
+
+    axios.get(endpoints.getProduct + '?client=' + this.state.client.value )
+    .then(res => {
+        const data = res.data 
+        const productdata = data.code.map((c, i) => ({ value: c, label: `${data.code[i]}: ${data.name[i]}` }))
+        const tmp = { value: 'all', label: 'All Product' }
+        productdata.splice(0, 0, tmp)
+        this.setState({ productData: productdata })
+        
+    })
+    .catch(error => {
+        console.log(error);
+    })
   }
   getResources = async () => {
     const { user } = this.props.store
@@ -175,20 +166,20 @@ class StockMovement extends React.PureComponent {
       orderTypeData.splice(0, 0, orderType)
       this.setState({ resources: data, orderTypeData })
     }
-  } 
+  }
 
   searchStockMovement = async () => {
     console.log('Load Stock Movement')
     this.setState({
       periodSelected: 1
     })
-    const { periods, site, client, filterType, product, dateFromSelected, dateToSelected, periodSelected } = this.state  
-    console.log(site.value, client.value, product.value) 
+    const { periods, site, client, filterType, product, dateFromSelected, dateToSelected, periodSelected } = this.state
+    console.log(site.value, client.value, product.value)
     console.log(filterType.value)
-    
-    if(filterType.value){
+
+    if (filterType.value) {
       this.load_data(dateFromSelected, dateToSelected, filterType.value, site.value, client.value, product.value)
-    }else{
+    } else {
       this.setState({
         periodSelected: ''
       })
@@ -198,309 +189,309 @@ class StockMovement extends React.PureComponent {
   setHeader = async (periods) => {
     let header = [
       {
-        Header: '', 
-        headerStyle: {backgroundColor: 'white', textAlign: 'left'},
-        headerClassName: 'borderRight noBorderBottom ', 
-        "fixed": "left", 
+        Header: '',
+        headerStyle: { backgroundColor: 'white', textAlign: 'left' },
+        headerClassName: 'borderRight noBorderBottom ',
+        "fixed": "left",
         columns: [{
           Header: 'Site',
           accessor: 'site',
-          headerStyle: {textAlign: 'left'},
-          style: {textAlign: 'left', paddingLeft: '15px'}, 
-          headerClassName: 'borderBottom noPaddingTop', 
-          sortable: true ,
+          headerStyle: { textAlign: 'left' },
+          style: { textAlign: 'left', paddingLeft: '15px' },
+          headerClassName: 'borderBottom noPaddingTop',
+          sortable: true,
           width: 70
-        },{
+        }, {
           Header: 'Client',
           accessor: 'client',
-          headerStyle: {textAlign: 'left'},
-          style: {textAlign: 'left'},
-          sortable: true, 
+          headerStyle: { textAlign: 'left' },
+          style: { textAlign: 'left' },
+          sortable: true,
           width: 90,
           className: 'wrap-text',
-          headerClassName: 'borderBottom noPaddingTop', 
+          headerClassName: 'borderBottom noPaddingTop',
         },
         {
           Header: 'Product',
           accessor: 'product',
-          headerStyle: {textAlign: 'left'},
-          style: {textAlign: 'left'},
-          sortable: true, 
+          headerStyle: { textAlign: 'left' },
+          style: { textAlign: 'left' },
+          sortable: true,
           width: 130,
           className: 'wrap-all',
-          headerClassName: 'borderBottom noPaddingTop', 
+          headerClassName: 'borderBottom noPaddingTop',
         },
         {
           Header: 'Description',
           accessor: 'product_name',
-          headerStyle: {textAlign: 'left'},
-          style: {textAlign: 'left'},
-          sortable: true, 
+          headerStyle: { textAlign: 'left' },
+          style: { textAlign: 'left' },
+          sortable: true,
           width: 200,
           className: 'word-warp',
-          headerClassName: 'borderBottom noPaddingTop', 
+          headerClassName: 'borderBottom noPaddingTop',
         },
         {
           Header: 'UOM',
           accessor: 'packdesc',
-          headerStyle: {textAlign: 'left'},
-          style: {textAlign: 'left'},
+          headerStyle: { textAlign: 'left' },
+          style: { textAlign: 'left' },
           sortable: true,
           className: 'borderRight',
-          headerClassName: 'borderRight borderBottom noPaddingTop', 
+          headerClassName: 'borderRight borderBottom noPaddingTop',
           width: 100
         },
-      ]}
+        ]
+      }
     ]
      
     this.state.dateArray.map((date, idx) => { 
-          let dates = moment(date).format('DD MMMM YYYY') 
-            if (periods == 'day') {
-                dates = moment(date).format('DD MMMM YYYY')
-            }
-            else if (periods == 'week') {
-                let dates2 = moment(date).add('days', 6).format('DD MMMM YYYY')
-                dates = moment(date).format('DD MMMM YYYY')
-                dates = dates + ' - ' + dates2
-            }
-            else if (periods == 'month') {
-                dates = moment(date).format('MMMM YYYY')
-            } 
+      let dates = moment(date).format('DD MMMM YYYY') 
+        if (periods == 'day') {
+            dates = moment(date).format('DD MMMM YYYY')
+        }
+        else if (periods == 'week') {
+            let dates2 = moment(date).add('days', 6).format('DD MMMM YYYY')
+            dates = moment(date).format('DD MMMM YYYY')
+            dates = dates + ' - ' + dates2
+        }
+        else if (periods == 'month') {
+            dates = moment(date).format('MMMM YYYY')
+        } 
             
-          let tmp_header = {
-                Header: dates, 
-                headerStyle: {backgroundColor: 'white' },
-                headerClassName: 'borderRight dateHeader noBorderBottom ', 
-                columns: [
-                  {
-                    Header: 'SA+',
-                    accessor: 'sa_plus_'+date,
-                    className: 'text-right',
-                    headerClassName: 'borderBottom ', 
-                    Cell: '-'
-                  },
-                  {
-                    Header: 'SA-',
-                    accessor: 'sa_minus_'+date,
-                    className: 'text-right',
-                    headerClassName: 'borderBottom', 
-                    Cell: '-'
-                  },
-                  {
-                    Header: 'Rec',
-                    accessor: 'rec_'+date,
-                    Cell: '-',
-                    className: 'text-right',
-                    headerClassName: 'borderBottom', 
-                  },
-                  {
-                    Header: 'Send',
-                    accessor: 'send_'+date,
-                    className: 'borderRight text-right',
-                    headerClassName: 'borderRight borderBottom',
-                    Cell: '-'
-                  }
-              ]
+      let tmp_header = {
+        Header: dates, 
+        headerStyle: {backgroundColor: 'white' },
+        headerClassName: 'borderRight dateHeader noBorderBottom ', 
+        columns: [
+          {
+            Header: 'SA+',
+            accessor: 'sa_plus_'+date,
+            className: 'text-right',
+            headerClassName: 'borderBottom ', 
+            Cell: '-'
+          },
+          {
+            Header: 'SA-',
+            accessor: 'sa_minus_'+date,
+            className: 'text-right',
+            headerClassName: 'borderBottom', 
+            Cell: '-'
+          },
+          {
+            Header: 'Rec',
+            accessor: 'rec_'+date,
+            Cell: '-',
+            className: 'text-right',
+            headerClassName: 'borderBottom', 
+          },
+          {
+            Header: 'Send',
+            accessor: 'send_'+date,
+            className: 'borderRight text-right',
+            headerClassName: 'borderRight borderBottom',
+            Cell: '-'
           }
-          header.push(tmp_header)
+        ]
+      }
+      header.push(tmp_header)
     }) 
     console.log('----- header -----');
     console.log(header);
-    this.setState({fields: header})
+    this.setState({ fields: header })
   }
 
-  setData = async () => { 
+  setData = async () => {
     let tmp_data = []
-    this.state.data.map((datas, idx) => { 
+    this.state.data.map((datas, idx) => {
       let tmp_row = {
-        'site':datas.site,
-        'client':datas.client,
-        'packdesc':datas.packdesc,
-        'product':datas.product,
-        'product_name':datas.product_name
+        'site': datas.site,
+        'client': datas.client,
+        'packdesc': datas.packdesc,
+        'product': datas.product,
+        'product_name': datas.product_name
       }
 
-      let detail = datas.detail 
-      detail.map((details) => {   
+      let detail = datas.detail
+      detail.map((details) => {
         let dates = details.date
-        tmp_row['sa_plus_'+dates] = details.sa_plus
-        tmp_row['sa_minus_'+dates] = details.sa_minus
-        tmp_row['rec_'+dates] = details.recv_weight
-        tmp_row['send_'+dates] = details.send_weight
-      }) 
+        tmp_row['sa_plus_' + dates] = details.sa_plus
+        tmp_row['sa_minus_' + dates] = details.sa_minus
+        tmp_row['rec_' + dates] = details.recv_weight
+        tmp_row['send_' + dates] = details.send_weight
+      })
       tmp_data.push(tmp_row)
-    }) 
+    })
     console.log('----- Data -----');
     console.log(tmp_data);
-    this.setState({data_table: tmp_data})
+    this.setState({ data_table: tmp_data })
   }
 
   load_data = async (dtStart, dtEnd, periods, site = "", client = "", product = "") => {
     try {  
-        // let dtStart = '2019-02-26'
-        // let dtEnd = '2019-02-28'
-        // let periods = 'day'
-        let paramUrl = []
-        
-        let dateArray = []
-        let stDate = dtStart ? dtStart : this.state.startDate
-        let enDate = dtEnd ? dtEnd : this.state.endDate
-        let startDate = moment(stDate) 
-        let endDate = moment(enDate)
-        let periodd = periods ? periods : this.state.filterType
+      // let dtStart = '2019-02-26'
+      // let dtEnd = '2019-02-28'
+      // let periods = 'day'
+      let paramUrl = []
+      let dateArray = []
+      let stDate = dtStart ? dtStart : this.state.startDate
+      let enDate = dtEnd ? dtEnd : this.state.endDate
+      let startDate = moment(stDate) 
+      let endDate = moment(enDate)
+      let periodd = periods ? periods : this.state.filterType
 
-        paramUrl.push('startDate=' +(stDate ? stDate : ''))
-        paramUrl.push('endDate=' + (enDate ? enDate : ''))
-        paramUrl.push('filterType=' + (periods ? periods: '')) 
-        paramUrl.push('client=' + (client ? client: '')) 
-        paramUrl.push('site=' + (site ? site: '')) 
-        paramUrl.push('product=' + (product ? product: ''))  
+      paramUrl.push('startDate=' +(stDate ? stDate : ''))
+      paramUrl.push('endDate=' + (enDate ? enDate : ''))
+      paramUrl.push('filterType=' + (periods ? periods: '')) 
+      paramUrl.push('client=' + (client ? client: '')) 
+      paramUrl.push('site=' + (site ? site: '')) 
+      paramUrl.push('product=' + (product ? product: ''))  
 
-        //set array date
-        while (startDate <= endDate) {
-            let newDate = startDate.format('YYYY-MM-DD')
-            dateArray.push(newDate)
+      //set array date
+      while (startDate <= endDate) {
+          let newDate = startDate.format('YYYY-MM-DD')
+          dateArray.push(newDate)
 
-            if (periodd === 'day') {
-                startDate.add('days', 1)
-            }
+          if (periodd === 'day') {
+              startDate.add('days', 1)
+          }
 
-            else if (periodd === 'week') {
-                startDate.add('days', 7)
-            }
-            else if (periodd === 'month') {
-                startDate.add(1, 'M')
-            }
-        }
-        this.setState({ dateArray: dateArray, pushTableComplete: true }, function (){
-          //set header
-          this.setHeader(periods)
-        })
- 
-        axios.get(endpoints.stockMovement+'?'+paramUrl.join('&')).then(res => { 
-            //get result 
-            const result = res.data.data 
+          else if (periodd === 'week') {
+              startDate.add('days', 7)
+          }
+          else if (periodd === 'month') {
+              startDate.add(1, 'M')
+          }
+      }
+      this.setState({ dateArray: dateArray, pushTableComplete: true }, function (){
+        //set header
+        this.setHeader(periods)
+      })
 
-            this.setState({ data: result }, function(){
-                this.setData()
-            }) 
-        })
-        .catch(error => {
-          console.log(error) 
-        })
+      axios.get(endpoints.stockMovement+'?'+paramUrl.join('&')).then(res => { 
+          //get result 
+          const result = res.data.data 
+
+          this.setState({ data: result }, function(){
+              this.setData()
+          }) 
+      })
+      .catch(error => {
+        console.log(error) 
+      })
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
-}
+ }
+
   toggle = (value) => {
     this.setState({ create: value ? value : !this.state.create })
   }
+
   render() {
     const {
       dimension, fields, data, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData, taskData, data_table, filterType,filterData,
       product, productData, periodSelected, pagination,dateFromShow, minDate,maxDate
-    } = this.state
+  } = this.state
     
-    //custom style react-select 
+  //custom style react-select 
      
-    return <div className="sales-order">
-      <HeaderTitle
-        breadcrumb={[{ to: '', label: 'Stock Movement', active: true }]} 
-      />
+  return <div className="stockMovement">
+    <HeaderTitle
+      breadcrumb={[{ to: '', label: 'Stock Movement', active: true }]} 
+    />
 
-      <CCard style={{zIndex: '999'}}>
-        <CCardBody className="px-4 py-3">
-          <CRow className="row"> 
-          
-
-          <CCol lg={7}  style={{flex: '0 0 55%'}}> 
-              <CRow className="">   
-                    <CCol lg={3} className="px-1" >
-                      <div style={{width: '100%'}}>
-                            <Select name="filterType" placeholder="Display Period"
-                              value={filterType} options={filterData} 
-                              onChange={(val) => this.periodHandler( val )}  
-                            />
-                            <div id='period' className={(!periodSelected) ? 'stock-err' : 'stock-err-hidden'}>Please select display period</div>
-                      </div>
-                    </CCol>
-                    <CCol lg={2} className="px-1 text-light-gray custom-filter-text">
-                      Date From 
-                    </CCol>
-                    <CCol  lg={3} className="px-1 " > 
-                        <DatePicker style={{ minWidth: '100%' }}
-                            ref="dateFrom"
-                            formStyle={{height:'50px'}}
-                            getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
-                            defaultValue={this.state.dateFromSelected} tabIndex="1" placeHolder="Select Date"
-                            onChange={(e) => {this.openDatePicker('to')}}
-                            fromMonth={minDate} toMonth={maxDate}
-                        /> 
-                    </CCol>
-                    <CCol  lg={1} className="text-light-gray custom-filter-text2  px-1" style={{flex: '0 0 0.7%'}}>
-                      To
-                    </CCol>
-                    <CCol  lg={3} className="px-1" > 
-                        <DatePicker style={{ minWidth: '100%', height:'50px' }}
-                            ref="dateTo"
-                            formStyle={{height:'50px'}}
-                            getDate={(e) => { this.setState({ dateToSelected: e.toString() })}}
-                            defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date"
-                            fromMonth={minDate} toMonth={maxDate}
-                        /> 
-                    </CCol>
-                  </CRow>
+    <CCard style={{zIndex: '999'}} className="mb-3">
+      <CCardBody className="px-3 py-3 stockMovement">
+        <CRow className="main-con"> 
+          <CCol className='SM-col px-0'> 
+            <CRow className="align-items-center">   
+              <CCol lg={4} className="displayPeriod-col pl-0 pr-5" >
+                <div style={{width: '100%'}}>
+                  <Select name="filterType" className="stockMovement" placeholder="Display Period"
+                    value={filterType} options={filterData} 
+                    onChange={(val) => this.periodHandler( val )}  
+                  />
+                  {/* <div id='period' className={(!periodSelected) ? 'stock-err' : 'stock-err-hidden'}>Please select display period</div> */}
+                </div>
+              </CCol>
+              <CCol sm={1} className="dateFromLabel-col pl-0 text-light-gray">
+                Date From 
+              </CCol>
+              <CCol  lg={3} className="dateFrom-col px-0 stockMovement" > 
+                <DatePicker style={{ minWidth: '100%' }}
+                  ref="dateFrom" 
+                  getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
+                  defaultValue={this.state.dateFromSelected} tabIndex="1" placeHolder="Select Date"
+                  onChange={(e) => {this.openDatePicker('to')}}
+                  fromMonth={minDate} toMonth={maxDate}
+                />
+              </CCol>
+              <div className="dateToLabel-col text-light-gray px-3">
+                To
+              </div>
+              <CCol  lg={3} className="dateTo-col stockMovement pl-0 pr-0" > 
+                  <DatePicker style={{ minWidth: '100%', height:'50px' }}
+                      ref="dateTo" 
+                      getDate={(e) => { this.setState({ dateToSelected: e.toString() })}}
+                      defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date"
+                      fromMonth={minDate} toMonth={maxDate}
+                  /> 
+              </CCol>
+            </CRow>
           </CCol>
-            <CCol lg={5} style={{flex: '0 0 45%', maxWidth: '47%'}}>
-              <CRow> 
-                <CCol sm={4} lg={3} className="px-1" >
-                <Select name="site" placeholder="Site"
-                    value={site} options={siteData}
-                    onChange={(val) => this.setState({ site: val })} 
-                  />
-                </CCol>
-                
-                <CCol sm={4} lg={3} className="px-1">
-                  <Select name="client" placeholder="Client"
-                    value={client} options={clientData}
-                    onChange={(val) => this.setState({ client: val }, () => this.getproduct())} 
-                  />
-                </CCol> 
-                <CCol sm={4} lg={4} className="px-1"  style={{flex: '0 0 30%'}}>
-                  <Select name="product" placeholder="Product" 
-                    value={product} options={productData}
-                    onChange={(val) => this.setState({ product: val })} 
-                  />
-                </CCol>
-                <CCol sm={4} lg={2} className="px-1" style={{flex: '0 0 20%', maxWidth: '20%'}}>
-                  <button className="btn btn-block btn-primary float-right custom-height-btn" onClick={this.searchStockMovement}>SEARCH</button>
-                </CCol>
-              </CRow>
-            </CCol>
-          </CRow>
-        </CCardBody>
-      </CCard>
+          <CCol lg={5} className="sm-second-col px-0">
+            <CRow> 
+              <CCol sm={4} lg={3} className="px-3 site-col" >
+              <Select className="stockMovement" name="site" placeholder="Site"
+                  value={site} options={siteData}
+                  onChange={(val) => this.setState({ site: val })} 
+                />
+              </CCol>
+              <CCol sm={4} lg={3} className="pr-3 pl-0 client-col">
+                <Select className="stockMovement"  name="client" placeholder="Client"
+                  value={client} options={clientData}
+                  onChange={(val) => this.setState({ client: val }, () => this.getproduct())} 
+                />
+              </CCol> 
+              <CCol sm={4} lg={4} className="pr-3 pl-0 product-col"  style={{flex: '0 0 30%'}}>
+                <Select className="stockMovement"  name="product" placeholder="Product" 
+                  value={product} options={productData}
+                  onChange={(val) => this.setState({ product: val })} 
+                />
+              </CCol>
+              <CCol sm={4} lg={2} className="pr-0 pl-5 searchButton-col" style={{flex: '0 0 20%', maxWidth: '20%'}}>
+                <button className="btn btn-block btn-primary float-right stockMovement" onClick={this.searchStockMovement}>SEARCH</button>
+              </CCol>
+            </CRow>
+          </CCol>
+        </CRow>
+      </CCardBody>
+    </CCard>
 
-      <StockMovementTable
-        title="Stock Movement"
-        height={dimension.height}
-        data={data_table}
-        fields={fields}
-        onClick={this.showDetails}
-        export={<CButton className="btn btn-primary px-4">EXPORT <IoIosArrowDown /></CButton>}
-      /> 
+    <StockMovementTable
+      title="Stock Movement"
+      height={dimension.height}
+      data={data_table}
+      fields={fields}
+      onClick={this.showDetails}
+      export={<CButton className="btn btn-primary px-4">EXPORT <IoIosArrowDown /></CButton>}
+    /> 
 
-      <CustomPagination
-        data={data}
-        pagination={pagination}
-        goto={(active) => {
-          this.setState({ pagination: { ...pagination, active } }, () => this.searchStockMovement())
-        }}
-        export={<CButton className="btn btn-primary float-right px-4 btn-export">EXPORT <IoIosArrowDown /></CButton>}
-      />
+    <CustomPagination
+      data={data}
+      pagination={pagination}
+      goto={(active) => {
+        this.setState({ pagination: { ...pagination, active } }, () => this.searchStockMovement())
+      }}
+      export={<CButton className="btn btn-primary d-flex float-right px-3 align-items-center btn-export">
+      <div className="export-export pr-3"/>
+      EXPORT
+    </CButton>}
+    />
 
-    </div>
+  </div>
   }
 }
 const mapStateToProps = (store) => ({ store })

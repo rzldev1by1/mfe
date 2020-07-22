@@ -1,0 +1,83 @@
+/* Sales Order List */
+.sales-order {
+  .c-subheader-nav-link {
+    margin-right: 15px;
+  }
+}
+
+/* Sales Order Detail */
+.sales-order-detail {
+  .section-1 .col {
+    line-height: 2;
+  }
+  .card {
+    box-shadow: none !important;
+  }
+}
+
+/* Sales Order Create */
+.sales-order-create {
+  .c-50 {
+    width: 50px !important;
+  }
+  .c-100 {
+    width: 100px !important;
+  }
+  .c-150 {
+    width: 150px !important;
+  }
+  .c-200 {
+    width: 200px !important;
+  }
+  .c-250 {
+    width: 250px !important;
+  }
+  .c-300 {
+    width: 300px !important;
+  }
+  .c-400 {
+    width: 400px !important;
+  }
+  .c-600 {
+    width: 600px !important;
+  }
+  .required::after {
+    content: " *";
+    color: #e55353;
+  }
+  textarea {
+    min-height: 35px !important;
+  }
+  .modal-desc {
+    padding-left: 36px;
+  }
+  .text-error {
+    padding-left: 10px;
+  }
+  .orderline-row td {
+    vertical-align: top;
+  }
+  .orderline .absolute {
+    position: absolute !important;
+    z-index: 99;
+  }
+  .orderline .right {
+    right: 22% !important;
+  }
+
+} 
+
+// .orderline [class*="css-"][class*="-menu"]{
+//   z-index: 999 !important;
+//   position: absolute !important;
+// }
+// .orderline [class*="css-"][class*="-control"]{
+//    z-index: 999 !important;
+//    position: absolute !important;
+// }
+
+@media (min-width: 800px) {
+  .sales-order-detail .border-right {
+    border-right: 2px solid #eee !important;
+  }
+}

@@ -1,0 +1,252 @@
+.user-login-info-header{
+    color: #959DA0;    
+}
+.user-login-info-value{
+    color: #637176;    
+}
+.bg-white{
+    background-color: #FFFFFF;
+}
+
+.border-white{
+    border: 2px solid !important;
+    border-color: #FFFFFF !important;
+}
+
+.webgroup {
+    background-color: #e4e7ea;
+    display: inline-block;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .webgroup input {
+    display: none;
+  }
+  
+  .webgroup-active {
+    background-color: #ffffff;
+    /* font-family: 'Rubik Regular'; */
+    /* font-size: 0.875rem !important; */
+    color: #376bfb !important;
+    margin: 4px;
+    padding: 6px;
+    border-radius: 5px;
+    align-items: stretch;
+  }
+
+  .webgroup-notactive {
+    background-color: transparent;
+    /* font-family: 'Rubik Regular'; */
+    /* font-size: 20px !important; */
+    color: #bbbcbd !important;
+    margin: 4px;
+    padding: 6px;
+    border-radius: 5px;
+  }
+
+  .btn-outline-active {
+    /* font-family: 'Rubik Regular'; */
+    /* font-size: 1rem !important; */
+    width: 100px !important;
+    height: 40px !important;
+    border: 1.5px solid #3366ff;
+    border-radius: 7px;
+    color: #3366ff;
+    width: 80px;
+  }
+  
+  .btn-outline-notActive {
+    /* font-family: 'Rubik Regular'; */
+    /* font-size: 1rem !important; */
+    width: 100px !important;
+    height: 40px !important;
+    color: #d5d8da;
+    border: 1.5px solid #d5d8da;
+    border-radius: 7px;
+    width: 80px;
+  }
+  
+  .btn-outline-All-active {
+    /* font-family: 'Rubik Regular'; */
+    /* font-size: 1rem !important; */
+    width: 100px !important;
+    height: 40px !important;
+    border: 1.5px solid #3366ff;
+    border-radius: 7px;
+    background-color: #3366ff;
+    color: #ffffff;
+    width: 80px;
+  }
+  
+  .btn-outline-All-notActive {
+    /* font-family: 'Rubik Regular'; */
+    font-size: 1rem !important;
+    width: 117px !important;
+    height: 40px !important;
+    background-color: #d5d8da;
+    color: #ffffff;
+    border: 1.5px solid #d5d8da;
+    border-radius: 7px;
+    width: 80px;
+  }
+  
+  .line-border {
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  .client-areas{
+    height:350px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .webgroup-review-active {
+    background-color: #ffffff;
+    
+    color: #bbbcbd !important;
+    margin: 4px;
+    padding: 6px;
+    border-radius: 5px;
+    align-items: stretch;
+  }
+
+  .webgroup-review-notactive {
+    background-color: transparent;    
+    
+    color: #bbbcbd !important;
+    margin: 4px;
+    padding: 6px;
+    border-radius: 5px;
+  }
+  
+  .enable-active {
+    
+    font-size: 1rem !important;
+    width: 117px !important;
+    height: 40px !important;
+    color: #959DA0;
+    border: 1.5px solid #959DA0;
+    border-radius: 7px;
+    width: 80px;
+    background-color: #FFFFFF;
+  }
+  
+  .enable-notactive {    
+    font-size: 1rem !important;
+    width: 117px !important;
+    height: 40px !important;
+    color: #E8E8E8;
+    border: 1.5px solid #E8E8E8;
+    border-radius: 7px;
+    width: 80px;
+    background-color: #FFFFFF;
+  }
+
+  .text-title-detail{
+    color: #637176;
+  }
+
+  .img-popup-reset {
+    margin: 40px;
+    width: 156px;
+    height: 184px;
+  }
+  
+  .img-popup-reset-success {
+    margin: 40px;
+    width: 272;
+    height: 194px;
+  }
+
+  .btn-grey {
+    color: #fff;
+    background-color: #d5d8da;
+    border-color: #d5d8da;
+  }
+
+  .client-pr{
+    padding-right: 1.7rem;
+  }
+
+  .um-active {    
+    color: #05e0bd;
+  }
+  
+  .um-suspended {
+    color: #f94548;
+  }
+
+/** Modal create **/
+.tab-content {
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  color: #000;
+  /* overflow: hidden; */
+}
+
+.nav-link {
+  background-color: #eee;
+  color: #959da0 !important;
+  border: none !important;
+  font-size: 20px;
+  padding-left: 20px;
+  margin-left: 5px !important;
+  cursor: pointer;
+  font-family: Rubik !important;
+}
+.nav-link.active {
+  background-color: #fff !important;
+  color: #376bfb !important;
+}
+.nav-tabs {
+  margin-left: 26px;
+  border: none;
+  font-family: Rubik !important;
+}
+
+
+
+/** End modal create **/
+
+.text-title{
+  color: #D5D8DA;
+}
+
+.um-review label.form-control{
+  height: 50px !important;
+  line-height: 2.5;
+}
+
+.um-summary .border-user-info{
+  border-top: 2px solid #fff;
+  border-right: 2px solid #fff;
+  border-left: 2px solid #fff;
+}
+
+.um-text-webgroup{
+  padding-top: 11px;
+  padding-bottom: 11px;
+}
+
+.review-readonly{
+  background-color: #F6F7F9;
+}
+
+.review-text{
+  color: '#959DA0';
+}
+
+.client-enableall-padding{
+  padding-right: 35px;
+}
+
+.height-40{
+  height: 40px;
+}
+
+.title-tab{
+  display: flex;
+  align-items: center;
+}

@@ -12,13 +12,14 @@ import { IoIosArrowDown } from 'react-icons/io'
 import CustomTable from 'shared/table/CustomTable'
 import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader'
-import './SalesOrder.css'
+import './SalesOrder.scss'
 
 const columns = [
   { accessor: "line", Header: "Line No" },
   { accessor: "product", Header: "Product" },
   { accessor: "product_description", Header: "Description" },
-  { accessor: "qty", Header: "Qty" },
+  { accessor: "qty", Header: "Qty", width: 60  },
+  { accessor: "uom", Header: "UOM", width: 80 },
   { accessor: "qty_processed", Header: "Qty Processed" },
   { accessor: "weight", Header: "Weight" },
   { accessor: "weight_processed", Header: "Weight Processed" },
@@ -26,7 +27,11 @@ const columns = [
     accessor: "completed", Header: "Completed",
     Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
-  { accessor: "oos", Header: "OOS" },
+  //{ accessor: "oos", Header: "OOS", width: 50 },
+  {
+    accessor: "oos", Header: "OOS",
+    Cell: (row) => <i className={`${row.original.oos === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+  },
   { accessor: "batch", Header: "Batch" },
   { accessor: "ref2", Header: "Ref2" },
   { accessor: "ref3", Header: "Ref3" },
@@ -42,6 +47,7 @@ class SalesOrderDetail extends React.Component {
     fields: columns,
     detail: {},
     products: [],
+    request_status: 'Please Wait...'
   }
   componentDidMount() {
     this.updateDimension();
@@ -53,7 +59,7 @@ class SalesOrderDetail extends React.Component {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - this.section1.current.clientHeight - 60) * 0.82
+    const height = (window.innerHeight - this.section1.current.clientHeight - 160)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getDetail = async () => {
@@ -66,12 +72,16 @@ class SalesOrderDetail extends React.Component {
   }
   getProducts = async () => {
     const { orderno, client, site } = this.props.match.params
+    this.setState({ request_status: "Please Wait..."  })
     const url = `/salesorder/${orderno}?client=${client}&site=${site}`
     const { data } = await axios.get(url)
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     if (data.data.length) {
       this.setState({ products: data.data })
-    }
+      console.log(data)
+    }else{ 
+      this.setState({ request_status: "No Data Found"  })
+    } 
   }
   formatDate = (date) => {
     return date ? moment(date).format('DD/MM/YYYY') : '-'
@@ -87,11 +97,12 @@ class SalesOrderDetail extends React.Component {
       <div ref={this.section1} className="card-group section-1 mb-4" >
         <CCard>
           <CCardBody className="p-0 m-4 border-right">
-            <CRow><CCol className="text-light-gray">Site</CCol> <CCol>{detail.site}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Client</CCol> <CCol>{detail.client}</CCol></CRow>
+    <CRow><CCol className="text-light-gray">Site</CCol> <CCol>{detail.site}: {detail.site_name}</CCol></CRow>
+    <CRow><CCol className="text-light-gray">Client</CCol> <CCol>{detail.client}: {detail.client_name}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Order No</CCol> <CCol>{detail.orderno || '-'}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Order Type</CCol> <CCol>{detail.ordertype || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Customer ID</CCol> <CCol>{detail.customer || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Task</CCol> <CCol>{detail.customer || '-'}</CCol></CRow>
+            <CRow><CCol className="text-light-gray">Customer No.</CCol> <CCol>{detail.customer || '-'}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Customer Name</CCol> <CCol>{detail.customername || '-'}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Customer Order Ref</CCol> <CCol>{detail.customerpono || '-'}</CCol></CRow>
             <CRow><CCol className="text-light-gray">Vendor Order Ref</CCol> <CCol>{detail.vendororderno || '-'}</CCol></CRow>
@@ -131,6 +142,7 @@ class SalesOrderDetail extends React.Component {
         height={this.state.dimension.height}
         fields={fields}
         data={products}
+        request_status={this.state.request_status}
       />
     </div>
   }

@@ -2,28 +2,13 @@
 body {
   font-family: "Rubik";
 }
-/* @font-face {
-  font-family: "Helvetica Neue Regular";
-  src: url("../fonts/HelveticaNeue.ttf");
-}
-@font-face {
-  font-family: "Helvetica Neue Light";
-  src: url("../fonts/HelveticaNeue-Light.ttf");
-}
-@font-face {
-  font-family: "Helvetica Neue Medium";
-  src: url("../fonts/HelveticaNeue-Medium.ttf");
-}
-@font-face {
-  font-family: "Helvetica Neue Bold";
-  src: url("../fonts/HelveticaNeue-Bold.ttf");
-} */
 
 // fix fa-spin rotating arround center
 .fa-spin {
   width: initial !important;
   height: initial !important;
 }
+
 // Custom style
 input:focus {
   box-shadow: none !important;
@@ -31,12 +16,12 @@ input:focus {
 button:focus {
   box-shadow: none !important;
 }
-.btn {
-  height: 40px;
-}
 .no-border {
-  box-shadow: none !important;
   border: none !important;
+}
+.no-shadow,
+.card {
+  box-shadow: none !important;
 }
 .scroll-x {
   overflow-x: auto;
@@ -61,6 +46,9 @@ button:focus {
 .scroll-x-y::-webkit-scrollbar-thumb {
   background-color: #b4b9bb;
   border-radius: 5px;
+}
+.margin-auto {
+  margin: auto;
 }
 .pointer {
   cursor: pointer;
@@ -94,15 +82,70 @@ button:focus {
 .font-20 {
   font-size: 20px;
 }
+.tab-content {
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  color: #000;
+  /* overflow: hidden; */
+}
+.nav-link {
+  background-color: #eee;
+  color: #959da0 !important;
+  border: none !important;
+  font-size: 20px;
+  padding-left: 20px;
+  margin-left: 5px !important;
+  cursor: pointer;
+}
+.nav-link.active {
+  background-color: #fff !important;
+  color: #376bfb !important;
+}
+.nav-tabs {
+  margin-left: 26px;
+  border: none;
+}
+// .input-group,
+// .input-group input,
+.input-group,
+input.form-control,
+.input-group-text {
+  height: 50px !important;
+  border-color: #e4e7ea !important;
+}
+.btn {
+  height: 50px !important;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: #fff;
+}
+::placeholder {
+  color: #b4b9bb !important;
+}
+
+.sales-order,
+.sales-order-detail,
+.um-summary,
+.um-detail,
+.sales-order-detail,
+.stock-holding,
+.stock-holding-detail {
+  .rt-th {
+    line-height: 40px !important;
+  }
+}
 
 // Core-UI component style
-.c-app, .c-header{
+.c-app,
+.c-header {
   background-color: #e9eced !important;
   background-size: cover;
   background-repeat: no-repeat;
 }
-.c-main {
-  padding-bottom: 10px !important;
+header {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 .c-header-toggler-icon {
   margin-left: -30px !important;
@@ -143,12 +186,14 @@ button:focus {
 /* breadcrumb style end*/
 
 /* dropdown style start */
+.css-2b097c-container,
 .css-1pahdxg-control,
 .css-yk16xz-control {
-  min-height: 35px !important;
-  height: 40px !important;
-  border: 1px solid !important;
-  border: 1px solid #e4e7ea !important;
+  height: 50px !important;
+  border-color: #e4e7ea !important;
+}
+.css-1wa3eu0-placeholder {
+  color: #b4b9bb !important;
 }
 .css-1okebmr-indicatorSeparator {
   display: none;
@@ -169,149 +214,92 @@ button:focus {
 }
 /* dropdown style end */
 
-/* icomoon start */
-@font-face {
-  font-family: "icomoon";
-  src: url("../fonts/icomoon.eot?t60pg3");
-  src: url("../fonts/icomoon.eot?t60pg3#iefix") format("embedded-opentype"),
-    url("../fonts/icomoon.ttf?t60pg3") format("truetype"),
-    url("../fonts/icomoon.woff?t60pg3") format("woff"),
-    url("../fonts/icomoon.svg?t60pg3#icomoon") format("svg");
-  font-weight: normal;
-  font-style: normal;
+.status-ok {
+  color: rgb(209, 204, 204) !important;
+  background: transparent;
+  padding: 5px;
+  border-radius: 6px;
+  border: solid 1.5px rgb(149, 146, 146);
+  font-size: 12px;
+}
+.status-shortage {
+  color: white !important;
+  background: #f94548;
+  padding: 6px;
+  font-size: 12px;
+  border-radius: 3px;
 }
 
-// @font-face {
-//   font-family: "stockageprofile";
-//   src: url("../fonts/stockageprofile/icomoon.eot?t60pg3");
-//   src: url("../fonts/stockageprofile/icomoon.eot?t60pg3#iefix")
-//       format("embedded-opentype"),
-//     url("../fonts/stockageprofile/icomoon.ttf?t60pg3") format("truetype"),
-//     url("../fonts/stockageprofile/icomoon.woff?t60pg3") format("woff"),
-//     url("../fonts/stockageprofile/icomoon.svg?t60pg3#icomoon") format("svg");
-//   font-weight: normal;
-//   font-style: normal;
-// }
-
-[class^="iconU-"],
-[class*=" iconU-"] {
-  font-family: "icomoon" !important;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Line Details Styles Start */
+.lineDetailsTopExpand{
+    margin-top: -400px !important;
+    padding-top: 400px !important;
 }
 
-[class^="stockageprofile-"],
-[class*=" stockageprofile-"] {
-  font-family: "stockageprofile" !important;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.lineDetailsBottomExpand{
+    margin-bottom: -312px !important;
+    padding-bottom: 328px !important;
 }
 
-.iconU-stockMovement:before {
-  content: "\e90e";
+/* Line Details Styles End */
+// scrollbar
+.ReactTable > .rt-table > .rt-tbody::-webkit-scrollbar {
+  width: 8px !important;
 }
-.stockageprofile-stockAgeProfile:before {
-  content: "\e900 ";
+
+.ReactTable > .rt-table > .rt-tbody::-webkit-scrollbar-thumb {
+  background-color: #b4b9bb;
+  border-radius: 15px !important;
 }
-.iconU-user:before {
-  content: "\e910";
+
+.ReactTable > .rt-table::-webkit-scrollbar {
+  height: 8px !important;
 }
-.iconU-dashboard:before {
-  content: "\e911";
+
+.ReactTable > .rt-table::-webkit-scrollbar-thumb {
+  background-color: #b4b9bb;
+  border-radius: 15px !important;
 }
-.iconU-purchaseOrder:before {
-  content: "\e915";
+// -----------------------------------------
+
+
+.status-available{
+  color: #FFF !important;
+  background-color: #d1cccc;
+  border-radius: 5px;
+  /* border: solid 1.5px #959292; */
+  font-size: 12px;
+  padding: 6px;
 }
-.iconU-report:before {
-  content: "\e912";
+.status-Unavailable{
+  color: #FFF !important;
+  background-color: #c82525;
+  border-radius: 5px;
+  /* border: solid 1.5px #959292; */
+  font-size: 12px;
+  padding: 6px;
 }
-.iconU-salesOrder:before {
-  content: "\e916";
+.status-complete{
+  color: #555050 !important;
+  background-color: transparent;
+  border-radius: 5px;
+  border: solid 1px #555050 ;
+  font-size: 12px;
+  padding: 6px;
 }
-.iconU-stockHolding:before {
-  content: "\e90f";
+.status-partRelease{
+  color: #555050 !important;
+  background-color: transparent;
+  border-radius: 5px;
+  border: solid 1px #555050;
+  font-size: 12px;
+  padding: 6px;
 }
-.iconU-i:before {
-  content: "\e90c";
+.status-Release{
+  color: #555050 (209, 204, 204) !important;
+  background: transparent;
+  border-radius: 5px;
+  border: solid 1px #555050  ;
+  font-size: 12px;
+  padding: 6px;
 }
-.iconU-circledChecked:before {
-  content: "\e920";
-}
-.iconU-checked:before {
-  content: "\e91f";
-}
-.iconU-close:before {
-  content: "\e929";
-}
-.iconU-delete:before {
-  content: "\e925";
-}
-.iconU-edit:before {
-  content: "\e924";
-}
-.iconU-filter:before {
-  content: "\e918";
-}
-.iconU-information:before {
-  content: "\e901";
-}
-.iconU-leftArrow:before {
-  content: "\e907";
-}
-.iconU-rightArrow:before {
-  content: "\e906";
-}
-.iconU-upArrow:before {
-  content: "\e91c";
-}
-.iconU-upArrows:after {
-  content: "\e91c";
-}
-.iconU-downArrow:after {
-  content: "\e91b";
-}
-.iconU-one:before {
-  content: "\e905";
-}
-.iconU-two:before {
-  content: "\e904";
-}
-.iconU-three:before {
-  content: "\e903";
-}
-.iconU-option:before {
-  content: "\e91e";
-}
-.iconU-question:before {
-  content: "\e927";
-}
-.iconU-calendar:before {
-  content: "\e928";
-}
-.iconU-lastPage:before {
-  content: "\e908";
-}
-.iconU-firstPage:before {
-  content: "\e909";
-}
-.iconU-search:before {
-  content: "\e913";
-}
-.iconU-field-dropdown:before {
-  content: "\e91b";
-}
-.iconU-createModal:before {
-  content: "\e90b";
-}
-.iconU-logout:before {
-  content: "\e90a";
-}
-/* icomoon end */

@@ -1,20 +1,5 @@
-.status-ok{
-    color: rgb(209, 204, 204) !important;
-    background: transparent;
-    padding: 5px;
-    border-radius: 6px;
-    border: solid 1.5px rgb(149, 146, 146);
-    font-size: 12px;
-}
-.status-shortage{
-    color: white !important;
-    background: #F94548;
-    padding: 6px;
-    font-size: 12px;
-    border-radius: 3px;
-}
-.input-height{
-    height: 40px;
+.input-height {
+  height: 40px;
 }
 
 .nav-tabs .nav-link.tab-custom {
@@ -29,17 +14,7 @@
   border: solid 0px;
 }
 
-.tab-header{
-  width: max-content;
-  margin-left: -1px !important;
-}
-.numberic{
-    margin-right: 5px;
-    width: 19px;
-    padding-bottom: 4.9px;
-}
-
-.tableTab{
+.tableTab {
   margin-left: 14px;
   margin-top: -4px;
 }
@@ -54,38 +29,66 @@
 }
 
 .form-control::-moz-placeholder {
-    color: rgb(192, 187, 187);
-  }
-  .form-control:-ms-input-placeholder {
-    color: rgb(192, 187, 187);
-  }
-  .form-control::-webkit-input-placeholder {
-    color: rgb(192, 187, 187);
-  }
+  color: rgb(192, 187, 187);
+}
+.form-control:-ms-input-placeholder {
+  color: rgb(192, 187, 187);
+}
+.form-control::-webkit-input-placeholder {
+  color: rgb(192, 187, 187);
+}
 
-  /* Sales Order List */
-.table-summary .input-group,
-.table-summary .input-group input,
- input.form-control {
-  height: 40px !important;
-  border-color: #e4e7ea !important;
-}
-.table-summary .c-subheader-nav-link {
-  margin-right: 15px;
-}
-.card-shadow{
-  box-shadow:none !important
-}
+/* Sales Order List */
 
 /* Order Detail */
-.order-detail .section-1 .col {
+.stock-holding-detail .section-1 .col {
   line-height: 2;
 }
-.order-detail .card {
+.stock-holding-detail .card {
   box-shadow: none !important;
 }
 @media (min-width: 800px) {
-  .order-detail .border-right {
+  .stock-holding-detail .border-right {
     border-right: 2px solid #eee !important;
   }
+}
+
+@media (max-width: 992px) {
+  .btn.stockHolding {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+.stock-holding-detail .ReactTable .rt-tbody {
+  display: block !important;
+}
+
+.nav-link-cust {
+  height: 50px !important;
+  margin: 0px !important;
+}
+
+.stock-holding-detail .nav-tabs .nav-link.tab-custom {
+  border-radius: 5px 5px 0px 0px !important;
+}
+
+.stock-holding-detail .tabTitleText {
+  margin-top: -5px !important;
+}
+
+.stock-holding-detail .card-group .card {
+  height: 154px !important;
+}
+
+.stock-holding-detail .card-group .col-lg-5 {
+  height: 50px !important;
+}
+
+.stock-holding-detail .tab-pane {
+  background-color: #e9eced !important;
+}
+
+.stockDetails .ReactTable .rt-table .rt-thead .rt-tr .rt-th:first-child {
+  padding-left: 1rem !important;
 }

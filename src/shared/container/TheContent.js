@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 import {
-  Redirect,
+  // Redirect,
   Route,
   Switch
 } from 'react-router-dom'
@@ -18,7 +18,7 @@ const loading = (
 const TheContent = () => {
   return (
     <main className="c-main p-0">
-      <CContainer fluid className="c-content">
+      <CContainer fluid className="px-3">
         <Suspense fallback={loading}>
           <Switch>
             {routes.map((route, idx) => {

@@ -3,31 +3,34 @@ export default (values) => {
   let error = {}
   let { site, client, orderId, orderType, deliveryDate, shipToAddress1, postCode, state, orderLine } = values
   if (!site) {
-    error.site = 'Please select site'
+    error.site = 'Field must be entered'
   }
   if (!orderId) {
-    error.orderId = 'Order No. cannot be empty'
+    error.orderId = 'Field must be entered'
+  }
+  if (!!orderId && orderId.length < 4 && orderId.length > 12) {
+    error.postCode = 'Order Number must have min 4 characters'
   }
   if (!orderType) {
-    error.orderType = 'Please select order type'
+    error.orderType = 'Field must be entered'
   }
   if (!client) {
-    error.client = 'Please select client'
+    error.client = 'Field must be entered'
   }
   if (!deliveryDate) {
-    error.deliveryDate = 'Delivery date must have a value'
+    error.deliveryDate = 'Field must be entered'
   }
   if (!shipToAddress1) {
-    error.shipToAddress1 = 'Address 1 cannot be empty'
+    error.shipToAddress1 = 'Field must be entered'
   }
   if (!postCode) {
-    error.postCode = 'Postcode cannot be empty'
+    error.postCode = 'Field must be entered'
   }
   if (!!postCode && postCode.length < 4) {
     error.postCode = 'Postcode must have min 4 characters'
   }
   if (!state) {
-    error.state = 'State cannot be empty'
+    error.state = 'Field must be entered'
   }
 
   if (orderLine.length) {
@@ -36,13 +39,15 @@ export default (values) => {
       const object = orderLine[i];
       error.orderLine[i] = {}
       if (!object.productVal) {
-        error.orderLine[i].productVal = 'Product cannot be empty'
+        error.orderLine[i].productVal = 'Field must be entered'
       }
       if (!object.qty) {
-        error.orderLine[i].qty = 'Qty cannot be empty'
+        // error.orderLine[i].qty = 'Field must be entered'
+        error.orderLine[i].productVal = 'Field must be entered'
       }
       if (!object.uom) {
-        error.orderLine[i].uom = 'UOM cannot be empty'
+        // error.orderLine[i].uom = 'Field must be entered'
+        error.orderLine[i].productVal = 'Field must be entered'
       }
       if (Object.keys(error.orderLine[i]).length < 1) {
         error.orderLine.splice(i, 1)

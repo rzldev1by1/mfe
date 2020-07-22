@@ -1,7 +1,6 @@
 import React from 'react'
 import { Modal } from 'react-bootstrap'
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
-// import _ from 'lodash'
 import DetailsTab from './tabs/DetailsTab.js'
 import ReviewTab from './tabs/ReviewTab'
 
@@ -37,8 +36,8 @@ class SalesOrderCreate extends React.PureComponent {
       <Modal.Body className="bg-primary p-0">
         <Row className="px-5 py-3">
           <Col xs={10}>
-            <i className="iconU-createModal font-20"></i><span className="font-20 pl-2">Create Sales Order</span> <br />
-            <span>Enter Order and line details to create a new purchase order</span>
+            <span className="font-20"><i className="iconU-createModal font-20"></i> Sales Order</span> <br />
+            <span className="pl-4"> &nbsp;Enter Order and line details to create a new order</span>
           </Col>
           <Col xs={2} className="text-right">
             <i className="iconU-close pointer" onClick={this.onHide}></i>

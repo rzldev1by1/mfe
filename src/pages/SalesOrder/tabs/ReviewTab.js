@@ -147,19 +147,19 @@ class ReviewTab extends React.Component {
         <table>
           <thead>
             <tr className="text-light-gray">
-              <td><div className="c-1 text-center">#</div></td>
-              <td><div className="c-3 required">Product</div></td>
-              <td><div className="c-4">Description</div></td>
-              <td><div className="c-3 required">Qty</div></td>
-              <td><div className="c-2">Weight</div></td>
-              <td><div className="c-3 required">UOM</div></td>
-              <td><div className="c-3">Rotadate</div></td>
-              <td><div className="c-2">Batch</div></td>
-              <td><div className="c-2">Ref3</div></td>
-              <td><div className="c-2">Ref4</div></td>
-              <td><div className="c-2">Dispotition</div></td>
-              <td><div className="c-3">Pack ID</div></td>
-              <td><div className="c-1"></div></td>
+              <td><div className="c-50 text-center">#</div></td>
+              <td><div className="c-400 required">Product</div></td>
+              <td><div className="c-600">Description</div></td>
+              <td><div className="c-100 required">Qty</div></td>
+              <td><div className="c-100">Weight</div></td>
+              <td><div className="c-150 required">UOM</div></td>
+              <td><div className="c-250">Batch</div></td>
+              <td><div className="c-100">Ref3</div></td>
+              <td><div className="c-100">Ref4</div></td>
+              <td><div className="c-150">Disposition</div></td>
+              <td><div className="c-200">Pack ID</div></td>
+              <td><div className="c-150">Rotadate</div></td>
+              <td><div className="c-50"></div></td>
             </tr>
           </thead>
           <tbody>

@@ -78,9 +78,8 @@
 }
 .rt-th {
   text-align: left;
-  height: 46px;
+  padding: 0 10px !important;
   border-right: none !important;
-  padding: 12px 10px !important;
 }
 .rt-th svg {
   margin-top: -3px;
@@ -98,4 +97,11 @@
 .rt-tr-group {
   left: 0 !important;
   padding: 0 !important;
+}
+.ReactTable .rt-tr {
+  flex: none !important;
+}
+
+.ReactTable .rt-tr-group {
+  flex: none !important;
 }
