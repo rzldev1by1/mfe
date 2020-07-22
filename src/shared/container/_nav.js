@@ -13,13 +13,13 @@ export default [
     icon: 'nav-sm',
     key: 'menu_inventory_stkMovement',
   },
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'STOCK AGE PROFILE',
-    to: '/stock-age-profile',
-    icon: 'nav-sap',
-    key: 'menu_inventory_stkAgeProfile',
-  },
+  // {
+  //   _tag: 'CSidebarNavItem',
+  //   name: 'STOCK AGE PROFILE',
+  //   to: '/stock-age-profile',
+  //   icon: 'nav-sap',
+  //   key: 'menu_inventory_stkAgeProfile',
+  // },
   {
     _tag: 'CSidebarNavItem',
     name: 'PURCHASE ORDERS',
