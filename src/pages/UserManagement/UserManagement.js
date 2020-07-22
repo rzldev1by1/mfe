@@ -114,13 +114,13 @@ class UserManagemen extends Component {
                     <CCardBody className="p-3 border-user-info" >
                         <CRow>
                             <CCol sm="2" className="user-login-info-header">
-                                User Id
+                                User ID
                             </CCol>
                             <CCol sm="2" className="user-login-info-header">
                                 Name
                             </CCol>
                             <CCol sm="2" className="user-login-info-header">
-                                Email address
+                                Email Address
                             </CCol>
                             <CCol sm="2" className="user-login-info-header">
                                 Site
