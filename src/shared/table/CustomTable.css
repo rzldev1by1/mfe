@@ -44,3 +44,7 @@
 .ReactTable .rt-tr {
   flex: none !important;
 }
+
+.ReactTable .rt-tr-group {
+  flex: none !important;
+}

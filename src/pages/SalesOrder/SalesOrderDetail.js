@@ -18,7 +18,8 @@ const columns = [
   { accessor: "line", Header: "Line No" },
   { accessor: "product", Header: "Product" },
   { accessor: "product_description", Header: "Description" },
-  { accessor: "qty", Header: "Qty" },
+  { accessor: "qty", Header: "Qty", width: 60  },
+  { accessor: "uom", Header: "UOM", width: 80 },
   { accessor: "qty_processed", Header: "Qty Processed" },
   { accessor: "weight", Header: "Weight" },
   { accessor: "weight_processed", Header: "Weight Processed" },
@@ -26,7 +27,11 @@ const columns = [
     accessor: "completed", Header: "Completed",
     Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
-  { accessor: "oos", Header: "OOS", width: 50 },
+  //{ accessor: "oos", Header: "OOS", width: 50 },
+  {
+    accessor: "oos", Header: "OOS",
+    Cell: (row) => <i className={`${row.original.oos === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+  },
   { accessor: "batch", Header: "Batch" },
   { accessor: "ref2", Header: "Ref2" },
   { accessor: "ref3", Header: "Ref3" },
@@ -42,6 +47,7 @@ class SalesOrderDetail extends React.Component {
     fields: columns,
     detail: {},
     products: [],
+    request_status: 'Please Wait...'
   }
   componentDidMount() {
     this.updateDimension();
@@ -66,12 +72,16 @@ class SalesOrderDetail extends React.Component {
   }
   getProducts = async () => {
     const { orderno, client, site } = this.props.match.params
+    this.setState({ request_status: "Please Wait..."  })
     const url = `/salesorder/${orderno}?client=${client}&site=${site}`
     const { data } = await axios.get(url)
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     if (data.data.length) {
       this.setState({ products: data.data })
-    }
+      console.log(data)
+    }else{ 
+      this.setState({ request_status: "No Data Found"  })
+    } 
   }
   formatDate = (date) => {
     return date ? moment(date).format('DD/MM/YYYY') : '-'
@@ -132,6 +142,7 @@ class SalesOrderDetail extends React.Component {
         height={this.state.dimension.height}
         fields={fields}
         data={products}
+        request_status={this.state.request_status}
       />
     </div>
   }
