@@ -27,7 +27,7 @@
   .webgroup-active {
     background-color: #ffffff;
     /* font-family: 'Rubik Regular'; */
-    font-size: 20px !important;
+    /* font-size: 0.875rem !important; */
     color: #376bfb !important;
     margin: 4px;
     padding: 6px;
@@ -38,7 +38,7 @@
   .webgroup-notactive {
     background-color: transparent;
     /* font-family: 'Rubik Regular'; */
-    font-size: 20px !important;
+    /* font-size: 20px !important; */
     color: #bbbcbd !important;
     margin: 4px;
     padding: 6px;
@@ -47,8 +47,8 @@
 
   .btn-outline-active {
     /* font-family: 'Rubik Regular'; */
-    font-size: 1rem !important;
-    width: 117px !important;
+    /* font-size: 1rem !important; */
+    width: 100px !important;
     height: 40px !important;
     border: 1.5px solid #3366ff;
     border-radius: 7px;
@@ -58,8 +58,8 @@
   
   .btn-outline-notActive {
     /* font-family: 'Rubik Regular'; */
-    font-size: 1rem !important;
-    width: 117px !important;
+    /* font-size: 1rem !important; */
+    width: 100px !important;
     height: 40px !important;
     color: #d5d8da;
     border: 1.5px solid #d5d8da;
@@ -69,8 +69,8 @@
   
   .btn-outline-All-active {
     /* font-family: 'Rubik Regular'; */
-    font-size: 1rem !important;
-    width: 117px !important;
+    /* font-size: 1rem !important; */
+    width: 100px !important;
     height: 40px !important;
     border: 1.5px solid #3366ff;
     border-radius: 7px;
@@ -103,7 +103,7 @@
 
   .webgroup-review-active {
     background-color: #ffffff;
-    font-size: 20px !important;
+    
     color: #bbbcbd !important;
     margin: 4px;
     padding: 6px;
@@ -113,7 +113,7 @@
 
   .webgroup-review-notactive {
     background-color: transparent;    
-    font-size: 20px !important;
+    
     color: #bbbcbd !important;
     margin: 4px;
     padding: 6px;
@@ -178,7 +178,7 @@
   }
 
 /** Modal create **/
-.um-create .tab-content {
+.tab-content {
   padding: 0;
   margin: 0;
   background-color: #fff;
@@ -186,7 +186,7 @@
   /* overflow: hidden; */
 }
 
-.um-create .nav-link {
+.nav-link {
   background-color: #eee;
   color: #959da0 !important;
   border: none !important;
@@ -194,15 +194,59 @@
   padding-left: 20px;
   margin-left: 5px !important;
   cursor: pointer;
+  font-family: Rubik !important;
 }
-.um-create .nav-link.active {
+.nav-link.active {
   background-color: #fff !important;
   color: #376bfb !important;
 }
-.um-create .nav-tabs {
+.nav-tabs {
   margin-left: 26px;
   border: none;
+  font-family: Rubik !important;
 }
 
 
+
 /** End modal create **/
+
+.text-title{
+  color: #D5D8DA;
+}
+
+.um-review label.form-control{
+  height: 50px !important;
+  line-height: 2.5;
+}
+
+.um-summary .border-user-info{
+  border-top: 2px solid #fff;
+  border-right: 2px solid #fff;
+  border-left: 2px solid #fff;
+}
+
+.um-text-webgroup{
+  padding-top: 11px;
+  padding-bottom: 11px;
+}
+
+.review-readonly{
+  background-color: #F6F7F9;
+}
+
+.review-text{
+  color: '#959DA0';
+}
+
+.client-enableall-padding{
+  padding-right: 35px;
+}
+
+.height-40{
+  height: 40px;
+}
+
+.title-tab{
+  display: flex;
+  align-items: center;
+}

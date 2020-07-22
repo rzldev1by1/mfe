@@ -35,16 +35,16 @@ class NewUser extends React.PureComponent {
         return (
             <Container className="px-5 py-4">
                 <Row>
-                    <Col lg="2">
-                        <h3 className="text-primary font-20" style={{paddingTop:'11px',paddingBottom:'11px'}}>New User</h3>
+                    <Col lg="2" className="pr-0">
+                        <h3 className="text-primary font-20 um-text-webgroup">New User</h3>
                     </Col>
-                    <Col lg="10">
+                    <Col lg="10" className="pl-0">
                         <Row>
-                            <Col lg="6" md="9" sm="12" >
+                            <Col lg="4" md="4" sm="12" className="pl-0">
                                 <label className="webgroup d-flex justify-content-between">
                                     <input type="checkbox" onChange={(e) => { this.props.onWebGroupSelect(e); }} />
-                                    <span className={`${isAdmin ? "flex-fill webgroup-notactive" : "flex-fill webgroup-active"}`}>Regular User</span>
-                                    <span className={`${isAdmin ? "flex-fill webgroup-active" : "flex-fill webgroup-notactive"}`}>Admin User</span>
+                                    <span className={`flex-fill ${isAdmin ? " webgroup-notactive" : " webgroup-active"}`}>REGULAR USER</span>
+                                    <span className={`flex-fill ${isAdmin ? " webgroup-active" : " webgroup-notactive"}`}>ADMIN USER</span>
                                 </label>
                             </Col>
                         </Row>
@@ -52,33 +52,35 @@ class NewUser extends React.PureComponent {
                 </Row>
 
                 <Row>
-                    <Col lg="4">
-                        <label className="text-muted">User ID</label>
+                    <Col sm="4">
+                        <label className="mb-0 text-muted">User ID</label>                        
                     </Col>
-                    <Col lg="4">
-                        <label className="text-muted">Name</label>
+                    <Col sm="4">
+                        <label className="mb-0 text-muted">Email</label>
                     </Col>
-                    <Col lg="4">
-                        <label className="text-muted">Email</label>
+                    <Col sm="4">
+                        <label className="mb-0 text-muted">Name</label>
                     </Col>
 
                 </Row>
 
                 <Row>
-                    <Col lg="4">
+                    <Col sm="4">
                         <input type="text" name="userid" readOnly className="form-control" value={user.userId} />
+                        <div>
+                            <span className="text-title font-sm">Auto Generated</span>
+                        </div>
                     </Col>
-                    <Col lg="4">
-                        <input type="text" name="userName" placeholder="Enter a surename" maxLength="60" className={`form-control`} onChange={(e) => { this.props.onChangeName(e); }} value={user.name || ''} />
-                        {/* <FormFeedback className="invalid-error-padding">
-                      name value must be entered
-                                   </FormFeedback> */}
-                    </Col>
-
-                    <Col lg="4">
+                    <Col sm="4">
                         <input type="email" name="email" placeholder="Enter an email address" className={`form-control`} onChange={(e) => { this.props.onChangeEmail(e); }} value={user.email || ''} />
                         {/* <FormFeedback className="invalid-error-padding">
                       wrong format email
+                                   </FormFeedback> */}
+                    </Col>
+                    <Col sm="4">
+                        <input type="text" name="userName" placeholder="Enter a username" maxLength="60" className={`form-control`} onChange={(e) => { this.props.onChangeName(e); }} value={user.name || ''} />
+                        {/* <FormFeedback className="invalid-error-padding">
+                      name value must be entered
                                    </FormFeedback> */}
                     </Col>
                 </Row>
@@ -104,7 +106,7 @@ class NewUser extends React.PureComponent {
                     <Col lg={2}></Col>
                     <Col lg={8}></Col>
                     <Col lg={2} className="text-right">
-                        <button className="btn btn-primary" onClick={(e) => {this.props.next('review')}}>{'NEXT'}</button>
+                        <button className="btn btn-primary font-lg" onClick={(e) => {this.props.next('review')}}>{'NEXT'}</button>
                     </Col>
                 </Row>
             </Container>

@@ -205,7 +205,9 @@ class DatePicker extends React.Component {
     closeDatePicker = () => {
         this.setState({ showDatePicker: false })
         if (this.props.showDatePicker) {
-            this.props.showDatePicker(false)
+            if(!this.props.isShow){
+                this.props.showDatePicker(false)
+            }
         }
     }
 
