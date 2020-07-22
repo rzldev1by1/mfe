@@ -33,8 +33,11 @@ class CreateTab extends React.Component {
       orderDetails: [{}],
       orderLine: [{}],
       error: {},
-      siteData: this.props.siteData, clientData: this.props.clientData, orderTypeData: this.props.orderTypeData, supplierData: this.props.supplierData,
-      isDatepickerShow: false
+      siteData: this.props.siteData, clientData: this.props.clientData, orderTypeData: this.props.orderTypeData, supplierData:this.props.supplierData,
+      datepickerStatus: [],
+      UOMStatus: [],
+      dispositionStatus: [],
+      productStatus: []
       // orderId: 'AB29123', shipToAddress1: 'Ark Street 12', postCode: '291923', state: 'Victoria',
     }
   }
@@ -258,7 +261,14 @@ class CreateTab extends React.Component {
     const { error, overflow, site, client, orderType, orderLine,
       orderId, siteData, clientData, orderTypeData, productData, uomData, dispositionData, supplierData, supplier
     } = this.state
-    return <Container className="px-5 py-4">
+    let datepickerStatus = this.state.datepickerStatus;
+    let UOMStatus = []
+    let dispositionStatus = []
+    let productStatus = []
+    let expandDropdownCheck = (this.state.UOMStatus.includes(true) || this.state.dispositionStatus.includes(true)) || this.state.productStatus.includes(true);
+    let datepickerExpandStyle = this.state.datepickerStatus.includes(true) ? " lineDetailsTopExpand" : "";
+    let dropdownExpandStyle = expandDropdownCheck ? " lineDetailsBottomExpand" : "";
+    return <Container className="px-5 py-4" >
       <h3 className="text-primary font-20">Order Details</h3>
       <Row>
         <Col lg="3">
@@ -313,7 +323,7 @@ class CreateTab extends React.Component {
       </Row>
 
       <h3 className="text-primary font-20">Line Details</h3>
-      <div className={`orderline mb-2 pb-2 scroll-x-y`} style={this.state.isDatepickerShow ? { paddingTop: "400px", marginTop: "-400px" } : null}>
+      <div className={"orderline mb-2 pb-2 scroll-x-y" + datepickerExpandStyle + dropdownExpandStyle}>
         {/* ${this.state.overflow ? 'scroll-x-y' : null} */}
         <table>
           <thead>
@@ -341,8 +351,8 @@ class CreateTab extends React.Component {
                 <td className="px-1">
                   <Select value={o.productVal || ''}
                     options={productData}
-                    onMenuOpen={() => this.toggleOverflow(i, 'productVal', true)}
-                    onMenuClose={() => this.toggleOverflow(i, 'productVal', false)}
+                    onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
+                    onMenuClose={() => {productStatus[i] = false; this.setState({ productStatus: productStatus })}}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
                     className={`c-400 ${overflow[i] && overflow[i].productVal ? 'absolute' : null}`} placeholder="Product" required />
                   <Required id="productVal" error={error.orderLine && error.orderLine[i]} />
@@ -360,8 +370,14 @@ class CreateTab extends React.Component {
                 <td className="px-1">
                   <Select value={o.uom || ''}
                     options={uomData}
-                    onMenuOpen={() => this.toggleOverflow(i, 'uom', true)}
-                    onMenuClose={() => this.toggleOverflow(i, 'uom', false)}
+                    onMenuOpen={() => {
+                        UOMStatus[i] = true; 
+                        this.setState({ UOMStatus: UOMStatus })
+                    }}
+                    onMenuClose={() => {
+                        UOMStatus[i] = false; 
+                        this.setState({ UOMStatus: UOMStatus })
+                    }}
                     onChange={(val) => this.lineSelectChange(i, 'uom', val)}
                     className={`c-150 ${overflow[i] && overflow[i].uom ? 'absolute right' : null}`} placeholder="UOM" />
                   <Required id="uom" error={error.orderLine && error.orderLine[i]} />
@@ -378,15 +394,15 @@ class CreateTab extends React.Component {
                 <td className="px-1">
                   <Select value={o.dispositionVal || ''}
                     options={dispositionData}
-                    onMenuOpen={() => this.toggleOverflow(i, 'dispositionVal', true)}
-                    onMenuClose={() => this.toggleOverflow(i, 'dispositionVal', false)}
+                    onMenuOpen={() => {dispositionStatus[i] = true; this.setState({ dispositionStatus: dispositionStatus })}}
+                    onMenuClose={() => {dispositionStatus[i] = false; this.setState({ dispositionStatus: dispositionStatus })}}
                     onChange={(val) => this.lineSelectChange(i, 'dispositionVal', val)}
                     className={`c-150 ${overflow[i] && overflow[i].dispositionVal ? 'absolute right' : null}`} placeholder="Disposition" />
                 </td>
                 <td className="p-0 m-0">
                   <DatePicker
                     top={true}
-                    showDatePicker={(e) => this.setState({ isDatepickerShow: e })}
+                    showDatePicker={(e) => {datepickerStatus[i] = e; this.setState({ datepickerStatus: datepickerStatus })}}
                     getDate={(date) => {
                       let { orderLine } = this.state
                       orderLine[i].rotaDate = date
