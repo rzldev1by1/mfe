@@ -1,17 +1,22 @@
 import _ from 'lodash';
 import React from 'react';
-import { connect } from 'react-redux';
 import ReactTable from 'react-table-v6';
 import { Button, Container, Row, Col, Modal, Nav } from 'react-bootstrap';
 import { NavItem, NavLink, TabPane, TabContent } from 'reactstrap';
 import { MdClose } from 'react-icons/md';
-import { FaRegEdit} from 'react-icons/fa';
+import { FaRegEdit } from 'react-icons/fa';
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
+<<<<<<< HEAD
+=======
 import axios from 'axios'
 import endpoints from 'helpers/endpoints'
+>>>>>>> 2a0de3b60999e5d54cb12451893138b33eecf39f
 import CustomPagination from 'shared/table/CustomPagination';
+import axios from 'axios';
+import endpoints from 'helpers/endpoints';
 import 'react-table-v6/react-table.css';
 import '../../shared/table/CustomTable.css';
+import './StockHolding.css';
 
 // automatic column width
 const getColumnWidth = (rows, accessor, headerText) => {
@@ -34,31 +39,20 @@ const getColumnWidth = (rows, accessor, headerText) => {
 class CustomTable extends React.Component {
   constructor(props) {
     super(props);
-    this.dragged = null;
-    this.reorder = [];
-    let tables = localStorage.getItem('tables')
-      ? JSON.parse(localStorage.getItem('tables'))
-      : [];
-    if (tables.length > 0) {
-      tables.map((data, idx) => {
-        if (data.title == props.title) {
-          this.reorder = data.reorderIdx;
-        }
-      });
-    }
     this.state = {
       showModal: false,
       editColumn: {},
       editColumnTemp: {},
-      trigger: 0,
       activeTab: '1',
       changedColumns: [],
-      fields : this.props.fields,
-      urlHeader : this.props.urlHeader,
-      products : []
+      fields: this.props.fields,
+      urlHeader: this.props.urlHeader,
+      products: []
     };
   }
-
+  componentDidMount = () => {
+    this.headerRename();
+  };
   activeTabIndex(tab) {
     if (this.state.activeTab !== tab) {
       this.setState({ activeTab: tab });
@@ -196,7 +190,6 @@ class CustomTable extends React.Component {
             accessor: h.accessor,
             sortable: h.sortable === false ? false : true,
             resizable: h.resizable || false,
-            style: h.style || null,
             width: h.width || getColumnWidth(data, h.accessor, h.Header),
           };
           return (listHeader = [...listHeader, obj]);
@@ -219,6 +212,173 @@ class CustomTable extends React.Component {
     listHeader = [...listHeader, obj];
     return listHeader;
   };
+  headerRename = async () => {
+    const url = this.props.UrlHeader();
+    const { data } = await axios.get(url);
+    let header = [];
+    let accessor = Object.keys(data.data[0]);
+    accessor.map((data, idx) => {
+      let lowerCase = data.toLowerCase();
+      if (lowerCase.includes(' ')) {
+        let split = lowerCase.split(' ');
+        let result = split.join('_');
+        accessor[idx] = result;
+      } else {
+        accessor[idx] = lowerCase;
+      }
+    });
+    let placeholder = Object.keys(data.data[0]);
+    placeholder.map((data, idx) => {
+      let lowerCase = data.toLowerCase();
+      if (lowerCase.includes(' ')) {
+        let split = lowerCase.split(' ');
+        let result = split.join(' ');
+        placeholder[idx] = result;
+      } else {
+        placeholder[idx] = lowerCase;
+      }
+    });
+    Object.values(data.data[0]).map((data, idx) => {
+      let headerTable = {
+        accessor: 'site',
+        Header: 'site',
+        placeholder: 'site',
+        sortable: true,
+      };
+      headerTable.Header = data;
+      headerTable.placeholder = placeholder[idx];
+      headerTable.accessor = accessor[idx];
+      header.push(headerTable);
+    });
+    console.log(header);
+    if (data.data.length) {
+      this.setState({
+        products: data.data[0],
+        fields: header,
+      });
+    }
+  };
+
+  renameSubmits = async (e) => {
+    const fields = this.state.fields;
+    const changedField = e;
+    const changedFieldAccessor = [];
+    const changedFieldHeader = [];
+
+    changedField.map((item, idx) => {
+      changedFieldAccessor.push(item.accessor);
+      changedFieldHeader.push(item.header);
+    });
+
+    fields.map((item, idx) => {
+      changedFieldAccessor.map((data, idx) => {
+        if (item.accessor == data) {
+          item.Header = changedFieldHeader[idx];
+        }
+      });
+    });
+
+    this.setState({ fields: fields });
+
+    let payload = {};
+    let payloadIndex = Object.keys(this.state.products);
+    let defaultValues = Object.values(this.state.products);
+    let fieldsAccessor = changedFieldAccessor;
+
+    fieldsAccessor.map((data, idx) => {
+      if (data.includes(' ')) {
+        let uppercaseAccessor = data.toUpperCase();
+        let index = uppercaseAccessor.split(' ');
+        fieldsAccessor[idx] = index.join('_');
+      } else {
+        fieldsAccessor[idx] = data.toUpperCase();
+      }
+    });
+
+    payloadIndex.map((data, idx) => {
+      if (data.includes(' ')) {
+        let uppercaseAccessor = data;
+        let index = uppercaseAccessor.split(' ');
+        payloadIndex[idx] = index.join('_');
+      }
+    });
+
+    let newPayload = {};
+
+    for (let i = 0; i < Object.keys(this.state.products).length; i++) {
+      fieldsAccessor.map((data, idx) => {
+        if (payloadIndex[i] == data) {
+          payload[payloadIndex[i]] = changedFieldHeader[idx];
+          payloadIndex.splice(i, 1);
+          defaultValues.splice(i, 1);
+        }
+      });
+    }
+
+    payloadIndex.map((data, idx) => {
+      payload[data] = defaultValues[idx];
+    });
+
+    this.setState({ columnsPayload: payload });
+
+    const baseUrl = process.env.REACT_APP_API_URL;
+
+    try {
+      const urlAntec = await axios.post(
+        baseUrl + this.props.UrlAntec(),
+        payload
+      );
+      const urlBega = await axios.post(baseUrl + this.props.UrlBega(), payload);
+      const urlAesop = await axios.post(
+        baseUrl + this.props.UrlAesop(),
+        payload
+      );
+      const urlClucth = await axios.post(
+        baseUrl + this.props.UrlClucth(),
+        payload
+      );
+      const urlExquira = await axios.post(
+        baseUrl + this.props.UrlExquira(),
+        payload
+      );
+      const urlLedvance = await axios.post(
+        baseUrl + this.props.UrlLedvance(),
+        payload
+      );
+      const urlOnestop = await axios.post(
+        baseUrl + this.props.UrlOnestop(),
+        payload
+      );
+      const urlStartrack = await axios.post(
+        baseUrl + this.props.UrlStartrack(),
+        payload
+      );
+      const urlTatura = await axios.post(
+        baseUrl + this.props.UrlTatura(),
+        payload
+      );
+      const urlTtl = await axios.post(baseUrl + this.props.UrlTtl(), payload);
+      const urlTtchem = await axios.post(
+        baseUrl + this.props.UrlTtchem(),
+        payload
+      );
+      const { data } =
+        urlAntec +
+        urlBega +
+        urlAesop +
+        urlClucth +
+        urlExquira +
+        urlLedvance +
+        urlOnestop +
+        urlStartrack +
+        urlTatura +
+        urlTtl +
+        urlTtchem;
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   headerRename = async () => {
     const url = this.props.UrlHeader()
@@ -226,47 +386,47 @@ class CustomTable extends React.Component {
     let header = []
     let accessor = Object.keys(data.data[0]);
     accessor.map((data, idx) => {
-        let lowerCase = data.toLowerCase();
-        if(lowerCase.includes(" ")){
-            let split = lowerCase.split(" ");
-            let result = split.join("_");
-            accessor[idx] = result
-        }else{
-            accessor[idx] = lowerCase
-        }
-        
+      let lowerCase = data.toLowerCase();
+      if (lowerCase.includes(" ")) {
+        let split = lowerCase.split(" ");
+        let result = split.join("_");
+        accessor[idx] = result
+      } else {
+        accessor[idx] = lowerCase
+      }
+
     })
-    let placeholder =  Object.keys(data.data[0]);
+    let placeholder = Object.keys(data.data[0]);
     placeholder.map((data, idx) => {
       let lowerCase = data.toLowerCase();
-      if(lowerCase.includes(" ")){
+      if (lowerCase.includes(" ")) {
         let split = lowerCase.split(" ");
         let result = split.join(" ");
-          placeholder[idx] = result
-      }else{
+        placeholder[idx] = result
+      } else {
         placeholder[idx] = lowerCase
       }
-      
-  })
-    Object.values(data.data[0]).map((data, idx) => { 
+
+    })
+    Object.values(data.data[0]).map((data, idx) => {
       let headerTable = {
-        accessor: 'site', 
-        Header: 'site', 
-        placeholder: 'site' , 
-        sortable: true 
+        accessor: 'site',
+        Header: 'site',
+        placeholder: 'site',
+        sortable: true
       }
-      headerTable.Header= data 
-      headerTable.placeholder = placeholder[idx]  
-      headerTable.accessor= accessor[idx] 
+      headerTable.Header = data
+      headerTable.placeholder = placeholder[idx]
+      headerTable.accessor = accessor[idx]
       header.push(headerTable)
-     
+
     })
     console.log(header)
     if (data.data.length) {
-      this.setState({ 
-          products: data.data[0],
-          fields: header 
-        })
+      this.setState({
+        products: data.data[0],
+        fields: header
+      })
     }
   }
 
@@ -284,7 +444,7 @@ class CustomTable extends React.Component {
 
     fields.map((item, idx) => {
       changedFieldAccessor.map((data, idx) => {
-        if(item.accessor == data){
+        if (item.accessor == data) {
           item.Header = changedFieldHeader[idx];
         }
       });
@@ -298,46 +458,46 @@ class CustomTable extends React.Component {
     let fieldsAccessor = changedFieldAccessor;
 
     fieldsAccessor.map((data, idx) => {
-        if(data.includes(" ")){
-            let uppercaseAccessor = data.toUpperCase();
-            let index = uppercaseAccessor.split(" ");
-            fieldsAccessor[idx] = index.join("_")
-        }else{
-          fieldsAccessor[idx] = data.toUpperCase()
-        }
+      if (data.includes(" ")) {
+        let uppercaseAccessor = data.toUpperCase();
+        let index = uppercaseAccessor.split(" ");
+        fieldsAccessor[idx] = index.join("_")
+      } else {
+        fieldsAccessor[idx] = data.toUpperCase()
+      }
     })
 
     payloadIndex.map((data, idx) => {
-        if(data.includes(" ")){
-            let uppercaseAccessor = data;
-            let index = uppercaseAccessor.split(" ");
-            payloadIndex[idx] = index.join("_")
-        }
+      if (data.includes(" ")) {
+        let uppercaseAccessor = data;
+        let index = uppercaseAccessor.split(" ");
+        payloadIndex[idx] = index.join("_")
+      }
     })
 
     let newPayload = {};
 
 
     for (let i = 0; i < Object.keys(this.state.products).length; i++) {
-        fieldsAccessor.map((data, idx) => {
-            if(payloadIndex[i] == data){
-                payload[payloadIndex[i]] = changedFieldHeader[idx];
-                payloadIndex.splice(i, 1);
-                defaultValues.splice(i, 1)
-            }
-        })
-        
+      fieldsAccessor.map((data, idx) => {
+        if (payloadIndex[i] == data) {
+          payload[payloadIndex[i]] = changedFieldHeader[idx];
+          payloadIndex.splice(i, 1);
+          defaultValues.splice(i, 1)
+        }
+      })
+
     }
 
     payloadIndex.map((data, idx) => {
-        payload[data] = defaultValues[idx];
-    })  
+      payload[data] = defaultValues[idx];
+    })
 
     this.setState({ columnsPayload: payload })
 
     const baseUrl = process.env.REACT_APP_API_URL;
 
-    try{
+    try {
       const urlAntec = await axios.post(baseUrl + this.props.UrlAntec(), payload)
       const urlBega = await axios.post(baseUrl + this.props.UrlBega(), payload)
       const urlAesop = await axios.post(baseUrl + this.props.UrlAesop(), payload)
@@ -349,10 +509,10 @@ class CustomTable extends React.Component {
       const urlTatura = await axios.post(baseUrl + this.props.UrlTatura(), payload)
       const urlTtl = await axios.post(baseUrl + this.props.UrlTtl(), payload)
       const urlTtchem = await axios.post(baseUrl + this.props.UrlTtchem(), payload)
-        const { data } = urlAntec + urlBega + urlAesop + urlClucth + urlExquira + urlLedvance + urlOnestop + urlStartrack + urlTatura + urlTtl + urlTtchem
-        console.log(data);
-    }catch(error){
-        console.log(error)
+      const { data } = urlAntec + urlBega + urlAesop + urlClucth + urlExquira + urlLedvance + urlOnestop + urlStartrack + urlTatura + urlTtl + urlTtchem
+      console.log(data);
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -360,25 +520,25 @@ class CustomTable extends React.Component {
   changedColumn = (e) => {
     let changedColumns = this.state.changedColumns;
 
-    if(e.target.value.length > 0){
-        changedColumns.map((item, idx) => {
-            if(item.accessor){
-              if(item.accessor == e.target.name){
-                changedColumns.splice(idx, 1)
-              }
-            }
-          })
-      
-          changedColumns.push({
-            accessor: e.target.name,
-            header: e.target.value
-          })
-      
-          this.setState({ changedColumns: changedColumns });
+    if (e.target.value.length > 0) {
+      changedColumns.map((item, idx) => {
+        if (item.accessor) {
+          if (item.accessor == e.target.name) {
+            changedColumns.splice(idx, 1)
+          }
+        }
+      })
+
+      changedColumns.push({
+        accessor: e.target.name,
+        header: e.target.value
+      })
+
+      this.setState({ changedColumns: changedColumns });
     }
   }
 
-  renameSubmit = (e) =>{
+  renameSubmit = (e) => {
     this.renameSubmits(this.state.changedColumns);
     this.setState({ showModal: false })
   }
@@ -387,9 +547,6 @@ class CustomTable extends React.Component {
     const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
     let { title, data, onClick, height, pagination } = this.props
     const headerIcon = this.headerIcon(data, fields, editColumnTemp);
-    this.reorder.forEach((o) =>
-      headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0])
-    );
     return (
       <React.Fragment>
         <ReactTable
@@ -429,7 +586,7 @@ class CustomTable extends React.Component {
         >
           <Modal.Header className='bg-primary px-5 py-5'>
             <Container className='px-0'>
-              <Row>
+              <Row className="mx-0">
                 <Col xs={10} sm={10} md={10} lg={10} xl={10}>
                   <div className='d-flex'>
                     <FaRegEdit color='white' size={25} /> &nbsp;
@@ -461,72 +618,72 @@ class CustomTable extends React.Component {
               <Col className="text-primary font-20 p-2">{title}</Col>
             </Row>
             <Row className="align-items-center rename-columns">
-                  <div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
-                  <Nav tabs>
-                      <div className="input-group" style={{height:"max-content"}}>
-                          <NavItem className="pl-0 pr-0">                         
-                                  <NavLink  className={"nav-link-cust tab-color" + (activeTab === "1" ? " tab-rename" : "")} active={this.state.activeTab === "1"} onClick={() => { this.activeTabIndex("1"); }}>
-                                      <div className="row rowTabCustom align-items-center">
-                                          <span className="tabTitleText">
-                                          {activeTab === "1" }TOGGLE COLUMN
+              <div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
+                <Nav tabs>
+                  <div className="input-group" style={{ height: "max-content" }}>
+                    <NavItem className="pl-0 pr-0">
+                      <NavLink className={"nav-link-cust tab-color" + (activeTab === "1" ? " tab-rename" : "")} active={this.state.activeTab === "1"} onClick={() => { this.activeTabIndex("1"); }}>
+                        <div className="row rowTabCustom align-items-center">
+                          <span className="tabTitleText">
+                            {activeTab === "1"}TOGGLE COLUMN
                                           </span>
-                                      </div>
-                                 </NavLink>
-                            </NavItem>
-
-                            <NavItem className={"pl-2 pr-0 "} style={{marginLeft:"-6px"}}>
-                                  <NavLink className={"nav-link-cust tab-color" + (activeTab === "2" ? " tab-rename" : "")}  active={this.state.activeTab === "2"} onClick={() => { this.activeTabIndex("2"); }}>
-                                      <div className="row rowTabCustom align-items-center">
-                                            <span className="tabTitleText">
-                                            {activeTab === "2" } RENAME COLUMN
-                                            </span>
-                                      </div>
-                                  </NavLink>
-                          </NavItem>
                         </div>
-                    </Nav>
-                    </div>
-                </Row>
-                <Row>
-                    <Col sm="12" md="12" lg="12">
-                        <TabContent activeTab={this.state.activeTab}>
-                            <TabPane tabId="1">
-                                  <Row xl={5} lg={10} className="mx-1"  >
-                                  {
-                                    fields && fields.map((item, index) => {
-                                      return (
-                                        <Col key={index} className="p-2">
-                                          <button className={`text-left btn btn-block ${!editColumn[index] ? 'btn-outline-primary' : 'btn-light-gray'}`}
-                                            onClick={this.showColumn.bind(this, item.Header, index, fields.length)}
-                                          >
-                                            {!editColumn[index] ? <AiOutlineEye size={25} /> : <AiOutlineEyeInvisible size={25} />}
-                                            <b className="p-0"> {item.Header} </b>
-                                          </button>
-                                        </Col>
-                                      )
-                                    })
-                                  }
-                                  </Row>
-                                  <Button variant="primary" className="px-5 float-right" onClick={this.saveEdit.bind(this, editColumn)} >Save</Button>
-                            </TabPane >
-                            <TabPane tabId="2">
-                                  <Row xl={5} lg={10} className="mx-1"  >
-                                  {
-                                    fields && fields.map((item, index) => {
-                                      return (
-                                        <Col key={index} className="p-2">
-                                          <input placeholder={item.placeholder} name={item.accessor} sortable={item.sortable} onChange={this.changedColumn} className={`text-left form-rename `}>
-                                          </input>
-                                        </Col>
-                                      )
-                                    })
-                                  }
-                                  </Row>
-                                  <Button variant="primary" className="px-3 float-right" onClick={this.renameSubmit} >DONE</Button>
-                            </TabPane >
-                        </TabContent>
-                    </Col>
-								</Row>
+                      </NavLink>
+                    </NavItem>
+
+                    <NavItem className={"pl-2 pr-0 "} style={{ marginLeft: "-6px" }}>
+                      <NavLink className={"nav-link-cust tab-color" + (activeTab === "2" ? " tab-rename" : "")} active={this.state.activeTab === "2"} onClick={() => { this.activeTabIndex("2"); }}>
+                        <div className="row rowTabCustom align-items-center">
+                          <span className="tabTitleText">
+                            {activeTab === "2"} RENAME COLUMN
+                                            </span>
+                        </div>
+                      </NavLink>
+                    </NavItem>
+                  </div>
+                </Nav>
+              </div>
+            </Row>
+            <Row>
+              <Col sm="12" md="12" lg="12">
+                <TabContent activeTab={this.state.activeTab}>
+                  <TabPane tabId="1">
+                    <Row xl={5} lg={10} className="mx-1"  >
+                      {
+                        fields && fields.map((item, index) => {
+                          return (
+                            <Col key={index} className="p-2">
+                              <button className={`text-left btn btn-block ${!editColumn[index] ? 'btn-outline-primary' : 'btn-light-gray'}`}
+                                onClick={this.showColumn.bind(this, item.Header, index, fields.length)}
+                              >
+                                {!editColumn[index] ? <AiOutlineEye size={25} /> : <AiOutlineEyeInvisible size={25} />}
+                                <b className="p-0"> {item.Header} </b>
+                              </button>
+                            </Col>
+                          )
+                        })
+                      }
+                    </Row>
+                    <Button variant="primary" className="px-5 float-right" onClick={this.saveEdit.bind(this, editColumn)} >Save</Button>
+                  </TabPane >
+                  <TabPane tabId="2">
+                    <Row xl={5} lg={10} className="mx-1"  >
+                      {
+                        fields && fields.map((item, index) => {
+                          return (
+                            <Col key={index} className="p-2">
+                              <input placeholder={item.placeholder} name={item.accessor} sortable={item.sortable} onChange={this.changedColumn} className={`text-left form-rename `}>
+                              </input>
+                            </Col>
+                          )
+                        })
+                      }
+                    </Row>
+                    <Button variant="primary" className="px-3 float-right" onClick={this.renameSubmit} >DONE</Button>
+                  </TabPane >
+                </TabContent>
+              </Col>
+            </Row>
           </Modal.Body>
         </Modal>
       </React.Fragment>
@@ -534,6 +691,4 @@ class CustomTable extends React.Component {
   }
 }
 
-const mapStateToProps = (store) => ({ store });
-const mapDispatchToProps = (dispatch) => ({ dispatch });
-export default connect(mapStateToProps, mapDispatchToProps)(CustomTable);
+export default CustomTable;
