@@ -150,8 +150,6 @@ class StockHolding extends React.PureComponent {
       }
     });
 
-    let newPayload = {};
-
     for (let i = 0; i < Object.keys(this.state.products).length; i++) {
       fieldsAccessor.map((data, idx) => {
         if (payloadIndex[i] == data) {
@@ -164,17 +162,15 @@ class StockHolding extends React.PureComponent {
 
     payloadIndex.map((data, idx) => {
       payload[data] = defaultValues[idx];
+      return data
     });
 
     this.setState({ columnsPayload: payload });
 
-    const baseUrl = process.env.REACT_APP_API_URL;
+    // const baseUrl = process.env.REACT_APP_API_URL;
 
     try {
-      const urlAntec = await axios.post(
-        baseUrl + "/putStockholdingColumn?client=ANTEC",
-        payload
-      );
+      // const urlAntec = await axios.post( baseUrl + "/putStockholdingColumn?client=ANTEC", payload );
       // const urlBega = await axios.post(baseUrl + "/putStockholdingColumn?client=BEGA", payload)
       // const urlAesop = await axios.post(baseUrl + "/putStockholdingColumn?client=AESOP", payload)
       // const urlClucth = await axios.post(baseUrl + "/putStockholdingColumn?client=CLUCTH", payload)
@@ -185,9 +181,7 @@ class StockHolding extends React.PureComponent {
       // const urlTatura = await axios.post(baseUrl + "/putStockholdingColumn?client=TATURA", payload)
       // const urlTtl = await axios.post(baseUrl + "/putStockholdingColumn?client=TTL", payload)
       // const urlTtchem = await axios.post(baseUrl + "/putStockholdingColumn?client=TTCHEM", payload)
-      const { data } = urlAntec;
       //  + urlBega + urlAesop + urlClucth + urlExquira + urlLedvance + urlOnestop + urlStartrack + urlTatura + urlTtl + urlTtchem
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -260,7 +254,6 @@ class StockHolding extends React.PureComponent {
       headerTable.accessor = accessor[idx];
       header.push(headerTable);
     });
-    console.log(header);
     if (data.data.length) {
       this.setState({
         products: data.data[0],

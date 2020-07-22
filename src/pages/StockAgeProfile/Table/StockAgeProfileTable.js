@@ -186,9 +186,8 @@ class StockAgeProfileTable extends React.Component {
 
   render() {
     const { showModal, editColumn, editColumnTemp } = this.state;
-    let { title, data, fields, onClick, height, pagination } = this.props;
+    let { title, data, fields, onClick, height } = this.props;
     const headerIcon = this.headerIcon(fields, editColumnTemp);
-    console.log(headerIcon);
     return (
       <React.Fragment>
         <ReactTable

@@ -101,7 +101,6 @@ class SalesOrderDetail extends React.Component {
     axios
       .get(url)
       .then((res) => {
-        console.log(res);
         const result = res.data.data;
         this.setState({ datahead: result });
         this.potableref.current.setPagination(res);

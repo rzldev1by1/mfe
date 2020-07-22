@@ -46,7 +46,6 @@ class UserManagementCreate extends React.PureComponent {
 
   loadModuleAccess = async () => {
     const { data } = await axios.get(endpoint.userManagementModuleAccess)
-    console.log(data);
     let menus = data.filter((item) => { return menuAvailable.indexOf(item.menuname.toLowerCase()) !== -1 })
       .map((item, index) => {
         let newItem = item;
