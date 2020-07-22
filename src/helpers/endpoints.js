@@ -13,6 +13,7 @@ export default {
   stockHoldingDetail: "/stockdetail/header/",
   stockDetail: "/stockdetail",
   stockBalanceForecast: "/foreshadowedstockbalance/",
+  getStockHoldingHearder:"/getStockholdingColumn",
 
   stockMovement: "/stockmovement",
 
@@ -38,9 +39,6 @@ export default {
   userManagementUpdate: "/usermanagement/update/",
   userManagementresetpassword: "/usermanagement/forgot_password",
 
-  
-  stockMovement: "/stockmovement",
   stockDateRange: "/stockdaterange",
-
   stockAgeProfile:"/stockageprofile",
 }

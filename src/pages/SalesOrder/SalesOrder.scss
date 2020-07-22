@@ -29,6 +29,12 @@
   .c-200 {
     width: 200px !important;
   }
+  .c-250 {
+    width: 250px !important;
+  }
+  .c-300 {
+    width: 300px !important;
+  }
   .c-400 {
     width: 400px !important;
   }
@@ -58,7 +64,18 @@
   .orderline .right {
     right: 22% !important;
   }
-}
+
+} 
+
+// .orderline [class*="css-"][class*="-menu"]{
+//   z-index: 999 !important;
+//   position: absolute !important;
+// }
+// .orderline [class*="css-"][class*="-control"]{
+//    z-index: 999 !important;
+//    position: absolute !important;
+// }
+
 @media (min-width: 800px) {
   .sales-order-detail .border-right {
     border-right: 2px solid #eee !important;

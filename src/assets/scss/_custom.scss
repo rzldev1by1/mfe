@@ -111,7 +111,7 @@ button:focus {
 .input-group,
 input.form-control,
 .input-group-text {
-  height: 50px !important;
+  height: 50px ;
   border-color: #e4e7ea !important;
 }
 .btn {
@@ -149,6 +149,10 @@ header {
 }
 .c-header-toggler-icon {
   margin-left: -30px !important;
+}
+.c-content{
+  padding-left: 15px !important;
+  padding-right: 15px !important;
 }
 @media (min-height: 1025px), (min-width: 1024px) {
   // disable vertical scrolling on desktop
@@ -210,6 +214,34 @@ header {
 }
 /* dropdown style end */
 
+.status-ok {
+  color: rgb(209, 204, 204) !important;
+  background: transparent;
+  padding: 5px;
+  border-radius: 6px;
+  border: solid 1.5px rgb(149, 146, 146);
+  font-size: 12px;
+}
+.status-shortage {
+  color: white !important;
+  background: #f94548;
+  padding: 6px;
+  font-size: 12px;
+  border-radius: 3px;
+}
+
+/* Line Details Styles Start */
+.lineDetailsTopExpand{
+    margin-top: -400px !important;
+    padding-top: 400px !important;
+}
+
+.lineDetailsBottomExpand{
+    margin-bottom: -312px !important;
+    padding-bottom: 328px !important;
+}
+
+/* Line Details Styles End */
 // scrollbar
 .ReactTable > .rt-table > .rt-tbody::-webkit-scrollbar {
   width: 8px !important;
@@ -229,3 +261,45 @@ header {
   border-radius: 15px !important;
 }
 // -----------------------------------------
+
+
+.status-available{
+  color: #FFF !important;
+  background-color: #d1cccc;
+  border-radius: 5px;
+  /* border: solid 1.5px #959292; */
+  font-size: 12px;
+  padding: 6px;
+}
+.status-Unavailable{
+  color: #FFF !important;
+  background-color: #c82525;
+  border-radius: 5px;
+  /* border: solid 1.5px #959292; */
+  font-size: 12px;
+  padding: 6px;
+}
+.status-complete{
+  color: #555050 !important;
+  background-color: transparent;
+  border-radius: 5px;
+  border: solid 1px #555050 ;
+  font-size: 12px;
+  padding: 6px;
+}
+.status-partRelease{
+  color: #555050 !important;
+  background-color: transparent;
+  border-radius: 5px;
+  border: solid 1px #555050;
+  font-size: 12px;
+  padding: 6px;
+}
+.status-Release{
+  color: #555050 (209, 204, 204) !important;
+  background: transparent;
+  border-radius: 5px;
+  border: solid 1px #555050  ;
+  font-size: 12px;
+  padding: 6px;
+}

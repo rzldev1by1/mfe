@@ -96,7 +96,7 @@ class PurchaseOrders extends React.PureComponent {
   getTask = async () => {
     const { client, site } = this.state
     if (client && site) {
-      const { data } = await axios.get(`${endpoints.getIsisTask}?client=${client.value}&site=${site.value}&order=so`)
+      const { data } = await axios.get(`${endpoints.getIsisTask}?client=${client.value}&site=${site.value}&order=po`)
       const taskData = data.code.map((c, i) => ({ value: c, label: `${data.name[i]}` }))
       const task = { value: 'all', label: 'All Task' }
       taskData.splice(0, 0, task)
@@ -124,7 +124,6 @@ class PurchaseOrders extends React.PureComponent {
     urls.push('orderType=' + (orderType ? orderType.value : 'all'))
     urls.push('status=' + (status ? status.value : 'all'))
     urls.push('page=' + (pagination.active || 1))
-    console.log('load Purchase order', urls.join('&'), task)
     const { data } = await axios.get(`${endpoints.purchaseOrder}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {

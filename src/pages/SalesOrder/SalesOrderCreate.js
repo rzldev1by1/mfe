@@ -10,13 +10,9 @@ class SalesOrderCreate extends React.PureComponent {
     data: { header: {}, lineDetail: [] },
     // data: { "header": { "site": { "value": "A", "label": "A : Australis A" }, "client": { "value": "AESOP", "label": "AESOP : Aesop" }, "orderType": { "value": "MVKT", "label": "MVKT: Move Orders" }, "orderId": "AB29123", "shipToAddress1": "Ark Street 12", "postCode": "291923", "state": "Victoria", "deliveryDate": "2020-07-02" }, "lineDetail": [{ "product": "product 1001", "productVal": { "value": "1001", "label": "1001", "i": 0 }, "qty": "2", "uom": { "value": "CARTON", "label": "CARTON" }, "disposition": "G", "dispositionVal": { "value": "G", "label": "G", "i": 9 } }] }
   }
-  onActiveTabChange = (e) => {
-    console.log('onActiveTabChange', e)
-  }
   onSelectTab = (key) => {
     let { header, lineDetail } = this.state.data
     if (key === 'review' && !Object.keys(header).length && !lineDetail.length) {
-      console.log('review disabled until form filled')
       return null
     }
     this.setState({ key })
