@@ -188,7 +188,7 @@ class CustomTable extends React.Component {
 
   render() {
     const { showModal, editColumn, editColumnTemp } = this.state
-    let { title, data, fields, onClick, height, pagination,request_status } = this.props  
+    let { title, data, fields, onClick, height, pagination } = this.props
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
 
@@ -199,7 +199,7 @@ class CustomTable extends React.Component {
           data={data}
           showPagination={false}
           style={{ height }}
-          noDataText={(request_status)?request_status:"Please Wait..."}
+          noDataText={"Please Wait..."}
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
             return {

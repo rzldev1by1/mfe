@@ -59,7 +59,6 @@ class UserManagemen extends Component {
     loadPersonalLogin = () => {
         let userInfo = utility.readFromLocalStorage("persist:root");
         let user = JSON.parse(userInfo.user)
-        
         this.setState({ loginInfo: user });
     }
 
