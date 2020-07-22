@@ -10,8 +10,8 @@ import _ from 'lodash'
 
 const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'stock age profile'];
 const webgroup = {
-  WAREHOUSE: 'Warehouse',
-  ADMIN: 'Adminitrator'
+  WAREHOUSE: 'Regular',
+  ADMIN: 'Admin'
 }
 class UserManagementCreate extends React.PureComponent {
   state = {
@@ -264,14 +264,16 @@ class UserManagementCreate extends React.PureComponent {
       client: '',
       webGroup: webgroup.WAREHOUSE
     }
-    this.setState({ user: user, isAdmin: false, key: 'new',saveProgress: false,
-    isEnableAllModule: false,
-    isEnableAllSite: false,
-    isEnableAllClient: false, }, () => {
+    this.setState({
+      user: user, isAdmin: false, key: 'new', saveProgress: false,
+      isEnableAllModule: false,
+      isEnableAllSite: false,
+      isEnableAllClient: false,
+    }, () => {
       this.loadModuleAccess();
       this.loadSites();
       this.loadClients();
-      this.props.toggle();      
+      this.props.toggle();
     })
 
   }
@@ -283,10 +285,10 @@ class UserManagementCreate extends React.PureComponent {
 
     return <Modal show={show} onHide={() => this.onHideModal()} size="xl" className="um-create" >
       <Modal.Body className="bg-primary p-0">
-        <Row className="p-4">
-          <Col xs={10} style={{ paddingLeft: '40px' }}>
+        <Row className="px-5 py-3">
+          <Col xs={10}>
             <i className="iconU-createModal font-20"></i><span className="font-20 pl-2">Create User</span> <br />
-            <span style={{ paddingLeft: '1.7rem' }}>Enter user details to create a New User</span>
+            <span >Enter user details to create a New User</span>
           </Col>
           <Col xs={2} className="text-right">
             <i className="iconU-close pointer" onClick={() => this.onHideModal()}></i>
@@ -295,19 +297,16 @@ class UserManagementCreate extends React.PureComponent {
         <Nav tabs>
           <NavItem>
             <NavLink className={key === 'new' ? 'active' : null} onClick={() => this.onSelectTab('new')}>
-              <span style={(key === 'new' ? { color: '#FFFFFF' } : { color: '#4f5d73' })} className={`px-2 pr-1 mr-1 ${key === 'new' ? 'bg-primary rounded-circle' : 'bg-secondary rounded-circle'}`}>
-                1
-                  </span>
-                  User Details
+            <div className="title-tab">
+              <div className={`mr-2 badge badge-pill badge-${key === 'new' ? 'primary' : 'secondary'}`}>1</div> User Detail                
+            </div>
             </NavLink>
           </NavItem>
           <NavItem>
             <NavLink className={key === 'review' ? 'active' : null} onClick={() => this.onSelectTab('review')}>
-              <span style={(key === 'review' ? { color: '#FFFFFF' } : { color: '#4f5d73' })} className={`px-2 pr-1 mr-1 ${key === 'review' ? 'bg-primary rounded-circle' : 'bg-secondary rounded-circle'}`}>
-                2
-                  </span>
-              {/* <div className={`badge badge-pill badge-${key === 'review' ? 'primary' : 'secondary'}`}>2</div>  */}
-              Review
+            <div className="title-tab">
+              <div className={`mr-2 badge badge-pill badge-${key === 'review' ? 'primary' : 'secondary'}`}>2</div> Review
+            </div>
             </NavLink></NavItem>
         </Nav>
         <TabContent activeTab={key}>
