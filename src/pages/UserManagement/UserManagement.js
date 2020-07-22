@@ -11,6 +11,7 @@ import CreateUM from './UserManagementCreate'
 import * as utility from './UmUtility'
 import moment from 'moment'
 import './UserManagement.css'
+import { Link } from 'react-router-dom'
 
 const columns = [
     { accessor: 'userid', Header: 'User ID', width: 160, sortable: true },
@@ -50,7 +51,7 @@ class UserManagemen extends Component {
 
     updateDimension = () => {
         // const height = (window.innerHeight * 0.50);
-        const height = (window.innerHeight - 370);
+        const height = (window.innerHeight - 340);
         this.setState({ dimension: { width: window.innerWidth, height } });
     }
 
@@ -58,7 +59,7 @@ class UserManagemen extends Component {
     loadPersonalLogin = () => {
         let userInfo = utility.readFromLocalStorage("persist:root");
         let user = JSON.parse(userInfo.user)
-        console.log(user);
+        
         this.setState({ loginInfo: user });
     }
 
@@ -102,7 +103,7 @@ class UserManagemen extends Component {
     render() {
 
         const { loginInfo, data, fields, pagination, dimension, modalShow } = this.state;
-
+        
         return (
             <div className="um-summary pt-1">
                 <HeaderTitle
@@ -122,10 +123,10 @@ class UserManagemen extends Component {
                                 Email address
                             </CCol>
                             <CCol sm="2" className="user-login-info-header">
-                                Client
+                                Site
                             </CCol>
                             <CCol sm="2" className="user-login-info-header">
-                                Site
+                                Client
                             </CCol>
                         </CRow>
                         <CRow className="mt-2">
@@ -133,16 +134,16 @@ class UserManagemen extends Component {
                                 {loginInfo.userId}
                             </CCol>
                             <CCol sm="2" className="user-login-info-value">
-                                {loginInfo.name}
+                                <Link to={`/users-management/${loginInfo.webUser}/detail`} >{loginInfo.name}</Link>
                             </CCol>
                             <CCol sm="2" className="user-login-info-value">
                                 {loginInfo.email}
                             </CCol>
                             <CCol sm="2" className="user-login-info-value">
-                                {`${loginInfo.client && loginInfo.client !== '' ? loginInfo.client : 'All'}`}
+                                {`${loginInfo.site && loginInfo.site !== '' ? loginInfo.site : 'All'}`}
                             </CCol>
                             <CCol sm="2" className="user-login-info-value">
-                                {`${loginInfo.site && loginInfo.site !== '' ? loginInfo.site : 'All'}`}
+                                {`${loginInfo.client && loginInfo.client !== '' ? loginInfo.client : 'All'}`}
                             </CCol>
                         </CRow>
                     </CCardBody>
@@ -176,7 +177,7 @@ class UserManagemen extends Component {
                     export={<button className="btn btn-primary float-right px-4 btn-export"> EXPORT</button>}
                 />
                 
-                <CreateUM show={modalShow} toggle={this.toggle} afterSuccess={this.searchHandler} />
+                <CreateUM show={modalShow} toggle={this.toggle} afterSuccess={this.searchHandler} users={this.state.data} />
             </div>
         )
     }

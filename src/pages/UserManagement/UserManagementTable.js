@@ -73,7 +73,8 @@ class UMCustomTable extends React.Component {
             accessor: h.accessor,
             sortable: h.sortable === false ? false : true,
             resizable: h.resizable || false,
-            width: h.width
+            width: h.width,
+            className: 'text-row-centre'
             
           }
          
