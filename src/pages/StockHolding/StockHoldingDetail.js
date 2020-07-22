@@ -1,10 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import { CCard, CCardBody, CRow, CCol, CButton } from '@coreui/react';
+import { CCard, CCardBody, CRow, CCol } from '@coreui/react';
 import {
-  Card,
-  CardBody,
   Row,
   Nav,
   NavItem,
@@ -15,7 +13,6 @@ import {
 import CustomTable from 'shared/table/CustomTable';
 import { tab1, tab1Inactive, tab2, tab2Inactive } from './Helper';
 import HeaderTitle from 'shared/container/TheHeader';
-import './StockHolding.css';
 
 class SalesOrderDetail extends React.Component {
   // ref to get element height and calculate table height

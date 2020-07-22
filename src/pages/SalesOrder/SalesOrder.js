@@ -16,7 +16,7 @@ import './SalesOrder.scss'
 const columns = [
   { accessor: 'site', Header: 'Site', width: 50 },
   { accessor: 'client', Header: 'Client', width: 100 },
-  { accessor: 'orderno', Header: 'Order No', width: 100, style:{textAlign: 'left'} },
+  { accessor: 'orderno', Header: 'Order No', style: { textAlign: 'left' }, width: 100 },
   { accessor: 'ordertype', Header: 'Order Type', width: 120 },
   { accessor: 'task', Header: 'Task', width: 100 },
   { accessor: 'customername', Header: 'Customer', width: 250 },
@@ -126,7 +126,7 @@ class SalesOrder extends React.PureComponent {
     }
   }
   searchSalesOrder = async () => {
-    let { search, site, client, orderType, status,task, pagination } = this.state
+    let { search, site, client, orderType, status, task, pagination } = this.state
     this.setState({ data: [], request_status: "Please Wait..." })
     let urls = []
     urls.push('searchParam=' + (search ? search : ''))
@@ -146,7 +146,7 @@ class SalesOrder extends React.PureComponent {
         m.loadoutstart = m.loadoutstart ? moment(m.loadoutstart).format('DD/MM/YYYY') : ''
         m.loadoutfinish = m.loadoutfinish ? moment(m.loadoutfinish).format('DD/MM/YYYY') : ''
         return m
-      })       
+      })
       modifiedData.map((item, idx) => {
         if ((item["status"]) === "1: Available") {
           item['status'] = [<a className="status-available">AVAILABLE</a>]
@@ -162,8 +162,8 @@ class SalesOrder extends React.PureComponent {
           item['status'] = [<a className="status-ok">ALL OPEN</a>]
         }
       })
-      if(data.data.total<1){
-        this.setState({ request_status: "No Data Found"  })
+      if (data.data.total < 1) {
+        this.setState({ request_status: "No Data Found" })
       }
       this.setState({
         pagination: {
@@ -173,7 +173,7 @@ class SalesOrder extends React.PureComponent {
         },
         data: modifiedData
       })
-    } else { 
+    } else {
       this.setState({ request_status: "No Data Found" })
       this.setState({ data: [] })
     }

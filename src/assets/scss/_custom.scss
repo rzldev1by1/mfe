@@ -123,14 +123,40 @@ input.form-control,
 
 .sales-order,
 .sales-order-detail,
+.purchase-order,
+.purchase-order-details,
 .um-summary,
 .um-detail,
-.sales-order-detail,
 .stock-holding,
 .stock-holding-detail {
   .rt-th {
     line-height: 40px !important;
   }
+}
+
+.c-50 {
+  width: 50px !important;
+}
+.c-100 {
+  width: 100px !important;
+}
+.c-150 {
+  width: 150px !important;
+}
+.c-200 {
+  width: 200px !important;
+}
+.c-250 {
+  width: 250px !important;
+}
+.c-300 {
+  width: 300px !important;
+}
+.c-400 {
+  width: 400px !important;
+}
+.c-600 {
+  width: 600px !important;
 }
 
 // Core-UI component style

@@ -5,7 +5,8 @@ import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react'
 import Select from 'react-select'
 import { FaPencilAlt } from 'react-icons/fa'
 import endpoints from 'helpers/endpoints'
-import CustomTable from './StockHoldingTable'
+// import CustomTable from './StockHoldingTable'
+import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
 import './StockHolding.scss'
 const columns = [
@@ -36,12 +37,12 @@ const columns = [
     sortable: true,
     width: 140,
   },
-  { 
-    accessor: 'on_hand_wgy', 
-    Header: 'On Hand WGT', 
-    placeholder: 'On Hand WGT', 
-    sortable: true,  
-    width: 145 
+  {
+    accessor: 'on_hand_wgy',
+    Header: 'On Hand WGT',
+    placeholder: 'On Hand WGT',
+    sortable: true,
+    width: 145
   },
   {
     accessor: 'expected_in_qty',
@@ -60,7 +61,7 @@ const columns = [
   {
     accessor: 'expected_out_qty',
     Header: 'Expected Out Qty',
-    placeholder: 'Expected Out Qty', 
+    placeholder: 'Expected Out Qty',
     sortable: true,
     width: 155,
   },
@@ -142,7 +143,7 @@ class StockHolding extends React.PureComponent {
     if (data?.data?.data) {
       const modifiedData = data.data.data;
       modifiedData.map((item, idx) => {
-        if (item['on_hand_qty'] + item['expected_in_qty'] >= item['expected_out_qty']){
+        if (item['on_hand_qty'] + item['expected_in_qty'] >= item['expected_out_qty']) {
           item['status'] = [<a className='status-ok'>OK</a>];
         } else {
           item['status'] = [<a className='status-shortage'>SHORTAGE</a>];
@@ -171,47 +172,6 @@ class StockHolding extends React.PureComponent {
     this.setState({ create: value ? value : !this.state.create })
   }
 
-    // url Get Header And Post
-
-    UrlHeader = () =>{
-      return `${endpoints.getStockHoldingHearder}?client=ANTEC`
-    }
-    UrlAntec = () =>{
-      return "/putStockholdingColumn?client=ANTEC"
-    }
-    UrlBega = () =>{
-      return  "/putStockholdingColumn?client=BEGA"
-    }
-    UrlAesop = () =>{
-      return  "/putStockholdingColumn?client=AESOP"
-    }
-    UrlClucth = () =>{
-      return  "/putStockholdingColumn?client=CLUCTH"
-    }
-    UrlExquira = () =>{
-      return  "/putStockholdingColumn?client=EXQUIRA"
-    }
-    UrlLedvance = () =>{
-      return  "/putStockholdingColumn?client=LEDVANCE"
-    }
-    UrlOnestop = () =>{
-      return "/putStockholdingColumn?client=ONESTOP"
-    }
-    UrlStartrack = () =>{
-      return "/putStockholdingColumn?client=STARTRACK"
-    }
-    UrlTatura  = () =>{
-      return "/putStockholdingColumn?client=TATURA"
-    }
-    UrlTtl = () =>{
-      return "/putStockholdingColumn?client=TTL"
-    }
-    UrlTtchem = () =>{
-      return "/putStockholdingColumn?client=TTCHEM"
-    }
-  
-    // end url Get Header And Post
-
   render() {
     const {
       dimension,
@@ -223,27 +183,18 @@ class StockHolding extends React.PureComponent {
       status,
       siteData,
       clientData,
-      statusData,
-      urlHeader
+      statusData
     } = this.state
     return (
-      <div className='stockHolding table-summary'>
+      <div className='stock-holding'>
         <HeaderTitle
           breadcrumb={[{ to: '', label: 'Stock Holding', active: true }]}
-          button={
-            <CButton
-              onClick={this.toggle}
-              className='c-subheader-nav-link btn btn-primary text-white float-right d-none'
-            >
-              <FaPencilAlt />
-            </CButton>
-          }
         />
 
         <CCard className='mb-3'>
           <CCardBody className='p-3'>
             <CRow>
-              <CCol lg={3} className='px-0'>
+              <CCol lg={3} className='pr-2'>
                 <div className='input-group '>
                   <div className='input-group-prepend'>
                     <span className='input-group-text border-right-0 bg-white'>
@@ -258,18 +209,18 @@ class StockHolding extends React.PureComponent {
                   />
                 </div>
               </CCol>
-              <CCol lg={9} className='pr-0'>
+              <CCol lg={9}>
                 <CRow>
-                  <CCol sm={4} lg={2} className='px-0'>
+                  <CCol sm={4} lg={2} className='px-2'>
                     <Select
                       name='site'
                       placeholder='Site'
                       value={site}
                       options={siteData}
-                      onChange={(val) => this.setState({ site: val }, () => {})}
+                      onChange={(val) => this.setState({ site: val }, () => { })}
                     />
                   </CCol>
-                  <CCol sm={4} lg={2} className='px-3'>
+                  <CCol sm={4} lg={2} className='px-2'>
                     <Select
                       name='client'
                       placeholder='Client'
@@ -278,7 +229,7 @@ class StockHolding extends React.PureComponent {
                       onChange={(val) => this.setState({ client: val })}
                     />
                   </CCol>
-                  <CCol sm={4} lg={2} className='px-0'>
+                  <CCol sm={4} lg={2} className='px-2'>
                     <Select
                       name='status'
                       placeholder='Status'
@@ -287,15 +238,10 @@ class StockHolding extends React.PureComponent {
                       onChange={(val) => this.setState({ status: val })}
                     />
                   </CCol>
-                  <CCol sm={4} lg={2} className='px-0'></CCol>
-                  <CCol sm={4} lg={2} className='px-0'></CCol>
-                  <CCol sm={4} lg={2} className='px-0'>
-                    <button
-                      className='btn btn-primary float-right stockHolding'
-                      onClick={this.searchStockHolding}
-                    >
-                      SEARCH
-                    </button>
+                  <CCol sm={4} lg={2} className='px-2'></CCol>
+                  <CCol sm={4} lg={2} className='px-2'></CCol>
+                  <CCol sm={4} lg={2} className='pl-2'>
+                    <button className='btn btn-search btn-primary float-right' onClick={this.searchStockHolding} > SEARCH </button>
                   </CCol>
                 </CRow>
               </CCol>
@@ -304,19 +250,20 @@ class StockHolding extends React.PureComponent {
         </CCard>
 
         <CustomTable
-        title="Stock Holding"           height={dimension.height}       data={data} fields={fields} 
-        pagination={pagination}         onClick={this.showDetails}      renameSubmit={this.renameSubmit}
-        UrlHeader={this.UrlHeader}      UrlAntec={this.UrlAntec}        UrlBega={this.UrlBega}
-        UrlAesop={this.UrlAesop}        UrlClucth={this.UrlClucth}      UrlExquira={this.UrlExquira}
-        UrlLedvance={this.UrlLedvance}  UrlOnestop={this.UrlOnestop}    UrlStartrack ={this.UrlStartrack }
-        UrlTatura={this.UrlTatura}      UrlTtl={this.UrlTtl}            UrlTtchem={this.UrlTtchem}
+          title="Stock Holding" height={dimension.height} data={data} fields={fields}
+          pagination={pagination}
+          onClick={this.showDetails}
+          enableRename={true}
+          renameSubmit={this.renameSubmit}
+          putUrl='putStockholdingColumn'
+          headerUrl={endpoints.getStockHoldingHearder}
           goto={(active) => {
             this.setState({ pagination: { ...pagination, active } }, () =>
               this.searchStockHolding()
             )
           }}
           export={
-            <button className='btn d-flex btn-primary float-right align-items-center px-3 btn-export'>
+            <button className='btn d-flex btn-primary float-right align-items-center px-2 btn-export'>
               <div className='export-export pr-3' />
               EXPORT
             </button>
