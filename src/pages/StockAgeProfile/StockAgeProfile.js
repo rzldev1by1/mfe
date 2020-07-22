@@ -161,7 +161,6 @@ class StockAgeProfile extends Component {
     if (client) urls.push("client=" + client.value);
     urls.push("page=" + (pagination.active || 1));
     const { data } = await axios.get(endpoints.stockAgeProfile + "?" + urls.join("&"));
-    console.log(data);
     if (data?.data) {
       const getData = data.data;
       this.setState({

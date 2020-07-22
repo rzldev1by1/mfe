@@ -1,24 +1,26 @@
 import React, { Component } from 'react'
 import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react'
 import CustomTable from 'shared/table/CustomTable'
-import CustomPagination from 'shared/table/CustomPagination'
+
 import axios from 'axios'
 import HeaderTitle from 'shared/container/TheHeader'
-import { IoIosArrowDown } from 'react-icons/io'
+
 import endpoint from '../../helpers/endpoints'
 import UMCustomTable from './UserManagementTable'
 import CreateUM from './UserManagementCreate'
 import * as utility from './UmUtility'
 import moment from 'moment'
 import './UserManagement.css'
+import { Link } from 'react-router-dom'
 
 const columns = [
-    { accessor: 'userid', Header: 'User ID', width: 220, sortable: true },
-    { accessor: 'name', Header: 'User Name', width: 320, sortable: true },
-    { accessor: 'site', Header: 'Site', width: 150, sortable: true },
-    { accessor: 'client', Header: 'Client', width: 180, sortable: true },
-    { accessor: 'last_access', Header: 'Last Accessed', width: 250, sortable: true },
-    { accessor: 'disabled', Header: 'Status', width: 220, sortable: true },
+    { accessor: 'userid', Header: 'User ID', width: 160, sortable: true },
+    { accessor: 'name', Header: 'Username', width: 210, sortable: true },
+    { accessor: 'site', Header: 'Site', width: 130, sortable: true },
+    { accessor: 'client', Header: 'Client', width: 130, sortable: true },
+    { accessor: 'web_group', Header: 'User Level', width: 160, sortable: true },
+    { accessor: 'last_access', Header: 'Last Accessed', width: 180, sortable: true },
+    { accessor: 'disabled', Header: 'Status', width: 120, sortable: true },
 ]
 
 class UserManagemen extends Component {
@@ -49,7 +51,7 @@ class UserManagemen extends Component {
 
     updateDimension = () => {
         // const height = (window.innerHeight * 0.50);
-        const height = (window.innerHeight - 116) * 0.70;
+        const height = (window.innerHeight - 340);
         this.setState({ dimension: { width: window.innerWidth, height } });
     }
 
@@ -75,7 +77,6 @@ class UserManagemen extends Component {
             newItem.disabled = (item.disabled === 'Y') ? [<label className="um-suspended">{'Suspended'}</label>] : [<label className="um-active">{'Active'}</label>];
             return newItem;
         })
-        // console.log(result);
         this.setState({
             data: result, pagination: {
                 active: pagination.active || data.data.current_page,
@@ -99,60 +100,62 @@ class UserManagemen extends Component {
     render() {
 
         const { loginInfo, data, fields, pagination, dimension, modalShow } = this.state;
-
+        
         return (
-            <div className="um-summary">
+            <div className="um-summary pt-1">
                 <HeaderTitle
                     breadcrumb={[{ to: '', label: 'User Management', active: true }]}
                     button={<CButton onClick={this.toggle} className="btn btn-primary btn-create float-right">CREATE USER</CButton>}
                 />
-                <CCard className="bg-transparent border-white">
-                    <CCardBody >
+                <CCard className="bg-transparent mb-3">
+                    <CCardBody className="p-3 border-user-info" >
                         <CRow>
-                            <CCol lg="3" md="3" sm="2" className="user-login-info-header">
-                                Your Account
+                            <CCol sm="2" className="user-login-info-header">
+                                User ID
                             </CCol>
-                            <CCol lg="3" md="3" sm="2" className="user-login-info-header">
-                                User Id
+                            <CCol sm="2" className="user-login-info-header">
+                                Name
                             </CCol>
-                            <CCol lg="3" md="3" sm="2" className="user-login-info-header">
-                                Client
+                            <CCol sm="2" className="user-login-info-header">
+                                Email Address
                             </CCol>
-                            <CCol lg="3" md="3" sm="2" className="user-login-info-header">
+                            <CCol sm="2" className="user-login-info-header">
                                 Site
                             </CCol>
-                        </CRow>
-                        <CRow>
-                            <CCol lg="3" md="3" sm="2" className="user-login-info-value">
-                                {loginInfo.email}
+                            <CCol sm="2" className="user-login-info-header">
+                                Client
                             </CCol>
-                            <CCol lg="3" md="3" sm="2" className="user-login-info-value">
+                        </CRow>
+                        <CRow className="mt-2">
+                            <CCol sm="2" className="user-login-info-value">
                                 {loginInfo.userId}
                             </CCol>
-                            <CCol lg="3" md="3" sm="2" className="user-login-info-value">
-                                {`${loginInfo.client && loginInfo.client !== '' ? loginInfo.client : 'All'}`}
+                            <CCol sm="2" className="user-login-info-value">
+                                <Link to={`/users-management/${loginInfo.webUser}/detail`} >{loginInfo.name}</Link>
                             </CCol>
-                            <CCol lg="3" md="3" sm="2" className="user-login-info-value">
+                            <CCol sm="2" className="user-login-info-value">
+                                {loginInfo.email}
+                            </CCol>
+                            <CCol sm="2" className="user-login-info-value">
                                 {`${loginInfo.site && loginInfo.site !== '' ? loginInfo.site : 'All'}`}
+                            </CCol>
+                            <CCol sm="2" className="user-login-info-value">
+                                {`${loginInfo.client && loginInfo.client !== '' ? loginInfo.client : 'All'}`}
                             </CCol>
                         </CRow>
                     </CCardBody>
-                    <CCardBody className="px-4 py-2 bg-white">
-                        <CRow className="row">
-                            <CCol xl={11} lg={10} md={10} sm={12} className="p-2">
+                    <CCardBody className="p-3 bg-white">
+                        <CRow>
+                            <CCol xl={11} lg={10} md={10} sm={12}>
                                 <div className="input-group">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
                                     </div>
-                                    <input type="text" className="form-control border-left-0" placeholder="Enter User ID or Username" onChange={e => this.setState({ search: e.target.value })} />
+                                    <input type="text" className="form-control pl-0 border-left-0" placeholder="Enter User ID or Username" onChange={e => this.setState({ search: e.target.value })} />
                                 </div>
                             </CCol>
-                            <CCol xl={1} lg={2} md={2} sm={12}>
-                                <CRow>
-                                    <CCol sm={8} lg={12} md={12} className="px-1">
-                                        <button className="btn btn-search btn-primary float-right" onClick={this.searchHandler}>SEARCH</button>
-                                    </CCol>
-                                </CRow>
+                            <CCol xl={1} lg={2} md={2} sm={12} className="pl-0">
+                                <button className="btn btn-search btn-primary float-right w-100 px-3 py-3" onClick={this.searchHandler}>SEARCH</button>                                
                             </CCol>
                         </CRow>
                     </CCardBody>
@@ -160,13 +163,18 @@ class UserManagemen extends Component {
                 <UMCustomTable
                     title="User Management"
                     height={dimension.height}
-                    fields={fields} data={data} onClick={this.showDetails}
-                />
-                <CustomPagination data={data}
                     pagination={pagination}
-                    goto={(active => { this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler()) })}
-                    export={<button className="btn btn-primary float-right px-4 btn-export">EXPORT <IoIosArrowDown /></button>} />
-                <CreateUM show={modalShow} toggle={this.toggle} afterSuccess={this.searchHandler} />
+                    fields={fields} 
+                    data={data} 
+                    onClick={this.showDetails}
+                    dimension={dimension}
+                    goto={(active) => {
+                        this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler())
+                      }}
+                    export={<button className="btn btn-primary float-right px-4 btn-export"> EXPORT</button>}
+                />
+                
+                <CreateUM show={modalShow} toggle={this.toggle} afterSuccess={this.searchHandler} users={this.state.data} />
             </div>
         )
     }

@@ -90,11 +90,11 @@ class StockHolding extends React.PureComponent {
     this.updateDimension();
     window.addEventListener('resize', this.updateDimension);
 
-    this.getSite()
-    this.getClient()
-    this.getStatus()
-    this.searchStockHolding()
-  }
+    this.getSite();
+    this.getClient();
+    this.getStatus();
+    this.searchStockHolding();
+  };
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimension);
@@ -103,7 +103,8 @@ class StockHolding extends React.PureComponent {
   updateDimension = () => {
     const height = window.innerHeight - 250;
     this.setState({ dimension: { width: window.innerWidth, height } });
-  }
+  };
+
   getSite = async () => {
     const { data } = await axios.get(endpoints.getSite)
     const siteData = data.map(d => ({ value: d.site, label: `${d.site}: ${d.name}` }))
@@ -125,59 +126,19 @@ class StockHolding extends React.PureComponent {
       { value: 'Ok', label: 'Ok' },
       { value: 'Shortage', label: 'Shortage' },
     ];
-    this.setState({ statusData })
-  }
-
-  // url Get Header And Post
-
-  UrlHeader = () =>{
-    return `${endpoints.getStockHoldingHearder}?client=ANTEC`
-  }
-  UrlAntec = () =>{
-    return '/putStockholdingColumn?client=ANTEC'
-  }
-  UrlBega = () =>{
-    return  '/putStockholdingColumn?client=BEGA'
-  }
-  UrlAesop = () =>{
-    return  '/putStockholdingColumn?client=AESOP'
-  }
-  UrlClucth = () =>{
-    return  '/putStockholdingColumn?client=CLUCTH'
-  }
-  UrlExquira = () =>{
-    return  '/putStockholdingColumn?client=EXQUIRA'
-  }
-  UrlLedvance = () =>{
-    return  '/putStockholdingColumn?client=LEDVANCE'
-  }
-  UrlOnestop = () =>{
-    return '/putStockholdingColumn?client=ONESTOP'
-  }
-  UrlStartrack = () =>{
-    return '/putStockholdingColumn?client=STARTRACK'
-  }
-  UrlTatura  = () =>{
-    return '/putStockholdingColumn?client=TATURA'
-  }
-  UrlTtl = () =>{
-    return '/putStockholdingColumn?client=TTL'
-  }
-  UrlTtchem = () =>{
-    return '/putStockholdingColumn?client=TTCHEM'
-  }
-
- // end url Get Header And Post
-  
- searchStockHolding  = async () => {
-  let { search, site, client, status, pagination } = this.state
-  let urls = []
-  urls.push('searchParam=' + search ? search : '')
-  urls.push('site=' + (site ? site.value : 'all'))
-  urls.push('client=' + (client ? client.value : 'all'))
-  urls.push('status=' + (status ? status.value : 'all'))
-  urls.push('page=' + (pagination.active || 1))
-  const { data } = await axios.get(`${endpoints.stockHoldingSummary}?${urls.join('&')}`)
+    this.setState({ statusData });
+  };
+  searchStockHolding = async () => {
+    let { search, site, client, status, pagination } = this.state;
+    let urls = [];
+    urls.push("searchParam=" + search ? search : "");
+    urls.push("site=" + (site ? site.value : "all"));
+    urls.push("client=" + (client ? client.value : "all"));
+    urls.push("status=" + (status ? status.value : "all"));
+    urls.push("page=" + (pagination.active || 1));
+    const { data } = await axios.get(
+      `${endpoints.stockHoldingSummary}?${urls.join("&")}`
+    );
     if (data?.data?.data) {
       const modifiedData = data.data.data;
       modifiedData.map((item, idx) => {
@@ -209,6 +170,47 @@ class StockHolding extends React.PureComponent {
   toggle = (value) => {
     this.setState({ create: value ? value : !this.state.create })
   }
+
+    // url Get Header And Post
+
+    UrlHeader = () =>{
+      return `${endpoints.getStockHoldingHearder}?client=ANTEC`
+    }
+    UrlAntec = () =>{
+      return "/putStockholdingColumn?client=ANTEC"
+    }
+    UrlBega = () =>{
+      return  "/putStockholdingColumn?client=BEGA"
+    }
+    UrlAesop = () =>{
+      return  "/putStockholdingColumn?client=AESOP"
+    }
+    UrlClucth = () =>{
+      return  "/putStockholdingColumn?client=CLUCTH"
+    }
+    UrlExquira = () =>{
+      return  "/putStockholdingColumn?client=EXQUIRA"
+    }
+    UrlLedvance = () =>{
+      return  "/putStockholdingColumn?client=LEDVANCE"
+    }
+    UrlOnestop = () =>{
+      return "/putStockholdingColumn?client=ONESTOP"
+    }
+    UrlStartrack = () =>{
+      return "/putStockholdingColumn?client=STARTRACK"
+    }
+    UrlTatura  = () =>{
+      return "/putStockholdingColumn?client=TATURA"
+    }
+    UrlTtl = () =>{
+      return "/putStockholdingColumn?client=TTL"
+    }
+    UrlTtchem = () =>{
+      return "/putStockholdingColumn?client=TTCHEM"
+    }
+  
+    // end url Get Header And Post
 
   render() {
     const {
@@ -302,17 +304,12 @@ class StockHolding extends React.PureComponent {
         </CCard>
 
         <CustomTable
-          title='Stock Holding'
-          height={dimension.height}
-          data={data}
-          fields={fields}
-          pagination={pagination}
-          onClick={this.showDetails}
-          renameSubmit={this.renameSubmit}
-          UrlHeader={this.UrlHeader}      UrlAntec={this.UrlAntec}        UrlBega={this.UrlBega}
-          UrlAesop={this.UrlAesop}        UrlClucth={this.UrlClucth}      UrlExquira={this.UrlExquira}
-          UrlLedvance={this.UrlLedvance}  UrlOnestop={this.UrlOnestop}    UrlStartrack ={this.UrlStartrack }
-          UrlTatura={this.UrlTatura}      UrlTtl={this.UrlTtl}            UrlTtchem={this.UrlTtchem}
+        title="Stock Holding"           height={dimension.height}       data={data} fields={fields} 
+        pagination={pagination}         onClick={this.showDetails}      renameSubmit={this.renameSubmit}
+        UrlHeader={this.UrlHeader}      UrlAntec={this.UrlAntec}        UrlBega={this.UrlBega}
+        UrlAesop={this.UrlAesop}        UrlClucth={this.UrlClucth}      UrlExquira={this.UrlExquira}
+        UrlLedvance={this.UrlLedvance}  UrlOnestop={this.UrlOnestop}    UrlStartrack ={this.UrlStartrack }
+        UrlTatura={this.UrlTatura}      UrlTtl={this.UrlTtl}            UrlTtchem={this.UrlTtchem}
           goto={(active) => {
             this.setState({ pagination: { ...pagination, active } }, () =>
               this.searchStockHolding()

@@ -96,7 +96,7 @@ class PurchaseOrders extends React.PureComponent {
   getTask = async () => {
     const { client, site } = this.state
     if (client && site) {
-      const { data } = await axios.get(`${endpoints.getIsisTask}?client=${client.value}&site=${site.value}&order=so`)
+      const { data } = await axios.get(`${endpoints.getIsisTask}?client=${client.value}&site=${site.value}&order=po`)
       const taskData = data.code.map((c, i) => ({ value: c, label: `${data.name[i]}` }))
       const task = { value: 'all', label: 'All Task' }
       taskData.splice(0, 0, task)
@@ -124,7 +124,6 @@ class PurchaseOrders extends React.PureComponent {
     urls.push('orderType=' + (orderType ? orderType.value : 'all'))
     urls.push('status=' + (status ? status.value : 'all'))
     urls.push('page=' + (pagination.active || 1))
-    console.log('load Purchase order', urls.join('&'), task)
     const { data } = await axios.get(`${endpoints.purchaseOrder}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
@@ -188,7 +187,7 @@ class PurchaseOrders extends React.PureComponent {
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
                 </div>
-                <input type="text" className="form-control border-left-0 input-height" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
+                <input type="text" className="form-control pl-0 border-left-0" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
               </div>
             </CCol>
             <CCol lg={9}>

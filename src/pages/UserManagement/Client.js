@@ -2,7 +2,7 @@ import React from 'react'
 import './UserManagement.css'
 
 const client = ({ clients, onEnableClick, onClientEnableAll, isEnableAllClient }) => {
-
+    console.log(clients);
     const disableAll = 'Disable All';
     const enableAll = 'Enable All';
     const enable = 'Enabled';
@@ -18,8 +18,8 @@ const client = ({ clients, onEnableClick, onClientEnableAll, isEnableAllClient }
             <div className="d-flex">
                 <label className="text-muted col-6 p-0 py-2" htmlFor="Client">Client
               </label>
-                {/* <input className="checkbox-hidden" type="checkbox" id="Client"/> */}
-                <div className="col-6">
+                
+                <div className="col-6 client-enableall-padding">
                     <button type="button" className={`btn float-right px-1 mb-2 ${isEnableAllClient ? 'btn-outline-All-notActive' : 'btn-outline-All-active'} `} onClick={onClientEnableAll}>{`${isEnableAllClient ? disableAll.toUpperCase() : enableAll.toUpperCase()}`}</button>
                 </div>
 
@@ -31,16 +31,14 @@ const client = ({ clients, onEnableClick, onClientEnableAll, isEnableAllClient }
                 (clients && client.length) ? clients.map((item, index) => {
                     return (<div className="flex-column" key={index}>
                         <div className="d-flex mb-3" key={index}>
-                            <label className="text-muted col-6 section-value-text p-0 py-2" key={item.code}>{capitalizeFirstLetter(item.name)}</label>
-
-                            {/* <input className="checkbox-hidden" type="checkbox" id={item.code} /> */}
-                            <div className="col-6">
+                            <label className="text-muted col-6 section-value-text p-0 py-2 " key={item.code}>{`${item.code}: ${item.name}`}</label>
+                            
+                            <div className="col-6"> 
                                 <button type="button" htmlFor={item.code} className={"btn px-1 float-right " + ((item.status) ? "btn-outline-active" : "btn-outline-notActive")} onClick={(e) => { onEnableClick(e, index); }}>
                                     {`${item.status ? enable.toUpperCase() : disable.toUpperCase()}`}
                                 </button>
                             </div>
-                            {/* <div className="col-3">
-                        </div> */}
+                           
                         </div>
                     </div>)
 

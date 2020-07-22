@@ -3,19 +3,29 @@
 }
 
 .nav-tabs .nav-link.tab-custom {
-  color: #2f275d !important;
+  color: #3f6efb !important;
   background-color: #ffffff !important;
   padding-left: 24px;
   padding-right: 27px;
   padding-bottom: 8px;
   padding-top: 8px;
-  border-radius: 5px;
-  font-size: 20px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border: solid 0px;
 }
 
 .tableTab {
   margin-left: 14px;
   margin-top: -4px;
+}
+.rt-table {
+  margin-top: -0.4rem;
+}
+.search-padding{
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+  padding-right: 1.4rem;
+  padding-left: 1.4rem;
 }
 
 .form-control::-moz-placeholder {
