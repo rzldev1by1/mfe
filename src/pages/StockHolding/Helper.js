@@ -15,19 +15,19 @@ function formatDate(date) {
 }
 
 function tab1() {
-    return <img src={tab1Blue} width="26px" className="numberic"alt="tab1Blue" />;
+    return <img src={tab1Blue} width="26px" style={{ marginRight: "5px" }} alt="tab1Blue" />;
 };
 
 function tab1Inactive() {
-    return <img src={tab1Grey} width="26px" className="numberic"alt="tab1Grey" />;
+    return <img src={tab1Grey} width="26px" style={{ marginRight: "5px" }} alt="tab1Grey" />;
 }
 
 function tab2() {
-    return <img src={tab2Blue} width="26px" className="numberic"alt="tab2Blue" />;
+    return <img src={tab2Blue} width="26px" style={{ marginRight: "5px" }} alt="tab2Blue" />;
 }
 
 function tab2Inactive() {
-    return <img src={tab2Grey} width="26px" className="numberic"alt="tab2Grey" />;
+    return <img src={tab2Grey} width="26px" style={{ marginRight: "5px" }} alt="tab2Grey" />;
 }
 
 

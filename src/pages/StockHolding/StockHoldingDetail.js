@@ -280,6 +280,10 @@ class SalesOrderDetail extends React.Component {
                   height={this.state.dimension.height}
                   fields={stockDetail}
                   data={products}
+                  UrlHeader={""}       UrlAntec={""}        UrlBega={""}
+                  UrlAesop={""}        UrlClucth={""}       UrlExquira={""}
+                  UrlLedvance={""}     UrlOnestop={""}      UrlStartrack ={""}
+                  UrlTatura={""}       UrlTtl={""}          UrlTtchem={""}
                 />
               </TabPane>
               <TabPane className='stockDetails' tabId='2'>
@@ -288,6 +292,10 @@ class SalesOrderDetail extends React.Component {
                   height={this.state.dimension.height}
                   fields={ForesCast}
                   data={products}
+                  UrlHeader={""}      UrlAntec={""}        UrlBega={""}
+                  UrlAesop={""}        UrlClucth={""}      UrlExquira={""}
+                  UrlLedvance={""}  UrlOnestop={""}    UrlStartrack ={""}
+                  UrlTatura={""}      UrlTtl={""}            UrlTtchem={""}
                 />
               </TabPane>
             </TabContent>
