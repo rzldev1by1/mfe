@@ -143,8 +143,8 @@ class CreateTab extends React.Component {
       error.orderId = 'Order no. cannot be empty'
       return this.setState({ error })
     }
-    if (orderId.length < 5) {
-      error.orderId = 'Order no. must have min 5 characters'
+    if (orderId.length < 4) {
+      error.orderId = 'Order no. must have min 4 characters'
       return this.setState({ error })
     }
     delete error.orderId
@@ -218,7 +218,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Customer Order Ref</label>
-          <input name="customerOrderRef" onChange={this.onChange} className="form-control" placeholder="Customer Order Ref" />
+          <input name="customerOrderRef" onChange={this.onChange} className="form-control" placeholder="Customer Order Ref" maxLength="40" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Delivery Date</label>
@@ -241,12 +241,12 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order No</label>
-          <input name="orderId" type="text" value={orderId || ''} onChange={this.checkOrderId} className="form-control" placeholder="Order No" required />
+          <input name="orderId" type="text" value={orderId || ''} onChange={this.checkOrderId} className="form-control" placeholder="Order No" maxLength="12" required />
           <Required id="orderId" error={error} />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Vendor Order Ref</label>
-          <input name="vendorOrderRef" onChange={this.onChange} className="form-control" placeholder="Vendor Order Ref" />
+          <input name="vendorOrderRef" onChange={this.onChange} className="form-control" placeholder="Vendor Order Ref" maxLength="40" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Delivery Instructions</label>
@@ -321,22 +321,22 @@ class CreateTab extends React.Component {
               <td><div className="c-100 required">Qty</div></td>
               <td><div className="c-100">Weight</div></td>
               <td><div className="c-150 required">UOM</div></td>
-              <td><div className="c-100">Batch</div></td>
+              <td><div className="c-250">Batch</div></td>
               <td><div className="c-100">Ref3</div></td>
               <td><div className="c-100">Ref4</div></td>
               <td><div className="c-150">Disposition</div></td>
-              <td><div className="c-150">Pack ID</div></td>
+              <td><div className="c-200">Pack ID</div></td>
               <td><div className="c-150">Rotadate</div></td>
               <td><div className="c-50"></div></td>
             </tr>
           </thead>
           <tbody>
-            {orderLine.length && orderLine.map((o, i) => {
+            {orderLine.length && orderLine.map((o, i) => { 
               return <tr className="py-1 text-center orderline-row">
                 <td className="px-1">
-                  <input value={i || '' + 1} className="form-control text-center" readOnly />
+                  <input value={i + 1} className="form-control text-center" readOnly />
                 </td>
-                <td className="px-1">
+                <td className="px-1 text-left">
                   <Select value={o.productVal || ''}
                     options={productData}
                     onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
@@ -349,7 +349,7 @@ class CreateTab extends React.Component {
                   <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly />
                 </td>
                 <td className="px-1">
-                  <input name="qty" onChange={(e) => this.lineChange(i, e)} type="number" min="0" className="form-control" placeholder="Qty" />
+                  <input name="qty" onChange={(e) => this.lineChange(i, e)} type="number" min="0" className="form-control" placeholder="Qty" maxLength="10"  />
                   <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="px-1">
@@ -371,13 +371,13 @@ class CreateTab extends React.Component {
                   <Required id="uom" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="px-1">
-                  <input name="batch" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Batch" />
+                  <input name="batch" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Batch"  maxLength="30"  />
                 </td>
                 <td className="px-1">
-                  <input name="ref3" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Ref 3" />
+                  <input name="ref3" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Ref 3"  maxLength="30" />
                 </td>
                 <td className="px-1">
-                  <input name="ref4" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Ref 4" />
+                  <input name="ref4" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Ref 4"  maxLength="30" />
                 </td>
                 <td className="px-1">
                   <Select value={o.dispositionVal || ''}
@@ -388,7 +388,7 @@ class CreateTab extends React.Component {
                     className={`c-150 ${overflow[i] && overflow[i].dispositionVal ? 'absolute right' : null}`} placeholder="Disposition" />
                 </td>
                 <td className="px-1">
-                  <input name="packId" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Pack ID" />
+                  <input name="packId" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Pack ID" maxLength="20" />
                 </td>
                 <td className="p-0 m-0">
                   <DatePicker top={true} getDate={(date) => {
