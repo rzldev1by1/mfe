@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { CButton, CCard, CCardBody, CRow, CCol } from "@coreui/react";
 import "./StockAgeProfile.scss";
 import endpoints from 'helpers/endpoints'
-import StockAgeProfileTable from "./StockAgeProfileTable";
+import StockAgeProfileTable from "./Table/StockAgeProfileTable";
 import CustomPagination from "shared/table/CustomPagination";
 import axios from "axios";
 import HeaderTitle from "shared/container/TheHeader";
@@ -43,7 +43,7 @@ const columns = [
       {
         accessor: "packdesc_1",
         Header: "UOM",
-        className: "",
+        // className: "w-50",
         sortable: true,
         headerClassName: "padding-top-0",
       },
@@ -127,7 +127,7 @@ class StockAgeProfile extends Component {
   }
 
   updateDimension = () => {
-    const height = (window.innerHeight - 280);
+    const height = (window.innerHeight - 250);
     // const height = {overflow: 'visible', height: heightAdjust}
     this.setState({ dimension: { width: window.innerWidth, height } });
   };
@@ -194,9 +194,9 @@ class StockAgeProfile extends Component {
         />
 
         <CCard className="mb-3">
-          <CCardBody className="p-3">
-            <CRow>
-              <CCol lg={3} className="pr-2">
+          <CCardBody className="px-3 py-3 h-4">
+            <CRow className="row mr-0 ml-0">
+              <CCol lg={3} className="px-0">
                 <div className="input-group">
                   <div className="input-group-prepend">
                     <span className="input-group-text border-right-0 bg-white">
@@ -211,9 +211,9 @@ class StockAgeProfile extends Component {
                   />
                 </div>
               </CCol>
-              <CCol lg={9}>
-                <CRow>
-                  <CCol sm={4} lg={2} className="px-2">
+              <CCol lg={9} className="pr-0">
+                <CRow className="l-r-0">
+                  <CCol sm={6} lg={2} className="px-0">
                     <Select
                       name="site"
                       placeholder="Site"
@@ -222,7 +222,7 @@ class StockAgeProfile extends Component {
                       onChange={(val) => this.setState({ site: val })}
                     />
                   </CCol>
-                  <CCol sm={4} lg={2} className="px-2">
+                  <CCol sm={6} lg={2} className="pl-3 pr-0">
                     <Select
                       name="client"
                       placeholder="Client"
@@ -231,9 +231,14 @@ class StockAgeProfile extends Component {
                       onChange={(val) => this.setState({ client: val })}
                     />
                   </CCol>
-                  <CCol />
-                  <CCol sm={4} lg={1} className="pl-2">
-                    <button className="btn btn-search btn-primary float-right" onClick={this.getStockAgeProfile} > SEARCH </button>
+                  <CCol sm={12} lg={7} />
+                  <CCol sm={12} lg={1} className="pr-0 pl-3 w-4vw">
+                    <button
+                      className="btn btn-search btn-primary float-right"
+                      onClick={this.getStockAgeProfile}
+                    >
+                      SEARCH
+                    </button>
                   </CCol>
                 </CRow>
               </CCol>
@@ -258,10 +263,9 @@ class StockAgeProfile extends Component {
             );
           }}
           export={
-            <CButton className="btn btn-primary float-right px-3 btn-export d-flex">
-              <span className="export-export pr-3"/>
-              Export
-
+            <CButton className="btn btn-primary d-flex float-right px-3 align-items-center btn-export">
+              <div className="export-export pr-3"/>
+              EXPORT
             </CButton>
           }
         />

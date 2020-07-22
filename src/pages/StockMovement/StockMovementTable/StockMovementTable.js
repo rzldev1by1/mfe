@@ -89,7 +89,6 @@ class StockMovementTable extends React.Component {
             'headerClassName': datax.headerClassName || null,
             'headerStyle': datax.headerStyle || null,
             'width': datax.width || undefined,
-            // 'style': { textAlign: 'right' },
             'Cell': datax.Cell,
           }
           listColumn = [...listColumn, obj]
