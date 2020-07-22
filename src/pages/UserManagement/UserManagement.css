@@ -224,3 +224,29 @@
   border-right: 2px solid #fff;
   border-left: 2px solid #fff;
 }
+
+.um-text-webgroup{
+  padding-top: 11px;
+  padding-bottom: 11px;
+}
+
+.review-readonly{
+  background-color: #F6F7F9;
+}
+
+.review-text{
+  color: '#959DA0';
+}
+
+.client-enableall-padding{
+  padding-right: 35px;
+}
+
+.height-40{
+  height: 40px;
+}
+
+.title-tab{
+  display: flex;
+  align-items: center;
+}

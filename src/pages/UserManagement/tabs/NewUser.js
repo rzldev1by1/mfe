@@ -36,11 +36,11 @@ class NewUser extends React.PureComponent {
             <Container className="px-5 py-4">
                 <Row>
                     <Col lg="2" className="pr-0">
-                        <h3 className="text-primary font-20" style={{paddingTop:'11px',paddingBottom:'11px'}}>New User</h3>
+                        <h3 className="text-primary font-20 um-text-webgroup">New User</h3>
                     </Col>
                     <Col lg="10" className="pl-0">
                         <Row>
-                            <Col lg="6" md="9" sm="12" className="pl-0">
+                            <Col lg="4" md="4" sm="12" className="pl-0">
                                 <label className="webgroup d-flex justify-content-between">
                                     <input type="checkbox" onChange={(e) => { this.props.onWebGroupSelect(e); }} />
                                     <span className={`flex-fill ${isAdmin ? " webgroup-notactive" : " webgroup-active"}`}>REGULAR USER</span>

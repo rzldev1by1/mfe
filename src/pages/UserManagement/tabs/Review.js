@@ -16,11 +16,11 @@ class Review extends React.PureComponent {
             <Container className="px-5 py-4">
                 <Row>
                     <Col lg="2" className="pr-0">
-                        <h3 style={{paddingTop:'11px',paddingBottom:'11px'}} className="text-primary font-20">New User</h3>
+                        <h3 className="text-primary font-20 um-text-webgroup">New User</h3>
                     </Col>
                     <Col lg="10" className="pl-0">
                         <Row>
-                            <Col lg="6" md="9" sm="12" className="pl-0">
+                            <Col lg="4" md="4" sm="12" className="pl-0">
                                 <label className="webgroup d-flex justify-content-between">
                                     <input type="checkbox" />
                                     <span className={`flex-fill ${isAdmin ? "webgroup-review-notactive" : " webgroup-review-active"}`}>REGULAR USER</span>
@@ -46,7 +46,7 @@ class Review extends React.PureComponent {
 
                 <Row className="um-review">
                     <Col lg="4">
-                        <label name="userid" style={{ backgroundColor: '#F6F7F9' }} readOnly className="form-control mb-0">
+                        <label name="userid" readOnly className="form-control mb-0 review-readonly">
                             {user.userId}
                         </label>
                         <div>
@@ -54,10 +54,10 @@ class Review extends React.PureComponent {
                         </div>
                     </Col>
                     <Col lg="4">
-                        <label name="email" style={{ color: '#959DA0' }} className={`form-control mb-0`} >{user.email || ''} </label>                        
+                        <label name="email" className={`form-control mb-0 review-text`} >{user.email || ''} </label>                        
                     </Col>
                     <Col lg="4">
-                        <label name="userName" style={{ color: '#959DA0' }} maxLength="60" className={`form-control mb-0`}>{user.name || ''}</label>                      
+                        <label name="userName" maxLength="60" className={`form-control mb-0 review-text`}>{user.name || ''}</label>                      
                     </Col>
 
                 </Row>

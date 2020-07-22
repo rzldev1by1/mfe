@@ -20,7 +20,7 @@ return (
             (moduleAccess && moduleAccess.length)?moduleAccess.map((item,index) => {
 
               return (<div className="flex-column mb-3 mr-2" key={index}>
-                            <div className="row" style={{height:"40px"}} key={index}>
+                            <div className="row height-40" key={index}>
                                 <label className="col-6 text-muted py-2 font-lg " key={item.menuid}>{(item.menuname.toLowerCase() === 'create sales order')?'Sales Orders':item.menuname}</label>
 
                                 <div className="col-6">

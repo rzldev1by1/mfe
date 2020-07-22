@@ -297,14 +297,14 @@ class UserManagementCreate extends React.PureComponent {
         <Nav tabs>
           <NavItem>
             <NavLink className={key === 'new' ? 'active' : null} onClick={() => this.onSelectTab('new')}>
-            <div style={{display:'flex',alignItems:'center'}}>
+            <div className="title-tab">
               <div className={`mr-2 badge badge-pill badge-${key === 'new' ? 'primary' : 'secondary'}`}>1</div> User Detail                
             </div>
             </NavLink>
           </NavItem>
           <NavItem>
             <NavLink className={key === 'review' ? 'active' : null} onClick={() => this.onSelectTab('review')}>
-            <div style={{display:'flex',alignItems:'center'}}>
+            <div className="title-tab">
               <div className={`mr-2 badge badge-pill badge-${key === 'review' ? 'primary' : 'secondary'}`}>2</div> Review
             </div>
             </NavLink></NavItem>
