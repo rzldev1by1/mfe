@@ -79,9 +79,7 @@ class StockMovement extends React.PureComponent {
   getStockDate = () => {
     axios.get(endpoints.stockDateRange)
     .then((res) => {
-      let maxDate = res.data.data[0].max_date;
       this.setState({ minDate: res.data.data[0].min_date, maxDate: res.data.data[0].max_date})
-      console.log(res.data.data[0].min_date + "|" + res.data.data[0].max_date)
     })
   }
 
@@ -96,10 +94,9 @@ class StockMovement extends React.PureComponent {
   }
 
   openDatePicker = (type) => {
-    console.log(type)
-    if (type == 'from') {
+    if (type === 'from') {
       this.refs["dateFrom"].openDatePicker()
-    } else if (type == "to") {
+    } else if (type === "to") {
       this.refs["dateTo"].openDatePicker()
     }
   }
@@ -169,14 +166,10 @@ class StockMovement extends React.PureComponent {
   }
 
   searchStockMovement = async () => {
-    console.log('Load Stock Movement')
     this.setState({
       periodSelected: 1
     })
     const { periods, site, client, filterType, product, dateFromSelected, dateToSelected, periodSelected } = this.state
-    console.log(site.value, client.value, product.value)
-    console.log(filterType.value)
-
     if (filterType.value) {
       this.load_data(dateFromSelected, dateToSelected, filterType.value, site.value, client.value, product.value)
     } else {
@@ -247,15 +240,15 @@ class StockMovement extends React.PureComponent {
      
     this.state.dateArray.map((date, idx) => { 
       let dates = moment(date).format('DD MMMM YYYY') 
-        if (periods == 'day') {
+        if (periods === 'day') {
             dates = moment(date).format('DD MMMM YYYY')
         }
-        else if (periods == 'week') {
+        else if (periods === 'week') {
             let dates2 = moment(date).add('days', 6).format('DD MMMM YYYY')
             dates = moment(date).format('DD MMMM YYYY')
             dates = dates + ' - ' + dates2
         }
-        else if (periods == 'month') {
+        else if (periods === 'month') {
             dates = moment(date).format('MMMM YYYY')
         } 
             
@@ -295,9 +288,7 @@ class StockMovement extends React.PureComponent {
         ]
       }
       header.push(tmp_header)
-    }) 
-    console.log('----- header -----');
-    console.log(header);
+    })
     this.setState({ fields: header })
   }
 
@@ -322,8 +313,6 @@ class StockMovement extends React.PureComponent {
       })
       tmp_data.push(tmp_row)
     })
-    console.log('----- Data -----');
-    console.log(tmp_data);
     this.setState({ data_table: tmp_data })
   }
 

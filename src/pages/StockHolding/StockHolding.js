@@ -134,7 +134,6 @@ class StockHolding extends React.PureComponent {
     ];
     this.setState({ statusData });
   };
-
   searchStockHolding = async () => {
     let { search, site, client, status, pagination } = this.state;
     let urls = [];

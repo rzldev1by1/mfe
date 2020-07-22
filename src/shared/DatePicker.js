@@ -97,7 +97,6 @@ function YearMonthForm({ date, localeUtils, onChange, current, fromMonth, toMont
                 usedFor="Datepicker"
                 field="orderDate"
             />
-            {/* {console.log(monthValue, yearValue)} */}
             {/* <select name="month" onChange={handleChange} value={date.getMonth()}>
         {months.map((month, i) => (
           <option key={month} value={i}>

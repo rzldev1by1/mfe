@@ -116,7 +116,6 @@ class SalesOrder extends React.PureComponent {
   }
   getResources = async () => {
     const { user } = this.props.store
-    console.log(user)
     if (user) {
       const { data } = await axios.get(`${endpoints.getSoResources}?company=${user.company || ''}&client=${user.client || ''}`)
       const { code, name } = data.orderType
@@ -127,9 +126,8 @@ class SalesOrder extends React.PureComponent {
     }
   }
   searchSalesOrder = async () => {
-    let { search, site, client, orderType, status,task, pagination, request_status } = this.state
-    this.setState({ data: [] })
-    this.setState({ request_status: "Please Wait..."  })
+    let { search, site, client, orderType, status,task, pagination } = this.state
+    this.setState({ data: [], request_status: "Please Wait..." })
     let urls = []
     urls.push('searchParam=' + (search ? search : ''))
     urls.push('site=' + (site ? site.value : 'all'))
@@ -138,9 +136,7 @@ class SalesOrder extends React.PureComponent {
     urls.push('status=' + (status ? status.value : 'all'))
     urls.push('task=' + (task ? task.value : 'All'))
     urls.push('page=' + (pagination.active || 1))
-    // console.log(`${endpoints.salesOrder}?${urls.join('&')}`)
     const { data } = await axios.get(`${endpoints.salesOrder}?${urls.join('&')}`)
-    console.log(data)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
         m.deliverydate = m.deliverydate ? moment(m.deliverydate).format('DD/MM/YYYY') : ''
