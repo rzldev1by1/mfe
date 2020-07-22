@@ -386,7 +386,7 @@ class UserManagementDetail extends Component {
                         { to: '/users-management', label: 'User Management' },
                         { to: '', label: accountInfo.user, active: true },
                     ]} />
-                <CCard className="h-75">
+                <CCard>
                         <CCardBody>
                             <form onSubmit={(e) => { e.preventDefault(); this.saveClick(); }}>
                                 <div className="account-detail mt-2">
