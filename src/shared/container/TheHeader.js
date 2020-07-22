@@ -38,7 +38,7 @@ const TheHeader = (props) => {
         <CIcon name="cil-sun" className="c-d-default-none" alt="CoreUI Icons Sun" />
       </CToggler> */}
 
-      <CSubheader className="bg-transparent no-border no-shadow my-1">
+      <CSubheader className="bg-transparent no-border no-shadow my-2">
         <CToggler inHeader className="p-0 d-lg-none" onClick={toggleSidebarMobile} />
         {/* <CToggler inHeader onClick={toggleSidebar} className="p-0 d-md-down-none" /> */}
         {/* <CBreadcrumbRouter className="border-0 c-subheader-nav mr-auto" routes={routes} /> */}

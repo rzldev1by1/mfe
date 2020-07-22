@@ -226,6 +226,18 @@ header {
   border-radius: 3px;
 }
 
+/* Line Details Styles Start */
+.lineDetailsTopExpand{
+    margin-top: -400px !important;
+    padding-top: 400px !important;
+}
+
+.lineDetailsBottomExpand{
+    margin-bottom: -312px !important;
+    padding-bottom: 328px !important;
+}
+
+/* Line Details Styles End */
 // scrollbar
 .ReactTable > .rt-table > .rt-tbody::-webkit-scrollbar {
   width: 8px !important;
