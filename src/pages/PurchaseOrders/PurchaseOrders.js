@@ -34,10 +34,10 @@ class PurchaseOrders extends React.PureComponent {
     this.state = {
       search: '',
       site: {
-        value: this.props.store.user.site ? this.props.store.user.site : null
+        value:this.props.store.user.site ? this.props.store.user.site : null,
       },
       client: {
-        value:this.props.store.user.client ? this.props.store.user.client : null
+        value: this.props.store.user.client ? this.props.store.user.client : null,
       },
       status: null,
       orderType: null,
@@ -126,8 +126,8 @@ class PurchaseOrders extends React.PureComponent {
     let { search, site, client, orderType, task, pagination, status } = this.state
     let urls = []
     urls.push('searchParam=' + (search ? search : ''))
-    urls.push('site=' + (site ? site.value : 'all'))
-    urls.push('client=' + (client ? client.value : 'all'))
+    urls.push('site=' + (site.value ? site.value : 'all'))
+    urls.push('client=' + (client.value ? client.value : 'all'))
     urls.push('orderType=' + (orderType ? orderType.value : 'all'))
     urls.push('status=' + (status ? status.value : 'all'))
     if(task && task.value !== 'all') urls.push('task=' + task.value)
@@ -194,6 +194,20 @@ class PurchaseOrders extends React.PureComponent {
     return c
   }
 
+  setClient = (clients) =>{
+    let client = [...this.state.client]
+    client.value = clients
+    this.setState({client:client})
+    this.getTask()
+  }
+
+  setSite = (sites) => {
+    let site = [...this.state.site]
+    site.value = sites
+    this.setState({site:site})
+    this.getTask()
+  }
+
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
@@ -221,23 +235,23 @@ class PurchaseOrders extends React.PureComponent {
                 
                 <CCol sm={4} lg={2} className="px-2">
                 {
-                  site ?
+                  this.props.store.user.site ?
                   <input value={this.siteCheck(site.value)} className="form-control" readOnly />
                   : 
                   <Select name="site" placeholder="Site"
-                    value={site} options={siteData}
-                    onChange={(val) => this.setState({ site: val }, () => this.getTask())}
+                    value={site.value} options={siteData}
+                    onChange={(val) => this.setSite(val)}
                   />
                 }                  
                 </CCol>
                 <CCol sm={4} lg={2} className="px-2">
                   {
-                    client ?
+                    this.props.store.user.client ?
                     <input value={this.clientCheck(client.value)} className="form-control" readOnly />
                     :
                     <Select name="client" placeholder="Client"
-                    value={client} options={clientData}
-                    onChange={(val) => this.setState({ client: val }, () => this.getTask())}
+                    value={client.value} options={clientData}
+                    onChange={(val) => this.setClient(val)}
                     />
                   }
                   

@@ -35,10 +35,10 @@ class CreateTab extends React.Component {
         client: this.props.user.client ? this.props.user.client : null
       }],
       site: {
-        value: this.props.user.site ? this.props.user.site : null
+        value:this.props.user.site ? this.props.user.site : null
       },
       client: {
-        value: this.props.user.client ? this.props.user.client : null
+        value:this.props.user.client ? this.props.user.client : null
       },
       orderLine: [{}],
       error: {},
@@ -125,16 +125,19 @@ class CreateTab extends React.Component {
     this.setState({ orderLine })
   }
   onSelectChange = (name, val) => {
-    let { error } = this.state
+    let { error,client,site } = this.state
     // let newOrder = Object.assign({}, orderDetails[0])
     let orderDetails = [...this.state.orderDetails]
+
     if (name === 'site') {
       orderDetails[0].site = val.value
       orderDetails[0].siteName = val.label
+      site.value = val.value
     }
     if (name === 'client') {
       orderDetails[0].client = val.value
       orderDetails[0].clientName = val.label
+      client.value = val.value
     }
     if (name === 'supplier') {
       orderDetails[0].supplier = val.value
@@ -147,7 +150,7 @@ class CreateTab extends React.Component {
     orderDetails[0].web_user = this.props.webUser
 
     delete error[name]
-    this.setState({ [name]: val, orderDetails }, () => {
+    this.setState({ [name]: val, orderDetails,site,client }, () => {
       if (name === 'client') {
         this.getProduct()
         this.getSupplier()
@@ -306,7 +309,7 @@ class CreateTab extends React.Component {
             user.site ? 
             <input value={this.siteCheck(user.site)} className="form-control" readOnly />
             :
-            <Select value={site || ''} options={siteData} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required />
+            <Select options={siteData} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required />
           }
           
           <Required id="site" error={error} />
@@ -333,7 +336,7 @@ class CreateTab extends React.Component {
             user.client ?
             <input value={this.clientCheck(user.client)} className="form-control" readOnly />
             :
-            <Select value={client || ''} options={clientData} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required />
+            <Select  options={clientData} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required />
           }
           <Required id="client" error={error} />
         </Col>
