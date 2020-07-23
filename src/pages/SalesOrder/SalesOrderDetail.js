@@ -29,10 +29,10 @@ const columns = [
   },
   //{ accessor: "oos", Header: "OOS", width: 50 },
   {
-    accessor: "oos", Header: "OOS",
+    accessor: "oos", Header: "OOS", width: 60 ,
     Cell: (row) => <i className={`${row.original.oos === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
-  { accessor: "batch", Header: "Batch" },
+  { accessor: "batch", Header: "Batch", width: 60  },
   { accessor: "ref2", Header: "Ref2" },
   { accessor: "ref3", Header: "Ref3" },
   { accessor: "ref4", Header: "Ref4" },
@@ -84,6 +84,9 @@ class SalesOrderDetail extends React.Component {
   }
   formatDate = (date) => {
     return date ? moment(date).format('DD/MM/YYYY') : '-'
+  }
+  UrlHeader = () =>{
+    return `$/getSalesOrderHeader?client=ANTEC`
   }
   render() {
     // const { match, history } = this.props
@@ -141,6 +144,7 @@ class SalesOrderDetail extends React.Component {
         height={this.state.dimension.height}
         fields={fields}
         data={products}
+        UrlHeader={this.UrlHeader} 
         request_status={this.state.request_status}
       />
     </div>

@@ -1,37 +1,37 @@
-import React from "react";
-import { connect } from "react-redux";
-import axios from "axios";
-import { CButton, CCard, CCardBody, CRow, CCol } from "@coreui/react";
-import Select from "react-select";
-import { FaPencilAlt } from "react-icons/fa";
-import endpoints from "helpers/endpoints";
-import CustomTable from "./StockHoldingTable";
-import HeaderTitle from "shared/container/TheHeader";
-import "./StockHolding.scss";
+import React from 'react'
+import { connect } from 'react-redux'
+import axios from 'axios'
+import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react'
+import Select from 'react-select'
+import { FaPencilAlt } from 'react-icons/fa'
+import endpoints from 'helpers/endpoints'
+import CustomTable from '../../shared/table/CustomTable'
+import HeaderTitle from 'shared/container/TheHeader'
+import './StockHolding.scss'
 const columns = [
-  { accessor: "site", Header: "Site", placeholder: 'Site', width: 100, sortable: true },
-  { accessor: "client", Header: "Client", placeholder: 'Client', sortable: true },
+  { accessor: 'site', Header: 'Site', placeholder: 'Site', width: 100, sortable: true },
+  { accessor: 'client', Header: 'Client', placeholder: 'Client', sortable: true },
   {
-    accessor: "product",
-    Header: "Product",
+    accessor: 'product',
+    Header: 'Product',
     placeholder: 'Product',
     sortable: true,
     width: 90,
-    style: { textAlign: "left" },
+    style: { textAlign: 'left' },
   },
   {
-    accessor: "product_name",
-    Header: "Description",
+    accessor: 'product_name',
+    Header: 'Description',
     placeholder: 'Description',
     width: 300,
     sortable: true,
   },
-  { accessor: "disposition", Header: "Disposition", placeholder: 'Disposition', sortable: true },
-  { accessor: "packdesc_1", Header: "UOM", placeholder: 'UOM', width: 90, sortable: true },
-  { accessor: "status", Header: " Status ", placeholder: 'Status', sortable: true },
+  { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', sortable: true },
+  { accessor: 'packdesc_1', Header: 'UOM', placeholder: 'UOM', width: 90, sortable: true },
+  { accessor: 'status', Header: ' Status ', placeholder: 'Status', sortable: true },
   {
-    accessor: "on_hand_qty",
-    Header: "Stock on Hand",
+    accessor: 'on_hand_qty',
+    Header: 'Stock on Hand',
     placeholder: 'Stock on Hand',
     sortable: true,
     width: 140,
@@ -44,32 +44,32 @@ const columns = [
     width: 145 
   },
   {
-    accessor: "expected_in_qty",
-    Header: "Expected In Qty",
+    accessor: 'expected_in_qty',
+    Header: 'Expected In Qty',
     placeholder: 'Expected In Qty',
     sortable: true,
     width: 145,
   },
   {
-    accessor: "expected_in_wgt",
-    Header: "Expected In Weight",
+    accessor: 'expected_in_wgt',
+    Header: 'Expected In Weight',
     placeholder: 'Expected In Weight',
     sortable: true,
     width: 170,
   },
   {
-    accessor: "expected_out_qty",
-    Header: "Expected Out Qty",
+    accessor: 'expected_out_qty',
+    Header: 'Expected Out Qty',
     placeholder: 'Expected Out Qty', 
     sortable: true,
     width: 155,
   },
-  { accessor: "price", Header: " Price ", placeholder: 'Price', width: 110, sortable: true },
-  { accessor: "pallets", Header: "Pallets", placeholder: 'Pallets', width: 110, sortable: true },
+  { accessor: 'price', Header: ' Price ', placeholder: 'Price', width: 110, sortable: true },
+  { accessor: 'pallets', Header: 'Pallets', placeholder: 'Pallets', width: 110, sortable: true },
 ];
 class StockHolding extends React.PureComponent {
   state = {
-    search: "",
+    search: '',
     site: null,
     client: null,
     status: null,
@@ -88,139 +88,127 @@ class StockHolding extends React.PureComponent {
   componentDidMount = () => {
     // set automatic table height
     this.updateDimension();
-    window.addEventListener("resize", this.updateDimension);
+    window.addEventListener('resize', this.updateDimension);
 
-    this.getSite();
-    this.getClient();
-    this.getStatus();
-    this.searchStockHolding();
-  };
+    this.getSite()
+    this.getClient()
+    this.getStatus()
+    this.searchStockHolding()
+  }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.updateDimension);
+    window.removeEventListener('resize', this.updateDimension);
   }
 
   updateDimension = () => {
     const height = window.innerHeight - 250;
     this.setState({ dimension: { width: window.innerWidth, height } });
-  };
-
+  }
   getSite = async () => {
-    const { data } = await axios.get(endpoints.getSite);
-    const siteData = data.map((d) => ({
-      value: d.site,
-      label: `${d.site}: ${d.name}`,
-    }));
-    const site = { value: "all", label: "All Site" };
-    siteData.splice(0, 0, site);
-    this.setState({ siteData });
-  };
+    const { data } = await axios.get(endpoints.getSite)
+    const siteData = data.map(d => ({ value: d.site, label: `${d.site}: ${d.name}` }))
+    const site = { value: 'all', label: 'All Site' }
+    siteData.splice(0, 0, site)
+    this.setState({ siteData })
+  }
   getClient = async () => {
-    const { data } = await axios.get(endpoints.getClient);
-    const clientData = data.map((d) => ({
-      value: d.code,
-      label: `${d.code}: ${d.name}`,
-    }));
-    const client = { value: "all", label: "All Client" };
-    clientData.splice(0, 0, client);
-    this.setState({ clientData });
-  };
+    const { data } = await axios.get(endpoints.getClient)
+    const clientData = data.map(d => ({ value: d.code, label: `${d.code}: ${d.name}` }))
+    const client = { value: 'all', label: 'All Client' }
+    clientData.splice(0, 0, client)
+    this.setState({ clientData })
+  }
   getStatus = async () => {
-    const status = { value: "all", label: "All Status" };
+    const status = { value: 'all', label: 'All Status' }
     const statusData = [
       status,
-      { value: "Ok", label: "Ok" },
-      { value: "Shortage", label: "Shortage" },
+      { value: 'Ok', label: 'Ok' },
+      { value: 'Shortage', label: 'Shortage' },
     ];
-    this.setState({ statusData });
-  };
-  searchStockHolding = async () => {
-    let { search, site, client, status, pagination } = this.state;
-    let urls = [];
-    urls.push("searchParam=" + search ? search : "");
-    urls.push("site=" + (site ? site.value : "all"));
-    urls.push("client=" + (client ? client.value : "all"));
-    urls.push("status=" + (status ? status.value : "all"));
-    urls.push("page=" + (pagination.active || 1));
-    const { data } = await axios.get(
-      `${endpoints.stockHoldingSummary}?${urls.join("&")}`
-    );
+    this.setState({ statusData })
+  }
+
+  // url Get Header And Post
+
+  UrlHeader = () =>{
+    return `${endpoints.getStockHoldingHearder}?client=ANTEC`
+  }
+  UrlAntec = () =>{
+    return '/putStockholdingColumn?client=ANTEC'
+  }
+  UrlBega = () =>{
+    return  '/putStockholdingColumn?client=BEGA'
+  }
+  UrlAesop = () =>{
+    return  '/putStockholdingColumn?client=AESOP'
+  }
+  UrlClucth = () =>{
+    return  '/putStockholdingColumn?client=CLUCTH'
+  }
+  UrlExquira = () =>{
+    return  '/putStockholdingColumn?client=EXQUIRA'
+  }
+  UrlLedvance = () =>{
+    return  '/putStockholdingColumn?client=LEDVANCE'
+  }
+  UrlOnestop = () =>{
+    return '/putStockholdingColumn?client=ONESTOP'
+  }
+  UrlStartrack = () =>{
+    return '/putStockholdingColumn?client=STARTRACK'
+  }
+  UrlTatura  = () =>{
+    return '/putStockholdingColumn?client=TATURA'
+  }
+  UrlTtl = () =>{
+    return '/putStockholdingColumn?client=TTL'
+  }
+  UrlTtchem = () =>{
+    return '/putStockholdingColumn?client=TTCHEM'
+  }
+
+ // end url Get Header And Post
+  
+ searchStockHolding  = async () => {
+  let { search, site, client, status, pagination } = this.state
+  let urls = []
+  urls.push('searchParam=' + search ? search : '')
+  urls.push('site=' + (site ? site.value : 'all'))
+  urls.push('client=' + (client ? client.value : 'all'))
+  urls.push('status=' + (status ? status.value : 'all'))
+  urls.push('page=' + (pagination.active || 1))
+  const { data } = await axios.get(`${endpoints.stockHoldingSummary}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data;
       modifiedData.map((item, idx) => {
-        if (
-          item["on_hand_qty"] + item["expected_in_qty"] >=
-          item["expected_out_qty"]
-        ) {
-          item["status"] = [<a className="status-ok">OK</a>];
+        if (item['on_hand_qty'] + item['expected_in_qty'] >= item['expected_out_qty']){
+          item['status'] = [<a className='status-ok'>OK</a>];
         } else {
-          item["status"] = [<a className="status-shortage">SHORTAGE</a>];
+          item['status'] = [<a className='status-shortage'>SHORTAGE</a>];
         }
-      });
+      })
       this.setState({
         pagination: {
           active: pagination.active || data.data.current_page,
           show: data.data.per_page,
-          total: data.data.total,
+          total: data.data.total
         },
-        data: modifiedData,
-      });
+        data: modifiedData
+      })
     } else {
-      this.setState({ data: [] });
+      this.setState({ data: [] })
     }
     // this.setState({ data: DummyData })
-  };
+  }
 
   showDetails = (item) => {
-    const url =
-      "/stock-holding" + item.product + "/" + item.client + "/" + item.site;
-    this.props.history.push(url);
-  };
+    const url = '/stock-holding' + item.product + '/' + item.client + '/' + item.site
+    this.props.history.push(url)
+  }
 
   toggle = (value) => {
-    this.setState({ create: value ? value : !this.state.create });
-  };
-
-    // url Get Header And Post
-
-    UrlHeader = () =>{
-      return `${endpoints.getStockHoldingHearder}?client=ANTEC`
-    }
-    UrlAntec = () =>{
-      return "/putStockholdingColumn?client=ANTEC"
-    }
-    UrlBega = () =>{
-      return  "/putStockholdingColumn?client=BEGA"
-    }
-    UrlAesop = () =>{
-      return  "/putStockholdingColumn?client=AESOP"
-    }
-    UrlClucth = () =>{
-      return  "/putStockholdingColumn?client=CLUCTH"
-    }
-    UrlExquira = () =>{
-      return  "/putStockholdingColumn?client=EXQUIRA"
-    }
-    UrlLedvance = () =>{
-      return  "/putStockholdingColumn?client=LEDVANCE"
-    }
-    UrlOnestop = () =>{
-      return "/putStockholdingColumn?client=ONESTOP"
-    }
-    UrlStartrack = () =>{
-      return "/putStockholdingColumn?client=STARTRACK"
-    }
-    UrlTatura  = () =>{
-      return "/putStockholdingColumn?client=TATURA"
-    }
-    UrlTtl = () =>{
-      return "/putStockholdingColumn?client=TTL"
-    }
-    UrlTtchem = () =>{
-      return "/putStockholdingColumn?client=TTCHEM"
-    }
-  
-    // end url Get Header And Post
+    this.setState({ create: value ? value : !this.state.create })
+  }
 
   render() {
     const {
@@ -234,73 +222,74 @@ class StockHolding extends React.PureComponent {
       siteData,
       clientData,
       statusData,
-    } = this.state;
+      urlHeader
+    } = this.state
     return (
-      <div className="stockHolding table-summary">
+      <div className='stockHolding table-summary'>
         <HeaderTitle
-          breadcrumb={[{ to: "", label: "Stock Holding", active: true }]}
+          breadcrumb={[{ to: '', label: 'Stock Holding', active: true }]}
           button={
             <CButton
               onClick={this.toggle}
-              className="c-subheader-nav-link btn btn-primary text-white float-right d-none"
+              className='c-subheader-nav-link btn btn-primary text-white float-right d-none'
             >
               <FaPencilAlt />
             </CButton>
           }
         />
 
-        <CCard className="mb-3">
-          <CCardBody className="p-3">
+        <CCard className='mb-3'>
+          <CCardBody className='p-3'>
             <CRow>
-              <CCol lg={3} className="px-0">
-                <div className="input-group ">
-                  <div className="input-group-prepend">
-                    <span className="input-group-text border-right-0 bg-white">
-                      <i className="iconU-search"></i>
+              <CCol lg={3} className='px-0'>
+                <div className='input-group '>
+                  <div className='input-group-prepend'>
+                    <span className='input-group-text border-right-0 bg-white'>
+                      <i className='iconU-search'></i>
                     </span>
                   </div>
                   <input
-                    type="text"
-                    className="form-control border-left-0 input-height "
-                    placeholder="Enter an Order No"
+                    type='text'
+                    className='form-control border-left-0 input-height '
+                    placeholder='Enter an Order No'
                     onChange={(e) => this.setState({ search: e.target.value })}
                   />
                 </div>
               </CCol>
-              <CCol lg={9} className="pr-0">
+              <CCol lg={9} className='pr-0'>
                 <CRow>
-                  <CCol sm={4} lg={2} className="px-0">
+                  <CCol sm={4} lg={2} className='px-0'>
                     <Select
-                      name="site"
-                      placeholder="Site"
+                      name='site'
+                      placeholder='Site'
                       value={site}
                       options={siteData}
                       onChange={(val) => this.setState({ site: val }, () => {})}
                     />
                   </CCol>
-                  <CCol sm={4} lg={2} className="px-3">
+                  <CCol sm={4} lg={2} className='px-3'>
                     <Select
-                      name="client"
-                      placeholder="Client"
+                      name='client'
+                      placeholder='Client'
                       value={client}
                       options={clientData}
                       onChange={(val) => this.setState({ client: val })}
                     />
                   </CCol>
-                  <CCol sm={4} lg={2} className="px-0">
+                  <CCol sm={4} lg={2} className='px-0'>
                     <Select
-                      name="status"
-                      placeholder="Status"
+                      name='status'
+                      placeholder='Status'
                       value={status}
                       options={statusData}
                       onChange={(val) => this.setState({ status: val })}
                     />
                   </CCol>
-                  <CCol sm={4} lg={2} className="px-0"></CCol>
-                  <CCol sm={4} lg={2} className="px-0"></CCol>
-                  <CCol sm={4} lg={2} className="px-0">
+                  <CCol sm={4} lg={2} className='px-0'></CCol>
+                  <CCol sm={4} lg={2} className='px-0'></CCol>
+                  <CCol sm={4} lg={2} className='px-0'>
                     <button
-                      className="btn btn-primary float-right stockHolding"
+                      className='btn btn-primary float-right stockHolding'
                       onClick={this.searchStockHolding}
                     >
                       SEARCH
@@ -313,20 +302,25 @@ class StockHolding extends React.PureComponent {
         </CCard>
 
         <CustomTable
-        title="Stock Holding"           height={dimension.height}       data={data} fields={fields} 
-        pagination={pagination}         onClick={this.showDetails}      renameSubmit={this.renameSubmit}
-        UrlHeader={this.UrlHeader}      UrlAntec={this.UrlAntec}        UrlBega={this.UrlBega}
-        UrlAesop={this.UrlAesop}        UrlClucth={this.UrlClucth}      UrlExquira={this.UrlExquira}
-        UrlLedvance={this.UrlLedvance}  UrlOnestop={this.UrlOnestop}    UrlStartrack ={this.UrlStartrack }
-        UrlTatura={this.UrlTatura}      UrlTtl={this.UrlTtl}            UrlTtchem={this.UrlTtchem}
+          title='Stock Holding'
+          height={dimension.height}
+          data={data}
+          fields={fields}
+          pagination={pagination}
+          onClick={this.showDetails}
+          renameSubmit={this.renameSubmit}
+          UrlHeader={this.UrlHeader}      UrlAntec={this.UrlAntec}        UrlBega={this.UrlBega}
+          UrlAesop={this.UrlAesop}        UrlClucth={this.UrlClucth}      UrlExquira={this.UrlExquira}
+          UrlLedvance={this.UrlLedvance}  UrlOnestop={this.UrlOnestop}    UrlStartrack ={this.UrlStartrack }
+          UrlTatura={this.UrlTatura}      UrlTtl={this.UrlTtl}            UrlTtchem={this.UrlTtchem}
           goto={(active) => {
             this.setState({ pagination: { ...pagination, active } }, () =>
               this.searchStockHolding()
-            );
+            )
           }}
           export={
-            <button className="btn d-flex btn-primary float-right align-items-center px-3 btn-export">
-              <div className="export-export pr-3" />
+            <button className='btn d-flex btn-primary float-right align-items-center px-3 btn-export'>
+              <div className='export-export pr-3' />
               EXPORT
             </button>
           }
@@ -335,6 +329,6 @@ class StockHolding extends React.PureComponent {
     );
   }
 }
-const mapStateToProps = (store) => ({ store });
-const mapDispatchToProps = (dispatch) => ({ dispatch });
+const mapStateToProps = (store) => ({ store })
+const mapDispatchToProps = (dispatch) => ({ dispatch })
 export default connect(mapStateToProps, mapDispatchToProps)(StockHolding);
