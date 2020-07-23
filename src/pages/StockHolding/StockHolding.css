@@ -1,36 +1,31 @@
-.status-ok {
-  color: rgb(209, 204, 204) !important;
-  background: transparent;
-  padding: 5px;
-  border-radius: 6px;
-  border: solid 1.5px rgb(149, 146, 146);
-  font-size: 12px;
-}
-.status-shortage {
-  color: white !important;
-  background: rgb(199, 33, 33);
-  padding: 6px;
-  font-size: 12px;
-  border-radius: 3px;
-}
 .input-height {
   height: 40px;
 }
 
 .nav-tabs .nav-link.tab-custom {
-  color: #2f275d !important;
+  color: #3f6efb !important;
   background-color: #ffffff !important;
   padding-left: 24px;
   padding-right: 27px;
   padding-bottom: 8px;
   padding-top: 8px;
-  border-radius: 5px;
-  font-size: 20px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border: solid 0px;
 }
 
 .tableTab {
   margin-left: 14px;
   margin-top: -4px;
+}
+.rt-table {
+  margin-top: -0.4rem;
+}
+.search-padding{
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+  padding-right: 1.4rem;
+  padding-left: 1.4rem;
 }
 
 .form-control::-moz-placeholder {
@@ -65,14 +60,37 @@
   }
 }
 
-.stockDetails .nav-tabs {
-  margin-left: -6px;
-}
-
-.stockDetails .tabColumn {
-  padding: 10px !important;
-}
-
-.stockDetails .ReactTable .rt-tbody {
+.stock-holding-detail .ReactTable .rt-tbody {
   display: block !important;
 }
+
+.nav-link-cust {
+  height: 50px !important;
+  margin: 0px !important;
+}
+
+.stock-holding-detail .nav-tabs .nav-link.tab-custom {
+  border-radius: 5px 5px 0px 0px !important;
+}
+
+.stock-holding-detail .tabTitleText {
+  margin-top: -5px !important;
+}
+
+.stock-holding-detail .card-group .card {
+  height: 154px !important;
+}
+
+.stock-holding-detail .card-group .col-lg-5 {
+  height: 50px !important;
+}
+
+.stock-holding-detail .tab-pane {
+  background-color: #e9eced !important;
+}
+
+.stockDetails .ReactTable .rt-table .rt-thead .rt-tr .rt-th:first-child {
+  padding-left: 1rem !important;
+}
+
+

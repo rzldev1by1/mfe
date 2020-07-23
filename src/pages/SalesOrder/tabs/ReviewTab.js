@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
 import endpoint from 'helpers/endpoints'
+import {connect} from 'react-redux'
 
 class ReviewTab extends React.Component {
   state = {
@@ -19,10 +20,12 @@ class ReviewTab extends React.Component {
     const modifiedHeader = {
       siteVal: header.site.value,
       site: header.site.label,
-      orderType: header.orderType.label,
-      orderTypeVal: header.orderType.value,
+      orderType: header.orderType.value,
+      // orderTypeVal: header.orderType.value,
       clientName: header.client.label,
-      client: header.client.value,
+      client: header.client,
+      site: header.site,
+      deliveryDate: header.deliveryDate,
     }
     header = Object.assign(header, modifiedHeader)
     for (const k of keys) {
@@ -51,14 +54,41 @@ class ReviewTab extends React.Component {
     }
   }
 
+  GetFormattedDate = (datex) => {
+      var todayTime = new Date(datex); 
+      var month = todayTime .getMonth()+1
+      var day = todayTime.getDate()
+      var year = todayTime .getFullYear()
+      var day_ = (day<10)? "0"+day: day
+      var month_ = (month<10)? "0"+month: month
+      return day_ + "-" + month_ + "-" + year
+  }
+
+  
+  siteCheck = (siteVal) => {
+    let l = null
+    this.props.site.map(data => {
+      if (data.value === siteVal) l = data.label
+    })
+    return l
+  }
+
+  clientCheck = (clientVal) => {
+    let c = null
+    this.props.client.map(data => {
+      if (data.value === clientVal) c = data.label
+    })
+    return c
+  }
+
   render() {
-    const { header, lineDetail } = this.props.data
+    const { header, lineDetail } = this.props.data 
     return <Container className="px-5 py-4">
       <h3 className="text-primary font-20">Order Details</h3>
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0 required">Site</label>
-          <input value={header.site?.label || ''} className="form-control" readOnly />
+          <input value={this.siteCheck(header.site) || ''} className="form-control" readOnly />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order Type</label>
@@ -70,13 +100,13 @@ class ReviewTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Delivery Date</label>
-          <input value={header.deliveryDate || ''} className="form-control" readOnly />
+          <input value={ this.GetFormattedDate(header.deliveryDate) || ''} className="form-control" readOnly />
         </Col>
       </Row>
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0 required">Client</label>
-          <input value={header.client?.label || ''} className="form-control" readOnly />
+          <input value={this.clientCheck(header.client) || ''} className="form-control" readOnly />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order No</label>
@@ -147,19 +177,19 @@ class ReviewTab extends React.Component {
         <table>
           <thead>
             <tr className="text-light-gray">
-              <td><div className="c-1 text-center">#</div></td>
-              <td><div className="c-3 required">Product</div></td>
-              <td><div className="c-4">Description</div></td>
-              <td><div className="c-3 required">Qty</div></td>
-              <td><div className="c-2">Weight</div></td>
-              <td><div className="c-3 required">UOM</div></td>
-              <td><div className="c-3">Rotadate</div></td>
-              <td><div className="c-2">Batch</div></td>
-              <td><div className="c-2">Ref3</div></td>
-              <td><div className="c-2">Ref4</div></td>
-              <td><div className="c-2">Dispotition</div></td>
-              <td><div className="c-3">Pack ID</div></td>
-              <td><div className="c-1"></div></td>
+              <td><div className="c-50 text-center">#</div></td>
+              <td><div className="c-400 required">Product</div></td>
+              <td><div className="c-600">Description</div></td>
+              <td><div className="c-100 required">Qty</div></td>
+              <td><div className="c-100">Weight</div></td>
+              <td><div className="c-150 required">UOM</div></td>
+              <td><div className="c-250">Batch</div></td>
+              <td><div className="c-100">Ref3</div></td>
+              <td><div className="c-100">Ref4</div></td>
+              <td><div className="c-150">Disposition</div></td>
+              <td><div className="c-200">Pack ID</div></td>
+              <td><div className="c-150">Rotadate</div></td>
+              <td><div className="c-50"></div></td>
             </tr>
           </thead>
           <tbody>
@@ -203,4 +233,11 @@ class ReviewTab extends React.Component {
   }
 }
 
-export default ReviewTab
+const mapStateToProps = store => {
+  return{
+    client: store.client,
+    site: store.site
+  }
+}
+
+export default connect(mapStateToProps)(ReviewTab)

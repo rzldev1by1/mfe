@@ -16,11 +16,12 @@ import './SalesOrder.scss'
 const columns = [
   { accessor: 'site', Header: 'Site', width: 50 },
   { accessor: 'client', Header: 'Client', width: 100 },
-  { accessor: 'orderno', Header: 'Order No', width: 100 },
+  { accessor: 'orderno', Header: 'Order No', style: { textAlign: 'left' }, width: 100 },
   { accessor: 'ordertype', Header: 'Order Type', width: 120 },
-  { accessor: 'task', Header: 'Task', width: 100 },
-  { accessor: 'customername', Header: 'Customer', width: 250 },
-  { accessor: 'status', Header: 'Status', width: 120 },
+  { accessor: 'task', Header: 'Task', width: 100 }, 
+  { accessor: 'customer', Header: 'Customer No', style: { textAlign: 'left' } },
+  { accessor: 'customername', Header: 'Customer Name' },
+  { accessor: 'status', Header: 'Status', width: 150 },
   { accessor: 'deliverydate', Header: 'Delivery Date', width: 120 },
   { accessor: 'datereceived', Header: 'Date Received', width: 120 },
   { accessor: 'datereleased', Header: 'Date Released', width: 120 },
@@ -41,14 +42,17 @@ const columns = [
   { accessor: 'loadoutfinish', Header: 'Load Finish' },
   { accessor: 'consignmentno', Header: 'Consignment No' },
   { accessor: 'freightcharge', Header: 'Freight Charge' },
-  { accessor: 'customer', Header: 'Customer Code' },
 ]
 class SalesOrder extends React.PureComponent {
   state = {
     search: '',
-    site: null,
-    client: null,
-    status: null,
+    site: {
+      value:this.props.store.user.site ? this.props.store.user.site : '',
+    },
+    client: {
+      value: this.props.store.user.client ? this.props.store.user.client : '',
+    },
+    status: {value: "open", label: "All Open"}, //on load status=open
     orderType: null,
     task: null,
     resources: [],
@@ -57,7 +61,8 @@ class SalesOrder extends React.PureComponent {
     pagination: {},
     create: false,
     detail: {},
-    dimension: { width: 0, height: 0 }
+    dimension: { width: 0, height: 0 },
+    request_status: 'Please Wait...'
   }
   componentDidMount = () => {
     // set automatic table height
@@ -108,7 +113,7 @@ class SalesOrder extends React.PureComponent {
     if (client && site) {
       const { data } = await axios.get(`${endpoints.getIsisTask}?client=${client.value}&site=${site.value}&order=so`)
       const taskData = data.code.map((c, i) => ({ value: c, label: `${data.name[i]}` }))
-      const task = { value: 'all', label: 'All Task' }
+      const task = { value: 'All', label: 'All Task' }
       taskData.splice(0, 0, task)
       this.setState({ taskData })
     }
@@ -117,23 +122,30 @@ class SalesOrder extends React.PureComponent {
     const { user } = this.props.store
     if (user) {
       const { data } = await axios.get(`${endpoints.getSoResources}?company=${user.company || ''}&client=${user.client || ''}`)
-      const { code, name } = data.orderType
-      const orderTypeData = code.map((c, i) => ({ value: c, label: `${code[i]}: ${name[i]}` }))
-      const orderType = { value: 'all', label: 'All' }
+      const { code, name } = data.orderTypeFilter
+      const orderTypeData = code.map((c, i) => ({ value: c, label: `${code[i]}: ${name[i]}` })) 
+      const orderType = { value: 'all', label: 'All Order' }
       orderTypeData.splice(0, 0, orderType)
-      this.setState({ resources: data, orderTypeData })
+
+      const code2 = data.orderType.code
+      const name2 = data.orderType.name
+      const orderTypeInsert = code2.map((c, i) => ({ value: c, label: `${code2[i]}: ${name2[i]}` })) 
+      this.setState({ resources: data, orderTypeData, orderTypeInsert }) 
+       
     }
   }
   searchSalesOrder = async () => {
-    let { search, site, client, orderType, status, pagination } = this.state
+    let { search, site, client, orderType, status, task, pagination } = this.state
+    console.log(status)
+    this.setState({ data: [], request_status: "Please Wait..." })
     let urls = []
-    urls.push('searchParam=' + search ? search : '')
+    urls.push('searchParam=' + (search ? search : ''))
     urls.push('site=' + (site ? site.value : 'all'))
     urls.push('client=' + (client ? client.value : 'all'))
     urls.push('orderType=' + (orderType ? orderType.value : 'all'))
     urls.push('status=' + (status ? status.value : 'all'))
+    urls.push('task=' + (task ? task.value : 'All'))
     urls.push('page=' + (pagination.active || 1))
-    // console.log(`${endpoints.salesOrder}?${urls.join('&')}`)
     const { data } = await axios.get(`${endpoints.salesOrder}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
@@ -145,6 +157,24 @@ class SalesOrder extends React.PureComponent {
         m.loadoutfinish = m.loadoutfinish ? moment(m.loadoutfinish).format('DD/MM/YYYY') : ''
         return m
       })
+      modifiedData.map((item, idx) => {
+        if ((item["status"]) === "1: Available") {
+          item['status'] = [<a className="status-available">AVAILABLE</a>]
+        } if ((item["status"]) === "0: Not Available") {
+          item['status'] = [<a className="status-Unavailable">UNAVAILABLE</a>]
+        } if ((item["status"]) === "2: Released") {
+          item['status'] = [<a className="status-Release">RELEASED</a>]
+        } if ((item["status"]) === "3: Part Released") {
+          item['status'] = [<a className="status-partRelease">PART RELEASED</a>]
+        } if ((item["status"]) === "4: Completed") {
+          item['status'] = [<a className="status-complete">COMPLETED</a>]
+        } if ((item["status"]) === "All Open") {
+          item['status'] = [<a className="status-ok">ALL OPEN</a>]
+        }
+      })
+      if (data.data.total==0) {
+        this.setState({ request_status: "No Data Found" })
+      }
       this.setState({
         pagination: {
           active: pagination.active || data.data.current_page,
@@ -152,8 +182,9 @@ class SalesOrder extends React.PureComponent {
           total: data.data.total
         },
         data: modifiedData
-      })
+      }, () => {console.log (this.state.pagination)})
     } else {
+      this.setState({ request_status: "No Data Found" })
       this.setState({ data: [] })
     }
     // this.setState({ data: DummyData })
@@ -165,15 +196,36 @@ class SalesOrder extends React.PureComponent {
   toggle = (value) => {
     this.setState({ create: value ? value : !this.state.create })
   }
+  
+  siteCheck = (siteVal) => {
+    let l = null
+    this.props.store.site.map(data => {
+      if (data.value === siteVal) l = data.label
+    })
+    return l
+  }
+
+  clientCheck = (clientVal) => {
+    let c = null
+    this.props.store.client.map(data => {
+      if (data.value === clientVal) c = data.label
+    })
+    return c
+  }
+  
+  UrlHeader = () =>{
+    return `$/getSalesOrderHeader?client=ANTEC`
+  }
+  
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData, taskData
+      siteData, clientData, statusData, orderTypeData,orderTypeInsert, taskData
     } = this.state
     return <div className="sales-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Sales Orders', active: true }]}
-        button={<CButton onClick={this.toggle} className="btn btn-primary btn-create float-right">Create Sales Order</CButton>}
+        button={<CButton onClick={this.toggle} className="btn btn-primary btn-create float-right">CREATE SALES ORDER</CButton>}
       />
 
       <CCard className="mb-3">
@@ -184,22 +236,32 @@ class SalesOrder extends React.PureComponent {
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
                 </div>
-                <input type="text" className="form-control border-left-0" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
+                <input type="text" className="form-control pl-0 border-left-0" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
               </div>
             </CCol>
             <CCol lg={9}>
               <CRow>
                 <CCol lg={2} className="px-2">
+                  {
+                  this.props.store.user.site ?
+                  <input value={this.siteCheck(site.value)} className="form-control" readOnly />
+                  : 
                   <Select name="site" placeholder="Site"
-                    value={site} options={siteData}
+                    value={site.value} options={siteData}
                     onChange={(val) => this.setState({ site: val }, () => this.getTask())}
                   />
+                }  
                 </CCol>
                 <CCol lg={2} className="px-2">
-                  <Select name="client" placeholder="Client"
-                    value={client} options={clientData}
-                    onChange={(val) => this.setState({ client: val }, () => this.getTask())}
-                  />
+                  {
+                    this.props.store.user.client ?
+                    <input value={this.clientCheck(client.value)} className="form-control" readOnly />
+                    :
+                    <Select name="client" placeholder="Client"
+                      value={client.value} options={clientData}
+                      onChange={(val) => this.setState({ client: val }, () => this.getTask())}
+                    />
+                  }
                 </CCol>
                 <CCol lg={2} className="px-2">
                   <Select name="status"
@@ -235,9 +297,11 @@ class SalesOrder extends React.PureComponent {
         fields={fields}
         pagination={pagination}
         onClick={this.showDetails}
+        UrlHeader={this.UrlHeader} 
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchSalesOrder())
         }}
+        request_status={this.state.request_status}
         export={<button className="btn btn-primary float-right px-4 btn-export">EXPORT <IoIosArrowDown /></button>}
       />
 
@@ -247,7 +311,7 @@ class SalesOrder extends React.PureComponent {
         siteData={siteData}
         clientData={clientData}
         statusData={statusData}
-        orderTypeData={orderTypeData}
+        orderTypeData={orderTypeInsert}
       />
     </div>
   }

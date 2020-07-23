@@ -8,6 +8,7 @@ import endpoint from '../../helpers/endpoints'
 import axios from 'axios'
 import HeaderTitle from 'shared/container/TheHeader'
 import ResetModal from './ModalPopup/Reset'
+import * as utility from './UmUtility'
 
 import moment from 'moment';
 // import popupLock from '../../assets/img/brand/popup_lock.png'
@@ -16,6 +17,10 @@ import moment from 'moment';
 const today = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
 const passChanged = '1999-08-28';
 const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'stock age profile'];
+const webgroup = {
+  WAREHOUSE: 'Regular',
+  ADMIN: 'Admin'
+}
 
 class UserManagementDetail extends Component {
     constructor(props) {
@@ -33,6 +38,8 @@ class UserManagementDetail extends Component {
             isEnableAllModule: false,
             isEnableAllSite: false,
             isEnableAllClient: false,
+            loginInfo:{},
+            adminClass:'d-none'
         }
 
     }
@@ -40,6 +47,7 @@ class UserManagementDetail extends Component {
     componentDidMount() {
         let id = this.props.match.params.id;
         this.getAccountInfo(id);
+        this.loadPersonalLogin();
     }
 
     restructureAccount = (sources) => {
@@ -83,11 +91,13 @@ class UserManagementDetail extends Component {
 
     getAccountInfo = async (userid) => {
         const { data } = await axios.get(endpoint.userManagementUser_Detail + userid);
+        if(data && data !== '' ){
+          let result = this.restructureAccount(data.data);
 
-        let result = this.restructureAccount(data.data);
-        this.setState({ accountInfo: result, isLoadComplete: true }, () => {
-            this.loadMasterResource();
-        });
+          this.setState({ accountInfo: result, isLoadComplete: true }, () => {
+              this.loadMasterResource();
+          });
+        }
 
     }
 
@@ -105,7 +115,7 @@ class UserManagementDetail extends Component {
             .map((item, index) => {
                 let newItem = item;
                 let isStatus = false;
-                if (user.web_group && user.web_group.toLowerCase() !== 'administrator') {
+                if (user.web_group !== webgroup.ADMIN) {
                     isStatus = userMenu.includes(item.menuid) ? true : false;
                 }
                 newItem.status = isStatus;
@@ -302,7 +312,7 @@ class UserManagementDetail extends Component {
 
     closeModalPopupResetAuto = () => {
         var self = this;
-        setTimeout(() => { self.setState({ isResetSuccess: false, modalPopupResetdisplay: false }) }, 5000);
+        setTimeout(() => { self.setState({ isResetSuccess: false, modalPopupResetdisplay: false },this.gotoUM)}, 5000);
     }
 
     resetPassword = () => {
@@ -322,7 +332,7 @@ class UserManagementDetail extends Component {
         if(status === 200){
             this.setState({isSaveProgressing:false, isResetSuccess:true, modalPopupResetdisplay:true},self.closeModalPopupResetAuto);
         }
-          
+
     }
 
     updateRequest = async (param) => {
@@ -334,13 +344,13 @@ class UserManagementDetail extends Component {
 
         const { data, status } = await axios.post(url, param);
         if (status === 200) {
-            this.setState({ isSaveProgressing: false, isResetSuccess: true });
+            this.setState({ isSaveProgressing: false, isResetSuccess: true }, this.gotoUM());
         } else {
             this.setState({ isSaveProgressing: false, isResetSuccess: false });
         }
 
-        let id = this.props.match.params.id;
-        this.getAccountInfo(id);
+        // let id = this.props.match.params.id;
+        // this.getAccountInfo(id);
     }
 
     gotoUM = () => {
@@ -372,83 +382,88 @@ class UserManagementDetail extends Component {
 
     }
 
+    loadPersonalLogin = () => {
+        let userInfo = utility.readFromLocalStorage("persist:root");
+        let user = JSON.parse(userInfo.user)
+        this.setState({ loginInfo: user });
+    }
+
     render() {
         const { match } = this.props;
-        const { moduleAccess, sites, clients, accountInfo } = this.state;
+        const { moduleAccess, sites, clients, accountInfo, loginInfo, adminClass } = this.state;
 
 
         return (<div className="um-detail w-100 h-100">
             {/* <div className={(this.state.isLoadComplete ? 'd-none' : 'spinner')} />
             <div className={(this.state.isLoadComplete ? ' ' : 'd-none')}>
             </div> */}
-                
+
                 <HeaderTitle breadcrumb={[
                         { to: '/users-management', label: 'User Management' },
                         { to: '', label: accountInfo.user, active: true },
                     ]} />
                 <CCard>
-                        <CCardBody>
+                        <CCardBody className="p-3">
                             <form onSubmit={(e) => { e.preventDefault(); this.saveClick(); }}>
-                                <div className="account-detail mt-2">
-                                    <div className="row">
+                                <div className="account-detail">
+                                    <div className="row mb-3">
                                         <div className="col-12">
-                                            <h3>
-                                                <label className="text-primary">User Details</label>
+                                            <h3 className="mb-0">
+                                                <label className="text-primary mb-0">User Details</label>
                                             </h3>
                                         </div>
                                     </div>
 
                                     <div className="row">
-                                        <div className="col-2">
+                                        <div className="col-md-2">
                                             <label className="text-title-detail">User ID</label>
                                         </div>
 
-                                        <div className="col-2">
+                                        <div className="col-md-2">
                                             <label className="text-title-detail">Name</label>
                                         </div>
 
-                                        <div className="col-2">
+                                        <div className="col-md-2">
                                             <label className="text-title-detail">Email</label>
                                         </div>
 
 
-                                        <div className="col-3 pr-0">
+                                        <div className="col-md-3 pr-0">
                                             <label className="text-title-detail">Reset Password</label>
                                         </div>
 
-                                        <div className="col-3 pl-0">
+                                        <div className={`col-md-3 pl-0 ${accountInfo.userId === loginInfo.userId? 'd-none':''} ${accountInfo.web_group !== webgroup.ADMIN? '':' d-none '}`}>
                                             <label className="text-title-detail">Suspend Users</label>
                                         </div>
 
 
                                     </div>
-                                    <div className="row">
+                                    <div className="row mb-3">
 
-                                        <div className="col-2 pr-0">
+                                        <div className="col-md-2 pr-0">
                                             <input type="text" readOnly className="form-control" value={accountInfo.userId} />
                                         </div>
 
-                                        <div className="col-2 pr-0">
+                                        <div className="col-md-2 pr-0">
                                             <input type="text" className="form-control" maxLength="60" onChange={(e) => { this.onChangeName(e); }} value={accountInfo.user} />
                                         </div>
 
-                                        <div className="col-2 pr-0">
+                                        <div className="col-md-2 pr-0">
                                             <input type="email" name="email" className="form-control" onChange={(e) => { this.onChangeEmail(e); }} value={accountInfo.email} />
                                         </div>
 
 
-                                        <div className="col-3 pr-0">
+                                        <div className="col-md-3 pr-0">
                                             <div className="row pl-0">
-                                                <div className="col-6 text-title-detail">
-                                                    Are you sure you want<br />
-                                                      to create new password?
+                                                <div className="col-6 text-title-detail pr-0">
+                                                    Are you sure you want to create new password?
                                                 </div>
                                                 <div className="col-5">
                                                     <button type="button" className={"btn " + ((accountInfo.passwordChange === '') ? "btn-outline-active" : "btn-outline-notActive")} onClick={(e) => { this.onClickResetPassword(); }}>RESET</button>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-3 pl-0">
+                                        <div className={`col-md-3 pl-0 ${accountInfo.userId === loginInfo.userId? 'd-none':''} ${accountInfo.web_group !== webgroup.ADMIN? '':' d-none '}`}>
                                             <div className="row">
                                                 <div className="col-6 text-title-detail" >
                                                     Are you sure you want<br />
@@ -468,11 +483,11 @@ class UserManagementDetail extends Component {
 
 
                                 </div>
-                                <div className="system mt-4">
+                                <div id="system" className={`system mb-0 ${accountInfo.userId === loginInfo.userId? ' d-none ':''} ${accountInfo.web_group !== webgroup.ADMIN? '':' d-none '}`}>
                                     <div className="row">
                                         <div className="col-12">
-                                            <h3>
-                                                <label className="text-primary">System</label>
+                                            <h3 className="mb-0">
+                                                <label className="text-primary mb-0">System</label>
                                             </h3>
                                         </div>
                                     </div>
@@ -491,8 +506,8 @@ class UserManagementDetail extends Component {
 
                                 </div>
 
-                                <div className="d-flex mt-5 mr-3 justify-content-between">
-                                    <button type="button" className=" font-lg font-md font-sm btn btn-primary btn-submit default-box-height" onClick={(e) => { this.gotoUM(); }}>
+                                <div className="d-flex mt-3 mr-3 justify-content-between">
+                                    <button type="button" className=" font-lg btn btn-primary btn-submit default-box-height" onClick={(e) => { this.gotoUM(); }}>
                                         <label className="create-user-label mb-0">BACK</label>
                                     </button>
 
@@ -502,7 +517,7 @@ class UserManagementDetail extends Component {
                                         </label>
                                     </p>
 
-                                    <button type="button" className=" font-lg font-md font-sm btn btn-primary btn-submit default-box-height" onClick={(e) => { this.saveClick(); }}>
+                                    <button type="button" className=" font-lg btn btn-primary btn-submit default-box-height" onClick={(e) => { this.saveClick(); }}>
                                         <i className={(this.state.isSaveProgressing) ? "mr-2 fa fa-refresh fa-spin " : "fa fa-refresh fa-spin d-none"}></i>
                                         <label className="create-user-label mb-0">SAVE</label>
                                     </button>
@@ -513,14 +528,14 @@ class UserManagementDetail extends Component {
 
                         </CCardBody>
                     </CCard>
-                
+
 
 
                 <ResetModal show={this.state.modalPopupResetdisplay}
                     toggle={this.closeModalPopupReset}
                     isResetSuccess={this.state.isResetSuccess}
                     confirmResetPassword={this.confirmResetPassword} />
-            
+
         </div>)
     }
 
