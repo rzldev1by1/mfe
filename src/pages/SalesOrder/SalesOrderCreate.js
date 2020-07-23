@@ -19,7 +19,9 @@ class SalesOrderCreate extends React.PureComponent {
   }
   setData = (data) => {
     if (data.header && data.lineDetail) {
-      this.setState({ data, key: 'review' })
+      this.setState({ data, key: 'review' }, () => { 
+        console.log(this.state.data)
+      })
     }
   }
   onHide = () => {

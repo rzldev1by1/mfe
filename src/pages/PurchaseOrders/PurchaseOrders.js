@@ -62,7 +62,7 @@ class PurchaseOrders extends React.PureComponent {
     this.getStatus()
     this.getResources()
     this.searchPurchaseOrder()
-
+    console.log(this.props.store.user)
     const {site, client} = this.props.store.user
     if(site && client) this.getTask()
   }

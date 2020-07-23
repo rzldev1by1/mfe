@@ -430,8 +430,8 @@ showModal = (show) => {
   };
 
   render() {
-    const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state;
-    let { title, data, onClick, height, pagination } = this.props
+    const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
+    let { title, data, onClick, height, pagination,request_status } = this.props
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
 
@@ -442,7 +442,7 @@ showModal = (show) => {
           data={data}
           showPagination={false}
           style={{ height }}
-          noDataText={'Please Wait...'}
+          noDataText={(request_status)? request_status :"Please Wait..."}
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
             return {
