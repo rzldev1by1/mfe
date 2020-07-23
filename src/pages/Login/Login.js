@@ -9,7 +9,9 @@ import './Login.css'
 const baseUrl = process.env.REACT_APP_API_URL;
 const version = process.env.REACT_APP_VERSION || ''
 class Logins extends Component {
-    state = {
+   constructor(props){
+       super(props)
+       this.state = {
         formValidation: {
             username: true,
             password: true
@@ -20,6 +22,12 @@ class Logins extends Component {
         forgotPassword: false,
         policy: false
     }
+   }
+
+   componentDidMount(){
+       const {expired, user} = this.props.store
+       if(expired && !user) this.setState({errorMessage:'Sorry, you have been automaticaly logged out due to inactivity'})
+   }
 
     validateForm = async (e) => {
         e.preventDefault()
@@ -34,6 +42,7 @@ class Logins extends Component {
                 try {
                     const { data } = await axios.post(baseUrl + "/usermanagement/login", payload)
                     if (data) {
+                        this.setState({errorMessage:null})
                         this.props.dispatch({ type: 'LOGIN', data })
                         this.props.history.push('/')
                     }
