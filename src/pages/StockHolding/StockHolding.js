@@ -101,7 +101,7 @@ class StockHolding extends React.PureComponent {
   }
 
   updateDimension = () => {
-    const height = window.innerHeight - 250;
+    const height = window.innerHeight - 257;
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {

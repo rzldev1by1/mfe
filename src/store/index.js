@@ -4,15 +4,16 @@ const INITIAL_STATE = {
   darkMode: false,
   user: null,
   loading: true,
+  expired:false
 }
 
 // REDUCERS
 export const rootReducer = (state = INITIAL_STATE, { type, data, ...rest }) => {
   switch (type) {
     case 'LOGIN':
-      return { ...state, user: data }
+      return { ...state, user: data, expired:false }
     case 'LOGOUT':
-      return { ...state, user: null }
+      return { ...state, user: null, expired:true }
     case 'ASIDE':
       return { ...state, asideShow: data }
     case 'SIDEBAR':

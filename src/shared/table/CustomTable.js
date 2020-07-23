@@ -430,8 +430,8 @@ showModal = (show) => {
   };
 
   render() {
-    const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state;
-    let { title, data, onClick, height, pagination } = this.props
+    const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
+    let { title, data, onClick, height, pagination,request_status } = this.props
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
 
@@ -442,7 +442,7 @@ showModal = (show) => {
           data={data}
           showPagination={false}
           style={{ height }}
-          noDataText={'Please Wait...'}
+          noDataText={(request_status)? request_status :"Please Wait..."}
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
             return {
@@ -475,7 +475,7 @@ showModal = (show) => {
           <Modal.Header className='bg-primary px-5 py-5'>
             <Container className='px-0'>
               <Row className="mx-0">
-                <Col xs={10} sm={10} md={10} lg={10} xl={10}>
+                <Col xs={10} sm={10} md={10} lg={10} xl={10} className="px-0">
                   <div className='d-flex'>
                     <FaRegEdit color='white' size={25} /> &nbsp;
                     <span className='font-20 text-white'>Edit Column</span>
@@ -494,6 +494,7 @@ showModal = (show) => {
                 >
                   <Button
                     onClick={this.closeModal.bind(this, false, editColumnTemp)}
+                    className="pr-0 no-hover"
                   >
                     <MdClose color='white' size={30} />
                   </Button>
@@ -505,7 +506,7 @@ showModal = (show) => {
             <Row className="mx-0 justify-content-between mb-3">
               <Col lg={6} className='text-primary font-20 p-0'>{title}</Col>
               <Row className='align-items-center rename-columns mx-0 text-align-left'>
-                  <Nav tabs>
+                  <Nav tabs className="px-1">
                     <div className='input-group'>
                       <NavItem className='pl-0 pr-0'>
                         <NavLink

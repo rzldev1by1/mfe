@@ -18,7 +18,7 @@ const siteReview = ({ sites }) => {
 
         {
            (sites && sites.length)? sites.map((item, index) => {
-                return (<div className="flex-column mb-3 mr-2" key={index}>
+                return (<div className="flex-column mb-1 mr-2" key={index}>
                     <div className="row height-40" key={index}>
                         <label className="col-6 text-muted py-2" key={item.site}>{`${item.site} : ${item.name}`}</label>
 
