@@ -9,7 +9,7 @@ import { MdClose } from 'react-icons/md'
 import { FaRegEdit } from 'react-icons/fa'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 import CustomPagination from 'shared/table/CustomPagination'
-import axios from 'axios'
+
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
 import '../../pages/StockHolding/StockHolding.css'
@@ -18,25 +18,20 @@ const baseUrl = process.env.REACT_APP_API_URL;
 
 // automatic column width
 const getColumnWidth = (rows, accessor, headerText) => {
-  const cell = Math.max.apply(Math, rows.map(function (el) {
-    if (el[accessor]) {
-      if (el[accessor] === String) {
-        el[accessor].trim()
-        return el[accessor].length
+  const cellLength = Math.max(
+    ...rows.map(row => {
+      let value = '';
+      if (typeof accessor === 'string') {
+        value = _.get(row, accessor);
       } else {
-        return el[accessor].length
+        value = accessor(row);
       }
-    } else {
-      return headerText.length
-    }
-  }));
-  if (isFinite(cell)) {
-    const width = cell > headerText.length ? cell : headerText.length
-    // console.log(accessor, cell, headerText.length, width)
-    return width * 12
-  } else {
-    return headerText.length * 10
-  }
+      if (typeof value === 'number') return value.toString().length;
+      return (value || '').length;
+    }),
+    headerText.length
+  );
+  return cellLength * 12
 }
 
 class CustomTable extends React.Component {
@@ -45,12 +40,12 @@ class CustomTable extends React.Component {
     this.dragged = null;
     this.reorder = [];
     let tables = localStorage.getItem("tables") ? JSON.parse(localStorage.getItem("tables")) : [];
-    if (tables.length > 0) {
-      tables.map((data, idx) => {
-        if (data.title === props.title) {
-          this.reorder = data.reorderIdx
-        }
-      });
+    if(tables.length > 0){
+        tables.map((data, idx) => {
+            if(data.title == props.title){
+                this.reorder = data.reorderIdx
+            }
+        });
     }
     this.state = {
       showModal: false,
@@ -60,24 +55,8 @@ class CustomTable extends React.Component {
       activeTab: '1',
       changedColumns: [],
       fields: this.props.fields,
-      products: []
-    }
-  }
-
-  componentDidMount() {
-    this.mountEvents();
-    if (this.props.enableRename) {
-      this.headerRename()
-    }
-  }
-
-  componentDidUpdate() {
-    this.mountEvents();
-  }
-
-  activeTabIndex(tab) {
-    if (this.state.activeTab !== tab) {
-      this.setState({ activeTab: tab });
+      urlHeader: this.props.urlHeader,
+      products: [],
     }
   }
 
@@ -107,32 +86,48 @@ class CustomTable extends React.Component {
     this.reorder.push({ a: i, b: this.dragged });
     this.setState({ trigger: Math.random() });
 
-        let tables = localStorage.getItem("tables") ? JSON.parse(localStorage.getItem("tables")) : [];
-        if (tables.length > 0) {
-          tables.map((data, index) => {
-            if (data.title === this.props.title) {
-              tables.splice(index, 1);
+    let tables = localStorage.getItem("tables") ? JSON.parse(localStorage.getItem("tables")) : [];
+    if(tables.length > 0){
+        tables.map((data, index) => {
+            if(data.title === this.props.title){
+                tables.splice(index, 1);
             }
-          })
-          tables.push({
+        })
+        tables.push({
             userId: this.props.store.user.userId,
             title: this.props.title,
             reorderIdx: this.reorder
-          })
-        } else {
-          tables.push({
+        })
+    }else{
+        tables.push({
             userId: this.props.store.user.userId,
             title: this.props.title,
             reorderIdx: this.reorder
-          })
-        }
-        localStorage.setItem("tables", JSON.stringify(tables));
-      };
-    });
-  }
+        })
+    }
+    localStorage.setItem("tables", JSON.stringify(tables));
+  };
+});
+}
 
-  showModal = (show) => {
-    this.setState({ showModal: show })
+componentDidMount() {
+  this.mountEvents();
+}
+
+componentDidUpdate() {
+  this.mountEvents();
+}
+
+showModal = (show) => {
+  this.setState({ showModal: show })
+}
+  componentDidMount = () => {
+    this.headerRename();
+  };
+  activeTabIndex(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({ activeTab: tab });
+    }
   }
 
   closeModal = (close, editColumnTemp) => {
@@ -286,72 +281,7 @@ class CustomTable extends React.Component {
     }
   };
 
-  changedColumn = (e) => {
-    let changedColumns = this.state.changedColumns;
-
-    if (e.target.value.length > 0) {
-      changedColumns.map((item, idx) => {
-        if (item.accessor) {
-          if (item.accessor === e.target.name) {
-            changedColumns.splice(idx, 1)
-          }
-        }
-      })
-
-      changedColumns.push({
-        accessor: e.target.name,
-        header: e.target.value
-      })
-
-      this.setState({ changedColumns });
-    }
-  }
-
-  headerRename = async () => {
-    const url = `${this.props.headerUrl}?client=ANTEC`;
-    const { data } = await axios.get(url);
-    let header = [];
-    let accessor = Object.keys(data.data[0]);
-    accessor.map((data, idx) => {
-      let lowerCase = data.toLowerCase();
-      if (lowerCase.includes(' ')) {
-        let split = lowerCase.split(' ');
-        let result = split.join('_');
-        accessor[idx] = result;
-      } else {
-        accessor[idx] = lowerCase;
-      }
-    });
-    let placeholder = Object.keys(data.data[0]);
-    placeholder.map((data, idx) => {
-      let lowerCase = data.toLowerCase();
-      if (lowerCase.includes(' ')) {
-        let split = lowerCase.split(' ');
-        let result = split.join(' ');
-        placeholder[idx] = result;
-      } else {
-        placeholder[idx] = lowerCase;
-      }
-    });
-    Object.values(data.data[0]).map((data, idx) => {
-      let headerTable = {
-        accessor: 'site',
-        Header: 'site',
-        placeholder: 'site',
-        sortable: true,
-      };
-      headerTable.Header = data;
-      headerTable.placeholder = placeholder[idx];
-      headerTable.accessor = accessor[idx];
-      header.push(headerTable);
-    });
-    if (data.data.length) {
-      this.setState({
-        products: data.data[0],
-        fields: header,
-      });
-    }
-  };
+  // Header Name And
 
   renameSubmits = async (e) => {
     const fields = this.state.fields;
@@ -366,7 +296,7 @@ class CustomTable extends React.Component {
 
     fields.map((item, idx) => {
       changedFieldAccessor.map((data, idx) => {
-        if (item.accessor === data) {
+        if (item.accessor == data) {
           item.Header = changedFieldHeader[idx];
         }
       });
@@ -397,9 +327,11 @@ class CustomTable extends React.Component {
       }
     });
 
+    let newPayload = {};
+
     for (let i = 0; i < Object.keys(this.state.products).length; i++) {
       fieldsAccessor.map((data, idx) => {
-        if (payloadIndex[i] === data) {
+        if (payloadIndex[i] == data) {
           payload[payloadIndex[i]] = changedFieldHeader[idx];
           payloadIndex.splice(i, 1);
           defaultValues.splice(i, 1);
@@ -412,25 +344,94 @@ class CustomTable extends React.Component {
     });
 
     this.setState({ columnsPayload: payload });
+
+    const baseUrl = process.env.REACT_APP_API_URL;
+
     try {
-      const clients = ['ANTEC', 'BEGA', 'AESOP', 'CLUCTH', 'EXQUIRA', 'LEDVANCE', 'ONESTOP', 'STARTRACK', 'TATURA', 'TTL', 'TTCHEM']
-      const clientsData = clients.map(async client => {
-        const { data } = await axios.post(`${baseUrl}/${this.props.putUrl}?client=${client}`, payload)
-        return data
-      })
-      // console.log(clientsData)
+      const urlAntec = await axios.post(
+        baseUrl + this.props.UrlAntec(),
+        payload
+      );
+      const urlBega = await axios.post(baseUrl + this.props.UrlBega(), payload);
+      const urlAesop = await axios.post(
+        baseUrl + this.props.UrlAesop(),
+        payload
+      );
+      const urlClucth = await axios.post(
+        baseUrl + this.props.UrlClucth(),
+        payload
+      );
+      const urlExquira = await axios.post(
+        baseUrl + this.props.UrlExquira(),
+        payload
+      );
+      const urlLedvance = await axios.post(
+        baseUrl + this.props.UrlLedvance(),
+        payload
+      );
+      const urlOnestop = await axios.post(
+        baseUrl + this.props.UrlOnestop(),
+        payload
+      );
+      const urlStartrack = await axios.post(
+        baseUrl + this.props.UrlStartrack(),
+        payload
+      );
+      const urlTatura = await axios.post(
+        baseUrl + this.props.UrlTatura(),
+        payload
+      );
+      const urlTtl = await axios.post(baseUrl + this.props.UrlTtl(), payload);
+      const urlTtchem = await axios.post(
+        baseUrl + this.props.UrlTtchem(),
+        payload
+      );
+      const { data } =
+        urlAntec +
+        urlBega +
+        urlAesop +
+        urlClucth +
+        urlExquira +
+        urlLedvance +
+        urlOnestop +
+        urlStartrack +
+        urlTatura +
+        urlTtl +
+        urlTtchem;
+      console.log(data);
     } catch (error) {
-      console.warn(error);
+      console.log(error);
+    }
+  };
+
+  changedColumn = (e) => {
+    let changedColumns = this.state.changedColumns;
+
+    if (e.target.value.length > 0) {
+      changedColumns.map((item, idx) => {
+        if (item.accessor) {
+          if (item.accessor == e.target.name) {
+            changedColumns.splice(idx, 1);
+          }
+        }
+      });
+
+      changedColumns.push({
+        accessor: e.target.name,
+        header: e.target.value,
+      });
+
+      this.setState({ changedColumns: changedColumns });
     }
   };
 
   renameSubmit = (e) => {
     this.renameSubmits(this.state.changedColumns);
-    this.setState({ showModal: false })
-  }
+    this.setState({ showModal: false });
+  };
 
   render() {
-    const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
+    const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state;
     let { title, data, onClick, height, pagination } = this.props
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
@@ -548,66 +549,76 @@ class CustomTable extends React.Component {
                   </Nav>
               </Row>
             </Row>
-            <Row className="align-items-center rename-columns">
-              <div className="col-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
-                <Nav tabs>
-                  <div className="input-group" style={{ height: "max-content" }}>
-                    <NavItem className="pl-0 pr-0">
-                      <NavLink className={"nav-link-cust tab-color" + (activeTab === "1" ? " tab-rename" : "")} active={this.state.activeTab === "1"} onClick={() => { this.activeTabIndex("1"); }}>
-                        <div className="row rowTabCustom align-items-center">
-                          <span className="tabTitleText"> {activeTab === "1"}TOGGLE COLUMN </span>
-                        </div>
-                      </NavLink>
-                    </NavItem>
-
-                    <NavItem className={"pl-2 pr-0 "} style={{ marginLeft: "-6px" }}>
-                      <NavLink className={"nav-link-cust tab-color" + (activeTab === "2" ? " tab-rename" : "")} active={this.state.activeTab === "2"} onClick={() => { this.activeTabIndex("2"); }}>
-                        <div className="row rowTabCustom align-items-center">
-                          <span className="tabTitleText"> {activeTab === "2"} RENAME COLUMN </span>
-                        </div>
-                      </NavLink>
-                    </NavItem>
-                  </div>
-                </Nav>
-              </div>
-            </Row>
-            <Row>
-              <Col sm="12" md="12" lg="12">
+            <Row >
+              <Col sm='12' md='12' lg='12' className="px-0">
                 <TabContent activeTab={this.state.activeTab}>
-                  <TabPane tabId="1">
-                    <Row xl={5} lg={10} className="mx-1"  >
-                      {
-                        fields && fields.map((item, index) => {
+                  <TabPane tabId='1'>
+                    <Row xl={5} lg={10} className='mx-1'>
+                      {fields &&
+                        fields.map((item, index) => {
                           return (
-                            <Col key={index} className="p-2">
-                              <button className={`text-left btn btn-block ${!editColumn[index] ? 'btn-outline-primary' : 'btn-light-gray'}`}
-                                onClick={this.showColumn.bind(this, item.Header, index, fields.length)}
+                            <Col key={index} className='p-2'>
+                              <button
+                                className={`text-left btn btn-block ${
+                                  !editColumn[index]
+                                    ? 'btn-outline-primary'
+                                    : 'btn-light-gray'
+                                }`}
+                                onClick={this.showColumn.bind(
+                                  this,
+                                  item.Header,
+                                  index,
+                                  fields.length
+                                )}
                               >
-                                {!editColumn[index] ? <AiOutlineEye size={25} /> : <AiOutlineEyeInvisible size={25} />}
-                                <b className="p-0"> {item.Header} </b>
+                                {!editColumn[index] ? (
+                                  <AiOutlineEye size={25} />
+                                ) : (
+                                  <AiOutlineEyeInvisible size={25} />
+                                )}
+                                <b className='p-0'> {item.Header} </b>
                               </button>
                             </Col>
-                          )
-                        })
-                      }
+                          );
+                        })}
                     </Row>
-                    <Button variant="primary" className="px-5 float-right" onClick={this.saveEdit.bind(this, editColumn)} >Save</Button>
-                  </TabPane >
-                  <TabPane tabId="2">
-                    <Row xl={5} lg={10} className="mx-1"  >
-                      {
-                        fields && fields.map((item, index) => {
+                    <Col className="pt-5">
+                      <Button
+                        variant='primary'
+                        className='px-3 float-right'
+                        onClick={this.saveEdit.bind(this, editColumn)}
+                      >
+                        SAVE
+                      </Button>
+                    </Col>
+                  </TabPane>
+                  <TabPane tabId='2'>
+                    <Row xl={5} lg={10} className='mx-1'>
+                      {fields &&
+                        fields.map((item, index) => {
                           return (
-                            <Col key={index} className="p-2">
-                              <input placeholder={item.placeholder} name={item.accessor} sortable={item.sortable} onChange={this.changedColumn} className={`text-left form-rename `}>
-                              </input>
-                            </Col>
-                          )
-                        })
-                      }
+                            <div key={index} className='p-2'>
+                              <input
+                                placeholder={item.placeholder}
+                                name={item.accessor}
+                                sortable={item.sortable}
+                                onChange={this.changedColumn}
+                                className={`text-left form-rename `}
+                              />
+                            </div>
+                          );
+                        })}
                     </Row>
-                    <Button variant="primary" className="px-3 float-right" onClick={this.renameSubmit} >DONE</Button>
-                  </TabPane >
+                    <Col className="pt-5">
+                      <Button
+                        variant='primary'
+                        className='px-3 float-right'
+                        onClick={this.renameSubmit}
+                      >
+                        DONE
+                      </Button>
+                    </Col>
+                  </TabPane>
                 </TabContent>
               </Col>
             </Row>

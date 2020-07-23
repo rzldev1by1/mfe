@@ -207,6 +207,9 @@ class PurchaseOrders extends React.PureComponent {
     this.setState({site:site})
     this.getTask()
   }
+  UrlHeader = () =>{
+    return `$/getSalesOrderHeader?client=ANTEC`
+  }
 
   render() {
     const {
