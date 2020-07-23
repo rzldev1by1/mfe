@@ -79,7 +79,7 @@ class SalesOrder extends React.PureComponent {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - 270)
+    const height = (window.innerHeight - 257)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {
@@ -231,7 +231,7 @@ class SalesOrder extends React.PureComponent {
       <CCard className="mb-3">
         <CCardBody className="p-3">
           <CRow>
-            <CCol lg={3} className="pr-2">
+            <CCol lg={3} className="px-0">
               <div className="input-group">
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
@@ -239,9 +239,9 @@ class SalesOrder extends React.PureComponent {
                 <input type="text" className="form-control pl-0 border-left-0" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
               </div>
             </CCol>
-            <CCol lg={9}>
+            <CCol lg={9} className="pr-0">
               <CRow>
-                <CCol lg={2} className="px-2">
+                <CCol lg={2} className="px-0">
                   {
                   this.props.store.user.site ?
                   <input value={this.siteCheck(site.value)} className="form-control" readOnly />
@@ -252,7 +252,7 @@ class SalesOrder extends React.PureComponent {
                   />
                 }  
                 </CCol>
-                <CCol lg={2} className="px-2">
+                <CCol lg={2} className="px-3">
                   {
                     this.props.store.user.client ?
                     <input value={this.clientCheck(client.value)} className="form-control" readOnly />
@@ -263,25 +263,25 @@ class SalesOrder extends React.PureComponent {
                     />
                   }
                 </CCol>
-                <CCol lg={2} className="px-2">
+                <CCol lg={2} className="px-0">
                   <Select name="status"
                     value={status} options={statusData}
                     onChange={(val) => this.setState({ status: val })}
                   />
                 </CCol>
-                <CCol lg={2} className="px-2">
+                <CCol lg={2} className="px-3">
                   <Select name="orderType" placeholder="Order Type"
                     value={orderType} options={orderTypeData}
                     onChange={(val) => this.setState({ orderType: val })}
                   />
                 </CCol>
-                <CCol lg={2} className="px-2">
+                <CCol lg={2} className="px-0">
                   <Select name="task" placeholder="Task"
                     value={task} options={taskData}
                     onChange={(val) => this.setState({ task: val })}
                   />
                 </CCol>
-                <CCol lg={2} className="pl-2">
+                <CCol lg={2} className="px-0">
                   <button className="btn btn-search btn-primary float-right" onClick={this.searchSalesOrder}>SEARCH</button>
                 </CCol>
               </CRow>
@@ -302,7 +302,9 @@ class SalesOrder extends React.PureComponent {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchSalesOrder())
         }}
         request_status={this.state.request_status}
-        export={<button className="btn btn-primary float-right px-4 btn-export">EXPORT <IoIosArrowDown /></button>}
+        export={<button className="btn btn-primary d-flex float-right align-items-center px-3 btn-export">
+           <div className='export-export pr-3' />
+          EXPORT </button>}
       />
 
       <SalesOrderCreate
