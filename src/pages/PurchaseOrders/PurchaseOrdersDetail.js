@@ -83,6 +83,9 @@ class PurchaseOrdersDetail extends React.Component {
       if (data.value === clientVal) return data.label
     })
   }
+  UrlHeader = () =>{
+    return `$/getPurchseHeader?client=ANTEC`
+  }
 
   render() {
     // const { match, history } = this.props
@@ -125,6 +128,7 @@ class PurchaseOrdersDetail extends React.Component {
         height={this.state.dimension.height}
         fields={fields}
         data={products}
+        UrlHeader={this.UrlHeader} 
       />
       <CustomPagination
         data={products}
