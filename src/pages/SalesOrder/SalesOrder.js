@@ -16,10 +16,11 @@ import './SalesOrder.scss'
 const columns = [
   { accessor: 'site', Header: 'Site', width: 50 },
   { accessor: 'client', Header: 'Client', width: 100 },
-  { accessor: 'orderno', Header: 'Order No', width: 100, style:{textAlign: 'left'} },
+  { accessor: 'orderno', Header: 'Order No', style: { textAlign: 'left' }, width: 100 },
   { accessor: 'ordertype', Header: 'Order Type', width: 120 },
-  { accessor: 'task', Header: 'Task', width: 100 },
-  { accessor: 'customername', Header: 'Customer', width: 250 },
+  { accessor: 'task', Header: 'Task', width: 100 }, 
+  { accessor: 'customer', Header: 'Customer No', style: { textAlign: 'left' } },
+  { accessor: 'customername', Header: 'Customer Name' },
   { accessor: 'status', Header: 'Status', width: 150 },
   { accessor: 'deliverydate', Header: 'Delivery Date', width: 120 },
   { accessor: 'datereceived', Header: 'Date Received', width: 120 },
@@ -41,14 +42,17 @@ const columns = [
   { accessor: 'loadoutfinish', Header: 'Load Finish' },
   { accessor: 'consignmentno', Header: 'Consignment No' },
   { accessor: 'freightcharge', Header: 'Freight Charge' },
-  { accessor: 'customer', Header: 'Customer Code' },
 ]
 class SalesOrder extends React.PureComponent {
   state = {
     search: '',
-    site: null,
-    client: null,
-    status: null,
+    site: {
+      value:this.props.store.user.site ? this.props.store.user.site : '',
+    },
+    client: {
+      value: this.props.store.user.client ? this.props.store.user.client : '',
+    },
+    status: {value: "open", label: "All Open"}, //on load status=open
     orderType: null,
     task: null,
     resources: [],
@@ -118,15 +122,21 @@ class SalesOrder extends React.PureComponent {
     const { user } = this.props.store
     if (user) {
       const { data } = await axios.get(`${endpoints.getSoResources}?company=${user.company || ''}&client=${user.client || ''}`)
-      const { code, name } = data.orderType
-      const orderTypeData = code.map((c, i) => ({ value: c, label: `${code[i]}: ${name[i]}` }))
-      const orderType = { value: 'all', label: 'All' }
+      const { code, name } = data.orderTypeFilter
+      const orderTypeData = code.map((c, i) => ({ value: c, label: `${code[i]}: ${name[i]}` })) 
+      const orderType = { value: 'all', label: 'All Order' }
       orderTypeData.splice(0, 0, orderType)
-      this.setState({ resources: data, orderTypeData })
+
+      const code2 = data.orderType.code
+      const name2 = data.orderType.name
+      const orderTypeInsert = code2.map((c, i) => ({ value: c, label: `${code2[i]}: ${name2[i]}` })) 
+      this.setState({ resources: data, orderTypeData, orderTypeInsert }) 
+       
     }
   }
   searchSalesOrder = async () => {
-    let { search, site, client, orderType, status,task, pagination } = this.state
+    let { search, site, client, orderType, status, task, pagination } = this.state
+    console.log(status)
     this.setState({ data: [], request_status: "Please Wait..." })
     let urls = []
     urls.push('searchParam=' + (search ? search : ''))
@@ -146,7 +156,7 @@ class SalesOrder extends React.PureComponent {
         m.loadoutstart = m.loadoutstart ? moment(m.loadoutstart).format('DD/MM/YYYY') : ''
         m.loadoutfinish = m.loadoutfinish ? moment(m.loadoutfinish).format('DD/MM/YYYY') : ''
         return m
-      })       
+      })
       modifiedData.map((item, idx) => {
         if ((item["status"]) === "1: Available") {
           item['status'] = [<a className="status-available">AVAILABLE</a>]
@@ -162,8 +172,8 @@ class SalesOrder extends React.PureComponent {
           item['status'] = [<a className="status-ok">ALL OPEN</a>]
         }
       })
-      if(data.data.total<1){
-        this.setState({ request_status: "No Data Found"  })
+      if (data.data.total==0) {
+        this.setState({ request_status: "No Data Found" })
       }
       this.setState({
         pagination: {
@@ -172,8 +182,8 @@ class SalesOrder extends React.PureComponent {
           total: data.data.total
         },
         data: modifiedData
-      })
-    } else { 
+      }, () => {console.log (this.state.pagination)})
+    } else {
       this.setState({ request_status: "No Data Found" })
       this.setState({ data: [] })
     }
@@ -186,15 +196,36 @@ class SalesOrder extends React.PureComponent {
   toggle = (value) => {
     this.setState({ create: value ? value : !this.state.create })
   }
+  
+  siteCheck = (siteVal) => {
+    let l = null
+    this.props.store.site.map(data => {
+      if (data.value === siteVal) l = data.label
+    })
+    return l
+  }
+
+  clientCheck = (clientVal) => {
+    let c = null
+    this.props.store.client.map(data => {
+      if (data.value === clientVal) c = data.label
+    })
+    return c
+  }
+  
+  UrlHeader = () =>{
+    return `$/getSalesOrderHeader?client=ANTEC`
+  }
+  
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData, taskData, request_status
+      siteData, clientData, statusData, orderTypeData,orderTypeInsert, taskData
     } = this.state
     return <div className="sales-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Sales Orders', active: true }]}
-        button={<CButton onClick={this.toggle} className="btn btn-primary btn-create float-right">Create Sales Order</CButton>}
+        button={<CButton onClick={this.toggle} className="btn btn-primary btn-create float-right">CREATE SALES ORDER</CButton>}
       />
 
       <CCard className="mb-3">
@@ -205,22 +236,32 @@ class SalesOrder extends React.PureComponent {
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
                 </div>
-                <input type="text" className="form-control border-left-0" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
+                <input type="text" className="form-control pl-0 border-left-0" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
               </div>
             </CCol>
             <CCol lg={9}>
               <CRow>
                 <CCol lg={2} className="px-2">
+                  {
+                  this.props.store.user.site ?
+                  <input value={this.siteCheck(site.value)} className="form-control" readOnly />
+                  : 
                   <Select name="site" placeholder="Site"
-                    value={site} options={siteData}
+                    value={site.value} options={siteData}
                     onChange={(val) => this.setState({ site: val }, () => this.getTask())}
                   />
+                }  
                 </CCol>
                 <CCol lg={2} className="px-2">
-                  <Select name="client" placeholder="Client"
-                    value={client} options={clientData}
-                    onChange={(val) => this.setState({ client: val }, () => this.getTask())}
-                  />
+                  {
+                    this.props.store.user.client ?
+                    <input value={this.clientCheck(client.value)} className="form-control" readOnly />
+                    :
+                    <Select name="client" placeholder="Client"
+                      value={client.value} options={clientData}
+                      onChange={(val) => this.setState({ client: val }, () => this.getTask())}
+                    />
+                  }
                 </CCol>
                 <CCol lg={2} className="px-2">
                   <Select name="status"
@@ -256,6 +297,7 @@ class SalesOrder extends React.PureComponent {
         fields={fields}
         pagination={pagination}
         onClick={this.showDetails}
+        UrlHeader={this.UrlHeader} 
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchSalesOrder())
         }}
@@ -269,7 +311,7 @@ class SalesOrder extends React.PureComponent {
         siteData={siteData}
         clientData={clientData}
         statusData={statusData}
-        orderTypeData={orderTypeData}
+        orderTypeData={orderTypeInsert}
       />
     </div>
   }

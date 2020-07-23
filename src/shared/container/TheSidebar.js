@@ -7,9 +7,9 @@ import {
   CSidebarNav,
 } from '@coreui/react'
 import Logo from 'assets/img/logo-white.png'
-import UserIcon from 'assets/img/User-Icon.png';
 import navigation from './_nav'
 import './TheSidebar.css'
+
 
 const TheSidebar = () => {
   const dispatch = useDispatch()
@@ -28,6 +28,7 @@ const TheSidebar = () => {
       className="h-100"
       onShowChange={(val) => dispatch({ type: 'set', sidebarShow: val })}
     >
+
       {/* <CSidebarBrand to="/">
         <img src={Logo} className="c-sidebar-brand-full" height="35" alt="logo" />
         <img src={Logo} className="c-sidebar-brand-minimized" height="35" alt="logo" />
@@ -39,25 +40,30 @@ const TheSidebar = () => {
         <li className="c-sidebar-item logo-text">
           Microlistics
         </li>
+        <li>
+
+        </li>
       </ul>
       <CSidebarNav className="sidebar-nav-menu">
         {navigation.map((n, i) => {
-          const active = location.pathname === n.to ? 'text-white' : 'text-purple'
-          return <li key={i} className="c-sidebar-item links">
-            <Link to={n.to} className={active} onMouseEnter={() => setHover(n.to)} onMouseLeave={() => setHover(null)} >
-              <i className={`m-0 c-sidebar-nav-icon ${hover === n.to ? n.icon + '-hover' : n.icon}`}></i>
-              <div>{n.name}</div>
+          const isActive = location.pathname === n.to
+          const isHover = hover === n.to
+          let icon = `nav/${isHover ? n.icon + '-hover' : isActive ? n.icon + '-active' : n.icon}.png`
+          return <li key={i} className="c-sidebar-item links" onMouseEnter={() => setHover(n.to)} onMouseLeave={() => setHover(null)} >
+            <Link to={n.to} className={isActive} >
+              <img className={`m-0 mb-1 c-sidebar-nav-icon ${n.icon}`} src={icon} alt="" />
+              <div className={isHover || isActive ? 'text-white' : 'text-blue'}>{n.name}</div>
             </Link>
           </li>
         })}
       </CSidebarNav>
       <ul className="sidebar-nav-bottom m-0 p-0">
-        <li className="c-sidebar-item">
-        <i className="m-0 c-sidebar-nav-icon nav-profile"></i>
-          <div className=" text-left">
-            <div className="user-name">{user.name}</div>
-            <div className="user-id">ID: {user.userId} </div>
-            <a href="#/" onClick={signOut} className="user-logout"> Logout </a>
+        <li className="c-sidebar-item" onMouseEnter={() => setHover('logout')} onMouseLeave={() => setHover(null)}>
+          <img className="m-0 c-sidebar-nav-icon-profile" src="nav/profile.png" alt="" />
+          <div className=" text-left text-blue">
+            <div>{user.name}</div>
+            <div>ID: {user.userId} </div>
+            <a href="#/" onClick={signOut} className={hover === 'logout' ? 'text-white' : 'text-blue'}> Logout </a>
           </div>
         </li>
       </ul>

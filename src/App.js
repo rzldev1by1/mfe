@@ -28,7 +28,7 @@ class ProtectedRoute extends React.Component {
 			axios.interceptors.response.use(response => {
 				return response;
 			}, function (error) {
-				if (error.response.status === 401) {
+				if (error?.response?.status === 401) {
 					props.dispatch({ type: 'LOGOUT' })
 				}
 				return Promise.reject(error);

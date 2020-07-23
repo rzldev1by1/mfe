@@ -79,6 +79,9 @@ class SalesOrderDetail extends React.Component {
     this.getStockDetails();
     this.getForescast();
   }
+  UrlHeader = () =>{
+    return `/getPurchase?client=ANTEC`
+  }
   activeTabIndex = (tabIndex) => {
     if (this.state.activeTab !== tabIndex) {
       this.setState({ activeTab: tabIndex });
@@ -101,6 +104,7 @@ class SalesOrderDetail extends React.Component {
     axios
       .get(url)
       .then((res) => {
+        console.log(res);
         const result = res.data.data;
         this.setState({ datahead: result });
         this.potableref.current.setPagination(res);
@@ -279,6 +283,7 @@ class SalesOrderDetail extends React.Component {
                   height={this.state.dimension.height}
                   fields={stockDetail}
                   data={products}
+                  UrlHeader={this.UrlHeader}
                 />
               </TabPane>
               <TabPane className='stockDetails' tabId='2'>
@@ -287,6 +292,7 @@ class SalesOrderDetail extends React.Component {
                   height={this.state.dimension.height}
                   fields={ForesCast}
                   data={products}
+                  UrlHeader={this.UrlHeader}
                 />
               </TabPane>
             </TabContent>

@@ -219,10 +219,10 @@ class DatePicker extends React.Component {
                 <ul className={className} style={this.props.style} tabIndex={this.props.tabIndex ? this.props.tabIndex : null}>
                     <input type="text"
                         ref="dateValue"
-                        placeholder={this.props.placeHolder ? this.props.placeHolder : "DD-MM-YYYY"}
+                        placeholder={this.props.placeHolder ? this.props.placeHolder : "DD/MM/YYYY"}
                         className="form-control"
                         maxLength="10"
-                        defaultValue={this.state.selectedDays ? moment(this.state.selectedDay).format("DD-MM-YYYY") : null}
+                        defaultValue={this.state.selectedDays ? moment(this.state.selectedDay).format("DD/MM/YYYY") : null}
                         onChange={(e) => { this.dateValueProcess(e) }}
                         onFocus={() => this.openDatePicker()}
                         onKeyUp={(e) => this.dateValueFormat(e)}
