@@ -18,7 +18,7 @@ const Required = ({ error, id }) => {
 //     return debounced(e)
 //   }
 // }
-
+var tmpChar = "";
 class CreateTab extends React.Component {
   state = {
     overflow: [],
@@ -28,7 +28,9 @@ class CreateTab extends React.Component {
     datepickerStatus: [],
     UOMStatus: [],
     dispositionStatus: [],
-    productStatus: []
+    productStatus: [],
+    deliveryDate: null,
+    orderId: null
 
     // orderId: 'AB29123', shipToAddress1: 'Ark Street 12', postCode: '291923', state: 'Victoria',
   }
@@ -106,7 +108,9 @@ class CreateTab extends React.Component {
     const { name, value } = e.target
     const { orderLine } = this.state
     orderLine[i][name] = value
-    this.setState({ orderLine })
+    this.setState({ orderLine },() => {
+      console.log(orderLine)
+    })
   }
   lineSelectChange = (i, key, val) => {
     const { orderLine, error } = this.state
@@ -134,15 +138,14 @@ class CreateTab extends React.Component {
     let { error, client } = this.state
     let orderId = e.target.value
     this.setState({ orderId: orderId.toUpperCase() })
-    // console.log('find order no:', client, orderId)
     if (!client) {
       error.orderId = 'Please select client first'
       return this.setState({ error })
     }
-    if (!orderId) {
-      error.orderId = 'Order no. cannot be empty'
-      return this.setState({ error })
-    }
+    // if (!orderId) {
+    //   error.orderId = 'Order no. cannot be empty'
+    //   return this.setState({ error })
+    // }
     if (orderId.length < 4) {
       error.orderId = 'Order no. must have min 4 characters'
       return this.setState({ error })
@@ -159,7 +162,7 @@ class CreateTab extends React.Component {
   }
   findCustomer = (val) => {
     if (val) {
-      console.log('find customer: ', val)
+      // console.log('find customer: ', val)
     }
   }
 
@@ -188,6 +191,46 @@ class CreateTab extends React.Component {
       const payload = { header, lineDetail }
       this.props.submit(payload)
     }
+  }
+
+  
+  numberCheck = (e, comma=false) => {  
+    tmpChar = e.key; 
+    if (!comma && !/^[0-9]+$/.test(e.key)) {
+      e.preventDefault()
+    }else if(comma && !/^[0-9.]+$/.test(e.key)){
+      e.preventDefault()
+    }
+  }
+
+  numberCommaCheck = (index, refs, numberLength, commaLength,e) => {  
+      console.log(tmpChar)
+      var value = e.target.value 
+      var arr = value.split(".")  
+      var x = ''
+      if(arr[0].length > numberLength){
+        x = arr[0].substr(0,numberLength) 
+      }else{
+        x = arr[0]
+      }
+      var y = ''
+      if(arr[1] && arr[1].length > commaLength){
+        y = '.'+arr[1].substr(0,commaLength)
+      }else if(arr[1]){
+        y = '.'+arr[1]
+      }
+      var text =x+((tmpChar=='.')?'.':'')+y 
+      console.log(arr)
+      console.log(value)
+      console.log(text)
+      var arr2 = {
+        target: {
+          name: refs,
+          value: text
+        }
+      }
+      this.refs[refs].value = text
+      this.lineChange(index, arr2)
   }
 
   render() {
@@ -349,11 +392,11 @@ class CreateTab extends React.Component {
                   <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly />
                 </td>
                 <td className="px-1">
-                  <input name="qty" onChange={(e) => this.lineChange(i, e)} type="number" min="0" className="form-control" placeholder="Qty" maxLength="10"  />
+                  <input name="qty" onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control"  onKeyPress={(e) => this.numberCheck(e)}  placeholder="Qty" maxLength="10"  />
                   <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="px-1">
-                  <input name="weight" onChange={(e) => this.lineChange(i, e)} type="number" min="0" className="form-control" placeholder="Weight" />
+                  <input name="weight" ref="weight" onChange={(e) => this.numberCommaCheck(i, "weight", 11,3, e)} type="text" min="0" className="form-control" placeholder="Weight" onKeyPress={(e) => this.numberCheck(e,true)}  />
                 </td>
                 <td className="px-1">
                   <Select value={o.uom || ''}

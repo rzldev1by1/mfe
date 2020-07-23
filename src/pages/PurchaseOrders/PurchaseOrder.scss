@@ -1,0 +1,79 @@
+.purchase-order {
+  .search-padding {
+    padding-top: 0.9rem;
+    padding-bottom: 0.9rem;
+    padding-right: 1.4rem;
+    padding-left: 1.4rem;
+  }
+
+  /* Sales Order Create */
+  .required::after {
+    content: " *";
+    color: #e55353;
+  }
+  .tab-content {
+    padding: 0;
+    margin: 0;
+    background-color: #fff;
+    color: #000;
+    /* overflow: hidden; */
+  }
+  .nav-link {
+    background-color: #eee;
+    color: #959da0 !important;
+    border: none !important;
+    font-size: 20px;
+    padding-left: 20px;
+    margin-left: 5px !important;
+    cursor: pointer;
+  }
+  .nav-link.active {
+    background-color: #fff !important;
+    color: #376bfb !important;
+  }
+  .nav-tabs {
+    margin-left: 26px;
+    border: none;
+  }
+}
+.purchase-order-create {
+  textarea {
+    min-height: 35px !important;
+  }
+  .modal-desc {
+    padding-left: 36px;
+  }
+  .purchase-order ::placeholder,
+  ::placeholder,
+  .css-1wa3eu0-placeholder {
+    color: #b4b9bb !important;
+  }
+  .text-error {
+    padding-left: 10px;
+  }
+  .orderline-row td {
+    vertical-align: top;
+  }
+  .orderline .absolute {
+    position: absolute !important;
+    z-index: 99;
+  }
+  .orderline .right {
+    right: 22% !important;
+  }
+
+  .po-lh-1 {
+    line-height: 1rem;
+  }
+
+  .pod .card {
+    box-shadow: transparent;
+  }
+
+  .pod .card .card-body .row {
+    padding-bottom: 0.5rem !important;
+  }
+  .pod .card .card-body .row:last-child {
+    padding-bottom: 0px !important;
+  }
+}

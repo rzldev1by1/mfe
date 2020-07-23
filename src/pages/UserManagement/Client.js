@@ -2,7 +2,7 @@ import React from 'react'
 import './UserManagement.css'
 
 const client = ({ clients, onEnableClick, onClientEnableAll, isEnableAllClient }) => {
-
+    console.log(clients);
     const disableAll = 'Disable All';
     const enableAll = 'Enable All';
     const enable = 'Enabled';
@@ -31,7 +31,7 @@ const client = ({ clients, onEnableClick, onClientEnableAll, isEnableAllClient }
                 (clients && client.length) ? clients.map((item, index) => {
                     return (<div className="flex-column" key={index}>
                         <div className="d-flex mb-3" key={index}>
-                            <label className="text-muted col-6 section-value-text p-0 py-2 " key={item.code}>{`code: ${capitalizeFirstLetter(item.name)}`}</label>
+                            <label className="text-muted col-6 section-value-text p-0 py-2 " key={item.code}>{`${item.code}: ${item.name}`}</label>
                             
                             <div className="col-6"> 
                                 <button type="button" htmlFor={item.code} className={"btn px-1 float-right " + ((item.status) ? "btn-outline-active" : "btn-outline-notActive")} onClick={(e) => { onEnableClick(e, index); }}>

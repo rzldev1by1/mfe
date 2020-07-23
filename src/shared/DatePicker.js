@@ -97,7 +97,6 @@ function YearMonthForm({ date, localeUtils, onChange, current, fromMonth, toMont
                 usedFor="Datepicker"
                 field="orderDate"
             />
-            {/* {console.log(monthValue, yearValue)} */}
             {/* <select name="month" onChange={handleChange} value={date.getMonth()}>
         {months.map((month, i) => (
           <option key={month} value={i}>
@@ -223,7 +222,7 @@ class DatePicker extends React.Component {
                         placeholder={this.props.placeHolder ? this.props.placeHolder : "DD-MM-YYYY"}
                         className="form-control"
                         maxLength="10"
-                        defaultValue={this.state.selectedDays ? moment(this.state.selectedDay).format("DD-MM-YYYY") : null}
+                        defaultValue={this.state.selectedDays ? moment(this.state.selectedDay).format("DD/MM/YYYY") : null}
                         onChange={(e) => { this.dateValueProcess(e) }}
                         onFocus={() => this.openDatePicker()}
                         onKeyUp={(e) => this.dateValueFormat(e)}

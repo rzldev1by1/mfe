@@ -6,7 +6,7 @@ import { CCard, CCardBody, CRow, CCol, CButton, } from '@coreui/react'
 import CustomTable from 'shared/table/CustomTable'
 import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader'
-import './PurchaseOrder.css'
+import './PurchaseOrder.scss'
 const columns = [
   { accessor: "orig_line_number", Header: "Line No" },
   { accessor: "product", Header: "Product" },
@@ -90,7 +90,7 @@ class PurchaseOrdersDetail extends React.Component {
   render() {
     // const { match, history } = this.props
     const { detail, products, fields } = this.state
-    return <div className="order-detail">
+    return <div className="purchase-order-details">
       <HeaderTitle breadcrumb={[
         { to: '/purchase-order', label: 'Purchase Order' },
         { to: '', label: this.props.match.params.orderdetail, active: true },

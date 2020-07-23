@@ -30,7 +30,16 @@ class CreateTab extends React.Component {
       status: '',
       webUser: props.webUser,
       overflow: [],
-      orderDetails: [{}],
+      orderDetails: [{
+        site: this.props.user.site ? this.props.user.site : null,
+        client: this.props.user.client ? this.props.user.client : null
+      }],
+      site: {
+        value:this.props.user.site ? this.props.user.site : null
+      },
+      client: {
+        value:this.props.user.client ? this.props.user.client : null
+      },
       orderLine: [{}],
       error: {},
       siteData: this.props.siteData, clientData: this.props.clientData, orderTypeData: this.props.orderTypeData, supplierData:this.props.supplierData,
@@ -43,11 +52,13 @@ class CreateTab extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.state.user)
-  }
-
-  componentDidMount() {
     this.getDisposition()
+        const {user} = this.props
+
+    if(user.client && user.site){
+      this.getProduct()
+      this.getSupplier()
+    }
   }
   // remove first option (all)
   componentDidUpdate(nextProps) {
@@ -114,16 +125,19 @@ class CreateTab extends React.Component {
     this.setState({ orderLine })
   }
   onSelectChange = (name, val) => {
-    let { error } = this.state
+    let { error,client,site } = this.state
     // let newOrder = Object.assign({}, orderDetails[0])
     let orderDetails = [...this.state.orderDetails]
+
     if (name === 'site') {
       orderDetails[0].site = val.value
       orderDetails[0].siteName = val.label
+      site.value = val.value
     }
     if (name === 'client') {
       orderDetails[0].client = val.value
       orderDetails[0].clientName = val.label
+      client.value = val.value
     }
     if (name === 'supplier') {
       orderDetails[0].supplier = val.value
@@ -136,7 +150,7 @@ class CreateTab extends React.Component {
     orderDetails[0].web_user = this.props.webUser
 
     delete error[name]
-    this.setState({ [name]: val, orderDetails }, () => {
+    this.setState({ [name]: val, orderDetails,site,client }, () => {
       if (name === 'client') {
         this.getProduct()
         this.getSupplier()
@@ -256,11 +270,29 @@ class CreateTab extends React.Component {
     if (!/^[0-9|,]+$/.test(e.key)) e.preventDefault()
   }
 
+  siteCheck = (siteVal) => {
+    let l = null
+    this.props.site.map(data => {
+      if (data.value === siteVal) l = data.label
+    })
+    return l
+  }
+
+  clientCheck = (clientVal) => {
+    let c = null
+    this.props.client.map(data => {
+      if (data.value === clientVal) c = data.label
+    })
+    return c
+  }
+
 
   render() {
     const { error, overflow, site, client, orderType, orderLine,
       orderId, siteData, clientData, orderTypeData, productData, uomData, dispositionData, supplierData, supplier
     } = this.state
+
+    const {user} = this.props
     let datepickerStatus = this.state.datepickerStatus;
     let UOMStatus = []
     let dispositionStatus = []
@@ -273,7 +305,13 @@ class CreateTab extends React.Component {
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0 required">Site</label>
-          <Select value={site || ''} options={siteData} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required />
+          {
+            user.site ? 
+            <input value={this.siteCheck(user.site)} className="form-control" readOnly />
+            :
+            <Select options={siteData} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required />
+          }
+          
           <Required id="site" error={error} />
         </Col>
         <Col lg="3">
@@ -282,7 +320,7 @@ class CreateTab extends React.Component {
           <Required id="orderType" error={error} />
         </Col>
         <Col lg="3">
-          <label className="text-muted mb-0 required">Supplier</label>
+          <label className="text-muted mb-0">Supplier</label>
           <Select value={supplier || ''} options={supplierData} onChange={val => this.onSelectChange('supplier', val)} placeholder="Supplier" />
           <Required id="supplier" error={error} />
         </Col>
@@ -294,7 +332,12 @@ class CreateTab extends React.Component {
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0 required">Client</label>
-          <Select value={client || ''} options={clientData} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required />
+          {
+            user.client ?
+            <input value={this.clientCheck(user.client)} className="form-control" readOnly />
+            :
+            <Select  options={clientData} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required />
+          }
           <Required id="client" error={error} />
         </Col>
         <Col lg="3">
@@ -435,7 +478,10 @@ class CreateTab extends React.Component {
 
 const mapStateToProps = store => {
   return {
-    webUser: store.user.webUser
+    webUser: store.user.webUser,
+    user: store.user,
+    site: store.site,
+    client:store.client
   }
 }
 

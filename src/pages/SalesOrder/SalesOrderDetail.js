@@ -29,10 +29,10 @@ const columns = [
   },
   //{ accessor: "oos", Header: "OOS", width: 50 },
   {
-    accessor: "oos", Header: "OOS",
+    accessor: "oos", Header: "OOS", width: 60 ,
     Cell: (row) => <i className={`${row.original.oos === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
-  { accessor: "batch", Header: "Batch" },
+  { accessor: "batch", Header: "Batch", width: 60  },
   { accessor: "ref2", Header: "Ref2" },
   { accessor: "ref3", Header: "Ref3" },
   { accessor: "ref4", Header: "Ref4" },
@@ -78,7 +78,6 @@ class SalesOrderDetail extends React.Component {
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     if (data.data.length) {
       this.setState({ products: data.data })
-      console.log(data)
     }else{ 
       this.setState({ request_status: "No Data Found"  })
     } 

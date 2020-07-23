@@ -1,11 +1,15 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import { Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
 import endpoint from 'helpers/endpoints'
 
 class ReviewTab extends React.Component {
-  state = {
-    status: ''
+  constructor(props){
+    super(props)
+    this.state = {
+      status: ''
+    }
   }
   next = async () => {
     this.setState({ status: 'loading' })
@@ -45,6 +49,22 @@ class ReviewTab extends React.Component {
     }
   }
 
+  siteCheck = (siteVal) => {
+    let l = null
+    this.props.site.map(data => {
+      if (data.value === siteVal) l = data.label
+    })
+    return l
+  }
+
+  clientCheck = (clientVal) => {
+    let c = null
+    this.props.client.map(data => {
+      if (data.value === clientVal) c = data.label
+    })
+    return c
+  }
+
   render() {
     const { header, lineDetail, orderDetails } = this.props.data
     const od = orderDetails
@@ -54,25 +74,25 @@ class ReviewTab extends React.Component {
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0 required">Site</label>
-          <input value={od ? od[0].siteName : ''} className="form-control" readOnly />
+          <input value={od ? this.siteCheck(od[0].site) : ''} className="form-control" readOnly />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order Type</label>
-          <input value={od ? od[0].clientName : ''} className="form-control" readOnly />
+          <input value={od ? od[0].orderTypeName : ''} className="form-control" readOnly />
         </Col>
         <Col lg="3">
-          <label className="text-muted mb-0">Customer Order Ref</label>
+          <label className="text-muted mb-0">Supplier</label>
           <input value={od ? od[0].supplierName : ''} className="form-control" readOnly />
         </Col>
         <Col lg="3">
-          <label className="text-muted mb-0 required">Delivery Date</label>
+          <label className="text-muted mb-0 required">Customer Order Ref</label>
           <input value={od ? od[0].customerOrderRef : ''} className="form-control" readOnly />
         </Col>
       </Row>
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0 required">Client</label>
-          <input value={od ? od[0].orderTypeName : ''} className="form-control" readOnly />
+          <input value={od ? this.clientCheck(od[0].client) : ''} className="form-control" readOnly />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order No</label>
@@ -149,4 +169,11 @@ class ReviewTab extends React.Component {
   }
 }
 
-export default ReviewTab
+const mapStateToProps = store => {
+  return{
+    client: store.client,
+    site: store.site
+  }
+}
+
+export default connect(mapStateToProps)(ReviewTab)
