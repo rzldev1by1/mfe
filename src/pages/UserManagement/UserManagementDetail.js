@@ -17,6 +17,10 @@ import moment from 'moment';
 const today = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
 const passChanged = '1999-08-28';
 const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'stock age profile'];
+const webgroup = {
+  WAREHOUSE: 'Regular',
+  ADMIN: 'Admin'
+}
 
 class UserManagementDetail extends Component {
     constructor(props) {
@@ -34,7 +38,8 @@ class UserManagementDetail extends Component {
             isEnableAllModule: false,
             isEnableAllSite: false,
             isEnableAllClient: false,
-            loginInfo:{}
+            loginInfo:{},
+            adminClass:'d-none'
         }
 
     }
@@ -86,11 +91,13 @@ class UserManagementDetail extends Component {
 
     getAccountInfo = async (userid) => {
         const { data } = await axios.get(endpoint.userManagementUser_Detail + userid);
+        if(data && data !== '' ){
+          let result = this.restructureAccount(data.data);
 
-        let result = this.restructureAccount(data.data);
-        this.setState({ accountInfo: result, isLoadComplete: true }, () => {
-            this.loadMasterResource();
-        });
+          this.setState({ accountInfo: result, isLoadComplete: true }, () => {
+              this.loadMasterResource();
+          });
+        }
 
     }
 
@@ -108,7 +115,7 @@ class UserManagementDetail extends Component {
             .map((item, index) => {
                 let newItem = item;
                 let isStatus = false;
-                if (user.web_group && user.web_group.toLowerCase() !== 'administrator') {
+                if (user.web_group !== webgroup.ADMIN) {
                     isStatus = userMenu.includes(item.menuid) ? true : false;
                 }
                 newItem.status = isStatus;
@@ -305,7 +312,7 @@ class UserManagementDetail extends Component {
 
     closeModalPopupResetAuto = () => {
         var self = this;
-        setTimeout(() => { self.setState({ isResetSuccess: false, modalPopupResetdisplay: false }) }, 5000);
+        setTimeout(() => { self.setState({ isResetSuccess: false, modalPopupResetdisplay: false },this.gotoUM)}, 5000);
     }
 
     resetPassword = () => {
@@ -325,7 +332,7 @@ class UserManagementDetail extends Component {
         if(status === 200){
             this.setState({isSaveProgressing:false, isResetSuccess:true, modalPopupResetdisplay:true},self.closeModalPopupResetAuto);
         }
-          
+
     }
 
     updateRequest = async (param) => {
@@ -337,13 +344,13 @@ class UserManagementDetail extends Component {
 
         const { data, status } = await axios.post(url, param);
         if (status === 200) {
-            this.setState({ isSaveProgressing: false, isResetSuccess: true });
+            this.setState({ isSaveProgressing: false, isResetSuccess: true }, this.gotoUM());
         } else {
             this.setState({ isSaveProgressing: false, isResetSuccess: false });
         }
 
-        let id = this.props.match.params.id;
-        this.getAccountInfo(id);
+        // let id = this.props.match.params.id;
+        // this.getAccountInfo(id);
     }
 
     gotoUM = () => {
@@ -377,20 +384,20 @@ class UserManagementDetail extends Component {
 
     loadPersonalLogin = () => {
         let userInfo = utility.readFromLocalStorage("persist:root");
-        let user = JSON.parse(userInfo.user)        
-        this.setState({ loginInfo: user });        
+        let user = JSON.parse(userInfo.user)
+        this.setState({ loginInfo: user });
     }
 
     render() {
         const { match } = this.props;
-        const { moduleAccess, sites, clients, accountInfo, loginInfo } = this.state;
+        const { moduleAccess, sites, clients, accountInfo, loginInfo, adminClass } = this.state;
 
 
         return (<div className="um-detail w-100 h-100">
             {/* <div className={(this.state.isLoadComplete ? 'd-none' : 'spinner')} />
             <div className={(this.state.isLoadComplete ? ' ' : 'd-none')}>
             </div> */}
-                
+
                 <HeaderTitle breadcrumb={[
                         { to: '/users-management', label: 'User Management' },
                         { to: '', label: accountInfo.user, active: true },
@@ -425,7 +432,7 @@ class UserManagementDetail extends Component {
                                             <label className="text-title-detail">Reset Password</label>
                                         </div>
 
-                                        <div className={`col-md-3 pl-0 ${accountInfo.userId === loginInfo.userId? 'd-none':''}`}>
+                                        <div className={`col-md-3 pl-0 ${accountInfo.userId === loginInfo.userId? 'd-none':''} ${accountInfo.web_group !== webgroup.ADMIN? '':' d-none '}`}>
                                             <label className="text-title-detail">Suspend Users</label>
                                         </div>
 
@@ -456,7 +463,7 @@ class UserManagementDetail extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className={`col-md-3 pl-0 ${accountInfo.userId === loginInfo.userId? 'd-none':''}`}>
+                                        <div className={`col-md-3 pl-0 ${accountInfo.userId === loginInfo.userId? 'd-none':''} ${accountInfo.web_group !== webgroup.ADMIN? '':' d-none '}`}>
                                             <div className="row">
                                                 <div className="col-6 text-title-detail" >
                                                     Are you sure you want<br />
@@ -476,7 +483,7 @@ class UserManagementDetail extends Component {
 
 
                                 </div>
-                                <div className={`system mb-0 ${accountInfo.userId === loginInfo.userId? 'd-none':''}`}>
+                                <div id="system" className={`system mb-0 ${accountInfo.userId === loginInfo.userId? ' d-none ':''} ${accountInfo.web_group !== webgroup.ADMIN? '':' d-none '}`}>
                                     <div className="row">
                                         <div className="col-12">
                                             <h3 className="mb-0">
@@ -521,14 +528,14 @@ class UserManagementDetail extends Component {
 
                         </CCardBody>
                     </CCard>
-                
+
 
 
                 <ResetModal show={this.state.modalPopupResetdisplay}
                     toggle={this.closeModalPopupReset}
                     isResetSuccess={this.state.isResetSuccess}
                     confirmResetPassword={this.confirmResetPassword} />
-            
+
         </div>)
     }
 
