@@ -432,7 +432,7 @@ class UserManagementDetail extends Component {
                                             <label className="text-title-detail">Reset Password</label>
                                         </div>
 
-                                        <div className={`col-md-3 pl-0 ${accountInfo.userId === loginInfo.userId? 'd-none':''}`}>
+                                        <div className={`col-md-3 pl-0 ${accountInfo.userId === loginInfo.userId? 'd-none':''} ${accountInfo.web_group !== webgroup.ADMIN? '':' d-none '}`}>
                                             <label className="text-title-detail">Suspend Users</label>
                                         </div>
 
@@ -463,7 +463,7 @@ class UserManagementDetail extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className={`col-md-3 pl-0 ${accountInfo.userId === loginInfo.userId? 'd-none':''}`}>
+                                        <div className={`col-md-3 pl-0 ${accountInfo.userId === loginInfo.userId? 'd-none':''} ${accountInfo.web_group !== webgroup.ADMIN? '':' d-none '}`}>
                                             <div className="row">
                                                 <div className="col-6 text-title-detail" >
                                                     Are you sure you want<br />
