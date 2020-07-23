@@ -169,6 +169,9 @@ class PurchaseOrders extends React.PureComponent {
   toggle = (value) => {
     this.setState({ create: value ? value : !this.state.create })
   }
+  UrlHeader = () =>{
+    return `$/getSalesOrderHeader?client=ANTEC`
+  }
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
@@ -239,6 +242,7 @@ class PurchaseOrders extends React.PureComponent {
         fields={fields}
         pagination={pagination}
         onClick={this.showDetails}
+        UrlHeader={this.UrlHeader} 
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchPurchaseOrder())
         }}

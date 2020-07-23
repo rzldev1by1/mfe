@@ -79,6 +79,9 @@ class SalesOrderDetail extends React.Component {
     this.getStockDetails();
     this.getForescast();
   }
+  UrlHeader = () =>{
+    return `/getPurchase?client=ANTEC`
+  }
   activeTabIndex = (tabIndex) => {
     if (this.state.activeTab !== tabIndex) {
       this.setState({ activeTab: tabIndex });
@@ -280,10 +283,7 @@ class SalesOrderDetail extends React.Component {
                   height={this.state.dimension.height}
                   fields={stockDetail}
                   data={products}
-                  UrlHeader={""}       UrlAntec={""}        UrlBega={""}
-                  UrlAesop={""}        UrlClucth={""}       UrlExquira={""}
-                  UrlLedvance={""}     UrlOnestop={""}      UrlStartrack ={""}
-                  UrlTatura={""}       UrlTtl={""}          UrlTtchem={""}
+                  UrlHeader={this.UrlHeader}
                 />
               </TabPane>
               <TabPane className='stockDetails' tabId='2'>
@@ -292,10 +292,7 @@ class SalesOrderDetail extends React.Component {
                   height={this.state.dimension.height}
                   fields={ForesCast}
                   data={products}
-                  UrlHeader={""}      UrlAntec={""}        UrlBega={""}
-                  UrlAesop={""}        UrlClucth={""}      UrlExquira={""}
-                  UrlLedvance={""}  UrlOnestop={""}    UrlStartrack ={""}
-                  UrlTatura={""}      UrlTtl={""}            UrlTtchem={""}
+                  UrlHeader={this.UrlHeader}
                 />
               </TabPane>
             </TabContent>

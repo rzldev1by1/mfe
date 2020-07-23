@@ -215,10 +215,13 @@ showModal = (show) => {
     listHeader = [...listHeader, obj];
     return listHeader;
   };
+
+  // Header Name
   headerRename = async () => {
     const url = this.props.UrlHeader();
     const { data } = await axios.get(url);
     let header = [];
+    let headerDft = [];
     let accessor = Object.keys(data.data[0]);
     accessor.map((data, idx) => {
       let lowerCase = data.toLowerCase();
@@ -248,10 +251,18 @@ showModal = (show) => {
         placeholder: 'site',
         sortable: true,
       };
+      let headerDefault = {
+        accessor: 'site',
+        Header: 'site',
+        placeholder: 'site',
+        sortable: true,
+      };
+      headerDefault.Header = this.state.fields
       headerTable.Header = data;
       headerTable.placeholder = placeholder[idx];
       headerTable.accessor = accessor[idx];
       header.push(headerTable);
+      headerDft.push(headerDefault)
     });
     console.log(header);
     if (data.data.length) {
@@ -259,8 +270,15 @@ showModal = (show) => {
         products: data.data[0],
         fields: header,
       });
+    }else {
+      this.setState({
+        products: data.data[0],
+        fields: headerDft,
+      });
     }
   };
+
+  // Header Name And
 
   renameSubmits = async (e) => {
     const fields = this.state.fields;
