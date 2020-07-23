@@ -34,6 +34,7 @@ class Logins extends Component {
                 try {
                     const { data } = await axios.post(baseUrl + "/usermanagement/login", payload)
                     if (data) {
+                        console.log(data)
                         this.props.dispatch({ type: 'LOGIN', data })
                         this.props.history.push('/')
                     }
