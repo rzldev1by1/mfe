@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './UserManagement.css'
 
 const moduleAccessReview = ({moduleAccess}) => {
-  
+
   const disableAll = 'Disable All';
   const enableAll = 'Enable All';
   const enable = 'Enabled';
@@ -15,11 +15,11 @@ return (
               </label>
           </div>
         </div>
-       
+
         {
             (moduleAccess && moduleAccess.length)?moduleAccess.map((item,index) => {
 
-              return (<div className="flex-column mb-3 mr-2" key={index}>
+              return (<div className="flex-column mb-1 mr-2" key={index}>
                             <div className="row height-40" key={index}>
                                 <label className="col-6 text-muted py-2 font-lg " key={item.menuid}>{(item.menuname.toLowerCase() === 'create sales order')?'Sales Orders':item.menuname}</label>
 

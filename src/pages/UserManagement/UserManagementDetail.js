@@ -396,68 +396,67 @@ class UserManagementDetail extends Component {
                         { to: '', label: accountInfo.user, active: true },
                     ]} />
                 <CCard>
-                        <CCardBody>
+                        <CCardBody className="p-3">
                             <form onSubmit={(e) => { e.preventDefault(); this.saveClick(); }}>
-                                <div className="account-detail mt-2">
-                                    <div className="row">
+                                <div className="account-detail">
+                                    <div className="row mb-3">
                                         <div className="col-12">
-                                            <h3>
-                                                <label className="text-primary">User Details</label>
+                                            <h3 className="mb-0">
+                                                <label className="text-primary mb-0">User Details</label>
                                             </h3>
                                         </div>
                                     </div>
 
                                     <div className="row">
-                                        <div className="col-2">
+                                        <div className="col-md-2">
                                             <label className="text-title-detail">User ID</label>
                                         </div>
 
-                                        <div className="col-2">
+                                        <div className="col-md-2">
                                             <label className="text-title-detail">Name</label>
                                         </div>
 
-                                        <div className="col-2">
+                                        <div className="col-md-2">
                                             <label className="text-title-detail">Email</label>
                                         </div>
 
 
-                                        <div className="col-3 pr-0">
+                                        <div className="col-md-3 pr-0">
                                             <label className="text-title-detail">Reset Password</label>
                                         </div>
 
-                                        <div className={`col-3 pl-0 ${accountInfo.userId === loginInfo.userId? 'd-none':''}`}>
+                                        <div className={`col-md-3 pl-0 ${accountInfo.userId === loginInfo.userId? 'd-none':''}`}>
                                             <label className="text-title-detail">Suspend Users</label>
                                         </div>
 
 
                                     </div>
-                                    <div className="row">
+                                    <div className="row mb-3">
 
-                                        <div className="col-2 pr-0">
+                                        <div className="col-md-2 pr-0">
                                             <input type="text" readOnly className="form-control" value={accountInfo.userId} />
                                         </div>
 
-                                        <div className="col-2 pr-0">
+                                        <div className="col-md-2 pr-0">
                                             <input type="text" className="form-control" maxLength="60" onChange={(e) => { this.onChangeName(e); }} value={accountInfo.user} />
                                         </div>
 
-                                        <div className="col-2 pr-0">
+                                        <div className="col-md-2 pr-0">
                                             <input type="email" name="email" className="form-control" onChange={(e) => { this.onChangeEmail(e); }} value={accountInfo.email} />
                                         </div>
 
 
-                                        <div className="col-3 pr-0">
+                                        <div className="col-md-3 pr-0">
                                             <div className="row pl-0">
-                                                <div className="col-6 text-title-detail">
-                                                    Are you sure you want<br />
-                                                      to create new password?
+                                                <div className="col-6 text-title-detail pr-0">
+                                                    Are you sure you want to create new password?
                                                 </div>
                                                 <div className="col-5">
                                                     <button type="button" className={"btn " + ((accountInfo.passwordChange === '') ? "btn-outline-active" : "btn-outline-notActive")} onClick={(e) => { this.onClickResetPassword(); }}>RESET</button>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className={`col-3 pl-0 ${accountInfo.userId === loginInfo.userId? 'd-none':''}`}>
+                                        <div className={`col-md-3 pl-0 ${accountInfo.userId === loginInfo.userId? 'd-none':''}`}>
                                             <div className="row">
                                                 <div className="col-6 text-title-detail" >
                                                     Are you sure you want<br />
@@ -477,11 +476,11 @@ class UserManagementDetail extends Component {
 
 
                                 </div>
-                                <div className={`system mt-4 ${accountInfo.userId === loginInfo.userId? 'd-none':''}`}>
+                                <div className={`system mb-0 ${accountInfo.userId === loginInfo.userId? 'd-none':''}`}>
                                     <div className="row">
                                         <div className="col-12">
-                                            <h3>
-                                                <label className="text-primary">System</label>
+                                            <h3 className="mb-0">
+                                                <label className="text-primary mb-0">System</label>
                                             </h3>
                                         </div>
                                     </div>
@@ -500,8 +499,8 @@ class UserManagementDetail extends Component {
 
                                 </div>
 
-                                <div className="d-flex mt-5 mr-3 justify-content-between">
-                                    <button type="button" className=" font-lg font-md font-sm btn btn-primary btn-submit default-box-height" onClick={(e) => { this.gotoUM(); }}>
+                                <div className="d-flex mt-3 mr-3 justify-content-between">
+                                    <button type="button" className=" font-lg btn btn-primary btn-submit default-box-height" onClick={(e) => { this.gotoUM(); }}>
                                         <label className="create-user-label mb-0">BACK</label>
                                     </button>
 
@@ -511,7 +510,7 @@ class UserManagementDetail extends Component {
                                         </label>
                                     </p>
 
-                                    <button type="button" className=" font-lg font-md font-sm btn btn-primary btn-submit default-box-height" onClick={(e) => { this.saveClick(); }}>
+                                    <button type="button" className=" font-lg btn btn-primary btn-submit default-box-height" onClick={(e) => { this.saveClick(); }}>
                                         <i className={(this.state.isSaveProgressing) ? "mr-2 fa fa-refresh fa-spin " : "fa fa-refresh fa-spin d-none"}></i>
                                         <label className="create-user-label mb-0">SAVE</label>
                                     </button>
