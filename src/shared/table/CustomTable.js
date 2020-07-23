@@ -12,7 +12,6 @@ import CustomPagination from 'shared/table/CustomPagination'
 
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
-import '../../pages/StockHolding/StockHolding.css'
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
@@ -553,7 +552,7 @@ showModal = (show) => {
               <Col sm='12' md='12' lg='12' className="px-0">
                 <TabContent activeTab={this.state.activeTab}>
                   <TabPane tabId='1'>
-                    <Row xl={5} lg={10} className='mx-1'>
+                    <Row xl={5} lg={10} className='mx-1 grid-col'>
                       {fields &&
                         fields.map((item, index) => {
                           return (
