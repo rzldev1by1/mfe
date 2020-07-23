@@ -1,8 +1,8 @@
 .user-login-info-header{
-    color: #959DA0;    
+    color: #959DA0;
 }
 .user-login-info-value{
-    color: #637176;    
+    color: #637176;
 }
 .bg-white{
     background-color: #FFFFFF;
@@ -19,11 +19,11 @@
     border-radius: 5px;
     text-align: center;
   }
-  
+
   .webgroup input {
     display: none;
   }
-  
+
   .webgroup-active {
     background-color: #ffffff;
     /* font-family: 'Rubik Regular'; */
@@ -55,7 +55,7 @@
     color: #3366ff;
     width: 80px;
   }
-  
+
   .btn-outline-notActive {
     /* font-family: 'Rubik Regular'; */
     /* font-size: 1rem !important; */
@@ -66,7 +66,7 @@
     border-radius: 7px;
     width: 80px;
   }
-  
+
   .btn-outline-All-active {
     /* font-family: 'Rubik Regular'; */
     /* font-size: 1rem !important; */
@@ -78,7 +78,7 @@
     color: #ffffff;
     width: 80px;
   }
-  
+
   .btn-outline-All-notActive {
     /* font-family: 'Rubik Regular'; */
     font-size: 1rem !important;
@@ -90,7 +90,7 @@
     border-radius: 7px;
     width: 80px;
   }
-  
+
   .line-border {
     border-bottom: 1px solid #e8e8e8;
   }
@@ -103,7 +103,7 @@
 
   .webgroup-review-active {
     background-color: #ffffff;
-    
+
     color: #bbbcbd !important;
     margin: 4px;
     padding: 6px;
@@ -112,16 +112,16 @@
   }
 
   .webgroup-review-notactive {
-    background-color: transparent;    
-    
+    background-color: transparent;
+
     color: #bbbcbd !important;
     margin: 4px;
     padding: 6px;
     border-radius: 5px;
   }
-  
+
   .enable-active {
-    
+
     font-size: 1rem !important;
     width: 117px !important;
     height: 40px !important;
@@ -131,8 +131,8 @@
     width: 80px;
     background-color: #FFFFFF;
   }
-  
-  .enable-notactive {    
+
+  .enable-notactive {
     font-size: 1rem !important;
     width: 117px !important;
     height: 40px !important;
@@ -152,7 +152,7 @@
     width: 156px;
     height: 184px;
   }
-  
+
   .img-popup-reset-success {
     margin: 40px;
     width: 272;
@@ -169,10 +169,10 @@
     padding-right: 1.7rem;
   }
 
-  .um-active {    
+  .um-active {
     color: #05e0bd;
   }
-  
+
   .um-suspended {
     color: #f94548;
   }
@@ -251,7 +251,7 @@
   align-items: center;
 }
 
-.text-row-centre{  
+.text-row-centre{
   padding-top: 14px !important;
   padding-bottom: 5px !important;
 }
@@ -261,4 +261,13 @@
 }
 .um-summary .ReactTable .rt-table .rt-tbody .rt-tr-group .rt-td:first-child{
   padding-left: 1rem !important;
+}
+
+@media (max-height: 700px){
+
+  .client-areas{
+    height:250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 }
