@@ -51,6 +51,16 @@ class ReviewTab extends React.Component {
     }
   }
 
+  GetFormattedDate = (datex) => {
+      var todayTime = new Date(datex); 
+      var month = todayTime .getMonth()+1
+      var day = todayTime.getDate()
+      var year = todayTime .getFullYear()
+      var day_ = (day<10)? "0"+day: day
+      var month_ = (month<10)? "0"+month: month
+      return day_ + "/" + month_ + "/" + year
+  }
+
   render() {
     const { header, lineDetail } = this.props.data
     return <Container className="px-5 py-4">
@@ -70,7 +80,7 @@ class ReviewTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Delivery Date</label>
-          <input value={header.deliveryDate || ''} className="form-control" readOnly />
+          <input value={ this.GetFormattedDate(header.deliveryDate) || ''} className="form-control" readOnly />
         </Col>
       </Row>
       <Row>

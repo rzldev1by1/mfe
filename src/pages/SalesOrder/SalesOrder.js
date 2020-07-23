@@ -18,8 +18,9 @@ const columns = [
   { accessor: 'client', Header: 'Client', width: 100 },
   { accessor: 'orderno', Header: 'Order No', style: { textAlign: 'left' }, width: 100 },
   { accessor: 'ordertype', Header: 'Order Type', width: 120 },
-  { accessor: 'task', Header: 'Task', width: 100 },
-  { accessor: 'customername', Header: 'Customer', width: 250 },
+  { accessor: 'task', Header: 'Task', width: 100 }, 
+  { accessor: 'customer', Header: 'Customer No' },
+  { accessor: 'customername', Header: 'Customer Name' },
   { accessor: 'status', Header: 'Status', width: 150 },
   { accessor: 'deliverydate', Header: 'Delivery Date', width: 120 },
   { accessor: 'datereceived', Header: 'Date Received', width: 120 },
@@ -41,14 +42,13 @@ const columns = [
   { accessor: 'loadoutfinish', Header: 'Load Finish' },
   { accessor: 'consignmentno', Header: 'Consignment No' },
   { accessor: 'freightcharge', Header: 'Freight Charge' },
-  { accessor: 'customer', Header: 'Customer Code' },
 ]
 class SalesOrder extends React.PureComponent {
   state = {
     search: '',
     site: null,
     client: null,
-    status: null,
+    status: {value: "open", label: "All Open"}, //on load status=open
     orderType: null,
     task: null,
     resources: [],
@@ -118,15 +118,16 @@ class SalesOrder extends React.PureComponent {
     const { user } = this.props.store
     if (user) {
       const { data } = await axios.get(`${endpoints.getSoResources}?company=${user.company || ''}&client=${user.client || ''}`)
-      const { code, name } = data.orderType
+      const { code, name } = data.orderTypeFilter
       const orderTypeData = code.map((c, i) => ({ value: c, label: `${code[i]}: ${name[i]}` }))
-      const orderType = { value: 'all', label: 'All' }
+      const orderType = { value: 'all', label: 'All Order' }
       orderTypeData.splice(0, 0, orderType)
       this.setState({ resources: data, orderTypeData })
     }
   }
   searchSalesOrder = async () => {
     let { search, site, client, orderType, status, task, pagination } = this.state
+    console.log(status)
     this.setState({ data: [], request_status: "Please Wait..." })
     let urls = []
     urls.push('searchParam=' + (search ? search : ''))
@@ -172,7 +173,7 @@ class SalesOrder extends React.PureComponent {
           total: data.data.total
         },
         data: modifiedData
-      })
+      }, () => {console.log (this.state.pagination)})
     } else {
       this.setState({ request_status: "No Data Found" })
       this.setState({ data: [] })
