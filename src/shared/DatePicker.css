@@ -34,6 +34,7 @@
   list-style: none;
   background-color: #ffffff;
   border-radius: 5px;
+  outline: none;
   /* border: 1px solid #D5D8DA; */
 }
 
@@ -183,8 +184,12 @@
 .datepicker-content {
   width: 100%;
 }
+.DayPicker-wrapper{
+  outline: none;
+}
 .DayPicker-Day {
   padding: 0 !important;
+  outline: none;
 }
 .DayPicker-Week {
   height: 36px;

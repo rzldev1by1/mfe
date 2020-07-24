@@ -51,7 +51,7 @@ class UserManagemen extends Component {
 
     updateDimension = () => {
         // const height = (window.innerHeight * 0.50);
-        const height = (window.innerHeight - 340);
+        const height = (window.innerHeight - 345);
         this.setState({ dimension: { width: window.innerWidth, height } });
     }
 
@@ -145,8 +145,8 @@ class UserManagemen extends Component {
                         </CRow>
                     </CCardBody>
                     <CCardBody className="p-3 bg-white">
-                        <CRow>
-                            <CCol xl={11} lg={10} md={10} sm={12}>
+                        <CRow className="mx-0">
+                            <CCol xl={11} lg={10} md={10} sm={12} className="pl-0">
                                 <div className="input-group">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
@@ -154,7 +154,7 @@ class UserManagemen extends Component {
                                     <input type="text" className="form-control pl-0 border-left-0" placeholder="Enter User ID or Username" onChange={e => this.setState({ search: e.target.value })} />
                                 </div>
                             </CCol>
-                            <CCol xl={1} lg={2} md={2} sm={12} className="pl-0">
+                            <CCol xl={1} lg={2} md={2} sm={12} className="pr-0">
                                 <button className="btn btn-search btn-primary float-right w-100 px-3 py-3" onClick={this.searchHandler}>SEARCH</button>                                
                             </CCol>
                         </CRow>
@@ -171,7 +171,9 @@ class UserManagemen extends Component {
                     goto={(active) => {
                         this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler())
                       }}
-                    export={<button className="btn btn-primary float-right px-4 btn-export"> EXPORT</button>}
+                    export={<button className="btn d-flex btn-primary float-right align-items-center px-3 btn-export">
+                        <div className='export-export pr-3' />
+                         EXPORT</button>}
                 />
                 
                 <CreateUM show={modalShow} toggle={this.toggle} afterSuccess={this.searchHandler} users={this.state.data} />
