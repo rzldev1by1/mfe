@@ -224,7 +224,7 @@ class DatePicker extends React.Component {
                         maxLength="10"
                         defaultValue={this.state.selectedDays ? moment(this.state.selectedDay).format("DD/MM/YYYY") : null}
                         onChange={(e) => { this.dateValueProcess(e) }}
-                        onFocus={() => this.openDatePicker()}
+                        onFocus={() => {this.openDatePicker(); if(this.props.onOpen) {this.props.onOpen()}}}
                         onKeyUp={(e) => this.dateValueFormat(e)}
                         onKeyDown={(e) => this.disabledAlpha(e)}
                         style={this.props.formStyle}
@@ -233,7 +233,7 @@ class DatePicker extends React.Component {
                     {/* <span className="select_date_label select_date_label-placeholder">{this.state.selectedDay ? moment(this.state.selectedDay).format("DD/MM/YYYY") : placeHolder}</span> */}
 
                     {/* <li className="select_date_items"> */}
-                    <input className="select_date_expand" ref="opener" type="checkbox" name={"select" + placeHolder + no} value="" checked={this.state.showDatePicker} id={"select-opener" + placeHolder + no} />
+                    <input className={"select_date_expand" + (this.props.arrowStyle ? " select_arrow_expand" : " select_calendar_expand")} ref="opener" type="checkbox" name={"select" + placeHolder + no} value="" checked={this.state.showDatePicker} id={"select-opener" + placeHolder + no} />
                     <label className="select_date_closeLabel" htmlFor={"select-opener" + placeHolder + no} onClick={() => this.closeDatePicker()}></label>
                     <ReactResizeDetector
                         handleWidth handleHeight
