@@ -32,17 +32,17 @@ class SalesOrderCreate extends React.PureComponent {
     const { data, key } = this.state
     return <Modal show={this.props.show} onHide={this.onHide} size="xl" className="purchase-order-create" >
       <Modal.Body className="bg-primary p-0">
-        <Row className="px-5 py-3 mx-0">
-          <Col xs={10}>
+        <Row className="px-5 pb-3 pt-md mx-0">
+          <Col xs={10} className="px-0">
             <i className="iconU-createModal font-20"></i><span className="font-20 pl-2">Create Purchase Order</span> <br />
             <span>Enter Order and line details to create a new purchase order</span>
           </Col>
-          <Col xs={2} className="text-right">
+          <Col xs={2} className="text-right px-0">
             <i className="iconU-close pointer" onClick={this.onHide}></i>
           </Col>
         </Row>
-        <Nav tabs>
-          <NavItem><NavLink className={key === 'detail' ? 'active' : null} onClick={() => this.onSelectTab('detail')}>
+        <Nav tabs className="px-5 m-0">
+          <NavItem className="mr-2"><NavLink className={key === 'detail' ? 'active' : null} onClick={() => this.onSelectTab('detail')}>
             <div className={`badge badge-pill badge-${key === 'detail' ? 'primary' : 'secondary'}`}>1</div> Order & Product Details
           </NavLink></NavItem>
           <NavItem><NavLink className={key === 'review' ? 'active' : null} onClick={() => this.onSelectTab('review')}>

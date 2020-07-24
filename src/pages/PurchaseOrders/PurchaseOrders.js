@@ -70,7 +70,7 @@ class PurchaseOrders extends React.PureComponent {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - 270)
+    const height = (window.innerHeight - 255)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {
@@ -293,7 +293,9 @@ class PurchaseOrders extends React.PureComponent {
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchPurchaseOrder())
         }}
-        export={<button className="btn btn-primary float-right px-4 btn-export"> EXPORT</button>}
+        export={<button className="btn btn-primary float-right btn-export d-flex px-3 align-items-center"> 
+        <div className="export-export pr-3"/>
+        EXPORT</button>}
       />
 
       <PurchaseOrderCreate
