@@ -177,54 +177,24 @@ class SalesOrderDetail extends React.Component {
         />
 
         <div ref={this.section1} className='card-group section-1 mb-3'>
-          <CCard>
-            <CCardBody className='px-3 pt-2 pb-3 border-right'>
-              <CRow className='mx-0'>
-                <CCol className='text-light-gray px-0'>Site</CCol>
-                <CCol>{site || '-'}</CCol>{' '}
-              </CRow>
-              <CRow className='mx-0'>
-                <CCol className='text-light-gray px-0'>Client</CCol>{' '}
-                <CCol>{client || '-'}</CCol>{' '}
-              </CRow>
-              <CRow className='mx-0'>
-                <CCol className='text-light-gray px-0'>Product</CCol>{' '}
-                <CCol>{product || '-'}</CCol>{' '}
-              </CRow>
-              <CRow className='mx-0'>
-                <CCol className='text-light-gray px-0'>Description</CCol>{' '}
-                <CCol>{description || '-'}</CCol>{' '}
-              </CRow>
-              <CRow className='mx-0'>
-                <CCol className='text-light-gray px-0'>UOM</CCol>{' '}
-                <CCol>{uom || '-'}</CCol>{' '}
-              </CRow>
-            </CCardBody>
-          </CCard>
-          <CCard>
-            <CCardBody className='px-3 pt-2 pb-3'>
-              <CRow className='mx-0'>
-                <CCol className='text-light-gray px-0'>Stock On Hand</CCol>{' '}
-                <CCol>{stock_on_hand || '-'}</CCol>{' '}
-              </CRow>
-              <CRow className='mx-0'>
-                <CCol className='text-light-gray px-0'>Available Qty</CCol>{' '}
-                <CCol>{available_qty || '-'}</CCol>
-              </CRow>
-              <CRow className='mx-0'>
-                <CCol className='text-light-gray px-0'>Expected in Qty</CCol>{' '}
-                <CCol>{expected_in_qty || '-'}</CCol>{' '}
-              </CRow>
-              <CRow className='mx-0'>
-                <CCol className='text-light-gray px-0'>Expected Out Qty</CCol>{' '}
-                <CCol>{expected_out_qty || '-'}</CCol>{' '}
-              </CRow>
-              <CRow className='mx-0'>
-                <CCol className='text-light-gray px-0'>Rotadate Type</CCol>{' '}
-                <CCol>{rotadate_type || '-'}</CCol>{' '}
-              </CRow>
-            </CCardBody>
-          </CCard>
+        <CCard>
+          <CCardBody className="p-0 m-3 border-right">
+            <CRow className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Site</CCol> <CCol>{site || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Client</CCol> <CCol>{client || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Product</CCol> <CCol>{product || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Description</CCol> <CCol>{description || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">UOM</CCol> <CCol>{uom || '-'}</CCol></CRow>
+          </CCardBody>
+        </CCard>
+        <CCard>
+          <CCardBody className="p-0 my-3 mx-0 border-right">
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Stock On Hand</CCol> <CCol>{stock_on_hand || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Available Qty</CCol> <CCol>{available_qty || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Expected in Qty</CCol> <CCol>{expected_in_qty || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Expected Out Qty</CCol> <CCol>{expected_out_qty || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Rotadate Type</CCol> <CCol>{rotadate_type || '-'}</CCol></CRow>
+          </CCardBody>
+        </CCard>
         </div>
 
         <CRow
