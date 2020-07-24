@@ -18,7 +18,7 @@ const columns = [
   { accessor: 'client', Header: 'Client', width: 100 },
   { accessor: 'orderno', Header: 'Order No', style: { textAlign: 'left' }, width: 100 },
   { accessor: 'ordertype', Header: 'Order Type', width: 120 },
-  { accessor: 'task', Header: 'Task', width: 100 }, 
+  { accessor: 'isistask', Header: 'Task', width: 100 }, 
   { accessor: 'customer', Header: 'Customer No', style: { textAlign: 'left' } },
   { accessor: 'customername', Header: 'Customer Name' },
   { accessor: 'status', Header: 'Status', width: 150 },
@@ -46,12 +46,8 @@ const columns = [
 class SalesOrder extends React.PureComponent {
   state = {
     search: '',
-    site: {
-      value:this.props.store.user.site ? this.props.store.user.site : '',
-    },
-    client: {
-      value: this.props.store.user.client ? this.props.store.user.client : '',
-    },
+    site: (this.props.store.user.site)?{value:this.props.store.user.site}:null,
+    client: (this.props.store.user.client)?{value:this.props.store.user.client}:null,
     status: {value: "open", label: "All Open"}, //on load status=open
     orderType: null,
     task: null,
@@ -222,6 +218,7 @@ class SalesOrder extends React.PureComponent {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData,orderTypeInsert, taskData
     } = this.state
+    console.log(site)
     return <div className="sales-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Sales Orders', active: true }]}
@@ -247,8 +244,8 @@ class SalesOrder extends React.PureComponent {
                   <input value={this.siteCheck(site.value)} className="form-control" readOnly />
                   : 
                   <Select name="site" placeholder="Site"
-                    value={site.value} options={siteData}
-                    onChange={(val) => this.setState({ site: val }, () => this.getTask())}
+                    value={site} options={siteData}
+                    onChange={(val) => this.setState({ site: val }, () => {this.getTask()})}
                   />
                 }  
                 </CCol>
@@ -258,7 +255,7 @@ class SalesOrder extends React.PureComponent {
                     <input value={this.clientCheck(client.value)} className="form-control" readOnly />
                     :
                     <Select name="client" placeholder="Client"
-                      value={client.value} options={clientData}
+                      value={client} options={clientData}
                       onChange={(val) => this.setState({ client: val }, () => this.getTask())}
                     />
                   }
@@ -289,7 +286,7 @@ class SalesOrder extends React.PureComponent {
           </CRow>
         </CCardBody>
       </CCard>
-
+{console.log(data)}
       <CustomTable
         title="Sales Order"
         height={dimension.height}

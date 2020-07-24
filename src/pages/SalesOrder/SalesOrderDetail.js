@@ -33,7 +33,7 @@ const columns = [
     Cell: (row) => <i className={`${row.original.oos === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
   {
-    accessor: "received", Header: "Received", width: 80 ,
+    accessor: "released", Header: "Released", width: 80 ,
     Cell: (row) => <i className={`${row.original.received === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
   { accessor: "batch", Header: "Batch", width: 60  },
