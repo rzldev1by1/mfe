@@ -249,14 +249,14 @@ class DatePicker extends React.Component {
                                 className={"select_date_options " + (this.props.field === "smallField " ? " smallField " : "") + ((this.props.top && this.props.fixedTop) || this.props.fixedTop ? "fixed-top-position" : "")}
                                 style={((this.props.top && !this.props.fixedTop)) ? { marginTop: "-" + height + "px", marginLeft: "-" + (width + 6) + "px" } : null}>
                                 <div className="dateInfo">
-                                    {this.state.selectedDay ? moment(this.state.selectedDay).format(this.props.shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : (this.props.fromMonth ? moment(this.props.fromMonth).format("DD MMMM YYYY") : moment().format("DD MMMM YYYY"))}
+                                    {this.state.selectedDay ? moment(this.state.selectedDay).format(this.props.shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : moment().format("DD MMMM YYYY")}
                                 </div>
                                 <DayPicker
                                     className="datepicker-content"
                                     tabIndex="-1"
-                                    selectedDays={this.state.selectedDay ? this.state.selectedDay : (this.props.fromMonth ? new Date(this.props.fromMonth) : new Date())}
+                                    selectedDays={new Date()}
                                     onDayClick={this.handleDayClick}
-                                    month={this.props.fromMonth ? (this.state.monthChange ? this.state.month : new Date(this.props.fromMonth)) : this.state.month}
+                                    month={this.state.month}
                                     fromMonth={this.props.fromMonth ? new Date(this.props.fromMonth) : this.state.month}
                                     toMonth={this.props.toMonth ? new Date(new Date(this.props.toMonth).getFullYear(), 11) : new Date(new Date(this.state.month).getFullYear() + 10, 11)}
                                     onMonthChange={(e) => this.setState({ month: e })}
@@ -265,7 +265,7 @@ class DatePicker extends React.Component {
                                             date={date}
                                             localeUtils={localeUtils}
                                             onChange={this.handleYearMonthChange}
-                                            current={this.props.fromMonth ? (this.state.monthChange ? this.state.month : new Date(this.props.fromMonth)) : this.state.month}
+                                            current={this.state.month}
                                             fromMonth={this.props.fromMonth ? new Date(this.props.fromMonth) : this.state.month}
                                             toMonth={this.props.toMonth ? new Date(new Date(this.props.toMonth).getFullYear(), 11) : new Date(new Date(this.state.month).getFullYear() + 10, 11)}
 
