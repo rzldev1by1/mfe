@@ -18,7 +18,7 @@ const columns = [
   { accessor: 'client', Header: 'Client', width: 100 },
   { accessor: 'orderno', Header: 'Order No', style: { textAlign: 'left' }, width: 100 },
   { accessor: 'ordertype', Header: 'Order Type', width: 120 },
-  { accessor: 'task', Header: 'Task', width: 100 }, 
+  { accessor: 'isistask', Header: 'Task', width: 100 }, 
   { accessor: 'customer', Header: 'Customer No', style: { textAlign: 'left' } },
   { accessor: 'customername', Header: 'Customer Name' },
   { accessor: 'status', Header: 'Status', width: 150 },
@@ -286,7 +286,7 @@ class SalesOrder extends React.PureComponent {
           </CRow>
         </CCardBody>
       </CCard>
-
+{console.log(data)}
       <CustomTable
         title="Sales Order"
         height={dimension.height}
