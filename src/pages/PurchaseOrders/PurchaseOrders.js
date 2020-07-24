@@ -39,7 +39,7 @@ class PurchaseOrders extends React.PureComponent {
       client: {
         value: this.props.store.user.client ? this.props.store.user.client : null,
       },
-      status: null,
+      status: {value: "open", label: "All Open"}, //on load status=open,
       orderType: null,
       task: null,
       resources: [],
@@ -253,7 +253,7 @@ class PurchaseOrders extends React.PureComponent {
                     onChange={(val) => this.setClient(val)}
                     />
                   }
-                  
+                  {console.log(this.state.status)}
                 </CCol>
                 <CCol sm={4} lg={2} className="px-2">
                   <Select name="status" placeholder="Status"
