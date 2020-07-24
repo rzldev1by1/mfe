@@ -35,6 +35,39 @@
     margin-left: 26px;
     border: none;
   }
+  // Reacteble
+  .ReactTable {
+    .rt-table {
+      .rt-thead {
+        .rt-tr {
+          .rt-th:first-child {
+            padding-left: 1.8rem !important;
+            text-align: left !important;
+            width: 105px !important;
+            max-width: 105px !important;
+          }
+          .rt-th:nth-child(5) {
+            width: 105px !important;
+            max-width: 105px !important;
+          }
+        }
+      }
+      .rt-tbody {
+        .rt-tr-group{
+          .rt-tr {
+            .rt-td:first-child {
+                max-width: 105px !important;
+                width: 105px !important;
+            }
+            .rt-td:nth-child(5) {
+              width: 105px !important;
+              max-width: 105px !important;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 .purchase-order-create {
   textarea {
@@ -76,4 +109,12 @@
   .pod .card .card-body .row:last-child {
     padding-bottom: 0px !important;
   }
+  
+}
+
+.purchase-order-detail{
+  .row {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
 }

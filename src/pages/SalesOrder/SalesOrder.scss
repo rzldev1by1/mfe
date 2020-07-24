@@ -75,6 +75,10 @@
   .orderline .right {
     right: 22% !important;
   }
+  .ReactTable .rt-table .rt-thead .rt-tr .rt-th:first-child {
+    padding-left: 1rem !important;
+    text-align: left !important;
+}
 
 } 
 
@@ -86,7 +90,13 @@
 //    z-index: 999 !important;
 //    position: absolute !important;
 // }
+.sales-order-detail{
+.ReactTable .rt-table .rt-thead .rt-tr .rt-th:first-child {
+  padding-left: 1rem !important;
+  text-align: left !important;
+}
 
+} 
 @media (min-width: 800px) {
   .sales-order-detail .border-right {
     border-right: 2px solid #eee !important;

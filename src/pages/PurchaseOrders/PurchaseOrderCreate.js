@@ -32,7 +32,7 @@ class SalesOrderCreate extends React.PureComponent {
     const { data, key } = this.state
     return <Modal show={this.props.show} onHide={this.onHide} size="xl" className="purchase-order-create" >
       <Modal.Body className="bg-primary p-0">
-        <Row className="px-5 py-3">
+        <Row className="px-5 py-3 mx-0">
           <Col xs={10}>
             <i className="iconU-createModal font-20"></i><span className="font-20 pl-2">Create Purchase Order</span> <br />
             <span>Enter Order and line details to create a new purchase order</span>
