@@ -118,6 +118,9 @@ input.form-control,
 input.form-control {
   padding: 0.375rem 0.75rem 0.375rem 0rem;
 }
+.login input.form-control {
+  padding: 0.375rem 0.75rem;
+}
 .btn {
   height: 50px !important;
   padding-left: 20px;
