@@ -223,59 +223,33 @@ showModal = (show) => {
     const url = this.props.UrlHeader();
     const { data } = await axios.get(url);
     let header = [];
-    let headerDft = [];
-    let accessor = Object.keys(data.data[0]);
-    accessor.map((data, idx) => {
-      let lowerCase = data.toLowerCase();
-      if (lowerCase.includes(' ')) {
-        let split = lowerCase.split(' ');
-        let result = split.join('_');
-        accessor[idx] = result;
-      } else {
-        accessor[idx] = lowerCase;
-      }
-    });
-    let placeholder = Object.keys(data.data[0]);
-    placeholder.map((data, idx) => {
-      let lowerCase = data.toLowerCase();
-      if (lowerCase.includes(' ')) {
-        let split = lowerCase.split(' ');
-        let result = split.join(' ');
-        placeholder[idx] = result;
-      } else {
-        placeholder[idx] = lowerCase;
-      }
-    });
+    let accessor = this.state.fields.map((data, idx) => {                
+      let split = data.accessor
+      return split
+      });
+
+    let placeholder = this.state.fields.map((data, idx) => {                
+                let split = data.placeholder
+                return split
+                });
+    console.log(accessor)
     Object.values(data.data[0]).map((data, idx) => {
       let headerTable = {
-        accessor: 'site',
-        Header: 'site',
-        placeholder: 'site',
+        accessor: '',
+        Header: '',
+        placeholder: '',
         sortable: true,
       };
-      let headerDefault = {
-        accessor: 'site',
-        Header: 'site',
-        placeholder: 'site',
-        sortable: true,
-      };
-      headerDefault.Header = this.state.fields
       headerTable.Header = data;
       headerTable.placeholder = placeholder[idx];
       headerTable.accessor = accessor[idx];
       header.push(headerTable);
-      headerDft.push(headerDefault)
     });
     console.log(header);
     if (data.data.length) {
       this.setState({
         products: data.data[0],
         fields: header,
-      });
-    }else {
-      this.setState({
-        products: data.data[0],
-        fields: headerDft,
       });
     }
   };
@@ -430,8 +404,8 @@ showModal = (show) => {
   };
 
   render() {
-    const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state;
-    let { title, data, onClick, height, pagination } = this.props
+    const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
+    let { title, data, onClick, height, pagination,request_status } = this.props
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
 
@@ -442,7 +416,7 @@ showModal = (show) => {
           data={data}
           showPagination={false}
           style={{ height }}
-          noDataText={'Please Wait...'}
+          noDataText={(request_status)? request_status :"Please Wait..."}
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
             return {

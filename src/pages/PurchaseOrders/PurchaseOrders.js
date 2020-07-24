@@ -39,7 +39,7 @@ class PurchaseOrders extends React.PureComponent {
       client: {
         value: this.props.store.user.client ? this.props.store.user.client : null,
       },
-      status: null,
+      status: {value: "open", label: "All Open"}, //on load status=open,
       orderType: null,
       task: null,
       resources: [],
@@ -62,7 +62,7 @@ class PurchaseOrders extends React.PureComponent {
     this.getStatus()
     this.getResources()
     this.searchPurchaseOrder()
-
+    console.log(this.props.store.user)
     const {site, client} = this.props.store.user
     if(site && client) this.getTask()
   }
@@ -194,17 +194,13 @@ class PurchaseOrders extends React.PureComponent {
     return c
   }
 
-  setClient = (clients) =>{
-    let client = [...this.state.client]
-    client.value = clients
+  setClient = (client) =>{
     this.setState({client:client})
     this.getTask()
   }
 
-  setSite = (sites) => {
-    let site = [...this.state.site]
-    site.value = sites
-    this.setState({site:site})
+  setSite = (site) => {
+    this.setState({site})
     this.getTask()
   }
   UrlHeader = () =>{
@@ -242,7 +238,7 @@ class PurchaseOrders extends React.PureComponent {
                   <input value={this.siteCheck(site.value)} className="form-control" readOnly />
                   : 
                   <Select name="site" placeholder="Site"
-                    value={site.value} options={siteData}
+                   options={siteData}
                     onChange={(val) => this.setSite(val)}
                   />
                 }                  
@@ -253,11 +249,11 @@ class PurchaseOrders extends React.PureComponent {
                     <input value={this.clientCheck(client.value)} className="form-control" readOnly />
                     :
                     <Select name="client" placeholder="Client"
-                    value={client.value} options={clientData}
+                    options={clientData}
                     onChange={(val) => this.setClient(val)}
                     />
                   }
-                  
+                  {console.log(this.state.status)}
                 </CCol>
                 <CCol sm={4} lg={2} className="px-2">
                   <Select name="status" placeholder="Status"

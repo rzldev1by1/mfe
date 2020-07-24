@@ -18,8 +18,8 @@ const columns = [
   { accessor: 'client', Header: 'Client', width: 100 },
   { accessor: 'orderno', Header: 'Order No', style: { textAlign: 'left' }, width: 100 },
   { accessor: 'ordertype', Header: 'Order Type', width: 120 },
-  { accessor: 'task', Header: 'Task', width: 100 }, 
-  { accessor: 'customer', Header: 'Customer No' },
+  { accessor: 'isistask', Header: 'Task', width: 100 }, 
+  { accessor: 'customer', Header: 'Customer No', style: { textAlign: 'left' } },
   { accessor: 'customername', Header: 'Customer Name' },
   { accessor: 'status', Header: 'Status', width: 150 },
   { accessor: 'deliverydate', Header: 'Delivery Date', width: 120 },
@@ -46,8 +46,8 @@ const columns = [
 class SalesOrder extends React.PureComponent {
   state = {
     search: '',
-    site: null,
-    client: null,
+    site: (this.props.store.user.site)?{value:this.props.store.user.site}:null,
+    client: (this.props.store.user.client)?{value:this.props.store.user.client}:null,
     status: {value: "open", label: "All Open"}, //on load status=open
     orderType: null,
     task: null,
@@ -75,7 +75,7 @@ class SalesOrder extends React.PureComponent {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - 270)
+    const height = (window.innerHeight - 257)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {
@@ -119,10 +119,15 @@ class SalesOrder extends React.PureComponent {
     if (user) {
       const { data } = await axios.get(`${endpoints.getSoResources}?company=${user.company || ''}&client=${user.client || ''}`)
       const { code, name } = data.orderTypeFilter
-      const orderTypeData = code.map((c, i) => ({ value: c, label: `${code[i]}: ${name[i]}` }))
+      const orderTypeData = code.map((c, i) => ({ value: c, label: `${code[i]}: ${name[i]}` })) 
       const orderType = { value: 'all', label: 'All Order' }
       orderTypeData.splice(0, 0, orderType)
-      this.setState({ resources: data, orderTypeData })
+
+      const code2 = data.orderType.code
+      const name2 = data.orderType.name
+      const orderTypeInsert = code2.map((c, i) => ({ value: c, label: `${code2[i]}: ${name2[i]}` })) 
+      this.setState({ resources: data, orderTypeData, orderTypeInsert }) 
+       
     }
   }
   searchSalesOrder = async () => {
@@ -163,7 +168,7 @@ class SalesOrder extends React.PureComponent {
           item['status'] = [<a className="status-ok">ALL OPEN</a>]
         }
       })
-      if (data.data.total < 1) {
+      if (data.data.total==0) {
         this.setState({ request_status: "No Data Found" })
       }
       this.setState({
@@ -187,14 +192,33 @@ class SalesOrder extends React.PureComponent {
   toggle = (value) => {
     this.setState({ create: value ? value : !this.state.create })
   }
+  
+  siteCheck = (siteVal) => {
+    let l = null
+    this.props.store.site.map(data => {
+      if (data.value === siteVal) l = data.label
+    })
+    return l
+  }
+
+  clientCheck = (clientVal) => {
+    let c = null
+    this.props.store.client.map(data => {
+      if (data.value === clientVal) c = data.label
+    })
+    return c
+  }
+  
   UrlHeader = () =>{
     return `$/getSalesOrderHeader?client=ANTEC`
   }
+  
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData, taskData
+      siteData, clientData, statusData, orderTypeData,orderTypeInsert, taskData
     } = this.state
+    console.log(site)
     return <div className="sales-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Sales Orders', active: true }]}
@@ -204,7 +228,7 @@ class SalesOrder extends React.PureComponent {
       <CCard className="mb-3">
         <CCardBody className="p-3">
           <CRow>
-            <CCol lg={3} className="pr-2">
+            <CCol lg={3} className="px-0">
               <div className="input-group">
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
@@ -212,39 +236,49 @@ class SalesOrder extends React.PureComponent {
                 <input type="text" className="form-control pl-0 border-left-0" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
               </div>
             </CCol>
-            <CCol lg={9}>
+            <CCol lg={9} className="pr-0">
               <CRow>
-                <CCol lg={2} className="px-2">
+                <CCol lg={2} className="px-0">
+                  {
+                  this.props.store.user.site ?
+                  <input value={this.siteCheck(site.value)} className="form-control" readOnly />
+                  : 
                   <Select name="site" placeholder="Site"
                     value={site} options={siteData}
-                    onChange={(val) => this.setState({ site: val }, () => this.getTask())}
+                    onChange={(val) => this.setState({ site: val }, () => {this.getTask()})}
                   />
+                }  
                 </CCol>
-                <CCol lg={2} className="px-2">
-                  <Select name="client" placeholder="Client"
-                    value={client} options={clientData}
-                    onChange={(val) => this.setState({ client: val }, () => this.getTask())}
-                  />
+                <CCol lg={2} className="px-3">
+                  {
+                    this.props.store.user.client ?
+                    <input value={this.clientCheck(client.value)} className="form-control" readOnly />
+                    :
+                    <Select name="client" placeholder="Client"
+                      value={client} options={clientData}
+                      onChange={(val) => this.setState({ client: val }, () => this.getTask())}
+                    />
+                  }
                 </CCol>
-                <CCol lg={2} className="px-2">
+                <CCol lg={2} className="px-0">
                   <Select name="status"
                     value={status} options={statusData}
                     onChange={(val) => this.setState({ status: val })}
                   />
                 </CCol>
-                <CCol lg={2} className="px-2">
+                <CCol lg={2} className="px-3">
                   <Select name="orderType" placeholder="Order Type"
                     value={orderType} options={orderTypeData}
                     onChange={(val) => this.setState({ orderType: val })}
                   />
                 </CCol>
-                <CCol lg={2} className="px-2">
+                <CCol lg={2} className="px-0">
                   <Select name="task" placeholder="Task"
                     value={task} options={taskData}
                     onChange={(val) => this.setState({ task: val })}
                   />
                 </CCol>
-                <CCol lg={2} className="pl-2">
+                <CCol lg={2} className="px-0">
                   <button className="btn btn-search btn-primary float-right" onClick={this.searchSalesOrder}>SEARCH</button>
                 </CCol>
               </CRow>
@@ -252,7 +286,7 @@ class SalesOrder extends React.PureComponent {
           </CRow>
         </CCardBody>
       </CCard>
-
+{console.log(data)}
       <CustomTable
         title="Sales Order"
         height={dimension.height}
@@ -265,7 +299,9 @@ class SalesOrder extends React.PureComponent {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchSalesOrder())
         }}
         request_status={this.state.request_status}
-        export={<button className="btn btn-primary float-right px-4 btn-export">EXPORT <IoIosArrowDown /></button>}
+        export={<button className="btn btn-primary d-flex float-right align-items-center px-3 btn-export">
+           <div className='export-export pr-3' />
+          EXPORT </button>}
       />
 
       <SalesOrderCreate
@@ -274,7 +310,7 @@ class SalesOrder extends React.PureComponent {
         siteData={siteData}
         clientData={clientData}
         statusData={statusData}
-        orderTypeData={orderTypeData}
+        orderTypeData={orderTypeInsert}
       />
     </div>
   }

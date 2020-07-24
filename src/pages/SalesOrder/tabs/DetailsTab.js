@@ -7,17 +7,11 @@ import _ from 'lodash'
 import endpoints from 'helpers/endpoints'
 import DatePicker from 'shared/DatePicker'
 import validations from './validations'
+import { connect } from 'react-redux'
 
 const Required = ({ error, id }) => {
   return <span className="text-error text-danger font-12">{error && error[id]}</span>
-}
-// const debounceEventHandler = (...args) => {
-//   const debounced = _.debounce(...args)
-//   return (e) => {
-//     e.persist()
-//     return debounced(e)
-//   }
-// }
+} 
 var tmpChar = "";
 class CreateTab extends React.Component {
   state = {
@@ -30,12 +24,14 @@ class CreateTab extends React.Component {
     dispositionStatus: [],
     productStatus: [],
     deliveryDate: null,
-    orderId: null
-
-    // orderId: 'AB29123', shipToAddress1: 'Ark Street 12', postCode: '291923', state: 'Victoria',
+    orderId: null, 
+    orderTypeValue: null, 
+    site: this.props.user.site ? this.props.user.site : '',
+    client: this.props.user.client ? this.props.user.client : '',
   }
   componentDidMount() {
     this.getDisposition()
+    this.getProduct() 
   }
   // remove first option (all)
   componentDidUpdate(nextProps) {
@@ -54,7 +50,8 @@ class CreateTab extends React.Component {
     }
   }
   getProduct = async () => {
-    const url = `${endpoints.getProduct}?client=${this.state.client.value}`
+    const client = this.props.user.client?this.state.client:this.state.client.value
+    const url = `${endpoints.getProduct}?client=${client}`
     const { data } = await axios.get(url)
     const productData = data.code.map((c, i) => ({ value: c, label: c, i }))
     this.setState({ productData, productDataName: data.name })
@@ -67,7 +64,7 @@ class CreateTab extends React.Component {
   }
   getUom = async (product) => {
     // https://apidev.microlistics.tech/dropdown/getuom?client=AESOP&&product=1002
-    const client = this.state.client.value
+    const client = this.props.user.client?this.state.client:this.state.client.value
     const url = `${endpoints.getUom}?client=${client}&product=${product}`
     const { data } = await axios.get(url)
     const uomData = data.uom.map((c, i) => ({ value: c, label: c }))
@@ -91,10 +88,12 @@ class CreateTab extends React.Component {
   }
   onSelectChange = (name, val) => {
     let { error } = this.state
-    delete error[name]
+    delete error[name] 
     this.setState({ [name]: val }, () => {
       if (name === 'client') {
         this.getProduct()
+      }else if(name=== 'orderType'){
+        this.orderTypeValue(val)
       }
     })
   }
@@ -108,9 +107,7 @@ class CreateTab extends React.Component {
     const { name, value } = e.target
     const { orderLine } = this.state
     orderLine[i][name] = value
-    this.setState({ orderLine },() => {
-      console.log(orderLine)
-    })
+    this.setState({ orderLine })
   }
   lineSelectChange = (i, key, val) => {
     const { orderLine, error } = this.state
@@ -136,6 +133,7 @@ class CreateTab extends React.Component {
   }
   checkOrderId = async (e) => {
     let { error, client } = this.state
+    client = this.props.user.client?this.state.client:this.state.client.value
     let orderId = e.target.value
     this.setState({ orderId: orderId.toUpperCase() })
     if (!client) {
@@ -152,7 +150,7 @@ class CreateTab extends React.Component {
     }
     delete error.orderId
     const { data } = await axios.post('/orderCheck', {
-      "client": client.value,
+      "client": client,
       "order_no": orderId
     })
     if (data.message !== 'available') {
@@ -203,8 +201,7 @@ class CreateTab extends React.Component {
     }
   }
 
-  numberCommaCheck = (index, refs, numberLength, commaLength,e) => {  
-      console.log(tmpChar)
+  numberCommaCheck = (index, refs, numberLength, commaLength,e) => {   
       var value = e.target.value 
       var arr = value.split(".")  
       var x = ''
@@ -233,11 +230,40 @@ class CreateTab extends React.Component {
       this.lineChange(index, arr2)
   }
 
+  
+  siteCheck = (siteVal) => {
+      let l = null
+      this.props.site.map(data => {
+        if (data.value === siteVal){ 
+          l = data.label 
+        }
+      })
+      return l
+    }
+
+    clientCheck = (clientVal) => {
+      let c = null
+      this.props.client.map(data => {
+        if (data.value === clientVal){
+           c = data.label 
+        }
+      }) 
+      return c
+    }
+
+    orderTypeValue = (orderType) => {
+      this.setState({
+        orderTypeValue:orderType.value
+      })
+    }
+   
+    
   render() {
     const { error, overflow, site, client, orderType, orderLine, customer,
       orderId, shipToAddress1, postCode, state,
       siteData, clientData, orderTypeData, productData, uomData, dispositionData,
     } = this.state
+    const {user} = this.props
     let datepickerStatus = this.state.datepickerStatus;
     let UOMStatus = []
     let dispositionStatus = []
@@ -245,18 +271,24 @@ class CreateTab extends React.Component {
     let expandDropdownCheck = (this.state.UOMStatus.includes(true) || this.state.dispositionStatus.includes(true)) || this.state.productStatus.includes(true);
     let datepickerExpandStyle = this.state.datepickerStatus.includes(true) ? " lineDetailsTopExpand" : "";
     let dropdownExpandStyle = expandDropdownCheck ? " lineDetailsBottomExpand" : "";
-
+ 
     return <Container className="px-5 py-4">
       <h3 className="text-primary font-20">Order Details</h3>
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0 required">Site</label>
-          <Select value={site || ''} options={siteData} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required />
+          {
+            user.site ? 
+            <input value={this.siteCheck(user.site)} className="form-control" readOnly />
+            :
+            <Select options={siteData} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required />
+          }
           <Required id="site" error={error} />
+          
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order Type</label>
-          <Select value={orderType || ''} options={orderTypeData} onChange={val => this.onSelectChange('orderType', val)} placeholder="Order Type" required />
+          <Select name="orderType" value={orderType || ''} options={orderTypeData} onChange={val => this.onSelectChange('orderType', val)} placeholder="Order Type" required />
           <Required id="orderType" error={error} />
         </Col>
         <Col lg="3">
@@ -279,7 +311,12 @@ class CreateTab extends React.Component {
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0 required">Client</label>
-          <Select value={client || ''} options={clientData} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required />
+          {
+            user.client ?
+            <input value={this.clientCheck(user.client)} className="form-control" readOnly />
+            :
+            <Select  options={clientData} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required />
+          }
           <Required id="client" error={error} />
         </Col>
         <Col lg="3">
@@ -464,4 +501,13 @@ class CreateTab extends React.Component {
   }
 }
 
-export default CreateTab
+const mapStateToProps = store => {
+  return {
+    webUser: store.user.webUser,
+    user: store.user,
+    site: store.site,
+    client:store.client
+  }
+}
+
+export default connect(mapStateToProps)(CreateTab)
