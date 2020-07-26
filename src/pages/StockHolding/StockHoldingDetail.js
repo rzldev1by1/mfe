@@ -254,6 +254,12 @@ class SalesOrderDetail extends React.Component {
                   fields={stockDetail}
                   data={products}
                   UrlHeader={this.UrlHeader}
+                  export={
+                    <button className='btn d-flex btn-primary float-right align-items-center px-3 btn-export'>
+                      <div className='export-export pr-3' />
+                      EXPORT
+                    </button>
+                  }
                 />
               </TabPane>
               <TabPane className='stockDetails' tabId='2'>
@@ -263,6 +269,12 @@ class SalesOrderDetail extends React.Component {
                   fields={ForesCast}
                   data={products}
                   UrlHeader={this.UrlHeader}
+                  export={
+                    <button className='btn d-flex btn-primary float-right align-items-center px-3 btn-export'>
+                      <div className='export-export pr-3' />
+                      EXPORT
+                    </button>
+                  }
                 />
               </TabPane>
             </TabContent>
