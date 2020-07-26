@@ -150,6 +150,12 @@ class SalesOrderDetail extends React.Component {
         data={products}
         UrlHeader={this.UrlHeader} 
         request_status={this.state.request_status}
+        export={
+          <button className='btn d-flex btn-primary float-right align-items-center px-3 btn-export'>
+            <div className='export-export pr-3' />
+            EXPORT
+          </button>
+        }
       />
     </div>
   }

@@ -413,7 +413,7 @@ class CreateTab extends React.Component {
           <tbody>
             {orderLine.length && orderLine.map((o, i) => { 
               return <tr className="py-1 text-center orderline-row">
-                <td className="px-1">
+                <td className="pl-0 pr-1">
                   <input value={i + 1} className="form-control text-center" readOnly />
                 </td>
                 <td className="px-1 text-left">

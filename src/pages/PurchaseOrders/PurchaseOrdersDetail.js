@@ -129,6 +129,12 @@ class PurchaseOrdersDetail extends React.Component {
         fields={fields}
         data={products}
         UrlHeader={this.UrlHeader} 
+        export={
+          <button className='btn d-flex btn-primary float-right align-items-center px-3 btn-export'>
+            <div className='export-export pr-3' />
+            EXPORT
+          </button>
+        }
       />
       <CustomPagination
         data={products}
