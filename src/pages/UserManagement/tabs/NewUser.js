@@ -77,7 +77,7 @@ class NewUser extends React.PureComponent {
             onModuleEnableAllClick, onClientEnableAllClick, onSiteEnableAllClick } = this.props;
         const { validation } = this.state;
         return (
-            <Container className="px-5 py-4">
+            <Container className="px-5 pt-4 pb-5">
                 <Row>
                     <Col lg="2" className="pr-0">
                         <h3 className="text-primary font-20 um-text-webgroup">New User</h3>
@@ -146,7 +146,7 @@ class NewUser extends React.PureComponent {
                         <Client clients={clients} onEnableClick={onClientEnableClick} onClientEnableAll={onClientEnableAllClick} isEnableAllClient={isEnableAllClient} />
                     </Col>
                 </Row>
-                <Row className="mt-4">
+                <Row className="mt-5">
                     <Col lg={2}></Col>
                     <Col lg={8}></Col>
                     <Col lg={2} className="text-right">
