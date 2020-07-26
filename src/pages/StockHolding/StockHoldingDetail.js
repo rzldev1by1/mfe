@@ -93,7 +93,7 @@ class SalesOrderDetail extends React.Component {
 
   updateDimension = () => {
     const height =
-      window.innerHeight - this.section1.current.clientHeight - 220;
+      window.innerHeight - this.section1.current.clientHeight - 225;
     this.setState({ dimension: { width: window.innerWidth, height } });
   };
 
@@ -207,7 +207,7 @@ class SalesOrderDetail extends React.Component {
                 <NavItem className='p-0'>
                   <NavLink
                     className={
-                      'p-3 nav-link-cust' +
+                      'p-3 nav-link-cust d-flex align-items-center' +
                       (activeTab === '1' ? ' tab-custom' : '')
                     }
                     active={this.state.activeTab === '1'}
@@ -225,7 +225,7 @@ class SalesOrderDetail extends React.Component {
                 <NavItem className={'p-0'}>
                   <NavLink
                     className={
-                      'p-3 nav-link-cust' +
+                      'p-3 nav-link-cust d-flex align-items-center' +
                       (activeTab === '2' ? ' tab-custom' : '')
                     }
                     active={this.state.activeTab === '2'}

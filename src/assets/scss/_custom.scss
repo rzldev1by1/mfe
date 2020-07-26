@@ -87,11 +87,13 @@ button:focus {
   margin: 0;
   background-color: #fff;
   color: #000;
-  border-left: 2px #376bfb solid;
-  border-right: 2px #376bfb solid;
-  border-bottom: 2px #376bfb solid;
   border-radius: 0px 0px 0.3rem 0.3rem !important;
   /* overflow: hidden; */
+}
+.modal-body{
+  border-left: 2px #376bfb solid !important;
+  border-right: 2px #376bfb solid !important;
+  border-bottom: 2px #376bfb solid !important;
 }
 .nav-link {
   background-color: #eee;
@@ -339,9 +341,10 @@ header {
     border-radius: 0.3rem 0.3rem 0px 0px !important;
   }
   .modal-body{
-    border-radius: 0.3rem !important;
+    border-radius: 0rem 0rem 0.3rem 0.3rem !important;
   }
 }
+
 // REACTABLE
 
 .ReactTable {

@@ -48,7 +48,7 @@ class PurchaseOrdersDetail extends React.Component {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - this.section1.current.clientHeight - 165)
+    const height = (window.innerHeight - this.section1.current.clientHeight - 175)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getDetail = async () => {

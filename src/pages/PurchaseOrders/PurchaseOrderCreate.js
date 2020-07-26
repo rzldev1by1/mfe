@@ -42,11 +42,11 @@ class SalesOrderCreate extends React.PureComponent {
           </Col>
         </Row>
         <Nav tabs className="px-5 m-0">
-          <NavItem className="mr-2"><NavLink className={key === 'detail' ? 'active' : null} onClick={() => this.onSelectTab('detail')}>
-            <div className={`badge badge-pill badge-${key === 'detail' ? 'primary' : 'secondary'}`}>1</div> Order & Product Details
+          <NavItem className="mr-3"><NavLink className={`d-flex align-items-center ${key === 'detail' ? 'active' : null}`} onClick={() => this.onSelectTab('detail')}>
+            <div className={`badge badge-pill text-align-center mr-2 badge-${key === 'detail' ? 'primary' : 'secondary'}`}>1</div> Order & Product Details
           </NavLink></NavItem>
-          <NavItem><NavLink className={key === 'review' ? 'active' : null} onClick={() => this.onSelectTab('review')}>
-            <div className={`badge badge-pill badge-${key === 'review' ? 'primary' : 'secondary'}`}>2</div> Review
+          <NavItem><NavLink className={`d-flex align-items-center ${key === 'review' ? 'active' : null}`} onClick={() => this.onSelectTab('review')}>
+            <div className={`badge badge-pill text-align-center mr-2 badge-${key === 'review' ? 'primary' : 'secondary'}`}>2</div> Review
           </NavLink></NavItem>
         </Nav>
         <TabContent activeTab={this.state.key}>
