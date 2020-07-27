@@ -171,7 +171,7 @@ showModal = (show) => {
     header && header.map((h, index) => {
         if (!editColumn[index]) {
           let withIcon = (
-            <span className='text-light-gray'>
+            <span className='text-light-gray draggable-header'>
               {h.Header}{' '}
               {h.sortable === false ? null : (
                 <svg
