@@ -459,11 +459,11 @@ class UserManagementDetail extends Component {
                             </div>
 
                             <div className="row">
-                                <div className="col-md-2">
+                                <div className="col-md-1">
                                     <label className="text-title-detail">User ID</label>
                                 </div>
 
-                                <div className="col-md-2">
+                                <div className="col-md-3">
                                     <label className="text-title-detail">Email</label>
                                 </div>
 
@@ -483,11 +483,11 @@ class UserManagementDetail extends Component {
                             </div>
                             <div className="row mb-3">
 
-                                <div className="col-md-2 pr-0">
+                                <div className="col-md-1 pr-0">
                                     <input type="text" readOnly className="form-control" value={accountInfo.userId} />
                                 </div>
 
-                                <div className="col-md-2 pr-0">
+                                <div className="col-md-3 pr-0">
                                     <input type="email" name="email" className={`form-control ${validation.email["isValid"]? '':validation.email["invalidClass"]}`} onChange={(e) => { this.onChangeEmail(e); }} value={accountInfo.email} />
                                     <FormFeedback>
                                         invalid email
