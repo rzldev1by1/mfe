@@ -48,7 +48,7 @@
   .btn-outline-active {
     /* font-family: 'Rubik Regular'; */
     /* font-size: 1rem !important; */
-    width: 110px !important;
+    width: 115px !important;
     height: 40px !important;
     border: 1.5px solid #3366ff;
     border-radius: 7px;
@@ -59,7 +59,7 @@
   .btn-outline-notActive {
     /* font-family: 'Rubik Regular'; */
     /* font-size: 1rem !important; */
-    width: 110px !important;
+    width: 115px !important;
     height: 40px !important;
     color: #d5d8da;
     border: 1.5px solid #d5d8da;
@@ -260,7 +260,11 @@
 }
 .um-summary .card .card-body:last-child .row .col-sm-12:last-child .btn{
   width: 105px !important;
-    letter-spacing: 1px !important;
+  letter-spacing: 1px !important;
+}
+.um-summary .card .card-body .row .col-sm-2:first-child{
+  flex: 0 0 14.66667% !important;
+  max-width: 14.66667% !important;
 }
 .um-summary .ReactTable .rt-table .rt-thead .rt-tr .rt-th:first-child{
   padding-left: 1.8rem !important;

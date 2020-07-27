@@ -20,7 +20,6 @@ class SalesOrderCreate extends React.PureComponent {
   setData = (data) => {
     if (data.header && data.lineDetail) {
       this.setState({ data, key: 'review' }, () => { 
-        console.log(this.state.data)
       })
     }
   }
@@ -32,21 +31,21 @@ class SalesOrderCreate extends React.PureComponent {
     const { data, key } = this.state
     return <Modal show={this.props.show} onHide={this.onHide} size="xl" className="sales-order-create" >
       <Modal.Body className="bg-primary p-0">
-        <Row className="px-5 pb-3 pt-md mx-0 row">
+        <Row className="pl-5 pr-3 pb-3 pt-3 mx-0">
           <Col xs={10} className="px-0">
             <span className="font-20"><i className="iconU-createModal font-20"></i> Sales Order</span> <br />
-            <span>Enter Order and line details to create a new sales order</span>
+            <span className="ml-7">Enter Order and line details to create a new sales order</span>
           </Col>
           <Col xs={2} className="text-right px-0">
             <i className="iconU-close pointer" onClick={this.onHide}></i>
           </Col>
         </Row>
-        <Nav tabs className="px-5 mx-0">
-          <NavItem className="mr-3"><NavLink className={`d-flex align-items-center ${key === 'detail' ? 'active' : null}`} onClick={() => this.onSelectTab('detail')}>
-            <div className={`badge badge-pill d-flex text-align-center mr-2 badge-${key === 'detail' ? 'primary' : 'secondary'}`}>1</div> Order & Product Details
+        <Nav tabs className="px-7 mx-0">
+          <NavItem className="mr-2"><NavLink className={`d-flex align-items-center ${key === 'detail' ? 'active' : null}`} onClick={() => this.onSelectTab('detail')}>
+            <div className={`badge badge-pill d-flex text-align-center mr-1 badge-${key === 'detail' ? 'primary' : 'secondary'}`}>1</div> Order & Product Details
           </NavLink></NavItem>
           <NavItem><NavLink className={`d-flex align-items-center ${key === 'review' ? 'active' : null}`} onClick={() => this.onSelectTab('review')}>
-            <div className={`badge badge-pill d-flex text-align-center mr-2 badge-${key === 'review' ? 'primary' : 'secondary'}`}>2</div> Review
+            <div className={`badge badge-pill d-flex text-align-center mr-1 badge-${key === 'review' ? 'primary' : 'secondary'}`}>2</div> Review
           </NavLink></NavItem>
         </Nav>
         <TabContent activeTab={this.state.key}>

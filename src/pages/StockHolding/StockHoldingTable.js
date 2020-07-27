@@ -351,7 +351,10 @@ class CustomTable extends React.Component {
           data={data}
           showPagination={false}
           style={{ height }}
-          noDataText={'Please Wait...'}
+          // noDataText={'Please Wait...'}
+          noDataText={<div className='text-align-center'>
+          <div  className='caution-caution px-6'/>No Data Available
+        </div>}
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
             return {
