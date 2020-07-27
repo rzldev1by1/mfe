@@ -75,9 +75,11 @@ class CreateTab extends React.Component {
   addLine = () => {
     const error = validations(this.state)
     this.setState({ error })
-    // if (Object.keys(error).length> 1) {
-    this.setState({ orderLine: [...this.state.orderLine, {}] })
-    // }
+    if(error.orderLine.length < 1) 
+    {
+      this.setState({ orderLine: [...this.state.orderLine, {}]})
+    }
+    
   }
   removeLine = (i) => {
     let orderLine = Object.assign([], this.state.orderLine)
@@ -217,9 +219,6 @@ class CreateTab extends React.Component {
         y = '.'+arr[1]
       }
       var text =x+((tmpChar=='.')?'.':'')+y 
-      console.log(arr)
-      console.log(value)
-      console.log(text)
       var arr2 = {
         target: {
           name: refs,
