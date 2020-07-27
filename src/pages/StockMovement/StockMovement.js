@@ -499,6 +499,9 @@ class StockMovement extends React.PureComponent {
       data={data_table}
       fields={fields}
       onClick={this.showDetails}
+      noDataText={<div className='text-align-center'>
+      <div  className='caution-caution px-6'/>No Data Available
+    </div>}
       export={<CButton className="btn btn-primary px-4">EXPORT <IoIosArrowDown /></CButton>}
     /> 
 
