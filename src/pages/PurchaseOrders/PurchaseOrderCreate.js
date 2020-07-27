@@ -5,10 +5,12 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap
 // import _ from 'lodash'
 import DetailsTab from './tabs/DetailsTab.js'
 import ReviewTab from './tabs/ReviewTab'
+import MessageTab from './tabs/MessageTab'
 
 class SalesOrderCreate extends React.PureComponent {
   state = {
-    key: 'detail',
+    key: 'review',
+    submit: true,
     data: { header: {}, lineDetail: [] },
     // data: { "header": { "site": { "value": "A", "label": "A : Australis A" }, "client": { "value": "AESOP", "label": "AESOP : Aesop" }, "orderType": { "value": "MVKT", "label": "MVKT: Move Orders" }, "orderId": "AB29123", "shipToAddress1": "Ark Street 12", "postCode": "291923", "state": "Victoria", "deliveryDate": "2020-07-02" }, "lineDetail": [{ "product": "product 1001", "productVal": { "value": "1001", "label": "1001", "i": 0 }, "qty": "2", "uom": { "value": "CARTON", "label": "CARTON" }, "disposition": "G", "dispositionVal": { "value": "G", "label": "G", "i": 9 } }] }
   }
@@ -22,6 +24,14 @@ class SalesOrderCreate extends React.PureComponent {
   setData = (data) => {
     if (data.header && data.lineDetail) {
       this.setState({ data, key: 'review' })
+    }
+  }
+
+  submitStatus = (status) => {
+    this.setState({submit:true})
+    if(status === 'Successfully added' ) 
+    {
+      // setTimeout(() => this.onHide(), 1500)
     }
   }
   onHide = () => {
@@ -57,11 +67,17 @@ class SalesOrderCreate extends React.PureComponent {
               {...this.props} />
           </TabPane>
           <TabPane tabId="review">
-            <ReviewTab
+            {
+              this.state.submit ? 
+              <MessageTab/>
+              :
+              <ReviewTab
               data={data}
               back={() => this.onSelectTab('detail')}
               submit={this.setData}
+              submitStatus={this.submitStatus}
               hide={this.onHide} />
+            }
           </TabPane>
         </TabContent>
       </Modal.Body>
