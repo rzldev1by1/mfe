@@ -67,7 +67,7 @@ class UserManagementDetail extends Component {
     checkEmailValidation = (textmail) => {
         const { users, validation, accountInfo } = this.state;
         // let validation = { ...this.state.validation }; 
-        console.log(users);       
+           
 
         let isValidUser = users.filter((item) => { return (item.userid !== accountInfo.userId && item.email === textmail); }).length > 0 ? false : true;
         let validFormat = !textmail.match(regexMail) ? false : true;
@@ -126,9 +126,13 @@ class UserManagementDetail extends Component {
     getAccountInfo = async (userid) => {
         const { data } = await axios.get(endpoint.userManagementUser_Detail + userid);
         if (data && data !== '') {
+            let adminClassName = this.state.adminClass;
             let result = this.restructureAccount(data.data);
-
-            this.setState({ accountInfo: result, isLoadComplete: true }, () => {
+            
+            if(result.web_group !== webgroup.ADMIN)
+                adminClassName = ' ';
+            
+            this.setState({ accountInfo: result, isLoadComplete: true, adminClass: adminClassName }, () => {
                 this.loadMasterResource();
             });
         }
@@ -421,7 +425,6 @@ class UserManagementDetail extends Component {
 
     onSubmitHandler = (e) => {
         e.preventDefault();
-
     }
 
     loadPersonalLogin = () => {
@@ -433,7 +436,7 @@ class UserManagementDetail extends Component {
     render() {
         const { match } = this.props;
         const { moduleAccess, sites, clients, accountInfo, loginInfo, adminClass,validation } = this.state;    
-
+        console.log(adminClass);
         return (<div className="um-detail w-100 h-100">
             {/* <div className={(this.state.isLoadComplete ? 'd-none' : 'spinner')} />
             <div className={(this.state.isLoadComplete ? ' ' : 'd-none')}>
@@ -509,7 +512,7 @@ class UserManagementDetail extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className={`col-md-3 pl-0 ${accountInfo.userId === loginInfo.userId ? 'd-none' : ''} ${accountInfo.web_group !== webgroup.ADMIN ? '' : ' d-none '}`}>
+                                <div className={`col-md-3 pl-0 ${adminClass}`}>
                                     <div className="row">
                                         <div className="col-6 text-title-detail" >
                                             Are you sure you want<br />
@@ -529,7 +532,7 @@ class UserManagementDetail extends Component {
 
 
                         </div>
-                        <div id="system" className={`system mb-0 ${accountInfo.userId === loginInfo.userId ? ' d-none ' : ''} ${accountInfo.web_group !== webgroup.ADMIN ? '' : ' d-none '}`}>
+                        <div id="system" className={`system mb-0 ${adminClass}`}>
                             <div className="row">
                                 <div className="col-12">
                                     <h3 className="mb-0">
