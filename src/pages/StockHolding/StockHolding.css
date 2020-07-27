@@ -2,6 +2,16 @@
   height: 40px;
 }
 
+.Active{
+  padding-right: 8px;
+  border: solid 1px;
+  padding-left: 8px;
+  border-radius: 20px;
+  background: #3f6efb;
+  color: #fff;
+  margin-right: 3px;
+}
+
 .nav-tabs .nav-link.tab-custom {
   color: #3f6efb !important;
   background-color: #ffffff !important;
@@ -11,7 +21,12 @@
   padding-top: 8px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  border: solid 0px;
+  border: solid 0px ;
+}
+.nav-tabs .nav-link.tab-nonActive {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border: solid 1px !important;
 }
 
 .tableTab {
@@ -75,6 +90,7 @@
 
 .stock-holding-detail .tabTitleText {
   margin-top: -5px !important;
+  display: inline-flex;
 }
 
 .stock-holding-detail .card-group .col-lg-5 {

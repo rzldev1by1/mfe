@@ -301,27 +301,34 @@ class UserManagementDetail extends Component {
         const { moduleAccess, sites, clients } = this.state;
 
         let newParam = {};
+
+        let adminMenu = moduleAccess.map((item, index) => {
+                return item.menuid;
+            });
+            
         let userMenu = moduleAccess.filter((item) => { return item.status === true; })
             .map((item, index) => {
                 return item.menuid;
             });
+        
         let site = sites.find((item, index) => {
             return item.status === true;
         });
+        
         let client = clients.find((item, index) => {
             return item.status === true;
         });
 
-        let accountInfo = { ...this.state.accountInfo };
+        let accountInfo = { ...this.state.accountInfo }; 
         newParam.name = accountInfo.user;
         newParam.email = accountInfo.email;
         newParam.lastAccess = accountInfo.lastAccess;
         newParam.lastLogin = accountInfo.lastLogin;
         newParam.thisAccess = accountInfo.thisAccess;
         newParam.thisLogin = accountInfo.thisLogin;
-        newParam.userMenu = userMenu;
-        newParam.client = client.code;
-        newParam.site = site.site;
+        newParam.userMenu = accountInfo.web_group === webgroup.ADMIN? adminMenu:userMenu;
+        newParam.client = accountInfo.web_group === webgroup.ADMIN? null:client.code;
+        newParam.site = accountInfo.web_group === webgroup.ADMIN? null:site.site;
         newParam.disabled = accountInfo.disabled ? 'Y' : 'N';
 
 

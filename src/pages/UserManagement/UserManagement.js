@@ -4,6 +4,7 @@ import CustomTable from 'shared/table/CustomTable'
 
 import axios from 'axios'
 import HeaderTitle from 'shared/container/TheHeader'
+// import UMCustomTable from 'shared/table/CustomTable'
 
 import endpoint from '../../helpers/endpoints'
 import UMCustomTable from './UserManagementTable'
@@ -78,7 +79,8 @@ class UserManagemen extends Component {
             return newItem;
         })
         this.setState({
-            data: result, pagination: {
+            data: result, 
+            pagination: {
                 active: pagination.active || data.data.current_page,
                 show: data.data.per_page,
                 total: data.data.total
@@ -100,7 +102,7 @@ class UserManagemen extends Component {
     render() {
 
         const { loginInfo, data, fields, pagination, dimension, modalShow } = this.state;
-        
+        console.log(pagination);
         return (
             <div className="um-summary pt-1">
                 <HeaderTitle
