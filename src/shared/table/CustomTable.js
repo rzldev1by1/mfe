@@ -425,6 +425,7 @@ showModal = (show) => {
                   onClick(rowInfo.original, state, column, e, instance);
               },
               style: {
+                height : "3rem",
                 cursor: !!onClick && 'pointer',
                 textAlign: isNaN(rowInfo?.original[column.id])
                   ? 'left'
