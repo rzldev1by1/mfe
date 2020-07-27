@@ -246,6 +246,12 @@ class SalesOrder extends React.PureComponent {
                   <Select name="site" placeholder="Site"
                     value={site} options={siteData}
                     onChange={(val) => this.setState({ site: val }, () => {this.getTask()})}
+                    styles={{
+                      dropdownIndicator: (base, state) => ({
+                        ...base, 
+                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                      })
+                    }}
                   />
                 }  
                 </CCol>
@@ -257,6 +263,12 @@ class SalesOrder extends React.PureComponent {
                     <Select name="client" placeholder="Client"
                       value={client} options={clientData}
                       onChange={(val) => this.setState({ client: val }, () => this.getTask())}
+                      styles={{
+                        dropdownIndicator: (base, state) => ({
+                          ...base, 
+                          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                        })
+                      }}
                     />
                   }
                 </CCol>
@@ -264,18 +276,36 @@ class SalesOrder extends React.PureComponent {
                   <Select name="status"
                     value={status} options={statusData}
                     onChange={(val) => this.setState({ status: val })}
+                    styles={{
+                      dropdownIndicator: (base, state) => ({
+                        ...base, 
+                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                      })
+                    }}
                   />
                 </CCol>
                 <CCol lg={2} className="px-3">
                   <Select name="orderType" placeholder="Order Type"
                     value={orderType} options={orderTypeData}
                     onChange={(val) => this.setState({ orderType: val })}
+                    styles={{
+                      dropdownIndicator: (base, state) => ({
+                        ...base, 
+                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                      })
+                    }}
                   />
                 </CCol>
                 <CCol lg={2} className="px-0">
                   <Select name="task" placeholder="Task"
                     value={task} options={taskData}
                     onChange={(val) => this.setState({ task: val })}
+                    styles={{
+                      dropdownIndicator: (base, state) => ({
+                        ...base, 
+                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                      })
+                    }}
                   />
                 </CCol>
                 <CCol lg={2} className="px-0">
