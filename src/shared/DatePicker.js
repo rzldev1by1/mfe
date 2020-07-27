@@ -121,12 +121,13 @@ class DatePicker extends React.Component {
         this.handleYearMonthChange = this.handleYearMonthChange.bind(this);
         this.handleDayClick = this.handleDayClick.bind(this);
         this.state = {
-            selectedDay: null,
+            selectedDay: new Date(),
             showDatePicker: false,
             month: new Date(),
             monthChange: false,
             top: null,
-            left: null
+            left: null,
+            defaultValue: null
         }
     }
 
@@ -139,6 +140,15 @@ class DatePicker extends React.Component {
     //     }
     // }
 
+    componentDidUpdate(prevProps){
+        if (prevProps.firstDate !== this.props.firstDate){
+            let firstDate = new Date(this.props.firstDate);
+            firstDate.setDate(firstDate.getDate() + 1)
+            this.setState({ month: firstDate, selectedDay: firstDate, defaultValue: null});
+            this.props.getDate(null)
+        }
+    }
+
     componentDidMount() {
         if (this.props.showDatePicker) {
             this.props.showDatePicker(this.state.showDatePicker)
@@ -149,13 +159,16 @@ class DatePicker extends React.Component {
         this.setState({ month, monthChange: true });
     }
 
-    handleDayClick = (day, { selected }) => {
+    handleDayClick = (day, modifiers = {}) => {
+        if(modifiers.disabled){
+            return;
+        }
         this.setState({
-            selectedDay: selected ? undefined : day,
+            selectedDay: modifiers.selected ? modifiers.selected : day, defaultValue: modifiers.selected ? modifiers.selected : day
         });
-        this.props.getDate(moment(selected ? undefined : day).format("YYYY-MM-DD"))
+        this.props.getDate(moment(modifiers.selected ? modifiers.selected : day).format("YYYY-MM-DD"))
         this.setState({ showDatePicker: false });
-        this.refs['dateValue'].value = moment(day).format("DD/MM/YYYY");
+        // this.refs['dateValue'].value = moment(day).format("DD/MM/YYYY");
         if (this.props.onChange) {
             this.props.onChange()
         }
@@ -212,6 +225,8 @@ class DatePicker extends React.Component {
 
     render() {
         let placeHolder = "Select Date";
+        let firstDate = new Date(this.props.firstDate);
+        firstDate.setDate(firstDate.getDate() + 1)
         const no = Math.floor(Math.random() * 100000) + 1;
         const className = `select_date ${this.state.showDatePicker && (this.props.for === "SalesOrderCreate") ? "datepickerForOrderLine" : ""}`
         return (
@@ -222,7 +237,7 @@ class DatePicker extends React.Component {
                         placeholder={this.props.placeHolder ? this.props.placeHolder : "DD/MM/YYYY"}
                         className="form-control"
                         maxLength="10"
-                        defaultValue={this.state.selectedDays ? moment(this.state.selectedDay).format("DD/MM/YYYY") : null}
+                        defaultValue={this.state.defaultValue ? moment(this.state.defaultValue).format("DD/MM/YYYY") : null}
                         onChange={(e) => { this.dateValueProcess(e) }}
                         onFocus={() => {this.openDatePicker(); if(this.props.onOpen) {this.props.onOpen()}}}
                         onKeyUp={(e) => this.dateValueFormat(e)}
@@ -254,11 +269,14 @@ class DatePicker extends React.Component {
                                 <DayPicker
                                     className="datepicker-content"
                                     tabIndex="-1"
-                                    selectedDays={new Date()}
+                                    selectedDays={this.state.selectedDay ? this.state.selectedDay : new Date()}
                                     onDayClick={this.handleDayClick}
                                     month={this.state.month}
                                     fromMonth={this.props.fromMonth ? new Date(this.props.fromMonth) : this.state.month}
                                     toMonth={this.props.toMonth ? new Date(new Date(this.props.toMonth).getFullYear(), 11) : new Date(new Date(this.state.month).getFullYear() + 10, 11)}
+                                    disabledDays={this.props.fromMonth ? [{
+                                        before: this.props.firstDate ? firstDate : new Date(this.props.fromMonth)
+                                    }] : false}
                                     onMonthChange={(e) => this.setState({ month: e })}
                                     captionElement={({ date, localeUtils }) => (
                                         <YearMonthForm

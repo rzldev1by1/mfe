@@ -433,14 +433,17 @@ class CreateTab extends React.Component {
                       })
                     }}
                     />
-                  <Required id="productVal" error={error.orderLine && error.orderLine[i]} />
+                  <div className='w-100 d-flex align-items-start'><Required id="productVal" error={error.orderLine && error.orderLine[i]} /></div>
                 </td>
                 <td className="px-1">
                   <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly />
                 </td>
                 <td className="px-1">
                   <input name="qty" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} type="text" className="form-control" placeholder="Qty" maxlength="10" />
+                  <div className='w-100 d-flex align-items-start text-nowrap'>
                   <Required id="qty" error={error.orderLine && error.orderLine[i]} />
+                  </div>
+                  
                 </td>
                 <td className="px-1">
                   <input name="weight" value={this.state.orderLine[i]['weight']} onKeyPress={(e) => this.decimalCheck(e)} onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="15" className="form-control" placeholder="Weight" />
@@ -465,7 +468,10 @@ class CreateTab extends React.Component {
                       })
                     }}
                     />
-                  <Required id="uom" error={error.orderLine && error.orderLine[i]} />
+                    <div className='w-100 d-flex align-items-start'>
+                    <Required id="uom" error={error.orderLine && error.orderLine[i]} />
+                    </div>
+                  
                 </td>
                 <td className="px-1">
                   <input name="batch" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Batch" maxLength='30' />

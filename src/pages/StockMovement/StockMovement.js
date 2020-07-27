@@ -420,7 +420,7 @@ class StockMovement extends React.PureComponent {
         <CCol lg={2} className="sm-col-14 pr-0 dateFrom" > 
                 <DatePicker style={{ minWidth: '100%' }}
                   ref="dateFrom" arrowStyle={true}
-                  getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
+                  getDate={(e) => { this.setState({ dateFromSelected: e })}}
                   defaultValue={this.state.dateFromSelected} tabIndex="1" placeHolder="Select Date"
                   onChange={(e) => {this.openDatePicker('to')}}
                   fromMonth={minDate} toMonth={maxDate}
@@ -430,8 +430,9 @@ class StockMovement extends React.PureComponent {
         <CCol lg={2} className="sm-col-14 pr-0 dateTo" > 
                   <DatePicker style={{ minWidth: '100%', height:'50px' }}
                       ref="dateTo" arrowStyle={true}
+                      firstDate = {this.state.dateFromSelected}
                       onOpen={() => { this.closeDatePicker("from") }}
-                      getDate={(e) => { this.setState({ dateToSelected: e.toString() })}}
+                      getDate={(e) => { this.setState({ dateToSelected: e })}}
                       defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date"
                       fromMonth={minDate} toMonth={maxDate}
                   /> 
@@ -489,6 +490,9 @@ class StockMovement extends React.PureComponent {
       data={data_table}
       fields={fields}
       onClick={this.showDetails}
+      noDataText={<div className='text-align-center'>
+      <div  className='caution-caution px-6'/>No Data Available
+    </div>}
       export={<CButton className="btn btn-primary px-4">EXPORT <IoIosArrowDown /></CButton>}
     /> 
 
