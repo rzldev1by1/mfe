@@ -53,7 +53,9 @@ const TheSidebar = () => {
       </ul>
       <CSidebarNav className="sidebar-nav-menu">
         {navigation.map((n, i) => {
-          const isActive = location.pathname === n.to
+          // const isActive = location.pathname === n.to
+          let string = location.pathname 
+          const isActive = string.includes(n.to) 
           const isHover = hover === n.to
           let icon = `nav/${isHover ? n.icon + '-hover' : isActive ? n.icon + '-active' : n.icon}.png`
           return <li key={i} className="c-sidebar-item links" onMouseEnter={() => setHover(n.to)} onMouseLeave={() => setHover(null)} >
