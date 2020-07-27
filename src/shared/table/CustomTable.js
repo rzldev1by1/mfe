@@ -422,7 +422,10 @@ showModal = (show) => {
           data={data}
           showPagination={false}
           style={{ height }}
-          noDataText={(request_status)? request_status :"Please Wait..."}
+          // noDataText={(request_status)? request_status :"Please Wait..."}
+          noDataText={<div className='text-align-center'>
+          <div  className='caution-caution px-6'/>No Data Available
+        </div>}
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
             return {

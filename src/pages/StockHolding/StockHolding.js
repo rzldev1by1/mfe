@@ -238,7 +238,7 @@ class StockHolding extends React.PureComponent {
           }
         />
 
-        <CCard className='mb-4'>
+        <CCard className='mb-3'>
           <CCardBody className='p-3'>
             <CRow>
               <CCol lg={3} className='px-0'>
