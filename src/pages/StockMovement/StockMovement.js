@@ -398,31 +398,26 @@ class StockMovement extends React.PureComponent {
     <HeaderTitle
       breadcrumb={[{ to: '', label: 'Stock Movement', active: true }]} 
     />
+ 
+    <CCard style={{zIndex: '999'}} className="mb-3 StockMovementFilter">
+      <CCardBody className="px-0 py-3 main-con">
+        <CRow className="flex-container-total-align"> 
+        {/* Filter content start */}
 
-    <CCard style={{zIndex: '999'}} className="mb-3">
-      <CCardBody className="px-3 py-3 stockMovement">
-        <CRow className="main-con"> 
-          <CCol className='SM-col px-0'> 
-            <CRow className="align-items-center">   
-              <CCol lg={4} className="displayPeriod-col pl-0 pr-5" >
-                <div style={{width: '100%'}}>
-                  <Select name="filterType" className="stockMovement" placeholder="Display Period"
-                    value={filterType} options={filterData} 
-                    onChange={(val) => this.periodHandler( val )}  
-                    styles={{
-                      dropdownIndicator: (base, state) => ({
-                        ...base, 
-                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                      })
-                    }}
-                  />
-                  {/* <div id='period' className={(!periodSelected) ? 'stock-err' : 'stock-err-hidden'}>Please select display period</div> */}
-                </div>
-              </CCol>
-              <CCol sm={1} className="dateFromLabel-col pl-0 text-light-gray">
-                Date From 
-              </CCol>
-              <CCol  lg={3} className="dateFrom-col px-0 stockMovement" > 
+        <CCol lg={2} className="sm-col-14 pr-0" >
+            <Select name="filterType" className="stockMovement" placeholder="Display Period"
+              value={filterType} options={filterData} 
+              onChange={(val) => this.periodHandler( val )}  
+              styles={{
+                dropdownIndicator: (base, state) => ({
+                  ...base, 
+                  transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                })
+              }}
+            />
+        </CCol>
+        <CCol lg={2} className="sm-col-7 text-right pr-0 text-light-gray labelDateFrom" > Date From </CCol>
+        <CCol lg={2} className="sm-col-14 pr-0 dateFrom" > 
                 <DatePicker style={{ minWidth: '100%' }}
                   ref="dateFrom" arrowStyle={true}
                   getDate={(e) => { this.setState({ dateFromSelected: e })}}
@@ -430,11 +425,9 @@ class StockMovement extends React.PureComponent {
                   onChange={(e) => {this.openDatePicker('to')}}
                   fromMonth={minDate} toMonth={maxDate}
                 />
-              </CCol>
-              <div className="dateToLabel-col text-light-gray px-3">
-                To
-              </div>
-              <CCol  lg={3} className="dateTo-col stockMovement pl-0 pr-0" > 
+        </CCol>
+        <CCol lg={2} className="sm-col-3 text-right pl-0 pr-0 text-light-gray labelDateTo" > To </CCol>
+        <CCol lg={2} className="sm-col-14 pr-0 dateTo" > 
                   <DatePicker style={{ minWidth: '100%', height:'50px' }}
                       ref="dateTo" arrowStyle={true}
                       firstDate = {this.state.dateFromSelected}
@@ -443,55 +436,53 @@ class StockMovement extends React.PureComponent {
                       defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date"
                       fromMonth={minDate} toMonth={maxDate}
                   /> 
-              </CCol>
-            </CRow>
-          </CCol>
-          <CCol lg={5} className="sm-second-col px-0">
-            <CRow> 
-              <CCol sm={4} lg={3} className="px-3 site-col" >
-              <Select className="stockMovement" name="site" placeholder="Site"
-                  value={site} options={siteData}
-                  onChange={(val) => this.setState({ site: val })} 
-                  styles={{
-                    dropdownIndicator: (base, state) => ({
-                      ...base, 
-                      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                    })
-                  }}
-                />
-              </CCol>
-              <CCol sm={4} lg={3} className="pr-3 pl-0 client-col">
-                <Select className="stockMovement"  name="client" placeholder="Client"
-                  value={client} options={clientData}
-                  onChange={(val) => this.setState({ client: val }, () => this.getproduct())} 
-                  styles={{
-                    dropdownIndicator: (base, state) => ({
-                      ...base, 
-                      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                    })
-                  }}
-                />
-              </CCol> 
-              <CCol sm={4} lg={4} className="pr-3 pl-0 product-col"  style={{flex: '0 0 30%'}}>
-                <Select className="stockMovement"  name="product" placeholder="Product" 
-                  value={product} options={productData}
-                  onChange={(val) => this.setState({ product: val })} 
-                  styles={{
-                    dropdownIndicator: (base, state) => ({
-                      ...base, 
-                      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                    })
-                  }}
-                />
-              </CCol>
-              <CCol sm={4} lg={2} className="pr-0 pl-5 searchButton-col" style={{flex: '0 0 20%', maxWidth: '20%'}}>
-                <button className="btn btn-block btn-primary float-right stockMovement" onClick={this.searchStockMovement}>SEARCH</button>
-              </CCol>
-            </CRow>
-          </CCol>
+        </CCol>
+        <CCol lg={2} className="sm-col-12 pr-0 site" > 
+        <Select name="site" placeholder="Site"
+            value={site} options={siteData}
+            onChange={(val) => this.setState({ site: val })} 
+            styles={{
+            dropdownIndicator: (base, state) => ({
+                ...base, 
+                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+            })
+            }}
+        />
+
+        </CCol>
+        <CCol lg={2} className="sm-col-12 pr-0 client" > 
+        <Select name="client" placeholder="Client"
+            value={client} options={clientData}
+            onChange={(val) => this.setState({ client: val }, () => this.getproduct())} 
+            styles={{
+            dropdownIndicator: (base, state) => ({
+                ...base, 
+                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+            })
+            }}
+        />
+        </CCol>
+        <CCol lg={2} className="sm-col-13 product" > 
+        <Select name="product" placeholder="Product" 
+            value={product} options={productData}
+            onChange={(val) => this.setState({ product: val })} 
+            styles={{
+            dropdownIndicator: (base, state) => ({
+                ...base, 
+                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+            })
+            }}
+        />
+        </CCol> 
+        <CCol lg={2} className="sm-col-11 col-btn pl-0" >
+            <button className="btn btn-block btn-primary float-right stockMovement btn-search" onClick={this.searchStockMovement}>SEARCH</button>
+        </CCol>
+
+        {/* Filter content End */} 
         </CRow>
       </CCardBody>
     </CCard>
+
 
     <StockMovementTable
       title="Stock Movement"
