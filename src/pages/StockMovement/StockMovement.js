@@ -101,11 +101,19 @@ class StockMovement extends React.PureComponent {
     }
   }
 
+  closeDatePicker = (type) => {
+    if (type === 'from') {
+      this.refs["dateFrom"].closeDatePicker()
+    } else if (type === "to") {
+      this.refs["dateTo"].closeDatePicker()
+    }
+  }
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - 250)
+    const height = (window.innerHeight - 257)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {
@@ -410,7 +418,7 @@ class StockMovement extends React.PureComponent {
               </CCol>
               <CCol  lg={3} className="dateFrom-col px-0 stockMovement" > 
                 <DatePicker style={{ minWidth: '100%' }}
-                  ref="dateFrom" 
+                  ref="dateFrom" arrowStyle={true}
                   getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
                   defaultValue={this.state.dateFromSelected} tabIndex="1" placeHolder="Select Date"
                   onChange={(e) => {this.openDatePicker('to')}}
@@ -422,7 +430,8 @@ class StockMovement extends React.PureComponent {
               </div>
               <CCol  lg={3} className="dateTo-col stockMovement pl-0 pr-0" > 
                   <DatePicker style={{ minWidth: '100%', height:'50px' }}
-                      ref="dateTo" 
+                      ref="dateTo" arrowStyle={true}
+                      onOpen={() => { this.closeDatePicker("from") }}
                       getDate={(e) => { this.setState({ dateToSelected: e.toString() })}}
                       defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date"
                       fromMonth={minDate} toMonth={maxDate}

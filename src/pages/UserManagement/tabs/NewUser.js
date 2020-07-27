@@ -30,8 +30,10 @@ class NewUser extends React.PureComponent {
            
         const {users} = this.props;
         let validation = { ...this.state.validation };
-         
-        validation.email["isValid"] = !textmail.match(regexMail)?false:true;           
+         console.log(users)
+         let isValidUser = users.filter((item)=>{return item.email === textmail}).length > 0?false:true;
+         let validFormat = !textmail.match(regexMail)?false:true;
+        validation.email["isValid"] = (isValidUser && validFormat)?true:false;           
         return validation;
       }
     checkNameValidation = (textName) => {     
@@ -75,7 +77,7 @@ class NewUser extends React.PureComponent {
             onModuleEnableAllClick, onClientEnableAllClick, onSiteEnableAllClick } = this.props;
         const { validation } = this.state;
         return (
-            <Container className="px-5 py-4">
+            <Container className="px-5 pt-4 pb-5">
                 <Row>
                     <Col lg="2" className="pr-0">
                         <h3 className="text-primary font-20 um-text-webgroup">New User</h3>
@@ -116,7 +118,7 @@ class NewUser extends React.PureComponent {
                     <Col sm="4">
                         <input type="email" name="email" placeholder="Enter an email address" className={`form-control ${validation.email["isValid"]? '':validation.email["invalidClass"]}`} onChange={(e) => { this.onEmailChange(e); }} value={user.email || ''} />
                         <FormFeedback className="invalid-error-padding">
-                            wrong format email
+                            invalid email
                         </FormFeedback>
                     </Col>
                     <Col sm="4">
@@ -144,7 +146,7 @@ class NewUser extends React.PureComponent {
                         <Client clients={clients} onEnableClick={onClientEnableClick} onClientEnableAll={onClientEnableAllClick} isEnableAllClient={isEnableAllClient} />
                     </Col>
                 </Row>
-                <Row className="mt-4">
+                <Row className="mt-5">
                     <Col lg={2}></Col>
                     <Col lg={8}></Col>
                     <Col lg={2} className="text-right">

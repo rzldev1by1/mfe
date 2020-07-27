@@ -18,7 +18,7 @@ const columns = [
   { accessor: 'client', Header: 'Client', width: 100 },
   { accessor: 'orderno', Header: 'Order No', style: { textAlign: 'left' }, width: 100 },
   { accessor: 'ordertype', Header: 'Order Type', width: 120 },
-  { accessor: 'task', Header: 'Task', width: 100 }, 
+  { accessor: 'isistask', Header: 'Task', width: 100 }, 
   { accessor: 'customer', Header: 'Customer No', style: { textAlign: 'left' } },
   { accessor: 'customername', Header: 'Customer Name' },
   { accessor: 'status', Header: 'Status', width: 150 },
@@ -46,12 +46,8 @@ const columns = [
 class SalesOrder extends React.PureComponent {
   state = {
     search: '',
-    site: {
-      value:this.props.store.user.site ? this.props.store.user.site : '',
-    },
-    client: {
-      value: this.props.store.user.client ? this.props.store.user.client : '',
-    },
+    site: (this.props.store.user.site)?{value:this.props.store.user.site}:null,
+    client: (this.props.store.user.client)?{value:this.props.store.user.client}:null,
     status: {value: "open", label: "All Open"}, //on load status=open
     orderType: null,
     task: null,
@@ -79,7 +75,7 @@ class SalesOrder extends React.PureComponent {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - 270)
+    const height = (window.innerHeight - 257)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {
@@ -222,6 +218,7 @@ class SalesOrder extends React.PureComponent {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData,orderTypeInsert, taskData
     } = this.state
+    console.log(site)
     return <div className="sales-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Sales Orders', active: true }]}
@@ -231,7 +228,7 @@ class SalesOrder extends React.PureComponent {
       <CCard className="mb-3">
         <CCardBody className="p-3">
           <CRow>
-            <CCol lg={3} className="pr-2">
+            <CCol lg={3} className="px-0">
               <div className="input-group">
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
@@ -239,49 +236,49 @@ class SalesOrder extends React.PureComponent {
                 <input type="text" className="form-control pl-0 border-left-0" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
               </div>
             </CCol>
-            <CCol lg={9}>
+            <CCol lg={9} className="pr-0">
               <CRow>
-                <CCol lg={2} className="px-2">
+                <CCol lg={2} className="px-0">
                   {
                   this.props.store.user.site ?
                   <input value={this.siteCheck(site.value)} className="form-control" readOnly />
                   : 
                   <Select name="site" placeholder="Site"
-                    value={site.value} options={siteData}
-                    onChange={(val) => this.setState({ site: val }, () => this.getTask())}
+                    value={site} options={siteData}
+                    onChange={(val) => this.setState({ site: val }, () => {this.getTask()})}
                   />
                 }  
                 </CCol>
-                <CCol lg={2} className="px-2">
+                <CCol lg={2} className="px-3">
                   {
                     this.props.store.user.client ?
                     <input value={this.clientCheck(client.value)} className="form-control" readOnly />
                     :
                     <Select name="client" placeholder="Client"
-                      value={client.value} options={clientData}
+                      value={client} options={clientData}
                       onChange={(val) => this.setState({ client: val }, () => this.getTask())}
                     />
                   }
                 </CCol>
-                <CCol lg={2} className="px-2">
+                <CCol lg={2} className="px-0">
                   <Select name="status"
                     value={status} options={statusData}
                     onChange={(val) => this.setState({ status: val })}
                   />
                 </CCol>
-                <CCol lg={2} className="px-2">
+                <CCol lg={2} className="px-3">
                   <Select name="orderType" placeholder="Order Type"
                     value={orderType} options={orderTypeData}
                     onChange={(val) => this.setState({ orderType: val })}
                   />
                 </CCol>
-                <CCol lg={2} className="px-2">
+                <CCol lg={2} className="px-0">
                   <Select name="task" placeholder="Task"
                     value={task} options={taskData}
                     onChange={(val) => this.setState({ task: val })}
                   />
                 </CCol>
-                <CCol lg={2} className="pl-2">
+                <CCol lg={2} className="px-0">
                   <button className="btn btn-search btn-primary float-right" onClick={this.searchSalesOrder}>SEARCH</button>
                 </CCol>
               </CRow>
@@ -289,7 +286,7 @@ class SalesOrder extends React.PureComponent {
           </CRow>
         </CCardBody>
       </CCard>
-
+{console.log(data)}
       <CustomTable
         title="Sales Order"
         height={dimension.height}
@@ -302,7 +299,9 @@ class SalesOrder extends React.PureComponent {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchSalesOrder())
         }}
         request_status={this.state.request_status}
-        export={<button className="btn btn-primary float-right px-4 btn-export">EXPORT <IoIosArrowDown /></button>}
+        export={<button className="btn btn-primary d-flex float-right align-items-center px-3 btn-export">
+           <div className='export-export pr-3' />
+          EXPORT </button>}
       />
 
       <SalesOrderCreate

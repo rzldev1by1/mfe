@@ -1,9 +1,66 @@
 /* Sales Order List */
 .sales-order {
+  .row{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
   .c-subheader-nav-link {
     margin-right: 15px;
   }
-}
+  .card{
+    .card-body{
+      .row{
+        .col-lg-9{
+          @media (max-width:991px){
+            padding: 1rem 0rem 0rem 0rem !important;
+            .col-lg-2{
+              padding: 0rem !important;
+            }
+            .col-lg-2:nth-child(2){
+              padding: 1rem 0rem !important;
+            }
+            .col-lg-2:nth-child(4){
+              padding: 1rem 0rem !important;
+            }
+            .col-lg-2:last-child{
+              padding: 1rem 0rem 0rem 0rem !important;
+            }
+          }
+          @media (max-width:592px){
+            .col-lg-2:last-child{
+              .btn{
+                width: 100% !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .ReactTable {
+    .rt-table {
+      .rt-thead {
+        .rt-tr {
+          .rt-th:first-child {
+            width: 105px !important;
+            max-width: 105px !important;
+          }
+        }
+      }
+      }
+    }
+    .rt-tbody {
+      overflow: hidden !important;
+      .rt-tr-group {
+        .rt-tr {
+          .rt-td:first-child {
+            width: 105px !important;
+            max-width: 105px !important;
+          }
+        }
+      }
+    }
+  }
 
 /* Sales Order Detail */
 .sales-order-detail {
@@ -40,6 +97,10 @@
   .orderline .right {
     right: 22% !important;
   }
+  .ReactTable .rt-table .rt-thead .rt-tr .rt-th:first-child {
+    padding-left: 1rem !important;
+    text-align: left !important;
+}
 
 } 
 
@@ -51,7 +112,13 @@
 //    z-index: 999 !important;
 //    position: absolute !important;
 // }
+.sales-order-detail{
+.ReactTable .rt-table .rt-thead .rt-tr .rt-th:first-child {
+  padding-left: 1rem !important;
+  text-align: left !important;
+}
 
+} 
 @media (min-width: 800px) {
   .sales-order-detail .border-right {
     border-right: 2px solid #eee !important;

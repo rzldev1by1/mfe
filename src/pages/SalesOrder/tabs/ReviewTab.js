@@ -23,8 +23,8 @@ class ReviewTab extends React.Component {
       orderType: header.orderType.value,
       // orderTypeVal: header.orderType.value,
       clientName: header.client.label,
-      client: header.client,
-      site: header.site,
+      client: header.client.value || header.client,
+      site: header.site.value || header.site,
       deliveryDate: header.deliveryDate,
     }
     header = Object.assign(header, modifiedHeader)
@@ -35,7 +35,7 @@ class ReviewTab extends React.Component {
       l.number = i + 1
       l.product = l.product || null
       l.productVal = l.productVal?.value || null
-      l.ref3 = l.ref4 || null
+      l.ref3 = l.ref3 || null
       l.ref4 = l.ref4 || null
       l.rotaDate = l.rotaDate || null
       l.disposition = l.disposition || null
@@ -55,13 +55,16 @@ class ReviewTab extends React.Component {
   }
 
   GetFormattedDate = (datex) => {
+      if(!datex){
+        return null;
+      }
       var todayTime = new Date(datex); 
       var month = todayTime .getMonth()+1
       var day = todayTime.getDate()
       var year = todayTime .getFullYear()
       var day_ = (day<10)? "0"+day: day
       var month_ = (month<10)? "0"+month: month
-      return day_ + "-" + month_ + "-" + year
+      return day_ + "/" + month_ + "/" + year
   }
 
   
@@ -88,7 +91,7 @@ class ReviewTab extends React.Component {
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0 required">Site</label>
-          <input value={this.siteCheck(header.site) || ''} className="form-control" readOnly />
+          <input value={((header.site && header.site.label)?header.site.label:false) || this.siteCheck(header.site)} className="form-control" readOnly />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order Type</label>
@@ -106,7 +109,7 @@ class ReviewTab extends React.Component {
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0 required">Client</label>
-          <input value={this.clientCheck(header.client) || ''} className="form-control" readOnly />
+          <input value={((header.client && header.client.label)?header.client.label:false) || this.clientCheck(header.client)} className="form-control" readOnly />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order No</label>
@@ -201,12 +204,12 @@ class ReviewTab extends React.Component {
                 <td className="px-1"><input value={ld.qty} className="form-control" placeholder="Qty" readOnly /></td>
                 <td className="px-1"><input value={ld.weight} className="form-control" placeholder="Weight" readOnly /></td>
                 <td className="px-1"><input value={ld.uom?.label} className="form-control" placeholder="UOM" readOnly /></td>
-                <td className="px-1"><input value={ld.rotaDate} className="form-control" readOnly /></td>
                 <td className="px-1"><input value={ld.batch} className="form-control" placeholder="Batch" readOnly /></td>
                 <td className="px-1"><input value={ld.ref3} className="form-control" placeholder="Ref 3" readOnly /></td>
                 <td className="px-1"><input value={ld.ref4} className="form-control" placeholder="Ref 4" readOnly /></td>
                 <td className="px-1"><input value={ld.dispositionVal?.label} className="form-control" placeholder="Disposition" readOnly /></td>
                 <td className="px-1"><input value={ld.packId} className="form-control" placeholder="Pack ID" readOnly /></td>
+                <td className="px-1"><input value={this.GetFormattedDate(ld.rotaDate)} className="form-control" readOnly /></td>
                 <td className="px-1"></td>
               </tr>
             }) : null}

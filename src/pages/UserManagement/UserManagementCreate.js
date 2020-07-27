@@ -284,27 +284,27 @@ class UserManagementCreate extends React.PureComponent {
 
     return <Modal show={show} onHide={() => this.onHideModal()} size="xl" className="um-create" >
       <Modal.Body className="bg-primary p-0">
-        <Row className="px-5 py-3">
-          <Col xs={10}>
+        <Row className="px-5 pb-3 pt-md mx-0 row">
+          <Col xs={10} className="px-0">
             <i className="iconU-createModal font-20"></i><span className="font-20 pl-2">Create User</span> <br />
             <span >Enter user details to create a New User</span>
           </Col>
-          <Col xs={2} className="text-right">
+          <Col xs={2} className="text-right px-0">
             <i className="iconU-close pointer" onClick={() => this.onHideModal()}></i>
           </Col>
         </Row>
-        <Nav tabs>
-          <NavItem>
-            <NavLink className={key === 'new' ? 'active' : null} onClick={() => this.onSelectTab('new')}>
+        <Nav tabs className="px-5 mx-0">
+          <NavItem className="mr-3">
+            <NavLink className={`d-flex align-items-center ${key === 'new' ? 'active' : null}`} onClick={() => this.onSelectTab('new')}>
             <div className="title-tab">
-              <div className={`mr-2 badge badge-pill badge-${key === 'new' ? 'primary' : 'secondary'}`}>1</div> User Detail                
+              <div className={`mr-2 badge badge-pill text-align-center mr-2 badge-${key === 'new' ? 'primary' : 'secondary'}`}>1</div> User Detail                
             </div>
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink className={key === 'review' ? 'active' : null} onClick={() => this.onSelectTab('review')}>
+            <NavLink className={`d-flex align-items-center  ${key === 'review' ? 'active' : null}`} onClick={() => this.onSelectTab('review')}>
             <div className="title-tab">
-              <div className={`mr-2 badge badge-pill badge-${key === 'review' ? 'primary' : 'secondary'}`}>2</div> Review
+              <div className={`mr-2 badge badge-pill text-align-center mr-2 badge-${key === 'review' ? 'primary' : 'secondary'}`}>2</div> Review
             </div>
             </NavLink></NavItem>
         </Nav>

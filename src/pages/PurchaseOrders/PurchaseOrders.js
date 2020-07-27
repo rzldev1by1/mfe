@@ -39,7 +39,7 @@ class PurchaseOrders extends React.PureComponent {
       client: {
         value: this.props.store.user.client ? this.props.store.user.client : null,
       },
-      status: null,
+      status: {value: "open", label: "All Open"}, //on load status=open,
       orderType: null,
       task: null,
       resources: [],
@@ -70,7 +70,7 @@ class PurchaseOrders extends React.PureComponent {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - 270)
+    const height = (window.innerHeight - 257)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {
@@ -194,17 +194,13 @@ class PurchaseOrders extends React.PureComponent {
     return c
   }
 
-  setClient = (clients) =>{
-    let client = [...this.state.client]
-    client.value = clients
+  setClient = (client) =>{
     this.setState({client:client})
     this.getTask()
   }
 
-  setSite = (sites) => {
-    let site = [...this.state.site]
-    site.value = sites
-    this.setState({site:site})
+  setSite = (site) => {
+    this.setState({site})
     this.getTask()
   }
   UrlHeader = () =>{
@@ -224,8 +220,8 @@ class PurchaseOrders extends React.PureComponent {
 
       <CCard className="mb-3">
         <CCardBody className="p-3">
-          <CRow className="row">
-            <CCol lg={3} className="pr-1">
+          <CRow className="mx-0">
+            <CCol lg={3} className="pr-3 pl-0">
               <div className="input-group">
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
@@ -233,51 +229,51 @@ class PurchaseOrders extends React.PureComponent {
                 <input type="text" className="form-control border-left-0 input-height" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
               </div>
             </CCol>
-            <CCol lg={9}>
-              <CRow>
+            <CCol lg={9} className="px-0">
+              <CRow className="mx-0">
                 
-                <CCol sm={4} lg={2} className="px-2">
+                <CCol sm={4} lg={2} className="px-0">
                 {
                   this.props.store.user.site ?
                   <input value={this.siteCheck(site.value)} className="form-control" readOnly />
                   : 
                   <Select name="site" placeholder="Site"
-                    value={site.value} options={siteData}
+                   options={siteData}
                     onChange={(val) => this.setSite(val)}
                   />
                 }                  
                 </CCol>
-                <CCol sm={4} lg={2} className="px-2">
+                <CCol sm={4} lg={2} className="px-3">
                   {
                     this.props.store.user.client ?
                     <input value={this.clientCheck(client.value)} className="form-control" readOnly />
                     :
                     <Select name="client" placeholder="Client"
-                    value={client.value} options={clientData}
+                    options={clientData}
                     onChange={(val) => this.setClient(val)}
                     />
                   }
-                  
+                  {console.log(this.state.status)}
                 </CCol>
-                <CCol sm={4} lg={2} className="px-2">
+                <CCol sm={4} lg={2} className="px-0">
                   <Select name="status" placeholder="Status"
                     value={status} options={statusData}
                     onChange={(val) => this.setState({ status: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-2">
+                <CCol sm={4} lg={2} className="px-3">
                   <Select name="orderType" placeholder="Order Type"
                     value={orderType} options={orderTypeData}
                     onChange={(val) => this.setState({ orderType: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="px-2">
+                <CCol sm={4} lg={2} className="px-0">
                   <Select name="task" placeholder="Task"
                     value={task} options={taskData}
                     onChange={(val) => this.setState({ task: val })}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className="pl-1">
+                <CCol sm={4} lg={2} className="px-0">
                   <button className="btn btn-search btn-primary float-right" onClick={this.searchPurchaseOrder}>SEARCH</button>
                 </CCol>
               </CRow>
@@ -297,7 +293,9 @@ class PurchaseOrders extends React.PureComponent {
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchPurchaseOrder())
         }}
-        export={<button className="btn btn-primary float-right px-4 btn-export"> EXPORT</button>}
+        export={<button className="btn btn-primary float-right btn-export d-flex px-3 align-items-center"> 
+        <div className="export-export pr-3"/>
+        EXPORT</button>}
       />
 
       <PurchaseOrderCreate
