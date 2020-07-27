@@ -9,63 +9,63 @@ import CustomTable from '../../shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
 import './StockHolding.scss'
 const columns = [
-  { accessor: 'site', Header: 'Site', placeholder: 'Site', width: 100, sortable: true },
-  { accessor: 'client', Header: 'Client', placeholder: 'Client', sortable: true },
+  { accessor: 'site', Header: 'Site', placeholder: 'Site', width: null, sortable: true },
+  { accessor: 'client', Header: 'Client', placeholder: 'Client', width: null, sortable: true },
   {
     accessor: 'product',
     Header: 'Product',
     placeholder: 'Product',
     sortable: true,
-    width: 90,
+    width: 80,
     style: { textAlign: 'left' },
   },
   {
     accessor: 'product_name',
     Header: 'Description',
     placeholder: 'Description',
-    width: 300,
+    width: null,
     sortable: true,
   },
-  { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', sortable: true },
-  { accessor: 'packdesc_1', Header: 'UOM', placeholder: 'UOM', width: 90, sortable: true },
-  { accessor: 'status', Header: ' Status ', placeholder: 'Status', sortable: true },
+  { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: null,sortable: true },
+  { accessor: 'packdesc_1', Header: 'UOM', placeholder: 'UOM', width: null, sortable: true },
+  { accessor: 'status', Header: ' Status ', placeholder: 'Status', width: null, sortable: true },
   {
     accessor: 'on_hand_qty',
     Header: 'Stock on Hand',
     placeholder: 'Stock on Hand',
     sortable: true,
-    width: 140,
+    width: null,
   },
   { 
     accessor: 'on_hand_wgy', 
     Header: 'On Hand WGT', 
     placeholder: 'On Hand WGT', 
     sortable: true,  
-    width: 145 
+    width: null,
   },
   {
     accessor: 'expected_in_qty',
     Header: 'Expected In Qty',
     placeholder: 'Expected In Qty',
     sortable: true,
-    width: 145,
+    width: null,
   },
   {
     accessor: 'expected_in_wgt',
     Header: 'Expected In Weight',
     placeholder: 'Expected In Weight',
     sortable: true,
-    width: 170,
+    width: null,
   },
   {
     accessor: 'expected_out_qty',
     Header: 'Expected Out Qty',
     placeholder: 'Expected Out Qty', 
     sortable: true,
-    width: 155,
+    width: null,
   },
-  { accessor: 'price', Header: ' Price ', placeholder: 'Price', width: 110, sortable: true },
-  { accessor: 'pallets', Header: 'Pallets', placeholder: 'Pallets', width: 110, sortable: true },
+  { accessor: 'price', Header: ' Price ', placeholder: 'Price', width: null, sortable: true },
+  { accessor: 'pallets', Header: 'Pallets', placeholder: 'Pallets', width: null, sortable: true },
 ];
 class StockHolding extends React.PureComponent {
   state = {

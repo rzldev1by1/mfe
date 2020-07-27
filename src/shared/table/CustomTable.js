@@ -171,7 +171,7 @@ showModal = (show) => {
     header && header.map((h, index) => {
         if (!editColumn[index]) {
           let withIcon = (
-            <span className='text-light-gray'>
+            <span className='text-light-gray draggable-header'>
               {h.Header}{' '}
               {h.sortable === false ? null : (
                 <svg
@@ -232,17 +232,23 @@ showModal = (show) => {
                 let split = data.placeholder
                 return split
                 });
+    let width = this.state.fields.map((data, idx) => {                
+                let split = data.width
+                return split
+                });
     console.log(accessor)
     Object.values(data.data[0]).map((data, idx) => {
       let headerTable = {
         accessor: '',
         Header: '',
         placeholder: '',
+        width: null,
         sortable: true,
       };
       headerTable.Header = data;
       headerTable.placeholder = placeholder[idx];
       headerTable.accessor = accessor[idx];
+      headerTable.width = width[idx];
       header.push(headerTable);
     });
     console.log(header);

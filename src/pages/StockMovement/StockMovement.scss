@@ -47,6 +47,7 @@
                 flex: 0 0 100% !important;
                 max-width: 100% !important;
                 padding: 0.8rem 0rem !important;
+                text-align: right !important;
               }
             }
             @media (max-width: 575px) {
@@ -212,6 +213,111 @@
           }
         }
       }
+    }
+  }
+}
+ 
+.stockMovement {
+  .dateFromLabel-col{
+    text-align: right;
+  }
+}
+
+
+
+.StockMovementFilter{ 
+  .text-light-gray{
+    align-items: center;
+  }
+  .sm-col-3{
+    flex: 0 0 3%;
+    max-width: 3%;  
+  } 
+  .sm-col-5{
+    flex: 0 0 5%;
+    max-width: 5%;  
+  } 
+  .sm-col-7{
+    flex: 0 0 7%;
+    max-width: 7%; 
+  }
+  .sm-col-10{
+    flex: 0 0 10%;
+    max-width: 10%; 
+  }
+  .sm-col-11{
+    flex: 0 0 11%;
+    max-width: 11%; 
+  }
+  .sm-col-12{
+    flex: 0 0 12%;
+    max-width: 12%; 
+  }
+  .sm-col-13{
+    flex: 0 0 13%;
+    max-width: 13%; 
+  }
+  .sm-col-14{
+    flex: 0 0 14%;
+    max-width: 14%; 
+  }
+  .sm-col-15{
+    flex: 0 0 15%;
+    max-width: 15%; 
+  }
+  .sm-col-20{
+    flex: 0 0 20%;
+    max-width: 20%; 
+  }
+  .btn-search{
+      width: 100% !important;
+      max-width: 105px;
+  }
+  .flex-container-total-align {
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+  } 
+  @media (max-width: 991px) {
+    .col-lg-2{
+      flex: 0 0 100%;
+      max-width: 100% ;
+      padding-left: 15px !important;
+      padding-right: 15px !important;
+      padding-top: 10px;
+    }
+    .labelDateFrom{
+      flex: 0 0 20%;
+      text-align: left !important;
+      padding-left: 27px !important;
+
+    }
+    .dateFrom{ 
+      flex: 0 0 80%;
+    }
+    .labelDateTo{
+      flex: 0 0 20%;
+      text-align: left !important;
+      padding-left: 27px !important;
+
+    }
+    .dateTo{ 
+      flex: 0 0 80%;
+    }
+    .flex-container-total-align{
+      justify-content: start;
+    }
+    .site{
+      flex: 0 0 30%;
+    }
+    .client{
+      flex: 0 0 30%;
+    }
+    .product{
+      flex: 0 0 40%;
+    }
+    .btn-search{
+      max-width: 100%;
     }
   }
 }

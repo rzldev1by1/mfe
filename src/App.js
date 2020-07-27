@@ -29,7 +29,7 @@ class ProtectedRoute extends React.Component {
 				return response;
 			}, function (error) {
 				if (error?.response?.status === 401) {
-					props.dispatch({ type: 'LOGOUT' })
+					props.dispatch({ type: 'EXPIRED' })
 				}
 				return Promise.reject(error);
 			});
