@@ -413,7 +413,7 @@ class CreateTab extends React.Component {
           <tbody>
             {orderLine.length && orderLine.map((o, i) => { 
               return <tr className="py-1 text-center orderline-row">
-                <td className="px-1">
+                <td className="pl-0 pr-1">
                   <input value={i + 1} className="form-control text-center" readOnly />
                 </td>
                 <td className="px-1 text-left">
@@ -488,13 +488,13 @@ class CreateTab extends React.Component {
           </tbody>
         </table>
       </div>
-      <button className="btn btn-light-gray m-0" onClick={this.addLine}>+ Add Line</button>
+      <button className="btn btn-light-gray m-0" onClick={this.addLine}>Add Line</button>
 
       <Row className="mt-3">
         <Col lg={2}></Col>
         <Col lg={8}></Col>
         <Col lg={2} className="text-right">
-          <button className="btn btn-primary" onClick={this.next}>{'Next >'}</button>
+          <button className="btn btn-primary" onClick={this.next}>{'Next'}</button>
         </Col>
       </Row>
     </Container>

@@ -35,7 +35,7 @@
 
 .select_dropdown:hover, .select_dropdown:focus-within{
 	transition: 0.2s ease-in;
-	border: 1px solid #3366FF !important;
+	border: 1px solid #D5D8DA !important;
 }
 
 .select_dropdown_expand {
@@ -134,7 +134,7 @@
 }
 
 .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options{
-	border: 1px solid #3366FF;
+	border: 1px solid #D5D8DA;
 	border-radius: 5px;
 	margin-top: 10px;
 }

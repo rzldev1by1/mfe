@@ -242,7 +242,7 @@
 }
 
 .client-enableall-padding{
-  padding-right: 35px;
+  padding-right: 25px;
 }
 
 .height-40{
@@ -263,10 +263,10 @@
     letter-spacing: 1px !important;
 }
 .um-summary .ReactTable .rt-table .rt-thead .rt-tr .rt-th:first-child{
-  padding-left: 1rem !important;
+  padding-left: 1.8rem !important;
 }
 .um-summary .ReactTable .rt-table .rt-tbody .rt-tr-group .rt-td:first-child{
-  padding-left: 1rem !important;
+  padding-left: 1.8rem !important;
 }
 @media (max-width:767px){
   .um-summary .card .card-body:last-child .row .col-sm-12:last-child{
