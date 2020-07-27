@@ -7,7 +7,7 @@ import {
   CSidebarNav,
 } from '@coreui/react'
 import Logo from 'assets/img/logo-white.png'
-import navigation from './_nav'
+import nav from './_nav'
 import './TheSidebar.css'
 
 
@@ -19,6 +19,13 @@ const TheSidebar = () => {
   const [hover, setHover] = useState(null)
   const signOut = (e) => {
     dispatch({ type: 'LOGOUT' })
+  }
+  const adminRoutes = ['/users-management']
+  let navigation = nav
+  if (user.userLevel === 'Regular') {
+    navigation = navigation.filter(n => {
+      return adminRoutes.includes(n.to) ? false : true
+    })
   }
   return (
     <CSidebar
