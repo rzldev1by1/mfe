@@ -110,36 +110,36 @@ class UserManagemen extends Component {
                 <CCard className="bg-transparent mb-3">
                     <CCardBody className="p-3 border-user-info" >
                         <CRow>
-                            <CCol sm="2" className="user-login-info-header">
+                            <CCol sm={1} className="user-login-info-header">
                                 User ID
                             </CCol>
-                            <CCol sm="2" className="user-login-info-header">
+                            <CCol sm={1} className="user-login-info-header">
                                 Name
                             </CCol>
-                            <CCol sm="2" className="user-login-info-header">
+                            <CCol sm={2} className="user-login-info-header pr-0">
                                 Email Address
                             </CCol>
-                            <CCol sm="2" className="user-login-info-header">
+                            <CCol sm={1} className="user-login-info-header pl-0">
                                 Site
                             </CCol>
-                            <CCol sm="2" className="user-login-info-header">
+                            <CCol sm={1} className="user-login-info-header">
                                 Client
                             </CCol>
                         </CRow>
                         <CRow className="mt-2">
-                            <CCol sm="2" className="user-login-info-value">
+                            <CCol sm={1} className="user-login-info-value">
                                 {loginInfo.userId}
                             </CCol>
-                            <CCol sm="2" className="user-login-info-value">
+                            <CCol sm={1} className="user-login-info-value">
                                 <Link to={`/users-management/${loginInfo.webUser}/detail`} >{loginInfo.name}</Link>
                             </CCol>
-                            <CCol sm="2" className="user-login-info-value">
+                            <CCol sm={2} className="user-login-info-value pr-0">
                                 {loginInfo.email}
                             </CCol>
-                            <CCol sm="2" className="user-login-info-value">
+                            <CCol sm={1} className="user-login-info-value pl-0">
                                 {`${loginInfo.site && loginInfo.site !== '' ? loginInfo.site : 'All'}`}
                             </CCol>
-                            <CCol sm="2" className="user-login-info-value">
+                            <CCol sm={1} className="user-login-info-value">
                                 {`${loginInfo.client && loginInfo.client !== '' ? loginInfo.client : 'All'}`}
                             </CCol>
                         </CRow>
