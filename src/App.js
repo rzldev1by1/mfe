@@ -39,11 +39,15 @@ class ProtectedRoute extends React.Component {
 		const { component: Component, store, ...others } = this.props
 		const renderRoute = props => {
 			if (store.user && store.user.token) {
-				return <Component {...props} />
+				const adminRoutes = ['/users-management']
+				if (store.user.userLevel === 'Regular' && adminRoutes.includes(props.location.pathname)) {
+					return <Redirect to={{ pathname: '/', state: { returnUrl: props.location } }} />
+				} else {
+					return <Component {...props} />
+				}
+			} else {
+				return <Redirect to={{ pathname: '/login', state: { returnUrl: props.location } }} />
 			}
-			return (
-				<Redirect to={{ pathname: '/login', state: { returnUrl: props.location } }} />
-			)
 		}
 		return <Route {...others} render={renderRoute} />
 	}

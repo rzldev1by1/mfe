@@ -300,7 +300,7 @@ class CreateTab extends React.Component {
     let expandDropdownCheck = (this.state.UOMStatus.includes(true) || this.state.dispositionStatus.includes(true)) || this.state.productStatus.includes(true);
     let datepickerExpandStyle = this.state.datepickerStatus.includes(true) ? " lineDetailsTopExpand" : "";
     let dropdownExpandStyle = expandDropdownCheck ? " lineDetailsBottomExpand" : "";
-    return <Container className="px-5 py-4" >
+    return <Container className="px-5 pt-4 pb-5" >
       <h3 className="text-primary font-20">Order Details</h3>
       <Row>
         <Col lg="3">
@@ -463,13 +463,13 @@ class CreateTab extends React.Component {
           </tbody>
         </table>
       </div>
-      <button className="btn btn-light-gray m-0" onClick={this.addLine}>+ Add Line</button>
+      <button className="btn btn-light-gray m-0" onClick={this.addLine}>Add Line</button>
 
       <Row className="mt-3">
         <Col lg={2}></Col>
         <Col lg={8}></Col>
         <Col lg={2} className="text-right">
-          <button className="btn btn-primary" onClick={this.next}>{'Next >'}</button>
+          <button className="btn btn-primary" onClick={this.next}>{'Next'}</button>
         </Col>
       </Row>
     </Container>
