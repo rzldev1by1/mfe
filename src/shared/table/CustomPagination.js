@@ -51,9 +51,9 @@ class CustomPagination extends React.Component {
     return (
       // <CContainer fluid>
       <CRow className="mt-3 pagination-custom">
-        <CCol lg="4" className="px-0">
+        <CCol lg="4" className="px-0 margin-mr">
           <CCardGroup>
-            <CCard className="col-lg-5 border-right">
+            <CCard className="col-lg-6 border-right">
               <CPagination
                 limit={3}
                 activePage={active}
@@ -92,7 +92,7 @@ class CustomPagination extends React.Component {
             &nbsp; entries
           </span>
         </CCol>
-        <CCol lg="4" className="px-0">
+        <CCol lg="4" className="px-0 ml-5">
           {this.props.export}
         </CCol>
       </CRow>

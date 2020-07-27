@@ -207,7 +207,7 @@ class SalesOrderDetail extends React.Component {
                 <NavItem className='p-0'>
                   <NavLink
                     className={
-                      'p-3 nav-link-cust d-flex align-items-center' +
+                      'p-3 nav-link-cust d-flex align-items-center tab-nonActive' +
                       (activeTab === '1' ? ' tab-custom' : '')
                     }
                     active={this.state.activeTab === '1'}
@@ -222,10 +222,10 @@ class SalesOrderDetail extends React.Component {
                   </NavLink>
                 </NavItem>
 
-                <NavItem className={'p-0'}>
+                <NavItem className={'p-0'} style={{marginLeft:"11px"}}>
                   <NavLink
                     className={
-                      'p-3 nav-link-cust d-flex align-items-center' +
+                      'p-3 nav-link-cust d-flex align-items-center tab-nonActive' +
                       (activeTab === '2' ? ' tab-custom' : '')
                     }
                     active={this.state.activeTab === '2'}
