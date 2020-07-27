@@ -13,7 +13,7 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, ...rest }) => {
     case 'LOGIN':
       return { ...state, user: data, expired:false }
     case 'LOGOUT':
-      return { ...state, user: null, expired:true }
+      return { ...state, user: null }
     case 'ASIDE':
       return { ...state, asideShow: data }
     case 'SIDEBAR':
@@ -24,6 +24,8 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, ...rest }) => {
       return { ...state, client: data }
     case 'SITE' :
       return { ...state, site: data }
+    case 'EXPIRED' :
+      return {...state, expired:true}
     default:
       return state
   }
