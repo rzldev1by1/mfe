@@ -409,6 +409,12 @@ class StockMovement extends React.PureComponent {
                   <Select name="filterType" className="stockMovement" placeholder="Display Period"
                     value={filterType} options={filterData} 
                     onChange={(val) => this.periodHandler( val )}  
+                    styles={{
+                      dropdownIndicator: (base, state) => ({
+                        ...base, 
+                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                      })
+                    }}
                   />
                   {/* <div id='period' className={(!periodSelected) ? 'stock-err' : 'stock-err-hidden'}>Please select display period</div> */}
                 </div>
@@ -419,7 +425,7 @@ class StockMovement extends React.PureComponent {
               <CCol  lg={3} className="dateFrom-col px-0 stockMovement" > 
                 <DatePicker style={{ minWidth: '100%' }}
                   ref="dateFrom" arrowStyle={true}
-                  getDate={(e) => { this.setState({ dateFromSelected: e.toString() })}}
+                  getDate={(e) => { this.setState({ dateFromSelected: e })}}
                   defaultValue={this.state.dateFromSelected} tabIndex="1" placeHolder="Select Date"
                   onChange={(e) => {this.openDatePicker('to')}}
                   fromMonth={minDate} toMonth={maxDate}
@@ -431,8 +437,9 @@ class StockMovement extends React.PureComponent {
               <CCol  lg={3} className="dateTo-col stockMovement pl-0 pr-0" > 
                   <DatePicker style={{ minWidth: '100%', height:'50px' }}
                       ref="dateTo" arrowStyle={true}
+                      firstDate = {this.state.dateFromSelected}
                       onOpen={() => { this.closeDatePicker("from") }}
-                      getDate={(e) => { this.setState({ dateToSelected: e.toString() })}}
+                      getDate={(e) => { this.setState({ dateToSelected: e })}}
                       defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date"
                       fromMonth={minDate} toMonth={maxDate}
                   /> 
@@ -445,18 +452,36 @@ class StockMovement extends React.PureComponent {
               <Select className="stockMovement" name="site" placeholder="Site"
                   value={site} options={siteData}
                   onChange={(val) => this.setState({ site: val })} 
+                  styles={{
+                    dropdownIndicator: (base, state) => ({
+                      ...base, 
+                      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                    })
+                  }}
                 />
               </CCol>
               <CCol sm={4} lg={3} className="pr-3 pl-0 client-col">
                 <Select className="stockMovement"  name="client" placeholder="Client"
                   value={client} options={clientData}
                   onChange={(val) => this.setState({ client: val }, () => this.getproduct())} 
+                  styles={{
+                    dropdownIndicator: (base, state) => ({
+                      ...base, 
+                      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                    })
+                  }}
                 />
               </CCol> 
               <CCol sm={4} lg={4} className="pr-3 pl-0 product-col"  style={{flex: '0 0 30%'}}>
                 <Select className="stockMovement"  name="product" placeholder="Product" 
                   value={product} options={productData}
                   onChange={(val) => this.setState({ product: val })} 
+                  styles={{
+                    dropdownIndicator: (base, state) => ({
+                      ...base, 
+                      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                    })
+                  }}
                 />
               </CCol>
               <CCol sm={4} lg={2} className="pr-0 pl-5 searchButton-col" style={{flex: '0 0 20%', maxWidth: '20%'}}>

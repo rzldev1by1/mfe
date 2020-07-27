@@ -62,7 +62,6 @@ class PurchaseOrders extends React.PureComponent {
     this.getStatus()
     this.getResources()
     this.searchPurchaseOrder()
-    console.log(this.props.store.user)
     const {site, client} = this.props.store.user
     if(site && client) this.getTask()
   }
@@ -240,6 +239,12 @@ class PurchaseOrders extends React.PureComponent {
                   <Select name="site" placeholder="Site"
                    options={siteData}
                     onChange={(val) => this.setSite(val)}
+                    styles={{
+                      dropdownIndicator: (base, state) => ({
+                        ...base, 
+                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                      })
+                    }}
                   />
                 }                  
                 </CCol>
@@ -251,6 +256,12 @@ class PurchaseOrders extends React.PureComponent {
                     <Select name="client" placeholder="Client"
                     options={clientData}
                     onChange={(val) => this.setClient(val)}
+                    styles={{
+                      dropdownIndicator: (base, state) => ({
+                        ...base, 
+                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                      })
+                    }}
                     />
                   }
                   {console.log(this.state.status)}
@@ -259,18 +270,36 @@ class PurchaseOrders extends React.PureComponent {
                   <Select name="status" placeholder="Status"
                     value={status} options={statusData}
                     onChange={(val) => this.setState({ status: val })}
+                    styles={{
+                      dropdownIndicator: (base, state) => ({
+                        ...base, 
+                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                      })
+                    }}
                   />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-3">
                   <Select name="orderType" placeholder="Order Type"
                     value={orderType} options={orderTypeData}
                     onChange={(val) => this.setState({ orderType: val })}
+                    styles={{
+                      dropdownIndicator: (base, state) => ({
+                        ...base, 
+                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                      })
+                    }}
                   />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-0">
                   <Select name="task" placeholder="Task"
                     value={task} options={taskData}
                     onChange={(val) => this.setState({ task: val })}
+                    styles={{
+                      dropdownIndicator: (base, state) => ({
+                        ...base, 
+                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                      })
+                    }}
                   />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-0">
