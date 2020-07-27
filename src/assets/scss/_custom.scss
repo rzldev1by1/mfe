@@ -345,6 +345,11 @@ header {
   }
 }
 
+.required::after{
+  content: '*';
+  color: red;
+}
+
 // REACTABLE
 
 .ReactTable {
