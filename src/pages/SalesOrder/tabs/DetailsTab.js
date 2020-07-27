@@ -281,14 +281,28 @@ class CreateTab extends React.Component {
             user.site ? 
             <input value={this.siteCheck(user.site)} className="form-control" readOnly />
             :
-            <Select options={siteData} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required />
+            <Select options={siteData} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required 
+            styles={{
+              dropdownIndicator: (base, state) => ({
+                ...base, 
+                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+              })
+            }}
+            />
           }
           <Required id="site" error={error} />
           
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order Type</label>
-          <Select name="orderType" value={orderType || ''} options={orderTypeData} onChange={val => this.onSelectChange('orderType', val)} placeholder="Order Type" required />
+          <Select name="orderType" value={orderType || ''} options={orderTypeData} onChange={val => this.onSelectChange('orderType', val)} placeholder="Order Type" required
+          styles={{
+            dropdownIndicator: (base, state) => ({
+              ...base, 
+              transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+            })
+          }}
+          />
           <Required id="orderType" error={error} />
         </Col>
         <Col lg="3">
@@ -315,7 +329,14 @@ class CreateTab extends React.Component {
             user.client ?
             <input value={this.clientCheck(user.client)} className="form-control" readOnly />
             :
-            <Select  options={clientData} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required />
+            <Select  options={clientData} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required
+            styles={{
+              dropdownIndicator: (base, state) => ({
+                ...base, 
+                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+              })
+            }}
+            />
           }
           <Required id="client" error={error} />
         </Col>
@@ -340,6 +361,12 @@ class CreateTab extends React.Component {
           <label className="text-muted mb-0">Customer</label>
           <Select value={customer || ''} options={[]} placeholder="Customer Name or ID"
             onInputChange={_.debounce(this.findCustomer, 300)} onChange={val => this.onSelectChange('customer', val)}
+            styles={{
+              dropdownIndicator: (base, state) => ({
+                ...base, 
+                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+              })
+            }}
           />
         </Col>
       </Row>
@@ -413,7 +440,7 @@ class CreateTab extends React.Component {
           <tbody>
             {orderLine.length && orderLine.map((o, i) => { 
               return <tr className="py-1 text-center orderline-row">
-                <td className="px-1">
+                <td className="pl-0 pr-1">
                   <input value={i + 1} className="form-control text-center" readOnly />
                 </td>
                 <td className="px-1 text-left">
@@ -422,7 +449,14 @@ class CreateTab extends React.Component {
                     onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
                     onMenuClose={() => {productStatus[i] = false; this.setState({ productStatus: productStatus })}}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
-                    className={`c-400 ${overflow[i] && overflow[i].productVal ? 'absolute' : null}`} placeholder="Product" required />
+                    className={`c-400 ${overflow[i] && overflow[i].productVal ? 'absolute' : null}`} placeholder="Product" required 
+                    styles={{
+                      dropdownIndicator: (base, state) => ({
+                        ...base, 
+                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                      })
+                    }}
+                    />
                   <Required id="productVal" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="px-1">
@@ -447,7 +481,14 @@ class CreateTab extends React.Component {
                         this.setState({ UOMStatus: UOMStatus })
                     }}
                     onChange={(val) => this.lineSelectChange(i, 'uom', val)}
-                    className={`c-150 ${overflow[i] && overflow[i].uom ? 'absolute right' : null}`} placeholder="UOM" />
+                    className={`c-150 ${overflow[i] && overflow[i].uom ? 'absolute right' : null}`} placeholder="UOM" 
+                    styles={{
+                      dropdownIndicator: (base, state) => ({
+                        ...base, 
+                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                      })
+                    }}
+                    />
                   <Required id="uom" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="px-1">
@@ -465,7 +506,14 @@ class CreateTab extends React.Component {
                     onMenuOpen={() => {dispositionStatus[i] = true; this.setState({ dispositionStatus: dispositionStatus })}}
                     onMenuClose={() => {dispositionStatus[i] = false; this.setState({ dispositionStatus: dispositionStatus })}}
                     onChange={(val) => this.lineSelectChange(i, 'dispositionVal', val)}
-                    className={`c-150 ${overflow[i] && overflow[i].dispositionVal ? 'absolute right' : null}`} placeholder="Disposition" />
+                    className={`c-150 ${overflow[i] && overflow[i].dispositionVal ? 'absolute right' : null}`} placeholder="Disposition" 
+                    styles={{
+                      dropdownIndicator: (base, state) => ({
+                        ...base, 
+                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                      })
+                    }}
+                    />
                 </td>
                 <td className="px-1">
                   <input name="packId" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Pack ID" maxLength="20" />
@@ -488,13 +536,13 @@ class CreateTab extends React.Component {
           </tbody>
         </table>
       </div>
-      <button className="btn btn-light-gray m-0" onClick={this.addLine}>+ Add Line</button>
+      <button className="btn btn-light-gray m-0" onClick={this.addLine}>Add Line</button>
 
       <Row className="mt-3">
         <Col lg={2}></Col>
         <Col lg={8}></Col>
         <Col lg={2} className="text-right">
-          <button className="btn btn-primary" onClick={this.next}>{'Next >'}</button>
+          <button className="btn btn-primary" onClick={this.next}>{'Next'}</button>
         </Col>
       </Row>
     </Container>

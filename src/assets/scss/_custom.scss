@@ -87,7 +87,13 @@ button:focus {
   margin: 0;
   background-color: #fff;
   color: #000;
+  border-radius: 0px 0px 0.3rem 0.3rem !important;
   /* overflow: hidden; */
+}
+.modal-body{
+  border-left: 2px #376bfb solid !important;
+  border-right: 2px #376bfb solid !important;
+  border-bottom: 2px #376bfb solid !important;
 }
 .nav-link {
   background-color: #eee;
@@ -114,13 +120,28 @@ input.form-control,
   height: 50px;
   border-color: #e4e7ea !important;
 }
+
+input.form-control {
+  padding: 0.375rem 0.75rem 0.375rem 0rem;
+}
+.login input.form-control {
+  padding: 0.375rem 0.75rem;
+}
+.tab-content input.form-control {
+  padding: 0.375rem 0.75rem;
+}
 .btn {
   height: 50px !important;
   padding-left: 20px;
   padding-right: 20px;
   color: #fff;
 }
-
+.badge-secondary{
+  color: #eeeeee;
+}
+.nav-tabs .nav-item {
+  margin-bottom: 0px !important;
+}
 .sales-order,
 .sales-order-detail,
 .purchase-order,
@@ -306,4 +327,49 @@ header {
   border: solid 1px #555050;
   font-size: 12px;
   padding: 6px;
+}
+.btn {
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+.pt-md{
+  padding-top: 2.3rem !important;
+}
+.modal-content{
+  border-radius: 0.3rem !important;
+  .modal-header{
+    border-radius: 0.3rem 0.3rem 0px 0px !important;
+  }
+  .modal-body{
+    border-radius: 0rem 0rem 0.3rem 0.3rem !important;
+  }
+}
+
+.required::after{
+  content: '*';
+  color: red;
+}
+
+// REACTABLE
+
+.ReactTable {
+  .rt-table {
+    .rt-thead {
+      .rt-tr {
+        .rt-th:first-child {
+          padding-left: 1.8rem !important;
+          text-align: left !important;
+        }
+      }
+    }
+    .rt-tbody {
+      .rt-tr-group {
+        .rt-tr {
+          .rt-td:first-child {
+            padding-left: 1.8rem !important;
+          }
+        }
+      }
+    }
+  }
 }

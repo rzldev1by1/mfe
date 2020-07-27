@@ -113,7 +113,7 @@ class StockMovement extends React.PureComponent {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - 250)
+    const height = (window.innerHeight - 257)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getSite = async () => {
@@ -409,6 +409,12 @@ class StockMovement extends React.PureComponent {
                   <Select name="filterType" className="stockMovement" placeholder="Display Period"
                     value={filterType} options={filterData} 
                     onChange={(val) => this.periodHandler( val )}  
+                    styles={{
+                      dropdownIndicator: (base, state) => ({
+                        ...base, 
+                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                      })
+                    }}
                   />
                   {/* <div id='period' className={(!periodSelected) ? 'stock-err' : 'stock-err-hidden'}>Please select display period</div> */}
                 </div>
@@ -446,18 +452,36 @@ class StockMovement extends React.PureComponent {
               <Select className="stockMovement" name="site" placeholder="Site"
                   value={site} options={siteData}
                   onChange={(val) => this.setState({ site: val })} 
+                  styles={{
+                    dropdownIndicator: (base, state) => ({
+                      ...base, 
+                      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                    })
+                  }}
                 />
               </CCol>
               <CCol sm={4} lg={3} className="pr-3 pl-0 client-col">
                 <Select className="stockMovement"  name="client" placeholder="Client"
                   value={client} options={clientData}
                   onChange={(val) => this.setState({ client: val }, () => this.getproduct())} 
+                  styles={{
+                    dropdownIndicator: (base, state) => ({
+                      ...base, 
+                      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                    })
+                  }}
                 />
               </CCol> 
               <CCol sm={4} lg={4} className="pr-3 pl-0 product-col"  style={{flex: '0 0 30%'}}>
                 <Select className="stockMovement"  name="product" placeholder="Product" 
                   value={product} options={productData}
                   onChange={(val) => this.setState({ product: val })} 
+                  styles={{
+                    dropdownIndicator: (base, state) => ({
+                      ...base, 
+                      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                    })
+                  }}
                 />
               </CCol>
               <CCol sm={4} lg={2} className="pr-0 pl-5 searchButton-col" style={{flex: '0 0 20%', maxWidth: '20%'}}>
