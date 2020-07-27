@@ -3,13 +3,14 @@
 }
 
 .Active{
-  padding-right: 8px;
+  padding-right: 9px;
   border: solid 1px;
   padding-left: 8px;
   border-radius: 20px;
   background: #3f6efb;
   color: #fff;
   margin-right: 3px;
+  font-size: 19px;
 }
 
 .nav-tabs .nav-link.tab-custom {
