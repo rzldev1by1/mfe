@@ -92,14 +92,17 @@ class UMCustomTable extends React.Component {
     render() {
       const { showModal, editColumn, editColumnTemp } = this.state    
       let { title, data, fields, onClick, height, pagination } = this.props
-      const headerIcon = this.headerIcon(data, fields, editColumnTemp)
+      const headerIcon = this.headerIcon(data, fields, editColumnTemp)      
       return (
         <React.Fragment>
           <ReactTable
             columns={headerIcon}
             data={data}
             showPagination={false}
-            noDataText={"Please Wait..."}
+            noDataText={<div className='text-align-center'>
+            <div  className='caution-caution px-6'/>No Data Available
+          </div>}
+            // noDataText={"Please Wait..."}
             style={{ height }}
             minRows='0'
             getTdProps={(state, rowInfo, column, instance) => {

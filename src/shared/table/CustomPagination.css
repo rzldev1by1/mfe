@@ -1,4 +1,7 @@
 /* pagination */
+.margin-mr{
+  margin-right: -3rem !important;
+}
 ul.pagination {
   margin-bottom: 0;
   justify-content: center !important;
@@ -16,13 +19,15 @@ ul.pagination {
   background-color: none;
 }
 .page-2 {
-  padding: 10px;
-  background-color: #fff;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+     /* padding: 10px; */
+     background-color: #fff;
+     border-top-right-radius: 5px;
+     border-bottom-right-radius: 5px;
+     padding-top: 10px;
 }
 .page-2 input {
-  width: 50px;
+  /* width: 50px; */
+  width: 78px;
 }
 .page-2 input::-webkit-outer-spin-button,
 .page-2 input::-webkit-inner-spin-button {

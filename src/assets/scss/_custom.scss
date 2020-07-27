@@ -332,6 +332,18 @@ header {
   text-transform: uppercase !important;
   letter-spacing: 1px !important;
 }
+.px-6{
+  padding: 0px 1.9rem !important;
+}
+.px-7{
+  padding: 0px 1.2rem !important;
+}
+.ml-6{
+  margin-left: 1.6rem !important;
+}
+.ml-7{
+  margin-left: 1.8rem !important;
+}
 .pt-md{
   padding-top: 2.3rem !important;
 }
@@ -351,7 +363,6 @@ header {
 }
 
 // REACTABLE
-
 .ReactTable {
   .rt-table {
     .rt-thead {
