@@ -265,6 +265,12 @@ class StockHolding extends React.PureComponent {
                       value={site}
                       options={siteData}
                       onChange={(val) => this.setState({ site: val }, () => {})}
+                      styles={{
+                        dropdownIndicator: (base, state) => ({
+                          ...base, 
+                          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                        })
+                      }}
                     />
                   </CCol>
                   <CCol sm={4} lg={2} className='px-3'>
@@ -274,6 +280,12 @@ class StockHolding extends React.PureComponent {
                       value={client}
                       options={clientData}
                       onChange={(val) => this.setState({ client: val })}
+                      styles={{
+                        dropdownIndicator: (base, state) => ({
+                          ...base, 
+                          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                        })
+                      }}
                     />
                   </CCol>
                   <CCol sm={4} lg={2} className='px-0'>
@@ -283,6 +295,12 @@ class StockHolding extends React.PureComponent {
                       value={status}
                       options={statusData}
                       onChange={(val) => this.setState({ status: val })}
+                      styles={{
+                        dropdownIndicator: (base, state) => ({
+                          ...base, 
+                          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                        })
+                      }}
                     />
                   </CCol>
                   <CCol sm={4} lg={2} className='px-0'></CCol>
