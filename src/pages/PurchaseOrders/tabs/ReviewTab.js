@@ -43,7 +43,7 @@ class ReviewTab extends React.Component {
     const { data } = await axios.post(endpoint.purchaseOrderCreate, { orderDetails, lineDetails })
     if (data.message === 'Successfully added') {
       this.setState({ status: 'success' })
-      this.props.submit({ header: {}, lineDetail: [], orderDetails:[{}] })
+      this.props.submit({orderNo:orderDetails[0].orderNo, header: {}, lineDetail: [], orderDetails:[{}] })
     }
     this.props.submitStatus(data.message)
   }

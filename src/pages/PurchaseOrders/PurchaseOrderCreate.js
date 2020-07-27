@@ -5,12 +5,13 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap
 // import _ from 'lodash'
 import DetailsTab from './tabs/DetailsTab.js'
 import ReviewTab from './tabs/ReviewTab'
-import MessageTab from './tabs/MessageTab'
+import MessageTab from '../../shared/MessageTab'
 
 class SalesOrderCreate extends React.PureComponent {
   state = {
-    key: 'review',
-    submit: true,
+    key: 'detail',
+    submit: false,
+    status:'Failed to create order',
     data: { header: {}, lineDetail: [] },
     // data: { "header": { "site": { "value": "A", "label": "A : Australis A" }, "client": { "value": "AESOP", "label": "AESOP : Aesop" }, "orderType": { "value": "MVKT", "label": "MVKT: Move Orders" }, "orderId": "AB29123", "shipToAddress1": "Ark Street 12", "postCode": "291923", "state": "Victoria", "deliveryDate": "2020-07-02" }, "lineDetail": [{ "product": "product 1001", "productVal": { "value": "1001", "label": "1001", "i": 0 }, "qty": "2", "uom": { "value": "CARTON", "label": "CARTON" }, "disposition": "G", "dispositionVal": { "value": "G", "label": "G", "i": 9 } }] }
   }
@@ -19,11 +20,11 @@ class SalesOrderCreate extends React.PureComponent {
     if (key === 'review' && !Object.keys(header).length && !lineDetail.length) {
       return null
     }
-    this.setState({ key })
+    this.setState({ key,submit:false })
   }
   setData = (data) => {
     if (data.header && data.lineDetail) {
-      this.setState({ data, key: 'review' })
+      this.setState({ data, key: 'review', submit:false })
     }
   }
 
@@ -31,7 +32,11 @@ class SalesOrderCreate extends React.PureComponent {
     this.setState({submit:true})
     if(status === 'Successfully added' ) 
     {
-      // setTimeout(() => this.onHide(), 1500)
+      this.setState({submit:true, status})
+      setTimeout(() => this.onHide(), 2000)
+    }
+    else{
+      this.setState({status})
     }
   }
   onHide = () => {
@@ -69,14 +74,19 @@ class SalesOrderCreate extends React.PureComponent {
           <TabPane tabId="review">
             {
               this.state.submit ? 
-              <MessageTab/>
+              < MessageTab 
+                module={'Purchase Order'} 
+                orderNo={data?.orderNo}
+                status={this.state.status} 
+                back={() => this.onSelectTab('detail')} 
+                exit={() => this.onHide()}/>
               :
-              <ReviewTab
-              data={data}
-              back={() => this.onSelectTab('detail')}
-              submit={this.setData}
-              submitStatus={this.submitStatus}
-              hide={this.onHide} />
+              < ReviewTab
+                data={data}
+                back={() => this.onSelectTab('detail')}
+                submit={this.setData}
+                submitStatus={this.submitStatus}
+                hide={this.onHide} />
             }
           </TabPane>
         </TabContent>
