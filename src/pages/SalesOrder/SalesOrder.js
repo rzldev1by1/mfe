@@ -332,11 +332,13 @@ class SalesOrder extends React.PureComponent {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchSalesOrder())
         }}
         // request_status={this.state.request_status}
-        noDataText={<div className='text-align-center'>
-        <div  className='caution-caution px-6'/>No Data Available
-      </div>}
-        export={<button className="btn btn-primary d-flex float-right align-items-center px-3 btn-export">
-           <div className='export-export pr-3' />
+        noDataText={<div>
+          <div  className='caution-caution'/>
+          <div>No Data Available</div>
+          <div>Adjust Filters above to load data</div>
+        </div>}
+        export={<button className="btn btn-primary float-right btn-export">
+           {/* <div className='export-export pr-3' /> */}
           EXPORT </button>}
       />
 

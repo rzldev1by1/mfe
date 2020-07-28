@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react'
 import CustomTable from 'shared/table/CustomTable'
-
+import { connect } from 'react-redux'
 import axios from 'axios'
 import HeaderTitle from 'shared/container/TheHeader'
 // import UMCustomTable from 'shared/table/CustomTable'
@@ -58,9 +58,8 @@ class UserManagemen extends Component {
 
 
     loadPersonalLogin = () => {
-        let userInfo = utility.readFromLocalStorage("persist:root");
-        let user = JSON.parse(userInfo.user)
-        this.setState({ loginInfo: user });
+        let userInfo = this.props.store;     
+        this.setState({ loginInfo: userInfo.user });
     }
 
     searchHandler = async (e) => {
@@ -105,7 +104,7 @@ class UserManagemen extends Component {
     render() {
 
         const { loginInfo, data, fields, pagination, dimension, modalShow } = this.state;
-        console.log(pagination);
+        
         return (
             <div className="um-summary pt-1">
                 <HeaderTitle
@@ -176,8 +175,8 @@ class UserManagemen extends Component {
                     goto={(active) => {
                         this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler())
                       }}
-                    export={<button className="btn d-flex btn-primary float-right align-items-center px-3 btn-export">
-                        <div className='export-export pr-3' />
+                    export={<button className="btn btn-primary float-right btn-export">
+                        {/* <div className='export-export pr-3' /> */}
                          EXPORT</button>}
                 />
                 
@@ -189,4 +188,5 @@ class UserManagemen extends Component {
 
 }
 
-export default UserManagemen;
+const mapStateToProps = (store) => ({ store })
+export default connect(mapStateToProps,null)(UserManagemen);

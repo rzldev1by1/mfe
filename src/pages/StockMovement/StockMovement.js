@@ -489,14 +489,16 @@ class StockMovement extends React.PureComponent {
       data={data_table}
       fields={fields}
       onClick={this.showDetails}
-      pagination={pagination}
-      noDataText={<div className='text-align-center'>
-      <div  className='caution-caution px-6'/>No Data Available
-    </div>}
+      pagination={pagination} 
+      noDataText={<div>
+        <div  className='caution-caution'/>
+        <div>No Data Available</div>
+        <div>Adjust Filters above to load data</div>
+      </div>}
       export={<CButton className="btn btn-primary d-flex float-right px-3 align-items-center btn-export">
       <div className="export-export pr-3"/>
       EXPORT
-    </CButton>}
+    </CButton>} 
     /> 
 
     {/* <CustomPagination
@@ -505,8 +507,8 @@ class StockMovement extends React.PureComponent {
       goto={(active) => {
         this.setState({ pagination: { ...pagination, active } }, () => this.searchStockMovement())
       }}
-      export={<CButton className="btn btn-primary d-flex float-right px-3 align-items-center btn-export">
-      <div className="export-export pr-3"/>
+      export={<CButton className="btn btn-primary float-right btn-export">
+      {/* <div className="export-export pr-3"/> 
       EXPORT
     </CButton>}
     /> */}

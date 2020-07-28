@@ -164,9 +164,9 @@ class DatePicker extends React.Component {
             return;
         }
         this.setState({
-            selectedDay: modifiers.selected ? modifiers.selected : day, defaultValue: modifiers.selected ? modifiers.selected : day
+            selectedDay: day, defaultValue: day
         });
-        this.props.getDate(moment(modifiers.selected ? modifiers.selected : day).format("YYYY-MM-DD"))
+        this.props.getDate(moment(day).format("YYYY-MM-DD"))
         this.setState({ showDatePicker: false });
         // this.refs['dateValue'].value = moment(day).format("DD/MM/YYYY");
         if (this.props.onChange) {
@@ -190,9 +190,67 @@ class DatePicker extends React.Component {
     }
 
     disabledAlpha = (e) => {
-        if (!(/^[0-9]+$/.test(e.key)) && (e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight")) {
+        if (!(/[0-9]/g.test(e.key)) && (e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight")) {
             e.preventDefault();
         }
+
+        // limit spesific character to slash only
+        if((e.target.selectionStart == 2) && ((e.key != "/") && (e.key !== "Backspace"))){
+            e.preventDefault();
+        }else if((e.target.selectionStart == 5) && ((e.key != "/") && (e.key !== "Backspace"))){
+            e.preventDefault();
+        }
+
+        // limit date
+        if((e.target.selectionStart == 0) && ((e.key !== "Backspace") && (e.key > 3))){
+            e.preventDefault();
+        }else if(((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[0] == 0)){
+            e.preventDefault();
+        }else if(((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key > 1))) && (e.target.value[0] == 3)){
+            e.preventDefault();
+        }
+
+        //limit month
+        else if((e.target.selectionStart == 3) && ((e.key !== "Backspace") && (e.key > 1))){
+            e.preventDefault();
+        }else if(((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[3] == 0)){
+            e.preventDefault();
+        }else if(((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key > 2))) && (e.target.value[3] == 1)){
+            e.preventDefault();
+        }
+
+        // validate month
+
+        // enable month that have more than 29 days if date is 29
+        else if(((e.target.selectionStart == 4) && (e.key !== "Backspace")) && (((e.target.value[0] == 2) && ((e.target.value[1] == 9) && (e.target.value[3] == 0))) && (/[2]/g.test(e.key)))){
+            e.preventDefault();
+        }
+
+        // enable month that have more than 30 days if date is 30
+        else if(((e.target.selectionStart == 4) && (e.key !== "Backspace")) && (((e.target.value[0] == 3) && ((e.target.value[1] == 0) && (e.target.value[3] == 0))) && (/[2]/g.test(e.key)))){
+            e.preventDefault();
+        }
+
+        // enable month that have 31 days if date is 31
+        else if(((e.target.selectionStart == 4) && (e.key !== "Backspace")) && (((e.target.value[0] == 3) && ((e.target.value[1] == 1) && (e.target.value[3] == 0))) && !(/[1|3|5|7|8]/g.test(e.key)))){
+            e.preventDefault();
+        }else if(((e.target.selectionStart == 4) && (e.key !== "Backspace")) && (((e.target.value[0] == 3) && ((e.target.value[1] == 1) && (e.target.value[3] == 1))) && !(/[0|2]/g.test(e.key)))){
+            e.preventDefault();
+        }
+
+        
+        //limit year
+        else if((e.target.selectionStart == 6) && ((e.key !== "Backspace") && ((e.key == 0) || (e.key > 2)))){
+            e.preventDefault();
+        }else if(((e.target.selectionStart == 7) && ((e.key !== "Backspace") && (e.key != 9))) && (e.target.value[6] == 1)){
+            e.preventDefault();
+        }else if(((e.target.selectionStart == 7) && ((e.key !== "Backspace") && (e.key > 1))) && (e.target.value[6] == 2)){
+            e.preventDefault();
+        }else if(((e.target.selectionStart == 8) && ((e.key > 3) && ((e.key !== "Backspace") && (e.key < 10)))) && (e.target.value[5] == 1)){
+            e.preventDefault();
+        }
+
+        
     }
 
     dateValueFormat = (e) => {

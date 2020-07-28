@@ -113,9 +113,9 @@ class CreateTab extends React.Component {
     const error = validations(this.state)
     this.setState({ error })
     if (error.orderLine !== undefined) return
-    // if (Object.keys(error).length> 1) {
+    if (this.state.orderLine.length <= 3) {
     this.setState({ orderLine: [...this.state.orderLine, {}] })
-    // }
+    }
   }
   removeLine = (i) => {
     let orderLine = Object.assign([], this.state.orderLine)
@@ -167,11 +167,23 @@ class CreateTab extends React.Component {
     delete error[name]
     this.setState({ [name]: value, error, orderDetails })
   }
+
+  decimalFormatter = (name,value) => {
+    let values;
+    if(name === 'weight' && value.length > 3)
+    {
+      const lg = value.length - 4
+      values = value.replace(/,/g, '')
+      values = [values.slice(0,lg), ',', values.slice(lg)].join('')
+    }
+    return values
+  }
   lineChange = (i, e, numeral) => {
     const { name, value } = e.target
     const { orderLine } = this.state
     let formatted = value
-    if (name === 'weight') formatted = numeral(formatted).format('0.000')
+    // if (name === 'weight') formatted = numeral(formatted).format('0.000')
+    formatted = this.decimalFormatter(name,value)
     orderLine[i][name] = formatted
     this.setState({ orderLine })
   }
@@ -398,7 +410,7 @@ class CreateTab extends React.Component {
         {/* ${this.state.overflow ? 'scroll-x-y' : null} */}
         <table>
           <thead>
-            <tr className="text-light-gray">
+            <tr className="text-muted">
               <td><div className="c-50 text-center">#</div></td>
               <td><div className="c-400 required">Product</div></td>
               <td><div className="c-600">Description</div></td>
