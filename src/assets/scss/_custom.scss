@@ -354,6 +354,11 @@ header {
   border-left: 2px #376bfb solid !important;
   border-right: 2px #376bfb solid !important;
   border-bottom: 2px #376bfb solid !important;
+  .modal-body{
+    .select_calendar_expand::after {
+      z-index: 0;
+  }
+}
 }
 
 .required::after{

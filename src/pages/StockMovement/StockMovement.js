@@ -504,8 +504,8 @@ class StockMovement extends React.PureComponent {
       goto={(active) => {
         this.setState({ pagination: { ...pagination, active } }, () => this.searchStockMovement())
       }}
-      export={<CButton className="btn btn-primary d-flex float-right px-3 align-items-center btn-export">
-      <div className="export-export pr-3"/>
+      export={<CButton className="btn btn-primary float-right btn-export">
+      {/* <div className="export-export pr-3"/> */}
       EXPORT
     </CButton>}
     />

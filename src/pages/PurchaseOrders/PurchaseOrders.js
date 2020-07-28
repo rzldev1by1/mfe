@@ -322,8 +322,8 @@ class PurchaseOrders extends React.PureComponent {
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchPurchaseOrder())
         }}
-        export={<button className="btn btn-primary float-right btn-export d-flex px-3 align-items-center"> 
-        <div className="export-export pr-3"/>
+        export={<button className="btn btn-primary float-right btn-export"> 
+        {/* <div className="export-export pr-3"/> */}
         EXPORT</button>}
       />
 
