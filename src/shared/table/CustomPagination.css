@@ -160,3 +160,9 @@ nav .pagination li:last-child .page-link {
     padding: 1rem 0rem !important;
   }
 }
+
+.modal-content-paging .modal-body{
+  border: 0px !important;
+  font-size: 18px;
+  padding-right: 20px;
+}

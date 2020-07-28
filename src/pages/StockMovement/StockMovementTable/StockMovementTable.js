@@ -2,6 +2,7 @@ import React from 'react'
 import ReactTable from 'react-table-v6'
 import 'react-table-v6/react-table.css' 
 import './StockMovementTable.css'
+import CustomPagination from 'shared/table/CustomPagination'
 
 // import mid from 'assets/img/field-idle.png'
 // import down from 'assets/img/field-bot.png'
@@ -116,9 +117,9 @@ class StockMovementTable extends React.Component {
 
   render() {
     const { page, editColumnTemp } = this.state
-    let { title, data, fields, onClick, pageSize = 50, height } = this.props
+    let { title, data, fields, onClick, pageSize = 50, height, pagination } = this.props
     const headerIcon = this.headerIcon(fields, editColumnTemp)
-
+    console.log(pagination)
     return (
       <React.Fragment>
         <div className="stockMovement">
@@ -139,6 +140,12 @@ class StockMovementTable extends React.Component {
             }
           }}
           {...this.props}
+        />
+        <CustomPagination
+          data={data}
+          pagination={pagination}
+          goto={this.props.goto}
+          export={this.props.export}
         />
         </div>
       </React.Fragment>
