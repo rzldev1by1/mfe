@@ -234,13 +234,14 @@ class UserManagementCreate extends React.PureComponent {
     let site = sites.find((item, index) => {
       return item.status === true;
     });
+    
     let client = clients.find((item, index) => {
       return item.status === true;
     });
 
     userInfo.userMenu = (user.webGroup === webgroup.ADMIN) ? adminMenu : userMenu;
-    userInfo.site = (user.webGroup === webgroup.ADMIN) ? null : site.site;
-    userInfo.client = (user.webGroup === webgroup.ADMIN) ? null : client.code;
+    userInfo.site = ((user.webGroup === webgroup.ADMIN) ? null : (site? site.site:null));
+    userInfo.client = ((user.webGroup === webgroup.ADMIN) ? null : (client? client.code:null));
 
     const { status, data } = await axios.post(endpoint.userManagementCreate, userInfo);
     if (status === 200) {
