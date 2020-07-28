@@ -16,15 +16,18 @@ const TheSidebar = () => {
   const location = useLocation()
   const show = useSelector(state => state.sidebarShow)
   const user = useSelector(state => state.user)
+  
   const [hover, setHover] = useState(null)
   const signOut = (e) => {
     dispatch({ type: 'LOGOUT' })
   }
+  let userMenu = user.userModules.map(item => (item.menu_id));
   const adminRoutes = ['/users-management']
   let navigation = nav
   if (user.userLevel === 'Regular') {
     navigation = navigation.filter(n => {
-      return adminRoutes.includes(n.to) ? false : true
+      console.log();
+      return ((adminRoutes.includes(n.to) ? false : true) && (userMenu.includes(n.key) ? true:false))      
     })
   }
   return (

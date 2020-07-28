@@ -10,7 +10,7 @@ import HeaderTitle from 'shared/container/TheHeader'
 import ResetModal from './ModalPopup/Reset'
 import * as utility from './UmUtility'
 import { FormFeedback } from 'reactstrap'
-
+import { connect } from 'react-redux'
 import moment from 'moment';
 // import popupLock from '../../assets/img/brand/popup_lock.png'
 // import popupLockSuccess from '../../assets/img/brand/popup_success_lock.png'
@@ -18,10 +18,10 @@ import moment from 'moment';
 const today = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
 const passChanged = '1999-08-28';
 const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'stock age profile'];
-const webgroup = {
-    WAREHOUSE: 'Regular',
-    ADMIN: 'Admin'
-}
+// const webgroup = {
+//     WAREHOUSE: 'Regular',
+//     ADMIN: 'Admin'
+// }
 
 const regexMail = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -129,7 +129,7 @@ class UserManagementDetail extends Component {
             let adminClassName = this.state.adminClass;
             let result = this.restructureAccount(data.data);
             
-            if(result.web_group !== webgroup.ADMIN)
+            if(result.web_group !== utility.webgroup.ADMIN)
                 adminClassName = ' ';
             
             this.setState({ accountInfo: result, isLoadComplete: true, adminClass: adminClassName }, () => {
@@ -153,7 +153,7 @@ class UserManagementDetail extends Component {
             .map((item, index) => {
                 let newItem = item;
                 let isStatus = false;
-                if (user.web_group !== webgroup.ADMIN) {
+                if (user.web_group !== utility.webgroup.ADMIN) {
                     isStatus = userMenu.includes(item.menuid) ? true : false;
                 }
                 newItem.status = isStatus;
@@ -165,6 +165,7 @@ class UserManagementDetail extends Component {
     loadSites = async () => {
         let user = { ...this.state.accountInfo };
         const { data } = await axios.get(endpoint.getSite);
+        console.log(data);
         let sites = data.map((item, index) => {
             let newItem = item;
             newItem.status = (item.site === user.site) ? true : false;
@@ -326,9 +327,9 @@ class UserManagementDetail extends Component {
         newParam.lastLogin = accountInfo.lastLogin;
         newParam.thisAccess = accountInfo.thisAccess;
         newParam.thisLogin = accountInfo.thisLogin;
-        newParam.userMenu = accountInfo.web_group === webgroup.ADMIN? adminMenu:userMenu;
-        newParam.client = accountInfo.web_group === webgroup.ADMIN? null:client.code;
-        newParam.site = accountInfo.web_group === webgroup.ADMIN? null:site.site;
+        newParam.userMenu = accountInfo.web_group === utility.webgroup.ADMIN? adminMenu:userMenu;
+        newParam.client = (accountInfo.web_group === utility.webgroup.ADMIN? null:(client? client.code:null));
+        newParam.site = (accountInfo.web_group === utility.webgroup.ADMIN? null:(site? site.site:null));
         newParam.disabled = accountInfo.disabled ? 'Y' : 'N';
 
 
@@ -435,9 +436,10 @@ class UserManagementDetail extends Component {
     }
 
     loadPersonalLogin = () => {
-        let userInfo = utility.readFromLocalStorage("persist:root");
-        let user = JSON.parse(userInfo.user)
-        this.setState({ loginInfo: user });
+        // let userInfo = utility.readFromLocalStorage("persist:root");
+        // let user = JSON.parse(userInfo.user)
+        let userInfo = this.props.store;
+        this.setState({ loginInfo: userInfo.user });
     }
 
     render() {
@@ -482,8 +484,8 @@ class UserManagementDetail extends Component {
                                     <label className="text-title-detail">Reset Password</label>
                                 </div>
 
-                                <div className={`col-md-3 pl-0 ${accountInfo.userId === loginInfo.userId ? 'd-none' : ''} ${accountInfo.web_group !== webgroup.ADMIN ? '' : ' d-none '}`}>
-                                    <label className="text-title-detail">Suspend Users</label>
+                                <div className={`col-md-3 pl-0 ${adminClass}`}>
+                                     <label className="text-title-detail">Suspend Users</label>
                                 </div>
 
 
@@ -594,6 +596,8 @@ class UserManagementDetail extends Component {
 
         </div>)
     }
-
 }
-export default UserManagementDetail;
+
+const mapStateToProps = (store) => ({ store })
+
+export default connect(mapStateToProps,null)(UserManagementDetail);

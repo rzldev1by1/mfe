@@ -72,11 +72,11 @@ class ReviewTab extends React.Component {
       <h3 className="text-primary font-20">Order Details</h3>
       <Row>
         <Col lg="3">
-          <label className="text-muted mb-0 required">Site</label>
+          <label className="text-muted mb-0 ">Site</label>
           <input value={od ? this.siteCheck(od[0].site) : ''} className="form-control" readOnly />
         </Col>
         <Col lg="3">
-          <label className="text-muted mb-0 required">Order Type</label>
+          <label className="text-muted mb-0 ">Order Type</label>
           <input value={od ? od[0].orderTypeName : ''} className="form-control" readOnly />
         </Col>
         <Col lg="3">
@@ -84,17 +84,17 @@ class ReviewTab extends React.Component {
           <input value={od ? od[0].supplierName : ''} className="form-control" readOnly />
         </Col>
         <Col lg="3">
-          <label className="text-muted mb-0 required">Customer Order Ref</label>
+          <label className="text-muted mb-0 ">Customer Order Ref</label>
           <input value={od ? od[0].customerOrderRef : ''} className="form-control" readOnly />
         </Col>
       </Row>
       <Row>
         <Col lg="3">
-          <label className="text-muted mb-0 required">Client</label>
+          <label className="text-muted mb-0 ">Client</label>
           <input value={od ? this.clientCheck(od[0].client) : ''} className="form-control" readOnly />
         </Col>
         <Col lg="3">
-          <label className="text-muted mb-0 required">Order No</label>
+          <label className="text-muted mb-0 ">Order No</label>
           <input value={od ? od[0].orderNo : ''} className="form-control text-uppercase" readOnly />
         </Col>
         <Col lg="3">

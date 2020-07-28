@@ -98,6 +98,7 @@ class UMCustomTable extends React.Component {
           <ReactTable
             columns={headerIcon}
             data={data}
+            defaultPageSize={50}
             showPagination={false}
             noDataText={<div>
               <div  className='caution-caution'/>
