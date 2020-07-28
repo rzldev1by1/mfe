@@ -59,7 +59,7 @@ class NewUser extends React.PureComponent {
       onNext = () => {
           const {user} = this.props;
           let validation = {...this.state.validation};;
-
+         
         let emailValid = this.checkEmailValidation(user.email);
         let nameValid = this.checkNameValidation(user.name);
         validation.email = emailValid.email;

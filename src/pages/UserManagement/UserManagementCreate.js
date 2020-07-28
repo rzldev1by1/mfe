@@ -9,10 +9,10 @@ import Review from './tabs/Review'
 import _ from 'lodash'
 
 const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'stock age profile'];
-const webgroup = {
-  WAREHOUSE: 'Regular',
-  ADMIN: 'Admin'
-}
+// const webgroup = {
+//   WAREHOUSE: 'Regular',
+//   ADMIN: 'Admin'
+// }
 class UserManagementCreate extends React.PureComponent {
   state = {
     key: 'new',
@@ -26,7 +26,7 @@ class UserManagementCreate extends React.PureComponent {
       disabled: 'N',
       site: '',
       client: '',
-      webGroup: webgroup.WAREHOUSE
+      webGroup: utility.webgroup.WAREHOUSE
     },
     sites: [],
     client: [],
@@ -168,7 +168,7 @@ class UserManagementCreate extends React.PureComponent {
     let isValid = false;
     let userMenu = moduleAccess.filter((item) => { return item.status === true; })
 
-    if (user.webGroup === webgroup.ADMIN)
+    if (user.webGroup === utility.webgroup.ADMIN)
       isValid = (user.name && user.email) ? true : false;
     else {
       isValid = (user.name && user.email && (userMenu && userMenu.length)) ? true : false;
@@ -212,7 +212,7 @@ class UserManagementCreate extends React.PureComponent {
 
   onWebGroupSelect = (event) => {
     let user = { ...this.state.user };
-    user.webGroup = event.target.checked ? webgroup.ADMIN : webgroup.WAREHOUSE;
+    user.webGroup = event.target.checked ? utility.webgroup.ADMIN : utility.webgroup.WAREHOUSE;
     this.setState({ isAdmin: event.target.checked, user: user });
   }
 
@@ -239,9 +239,9 @@ class UserManagementCreate extends React.PureComponent {
       return item.status === true;
     });
 
-    userInfo.userMenu = (user.webGroup === webgroup.ADMIN) ? adminMenu : userMenu;
-    userInfo.site = ((user.webGroup === webgroup.ADMIN) ? null : (site? site.site:null));
-    userInfo.client = ((user.webGroup === webgroup.ADMIN) ? null : (client? client.code:null));
+    userInfo.userMenu = (user.webGroup === utility.webgroup.ADMIN) ? adminMenu : userMenu;
+    userInfo.site = ((user.webGroup === utility.webgroup.ADMIN) ? null : (site? site.site:null));
+    userInfo.client = ((user.webGroup === utility.webgroup.ADMIN) ? null : (client? client.code:null));
 
     const { status, data } = await axios.post(endpoint.userManagementCreate, userInfo);
     if (status === 200) {
@@ -262,7 +262,7 @@ class UserManagementCreate extends React.PureComponent {
       disabled: 'N',
       site: '',
       client: '',
-      webGroup: webgroup.WAREHOUSE
+      webGroup: utility.webgroup.WAREHOUSE
     }
     this.setState({
       user: user, isAdmin: false, key: 'new', saveProgress: false,
