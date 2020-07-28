@@ -175,7 +175,10 @@ class SalesOrder extends React.PureComponent {
         pagination: {
           active: pagination.active || data.data.current_page,
           show: data.data.per_page,
-          total: data.data.total
+          total: data.data.total,
+          last_page: data.data.last_page,
+          from: data.data.from,
+          to: data.data.to
         },
         data: modifiedData
       }, () => {console.log (this.state.pagination)})

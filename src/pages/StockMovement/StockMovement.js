@@ -38,6 +38,7 @@ class StockMovement extends React.PureComponent {
     data_table: [],
     create: false,
     detail: {},
+    pagination: {last_page: 1},
     dateArray: [],
     dimension: { width: 0, height: 0 },
     startDate: moment().subtract(27, 'days').format('YYYY-MM-DD'),
@@ -57,8 +58,7 @@ class StockMovement extends React.PureComponent {
 
     dateToSelected: null,
     dateToText: null,
-    dateToShow: false,
-    pagination: {},
+    dateToShow: false, 
     minDate: null,
     maxDate: null
   }
@@ -390,8 +390,7 @@ class StockMovement extends React.PureComponent {
       dimension, fields, data, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData, taskData, data_table, filterType,filterData,
       product, productData, periodSelected, pagination,dateFromShow, minDate,maxDate
-  } = this.state
-    
+  } = this.state 
   //custom style react-select 
      
   return <div className="stockMovement">
@@ -490,13 +489,17 @@ class StockMovement extends React.PureComponent {
       data={data_table}
       fields={fields}
       onClick={this.showDetails}
+      pagination={pagination}
       noDataText={<div className='text-align-center'>
       <div  className='caution-caution px-6'/>No Data Available
     </div>}
-      export={<CButton className="btn btn-primary px-4">EXPORT <IoIosArrowDown /></CButton>}
+      export={<CButton className="btn btn-primary d-flex float-right px-3 align-items-center btn-export">
+      <div className="export-export pr-3"/>
+      EXPORT
+    </CButton>}
     /> 
 
-    <CustomPagination
+    {/* <CustomPagination
       data={data}
       pagination={pagination}
       goto={(active) => {
@@ -506,7 +509,7 @@ class StockMovement extends React.PureComponent {
       <div className="export-export pr-3"/>
       EXPORT
     </CButton>}
-    />
+    /> */}
 
   </div>
   }
