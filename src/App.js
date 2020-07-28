@@ -45,7 +45,7 @@ class ProtectedRoute extends React.Component {
 				} else {
 					return <Component {...props} />
 				}
-			} else if(store.expired && store.user) {
+			} else {
 				return <Redirect to={{ pathname: '/login', state: { returnUrl: props.location } }} />
 			}
 		}
