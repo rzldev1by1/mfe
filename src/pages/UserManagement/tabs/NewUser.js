@@ -41,7 +41,7 @@ class NewUser extends React.PureComponent {
         const {users} = this.props;
         let validation = { ...this.state.validation };
          
-        validation.name["isValid"] = textName !== ' '?true:false;
+        validation.name["isValid"] = textName === ""?false:true;
         return validation;
       }
 
@@ -64,6 +64,7 @@ class NewUser extends React.PureComponent {
         let nameValid = this.checkNameValidation(user.name);
         validation.email = emailValid.email;
         validation.name = nameValid.name;
+
         if(emailValid.email["isValid"] && nameValid.name["isValid"])
             this.props.next('review');
 
