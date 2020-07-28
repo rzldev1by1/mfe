@@ -483,7 +483,7 @@ class UserManagementDetail extends Component {
                                 </div>
 
                                 <div className={`col-md-3 pl-0 ${adminClass}`}>
-                                    <label className="text-title-detail">Suspend Users</label>
+                                     <label className="text-title-detail">Suspend Users</label>
                                 </div>
 
 
