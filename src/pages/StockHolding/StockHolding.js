@@ -26,7 +26,7 @@ const columns = [
     width: null,
     sortable: true,
   },
-  { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: null,sortable: true },
+  { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: null, sortable: true },
   { accessor: 'packdesc_1', Header: 'UOM', placeholder: 'UOM', width: null, sortable: true },
   { accessor: 'status', Header: ' Status ', placeholder: 'Status', width: null, sortable: true },
   {
@@ -36,11 +36,11 @@ const columns = [
     sortable: true,
     width: null,
   },
-  { 
-    accessor: 'on_hand_wgy', 
-    Header: 'On Hand WGT', 
-    placeholder: 'On Hand WGT', 
-    sortable: true,  
+  {
+    accessor: 'on_hand_wgy',
+    Header: 'On Hand WGT',
+    placeholder: 'On Hand WGT',
+    sortable: true,
     width: null,
   },
   {
@@ -60,7 +60,7 @@ const columns = [
   {
     accessor: 'expected_out_qty',
     Header: 'Expected Out Qty',
-    placeholder: 'Expected Out Qty', 
+    placeholder: 'Expected Out Qty',
     sortable: true,
     width: null,
   },
@@ -70,8 +70,12 @@ const columns = [
 class StockHolding extends React.PureComponent {
   state = {
     search: '',
-    site: null,
-    client: null,
+    site: {
+      value: this.props.store.user.site ? this.props.store.user.site : null,
+    },
+    client: {
+      value: this.props.store.user.client ? this.props.store.user.client : null,
+    },
     status: null,
     orderType: null,
     task: null,
@@ -130,58 +134,74 @@ class StockHolding extends React.PureComponent {
 
   // url Get Header And Post
 
-  UrlHeader = () =>{
+  UrlHeader = () => {
     return `${endpoints.getStockHoldingHearder}?client=ANTEC`
   }
-  UrlAntec = () =>{
+  UrlAntec = () => {
     return '/putStockholdingColumn?client=ANTEC'
   }
-  UrlBega = () =>{
-    return  '/putStockholdingColumn?client=BEGA'
+  UrlBega = () => {
+    return '/putStockholdingColumn?client=BEGA'
   }
-  UrlAesop = () =>{
-    return  '/putStockholdingColumn?client=AESOP'
+  UrlAesop = () => {
+    return '/putStockholdingColumn?client=AESOP'
   }
-  UrlClucth = () =>{
-    return  '/putStockholdingColumn?client=CLUCTH'
+  UrlClucth = () => {
+    return '/putStockholdingColumn?client=CLUCTH'
   }
-  UrlExquira = () =>{
-    return  '/putStockholdingColumn?client=EXQUIRA'
+  UrlExquira = () => {
+    return '/putStockholdingColumn?client=EXQUIRA'
   }
-  UrlLedvance = () =>{
-    return  '/putStockholdingColumn?client=LEDVANCE'
+  UrlLedvance = () => {
+    return '/putStockholdingColumn?client=LEDVANCE'
   }
-  UrlOnestop = () =>{
+  UrlOnestop = () => {
     return '/putStockholdingColumn?client=ONESTOP'
   }
-  UrlStartrack = () =>{
+  UrlStartrack = () => {
     return '/putStockholdingColumn?client=STARTRACK'
   }
-  UrlTatura  = () =>{
+  UrlTatura = () => {
     return '/putStockholdingColumn?client=TATURA'
   }
-  UrlTtl = () =>{
+  UrlTtl = () => {
     return '/putStockholdingColumn?client=TTL'
   }
-  UrlTtchem = () =>{
+  UrlTtchem = () => {
     return '/putStockholdingColumn?client=TTCHEM'
   }
 
- // end url Get Header And Post
-  
- searchStockHolding  = async () => {
-  let { search, site, client, status, pagination } = this.state
-  let urls = []
-  urls.push('searchParam=' + search ? search : '')
-  urls.push('site=' + (site ? site.value : 'all'))
-  urls.push('client=' + (client ? client.value : 'all'))
-  urls.push('status=' + (status ? status.value : 'all'))
-  urls.push('page=' + (pagination.active || 1))
-  const { data } = await axios.get(`${endpoints.stockHoldingSummary}?${urls.join('&')}`)
+  // end url Get Header And Post
+
+  siteCheck = (siteVal) => {
+    let l = null
+    this.props.store.site.map(data => {
+      if (data.value === siteVal) l = data.label
+    })
+    return l
+  }
+
+  clientCheck = (clientVal) => {
+    let c = null
+    this.props.store.client.map(data => {
+      if (data.value === clientVal) c = data.label
+    })
+    return c
+  }
+
+  searchStockHolding = async () => {
+    let { search, site, client, status, pagination } = this.state
+    let urls = []
+    urls.push('searchParam=' + search ? search : '')
+    urls.push('site=' + (site ? site.value : 'all'))
+    urls.push('client=' + (client ? client.value : 'all'))
+    urls.push('status=' + (status ? status.value : 'all'))
+    urls.push('page=' + (pagination.active || 1))
+    const { data } = await axios.get(`${endpoints.stockHoldingSummary}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data;
       modifiedData.map((item, idx) => {
-        if (item['on_hand_qty'] + item['expected_in_qty'] >= item['expected_out_qty']){
+        if (item['on_hand_qty'] + item['expected_in_qty'] >= item['expected_out_qty']) {
           item['status'] = [<a className='status-ok'>OK</a>];
         } else {
           item['status'] = [<a className='status-shortage'>SHORTAGE</a>];
@@ -259,34 +279,44 @@ class StockHolding extends React.PureComponent {
               <CCol lg={9} className='pr-0'>
                 <CRow>
                   <CCol sm={4} lg={2} className='px-0'>
-                    <Select
-                      name='site'
-                      placeholder='Site'
-                      value={site}
-                      options={siteData}
-                      onChange={(val) => this.setState({ site: val }, () => {})}
-                      styles={{
-                        dropdownIndicator: (base, state) => ({
-                          ...base, 
-                          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                        })
-                      }}
-                    />
+                    {
+                      this.props.store.user.site ?
+                        <input value={this.siteCheck(site.value)} className="form-control" readOnly />
+                        :
+                        <Select
+                          name='site'
+                          placeholder='Site'
+                          value={site}
+                          options={siteData}
+                          onChange={(val) => this.setState({ site: val }, () => { })}
+                          styles={{
+                            dropdownIndicator: (base, state) => ({
+                              ...base,
+                              transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                            })
+                          }}
+                        />
+                    }
                   </CCol>
                   <CCol sm={4} lg={2} className='px-3'>
-                    <Select
-                      name='client'
-                      placeholder='Client'
-                      value={client}
-                      options={clientData}
-                      onChange={(val) => this.setState({ client: val })}
-                      styles={{
-                        dropdownIndicator: (base, state) => ({
-                          ...base, 
-                          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                        })
-                      }}
-                    />
+                    {
+                      this.props.store.user.client ?
+                        <input value={this.clientCheck(client.value)} className="form-control" readOnly />
+                        :
+                        <Select
+                          name='client'
+                          placeholder='Client'
+                          value={client}
+                          options={clientData}
+                          onChange={(val) => this.setState({ client: val })}
+                          styles={{
+                            dropdownIndicator: (base, state) => ({
+                              ...base,
+                              transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                            })
+                          }}
+                        />
+                    }
                   </CCol>
                   <CCol sm={4} lg={2} className='px-0'>
                     <Select
@@ -297,7 +327,7 @@ class StockHolding extends React.PureComponent {
                       onChange={(val) => this.setState({ status: val })}
                       styles={{
                         dropdownIndicator: (base, state) => ({
-                          ...base, 
+                          ...base,
                           transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
                         })
                       }}
@@ -327,10 +357,10 @@ class StockHolding extends React.PureComponent {
           pagination={pagination}
           onClick={this.showDetails}
           renameSubmit={this.renameSubmit}
-          UrlHeader={this.UrlHeader}      UrlAntec={this.UrlAntec}        UrlBega={this.UrlBega}
-          UrlAesop={this.UrlAesop}        UrlClucth={this.UrlClucth}      UrlExquira={this.UrlExquira}
-          UrlLedvance={this.UrlLedvance}  UrlOnestop={this.UrlOnestop}    UrlStartrack ={this.UrlStartrack }
-          UrlTatura={this.UrlTatura}      UrlTtl={this.UrlTtl}            UrlTtchem={this.UrlTtchem}
+          UrlHeader={this.UrlHeader} UrlAntec={this.UrlAntec} UrlBega={this.UrlBega}
+          UrlAesop={this.UrlAesop} UrlClucth={this.UrlClucth} UrlExquira={this.UrlExquira}
+          UrlLedvance={this.UrlLedvance} UrlOnestop={this.UrlOnestop} UrlStartrack={this.UrlStartrack}
+          UrlTatura={this.UrlTatura} UrlTtl={this.UrlTtl} UrlTtchem={this.UrlTtchem}
           goto={(active) => {
             this.setState({ pagination: { ...pagination, active } }, () =>
               this.searchStockHolding()
