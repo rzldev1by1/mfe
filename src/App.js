@@ -38,14 +38,14 @@ class ProtectedRoute extends React.Component {
 	render() {
 		const { component: Component, store, ...others } = this.props
 		const renderRoute = props => {
-			if (store.user && store.user.token) {
+			if (store.user && store.user.token && !store.expired) {
 				const adminRoutes = ['/users-management']
 				if (store.user.userLevel === 'Regular' && adminRoutes.includes(props.location.pathname)) {
 					return <Redirect to={{ pathname: '/', state: { returnUrl: props.location } }} />
 				} else {
 					return <Component {...props} />
 				}
-			} else {
+			} else if(store.expired && store.user) {
 				return <Redirect to={{ pathname: '/login', state: { returnUrl: props.location } }} />
 			}
 		}
