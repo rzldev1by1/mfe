@@ -410,7 +410,7 @@ class CreateTab extends React.Component {
         {/* ${this.state.overflow ? 'scroll-x-y' : null} */}
         <table>
           <thead>
-            <tr className="text-light-gray">
+            <tr className="text-muted">
               <td><div className="c-50 text-center">#</div></td>
               <td><div className="c-400 required">Product</div></td>
               <td><div className="c-600">Description</div></td>
