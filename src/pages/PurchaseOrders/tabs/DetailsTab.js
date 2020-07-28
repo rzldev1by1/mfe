@@ -113,9 +113,9 @@ class CreateTab extends React.Component {
     const error = validations(this.state)
     this.setState({ error })
     if (error.orderLine !== undefined) return
-    // if (Object.keys(error).length> 1) {
+    if (this.state.orderLine.length <= 3) {
     this.setState({ orderLine: [...this.state.orderLine, {}] })
-    // }
+    }
   }
   removeLine = (i) => {
     let orderLine = Object.assign([], this.state.orderLine)
