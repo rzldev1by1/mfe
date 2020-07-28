@@ -488,7 +488,7 @@ showModal = (show) => {
                   fields={fields}
                 />
             </CCol>
-            <CCol lg="2" >
+            <CCol lg="2" className="px-0 export-ml">
                 <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
                     ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} />
             </CCol>
