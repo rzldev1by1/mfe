@@ -1,4 +1,29 @@
 @font-face {
+  font-family: "caution";
+  src: url("../icons/caution/icomoon.eot?t60pg3");
+  src: url("../icons/caution/icomoon.eot?t60pg3#iefix")
+      format("embedded-opentype"),
+    url("../icons/caution/icomoon.ttf?t60pg3") format("truetype"),
+    url("../icons/caution/icomoon.woff?t60pg3") format("woff"),
+    url("../icons/caution/icomoon.svg?t60pg3#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="caution-"],
+[class*=" caution-"] {
+  font-family: "caution" !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.caution-caution:before {
+  content: "\e895";
+  font-size: 45px;
+}
+@font-face {
   font-family: "export";
   src: url("../icons/export/icomoon.eot?t60pg3");
   src: url("../icons/export/icomoon.eot?t60pg3#iefix")

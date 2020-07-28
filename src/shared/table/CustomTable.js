@@ -171,7 +171,7 @@ showModal = (show) => {
     header && header.map((h, index) => {
         if (!editColumn[index]) {
           let withIcon = (
-            <span className='text-light-gray'>
+            <span className='text-light-gray draggable-header'>
               {h.Header}{' '}
               {h.sortable === false ? null : (
                 <svg
@@ -232,17 +232,23 @@ showModal = (show) => {
                 let split = data.placeholder
                 return split
                 });
+    let width = this.state.fields.map((data, idx) => {                
+                let split = data.width
+                return split
+                });
     console.log(accessor)
     Object.values(data.data[0]).map((data, idx) => {
       let headerTable = {
         accessor: '',
         Header: '',
         placeholder: '',
+        width: null,
         sortable: true,
       };
       headerTable.Header = data;
       headerTable.placeholder = placeholder[idx];
       headerTable.accessor = accessor[idx];
+      headerTable.width = width[idx];
       header.push(headerTable);
     });
     console.log(header);
@@ -416,7 +422,10 @@ showModal = (show) => {
           data={data}
           showPagination={false}
           style={{ height }}
-          noDataText={(request_status)? request_status :"Please Wait..."}
+          // noDataText={(request_status)? request_status :"Please Wait..."}
+          noDataText={<div className='text-align-center'>
+          <div  className='caution-caution px-6'/>No Data Available
+        </div>}
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
             return {
@@ -425,6 +434,7 @@ showModal = (show) => {
                   onClick(rowInfo.original, state, column, e, instance);
               },
               style: {
+                height : "3rem",
                 cursor: !!onClick && 'pointer',
                 textAlign: isNaN(rowInfo?.original[column.id])
                   ? 'left'

@@ -99,8 +99,10 @@ class UMCustomTable extends React.Component {
             columns={headerIcon}
             data={data}
             showPagination={false}
-            defaultPageSize={50}
-            noDataText={"Please Wait..."}
+            noDataText={<div className='text-align-center'>
+            <div  className='caution-caution px-6'/>No Data Available
+          </div>}
+            // noDataText={"Please Wait..."}
             style={{ height }}
             minRows='0'
             getTdProps={(state, rowInfo, column, instance) => {
