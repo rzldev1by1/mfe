@@ -130,8 +130,8 @@ class PurchaseOrdersDetail extends React.Component {
         data={products}
         UrlHeader={this.UrlHeader} 
         export={
-          <button className='btn d-flex btn-primary float-right align-items-center px-3 btn-export'>
-            <div className='export-export pr-3' />
+          <button className='btn btn-primary float-right btn-export'>
+            {/* <div className='export-export pr-3' /> */}
             EXPORT
           </button>
         }

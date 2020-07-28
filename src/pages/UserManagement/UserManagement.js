@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react'
 import CustomTable from 'shared/table/CustomTable'
-
+import { connect } from 'react-redux'
 import axios from 'axios'
 import HeaderTitle from 'shared/container/TheHeader'
+// import UMCustomTable from 'shared/table/CustomTable'
 
 import endpoint from '../../helpers/endpoints'
 import UMCustomTable from './UserManagementTable'
@@ -57,9 +58,8 @@ class UserManagemen extends Component {
 
 
     loadPersonalLogin = () => {
-        let userInfo = utility.readFromLocalStorage("persist:root");
-        let user = JSON.parse(userInfo.user)
-        this.setState({ loginInfo: user });
+        let userInfo = this.props.store;     
+        this.setState({ loginInfo: userInfo.user });
     }
 
     searchHandler = async (e) => {
@@ -78,7 +78,8 @@ class UserManagemen extends Component {
             return newItem;
         })
         this.setState({
-            data: result, pagination: {
+            data: result, 
+            pagination: {
                 active: pagination.active || data.data.current_page,
                 show: data.data.per_page,
                 total: data.data.total
@@ -110,36 +111,36 @@ class UserManagemen extends Component {
                 <CCard className="bg-transparent mb-3">
                     <CCardBody className="p-3 border-user-info" >
                         <CRow>
-                            <CCol sm="2" className="user-login-info-header">
+                            <CCol sm={1} className="user-login-info-header">
                                 User ID
                             </CCol>
-                            <CCol sm="2" className="user-login-info-header">
+                            <CCol sm={1} className="user-login-info-header">
                                 Name
                             </CCol>
-                            <CCol sm="2" className="user-login-info-header">
+                            <CCol sm={2} className="user-login-info-header pr-0">
                                 Email Address
                             </CCol>
-                            <CCol sm="2" className="user-login-info-header">
+                            <CCol sm={1} className="user-login-info-header pl-0">
                                 Site
                             </CCol>
-                            <CCol sm="2" className="user-login-info-header">
+                            <CCol sm={1} className="user-login-info-header">
                                 Client
                             </CCol>
                         </CRow>
                         <CRow className="mt-2">
-                            <CCol sm="2" className="user-login-info-value">
+                            <CCol sm={1} className="user-login-info-value">
                                 {loginInfo.userId}
                             </CCol>
-                            <CCol sm="2" className="user-login-info-value">
+                            <CCol sm={1} className="user-login-info-value">
                                 <Link to={`/users-management/${loginInfo.webUser}/detail`} >{loginInfo.name}</Link>
                             </CCol>
-                            <CCol sm="2" className="user-login-info-value">
+                            <CCol sm={2} className="user-login-info-value pr-0">
                                 {loginInfo.email}
                             </CCol>
-                            <CCol sm="2" className="user-login-info-value">
+                            <CCol sm={1} className="user-login-info-value pl-0">
                                 {`${loginInfo.site && loginInfo.site !== '' ? loginInfo.site : 'All'}`}
                             </CCol>
-                            <CCol sm="2" className="user-login-info-value">
+                            <CCol sm={1} className="user-login-info-value">
                                 {`${loginInfo.client && loginInfo.client !== '' ? loginInfo.client : 'All'}`}
                             </CCol>
                         </CRow>
@@ -171,8 +172,8 @@ class UserManagemen extends Component {
                     goto={(active) => {
                         this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler())
                       }}
-                    export={<button className="btn d-flex btn-primary float-right align-items-center px-3 btn-export">
-                        <div className='export-export pr-3' />
+                    export={<button className="btn btn-primary float-right btn-export">
+                        {/* <div className='export-export pr-3' /> */}
                          EXPORT</button>}
                 />
                 
@@ -184,4 +185,5 @@ class UserManagemen extends Component {
 
 }
 
-export default UserManagemen;
+const mapStateToProps = (store) => ({ store })
+export default connect(mapStateToProps,null)(UserManagemen);

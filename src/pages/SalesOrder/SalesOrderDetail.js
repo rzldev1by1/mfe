@@ -149,10 +149,13 @@ class SalesOrderDetail extends React.Component {
         fields={fields}
         data={products}
         UrlHeader={this.UrlHeader} 
-        request_status={this.state.request_status}
+        // request_status={this.state.request_status}
+        noDataText={<div className='text-align-center'>
+        <div  className='caution-caution px-6'/>No Data Available
+      </div>}
         export={
-          <button className='btn d-flex btn-primary float-right align-items-center px-3 btn-export'>
-            <div className='export-export pr-3' />
+          <button className='btn btn-primary float-right btn-export'>
+            {/* <div className='export-export pr-3' /> */}
             EXPORT
           </button>
         }

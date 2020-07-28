@@ -20,7 +20,7 @@ const columns = [
   { accessor: 'supplier_no', Header: 'Supplier No', },
   { accessor: 'supplier_name', Header: 'Supplier Name', width: 210 },
   { accessor: 'status', Header: 'Status', width: 140 },
-  { accessor: 'delivery_date', Header: 'Delivery Date', },
+  { accessor: 'delivery_date', Header: 'Order Date', },
   { accessor: 'date_received', Header: 'Date Received', },
   { accessor: 'date_released', Header: 'Date Released', },
   { accessor: 'date_completed', Header: 'Date Completed', },
@@ -322,8 +322,8 @@ class PurchaseOrders extends React.PureComponent {
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchPurchaseOrder())
         }}
-        export={<button className="btn btn-primary float-right btn-export d-flex px-3 align-items-center"> 
-        <div className="export-export pr-3"/>
+        export={<button className="btn btn-primary float-right btn-export"> 
+        {/* <div className="export-export pr-3"/> */}
         EXPORT</button>}
       />
 

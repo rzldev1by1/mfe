@@ -250,7 +250,10 @@ class StockAgeProfile extends Component {
           data={data}
           fields={fields}
           overflow="scroll"
-          noDataText={"Please Wait..."}
+          // noDataText={"Please Wait..."}
+          noDataText={<div className='text-align-center'>
+          <div  className='caution-caution px-6'/>No Data Available
+        </div>}
           minRows='0'
         />
         <CustomPagination

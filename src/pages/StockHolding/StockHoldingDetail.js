@@ -207,8 +207,8 @@ class SalesOrderDetail extends React.Component {
                 <NavItem className='p-0'>
                   <NavLink
                     className={
-                      'p-3 nav-link-cust d-flex align-items-center' +
-                      (activeTab === '1' ? ' tab-custom' : '')
+                      'p-3 nav-link-cust d-flex align-items-center ' +
+                      (activeTab === '1' ? ' tab-custom' : 'tab-nonActive')
                     }
                     active={this.state.activeTab === '1'}
                     onClick={() => this.activeTabIndex('1')}
@@ -222,11 +222,11 @@ class SalesOrderDetail extends React.Component {
                   </NavLink>
                 </NavItem>
 
-                <NavItem className={'p-0'}>
+                <NavItem className={'p-0'} style={{marginLeft:"11px"}}>
                   <NavLink
                     className={
-                      'p-3 nav-link-cust d-flex align-items-center' +
-                      (activeTab === '2' ? ' tab-custom' : '')
+                      'p-3 nav-link-cust d-flex align-items-center ' +
+                      (activeTab === '2' ? ' tab-custom' : 'tab-nonActive')
                     }
                     active={this.state.activeTab === '2'}
                     onClick={() => this.activeTabIndex('2')}
@@ -255,8 +255,8 @@ class SalesOrderDetail extends React.Component {
                   data={products}
                   UrlHeader={this.UrlHeader}
                   export={
-                    <button className='btn d-flex btn-primary float-right align-items-center px-3 btn-export'>
-                      <div className='export-export pr-3' />
+                    <button className='btn btn-primary float-right btn-export'>
+                      {/* <div className='export-export pr-3' /> */}
                       EXPORT
                     </button>
                   }
@@ -270,8 +270,8 @@ class SalesOrderDetail extends React.Component {
                   data={products}
                   UrlHeader={this.UrlHeader}
                   export={
-                    <button className='btn d-flex btn-primary float-right align-items-center px-3 btn-export'>
-                      <div className='export-export pr-3' />
+                    <button className='btn btn-primary float-right btn-export'>
+                      {/* <div className='export-export pr-3' /> */}
                       EXPORT
                     </button>
                   }

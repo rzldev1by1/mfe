@@ -16,15 +16,18 @@ const TheSidebar = () => {
   const location = useLocation()
   const show = useSelector(state => state.sidebarShow)
   const user = useSelector(state => state.user)
+  
   const [hover, setHover] = useState(null)
   const signOut = (e) => {
     dispatch({ type: 'LOGOUT' })
   }
+  let userMenu = user.userModules.map(item => (item.menu_id));
   const adminRoutes = ['/users-management']
   let navigation = nav
   if (user.userLevel === 'Regular') {
     navigation = navigation.filter(n => {
-      return adminRoutes.includes(n.to) ? false : true
+      console.log();
+      return ((adminRoutes.includes(n.to) ? false : true) && (userMenu.includes(n.key) ? true:false))      
     })
   }
   return (
@@ -53,7 +56,9 @@ const TheSidebar = () => {
       </ul>
       <CSidebarNav className="sidebar-nav-menu">
         {navigation.map((n, i) => {
-          const isActive = location.pathname === n.to
+          // const isActive = location.pathname === n.to
+          let string = location.pathname 
+          const isActive = string.includes(n.to) 
           const isHover = hover === n.to
           let icon = `nav/${isHover ? n.icon + '-hover' : isActive ? n.icon + '-active' : n.icon}.png`
           return <li key={i} className="c-sidebar-item links" onMouseEnter={() => setHover(n.to)} onMouseLeave={() => setHover(null)} >

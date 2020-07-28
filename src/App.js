@@ -29,7 +29,7 @@ class ProtectedRoute extends React.Component {
 				return response;
 			}, function (error) {
 				if (error?.response?.status === 401) {
-					props.dispatch({ type: 'LOGOUT' })
+					props.dispatch({ type: 'EXPIRED' })
 				}
 				return Promise.reject(error);
 			});
@@ -38,7 +38,7 @@ class ProtectedRoute extends React.Component {
 	render() {
 		const { component: Component, store, ...others } = this.props
 		const renderRoute = props => {
-			if (store.user && store.user.token) {
+			if (store.user && store.user.token && !store.expired) {
 				const adminRoutes = ['/users-management']
 				if (store.user.userLevel === 'Regular' && adminRoutes.includes(props.location.pathname)) {
 					return <Redirect to={{ pathname: '/', state: { returnUrl: props.location } }} />
