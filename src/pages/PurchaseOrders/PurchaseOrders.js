@@ -20,7 +20,7 @@ const columns = [
   { accessor: 'supplier_no', Header: 'Supplier No', },
   { accessor: 'supplier_name', Header: 'Supplier Name', width: 210 },
   { accessor: 'status', Header: 'Status', width: 140 },
-  { accessor: 'delivery_date', Header: 'Delivery Date', },
+  { accessor: 'delivery_date', Header: 'Order Date', },
   { accessor: 'date_received', Header: 'Date Received', },
   { accessor: 'date_released', Header: 'Date Released', },
   { accessor: 'date_completed', Header: 'Date Completed', },
