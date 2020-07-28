@@ -1,0 +1,31 @@
+
+.pdf-icon {
+	background-image: url(../../assets/vendors/pdf_icon.png);
+	background-position: left center;
+	background-repeat: no-repeat;
+
+	padding-left: 35px; /* Or size of icon + spacing */
+}
+.excel-icon {
+	background-image: url(../../assets/vendors/excel_icon.png);
+	background-position: left center;
+	background-repeat: no-repeat;
+	padding-left: 35px; /* Or size of icon + spacing */
+}
+
+.Dropdown-toggel{
+	display: inline-flex;
+	background-color: #376BFB;
+	border-radius: 6px !important;
+}
+.Dropdown-menu{
+	margin-top: -90px !important;
+	background-color: rgb(226, 219, 219);
+	margin-left: -37px;
+}
+.Excel-bottom{
+	border: solid 0px;
+    color: rgb(98, 91, 91);
+	background-color: transparent;
+	padding-left: 0px;
+}

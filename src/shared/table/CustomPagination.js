@@ -6,6 +6,7 @@ import {
   BsChevronBarLeft,
   BsChevronBarRight,
 } from "react-icons/bs";
+import Export from "./Export"
 import "./CustomPagination.css";
 
 class CustomPagination extends React.Component {
@@ -50,8 +51,8 @@ class CustomPagination extends React.Component {
     const pages = parseInt(total / show);
     return (
       // <CContainer fluid>
-      <CRow className="mt-3 pagination-custom">
-        <CCol lg="4" className="px-0 margin-mr">
+      <CRow className=" pagination-custom">
+        <CCol lg="7" className="px-0 margin-mr">
           <CCardGroup>
             <CCard className="col-lg-6 border-right">
               <CPagination
@@ -85,15 +86,12 @@ class CustomPagination extends React.Component {
             </CCard>
           </CCardGroup>
         </CCol>
-        <CCol lg="4" className="mt-3">
+        <CCol lg="5" className="mt-3">
           <span>
             Showing{" "}
             <b> &nbsp; {`${startIndex + 1} to ${endIndex} of ${total} `} </b>{" "}
             &nbsp; entries
           </span>
-        </CCol>
-        <CCol lg="4" className="px-0 ml-5">
-          {this.props.export}
         </CCol>
       </CRow>
       // </CContainer>
