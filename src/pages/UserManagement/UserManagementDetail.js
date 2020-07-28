@@ -327,8 +327,8 @@ class UserManagementDetail extends Component {
         newParam.thisAccess = accountInfo.thisAccess;
         newParam.thisLogin = accountInfo.thisLogin;
         newParam.userMenu = accountInfo.web_group === webgroup.ADMIN? adminMenu:userMenu;
-        newParam.client = accountInfo.web_group === webgroup.ADMIN? null:client.code;
-        newParam.site = accountInfo.web_group === webgroup.ADMIN? null:site.site;
+        newParam.client = (accountInfo.web_group === webgroup.ADMIN? null:(client? client.code:null));
+        newParam.site = (accountInfo.web_group === webgroup.ADMIN? null:(site? site.site:null));
         newParam.disabled = accountInfo.disabled ? 'Y' : 'N';
 
 
@@ -482,7 +482,7 @@ class UserManagementDetail extends Component {
                                     <label className="text-title-detail">Reset Password</label>
                                 </div>
 
-                                <div className={`col-md-3 pl-0 ${accountInfo.userId === loginInfo.userId ? 'd-none' : ''} ${accountInfo.web_group !== webgroup.ADMIN ? '' : ' d-none '}`}>
+                                <div className={`col-md-3 pl-0 ${adminClass}`}>
                                     <label className="text-title-detail">Suspend Users</label>
                                 </div>
 
