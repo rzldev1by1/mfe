@@ -251,7 +251,7 @@ class StockHolding extends React.PureComponent {
                   <input
                     type='text'
                     className='form-control border-left-0 input-height '
-                    placeholder='Enter an Order No'
+                    placeholder='Enter a Product'
                     onChange={(e) => this.setState({ search: e.target.value })}
                   />
                 </div>

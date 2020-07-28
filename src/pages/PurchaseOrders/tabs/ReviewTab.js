@@ -111,7 +111,7 @@ class ReviewTab extends React.Component {
       <div className="orderline scroll-x-y mb-2 pb-2">
         <table>
           <thead>
-            <tr className="text-light-gray">
+            <tr className="text-muted">
               <td><div className="c-1 text-center">#</div></td>
               <td><div className="c-3 required">Product</div></td>
               <td><div className="c-4">Description</div></td>
