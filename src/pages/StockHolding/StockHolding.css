@@ -27,7 +27,8 @@
 .nav-tabs .nav-link.tab-nonActive {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  border: solid 1px !important;
+  /* border: solid 1px !important; */
+  background-color: #DEE3E5 !important;
 }
 
 .tableTab {

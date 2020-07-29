@@ -36,6 +36,7 @@ class PurchaseOrdersDetail extends React.Component {
       fields: columns,
       detail: {},
       products: [],
+      pagination: {}
     }
   }
   componentDidMount() {
@@ -59,14 +60,29 @@ class PurchaseOrdersDetail extends React.Component {
       this.setState({ detail: data.data.data[0] })
     }
   }
-  getProducts = async () => {
+  getProducts = async (page=1) => {
+    const { pagination } = this.state
     const { orderdetail, client } = this.props.match.params
-    const url = `/purchaseOrder/${client}/${orderdetail}`
+    const url = `/purchaseOrder/${client}/${orderdetail}?page=${page}`
     const { data } = await axios.get(url)
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
-    if (data.data.length) {
-      this.setState({ products: data.data })
+    // if (data.data.length) {
+    //   this.setState({ products: data.data })
+    // }
+    if (data?.data?.data) { 
+      this.setState({
+        products: data.data.data,
+        pagination: {
+          active: pagination.active || data.data.current_page,
+          show: data.data.per_page,
+          total: data.data.total,
+          last_page: data.data.last_page,
+          from: data.data.from,
+          to: data.data.to
+        } 
+      }, () => {console.log (this.state.pagination)})
     }
+     
   }
   formatDate = (date) => {
     return date ? moment(date).format('DD/MM/YYYY') : '-'
@@ -89,7 +105,7 @@ class PurchaseOrdersDetail extends React.Component {
 
   render() {
     // const { match, history } = this.props
-    const { detail, products, fields } = this.state
+    const { detail, products, fields, pagination } = this.state
     return <div className="purchase-order-details">
       <HeaderTitle breadcrumb={[
         { to: '/purchase-order', label: 'Purchase Order' },
@@ -128,21 +144,25 @@ class PurchaseOrdersDetail extends React.Component {
         height={this.state.dimension.height}
         fields={fields}
         data={products}
+        pagination={pagination}
         UrlHeader={this.UrlHeader} 
         export={
-          <button className='btn d-flex btn-primary float-right align-items-center px-3 btn-export'>
-            <div className='export-export pr-3' />
+          <button className='btn btn-primary float-right btn-export'>
+            {/* <div className='export-export pr-3' /> */}
             EXPORT
           </button>
         }
+        goto={(active) => {
+          this.setState({ pagination: { ...pagination, active } }, () => this.getProducts(active))
+        }}
       />
-      <CustomPagination
-        data={products}
-      // pagination={pagination}
-      // goto={(active) => {
-      //   this.setState({ pagination: { ...pagination, active } }, () => this.getProducts())
-      // }}
-      />
+      {/* <CustomPagination
+      data={products}
+      pagination={pagination}
+      goto={(active) => {
+        this.setState({ pagination: { ...pagination, active } }, () => this.getProducts())
+      }}
+      /> */}
     </div>
   }
 }

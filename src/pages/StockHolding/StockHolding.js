@@ -191,13 +191,15 @@ class StockHolding extends React.PureComponent {
 
   searchStockHolding = async () => {
     let { search, site, client, status, pagination } = this.state
+    
     let urls = []
     urls.push('searchParam=' + search ? search : '')
-    urls.push('site=' + (site ? site.value : 'all'))
-    urls.push('client=' + (client ? client.value : 'all'))
+    urls.push('site=' + (site.value ? site.value : 'all'))
+    urls.push('client=' + (client.value ? client.value : 'all'))
     urls.push('status=' + (status ? status.value : 'all'))
     urls.push('page=' + (pagination.active || 1))
     const { data } = await axios.get(`${endpoints.stockHoldingSummary}?${urls.join('&')}`)
+    console.log(data)
     if (data?.data?.data) {
       const modifiedData = data.data.data;
       modifiedData.map((item, idx) => {
@@ -211,7 +213,10 @@ class StockHolding extends React.PureComponent {
         pagination: {
           active: pagination.active || data.data.current_page,
           show: data.data.per_page,
-          total: data.data.total
+          total: data.data.total,
+          last_page: data.data.last_page,
+          from: data.data.from,
+          to: data.data.to
         },
         data: modifiedData
       })
@@ -271,7 +276,7 @@ class StockHolding extends React.PureComponent {
                   <input
                     type='text'
                     className='form-control border-left-0 input-height '
-                    placeholder='Enter an Order No'
+                    placeholder='Enter a Product'
                     onChange={(e) => this.setState({ search: e.target.value })}
                   />
                 </div>
@@ -286,7 +291,7 @@ class StockHolding extends React.PureComponent {
                         <Select
                           name='site'
                           placeholder='Site'
-                          value={site}
+                          // value={site}
                           options={siteData}
                           onChange={(val) => this.setState({ site: val }, () => { })}
                           styles={{
@@ -306,7 +311,7 @@ class StockHolding extends React.PureComponent {
                         <Select
                           name='client'
                           placeholder='Client'
-                          value={client}
+                          // value={client}
                           options={clientData}
                           onChange={(val) => this.setState({ client: val })}
                           styles={{
@@ -351,6 +356,7 @@ class StockHolding extends React.PureComponent {
 
         <CustomTable
           title='Stock Holding'
+          filename='Microlistics_StockHolding.'
           height={dimension.height}
           data={data}
           fields={fields}
@@ -367,8 +373,8 @@ class StockHolding extends React.PureComponent {
             )
           }}
           export={
-            <button className='btn d-flex btn-primary float-right align-items-center px-3 btn-export'>
-              <div className='export-export pr-3' />
+            <button className='btn btn-primary float-right btn-export'>
+              {/* <div className='export-export pr-3' /> */}
               EXPORT
             </button>
           }

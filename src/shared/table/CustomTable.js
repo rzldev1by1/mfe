@@ -5,11 +5,12 @@ import { connect } from 'react-redux'
 import ReactTable from 'react-table-v6'
 import { Button, Container, Row, Col, Modal, Nav} from 'react-bootstrap'
 import { NavItem, NavLink, TabPane, TabContent } from 'reactstrap';
+import { CRow, CCol } from "@coreui/react";
 import { MdClose } from 'react-icons/md'
 import { FaRegEdit } from 'react-icons/fa'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 import CustomPagination from 'shared/table/CustomPagination'
-
+import Export from "./Export"
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
 
@@ -53,6 +54,7 @@ class CustomTable extends React.Component {
       trigger: 0,
       activeTab: '1',
       changedColumns: [],
+      data: this.props.data,
       fields: this.props.fields,
       urlHeader: this.props.urlHeader,
       products: [],
@@ -222,7 +224,7 @@ showModal = (show) => {
   headerRename = async () => {
     const url = this.props.UrlHeader();
     const { data } = await axios.get(url);
-    let header = [];
+    let fields = [];
     let accessor = this.state.fields.map((data, idx) => {                
       let split = data.accessor
       return split
@@ -236,7 +238,7 @@ showModal = (show) => {
                 let split = data.width
                 return split
                 });
-    console.log(accessor)
+    
     Object.values(data.data[0]).map((data, idx) => {
       let headerTable = {
         accessor: '',
@@ -249,13 +251,12 @@ showModal = (show) => {
       headerTable.placeholder = placeholder[idx];
       headerTable.accessor = accessor[idx];
       headerTable.width = width[idx];
-      header.push(headerTable);
+      fields.push(headerTable);
     });
-    console.log(header);
     if (data.data.length) {
       this.setState({
         products: data.data[0],
-        fields: header,
+        fields: fields,
       });
     }
   };
@@ -377,7 +378,6 @@ showModal = (show) => {
         urlTatura +
         urlTtl +
         urlTtchem;
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -408,6 +408,45 @@ showModal = (show) => {
     this.renameSubmits(this.state.changedColumns);
     this.setState({ showModal: false });
   };
+  ExportName = () => {
+    let filename = ""
+    let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let date = new Date();
+    let date1 = date.getDate(),
+      month = date.getMonth(),
+      year = date.getFullYear(),
+      Seconds = date.getSeconds(),
+      Minutes = date.getMinutes(),
+      Hours = date.getHours();
+    return filename = (this.props.filename + date1 + "-" + arrmonth[month] + "-" + year + "." + Hours + "-" + Minutes + "-" + Seconds)
+  }
+
+  ExportHeader = () => {
+    let data = this.state.fields.map((data, idx) => {                
+      return data.Header
+      });
+    return data
+  }
+  ExportFont = () => {
+    let Font = "10";
+    return Font;
+  };
+
+  ExportData = () => {
+  let dataAll = this.state.data.map((data,idx) =>{
+      this.state.fields.map((value , idx) => {                
+
+        return (data[value.accessor])
+      })
+      return dataAll
+    })
+
+  }
+
+  ExportPDFName = () => {
+    return this.props.title
+  }
+
 
   render() {
     const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
@@ -423,8 +462,9 @@ showModal = (show) => {
           showPagination={false}
           style={{ height }}
           // noDataText={(request_status)? request_status :"Please Wait..."}
-          noDataText={<div className='text-align-center'>
-          <div  className='caution-caution px-6'/>No Data Available
+          noDataText={<div>
+          <div  className='caution-caution'/>
+          <div>No Data Available</div>
         </div>}
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
@@ -444,12 +484,45 @@ showModal = (show) => {
           }}
           {...this.props}
         />
-        <CustomPagination
-          data={data}
-          pagination={pagination}
-          goto={this.props.goto}
-          export={this.props.export}
-        />
+
+      <table className="d-none" id="excel">
+            <thead>
+              <tr>
+                {fields.map((data, idx) => {
+                    return ( <th key={idx} id={data.accessor}>{data.Header}</th> )
+                })}
+              </tr>
+            </thead>
+            <tbody>
+              {data ? data.map((data, i) =>
+                <tr key={i} >
+                  {fields.map((column, columnIdx) => {
+                      return (
+                        <td key={columnIdx}>{data[column.accessor]}</td>
+                      )
+                  })}
+                </tr>
+              ) :
+                <div> No data available </div>
+              }
+            </tbody>
+          </table>
+
+        <CRow className="mt-3 pagination-custom">
+           <CCol lg="10" className="px-0 margin-mr">
+                <CustomPagination
+                  data={data}
+                  pagination={pagination}
+                  goto={this.props.goto}
+                  export={this.props.export}
+                  fields={fields}
+                />
+            </CCol>
+            <CCol lg="2" className="px-0 export-ml">
+                <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                    ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} />
+            </CCol>
+        </CRow>
         <Modal
           show={showModal}
           size='xl'

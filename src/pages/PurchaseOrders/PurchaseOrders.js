@@ -160,7 +160,10 @@ class PurchaseOrders extends React.PureComponent {
         pagination: {
           active: pagination.active || data.data.current_page,
           show: data.data.per_page,
-          total: data.data.total
+          total: data.data.total,
+          last_page: data.data.last_page,
+          from: data.data.from,
+          to: data.data.to
         },
         data: modifiedData
       })
@@ -313,6 +316,7 @@ class PurchaseOrders extends React.PureComponent {
 
       <CustomTable
         title="Purchase Order"
+        filename='Microlistics_PurchaseOrder.'
         height={dimension.height}
         data={data}
         fields={fields}
@@ -322,8 +326,8 @@ class PurchaseOrders extends React.PureComponent {
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchPurchaseOrder())
         }}
-        export={<button className="btn btn-primary float-right btn-export d-flex px-3 align-items-center"> 
-        <div className="export-export pr-3"/>
+        export={<button className="btn btn-primary float-right btn-export"> 
+        {/* <div className="export-export pr-3"/> */}
         EXPORT</button>}
       />
 

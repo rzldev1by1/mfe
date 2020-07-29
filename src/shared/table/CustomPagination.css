@@ -24,6 +24,7 @@ ul.pagination {
      border-top-right-radius: 5px;
      border-bottom-right-radius: 5px;
      padding-top: 10px;
+     width: max-content;
 }
 .page-2 input {
   /* width: 50px; */
@@ -159,4 +160,10 @@ nav .pagination li:last-child .page-link {
     max-width: 50% !important;
     padding: 1rem 0rem !important;
   }
+}
+
+.modal-content-paging .modal-body{
+  border: 0px !important;
+  font-size: 18px;
+  padding-right: 20px;
 }

@@ -2,6 +2,8 @@ import React from 'react'
 import ReactTable from 'react-table-v6'
 import CustomPagination from 'shared/table/CustomPagination'
 import { IoIosArrowDown } from 'react-icons/io'
+import { CRow, CCol} from "@coreui/react";
+import Export from "../../shared/table/Export"
 class UMCustomTable extends React.Component {
     constructor(props) {
       super(props);
@@ -88,6 +90,38 @@ class UMCustomTable extends React.Component {
       listHeader = [...listHeader]
       return listHeader
     }
+    ExportName = () => {
+      let filename = ""
+      let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      let date = new Date();
+      let date1 = date.getDate(),
+        month = date.getMonth(),
+        year = date.getFullYear(),
+        Seconds = date.getSeconds(),
+        Minutes = date.getMinutes(),
+        Hours = date.getHours();
+      return filename = ("Microlistics_PurchaseOrder." + date1 + "-" + arrmonth[month] + "-" + year + "." + Hours + "-" + Minutes + "-" + Seconds)
+    }
+  
+    ExportHeader = () => {
+      let headers = ""
+      return headers
+    }
+    ExportFont = () => {
+      let Font = "";
+      return Font;
+    };
+  
+    ExportData = () => {
+      let data = ""
+      return data
+    }
+  
+    ExportPDFName = () => {
+      let name = ""
+      return name 
+    }
+  
   
     render() {
       const { showModal, editColumn, editColumnTemp } = this.state    
@@ -98,10 +132,12 @@ class UMCustomTable extends React.Component {
           <ReactTable
             columns={headerIcon}
             data={data}
+            defaultPageSize={50}
             showPagination={false}
-            noDataText={<div className='text-align-center'>
-            <div  className='caution-caution px-6'/>No Data Available
-          </div>}
+            noDataText={<div>
+              <div  className='caution-caution'/>
+              <div>No User Found</div>
+            </div>}
             // noDataText={"Please Wait..."}
             style={{ height }}
             minRows='0'
@@ -118,10 +154,18 @@ class UMCustomTable extends React.Component {
             }}
             {...this.props}
           />
-          <CustomPagination data={data}
-                    pagination={pagination}
-                    goto={this.props.goto}
-                    export={this.props.export} />
+           <CRow className="mt-3 pagination-custom">
+              <CCol lg="10" className="px-0 margin-mr">
+              <CustomPagination data={data}
+                        pagination={pagination}
+                        goto={this.props.goto}
+                        export={this.props.export} />
+              </CCol>
+              <CCol lg="2" className="px-0 export-ml">
+                <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                    ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} />
+            </CCol>
+          </CRow>
          
         </React.Fragment>
       )

@@ -37,6 +37,9 @@
   }
   // Reacteble
   .ReactTable {
+    .modal-content .modal-body {
+      border-radius: 0rem 0rem 0.3rem 0.3rem !important;
+    }
     .rt-table {
       .rt-thead {
         .rt-tr {
@@ -179,3 +182,5 @@
     margin-left: 0px !important;
 }
 }
+
+

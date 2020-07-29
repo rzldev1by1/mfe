@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react'
 import CustomTable from 'shared/table/CustomTable'
-
+import { connect } from 'react-redux'
 import axios from 'axios'
 import HeaderTitle from 'shared/container/TheHeader'
 // import UMCustomTable from 'shared/table/CustomTable'
@@ -58,9 +58,8 @@ class UserManagemen extends Component {
 
 
     loadPersonalLogin = () => {
-        let userInfo = utility.readFromLocalStorage("persist:root");
-        let user = JSON.parse(userInfo.user)
-        this.setState({ loginInfo: user });
+        let userInfo = this.props.store;     
+        this.setState({ loginInfo: userInfo.user });
     }
 
     searchHandler = async (e) => {
@@ -83,7 +82,10 @@ class UserManagemen extends Component {
             pagination: {
                 active: pagination.active || data.data.current_page,
                 show: data.data.per_page,
-                total: data.data.total
+                total: data.data.total,
+                last_page: data.data.last_page,
+                from: data.data.from,
+                to: data.data.to
             }
         });
 
@@ -98,11 +100,16 @@ class UserManagemen extends Component {
         this.props.history.push(url)
     }
 
+    onSubmitSearch = (e) => {
+        e.preventDefault();
+        this.searchHandler(e);
+    }
+
 
     render() {
 
         const { loginInfo, data, fields, pagination, dimension, modalShow } = this.state;
-        console.log(pagination);
+        
         return (
             <div className="um-summary pt-1">
                 <HeaderTitle
@@ -147,6 +154,7 @@ class UserManagemen extends Component {
                         </CRow>
                     </CCardBody>
                     <CCardBody className="p-3 bg-white">
+                      <form onSubmit={this.onSubmitSearch}>
                         <CRow className="mx-0">
                             <CCol xl={11} lg={10} md={10} sm={12} className="pl-0">
                                 <div className="input-group">
@@ -160,6 +168,7 @@ class UserManagemen extends Component {
                                 <button className="btn btn-search btn-primary float-right w-100 px-3 py-3" onClick={this.searchHandler}>SEARCH</button>                                
                             </CCol>
                         </CRow>
+                      </form>
                     </CCardBody>
                 </CCard>
                 <UMCustomTable
@@ -173,8 +182,8 @@ class UserManagemen extends Component {
                     goto={(active) => {
                         this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler())
                       }}
-                    export={<button className="btn d-flex btn-primary float-right align-items-center px-3 btn-export">
-                        <div className='export-export pr-3' />
+                    export={<button className="btn btn-primary float-right btn-export">
+                        {/* <div className='export-export pr-3' /> */}
                          EXPORT</button>}
                 />
                 
@@ -186,4 +195,5 @@ class UserManagemen extends Component {
 
 }
 
-export default UserManagemen;
+const mapStateToProps = (store) => ({ store })
+export default connect(mapStateToProps,null)(UserManagemen);
