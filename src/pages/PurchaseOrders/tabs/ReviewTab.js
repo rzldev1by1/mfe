@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import { Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
 import endpoint from 'helpers/endpoints'
+import moment from 'moment'
 
 class ReviewTab extends React.Component {
   constructor(props){
@@ -99,7 +100,7 @@ class ReviewTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Order Date</label>
-          <input value={od ? od[0].orderDate : ''} className="form-control" placeholder="Order Date" readOnly />
+          <input value={od ? moment(od[0].orderDate).format('DD/MM/YYYY') : ''} className="form-control" placeholder="Order Date" readOnly />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Vendor Order Ref</label>
