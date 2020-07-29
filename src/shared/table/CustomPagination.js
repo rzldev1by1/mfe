@@ -126,9 +126,9 @@ class CustomPagination extends React.Component {
             &nbsp; entries
           </span>
         </CCol>
-        <CCol lg="4" className="px-0 ml-5">
+        {/* <CCol lg="4" className="px-0 ml-5">
           {this.props.export}
-        </CCol>
+        </CCol> */}
 
         
       {/* Modal Pagination */}

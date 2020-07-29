@@ -76,15 +76,15 @@ class Export extends Component {
         return (            
             <div className="">
                 <ButtonDropdown direction="up" className=" d-flex float-right align-items-center" isOpen={this.state.dropdownOpen[13]} toggle={() => { this.toggle(13); }}>
-                  <DropdownToggle className="Dropdown-toggel" >
+                  <DropdownToggle  className="Dropdown-toggel" >
                       <span className='export-export' style={{paddingRight:"6px"}}/>
                         <div style={{paddingTop:"7px",fontSize:"18px"}} >EXPORT</div>
                   </DropdownToggle>
                     <DropdownMenu className="Dropdown-menu" >
-                        <DropdownItem> 
+                        <DropdownItem className="export-pdf"> 
                             <span className="pdf-icon"onClick={() => this.exportPDF()} >EXPORT TO PDF</span> 
                         </DropdownItem>
-                        <DropdownItem >
+                        <DropdownItem className="export-excel" >
                         <span className="excel-icon" >
                                             <ExportExl  className="Excel-bottom" 
                                                         table="excel" 
