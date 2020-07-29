@@ -26,11 +26,16 @@ class NewUser extends React.PureComponent {
         
     }
 
+    checkMail = async (email) => {
+        const { data } = await axios.post(endpoint.userManagementCheckMailValidation,{email:email});
+        console.log(data);
+    }
+
     checkEmailValidation = (textmail) => {     
            
         const {users} = this.props;
         let validation = { ...this.state.validation };
-         console.log(users)
+        //  this.checkMail(textmail);
          let isValidUser = users.filter((item)=>{return item.email === textmail}).length > 0?false:true;
          let validFormat = !textmail.match(regexMail)?false:true;
         validation.email["isValid"] = (isValidUser && validFormat)?true:false;           
@@ -41,7 +46,7 @@ class NewUser extends React.PureComponent {
         const {users} = this.props;
         let validation = { ...this.state.validation };
          
-        validation.name["isValid"] = textName !== ' '?true:false;
+        validation.name["isValid"] = textName === ""?false:true;
         return validation;
       }
 
@@ -59,11 +64,12 @@ class NewUser extends React.PureComponent {
       onNext = () => {
           const {user} = this.props;
           let validation = {...this.state.validation};;
-
+         
         let emailValid = this.checkEmailValidation(user.email);
         let nameValid = this.checkNameValidation(user.name);
         validation.email = emailValid.email;
         validation.name = nameValid.name;
+
         if(emailValid.email["isValid"] && nameValid.name["isValid"])
             this.props.next('review');
 

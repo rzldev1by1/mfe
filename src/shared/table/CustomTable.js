@@ -237,7 +237,7 @@ showModal = (show) => {
                 let split = data.width
                 return split
                 });
-    console.log(accessor)
+    
     Object.values(data.data[0]).map((data, idx) => {
       let headerTable = {
         accessor: '',
@@ -457,8 +457,9 @@ showModal = (show) => {
           style={{ height }}
           id="excel"
           // noDataText={(request_status)? request_status :"Please Wait..."}
-          noDataText={<div className='text-align-center'>
-          <div  className='caution-caution px-6'/>No Data Available
+          noDataText={<div>
+          <div  className='caution-caution'/>
+          <div>No Data Available</div>
         </div>}
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {

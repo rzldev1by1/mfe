@@ -2,7 +2,7 @@ import React from 'react'
 import './UserManagement.css'
 
 const client = ({ clients, onEnableClick, onClientEnableAll, isEnableAllClient }) => {
-    console.log(clients);
+    
     const disableAll = 'Disable All';
     const enableAll = 'Enable All';
     const enable = 'Enabled';

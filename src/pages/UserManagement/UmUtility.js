@@ -27,3 +27,9 @@ export function generateUserID(textValue){
     return result;
   }
 
+  export const webgroup = {
+    WAREHOUSE: 'Regular',
+    ADMIN: 'Admin'
+  }
+
+
