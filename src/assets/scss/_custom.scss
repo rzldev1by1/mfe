@@ -357,8 +357,8 @@ header {
   .modal-body{
     .select_calendar_expand::after {
       z-index: 0;
+    }
   }
-}
 }
 
 .required::after{
@@ -395,4 +395,13 @@ header {
   .iconU-search{
     color: #C2BBC4 !important;
   }
+}
+
+@media (min-width: 1200px){
+  .modal-xl {
+    max-width: 1525px !important;
+}
+.container, .container-sm, .container-md, .container-lg, .container-xl {
+  max-width: 1525px;
+}
 }
