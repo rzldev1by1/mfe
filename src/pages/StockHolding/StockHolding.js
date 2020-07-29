@@ -70,12 +70,12 @@ const columns = [
 class StockHolding extends React.PureComponent {
   state = {
     search: '',
-    site: {
-      value: this.props.store.user.site ? this.props.store.user.site : null,
-    },
-    client: {
-      value: this.props.store.user.client ? this.props.store.user.client : null,
-    },
+    // site: {
+    //   value: this.props.store.user.site ? this.props.store.user.site : null,
+    // },
+    // client: {
+    //   value: this.props.store.user.client ? this.props.store.user.client : null,
+    // },
     status: null,
     orderType: null,
     task: null,
@@ -199,6 +199,7 @@ class StockHolding extends React.PureComponent {
     urls.push('status=' + (status ? status.value : 'all'))
     urls.push('page=' + (pagination.active || 1))
     const { data } = await axios.get(`${endpoints.stockHoldingSummary}?${urls.join('&')}`)
+    console.log(data)
     if (data?.data?.data) {
       const modifiedData = data.data.data;
       modifiedData.map((item, idx) => {
@@ -290,7 +291,7 @@ class StockHolding extends React.PureComponent {
                         <Select
                           name='site'
                           placeholder='Site'
-                          value={site}
+                          // value={site}
                           options={siteData}
                           onChange={(val) => this.setState({ site: val }, () => { })}
                           styles={{
@@ -310,7 +311,7 @@ class StockHolding extends React.PureComponent {
                         <Select
                           name='client'
                           placeholder='Client'
-                          value={client}
+                          // value={client}
                           options={clientData}
                           onChange={(val) => this.setState({ client: val })}
                           styles={{
