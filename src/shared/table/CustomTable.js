@@ -13,6 +13,7 @@ import CustomPagination from 'shared/table/CustomPagination'
 import Export from "./Export"
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
+import { splice } from 'core-js/fn/array'
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
@@ -409,7 +410,6 @@ showModal = (show) => {
     this.setState({ showModal: false });
   };
   ExportName = () => {
-    let filename = ""
     let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     let date = new Date();
     let date1 = date.getDate(),
@@ -418,7 +418,7 @@ showModal = (show) => {
       Seconds = date.getSeconds(),
       Minutes = date.getMinutes(),
       Hours = date.getHours();
-    return filename = (this.props.filename + date1 + "-" + arrmonth[month] + "-" + year + "." + Hours + "-" + Minutes + "-" + Seconds)
+    return (this.props.filename + date1 + "-" + arrmonth[month] + "-" + year + "." + Hours + "-" + Minutes + "-" + Seconds)
   }
 
   ExportHeader = () => {
@@ -428,26 +428,21 @@ showModal = (show) => {
     return data
   }
   ExportFont = () => {
-    let Font = "10";
+    let Font = "9";
     return Font;
   };
 
   ExportData = () => {
-  let dataAll = this.state.data.map((data,idx) =>{
-      this.state.fields.map((value , idx) => {                
-
-        return (data[value.accessor])
-      })
-      return dataAll
+    let dataAll = this.props.data.map((data,idx,) =>{
+    let column = this.state.fields.map((column, columnIdx) => {       
+            let split = [data[column.accessor] ]
+            return split
+           })
+           return column
     })
-
+    return dataAll
   }
-
-  ExportPDFName = () => {
-    return this.props.title
-  }
-
-
+  
   render() {
     const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
     let { title, data, onClick, height, pagination,request_status } = this.props
@@ -519,7 +514,7 @@ showModal = (show) => {
                 />
             </CCol>
             <CCol lg="2" className="px-0 export-ml">
-                <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                <Export ExportName={this.ExportName} ExportPDFName={title}
                     ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} />
             </CCol>
         </CRow>
