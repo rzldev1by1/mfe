@@ -100,9 +100,10 @@ class UMCustomTable extends React.Component {
             data={data}
             defaultPageSize={50}
             showPagination={false}
-            noDataText={<div className='text-align-center'>
-            <div  className='caution-caution px-6'/>No Data Available
-          </div>}
+            noDataText={<div>
+              <div  className='caution-caution'/>
+              <div>No User Found</div>
+            </div>}
             // noDataText={"Please Wait..."}
             style={{ height }}
             minRows='0'

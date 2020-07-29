@@ -51,7 +51,8 @@ class SalesOrderDetail extends React.Component {
     fields: columns,
     detail: {},
     products: [],
-    request_status: 'Please Wait...'
+    request_status: 'Please Wait...',
+    pagination: {}
   }
   componentDidMount() {
     this.updateDimension();
@@ -74,17 +75,29 @@ class SalesOrderDetail extends React.Component {
       this.setState({ detail: data.data.data[0] })
     }
   }
-  getProducts = async () => {
+  getProducts = async (page=1) => {
+    const { pagination } = this.state
     const { orderno, client, site } = this.props.match.params
     this.setState({ request_status: "Please Wait..."  })
-    const url = `/salesorder/${orderno}?client=${client}&site=${site}`
+    const url = `/salesorder/${orderno}?client=${client}&site=${site}&page=${page}`
     const { data } = await axios.get(url)
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
-    if (data.data.length) {
-      this.setState({ products: data.data })
-    }else{ 
+    if (data?.data?.data) {
+      console.log(data.data.data) 
+      this.setState({
+        products: data.data.data,
+        pagination: {
+          active: pagination.active || data.data.current_page,
+          show: data.data.per_page,
+          total: data.data.total,
+          last_page: data.data.last_page,
+          from: data.data.from,
+          to: data.data.to
+        } 
+      }, () => {console.log (this.state.pagination)})
+    }else{  
       this.setState({ request_status: "No Data Found"  })
-    } 
+    }  
   }
   formatDate = (date) => {
     return date ? moment(date).format('DD/MM/YYYY') : '-'
@@ -92,9 +105,16 @@ class SalesOrderDetail extends React.Component {
   UrlHeader = () =>{
     return `$/getSalesOrderHeader?client=ANTEC`
   }
+  
+  showDetails = (item) => {
+    const { orderno, client, site } = this.props.match.params
+    this.setState({ request_status: "Please Wait..."  })
+    const url = `/salesorder/${orderno}?client=${client}&site=${site}` 
+    this.props.history.push(url)
+  }
   render() {
     // const { match, history } = this.props
-    const { detail, products, fields } = this.state
+    const { detail, products, fields, pagination} = this.state
     return <div className="sales-order-detail">
       <HeaderTitle breadcrumb={[
         { to: '/sales-orders', label: 'Sales Order' },
@@ -148,14 +168,18 @@ class SalesOrderDetail extends React.Component {
         height={this.state.dimension.height}
         fields={fields}
         data={products}
+        pagination={pagination}
         UrlHeader={this.UrlHeader} 
         // request_status={this.state.request_status}
+        goto={(active) => {
+          this.setState({ pagination: { ...pagination, active } }, () => this.getProducts(active))
+        }}
         noDataText={<div className='text-align-center'>
         <div  className='caution-caution px-6'/>No Data Available
       </div>}
         export={
-          <button className='btn d-flex btn-primary float-right align-items-center px-3 btn-export'>
-            <div className='export-export pr-3' />
+          <button className='btn btn-primary float-right btn-export'>
+            {/* <div className='export-export pr-3' /> */}
             EXPORT
           </button>
         }

@@ -38,6 +38,7 @@ class StockMovement extends React.PureComponent {
     data_table: [],
     create: false,
     detail: {},
+    pagination: {last_page: 1},
     dateArray: [],
     dimension: { width: 0, height: 0 },
     startDate: moment().subtract(27, 'days').format('YYYY-MM-DD'),
@@ -57,8 +58,7 @@ class StockMovement extends React.PureComponent {
 
     dateToSelected: null,
     dateToText: null,
-    dateToShow: false,
-    pagination: {},
+    dateToShow: false, 
     minDate: null,
     maxDate: null
   }
@@ -390,8 +390,7 @@ class StockMovement extends React.PureComponent {
       dimension, fields, data, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData, taskData, data_table, filterType,filterData,
       product, productData, periodSelected, pagination,dateFromShow, minDate,maxDate
-  } = this.state
-    
+  } = this.state 
   //custom style react-select 
      
   return <div className="stockMovement">
@@ -490,23 +489,29 @@ class StockMovement extends React.PureComponent {
       data={data_table}
       fields={fields}
       onClick={this.showDetails}
-      noDataText={<div className='text-align-center'>
-      <div  className='caution-caution px-6'/>No Data Available
-    </div>}
-      export={<CButton className="btn btn-primary px-4">EXPORT <IoIosArrowDown /></CButton>}
+      pagination={pagination} 
+      noDataText={<div>
+        <div  className='caution-caution'/>
+        <div>No Data Available</div>
+        <div>Adjust Filters above to load data</div>
+      </div>}
+      export={<CButton className="btn btn-primary d-flex float-right px-3 align-items-center btn-export">
+      <div className="export-export pr-3"/>
+      EXPORT
+    </CButton>} 
     /> 
 
-    <CustomPagination
+    {/* <CustomPagination
       data={data}
       pagination={pagination}
       goto={(active) => {
         this.setState({ pagination: { ...pagination, active } }, () => this.searchStockMovement())
       }}
-      export={<CButton className="btn btn-primary d-flex float-right px-3 align-items-center btn-export">
-      <div className="export-export pr-3"/>
+      export={<CButton className="btn btn-primary float-right btn-export">
+      {/* <div className="export-export pr-3"/> 
       EXPORT
     </CButton>}
-    />
+    /> */}
 
   </div>
   }

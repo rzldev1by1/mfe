@@ -90,11 +90,6 @@ button:focus {
   border-radius: 0px 0px 0.3rem 0.3rem !important;
   /* overflow: hidden; */
 }
-.modal-body{
-  border-left: 2px #376bfb solid !important;
-  border-right: 2px #376bfb solid !important;
-  border-bottom: 2px #376bfb solid !important;
-}
 .nav-link {
   background-color: #eee;
   color: #959da0 !important;
@@ -111,6 +106,9 @@ button:focus {
 .nav-tabs {
   margin-left: 26px;
   border: none;
+}
+.nav-item a{
+  color: #768192 !important;
 }
 // .input-group,
 // .input-group input,
@@ -328,6 +326,10 @@ header {
   font-size: 12px;
   padding: 6px;
 }
+.rt-noData{
+  text-align: center !important;
+  color:#D1CCCC !important;
+}
 .btn {
   text-transform: uppercase !important;
   letter-spacing: 1px !important;
@@ -349,12 +351,14 @@ header {
 }
 .modal-content{
   border-radius: 0.3rem !important;
-  .modal-header{
-    border-radius: 0.3rem 0.3rem 0px 0px !important;
-  }
+  border-left: 2px #376bfb solid !important;
+  border-right: 2px #376bfb solid !important;
+  border-bottom: 2px #376bfb solid !important;
   .modal-body{
-    border-radius: 0rem 0rem 0.3rem 0.3rem !important;
+    .select_calendar_expand::after {
+      z-index: 0;
   }
+}
 }
 
 .required::after{
@@ -365,6 +369,7 @@ header {
 // REACTABLE
 .ReactTable {
   .rt-table {
+    margin-top: 0px !important;
     .rt-thead {
       .rt-tr {
         .rt-th:first-child {

@@ -82,7 +82,10 @@ class UserManagemen extends Component {
             pagination: {
                 active: pagination.active || data.data.current_page,
                 show: data.data.per_page,
-                total: data.data.total
+                total: data.data.total,
+                last_page: data.data.last_page,
+                from: data.data.from,
+                to: data.data.to
             }
         });
 
@@ -172,8 +175,8 @@ class UserManagemen extends Component {
                     goto={(active) => {
                         this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler())
                       }}
-                    export={<button className="btn d-flex btn-primary float-right align-items-center px-3 btn-export">
-                        <div className='export-export pr-3' />
+                    export={<button className="btn btn-primary float-right btn-export">
+                        {/* <div className='export-export pr-3' /> */}
                          EXPORT</button>}
                 />
                 
