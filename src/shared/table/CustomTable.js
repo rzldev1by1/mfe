@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import ReactTable from 'react-table-v6'
 import { Button, Container, Row, Col, Modal, Nav} from 'react-bootstrap'
 import { NavItem, NavLink, TabPane, TabContent } from 'reactstrap';
-import { CCard, CCardGroup, CPagination, CRow, CCol } from "@coreui/react";
+import { CRow, CCol } from "@coreui/react";
 import { MdClose } from 'react-icons/md'
 import { FaRegEdit } from 'react-icons/fa'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
@@ -54,6 +54,7 @@ class CustomTable extends React.Component {
       trigger: 0,
       activeTab: '1',
       changedColumns: [],
+      data: this.props.data,
       fields: this.props.fields,
       urlHeader: this.props.urlHeader,
       products: [],
@@ -423,7 +424,7 @@ showModal = (show) => {
   }
 
   ExportHeader = () => {
-    let headers = this.state
+    let headers = [["a"],["a"],["a"],["a"],["a"],["a"],["a"],["a"],["a"],["a"],["a"],["a"]]
     return headers
   }
   ExportFont = () => {
@@ -432,8 +433,12 @@ showModal = (show) => {
   };
 
   ExportData = () => {
-    let data = this.state;
-    return data
+    let data = this.state.fields.map((data, idx) => {                
+      let split = data.accessor
+      return split
+      });
+      let dataAll = [data]
+    return dataAll
   }
 
   ExportPDFName = () => {
@@ -479,6 +484,52 @@ showModal = (show) => {
           }}
           {...this.props}
         />
+
+         {/* <table className="defaultTable " id="excel">
+            <thead>
+              <tr>
+                {this.state.fields.map((data, idx) => {
+                  let header = data.accessor
+                  console.log(header)
+                  if (data.isVisible) {
+                    return (
+                      <th key={idx} id={idx}>
+                        {header.id}
+                      </th>
+                    )
+                  }
+                }
+                )
+                }
+                
+
+                <th className='iconU-edit'></th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.data ? this.state.data.map((data, i) =>
+                <tr key={i} className='tr'>
+                  {this.state.fields.map((data, Idx) => {
+                    if (data.isVisible) {
+                      if (data.key === "site") {
+                        return (
+                          <td style={{ textAlign: 'center', paddingLeft: '0px' }} key={Idx}>{data[data.key]}</td>
+                        )
+                      }
+                      return (
+                        <td key={Idx}>{data[data.key]}</td>
+                      )
+                    }
+
+                  })}
+                  <td></td>
+                </tr>
+              ) :
+                <div> No data available </div>
+              }
+            </tbody>
+          </table> */}
+
         <CRow className="mt-3 pagination-custom">
            <CCol lg="10" className="px-0 margin-mr">
                 <CustomPagination
