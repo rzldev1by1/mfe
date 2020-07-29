@@ -426,7 +426,6 @@ showModal = (show) => {
           noDataText={<div>
           <div  className='caution-caution'/>
           <div>No Data Available</div>
-          <div>Adjust Filters above to load data</div>
         </div>}
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {

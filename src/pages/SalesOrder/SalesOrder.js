@@ -335,7 +335,6 @@ class SalesOrder extends React.PureComponent {
         noDataText={<div>
           <div  className='caution-caution'/>
           <div>No Data Available</div>
-          <div>Adjust Filters above to load data</div>
         </div>}
         export={<button className="btn btn-primary float-right btn-export">
            {/* <div className='export-export pr-3' /> */}
