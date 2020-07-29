@@ -263,11 +263,14 @@ header {
 .lineDetailsTopExpand {
   margin-top: -400px !important;
   padding-top: 400px !important;
+  overflow-y: hidden !important;
 }
 
 .lineDetailsBottomExpand {
   margin-bottom: -312px !important;
   padding-bottom: 328px !important;
+  overflow: hidden !important;
+
 }
 /* Line Details Styles End */
 
@@ -390,7 +393,6 @@ header {
     }
   }
 }
-
 //search filter
 .input-group-text{
   .iconU-search{
