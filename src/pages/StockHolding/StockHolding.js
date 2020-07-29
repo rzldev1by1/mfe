@@ -191,10 +191,11 @@ class StockHolding extends React.PureComponent {
 
   searchStockHolding = async () => {
     let { search, site, client, status, pagination } = this.state
+    
     let urls = []
     urls.push('searchParam=' + search ? search : '')
-    urls.push('site=' + (site ? site.value : 'all'))
-    urls.push('client=' + (client ? client.value : 'all'))
+    urls.push('site=' + (site.value ? site.value : 'all'))
+    urls.push('client=' + (client.value ? client.value : 'all'))
     urls.push('status=' + (status ? status.value : 'all'))
     urls.push('page=' + (pagination.active || 1))
     const { data } = await axios.get(`${endpoints.stockHoldingSummary}?${urls.join('&')}`)

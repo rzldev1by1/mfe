@@ -236,7 +236,7 @@ showModal = (show) => {
                 let split = data.width
                 return split
                 });
-    console.log(accessor)
+    
     Object.values(data.data[0]).map((data, idx) => {
       let headerTable = {
         accessor: '',

@@ -26,11 +26,16 @@ class NewUser extends React.PureComponent {
         
     }
 
+    checkMail = async (email) => {
+        const { data } = await axios.post(endpoint.userManagementCheckMailValidation,{email:email});
+        console.log(data);
+    }
+
     checkEmailValidation = (textmail) => {     
            
         const {users} = this.props;
         let validation = { ...this.state.validation };
-         console.log(users)
+        //  this.checkMail(textmail);
          let isValidUser = users.filter((item)=>{return item.email === textmail}).length > 0?false:true;
          let validFormat = !textmail.match(regexMail)?false:true;
         validation.email["isValid"] = (isValidUser && validFormat)?true:false;           
