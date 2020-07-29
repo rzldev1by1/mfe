@@ -121,9 +121,9 @@ class UMCustomTable extends React.Component {
             {...this.props}
           />
           <CustomPagination data={data}
-                    pagination={pagination}
-                    goto={this.props.goto}
-                    export={this.props.export} />
+            pagination={pagination}
+            goto={this.props.goto}
+            export={this.props.export} />
          
         </React.Fragment>
       )
