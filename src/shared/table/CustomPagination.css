@@ -24,6 +24,7 @@ ul.pagination {
      border-top-right-radius: 5px;
      border-bottom-right-radius: 5px;
      padding-top: 10px;
+     width: max-content;
 }
 .page-2 input {
   /* width: 50px; */

@@ -7,6 +7,7 @@ import {
   BsChevronBarLeft,
   BsChevronBarRight,
 } from "react-icons/bs";
+import Export from "./Export"
 import "./CustomPagination.css";
 import logo_confirm from 'assets/img/LOGO5@2x.png' 
 
@@ -81,8 +82,8 @@ class CustomPagination extends React.Component {
  
     return (
       // <CContainer fluid>
-      <CRow className="mt-3 pagination-custom">
-        <CCol lg="4" className="px-0 margin-mr">
+      <CRow className=" pagination-custom">
+        <CCol lg="7" className="px-0 margin-mr">
           <CCardGroup>
             <CCard className="col-lg-6 border-right">
               <CPagination
@@ -118,16 +119,16 @@ class CustomPagination extends React.Component {
             </CCard>
           </CCardGroup>
         </CCol>
-        <CCol lg="4" className="mt-3">
+        <CCol lg="5" className="mt-3">
           <span>
             Showing{" "}
             <b> &nbsp; {`${x_from} to ${x_to} of ${x_total} `} </b>{" "}
             &nbsp; entries
           </span>
         </CCol>
-        <CCol lg="4" className="px-0 ml-5">
+        {/* <CCol lg="4" className="px-0 ml-5">
           {this.props.export}
-        </CCol>
+        </CCol> */}
 
         
       {/* Modal Pagination */}
