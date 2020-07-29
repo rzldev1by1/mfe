@@ -5,7 +5,9 @@
     padding-right: 1.4rem;
     padding-left: 1.4rem;
   }
-
+  .dropdown-item{
+    text-align: left !important;
+  }
   /* Sales Order Create */
   .required::after {
     content: " *";
@@ -42,6 +44,7 @@
     }
     .rt-table {
       .rt-thead {
+        min-width: 1698px !important;
         .rt-tr {
           .rt-th:first-child {
             padding-left: 1.8rem !important;
@@ -56,6 +59,8 @@
         }
       }
       .rt-tbody {
+        overflow-x: hidden !important;
+        min-width: 1698px !important;
         .rt-tr-group{
           .rt-tr {
             .rt-td:first-child {
