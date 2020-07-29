@@ -224,7 +224,7 @@ showModal = (show) => {
   headerRename = async () => {
     const url = this.props.UrlHeader();
     const { data } = await axios.get(url);
-    let header = [];
+    let fields = [];
     let accessor = this.state.fields.map((data, idx) => {                
       let split = data.accessor
       return split
@@ -251,13 +251,12 @@ showModal = (show) => {
       headerTable.placeholder = placeholder[idx];
       headerTable.accessor = accessor[idx];
       headerTable.width = width[idx];
-      header.push(headerTable);
+      fields.push(headerTable);
     });
-    console.log(header);
     if (data.data.length) {
       this.setState({
         products: data.data[0],
-        fields: header,
+        fields: fields,
       });
     }
   };
@@ -379,7 +378,6 @@ showModal = (show) => {
         urlTatura +
         urlTtl +
         urlTtchem;
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -420,12 +418,14 @@ showModal = (show) => {
       Seconds = date.getSeconds(),
       Minutes = date.getMinutes(),
       Hours = date.getHours();
-    return filename = ("Microlistics_PurchaseOrder." + date1 + "-" + arrmonth[month] + "-" + year + "." + Hours + "-" + Minutes + "-" + Seconds)
+    return filename = (this.props.filename + date1 + "-" + arrmonth[month] + "-" + year + "." + Hours + "-" + Minutes + "-" + Seconds)
   }
 
   ExportHeader = () => {
-    let headers = [["a"],["a"],["a"],["a"],["a"],["a"],["a"],["a"],["a"],["a"],["a"],["a"]]
-    return headers
+    let data = this.state.fields.map((data, idx) => {                
+      return data.Header
+      });
+    return data
   }
   ExportFont = () => {
     let Font = "10";
@@ -433,17 +433,18 @@ showModal = (show) => {
   };
 
   ExportData = () => {
-    let data = this.state.fields.map((data, idx) => {                
-      let split = data.accessor
-      return split
-      });
-      let dataAll = [data]
-    return dataAll
+  let dataAll = this.state.data.map((data,idx) =>{
+      this.state.fields.map((value , idx) => {                
+
+        return (data[value.accessor])
+      })
+      return dataAll
+    })
+
   }
 
   ExportPDFName = () => {
-    let name = ""
-    return name = ("Purchase Order")
+    return this.props.title
   }
 
 
@@ -460,7 +461,6 @@ showModal = (show) => {
           data={data}
           showPagination={false}
           style={{ height }}
-          id="excel"
           // noDataText={(request_status)? request_status :"Please Wait..."}
           noDataText={<div>
           <div  className='caution-caution'/>
@@ -485,50 +485,28 @@ showModal = (show) => {
           {...this.props}
         />
 
-         {/* <table className="defaultTable " id="excel">
+      <table className="d-none" id="excel">
             <thead>
               <tr>
-                {this.state.fields.map((data, idx) => {
-                  let header = data.accessor
-                  console.log(header)
-                  if (data.isVisible) {
-                    return (
-                      <th key={idx} id={idx}>
-                        {header.id}
-                      </th>
-                    )
-                  }
-                }
-                )
-                }
-                
-
-                <th className='iconU-edit'></th>
+                {fields.map((data, idx) => {
+                    return ( <th key={idx} id={data.accessor}>{data.Header}</th> )
+                })}
               </tr>
             </thead>
             <tbody>
-              {this.state.data ? this.state.data.map((data, i) =>
-                <tr key={i} className='tr'>
-                  {this.state.fields.map((data, Idx) => {
-                    if (data.isVisible) {
-                      if (data.key === "site") {
-                        return (
-                          <td style={{ textAlign: 'center', paddingLeft: '0px' }} key={Idx}>{data[data.key]}</td>
-                        )
-                      }
+              {data ? data.map((data, i) =>
+                <tr key={i} >
+                  {fields.map((column, columnIdx) => {
                       return (
-                        <td key={Idx}>{data[data.key]}</td>
+                        <td key={columnIdx}>{data[column.accessor]}</td>
                       )
-                    }
-
                   })}
-                  <td></td>
                 </tr>
               ) :
                 <div> No data available </div>
               }
             </tbody>
-          </table> */}
+          </table>
 
         <CRow className="mt-3 pagination-custom">
            <CCol lg="10" className="px-0 margin-mr">
