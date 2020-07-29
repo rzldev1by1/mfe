@@ -319,7 +319,7 @@ class SalesOrder extends React.PureComponent {
           </CRow>
         </CCardBody>
       </CCard>
-{console.log(data)}
+      {console.log(data)}
       <CustomTable
         title="Sales Order"
         height={dimension.height}

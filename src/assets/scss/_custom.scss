@@ -406,3 +406,12 @@ header {
   max-width: 1525px;
 }
 }
+
+@media (max-width:991px){
+  .btn-create{
+    display: none !important;
+  }
+  .pagination-custom{
+    display: none !important;
+  }
+}
