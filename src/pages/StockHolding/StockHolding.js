@@ -193,7 +193,7 @@ class StockHolding extends React.PureComponent {
     let { search, site, client, status, pagination } = this.state
     
     let urls = []
-    urls.push('searchParam=' + search ? search : '')
+    urls.push('searchParam=' + (search ? search : ''))
     urls.push('site=' + (site.value ? site.value : 'all'))
     urls.push('client=' + (client.value ? client.value : 'all'))
     urls.push('status=' + (status ? status.value : 'all'))
