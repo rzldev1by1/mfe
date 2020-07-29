@@ -17,8 +17,8 @@ class NewUser extends React.PureComponent {
         client: [],
         moduleAccess: [],
         validation: {
-            "name": { isValid: true, invalidClass: "is-invalid" },
-            "email": { isValid: true, invalidClass: "is-invalid" }
+            "name": { isValid: true, invalidClass: "is-invalid", message:'invalid email' },
+            "email": { isValid: true, invalidClass: "is-invalid", message:'username must be entered' }
           },
     }
 
@@ -27,28 +27,63 @@ class NewUser extends React.PureComponent {
     }
 
     checkMail = async (email) => {
-        const { data } = await axios.post(endpoint.userManagementCheckMailValidation,{email:email});
-        console.log(data);
+        const {data}  = await axios.post(endpoint.userManagementCheckMailValidation,{email:email});
+        // console.log(data);
+        return (data===1?true:false);
     }
+
+    
 
     checkEmailValidation = (textmail) => {     
            
         const {users} = this.props;
         let validation = { ...this.state.validation };
-        //  this.checkMail(textmail);
-         let isValidUser = users.filter((item)=>{return item.email === textmail}).length > 0?false:true;
+
+        //  let isValidUser = users.filter((item)=>{return item.email === textmail}).length > 0?false:true;
          let validFormat = !textmail.match(regexMail)?false:true;
-        validation.email["isValid"] = (isValidUser && validFormat)?true:false;           
+        validation.email["isValid"] = validFormat?true:false; 
+        
+        if(!validFormat)
+            validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
+            
+        if(validFormat)
+            validation.email["message"] = "";
+
         return validation;
       }
+
     checkNameValidation = (textName) => {     
            
         const {users} = this.props;
         let validation = { ...this.state.validation };
+
+        let isValid = (textName === ""?false:true);
          
-        validation.name["isValid"] = textName === ""?false:true;
+        validation.name["isValid"] = isValid;
+        if(!isValid)
+            validation.name["message"] = utility.validationMsg.USERNAME_REQUIRED;
+        else
+            validation.name["message"] = "";
+
+
         return validation;
       }
+
+       onBlurEmail = async (e) => {
+        const { name, value } = e.target;
+        
+        let validation = { ...this.state.validation };
+        const {data}  = await axios.post(endpoint.userManagementCheckMailValidation,{email:value});
+        validation.email["isValid"] = (data === 0)?true:false;
+
+        if(!validation.email["isValid"])
+            validation.email["message"] = utility.validationMsg.EMAIL_EXIST;
+        else
+            validation.email["message"] = "";
+        
+
+        this.setState({ validation:validation });
+    }
 
       onEmailChange = (e) => {
           let validation = this.checkEmailValidation(e.target.value);
@@ -64,13 +99,17 @@ class NewUser extends React.PureComponent {
       onNext = () => {
           const {user} = this.props;
           let validation = {...this.state.validation};;
-         
-        let emailValid = this.checkEmailValidation(user.email);
+          console.log(validation);
+
+        let emailValid = this.checkEmailValidation(user.email);        
         let nameValid = this.checkNameValidation(user.name);
+
+        if(!emailValid.email['isValid'])
         validation.email = emailValid.email;
+        if(!emailValid.name['isValid'])
         validation.name = nameValid.name;
 
-        if(emailValid.email["isValid"] && nameValid.name["isValid"])
+        if(validation.email["isValid"] && validation.name["isValid"])
             this.props.next('review');
 
             this.setState({validation:validation})
@@ -122,15 +161,20 @@ class NewUser extends React.PureComponent {
                         </div>
                     </Col>
                     <Col sm="4">
-                        <input type="email" name="email" placeholder="Enter an email address" className={`form-control ${validation.email["isValid"]? '':validation.email["invalidClass"]}`} onChange={(e) => { this.onEmailChange(e); }} value={user.email || ''} />
+                        <input type="email" name="email" placeholder="Enter an email address" 
+                        className={`form-control ${validation.email["isValid"]? '':validation.email["invalidClass"]}`} 
+                        onChange={(e) => { this.onEmailChange(e); }} 
+                        onBlur={(e)=>{this.onBlurEmail(e);}} 
+                        value={user.email || ''} />
+
                         <FormFeedback className="invalid-error-padding">
-                            invalid email
+                            {`${validation.email["message"]}`}
                         </FormFeedback>
                     </Col>
                     <Col sm="4">
                         <input type="text" name="userName" placeholder="Enter a username" maxLength="60" className={`form-control ${validation.name["isValid"]?'':validation.name["invalidClass"]}`} onChange={(e) => { this.onNameChange(e); }} value={user.name || ''} />
-                        <FormFeedback>
-                            username required
+                        <FormFeedback className="invalid-error-padding">
+                            {`${validation.name["message"]}`}
                         </FormFeedback>
                     </Col>
                 </Row>

@@ -33,6 +33,7 @@ class UserManagementDetail extends Component {
             sites: [],
             clients: [],
             accountInfo: {},
+            oldAccountInfo: {},
             isSaveProgressing: false,
             isLoadComplete: false,
             modalPopupResetdisplay: false,
@@ -45,8 +46,8 @@ class UserManagementDetail extends Component {
             adminClass: 'd-none',
             users: [],
             validation: {
-                "name": { isValid: true, invalidClass: "is-invalid" },
-                "email": { isValid: true, invalidClass: "is-invalid" }
+                "name": { isValid: true, invalidClass: "is-invalid", message:'invalid email' },
+                "email": { isValid: true, invalidClass: "is-invalid", message:'username must be entered' }
             },
         }
 
@@ -63,24 +64,36 @@ class UserManagementDetail extends Component {
         const { data } = await axios.get(`${endpoint.userManagementListUser}`)
         this.setState({ users: data.data.data });
     }
+   
 
     checkEmailValidation = (textmail) => {
-        const { users, validation, accountInfo } = this.state;
-        // let validation = { ...this.state.validation }; 
-           
+        const { validation} = this.state;
+                
+            let validFormat = !textmail.match(regexMail) ? false : true;
+            validation.email["isValid"] = validFormat? true : false;
 
-        let isValidUser = users.filter((item) => { return (item.userid !== accountInfo.userId && item.email === textmail); }).length > 0 ? false : true;
-        let validFormat = !textmail.match(regexMail) ? false : true;
-        validation.email["isValid"] = (isValidUser && validFormat) ? true : false;
+            if(!validFormat)
+                validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
+                
+            if(validFormat)
+                validation.email["message"] = "";
+        
+
         return validation;
     }
 
     checkNameValidation = (textName) => {
 
         const { users, validation } = this.state;
-        // let validation = { ...this.state.validation };
+        
+        let isValid = (textName === ""?false:true);
+         
+        validation.name["isValid"] = isValid;
+        if(!isValid)
+            validation.name["message"] = utility.validationMsg.USERNAME_REQUIRED;
+        else
+            validation.name["message"] = "";        
 
-        validation.name["isValid"] = textName !== "" ? true : false;
         return validation;
     }
 
@@ -132,7 +145,7 @@ class UserManagementDetail extends Component {
             if(result.web_group !== utility.webgroup.ADMIN)
                 adminClassName = ' ';
             
-            this.setState({ accountInfo: result, isLoadComplete: true, adminClass: adminClassName }, () => {
+            this.setState({ accountInfo: result, oldAccountInfo:result, isLoadComplete: true, adminClass: adminClassName }, () => {
                 this.loadMasterResource();
             });
         }
@@ -165,10 +178,10 @@ class UserManagementDetail extends Component {
     loadSites = async () => {
         let user = { ...this.state.accountInfo };
         const { data } = await axios.get(endpoint.getSite);
-        console.log(data);
+        
         let sites = data.map((item, index) => {
             let newItem = item;
-            newItem.status = (item.site === user.site) ? true : false;
+            newItem.status = (user.site === null?true:((item.site === user.site) ? true : false));
             return newItem;
         });
         this.setState({ sites: sites });
@@ -180,7 +193,7 @@ class UserManagementDetail extends Component {
 
         let clients = data.map((item, index) => {
             let newItem = item;
-            newItem.status = (item.code === user.client) ? true : false;
+            newItem.status = (user.client === null?true: ((item.code === user.client) ? true : false));
             return newItem;
         });
         this.setState({ clients: clients });
@@ -270,12 +283,28 @@ class UserManagementDetail extends Component {
     }
 
 
+
     onChangeName = (e) => {
         const { name, value } = e.target;
         let user = { ...this.state.accountInfo };
         let validation = this.checkNameValidation(value);
         user.user = value;
         this.setState({ accountInfo: user, isValidForm: false, validation:validation });
+    }
+
+     onBlurEmail = async (e) => {
+        const { name, value } = e.target;
+        const { oldAccountInfo } = this.state;
+        let validation = { ...this.state.validation };
+        const {data}  = await axios.post(endpoint.userManagementCheckMailValidation,{email:value});
+        validation.email["isValid"] = ((oldAccountInfo.email !== value) && data === 0)?true:false;
+
+        if(!validation.email["isValid"])
+            validation.email["message"] = utility.validationMsg.EMAIL_EXIST;
+        else
+            validation.email["message"] = "";
+
+        this.setState({ validation:validation });
     }
 
     onChangeEmail = (e) => {
@@ -316,9 +345,14 @@ class UserManagementDetail extends Component {
             return item.status === true;
         });
         
+
+        let siteValue = (site && (sites.filter((item) => {return item.status === true;}).length !== sites.length))? site.site:null;
+        
         let client = clients.find((item, index) => {
             return item.status === true;
         });
+
+         let clientValue = (client && (clients.filter((item) => {return item.status === true;}).length !== clients.length))? client.code:null;
 
         let accountInfo = { ...this.state.accountInfo }; 
         newParam.name = accountInfo.user;
@@ -329,7 +363,7 @@ class UserManagementDetail extends Component {
         newParam.thisLogin = accountInfo.thisLogin;
         newParam.userMenu = accountInfo.web_group === utility.webgroup.ADMIN? adminMenu:userMenu;
         newParam.client = (accountInfo.web_group === utility.webgroup.ADMIN? null:(client? client.code:null));
-        newParam.site = (accountInfo.web_group === utility.webgroup.ADMIN? null:(site? site.site:null));
+        newParam.site = (accountInfo.web_group === utility.webgroup.ADMIN? null:siteValue);
         newParam.disabled = accountInfo.disabled ? 'Y' : 'N';
 
 
@@ -343,10 +377,13 @@ class UserManagementDetail extends Component {
 
         let emailValid = this.checkEmailValidation(newParam.email);
         let nameValid = this.checkNameValidation(newParam.name);
-        validation.email = emailValid.email;
-        validation.name = nameValid.name;
 
-        if (emailValid.email["isValid"] && nameValid.name["isValid"] && newParam.userMenu.length) {
+        if(!emailValid.email['isValid'])
+            validation.email = emailValid.email;
+        if(!emailValid.name['isValid'])
+            validation.name = nameValid.name;
+
+        if (validation.email["isValid"] && validation.name["isValid"] && newParam.userMenu.length) {
             this.setState({ isSaveProgressing: true, validation:validation }, () => { this.updateRequest(newParam); });
         } else {
             this.setState({ isValidForm: true, validation:validation });
@@ -445,7 +482,7 @@ class UserManagementDetail extends Component {
     render() {
         const { match } = this.props;
         const { moduleAccess, sites, clients, accountInfo, loginInfo, adminClass,validation } = this.state;    
-        console.log(adminClass);
+        
         return (<div className="um-detail w-100 h-100">
             {/* <div className={(this.state.isLoadComplete ? 'd-none' : 'spinner')} />
             <div className={(this.state.isLoadComplete ? ' ' : 'd-none')}>
@@ -497,16 +534,16 @@ class UserManagementDetail extends Component {
                                 </div>
 
                                 <div className="col-md-3 pr-0">
-                                    <input type="email" name="email" className={`form-control ${validation.email["isValid"]? '':validation.email["invalidClass"]}`} onChange={(e) => { this.onChangeEmail(e); }} value={accountInfo.email} />
-                                    <FormFeedback>
-                                        invalid email
+                                    <input type="email" name="email" className={`form-control ${validation.email["isValid"]? '':validation.email["invalidClass"]}`} onChange={(e) => { this.onChangeEmail(e); }} onBlur={(e)=> {this.onBlurEmail(e);}} value={accountInfo.email} />
+                                    <FormFeedback className="invalid-error-padding">
+                                        {`${validation.email["message"]}`}
                                     </FormFeedback>
                                 </div>
 
                                 <div className="col-md-2 pr-0">
                                     <input type="text" className={`form-control ${validation.name["isValid"]?'':validation.name["invalidClass"]}`} maxLength="60" onChange={(e) => { this.onChangeName(e); }} value={accountInfo.user} />
-                                    <FormFeedback>
-                                        username required
+                                    <FormFeedback className="invalid-error-padding">
+                                        {`${validation.name["message"]}`}
                                     </FormFeedback>
                                 </div>
 
