@@ -356,6 +356,7 @@ class StockHolding extends React.PureComponent {
 
         <CustomTable
           title='Stock Holding'
+          filename='Microlistics_StockHolding.'
           height={dimension.height}
           data={data}
           fields={fields}
