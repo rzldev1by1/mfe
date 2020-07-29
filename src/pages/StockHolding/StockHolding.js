@@ -70,12 +70,12 @@ const columns = [
 class StockHolding extends React.PureComponent {
   state = {
     search: '',
-    // site: {
-    //   value: this.props.store.user.site ? this.props.store.user.site : null,
-    // },
-    // client: {
-    //   value: this.props.store.user.client ? this.props.store.user.client : null,
-    // },
+    site: {
+      value: this.props.store.user.site ? this.props.store.user.site : null,
+    },
+    client: {
+      value: this.props.store.user.client ? this.props.store.user.client : null,
+    },
     status: null,
     orderType: null,
     task: null,
