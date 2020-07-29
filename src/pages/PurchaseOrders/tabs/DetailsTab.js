@@ -172,9 +172,13 @@ class CreateTab extends React.Component {
     let values;
     if(name === 'weight' && value.length > 3)
     {
-      const lg = value.length - 4
+      let lg = value.length - 3
+      if(value.length >4) lg = value.length -4
       values = value.replace(/,/g, '')
       values = [values.slice(0,lg), ',', values.slice(lg)].join('')
+      if(values.length < 4) values = values.replace(/,/g, '')
+      
+      
     }
     return values
   }
@@ -279,7 +283,7 @@ class CreateTab extends React.Component {
   }
 
   decimalCheck = (e) => {
-    if (!/^[0-9|,]+$/.test(e.key)) e.preventDefault()
+    if (!/^[0-9|,8]+$/.test(e.key)) e.preventDefault()
   }
 
   siteCheck = (siteVal) => {
