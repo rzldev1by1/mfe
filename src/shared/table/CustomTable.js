@@ -11,6 +11,7 @@ import { FaRegEdit } from 'react-icons/fa'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 import CustomPagination from 'shared/table/CustomPagination'
 import Export from "./Export"
+import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
 
@@ -463,8 +464,9 @@ showModal = (show) => {
           style={{ height }}
           // noDataText={(request_status)? request_status :"Please Wait..."}
           noDataText={<div>
-          <div  className='caution-caution'/>
-          <div>No Data Available</div>
+            <img src={loading} width='45' height='45'/>
+          {/* <div  className='caution-caution'/> */}
+          {/* <div>No Data Available</div> */}
         </div>}
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
