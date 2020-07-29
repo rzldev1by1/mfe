@@ -100,6 +100,11 @@ class UserManagemen extends Component {
         this.props.history.push(url)
     }
 
+    onSubmitSearch = (e) => {
+        e.preventDefault();
+        this.searchHandler(e);
+    }
+
 
     render() {
 
@@ -149,6 +154,7 @@ class UserManagemen extends Component {
                         </CRow>
                     </CCardBody>
                     <CCardBody className="p-3 bg-white">
+                      <form onSubmit={this.onSubmitSearch}>
                         <CRow className="mx-0">
                             <CCol xl={11} lg={10} md={10} sm={12} className="pl-0">
                                 <div className="input-group">
@@ -162,6 +168,7 @@ class UserManagemen extends Component {
                                 <button className="btn btn-search btn-primary float-right w-100 px-3 py-3" onClick={this.searchHandler}>SEARCH</button>                                
                             </CCol>
                         </CRow>
+                      </form>
                     </CCardBody>
                 </CCard>
                 <UMCustomTable
