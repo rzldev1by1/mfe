@@ -69,6 +69,7 @@ class SalesOrderDetail extends React.Component {
     ],
     detail: {},
     products: [],
+    forecast: [],
     datahead: [],
     activeTab: '1',
   };
@@ -112,12 +113,16 @@ class SalesOrderDetail extends React.Component {
       .catch((error) => {});
   };
   getStockDetails = async () => {
-    const { product, client, site } = this.props.match.params;
+    const { product, client, site, expected_out_qty} = this.props.match.params;
     const url = `/stockdetail/${product}?client=${client}&site=${site}`;
+    console.log(expected_out_qty)
     const { data } = await axios.get(url);
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|[''([{])+\S/g, match => match.toUpperCase());
     if (data.data.length) {
-      this.setState({ products: data.data });
+      this.setState({ products: data.data }, () => {
+        console.log('--- products ')
+        console.log(data.data)
+      });
     }
   };
   getForescast = async () => {
@@ -125,7 +130,10 @@ class SalesOrderDetail extends React.Component {
     const url = `/stockbal?client=${client}&product=${product}&site=${site}`;
     const { data } = await axios.get(url);
     if (data) {
-      this.setState({ products: data[0][0]['available orders'] });
+      this.setState({ forecast: data[0][0]['available orders'] }, () => {
+        console.log('--- forecast ')
+        console.log(data[0][0]['available orders'])
+      });
     }
   };
   formatDate = (date) => {
@@ -138,8 +146,8 @@ class SalesOrderDetail extends React.Component {
       products,
       stockDetail,
       activeTab,
-      ForesCast,
-      forescast,
+      ForesCast, 
+      forecast,
     } = this.state;
     let site = this.state.datahead.length ? this.state.datahead[0].site : null;
     let client = this.state.datahead.length
@@ -153,7 +161,7 @@ class SalesOrderDetail extends React.Component {
       : null;
     let uom = this.state.datahead.length ? this.state.datahead[0].uom : null;
     let stock_on_hand = this.state.datahead.length
-      ? this.state.datahead[0].on_hand_qty
+      ? this.state.datahead[0].stock_on_hand
       : null;
     let available_qty = this.state.datahead.length
       ? this.state.datahead[0].available_qty
@@ -222,6 +230,7 @@ class SalesOrderDetail extends React.Component {
                   </NavLink>
                 </NavItem>
 
+                {parseInt(expected_in_qty) === 0 && parseInt(expected_out_qty) === 0 && (parseInt(stock_on_hand) + parseInt(expected_in_qty) >= expected_out_qty) ?  '' :
                 <NavItem className={'p-0'} style={{marginLeft:"11px"}}>
                   <NavLink
                     className={
@@ -231,14 +240,14 @@ class SalesOrderDetail extends React.Component {
                     active={this.state.activeTab === '2'}
                     onClick={() => this.activeTabIndex('2')}
                   >
-                    <div className='row rowTabCustom align-items-center tabColumn mx-0'>
+                   <div className='row rowTabCustom align-items-center tabColumn mx-0'>
                       <span className='tabTitleText'>
                         {activeTab === '2' ? tab2() : tab2Inactive()} Stock
                         Balance Forecast
                       </span>
                     </div>
                   </NavLink>
-                </NavItem>
+                </NavItem>}
               </div>
             </Nav>
           </div>
@@ -250,6 +259,8 @@ class SalesOrderDetail extends React.Component {
               <TabPane className='p-0 stockDetails' tabId='1'>
                 <CustomTable
                   title='Stock Detail'
+                  filename='Microlistics_StockDetail.'
+                  font="12"
                   height={this.state.dimension.height}
                   fields={stockDetail}
                   data={products}
@@ -265,9 +276,11 @@ class SalesOrderDetail extends React.Component {
               <TabPane className='stockDetails' tabId='2'>
                 <CustomTable
                   title='Stock ForesCast'
+                  filename='Microlistics_ForesCast.'
+                  font="12"
                   height={this.state.dimension.height}
                   fields={ForesCast}
-                  data={products}
+                  data={forecast}
                   UrlHeader={this.UrlHeader}
                   export={
                     <button className='btn btn-primary float-right btn-export'>

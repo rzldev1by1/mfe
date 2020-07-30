@@ -5,14 +5,16 @@ import { connect } from 'react-redux'
 import ReactTable from 'react-table-v6'
 import { Button, Container, Row, Col, Modal, Nav} from 'react-bootstrap'
 import { NavItem, NavLink, TabPane, TabContent } from 'reactstrap';
-import { CCard, CCardGroup, CPagination, CRow, CCol } from "@coreui/react";
+import { CRow, CCol } from "@coreui/react";
 import { MdClose } from 'react-icons/md'
 import { FaRegEdit } from 'react-icons/fa'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 import CustomPagination from 'shared/table/CustomPagination'
 import Export from "./Export"
+import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
+//import { splice } from 'core-js/fn/array'
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
@@ -54,6 +56,7 @@ class CustomTable extends React.Component {
       trigger: 0,
       activeTab: '1',
       changedColumns: [],
+      data: this.props.data,
       fields: this.props.fields,
       urlHeader: this.props.urlHeader,
       products: [],
@@ -223,7 +226,7 @@ showModal = (show) => {
   headerRename = async () => {
     const url = this.props.UrlHeader();
     const { data } = await axios.get(url);
-    let header = [];
+    let fields = [];
     let accessor = this.state.fields.map((data, idx) => {                
       let split = data.accessor
       return split
@@ -237,11 +240,23 @@ showModal = (show) => {
                 let split = data.width
                 return split
                 });
+    let headerData = Object.keys(data.data[0]);
+                accessor.map((data, idx) => {
+                  let lowerCase = data.toLowerCase();
+                  if (lowerCase.includes(' ')) {
+                    let split = lowerCase.split(' ');
+                    let result = split.join('_');
+                    accessor[idx] = result;
+                  } else {
+                    accessor[idx] = lowerCase;
+                  }
+                });
     
     Object.values(data.data[0]).map((data, idx) => {
       let headerTable = {
         accessor: '',
         Header: '',
+        headerData,
         placeholder: '',
         width: null,
         sortable: true,
@@ -249,14 +264,14 @@ showModal = (show) => {
       headerTable.Header = data;
       headerTable.placeholder = placeholder[idx];
       headerTable.accessor = accessor[idx];
+      headerTable.headerData = headerData[idx];
       headerTable.width = width[idx];
-      header.push(headerTable);
+      fields.push(headerTable);
     });
-    console.log(header);
     if (data.data.length) {
       this.setState({
         products: data.data[0],
-        fields: header,
+        fields: fields,
       });
     }
   };
@@ -266,17 +281,17 @@ showModal = (show) => {
   renameSubmits = async (e) => {
     const fields = this.state.fields;
     const changedField = e;
-    const changedFieldAccessor = [];
+    const changedFieldHeaderData = [];
     const changedFieldHeader = [];
 
     changedField.map((item, idx) => {
-      changedFieldAccessor.push(item.accessor);
+      changedFieldHeaderData.push(item.headerData);
       changedFieldHeader.push(item.header);
     });
 
     fields.map((item, idx) => {
-      changedFieldAccessor.map((data, idx) => {
-        if (item.accessor == data) {
+      changedFieldHeaderData.map((data, idx) => {
+        if (item.headerData == data) {
           item.Header = changedFieldHeader[idx];
         }
       });
@@ -287,22 +302,22 @@ showModal = (show) => {
     let payload = {};
     let payloadIndex = Object.keys(this.state.products);
     let defaultValues = Object.values(this.state.products);
-    let fieldsAccessor = changedFieldAccessor;
+    let fieldsHeaderData = changedFieldHeaderData;
 
-    fieldsAccessor.map((data, idx) => {
+    fieldsHeaderData.map((data, idx) => {
       if (data.includes(' ')) {
-        let uppercaseAccessor = data.toUpperCase();
-        let index = uppercaseAccessor.split(' ');
-        fieldsAccessor[idx] = index.join('_');
+        let uppercaseHeaderData = data.toUpperCase();
+        let index = uppercaseHeaderData.split(' ');
+        fieldsHeaderData[idx] = index.join('_');
       } else {
-        fieldsAccessor[idx] = data.toUpperCase();
+        fieldsHeaderData[idx] = data.toUpperCase();
       }
     });
 
     payloadIndex.map((data, idx) => {
       if (data.includes(' ')) {
-        let uppercaseAccessor = data;
-        let index = uppercaseAccessor.split(' ');
+        let uppercaseHeaderData = data;
+        let index = uppercaseHeaderData.split(' ');
         payloadIndex[idx] = index.join('_');
       }
     });
@@ -310,7 +325,7 @@ showModal = (show) => {
     let newPayload = {};
 
     for (let i = 0; i < Object.keys(this.state.products).length; i++) {
-      fieldsAccessor.map((data, idx) => {
+      fieldsHeaderData.map((data, idx) => {
         if (payloadIndex[i] == data) {
           payload[payloadIndex[i]] = changedFieldHeader[idx];
           payloadIndex.splice(i, 1);
@@ -378,7 +393,6 @@ showModal = (show) => {
         urlTatura +
         urlTtl +
         urlTtchem;
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -389,15 +403,15 @@ showModal = (show) => {
 
     if (e.target.value.length > 0) {
       changedColumns.map((item, idx) => {
-        if (item.accessor) {
-          if (item.accessor == e.target.name) {
+        if (item.headerData) {
+          if (item.headerData == e.target.name) {
             changedColumns.splice(idx, 1);
           }
         }
       });
 
       changedColumns.push({
-        accessor: e.target.name,
+        headerData: e.target.name,
         header: e.target.value,
       });
 
@@ -410,7 +424,6 @@ showModal = (show) => {
     this.setState({ showModal: false });
   };
   ExportName = () => {
-    let filename = ""
     let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     let date = new Date();
     let date1 = date.getDate(),
@@ -419,35 +432,33 @@ showModal = (show) => {
       Seconds = date.getSeconds(),
       Minutes = date.getMinutes(),
       Hours = date.getHours();
-    return filename = ("Microlistics_PurchaseOrder." + date1 + "-" + arrmonth[month] + "-" + year + "." + Hours + "-" + Minutes + "-" + Seconds)
+    return (this.props.filename + date1 + "-" + arrmonth[month] + "-" + year + "." + Hours + "-" + Minutes + "-" + Seconds)
   }
 
   ExportHeader = () => {
-    let headers = this.state
-    return headers
-  }
-  ExportFont = () => {
-    let Font = "10";
-    return Font;
-  };
-
-  ExportData = () => {
-    let data = this.state;
+    let data = this.state.fields.map((data, idx) => {                
+      return data.Header
+      });
     return data
   }
-
-  ExportPDFName = () => {
-    let name = ""
-    return name = ("Purchase Order")
+  ExportData = () => {
+    let dataAll = this.props.data.map((data,idx,) =>{
+    let column = this.state.fields.map((column, columnIdx) => {       
+            let split = [data[column.accessor] ]
+            return split
+           })
+           return column
+    })
+    return dataAll
   }
-
-
+  
   render() {
     const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
-    let { title, data, onClick, height, pagination,request_status } = this.props
+    let { title, data, onClick, height, pagination,request_status,font } = this.props
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
-
+    console.log(headerIcon)
+    console.log(this.props)
     return (
       <React.Fragment>
         <ReactTable
@@ -455,12 +466,12 @@ showModal = (show) => {
           data={data}
           showPagination={false}
           style={{ height }}
-          id="excel"
           // noDataText={(request_status)? request_status :"Please Wait..."}
           noDataText={<div>
-          <div  className='caution-caution'/>
-          <div>No Data Available</div>
-        </div>}
+            <img src={loading} width='45' height='45'/>
+          {/* <div  className='caution-caution'/> */}
+          {/* <div>No Data Available</div> */}
+        </div>} 
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
             return {
@@ -477,8 +488,33 @@ showModal = (show) => {
               },
             };
           }}
+          defaultPageSize={50}
           {...this.props}
         />
+
+      <table className="d-none" id="excel">
+            <thead>
+              <tr>
+                {fields.map((data, idx) => {
+                    return ( <th key={idx} id={data.accessor}>{data.Header}</th> )
+                })}
+              </tr>
+            </thead>
+            <tbody>
+              {data ? data.map((data, i) =>
+                <tr key={i} >
+                  {fields.map((column, columnIdx) => {
+                      return (
+                        <td key={columnIdx}>{data[column.accessor]}</td>
+                      )
+                  })}
+                </tr>
+              ) :
+                <div> No data available </div>
+              }
+            </tbody>
+          </table>
+
         <CRow className="mt-3 pagination-custom">
            <CCol lg="10" className="px-0 margin-mr">
                 <CustomPagination
@@ -490,8 +526,10 @@ showModal = (show) => {
                 />
             </CCol>
             <CCol lg="2" className="px-0 export-ml">
-                <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
-                    ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} />
+                <Export ExportName={this.ExportName} ExportPDFName={title}    
+                    pdf={this.props.pdf}
+                    excel={this.props.excel} 
+                    ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={font} />
             </CCol>
         </CRow>
         <Modal
@@ -628,7 +666,7 @@ showModal = (show) => {
                             <div key={index} className='p-2'>
                               <input
                                 placeholder={item.placeholder}
-                                name={item.accessor}
+                                name={item.headerData}
                                 sortable={item.sortable}
                                 onChange={this.changedColumn}
                                 className={`text-left form-rename `}
