@@ -5,6 +5,7 @@ import moment from 'moment';
 import { CButton, CCard, CCardBody, CRow, CCol, } from '@coreui/react'
 import Select from 'react-select'
 import { IoIosArrowDown } from 'react-icons/io'
+import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 
 import StockMovementTable from './StockMovementTable/StockMovementTable'
 // import CustomPagination from './StockMovementPagination/StockMovementPagination'

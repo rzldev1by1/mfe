@@ -5,6 +5,7 @@ import moment from 'moment'
 import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react'
 import Select from 'react-select'
 import { IoIosArrowDown } from 'react-icons/io'
+import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 
 import endpoints from 'helpers/endpoints'
 import CustomTable from 'shared/table/CustomTable'
@@ -340,9 +341,10 @@ class SalesOrder extends React.PureComponent {
         }}
         // request_status={this.state.request_status}
         noDataText={<div>
-          <div  className='caution-caution'/>
-          <div>No Data Available</div>
-        </div>}
+          <img src={loading} width='45' height='45'/>
+        {/* <div  className='caution-caution'/>
+        <div>No Data Available</div> */}
+      </div>}
         export={<button className="btn btn-primary float-right btn-export">
            {/* <div className='export-export pr-3' /> */}
           EXPORT </button>}

@@ -44,11 +44,11 @@ button:focus {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #b4b9bb;
+  background-color: #d1cccc;
   border-radius: 15px !important;
 }
 .scroll-x-y::-webkit-scrollbar-thumb {
-  background-color: #e4e7ea;
+  background-color: #d1cccc;
 }
 .pointer {
   cursor: pointer;
@@ -64,6 +64,9 @@ button:focus {
 }
 .text-blue {
   color: #3366ff;
+}
+.text-logo{
+  color : #663366;
 }
 .text-light-gray {
   color: #b4b9bb;
@@ -275,7 +278,7 @@ header {
 /* Line Details Styles End */
 
 .status-ok {
-  color: rgb(209, 204, 204) !important;
+  color: rgb(149, 146, 146) !important;
   background: transparent;
   padding: 6px 28px;
   border-radius: 3px;
@@ -296,7 +299,7 @@ header {
   border-radius: 5px;
   /* border: solid 1.5px #959292; */
   font-size: 12px;
-  padding: 6px;
+  padding: 6px 22px;
 }
 .status-Unavailable {
   color: #fff !important;

@@ -453,11 +453,11 @@ showModal = (show) => {
           data={data}
           showPagination={false}
           style={{ height }}
-          // noDataText={(request_status)? request_status :"Please Wait..."}
+          // noDataText={(request_status)? <div  className='caution-caution'/> : <img src={loading} width='45' height='45'/>}
           noDataText={<div>
             <img src={loading} width='45' height='45'/>
-          {/* <div  className='caution-caution'/> */}
-          {/* <div>No Data Available</div> */}
+          {/* <div  className='caution-caution'/>
+          <div>No Data Available</div> */}
         </div>} 
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
