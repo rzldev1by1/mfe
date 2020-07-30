@@ -13,7 +13,7 @@ import CustomPagination from 'shared/table/CustomPagination'
 import Export from "./Export"
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
-import { splice } from 'core-js/fn/array'
+//import { splice } from 'core-js/fn/array'
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
@@ -515,7 +515,10 @@ showModal = (show) => {
             </CCol>
             <CCol lg="2" className="px-0 export-ml">
                 <Export ExportName={this.ExportName} ExportPDFName={title}
-                    ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} />
+                    ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont}    
+                    pdf={this.props.pdf}
+                    excel={this.props.excel}
+                />
             </CCol>
         </CRow>
         <Modal
