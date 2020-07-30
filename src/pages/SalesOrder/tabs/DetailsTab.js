@@ -87,31 +87,48 @@ class CreateTab extends React.Component {
     if(!customer) return
     const param = `?client=${client.value}&&customerNo=${customer}` 
     const {data} = await axios.get(url+param)
-    if(data?.identity.length === 0) return
-    const {
-      address_1, 
-      address_2, 
-      address_3, 
-      address_4, 
-      address_5, 
-      city, 
-      country, 
-      customer_no, 
-      name, 
-      postcode, 
-      state, 
-    } = data.identity[0]
-    this.setState({
-      city: city,
-      country: country,
-      postCode: postcode,
-      shipToAddress1: address_1,
-      shipToAddress2: address_2,
-      shipToAddress3: address_3,
-      shipToAddress4: address_4,
-      shipToAddress5: address_5,
-      state: state
-  })
+    if(data?.identity.length === 0) 
+    {
+      this.setState({
+        city: null,
+        country: null,
+        postCode: null,
+        shipToAddress1: null,
+        shipToAddress2: null,
+        shipToAddress3: null,
+        shipToAddress4: null,
+        shipToAddress5: null,
+        state: null
+      })
+    }
+    else
+    {
+      const {
+        address_1, 
+        address_2, 
+        address_3, 
+        address_4, 
+        address_5, 
+        city, 
+        country, 
+        customer_no, 
+        name, 
+        postcode, 
+        state, 
+      } = data.identity[0]
+      this.setState({
+        city: city,
+        country: country,
+        postCode: postcode,
+        shipToAddress1: address_1,
+        shipToAddress2: address_2,
+        shipToAddress3: address_3,
+        shipToAddress4: address_4,
+        shipToAddress5: address_5,
+        state: state
+      })
+    }
+
 }
 
 
