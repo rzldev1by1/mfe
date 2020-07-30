@@ -184,13 +184,18 @@ class CreateTab extends React.Component {
     return values
   }
   lineChange = (i, e, numeral) => {
+    const {error} = this.state
     const { name, value } = e.target
     let formatted = value
-    // if (name === 'weight') formatted = numeral(formatted).format('0.000')
     formatted = this.decimalFormatter(name,value)
     let orderLine = [...this.state.orderLine]
     orderLine[i][name] = value
-    this.setState({ orderLine })
+
+    if (error.orderLine && error.orderLine.length > 0 && error.orderLine[i][name]) {
+      delete error.orderLine[i][name]
+    }
+
+    this.setState({ orderLine, error })
   }
   lineSelectChange = (i, key, val) => {
     const { orderLine, error } = this.state
@@ -200,17 +205,19 @@ class CreateTab extends React.Component {
     if (key === 'productVal') {
       orderLine[i].product = this.state.productDataName[val.i]
       orderLine[i].productVal = val
-      delete error.orderLine[i][key]
     }
     if (key === 'dispositionVal') {
       orderLine[i].disposition = val.value
       orderLine[i].dispositionVal = val
-      delete error.orderLine[i][key]
     }
     if (key === 'uom') {
       orderLine[i].uom = val
+    }
+
+    if (error.orderLine && error.orderLine.length > 0 && error.orderLine[i][key]) {
       delete error.orderLine[i][key]
     }
+
     this.setState({ orderLine, error }, () => {
       if (key === 'productVal') {
         this.getUom(val.value)

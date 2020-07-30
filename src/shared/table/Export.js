@@ -52,7 +52,7 @@ class Export extends Component {
       
         // From Javascript
         var finalY = doc.previousAutoTable.finalY || 10
-        doc.text( this.props.ExportPDFName()+ " Data Microlistics  " + this.Date() , 14, finalY + 15)
+        doc.text( this.props.ExportPDFName + " Data Microlistics  " + this.Date() , 14, finalY + 15)
         doc.autoTable({
           startY: finalY + 20,
           head: [this.props.ExportHeader()],
