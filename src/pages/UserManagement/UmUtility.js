@@ -31,5 +31,10 @@ export function generateUserID(textValue){
     WAREHOUSE: 'Regular',
     ADMIN: 'Admin'
   }
+  export const validationMsg = {
+    INVALID_EMAIL: 'Invalid email',
+    USERNAME_REQUIRED: 'Username must be entered',
+    EMAIL_EXIST:'Email address has been registered'
+  }
 
 

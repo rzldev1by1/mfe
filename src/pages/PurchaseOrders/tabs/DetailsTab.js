@@ -112,8 +112,9 @@ class CreateTab extends React.Component {
   addLine = () => {
     const error = validations(this.state)
     this.setState({ error })
-    if (error.orderLine !== undefined) return
-    if (this.state.orderLine.length <= 3) {
+    console.log(error?.orderLine)
+    if(error?.orderLine?.length > 0) return
+    if (this.state.orderLine.length < 10) {
     this.setState({ orderLine: [...this.state.orderLine, {}] })
     }
   }
@@ -172,24 +173,33 @@ class CreateTab extends React.Component {
     let values;
     if(name === 'weight' && value.length > 3)
     {
-      const lg = value.length - 4
+      let lg = value.length - 3
+      if(value.length >4) lg = value.length -4
       values = value.replace(/,/g, '')
       values = [values.slice(0,lg), ',', values.slice(lg)].join('')
+      if(values.length < 4) values = values.replace(/,/g, '')
+      
+      
     }
     return values
   }
   lineChange = (i, e, numeral) => {
+    const {error} = this.state
     const { name, value } = e.target
-    const { orderLine } = this.state
     let formatted = value
-    // if (name === 'weight') formatted = numeral(formatted).format('0.000')
     formatted = this.decimalFormatter(name,value)
-    orderLine[i][name] = formatted
-    this.setState({ orderLine })
+    let orderLine = [...this.state.orderLine]
+    orderLine[i][name] = value
+
+    if (error.orderLine && error.orderLine.length > 0 && error.orderLine[i][name]) {
+      delete error.orderLine[i][name]
+    }
+
+    this.setState({ orderLine, error })
   }
   lineSelectChange = (i, key, val) => {
     const { orderLine, error } = this.state
-    if (error.orderLine && error.orderLine.length) {
+    if (error.orderLine && error.orderLine.length === i) {
       delete error.orderLine[i][key]
     }
     if (key === 'productVal') {
@@ -203,6 +213,11 @@ class CreateTab extends React.Component {
     if (key === 'uom') {
       orderLine[i].uom = val
     }
+
+    if (error.orderLine && error.orderLine.length > 0 && error.orderLine[i][key]) {
+      delete error.orderLine[i][key]
+    }
+
     this.setState({ orderLine, error }, () => {
       if (key === 'productVal') {
         this.getUom(val.value)
@@ -279,7 +294,7 @@ class CreateTab extends React.Component {
   }
 
   decimalCheck = (e) => {
-    if (!/^[0-9|,]+$/.test(e.key)) e.preventDefault()
+    if (!/^[0-9|,8]+$/.test(e.key)) e.preventDefault()
   }
 
   siteCheck = (siteVal) => {

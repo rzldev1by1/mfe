@@ -319,11 +319,12 @@ class SalesOrder extends React.PureComponent {
           </CRow>
         </CCardBody>
       </CCard>
-{console.log(data)}
+      {console.log(data)}
       <CustomTable
         title="Sales Order"
         filename='Microlistics_SalesOrder.'
         height={dimension.height}
+        font="5"
         data={data}
         fields={fields}
         pagination={pagination}

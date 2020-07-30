@@ -197,13 +197,13 @@ class PurchaseOrders extends React.PureComponent {
   }
 
   setClient = (client) =>{
-    this.setState({client:client})
-    this.getTask()
+    this.setState({client:client}, () =>  this.getTask())
+   
   }
 
   setSite = (site) => {
-    this.setState({site})
-    this.getTask()
+    this.setState({site}, () => this.getTask())
+    
   }
   UrlHeader = () =>{
     return `$/getSalesOrderHeader?client=ANTEC`
@@ -317,6 +317,7 @@ class PurchaseOrders extends React.PureComponent {
       <CustomTable
         title="Purchase Order"
         filename='Microlistics_PurchaseOrder.'
+        font="9"
         height={dimension.height}
         data={data}
         fields={fields}

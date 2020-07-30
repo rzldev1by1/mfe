@@ -4,10 +4,10 @@ import CustomTable from 'shared/table/CustomTable'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import HeaderTitle from 'shared/container/TheHeader'
-// import UMCustomTable from 'shared/table/CustomTable'
+import UMCustomTable from '../../shared/table/CustomTable'
 
 import endpoint from '../../helpers/endpoints'
-import UMCustomTable from './UserManagementTable'
+// import UMCustomTable from './UserManagementTable'
 import CreateUM from './UserManagementCreate'
 import * as utility from './UmUtility'
 import moment from 'moment'
@@ -99,6 +99,14 @@ class UserManagemen extends Component {
         const url = `/users-management/${item.web_user}/detail`;
         this.props.history.push(url)
     }
+    UrlHeader = () => {
+        return `UM?client=ANTEC`
+      }
+
+    onSubmitSearch = (e) => {
+        e.preventDefault();
+        this.searchHandler(e);
+    }
 
 
     render() {
@@ -113,42 +121,43 @@ class UserManagemen extends Component {
                 />
                 <CCard className="bg-transparent mb-3">
                     <CCardBody className="p-3 border-user-info" >
-                        <CRow>
-                            <CCol sm={1} className="user-login-info-header">
-                                User ID
-                            </CCol>
-                            <CCol sm={1} className="user-login-info-header">
-                                Name
-                            </CCol>
-                            <CCol sm={2} className="user-login-info-header pr-0">
-                                Email Address
-                            </CCol>
-                            <CCol sm={1} className="user-login-info-header pl-0">
-                                Site
-                            </CCol>
-                            <CCol sm={1} className="user-login-info-header">
-                                Client
-                            </CCol>
-                        </CRow>
-                        <CRow className="mt-2">
-                            <CCol sm={1} className="user-login-info-value">
-                                {loginInfo.userId}
-                            </CCol>
-                            <CCol sm={1} className="user-login-info-value">
-                                <Link to={`/users-management/${loginInfo.webUser}/detail`} >{loginInfo.name}</Link>
-                            </CCol>
-                            <CCol sm={2} className="user-login-info-value pr-0">
-                                {loginInfo.email}
-                            </CCol>
-                            <CCol sm={1} className="user-login-info-value pl-0">
-                                {`${loginInfo.site && loginInfo.site !== '' ? loginInfo.site : 'All'}`}
-                            </CCol>
-                            <CCol sm={1} className="user-login-info-value">
-                                {`${loginInfo.client && loginInfo.client !== '' ? loginInfo.client : 'All'}`}
-                            </CCol>
-                        </CRow>
+                            <CRow>
+                                <CCol sm={1} className="user-login-info-header">
+                                    User ID
+                                </CCol>
+                                <CCol sm={1} className="user-login-info-header">
+                                    Name
+                                </CCol>
+                                <CCol sm={2} className="user-login-info-header pr-0">
+                                    Email Address
+                                </CCol>
+                                <CCol sm={1} className="user-login-info-header pl-0">
+                                    Site
+                                </CCol>
+                                <CCol sm={1} className="user-login-info-header">
+                                    Client
+                                </CCol>
+                            </CRow>
+                            <CRow className="mt-2">
+                                <CCol sm={1} className="user-login-info-value">
+                                    {loginInfo.userId}
+                                </CCol>
+                                <CCol sm={1} className="user-login-info-value">
+                                    <Link to={`/users-management/${loginInfo.webUser}/detail`} >{loginInfo.name}</Link>
+                                </CCol>
+                                <CCol sm={2} className="user-login-info-value pr-0">
+                                    {loginInfo.email}
+                                </CCol>
+                                <CCol sm={1} className="user-login-info-value pl-0">
+                                    {`${loginInfo.site && loginInfo.site !== '' ? loginInfo.site : 'All'}`}
+                                </CCol>
+                                <CCol sm={1} className="user-login-info-value">
+                                    {`${loginInfo.client && loginInfo.client !== '' ? loginInfo.client : 'All'}`}
+                                </CCol>
+                            </CRow>
                     </CCardBody>
                     <CCardBody className="p-3 bg-white">
+                      <form onSubmit={this.onSubmitSearch}>
                         <CRow className="mx-0">
                             <CCol xl={11} lg={10} md={10} sm={12} className="pl-0">
                                 <div className="input-group">
@@ -162,9 +171,10 @@ class UserManagemen extends Component {
                                 <button className="btn btn-search btn-primary float-right w-100 px-3 py-3" onClick={this.searchHandler}>SEARCH</button>                                
                             </CCol>
                         </CRow>
+                      </form>
                     </CCardBody>
                 </CCard>
-                <UMCustomTable
+                {/* <UMCustomTable
                     title="User Management"
                     height={dimension.height}
                     pagination={pagination}
@@ -175,9 +185,22 @@ class UserManagemen extends Component {
                     goto={(active) => {
                         this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler())
                       }}
-                    export={<button className="btn btn-primary float-right btn-export">
-                        {/* <div className='export-export pr-3' /> */}
-                         EXPORT</button>}
+                /> */}
+                
+                <UMCustomTable
+                    title="User Management"
+                    filename='Microlistics_UserManagementr.'
+                    font="10"
+                    height={dimension.height}
+                    pagination={pagination}
+                    fields={fields} 
+                    data={data} 
+                    onClick={this.showDetails}
+                    UrlHeader={this.UrlHeader} 
+                    dimension={dimension}
+                    goto={(active) => {
+                        this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler())
+                      }}
                 />
                 
                 <CreateUM show={modalShow} toggle={this.toggle} afterSuccess={this.searchHandler} users={this.state.data} />

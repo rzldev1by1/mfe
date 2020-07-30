@@ -59,7 +59,7 @@ class Export extends Component {
           startY: finalY + 20,
           head: [this.props.ExportHeader()],
           body: this.props.ExportData(),
-          styles: { cellPadding: 0.5, fontSize: this.props.ExportFont() },
+          styles: { cellPadding: 0.5, fontSize: this.props.ExportFont },
         })
       
         finalY = doc.previousAutoTable.finalY
