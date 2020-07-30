@@ -112,8 +112,9 @@ class SalesOrderDetail extends React.Component {
       .catch((error) => {});
   };
   getStockDetails = async () => {
-    const { product, client, site } = this.props.match.params;
+    const { product, client, site, expected_out_qty} = this.props.match.params;
     const url = `/stockdetail/${product}?client=${client}&site=${site}`;
+    console.log(expected_out_qty)
     const { data } = await axios.get(url);
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|[''([{])+\S/g, match => match.toUpperCase());
     if (data.data.length) {
@@ -153,7 +154,7 @@ class SalesOrderDetail extends React.Component {
       : null;
     let uom = this.state.datahead.length ? this.state.datahead[0].uom : null;
     let stock_on_hand = this.state.datahead.length
-      ? this.state.datahead[0].on_hand_qty
+      ? this.state.datahead[0].stock_on_hand
       : null;
     let available_qty = this.state.datahead.length
       ? this.state.datahead[0].available_qty
@@ -222,6 +223,7 @@ class SalesOrderDetail extends React.Component {
                   </NavLink>
                 </NavItem>
 
+                {parseInt(expected_in_qty) === 0 && parseInt(expected_out_qty) === 0 && (parseInt(stock_on_hand) + parseInt(expected_in_qty) >= expected_out_qty) ?  '' :
                 <NavItem className={'p-0'} style={{marginLeft:"11px"}}>
                   <NavLink
                     className={
@@ -231,14 +233,14 @@ class SalesOrderDetail extends React.Component {
                     active={this.state.activeTab === '2'}
                     onClick={() => this.activeTabIndex('2')}
                   >
-                    <div className='row rowTabCustom align-items-center tabColumn mx-0'>
+                   <div className='row rowTabCustom align-items-center tabColumn mx-0'>
                       <span className='tabTitleText'>
                         {activeTab === '2' ? tab2() : tab2Inactive()} Stock
                         Balance Forecast
                       </span>
                     </div>
                   </NavLink>
-                </NavItem>
+                </NavItem>}
               </div>
             </Nav>
           </div>

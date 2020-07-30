@@ -197,13 +197,13 @@ class PurchaseOrders extends React.PureComponent {
   }
 
   setClient = (client) =>{
-    this.setState({client:client})
-    this.getTask()
+    this.setState({client:client}, () =>  this.getTask())
+   
   }
 
   setSite = (site) => {
-    this.setState({site})
-    this.getTask()
+    this.setState({site}, () => this.getTask())
+    
   }
   UrlHeader = () =>{
     return `$/getSalesOrderHeader?client=ANTEC`
