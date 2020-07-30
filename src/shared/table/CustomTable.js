@@ -14,7 +14,6 @@ import Export from "./Export"
 import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
-import { splice } from 'core-js/fn/array'
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
