@@ -45,3 +45,12 @@
     margin-top: -2px;
     border: solid 2px rgb(189, 186, 186);
 }
+
+.dropdown-menu.dropdown-single{
+	padding: 0 !important;
+	/* bottom: 0% !important; */
+    margin-top: -45px !important;
+    background-color: rgb(248, 242, 242);
+    margin-left: -37px;
+    margin-bottom: 5px !important;
+}

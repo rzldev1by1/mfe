@@ -14,6 +14,7 @@ import Export from "./Export"
 import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
+//import { splice } from 'core-js/fn/array'
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
@@ -427,11 +428,6 @@ showModal = (show) => {
       });
     return data
   }
-  ExportFont = () => {
-    let Font = "9";
-    return Font;
-  };
-
   ExportData = () => {
     let dataAll = this.props.data.map((data,idx,) =>{
     let column = this.state.fields.map((column, columnIdx) => {       
@@ -445,10 +441,11 @@ showModal = (show) => {
   
   render() {
     const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
-    let { title, data, onClick, height, pagination,request_status } = this.props
+    let { title, data, onClick, height, pagination,request_status,font } = this.props
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
-
+    console.log(headerIcon)
+    console.log(this.props)
     return (
       <React.Fragment>
         <ReactTable
@@ -461,7 +458,7 @@ showModal = (show) => {
             <img src={loading} width='45' height='45'/>
           {/* <div  className='caution-caution'/> */}
           {/* <div>No Data Available</div> */}
-        </div>}
+        </div>} 
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
             return {
@@ -478,6 +475,7 @@ showModal = (show) => {
               },
             };
           }}
+          defaultPageSize={50}
           {...this.props}
         />
 
@@ -515,8 +513,10 @@ showModal = (show) => {
                 />
             </CCol>
             <CCol lg="2" className="px-0 export-ml">
-                <Export ExportName={this.ExportName} ExportPDFName={title}
-                    ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} />
+                <Export ExportName={this.ExportName} ExportPDFName={title}    
+                    pdf={this.props.pdf}
+                    excel={this.props.excel} 
+                    ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={font} />
             </CCol>
         </CRow>
         <Modal

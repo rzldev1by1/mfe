@@ -135,12 +135,12 @@ class Logins extends Component {
                     {errorMessage && <div><span className="iconU-i" /> {errorMessage}</div>}
                 </div>
                 <div className="row">
-                    <div className="col-sm-4">
+                    <div className="col-sm-5">
                         <button type="submit" className="btn btn-primary btn-login col-12">
                             {this.state.isLoad ? <i className="fa fa-refresh fa-2x fa-spin" /> : 'Login'}
                         </button>
                     </div>
-                    <div className="col-sm-8 mt-3">
+                    <div className="col-sm-7 mt-3">
                         <span className='form-login-change' onClick={() => this.changeFormHanlder()}>Forgot Password ?</span>
                     </div>
                 </div>

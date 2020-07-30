@@ -140,7 +140,9 @@ class PurchaseOrdersDetail extends React.Component {
       </div>
 
       <CustomTable
-        title="Sales Orders Details"
+        title="PurchaseOrder Orders Details"
+        filename='Microlistics_PurchaseOrderDetail.'
+        font="9"
         height={this.state.dimension.height}
         fields={fields}
         data={products}

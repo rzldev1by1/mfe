@@ -160,6 +160,7 @@ class UserManagementDetail extends Component {
 
     loadModuleAccess = async () => {
         let user = { ...this.state.accountInfo };
+        let isEnableAllModule = { ...this.state.isEnableAllModule };
         let userMenu = [...user.userMenu].map((item, index) => { return item.menuid; });
         const { data } = await axios.get(endpoint.userManagementModuleAccess)
         let menus = data.filter((item) => { return menuAvailable.indexOf(item.menuname.toLowerCase()) !== -1 })
@@ -172,11 +173,15 @@ class UserManagementDetail extends Component {
                 newItem.status = isStatus;
                 return newItem;
             });
-        this.setState({ moduleAccess: menus });
+
+            
+           isEnableAllModule = menus.filter((item) => {return item.status === true;}).length === menus.length?true:false;
+        this.setState({ moduleAccess: menus,isEnableAllModule:isEnableAllModule });
     }
 
     loadSites = async () => {
         let user = { ...this.state.accountInfo };
+        let isEnableAllSite = {...this.state.isEnableAllSite};
         const { data } = await axios.get(endpoint.getSite);
         
         let sites = data.map((item, index) => {
@@ -184,11 +189,14 @@ class UserManagementDetail extends Component {
             newItem.status = (user.site === null?true:((item.site === user.site) ? true : false));
             return newItem;
         });
-        this.setState({ sites: sites });
+
+         isEnableAllSite = sites.filter((item) => {return item.status === true;}).length === sites.length?true:false;
+        this.setState({ sites: sites, isEnableAllSite:isEnableAllSite });
     }
 
     loadClients = async () => {
         let user = { ...this.state.accountInfo };
+        let isEnableAllClient = {...this.state.isEnableAllClient};
         const { data } = await axios.get(endpoint.getClient);
 
         let clients = data.map((item, index) => {
@@ -196,7 +204,9 @@ class UserManagementDetail extends Component {
             newItem.status = (user.client === null?true: ((item.code === user.client) ? true : false));
             return newItem;
         });
-        this.setState({ clients: clients });
+        
+        isEnableAllClient = clients.filter((item) => {return item.status === true;}).length === clients.length?true:false;
+        this.setState({ clients: clients, isEnableAllClient:isEnableAllClient });
     }
 
 
