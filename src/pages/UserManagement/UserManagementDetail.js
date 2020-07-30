@@ -17,7 +17,7 @@ import moment from 'moment';
 
 const today = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
 const passChanged = '1999-08-28';
-const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'stock age profile'];
+const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement'];
 // const webgroup = {
 //     WAREHOUSE: 'Regular',
 //     ADMIN: 'Admin'
@@ -362,7 +362,7 @@ class UserManagementDetail extends Component {
         newParam.thisAccess = accountInfo.thisAccess;
         newParam.thisLogin = accountInfo.thisLogin;
         newParam.userMenu = accountInfo.web_group === utility.webgroup.ADMIN? adminMenu:userMenu;
-        newParam.client = (accountInfo.web_group === utility.webgroup.ADMIN? null:(client? client.code:null));
+        newParam.client = (accountInfo.web_group === utility.webgroup.ADMIN? null:clientValue);
         newParam.site = (accountInfo.web_group === utility.webgroup.ADMIN? null:siteValue);
         newParam.disabled = accountInfo.disabled ? 'Y' : 'N';
 

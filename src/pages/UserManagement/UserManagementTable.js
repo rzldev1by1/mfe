@@ -4,6 +4,8 @@ import CustomPagination from 'shared/table/CustomPagination'
 import { IoIosArrowDown } from 'react-icons/io'
 import { CRow, CCol} from "@coreui/react";
 import Export from "../../shared/table/Export"
+import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
+
 class UMCustomTable extends React.Component {
     constructor(props) {
       super(props);
@@ -134,10 +136,7 @@ class UMCustomTable extends React.Component {
             data={data}
             defaultPageSize={50}
             showPagination={false}
-            noDataText={<div>
-              <div  className='caution-caution'/>
-              <div>No User Found</div>
-            </div>}
+            noDataText={<div><img src={loading} width='45' height='45'/></div>}
             // noDataText={"Please Wait..."}
             style={{ height }}
             minRows='0'
