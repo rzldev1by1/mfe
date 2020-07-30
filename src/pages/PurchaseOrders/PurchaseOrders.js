@@ -173,7 +173,7 @@ class PurchaseOrders extends React.PureComponent {
     // this.setState({ data: DummyData })
   }
   showDetails = (item) => {
-    const url = '/purchase-order/' + item.client + '/' + item.order_no
+    const url = '/purchase-order/' +item.site + '/' +  item.client + '/' + item.order_no
     this.props.history.push(url)
   }
   toggle = (value) => {
