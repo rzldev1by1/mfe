@@ -18,6 +18,7 @@ class CreateTab extends React.Component {
     overflow: [],
     orderLine: [{}], error: {},
     siteData: this.props.siteData, clientData: this.props.clientData, orderTypeData: this.props.orderTypeData,
+    supplierData:[],
     isDatepickerShow: false,
     datepickerStatus: [],
     UOMStatus: [],
@@ -71,6 +72,48 @@ class CreateTab extends React.Component {
     this.setState({ uomData })
   }
 
+  getSupplier = async (client) => {
+    const url = endpoints.getSupplier
+    if(!client) return
+    const param = `?client=${client.value}`
+    const {data} = await axios.get(url+param)
+    const supplierData = data.map((v, i) => ({value:v.supplier_no, label:v.name}))
+    this.setState({supplierData})
+  }
+
+  getSupplierIdentity = async (customer) => {
+    const {client} = this.state
+    const url = `${endpoints.getSoIdentity}`
+    if(!customer) return
+    const param = `?client=${client.value}&&customerNo=${customer}` 
+    const {data} = await axios.get(url+param)
+    if(data?.identity.length === 0) return
+    const {
+      address_1, 
+      address_2, 
+      address_3, 
+      address_4, 
+      address_5, 
+      city, 
+      country, 
+      customer_no, 
+      name, 
+      postcode, 
+      state, 
+    } = data.identity[0]
+    this.setState({
+      city: city,
+      country: country,
+      postCode: postcode,
+      shipToAddress1: address_1,
+      shipToAddress2: address_2,
+      shipToAddress3: address_3,
+      shipToAddress4: address_4,
+      shipToAddress5: address_5,
+      state: state
+  })
+}
+
 
   addLine = () => {
     const error = validations(this.state)
@@ -94,8 +137,11 @@ class CreateTab extends React.Component {
     this.setState({ [name]: val }, () => {
       if (name === 'client') {
         this.getProduct()
+        this.getSupplier(val)
       }else if(name=== 'orderType'){
         this.orderTypeValue(val)
+      }else if(name === 'customer'){
+        this.getSupplierIdentity(val.value)
       }
     })
   }
@@ -188,7 +234,10 @@ class CreateTab extends React.Component {
       delete header.productDataName
       delete header.dispositionData
       delete header.uomData
+  
       const payload = { header, lineDetail }
+      console.log(header)
+      return
       this.props.submit(payload)
     }
   }
@@ -260,7 +309,7 @@ class CreateTab extends React.Component {
   render() {
     const { error, overflow, site, client, orderType, orderLine, customer,
       orderId, shipToAddress1, postCode, state,
-      siteData, clientData, orderTypeData, productData, uomData, dispositionData,
+      siteData, clientData, orderTypeData, productData, uomData, dispositionData,supplierData
     } = this.state
     const {user} = this.props
     let datepickerStatus = this.state.datepickerStatus;
@@ -358,8 +407,11 @@ class CreateTab extends React.Component {
       <Row>
         <Col lg="3" className="mb-3">
           <label className="text-muted mb-0">Customer</label>
-          <Select value={customer || ''} options={[]} placeholder="Customer Name or ID"
-            onInputChange={_.debounce(this.findCustomer, 300)} onChange={val => this.onSelectChange('customer', val)}
+          < Select 
+            options={supplierData} 
+            placeholder="Customer Name or ID"
+            onInputChange={_.debounce(this.findCustomer, 300)} 
+            onChange={val => this.onSelectChange('customer', val)}
             styles={{
               dropdownIndicator: (base, state) => ({
                 ...base, 
@@ -372,46 +424,46 @@ class CreateTab extends React.Component {
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0 required">Address 1</label>
-          <input name="shipToAddress1" type="text" value={shipToAddress1 || ''} onChange={this.onChange} className="form-control" placeholder="Address 1" required />
+          <input value={this.state.shipToAddress1} name="shipToAddress1" type="text" value={shipToAddress1 || ''} onChange={this.onChange} className="form-control" placeholder="Address 1" required />
           <Required id="shipToAddress1" error={error} />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Address 2</label>
-          <input name="shipToAddress2" onChange={this.onChange} className="form-control" placeholder="Address 2" />
+          <input value={this.state.shipToAddress2} name="shipToAddress2" onChange={this.onChange} className="form-control" placeholder="Address 2" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Address 3</label>
-          <input name="shipToAddress3" onChange={this.onChange} className="form-control" placeholder="Address 3" />
+          <input value={this.state.shipToAddress3} name="shipToAddress3" onChange={this.onChange} className="form-control" placeholder="Address 3" />
         </Col>
       </Row>
       <Row>
         <Col lg="3" className="mb-3">
           <label className="text-muted mb-0">Address 4</label>
-          <input name="shipToAddress4" onChange={this.onChange} className="form-control" placeholder="Address 4" />
+          <input value={this.state.shipToAddress4} name="shipToAddress4" onChange={this.onChange} className="form-control" placeholder="Address 4" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Address 5</label>
-          <input name="shipToAddress5" onChange={this.onChange} className="form-control" placeholder="Address 5" />
+          <input value={this.state.shipToAddress5} name="shipToAddress5" onChange={this.onChange} className="form-control" placeholder="Address 5" />
         </Col>
       </Row>
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0">Suburb</label>
-          <input name="city" onChange={this.onChange} className="form-control" placeholder="Suburb" />
+          <input value={this.state.city} name="city" onChange={this.onChange} className="form-control" placeholder="Suburb" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Postcode</label>
-          <input name="postCode" type="number" value={postCode || ''} onChange={this.onChange} className="form-control" placeholder="Postcode" required />
+          <input value={this.state.postCode} name="postCode" type="number" value={postCode || ''} onChange={this.onChange} className="form-control" placeholder="Postcode" required />
           <Required id="postCode" error={error} />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">State</label>
-          <input name="state" type="text" value={state || ''} onChange={this.onChange} className="form-control" placeholder="State" required />
+          <input value={this.state.state} name="state" type="text" value={state || ''} onChange={this.onChange} className="form-control" placeholder="State" required />
           <Required id="state" error={error} />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Country</label>
-          <input name="country" onChange={this.onChange} className="form-control" placeholder="Country" />
+          <input value={this.state.country} name="country" onChange={this.onChange} className="form-control" placeholder="Country" />
         </Col>
       </Row>
 
