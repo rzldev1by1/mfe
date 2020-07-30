@@ -99,3 +99,12 @@
   margin-left: -0.9em;
   width: 15em;
 }
+
+.login .container-fluid .card .card-body .privacy-and-term .text-area-policy{
+  max-height: 122px !important;
+  height: 100% !important;
+}
+
+.mt-min-5{
+ margin-top: -2rem !important;
+}
