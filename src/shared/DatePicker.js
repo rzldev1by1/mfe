@@ -82,7 +82,7 @@ function YearMonthForm({ date, localeUtils, onChange, current, fromMonth, toMont
                 optionList={months.toString()}
                 optionValue={monthsIndex.toString()}
                 getValue={handleChange}
-                style={{ width: '100px', height: '35px', float: 'left', marginRight: "0.6em" }}
+                style={{ width: '100px', height: '35px', float: 'left', marginRight: "0.4em", marginLeft: "0.128em" }}
                 firstChecked={true}
                 optionSelected={current.getMonth()}
                 usedFor="Datepicker"
