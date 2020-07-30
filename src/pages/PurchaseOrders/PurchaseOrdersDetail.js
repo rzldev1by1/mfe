@@ -53,8 +53,8 @@ class PurchaseOrdersDetail extends React.Component {
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getDetail = async () => {
-    const { orderdetail, client } = this.props.match.params
-    const url = `/purchaseOrder?searchParam=${client}&orderdetail=${orderdetail}`
+    const { orderdetail, client,site } = this.props.match.params
+    const url = `/purchaseOrder?searchParam=${orderdetail}&client=${client}&site=${site}`
     const { data } = await axios.get(url)
     if (!!data.data) {
       this.setState({ detail: data.data.data[0] })

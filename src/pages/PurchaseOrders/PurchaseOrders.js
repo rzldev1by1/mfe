@@ -135,10 +135,10 @@ class PurchaseOrders extends React.PureComponent {
     const { data } = await axios.get(`${endpoints.purchaseOrder}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
-        m.delivery_date = moment(m.delivery_date).format('DD/MM/YYYY')
-        m.date_received = moment(m.date_received).format('DD/MM/YYYY')
-        m.date_released = moment(m.date_released).format('DD/MM/YYYY')
-        m.date_completed = moment(m.date_completed).format('DD/MM/YYYY')
+        m.delivery_date = m?.delivery_date ? moment(m.delivery_date).format('DD/MM/YYYY') : '-'
+        m.date_received = m?.date_received ? moment(m.date_received).format('DD/MM/YYYY') : '-'
+        m.date_released = m?.date_released ? moment(m.date_released).format('DD/MM/YYYY') : '-'
+        m.date_completed = m?.date_completed ? moment(m.date_completed).format('DD/MM/YYYY') : '-'
         return m
       })
       modifiedData.map((item, idx) => {
