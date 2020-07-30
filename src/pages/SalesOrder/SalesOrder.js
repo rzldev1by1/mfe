@@ -4,8 +4,6 @@ import axios from 'axios'
 import moment from 'moment'
 import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react'
 import Select from 'react-select'
-import { IoIosArrowDown } from 'react-icons/io'
-
 import endpoints from 'helpers/endpoints'
 import CustomTable from 'shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
@@ -14,34 +12,34 @@ import SalesOrderCreate from './SalesOrderCreate'
 import './SalesOrder.scss'
 
 const columns = [
-  { accessor: 'site', Header: 'Site', width: 50 },
-  { accessor: 'client', Header: 'Client', width: 100 },
-  { accessor: 'orderno', Header: 'Order No', style: { textAlign: 'left' }, width: 100 },
-  { accessor: 'ordertype', Header: 'Order Type', width: 120 },
-  { accessor: 'isistask', Header: 'Task', width: 100 }, 
-  { accessor: 'customer', Header: 'Customer No', style: { textAlign: 'left' } },
-  { accessor: 'customername', Header: 'Customer Name' },
-  { accessor: 'status', Header: 'Status', width: 150 },
-  { accessor: 'deliverydate', Header: 'Delivery Date', width: 120 },
-  { accessor: 'datereceived', Header: 'Date Received', width: 120 },
-  { accessor: 'datereleased', Header: 'Date Released', width: 120 },
-  { accessor: 'datecompleted', Header: 'Date Completed', width: 120 },
-  { accessor: 'customerpono', Header: 'Customer Order Ref' },
-  { accessor: 'vendororderno', Header: 'Vendor Order No' },
-  { accessor: 'address1', Header: 'Address1' },
-  { accessor: 'address2', Header: 'Address2' },
-  { accessor: 'address3', Header: 'Address3' },
-  { accessor: 'address4', Header: 'Address4' },
-  { accessor: 'address5', Header: 'Address5' },
-  { accessor: 'suburb', Header: 'Suburb' },
-  { accessor: 'postcode', Header: 'Postcode' },
-  { accessor: 'state', Header: 'State' },
-  { accessor: 'country', Header: 'Country' },
-  { accessor: 'loadnumber', Header: 'Load Number' },
-  { accessor: 'loadoutstart', Header: 'Load Start' },
-  { accessor: 'loadoutfinish', Header: 'Load Finish' },
-  { accessor: 'consignmentno', Header: 'Consignment No' },
-  { accessor: 'freightcharge', Header: 'Freight Charge' },
+  { accessor: 'site', placeholder: 'Site', Header: 'Site', width: null, },
+  { accessor: 'client', placeholder: 'Client', Header: 'Client', width: null, },
+  { accessor: 'orderno',  placeholder: 'Order No', Header: 'Order No', style: { textAlign: 'left' }, width: null, },
+  { accessor: 'ordertype', placeholder: 'Order Type', Header: 'Order Type', width: null, },
+  { accessor: 'isistask', placeholder: 'Task', Header: 'Task', width: null, }, 
+  { accessor: 'customer', placeholder: 'Customer No', Header: 'Customer No', style: { textAlign: 'left' },width: null, },
+  { accessor: 'customername', placeholder: 'Customer Name', Header: 'Customer Name' , width: null, },
+  { accessor: 'status',  placeholder: 'Status', Header: 'Status', width: 150, },
+  { accessor: 'deliverydate', placeholder: 'Delivery Date', Header: 'Delivery Date', width: null, },
+  { accessor: 'datereceived', placeholder: 'Date Received', Header: 'Date Received', width: null, },
+  { accessor: 'datereleased', placeholder: 'Date Released', Header: 'Date Released', width: null, },
+  { accessor: 'datecompleted', placeholder: 'Date Completed', Header: 'Date Completed', width: null, },
+  { accessor: 'customerpono',  placeholder: 'Customer Order Ref', Header: 'Customer Order Ref', width: null, },
+  { accessor: 'vendororderno',  placeholder: 'Vendor Order No',  Header: 'Vendor Order No',width: null, },
+  { accessor: 'address1', placeholder: 'Address1',  Header: 'Address1',width: null, },
+  { accessor: 'address2', placeholder: 'Address2',  Header: 'Address2',width: null, },
+  { accessor: 'address3', placeholder: 'Address3', Header: 'Address3',width: null, },
+  { accessor: 'address4',  placeholder: 'Address4', Header: 'Address4',width: null, },
+  { accessor: 'address5',  placeholder: 'Address5', Header: 'Address5',width: null, },
+  { accessor: 'suburb',  placeholder: 'Suburb', Header: 'Suburb' ,width: null,},
+  { accessor: 'postcode', placeholder: 'Postcode', Header: 'Postcode',width: null, },
+  { accessor: 'state', placeholder: 'State', Header: 'State',width: null, },
+  { accessor: 'country',  placeholder: 'Country', Header: 'Country',width: null, },
+  { accessor: 'loadnumber',  placeholder: 'Load Number', Header: 'Load Number',width: null, },
+  { accessor: 'loadoutstart',  placeholder: 'Load Start', Header: 'Load Start' ,width: null,},
+  { accessor: 'loadoutfinish',  placeholder: 'Load Finish', Header: 'Load Finish' ,width: null,},
+  { accessor: 'consignmentno',  placeholder: 'Consignment No', Header: 'Consignment No',width: null, },
+  { accessor: 'freightcharge',  placeholder: 'Freight Charge', Header: 'Freight Charge',width: null, },
 ]
 
 const customColumns = [
@@ -257,9 +255,44 @@ class SalesOrder extends React.PureComponent {
     return c
   }
   
-  UrlHeader = () =>{
-    return `$/getSalesOrderHeader?client=ANTEC`
+  UrlHeader = () => {
+    return `/getSalesOrderColumn?client=BEGA`
   }
+  UrlAntec = () => {
+    return '/putSalesOrderColumn?client=ANTEC'
+  }
+  UrlBega = () => {
+    return '/putSalesOrderColumn?client=BEGA'
+  }
+  UrlAesop = () => {
+    return '/putSalesOrderColumn?client=AESOP'
+  }
+  UrlClucth = () => {
+    return '/putSalesOrderColumn?client=CLUCTH'
+  }
+  UrlExquira = () => {
+    return '/putSalesOrderColumn?client=EXQUIRA'
+  }
+  UrlLedvance = () => {
+    return '/putSalesOrderColumn?client=LEDVANCE'
+  }
+  UrlOnestop = () => {
+    return '/putSalesOrderColumn?client=ONESTOP'
+  }
+  UrlStartrack = () => {
+    return '/putSalesOrderColumn?client=STARTRACK'
+  }
+  UrlTatura = () => {
+    return '/putSalesOrderColumn?client=TATURA'
+  }
+  UrlTtl = () => {
+    return '/putSalesOrderColumn?client=TTL'
+  }
+  UrlTtchem = () => {
+    return '/putSalesOrderColumn?client=TTCHEM'
+  }
+
+  // end url Get Header And Post
   
   render() {
     const {
@@ -375,7 +408,11 @@ class SalesOrder extends React.PureComponent {
         customFields={customFields}
         pagination={pagination}
         onClick={this.showDetails}
-        UrlHeader={this.UrlHeader} 
+        renameSubmit={this.renameSubmit}
+        UrlHeader={this.UrlHeader} UrlAntec={this.UrlAntec} UrlBega={this.UrlBega}
+        UrlAesop={this.UrlAesop} UrlClucth={this.UrlClucth} UrlExquira={this.UrlExquira}
+        UrlLedvance={this.UrlLedvance} UrlOnestop={this.UrlOnestop} UrlStartrack={this.UrlStartrack}
+        UrlTatura={this.UrlTatura} UrlTtl={this.UrlTtl} UrlTtchem={this.UrlTtchem}
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchSalesOrder())
         }}

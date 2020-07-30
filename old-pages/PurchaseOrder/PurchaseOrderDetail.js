@@ -28,11 +28,12 @@ export default class PurchaseOrderDetail extends Component {
     getheader = () => {
         this.setState({complete:false})
         let param     = window.location.href.split("/")
-        let client_   = param[5]
-        let order_no_ = param[6]
+        let site_   = param[5]
+        let client_   = param[6]
+        let order_no_ = param[7]
         
         console.log(param)
-        axios.get(endpoint.purchaseOrder + '/' +client_ +'/' +order_no_, {
+        axios.get(endpoint.purchaseOrder + '/' + site_ +'/' +client_ +'/' +order_no_, {
           headers: POheaders
         })
           .then(res => {
