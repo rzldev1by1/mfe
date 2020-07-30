@@ -41,6 +41,39 @@ const columns = [
   { accessor: 'consignmentno',  placeholder: 'Consignment No', Header: 'Consignment No',width: null, },
   { accessor: 'freightcharge',  placeholder: 'Freight Charge', Header: 'Freight Charge',width: null, },
 ]
+
+const customColumns = [
+  { accessor: 'site', Header: 'Site', width: 50 },
+  { accessor: 'client', Header: 'Client', width: 100 },
+  { accessor: 'orderno', Header: 'Order No', style: { textAlign: 'left' }, width: 100 },
+  { accessor: 'ordertype', Header: 'Order Type', width: 120 },
+  { accessor: 'isistask', Header: 'Task', width: 100 }, 
+  { accessor: 'customer', Header: 'Customer No', style: { textAlign: 'left' } },
+  { accessor: 'customername', Header: 'Customer Name' },
+  { accessor: 'statusTxt', Header: 'Status', width: 150 },
+  { accessor: 'deliverydate', Header: 'Delivery Date', width: 120 },
+  { accessor: 'datereceived', Header: 'Date Received', width: 120 },
+  { accessor: 'datereleased', Header: 'Date Released', width: 120 },
+  { accessor: 'datecompleted', Header: 'Date Completed', width: 120 },
+  { accessor: 'customerpono', Header: 'Customer Order Ref' },
+  { accessor: 'vendororderno', Header: 'Vendor Order No' },
+  { accessor: 'address1', Header: 'Address1' },
+  { accessor: 'address2', Header: 'Address2' },
+  { accessor: 'address3', Header: 'Address3' },
+  { accessor: 'address4', Header: 'Address4' },
+  { accessor: 'address5', Header: 'Address5' },
+  { accessor: 'suburb', Header: 'Suburb' },
+  { accessor: 'postcode', Header: 'Postcode' },
+  { accessor: 'state', Header: 'State' },
+  { accessor: 'country', Header: 'Country' },
+  { accessor: 'loadnumber', Header: 'Load Number' },
+  { accessor: 'loadoutstart', Header: 'Load Start' },
+  { accessor: 'loadoutfinish', Header: 'Load Finish' },
+  { accessor: 'consignmentno', Header: 'Consignment No' },
+  { accessor: 'freightcharge', Header: 'Freight Charge' },
+]
+
+
 class SalesOrder extends React.PureComponent {
   constructor(props){
     super(props)
@@ -53,6 +86,7 @@ class SalesOrder extends React.PureComponent {
       task: null,
       resources: [],
       fields: columns,
+      customFields: customColumns,
       data: [],
       pagination: {},
       create: false,
@@ -159,16 +193,22 @@ class SalesOrder extends React.PureComponent {
       modifiedData.map((item, idx) => {
         if ((item["status"]) === "1: Available") {
           item['status'] = [<a className="status-available">AVAILABLE</a>]
+          item['statusTxt'] = 'AVAILABLE'
         } if ((item["status"]) === "0: Not Available") {
           item['status'] = [<a className="status-Unavailable">UNAVAILABLE</a>]
+          item['statusTxt'] = 'UNAVAILABLE'
         } if ((item["status"]) === "2: Released") {
           item['status'] = [<a className="status-Release">RELEASED</a>]
+          item['statusTxt'] = 'RELEASED'
         } if ((item["status"]) === "3: Part Released") {
           item['status'] = [<a className="status-partRelease">PART RELEASED</a>]
+          item['statusTxt'] = 'PART RELEASED'
         } if ((item["status"]) === "4: Completed") {
           item['status'] = [<a className="status-complete">COMPLETED</a>]
+          item['statusTxt'] = 'COMPLETED'
         } if ((item["status"]) === "All Open") {
           item['status'] = [<a className="status-ok">ALL OPEN</a>]
+          item['statusTxt'] = 'ALL OPEN'
         }
       })
       if (data.data.total==0) {
@@ -257,9 +297,9 @@ class SalesOrder extends React.PureComponent {
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData,orderTypeInsert, taskData
+      siteData, clientData, statusData, orderTypeData,orderTypeInsert, taskData, customFields
     } = this.state
-    console.log(site)
+    
     return <div className="sales-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Sales Orders', active: true }]}
@@ -365,6 +405,7 @@ class SalesOrder extends React.PureComponent {
         font="5"
         data={data}
         fields={fields}
+        customFields={customFields}
         pagination={pagination}
         onClick={this.showDetails}
         renameSubmit={this.renameSubmit}
