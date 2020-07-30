@@ -42,21 +42,24 @@ const columns = [
   { accessor: 'freightcharge',  placeholder: 'Freight Charge', Header: 'Freight Charge',width: null, },
 ]
 class SalesOrder extends React.PureComponent {
-  state = {
-    search: '',
-    site: (this.props.store.user.site)?{value:this.props.store.user.site}:null,
-    client: (this.props.store.user.client)?{value:this.props.store.user.client}:null,
-    status: {value: "open", label: "All Open"}, //on load status=open
-    orderType: null,
-    task: null,
-    resources: [],
-    fields: columns,
-    data: [],
-    pagination: {},
-    create: false,
-    detail: {},
-    dimension: { width: 0, height: 0 },
-    request_status: 'Please Wait...'
+  constructor(props){
+    super(props)
+    this.state = {
+      search: '',
+      site: (this.props.store.user.site)?{value:this.props.store.user.site}:null,
+      client: (this.props.store.user.client)?{value:this.props.store.user.client}:null,
+      status: {value: "open", label: "All Open"}, //on load status=open
+      orderType: null,
+      task: null,
+      resources: [],
+      fields: columns,
+      data: [],
+      pagination: {},
+      create: false,
+      detail: {},
+      dimension: { width: 0, height: 0 },
+      request_status: 'Please Wait...'
+    }
   }
   componentDidMount = () => {
     // set automatic table height
@@ -81,6 +84,7 @@ class SalesOrder extends React.PureComponent {
     const siteData = data.map(d => ({ value: d.site, label: `${d.site} : ${d.name}` }))
     const site = { value: 'all', label: 'All Site' }
     siteData.splice(0, 0, site)
+    this.props.dispatch({ type: 'SITE', data: siteData })
     this.setState({ siteData })
   }
   getClient = async () => {
@@ -88,6 +92,7 @@ class SalesOrder extends React.PureComponent {
     const clientData = data.map(d => ({ value: d.code, label: `${d.code} : ${d.name}` }))
     const client = { value: 'all', label: 'All Client' }
     clientData.splice(0, 0, client)
+    this.props.dispatch({ type: 'CLIENT', data: clientData })
     this.setState({ clientData })
   }
   getStatus = async () => {
