@@ -442,6 +442,7 @@ showModal = (show) => {
   render() {
     const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
     let { title, data, onClick, height, pagination,request_status,font } = this.props
+    console.log(data)
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
     console.log(headerIcon)
