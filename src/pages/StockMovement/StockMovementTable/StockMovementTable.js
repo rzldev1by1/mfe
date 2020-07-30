@@ -10,7 +10,9 @@ import CustomPagination from 'shared/table/CustomPagination'
 
 // Import React Table HOC Fixed columns
 import withFixedColumns from "react-table-hoc-fixed-columns";
+import { CRow, CCol} from "@coreui/react";
 import "react-table-hoc-fixed-columns/lib/styles.css";
+import Export from "../../../shared/table/Export"
 const ReactTableFixedColumns = withFixedColumns(ReactTable);
 
 class StockMovementTable extends React.Component {
@@ -114,6 +116,37 @@ class StockMovementTable extends React.Component {
     })
     return listHeader
   }
+  ExportName = () => {
+    let filename = ""
+    let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let date = new Date();
+    let date1 = date.getDate(),
+      month = date.getMonth(),
+      year = date.getFullYear(),
+      Seconds = date.getSeconds(),
+      Minutes = date.getMinutes(),
+      Hours = date.getHours();
+    return filename = ("Microlistics_PurchaseOrder." + date1 + "-" + arrmonth[month] + "-" + year + "." + Hours + "-" + Minutes + "-" + Seconds)
+  }
+
+  ExportHeader = () => {
+    let headers = ""
+    return headers
+  }
+  ExportFont = () => {
+    let Font = "";
+    return Font;
+  };
+
+  ExportData = () => {
+    let data = ""
+    return data
+  }
+
+  ExportPDFName = () => {
+    let name = ""
+    return name 
+  }
 
   render() {
     const { page, editColumnTemp } = this.state
@@ -141,12 +174,18 @@ class StockMovementTable extends React.Component {
           }}
           {...this.props}
         />
-        <CustomPagination
-          data={data}
-          pagination={pagination}
-          goto={this.props.goto}
-          export={this.props.export}
-        />
+        <CRow className="mt-3 pagination-custom">
+              <CCol lg="10" className="px-0 margin-mr">
+              <CustomPagination data={data}
+                        pagination={pagination}
+                        goto={this.props.goto}
+                        export={this.props.export} />
+              </CCol>
+              <CCol lg="2" className="px-0 export-ml">
+                <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                    ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} />
+            </CCol>
+          </CRow>
         </div>
       </React.Fragment>
     )

@@ -42,6 +42,7 @@ button:focus {
   width: 8px !important;
   height: 8px !important;
 }
+
 ::-webkit-scrollbar-thumb {
   background-color: #b4b9bb;
   border-radius: 15px !important;
@@ -262,11 +263,14 @@ header {
 .lineDetailsTopExpand {
   margin-top: -400px !important;
   padding-top: 400px !important;
+  overflow-y: hidden !important;
 }
 
 .lineDetailsBottomExpand {
   margin-bottom: -312px !important;
   padding-bottom: 328px !important;
+  overflow: hidden !important;
+
 }
 /* Line Details Styles End */
 
@@ -389,7 +393,6 @@ header {
     }
   }
 }
-
 //search filter
 .input-group-text{
   .iconU-search{
@@ -404,4 +407,13 @@ header {
 .container, .container-sm, .container-md, .container-lg, .container-xl {
   max-width: 1525px;
 }
+}
+
+@media (max-width:991px){
+  .btn-create{
+    display: none !important;
+  }
+  .pagination-custom{
+    display: none !important;
+  }
 }

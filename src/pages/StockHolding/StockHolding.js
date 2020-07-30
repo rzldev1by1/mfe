@@ -193,17 +193,16 @@ class StockHolding extends React.PureComponent {
     let { search, site, client, status, pagination } = this.state
     
     let urls = []
-    urls.push('searchParam=' + search ? search : '')
+    urls.push('searchParam=' + (search ? search : ''))
     urls.push('site=' + (site.value ? site.value : 'all'))
     urls.push('client=' + (client.value ? client.value : 'all'))
     urls.push('status=' + (status ? status.value : 'all'))
     urls.push('page=' + (pagination.active || 1))
     const { data } = await axios.get(`${endpoints.stockHoldingSummary}?${urls.join('&')}`)
-    console.log(data)
     if (data?.data?.data) {
       const modifiedData = data.data.data;
       modifiedData.map((item, idx) => {
-        if (item['on_hand_qty'] + item['expected_in_qty'] >= item['expected_out_qty']) {
+        if (parseInt(item['on_hand_qty'] + item['expected_in_qty'])  >= item['expected_out_qty']) {
           item['status'] = [<a className='status-ok'>OK</a>];
         } else {
           item['status'] = [<a className='status-shortage'>SHORTAGE</a>];
@@ -356,6 +355,7 @@ class StockHolding extends React.PureComponent {
 
         <CustomTable
           title='Stock Holding'
+          filename='Microlistics_StockHolding.'
           height={dimension.height}
           data={data}
           fields={fields}

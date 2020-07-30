@@ -26,7 +26,7 @@ class Logins extends Component {
 
    componentDidMount(){
        const {expired, user} = this.props.store
-       if(expired && user) this.setState({errorMessage:'Sorry, you have been automaticaly logged out due to inactivity'})
+       if(expired && user) this.setState({errorMessage:'Sorry, you have been automatically logged out due to inactivity'})
    }
 
     validateForm = async (e) => {
