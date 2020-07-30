@@ -22,7 +22,7 @@ export default class PurchaseOrderDetail extends Component {
     }
 
     componentDidMount(){
-        this.getheader()
+        // this.getheader()
     }
 
     getheader = () => {
