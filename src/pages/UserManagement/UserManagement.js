@@ -4,10 +4,10 @@ import CustomTable from 'shared/table/CustomTable'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import HeaderTitle from 'shared/container/TheHeader'
-// import UMCustomTable from 'shared/table/CustomTable'
+import UMCustomTable from '../../shared/table/CustomTable'
 
 import endpoint from '../../helpers/endpoints'
-import UMCustomTable from './UserManagementTable'
+// import UMCustomTable from './UserManagementTable'
 import CreateUM from './UserManagementCreate'
 import * as utility from './UmUtility'
 import moment from 'moment'
@@ -99,6 +99,9 @@ class UserManagemen extends Component {
         const url = `/users-management/${item.web_user}/detail`;
         this.props.history.push(url)
     }
+    UrlHeader = () => {
+        return `UM?client=ANTEC`
+      }
 
     onSubmitSearch = (e) => {
         e.preventDefault();
@@ -171,7 +174,7 @@ class UserManagemen extends Component {
                       </form>
                     </CCardBody>
                 </CCard>
-                <UMCustomTable
+                {/* <UMCustomTable
                     title="User Management"
                     height={dimension.height}
                     pagination={pagination}
@@ -182,9 +185,22 @@ class UserManagemen extends Component {
                     goto={(active) => {
                         this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler())
                       }}
-                    export={<button className="btn btn-primary float-right btn-export">
-                        {/* <div className='export-export pr-3' /> */}
-                         EXPORT</button>}
+                /> */}
+                
+                <UMCustomTable
+                    title="User Management"
+                    filename='Microlistics_UserManagementr.'
+                    font="10"
+                    height={dimension.height}
+                    pagination={pagination}
+                    fields={fields} 
+                    data={data} 
+                    onClick={this.showDetails}
+                    UrlHeader={this.UrlHeader} 
+                    dimension={dimension}
+                    goto={(active) => {
+                        this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler())
+                      }}
                 />
                 
                 <CreateUM show={modalShow} toggle={this.toggle} afterSuccess={this.searchHandler} users={this.state.data} />
