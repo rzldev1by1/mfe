@@ -263,7 +263,7 @@ class CreateTab extends React.Component {
     tmpChar = e.key; 
     if (!comma && !/^[0-9]+$/.test(e.key)) {
       e.preventDefault()
-    }else if(comma && !/^[0-9.]+$/.test(e.key)){
+    }else if(comma && !/^[0-9.]|[\b]+$/.test(e.key)){
       e.preventDefault()
     }
   }

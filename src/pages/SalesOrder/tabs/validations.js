@@ -45,7 +45,7 @@ export default (values) => {
         error.orderLine[i].qty = 'Qty must be entered' 
       }
       if (!object.uom) {
-        error.orderLine[i].uom = 'Uom must be entered' 
+        error.orderLine[i].uom = 'UOM must be entered' 
       }
       if (Object.keys(error.orderLine[i]).length < 1) {
         error.orderLine = []
