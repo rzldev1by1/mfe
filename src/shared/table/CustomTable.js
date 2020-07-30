@@ -436,14 +436,17 @@ showModal = (show) => {
   }
 
   ExportHeader = () => {
-    let data = this.state.fields.map((data, idx) => {                
+    let fields = this.props.customFields||this.state.fields
+    let data = fields.map((data, idx) => {                
       return data.Header
-      });
+    });
+    console.log(data)
     return data
   }
-  ExportData = () => {
+  ExportData = () => { 
+    let fields = this.props.customFields||this.state.fields
     let dataAll = this.props.data.map((data,idx,) =>{
-    let column = this.state.fields.map((column, columnIdx) => {       
+    let column = fields.map((column, columnIdx) => {       
             let split = [data[column.accessor] ]
             return split
            })
@@ -458,8 +461,7 @@ showModal = (show) => {
     console.log(data)
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
-    console.log(headerIcon)
-    console.log(this.props)
+    console.log(this.ExportHeader()) 
     return (
       <React.Fragment>
         <ReactTable
