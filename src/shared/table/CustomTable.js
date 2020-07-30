@@ -444,7 +444,8 @@ showModal = (show) => {
     let { title, data, onClick, height, pagination,request_status,font } = this.props
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
-
+    console.log(headerIcon)
+    console.log(this.props)
     return (
       <React.Fragment>
         <ReactTable
@@ -457,7 +458,7 @@ showModal = (show) => {
             <img src={loading} width='45' height='45'/>
           {/* <div  className='caution-caution'/> */}
           {/* <div>No Data Available</div> */}
-        </div>}
+        </div>} 
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
             return {
@@ -474,6 +475,7 @@ showModal = (show) => {
               },
             };
           }}
+          defaultPageSize={50}
           {...this.props}
         />
 
