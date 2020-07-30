@@ -135,9 +135,10 @@ class CreateTab extends React.Component {
   addLine = () => {
     const error = validations(this.state)
     this.setState({ error })
-    if(error.orderLine.length < 1) 
-    {
-      this.setState({ orderLine: [...this.state.orderLine, {}]})
+    console.log(error?.orderLine)
+    if(error?.orderLine?.length > 0) return
+    if (this.state.orderLine.length < 10) {
+    this.setState({ orderLine: [...this.state.orderLine, {}] })
     }
     
   }
@@ -253,8 +254,6 @@ class CreateTab extends React.Component {
       delete header.uomData
   
       const payload = { header, lineDetail }
-      console.log(header)
-      return
       this.props.submit(payload)
     }
   }

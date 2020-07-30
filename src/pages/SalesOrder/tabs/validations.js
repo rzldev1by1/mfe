@@ -48,7 +48,7 @@ export default (values) => {
         error.orderLine[i].uom = 'Uom must be entered' 
       }
       if (Object.keys(error.orderLine[i]).length < 1) {
-        error.orderLine.splice(i, 1)
+        error.orderLine = []
       }
     }
     if (error.orderLine.length < 1 || (error.orderLine.length === 1 && !error.orderLine[0])) {
