@@ -69,6 +69,7 @@ class SalesOrderDetail extends React.Component {
     ],
     detail: {},
     products: [],
+    forecast: [],
     datahead: [],
     activeTab: '1',
   };
@@ -118,7 +119,10 @@ class SalesOrderDetail extends React.Component {
     const { data } = await axios.get(url);
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|[''([{])+\S/g, match => match.toUpperCase());
     if (data.data.length) {
-      this.setState({ products: data.data });
+      this.setState({ products: data.data }, () => {
+        console.log('--- products ')
+        console.log(data.data)
+      });
     }
   };
   getForescast = async () => {
@@ -126,7 +130,10 @@ class SalesOrderDetail extends React.Component {
     const url = `/stockbal?client=${client}&product=${product}&site=${site}`;
     const { data } = await axios.get(url);
     if (data) {
-      this.setState({ products: data[0][0]['available orders'] });
+      this.setState({ forecast: data[0][0]['available orders'] }, () => {
+        console.log('--- forecast ')
+        console.log(data[0][0]['available orders'])
+      });
     }
   };
   formatDate = (date) => {
@@ -139,8 +146,8 @@ class SalesOrderDetail extends React.Component {
       products,
       stockDetail,
       activeTab,
-      ForesCast,
-      forescast,
+      ForesCast, 
+      forecast,
     } = this.state;
     let site = this.state.datahead.length ? this.state.datahead[0].site : null;
     let client = this.state.datahead.length
@@ -273,7 +280,7 @@ class SalesOrderDetail extends React.Component {
                   font="12"
                   height={this.state.dimension.height}
                   fields={ForesCast}
-                  data={products}
+                  data={forecast}
                   UrlHeader={this.UrlHeader}
                   export={
                     <button className='btn btn-primary float-right btn-export'>
