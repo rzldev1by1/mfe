@@ -240,11 +240,23 @@ showModal = (show) => {
                 let split = data.width
                 return split
                 });
+    let headerData = Object.keys(data.data[0]);
+                accessor.map((data, idx) => {
+                  let lowerCase = data.toLowerCase();
+                  if (lowerCase.includes(' ')) {
+                    let split = lowerCase.split(' ');
+                    let result = split.join('_');
+                    accessor[idx] = result;
+                  } else {
+                    accessor[idx] = lowerCase;
+                  }
+                });
     
     Object.values(data.data[0]).map((data, idx) => {
       let headerTable = {
         accessor: '',
         Header: '',
+        headerData,
         placeholder: '',
         width: null,
         sortable: true,
@@ -252,6 +264,7 @@ showModal = (show) => {
       headerTable.Header = data;
       headerTable.placeholder = placeholder[idx];
       headerTable.accessor = accessor[idx];
+      headerTable.headerData = headerData[idx];
       headerTable.width = width[idx];
       fields.push(headerTable);
     });
@@ -268,17 +281,17 @@ showModal = (show) => {
   renameSubmits = async (e) => {
     const fields = this.state.fields;
     const changedField = e;
-    const changedFieldAccessor = [];
+    const changedFieldHeaderData = [];
     const changedFieldHeader = [];
 
     changedField.map((item, idx) => {
-      changedFieldAccessor.push(item.accessor);
+      changedFieldHeaderData.push(item.headerData);
       changedFieldHeader.push(item.header);
     });
 
     fields.map((item, idx) => {
-      changedFieldAccessor.map((data, idx) => {
-        if (item.accessor == data) {
+      changedFieldHeaderData.map((data, idx) => {
+        if (item.headerData == data) {
           item.Header = changedFieldHeader[idx];
         }
       });
@@ -289,22 +302,22 @@ showModal = (show) => {
     let payload = {};
     let payloadIndex = Object.keys(this.state.products);
     let defaultValues = Object.values(this.state.products);
-    let fieldsAccessor = changedFieldAccessor;
+    let fieldsHeaderData = changedFieldHeaderData;
 
-    fieldsAccessor.map((data, idx) => {
+    fieldsHeaderData.map((data, idx) => {
       if (data.includes(' ')) {
-        let uppercaseAccessor = data.toUpperCase();
-        let index = uppercaseAccessor.split(' ');
-        fieldsAccessor[idx] = index.join('_');
+        let uppercaseHeaderData = data.toUpperCase();
+        let index = uppercaseHeaderData.split(' ');
+        fieldsHeaderData[idx] = index.join('_');
       } else {
-        fieldsAccessor[idx] = data.toUpperCase();
+        fieldsHeaderData[idx] = data.toUpperCase();
       }
     });
 
     payloadIndex.map((data, idx) => {
       if (data.includes(' ')) {
-        let uppercaseAccessor = data;
-        let index = uppercaseAccessor.split(' ');
+        let uppercaseHeaderData = data;
+        let index = uppercaseHeaderData.split(' ');
         payloadIndex[idx] = index.join('_');
       }
     });
@@ -312,7 +325,7 @@ showModal = (show) => {
     let newPayload = {};
 
     for (let i = 0; i < Object.keys(this.state.products).length; i++) {
-      fieldsAccessor.map((data, idx) => {
+      fieldsHeaderData.map((data, idx) => {
         if (payloadIndex[i] == data) {
           payload[payloadIndex[i]] = changedFieldHeader[idx];
           payloadIndex.splice(i, 1);
@@ -390,15 +403,15 @@ showModal = (show) => {
 
     if (e.target.value.length > 0) {
       changedColumns.map((item, idx) => {
-        if (item.accessor) {
-          if (item.accessor == e.target.name) {
+        if (item.headerData) {
+          if (item.headerData == e.target.name) {
             changedColumns.splice(idx, 1);
           }
         }
       });
 
       changedColumns.push({
-        accessor: e.target.name,
+        headerData: e.target.name,
         header: e.target.value,
       });
 
@@ -423,14 +436,17 @@ showModal = (show) => {
   }
 
   ExportHeader = () => {
-    let data = this.state.fields.map((data, idx) => {                
+    let fields = this.props.customFields||this.state.fields
+    let data = fields.map((data, idx) => {                
       return data.Header
-      });
+    });
+    console.log(data)
     return data
   }
-  ExportData = () => {
+  ExportData = () => { 
+    let fields = this.props.customFields||this.state.fields
     let dataAll = this.props.data.map((data,idx,) =>{
-    let column = this.state.fields.map((column, columnIdx) => {       
+    let column = fields.map((column, columnIdx) => {       
             let split = [data[column.accessor] ]
             return split
            })
@@ -442,10 +458,10 @@ showModal = (show) => {
   render() {
     const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
     let { title, data, onClick, height, pagination,request_status,font } = this.props
+    console.log(data)
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
-    console.log(headerIcon)
-    console.log(this.props)
+    console.log(this.ExportHeader()) 
     return (
       <React.Fragment>
         <ReactTable
@@ -653,7 +669,7 @@ showModal = (show) => {
                             <div key={index} className='p-2'>
                               <input
                                 placeholder={item.placeholder}
-                                name={item.accessor}
+                                name={item.headerData}
                                 sortable={item.sortable}
                                 onChange={this.changedColumn}
                                 className={`text-left form-rename `}
