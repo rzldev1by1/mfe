@@ -355,9 +355,11 @@ class StockHolding extends React.PureComponent {
         </CCard>
 
         <CustomTable
-          title='Stock Holding'   filename='Microlistics_StockHolding.'
+          title='Stock Holding'   
+          filename='Microlistics_StockHolding.'
           height={dimension.height}
           data={data}
+          font="10"
           fields={fields}
           pagination={pagination}
           onClick={this.showDetails}

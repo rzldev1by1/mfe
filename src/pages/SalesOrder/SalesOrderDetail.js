@@ -165,6 +165,8 @@ class SalesOrderDetail extends React.Component {
 
       <CustomTable
         title="Sales Orders Details"
+        filename='Microlistics_SalesOrderDetail.'
+        font="7"
         height={this.state.dimension.height}
         fields={fields}
         data={products}

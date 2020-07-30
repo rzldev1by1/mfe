@@ -250,6 +250,8 @@ class SalesOrderDetail extends React.Component {
               <TabPane className='p-0 stockDetails' tabId='1'>
                 <CustomTable
                   title='Stock Detail'
+                  filename='Microlistics_StockDetail.'
+                  font="12"
                   height={this.state.dimension.height}
                   fields={stockDetail}
                   data={products}
@@ -265,6 +267,8 @@ class SalesOrderDetail extends React.Component {
               <TabPane className='stockDetails' tabId='2'>
                 <CustomTable
                   title='Stock ForesCast'
+                  filename='Microlistics_ForesCast.'
+                  font="12"
                   height={this.state.dimension.height}
                   fields={ForesCast}
                   data={products}

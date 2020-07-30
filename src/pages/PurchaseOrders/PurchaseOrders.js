@@ -317,6 +317,7 @@ class PurchaseOrders extends React.PureComponent {
       <CustomTable
         title="Purchase Order"
         filename='Microlistics_PurchaseOrder.'
+        font="9"
         height={dimension.height}
         data={data}
         fields={fields}
