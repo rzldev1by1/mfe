@@ -22,7 +22,7 @@ export default class PurchaseOrderDetail extends Component {
     }
 
     componentDidMount(){
-        // this.getheader()
+        this.getheader()
     }
 
     getheader = () => {
@@ -41,6 +41,7 @@ export default class PurchaseOrderDetail extends Component {
             const result = res.data.data
             this.setState({ datahead:result}) 
             this.potableref.current.setPagination(res)
+            return
             
           })
           .catch(error => {
