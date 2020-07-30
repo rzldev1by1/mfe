@@ -62,8 +62,9 @@ class PurchaseOrdersDetail extends React.Component {
   }
   getProducts = async (page=1) => {
     const { pagination } = this.state
-    const { orderdetail, client } = this.props.match.params
-    const url = `/purchaseOrder/${client}/${orderdetail}?page=${page}`
+    const { orderdetail, client,site} = this.props.match.params
+    console.log(this.props.match.params)
+    const url = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${page}`
     const { data } = await axios.get(url)
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     // if (data.data.length) {
