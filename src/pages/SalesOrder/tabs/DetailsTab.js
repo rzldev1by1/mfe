@@ -32,7 +32,12 @@ class CreateTab extends React.Component {
   }
   componentDidMount() {
     this.getDisposition()
-    this.getProduct() 
+    const {user} = this.props
+
+  if(user.client && user.site){
+    this.getProduct()
+    this.getSupplier({value:user.client})
+  }
   }
   // remove first option (all)
   componentDidUpdate(nextProps) {

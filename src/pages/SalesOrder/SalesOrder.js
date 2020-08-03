@@ -434,6 +434,7 @@ class SalesOrder extends React.PureComponent {
       />
 
       <SalesOrderCreate
+        user = {this.props.store.user}
         show={!!create}
         toggle={this.toggle}
         siteData={siteData}
