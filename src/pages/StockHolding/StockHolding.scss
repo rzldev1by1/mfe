@@ -177,6 +177,10 @@
         overflow-x: hidden !important;
         .rt-tr-group {
           .rt-tr {
+            .rt-td{
+              display: flex !important;
+              align-items: center !important;
+            }
             .rt-td:first-child {
               padding-left: 1.8rem !important;
               max-width: 105px !important;
@@ -209,7 +213,7 @@
         width: 8px !important;
       }
       .rt-tbody::-webkit-scrollbar-thumb {
-        background-color: #b4b9bb;
+        background-color: #d1cccc;
         border-radius: 15px !important;
       }
     }
@@ -217,7 +221,7 @@
       height: 8px !important;
     }
     .rt-table::-webkit-scrollbar-thumb {
-      background-color: #b4b9bb;
+      background-color: #d1cccc;
       border-radius: 15px !important;
     }
   }
