@@ -128,6 +128,7 @@ class StockMovement extends React.PureComponent {
     const siteData = data.map(d => ({ value: d.site, label: `${d.site} : ${d.name}` }))
     const site = { value: 'all', label: 'All Site' }
     siteData.splice(0, 0, site)
+    this.props.dispatch({ type: 'SITE', data: siteData })
     this.setState({ siteData })
   }
   getClient = async () => {
@@ -135,7 +136,27 @@ class StockMovement extends React.PureComponent {
     const clientData = data.map(d => ({ value: d.code, label: `${d.code} : ${d.name}` }))
     const client = { value: 'all', label: 'All Client' }
     clientData.splice(0, 0, client)
+    this.props.dispatch({ type: 'CLIENT', data: clientData })
     this.setState({ clientData })
+  }
+  siteCheck = (siteVal) => {
+    let l = null
+    const {site} = this.props.store
+    if(site)
+    site.map(data => {
+      if (data.value === siteVal) l = data.label
+    })
+    return l
+  }
+
+  clientCheck = (clientVal) => {
+    let c = null
+    const {client} = this.props.store
+    if(client)
+    client.map(data => {
+      if (data.value === clientVal) c = data.label
+    })
+    return c
   }
   getStatus = async () => {
     const statusData = [
@@ -509,7 +530,7 @@ class StockMovement extends React.PureComponent {
         <CCol lg={2} className="sm-col-12 pr-0 site" > 
         {
           this.props.store?.user?.site ? 
-          < input name="site" type="text" value={this.props.store?.user?.site || ''} className="form-control" placeholder="Site" maxLength="12" readOnly />
+          < input name="site" type="text" value={this.siteCheck(this.props.store?.user?.site) || ''} className="form-control" placeholder="Site" maxLength="12" readOnly />
           :
           < Select name="site" placeholder="Site"
             value={site} options={siteData}
@@ -528,7 +549,7 @@ class StockMovement extends React.PureComponent {
         <CCol lg={2} className="sm-col-12 pr-0 client" > 
         {
            this.props.store?.user?.client ? 
-           < input name="client" type="text" value={this.props.store?.user?.client || ''} className="form-control" placeholder="Client" maxLength="12" readOnly />
+           < input name="client" type="text" value={this.clientCheck(this.props.store?.user?.client) || ''} className="form-control" placeholder="Client" maxLength="12" readOnly />
            :
            <Select name="client" placeholder="Client"
            value={client} options={clientData}
