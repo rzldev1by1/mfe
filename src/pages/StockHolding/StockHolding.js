@@ -67,6 +67,66 @@ const columns = [
   { accessor: 'price', Header: ' Price ', placeholder: 'Price', width: null, sortable: true },
   { accessor: 'pallets', Header: 'Pallets', placeholder: 'Pallets', width: null, sortable: true },
 ];
+
+const customColumns = [
+  { accessor: 'site', Header: 'Site', placeholder: 'Site', width: null, sortable: true },
+  { accessor: 'client', Header: 'Client', placeholder: 'Client', width: null, sortable: true },
+  {
+    accessor: 'product',
+    Header: 'Product',
+    placeholder: 'Product',
+    sortable: true,
+    width: 80,
+    style: { textAlign: 'left' },
+  },
+  {
+    accessor: 'product_name',
+    Header: 'Description',
+    placeholder: 'Description',
+    width: null,
+    sortable: true,
+  },
+  { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: null, sortable: true },
+  { accessor: 'packdesc_1', Header: 'UOM', placeholder: 'UOM', width: null, sortable: true },
+  { accessor: 'statusTxt', Header: ' Status ', placeholder: 'Status', width: null, sortable: true },
+  {
+    accessor: 'on_hand_qty',
+    Header: 'Stock on Hand',
+    placeholder: 'Stock on Hand',
+    sortable: true,
+    width: null,
+  },
+  {
+    accessor: 'on_hand_wgy',
+    Header: 'On Hand WGT',
+    placeholder: 'On Hand WGT',
+    sortable: true,
+    width: null,
+  },
+  {
+    accessor: 'expected_in_qty',
+    Header: 'Expected In Qty',
+    placeholder: 'Expected In Qty',
+    sortable: true,
+    width: null,
+  },
+  {
+    accessor: 'expected_in_wgt',
+    Header: 'Expected In Weight',
+    placeholder: 'Expected In Weight',
+    sortable: true,
+    width: null,
+  },
+  {
+    accessor: 'expected_out_qty',
+    Header: 'Expected Out Qty',
+    placeholder: 'Expected Out Qty',
+    sortable: true,
+    width: null,
+  },
+  { accessor: 'price', Header: ' Price ', placeholder: 'Price', width: null, sortable: true },
+  { accessor: 'pallets', Header: 'Pallets', placeholder: 'Pallets', width: null, sortable: true },
+];
 class StockHolding extends React.PureComponent {
   state = {
     search: '',
@@ -81,6 +141,7 @@ class StockHolding extends React.PureComponent {
     task: null,
     resources: [],
     fields: columns,
+    customFields: customColumns,
     data: [],
     create: false,
     pagination: {},
@@ -88,6 +149,7 @@ class StockHolding extends React.PureComponent {
     dimension: { width: 0, height: 0 },
     products: [],
     columnsPayload: [],
+    exportData: []
   };
   componentDidMount = () => {
     // set automatic table height
@@ -189,7 +251,7 @@ class StockHolding extends React.PureComponent {
     return c
   }
 
-  searchStockHolding = async () => {
+  searchStockHolding = async (export_='false') => {
     let { search, site, client, status, pagination } = this.state
     
     let urls = []
@@ -198,29 +260,39 @@ class StockHolding extends React.PureComponent {
     urls.push('client=' + (client.value ? client.value : 'all'))
     urls.push('status=' + (status ? status.value : 'all'))
     urls.push('page=' + (pagination.active || 1))
+    if(export_=='true'){urls.push('export=true')}
     const { data } = await axios.get(`${endpoints.stockHoldingSummary}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data;
       modifiedData.map((item, idx) => {
         if (parseInt(item['on_hand_qty'] + item['expected_in_qty'])  >= item['expected_out_qty']) {
           item['status'] = [<a className='status-ok'>OK</a>];
+          item['statusTxt'] = 'OK';
         } else {
           item['status'] = [<a className='status-shortage'>SHORTAGE</a>];
+          item['statusTxt'] = 'SHORTAGE';
         }
       })
-      this.setState({
-        pagination: {
-          active: pagination.active || data.data.current_page,
-          show: data.data.per_page,
-          total: data.data.total,
-          last_page: data.data.last_page,
-          from: data.data.from,
-          to: data.data.to
-        },
-        data: modifiedData
-      })
+      
+      if(export_=='true'){
+        this.setState({ 
+          exportData: modifiedData
+        })
+      }else{
+        this.setState({
+          pagination: {
+            active: pagination.active || data.data.current_page,
+            show: data.data.per_page,
+            total: data.data.total,
+            last_page: data.data.last_page,
+            from: data.data.from,
+            to: data.data.to
+          },
+          data: modifiedData
+        })
+      }
     } else {
-      this.setState({ data: [] })
+      if(export_!=='true'){this.setState({ data: [] })}
     }
     // this.setState({ data: DummyData })
   }
@@ -251,7 +323,9 @@ class StockHolding extends React.PureComponent {
       siteData,
       clientData,
       statusData,
-      urlHeader
+      exportData,
+      urlHeader,
+      customFields,
     } = this.state
     return (
       <div className='stockHolding table-summary'>
@@ -361,10 +435,13 @@ class StockHolding extends React.PureComponent {
         </CCard>
 
         <CustomTable
-          title='Stock Holding'   filename='Microlistics_StockHolding.'
+          title='Stock Holding'   
+          filename='Microlistics_StockHolding.'
           height={dimension.height}
           data={data}
+          font="10"
           fields={fields}
+          customFields={customFields} 
           pagination={pagination}
           onClick={this.showDetails}
           renameSubmit={this.renameSubmit}
@@ -383,6 +460,7 @@ class StockHolding extends React.PureComponent {
               EXPORT
             </button>
           }
+          exportData={exportData}
         />
       </div>
     );

@@ -4,10 +4,10 @@ import CustomTable from 'shared/table/CustomTable'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import HeaderTitle from 'shared/container/TheHeader'
-// import UMCustomTable from 'shared/table/CustomTable'
+import UMCustomTable from '../../shared/table/CustomTable'
 
 import endpoint from '../../helpers/endpoints'
-import UMCustomTable from './UserManagementTable'
+// import UMCustomTable from './UserManagementTable'
 import CreateUM from './UserManagementCreate'
 import * as utility from './UmUtility'
 import moment from 'moment'
@@ -24,12 +24,23 @@ const columns = [
     { accessor: 'disabled', Header: 'Status', width: 120, sortable: true },
 ]
 
+const customColumns = [
+    { accessor: 'userid', Header: 'User ID', width: 160, sortable: true },
+    { accessor: 'name', Header: 'Username', width: 210, sortable: true },
+    { accessor: 'site', Header: 'Site', width: 130, sortable: true },
+    { accessor: 'client', Header: 'Client', width: 130, sortable: true },
+    { accessor: 'web_group', Header: 'User Level', width: 160, sortable: true },
+    { accessor: 'last_access', Header: 'Last Accessed', width: 180, sortable: true },
+    { accessor: 'statusTxt', Header: 'Status', width: 120, sortable: true },
+]
+
 class UserManagemen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             search: '',
             fields: columns,
+            customFields: customColumns,
             loginInfo: {},
             data: [],
             dimension: { width: 0, height: 0 },
@@ -74,7 +85,8 @@ class UserManagemen extends Component {
             newItem.site = (item.site && item.site !== '') ? item.site : 'All';
             newItem.client = (item.client && item.client !== '') ? item.client : 'All';
             newItem.last_access = (item.last_access) ? moment(item.last_access).format('DD/MM/YYYY hh:mm:ss') : '';
-            newItem.disabled = (item.disabled === 'Y') ? [<label className="um-suspended">{'Suspended'}</label>] : [<label className="um-active">{'Active'}</label>];
+            newItem.disabled = (item.disabled === 'Y') ? <label className="um-suspended">{'Suspended'}</label> : <label className="um-active">{'Active'}</label>;
+            newItem.statusTxt = (item.disabled === 'Y') ? 'Suspended' : 'Active';
             return newItem;
         })
         this.setState({
@@ -87,6 +99,9 @@ class UserManagemen extends Component {
                 from: data.data.from,
                 to: data.data.to
             }
+        },() => {
+            console.log("--- Result")
+            console.log(result)
         });
 
     }
@@ -99,6 +114,9 @@ class UserManagemen extends Component {
         const url = `/users-management/${item.web_user}/detail`;
         this.props.history.push(url)
     }
+    UrlHeader = () => {
+        return `UM?client=ANTEC`
+      }
 
     onSubmitSearch = (e) => {
         e.preventDefault();
@@ -108,8 +126,8 @@ class UserManagemen extends Component {
 
     render() {
 
-        const { loginInfo, data, fields, pagination, dimension, modalShow } = this.state;
-        
+        const { loginInfo, data, fields, customFields, pagination, dimension, modalShow } = this.state;
+        console.log(data)
         return (
             <div className="um-summary pt-1">
                 <HeaderTitle
@@ -171,7 +189,7 @@ class UserManagemen extends Component {
                       </form>
                     </CCardBody>
                 </CCard>
-                <UMCustomTable
+                {/* <UMCustomTable
                     title="User Management"
                     height={dimension.height}
                     pagination={pagination}
@@ -182,9 +200,23 @@ class UserManagemen extends Component {
                     goto={(active) => {
                         this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler())
                       }}
-                    export={<button className="btn btn-primary float-right btn-export">
-                        {/* <div className='export-export pr-3' /> */}
-                         EXPORT</button>}
+                /> */}
+                
+                <UMCustomTable
+                    title="User Management"
+                    filename='Microlistics_UserManagementr.'
+                    font="10"
+                    height={dimension.height}
+                    pagination={pagination}
+                    fields={fields} 
+                    customFields={customFields} 
+                    data={data} 
+                    onClick={this.showDetails}
+                    UrlHeader={this.UrlHeader} 
+                    dimension={dimension}
+                    goto={(active) => {
+                        this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler())
+                      }}
                 />
                 
                 <CreateUM show={modalShow} toggle={this.toggle} afterSuccess={this.searchHandler} users={this.state.data} />

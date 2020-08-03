@@ -14,6 +14,8 @@ class Export extends Component {
             exportExpand: false,
             value: "",
             dropdownOpen: new Array(19).fill(false),
+            exportPdf: this.props.pdf || true,
+            exportExcel: this.props.excel || true,
         };
       }
       toggle(i) {
@@ -57,7 +59,7 @@ class Export extends Component {
           startY: finalY + 20,
           head: [this.props.ExportHeader()],
           body: this.props.ExportData(),
-          styles: { cellPadding: 0.5, fontSize: this.props.ExportFont() },
+          styles: { cellPadding: 0.5, fontSize: this.props.ExportFont },
         })
       
         finalY = doc.previousAutoTable.finalY
@@ -73,26 +75,32 @@ class Export extends Component {
    
     
     render = () => {
+        const {exportPdf, exportExcel} = this.state
         return (            
             <div className="">
                 <ButtonDropdown direction="up" className=" d-flex float-right align-items-center" isOpen={this.state.dropdownOpen[13]} toggle={() => { this.toggle(13); }}>
-                  <DropdownToggle  className="Dropdown-toggel" >
-                      <span className='export-export' style={{paddingRight:"6px"}}/>
-                        <div style={{paddingTop:"7px",fontSize:"18px"}} >EXPORT</div>
+                  <DropdownToggle  className="Dropdown-toggel btn-primary align-items-center" >
+                      {/* <span className='export-export' style={{paddingRight:"6px"}}/> */}
+                        <div style={{fontSize:"0.875rem", letterSpacing:"1px"}} >EXPORT</div>
                   </DropdownToggle>
-                    <DropdownMenu className="Dropdown-menu" >
+                    <DropdownMenu className={" "+((exportPdf == 'false' || exportExcel == 'false')?' dropdown-single ':' Dropdown-menu ')} >
+                      {(exportPdf == 'false')?'':
                         <DropdownItem className="export-pdf"> 
                             <span className="pdf-icon"onClick={() => this.exportPDF()} >EXPORT TO PDF</span> 
                         </DropdownItem>
-                        <DropdownItem className="export-excel" >
-                        <span className="excel-icon" >
-                                            <ExportExl  className="Excel-bottom" 
-                                                        table="excel" 
-                                                        filename={this.props.ExportName()} 
-                                                        sheet="sheet 1"
-                                                        buttonText="EXPORT TO XLS"/>
-                                        </span>
-                        </DropdownItem>
+                      }
+                       {(exportExcel == 'false')?'':
+                       <DropdownItem className="export-excel" >
+                       <span className="excel-icon" >
+                          <ExportExl  className="Excel-bottom" 
+                                      table="excel" 
+                                      filename={this.props.ExportName()} 
+                                      sheet="sheet 1"
+                                      buttonText="EXPORT TO XLS"/>
+                        </span>
+                       </DropdownItem>
+                       }
+                        
                     </DropdownMenu>
                 </ButtonDropdown>
             </div>

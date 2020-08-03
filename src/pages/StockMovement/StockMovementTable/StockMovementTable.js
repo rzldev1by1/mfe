@@ -3,6 +3,7 @@ import ReactTable from 'react-table-v6'
 import 'react-table-v6/react-table.css' 
 import './StockMovementTable.css'
 import CustomPagination from 'shared/table/CustomPagination'
+import moment from 'moment';
 
 // import mid from 'assets/img/field-idle.png'
 // import down from 'assets/img/field-bot.png'
@@ -126,7 +127,7 @@ class StockMovementTable extends React.Component {
       Seconds = date.getSeconds(),
       Minutes = date.getMinutes(),
       Hours = date.getHours();
-    return filename = ("Microlistics_PurchaseOrder." + date1 + "-" + arrmonth[month] + "-" + year + "." + Hours + "-" + Minutes + "-" + Seconds)
+    return filename = ("Microlistics_StockMovement." + date1 + "-" + arrmonth[month] + "-" + year + "." + Hours + "-" + Minutes + "-" + Seconds)
   }
 
   ExportHeader = () => {
@@ -148,11 +149,28 @@ class StockMovementTable extends React.Component {
     return name 
   }
 
+  formatDate = (date) => {
+    let dates = moment(date).format('DD MMMM YYYY') 
+    if (this.props.filterType === 'day') {
+        dates = moment(date).format('DD MMMM YYYY')
+    }
+    else if (this.props.filterType === 'week') {
+        let dates2 = moment(date).add('days', 6).format('DD MMMM YYYY')
+        dates = moment(date).format('DD MMMM YYYY')
+        dates = dates + ' - ' + dates2
+    }
+    else if (this.props.filterType === 'month') {
+        dates = moment(date).format('MMMM YYYY')
+    } 
+    return dates
+}
+
   render() {
     const { page, editColumnTemp } = this.state
-    let { title, data, fields, onClick, pageSize = 50, height, pagination } = this.props
+    let { title, data, fields, onClick, pageSize = 50, height, pagination,dataExport,date_array } = this.props
     const headerIcon = this.headerIcon(fields, editColumnTemp)
-    console.log(pagination)
+     
+
     return (
       <React.Fragment>
         <div className="stockMovement">
@@ -183,9 +201,61 @@ class StockMovementTable extends React.Component {
               </CCol>
               <CCol lg="2" className="px-0 export-ml">
                 <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
-                    ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} />
+                    ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} 
+                    pdf={this.props.pdf}
+                    excel={this.props.excel}
+                />
             </CCol>
           </CRow>
+
+          <table id="excel" style={{display: 'none'}}>
+                    <thead>
+                        <tr  className="border-bottom border-right text-center">
+                            <th>Site </th>
+                            <th>Client </th>
+                            <th>Product </th>
+                            <th>Description </th>
+                            <th>UOM </th>
+                            {date_array.map((date, index) =>
+                                <th key={index} className="movement-header text-center border-right">
+                                    <table>
+                                        <tr>
+                                            <th colSpan="4">{this.formatDate(date)}</th>
+                                        </tr>
+                                        <tr>
+                                            <th width="25%">SA+</th>
+                                            <th width="25%">SA-</th>
+                                            <th width="25%">Rec</th>
+                                            <th width="25%">Send</th>
+                                        </tr>
+                                    </table>
+                                </th>
+                            )}
+                        </tr>
+                    </thead>
+                    <tbody>  
+                        {dataExport.map((data, index) =>
+                            <tr ref={"row"+index} key={index}>
+                                <td style={{textAlign: 'left'}}>{data.site}</td>
+                                <td style={{textAlign: 'left'}}>{data.client}</td>
+                                <td style={{textAlign: 'left'}}>{data.product}</td>
+                                <td style={{textAlign: 'left'}} className="text-left">{data.product_name}</td>
+                                <td style={{textAlign: 'left'}}>{data.packdesc}</td>
+                                {data.detail.map(detail => 
+                                <td>
+                                <table>
+                                    <td style={{textAlign: "right"}}> {detail.sa_plus ? detail.sa_plus : '-'}</td>
+                                    <td style={{textAlign: "right"}}>{detail.sa_minus ? detail.sa_minus : '-'}</td>
+                                    <td style={{textAlign: "right"}}>{detail.recv_weight ? detail.recv_weight : '-'}</td>
+                                    <td style={{textAlign: "right"}}>{detail.send_weight ? detail.send_weight : '-'}</td>
+                                </table>
+                                </td>
+                                )}
+                            </tr>  
+                        )}
+                    </tbody>
+                </table>
+
         </div>
       </React.Fragment>
     )

@@ -26,7 +26,7 @@ const routes = [
 	{ path: '/stock-holding', exact: true, name: 'Stock Holding', component: StockHolding },
 	{ path: '/stock-holding:product/:client/:site', exact: true, name: 'Stock Holding Detail', component: StockHoldingDetail },	
 	{ path: '/purchase-order', exact: true, name: 'Purchase Order', component: PurchaseOrders },
-	{ path: '/purchase-order/:client/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrdersDetail },	
+	{ path: '/purchase-order/:site/:client/:orderdetail', exact: true, name: 'Purchase Order Detail', component: PurchaseOrdersDetail },	
 	{ path: '/users-management', exact: true, name: 'User Management', component: UsersManagement },
 	// { path: '/stock-age-profile', exact: true, name: 'Stock Age Profile', component: StockAgeProfile },
 	{ path: '/users-management/:id/detail', exact: true, name: 'User Management', component: UsersManagementDetail },	

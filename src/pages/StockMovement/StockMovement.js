@@ -5,6 +5,7 @@ import moment from 'moment';
 import { CButton, CCard, CCardBody, CRow, CCol, } from '@coreui/react'
 import Select from 'react-select'
 import { IoIosArrowDown } from 'react-icons/io'
+import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 
 import StockMovementTable from './StockMovementTable/StockMovementTable'
 // import CustomPagination from './StockMovementPagination/StockMovementPagination'
@@ -36,7 +37,9 @@ class StockMovement extends React.PureComponent {
     fields: [],
     data: [],
     data_table: [],
+    date_array: [],
     create: false,
+    export_data: [],
     detail: {},
     pagination: {last_page: 1},
     dateArray: [],
@@ -302,6 +305,8 @@ class StockMovement extends React.PureComponent {
 
   setData = async () => {
     let tmp_data = []
+    let tmp_date = []
+    const tmp_export = this.state.data
     this.state.data.map((datas, idx) => {
       let tmp_row = {
         'site': datas.site,
@@ -318,10 +323,55 @@ class StockMovement extends React.PureComponent {
         tmp_row['sa_minus_' + dates] = details.sa_minus
         tmp_row['rec_' + dates] = details.recv_weight
         tmp_row['send_' + dates] = details.send_weight
+        
+        if(!tmp_date.includes(dates)){
+          tmp_date.push(dates)
+        }
       })
       tmp_data.push(tmp_row)
     })
-    this.setState({ data_table: tmp_data })
+    tmp_date.sort(async function(a, b) {
+        var dateA = new Date(a), dateB = new Date(b);
+        return dateA - dateB;
+    });
+  
+      this.state.data.map((datax, idx) => { 
+        let details = datax.detail 
+        let tmp_detail = []
+        tmp_date.map((date, index) => {
+          let tmp_x = null;
+          for (let x = 0; x < details.length; x++) { 
+            let tmp = null
+            if(date==details[x].date ){
+              tmp = {
+                'date':date,
+                'sa_plus': details[x].sa_plus,
+                'sa_minus': details[x].sa_minus,
+                'recv_weight': details[x].recv_weight,
+                'send_weight': details[x].send_weight
+              } 
+            }else{
+              tmp = {
+                'date':date,
+                'sa_plus':  '-',
+                'sa_minus':  '-',
+                'recv_weight':  '-',
+                'send_weight':  '-'
+              } 
+            } 
+            tmp_x = tmp
+            break;
+          }
+          tmp_detail.push(tmp_x)
+        });
+        tmp_export[idx].detail = tmp_detail
+      });  
+
+
+    this.setState({ data_table: tmp_data, date_array: tmp_date, export_data: tmp_export  }, () => {
+      console.log(tmp_date)
+      console.log("-------------------------")
+    })
   }
 
   load_data = async (dtStart, dtEnd, periods, site = "", client = "", product = "") => {
@@ -369,7 +419,7 @@ class StockMovement extends React.PureComponent {
           //get result 
           const result = res.data.data 
 
-          this.setState({ data: result }, function(){
+          this.setState({ data: result }, function(){ 
               this.setData()
           }) 
       })
@@ -395,10 +445,9 @@ class StockMovement extends React.PureComponent {
     const {
       dimension, fields, data, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData, taskData, data_table, filterType,filterData,
-      product, productData, periodSelected, pagination,dateFromShow, minDate,maxDate
+      product, productData, periodSelected, pagination,dateFromShow, minDate,maxDate, date_array,export_data
   } = this.state 
-  //custom style react-select 
-     
+  //custom style react-select  
   return <div className="stockMovement">
     <HeaderTitle
       breadcrumb={[{ to: '', label: 'Stock Movement', active: true }]} 
@@ -471,6 +520,8 @@ class StockMovement extends React.PureComponent {
         <CCol lg={2} className="sm-col-13 product" > 
         <Select name="product" placeholder="Product" 
             value={product} options={productData}
+            menuIsOpen={this.state.product.length >= 3 ? true : false}
+            onInputChange={(val) => this.setState({ product: val })}
             onChange={(val) => this.setState({ product: val })} 
             styles={{
             dropdownIndicator: (base, state) => ({
@@ -494,7 +545,10 @@ class StockMovement extends React.PureComponent {
     <StockMovementTable
       title="Stock Movement"
       height={dimension.height}
-      data={data_table}
+      data={data_table} //data untuk react-table
+      dataExport={export_data} //data untuk export
+      date_array={date_array}
+      filterType={filterType}
       fields={fields}
       onClick={this.showDetails}
       pagination={pagination} 
@@ -507,6 +561,7 @@ class StockMovement extends React.PureComponent {
       <div className="export-export pr-3"/>
       EXPORT
     </CButton>} 
+      pdf='false'
     /> 
 
     {/* <CustomPagination
