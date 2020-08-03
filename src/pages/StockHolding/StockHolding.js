@@ -462,7 +462,7 @@ class StockHolding extends React.PureComponent {
           pagination={pagination}
           onClick={this.showDetails}
           renameSubmit={this.renameSubmit}
-          UrlHeader={this.UrlHeader} UrlAntec={this.UrlAntec} UrlBega={this.UrlBega}
+          UrlHeader={this.UrlBega} UrlAntec={this.UrlAntec} UrlBega={this.UrlBega}
           UrlAesop={this.UrlAesop} UrlClucth={this.UrlClucth} UrlExquira={this.UrlExquira}
           UrlLedvance={this.UrlLedvance} UrlOnestop={this.UrlOnestop} UrlStartrack={this.UrlStartrack}
           UrlTatura={this.UrlTatura} UrlTtl={this.UrlTtl} UrlTtchem={this.UrlTtchem}
