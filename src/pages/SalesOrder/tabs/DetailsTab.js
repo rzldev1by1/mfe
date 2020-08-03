@@ -18,6 +18,7 @@ class CreateTab extends React.Component {
     overflow: [],
     orderLine: [{}], error: {},
     siteData: this.props.siteData, clientData: this.props.clientData, orderTypeData: this.props.orderTypeData,
+    supplierData:[],
     isDatepickerShow: false,
     datepickerStatus: [],
     UOMStatus: [],
@@ -26,12 +27,17 @@ class CreateTab extends React.Component {
     deliveryDate: null,
     orderId: null, 
     orderTypeValue: null, 
-    site: this.props.user.site ? this.props.user.site : '',
-    client: this.props.user.client ? this.props.user.client : '',
+    site: this.props.user.site ? {value:this.props.user.site} : '',
+    client: this.props.user.client ? {value:this.props.user.client} : '',
   }
   componentDidMount() {
     this.getDisposition()
-    this.getProduct() 
+    const {user} = this.props
+
+  if(user.client && user.site){
+    this.getProduct()
+    this.getSupplier({value:user.client})
+  }
   }
   // remove first option (all)
   componentDidUpdate(nextProps) {
@@ -71,13 +77,75 @@ class CreateTab extends React.Component {
     this.setState({ uomData })
   }
 
+  getSupplier = async (client) => {
+    const url = endpoints.getSupplier
+    if(!client) return
+    const param = `?client=${client.value}`
+    const {data} = await axios.get(url+param)
+    const supplierData = data.map((v, i) => ({value:v.supplier_no, label:v.name}))
+    this.setState({supplierData})
+  }
+
+  getSupplierIdentity = async (customer) => {
+    const {client} = this.state
+    const url = `${endpoints.getSoIdentity}`
+    if(!customer) return
+    const param = `?client=${client.value}&&customerNo=${customer}` 
+    const {data} = await axios.get(url+param)
+    if(data?.identity.length === 0) 
+    {
+      this.setState({
+        city: null,
+        country: null,
+        postCode: null,
+        shipToAddress1: null,
+        shipToAddress2: null,
+        shipToAddress3: null,
+        shipToAddress4: null,
+        shipToAddress5: null,
+        state: null
+      })
+    }
+    else
+    {
+      const {
+        address_1, 
+        address_2, 
+        address_3, 
+        address_4, 
+        address_5, 
+        city, 
+        country, 
+        customer_no, 
+        name, 
+        postcode, 
+        state, 
+      } = data.identity[0]
+      this.setState({
+        city: city,
+        country: country,
+        postCode: postcode,
+        shipToAddress1: address_1,
+        shipToAddress2: address_2,
+        shipToAddress3: address_3,
+        shipToAddress4: address_4,
+        shipToAddress5: address_5,
+        state: state
+      })
+    }
+
+}
+
 
   addLine = () => {
     const error = validations(this.state)
     this.setState({ error })
-    // if (Object.keys(error).length> 1) {
+    console.log(error?.orderLine)
+    if(error?.orderLine?.length > 0) return
+    if (this.state.orderLine.length < 10) {
     this.setState({ orderLine: [...this.state.orderLine, {}] })
-    // }
+    }
+    
   }
   removeLine = (i) => {
     let orderLine = Object.assign([], this.state.orderLine)
@@ -92,8 +160,11 @@ class CreateTab extends React.Component {
     this.setState({ [name]: val }, () => {
       if (name === 'client') {
         this.getProduct()
+        this.getSupplier(val)
       }else if(name=== 'orderType'){
         this.orderTypeValue(val)
+      }else if(name === 'customer'){
+        this.getSupplierIdentity(val.value)
       }
     })
   }
@@ -110,6 +181,9 @@ class CreateTab extends React.Component {
     this.setState({ orderLine })
   }
   lineSelectChange = (i, key, val) => {
+    if(!val){
+        return null
+    }
     const { orderLine, error } = this.state
     if (error.orderLine && error.orderLine.length) {
       delete error.orderLine[i][key]
@@ -186,6 +260,7 @@ class CreateTab extends React.Component {
       delete header.productDataName
       delete header.dispositionData
       delete header.uomData
+  
       const payload = { header, lineDetail }
       this.props.submit(payload)
     }
@@ -196,7 +271,7 @@ class CreateTab extends React.Component {
     tmpChar = e.key; 
     if (!comma && !/^[0-9]+$/.test(e.key)) {
       e.preventDefault()
-    }else if(comma && !/^[0-9.]+$/.test(e.key)){
+    }else if(comma && !/^[0-9.]|[\b]+$/.test(e.key)){
       e.preventDefault()
     }
   }
@@ -217,9 +292,6 @@ class CreateTab extends React.Component {
         y = '.'+arr[1]
       }
       var text =x+((tmpChar=='.')?'.':'')+y 
-      console.log(arr)
-      console.log(value)
-      console.log(text)
       var arr2 = {
         target: {
           name: refs,
@@ -261,7 +333,7 @@ class CreateTab extends React.Component {
   render() {
     const { error, overflow, site, client, orderType, orderLine, customer,
       orderId, shipToAddress1, postCode, state,
-      siteData, clientData, orderTypeData, productData, uomData, dispositionData,
+      siteData, clientData, orderTypeData, productData, uomData, dispositionData,supplierData
     } = this.state
     const {user} = this.props
     let datepickerStatus = this.state.datepickerStatus;
@@ -281,14 +353,28 @@ class CreateTab extends React.Component {
             user.site ? 
             <input value={this.siteCheck(user.site)} className="form-control" readOnly />
             :
-            <Select options={siteData} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required />
+            <Select options={siteData} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required 
+            styles={{
+              dropdownIndicator: (base, state) => ({
+                ...base, 
+                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+              })
+            }}
+            />
           }
           <Required id="site" error={error} />
           
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order Type</label>
-          <Select name="orderType" value={orderType || ''} options={orderTypeData} onChange={val => this.onSelectChange('orderType', val)} placeholder="Order Type" required />
+          <Select name="orderType" value={orderType || ''} options={orderTypeData} onChange={val => this.onSelectChange('orderType', val)} placeholder="Order Type" required
+          styles={{
+            dropdownIndicator: (base, state) => ({
+              ...base, 
+              transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+            })
+          }}
+          />
           <Required id="orderType" error={error} />
         </Col>
         <Col lg="3">
@@ -315,7 +401,14 @@ class CreateTab extends React.Component {
             user.client ?
             <input value={this.clientCheck(user.client)} className="form-control" readOnly />
             :
-            <Select  options={clientData} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required />
+            <Select  options={clientData} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required
+            styles={{
+              dropdownIndicator: (base, state) => ({
+                ...base, 
+                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+              })
+            }}
+            />
           }
           <Required id="client" error={error} />
         </Col>
@@ -338,54 +431,63 @@ class CreateTab extends React.Component {
       <Row>
         <Col lg="3" className="mb-3">
           <label className="text-muted mb-0">Customer</label>
-          <Select value={customer || ''} options={[]} placeholder="Customer Name or ID"
-            onInputChange={_.debounce(this.findCustomer, 300)} onChange={val => this.onSelectChange('customer', val)}
+          < Select 
+            options={supplierData} 
+            placeholder="Customer Name or ID"
+            onInputChange={_.debounce(this.findCustomer, 300)} 
+            onChange={val => this.onSelectChange('customer', val)}
+            styles={{
+              dropdownIndicator: (base, state) => ({
+                ...base, 
+                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+              })
+            }}
           />
         </Col>
       </Row>
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0 required">Address 1</label>
-          <input name="shipToAddress1" type="text" value={shipToAddress1 || ''} onChange={this.onChange} className="form-control" placeholder="Address 1" required />
+          <input value={this.state.shipToAddress1} name="shipToAddress1" type="text" value={shipToAddress1 || ''} onChange={this.onChange} className="form-control" placeholder="Address 1" required />
           <Required id="shipToAddress1" error={error} />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Address 2</label>
-          <input name="shipToAddress2" onChange={this.onChange} className="form-control" placeholder="Address 2" />
+          <input value={this.state.shipToAddress2} name="shipToAddress2" onChange={this.onChange} className="form-control" placeholder="Address 2" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Address 3</label>
-          <input name="shipToAddress3" onChange={this.onChange} className="form-control" placeholder="Address 3" />
+          <input value={this.state.shipToAddress3} name="shipToAddress3" onChange={this.onChange} className="form-control" placeholder="Address 3" />
         </Col>
       </Row>
       <Row>
         <Col lg="3" className="mb-3">
           <label className="text-muted mb-0">Address 4</label>
-          <input name="shipToAddress4" onChange={this.onChange} className="form-control" placeholder="Address 4" />
+          <input value={this.state.shipToAddress4} name="shipToAddress4" onChange={this.onChange} className="form-control" placeholder="Address 4" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Address 5</label>
-          <input name="shipToAddress5" onChange={this.onChange} className="form-control" placeholder="Address 5" />
+          <input value={this.state.shipToAddress5} name="shipToAddress5" onChange={this.onChange} className="form-control" placeholder="Address 5" />
         </Col>
       </Row>
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0">Suburb</label>
-          <input name="city" onChange={this.onChange} className="form-control" placeholder="Suburb" />
+          <input value={this.state.city} name="city" onChange={this.onChange} className="form-control" placeholder="Suburb" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Postcode</label>
-          <input name="postCode" type="number" value={postCode || ''} onChange={this.onChange} className="form-control" placeholder="Postcode" required />
+          <input value={this.state.postCode} name="postCode" type="number" value={postCode || ''} onChange={this.onChange} className="form-control" placeholder="Postcode" required />
           <Required id="postCode" error={error} />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">State</label>
-          <input name="state" type="text" value={state || ''} onChange={this.onChange} className="form-control" placeholder="State" required />
+          <input value={this.state.state} name="state" type="text" value={state || ''} onChange={this.onChange} className="form-control" placeholder="State" required />
           <Required id="state" error={error} />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Country</label>
-          <input name="country" onChange={this.onChange} className="form-control" placeholder="Country" />
+          <input value={this.state.country} name="country" onChange={this.onChange} className="form-control" placeholder="Country" />
         </Col>
       </Row>
 
@@ -413,16 +515,25 @@ class CreateTab extends React.Component {
           <tbody>
             {orderLine.length && orderLine.map((o, i) => { 
               return <tr className="py-1 text-center orderline-row">
-                <td className="px-1">
+                <td className="pl-0 pr-1">
                   <input value={i + 1} className="form-control text-center" readOnly />
                 </td>
                 <td className="px-1 text-left">
                   <Select value={o.productVal || ''}
-                    options={productData}
+                    options={o.productVal && o.productVal.length >= 3 ? productData : []}
+                    menuIsOpen={o.productVal && o.productVal.length >= 3 ? true : false}
+                    onInputChange={(val) => this.lineSelectChange(i, 'productVal', val)}
                     onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
                     onMenuClose={() => {productStatus[i] = false; this.setState({ productStatus: productStatus })}}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
-                    className={`c-400 ${overflow[i] && overflow[i].productVal ? 'absolute' : null}`} placeholder="Product" required />
+                    className={`c-400 ${overflow[i] && overflow[i].productVal ? 'absolute' : null}`} placeholder="Product" required 
+                    styles={{
+                      dropdownIndicator: (base, state) => ({
+                        ...base, 
+                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                      })
+                    }}
+                    />
                   <Required id="productVal" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="px-1">
@@ -447,7 +558,14 @@ class CreateTab extends React.Component {
                         this.setState({ UOMStatus: UOMStatus })
                     }}
                     onChange={(val) => this.lineSelectChange(i, 'uom', val)}
-                    className={`c-150 ${overflow[i] && overflow[i].uom ? 'absolute right' : null}`} placeholder="UOM" />
+                    className={`c-150 ${overflow[i] && overflow[i].uom ? 'absolute right' : null}`} placeholder="UOM" 
+                    styles={{
+                      dropdownIndicator: (base, state) => ({
+                        ...base, 
+                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                      })
+                    }}
+                    />
                   <Required id="uom" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="px-1">
@@ -465,7 +583,14 @@ class CreateTab extends React.Component {
                     onMenuOpen={() => {dispositionStatus[i] = true; this.setState({ dispositionStatus: dispositionStatus })}}
                     onMenuClose={() => {dispositionStatus[i] = false; this.setState({ dispositionStatus: dispositionStatus })}}
                     onChange={(val) => this.lineSelectChange(i, 'dispositionVal', val)}
-                    className={`c-150 ${overflow[i] && overflow[i].dispositionVal ? 'absolute right' : null}`} placeholder="Disposition" />
+                    className={`c-150 ${overflow[i] && overflow[i].dispositionVal ? 'absolute right' : null}`} placeholder="Disposition" 
+                    styles={{
+                      dropdownIndicator: (base, state) => ({
+                        ...base, 
+                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                      })
+                    }}
+                    />
                 </td>
                 <td className="px-1">
                   <input name="packId" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Pack ID" maxLength="20" />
@@ -488,13 +613,13 @@ class CreateTab extends React.Component {
           </tbody>
         </table>
       </div>
-      <button className="btn btn-light-gray m-0" onClick={this.addLine}>+ Add Line</button>
+      <button className="btn btn-light-gray m-0" onClick={this.addLine}>Add Line</button>
 
       <Row className="mt-3">
         <Col lg={2}></Col>
         <Col lg={8}></Col>
         <Col lg={2} className="text-right">
-          <button className="btn btn-primary" onClick={this.next}>{'Next >'}</button>
+          <button className="btn btn-primary" onClick={this.next}>{'Next'}</button>
         </Col>
       </Row>
     </Container>

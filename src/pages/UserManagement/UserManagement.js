@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react'
 import CustomTable from 'shared/table/CustomTable'
-
+import { connect } from 'react-redux'
 import axios from 'axios'
 import HeaderTitle from 'shared/container/TheHeader'
+import UMCustomTable from '../../shared/table/CustomTable'
 
 import endpoint from '../../helpers/endpoints'
-import UMCustomTable from './UserManagementTable'
+// import UMCustomTable from './UserManagementTable'
 import CreateUM from './UserManagementCreate'
 import * as utility from './UmUtility'
 import moment from 'moment'
@@ -23,17 +24,29 @@ const columns = [
     { accessor: 'disabled', Header: 'Status', width: 120, sortable: true },
 ]
 
+const customColumns = [
+    { accessor: 'userid', Header: 'User ID', width: 160, sortable: true },
+    { accessor: 'name', Header: 'Username', width: 210, sortable: true },
+    { accessor: 'site', Header: 'Site', width: 130, sortable: true },
+    { accessor: 'client', Header: 'Client', width: 130, sortable: true },
+    { accessor: 'web_group', Header: 'User Level', width: 160, sortable: true },
+    { accessor: 'last_access', Header: 'Last Accessed', width: 180, sortable: true },
+    { accessor: 'statusTxt', Header: 'Status', width: 120, sortable: true },
+]
+
 class UserManagemen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             search: '',
             fields: columns,
+            customFields: customColumns,
             loginInfo: {},
             data: [],
             dimension: { width: 0, height: 0 },
             pagination: {},
-            modalShow: false
+            modalShow: false,
+            tableStatus: 'waiting'
         }
     }
 
@@ -57,13 +70,19 @@ class UserManagemen extends Component {
 
 
     loadPersonalLogin = () => {
-        let userInfo = utility.readFromLocalStorage("persist:root");
-        let user = JSON.parse(userInfo.user)
-        this.setState({ loginInfo: user });
+        let userInfo = this.props.store;     
+        this.setState({ loginInfo: userInfo.user });
     }
 
     searchHandler = async (e) => {
         const { search, pagination } = this.state;
+
+        //reset table
+        this.setState({
+          data: [],
+          tableStatus: 'waiting'
+        })
+
         let urls = [];
         urls.push(`searchParam=${search ? search : ''}`);
         urls.push(`page=${pagination.active || 1}`)
@@ -74,17 +93,24 @@ class UserManagemen extends Component {
             newItem.site = (item.site && item.site !== '') ? item.site : 'All';
             newItem.client = (item.client && item.client !== '') ? item.client : 'All';
             newItem.last_access = (item.last_access) ? moment(item.last_access).format('DD/MM/YYYY hh:mm:ss') : '';
-            newItem.disabled = (item.disabled === 'Y') ? [<label className="um-suspended">{'Suspended'}</label>] : [<label className="um-active">{'Active'}</label>];
+            newItem.disabled = (item.disabled === 'Y') ? <label className="um-suspended">{'Suspended'}</label> : <label className="um-active">{'Active'}</label>;
+            newItem.statusTxt = (item.disabled === 'Y') ? 'Suspended' : 'Active';
             return newItem;
         })
         this.setState({
-            data: result, pagination: {
+            data: result, 
+            pagination: {
                 active: pagination.active || data.data.current_page,
                 show: data.data.per_page,
-                total: data.data.total
+                total: data.data.total,
+                last_page: data.data.last_page,
+                from: data.data.from,
+                to: data.data.to
             }
         });
-
+        if(result.length < 1){
+            this.setState({   tableStatus: 'noData'  })
+        }
     }
 
     toggle = () => {
@@ -95,12 +121,20 @@ class UserManagemen extends Component {
         const url = `/users-management/${item.web_user}/detail`;
         this.props.history.push(url)
     }
+    UrlHeader = () => {
+        return `UM?client=ANTEC`
+      }
+
+    onSubmitSearch = (e) => {
+        e.preventDefault();
+        this.searchHandler(e);
+    }
 
 
     render() {
 
-        const { loginInfo, data, fields, pagination, dimension, modalShow } = this.state;
-        
+        const { loginInfo, data, fields, customFields, pagination, dimension, modalShow, tableStatus } = this.state;
+        console.log(data)
         return (
             <div className="um-summary pt-1">
                 <HeaderTitle
@@ -109,42 +143,43 @@ class UserManagemen extends Component {
                 />
                 <CCard className="bg-transparent mb-3">
                     <CCardBody className="p-3 border-user-info" >
-                        <CRow>
-                            <CCol sm="2" className="user-login-info-header">
-                                User ID
-                            </CCol>
-                            <CCol sm="2" className="user-login-info-header">
-                                Name
-                            </CCol>
-                            <CCol sm="2" className="user-login-info-header">
-                                Email Address
-                            </CCol>
-                            <CCol sm="2" className="user-login-info-header">
-                                Site
-                            </CCol>
-                            <CCol sm="2" className="user-login-info-header">
-                                Client
-                            </CCol>
-                        </CRow>
-                        <CRow className="mt-2">
-                            <CCol sm="2" className="user-login-info-value">
-                                {loginInfo.userId}
-                            </CCol>
-                            <CCol sm="2" className="user-login-info-value">
-                                <Link to={`/users-management/${loginInfo.webUser}/detail`} >{loginInfo.name}</Link>
-                            </CCol>
-                            <CCol sm="2" className="user-login-info-value">
-                                {loginInfo.email}
-                            </CCol>
-                            <CCol sm="2" className="user-login-info-value">
-                                {`${loginInfo.site && loginInfo.site !== '' ? loginInfo.site : 'All'}`}
-                            </CCol>
-                            <CCol sm="2" className="user-login-info-value">
-                                {`${loginInfo.client && loginInfo.client !== '' ? loginInfo.client : 'All'}`}
-                            </CCol>
-                        </CRow>
+                            <CRow>
+                                <CCol sm={1} className="user-login-info-header">
+                                    User ID
+                                </CCol>
+                                <CCol sm={1} className="user-login-info-header">
+                                    Name
+                                </CCol>
+                                <CCol sm={2} className="user-login-info-header pr-0">
+                                    Email Address
+                                </CCol>
+                                <CCol sm={1} className="user-login-info-header pl-0">
+                                    Site
+                                </CCol>
+                                <CCol sm={1} className="user-login-info-header">
+                                    Client
+                                </CCol>
+                            </CRow>
+                            <CRow className="mt-2">
+                                <CCol sm={1} className="user-login-info-value">
+                                    {loginInfo.userId}
+                                </CCol>
+                                <CCol sm={1} className="user-login-info-value">
+                                    <Link to={`/users-management/${loginInfo.webUser}/detail`} >{loginInfo.name}</Link>
+                                </CCol>
+                                <CCol sm={2} className="user-login-info-value pr-0">
+                                    {loginInfo.email}
+                                </CCol>
+                                <CCol sm={1} className="user-login-info-value pl-0">
+                                    {`${loginInfo.site && loginInfo.site !== '' ? loginInfo.site : 'All'}`}
+                                </CCol>
+                                <CCol sm={1} className="user-login-info-value">
+                                    {`${loginInfo.client && loginInfo.client !== '' ? loginInfo.client : 'All'}`}
+                                </CCol>
+                            </CRow>
                     </CCardBody>
                     <CCardBody className="p-3 bg-white">
+                      <form onSubmit={this.onSubmitSearch}>
                         <CRow className="mx-0">
                             <CCol xl={11} lg={10} md={10} sm={12} className="pl-0">
                                 <div className="input-group">
@@ -158,9 +193,10 @@ class UserManagemen extends Component {
                                 <button className="btn btn-search btn-primary float-right w-100 px-3 py-3" onClick={this.searchHandler}>SEARCH</button>                                
                             </CCol>
                         </CRow>
+                      </form>
                     </CCardBody>
                 </CCard>
-                <UMCustomTable
+                {/* <UMCustomTable
                     title="User Management"
                     height={dimension.height}
                     pagination={pagination}
@@ -171,9 +207,24 @@ class UserManagemen extends Component {
                     goto={(active) => {
                         this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler())
                       }}
-                    export={<button className="btn d-flex btn-primary float-right align-items-center px-3 btn-export">
-                        <div className='export-export pr-3' />
-                         EXPORT</button>}
+                /> */}
+                
+                <UMCustomTable
+                    title="User Management"
+                    filename='Microlistics_UserManagementr.'
+                    font="10"
+                    height={dimension.height}
+                    pagination={pagination}
+                    fields={fields} 
+                    customFields={customFields} 
+                    data={data} 
+                    tableStatus={tableStatus}
+                    onClick={this.showDetails}
+                    UrlHeader={this.UrlHeader} 
+                    dimension={dimension}
+                    goto={(active) => {
+                        this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler())
+                      }}
                 />
                 
                 <CreateUM show={modalShow} toggle={this.toggle} afterSuccess={this.searchHandler} users={this.state.data} />
@@ -184,4 +235,5 @@ class UserManagemen extends Component {
 
 }
 
-export default UserManagemen;
+const mapStateToProps = (store) => ({ store })
+export default connect(mapStateToProps,null)(UserManagemen);

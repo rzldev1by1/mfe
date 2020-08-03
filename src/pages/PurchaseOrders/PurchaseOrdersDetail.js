@@ -11,7 +11,7 @@ const columns = [
   { accessor: "orig_line_number", Header: "Line No" },
   { accessor: "product", Header: "Product" },
   { accessor: "product_name", Header: "Description" },
-  { accessor: "quantity", Header: "Qty", width: 50 },
+  { accessor: "quantity", Header: "Qty", width: 70 },
   { accessor: "packdesc_1", Header: "UOM", width: 80 },
   { accessor: "qty_processed", Header: "Qty Processed", width: 130 },
   { accessor: "weight", Header: "Weight" },
@@ -36,6 +36,8 @@ class PurchaseOrdersDetail extends React.Component {
       fields: columns,
       detail: {},
       products: [],
+      pagination: {},
+      tableStatus: 'waiting'
     }
   }
   componentDidMount() {
@@ -48,26 +50,49 @@ class PurchaseOrdersDetail extends React.Component {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - this.section1.current.clientHeight - 160)
+    const height = (window.innerHeight - this.section1.current.clientHeight - 175)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getDetail = async () => {
-    const { orderdetail, client } = this.props.match.params
-    const url = `/purchaseOrder?searchParam=${client}&orderdetail=${orderdetail}`
+    const { orderdetail, client,site } = this.props.match.params
+    const url = `/purchaseOrder?searchParam=${orderdetail}&client=${client}&site=${site}`
     const { data } = await axios.get(url)
     if (!!data.data) {
       this.setState({ detail: data.data.data[0] })
     }
   }
-  getProducts = async () => {
-    const { orderdetail, client } = this.props.match.params
-    const url = `/purchaseOrder/${client}/${orderdetail}`
+  getProducts = async (page=1) => {
+    const { pagination,tableStatus } = this.state
+    const { orderdetail, client,site} = this.props.match.params
+    console.log(this.props.match.params)
+    const url = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${page}`
     const { data } = await axios.get(url)
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
-    if (data.data.length) {
-      this.setState({ products: data.data })
-    }
+    // if (data.data.length) {
+    //   this.setState({ products: data.data })
+    // }
+    if (data?.data?.data) { 
+      this.setState({
+        products: data.data.data,
+        pagination: {
+          active: pagination.active || data.data.current_page,
+          show: data.data.per_page,
+          total: data.data.total,
+          last_page: data.data.last_page,
+          from: data.data.from,
+          to: data.data.to
+        } 
+      }, () => {console.log (this.state.pagination)})
+
+      if(data.data.data.length < 1){
+        this.setState({   tableStatus: 'noData'  })
+      }
+    }else {
+      this.setState({ data: [] })
+      this.setState({   tableStatus: 'noData'  })
+    } 
   }
+
   formatDate = (date) => {
     return date ? moment(date).format('DD/MM/YYYY') : '-'
   }
@@ -89,54 +114,67 @@ class PurchaseOrdersDetail extends React.Component {
 
   render() {
     // const { match, history } = this.props
-    const { detail, products, fields } = this.state
+    const { detail, products, fields, pagination, tableStatus } = this.state
     return <div className="purchase-order-details">
       <HeaderTitle breadcrumb={[
         { to: '/purchase-order', label: 'Purchase Order' },
         { to: '', label: this.props.match.params.orderdetail, active: true },
       ]} />
-      <div ref={this.section1} className="card-group section-1 mb-4 pod" >
+      <div ref={this.section1} className="card-group section-1 mb-3 pod" >
         <CCard>
-          <CCardBody className="p-0 m-4">
-            <CRow><CCol className="text-light-gray">Site</CCol> <CCol>{this.siteCheck(detail.site) || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Client</CCol> <CCol>{this.clientCheck(detail.client) || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Order No</CCol> <CCol>{detail.order_no || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Order Type</CCol> <CCol>{detail.order_type || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">status</CCol> <CCol>{detail.status || '-'}</CCol></CRow>
+          <CCardBody className="p-0 m-3 border-right">
+            <CRow><CCol lg={3} className="text-light-gray px-3">Site</CCol> <CCol>{this.siteCheck(detail.site) || '-'}</CCol></CRow>
+            <CRow><CCol lg={3} className="text-light-gray px-3 py-1">Client</CCol> <CCol className="py-1">{this.clientCheck(detail.client) || '-'}</CCol></CRow>
+            <CRow><CCol lg={3} className="text-light-gray px-3">Order No</CCol> <CCol>{detail.order_no || '-'}</CCol></CRow>
+            <CRow><CCol lg={3} className="text-light-gray px-3 py-1">Order Type</CCol> <CCol className="py-1">{detail.order_type || '-'}</CCol></CRow>
+            <CRow><CCol lg={3} className="text-light-gray px-3">Status</CCol> <CCol>{detail.status || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>
         <CCard>
-          <CCardBody className="p-0 m-4">
-            <CRow><CCol className="text-light-gray">Supplier No</CCol> <CCol>{detail.supplier_no || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Supplier Name</CCol> <CCol>{detail.supplier_name || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Customer Order Ref</CCol> <CCol>{detail.customer_order_ref || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Vendor Order Ref</CCol> <CCol>{detail.vendor_ord_ref || '-'}</CCol></CRow>
+          <CCardBody className="p-0 mx-0 my-3 border-right">
+            <CRow><CCol lg={3} className="text-light-gray px-3">Supplier No</CCol> <CCol>{detail.supplier_no || '-'}</CCol></CRow>
+            <CRow><CCol lg={3} className="text-light-gray px-3 py-1">Supplier Name</CCol> <CCol className="py-1">{detail.supplier_name || '-'}</CCol></CRow>
+            <CRow><CCol lg={3} className="text-light-gray px-3">Customer Order Ref</CCol> <CCol>{detail.customer_order_ref || '-'}</CCol></CRow>
+            <CRow><CCol lg={3} className="text-light-gray px-3 pt-1">Vendor Order Ref</CCol> <CCol className="pt-1">{detail.vendor_ord_ref || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>
         <CCard>
-          <CCardBody className="p-0 m-4">
-            <CRow><CCol className="text-light-gray">Order Date</CCol> <CCol>{this.formatDate(detail.delivery_date)}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Date Received</CCol> <CCol>{this.formatDate(detail.date_received)}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Date Released</CCol> <CCol>{this.formatDate(detail.date_released)}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Date Completed</CCol> <CCol>{this.formatDate(detail.date_completed)}</CCol></CRow>
+          <CCardBody className="p-0 m-3">
+            <CRow><CCol lg={3}  className="text-light-gray px-3">Order Date</CCol> <CCol>{this.formatDate(detail.delivery_date)}</CCol></CRow>
+            <CRow><CCol lg={3}  className="text-light-gray px-3 py-1">Date Received</CCol> <CCol className="py-1">{this.formatDate(detail.date_received)}</CCol></CRow>
+            <CRow><CCol lg={3}  className="text-light-gray px-3">Date Released</CCol> <CCol>{this.formatDate(detail.date_released)}</CCol></CRow>
+            <CRow><CCol lg={3}  className="text-light-gray px-3 pt-1">Date Completed</CCol> <CCol className="pt-1">{this.formatDate(detail.date_completed)}</CCol></CRow>
           </CCardBody>
         </CCard>
       </div>
 
       <CustomTable
-        title="Sales Orders Details"
+        title="PurchaseOrder Orders Details"
+        filename='Microlistics_PurchaseOrderDetail.'
+        font="9"
         height={this.state.dimension.height}
         fields={fields}
         data={products}
+        pagination={pagination}
         UrlHeader={this.UrlHeader} 
+        tableStatus={tableStatus}
+        export={
+          <button className='btn btn-primary float-right btn-export'>
+            {/* <div className='export-export pr-3' /> */}
+            EXPORT
+          </button>
+        }
+        goto={(active) => {
+          this.setState({ pagination: { ...pagination, active } }, () => this.getProducts(active))
+        }}
       />
-      <CustomPagination
-        data={products}
-      // pagination={pagination}
-      // goto={(active) => {
-      //   this.setState({ pagination: { ...pagination, active } }, () => this.getProducts())
-      // }}
-      />
+      {/* <CustomPagination
+      data={products}
+      pagination={pagination}
+      goto={(active) => {
+        this.setState({ pagination: { ...pagination, active } }, () => this.getProducts())
+      }}
+      /> */}
     </div>
   }
 }

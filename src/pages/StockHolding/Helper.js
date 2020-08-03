@@ -15,7 +15,7 @@ function formatDate(date) {
 }
 
 function tab1() {
-    return <img src={tab1Blue} width="26px" style={{ marginRight: "5px" }} alt="tab1Blue" />;
+    return <div className="Active"> 1 </div>;
 };
 
 function tab1Inactive() {
@@ -23,7 +23,7 @@ function tab1Inactive() {
 }
 
 function tab2() {
-    return <img src={tab2Blue} width="26px" style={{ marginRight: "5px" }} alt="tab2Blue" />;
+    return <div className="Active"> 2 </div>;
 }
 
 function tab2Inactive() {

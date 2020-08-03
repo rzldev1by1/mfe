@@ -38,6 +38,8 @@ export default {
   userManagementUser_Detail: "/web_user_detail/",
   userManagementUpdate: "/usermanagement/update/",
   userManagementresetpassword: "/usermanagement/forgot_password",
+  userManagementCheckMailValidation: "/emailCheck",
+
 
   stockDateRange: "/stockdaterange",
   stockAgeProfile:"/stockageprofile",

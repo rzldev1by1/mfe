@@ -82,7 +82,7 @@ function YearMonthForm({ date, localeUtils, onChange, current, fromMonth, toMont
                 optionList={months.toString()}
                 optionValue={monthsIndex.toString()}
                 getValue={handleChange}
-                style={{ width: '100px', height: '35px', float: 'left', marginRight: "0.6em" }}
+                style={{ width: '100px', height: '35px', float: 'left', marginRight: "0.4em", marginLeft: "0.128em" }}
                 firstChecked={true}
                 optionSelected={current.getMonth()}
                 usedFor="Datepicker"
@@ -121,12 +121,13 @@ class DatePicker extends React.Component {
         this.handleYearMonthChange = this.handleYearMonthChange.bind(this);
         this.handleDayClick = this.handleDayClick.bind(this);
         this.state = {
-            selectedDay: null,
+            selectedDay: new Date(),
             showDatePicker: false,
             month: new Date(),
             monthChange: false,
             top: null,
-            left: null
+            left: null,
+            defaultValue: null
         }
     }
 
@@ -139,6 +140,15 @@ class DatePicker extends React.Component {
     //     }
     // }
 
+    componentDidUpdate(prevProps){
+        if (prevProps.firstDate !== this.props.firstDate){
+            let firstDate = new Date(this.props.firstDate);
+            firstDate.setDate(firstDate.getDate() + 1)
+            this.setState({ month: firstDate, selectedDay: firstDate, defaultValue: null});
+            this.props.getDate(null)
+        }
+    }
+
     componentDidMount() {
         if (this.props.showDatePicker) {
             this.props.showDatePicker(this.state.showDatePicker)
@@ -149,13 +159,16 @@ class DatePicker extends React.Component {
         this.setState({ month, monthChange: true });
     }
 
-    handleDayClick = (day, { selected }) => {
+    handleDayClick = (day, modifiers = {}) => {
+        if(modifiers.disabled){
+            return;
+        }
         this.setState({
-            selectedDay: selected ? undefined : day,
+            selectedDay: day, defaultValue: day
         });
-        this.props.getDate(moment(selected ? undefined : day).format("YYYY-MM-DD"))
+        this.props.getDate(moment(day).format("YYYY-MM-DD"))
         this.setState({ showDatePicker: false });
-        this.refs['dateValue'].value = moment(day).format("DD/MM/YYYY");
+        // this.refs['dateValue'].value = moment(day).format("DD/MM/YYYY");
         if (this.props.onChange) {
             this.props.onChange()
         }
@@ -177,9 +190,67 @@ class DatePicker extends React.Component {
     }
 
     disabledAlpha = (e) => {
-        if (!(/^[0-9]+$/.test(e.key)) && (e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight")) {
+        if (!(/[0-9]/g.test(e.key)) && (e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight")) {
             e.preventDefault();
         }
+
+        // limit spesific character to slash only
+        if((e.target.selectionStart == 2) && ((e.key != "/") && (e.key !== "Backspace"))){
+            e.preventDefault();
+        }else if((e.target.selectionStart == 5) && ((e.key != "/") && (e.key !== "Backspace"))){
+            e.preventDefault();
+        }
+
+        // limit date
+        if((e.target.selectionStart == 0) && ((e.key !== "Backspace") && (e.key > 3))){
+            e.preventDefault();
+        }else if(((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[0] == 0)){
+            e.preventDefault();
+        }else if(((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key > 1))) && (e.target.value[0] == 3)){
+            e.preventDefault();
+        }
+
+        //limit month
+        else if((e.target.selectionStart == 3) && ((e.key !== "Backspace") && (e.key > 1))){
+            e.preventDefault();
+        }else if(((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[3] == 0)){
+            e.preventDefault();
+        }else if(((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key > 2))) && (e.target.value[3] == 1)){
+            e.preventDefault();
+        }
+
+        // validate month
+
+        // enable month that have more than 29 days if date is 29
+        else if(((e.target.selectionStart == 4) && (e.key !== "Backspace")) && (((e.target.value[0] == 2) && ((e.target.value[1] == 9) && (e.target.value[3] == 0))) && (/[2]/g.test(e.key)))){
+            e.preventDefault();
+        }
+
+        // enable month that have more than 30 days if date is 30
+        else if(((e.target.selectionStart == 4) && (e.key !== "Backspace")) && (((e.target.value[0] == 3) && ((e.target.value[1] == 0) && (e.target.value[3] == 0))) && (/[2]/g.test(e.key)))){
+            e.preventDefault();
+        }
+
+        // enable month that have 31 days if date is 31
+        else if(((e.target.selectionStart == 4) && (e.key !== "Backspace")) && (((e.target.value[0] == 3) && ((e.target.value[1] == 1) && (e.target.value[3] == 0))) && !(/[1|3|5|7|8]/g.test(e.key)))){
+            e.preventDefault();
+        }else if(((e.target.selectionStart == 4) && (e.key !== "Backspace")) && (((e.target.value[0] == 3) && ((e.target.value[1] == 1) && (e.target.value[3] == 1))) && !(/[0|2]/g.test(e.key)))){
+            e.preventDefault();
+        }
+
+        
+        //limit year
+        else if((e.target.selectionStart == 6) && ((e.key !== "Backspace") && ((e.key == 0) || (e.key > 2)))){
+            e.preventDefault();
+        }else if(((e.target.selectionStart == 7) && ((e.key !== "Backspace") && (e.key != 9))) && (e.target.value[6] == 1)){
+            e.preventDefault();
+        }else if(((e.target.selectionStart == 7) && ((e.key !== "Backspace") && (e.key > 1))) && (e.target.value[6] == 2)){
+            e.preventDefault();
+        }else if(((e.target.selectionStart == 8) && ((e.key > 3) && ((e.key !== "Backspace") && (e.key < 10)))) && (e.target.value[5] == 1)){
+            e.preventDefault();
+        }
+
+        
     }
 
     dateValueFormat = (e) => {
@@ -212,6 +283,8 @@ class DatePicker extends React.Component {
 
     render() {
         let placeHolder = "Select Date";
+        let firstDate = new Date(this.props.firstDate);
+        firstDate.setDate(firstDate.getDate() + 1)
         const no = Math.floor(Math.random() * 100000) + 1;
         const className = `select_date ${this.state.showDatePicker && (this.props.for === "SalesOrderCreate") ? "datepickerForOrderLine" : ""}`
         return (
@@ -222,18 +295,17 @@ class DatePicker extends React.Component {
                         placeholder={this.props.placeHolder ? this.props.placeHolder : "DD/MM/YYYY"}
                         className="form-control"
                         maxLength="10"
-                        defaultValue={this.state.selectedDays ? moment(this.state.selectedDay).format("DD/MM/YYYY") : null}
+                        defaultValue={this.state.defaultValue ? moment(this.state.defaultValue).format("DD/MM/YYYY") : null}
                         onChange={(e) => { this.dateValueProcess(e) }}
-                        onFocus={() => this.openDatePicker()}
+                        onFocus={() => {this.openDatePicker(); if(this.props.onOpen) {this.props.onOpen()}}}
                         onKeyUp={(e) => this.dateValueFormat(e)}
                         onKeyDown={(e) => this.disabledAlpha(e)}
-                        style={this.props.formStyle}
-                        pattern={/^[-+]?[0-9]+$/} />
+                        style={this.props.formStyle} />
                     {/* <input className="select_date_close" type="radio" name={"select" + placeHolder + no} id={"select-close" + placeHolder + no} value="" defaultChecked/> */}
                     {/* <span className="select_date_label select_date_label-placeholder">{this.state.selectedDay ? moment(this.state.selectedDay).format("DD/MM/YYYY") : placeHolder}</span> */}
 
                     {/* <li className="select_date_items"> */}
-                    <input className="select_date_expand" ref="opener" type="checkbox" name={"select" + placeHolder + no} value="" checked={this.state.showDatePicker} id={"select-opener" + placeHolder + no} />
+                    <input className={"select_date_expand" + (this.props.arrowStyle ? " select_arrow_expand" : " select_calendar_expand")} ref="opener" type="checkbox" name={"select" + placeHolder + no} value="" checked={this.state.showDatePicker} id={"select-opener" + placeHolder + no} />
                     <label className="select_date_closeLabel" htmlFor={"select-opener" + placeHolder + no} onClick={() => this.closeDatePicker()}></label>
                     <ReactResizeDetector
                         handleWidth handleHeight
@@ -249,25 +321,28 @@ class DatePicker extends React.Component {
                                 className={"select_date_options " + (this.props.field === "smallField " ? " smallField " : "") + ((this.props.top && this.props.fixedTop) || this.props.fixedTop ? "fixed-top-position" : "")}
                                 style={((this.props.top && !this.props.fixedTop)) ? { marginTop: "-" + height + "px", marginLeft: "-" + (width + 6) + "px" } : null}>
                                 <div className="dateInfo">
-                                    {this.state.selectedDay ? moment(this.state.selectedDay).format(this.props.shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : (this.props.fromMonth ? moment(this.props.fromMonth).format("DD MMMM YYYY") : moment().format("DD MMMM YYYY"))}
+                                    {this.state.selectedDay ? moment(this.state.selectedDay).format(this.props.shortFormat ? "DD MMM YYYY" : "DD MMMM YYYY") : moment().format("DD MMMM YYYY")}
                                 </div>
                                 <DayPicker
                                     className="datepicker-content"
                                     tabIndex="-1"
-                                    selectedDays={this.state.selectedDay ? this.state.selectedDay : (this.props.fromMonth ? new Date(this.props.fromMonth) : new Date())}
+                                    selectedDays={this.state.selectedDay ? this.state.selectedDay : new Date()}
                                     onDayClick={this.handleDayClick}
-                                    month={this.props.fromMonth ? (this.state.monthChange ? this.state.month : new Date(this.props.fromMonth)) : this.state.month}
-                                    fromMonth={this.props.fromMonth ? new Date(this.props.fromMonth) : this.state.month}
+                                    month={this.state.month}
+                                    fromMonth={this.props.fromMonth ? new Date(this.props.fromMonth) : new Date(new Date().getFullYear(), 0)}
                                     toMonth={this.props.toMonth ? new Date(new Date(this.props.toMonth).getFullYear(), 11) : new Date(new Date(this.state.month).getFullYear() + 10, 11)}
+                                    disabledDays={this.props.fromMonth ? [{
+                                        before: this.props.firstDate ? firstDate : new Date(this.props.fromMonth)
+                                    }] : false}
                                     onMonthChange={(e) => this.setState({ month: e })}
                                     captionElement={({ date, localeUtils }) => (
                                         <YearMonthForm
                                             date={date}
                                             localeUtils={localeUtils}
                                             onChange={this.handleYearMonthChange}
-                                            current={this.props.fromMonth ? (this.state.monthChange ? this.state.month : new Date(this.props.fromMonth)) : this.state.month}
-                                            fromMonth={this.props.fromMonth ? new Date(this.props.fromMonth) : this.state.month}
-                                            toMonth={this.props.toMonth ? new Date(new Date(this.props.toMonth).getFullYear(), 11) : new Date(new Date(this.state.month).getFullYear() + 10, 11)}
+                                            current={this.state.month}
+                                            fromMonth={this.props.fromMonth ? new Date(this.props.fromMonth) : new Date()}
+                                            toMonth={this.props.toMonth ? new Date(new Date(this.props.toMonth).getFullYear(), 11) : new Date(new Date().getFullYear() + 5, 11)}
 
                                         />
                                     )}

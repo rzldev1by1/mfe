@@ -8,11 +8,11 @@ import NewUser from './tabs/NewUser'
 import Review from './tabs/Review'
 import _ from 'lodash'
 
-const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'stock age profile'];
-const webgroup = {
-  WAREHOUSE: 'Regular',
-  ADMIN: 'Admin'
-}
+const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement'];
+// const webgroup = {
+//   WAREHOUSE: 'Regular',
+//   ADMIN: 'Admin'
+// }
 class UserManagementCreate extends React.PureComponent {
   state = {
     key: 'new',
@@ -26,7 +26,7 @@ class UserManagementCreate extends React.PureComponent {
       disabled: 'N',
       site: '',
       client: '',
-      webGroup: webgroup.WAREHOUSE
+      webGroup: utility.webgroup.WAREHOUSE
     },
     sites: [],
     client: [],
@@ -168,7 +168,7 @@ class UserManagementCreate extends React.PureComponent {
     let isValid = false;
     let userMenu = moduleAccess.filter((item) => { return item.status === true; })
 
-    if (user.webGroup === webgroup.ADMIN)
+    if (user.webGroup === utility.webgroup.ADMIN)
       isValid = (user.name && user.email) ? true : false;
     else {
       isValid = (user.name && user.email && (userMenu && userMenu.length)) ? true : false;
@@ -212,7 +212,7 @@ class UserManagementCreate extends React.PureComponent {
 
   onWebGroupSelect = (event) => {
     let user = { ...this.state.user };
-    user.webGroup = event.target.checked ? webgroup.ADMIN : webgroup.WAREHOUSE;
+    user.webGroup = event.target.checked ? utility.webgroup.ADMIN : utility.webgroup.WAREHOUSE;
     this.setState({ isAdmin: event.target.checked, user: user });
   }
 
@@ -234,13 +234,19 @@ class UserManagementCreate extends React.PureComponent {
     let site = sites.find((item, index) => {
       return item.status === true;
     });
+
+    
+    let siteValue = (site && (sites.filter((item) => {return item.status === true;}).length !== sites.length))? site.site:null;
+    
     let client = clients.find((item, index) => {
       return item.status === true;
     });
 
-    userInfo.userMenu = (user.webGroup === webgroup.ADMIN) ? adminMenu : userMenu;
-    userInfo.site = (user.webGroup === webgroup.ADMIN) ? null : site.site;
-    userInfo.client = (user.webGroup === webgroup.ADMIN) ? null : client.code;
+    let clientValue = (client && (clients.filter((item) => {return item.status === true;}).length !== clients.length))? client.code:null;
+
+    userInfo.userMenu = (user.webGroup === utility.webgroup.ADMIN) ? adminMenu : userMenu;
+    userInfo.site = ((user.webGroup === utility.webgroup.ADMIN) ? null : siteValue);
+    userInfo.client = ((user.webGroup === utility.webgroup.ADMIN) ? null : clientValue);
 
     const { status, data } = await axios.post(endpoint.userManagementCreate, userInfo);
     if (status === 200) {
@@ -261,7 +267,7 @@ class UserManagementCreate extends React.PureComponent {
       disabled: 'N',
       site: '',
       client: '',
-      webGroup: webgroup.WAREHOUSE
+      webGroup: utility.webgroup.WAREHOUSE
     }
     this.setState({
       user: user, isAdmin: false, key: 'new', saveProgress: false,
@@ -284,27 +290,27 @@ class UserManagementCreate extends React.PureComponent {
 
     return <Modal show={show} onHide={() => this.onHideModal()} size="xl" className="um-create" >
       <Modal.Body className="bg-primary p-0">
-        <Row className="px-5 py-3">
-          <Col xs={10}>
+        <Row className="pl-5 pr-3 pb-3 pt-3 mx-0">
+          <Col xs={10} className="px-0">
             <i className="iconU-createModal font-20"></i><span className="font-20 pl-2">Create User</span> <br />
-            <span >Enter user details to create a New User</span>
+            <span className="ml-7">Enter user details to create a New User</span>
           </Col>
-          <Col xs={2} className="text-right">
+          <Col xs={2} className="text-right px-0">
             <i className="iconU-close pointer" onClick={() => this.onHideModal()}></i>
           </Col>
         </Row>
-        <Nav tabs>
+        <Nav tabs className="px-7 mx-0">
           <NavItem>
-            <NavLink className={key === 'new' ? 'active' : null} onClick={() => this.onSelectTab('new')}>
+            <NavLink className={`d-flex align-items-center ${key === 'new' ? 'active' : null}`} onClick={() => this.onSelectTab('new')}>
             <div className="title-tab">
-              <div className={`mr-2 badge badge-pill badge-${key === 'new' ? 'primary' : 'secondary'}`}>1</div> User Detail                
+              <div className={`mr-2 badge badge-pill text-align-center mr-1 badge-${key === 'new' ? 'primary' : 'secondary'}`}>1</div> User Detail                
             </div>
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink className={key === 'review' ? 'active' : null} onClick={() => this.onSelectTab('review')}>
+            <NavLink className={`d-flex align-items-center  ${key === 'review' ? 'active' : null}`} onClick={() => this.onSelectTab('review')}>
             <div className="title-tab">
-              <div className={`mr-2 badge badge-pill badge-${key === 'review' ? 'primary' : 'secondary'}`}>2</div> Review
+              <div className={`mr-2 badge badge-pill text-align-center mr-1 badge-${key === 'review' ? 'primary' : 'secondary'}`}>2</div> Review
             </div>
             </NavLink></NavItem>
         </Nav>

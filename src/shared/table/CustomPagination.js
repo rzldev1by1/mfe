@@ -1,17 +1,21 @@
 import React from "react";
 import { CCard, CCardGroup, CPagination, CRow, CCol } from "@coreui/react";
+import { Modal, ModalBody, ModalHeader } from 'reactstrap'
 import {
   BsChevronLeft,
   BsChevronRight,
   BsChevronBarLeft,
   BsChevronBarRight,
 } from "react-icons/bs";
+import Export from "./Export"
 import "./CustomPagination.css";
+import logo_confirm from 'assets/img/LOGO5@2x.png' 
 
 class CustomPagination extends React.Component {
   state = {
-    pagination: { active: 1, show: 10, total: 0 },
+    pagination: { active: 1, show: 10, total: 0, last_page: 1 },
     page: 1,
+    notifPaging: false
   };
   componentDidUpdate = (nextProps) => {
     let { pagination } = this.props;
@@ -24,6 +28,9 @@ class CustomPagination extends React.Component {
       this.setState({ page: parseInt(e.target.value) });
     }
   };
+  closeConfirmDialog = () => {
+     this.setState({ notifPaging: false });
+  }
   onActivePageChange = (i) => {
     const { pagination } = this.state;
     const active = parseInt(i > 1 ? i : 1);
@@ -35,25 +42,50 @@ class CustomPagination extends React.Component {
   };
   goToPage = () => {
     const { pagination, page } = this.state;
+    const { data } = this.props; 
+    if(page==0 || page===null){
+      return 0;
+    }
+    if(page > pagination.last_page)
+    {
+        this.setState({ notifPaging:true })
+        return 0
+    }
+
     if (this.props.goto) {
       this.props.goto(page);
     } else {
       this.setState({ pagination: { ...pagination, active: page } });
     }
   };
+  numberCheck = (e) => {  
+    var tmpChar = e.key; 
+    if (!/^[0-9]+$/.test(e.key)) {
+      e.preventDefault()
+    } 
+  }
+
   render() {
     let { active, show, total } = this.state.pagination;
     let { data, pagination } = this.props;
+    
     total = pagination && pagination.total ? pagination.total : data.length;
     const startIndex = (active - 1) * (total < show ? total : show);
     const endIndex = startIndex + (total < show ? total : show);
-    const pages = parseInt(total / show);
+    const pages = Math.ceil(total / show);
+    const tmp_startIndex = (data.length > 0 && startIndex < 1)?1:startIndex
+    //pagination
+    const x_total = (pagination && pagination.total)?pagination.total:total;
+    const x_last_page = (pagination && pagination.last_page)?pagination.last_page:1;
+    const x_from = (pagination && pagination.from)?pagination.from:tmp_startIndex;
+    const x_to = (pagination && pagination.to)?pagination.to:endIndex;
+ 
     return (
       // <CContainer fluid>
-      <CRow className="mt-3 pagination-custom">
-        <CCol lg="4" className="px-0">
+      <CRow className=" pagination-custom">
+        <CCol lg="7" className="px-0 margin-mr">
           <CCardGroup>
-            <CCard className="col-lg-5 border-right">
+            <CCard className="col-lg-6 border-right">
               <CPagination
                 limit={3}
                 activePage={active}
@@ -74,6 +106,8 @@ class CustomPagination extends React.Component {
                   onChange={this.onChange}
                   min="1"
                   max={pages > 0 ? pages : 1}
+                  onKeyPress={(e) => this.numberCheck(e)}
+                  style={{textAlign:'center'}}
                 />
                 <span
                   className="text-muted mt-1 ml-3 pointer"
@@ -85,18 +119,40 @@ class CustomPagination extends React.Component {
             </CCard>
           </CCardGroup>
         </CCol>
-        <CCol lg="4" className="mt-3">
+        <CCol lg="5" className="mt-3">
           <span>
             Showing{" "}
-            <b> &nbsp; {`${startIndex + 1} to ${endIndex} of ${total} `} </b>{" "}
+            <b> &nbsp; {`${x_from} to ${x_to} of ${x_total} `} </b>{" "}
             &nbsp; entries
           </span>
         </CCol>
-        <CCol lg="4" className="px-0">
+        {/* <CCol lg="4" className="px-0 ml-5">
           {this.props.export}
-        </CCol>
+        </CCol> */}
+
+        
+      {/* Modal Pagination */}
+      <Modal isOpen={this.state.notifPaging} centered={true}  
+          onOpened={() => this.state.notifPaging ? setTimeout(() => { this.closeConfirmDialog() }, 36000) : {}}
+          contentClassName="modal-content-paging box-er-pagination"
+          >
+          <ModalBody>
+          <div  className="text-right px-0" style={{fontSize: '14px'}}>
+            <i className="iconU-close pointer" onClick={this.closeConfirmDialog}></i>
+          </div>
+          <div className="d-flex d-inline-flex">
+              <img src={logo_confirm} alt="logo" style={{ width: "20%", height: "20%" }} />
+              <label className="pl-3 font">
+              Only {x_last_page} page are available on this screen, please try again. <br />
+              
+              </label>
+          </div>
+          </ModalBody> 
+      </Modal>
+
       </CRow>
       // </CContainer>
+
     );
   }
 }

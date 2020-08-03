@@ -15,7 +15,7 @@ import HeaderTitle from 'shared/container/TheHeader'
 import './SalesOrder.scss'
 
 const columns = [
-  { accessor: "line", Header: "Line No" },
+  { accessor: "rn", Header: "Line No" },
   { accessor: "product", Header: "Product" },
   { accessor: "product_description", Header: "Description" },
   { accessor: "qty", Header: "Qty", width: 60  },
@@ -34,7 +34,7 @@ const columns = [
   },
   {
     accessor: "released", Header: "Released", width: 80 ,
-    Cell: (row) => <i className={`${row.original.received === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+    Cell: (row) => <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
   { accessor: "batch", Header: "Batch", width: 60  },
   { accessor: "ref2", Header: "Ref2" },
@@ -51,7 +51,9 @@ class SalesOrderDetail extends React.Component {
     fields: columns,
     detail: {},
     products: [],
-    request_status: 'Please Wait...'
+    request_status: 'Please Wait...',
+    pagination: {}, 
+    tableStatus: 'waiting'
   }
   componentDidMount() {
     this.updateDimension();
@@ -63,7 +65,7 @@ class SalesOrderDetail extends React.Component {
     window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
-    const height = (window.innerHeight - this.section1.current.clientHeight - 160)
+    const height = (window.innerHeight - this.section1.current.clientHeight - 175)
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getDetail = async () => {
@@ -74,17 +76,32 @@ class SalesOrderDetail extends React.Component {
       this.setState({ detail: data.data.data[0] })
     }
   }
-  getProducts = async () => {
+  getProducts = async (page=1) => {
+    const { pagination } = this.state
     const { orderno, client, site } = this.props.match.params
-    this.setState({ request_status: "Please Wait..."  })
-    const url = `/salesorder/${orderno}?client=${client}&site=${site}`
+    this.setState({ data: [], tableStatus: "waiting" }) 
+    const url = `/salesorder/${orderno}?client=${client}&site=${site}&page=${page}`
     const { data } = await axios.get(url)
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
-    if (data.data.length) {
-      this.setState({ products: data.data })
-    }else{ 
-      this.setState({ request_status: "No Data Found"  })
-    } 
+    if (data?.data?.data) { 
+      this.setState({
+        products: data.data.data,
+        pagination: {
+          active: pagination.active || data.data.current_page,
+          show: data.data.per_page,
+          total: data.data.total,
+          last_page: data.data.last_page,
+          from: data.data.from,
+          to: data.data.to
+        } 
+      })
+      
+      if (data.data.data.length<1) {
+        this.setState({ tableStatus: "noData" })
+      }
+    }else{  
+      this.setState({ data: [], tableStatus: "noData" }) 
+    }  
   }
   formatDate = (date) => {
     return date ? moment(date).format('DD/MM/YYYY') : '-'
@@ -92,64 +109,83 @@ class SalesOrderDetail extends React.Component {
   UrlHeader = () =>{
     return `$/getSalesOrderHeader?client=ANTEC`
   }
+  
+  showDetails = (item) => {
+    const { orderno, client, site } = this.props.match.params
+    const url = `/salesorder/${orderno}?client=${client}&site=${site}` 
+    this.props.history.push(url)
+  }
   render() {
     // const { match, history } = this.props
-    const { detail, products, fields } = this.state
+    const { detail, products, fields, pagination, tableStatus} = this.state
     return <div className="sales-order-detail">
       <HeaderTitle breadcrumb={[
         { to: '/sales-orders', label: 'Sales Order' },
         { to: '', label: this.props.match.params.orderno, active: true },
       ]} />
-      <div ref={this.section1} className="card-group section-1 mb-4" >
+      <div ref={this.section1} className="card-group section-1 mb-3" >
         <CCard>
-          <CCardBody className="p-0 m-4 border-right">
-    <CRow><CCol className="text-light-gray">Site</CCol> <CCol>{detail.site}: {detail.site_name}</CCol></CRow>
-    <CRow><CCol className="text-light-gray">Client</CCol> <CCol>{detail.client}: {detail.client_name}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Order No</CCol> <CCol>{detail.orderno || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Order Type</CCol> <CCol>{detail.ordertype || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Task</CCol> <CCol>{detail.customer || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Customer No.</CCol> <CCol>{detail.customer || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Customer Name</CCol> <CCol>{detail.customername || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Customer Order Ref</CCol> <CCol>{detail.customerpono || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Vendor Order Ref</CCol> <CCol>{detail.vendororderno || '-'}</CCol></CRow>
+          <CCardBody className="p-0 m-3 border-right">
+            <CRow className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Site</CCol> <CCol>{detail.site}: {detail.site_name}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Client</CCol> <CCol>{detail.client}: {detail.client_name}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Order No</CCol> <CCol>{detail.orderno || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Order Type</CCol> <CCol>{detail.ordertype || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Task</CCol> <CCol>{detail.isistask || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer No.</CCol> <CCol>{detail.customer || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer Name</CCol> <CCol>{detail.customername || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer Order Ref</CCol> <CCol>{detail.customerpono || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Vendor Order Ref</CCol> <CCol>{detail.vendororderno || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>
         <CCard>
-          <CCardBody className="p-0 m-4 border-right">
-            <CRow><CCol className="text-light-gray">Address 1</CCol> <CCol>{detail.address1 || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Address 2</CCol> <CCol>{detail.address2 || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Address 3</CCol> <CCol>{detail.address3 || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Address 4</CCol> <CCol>{detail.address4 || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Address 5</CCol> <CCol>{detail.address5 || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Suburb</CCol> <CCol>{detail.suburb || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Postcode</CCol> <CCol>{detail.postcode || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">State</CCol> <CCol>{detail.state || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Country</CCol> <CCol>{detail.country || '-'}</CCol></CRow>
+          <CCardBody className="p-0 my-3 mx-0 border-right">
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Address 1</CCol> <CCol>{detail.address1 || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Address 2</CCol> <CCol>{detail.address2 || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Address 3</CCol> <CCol>{detail.address3 || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Address 4</CCol> <CCol>{detail.address4 || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Address 5</CCol> <CCol>{detail.address5 || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Suburb</CCol> <CCol>{detail.suburb || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Postcode</CCol> <CCol>{detail.postcode || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">State</CCol> <CCol>{detail.state || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Country</CCol> <CCol>{detail.country || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>
         <CCard>
-          <CCardBody className="p-0 m-4">
-            <CRow><CCol className="text-light-gray">Status</CCol> <CCol>{detail.status || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Delivary Date</CCol> <CCol>{this.formatDate(detail.deliverydate)}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Date Received</CCol> <CCol>{this.formatDate(detail.datereceived)}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Date Released</CCol> <CCol>{this.formatDate(detail.datereleased)}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Date Completed</CCol> <CCol>{this.formatDate(detail.datecompleted)}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Load Number</CCol> <CCol>{detail.loadnumber || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Loadout Start</CCol> <CCol>{this.formatDate(detail.loadoutstart)}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Loadout Finish</CCol> <CCol>{this.formatDate(detail.loadoutfinish)}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Consignment No</CCol> <CCol>{detail.consignmentno || '-'}</CCol></CRow>
-            <CRow><CCol className="text-light-gray">Freight Charge</CCol> <CCol>{detail.freightcharge || '-'}</CCol></CRow>
+          <CCardBody className="p-0 m-3">
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Status</CCol> <CCol>{(detail.status && detail.status.includes("0:")?"0: Unavailable":detail.status) || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Delivery Date</CCol> <CCol>{this.formatDate(detail.deliverydate)}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Date Received</CCol> <CCol>{this.formatDate(detail.datereceived)}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Date Released</CCol> <CCol>{this.formatDate(detail.datereleased)}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Date Completed</CCol> <CCol>{this.formatDate(detail.datecompleted)}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Load Number</CCol> <CCol>{detail.loadnumber || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Loadout Start</CCol> <CCol>{this.formatDate(detail.loadoutstart)}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Loadout Finish</CCol> <CCol>{this.formatDate(detail.loadoutfinish)}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Consignment No</CCol> <CCol>{detail.consignmentno || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Freight Charge</CCol> <CCol>{detail.freightcharge || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>
       </div>
 
       <CustomTable
         title="Sales Orders Details"
+        filename='Microlistics_SalesOrderDetail.'
+        font="7"
         height={this.state.dimension.height}
         fields={fields}
         data={products}
+        pagination={pagination}
+        tableStatus={tableStatus}
         UrlHeader={this.UrlHeader} 
-        request_status={this.state.request_status}
+        // request_status={this.state.request_status}
+        goto={(active) => {
+          this.setState({ pagination: { ...pagination, active } }, () => this.getProducts(active))
+        }} 
+        export={
+          <button className='btn btn-primary float-right btn-export'>
+            {/* <div className='export-export pr-3' /> */}
+            EXPORT
+          </button>
+        }
       />
     </div>
   }
