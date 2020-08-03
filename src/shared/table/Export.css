@@ -40,17 +40,24 @@
 }
 .export-pdf{
 	border: solid 2px rgb(189, 186, 186);
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
     margin-top: -8px;
 }
+
+
 .export-excel{
-	border-bottom-left-radius: 7px;
-    border-bottom-right-radius: 7px;
+	border-bottom-left-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
     margin-top: -2px;
     border: solid 2px rgb(189, 186, 186);
 }
+.export-pdf:focus, .export-excel:focus, .export-excel .Excel-bottom:focus{
+	background: #f8f2f2 !important;
+	outline: #f8f2f2 !important;
+	color: #4f5d73 !important;
 
+}
 .dropdown-menu.dropdown-single{
 	padding: 0 !important;
 	/* bottom: 0% !important; */

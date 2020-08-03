@@ -15,7 +15,7 @@ import HeaderTitle from 'shared/container/TheHeader'
 import './SalesOrder.scss'
 
 const columns = [
-  { accessor: "line", Header: "Line No" },
+  { accessor: "rn", Header: "Line No" },
   { accessor: "product", Header: "Product" },
   { accessor: "product_description", Header: "Description" },
   { accessor: "qty", Header: "Qty", width: 60  },
@@ -152,7 +152,7 @@ class SalesOrderDetail extends React.Component {
         </CCard>
         <CCard>
           <CCardBody className="p-0 m-3">
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Status</CCol> <CCol>{detail.status || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Status</CCol> <CCol>{(detail.status && detail.status.includes("0:")?"0: Unavailable":detail.status) || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Delivery Date</CCol> <CCol>{this.formatDate(detail.deliverydate)}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Date Received</CCol> <CCol>{this.formatDate(detail.datereceived)}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Date Released</CCol> <CCol>{this.formatDate(detail.datereleased)}</CCol></CRow>

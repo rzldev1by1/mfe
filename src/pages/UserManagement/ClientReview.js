@@ -29,7 +29,7 @@ return (<div>
                               <label className="col-6 text-muted py-2 " key={item.code}>{ capitalizeFirstLetter(item.name) }</label>
 
                              <div className="col-6">
-                              <button type="button" htmlFor={item.code} className={"px-1 "+((item.status)?"enable-active":"enable-notactive")}>{`${item.status?enable.toUpperCase():disable.toUpperCase()}`}</button>
+                              <button type="button" htmlFor={item.code} className={"px-1 no-outline "+((item.status)?"enable-active":"enable-notactive")}>{`${item.status?enable.toUpperCase():disable.toUpperCase()}`}</button>
 
                              </div>
 
