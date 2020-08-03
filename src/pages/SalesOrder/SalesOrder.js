@@ -13,18 +13,18 @@ import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 import './SalesOrder.scss'
 
 const columns = [
-  { accessor: 'site', placeholder: 'Site', Header: 'Site', width: null, },
-  { accessor: 'client', placeholder: 'Client', Header: 'Client', width: null, },
-  { accessor: 'orderno',  placeholder: 'Order No', Header: 'Order No', style: { textAlign: 'left' }, width: null, },
-  { accessor: 'ordertype', placeholder: 'Order Type', Header: 'Order Type', width: null, },
-  { accessor: 'isistask', placeholder: 'Task', Header: 'Task', width: null, }, 
+  { accessor: 'site', placeholder: 'Site', Header: 'Site', width: 50, },
+  { accessor: 'client', placeholder: 'Client', Header: 'Client', width: 100, },
+  { accessor: 'orderno',  placeholder: 'Order No', Header: 'Order No', style: { textAlign: 'left' }, width: 100, },
+  { accessor: 'ordertype', placeholder: 'Order Type', Header: 'Order Type', width: 120, },
+  { accessor: 'isistask', placeholder: 'Task', Header: 'Task', width: 100, }, 
   { accessor: 'customer', placeholder: 'Customer No', Header: 'Customer No', style: { textAlign: 'left' },width: null, },
   { accessor: 'customername', placeholder: 'Customer Name', Header: 'Customer Name' , width: null, },
   { accessor: 'status',  placeholder: 'Status', Header: 'Status', width: 150, },
-  { accessor: 'deliverydate', placeholder: 'Delivery Date', Header: 'Delivery Date', width: null, },
-  { accessor: 'datereceived', placeholder: 'Date Received', Header: 'Date Received', width: null, },
-  { accessor: 'datereleased', placeholder: 'Date Released', Header: 'Date Released', width: null, },
-  { accessor: 'datecompleted', placeholder: 'Date Completed', Header: 'Date Completed', width: null, },
+  { accessor: 'deliverydate', placeholder: 'Delivery Date', Header: 'Delivery Date', width: 120 , },
+  { accessor: 'datereceived', placeholder: 'Date Received', Header: 'Date Received', width: 120 , },
+  { accessor: 'datereleased', placeholder: 'Date Released', Header: 'Date Released', width: 120 , },
+  { accessor: 'datecompleted', placeholder: 'Date Completed', Header: 'Date Completed', width: 120 , },
   { accessor: 'customerpono',  placeholder: 'Customer Order Ref', Header: 'Customer Order Ref', width: null, },
   { accessor: 'vendororderno',  placeholder: 'Vendor Order No',  Header: 'Vendor Order No',width: null, },
   { accessor: 'address1', placeholder: 'Address1',  Header: 'Address1',width: null, },
@@ -257,7 +257,7 @@ class SalesOrder extends React.PureComponent {
   }
   
   UrlHeader = () => {
-    return `/getSalesOrderColumn?client=BEGA`
+    return `/getSalesOrderColumn?client=`
   }
   UrlAntec = () => {
     return '/putSalesOrderColumn?client=ANTEC'
@@ -294,6 +294,11 @@ class SalesOrder extends React.PureComponent {
   }
 
   // end url Get Header And Post
+
+  onSubmitSearch = (e) => {
+    e.preventDefault();
+    this.searchSalesOrder();
+}
   
   render() {
     const {
@@ -309,6 +314,7 @@ class SalesOrder extends React.PureComponent {
 
       <CCard className="mb-3">
         <CCardBody className="p-3">
+        <form onSubmit={this.onSubmitSearch}>
           <CRow>
             <CCol lg={3} className="px-0">
               <div className="input-group">
@@ -396,6 +402,7 @@ class SalesOrder extends React.PureComponent {
               </CRow>
             </CCol>
           </CRow>
+        </form>
         </CCardBody>
       </CCard>
       {console.log(data)}
