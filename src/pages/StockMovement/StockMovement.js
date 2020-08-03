@@ -448,7 +448,7 @@ class StockMovement extends React.PureComponent {
   }
 
   submitSearch = (e) => {
-    e.preventDefaul();
+    e.preventDefault();
     this.searchStockMovement();
   }
 
