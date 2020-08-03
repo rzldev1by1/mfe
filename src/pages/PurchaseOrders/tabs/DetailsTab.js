@@ -198,6 +198,9 @@ class CreateTab extends React.Component {
     this.setState({ orderLine, error })
   }
   lineSelectChange = (i, key, val) => {
+    if(!val){
+        return null
+    }
     const { orderLine, error } = this.state
     if (error.orderLine && error.orderLine.length === i) {
       delete error.orderLine[i][key]
@@ -448,7 +451,7 @@ class CreateTab extends React.Component {
                 </td>
                 <td className="px-1">
                   <Select value={o.productVal || ''}
-                    options={productData}
+                    options={o.productVal && o.productVal.length >= 3 ? productData : null}
                     menuIsOpen={o.productVal && o.productVal.length >= 3 ? true : false}
                     onInputChange={(val) => this.lineSelectChange(i, 'productVal', val)}
                     onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
