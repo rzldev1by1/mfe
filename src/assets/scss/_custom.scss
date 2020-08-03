@@ -404,12 +404,16 @@ header {
 }
 
 @media (min-width: 1200px){
-  .modal-xl {
-    max-width: 1525px !important;
-}
-.container, .container-sm, .container-md, .container-lg, .container-xl {
-  max-width: 1525px;
-}
+  .um-create, .sales-order-create, .purchase-order-create {
+    .modal-xl {
+      max-width: 1525px !important;
+    }
+  }
+  .um-create, .sales-order-create, .purchase-order-create {
+    .container, .container-sm, .container-md, .container-lg, .container-xl {
+      max-width: 1525px;
+    }
+  }
 }
 
 @media (max-width:991px){
