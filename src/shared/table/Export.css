@@ -18,6 +18,11 @@
 	background-color: #376BFB;
 	border-radius: 6px !important;
 }
+
+.Dropdown-toggel:hover, .Dropdown-toggel:active, .Dropdown-toggel:focus{
+	background-color: #376BFB;
+	color: white;
+}
 .Dropdown-menu{
 	margin-top: -87px !important;
 	background-color: rgb(248, 242, 242);
