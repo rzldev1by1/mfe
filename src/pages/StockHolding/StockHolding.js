@@ -234,6 +234,11 @@ class StockHolding extends React.PureComponent {
     this.setState({ create: value ? value : !this.state.create })
   }
 
+  onSubmitSearch = (e) => {
+    e.preventDefault();
+    this.searchStockHolding();
+}
+
   render() {
     const {
       dimension,
@@ -264,6 +269,7 @@ class StockHolding extends React.PureComponent {
 
         <CCard className='mb-3'>
           <CCardBody className='p-3'>
+            <form onSubmit={this.onSubmitSearch}>
             <CRow>
               <CCol lg={3} className='px-0'>
                 <div className='input-group '>
@@ -350,6 +356,7 @@ class StockHolding extends React.PureComponent {
                 </CRow>
               </CCol>
             </CRow>
+            </form>
           </CCardBody>
         </CCard>
 
