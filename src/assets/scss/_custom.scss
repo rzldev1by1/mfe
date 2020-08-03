@@ -307,7 +307,7 @@ header {
   border-radius: 5px;
   /* border: solid 1.5px #959292; */
   font-size: 12px;
-  padding: 6px;
+  padding: 6px 14px;
 }
 .status-complete {
   color: #555050 !important;
@@ -315,7 +315,7 @@ header {
   border-radius: 5px;
   border: solid 1px #555050;
   font-size: 12px;
-  padding: 6px;
+  padding: 6px 19px;
 }
 .status-partRelease {
   color: #555050 !important;
@@ -331,7 +331,7 @@ header {
   border-radius: 5px;
   border: solid 1px #555050;
   font-size: 12px;
-  padding: 6px;
+  padding: 6px 23px;
 }
 .rt-noData{
   text-align: center !important;
@@ -389,6 +389,10 @@ header {
     .rt-tbody {
       .rt-tr-group {
         .rt-tr {
+          .rt-td{
+            display: flex !important;
+            align-items: center !important;
+          }
           .rt-td:first-child {
             padding-left: 1.8rem !important;
           }

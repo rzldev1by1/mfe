@@ -11,7 +11,7 @@ const columns = [
   { accessor: "orig_line_number", Header: "Line No" },
   { accessor: "product", Header: "Product" },
   { accessor: "product_name", Header: "Description" },
-  { accessor: "quantity", Header: "Qty", width: 50 },
+  { accessor: "quantity", Header: "Qty", width: 70 },
   { accessor: "packdesc_1", Header: "UOM", width: 80 },
   { accessor: "qty_processed", Header: "Qty Processed", width: 130 },
   { accessor: "weight", Header: "Weight" },

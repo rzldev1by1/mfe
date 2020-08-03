@@ -528,7 +528,7 @@ showModal = (show) => {
           </table>
 
         <CRow className="mt-3 pagination-custom">
-           <CCol lg="10" className="px-0 margin-mr">
+           <CCol lg="7" className="px-0 margin-mr">
                 <CustomPagination
                   data={data}
                   pagination={pagination}
@@ -537,7 +537,7 @@ showModal = (show) => {
                   fields={fields}
                 />
             </CCol>
-            <CCol lg="2" className="px-0 export-ml">
+            <CCol lg="5" className="px-0 export-ml">
                 <Export ExportName={this.ExportName} ExportPDFName={title}    
                     pdf={this.props.pdf}
                     excel={this.props.excel} 

@@ -83,7 +83,7 @@ class Export extends Component {
                       {/* <span className='export-export' style={{paddingRight:"6px"}}/> */}
                         <div style={{fontSize:"0.875rem", letterSpacing:"1px"}} >EXPORT</div>
                   </DropdownToggle>
-                    <DropdownMenu className={" "+((exportPdf == 'false' || exportExcel == 'false')?' dropdown-single ':' Dropdown-menu ')} >
+                    <DropdownMenu className={"no-shadow "+((exportPdf == 'false' || exportExcel == 'false')?' dropdown-single ':' Dropdown-menu ')} >
                       {(exportPdf == 'false')?'':
                         <DropdownItem className="export-pdf"> 
                             <span className="pdf-icon"onClick={() => this.exportPDF()} >EXPORT TO PDF</span> 
