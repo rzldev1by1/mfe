@@ -27,6 +27,23 @@ const columns = [
   // { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
   // { accessor: 'vendor_order_ref', Header: 'Vendor Order No' },
 ]
+const customColumns = [
+  { accessor: 'site', Header: 'Site', },
+  { accessor: 'client', Header: 'Client', },
+  { accessor: 'order_no', Header: 'Order No', },
+  { accessor: 'order_type', Header: 'Order Type', },
+  { accessor: 'isis_task', Header: 'Task', },
+  { accessor: 'supplier_no', Header: 'Supplier No', },
+  { accessor: 'supplier_name', Header: 'Supplier Name', width: 210 },
+  { accessor: 'statusTxt', Header: 'Status', width: 140 },
+  { accessor: 'delivery_date', Header: 'Order Date', },
+  { accessor: 'date_received', Header: 'Date Received', },
+  { accessor: 'date_released', Header: 'Date Released', },
+  { accessor: 'date_completed', Header: 'Date Completed', },
+  // { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
+  // { accessor: 'vendor_order_ref', Header: 'Vendor Order No' },
+]
+
 class PurchaseOrders extends React.PureComponent {
   constructor(props) {
     super(props)
@@ -44,6 +61,7 @@ class PurchaseOrders extends React.PureComponent {
       task: null,
       resources: [],
       fields: columns,
+      customFields: customColumns,
       data: [],
       pagination: {},
       create: false,
@@ -144,16 +162,22 @@ class PurchaseOrders extends React.PureComponent {
       modifiedData.map((item, idx) => {
         if ((item["status"]) === "1: Available") {
           item['status'] = [<a className="status-available">AVAILABLE</a>]
+          item['statusTxt'] = 'AVAILABLE'
         } if ((item["status"]) === "0: Unavailable") {
           item['status'] = [<a className="status-Unavailable">UNAVAILABLE</a>]
+          item['statusTxt'] = 'UNAVAILABLE'
         } if ((item["status"]) === "2: Released") {
           item['status'] = [<a className="status-Release">RELEASED</a>]
+          item['statusTxt'] = 'RELEASED'
         } if ((item["status"]) === "3: Part Released") {
           item['status'] = [<a className="status-partRelease">PART RELEASED</a>]
+          item['statusTxt'] = 'PART RELEASED'
         } if ((item["status"]) === "4: Completed") {
           item['status'] = [<a className="status-complete">COMPLETED</a>]
+          item['statusTxt'] = 'COMPLETED'
         } if ((item["status"]) === "All Open") {
           item['status'] = [<a className="status-ok">ALL OPEN</a>]
+          item['statusTxt'] = 'ALL OPEN'
         }
       })
       this.setState({
@@ -209,10 +233,17 @@ class PurchaseOrders extends React.PureComponent {
     return `$/getSalesOrderHeader?client=ANTEC`
   }
 
+  onSubmitSearch = (e) => {
+    e.preventDefault();
+    this.searchPurchaseOrder();
+}
+
+
+
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData, taskData,
+      siteData, clientData, statusData, orderTypeData, taskData, customFields
     } = this.state
     return <div className="purchase-order">
       <HeaderTitle
@@ -222,6 +253,7 @@ class PurchaseOrders extends React.PureComponent {
 
       <CCard className="mb-3">
         <CCardBody className="p-3">
+        <form onSubmit={this.onSubmitSearch}>
           <CRow className="mx-0">
             <CCol lg={3} className="pr-3 pl-0">
               <div className="input-group">
@@ -311,6 +343,7 @@ class PurchaseOrders extends React.PureComponent {
               </CRow>
             </CCol>
           </CRow>
+        </form>
         </CCardBody>
       </CCard>
 
@@ -321,9 +354,10 @@ class PurchaseOrders extends React.PureComponent {
         height={dimension.height}
         data={data}
         fields={fields}
+        customFields={customFields}
         pagination={pagination}
         onClick={this.showDetails}
-        UrlHeader={this.UrlHeader} 
+        UrlHeader={this.UrlHeader}         
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchPurchaseOrder())
         }}

@@ -5,6 +5,7 @@ import moment from 'moment';
 import { CButton, CCard, CCardBody, CRow, CCol, } from '@coreui/react'
 import Select from 'react-select'
 import { IoIosArrowDown } from 'react-icons/io'
+import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 
 import StockMovementTable from './StockMovementTable/StockMovementTable'
 // import CustomPagination from './StockMovementPagination/StockMovementPagination'
@@ -434,6 +435,12 @@ class StockMovement extends React.PureComponent {
     this.setState({ create: value ? value : !this.state.create })
   }
 
+  submitSearch = (e) => {
+    e.preventDefaul();
+    this.searchStockMovement();
+  }
+
+
   render() {
     const {
       dimension, fields, data, site, client, status, orderType, create, task,
@@ -448,6 +455,7 @@ class StockMovement extends React.PureComponent {
  
     <CCard style={{zIndex: '999'}} className="mb-3 StockMovementFilter">
       <CCardBody className="px-0 py-3 main-con">
+        <form onSubmit={this.submitSearch}>
         <CRow className="flex-container-total-align"> 
         {/* Filter content start */}
 
@@ -512,6 +520,8 @@ class StockMovement extends React.PureComponent {
         <CCol lg={2} className="sm-col-13 product" > 
         <Select name="product" placeholder="Product" 
             value={product} options={productData}
+            menuIsOpen={this.state.product.length >= 3 ? true : false}
+            onInputChange={(val) => this.setState({ product: val })}
             onChange={(val) => this.setState({ product: val })} 
             styles={{
             dropdownIndicator: (base, state) => ({
@@ -527,6 +537,7 @@ class StockMovement extends React.PureComponent {
 
         {/* Filter content End */} 
         </CRow>
+        </form>
       </CCardBody>
     </CCard>
 

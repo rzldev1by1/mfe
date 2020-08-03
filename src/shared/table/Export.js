@@ -79,9 +79,9 @@ class Export extends Component {
         return (            
             <div className="">
                 <ButtonDropdown direction="up" className=" d-flex float-right align-items-center" isOpen={this.state.dropdownOpen[13]} toggle={() => { this.toggle(13); }}>
-                  <DropdownToggle  className="Dropdown-toggel" >
-                      <span className='export-export' style={{paddingRight:"6px"}}/>
-                        <div style={{paddingTop:"7px",fontSize:"18px"}} >EXPORT</div>
+                  <DropdownToggle  className="Dropdown-toggel btn-primary align-items-center" >
+                      {/* <span className='export-export' style={{paddingRight:"6px"}}/> */}
+                        <div style={{fontSize:"0.875rem", letterSpacing:"1px"}} >EXPORT</div>
                   </DropdownToggle>
                     <DropdownMenu className={" "+((exportPdf == 'false' || exportExcel == 'false')?' dropdown-single ':' Dropdown-menu ')} >
                       {(exportPdf == 'false')?'':
