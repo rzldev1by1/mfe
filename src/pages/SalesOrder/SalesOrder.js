@@ -294,6 +294,11 @@ class SalesOrder extends React.PureComponent {
   }
 
   // end url Get Header And Post
+
+  onSubmitSearch = (e) => {
+    e.preventDefault();
+    this.searchSalesOrder();
+}
   
   render() {
     const {
@@ -309,6 +314,7 @@ class SalesOrder extends React.PureComponent {
 
       <CCard className="mb-3">
         <CCardBody className="p-3">
+        <form onSubmit={this.onSubmitSearch}>
           <CRow>
             <CCol lg={3} className="px-0">
               <div className="input-group">
@@ -396,6 +402,7 @@ class SalesOrder extends React.PureComponent {
               </CRow>
             </CCol>
           </CRow>
+        </form>
         </CCardBody>
       </CCard>
       {console.log(data)}
