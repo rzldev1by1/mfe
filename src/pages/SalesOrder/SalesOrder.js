@@ -257,7 +257,7 @@ class SalesOrder extends React.PureComponent {
   }
   
   UrlHeader = () => {
-    return `/getSalesOrderColumn?client=BEGA`
+    return `/getSalesOrderColumn?client=`
   }
   UrlAntec = () => {
     return '/putSalesOrderColumn?client=ANTEC'
