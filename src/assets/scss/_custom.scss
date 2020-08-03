@@ -10,7 +10,9 @@ body {
 }
 
 // Custom style
-
+.no-outline:focus{
+outline: none !important;
+}
 input:focus {
   box-shadow: none !important;
 }
