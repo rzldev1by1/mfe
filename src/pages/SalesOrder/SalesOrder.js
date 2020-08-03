@@ -17,7 +17,7 @@ const columns = [
   { accessor: 'client', placeholder: 'Client', Header: 'Client', width: null, },
   { accessor: 'orderno',  placeholder: 'Order No', Header: 'Order No', style: { textAlign: 'left' }, width: null, },
   { accessor: 'ordertype', placeholder: 'Order Type', Header: 'Order Type', width: null, },
-  { accessor: 'isistask', placeholder: 'Task', Header: 'Task', width: null, }, 
+  { accessor: 'isistask', placeholder: 'Task', Header: 'Task', width: '80', }, 
   { accessor: 'customer', placeholder: 'Customer No', Header: 'Customer No', style: { textAlign: 'left' },width: null, },
   { accessor: 'customername', placeholder: 'Customer Name', Header: 'Customer Name' , width: null, },
   { accessor: 'status',  placeholder: 'Status', Header: 'Status', width: 150, },

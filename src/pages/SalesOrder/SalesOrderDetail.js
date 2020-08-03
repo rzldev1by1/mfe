@@ -130,7 +130,7 @@ class SalesOrderDetail extends React.Component {
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Client</CCol> <CCol>{detail.client}: {detail.client_name}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Order No</CCol> <CCol>{detail.orderno || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Order Type</CCol> <CCol>{detail.ordertype || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Task</CCol> <CCol>{detail.customer || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Task</CCol> <CCol>{detail.isistask || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer No.</CCol> <CCol>{detail.customer || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer Name</CCol> <CCol>{detail.customername || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer Order Ref</CCol> <CCol>{detail.customerpono || '-'}</CCol></CRow>
