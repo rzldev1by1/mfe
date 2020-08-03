@@ -444,6 +444,12 @@ class StockMovement extends React.PureComponent {
     this.setState({ create: value ? value : !this.state.create })
   }
 
+  submitSearch = (e) => {
+    e.preventDefaul();
+    this.searchStockMovement();
+  }
+
+
   render() {
     const {
       dimension, fields, data, site, client, status, orderType, create, task,
@@ -459,6 +465,7 @@ class StockMovement extends React.PureComponent {
  
     <CCard style={{zIndex: '999'}} className="mb-3 StockMovementFilter">
       <CCardBody className="px-0 py-3 main-con">
+        <form onSubmit={this.submitSearch}>
         <CRow className="flex-container-total-align"> 
         {/* Filter content start */}
 
@@ -540,6 +547,7 @@ class StockMovement extends React.PureComponent {
 
         {/* Filter content End */} 
         </CRow>
+        </form>
       </CCardBody>
     </CCard>
 

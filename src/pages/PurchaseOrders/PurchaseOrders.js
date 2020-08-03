@@ -245,6 +245,13 @@ class PurchaseOrders extends React.PureComponent {
     return `$/getSalesOrderHeader?client=ANTEC`
   }
 
+  onSubmitSearch = (e) => {
+    e.preventDefault();
+    this.searchPurchaseOrder();
+}
+
+
+
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
@@ -258,6 +265,7 @@ class PurchaseOrders extends React.PureComponent {
 
       <CCard className="mb-3">
         <CCardBody className="p-3">
+        <form onSubmit={this.onSubmitSearch}>
           <CRow className="mx-0">
             <CCol lg={3} className="pr-3 pl-0">
               <div className="input-group">
@@ -347,6 +355,7 @@ class PurchaseOrders extends React.PureComponent {
               </CRow>
             </CCol>
           </CRow>
+        </form>
         </CCardBody>
       </CCard>
 
