@@ -436,14 +436,17 @@ showModal = (show) => {
   }
 
   ExportHeader = () => {
-    let data = this.state.fields.map((data, idx) => {                
+    let fields = this.props.customFields||this.state.fields
+    let data = fields.map((data, idx) => {                
       return data.Header
-      });
+    });
+    console.log(data)
     return data
   }
-  ExportData = () => {
+  ExportData = () => { 
+    let fields = this.props.customFields||this.state.fields
     let dataAll = this.props.data.map((data,idx,) =>{
-    let column = this.state.fields.map((column, columnIdx) => {       
+    let column = fields.map((column, columnIdx) => {       
             let split = [data[column.accessor] ]
             return split
            })
@@ -455,10 +458,10 @@ showModal = (show) => {
   render() {
     const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
     let { title, data, onClick, height, pagination,request_status,font } = this.props
+    console.log(data)
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
-    console.log(headerIcon)
-    console.log(this.props)
+    console.log(this.ExportHeader()) 
     return (
       <React.Fragment>
         <ReactTable
@@ -466,11 +469,11 @@ showModal = (show) => {
           data={data}
           showPagination={false}
           style={{ height }}
-          // noDataText={(request_status)? request_status :"Please Wait..."}
+          // noDataText={(request_status)? <div  className='caution-caution'/> : <img src={loading} width='45' height='45'/>}
           noDataText={<div>
             <img src={loading} width='45' height='45'/>
-          {/* <div  className='caution-caution'/> */}
-          {/* <div>No Data Available</div> */}
+          {/* <div  className='caution-caution'/>
+          <div>No Data Available</div> */}
         </div>} 
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {

@@ -135,9 +135,10 @@ class CreateTab extends React.Component {
   addLine = () => {
     const error = validations(this.state)
     this.setState({ error })
-    if(error.orderLine.length < 1) 
-    {
-      this.setState({ orderLine: [...this.state.orderLine, {}]})
+    console.log(error?.orderLine)
+    if(error?.orderLine?.length > 0) return
+    if (this.state.orderLine.length < 10) {
+    this.setState({ orderLine: [...this.state.orderLine, {}] })
     }
     
   }
@@ -253,8 +254,6 @@ class CreateTab extends React.Component {
       delete header.uomData
   
       const payload = { header, lineDetail }
-      console.log(header)
-      return
       this.props.submit(payload)
     }
   }
@@ -264,7 +263,7 @@ class CreateTab extends React.Component {
     tmpChar = e.key; 
     if (!comma && !/^[0-9]+$/.test(e.key)) {
       e.preventDefault()
-    }else if(comma && !/^[0-9.]+$/.test(e.key)){
+    }else if(comma && !/^[0-9.]|[\b]+$/.test(e.key)){
       e.preventDefault()
     }
   }
@@ -514,6 +513,8 @@ class CreateTab extends React.Component {
                 <td className="px-1 text-left">
                   <Select value={o.productVal || ''}
                     options={productData}
+                    menuIsOpen={o.productVal && o.productVal.length >= 3 ? true : false}
+                    onInputChange={(val) => this.lineSelectChange(i, 'productVal', val)}
                     onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
                     onMenuClose={() => {productStatus[i] = false; this.setState({ productStatus: productStatus })}}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}

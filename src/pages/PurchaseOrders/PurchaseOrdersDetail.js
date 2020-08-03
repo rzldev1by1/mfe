@@ -53,8 +53,8 @@ class PurchaseOrdersDetail extends React.Component {
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getDetail = async () => {
-    const { orderdetail, client } = this.props.match.params
-    const url = `/purchaseOrder?searchParam=${client}&orderdetail=${orderdetail}`
+    const { orderdetail, client,site } = this.props.match.params
+    const url = `/purchaseOrder?searchParam=${orderdetail}&client=${client}&site=${site}`
     const { data } = await axios.get(url)
     if (!!data.data) {
       this.setState({ detail: data.data.data[0] })
@@ -62,8 +62,9 @@ class PurchaseOrdersDetail extends React.Component {
   }
   getProducts = async (page=1) => {
     const { pagination } = this.state
-    const { orderdetail, client } = this.props.match.params
-    const url = `/purchaseOrder/${client}/${orderdetail}?page=${page}`
+    const { orderdetail, client,site} = this.props.match.params
+    console.log(this.props.match.params)
+    const url = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${page}`
     const { data } = await axios.get(url)
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     // if (data.data.length) {
@@ -118,7 +119,7 @@ class PurchaseOrdersDetail extends React.Component {
             <CRow><CCol lg={3} className="text-light-gray px-3 py-1">Client</CCol> <CCol className="py-1">{this.clientCheck(detail.client) || '-'}</CCol></CRow>
             <CRow><CCol lg={3} className="text-light-gray px-3">Order No</CCol> <CCol>{detail.order_no || '-'}</CCol></CRow>
             <CRow><CCol lg={3} className="text-light-gray px-3 py-1">Order Type</CCol> <CCol className="py-1">{detail.order_type || '-'}</CCol></CRow>
-            <CRow><CCol lg={3} className="text-light-gray px-3">status</CCol> <CCol>{detail.status || '-'}</CCol></CRow>
+            <CRow><CCol lg={3} className="text-light-gray px-3">Status</CCol> <CCol>{detail.status || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>
         <CCard>
