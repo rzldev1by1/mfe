@@ -66,7 +66,8 @@ class PurchaseOrders extends React.PureComponent {
       pagination: {},
       create: false,
       detail: {},
-      dimension: { width: 0, height: 0 }
+      dimension: { width: 0, height: 0 },
+      tableStatus: 'waiting'
     }
 
   }
@@ -131,7 +132,7 @@ class PurchaseOrders extends React.PureComponent {
     const { user } = this.props.store
     if (user) {
       const { data } = await axios.get(`${endpoints.getPOResources}?company=${user.company}&client=${user.client}`)
-      const orderTypeData = data.orderType.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.description}` }))
+      const orderTypeData = data.orderTypeFilter.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.description}` }))
       const site = data.site.map(data => ({ value: data.site, label: `${data.site}: ${data.name}` }))
       const orderType = { value: 'all', label: 'All' }
       orderTypeData.splice(0, 0, orderType)
@@ -142,6 +143,13 @@ class PurchaseOrders extends React.PureComponent {
   searchPurchaseOrder = async () => {
     let { search, site, client, orderType, task, pagination, status } = this.state
     let urls = []
+
+    //reset table
+    this.setState({
+      data: [],
+      tableStatus: 'waiting'
+    })
+
     urls.push('searchParam=' + (search ? search : ''))
     urls.push('site=' + (site.value ? site.value : 'all'))
     urls.push('client=' + (client.value ? client.value : 'all'))
@@ -191,8 +199,12 @@ class PurchaseOrders extends React.PureComponent {
         },
         data: modifiedData
       })
+      if(modifiedData.length < 1){
+        this.setState({   tableStatus: 'noData'  })
+      }
     } else {
       this.setState({ data: [] })
+      this.setState({   tableStatus: 'noData'  })
     }
     // this.setState({ data: DummyData })
   }
@@ -233,10 +245,17 @@ class PurchaseOrders extends React.PureComponent {
     return `$/getSalesOrderHeader?client=ANTEC`
   }
 
+  onSubmitSearch = (e) => {
+    e.preventDefault();
+    this.searchPurchaseOrder();
+}
+
+
+
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData, taskData, customFields
+      siteData, clientData, statusData, orderTypeData, taskData, customFields,tableStatus
     } = this.state
     return <div className="purchase-order">
       <HeaderTitle
@@ -246,6 +265,7 @@ class PurchaseOrders extends React.PureComponent {
 
       <CCard className="mb-3">
         <CCardBody className="p-3">
+        <form onSubmit={this.onSubmitSearch}>
           <CRow className="mx-0">
             <CCol lg={3} className="pr-3 pl-0">
               <div className="input-group">
@@ -335,6 +355,7 @@ class PurchaseOrders extends React.PureComponent {
               </CRow>
             </CCol>
           </CRow>
+        </form>
         </CCardBody>
       </CCard>
 
@@ -349,6 +370,7 @@ class PurchaseOrders extends React.PureComponent {
         pagination={pagination}
         onClick={this.showDetails}
         UrlHeader={this.UrlHeader} 
+        tableStatus={tableStatus}
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchPurchaseOrder())
         }}

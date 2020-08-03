@@ -455,13 +455,26 @@ showModal = (show) => {
     return dataAll
   }
   
+  waitingStatus = () => {
+    return (
+      <div className='caution-caution' > <div>No Data Available</div> </div>
+    )
+  }
+  
+  noDataStatus = () => {
+    return( 
+      <div> <img src={loading} width='45' height='45'/> </div>
+    )
+  }
+  
   render() {
     const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
-    let { title, data, onClick, height, pagination,request_status,font } = this.props
+    let { title, data, onClick, height, pagination,request_status,font, tableStatus } = this.props
     console.log(data)
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
-    console.log(this.ExportHeader()) 
+    console.log(this.ExportHeader())  
+
     return (
       <React.Fragment>
         <ReactTable
@@ -470,11 +483,7 @@ showModal = (show) => {
           showPagination={false}
           style={{ height }}
           // noDataText={(request_status)? <div  className='caution-caution'/> : <img src={loading} width='45' height='45'/>}
-          noDataText={<div>
-            <img src={loading} width='45' height='45'/>
-          {/* <div  className='caution-caution'/>
-          <div>No Data Available</div> */}
-        </div>} 
+          noDataText={tableStatus=="noData"?this.waitingStatus():this.noDataStatus()} 
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
             return {

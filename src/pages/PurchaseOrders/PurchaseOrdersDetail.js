@@ -36,7 +36,8 @@ class PurchaseOrdersDetail extends React.Component {
       fields: columns,
       detail: {},
       products: [],
-      pagination: {}
+      pagination: {},
+      tableStatus: 'waiting'
     }
   }
   componentDidMount() {
@@ -61,7 +62,7 @@ class PurchaseOrdersDetail extends React.Component {
     }
   }
   getProducts = async (page=1) => {
-    const { pagination } = this.state
+    const { pagination,tableStatus } = this.state
     const { orderdetail, client,site} = this.props.match.params
     console.log(this.props.match.params)
     const url = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${page}`
@@ -82,9 +83,16 @@ class PurchaseOrdersDetail extends React.Component {
           to: data.data.to
         } 
       }, () => {console.log (this.state.pagination)})
-    }
-     
+
+      if(data.data.data.length < 1){
+        this.setState({   tableStatus: 'noData'  })
+      }
+    }else {
+      this.setState({ data: [] })
+      this.setState({   tableStatus: 'noData'  })
+    } 
   }
+
   formatDate = (date) => {
     return date ? moment(date).format('DD/MM/YYYY') : '-'
   }
@@ -106,7 +114,7 @@ class PurchaseOrdersDetail extends React.Component {
 
   render() {
     // const { match, history } = this.props
-    const { detail, products, fields, pagination } = this.state
+    const { detail, products, fields, pagination, tableStatus } = this.state
     return <div className="purchase-order-details">
       <HeaderTitle breadcrumb={[
         { to: '/purchase-order', label: 'Purchase Order' },
@@ -149,6 +157,7 @@ class PurchaseOrdersDetail extends React.Component {
         data={products}
         pagination={pagination}
         UrlHeader={this.UrlHeader} 
+        tableStatus={tableStatus}
         export={
           <button className='btn btn-primary float-right btn-export'>
             {/* <div className='export-export pr-3' /> */}

@@ -64,7 +64,7 @@ class SalesOrderDetail extends React.Component {
         accessor: 'closingbalance',
         Header: 'Balance',
         sortable: true,
-        width: 140,
+        width: 140
       },
     ],
     detail: {},
@@ -72,6 +72,8 @@ class SalesOrderDetail extends React.Component {
     forecast: [],
     datahead: [],
     activeTab: '1',
+    tableStatus: 'waiting', //stock details
+    tableStatusForecast: 'waiting' //stock forecast
   };
   componentDidMount() {
     this.updateDimension();
@@ -112,7 +114,12 @@ class SalesOrderDetail extends React.Component {
       })
       .catch((error) => {});
   };
-  getStockDetails = async () => {
+  getStockDetails = async () => { 
+    this.setState({
+      data: [],
+      tableStatus: 'waiting'
+    })
+
     const { product, client, site, expected_out_qty} = this.props.match.params;
     const url = `/stockdetail/${product}?client=${client}&site=${site}`;
     console.log(expected_out_qty)
@@ -123,9 +130,17 @@ class SalesOrderDetail extends React.Component {
         console.log('--- products ')
         console.log(data.data)
       });
+    }else{
+      this.setState({ 
+        tableStatus: 'noData'
+      })
     }
   };
   getForescast = async () => {
+    this.setState({
+      data: [],
+      tableStatusForecast: 'waiting'
+    })
     const { product, client, site } = this.props.match.params;
     const url = `/stockbal?client=${client}&product=${product}&site=${site}`;
     const { data } = await axios.get(url);
@@ -134,6 +149,10 @@ class SalesOrderDetail extends React.Component {
         console.log('--- forecast ')
         console.log(data[0][0]['available orders'])
       });
+    }else{
+      this.setState({ 
+        tableStatusForecast: 'noData'
+      })
     }
   };
   formatDate = (date) => {
@@ -148,6 +167,8 @@ class SalesOrderDetail extends React.Component {
       activeTab,
       ForesCast, 
       forecast,
+      tableStatus,
+      tableStatusForecast
     } = this.state;
     let site = this.state.datahead.length ? this.state.datahead[0].site : null;
     let client = this.state.datahead.length
@@ -265,6 +286,7 @@ class SalesOrderDetail extends React.Component {
                   fields={stockDetail}
                   data={products}
                   UrlHeader={this.UrlHeader}
+                  tableStatus={tableStatus}
                   export={
                     <button className='btn btn-primary float-right btn-export'>
                       {/* <div className='export-export pr-3' /> */}
@@ -282,6 +304,7 @@ class SalesOrderDetail extends React.Component {
                   fields={ForesCast}
                   data={forecast}
                   UrlHeader={this.UrlHeader}
+                  tableStatus={tableStatusForecast}
                   export={
                     <button className='btn btn-primary float-right btn-export'>
                       {/* <div className='export-export pr-3' /> */}
