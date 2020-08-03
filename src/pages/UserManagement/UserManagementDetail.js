@@ -625,9 +625,9 @@ class UserManagementDetail extends Component {
                             </p>
 
                             <button type="button" className=" font-lg btn btn-primary btn-submit default-box-height" onClick={(e) => { this.saveClick(); }}>
-                                {this.state.isSaveProgressing ? <img src={loading} className='mt-min-5 mr-2' width='25' height='25'/> : <img src={loading} className='mt-min-5 d-none' width='25' height='25'/>}
+                                {this.state.isSaveProgressing ? <img src={loading} className='mt-min-5' width='45' height='45'/> : 'Save'}
                                 {/* <i className={(this.state.isSaveProgressing) ? "mr-2 fa fa-refresh fa-spin " : "fa fa-refresh fa-spin d-none"}></i> */}
-                                <label className="create-user-label mb-0">SAVE</label>
+                                {/* <label className="create-user-label mb-0">SAVE</label> */}
                             </button>
 
                         </div>
