@@ -193,7 +193,7 @@ class StockMovementTable extends React.Component {
           {...this.props}
         />
         <CRow className="mt-3 pagination-custom">
-              <CCol lg="10" className="px-0 margin-mr">
+              <CCol lg="7" className="px-0 margin-mr">
               <CustomPagination data={data}
                         pagination={pagination}
                         goto={this.props.goto}

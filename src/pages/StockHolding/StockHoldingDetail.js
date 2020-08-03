@@ -31,7 +31,7 @@ class SalesOrderDetail extends React.Component {
       { accessor: 'weight', Header: 'Weight', sortable: true, width: 115 },
       { accessor: 'pallet', Header: 'Pallet', sortable: true, width: 120 },
       { accessor: 'price', Header: 'Price', sortable: true, width: 120 },
-      { accessor: 'pack_id', Header: 'Pack Id', sortable: true, width: 180 },
+      { accessor: 'pack_id', Header: 'Pack ID', sortable: true, width: 180 },
     ],
     ForesCast: [
       { accessor: 'type', Header: 'Type', sortable: true, width: 130 },
