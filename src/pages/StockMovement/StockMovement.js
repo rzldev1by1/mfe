@@ -63,7 +63,8 @@ class StockMovement extends React.PureComponent {
     dateToText: null,
     dateToShow: false, 
     minDate: null,
-    maxDate: null
+    maxDate: null,
+    tableStatus: 'waiting' //table status waiting or noData
   }
   componentDidMount = () => {
     // set automatic table height
@@ -375,10 +376,14 @@ class StockMovement extends React.PureComponent {
   }
 
   load_data = async (dtStart, dtEnd, periods, site = "", client = "", product = "") => {
-    try {  
-      // let dtStart = '2019-02-26'
-      // let dtEnd = '2019-02-28'
-      // let periods = 'day'
+
+    try {   
+      this.setState({
+        periodSelected: 1,
+        data: [],
+        tableStatus: 'waiting'
+      })
+      
       let paramUrl = []
       let dateArray = []
       let stDate = dtStart ? dtStart : this.state.startDate
@@ -419,6 +424,10 @@ class StockMovement extends React.PureComponent {
           //get result 
           const result = res.data.data 
 
+          if(result.length < 1){
+            this.setState({   tableStatus: 'noData'  })
+          }
+
           this.setState({ data: result }, function(){ 
               this.setData()
           }) 
@@ -439,7 +448,8 @@ class StockMovement extends React.PureComponent {
     const {
       dimension, fields, data, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData, taskData, data_table, filterType,filterData,
-      product, productData, periodSelected, pagination,dateFromShow, minDate,maxDate, date_array,export_data
+      product, productData, periodSelected, pagination,dateFromShow, minDate,maxDate, date_array,export_data,
+      tableStatus
   } = this.state 
   //custom style react-select  
   return <div className="stockMovement">
@@ -542,13 +552,9 @@ class StockMovement extends React.PureComponent {
       date_array={date_array}
       filterType={filterType}
       fields={fields}
+      tableStatus={tableStatus}
       onClick={this.showDetails}
-      pagination={pagination} 
-      noDataText={<div>
-        <div  className='caution-caution'/>
-        <div>No Data Available</div>
-        <div>Adjust Filters above to load data</div>
-      </div>}
+      pagination={pagination}  
       export={<CButton className="btn btn-primary d-flex float-right px-3 align-items-center btn-export">
       <div className="export-export pr-3"/>
       EXPORT

@@ -45,7 +45,8 @@ class UserManagemen extends Component {
             data: [],
             dimension: { width: 0, height: 0 },
             pagination: {},
-            modalShow: false
+            modalShow: false,
+            tableStatus: 'waiting'
         }
     }
 
@@ -75,6 +76,13 @@ class UserManagemen extends Component {
 
     searchHandler = async (e) => {
         const { search, pagination } = this.state;
+
+        //reset table
+        this.setState({
+          data: [],
+          tableStatus: 'waiting'
+        })
+
         let urls = [];
         urls.push(`searchParam=${search ? search : ''}`);
         urls.push(`page=${pagination.active || 1}`)
@@ -99,11 +107,10 @@ class UserManagemen extends Component {
                 from: data.data.from,
                 to: data.data.to
             }
-        },() => {
-            console.log("--- Result")
-            console.log(result)
         });
-
+        if(result.length < 1){
+            this.setState({   tableStatus: 'noData'  })
+        }
     }
 
     toggle = () => {
@@ -126,7 +133,7 @@ class UserManagemen extends Component {
 
     render() {
 
-        const { loginInfo, data, fields, customFields, pagination, dimension, modalShow } = this.state;
+        const { loginInfo, data, fields, customFields, pagination, dimension, modalShow, tableStatus } = this.state;
         console.log(data)
         return (
             <div className="um-summary pt-1">
@@ -211,6 +218,7 @@ class UserManagemen extends Component {
                     fields={fields} 
                     customFields={customFields} 
                     data={data} 
+                    tableStatus={tableStatus}
                     onClick={this.showDetails}
                     UrlHeader={this.UrlHeader} 
                     dimension={dimension}
