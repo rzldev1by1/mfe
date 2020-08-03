@@ -149,7 +149,8 @@ class StockHolding extends React.PureComponent {
     dimension: { width: 0, height: 0 },
     products: [],
     columnsPayload: [],
-    exportData: []
+    exportData: [],
+    tableStatus: 'waiting' //table status waiting or noData
   };
   componentDidMount = () => {
     // set automatic table height
@@ -252,8 +253,13 @@ class StockHolding extends React.PureComponent {
   }
 
   searchStockHolding = async (export_='false') => {
-    let { search, site, client, status, pagination } = this.state
+    let { search, site, client, status, pagination, tableStatus } = this.state
     
+    //reset table
+    this.setState({
+      data: [],
+      tableStatus: 'waiting'
+    })
     let urls = []
     urls.push('searchParam=' + (search ? search : ''))
     urls.push('site=' + (site.value ? site.value : 'all'))
@@ -291,8 +297,14 @@ class StockHolding extends React.PureComponent {
           data: modifiedData
         })
       }
+
+      if(modifiedData.length < 1){
+        this.setState({   tableStatus: 'noData'  })
+      }
+
     } else {
-      if(export_!=='true'){this.setState({ data: [] })}
+      if(export_!=='true'){this.setState({ data: [] })} 
+      this.setState({   tableStatus: 'noData'  })
     }
     // this.setState({ data: DummyData })
   }
@@ -326,6 +338,7 @@ class StockHolding extends React.PureComponent {
       exportData,
       urlHeader,
       customFields,
+      tableStatus
     } = this.state
     return (
       <div className='stockHolding table-summary'>
@@ -449,6 +462,7 @@ class StockHolding extends React.PureComponent {
           UrlAesop={this.UrlAesop} UrlClucth={this.UrlClucth} UrlExquira={this.UrlExquira}
           UrlLedvance={this.UrlLedvance} UrlOnestop={this.UrlOnestop} UrlStartrack={this.UrlStartrack}
           UrlTatura={this.UrlTatura} UrlTtl={this.UrlTtl} UrlTtchem={this.UrlTtchem}
+          tableStatus={tableStatus}
           goto={(active) => {
             this.setState({ pagination: { ...pagination, active } }, () =>
               this.searchStockHolding()
