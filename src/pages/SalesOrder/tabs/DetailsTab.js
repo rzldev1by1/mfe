@@ -27,8 +27,8 @@ class CreateTab extends React.Component {
     deliveryDate: null,
     orderId: null, 
     orderTypeValue: null, 
-    site: this.props.user.site ? this.props.user.site : '',
-    client: this.props.user.client ? this.props.user.client : '',
+    site: this.props.user.site ? {value:this.props.user.site} : '',
+    client: this.props.user.client ? {value:this.props.user.client} : '',
   }
   componentDidMount() {
     this.getDisposition()
