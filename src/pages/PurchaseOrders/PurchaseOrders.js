@@ -249,6 +249,9 @@ class PurchaseOrders extends React.PureComponent {
   UrlHeader = () =>{
     return `$/getSalesOrderHeader?client=ANTEC`
   }
+  UrlAll = () => {
+    return '/putStockholdingColumn?client=ALL'
+  }
 
   onSubmitSearch = (e) => {
     e.preventDefault();
@@ -375,6 +378,7 @@ class PurchaseOrders extends React.PureComponent {
         pagination={pagination}
         onClick={this.showDetails}
         UrlHeader={this.UrlHeader} 
+        UrlAll={this.UrlAll}
         tableStatus={tableStatus}
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchPurchaseOrder())
