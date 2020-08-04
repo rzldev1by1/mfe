@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import Select from 'react-select'
 import axios from 'axios'
+import numeral from 'numeral'
 import _ from 'lodash'
 
 import endpoints from 'helpers/endpoints'
@@ -540,7 +541,7 @@ class CreateTab extends React.Component {
                   <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly />
                 </td>
                 <td className="px-1">
-                  <input name="qty" onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control"  onKeyPress={(e) => this.numberCheck(e)}  placeholder="Qty" maxLength="10"  />
+                  <input name="qty" onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control" value={numeral(this.state.orderLine[i]['qty']).format('0,0')}  onKeyPress={(e) => this.numberCheck(e)}  placeholder="Qty" maxLength="10"  />
                   <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="px-1">

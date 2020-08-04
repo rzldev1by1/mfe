@@ -244,8 +244,8 @@ class CreateTab extends React.Component {
       error.orderId = 'Order no. cannot be empty'
       return this.setState({ error })
     }
-    if (orderId.length < 5) {
-      error.orderId = 'Order no. must have min 5 characters'
+    if (orderId.length < 4) {
+      error.orderId = 'Order no. must have min 4 characters'
       return this.setState({ error })
     }
     delete error.orderId
@@ -316,6 +316,34 @@ class CreateTab extends React.Component {
     })
     return c
   }
+
+  decimalValueForQty(e) {
+
+    if ((e.key >= 0 && e.key <= 9) || e.key === ".") {
+        let number = e.target.value + e.key;
+
+        let arraytext = number.split('');
+        if(arraytext.length ){
+            let dotLength = arraytext.filter((item) => item === '.');
+            if(dotLength.length > 1){
+              
+              e.preventDefault();
+              e.stopPropagation();
+            }
+        }
+
+          let regex = /^(\d{1,9}|\.)?(\.\d{0,3})?$/;
+
+          if (!regex.test(number) && number !== "") {
+              e.preventDefault();
+              e.stopPropagation();
+          }
+
+    } else {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+}
 
 
   render() {
@@ -472,7 +500,7 @@ class CreateTab extends React.Component {
                   <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly />
                 </td>
                 <td className="px-1">
-                  <input name="qty" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} type="text" className="form-control" placeholder="Qty" maxlength="10" />
+                  <input name="qty" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} value={numeral(this.state.orderLine[i]['qty']).format('0,0')} type="text" className="form-control" placeholder="Qty" maxlength="10" />
                   <div className='w-100 d-flex align-items-start text-nowrap'>
                   <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                   </div>
