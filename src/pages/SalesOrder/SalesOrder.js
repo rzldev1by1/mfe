@@ -182,12 +182,12 @@ class SalesOrder extends React.PureComponent {
     const { data } = await axios.get(`${endpoints.salesOrder}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
-        m.deliverydate = m.deliverydate ? moment(m.deliverydate).format('DD/MM/YYYY') : ''
-        m.datereceived = m.datereceived ? moment(m.datereceived).format('DD/MM/YYYY') : ''
-        m.datereleased = m.datereleased ? moment(m.datereleased).format('DD/MM/YYYY') : ''
-        m.datecompleted = m.datecompleted ? moment(m.datecompleted).format('DD/MM/YYYY') : ''
-        m.loadoutstart = m.loadoutstart ? moment(m.loadoutstart).format('DD/MM/YYYY') : ''
-        m.loadoutfinish = m.loadoutfinish ? moment(m.loadoutfinish).format('DD/MM/YYYY') : ''
+        m.deliverydate = m.deliverydate ? moment(m.deliverydate).format('DD/MM/YYYY') : '-'
+        m.datereceived = m.datereceived ? moment(m.datereceived).format('DD/MM/YYYY') : '-'
+        m.datereleased = m.datereleased ? moment(m.datereleased).format('DD/MM/YYYY') : '-'
+        m.datecompleted = m.datecompleted ? moment(m.datecompleted).format('DD/MM/YYYY') : '-'
+        m.loadoutstart = m.loadoutstart ? moment(m.loadoutstart).format('DD/MM/YYYY') : '-'
+        m.loadoutfinish = m.loadoutfinish ? moment(m.loadoutfinish).format('DD/MM/YYYY') : '-'
         return m
       })
       modifiedData.map((item, idx) => {
