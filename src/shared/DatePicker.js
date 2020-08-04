@@ -153,6 +153,17 @@ class DatePicker extends React.Component {
         if (this.props.showDatePicker) {
             this.props.showDatePicker(this.state.showDatePicker)
         }
+        let self = this;
+        document.addEventListener('mousedown', () => {
+            self.closeDatePicker()
+        });
+    }
+    
+    componentWillUnmount() {
+        let self = this;
+        document.removeEventListener('mousedown', () => {
+            self.closeDatePicker()
+        });
     }
 
     handleYearMonthChange = (month) => {
