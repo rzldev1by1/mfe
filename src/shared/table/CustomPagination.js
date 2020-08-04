@@ -97,7 +97,7 @@ class CustomPagination extends React.Component {
                 lastButton={<BsChevronBarRight />}
               />
             </CCard>
-            <CCard className="col-lg-5">
+            <CCard className="col-lg-5" style={{maxWidth: "39.36667%"}}>
               <div className="page-2 d-flex justify-content-center">
                 <span className="text-muted mt-1 mr-3">Go to page</span>
                 <input
