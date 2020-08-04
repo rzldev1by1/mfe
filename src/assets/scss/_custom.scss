@@ -56,6 +56,29 @@ button:focus {
 .scroll-x-y::-webkit-scrollbar-thumb {
   background-color: #d1cccc;
 }
+
+.scroll-x-y-visible{
+  overflow-y: visible;
+overflow-x: scroll;
+
+overflow-y: visible;
+overflow-x: scroll;
+  z-index: -10;
+}
+
+.scroll-x-y-visible::-webkit-scrollbar {
+	width: 8px !important;
+	height: 8px;
+	margin-bottom: 0px !important;
+	background-color: #E9ECED;
+	border-radius: 5px;
+  }
+
+.scroll-x-y-visible::-webkit-scrollbar-thumb {
+	background-color: #B4B9BB;
+	border-radius: 5px;
+  }
+  
 .pointer {
   cursor: pointer;
 }

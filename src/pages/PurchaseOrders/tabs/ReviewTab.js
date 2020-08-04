@@ -114,11 +114,11 @@ class ReviewTab extends React.Component {
           <thead>
             <tr className="text-muted">
             <td><div className="c-50 text-center">#</div></td>
-              <td><div className="c-400 required">Product</div></td>
+              <td><div className="c-400">Product</div></td>
               <td><div className="c-600">Description</div></td>
-              <td><div className="c-100 required">Qty</div></td>
+              <td><div className="c-100">Qty</div></td>
               <td><div className="c-170">Weight</div></td>
-              <td><div className="c-150 required">UOM</div></td>
+              <td><div className="c-150">UOM</div></td>
               <td><div className="c-100">Batch</div></td>
               <td><div className="c-100">Ref3</div></td>
               <td><div className="c-100">Ref4</div></td>
