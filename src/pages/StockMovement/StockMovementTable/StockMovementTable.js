@@ -4,6 +4,7 @@ import 'react-table-v6/react-table.css'
 import './StockMovementTable.css'
 import CustomPagination from 'shared/table/CustomPagination'
 import moment from 'moment';
+import loading from "assets/icons/loading/LOADING-MLS-GRAY.gif"
 
 // import mid from 'assets/img/field-idle.png'
 // import down from 'assets/img/field-bot.png'
@@ -164,10 +165,22 @@ class StockMovementTable extends React.Component {
     } 
     return dates
 }
+  
+    waitingStatus = () => {
+      return (
+        <div className='caution-caution' > <div>No Data Available</div> </div>
+      )
+    }
+
+    noDataStatus = () => {
+      return( 
+        <div> <img src={loading} width='45' height='45'/> </div>
+      )
+    }
 
   render() {
     const { page, editColumnTemp } = this.state
-    let { title, data, fields, onClick, pageSize = 50, height, pagination,dataExport,date_array } = this.props
+    let { title, data, fields, onClick, pageSize = 50, height, pagination,dataExport,date_array, tableStatus  } = this.props
     const headerIcon = this.headerIcon(fields, editColumnTemp)
      
 
@@ -181,6 +194,7 @@ class StockMovementTable extends React.Component {
           page={page}
           defaultPageSize={pageSize}
           style={{ height }} 
+          noDataText={tableStatus=="noData"?this.waitingStatus():this.noDataStatus()} 
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
             return {
@@ -193,7 +207,7 @@ class StockMovementTable extends React.Component {
           {...this.props}
         />
         <CRow className="mt-3 pagination-custom">
-              <CCol lg="10" className="px-0 margin-mr">
+              <CCol lg="7" className="px-0 margin-mr">
               <CustomPagination data={data}
                         pagination={pagination}
                         goto={this.props.goto}

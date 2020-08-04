@@ -24,7 +24,7 @@ return (
                                 <label className="col-6 text-muted py-2 font-lg " key={item.menuid}>{(item.menuname.toLowerCase() === 'create sales order')?'Sales Orders':item.menuname}</label>
 
                                 <div className="col-6">
-                                  <button type="button" className={"px-1 font-lg "+((item.status)?"enable-active":"enable-notactive")}>{`${item.status?enable.toUpperCase():disable.toUpperCase()}`}</button>
+                                  <button type="button" className={"px-1 font-lg no-outline "+((item.status)?"enable-active":"enable-notactive")}>{`${item.status?enable.toUpperCase():disable.toUpperCase()}`}</button>
                                 </div>
                             </div>
                       </div>)

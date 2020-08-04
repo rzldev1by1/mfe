@@ -15,7 +15,7 @@ import HeaderTitle from 'shared/container/TheHeader'
 import './SalesOrder.scss'
 
 const columns = [
-  { accessor: "line", Header: "Line No" },
+  { accessor: "rn", Header: "Line No" },
   { accessor: "product", Header: "Product" },
   { accessor: "product_description", Header: "Description" },
   { accessor: "qty", Header: "Qty", width: 60  },
@@ -34,7 +34,7 @@ const columns = [
   },
   {
     accessor: "released", Header: "Released", width: 80 ,
-    Cell: (row) => <i className={`${row.original.received === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+    Cell: (row) => <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
   { accessor: "batch", Header: "Batch", width: 60  },
   { accessor: "ref2", Header: "Ref2" },
@@ -52,7 +52,8 @@ class SalesOrderDetail extends React.Component {
     detail: {},
     products: [],
     request_status: 'Please Wait...',
-    pagination: {}
+    pagination: {}, 
+    tableStatus: 'waiting'
   }
   componentDidMount() {
     this.updateDimension();
@@ -78,12 +79,11 @@ class SalesOrderDetail extends React.Component {
   getProducts = async (page=1) => {
     const { pagination } = this.state
     const { orderno, client, site } = this.props.match.params
-    this.setState({ request_status: "Please Wait..."  })
+    this.setState({ data: [], tableStatus: "waiting" }) 
     const url = `/salesorder/${orderno}?client=${client}&site=${site}&page=${page}`
     const { data } = await axios.get(url)
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
-    if (data?.data?.data) {
-      console.log(data.data.data) 
+    if (data?.data?.data) { 
       this.setState({
         products: data.data.data,
         pagination: {
@@ -94,9 +94,13 @@ class SalesOrderDetail extends React.Component {
           from: data.data.from,
           to: data.data.to
         } 
-      }, () => {console.log (this.state.pagination)})
+      })
+      
+      if (data.data.data.length<1) {
+        this.setState({ tableStatus: "noData" })
+      }
     }else{  
-      this.setState({ request_status: "No Data Found"  })
+      this.setState({ data: [], tableStatus: "noData" }) 
     }  
   }
   formatDate = (date) => {
@@ -108,13 +112,12 @@ class SalesOrderDetail extends React.Component {
   
   showDetails = (item) => {
     const { orderno, client, site } = this.props.match.params
-    this.setState({ request_status: "Please Wait..."  })
     const url = `/salesorder/${orderno}?client=${client}&site=${site}` 
     this.props.history.push(url)
   }
   render() {
     // const { match, history } = this.props
-    const { detail, products, fields, pagination} = this.state
+    const { detail, products, fields, pagination, tableStatus} = this.state
     return <div className="sales-order-detail">
       <HeaderTitle breadcrumb={[
         { to: '/sales-orders', label: 'Sales Order' },
@@ -127,7 +130,7 @@ class SalesOrderDetail extends React.Component {
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Client</CCol> <CCol>{detail.client}: {detail.client_name}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Order No</CCol> <CCol>{detail.orderno || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Order Type</CCol> <CCol>{detail.ordertype || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Task</CCol> <CCol>{detail.customer || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Task</CCol> <CCol>{detail.isistask || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer No.</CCol> <CCol>{detail.customer || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer Name</CCol> <CCol>{detail.customername || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer Order Ref</CCol> <CCol>{detail.customerpono || '-'}</CCol></CRow>
@@ -149,7 +152,7 @@ class SalesOrderDetail extends React.Component {
         </CCard>
         <CCard>
           <CCardBody className="p-0 m-3">
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Status</CCol> <CCol>{detail.status || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Status</CCol> <CCol>{(detail.status && detail.status.includes("0:")?"0: Unavailable":detail.status) || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Delivery Date</CCol> <CCol>{this.formatDate(detail.deliverydate)}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Date Received</CCol> <CCol>{this.formatDate(detail.datereceived)}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Date Released</CCol> <CCol>{this.formatDate(detail.datereleased)}</CCol></CRow>
@@ -171,14 +174,12 @@ class SalesOrderDetail extends React.Component {
         fields={fields}
         data={products}
         pagination={pagination}
+        tableStatus={tableStatus}
         UrlHeader={this.UrlHeader} 
         // request_status={this.state.request_status}
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.getProducts(active))
-        }}
-        noDataText={<div className='text-align-center'>
-        <div  className='caution-caution px-6'/>No Data Available
-      </div>}
+        }} 
         export={
           <button className='btn btn-primary float-right btn-export'>
             {/* <div className='export-export pr-3' /> */}

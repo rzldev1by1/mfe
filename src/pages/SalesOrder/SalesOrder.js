@@ -92,8 +92,8 @@ class SalesOrder extends React.PureComponent {
       pagination: {},
       create: false,
       detail: {},
-      dimension: { width: 0, height: 0 },
-      request_status: 'Please Wait...'
+      dimension: { width: 0, height: 0 }, 
+      tableStatus: 'waiting'
     }
   }
   componentDidMount = () => {
@@ -169,9 +169,8 @@ class SalesOrder extends React.PureComponent {
     }
   }
   searchSalesOrder = async () => {
-    let { search, site, client, orderType, status, task, pagination } = this.state
-    console.log(status)
-    this.setState({ data: [], request_status: "Please Wait..." })
+    let { search, site, client, orderType, status, task, pagination } = this.state 
+    this.setState({ data: [], tableStatus: "waiting" })
     let urls = []
     urls.push('searchParam=' + (search ? search : ''))
     urls.push('site=' + (site ? site.value : 'all'))
@@ -213,7 +212,7 @@ class SalesOrder extends React.PureComponent {
         }
       })
       if (data.data.total==0) {
-        this.setState({ request_status: "No Data Found" })
+        this.setState({ tableStatus: "noData" })
       }
       this.setState({
         pagination: {
@@ -227,7 +226,7 @@ class SalesOrder extends React.PureComponent {
         data: modifiedData
       }, () => {console.log (this.state.pagination)})
     } else {
-      this.setState({ request_status: "No Data Found" })
+      this.setState({ tableStatus: "noData" })
       this.setState({ data: [] })
     }
     // this.setState({ data: DummyData })
@@ -242,7 +241,9 @@ class SalesOrder extends React.PureComponent {
   
   siteCheck = (siteVal) => {
     let l = null
-    this.props.store.site.map(data => {
+    const {site} = this.props.store
+    if(site)
+    site.map(data => {
       if (data.value === siteVal) l = data.label
     })
     return l
@@ -250,14 +251,16 @@ class SalesOrder extends React.PureComponent {
 
   clientCheck = (clientVal) => {
     let c = null
-    this.props.store.client.map(data => {
+    const {client} = this.props.store
+    if(client)
+    client.map(data => {
       if (data.value === clientVal) c = data.label
     })
     return c
   }
   
   UrlHeader = () => {
-    return `/getSalesOrderColumn?client=BEGA`
+    return `/getSalesOrderColumn?client=`
   }
   UrlAntec = () => {
     return '/putSalesOrderColumn?client=ANTEC'
@@ -294,12 +297,17 @@ class SalesOrder extends React.PureComponent {
   }
 
   // end url Get Header And Post
+
+  onSubmitSearch = (e) => {
+    e.preventDefault();
+    this.searchSalesOrder();
+}
   
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData,orderTypeInsert, taskData, customFields
-    } = this.state
+      siteData, clientData, statusData, orderTypeData,orderTypeInsert, taskData, customFields,tableStatus
+    } = this.state 
     
     return <div className="sales-order">
       <HeaderTitle
@@ -309,6 +317,7 @@ class SalesOrder extends React.PureComponent {
 
       <CCard className="mb-3">
         <CCardBody className="p-3">
+        <form onSubmit={this.onSubmitSearch}>
           <CRow>
             <CCol lg={3} className="px-0">
               <div className="input-group">
@@ -396,6 +405,7 @@ class SalesOrder extends React.PureComponent {
               </CRow>
             </CCol>
           </CRow>
+        </form>
         </CCardBody>
       </CCard>
       {console.log(data)}
@@ -408,6 +418,7 @@ class SalesOrder extends React.PureComponent {
         fields={fields}
         customFields={customFields}
         pagination={pagination}
+        tableStatus={tableStatus}
         onClick={this.showDetails}
         renameSubmit={this.renameSubmit}
         UrlHeader={this.UrlHeader} UrlAntec={this.UrlAntec} UrlBega={this.UrlBega}
@@ -416,19 +427,14 @@ class SalesOrder extends React.PureComponent {
         UrlTatura={this.UrlTatura} UrlTtl={this.UrlTtl} UrlTtchem={this.UrlTtchem}
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchSalesOrder())
-        }}
-        // request_status={this.state.request_status}
-        noDataText={<div>
-          <img src={loading} width='45' height='45'/>
-        {/* <div  className='caution-caution'/>
-        <div>No Data Available</div> */}
-      </div>}
+        }} 
         export={<button className="btn btn-primary float-right btn-export">
            {/* <div className='export-export pr-3' /> */}
           EXPORT </button>}
       />
 
       <SalesOrderCreate
+        user = {this.props.store.user}
         show={!!create}
         toggle={this.toggle}
         siteData={siteData}

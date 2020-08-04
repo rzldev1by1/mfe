@@ -25,45 +25,49 @@ const columns = [
 ]
  
 class StockMovement extends React.PureComponent {
-  state = {
-    search: '',
-    site: '',
-    client: '',
-    status: '',
-    product: '',
-    orderType: null,
-    task: null,
-    resources: [],
-    fields: [],
-    data: [],
-    data_table: [],
-    date_array: [],
-    create: false,
-    export_data: [],
-    detail: {},
-    pagination: {last_page: 1},
-    dateArray: [],
-    dimension: { width: 0, height: 0 },
-    startDate: moment().subtract(27, 'days').format('YYYY-MM-DD'),
-    endDate: moment().format('YYYY-MM-DD'),
-    filterType: 'week',
-    productData: [],
-    filterData: [
-      { 'value': 'day', 'label': 'Daily' },
-      { 'value': 'week', 'label': 'Weekly' },
-      { 'value': 'month', 'label': 'Monthly' }
-    ],
-    complete: false,
-    periodSelected: 1,
-    dateFromSelected: null,
-    dateFromText: null,
-    dateFromShow: false,
-
-    dateToSelected: null,
-    dateToText: null,
-    dateToShow: false, 
-    minDate: null,
-    maxDate: null
+  constructor(props){
+    super(props)
+    this.state = {
+      search: '',
+      site: '',
+      client: '',
+      status: '',
+      product: '',
+      orderType: null,
+      task: null,
+      resources: [],
+      fields: [],
+      data: [],
+      data_table: [],
+      date_array: [],
+      create: false,
+      export_data: [],
+      detail: {},
+      pagination: {last_page: 1},
+      dateArray: [],
+      dimension: { width: 0, height: 0 },
+      startDate: moment().subtract(27, 'days').format('YYYY-MM-DD'),
+      endDate: moment().format('YYYY-MM-DD'),
+      filterType: 'week',
+      productData: [],
+      filterData: [
+        { 'value': 'day', 'label': 'Daily' },
+        { 'value': 'week', 'label': 'Weekly' },
+        { 'value': 'month', 'label': 'Monthly' }
+      ],
+      complete: false,
+      periodSelected: 1,
+      dateFromSelected: null,
+      dateFromText: null,
+      dateFromShow: false,
+  
+      dateToSelected: null,
+      dateToText: null,
+      dateToShow: false, 
+      minDate: null,
+      maxDate: null,
+      tableStatus: 'waiting' //table status waiting or noData
+    }
   }
   componentDidMount = () => {
     // set automatic table height
@@ -124,6 +128,7 @@ class StockMovement extends React.PureComponent {
     const siteData = data.map(d => ({ value: d.site, label: `${d.site} : ${d.name}` }))
     const site = { value: 'all', label: 'All Site' }
     siteData.splice(0, 0, site)
+    this.props.dispatch({ type: 'SITE', data: siteData })
     this.setState({ siteData })
   }
   getClient = async () => {
@@ -131,7 +136,27 @@ class StockMovement extends React.PureComponent {
     const clientData = data.map(d => ({ value: d.code, label: `${d.code} : ${d.name}` }))
     const client = { value: 'all', label: 'All Client' }
     clientData.splice(0, 0, client)
+    this.props.dispatch({ type: 'CLIENT', data: clientData })
     this.setState({ clientData })
+  }
+  siteCheck = (siteVal) => {
+    let l = null
+    const {site} = this.props.store
+    if(site)
+    site.map(data => {
+      if (data.value === siteVal) l = data.label
+    })
+    return l
+  }
+
+  clientCheck = (clientVal) => {
+    let c = null
+    const {client} = this.props.store
+    if(client)
+    client.map(data => {
+      if (data.value === clientVal) c = data.label
+    })
+    return c
   }
   getStatus = async () => {
     const statusData = [
@@ -374,11 +399,15 @@ class StockMovement extends React.PureComponent {
     })
   }
 
-  load_data = async (dtStart, dtEnd, periods, site = "", client = "", product = "") => {
-    try {  
-      // let dtStart = '2019-02-26'
-      // let dtEnd = '2019-02-28'
-      // let periods = 'day'
+  load_data = async (dtStart, dtEnd, periods, site = this.props.store?.user?.site, client = this.props.store?.user?.client, product = "") => {
+
+    try {   
+      this.setState({
+        periodSelected: 1,
+        data: [],
+        tableStatus: 'waiting'
+      })
+      
       let paramUrl = []
       let dateArray = []
       let stDate = dtStart ? dtStart : this.state.startDate
@@ -419,6 +448,10 @@ class StockMovement extends React.PureComponent {
           //get result 
           const result = res.data.data 
 
+          if(result.length < 1){
+            this.setState({   tableStatus: 'noData'  })
+          }
+
           this.setState({ data: result }, function(){ 
               this.setData()
           }) 
@@ -435,11 +468,19 @@ class StockMovement extends React.PureComponent {
     this.setState({ create: value ? value : !this.state.create })
   }
 
+  submitSearch = (e) => {
+    e.preventDefault();
+    this.searchStockMovement();
+  }
+
+
   render() {
+    console.log(this.props.store)
     const {
       dimension, fields, data, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData, taskData, data_table, filterType,filterData,
-      product, productData, periodSelected, pagination,dateFromShow, minDate,maxDate, date_array,export_data
+      product, productData, periodSelected, pagination,dateFromShow, minDate,maxDate, date_array,export_data,
+      tableStatus
   } = this.state 
   //custom style react-select  
   return <div className="stockMovement">
@@ -449,6 +490,7 @@ class StockMovement extends React.PureComponent {
  
     <CCard style={{zIndex: '999'}} className="mb-3 StockMovementFilter">
       <CCardBody className="px-0 py-3 main-con">
+        <form onSubmit={this.submitSearch}>
         <CRow className="flex-container-total-align"> 
         {/* Filter content start */}
 
@@ -486,33 +528,45 @@ class StockMovement extends React.PureComponent {
                   /> 
         </CCol>
         <CCol lg={2} className="sm-col-12 pr-0 site" > 
-        <Select name="site" placeholder="Site"
+        {
+          this.props.store?.user?.site ? 
+          < input name="site" type="text" value={this.siteCheck(this.props.store?.user?.site) || ''} className="form-control" placeholder="Site" maxLength="12" readOnly />
+          :
+          < Select name="site" placeholder="Site"
             value={site} options={siteData}
             onChange={(val) => this.setState({ site: val })} 
             styles={{
             dropdownIndicator: (base, state) => ({
                 ...base, 
                 transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-            })
-            }}
-        />
+          })
+          }}
+          />
+        }
+      
 
         </CCol>
         <CCol lg={2} className="sm-col-12 pr-0 client" > 
-        <Select name="client" placeholder="Client"
-            value={client} options={clientData}
-            onChange={(val) => this.setState({ client: val }, () => this.getproduct())} 
-            styles={{
-            dropdownIndicator: (base, state) => ({
-                ...base, 
-                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-            })
-            }}
-        />
+        {
+           this.props.store?.user?.client ? 
+           < input name="client" type="text" value={this.clientCheck(this.props.store?.user?.client) || ''} className="form-control" placeholder="Client" maxLength="12" readOnly />
+           :
+           <Select name="client" placeholder="Client"
+           value={client} options={clientData}
+           onChange={(val) => this.setState({ client: val }, () => this.getproduct())} 
+           styles={{
+           dropdownIndicator: (base, state) => ({
+               ...base, 
+               transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+           })
+           }}
+       />
+        }
+      
         </CCol>
         <CCol lg={2} className="sm-col-13 product" > 
         <Select name="product" placeholder="Product" 
-            value={product} options={productData}
+            value={product} options={this.state.product.length >= 3 ? productData : []}
             menuIsOpen={this.state.product.length >= 3 ? true : false}
             onInputChange={(val) => this.setState({ product: val })}
             onChange={(val) => this.setState({ product: val })} 
@@ -530,6 +584,7 @@ class StockMovement extends React.PureComponent {
 
         {/* Filter content End */} 
         </CRow>
+        </form>
       </CCardBody>
     </CCard>
 
@@ -542,13 +597,9 @@ class StockMovement extends React.PureComponent {
       date_array={date_array}
       filterType={filterType}
       fields={fields}
+      tableStatus={tableStatus}
       onClick={this.showDetails}
-      pagination={pagination} 
-      noDataText={<div>
-        <div  className='caution-caution'/>
-        <div>No Data Available</div>
-        <div>Adjust Filters above to load data</div>
-      </div>}
+      pagination={pagination}  
       export={<CButton className="btn btn-primary d-flex float-right px-3 align-items-center btn-export">
       <div className="export-export pr-3"/>
       EXPORT

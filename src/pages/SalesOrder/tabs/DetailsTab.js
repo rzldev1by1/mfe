@@ -27,12 +27,17 @@ class CreateTab extends React.Component {
     deliveryDate: null,
     orderId: null, 
     orderTypeValue: null, 
-    site: this.props.user.site ? this.props.user.site : '',
-    client: this.props.user.client ? this.props.user.client : '',
+    site: this.props.user.site ? {value:this.props.user.site} : '',
+    client: this.props.user.client ? {value:this.props.user.client} : '',
   }
   componentDidMount() {
     this.getDisposition()
-    this.getProduct() 
+    const {user} = this.props
+
+  if(user.client && user.site){
+    this.getProduct()
+    this.getSupplier({value:user.client})
+  }
   }
   // remove first option (all)
   componentDidUpdate(nextProps) {
@@ -176,6 +181,9 @@ class CreateTab extends React.Component {
     this.setState({ orderLine })
   }
   lineSelectChange = (i, key, val) => {
+    if(!val){
+        return null
+    }
     const { orderLine, error } = this.state
     if (error.orderLine && error.orderLine.length) {
       delete error.orderLine[i][key]
@@ -512,7 +520,7 @@ class CreateTab extends React.Component {
                 </td>
                 <td className="px-1 text-left">
                   <Select value={o.productVal || ''}
-                    options={productData}
+                    options={o.productVal && o.productVal.length >= 3 ? productData : []}
                     menuIsOpen={o.productVal && o.productVal.length >= 3 ? true : false}
                     onInputChange={(val) => this.lineSelectChange(i, 'productVal', val)}
                     onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
