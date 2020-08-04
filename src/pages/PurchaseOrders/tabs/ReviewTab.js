@@ -30,7 +30,7 @@ class ReviewTab extends React.Component {
       l.product = l.productVal?.value || null
       l.ref3 = l.ref4 || null
       l.ref4 = l.ref4 || null
-      l.rotaDate = l.rotaDate || null
+      l.rotaDate = moment(l.rotaDate).format('DD/MM/YYYY') || null
       l.disposition = l.disposition || null
       l.dispositionVal = l.dispositionVal?.value || null
       l.uom = l.uom?.value || null
@@ -140,7 +140,7 @@ class ReviewTab extends React.Component {
                 <td className="px-1"><input value={ld.ref3} className="form-control" placeholder="Ref 3" readOnly /></td>
                 <td className="px-1"><input value={ld.ref4} className="form-control" placeholder="Ref 4" readOnly /></td>
                 <td className="px-1"><input value={ld.dispositionVal?.label} className="form-control" placeholder="Disposition" readOnly /></td>
-                <td className="px-1"><input value={ld.rotaDate} className="form-control" placeholder="Rotadate" readOnly /></td>
+                <td className="px-1"><input value={ld.rotaDate ? moment(ld.rotaDate).format('DD/MM/YYYY') : '-'} className="form-control" placeholder="Rotadate" readOnly /></td>
                 <td className="px-1"></td>
               </tr>
             }) : null}
