@@ -142,7 +142,7 @@ class Logins extends Component {
                         </button>
                     </div>
                     <div className="col-sm-7 mt-3">
-                        <span className='form-login-change' onClick={() => this.changeFormHanlder()}>Forgot Password ?</span>
+                        <span className='form-login-change' onClick={() => this.changeFormHanlder()}>Forgot Password</span>
                     </div>
                 </div>
             </form>
@@ -260,10 +260,6 @@ class Logins extends Component {
         return (
             <div className="login">
                 <div className="container-fluid">
-                    <div className="offset-md-1 mb-4">
-                        <span className="text-logo">{version}</span>
-                    </div>
-                    <br/>
                     <div className="card col-md-8 col-lg-4 offset-md-1">
                         <div className="card-body">
                             <img src={Logo} className="logo mb-2" alt="mlslogo" />
@@ -281,6 +277,10 @@ class Logins extends Component {
                     <div className="offset-md-1 mt-5">
                         <a className="text-white " target='blank' href='https://www.microlistics.com.au/'>© Microlistics {new Date().getFullYear()} - part of the WiseTech Global Group</a>
                     </div>
+                    <div className="offset-md-1 mb-4">
+                        <span className="text-logo">{version}</span>
+                    </div>
+                    <br/>
                 </div>
             </div>
 
