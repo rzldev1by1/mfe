@@ -207,18 +207,22 @@ showModal = (show) => {
         }
       })
 
-    let editBtn = (
-      <div className='edit-column' onClick={this.showModal.bind(this, true)}>
-        <i className='iconU-edit text-primary' />
-      </div>
-    )
-    let obj = {
-      Header: editBtn,
-      accessor: 'editBtn',
-      width: 50,
-      style: { textAlign: 'center' },
-    };
-    listHeader = [...listHeader, obj];
+      
+    if(this.props.editColumn !== 'false'){
+      let editBtn = (
+        <div className='edit-column' onClick={this.showModal.bind(this, true)}>
+          <i className='iconU-edit text-primary' />
+        </div>
+      )
+      let obj = {
+        Header: editBtn,
+        accessor: 'editBtn',
+        width: 50,
+        style: { textAlign: 'center' },
+      };
+      listHeader = [...listHeader, obj];
+    }
+    
     return listHeader;
   };
 

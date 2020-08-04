@@ -222,6 +222,7 @@ class UserManagemen extends Component {
                     onClick={this.showDetails}
                     UrlHeader={this.UrlHeader} 
                     dimension={dimension}
+                    editColumn='false'
                     goto={(active) => {
                         this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler())
                       }}
