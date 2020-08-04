@@ -279,27 +279,27 @@ class CreateTab extends React.Component {
 
   numberCommaCheck = (index, refs, numberLength, commaLength,e) => {   
       var value = e.target.value 
-      var arr = value.split(".")  
-      var x = ''
-      if(arr[0].length > numberLength){
-        x = arr[0].substr(0,numberLength) 
-      }else{
-        x = arr[0]
-      }
-      var y = ''
-      if(arr[1] && arr[1].length > commaLength){
-        y = '.'+arr[1].substr(0,commaLength)
-      }else if(arr[1]){
-        y = '.'+arr[1]
-      }
-      var text =x+((tmpChar=='.')?'.':'')+y 
+      // var arr = value.split(".")  
+      // var x = ''
+      // if(arr[0].length > numberLength){
+      //   x = arr[0].substr(0,numberLength) 
+      // }else{
+      //   x = arr[0]
+      // }
+      // var y = ''
+      // if(arr[1] && arr[1].length > commaLength){
+      //   y = '.'+arr[1].substr(0,commaLength)
+      // }else if(arr[1]){
+      //   y = '.'+arr[1]
+      // }
+      // var text =x+((tmpChar=='.')?'.':'')+y 
       var arr2 = {
         target: {
           name: refs,
-          value: text
+          value: value
         }
       }
-      this.refs[refs].value = text
+      // this.refs[refs].value = value
       this.lineChange(index, arr2)
   }
 
@@ -329,6 +329,34 @@ class CreateTab extends React.Component {
         orderTypeValue:orderType.value
       })
     }
+
+    decimalValueForQty(e) {
+
+      if ((e.key >= 0 && e.key <= 9) || e.key === ".") {
+          let number = e.target.value + e.key;
+  
+          let arraytext = number.split('');
+          if(arraytext.length ){
+              let dotLength = arraytext.filter((item) => item === '.');
+              if(dotLength.length > 1){
+                
+                e.preventDefault();
+                e.stopPropagation();
+              }
+          }
+  
+            let regex = /^(\d{1,11}|\.)?(\.\d{0,3})?$/;
+  
+            if (!regex.test(number) && number !== "") {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+  
+      } else {
+          e.preventDefault();
+          e.stopPropagation();
+      }
+  }
    
     
   render() {
@@ -545,7 +573,7 @@ class CreateTab extends React.Component {
                   <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="px-1">
-                  <input name="weight" ref="weight" onChange={(e) => this.numberCommaCheck(i, "weight", 11,3, e)} type="text" min="0" className="form-control" placeholder="Weight" onKeyPress={(e) => this.numberCheck(e,true)}  />
+                  <input name="weight" ref="weight" onChange={(e) => this.numberCommaCheck(i, "weight", 16,3, e)} type="text" min="0" className="form-control" placeholder="Weight" onKeyPress={(e) => this.decimalValueForQty(e,true)}  />
                 </td>
                 <td className="px-1">
                   <Select value={o.uom || ''}

@@ -30,7 +30,7 @@
   margin-left: 74%;
   border: solid 0px;
   background-color: #e9eced !important;
-  border-radius: 7px;
+  border-radius: 0.3rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 .rename-columns:hover{
@@ -48,7 +48,8 @@
   padding-left: 24px;
   padding-right: 24px;
   padding-bottom: 5px;
-  border-radius: 7px;
+  border-radius: 0.3rem;
+  transition: width 2s;
 }
 .font-18{
   font-size: 14px !important;
