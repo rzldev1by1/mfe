@@ -161,7 +161,7 @@
 }
 
 .stockMovement .borderBottom {
-  border-bottom: 0px solid #d5d8da !important;
+  border-bottom: 0.5px solid #d5d8da !important;
 }
 
 .stockMovement .noBorderBottom {
