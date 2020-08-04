@@ -247,10 +247,10 @@ class PurchaseOrders extends React.PureComponent {
     
   }
   UrlHeader = () =>{
-    return `$/getSalesOrderHeader?client=ANTEC`
+    return `/getPurchaseOrderColumn?client=ALL`
   }
   UrlAll = () => {
-    return '/putStockholdingColumn?client=ALL'
+    return '/putPurchaseOrderColumn?client=ALL'
   }
 
   onSubmitSearch = (e) => {
