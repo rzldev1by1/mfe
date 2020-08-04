@@ -181,6 +181,7 @@ class SalesOrderDetail extends React.Component {
         pagination={pagination}
         tableStatus={tableStatus}
         UrlHeader={this.UrlHeader} 
+        UrlAll={this.UrlAll}
         // request_status={this.state.request_status}
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.getProducts(active))
