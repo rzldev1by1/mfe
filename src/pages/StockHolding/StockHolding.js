@@ -143,6 +143,7 @@ class StockHolding extends React.PureComponent {
     fields: columns,
     customFields: customColumns,
     data: [],
+    loginInfo: {},
     create: false,
     pagination: {},
     detail: {},
@@ -161,6 +162,7 @@ class StockHolding extends React.PureComponent {
     this.getClient()
     this.getStatus()
     this.searchStockHolding()
+    this.loadPersonalLogin();
   }
 
   componentWillUnmount() {
@@ -198,8 +200,13 @@ class StockHolding extends React.PureComponent {
   }
 
   // url Get Header And Post
+  loadPersonalLogin = () => {
+    let userInfo = this.props.store;     
+    this.setState({ loginInfo: userInfo.user });
+}
 
   UrlHeader = () => {
+    let loginInfo = this.state.loginInfo
     return `${endpoints.getStockHoldingHearder}?client=ANTEC`
   }
   UrlAntec = () => {
