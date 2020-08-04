@@ -8,23 +8,23 @@ import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader'
 import './PurchaseOrder.scss'
 const columns = [
-  { accessor: "orig_line_number", Header: "Line No" },
-  { accessor: "product", Header: "Product" },
-  { accessor: "product_name", Header: "Description" },
-  { accessor: "quantity", Header: "Qty", width: 70 },
-  { accessor: "packdesc_1", Header: "UOM", width: 80 },
-  { accessor: "qty_processed", Header: "Qty Processed", width: 130 },
-  { accessor: "weight", Header: "Weight" },
-  { accessor: "weight_processed", Header: "Weight Processed", width: 140 },
+  { accessor: "orig_line_number",  placeholder: 'Line No', Header: "Line No" },
+  { accessor: "product",  placeholder: 'Product', Header: "Product" },
+  { accessor: "product_name",  placeholder: 'Description', Header: "Description" },
+  { accessor: "quantity",  placeholder: 'Qty', Header: "Qty", width: 50 },
+  { accessor: "packdesc_1",  placeholder: 'UOM', Header: "UOM", width: 80 },
+  { accessor: "qty_processed",  placeholder: 'Qty Processed', Header: "Qty Processed", width: 130 },
+  { accessor: "weight",  placeholder: 'Weight', Header: "Weight" },
+  { accessor: "weight_processed",  placeholder: 'Weight Processed', Header: "Weight Processed", width: 140 },
   {
-    accessor: "completed", Header: "Completed",
+    accessor: "completed",  placeholder: 'Completed', Header: "Completed",
     Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
-  { accessor: "batch", Header: "Batch", width: 90 },
-  { accessor: "rotadate", Header: "Rota Date" },
-  { accessor: "ref3", Header: "Ref3", width: 80 },
-  { accessor: "ref4", Header: "Ref4", width: 80 },
-  { accessor: "disposition", Header: "Disposition" },
+  { accessor: "batch",  placeholder: 'Batch', Header: "Batch", width: 90 },
+  { accessor: "rotadate",  placeholder: 'Rota Date', Header: "Rotadate" },
+  { accessor: "ref3",  placeholder: 'Ref3', Header: "Ref3", width: 80 },
+  { accessor: "ref4",  placeholder: 'Ref4', Header: "Ref4", width: 80 },
+  { accessor: "disposition", placeholder: 'Disposition', Header: "Disposition" },
 ]
 class PurchaseOrdersDetail extends React.Component {
   constructor(props) {
@@ -64,7 +64,6 @@ class PurchaseOrdersDetail extends React.Component {
   getProducts = async (page=1) => {
     const { pagination,tableStatus } = this.state
     const { orderdetail, client,site} = this.props.match.params
-    console.log(this.props.match.params)
     const url = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${page}`
     const { data } = await axios.get(url)
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
@@ -72,8 +71,12 @@ class PurchaseOrdersDetail extends React.Component {
     //   this.setState({ products: data.data })
     // }
     if (data?.data?.data) { 
+      const dt = data.data.data.map(m => { 
+        m.rotadate = m?.rotadate ? moment(m.rotadate).format('DD/MM/YYYY') : '-'
+        return m
+      })
       this.setState({
-        products: data.data.data,
+        products: dt,
         pagination: {
           active: pagination.active || data.data.current_page,
           show: data.data.per_page,
@@ -82,7 +85,7 @@ class PurchaseOrdersDetail extends React.Component {
           from: data.data.from,
           to: data.data.to
         } 
-      }, () => {console.log (this.state.pagination)})
+      })
 
       if(data.data.data.length < 1){
         this.setState({   tableStatus: 'noData'  })
@@ -109,7 +112,10 @@ class PurchaseOrdersDetail extends React.Component {
     })
   }
   UrlHeader = () =>{
-    return `$/getPurchseHeader?client=ANTEC`
+    return `/getPurchaseOrderDetailColumn?client=ALL`
+  }
+  UrlAll = () => {
+    return '/putPurchaseOrderDetailColumn?client=ALL'
   }
 
   render() {
@@ -157,6 +163,7 @@ class PurchaseOrdersDetail extends React.Component {
         data={products}
         pagination={pagination}
         UrlHeader={this.UrlHeader} 
+        UrlAll={this.UrlAll}
         tableStatus={tableStatus}
         export={
           <button className='btn btn-primary float-right btn-export'>

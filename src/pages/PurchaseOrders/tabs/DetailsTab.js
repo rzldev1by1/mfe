@@ -56,7 +56,6 @@ class CreateTab extends React.Component {
         const {user} = this.props
 
     if(user.client && user.site){
-      this.getProduct()
       this.getSupplier()
     }
   }
@@ -80,11 +79,16 @@ class CreateTab extends React.Component {
       this.setState({ supplierData })
     }
   }
-  getProduct = async () => {
-    const url = `${endpoints.getProduct}?client=${this.state.client.value}`
+  getProduct = async (val) => {
+    const url = `${endpoints.getProduct}?client=${this.state.client.value}&param=${val}`
     const { data } = await axios.get(url)
-    const productData = data.code.map((c, i) => ({ value: c, label: c, i }))
-    this.setState({ productData, productDataName: data.name })
+    const productData = data.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.name}`, i }))
+    this.setState({ productData })
+  }
+
+  getProductHandler = (val) => {
+    if(!val || val.length < 3) return
+    else  Promise.resolve( this.getProduct(val));
   }
   getDisposition = async () => {
     const url = `${endpoints.getDisposition}`
@@ -153,7 +157,6 @@ class CreateTab extends React.Component {
     delete error[name]
     this.setState({ [name]: val, orderDetails,site,client }, () => {
       if (name === 'client') {
-        this.getProduct()
         this.getSupplier()
       }
     })
@@ -207,7 +210,7 @@ class CreateTab extends React.Component {
       delete error.orderLine[i][key]
     }
     if (key === 'productVal') {
-      orderLine[i].product = this.state.productDataName[val.i]
+      orderLine[i].product = val.label
       orderLine[i].productVal = val
     }
     if (key === 'dispositionVal') {
@@ -244,8 +247,8 @@ class CreateTab extends React.Component {
       error.orderId = 'Order no. cannot be empty'
       return this.setState({ error })
     }
-    if (orderId.length < 5) {
-      error.orderId = 'Order no. must have min 5 characters'
+    if (orderId.length < 4) {
+      error.orderId = 'Order no. must have min 4 characters'
       return this.setState({ error })
     }
     delete error.orderId
@@ -253,8 +256,12 @@ class CreateTab extends React.Component {
       "client": client.value,
       "order_no": orderId
     })
-    if (data.message !== 'available') {
+    if (data.message !== 'available' && data.message !== 'The client field is required.') {
       error.orderId = 'Order number exist'
+      return this.setState({ error })
+    }
+    if(data.message === 'The client field is required.'){
+      error.orderId = 'Please select client'
       return this.setState({ error })
     }
   }
@@ -316,6 +323,34 @@ class CreateTab extends React.Component {
     })
     return c
   }
+
+  decimalValueForQty(e) {
+
+    if ((e.key >= 0 && e.key <= 9) || e.key === ".") {
+        let number = e.target.value + e.key;
+
+        let arraytext = number.split('');
+        if(arraytext.length ){
+            let dotLength = arraytext.filter((item) => item === '.');
+            if(dotLength.length > 1){
+              
+              e.preventDefault();
+              e.stopPropagation();
+            }
+        }
+
+          let regex = /^(\d{1,11}|\.)?(\.\d{0,3})?$/;
+
+          if (!regex.test(number) && number !== "") {
+              e.preventDefault();
+              e.stopPropagation();
+          }
+
+    } else {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+}
 
 
   render() {
@@ -401,7 +436,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order No</label>
-          <input name="orderId" type="text" value={orderId || ''} onChange={this.checkOrderId} className="form-control" placeholder="Order No" required />
+          <input name="orderId" type="text" value={orderId || ''} onChange={this.checkOrderId} className="form-control" maxLength='12' placeholder="Order No" required />
           <Required id="orderId" error={error} />
         </Col>
         <Col lg="3">
@@ -434,7 +469,7 @@ class CreateTab extends React.Component {
               <td><div className="c-400 required">Product</div></td>
               <td><div className="c-600">Description</div></td>
               <td><div className="c-100 required">Qty</div></td>
-              <td><div className="c-150">Weight</div></td>
+              <td><div className="c-170">Weight</div></td>
               <td><div className="c-150 required">UOM</div></td>
               <td><div className="c-100">Batch</div></td>
               <td><div className="c-100">Ref3</div></td>
@@ -452,14 +487,18 @@ class CreateTab extends React.Component {
                 </td>
                 <td className="px-1">
                   <Select value={o.productVal || ''}
-                    options={o.productVal && o.productVal.length >= 3 ? productData : []}
-                    menuIsOpen={o.productVal && o.productVal.length >= 3 ? true : false}
-                    onInputChange={(val) => this.lineSelectChange(i, 'productVal', val)}
+                    options={productData}
+                    getOptionLabel={option => option.value}
+                    onInputChange={(val) => this.getProductHandler(val)}
                     onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
                     onMenuClose={() => {productStatus[i] = false; this.setState({ productStatus: productStatus })}}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
                     className={`c-400 ${overflow[i] && overflow[i].productVal ? 'absolute' : null}`} placeholder="Product" required 
                     styles={{
+                      option: (provided, state) => ({
+                        ...provided,
+                        textAlign:'left'
+                      }),
                       dropdownIndicator: (base, state) => ({
                         ...base, 
                         transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
@@ -472,14 +511,14 @@ class CreateTab extends React.Component {
                   <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly />
                 </td>
                 <td className="px-1">
-                  <input name="qty" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} type="text" className="form-control" placeholder="Qty" maxlength="10" />
+                  <input name="qty" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} value={numeral(this.state.orderLine[i]['qty']).format('0,0')} type="text" className="form-control" placeholder="Qty" maxlength="10" />
                   <div className='w-100 d-flex align-items-start text-nowrap'>
                   <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                   </div>
                   
                 </td>
                 <td className="px-1">
-                  <input name="weight" value={numeral(this.state.orderLine[i]['weight']).format('0,0.000')} onKeyPress={(e) => this.decimalCheck(e)} onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="15" className="form-control" placeholder="Weight" />
+                  <input name="weight" onKeyPress={(e) => this.decimalValueForQty(e)} onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="15" className="form-control" placeholder="Weight" />
                 </td>
                 <td className="px-1">
                   <Select value={o.uom || ''}

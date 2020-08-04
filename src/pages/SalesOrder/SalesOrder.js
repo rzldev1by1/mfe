@@ -182,12 +182,12 @@ class SalesOrder extends React.PureComponent {
     const { data } = await axios.get(`${endpoints.salesOrder}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
-        m.deliverydate = m.deliverydate ? moment(m.deliverydate).format('DD/MM/YYYY') : ''
-        m.datereceived = m.datereceived ? moment(m.datereceived).format('DD/MM/YYYY') : ''
-        m.datereleased = m.datereleased ? moment(m.datereleased).format('DD/MM/YYYY') : ''
-        m.datecompleted = m.datecompleted ? moment(m.datecompleted).format('DD/MM/YYYY') : ''
-        m.loadoutstart = m.loadoutstart ? moment(m.loadoutstart).format('DD/MM/YYYY') : ''
-        m.loadoutfinish = m.loadoutfinish ? moment(m.loadoutfinish).format('DD/MM/YYYY') : ''
+        m.deliverydate = m.deliverydate ? moment(m.deliverydate).format('DD/MM/YYYY') : '-'
+        m.datereceived = m.datereceived ? moment(m.datereceived).format('DD/MM/YYYY') : '-'
+        m.datereleased = m.datereleased ? moment(m.datereleased).format('DD/MM/YYYY') : '-'
+        m.datecompleted = m.datecompleted ? moment(m.datecompleted).format('DD/MM/YYYY') : '-'
+        m.loadoutstart = m.loadoutstart ? moment(m.loadoutstart).format('DD/MM/YYYY') : '-'
+        m.loadoutfinish = m.loadoutfinish ? moment(m.loadoutfinish).format('DD/MM/YYYY') : '-'
         return m
       })
       modifiedData.map((item, idx) => {
@@ -258,44 +258,15 @@ class SalesOrder extends React.PureComponent {
     })
     return c
   }
+    // erl Get Header And Post
   
   UrlHeader = () => {
-    return `/getSalesOrderColumn?client=`
+    return `/getSalesOrderColumn?client=ALL`
   }
-  UrlAntec = () => {
-    return '/putSalesOrderColumn?client=ANTEC'
+  UrlAll = () => {
+    return '/putSalesOrderColumn?client=ALL'
   }
-  UrlBega = () => {
-    return '/putSalesOrderColumn?client=BEGA'
-  }
-  UrlAesop = () => {
-    return '/putSalesOrderColumn?client=AESOP'
-  }
-  UrlClucth = () => {
-    return '/putSalesOrderColumn?client=CLUCTH'
-  }
-  UrlExquira = () => {
-    return '/putSalesOrderColumn?client=EXQUIRA'
-  }
-  UrlLedvance = () => {
-    return '/putSalesOrderColumn?client=LEDVANCE'
-  }
-  UrlOnestop = () => {
-    return '/putSalesOrderColumn?client=ONESTOP'
-  }
-  UrlStartrack = () => {
-    return '/putSalesOrderColumn?client=STARTRACK'
-  }
-  UrlTatura = () => {
-    return '/putSalesOrderColumn?client=TATURA'
-  }
-  UrlTtl = () => {
-    return '/putSalesOrderColumn?client=TTL'
-  }
-  UrlTtchem = () => {
-    return '/putSalesOrderColumn?client=TTCHEM'
-  }
-
+ 
   // end url Get Header And Post
 
   onSubmitSearch = (e) => {
@@ -421,10 +392,8 @@ class SalesOrder extends React.PureComponent {
         tableStatus={tableStatus}
         onClick={this.showDetails}
         renameSubmit={this.renameSubmit}
-        UrlHeader={this.UrlHeader} UrlAntec={this.UrlAntec} UrlBega={this.UrlBega}
-        UrlAesop={this.UrlAesop} UrlClucth={this.UrlClucth} UrlExquira={this.UrlExquira}
-        UrlLedvance={this.UrlLedvance} UrlOnestop={this.UrlOnestop} UrlStartrack={this.UrlStartrack}
-        UrlTatura={this.UrlTatura} UrlTtl={this.UrlTtl} UrlTtchem={this.UrlTtchem}
+        UrlHeader={this.UrlHeader} 
+        UrlAll={this.UrlAll}
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchSalesOrder())
         }} 

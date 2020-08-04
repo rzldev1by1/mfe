@@ -32,11 +32,13 @@ const TheSidebar = () => {
   }
   return (
     <CSidebar
+      id="theSidebar"
       show={show}
       // unfoldable
       // className="c-sidebar-unfoldable"
       className="h-100"
       onShowChange={(val) => dispatch({ type: 'set', sidebarShow: val })}
+
     >
 
       {/* <CSidebarBrand to="/">

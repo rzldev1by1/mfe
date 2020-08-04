@@ -36,7 +36,7 @@
 }
 [class^="export-"],
 [class*=" export-"] {
-  font-family: "export" !important;
+  // font-family: "export" !important;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -67,6 +67,43 @@
   text-transform: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+@font-face {
+  font-family: 'export2';
+  src:  url('../icons/export2/icomoon.eot?fhfiso');
+  src:  url('../icons/export2/icomoon.eot?fhfiso#iefix') format('embedded-opentype'),
+    url('../icons/export2/icomoon.ttf?fhfiso') format('truetype'),
+    url('../icons/export2/icomoon.woff?fhfiso') format('woff'),
+    url('../icons/export2/icomoon.svg?fhfiso#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'export2' !important;
+  // speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-PDF:before {
+  content: "\e699";
+  font-size: 1.75rem;
+  color: rgb(216, 60, 60);
+}
+.icon-XLS:before {
+  content: "\e700";
+  font-size: 1.75rem;
+  color: rgb(65, 209, 65);
 }
 .iconU-stockMovement:before {
   content: "\e90e";

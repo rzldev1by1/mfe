@@ -30,7 +30,7 @@ class ReviewTab extends React.Component {
       l.product = l.productVal?.value || null
       l.ref3 = l.ref4 || null
       l.ref4 = l.ref4 || null
-      l.rotaDate = l.rotaDate || null
+      l.rotaDate = moment(l.rotaDate).format('DD/MM/YYYY') || null
       l.disposition = l.disposition || null
       l.dispositionVal = l.dispositionVal?.value || null
       l.uom = l.uom?.value || null
@@ -113,36 +113,34 @@ class ReviewTab extends React.Component {
         <table>
           <thead>
             <tr className="text-muted">
-              <td><div className="c-1 text-center">#</div></td>
-              <td><div className="c-3 required">Product</div></td>
-              <td><div className="c-4">Description</div></td>
-              <td><div className="c-3 required">Qty</div></td>
-              <td><div className="c-2">Weight</div></td>
-              <td><div className="c-3 required">UOM</div></td>
-              <td><div className="c-3">Rotadate</div></td>
-              <td><div className="c-2">Batch</div></td>
-              <td><div className="c-2">Ref3</div></td>
-              <td><div className="c-2">Ref4</div></td>
-              <td><div className="c-2">Disposition</div></td>
-              <td><div className="c-3">Pack ID</div></td>
-              <td><div className="c-1"></div></td>
+            <td><div className="c-50 text-center">#</div></td>
+              <td><div className="c-400">Product</div></td>
+              <td><div className="c-600">Description</div></td>
+              <td><div className="c-100">Qty</div></td>
+              <td><div className="c-170">Weight</div></td>
+              <td><div className="c-150">UOM</div></td>
+              <td><div className="c-100">Batch</div></td>
+              <td><div className="c-100">Ref3</div></td>
+              <td><div className="c-100">Ref4</div></td>
+              <td><div className="c-150">Disposition</div></td>
+              <td><div className="c-150">Rotadate</div></td>
+              <td><div className="c-50"></div></td>
             </tr>
           </thead>
           <tbody>
             {lineDetail.length ? lineDetail.map((ld, i) => {
               return <tr className="py-1 text-center orderline-row">
                 <td className="px-1"><input value={i + 1} className="form-control text-center" readOnly /></td>
-                <td className="px-1"><input value={ld.productVal?.label} className="form-control w-400" readOnly /></td>
+                <td className="px-1"><input value={ld.productVal?.value} className="form-control w-400" readOnly /></td>
                 <td className="px-1"><input value={ld.product} className="form-control w-600" placeholder="Choose a product first" readOnly /></td>
                 <td className="px-1"><input value={ld.qty} className="form-control" placeholder="Qty" readOnly /></td>
                 <td className="px-1"><input value={ld.weight} className="form-control" placeholder="Weight" readOnly /></td>
                 <td className="px-1"><input value={ld.uom?.label} className="form-control" placeholder="UOM" readOnly /></td>
-                <td className="px-1"><input value={ld.rotaDate} className="form-control" readOnly /></td>
                 <td className="px-1"><input value={ld.batch} className="form-control" placeholder="Batch" readOnly /></td>
                 <td className="px-1"><input value={ld.ref3} className="form-control" placeholder="Ref 3" readOnly /></td>
                 <td className="px-1"><input value={ld.ref4} className="form-control" placeholder="Ref 4" readOnly /></td>
                 <td className="px-1"><input value={ld.dispositionVal?.label} className="form-control" placeholder="Disposition" readOnly /></td>
-                <td className="px-1"><input value={ld.packId} className="form-control" placeholder="Pack ID" readOnly /></td>
+                <td className="px-1"><input value={ld.rotaDate ? moment(ld.rotaDate).format('DD/MM/YYYY') : '-'} className="form-control" placeholder="Rotadate" readOnly /></td>
                 <td className="px-1"></td>
               </tr>
             }) : null}
