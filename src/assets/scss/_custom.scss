@@ -10,6 +10,10 @@ body {
 }
 
 // Custom style
+.grid-col{
+  display: grid !important;
+  grid-template-columns: auto auto auto auto !important;
+}
 .no-outline:focus{
 outline: none !important;
 }
@@ -410,6 +414,7 @@ header {
   }
 }
 
+// modal box
 @media (min-width: 1200px){
   .um-create, .sales-order-create, .purchase-order-create {
     .modal-xl {
@@ -421,8 +426,12 @@ header {
       max-width: 1525px;
     }
   }
+  .row-cols-xl-5 > * {
+    flex: 0 0 100%;
+    max-width: 100%;
 }
-
+}
+// -------------------------------
 @media (max-width:991px){
   .btn-create{
     display: none !important;

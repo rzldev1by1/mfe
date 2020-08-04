@@ -671,7 +671,7 @@ showModal = (show) => {
                     </Col>
                   </TabPane>
                   <TabPane tabId='2'>
-                    <Row xl={5} lg={10} className='mx-1'>
+                    <Row xl={5} lg={10} className='mx-1 grid-col'>
                       {fields &&
                         fields.map((item, index) => {
                           return (
