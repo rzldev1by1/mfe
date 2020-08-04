@@ -347,56 +347,45 @@ showModal = (show) => {
     const baseUrl = process.env.REACT_APP_API_URL;
 
     try {
-      const urlAntec = await axios.post(
-        baseUrl + this.props.UrlAntec(),
+      const urlAll = await axios.post(
+        baseUrl + this.props.UrlAll(),
         payload
       );
-      const urlBega = await axios.post(baseUrl + this.props.UrlBega(), payload);
-      const urlAesop = await axios.post(
-        baseUrl + this.props.UrlAesop(),
-        payload
-      );
-      const urlClucth = await axios.post(
-        baseUrl + this.props.UrlClucth(),
-        payload
-      );
-      const urlExquira = await axios.post(
-        baseUrl + this.props.UrlExquira(),
-        payload
-      );
-      const urlLedvance = await axios.post(
-        baseUrl + this.props.UrlLedvance(),
-        payload
-      );
-      const urlOnestop = await axios.post(
-        baseUrl + this.props.UrlOnestop(),
-        payload
-      );
-      const urlStartrack = await axios.post(
-        baseUrl + this.props.UrlStartrack(),
-        payload
-      );
-      const urlTatura = await axios.post(
-        baseUrl + this.props.UrlTatura(),
-        payload
-      );
-      const urlTtl = await axios.post(baseUrl + this.props.UrlTtl(), payload);
-      const urlTtchem = await axios.post(
-        baseUrl + this.props.UrlTtchem(),
-        payload
-      );
-      const { data } =
-        urlAntec +
-        urlBega +
-        urlAesop +
-        urlClucth +
-        urlExquira +
-        urlLedvance +
-        urlOnestop +
-        urlStartrack +
-        urlTatura +
-        urlTtl +
-        urlTtchem;
+      // const urlBega = await axios.post(baseUrl + this.props.UrlBega(), payload);
+      // const urlAesop = await axios.post(
+      //   baseUrl + this.props.UrlAesop(),
+      //   payload
+      // );
+      // const urlClucth = await axios.post(
+      //   baseUrl + this.props.UrlClucth(),
+      //   payload
+      // );
+      // const urlExquira = await axios.post(
+      //   baseUrl + this.props.UrlExquira(),
+      //   payload
+      // );
+      // const urlLedvance = await axios.post(
+      //   baseUrl + this.props.UrlLedvance(),
+      //   payload
+      // );
+      // const urlOnestop = await axios.post(
+      //   baseUrl + this.props.UrlOnestop(),
+      //   payload
+      // );
+      // const urlStartrack = await axios.post(
+      //   baseUrl + this.props.UrlStartrack(),
+      //   payload
+      // );
+      // const urlTatura = await axios.post(
+      //   baseUrl + this.props.UrlTatura(),
+      //   payload
+      // );
+      // const urlTtl = await axios.post(baseUrl + this.props.UrlTtl(), payload);
+      // const urlTtchem = await axios.post(
+      //   baseUrl + this.props.UrlTtchem(),
+      //   payload
+      // );
+      const { data } = urlAll;
     } catch (error) {
       console.log(error);
     }
