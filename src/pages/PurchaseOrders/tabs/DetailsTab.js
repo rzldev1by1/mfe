@@ -492,6 +492,10 @@ class CreateTab extends React.Component {
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
                     className={`c-400 ${overflow[i] && overflow[i].productVal ? 'absolute' : null}`} placeholder="Product" required 
                     styles={{
+                      option: (provided, state) => ({
+                        ...provided,
+                        textAlign:'left'
+                      }),
                       dropdownIndicator: (base, state) => ({
                         ...base, 
                         transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null

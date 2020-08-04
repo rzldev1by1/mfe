@@ -569,7 +569,7 @@ class CreateTab extends React.Component {
                   <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly />
                 </td>
                 <td className="px-1">
-                  <input name="qty" style={{width: "130px"}} onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control" value={numeral(this.state.orderLine[i]['qty']).format('0,0')}  onKeyPress={(e) => this.numberCheck(e)}  placeholder="Qty" maxLength="10"  />
+                  <input name="qty" onChange={(e) => alert(e.target.value)} type="text" min="0" className="form-control" value={numeral(this.state.orderLine[i]['qty']).format('0,0')}  onKeyPress={(e) => this.numberCheck(e)}  placeholder="Qty" maxLength="10"  />
                   <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="px-1">
