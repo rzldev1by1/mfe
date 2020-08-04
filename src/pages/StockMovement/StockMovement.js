@@ -70,7 +70,9 @@ class StockMovement extends React.PureComponent {
       tableStatus: 'waiting' //table status waiting or noData
     }
   }
+
   componentDidMount = () => {
+      let self = this;
     // set automatic table height
     this.updateDimension();
     window.addEventListener('resize', this.updateDimension);
@@ -82,6 +84,48 @@ class StockMovement extends React.PureComponent {
     //this.searchStockMovement() 
     this.load_data('', '', 'week')
     this.getStockDate();
+    document.getElementById("stockMovement").addEventListener('mousedown', (e) => {
+        if(self.refs["dateFrom"] && self.refs["dateFrom"].state.showDatePicker){
+            self.closeDatePicker("from", e)
+        }
+
+        if(self.refs["dateTo"] && self.refs["dateTo"].state.showDatePicker){
+            self.closeDatePicker("to", e)
+        }
+    });
+    document.getElementById("stockMovementBtn").addEventListener('mousedown', (e) => {
+        if(self.refs["dateFrom"] && self.refs["dateFrom"].state.showDatePicker){
+            self.closeDatePicker("from", e)
+        }
+
+        if(self.refs["dateTo"] && self.refs["dateTo"].state.showDatePicker){
+            self.closeDatePicker("to", e)
+        }
+    });
+    document.getElementById("theSidebar").addEventListener('mousedown', (e) => {
+        if(self.refs["dateFrom"] && self.refs["dateFrom"].state.showDatePicker){
+            self.closeDatePicker("from", e)
+        }
+
+        if(self.refs["dateTo"] && self.refs["dateTo"].state.showDatePicker){
+            self.closeDatePicker("to", e)
+        }
+    });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimension);
+    let self = this;
+    // document.getElementsByClassName("stockMovement").removeEventListener('mousedown', (e) => {
+
+    // if(self.refs["dateFrom"] && self.refs["dateFrom"].state.showDatePicker){
+    //     self.closeDatePicker("from", e)
+    // }
+
+    // if(self.refs["dateTo"] && self.refs["dateTo"].state.showDatePicker){
+    //     self.closeDatePicker("to", e)
+    // }
+    // });
   }
 
   getStockDate = () => {
@@ -109,16 +153,21 @@ class StockMovement extends React.PureComponent {
     }
   }
 
-  closeDatePicker = (type) => {
+  closeDatePicker = (type, e) => {
+    let self = this;
+    if((e) && ((type === 'from') && (this.refs["dateFrom"].current && !this.refs["dateFrom"].current.contains(e.target)))){
+        return this.refs["dateFrom"].closeDatePicker()
+    }
+
+    if((e) && ((type === 'to') && (this.refs["dateTo"].current && !this.refs["dateTo"].current.contains(e.target)))){
+        return this.refs["dateTo"].closeDatePicker()
+    }
+
     if (type === 'from') {
       this.refs["dateFrom"].closeDatePicker()
     } else if (type === "to") {
       this.refs["dateTo"].closeDatePicker()
     }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimension);
   }
   updateDimension = () => {
     const height = (window.innerHeight - 257)
@@ -579,8 +628,8 @@ class StockMovement extends React.PureComponent {
             }}
         />
         </CCol> 
-        <CCol lg={2} className="sm-col-11 col-btn pl-0" >
-            <button className="btn btn-block btn-primary float-right stockMovement btn-search" onClick={this.searchStockMovement}>SEARCH</button>
+        <CCol lg={2} className="sm-col-11 col-btn pl-0">
+            <button className="btn btn-block btn-primary float-right stockMovement btn-search" onClick={this.searchStockMovement} id="stockMovementBtn">SEARCH</button>
         </CCol>
 
         {/* Filter content End */} 
