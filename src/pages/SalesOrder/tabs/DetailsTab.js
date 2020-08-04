@@ -549,9 +549,9 @@ class CreateTab extends React.Component {
                 </td>
                 <td className="px-1 text-left">
                   <Select value={o.productVal || ''}
-                    options={o.productVal && o.productVal.length >= 3 ? productData : []}
-                    menuIsOpen={o.productVal && o.productVal.length >= 3 ? true : false}
-                    onInputChange={(val) => this.lineSelectChange(i, 'productVal', val)}
+                    options={productData}
+                    // menuIsOpen={o.productVal && o.productVal.length >= 3 ? true : false}
+                    // onInputChange={(val) => this.lineSelectChange(i, 'productVal', val)}
                     onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
                     onMenuClose={() => {productStatus[i] = false; this.setState({ productStatus: productStatus })}}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}

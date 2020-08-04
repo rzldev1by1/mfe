@@ -111,6 +111,9 @@ class PurchaseOrdersDetail extends React.Component {
   UrlHeader = () =>{
     return `$/getPurchseHeader?client=ANTEC`
   }
+  UrlAll = () => {
+    return '/putStockholdingColumn?client=ALL'
+  }
 
   render() {
     // const { match, history } = this.props
@@ -157,6 +160,7 @@ class PurchaseOrdersDetail extends React.Component {
         data={products}
         pagination={pagination}
         UrlHeader={this.UrlHeader} 
+        UrlAll={this.UrlAll}
         tableStatus={tableStatus}
         export={
           <button className='btn btn-primary float-right btn-export'>

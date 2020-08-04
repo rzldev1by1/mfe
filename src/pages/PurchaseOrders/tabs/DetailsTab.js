@@ -253,8 +253,12 @@ class CreateTab extends React.Component {
       "client": client.value,
       "order_no": orderId
     })
-    if (data.message !== 'available') {
+    if (data.message !== 'available' && data.message !== 'The client field is required.') {
       error.orderId = 'Order number exist'
+      return this.setState({ error })
+    }
+    if(data.message === 'The client field is required.'){
+      error.orderId = 'Please select client'
       return this.setState({ error })
     }
   }
@@ -429,7 +433,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order No</label>
-          <input name="orderId" type="text" value={orderId || ''} onChange={this.checkOrderId} className="form-control" placeholder="Order No" required />
+          <input name="orderId" type="text" value={orderId || ''} onChange={this.checkOrderId} className="form-control" maxLength='12' placeholder="Order No" required />
           <Required id="orderId" error={error} />
         </Col>
         <Col lg="3">
@@ -480,9 +484,9 @@ class CreateTab extends React.Component {
                 </td>
                 <td className="px-1">
                   <Select value={o.productVal || ''}
-                    options={o.productVal && o.productVal.length >= 3 ? productData : []}
-                    menuIsOpen={o.productVal && o.productVal.length >= 3 ? true : false}
-                    onInputChange={(val) => this.lineSelectChange(i, 'productVal', val)}
+                    options={productData}
+                    // menuIsOpen={o.productVal && o.productVal.length >= 3 ? true : false}
+                    // onInputChange={(val) => this.lineSelectChange(i, 'productVal', val)}
                     onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
                     onMenuClose={() => {productStatus[i] = false; this.setState({ productStatus: productStatus })}}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
