@@ -162,7 +162,7 @@ class StockHolding extends React.PureComponent {
     this.getClient()
     this.getStatus()
     this.searchStockHolding()
-    this.loadPersonalLogin();
+    // this.loadPersonalLogin();
   }
 
   componentWillUnmount() {
@@ -200,14 +200,14 @@ class StockHolding extends React.PureComponent {
   }
 
   // url Get Header And Post
-  loadPersonalLogin = () => {
-    let userInfo = this.props.store;     
-    this.setState({ loginInfo: userInfo.user });
-}
+//   loadPersonalLogin = () => {
+//     let userInfo = this.props.store;     
+//     this.setState({ loginInfo: userInfo.user });
+// }
 
   UrlHeader = () => {
-    let loginInfo = this.state.loginInfo
-    return `${endpoints.getStockHoldingHearder}?client=ANTEC`
+    // let loginInfo = this.state.loginInfo
+    return `${endpoints.getStockHoldingHearder}?client=BEGA`
   }
   UrlAntec = () => {
     return '/putStockholdingColumn?client=ANTEC'
@@ -281,6 +281,7 @@ class StockHolding extends React.PureComponent {
     urls.push('page=' + (pagination.active || 1))
     if(export_=='true'){urls.push('export=true')}
     const { data } = await axios.get(`${endpoints.stockHoldingSummary}?${urls.join('&')}`)
+    console.log(data)
     if (data?.data?.data) {
       const modifiedData = data.data.data;
       modifiedData.map((item, idx) => {
@@ -471,7 +472,7 @@ class StockHolding extends React.PureComponent {
           pagination={pagination}
           onClick={this.showDetails}
           renameSubmit={this.renameSubmit}
-          UrlHeader={this.UrlBega} UrlAntec={this.UrlAntec} UrlBega={this.UrlBega}
+          UrlHeader={this.UrlHeader} UrlAntec={this.UrlAntec} UrlBega={this.UrlBega}
           UrlAesop={this.UrlAesop} UrlClucth={this.UrlClucth} UrlExquira={this.UrlExquira}
           UrlLedvance={this.UrlLedvance} UrlOnestop={this.UrlOnestop} UrlStartrack={this.UrlStartrack}
           UrlTatura={this.UrlTatura} UrlTtl={this.UrlTtl} UrlTtchem={this.UrlTtchem}

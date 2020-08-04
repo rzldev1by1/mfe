@@ -260,7 +260,7 @@ class SalesOrder extends React.PureComponent {
   }
   
   UrlHeader = () => {
-    return `/getSalesOrderColumn?client=`
+    return `/getSalesOrderColumn?client=ANTEC`
   }
   UrlAntec = () => {
     return '/putSalesOrderColumn?client=ANTEC'
