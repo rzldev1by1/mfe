@@ -109,10 +109,10 @@ class PurchaseOrdersDetail extends React.Component {
     })
   }
   UrlHeader = () =>{
-    return `$/getPurchseHeader?client=ANTEC`
+    return `/getPurchaseOrderDetailColumn?client=ALL`
   }
   UrlAll = () => {
-    return '/putStockholdingColumn?client=ALL'
+    return '/putPurchaseOrderDetailColumn?client=ALL'
   }
 
   render() {
