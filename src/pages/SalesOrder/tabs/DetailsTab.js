@@ -530,7 +530,7 @@ class CreateTab extends React.Component {
               <td><div className="c-400 required">Product</div></td>
               <td><div className="c-600">Description</div></td>
               <td><div className="c-100 required">Qty</div></td>
-              <td><div className="c-100">Weight</div></td>
+              <td><div className="c-170">Weight</div></td>
               <td><div className="c-150 required">UOM</div></td>
               <td><div className="c-250">Batch</div></td>
               <td><div className="c-100">Ref3</div></td>
