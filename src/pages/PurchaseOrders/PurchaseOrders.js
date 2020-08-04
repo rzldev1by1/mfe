@@ -12,18 +12,18 @@ import PurchaseOrderCreate from './PurchaseOrderCreate'
 import './PurchaseOrder.scss'
 
 const columns = [
-  { accessor: 'site', Header: 'Site', },
-  { accessor: 'client', Header: 'Client', },
-  { accessor: 'order_no', Header: 'Order No', },
-  { accessor: 'order_type', Header: 'Order Type', },
-  { accessor: 'isis_task', Header: 'Task', },
-  { accessor: 'supplier_no', Header: 'Supplier No', },
-  { accessor: 'supplier_name', Header: 'Supplier Name', width: 210 },
-  { accessor: 'status', Header: 'Status', width: 140 },
-  { accessor: 'delivery_date', Header: 'Order Date', },
-  { accessor: 'date_received', Header: 'Date Received', },
-  { accessor: 'date_released', Header: 'Date Released', },
-  { accessor: 'date_completed', Header: 'Date Completed', },
+  { accessor: 'site', placeholder: 'Site', Header: 'Site', },
+  { accessor: 'client', placeholder: 'Client', Header: 'Client', },
+  { accessor: 'order_no', placeholder: 'Order No', Header: 'Order No', },
+  { accessor: 'order_type', placeholder: 'Order Type', Header: 'Order Type', },
+  { accessor: 'isis_task',placeholder: 'Task', Header: 'Task', },
+  { accessor: 'supplier_no', placeholder: 'Supplier No', Header: 'Supplier No', },
+  { accessor: 'supplier_name', placeholder: 'Supplier Name', Header: 'Supplier Name', width: 210 },
+  { accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140 },
+  { accessor: 'delivery_date',placeholder: 'Order Date', Header: 'Order Date', },
+  { accessor: 'date_received', placeholder: 'Date Received',Header: 'Date Received', },
+  { accessor: 'date_released',placeholder: 'Date Received', Header: 'Date Released', },
+  { accessor: 'date_completed',placeholder: 'Date Complated', Header: 'Date Completed', },
   // { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
   // { accessor: 'vendor_order_ref', Header: 'Vendor Order No' },
 ]
@@ -96,6 +96,7 @@ class PurchaseOrders extends React.PureComponent {
     const siteData = data.map(d => ({ value: d.site, label: `${d.site}: ${d.name}` }))
     const site = { value: 'all', label: 'All Site' }
     siteData.splice(0, 0, site)
+    this.props.dispatch({ type: 'SITE', data: siteData })
     this.setState({ siteData })
   }
   getClient = async () => {
@@ -218,7 +219,9 @@ class PurchaseOrders extends React.PureComponent {
 
   siteCheck = (siteVal) => {
     let l = null
-    this.props.store.site.map(data => {
+    const {site} = this.props.store
+    if(site)
+    site.map(data => {
       if (data.value === siteVal) l = data.label
     })
     return l
@@ -226,7 +229,9 @@ class PurchaseOrders extends React.PureComponent {
 
   clientCheck = (clientVal) => {
     let c = null
-    this.props.store.client.map(data => {
+    const {client} = this.props.store
+    if(client)
+    client.map(data => {
       if (data.value === clientVal) c = data.label
     })
     return c
@@ -243,6 +248,9 @@ class PurchaseOrders extends React.PureComponent {
   }
   UrlHeader = () =>{
     return `$/getSalesOrderHeader?client=ANTEC`
+  }
+  UrlAll = () => {
+    return '/putStockholdingColumn?client=ALL'
   }
 
   onSubmitSearch = (e) => {
@@ -370,6 +378,7 @@ class PurchaseOrders extends React.PureComponent {
         pagination={pagination}
         onClick={this.showDetails}
         UrlHeader={this.UrlHeader} 
+        UrlAll={this.UrlAll}
         tableStatus={tableStatus}
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchPurchaseOrder())

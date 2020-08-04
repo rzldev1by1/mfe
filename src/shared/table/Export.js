@@ -86,18 +86,17 @@ class Export extends Component {
                     <DropdownMenu className={"no-shadow "+((exportPdf == 'false' || exportExcel == 'false')?' dropdown-single ':' Dropdown-menu ')} >
                       {(exportPdf == 'false')?'':
                         <DropdownItem className="export-pdf"> 
-                            <span className="pdf-icon"onClick={() => this.exportPDF()} >EXPORT TO PDF</span> 
+                            <span className="icon-PDF"onClick={() => this.exportPDF()} />EXPORT TO PDF
                         </DropdownItem>
                       }
                        {(exportExcel == 'false')?'':
                        <DropdownItem className="export-excel" >
-                       <span className="excel-icon" >
+                       <span className="icon-XLS" />
                           <ExportExl  className="Excel-bottom" 
                                       table="excel" 
                                       filename={this.props.ExportName()} 
                                       sheet="sheet 1"
                                       buttonText="EXPORT TO XLS"/>
-                        </span>
                        </DropdownItem>
                        }
                         

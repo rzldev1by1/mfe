@@ -23,45 +23,50 @@ class SalesOrderDetail extends React.Component {
   state = {
     dimension: { width: 0, height: 0 },
     stockDetail: [
-      { accessor: 'batch', Header: 'Batch', sortable: true, width: 130 },
-      { accessor: 'rotadate', Header: 'Rotadate', sortable: true, width: 100 },
-      { accessor: 'ref3', Header: 'Ref3', sortable: true, width: 100 },
-      { accessor: 'ref4', Header: 'Ref4', sortable: true, width: 100 },
-      { accessor: 'qty', Header: 'Qty', sortable: true, width: 110 },
-      { accessor: 'weight', Header: 'Weight', sortable: true, width: 115 },
-      { accessor: 'pallet', Header: 'Pallet', sortable: true, width: 120 },
-      { accessor: 'price', Header: 'Price', sortable: true, width: 120 },
-      { accessor: 'pack_id', Header: 'Pack ID', sortable: true, width: 180 },
+      { accessor: 'batch', placeholder: 'Batch', Header: 'Batch', sortable: true, width: 130 },
+      { accessor: 'rotadate', placeholder: 'Rotadate', Header: 'Rotadate', sortable: true, width: 100 },
+      { accessor: 'ref3', placeholder: 'Ref3', Header: 'Ref3', sortable: true, width: 100 },
+      { accessor: 'ref4',placeholder: 'Ref4', Header: 'Ref4', sortable: true, width: 100 },
+      { accessor: 'qty', placeholder: 'Qty', Header: 'Qty', sortable: true, width: 110 },
+      { accessor: 'weight', placeholder: 'Weight', Header: 'Weight', sortable: true, width: 115 },
+      { accessor: 'pallet',placeholder: 'Pallet', Header: 'Pallet', sortable: true, width: 120 },
+      { accessor: 'price',placeholder: 'Prince', Header: 'Price', sortable: true, width: 120 },
+      { accessor: 'pack_id',placeholder: 'Pack Id', Header: 'Pack Id', sortable: true, width: 180 },
     ],
     ForesCast: [
-      { accessor: 'type', Header: 'Type', sortable: true, width: 130 },
+      { accessor: 'type',placeholder: 'Type', Header: 'Type', sortable: true, width: 130 },
       {
         accessor: 'company',
+        placeholder: 'Customer No',
         Header: 'Customer No',
         sortable: true,
         width: 140,
       },
-      { accessor: 'orderno', Header: 'Order No', sortable: true, width: 170 },
+      { accessor: 'orderno', placeholder: 'Order No', Header: 'Order No', sortable: true, width: 170 },
       {
         accessor: 'effectivedate',
+        placeholder: 'Order Date',
         Header: 'Order Date',
         sortable: true,
         width: 150,
       },
       {
         accessor: 'qtyexpected',
+        placeholder: 'Expected In',
         Header: 'Expected In',
         sortable: true,
         width: 150,
       },
       {
         accessor: 'qtycommitted',
+        placeholder: 'Expected Out',
         Header: 'Expected Out',
         sortable: true,
         width: 150,
       },
       {
         accessor: 'closingbalance',
+        placeholder: 'Balance',
         Header: 'Balance',
         sortable: true,
         width: 140
@@ -84,6 +89,9 @@ class SalesOrderDetail extends React.Component {
   }
   UrlHeader = () =>{
     return `/getPurchase?client=ANTEC`
+  }
+  UrlAll = () => {
+    return '/putStockholdingColumn?client=ALL'
   }
   activeTabIndex = (tabIndex) => {
     if (this.state.activeTab !== tabIndex) {
@@ -282,10 +290,12 @@ class SalesOrderDetail extends React.Component {
                   title='Stock Detail'
                   filename='Microlistics_StockDetail.'
                   font="12"
+                  editColumn='false'
                   height={this.state.dimension.height}
                   fields={stockDetail}
                   data={products}
-                  UrlHeader={this.UrlHeader}
+                  UrlHeader={this.UrlHeader} 
+                  UrlAll={this.UrlAll}
                   tableStatus={tableStatus}
                   export={
                     <button className='btn btn-primary float-right btn-export'>
@@ -300,10 +310,12 @@ class SalesOrderDetail extends React.Component {
                   title='Stock ForesCast'
                   filename='Microlistics_ForesCast.'
                   font="12"
+                  editColumn='false'
                   height={this.state.dimension.height}
                   fields={ForesCast}
                   data={forecast}
-                  UrlHeader={this.UrlHeader}
+                  UrlHeader={this.UrlHeader} 
+                  UrlAll={this.UrlAll}
                   tableStatus={tableStatusForecast}
                   export={
                     <button className='btn btn-primary float-right btn-export'>
