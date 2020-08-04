@@ -287,6 +287,7 @@ class SalesOrderDetail extends React.Component {
                   title='Stock Detail'
                   filename='Microlistics_StockDetail.'
                   font="12"
+                  editColumn='false'
                   height={this.state.dimension.height}
                   fields={stockDetail}
                   data={products}
@@ -305,6 +306,7 @@ class SalesOrderDetail extends React.Component {
                   title='Stock ForesCast'
                   filename='Microlistics_ForesCast.'
                   font="12"
+                  editColumn='false'
                   height={this.state.dimension.height}
                   fields={ForesCast}
                   data={forecast}

@@ -332,7 +332,7 @@ class CreateTab extends React.Component {
             }
         }
 
-          let regex = /^(\d{1,9}|\.)?(\.\d{0,3})?$/;
+          let regex = /^(\d{1,11}|\.)?(\.\d{0,3})?$/;
 
           if (!regex.test(number) && number !== "") {
               e.preventDefault();
@@ -462,7 +462,7 @@ class CreateTab extends React.Component {
               <td><div className="c-400 required">Product</div></td>
               <td><div className="c-600">Description</div></td>
               <td><div className="c-100 required">Qty</div></td>
-              <td><div className="c-150">Weight</div></td>
+              <td><div className="c-170">Weight</div></td>
               <td><div className="c-150 required">UOM</div></td>
               <td><div className="c-100">Batch</div></td>
               <td><div className="c-100">Ref3</div></td>
@@ -507,7 +507,7 @@ class CreateTab extends React.Component {
                   
                 </td>
                 <td className="px-1">
-                  <input name="weight" value={numeral(this.state.orderLine[i]['weight']).format('0,0.000')} onKeyPress={(e) => this.decimalCheck(e)} onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="15" className="form-control" placeholder="Weight" />
+                  <input name="weight" onKeyPress={(e) => this.decimalValueForQty(e)} onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="15" className="form-control" placeholder="Weight" />
                 </td>
                 <td className="px-1">
                   <Select value={o.uom || ''}
