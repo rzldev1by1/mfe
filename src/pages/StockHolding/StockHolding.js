@@ -207,40 +207,10 @@ class StockHolding extends React.PureComponent {
 
   UrlHeader = () => {
     // let loginInfo = this.state.loginInfo
-    return `${endpoints.getStockHoldingHearder}?client=BEGA`
+    return `${endpoints.getStockHoldingHearder}?client=ALL`
   }
-  UrlAntec = () => {
-    return '/putStockholdingColumn?client=ANTEC'
-  }
-  UrlBega = () => {
-    return '/putStockholdingColumn?client=BEGA'
-  }
-  UrlAesop = () => {
-    return '/putStockholdingColumn?client=AESOP'
-  }
-  UrlClucth = () => {
-    return '/putStockholdingColumn?client=CLUCTH'
-  }
-  UrlExquira = () => {
-    return '/putStockholdingColumn?client=EXQUIRA'
-  }
-  UrlLedvance = () => {
-    return '/putStockholdingColumn?client=LEDVANCE'
-  }
-  UrlOnestop = () => {
-    return '/putStockholdingColumn?client=ONESTOP'
-  }
-  UrlStartrack = () => {
-    return '/putStockholdingColumn?client=STARTRACK'
-  }
-  UrlTatura = () => {
-    return '/putStockholdingColumn?client=TATURA'
-  }
-  UrlTtl = () => {
-    return '/putStockholdingColumn?client=TTL'
-  }
-  UrlTtchem = () => {
-    return '/putStockholdingColumn?client=TTCHEM'
+  UrlAll = () => {
+    return '/putStockholdingColumn?client=ALL'
   }
 
   // end url Get Header And Post
@@ -472,10 +442,8 @@ class StockHolding extends React.PureComponent {
           pagination={pagination}
           onClick={this.showDetails}
           renameSubmit={this.renameSubmit}
-          UrlHeader={this.UrlHeader} UrlAntec={this.UrlAntec} UrlBega={this.UrlBega}
-          UrlAesop={this.UrlAesop} UrlClucth={this.UrlClucth} UrlExquira={this.UrlExquira}
-          UrlLedvance={this.UrlLedvance} UrlOnestop={this.UrlOnestop} UrlStartrack={this.UrlStartrack}
-          UrlTatura={this.UrlTatura} UrlTtl={this.UrlTtl} UrlTtchem={this.UrlTtchem}
+          UrlHeader={this.UrlHeader} 
+          UrlAll={this.UrlAll}
           tableStatus={tableStatus}
           goto={(active) => {
             this.setState({ pagination: { ...pagination, active } }, () =>

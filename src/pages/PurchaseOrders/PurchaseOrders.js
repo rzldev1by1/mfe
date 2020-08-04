@@ -22,7 +22,7 @@ const columns = [
   { accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140 },
   { accessor: 'delivery_date',placeholder: 'Order Date', Header: 'Order Date', },
   { accessor: 'date_received', placeholder: 'Date Received',Header: 'Date Received', },
-  { accessor: 'date_released',placeholder: 'Date Received', Header: 'Date Released', },
+  { accessor: 'date_released',placeholder: 'Date Released', Header: 'Date Released', },
   { accessor: 'date_completed',placeholder: 'Date Complated', Header: 'Date Completed', },
   // { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
   // { accessor: 'vendor_order_ref', Header: 'Vendor Order No' },
@@ -247,7 +247,10 @@ class PurchaseOrders extends React.PureComponent {
     
   }
   UrlHeader = () =>{
-    return `$/getSalesOrderHeader?client=ANTEC`
+    return `/getPurchaseOrderColumn?client=ALL`
+  }
+  UrlAll = () => {
+    return '/putPurchaseOrderColumn?client=ALL'
   }
 
   onSubmitSearch = (e) => {
@@ -375,6 +378,7 @@ class PurchaseOrders extends React.PureComponent {
         pagination={pagination}
         onClick={this.showDetails}
         UrlHeader={this.UrlHeader} 
+        UrlAll={this.UrlAll}
         tableStatus={tableStatus}
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchPurchaseOrder())

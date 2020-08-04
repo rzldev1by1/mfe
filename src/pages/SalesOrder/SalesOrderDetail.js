@@ -36,8 +36,8 @@ const columns = [
     accessor: "released",placeholder: 'Released', Header: "Released", width: 80 ,
     Cell: (row) => <i className={`${row.original.received === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
-  { accessor: "batch", placeholder: 'OOS',  Header: "Batch", width: 60  },
-  { accessor: "ref2",placeholder: 'Red2', Header: "Ref2" },
+  { accessor: "batch", placeholder: 'Batch',  Header: "Batch", width: 60  },
+  { accessor: "ref2",placeholder: 'Ref2', Header: "Ref2" },
   { accessor: "ref3",placeholder: 'Ref3', Header: "Ref3" },
   { accessor: "ref4",placeholder: 'Ref5', Header: "Ref4" },
   { accessor: "disposition",placeholder: 'Disposition', Header: "Disposition" },
@@ -106,9 +106,14 @@ class SalesOrderDetail extends React.Component {
   formatDate = (date) => {
     return date ? moment(date).format('DD/MM/YYYY') : '-'
   }
+
   UrlHeader = () =>{
-    return `$/getSalesOrderHeader?client=ANTEC`
+    return `/getSalesOrderDetailColumn?client=ALL `
   }
+  UrlAll = () => {
+    return '/putSalesOrderDetailColumn?client=ALL'
+  }
+
   
   showDetails = (item) => {
     const { orderno, client, site } = this.props.match.params
@@ -176,6 +181,7 @@ class SalesOrderDetail extends React.Component {
         pagination={pagination}
         tableStatus={tableStatus}
         UrlHeader={this.UrlHeader} 
+        UrlAll={this.UrlAll}
         // request_status={this.state.request_status}
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.getProducts(active))

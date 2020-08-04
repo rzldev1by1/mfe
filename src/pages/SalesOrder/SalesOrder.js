@@ -258,44 +258,15 @@ class SalesOrder extends React.PureComponent {
     })
     return c
   }
+    // erl Get Header And Post
   
   UrlHeader = () => {
-    return `/getSalesOrderColumn?client=ANTEC`
+    return `/getSalesOrderColumn?client=ALL`
   }
-  UrlAntec = () => {
-    return '/putSalesOrderColumn?client=ANTEC'
+  UrlAll = () => {
+    return '/putSalesOrderColumn?client=ALL'
   }
-  UrlBega = () => {
-    return '/putSalesOrderColumn?client=BEGA'
-  }
-  UrlAesop = () => {
-    return '/putSalesOrderColumn?client=AESOP'
-  }
-  UrlClucth = () => {
-    return '/putSalesOrderColumn?client=CLUCTH'
-  }
-  UrlExquira = () => {
-    return '/putSalesOrderColumn?client=EXQUIRA'
-  }
-  UrlLedvance = () => {
-    return '/putSalesOrderColumn?client=LEDVANCE'
-  }
-  UrlOnestop = () => {
-    return '/putSalesOrderColumn?client=ONESTOP'
-  }
-  UrlStartrack = () => {
-    return '/putSalesOrderColumn?client=STARTRACK'
-  }
-  UrlTatura = () => {
-    return '/putSalesOrderColumn?client=TATURA'
-  }
-  UrlTtl = () => {
-    return '/putSalesOrderColumn?client=TTL'
-  }
-  UrlTtchem = () => {
-    return '/putSalesOrderColumn?client=TTCHEM'
-  }
-
+ 
   // end url Get Header And Post
 
   onSubmitSearch = (e) => {
@@ -421,10 +392,8 @@ class SalesOrder extends React.PureComponent {
         tableStatus={tableStatus}
         onClick={this.showDetails}
         renameSubmit={this.renameSubmit}
-        UrlHeader={this.UrlHeader} UrlAntec={this.UrlAntec} UrlBega={this.UrlBega}
-        UrlAesop={this.UrlAesop} UrlClucth={this.UrlClucth} UrlExquira={this.UrlExquira}
-        UrlLedvance={this.UrlLedvance} UrlOnestop={this.UrlOnestop} UrlStartrack={this.UrlStartrack}
-        UrlTatura={this.UrlTatura} UrlTtl={this.UrlTtl} UrlTtchem={this.UrlTtchem}
+        UrlHeader={this.UrlHeader} 
+        UrlAll={this.UrlAll}
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchSalesOrder())
         }} 

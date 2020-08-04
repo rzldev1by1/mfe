@@ -160,7 +160,7 @@ class UMCustomTable extends React.Component {
                         goto={this.props.goto}
                         export={this.props.export} />
               </CCol>
-              <CCol lg="2" className="px-0 export-ml">
+              <CCol lg="5" className="px-0 export-ml">
                 <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
                     ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} />
             </CCol>

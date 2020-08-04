@@ -109,7 +109,10 @@ class PurchaseOrdersDetail extends React.Component {
     })
   }
   UrlHeader = () =>{
-    return `$/getPurchseHeader?client=ANTEC`
+    return `/getPurchaseOrderDetailColumn?client=ALL`
+  }
+  UrlAll = () => {
+    return '/putPurchaseOrderDetailColumn?client=ALL'
   }
 
   render() {
@@ -157,6 +160,7 @@ class PurchaseOrdersDetail extends React.Component {
         data={products}
         pagination={pagination}
         UrlHeader={this.UrlHeader} 
+        UrlAll={this.UrlAll}
         tableStatus={tableStatus}
         export={
           <button className='btn btn-primary float-right btn-export'>
