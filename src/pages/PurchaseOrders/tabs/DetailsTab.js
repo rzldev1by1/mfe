@@ -173,15 +173,16 @@ class CreateTab extends React.Component {
     let values;
     if(name === 'weight' && value.length > 3)
     {
-      let lg = value.length - 3
-      if(value.length >4) lg = value.length -4
-      values = value.replace(/,/g, '')
-      values = [values.slice(0,lg), ',', values.slice(lg)].join('')
-      if(values.length < 4) values = values.replace(/,/g, '')
+      // let lg = value.length - 3
+      // if(value.length >4) lg = value.length -4
+      // values = value.replace(/,/g, '')
+      // values = [values.slice(0,lg), ',', values.slice(lg)].join('')
+      // if(values.length < 4) values = values.replace(/,/g, '')
+      return numeral(value).format(	'0,0.000')
       
       
     }
-    return values
+    return value
   }
   lineChange = (i, e, numeral) => {
     const {error} = this.state
@@ -243,8 +244,8 @@ class CreateTab extends React.Component {
       error.orderId = 'Order no. cannot be empty'
       return this.setState({ error })
     }
-    if (orderId.length < 5) {
-      error.orderId = 'Order no. must have min 5 characters'
+    if (orderId.length < 4) {
+      error.orderId = 'Order no. must have min 4 characters'
       return this.setState({ error })
     }
     delete error.orderId
@@ -315,6 +316,34 @@ class CreateTab extends React.Component {
     })
     return c
   }
+
+  decimalValueForQty(e) {
+
+    if ((e.key >= 0 && e.key <= 9) || e.key === ".") {
+        let number = e.target.value + e.key;
+
+        let arraytext = number.split('');
+        if(arraytext.length ){
+            let dotLength = arraytext.filter((item) => item === '.');
+            if(dotLength.length > 1){
+              
+              e.preventDefault();
+              e.stopPropagation();
+            }
+        }
+
+          let regex = /^(\d{1,9}|\.)?(\.\d{0,3})?$/;
+
+          if (!regex.test(number) && number !== "") {
+              e.preventDefault();
+              e.stopPropagation();
+          }
+
+    } else {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+}
 
 
   render() {
@@ -433,7 +462,7 @@ class CreateTab extends React.Component {
               <td><div className="c-400 required">Product</div></td>
               <td><div className="c-600">Description</div></td>
               <td><div className="c-100 required">Qty</div></td>
-              <td><div className="c-100">Weight</div></td>
+              <td><div className="c-150">Weight</div></td>
               <td><div className="c-150 required">UOM</div></td>
               <td><div className="c-100">Batch</div></td>
               <td><div className="c-100">Ref3</div></td>
@@ -451,7 +480,7 @@ class CreateTab extends React.Component {
                 </td>
                 <td className="px-1">
                   <Select value={o.productVal || ''}
-                    options={o.productVal && o.productVal.length >= 3 ? productData : null}
+                    options={o.productVal && o.productVal.length >= 3 ? productData : []}
                     menuIsOpen={o.productVal && o.productVal.length >= 3 ? true : false}
                     onInputChange={(val) => this.lineSelectChange(i, 'productVal', val)}
                     onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
@@ -471,14 +500,14 @@ class CreateTab extends React.Component {
                   <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly />
                 </td>
                 <td className="px-1">
-                  <input name="qty" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} type="text" className="form-control" placeholder="Qty" maxlength="10" />
+                  <input name="qty" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} value={numeral(this.state.orderLine[i]['qty']).format('0,0')} type="text" className="form-control" placeholder="Qty" maxlength="10" />
                   <div className='w-100 d-flex align-items-start text-nowrap'>
                   <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                   </div>
                   
                 </td>
                 <td className="px-1">
-                  <input name="weight" value={this.state.orderLine[i]['weight']} onKeyPress={(e) => this.decimalCheck(e)} onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="15" className="form-control" placeholder="Weight" />
+                  <input name="weight" value={numeral(this.state.orderLine[i]['weight']).format('0,0.000')} onKeyPress={(e) => this.decimalCheck(e)} onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="15" className="form-control" placeholder="Weight" />
                 </td>
                 <td className="px-1">
                   <Select value={o.uom || ''}

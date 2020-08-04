@@ -133,10 +133,10 @@ class CustomPagination extends React.Component {
         
       {/* Modal Pagination */}
       <Modal isOpen={this.state.notifPaging} centered={true}  
-          onOpened={() => this.state.notifPaging ? setTimeout(() => { this.closeConfirmDialog() }, 3000) : {}}
-          contentClassName="modal-content-paging"
+          onOpened={() => this.state.notifPaging ? setTimeout(() => { this.closeConfirmDialog() }, 36000) : {}}
+          contentClassName="modal-content-paging box-er-pagination"
           >
-          <ModalBody >
+          <ModalBody>
           <div  className="text-right px-0" style={{fontSize: '14px'}}>
             <i className="iconU-close pointer" onClick={this.closeConfirmDialog}></i>
           </div>

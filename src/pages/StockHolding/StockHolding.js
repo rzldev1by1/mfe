@@ -143,6 +143,7 @@ class StockHolding extends React.PureComponent {
     fields: columns,
     customFields: customColumns,
     data: [],
+    loginInfo: {},
     create: false,
     pagination: {},
     detail: {},
@@ -161,6 +162,7 @@ class StockHolding extends React.PureComponent {
     this.getClient()
     this.getStatus()
     this.searchStockHolding()
+    // this.loadPersonalLogin();
   }
 
   componentWillUnmount() {
@@ -176,6 +178,7 @@ class StockHolding extends React.PureComponent {
     const siteData = data.map(d => ({ value: d.site, label: `${d.site}: ${d.name}` }))
     const site = { value: 'all', label: 'All Site' }
     siteData.splice(0, 0, site)
+    this.props.dispatch({ type: 'SITE', data: siteData })
     this.setState({ siteData })
   }
   getClient = async () => {
@@ -183,6 +186,7 @@ class StockHolding extends React.PureComponent {
     const clientData = data.map(d => ({ value: d.code, label: `${d.code}: ${d.name}` }))
     const client = { value: 'all', label: 'All Client' }
     clientData.splice(0, 0, client)
+    this.props.dispatch({ type: 'CLIENT', data: clientData })
     this.setState({ clientData })
   }
   getStatus = async () => {
@@ -196,9 +200,14 @@ class StockHolding extends React.PureComponent {
   }
 
   // url Get Header And Post
+//   loadPersonalLogin = () => {
+//     let userInfo = this.props.store;     
+//     this.setState({ loginInfo: userInfo.user });
+// }
 
   UrlHeader = () => {
-    return `${endpoints.getStockHoldingHearder}?client=ANTEC`
+    // let loginInfo = this.state.loginInfo
+    return `${endpoints.getStockHoldingHearder}?client=BEGA`
   }
   UrlAntec = () => {
     return '/putStockholdingColumn?client=ANTEC'
@@ -238,7 +247,9 @@ class StockHolding extends React.PureComponent {
 
   siteCheck = (siteVal) => {
     let l = null
-    this.props.store.site.map(data => {
+    const {site} = this.props.store
+    if(site)
+    site.map(data => {
       if (data.value === siteVal) l = data.label
     })
     return l
@@ -246,7 +257,9 @@ class StockHolding extends React.PureComponent {
 
   clientCheck = (clientVal) => {
     let c = null
-    this.props.store.client.map(data => {
+    const {client} = this.props.store
+    if(client)
+    client.map(data => {
       if (data.value === clientVal) c = data.label
     })
     return c
@@ -268,6 +281,7 @@ class StockHolding extends React.PureComponent {
     urls.push('page=' + (pagination.active || 1))
     if(export_=='true'){urls.push('export=true')}
     const { data } = await axios.get(`${endpoints.stockHoldingSummary}?${urls.join('&')}`)
+    console.log(data)
     if (data?.data?.data) {
       const modifiedData = data.data.data;
       modifiedData.map((item, idx) => {

@@ -15,33 +15,33 @@ import HeaderTitle from 'shared/container/TheHeader'
 import './SalesOrder.scss'
 
 const columns = [
-  { accessor: "rn", Header: "Line No" },
-  { accessor: "product", Header: "Product" },
-  { accessor: "product_description", Header: "Description" },
-  { accessor: "qty", Header: "Qty", width: 60  },
-  { accessor: "uom", Header: "UOM", width: 80 },
-  { accessor: "qty_processed", Header: "Qty Processed" },
-  { accessor: "weight", Header: "Weight" },
-  { accessor: "weight_processed", Header: "Weight Processed" },
+  { accessor: "line", placeholder: 'Line No', Header: "Line No" },
+  { accessor: "product", placeholder: 'Product', Header: "Product" },
+  { accessor: "product_description",placeholder: 'Description', Header: "Description" },
+  { accessor: "qty", placeholder: 'Qty', Header: "Qty", width: 60  },
+  { accessor: "uom", placeholder: 'UOM', Header: "UOM", width: 80 },
+  { accessor: "qty_processed", placeholder: 'Qty Processed', Header: "Qty Processed" },
+  { accessor: "weight",placeholder: 'Weight', Header: "Weight" },
+  { accessor: "weight_processed", placeholder: 'Weight Procesed', Header: "Weight Processed" },
   {
-    accessor: "completed", Header: "Completed",
+    accessor: "completed",placeholder: 'Completed', Header: "Completed",
     Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
   //{ accessor: "oos", Header: "OOS", width: 50 },
   {
-    accessor: "oos", Header: "OOS", width: 60 ,
+    accessor: "oos",placeholder: 'OOS', Header: "OOS", width: 60 ,
     Cell: (row) => <i className={`${row.original.oos === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
   {
-    accessor: "released", Header: "Released", width: 80 ,
-    Cell: (row) => <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+    accessor: "released",placeholder: 'Released', Header: "Released", width: 80 ,
+    Cell: (row) => <i className={`${row.original.received === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
-  { accessor: "batch", Header: "Batch", width: 60  },
-  { accessor: "ref2", Header: "Ref2" },
-  { accessor: "ref3", Header: "Ref3" },
-  { accessor: "ref4", Header: "Ref4" },
-  { accessor: "disposition", Header: "Disposition" },
-  { accessor: "pack_id", Header: "Pack ID" }
+  { accessor: "batch", placeholder: 'OOS',  Header: "Batch", width: 60  },
+  { accessor: "ref2",placeholder: 'Red2', Header: "Ref2" },
+  { accessor: "ref3",placeholder: 'Ref3', Header: "Ref3" },
+  { accessor: "ref4",placeholder: 'Ref5', Header: "Ref4" },
+  { accessor: "disposition",placeholder: 'Disposition', Header: "Disposition" },
+  { accessor: "pack_id",placeholder: 'Pack Id', Header: "Pack ID" }
 ]
 class SalesOrderDetail extends React.Component {
   // ref to get element height and calculate table height

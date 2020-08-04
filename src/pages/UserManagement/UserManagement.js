@@ -15,13 +15,13 @@ import './UserManagement.css'
 import { Link } from 'react-router-dom'
 
 const columns = [
-    { accessor: 'userid', Header: 'User ID', width: 160, sortable: true },
-    { accessor: 'name', Header: 'Username', width: 210, sortable: true },
-    { accessor: 'site', Header: 'Site', width: 130, sortable: true },
-    { accessor: 'client', Header: 'Client', width: 130, sortable: true },
-    { accessor: 'web_group', Header: 'User Level', width: 160, sortable: true },
-    { accessor: 'last_access', Header: 'Last Accessed', width: 180, sortable: true },
-    { accessor: 'disabled', Header: 'Status', width: 120, sortable: true },
+    { accessor: 'userid',placeholder: 'User Id', Header: 'User ID', width: 160, sortable: true },
+    { accessor: 'name',placeholder: 'UserName', Header: 'Username', width: 210, sortable: true },
+    { accessor: 'site',placeholder: 'Site', Header: 'Site', width: 130, sortable: true },
+    { accessor: 'client',placeholder: 'Client', Header: 'Client', width: 130, sortable: true },
+    { accessor: 'web_group',placeholder: 'User Lavel', Header: 'User Level', width: 160, sortable: true },
+    { accessor: 'last_access',placeholder: 'Last Accessed', Header: 'Last Accessed', width: 180, sortable: true },
+    { accessor: 'disabled',placeholder: 'Status', Header: 'Status', width: 120, sortable: true },
 ]
 
 const customColumns = [
