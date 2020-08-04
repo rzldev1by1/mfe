@@ -21,7 +21,7 @@ const columns = [
     Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
   { accessor: "batch",  placeholder: 'Batch', Header: "Batch", width: 90 },
-  { accessor: "rotadate",  placeholder: 'Rota Date', Header: "Rota Date" },
+  { accessor: "rotadate",  placeholder: 'Rota Date', Header: "Rotadate" },
   { accessor: "ref3",  placeholder: 'Ref3', Header: "Ref3", width: 80 },
   { accessor: "ref4",  placeholder: 'Ref4', Header: "Ref4", width: 80 },
   { accessor: "disposition", placeholder: 'Disposition', Header: "Disposition" },
@@ -64,7 +64,6 @@ class PurchaseOrdersDetail extends React.Component {
   getProducts = async (page=1) => {
     const { pagination,tableStatus } = this.state
     const { orderdetail, client,site} = this.props.match.params
-    console.log(this.props.match.params)
     const url = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${page}`
     const { data } = await axios.get(url)
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
@@ -72,8 +71,12 @@ class PurchaseOrdersDetail extends React.Component {
     //   this.setState({ products: data.data })
     // }
     if (data?.data?.data) { 
+      const dt = data.data.data.map(m => { 
+        m.rotadate = m?.rotadate ? moment(m.rotadate).format('DD/MM/YYYY') : '-'
+        return m
+      })
       this.setState({
-        products: data.data.data,
+        products: dt,
         pagination: {
           active: pagination.active || data.data.current_page,
           show: data.data.per_page,
@@ -82,7 +85,7 @@ class PurchaseOrdersDetail extends React.Component {
           from: data.data.from,
           to: data.data.to
         } 
-      }, () => {console.log (this.state.pagination)})
+      })
 
       if(data.data.data.length < 1){
         this.setState({   tableStatus: 'noData'  })
@@ -109,10 +112,10 @@ class PurchaseOrdersDetail extends React.Component {
     })
   }
   UrlHeader = () =>{
-    return `$/getPurchseHeader?client=ANTEC`
+    return `/getPurchaseOrderDetailColumn?client=ALL`
   }
   UrlAll = () => {
-    return '/putStockholdingColumn?client=ALL'
+    return '/putPurchaseOrderDetailColumn?client=ALL'
   }
 
   render() {

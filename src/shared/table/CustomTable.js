@@ -630,7 +630,7 @@ showModal = (show) => {
                           return (
                             <Col key={index} className='p-2'>
                               <button
-                                className={`text-left btn btn-block ${
+                                className={`text-left px-3 btn btn-block ${
                                   !editColumn[index]
                                     ? 'btn-outline-primary'
                                     : 'btn-light-gray'

@@ -22,7 +22,7 @@ const columns = [
   { accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140 },
   { accessor: 'delivery_date',placeholder: 'Order Date', Header: 'Order Date', },
   { accessor: 'date_received', placeholder: 'Date Received',Header: 'Date Received', },
-  { accessor: 'date_released',placeholder: 'Date Received', Header: 'Date Released', },
+  { accessor: 'date_released',placeholder: 'Date Released', Header: 'Date Released', },
   { accessor: 'date_completed',placeholder: 'Date Complated', Header: 'Date Completed', },
   // { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
   // { accessor: 'vendor_order_ref', Header: 'Vendor Order No' },
@@ -133,12 +133,14 @@ class PurchaseOrders extends React.PureComponent {
     const { user } = this.props.store
     if (user) {
       const { data } = await axios.get(`${endpoints.getPOResources}?company=${user.company}&client=${user.client}`)
-      const orderTypeData = data.orderTypeFilter.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.description}` }))
+      const orderTypeFilterData = data.orderTypeFilter.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.description}` }))
+      const orderTypeData = data.orderType.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.description}` }))
       const site = data.site.map(data => ({ value: data.site, label: `${data.site}: ${data.name}` }))
       const orderType = { value: 'all', label: 'All' }
-      orderTypeData.splice(0, 0, orderType)
+      orderTypeFilterData.splice(0, 0, orderType)
+      orderTypeData.splice(0,0, orderType)
       this.props.dispatch({ type: 'SITE', data: site })
-      this.setState({ resources: data, orderTypeData })
+      this.setState({ resources: data, orderTypeFilterData, orderTypeData })
     }
   }
   searchPurchaseOrder = async () => {
@@ -247,10 +249,10 @@ class PurchaseOrders extends React.PureComponent {
     
   }
   UrlHeader = () =>{
-    return `$/getSalesOrderHeader?client=ANTEC`
+    return `/getPurchaseOrderColumn?client=ALL`
   }
   UrlAll = () => {
-    return '/putStockholdingColumn?client=ALL'
+    return '/putPurchaseOrderColumn?client=ALL'
   }
 
   onSubmitSearch = (e) => {
@@ -263,7 +265,7 @@ class PurchaseOrders extends React.PureComponent {
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData, taskData, customFields,tableStatus
+      siteData, clientData, statusData, orderTypeData, taskData, customFields,tableStatus, orderTypeFilterData
     } = this.state
     return <div className="purchase-order">
       <HeaderTitle
@@ -335,7 +337,7 @@ class PurchaseOrders extends React.PureComponent {
                 </CCol>
                 <CCol sm={4} lg={2} className="px-3">
                   <Select name="orderType" placeholder="Order Type"
-                    value={orderType} options={orderTypeData}
+                    value={orderType} options={orderTypeFilterData}
                     onChange={(val) => this.setState({ orderType: val })}
                     styles={{
                       dropdownIndicator: (base, state) => ({

@@ -56,7 +56,6 @@ class CreateTab extends React.Component {
         const {user} = this.props
 
     if(user.client && user.site){
-      this.getProduct()
       this.getSupplier()
     }
   }
@@ -80,11 +79,16 @@ class CreateTab extends React.Component {
       this.setState({ supplierData })
     }
   }
-  getProduct = async () => {
-    const url = `${endpoints.getProduct}?client=${this.state.client.value}`
+  getProduct = async (val) => {
+    const url = `${endpoints.getProduct}?client=${this.state.client.value}&param=${val}`
     const { data } = await axios.get(url)
-    const productData = data.code.map((c, i) => ({ value: c, label: c, i }))
-    this.setState({ productData, productDataName: data.name })
+    const productData = data.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.name}`, i }))
+    this.setState({ productData })
+  }
+
+  getProductHandler = (val) => {
+    if(!val || val.length < 3) return
+    else  Promise.resolve( this.getProduct(val));
   }
   getDisposition = async () => {
     const url = `${endpoints.getDisposition}`
@@ -153,7 +157,6 @@ class CreateTab extends React.Component {
     delete error[name]
     this.setState({ [name]: val, orderDetails,site,client }, () => {
       if (name === 'client') {
-        this.getProduct()
         this.getSupplier()
       }
     })
@@ -207,7 +210,7 @@ class CreateTab extends React.Component {
       delete error.orderLine[i][key]
     }
     if (key === 'productVal') {
-      orderLine[i].product = this.state.productDataName[val.i]
+      orderLine[i].product = val.label
       orderLine[i].productVal = val
     }
     if (key === 'dispositionVal') {
@@ -485,13 +488,17 @@ class CreateTab extends React.Component {
                 <td className="px-1">
                   <Select value={o.productVal || ''}
                     options={productData}
-                    // menuIsOpen={o.productVal && o.productVal.length >= 3 ? true : false}
-                    // onInputChange={(val) => this.lineSelectChange(i, 'productVal', val)}
+                    getOptionLabel={option => option.value}
+                    onInputChange={(val) => this.getProductHandler(val)}
                     onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
                     onMenuClose={() => {productStatus[i] = false; this.setState({ productStatus: productStatus })}}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
                     className={`c-400 ${overflow[i] && overflow[i].productVal ? 'absolute' : null}`} placeholder="Product" required 
                     styles={{
+                      option: (provided, state) => ({
+                        ...provided,
+                        textAlign:'left'
+                      }),
                       dropdownIndicator: (base, state) => ({
                         ...base, 
                         transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
