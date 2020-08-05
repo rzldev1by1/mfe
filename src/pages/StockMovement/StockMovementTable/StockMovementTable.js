@@ -28,6 +28,11 @@ class StockMovementTable extends React.Component {
     }
   }
 
+  getExportData = async () => {  
+      console.log("Not Paginate API")
+      return 0 
+  }
+
   showModal = (show) => {
     this.setState({ showModal: show })
   }
@@ -218,6 +223,7 @@ class StockMovementTable extends React.Component {
                     ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} 
                     pdf={this.props.pdf}
                     excel={this.props.excel}
+                    getExportData={() => this.getExportData()}
                 />
             </CCol>
           </CRow>
