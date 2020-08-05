@@ -138,7 +138,7 @@ class Logins extends Component {
                 <div className="row">
                     <div className="col-sm-5">
                         <button type="submit" className="btn btn-primary btn-login col-12">
-                            {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : 'Login'}
+                            {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : 'LOGIN'}
                         </button>
                     </div>
                     <div className="col-sm-7 mt-3">
@@ -163,11 +163,11 @@ class Logins extends Component {
                 <div className="row">
                     <div className="col-sm-4 white-space">
                         <button type="submit" className="btn btn-primary btn-login col-12">
-                            {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "Send"}
+                            {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "SEND"}
                         </button>
                     </div>
                     <div className="col-sm-8 mt-3">
-                        <span className='form-login-change' onClick={() => this.changeFormHanlder()}>Login page</span>
+                        <span className='form-login-change' onClick={() => this.changeFormHanlder()}>LOGIN PAGE</span>
                     </div>
                 </div>
             </form>
@@ -204,7 +204,7 @@ class Logins extends Component {
                 <div className="row mt-5">
                     <div className="col-sm-4">
                         <button onClick={() => this.exitPolicyHandler()} type="button" className="btn btn-primary btn-login col-12">
-                            {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "Back"}
+                            {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "BACK"}
                         </button>
                     </div>
                 </div>
@@ -242,7 +242,7 @@ class Logins extends Component {
                 <div className="row mt-5">
                     <div className="col-sm-4">
                         <button onClick={() => this.exitPolicyHandler()} type="button" className="btn btn-primary btn-login col-12">
-                            {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "Back"}
+                            {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "BACK"}
                         </button>
                     </div>
                 </div>
