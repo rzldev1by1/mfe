@@ -34,7 +34,22 @@ class SalesOrderDetail extends React.Component {
       { accessor: 'pack_id',placeholder: 'Pack Id', Header: 'Pack Id', sortable: true, width: 180 },
     ],
     ForesCast: [
-      { accessor: 'type',placeholder: 'Type', Header: 'Type', sortable: true, width: 130 },
+      { accessor: 'type',
+        placeholder: 'Type', 
+        Header: 'Type', 
+        sortable: true, 
+        width: 130, 
+        Cell : row => {
+          return(
+            <div>
+              <span className="class-for-name">{row.original.openingbalancetext}</span>
+              <span className="class-for-name">{row.original.type}</span>
+              <span className="class-for-name">{row.original.batchnum}</span>
+              <span className="class-for-name">{row.original.closingbalancetext}</span>
+            </div>
+          )
+        }
+      },
       {
         accessor: 'company',
         placeholder: 'Customer No',
@@ -49,6 +64,14 @@ class SalesOrderDetail extends React.Component {
         Header: 'Order Date',
         sortable: true,
         width: 150,
+        Cell : row => {
+          return(
+            <div>
+              <span className="class-for-name">{row.original.effectivedate}</span>
+              <span className="class-for-name">{row.original.stockexpirydate}</span>
+            </div>
+          )
+        }
       },
       {
         accessor: 'qtyexpected',
@@ -69,7 +92,16 @@ class SalesOrderDetail extends React.Component {
         placeholder: 'Balance',
         Header: 'Balance',
         sortable: true,
-        width: 140
+        width: 140,
+        Cell : row => {
+          return(
+            <div>
+              <span className="class-for-name">{row.original.startbalance}</span>
+              <span className="class-for-name">{row.original.closingbalance}</span>
+              <span className="class-for-name">{row.original.totalbalance}</span>
+            </div>
+          )
+        }
       },
     ],
     detail: {},
@@ -115,7 +147,6 @@ class SalesOrderDetail extends React.Component {
     axios
       .get(url)
       .then((res) => {
-        console.log(res);
         const result = res.data.data;
         this.setState({ datahead: result });
         this.potableref.current.setPagination(res);
@@ -130,14 +161,10 @@ class SalesOrderDetail extends React.Component {
 
     const { product, client, site, expected_out_qty} = this.props.match.params;
     const url = `/stockdetail/${product}?client=${client}&site=${site}`;
-    console.log(expected_out_qty)
     const { data } = await axios.get(url);
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|[''([{])+\S/g, match => match.toUpperCase());
     if (data.data.length) {
-      this.setState({ products: data.data }, () => {
-        console.log('--- products ')
-        console.log(data.data)
-      });
+      this.setState({ products: data.data });
     }else{
       this.setState({ 
         tableStatus: 'noData'
@@ -152,11 +179,16 @@ class SalesOrderDetail extends React.Component {
     const { product, client, site } = this.props.match.params;
     const url = `/stockbal?client=${client}&product=${product}&site=${site}`;
     const { data } = await axios.get(url);
+    const openingbal  = [{openingbalancetext:'Opening Balance', startbalance:data[0][0]['opening balance']}]
+    const closingbal  = [{closingbalancetext:'Closing Balance', totalbalance:data[0][0]['closing balance']}]
+    const available   = data[0][0]['available orders']
+    const expiry      = data[0][0]['stock expiry']
+    let concat = openingbal.concat(available)
+    concat = concat.concat(expiry)
+    concat = concat.concat(closingbal)
+    console.log(concat)
     if (data) {
-      this.setState({ forecast: data[0][0]['available orders'] }, () => {
-        console.log('--- forecast ')
-        console.log(data[0][0]['available orders'])
-      });
+      this.setState({ forecast: concat});
     }else{
       this.setState({ 
         tableStatusForecast: 'noData'

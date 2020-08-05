@@ -433,7 +433,6 @@ showModal = (show) => {
     let data = fields.map((data, idx) => {                
       return data.Header
     });
-    // console.log(data)
     return data
   }
   ExportData = () => { 

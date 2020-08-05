@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import moment from 'moment'
+import numeral from 'numeral'
 import {
   CCard,
   CCardBody,
@@ -92,8 +93,15 @@ class SalesOrderDetail extends React.Component {
             exportData: data.data.data
           })
         }else{
+          console.log(data.data.data[0])
           this.setState({
-            products: data.data.data,
+            products: data.data.data.map(data => {
+              data.qty = numeral(data.qty).format('0,0')
+              data.qty_processed = numeral(data.qty).format('0,0')
+              data.weight = numeral(data.weight).format('0,0.000')
+              data.weight_processed = numeral(data.weight_processed).format('0,0.000')
+              return data
+            }),
             pagination: {
               active: pagination.active || data.data.current_page,
               show: data.data.per_page,
