@@ -2,7 +2,13 @@
 body {
   font-family: "Rubik";
 }
-
+.text-muted-soft{
+  color:#d5d8da;
+}
+.breadcrumb-item a {
+  color: #637176 !important;
+  font-weight: 700 !important;
+}
 // fix fa-spin rotating arround center
 .fa-spin {
   width: initial !important;

@@ -19,7 +19,8 @@
   padding: 30px !important;
 }
 .login .inputLogin {
-  /* width: 85% !important; */
+  width: 75% !important;
+  max-width: 75% !important;
   border-radius: 10px !important;
   font-size: 110% !important;
 }

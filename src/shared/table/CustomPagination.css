@@ -100,9 +100,7 @@ nav .pagination li:last-child .page-link {
 .card-group .card:last-child div input {
   height: 30px !important;
 }
-.text-muted-soft{
-  color:#d5d8da;
-}
+
 .text-muted-s{
   color:#b4b9bb;
 }
