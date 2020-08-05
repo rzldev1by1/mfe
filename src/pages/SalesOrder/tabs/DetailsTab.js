@@ -36,7 +36,6 @@ class CreateTab extends React.Component {
     const {user} = this.props
 
   if(user.client && user.site){
-    this.getProduct()
     this.getSupplier({value:user.client})
   }
   }
@@ -56,13 +55,27 @@ class CreateTab extends React.Component {
       this.setState({ orderTypeData })
     }
   }
-  getProduct = async () => {
+  // getProduct = async () => {
+  //   const client = this.props.user.client?this.state.client:this.state.client.value
+  //   const url = `${endpoints.getProduct}?client=${client}`
+  //   const { data } = await axios.get(url)
+  //   const productData = data.code.map((c, i) => ({ value: c, label: c, i }))
+  //   this.setState({ productData, productDataName: data.name })
+  // }
+
+  getProduct = async (val) => {
     const client = this.props.user.client?this.state.client:this.state.client.value
-    const url = `${endpoints.getProduct}?client=${client}`
+    const url = `${endpoints.getProduct}?client=${client}&param=${val}`
     const { data } = await axios.get(url)
-    const productData = data.code.map((c, i) => ({ value: c, label: c, i }))
-    this.setState({ productData, productDataName: data.name })
+    const productData = data.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.name}`, i }))
+    this.setState({ productData })
   }
+  
+  getProductHandler = (val) => {
+    if(!val || val.length < 3) return
+    else  Promise.resolve( this.getProduct(val));
+  }
+
   getDisposition = async () => {
     const url = `${endpoints.getDisposition}`
     const { data } = await axios.get(url)
@@ -160,7 +173,6 @@ class CreateTab extends React.Component {
     delete error[name] 
     this.setState({ [name]: val }, () => {
       if (name === 'client') {
-        this.getProduct()
         this.getSupplier(val)
       }else if(name=== 'orderType'){
         this.orderTypeValue(val)
@@ -190,7 +202,7 @@ class CreateTab extends React.Component {
       delete error.orderLine[i][key]
     }
     if (key === 'productVal') {
-      orderLine[i].product = this.state.productDataName[val.i]
+      orderLine[i].product = val.value
       orderLine[i].productVal = val
     }
     if (key === 'dispositionVal') {
@@ -550,8 +562,9 @@ class CreateTab extends React.Component {
                 <td className="px-1 text-left">
                   <Select value={o.productVal || ''}
                     options={productData}
+                    getOptionLabel={option => option.value}
                     // menuIsOpen={o.productVal && o.productVal.length >= 3 ? true : false}
-                    // onInputChange={(val) => this.lineSelectChange(i, 'productVal', val)}
+                    onInputChange={(val) => this.getProductHandler(val)}
                     onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
                     onMenuClose={() => {productStatus[i] = false; this.setState({ productStatus: productStatus })}}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}

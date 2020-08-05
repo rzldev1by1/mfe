@@ -143,7 +143,7 @@ class CustomPagination extends React.Component {
           <div className="d-flex d-inline-flex">
               <img src={logo_confirm} alt="logo" style={{ width: "20%", height: "20%" }} />
               <label className="pl-3 font">
-              Only {x_last_page} page are available on this screen, please try again. <br />
+              Only {x_last_page} {x_last_page === 1 ? "page is" : "pages are"} available on this screen, please try again. <br />
               
               </label>
           </div>

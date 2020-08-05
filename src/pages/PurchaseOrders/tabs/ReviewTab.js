@@ -131,7 +131,7 @@ class ReviewTab extends React.Component {
             {lineDetail.length ? lineDetail.map((ld, i) => {
               return <tr className="py-1 text-center orderline-row">
                 <td className="px-1"><input value={i + 1} className="form-control text-center" readOnly /></td>
-                <td className="px-1"><input value={ld.productVal?.label} className="form-control w-400" readOnly /></td>
+                <td className="px-1"><input value={ld.productVal?.value} className="form-control w-400" readOnly /></td>
                 <td className="px-1"><input value={ld.product} className="form-control w-600" placeholder="Choose a product first" readOnly /></td>
                 <td className="px-1"><input value={ld.qty} className="form-control" placeholder="Qty" readOnly /></td>
                 <td className="px-1"><input value={ld.weight} className="form-control" placeholder="Weight" readOnly /></td>
