@@ -1,7 +1,0 @@
-[
-  {"user":"George Smith", "userid":"12345", "email":"george.smith@ttl.com.au", "userlevel":"Admin", "client":"All", "lastaccess":"12 Dec 2019", "status":"Active","action":""},
-  {"user":"Phil Jones", "userid":"23456","email":"phil@aeosop.com.au", "userlevel":"User", "client":"Aeosop, Nike", "lastaccess":"12 Dec 2019", "status":"Active","action":""},
-  {"user":"Agnes", "userid":"34567","email":"agnes@nike.com.au", "userlevel":"User", "client":"Nike", "lastaccess":"12 Dec 2019","status":"Active","action":""},
-  {"user":"Conie", "userid":"45678","email":"conie@ttl.com.au", "userlevel":"User", "client":"Aeosop", "lastaccess":"12 Dec 2019","status":"Suspended","action":""},
-  {"user":"Niera", "userid":"56789","email":"niera@nike.com.au", "userlevel":"Admin", "client":"Nike", "lastaccess":"12 Dec 2019","status":"Active","action":""}
-]
