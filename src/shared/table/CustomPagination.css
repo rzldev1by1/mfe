@@ -41,6 +41,13 @@ ul.pagination {
 .btn-export {
   height: 50px;
 }
+nav .pagination .disabled{
+  color:#d5d8da !important;
+}
+
+nav .pagination .page-item .page-link > a > svg{
+  color: #637163 !important;
+}
 
 nav .pagination li:first-child {
   margin-left: 0px !important;
@@ -93,7 +100,15 @@ nav .pagination li:last-child .page-link {
 .card-group .card:last-child div input {
   height: 30px !important;
 }
-
+.text-muted-soft{
+  color:#d5d8da;
+}
+.text-muted-s{
+  color:#b4b9bb;
+}
+.text-muted-dark{
+  color:#637175;
+}
 @media (min-width:1740px) and (max-width: 1790px) {
   .container-fluid div div .pagination-custom .col-lg-7 {
     flex: 0 0 60.66667% !important;

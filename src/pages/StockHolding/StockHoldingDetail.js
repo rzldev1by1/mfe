@@ -31,7 +31,7 @@ class SalesOrderDetail extends React.Component {
       { accessor: 'weight', placeholder: 'Weight', Header: 'Weight', sortable: true, width: 115 },
       { accessor: 'pallet',placeholder: 'Pallet', Header: 'Pallet', sortable: true, width: 120 },
       { accessor: 'price',placeholder: 'Prince', Header: 'Price', sortable: true, width: 120 },
-      { accessor: 'pack_id',placeholder: 'Pack Id', Header: 'Pack Id', sortable: true, width: 180 },
+      { accessor: 'pack_id',placeholder: 'Pack ID', Header: 'Pack ID', sortable: true, width: 180 },
     ],
     ForesCast: [
       { accessor: 'type',placeholder: 'Type', Header: 'Type', sortable: true, width: 130 },
@@ -216,20 +216,20 @@ class SalesOrderDetail extends React.Component {
         <div ref={this.section1} className='card-group section-1 mb-3'>
         <CCard>
           <CCardBody className="p-0 m-3 border-right">
-            <CRow className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Site</CCol> <CCol>{site || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Client</CCol> <CCol>{client || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Product</CCol> <CCol>{product || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Description</CCol> <CCol>{description || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">UOM</CCol> <CCol>{uom || '-'}</CCol></CRow>
+            <CRow className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">Site</CCol> <CCol>{site || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">Client</CCol> <CCol>{client || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">Product</CCol> <CCol>{product || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">Description</CCol> <CCol>{description || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">UOM</CCol> <CCol>{uom || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>
         <CCard>
           <CCardBody className="p-0 my-3 mx-0 border-right">
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Stock On Hand</CCol> <CCol>{stock_on_hand || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Available Qty</CCol> <CCol>{available_qty || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Expected in Qty</CCol> <CCol>{expected_in_qty || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Expected Out Qty</CCol> <CCol>{expected_out_qty || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Rotadate Type</CCol> <CCol>{rotadate_type || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Stock On Hand</CCol> <CCol className="pl-0">{stock_on_hand || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Available Qty</CCol> <CCol className="pl-0">{available_qty || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Expected in Qty</CCol> <CCol className="pl-0">{expected_in_qty || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Expected Out Qty</CCol> <CCol className="pl-0">{expected_out_qty || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Rotadate Type</CCol> <CCol className="pl-0">{rotadate_type || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>
         </div>

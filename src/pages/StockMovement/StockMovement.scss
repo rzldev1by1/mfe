@@ -213,9 +213,7 @@
           }
         }
       }
-      .rt-thead .-header{
-        border-bottom: 1px solid rgba(0,0,0,.05) !important;
-      }
+      
     }
   }
 }
@@ -260,13 +258,23 @@
     flex: 0 0 12%;
     max-width: 12%; 
   }
-  .sm-col-13{
-    flex: 0 0 13%;
-    max-width: 13%; 
-  }
+  @media (min-width:1884px){.sm-col-13{flex: 0 0 25% !important;max-width: 25% !important; }}
+  @media (min-width:1865px) and (max-width:1883px){.sm-col-13{flex: 0 0 24.9% !important;max-width: 24.9% !important;}}
+  @media (min-width:1863px) and (max-width:1883px){.sm-col-13{flex: 0 0 24.8% !important;max-width: 24.8% !important;}}
+  @media (min-width:1845px) and (max-width:1862px){.sm-col-13{flex: 0 0 24.8% !important;max-width: 24.8% !important;}}
+  @media (min-width:1807px) and (max-width:1844px){.sm-col-13{flex: 0 0 24.6% !important;max-width: 24.6% !important;}}
+  @media (min-width:1771px) and (max-width:1806px){.sm-col-13{flex: 0 0 24.4% !important;max-width: 24.4% !important;}}
+  @media (min-width:1736px) and (max-width:1770px){.sm-col-13{flex: 0 0 24.2% !important;max-width: 24.2% !important;}}
+  @media (min-width:1704px) and (max-width:1735px){.sm-col-13{flex: 0 0 24% !important;max-width: 24% !important;}}
+  @media (min-width: 1651px) and (max-width:1704px){.sm-col-13 {flex: 0 0 23.66667% !important;max-width: 23.66667% !important;}}
+  @media (min-width: 1626px) and (max-width:1650px){.sm-col-13{flex: 0 0 23.5% !important;max-width: 23.5% !important;}}
+  @media (min-width: 1598px) and (max-width:1625px){.sm-col-13{flex: 0 0 23.3% !important;max-width: 23.3% !important;}}
+  @media (min-width: 1570px) and (max-width:1597px){.sm-col-13{flex: 0 0 23.1% !important;max-width: 23.1% !important;}}
+  @media (min-width: 1543px) and (max-width:1569px){.sm-col-13{flex: 0 0 22.9% !important;max-width: 22.9% !important;}}
+  @media (min-width: 1518px) and (max-width:1542px){.sm-col-13{flex: 0 0 22.7% !important;max-width: 22.7% !important;}}
   .sm-col-14{
-    flex: 0 0 14%;
-    max-width: 14%; 
+    flex: 0 0 10.5%;
+    max-width: 10.5%; 
   }
   .sm-col-15{
     flex: 0 0 15%;
