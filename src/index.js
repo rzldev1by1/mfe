@@ -16,16 +16,16 @@ import * as serviceWorker from './serviceWorker';
 import { icons } from 'assets/icons'
 React.icons = icons
 
-// const persistedReducer = persistReducer({ key: 'root', storage }, rootReducer)
+const persistedReducer = persistReducer({ key: 'root', storage }, rootReducer)
 const middleware = composeWithDevTools(applyMiddleware(thunk))
-const store = createStore(rootReducer, middleware)
-// const persistor = persistStore(store)
+const store = createStore(persistedReducer, middleware)
+const persistor = persistStore(store)
 
 ReactDOM.render(
   <Provider store={store}>
-    {/* <PersistGate loading={null} persistor={persistor}> */}
+    <PersistGate loading={null} persistor={persistor}>
       <App />
-    {/* </PersistGate> */}
+    </PersistGate>
   </Provider>,
   document.getElementById('root')
 );
