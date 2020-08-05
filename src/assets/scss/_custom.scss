@@ -135,6 +135,7 @@ overflow-x: scroll;
 .nav-link.active {
   background-color: #fff !important;
   color: #376bfb !important;
+  height: 3.25rem;
 }
 .nav-tabs {
   margin-left: 26px;
@@ -406,6 +407,13 @@ header {
   color: red;
 }
 
+
+
+.rightColumn {
+  display: inline-block !important;
+  text-align: right;
+}
+
 // REACTABLE
 .ReactTable {
   .rt-table {
@@ -427,7 +435,7 @@ header {
           }
           .rt-td:first-child {
             padding-left: 1.8rem !important;
-          }
+          } 
         }
       }
     }
@@ -465,4 +473,9 @@ header {
   .pagination-custom{
     display: none !important;
   }
+}
+
+.rightColumn {
+  display: inline-block !important;
+  text-align: right;
 }
