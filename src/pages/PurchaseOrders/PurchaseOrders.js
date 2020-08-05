@@ -67,7 +67,8 @@ class PurchaseOrders extends React.PureComponent {
       create: false,
       detail: {},
       dimension: { width: 0, height: 0 },
-      tableStatus: 'waiting'
+      tableStatus: 'waiting',
+      exportData: [],
     }
 
   }
@@ -80,7 +81,7 @@ class PurchaseOrders extends React.PureComponent {
     this.getClient()
     this.getStatus()
     this.getResources()
-    this.searchPurchaseOrder()
+    this.searchPurchaseOrder('false','true')
     const {site, client} = this.props.store.user
     if(site && client) this.getTask()
   }
@@ -141,15 +142,20 @@ class PurchaseOrders extends React.PureComponent {
       this.setState({ resources: data, orderTypeData })
     }
   }
-  searchPurchaseOrder = async () => {
+  searchPurchaseOrder = async (export_='false',readyDocument='false') => {
+    //export : true/false --> param for identify this function called from export button
+    //readyDocument : true/false --> if true, then avoid bug "repeatly set state from ComponentDidMount"
+
     let { search, site, client, orderType, task, pagination, status } = this.state
     let urls = []
 
     //reset table
-    this.setState({
-      data: [],
-      tableStatus: 'waiting'
-    })
+    if(readyDocument == 'false' && export_ == 'false'){
+      this.setState({
+        data: [],
+        tableStatus: 'waiting'
+      })
+    }
 
     urls.push('searchParam=' + (search ? search : ''))
     urls.push('site=' + (site.value ? site.value : 'all'))
@@ -158,6 +164,7 @@ class PurchaseOrders extends React.PureComponent {
     urls.push('status=' + (status ? status.value : 'all'))
     if(task && task.value !== 'all') urls.push('task=' + task.value)
     urls.push('page=' + (pagination.active || 1))
+    if(export_=='true'){urls.push('export=true')}
     console.log('load Purchase order', urls.join('&'), task)
     const { data } = await axios.get(`${endpoints.purchaseOrder}?${urls.join('&')}`)
     if (data?.data?.data) {
@@ -189,17 +196,24 @@ class PurchaseOrders extends React.PureComponent {
           item['statusTxt'] = 'ALL OPEN'
         }
       })
-      this.setState({
-        pagination: {
-          active: pagination.active || data.data.current_page,
-          show: data.data.per_page,
-          total: data.data.total,
-          last_page: data.data.last_page,
-          from: data.data.from,
-          to: data.data.to
-        },
-        data: modifiedData
-      })
+      if(export_=='true'){
+        this.setState({ 
+          exportData: modifiedData
+        })
+      }else{
+        this.setState({
+          pagination: {
+            active: pagination.active || data.data.current_page,
+            show: data.data.per_page,
+            total: data.data.total,
+            last_page: data.data.last_page,
+            from: data.data.from,
+            to: data.data.to
+          },
+          data: modifiedData
+        })
+      }
+
       if(modifiedData.length < 1){
         this.setState({   tableStatus: 'noData'  })
       }
@@ -263,7 +277,7 @@ class PurchaseOrders extends React.PureComponent {
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData, taskData, customFields,tableStatus
+      siteData, clientData, statusData, orderTypeData, taskData, customFields,tableStatus,exportData
     } = this.state
     return <div className="purchase-order">
       <HeaderTitle
@@ -386,6 +400,8 @@ class PurchaseOrders extends React.PureComponent {
         export={<button className="btn btn-primary float-right btn-export"> 
         {/* <div className="export-export pr-3"/> */}
         EXPORT</button>}
+        exportApi={async () =>  {await this.searchPurchaseOrder('true')}}
+        exportData={exportData}
       />
 
       <PurchaseOrderCreate

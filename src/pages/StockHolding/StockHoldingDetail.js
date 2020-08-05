@@ -303,6 +303,7 @@ class SalesOrderDetail extends React.Component {
                       EXPORT
                     </button>
                   }
+                  exportData={products}
                 />
               </TabPane>
               <TabPane className='stockDetails' tabId='2'>
@@ -317,6 +318,7 @@ class SalesOrderDetail extends React.Component {
                   UrlHeader={this.UrlHeader} 
                   UrlAll={this.UrlAll}
                   tableStatus={tableStatusForecast}
+                  exportData={forecast}
                   export={
                     <button className='btn btn-primary float-right btn-export'>
                       {/* <div className='export-export pr-3' /> */}
