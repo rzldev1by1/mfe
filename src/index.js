@@ -18,7 +18,7 @@ React.icons = icons
 
 const persistedReducer = persistReducer({ key: 'root', storage }, rootReducer)
 const middleware = composeWithDevTools(applyMiddleware(thunk))
-const store = createStore(rootReducer, middleware)
+const store = createStore(persistedReducer, middleware)
 const persistor = persistStore(store)
 
 ReactDOM.render(
