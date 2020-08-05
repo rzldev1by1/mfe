@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import numeral from 'numeral'
 import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react'
 import Select from 'react-select'
 import { FaPencilAlt } from 'react-icons/fa'
@@ -297,6 +298,7 @@ class StockHolding extends React.PureComponent {
     //console.log(data)
     if (data?.data?.data) {
       const modifiedData = data.data.data;
+      console.log(modifiedData)
       modifiedData.map((item, idx) => {
         if (parseInt(item['on_hand_qty'] + item['expected_in_qty'])  >= item['expected_out_qty']) {
           item['status'] = [<a className='status-ok'>OK</a>];
@@ -305,6 +307,12 @@ class StockHolding extends React.PureComponent {
           item['status'] = [<a className='status-shortage'>SHORTAGE</a>];
           item['statusTxt'] = 'SHORTAGE';
         }
+        item['expected_in_qty'] = numeral(item['expected_in_qty']).format('0,0')
+        item['expected_out_qty'] = numeral(item['expected_out_qty']).format('0,0')
+        item['on_hand_qty'] = numeral(item['on_hand_qty']).format('0,0')
+        item['pallets'] = numeral(item['pallets']).format('0,0')
+        item['expected_in_wgt'] = numeral(item['expected_in_wgt']).format('0,0.000')
+        item['weight_processed'] = numeral(item['weight_processed']).format('0,0.000')
       })
       
       if(export_=='true'){
