@@ -37,7 +37,8 @@ class PurchaseOrdersDetail extends React.Component {
       detail: {},
       products: [],
       pagination: {},
-      tableStatus: 'waiting'
+      tableStatus: 'waiting',
+      exportData: []
     }
   }
   componentDidMount() {
@@ -61,10 +62,12 @@ class PurchaseOrdersDetail extends React.Component {
       this.setState({ detail: data.data.data[0] })
     }
   }
-  getProducts = async (page=1) => {
+  getProducts = async (page=1,export_='false') => {
+    //export : true/false --> param for identify this function called from export button 
+    
     const { pagination,tableStatus } = this.state
     const { orderdetail, client,site} = this.props.match.params
-    const url = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${page}`
+    const url = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${page}&export=${export_}`
     const { data } = await axios.get(url)
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     // if (data.data.length) {
@@ -75,17 +78,24 @@ class PurchaseOrdersDetail extends React.Component {
         m.rotadate = m?.rotadate ? moment(m.rotadate).format('DD/MM/YYYY') : '-'
         return m
       })
-      this.setState({
-        products: dt,
-        pagination: {
-          active: pagination.active || data.data.current_page,
-          show: data.data.per_page,
-          total: data.data.total,
-          last_page: data.data.last_page,
-          from: data.data.from,
-          to: data.data.to
-        } 
-      })
+      if(export_=='true'){
+        this.setState({ 
+          exportData: dt
+        })
+      }else{
+        this.setState({
+          products: dt,
+          pagination: {
+            active: pagination.active || data.data.current_page,
+            show: data.data.per_page,
+            total: data.data.total,
+            last_page: data.data.last_page,
+            from: data.data.from,
+            to: data.data.to
+          } 
+        })
+      }
+      
 
       if(data.data.data.length < 1){
         this.setState({   tableStatus: 'noData'  })
@@ -120,7 +130,7 @@ class PurchaseOrdersDetail extends React.Component {
 
   render() {
     // const { match, history } = this.props
-    const { detail, products, fields, pagination, tableStatus } = this.state
+    const { detail, products, fields, pagination, tableStatus, exportData } = this.state
     return <div className="purchase-order-details">
       <HeaderTitle breadcrumb={[
         { to: '/purchase-order', label: 'Purchase Order' },
@@ -174,6 +184,8 @@ class PurchaseOrdersDetail extends React.Component {
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.getProducts(active))
         }}
+        exportApi={async () =>  {await this.getProducts(1,'true')}}
+        exportData={exportData}
       />
       {/* <CustomPagination
       data={products}
