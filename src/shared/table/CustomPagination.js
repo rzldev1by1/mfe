@@ -98,8 +98,8 @@ class CustomPagination extends React.Component {
               />
             </CCard>
             <CCard className="col-lg-5" style={{maxWidth: "39.36667%"}}>
-              <div className="page-2 d-flex justify-content-center">
-                <span className="text-muted mt-1 mr-3">Go to page</span>
+              <div className="page-2 d-flex justify-content-center align-items-center">
+                <span className="text-muted-soft mr-3">Go to page</span>
                 <input
                   type="number"
                   className="form-control form-control-sm"
@@ -110,7 +110,7 @@ class CustomPagination extends React.Component {
                   style={{textAlign:'center'}}
                 />
                 <span
-                  className="text-muted mt-1 ml-3 pointer"
+                  className="text-muted-dark ml-3 pointer"
                   onClick={this.goToPage}
                 >
                   {"Go >"}
@@ -120,9 +120,9 @@ class CustomPagination extends React.Component {
           </CCardGroup>
         </CCol>
         <CCol lg="5" className="mt-3">
-          <span>
+          <span className="text-muted-s">
             Showing{" "}
-            <b> &nbsp; {`${x_from} to ${x_to} of ${x_total} `} </b>{" "}
+            <b className="text-muted-dark"> &nbsp; {`${x_from} to ${x_to} of ${x_total} `} </b>{" "}
             &nbsp; entries
           </span>
         </CCol>
