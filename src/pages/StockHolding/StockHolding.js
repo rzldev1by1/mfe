@@ -34,7 +34,8 @@ const columns = [
     Header: 'Stock on Hand',
     placeholder: 'Stock on Hand',
     sortable: true,
-    width: null,
+    width: 140,
+    style: {flexDirection: 'row-reverse'}
   },
   {
     accessor: 'on_hand_wgy',
@@ -42,6 +43,7 @@ const columns = [
     placeholder: 'On Hand WGT',
     sortable: true,
     width: null,
+    style: {flexDirection: 'row-reverse'}
   },
   {
     accessor: 'expected_in_qty',
@@ -49,6 +51,7 @@ const columns = [
     placeholder: 'Expected In Qty',
     sortable: true,
     width: null,
+    style: {flexDirection: 'row-reverse'}
   },
   {
     accessor: 'expected_in_wgt',
@@ -56,6 +59,7 @@ const columns = [
     placeholder: 'Expected In Weight',
     sortable: true,
     width: null,
+    style: {flexDirection: 'row-reverse'}
   },
   {
     accessor: 'expected_out_qty',
@@ -63,9 +67,12 @@ const columns = [
     placeholder: 'Expected Out Qty',
     sortable: true,
     width: null,
+    style: {flexDirection: 'row-reverse'}
   },
-  { accessor: 'price', Header: ' Price ', placeholder: 'Price', width: null, sortable: true },
-  { accessor: 'pallets', Header: 'Pallets', placeholder: 'Pallets', width: null, sortable: true },
+  { accessor: 'price', Header: ' Price ', placeholder: 'Price', width: null, sortable: true,
+  style: {flexDirection: 'row-reverse'} },
+  { accessor: 'pallets', Header: 'Pallets', placeholder: 'Pallets', width: null, sortable: true,
+  style: {flexDirection: 'row-reverse'} },
 ];
 
 const customColumns = [
@@ -143,13 +150,15 @@ class StockHolding extends React.PureComponent {
     fields: columns,
     customFields: customColumns,
     data: [],
+    loginInfo: {},
     create: false,
     pagination: {},
     detail: {},
     dimension: { width: 0, height: 0 },
     products: [],
     columnsPayload: [],
-    exportData: []
+    exportData: [],
+    tableStatus: 'waiting' //table status waiting or noData
   };
   componentDidMount = () => {
     // set automatic table height
@@ -159,7 +168,8 @@ class StockHolding extends React.PureComponent {
     this.getSite()
     this.getClient()
     this.getStatus()
-    this.searchStockHolding()
+    this.searchStockHolding('false','true')
+    // this.loadPersonalLogin();
   }
 
   componentWillUnmount() {
@@ -175,6 +185,7 @@ class StockHolding extends React.PureComponent {
     const siteData = data.map(d => ({ value: d.site, label: `${d.site}: ${d.name}` }))
     const site = { value: 'all', label: 'All Site' }
     siteData.splice(0, 0, site)
+    this.props.dispatch({ type: 'SITE', data: siteData })
     this.setState({ siteData })
   }
   getClient = async () => {
@@ -182,6 +193,7 @@ class StockHolding extends React.PureComponent {
     const clientData = data.map(d => ({ value: d.code, label: `${d.code}: ${d.name}` }))
     const client = { value: 'all', label: 'All Client' }
     clientData.splice(0, 0, client)
+    this.props.dispatch({ type: 'CLIENT', data: clientData })
     this.setState({ clientData })
   }
   getStatus = async () => {
@@ -195,9 +207,14 @@ class StockHolding extends React.PureComponent {
   }
 
   // url Get Header And Post
+//   loadPersonalLogin = () => {
+//     let userInfo = this.props.store;     
+//     this.setState({ loginInfo: userInfo.user });
+// }
 
   UrlHeader = () => {
-    return `${endpoints.getStockHoldingHearder}?client=ANTEC`
+    // let loginInfo = this.state.loginInfo
+    return `${endpoints.getStockHoldingHearder}?client=BEGA`
   }
   UrlAntec = () => {
     return '/putStockholdingColumn?client=ANTEC'
@@ -237,7 +254,9 @@ class StockHolding extends React.PureComponent {
 
   siteCheck = (siteVal) => {
     let l = null
-    this.props.store.site.map(data => {
+    const {site} = this.props.store
+    if(site)
+    site.map(data => {
       if (data.value === siteVal) l = data.label
     })
     return l
@@ -245,14 +264,27 @@ class StockHolding extends React.PureComponent {
 
   clientCheck = (clientVal) => {
     let c = null
-    this.props.store.client.map(data => {
+    const {client} = this.props.store
+    if(client)
+    client.map(data => {
       if (data.value === clientVal) c = data.label
     })
     return c
   }
 
-  searchStockHolding = async (export_='false') => {
-    let { search, site, client, status, pagination } = this.state
+  searchStockHolding = async (export_='false',readyDocument='false') => {
+    //export : true/false --> param for identify this function called from export button
+    //readyDocument : true/false --> if true, then avoid bug "repeatly set state from ComponentDidMount"
+
+    let { search, site, client, status, pagination, tableStatus } = this.state
+
+    //reset table
+    if(readyDocument == 'false' && export_ == 'false'){
+      this.setState({
+        data: [],
+        tableStatus: 'waiting'
+      })
+    } 
     
     let urls = []
     urls.push('searchParam=' + (search ? search : ''))
@@ -262,6 +294,7 @@ class StockHolding extends React.PureComponent {
     urls.push('page=' + (pagination.active || 1))
     if(export_=='true'){urls.push('export=true')}
     const { data } = await axios.get(`${endpoints.stockHoldingSummary}?${urls.join('&')}`)
+    //console.log(data)
     if (data?.data?.data) {
       const modifiedData = data.data.data;
       modifiedData.map((item, idx) => {
@@ -291,8 +324,14 @@ class StockHolding extends React.PureComponent {
           data: modifiedData
         })
       }
+
+      if(modifiedData.length < 1){
+        this.setState({   tableStatus: 'noData'  })
+      }
+
     } else {
-      if(export_!=='true'){this.setState({ data: [] })}
+      if(export_!=='true'){this.setState({ data: [] })} 
+      this.setState({   tableStatus: 'noData'  })
     }
     // this.setState({ data: DummyData })
   }
@@ -326,6 +365,7 @@ class StockHolding extends React.PureComponent {
       exportData,
       urlHeader,
       customFields,
+      tableStatus
     } = this.state
     return (
       <div className='stockHolding table-summary'>
@@ -449,6 +489,8 @@ class StockHolding extends React.PureComponent {
           UrlAesop={this.UrlAesop} UrlClucth={this.UrlClucth} UrlExquira={this.UrlExquira}
           UrlLedvance={this.UrlLedvance} UrlOnestop={this.UrlOnestop} UrlStartrack={this.UrlStartrack}
           UrlTatura={this.UrlTatura} UrlTtl={this.UrlTtl} UrlTtchem={this.UrlTtchem}
+          tableStatus={tableStatus}
+          exportApi={async () =>  {await this.searchStockHolding('true')}}
           goto={(active) => {
             this.setState({ pagination: { ...pagination, active } }, () =>
               this.searchStockHolding()

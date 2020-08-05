@@ -15,33 +15,33 @@ import HeaderTitle from 'shared/container/TheHeader'
 import './SalesOrder.scss'
 
 const columns = [
-  { accessor: "line", Header: "Line No" },
-  { accessor: "product", Header: "Product" },
-  { accessor: "product_description", Header: "Description" },
-  { accessor: "qty", Header: "Qty", width: 60  },
-  { accessor: "uom", Header: "UOM", width: 80 },
-  { accessor: "qty_processed", Header: "Qty Processed" },
-  { accessor: "weight", Header: "Weight" },
-  { accessor: "weight_processed", Header: "Weight Processed" },
+  { accessor: "line", placeholder: 'Line No', Header: "Line No" },
+  { accessor: "product", placeholder: 'Product', Header: "Product" },
+  { accessor: "product_description",placeholder: 'Description', Header: "Description" },
+  { accessor: "qty", placeholder: 'Qty', Header: "Qty", width: 60  },
+  { accessor: "uom", placeholder: 'UOM', Header: "UOM", width: 80 },
+  { accessor: "qty_processed", placeholder: 'Qty Processed', Header: "Qty Processed" },
+  { accessor: "weight",placeholder: 'Weight', Header: "Weight" },
+  { accessor: "weight_processed", placeholder: 'Weight Procesed', Header: "Weight Processed" },
   {
-    accessor: "completed", Header: "Completed",
+    accessor: "completed",placeholder: 'Completed', Header: "Completed",
     Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
   //{ accessor: "oos", Header: "OOS", width: 50 },
   {
-    accessor: "oos", Header: "OOS", width: 60 ,
+    accessor: "oos",placeholder: 'OOS', Header: "OOS", width: 60 ,
     Cell: (row) => <i className={`${row.original.oos === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
   {
-    accessor: "released", Header: "Released", width: 80 ,
+    accessor: "released",placeholder: 'Released', Header: "Released", width: 80 ,
     Cell: (row) => <i className={`${row.original.received === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
-  { accessor: "batch", Header: "Batch", width: 60  },
-  { accessor: "ref2", Header: "Ref2" },
-  { accessor: "ref3", Header: "Ref3" },
-  { accessor: "ref4", Header: "Ref4" },
-  { accessor: "disposition", Header: "Disposition" },
-  { accessor: "pack_id", Header: "Pack ID" }
+  { accessor: "batch", placeholder: 'Batch',  Header: "Batch", width: 60  },
+  { accessor: "ref2",placeholder: 'Ref2', Header: "Ref2" },
+  { accessor: "ref3",placeholder: 'Ref3', Header: "Ref3" },
+  { accessor: "ref4",placeholder: 'Ref4', Header: "Ref4" },
+  { accessor: "disposition",placeholder: 'Disposition', Header: "Disposition" },
+  { accessor: "pack_id",placeholder: 'Pack ID', Header: "Pack ID" }
 ]
 class SalesOrderDetail extends React.Component {
   // ref to get element height and calculate table height
@@ -52,7 +52,9 @@ class SalesOrderDetail extends React.Component {
     detail: {},
     products: [],
     request_status: 'Please Wait...',
-    pagination: {}
+    pagination: {}, 
+    tableStatus: 'waiting',
+    exportData: []
   }
   componentDidMount() {
     this.updateDimension();
@@ -75,46 +77,61 @@ class SalesOrderDetail extends React.Component {
       this.setState({ detail: data.data.data[0] })
     }
   }
-  getProducts = async (page=1) => {
+  getProducts = async (page=1,export_='false') => {
+    //export : true/false --> param for identify this function called from export button 
+
     const { pagination } = this.state
     const { orderno, client, site } = this.props.match.params
-    this.setState({ request_status: "Please Wait..."  })
-    const url = `/salesorder/${orderno}?client=${client}&site=${site}&page=${page}`
+    this.setState({ data: [], tableStatus: "waiting" }) 
+    const url = `/salesorder/${orderno}?client=${client}&site=${site}&page=${page}&export=${export_}`
     const { data } = await axios.get(url)
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
-    if (data?.data?.data) {
-      console.log(data.data.data) 
-      this.setState({
-        products: data.data.data,
-        pagination: {
-          active: pagination.active || data.data.current_page,
-          show: data.data.per_page,
-          total: data.data.total,
-          last_page: data.data.last_page,
-          from: data.data.from,
-          to: data.data.to
-        } 
-      }, () => {console.log (this.state.pagination)})
+    if (data?.data?.data) { 
+        if(export_=='true'){
+          this.setState({ 
+            exportData: data.data.data
+          })
+        }else{
+          this.setState({
+            products: data.data.data,
+            pagination: {
+              active: pagination.active || data.data.current_page,
+              show: data.data.per_page,
+              total: data.data.total,
+              last_page: data.data.last_page,
+              from: data.data.from,
+              to: data.data.to
+            } 
+          })
+        }
+      
+      if (data.data.data.length<1) {
+        this.setState({ tableStatus: "noData" })
+      }
     }else{  
-      this.setState({ request_status: "No Data Found"  })
+      this.setState({ data: [], tableStatus: "noData" }) 
     }  
   }
   formatDate = (date) => {
     return date ? moment(date).format('DD/MM/YYYY') : '-'
   }
+
   UrlHeader = () =>{
-    return `$/getSalesOrderHeader?client=ANTEC`
+    return `/getSalesOrderDetailColumn?client=ALL `
   }
+  UrlAll = () => {
+    return '/putSalesOrderDetailColumn?client=ALL'
+  }
+
   
   showDetails = (item) => {
     const { orderno, client, site } = this.props.match.params
-    this.setState({ request_status: "Please Wait..."  })
     const url = `/salesorder/${orderno}?client=${client}&site=${site}` 
     this.props.history.push(url)
   }
   render() {
     // const { match, history } = this.props
-    const { detail, products, fields, pagination} = this.state
+    const { detail, products, fields, pagination, tableStatus, exportData} = this.state
     return <div className="sales-order-detail">
       <HeaderTitle breadcrumb={[
         { to: '/sales-orders', label: 'Sales Order' },
@@ -127,7 +144,7 @@ class SalesOrderDetail extends React.Component {
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Client</CCol> <CCol>{detail.client}: {detail.client_name}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Order No</CCol> <CCol>{detail.orderno || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Order Type</CCol> <CCol>{detail.ordertype || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Task</CCol> <CCol>{detail.customer || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Task</CCol> <CCol>{detail.isistask || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer No.</CCol> <CCol>{detail.customer || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer Name</CCol> <CCol>{detail.customername || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer Order Ref</CCol> <CCol>{detail.customerpono || '-'}</CCol></CRow>
@@ -149,7 +166,7 @@ class SalesOrderDetail extends React.Component {
         </CCard>
         <CCard>
           <CCardBody className="p-0 m-3">
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Status</CCol> <CCol>{detail.status || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Status</CCol> <CCol>{(detail.status && detail.status.includes("0:")?"0: Unavailable":detail.status) || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Delivery Date</CCol> <CCol>{this.formatDate(detail.deliverydate)}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Date Received</CCol> <CCol>{this.formatDate(detail.datereceived)}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Date Released</CCol> <CCol>{this.formatDate(detail.datereleased)}</CCol></CRow>
@@ -171,20 +188,21 @@ class SalesOrderDetail extends React.Component {
         fields={fields}
         data={products}
         pagination={pagination}
+        tableStatus={tableStatus}
         UrlHeader={this.UrlHeader} 
+        UrlAll={this.UrlAll}
         // request_status={this.state.request_status}
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.getProducts(active))
-        }}
-        noDataText={<div className='text-align-center'>
-        <div  className='caution-caution px-6'/>No Data Available
-      </div>}
+        }} 
         export={
           <button className='btn btn-primary float-right btn-export'>
             {/* <div className='export-export pr-3' /> */}
             EXPORT
           </button>
         }
+        exportApi={async () =>  {await this.getProducts(1,'true')}}
+        exportData={exportData}
       />
     </div>
   }

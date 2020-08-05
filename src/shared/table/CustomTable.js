@@ -198,27 +198,31 @@ showModal = (show) => {
             accessor: h.accessor,
             sortable: h.sortable === false ? false : true,
             resizable: h.resizable || false,
+            className: h.className || null,
             style: h.style || null,
             width: h.width || getColumnWidth(data, h.accessor, h.Header),
-          }
+          } 
           return listHeader = [...listHeader, obj]
         } else {
           return listHeader = [...listHeader]
         }
       })
 
-    let editBtn = (
-      <div className='edit-column' onClick={this.showModal.bind(this, true)}>
-        <i className='iconU-edit text-primary' />
-      </div>
-    )
-    let obj = {
-      Header: editBtn,
-      accessor: 'editBtn',
-      width: 50,
-      style: { textAlign: 'center' },
-    };
-    listHeader = [...listHeader, obj];
+    if(this.props.editColumn !== 'false'){
+      let editBtn = (
+        <div className='edit-column' onClick={this.showModal.bind(this, true)}>
+          <i className='iconU-edit text-primary' />
+        </div>
+      )
+      let obj = {
+        Header: editBtn,
+        accessor: 'editBtn',
+        width: 50,
+        style: { textAlign: 'center' },
+      };
+      listHeader = [...listHeader, obj];
+    }
+    
     return listHeader;
   };
 
@@ -343,56 +347,45 @@ showModal = (show) => {
     const baseUrl = process.env.REACT_APP_API_URL;
 
     try {
-      const urlAntec = await axios.post(
-        baseUrl + this.props.UrlAntec(),
+      const urlAll = await axios.post(
+        baseUrl + this.props.UrlAll(),
         payload
       );
-      const urlBega = await axios.post(baseUrl + this.props.UrlBega(), payload);
-      const urlAesop = await axios.post(
-        baseUrl + this.props.UrlAesop(),
-        payload
-      );
-      const urlClucth = await axios.post(
-        baseUrl + this.props.UrlClucth(),
-        payload
-      );
-      const urlExquira = await axios.post(
-        baseUrl + this.props.UrlExquira(),
-        payload
-      );
-      const urlLedvance = await axios.post(
-        baseUrl + this.props.UrlLedvance(),
-        payload
-      );
-      const urlOnestop = await axios.post(
-        baseUrl + this.props.UrlOnestop(),
-        payload
-      );
-      const urlStartrack = await axios.post(
-        baseUrl + this.props.UrlStartrack(),
-        payload
-      );
-      const urlTatura = await axios.post(
-        baseUrl + this.props.UrlTatura(),
-        payload
-      );
-      const urlTtl = await axios.post(baseUrl + this.props.UrlTtl(), payload);
-      const urlTtchem = await axios.post(
-        baseUrl + this.props.UrlTtchem(),
-        payload
-      );
-      const { data } =
-        urlAntec +
-        urlBega +
-        urlAesop +
-        urlClucth +
-        urlExquira +
-        urlLedvance +
-        urlOnestop +
-        urlStartrack +
-        urlTatura +
-        urlTtl +
-        urlTtchem;
+      // const urlBega = await axios.post(baseUrl + this.props.UrlBega(), payload);
+      // const urlAesop = await axios.post(
+      //   baseUrl + this.props.UrlAesop(),
+      //   payload
+      // );
+      // const urlClucth = await axios.post(
+      //   baseUrl + this.props.UrlClucth(),
+      //   payload
+      // );
+      // const urlExquira = await axios.post(
+      //   baseUrl + this.props.UrlExquira(),
+      //   payload
+      // );
+      // const urlLedvance = await axios.post(
+      //   baseUrl + this.props.UrlLedvance(),
+      //   payload
+      // );
+      // const urlOnestop = await axios.post(
+      //   baseUrl + this.props.UrlOnestop(),
+      //   payload
+      // );
+      // const urlStartrack = await axios.post(
+      //   baseUrl + this.props.UrlStartrack(),
+      //   payload
+      // );
+      // const urlTatura = await axios.post(
+      //   baseUrl + this.props.UrlTatura(),
+      //   payload
+      // );
+      // const urlTtl = await axios.post(baseUrl + this.props.UrlTtl(), payload);
+      // const urlTtchem = await axios.post(
+      //   baseUrl + this.props.UrlTtchem(),
+      //   payload
+      // );
+      const { data } = urlAll;
     } catch (error) {
       console.log(error);
     }
@@ -440,28 +433,64 @@ showModal = (show) => {
     let data = fields.map((data, idx) => {                
       return data.Header
     });
-    console.log(data)
+    // console.log(data)
     return data
   }
   ExportData = () => { 
     let fields = this.props.customFields||this.state.fields
-    let dataAll = this.props.data.map((data,idx,) =>{
-    let column = fields.map((column, columnIdx) => {       
-            let split = [data[column.accessor] ]
-            return split
-           })
-           return column
-    })
+    let dataAll = []
+    if(this.props.exportData){
+      dataAll = this.props.exportData.map((data,idx,) =>{
+      let column = fields.map((column, columnIdx) => {       
+              let split = [data[column.accessor] ]
+              return split
+              })
+              return column
+      })
+    }else{
+      dataAll = this.props.data.map((data,idx,) =>{
+      let column = fields.map((column, columnIdx) => {       
+              let split = [data[column.accessor] ]
+              return split
+              })
+              return column
+      })
+    }
+    
     return dataAll
   }
   
+  waitingStatus = () => {
+    return (
+      <div className='caution-caution' > <div>No Data Available</div> </div>
+    )
+  }
+  
+  noDataStatus = () => {
+    return( 
+      <div> <img src={loading} width='45' height='45'/> </div>
+    )
+  }
+  
+  getExportData = async () => { 
+    if(this.props.exportApi){
+      await this.props.exportApi()
+      console.log(this.props.exportData)
+    }else{
+      console.log("Not Paginate API")
+      return 0
+    }
+  }
+
   render() {
-    const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
-    let { title, data, onClick, height, pagination,request_status,font } = this.props
-    console.log(data)
+    const { showModal, editColumn, editColumnTemp, activeTab } = this.state
+    let { fields, title, data, exportData, onClick, height, pagination,request_status,font, tableStatus } = this.props
+    //console.log(data) 
+
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
-    console.log(this.ExportHeader()) 
+    //console.log(this.ExportHeader())  
+
     return (
       <React.Fragment>
         <ReactTable
@@ -470,11 +499,7 @@ showModal = (show) => {
           showPagination={false}
           style={{ height }}
           // noDataText={(request_status)? <div  className='caution-caution'/> : <img src={loading} width='45' height='45'/>}
-          noDataText={<div>
-            <img src={loading} width='45' height='45'/>
-          {/* <div  className='caution-caution'/>
-          <div>No Data Available</div> */}
-        </div>} 
+          noDataText={tableStatus=="noData"?this.waitingStatus():this.noDataStatus()} 
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
             return {
@@ -495,7 +520,7 @@ showModal = (show) => {
           {...this.props}
         />
 
-      <table className="d-none" id="excel">
+<table className="d-none" id="excel">
             <thead>
               <tr>
                 {fields.map((data, idx) => {
@@ -504,7 +529,7 @@ showModal = (show) => {
               </tr>
             </thead>
             <tbody>
-              {data ? data.map((data, i) =>
+              {exportData ? exportData.map((data, i) =>
                 <tr key={i} >
                   {fields.map((column, columnIdx) => {
                       return (
@@ -517,9 +542,10 @@ showModal = (show) => {
               }
             </tbody>
           </table>
+        
 
         <CRow className="mt-3 pagination-custom">
-           <CCol lg="10" className="px-0 margin-mr">
+           <CCol lg="7" className="px-0 margin-mr">
                 <CustomPagination
                   data={data}
                   pagination={pagination}
@@ -528,10 +554,12 @@ showModal = (show) => {
                   fields={fields}
                 />
             </CCol>
-            <CCol lg="2" className="px-0 export-ml">
+            <CCol lg="5" className="px-0 export-ml">
                 <Export ExportName={this.ExportName} ExportPDFName={title}    
                     pdf={this.props.pdf}
-                    excel={this.props.excel} 
+                    excel={this.props.excel}  
+                    getExportData={() => this.getExportData()}
+                    ExportData={exportData}
                     ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={font} />
             </CCol>
         </CRow>
@@ -572,22 +600,24 @@ showModal = (show) => {
             </Container>
           </Modal.Header>
           <Modal.Body className='px-5 pt-3 pb-5'>
-            <Row className="mx-0 justify-content-between mb-3">
+            <Row className={"mx-0 justify-content-between  "+(this.props.store.user.userLevel == 'Admin' ? 'mb-3':'')}>
               <Col lg={6} className='text-primary font-20 p-0'>{title}</Col>
               <Row className='align-items-center rename-columns mx-0 text-align-left'>
+                
+                    {this.props.store.user.userLevel !== 'Admin' ? '': 
                   <Nav tabs className="px-1">
                     <div className='input-group'>
-                      <NavItem className='pl-0 pr-0'>
-                        <NavLink
-                          className={
-                            'nav-link-cust tab-color' +
-                            (activeTab === '1' ? ' tab-rename' : '')
-                          }
-                          active={this.state.activeTab === '1'}
-                          onClick={() => {
-                            this.activeTabIndex('1');
-                          }}
-                        >
+                        <NavItem className='pl-0 pr-0'>
+                          <NavLink
+                            className={
+                              'nav-link-cust tab-color' +
+                              (activeTab === '1' ? ' tab-rename' : '')
+                            }
+                            active={this.state.activeTab === '1'}
+                            onClick={() => {
+                              this.activeTabIndex('1');
+                            }}
+                          >
                           <div className='row rowTabCustom align-items-center'>
                             <span className='tabTitleText font-18'>
                               {activeTab === '1'}TOGGLE COLUMN
@@ -596,7 +626,7 @@ showModal = (show) => {
                         </NavLink>
                       </NavItem>
 
-                      <NavItem className={'pl-2 pr-0 '}>
+                      <NavItem className='pl-2 pr-0'>
                         <NavLink
                           className={
                             'nav-link-cust tab-color' +
@@ -613,9 +643,10 @@ showModal = (show) => {
                             </span>
                           </div>
                         </NavLink>
-                      </NavItem>
+                      </NavItem>  
                     </div>
                   </Nav>
+                    }
               </Row>
             </Row>
             <Row >
@@ -628,7 +659,7 @@ showModal = (show) => {
                           return (
                             <Col key={index} className='p-2'>
                               <button
-                                className={`text-left btn btn-block ${
+                                className={`text-left px-3 btn btn-block ${
                                   !editColumn[index]
                                     ? 'btn-outline-primary'
                                     : 'btn-light-gray'
@@ -662,7 +693,7 @@ showModal = (show) => {
                     </Col>
                   </TabPane>
                   <TabPane tabId='2'>
-                    <Row xl={5} lg={10} className='mx-1'>
+                    <Row xl={5} lg={10} className='mx-1 grid-col'>
                       {fields &&
                         fields.map((item, index) => {
                           return (

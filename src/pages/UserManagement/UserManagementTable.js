@@ -154,13 +154,13 @@ class UMCustomTable extends React.Component {
             {...this.props}
           />
            <CRow className="mt-3 pagination-custom">
-              <CCol lg="10" className="px-0 margin-mr">
+              <CCol lg="7" className="px-0 margin-mr">
               <CustomPagination data={data}
                         pagination={pagination}
                         goto={this.props.goto}
                         export={this.props.export} />
               </CCol>
-              <CCol lg="2" className="px-0 export-ml">
+              <CCol lg="5" className="px-0 export-ml">
                 <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
                     ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} />
             </CCol>

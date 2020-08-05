@@ -97,7 +97,7 @@ class CustomPagination extends React.Component {
                 lastButton={<BsChevronBarRight />}
               />
             </CCard>
-            <CCard className="col-lg-5">
+            <CCard className="col-lg-5" style={{maxWidth: "39.36667%"}}>
               <div className="page-2 d-flex justify-content-center">
                 <span className="text-muted mt-1 mr-3">Go to page</span>
                 <input
@@ -133,17 +133,17 @@ class CustomPagination extends React.Component {
         
       {/* Modal Pagination */}
       <Modal isOpen={this.state.notifPaging} centered={true}  
-          onOpened={() => this.state.notifPaging ? setTimeout(() => { this.closeConfirmDialog() }, 3000) : {}}
-          contentClassName="modal-content-paging"
+          onOpened={() => this.state.notifPaging ? setTimeout(() => { this.closeConfirmDialog() }, 36000) : {}}
+          contentClassName="modal-content-paging box-er-pagination"
           >
-          <ModalBody >
+          <ModalBody>
           <div  className="text-right px-0" style={{fontSize: '14px'}}>
             <i className="iconU-close pointer" onClick={this.closeConfirmDialog}></i>
           </div>
           <div className="d-flex d-inline-flex">
               <img src={logo_confirm} alt="logo" style={{ width: "20%", height: "20%" }} />
               <label className="pl-3 font">
-              Only {x_last_page} page are available on this screen, please try again. <br />
+              Only {x_last_page} {x_last_page === 1 ? "page is" : "pages are"} available on this screen, please try again. <br />
               
               </label>
           </div>

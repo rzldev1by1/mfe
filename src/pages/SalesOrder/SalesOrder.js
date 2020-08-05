@@ -92,8 +92,9 @@ class SalesOrder extends React.PureComponent {
       pagination: {},
       create: false,
       detail: {},
-      dimension: { width: 0, height: 0 },
-      request_status: 'Please Wait...'
+      dimension: { width: 0, height: 0 }, 
+      tableStatus: 'waiting',
+      exportData: [],
     }
   }
   componentDidMount = () => {
@@ -105,7 +106,7 @@ class SalesOrder extends React.PureComponent {
     this.getClient()
     this.getStatus()
     this.getResources()
-    this.searchSalesOrder()
+    this.searchSalesOrder('false','true')
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimension);
@@ -168,10 +169,20 @@ class SalesOrder extends React.PureComponent {
        
     }
   }
-  searchSalesOrder = async () => {
-    let { search, site, client, orderType, status, task, pagination } = this.state
-    console.log(status)
-    this.setState({ data: [], request_status: "Please Wait..." })
+  searchSalesOrder = async (export_='false',readyDocument='false') => {
+    //export : true/false --> param for identify this function called from export button
+    //readyDocument : true/false --> if true, then avoid bug "repeatly set state from ComponentDidMount"
+    
+    let { search, site, client, orderType, status, task, pagination } = this.state 
+
+    //reset table
+    if(readyDocument == 'false' && export_ == 'false'){
+      this.setState({
+        data: [],
+        tableStatus: 'waiting'
+      })
+    }
+     
     let urls = []
     urls.push('searchParam=' + (search ? search : ''))
     urls.push('site=' + (site ? site.value : 'all'))
@@ -180,15 +191,16 @@ class SalesOrder extends React.PureComponent {
     urls.push('status=' + (status ? status.value : 'all'))
     urls.push('task=' + (task ? task.value : 'All'))
     urls.push('page=' + (pagination.active || 1))
+    if(export_=='true'){urls.push('export=true')}
     const { data } = await axios.get(`${endpoints.salesOrder}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
-        m.deliverydate = m.deliverydate ? moment(m.deliverydate).format('DD/MM/YYYY') : ''
-        m.datereceived = m.datereceived ? moment(m.datereceived).format('DD/MM/YYYY') : ''
-        m.datereleased = m.datereleased ? moment(m.datereleased).format('DD/MM/YYYY') : ''
-        m.datecompleted = m.datecompleted ? moment(m.datecompleted).format('DD/MM/YYYY') : ''
-        m.loadoutstart = m.loadoutstart ? moment(m.loadoutstart).format('DD/MM/YYYY') : ''
-        m.loadoutfinish = m.loadoutfinish ? moment(m.loadoutfinish).format('DD/MM/YYYY') : ''
+        m.deliverydate = m.deliverydate ? moment(m.deliverydate).format('DD/MM/YYYY') : '-'
+        m.datereceived = m.datereceived ? moment(m.datereceived).format('DD/MM/YYYY') : '-'
+        m.datereleased = m.datereleased ? moment(m.datereleased).format('DD/MM/YYYY') : '-'
+        m.datecompleted = m.datecompleted ? moment(m.datecompleted).format('DD/MM/YYYY') : '-'
+        m.loadoutstart = m.loadoutstart ? moment(m.loadoutstart).format('DD/MM/YYYY') : '-'
+        m.loadoutfinish = m.loadoutfinish ? moment(m.loadoutfinish).format('DD/MM/YYYY') : '-'
         return m
       })
       modifiedData.map((item, idx) => {
@@ -212,22 +224,28 @@ class SalesOrder extends React.PureComponent {
           item['statusTxt'] = 'ALL OPEN'
         }
       })
+      if(export_=='true'){
+        this.setState({ 
+          exportData: modifiedData
+        })
+      }else{
+        this.setState({
+          pagination: {
+            active: pagination.active || data.data.current_page,
+            show: data.data.per_page,
+            total: data.data.total,
+            last_page: data.data.last_page,
+            from: data.data.from,
+            to: data.data.to
+          },
+          data: modifiedData
+        }, () => {console.log (this.state.pagination)})
+      } 
       if (data.data.total==0) {
-        this.setState({ request_status: "No Data Found" })
+        this.setState({ tableStatus: "noData" })
       }
-      this.setState({
-        pagination: {
-          active: pagination.active || data.data.current_page,
-          show: data.data.per_page,
-          total: data.data.total,
-          last_page: data.data.last_page,
-          from: data.data.from,
-          to: data.data.to
-        },
-        data: modifiedData
-      }, () => {console.log (this.state.pagination)})
     } else {
-      this.setState({ request_status: "No Data Found" })
+      this.setState({ tableStatus: "noData" })
       this.setState({ data: [] })
     }
     // this.setState({ data: DummyData })
@@ -242,7 +260,9 @@ class SalesOrder extends React.PureComponent {
   
   siteCheck = (siteVal) => {
     let l = null
-    this.props.store.site.map(data => {
+    const {site} = this.props.store
+    if(site)
+    site.map(data => {
       if (data.value === siteVal) l = data.label
     })
     return l
@@ -250,49 +270,22 @@ class SalesOrder extends React.PureComponent {
 
   clientCheck = (clientVal) => {
     let c = null
-    this.props.store.client.map(data => {
+    const {client} = this.props.store
+    if(client)
+    client.map(data => {
       if (data.value === clientVal) c = data.label
     })
     return c
   }
+    // erl Get Header And Post
   
   UrlHeader = () => {
-    return `/getSalesOrderColumn?client=`
+    return `/getSalesOrderColumn?client=ALL`
   }
-  UrlAntec = () => {
-    return '/putSalesOrderColumn?client=ANTEC'
+  UrlAll = () => {
+    return '/putSalesOrderColumn?client=ALL'
   }
-  UrlBega = () => {
-    return '/putSalesOrderColumn?client=BEGA'
-  }
-  UrlAesop = () => {
-    return '/putSalesOrderColumn?client=AESOP'
-  }
-  UrlClucth = () => {
-    return '/putSalesOrderColumn?client=CLUCTH'
-  }
-  UrlExquira = () => {
-    return '/putSalesOrderColumn?client=EXQUIRA'
-  }
-  UrlLedvance = () => {
-    return '/putSalesOrderColumn?client=LEDVANCE'
-  }
-  UrlOnestop = () => {
-    return '/putSalesOrderColumn?client=ONESTOP'
-  }
-  UrlStartrack = () => {
-    return '/putSalesOrderColumn?client=STARTRACK'
-  }
-  UrlTatura = () => {
-    return '/putSalesOrderColumn?client=TATURA'
-  }
-  UrlTtl = () => {
-    return '/putSalesOrderColumn?client=TTL'
-  }
-  UrlTtchem = () => {
-    return '/putSalesOrderColumn?client=TTCHEM'
-  }
-
+ 
   // end url Get Header And Post
 
   onSubmitSearch = (e) => {
@@ -303,9 +296,8 @@ class SalesOrder extends React.PureComponent {
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData,orderTypeInsert, taskData, customFields
-    } = this.state
-    
+      siteData, clientData, statusData, orderTypeData,orderTypeInsert, taskData, customFields,tableStatus,exportData
+    } = this.state 
     return <div className="sales-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Sales Orders', active: true }]}
@@ -415,27 +407,23 @@ class SalesOrder extends React.PureComponent {
         fields={fields}
         customFields={customFields}
         pagination={pagination}
+        tableStatus={tableStatus}
         onClick={this.showDetails}
         renameSubmit={this.renameSubmit}
-        UrlHeader={this.UrlHeader} UrlAntec={this.UrlAntec} UrlBega={this.UrlBega}
-        UrlAesop={this.UrlAesop} UrlClucth={this.UrlClucth} UrlExquira={this.UrlExquira}
-        UrlLedvance={this.UrlLedvance} UrlOnestop={this.UrlOnestop} UrlStartrack={this.UrlStartrack}
-        UrlTatura={this.UrlTatura} UrlTtl={this.UrlTtl} UrlTtchem={this.UrlTtchem}
+        UrlHeader={this.UrlHeader} 
+        UrlAll={this.UrlAll}
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchSalesOrder())
-        }}
-        // request_status={this.state.request_status}
-        noDataText={<div>
-          <img src={loading} width='45' height='45'/>
-        {/* <div  className='caution-caution'/>
-        <div>No Data Available</div> */}
-      </div>}
+        }} 
         export={<button className="btn btn-primary float-right btn-export">
            {/* <div className='export-export pr-3' /> */}
           EXPORT </button>}
+        exportApi={async () =>  {await this.searchSalesOrder('true')}}
+        exportData={exportData}
       />
 
       <SalesOrderCreate
+        user = {this.props.store.user}
         show={!!create}
         toggle={this.toggle}
         siteData={siteData}
