@@ -251,10 +251,9 @@ class SalesOrderDetail extends React.Component {
                     onClick={() => this.activeTabIndex('1')}
                   >
                     <div className='row rowTabCustom align-items-center tabColumn mx-0'>
-                      <span className='tabTitleText'>
-                        {activeTab === '1' ? tab1() : tab1Inactive()} Stock
+                      <span className='number-number-1 tabTitleText'/>
+                        {activeTab === '1' } Stock
                         Details
-                      </span>
                     </div>
                   </NavLink>
                 </NavItem>
@@ -270,10 +269,9 @@ class SalesOrderDetail extends React.Component {
                     onClick={() => this.activeTabIndex('2')}
                   >
                    <div className='row rowTabCustom align-items-center tabColumn mx-0'>
-                      <span className='tabTitleText'>
-                        {activeTab === '2' ? tab2() : tab2Inactive()} Stock
+                      <span className='number-number-2 tabTitleText'/>
+                        {activeTab === '2' } Stock
                         Balance Forecast
-                      </span>
                     </div>
                   </NavLink>
                 </NavItem>}
