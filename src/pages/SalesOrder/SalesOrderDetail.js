@@ -39,9 +39,9 @@ const columns = [
   { accessor: "batch", placeholder: 'Batch',  Header: "Batch", width: 60  },
   { accessor: "ref2",placeholder: 'Ref2', Header: "Ref2" },
   { accessor: "ref3",placeholder: 'Ref3', Header: "Ref3" },
-  { accessor: "ref4",placeholder: 'Ref5', Header: "Ref4" },
+  { accessor: "ref4",placeholder: 'Ref4', Header: "Ref4" },
   { accessor: "disposition",placeholder: 'Disposition', Header: "Disposition" },
-  { accessor: "pack_id",placeholder: 'Pack Id', Header: "Pack ID" }
+  { accessor: "pack_id",placeholder: 'Pack ID', Header: "Pack ID" }
 ]
 class SalesOrderDetail extends React.Component {
   // ref to get element height and calculate table height
