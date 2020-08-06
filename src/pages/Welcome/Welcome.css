@@ -8,7 +8,7 @@
   width: 100%;
   background-image: url("../../assets/img/Home-Background.png");
 }
-.welcome > .c-header > .c-subheader{
+.welcome > .c-header {
   z-index: -1 !important;
 }
 .welcome > .logo {
