@@ -12,6 +12,22 @@ import PurchaseOrderCreate from './PurchaseOrderCreate'
 import './PurchaseOrder.scss'
 
 const columns = [
+  { accessor: 'site', placeholder: 'Site', Header: 'Site', },
+  { accessor: 'client', placeholder: 'Client', Header: 'Client', },
+  { accessor: 'order_no', placeholder: 'Order No', Header: 'Order No', },
+  { accessor: 'order_type', placeholder: 'Order Type', Header: 'Order Type', },
+  { accessor: 'isis_task',placeholder: 'Task', Header: 'Task', },
+  { accessor: 'supplier_no', placeholder: 'Supplier No', Header: 'Supplier No', },
+  { accessor: 'supplier_name', placeholder: 'Supplier Name', Header: 'Supplier Name', width: 210 },
+  { accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140 },
+  { accessor: 'delivery_date',placeholder: 'Order Date', Header: 'Order Date', },
+  { accessor: 'date_received', placeholder: 'Date Received',Header: 'Date Received', },
+  { accessor: 'date_released',placeholder: 'Date Released', Header: 'Date Released', },
+  { accessor: 'date_completed',placeholder: 'Date Complated', Header: 'Date Completed', },
+  // { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
+  // { accessor: 'vendor_order_ref', Header: 'Vendor Order No' },
+]
+const customColumns = [
   { accessor: 'site', Header: 'Site', },
   { accessor: 'client', Header: 'Client', },
   { accessor: 'order_no', Header: 'Order No', },
@@ -19,7 +35,7 @@ const columns = [
   { accessor: 'isis_task', Header: 'Task', },
   { accessor: 'supplier_no', Header: 'Supplier No', },
   { accessor: 'supplier_name', Header: 'Supplier Name', width: 210 },
-  { accessor: 'status', Header: 'Status', width: 140 },
+  { accessor: 'statusTxt', Header: 'Status', width: 140 },
   { accessor: 'delivery_date', Header: 'Order Date', },
   { accessor: 'date_received', Header: 'Date Received', },
   { accessor: 'date_released', Header: 'Date Released', },
@@ -27,6 +43,7 @@ const columns = [
   // { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
   // { accessor: 'vendor_order_ref', Header: 'Vendor Order No' },
 ]
+
 class PurchaseOrders extends React.PureComponent {
   constructor(props) {
     super(props)
@@ -44,11 +61,14 @@ class PurchaseOrders extends React.PureComponent {
       task: null,
       resources: [],
       fields: columns,
+      customFields: customColumns,
       data: [],
       pagination: {},
       create: false,
       detail: {},
-      dimension: { width: 0, height: 0 }
+      dimension: { width: 0, height: 0 },
+      tableStatus: 'waiting',
+      exportData: [],
     }
 
   }
@@ -61,7 +81,7 @@ class PurchaseOrders extends React.PureComponent {
     this.getClient()
     this.getStatus()
     this.getResources()
-    this.searchPurchaseOrder()
+    this.searchPurchaseOrder('false','true')
     const {site, client} = this.props.store.user
     if(site && client) this.getTask()
   }
@@ -77,6 +97,7 @@ class PurchaseOrders extends React.PureComponent {
     const siteData = data.map(d => ({ value: d.site, label: `${d.site}: ${d.name}` }))
     const site = { value: 'all', label: 'All Site' }
     siteData.splice(0, 0, site)
+    this.props.dispatch({ type: 'SITE', data: siteData })
     this.setState({ siteData })
   }
   getClient = async () => {
@@ -113,17 +134,30 @@ class PurchaseOrders extends React.PureComponent {
     const { user } = this.props.store
     if (user) {
       const { data } = await axios.get(`${endpoints.getPOResources}?company=${user.company}&client=${user.client}`)
+      const orderTypeFilterData = data.orderTypeFilter.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.description}` }))
       const orderTypeData = data.orderType.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.description}` }))
       const site = data.site.map(data => ({ value: data.site, label: `${data.site}: ${data.name}` }))
       const orderType = { value: 'all', label: 'All' }
-      orderTypeData.splice(0, 0, orderType)
+      orderTypeFilterData.splice(0, 0, orderType)
       this.props.dispatch({ type: 'SITE', data: site })
-      this.setState({ resources: data, orderTypeData })
+      this.setState({ resources: data, orderTypeFilterData, orderTypeData })
     }
   }
-  searchPurchaseOrder = async () => {
+  searchPurchaseOrder = async (export_='false',readyDocument='false') => {
+    //export : true/false --> param for identify this function called from export button
+    //readyDocument : true/false --> if true, then avoid bug "repeatly set state from ComponentDidMount"
+
     let { search, site, client, orderType, task, pagination, status } = this.state
     let urls = []
+
+    //reset table
+    if(readyDocument == 'false' && export_ == 'false'){
+      this.setState({
+        data: [],
+        tableStatus: 'waiting'
+      })
+    }
+
     urls.push('searchParam=' + (search ? search : ''))
     urls.push('site=' + (site.value ? site.value : 'all'))
     urls.push('client=' + (client.value ? client.value : 'all'))
@@ -131,49 +165,67 @@ class PurchaseOrders extends React.PureComponent {
     urls.push('status=' + (status ? status.value : 'all'))
     if(task && task.value !== 'all') urls.push('task=' + task.value)
     urls.push('page=' + (pagination.active || 1))
+    if(export_=='true'){urls.push('export=true')}
     console.log('load Purchase order', urls.join('&'), task)
     const { data } = await axios.get(`${endpoints.purchaseOrder}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
-        m.delivery_date = moment(m.delivery_date).format('DD/MM/YYYY')
-        m.date_received = moment(m.date_received).format('DD/MM/YYYY')
-        m.date_released = moment(m.date_released).format('DD/MM/YYYY')
-        m.date_completed = moment(m.date_completed).format('DD/MM/YYYY')
+        m.delivery_date = m?.delivery_date ? moment(m.delivery_date).format('DD/MM/YYYY') : '-'
+        m.date_received = m?.date_received ? moment(m.date_received).format('DD/MM/YYYY') : '-'
+        m.date_released = m?.date_released ? moment(m.date_released).format('DD/MM/YYYY') : '-'
+        m.date_completed = m?.date_completed ? moment(m.date_completed).format('DD/MM/YYYY') : '-'
         return m
       })
       modifiedData.map((item, idx) => {
         if ((item["status"]) === "1: Available") {
           item['status'] = [<a className="status-available">AVAILABLE</a>]
+          item['statusTxt'] = 'AVAILABLE'
         } if ((item["status"]) === "0: Unavailable") {
           item['status'] = [<a className="status-Unavailable">UNAVAILABLE</a>]
+          item['statusTxt'] = 'UNAVAILABLE'
         } if ((item["status"]) === "2: Released") {
           item['status'] = [<a className="status-Release">RELEASED</a>]
+          item['statusTxt'] = 'RELEASED'
         } if ((item["status"]) === "3: Part Released") {
           item['status'] = [<a className="status-partRelease">PART RELEASED</a>]
+          item['statusTxt'] = 'PART RELEASED'
         } if ((item["status"]) === "4: Completed") {
           item['status'] = [<a className="status-complete">COMPLETED</a>]
+          item['statusTxt'] = 'COMPLETED'
         } if ((item["status"]) === "All Open") {
           item['status'] = [<a className="status-ok">ALL OPEN</a>]
+          item['statusTxt'] = 'ALL OPEN'
         }
       })
-      this.setState({
-        pagination: {
-          active: pagination.active || data.data.current_page,
-          show: data.data.per_page,
-          total: data.data.total,
-          last_page: data.data.last_page,
-          from: data.data.from,
-          to: data.data.to
-        },
-        data: modifiedData
-      })
+      if(export_=='true'){
+        this.setState({ 
+          exportData: modifiedData
+        })
+      }else{
+        this.setState({
+          pagination: {
+            active: pagination.active || data.data.current_page,
+            show: data.data.per_page,
+            total: data.data.total,
+            last_page: data.data.last_page,
+            from: data.data.from,
+            to: data.data.to
+          },
+          data: modifiedData
+        })
+      }
+
+      if(modifiedData.length < 1){
+        this.setState({   tableStatus: 'noData'  })
+      }
     } else {
       this.setState({ data: [] })
+      this.setState({   tableStatus: 'noData'  })
     }
     // this.setState({ data: DummyData })
   }
   showDetails = (item) => {
-    const url = '/purchase-order/' + item.client + '/' + item.order_no
+    const url = '/purchase-order/' +item.site + '/' +  item.client + '/' + item.order_no
     this.props.history.push(url)
   }
   toggle = (value) => {
@@ -182,7 +234,9 @@ class PurchaseOrders extends React.PureComponent {
 
   siteCheck = (siteVal) => {
     let l = null
-    this.props.store.site.map(data => {
+    const {site} = this.props.store
+    if(site)
+    site.map(data => {
       if (data.value === siteVal) l = data.label
     })
     return l
@@ -190,29 +244,41 @@ class PurchaseOrders extends React.PureComponent {
 
   clientCheck = (clientVal) => {
     let c = null
-    this.props.store.client.map(data => {
+    const {client} = this.props.store
+    if(client)
+    client.map(data => {
       if (data.value === clientVal) c = data.label
     })
     return c
   }
 
   setClient = (client) =>{
-    this.setState({client:client})
-    this.getTask()
+    this.setState({client:client}, () =>  this.getTask())
+   
   }
 
   setSite = (site) => {
-    this.setState({site})
-    this.getTask()
+    this.setState({site}, () => this.getTask())
+    
   }
   UrlHeader = () =>{
-    return `$/getSalesOrderHeader?client=ANTEC`
+    return `/getPurchaseOrderColumn?client=ALL`
   }
+  UrlAll = () => {
+    return '/putPurchaseOrderColumn?client=ALL'
+  }
+
+  onSubmitSearch = (e) => {
+    e.preventDefault();
+    this.searchPurchaseOrder();
+}
+
+
 
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData, taskData,
+      siteData, clientData, statusData, orderTypeData, taskData, customFields,tableStatus, orderTypeFilterData,exportData
     } = this.state
     return <div className="purchase-order">
       <HeaderTitle
@@ -222,6 +288,7 @@ class PurchaseOrders extends React.PureComponent {
 
       <CCard className="mb-3">
         <CCardBody className="p-3">
+        <form onSubmit={this.onSubmitSearch}>
           <CRow className="mx-0">
             <CCol lg={3} className="pr-3 pl-0">
               <div className="input-group">
@@ -283,7 +350,7 @@ class PurchaseOrders extends React.PureComponent {
                 </CCol>
                 <CCol sm={4} lg={2} className="px-3">
                   <Select name="orderType" placeholder="Order Type"
-                    value={orderType} options={orderTypeData}
+                    value={orderType} options={orderTypeFilterData}
                     onChange={(val) => this.setState({ orderType: val })}
                     styles={{
                       dropdownIndicator: (base, state) => ({
@@ -311,23 +378,31 @@ class PurchaseOrders extends React.PureComponent {
               </CRow>
             </CCol>
           </CRow>
+        </form>
         </CCardBody>
       </CCard>
 
       <CustomTable
         title="Purchase Order"
+        filename='Microlistics_PurchaseOrder.'
+        font="9"
         height={dimension.height}
         data={data}
         fields={fields}
+        customFields={customFields}
         pagination={pagination}
         onClick={this.showDetails}
         UrlHeader={this.UrlHeader} 
+        UrlAll={this.UrlAll}
+        tableStatus={tableStatus}
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchPurchaseOrder())
         }}
         export={<button className="btn btn-primary float-right btn-export"> 
         {/* <div className="export-export pr-3"/> */}
         EXPORT</button>}
+        exportApi={async () =>  {await this.searchPurchaseOrder('true')}}
+        exportData={exportData}
       />
 
       <PurchaseOrderCreate

@@ -23,54 +23,111 @@ class SalesOrderDetail extends React.Component {
   state = {
     dimension: { width: 0, height: 0 },
     stockDetail: [
-      { accessor: 'batch', Header: 'Batch', sortable: true, width: 130 },
-      { accessor: 'rotadate', Header: 'Rotadate', sortable: true, width: 100 },
-      { accessor: 'ref3', Header: 'Ref3', sortable: true, width: 100 },
-      { accessor: 'ref4', Header: 'Ref4', sortable: true, width: 100 },
-      { accessor: 'qty', Header: 'Qty', sortable: true, width: 110 },
-      { accessor: 'weight', Header: 'Weight', sortable: true, width: 115 },
-      { accessor: 'pallet', Header: 'Pallet', sortable: true, width: 120 },
-      { accessor: 'price', Header: 'Price', sortable: true, width: 120 },
-      { accessor: 'pack_id', Header: 'Pack Id', sortable: true, width: 180 },
+      { accessor: 'batch', placeholder: 'Batch', Header: 'Batch', sortable: true, width: 130 },
+      { accessor: 'rotadate', placeholder: 'Rotadate', Header: 'Rotadate', sortable: true, width: 100 },
+      { accessor: 'ref3', placeholder: 'Ref3', Header: 'Ref3', sortable: true, width: 100 },
+      { accessor: 'ref4',placeholder: 'Ref4', Header: 'Ref4', sortable: true, width: 100 },
+      { accessor: 'qty', placeholder: 'Qty', Header: 'Qty', sortable: true, width: 110 },
+      { accessor: 'weight', placeholder: 'Weight', Header: 'Weight', sortable: true, width: 115 },
+      { accessor: 'pallet',placeholder: 'Pallet', Header: 'Pallet', sortable: true, width: 120 },
+      { accessor: 'price',placeholder: 'Prince', Header: 'Price', sortable: true, width: 120 },
+      { accessor: 'pack_id',placeholder: 'Pack ID', Header: 'Pack ID', sortable: true, width: 180 },
     ],
     ForesCast: [
-      { accessor: 'type', Header: 'Type', sortable: true, width: 130 },
+      { accessor: 'type',
+        placeholder: 'Type', 
+        Header: 'Type', 
+        sortable: true, 
+        width: 130, 
+        Cell : row => {
+          return(
+            <div>
+              <span className="class-for-name">{row.original.openingbalancetext}</span>
+              <span className="class-for-name">{row.original.type}</span>
+              <span className="class-for-name">{row.original.batchnum}</span>
+              <span className="class-for-name">{row.original.closingbalancetext}</span>
+            </div>
+          )
+        }
+      },
       {
         accessor: 'company',
+        placeholder: 'Customer No',
         Header: 'Customer No',
         sortable: true,
         width: 140,
       },
-      { accessor: 'orderno', Header: 'Order No', sortable: true, width: 170 },
+      { accessor: 'orderno', placeholder: 'Order No', Header: 'Order No', sortable: true, width: 170 },
       {
         accessor: 'effectivedate',
+        placeholder: 'Order Date',
         Header: 'Order Date',
         sortable: true,
         width: 150,
+        Cell : row => {
+          return(
+            <div>
+              <span className="class-for-name">{row.original.effectivedate}</span>
+              <span className="class-for-name">{row.original.stockexpirydate}</span>
+            </div>
+          )
+        }
       },
       {
         accessor: 'qtyexpected',
+        placeholder: 'Expected In',
         Header: 'Expected In',
         sortable: true,
         width: 150,
+        Cell : row => {
+          return(
+            <div>
+              <span className="class-for-name">{row.original.qtyexpected}</span>
+              <span className="class-for-name">{row.original.qty? 0 : null}</span>
+            </div>
+          )
+        }
       },
       {
         accessor: 'qtycommitted',
+        placeholder: 'Expected Out',
         Header: 'Expected Out',
         sortable: true,
         width: 150,
+        Cell : row => {
+          return(
+            <div>
+              <span className="class-for-name">{row.original.qtycommitted}</span>
+              <span className="class-for-name">{row.original.qty}</span>
+            </div>
+          )
+        }
       },
       {
         accessor: 'closingbalance',
+        placeholder: 'Balance',
         Header: 'Balance',
         sortable: true,
         width: 140,
+        Cell : row => {
+          return(
+            <div>
+              <span className="class-for-name">{row.original.startbalance}</span>
+              <span className="class-for-name">{row.original.closingbalance}</span>
+              <span className="class-for-name">{row.original.closingstock}</span>
+              <span className="class-for-name">{row.original.totalbalance}</span>
+            </div>
+          )
+        }
       },
     ],
     detail: {},
     products: [],
+    forecast: [],
     datahead: [],
     activeTab: '1',
+    tableStatus: 'waiting', //stock details
+    tableStatusForecast: 'waiting' //stock forecast
   };
   componentDidMount() {
     this.updateDimension();
@@ -81,6 +138,9 @@ class SalesOrderDetail extends React.Component {
   }
   UrlHeader = () =>{
     return `/getPurchase?client=ANTEC`
+  }
+  UrlAll = () => {
+    return '/putStockholdingColumn?client=ALL'
   }
   activeTabIndex = (tabIndex) => {
     if (this.state.activeTab !== tabIndex) {
@@ -104,28 +164,58 @@ class SalesOrderDetail extends React.Component {
     axios
       .get(url)
       .then((res) => {
-        console.log(res);
         const result = res.data.data;
         this.setState({ datahead: result });
         this.potableref.current.setPagination(res);
       })
       .catch((error) => {});
   };
-  getStockDetails = async () => {
-    const { product, client, site } = this.props.match.params;
+  getStockDetails = async () => { 
+    this.setState({
+      data: [],
+      tableStatus: 'waiting'
+    })
+
+    const { product, client, site, expected_out_qty} = this.props.match.params;
     const url = `/stockdetail/${product}?client=${client}&site=${site}`;
     const { data } = await axios.get(url);
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|[''([{])+\S/g, match => match.toUpperCase());
     if (data.data.length) {
       this.setState({ products: data.data });
+    }else{
+      this.setState({ 
+        tableStatus: 'noData'
+      })
     }
   };
   getForescast = async () => {
+    this.setState({
+      data: [],
+      tableStatusForecast: 'waiting'
+    })
     const { product, client, site } = this.props.match.params;
     const url = `/stockbal?client=${client}&product=${product}&site=${site}`;
     const { data } = await axios.get(url);
+    const openingbal  = [{openingbalancetext:'Opening Balance', startbalance:data[0][0]['opening balance']}]
+    let closingbal  = [{closingbalancetext:'Closing Balance', totalbalance:data[0][0]['closing balance']}]
+    const available   = data[0][0]['available orders']
+    let expiry      = data[0][0]['stock expiry']
+    expiry.map(expiry => {
+      expiry['qty'] = expiry['quantity']
+      closingbal[0].totalbalance = parseInt(closingbal[0].totalbalance)  - parseInt(expiry.qty)
+      expiry['closingstock'] = closingbal[0].totalbalance
+      return expiry
+    })
+    let concat = openingbal.concat(available)
+    concat = concat.concat(expiry)
+    concat = concat.concat(closingbal)
+    console.log(concat)
     if (data) {
-      this.setState({ products: data[0][0]['available orders'] });
+      this.setState({ forecast: concat});
+    }else{
+      this.setState({ 
+        tableStatusForecast: 'noData'
+      })
     }
   };
   formatDate = (date) => {
@@ -138,8 +228,10 @@ class SalesOrderDetail extends React.Component {
       products,
       stockDetail,
       activeTab,
-      ForesCast,
-      forescast,
+      ForesCast, 
+      forecast,
+      tableStatus,
+      tableStatusForecast
     } = this.state;
     let site = this.state.datahead.length ? this.state.datahead[0].site : null;
     let client = this.state.datahead.length
@@ -153,7 +245,7 @@ class SalesOrderDetail extends React.Component {
       : null;
     let uom = this.state.datahead.length ? this.state.datahead[0].uom : null;
     let stock_on_hand = this.state.datahead.length
-      ? this.state.datahead[0].on_hand_qty
+      ? this.state.datahead[0].stock_on_hand
       : null;
     let available_qty = this.state.datahead.length
       ? this.state.datahead[0].available_qty
@@ -179,20 +271,20 @@ class SalesOrderDetail extends React.Component {
         <div ref={this.section1} className='card-group section-1 mb-3'>
         <CCard>
           <CCardBody className="p-0 m-3 border-right">
-            <CRow className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Site</CCol> <CCol>{site || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Client</CCol> <CCol>{client || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Product</CCol> <CCol>{product || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Description</CCol> <CCol>{description || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">UOM</CCol> <CCol>{uom || '-'}</CCol></CRow>
+            <CRow className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">Site</CCol> <CCol>{site || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">Client</CCol> <CCol>{client || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">Product</CCol> <CCol>{product || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">Description</CCol> <CCol>{description || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">UOM</CCol> <CCol>{uom || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>
         <CCard>
           <CCardBody className="p-0 my-3 mx-0 border-right">
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Stock On Hand</CCol> <CCol>{stock_on_hand || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Available Qty</CCol> <CCol>{available_qty || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Expected in Qty</CCol> <CCol>{expected_in_qty || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Expected Out Qty</CCol> <CCol>{expected_out_qty || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Rotadate Type</CCol> <CCol>{rotadate_type || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Stock On Hand</CCol> <CCol className="pl-0">{stock_on_hand || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Available Qty</CCol> <CCol className="pl-0">{available_qty || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Expected in Qty</CCol> <CCol className="pl-0">{expected_in_qty || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Expected Out Qty</CCol> <CCol className="pl-0">{expected_out_qty || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Rotadate Type</CCol> <CCol className="pl-0">{rotadate_type || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>
         </div>
@@ -214,14 +306,14 @@ class SalesOrderDetail extends React.Component {
                     onClick={() => this.activeTabIndex('1')}
                   >
                     <div className='row rowTabCustom align-items-center tabColumn mx-0'>
-                      <span className='tabTitleText'>
-                        {activeTab === '1' ? tab1() : tab1Inactive()} Stock
+                      <span className='number-number-1 tabTitleText'/>
+                        {activeTab === '1' } Stock
                         Details
-                      </span>
                     </div>
                   </NavLink>
                 </NavItem>
 
+                {parseInt(expected_in_qty) === 0 && parseInt(expected_out_qty) === 0 && (parseInt(stock_on_hand) + parseInt(expected_in_qty) >= expected_out_qty) ?  '' :
                 <NavItem className={'p-0'} style={{marginLeft:"11px"}}>
                   <NavLink
                     className={
@@ -231,14 +323,13 @@ class SalesOrderDetail extends React.Component {
                     active={this.state.activeTab === '2'}
                     onClick={() => this.activeTabIndex('2')}
                   >
-                    <div className='row rowTabCustom align-items-center tabColumn mx-0'>
-                      <span className='tabTitleText'>
-                        {activeTab === '2' ? tab2() : tab2Inactive()} Stock
+                   <div className='row rowTabCustom align-items-center tabColumn mx-0'>
+                      <span className='number-number-2 tabTitleText'/>
+                        {activeTab === '2' } Stock
                         Balance Forecast
-                      </span>
                     </div>
                   </NavLink>
-                </NavItem>
+                </NavItem>}
               </div>
             </Nav>
           </div>
@@ -250,25 +341,37 @@ class SalesOrderDetail extends React.Component {
               <TabPane className='p-0 stockDetails' tabId='1'>
                 <CustomTable
                   title='Stock Detail'
+                  filename='Microlistics_StockDetail.'
+                  font="12"
+                  editColumn='false'
                   height={this.state.dimension.height}
                   fields={stockDetail}
                   data={products}
-                  UrlHeader={this.UrlHeader}
+                  UrlHeader={this.UrlHeader} 
+                  UrlAll={this.UrlAll}
+                  tableStatus={tableStatus}
                   export={
                     <button className='btn btn-primary float-right btn-export'>
                       {/* <div className='export-export pr-3' /> */}
                       EXPORT
                     </button>
                   }
+                  exportData={products}
                 />
               </TabPane>
               <TabPane className='stockDetails' tabId='2'>
                 <CustomTable
                   title='Stock ForesCast'
+                  filename='Microlistics_ForesCast.'
+                  font="12"
+                  editColumn='false'
                   height={this.state.dimension.height}
                   fields={ForesCast}
-                  data={products}
-                  UrlHeader={this.UrlHeader}
+                  data={forecast}
+                  UrlHeader={this.UrlHeader} 
+                  UrlAll={this.UrlAll}
+                  tableStatus={tableStatusForecast}
+                  exportData={forecast}
                   export={
                     <button className='btn btn-primary float-right btn-export'>
                       {/* <div className='export-export pr-3' /> */}

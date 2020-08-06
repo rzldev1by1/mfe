@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import Select from 'react-select'
 import axios from 'axios'
+import numeral from 'numeral'
 import _ from 'lodash'
 
 import endpoints from 'helpers/endpoints'
@@ -17,7 +18,10 @@ class CreateTab extends React.Component {
   state = {
     overflow: [],
     orderLine: [{}], error: {},
-    siteData: this.props.siteData, clientData: this.props.clientData, orderTypeData: this.props.orderTypeData,
+    siteData: this.props.siteData,
+    clientData: this.props.clientData,
+    orderTypeData: this.props.orderTypeData,
+    supplierData:[],
     isDatepickerShow: false,
     datepickerStatus: [],
     UOMStatus: [],
@@ -26,12 +30,16 @@ class CreateTab extends React.Component {
     deliveryDate: null,
     orderId: null, 
     orderTypeValue: null, 
-    site: this.props.user.site ? this.props.user.site : '',
-    client: this.props.user.client ? this.props.user.client : '',
+    site: this.props.user.site ? {value:this.props.user.site} : '',
+    client: this.props.user.client ? {value:this.props.user.client} : '',
   }
   componentDidMount() {
     this.getDisposition()
-    this.getProduct() 
+    const {user} = this.props
+
+  if(user.client && user.site){
+    this.getSupplier({value:user.client})
+  }
   }
   // remove first option (all)
   componentDidUpdate(nextProps) {
@@ -49,13 +57,38 @@ class CreateTab extends React.Component {
       this.setState({ orderTypeData })
     }
   }
-  getProduct = async () => {
-    const client = this.props.user.client?this.state.client:this.state.client.value
-    const url = `${endpoints.getProduct}?client=${client}`
-    const { data } = await axios.get(url)
-    const productData = data.code.map((c, i) => ({ value: c, label: c, i }))
-    this.setState({ productData, productDataName: data.name })
+  // getProduct = async () => {
+  //   const client = this.props.user.client?this.state.client:this.state.client.value
+  //   const url = `${endpoints.getProduct}?client=${client}`
+  //   const { data } = await axios.get(url)
+  //   const productData = data.code.map((c, i) => ({ value: c, label: c, i }))
+  //   this.setState({ productData, productDataName: data.name })
+  // }
+  hideAllOptionSite = () =>{
+    let siteData = [...this.state.siteData]
+    delete siteData[0]
+    return siteData
   }
+
+  hideAllOptionClient = () =>{
+    let clientData = [...this.state.clientData]
+    delete clientData[0]
+    return clientData
+  }
+
+  getProduct = async (val) => {
+    const client = this.props.user.client?this.state.client:this.state.client.value
+    const url = `${endpoints.getProduct}?client=${client}&param=${val}`
+    const { data } = await axios.get(url)
+    const productData = data.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.name}`, i }))
+    this.setState({ productData })
+  }
+  
+  getProductHandler = (val) => {
+    if(!val || val.length < 3) return
+    else  Promise.resolve( this.getProduct(val));
+  }
+
   getDisposition = async () => {
     const url = `${endpoints.getDisposition}`
     const { data } = await axios.get(url)
@@ -71,13 +104,73 @@ class CreateTab extends React.Component {
     this.setState({ uomData })
   }
 
+  getSupplier = async (client) => {
+    const url = endpoints.getSupplier
+    if(!client) return
+    const param = `?client=${client.value}`
+    const {data} = await axios.get(url+param)
+    const supplierData = data.map((v, i) => ({value:v.supplier_no, label:v.name}))
+    this.setState({supplierData})
+  }
+
+  getSupplierIdentity = async (customer) => {
+    const {client} = this.state
+    const url = `${endpoints.getSoIdentity}`
+    if(!customer) return
+    const param = `?client=${client.value}&&customerNo=${customer}` 
+    const {data} = await axios.get(url+param)
+    if(data?.identity.length === 0) 
+    {
+      this.setState({
+        city: null,
+        country: null,
+        postCode: null,
+        shipToAddress1: null,
+        shipToAddress2: null,
+        shipToAddress3: null,
+        shipToAddress4: null,
+        shipToAddress5: null,
+        state: null
+      })
+    }
+    else
+    {
+      const {
+        address_1, 
+        address_2, 
+        address_3, 
+        address_4, 
+        address_5, 
+        city, 
+        country, 
+        customer_no, 
+        name, 
+        postcode, 
+        state, 
+      } = data.identity[0]
+      this.setState({
+        city: city,
+        country: country,
+        postCode: postcode,
+        shipToAddress1: address_1,
+        shipToAddress2: address_2,
+        shipToAddress3: address_3,
+        shipToAddress4: address_4,
+        shipToAddress5: address_5,
+        state: state
+      })
+    }
+
+}
+
 
   addLine = () => {
     const error = validations(this.state)
     this.setState({ error })
-    if(error.orderLine.length < 1) 
-    {
-      this.setState({ orderLine: [...this.state.orderLine, {}]})
+    console.log(error?.orderLine)
+    if(error?.orderLine?.length > 0) return
+    if (this.state.orderLine.length < 10) {
+    this.setState({ orderLine: [...this.state.orderLine, {}] })
     }
     
   }
@@ -93,9 +186,11 @@ class CreateTab extends React.Component {
     delete error[name] 
     this.setState({ [name]: val }, () => {
       if (name === 'client') {
-        this.getProduct()
+        this.getSupplier(val)
       }else if(name=== 'orderType'){
         this.orderTypeValue(val)
+      }else if(name === 'customer'){
+        this.getSupplierIdentity(val.value)
       }
     })
   }
@@ -112,12 +207,15 @@ class CreateTab extends React.Component {
     this.setState({ orderLine })
   }
   lineSelectChange = (i, key, val) => {
+    if(!val){
+        return null
+    }
     const { orderLine, error } = this.state
     if (error.orderLine && error.orderLine.length) {
       delete error.orderLine[i][key]
     }
     if (key === 'productVal') {
-      orderLine[i].product = this.state.productDataName[val.i]
+      orderLine[i].product = val.value
       orderLine[i].productVal = val
     }
     if (key === 'dispositionVal') {
@@ -188,6 +286,7 @@ class CreateTab extends React.Component {
       delete header.productDataName
       delete header.dispositionData
       delete header.uomData
+  
       const payload = { header, lineDetail }
       this.props.submit(payload)
     }
@@ -198,34 +297,35 @@ class CreateTab extends React.Component {
     tmpChar = e.key; 
     if (!comma && !/^[0-9]+$/.test(e.key)) {
       e.preventDefault()
-    }else if(comma && !/^[0-9.]+$/.test(e.key)){
+    }else if(comma && !/^[0-9.]|[\b]+$/.test(e.key)){
       e.preventDefault()
     }
   }
 
   numberCommaCheck = (index, refs, numberLength, commaLength,e) => {   
       var value = e.target.value 
-      var arr = value.split(".")  
-      var x = ''
-      if(arr[0].length > numberLength){
-        x = arr[0].substr(0,numberLength) 
-      }else{
-        x = arr[0]
-      }
-      var y = ''
-      if(arr[1] && arr[1].length > commaLength){
-        y = '.'+arr[1].substr(0,commaLength)
-      }else if(arr[1]){
-        y = '.'+arr[1]
-      }
-      var text =x+((tmpChar=='.')?'.':'')+y 
+      var name = e.target.name
+      // var arr = value.split(".")  
+      // var x = ''
+      // if(arr[0].length > numberLength){
+      //   x = arr[0].substr(0,numberLength) 
+      // }else{
+      //   x = arr[0]
+      // }
+      // var y = ''
+      // if(arr[1] && arr[1].length > commaLength){
+      //   y = '.'+arr[1].substr(0,commaLength)
+      // }else if(arr[1]){
+      //   y = '.'+arr[1]
+      // }
+      // var text =x+((tmpChar=='.')?'.':'')+y 
       var arr2 = {
         target: {
           name: refs,
-          value: text
+          value: this.decimalFormatter(name,value)
         }
       }
-      this.refs[refs].value = text
+      // this.refs[refs].value = value
       this.lineChange(index, arr2)
   }
 
@@ -255,12 +355,91 @@ class CreateTab extends React.Component {
         orderTypeValue:orderType.value
       })
     }
+
+    decimalFormatter = (name,value) => {
+      let newVal = value;
+      
+      if(name === 'weight')
+      {
+        if(newVal.length > 14) newVal = newVal.split('').filter(d => d !== ',' ? d : null).map((d,i) => {if(i > 10 && !newVal.includes('.')){return null } else return d} ).join('')
+        console.log(newVal)
+        const dot = newVal.indexOf('.')
+        console.log(dot+' dot')
+        if(dot !== -1)
+        {
+          let number;
+          let decimal = newVal.slice(dot+1, dot+4).split('').filter(d => d !=='.' && d !== ',').join('')
+          let integer = newVal.slice(0,dot).split('').filter(d => d !== ',').join('')
+          console.log(decimal + ' dot')
+          console.log(integer + ' int')
+          if(integer.length <= 6)
+          {
+            let idxSepr1 = integer.slice(0,integer.length - 3)
+            let idxSepr2 = integer.slice(integer.length - 3)
+            console.log(`${idxSepr1},${idxSepr2}.${decimal}`)
+            number = `${idxSepr1},${idxSepr2}.${decimal}`
+          }
+          if(integer.length > 6 && integer.length <=9)
+          {
+            let idxSepr1 = integer.slice(0,integer.length - 6)
+            let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 3)
+            let idxSepr3 = integer.slice(integer.length - 3)
+            console.log(`${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`)
+            number = `${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`
+          }
+          if(integer.length > 9 && integer.length <=11)
+          {
+            let idxSepr1 = integer.slice(0,integer.length - 9)
+            let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 6)
+            let idxSepr3 = integer.slice(idxSepr1.length+idxSepr2.length, idxSepr1.length+idxSepr2.length+3)
+            let idxSepr4 = integer.slice(integer.length - 3)
+            console.log(`${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`)
+            number = `${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`
+          }
+          number = number?.split('')
+          if(number && number[0] === ',')delete number[0]
+          number = number?.join('')
+          return number
+        }
+        else return numeral(newVal).format('0,0')
+      }
+      else if(name == 'qty') return numeral(newVal).format('0,0')
+      return value
+    }
+
+    decimalValueForQty(e) {
+
+      if ((e.key >= 0 && e.key <= 9) || e.key === ".") {
+          let number = e.target.value + e.key;
+  
+          let arraytext = number.split('');
+          if(arraytext.length ){
+              let dotLength = arraytext.filter((item) => item === '.');
+              if(dotLength.length > 1){
+                
+                e.preventDefault();
+                e.stopPropagation();
+              }
+          }
+  
+            let regex = /^(\d{1,11}|\.)?(\.\d{0,3})?$/;
+  
+            if (!regex.test(number) && number !== "") {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+  
+      } else {
+          e.preventDefault();
+          e.stopPropagation();
+      }
+  }
    
     
   render() {
     const { error, overflow, site, client, orderType, orderLine, customer,
       orderId, shipToAddress1, postCode, state,
-      siteData, clientData, orderTypeData, productData, uomData, dispositionData,
+      siteData, clientData, orderTypeData, productData, uomData, dispositionData,supplierData
     } = this.state
     const {user} = this.props
     let datepickerStatus = this.state.datepickerStatus;
@@ -280,7 +459,7 @@ class CreateTab extends React.Component {
             user.site ? 
             <input value={this.siteCheck(user.site)} className="form-control" readOnly />
             :
-            <Select options={siteData} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required 
+            <Select options={this.hideAllOptionSite()} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required 
             styles={{
               dropdownIndicator: (base, state) => ({
                 ...base, 
@@ -328,7 +507,7 @@ class CreateTab extends React.Component {
             user.client ?
             <input value={this.clientCheck(user.client)} className="form-control" readOnly />
             :
-            <Select  options={clientData} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required
+            <Select  options={this.hideAllOptionClient()} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required
             styles={{
               dropdownIndicator: (base, state) => ({
                 ...base, 
@@ -358,8 +537,11 @@ class CreateTab extends React.Component {
       <Row>
         <Col lg="3" className="mb-3">
           <label className="text-muted mb-0">Customer</label>
-          <Select value={customer || ''} options={[]} placeholder="Customer Name or ID"
-            onInputChange={_.debounce(this.findCustomer, 300)} onChange={val => this.onSelectChange('customer', val)}
+          < Select 
+            options={supplierData} 
+            placeholder="Customer Name or ID"
+            onInputChange={_.debounce(this.findCustomer, 300)} 
+            onChange={val => this.onSelectChange('customer', val)}
             styles={{
               dropdownIndicator: (base, state) => ({
                 ...base, 
@@ -372,46 +554,46 @@ class CreateTab extends React.Component {
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0 required">Address 1</label>
-          <input name="shipToAddress1" type="text" value={shipToAddress1 || ''} onChange={this.onChange} className="form-control" placeholder="Address 1" required />
+          <input value={this.state.shipToAddress1} name="shipToAddress1" type="text" value={shipToAddress1 || ''} onChange={this.onChange} className="form-control" placeholder="Address 1" required />
           <Required id="shipToAddress1" error={error} />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Address 2</label>
-          <input name="shipToAddress2" onChange={this.onChange} className="form-control" placeholder="Address 2" />
+          <input value={this.state.shipToAddress2} name="shipToAddress2" onChange={this.onChange} className="form-control" placeholder="Address 2" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Address 3</label>
-          <input name="shipToAddress3" onChange={this.onChange} className="form-control" placeholder="Address 3" />
+          <input value={this.state.shipToAddress3} name="shipToAddress3" onChange={this.onChange} className="form-control" placeholder="Address 3" />
         </Col>
       </Row>
       <Row>
         <Col lg="3" className="mb-3">
           <label className="text-muted mb-0">Address 4</label>
-          <input name="shipToAddress4" onChange={this.onChange} className="form-control" placeholder="Address 4" />
+          <input value={this.state.shipToAddress4} name="shipToAddress4" onChange={this.onChange} className="form-control" placeholder="Address 4" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Address 5</label>
-          <input name="shipToAddress5" onChange={this.onChange} className="form-control" placeholder="Address 5" />
+          <input value={this.state.shipToAddress5} name="shipToAddress5" onChange={this.onChange} className="form-control" placeholder="Address 5" />
         </Col>
       </Row>
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0">Suburb</label>
-          <input name="city" onChange={this.onChange} className="form-control" placeholder="Suburb" />
+          <input value={this.state.city} name="city" onChange={this.onChange} className="form-control" placeholder="Suburb" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Postcode</label>
-          <input name="postCode" type="number" value={postCode || ''} onChange={this.onChange} className="form-control" placeholder="Postcode" required />
+          <input value={this.state.postCode} name="postCode" type="number" value={postCode || ''} onChange={this.onChange} className="form-control" placeholder="Postcode" required />
           <Required id="postCode" error={error} />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">State</label>
-          <input name="state" type="text" value={state || ''} onChange={this.onChange} className="form-control" placeholder="State" required />
+          <input value={this.state.state} name="state" type="text" value={state || ''} onChange={this.onChange} className="form-control" placeholder="State" required />
           <Required id="state" error={error} />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Country</label>
-          <input name="country" onChange={this.onChange} className="form-control" placeholder="Country" />
+          <input value={this.state.country} name="country" onChange={this.onChange} className="form-control" placeholder="Country" />
         </Col>
       </Row>
 
@@ -424,8 +606,8 @@ class CreateTab extends React.Component {
               <td><div className="c-50 text-center">#</div></td>
               <td><div className="c-400 required">Product</div></td>
               <td><div className="c-600">Description</div></td>
-              <td><div className="c-100 required">Qty</div></td>
-              <td><div className="c-100">Weight</div></td>
+              <td><div className="c-150 required">Qty</div></td>
+              <td><div className="c-170">Weight</div></td>
               <td><div className="c-150 required">UOM</div></td>
               <td><div className="c-250">Batch</div></td>
               <td><div className="c-100">Ref3</div></td>
@@ -440,11 +622,14 @@ class CreateTab extends React.Component {
             {orderLine.length && orderLine.map((o, i) => { 
               return <tr className="py-1 text-center orderline-row">
                 <td className="pl-0 pr-1">
-                  <input value={i + 1} className="form-control text-center" readOnly />
+                  <input value={i + 1} className="form-control text-center" readOnly style={{backgroundColor:"#f6f7f9"}} />
                 </td>
                 <td className="px-1 text-left">
                   <Select value={o.productVal || ''}
                     options={productData}
+                    getOptionLabel={option => option.value}
+                    // menuIsOpen={o.productVal && o.productVal.length >= 3 ? true : false}
+                    onInputChange={(val) => this.getProductHandler(val)}
                     onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
                     onMenuClose={() => {productStatus[i] = false; this.setState({ productStatus: productStatus })}}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
@@ -459,14 +644,14 @@ class CreateTab extends React.Component {
                   <Required id="productVal" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="px-1">
-                  <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly />
+                  <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly style={{backgroundColor:"#f6f7f9"}}/>
                 </td>
                 <td className="px-1">
-                  <input name="qty" onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control"  onKeyPress={(e) => this.numberCheck(e)}  placeholder="Qty" maxLength="10"  />
+                  <input name="qty" onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control" value={this.state.orderLine[i]['qty']}  onKeyPress={(e) => this.numberCheck(e)}  placeholder="Qty" maxLength="10"  />
                   <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="px-1">
-                  <input name="weight" ref="weight" onChange={(e) => this.numberCommaCheck(i, "weight", 11,3, e)} type="text" min="0" className="form-control" placeholder="Weight" onKeyPress={(e) => this.numberCheck(e,true)}  />
+                  <input name="weight" ref="weight" value={this.state.orderLine[i]['weight']} onChange={(e) => this.numberCommaCheck(i, "weight", 16,3, e)} type="text" maxLength='18' className="form-control" placeholder="Weight" />
                 </td>
                 <td className="px-1">
                   <Select value={o.uom || ''}
@@ -535,13 +720,13 @@ class CreateTab extends React.Component {
           </tbody>
         </table>
       </div>
-      <button className="btn btn-light-gray m-0" onClick={this.addLine}>Add Line</button>
+      <button className="btn btn-light-gray m-0" onClick={this.addLine}>ADD LINE</button>
 
       <Row className="mt-3">
         <Col lg={2}></Col>
         <Col lg={8}></Col>
         <Col lg={2} className="text-right">
-          <button className="btn btn-primary" onClick={this.next}>{'Next'}</button>
+          <button className="btn btn-primary" onClick={this.next}>{'NEXT'}</button>
         </Col>
       </Row>
     </Container>

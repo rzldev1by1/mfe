@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 // import helpers from 'helpers'
 import axios from 'axios'
 import Logo from 'assets/img/login-logo.png'
+import loading from "../../assets/icons/loading/LOADING-MLS.gif"
 // import videobg from 'assets/img/brand/microlisticsvideos.mp4'
 import './Login.css'
 
@@ -26,7 +27,7 @@ class Logins extends Component {
 
    componentDidMount(){
        const {expired, user} = this.props.store
-       if(expired && user) this.setState({errorMessage:'Sorry, you have been automaticaly logged out due to inactivity'})
+       if(expired && user) this.setState({errorMessage:'Sorry, you have been automatically logged out due to inactivity'})
    }
 
     validateForm = async (e) => {
@@ -135,13 +136,13 @@ class Logins extends Component {
                     {errorMessage && <div><span className="iconU-i" /> {errorMessage}</div>}
                 </div>
                 <div className="row">
-                    <div className="col-sm-4">
+                    <div className="col-sm-5">
                         <button type="submit" className="btn btn-primary btn-login col-12">
-                            {this.state.isLoad ? <i className="fa fa-refresh fa-2x fa-spin" /> : 'Login'}
+                            {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : 'LOGIN'}
                         </button>
                     </div>
-                    <div className="col-sm-8 mt-3">
-                        <span className='form-login-change' onClick={() => this.changeFormHanlder()}>Forgot Password ?</span>
+                    <div className="col-sm-7 mt-3">
+                        <span className='form-login-change' onClick={() => this.changeFormHanlder()}>Forgot Password</span>
                     </div>
                 </div>
             </form>
@@ -162,11 +163,11 @@ class Logins extends Component {
                 <div className="row">
                     <div className="col-sm-4 white-space">
                         <button type="submit" className="btn btn-primary btn-login col-12">
-                            {this.state.isLoad ? <i className="fa fa-refresh fa-2x fa-spin " /> : "Send"}
+                            {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "SEND"}
                         </button>
                     </div>
                     <div className="col-sm-8 mt-3">
-                        <span className='form-login-change' onClick={() => this.changeFormHanlder()}>Login page</span>
+                        <span className='form-login-change' onClick={() => this.changeFormHanlder()}>LOGIN PAGE</span>
                     </div>
                 </div>
             </form>
@@ -203,7 +204,7 @@ class Logins extends Component {
                 <div className="row mt-5">
                     <div className="col-sm-4">
                         <button onClick={() => this.exitPolicyHandler()} type="button" className="btn btn-primary btn-login col-12">
-                            {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin " /> : "Back"}
+                            {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "BACK"}
                         </button>
                     </div>
                 </div>
@@ -241,7 +242,7 @@ class Logins extends Component {
                 <div className="row mt-5">
                     <div className="col-sm-4">
                         <button onClick={() => this.exitPolicyHandler()} type="button" className="btn btn-primary btn-login col-12">
-                            {this.state.isLoad ? <i className="loader fa fa-refresh fa-2x fa-spin " /> : "Back"}
+                            {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "BACK"}
                         </button>
                     </div>
                 </div>
@@ -259,10 +260,6 @@ class Logins extends Component {
         return (
             <div className="login">
                 <div className="container-fluid">
-                    <div className="offset-md-1 mb-4">
-                        <span className="text-white">{version}</span>
-                    </div>
-                    <br/>
                     <div className="card col-md-8 col-lg-4 offset-md-1">
                         <div className="card-body">
                             <img src={Logo} className="logo mb-2" alt="mlslogo" />
@@ -278,8 +275,12 @@ class Logins extends Component {
                         </div>
                     </div>
                     <div className="offset-md-1 mt-5">
-                        <a className="text-white " target='blank' href='https://www.microlistics.com.au/'>© Microlistics {new Date().getFullYear()}</a>
+                        <a className="text-white " target='blank' href='https://www.microlistics.com.au/'>© Microlistics {new Date().getFullYear()} - part of the WiseTech Global Group</a>
                     </div>
+                    <div className="offset-md-1 mb-4">
+                        <span className="text-logo">{version}</span>
+                    </div>
+                    <br/>
                 </div>
             </div>
 

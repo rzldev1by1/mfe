@@ -5,14 +5,16 @@ import { connect } from 'react-redux'
 import ReactTable from 'react-table-v6'
 import { Button, Container, Row, Col, Modal, Nav} from 'react-bootstrap'
 import { NavItem, NavLink, TabPane, TabContent } from 'reactstrap';
-import { CCard, CCardGroup, CPagination, CRow, CCol } from "@coreui/react";
+import { CRow, CCol } from "@coreui/react";
 import { MdClose } from 'react-icons/md'
 import { FaRegEdit } from 'react-icons/fa'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 import CustomPagination from 'shared/table/CustomPagination'
 import Export from "./Export"
+import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
+//import { splice } from 'core-js/fn/array'
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
@@ -54,6 +56,7 @@ class CustomTable extends React.Component {
       trigger: 0,
       activeTab: '1',
       changedColumns: [],
+      data: this.props.data,
       fields: this.props.fields,
       urlHeader: this.props.urlHeader,
       products: [],
@@ -195,27 +198,31 @@ showModal = (show) => {
             accessor: h.accessor,
             sortable: h.sortable === false ? false : true,
             resizable: h.resizable || false,
+            className: h.className || null,
             style: h.style || null,
             width: h.width || getColumnWidth(data, h.accessor, h.Header),
-          }
+          } 
           return listHeader = [...listHeader, obj]
         } else {
           return listHeader = [...listHeader]
         }
       })
 
-    let editBtn = (
-      <div className='edit-column' onClick={this.showModal.bind(this, true)}>
-        <i className='iconU-edit text-primary' />
-      </div>
-    )
-    let obj = {
-      Header: editBtn,
-      accessor: 'editBtn',
-      width: 50,
-      style: { textAlign: 'center' },
-    };
-    listHeader = [...listHeader, obj];
+    if(this.props.editColumn !== 'false'){
+      let editBtn = (
+        <div className='edit-column' onClick={this.showModal.bind(this, true)}>
+          <i className='iconU-edit'/>
+        </div>
+      )
+      let obj = {
+        Header: editBtn,
+        accessor: 'editBtn',
+        width: 50,
+        style: { textAlign: 'center' },
+      };
+      listHeader = [...listHeader, obj];
+    }
+    
     return listHeader;
   };
 
@@ -223,7 +230,7 @@ showModal = (show) => {
   headerRename = async () => {
     const url = this.props.UrlHeader();
     const { data } = await axios.get(url);
-    let header = [];
+    let fields = [];
     let accessor = this.state.fields.map((data, idx) => {                
       let split = data.accessor
       return split
@@ -237,11 +244,23 @@ showModal = (show) => {
                 let split = data.width
                 return split
                 });
+    let headerData = Object.keys(data.data[0]);
+                accessor.map((data, idx) => {
+                  let lowerCase = data.toLowerCase();
+                  if (lowerCase.includes(' ')) {
+                    let split = lowerCase.split(' ');
+                    let result = split.join('_');
+                    accessor[idx] = result;
+                  } else {
+                    accessor[idx] = lowerCase;
+                  }
+                });
     
     Object.values(data.data[0]).map((data, idx) => {
       let headerTable = {
         accessor: '',
         Header: '',
+        headerData,
         placeholder: '',
         width: null,
         sortable: true,
@@ -249,14 +268,14 @@ showModal = (show) => {
       headerTable.Header = data;
       headerTable.placeholder = placeholder[idx];
       headerTable.accessor = accessor[idx];
+      headerTable.headerData = headerData[idx];
       headerTable.width = width[idx];
-      header.push(headerTable);
+      fields.push(headerTable);
     });
-    console.log(header);
     if (data.data.length) {
       this.setState({
         products: data.data[0],
-        fields: header,
+        fields: fields,
       });
     }
   };
@@ -266,17 +285,17 @@ showModal = (show) => {
   renameSubmits = async (e) => {
     const fields = this.state.fields;
     const changedField = e;
-    const changedFieldAccessor = [];
+    const changedFieldHeaderData = [];
     const changedFieldHeader = [];
 
     changedField.map((item, idx) => {
-      changedFieldAccessor.push(item.accessor);
+      changedFieldHeaderData.push(item.headerData);
       changedFieldHeader.push(item.header);
     });
 
     fields.map((item, idx) => {
-      changedFieldAccessor.map((data, idx) => {
-        if (item.accessor == data) {
+      changedFieldHeaderData.map((data, idx) => {
+        if (item.headerData == data) {
           item.Header = changedFieldHeader[idx];
         }
       });
@@ -287,22 +306,22 @@ showModal = (show) => {
     let payload = {};
     let payloadIndex = Object.keys(this.state.products);
     let defaultValues = Object.values(this.state.products);
-    let fieldsAccessor = changedFieldAccessor;
+    let fieldsHeaderData = changedFieldHeaderData;
 
-    fieldsAccessor.map((data, idx) => {
+    fieldsHeaderData.map((data, idx) => {
       if (data.includes(' ')) {
-        let uppercaseAccessor = data.toUpperCase();
-        let index = uppercaseAccessor.split(' ');
-        fieldsAccessor[idx] = index.join('_');
+        let uppercaseHeaderData = data.toUpperCase();
+        let index = uppercaseHeaderData.split(' ');
+        fieldsHeaderData[idx] = index.join('_');
       } else {
-        fieldsAccessor[idx] = data.toUpperCase();
+        fieldsHeaderData[idx] = data.toUpperCase();
       }
     });
 
     payloadIndex.map((data, idx) => {
       if (data.includes(' ')) {
-        let uppercaseAccessor = data;
-        let index = uppercaseAccessor.split(' ');
+        let uppercaseHeaderData = data;
+        let index = uppercaseHeaderData.split(' ');
         payloadIndex[idx] = index.join('_');
       }
     });
@@ -310,7 +329,7 @@ showModal = (show) => {
     let newPayload = {};
 
     for (let i = 0; i < Object.keys(this.state.products).length; i++) {
-      fieldsAccessor.map((data, idx) => {
+      fieldsHeaderData.map((data, idx) => {
         if (payloadIndex[i] == data) {
           payload[payloadIndex[i]] = changedFieldHeader[idx];
           payloadIndex.splice(i, 1);
@@ -328,57 +347,45 @@ showModal = (show) => {
     const baseUrl = process.env.REACT_APP_API_URL;
 
     try {
-      const urlAntec = await axios.post(
-        baseUrl + this.props.UrlAntec(),
+      const urlAll = await axios.post(
+        baseUrl + this.props.UrlAll(),
         payload
       );
-      const urlBega = await axios.post(baseUrl + this.props.UrlBega(), payload);
-      const urlAesop = await axios.post(
-        baseUrl + this.props.UrlAesop(),
-        payload
-      );
-      const urlClucth = await axios.post(
-        baseUrl + this.props.UrlClucth(),
-        payload
-      );
-      const urlExquira = await axios.post(
-        baseUrl + this.props.UrlExquira(),
-        payload
-      );
-      const urlLedvance = await axios.post(
-        baseUrl + this.props.UrlLedvance(),
-        payload
-      );
-      const urlOnestop = await axios.post(
-        baseUrl + this.props.UrlOnestop(),
-        payload
-      );
-      const urlStartrack = await axios.post(
-        baseUrl + this.props.UrlStartrack(),
-        payload
-      );
-      const urlTatura = await axios.post(
-        baseUrl + this.props.UrlTatura(),
-        payload
-      );
-      const urlTtl = await axios.post(baseUrl + this.props.UrlTtl(), payload);
-      const urlTtchem = await axios.post(
-        baseUrl + this.props.UrlTtchem(),
-        payload
-      );
-      const { data } =
-        urlAntec +
-        urlBega +
-        urlAesop +
-        urlClucth +
-        urlExquira +
-        urlLedvance +
-        urlOnestop +
-        urlStartrack +
-        urlTatura +
-        urlTtl +
-        urlTtchem;
-      console.log(data);
+      // const urlBega = await axios.post(baseUrl + this.props.UrlBega(), payload);
+      // const urlAesop = await axios.post(
+      //   baseUrl + this.props.UrlAesop(),
+      //   payload
+      // );
+      // const urlClucth = await axios.post(
+      //   baseUrl + this.props.UrlClucth(),
+      //   payload
+      // );
+      // const urlExquira = await axios.post(
+      //   baseUrl + this.props.UrlExquira(),
+      //   payload
+      // );
+      // const urlLedvance = await axios.post(
+      //   baseUrl + this.props.UrlLedvance(),
+      //   payload
+      // );
+      // const urlOnestop = await axios.post(
+      //   baseUrl + this.props.UrlOnestop(),
+      //   payload
+      // );
+      // const urlStartrack = await axios.post(
+      //   baseUrl + this.props.UrlStartrack(),
+      //   payload
+      // );
+      // const urlTatura = await axios.post(
+      //   baseUrl + this.props.UrlTatura(),
+      //   payload
+      // );
+      // const urlTtl = await axios.post(baseUrl + this.props.UrlTtl(), payload);
+      // const urlTtchem = await axios.post(
+      //   baseUrl + this.props.UrlTtchem(),
+      //   payload
+      // );
+      const { data } = urlAll;
     } catch (error) {
       console.log(error);
     }
@@ -389,15 +396,15 @@ showModal = (show) => {
 
     if (e.target.value.length > 0) {
       changedColumns.map((item, idx) => {
-        if (item.accessor) {
-          if (item.accessor == e.target.name) {
+        if (item.headerData) {
+          if (item.headerData == e.target.name) {
             changedColumns.splice(idx, 1);
           }
         }
       });
 
       changedColumns.push({
-        accessor: e.target.name,
+        headerData: e.target.name,
         header: e.target.value,
       });
 
@@ -410,7 +417,6 @@ showModal = (show) => {
     this.setState({ showModal: false });
   };
   ExportName = () => {
-    let filename = ""
     let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     let date = new Date();
     let date1 = date.getDate(),
@@ -419,34 +425,70 @@ showModal = (show) => {
       Seconds = date.getSeconds(),
       Minutes = date.getMinutes(),
       Hours = date.getHours();
-    return filename = ("Microlistics_PurchaseOrder." + date1 + "-" + arrmonth[month] + "-" + year + "." + Hours + "-" + Minutes + "-" + Seconds)
+    return (this.props.filename + date1 + "-" + arrmonth[month] + "-" + year + "." + Hours + "-" + Minutes + "-" + Seconds)
   }
 
   ExportHeader = () => {
-    let headers = this.state
-    return headers
-  }
-  ExportFont = () => {
-    let Font = "10";
-    return Font;
-  };
-
-  ExportData = () => {
-    let data = this.state;
+    let fields = this.props.customFields||this.state.fields
+    let data = fields.map((data, idx) => {                
+      return data.Header
+    });
     return data
   }
-
-  ExportPDFName = () => {
-    let name = ""
-    return name = ("Purchase Order")
+  ExportData = () => { 
+    let fields = this.props.customFields||this.state.fields
+    let dataAll = []
+    if(this.props.exportData){
+      dataAll = this.props.exportData.map((data,idx,) =>{
+      let column = fields.map((column, columnIdx) => {       
+              let split = [data[column.accessor] ]
+              return split
+              })
+              return column
+      })
+    }else{
+      dataAll = this.props.data.map((data,idx,) =>{
+      let column = fields.map((column, columnIdx) => {       
+              let split = [data[column.accessor] ]
+              return split
+              })
+              return column
+      })
+    }
+    
+    return dataAll
   }
-
+  
+  waitingStatus = () => {
+    return (
+      <div className='caution-caution' > <div>No Data Available</div> </div>
+    )
+  }
+  
+  noDataStatus = () => {
+    return( 
+      <div> <img src={loading} width='45' height='45'/> </div>
+    )
+  }
+  
+  getExportData = async () => { 
+    if(this.props.exportApi){
+      await this.props.exportApi()
+      console.log(this.props.exportData)
+    }else{
+      console.log("Not Paginate API")
+      return 0
+    }
+  }
 
   render() {
     const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
-    let { title, data, onClick, height, pagination,request_status } = this.props
+    let {  title, data, exportData, onClick, height, pagination,request_status,font, tableStatus } = this.props
+    // console.log(data)
+
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
+    // console.log(this.ExportHeader())  
 
     return (
       <React.Fragment>
@@ -455,12 +497,8 @@ showModal = (show) => {
           data={data}
           showPagination={false}
           style={{ height }}
-          id="excel"
-          // noDataText={(request_status)? request_status :"Please Wait..."}
-          noDataText={<div>
-          <div  className='caution-caution'/>
-          <div>No Data Available</div>
-        </div>}
+          // noDataText={(request_status)? <div  className='caution-caution'/> : <img src={loading} width='45' height='45'/>}
+          noDataText={tableStatus=="noData"?this.waitingStatus():this.noDataStatus()} 
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
             return {
@@ -477,10 +515,36 @@ showModal = (show) => {
               },
             };
           }}
+          defaultPageSize={50}
           {...this.props}
         />
+
+<table className="d-none" id="excel">
+            <thead>
+              <tr>
+                {fields.map((data, idx) => {
+                    return ( <th key={idx} id={data.accessor}>{data.Header}</th> )
+                })}
+              </tr>
+            </thead>
+            <tbody>
+                {exportData ? exportData.map((data, i)  =>
+                <tr key={i} >
+                  {fields.map((column, columnIdx) => {
+                      return (
+                        <td key={columnIdx}>{data[column.accessor]}</td>
+                      )
+                  })}
+                </tr>
+              ) :
+                <div> No data available </div>
+              }
+            </tbody>
+          </table>
+        
+
         <CRow className="mt-3 pagination-custom">
-           <CCol lg="10" className="px-0 margin-mr">
+           <CCol lg="7" className="px-0 margin-mr">
                 <CustomPagination
                   data={data}
                   pagination={pagination}
@@ -489,9 +553,13 @@ showModal = (show) => {
                   fields={fields}
                 />
             </CCol>
-            <CCol lg="2" className="px-0 export-ml">
-                <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
-                    ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} />
+            <CCol lg="5" className="px-0 export-ml">
+                <Export ExportName={this.ExportName} ExportPDFName={title}    
+                    pdf={this.props.pdf}
+                    excel={this.props.excel}  
+                    getExportData={() => this.getExportData()}
+                    ExportData={exportData}
+                    ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={font} />
             </CCol>
         </CRow>
         <Modal
@@ -531,22 +599,24 @@ showModal = (show) => {
             </Container>
           </Modal.Header>
           <Modal.Body className='px-5 pt-3 pb-5'>
-            <Row className="mx-0 justify-content-between mb-3">
+            <Row className={"mx-0 justify-content-between  "+(this.props.store.user.userLevel == 'Admin' ? 'mb-3':'')}>
               <Col lg={6} className='text-primary font-20 p-0'>{title}</Col>
               <Row className='align-items-center rename-columns mx-0 text-align-left'>
+
+                    {this.props.store.user.userLevel !== 'Admin' ? '': 
                   <Nav tabs className="px-1">
                     <div className='input-group'>
-                      <NavItem className='pl-0 pr-0'>
-                        <NavLink
-                          className={
-                            'nav-link-cust tab-color' +
-                            (activeTab === '1' ? ' tab-rename' : '')
-                          }
-                          active={this.state.activeTab === '1'}
-                          onClick={() => {
-                            this.activeTabIndex('1');
-                          }}
-                        >
+                        <NavItem className='pl-0 pr-0'>
+                          <NavLink
+                            className={
+                              'nav-link-cust tab-color' +
+                              (activeTab === '1' ? ' tab-rename' : '')
+                            }
+                            active={this.state.activeTab === '1'}
+                            onClick={() => {
+                              this.activeTabIndex('1');
+                            }}
+                          >
                           <div className='row rowTabCustom align-items-center'>
                             <span className='tabTitleText font-18'>
                               {activeTab === '1'}TOGGLE COLUMN
@@ -555,7 +625,7 @@ showModal = (show) => {
                         </NavLink>
                       </NavItem>
 
-                      <NavItem className={'pl-2 pr-0 '}>
+                      <NavItem className='pl-2 pr-0'>
                         <NavLink
                           className={
                             'nav-link-cust tab-color' +
@@ -575,6 +645,7 @@ showModal = (show) => {
                       </NavItem>
                     </div>
                   </Nav>
+                  }
               </Row>
             </Row>
             <Row >
@@ -587,7 +658,7 @@ showModal = (show) => {
                           return (
                             <Col key={index} className='p-2'>
                               <button
-                                className={`text-left btn btn-block ${
+                                className={`text-left px-3 btn btn-block ${
                                   !editColumn[index]
                                     ? 'btn-outline-primary'
                                     : 'btn-light-gray'
@@ -621,14 +692,14 @@ showModal = (show) => {
                     </Col>
                   </TabPane>
                   <TabPane tabId='2'>
-                    <Row xl={5} lg={10} className='mx-1'>
+                    <Row xl={5} lg={10} className='mx-1 grid-col'>
                       {fields &&
                         fields.map((item, index) => {
                           return (
                             <div key={index} className='p-2'>
                               <input
                                 placeholder={item.placeholder}
-                                name={item.accessor}
+                                name={item.headerData}
                                 sortable={item.sortable}
                                 onChange={this.changedColumn}
                                 className={`text-left form-rename `}

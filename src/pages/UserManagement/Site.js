@@ -11,7 +11,7 @@ const disable = 'Disabled';
 return (<div>
         <div className="flex-column line-border mr-2 my-3">
             <div className="d-flex">
-                <label className="col-6 text-muted px-0 py-2" htmlFor="Site">Site
+                <label className="col-6 text-muted-soft px-0 py-2" htmlFor="Site">Site
                 </label>
 
                 <div className="col-6">

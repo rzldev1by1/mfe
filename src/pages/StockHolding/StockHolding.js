@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import numeral from 'numeral'
 import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react'
 import Select from 'react-select'
 import { FaPencilAlt } from 'react-icons/fa'
@@ -29,6 +30,73 @@ const columns = [
   { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: null, sortable: true },
   { accessor: 'packdesc_1', Header: 'UOM', placeholder: 'UOM', width: null, sortable: true },
   { accessor: 'status', Header: ' Status ', placeholder: 'Status', width: null, sortable: true },
+  {
+    accessor: 'on_hand_qty',
+    Header: 'Stock on Hand',
+    placeholder: 'Stock on Hand',
+    sortable: true,
+    width: 140,
+    style: {flexDirection: 'row-reverse'}
+  },
+  {
+    accessor: 'on_hand_wgy',
+    Header: 'On Hand WGT',
+    placeholder: 'On Hand WGT',
+    sortable: true,
+    width: null,
+    style: {flexDirection: 'row-reverse'}
+  },
+  {
+    accessor: 'expected_in_qty',
+    Header: 'Expected In Qty',
+    placeholder: 'Expected In Qty',
+    sortable: true,
+    width: null,
+    style: {flexDirection: 'row-reverse'}
+  },
+  {
+    accessor: 'expected_in_wgt',
+    Header: 'Expected In Weight',
+    placeholder: 'Expected In Weight',
+    sortable: true,
+    width: null,
+    style: {flexDirection: 'row-reverse'}
+  },
+  {
+    accessor: 'expected_out_qty',
+    Header: 'Expected Out Qty',
+    placeholder: 'Expected Out Qty',
+    sortable: true,
+    width: null,
+    style: {flexDirection: 'row-reverse'}
+  },
+  { accessor: 'price', Header: ' Price ', placeholder: 'Price', width: null, sortable: true,
+  style: {flexDirection: 'row-reverse'} },
+  { accessor: 'pallets', Header: 'Pallets', placeholder: 'Pallets', width: null, sortable: true,
+  style: {flexDirection: 'row-reverse'} },
+];
+
+const customColumns = [
+  { accessor: 'site', Header: 'Site', placeholder: 'Site', width: null, sortable: true },
+  { accessor: 'client', Header: 'Client', placeholder: 'Client', width: null, sortable: true },
+  {
+    accessor: 'product',
+    Header: 'Product',
+    placeholder: 'Product',
+    sortable: true,
+    width: 80,
+    style: { textAlign: 'left' },
+  },
+  {
+    accessor: 'product_name',
+    Header: 'Description',
+    placeholder: 'Description',
+    width: null,
+    sortable: true,
+  },
+  { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: null, sortable: true },
+  { accessor: 'packdesc_1', Header: 'UOM', placeholder: 'UOM', width: null, sortable: true },
+  { accessor: 'statusTxt', Header: ' Status ', placeholder: 'Status', width: null, sortable: true },
   {
     accessor: 'on_hand_qty',
     Header: 'Stock on Hand',
@@ -81,13 +149,17 @@ class StockHolding extends React.PureComponent {
     task: null,
     resources: [],
     fields: columns,
+    customFields: customColumns,
     data: [],
+    loginInfo: {},
     create: false,
     pagination: {},
     detail: {},
     dimension: { width: 0, height: 0 },
     products: [],
     columnsPayload: [],
+    exportData: [],
+    tableStatus: 'waiting' //table status waiting or noData
   };
   componentDidMount = () => {
     // set automatic table height
@@ -97,7 +169,8 @@ class StockHolding extends React.PureComponent {
     this.getSite()
     this.getClient()
     this.getStatus()
-    this.searchStockHolding()
+    this.searchStockHolding('false','true')
+    // this.loadPersonalLogin();
   }
 
   componentWillUnmount() {
@@ -113,6 +186,7 @@ class StockHolding extends React.PureComponent {
     const siteData = data.map(d => ({ value: d.site, label: `${d.site}: ${d.name}` }))
     const site = { value: 'all', label: 'All Site' }
     siteData.splice(0, 0, site)
+    this.props.dispatch({ type: 'SITE', data: siteData })
     this.setState({ siteData })
   }
   getClient = async () => {
@@ -120,6 +194,7 @@ class StockHolding extends React.PureComponent {
     const clientData = data.map(d => ({ value: d.code, label: `${d.code}: ${d.name}` }))
     const client = { value: 'all', label: 'All Client' }
     clientData.splice(0, 0, client)
+    this.props.dispatch({ type: 'CLIENT', data: clientData })
     this.setState({ clientData })
   }
   getStatus = async () => {
@@ -133,49 +208,25 @@ class StockHolding extends React.PureComponent {
   }
 
   // url Get Header And Post
+//   loadPersonalLogin = () => {
+//     let userInfo = this.props.store;     
+//     this.setState({ loginInfo: userInfo.user });
+// }
 
   UrlHeader = () => {
-    return `${endpoints.getStockHoldingHearder}?client=ANTEC`
+    // let loginInfo = this.state.loginInfo
+    return `${endpoints.getStockHoldingHearder}?client=ALL`
   }
-  UrlAntec = () => {
-    return '/putStockholdingColumn?client=ANTEC'
+  UrlAll = () => {
+    return '/putStockholdingColumn?client=ALL'
   }
-  UrlBega = () => {
-    return '/putStockholdingColumn?client=BEGA'
-  }
-  UrlAesop = () => {
-    return '/putStockholdingColumn?client=AESOP'
-  }
-  UrlClucth = () => {
-    return '/putStockholdingColumn?client=CLUCTH'
-  }
-  UrlExquira = () => {
-    return '/putStockholdingColumn?client=EXQUIRA'
-  }
-  UrlLedvance = () => {
-    return '/putStockholdingColumn?client=LEDVANCE'
-  }
-  UrlOnestop = () => {
-    return '/putStockholdingColumn?client=ONESTOP'
-  }
-  UrlStartrack = () => {
-    return '/putStockholdingColumn?client=STARTRACK'
-  }
-  UrlTatura = () => {
-    return '/putStockholdingColumn?client=TATURA'
-  }
-  UrlTtl = () => {
-    return '/putStockholdingColumn?client=TTL'
-  }
-  UrlTtchem = () => {
-    return '/putStockholdingColumn?client=TTCHEM'
-  }
-
   // end url Get Header And Post
 
   siteCheck = (siteVal) => {
     let l = null
-    this.props.store.site.map(data => {
+    const {site} = this.props.store
+    if(site)
+    site.map(data => {
       if (data.value === siteVal) l = data.label
     })
     return l
@@ -183,45 +234,81 @@ class StockHolding extends React.PureComponent {
 
   clientCheck = (clientVal) => {
     let c = null
-    this.props.store.client.map(data => {
+    const {client} = this.props.store
+    if(client)
+    client.map(data => {
       if (data.value === clientVal) c = data.label
     })
     return c
   }
 
-  searchStockHolding = async () => {
-    let { search, site, client, status, pagination } = this.state
+  searchStockHolding = async (export_='false',readyDocument='false') => {
+    //export : true/false --> param for identify this function called from export button
+    //readyDocument : true/false --> if true, then avoid bug "repeatly set state from ComponentDidMount"
+
+    let { search, site, client, status, pagination, tableStatus } = this.state
+
+    //reset table
+    if(readyDocument == 'false' && export_ == 'false'){
+      this.setState({
+        data: [],
+        tableStatus: 'waiting'
+      })
+    } 
     
     let urls = []
-    urls.push('searchParam=' + search ? search : '')
+    urls.push('searchParam=' + (search ? search : ''))
     urls.push('site=' + (site.value ? site.value : 'all'))
     urls.push('client=' + (client.value ? client.value : 'all'))
     urls.push('status=' + (status ? status.value : 'all'))
     urls.push('page=' + (pagination.active || 1))
+    if(export_=='true'){urls.push('export=true')}
     const { data } = await axios.get(`${endpoints.stockHoldingSummary}?${urls.join('&')}`)
-    console.log(data)
+    //console.log(data)
     if (data?.data?.data) {
       const modifiedData = data.data.data;
+      console.log(modifiedData)
       modifiedData.map((item, idx) => {
-        if (item['on_hand_qty'] + item['expected_in_qty'] >= item['expected_out_qty']) {
+        if (parseInt(item['on_hand_qty'] + item['expected_in_qty'])  >= item['expected_out_qty']) {
           item['status'] = [<a className='status-ok'>OK</a>];
+          item['statusTxt'] = 'OK';
         } else {
           item['status'] = [<a className='status-shortage'>SHORTAGE</a>];
+          item['statusTxt'] = 'SHORTAGE';
         }
+        item['expected_in_qty'] = numeral(item['expected_in_qty']).format('0,0')
+        item['expected_out_qty'] = numeral(item['expected_out_qty']).format('0,0')
+        item['on_hand_qty'] = numeral(item['on_hand_qty']).format('0,0')
+        item['pallets'] = numeral(item['pallets']).format('0,0')
+        item['expected_in_wgt'] = numeral(item['expected_in_wgt']).format('0,0.000')
+        item['weight_processed'] = numeral(item['weight_processed']).format('0,0.000')
       })
-      this.setState({
-        pagination: {
-          active: pagination.active || data.data.current_page,
-          show: data.data.per_page,
-          total: data.data.total,
-          last_page: data.data.last_page,
-          from: data.data.from,
-          to: data.data.to
-        },
-        data: modifiedData
-      })
+      
+      if(export_=='true'){
+        this.setState({ 
+          exportData: modifiedData
+        })
+      }else{
+        this.setState({
+          pagination: {
+            active: pagination.active || data.data.current_page,
+            show: data.data.per_page,
+            total: data.data.total,
+            last_page: data.data.last_page,
+            from: data.data.from,
+            to: data.data.to
+          },
+          data: modifiedData
+        })
+      }
+
+      if(modifiedData.length < 1){
+        this.setState({   tableStatus: 'noData'  })
+      }
+
     } else {
-      this.setState({ data: [] })
+      if(export_!=='true'){this.setState({ data: [] })} 
+      this.setState({   tableStatus: 'noData'  })
     }
     // this.setState({ data: DummyData })
   }
@@ -235,6 +322,11 @@ class StockHolding extends React.PureComponent {
     this.setState({ create: value ? value : !this.state.create })
   }
 
+  onSubmitSearch = (e) => {
+    e.preventDefault();
+    this.searchStockHolding();
+}
+
   render() {
     const {
       dimension,
@@ -247,7 +339,10 @@ class StockHolding extends React.PureComponent {
       siteData,
       clientData,
       statusData,
-      urlHeader
+      exportData,
+      urlHeader,
+      customFields,
+      tableStatus
     } = this.state
     return (
       <div className='stockHolding table-summary'>
@@ -265,6 +360,7 @@ class StockHolding extends React.PureComponent {
 
         <CCard className='mb-3'>
           <CCardBody className='p-3'>
+            <form onSubmit={this.onSubmitSearch}>
             <CRow>
               <CCol lg={3} className='px-0'>
                 <div className='input-group '>
@@ -351,21 +447,25 @@ class StockHolding extends React.PureComponent {
                 </CRow>
               </CCol>
             </CRow>
+            </form>
           </CCardBody>
         </CCard>
 
         <CustomTable
-          title='Stock Holding'
+          title='Stock Holding'   
+          filename='Microlistics_StockHolding.'
           height={dimension.height}
           data={data}
+          font="10"
           fields={fields}
+          customFields={customFields} 
           pagination={pagination}
           onClick={this.showDetails}
           renameSubmit={this.renameSubmit}
-          UrlHeader={this.UrlHeader} UrlAntec={this.UrlAntec} UrlBega={this.UrlBega}
-          UrlAesop={this.UrlAesop} UrlClucth={this.UrlClucth} UrlExquira={this.UrlExquira}
-          UrlLedvance={this.UrlLedvance} UrlOnestop={this.UrlOnestop} UrlStartrack={this.UrlStartrack}
-          UrlTatura={this.UrlTatura} UrlTtl={this.UrlTtl} UrlTtchem={this.UrlTtchem}
+          UrlHeader={this.UrlHeader}
+          UrlAll={this.UrlAll}
+          tableStatus={tableStatus}
+          exportApi={async () =>  {await this.searchStockHolding('true')}}
           goto={(active) => {
             this.setState({ pagination: { ...pagination, active } }, () =>
               this.searchStockHolding()
@@ -377,6 +477,7 @@ class StockHolding extends React.PureComponent {
               EXPORT
             </button>
           }
+          exportData={exportData}
         />
       </div>
     );

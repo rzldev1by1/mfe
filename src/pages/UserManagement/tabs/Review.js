@@ -5,7 +5,7 @@ import Site from '../SiteReview'
 import Client from '../ClientReview'
 import axios from 'axios'
 import * as utility from '../UmUtility'
-
+import loading from "../../../assets/icons/loading/LOADING-MLS.gif"
 
 class Review extends React.PureComponent {
 
@@ -15,7 +15,7 @@ class Review extends React.PureComponent {
         return (
             <Container className="px-5 py-4">
                 <Row>
-                    <Col lg="2" className="pr-0">
+                    <Col lg="2" className="pr-0" style={{flex:"0 0 11%",maxWidth:"11%"}}>
                         <h3 className="text-primary font-20 um-text-webgroup">New User</h3>
                     </Col>
                     <Col lg="10" className="pl-0">
@@ -86,8 +86,9 @@ class Review extends React.PureComponent {
                     <Col lg={8}></Col>
                     <Col lg={2} className="text-right">
                         <button className="btn btn-primary font-lg" onClick={(e) => { this.props.submit() }}>
-                            <i className={`mx-1 fa fa-refresh ${submitProgress ? "fa-spin" : "d-none"}`}></i>
-                            {'SUBMIT'}
+                            {submitProgress ? <img src={loading} className='mt-min-5' width='45' height='45'/> : 'SUBMIT'}
+                            {/* <i className={`mx-1 fa fa-refresh ${submitProgress ? "fa-spin" : "d-none"}`}></i>
+                            {'SUBMIT'} */}
                         </button>
                     </Col>
                 </Row>

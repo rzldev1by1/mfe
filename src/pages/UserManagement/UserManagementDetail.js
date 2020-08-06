@@ -12,12 +12,14 @@ import * as utility from './UmUtility'
 import { FormFeedback } from 'reactstrap'
 import { connect } from 'react-redux'
 import moment from 'moment';
+import loading from "../../assets/icons/loading/LOADING-MLS.gif"
+
 // import popupLock from '../../assets/img/brand/popup_lock.png'
 // import popupLockSuccess from '../../assets/img/brand/popup_success_lock.png'
 
 const today = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
 const passChanged = '1999-08-28';
-const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'stock age profile'];
+const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement'];
 // const webgroup = {
 //     WAREHOUSE: 'Regular',
 //     ADMIN: 'Admin'
@@ -160,6 +162,7 @@ class UserManagementDetail extends Component {
 
     loadModuleAccess = async () => {
         let user = { ...this.state.accountInfo };
+        let isEnableAllModule = { ...this.state.isEnableAllModule };
         let userMenu = [...user.userMenu].map((item, index) => { return item.menuid; });
         const { data } = await axios.get(endpoint.userManagementModuleAccess)
         let menus = data.filter((item) => { return menuAvailable.indexOf(item.menuname.toLowerCase()) !== -1 })
@@ -172,11 +175,15 @@ class UserManagementDetail extends Component {
                 newItem.status = isStatus;
                 return newItem;
             });
-        this.setState({ moduleAccess: menus });
+
+            
+           isEnableAllModule = menus.filter((item) => {return item.status === true;}).length === menus.length?true:false;
+        this.setState({ moduleAccess: menus,isEnableAllModule:isEnableAllModule });
     }
 
     loadSites = async () => {
         let user = { ...this.state.accountInfo };
+        let isEnableAllSite = {...this.state.isEnableAllSite};
         const { data } = await axios.get(endpoint.getSite);
         
         let sites = data.map((item, index) => {
@@ -184,11 +191,14 @@ class UserManagementDetail extends Component {
             newItem.status = (user.site === null?true:((item.site === user.site) ? true : false));
             return newItem;
         });
-        this.setState({ sites: sites });
+
+         isEnableAllSite = sites.filter((item) => {return item.status === true;}).length === sites.length?true:false;
+        this.setState({ sites: sites, isEnableAllSite:isEnableAllSite });
     }
 
     loadClients = async () => {
         let user = { ...this.state.accountInfo };
+        let isEnableAllClient = {...this.state.isEnableAllClient};
         const { data } = await axios.get(endpoint.getClient);
 
         let clients = data.map((item, index) => {
@@ -196,7 +206,9 @@ class UserManagementDetail extends Component {
             newItem.status = (user.client === null?true: ((item.code === user.client) ? true : false));
             return newItem;
         });
-        this.setState({ clients: clients });
+        
+        isEnableAllClient = clients.filter((item) => {return item.status === true;}).length === clients.length?true:false;
+        this.setState({ clients: clients, isEnableAllClient:isEnableAllClient });
     }
 
 
@@ -362,7 +374,7 @@ class UserManagementDetail extends Component {
         newParam.thisAccess = accountInfo.thisAccess;
         newParam.thisLogin = accountInfo.thisLogin;
         newParam.userMenu = accountInfo.web_group === utility.webgroup.ADMIN? adminMenu:userMenu;
-        newParam.client = (accountInfo.web_group === utility.webgroup.ADMIN? null:(client? client.code:null));
+        newParam.client = (accountInfo.web_group === utility.webgroup.ADMIN? null:clientValue);
         newParam.site = (accountInfo.web_group === utility.webgroup.ADMIN? null:siteValue);
         newParam.disabled = accountInfo.disabled ? 'Y' : 'N';
 
@@ -490,7 +502,7 @@ class UserManagementDetail extends Component {
 
             <HeaderTitle breadcrumb={[
                 { to: '/users-management', label: 'User Management' },
-                { to: '', label: accountInfo.user, active: true },
+                // { to: '', label: accountInfo.user, active: true },
             ]} />
             <CCard>
                 <CCardBody className="p-3">
@@ -499,7 +511,7 @@ class UserManagementDetail extends Component {
                             <div className="row mb-3">
                                 <div className="col-12">
                                     <h3 className="mb-0">
-                                        <label className="text-primary mb-0">User Details</label>
+                                    <i class="fa fa-user pr-3" aria-hidden="true"></i><label className="text-primary mb-0">{accountInfo.user}</label>
                                     </h3>
                                 </div>
                             </div>
@@ -613,8 +625,9 @@ class UserManagementDetail extends Component {
                             </p>
 
                             <button type="button" className=" font-lg btn btn-primary btn-submit default-box-height" onClick={(e) => { this.saveClick(); }}>
-                                <i className={(this.state.isSaveProgressing) ? "mr-2 fa fa-refresh fa-spin " : "fa fa-refresh fa-spin d-none"}></i>
-                                <label className="create-user-label mb-0">SAVE</label>
+                                {this.state.isSaveProgressing ? <img src={loading} className='mt-min-5' width='45' height='45'/> : 'SAVE'}
+                                {/* <i className={(this.state.isSaveProgressing) ? "mr-2 fa fa-refresh fa-spin " : "fa fa-refresh fa-spin d-none"}></i> */}
+                                {/* <label className="create-user-label mb-0">SAVE</label> */}
                             </button>
 
                         </div>

@@ -140,6 +140,7 @@
   top: 0;
   left: 0;
   display: none;
+  z-index: 100;
 }
 .select_date_expand:checked + .select_date_closeLabel {
   display: block;
@@ -217,6 +218,7 @@
 .DayPicker-Weekday {
   min-width: 35px;
   min-height: 35px;
+  font-weight: bold;
 }
 .datepickerForOrderLine {
   position: absolute;
@@ -227,4 +229,21 @@
   padding: 0;
   width: 32px !important;
   height: 32px !important;
+}
+
+
+.DayPicker-Weekday abbr[title="Monday"]{
+    color: #000000;
+}
+.DayPicker-Weekday abbr[title="Tuesday"]{
+    color: #000000;
+}
+.DayPicker-Weekday abbr[title="Wednesday"]{
+    color: #000000;
+}
+.DayPicker-Weekday abbr[title="Thursday"]{
+    color: #000000;
+}
+.DayPicker-Weekday abbr[title="Friday"]{
+    color: #000000;
 }

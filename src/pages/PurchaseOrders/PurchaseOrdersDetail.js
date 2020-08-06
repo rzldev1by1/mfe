@@ -2,29 +2,30 @@ import React from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import moment from 'moment'
+import numeral from 'numeral'
 import { CCard, CCardBody, CRow, CCol, CButton, } from '@coreui/react'
 import CustomTable from 'shared/table/CustomTable'
 import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader'
 import './PurchaseOrder.scss'
 const columns = [
-  { accessor: "orig_line_number", Header: "Line No" },
-  { accessor: "product", Header: "Product" },
-  { accessor: "product_name", Header: "Description" },
-  { accessor: "quantity", Header: "Qty", width: 50 },
-  { accessor: "packdesc_1", Header: "UOM", width: 80 },
-  { accessor: "qty_processed", Header: "Qty Processed", width: 130 },
-  { accessor: "weight", Header: "Weight" },
-  { accessor: "weight_processed", Header: "Weight Processed", width: 140 },
+  { accessor: "orig_line_number",  placeholder: 'Line No', Header: "Line No" },
+  { accessor: "product",  placeholder: 'Product', Header: "Product" },
+  { accessor: "product_name",  placeholder: 'Description', Header: "Description" },
+  { accessor: "quantity",  placeholder: 'Qty', Header: "Qty", width: 50 },
+  { accessor: "packdesc_1",  placeholder: 'UOM', Header: "UOM", width: 80 },
+  { accessor: "qty_processed",  placeholder: 'Qty Processed', Header: "Qty Processed", width: 130 },
+  { accessor: "weight",  placeholder: 'Weight', Header: "Weight" },
+  { accessor: "weight_processed",  placeholder: 'Weight Processed', Header: "Weight Processed", width: 140 },
   {
-    accessor: "completed", Header: "Completed",
+    accessor: "completed",  placeholder: 'Completed', Header: "Completed",
     Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
-  { accessor: "batch", Header: "Batch", width: 90 },
-  { accessor: "rotadate", Header: "Rota Date" },
-  { accessor: "ref3", Header: "Ref3", width: 80 },
-  { accessor: "ref4", Header: "Ref4", width: 80 },
-  { accessor: "disposition", Header: "Disposition" },
+  { accessor: "batch",  placeholder: 'Batch', Header: "Batch", width: 90 },
+  { accessor: "rotadate",  placeholder: 'Rota Date', Header: "Rotadate" },
+  { accessor: "ref3",  placeholder: 'Ref3', Header: "Ref3", width: 80 },
+  { accessor: "ref4",  placeholder: 'Ref4', Header: "Ref4", width: 80 },
+  { accessor: "disposition", placeholder: 'Disposition', Header: "Disposition" },
 ]
 class PurchaseOrdersDetail extends React.Component {
   constructor(props) {
@@ -36,7 +37,9 @@ class PurchaseOrdersDetail extends React.Component {
       fields: columns,
       detail: {},
       products: [],
-      pagination: {}
+      pagination: {},
+      tableStatus: 'waiting',
+      exportData: []
     }
   }
   componentDidMount() {
@@ -53,37 +56,61 @@ class PurchaseOrdersDetail extends React.Component {
     this.setState({ dimension: { width: window.innerWidth, height } });
   }
   getDetail = async () => {
-    const { orderdetail, client } = this.props.match.params
-    const url = `/purchaseOrder?searchParam=${client}&orderdetail=${orderdetail}`
+    const { orderdetail, client,site } = this.props.match.params
+    const url = `/purchaseOrder?searchParam=${orderdetail}&client=${client}&site=${site}`
     const { data } = await axios.get(url)
     if (!!data.data) {
       this.setState({ detail: data.data.data[0] })
     }
   }
-  getProducts = async (page=1) => {
-    const { pagination } = this.state
-    const { orderdetail, client } = this.props.match.params
-    const url = `/purchaseOrder/${client}/${orderdetail}?page=${page}`
+  getProducts = async (page=1,export_='false') => {
+    //export : true/false --> param for identify this function called from export button 
+    
+    const { pagination,tableStatus } = this.state
+    const { orderdetail, client,site} = this.props.match.params
+    const url = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${page}&export=${export_}`
     const { data } = await axios.get(url)
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     // if (data.data.length) {
     //   this.setState({ products: data.data })
     // }
     if (data?.data?.data) { 
-      this.setState({
-        products: data.data.data,
-        pagination: {
-          active: pagination.active || data.data.current_page,
-          show: data.data.per_page,
-          total: data.data.total,
-          last_page: data.data.last_page,
-          from: data.data.from,
-          to: data.data.to
-        } 
-      }, () => {console.log (this.state.pagination)})
-    }
-     
+      const dt = data.data.data.map(m => { 
+        m.rotadate = m?.rotadate ? moment(m.rotadate).format('DD/MM/YYYY') : '-'
+        m.qty = numeral(m.qty).format('0,0')
+        m.qty_processed = numeral(m.qty).format('0,0')
+        m.weight = numeral(m.weight).format('0,0.000')
+        m.weight_processed = numeral(m.weight_processed).format('0,0.000')
+        return m
+      })
+      if(export_=='true'){
+        this.setState({ 
+          exportData: dt
+        })
+      }else{
+        this.setState({
+          products: dt,
+          pagination: {
+            active: pagination.active || data.data.current_page,
+            show: data.data.per_page,
+            total: data.data.total,
+            last_page: data.data.last_page,
+            from: data.data.from,
+            to: data.data.to
+          } 
+        })
+      }
+      
+
+      if(data.data.data.length < 1){
+        this.setState({   tableStatus: 'noData'  })
+      }
+    }else {
+      this.setState({ data: [] })
+      this.setState({   tableStatus: 'noData'  })
+    } 
   }
+
   formatDate = (date) => {
     return date ? moment(date).format('DD/MM/YYYY') : '-'
   }
@@ -100,12 +127,15 @@ class PurchaseOrdersDetail extends React.Component {
     })
   }
   UrlHeader = () =>{
-    return `$/getPurchseHeader?client=ANTEC`
+    return `/getPurchaseOrderDetailColumn?client=ALL`
+  }
+  UrlAll = () => {
+    return '/putPurchaseOrderDetailColumn?client=ALL'
   }
 
   render() {
     // const { match, history } = this.props
-    const { detail, products, fields, pagination } = this.state
+    const { detail, products, fields, pagination, tableStatus, exportData } = this.state
     return <div className="purchase-order-details">
       <HeaderTitle breadcrumb={[
         { to: '/purchase-order', label: 'Purchase Order' },
@@ -118,7 +148,7 @@ class PurchaseOrdersDetail extends React.Component {
             <CRow><CCol lg={3} className="text-light-gray px-3 py-1">Client</CCol> <CCol className="py-1">{this.clientCheck(detail.client) || '-'}</CCol></CRow>
             <CRow><CCol lg={3} className="text-light-gray px-3">Order No</CCol> <CCol>{detail.order_no || '-'}</CCol></CRow>
             <CRow><CCol lg={3} className="text-light-gray px-3 py-1">Order Type</CCol> <CCol className="py-1">{detail.order_type || '-'}</CCol></CRow>
-            <CRow><CCol lg={3} className="text-light-gray px-3">status</CCol> <CCol>{detail.status || '-'}</CCol></CRow>
+            <CRow><CCol lg={3} className="text-light-gray px-3">Status</CCol> <CCol>{detail.status || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>
         <CCard>
@@ -140,12 +170,16 @@ class PurchaseOrdersDetail extends React.Component {
       </div>
 
       <CustomTable
-        title="Sales Orders Details"
+        title="PurchaseOrder Orders Details"
+        filename='Microlistics_PurchaseOrderDetail.'
+        font="9"
         height={this.state.dimension.height}
         fields={fields}
         data={products}
         pagination={pagination}
         UrlHeader={this.UrlHeader} 
+        UrlAll={this.UrlAll}
+        tableStatus={tableStatus}
         export={
           <button className='btn btn-primary float-right btn-export'>
             {/* <div className='export-export pr-3' /> */}
@@ -155,6 +189,8 @@ class PurchaseOrdersDetail extends React.Component {
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.getProducts(active))
         }}
+        exportApi={async () =>  {await this.getProducts(1,'true')}}
+        exportData={exportData}
       />
       {/* <CustomPagination
       data={products}

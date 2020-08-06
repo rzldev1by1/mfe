@@ -135,7 +135,6 @@
 .stockMovement .rt-th {
   height: 46px;
   border-right: none !important;
-  border-bottom: 1px solid #E0E2E4;
   padding: 10px 10px !important; 
 }
 .stockMovement .rt-th svg{
@@ -160,9 +159,9 @@
   border-right: 1px solid #d5d8da !important;
 }
 
-.stockMovement .borderBottom {
-  border-bottom: 2px solid #d5d8da !important;
-}
+/* .stockMovement .borderBottom {
+  border-bottom: 0.5px solid #d5d8da !important;
+} */
 
 .stockMovement .noBorderBottom {
   border-bottom: 0px !important;
@@ -184,6 +183,14 @@
 
 .stockMovement .ReactTable .rt-tr {
   flex: none !important;
+}
+
+.stockMovement .ReactTable .-header .rt-tr {
+  border-bottom: 2px solid #E0E2E4;
+}
+
+.stockMovement .ReactTable .rt-thead {
+  border-bottom: 0px solid #E0E2E4;
 }
 
 .stockMovement .ReactTable .rt-tr-group {

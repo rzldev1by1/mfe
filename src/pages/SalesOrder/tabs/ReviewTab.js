@@ -70,7 +70,8 @@ class ReviewTab extends React.Component {
   
   siteCheck = (siteVal) => {
     let l = null
-    this.props.site.map(data => {
+    let site = this.props.client || []
+    site.map(data => {
       if (data.value === siteVal) l = data.label
     })
     return l
@@ -78,7 +79,8 @@ class ReviewTab extends React.Component {
 
   clientCheck = (clientVal) => {
     let c = null
-    this.props.client.map(data => {
+    let client = this.props.client || []
+    client.map(data => {
       if (data.value === clientVal) c = data.label
     })
     return c
@@ -184,7 +186,7 @@ class ReviewTab extends React.Component {
               <td><div className="c-400 required">Product</div></td>
               <td><div className="c-600">Description</div></td>
               <td><div className="c-100 required">Qty</div></td>
-              <td><div className="c-100">Weight</div></td>
+              <td><div className="c-170">Weight</div></td>
               <td><div className="c-150 required">UOM</div></td>
               <td><div className="c-250">Batch</div></td>
               <td><div className="c-100">Ref3</div></td>
@@ -198,19 +200,19 @@ class ReviewTab extends React.Component {
           <tbody>
             {lineDetail.length ? lineDetail.map((ld, i) => {
               return <tr className="py-1 text-center orderline-row">
-                <td className="px-1"><input value={i + 1} className="form-control text-center" readOnly /></td>
-                <td className="px-1"><input value={ld.productVal?.label} className="form-control w-400" readOnly /></td>
-                <td className="px-1"><input value={ld.product} className="form-control w-600" placeholder="Choose a product first" readOnly /></td>
-                <td className="px-1"><input value={ld.qty} className="form-control" placeholder="Qty" readOnly /></td>
-                <td className="px-1"><input value={ld.weight} className="form-control" placeholder="Weight" readOnly /></td>
-                <td className="px-1"><input value={ld.uom?.label} className="form-control" placeholder="UOM" readOnly /></td>
-                <td className="px-1"><input value={ld.batch} className="form-control" placeholder="Batch" readOnly /></td>
-                <td className="px-1"><input value={ld.ref3} className="form-control" placeholder="Ref 3" readOnly /></td>
-                <td className="px-1"><input value={ld.ref4} className="form-control" placeholder="Ref 4" readOnly /></td>
-                <td className="px-1"><input value={ld.dispositionVal?.label} className="form-control" placeholder="Disposition" readOnly /></td>
-                <td className="px-1"><input value={ld.packId} className="form-control" placeholder="Pack ID" readOnly /></td>
-                <td className="px-1"><input value={this.GetFormattedDate(ld.rotaDate)} className="form-control" readOnly /></td>
-                <td className="px-1"></td>
+                <td className="px-1 py-2"><input value={i + 1} className="form-control text-center" readOnly /></td>
+                <td className="px-1 py-2"><input value={ld.productVal?.label} className="form-control w-400" readOnly /></td>
+                <td className="px-1 py-2"><input value={ld.product} className="form-control w-600" placeholder="Choose a product first" readOnly /></td>
+                <td className="px-1 py-2"><input value={ld.qty} className="form-control" placeholder="Qty" readOnly /></td>
+                <td className="px-1 py-2"><input value={ld.weight} className="form-control" placeholder="Weight" readOnly /></td>
+                <td className="px-1 py-2"><input value={ld.uom?.label} className="form-control" placeholder="UOM" readOnly /></td>
+                <td className="px-1 py-2"><input value={ld.batch} className="form-control" placeholder="Batch" readOnly /></td>
+                <td className="px-1 py-2"><input value={ld.ref3} className="form-control" placeholder="Ref 3" readOnly /></td>
+                <td className="px-1 py-2"><input value={ld.ref4} className="form-control" placeholder="Ref 4" readOnly /></td>
+                <td className="px-1 py-2"><input value={ld.dispositionVal?.label} className="form-control" placeholder="Disposition" readOnly /></td>
+                <td className="px-1 py-2"><input value={ld.packId} className="form-control" placeholder="Pack ID" readOnly /></td>
+                <td className="px-1 py-2"><input value={this.GetFormattedDate(ld.rotaDate)} className="form-control" readOnly /></td>
+                <td className="px-1 py-2"></td>
               </tr>
             }) : null}
           </tbody>

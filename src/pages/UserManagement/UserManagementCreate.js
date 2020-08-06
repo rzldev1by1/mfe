@@ -8,7 +8,7 @@ import NewUser from './tabs/NewUser'
 import Review from './tabs/Review'
 import _ from 'lodash'
 
-const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'stock age profile'];
+const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement'];
 // const webgroup = {
 //   WAREHOUSE: 'Regular',
 //   ADMIN: 'Admin'
@@ -234,14 +234,19 @@ class UserManagementCreate extends React.PureComponent {
     let site = sites.find((item, index) => {
       return item.status === true;
     });
+
+    
+    let siteValue = (site && (sites.filter((item) => {return item.status === true;}).length !== sites.length))? site.site:null;
     
     let client = clients.find((item, index) => {
       return item.status === true;
     });
 
+    let clientValue = (client && (clients.filter((item) => {return item.status === true;}).length !== clients.length))? client.code:null;
+
     userInfo.userMenu = (user.webGroup === utility.webgroup.ADMIN) ? adminMenu : userMenu;
-    userInfo.site = ((user.webGroup === utility.webgroup.ADMIN) ? null : (site? site.site:null));
-    userInfo.client = ((user.webGroup === utility.webgroup.ADMIN) ? null : (client? client.code:null));
+    userInfo.site = ((user.webGroup === utility.webgroup.ADMIN) ? null : siteValue);
+    userInfo.client = ((user.webGroup === utility.webgroup.ADMIN) ? null : clientValue);
 
     const { status, data } = await axios.post(endpoint.userManagementCreate, userInfo);
     if (status === 200) {
