@@ -374,10 +374,14 @@ class CreateTab extends React.Component {
           console.log(integer + ' int')
           if(integer.length <= 6)
           {
-            let idxSepr1 = integer.slice(0,integer.length - 3)
-            let idxSepr2 = integer.slice(integer.length - 3)
-            console.log(`${idxSepr1},${idxSepr2}.${decimal}`)
-            number = `${idxSepr1},${idxSepr2}.${decimal}`
+            if(integer.length >= 4)
+            {
+              let idxSepr1 = integer.slice(0,integer.length - 3)
+              let idxSepr2 = integer.slice(integer.length - 3)
+              console.log(`${idxSepr1},${idxSepr2}.${decimal}`)
+              number = `${idxSepr1},${idxSepr2}.${decimal}`
+            }
+            else number = `${integer}.${decimal}`
           }
           if(integer.length > 6 && integer.length <=9)
           {
