@@ -79,6 +79,14 @@ class SalesOrderDetail extends React.Component {
         Header: 'Expected In',
         sortable: true,
         width: 150,
+        Cell : row => {
+          return(
+            <div>
+              <span className="class-for-name">{row.original.qtyexpected}</span>
+              <span className="class-for-name">{row.original.qty? 0 : null}</span>
+            </div>
+          )
+        }
       },
       {
         accessor: 'qtycommitted',
@@ -86,6 +94,14 @@ class SalesOrderDetail extends React.Component {
         Header: 'Expected Out',
         sortable: true,
         width: 150,
+        Cell : row => {
+          return(
+            <div>
+              <span className="class-for-name">{row.original.qtycommitted}</span>
+              <span className="class-for-name">{row.original.qty}</span>
+            </div>
+          )
+        }
       },
       {
         accessor: 'closingbalance',
@@ -98,6 +114,7 @@ class SalesOrderDetail extends React.Component {
             <div>
               <span className="class-for-name">{row.original.startbalance}</span>
               <span className="class-for-name">{row.original.closingbalance}</span>
+              <span className="class-for-name">{row.original.closingstock}</span>
               <span className="class-for-name">{row.original.totalbalance}</span>
             </div>
           )
@@ -180,9 +197,15 @@ class SalesOrderDetail extends React.Component {
     const url = `/stockbal?client=${client}&product=${product}&site=${site}`;
     const { data } = await axios.get(url);
     const openingbal  = [{openingbalancetext:'Opening Balance', startbalance:data[0][0]['opening balance']}]
-    const closingbal  = [{closingbalancetext:'Closing Balance', totalbalance:data[0][0]['closing balance']}]
+    let closingbal  = [{closingbalancetext:'Closing Balance', totalbalance:data[0][0]['closing balance']}]
     const available   = data[0][0]['available orders']
-    const expiry      = data[0][0]['stock expiry']
+    let expiry      = data[0][0]['stock expiry']
+    expiry.map(expiry => {
+      expiry['qty'] = expiry['quantity']
+      closingbal[0].totalbalance = parseInt(closingbal[0].totalbalance)  - parseInt(expiry.qty)
+      expiry['closingstock'] = closingbal[0].totalbalance
+      return expiry
+    })
     let concat = openingbal.concat(available)
     concat = concat.concat(expiry)
     concat = concat.concat(closingbal)
