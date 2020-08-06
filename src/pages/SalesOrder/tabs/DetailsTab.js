@@ -18,7 +18,9 @@ class CreateTab extends React.Component {
   state = {
     overflow: [],
     orderLine: [{}], error: {},
-    siteData: this.props.siteData, clientData: this.props.clientData, orderTypeData: this.props.orderTypeData,
+    siteData: this.props.siteData,
+    clientData: this.props.clientData,
+    orderTypeData: this.props.orderTypeData,
     supplierData:[],
     isDatepickerShow: false,
     datepickerStatus: [],
@@ -62,6 +64,17 @@ class CreateTab extends React.Component {
   //   const productData = data.code.map((c, i) => ({ value: c, label: c, i }))
   //   this.setState({ productData, productDataName: data.name })
   // }
+  hideAllOptionSite = () =>{
+    let siteData = [...this.state.siteData]
+    delete siteData[0]
+    return siteData
+  }
+
+  hideAllOptionClient = () =>{
+    let clientData = [...this.state.clientData]
+    delete clientData[0]
+    return clientData
+  }
 
   getProduct = async (val) => {
     const client = this.props.user.client?this.state.client:this.state.client.value
@@ -394,7 +407,7 @@ class CreateTab extends React.Component {
             user.site ? 
             <input value={this.siteCheck(user.site)} className="form-control" readOnly />
             :
-            <Select options={siteData} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required 
+            <Select options={this.hideAllOptionSite()} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required 
             styles={{
               dropdownIndicator: (base, state) => ({
                 ...base, 
@@ -442,7 +455,7 @@ class CreateTab extends React.Component {
             user.client ?
             <input value={this.clientCheck(user.client)} className="form-control" readOnly />
             :
-            <Select  options={clientData} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required
+            <Select  options={this.hideAllOptionClient()} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required
             styles={{
               dropdownIndicator: (base, state) => ({
                 ...base, 
@@ -541,7 +554,7 @@ class CreateTab extends React.Component {
               <td><div className="c-50 text-center">#</div></td>
               <td><div className="c-400 required">Product</div></td>
               <td><div className="c-600">Description</div></td>
-              <td><div className="c-100 required">Qty</div></td>
+              <td><div className="c-150 required">Qty</div></td>
               <td><div className="c-170">Weight</div></td>
               <td><div className="c-150 required">UOM</div></td>
               <td><div className="c-250">Batch</div></td>
@@ -557,7 +570,7 @@ class CreateTab extends React.Component {
             {orderLine.length && orderLine.map((o, i) => { 
               return <tr className="py-1 text-center orderline-row">
                 <td className="pl-0 pr-1">
-                  <input value={i + 1} className="form-control text-center" readOnly />
+                  <input value={i + 1} className="form-control text-center" readOnly style={{backgroundColor:"#f6f7f9"}} />
                 </td>
                 <td className="px-1 text-left">
                   <Select value={o.productVal || ''}
@@ -579,7 +592,7 @@ class CreateTab extends React.Component {
                   <Required id="productVal" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="px-1">
-                  <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly />
+                  <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly style={{backgroundColor:"#f6f7f9"}}/>
                 </td>
                 <td className="px-1">
                   <input name="qty" onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control" value={numeral(this.state.orderLine[i]['qty']).format('0,0')}  onKeyPress={(e) => this.numberCheck(e)}  placeholder="Qty" maxLength="10"  />
@@ -655,13 +668,13 @@ class CreateTab extends React.Component {
           </tbody>
         </table>
       </div>
-      <button className="btn btn-light-gray m-0" onClick={this.addLine}>Add Line</button>
+      <button className="btn btn-light-gray m-0" onClick={this.addLine}>ADD LINE</button>
 
       <Row className="mt-3">
         <Col lg={2}></Col>
         <Col lg={8}></Col>
         <Col lg={2} className="text-right">
-          <button className="btn btn-primary" onClick={this.next}>{'Next'}</button>
+          <button className="btn btn-primary" onClick={this.next}>{'NEXT'}</button>
         </Col>
       </Row>
     </Container>

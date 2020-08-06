@@ -539,12 +539,12 @@ class StockMovement extends React.PureComponent {
     />
  
     <CCard style={{zIndex: '999'}} className="mb-3 StockMovementFilter">
-      <CCardBody className="px-0 py-3 main-con">
+      <CCardBody className="p-3 main-con">
         <form onSubmit={this.submitSearch}>
-        <CRow className="flex-container-total-align"> 
+        <CRow > 
         {/* Filter content start */}
 
-        <CCol lg={2} className="sm-col-14 pr-0" >
+        <CCol lg={2} className="sm-col-14 px-0">
             <Select name="filterType" className="stockMovement" placeholder="Display Period"
               value={filterType} options={filterData} 
               onChange={(val) => this.periodHandler( val )}  
@@ -556,8 +556,8 @@ class StockMovement extends React.PureComponent {
               }}
             />
         </CCol>
-        <CCol lg={2} className="sm-col-7 text-right pr-0 text-light-gray labelDateFrom" > Date From </CCol>
-        <CCol lg={2} className="sm-col-14 pr-0 dateFrom" > 
+        <div className="px-3 text-light-gray labelDateFrom d-flex align-items-center" >Date From</div>
+        <CCol lg={2} className="sm-col-14 px-0 dateFrom" > 
                 <DatePicker style={{ minWidth: '100%' }}
                   ref="dateFrom" arrowStyle={true}
                   getDate={(e) => { this.setState({ dateFromSelected: e })}}
@@ -566,8 +566,8 @@ class StockMovement extends React.PureComponent {
                   fromMonth={minDate} toMonth={maxDate}
                 />
         </CCol>
-        <CCol lg={2} className="sm-col-3 text-right pl-0 pr-0 text-light-gray labelDateTo" > To </CCol>
-        <CCol lg={2} className="sm-col-14 pr-0 dateTo" > 
+        <div className="px-3 text-light-gray labelDateTo d-flex align-items-center">To</div>
+        <CCol lg={2} className="sm-col-14 px-0 dateTo" > 
                   <DatePicker style={{ minWidth: '100%', height:'50px' }}
                       ref="dateTo" arrowStyle={true}
                       firstDate = {this.state.dateFromSelected}
@@ -628,7 +628,7 @@ class StockMovement extends React.PureComponent {
             }}
         />
         </CCol> 
-        <CCol lg={2} className="sm-col-11 col-btn pl-0">
+        <CCol lg={2} className="sm-col-11 col-btn px-0">
             <button className="btn btn-block btn-primary float-right stockMovement btn-search" onClick={this.searchStockMovement} id="stockMovementBtn">SEARCH</button>
         </CCol>
 

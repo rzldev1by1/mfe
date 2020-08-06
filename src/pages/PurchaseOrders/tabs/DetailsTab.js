@@ -503,7 +503,7 @@ class CreateTab extends React.Component {
               <td><div className="c-100 required">Qty</div></td>
               <td><div className="c-170">Weight</div></td>
               <td><div className="c-150 required">UOM</div></td>
-              <td><div className="c-100">Batch</div></td>
+              <td><div className="c-250">Batch</div></td>
               <td><div className="c-100">Ref3</div></td>
               <td><div className="c-100">Ref4</div></td>
               <td><div className="c-150">Disposition</div></td>
@@ -515,7 +515,7 @@ class CreateTab extends React.Component {
             {orderLine.length && orderLine.map((o, i) => {
               return <tr className="py-1 text-center orderline-row">
                 <td className="px-1">
-                  <input value={i + 1} className="form-control text-center" readOnly />
+                  <input value={i + 1} className="form-control text-center" readOnly style={{backgroundColor:"#f6f7f9"}}/>
                 </td>
                 <td className="px-1">
                   <Select value={o.productVal || ''}
@@ -540,7 +540,7 @@ class CreateTab extends React.Component {
                   <div className='w-100 d-flex align-items-start'><Required id="productVal" error={error.orderLine && error.orderLine[i]} /></div>
                 </td>
                 <td className="px-1">
-                  <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly />
+                  <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly style={{backgroundColor:"#f6f7f9"}}/>
                 </td>
                 <td className="px-1">
                   <input name="qty" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['qty']} type="text" className="form-control" placeholder="Qty" maxlength="10" />
@@ -621,13 +621,13 @@ class CreateTab extends React.Component {
           </tbody>
         </table>
       </div>
-      <button className="btn btn-light-gray m-0" onClick={this.addLine}>Add Line</button>
+      <button className="btn btn-light-gray m-0" onClick={this.addLine}>ADD LINE</button>
 
       <Row className="mt-3">
         <Col lg={2}></Col>
         <Col lg={8}></Col>
         <Col lg={2} className="text-right">
-          <button className="btn btn-primary" onClick={this.next}>{'Next'}</button>
+          <button className="btn btn-primary" onClick={this.next}>{'NEXT'}</button>
         </Col>
       </Row>
     </Container>

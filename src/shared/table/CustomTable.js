@@ -211,7 +211,7 @@ showModal = (show) => {
     if(this.props.editColumn !== 'false'){
       let editBtn = (
         <div className='edit-column' onClick={this.showModal.bind(this, true)}>
-          <i className='iconU-edit text-primary' />
+          <i className='iconU-edit'/>
         </div>
       )
       let obj = {
@@ -482,13 +482,13 @@ showModal = (show) => {
   }
 
   render() {
-    const { showModal, editColumn, editColumnTemp, activeTab } = this.state
-    let { fields, title, data, exportData, onClick, height, pagination,request_status,font, tableStatus } = this.props
-    //console.log(data) 
+    const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
+    let {  title, data, exportData, onClick, height, pagination,request_status,font, tableStatus } = this.props
+    // console.log(data)
 
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
-    //console.log(this.ExportHeader())  
+    // console.log(this.ExportHeader())  
 
     return (
       <React.Fragment>
@@ -528,7 +528,7 @@ showModal = (show) => {
               </tr>
             </thead>
             <tbody>
-              {exportData ? exportData.map((data, i) =>
+                {exportData ? exportData.map((data, i)  =>
                 <tr key={i} >
                   {fields.map((column, columnIdx) => {
                       return (
@@ -602,7 +602,7 @@ showModal = (show) => {
             <Row className={"mx-0 justify-content-between  "+(this.props.store.user.userLevel == 'Admin' ? 'mb-3':'')}>
               <Col lg={6} className='text-primary font-20 p-0'>{title}</Col>
               <Row className='align-items-center rename-columns mx-0 text-align-left'>
-                
+
                     {this.props.store.user.userLevel !== 'Admin' ? '': 
                   <Nav tabs className="px-1">
                     <div className='input-group'>
@@ -642,10 +642,10 @@ showModal = (show) => {
                             </span>
                           </div>
                         </NavLink>
-                      </NavItem>  
+                      </NavItem>
                     </div>
                   </Nav>
-                    }
+                  }
               </Row>
             </Row>
             <Row >

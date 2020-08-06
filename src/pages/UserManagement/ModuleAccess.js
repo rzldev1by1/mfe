@@ -11,7 +11,7 @@ const disable = 'Disabled';
     <div>
       <div className="flex-column mr-2 line-border my-3">
         <div className="d-flex">
-          <label className="col-6 text-muted px-0 py-2" htmlFor="moduleAccess">Module Access
+          <label className="col-6 text-muted-soft px-0 py-2" htmlFor="moduleAccess">Module Access
             </label>
 
           <div className="col-6">
