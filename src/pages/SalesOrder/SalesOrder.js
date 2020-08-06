@@ -158,14 +158,15 @@ class SalesOrder extends React.PureComponent {
     if (user) {
       const { data } = await axios.get(`${endpoints.getSoResources}?company=${user.company || ''}&client=${user.client || ''}`)
       const { code, name } = data.orderTypeFilter
-      const orderTypeData = code.map((c, i) => ({ value: c, label: `${code[i]}: ${name[i]}` })) 
+      const orderTypeFilterData = data.orderTypeFilter.code.map((data, i) => ({ value: data, label: `${data}: ${name[i]}` }))
+      const orderTypeData = data.orderType.name.map((data, i) => ({ value: data, label: `${data}: ${data?.orderType?.name[i]}` }))
       const orderType = { value: 'all', label: 'All Order' }
-      orderTypeData.splice(0, 0, orderType)
+      orderTypeFilterData.splice(0, 0, orderType)
 
       const code2 = data.orderType.code
       const name2 = data.orderType.name
       const orderTypeInsert = code2.map((c, i) => ({ value: c, label: `${code2[i]}: ${name2[i]}` })) 
-      this.setState({ resources: data, orderTypeData, orderTypeInsert }) 
+      this.setState({ resources: data, orderTypeData, orderTypeInsert, orderTypeFilterData}) 
        
     }
   }
@@ -296,7 +297,7 @@ class SalesOrder extends React.PureComponent {
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData,orderTypeInsert, taskData, customFields,tableStatus,exportData
+      siteData, clientData, statusData, orderTypeData,orderTypeInsert, taskData, customFields,tableStatus,exportData,orderTypeFilterData
     } = this.state 
     return <div className="sales-order">
       <HeaderTitle
@@ -366,7 +367,7 @@ class SalesOrder extends React.PureComponent {
                 </CCol>
                 <CCol lg={2} className="px-3">
                   <Select name="orderType" placeholder="Order Type"
-                    value={orderType} options={orderTypeData}
+                    value={orderType} options={orderTypeFilterData}
                     onChange={(val) => this.setState({ orderType: val })}
                     styles={{
                       dropdownIndicator: (base, state) => ({
