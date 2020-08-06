@@ -386,6 +386,9 @@
     max-width: 35.66667% !important;
   }
 }
+.mt-min-5{
+  margin-top: -2rem !important;
+ }
 @media (max-height: 700px){
 
   .client-areas{

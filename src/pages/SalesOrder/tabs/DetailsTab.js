@@ -18,7 +18,9 @@ class CreateTab extends React.Component {
   state = {
     overflow: [],
     orderLine: [{}], error: {},
-    siteData: this.props.siteData, clientData: this.props.clientData, orderTypeData: this.props.orderTypeData,
+    siteData: this.props.siteData,
+    clientData: this.props.clientData,
+    orderTypeData: this.props.orderTypeData,
     supplierData:[],
     isDatepickerShow: false,
     datepickerStatus: [],
@@ -62,6 +64,17 @@ class CreateTab extends React.Component {
   //   const productData = data.code.map((c, i) => ({ value: c, label: c, i }))
   //   this.setState({ productData, productDataName: data.name })
   // }
+  hideAllOptionSite = () =>{
+    let siteData = [...this.state.siteData]
+    delete siteData[0]
+    return siteData
+  }
+
+  hideAllOptionClient = () =>{
+    let clientData = [...this.state.clientData]
+    delete clientData[0]
+    return clientData
+  }
 
   getProduct = async (val) => {
     const client = this.props.user.client?this.state.client:this.state.client.value
@@ -394,7 +407,7 @@ class CreateTab extends React.Component {
             user.site ? 
             <input value={this.siteCheck(user.site)} className="form-control" readOnly />
             :
-            <Select options={siteData} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required 
+            <Select options={this.hideAllOptionSite()} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required 
             styles={{
               dropdownIndicator: (base, state) => ({
                 ...base, 
@@ -442,7 +455,7 @@ class CreateTab extends React.Component {
             user.client ?
             <input value={this.clientCheck(user.client)} className="form-control" readOnly />
             :
-            <Select  options={clientData} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required
+            <Select  options={this.hideAllOptionClient()} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required
             styles={{
               dropdownIndicator: (base, state) => ({
                 ...base, 
