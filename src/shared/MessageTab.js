@@ -19,7 +19,7 @@ export default class MessageTab extends React.Component{
         else imgSrc = attention
 
         
-        if(status === 'Failed to create order') 
+        if(status !== 'Successfully added') 
         statusMessage = 'The ' + module + ' That you tried to create could not be saved to the system.'
         return (
             <Container className="px-5 py-4 tab-content">
