@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import HeaderTitle from 'shared/container/TheHeader'
-import Logo from 'assets/img/Home-Background.png';
+import Logo from 'assets/img/LOGO1.png';
 import './Welcome.css'
 
 class Welcome extends Component {
