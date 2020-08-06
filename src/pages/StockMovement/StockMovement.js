@@ -221,24 +221,14 @@ class StockMovement extends React.PureComponent {
     this.setState({ statusData })
   }
 
-  getproduct = () => {
-    let self = this; 
-    let tmp_data = []
-    self.setState({ productdata: tmp_data }) 
-
-    axios.get(endpoints.getProduct + '?client=' + this.state.client.value )
-    .then(res => {
-        const data = res.data 
-        const productdata = data.code.map((c, i) => ({ value: c, label: `${data.code[i]}: ${data.name[i]}` }))
-        const tmp = { value: 'all', label: 'All Product' }
-        productdata.splice(0, 0, tmp)
-        this.setState({ productData: productdata })
-        
-    })
-    .catch(error => {
-        console.log(error);
-    })
+  getproduct = async (val) => {
+    const { data } = await axios.get(endpoints.getProduct + '?client=' + this.state.client.value + '&param=' + val )
+    const productData = data.map((data, i) => ({ value: data.code, label: data.code + " : " + data.name , i }))
+    const tmp = { value: 'all', label: 'All Product' }
+    productData.splice(0, 0, tmp);
+    this.setState({ productData });
   }
+
   getResources = async () => {
     const { user } = this.props.store
     if (user) {
@@ -616,9 +606,10 @@ class StockMovement extends React.PureComponent {
         </CCol>
         <CCol lg={2} className="sm-col-13 product" > 
         <Select name="product" placeholder="Product" 
-            value={product} options={this.state.product.length >= 3 ? productData : []}
-            menuIsOpen={this.state.product.length >= 3 ? true : false}
-            onInputChange={(val) => this.setState({ product: val })}
+            value={product} options={productData}
+            onInputChange={(val) => {this.setState({ product: val }, () => {
+                if(val >= 3) { this.getproduct(val) }
+            }) }}
             onChange={(val) => this.setState({ product: val })} 
             styles={{
             dropdownIndicator: (base, state) => ({
