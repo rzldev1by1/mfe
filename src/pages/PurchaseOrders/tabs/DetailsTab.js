@@ -174,8 +174,11 @@ class CreateTab extends React.Component {
 
   decimalFormatter = (name,value) => {
     let newVal = value;
+    
     if(name === 'weight')
     {
+      if(newVal.length > 14) newVal = newVal.split('').filter(d => d !== ',' ? d : null).map((d,i) => {if(i > 10 && !newVal.includes('.')){return null } else return d} ).join('')
+      console.log(newVal)
       const dot = newVal.indexOf('.')
       console.log(dot+' dot')
       if(dot !== -1)
@@ -209,9 +212,9 @@ class CreateTab extends React.Component {
           console.log(`${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`)
           number = `${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`
         }
-        number = number.split('')
-        if(number[0] === ',')delete number[0]
-        number = number.join('')
+        number = number?.split('')
+        if(number && number[0] === ',')delete number[0]
+        number = number?.join('')
         return number
       }
       else return numeral(newVal).format('0,0')
@@ -550,7 +553,7 @@ class CreateTab extends React.Component {
                   
                 </td>
                 <td className="px-1">
-                  <input name="weight" value={this.state.orderLine[i]['weight']}  onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="15" className="form-control" placeholder="Weight" />
+                  <input name="weight" value={this.state.orderLine[i]['weight']}  onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="18" className="form-control" placeholder="Weight" />
                 </td>
                 <td className="px-1">
                   <Select value={o.uom || ''}
