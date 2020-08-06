@@ -318,36 +318,36 @@ header {
 /* Line Details Styles End */
 
 .status-ok {
-  color: rgb(149, 146, 146) !important;
+  color: #637175 !important;
   background: transparent;
-  padding: 6px 28px;
+  padding: 1px 28px;
   border-radius: 0.5rem;
-  border: solid 1.5px rgb(149, 146, 146);
+  border: solid 1.5px #637175;
   font-size: 12px;
 }
 .status-shortage {
   color: white !important;
   background: #f94548;
-  padding: 6px;
+  padding: 2px 6px;
   font-size: 12px;
   border-radius: 0.5rem;
 }
 
 .status-available {
   color: #fff !important;
-  background-color: #d1cccc;
+  background-color: #637175;
   border-radius: 0.5rem;
   /* border: solid 1.0.5rem #959292; */
   font-size: 12px;
-  padding: 6px 22px;
+  padding: 2px 22px;
 }
 .status-Unavailable {
   color: #fff !important;
-  background-color: #c82525;
+  background-color: #f94548;
   border-radius: 0.5rem;
   /* border: solid 1.5px #959292; */
   font-size: 12px;
-  padding: 6px 14px;
+  padding: 2px 14px;
 }
 .status-complete {
   color: #555050 !important;
@@ -355,15 +355,15 @@ header {
   border-radius: 0.5rem;
   border: solid 1px #555050;
   font-size: 12px;
-  padding: 6px 19px;
+  padding: 2px 19px;
 }
 .status-partRelease {
-  color: #555050 !important;
+  color: #637175 !important;
   background-color: transparent;
   border-radius: 0.5rem;
-  border: solid 1px #555050;
+  border: solid 1px #637175;
   font-size: 12px;
-  padding: 6px;
+  padding: 1px 6px;
 }
 .status-Release {
   color: #555050 (209, 204, 204) !important;
@@ -371,7 +371,7 @@ header {
   border-radius: 0.5rem;
   border: solid 1px #555050;
   font-size: 12px;
-  padding: 6px 23px;
+  padding: 2px 23px;
 }
 .rt-noData{
   text-align: center !important;
