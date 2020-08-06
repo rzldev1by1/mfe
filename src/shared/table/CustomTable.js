@@ -559,6 +559,7 @@ showModal = (show) => {
                     excel={this.props.excel}  
                     getExportData={() => this.getExportData()}
                     ExportData={exportData}
+                    pagination={pagination}
                     ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={font} />
             </CCol>
         </CRow>
