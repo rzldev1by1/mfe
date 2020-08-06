@@ -1,4 +1,17 @@
-.welcome .logo {
+.welcome{
+  position: absolute;
+  background-size: cover;
+  background-repeat:no-repeat;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url("../../assets/img/Home-Background.png");
+}
+.welcome > .c-header > .c-subheader{
+  z-index: -1 !important;
+}
+.welcome > .logo {
   position: absolute;
   top: 50%;
   left: 50%;

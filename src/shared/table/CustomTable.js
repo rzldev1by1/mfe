@@ -211,7 +211,7 @@ showModal = (show) => {
     if(this.props.editColumn !== 'false'){
       let editBtn = (
         <div className='edit-column' onClick={this.showModal.bind(this, true)}>
-          <i className='iconU-edit text-primary' />
+          <i className='iconU-edit'/>
         </div>
       )
       let obj = {

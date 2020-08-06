@@ -15,6 +15,12 @@
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+.iconU-edit{
+  color:#b4b9bb;
+}
+.iconU-edit:hover{
+  color:#376BFB;
+}
 
 .form-rename:hover{
   border-color: #376BFB !important;
