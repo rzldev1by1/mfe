@@ -314,6 +314,7 @@ class CreateTab extends React.Component {
   }
   next = (e) => {
     const error = validations(this.state)
+    console.log(this.state.error)
     if (Object.keys(error).length) {
       return this.setState({ error })
     } else {
