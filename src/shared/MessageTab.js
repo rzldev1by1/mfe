@@ -20,7 +20,7 @@ export default class MessageTab extends React.Component{
 
         
         if(status !== 'Successfully added') 
-        statusMessage = 'The ' + module + ' That you tried to create could not be saved to the system.'
+        statusMessage = 'The order that you tried to create could not be saved to the system.'
         return (
             <Container className="px-5 py-4 tab-content">
                 <Col className='pl-4'>
