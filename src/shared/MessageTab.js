@@ -14,13 +14,13 @@ export default class MessageTab extends React.Component{
         const {module,status, back, orderNo, exit} = this.props
         
         let imgSrc = complete;
-        let statusMessage = 'The' + module + ' ' + orderNo + ' has successfully submitted for processing.'
+        let statusMessage = 'The ' + module + ' ' + orderNo + ' has successfully submitted for processing.'
         if(status === 'Successfully added') imgSrc = complete
-        if(status === 'Failed to create order') imgSrc = attention
+        else imgSrc = attention
 
         
-        if(status === 'Failed to create order') 
-        statusMessage = 'The ' + module + ' That you tried to create could not be saved to the system.'
+        if(status !== 'Successfully added') 
+        statusMessage = 'The order that you tried to create could not be saved to the system.'
         return (
             <Container className="px-5 py-4 tab-content">
                 <Col className='pl-4'>
@@ -33,9 +33,9 @@ export default class MessageTab extends React.Component{
                   <Row className='flex justify-content-between align-items-center'>
                       {
                           status == 'Successfully added' ?
-                          <button className='btn btn-green mb-2' onClick={() => exit()}>Done</button>
+                          <button className='btn btn-green mb-2' onClick={() => exit()}>DONE</button>
                           :
-                          <button className='btn btn-primary mb-2' onClick={() => back()}>Back</button>
+                          <button className='btn btn-primary mb-2' onClick={() => back()}>BACK</button>
                       }
                     
                     <div className='text-right vertical-middle h-fit-content e-text-color'>{`${status !== 'Successfully added' ? 'Error Code 400' : 'Code 200'}`}</div>

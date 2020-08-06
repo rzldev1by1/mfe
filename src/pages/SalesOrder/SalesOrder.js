@@ -93,7 +93,8 @@ class SalesOrder extends React.PureComponent {
       create: false,
       detail: {},
       dimension: { width: 0, height: 0 }, 
-      tableStatus: 'waiting'
+      tableStatus: 'waiting',
+      exportData: [],
     }
   }
   componentDidMount = () => {
@@ -105,7 +106,7 @@ class SalesOrder extends React.PureComponent {
     this.getClient()
     this.getStatus()
     this.getResources()
-    this.searchSalesOrder()
+    this.searchSalesOrder('false','true')
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimension);
@@ -157,20 +158,32 @@ class SalesOrder extends React.PureComponent {
     if (user) {
       const { data } = await axios.get(`${endpoints.getSoResources}?company=${user.company || ''}&client=${user.client || ''}`)
       const { code, name } = data.orderTypeFilter
-      const orderTypeData = code.map((c, i) => ({ value: c, label: `${code[i]}: ${name[i]}` })) 
+      const orderTypeFilterData = data.orderTypeFilter.code.map((data, i) => ({ value: data, label: `${data}: ${name[i]}` }))
+      const orderTypeData = data.orderType.name.map((data, i) => ({ value: data, label: `${data}: ${data?.orderType?.name[i]}` }))
       const orderType = { value: 'all', label: 'All Order' }
-      orderTypeData.splice(0, 0, orderType)
+      orderTypeFilterData.splice(0, 0, orderType)
 
       const code2 = data.orderType.code
       const name2 = data.orderType.name
       const orderTypeInsert = code2.map((c, i) => ({ value: c, label: `${code2[i]}: ${name2[i]}` })) 
-      this.setState({ resources: data, orderTypeData, orderTypeInsert }) 
+      this.setState({ resources: data, orderTypeData, orderTypeInsert, orderTypeFilterData}) 
        
     }
   }
-  searchSalesOrder = async () => {
+  searchSalesOrder = async (export_='false',readyDocument='false') => {
+    //export : true/false --> param for identify this function called from export button
+    //readyDocument : true/false --> if true, then avoid bug "repeatly set state from ComponentDidMount"
+    
     let { search, site, client, orderType, status, task, pagination } = this.state 
-    this.setState({ data: [], tableStatus: "waiting" })
+
+    //reset table
+    if(readyDocument == 'false' && export_ == 'false'){
+      this.setState({
+        data: [],
+        tableStatus: 'waiting'
+      })
+    }
+     
     let urls = []
     urls.push('searchParam=' + (search ? search : ''))
     urls.push('site=' + (site ? site.value : 'all'))
@@ -179,6 +192,7 @@ class SalesOrder extends React.PureComponent {
     urls.push('status=' + (status ? status.value : 'all'))
     urls.push('task=' + (task ? task.value : 'All'))
     urls.push('page=' + (pagination.active || 1))
+    if(export_=='true'){urls.push('export=true')}
     const { data } = await axios.get(`${endpoints.salesOrder}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
@@ -211,20 +225,26 @@ class SalesOrder extends React.PureComponent {
           item['statusTxt'] = 'ALL OPEN'
         }
       })
+      if(export_=='true'){
+        this.setState({ 
+          exportData: modifiedData
+        })
+      }else{
+        this.setState({
+          pagination: {
+            active: pagination.active || data.data.current_page,
+            show: data.data.per_page,
+            total: data.data.total,
+            last_page: data.data.last_page,
+            from: data.data.from,
+            to: data.data.to
+          },
+          data: modifiedData
+        }, () => {console.log (this.state.pagination)})
+      } 
       if (data.data.total==0) {
         this.setState({ tableStatus: "noData" })
       }
-      this.setState({
-        pagination: {
-          active: pagination.active || data.data.current_page,
-          show: data.data.per_page,
-          total: data.data.total,
-          last_page: data.data.last_page,
-          from: data.data.from,
-          to: data.data.to
-        },
-        data: modifiedData
-      }, () => {console.log (this.state.pagination)})
     } else {
       this.setState({ tableStatus: "noData" })
       this.setState({ data: [] })
@@ -277,9 +297,8 @@ class SalesOrder extends React.PureComponent {
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData,orderTypeInsert, taskData, customFields,tableStatus
+      siteData, clientData, statusData, orderTypeData,orderTypeInsert, taskData, customFields,tableStatus,exportData,orderTypeFilterData
     } = this.state 
-    
     return <div className="sales-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Sales Orders', active: true }]}
@@ -348,7 +367,7 @@ class SalesOrder extends React.PureComponent {
                 </CCol>
                 <CCol lg={2} className="px-3">
                   <Select name="orderType" placeholder="Order Type"
-                    value={orderType} options={orderTypeData}
+                    value={orderType} options={orderTypeFilterData}
                     onChange={(val) => this.setState({ orderType: val })}
                     styles={{
                       dropdownIndicator: (base, state) => ({
@@ -400,6 +419,8 @@ class SalesOrder extends React.PureComponent {
         export={<button className="btn btn-primary float-right btn-export">
            {/* <div className='export-export pr-3' /> */}
           EXPORT </button>}
+        exportApi={async () =>  {await this.searchSalesOrder('true')}}
+        exportData={exportData}
       />
 
       <SalesOrderCreate

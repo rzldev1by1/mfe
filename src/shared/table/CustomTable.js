@@ -198,20 +198,20 @@ showModal = (show) => {
             accessor: h.accessor,
             sortable: h.sortable === false ? false : true,
             resizable: h.resizable || false,
+            className: h.className || null,
             style: h.style || null,
             width: h.width || getColumnWidth(data, h.accessor, h.Header),
-          }
+          } 
           return listHeader = [...listHeader, obj]
         } else {
           return listHeader = [...listHeader]
         }
       })
 
-      
     if(this.props.editColumn !== 'false'){
       let editBtn = (
         <div className='edit-column' onClick={this.showModal.bind(this, true)}>
-          <i className='iconU-edit text-primary' />
+          <i className='iconU-edit'/>
         </div>
       )
       let obj = {
@@ -433,18 +433,29 @@ showModal = (show) => {
     let data = fields.map((data, idx) => {                
       return data.Header
     });
-    console.log(data)
     return data
   }
   ExportData = () => { 
     let fields = this.props.customFields||this.state.fields
-    let dataAll = this.props.data.map((data,idx,) =>{
-    let column = fields.map((column, columnIdx) => {       
-            let split = [data[column.accessor] ]
-            return split
-           })
-           return column
-    })
+    let dataAll = []
+    if(this.props.exportData){
+      dataAll = this.props.exportData.map((data,idx,) =>{
+      let column = fields.map((column, columnIdx) => {       
+              let split = [data[column.accessor] ]
+              return split
+              })
+              return column
+      })
+    }else{
+      dataAll = this.props.data.map((data,idx,) =>{
+      let column = fields.map((column, columnIdx) => {       
+              let split = [data[column.accessor] ]
+              return split
+              })
+              return column
+      })
+    }
+    
     return dataAll
   }
   
@@ -460,13 +471,24 @@ showModal = (show) => {
     )
   }
   
+  getExportData = async () => { 
+    if(this.props.exportApi){
+      await this.props.exportApi()
+      console.log(this.props.exportData)
+    }else{
+      console.log("Not Paginate API")
+      return 0
+    }
+  }
+
   render() {
     const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
-    let { title, data, onClick, height, pagination,request_status,font, tableStatus } = this.props
-    console.log(data)
+    let {  title, data, exportData, onClick, height, pagination,request_status,font, tableStatus } = this.props
+    // console.log(data)
+
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
-    console.log(this.ExportHeader())  
+    // console.log(this.ExportHeader())  
 
     return (
       <React.Fragment>
@@ -497,7 +519,7 @@ showModal = (show) => {
           {...this.props}
         />
 
-      <table className="d-none" id="excel">
+<table className="d-none" id="excel">
             <thead>
               <tr>
                 {fields.map((data, idx) => {
@@ -506,7 +528,7 @@ showModal = (show) => {
               </tr>
             </thead>
             <tbody>
-              {data ? data.map((data, i) =>
+                {exportData ? exportData.map((data, i)  =>
                 <tr key={i} >
                   {fields.map((column, columnIdx) => {
                       return (
@@ -519,6 +541,7 @@ showModal = (show) => {
               }
             </tbody>
           </table>
+        
 
         <CRow className="mt-3 pagination-custom">
            <CCol lg="7" className="px-0 margin-mr">
@@ -533,7 +556,9 @@ showModal = (show) => {
             <CCol lg="5" className="px-0 export-ml">
                 <Export ExportName={this.ExportName} ExportPDFName={title}    
                     pdf={this.props.pdf}
-                    excel={this.props.excel} 
+                    excel={this.props.excel}  
+                    getExportData={() => this.getExportData()}
+                    ExportData={exportData}
                     ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={font} />
             </CCol>
         </CRow>
@@ -574,22 +599,24 @@ showModal = (show) => {
             </Container>
           </Modal.Header>
           <Modal.Body className='px-5 pt-3 pb-5'>
-            <Row className="mx-0 justify-content-between mb-3">
+            <Row className={"mx-0 justify-content-between  "+(this.props.store.user.userLevel == 'Admin' ? 'mb-3':'')}>
               <Col lg={6} className='text-primary font-20 p-0'>{title}</Col>
               <Row className='align-items-center rename-columns mx-0 text-align-left'>
+
+                    {this.props.store.user.userLevel !== 'Admin' ? '': 
                   <Nav tabs className="px-1">
                     <div className='input-group'>
-                      <NavItem className='pl-0 pr-0'>
-                        <NavLink
-                          className={
-                            'nav-link-cust tab-color' +
-                            (activeTab === '1' ? ' tab-rename' : '')
-                          }
-                          active={this.state.activeTab === '1'}
-                          onClick={() => {
-                            this.activeTabIndex('1');
-                          }}
-                        >
+                        <NavItem className='pl-0 pr-0'>
+                          <NavLink
+                            className={
+                              'nav-link-cust tab-color' +
+                              (activeTab === '1' ? ' tab-rename' : '')
+                            }
+                            active={this.state.activeTab === '1'}
+                            onClick={() => {
+                              this.activeTabIndex('1');
+                            }}
+                          >
                           <div className='row rowTabCustom align-items-center'>
                             <span className='tabTitleText font-18'>
                               {activeTab === '1'}TOGGLE COLUMN
@@ -598,7 +625,7 @@ showModal = (show) => {
                         </NavLink>
                       </NavItem>
 
-                      <NavItem className={'pl-2 pr-0 '}>
+                      <NavItem className='pl-2 pr-0'>
                         <NavLink
                           className={
                             'nav-link-cust tab-color' +
@@ -618,6 +645,7 @@ showModal = (show) => {
                       </NavItem>
                     </div>
                   </Nav>
+                  }
               </Row>
             </Row>
             <Row >

@@ -502,7 +502,7 @@ class UserManagementDetail extends Component {
 
             <HeaderTitle breadcrumb={[
                 { to: '/users-management', label: 'User Management' },
-                { to: '', label: accountInfo.user, active: true },
+                // { to: '', label: accountInfo.user, active: true },
             ]} />
             <CCard>
                 <CCardBody className="p-3">
@@ -511,7 +511,7 @@ class UserManagementDetail extends Component {
                             <div className="row mb-3">
                                 <div className="col-12">
                                     <h3 className="mb-0">
-                                        <label className="text-primary mb-0">User Details</label>
+                                    <i class="fa fa-user pr-3" aria-hidden="true"></i><label className="text-primary mb-0">{accountInfo.user}</label>
                                     </h3>
                                 </div>
                             </div>
@@ -625,7 +625,7 @@ class UserManagementDetail extends Component {
                             </p>
 
                             <button type="button" className=" font-lg btn btn-primary btn-submit default-box-height" onClick={(e) => { this.saveClick(); }}>
-                                {this.state.isSaveProgressing ? <img src={loading} className='mt-min-5' width='45' height='45'/> : 'Save'}
+                                {this.state.isSaveProgressing ? <img src={loading} className='mt-min-5' width='45' height='45'/> : 'SAVE'}
                                 {/* <i className={(this.state.isSaveProgressing) ? "mr-2 fa fa-refresh fa-spin " : "fa fa-refresh fa-spin d-none"}></i> */}
                                 {/* <label className="create-user-label mb-0">SAVE</label> */}
                             </button>

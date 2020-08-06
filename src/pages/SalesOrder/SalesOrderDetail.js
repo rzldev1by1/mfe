@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import moment from 'moment'
+import numeral from 'numeral'
 import {
   CCard,
   CCardBody,
@@ -39,9 +40,9 @@ const columns = [
   { accessor: "batch", placeholder: 'Batch',  Header: "Batch", width: 60  },
   { accessor: "ref2",placeholder: 'Ref2', Header: "Ref2" },
   { accessor: "ref3",placeholder: 'Ref3', Header: "Ref3" },
-  { accessor: "ref4",placeholder: 'Ref5', Header: "Ref4" },
+  { accessor: "ref4",placeholder: 'Ref4', Header: "Ref4" },
   { accessor: "disposition",placeholder: 'Disposition', Header: "Disposition" },
-  { accessor: "pack_id",placeholder: 'Pack Id', Header: "Pack ID" }
+  { accessor: "pack_id",placeholder: 'Pack ID', Header: "Pack ID" }
 ]
 class SalesOrderDetail extends React.Component {
   // ref to get element height and calculate table height
@@ -53,7 +54,8 @@ class SalesOrderDetail extends React.Component {
     products: [],
     request_status: 'Please Wait...',
     pagination: {}, 
-    tableStatus: 'waiting'
+    tableStatus: 'waiting',
+    exportData: []
   }
   componentDidMount() {
     this.updateDimension();
@@ -76,25 +78,40 @@ class SalesOrderDetail extends React.Component {
       this.setState({ detail: data.data.data[0] })
     }
   }
-  getProducts = async (page=1) => {
+  getProducts = async (page=1,export_='false') => {
+    //export : true/false --> param for identify this function called from export button 
+
     const { pagination } = this.state
     const { orderno, client, site } = this.props.match.params
     this.setState({ data: [], tableStatus: "waiting" }) 
-    const url = `/salesorder/${orderno}?client=${client}&site=${site}&page=${page}`
+    const url = `/salesorder/${orderno}?client=${client}&site=${site}&page=${page}&export=${export_}`
     const { data } = await axios.get(url)
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     if (data?.data?.data) { 
-      this.setState({
-        products: data.data.data,
-        pagination: {
-          active: pagination.active || data.data.current_page,
-          show: data.data.per_page,
-          total: data.data.total,
-          last_page: data.data.last_page,
-          from: data.data.from,
-          to: data.data.to
-        } 
-      })
+        if(export_=='true'){
+          this.setState({ 
+            exportData: data.data.data
+          })
+        }else{
+          console.log(data.data.data[0])
+          this.setState({
+            products: data.data.data.map(data => {
+              data.qty = numeral(data.qty).format('0,0')
+              data.qty_processed = numeral(data.qty).format('0,0')
+              data.weight = numeral(data.weight).format('0,0.000')
+              data.weight_processed = numeral(data.weight_processed).format('0,0.000')
+              return data
+            }),
+            pagination: {
+              active: pagination.active || data.data.current_page,
+              show: data.data.per_page,
+              total: data.data.total,
+              last_page: data.data.last_page,
+              from: data.data.from,
+              to: data.data.to
+            } 
+          })
+        }
       
       if (data.data.data.length<1) {
         this.setState({ tableStatus: "noData" })
@@ -122,7 +139,7 @@ class SalesOrderDetail extends React.Component {
   }
   render() {
     // const { match, history } = this.props
-    const { detail, products, fields, pagination, tableStatus} = this.state
+    const { detail, products, fields, pagination, tableStatus, exportData} = this.state
     return <div className="sales-order-detail">
       <HeaderTitle breadcrumb={[
         { to: '/sales-orders', label: 'Sales Order' },
@@ -192,6 +209,8 @@ class SalesOrderDetail extends React.Component {
             EXPORT
           </button>
         }
+        exportApi={async () =>  {await this.getProducts(1,'true')}}
+        exportData={exportData}
       />
     </div>
   }

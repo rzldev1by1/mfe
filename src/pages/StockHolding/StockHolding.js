@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import numeral from 'numeral'
 import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react'
 import Select from 'react-select'
 import { FaPencilAlt } from 'react-icons/fa'
@@ -34,7 +35,8 @@ const columns = [
     Header: 'Stock on Hand',
     placeholder: 'Stock on Hand',
     sortable: true,
-    width: null,
+    width: 140,
+    style: {flexDirection: 'row-reverse'}
   },
   {
     accessor: 'on_hand_wgy',
@@ -42,6 +44,7 @@ const columns = [
     placeholder: 'On Hand WGT',
     sortable: true,
     width: null,
+    style: {flexDirection: 'row-reverse'}
   },
   {
     accessor: 'expected_in_qty',
@@ -49,6 +52,7 @@ const columns = [
     placeholder: 'Expected In Qty',
     sortable: true,
     width: null,
+    style: {flexDirection: 'row-reverse'}
   },
   {
     accessor: 'expected_in_wgt',
@@ -56,6 +60,7 @@ const columns = [
     placeholder: 'Expected In Weight',
     sortable: true,
     width: null,
+    style: {flexDirection: 'row-reverse'}
   },
   {
     accessor: 'expected_out_qty',
@@ -63,9 +68,12 @@ const columns = [
     placeholder: 'Expected Out Qty',
     sortable: true,
     width: null,
+    style: {flexDirection: 'row-reverse'}
   },
-  { accessor: 'price', Header: ' Price ', placeholder: 'Price', width: null, sortable: true },
-  { accessor: 'pallets', Header: 'Pallets', placeholder: 'Pallets', width: null, sortable: true },
+  { accessor: 'price', Header: ' Price ', placeholder: 'Price', width: null, sortable: true,
+  style: {flexDirection: 'row-reverse'} },
+  { accessor: 'pallets', Header: 'Pallets', placeholder: 'Pallets', width: null, sortable: true,
+  style: {flexDirection: 'row-reverse'} },
 ];
 
 const customColumns = [
@@ -161,7 +169,7 @@ class StockHolding extends React.PureComponent {
     this.getSite()
     this.getClient()
     this.getStatus()
-    this.searchStockHolding()
+    this.searchStockHolding('false','true')
     // this.loadPersonalLogin();
   }
 
@@ -212,7 +220,6 @@ class StockHolding extends React.PureComponent {
   UrlAll = () => {
     return '/putStockholdingColumn?client=ALL'
   }
-
   // end url Get Header And Post
 
   siteCheck = (siteVal) => {
@@ -235,14 +242,20 @@ class StockHolding extends React.PureComponent {
     return c
   }
 
-  searchStockHolding = async (export_='false') => {
+  searchStockHolding = async (export_='false',readyDocument='false') => {
+    //export : true/false --> param for identify this function called from export button
+    //readyDocument : true/false --> if true, then avoid bug "repeatly set state from ComponentDidMount"
+
     let { search, site, client, status, pagination, tableStatus } = this.state
-    
+
     //reset table
-    this.setState({
-      data: [],
-      tableStatus: 'waiting'
-    })
+    if(readyDocument == 'false' && export_ == 'false'){
+      this.setState({
+        data: [],
+        tableStatus: 'waiting'
+      })
+    } 
+    
     let urls = []
     urls.push('searchParam=' + (search ? search : ''))
     urls.push('site=' + (site.value ? site.value : 'all'))
@@ -251,9 +264,10 @@ class StockHolding extends React.PureComponent {
     urls.push('page=' + (pagination.active || 1))
     if(export_=='true'){urls.push('export=true')}
     const { data } = await axios.get(`${endpoints.stockHoldingSummary}?${urls.join('&')}`)
-    console.log(data)
+    //console.log(data)
     if (data?.data?.data) {
       const modifiedData = data.data.data;
+      console.log(modifiedData)
       modifiedData.map((item, idx) => {
         if (parseInt(item['on_hand_qty'] + item['expected_in_qty'])  >= item['expected_out_qty']) {
           item['status'] = [<a className='status-ok'>OK</a>];
@@ -262,6 +276,12 @@ class StockHolding extends React.PureComponent {
           item['status'] = [<a className='status-shortage'>SHORTAGE</a>];
           item['statusTxt'] = 'SHORTAGE';
         }
+        item['expected_in_qty'] = numeral(item['expected_in_qty']).format('0,0')
+        item['expected_out_qty'] = numeral(item['expected_out_qty']).format('0,0')
+        item['on_hand_qty'] = numeral(item['on_hand_qty']).format('0,0')
+        item['pallets'] = numeral(item['pallets']).format('0,0')
+        item['expected_in_wgt'] = numeral(item['expected_in_wgt']).format('0,0.000')
+        item['weight_processed'] = numeral(item['weight_processed']).format('0,0.000')
       })
       
       if(export_=='true'){
@@ -442,9 +462,10 @@ class StockHolding extends React.PureComponent {
           pagination={pagination}
           onClick={this.showDetails}
           renameSubmit={this.renameSubmit}
-          UrlHeader={this.UrlHeader} 
+          UrlHeader={this.UrlHeader}
           UrlAll={this.UrlAll}
           tableStatus={tableStatus}
+          exportApi={async () =>  {await this.searchStockHolding('true')}}
           goto={(active) => {
             this.setState({ pagination: { ...pagination, active } }, () =>
               this.searchStockHolding()
