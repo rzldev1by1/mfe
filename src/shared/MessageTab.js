@@ -16,7 +16,7 @@ export default class MessageTab extends React.Component{
         let imgSrc = complete;
         let statusMessage = 'The ' + module + ' ' + orderNo + ' has successfully submitted for processing.'
         if(status === 'Successfully added') imgSrc = complete
-        if(status === 'Failed to create order') imgSrc = attention
+        else imgSrc = attention
 
         
         if(status === 'Failed to create order') 
