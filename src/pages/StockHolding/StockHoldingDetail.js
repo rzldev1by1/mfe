@@ -31,7 +31,7 @@ class SalesOrderDetail extends React.Component {
       { accessor: 'weight', placeholder: 'Weight', Header: 'Weight', sortable: true, width: 115 },
       { accessor: 'pallet',placeholder: 'Pallet', Header: 'Pallet', sortable: true, width: 120 },
       { accessor: 'price',placeholder: 'Prince', Header: 'Price', sortable: true, width: 120 },
-      { accessor: 'pack_id',placeholder: 'Pack Id', Header: 'Pack Id', sortable: true, width: 180 },
+      { accessor: 'pack_id',placeholder: 'Pack ID', Header: 'Pack ID', sortable: true, width: 180 },
     ],
     ForesCast: [
       { accessor: 'type',
@@ -79,6 +79,14 @@ class SalesOrderDetail extends React.Component {
         Header: 'Expected In',
         sortable: true,
         width: 150,
+        Cell : row => {
+          return(
+            <div>
+              <span className="class-for-name">{row.original.qtyexpected}</span>
+              <span className="class-for-name">{row.original.qty? 0 : null}</span>
+            </div>
+          )
+        }
       },
       {
         accessor: 'qtycommitted',
@@ -86,6 +94,14 @@ class SalesOrderDetail extends React.Component {
         Header: 'Expected Out',
         sortable: true,
         width: 150,
+        Cell : row => {
+          return(
+            <div>
+              <span className="class-for-name">{row.original.qtycommitted}</span>
+              <span className="class-for-name">{row.original.qty}</span>
+            </div>
+          )
+        }
       },
       {
         accessor: 'closingbalance',
@@ -98,6 +114,7 @@ class SalesOrderDetail extends React.Component {
             <div>
               <span className="class-for-name">{row.original.startbalance}</span>
               <span className="class-for-name">{row.original.closingbalance}</span>
+              <span className="class-for-name">{row.original.closingstock}</span>
               <span className="class-for-name">{row.original.totalbalance}</span>
             </div>
           )
@@ -180,9 +197,15 @@ class SalesOrderDetail extends React.Component {
     const url = `/stockbal?client=${client}&product=${product}&site=${site}`;
     const { data } = await axios.get(url);
     const openingbal  = [{openingbalancetext:'Opening Balance', startbalance:data[0][0]['opening balance']}]
-    const closingbal  = [{closingbalancetext:'Closing Balance', totalbalance:data[0][0]['closing balance']}]
+    let closingbal  = [{closingbalancetext:'Closing Balance', totalbalance:data[0][0]['closing balance']}]
     const available   = data[0][0]['available orders']
-    const expiry      = data[0][0]['stock expiry']
+    let expiry      = data[0][0]['stock expiry']
+    expiry.map(expiry => {
+      expiry['qty'] = expiry['quantity']
+      closingbal[0].totalbalance = parseInt(closingbal[0].totalbalance)  - parseInt(expiry.qty)
+      expiry['closingstock'] = closingbal[0].totalbalance
+      return expiry
+    })
     let concat = openingbal.concat(available)
     concat = concat.concat(expiry)
     concat = concat.concat(closingbal)
@@ -248,20 +271,20 @@ class SalesOrderDetail extends React.Component {
         <div ref={this.section1} className='card-group section-1 mb-3'>
         <CCard>
           <CCardBody className="p-0 m-3 border-right">
-            <CRow className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Site</CCol> <CCol>{site || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Client</CCol> <CCol>{client || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Product</CCol> <CCol>{product || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Description</CCol> <CCol>{description || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">UOM</CCol> <CCol>{uom || '-'}</CCol></CRow>
+            <CRow className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">Site</CCol> <CCol>{site || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">Client</CCol> <CCol>{client || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">Product</CCol> <CCol>{product || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">Description</CCol> <CCol>{description || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">UOM</CCol> <CCol>{uom || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>
         <CCard>
           <CCardBody className="p-0 my-3 mx-0 border-right">
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Stock On Hand</CCol> <CCol>{stock_on_hand || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Available Qty</CCol> <CCol>{available_qty || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Expected in Qty</CCol> <CCol>{expected_in_qty || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Expected Out Qty</CCol> <CCol>{expected_out_qty || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Rotadate Type</CCol> <CCol>{rotadate_type || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Stock On Hand</CCol> <CCol className="pl-0">{stock_on_hand || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Available Qty</CCol> <CCol className="pl-0">{available_qty || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Expected in Qty</CCol> <CCol className="pl-0">{expected_in_qty || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Expected Out Qty</CCol> <CCol className="pl-0">{expected_out_qty || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Rotadate Type</CCol> <CCol className="pl-0">{rotadate_type || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>
         </div>
