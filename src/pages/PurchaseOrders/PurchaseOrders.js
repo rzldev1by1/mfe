@@ -139,7 +139,6 @@ class PurchaseOrders extends React.PureComponent {
       const site = data.site.map(data => ({ value: data.site, label: `${data.site}: ${data.name}` }))
       const orderType = { value: 'all', label: 'All' }
       orderTypeFilterData.splice(0, 0, orderType)
-      orderTypeData.splice(0,0, orderType)
       this.props.dispatch({ type: 'SITE', data: site })
       this.setState({ resources: data, orderTypeFilterData, orderTypeData })
     }

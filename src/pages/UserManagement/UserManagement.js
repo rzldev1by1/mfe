@@ -102,7 +102,8 @@ class UserManagemen extends Component {
             newItem.disabled = (item.disabled === 'Y') ? <label className="um-suspended">{'Suspended'}</label> : <label className="um-active">{'Active'}</label>;
             newItem.statusTxt = (item.disabled === 'Y') ? 'Suspended' : 'Active';
             return newItem;
-        })
+        }) 
+
         if(export_=='true'){
             this.setState({ 
               exportData: result
@@ -147,7 +148,7 @@ class UserManagemen extends Component {
     render() {
 
         const { loginInfo, data, fields, customFields, pagination, dimension, modalShow, tableStatus,exportData } = this.state;
-        console.log(data)
+        console.log(data) 
         return (
             <div className="um-summary pt-1">
                 <HeaderTitle

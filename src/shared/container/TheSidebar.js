@@ -77,7 +77,7 @@ const TheSidebar = () => {
           <div className=" text-left text-blue">
             <div>{user.name}</div>
             <div>ID: {user.userId} </div>
-            <a href="#/" onClick={signOut} className={hover === 'logout' ? 'text-white' : 'text-blue'}> Logout </a>
+            <a href="#/" onClick={signOut} className={hover === 'logout' ? 'text-white' : 'text-blue'}> LOGOUT </a>
           </div>
         </li>
       </ul>

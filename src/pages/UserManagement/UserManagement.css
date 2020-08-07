@@ -200,6 +200,9 @@
   background-color: #fff !important;
   color: #376bfb !important;
 }
+.nav-link.null {
+  height: 3.25rem !important;
+}
 .nav-tabs {
   margin-left: 26px;
   border: none;
@@ -292,6 +295,13 @@
   padding: 0.375rem 0.75rem !important;
 }
 
+.um-detail .fa-user{
+  color: #376bfb !important;
+}
+.um-detail .breadcrumb-item a {
+  color: #637176 !important;
+  font-weight: 700 !important;
+}
 .invalid-error-padding{
   padding-left: 12px;
 }
@@ -376,6 +386,9 @@
     max-width: 35.66667% !important;
   }
 }
+.mt-min-5{
+  margin-top: -2rem !important;
+ }
 @media (max-height: 700px){
 
   .client-areas{

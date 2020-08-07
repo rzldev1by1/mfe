@@ -16,7 +16,7 @@ const client = ({ clients, isAdmin, onEnableClick, onClientEnableAll, isEnableAl
     return (<div>
         <div className={`flex-column line-border my-3 `}>
             <div className={`d-flex `}>
-                <label className="text-muted col-6 p-0 py-2" htmlFor="Client">Client
+                <label className="text-muted-soft col-6 p-0 py-2" htmlFor="Client">Client
               </label>
 
                 <div className="col-6 client-enableall-padding">

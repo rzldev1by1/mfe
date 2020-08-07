@@ -52,7 +52,7 @@ export default (values) => {
       }
     }
     if (error.orderLine.length < 1 || (error.orderLine.length === 1 && !error.orderLine[0])) {
-      error = {}
+      delete error.orderLine
     }
   }
   

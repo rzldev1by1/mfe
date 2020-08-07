@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import moment from 'moment'
+import numeral from 'numeral'
 import { CCard, CCardBody, CRow, CCol, CButton, } from '@coreui/react'
 import CustomTable from 'shared/table/CustomTable'
 import CustomPagination from 'shared/table/CustomPagination'
@@ -74,8 +75,13 @@ class PurchaseOrdersDetail extends React.Component {
     //   this.setState({ products: data.data })
     // }
     if (data?.data?.data) { 
+      console.log(data.data.data)
       const dt = data.data.data.map(m => { 
         m.rotadate = m?.rotadate ? moment(m.rotadate).format('DD/MM/YYYY') : '-'
+        m.quantity = numeral(m.quantity).format('0,0')
+        m.qty_processed = numeral(m.qty_processed).format('0,0')
+        m.weight = numeral(m.weight).format('0,0.000')
+        m.weight_processed = numeral(m.weight_processed).format('0,0.000')
         return m
       })
       if(export_=='true'){
