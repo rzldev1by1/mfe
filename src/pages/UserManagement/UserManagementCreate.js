@@ -163,7 +163,7 @@ class UserManagementCreate extends React.PureComponent {
   }
 
   AllIsValid = () => {
-    const { moduleAccess } = this.state;
+    const { moduleAccess,sites,clients } = this.state;
     let user = { ...this.state.user };
     let isValid = false;
     let userMenu = moduleAccess.filter((item) => { return item.status === true; })
@@ -171,7 +171,20 @@ class UserManagementCreate extends React.PureComponent {
     if (user.webGroup === utility.webgroup.ADMIN)
       isValid = (user.name && user.email) ? true : false;
     else {
-      isValid = (user.name && user.email && (userMenu && userMenu.length)) ? true : false;
+      
+      let site = sites.find((item, index) => {
+        return item.status === true;
+      });
+        
+      let siteValue = (site && (sites.filter((item) => {return item.status === true;}).length !== sites.length))? site.site:null;
+
+      let client = clients.find((item, index) => {
+        return item.status === true;
+      });
+  
+      let clientValue = (client && (clients.filter((item) => {return item.status === true;}).length !== clients.length))? client.code:null;
+
+      isValid = (user.name && user.email && (userMenu && userMenu.length) && siteValue && clientValue) ? true : false;
     }
 
     return isValid;
