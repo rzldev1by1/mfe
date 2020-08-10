@@ -17,8 +17,11 @@ class NewUser extends React.PureComponent {
         client: [],
         moduleAccess: [],
         validation: {
-            "name": { isValid: true, invalidClass: "is-invalid", message:'invalid email' },
-            "email": { isValid: true, invalidClass: "is-invalid", message:'username must be entered' }
+            "name": { isValid: true, invalidClass: "is-invalid", message:'Invalid format (eg: microlistica@test.com)' },
+            "email": { isValid: true, invalidClass: "is-invalid", message:'Username must be entered' },
+            "modules": { isValid: true, invalidClass: "is-invalid", message:'Please enable at least one on module access' },
+            "sites": { isValid: true, invalidClass: "is-invalid", message:'Please enable at least one on site' },
+            "clients": { isValid: true, invalidClass: "is-invalid", message:'Please enable at least one on client' }
           },
     }
 
@@ -97,20 +100,60 @@ class NewUser extends React.PureComponent {
       }
 
       onNext = () => {
-          const {user} = this.props;
+          const {user, sites, clients, moduleAccess} = this.props;
           let validation = {...this.state.validation};;
-          console.log(validation);
+          
 
         let emailValid = this.checkEmailValidation(user.email);        
         let nameValid = this.checkNameValidation(user.name);
+        
+        
+        let userMenu = moduleAccess.filter((item) => { return item.status === true; })
+        
+
+
+        let site = sites.find((item, index) => {
+            return item.status === true;
+          });
+                
+        let siteValue = (site && (sites.filter((item) => {return item.status === true;}).length !== sites.length))? site.site:null;
+        
+        let client = clients.find((item, index) => {
+            return item.status === true;
+          });
+      
+          let clientValue = (client && (clients.filter((item) => {return item.status === true;}).length !== clients.length))? client.code:null;
 
         if(!emailValid.email['isValid'])
         validation.email = emailValid.email;
         if(!emailValid.name['isValid'])
         validation.name = nameValid.name;
 
-        if(validation.email["isValid"] && validation.name["isValid"])
-            this.props.next('review');
+        if(validation.email["isValid"] && validation.name["isValid"]){
+            if(user.webGroup !== utility.webgroup.ADMIN){
+                if(!siteValue)
+                    validation.sites["isValid"] = false;
+                else
+                    validation.sites["isValid"] = true;
+
+                if(!clientValue)
+                    validation.clients["isValid"] = false;
+                else
+                    validation.clients["isValid"] = true;
+                
+                console.log(userMenu);
+                if(userMenu.length < 1)
+                    validation.modules["isValid"] = false;
+                else
+                    validation.modules["isValid"] = true;
+                
+                
+                if(validation.sites["isValid"] && validation.clients["isValid"])
+                    this.props.next('review');
+            }else{
+                this.props.next('review');
+            }
+        }
 
             this.setState({validation:validation})
       }
@@ -123,12 +166,12 @@ class NewUser extends React.PureComponent {
         const { validation } = this.state;
         return (
             <Container className="px-5 pt-4 pb-5">
-                <Row>
-                    <Col lg="2" className="pr-0" style={{flex:"0 0 11%",maxWidth:"11%"}}>
+                <Row className="mx-0">
+                    <div style={{paddingRight: "2.8rem"}}>
                         <h3 className="text-primary font-20 um-text-webgroup">New User</h3>
-                    </Col>
+                    </div>
                     <Col lg="10" className="pl-0">
-                        <Row>
+                        <Row className="mx-0">
                             <Col lg="4" md="4" sm="12" className="pl-0">
                                 <label className="webgroup d-flex justify-content-between">
                                     <input type="checkbox" onChange={(e) => { this.props.onWebGroupSelect(e); }} />
@@ -188,12 +231,24 @@ class NewUser extends React.PureComponent {
                 <Row className={`${isAdmin ? 'd-none' : ''}`}>
                     <Col lg="4">
                         <ModuleAccess moduleAccess={moduleAccess} onEnableClick={onModuleEnableClick} onModuleEnableAll={onModuleEnableAllClick} isEnableAllModule={isEnableAllModule} />
+                        <input type="checkbox" name="moduleAccess" className={`d-none ${validation.modules["isValid"]?'':validation.modules["invalidClass"]}`} />
+                        <FormFeedback>
+                            {`${validation.modules["message"]}`}
+                        </FormFeedback>
                     </Col>
                     <Col lg="4">
-                        <Site sites={sites} onEnableClick={onSiteEnableClick} onSiteEnableAll={onSiteEnableAllClick} isEnableAllSite={isEnableAllSite} />
+                        <Site sites={sites} isAdmin={isAdmin} onEnableClick={onSiteEnableClick} onSiteEnableAll={onSiteEnableAllClick} isEnableAllSite={isEnableAllSite} />
+                        <input type="checkbox" name="sites" className={`d-none ${validation.sites["isValid"]?'':validation.sites["invalidClass"]}`} />
+                        <FormFeedback>
+                            {`${validation.sites["message"]}`}
+                        </FormFeedback>
                     </Col>
                     <Col lg="4">
-                        <Client clients={clients} onEnableClick={onClientEnableClick} onClientEnableAll={onClientEnableAllClick} isEnableAllClient={isEnableAllClient} />
+                        <Client clients={clients} isAdmin={isAdmin} onEnableClick={onClientEnableClick} onClientEnableAll={onClientEnableAllClick} isEnableAllClient={isEnableAllClient} />
+                        <input type="checkbox" name="clients" className={`d-none ${validation.clients["isValid"]?'':validation.clients["invalidClass"]}`} />
+                        <FormFeedback>
+                            {`${validation.clients["message"]}`}
+                        </FormFeedback>
                     </Col>
                 </Row>
                 <Row className="mt-5">

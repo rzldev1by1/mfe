@@ -203,7 +203,13 @@ class CreateTab extends React.Component {
   lineChange = (i, e) => {
     const { name, value } = e.target
     const { orderLine } = this.state
-    orderLine[i][name] = value
+    if(name=='qty'){
+      const tmp_val = this.decimalFormatter(name,value) 
+      orderLine[i][name] = tmp_val
+    }else{
+      orderLine[i][name] = value
+
+    } 
     this.setState({ orderLine })
   }
   lineSelectChange = (i, key, val) => {
@@ -374,10 +380,14 @@ class CreateTab extends React.Component {
           console.log(integer + ' int')
           if(integer.length <= 6)
           {
-            let idxSepr1 = integer.slice(0,integer.length - 3)
-            let idxSepr2 = integer.slice(integer.length - 3)
-            console.log(`${idxSepr1},${idxSepr2}.${decimal}`)
-            number = `${idxSepr1},${idxSepr2}.${decimal}`
+            if(integer.length >= 4)
+            {
+              let idxSepr1 = integer.slice(0,integer.length - 3)
+              let idxSepr2 = integer.slice(integer.length - 3)
+              console.log(`${idxSepr1},${idxSepr2}.${decimal}`)
+              number = `${idxSepr1},${idxSepr2}.${decimal}`
+            }
+            else number = `${integer}.${decimal}`
           }
           if(integer.length > 6 && integer.length <=9)
           {
@@ -647,7 +657,7 @@ class CreateTab extends React.Component {
                   <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly style={{backgroundColor:"#f6f7f9"}}/>
                 </td>
                 <td className="px-1">
-                  <input name="qty" onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control" value={this.state.orderLine[i]['qty']}  onKeyPress={(e) => this.numberCheck(e)}  placeholder="Qty" maxLength="10"  />
+                  <input name="qty" onKeyPress={(e) => this.numberCheck(e)}  onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control" value={this.state.orderLine[i]['qty']}   placeholder="Qty" maxLength="10"  />
                   <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="px-1">

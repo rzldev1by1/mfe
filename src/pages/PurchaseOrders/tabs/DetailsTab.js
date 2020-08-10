@@ -79,6 +79,17 @@ class CreateTab extends React.Component {
       this.setState({ supplierData })
     }
   }
+  hideAllOptionSite = () =>{
+    let siteData = [...this.state.siteData]
+    delete siteData[0]
+    return siteData
+  }
+
+  hideAllOptionClient = () =>{
+    let clientData = [...this.state.clientData]
+    delete clientData[0]
+    return clientData
+  }
   getProduct = async (val) => {
     const url = `${endpoints.getProduct}?client=${this.state.client.value}&param=${val}`
     const { data } = await axios.get(url)
@@ -181,7 +192,7 @@ class CreateTab extends React.Component {
       console.log(newVal)
       const dot = newVal.indexOf('.')
       console.log(dot+' dot')
-      if(dot !== -1)
+      if(dot !== -1 && newVal.length)
       {
         let number;
         let decimal = newVal.slice(dot+1, dot+4).split('').filter(d => d !=='.' && d !== ',').join('')
@@ -190,13 +201,18 @@ class CreateTab extends React.Component {
         console.log(integer + ' int')
         if(integer.length <= 6)
         {
-          let idxSepr1 = integer.slice(0,integer.length - 3)
-          let idxSepr2 = integer.slice(integer.length - 3)
-          console.log(`${idxSepr1},${idxSepr2}.${decimal}`)
-          number = `${idxSepr1},${idxSepr2}.${decimal}`
+          if(integer.length >= 4)
+          {
+            let idxSepr1 = integer.slice(0,integer.length - 3)
+            let idxSepr2 = integer.slice(integer.length - 3)
+            console.log(`${idxSepr1},${idxSepr2}.${decimal}`)
+            number = `${idxSepr1},${idxSepr2}.${decimal}`
+          }
+          else number = `${integer}.${decimal}`
         }
         if(integer.length > 6 && integer.length <=9)
         {
+          console.log(integer.length + ' asd')
           let idxSepr1 = integer.slice(0,integer.length - 6)
           let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 3)
           let idxSepr3 = integer.slice(integer.length - 3)
@@ -314,6 +330,7 @@ class CreateTab extends React.Component {
   }
   next = (e) => {
     const error = validations(this.state)
+    console.log(this.state.error)
     if (Object.keys(error).length) {
       return this.setState({ error })
     } else {
@@ -410,7 +427,7 @@ class CreateTab extends React.Component {
             user.site ? 
             <input value={this.siteCheck(user.site)} className="form-control" readOnly />
             :
-            <Select options={siteData} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required 
+            <Select options={this.hideAllOptionSite()} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required 
             styles={{
               dropdownIndicator: (base, state) => ({
                 ...base, 
@@ -458,7 +475,7 @@ class CreateTab extends React.Component {
             user.client ?
             <input value={this.clientCheck(user.client)} className="form-control" readOnly />
             :
-            <Select  options={clientData} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required 
+            <Select  options={this.hideAllOptionClient()} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required 
               styles={{
                 dropdownIndicator: (base, state) => ({
                   ...base, 
