@@ -21,7 +21,13 @@ const columns = [
     { accessor: 'client',placeholder: 'Client', Header: 'Client', width: 130, sortable: true },
     { accessor: 'web_group',placeholder: 'User Lavel', Header: 'User Level', width: 160, sortable: true },
     { accessor: 'last_access',placeholder: 'Last Accessed', Header: 'Last Accessed', width: 180, sortable: true },
-    { accessor: 'disabled',placeholder: 'Status', Header: 'Status', width: 120, sortable: true },
+    { accessor: 'disabled',placeholder: 'Status', Header: 'Status', width: 120, sortMethod: (a, b) => {
+        if (a === b) {
+          return 0;
+        }
+        return a.toLowerCase() > b.toLowerCase() ? 1 : -1;
+      },Cell: row => (row.value === 'Y'? <label className="um-suspended">{'Suspended'}</label> : <label className="um-active">{'Active'}</label>)
+    },
 ]
 
 const customColumns = [
@@ -99,7 +105,8 @@ class UserManagemen extends Component {
             newItem.site = (item.site && item.site !== '') ? item.site : 'All';
             newItem.client = (item.client && item.client !== '') ? item.client : 'All';
             newItem.last_access = (item.last_access) ? moment(item.last_access).format('DD/MM/YYYY hh:mm:ss') : '';
-            newItem.disabled = (item.disabled === 'Y') ? <label className="um-suspended">{'Suspended'}</label> : <label className="um-active">{'Active'}</label>;
+            newItem.disabled = item.disabled;
+            // newItem.disabled = (item.disabled === 'Y') ? <label className="um-suspended">{'Suspended'}</label> : <label className="um-active">{'Active'}</label>;
             newItem.statusTxt = (item.disabled === 'Y') ? 'Suspended' : 'Active';
             return newItem;
         }) 
