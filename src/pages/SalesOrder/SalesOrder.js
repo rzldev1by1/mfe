@@ -403,7 +403,7 @@ class SalesOrder extends React.PureComponent {
         title="Sales Order"
         filename='Microlistics_SalesOrder.'
         height={dimension.height}
-        font="5"
+        font="6"
         data={data}
         fields={fields}
         customFields={customFields}

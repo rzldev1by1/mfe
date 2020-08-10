@@ -24,6 +24,10 @@ const columns = [
   { accessor: 'product_name', Header: 'Description', sortable: true },
   { accessor: 'packdesc', Header: 'UOM', sortable: true }
 ]
+
+const Required = ({ error, id }) => {
+  return <span className="text-error text-danger font-12">{error && error[id]}</span>
+}
  
 class StockMovement extends React.PureComponent {
   constructor(props){
@@ -57,7 +61,8 @@ class StockMovement extends React.PureComponent {
         { 'value': 'month', 'label': 'Monthly' }
       ],
       complete: false,
-      periodSelected: 1,
+      periodSelected: { value: 1 ? 1 : null },
+      error: {},
       dateFromSelected: null,
       dateFromText: null,
       dateFromShow: false,
@@ -241,7 +246,7 @@ class StockMovement extends React.PureComponent {
     }
   }
 
-  searchStockMovement = async () => {
+  searchStockMovement = async () => { 
     this.setState({
       periodSelected: 1
     })
@@ -249,8 +254,17 @@ class StockMovement extends React.PureComponent {
     if (filterType.value) {
       this.load_data(dateFromSelected, dateToSelected, filterType.value, site.value, client.value, product.value)
     } else {
+      const error = validations(this.state)
+      console.log(this.state.error)
+      if (Object.keys(error).length) {
+        return this.setState({ error })
+      }else {
+        let header = Object.assign({}, this.state)
+        delete header.error
+        delete header.periodSelected
+      } 
       this.setState({
-        periodSelected: ''
+        periodSelected: '',
       })
     }
   }
@@ -517,7 +531,7 @@ class StockMovement extends React.PureComponent {
   render() {
     console.log(this.props.store)
     const {
-      dimension, fields, data, site, client, status, orderType, create, task,
+      dimension, fields, data, site, client, status, orderType, create, task, error,
       siteData, clientData, statusData, orderTypeData, taskData, data_table, filterType,filterData,
       product, productData, periodSelected, pagination,dateFromShow, minDate,maxDate, date_array,export_data,
       tableStatus
@@ -545,6 +559,7 @@ class StockMovement extends React.PureComponent {
                 })
               }}
             />
+            <Required id="periodSelected" error={error} />
         </CCol>
         <div className="px-3 text-light-gray labelDateFrom d-flex align-items-center" >Date From</div>
         <CCol lg={2} className="sm-col-14 px-0 dateFrom" > 
