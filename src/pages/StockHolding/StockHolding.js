@@ -456,7 +456,7 @@ class StockHolding extends React.PureComponent {
           filename='Microlistics_StockHolding.'
           height={dimension.height}
           data={data}
-          font="10"
+          font="7"
           fields={fields}
           customFields={customFields} 
           pagination={pagination}
