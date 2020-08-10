@@ -16,11 +16,11 @@ export default class MessageTab extends React.Component{
         let imgSrc = complete;
         let statusMessage = 'The ' + module + ' ' + orderNo + ' has successfully submitted for processing.'
         if(status === 'Successfully added') imgSrc = complete
-        if(status === 'Failed to create order') imgSrc = attention
+        else imgSrc = attention
 
         
-        if(status === 'Failed to create order') 
-        statusMessage = 'The ' + module + ' That you tried to create could not be saved to the system.'
+        if(status !== 'Successfully added') 
+        statusMessage = 'The order that you tried to create could not be saved to the system.'
         return (
             <Container className="px-5 py-4 tab-content">
                 <Col className='pl-4'>
