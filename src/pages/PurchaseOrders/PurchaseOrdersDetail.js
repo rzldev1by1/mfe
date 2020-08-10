@@ -22,7 +22,7 @@ const columns = [
     Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
   { accessor: "batch",  placeholder: 'Batch', Header: "Batch", width: 90 },
-  { accessor: "rotadate",  placeholder: 'Rota Date', Header: "Rotadate" },
+  { accessor: "rotadate",  placeholder: 'Rotadate', Header: "Rotadate" },
   { accessor: "ref3",  placeholder: 'Ref3', Header: "Ref3", width: 80 },
   { accessor: "ref4",  placeholder: 'Ref4', Header: "Ref4", width: 80 },
   { accessor: "disposition", placeholder: 'Disposition', Header: "Disposition" },
