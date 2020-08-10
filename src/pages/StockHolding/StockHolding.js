@@ -29,7 +29,7 @@ const columns = [
   },
   { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: null, sortable: true },
   { accessor: 'packdesc_1', Header: 'UOM', placeholder: 'UOM', width: null, sortable: true },
-  { accessor: 'status', Header: ' Status ', placeholder: 'Status', width: null, sortable: true },
+  { accessor: 'status', Header: ' Status ', placeholder: 'Status', width: 150, sortable: true },
   {
     accessor: 'on_hand_qty',
     Header: 'Stock on Hand',
@@ -43,7 +43,7 @@ const columns = [
     Header: 'On Hand WGT',
     placeholder: 'On Hand WGT',
     sortable: true,
-    width: null,
+    width: 120,
     style: {flexDirection: 'row-reverse'}
   },
   {
@@ -96,7 +96,7 @@ const customColumns = [
   },
   { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: null, sortable: true },
   { accessor: 'packdesc_1', Header: 'UOM', placeholder: 'UOM', width: null, sortable: true },
-  { accessor: 'statusTxt', Header: ' Status ', placeholder: 'Status', width: null, sortable: true },
+  { accessor: 'statusTxt', Header: ' Status ', placeholder: 'Status', width: 150, sortable: true },
   {
     accessor: 'on_hand_qty',
     Header: 'Stock on Hand',
@@ -109,7 +109,7 @@ const customColumns = [
     Header: 'On Hand WGT',
     placeholder: 'On Hand WGT',
     sortable: true,
-    width: null,
+    width: 120,
   },
   {
     accessor: 'expected_in_qty',
