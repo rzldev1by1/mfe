@@ -121,16 +121,16 @@ class Export extends Component {
                             {exportStatus=='ready'?'EXPORT':<img src={loading} className='mt-min-5' width='45' height='45'/>}
                         </div>
                   </DropdownToggle>
-                    <DropdownMenu className={"no-shadow "+((exportPdf == 'false' || exportExcel == 'false')?' dropdown-single ':' Dropdown-menu ')} >
+                    <DropdownMenu style={{top: "1px",left: "10px"}} className={"no-shadow "+((exportPdf == 'false' || exportExcel == 'false')?' dropdown-single ':' Dropdown-menu ')} >
                       {(exportPdf == 'false')?'':
-                        <DropdownItem className="export-pdf" onClick={() => this.exportPDF()}> 
-                            <span className="icon-PDF" />EXPORT TO PDF
+                        <DropdownItem className="export-pdf px-3" onClick={() => this.exportPDF()}> 
+                            <span className="icon-PDF" style={{paddingRight: "0.28rem"}}/> EXPORT TO PDF
                         </DropdownItem>
                       }
                        {(exportExcel == 'false')?'':
                        <div>
-                          <DropdownItem className="export-excel" onClick={() => this.exportXLS()} >
-                          <span className="icon-XLS" /> EXPORT TO XLS   
+                          <DropdownItem className="export-excel" style={{paddingLeft: "1.15rem"}} onClick={() => this.exportXLS()} >
+                          <span className="icon-XLS" style={{paddingRight: "0.3rem"}}/> EXPORT TO XLS   
                           </DropdownItem>
                           <div style={{display: 'none'}}> 
                             <ExportExl  className="Excel-bottom" 
