@@ -18,7 +18,9 @@ class CreateTab extends React.Component {
   state = {
     overflow: [],
     orderLine: [{}], error: {},
-    siteData: this.props.siteData, clientData: this.props.clientData, orderTypeData: this.props.orderTypeData,
+    siteData: this.props.siteData,
+    clientData: this.props.clientData,
+    orderTypeData: this.props.orderTypeData,
     supplierData:[],
     isDatepickerShow: false,
     datepickerStatus: [],
@@ -62,6 +64,17 @@ class CreateTab extends React.Component {
   //   const productData = data.code.map((c, i) => ({ value: c, label: c, i }))
   //   this.setState({ productData, productDataName: data.name })
   // }
+  hideAllOptionSite = () =>{
+    let siteData = [...this.state.siteData]
+    delete siteData[0]
+    return siteData
+  }
+
+  hideAllOptionClient = () =>{
+    let clientData = [...this.state.clientData]
+    delete clientData[0]
+    return clientData
+  }
 
   getProduct = async (val) => {
     const client = this.props.user.client?this.state.client:this.state.client.value
@@ -190,7 +203,13 @@ class CreateTab extends React.Component {
   lineChange = (i, e) => {
     const { name, value } = e.target
     const { orderLine } = this.state
-    orderLine[i][name] = value
+    if(name=='qty'){
+      const tmp_val = this.decimalFormatter(name,value) 
+      orderLine[i][name] = tmp_val
+    }else{
+      orderLine[i][name] = value
+
+    } 
     this.setState({ orderLine })
   }
   lineSelectChange = (i, key, val) => {
@@ -291,6 +310,7 @@ class CreateTab extends React.Component {
 
   numberCommaCheck = (index, refs, numberLength, commaLength,e) => {   
       var value = e.target.value 
+      var name = e.target.name
       // var arr = value.split(".")  
       // var x = ''
       // if(arr[0].length > numberLength){
@@ -308,7 +328,7 @@ class CreateTab extends React.Component {
       var arr2 = {
         target: {
           name: refs,
-          value: value
+          value: this.decimalFormatter(name,value)
         }
       }
       // this.refs[refs].value = value
@@ -340,6 +360,61 @@ class CreateTab extends React.Component {
       this.setState({
         orderTypeValue:orderType.value
       })
+    }
+
+    decimalFormatter = (name,value) => {
+      let newVal = value;
+      
+      if(name === 'weight')
+      {
+        if(newVal.length > 14) newVal = newVal.split('').filter(d => d !== ',' ? d : null).map((d,i) => {if(i > 10 && !newVal.includes('.')){return null } else return d} ).join('')
+        console.log(newVal)
+        const dot = newVal.indexOf('.')
+        console.log(dot+' dot')
+        if(dot !== -1)
+        {
+          let number;
+          let decimal = newVal.slice(dot+1, dot+4).split('').filter(d => d !=='.' && d !== ',').join('')
+          let integer = newVal.slice(0,dot).split('').filter(d => d !== ',').join('')
+          console.log(decimal + ' dot')
+          console.log(integer + ' int')
+          if(integer.length <= 6)
+          {
+            if(integer.length >= 4)
+            {
+              let idxSepr1 = integer.slice(0,integer.length - 3)
+              let idxSepr2 = integer.slice(integer.length - 3)
+              console.log(`${idxSepr1},${idxSepr2}.${decimal}`)
+              number = `${idxSepr1},${idxSepr2}.${decimal}`
+            }
+            else number = `${integer}.${decimal}`
+          }
+          if(integer.length > 6 && integer.length <=9)
+          {
+            let idxSepr1 = integer.slice(0,integer.length - 6)
+            let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 3)
+            let idxSepr3 = integer.slice(integer.length - 3)
+            console.log(`${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`)
+            number = `${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`
+          }
+          if(integer.length > 9 && integer.length <=11)
+          {
+            let idxSepr1 = integer.slice(0,integer.length - 9)
+            let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 6)
+            let idxSepr3 = integer.slice(idxSepr1.length+idxSepr2.length, idxSepr1.length+idxSepr2.length+3)
+            let idxSepr4 = integer.slice(integer.length - 3)
+            console.log(`${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`)
+            number = `${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`
+          }
+          number = number?.split('')
+          if(number && number[0] === ',')delete number[0]
+          number = number?.join('')
+          return number
+        }
+        else return numeral(newVal).format('0,0')
+      }
+      else if(name == 'qty') return numeral(newVal).format('0,0')
+      return value
     }
 
     decimalValueForQty(e) {
@@ -394,7 +469,7 @@ class CreateTab extends React.Component {
             user.site ? 
             <input value={this.siteCheck(user.site)} className="form-control" readOnly />
             :
-            <Select options={siteData} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required 
+            <Select options={this.hideAllOptionSite()} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required 
             styles={{
               dropdownIndicator: (base, state) => ({
                 ...base, 
@@ -442,7 +517,7 @@ class CreateTab extends React.Component {
             user.client ?
             <input value={this.clientCheck(user.client)} className="form-control" readOnly />
             :
-            <Select  options={clientData} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required
+            <Select  options={this.hideAllOptionClient()} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required
             styles={{
               dropdownIndicator: (base, state) => ({
                 ...base, 
@@ -541,7 +616,7 @@ class CreateTab extends React.Component {
               <td><div className="c-50 text-center">#</div></td>
               <td><div className="c-400 required">Product</div></td>
               <td><div className="c-600">Description</div></td>
-              <td><div className="c-100 required">Qty</div></td>
+              <td><div className="c-150 required">Qty</div></td>
               <td><div className="c-170">Weight</div></td>
               <td><div className="c-150 required">UOM</div></td>
               <td><div className="c-250">Batch</div></td>
@@ -557,7 +632,7 @@ class CreateTab extends React.Component {
             {orderLine.length && orderLine.map((o, i) => { 
               return <tr className="py-1 text-center orderline-row">
                 <td className="pl-0 pr-1">
-                  <input value={i + 1} className="form-control text-center" readOnly />
+                  <input value={i + 1} className="form-control text-center" readOnly style={{backgroundColor:"#f6f7f9"}} />
                 </td>
                 <td className="px-1 text-left">
                   <Select value={o.productVal || ''}
@@ -579,14 +654,14 @@ class CreateTab extends React.Component {
                   <Required id="productVal" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="px-1">
-                  <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly />
+                  <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly style={{backgroundColor:"#f6f7f9"}}/>
                 </td>
                 <td className="px-1">
-                  <input name="qty" onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control" value={numeral(this.state.orderLine[i]['qty']).format('0,0')}  onKeyPress={(e) => this.numberCheck(e)}  placeholder="Qty" maxLength="10"  />
+                  <input name="qty" onKeyPress={(e) => this.numberCheck(e)}  onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control" value={this.state.orderLine[i]['qty']}   placeholder="Qty" maxLength="10"  />
                   <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="px-1">
-                  <input name="weight" ref="weight" onChange={(e) => this.numberCommaCheck(i, "weight", 16,3, e)} type="text" min="0" className="form-control" placeholder="Weight" onKeyPress={(e) => this.decimalValueForQty(e,true)}  />
+                  <input name="weight" ref="weight" value={this.state.orderLine[i]['weight']} onChange={(e) => this.numberCommaCheck(i, "weight", 16,3, e)} type="text" maxLength='18' className="form-control" placeholder="Weight" />
                 </td>
                 <td className="px-1">
                   <Select value={o.uom || ''}
@@ -655,13 +730,13 @@ class CreateTab extends React.Component {
           </tbody>
         </table>
       </div>
-      <button className="btn btn-light-gray m-0" onClick={this.addLine}>Add Line</button>
+      <button className="btn btn-light-gray m-0" onClick={this.addLine}>ADD LINE</button>
 
       <Row className="mt-3">
         <Col lg={2}></Col>
         <Col lg={8}></Col>
         <Col lg={2} className="text-right">
-          <button className="btn btn-primary" onClick={this.next}>{'Next'}</button>
+          <button className="btn btn-primary" onClick={this.next}>{'NEXT'}</button>
         </Col>
       </Row>
     </Container>

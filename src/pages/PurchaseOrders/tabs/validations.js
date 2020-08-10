@@ -17,18 +17,6 @@ export default (values) => {
   if (!orderDate) {
     error.orderDate = 'Order Date must be entered'
   }
-  if (!shipToAddress1) {
-    error.shipToAddress1 = 'Address 1 must be entered'
-  }
-  if (!postCode) {
-    error.postCode = 'Postcode must be entered'
-  }
-  if (!!postCode && postCode.length < 4) {
-    error.postCode = 'Postcode must have min 4 characters'
-  }
-  if (!state) {
-    error.state = 'State must be entered'
-  }
 
   if (orderLine.length) {
     error.orderLine = []
@@ -49,7 +37,7 @@ export default (values) => {
       }
     }
     if (error.orderLine.length < 1 || (error.orderLine.length === 1 && !error.orderLine[0])) {
-      error = {}
+      delete error.orderLine
     }
   }
 
