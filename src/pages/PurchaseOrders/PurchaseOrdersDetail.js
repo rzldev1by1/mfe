@@ -153,19 +153,19 @@ class PurchaseOrdersDetail extends React.Component {
           </CCardBody>
         </CCard>
         <CCard>
-          <CCardBody className="p-0 mx-0 my-3 border-right">
-            <CRow><CCol lg={3} className="text-light-gray px-3">Supplier No</CCol> <CCol>{detail.supplier_no || '-'}</CCol></CRow>
-            <CRow><CCol lg={3} className="text-light-gray px-3 py-1">Supplier Name</CCol> <CCol className="py-1">{detail.supplier_name || '-'}</CCol></CRow>
-            <CRow><CCol lg={3} className="text-light-gray px-3">Customer Order Ref</CCol> <CCol>{detail.customer_order_ref || '-'}</CCol></CRow>
-            <CRow><CCol lg={3} className="text-light-gray px-3 pt-1">Vendor Order Ref</CCol> <CCol className="pt-1">{detail.vendor_ord_ref || '-'}</CCol></CRow>
+          <CCardBody className="p-1 mx-2 my-3 border-right">
+            <CRow><CCol lg={3} className="text-light-gray px-0">Supplier No</CCol> <CCol className="px-3">{detail.supplier_no || '-'}</CCol></CRow>
+            <CRow><CCol lg={3} className="text-light-gray px-0 py-1">Supplier Name</CCol> <CCol className="px-3 py-1">{detail.supplier_name || '-'}</CCol></CRow>
+            <CRow><CCol lg={3} className="text-light-gray px-0">Customer Order Ref</CCol> <CCol className="px-3">{detail.customer_order_ref || '-'}</CCol></CRow>
+            <CRow><CCol lg={3} className="text-light-gray px-0 pt-1">Vendor Order Ref</CCol> <CCol className="px-3 pt-1">{detail.vendor_ord_ref || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>
         <CCard>
-          <CCardBody className="p-0 m-3">
-            <CRow><CCol lg={3}  className="text-light-gray px-3">Order Date</CCol> <CCol>{this.formatDate(detail.delivery_date)}</CCol></CRow>
-            <CRow><CCol lg={3}  className="text-light-gray px-3 py-1">Date Received</CCol> <CCol className="py-1">{this.formatDate(detail.date_received)}</CCol></CRow>
-            <CRow><CCol lg={3}  className="text-light-gray px-3">Date Released</CCol> <CCol>{this.formatDate(detail.date_released)}</CCol></CRow>
-            <CRow><CCol lg={3}  className="text-light-gray px-3 pt-1">Date Completed</CCol> <CCol className="pt-1">{this.formatDate(detail.date_completed)}</CCol></CRow>
+          <CCardBody className="p-0 mx-3 my-3">
+            <CRow><CCol lg={3}  className="text-light-gray px-0">Order Date</CCol> <CCol className="px-3">{this.formatDate(detail.delivery_date)}</CCol></CRow>
+            <CRow><CCol lg={3}  className="text-light-gray px-0 py-1">Date Received</CCol> <CCol className="px-3 py-1">{this.formatDate(detail.date_received)}</CCol></CRow>
+            <CRow><CCol lg={3}  className="text-light-gray px-0">Date Released</CCol> <CCol className="px-3">{this.formatDate(detail.date_released)}</CCol></CRow>
+            <CRow><CCol lg={3}  className="text-light-gray px-0 pt-1">Date Completed</CCol> <CCol className="px-3 pt-1">{this.formatDate(detail.date_completed)}</CCol></CRow>
           </CCardBody>
         </CCard>
       </div>
