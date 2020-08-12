@@ -235,7 +235,6 @@ showModal = (show) => {
       let split = data.accessor
       return split
       });
-
     let placeholder = this.state.fields.map((data, idx) => {                
                 let split = data.placeholder
                 return split
