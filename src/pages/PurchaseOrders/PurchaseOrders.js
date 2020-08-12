@@ -12,34 +12,34 @@ import PurchaseOrderCreate from './PurchaseOrderCreate'
 import './PurchaseOrder.scss'
 
 const columns = [
-  { accessor: 'site', placeholder: 'Site', Header: 'Site', },
-  { accessor: 'client', placeholder: 'Client', Header: 'Client', },
-  { accessor: 'order_no', placeholder: 'Order No', Header: 'Order No', },
-  { accessor: 'order_type', placeholder: 'Order Type', Header: 'Order Type', },
-  { accessor: 'isis_task',placeholder: 'Task', Header: 'Task', },
-  { accessor: 'supplier_no', placeholder: 'Supplier No', Header: 'Supplier No', },
-  { accessor: 'supplier_name', placeholder: 'Supplier Name', Header: 'Supplier Name', width: 210 },
+  { accessor: 'site', placeholder: 'Site', Header: 'Site', width: 80, sortable: true },
+  { accessor: 'client', placeholder: 'Client', Header: 'Client', width: 110, sortable: true},
+  { accessor: 'order_no', placeholder: 'Order No', Header: 'Order No',  width: 120, sortable: true},
+  { accessor: 'order_type', placeholder: 'Order Type', Header: 'Order Type',  width: 120, sortable: true},
+  { accessor: 'isis_task',placeholder: 'Task', Header: 'Task', width: 100, sortable: true },
+  { accessor: 'supplier_no', placeholder: 'Supplier No', Header: 'Supplier No', width: 120, sortable: true},
+  { accessor: 'supplier_name', placeholder: 'Supplier Name', Header: 'Supplier Name', width: 290 },
   { accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140 },
-  { accessor: 'delivery_date',placeholder: 'Order Date', Header: 'Order Date', },
-  { accessor: 'date_received', placeholder: 'Date Received',Header: 'Date Received', },
-  { accessor: 'date_released',placeholder: 'Date Released', Header: 'Date Released', },
-  { accessor: 'date_completed',placeholder: 'Date Complated', Header: 'Date Completed', },
+  { accessor: 'delivery_date',placeholder: 'Order Date', Header: 'Order Date',  width: 150, sortable: true},
+  { accessor: 'date_received', placeholder: 'Date Received',Header: 'Date Received',  width: 150, sortable: true },
+  { accessor: 'date_released',placeholder: 'Date Released', Header: 'Date Released', width: 150, sortable: true },
+  { accessor: 'date_completed',placeholder: 'Date Complated', Header: 'Date Completed', width: 150, sortable: true },
   // { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
   // { accessor: 'vendor_order_ref', Header: 'Vendor Order No' },
 ]
 const customColumns = [
-  { accessor: 'site', Header: 'Site', },
-  { accessor: 'client', Header: 'Client', },
-  { accessor: 'order_no', Header: 'Order No', },
-  { accessor: 'order_type', Header: 'Order Type', },
-  { accessor: 'isis_task', Header: 'Task', },
-  { accessor: 'supplier_no', Header: 'Supplier No', },
-  { accessor: 'supplier_name', Header: 'Supplier Name', width: 210 },
+  { accessor: 'site', Header: 'Site', width: 30, sortable: true },
+  { accessor: 'client', Header: 'Client', width: null, sortable: true },
+  { accessor: 'order_no', Header: 'Order No', width: 130, sortable: true },
+  { accessor: 'order_type', Header: 'Order Type', width: null, sortable: true },
+  { accessor: 'isis_task', Header: 'Task', width: null, sortable: true },
+  { accessor: 'supplier_no', Header: 'Supplier No', width: null, sortable: true },
+  { accessor: 'supplier_name', Header: 'Supplier Name', width: 290 },
   { accessor: 'statusTxt', Header: 'Status', width: 140 },
-  { accessor: 'delivery_date', Header: 'Order Date', },
-  { accessor: 'date_received', Header: 'Date Received', },
-  { accessor: 'date_released', Header: 'Date Released', },
-  { accessor: 'date_completed', Header: 'Date Completed', },
+  { accessor: 'delivery_date', Header: 'Order Date', width: null, sortable: true },
+  { accessor: 'date_received', Header: 'Date Received', width: null, sortable: true },
+  { accessor: 'date_released', Header: 'Date Released', width: null, sortable: true },
+  { accessor: 'date_completed', Header: 'Date Completed', width: null, sortable: true },
   // { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
   // { accessor: 'vendor_order_ref', Header: 'Vendor Order No' },
 ]
@@ -383,7 +383,7 @@ class PurchaseOrders extends React.PureComponent {
       </CCard>
 
       <CustomTable
-        title="Purchase Order"
+        title="Purchase Order Summary"
         filename='Microlistics_PurchaseOrder.'
         font="9"
         height={dimension.height}
