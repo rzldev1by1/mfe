@@ -23,15 +23,15 @@ class SalesOrderDetail extends React.Component {
   state = {
     dimension: { width: 0, height: 0 },
     stockDetail: [
-      { accessor: 'batch', placeholder: 'Batch', Header: 'Batch', sortable: true, width: 130 },
-      { accessor: 'rotadate', placeholder: 'Rotadate', Header: 'Rotadate', sortable: true, width: 100 },
-      { accessor: 'ref3', placeholder: 'Ref3', Header: 'Ref3', sortable: true, width: 100 },
-      { accessor: 'ref4',placeholder: 'Ref4', Header: 'Ref4', sortable: true, width: 100 },
-      { accessor: 'qty', placeholder: 'Qty', Header: 'Qty', sortable: true, width: 110 },
-      { accessor: 'weight', placeholder: 'Weight', Header: 'Weight', sortable: true, width: 115 },
-      { accessor: 'pallet',placeholder: 'Pallet', Header: 'Pallet', sortable: true, width: 120 },
-      { accessor: 'price',placeholder: 'Prince', Header: 'Price', sortable: true, width: 120 },
-      { accessor: 'pack_id',placeholder: 'Pack ID', Header: 'Pack ID', sortable: true, width: 180 },
+      { accessor: 'batch',       placeholder: 'Batch',     Header: 'Batch',    sortable: true, width: 200 },
+      { accessor: 'rotadate',    placeholder: 'Rotadate',  Header: 'Rotadate', sortable: true, width: 100 },
+      { accessor: 'ref3',        placeholder: 'Ref3',      Header: 'Ref3',     sortable: true, width: 100 },
+      { accessor: 'ref4',        placeholder: 'Ref4',      Header: 'Ref4',     sortable: true, width: 100 },
+      { accessor: 'qty',         placeholder: 'Qty',       Header: 'Qty',      sortable: true, width: 110 },
+      { accessor: 'weight',      placeholder: 'Weight',    Header: 'Weight',   sortable: true, width: 115 },
+      { accessor: 'pallet',      placeholder: 'Pallet',    Header: 'Pallet',   sortable: true, width: 120 },
+      { accessor: 'price',       placeholder: 'Prince',    Header: 'Price',    sortable: true, width: 120 },
+      { accessor: 'pack_id',     placeholder: 'Pack ID',   Header: 'Pack ID',  sortable: true, width: 180 },
     ],
     ForesCast: [
       { accessor: 'type',
@@ -67,8 +67,8 @@ class SalesOrderDetail extends React.Component {
         Cell : row => {
           return(
             <div>
-              <span className="class-for-name">{row.original.effectivedate}</span>
-              <span className="class-for-name">{row.original.stockexpirydate}</span>
+              <span className="class-for-name alg-right">{row.original.effectivedate}</span>
+              <span className="class-for-name alg-right">{row.original.stockexpirydate}</span>
             </div>
           )
         }
@@ -82,8 +82,8 @@ class SalesOrderDetail extends React.Component {
         Cell : row => {
           return(
             <div>
-              <span className="class-for-name">{row.original.qtyexpected}</span>
-              <span className="class-for-name">{row.original.qty? 0 : null}</span>
+              <span className="class-for-name alg-right">{row.original.qtyexpected}</span>
+              <span className="class-for-name alg-right">{row.original.qty? 0 : null}</span>
             </div>
           )
         }
@@ -97,8 +97,8 @@ class SalesOrderDetail extends React.Component {
         Cell : row => {
           return(
             <div>
-              <span className="class-for-name">{row.original.qtycommitted}</span>
-              <span className="class-for-name">{row.original.qty}</span>
+              <span className="class-for-name alg-right">{row.original.qtycommitted}</span>
+              <span className="class-for-name alg-right">{row.original.qty}</span>
             </div>
           )
         }
@@ -112,10 +112,10 @@ class SalesOrderDetail extends React.Component {
         Cell : row => {
           return(
             <div>
-              <span className="class-for-name">{row.original.startbalance}</span>
-              <span className="class-for-name">{row.original.closingbalance}</span>
-              <span className="class-for-name">{row.original.closingstock}</span>
-              <span className="class-for-name">{row.original.totalbalance}</span>
+              <span className="class-for-name alg-right">{row.original.startbalance}</span>
+              <span className="class-for-name alg-right">{row.original.closingbalance}</span>
+              <span className="class-for-name alg-right">{row.original.closingstock}</span>
+              <span className="class-for-name alg-right">{row.original.totalbalance}</span>
             </div>
           )
         }

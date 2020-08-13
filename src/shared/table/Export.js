@@ -4,8 +4,9 @@ import './Export.css';
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import ExportExl from 'react-html-table-to-excel'
-import loading from "assets/icons/loading/LOADING-MLS.gif"
-import { Button, ButtonDropdown, Card, CardBody, CardHeader, Col, DropdownItem, DropdownMenu, DropdownToggle, Row } from 'reactstrap';
+import loading from "assets/icons/loading/LOADING-MLS.gif" 
+import { Modal, ModalBody, ModalHeader, Button, ButtonDropdown, Card, CardBody, CardHeader, Col, DropdownItem, DropdownMenu, DropdownToggle, Row } from 'reactstrap';
+import logo_confirm from 'assets/img/LOGO5@2x.png' 
 
 class Export extends Component {
 	constructor(props) {
@@ -17,7 +18,8 @@ class Export extends Component {
             dropdownOpen: new Array(19).fill(false),
             exportPdf: this.props.pdf || true,
             exportExcel: this.props.excel || true,
-            exportStatus: 'ready'
+            exportStatus: 'ready',
+            notifExport: false
         };
       }
       toggle(i) {
@@ -36,8 +38,18 @@ class Export extends Component {
               year = date.getFullYear();
          return dateNow=(date1 +"-"+ arrmonth[month] +"-"+ year)  
       }
+      closeConfirmDialog = () => {
+         this.setState({ notifExport: false });
+      }
     exportPDF = async () => {
         this.changeExportStatus('wait');
+        if(this.props.pagination && this.props.pagination.total > 75000){
+          this.setState({
+            notifExport: true
+          })
+          this.changeExportStatus('ready')
+          return 0;
+        }
         await this.props.getExportData()  
         const marginLeft = 40;
         
@@ -48,6 +60,13 @@ class Export extends Component {
         this.changeExportStatus('ready')
       }
       exportXLS = async () => {
+        if(this.props.pagination && this.props.pagination.total > 75000){
+          this.setState({
+            notifExport: true
+          })
+          this.changeExportStatus('ready')
+          return 0;
+        }
           this.changeExportStatus('wait');
           await this.props.getExportData()  
           document.getElementById("button-download-as-xls").click();
@@ -102,16 +121,16 @@ class Export extends Component {
                             {exportStatus=='ready'?'EXPORT':<img src={loading} className='mt-min-5' width='45' height='45'/>}
                         </div>
                   </DropdownToggle>
-                    <DropdownMenu className={"no-shadow "+((exportPdf == 'false' || exportExcel == 'false')?' dropdown-single ':' Dropdown-menu ')} >
+                    <DropdownMenu style={{top: "1px",left: "10px"}} className={"no-shadow "+((exportPdf == 'false' || exportExcel == 'false')?' dropdown-single ':' Dropdown-menu ')} >
                       {(exportPdf == 'false')?'':
-                        <DropdownItem className="export-pdf" onClick={() => this.exportPDF()}> 
-                            <span className="icon-PDF" />EXPORT TO PDF
+                        <DropdownItem className="export-pdf px-3" onClick={() => this.exportPDF()}> 
+                            <span className="icon-PDF" style={{paddingRight: "0.28rem"}}/> EXPORT TO PDF
                         </DropdownItem>
                       }
                        {(exportExcel == 'false')?'':
                        <div>
-                          <DropdownItem className="export-excel" onClick={() => this.exportXLS()} >
-                          <span className="icon-XLS" /> EXPORT TO XLS   
+                          <DropdownItem className="export-excel" style={{paddingLeft: "1.15rem"}} onClick={() => this.exportXLS()} >
+                          <span className="icon-XLS" style={{paddingRight: "0.3rem"}}/> EXPORT TO XLS   
                           </DropdownItem>
                           <div style={{display: 'none'}}> 
                             <ExportExl  className="Excel-bottom" 
@@ -126,6 +145,26 @@ class Export extends Component {
                         
                     </DropdownMenu>
                 </ButtonDropdown>
+
+                <Modal isOpen={this.state.notifExport} centered={true}  
+                  onOpened={() => this.state.notifExport ? setTimeout(() => { this.closeConfirmDialog() }, 36000) : {}}
+                  contentClassName="modal-content-paging box-er-pagination"
+                  >
+                  <ModalBody>
+                  <div  className="text-right px-0" style={{fontSize: '14px'}}>
+                    <i className="iconU-close pointer" onClick={this.closeConfirmDialog}></i>
+                  </div>
+                  <div className="d-flex d-inline-flex">
+                      <img src={logo_confirm} alt="logo" style={{ width: "20%", height: "20%" }} />
+                      <label className="pl-3 font"> 
+                      <div><b>Export Unsuccessful</b><br />
+                      Please try to export the report again.</div>
+                      <div style={{paddingTop: '12px'}}>Note the maximum you <br /> can download are: <br /></div>
+                      <div style={{color: '#b4b9bb'}}>Maximum 75,000 records</div> 
+                      </label>
+                  </div>
+                  </ModalBody> 
+              </Modal>
             </div>
         );
     }

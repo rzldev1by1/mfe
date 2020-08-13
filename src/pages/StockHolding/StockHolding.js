@@ -10,28 +10,29 @@ import CustomTable from '../../shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
 import './StockHolding.scss'
 const columns = [
-  { accessor: 'site', Header: 'Site', placeholder: 'Site', width: null, sortable: true },
+  { accessor: 'site', Header: 'Site', placeholder: 'Site', width: 70, sortable: true },
   { accessor: 'client', Header: 'Client', placeholder: 'Client', width: null, sortable: true },
   {
     accessor: 'product',
     Header: 'Product',
     placeholder: 'Product',
     sortable: true,
-    width: 80,
+    width: 100,
     style: { textAlign: 'left' },
   },
   {
     accessor: 'product_name',
     Header: 'Description',
     placeholder: 'Description',
-    width: null,
+    width: 250,
     sortable: true,
   },
-  { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: null, sortable: true },
-  { accessor: 'packdesc_1', Header: 'UOM', placeholder: 'UOM', width: null, sortable: true },
-  { accessor: 'status', Header: ' Status ', placeholder: 'Status', width: null, sortable: true },
+  { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: 140, sortable: true },
+  { accessor: 'packdesc_1', Header: 'UOM', placeholder: 'UOM', width: 80, sortable: true },
+  { accessor: 'status', Header: ' Status ', placeholder: 'Status', width: 100, sortable: true },
   {
     accessor: 'on_hand_qty',
+    Cell: row => (<div className="alg-right">{row.value}</div>),
     Header: 'Stock on Hand',
     placeholder: 'Stock on Hand',
     sortable: true,
@@ -40,39 +41,43 @@ const columns = [
   },
   {
     accessor: 'on_hand_wgy',
+    Cell: row => (<div className="alg-right">{row.value}</div>),
     Header: 'On Hand WGT',
     placeholder: 'On Hand WGT',
     sortable: true,
-    width: null,
+    width: 130,
     style: {flexDirection: 'row-reverse'}
   },
   {
     accessor: 'expected_in_qty',
+    Cell: row => (<div className="alg-right">{row.value}</div>),
     Header: 'Expected In Qty',
     placeholder: 'Expected In Qty',
     sortable: true,
-    width: null,
+    width: 130,
     style: {flexDirection: 'row-reverse'}
   },
   {
     accessor: 'expected_in_wgt',
+    Cell: row => (<div className="alg-right">{row.value}</div>),
     Header: 'Expected In Weight',
     placeholder: 'Expected In Weight',
     sortable: true,
-    width: null,
+    width: 150,
     style: {flexDirection: 'row-reverse'}
   },
   {
     accessor: 'expected_out_qty',
+    Cell: row => (<div className="alg-right">{row.value}</div>),
     Header: 'Expected Out Qty',
     placeholder: 'Expected Out Qty',
     sortable: true,
-    width: null,
+    width: 140,
     style: {flexDirection: 'row-reverse'}
   },
-  { accessor: 'price', Header: ' Price ', placeholder: 'Price', width: null, sortable: true,
-  style: {flexDirection: 'row-reverse'} },
-  { accessor: 'pallets', Header: 'Pallets', placeholder: 'Pallets', width: null, sortable: true,
+  { accessor: 'price', Cell: row => (<div className="alg-right">{row.value}</div>),Header: ' Price ', placeholder: 'Price', width: 70, sortable: true,
+    style: {flexDirection: 'row-reverse'} },
+  { accessor: 'pallets',Cell: row => (<div className="alg-right">{row.value}</div>), Header: 'Pallets', placeholder: 'Pallets', width: 70, sortable: true,
   style: {flexDirection: 'row-reverse'} },
 ];
 
@@ -91,12 +96,12 @@ const customColumns = [
     accessor: 'product_name',
     Header: 'Description',
     placeholder: 'Description',
-    width: null,
+    width: 250,
     sortable: true,
   },
   { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: null, sortable: true },
   { accessor: 'packdesc_1', Header: 'UOM', placeholder: 'UOM', width: null, sortable: true },
-  { accessor: 'statusTxt', Header: ' Status ', placeholder: 'Status', width: null, sortable: true },
+  { accessor: 'statusTxt', Header: ' Status ', placeholder: 'Status', width: 200, sortable: true },
   {
     accessor: 'on_hand_qty',
     Header: 'Stock on Hand',
@@ -109,21 +114,21 @@ const customColumns = [
     Header: 'On Hand WGT',
     placeholder: 'On Hand WGT',
     sortable: true,
-    width: null,
+    width: 140,
   },
   {
     accessor: 'expected_in_qty',
     Header: 'Expected In Qty',
     placeholder: 'Expected In Qty',
     sortable: true,
-    width: null,
+    width: 140,
   },
   {
     accessor: 'expected_in_wgt',
     Header: 'Expected In Weight',
     placeholder: 'Expected In Weight',
     sortable: true,
-    width: null,
+    width: 140,
   },
   {
     accessor: 'expected_out_qty',
@@ -132,8 +137,8 @@ const customColumns = [
     sortable: true,
     width: null,
   },
-  { accessor: 'price', Header: ' Price ', placeholder: 'Price', width: null, sortable: true },
-  { accessor: 'pallets', Header: 'Pallets', placeholder: 'Pallets', width: null, sortable: true },
+  { accessor: 'price', Header: ' Price ', placeholder: 'Price', width: 100, sortable: true },
+  { accessor: 'pallets', Header: 'Pallets', placeholder: 'Pallets', width: 100, sortable: true },
 ];
 class StockHolding extends React.PureComponent {
   state = {
@@ -452,11 +457,11 @@ class StockHolding extends React.PureComponent {
         </CCard>
 
         <CustomTable
-          title='Stock Holding'   
+          title='Stock Holding Summary'   
           filename='Microlistics_StockHolding.'
           height={dimension.height}
           data={data}
-          font="10"
+          font="7"
           fields={fields}
           customFields={customFields} 
           pagination={pagination}
