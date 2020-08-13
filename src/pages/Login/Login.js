@@ -126,7 +126,7 @@ class Logins extends Component {
             <form className={"mt-3 " + (this.state.forgotPassword ? 'form-hidden' : 'form-show')} onSubmit={this.validateForm}>
                 <input className={'form-control  inputLogin ' + (formValidation.username ? "" : " is-invalid")}
                     type="text" name="username"
-                    placeholder="Enter your username here" />
+                    placeholder="Enter your user ID here" />
                 <br />
                 <input className={'form-control inputLogin ' + (formValidation.password ? "" : " is-invalid")}
                     type="password" name="password"
