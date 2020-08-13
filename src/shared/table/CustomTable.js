@@ -235,6 +235,10 @@ showModal = (show) => {
       let split = data.accessor
       return split
       });
+      let Cell = this.state.fields.map((data, idx) => {                
+        let split = data.Cell
+        return split
+        });
     let placeholder = this.state.fields.map((data, idx) => {                
                 let split = data.placeholder
                 return split
@@ -259,6 +263,7 @@ showModal = (show) => {
       let headerTable = {
         accessor: '',
         Header: '',
+        Cell: [],
         headerData,
         placeholder: '',
         width: null,
@@ -267,6 +272,7 @@ showModal = (show) => {
       headerTable.Header = data;
       headerTable.placeholder = placeholder[idx];
       headerTable.accessor = accessor[idx];
+      headerTable.Cell = Cell[idx];
       headerTable.headerData = headerData[idx];
       headerTable.width = width[idx];
       fields.push(headerTable);
