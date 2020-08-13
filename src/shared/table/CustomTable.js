@@ -60,6 +60,7 @@ class CustomTable extends React.Component {
       fields: this.props.fields,
       urlHeader: this.props.urlHeader,
       products: [],
+      isLoading: true
     }
   }
 
@@ -113,20 +114,30 @@ class CustomTable extends React.Component {
 });
 }
 
-componentDidMount() {
-  this.mountEvents();
-}
-
-componentDidUpdate() {
-  this.mountEvents();
-}
-
-showModal = (show) => {
-  this.setState({ showModal: show })
-}
-  componentDidMount = () => {
+  componentDidMount() {
+    this.mountEvents();
     this.headerRename();
-  };
+  }
+
+  componentDidUpdate() {
+    this.mountEvents();
+  }
+
+  // componentWillUpdate(nextProps, nextState) {
+  //     localStorage.setItem('fields', JSON.stringify(nextState.fields));
+  // }
+  
+  // componentWillMount(){
+  //   localStorage.getItem('fields') && this.setState({
+  //     fields: JSON.parse(localStorage.getItem('fields')),
+  //     isLoading: false
+  //   })
+  // }
+
+  showModal = (show) => {
+    this.setState({ showModal: show })
+  }
+
   activeTabIndex(tab) {
     if (this.state.activeTab !== tab) {
       this.setState({ activeTab: tab });
@@ -285,8 +296,6 @@ showModal = (show) => {
     }
   };
 
-  // Header Name And
-
   renameSubmits = async (e) => {
     const fields = this.state.fields;
     const changedField = e;
@@ -421,6 +430,8 @@ showModal = (show) => {
     this.renameSubmits(this.state.changedColumns);
     this.setState({ showModal: false });
   };
+    // Header Name And
+
   ExportName = () => {
     let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     let date = new Date();
@@ -440,6 +451,7 @@ showModal = (show) => {
     });
     return data
   }
+
   ExportData = () => { 
     let fields = this.props.customFields||this.state.fields
     let dataAll = []
