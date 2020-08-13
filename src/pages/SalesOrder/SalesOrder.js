@@ -400,7 +400,7 @@ class SalesOrder extends React.PureComponent {
       </CCard>
       {console.log(data)}
       <CustomTable
-        title="Sales Order"
+        title="Sales Order Summary"
         filename='Microlistics_SalesOrder.'
         height={dimension.height}
         font="6"
