@@ -16,7 +16,7 @@ import {
 import CustomTable from 'shared/table/CustomTable';
 import { tab1, tab1Inactive, tab2, tab2Inactive } from './Helper';
 import HeaderTitle from 'shared/container/TheHeader';
-import './StockHolding.css';
+import './StockHolding.scss';
 
 class SalesOrderDetail extends React.Component {
   // ref to get element height and calculate table height
@@ -46,7 +46,7 @@ class SalesOrderDetail extends React.Component {
             <div>
               <span className="class-for-name">{row.original.openingbalancetext}</span>
               {/* <span className="class-for-name">{row.original.type}</span> */}
-              <span className="class-for-name overflow-visible z-index-20">{row.original.stockexpirydate}</span>
+              <span className="class-for-name overflow-visible z-index-20">{row.original.newstockexpirydate}</span>
               <span className="class-for-name">{row.original.closingbalancetext}</span>
             </div>
           )
@@ -194,17 +194,21 @@ class SalesOrderDetail extends React.Component {
       data: [],
       tableStatusForecast: 'waiting'
     })
+
     const { product, client, site } = this.props.match.params;
     const url = `/stockbal?client=${client}&product=${product}&site=${site}`;
     const { data } = await axios.get(url);
-    const openingbal = [{ openingbalancetext: 'Opening Balance', startbalance: data[0][0]['opening balance'] }]
-    let closingbal = [{ closingbalancetext: 'Closing Balance', totalbalance: data[0][0]['closing balance'] }]
     const available = data[0][0]['available orders']
     let expiry = data[0][0]['stock expiry']
+    let expdt = expiry[expiry.length - 1].stockexpirydate
+    console.log(data)
+    const openingbal = [{ openingbalancetext: `Opening Balance as on ${moment().format('DD/MM/YYYY')}`, startbalance: data[0][0]['opening balance'] }]
+    let closingbal = [{ closingbalancetext: `Closing Balance as on ${expdt}`, totalbalance: data[0][0]['closing balance'] }]
+
     expiry.map(expiry => {
-      expiry['qty'] = expiry['quantity']
+      expiry['qty'] = expiry['expected_out']
       closingbal[0].totalbalance = parseInt(closingbal[0].totalbalance) - parseInt(expiry.qty)
-      expiry['stockexpirydate'] = `Stock Expires on ${expiry['stockexpirydate']}`
+      expiry['newstockexpirydate'] = `Stock Expires on ${expiry['stockexpirydate']}`
       expiry['closingstock'] = closingbal[0].totalbalance
       return expiry
     })
