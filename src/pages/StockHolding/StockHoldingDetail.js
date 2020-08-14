@@ -45,8 +45,8 @@ class SalesOrderDetail extends React.Component {
           return (
             <div>
               <span className="class-for-name">{row.original.openingbalancetext}</span>
-              <span className="class-for-name">{row.original.type}</span>
-              <span className="class-for-name">{row.original.batchnum}</span>
+              {/* <span className="class-for-name">{row.original.type}</span> */}
+              <span className="class-for-name overflow-visible z-index-20">{row.original.stockexpirydate}</span>
               <span className="class-for-name">{row.original.closingbalancetext}</span>
             </div>
           )
@@ -70,7 +70,6 @@ class SalesOrderDetail extends React.Component {
           return (
             <div>
               <span className="class-for-name alg-right">{row.original.effectivedate}</span>
-              <span className="class-for-name alg-right">{row.original.stockexpirydate}</span>
             </div>
           )
         }
@@ -205,6 +204,7 @@ class SalesOrderDetail extends React.Component {
     expiry.map(expiry => {
       expiry['qty'] = expiry['quantity']
       closingbal[0].totalbalance = parseInt(closingbal[0].totalbalance) - parseInt(expiry.qty)
+      expiry['stockexpirydate'] = `Stock Expires on ${expiry['stockexpirydate']}`
       expiry['closingstock'] = closingbal[0].totalbalance
       return expiry
     })
