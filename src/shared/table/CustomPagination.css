@@ -196,7 +196,12 @@ nav .pagination li:last-child .page-link {
     max-width: 25% !important;
   }
 }
-
+@media (min-width: 1481px) and (max-width: 1717px) {
+  .container-fluid div div .pagination-custom .showing {
+    flex: 0 0 30.66667% !important;
+    max-width: 41.66667% !important;
+  }
+}
 @media (min-width: 1234px) and (max-width: 1459px) {
   .container-fluid div div .pagination-custom .col-lg-4:first-child {
     flex: 0 0 50% !important;
