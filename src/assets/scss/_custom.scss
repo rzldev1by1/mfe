@@ -51,8 +51,8 @@ button:focus {
   color: #b4b9bb !important;
 }
 ::-webkit-scrollbar {
-  width: 8px !important;
-  height: 8px !important;
+  width: 10px !important;
+  height: 10px !important;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -482,6 +482,17 @@ header {
     max-width: 100%;
 }
 }
+@media (min-width:992px) and (max-width: 1199px)
+{
+  .modal-xl {
+    max-width: 1000px !important;
+  }
+  .toggle-um {
+    flex: 0 0 40.33333%;
+    max-width: 40.33333%;
+  }
+}
+
 // -------------------------------
 @media (max-width:991px){
   .btn-create{
