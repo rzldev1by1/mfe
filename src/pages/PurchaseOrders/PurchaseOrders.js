@@ -19,7 +19,33 @@ const columns = [
   { accessor: 'isis_task', placeholder: 'Task', Header: 'Task', width: 100, sortable: true },
   { accessor: 'supplier_no', placeholder: 'Supplier No', Header: 'Supplier No', width: 120, sortable: true },
   { accessor: 'supplier_name', placeholder: 'Supplier Name', Header: 'Supplier Name', width: 290 },
-  { accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140 },
+  {
+    accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140,
+    Cell: row => {
+      switch (row.original.status) {
+        case '0: Unavailable':
+          return <a className="status-Unavailable">UNAVAILABLE</a>
+          break;
+        case '1: Available':
+          return <a className="status-available">AVAILABLE</a>
+          break;
+        case '2: Released':
+          return <a className="status-Release">RELEASED</a>
+          break;
+        case '3: Part Released':
+          return <a className="status-partRelease">PART RELEASED</a>
+          break;
+        case '4: Completed':
+          return <a className="status-complete">COMPLETED</a>
+          break;
+        case 'All Open':
+          return <a className="status-ok">ALL OPEN</a>
+          break;
+        default:
+          break;
+      }
+    }
+  },
   { accessor: 'delivery_date', placeholder: 'Order Date', Header: 'Order Date', width: 150, sortable: true },
   { accessor: 'date_received', placeholder: 'Date Received', Header: 'Date Received', width: 150, sortable: true },
   { accessor: 'date_released', placeholder: 'Date Released', Header: 'Date Released', width: 150, sortable: true },
@@ -175,27 +201,6 @@ class PurchaseOrders extends React.PureComponent {
         m.date_released = m?.date_released ? moment(m.date_released).format('DD/MM/YYYY') : '-'
         m.date_completed = m?.date_completed ? moment(m.date_completed).format('DD/MM/YYYY') : '-'
         return m
-      })
-      modifiedData.map((item, idx) => {
-        if ((item["status"]) === "1: Available") {
-          item['status'] = [<a className="status-available">AVAILABLE</a>]
-          item['statusTxt'] = 'AVAILABLE'
-        } if ((item["status"]) === "0: Unavailable") {
-          item['status'] = [<a className="status-Unavailable">UNAVAILABLE</a>]
-          item['statusTxt'] = 'UNAVAILABLE'
-        } if ((item["status"]) === "2: Released") {
-          item['status'] = [<a className="status-Release">RELEASED</a>]
-          item['statusTxt'] = 'RELEASED'
-        } if ((item["status"]) === "3: Part Released") {
-          item['status'] = [<a className="status-partRelease">PART RELEASED</a>]
-          item['statusTxt'] = 'PART RELEASED'
-        } if ((item["status"]) === "4: Completed") {
-          item['status'] = [<a className="status-complete">COMPLETED</a>]
-          item['statusTxt'] = 'COMPLETED'
-        } if ((item["status"]) === "All Open") {
-          item['status'] = [<a className="status-ok">ALL OPEN</a>]
-          item['statusTxt'] = 'ALL OPEN'
-        }
       })
       if (export_ == 'true') {
         this.setState({
