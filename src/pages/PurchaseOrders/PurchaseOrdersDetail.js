@@ -9,7 +9,7 @@ import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader'
 import './PurchaseOrder.scss'
 const columns = [
-  { accessor: "orig_line_number",  placeholder: 'Line No', Header: "Line No" },
+  { accessor: "orig_line_number",  placeholder: 'Line No', Header: "Line No", width:90 },
   { accessor: "product",  placeholder: 'Product', Header: "Product" },
   { accessor: "product_name",  placeholder: 'Description', Header: "Description" },
   { accessor: "quantity",  placeholder: 'Qty', Header: "Qty", width: 50 },

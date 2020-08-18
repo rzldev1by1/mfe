@@ -29,9 +29,10 @@ const columns = [
   },
   { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: 140, sortable: true },
   { accessor: 'packdesc_1', Header: 'UOM', placeholder: 'UOM', width: 80, sortable: true },
-  { accessor: 'status', Header: ' Status ', placeholder: 'Status', width: 100, sortable: true },
+  { accessor: 'status', Header: ' Status ', placeholder: 'Status', width: 140, sortable: true },
   {
     accessor: 'on_hand_qty',
+    Cell: row => (<div className="alg-right">{row.value}</div>),
     Header: 'Stock on Hand',
     placeholder: 'Stock on Hand',
     sortable: true,
@@ -40,6 +41,7 @@ const columns = [
   },
   {
     accessor: 'on_hand_wgy',
+    Cell: row => (<div className="alg-right">{row.value}</div>),
     Header: 'On Hand WGT',
     placeholder: 'On Hand WGT',
     sortable: true,
@@ -48,6 +50,7 @@ const columns = [
   },
   {
     accessor: 'expected_in_qty',
+    Cell: row => (<div className="alg-right">{row.value}</div>),
     Header: 'Expected In Qty',
     placeholder: 'Expected In Qty',
     sortable: true,
@@ -56,6 +59,7 @@ const columns = [
   },
   {
     accessor: 'expected_in_wgt',
+    Cell: row => (<div className="alg-right">{row.value}</div>),
     Header: 'Expected In Weight',
     placeholder: 'Expected In Weight',
     sortable: true,
@@ -64,15 +68,16 @@ const columns = [
   },
   {
     accessor: 'expected_out_qty',
+    Cell: row => (<div className="alg-right">{row.value}</div>),
     Header: 'Expected Out Qty',
     placeholder: 'Expected Out Qty',
     sortable: true,
     width: 140,
     style: {flexDirection: 'row-reverse'}
   },
-  { accessor: 'price', Header: ' Price ', placeholder: 'Price', width: 70, sortable: true,
-  style: {flexDirection: 'row-reverse'} },
-  { accessor: 'pallets', Header: 'Pallets', placeholder: 'Pallets', width: 70, sortable: true,
+  { accessor: 'price', Cell: row => (<div className="alg-right">{row.value}</div>),Header: ' Price ', placeholder: 'Price', width: 70, sortable: true,
+    style: {flexDirection: 'row-reverse'} },
+  { accessor: 'pallets',Cell: row => (<div className="alg-right">{row.value}</div>), Header: 'Pallets', placeholder: 'Pallets', width: 70, sortable: true,
   style: {flexDirection: 'row-reverse'} },
 ];
 

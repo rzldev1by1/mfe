@@ -37,8 +37,8 @@ const columns = [
   { accessor: 'state',          placeholder: 'State',               Header: 'State',              width: null, },
   { accessor: 'country',        placeholder: 'Country',             Header: 'Country',            width: null, },
   { accessor: 'loadnumber',     placeholder: 'Load Number',         Header: 'Load Number',        width: null, },
-  { accessor: 'loadoutstart',   placeholder: 'Load Start',          Header: 'Loadout Start' ,     width: null,},
-  { accessor: 'loadoutfinish',  placeholder: 'Load Finish',         Header: 'Loadout Finish' ,    width: null,},
+  { accessor: 'loadoutstart',   placeholder: 'Loadout Start',       Header: 'Loadout Start' ,     width: null,},
+  { accessor: 'loadoutfinish',  placeholder: 'Loadout Finish',      Header: 'Loadout Finish' ,    width: null,},
   { accessor: 'consignmentno',  placeholder: 'Consignment No',      Header: 'Consignment No',     width: null, },
   { accessor: 'freightcharge',  placeholder: 'Freight Charge',      Header: 'Freight Charge',     width: null, },
 ]

@@ -40,7 +40,7 @@
   .ReactTable {
     .rt-table {
       .rt-thead {
-        min-width: 4290px !important;
+        // min-width: 4290px !important;
         .rt-tr {
           // .rt-th:first-child {
           //   width: 105px !important;
@@ -52,7 +52,7 @@
     }
     .rt-tbody {
       overflow-x: hidden !important;
-      min-width: 4290px !important;
+      // min-width: 4290px !important;
       .rt-tr-group {
         .rt-tr {
           // .rt-td:first-child {

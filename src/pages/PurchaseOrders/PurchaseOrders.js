@@ -13,17 +13,17 @@ import './PurchaseOrder.scss'
 
 const columns = [
   { accessor: 'site', placeholder: 'Site', Header: 'Site', width: 80, sortable: true },
-  { accessor: 'client', placeholder: 'Client', Header: 'Client', width: 110, sortable: true},
-  { accessor: 'order_no', placeholder: 'Order No', Header: 'Order No',  width: 120, sortable: true},
-  { accessor: 'order_type', placeholder: 'Order Type', Header: 'Order Type',  width: 120, sortable: true},
-  { accessor: 'isis_task',placeholder: 'Task', Header: 'Task', width: 100, sortable: true },
-  { accessor: 'supplier_no', placeholder: 'Supplier No', Header: 'Supplier No', width: 120, sortable: true},
+  { accessor: 'client', placeholder: 'Client', Header: 'Client', width: 110, sortable: true },
+  { accessor: 'order_no', placeholder: 'Order No', Header: 'Order No', width: 120, sortable: true },
+  { accessor: 'order_type', placeholder: 'Order Type', Header: 'Order Type', width: 120, sortable: true },
+  { accessor: 'isis_task', placeholder: 'Task', Header: 'Task', width: 100, sortable: true },
+  { accessor: 'supplier_no', placeholder: 'Supplier No', Header: 'Supplier No', width: 120, sortable: true },
   { accessor: 'supplier_name', placeholder: 'Supplier Name', Header: 'Supplier Name', width: 290 },
   { accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140 },
-  { accessor: 'delivery_date',placeholder: 'Order Date', Header: 'Order Date',  width: 150, sortable: true},
-  { accessor: 'date_received', placeholder: 'Date Received',Header: 'Date Received',  width: 150, sortable: true },
-  { accessor: 'date_released',placeholder: 'Date Released', Header: 'Date Released', width: 150, sortable: true },
-  { accessor: 'date_completed',placeholder: 'Date Complated', Header: 'Date Completed', width: 150, sortable: true },
+  { accessor: 'delivery_date', placeholder: 'Order Date', Header: 'Order Date', width: 150, sortable: true },
+  { accessor: 'date_received', placeholder: 'Date Received', Header: 'Date Received', width: 150, sortable: true },
+  { accessor: 'date_released', placeholder: 'Date Released', Header: 'Date Released', width: 150, sortable: true },
+  { accessor: 'date_completed', placeholder: 'Date Complated', Header: 'Date Completed', width: 150, sortable: true },
   // { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
   // { accessor: 'vendor_order_ref', Header: 'Vendor Order No' },
 ]
@@ -51,12 +51,12 @@ class PurchaseOrders extends React.PureComponent {
     this.state = {
       search: '',
       site: {
-        value:this.props.store.user.site ? this.props.store.user.site : null,
+        value: this.props.store.user.site ? this.props.store.user.site : null,
       },
       client: {
         value: this.props.store.user.client ? this.props.store.user.client : null,
       },
-      status: {value: "open", label: "All Open"}, //on load status=open,
+      status: { value: "open", label: "All Open" }, //on load status=open,
       orderType: null,
       task: null,
       resources: [],
@@ -81,9 +81,9 @@ class PurchaseOrders extends React.PureComponent {
     this.getClient()
     this.getStatus()
     this.getResources()
-    this.searchPurchaseOrder('false','true')
-    const {site, client} = this.props.store.user
-    if(site && client) this.getTask()
+    this.searchPurchaseOrder('false', 'true')
+    const { site, client } = this.props.store.user
+    if (site && client) this.getTask()
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimension);
@@ -143,7 +143,7 @@ class PurchaseOrders extends React.PureComponent {
       this.setState({ resources: data, orderTypeFilterData, orderTypeData })
     }
   }
-  searchPurchaseOrder = async (export_='false',readyDocument='false') => {
+  searchPurchaseOrder = async (export_ = 'false', readyDocument = 'false') => {
     //export : true/false --> param for identify this function called from export button
     //readyDocument : true/false --> if true, then avoid bug "repeatly set state from ComponentDidMount"
 
@@ -151,7 +151,7 @@ class PurchaseOrders extends React.PureComponent {
     let urls = []
 
     //reset table
-    if(readyDocument == 'false' && export_ == 'false'){
+    if (readyDocument == 'false' && export_ == 'false') {
       this.setState({
         data: [],
         tableStatus: 'waiting'
@@ -163,9 +163,9 @@ class PurchaseOrders extends React.PureComponent {
     urls.push('client=' + (client.value ? client.value : 'all'))
     urls.push('orderType=' + (orderType ? orderType.value : 'all'))
     urls.push('status=' + (status ? status.value : 'all'))
-    if(task && task.value !== 'all') urls.push('task=' + task.value)
+    if (task && task.value !== 'all') urls.push('task=' + task.value)
     urls.push('page=' + (pagination.active || 1))
-    if(export_=='true'){urls.push('export=true')}
+    if (export_ == 'true') { urls.push('export=true') }
     console.log('load Purchase order', urls.join('&'), task)
     const { data } = await axios.get(`${endpoints.purchaseOrder}?${urls.join('&')}`)
     if (data?.data?.data) {
@@ -197,11 +197,11 @@ class PurchaseOrders extends React.PureComponent {
           item['statusTxt'] = 'ALL OPEN'
         }
       })
-      if(export_=='true'){
-        this.setState({ 
+      if (export_ == 'true') {
+        this.setState({
           exportData: modifiedData
         })
-      }else{
+      } else {
         this.setState({
           pagination: {
             active: pagination.active || data.data.current_page,
@@ -215,17 +215,17 @@ class PurchaseOrders extends React.PureComponent {
         })
       }
 
-      if(modifiedData.length < 1){
-        this.setState({   tableStatus: 'noData'  })
+      if (modifiedData.length < 1) {
+        this.setState({ tableStatus: 'noData' })
       }
     } else {
       this.setState({ data: [] })
-      this.setState({   tableStatus: 'noData'  })
+      this.setState({ tableStatus: 'noData' })
     }
     // this.setState({ data: DummyData })
   }
   showDetails = (item) => {
-    const url = '/purchase-order/' +item.site + '/' +  item.client + '/' + item.order_no
+    const url = '/purchase-order/' + item.site + '/' + item.client + '/' + item.order_no
     this.props.history.push(url)
   }
   toggle = (value) => {
@@ -234,34 +234,34 @@ class PurchaseOrders extends React.PureComponent {
 
   siteCheck = (siteVal) => {
     let l = null
-    const {site} = this.props.store
-    if(site)
-    site.map(data => {
-      if (data.value === siteVal) l = data.label
-    })
+    const { site } = this.props.store
+    if (site)
+      site.map(data => {
+        if (data.value === siteVal) l = data.label
+      })
     return l
   }
 
   clientCheck = (clientVal) => {
     let c = null
-    const {client} = this.props.store
-    if(client)
-    client.map(data => {
-      if (data.value === clientVal) c = data.label
-    })
+    const { client } = this.props.store
+    if (client)
+      client.map(data => {
+        if (data.value === clientVal) c = data.label
+      })
     return c
   }
 
-  setClient = (client) =>{
-    this.setState({client:client}, () =>  this.getTask())
-   
+  setClient = (client) => {
+    this.setState({ client: client }, () => this.getTask())
+
   }
 
   setSite = (site) => {
-    this.setState({site}, () => this.getTask())
-    
+    this.setState({ site }, () => this.getTask())
+
   }
-  UrlHeader = () =>{
+  UrlHeader = () => {
     return `/getPurchaseOrderColumn?client=ALL`
   }
   UrlAll = () => {
@@ -271,14 +271,14 @@ class PurchaseOrders extends React.PureComponent {
   onSubmitSearch = (e) => {
     e.preventDefault();
     this.searchPurchaseOrder();
-}
+  }
 
 
 
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
-      siteData, clientData, statusData, orderTypeData, taskData, customFields,tableStatus, orderTypeFilterData,exportData
+      siteData, clientData, statusData, orderTypeData, taskData, customFields, tableStatus, orderTypeFilterData, exportData
     } = this.state
     return <div className="purchase-order">
       <HeaderTitle
@@ -288,97 +288,97 @@ class PurchaseOrders extends React.PureComponent {
 
       <CCard className="mb-3">
         <CCardBody className="p-3">
-        <form onSubmit={this.onSubmitSearch}>
-          <CRow className="mx-0">
-            <CCol lg={3} className="pr-3 pl-0">
-              <div className="input-group">
-                <div className="input-group-prepend">
-                  <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
+          <form onSubmit={this.onSubmitSearch}>
+            <CRow className="mx-0">
+              <CCol lg={3} className="pr-3 pl-0">
+                <div className="input-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
+                  </div>
+                  <input type="text" className="form-control border-left-0 input-height" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
                 </div>
-                <input type="text" className="form-control border-left-0 input-height" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
-              </div>
-            </CCol>
-            <CCol lg={9} className="px-0">
-              <CRow className="mx-0">
-                
-                <CCol sm={4} lg={2} className="px-0">
-                {
-                  this.props.store.user.site ?
-                  <input value={this.siteCheck(site.value)} className="form-control" readOnly />
-                  : 
-                  <Select name="site" placeholder="Site"
-                   options={siteData}
-                    onChange={(val) => this.setSite(val)}
-                    styles={{
-                      dropdownIndicator: (base, state) => ({
-                        ...base, 
-                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                      })
-                    }}
-                  />
-                }                  
-                </CCol>
-                <CCol sm={4} lg={2} className="px-3">
-                  {
-                    this.props.store.user.client ?
-                    <input value={this.clientCheck(client.value)} className="form-control" readOnly />
-                    :
-                    <Select name="client" placeholder="Client"
-                    options={clientData}
-                    onChange={(val) => this.setClient(val)}
-                    styles={{
-                      dropdownIndicator: (base, state) => ({
-                        ...base, 
-                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                      })
-                    }}
+              </CCol>
+              <CCol lg={9} className="px-0">
+                <CRow className="mx-0">
+
+                  <CCol sm={4} lg={2} className="px-0">
+                    {
+                      this.props.store.user.site ?
+                        <input value={this.siteCheck(site.value)} className="form-control" readOnly />
+                        :
+                        <Select name="site" placeholder="Site"
+                          options={siteData}
+                          onChange={(val) => this.setSite(val)}
+                          styles={{
+                            dropdownIndicator: (base, state) => ({
+                              ...base,
+                              transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                            })
+                          }}
+                        />
+                    }
+                  </CCol>
+                  <CCol sm={4} lg={2} className="px-3">
+                    {
+                      this.props.store.user.client ?
+                        <input value={this.clientCheck(client.value)} className="form-control" readOnly />
+                        :
+                        <Select name="client" placeholder="Client"
+                          options={clientData}
+                          onChange={(val) => this.setClient(val)}
+                          styles={{
+                            dropdownIndicator: (base, state) => ({
+                              ...base,
+                              transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                            })
+                          }}
+                        />
+                    }
+                    {console.log(this.state.status)}
+                  </CCol>
+                  <CCol sm={4} lg={2} className="px-0">
+                    <Select name="status" placeholder="Status"
+                      value={status} options={statusData}
+                      onChange={(val) => this.setState({ status: val })}
+                      styles={{
+                        dropdownIndicator: (base, state) => ({
+                          ...base,
+                          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                        })
+                      }}
                     />
-                  }
-                  {console.log(this.state.status)}
-                </CCol>
-                <CCol sm={4} lg={2} className="px-0">
-                  <Select name="status" placeholder="Status"
-                    value={status} options={statusData}
-                    onChange={(val) => this.setState({ status: val })}
-                    styles={{
-                      dropdownIndicator: (base, state) => ({
-                        ...base, 
-                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                      })
-                    }}
-                  />
-                </CCol>
-                <CCol sm={4} lg={2} className="px-3">
-                  <Select name="orderType" placeholder="Order Type"
-                    value={orderType} options={orderTypeFilterData}
-                    onChange={(val) => this.setState({ orderType: val })}
-                    styles={{
-                      dropdownIndicator: (base, state) => ({
-                        ...base, 
-                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                      })
-                    }}
-                  />
-                </CCol>
-                <CCol sm={4} lg={2} className="px-0">
-                  <Select name="task" placeholder="Task"
-                    value={task} options={taskData}
-                    onChange={(val) => this.setState({ task: val })}
-                    styles={{
-                      dropdownIndicator: (base, state) => ({
-                        ...base, 
-                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                      })
-                    }}
-                  />
-                </CCol>
-                <CCol sm={4} lg={2} className="px-0">
-                  <button className="btn btn-search btn-primary float-right" onClick={this.searchPurchaseOrder}>SEARCH</button>
-                </CCol>
-              </CRow>
-            </CCol>
-          </CRow>
-        </form>
+                  </CCol>
+                  <CCol sm={4} lg={2} className="px-3">
+                    <Select name="orderType" placeholder="Order Type"
+                      value={orderType} options={orderTypeFilterData}
+                      onChange={(val) => this.setState({ orderType: val })}
+                      styles={{
+                        dropdownIndicator: (base, state) => ({
+                          ...base,
+                          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                        })
+                      }}
+                    />
+                  </CCol>
+                  <CCol sm={4} lg={2} className="px-0">
+                    <Select name="task" placeholder="Task"
+                      value={task} options={taskData}
+                      onChange={(val) => this.setState({ task: val })}
+                      styles={{
+                        dropdownIndicator: (base, state) => ({
+                          ...base,
+                          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                        })
+                      }}
+                    />
+                  </CCol>
+                  <CCol sm={4} lg={2} className="px-0">
+                    <button className="btn btn-search btn-primary float-right" onClick={this.searchPurchaseOrder}>SEARCH</button>
+                  </CCol>
+                </CRow>
+              </CCol>
+            </CRow>
+          </form>
         </CCardBody>
       </CCard>
 
@@ -392,16 +392,16 @@ class PurchaseOrders extends React.PureComponent {
         customFields={customFields}
         pagination={pagination}
         onClick={this.showDetails}
-        UrlHeader={this.UrlHeader} 
+        UrlHeader={this.UrlHeader}
         UrlAll={this.UrlAll}
         tableStatus={tableStatus}
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchPurchaseOrder())
         }}
-        export={<button className="btn btn-primary float-right btn-export"> 
-        {/* <div className="export-export pr-3"/> */}
+        export={<button className="btn btn-primary float-right btn-export">
+          {/* <div className="export-export pr-3"/> */}
         EXPORT</button>}
-        exportApi={async () =>  {await this.searchPurchaseOrder('true')}}
+        exportApi={async () => { await this.searchPurchaseOrder('true') }}
         exportData={exportData}
       />
 

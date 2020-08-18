@@ -26,7 +26,7 @@ const columns = [
 ]
 
 const Required = ({ error, id }) => {
-  return <span className="text-error text-danger font-12">{error && error[id]}</span>
+  return <span className="text-error text-danger position-absolute font-12">{error && error[id]}</span>
 }
  
 class StockMovement extends React.PureComponent {

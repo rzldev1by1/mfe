@@ -119,7 +119,7 @@ class CustomPagination extends React.Component {
             </CCard>
           </CCardGroup>
         </CCol>
-        <CCol lg="5" className="mt-3">
+        <CCol lg="5" className="mt-3 showing">
           <span className="text-muted-s">
             Showing{" "}
             <b className="text-muted-dark"> &nbsp; {`${x_from} to ${x_to} of ${x_total} `} </b>{" "}
