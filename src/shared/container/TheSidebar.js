@@ -16,7 +16,7 @@ const TheSidebar = () => {
   const location = useLocation()
   const show = useSelector(state => state.sidebarShow)
   const user = useSelector(state => state.user)
-  
+
   const [hover, setHover] = useState(null)
   const signOut = (e) => {
     dispatch({ type: 'LOGOUT' })
@@ -27,7 +27,7 @@ const TheSidebar = () => {
   if (user.userLevel === 'Regular') {
     navigation = navigation.filter(n => {
       console.log();
-      return ((adminRoutes.includes(n.to) ? false : true) && (userMenu.includes(n.key) ? true:false))      
+      return ((adminRoutes.includes(n.to) ? false : true) && (userMenu.includes(n.key) ? true : false))
     })
   }
   return (
@@ -59,16 +59,20 @@ const TheSidebar = () => {
       <CSidebarNav className="sidebar-nav-menu">
         {navigation.map((n, i) => {
           // const isActive = location.pathname === n.to
-          let string = location.pathname 
-          const isActive = string.includes(n.to) 
+          let string = location.pathname
+          const isActive = string.includes(n.to)
           const isHover = hover === n.to
           let icon = `nav/${isHover ? n.icon + '-hover' : isActive ? n.icon + '-active' : n.icon}.png`
-          return <li key={i} className="c-sidebar-item links" onMouseEnter={() => setHover(n.to)} onMouseLeave={() => setHover(null)} >
-            <Link to={n.to} className={isActive} >
-              <img className={`m-0 mb-1 c-sidebar-nav-icon ${n.icon}`} src={icon} alt="" />
-              <div className={isHover || isActive ? 'text-white' : 'text-blue'}>{n.name}</div>
+          return (
+            <Link to={n.to} className={isActive} style={{ textDecoration: 'none' }} >
+              <li key={i} className="c-sidebar-item links" onMouseEnter={() => setHover(n.to)} onMouseLeave={() => setHover(null)} >
+
+                <img className={`m-0 mb-1 c-sidebar-nav-icon ${n.icon}`} src={icon} alt="" />
+                <div className={isHover || isActive ? 'text-white' : 'text-blue'}>{n.name}</div>
+
+              </li>
             </Link>
-          </li>
+          )
         })}
       </CSidebarNav>
       <ul className="sidebar-nav-bottom m-0 p-0">
