@@ -117,6 +117,16 @@ class CustomTable extends React.Component {
   componentDidMount() {
     this.mountEvents();
     this.headerRename();
+    let tableColumns = localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : [];
+    let savedTableColumns = {};
+    if(tableColumns.length > 0){
+        tableColumns.map((data, idx) => {
+            if((data.title == this.props.title) && (data.userId == this.props.store.user.userId)){
+                savedTableColumns = data.columns
+            }
+        });
+        this.setState({ editColumn: savedTableColumns, editColumnTemp: savedTableColumns })
+    }
   }
 
   componentDidUpdate() {
@@ -178,6 +188,27 @@ class CustomTable extends React.Component {
   }
 
   saveEdit = (editColumn) => {
+    let savedTableColumns = localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : [];
+    if(savedTableColumns.length > 0){
+      savedTableColumns.map((data, index) => {
+          if(data.title === this.props.title){
+              savedTableColumns.splice(index, 1);
+          }
+      })
+      savedTableColumns.push({
+        userId: this.props.store.user.userId,
+        title: this.props.title,
+        columns: editColumn
+      })
+    }else{
+      savedTableColumns.push({
+        userId: this.props.store.user.userId,
+        title: this.props.title,
+        columns: editColumn
+      })
+    }
+
+    localStorage.setItem("tableColumns", JSON.stringify(savedTableColumns))
     this.setState({ editColumnTemp: editColumn, showModal: false })
   }
 
