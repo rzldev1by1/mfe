@@ -137,12 +137,6 @@ class SalesOrderDetail extends React.Component {
     this.getStockDetails();
     this.getForescast();
   }
-  UrlHeader = () => {
-    return `/getPurchase?client=ANTEC`
-  }
-  UrlAll = () => {
-    return '/putStockholdingColumn?client=ALL'
-  }
   activeTabIndex = (tabIndex) => {
     if (this.state.activeTab !== tabIndex) {
       this.setState({ activeTab: tabIndex });
@@ -358,8 +352,6 @@ class SalesOrderDetail extends React.Component {
                   height={this.state.dimension.height}
                   fields={stockDetail}
                   data={products}
-                  UrlHeader={this.UrlHeader}
-                  UrlAll={this.UrlAll}
                   tableStatus={tableStatus}
                   export={
                     <button className='btn btn-primary float-right btn-export'>
@@ -379,8 +371,6 @@ class SalesOrderDetail extends React.Component {
                   height={this.state.dimension.height}
                   fields={ForesCast}
                   data={forecast}
-                  UrlHeader={this.UrlHeader}
-                  UrlAll={this.UrlAll}
                   tableStatus={tableStatusForecast}
                   exportData={forecast}
                   export={

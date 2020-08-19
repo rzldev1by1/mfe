@@ -270,60 +270,62 @@ class CustomTable extends React.Component {
 
   // Header Name
   headerRename = async () => {
-    const url = this.props.UrlHeader();
-    const { data } = await axios.get(url);
-    let fields = [];
-    let accessor = this.state.fields.map((data, idx) => {                
-      let split = data.accessor
-      return split
-      });
-      let Cell = this.state.fields.map((data, idx) => {                
-        let split = data.Cell
+    if(this.props.UrlHeader){
+      const url = this.props.UrlHeader();
+      const { data } = await axios.get(url);
+      let fields = [];
+      let accessor = this.state.fields.map((data, idx) => {                
+        let split = data.accessor
         return split
         });
-    let placeholder = this.state.fields.map((data, idx) => {                
-                let split = data.placeholder
-                return split
-                });
-    let width = this.state.fields.map((data, idx) => {                
-                let split = data.width
-                return split
-                });
-    let headerData = Object.keys(data.data[0]);
-                accessor.map((data, idx) => {
-                  let lowerCase = data.toLowerCase();
-                  if (lowerCase.includes(' ')) {
-                    let split = lowerCase.split(' ');
-                    let result = split.join('_');
-                    accessor[idx] = result;
-                  } else {
-                    accessor[idx] = lowerCase;
-                  }
-                });
-    
-    Object.values(data.data[0]).map((data, idx) => {
-      let headerTable = {
-        accessor: '',
-        Header: '',
-        Cell: [],
-        headerData,
-        placeholder: '',
-        width: null,
-        sortable: true,
-      };
-      headerTable.Header = data;
-      headerTable.placeholder = placeholder[idx];
-      headerTable.accessor = accessor[idx];
-      headerTable.Cell = Cell[idx];
-      headerTable.headerData = headerData[idx];
-      headerTable.width = width[idx];
-      fields.push(headerTable);
-    });
-    if (data.data.length) {
-      this.setState({
-        products: data.data[0],
-        fields: fields,
+        let Cell = this.state.fields.map((data, idx) => {                
+          let split = data.Cell
+          return split
+          });
+      let placeholder = this.state.fields.map((data, idx) => {                
+                  let split = data.placeholder
+                  return split
+                  });
+      let width = this.state.fields.map((data, idx) => {                
+                  let split = data.width
+                  return split
+                  });
+      let headerData = Object.keys(data.data[0]);
+                  accessor.map((data, idx) => {
+                    let lowerCase = data.toLowerCase();
+                    if (lowerCase.includes(' ')) {
+                      let split = lowerCase.split(' ');
+                      let result = split.join('_');
+                      accessor[idx] = result;
+                    } else {
+                      accessor[idx] = lowerCase;
+                    }
+                  });
+      
+      Object.values(data.data[0]).map((data, idx) => {
+        let headerTable = {
+          accessor: '',
+          Header: '',
+          Cell: [],
+          headerData,
+          placeholder: '',
+          width: null,
+          sortable: true,
+        };
+        headerTable.Header = data;
+        headerTable.placeholder = placeholder[idx];
+        headerTable.accessor = accessor[idx];
+        headerTable.Cell = Cell[idx];
+        headerTable.headerData = headerData[idx];
+        headerTable.width = width[idx];
+        fields.push(headerTable);
       });
+      if (data.data.length) {
+        this.setState({
+          products: data.data[0],
+          fields: fields,
+        });
+      }
     }
   };
 
