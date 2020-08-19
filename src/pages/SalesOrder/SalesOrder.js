@@ -50,7 +50,7 @@ const columns = [
   { accessor: 'deliverydate', placeholder: 'Delivery Date', Header: 'Delivery Date', width: 120, },
   { accessor: 'datereceived', placeholder: 'Date Received', Header: 'Date Received', width: 120, },
   { accessor: 'datereleased', placeholder: 'Date Released', Header: 'Date Released', width: 120, },
-  { accessor: 'datecompleted', placeholder: 'Date Completed', Header: 'Date Completed', width: 120, },
+  { accessor: 'datecompleted', placeholder: 'Date Completed', Header: 'Date Completed', width: 130, },
   { accessor: 'customerpono', placeholder: 'Customer Order Ref', Header: 'Customer Order Ref', width: null, },
   { accessor: 'vendororderno', placeholder: 'Vendor Order No', Header: 'Vendor Order No', width: null, },
   { accessor: 'address1', placeholder: 'Address1', Header: 'Address1', width: null, },

@@ -28,7 +28,7 @@ class SalesOrderDetail extends React.Component {
       { accessor: 'rotadate', placeholder: 'Rotadate', Header: 'Rotadate', sortable: true, width: 100 },
       { accessor: 'ref3', placeholder: 'Ref3', Header: 'Ref3', sortable: true, width: 100 },
       { accessor: 'ref4', placeholder: 'Ref4', Header: 'Ref4', sortable: true, width: 100 },
-      { accessor: 'qty', placeholder: 'Qty', Header: 'Qty', sortable: true, width: 110 },
+      { accessor: 'qty', placeholder: 'Qty', Header: 'Qty', sortable: true, width: 60 },
       { accessor: 'weight', placeholder: 'Weight', Header: 'Weight', sortable: true, width: 115 },
       { accessor: 'pallet', placeholder: 'Pallet', Header: 'Pallet', sortable: true, width: 120 },
       { accessor: 'price', placeholder: 'Prince', Header: 'Price', sortable: true, width: 120 },
@@ -137,12 +137,6 @@ class SalesOrderDetail extends React.Component {
     this.getStockDetails();
     this.getForescast();
   }
-  UrlHeader = () => {
-    return `/getPurchase?client=ANTEC`
-  }
-  UrlAll = () => {
-    return '/putStockholdingColumn?client=ALL'
-  }
   activeTabIndex = (tabIndex) => {
     if (this.state.activeTab !== tabIndex) {
       this.setState({ activeTab: tabIndex });
@@ -199,9 +193,14 @@ class SalesOrderDetail extends React.Component {
     const url = `/stockbal?client=${client}&product=${product}&site=${site}`;
     const { data } = await axios.get(url);
     const available = data[0][0]['available orders']
+    if (data[0][0]['stock expiry'].length === 0) {
+      this.setState({
+        tableStatusForecast: 'noData'
+      })
+      return
+    }
     let expiry = data[0][0]['stock expiry']
     let expdt = expiry[expiry.length - 1].stockexpirydate
-    console.log(data)
     const openingbal = [{ openingbalancetext: `Opening Balance as on ${moment().format('DD/MM/YYYY')}`, startbalance: data[0][0]['opening balance'] }]
     let closingbal = [{ closingbalancetext: `Closing Balance as on ${expdt}`, totalbalance: data[0][0]['closing balance'] }]
 
@@ -287,7 +286,7 @@ class SalesOrderDetail extends React.Component {
           <CCard>
             <CCardBody className="p-0 my-3 mx-0">
               <CRow className="mx-0"><CCol lg={3} className="text-light-gray px-0 my-1">Stock On Hand</CCol> <CCol className="pl-0">{stock_on_hand || '-'}</CCol></CRow>
-              <CRow className="mx-0"><CCol lg={3} className="text-light-gray px-0 my-1">Available Qty</CCol> <CCol className="pl-0">{available_qty || '-'}</CCol></CRow>
+              <CRow className="mx-0"><CCol lg={3} className="text-light-gray px-0 my-1">Projected Available Qty</CCol> <CCol className="pl-0">{available_qty || '-'}</CCol></CRow>
               <CRow className="mx-0"><CCol lg={3} className="text-light-gray px-0 my-1">Expected in Qty</CCol> <CCol className="pl-0">{expected_in_qty || '-'}</CCol></CRow>
               <CRow className="mx-0"><CCol lg={3} className="text-light-gray px-0 my-1">Expected Out Qty</CCol> <CCol className="pl-0">{expected_out_qty || '-'}</CCol></CRow>
               <CRow className="mx-0"><CCol lg={3} className="text-light-gray px-0 my-1">Rotadate Type</CCol> <CCol className="pl-0">{rotadate_type || '-'}</CCol></CRow>
@@ -344,7 +343,7 @@ class SalesOrderDetail extends React.Component {
         <Row className='mx-0'>
           <div className='col-12 col-lg-12 col-md-12 col-sm-12 mt-0 px-0 '>
             <TabContent className='border-0' activeTab={this.state.activeTab}>
-              <TabPane className='p-0 stockDetails' tabId='1'>
+              <TabPane className='p-0 stockDetails' tabId='1' style={{background: "#e9eced"}}>
                 <CustomTable
                   title='Stock Detail'
                   filename='Microlistics_StockDetail.'
@@ -353,8 +352,6 @@ class SalesOrderDetail extends React.Component {
                   height={this.state.dimension.height}
                   fields={stockDetail}
                   data={products}
-                  UrlHeader={this.UrlHeader}
-                  UrlAll={this.UrlAll}
                   tableStatus={tableStatus}
                   export={
                     <button className='btn btn-primary float-right btn-export'>
@@ -374,8 +371,6 @@ class SalesOrderDetail extends React.Component {
                   height={this.state.dimension.height}
                   fields={ForesCast}
                   data={forecast}
-                  UrlHeader={this.UrlHeader}
-                  UrlAll={this.UrlAll}
                   tableStatus={tableStatusForecast}
                   exportData={forecast}
                   export={
