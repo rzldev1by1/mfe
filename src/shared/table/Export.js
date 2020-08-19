@@ -121,7 +121,7 @@ class Export extends Component {
                             {exportStatus=='ready'?'EXPORT':<img src={loading} className='mt-min-5' width='45' height='45'/>}
                         </div>
                   </DropdownToggle>
-                    <DropdownMenu style={{top: "1px",left: "10px"}} className={"no-shadow "+((exportPdf == 'false' || exportExcel == 'false')?' dropdown-single ':' Dropdown-menu ')} >
+                    <DropdownMenu style={{top: "1px",left: "5px"}} className={"no-shadow "+((exportPdf == 'false' || exportExcel == 'false')?' dropdown-single ':' Dropdown-menu ')} >
                       {(exportPdf == 'false')?'':
                         <DropdownItem className="export-pdf px-3" onClick={() => this.exportPDF()}> 
                             <span className="icon-PDF" style={{paddingRight: "0.28rem"}}/> EXPORT TO PDF

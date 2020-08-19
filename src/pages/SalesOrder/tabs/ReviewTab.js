@@ -221,7 +221,7 @@ class ReviewTab extends React.Component {
       </div>
       <Row className="mt-3">
         <Col lg={2}>
-          <button className="btn btn-primary" onClick={() => this.props.back()}>{'< Back'}</button>
+          <button className="btn btn-primary" onClick={() => this.props.back()}>{'< BACK'}</button>
         </Col>
         <Col lg={8}>
           {this.state.status === 'success' ?
@@ -232,7 +232,7 @@ class ReviewTab extends React.Component {
             : null}
         </Col>
         <Col lg={2} className="text-right">
-          <button className="btn btn-primary" onClick={this.next}>{'Submit'}</button>
+          <button className="btn btn-primary" onClick={this.next}>{'SUBMIT'}</button>
         </Col>
       </Row>
     </Container>

@@ -29,7 +29,7 @@ const columns = [
   },
   { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: 140, sortable: true },
   { accessor: 'packdesc_1', Header: 'UOM', placeholder: 'UOM', width: 80, sortable: true },
-  { accessor: 'status', Header: ' Status ', placeholder: 'Status', width: 100, sortable: true },
+  { accessor: 'status', Header: ' Status ', placeholder: 'Status', width: 140, sortable: true },
   {
     accessor: 'on_hand_qty',
     Cell: row => (<div className="alg-right">{row.value}</div>),
