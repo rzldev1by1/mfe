@@ -3,8 +3,6 @@ import { Row, Col, Tabs, Tab, Modal, Container } from 'react-bootstrap'
 import popupLock from '../../../assets/img/popup_lock.png'
 import popupLockSuccess from '../../../assets/img/popup_success_lock.png'
 import '../UserManagement.css'
-import './Reset.scss'
-
 
 class Reset extends React.PureComponent {
 

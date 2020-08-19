@@ -16,7 +16,6 @@ import endpoints from 'helpers/endpoints'
 import './StockMovement.scss'
 import DatePicker from 'shared/DatePicker'
 import './StockMovement.css'
-import { value } from 'numeral';
 
 const columns = [
   { accessor: 'site', Header: 'Site', sortable: true },
@@ -39,6 +38,7 @@ class StockMovement extends React.PureComponent {
       client: '',
       status: '',
       product: '',
+      productSm:'',
       orderType: null,
       task: null,
       resources: [],
@@ -230,17 +230,11 @@ class StockMovement extends React.PureComponent {
   getproduct = async (val) => {
     const { data } = await axios.get(endpoints.getProduct + '?client=' + this.state.client.value + '&param=' + val )
     const productData = data.map((data, i) => ({ value: data.code, label: data.code + " : " + data.name , i }))
-    console.log(val)
     const tmp = { value: 'all', label: 'All Product' }
     productData.splice(0, 0, tmp);
     this.setState({ productData });
   }
 
-  getProductHandler = (val) => {
-    if(!val || val.length < 3) return
-    else  Promise.resolve( this.getproduct(val));
-  }
-  
   getResources = async () => {
     const { user } = this.props.store
     if (user) {
@@ -257,10 +251,10 @@ class StockMovement extends React.PureComponent {
     this.setState({
       periodSelected: 1
     })
-    const { periods, site, client, filterType, product, dateFromSelected, dateToSelected, periodSelected } = this.state
+    const { periods, site, client, filterType, product, dateFromSelected, dateToSelected, periodSelected, productSm } = this.state
     if (filterType.value) {
       let header = Object.assign({}, this.state)
-      this.load_data(dateFromSelected, dateToSelected, filterType.value, site.value, client.value, product.value)
+      this.load_data(dateFromSelected, dateToSelected, filterType.value, site.value, client.value, productSm.value)
       this.setState({ error: delete header.error})
     } else {
       const error = validations(this.state)
@@ -385,7 +379,7 @@ class StockMovement extends React.PureComponent {
     })
     this.setState({ fields: header })
   }
-  
+
   setData = async () => {
     let tmp_data = []
     let tmp_date = []
@@ -541,10 +535,8 @@ class StockMovement extends React.PureComponent {
       dimension, fields, data, site, client, status, orderType, create, task, error,
       siteData, clientData, statusData, orderTypeData, taskData, data_table, filterType,filterData,
       product, productData, periodSelected, pagination,dateFromShow, minDate,maxDate, date_array,export_data,
-      tableStatus
+      tableStatus,productSm
   } = this.state 
-  let productStatus = []
-
   //custom style react-select  
   return <div className="stockMovement">
     <HeaderTitle
@@ -628,17 +620,13 @@ class StockMovement extends React.PureComponent {
         }
       
         </CCol>
-        <CCol lg={2} className="sm-col-13 product" > 
+        <CCol lg={2} className="sm-col-13 product" > {console.log(this.state.productSm)}
         <Select name="product" placeholder="Product" 
-            value={product} options={productData}
-            getOptionLabel={option => option.value}
-            onInputChange={(val) => this.getProductHandler(val)}
-            // onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
-            // onMenuClose={() => {productStatus[i] = false; this.setState({ productStatus: productStatus })}}
-            // onInputChange={(val) => {this.setState({ product: val }, () => {
-            //     if(val >= 3) { this.getproduct(val) }
-            // }) }}
-            onChange={(val) => this.setState({ product: val })} 
+            value={productSm} options={productData}
+            onInputChange={(val) => {this.setState({ product: val }, () => {
+                if(val >= 3) { this.getproduct(val) }
+            }) }}
+            onChange={(val) => this.setState({ productSm: val })} 
             styles={{
             dropdownIndicator: (base, state) => ({
                 ...base, 
