@@ -199,9 +199,14 @@ class SalesOrderDetail extends React.Component {
     const url = `/stockbal?client=${client}&product=${product}&site=${site}`;
     const { data } = await axios.get(url);
     const available = data[0][0]['available orders']
+    if (data[0][0]['stock expiry'].length === 0) {
+      this.setState({
+        tableStatusForecast: 'noData'
+      })
+      return
+    }
     let expiry = data[0][0]['stock expiry']
     let expdt = expiry[expiry.length - 1].stockexpirydate
-    console.log(data)
     const openingbal = [{ openingbalancetext: `Opening Balance as on ${moment().format('DD/MM/YYYY')}`, startbalance: data[0][0]['opening balance'] }]
     let closingbal = [{ closingbalancetext: `Closing Balance as on ${expdt}`, totalbalance: data[0][0]['closing balance'] }]
 
