@@ -172,7 +172,7 @@ class NewUser extends React.PureComponent {
                     </div>
                     <Col lg="10" className="pl-0">
                         <Row className="mx-0">
-                            <Col lg="4" md="4" sm="12" className="pl-0">
+                            <Col lg="4" md="4" sm="12" className="pl-0 toggle-um">
                                 <label className="webgroup d-flex justify-content-between">
                                     <input type="checkbox" onChange={(e) => { this.props.onWebGroupSelect(e); }} />
                                     <span className={`flex-fill ${isAdmin ? " webgroup-notactive" : " webgroup-active"}`}>REGULAR USER</span>

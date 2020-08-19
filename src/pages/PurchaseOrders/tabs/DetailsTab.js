@@ -533,7 +533,7 @@ class CreateTab extends React.Component {
           </thead>
           <tbody>
             {orderLine.length && orderLine.map((o, i) => {
-              return <tr className="py-1 text-center orderline-row">
+              return <tr className="py-1 text-center orderline-row" style={{height: "70px"}}>
                 <td className="px-1">
                   <input value={i + 1} className="form-control text-center" readOnly style={{backgroundColor:"#f6f7f9"}}/>
                 </td>
@@ -641,7 +641,7 @@ class CreateTab extends React.Component {
           </tbody>
         </table>
       </div>
-      <button className="btn btn-light-gray m-0" onClick={this.addLine}>ADD LINE</button>
+      <button className="btn btn-light-blue m-0" onClick={this.addLine}>ADD LINE</button>
 
       <Row className="mt-3">
         <Col lg={2}></Col>

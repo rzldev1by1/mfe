@@ -51,16 +51,20 @@ button:focus {
   color: #b4b9bb !important;
 }
 ::-webkit-scrollbar {
-  width: 8px !important;
-  height: 8px !important;
+  width: 10px !important;
+  height: 10px !important;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #f6f7f9;
+  background-color: #e8e8e8;
   border-radius: 15px !important;
 }
 .scroll-x-y::-webkit-scrollbar-thumb {
-  background-color: #f6f7f9;
+  background-color: #e8e8e8;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #d6d3d3;
+  border-radius: 15px !important;
 }
 
 .scroll-x-y-visible{
@@ -115,6 +119,13 @@ overflow-x: scroll;
   color: #fff !important;
   background-color: darken(#e4e7ea, 10) !important;
 }
+.btn-light-blue {
+  color: #3366ff !important;
+  font-weight: 600 !important;
+  background-color: white !important;
+  border: 2px solid #3366ff !important;
+}
+
 .font-12 {
   font-size: 12px;
 }
@@ -471,6 +482,17 @@ header {
     max-width: 100%;
 }
 }
+@media (min-width:992px) and (max-width: 1199px)
+{
+  .modal-xl {
+    max-width: 1000px !important;
+  }
+  .toggle-um {
+    flex: 0 0 40.33333%;
+    max-width: 40.33333%;
+  }
+}
+
 // -------------------------------
 @media (max-width:991px){
   .btn-create{
@@ -488,4 +510,8 @@ header {
 .alg-right{
   text-align: right  !important;
   display: block;
+}
+
+.overflow-visible{
+  overflow: visible !important;
 }
