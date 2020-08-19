@@ -47,10 +47,22 @@ const columns = [
       }
     }
   },
-  { accessor: 'deliverydate', placeholder: 'Delivery Date', Header: 'Delivery Date', width: 120, },
-  { accessor: 'datereceived', placeholder: 'Date Received', Header: 'Date Received', width: 120, },
-  { accessor: 'datereleased', placeholder: 'Date Released', Header: 'Date Released', width: 120, },
-  { accessor: 'datecompleted', placeholder: 'Date Completed', Header: 'Date Completed', width: 120, },
+  {
+    accessor: 'deliverydate', placeholder: 'Delivery Date', Header: 'Delivery Date', width: 120,
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+  },
+  {
+    accessor: 'datereceived', placeholder: 'Date Received', Header: 'Date Received', width: 120,
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+  },
+  {
+    accessor: 'datereleased', placeholder: 'Date Released', Header: 'Date Released', width: 120,
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+  },
+  {
+    accessor: 'datecompleted', placeholder: 'Date Completed', Header: 'Date Completed', width: 120,
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+  },
   { accessor: 'customerpono', placeholder: 'Customer Order Ref', Header: 'Customer Order Ref', width: null, },
   { accessor: 'vendororderno', placeholder: 'Vendor Order No', Header: 'Vendor Order No', width: null, },
   { accessor: 'address1', placeholder: 'Address1', Header: 'Address1', width: null, },
@@ -222,12 +234,12 @@ class SalesOrder extends React.PureComponent {
     const { data } = await axios.get(`${endpoints.salesOrder}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
-        m.deliverydate = m.deliverydate ? moment(m.deliverydate).format('DD/MM/YYYY') : '-'
-        m.datereceived = m.datereceived ? moment(m.datereceived).format('DD/MM/YYYY') : '-'
-        m.datereleased = m.datereleased ? moment(m.datereleased).format('DD/MM/YYYY') : '-'
-        m.datecompleted = m.datecompleted ? moment(m.datecompleted).format('DD/MM/YYYY') : '-'
-        m.loadoutstart = m.loadoutstart ? moment(m.loadoutstart).format('DD/MM/YYYY') : '-'
-        m.loadoutfinish = m.loadoutfinish ? moment(m.loadoutfinish).format('DD/MM/YYYY') : '-'
+        // m.deliverydate = m.deliverydate ? moment(m.deliverydate).format('DD/MM/YYYY') : '-'
+        // m.datereceived = m.datereceived ? moment(m.datereceived).format('DD/MM/YYYY') : '-'
+        // m.datereleased = m.datereleased ? moment(m.datereleased).format('DD/MM/YYYY') : '-'
+        // m.datecompleted = m.datecompleted ? moment(m.datecompleted).format('DD/MM/YYYY') : '-'
+        // m.loadoutstart = m.loadoutstart ? moment(m.loadoutstart).format('DD/MM/YYYY') : '-'
+        // m.loadoutfinish = m.loadoutfinish ? moment(m.loadoutfinish).format('DD/MM/YYYY') : '-'
         return m
       })
       if (export_ == 'true') {

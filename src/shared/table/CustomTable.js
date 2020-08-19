@@ -3,7 +3,7 @@ import axios from 'axios'
 import React from 'react'
 import { connect } from 'react-redux'
 import ReactTable from 'react-table-v6'
-import { Button, Container, Row, Col, Modal, Nav} from 'react-bootstrap'
+import { Button, Container, Row, Col, Modal, Nav } from 'react-bootstrap'
 import { NavItem, NavLink, TabPane, TabContent } from 'reactstrap';
 import { CRow, CCol } from "@coreui/react";
 import { MdClose } from 'react-icons/md'
@@ -42,12 +42,12 @@ class CustomTable extends React.Component {
     this.dragged = null;
     this.reorder = [];
     let tables = localStorage.getItem("tables") ? JSON.parse(localStorage.getItem("tables")) : [];
-    if(tables.length > 0){
-        tables.map((data, idx) => {
-            if(data.title == props.title){
-                this.reorder = data.reorderIdx
-            }
-        });
+    if (tables.length > 0) {
+      tables.map((data, idx) => {
+        if (data.title == props.title) {
+          this.reorder = data.reorderIdx
+        }
+      });
     }
     this.state = {
       showModal: false,
@@ -75,44 +75,44 @@ class CustomTable extends React.Component {
       header.ondragstart = e => {
         e.stopPropagation();
         this.dragged = i;
-   };  
-  
-   header.ondrag = e => e.stopPropagation;
+      };
+
+      header.ondrag = e => e.stopPropagation;
 
       //the dropped header
       header.ondragover = e => {
         e.preventDefault();
-  };
+      };
 
-  header.ondrop = e => {
-    e.preventDefault();
-    // const { target, dataTransfer } = e;
-    this.reorder.push({ a: i, b: this.dragged });
-    this.setState({ trigger: Math.random() });
+      header.ondrop = e => {
+        e.preventDefault();
+        // const { target, dataTransfer } = e;
+        this.reorder.push({ a: i, b: this.dragged });
+        this.setState({ trigger: Math.random() });
 
-    let tables = localStorage.getItem("tables") ? JSON.parse(localStorage.getItem("tables")) : [];
-    if(tables.length > 0){
-        tables.map((data, index) => {
-            if(data.title === this.props.title){
-                tables.splice(index, 1);
+        let tables = localStorage.getItem("tables") ? JSON.parse(localStorage.getItem("tables")) : [];
+        if (tables.length > 0) {
+          tables.map((data, index) => {
+            if (data.title === this.props.title) {
+              tables.splice(index, 1);
             }
-        })
-        tables.push({
+          })
+          tables.push({
             userId: this.props.store.user.userId,
             title: this.props.title,
             reorderIdx: this.reorder
-        })
-    }else{
-        tables.push({
+          })
+        } else {
+          tables.push({
             userId: this.props.store.user.userId,
             title: this.props.title,
             reorderIdx: this.reorder
-        })
-    }
-    localStorage.setItem("tables", JSON.stringify(tables));
-  };
-});
-}
+          })
+        }
+        localStorage.setItem("tables", JSON.stringify(tables));
+      };
+    });
+  }
 
   componentDidMount() {
     this.mountEvents();
@@ -126,7 +126,7 @@ class CustomTable extends React.Component {
   // componentWillUpdate(nextProps, nextState) {
   //     localStorage.setItem('fields', JSON.stringify(nextState.fields));
   // }
-  
+
   // componentWillMount(){
   //   localStorage.getItem('fields') && this.setState({
   //     fields: JSON.parse(localStorage.getItem('fields')),
@@ -184,45 +184,47 @@ class CustomTable extends React.Component {
   headerIcon = (data, header, editColumn) => {
     let listHeader = []
     header && header.map((h, index) => {
-        if (!editColumn[index]) {
-          let withIcon = (
-            <span className='text-light-gray draggable-header'>
-              {h.Header}{' '}
-              {h.sortable === false ? null : (
-                <svg
-                  stroke='currentColor'
-                  fill='currentColor'
-                  strokeWidth='0'
-                  viewBox='0 0 24 24'
-                  height='1em'
-                  width='1em'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path d='M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z'></path>
-                </svg>
-              )}
-            </span>
-          );
-          let obj = {
-            Header: withIcon,
-            Cell: h.Cell,
-            accessor: h.accessor,
-            sortable: h.sortable === false ? false : true,
-            resizable: h.resizable || false,
-            className: h.className || null,
-            style: h.style || null,
-            width: h.width || getColumnWidth(data, h.accessor, h.Header),
-          } 
-          return listHeader = [...listHeader, obj]
-        } else {
-          return listHeader = [...listHeader]
-        }
-      })
+      if (!editColumn[index]) {
+        let withIcon = (
+          <span className='text-light-gray draggable-header'>
+            {h.Header}{' '}
+            {h.sortable === false ? null : (
+              <svg
+                stroke='currentColor'
+                fill='currentColor'
+                strokeWidth='0'
+                viewBox='0 0 24 24'
+                height='1em'
+                width='1em'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path d='M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z'></path>
+              </svg>
+            )}
+          </span>
+        );
 
-    if(this.props.editColumn !== 'false'){
+        let obj = {
+          Header: withIcon,
+          Cell: h.Cell,
+          render: h.render || null,
+          accessor: h.accessor,
+          sortable: h.sortable === false ? false : true,
+          resizable: h.resizable || false,
+          className: h.className || null,
+          style: h.style || null,
+          width: h.width || getColumnWidth(data, h.accessor, h.Header),
+        }
+        return listHeader = [...listHeader, obj]
+      } else {
+        return listHeader = [...listHeader]
+      }
+    })
+
+    if (this.props.editColumn !== 'false') {
       let editBtn = (
         <div className='edit-column' onClick={this.showModal.bind(this, true)}>
-          <i className='iconU-edit'/>
+          <i className='iconU-edit' />
         </div>
       )
       let obj = {
@@ -233,7 +235,7 @@ class CustomTable extends React.Component {
       };
       listHeader = [...listHeader, obj];
     }
-    
+
     return listHeader;
   };
 
@@ -242,34 +244,38 @@ class CustomTable extends React.Component {
     const url = this.props.UrlHeader();
     const { data } = await axios.get(url);
     let fields = [];
-    let accessor = this.state.fields.map((data, idx) => {                
+    let accessor = this.state.fields.map((data, idx) => {
       let split = data.accessor
       return split
-      });
-      let Cell = this.state.fields.map((data, idx) => {                
-        let split = data.Cell
-        return split
-        });
-    let placeholder = this.state.fields.map((data, idx) => {                
-                let split = data.placeholder
-                return split
-                });
-    let width = this.state.fields.map((data, idx) => {                
-                let split = data.width
-                return split
-                });
+    });
+    let style = this.state.fields.map((data, idx) => {
+      let split = data.style
+      return split
+    });
+    let Cell = this.state.fields.map((data, idx) => {
+      let split = data.Cell
+      return split
+    });
+    let placeholder = this.state.fields.map((data, idx) => {
+      let split = data.placeholder
+      return split
+    });
+    let width = this.state.fields.map((data, idx) => {
+      let split = data.width
+      return split
+    });
     let headerData = Object.keys(data.data[0]);
-                accessor.map((data, idx) => {
-                  let lowerCase = data.toLowerCase();
-                  if (lowerCase.includes(' ')) {
-                    let split = lowerCase.split(' ');
-                    let result = split.join('_');
-                    accessor[idx] = result;
-                  } else {
-                    accessor[idx] = lowerCase;
-                  }
-                });
-    
+    accessor.map((data, idx) => {
+      let lowerCase = data.toLowerCase();
+      if (lowerCase.includes(' ')) {
+        let split = lowerCase.split(' ');
+        let result = split.join('_');
+        accessor[idx] = result;
+      } else {
+        accessor[idx] = lowerCase;
+      }
+    });
+
     Object.values(data.data[0]).map((data, idx) => {
       let headerTable = {
         accessor: '',
@@ -278,6 +284,7 @@ class CustomTable extends React.Component {
         headerData,
         placeholder: '',
         width: null,
+        style: null,
         sortable: true,
       };
       headerTable.Header = data;
@@ -286,6 +293,7 @@ class CustomTable extends React.Component {
       headerTable.Cell = Cell[idx];
       headerTable.headerData = headerData[idx];
       headerTable.width = width[idx];
+      headerTable.style = style[idx];
       fields.push(headerTable);
     });
     if (data.data.length) {
@@ -430,7 +438,7 @@ class CustomTable extends React.Component {
     this.renameSubmits(this.state.changedColumns);
     this.setState({ showModal: false });
   };
-    // Header Name And
+  // Header Name And
 
   ExportName = () => {
     let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -445,54 +453,54 @@ class CustomTable extends React.Component {
   }
 
   ExportHeader = () => {
-    let fields = this.props.customFields||this.state.fields
-    let data = fields.map((data, idx) => {                
+    let fields = this.props.customFields || this.state.fields
+    let data = fields.map((data, idx) => {
       return data.Header
     });
     return data
   }
 
-  ExportData = () => { 
-    let fields = this.props.customFields||this.state.fields
+  ExportData = () => {
+    let fields = this.props.customFields || this.state.fields
     let dataAll = []
-    if(this.props.exportData){
-      dataAll = this.props.exportData.map((data,idx,) =>{
-      let column = fields.map((column, columnIdx) => {       
-              let split = [data[column.accessor] ]
-              return split
-              })
-              return column
+    if (this.props.exportData) {
+      dataAll = this.props.exportData.map((data, idx,) => {
+        let column = fields.map((column, columnIdx) => {
+          let split = [data[column.accessor]]
+          return split
+        })
+        return column
       })
-    }else{
-      dataAll = this.props.data.map((data,idx,) =>{
-      let column = fields.map((column, columnIdx) => {       
-              let split = [data[column.accessor] ]
-              return split
-              })
-              return column
+    } else {
+      dataAll = this.props.data.map((data, idx,) => {
+        let column = fields.map((column, columnIdx) => {
+          let split = [data[column.accessor]]
+          return split
+        })
+        return column
       })
     }
-    
+
     return dataAll
   }
-  
+
   waitingStatus = () => {
     return (
       <div className='caution-caution' > <div>No Data Available</div> </div>
     )
   }
-  
+
   noDataStatus = () => {
-    return( 
-      <div> <img src={loading} width='45' height='45'/> </div>
+    return (
+      <div> <img src={loading} width='45' height='45' /> </div>
     )
   }
-  
-  getExportData = async () => { 
-    if(this.props.exportApi){
+
+  getExportData = async () => {
+    if (this.props.exportApi) {
       await this.props.exportApi()
       console.log(this.props.exportData)
-    }else{
+    } else {
       console.log("Not Paginate API")
       return 0
     }
@@ -500,7 +508,7 @@ class CustomTable extends React.Component {
 
   render() {
     const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
-    let {  title, data, exportData, onClick, height, pagination,request_status,font, tableStatus } = this.props
+    let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus } = this.props
     // console.log(data)
 
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
@@ -515,7 +523,7 @@ class CustomTable extends React.Component {
           showPagination={false}
           style={{ height }}
           // noDataText={(request_status)? <div  className='caution-caution'/> : <img src={loading} width='45' height='45'/>}
-          noDataText={tableStatus=="noData"?this.waitingStatus():this.noDataStatus()} 
+          noDataText={tableStatus == "noData" ? this.waitingStatus() : this.noDataStatus()}
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
             return {
@@ -524,7 +532,7 @@ class CustomTable extends React.Component {
                   onClick(rowInfo.original, state, column, e, instance);
               },
               style: {
-                height : "3rem",
+                height: "3rem",
                 cursor: !!onClick && 'pointer',
                 textAlign: isNaN(rowInfo?.original[column.id])
                   ? 'left'
@@ -536,49 +544,49 @@ class CustomTable extends React.Component {
           {...this.props}
         />
 
-<table className="d-none" id="excel">
-            <thead>
-              <tr>
-                {fields.map((data, idx) => {
-                    return ( <th key={idx} id={data.accessor}>{data.Header}</th> )
+        <table className="d-none" id="excel">
+          <thead>
+            <tr>
+              {fields.map((data, idx) => {
+                return (<th key={idx} id={data.accessor}>{data.Header}</th>)
+              })}
+            </tr>
+          </thead>
+          <tbody>
+            {exportData ? exportData.map((data, i) =>
+              <tr key={i} >
+                {fields.map((column, columnIdx) => {
+                  return (
+                    <td key={columnIdx}>{data[column.accessor]}</td>
+                  )
                 })}
               </tr>
-            </thead>
-            <tbody>
-                {exportData ? exportData.map((data, i)  =>
-                <tr key={i} >
-                  {fields.map((column, columnIdx) => {
-                      return (
-                        <td key={columnIdx}>{data[column.accessor]}</td>
-                      )
-                  })}
-                </tr>
-              ) :
-                <div> No data available </div>
-              }
-            </tbody>
-          </table>
-        
+            ) :
+              <div> No data available </div>
+            }
+          </tbody>
+        </table>
+
 
         <CRow className="mt-3 pagination-custom">
-           <CCol lg="7" className="px-0 margin-mr">
-                <CustomPagination
-                  data={data}
-                  pagination={pagination}
-                  goto={this.props.goto}
-                  export={this.props.export}
-                  fields={fields}
-                />
-            </CCol>
-            <CCol lg="5" className="px-0 export-ml">
-                <Export ExportName={this.ExportName} ExportPDFName={title}    
-                    pdf={this.props.pdf}
-                    excel={this.props.excel}  
-                    getExportData={() => this.getExportData()}
-                    ExportData={exportData}
-                    pagination={pagination}
-                    ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={font} />
-            </CCol>
+          <CCol lg="7" className="px-0 margin-mr">
+            <CustomPagination
+              data={data}
+              pagination={pagination}
+              goto={this.props.goto}
+              export={this.props.export}
+              fields={fields}
+            />
+          </CCol>
+          <CCol lg="5" className="px-0 export-ml">
+            <Export ExportName={this.ExportName} ExportPDFName={title}
+              pdf={this.props.pdf}
+              excel={this.props.excel}
+              getExportData={() => this.getExportData()}
+              ExportData={exportData}
+              pagination={pagination}
+              ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={font} />
+          </CCol>
         </CRow>
         <Modal
           show={showModal}
@@ -617,24 +625,24 @@ class CustomTable extends React.Component {
             </Container>
           </Modal.Header>
           <Modal.Body className='px-5 pt-3 pb-5'>
-            <Row className={"mx-0 justify-content-between  "+(this.props.store.user.userLevel == 'Admin' ? 'mb-3':'')}>
+            <Row className={"mx-0 justify-content-between  " + (this.props.store.user.userLevel == 'Admin' ? 'mb-3' : '')}>
               <Col lg={6} className='text-primary font-20 p-0'>{title}</Col>
               <Row className='align-items-center rename-columns mx-0 text-align-left'>
 
-                    {this.props.store.user.userLevel !== 'Admin' ? '': 
+                {this.props.store.user.userLevel !== 'Admin' ? '' :
                   <Nav tabs className="px-1">
                     <div className='input-group'>
-                        <NavItem className='pl-0 pr-0'>
-                          <NavLink
-                            className={
-                              'nav-link-cust tab-color' +
-                              (activeTab === '1' ? ' tab-rename' : '')
-                            }
-                            active={this.state.activeTab === '1'}
-                            onClick={() => {
-                              this.activeTabIndex('1');
-                            }}
-                          >
+                      <NavItem className='pl-0 pr-0'>
+                        <NavLink
+                          className={
+                            'nav-link-cust tab-color' +
+                            (activeTab === '1' ? ' tab-rename' : '')
+                          }
+                          active={this.state.activeTab === '1'}
+                          onClick={() => {
+                            this.activeTabIndex('1');
+                          }}
+                        >
                           <div className='row rowTabCustom align-items-center'>
                             <span className='tabTitleText font-18'>
                               {activeTab === '1'}TOGGLE COLUMN
@@ -663,7 +671,7 @@ class CustomTable extends React.Component {
                       </NavItem>
                     </div>
                   </Nav>
-                  }
+                }
               </Row>
             </Row>
             <Row >
@@ -680,7 +688,7 @@ class CustomTable extends React.Component {
                                   !editColumn[index]
                                     ? 'btn-outline-primary'
                                     : 'btn-light-gray'
-                                }`}
+                                  }`}
                                 onClick={this.showColumn.bind(
                                   this,
                                   item.Header,
@@ -691,8 +699,8 @@ class CustomTable extends React.Component {
                                 {!editColumn[index] ? (
                                   <AiOutlineEye size={25} />
                                 ) : (
-                                  <AiOutlineEyeInvisible size={25} />
-                                )}
+                                    <AiOutlineEyeInvisible size={25} />
+                                  )}
                                 <b className='p-0'> {item.Header} </b>
                               </button>
                             </Col>
