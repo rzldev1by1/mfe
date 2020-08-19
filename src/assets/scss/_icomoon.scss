@@ -23,6 +23,56 @@
   content: "\e895";
   font-size: 45px;
 }
+
+@font-face {
+  font-family: "reset";
+  src: url("../icons/resetpassword/fonts/icomoon.eot?t60pg3");
+  src: url("../icons/resetpassword/fonts/icomoon.eot?t60pg3#iefix")
+      format("embedded-opentype"),
+    url("../icons/resetpassword/fonts/icomoon.ttf?t60pg3") format("truetype"),
+    url("../icons/resetpassword/fonts/icomoon.woff?t60pg3") format("woff"),
+    url("../icons/resetpassword/fonts/icomoon.svg?t60pg3#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="reset-"],
+[class*=" reset-"] {
+  font-family: "reset" !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.reset-caution:before {
+  content: "\e91b";
+  font-size: 200px;
+}
+
+.reset-cancel:before {
+  content: "\e91f";
+  font-size: 50px;
+}
+
+.reset-done:before {
+  content: "\e91e";
+  font-size: 50px;
+}
+
+.reset-attention-new:before {
+  content: "\e90f";
+}
+
+.reset-complete-new:before {
+  content: "\e90f";
+}
+
+.reset-error-new:before {
+  content: "\e90f";
+}
+
 @font-face {
   font-family: "export";
   src: url("../icons/export/icomoon.eot?t60pg3");
