@@ -16,6 +16,7 @@ import endpoints from 'helpers/endpoints'
 import './StockMovement.scss'
 import DatePicker from 'shared/DatePicker'
 import './StockMovement.css'
+import { value } from 'numeral';
 
 const columns = [
   { accessor: 'site', Header: 'Site', sortable: true },
@@ -229,11 +230,17 @@ class StockMovement extends React.PureComponent {
   getproduct = async (val) => {
     const { data } = await axios.get(endpoints.getProduct + '?client=' + this.state.client.value + '&param=' + val )
     const productData = data.map((data, i) => ({ value: data.code, label: data.code + " : " + data.name , i }))
+    console.log(val)
     const tmp = { value: 'all', label: 'All Product' }
     productData.splice(0, 0, tmp);
     this.setState({ productData });
   }
 
+  getProductHandler = (val) => {
+    if(!val || val.length < 3) return
+    else  Promise.resolve( this.getproduct(val));
+  }
+  
   getResources = async () => {
     const { user } = this.props.store
     if (user) {
@@ -378,7 +385,7 @@ class StockMovement extends React.PureComponent {
     })
     this.setState({ fields: header })
   }
-
+  
   setData = async () => {
     let tmp_data = []
     let tmp_date = []
@@ -536,6 +543,8 @@ class StockMovement extends React.PureComponent {
       product, productData, periodSelected, pagination,dateFromShow, minDate,maxDate, date_array,export_data,
       tableStatus
   } = this.state 
+  let productStatus = []
+
   //custom style react-select  
   return <div className="stockMovement">
     <HeaderTitle
@@ -622,9 +631,13 @@ class StockMovement extends React.PureComponent {
         <CCol lg={2} className="sm-col-13 product" > 
         <Select name="product" placeholder="Product" 
             value={product} options={productData}
-            onInputChange={(val) => {this.setState({ product: val }, () => {
-                if(val >= 3) { this.getproduct(val) }
-            }) }}
+            getOptionLabel={option => option.value}
+            onInputChange={(val) => this.getProductHandler(val)}
+            // onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
+            // onMenuClose={() => {productStatus[i] = false; this.setState({ productStatus: productStatus })}}
+            // onInputChange={(val) => {this.setState({ product: val }, () => {
+            //     if(val >= 3) { this.getproduct(val) }
+            // }) }}
             onChange={(val) => this.setState({ product: val })} 
             styles={{
             dropdownIndicator: (base, state) => ({

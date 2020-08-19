@@ -3,6 +3,7 @@ import { Row, Col, Tabs, Tab, Modal, Container } from 'react-bootstrap'
 import popupLock from '../../../assets/img/popup_lock.png'
 import popupLockSuccess from '../../../assets/img/popup_success_lock.png'
 import '../UserManagement.css'
+import './Reset.scss'
 
 
 class Reset extends React.PureComponent {
@@ -25,7 +26,7 @@ class Reset extends React.PureComponent {
                 <Row className="px-3">
                     <Col className="bg-white">
                         <div className="d-flex justify-content-center">
-                            <img className={isResetSuccess ? "img-popup-reset-success" : "img-popup-reset"} src={isResetSuccess ? popupLockSuccess : popupLock} />
+                            <i style={{color:"#cccccc"}} className={isResetSuccess ? "reset-complete-new" : "reset-caution"}></i>
                         </div>
 
                         <div className="d-flex justify-content-center">
@@ -33,16 +34,15 @@ class Reset extends React.PureComponent {
                         </div>
 
                         <div className="d-flex justify-content-center">
-                            {isResetSuccess ? <label style={{color:"#637176"}}>Reset password requested!</label> : <label style={{color:"#637176"}}>Do you want to reset your password?</label>}
+                            {isResetSuccess ? <label style={{color:"#637176"}}>Reset password requested!</label> : null}
                         </div>
                         <div className="d-flex justify-content-center mb-4">
-                            {isResetSuccess ? <label style={{color:"#637176"}}>We will send you an email to reset password</label> : <label style={{color:"#637176"}}>Your new password will send to your registered email less than 24 hours</label>}
+                            {isResetSuccess ? <label style={{color:"#637176"}}>We will send you an email to reset password</label> : <label style={{color:"#637176"}}>Are you sure to reset this user's password?</label>}
                         </div>
 
                         <div className="d-flex justify-content-between pb-3">
-                            {(isResetSuccess) ? '' : <button className="font-lg font-md font-sm btn btn-grey ml-4" style={{ width: "15%" }} onClick={(e) => { toggle() }}>No</button>}
-
-                            {(isResetSuccess) ? '' : <button className="font-lg font-md font-sm btn btn-primary mr-4" style={{ width: "15%" }} onClick={(e) => { this.props.confirmResetPassword() }}>Yes</button>}
+                            {(isResetSuccess) ? '' : <button className="font-lg font-md font-sm btn mb-4" style={{width:"15%",marginTop:"-20px"}} onClick={(e) => { toggle() }}><i className="reset-cancel" style={{color: "#fba1a2"}}></i></button>}
+                            {(isResetSuccess) ? '' : <button className="font-lg font-md font-sm btn mr-5 mb-4" style={{width:"15%",marginTop:"-20px"}} onClick={(e) => { this.props.confirmResetPassword() }}><i className="reset-done" style={{color: "#81efdd"}}></i></button>}
                         </div>
                     </Col>
                 </Row>

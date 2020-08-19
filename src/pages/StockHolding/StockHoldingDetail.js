@@ -344,7 +344,7 @@ class SalesOrderDetail extends React.Component {
         <Row className='mx-0'>
           <div className='col-12 col-lg-12 col-md-12 col-sm-12 mt-0 px-0 '>
             <TabContent className='border-0' activeTab={this.state.activeTab}>
-              <TabPane className='p-0 stockDetails' tabId='1'>
+              <TabPane className='p-0 stockDetails' tabId='1' style={{background: "#e9eced"}}>
                 <CustomTable
                   title='Stock Detail'
                   filename='Microlistics_StockDetail.'
