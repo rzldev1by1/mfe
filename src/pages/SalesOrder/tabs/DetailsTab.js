@@ -76,17 +76,25 @@ class CreateTab extends React.Component {
     return clientData
   }
 
-  getProduct = async (val) => {
+  getProduct = async (val, i) => {
     const client = this.state.client.value
     const url = `${endpoints.getProduct}?client=${client}&param=${val}`
     const { data } = await axios.get(url)
     const productData = data.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.name}`, i }))
-    this.setState({ productData })
+    const orderLine = this.state.orderLine
+    orderLine[i].productData = productData;
+    this.setState({ orderLine })
   }
 
-  getProductHandler = (val) => {
+  getProductHandler = (val, i) => {
+    // Detect input length
+    let orderLine = this.state.orderLine
+    orderLine[i].productKeyword = val
+    this.setState({ orderLine });
+
+    // Get Product from APi if length more than 2
     if (!val || val.length < 3) return
-    else Promise.resolve(this.getProduct(val));
+    else Promise.resolve(this.getProduct(val, i));
   }
 
   getDisposition = async () => {
@@ -628,10 +636,10 @@ class CreateTab extends React.Component {
                 </td>
                 <td className="px-1 text-left">
                   <Select value={o.productVal || ''}
-                    options={productData}
+                    options={o.productKeyword ? o.productKeyword.length > 2 ? o.productData : [] : []}
                     getOptionLabel={option => option.value}
                     // menuIsOpen={o.productVal && o.productVal.length >= 3 ? true : false}
-                    onInputChange={(val) => this.getProductHandler(val)}
+                    onInputChange={(val) => this.getProductHandler(val, i)}
                     onMenuOpen={() => { productStatus[i] = true; this.setState({ productStatus: productStatus }) }}
                     onMenuClose={() => { productStatus[i] = false; this.setState({ productStatus: productStatus }) }}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
