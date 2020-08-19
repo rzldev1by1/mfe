@@ -134,28 +134,28 @@
           .rt-th:first-child {
             padding-left: 1.8rem !important;
             text-align: left !important;
-            width: 105px !important;
-            max-width: 105px !important;
+            // width: 270px !important;
+            max-width: 300px !important;
           }
           .rt-th:nth-child(6){
-            width: 105px !important;
-            max-width: 105px !important;
+            // width: 220px !important;
+            max-width: 300px !important;
           }
           .rt-th:nth-child(7){
-            width: 105px !important;
-            max-width: 105px !important;
+            // width: 150px !important;
+            max-width: 300px !important;
           }
           .rt-th:nth-child(10){
-            width: 140px !important;
-            max-width: 140px !important;
+            // width: 140px !important;
+            max-width: 300px !important;
           }
           .rt-th:nth-child(11){
-            width: 160px !important;
-            max-width: 160px !important;
+            // width: 160px !important;
+            max-width: 300px !important;
           }
           .rt-th:nth-child(12){
-            width: 150px !important;
-            max-width: 150px !important;
+            // width: 150px !important;
+            max-width: 300px !important;
           }
           .rt-th:focus {
             outline: none !important;
@@ -179,28 +179,28 @@
           .rt-tr {
             .rt-td:first-child {
               padding-left: 1.8rem !important;
-              max-width: 105px !important;
-              width: 105px !important;
+              max-width: 300px !important;
+              // width: 270px !important;
             }
             .rt-td:nth-child(6) {
-              max-width: 105px !important;
-              width: 105px !important;
+              max-width: 300px !important;
+              // width: 270px !important;
             }
             .rt-td:nth-child(7) {
-              max-width: 105px !important;
-              width: 105px !important;
+              max-width: 300px !important;
+              // width: 270px !important;
             }
             .rt-td:nth-child(10) {
-              max-width: 140px !important;
-              width: 140px !important;
+              max-width: 300px !important;
+              // width: 270px !important;
             }
             .rt-td:nth-child(11){
-              max-width: 150px !important;
-              width: 150px !important;
+              max-width: 300px !important;
+              // width: 270px !important;
             }
             .rt-td:nth-child(12) {
-              max-width: 150px !important;
-              width: 150px !important;
+              max-width: 300px !important;
+              // width: 270px !important;
             }
           }
         }
@@ -209,7 +209,7 @@
         width: 8px !important;
       }
       .rt-tbody::-webkit-scrollbar-thumb {
-        background-color: #d1cccc;
+        background-color: #f6f7f9;
         border-radius: 15px !important;
       }
     }
@@ -217,9 +217,13 @@
       height: 8px !important;
     }
     .rt-table::-webkit-scrollbar-thumb {
-      background-color: #d1cccc;
+      background-color: #f6f7f9;
       border-radius: 15px !important;
     }
   }
 
+}
+
+.stockDetails .ReactTable .rt-table .rt-tbody .rt-tr-group .rt-td{
+  overflow: visible !important  ;
 }

@@ -2,7 +2,13 @@
 body {
   font-family: "Rubik";
 }
-
+.text-muted-soft{
+  color:#d5d8da;
+}
+.breadcrumb-item a {
+  color: #637176 !important;
+  font-weight: 700 !important;
+}
 // fix fa-spin rotating arround center
 .fa-spin {
   width: initial !important;
@@ -45,16 +51,20 @@ button:focus {
   color: #b4b9bb !important;
 }
 ::-webkit-scrollbar {
-  width: 8px !important;
-  height: 8px !important;
+  width: 10px !important;
+  height: 10px !important;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #d1cccc;
+  background-color: #e8e8e8;
   border-radius: 15px !important;
 }
 .scroll-x-y::-webkit-scrollbar-thumb {
-  background-color: #d1cccc;
+  background-color: #e8e8e8;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #d6d3d3;
+  border-radius: 15px !important;
 }
 
 .scroll-x-y-visible{
@@ -109,6 +119,13 @@ overflow-x: scroll;
   color: #fff !important;
   background-color: darken(#e4e7ea, 10) !important;
 }
+.btn-light-blue {
+  color: #3366ff !important;
+  font-weight: 600 !important;
+  background-color: white !important;
+  border: 2px solid #3366ff !important;
+}
+
 .font-12 {
   font-size: 12px;
 }
@@ -135,6 +152,7 @@ overflow-x: scroll;
 .nav-link.active {
   background-color: #fff !important;
   color: #376bfb !important;
+  height: 3.25rem;
 }
 .nav-tabs {
   margin-left: 26px;
@@ -311,60 +329,60 @@ header {
 /* Line Details Styles End */
 
 .status-ok {
-  color: rgb(149, 146, 146) !important;
+  color: #637175 !important;
   background: transparent;
-  padding: 6px 28px;
-  border-radius: 3px;
-  border: solid 1.5px rgb(149, 146, 146);
+  padding: 1px 28px;
+  border-radius: 0.5rem;
+  border: solid 1.5px #637175;
   font-size: 12px;
 }
 .status-shortage {
   color: white !important;
   background: #f94548;
-  padding: 6px;
+  padding: 2px 6px;
   font-size: 12px;
-  border-radius: 3px;
+  border-radius: 0.5rem;
 }
 
 .status-available {
   color: #fff !important;
-  background-color: #d1cccc;
-  border-radius: 5px;
-  /* border: solid 1.5px #959292; */
+  background-color: #637175;
+  border-radius: 0.5rem;
+  /* border: solid 1.0.5rem #959292; */
   font-size: 12px;
-  padding: 6px 22px;
+  padding: 2px 22px;
 }
 .status-Unavailable {
   color: #fff !important;
-  background-color: #c82525;
-  border-radius: 5px;
+  background-color: #f94548;
+  border-radius: 0.5rem;
   /* border: solid 1.5px #959292; */
   font-size: 12px;
-  padding: 6px 14px;
+  padding: 2px 14px;
 }
 .status-complete {
   color: #555050 !important;
   background-color: transparent;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   border: solid 1px #555050;
   font-size: 12px;
-  padding: 6px 19px;
+  padding: 2px 19px;
 }
 .status-partRelease {
-  color: #555050 !important;
+  color: #637175 !important;
   background-color: transparent;
-  border-radius: 5px;
-  border: solid 1px #555050;
+  border-radius: 0.5rem;
+  border: solid 1px #637175;
   font-size: 12px;
-  padding: 6px;
+  padding: 1px 6px;
 }
 .status-Release {
   color: #555050 (209, 204, 204) !important;
   background: transparent;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   border: solid 1px #555050;
   font-size: 12px;
-  padding: 6px 23px;
+  padding: 2px 23px;
 }
 .rt-noData{
   text-align: center !important;
@@ -406,6 +424,13 @@ header {
   color: red;
 }
 
+
+
+.rightColumn {
+  display: inline-block !important;
+  text-align: right;
+}
+
 // REACTABLE
 .ReactTable {
   .rt-table {
@@ -422,12 +447,12 @@ header {
       .rt-tr-group {
         .rt-tr {
           .rt-td{
-            display: flex !important;
+            // display: flex !important;
             align-items: center !important;
           }
           .rt-td:first-child {
             padding-left: 1.8rem !important;
-          }
+          } 
         }
       }
     }
@@ -457,6 +482,17 @@ header {
     max-width: 100%;
 }
 }
+@media (min-width:992px) and (max-width: 1199px)
+{
+  .modal-xl {
+    max-width: 1000px !important;
+  }
+  .toggle-um {
+    flex: 0 0 40.33333%;
+    max-width: 40.33333%;
+  }
+}
+
 // -------------------------------
 @media (max-width:991px){
   .btn-create{
@@ -465,4 +501,17 @@ header {
   .pagination-custom{
     display: none !important;
   }
+}
+
+.rightColumn {
+  display: inline-block !important;
+  text-align: right;
+}
+.alg-right{
+  text-align: right  !important;
+  display: block;
+}
+
+.overflow-visible{
+  overflow: visible !important;
 }

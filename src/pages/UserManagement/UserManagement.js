@@ -21,7 +21,13 @@ const columns = [
     { accessor: 'client',placeholder: 'Client', Header: 'Client', width: 130, sortable: true },
     { accessor: 'web_group',placeholder: 'User Lavel', Header: 'User Level', width: 160, sortable: true },
     { accessor: 'last_access',placeholder: 'Last Accessed', Header: 'Last Accessed', width: 180, sortable: true },
-    { accessor: 'disabled',placeholder: 'Status', Header: 'Status', width: 120, sortable: true },
+    { accessor: 'disabled',placeholder: 'Status', Header: 'Status', width: 120, sortMethod: (a, b) => {
+        if (a === b) {
+          return 0;
+        }
+        return a.toLowerCase() > b.toLowerCase() ? 1 : -1;
+      },Cell: row => (row.value === 'Y'? <label className="um-suspended">{'Suspended'}</label> : <label className="um-active">{'Active'}</label>)
+    },
 ]
 
 const customColumns = [
@@ -46,14 +52,15 @@ class UserManagemen extends Component {
             dimension: { width: 0, height: 0 },
             pagination: {},
             modalShow: false,
-            tableStatus: 'waiting'
+            tableStatus: 'waiting',
+            exportData: [],
         }
     }
 
     componentDidMount = () => {
         this.updateDimension();
         window.addEventListener('resize', this.updateDimension);
-        this.searchHandler();
+        this.searchHandler(null,'false','true');
         this.loadPersonalLogin();
 
     }
@@ -74,18 +81,23 @@ class UserManagemen extends Component {
         this.setState({ loginInfo: userInfo.user });
     }
 
-    searchHandler = async (e) => {
+    searchHandler = async (e,export_='false',readyDocument='false') => {
+        //export : true/false --> param for identify this function called from export button
+        //readyDocument : true/false --> if true, then avoid bug "repeatly set state from ComponentDidMount"
         const { search, pagination } = this.state;
 
         //reset table
-        this.setState({
-          data: [],
-          tableStatus: 'waiting'
-        })
+        if(readyDocument == 'false' && export_ == 'false'){
+          this.setState({
+            data: [],
+            tableStatus: 'waiting'
+          })
+        } 
 
         let urls = [];
-        urls.push(`searchParam=${search ? search : ''}`);
+        urls.push(`searchParam=${search ? search : ''}`)
         urls.push(`page=${pagination.active || 1}`)
+        if(export_=='true'){urls.push('export=true')}
 
         const { data } = await axios.get(`${endpoint.userManagementListUser}?${urls.join('&')}`)
         let result = data.data.data.map((item, index) => {
@@ -93,21 +105,30 @@ class UserManagemen extends Component {
             newItem.site = (item.site && item.site !== '') ? item.site : 'All';
             newItem.client = (item.client && item.client !== '') ? item.client : 'All';
             newItem.last_access = (item.last_access) ? moment(item.last_access).format('DD/MM/YYYY hh:mm:ss') : '';
-            newItem.disabled = (item.disabled === 'Y') ? <label className="um-suspended">{'Suspended'}</label> : <label className="um-active">{'Active'}</label>;
+            newItem.disabled = item.disabled;
+            // newItem.disabled = (item.disabled === 'Y') ? <label className="um-suspended">{'Suspended'}</label> : <label className="um-active">{'Active'}</label>;
             newItem.statusTxt = (item.disabled === 'Y') ? 'Suspended' : 'Active';
             return newItem;
-        })
-        this.setState({
-            data: result, 
-            pagination: {
-                active: pagination.active || data.data.current_page,
-                show: data.data.per_page,
-                total: data.data.total,
-                last_page: data.data.last_page,
-                from: data.data.from,
-                to: data.data.to
-            }
-        });
+        }) 
+
+        if(export_=='true'){
+            this.setState({ 
+              exportData: result
+            })
+          }else{
+              this.setState({
+                    data: result, 
+                    pagination: {
+                        active: pagination.active || data.data.current_page,
+                        show: data.data.per_page,
+                        total: data.data.total,
+                        last_page: data.data.last_page,
+                        from: data.data.from,
+                        to: data.data.to
+                    }
+                });
+          }
+        
         if(result.length < 1){
             this.setState({   tableStatus: 'noData'  })
         }
@@ -133,8 +154,8 @@ class UserManagemen extends Component {
 
     render() {
 
-        const { loginInfo, data, fields, customFields, pagination, dimension, modalShow, tableStatus } = this.state;
-        console.log(data)
+        const { loginInfo, data, fields, customFields, pagination, dimension, modalShow, tableStatus,exportData } = this.state;
+        console.log(data) 
         return (
             <div className="um-summary pt-1">
                 <HeaderTitle
@@ -226,6 +247,8 @@ class UserManagemen extends Component {
                     goto={(active) => {
                         this.setState({ pagination: { ...pagination, active } }, () => this.searchHandler())
                       }}
+                    exportApi={async () =>  {await this.searchHandler(null, 'true')}}
+                    exportData={exportData}
                 />
                 
                 <CreateUM show={modalShow} toggle={this.toggle} afterSuccess={this.searchHandler} users={this.state.data} />

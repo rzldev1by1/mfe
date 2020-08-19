@@ -163,7 +163,7 @@ class UserManagementCreate extends React.PureComponent {
   }
 
   AllIsValid = () => {
-    const { moduleAccess } = this.state;
+    const { moduleAccess,sites,clients } = this.state;
     let user = { ...this.state.user };
     let isValid = false;
     let userMenu = moduleAccess.filter((item) => { return item.status === true; })
@@ -171,7 +171,20 @@ class UserManagementCreate extends React.PureComponent {
     if (user.webGroup === utility.webgroup.ADMIN)
       isValid = (user.name && user.email) ? true : false;
     else {
-      isValid = (user.name && user.email && (userMenu && userMenu.length)) ? true : false;
+      
+      let site = sites.find((item, index) => {
+        return item.status === true;
+      });
+        
+      let siteValue = (site && (sites.filter((item) => {return item.status === true;}).length !== sites.length))? site.site:null;
+
+      let client = clients.find((item, index) => {
+        return item.status === true;
+      });
+  
+      let clientValue = (client && (clients.filter((item) => {return item.status === true;}).length !== clients.length))? client.code:null;
+
+      isValid = (user.name && user.email && (userMenu && userMenu.length) && siteValue && clientValue) ? true : false;
     }
 
     return isValid;
@@ -302,16 +315,12 @@ class UserManagementCreate extends React.PureComponent {
         <Nav tabs className="px-7 mx-0">
           <NavItem>
             <NavLink className={`d-flex align-items-center ${key === 'new' ? 'active' : null}`} onClick={() => this.onSelectTab('new')}>
-            <div className="title-tab">
-              <div className={`mr-2 badge badge-pill text-align-center mr-1 badge-${key === 'new' ? 'primary' : 'secondary'}`}>1</div> User Detail                
-            </div>
+            <span className='number-number-1' /> User Detail                
             </NavLink>
           </NavItem>
           <NavItem>
             <NavLink className={`d-flex align-items-center  ${key === 'review' ? 'active' : null}`} onClick={() => this.onSelectTab('review')}>
-            <div className="title-tab">
-              <div className={`mr-2 badge badge-pill text-align-center mr-1 badge-${key === 'review' ? 'primary' : 'secondary'}`}>2</div> Review
-            </div>
+              <span className='number-number-2' /> Review
             </NavLink></NavItem>
         </Nav>
         <TabContent activeTab={key}>

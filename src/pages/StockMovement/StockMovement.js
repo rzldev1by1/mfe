@@ -11,9 +11,9 @@ import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 import StockMovementTable from './StockMovementTable/StockMovementTable'
 // import CustomPagination from './StockMovementPagination/StockMovementPagination'
 import CustomPagination from 'shared/table/CustomPagination'
-import HeaderTitle from 'shared/container/TheHeader' 
+import HeaderTitle from 'shared/container/TheHeader'
 import endpoints from 'helpers/endpoints'
-import './StockMovement.scss' 
+import './StockMovement.scss'
 import DatePicker from 'shared/DatePicker'
 import './StockMovement.css'
 
@@ -24,6 +24,10 @@ const columns = [
   { accessor: 'product_name', Header: 'Description', sortable: true },
   { accessor: 'packdesc', Header: 'UOM', sortable: true }
 ]
+
+const Required = ({ error, id }) => {
+  return <span className="text-error text-danger position-absolute font-12">{error && error[id]}</span>
+}
  
 class StockMovement extends React.PureComponent {
   constructor(props){
@@ -57,7 +61,8 @@ class StockMovement extends React.PureComponent {
         { 'value': 'month', 'label': 'Monthly' }
       ],
       complete: false,
-      periodSelected: 1,
+      periodSelected: { value: 1 ? 1 : null },
+      error: {},
       dateFromSelected: null,
       dateFromText: null,
       dateFromShow: false,
@@ -130,9 +135,9 @@ class StockMovement extends React.PureComponent {
 
   getStockDate = () => {
     axios.get(endpoints.stockDateRange)
-    .then((res) => {
-      this.setState({ minDate: res.data.data[0].min_date, maxDate: res.data.data[0].max_date})
-    })
+      .then((res) => {
+        this.setState({ minDate: res.data.data[0].min_date, maxDate: res.data.data[0].max_date })
+      })
   }
 
   periodHandler = (val) => {
@@ -221,24 +226,14 @@ class StockMovement extends React.PureComponent {
     this.setState({ statusData })
   }
 
-  getproduct = () => {
-    let self = this; 
-    let tmp_data = []
-    self.setState({ productdata: tmp_data }) 
-
-    axios.get(endpoints.getProduct + '?client=' + this.state.client.value )
-    .then(res => {
-        const data = res.data 
-        const productdata = data.code.map((c, i) => ({ value: c, label: `${data.code[i]}: ${data.name[i]}` }))
-        const tmp = { value: 'all', label: 'All Product' }
-        productdata.splice(0, 0, tmp)
-        this.setState({ productData: productdata })
-        
-    })
-    .catch(error => {
-        console.log(error);
-    })
+  getproduct = async (val) => {
+    const { data } = await axios.get(endpoints.getProduct + '?client=' + this.state.client.value + '&param=' + val )
+    const productData = data.map((data, i) => ({ value: data.code, label: data.code + " : " + data.name , i }))
+    const tmp = { value: 'all', label: 'All Product' }
+    productData.splice(0, 0, tmp);
+    this.setState({ productData });
   }
+
   getResources = async () => {
     const { user } = this.props.store
     if (user) {
@@ -251,17 +246,23 @@ class StockMovement extends React.PureComponent {
     }
   }
 
-  searchStockMovement = async () => {
+  searchStockMovement = async () => { 
     this.setState({
       periodSelected: 1
     })
     const { periods, site, client, filterType, product, dateFromSelected, dateToSelected, periodSelected } = this.state
     if (filterType.value) {
+      let header = Object.assign({}, this.state)
       this.load_data(dateFromSelected, dateToSelected, filterType.value, site.value, client.value, product.value)
+      this.setState({ error: delete header.error})
     } else {
-      this.setState({
-        periodSelected: ''
-      })
+      const error = validations(this.state)
+      console.log(this.state.error)
+      if (Object.keys(error).length) {
+        return this.setState({ 
+          periodSelected: '',
+          error })
+      }
     }
   }
 
@@ -323,50 +324,50 @@ class StockMovement extends React.PureComponent {
         ]
       }
     ]
-     
-    this.state.dateArray.map((date, idx) => { 
-      let dates = moment(date).format('DD MMMM YYYY') 
-        if (periods === 'day') {
-            dates = moment(date).format('DD MMMM YYYY')
-        }
-        else if (periods === 'week') {
-            let dates2 = moment(date).add('days', 6).format('DD MMMM YYYY')
-            dates = moment(date).format('DD MMMM YYYY')
-            dates = dates + ' - ' + dates2
-        }
-        else if (periods === 'month') {
-            dates = moment(date).format('MMMM YYYY')
-        } 
-            
+
+    this.state.dateArray.map((date, idx) => {
+      let dates = moment(date).format('DD MMMM YYYY')
+      if (periods === 'day') {
+        dates = moment(date).format('DD MMMM YYYY')
+      }
+      else if (periods === 'week') {
+        let dates2 = moment(date).add('days', 6).format('DD MMMM YYYY')
+        dates = moment(date).format('DD MMMM YYYY')
+        dates = dates + ' - ' + dates2
+      }
+      else if (periods === 'month') {
+        dates = moment(date).format('MMMM YYYY')
+      }
+
       let tmp_header = {
-        Header: dates, 
-        headerStyle: {backgroundColor: 'white' },
-        headerClassName: 'borderRight dateHeader noBorderBottom ', 
+        Header: dates,
+        headerStyle: { backgroundColor: 'white' },
+        headerClassName: 'borderRight dateHeader noBorderBottom ',
         columns: [
           {
             Header: 'SA+',
-            accessor: 'sa_plus_'+date,
+            accessor: 'sa_plus_' + date,
             className: 'text-right',
-            headerClassName: 'borderBottom ', 
+            headerClassName: 'borderBottom ',
             Cell: '-'
           },
           {
             Header: 'SA-',
-            accessor: 'sa_minus_'+date,
+            accessor: 'sa_minus_' + date,
             className: 'text-right',
-            headerClassName: 'borderBottom', 
+            headerClassName: 'borderBottom',
             Cell: '-'
           },
           {
             Header: 'Rec',
-            accessor: 'rec_'+date,
+            accessor: 'rec_' + date,
             Cell: '-',
             className: 'text-right',
-            headerClassName: 'borderBottom', 
+            headerClassName: 'borderBottom',
           },
           {
             Header: 'Send',
-            accessor: 'send_'+date,
+            accessor: 'send_' + date,
             className: 'borderRight text-right',
             headerClassName: 'borderRight borderBottom',
             Cell: '-'
@@ -398,52 +399,52 @@ class StockMovement extends React.PureComponent {
         tmp_row['sa_minus_' + dates] = details.sa_minus
         tmp_row['rec_' + dates] = details.recv_weight
         tmp_row['send_' + dates] = details.send_weight
-        
-        if(!tmp_date.includes(dates)){
+
+        if (!tmp_date.includes(dates)) {
           tmp_date.push(dates)
         }
       })
       tmp_data.push(tmp_row)
     })
-    tmp_date.sort(async function(a, b) {
-        var dateA = new Date(a), dateB = new Date(b);
-        return dateA - dateB;
+    tmp_date.sort(async function (a, b) {
+      var dateA = new Date(a), dateB = new Date(b);
+      return dateA - dateB;
     });
-  
-      this.state.data.map((datax, idx) => { 
-        let details = datax.detail 
-        let tmp_detail = []
-        tmp_date.map((date, index) => {
-          let tmp_x = null;
-          for (let x = 0; x < details.length; x++) { 
-            let tmp = null
-            if(date==details[x].date ){
-              tmp = {
-                'date':date,
-                'sa_plus': details[x].sa_plus,
-                'sa_minus': details[x].sa_minus,
-                'recv_weight': details[x].recv_weight,
-                'send_weight': details[x].send_weight
-              } 
-            }else{
-              tmp = {
-                'date':date,
-                'sa_plus':  '-',
-                'sa_minus':  '-',
-                'recv_weight':  '-',
-                'send_weight':  '-'
-              } 
-            } 
-            tmp_x = tmp
-            break;
+
+    this.state.data.map((datax, idx) => {
+      let details = datax.detail
+      let tmp_detail = []
+      tmp_date.map((date, index) => {
+        let tmp_x = null;
+        for (let x = 0; x < details.length; x++) {
+          let tmp = null
+          if (date == details[x].date) {
+            tmp = {
+              'date': date,
+              'sa_plus': details[x].sa_plus,
+              'sa_minus': details[x].sa_minus,
+              'recv_weight': details[x].recv_weight,
+              'send_weight': details[x].send_weight
+            }
+          } else {
+            tmp = {
+              'date': date,
+              'sa_plus': '-',
+              'sa_minus': '-',
+              'recv_weight': '-',
+              'send_weight': '-'
+            }
           }
-          tmp_detail.push(tmp_x)
-        });
-        tmp_export[idx].detail = tmp_detail
-      });  
+          tmp_x = tmp
+          break;
+        }
+        tmp_detail.push(tmp_x)
+      });
+      tmp_export[idx].detail = tmp_detail
+    });
 
 
-    this.setState({ data_table: tmp_data, date_array: tmp_date, export_data: tmp_export  }, () => {
+    this.setState({ data_table: tmp_data, date_array: tmp_date, export_data: tmp_export }, () => {
       console.log(tmp_date)
       console.log("-------------------------")
     })
@@ -462,41 +463,41 @@ class StockMovement extends React.PureComponent {
       let dateArray = []
       let stDate = dtStart ? dtStart : this.state.startDate
       let enDate = dtEnd ? dtEnd : this.state.endDate
-      let startDate = moment(stDate) 
+      let startDate = moment(stDate)
       let endDate = moment(enDate)
       let periodd = periods ? periods : this.state.filterType
 
-      paramUrl.push('startDate=' +(stDate ? stDate : ''))
+      paramUrl.push('startDate=' + (stDate ? stDate : ''))
       paramUrl.push('endDate=' + (enDate ? enDate : ''))
-      paramUrl.push('filterType=' + (periods ? periods: '')) 
-      paramUrl.push('client=' + (client ? client: '')) 
-      paramUrl.push('site=' + (site ? site: '')) 
-      paramUrl.push('product=' + (product ? product: ''))  
+      paramUrl.push('filterType=' + (periods ? periods : ''))
+      paramUrl.push('client=' + (client ? client : ''))
+      paramUrl.push('site=' + (site ? site : ''))
+      paramUrl.push('product=' + (product ? product : ''))
 
       //set array date
       while (startDate <= endDate) {
-          let newDate = startDate.format('YYYY-MM-DD')
-          dateArray.push(newDate)
+        let newDate = startDate.format('YYYY-MM-DD')
+        dateArray.push(newDate)
 
-          if (periodd === 'day') {
-              startDate.add('days', 1)
-          }
+        if (periodd === 'day') {
+          startDate.add('days', 1)
+        }
 
-          else if (periodd === 'week') {
-              startDate.add('days', 7)
-          }
-          else if (periodd === 'month') {
-              startDate.add(1, 'M')
-          }
+        else if (periodd === 'week') {
+          startDate.add('days', 7)
+        }
+        else if (periodd === 'month') {
+          startDate.add(1, 'M')
+        }
       }
-      this.setState({ dateArray: dateArray, pushTableComplete: true }, function (){
+      this.setState({ dateArray: dateArray, pushTableComplete: true }, function () {
         //set header
         this.setHeader(periods)
       })
 
-      axios.get(endpoints.stockMovement+'?'+paramUrl.join('&')).then(res => { 
-          //get result 
-          const result = res.data.data 
+      axios.get(endpoints.stockMovement + '?' + paramUrl.join('&')).then(res => {
+        //get result 
+        const result = res.data.data
 
           if(result.length < 1){
             this.setState({   tableStatus: 'noData'  })
@@ -509,10 +510,13 @@ class StockMovement extends React.PureComponent {
       .catch(error => {
         console.log(error) 
       })
+        .catch(error => {
+          console.log(error)
+        })
     } catch (error) {
       console.log(error)
     }
- }
+  }
 
   toggle = (value) => {
     this.setState({ create: value ? value : !this.state.create })
@@ -527,7 +531,7 @@ class StockMovement extends React.PureComponent {
   render() {
     console.log(this.props.store)
     const {
-      dimension, fields, data, site, client, status, orderType, create, task,
+      dimension, fields, data, site, client, status, orderType, create, task, error,
       siteData, clientData, statusData, orderTypeData, taskData, data_table, filterType,filterData,
       product, productData, periodSelected, pagination,dateFromShow, minDate,maxDate, date_array,export_data,
       tableStatus
@@ -539,12 +543,12 @@ class StockMovement extends React.PureComponent {
     />
  
     <CCard style={{zIndex: '999'}} className="mb-3 StockMovementFilter">
-      <CCardBody className="px-0 py-3 main-con">
+      <CCardBody className="p-3 main-con">
         <form onSubmit={this.submitSearch}>
-        <CRow className="flex-container-total-align"> 
+        <CRow > 
         {/* Filter content start */}
 
-        <CCol lg={2} className="sm-col-14 pr-0" >
+        <CCol lg={2} className="sm-col-14 px-0">
             <Select name="filterType" className="stockMovement" placeholder="Display Period"
               value={filterType} options={filterData} 
               onChange={(val) => this.periodHandler( val )}  
@@ -555,9 +559,10 @@ class StockMovement extends React.PureComponent {
                 })
               }}
             />
+            <Required id="periodSelected" error={error} />
         </CCol>
-        <CCol lg={2} className="sm-col-7 text-right pr-0 text-light-gray labelDateFrom" > Date From </CCol>
-        <CCol lg={2} className="sm-col-14 pr-0 dateFrom" > 
+        <div className="px-3 text-light-gray labelDateFrom d-flex align-items-center" >Date From</div>
+        <CCol lg={2} className="sm-col-14 px-0 dateFrom" > 
                 <DatePicker style={{ minWidth: '100%' }}
                   ref="dateFrom" arrowStyle={true}
                   getDate={(e) => { this.setState({ dateFromSelected: e })}}
@@ -566,8 +571,8 @@ class StockMovement extends React.PureComponent {
                   fromMonth={minDate} toMonth={maxDate}
                 />
         </CCol>
-        <CCol lg={2} className="sm-col-3 text-right pl-0 pr-0 text-light-gray labelDateTo" > To </CCol>
-        <CCol lg={2} className="sm-col-14 pr-0 dateTo" > 
+        <div className="px-3 text-light-gray labelDateTo d-flex align-items-center">To</div>
+        <CCol lg={2} className="sm-col-14 px-0 dateTo" > 
                   <DatePicker style={{ minWidth: '100%', height:'50px' }}
                       ref="dateTo" arrowStyle={true}
                       firstDate = {this.state.dateFromSelected}
@@ -616,9 +621,10 @@ class StockMovement extends React.PureComponent {
         </CCol>
         <CCol lg={2} className="sm-col-13 product" > 
         <Select name="product" placeholder="Product" 
-            value={product} options={this.state.product.length >= 3 ? productData : []}
-            menuIsOpen={this.state.product.length >= 3 ? true : false}
-            onInputChange={(val) => this.setState({ product: val })}
+            value={product} options={productData}
+            onInputChange={(val) => {this.setState({ product: val }, () => {
+                if(val >= 3) { this.getproduct(val) }
+            }) }}
             onChange={(val) => this.setState({ product: val })} 
             styles={{
             dropdownIndicator: (base, state) => ({
@@ -628,7 +634,7 @@ class StockMovement extends React.PureComponent {
             }}
         />
         </CCol> 
-        <CCol lg={2} className="sm-col-11 col-btn pl-0">
+        <CCol lg={2} className="sm-col-11 col-btn px-0">
             <button className="btn btn-block btn-primary float-right stockMovement btn-search" onClick={this.searchStockMovement} id="stockMovementBtn">SEARCH</button>
         </CCol>
 
@@ -657,7 +663,7 @@ class StockMovement extends React.PureComponent {
       pdf='false'
     /> 
 
-    {/* <CustomPagination
+      {/* <CustomPagination
       data={data}
       pagination={pagination}
       goto={(active) => {
@@ -669,7 +675,7 @@ class StockMovement extends React.PureComponent {
     </CButton>}
     /> */}
 
-  </div>
+    </div>
   }
 }
 const mapStateToProps = (store) => ({ store })

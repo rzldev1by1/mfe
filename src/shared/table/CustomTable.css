@@ -15,6 +15,12 @@
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+.iconU-edit{
+  color:#b4b9bb;
+}
+.iconU-edit:hover{
+  color:#376BFB;
+}
 
 .form-rename:hover{
   border-color: #376BFB !important;
@@ -127,7 +133,12 @@
 .ReactTable .rt-tr-group {
   flex: none !important;
 }
-
+@media (max-width:1717px){
+  .pagination-custom > .export-ml{
+    flex: 0 0 30.66667% !important;
+    max-width: 30.66667% !important;
+  }
+}
 
 @media (min-width:1735px){
   .tab-color {

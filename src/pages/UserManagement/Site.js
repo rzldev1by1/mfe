@@ -1,7 +1,7 @@
 import React from 'react'
 import './UserManagement.css'
 
-const site = ({sites, onEnableClick, onSiteEnableAll, isEnableAllSite}) => {
+const site = ({sites, isAdmin, onEnableClick, onSiteEnableAll, isEnableAllSite}) => {
 
 const disableAll = 'Disable All';
 const enableAll = 'Enable All';
@@ -9,9 +9,9 @@ const enable = 'Enabled';
 const disable = 'Disabled';
 
 return (<div>
-        <div className="flex-column line-border mr-2 my-3">
-            <div className="d-flex">
-                <label className="col-6 text-muted px-0 py-2" htmlFor="Site">Site
+        <div className={`flex-column line-border mr-2 my-3 `}>
+            <div className={`d-flex `}>
+                <label className="col-6 text-muted-soft px-0 py-2" htmlFor="Site">Site
                 </label>
 
                 <div className="col-6">

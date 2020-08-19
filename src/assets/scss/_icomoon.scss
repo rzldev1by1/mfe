@@ -98,12 +98,51 @@
 .icon-PDF:before {
   content: "\e699";
   font-size: 1.75rem;
-  color: rgb(216, 60, 60);
+  color: #F94548;
 }
 .icon-XLS:before {
   content: "\e700";
   font-size: 1.75rem;
-  color: rgb(65, 209, 65);
+  color: #05E0BD;
+}
+@font-face {
+  font-family: 'number';
+  src:  url('../icons/Number/icomoon.eot?2d3she');
+  src:  url('../icons/Number/icomoon.eot?2d3she#iefix') format('embedded-opentype'),
+    url('../icons/Number/icomoon.ttf?2d3she') format('truetype'),
+    url('../icons/Number/icomoon.woff?2d3she') format('woff'),
+    url('../icons/Number/icomoon.svg?2d3she#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="number-"], [class*=" number-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'number' !important;
+  // speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.number-number-1:before {
+  content: "\e90c";
+  font-size: 2rem;
+  margin-top: 2px;
+  padding-right: 2px;
+}
+.number-number-2:before {
+  content: "\e90a";
+  font-size: 2.3rem;
+  margin-top: 2px;
+  padding-right: 2px;
 }
 .iconU-stockMovement:before {
   content: "\e90e";

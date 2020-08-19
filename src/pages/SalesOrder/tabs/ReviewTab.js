@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
 import endpoint from 'helpers/endpoints'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 class ReviewTab extends React.Component {
   state = {
@@ -48,26 +48,27 @@ class ReviewTab extends React.Component {
     })
     const { data } = await axios.post(endpoint.salesOrderCreate, { header, lineDetail })
     if (data === 'create successfully') {
-      this.setState({ status: 'success' })
+      console.log(data)
       this.props.submit({ header: {}, lineDetail: [] })
       setTimeout(() => this.props.hide(), 1500)
+      this.props.submitStatus(data)
     }
   }
 
   GetFormattedDate = (datex) => {
-      if(!datex){
-        return null;
-      }
-      var todayTime = new Date(datex); 
-      var month = todayTime .getMonth()+1
-      var day = todayTime.getDate()
-      var year = todayTime .getFullYear()
-      var day_ = (day<10)? "0"+day: day
-      var month_ = (month<10)? "0"+month: month
-      return day_ + "/" + month_ + "/" + year
+    if (!datex) {
+      return null;
+    }
+    var todayTime = new Date(datex);
+    var month = todayTime.getMonth() + 1
+    var day = todayTime.getDate()
+    var year = todayTime.getFullYear()
+    var day_ = (day < 10) ? "0" + day : day
+    var month_ = (month < 10) ? "0" + month : month
+    return day_ + "/" + month_ + "/" + year
   }
 
-  
+
   siteCheck = (siteVal) => {
     let l = null
     let site = this.props.client || []
@@ -87,13 +88,13 @@ class ReviewTab extends React.Component {
   }
 
   render() {
-    const { header, lineDetail } = this.props.data 
+    const { header, lineDetail } = this.props.data
     return <Container className="px-5 py-4">
       <h3 className="text-primary font-20">Order Details</h3>
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0 required">Site</label>
-          <input value={((header.site && header.site.label)?header.site.label:false) || this.siteCheck(header.site)} className="form-control" readOnly />
+          <input value={((header.site && header.site.label) ? header.site.label : false) || this.siteCheck(header.site)} className="form-control" readOnly />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order Type</label>
@@ -105,13 +106,13 @@ class ReviewTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Delivery Date</label>
-          <input value={ this.GetFormattedDate(header.deliveryDate) || ''} className="form-control" readOnly />
+          <input value={this.GetFormattedDate(header.deliveryDate) || ''} className="form-control" readOnly />
         </Col>
       </Row>
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0 required">Client</label>
-          <input value={((header.client && header.client.label)?header.client.label:false) || this.clientCheck(header.client)} className="form-control" readOnly />
+          <input value={((header.client && header.client.label) ? header.client.label : false) || this.clientCheck(header.client)} className="form-control" readOnly />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order No</label>
@@ -220,7 +221,7 @@ class ReviewTab extends React.Component {
       </div>
       <Row className="mt-3">
         <Col lg={2}>
-          <button className="btn btn-primary" onClick={() => this.props.back()}>{'< Back'}</button>
+          <button className="btn btn-primary" onClick={() => this.props.back()}>{'< BACK'}</button>
         </Col>
         <Col lg={8}>
           {this.state.status === 'success' ?
@@ -231,7 +232,7 @@ class ReviewTab extends React.Component {
             : null}
         </Col>
         <Col lg={2} className="text-right">
-          <button className="btn btn-primary" onClick={this.next}>{'Submit'}</button>
+          <button className="btn btn-primary" onClick={this.next}>{'SUBMIT'}</button>
         </Col>
       </Row>
     </Container>
@@ -239,7 +240,7 @@ class ReviewTab extends React.Component {
 }
 
 const mapStateToProps = store => {
-  return{
+  return {
     client: store.client,
     site: store.site
   }
