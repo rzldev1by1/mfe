@@ -14,6 +14,7 @@ import Export from "./Export"
 import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
+import validations from './validations'
 //import { splice } from 'core-js/fn/array'
 
 const baseUrl = process.env.REACT_APP_API_URL;
@@ -35,6 +36,9 @@ const getColumnWidth = (rows, accessor, headerText) => {
   );
   return cellLength * 12
 }
+const Required = ({ error, id }) => {
+  return <span className="text-error text-danger position-absolute font-12">{error && error[id]}</span>
+}
 
 class CustomTable extends React.Component {
   constructor(props) {
@@ -52,6 +56,8 @@ class CustomTable extends React.Component {
     this.state = {
       showModal: false,
       editColumn: {},
+      error: {},
+      rename : [],
       editColumnTemp: {},
       trigger: 0,
       activeTab: '1',
@@ -272,65 +278,55 @@ class CustomTable extends React.Component {
 
   // Header Name
   headerRename = async () => {
-    const url = this.props.UrlHeader();
-    const { data } = await axios.get(url);
-    let fields = [];
-    let accessor = this.state.fields.map((data, idx) => {
-      let split = data.accessor
-      return split
-    });
-    let style = this.state.fields.map((data, idx) => {
-      let split = data.style
-      return split
-    });
-    let Cell = this.state.fields.map((data, idx) => {
-      let split = data.Cell
-      return split
-    });
-    let placeholder = this.state.fields.map((data, idx) => {
-      let split = data.placeholder
-      return split
-    });
-    let width = this.state.fields.map((data, idx) => {
-      let split = data.width
-      return split
-    });
-    let headerData = Object.keys(data.data[0]);
-    accessor.map((data, idx) => {
-      let lowerCase = data.toLowerCase();
-      if (lowerCase.includes(' ')) {
-        let split = lowerCase.split(' ');
-        let result = split.join('_');
-        accessor[idx] = result;
-      } else {
-        accessor[idx] = lowerCase;
-      }
-    });
-
-    Object.values(data.data[0]).map((data, idx) => {
-      let headerTable = {
-        accessor: '',
-        Header: '',
-        Cell: [],
-        headerData,
-        placeholder: '',
-        width: null,
-        style: null,
-        sortable: true,
-      };
-      headerTable.Header = data;
-      headerTable.placeholder = placeholder[idx];
-      headerTable.accessor = accessor[idx];
-      headerTable.Cell = Cell[idx];
-      headerTable.headerData = headerData[idx];
-      headerTable.width = width[idx];
-      headerTable.style = style[idx];
-      fields.push(headerTable);
-    });
-    if (data.data.length) {
-      this.setState({
-        products: data.data[0],
-        fields: fields,
+    if(this.props.UrlHeader){
+      const url = this.props.UrlHeader();
+      const { data } = await axios.get(url);
+      let fields = [];
+      let accessor = this.state.fields.map((data, idx) => {                
+        let split = data.accessor
+        return split
+        });
+        let Cell = this.state.fields.map((data, idx) => {                
+          let split = data.Cell
+          return split
+          });
+      let placeholder = this.state.fields.map((data, idx) => {                
+                  let split = data.placeholder
+                  return split
+                  });
+      let width = this.state.fields.map((data, idx) => {                
+                  let split = data.width
+                  return split
+                  });
+      let headerData = Object.keys(data.data[0]);
+                  accessor.map((data, idx) => {
+                    let lowerCase = data.toLowerCase();
+                    if (lowerCase.includes(' ')) {
+                      let split = lowerCase.split(' ');
+                      let result = split.join('_');
+                      accessor[idx] = result;
+                    } else {
+                      accessor[idx] = lowerCase;
+                    }
+                  });
+      
+      Object.values(data.data[0]).map((data, idx) => {
+        let headerTable = {
+          accessor: '',
+          Header: '',
+          Cell: [],
+          headerData,
+          placeholder: '',
+          width: null,
+          sortable: true,
+        };
+        headerTable.Header = data;
+        headerTable.placeholder = placeholder[idx];
+        headerTable.accessor = accessor[idx];
+        headerTable.Cell = Cell[idx];
+        headerTable.headerData = headerData[idx];
+        headerTable.width = width[idx];
+        fields.push(headerTable);
       });
       if (data.data.length) {
         this.setState({
@@ -472,6 +468,14 @@ class CustomTable extends React.Component {
   };
 
   renameSubmit = (e) => {
+    // const error = validations(this.state)
+    // const { rename } = this.state
+    // if (Object.keys(error).length === rename.velue <= 0) {
+    //     return this.setState({ error })
+    // } else {
+    //       this.renameSubmits(this.state.changedColumns);
+    //       this.setState({ showModal: false });
+    // }
     this.renameSubmits(this.state.changedColumns);
     this.setState({ showModal: false });
   };
@@ -544,7 +548,7 @@ class CustomTable extends React.Component {
   }
 
   render() {
-    const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
+    const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename  } = this.state
     let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus } = this.props
     // console.log(data)
 
@@ -761,12 +765,14 @@ class CustomTable extends React.Component {
                           return (
                             <div key={index} className='p-2'>
                               <input
+                                // value={rename || null}
                                 placeholder={item.placeholder}
                                 name={item.headerData}
                                 sortable={item.sortable}
                                 onChange={this.changedColumn}
                                 className={`text-left form-rename `}
                               />
+                              <Required id="rename" error={error} />
                             </div>
                           );
                         })}
