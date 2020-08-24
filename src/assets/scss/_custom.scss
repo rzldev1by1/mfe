@@ -153,6 +153,8 @@ overflow-x: scroll;
 }
 .bg-tabNonActive{
   background-color: #dee3e5 !important;
+  border-top-left-radius: 0.25rem !important;
+  border-top-right-radius: 0.25rem !important;
   .nav-link {
     background-color: #dee3e5 !important;
   }
