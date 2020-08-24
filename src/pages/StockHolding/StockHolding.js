@@ -387,7 +387,7 @@ class StockHolding extends React.PureComponent {
                   <CCol sm={4} lg={2} className='px-0'>
                     {
                       this.props.store.user.site ?
-                        <input value={this.siteCheck(site.value)} className="form-control" readOnly />
+                        <input value={this.siteCheck(site.value)} className="form-control sh-input" readOnly />
                         :
                         <Select
                           name='site'
@@ -407,7 +407,7 @@ class StockHolding extends React.PureComponent {
                   <CCol sm={4} lg={2} className='px-3'>
                     {
                       this.props.store.user.client ?
-                        <input value={this.clientCheck(client.value)} className="form-control" readOnly />
+                        <input value={this.clientCheck(client.value)} className="form-control sh-input" readOnly />
                         :
                         <Select
                           name='client'

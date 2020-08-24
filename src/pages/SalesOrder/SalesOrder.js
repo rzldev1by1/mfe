@@ -19,7 +19,7 @@ const columns = [
   { accessor: 'ordertype', placeholder: 'Order Type', Header: 'Order Type', width: 120, },
   { accessor: 'isistask', placeholder: 'Task', Header: 'Task', width: 100, },
   { accessor: 'customer', placeholder: 'Customer No', Header: 'Customer No', style: { textAlign: 'left' }, width: null, },
-  { accessor: 'customername', placeholder: 'Customer Name', Header: 'Customer Name', width: null, },
+  { accessor: 'customername', placeholder: 'Customer Name', Header: 'Customer Name', width: null,  className:'text-left'  },
   {
     accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140,
     Cell: row => {
@@ -339,7 +339,7 @@ class SalesOrder extends React.PureComponent {
                   <CCol lg={2} className="px-0">
                     {
                       this.props.store.user.site ?
-                        <input value={this.siteCheck(site.value)} className="form-control" readOnly />
+                        <input value={this.siteCheck(site.value)} className="form-control sh-input" readOnly />
                         :
                         <Select name="site" placeholder="Site"
                           value={site} options={siteData}
@@ -356,7 +356,7 @@ class SalesOrder extends React.PureComponent {
                   <CCol lg={2} className="px-3">
                     {
                       this.props.store.user.client ?
-                        <input value={this.clientCheck(client.value)} className="form-control" readOnly />
+                        <input value={this.clientCheck(client.value)} className="form-control sh-input" readOnly />
                         :
                         <Select name="client" placeholder="Client"
                           value={client} options={clientData}
