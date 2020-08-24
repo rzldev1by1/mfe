@@ -14,10 +14,10 @@ import './PurchaseOrder.scss'
 const columns = [
   { accessor: 'site', placeholder: 'Site', Header: 'Site', width: 80, sortable: true },
   { accessor: 'client', placeholder: 'Client', Header: 'Client', width: 110, sortable: true },
-  { accessor: 'order_no', placeholder: 'Order No', Header: 'Order No', width: 120, sortable: true },
+  { accessor: 'order_no', placeholder: 'Order No', Header: 'Order No', width: 160, sortable: true },
   { accessor: 'order_type', placeholder: 'Order Type', Header: 'Order Type', width: 120, sortable: true },
   { accessor: 'isis_task', placeholder: 'Task', Header: 'Task', width: 100, sortable: true },
-  { accessor: 'supplier_no', placeholder: 'Supplier No', Header: 'Supplier No', width: 120, sortable: true },
+  { accessor: 'supplier_no', placeholder: 'Supplier No', Header: 'Supplier No', width: 120, sortable: true, style: { textAlign: 'left' } },
   { accessor: 'supplier_name', placeholder: 'Supplier Name', Header: 'Supplier Name', width: 290 },
   {
     accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140,
@@ -321,7 +321,7 @@ class PurchaseOrders extends React.PureComponent {
                   <CCol sm={4} lg={2} className="px-0">
                     {
                       this.props.store.user.site ?
-                        <input value={this.siteCheck(site.value)} className="form-control" readOnly />
+                        <input value={this.siteCheck(site.value)} className="form-control sh-input" readOnly />
                         :
                         <Select name="site" placeholder="Site"
                           options={siteData}
@@ -338,7 +338,7 @@ class PurchaseOrders extends React.PureComponent {
                   <CCol sm={4} lg={2} className="px-3">
                     {
                       this.props.store.user.client ?
-                        <input value={this.clientCheck(client.value)} className="form-control" readOnly />
+                        <input value={this.clientCheck(client.value)} className="form-control sh-input" readOnly />
                         :
                         <Select name="client" placeholder="Client"
                           options={clientData}
