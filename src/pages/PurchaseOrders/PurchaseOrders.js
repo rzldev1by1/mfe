@@ -14,10 +14,10 @@ import './PurchaseOrder.scss'
 const columns = [
   { accessor: 'site', placeholder: 'Site', Header: 'Site', width: 80, sortable: true },
   { accessor: 'client', placeholder: 'Client', Header: 'Client', width: 110, sortable: true },
-  { accessor: 'order_no', placeholder: 'Order No', Header: 'Order No', width: 120, sortable: true },
+  { accessor: 'order_no', placeholder: 'Order No', Header: 'Order No', width: 160, sortable: true },
   { accessor: 'order_type', placeholder: 'Order Type', Header: 'Order Type', width: 120, sortable: true },
   { accessor: 'isis_task', placeholder: 'Task', Header: 'Task', width: 100, sortable: true },
-  { accessor: 'supplier_no', placeholder: 'Supplier No', Header: 'Supplier No', width: 120, sortable: true },
+  { accessor: 'supplier_no', placeholder: 'Supplier No', Header: 'Supplier No', width: 120, sortable: true, style: { textAlign: 'left' } },
   { accessor: 'supplier_name', placeholder: 'Supplier Name', Header: 'Supplier Name', width: 290 },
   {
     accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140,
@@ -46,10 +46,22 @@ const columns = [
       }
     }
   },
-  { accessor: 'delivery_date', placeholder: 'Order Date', Header: 'Order Date', width: 150, sortable: true },
-  { accessor: 'date_received', placeholder: 'Date Received', Header: 'Date Received', width: 150, sortable: true },
-  { accessor: 'date_released', placeholder: 'Date Released', Header: 'Date Released', width: 150, sortable: true },
-  { accessor: 'date_completed', placeholder: 'Date Complated', Header: 'Date Completed', width: 150, sortable: true },
+  {
+    accessor: 'delivery_date', placeholder: 'Order Date', Header: 'Order Date', width: 150, sortable: true,
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+  },
+  {
+    accessor: 'date_received', placeholder: 'Date Received', Header: 'Date Received', width: 150, sortable: true,
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+  },
+  {
+    accessor: 'date_released', placeholder: 'Date Released', Header: 'Date Released', width: 150, sortable: true,
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+  },
+  {
+    accessor: 'date_completed', placeholder: 'Date Completed', Header: 'Date Completed', width: 150, sortable: true,
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+  },
   // { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
   // { accessor: 'vendor_order_ref', Header: 'Vendor Order No' },
 ]
@@ -196,10 +208,10 @@ class PurchaseOrders extends React.PureComponent {
     const { data } = await axios.get(`${endpoints.purchaseOrder}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
-        m.delivery_date = m?.delivery_date ? moment(m.delivery_date).format('DD/MM/YYYY') : '-'
-        m.date_received = m?.date_received ? moment(m.date_received).format('DD/MM/YYYY') : '-'
-        m.date_released = m?.date_released ? moment(m.date_released).format('DD/MM/YYYY') : '-'
-        m.date_completed = m?.date_completed ? moment(m.date_completed).format('DD/MM/YYYY') : '-'
+        // m.delivery_date = m?.delivery_date ? moment(m.delivery_date).format('DD/MM/YYYY') : '-'
+        // m.date_received = m?.date_received ? moment(m.date_received).format('DD/MM/YYYY') : '-'
+        // m.date_released = m?.date_released ? moment(m.date_released).format('DD/MM/YYYY') : '-'
+        // m.date_completed = m?.date_completed ? moment(m.date_completed).format('DD/MM/YYYY') : '-'
         return m
       })
       if (export_ == 'true') {
@@ -309,7 +321,7 @@ class PurchaseOrders extends React.PureComponent {
                   <CCol sm={4} lg={2} className="px-0">
                     {
                       this.props.store.user.site ?
-                        <input value={this.siteCheck(site.value)} className="form-control" readOnly />
+                        <input value={this.siteCheck(site.value)} className="form-control sh-input" readOnly />
                         :
                         <Select name="site" placeholder="Site"
                           options={siteData}
@@ -326,7 +338,7 @@ class PurchaseOrders extends React.PureComponent {
                   <CCol sm={4} lg={2} className="px-3">
                     {
                       this.props.store.user.client ?
-                        <input value={this.clientCheck(client.value)} className="form-control" readOnly />
+                        <input value={this.clientCheck(client.value)} className="form-control sh-input" readOnly />
                         :
                         <Select name="client" placeholder="Client"
                           options={clientData}

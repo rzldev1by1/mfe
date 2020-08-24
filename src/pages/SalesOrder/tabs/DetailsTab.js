@@ -105,7 +105,7 @@ class CreateTab extends React.Component {
   }
   getUom = async (product) => {
     // https://apidev.microlistics.tech/dropdown/getuom?client=AESOP&&product=1002
-    const client = this.props.user.client ? this.state.client : this.state.client.value
+    const client = this.state.client.value
     const url = `${endpoints.getUom}?client=${client}&product=${product}`
     const { data } = await axios.get(url)
     const uomData = data.uom.map((c, i) => ({ value: c, label: c }))
