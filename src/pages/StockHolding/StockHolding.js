@@ -24,12 +24,29 @@ const columns = [
     accessor: 'product_name',
     Header: 'Description',
     placeholder: 'Description',
-    width: 250,
+    // width: 250,
     sortable: true,
   },
   { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: 140, sortable: true },
   { accessor: 'packdesc_1', Header: 'UOM', placeholder: 'UOM', width: 80, sortable: true },
-  { accessor: 'status', Header: ' Status ', placeholder: 'Status', width: 140, sortable: true },
+//   { accessor: 'status', Header: ' Status ', placeholder: 'Status', width: 140, sortable: true, 
+//   // sortType: "text",style: {flexDirection: 'row-reverse'}
+//  },
+{
+  accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140,
+  Cell: row => {
+    switch (row.original.status) {
+      case 'OK':
+        return <a id='SHORTAGE' className='status-ok'>OK</a>
+        break;
+      case 'SHORTAGE':
+        return <a id='SHORTAGE' className='status-shortage'>SHORTAGE</a>
+        break;
+      default:
+        break;
+    }
+  }
+},
   {
     accessor: 'on_hand_qty',
     Cell: row => (<div className="alg-right">{row.value}</div>),
@@ -350,11 +367,15 @@ class StockHolding extends React.PureComponent {
       const modifiedData = data.data.data;
       console.log(modifiedData)
       modifiedData.map((item, idx) => {
+        let statusOk = []
+        let statusShortage = []
         if (parseInt(item['on_hand_qty'] + item['expected_in_qty'])  >= item['expected_out_qty']) {
-          item['status'] = [<a className='status-ok'>OK</a>];
+          // item['status'] = [<a id='ok' className='status-ok'>OK</a>];
+          item['status'] = 'OK';
           item['statusTxt'] = 'OK';
-        } else {
-          item['status'] = [<a className='status-shortage'>SHORTAGE</a>];
+        }if (parseInt(item['on_hand_qty'] + item['expected_in_qty'])  <= item['expected_out_qty']) {
+          // item['status'] =  [<a id='SHORTAGE' className='status-shortage'>SHORTAGE</a>];
+          item['status'] =  'SHORTAGE';
           item['statusTxt'] = 'SHORTAGE';
         }
         item['expected_in_qty'] = numeral(item['expected_in_qty']).format('0,0')
