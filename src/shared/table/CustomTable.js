@@ -14,6 +14,7 @@ import Export from "./Export"
 import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
+import validations from './validations'
 //import { splice } from 'core-js/fn/array'
 
 const baseUrl = process.env.REACT_APP_API_URL;
@@ -35,6 +36,9 @@ const getColumnWidth = (rows, accessor, headerText) => {
   );
   return cellLength * 12
 }
+const Required = ({ error, id }) => {
+  return <span className="text-error text-danger position-absolute font-12">{error && error[id]}</span>
+}
 
 class CustomTable extends React.Component {
   constructor(props) {
@@ -52,13 +56,15 @@ class CustomTable extends React.Component {
     this.state = {
       showModal: false,
       editColumn: {},
+      error: {},
+      rename : [],
       editColumnTemp: {},
       trigger: 0,
       activeTab: '1',
       changedColumns: [],
-      data: this.props.data,
-      fields: this.props.fields,
-      urlHeader: this.props.urlHeader,
+      data: props.data,
+      fields: props.fields,
+      urlHeader: props.urlHeader,
       products: [],
       isLoading: true
     }
@@ -217,9 +223,8 @@ class CustomTable extends React.Component {
     header && header.map((h, index) => {
       if (!editColumn[index]) {
         let withIcon = (
-          <span className='text-light-gray draggable-header'>
+          <span className='text-light-gray draggable-header' onClick={() => h.sortType === "float" ? this.props.sortFloat(h.accessor) : false }>
             {h.Header}{' '}
-            {h.sortable === false ? null : (
               <svg
                 stroke='currentColor'
                 fill='currentColor'
@@ -231,7 +236,6 @@ class CustomTable extends React.Component {
               >
                 <path d='M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z'></path>
               </svg>
-            )}
           </span>
         );
 
@@ -268,10 +272,11 @@ class CustomTable extends React.Component {
     }
 
     return listHeader;
-  };
+  }; 
 
   // Header Name
   headerRename = async () => {
+    if(this.props.UrlHeader){
     const url = this.props.UrlHeader();
     const { data } = await axios.get(url);
     let fields = [];
@@ -295,6 +300,19 @@ class CustomTable extends React.Component {
       let split = data.width
       return split
     });
+    let sortable = this.state.fields.map((data, idx) => {
+        let split = data.sortable
+        return split
+      });
+    let sortType = this.state.fields.map((data, idx) => {
+        let split;
+        if(data.sortType){
+            split = data.sortType
+        }else{
+            split = null
+        }
+        return split
+    });
     let headerData = Object.keys(data.data[0]);
     accessor.map((data, idx) => {
       let lowerCase = data.toLowerCase();
@@ -316,7 +334,7 @@ class CustomTable extends React.Component {
         placeholder: '',
         width: null,
         style: null,
-        sortable: true,
+        sortable: false
       };
       headerTable.Header = data;
       headerTable.placeholder = placeholder[idx];
@@ -325,6 +343,10 @@ class CustomTable extends React.Component {
       headerTable.headerData = headerData[idx];
       headerTable.width = width[idx];
       headerTable.style = style[idx];
+      headerTable.sortable = sortable[idx];
+      if(sortType[idx]) {
+        headerTable.sortType = sortType[idx];
+      }
       fields.push(headerTable);
     });
     if (data.data.length) {
@@ -339,6 +361,7 @@ class CustomTable extends React.Component {
         });
       }
     }
+  }
   };
 
   renameSubmits = async (e) => {
@@ -472,6 +495,14 @@ class CustomTable extends React.Component {
   };
 
   renameSubmit = (e) => {
+    // const error = validations(this.state)
+    // const { rename } = this.state
+    // if (Object.keys(error).length === rename.velue <= 0) {
+    //     return this.setState({ error })
+    // } else {
+    //       this.renameSubmits(this.state.changedColumns);
+    //       this.setState({ showModal: false });
+    // }
     this.renameSubmits(this.state.changedColumns);
     this.setState({ showModal: false });
   };
@@ -544,7 +575,7 @@ class CustomTable extends React.Component {
   }
 
   render() {
-    const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
+    const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename  } = this.state
     let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus } = this.props
     // console.log(data)
 
@@ -761,12 +792,14 @@ class CustomTable extends React.Component {
                           return (
                             <div key={index} className='p-2'>
                               <input
+                                // value={rename || null}
                                 placeholder={item.placeholder}
                                 name={item.headerData}
                                 sortable={item.sortable}
                                 onChange={this.changedColumn}
                                 className={`text-left form-rename `}
                               />
+                              <Required id="rename" error={error} />
                             </div>
                           );
                         })}

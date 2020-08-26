@@ -19,11 +19,12 @@ const columns = [
   { accessor: "line", placeholder: 'Line No', Header: "Line No" },
   { accessor: "product", placeholder: 'Product', Header: "Product" },
   { accessor: "product_description",placeholder: 'Description', Header: "Description" },
-  { accessor: "qty", placeholder: 'Qty', Header: "Qty", width: 100, style:{textAlign:'right'}, headerClassName:'text-right' },
+  { accessor: "qty", Cell: row => (<div className="alg-right">{row.value}</div>),  placeholder: 'Qty', Header: "Qty", width: 100, style:{textAlign:'right'}, headerClassName:'text-right'  },
+>>>>>>> src/pages/SalesOrder/SalesOrderDetail.js
   { accessor: "uom", placeholder: 'UOM', Header: "UOM", width: 80 },
-  { accessor: "qty_processed", placeholder: 'Qty Processed', Header: "Qty Processed" },
-  { accessor: "weight",placeholder: 'Weight', Header: "Weight" },
-  { accessor: "weight_processed", placeholder: 'Weight Procesed', Header: "Weight Processed" },
+  { accessor: "qty_processed", Cell: row => (<div className="alg-right">{row.value}</div>),placeholder: 'Qty Processed', Header: "Qty Processed" },
+  { accessor: "weight",  Cell: row => (<div className="alg-right">{row.value}</div>),placeholder: 'Weight', Header: "Weight" },
+  { accessor: "weight_processed", Cell: row => (<div className="alg-right">{row.value}</div>), placeholder: 'Weight Procesed', Header: "Weight Processed" },
   {
     accessor: "completed",placeholder: 'Completed', Header: "Completed",
     Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
@@ -34,13 +35,13 @@ const columns = [
     Cell: (row) => <i className={`${row.original.oos === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
   {
-    accessor: "released",placeholder: 'Released', Header: "Released", width: 80 ,
+    accessor: "released",placeholder: 'Released', Header: "Released", 
     Cell: (row) => <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
-  { accessor: "batch", placeholder: 'Batch',  Header: "Batch", width: 60  },
-  { accessor: "ref2",placeholder: 'Ref2', Header: "Ref2" },
-  { accessor: "ref3",placeholder: 'Ref3', Header: "Ref3" },
-  { accessor: "ref4",placeholder: 'Ref4', Header: "Ref4" },
+  { accessor: "batch",  Cell: row => (<div className="alg-right">{row.value}</div>),  placeholder: 'Batch',  Header: "Batch" , width: 70  },
+  { accessor: "ref2",placeholder: 'Ref2', Header: "Ref2" , width: 70 },
+  { accessor: "ref3",placeholder: 'Ref3', Header: "Ref3" , width: 70 },
+  { accessor: "ref4",placeholder: 'Ref4', Header: "Ref4" , width: 70 },
   { accessor: "disposition",placeholder: 'Disposition', Header: "Disposition" },
   { accessor: "pack_id",placeholder: 'Pack ID', Header: "Pack ID" }
 ]

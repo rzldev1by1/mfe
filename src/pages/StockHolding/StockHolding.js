@@ -35,7 +35,8 @@ const columns = [
     Cell: row => (<div className="alg-right">{row.value}</div>),
     Header: 'Stock on Hand',
     placeholder: 'Stock on Hand',
-    sortable: true,
+    sortable: false,
+    sortType: "float",
     width: 140,
     style: {flexDirection: 'row-reverse'}
   },
@@ -44,7 +45,8 @@ const columns = [
     Cell: row => (<div className="alg-right">{row.value}</div>),
     Header: 'On Hand WGT',
     placeholder: 'On Hand WGT',
-    sortable: true,
+    sortable: false,
+    sortType: "float",
     width: 130,
     style: {flexDirection: 'row-reverse'}
   },
@@ -53,7 +55,8 @@ const columns = [
     Cell: row => (<div className="alg-right">{row.value}</div>),
     Header: 'Expected In Qty',
     placeholder: 'Expected In Qty',
-    sortable: true,
+    sortable: false,
+    sortType: "float",
     width: 130,
     style: {flexDirection: 'row-reverse'}
   },
@@ -62,7 +65,8 @@ const columns = [
     Cell: row => (<div className="alg-right">{row.value}</div>),
     Header: 'Expected In Weight',
     placeholder: 'Expected In Weight',
-    sortable: true,
+    sortable: false,
+    sortType: "float",
     width: 150,
     style: {flexDirection: 'row-reverse'}
   },
@@ -71,13 +75,16 @@ const columns = [
     Cell: row => (<div className="alg-right">{row.value}</div>),
     Header: 'Expected Out Qty',
     placeholder: 'Expected Out Qty',
-    sortable: true,
+    sortable: false,
+    sortType: "float",
     width: 140,
     style: {flexDirection: 'row-reverse'}
   },
-  { accessor: 'price', Cell: row => (<div className="alg-right">{row.value}</div>),Header: ' Price ', placeholder: 'Price', width: 70, sortable: true,
+  { accessor: 'price', Cell: row => (<div className="alg-right">{row.value}</div>),Header: ' Price ', placeholder: 'Price', width: 70, sortable: false,
+  sortType: "float",
     style: {flexDirection: 'row-reverse'} },
-  { accessor: 'pallets',Cell: row => (<div className="alg-right">{row.value}</div>), Header: 'Pallets', placeholder: 'Pallets', width: 70, sortable: true,
+  { accessor: 'pallets',Cell: row => (<div className="alg-right">{row.value}</div>), Header: 'Pallets', placeholder: 'Pallets', width: 70, sortable: false,
+  sortType: "float",
   style: {flexDirection: 'row-reverse'} },
 ];
 
@@ -106,39 +113,46 @@ const customColumns = [
     accessor: 'on_hand_qty',
     Header: 'Stock on Hand',
     placeholder: 'Stock on Hand',
-    sortable: true,
+    sortable: false,
+    sortType: "float",
     width: null,
   },
   {
     accessor: 'on_hand_wgy',
     Header: 'On Hand WGT',
     placeholder: 'On Hand WGT',
-    sortable: true,
+    sortable: false,
+    sortType: "float",
     width: 140,
   },
   {
     accessor: 'expected_in_qty',
     Header: 'Expected In Qty',
     placeholder: 'Expected In Qty',
-    sortable: true,
+    sortable: false,
+    sortType: "float",
     width: 140,
   },
   {
     accessor: 'expected_in_wgt',
     Header: 'Expected In Weight',
     placeholder: 'Expected In Weight',
-    sortable: true,
+    sortable: false,
+    sortType: "float",
     width: 140,
   },
   {
     accessor: 'expected_out_qty',
     Header: 'Expected Out Qty',
     placeholder: 'Expected Out Qty',
-    sortable: true,
+    sortable: false,
+    sortType: "float",
     width: null,
   },
-  { accessor: 'price', Header: ' Price ', placeholder: 'Price', width: 100, sortable: true },
-  { accessor: 'pallets', Header: 'Pallets', placeholder: 'Pallets', width: 100, sortable: true },
+  { accessor: 'price', Header: ' Price ', placeholder: 'Price', width: 100, sortable: false,
+  sortType: null },
+  { accessor: 'pallets', Header: 'Pallets', placeholder: 'Pallets', width: 100, sortable: false,
+  sortType: null },
 ];
 class StockHolding extends React.PureComponent {
   state = {
@@ -164,7 +178,8 @@ class StockHolding extends React.PureComponent {
     products: [],
     columnsPayload: [],
     exportData: [],
-    tableStatus: 'waiting' //table status waiting or noData
+    tableStatus: 'waiting', //table status waiting or noData
+    sort: "up"
   };
   componentDidMount = () => {
     // set automatic table height
@@ -176,6 +191,67 @@ class StockHolding extends React.PureComponent {
     this.getStatus()
     this.searchStockHolding('false','true')
     // this.loadPersonalLogin();
+    // this.setSortType();
+  }
+
+  componentWillMount = () => {
+    //   this.setSortType();
+  }
+
+  setSortType = () => {
+      let self = this;
+      let fields = this.state.fields;
+      let customFields = this.state.customFields;
+
+      fields.map((item, index) => {
+        if(item.accessor == "on_hand_qty"){
+            fields[index].sortType = () => self.sortFloat(() => self.state.data, "on_hand_qty", () => self.state.sort)
+        }
+        if(item.accessor == "on_hand_wgy"){
+            fields[index].sortType = () => self.sortFloat(() => self.state.data, "on_hand_wgy", () => self.state.sort)
+        }
+        if(item.accessor == "expected_in_qty"){
+            fields[index].sortType = () => self.sortFloat(() => self.state.data, "expected_in_qty", () => self.state.sort)
+        }
+        if(item.accessor == "expected_in_wgt"){
+            fields[index].sortType = () => self.sortFloat(() => self.state.data, "expected_in_wgt", () => self.state.sort)
+        }
+        if(item.accessor == "expected_out_qty"){
+            fields[index].sortType = () => self.sortFloat(() => self.state.data, "expected_out_qty", () => self.state.sort)
+        }
+        if(item.accessor == "price"){
+            fields[index].sortType = () => self.sortFloat(() => self.state.data, "price", () => self.state.sort)
+        }
+        if(item.accessor == "pallets"){
+            fields[index].sortType = () => self.sortFloat(() => self.state.data, "pallets", () => self.state.sort)
+        }
+      })
+
+      customFields.map((item, index) => {
+        if(item.accessor == "on_hand_qty"){
+            customFields[index].sortType = () => self.sortFloat(self.state.data, "on_hand_qty", self.state.sort)
+        }
+        if(item.accessor == "on_hand_wgy"){
+            customFields[index].sortType = () => self.sortFloat(self.state.data, "on_hand_wgy", self.state.sort)
+        }
+        if(item.accessor == "expected_in_qty"){
+            customFields[index].sortType = () => self.sortFloat(self.state.data, "expected_in_qty", self.state.sort)
+        }
+        if(item.accessor == "expected_in_wgt"){
+            customFields[index].sortType = () => self.sortFloat(self.state.data, "expected_in_wgt", self.state.sort)
+        }
+        if(item.accessor == "expected_out_qty"){
+            customFields[index].sortType = () => self.sortFloat(self.state.data, "expected_out_qty", self.state.sort)
+        }
+        if(item.accessor == "price"){
+            customFields[index].sortType = () => self.sortFloat(self.state.data, "price", self.state.sort)
+        }
+        if(item.accessor == "pallets"){
+            customFields[index].sortType = () => self.sortFloat(self.state.data, "pallets", self.state.sort)
+        }
+      })
+
+      this.setState({ fields: fields, customFields: customFields })
   }
 
   componentWillUnmount() {
@@ -330,7 +406,74 @@ class StockHolding extends React.PureComponent {
   onSubmitSearch = (e) => {
     e.preventDefault();
     this.searchStockHolding();
-}
+  }
+
+  sortInt = (value, column, sort) => {
+    let data = value;
+
+    if(sort == "down"){
+        data.sort((a, b) => { 
+            if (a[column] !== undefined && b[column] !== undefined) {
+                if(a[column] === null){
+                    return -1;
+                }else if(b[column] === null){
+                    return 1;
+                }
+                return Number(b[column].replace(/,/g, "")) - Number(a[column].replace(/,/g, "")) 
+            }
+        });
+        this.setState({ sort: "up" })
+    }else if(sort == "up"){
+        data.sort((a, b) => { 
+            if (a[column] !== undefined && b[column] !== undefined) {
+                if(a[column] === null){
+                    return 1;
+                }else if(b[column] === null){
+                    return -1;
+                }
+                return Number(a[column].replace(/,/g, "")) - Number(b[column].replace(/,/g, "")) 
+            }
+        });
+        this.setState({ sort: "down" })
+    }
+
+    this.setState({ data: data })
+
+  }
+
+  sortFloat = (value, column, sort) => {
+    let data = value;
+    let floatData = [];
+
+    if(sort == "down"){
+        data.sort((a, b) => { 
+            if (a[column] !== undefined && b[column] !== undefined) {
+                if(a[column] === null){
+                    return -1;
+                }else if(b[column] === null){
+                    return 1;
+                }
+                return Number.parseFloat(b[column].replace(/,/g, "")) - Number.parseFloat(a[column].replace(/,/g, "")) 
+            }
+        });
+        this.setState({ sort: "up" })
+    }else if(sort == "up"){
+        data.sort((a, b) => { 
+            if (a[column] !== undefined && b[column] !== undefined) {
+                if(a[column] === null){
+                    return 1;
+                }else if(b[column] === null){
+                    return -1;
+                }
+                return Number.parseFloat(a[column].replace(/,/g, "")) - Number.parseFloat(b[column].replace(/,/g, "")) 
+            }
+        });
+        this.setState({ sort: "down" })
+    }
+
+    this.setState({ data: data })
+
+  }
 
   render() {
     const {
@@ -462,7 +605,8 @@ class StockHolding extends React.PureComponent {
           height={dimension.height}
           data={data}
           font="7"
-          fields={fields}
+          sortFloat={(column) => this.sortFloat(this.state.data, column, this.state.sort)}
+          fields={this.state.fields}
           customFields={customFields} 
           pagination={pagination}
           onClick={this.showDetails}
