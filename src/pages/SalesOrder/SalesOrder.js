@@ -19,7 +19,7 @@ const columns = [
   { accessor: 'ordertype', placeholder: 'Order Type', Header: 'Order Type', width: 120, },
   { accessor: 'isistask', placeholder: 'Task', Header: 'Task', width: 100, },
   { accessor: 'customer', placeholder: 'Customer No', Header: 'Customer No', style: { textAlign: 'left' }, width: null, },
-  { accessor: 'customername', placeholder: 'Customer Name', Header: 'Customer Name', width: null,  className:'text-left'  },
+  { accessor: 'customername', placeholder: 'Customer Name', Header: 'Customer Name', width: null,  style: { textAlign: 'left' }  },
   {
     accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140,
     Cell: row => {
