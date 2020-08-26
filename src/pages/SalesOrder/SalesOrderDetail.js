@@ -19,7 +19,7 @@ const columns = [
   { accessor: "line", placeholder: 'Line No', Header: "Line No" },
   { accessor: "product", placeholder: 'Product', Header: "Product" },
   { accessor: "product_description",placeholder: 'Description', Header: "Description" },
-  { accessor: "qty", placeholder: 'Qty', Header: "Qty", width: 60  },
+  { accessor: "qty", placeholder: 'Qty', Header: "Qty", width: 100, style:{textAlign:'right'}, headerClassName:'text-right' },
   { accessor: "uom", placeholder: 'UOM', Header: "UOM", width: 80 },
   { accessor: "qty_processed", placeholder: 'Qty Processed', Header: "Qty Processed" },
   { accessor: "weight",placeholder: 'Weight', Header: "Weight" },
