@@ -313,7 +313,7 @@ class UserManagementCreate extends React.PureComponent {
           </Col>
         </Row>
         <Nav tabs className="px-7 mx-0">
-          <NavItem>
+          <NavItem className='pr-1'>
             <NavLink className={`d-flex align-items-center ${key === 'new' ? 'active' : null}`} onClick={() => this.onSelectTab('new')}>
             <span className='number-number-1' /> User Detail                
             </NavLink>
