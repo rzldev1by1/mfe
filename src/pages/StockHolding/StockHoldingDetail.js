@@ -301,38 +301,31 @@ class SalesOrderDetail extends React.Component {
           <div className='stockDetails col-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0'>
             <Nav tabs className='mx-0'>
               <div className='input-group'>
-                <NavItem className='p-0'>
-                  <NavLink
-                    className={
-                      'p-3 nav-link-cust d-flex align-items-center ' +
-                      (activeTab === '1' ? ' tab-custom' : 'tab-nonActive')
-                    }
-                    active={this.state.activeTab === '1'}
-                    onClick={() => this.activeTabIndex('1')}
+                <NavItem className={`p-0 ${activeTab === '2' ? 'bg-tabNonActive' : 'n'}`}>
+                  <NavLink 
+                   active={this.state.activeTab === '1'}
+                   onClick={() => this.activeTabIndex('1')}
+                   style={{marginLeft:'0px'}}
                   >
-                    <div className='row rowTabCustom align-items-center tabColumn mx-0'>
+                  <div className={`row rowTabCustom align-items-center tabColumn mx-0 ${activeTab === '1' ? ' tab-custom' : 'tab-nonActive'}`}>
                       <span className='number-number-1 tabTitleText' />
                       {activeTab === '1'} Stock
                         Details
-                    </div>
+                    </div> 
                   </NavLink>
                 </NavItem>
 
                 {parseInt(expected_in_qty) === 0 && parseInt(expected_out_qty) === 0 && (parseInt(stock_on_hand) + parseInt(expected_in_qty) >= expected_out_qty) ? '' :
-                  <NavItem className={'p-0'} style={{ marginLeft: "11px" }}>
-                    <NavLink
-                      className={
-                        'p-3 nav-link-cust d-flex align-items-center ' +
-                        (activeTab === '2' ? ' tab-custom' : 'tab-nonActive')
-                      }
-                      active={this.state.activeTab === '2'}
-                      onClick={() => this.activeTabIndex('2')}
+                  <NavItem className={`p-0 ${activeTab === '1' ? 'bg-tabNonActive' : 'sss'}`} style={{ marginLeft: "11px" }}>
+                    <NavLink 
+                    active={this.state.activeTab === '2'}
+                    onClick={() => this.activeTabIndex('2')}
                     >
-                      <div className='row rowTabCustom align-items-center tabColumn mx-0'>
+                    <div className={`row rowTabCustom align-items-center tabColumn mx-0 ${activeTab === '2' ? ' tab-custom' : 'tab-nonActive'}`}>
                         <span className='number-number-2 tabTitleText' />
                         {activeTab === '2'} Stock
-                        Balance Forecast
-                    </div>
+                          Balance Forecast
+                      </div> 
                     </NavLink>
                   </NavItem>}
               </div>
@@ -362,7 +355,7 @@ class SalesOrderDetail extends React.Component {
                   exportData={products}
                 />
               </TabPane>
-              <TabPane className='stockDetails' tabId='2'>
+              <TabPane className='stockDetails' tabId='2' style={{background: "#e9eced"}}>
                 <CustomTable
                   title='Stock ForesCast'
                   filename='Microlistics_ForesCast.'

@@ -69,10 +69,10 @@ button:focus {
 
 .scroll-x-y-visible{
   overflow-y: visible;
-overflow-x: scroll;
+  overflow-x: scroll;
 
-overflow-y: visible;
-overflow-x: scroll;
+  overflow-y: visible;
+  overflow-x: scroll;
   z-index: -10;
 }
 
@@ -151,6 +151,14 @@ overflow-x: scroll;
   margin-left: 5px !important;
   cursor: pointer;
 }
+.bg-tabNonActive{
+  background-color: #dee3e5 !important;
+  border-top-left-radius: 0.25rem !important;
+  border-top-right-radius: 0.25rem !important;
+  .nav-link {
+    background-color: #dee3e5 !important;
+  }
+}
 .nav-link.active {
   background-color: #fff !important;
   color: #376bfb !important;
@@ -162,6 +170,11 @@ overflow-x: scroll;
 }
 .nav-item a{
   color: #768192 !important;
+}
+.tab-nonActiveCreate{
+  background-color: #eee !important;
+  border-top-left-radius: 0.25rem !important;
+  border-top-right-radius: 0.25rem !important;
 }
 // .input-group,
 // .input-group input,
@@ -343,7 +356,7 @@ header {
   background: #f94548;
   padding: 2px 6px;
   font-size: 12px;
-  border-radius: 0.5rem;
+  border-radius: 0.4rem;
 }
 
 .status-available {
