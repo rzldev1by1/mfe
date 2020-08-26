@@ -14,6 +14,7 @@ import Export from "./Export"
 import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
+import validations from './validations'
 //import { splice } from 'core-js/fn/array'
 
 const baseUrl = process.env.REACT_APP_API_URL;
@@ -35,6 +36,9 @@ const getColumnWidth = (rows, accessor, headerText) => {
   );
   return cellLength * 12
 }
+const Required = ({ error, id }) => {
+  return <span className="text-error text-danger position-absolute font-12">{error && error[id]}</span>
+}
 
 class CustomTable extends React.Component {
   constructor(props) {
@@ -52,6 +56,8 @@ class CustomTable extends React.Component {
     this.state = {
       showModal: false,
       editColumn: {},
+      error: {},
+      rename : [],
       editColumnTemp: {},
       trigger: 0,
       activeTab: '1',
@@ -266,10 +272,11 @@ class CustomTable extends React.Component {
     }
 
     return listHeader;
-  };
+  }; 
 
   // Header Name
   headerRename = async () => {
+    if(this.props.UrlHeader){
     const url = this.props.UrlHeader();
     const { data } = await axios.get(url);
     let fields = [];
@@ -354,6 +361,7 @@ class CustomTable extends React.Component {
         });
       }
     }
+  }
   };
 
   renameSubmits = async (e) => {
@@ -487,6 +495,14 @@ class CustomTable extends React.Component {
   };
 
   renameSubmit = (e) => {
+    // const error = validations(this.state)
+    // const { rename } = this.state
+    // if (Object.keys(error).length === rename.velue <= 0) {
+    //     return this.setState({ error })
+    // } else {
+    //       this.renameSubmits(this.state.changedColumns);
+    //       this.setState({ showModal: false });
+    // }
     this.renameSubmits(this.state.changedColumns);
     this.setState({ showModal: false });
   };
@@ -559,7 +575,7 @@ class CustomTable extends React.Component {
   }
 
   render() {
-    const { showModal, editColumn, editColumnTemp, fields, activeTab } = this.state
+    const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename  } = this.state
     let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus } = this.props
     // console.log(data)
 
@@ -776,12 +792,14 @@ class CustomTable extends React.Component {
                           return (
                             <div key={index} className='p-2'>
                               <input
+                                // value={rename || null}
                                 placeholder={item.placeholder}
                                 name={item.headerData}
                                 sortable={item.sortable}
                                 onChange={this.changedColumn}
                                 className={`text-left form-rename `}
                               />
+                              <Required id="rename" error={error} />
                             </div>
                           );
                         })}

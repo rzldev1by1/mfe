@@ -10,18 +10,18 @@ import HeaderTitle from 'shared/container/TheHeader'
 import './PurchaseOrder.scss'
 const columns = [
   { accessor: "orig_line_number",  placeholder: 'Line No', Header: "Line No", width:90 },
-  { accessor: "product",  placeholder: 'Product', Header: "Product" },
+  { accessor: "product", Cell: row => (<div className="alg-right">{row.value}</div>),    placeholder: 'Product', Header: "Product" },
   { accessor: "product_name",  placeholder: 'Description', Header: "Description" },
-  { accessor: "quantity",  placeholder: 'Qty', Header: "Qty", width: 50 },
+  { accessor: "quantity",  Cell: row => (<div className="alg-right">{row.value}</div>),   placeholder: 'Qty', Header: "Qty", width: 80 },
   { accessor: "packdesc_1",  placeholder: 'UOM', Header: "UOM", width: 80 },
-  { accessor: "qty_processed",  placeholder: 'Qty Processed', Header: "Qty Processed", width: 130 },
-  { accessor: "weight",  placeholder: 'Weight', Header: "Weight" },
-  { accessor: "weight_processed",  placeholder: 'Weight Processed', Header: "Weight Processed", width: 140 },
+  { accessor: "qty_processed", Cell: row => (<div className="alg-right">{row.value}</div>),    placeholder: 'Qty Processed', Header: "Qty Processed", width: 130 },
+  { accessor: "weight",  Cell: row => (<div className="alg-right">{row.value}</div>),   placeholder: 'Weight', Header: "Weight" },
+  { accessor: "weight_processed",  Cell: row => (<div className="alg-right">{row.value}</div>),   placeholder: 'Weight Processed', Header: "Weight Processed", width: 140 },
   {
     accessor: "completed",  placeholder: 'Completed', Header: "Completed",
     Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
-  { accessor: "batch",  placeholder: 'Batch', Header: "Batch", width: 90 },
+  { accessor: "batch",  Cell: row => (<div className="alg-right">{row.value}</div>),   placeholder: 'Batch', Header: "Batch", width: 90 },
   { accessor: "rotadate",  placeholder: 'Rotadate', Header: "Rotadate" },
   { accessor: "ref3",  placeholder: 'Ref3', Header: "Ref3", width: 80 },
   { accessor: "ref4",  placeholder: 'Ref4', Header: "Ref4", width: 80 },
