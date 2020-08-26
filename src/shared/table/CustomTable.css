@@ -159,3 +159,7 @@
     grid-template-columns: auto auto !important;
   }
 }
+
+.draggable-header{
+    cursor: pointer;
+}
