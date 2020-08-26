@@ -272,10 +272,11 @@ class CustomTable extends React.Component {
     }
 
     return listHeader;
-  };
+  }; 
 
   // Header Name
   headerRename = async () => {
+    if(this.props.UrlHeader){
     const url = this.props.UrlHeader();
     const { data } = await axios.get(url);
     let fields = [];
@@ -360,6 +361,7 @@ class CustomTable extends React.Component {
         });
       }
     }
+  }
   };
 
   renameSubmits = async (e) => {
