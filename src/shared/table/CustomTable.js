@@ -56,9 +56,9 @@ class CustomTable extends React.Component {
       trigger: 0,
       activeTab: '1',
       changedColumns: [],
-      data: this.props.data,
-      fields: this.props.fields,
-      urlHeader: this.props.urlHeader,
+      data: props.data,
+      fields: props.fields,
+      urlHeader: props.urlHeader,
       products: [],
       isLoading: true
     }
@@ -217,9 +217,8 @@ class CustomTable extends React.Component {
     header && header.map((h, index) => {
       if (!editColumn[index]) {
         let withIcon = (
-          <span className='text-light-gray draggable-header'>
+          <span className='text-light-gray draggable-header' onClick={() => h.sortType === "float" ? this.props.sortFloat(h.accessor) : false }>
             {h.Header}{' '}
-            {h.sortable === false ? null : (
               <svg
                 stroke='currentColor'
                 fill='currentColor'
@@ -231,7 +230,6 @@ class CustomTable extends React.Component {
               >
                 <path d='M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z'></path>
               </svg>
-            )}
           </span>
         );
 
@@ -295,6 +293,19 @@ class CustomTable extends React.Component {
       let split = data.width
       return split
     });
+    let sortable = this.state.fields.map((data, idx) => {
+        let split = data.sortable
+        return split
+      });
+    let sortType = this.state.fields.map((data, idx) => {
+        let split;
+        if(data.sortType){
+            split = data.sortType
+        }else{
+            split = null
+        }
+        return split
+    });
     let headerData = Object.keys(data.data[0]);
     accessor.map((data, idx) => {
       let lowerCase = data.toLowerCase();
@@ -316,7 +327,7 @@ class CustomTable extends React.Component {
         placeholder: '',
         width: null,
         style: null,
-        sortable: true,
+        sortable: false
       };
       headerTable.Header = data;
       headerTable.placeholder = placeholder[idx];
@@ -325,6 +336,10 @@ class CustomTable extends React.Component {
       headerTable.headerData = headerData[idx];
       headerTable.width = width[idx];
       headerTable.style = style[idx];
+      headerTable.sortable = sortable[idx];
+      if(sortType[idx]) {
+        headerTable.sortType = sortType[idx];
+      }
       fields.push(headerTable);
     });
     if (data.data.length) {
