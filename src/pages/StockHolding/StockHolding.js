@@ -412,10 +412,28 @@ class StockHolding extends React.PureComponent {
     let data = value;
 
     if(sort == "down"){
-        data.sort((a, b) => { return Number(b[column].replace(/,/g, "")) - Number(a[column].replace(/,/g, "")) });
+        data.sort((a, b) => { 
+            if (a[column] !== undefined && b[column] !== undefined) {
+                if(a[column] === null){
+                    return -1;
+                }else if(b[column] === null){
+                    return 1;
+                }
+                return Number(b[column].replace(/,/g, "")) - Number(a[column].replace(/,/g, "")) 
+            }
+        });
         this.setState({ sort: "up" })
     }else if(sort == "up"){
-        data.sort((a, b) => { return Number(a[column].replace(/,/g, "")) - Number(b[column].replace(/,/g, "")) });
+        data.sort((a, b) => { 
+            if (a[column] !== undefined && b[column] !== undefined) {
+                if(a[column] === null){
+                    return 1;
+                }else if(b[column] === null){
+                    return -1;
+                }
+                return Number(a[column].replace(/,/g, "")) - Number(b[column].replace(/,/g, "")) 
+            }
+        });
         this.setState({ sort: "down" })
     }
 
@@ -428,10 +446,28 @@ class StockHolding extends React.PureComponent {
     let floatData = [];
 
     if(sort == "down"){
-        data.sort((a, b) => { return Number.parseFloat(b[column].replace(/,/g, "")) - Number.parseFloat(a[column].replace(/,/g, "")) });
+        data.sort((a, b) => { 
+            if (a[column] !== undefined && b[column] !== undefined) {
+                if(a[column] === null){
+                    return -1;
+                }else if(b[column] === null){
+                    return 1;
+                }
+                return Number.parseFloat(b[column].replace(/,/g, "")) - Number.parseFloat(a[column].replace(/,/g, "")) 
+            }
+        });
         this.setState({ sort: "up" })
     }else if(sort == "up"){
-        data.sort((a, b) => { return Number.parseFloat(a[column].replace(/,/g, "")) - Number.parseFloat(b[column].replace(/,/g, "")) });
+        data.sort((a, b) => { 
+            if (a[column] !== undefined && b[column] !== undefined) {
+                if(a[column] === null){
+                    return 1;
+                }else if(b[column] === null){
+                    return -1;
+                }
+                return Number.parseFloat(a[column].replace(/,/g, "")) - Number.parseFloat(b[column].replace(/,/g, "")) 
+            }
+        });
         this.setState({ sort: "down" })
     }
 
