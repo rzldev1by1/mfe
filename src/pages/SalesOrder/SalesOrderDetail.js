@@ -19,7 +19,8 @@ const columns = [
   { accessor: "line", placeholder: 'Line No', Header: "Line No" },
   { accessor: "product", placeholder: 'Product', Header: "Product" },
   { accessor: "product_description",placeholder: 'Description', Header: "Description" },
-  { accessor: "qty", Cell: row => (<div className="alg-right">{row.value}</div>),  placeholder: 'Qty', Header: "Qty", width: 60  },
+  { accessor: "qty", Cell: row => (<div className="alg-right">{row.value}</div>),  placeholder: 'Qty', Header: "Qty", width: 100, style:{textAlign:'right'}, headerClassName:'text-right'  },
+>>>>>>> src/pages/SalesOrder/SalesOrderDetail.js
   { accessor: "uom", placeholder: 'UOM', Header: "UOM", width: 80 },
   { accessor: "qty_processed", Cell: row => (<div className="alg-right">{row.value}</div>),placeholder: 'Qty Processed', Header: "Qty Processed" },
   { accessor: "weight",  Cell: row => (<div className="alg-right">{row.value}</div>),placeholder: 'Weight', Header: "Weight" },
