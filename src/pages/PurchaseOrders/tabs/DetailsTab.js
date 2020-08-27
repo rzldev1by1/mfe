@@ -90,16 +90,24 @@ class CreateTab extends React.Component {
     delete clientData[0]
     return clientData
   }
-  getProduct = async (val) => {
+  getProduct = async (val, i) => {
     const url = `${endpoints.getProduct}?client=${this.state.client.value}&param=${val}`
     const { data } = await axios.get(url)
     const productData = data.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.name}`, i }))
-    this.setState({ productData })
+    const orderLine = this.state.orderLine
+    orderLine[i].productData = productData;
+    this.setState({ orderLine })
   }
 
-  getProductHandler = (val) => {
+  getProductHandler = (val, i) => {
+    // Detect input length
+    let orderLine = this.state.orderLine
+    orderLine[i].productKeyword = val
+    this.setState({ orderLine });
+
+    // Get Product from APi if length more than 2
     if(!val || val.length < 3) return
-    else  Promise.resolve( this.getProduct(val));
+    else  Promise.resolve( this.getProduct(val, i));
   }
   getDisposition = async () => {
     const url = `${endpoints.getDisposition}`
@@ -533,15 +541,15 @@ class CreateTab extends React.Component {
           </thead>
           <tbody>
             {orderLine.length && orderLine.map((o, i) => {
-              return <tr className="py-1 text-center orderline-row">
+              return <tr className="py-1 text-center orderline-row" style={{height: "70px"}}>
                 <td className="px-1">
                   <input value={i + 1} className="form-control text-center" readOnly style={{backgroundColor:"#f6f7f9"}}/>
                 </td>
                 <td className="px-1">
                   <Select value={o.productVal || ''}
-                    options={productData}
+                    options={o.productKeyword ? o.productKeyword.length > 2 ? o.productData : [] : []}
                     getOptionLabel={option => option.value}
-                    onInputChange={(val) => this.getProductHandler(val)}
+                    onInputChange={(val) => {this.getProductHandler(val, i)}}
                     onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
                     onMenuClose={() => {productStatus[i] = false; this.setState({ productStatus: productStatus })}}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
@@ -641,7 +649,7 @@ class CreateTab extends React.Component {
           </tbody>
         </table>
       </div>
-      <button className="btn btn-light-gray m-0" onClick={this.addLine}>ADD LINE</button>
+      <button className="btn btn-light-blue m-0" onClick={this.addLine}>ADD LINE</button>
 
       <Row className="mt-3">
         <Col lg={2}></Col>

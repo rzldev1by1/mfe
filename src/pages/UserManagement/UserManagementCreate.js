@@ -313,18 +313,14 @@ class UserManagementCreate extends React.PureComponent {
           </Col>
         </Row>
         <Nav tabs className="px-7 mx-0">
-          <NavItem>
+          <NavItem className='pr-1'>
             <NavLink className={`d-flex align-items-center ${key === 'new' ? 'active' : null}`} onClick={() => this.onSelectTab('new')}>
-            <div className="title-tab">
-              <div className={`mr-2 badge badge-pill text-align-center mr-1 badge-${key === 'new' ? 'primary' : 'secondary'}`}>1</div> User Detail                
-            </div>
+            <span className='number-number-1' /> User Detail                
             </NavLink>
           </NavItem>
           <NavItem>
             <NavLink className={`d-flex align-items-center  ${key === 'review' ? 'active' : null}`} onClick={() => this.onSelectTab('review')}>
-            <div className="title-tab">
-              <div className={`mr-2 badge badge-pill text-align-center mr-1 badge-${key === 'review' ? 'primary' : 'secondary'}`}>2</div> Review
-            </div>
+              <span className='number-number-2' /> Review
             </NavLink></NavItem>
         </Nav>
         <TabContent activeTab={key}>

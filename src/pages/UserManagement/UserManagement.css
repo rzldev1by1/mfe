@@ -59,7 +59,7 @@
   .btn-outline-notActive {
     /* font-family: 'Rubik Regular'; */
     /* font-size: 1rem !important; */
-    width: 115px !important;
+    width: 120px !important;
     height: 40px !important;
     color: #d5d8da;
     border: 1.5px solid #d5d8da;
@@ -294,7 +294,7 @@
 .um-detail input.form-control{
   padding: 0.375rem 0.75rem !important;
 }
-
+.um-detail .p-33{padding-bottom: 3.3rem !important;}
 .um-detail .fa-user{
   color: #376bfb !important;
 }

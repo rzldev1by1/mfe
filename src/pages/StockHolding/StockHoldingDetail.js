@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import numeral from 'numeral'
 import { CCard, CCardBody, CRow, CCol, CButton } from '@coreui/react';
 import {
   Card,
@@ -15,7 +16,7 @@ import {
 import CustomTable from 'shared/table/CustomTable';
 import { tab1, tab1Inactive, tab2, tab2Inactive } from './Helper';
 import HeaderTitle from 'shared/container/TheHeader';
-import './StockHolding.css';
+import './StockHolding.scss';
 
 class SalesOrderDetail extends React.Component {
   // ref to get element height and calculate table height
@@ -23,28 +24,29 @@ class SalesOrderDetail extends React.Component {
   state = {
     dimension: { width: 0, height: 0 },
     stockDetail: [
-      { accessor: 'batch',       placeholder: 'Batch',     Header: 'Batch',    sortable: true, width: 200 },
-      { accessor: 'rotadate',    placeholder: 'Rotadate',  Header: 'Rotadate', sortable: true, width: 100 },
-      { accessor: 'ref3',        placeholder: 'Ref3',      Header: 'Ref3',     sortable: true, width: 100 },
-      { accessor: 'ref4',        placeholder: 'Ref4',      Header: 'Ref4',     sortable: true, width: 100 },
-      { accessor: 'qty',         placeholder: 'Qty',       Header: 'Qty',      sortable: true, width: 110 },
-      { accessor: 'weight',      placeholder: 'Weight',    Header: 'Weight',   sortable: true, width: 115 },
-      { accessor: 'pallet',      placeholder: 'Pallet',    Header: 'Pallet',   sortable: true, width: 120 },
-      { accessor: 'price',       placeholder: 'Prince',    Header: 'Price',    sortable: true, width: 120 },
-      { accessor: 'pack_id',     placeholder: 'Pack ID',   Header: 'Pack ID',  sortable: true, width: 180 },
+      { accessor: 'batch', placeholder: 'Batch', Header: 'Batch', sortable: true, width: 200, className:'text-left' },
+      { accessor: 'rotadate', placeholder: 'Rotadate', Header: 'Rotadate', sortable: true, width: 100 },
+      { accessor: 'ref3', placeholder: 'Ref3', Header: 'Ref3', sortable: true, width: 100 },
+      { accessor: 'ref4', placeholder: 'Ref4', Header: 'Ref4', sortable: true, width: 100 },
+      { accessor: 'qty', placeholder: 'Qty', Header: 'Qty', sortable: true, width: 60 },
+      { accessor: 'weight', placeholder: 'Weight', Header: 'Weight', sortable: true, width: 80 },
+      { accessor: 'pallet', placeholder: 'Pallet', Header: 'Pallet', sortable: true, width: 70 },
+      { accessor: 'price', placeholder: 'Prince', Header: 'Price', sortable: true, width: 70 },
+      { accessor: 'pack_id', placeholder: 'Pack ID', Header: 'Pack ID', sortable: true, width: 180, className:'text-left' },
     ],
     ForesCast: [
-      { accessor: 'type',
-        placeholder: 'Type', 
-        Header: 'Type', 
-        sortable: true, 
-        width: 130, 
-        Cell : row => {
-          return(
+      {
+        accessor: 'type',
+        placeholder: 'Type',
+        Header: 'Type',
+        sortable: true,
+        width: 130,
+        Cell: row => {
+          return (
             <div>
               <span className="class-for-name">{row.original.openingbalancetext}</span>
-              <span className="class-for-name">{row.original.type}</span>
-              <span className="class-for-name">{row.original.batchnum}</span>
+              {/* <span className="class-for-name">{row.original.type}</span> */}
+              <span className="class-for-name overflow-visible z-index-20">{row.original.newstockexpirydate}</span>
               <span className="class-for-name">{row.original.closingbalancetext}</span>
             </div>
           )
@@ -64,11 +66,10 @@ class SalesOrderDetail extends React.Component {
         Header: 'Order Date',
         sortable: true,
         width: 150,
-        Cell : row => {
-          return(
+        Cell: row => {
+          return (
             <div>
               <span className="class-for-name alg-right">{row.original.effectivedate}</span>
-              <span className="class-for-name alg-right">{row.original.stockexpirydate}</span>
             </div>
           )
         }
@@ -79,11 +80,11 @@ class SalesOrderDetail extends React.Component {
         Header: 'Expected In',
         sortable: true,
         width: 150,
-        Cell : row => {
-          return(
+        Cell: row => {
+          return (
             <div>
-              <span className="class-for-name alg-right">{row.original.qtyexpected}</span>
-              <span className="class-for-name alg-right">{row.original.qty? 0 : null}</span>
+              <span className="class-for-name alg-right">{row.original.qtyexpected ? numeral(row.original.qtyexpected).format('0,0') : row.original.qtyexpected}</span>
+              <span className="class-for-name alg-right">{row.original.qty ? 0 : null}</span>
             </div>
           )
         }
@@ -94,11 +95,11 @@ class SalesOrderDetail extends React.Component {
         Header: 'Expected Out',
         sortable: true,
         width: 150,
-        Cell : row => {
-          return(
+        Cell: row => {
+          return (
             <div>
-              <span className="class-for-name alg-right">{row.original.qtycommitted}</span>
-              <span className="class-for-name alg-right">{row.original.qty}</span>
+              <span className="class-for-name alg-right">{row.original.qtycommitted ? numeral(row.original.qtycommitted).format('0,0') : row.original.qtycommitted}</span>
+              <span className="class-for-name alg-right">{row.original.qty ? numeral(row.original.qty).format('0,0') : row.original.qty}</span>
             </div>
           )
         }
@@ -109,13 +110,13 @@ class SalesOrderDetail extends React.Component {
         Header: 'Balance',
         sortable: true,
         width: 140,
-        Cell : row => {
-          return(
+        Cell: row => {
+          return (
             <div>
-              <span className="class-for-name alg-right">{row.original.startbalance}</span>
-              <span className="class-for-name alg-right">{row.original.closingbalance}</span>
-              <span className="class-for-name alg-right">{row.original.closingstock}</span>
-              <span className="class-for-name alg-right">{row.original.totalbalance}</span>
+              <span className="class-for-name alg-right">{row.original.startbalance ? numeral(row.original.startbalance).format('0,0') : row.original.startbalance}</span>
+              <span className="class-for-name alg-right">{row.original.closingbalance ? numeral(row.original.closingbalance).format('0,0') : row.original.closingbalance}</span>
+              <span className="class-for-name alg-right">{row.original.closingstock ? numeral(row.original.closingstock).format('0,0') : row.original.closingstock}</span>
+              <span className="class-for-name alg-right">{row.original.totalbalance ? numeral(row.original.totalbalance).format('0,0') : row.original.totalbalance}</span>
             </div>
           )
         }
@@ -135,12 +136,6 @@ class SalesOrderDetail extends React.Component {
     this.getDetail();
     this.getStockDetails();
     this.getForescast();
-  }
-  UrlHeader = () =>{
-    return `/getPurchase?client=ANTEC`
-  }
-  UrlAll = () => {
-    return '/putStockholdingColumn?client=ALL'
   }
   activeTabIndex = (tabIndex) => {
     if (this.state.activeTab !== tabIndex) {
@@ -168,22 +163,22 @@ class SalesOrderDetail extends React.Component {
         this.setState({ datahead: result });
         this.potableref.current.setPagination(res);
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
-  getStockDetails = async () => { 
+  getStockDetails = async () => {
     this.setState({
       data: [],
       tableStatus: 'waiting'
     })
 
-    const { product, client, site, expected_out_qty} = this.props.match.params;
+    const { product, client, site, expected_out_qty } = this.props.match.params;
     const url = `/stockdetail/${product}?client=${client}&site=${site}`;
     const { data } = await axios.get(url);
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|[''([{])+\S/g, match => match.toUpperCase());
     if (data.data.length) {
       this.setState({ products: data.data });
-    }else{
-      this.setState({ 
+    } else {
+      this.setState({
         tableStatus: 'noData'
       })
     }
@@ -193,16 +188,26 @@ class SalesOrderDetail extends React.Component {
       data: [],
       tableStatusForecast: 'waiting'
     })
+
     const { product, client, site } = this.props.match.params;
     const url = `/stockbal?client=${client}&product=${product}&site=${site}`;
     const { data } = await axios.get(url);
-    const openingbal  = [{openingbalancetext:'Opening Balance', startbalance:data[0][0]['opening balance']}]
-    let closingbal  = [{closingbalancetext:'Closing Balance', totalbalance:data[0][0]['closing balance']}]
-    const available   = data[0][0]['available orders']
-    let expiry      = data[0][0]['stock expiry']
+    const available = data[0][0]['available orders']
+    if (data[0][0]['stock expiry'].length === 0) {
+      this.setState({
+        tableStatusForecast: 'noData'
+      })
+      return
+    }
+    let expiry = data[0][0]['stock expiry']
+    let expdt = expiry[expiry.length - 1].stockexpirydate
+    const openingbal = [{ openingbalancetext: `Opening Balance as on ${moment().format('DD/MM/YYYY')}`, startbalance: data[0][0]['opening balance'] }]
+    let closingbal = [{ closingbalancetext: `Closing Balance as on ${expdt}`, totalbalance: data[0][0]['closing balance'] }]
+
     expiry.map(expiry => {
-      expiry['qty'] = expiry['quantity']
-      closingbal[0].totalbalance = parseInt(closingbal[0].totalbalance)  - parseInt(expiry.qty)
+      expiry['qty'] = expiry['expected_out']
+      closingbal[0].totalbalance = parseInt(closingbal[0].totalbalance) - parseInt(expiry.qty)
+      expiry['newstockexpirydate'] = `Stock Expires on ${expiry['stockexpirydate']}`
       expiry['closingstock'] = closingbal[0].totalbalance
       return expiry
     })
@@ -211,9 +216,9 @@ class SalesOrderDetail extends React.Component {
     concat = concat.concat(closingbal)
     console.log(concat)
     if (data) {
-      this.setState({ forecast: concat});
-    }else{
-      this.setState({ 
+      this.setState({ forecast: concat });
+    } else {
+      this.setState({
         tableStatusForecast: 'noData'
       })
     }
@@ -228,7 +233,7 @@ class SalesOrderDetail extends React.Component {
       products,
       stockDetail,
       activeTab,
-      ForesCast, 
+      ForesCast,
       forecast,
       tableStatus,
       tableStatusForecast
@@ -245,16 +250,16 @@ class SalesOrderDetail extends React.Component {
       : null;
     let uom = this.state.datahead.length ? this.state.datahead[0].uom : null;
     let stock_on_hand = this.state.datahead.length
-      ? this.state.datahead[0].stock_on_hand
+      ? numeral(this.state.datahead[0].stock_on_hand).format('0,0')
       : null;
     let available_qty = this.state.datahead.length
-      ? this.state.datahead[0].available_qty
+      ? numeral(this.state.datahead[0].available_qty).format('0,0')
       : null;
     let expected_in_qty = this.state.datahead.length
-      ? this.state.datahead[0].expected_in_qty
+      ? numeral(this.state.datahead[0].expected_in_qty).format('0,0')
       : null;
     let expected_out_qty = this.state.datahead.length
-      ? this.state.datahead[0].expected_out_qty
+      ? numeral(this.state.datahead[0].expected_out_qty).format('0,0')
       : null;
     let rotadate_type = this.state.datahead.length
       ? this.state.datahead[0].rotadate_type
@@ -269,24 +274,24 @@ class SalesOrderDetail extends React.Component {
         />
 
         <div ref={this.section1} className='card-group section-1 mb-3'>
-        <CCard>
-          <CCardBody className="p-0 m-3 border-right">
-            <CRow className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">Site</CCol> <CCol>{site || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">Client</CCol> <CCol>{client || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">Product</CCol> <CCol>{product || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">Description</CCol> <CCol>{description || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={2} className="text-light-gray pl-0 mr-3 my-1">UOM</CCol> <CCol>{uom || '-'}</CCol></CRow>
-          </CCardBody>
-        </CCard>
-        <CCard>
-          <CCardBody className="p-0 my-3 mx-0 border-right">
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Stock On Hand</CCol> <CCol className="pl-0">{stock_on_hand || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Available Qty</CCol> <CCol className="pl-0">{available_qty || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Expected in Qty</CCol> <CCol className="pl-0">{expected_in_qty || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Expected Out Qty</CCol> <CCol className="pl-0">{expected_out_qty || '-'}</CCol></CRow>
-            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0 my-1">Rotadate Type</CCol> <CCol className="pl-0">{rotadate_type || '-'}</CCol></CRow>
-          </CCardBody>
-        </CCard>
+          <CCard>
+            <CCardBody className="p-0 m-3 border-right">
+              <CRow className="mx-0"><CCol lg={2} className="text-light-gray pl-0 mr-3 my-1">Site</CCol> <CCol>{site || '-'}</CCol></CRow>
+              <CRow className="mx-0"><CCol lg={2} className="text-light-gray pl-0 mr-3 my-1">Client</CCol> <CCol>{client || '-'}</CCol></CRow>
+              <CRow className="mx-0"><CCol lg={2} className="text-light-gray pl-0 mr-3 my-1">Product</CCol> <CCol>{product || '-'}</CCol></CRow>
+              <CRow className="mx-0"><CCol lg={2} className="text-light-gray pl-0 mr-3 my-1">Description</CCol> <CCol>{description || '-'}</CCol></CRow>
+              <CRow className="mx-0"><CCol lg={2} className="text-light-gray pl-0 mr-3 my-1">UOM</CCol> <CCol>{uom || '-'}</CCol></CRow>
+            </CCardBody>
+          </CCard>
+          <CCard>
+            <CCardBody className="p-0 my-3 mx-0">
+              <CRow className="mx-0"><CCol lg={3} className="text-light-gray px-0 my-1">Stock On Hand</CCol> <CCol className="pl-0">{stock_on_hand || '-'}</CCol></CRow>
+              <CRow className="mx-0"><CCol lg={3} className="text-light-gray px-0 my-1">Projected Available Qty</CCol> <CCol className="pl-0">{available_qty || '-'}</CCol></CRow>
+              <CRow className="mx-0"><CCol lg={3} className="text-light-gray px-0 my-1">Expected in Qty</CCol> <CCol className="pl-0">{expected_in_qty || '-'}</CCol></CRow>
+              <CRow className="mx-0"><CCol lg={3} className="text-light-gray px-0 my-1">Expected Out Qty</CCol> <CCol className="pl-0">{expected_out_qty || '-'}</CCol></CRow>
+              <CRow className="mx-0"><CCol lg={3} className="text-light-gray px-0 my-1">Rotadate Type</CCol> <CCol className="pl-0">{rotadate_type || '-'}</CCol></CRow>
+            </CCardBody>
+          </CCard>
         </div>
 
         <CRow
@@ -296,40 +301,33 @@ class SalesOrderDetail extends React.Component {
           <div className='stockDetails col-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0'>
             <Nav tabs className='mx-0'>
               <div className='input-group'>
-                <NavItem className='p-0'>
-                  <NavLink
-                    className={
-                      'p-3 nav-link-cust d-flex align-items-center ' +
-                      (activeTab === '1' ? ' tab-custom' : 'tab-nonActive')
-                    }
-                    active={this.state.activeTab === '1'}
-                    onClick={() => this.activeTabIndex('1')}
+                <NavItem className={`p-0 ${activeTab === '2' ? 'bg-tabNonActive' : 'n'}`}>
+                  <NavLink 
+                   active={this.state.activeTab === '1'}
+                   onClick={() => this.activeTabIndex('1')}
+                   style={{marginLeft:'0px'}}
                   >
-                    <div className='row rowTabCustom align-items-center tabColumn mx-0'>
-                      <span className='number-number-1 tabTitleText'/>
-                        {activeTab === '1' } Stock
+                  <div className={`row rowTabCustom align-items-center tabColumn mx-0 ${activeTab === '1' ? ' tab-custom' : 'tab-nonActive'}`}>
+                      <span className='number-number-1 tabTitleText' />
+                      {activeTab === '1'} Stock
                         Details
-                    </div>
+                    </div> 
                   </NavLink>
                 </NavItem>
 
-                {parseInt(expected_in_qty) === 0 && parseInt(expected_out_qty) === 0 && (parseInt(stock_on_hand) + parseInt(expected_in_qty) >= expected_out_qty) ?  '' :
-                <NavItem className={'p-0'} style={{marginLeft:"11px"}}>
-                  <NavLink
-                    className={
-                      'p-3 nav-link-cust d-flex align-items-center ' +
-                      (activeTab === '2' ? ' tab-custom' : 'tab-nonActive')
-                    }
+                {parseInt(expected_in_qty) === 0 && parseInt(expected_out_qty) === 0 && (parseInt(stock_on_hand) + parseInt(expected_in_qty) >= expected_out_qty) ? '' :
+                  <NavItem className={`p-0 ${activeTab === '1' ? 'bg-tabNonActive' : 'sss'}`} style={{ marginLeft: "11px" }}>
+                    <NavLink 
                     active={this.state.activeTab === '2'}
                     onClick={() => this.activeTabIndex('2')}
-                  >
-                   <div className='row rowTabCustom align-items-center tabColumn mx-0'>
-                      <span className='number-number-2 tabTitleText'/>
-                        {activeTab === '2' } Stock
-                        Balance Forecast
-                    </div>
-                  </NavLink>
-                </NavItem>}
+                    >
+                    <div className={`row rowTabCustom align-items-center tabColumn mx-0 ${activeTab === '2' ? ' tab-custom' : 'tab-nonActive'}`}>
+                        <span className='number-number-2 tabTitleText' />
+                        {activeTab === '2'} Stock
+                          Balance Forecast
+                      </div> 
+                    </NavLink>
+                  </NavItem>}
               </div>
             </Nav>
           </div>
@@ -338,7 +336,7 @@ class SalesOrderDetail extends React.Component {
         <Row className='mx-0'>
           <div className='col-12 col-lg-12 col-md-12 col-sm-12 mt-0 px-0 '>
             <TabContent className='border-0' activeTab={this.state.activeTab}>
-              <TabPane className='p-0 stockDetails' tabId='1'>
+              <TabPane className='p-0 stockDetails' tabId='1' style={{background: "#e9eced"}}>
                 <CustomTable
                   title='Stock Detail'
                   filename='Microlistics_StockDetail.'
@@ -347,8 +345,6 @@ class SalesOrderDetail extends React.Component {
                   height={this.state.dimension.height}
                   fields={stockDetail}
                   data={products}
-                  UrlHeader={this.UrlHeader} 
-                  UrlAll={this.UrlAll}
                   tableStatus={tableStatus}
                   export={
                     <button className='btn btn-primary float-right btn-export'>
@@ -359,7 +355,7 @@ class SalesOrderDetail extends React.Component {
                   exportData={products}
                 />
               </TabPane>
-              <TabPane className='stockDetails' tabId='2'>
+              <TabPane className='stockDetails' tabId='2' style={{background: "#e9eced"}}>
                 <CustomTable
                   title='Stock ForesCast'
                   filename='Microlistics_ForesCast.'
@@ -368,8 +364,6 @@ class SalesOrderDetail extends React.Component {
                   height={this.state.dimension.height}
                   fields={ForesCast}
                   data={forecast}
-                  UrlHeader={this.UrlHeader} 
-                  UrlAll={this.UrlAll}
                   tableStatus={tableStatusForecast}
                   exportData={forecast}
                   export={

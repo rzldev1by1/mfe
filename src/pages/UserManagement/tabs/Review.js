@@ -79,7 +79,7 @@ class Review extends React.PureComponent {
                         <Client clients={clients} />
                     </Col>
                 </Row>
-                <Row className="mt-4">
+                <Row className="mt-4" style={{paddingTop:'6.3rem'}}>
                     <Col lg={2} className="text-left">
                         <button className="btn btn-primary font-lg" onClick={(e) => { this.props.next('new') }}>{'BACK'}</button>
                     </Col>

@@ -26,7 +26,7 @@ const columns = [
 ]
 
 const Required = ({ error, id }) => {
-  return <span className="text-error text-danger font-12">{error && error[id]}</span>
+  return <span className="text-error text-danger position-absolute font-12">{error && error[id]}</span>
 }
  
 class StockMovement extends React.PureComponent {
@@ -38,6 +38,7 @@ class StockMovement extends React.PureComponent {
       client: '',
       status: '',
       product: '',
+      productSm:'',
       orderType: null,
       task: null,
       resources: [],
@@ -250,10 +251,10 @@ class StockMovement extends React.PureComponent {
     this.setState({
       periodSelected: 1
     })
-    const { periods, site, client, filterType, product, dateFromSelected, dateToSelected, periodSelected } = this.state
+    const { periods, site, client, filterType, product, dateFromSelected, dateToSelected, periodSelected, productSm } = this.state
     if (filterType.value) {
       let header = Object.assign({}, this.state)
-      this.load_data(dateFromSelected, dateToSelected, filterType.value, site.value, client.value, product.value)
+      this.load_data(dateFromSelected, dateToSelected, filterType.value, site.value, client.value, productSm.value)
       this.setState({ error: delete header.error})
     } else {
       const error = validations(this.state)
@@ -534,7 +535,7 @@ class StockMovement extends React.PureComponent {
       dimension, fields, data, site, client, status, orderType, create, task, error,
       siteData, clientData, statusData, orderTypeData, taskData, data_table, filterType,filterData,
       product, productData, periodSelected, pagination,dateFromShow, minDate,maxDate, date_array,export_data,
-      tableStatus
+      tableStatus,productSm
   } = this.state 
   //custom style react-select  
   return <div className="stockMovement">
@@ -619,13 +620,13 @@ class StockMovement extends React.PureComponent {
         }
       
         </CCol>
-        <CCol lg={2} className="sm-col-13 product" > 
+        <CCol lg={2} className="sm-col-13 product" > {console.log(this.state.productSm)}
         <Select name="product" placeholder="Product" 
-            value={product} options={productData}
+            value={productSm} options={productData}
             onInputChange={(val) => {this.setState({ product: val }, () => {
                 if(val >= 3) { this.getproduct(val) }
             }) }}
-            onChange={(val) => this.setState({ product: val })} 
+            onChange={(val) => this.setState({ productSm: val })} 
             styles={{
             dropdownIndicator: (base, state) => ({
                 ...base, 
