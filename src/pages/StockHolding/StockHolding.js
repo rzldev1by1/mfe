@@ -208,67 +208,6 @@ class StockHolding extends React.PureComponent {
     this.getStatus()
     this.searchStockHolding('false','true')
     // this.loadPersonalLogin();
-    // this.setSortType();
-  }
-
-  componentWillMount = () => {
-    //   this.setSortType();
-  }
-
-  setSortType = () => {
-      let self = this;
-      let fields = this.state.fields;
-      let customFields = this.state.customFields;
-
-      fields.map((item, index) => {
-        if(item.accessor == "on_hand_qty"){
-            fields[index].sortType = () => self.sortFloat(() => self.state.data, "on_hand_qty", () => self.state.sort)
-        }
-        if(item.accessor == "on_hand_wgy"){
-            fields[index].sortType = () => self.sortFloat(() => self.state.data, "on_hand_wgy", () => self.state.sort)
-        }
-        if(item.accessor == "expected_in_qty"){
-            fields[index].sortType = () => self.sortFloat(() => self.state.data, "expected_in_qty", () => self.state.sort)
-        }
-        if(item.accessor == "expected_in_wgt"){
-            fields[index].sortType = () => self.sortFloat(() => self.state.data, "expected_in_wgt", () => self.state.sort)
-        }
-        if(item.accessor == "expected_out_qty"){
-            fields[index].sortType = () => self.sortFloat(() => self.state.data, "expected_out_qty", () => self.state.sort)
-        }
-        if(item.accessor == "price"){
-            fields[index].sortType = () => self.sortFloat(() => self.state.data, "price", () => self.state.sort)
-        }
-        if(item.accessor == "pallets"){
-            fields[index].sortType = () => self.sortFloat(() => self.state.data, "pallets", () => self.state.sort)
-        }
-      })
-
-      customFields.map((item, index) => {
-        if(item.accessor == "on_hand_qty"){
-            customFields[index].sortType = () => self.sortFloat(self.state.data, "on_hand_qty", self.state.sort)
-        }
-        if(item.accessor == "on_hand_wgy"){
-            customFields[index].sortType = () => self.sortFloat(self.state.data, "on_hand_wgy", self.state.sort)
-        }
-        if(item.accessor == "expected_in_qty"){
-            customFields[index].sortType = () => self.sortFloat(self.state.data, "expected_in_qty", self.state.sort)
-        }
-        if(item.accessor == "expected_in_wgt"){
-            customFields[index].sortType = () => self.sortFloat(self.state.data, "expected_in_wgt", self.state.sort)
-        }
-        if(item.accessor == "expected_out_qty"){
-            customFields[index].sortType = () => self.sortFloat(self.state.data, "expected_out_qty", self.state.sort)
-        }
-        if(item.accessor == "price"){
-            customFields[index].sortType = () => self.sortFloat(self.state.data, "price", self.state.sort)
-        }
-        if(item.accessor == "pallets"){
-            customFields[index].sortType = () => self.sortFloat(self.state.data, "pallets", self.state.sort)
-        }
-      })
-
-      this.setState({ fields: fields, customFields: customFields })
   }
 
   componentWillUnmount() {
