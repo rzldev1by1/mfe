@@ -294,7 +294,7 @@
 .um-detail input.form-control{
   padding: 0.375rem 0.75rem !important;
 }
-
+.um-detail .p-33{padding-bottom: 3.3rem !important;}
 .um-detail .fa-user{
   color: #376bfb !important;
 }

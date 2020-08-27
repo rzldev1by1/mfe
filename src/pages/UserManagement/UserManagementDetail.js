@@ -577,7 +577,7 @@ class UserManagementDetail extends Component {
                                                     to suspend this user?
                                               </div>
                                         <div className="col-6">
-                                            <button type="button" className={"btn " + ((!accountInfo.disabled) ? "btn-outline-active" : "btn-outline-notActive")} onClick={(e) => { this.onClieckSuspendUser(); }}>
+                                            <button type="button" className={"btn " + ((!accountInfo.disabled) ? "btn-outline-active" : "btn-outline-notActive px-0")} onClick={(e) => { this.onClieckSuspendUser(); }}>
                                                 {(!accountInfo.disabled) ? 'SUSPEND' : 'DISABLED'}
                                             </button>
                                         </div>

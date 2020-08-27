@@ -15,7 +15,7 @@ import './SalesOrder.scss'
 const columns = [
   { accessor: 'site', placeholder: 'Site', Header: 'Site', width: 150, },
   { accessor: 'client', placeholder: 'Client', Header: 'Client', width: 100, },
-  { accessor: 'orderno', placeholder: 'Order No', Header: 'Order No', style: { textAlign: 'left' }, width: 100, },
+  { accessor: 'orderno', placeholder: 'Order No', Header: 'Order No', style: { textAlign: 'left' }, width: 160, },
   { accessor: 'ordertype', placeholder: 'Order Type', Header: 'Order Type', width: 120, },
   { accessor: 'isistask', placeholder: 'Task', Header: 'Task', width: 100, },
   { accessor: 'customer', placeholder: 'Customer No', Header: 'Customer No', style: { textAlign: 'left' }, width: null, },
