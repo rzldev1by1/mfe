@@ -316,7 +316,7 @@ class SalesOrderDetail extends React.Component {
                 </NavItem>
 
                 {parseInt(expected_in_qty) === 0 && parseInt(expected_out_qty) === 0 && (parseInt(stock_on_hand) + parseInt(expected_in_qty) >= expected_out_qty) ? '' :
-                  <NavItem className={`p-0 ${activeTab === '1' ? 'bg-tabNonActive' : 'sss'}`} style={{ marginLeft: "11px" }}>
+                  <NavItem className={`p-0 ml-2 ${activeTab === '1' ? 'bg-tabNonActive' : 'sss'}`}>
                     <NavLink 
                     active={this.state.activeTab === '2'}
                     onClick={() => this.activeTabIndex('2')}

@@ -205,21 +205,9 @@
           }
         }
       }
-      .rt-tbody::-webkit-scrollbar {
-        width: 8px !important;
-      }
-      .rt-tbody::-webkit-scrollbar-thumb {
-        background-color: #f6f7f9;
-        border-radius: 15px !important;
-      }
+     
     }
-    .rt-table::-webkit-scrollbar {
-      height: 8px !important;
-    }
-    .rt-table::-webkit-scrollbar-thumb {
-      background-color: #f6f7f9;
-      border-radius: 15px !important;
-    }
+   
   }
 
 }
