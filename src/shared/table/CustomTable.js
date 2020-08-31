@@ -43,7 +43,7 @@ const Required = ({ error, id }) => {
     const object = Object.keys(error)
     console.log(object)
     console.log('---')
-    if(object.includes(id)) return <span className="text-error text-danger position-absolute font-12">{error && error[id]}</span>
+    if(object.includes(id)) return <span className="text-error text-danger position-absolute font-rename-error">{error && error[id]}</span>
     else return <div></div>
   }
 }
@@ -807,19 +807,20 @@ console.log(this.state)
                           return (
                             <div key={index} className='p-2'>
                               <input
-                                // value={rename || null}
                                 placeholder={item.placeholder}
                                 name={item.headerData}
                                 sortable={item.sortable}
                                 onChange={this.changedColumn}
-                                className={`text-left form-rename `}
+                                className={ `text-left form-rename `}
                               />
-                              <Required id={item.headerData} error={error} />
                             </div>
                           );
                         })}
                     </Row>
                     <Col className="pt-5">
+                    {fields && fields.map((item, index) => {
+                      return (<Required id={item.headerData} error={error} /> )
+                    })}
                       <Button
                         variant='primary'
                         className='px-3 float-right'

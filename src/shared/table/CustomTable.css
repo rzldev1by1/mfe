@@ -11,9 +11,12 @@
     border: 1px solid;
     color: #383a3b;
     background-color: #fff;
-    border-color: #e4e7ea;
+    border-color: #376BFB;
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.form-rename::placeholder {
+  color:#376BFB !important;
 }
 .iconU-edit{
   color:#b4b9bb;
@@ -23,7 +26,7 @@
 }
 
 .form-rename:hover{
-  border-color: #376BFB !important;
+  border-color: #4a78f8 !important;
 }
 .form-rename:focus{
   outline: none !important;
