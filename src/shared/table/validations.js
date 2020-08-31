@@ -7,7 +7,7 @@ export default (thisState, changedColumn) => {
   changedColumn.map((tsData,i1) =>{
         changedColumn.map((ccData, i2) => {
           if(tsData.header === ccData.header && i1 !== i2) {
-            error[tsData.headerData] = `${ccData.header} column cannot be the same name`
+            error[tsData.headerData] = `Columns cannot contain the same name ( ${ccData.header} )`
             // return error
           }
         })
