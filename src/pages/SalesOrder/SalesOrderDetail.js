@@ -97,7 +97,7 @@ class SalesOrderDetail extends React.Component {
           this.setState({
             products: data.data.data.map(data => {
               data.qty = numeral(data.qty).format('0,0')
-              data.qty_processed = numeral(data.qty).format('0,0')
+              data.qty_processed = numeral(data.qty_processed).format('0,0')
               data.weight = numeral(data.weight).format('0,0.000')
               data.weight_processed = numeral(data.weight_processed).format('0,0.000')
               return data
