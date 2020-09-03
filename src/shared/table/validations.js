@@ -1,9 +1,19 @@
 import _ from 'lodash'
-export default (values) => {
+export default (thisState, changedColumn) => {
+  console.log(thisState)
+  console.log(changedColumn)
   let error = {}
-  let { rename } = values
-  if (!rename) {
-    error.rename = 'Rename column cannot be the same name'
-  }
+  let { fields } = thisState
+  changedColumn.map((tsData,i1) =>{
+        changedColumn.map((ccData, i2) => {
+          if(tsData.header === ccData.header && i1 !== i2) {
+            error[tsData.headerData] = `Columns cannot contain the same name ( ${ccData.header} )`
+            // return error
+          }
+        })
+})
+//   if (!rename) {
+//     error.rename = 'Rename column cannot be the same name'
+//   }
   return error
 }

@@ -37,7 +37,15 @@ const getColumnWidth = (rows, accessor, headerText) => {
   return cellLength * 12
 }
 const Required = ({ error, id }) => {
-  return <span className="text-error text-danger position-absolute font-12">{error && error[id]}</span>
+  console.log(error)
+  console.log(id)
+  if(error) {
+    const object = Object.keys(error)
+    console.log(object)
+    console.log('---')
+    if(object.includes(id)) return <span className="text-error text-danger position-absolute font-rename-error">{error && error[id]}</span>
+    else return <div></div>
+  }
 }
 
 class CustomTable extends React.Component {
@@ -161,7 +169,7 @@ class CustomTable extends React.Component {
   }
 
   closeModal = (close, editColumnTemp) => {
-    this.setState({ showModal: close, editColumn: editColumnTemp })
+    this.setState({ showModal: close, editColumn: editColumnTemp ,error: {} })
   }
 
   showColumn = (header, index, length) => {
@@ -500,16 +508,17 @@ class CustomTable extends React.Component {
   };
 
   renameSubmit = (e) => {
-    // const error = validations(this.state)
-    // const { rename } = this.state
-    // if (Object.keys(error).length === rename.velue <= 0) {
-    //     return this.setState({ error })
-    // } else {
-    //       this.renameSubmits(this.state.changedColumns);
-    //       this.setState({ showModal: false });
-    // }
-    this.renameSubmits(this.state.changedColumns);
-    this.setState({ showModal: false });
+    const error = validations(this.state, this.state.changedColumns)
+    const { rename } = this.state
+    console.log(error)
+    if (Object.keys(error).length) {
+      return this.setState({ error })
+    } else {
+          this.renameSubmits(this.state.changedColumns);
+          this.setState({ showModal: false , error:{}});
+    }
+    // this.renameSubmits(this.state.changedColumns);
+    // this.setState({ showModal: false });
   };
   // Header Name And
 
@@ -587,7 +596,7 @@ class CustomTable extends React.Component {
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
     // console.log(this.ExportHeader())  
-
+console.log(this.state)
     return (
       <React.Fragment>
         <ReactTable
@@ -798,19 +807,20 @@ class CustomTable extends React.Component {
                           return (
                             <div key={index} className='p-2'>
                               <input
-                                // value={rename || null}
                                 placeholder={item.placeholder}
                                 name={item.headerData}
                                 sortable={item.sortable}
                                 onChange={this.changedColumn}
-                                className={`text-left form-rename `}
+                                className={ `text-left form-rename `}
                               />
-                              <Required id="rename" error={error} />
                             </div>
                           );
                         })}
                     </Row>
                     <Col className="pt-5">
+                    {fields && fields.map((item, index) => {
+                      return (<Required id={item.headerData} error={error} /> )
+                    })}
                       <Button
                         variant='primary'
                         className='px-3 float-right'

@@ -57,6 +57,9 @@
 .sidebar-nav-header {
   padding: 0 !important;
   margin: 0 !important;
+  align-content: center !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 .sidebar-nav-bottom {
   display: flex;

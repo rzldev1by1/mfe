@@ -36,6 +36,10 @@ button:focus {
 .card {
   box-shadow: none !important;
 }
+
+::placeholder {
+  color: #b4b9bb !important;
+}
 .scroll-x {
   overflow-x: auto;
 }
@@ -54,41 +58,19 @@ button:focus {
   width: 10px !important;
   height: 10px !important;
 }
-
 ::-webkit-scrollbar-thumb {
   background-color: #e8e8e8;
   border-radius: 15px !important;
 }
 .scroll-x-y::-webkit-scrollbar-thumb {
-  background-color: #e8e8e8;
+  background-color: #e4e7ea;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background-color: #d6d3d3;
   border-radius: 15px !important;
 }
 
-.scroll-x-y-visible{
-  overflow-y: visible;
-  overflow-x: scroll;
-
-  overflow-y: visible;
-  overflow-x: scroll;
-  z-index: -10;
-}
-
-.scroll-x-y-visible::-webkit-scrollbar {
-	width: 8px !important;
-	height: 8px;
-	margin-bottom: 0px !important;
-	background-color: #E9ECED;
-	border-radius: 5px;
-  }
-
-.scroll-x-y-visible::-webkit-scrollbar-thumb {
-	background-color: #B4B9BB;
-	border-radius: 5px;
-  }
-  
 .pointer {
   cursor: pointer;
 }
@@ -127,6 +109,11 @@ button:focus {
 }
 .sh-input{
   padding-left: 0.75rem !important;
+}
+.font-rename-error{
+  font-size: 16px;
+  padding-top: 1rem;
+  padding-left: 22rem;
 }
 .font-12 {
   font-size: 12px;
@@ -172,7 +159,7 @@ button:focus {
   border: none;
 }
 .nav-item a{
-  color: #768192 !important;
+  color: #959DA0 !important;
 }
 .tab-nonActiveCreate{
   background-color: #eee !important;
