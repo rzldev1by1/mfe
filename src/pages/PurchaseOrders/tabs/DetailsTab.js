@@ -92,9 +92,13 @@ class CreateTab extends React.Component {
   }
   getProduct = async (val, i) => {
     const url = `${endpoints.getProduct}?client=${this.state.client.value}&param=${val}`
-    const { data } = await axios.get(url)
-    const productData = data.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.name}`, i }))
     const orderLine = this.state.orderLine
+    orderLine[i].productIsLoad = true;
+    const { data } = await axios.get(url).then(res => {
+        orderLine[i].productIsLoad = false;
+        return res;
+    })
+    const productData = data.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.name}`, i }))
     orderLine[i].productData = productData;
     this.setState({ orderLine })
   }
@@ -102,8 +106,21 @@ class CreateTab extends React.Component {
   getProductHandler = (val, i) => {
     // Detect input length
     let orderLine = this.state.orderLine
+    let error = this.state.error
     orderLine[i].productKeyword = val
-    this.setState({ orderLine });
+
+    // Error message if input length less than 3 character
+    error.orderLine = []
+    error.orderLine[i] = {}
+      if ((val.length !== 0) && (val.length < 3)) {
+        error.orderLine[i].productVal = 'Type minimum of 3 characters to find products'
+      }
+    
+    if (error.orderLine.length < 1 || (error.orderLine.length === 1 && !error.orderLine[0])) {
+      delete error.orderLine
+    }
+
+    this.setState({ orderLine, error });
 
     // Get Product from APi if length more than 2
     if(!val || val.length < 3) return
@@ -545,11 +562,13 @@ class CreateTab extends React.Component {
                 <td className="px-1">
                   <input value={i + 1} className="form-control text-center" readOnly style={{backgroundColor:"#f6f7f9"}}/>
                 </td>
-                <td className="px-1">
+                <td className={`px-1 ${error.orderLine && error.orderLine[i] ? error.orderLine[i].productVal ? "react-select-alert" : null : null}`}>
                   <Select value={o.productVal || ''}
                     options={o.productKeyword ? o.productKeyword.length > 2 ? o.productData : [] : []}
                     getOptionLabel={option => option.value}
+                    isLoading={o.productIsLoad}
                     onInputChange={(val) => {this.getProductHandler(val, i)}}
+                    menuIsOpen={o.productKeyword && o.productKeyword.length >= 3 ? true : false}
                     onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
                     onMenuClose={() => {productStatus[i] = false; this.setState({ productStatus: productStatus })}}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}

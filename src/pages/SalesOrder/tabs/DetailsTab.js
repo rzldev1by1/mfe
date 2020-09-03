@@ -9,6 +9,7 @@ import endpoints from 'helpers/endpoints'
 import DatePicker from 'shared/DatePicker'
 import validations from './validations'
 import { connect } from 'react-redux'
+import { MdBorderColor } from 'react-icons/md'
 
 const Required = ({ error, id }) => {
   return <span className="text-error text-danger font-12">{error && error[id]}</span>
@@ -31,7 +32,7 @@ class CreateTab extends React.Component {
     orderId: null,
     orderTypeValue: null,
     site: this.props.user.site ? { value: this.props.user.site } : '',
-    client: this.props.user.client ? { value: this.props.user.client } : '',
+    client: this.props.user.client ? { value: this.props.user.client } : ''
   }
   componentDidMount() {
     this.getDisposition()
@@ -79,9 +80,13 @@ class CreateTab extends React.Component {
   getProduct = async (val, i) => {
     const client = this.state.client.value
     const url = `${endpoints.getProduct}?client=${client}&param=${val}`
-    const { data } = await axios.get(url)
-    const productData = data.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.name}`, i }))
     const orderLine = this.state.orderLine
+    orderLine[i].productIsLoad = true;
+    const { data } = await axios.get(url).then(res => {
+        orderLine[i].productIsLoad = false;
+        return res;
+    })
+    const productData = data.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.name}`, i }))
     orderLine[i].productData = productData;
     this.setState({ orderLine })
   }
@@ -89,12 +94,26 @@ class CreateTab extends React.Component {
   getProductHandler = (val, i) => {
     // Detect input length
     let orderLine = this.state.orderLine
+    let error = this.state.error
     orderLine[i].productKeyword = val
-    this.setState({ orderLine });
 
-    // Get Product from APi if length more than 2
+    // Error message if input length less than 3 character
+        error.orderLine = []
+        error.orderLine[i] = {}
+          if ((val.length !== 0) && (val.length < 3)) {
+            error.orderLine[i].productVal = 'Type minimum of 3 characters to find products'
+          }
+        
+        if (error.orderLine.length < 1 || (error.orderLine.length === 1 && !error.orderLine[0])) {
+          delete error.orderLine
+        }
+
+    this.setState({ orderLine, error });
+    // Get Product from APi if length equal or more than 3
     if (!val || val.length < 3) return
     else Promise.resolve(this.getProduct(val, i));
+
+
   }
 
   getDisposition = async () => {
@@ -634,11 +653,12 @@ class CreateTab extends React.Component {
                 <td className="pl-0 pr-1">
                   <input value={i + 1} className="form-control text-center" readOnly style={{ backgroundColor: "#f6f7f9" }} />
                 </td>
-                <td className="px-1 text-left">
+                <td className={`px-1 text-left ${error.orderLine && error.orderLine[i] ? error.orderLine[i].productVal ? "react-select-alert" : null : null}`}>
                   <Select value={o.productVal || ''}
                     options={o.productKeyword ? o.productKeyword.length > 2 ? o.productData : [] : []}
+                    isLoading={o.productIsLoad}
                     getOptionLabel={option => option.value}
-                    // menuIsOpen={o.productVal && o.productVal.length >= 3 ? true : false}
+                    menuIsOpen={o.productKeyword && o.productKeyword.length >= 3 ? true : false}
                     onInputChange={(val) => this.getProductHandler(val, i)}
                     onMenuOpen={() => { productStatus[i] = true; this.setState({ productStatus: productStatus }) }}
                     onMenuClose={() => { productStatus[i] = false; this.setState({ productStatus: productStatus }) }}
