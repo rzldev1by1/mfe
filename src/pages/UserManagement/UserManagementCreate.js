@@ -172,17 +172,13 @@ class UserManagementCreate extends React.PureComponent {
       isValid = (user.name && user.email) ? true : false;
     else {
       
-      let site = sites.find((item, index) => {
-        return item.status === true;
-      });
+        let siteFiltered = sites.filter((item) => {return item.status === true;});
+                
+        let siteValue = ((siteFiltered.length === 1) || (siteFiltered.length === sites.length)) ? siteFiltered.map(item => item.site):null;
         
-      let siteValue = (site && (sites.filter((item) => {return item.status === true;}).length !== sites.length))? site.site:null;
-
-      let client = clients.find((item, index) => {
-        return item.status === true;
-      });
-  
-      let clientValue = (client && (clients.filter((item) => {return item.status === true;}).length !== clients.length))? client.code:null;
+        let clientFiltered = clients.filter((item) => {return item.status === true;})
+      
+          let clientValue = ((clientFiltered.length === 1) || (clientFiltered.length === clients.length))? clientFiltered.map( item => item.code ):null;
 
       isValid = (user.name && user.email && (userMenu && userMenu.length) && siteValue && clientValue) ? true : false;
     }
@@ -244,18 +240,13 @@ class UserManagementCreate extends React.PureComponent {
       });
     let adminMenu = moduleAccess.map((item, index) => { return item.menuid; });
 
-    let site = sites.find((item, index) => {
-      return item.status === true;
-    });
-
-    
-    let siteValue = (site && (sites.filter((item) => {return item.status === true;}).length !== sites.length))? site.site:null;
-    
-    let client = clients.find((item, index) => {
-      return item.status === true;
-    });
-
-    let clientValue = (client && (clients.filter((item) => {return item.status === true;}).length !== clients.length))? client.code:null;
+    let siteFiltered = sites.filter((item) => {return item.status === true;});
+                
+        let siteValue = ((siteFiltered.length === 1) || (siteFiltered.length === sites.length)) ? siteFiltered.map(item => item.site):null;
+        
+        let clientFiltered = clients.filter((item) => {return item.status === true;})
+      
+          let clientValue = ((clientFiltered.length === 1) || (clientFiltered.length === clients.length))? clientFiltered.map( item => item.code ):null;
 
     userInfo.userMenu = (user.webGroup === utility.webgroup.ADMIN) ? adminMenu : userMenu;
     userInfo.site = ((user.webGroup === utility.webgroup.ADMIN) ? null : siteValue);
