@@ -115,14 +115,13 @@ class NewUser extends React.PureComponent {
         let site = sites.find((item, index) => {
             return item.status === true;
           });
+        let siteFiltered = sites.filter((item) => {return item.status === true;});
                 
-        let siteValue = (site && (sites.filter((item) => {return item.status === true;}).length !== sites.length))? site.site:null;
+        let siteValue = ((siteFiltered.length === 1) || (siteFiltered.length === sites.length)) ? siteFiltered.map(item => item.site):null;
         
-        let client = clients.find((item, index) => {
-            return item.status === true;
-          });
+        let clientFiltered = clients.filter((item) => {return item.status === true;})
       
-          let clientValue = (client && (clients.filter((item) => {return item.status === true;}).length !== clients.length))? client.code:null;
+          let clientValue = ((clientFiltered.length === 1) || (clientFiltered.length === clients.length))? clientFiltered.map( item => item.code ):null;
 
         if(!emailValid.email['isValid'])
         validation.email = emailValid.email;

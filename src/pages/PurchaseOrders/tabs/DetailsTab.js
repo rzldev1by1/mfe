@@ -580,7 +580,8 @@ class CreateTab extends React.Component {
                       }),
                       dropdownIndicator: (base, state) => ({
                         ...base, 
-                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                        display: state.selectProps.menuIsOpen ? "flex" : "none"
                       })
                     }}
                     />
