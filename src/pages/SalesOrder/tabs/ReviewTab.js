@@ -185,6 +185,7 @@ class ReviewTab extends React.Component {
           <Col lg="3">
             <label className="text-muted mb-0">Delivery Instructions</label>
             <textarea
+              value={header.deliveryInstruction || ""}
               name="deliveryInstruction"
               className="form-control"
               placeholder="Delivery Instructions"
