@@ -67,3 +67,6 @@
   font-size: 12px;
   cursor: pointer;
 }
+.text-logo:hover{
+  text-decoration: none;
+}

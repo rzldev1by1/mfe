@@ -49,9 +49,11 @@ const TheSidebar = () => {
         <li className="c-sidebar-item">
           <Link to="/"><img src={Logo} height="35" alt="logo" /></Link>
         </li>
-        <li className="c-sidebar-item logo-text">
-          Microlistics
-        </li>
+        <Link to="/" className='text-logo'>
+          <li className="c-sidebar-item logo-text text-white">
+            Microlistics
+          </li>
+        </Link>
         <li>
 
         </li>
