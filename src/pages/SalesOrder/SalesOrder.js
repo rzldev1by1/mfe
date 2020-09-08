@@ -23,7 +23,11 @@ const columns = [
   {
     accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140,
     Cell: row => {
+      console.log(row.original.status)
       switch (row.original.status) {
+        case '0: Not Available':
+          return <a className="status-Unavailable">UNAVAILABLE</a>
+          break;
         case '0: Unavailable':
           return <a className="status-Unavailable">UNAVAILABLE</a>
           break;

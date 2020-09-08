@@ -114,16 +114,16 @@ class ReviewTab extends React.Component {
           <thead>
             <tr className="text-muted">
             <td><div className="c-50 text-center">#</div></td>
-              <td><div className="c-400">Product</div></td>
-              <td><div className="c-600">Description</div></td>
-              <td><div className="c-100">Qty</div></td>
-              <td><div className="c-170">Weight</div></td>
-              <td><div className="c-150">UOM</div></td>
-              <td><div className="c-100">Batch</div></td>
-              <td><div className="c-100">Ref3</div></td>
-              <td><div className="c-100">Ref4</div></td>
-              <td><div className="c-150">Disposition</div></td>
-              <td><div className="c-150">Rotadate</div></td>
+              <td><div className="c-400 px-1">Product</div></td>
+              <td><div className="c-600 px-1">Description</div></td>
+              <td><div className="c-100 px-1">Qty</div></td>
+              <td><div className="c-170 px-1">Weight</div></td>
+              <td><div className="c-150 px-1">UOM</div></td>
+              <td><div className="c-100 px-1">Batch</div></td>
+              <td><div className="c-100 px-1">Ref3</div></td>
+              <td><div className="c-100 px-1">Ref4</div></td>
+              <td><div className="c-150 px-1">Disposition</div></td>
+              <td><div className="c-150 px-1">Rotadate</div></td>
               <td><div className="c-50"></div></td>
             </tr>
           </thead>
