@@ -20,7 +20,6 @@ ul.pagination {
 }
 
 .page-2 {
-     /* padding: 10px; */
      background-color: #fff;
      border-top-right-radius: 5px;
      border-bottom-right-radius: 5px;
@@ -28,7 +27,6 @@ ul.pagination {
      width: max-content;
 }
 .page-2 input {
-  /* width: 50px; */
   width: 78px;
 }
 .page-2 input::-webkit-outer-spin-button,
@@ -57,6 +55,14 @@ nav .pagination li:first-child {
 nav .pagination li:first-child .page-link {
   padding-left: 0px !important;
 }
+nav .pagination li .page-link:focus {
+  box-shadow: none !important;
+}
+nav .pagination li:first-child .page-link:hover {
+  background-color: transparent !important;
+  border: none !important;
+  outline: 0 !important;
+}
 
 nav .pagination li:nth-child(2) {
   margin-left: 0px !important;
@@ -66,12 +72,21 @@ nav .pagination li:nth-child(2) {
 nav .pagination li:nth-child(2) .page-link {
   padding-left: 0px !important;
 }
+nav .pagination li:nth-child(2) .page-link:hover {
+  background-color: transparent !important;
+  border: none !important;
+  outline: 0 !important;
+}
 
 nav .pagination li:nth-last-child(2) {
   margin-right: 0px !important;
   text-align: right !important;
 }
-
+nav .pagination li:nth-last-child(2) .page-link:hover {
+  background-color: transparent !important;
+  border: none !important;
+  outline: 0 !important;
+}
 nav .pagination li:nth-last-child(2) .page-link {
   padding-right: 0px !important;
 }
@@ -84,7 +99,11 @@ nav .pagination li:last-child {
 nav .pagination li:last-child .page-link {
   padding-right: 0px !important;
 }
-
+nav .pagination li:last-child .page-link:hover {
+  background-color: transparent !important;
+  border: none !important;
+  outline: 0 !important;
+}
 .pagination-custom {
   margin-right: 0px !important;
   margin-left: 0px !important;
