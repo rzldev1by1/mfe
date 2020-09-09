@@ -32,7 +32,7 @@ export function generateUserID(textValue){
     ADMIN: 'Admin'
   }
   export const validationMsg = {
-    INVALID_EMAIL: 'Invalid email',
+    INVALID_EMAIL: 'Invalid format (eg. microlistics@test.com)',
     USERNAME_REQUIRED: 'Username must be entered',
     EMAIL_EXIST:'Email address has been registered'
   }
