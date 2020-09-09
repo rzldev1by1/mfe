@@ -54,10 +54,10 @@ class Review extends React.PureComponent {
                         </div>
                     </Col>
                     <Col lg="4">
-                        <label name="email" className={`form-control mb-0`} style={{backgroundColor: '#e4e7ea'}}>{user.email || ''} </label>                        
+                        <label name="email" readOnly className={`form-control mb-0 review-text`} >{user.email || ''} </label>                                       
                     </Col>
                     <Col lg="4">
-                        <label name="userName" maxLength="60" className={`form-control mb-0`} style={{backgroundColor: '#e4e7ea'}}>{user.name || ''}</label>                      
+                        <label name="userName" readOnly maxLength="60" className={`form-control mb-0 review-text`}>{user.name || ''}</label>                                      
                     </Col>
 
                 </Row>

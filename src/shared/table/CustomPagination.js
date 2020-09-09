@@ -93,8 +93,8 @@ class CustomPagination extends React.Component {
                 onActivePageChange={this.onActivePageChange}
                 firstButton={<BsChevronBarLeft />}
                 previousButton={<BsChevronLeft />}
-                nextButton={<BsChevronRight />}
-                lastButton={<BsChevronBarRight />}
+                nextButton={<BsChevronRight className="nextBtn" />}
+                lastButton={<BsChevronBarRight className="nextBtn" />}
               />
             </CCard>
             <CCard className="col-lg-5" style={{maxWidth: "39.36667%"}}>
