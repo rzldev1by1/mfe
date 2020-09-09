@@ -7,6 +7,7 @@ import axios from 'axios'
 import endpoint from '../../../helpers/endpoints'
 import * as utility from '../UmUtility'
 import { FormFeedback } from 'reactstrap'
+import * as EmailValidator from 'email-validator'
 
 const regexMail = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -43,7 +44,7 @@ class NewUser extends React.PureComponent {
         let validation = { ...this.state.validation };
 
         //  let isValidUser = users.filter((item)=>{return item.email === textmail}).length > 0?false:true;
-         let validFormat = !textmail.match(regexMail)?false:true;
+         let validFormat = EmailValidator.validate(textmail);
         validation.email["isValid"] = validFormat?true:false; 
         
         if(!validFormat)
@@ -73,17 +74,25 @@ class NewUser extends React.PureComponent {
       }
 
        onBlurEmail = async (e) => {
+        let self = this;
         const { name, value } = e.target;
         
         let validation = { ...this.state.validation };
         const {data}  = await axios.post(endpoint.userManagementCheckMailValidation,{email:value});
         validation.email["isValid"] = (data === 0)?true:false;
 
-        if(!validation.email["isValid"])
-            validation.email["message"] = utility.validationMsg.EMAIL_EXIST;
-        else
+        if(!validation.email["isValid"]){
+                validation.email["message"] = utility.validationMsg.EMAIL_EXIST;
+        }else{
             validation.email["message"] = "";
+            if(!self.checkEmailValidation(value).email["isValid"]){
+                validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
+            }else{
+                validation.email["message"] = "";
+            }
+        }
         
+
 
         this.setState({ validation:validation });
     }
