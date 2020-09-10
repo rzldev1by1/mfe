@@ -33,6 +33,7 @@ class SalesOrderDetail extends React.Component {
       { accessor: 'pallet', placeholder: 'Pallet', Header: 'Pallet', sortable: true, width: 70 },
       { accessor: 'price', placeholder: 'Prince', Header: 'Price', sortable: true, width: 70 },
       { accessor: 'pack_id', placeholder: 'Pack ID', Header: 'Pack ID', sortable: true, width: 180, className:'text-left' },
+      { accessor: 'disposition', placeholder: 'Desposition', Header: 'Desposition', sortable: true, width: 180, className:'text-left' },
     ],
     ForesCast: [
       {
