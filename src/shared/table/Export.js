@@ -113,7 +113,7 @@ class Export extends Component {
           styleButton = {pointerEvents:'none'}
         }
         return (            
-            <div className="">
+            <div style={{marginTop:"-3rem"}}>
                 <ButtonDropdown direction="up" style={styleButton} className=" d-flex float-right align-items-center" isOpen={this.state.dropdownOpen[13]} toggle={() => { this.toggle(13); }}>
                   <DropdownToggle  className="Dropdown-toggel btn-primary align-items-center" >
                       {/* <span className='export-export' style={{paddingRight:"6px"}}/> */}
