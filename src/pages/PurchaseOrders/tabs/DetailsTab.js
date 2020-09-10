@@ -91,14 +91,14 @@ class CreateTab extends React.Component {
     return clientData
   }
   getProduct = async (val, i) => {
-    const url = `${endpoints.getProduct}?client=${this.state.client.value}&param=${val}`
+    const url = `${endpoints.getProduct}?client=${this.state.client.value}&param=${val.toUpperCase()}`
     const orderLine = this.state.orderLine
     orderLine[i].productIsLoad = true;
     const { data } = await axios.get(url).then(res => {
         orderLine[i].productIsLoad = false;
         return res;
     })
-    const productData = data.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.name}`, i }))
+    const productData = data.map((data, i) => ({ value: data.code, label: `${data.name}`, i }))
     orderLine[i].productData = productData;
     this.setState({ orderLine })
   }

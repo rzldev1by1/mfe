@@ -79,14 +79,14 @@ class CreateTab extends React.Component {
 
   getProduct = async (val, i) => {
     const client = this.state.client.value
-    const url = `${endpoints.getProduct}?client=${client}&param=${val}`
+    const url = `${endpoints.getProduct}?client=${client}&param=${val.toUpperCase()}`
     const orderLine = this.state.orderLine
     orderLine[i].productIsLoad = true;
     const { data } = await axios.get(url).then(res => {
         orderLine[i].productIsLoad = false;
         return res;
     })
-    const productData = data.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.name}`, i }))
+    const productData = data.map((data, i) => ({ value: data.code, label: `${data.name}`, i }))
     orderLine[i].productData = productData;
     this.setState({ orderLine })
   }
@@ -246,7 +246,7 @@ class CreateTab extends React.Component {
       delete error.orderLine[i][key]
     }
     if (key === 'productVal') {
-      orderLine[i].product = val.value
+      orderLine[i].product = val.label
       orderLine[i].productVal = val
     }
     if (key === 'dispositionVal') {
