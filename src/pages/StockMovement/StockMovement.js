@@ -228,7 +228,7 @@ class StockMovement extends React.PureComponent {
   }
 
   getproduct = async (val) => {
-    const { data } = await axios.get(endpoints.getProduct + '?client=' + this.state.client.value + '&param=' + val )
+    const { data } = await axios.get(endpoints.getProduct + '?client=' + this.state.client.value + '&param=' + (val.toUpperCase()) )
     const productData = data.map((data, i) => ({ value: data.code, label: data.code + " : " + data.name , i }))
     const tmp = { value: 'all', label: 'All Product' }
     productData.splice(0, 0, tmp);
