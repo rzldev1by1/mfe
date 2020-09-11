@@ -124,11 +124,11 @@ class Logins extends Component {
     loginForm(errorMessage, formValidation) {
         return (
             <form className={"mt-3 " + (this.state.forgotPassword ? 'form-hidden' : 'form-show')} onSubmit={this.validateForm}>
-                <input className={'form-control  inputLogin ' + (formValidation.username ? "" : " is-invalid")}
+                <input className={'form-control  inputLogin ' + (formValidation.username ? "" : ""/*"is-invalid"*/)}
                     type="text" name="username"
                     placeholder="Enter your user ID here" />
                 <br />
-                <input className={'form-control inputLogin ' + (formValidation.password ? "" : " is-invalid")}
+                <input className={'form-control inputLogin ' + (formValidation.password ? "" : ""/*"is-invalid"*/)}
                     type="password" name="password"
                     placeholder="Enter your password here"
                 />
@@ -152,7 +152,7 @@ class Logins extends Component {
     forgotPasswordForm(errorMessage, formValidation) {
         return (
             <form className={"mt-3 " + (this.state.forgotPassword ? 'form-show' : 'form-hidden')} onSubmit={this.validateForm}>
-                <input onChange={() => this.hideErrorMessageHandler()} className={'form-control  inputLogin ' + (this.state.emailValidation ? "" : " is-invalid")}
+                <input onChange={() => this.hideErrorMessageHandler()} className={'form-control  inputLogin ' + (this.state.emailValidation ? "" : ""/*"is-invalid"*/)}
                     type="text" name="email"
                     placeholder="Enter your email address here" />
                 <span className='email-message'>Enter your email address to find your acccount</span>
