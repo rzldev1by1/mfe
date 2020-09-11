@@ -224,6 +224,17 @@ class CreateTab extends React.Component {
     let { error } = this.state
     delete error[name]
     this.setState({ [name]: value, error })
+    if(name == "deliveryInstruction"){
+      // Error message if input length more than 240 character
+            if ((value.length !== 0) && (value.length > 240)) {
+              error.deliveryInstruction = 'Value must not exceed 240 characters'
+            }
+          
+          if(error.deliveryInstruction && (error.deliveryInstruction.length < 1 || (error.deliveryInstruction.length === 1 && !error.deliveryInstruction))) {
+            delete error.deliveryInstruction
+          }
+      }
+
   }
   lineChange = (i, e) => {
     const { name, value } = e.target
@@ -558,7 +569,8 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Delivery Instructions</label>
-          <textarea name="deliveryInstruction" onChange={this.onChange} className="form-control" placeholder="Delivery Instructions" required />
+          <textarea name="deliveryInstruction"  onChange={this.onChange} className="form-control" placeholder="Delivery Instructions" required />
+          <Required id="deliveryInstruction" error={error} />
         </Col>
       </Row>
 
