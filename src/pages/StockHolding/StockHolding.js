@@ -11,13 +11,13 @@ import HeaderTitle from 'shared/container/TheHeader'
 import './StockHolding.scss'
 const columns = [
   { accessor: 'site', Header: 'Site', placeholder: 'Site', width: 70, sortable: true },
-  { accessor: 'client', Header: 'Client', placeholder: 'Client', width: null, sortable: true },
+  { accessor: 'client', Header: 'Client', placeholder: 'Client', width: 130, sortable: true },
   {
     accessor: 'product',
     Header: 'Product',
     placeholder: 'Product',
     sortable: true,
-    width: 100,
+    width: 130,
     style: { textAlign: 'left' },
   },
   {

@@ -64,10 +64,10 @@ const columns = [
     style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
   },
   {
-    accessor: 'datecompleted', placeholder: 'Date Completed', Header: 'Date Completed', width: 120,
+    accessor: 'datecompleted', placeholder: 'Date Completed', Header: 'Date Completed', width: 130,
     style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
   },
-  { accessor: 'customerpono', placeholder: 'Customer Order Ref', Header: 'Customer Order Ref', width: null, },
+  { accessor: 'customerpono', placeholder: 'Customer Order Ref', Header: 'Customer Order Ref', width: 155, },
   { accessor: 'vendororderno', placeholder: 'Vendor Order No', Header: 'Vendor Order No', width: null, },
   { accessor: 'address1', placeholder: 'Address1', Header: 'Address1', width: null, },
   { accessor: 'address2', placeholder: 'Address2', Header: 'Address2', width: null, },
