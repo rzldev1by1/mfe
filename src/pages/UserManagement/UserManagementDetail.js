@@ -49,8 +49,8 @@ class UserManagementDetail extends Component {
             adminClass: 'd-none',
             users: [],
             validation: {
-                "name": { isValid: true, invalidClass: "is-invalid", message:'invalid email' },
-                "email": { isValid: true, invalidClass: "is-invalid", message:'username must be entered' }
+                "name": { isValid: true, invalidClass: /*"is-invalid"*/"", message:'invalid email' },
+                "email": { isValid: true, invalidClass: /*"is-invalid"*/"", message:'username must be entered' }
             },
         }
 
