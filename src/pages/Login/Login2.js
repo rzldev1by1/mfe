@@ -119,14 +119,14 @@ class Logins extends Component{
                                 <h1>Login</h1>
                             </div>
 
-                            <input type="text" className={this.state.usernameClass + (this.state.usernameValid ? "" : " is-invalid")}
+                            <input type="text" className={this.state.usernameClass + (this.state.usernameValid ? "" : ""/*"is-invalid"*/)}
                                     id="username" name="username"
                                     onChange={this.onInputChange}
                                     placeholder="Username" />
 
                             <br/>
 
-                            <input type="password" className={this.state.passwordClass + (this.state.passwordValid ? "" : " is-invalid")}
+                            <input type="password" className={this.state.passwordClass + (this.state.passwordValid ? "" : ""/*"is-invalid"*/)}
                                     id="password" name="password"
                                     onChange={this.onInputChange}
                                     placeholder="Password" />
