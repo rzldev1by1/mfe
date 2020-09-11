@@ -27,11 +27,8 @@ const columns = [
     // width: 250,
     sortable: true,
   },
-  { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: 140, sortable: true },
+  // { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: 140, sortable: true },
   { accessor: 'packdesc_1', Header: 'UOM', placeholder: 'UOM', width: 80, sortable: true },
-//   { accessor: 'status', Header: ' Status ', placeholder: 'Status', width: 140, sortable: true, 
-//   // sortType: "text",style: {flexDirection: 'row-reverse'}
-//  },
 {
   accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140,
   Cell: row => {

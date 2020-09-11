@@ -651,8 +651,8 @@ console.log(this.state)
         </table>
 
 
-        <CRow className="mt-3 pagination-custom">
-          <CCol lg="7" className="px-0 margin-mr">
+        <CRow  className="mt-3 pagination-custom" style={{display:"flex"}}>
+          <CCol lg="12" className="px-0" >
             <CustomPagination
               data={data}
               pagination={pagination}
@@ -660,9 +660,7 @@ console.log(this.state)
               export={this.props.export}
               fields={fields}
             />
-          </CCol>
-          <CCol lg="5" className="px-0 export-ml">
-            <Export ExportName={this.ExportName} ExportPDFName={title}
+             <Export ExportName={this.ExportName} ExportPDFName={title}
               pdf={this.props.pdf}
               excel={this.props.excel}
               getExportData={() => this.getExportData()}
@@ -670,6 +668,15 @@ console.log(this.state)
               pagination={pagination}
               ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={font} />
           </CCol>
+          {/* <CCol lg="1" className="px-0 export-ml">
+            <Export ExportName={this.ExportName} ExportPDFName={title}
+              pdf={this.props.pdf}
+              excel={this.props.excel}
+              getExportData={() => this.getExportData()}
+              ExportData={exportData}
+              pagination={pagination}
+              ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={font} />
+          </CCol> */}
         </CRow>
         <Modal
           show={showModal}

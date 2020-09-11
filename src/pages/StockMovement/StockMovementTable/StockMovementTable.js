@@ -211,21 +211,27 @@ class StockMovementTable extends React.Component {
           }}
           {...this.props}
         />
-        <CRow className="mt-3 pagination-custom">
-              <CCol lg="7" className="px-0 margin-mr">
+        <CRow  className="mt-3 pagination-custom" style={{display:"flex"}}>
+          <CCol lg="12" className="px-0" >
               <CustomPagination data={data}
                         pagination={pagination}
                         goto={this.props.goto}
                         export={this.props.export} />
+              <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                    ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} 
+                    pdf={this.props.pdf}
+                    excel={this.props.excel}
+                    getExportData={() => this.getExportData()}
+                />
               </CCol>
-              <CCol lg="5" className="px-0 export-ml">
+              {/* <CCol lg="5" className="px-0 export-ml">
                 <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
                     ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} 
                     pdf={this.props.pdf}
                     excel={this.props.excel}
                     getExportData={() => this.getExportData()}
                 />
-            </CCol>
+            </CCol> */}
           </CRow>
 
           <table id="excel" style={{display: 'none'}}>
