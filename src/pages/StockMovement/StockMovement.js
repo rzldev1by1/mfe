@@ -228,7 +228,7 @@ class StockMovement extends React.PureComponent {
   }
 
   getproduct = async (val) => {
-    const { data } = await axios.get(endpoints.getProduct + '?client=' + this.state.client.value + '&param=' + val )
+    const { data } = await axios.get(endpoints.getProduct + '?client=' + this.state.client.value + '&param=' + (val.toUpperCase()) )
     const productData = data.map((data, i) => ({ value: data.code, label: data.code + " : " + data.name , i }))
     const tmp = { value: 'all', label: 'All Product' }
     productData.splice(0, 0, tmp);
@@ -621,8 +621,10 @@ class StockMovement extends React.PureComponent {
       
         </CCol>
         <CCol lg={2} className="sm-col-13 product" > {console.log(this.state.productSm)}
-        <Select name="product" placeholder="Product" 
-            value={productSm} options={productData}
+        <Select name="product" placeholder="Product"
+            isClearable={true} 
+            // value={productSm}
+             options={productData}
             onInputChange={(val) => {this.setState({ product: val }, () => {
                 if(val >= 3) { this.getproduct(val) }
             }) }}

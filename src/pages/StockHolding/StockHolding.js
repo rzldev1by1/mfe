@@ -11,27 +11,24 @@ import HeaderTitle from 'shared/container/TheHeader'
 import './StockHolding.scss'
 const columns = [
   { accessor: 'site', Header: 'Site', placeholder: 'Site', width: 70, sortable: true },
-  { accessor: 'client', Header: 'Client', placeholder: 'Client', width: null, sortable: true },
+  { accessor: 'client', Header: 'Client', placeholder: 'Client', width: 130, sortable: true },
   {
     accessor: 'product',
     Header: 'Product',
     placeholder: 'Product',
     sortable: true,
-    width: 100,
+    width: 160,
     style: { textAlign: 'left' },
   },
   {
     accessor: 'product_name',
     Header: 'Description',
     placeholder: 'Description',
-    // width: 250,
+    width: null,
     sortable: true,
   },
-  { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: 140, sortable: true },
+  // { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: 140, sortable: true },
   { accessor: 'packdesc_1', Header: 'UOM', placeholder: 'UOM', width: 80, sortable: true },
-//   { accessor: 'status', Header: ' Status ', placeholder: 'Status', width: 140, sortable: true, 
-//   // sortType: "text",style: {flexDirection: 'row-reverse'}
-//  },
 {
   accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140,
   Cell: row => {

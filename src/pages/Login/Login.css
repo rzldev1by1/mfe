@@ -19,8 +19,8 @@
   padding: 30px !important;
 }
 .login .inputLogin {
-  width: 75% !important;
-  max-width: 75% !important;
+  width: 100% !important;
+  max-width: 100% !important;
   border-radius: 10px !important;
   font-size: 110% !important;
 }
@@ -72,7 +72,7 @@
   border-bottom-left-radius: 0px !important;
   border-bottom-right-radius: 0px !important;
   padding-left: 0.8em;
-  color: #8e8f8f;
+  /* color: #8e8f8f; */
   font-weight: lighter !important;
   line-height: 2em;
 }
@@ -102,7 +102,7 @@
 }
 
 .login .container-fluid .card .card-body .privacy-and-term .text-area-policy{
-  max-height: 122px !important;
+  max-height: 170px !important;
   height: 100% !important;
 }
 

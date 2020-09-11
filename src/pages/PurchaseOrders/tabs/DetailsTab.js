@@ -91,14 +91,14 @@ class CreateTab extends React.Component {
     return clientData
   }
   getProduct = async (val, i) => {
-    const url = `${endpoints.getProduct}?client=${this.state.client.value}&param=${val}`
+    const url = `${endpoints.getProduct}?client=${this.state.client.value}&param=${val.toUpperCase()}`
     const orderLine = this.state.orderLine
     orderLine[i].productIsLoad = true;
     const { data } = await axios.get(url).then(res => {
         orderLine[i].productIsLoad = false;
         return res;
     })
-    const productData = data.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.name}`, i }))
+    const productData = data.map((data, i) => ({ value: data.code, label: `${data.name}`, i }))
     orderLine[i].productData = productData;
     this.setState({ orderLine })
   }
@@ -490,7 +490,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Customer Order Ref</label>
-          <input name="customerOrderRef" onChange={this.onChange} className="form-control" placeholder="Customer Order Ref" maxLength='40' />
+          <input name="customerOrderRef" onChange={this.onChange} className="form-control" placeholder="Customer Order Ref" maxLength='30' />
         </Col>
       </Row>
       <Row>
@@ -543,15 +543,15 @@ class CreateTab extends React.Component {
           <thead>
             <tr className="text-muted">
               <td><div className="c-50 text-center">#</div></td>
-              <td><div className="c-400 required">Product</div></td>
-              <td><div className="c-600">Description</div></td>
-              <td><div className="c-100 required">Qty</div></td>
-              <td><div className="c-170">Weight</div></td>
-              <td><div className="c-150 required">UOM</div></td>
-              <td><div className="c-250">Batch</div></td>
-              <td><div className="c-100">Ref3</div></td>
-              <td><div className="c-100">Ref4</div></td>
-              <td><div className="c-150">Disposition</div></td>
+              <td><div className="c-400 required px-1">Product</div></td>
+              <td><div className="c-600 px-1">Description</div></td>
+              <td><div className="c-100 required px-1">Qty</div></td>
+              <td><div className="c-170 px-1">Weight</div></td>
+              <td><div className="c-150 required px-1">UOM</div></td>
+              <td><div className="c-250 px-1">Batch</div></td>
+              <td><div className="c-100 px-1">Ref3</div></td>
+              <td><div className="c-100 px-1">Ref4</div></td>
+              <td><div className="c-150 px-1">Disposition</div></td>
               <td><div className="c-150">Rotadate</div></td>
               <td><div className="c-50"></div></td>
             </tr>
@@ -563,7 +563,9 @@ class CreateTab extends React.Component {
                   <input value={i + 1} className="form-control text-center" readOnly style={{backgroundColor:"#f6f7f9"}}/>
                 </td>
                 <td className={`px-1 ${error.orderLine && error.orderLine[i] ? error.orderLine[i].productVal ? "react-select-alert" : null : null}`}>
-                  <Select value={o.productVal || ''}
+                  <Select 
+                    // value={o.productVal || ''}
+                    isClearable={true}
                     options={o.productKeyword ? o.productKeyword.length > 2 ? o.productData : [] : []}
                     getOptionLabel={option => option.value}
                     isLoading={o.productIsLoad}

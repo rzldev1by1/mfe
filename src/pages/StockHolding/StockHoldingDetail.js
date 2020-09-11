@@ -33,6 +33,7 @@ class SalesOrderDetail extends React.Component {
       { accessor: 'pallet', placeholder: 'Pallet', Header: 'Pallet', sortable: true, width: 70 },
       { accessor: 'price', placeholder: 'Prince', Header: 'Price', sortable: true, width: 70 },
       { accessor: 'pack_id', placeholder: 'Pack ID', Header: 'Pack ID', sortable: true, width: 180, className:'text-left' },
+      { accessor: 'disposition', placeholder: 'Disposition', Header: 'Disposition', sortable: true, width: 180, className:'text-left' },
     ],
     ForesCast: [
       {
@@ -287,7 +288,7 @@ class SalesOrderDetail extends React.Component {
             <CCardBody className="p-0 my-3 mx-0">
               <CRow className="mx-0"><CCol lg={3} className="text-light-gray px-0 my-1">Stock On Hand</CCol> <CCol className="pl-0">{stock_on_hand || '-'}</CCol></CRow>
               <CRow className="mx-0"><CCol lg={3} className="text-light-gray px-0 my-1">Projected Available Qty</CCol> <CCol className="pl-0">{available_qty || '-'}</CCol></CRow>
-              <CRow className="mx-0"><CCol lg={3} className="text-light-gray px-0 my-1">Expected in Qty</CCol> <CCol className="pl-0">{expected_in_qty || '-'}</CCol></CRow>
+              <CRow className="mx-0"><CCol lg={3} className="text-light-gray px-0 my-1">Expected In Qty</CCol> <CCol className="pl-0">{expected_in_qty || '-'}</CCol></CRow>
               <CRow className="mx-0"><CCol lg={3} className="text-light-gray px-0 my-1">Expected Out Qty</CCol> <CCol className="pl-0">{expected_out_qty || '-'}</CCol></CRow>
               <CRow className="mx-0"><CCol lg={3} className="text-light-gray px-0 my-1">Rotadate Type</CCol> <CCol className="pl-0">{rotadate_type || '-'}</CCol></CRow>
             </CCardBody>

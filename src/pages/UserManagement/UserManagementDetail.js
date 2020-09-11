@@ -13,6 +13,7 @@ import { FormFeedback } from 'reactstrap'
 import { connect } from 'react-redux'
 import moment from 'moment';
 import loading from "../../assets/icons/loading/LOADING-MLS.gif"
+import * as EmailValidator from 'email-validator'
 
 // import popupLock from '../../assets/img/brand/popup_lock.png'
 // import popupLockSuccess from '../../assets/img/brand/popup_success_lock.png'
@@ -48,8 +49,8 @@ class UserManagementDetail extends Component {
             adminClass: 'd-none',
             users: [],
             validation: {
-                "name": { isValid: true, invalidClass: "is-invalid", message:'invalid email' },
-                "email": { isValid: true, invalidClass: "is-invalid", message:'username must be entered' }
+                "name": { isValid: true, invalidClass: /*"is-invalid"*/"", message:'invalid email' },
+                "email": { isValid: true, invalidClass: /*"is-invalid"*/"", message:'username must be entered' }
             },
         }
 
@@ -71,7 +72,7 @@ class UserManagementDetail extends Component {
     checkEmailValidation = (textmail) => {
         const { validation} = this.state;
                 
-            let validFormat = !textmail.match(regexMail) ? false : true;
+            let validFormat = EmailValidator.validate(textmail);
             validation.email["isValid"] = validFormat? true : false;
 
             if(!validFormat)
@@ -311,10 +312,17 @@ class UserManagementDetail extends Component {
         const {data}  = await axios.post(endpoint.userManagementCheckMailValidation,{email:value});
         validation.email["isValid"] = ((oldAccountInfo.email !== value) && data === 0)?true:false;
 
-        if(!validation.email["isValid"])
+        if(!validation.email["isValid"]){
             validation.email["message"] = utility.validationMsg.EMAIL_EXIST;
-        else
+        }else{
             validation.email["message"] = "";
+            if(!this.checkEmailValidation(value).email["isValid"]){
+                validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
+            }else{
+                validation.email["message"] = "";
+            }
+        
+        }
 
         this.setState({ validation:validation });
     }
@@ -578,7 +586,7 @@ class UserManagementDetail extends Component {
                                               </div>
                                         <div className="col-6">
                                             <button type="button" className={"btn " + ((!accountInfo.disabled) ? "btn-outline-active" : "btn-outline-notActive px-0")} onClick={(e) => { this.onClieckSuspendUser(); }}>
-                                                {(!accountInfo.disabled) ? 'SUSPEND' : 'DISABLED'}
+                                                {(!accountInfo.disabled) ? 'SUSPEND' : 'ENABLE'}
                                             </button>
                                         </div>
                                     </div>
