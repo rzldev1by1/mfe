@@ -621,8 +621,10 @@ class StockMovement extends React.PureComponent {
       
         </CCol>
         <CCol lg={2} className="sm-col-13 product" > {console.log(this.state.productSm)}
-        <Select name="product" placeholder="Product" 
-            value={productSm} options={productData}
+        <Select name="product" placeholder="Product"
+            isClearable={true} 
+            // value={productSm}
+             options={productData}
             onInputChange={(val) => {this.setState({ product: val }, () => {
                 if(val >= 3) { this.getproduct(val) }
             }) }}
