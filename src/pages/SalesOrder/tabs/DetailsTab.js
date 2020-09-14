@@ -131,10 +131,10 @@ class CreateTab extends React.Component {
     this.setState({ uomData })
   }
 
-  getSupplier = async (client) => {
+  getSupplier = async (client, site) => {
     const url = endpoints.getSupplier
-    if (!client) return
-    const param = `?client=${client.value}`
+    if (!client + !site) return
+    const param = `?client=${client.value}&site=${site.value}`
     const { data } = await axios.get(url + param)
     const supplierData = data.map((v, i) => ({ value: v.supplier_no, label: v.name }))
     this.setState({ supplierData })
