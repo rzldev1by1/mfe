@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom'
 
 const columns = [
     { accessor: 'userid',placeholder: 'User Id', Header: 'User ID', width: 160, sortable: true },
-    { accessor: 'name',placeholder: 'UserName', Header: 'Username', width: 210, sortable: true },
+    { accessor: 'name',placeholder: 'UserName', Header: 'Name', width: 210, sortable: true },
     { accessor: 'site',placeholder: 'Site', Header: 'Site', width: 130, sortable: true },
     { accessor: 'client',placeholder: 'Client', Header: 'Client', width: 130, sortable: true },
     { accessor: 'web_group',placeholder: 'User Lavel', Header: 'User Level', width: 160, sortable: true },

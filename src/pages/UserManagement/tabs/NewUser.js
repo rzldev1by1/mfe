@@ -223,7 +223,7 @@ class NewUser extends React.PureComponent {
                         </FormFeedback>
                     </Col>
                     <Col sm="4">
-                        <input type="text" name="userName" placeholder="Enter a username" maxLength="60" className={`form-control ${validation.name["isValid"]?'':validation.name["invalidClass"]}`} onChange={(e) => { this.onNameChange(e); }} value={user.name || ''} />
+                        <input type="text" name="userName" placeholder="Enter a name" maxLength="60" className={`form-control ${validation.name["isValid"]?'':validation.name["invalidClass"]}`} onChange={(e) => { this.onNameChange(e); }} value={user.name || ''} />
                         <FormFeedback className="invalid-error-padding">
                             {`${validation.name["message"]}`}
                         </FormFeedback>

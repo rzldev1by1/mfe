@@ -525,7 +525,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Customer Order Ref</label>
-          <input name="customerOrderRef" onChange={this.onChange} className="form-control" placeholder="Customer Order Ref" maxLength="40" />
+          <input name="customerOrderRef" onChange={this.onChange} className="form-control" placeholder="Customer Order Ref" maxLength="30" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Delivery Date</label>
@@ -666,7 +666,9 @@ class CreateTab extends React.Component {
                   <input value={i + 1} className="form-control text-center" readOnly style={{ backgroundColor: "#f6f7f9" }} />
                 </td>
                 <td className={`px-1 text-left ${error.orderLine && error.orderLine[i] ? error.orderLine[i].productVal ? "react-select-alert" : null : null}`}>
-                  <Select value={o.productVal || ''}
+                  <Select 
+                    // value={o.productVal || ''}
+                    isClearable={true}
                     options={o.productKeyword ? o.productKeyword.length > 2 ? o.productData : [] : []}
                     isLoading={o.productIsLoad}
                     getOptionLabel={option => option.value}
