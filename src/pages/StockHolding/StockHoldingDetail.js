@@ -41,7 +41,7 @@ class SalesOrderDetail extends React.Component {
         placeholder: 'Type',
         Header: 'Type',
         sortable: true,
-        width: 130,
+        width: 'unset',
         Cell: row => {
           return (
             <div>
