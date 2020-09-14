@@ -83,8 +83,10 @@ class CustomPagination extends React.Component {
     return (
       // <CContainer fluid>
       <CRow className=" pagination-custom">
-        <CCol lg="6" className="px-0 mr-5">
-          <CCardGroup style={{width:"max-content"}}>
+        {/* <CCol lg="6" className="px-0 mr-5">
+          <CCardGroup style={{width:"max-content"}}> */}
+        <CCol lg="7" className="px-0 margin-mr">
+          <CCardGroup >
             <CCard className="col-lg-6 border-right">
               <CPagination
                 limit={3}
@@ -97,6 +99,7 @@ class CustomPagination extends React.Component {
                 lastButton={<BsChevronBarRight className="nextBtn" />}
               />
             </CCard>
+            {/* <CCard className="col-lg-5" > */}
             <CCard className="col-lg-5" style={{maxWidth: "39.36667%"}}>
               <div className="page-2 d-flex justify-content-center align-items-center">
                 <span className="text-muted-soft mr-3">Go to page</span>
@@ -119,7 +122,8 @@ class CustomPagination extends React.Component {
             </CCard>
           </CCardGroup>
         </CCol>
-        <CCol lg="3" className="mt-3 entries-paging p-0 showing">
+        {/* <CCol lg="3" className="mt-3 entries-paging p-0 showing"> */}
+          <CCol lg="3" className="mt-3 showing">
           <span className="text-muted-s">
             Showing{" "}
             <b className="text-muted-dark"> &nbsp; {`${x_from} to ${x_to} of ${x_total} `} </b>{" "}
