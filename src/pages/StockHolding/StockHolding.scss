@@ -226,7 +226,7 @@
       .rt-thead {
         .rt-tr {
           .rt-th:first-child {
-            flex: 0.35 0 !important;
+            // flex: 0.35 0 !important;
           }
           .rt-th:nth-child(2) {
             text-align: left !important;
@@ -240,7 +240,7 @@
         .rt-tr-group {
           .rt-tr {
             .rt-td:first-child {
-              flex: 0.35 0 !important;
+              // flex: 0.35 0 !important;
             }
             .rt-td:nth-child(2) {
               text-align: left !important;
