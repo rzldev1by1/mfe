@@ -206,9 +206,9 @@ class SalesOrderDetail extends React.Component {
     let closingbal = [{ closingbalancetext: `Closing Balance as on ${expdt}`, totalbalance: data[0][0]['closing balance'] }]
 
     expiry.map(expiry => {
-      expiry['qty'] = expiry['expected_out']
+      expiry['qty'] = expiry['quantity']
       closingbal[0].totalbalance = parseInt(closingbal[0].totalbalance) - parseInt(expiry.qty)
-      expiry['newstockexpirydate'] = `Stock Expires on ${expiry['stockexpirydate']}`
+      expiry['newstockexpirydate'] = `Batch ( ${expiry['batchnum']} ) Stock Expires on ${expiry['stockexpirydate']}`
       expiry['closingstock'] = closingbal[0].totalbalance
       return expiry
     })
