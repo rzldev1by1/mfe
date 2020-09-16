@@ -340,8 +340,8 @@ class Logins extends Component {
 
     privacyAndPolicy() {
         return (
-            <div className='privacy-and-term mt-3 mb-3'>
-                <div className='policy-title inputLogin'>PRIVACY AND POLICY</div>
+            <div className='privacy-and-term mb-3'>
+                {/* <div className='policy-title inputLogin'>PRIVACY AND POLICY</div> */}
                 {/* <div className='form-control text-area-policy inputLogin'> GDPR privacy policy requirements
                 Article 12 of the GDPR requires that you communicate information about your processing of personal data in a way that is:
 
@@ -364,6 +364,7 @@ class Logins extends Component {
                 privacy policy generator (as we link to below) can be dangerous.
                 You must be mindful of getting all of the relevant and required information about your website into your GDPR privacy policy.
                 </div> */}
+                <div className='policy-title inputLogin'>Privacy Policy</div>
                 <div className='form-control text-area-policy inputLogin'>
                     Your privacy on microlistics.com <br/>
                     This website is administered by Microlistics. The primary purpose of Microlistics.com is to be a dynamic resource and business tool to help you create your future. We want you to feel secure when visiting our site and are committed to maintaining your privacy when doing so. The following provides an overview of how we protect your privacy during your visit.<br/>
@@ -513,7 +514,7 @@ class Logins extends Component {
                     To learn more about our data collection policy please click here.
                 </div>
 
-                <div className="row mt-5">
+                <div className="row mt-3">
                     <div className="col-sm-4">
                         <button onClick={() => this.exitPolicyHandler()} type="button" className="btn btn-primary btn-login col-12">
                             {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "BACK"}
@@ -535,7 +536,7 @@ class Logins extends Component {
             <div className="login">
                 <div className="container-fluid">
                     <div className="card col-md-8 col-lg-4 offset-md-1">
-                        <div className="card-body">
+                        <div className="card-body login-card">
                             <img src={Logo} className="logo mb-2" alt="mlslogo" />
                             {
                                 formComponent
