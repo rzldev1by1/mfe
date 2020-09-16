@@ -142,7 +142,7 @@ class Logins extends Component {
                         </button>
                     </div>
                     <div className="col-sm-7 mt-3">
-                        <span className='form-login-change' onClick={() => this.changeFormHanlder()}>Forgot Password</span>
+                        <span className='form-login-change' onClick={() => this.changeFormHanlder()}>FORGOT PASSWORD</span>
                     </div>
                 </div>
             </form>
@@ -160,7 +160,7 @@ class Logins extends Component {
                 <div className={'error ' + (errorMessage ? ' alertFadeIn' : '')}>
                     {errorMessage && <div><span className="iconU-i" /> {errorMessage}</div>}
                 </div>
-                <div className="row">
+                <div className="row forgot-row">
                     <div className="col-sm-4 white-space">
                         <button type="submit" className="btn btn-primary btn-login col-12">
                             {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "SEND"}
