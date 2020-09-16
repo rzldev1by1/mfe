@@ -26,6 +26,8 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, ...rest }) => {
       return { ...state, site: data }
     case 'EXPIRED' :
       return {...state, expired:true}
+    case 'TOTAL_LENGTH' :
+      return {...state, total_length:data}
     default:
       return state
   }

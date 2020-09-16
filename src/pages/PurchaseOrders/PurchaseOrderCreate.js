@@ -32,7 +32,7 @@ class SalesOrderCreate extends React.PureComponent {
     this.setState({ submit: true })
     if (status === 'Successfully added') {
       this.setState({ submit: true, status })
-      setTimeout(() => this.onHide(), 4000)
+      setTimeout(() => this.onHide(), 40000)
     }
     else {
       this.setState({ status })
@@ -65,28 +65,25 @@ class SalesOrderCreate extends React.PureComponent {
         </Nav>
         <TabContent activeTab={this.state.key}>
           <TabPane tabId="detail">
-            <DetailsTab
-              data={data}
-              submit={this.setData}
-              {...this.props} />
+            <DetailsTab data={data} submit={this.setData}{...this.props} />
           </TabPane>
           <TabPane tabId="review">
             {
-              this.state.submit ?
+              this.state.submit ? (
                 < MessageTab
                   module={'Purchase Order'}
                   orderNo={data?.orderNo}
                   status={this.state.status}
                   back={() => this.onSelectTab('detail')}
                   exit={() => this.onHide()} />
-                :
+              ):(
                 < ReviewTab
                   data={data}
                   back={() => this.onSelectTab('detail')}
                   submit={this.setData}
                   submitStatus={this.submitStatus}
                   hide={this.onHide} />
-            }
+              )}
           </TabPane>
         </TabContent>
       </Modal.Body>

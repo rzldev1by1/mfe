@@ -215,3 +215,42 @@
 .stockDetails .ReactTable .rt-table .rt-tbody .rt-tr-group .rt-td{
   overflow: visible !important  ;
 }
+
+.stock-holding-detail {
+  .ReactTable{
+    width: auto !important;
+    .rt-thead .rt-th {
+        text-align: right !important;
+    }
+    .rt-table {
+      .rt-thead {
+        .rt-tr {
+          .rt-th:first-child {
+            // flex: 0.35 0 !important;
+          }
+          .rt-th:nth-child(2) {
+            text-align: left !important;
+          }
+          .rt-th:nth-child(3) {
+            text-align: left !important;
+          }
+        }
+      }
+      .rt-tbody {
+        .rt-tr-group {
+          .rt-tr {
+            .rt-td:first-child {
+              // flex: 0.35 0 !important;
+            }
+            .rt-td:nth-child(2) {
+              text-align: left !important;
+            }
+            .rt-td:nth-child(3) {
+              text-align: left !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

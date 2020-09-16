@@ -26,6 +26,10 @@ const columns = [
   { accessor: "ref3",  placeholder: 'Ref3', Header: "Ref3", width: 80 },
   { accessor: "ref4",  placeholder: 'Ref4', Header: "Ref4", width: 80 },
   { accessor: "disposition", placeholder: 'Disposition', Header: "Disposition" },
+  {
+    accessor: "released",placeholder: 'Released', Header: "Released", 
+    Cell: (row) => <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+  }
 ]
 class PurchaseOrdersDetail extends React.Component {
   constructor(props) {
