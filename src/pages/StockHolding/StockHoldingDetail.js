@@ -42,11 +42,10 @@ class SalesOrderDetail extends React.Component {
         placeholder: 'Type',
         Header: 'Type',
         sortable: true,
-        // style:{width:this.props.store.total_length + '0px'},
         width: this.props.store.total_length + 400,
         Cell: row => {
           return (
-            <div style={{width:this.props.store.total_length + '0px'}}>
+            <div>
               <span className="class-for-name">{row.original.openingbalancetext}</span>
               {/* <span className="class-for-name">{row.original.type}</span> */}
               <span className="class-for-name overflow-visible z-index-20">{row.original.newstockexpirydate}</span>
