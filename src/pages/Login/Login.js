@@ -177,7 +177,7 @@ class Logins extends Component {
     termAndCondition() {
         return (
             <div className='privacy-and-term mb-3'>
-                <div className='policy-title inputLogin'>Privacy Policy</div>
+                <div className='policy-title inputLogin'>Terms and Conditions</div>
                 <div className='form-control text-area-policy inputLogin'>
                     Your privacy on microlistics.com <br/>
                     This website is administered by Microlistics. The primary purpose of Microlistics.com is to be a dynamic resource and business tool to help you create your future. We want you to feel secure when visiting our site and are committed to maintaining your privacy when doing so. The following provides an overview of how we protect your privacy during your visit.<br/>
