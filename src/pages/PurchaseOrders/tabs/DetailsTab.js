@@ -141,10 +141,11 @@ class CreateTab extends React.Component {
     this.setState({ uomData })
   }
   getSupplier = async () => {
-    const { data } = await axios.get(`${endpoints.getSupplier}?client=${this.state.client.value}`)
+    const { data } = await axios.get(`${endpoints.getSupplier}?client=${this.state.client.value}&site=${this.state.site.value}`)
     const supplierData = data.map(d => ({ value: d.supplier_no, label: `${d.supplier_no}: ${d.name}` }))
-    const supplier = { value: 'all', label: 'All Supplier' }
-    supplierData.splice(0, 0, supplier)
+    // const supplier = { value: 'all', label: 'All Supplier' }
+    // supplierData.splice(0, 0, supplier)
+    supplierData.splice(0, 0)
     this.setState({ supplierData })
   }
 

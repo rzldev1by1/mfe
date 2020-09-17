@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import numeral from 'numeral'
+import {connect} from 'react-redux'
 import { CCard, CCardBody, CRow, CCol, CButton } from '@coreui/react';
 import {
   Card,
@@ -13,7 +14,7 @@ import {
   TabPane,
   TabContent,
 } from 'reactstrap';
-import CustomTable from 'shared/table/CustomTable';
+import CustomTable from 'shared/table/CustomTableDetail';
 import { tab1, tab1Inactive, tab2, tab2Inactive } from './Helper';
 import HeaderTitle from 'shared/container/TheHeader';
 import './StockHolding.scss';
@@ -32,8 +33,8 @@ class SalesOrderDetail extends React.Component {
       { accessor: 'weight', placeholder: 'Weight', Header: 'Weight', sortable: true, width: 80 },
       { accessor: 'pallet', placeholder: 'Pallet', Header: 'Pallet', sortable: true, width: 70 },
       { accessor: 'price', placeholder: 'Prince', Header: 'Price', sortable: true, width: 70 },
-      { accessor: 'pack_id', placeholder: 'Pack ID', Header: 'Pack ID', sortable: true, width: 180, className:'text-left' },
-      { accessor: 'disposition', placeholder: 'Disposition', Header: 'Disposition', sortable: true, width: 180, className:'text-left' },
+      { accessor: 'pack_id', placeholder: 'Pack ID', Header: 'Pack ID', sortable: true, width: 170, className:'text-left' },
+      { accessor: 'disposition', placeholder: 'Disposition', Header: 'Disposition', sortable: true, width: 100, className:'text-left' },
     ],
     ForesCast: [
       {
@@ -41,7 +42,7 @@ class SalesOrderDetail extends React.Component {
         placeholder: 'Type',
         Header: 'Type',
         sortable: true,
-        width: 'unset',
+        width: this.props.store.total_length + 400,
         Cell: row => {
           return (
             <div>
@@ -204,14 +205,29 @@ class SalesOrderDetail extends React.Component {
     let expdt = expiry[expiry.length - 1].stockexpirydate
     const openingbal = [{ openingbalancetext: `Opening Balance as on ${moment().format('DD/MM/YYYY')}`, startbalance: data[0][0]['opening balance'] }]
     let closingbal = [{ closingbalancetext: `Closing Balance as on ${expdt}`, totalbalance: data[0][0]['closing balance'] }]
+    let txt = []
 
     expiry.map(expiry => {
-      expiry['qty'] = expiry['expected_out']
+      expiry['qty'] = expiry['quantity']
       closingbal[0].totalbalance = parseInt(closingbal[0].totalbalance) - parseInt(expiry.qty)
-      expiry['newstockexpirydate'] = `Stock Expires on ${expiry['stockexpirydate']}`
+      expiry['newstockexpirydate'] = `Batch ( ${expiry['batchnum']} ) Stock Expires on ${expiry['stockexpirydate']}`
       expiry['closingstock'] = closingbal[0].totalbalance
+      txt.push(expiry.newstockexpirydate?.length)
+      
       return expiry
+    
     })
+    let largest= 0;
+
+    for (let i=0; i<=largest;i++){
+        if (txt[i]>largest) {
+            largest=txt[i];
+        }
+    }
+
+    this.props.dispatch({ type: 'TOTAL_LENGTH', data: largest })
+    console.log(this.props.store.total_length)
+    console.log(largest)
     let concat = openingbal.concat(available)
     concat = concat.concat(expiry)
     concat = concat.concat(closingbal)
@@ -382,4 +398,7 @@ class SalesOrderDetail extends React.Component {
     );
   }
 }
-export default SalesOrderDetail;
+
+const mapStateToProps = (store) => ({ store })
+const mapDispatchToProps = (dispatch) => ({ dispatch })
+export default connect(mapStateToProps, mapDispatchToProps)(SalesOrderDetail);

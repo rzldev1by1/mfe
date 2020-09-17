@@ -109,3 +109,10 @@
 .mt-min-5{
  margin-top: -2rem !important;
 }
+
+.login-card{
+    height: 35em;
+}
+.forgot-row{
+    margin-top: 50px;
+}
