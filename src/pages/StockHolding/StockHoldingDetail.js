@@ -14,7 +14,7 @@ import {
   TabPane,
   TabContent,
 } from 'reactstrap';
-import CustomTable from 'shared/table/CustomTable';
+import CustomTable from 'shared/table/CustomTableDetail';
 import { tab1, tab1Inactive, tab2, tab2Inactive } from './Helper';
 import HeaderTitle from 'shared/container/TheHeader';
 import './StockHolding.scss';
@@ -33,8 +33,8 @@ class SalesOrderDetail extends React.Component {
       { accessor: 'weight', placeholder: 'Weight', Header: 'Weight', sortable: true, width: 80 },
       { accessor: 'pallet', placeholder: 'Pallet', Header: 'Pallet', sortable: true, width: 70 },
       { accessor: 'price', placeholder: 'Prince', Header: 'Price', sortable: true, width: 70 },
-      { accessor: 'pack_id', placeholder: 'Pack ID', Header: 'Pack ID', sortable: true, width: 180, className:'text-left' },
-      { accessor: 'disposition', placeholder: 'Disposition', Header: 'Disposition', sortable: true, width: 180, className:'text-left' },
+      { accessor: 'pack_id', placeholder: 'Pack ID', Header: 'Pack ID', sortable: true, width: 170, className:'text-left' },
+      { accessor: 'disposition', placeholder: 'Disposition', Header: 'Disposition', sortable: true, width: 100, className:'text-left' },
     ],
     ForesCast: [
       {

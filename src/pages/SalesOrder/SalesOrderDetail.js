@@ -10,7 +10,7 @@ import {
   CButton,
 } from '@coreui/react'
 import { IoIosArrowDown } from 'react-icons/io'
-import CustomTable from 'shared/table/CustomTable'
+import CustomTable from 'shared/table/CustomTableDetail'
 import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader'
 import './SalesOrder.scss'

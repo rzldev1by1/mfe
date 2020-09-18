@@ -79,8 +79,12 @@ const columns = [
   { accessor: 'state', placeholder: 'State', Header: 'State', width: null, },
   { accessor: 'country', placeholder: 'Country', Header: 'Country', width: null, },
   { accessor: 'loadnumber', placeholder: 'Load Number', Header: 'Load Number', width: null, },
-  { accessor: 'loadoutstart', placeholder: 'Loadout Start', Header: 'Loadout Start', width: null, },
-  { accessor: 'loadoutfinish', placeholder: 'Loadout Finish', Header: 'Loadout Finish', width: null, },
+  { accessor: 'loadoutstart', placeholder: 'Loadout Start', Header: 'Loadout Start', width: null, 
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+  },
+  { accessor: 'loadoutfinish', placeholder: 'Loadout Finish', Header: 'Loadout Finish', width: null,
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>  
+},
   { accessor: 'consignmentno', placeholder: 'Consignment No', Header: 'Consignment No', width: null, },
   { accessor: 'freightcharge', placeholder: 'Freight Charge', Header: 'Freight Charge', width: null, },
 ]

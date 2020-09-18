@@ -157,7 +157,7 @@ class Logins extends Component {
                     placeholder="Enter your email address here" />
                 <span className='email-message'>Enter your email address to find your acccount</span>
 
-                <div className={'error ' + (errorMessage ? ' alertFadeIn' : '')}>
+                <div className={'error pl-2 ml-1' + (errorMessage ? ' alertFadeIn' : '')}>
                     {errorMessage && <div><span className="iconU-i" /> {errorMessage}</div>}
                 </div>
                 <div className="row forgot-row">

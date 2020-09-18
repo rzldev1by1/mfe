@@ -17,7 +17,7 @@ const columns = [
     Header: 'Product',
     placeholder: 'Product',
     sortable: true,
-    width: 160,
+    width: null,
     style: { textAlign: 'left' },
   },
   {
