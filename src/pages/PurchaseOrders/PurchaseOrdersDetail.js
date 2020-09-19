@@ -10,9 +10,9 @@ import HeaderTitle from 'shared/container/TheHeader'
 import './PurchaseOrder.scss'
 const columns = [
   { accessor: "orig_line_number",  placeholder: 'Line No', Header: "Line No", width:90 },
-  { accessor: "product", Cell: row => (<div className="alg-right">{row.value}</div>),    placeholder: 'Product', Header: "Product" },
+  { accessor: "product", Cell: row => (<div>{row.value}</div>),    placeholder: 'Product', Header: "Product" },
   { accessor: "product_name",  placeholder: 'Description', Header: "Description" },
-  { accessor: "quantity",  Cell: row => (<div className="alg-right">{row.value}</div>),   placeholder: 'Qty', Header: "Qty", width: 80, sortType: "float" },
+  { accessor: "quantity",  Cell: row => (<div className="alg-right">{row.value}</div>),   placeholder: 'Qty', Header: "Qty", width: 60, sortType: "float" },
   { accessor: "packdesc_1",  placeholder: 'UOM', Header: "UOM", width: 80 },
   { accessor: "qty_processed", Cell: row => (<div className="alg-right">{row.value}</div>),    placeholder: 'Qty Processed', Header: "Qty Processed", width: 130, sortType: "float" },
   { accessor: "weight",  Cell: row => (<div className="alg-right">{row.value}</div>),   placeholder: 'Weight', Header: "Weight", sortType: "float" },

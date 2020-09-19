@@ -104,7 +104,7 @@ const customColumns = [
   { accessor: 'datecompleted', Header: 'Date Completed', width: 120 },
   { accessor: 'customerpono', Header: 'Customer Order Ref' },
   { accessor: 'vendororderno', Header: 'Vendor Order No' },
-  { accessor: 'address1', Header: 'Address1' },
+  { accessor: 'address1', Header: 'Address1', style: { textAlign: 'left !important' } },
   { accessor: 'address2', Header: 'Address2' },
   { accessor: 'address3', Header: 'Address3' },
   { accessor: 'address4', Header: 'Address4' },
