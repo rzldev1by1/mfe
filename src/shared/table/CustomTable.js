@@ -617,9 +617,9 @@ console.log(this.state)
               style: {
                 height: "3rem",
                 cursor: !!onClick && 'pointer',
-                textAlign: isNaN(rowInfo?.original[column.id])
-                  ? 'left'
-                  : 'right',
+                // textAlign: isNaN(rowInfo?.original[column.id])
+                //   ? 'left'
+                //   : 'right',
               },
             };
           }}

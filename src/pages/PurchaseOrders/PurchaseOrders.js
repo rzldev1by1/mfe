@@ -14,7 +14,7 @@ import './PurchaseOrder.scss'
 const columns = [
   { accessor: 'site', placeholder: 'Site', Header: 'Site', width: 80, sortable: true },
   { accessor: 'client', placeholder: 'Client', Header: 'Client', width: 110, sortable: true },
-  { accessor: 'order_no', placeholder: 'Order No', Header: 'Order No', style: { textAlign: 'left' }, width: 160, },
+  { accessor: 'order_no', placeholder: 'Order No', Header: 'Order No', width: 160, },
   { accessor: 'order_type', placeholder: 'Order Type', Header: 'Order Type', width: 120, sortable: true },
   { accessor: 'isis_task', placeholder: 'Task', Header: 'Task', width: 100, sortable: true },
   { accessor: 'supplier_no', placeholder: 'Supplier No', Header: 'Supplier No', width: 120, sortable: true, style: { textAlign: 'left' } },

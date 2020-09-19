@@ -136,7 +136,7 @@ class Logins extends Component {
                     {errorMessage && <div><span className="iconU-i" /> {errorMessage}</div>}
                 </div>
                 <div className="row">
-                    <div className="col-sm-5">
+                    <div className="col-sm-3 pr-0">
                         <button type="submit" className="btn btn-primary btn-login col-12">
                             {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : 'LOGIN'}
                         </button>
@@ -179,12 +179,12 @@ class Logins extends Component {
             <div className='privacy-and-term mb-3'>
                 <div className='policy-title inputLogin'>Terms and Conditions</div>
                 <div className='form-control text-area-policy inputLogin'>
-                    Your privacy on microlistics.com <br/>
-                    This website is administered by Microlistics. The primary purpose of Microlistics.com is to be a dynamic resource and business tool to help you create your future. We want you to feel secure when visiting our site and are committed to maintaining your privacy when doing so. The following provides an overview of how we protect your privacy during your visit.<br/>
-                    Microlistics recognizes the importance of data privacy and considers it crucial to apply the highest standards of data privacy at all times.<br/>
-                    As a member of the WiseTech Global Limited (WTG) Group, Microlistics adheres to the WTG Data Privacy Policy (the Policy).<br/>
-                    Should you have any questions in relation to the Policy or its application, please contact: privacyofficer@wisetechglobal.com<br/>
-                    Introduction<br/>
+                    Your privacy on microlistics.com <br/><br/>
+                    This website is administered by Microlistics. The primary purpose of Microlistics.com is to be a dynamic resource and business tool to help you create your future. We want you to feel secure when visiting our site and are committed to maintaining your privacy when doing so. The following provides an overview of how we protect your privacy during your visit.<br/><br/>
+                    Microlistics recognizes the importance of data privacy and considers it crucial to apply the highest standards of data privacy at all times.<br/><br/>
+                    As a member of the WiseTech Global Limited (WTG) Group, Microlistics adheres to the WTG Data Privacy Policy (the Policy).<br/><br/>
+                    Should you have any questions in relation to the Policy or its application, please contact: privacyofficer@wisetechglobal.com<br/><br/>
+                    Introduction<br/><br/>
                     Microlistics and its related bodies corporate (Microlistics, we, our, us) recognize the importance of protecting the privacy and the rights of individuals in relation to their personal information.<br/>
                     This document is our privacy policy and it tells you how we collect, manage, and disclose your personal information.
                     What is personal information?<br/>
@@ -366,17 +366,17 @@ class Logins extends Component {
                 </div> */}
                 <div className='policy-title inputLogin'>Privacy Policy</div>
                 <div className='form-control text-area-policy inputLogin'>
-                    Your privacy on microlistics.com <br/>
-                    This website is administered by Microlistics. The primary purpose of Microlistics.com is to be a dynamic resource and business tool to help you create your future. We want you to feel secure when visiting our site and are committed to maintaining your privacy when doing so. The following provides an overview of how we protect your privacy during your visit.<br/>
-                    Microlistics recognizes the importance of data privacy and considers it crucial to apply the highest standards of data privacy at all times.<br/>
+                    Your privacy on microlistics.com <br/><br/>
+                    This website is administered by Microlistics. The primary purpose of Microlistics.com is to be a dynamic resource and business tool to help you create your future. We want you to feel secure when visiting our site and are committed to maintaining your privacy when doing so. The following provides an overview of how we protect your privacy during your visit.<br/><br/>
+                    Microlistics recognizes the importance of data privacy and considers it crucial to apply the highest standards of data privacy at all times.<br/><br/>
                     As a member of the WiseTech Global Limited (WTG) Group, Microlistics adheres to the WTG Data Privacy Policy (the Policy).<br/>
-                    Should you have any questions in relation to the Policy or its application, please contact: privacyofficer@wisetechglobal.com<br/>
-                    Introduction<br/>
-                    Microlistics and its related bodies corporate (Microlistics, we, our, us) recognize the importance of protecting the privacy and the rights of individuals in relation to their personal information.<br/>
+                    Should you have any questions in relation to the Policy or its application, please contact: privacyofficer@wisetechglobal.com<br/><br/>
+                    Introduction<br/><br/>
+                    Microlistics and its related bodies corporate (Microlistics, we, our, us) recognize the importance of protecting the privacy and the rights of individuals in relation to their personal information.<br/><br/>
                     This document is our privacy policy and it tells you how we collect, manage, and disclose your personal information.
-                    What is personal information?<br/>
+                    What is personal information?<br/><br/>
                     When used in this privacy policy, the term “personal information” has the meaning given to it in Australia’s Privacy Act 1988 (the Privacy Act) and Europe’s General Data Protection Regulation (the GDPR). In general terms, it is any information that can be used to personally identify you. This may include your name, address, telephone number, email address, and profession or occupation. If the information we collect personally identifies you, or you are reasonably identifiable from it, the information will be considered personal information.<br/>
-                    What personal information may we collect?<br/>
+                    What personal information may we collect?<br/><br/>
                     To the extent legally permissible in your jurisdiction, we may collect the following types of personal information:<br/>
 
                     name;<br/>
