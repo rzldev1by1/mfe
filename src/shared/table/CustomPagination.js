@@ -123,7 +123,7 @@ class CustomPagination extends React.Component {
           </CCardGroup>
         </CCol>
         {/* <CCol lg="3" className="mt-3 entries-paging p-0 showing"> */}
-          <CCol lg="3" className="mt-3 showing">
+          <CCol lg="3" className="mt-3 showing" style={{flex:'0 0 30%', maxWidth:'30%'}}>
           <span className="text-muted-s">
             Showing{" "}
             <b className="text-muted-dark"> &nbsp; {`${x_from} to ${x_to} of ${x_total} `} </b>{" "}
