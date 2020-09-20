@@ -136,7 +136,7 @@ class Logins extends Component {
                     {errorMessage && <div><span className="iconU-i" /> {errorMessage}</div>}
                 </div>
                 <div className="row">
-                    <div className="pl-3 pr-0" style={{width:'30%'}}>
+                    <div className="pl-3 pr-0" style={{width:'25%'}}>
                         <button type="submit" className="btn btn-primary btn-login col-12">
                             {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : 'LOGIN'}
                         </button>
