@@ -56,7 +56,7 @@ class SalesOrderCreate extends React.PureComponent {
           </Col>
         </Row>
         <Nav tabs className="px-7 m-0">
-          <NavItem className="mr-2"><NavLink style={{ height: "3.25rem" }} className={`d-flex align-items-center ${key === 'detail' ? 'active' : null}`} onClick={() => this.onSelectTab('detail')}>
+          <NavItem className="mr-2"><NavLink className={`d-flex height-nav align-items-center ${key === 'detail' ? 'active' : null}`} onClick={() => this.onSelectTab('detail')}>
             <span className='number-number-1' />Order & Product Details
           </NavLink></NavItem>
           <NavItem><NavLink className={`d-flex align-items-center ${key === 'review' ? 'active' : null}`} onClick={() => this.onSelectTab('review')}>
