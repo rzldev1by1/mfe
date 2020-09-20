@@ -18,7 +18,7 @@ body {
 // Custom style
 .grid-col{
   display: grid !important;
-  grid-template-columns: auto auto auto auto !important;
+  grid-template-columns: 25% 25% 25% 25% !important;
 }
 .no-outline:focus{
 outline: none !important;
