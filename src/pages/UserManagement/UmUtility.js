@@ -33,7 +33,7 @@ export function generateUserID(textValue){
   }
   export const validationMsg = {
     INVALID_EMAIL: 'Invalid format (eg. microlistics@test.com)',
-    USERNAME_REQUIRED: 'Username must be entered',
+    USERNAME_REQUIRED: 'Name must be entered',
     EMAIL_EXIST:'Email address has been registered'
   }
 

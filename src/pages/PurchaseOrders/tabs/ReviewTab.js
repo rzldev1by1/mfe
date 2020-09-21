@@ -1,12 +1,12 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
 import endpoint from 'helpers/endpoints'
 import moment from 'moment'
 
 class ReviewTab extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       status: ''
@@ -16,8 +16,8 @@ class ReviewTab extends React.Component {
     this.setState({ status: 'loading' })
     // const url = 'https://apidev.microlistics.tech/salesorder/store'
     let { header, lineDetail, orderDetails } = JSON.parse(JSON.stringify(this.props.data))
-    const keys = ['site', 'client', 'clientName', 'company','supplier','supplierName','customerOrderRef',
-                  'orderType','orderTypeName','orderId','orderDate','vendorOrderRef'
+    const keys = ['site', 'client', 'clientName', 'company', 'supplier', 'supplierName', 'customerOrderRef',
+      'orderType', 'orderTypeName', 'orderId', 'orderDate', 'vendorOrderRef'
     ]
     header = Object.assign(header)
     for (const k of keys) {
@@ -28,7 +28,7 @@ class ReviewTab extends React.Component {
       l.number = i + 1
       l.productDescription = l.product || null
       l.product = l.productVal?.value || null
-      l.ref3 = l.ref4 || null
+      l.ref3 = l.ref3 || null
       l.ref4 = l.ref4 || null
       l.rotaDate = moment(l.rotaDate).format('DD/MM/YYYY') || null
       l.disposition = l.disposition || null
@@ -44,7 +44,7 @@ class ReviewTab extends React.Component {
     const { data } = await axios.post(endpoint.purchaseOrderCreate, { orderDetails, lineDetails })
     if (data.message === 'Successfully added') {
       this.setState({ status: 'success' })
-      this.props.submit({orderNo:orderDetails[0].orderNo, header: {}, lineDetail: [], orderDetails:[{}] })
+      this.props.submit({ orderNo: orderDetails[0].orderNo, header: {}, lineDetail: [], orderDetails: [{}] })
     }
     this.props.submitStatus(data.message)
   }
@@ -113,7 +113,7 @@ class ReviewTab extends React.Component {
         <table>
           <thead>
             <tr className="text-muted">
-            <td><div className="c-50 text-center">#</div></td>
+              <td><div className="c-50 text-center">#</div></td>
               <td><div className="c-400 px-1">Product</div></td>
               <td><div className="c-600 px-1">Description</div></td>
               <td><div className="c-100 px-1">Qty</div></td>
@@ -168,7 +168,7 @@ class ReviewTab extends React.Component {
 }
 
 const mapStateToProps = store => {
-  return{
+  return {
     client: store.client,
     site: store.site
   }

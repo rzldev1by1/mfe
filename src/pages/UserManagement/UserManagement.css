@@ -172,7 +172,9 @@
   .um-active {
     color: #05e0bd;
   }
-
+  .um-create .modal-xl {
+    margin: 0.2rem auto !important;
+   }
   .um-suspended {
     color: #f94548;
   }

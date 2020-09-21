@@ -75,7 +75,13 @@
       }
     }
   }
-
+  .height-nav{
+    height: 3.25rem;
+  }
+  
+  @-moz-document url-prefix() {
+    .height-nav {height:3.3rem ;}
+  }
 @media (min-width:576px) and (max-width:991px){
   .card{
     .card-body{
