@@ -136,13 +136,13 @@ class Logins extends Component {
                     {errorMessage && <div><span className="iconU-i" /> {errorMessage}</div>}
                 </div>
                 <div className="row">
-                    <div className="col-sm-5">
+                    <div className="pl-3 pr-0" style={{width:'25%'}}>
                         <button type="submit" className="btn btn-primary btn-login col-12">
                             {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : 'LOGIN'}
                         </button>
                     </div>
                     <div className="col-sm-7 mt-3">
-                        <span className='form-login-change' onClick={() => this.changeFormHanlder()}>Forgot Password</span>
+                        <span className='form-login-change' onClick={() => this.changeFormHanlder()}>FORGOT PASSWORD</span>
                     </div>
                 </div>
             </form>
@@ -160,8 +160,8 @@ class Logins extends Component {
                 <div className={'error pl-2 ml-1' + (errorMessage ? ' alertFadeIn' : '')}>
                     {errorMessage && <div><span className="iconU-i" /> {errorMessage}</div>}
                 </div>
-                <div className="row">
-                    <div className="col-sm-4 white-space">
+                <div className="row forgot-row">
+                    <div className="pr-0 pl-3 white-space" style={{width:'25%'}}>
                         <button type="submit" className="btn btn-primary btn-login col-12">
                             {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "SEND"}
                         </button>
@@ -177,14 +177,14 @@ class Logins extends Component {
     termAndCondition() {
         return (
             <div className='privacy-and-term mb-3'>
-                <div className='policy-title inputLogin'>Privacy Policy</div>
+                <div className='policy-title inputLogin'>Terms and Conditions</div>
                 <div className='form-control text-area-policy inputLogin'>
-                    Your privacy on microlistics.com <br/>
-                    This website is administered by Microlistics. The primary purpose of Microlistics.com is to be a dynamic resource and business tool to help you create your future. We want you to feel secure when visiting our site and are committed to maintaining your privacy when doing so. The following provides an overview of how we protect your privacy during your visit.<br/>
-                    Microlistics recognizes the importance of data privacy and considers it crucial to apply the highest standards of data privacy at all times.<br/>
-                    As a member of the WiseTech Global Limited (WTG) Group, Microlistics adheres to the WTG Data Privacy Policy (the Policy).<br/>
-                    Should you have any questions in relation to the Policy or its application, please contact: privacyofficer@wisetechglobal.com<br/>
-                    Introduction<br/>
+                    Your privacy on microlistics.com <br/><br/>
+                    This website is administered by Microlistics. The primary purpose of Microlistics.com is to be a dynamic resource and business tool to help you create your future. We want you to feel secure when visiting our site and are committed to maintaining your privacy when doing so. The following provides an overview of how we protect your privacy during your visit.<br/><br/>
+                    Microlistics recognizes the importance of data privacy and considers it crucial to apply the highest standards of data privacy at all times.<br/><br/>
+                    As a member of the WiseTech Global Limited (WTG) Group, Microlistics adheres to the WTG Data Privacy Policy (the Policy).<br/><br/>
+                    Should you have any questions in relation to the Policy or its application, please contact: privacyofficer@wisetechglobal.com<br/><br/>
+                    Introduction<br/><br/>
                     Microlistics and its related bodies corporate (Microlistics, we, our, us) recognize the importance of protecting the privacy and the rights of individuals in relation to their personal information.<br/>
                     This document is our privacy policy and it tells you how we collect, manage, and disclose your personal information.
                     What is personal information?<br/>
@@ -340,8 +340,8 @@ class Logins extends Component {
 
     privacyAndPolicy() {
         return (
-            <div className='privacy-and-term mt-3 mb-3'>
-                <div className='policy-title inputLogin'>PRIVACY AND POLICY</div>
+            <div className='privacy-and-term mb-3'>
+                {/* <div className='policy-title inputLogin'>PRIVACY AND POLICY</div> */}
                 {/* <div className='form-control text-area-policy inputLogin'> GDPR privacy policy requirements
                 Article 12 of the GDPR requires that you communicate information about your processing of personal data in a way that is:
 
@@ -364,18 +364,19 @@ class Logins extends Component {
                 privacy policy generator (as we link to below) can be dangerous.
                 You must be mindful of getting all of the relevant and required information about your website into your GDPR privacy policy.
                 </div> */}
+                <div className='policy-title inputLogin'>Privacy Policy</div>
                 <div className='form-control text-area-policy inputLogin'>
-                    Your privacy on microlistics.com <br/>
-                    This website is administered by Microlistics. The primary purpose of Microlistics.com is to be a dynamic resource and business tool to help you create your future. We want you to feel secure when visiting our site and are committed to maintaining your privacy when doing so. The following provides an overview of how we protect your privacy during your visit.<br/>
-                    Microlistics recognizes the importance of data privacy and considers it crucial to apply the highest standards of data privacy at all times.<br/>
+                    Your privacy on microlistics.com <br/><br/>
+                    This website is administered by Microlistics. The primary purpose of Microlistics.com is to be a dynamic resource and business tool to help you create your future. We want you to feel secure when visiting our site and are committed to maintaining your privacy when doing so. The following provides an overview of how we protect your privacy during your visit.<br/><br/>
+                    Microlistics recognizes the importance of data privacy and considers it crucial to apply the highest standards of data privacy at all times.<br/><br/>
                     As a member of the WiseTech Global Limited (WTG) Group, Microlistics adheres to the WTG Data Privacy Policy (the Policy).<br/>
-                    Should you have any questions in relation to the Policy or its application, please contact: privacyofficer@wisetechglobal.com<br/>
-                    Introduction<br/>
-                    Microlistics and its related bodies corporate (Microlistics, we, our, us) recognize the importance of protecting the privacy and the rights of individuals in relation to their personal information.<br/>
+                    Should you have any questions in relation to the Policy or its application, please contact: privacyofficer@wisetechglobal.com<br/><br/>
+                    Introduction<br/><br/>
+                    Microlistics and its related bodies corporate (Microlistics, we, our, us) recognize the importance of protecting the privacy and the rights of individuals in relation to their personal information.<br/><br/>
                     This document is our privacy policy and it tells you how we collect, manage, and disclose your personal information.
-                    What is personal information?<br/>
+                    What is personal information?<br/><br/>
                     When used in this privacy policy, the term “personal information” has the meaning given to it in Australia’s Privacy Act 1988 (the Privacy Act) and Europe’s General Data Protection Regulation (the GDPR). In general terms, it is any information that can be used to personally identify you. This may include your name, address, telephone number, email address, and profession or occupation. If the information we collect personally identifies you, or you are reasonably identifiable from it, the information will be considered personal information.<br/>
-                    What personal information may we collect?<br/>
+                    What personal information may we collect?<br/><br/>
                     To the extent legally permissible in your jurisdiction, we may collect the following types of personal information:<br/>
 
                     name;<br/>
@@ -513,7 +514,7 @@ class Logins extends Component {
                     To learn more about our data collection policy please click here.
                 </div>
 
-                <div className="row mt-5">
+                <div className="row mt-3">
                     <div className="col-sm-4">
                         <button onClick={() => this.exitPolicyHandler()} type="button" className="btn btn-primary btn-login col-12">
                             {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "BACK"}
@@ -535,7 +536,7 @@ class Logins extends Component {
             <div className="login">
                 <div className="container-fluid">
                     <div className="card col-md-8 col-lg-4 offset-md-1">
-                        <div className="card-body">
+                        <div className="card-body login-card">
                             <img src={Logo} className="logo mb-2" alt="mlslogo" />
                             {
                                 formComponent

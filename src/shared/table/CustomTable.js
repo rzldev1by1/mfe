@@ -617,9 +617,9 @@ console.log(this.state)
               style: {
                 height: "3rem",
                 cursor: !!onClick && 'pointer',
-                textAlign: isNaN(rowInfo?.original[column.id])
-                  ? 'left'
-                  : 'right',
+                // textAlign: isNaN(rowInfo?.original[column.id])
+                //   ? 'left'
+                //   : 'right',
               },
             };
           }}
@@ -776,7 +776,7 @@ console.log(this.state)
                           return (
                             <Col key={index} className='p-2'>
                               <button
-                                className={`text-left px-3 btn btn-block ${
+                                className={`text-left btn btn-block pl-2 ${
                                   !editColumn[index]
                                     ? 'btn-outline-primary'
                                     : 'btn-light-gray'

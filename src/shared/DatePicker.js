@@ -164,7 +164,7 @@ class DatePicker extends React.Component {
             return;
         }
         this.setState({
-            selectedDay: day, defaultValue: day
+            selectedDay: day, defaultValue: moment(day).format("DD/MM/YYYY")
         });
         this.props.getDate(moment(day).format("YYYY-MM-DD"))
         this.setState({ showDatePicker: false });
@@ -178,6 +178,7 @@ class DatePicker extends React.Component {
     }
 
     dateValueProcess = (e) => {
+        this.setState({ defaultValue: e.target.value })
         if (e.target.value.length >= 10) {
             let value = e.target.value.split("");
             let year = value[6] + value[7] + value[8] + value[9]
@@ -185,6 +186,8 @@ class DatePicker extends React.Component {
             let date = value[0] + value[1];
             if ((month <= 12) && (date <= 31)) {
                 this.setState({ selectedDay: new Date(year + "-" + month + "-" + date), month: new Date(year + "-" + month + "-" + date) })
+                this.props.getDate(moment(new Date(year + "-" + month + "-" + date)).format("YYYY-MM-DD"))
+
             }
         };
     }
@@ -295,7 +298,7 @@ class DatePicker extends React.Component {
                         placeholder={this.props.placeHolder ? this.props.placeHolder : "DD/MM/YYYY"}
                         className="form-control"
                         maxLength="10"
-                        defaultValue={this.state.defaultValue ? moment(this.state.defaultValue).format("DD/MM/YYYY") : null}
+                        value={this.state.defaultValue}
                         onChange={(e) => { this.dateValueProcess(e) }}
                         onFocus={() => {this.openDatePicker(); if(this.props.onOpen) {this.props.onOpen()}}}
                         onKeyUp={(e) => this.dateValueFormat(e)}

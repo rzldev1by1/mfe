@@ -10,13 +10,13 @@ import HeaderTitle from 'shared/container/TheHeader'
 import './PurchaseOrder.scss'
 const columns = [
   { accessor: "orig_line_number",  placeholder: 'Line No', Header: "Line No", width:90 },
-  { accessor: "product", Cell: row => (<div className="alg-right">{row.value}</div>),    placeholder: 'Product', Header: "Product" },
+  { accessor: "product", Cell: row => (<div>{row.value}</div>),    placeholder: 'Product', Header: "Product" },
   { accessor: "product_name",  placeholder: 'Description', Header: "Description" },
-  { accessor: "quantity",  Cell: row => (<div className="alg-right">{row.value}</div>),   placeholder: 'Qty', Header: "Qty", width: 80 },
+  { accessor: "quantity",  Cell: row => (<div className="alg-right">{row.value}</div>),   placeholder: 'Qty', Header: "Qty", width: 60, sortType: "float" },
   { accessor: "packdesc_1",  placeholder: 'UOM', Header: "UOM", width: 80 },
-  { accessor: "qty_processed", Cell: row => (<div className="alg-right">{row.value}</div>),    placeholder: 'Qty Processed', Header: "Qty Processed", width: 130 },
-  { accessor: "weight",  Cell: row => (<div className="alg-right">{row.value}</div>),   placeholder: 'Weight', Header: "Weight" },
-  { accessor: "weight_processed",  Cell: row => (<div className="alg-right">{row.value}</div>),   placeholder: 'Weight Processed', Header: "Weight Processed", width: 140 },
+  { accessor: "qty_processed", Cell: row => (<div className="alg-right">{row.value}</div>),    placeholder: 'Qty Processed', Header: "Qty Processed", width: 130, sortType: "float" },
+  { accessor: "weight",  Cell: row => (<div className="alg-right">{row.value}</div>),   placeholder: 'Weight', Header: "Weight", sortType: "float" },
+  { accessor: "weight_processed",  Cell: row => (<div className="alg-right">{row.value}</div>),   placeholder: 'Weight Processed', Header: "Weight Processed", width: 140 , sortType: "float"},
   {
     accessor: "completed",  placeholder: 'Completed', Header: "Completed",
     Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
@@ -43,7 +43,8 @@ class PurchaseOrdersDetail extends React.Component {
       products: [],
       pagination: {},
       tableStatus: 'waiting',
-      exportData: []
+      exportData: [],
+      sort: "down"
     }
   }
   componentDidMount() {
@@ -137,10 +138,43 @@ class PurchaseOrdersDetail extends React.Component {
   UrlAll = () => {
     return '/putPurchaseOrderDetailColumn?client=ALL'
   }
+  sortFloat = (value, column, sort) => {
+    let data = value;
+    let floatData = [];
+
+    if(sort == "down"){
+        data.sort((a, b) => { 
+            if (a[column] !== undefined && b[column] !== undefined) {
+                if(a[column] === null){
+                    return -1;
+                }else if(b[column] === null){
+                    return 1;
+                }
+                return Number.parseFloat(b[column].replace(/,/g, "")) - Number.parseFloat(a[column].replace(/,/g, "")) 
+            }
+        });
+        this.setState({ sort: "up" })
+    }else if(sort == "up"){
+        data.sort((a, b) => { 
+            if (a[column] !== undefined && b[column] !== undefined) {
+                if(a[column] === null){
+                    return 1;
+                }else if(b[column] === null){
+                    return -1;
+                }
+                return Number.parseFloat(a[column].replace(/,/g, "")) - Number.parseFloat(b[column].replace(/,/g, "")) 
+            }
+        });
+        this.setState({ sort: "down" })
+    }
+
+    this.setState({ data: data })
+
+  }
 
   render() {
     // const { match, history } = this.props
-    const { detail, products, fields, pagination, tableStatus, exportData } = this.state
+    const { detail, products, fields, pagination, tableStatus, exportData, sort } = this.state
     return <div className="purchase-order-details">
       <HeaderTitle breadcrumb={[
         { to: '/purchase-order', label: 'Purchase Order' },
@@ -185,6 +219,7 @@ class PurchaseOrdersDetail extends React.Component {
         UrlHeader={this.UrlHeader} 
         UrlAll={this.UrlAll}
         tableStatus={tableStatus}
+        sortFloat={(column) => this.sortFloat(products, column, sort)}
         export={
           <button className='btn btn-primary float-right btn-export'>
             {/* <div className='export-export pr-3' /> */}
