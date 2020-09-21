@@ -346,6 +346,8 @@
 @media (min-width:992px) and  (max-width:1033px) {
   .StockMovementFilter .sm-col-11 {
     max-width: 9.5% !important;
-    font-size: 12px !important;
+    .btn{
+      padding: 0px;
+    }
   }
 }
