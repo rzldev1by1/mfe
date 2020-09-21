@@ -29,12 +29,12 @@ class SalesOrderDetail extends React.Component {
       { accessor: 'rotadate', placeholder: 'Rotadate', Header: 'Rotadate', sortable: true, width: 100 },
       { accessor: 'ref3', placeholder: 'Ref3', Header: 'Ref3', sortable: true, width: 100 },
       { accessor: 'ref4', placeholder: 'Ref4', Header: 'Ref4', sortable: true, width: 100 },
+      { accessor: 'disposition', placeholder: 'Disposition', Header: 'Disposition', sortable: true, width: 100, className:'text-left' },
       { accessor: 'qty', placeholder: 'Qty', Header: 'Qty', sortable: true, width: 60 },
       { accessor: 'weight', placeholder: 'Weight', Header: 'Weight', sortable: true, width: 80 },
       { accessor: 'pallet', placeholder: 'Pallet', Header: 'Pallet', sortable: true, width: 70 },
       { accessor: 'price', placeholder: 'Prince', Header: 'Price', sortable: true, width: 70 },
       { accessor: 'pack_id', placeholder: 'Pack ID', Header: 'Pack ID', sortable: true, width: 170, className:'text-left' },
-      { accessor: 'disposition', placeholder: 'Disposition', Header: 'Disposition', sortable: true, width: 100, className:'text-left' },
     ],
     ForesCast: [
       {
