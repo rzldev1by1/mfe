@@ -325,6 +325,11 @@ class PurchaseOrders extends React.PureComponent {
                         :
                         <Select name="site" placeholder="Site"
                           options={siteData}
+                          filterOption={
+                              (option, inputVal) => {
+                                  return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                              }
+                          }
                           onChange={(val) => this.setSite(val)}
                           styles={{
                             dropdownIndicator: (base, state) => ({
