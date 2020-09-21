@@ -449,6 +449,12 @@ class CreateTab extends React.Component {
               <input value={this.siteCheck(user.site)} className="form-control" readOnly />
               :
               <Select options={this.hideAllOptionSite()} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required
+
+                filterOption={
+                    (option, inputVal) => {
+                        return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                    }
+                }
                 styles={{
                   dropdownIndicator: (base, state) => ({
                     ...base,
