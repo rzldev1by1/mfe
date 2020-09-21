@@ -469,6 +469,11 @@ class CreateTab extends React.Component {
         <Col lg="3">
           <label className="text-muted mb-0 required">Order Type</label>
           <Select value={orderType || ''} options={orderTypeData} onChange={val => this.onSelectChange('orderType', val)} placeholder="Order Type" required
+            filterOption={
+                (option, inputVal) => {
+                    return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                }
+            }
             styles={{
               dropdownIndicator: (base, state) => ({
                 ...base,
@@ -481,6 +486,11 @@ class CreateTab extends React.Component {
         <Col lg="3">
           <label className="text-muted mb-0">Supplier</label>
           <Select value={supplier || ''} options={supplierData} onChange={val => this.onSelectChange('supplier', val)} placeholder="Supplier"
+            filterOption={
+                (option, inputVal) => {
+                    return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                }
+            }
             styles={{
               dropdownIndicator: (base, state) => ({
                 ...base,
@@ -503,6 +513,11 @@ class CreateTab extends React.Component {
               <input value={this.clientCheck(user.client)} className="form-control" readOnly />
               :
               <Select options={this.hideAllOptionClient()} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required
+              filterOption={
+                  (option, inputVal) => {
+                      return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                  }
+              }
                 styles={{
                   dropdownIndicator: (base, state) => ({
                     ...base,
@@ -577,6 +592,11 @@ class CreateTab extends React.Component {
                     onMenuClose={() => { productStatus[i] = false; this.setState({ productStatus: productStatus }) }}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
                     className={`c-400 ${overflow[i] && overflow[i].productVal ? 'absolute' : null}`} placeholder="Product" required
+                    filterOption={
+                        (option, inputVal) => {
+                            return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                        }
+                    }
                     styles={{
                       option: (provided, state) => ({
                         ...provided,
@@ -617,6 +637,11 @@ class CreateTab extends React.Component {
                     }}
                     onChange={(val) => this.lineSelectChange(i, 'uom', val)}
                     className={`c-150 ${overflow[i] && overflow[i].uom ? 'absolute right' : null}`} placeholder="UOM"
+                    filterOption={
+                        (option, inputVal) => {
+                            return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                        }
+                    }
                     styles={{
                       dropdownIndicator: (base, state) => ({
                         ...base,
@@ -641,6 +666,11 @@ class CreateTab extends React.Component {
                 <td className="px-1">
                   <Select value={o.dispositionVal || ''}
                     options={dispositionData}
+                    filterOption={
+                        (option, inputVal) => {
+                            return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                        }
+                    }
                     styles={{
                       dropdownIndicator: (base, state) => ({
                         ...base,
