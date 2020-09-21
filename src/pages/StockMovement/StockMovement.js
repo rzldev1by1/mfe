@@ -557,7 +557,12 @@ class StockMovement extends React.PureComponent {
         <CCol lg={2} className="sm-col-14 px-0">
             <Select name="filterType" className="stockMovement" placeholder="Display Period"
               value={filterType} options={filterData} 
-              onChange={(val) => this.periodHandler( val )}  
+              onChange={(val) => this.periodHandler( val )} 
+              filterOption={
+                  (option, inputVal) => {
+                      return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                  }
+              } 
               styles={{
                 dropdownIndicator: (base, state) => ({
                   ...base, 
@@ -620,6 +625,11 @@ class StockMovement extends React.PureComponent {
            <Select name="client" placeholder="Client"
            value={client} options={clientData}
            onChange={(val) => this.setState({ client: val })} 
+           filterOption={
+               (option, inputVal) => {
+                   return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+               }
+           }
            styles={{
            dropdownIndicator: (base, state) => ({
                ...base, 
@@ -641,6 +651,11 @@ class StockMovement extends React.PureComponent {
                 if(val.length >= 3) { this.getproduct(val) }
             }) }}
             onChange={(val) => this.setState({ productSm: val })} 
+            filterOption={
+                (option, inputVal) => {
+                    return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                }
+            }
             styles={{
             dropdownIndicator: (base, state) => ({
                 ...base, 
