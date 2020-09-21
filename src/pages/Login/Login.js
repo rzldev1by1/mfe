@@ -161,7 +161,7 @@ class Logins extends Component {
                     {errorMessage && <div><span className="iconU-i" /> {errorMessage}</div>}
                 </div>
                 <div className="row forgot-row">
-                    <div className="col-sm-4 white-space">
+                    <div className="pr-0 pl-3 white-space" style={{width:'25%'}}>
                         <button type="submit" className="btn btn-primary btn-login col-12">
                             {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "SEND"}
                         </button>
