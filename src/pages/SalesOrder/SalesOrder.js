@@ -374,6 +374,11 @@ class SalesOrder extends React.PureComponent {
                         <Select name="client" placeholder="Client"
                           value={client} options={clientData}
                           onChange={(val) => this.setState({ client: val }, () => this.getTask())}
+                          filterOption={
+                              (option, inputVal) => {
+                                  return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                              }
+                          }
                           styles={{
                             dropdownIndicator: (base, state) => ({
                               ...base,
@@ -387,6 +392,11 @@ class SalesOrder extends React.PureComponent {
                     <Select name="status"
                       value={status} options={statusData}
                       onChange={(val) => this.setState({ status: val })}
+                      filterOption={
+                          (option, inputVal) => {
+                              return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                          }
+                      }
                       styles={{
                         dropdownIndicator: (base, state) => ({
                           ...base,
@@ -399,6 +409,11 @@ class SalesOrder extends React.PureComponent {
                     <Select name="orderType" placeholder="Order Type"
                       value={orderType} options={orderTypeFilterData}
                       onChange={(val) => this.setState({ orderType: val })}
+                      filterOption={
+                          (option, inputVal) => {
+                              return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                          }
+                      }
                       styles={{
                         dropdownIndicator: (base, state) => ({
                           ...base,
@@ -411,6 +426,11 @@ class SalesOrder extends React.PureComponent {
                     <Select name="task" placeholder="Task"
                       value={task} options={taskData}
                       onChange={(val) => this.setState({ task: val })}
+                      filterOption={
+                          (option, inputVal) => {
+                              return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                          }
+                      }
                       styles={{
                         dropdownIndicator: (base, state) => ({
                           ...base,
