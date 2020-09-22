@@ -14,7 +14,7 @@ import {
   TabPane,
   TabContent,
 } from 'reactstrap';
-import CustomTable from 'shared/table/CustomTableDetail';
+import CustomTable from 'shared/table/CustomTable';
 import { tab1, tab1Inactive, tab2, tab2Inactive } from './Helper';
 import HeaderTitle from 'shared/container/TheHeader';
 import './StockHolding.scss';
