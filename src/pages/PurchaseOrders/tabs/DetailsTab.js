@@ -284,6 +284,7 @@ class CreateTab extends React.Component {
     if (key === 'productVal') {
       orderLine[i].product = val.label
       orderLine[i].productVal = val
+      orderLine[i].productValue = val.value
     }
     if (key === 'dispositionVal') {
       orderLine[i].disposition = val.value
@@ -584,7 +585,7 @@ class CreateTab extends React.Component {
                     // value={o.productVal || ''}
                     isClearable={true}
                     options={o.productKeyword ? o.productKeyword.length > 2 ? o.productData : [] : []}
-                    getOptionLabel={option => option.value}
+                    getOptionLabel={option => option.value + " : " + option.label}
                     isLoading={o.productIsLoad}
                     onInputChange={(val) => { this.getProductHandler(val, i) }}
                     menuIsOpen={o.productKeyword && o.productKeyword.length >= 3 ? true : false}

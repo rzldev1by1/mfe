@@ -86,7 +86,7 @@ class CreateTab extends React.Component {
         orderLine[i].productIsLoad = false;
         return res;
     })
-    const productData = data.map((data, i) => ({ value: data.code, label: `${data.name}`, i }))
+    const productData = data.map((data, i) => ({ value: data.code, label: data.code + " : " + data.name, i }))
     orderLine[i].productData = productData;
     this.setState({ orderLine })
   }
