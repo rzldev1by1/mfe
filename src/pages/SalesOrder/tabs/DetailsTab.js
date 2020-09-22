@@ -86,7 +86,7 @@ class CreateTab extends React.Component {
         orderLine[i].productIsLoad = false;
         return res;
     })
-    const productData = data.map((data, i) => ({ value: data.code, label: data.code + " : " + data.name, i }))
+    const productData = data.map((data, i) => ({ value: data.code, label: data.name, i }))
     orderLine[i].productData = productData;
     this.setState({ orderLine })
   }
@@ -698,6 +698,7 @@ class CreateTab extends React.Component {
                     onMenuClose={() => { productStatus[i] = false; this.setState({ productStatus: productStatus }) }}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
                     className={`c-400 ${overflow[i] && overflow[i].productVal ? 'absolute' : null}`} placeholder="Product" required
+                    getOptionLabel={option => option.value + " : " + option.label}
                     filterOption={
                         (option, inputVal) => {
                             return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
