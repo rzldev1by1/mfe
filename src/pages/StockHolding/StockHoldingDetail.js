@@ -14,8 +14,7 @@ import {
   TabPane,
   TabContent,
 } from 'reactstrap';
-import CustomTable from 'shared/table/CustomTableDetail';
-import { tab1, tab1Inactive, tab2, tab2Inactive } from './Helper';
+import CustomTable from 'shared/table/CustomTable';
 import HeaderTitle from 'shared/container/TheHeader';
 import './StockHolding.scss';
 
@@ -26,7 +25,9 @@ class SalesOrderDetail extends React.Component {
     dimension: { width: 0, height: 0 },
     stockDetail: [
       { accessor: 'batch', placeholder: 'Batch', Header: 'Batch', sortable: true, width: 200, className:'text-left' },
-      { accessor: 'rotadate', placeholder: 'Rotadate', Header: 'Rotadate', sortable: true, width: 100 },
+      { accessor: 'rotadate', placeholder: 'Rotadate', Header: 'Rotadate', sortable: true, width: 100 ,
+        style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment().format('DD/MM/YYYY'): '-'}</span>  
+      },
       { accessor: 'ref3', placeholder: 'Ref3', Header: 'Ref3', sortable: true, width: 100 },
       { accessor: 'ref4', placeholder: 'Ref4', Header: 'Ref4', sortable: true, width: 100 },
       { accessor: 'disposition', placeholder: 'Disposition', Header: 'Disposition', sortable: true, width: 100, className:'text-left' },
@@ -240,6 +241,59 @@ class SalesOrderDetail extends React.Component {
       })
     }
   };
+  siteCheck = () =>{
+    let site = this.state.datahead.length ? this.state.datahead[0].site : null;
+    if(site === "A"){
+      let site1 = site+ ": Australia A"
+     return site1
+    }if(site === "B"){
+      let site1 = site+ ": Australia B"
+     return site1
+    }if(site === "E"){
+      let site1 = site+ ": TT Logistics (ECK)"
+     return site1
+    }if(site === "L"){
+      let site1 = site+ ": TT Logistics (LAV)"
+     return site1
+    }
+  }
+  ClientCheck = () =>{
+    let client = this.state.datahead.length ? this.state.datahead[0].client : null;
+    if(client === "AESOP"){
+      let client1 = client + ": Aesop"
+     return client1
+    }if(client === "ANTEC"){
+      let client1 = client+ ": Antec"
+     return client1
+    }if(client === "CLUTCH"){
+      let client1 = client+ ": Clutch Industries"
+     return client1
+    }if(client === "EXQUIRA"){
+      let client1 = client+ ": Exquira"
+     return client1
+    }if(client === "LEDVANCE"){
+      let client1 = client+ ": Ledvance Australia"
+     return client1
+    }if(client === "ONESTOP"){
+      let client1 = client+ ": Onestop"
+     return client1
+    }if(client === "STARTRACK"){
+      let client1 = client+ ": Carrier"
+     return client1
+    }if(client === "TTL"){
+      let client1 = client+ ": TT Logistics"
+     return client1
+    }if(client === "TTLCHEM"){
+      let client1 = client+ ": TTLChem"
+     return client1
+    }if(client === "BEGA"){
+      let client1 = client+ ": BEGA"
+     return client1
+    }if(client === "TATURA"){
+      let client1 = client+ ": TATURA LTD"
+     return client1
+    }
+  }
   formatDate = (date) => {
     return date ? moment(date).format('DD/MM/YYYY') : '-';
   };
@@ -293,8 +347,8 @@ class SalesOrderDetail extends React.Component {
         <div ref={this.section1} className='card-group section-1 mb-3'>
           <CCard>
             <CCardBody className="p-0 m-3 border-right">
-              <CRow className="mx-0"><CCol lg={2} className="text-light-gray pl-0 mr-3 my-1">Site</CCol> <CCol>{site || '-'}</CCol></CRow>
-              <CRow className="mx-0"><CCol lg={2} className="text-light-gray pl-0 mr-3 my-1">Client</CCol> <CCol>{client || '-'}</CCol></CRow>
+              <CRow className="mx-0"><CCol lg={2} className="text-light-gray pl-0 mr-3 my-1">Site</CCol> <CCol>{this.siteCheck()|| '-'}</CCol></CRow>
+              <CRow className="mx-0"><CCol lg={2} className="text-light-gray pl-0 mr-3 my-1">Client</CCol> <CCol>{this.ClientCheck() || '-'}</CCol></CRow>
               <CRow className="mx-0"><CCol lg={2} className="text-light-gray pl-0 mr-3 my-1">Product</CCol> <CCol>{product || '-'}</CCol></CRow>
               <CRow className="mx-0"><CCol lg={2} className="text-light-gray pl-0 mr-3 my-1">Description</CCol> <CCol>{description || '-'}</CCol></CRow>
               <CRow className="mx-0"><CCol lg={2} className="text-light-gray pl-0 mr-3 my-1">UOM</CCol> <CCol>{uom || '-'}</CCol></CRow>

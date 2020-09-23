@@ -293,7 +293,7 @@ class UserManagementCreate extends React.PureComponent {
     const { show, toggle, users } = this.props
     const { user, key, isAdmin, moduleAccess, sites, clients, saveProgress, isEnableAllClient, isEnableAllSite, isEnableAllModule } = this.state
 
-    return <Modal show={show} onHide={() => this.onHideModal()} size="xl" className="um-create" >
+    return <Modal show={show} /* onHide={() => this.onHideModal()} */ size="xl" className="um-create" >
       <Modal.Body className="bg-primary p-0">
         <Row className="pl-5 pr-3 pb-3 pt-3 mx-0">
           <Col xs={10} className="px-0">

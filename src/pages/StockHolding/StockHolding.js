@@ -58,7 +58,7 @@ const columns = [
     accessor: 'on_hand_wgy',
     Cell: row => (<div className="alg-right">{row.value}</div>),
     Header: 'On Hand WGT',
-    placeholder: 'On Hand WGT',
+    placeholder: 'On Hand Weight',
     sortable: false,
     sortType: "float",
     width: 130,
@@ -298,7 +298,6 @@ class StockHolding extends React.PureComponent {
     urls.push('page=' + (pagination.active || 1))
     if(export_=='true'){urls.push('export=true')}
     const { data } = await axios.get(`${endpoints.stockHoldingSummary}?${urls.join('&')}`)
-    //console.log(data)
     if (data?.data?.data) {
       const modifiedData = data.data.data;
       console.log(modifiedData)
@@ -306,11 +305,9 @@ class StockHolding extends React.PureComponent {
         let statusOk = []
         let statusShortage = []
         if (parseInt(item['on_hand_qty'] + item['expected_in_qty'])  >= item['expected_out_qty']) {
-          // item['status'] = [<a id='ok' className='status-ok'>OK</a>];
           item['status'] = 'OK';
           item['statusTxt'] = 'OK';
         }if (parseInt(item['on_hand_qty'] + item['expected_in_qty'])  <= item['expected_out_qty']) {
-          // item['status'] =  [<a id='SHORTAGE' className='status-shortage'>SHORTAGE</a>];
           item['status'] =  'SHORTAGE';
           item['statusTxt'] = 'SHORTAGE';
         }
@@ -478,7 +475,8 @@ class StockHolding extends React.PureComponent {
                     type='text'
                     className='form-control border-left-0 input-height '
                     placeholder='Enter a Product'
-                    onChange={(e) => this.setState({ search: e.target.value })}
+                    filterOption={ (option, inputVal) => {return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toLowerCase()}} 
+                    onChange={(e) =>  this.setState({ search: e.target.value.toUpperCase() })}
                   />
                 </div>
               </CCol>
