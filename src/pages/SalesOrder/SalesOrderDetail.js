@@ -37,10 +37,10 @@ const columns = [
     accessor: "released",placeholder: 'Released', Header: "Released", 
     Cell: (row) => <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
-  { accessor: "batch",  Cell: row => (<div className="alg-right">{row.value}</div>),  placeholder: 'Batch',  Header: "Batch" , width: 70  },
+  { accessor: "batch",  Cell: row => (<div className="alg-right">{row.value}</div>),  placeholder: 'Batch',  Header: "Batch" , width: null },
   // { accessor: "ref2",placeholder: 'Ref2', Header: "Ref2" , width: 70 , style : {display:"none"}},
-  { accessor: "ref3",placeholder: 'Ref3', Header: "Ref3" , width: 70 },
-  { accessor: "ref4",placeholder: 'Ref4', Header: "Ref4" , width: 70 },
+  { accessor: "ref3",placeholder: 'Ref3', Header: "Ref3" , width: null },
+  { accessor: "ref4",placeholder: 'Ref4', Header: "Ref4" , width: null },
   { accessor: "disposition",placeholder: 'Disposition', Header: "Disposition" },
   { accessor: "pack_id",placeholder: 'Pack ID', Header: "Pack ID" }
 ]
