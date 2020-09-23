@@ -58,7 +58,7 @@ const columns = [
     accessor: 'on_hand_wgy',
     Cell: row => (<div className="alg-right">{row.value}</div>),
     Header: 'On Hand WGT',
-    placeholder: 'On Hand WGT',
+    placeholder: 'On Hand Weight',
     sortable: false,
     sortType: "float",
     width: 130,
