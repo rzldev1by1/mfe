@@ -174,10 +174,10 @@ class NewUser extends React.PureComponent {
         const { validation } = this.state;
         return (
             <Container className="px-5 pt-4 pb-5">
-                <Row className="mx-0">
-                    <div style={{paddingRight: "2.8rem"}}>
+                <Row>
+                    <Col lg="2" className="pr-0" style={{flex:"0 0 11%",maxWidth:"11%"}}>
                         <h3 className="text-primary font-20 um-text-webgroup">New User</h3>
-                    </div>
+                    </Col>
                     <Col lg="10" className="pl-0">
                         <Row className="mx-0">
                             <Col lg="4" md="4" sm="12" className="pl-0 toggle-um">
