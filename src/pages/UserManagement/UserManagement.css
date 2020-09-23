@@ -398,3 +398,10 @@
     overflow-x: hidden;
   }
 }
+
+.btn-review{
+    pointer-events: none !important;
+}
+.sub-header-review{
+    height: 48px;
+}
