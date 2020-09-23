@@ -62,7 +62,7 @@ class SalesOrderCreate extends React.PureComponent {
     return (
       <Modal
         show={this.props.show}
-        onHide={this.onHide}
+        // onHide={this.onHide}
         size="xl"
         className="sales-order-create"
       >
