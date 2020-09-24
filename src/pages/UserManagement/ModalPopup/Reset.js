@@ -27,7 +27,7 @@ class Reset extends React.PureComponent {
                     {isLoad ? 
                      <Col className="bg-white">
                         <div className="d-flex justify-content-center mt-2 mb-5" >
-                            <img src={loading} className="mt-5 mb-5" style={{ width: "3rem", height: "3rem" }} />
+                            <img src={loading} className="mt-5 mb-5" style={{ width: "3rem", height: "3rem", userSelect: "none" }} />
                         </div>
                      </Col>
                     : <Col className="bg-white">
