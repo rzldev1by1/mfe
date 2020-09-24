@@ -465,7 +465,8 @@ class ReviewTab extends React.Component {
             {this.state.status === "loading" ? (
               <div className="text-center text-secondary mt-2">
                 {" "}
-                Loading...{" "}
+                {/* Loading... */}
+                {" "}
               </div>
             ) : null}
           </Col>

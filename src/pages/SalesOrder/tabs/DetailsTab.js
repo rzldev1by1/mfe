@@ -755,10 +755,10 @@ class CreateTab extends React.Component {
                   <input name="batch" onChange={(e) => this.lineChange(i, e)} className="form-control c-250" placeholder="Batch" maxLength="30" />
                 </td>
                 <td className="">
-                  <input name="ref3" onChange={(e) => this.lineChange(i, e)} className="form-control c-100" placeholder="Ref 3" maxLength="30" />
+                  <input name="ref3" onChange={(e) => this.lineChange(i, e)} className="form-control c-100" placeholder="Ref3" maxLength="30" />
                 </td>
                 <td className="">
-                  <input name="ref4" onChange={(e) => this.lineChange(i, e)} className="form-control c-100" placeholder="Ref 4" maxLength="30" />
+                  <input name="ref4" onChange={(e) => this.lineChange(i, e)} className="form-control c-100" placeholder="Ref4" maxLength="30" />
                 </td>
                 <td className="">
                   <Select value={o.dispositionVal || ''}
