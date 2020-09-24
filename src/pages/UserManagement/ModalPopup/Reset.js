@@ -3,6 +3,7 @@ import { Row, Col, Tabs, Tab, Modal, Container } from 'react-bootstrap'
 import popupLock from '../../../assets/img/popup_lock.png'
 import popupLockSuccess from '../../../assets/img/popup_success_lock.png'
 import '../UserManagement.css'
+import loading from "../../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 
 
 class Reset extends React.PureComponent {
@@ -10,7 +11,7 @@ class Reset extends React.PureComponent {
 
     render() {
         const { show, toggle, isResetSuccess, isLoad } = this.props;
-        return <Modal show={show} onHide={() => toggle()} size="md" className="sales-order-create" >
+        return <Modal show={show} onHide={() => toggle()} size="md" className="sales-order-create" backdrop="static" >
             <Modal.Body className="bg-primary p-0">
                 <Row className="p-4">
                     <Col xs={10}>
@@ -25,8 +26,8 @@ class Reset extends React.PureComponent {
                 <Row className="px-3">
                     {isLoad ? 
                      <Col className="bg-white">
-                        <div className="d-flex justify-content-center">
-                            <div className="pulse" style={{ width: "3rem", height: "3rem" }}  role="status"></div>
+                        <div className="d-flex justify-content-center mt-2 mb-5" >
+                            <img src={loading} className="mt-5 mb-5" style={{ width: "3rem", height: "3rem", userSelect: "none" }} />
                         </div>
                      </Col>
                     : <Col className="bg-white">
