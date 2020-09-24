@@ -136,12 +136,12 @@ class Logins extends Component {
                     {errorMessage && <div><span className="iconU-i" /> {errorMessage}</div>}
                 </div>
                 <div className="row">
-                    <div className="pl-3 pr-0" style={{width:'max-content'}}>
+                    <div className="pl-3 pr-0" style={{width:'30%'}}>
                         <button type="submit" className="btn btn-primary btn-login col-12">
                             {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : 'LOGIN'}
                         </button>
                     </div>
-                    <div className="col-sm-7 mt-3">
+                    <div className="col-7 mt-3">
                         <span className='form-login-change' onClick={() => this.changeFormHanlder()}>FORGOT PASSWORD</span>
                     </div>
                 </div>
@@ -161,7 +161,7 @@ class Logins extends Component {
                     {errorMessage && <div><span className="iconU-i" /> {errorMessage}</div>}
                 </div>
                 <div className="row forgot-row">
-                    <div className="pr-0 pl-3 white-space" style={{width:'25%'}}>
+                    <div className="pr-0 pl-3 white-space" style={{width:'30%'}}>
                         <button type="submit" className="btn btn-primary btn-login col-12">
                             {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "SEND"}
                         </button>
@@ -177,8 +177,8 @@ class Logins extends Component {
     termAndCondition() {
         return (
             <div className='privacy-and-term mb-3'>
-                <div className='policy-title inputLogin'>Terms and Conditions</div>
-                <div className='form-control text-area-policy inputLogin'>
+                <div className='policy-title policyContent'>Terms and Conditions</div>
+                <div className='form-control text-area-policy policyContent'>
                     Your privacy on microlistics.com <br/><br/>
                     This website is administered by Microlistics. The primary purpose of Microlistics.com is to be a dynamic resource and business tool to help you create your future. We want you to feel secure when visiting our site and are committed to maintaining your privacy when doing so. The following provides an overview of how we protect your privacy during your visit.<br/><br/>
                     Microlistics recognizes the importance of data privacy and considers it crucial to apply the highest standards of data privacy at all times.<br/><br/>
@@ -328,7 +328,7 @@ class Logins extends Component {
                 </div>
 
                 <div className="row mt-3">
-                    <div className="col-sm-4">
+                    <div className="pl-3 pr-0" style={{width:'30%'}}>
                         <button onClick={() => this.exitPolicyHandler()} type="button" className="btn btn-primary btn-login col-12">
                             {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "BACK"}
                         </button>
@@ -364,8 +364,8 @@ class Logins extends Component {
                 privacy policy generator (as we link to below) can be dangerous.
                 You must be mindful of getting all of the relevant and required information about your website into your GDPR privacy policy.
                 </div> */}
-                <div className='policy-title inputLogin'>Privacy Policy</div>
-                <div className='form-control text-area-policy inputLogin'>
+                <div className='policy-title policyContent'>Privacy Policy</div>
+                <div className='form-control text-area-policy policyContent'>
                     Your privacy on microlistics.com <br/><br/>
                     This website is administered by Microlistics. The primary purpose of Microlistics.com is to be a dynamic resource and business tool to help you create your future. We want you to feel secure when visiting our site and are committed to maintaining your privacy when doing so. The following provides an overview of how we protect your privacy during your visit.<br/><br/>
                     Microlistics recognizes the importance of data privacy and considers it crucial to apply the highest standards of data privacy at all times.<br/><br/>
@@ -515,7 +515,7 @@ class Logins extends Component {
                 </div>
 
                 <div className="row mt-3">
-                    <div className="col-sm-4">
+                    <div className="pl-3 pr-0" style={{ width:'30%' }}>
                         <button onClick={() => this.exitPolicyHandler()} type="button" className="btn btn-primary btn-login col-12">
                             {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "BACK"}
                         </button>
