@@ -639,9 +639,16 @@ console.log(this.state)
             {exportData ? exportData.map((data, i) =>
               <tr key={i} >
                 {fields.map((column, columnIdx) => {
+                  console.log(data[column.accessor] )
+                  if(column.accessor === 'batch'){
+                    return (<td key={columnIdx}>{data[column.accessor]}‎‎</td>)//hidden fonts for export
+                  }if(column.accessor === 'pack_id'){
+                    return (<td key={columnIdx}>{data[column.accessor]}‎‎‎‎</td>) //hidden fonts for export
+                  }else{
                   return (
                     <td key={columnIdx}>{data[column.accessor]}</td>
                   )
+                  }
                 })}
               </tr>
             ) :

@@ -324,7 +324,7 @@ class SalesOrderDetail extends React.Component {
       ? numeral(this.state.datahead[0].stock_on_hand).format('0,0')
       : null;
     let available_qty = this.state.datahead.length
-      ? numeral(this.state.datahead[0].available_qty).format('0,0')
+      ? numeral(this.state.datahead[0].projected_available_qty).format('0,0')
       : null;
     let expected_in_qty = this.state.datahead.length
       ? numeral(this.state.datahead[0].expected_in_qty).format('0,0')
