@@ -80,10 +80,10 @@ const columns = [
   { accessor: 'country', placeholder: 'Country', Header: 'Country', width: null, },
   { accessor: 'loadnumber', placeholder: 'Load Number', Header: 'Load Number', width: null, },
   { accessor: 'loadoutstart', placeholder: 'Loadout Start', Header: 'Loadout Start', width: null, 
-    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY H:MM:SS'): '-'}</span>  
   },
   { accessor: 'loadoutfinish', placeholder: 'Loadout Finish', Header: 'Loadout Finish', width: null,
-    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>  
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY H:MM:SS'): '-'}</span>  
 },
   { accessor: 'consignmentno', placeholder: 'Consignment No', Header: 'Consignment No', width: null, },
   { accessor: 'freightcharge', placeholder: 'Freight Charge', Header: 'Freight Charge', width: null, },
@@ -104,7 +104,7 @@ const customColumns = [
   { accessor: 'datecompleted', Header: 'Date Completed', width: 120 },
   { accessor: 'customerpono', Header: 'Customer Order Ref' },
   { accessor: 'vendororderno', Header: 'Vendor Order No' },
-  { accessor: 'address1', Header: 'Address1' },
+  { accessor: 'address1', Header: 'Address1', style: { textAlign: 'left !important' } },
   { accessor: 'address2', Header: 'Address2' },
   { accessor: 'address3', Header: 'Address3' },
   { accessor: 'address4', Header: 'Address4' },
@@ -351,6 +351,11 @@ class SalesOrder extends React.PureComponent {
                         :
                         <Select name="site" placeholder="Site"
                           value={site} options={siteData}
+                          filterOption={
+                              (option, inputVal) => {
+                                  return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                              }
+                          }
                           onChange={(val) => this.setState({ site: val }, () => { this.getTask() })}
                           styles={{
                             dropdownIndicator: (base, state) => ({
@@ -369,6 +374,11 @@ class SalesOrder extends React.PureComponent {
                         <Select name="client" placeholder="Client"
                           value={client} options={clientData}
                           onChange={(val) => this.setState({ client: val }, () => this.getTask())}
+                          filterOption={
+                              (option, inputVal) => {
+                                  return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                              }
+                          }
                           styles={{
                             dropdownIndicator: (base, state) => ({
                               ...base,
@@ -382,6 +392,11 @@ class SalesOrder extends React.PureComponent {
                     <Select name="status"
                       value={status} options={statusData}
                       onChange={(val) => this.setState({ status: val })}
+                      filterOption={
+                          (option, inputVal) => {
+                              return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                          }
+                      }
                       styles={{
                         dropdownIndicator: (base, state) => ({
                           ...base,
@@ -394,6 +409,11 @@ class SalesOrder extends React.PureComponent {
                     <Select name="orderType" placeholder="Order Type"
                       value={orderType} options={orderTypeFilterData}
                       onChange={(val) => this.setState({ orderType: val })}
+                      filterOption={
+                          (option, inputVal) => {
+                              return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                          }
+                      }
                       styles={{
                         dropdownIndicator: (base, state) => ({
                           ...base,
@@ -406,6 +426,11 @@ class SalesOrder extends React.PureComponent {
                     <Select name="task" placeholder="Task"
                       value={task} options={taskData}
                       onChange={(val) => this.setState({ task: val })}
+                      filterOption={
+                          (option, inputVal) => {
+                              return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                          }
+                      }
                       styles={{
                         dropdownIndicator: (base, state) => ({
                           ...base,

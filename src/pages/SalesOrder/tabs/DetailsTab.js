@@ -86,7 +86,7 @@ class CreateTab extends React.Component {
         orderLine[i].productIsLoad = false;
         return res;
     })
-    const productData = data.map((data, i) => ({ value: data.code, label: `${data.name}`, i }))
+    const productData = data.map((data, i) => ({ value: data.code, label: data.name, i }))
     orderLine[i].productData = productData;
     this.setState({ orderLine })
   }
@@ -132,7 +132,7 @@ class CreateTab extends React.Component {
   }
 
   getSupplier = async (client) => {
-    const url = endpoints.getSupplier
+    const url = endpoints.getCustomer
     if (!client) return
     const param = `?client=${client.value}`
     const { data } = await axios.get(url + param)
@@ -500,6 +500,11 @@ class CreateTab extends React.Component {
               <input value={this.siteCheck(user.site)} className="form-control" readOnly />
               :
               <Select options={this.hideAllOptionSite()} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required
+                filterOption={
+                    (option, inputVal) => {
+                        return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                    }
+                }
                 styles={{
                   dropdownIndicator: (base, state) => ({
                     ...base,
@@ -514,6 +519,11 @@ class CreateTab extends React.Component {
         <Col lg="3">
           <label className="text-muted mb-0 required">Order Type</label>
           <Select name="orderType" value={orderType || ''} options={orderTypeData} onChange={val => this.onSelectChange('orderType', val)} placeholder="Order Type" required
+            filterOption={
+                (option, inputVal) => {
+                    return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                }
+            }
             styles={{
               dropdownIndicator: (base, state) => ({
                 ...base,
@@ -548,6 +558,11 @@ class CreateTab extends React.Component {
               <input value={this.clientCheck(user.client)} className="form-control" readOnly />
               :
               <Select options={this.hideAllOptionClient()} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required
+                filterOption={
+                    (option, inputVal) => {
+                        return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                    }
+                }
                 styles={{
                   dropdownIndicator: (base, state) => ({
                     ...base,
@@ -583,6 +598,11 @@ class CreateTab extends React.Component {
             placeholder="Customer Name or ID"
             onInputChange={_.debounce(this.findCustomer, 300)}
             onChange={val => this.onSelectChange('customer', val)}
+            filterOption={
+                (option, inputVal) => {
+                    return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                }
+            }
             styles={{
               dropdownIndicator: (base, state) => ({
                 ...base,
@@ -662,10 +682,10 @@ class CreateTab extends React.Component {
           <tbody>
             {orderLine.length && orderLine.map((o, i) => {
               return <tr className="py-1 text-center orderline-row">
-                <td className="pl-0 pr-1">
-                  <input value={i + 1} className="form-control text-center" readOnly style={{ backgroundColor: "#f6f7f9" }} />
+                <td className="">
+                  <input value={i + 1} className="c-50 form-control text-center" readOnly style={{ backgroundColor: "#f6f7f9" }} />
                 </td>
-                <td className={`px-1 text-left ${error.orderLine && error.orderLine[i] ? error.orderLine[i].productVal ? "react-select-alert" : null : null}`}>
+                <td className={` text-left ${error.orderLine && error.orderLine[i] ? error.orderLine[i].productVal ? "react-select-alert" : null : null}`}>
                   <Select 
                     // value={o.productVal || ''}
                     isClearable={true}
@@ -678,6 +698,12 @@ class CreateTab extends React.Component {
                     onMenuClose={() => { productStatus[i] = false; this.setState({ productStatus: productStatus }) }}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
                     className={`c-400 ${overflow[i] && overflow[i].productVal ? 'absolute' : null}`} placeholder="Product" required
+                    getOptionLabel={option => option.value + " : " + option.label}
+                    filterOption={
+                        (option, inputVal) => {
+                            return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                        }
+                    }
                     styles={{
                       dropdownIndicator: (base, state) => ({
                         ...base,
@@ -688,17 +714,17 @@ class CreateTab extends React.Component {
                   />
                   <Required id="productVal" error={error.orderLine && error.orderLine[i]} />
                 </td>
-                <td className="px-1">
-                  <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly style={{ backgroundColor: "#f6f7f9" }} />
+                <td className="">
+                  <input value={o.product || ''} className="form-control c-600" placeholder="Choose a product first" readOnly style={{ backgroundColor: "#f6f7f9" }} />
                 </td>
-                <td className="px-1">
-                  <input name="qty" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control" value={this.state.orderLine[i]['qty']} placeholder="Qty" maxLength="10" />
+                <td className="">
+                  <input name="qty" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control c-150" value={this.state.orderLine[i]['qty']} placeholder="Qty" maxLength="10" />
                   <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                 </td>
-                <td className="px-1">
-                  <input name="weight" ref="weight" value={this.state.orderLine[i]['weight']} onChange={(e) => this.numberCommaCheck(i, "weight", 16, 3, e)} type="text" maxLength='18' className="form-control" placeholder="Weight" />
+                <td className="">
+                  <input name="weight" ref="weight" value={this.state.orderLine[i]['weight']} onChange={(e) => this.numberCommaCheck(i, "weight", 16, 3, e)} type="text" maxLength='18' className="form-control c-170" placeholder="Weight" />
                 </td>
-                <td className="px-1">
+                <td className="">
                   <Select value={o.uom || ''}
                     options={uomData}
                     onMenuOpen={() => {
@@ -711,6 +737,11 @@ class CreateTab extends React.Component {
                     }}
                     onChange={(val) => this.lineSelectChange(i, 'uom', val)}
                     className={`c-150 ${overflow[i] && overflow[i].uom ? 'absolute right' : null}`} placeholder="UOM"
+                    filterOption={
+                        (option, inputVal) => {
+                            return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                        }
+                    }
                     styles={{
                       dropdownIndicator: (base, state) => ({
                         ...base,
@@ -720,22 +751,27 @@ class CreateTab extends React.Component {
                   />
                   <Required id="uom" error={error.orderLine && error.orderLine[i]} />
                 </td>
-                <td className="px-1">
-                  <input name="batch" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Batch" maxLength="30" />
+                <td className="">
+                  <input name="batch" onChange={(e) => this.lineChange(i, e)} className="form-control c-250" placeholder="Batch" maxLength="30" />
                 </td>
-                <td className="px-1">
-                  <input name="ref3" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Ref 3" maxLength="30" />
+                <td className="">
+                  <input name="ref3" onChange={(e) => this.lineChange(i, e)} className="form-control c-100" placeholder="Ref3" maxLength="30" />
                 </td>
-                <td className="px-1">
-                  <input name="ref4" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Ref 4" maxLength="30" />
+                <td className="">
+                  <input name="ref4" onChange={(e) => this.lineChange(i, e)} className="form-control c-100" placeholder="Ref4" maxLength="30" />
                 </td>
-                <td className="px-1">
+                <td className="">
                   <Select value={o.dispositionVal || ''}
                     options={dispositionData}
                     onMenuOpen={() => { dispositionStatus[i] = true; this.setState({ dispositionStatus: dispositionStatus }) }}
                     onMenuClose={() => { dispositionStatus[i] = false; this.setState({ dispositionStatus: dispositionStatus }) }}
                     onChange={(val) => this.lineSelectChange(i, 'dispositionVal', val)}
                     className={`c-150 ${overflow[i] && overflow[i].dispositionVal ? 'absolute right' : null}`} placeholder="Disposition"
+                    filterOption={
+                        (option, inputVal) => {
+                            return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                        }
+                    }
                     styles={{
                       dropdownIndicator: (base, state) => ({
                         ...base,
@@ -744,10 +780,10 @@ class CreateTab extends React.Component {
                     }}
                   />
                 </td>
-                <td className="px-1">
-                  <input name="packId" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Pack ID" maxLength="20" />
+                <td className="">
+                  <input name="packId" onChange={(e) => this.lineChange(i, e)} className="form-control c-200" placeholder="Pack ID" maxLength="20" />
                 </td>
-                <td className="p-0 m-0">
+                <td className="">
                   <DatePicker top={true} getDate={(date) => {
                     let { orderLine } = this.state
                     orderLine[i].rotaDate = date
@@ -755,10 +791,10 @@ class CreateTab extends React.Component {
                   }}
                     isShow={this.state.isDatepickerShow}
                     showDatePicker={(e) => { datepickerStatus[i] = e; this.setState({ datepickerStatus: datepickerStatus }) }}
-                    className={`form-control ${overflow[i] && overflow[i].date ? 'absolute right' : null}`} placeholder="Select Date" />
+                    className={`form-control c-150 ${overflow[i] && overflow[i].date ? 'absolute right' : null}`} placeholder="Select Date" />
                 </td>
-                <td className="px-1">
-                  <button className="btn btn-light-gray btn-block" onClick={() => this.removeLine(i)}><i className="iconU-delete"></i></button>
+                <td className="">
+                  <button className="btn btn-light-gray btn-block c-50" onClick={() => this.removeLine(i)}><i className="iconU-delete"></i></button>
                 </td>
               </tr>
             })}

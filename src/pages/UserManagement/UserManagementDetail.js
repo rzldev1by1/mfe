@@ -52,6 +52,7 @@ class UserManagementDetail extends Component {
                 "name": { isValid: true, invalidClass: /*"is-invalid"*/"", message:'invalid email' },
                 "email": { isValid: true, invalidClass: /*"is-invalid"*/"", message:'username must be entered' }
             },
+            isLoadReset: false
         }
 
     }
@@ -439,10 +440,14 @@ class UserManagementDetail extends Component {
         let new_password = result + newText.toLowerCase();
         let param = { "email": email, "web_user": web_user_id, "new_password": new_password }
 
-        const { data, status } = axios.post(url, param);
-        if (status === 200) {
-            this.setState({ isSaveProgressing: false, isResetSuccess: true, modalPopupResetdisplay: true }, self.closeModalPopupResetAuto);
-        }
+        this.setState({ isLoadReset: true })
+        axios.post(url, param).then(res => {
+            if (res.status === 200) {
+                self.setState({ isSaveProgressing: false, isResetSuccess: true, modalPopupResetdisplay: true, isLoadReset: false });
+                // self.closeModalPopupResetAuto();
+            }
+
+        });
 
     }
 
@@ -481,11 +486,11 @@ class UserManagementDetail extends Component {
     }
 
     closeModalPopupReset = () => {
-        this.setState({ modalPopupResetdisplay: false });
+        this.setState({ modalPopupResetdisplay: false, isResetSuccess: false });
     }
 
     confirmResetPassword = () => {
-        this.setState({ isSaveProgressing: false, modalPopupResetdisplay: false }, this.resetPassword());
+        this.setState({ isSaveProgressing: false }, this.resetPassword());
     }
 
     onSubmitHandler = (e) => {
@@ -649,6 +654,7 @@ class UserManagementDetail extends Component {
 
             <ResetModal show={this.state.modalPopupResetdisplay}
                 toggle={this.closeModalPopupReset}
+                isLoad={this.state.isLoadReset}
                 isResetSuccess={this.state.isResetSuccess}
                 confirmResetPassword={this.confirmResetPassword} />
 

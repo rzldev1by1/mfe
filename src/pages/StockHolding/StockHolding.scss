@@ -164,7 +164,14 @@
             .rt-resizable-header-content {
               .edit-column {
                 padding-top: 5px;
+                -moz-padding-top:0px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
               }
+              @-moz-document url-prefix() {
+                .edit-column {padding-top:0px;}
+            }
             }
             outline: none !important;
           }
@@ -253,4 +260,8 @@
       }
     }
   }
+}
+.ReactTable .rt-table .rt-tbody .rt-tr-group .rt-tr .rt-td {
+  align-items: center !important;
+  color: rgb(89, 81, 81) !important;
 }

@@ -26,6 +26,7 @@ export default {
 
   getOrderNo: "/dropdown/getorderno",
   getSupplier: "/dropdown/getsupplier",
+  getCustomer: "/dropdown/getcustomer",
   getOrderType: "/dropdown/getordertype",
   orderCheck: "/orderCheck",
 

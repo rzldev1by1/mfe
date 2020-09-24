@@ -617,9 +617,9 @@ console.log(this.state)
               style: {
                 height: "3rem",
                 cursor: !!onClick && 'pointer',
-                textAlign: isNaN(rowInfo?.original[column.id])
-                  ? 'left'
-                  : 'right',
+                // textAlign: isNaN(rowInfo?.original[column.id])
+                //   ? 'left'
+                //   : 'right',
               },
             };
           }}
@@ -639,9 +639,16 @@ console.log(this.state)
             {exportData ? exportData.map((data, i) =>
               <tr key={i} >
                 {fields.map((column, columnIdx) => {
+                  console.log(data[column.accessor] )
+                  if(column.accessor === 'batch'){
+                    return (<td key={columnIdx}>{data[column.accessor]}‎‎</td>)//hidden fonts for export
+                  }if(column.accessor === 'pack_id'){
+                    return (<td key={columnIdx}>{data[column.accessor]}‎‎‎‎</td>) //hidden fonts for export
+                  }else{
                   return (
                     <td key={columnIdx}>{data[column.accessor]}</td>
                   )
+                  }
                 })}
               </tr>
             ) :
@@ -776,7 +783,7 @@ console.log(this.state)
                           return (
                             <Col key={index} className='p-2'>
                               <button
-                                className={`text-left px-3 btn btn-block ${
+                                className={`text-left btn btn-block pl-2 ${
                                   !editColumn[index]
                                     ? 'btn-outline-primary'
                                     : 'btn-light-gray'

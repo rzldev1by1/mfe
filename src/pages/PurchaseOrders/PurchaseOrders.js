@@ -14,7 +14,7 @@ import './PurchaseOrder.scss'
 const columns = [
   { accessor: 'site', placeholder: 'Site', Header: 'Site', width: 80, sortable: true },
   { accessor: 'client', placeholder: 'Client', Header: 'Client', width: 110, sortable: true },
-  { accessor: 'order_no', placeholder: 'Order No', Header: 'Order No', style: { textAlign: 'left' }, width: 160, },
+  { accessor: 'order_no', placeholder: 'Order No', Header: 'Order No', width: 160, },
   { accessor: 'order_type', placeholder: 'Order Type', Header: 'Order Type', width: 120, sortable: true },
   { accessor: 'isis_task', placeholder: 'Task', Header: 'Task', width: 100, sortable: true },
   { accessor: 'supplier_no', placeholder: 'Supplier No', Header: 'Supplier No', width: 120, sortable: true, style: { textAlign: 'left' } },
@@ -325,6 +325,11 @@ class PurchaseOrders extends React.PureComponent {
                         :
                         <Select name="site" placeholder="Site"
                           options={siteData}
+                          filterOption={
+                              (option, inputVal) => {
+                                  return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                              }
+                          }
                           onChange={(val) => this.setSite(val)}
                           styles={{
                             dropdownIndicator: (base, state) => ({
@@ -343,6 +348,11 @@ class PurchaseOrders extends React.PureComponent {
                         <Select name="client" placeholder="Client"
                           options={clientData}
                           onChange={(val) => this.setClient(val)}
+                          filterOption={
+                              (option, inputVal) => {
+                                  return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                              }
+                          }
                           styles={{
                             dropdownIndicator: (base, state) => ({
                               ...base,
@@ -357,6 +367,11 @@ class PurchaseOrders extends React.PureComponent {
                     <Select name="status" placeholder="Status"
                       value={status} options={statusData}
                       onChange={(val) => this.setState({ status: val })}
+                      filterOption={
+                          (option, inputVal) => {
+                              return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                          }
+                      }
                       styles={{
                         dropdownIndicator: (base, state) => ({
                           ...base,
@@ -369,6 +384,11 @@ class PurchaseOrders extends React.PureComponent {
                     <Select name="orderType" placeholder="Order Type"
                       value={orderType} options={orderTypeFilterData}
                       onChange={(val) => this.setState({ orderType: val })}
+                      filterOption={
+                          (option, inputVal) => {
+                              return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                          }
+                      }
                       styles={{
                         dropdownIndicator: (base, state) => ({
                           ...base,
@@ -381,6 +401,11 @@ class PurchaseOrders extends React.PureComponent {
                     <Select name="task" placeholder="Task"
                       value={task} options={taskData}
                       onChange={(val) => this.setState({ task: val })}
+                      filterOption={
+                          (option, inputVal) => {
+                              return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                          }
+                      }
                       styles={{
                         dropdownIndicator: (base, state) => ({
                           ...base,

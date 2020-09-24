@@ -13,18 +13,29 @@ class Review extends React.PureComponent {
         const { isAdmin, user, moduleAccess, sites, clients, submitProgress } = this.props;
 
         return (
-            <Container className="px-5 py-4">
+            <Container className="px-5 pt-4 pb-5">
                 <Row>
                     <Col lg="2" className="pr-0" style={{flex:"0 0 11%",maxWidth:"11%"}}>
                         <h3 className="text-primary font-20 um-text-webgroup">New User</h3>
                     </Col>
-                    <Col lg="10" className="pl-0">
+                    {/* <Col lg="10" className="pl-0">
                         <Row>
                             <Col lg="4" md="4" sm="12" className="pl-0">
                                 <label className="webgroup d-flex justify-content-between">
                                     <input type="checkbox" />
                                     <span className={`flex-fill ${isAdmin ? "webgroup-review-notactive" : " webgroup-review-active"}`}>REGULAR USER</span>
                                     <span className={`flex-fill ${isAdmin ? "webgroup-review-active" : " webgroup-review-notactive"}`}>ADMIN USER</span>
+                                </label>
+                            </Col>
+                        </Row>
+                    </Col> */}
+                    <Col lg="10" className="pl-0">
+                        <Row className="mx-0">
+                            <Col lg="4" md="4" sm="12" className="pl-0 toggle-um">
+                                <label className="webgroup d-flex justify-content-between">
+                                    <input type="checkbox"/>
+                                    <span className={`flex-fill ${isAdmin ? " webgroup-review-notactive" : " webgroup-review-active"}`}>REGULAR USER</span>
+                                    <span className={`flex-fill ${isAdmin ? " webgroup-review-active" : " webgroup-review-notactive"}`}>ADMIN USER</span>
                                 </label>
                             </Col>
                         </Row>
@@ -79,7 +90,7 @@ class Review extends React.PureComponent {
                         <Client clients={clients} />
                     </Col>
                 </Row>
-                <Row className="mt-4" style={{paddingTop:'6.3rem'}}>
+                <Row className="mt-5">
                     <Col lg={2} className="text-left">
                         <button className="btn btn-primary font-lg" onClick={(e) => { this.props.next('new') }}>{'BACK'}</button>
                     </Col>

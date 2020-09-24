@@ -18,7 +18,7 @@ body {
 // Custom style
 .grid-col{
   display: grid !important;
-  grid-template-columns: auto auto auto auto !important;
+  grid-template-columns: 25% 25% 25% 25% !important;
 }
 .no-outline:focus{
 outline: none !important;
@@ -88,6 +88,7 @@ button:focus {
 }
 .text-logo{
   color : #47C0FF;
+  display: flex;
 }
 .text-light-gray {
   color: #b4b9bb;
@@ -153,6 +154,9 @@ button:focus {
   background-color: #fff !important;
   color: #376bfb !important;
   height: 3.25rem;
+}
+@-moz-document url-prefix() {
+  .nav-link.active {height: 3.3rem;}
 }
 .nav-tabs {
   margin-left: 26px;
@@ -536,4 +540,7 @@ header {
 
 .nextBtn{
     text-align: left !important;
+}
+.is-invalid{
+    background-image: none !important;
 }

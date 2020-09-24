@@ -344,100 +344,100 @@ class ReviewTab extends React.Component {
                 ? lineDetail.map((ld, i) => {
                     return (
                       <tr className="py-1 text-center orderline-row">
-                        <td className="px-1 py-2">
+                        <td className="">
                           <input
                             value={i + 1}
-                            className="form-control text-center"
+                            className="form-control text-center c-50"
                             readOnly
                           />
                         </td>
-                        <td className="px-1 py-2">
+                        <td className="">
                           <input
                             value={ld.productVal?.label}
-                            className="form-control w-400"
+                            className="form-control c-400"
                             readOnly
                           />
                         </td>
-                        <td className="px-1 py-2">
+                        <td className="">
                           <input
                             value={ld.product}
-                            className="form-control w-600"
+                            className="form-control c-600"
                             placeholder="Choose a product first"
                             readOnly
                           />
                         </td>
-                        <td className="px-1 py-2">
+                        <td className="">
                           <input
                             value={ld.qty}
-                            className="form-control"
+                            className="form-control c-100"
                             placeholder="Qty"
                             readOnly
                           />
                         </td>
-                        <td className="px-1 py-2">
+                        <td className="">
                           <input
                             value={ld.weight}
-                            className="form-control"
+                            className="form-control c-170"
                             placeholder="Weight"
                             readOnly
                           />
                         </td>
-                        <td className="px-1 py-2">
+                        <td className="">
                           <input
                             value={ld.uom?.label}
-                            className="form-control"
+                            className="form-control c-150"
                             placeholder="UOM"
                             readOnly
                           />
                         </td>
-                        <td className="px-1 py-2">
+                        <td className="">
                           <input
                             value={ld.batch}
-                            className="form-control"
+                            className="form-control c-250"
                             placeholder="Batch"
                             readOnly
                           />
                         </td>
-                        <td className="px-1 py-2">
+                        <td className="">
                           <input
                             value={ld.ref3}
-                            className="form-control"
+                            className="form-control c-100"
                             placeholder="Ref 3"
                             readOnly
                           />
                         </td>
-                        <td className="px-1 py-2">
+                        <td className="">
                           <input
                             value={ld.ref4}
-                            className="form-control"
+                            className="form-control c-100"
                             placeholder="Ref 4"
                             readOnly
                           />
                         </td>
-                        <td className="px-1 py-2">
+                        <td className="">
                           <input
                             value={ld.dispositionVal?.label}
-                            className="form-control"
+                            className="form-control c-150"
                             placeholder="Disposition"
                             readOnly
                           />
                         </td>
-                        <td className="px-1 py-2">
+                        <td className="">
                           <input
                             value={ld.packId}
-                            className="form-control"
+                            className="form-control c-200"
                             placeholder="Pack ID"
                             readOnly
                           />
                         </td>
-                        <td className="px-1 py-2">
+                        <td className="">
                           <input
                             value={this.GetFormattedDate(ld.rotaDate)}
-                            className="form-control"
+                            className="form-control c-150"
                             readOnly
                           />
                         </td>
-                        <td className="px-1 py-2"></td>
+                        <td className=""><div className="c-50"></div></td>
                       </tr>
                     );
                   })
@@ -465,7 +465,8 @@ class ReviewTab extends React.Component {
             {this.state.status === "loading" ? (
               <div className="text-center text-secondary mt-2">
                 {" "}
-                Loading...{" "}
+                {/* Loading... */}
+                {" "}
               </div>
             ) : null}
           </Col>

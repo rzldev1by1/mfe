@@ -39,6 +39,7 @@ class StockMovement extends React.PureComponent {
       status: '',
       product: '',
       productSm:'',
+      productIsLoad: false,
       orderType: null,
       task: null,
       resources: [],
@@ -228,7 +229,11 @@ class StockMovement extends React.PureComponent {
   }
 
   getproduct = async (val) => {
-    const { data } = await axios.get(endpoints.getProduct + '?client=' + this.state.client.value + '&param=' + (val.toUpperCase()) )
+    this.setState({ productdata: [], productIsLoad: true });
+    const { data } = await axios.get(endpoints.getProduct + '?client=' + this.state.client.value + '&param=' + (val.toUpperCase()) ).then(res => {
+        this.setState({ productIsLoad: false });
+        return res
+    })
     const productData = data.map((data, i) => ({ value: data.code, label: data.code + " : " + data.name , i }))
     const tmp = { value: 'all', label: 'All Product' }
     productData.splice(0, 0, tmp);
@@ -534,7 +539,7 @@ class StockMovement extends React.PureComponent {
     const {
       dimension, fields, data, site, client, status, orderType, create, task, error,
       siteData, clientData, statusData, orderTypeData, taskData, data_table, filterType,filterData,
-      product, productData, periodSelected, pagination,dateFromShow, minDate,maxDate, date_array,export_data,
+      product, productData, productIsLoad, periodSelected, pagination,dateFromShow, minDate,maxDate, date_array,export_data,
       tableStatus,productSm
   } = this.state 
   //custom style react-select  
@@ -552,7 +557,12 @@ class StockMovement extends React.PureComponent {
         <CCol lg={2} className="sm-col-14 px-0">
             <Select name="filterType" className="stockMovement" placeholder="Display Period"
               value={filterType} options={filterData} 
-              onChange={(val) => this.periodHandler( val )}  
+              onChange={(val) => this.periodHandler( val )} 
+              filterOption={
+                  (option, inputVal) => {
+                      return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                  }
+              } 
               styles={{
                 dropdownIndicator: (base, state) => ({
                   ...base, 
@@ -590,6 +600,11 @@ class StockMovement extends React.PureComponent {
           :
           < Select name="site" placeholder="Site"
             value={site} options={siteData}
+            filterOption={
+                (option, inputVal) => {
+                    return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                }
+            }
             onChange={(val) => this.setState({ site: val })} 
             styles={{
             dropdownIndicator: (base, state) => ({
@@ -609,7 +624,12 @@ class StockMovement extends React.PureComponent {
            :
            <Select name="client" placeholder="Client"
            value={client} options={clientData}
-           onChange={(val) => this.setState({ client: val }, () => this.getproduct())} 
+           onChange={(val) => this.setState({ client: val })} 
+           filterOption={
+               (option, inputVal) => {
+                   return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+               }
+           }
            styles={{
            dropdownIndicator: (base, state) => ({
                ...base, 
@@ -624,11 +644,18 @@ class StockMovement extends React.PureComponent {
         <Select name="product" placeholder="Product"
             isClearable={true} 
             // value={productSm}
-             options={productData}
-            onInputChange={(val) => {this.setState({ product: val }, () => {
-                if(val >= 3) { this.getproduct(val) }
+            isLoading={productIsLoad}
+             options={product ? productData : []}
+            menuIsOpen={product ? true : false}
+            onInputChange={(val) => {this.setState({ product: val.length >= 3 ? val : null }, () => {
+                if(val.length >= 3) { this.getproduct(val) }
             }) }}
             onChange={(val) => this.setState({ productSm: val })} 
+            filterOption={
+                (option, inputVal) => {
+                    return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                }
+            }
             styles={{
             dropdownIndicator: (base, state) => ({
                 ...base, 

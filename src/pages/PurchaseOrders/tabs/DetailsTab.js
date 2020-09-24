@@ -35,14 +35,14 @@ class CreateTab extends React.Component {
         client: this.props.user.client ? this.props.user.client : null
       }],
       site: {
-        value:this.props.user.site ? this.props.user.site : null
+        value: this.props.user.site ? this.props.user.site : null
       },
       client: {
-        value:this.props.user.client ? this.props.user.client : null
+        value: this.props.user.client ? this.props.user.client : null
       },
       orderLine: [{}],
       error: {},
-      siteData: this.props.siteData, clientData: this.props.clientData, orderTypeData: this.props.orderTypeData, supplierData:this.props.supplierData,
+      siteData: this.props.siteData, clientData: this.props.clientData, orderTypeData: this.props.orderTypeData, supplierData: this.props.supplierData,
       datepickerStatus: [],
       UOMStatus: [],
       dispositionStatus: [],
@@ -53,9 +53,9 @@ class CreateTab extends React.Component {
 
   componentDidMount() {
     this.getDisposition()
-        const {user} = this.props
+    const { user } = this.props
 
-    if(user.client && user.site){
+    if (user.client && user.site) {
       this.getSupplier()
     }
   }
@@ -79,13 +79,13 @@ class CreateTab extends React.Component {
       this.setState({ supplierData })
     }
   }
-  hideAllOptionSite = () =>{
+  hideAllOptionSite = () => {
     let siteData = [...this.state.siteData]
     delete siteData[0]
     return siteData
   }
 
-  hideAllOptionClient = () =>{
+  hideAllOptionClient = () => {
     let clientData = [...this.state.clientData]
     delete clientData[0]
     return clientData
@@ -95,8 +95,8 @@ class CreateTab extends React.Component {
     const orderLine = this.state.orderLine
     orderLine[i].productIsLoad = true;
     const { data } = await axios.get(url).then(res => {
-        orderLine[i].productIsLoad = false;
-        return res;
+      orderLine[i].productIsLoad = false;
+      return res;
     })
     const productData = data.map((data, i) => ({ value: data.code, label: `${data.name}`, i }))
     orderLine[i].productData = productData;
@@ -107,15 +107,16 @@ class CreateTab extends React.Component {
     // Detect input length
     let orderLine = this.state.orderLine
     let error = this.state.error
+    val = val.toUpperCase()
     orderLine[i].productKeyword = val
 
     // Error message if input length less than 3 character
     error.orderLine = []
     error.orderLine[i] = {}
-      if ((val.length !== 0) && (val.length < 3)) {
-        error.orderLine[i].productVal = 'Type minimum of 3 characters to find products'
-      }
-    
+    if ((val.length !== 0) && (val.length < 3)) {
+      error.orderLine[i].productVal = 'Type minimum of 3 characters to find products'
+    }
+
     if (error.orderLine.length < 1 || (error.orderLine.length === 1 && !error.orderLine[0])) {
       delete error.orderLine
     }
@@ -123,8 +124,8 @@ class CreateTab extends React.Component {
     this.setState({ orderLine, error });
 
     // Get Product from APi if length more than 2
-    if(!val || val.length < 3) return
-    else  Promise.resolve( this.getProduct(val, i));
+    if (!val || val.length < 3) return
+    else Promise.resolve(this.getProduct(val, i));
   }
   getDisposition = async () => {
     const url = `${endpoints.getDisposition}`
@@ -154,9 +155,9 @@ class CreateTab extends React.Component {
     const error = validations(this.state)
     this.setState({ error })
     console.log(error?.orderLine)
-    if(error?.orderLine?.length > 0) return
+    if (error?.orderLine?.length > 0) return
     if (this.state.orderLine.length < 10) {
-    this.setState({ orderLine: [...this.state.orderLine, {}] })
+      this.setState({ orderLine: [...this.state.orderLine, {}] })
     }
   }
   removeLine = (i) => {
@@ -167,7 +168,7 @@ class CreateTab extends React.Component {
     this.setState({ orderLine })
   }
   onSelectChange = (name, val) => {
-    let { error,client,site } = this.state
+    let { error, client, site } = this.state
     // let newOrder = Object.assign({}, orderDetails[0])
     let orderDetails = [...this.state.orderDetails]
 
@@ -192,7 +193,7 @@ class CreateTab extends React.Component {
     orderDetails[0].web_user = this.props.webUser
 
     delete error[name]
-    this.setState({ [name]: val, orderDetails,site,client }, () => {
+    this.setState({ [name]: val, orderDetails, site, client }, () => {
       if (name === 'client') {
         this.getSupplier()
       }
@@ -209,66 +210,60 @@ class CreateTab extends React.Component {
     this.setState({ [name]: value, error, orderDetails })
   }
 
-  decimalFormatter = (name,value) => {
+  decimalFormatter = (name, value) => {
     let newVal = value;
-    
-    if(name === 'weight')
-    {
-      if(newVal.length > 14) newVal = newVal.split('').filter(d => d !== ',' ? d : null).map((d,i) => {if(i > 10 && !newVal.includes('.')){return null } else return d} ).join('')
+
+    if (name === 'weight') {
+      if (newVal.length > 14) newVal = newVal.split('').filter(d => d !== ',' ? d : null).map((d, i) => { if (i > 10 && !newVal.includes('.')) { return null } else return d }).join('')
       console.log(newVal)
       const dot = newVal.indexOf('.')
-      console.log(dot+' dot')
-      if(dot !== -1 && newVal.length)
-      {
+      console.log(dot + ' dot')
+      if (dot !== -1 && newVal.length) {
         let number;
-        let decimal = newVal.slice(dot+1, dot+4).split('').filter(d => d !=='.' && d !== ',').join('')
-        let integer = newVal.slice(0,dot).split('').filter(d => d !== ',').join('')
+        let decimal = newVal.slice(dot + 1, dot + 4).split('').filter(d => d !== '.' && d !== ',').join('')
+        let integer = newVal.slice(0, dot).split('').filter(d => d !== ',').join('')
         console.log(decimal + ' dot')
         console.log(integer + ' int')
-        if(integer.length <= 6)
-        {
-          if(integer.length >= 4)
-          {
-            let idxSepr1 = integer.slice(0,integer.length - 3)
+        if (integer.length <= 6) {
+          if (integer.length >= 4) {
+            let idxSepr1 = integer.slice(0, integer.length - 3)
             let idxSepr2 = integer.slice(integer.length - 3)
             console.log(`${idxSepr1},${idxSepr2}.${decimal}`)
             number = `${idxSepr1},${idxSepr2}.${decimal}`
           }
           else number = `${integer}.${decimal}`
         }
-        if(integer.length > 6 && integer.length <=9)
-        {
+        if (integer.length > 6 && integer.length <= 9) {
           console.log(integer.length + ' asd')
-          let idxSepr1 = integer.slice(0,integer.length - 6)
+          let idxSepr1 = integer.slice(0, integer.length - 6)
           let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 3)
           let idxSepr3 = integer.slice(integer.length - 3)
           console.log(`${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`)
           number = `${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`
         }
-        if(integer.length > 9 && integer.length <=11)
-        {
-          let idxSepr1 = integer.slice(0,integer.length - 9)
+        if (integer.length > 9 && integer.length <= 11) {
+          let idxSepr1 = integer.slice(0, integer.length - 9)
           let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 6)
-          let idxSepr3 = integer.slice(idxSepr1.length+idxSepr2.length, idxSepr1.length+idxSepr2.length+3)
+          let idxSepr3 = integer.slice(idxSepr1.length + idxSepr2.length, idxSepr1.length + idxSepr2.length + 3)
           let idxSepr4 = integer.slice(integer.length - 3)
           console.log(`${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`)
           number = `${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`
         }
         number = number?.split('')
-        if(number && number[0] === ',')delete number[0]
+        if (number && number[0] === ',') delete number[0]
         number = number?.join('')
         return number
       }
       else return numeral(newVal).format('0,0')
     }
-    else if(name == 'qty') return numeral(newVal).format('0,0')
+    else if (name == 'qty') return numeral(newVal).format('0,0')
     return value
   }
   lineChange = (i, e, numeral) => {
-    const {error} = this.state
+    const { error } = this.state
     const { name, value } = e.target
     let formatted = value
-    formatted = this.decimalFormatter(name,value)
+    formatted = this.decimalFormatter(name, value)
     let orderLine = [...this.state.orderLine]
     orderLine[i][name] = formatted
 
@@ -279,8 +274,8 @@ class CreateTab extends React.Component {
     this.setState({ orderLine, error })
   }
   lineSelectChange = (i, key, val) => {
-    if(!val){
-        return null
+    if (!val) {
+      return null
     }
     const { orderLine, error } = this.state
     if (error.orderLine && error.orderLine.length === i) {
@@ -289,6 +284,7 @@ class CreateTab extends React.Component {
     if (key === 'productVal') {
       orderLine[i].product = val.label
       orderLine[i].productVal = val
+      orderLine[i].productValue = val.value
     }
     if (key === 'dispositionVal') {
       orderLine[i].disposition = val.value
@@ -337,7 +333,7 @@ class CreateTab extends React.Component {
       error.orderId = 'Order number exist'
       return this.setState({ error })
     }
-    if(data.message === 'The client field is required.'){
+    if (data.message === 'The client field is required.') {
       error.orderId = 'Please select client'
       return this.setState({ error })
     }
@@ -405,30 +401,30 @@ class CreateTab extends React.Component {
   decimalValueForQty(e) {
 
     if ((e.key >= 0 && e.key <= 9) || e.key === ".") {
-        let number = e.target.value + e.key;
+      let number = e.target.value + e.key;
 
-        let arraytext = number.split('');
-        if(arraytext.length ){
-            let dotLength = arraytext.filter((item) => item === '.');
-            if(dotLength.length > 1){
-              
-              e.preventDefault();
-              e.stopPropagation();
-            }
+      let arraytext = number.split('');
+      if (arraytext.length) {
+        let dotLength = arraytext.filter((item) => item === '.');
+        if (dotLength.length > 1) {
+
+          e.preventDefault();
+          e.stopPropagation();
         }
+      }
 
-          let regex = /^(\d{1,11}|\.)?(\.\d{0,3})?$/;
+      let regex = /^(\d{1,11}|\.)?(\.\d{0,3})?$/;
 
-          if (!regex.test(number) && number !== "") {
-              e.preventDefault();
-              e.stopPropagation();
-          }
-
-    } else {
+      if (!regex.test(number) && number !== "") {
         e.preventDefault();
         e.stopPropagation();
+      }
+
+    } else {
+      e.preventDefault();
+      e.stopPropagation();
     }
-}
+  }
 
 
   render() {
@@ -436,7 +432,7 @@ class CreateTab extends React.Component {
       orderId, siteData, clientData, orderTypeData, productData, uomData, dispositionData, supplierData, supplier
     } = this.state
 
-    const {user} = this.props
+    const { user } = this.props
     let datepickerStatus = this.state.datepickerStatus;
     let UOMStatus = []
     let dispositionStatus = []
@@ -450,43 +446,59 @@ class CreateTab extends React.Component {
         <Col lg="3">
           <label className="text-muted mb-0 required">Site</label>
           {
-            user.site ? 
-            <input value={this.siteCheck(user.site)} className="form-control" readOnly />
-            :
-            <Select options={this.hideAllOptionSite()} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required 
-            styles={{
-              dropdownIndicator: (base, state) => ({
-                ...base, 
-                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-              })
-            }}
-            />
+            user.site ?
+              <input value={this.siteCheck(user.site)} className="form-control" readOnly />
+              :
+              <Select options={this.hideAllOptionSite()} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required
+
+                filterOption={
+                    (option, inputVal) => {
+                        return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                    }
+                }
+                styles={{
+                  dropdownIndicator: (base, state) => ({
+                    ...base,
+                    transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                  })
+                }}
+              />
           }
-          
+
           <Required id="site" error={error} />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order Type</label>
-          <Select value={orderType || ''} options={orderTypeData} onChange={val => this.onSelectChange('orderType', val)} placeholder="Order Type" required 
-                    styles={{
-                      dropdownIndicator: (base, state) => ({
-                        ...base, 
-                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                      })
-                    }}
-                    />
+          <Select value={orderType || ''} options={orderTypeData} onChange={val => this.onSelectChange('orderType', val)} placeholder="Order Type" required
+            filterOption={
+                (option, inputVal) => {
+                    return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                }
+            }
+            styles={{
+              dropdownIndicator: (base, state) => ({
+                ...base,
+                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+              })
+            }}
+          />
           <Required id="orderType" error={error} />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Supplier</label>
-          <Select value={supplier || ''} options={supplierData} onChange={val => this.onSelectChange('supplier', val)} placeholder="Supplier" 
-                    styles={{
-                      dropdownIndicator: (base, state) => ({
-                        ...base, 
-                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                      })
-                    }}
-                    />
+          <Select value={supplier || ''} options={supplierData} onChange={val => this.onSelectChange('supplier', val)} placeholder="Supplier"
+            filterOption={
+                (option, inputVal) => {
+                    return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                }
+            }
+            styles={{
+              dropdownIndicator: (base, state) => ({
+                ...base,
+                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+              })
+            }}
+          />
           <Required id="supplier" error={error} />
         </Col>
         <Col lg="3">
@@ -499,16 +511,21 @@ class CreateTab extends React.Component {
           <label className="text-muted mb-0 required">Client</label>
           {
             user.client ?
-            <input value={this.clientCheck(user.client)} className="form-control" readOnly />
-            :
-            <Select  options={this.hideAllOptionClient()} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required 
-              styles={{
-                dropdownIndicator: (base, state) => ({
-                  ...base, 
-                  transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                })
-              }}
-            />
+              <input value={this.clientCheck(user.client)} className="form-control" readOnly />
+              :
+              <Select options={this.hideAllOptionClient()} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required
+              filterOption={
+                  (option, inputVal) => {
+                      return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                  }
+              }
+                styles={{
+                  dropdownIndicator: (base, state) => ({
+                    ...base,
+                    transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                  })
+                }}
+              />
           }
           <Required id="client" error={error} />
         </Col>
@@ -559,102 +576,117 @@ class CreateTab extends React.Component {
           </thead>
           <tbody>
             {orderLine.length && orderLine.map((o, i) => {
-              return <tr className="py-1 text-center orderline-row" style={{height: "70px"}}>
+              return <tr className="py-1 text-center orderline-row" style={{ height: "70px" }}>
                 <td className="px-1">
-                  <input value={i + 1} className="form-control text-center" readOnly style={{backgroundColor:"#f6f7f9"}}/>
+                  <input value={i + 1} className="form-control text-center" readOnly style={{ backgroundColor: "#f6f7f9" }} />
                 </td>
                 <td className={`px-1 ${error.orderLine && error.orderLine[i] ? error.orderLine[i].productVal ? "react-select-alert" : null : null}`}>
-                  <Select 
+                  <Select
                     // value={o.productVal || ''}
                     isClearable={true}
                     options={o.productKeyword ? o.productKeyword.length > 2 ? o.productData : [] : []}
-                    getOptionLabel={option => option.value}
+                    getOptionLabel={option => option.value + " : " + option.label}
                     isLoading={o.productIsLoad}
-                    onInputChange={(val) => {this.getProductHandler(val, i)}}
+                    onInputChange={(val) => { this.getProductHandler(val, i) }}
                     menuIsOpen={o.productKeyword && o.productKeyword.length >= 3 ? true : false}
-                    onMenuOpen={() => {productStatus[i] = true; this.setState({ productStatus: productStatus })}}
-                    onMenuClose={() => {productStatus[i] = false; this.setState({ productStatus: productStatus })}}
+                    onMenuOpen={() => { productStatus[i] = true; this.setState({ productStatus: productStatus }) }}
+                    onMenuClose={() => { productStatus[i] = false; this.setState({ productStatus: productStatus }) }}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
-                    className={`c-400 ${overflow[i] && overflow[i].productVal ? 'absolute' : null}`} placeholder="Product" required 
+                    className={`c-400 ${overflow[i] && overflow[i].productVal ? 'absolute' : null}`} placeholder="Product" required
+                    filterOption={
+                        (option, inputVal) => {
+                            return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                        }
+                    }
                     styles={{
                       option: (provided, state) => ({
                         ...provided,
-                        textAlign:'left'
+                        textAlign: 'left'
                       }),
                       dropdownIndicator: (base, state) => ({
-                        ...base, 
+                        ...base,
                         transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
                         display: state.selectProps.menuIsOpen ? "flex" : "none"
                       })
                     }}
-                    />
+                  />
                   <div className='w-100 d-flex align-items-start'><Required id="productVal" error={error.orderLine && error.orderLine[i]} /></div>
                 </td>
                 <td className="px-1">
-                  <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly style={{backgroundColor:"#f6f7f9"}}/>
+                  <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly style={{ backgroundColor: "#f6f7f9" }} />
                 </td>
                 <td className="px-1">
                   <input name="qty" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['qty']} type="text" className="form-control" placeholder="Qty" maxlength="10" />
                   <div className='w-100 d-flex align-items-start text-nowrap'>
-                  <Required id="qty" error={error.orderLine && error.orderLine[i]} />
+                    <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                   </div>
-                  
+
                 </td>
                 <td className="px-1">
-                  <input name="weight" value={this.state.orderLine[i]['weight']}  onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="18" className="form-control" placeholder="Weight" />
+                  <input name="weight" value={this.state.orderLine[i]['weight']} onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="18" className="form-control" placeholder="Weight" />
                 </td>
                 <td className="px-1">
                   <Select value={o.uom || ''}
                     options={uomData}
                     onMenuOpen={() => {
-                        UOMStatus[i] = true; 
-                        this.setState({ UOMStatus: UOMStatus })
+                      UOMStatus[i] = true;
+                      this.setState({ UOMStatus: UOMStatus })
                     }}
                     onMenuClose={() => {
-                        UOMStatus[i] = false; 
-                        this.setState({ UOMStatus: UOMStatus })
+                      UOMStatus[i] = false;
+                      this.setState({ UOMStatus: UOMStatus })
                     }}
                     onChange={(val) => this.lineSelectChange(i, 'uom', val)}
-                    className={`c-150 ${overflow[i] && overflow[i].uom ? 'absolute right' : null}`} placeholder="UOM" 
+                    className={`c-150 ${overflow[i] && overflow[i].uom ? 'absolute right' : null}`} placeholder="UOM"
+                    filterOption={
+                        (option, inputVal) => {
+                            return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                        }
+                    }
                     styles={{
                       dropdownIndicator: (base, state) => ({
-                        ...base, 
+                        ...base,
                         transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
                       })
                     }}
-                    />
-                    <div className='w-100 d-flex align-items-start'>
+                  />
+                  <div className='w-100 d-flex align-items-start'>
                     <Required id="uom" error={error.orderLine && error.orderLine[i]} />
-                    </div>
-                  
+                  </div>
+
                 </td>
                 <td className="px-1">
-                  <input name="batch" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Batch" maxLength='30' />
+                  <input name="batch" onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['batch']} className="form-control" placeholder="Batch" maxLength='30' />
                 </td>
                 <td className="px-1">
-                  <input name="ref3" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Ref 3" maxLength='30' />
+                  <input name="ref3" onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['ref3']} className="form-control" placeholder="Ref3" maxLength='30' />
                 </td>
                 <td className="px-1">
-                  <input name="ref4" onChange={(e) => this.lineChange(i, e)} className="form-control" placeholder="Ref 4" maxLength='30' />
+                  <input name="ref4" onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['ref4']} className="form-control" placeholder="Ref4" maxLength='30' />
                 </td>
                 <td className="px-1">
                   <Select value={o.dispositionVal || ''}
                     options={dispositionData}
+                    filterOption={
+                        (option, inputVal) => {
+                            return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                        }
+                    }
                     styles={{
                       dropdownIndicator: (base, state) => ({
-                        ...base, 
+                        ...base,
                         transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
                       })
                     }}
-                    onMenuOpen={() => {dispositionStatus[i] = true; this.setState({ dispositionStatus: dispositionStatus })}}
-                    onMenuClose={() => {dispositionStatus[i] = false; this.setState({ dispositionStatus: dispositionStatus })}}
+                    onMenuOpen={() => { dispositionStatus[i] = true; this.setState({ dispositionStatus: dispositionStatus }) }}
+                    onMenuClose={() => { dispositionStatus[i] = false; this.setState({ dispositionStatus: dispositionStatus }) }}
                     onChange={(val) => this.lineSelectChange(i, 'dispositionVal', val)}
                     className={`c-150 ${overflow[i] && overflow[i].dispositionVal ? 'absolute right' : null}`} placeholder="Disposition" />
                 </td>
                 <td className="p-0 m-0">
                   <DatePicker
                     top={true}
-                    showDatePicker={(e) => {datepickerStatus[i] = e; this.setState({ datepickerStatus: datepickerStatus })}}
+                    showDatePicker={(e) => { datepickerStatus[i] = e; this.setState({ datepickerStatus: datepickerStatus }) }}
                     getDate={(date) => {
                       let { orderLine } = this.state
                       orderLine[i].rotaDate = date
@@ -690,7 +722,7 @@ const mapStateToProps = store => {
     webUser: store.user.webUser,
     user: store.user,
     site: store.site,
-    client:store.client
+    client: store.client
   }
 }
 
