@@ -21,7 +21,7 @@ const columns = [
     accessor: "completed",  placeholder: 'Completed', Header: "Completed",
     Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
-  { accessor: "batch",  Cell: row => (<div className="alg-right">{row.value}</div>),   placeholder: 'Batch', Header: "Batch", width: null },
+  { accessor: "batch",  Cell: row => (<div className="text-left">{row.value}</div>),   placeholder: 'Batch', Header: "Batch", width: null },
   { accessor: "rotadate",  placeholder: 'Rotadate', Header: "Rotadate" },
   { accessor: "ref3",  placeholder: 'Ref3', Header: "Ref3", width: null },
   { accessor: "ref4",  placeholder: 'Ref4', Header: "Ref4", width: null },
