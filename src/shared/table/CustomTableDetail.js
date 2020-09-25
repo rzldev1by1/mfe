@@ -27,7 +27,7 @@ const getColumnWidth = (rows, accessor, headerText) => {
       if (typeof accessor === 'string') {
         value = _.get(row, accessor);
       } else {
-        value = accessor(row);
+        value = accessor ? accessor(row) : "";
       }
       if (typeof value === 'number') return value.toString().length;
       return (value || '').length;
@@ -287,8 +287,19 @@ class CustomTableDetail extends React.Component {
     return listHeader;
   }; 
 
+  toLowerCaseConvert = (value) => {
+    let lowerCase = value.toLowerCase();
+      if (lowerCase.includes(' ')) {
+        let split = lowerCase.split(' ');
+        let result = split.join('_');
+        lowerCase = result;
+      }
+      return lowerCase
+  }
+
   // Header Name
   headerRename = async () => {
+    let self = this;
     if(this.props.UrlHeader){
     const url = this.props.UrlHeader();
     const { data } = await axios.get(url);
@@ -350,8 +361,8 @@ class CustomTableDetail extends React.Component {
         sortable: false
       };
       headerTable.Header = data;
-      headerTable.placeholder = placeholder[idx];
-      headerTable.accessor = accessor[idx];
+      headerTable.placeholder = data;
+      headerTable.accessor = self.toLowerCaseConvert(data);
       headerTable.Cell = Cell[idx];
       headerTable.headerData = headerData[idx];
       headerTable.width = width[idx];
