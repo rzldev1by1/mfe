@@ -285,6 +285,7 @@ class CreateTab extends React.Component {
       orderLine[i].product = val.label
       orderLine[i].productVal = val
       orderLine[i].productValue = val.value
+      orderLine[i].productKeyword = null
     }
     if (key === 'dispositionVal') {
       orderLine[i].disposition = val.value
@@ -589,10 +590,20 @@ class CreateTab extends React.Component {
                     isLoading={o.productIsLoad}
                     onInputChange={(val) => { this.getProductHandler(val, i) }}
                     menuIsOpen={o.productKeyword && o.productKeyword.length >= 3 ? true : false}
-                    onMenuOpen={() => { productStatus[i] = true; this.setState({ productStatus: productStatus }) }}
+                    onMenuOpen={() => { 
+                        if(!o.productKeyword){
+                            productStatus[i] = false;
+                            this.setState({ productStatus: productStatus });
+                        }else{
+                            productStatus[i] = true;
+                            this.setState({ productStatus: productStatus });
+                        }
+
+                     }}
                     onMenuClose={() => { productStatus[i] = false; this.setState({ productStatus: productStatus }) }}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
                     className={`c-400 ${overflow[i] && overflow[i].productVal ? 'absolute' : null}`} placeholder="Product" required
+                    getOptionLabel={option => this.state.productStatus[i] ? option.value + " : " + option.label : option.value}
                     filterOption={
                         (option, inputVal) => {
                             return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
