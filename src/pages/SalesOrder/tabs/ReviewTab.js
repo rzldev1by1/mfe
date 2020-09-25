@@ -353,7 +353,7 @@ class ReviewTab extends React.Component {
                         </td>
                         <td className="">
                           <input
-                            value={ld.productVal?.label}
+                            value={ld.productVal?.value}
                             className="form-control c-400"
                             readOnly
                           />
