@@ -1,9 +1,10 @@
 import React from 'react'
-import { Row, Col, Tabs, Tab, Modal, Container } from 'react-bootstrap'
+import { Row, Col, Tabs, Tab, Modal, Container, Button } from 'react-bootstrap'
 import popupLock from '../../../assets/img/popup_lock.png'
 import popupLockSuccess from '../../../assets/img/popup_success_lock.png'
 import '../UserManagement.css'
 import loading from "../../../assets/icons/loading/LOADING-MLS-GRAY.gif"
+import loadBtn from "../../../assets/icons/loading/LOADING-MLS-GREEN.gif"
 
 
 class Reset extends React.PureComponent {
@@ -24,13 +25,7 @@ class Reset extends React.PureComponent {
                     </Col>
                 </Row>
                 <Row className="px-3">
-                    {isLoad ? 
-                     <Col className="bg-white">
-                        <div className="d-flex justify-content-center mt-2 mb-5" >
-                            <img src={loading} className="mt-5 mb-5" style={{ width: "3rem", height: "3rem", userSelect: "none" }} />
-                        </div>
-                     </Col>
-                    : <Col className="bg-white">
+                    <Col className="bg-white">
                         <div className="d-flex justify-content ml-4">
                             <i style={{color:"#cccccc"}} className={(isResetSuccess ? "mt-4 icon-Icon_done" : " mb-n3 mt-n3 reset-caution")}></i>
                         </div>
@@ -44,9 +39,16 @@ class Reset extends React.PureComponent {
 
                         <div className="d-flex justify-content-between pb-3">
                             {/* {(isResetSuccess) ? '' : <button className="font-lg font-md font-sm btn mb-4" style={{width:"15%",marginTop:"-20px"}} onClick={(e) => { toggle() }}><i className="reset-cancel" style={{color: "#fba1a2"}}></i></button>} */}
-                            {(isResetSuccess) ? '' : <button className="font-lg font-md font-sm btn mr-5 mb-4" style={{width:"15%",marginTop:"-20px"}} onClick={(e) => { this.props.confirmResetPassword() }}><i className="reset-done" style={{color: "#81efdd"}}></i></button>}
+                            {isLoad ? 
+                                <button type="submit" className=" btn btn-outline-success font-lg font-md font-sm mb-2 ml-4 loadBtn">
+                                    <img src={loadBtn} className='mt-n4' width='35' height='35'/>
+                                </button>
+                            : 
+                                (isResetSuccess) ? '' : <button className="font-lg font-md font-sm btn mr-5 mb-4" style={{width:"15%",marginTop:"-20px"}} onClick={(e) => { this.props.confirmResetPassword() }}><i className="reset-done" style={{color: "#81efdd"}}></i></button>
+                                
+                            }
                         </div>
-                    </Col>}
+                    </Col>
                 </Row>
             </Modal.Body>
         </Modal>
