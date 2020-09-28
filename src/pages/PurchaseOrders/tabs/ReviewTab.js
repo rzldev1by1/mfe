@@ -71,7 +71,7 @@ class ReviewTab extends React.Component {
     console.log(od)
     return <Container className="px-5 py-4">
       <h3 className="text-primary font-20">Order Details</h3>
-      <Row>
+      <Row className="pb-3">
         <Col lg="3">
           <label className="text-muted mb-0 ">Site</label>
           <input value={od ? this.siteCheck(od[0].site) : ''} className="form-control" readOnly />
@@ -89,7 +89,7 @@ class ReviewTab extends React.Component {
           <input value={od ? od[0].customerOrderRef : ''} className="form-control" readOnly />
         </Col>
       </Row>
-      <Row>
+      <Row className="pt-1 pb-3">
         <Col lg="3">
           <label className="text-muted mb-0 ">Client</label>
           <input value={od ? this.clientCheck(od[0].client) : ''} className="form-control" readOnly />
@@ -108,7 +108,7 @@ class ReviewTab extends React.Component {
         </Col>
       </Row>
 
-      <h3 className="text-primary font-20">Line Details</h3>
+      <h3 className="text-primary pt-1 font-20">Line Details</h3>
       <div className="orderline scroll-x-y mb-2 pb-2">
         <table>
           <thead>
@@ -147,7 +147,7 @@ class ReviewTab extends React.Component {
           </tbody>
         </table>
       </div>
-      <Row className="mt-3">
+      <Row className="pt-5 mt-5 pb-4">
         <Col lg={2}>
           <button className="btn btn-primary" onClick={() => this.props.back()}>{'< BACK'}</button>
         </Col>
