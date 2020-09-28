@@ -21,7 +21,9 @@ class Logins extends Component {
         errorMessage: "",
         isLoad: false,
         forgotPassword: false,
-        policy: false
+        policy: false,
+        forgotSuccess: false,
+        emailValue: ""
     }
    }
 
@@ -88,7 +90,8 @@ class Logins extends Component {
                     this.setState({ isLoad: false, errorMessage: result.message, emailValidation: false })
                 } else {
                     this.hideErrorMessageHandler(errorMessage)
-                    setTimeout(() => this.props.history.push('/'), 1500)
+                    // setTimeout(() => this.props.history.push('/'), 1500)
+                    this.setState({ forgotSuccess: true })
                 }
             } catch (error) {
                 const errorMessage = error.response.data.message
@@ -110,7 +113,7 @@ class Logins extends Component {
     }
 
     exitPolicyHandler = () => {
-        this.setState({ policy: false, forgotPassword: false })
+        this.setState({ policy: false, forgotPassword: false, forgotSuccess: false })
     }
 
     redirectPageHandler = () => {
@@ -120,6 +123,10 @@ class Logins extends Component {
     hideErrorMessageHandler = (errorMessage) => {
         this.setState({ isLoad: false, errorMessage, emailValidation: true })
     }
+
+    onChangeEmail = (e) => {
+        this.setState({ emailValue: e.target.value })
+    } 
 
     loginForm(errorMessage, formValidation) {
         return (
@@ -152,23 +159,41 @@ class Logins extends Component {
     forgotPasswordForm(errorMessage, formValidation) {
         return (
             <form className={"mt-3 " + (this.state.forgotPassword ? 'form-show' : 'form-hidden')} onSubmit={this.validateForm}>
-                <input onChange={() => this.hideErrorMessageHandler()} className={'form-control  inputLogin ' + (this.state.emailValidation ? "" : ""/*"is-invalid"*/)}
-                    type="text" name="email"
-                    placeholder="Enter your email address here" />
-                <span className='email-message'>Enter your email address to find your acccount</span>
-
+                {this.state.forgotSuccess ? 
+                    <div className="col-10" style={{ marginTop: "17px" }}>
+                        <div className='forgotPassMsg' style={{ color: "#4775ff"}}>Password recovery link has been sent to your email address</div>
+                <div className='forgotPassMsg'>{this.state.emailValue}</div>
+                    </div>
+                :
+                    <div>
+                        <input onChange={this.onChangeEmail} className={'form-control  inputLogin ' + (this.state.emailValidation ? "" : ""/*"is-invalid"*/)}
+                            type="text" name="email"
+                            placeholder="Enter your email address here" />
+                        <span className='email-message'>Enter your email address to find your acccount</span>
+                    </div>
+                }
                 <div className={'error pl-2 ml-1' + (errorMessage ? ' alertFadeIn' : '')}>
                     {errorMessage && <div><span className="iconU-i" /> {errorMessage}</div>}
                 </div>
                 <div className="row forgot-row">
-                    <div className="pr-0 pl-3 white-space" style={{width:'30%'}}>
-                        <button type="submit" className="btn btn-primary btn-login col-12">
-                            {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "SEND"}
-                        </button>
-                    </div>
-                    <div className="col-sm-8 mt-3">
-                        <span className='form-login-change' onClick={() => this.changeFormHanlder()}>LOGIN PAGE</span>
-                    </div>
+                    {this.state.forgotSuccess ? 
+                        <div className="pr-0 pl-3 white-space" style={{width:'30%'}}>
+                            <button onClick={() => this.exitPolicyHandler()} type="button" className="btn btn-primary btn-login col-12">
+                                {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "BACK"}
+                            </button>
+                        </div>
+                     : 
+                        <div className="pr-0 pl-3 white-space" style={{width:'30%'}}>
+                            <button type="submit" className="btn btn-primary btn-login col-12">
+                                {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "SEND"}
+                            </button>
+                        </div>
+                      }
+                    {this.state.forgotSuccess ? null : 
+                        <div className="col-sm-8 mt-3">
+                            <span className='form-login-change' onClick={() => this.changeFormHanlder()}>LOGIN PAGE</span>
+                        </div>
+                    }
                 </div>
             </form>
         )

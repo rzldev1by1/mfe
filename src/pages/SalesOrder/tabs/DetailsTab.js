@@ -259,6 +259,7 @@ class CreateTab extends React.Component {
     if (key === 'productVal') {
       orderLine[i].product = val.label
       orderLine[i].productVal = val
+      orderLine[i].productKeyword = null
     }
     if (key === 'dispositionVal') {
       orderLine[i].disposition = val.value
@@ -691,14 +692,22 @@ class CreateTab extends React.Component {
                     isClearable={true}
                     options={o.productKeyword ? o.productKeyword.length > 2 ? o.productData : [] : []}
                     isLoading={o.productIsLoad}
-                    getOptionLabel={option => option.value}
                     menuIsOpen={o.productKeyword && o.productKeyword.length >= 3 ? true : false}
                     onInputChange={(val) => this.getProductHandler(val, i)}
-                    onMenuOpen={() => { productStatus[i] = true; this.setState({ productStatus: productStatus }) }}
+                    onMenuOpen={() => { 
+                        if(!o.productKeyword){
+                            productStatus[i] = false;
+                            this.setState({ productStatus: productStatus });
+                        }else{
+                            productStatus[i] = true;
+                            this.setState({ productStatus: productStatus });
+                        }
+
+                     }}
                     onMenuClose={() => { productStatus[i] = false; this.setState({ productStatus: productStatus }) }}
                     onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
                     className={`c-400 ${overflow[i] && overflow[i].productVal ? 'absolute' : null}`} placeholder="Product" required
-                    getOptionLabel={option => option.value + " : " + option.label}
+                    getOptionLabel={option => this.state.productStatus[i] ? option.value + " : " + option.label : option.value}
                     filterOption={
                         (option, inputVal) => {
                             return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()

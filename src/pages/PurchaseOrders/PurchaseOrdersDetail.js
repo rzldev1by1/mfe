@@ -187,6 +187,7 @@ class PurchaseOrdersDetail extends React.Component {
             <CRow><CCol lg={3} className="text-light-gray px-3 py-1">Client</CCol> <CCol className="py-1">{this.clientCheck(detail.client) || '-'}</CCol></CRow>
             <CRow><CCol lg={3} className="text-light-gray px-3">Order No</CCol> <CCol>{detail.order_no || '-'}</CCol></CRow>
             <CRow><CCol lg={3} className="text-light-gray px-3 py-1">Order Type</CCol> <CCol className="py-1">{detail.order_type || '-'}</CCol></CRow>
+            <CRow><CCol lg={3} className="text-light-gray px-3">Task</CCol> <CCol>{detail.isis_task || '-'}</CCol></CRow>
             <CRow><CCol lg={3} className="text-light-gray px-3">Status</CCol> <CCol>{detail.status || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>

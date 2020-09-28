@@ -59,6 +59,7 @@ class UserManagementDetail extends Component {
 
     componentDidMount() {
         let id = this.props.match.params.id;
+        console.log(id)
         this.getAccountInfo(id);
         this.loadPersonalLogin();
         this.loadUsers();
@@ -142,6 +143,7 @@ class UserManagementDetail extends Component {
 
     getAccountInfo = async (userid) => {
         const { data } = await axios.get(endpoint.userManagementUser_Detail + userid);
+        console.log(data)
         if (data && data !== '') {
             let adminClassName = this.state.adminClass;
             let result = this.restructureAccount(data.data);
@@ -637,7 +639,7 @@ class UserManagementDetail extends Component {
                                         </label>
                             </p>
 
-                            <button type="button" className=" font-lg btn btn-primary btn-submit default-box-height" onClick={(e) => { this.saveClick(); }}>
+                            <button type="button" className="font-lg btn btn-primary btn-submit default-box-height" onClick={(e) => { this.saveClick(); }}>
                                 {this.state.isSaveProgressing ? <img src={loading} className='mt-min-5' width='45' height='45'/> : 'SAVE'}
                                 {/* <i className={(this.state.isSaveProgressing) ? "mr-2 fa fa-refresh fa-spin " : "fa fa-refresh fa-spin d-none"}></i> */}
                                 {/* <label className="create-user-label mb-0">SAVE</label> */}

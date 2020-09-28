@@ -65,6 +65,11 @@
   margin-left: 1em;
 }
 
+.login .forgotPassMsg {
+    font-size: medium;
+    color: #959da0;
+  }
+
 .login .form-login-change {
   color: #3b69f6;
   cursor: pointer;
