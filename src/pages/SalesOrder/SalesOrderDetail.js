@@ -37,7 +37,7 @@ const columns = [
     accessor: "released",placeholder: 'Released', Header: "Released", 
     Cell: (row) => <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
-  { accessor: "batch",  Cell: row => (<div className="text-left">{row.value}</div>),  placeholder: 'Batch',  Header: "Batch" , width: null },
+  { accessor: "batch",  Cell: row => (<div className="text-left">{row.value}</div>),  placeholder: 'Batch',  Header: "Batch" , width: 100 },
   // { accessor: "ref2",placeholder: 'Ref2', Header: "Ref2" , width: 70 , style : {display:"none"}},
   { accessor: "ref3",placeholder: 'Ref3', Header: "Ref3" , width: null },
   { accessor: "ref4",placeholder: 'Ref4', Header: "Ref4" , width: null },
@@ -74,6 +74,7 @@ class SalesOrderDetail extends React.Component {
     const { orderno, client, site } = this.props.match.params
     const url = `/salesorder?searchParam=${orderno}&client=${client}&site=${site}`
     const { data } = await axios.get(url)
+    console.log(data)
     if (!!data.data) {
       this.setState({ detail: data.data.data[0] })
     }
@@ -86,6 +87,7 @@ class SalesOrderDetail extends React.Component {
     this.setState({ data: [], tableStatus: "waiting" }) 
     const url = `/salesorder/${orderno}?client=${client}&site=${site}&page=${page}&export=${export_}`
     const { data } = await axios.get(url)
+    console.log(data)
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     if (data?.data?.data) { 
         if(export_=='true'){

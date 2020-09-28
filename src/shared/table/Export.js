@@ -74,6 +74,7 @@ class Export extends Component {
         }
 
       examples = () => {
+        console.log(this.props.ExportData())
         const unit = "pt";
         const size = "A4"; // Use A1, A2, A3 or A4
         const orientation = "landscape"; // portrait or landscape
@@ -112,6 +113,7 @@ class Export extends Component {
         if(exportStatus=='wait'){
           styleButton = {pointerEvents:'none'}
         }
+        console.log(this.props.ExportData())
         return (            
             <div> 
                {/* <div style={{marginTop:"-3rem"}}> */}
@@ -125,25 +127,23 @@ class Export extends Component {
                     <DropdownMenu style={{top: "1px",left: "5px"}} className={"no-shadow "+((exportPdf == 'false' || exportExcel == 'false')?' dropdown-single ':' Dropdown-menu ')} >
                       {(exportPdf == 'false')?'':
                         <DropdownItem className="export-pdf px-3" onClick={() => this.exportPDF()}> 
-                            <span className="icon-PDF" style={{paddingRight: "0.28rem"}}/> EXPORT TO PDF
+                            <span className="exp-PDF" style={{paddingRight: "0.28rem"}}/> EXPORT TO PDF
                         </DropdownItem>
                       }
                        {(exportExcel == 'false')?'':
                        <div>
                           <DropdownItem className="export-excel" style={{paddingLeft: "1.15rem"}} onClick={() => this.exportXLS()} >
-                          <span className="icon-XLS" style={{paddingRight: "0.3rem"}}/> EXPORT TO XLS   
+                          <span className="exp-XLS" style={{paddingRight: "0.3rem"}}/> EXPORT TO XLS   
                           </DropdownItem>
                           <div style={{display: 'none'}}> 
                             <ExportExl  className="Excel-bottom" 
-                            table={this.props.secondTable=='true'?"excel2":"excel"} 
-                            filename={this.props.ExportName()} 
-                            sheet="sheet 1"
-                            buttonText="EXPORT TO XLS" />
-                          </div>
+                              table={this.props.secondTable=='true'?"excel2":"excel"} 
+                              filename={this.props.ExportName()} 
+                              sheet="sheet 1"
+                              buttonText="EXPORT TO XLS" />
+                            </div>
                        </div>
                        }
-                       
-                        
                     </DropdownMenu>
                 </ButtonDropdown>
 
