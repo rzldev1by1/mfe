@@ -131,7 +131,7 @@
   font-display: block;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="exp-"], [class*=" exp-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'export2' !important;
   // speak: never;
@@ -146,12 +146,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-PDF:before {
+.exp-PDF:before {
   content: "\e699";
   font-size: 1.75rem;
   color: #F94548;
 }
-.icon-XLS:before {
+.exp-XLS:before {
   content: "\e700";
   font-size: 1.75rem;
   color: #05E0BD;

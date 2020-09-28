@@ -311,6 +311,7 @@ class StockHolding extends React.PureComponent {
           item['status'] =  'SHORTAGE';
           item['statusTxt'] = 'SHORTAGE';
         }
+        item.product = String(item.product)
         item['expected_in_qty'] = numeral(item['expected_in_qty']).format('0,0')
         item['expected_out_qty'] = numeral(item['expected_out_qty']).format('0,0')
         item['on_hand_qty'] = numeral(item['on_hand_qty']).format('0,0')
