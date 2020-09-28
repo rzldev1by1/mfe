@@ -436,3 +436,15 @@
   }
 
   
+  .loadBtn{
+    height: 43px !important;
+    margin-top: 3px;
+    border: .124em solid transparent !important;
+    border-color: #81efdd !important;
+    border-radius: 0.2rem;
+  }
+  .loadBtn:hover{
+      background: none !important;
+      border: .124em solid transparent !important;
+      border-color: #81efdd !important;
+  }
