@@ -22,7 +22,8 @@ class Logins extends Component {
         isLoad: false,
         forgotPassword: false,
         policy: false,
-        forgotSuccess: false
+        forgotSuccess: false,
+        emailValue: ""
     }
    }
 
@@ -123,6 +124,10 @@ class Logins extends Component {
         this.setState({ isLoad: false, errorMessage, emailValidation: true })
     }
 
+    onChangeEmail = (e) => {
+        this.setState({ emailValue: e.target.value })
+    } 
+
     loginForm(errorMessage, formValidation) {
         return (
             <form className={"mt-3 " + (this.state.forgotPassword ? 'form-hidden' : 'form-show')} onSubmit={this.validateForm}>
@@ -157,11 +162,11 @@ class Logins extends Component {
                 {this.state.forgotSuccess ? 
                     <div className="col-10" style={{ marginTop: "17px" }}>
                         <div className='forgotPassMsg' style={{ color: "#4775ff"}}>Password recovery link has been sent to your email address</div>
-                        <div className='forgotPassMsg'>fanyansen20@gmail.com</div>
+                <div className='forgotPassMsg'>{this.state.emailValue}</div>
                     </div>
                 :
                     <div>
-                        <input onChange={() => this.hideErrorMessageHandler()} className={'form-control  inputLogin ' + (this.state.emailValidation ? "" : ""/*"is-invalid"*/)}
+                        <input onChange={this.onChangeEmail} className={'form-control  inputLogin ' + (this.state.emailValidation ? "" : ""/*"is-invalid"*/)}
                             type="text" name="email"
                             placeholder="Enter your email address here" />
                         <span className='email-message'>Enter your email address to find your acccount</span>
