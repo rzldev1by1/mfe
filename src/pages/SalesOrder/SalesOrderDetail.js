@@ -42,7 +42,8 @@ const columns = [
   { accessor: "ref3",placeholder: 'Ref3', Header: "Ref3" , width: null },
   { accessor: "ref4",placeholder: 'Ref4', Header: "Ref4" , width: null },
   { accessor: "disposition",placeholder: 'Disposition', Header: "Disposition" },
-  { accessor: "pack_id",placeholder: 'Pack ID', Header: "Pack ID" }
+  { accessor: "pack_id",placeholder: 'Pack ID', Header: "Pack ID" },
+  { accessor: "rota1",placeholder: 'Rota Date', Header: "ROTADATE" }
 ]
 class SalesOrderDetail extends React.Component {
   // ref to get element height and calculate table height

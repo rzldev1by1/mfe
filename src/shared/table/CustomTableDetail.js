@@ -287,19 +287,8 @@ class CustomTableDetail extends React.Component {
     return listHeader;
   }; 
 
-  toLowerCaseConvert = (value) => {
-    let lowerCase = value.toLowerCase();
-      if (lowerCase.includes(' ')) {
-        let split = lowerCase.split(' ');
-        let result = split.join('_');
-        lowerCase = result;
-      }
-      return lowerCase
-  }
-
   // Header Name
   headerRename = async () => {
-    let self = this;
     if(this.props.UrlHeader){
     const url = this.props.UrlHeader();
     const { data } = await axios.get(url);
@@ -361,8 +350,8 @@ class CustomTableDetail extends React.Component {
         sortable: false
       };
       headerTable.Header = data;
-      headerTable.placeholder = data;
-      headerTable.accessor = self.toLowerCaseConvert(data);
+      headerTable.placeholder = placeholder[idx];
+      headerTable.accessor = accessor[idx];
       headerTable.Cell = Cell[idx];
       headerTable.headerData = headerData[idx];
       headerTable.width = width[idx];
@@ -615,9 +604,16 @@ console.log(this.state)
             {exportData ? exportData.map((data, i) =>
               <tr key={i} >
                 {fields.map((column, columnIdx) => {
+                  console.log(data[column.accessor] )
+                  if(column.accessor === 'batch'){
+                    return (<td key={columnIdx}>{data[column.accessor]}‎‎</td>)//hidden fonts for export
+                  }if(column.accessor === 'pack_id'){
+                    return (<td key={columnIdx}>{data[column.accessor]}‎‎‎‎</td>) //hidden fonts for export
+                  }else{
                   return (
                     <td key={columnIdx}>{data[column.accessor]}</td>
                   )
+                  }
                 })}
               </tr>
             ) :

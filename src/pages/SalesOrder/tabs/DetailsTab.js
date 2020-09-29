@@ -812,7 +812,7 @@ class CreateTab extends React.Component {
       </div>
       <button className="btn btn-light-blue m-0" onClick={this.addLine}>ADD LINE</button>
 
-      <Row className="mt-3">
+      <Row className="mt-3 pt-3">
         <Col lg={2}></Col>
         <Col lg={8}></Col>
         <Col lg={2} className="text-right">
