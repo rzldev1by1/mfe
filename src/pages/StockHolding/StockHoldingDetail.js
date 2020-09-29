@@ -35,7 +35,7 @@ class SalesOrderDetail extends React.Component {
        },
       { accessor: 'rotadate', placeholder: 'Rotadate', Header: 'Rotadate', sortable: true, width: 100 ,
         style: { textAlign: 'left' }, 
-        Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY'): '-'}</span>  
+        Cell: props => <span>{props.value ? props.value : '-'}</span>  
       },
       { 
         accessor: 'ref3', 
