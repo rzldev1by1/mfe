@@ -54,15 +54,15 @@ const columns = [
   { 
     accessor: "weight",  
     Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),   
-    placeholder: 'Weight', 
-    Header: "Weight", 
+    placeholder: 'Wght', 
+    Header: "Wght", 
     sortType: "float" 
   },
   { 
     accessor: "weight_processed",  
     Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),   
-    placeholder: 'Weight Processed', 
-    Header: "Weight Processed", 
+    placeholder: 'Wght Processed', 
+    Header: "Wght Processed", 
     width: 140 , 
     sortType: "float"
   },

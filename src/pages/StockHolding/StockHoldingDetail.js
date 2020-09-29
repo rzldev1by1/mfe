@@ -34,7 +34,8 @@ class SalesOrderDetail extends React.Component {
        Cell: props => <span>{props.value ? props.value : '-'}</span>  
        },
       { accessor: 'rotadate', placeholder: 'Rotadate', Header: 'Rotadate', sortable: true, width: 100 ,
-        style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment().format('DD/MM/YYYY'): '-'}</span>  
+        style: { textAlign: 'left' }, 
+        Cell: props => <span>{props.value ? props.value : '-'}</span>  
       },
       { 
         accessor: 'ref3', 
@@ -63,15 +64,15 @@ class SalesOrderDetail extends React.Component {
       },
       { 
         accessor: 'qty', 
-        placeholder: 'Qty', 
+        placeholder: 'QTY', 
         Header: 'Qty', 
         Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>), 
         sortable: true, 
         width: 60 },
       { 
         accessor: 'weight', 
-        placeholder: 'Weight', 
-        Header: 'Weight', 
+        placeholder: 'Wght', 
+        Header: 'Wght', 
         Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>), 
         sortable: true, 
         width: 80 },
@@ -242,6 +243,7 @@ class SalesOrderDetail extends React.Component {
     const { data } = await axios.get(url);
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|[''([{])+\S/g, match => match.toUpperCase());
     if (data.data.length) {
+      console.log(data.data.length)
       this.setState({ products: data.data });
     } else {
       this.setState({
