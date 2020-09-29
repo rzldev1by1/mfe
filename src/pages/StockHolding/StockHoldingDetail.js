@@ -63,15 +63,15 @@ class SalesOrderDetail extends React.Component {
       },
       { 
         accessor: 'qty', 
-        placeholder: 'Qty', 
+        placeholder: 'QTY', 
         Header: 'Qty', 
         Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>), 
         sortable: true, 
         width: 60 },
       { 
         accessor: 'weight', 
-        placeholder: 'Weight', 
-        Header: 'Weight', 
+        placeholder: 'Wght', 
+        Header: 'Wght', 
         Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>), 
         sortable: true, 
         width: 80 },

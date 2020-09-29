@@ -56,14 +56,14 @@ const columns = [
   },
   { 
     accessor: "weight",  
-    placeholder: 'Weight', 
-    Header: "Weight" ,
+    placeholder: 'Wght', 
+    Header: "Wght" ,
     Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>)   
   },
   { 
     accessor: "weight_processed", 
-    placeholder: 'Weight Procesed', 
-    Header: "Weight Processed" ,
+    placeholder: 'Wght Procesed', 
+    Header: "Wght Processed" ,
     Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>)   
   },
   {

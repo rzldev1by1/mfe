@@ -79,8 +79,8 @@ const columns = [
   {
     accessor: 'on_hand_wgy',
     Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),
-    Header: 'On Hand WGT',
-    placeholder: 'On Hand Weight',
+    Header: 'On Hand Wght',
+    placeholder: 'On Hand Wght',
     sortable: false,
     sortType: "float",
     width: 130,
@@ -99,8 +99,8 @@ const columns = [
   {
     accessor: 'expected_in_wgt',
     Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),
-    Header: 'Expected In Weight',
-    placeholder: 'Expected In Weight',
+    Header: 'Expected In Wght',
+    placeholder: 'Expected In Wght',
     sortable: false,
     sortType: "float",
     width: 150,
@@ -172,7 +172,7 @@ const customColumns = [
   {
     accessor: 'expected_in_wgt',
     Header: 'Expected In Weight',
-    placeholder: 'Expected In Weight',
+    placeholder: 'Expected In Wght',
     sortable: false,
     sortType: "float",
     width: 140,
