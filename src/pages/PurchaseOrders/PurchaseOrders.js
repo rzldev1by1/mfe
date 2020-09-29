@@ -12,13 +12,61 @@ import PurchaseOrderCreate from './PurchaseOrderCreate'
 import './PurchaseOrder.scss'
 
 const columns = [
-  { accessor: 'site', placeholder: 'Site', Header: 'Site', width: 80, sortable: true },
-  { accessor: 'client', placeholder: 'Client', Header: 'Client', width: 110, sortable: true },
-  { accessor: 'order_no', placeholder: 'Order No', Header: 'Order No', width: 160, },
-  { accessor: 'order_type', placeholder: 'Order Type', Header: 'Order Type', width: 120, sortable: true },
-  { accessor: 'isis_task', placeholder: 'Task', Header: 'Task', width: 100, sortable: true },
-  { accessor: 'supplier_no', placeholder: 'Supplier No', Header: 'Supplier No', width: 120, sortable: true, style: { textAlign: 'left' } },
-  { accessor: 'supplier_name', placeholder: 'Supplier Name', Header: 'Supplier Name', width: 290 },
+  { 
+    accessor: 'site', 
+    placeholder: 'Site', 
+    Header: 'Site', 
+    width: 80, 
+    sortable: true ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: 'client', 
+    placeholder: 'Client', 
+    Header: 'Client', 
+    width: 110, 
+    sortable: true ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: 'order_no', 
+    placeholder: 'Order No', 
+    Header: 'Order No', 
+    width: 160, 
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: 'order_type', 
+    placeholder: 'Order Type', 
+    Header: 'Order Type', 
+    width: 120, 
+    sortable: true ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: 'isis_task', 
+    placeholder: 'Task', 
+    Header: 'Task', 
+    width: 100, 
+    sortable: true ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: 'supplier_no', 
+    placeholder: 'Supplier No', 
+    Header: 'Supplier No', 
+    width: 120, 
+    sortable: true, 
+    style: { textAlign: 'left' },
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+   },
+  { 
+    accessor: 'supplier_name', 
+    placeholder: 'Supplier Name', 
+    Header: 'Supplier Name',
+    width: 290 ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
   {
     accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140,
     Cell: row => {
