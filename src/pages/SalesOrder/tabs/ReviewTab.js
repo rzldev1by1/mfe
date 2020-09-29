@@ -114,7 +114,7 @@ class ReviewTab extends React.Component {
     return (
       <Container className="px-5 py-4">
         <h3 className="text-primary font-20">Order Details</h3>
-        <Row>
+        <Row className="pb-3">
           <Col lg="3">
             <label className="text-muted mb-0 required">Site</label>
             <input
@@ -152,7 +152,7 @@ class ReviewTab extends React.Component {
             />
           </Col>
         </Row>
-        <Row>
+        <Row className="pb-3 pt-1">
           <Col lg="3">
             <label className="text-muted mb-0 required">Client</label>
             <input
@@ -194,7 +194,7 @@ class ReviewTab extends React.Component {
           </Col>
         </Row>
 
-        <h3 className="text-primary font-20">Customer Details</h3>
+        <h3 className="text-primary font-20 pt-1">Customer Details</h3>
         <Row>
           <Col lg="3" className="mb-3">
             <label className="text-muted mb-0">Customer</label>
@@ -205,7 +205,7 @@ class ReviewTab extends React.Component {
             />
           </Col>
         </Row>
-        <Row>
+        <Row className="pb-3">
           <Col lg="3">
             <label className="text-muted mb-0 required">Address 1</label>
             <input
@@ -234,7 +234,7 @@ class ReviewTab extends React.Component {
             />
           </Col>
         </Row>
-        <Row>
+        <Row className="pt-1">
           <Col lg="3" className="mb-3">
             <label className="text-muted mb-0">Address 4</label>
             <input
@@ -254,7 +254,7 @@ class ReviewTab extends React.Component {
             />
           </Col>
         </Row>
-        <Row>
+        <Row className="pb-3">
           <Col lg="3">
             <label className="text-muted mb-0">Suburb</label>
             <input
@@ -293,8 +293,8 @@ class ReviewTab extends React.Component {
           </Col>
         </Row>
 
-        <h3 className="text-primary font-20">Line Details</h3>
-        <div className="orderline scroll-x-y mb-2 pb-2">
+        <h3 className="text-primary font-20 pt-1">Line Details</h3>
+        <div className="orderline scroll-x-y mb-2 pb-5">
           <table>
             <thead>
               <tr className="text-light-gray">
@@ -445,7 +445,7 @@ class ReviewTab extends React.Component {
             </tbody>
           </table>
         </div>
-        <Row className="mt-3">
+        <Row className="mt-4 pt-5">
           <Col lg={2}>
             <button
               className="btn btn-primary"
