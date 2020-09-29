@@ -24,18 +24,80 @@ class SalesOrderDetail extends React.Component {
   state = {
     dimension: { width: 0, height: 0 },
     stockDetail: [
-      { accessor: 'batch', placeholder: 'Batch', Header: 'Batch', sortable: true, width: 200, className:'text-left' },
+      { 
+        accessor: 'batch', 
+        placeholder: 'Batch', 
+        Header: 'Batch', 
+        sortable: true, 
+        width: 200, 
+        className:'text-left',
+       Cell: props => <span>{props.value ? props.value : '-'}</span>  
+       },
       { accessor: 'rotadate', placeholder: 'Rotadate', Header: 'Rotadate', sortable: true, width: 100 ,
         style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment().format('DD/MM/YYYY'): '-'}</span>  
       },
-      { accessor: 'ref3', placeholder: 'Ref3', Header: 'Ref3', sortable: true, width: 100 },
-      { accessor: 'ref4', placeholder: 'Ref4', Header: 'Ref4', sortable: true, width: 100 },
-      { accessor: 'disposition', placeholder: 'Disposition', Header: 'Disposition', sortable: true, width: 100, className:'text-left' },
-      { accessor: 'qty', placeholder: 'Qty', Header: 'Qty', Cell: row => (<div className="alg-right">{row.value}</div>), sortable: true, width: 60 },
-      { accessor: 'weight', placeholder: 'Weight', Header: 'Weight', Cell: row => (<div className="alg-right">{row.value}</div>), sortable: true, width: 80 },
-      { accessor: 'pallet', placeholder: 'Pallet', Header: 'Pallet', Cell: row => (<div className="alg-right">{row.value}</div>), sortable: true, width: 70 },
-      { accessor: 'price', placeholder: 'Prince', Header: 'Price', Cell: row => (<div className="alg-right">{row.value}</div>), sortable: true, width: 70 },
-      { accessor: 'pack_id', placeholder: 'Pack ID', Header: 'Pack ID', sortable: true, width: 170, className:'text-left' },
+      { 
+        accessor: 'ref3', 
+        placeholder: 'Ref3',
+        Header: 'Ref3', 
+        sortable: true, 
+        width: 100,
+       Cell: props => <span>{props.value ? props.value : '-'}</span>  
+       },
+      { 
+        accessor: 'ref4', 
+        placeholder: 'Ref4', 
+        Header: 'Ref4', 
+        sortable: true, 
+        width: 100 ,
+       Cell: props => <span>{props.value ? props.value : '-'}</span>  
+      },
+      { 
+        accessor: 'disposition', 
+        placeholder: 'Disposition', 
+        Header: 'Disposition', 
+        sortable: true, 
+        width: 100, 
+        className:'text-left' ,
+       Cell: props => <span>{props.value ? props.value : '-'}</span>  
+      },
+      { 
+        accessor: 'qty', 
+        placeholder: 'Qty', 
+        Header: 'Qty', 
+        Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>), 
+        sortable: true, 
+        width: 60 },
+      { 
+        accessor: 'weight', 
+        placeholder: 'Weight', 
+        Header: 'Weight', 
+        Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>), 
+        sortable: true, 
+        width: 80 },
+      { 
+        accessor: 'pallet', 
+        placeholder: 'Pallet', 
+        Header: 'Pallet', 
+        Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>), 
+        sortable: true, 
+        width: 70 },
+      { 
+        accessor: 'price', 
+        placeholder: 'Prince', 
+        Header: 'Price', Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>), 
+        sortable: true, 
+        width: 70 
+      },
+      { 
+        accessor: 'pack_id', 
+        placeholder: 'Pack ID', 
+        Header: 'Pack ID', 
+        sortable: true, 
+        width: 170, 
+        className:'text-left',
+       Cell: props => <span>{props.value ? props.value : '-'}</span>   
+      },
     ],
     ForesCast: [
       {
@@ -61,6 +123,7 @@ class SalesOrderDetail extends React.Component {
         Header: 'Customer No',
         sortable: true,
         width: 140,
+        
       },
       { accessor: 'orderno', placeholder: 'Order No', Header: 'Order No', sortable: true, width: 170 },
       {

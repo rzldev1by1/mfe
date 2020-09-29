@@ -13,13 +13,58 @@ import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 import './SalesOrder.scss'
 
 const columns = [
-  { accessor: 'site', placeholder: 'Site', Header: 'Site', width: 150, },
-  { accessor: 'client', placeholder: 'Client', Header: 'Client', width: 100, },
-  { accessor: 'orderno', placeholder: 'Order No', Header: 'Order No', style: { textAlign: 'left' }, width: 160, },
-  { accessor: 'ordertype', placeholder: 'Order Type', Header: 'Order Type', width: 120, },
-  { accessor: 'isistask', placeholder: 'Task', Header: 'Task', width: 100, },
-  { accessor: 'customer', placeholder: 'Customer No', Header: 'Customer No', style: { textAlign: 'left' }, width: null, },
-  { accessor: 'customername', placeholder: 'Customer Name', Header: 'Customer Name', width: null,  style: { textAlign: 'left' }  },
+  { 
+    accessor: 'site', 
+    placeholder: 'Site', 
+    Header: 'Site', 
+    width: 150,
+    Cell: props => <span>{props.value ? props.value : '-'}</span> 
+  },
+  { 
+    accessor: 'client', 
+    placeholder: 'Client', 
+    Header: 'Client', 
+    width: 100,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: 'orderno', 
+    placeholder: 'Order No', 
+    Header: 'Order No', 
+    style: { textAlign: 'left' }, 
+    width: 160, 
+    Cell: props => <span>{props.value ? props.value : '-'}</span> 
+  },
+  { 
+    accessor: 'ordertype', 
+    placeholder: 'Order Type', 
+    Header: 'Order Type', 
+    width: 120, 
+    Cell: props => <span>{props.value ? props.value : '-'}</span> 
+  },
+  { 
+    accessor: 'isistask', 
+    placeholder: 'Task', 
+    Header: 'Task', 
+    width: 100, 
+    Cell: props => <span>{props.value ? props.value : '-'}</span> 
+  },
+  { 
+    accessor: 'customer', 
+    placeholder: 'Customer No', 
+    Header: 'Customer No', 
+    style: { textAlign: 'left' }, 
+    width: null, 
+    Cell: props => <span>{props.value ? props.value : '-'}</span> 
+  },
+  { 
+    accessor: 'customername', 
+    placeholder: 'Customer Name', 
+    Header: 'Customer Name', 
+    width: null,  
+    style: { textAlign: 'left' },
+    Cell: props => <span>{props.value ? props.value : '-'}</span> 
+  },
   {
     accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140,
     Cell: row => {
@@ -52,41 +97,104 @@ const columns = [
     }
   },
   {
-    accessor: 'deliverydate', placeholder: 'Delivery Date', Header: 'Delivery Date', width: 120,
-    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+    accessor: 'deliverydate', 
+    placeholder: 'Delivery Date', 
+    Header: 'Delivery Date', 
+    width: 120,
+    style: { textAlign: 'left' }, 
+    Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
   },
   {
-    accessor: 'datereceived', placeholder: 'Date Received', Header: 'Date Received', width: 120,
-    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+    accessor: 'datereceived', 
+    placeholder: 'Date Received', 
+    Header: 'Date Received', 
+    width: 120,
+    style: { textAlign: 'left' },
+    Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
   },
   {
-    accessor: 'datereleased', placeholder: 'Date Released', Header: 'Date Released', width: 120,
-    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+    accessor: 'datereleased', 
+    placeholder: 'Date Released', 
+    Header: 'Date Released', 
+    width: 120,
+    style: { textAlign: 'left' }, 
+    Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
   },
   {
-    accessor: 'datecompleted', placeholder: 'Date Completed', Header: 'Date Completed', width: 130,
-    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+    accessor: 'datecompleted', 
+    placeholder: 'Date Completed', 
+    Header: 'Date Completed', 
+    width: 130,
+    style: { textAlign: 'left' }, 
+    Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
   },
-  { accessor: 'customerpono', placeholder: 'Customer Order Ref', Header: 'Customer Order Ref', width: 155, },
-  { accessor: 'vendororderno', placeholder: 'Vendor Order No', Header: 'Vendor Order No', width: null, },
-  { accessor: 'address1', placeholder: 'Address1', Header: 'Address1', width: null, },
-  { accessor: 'address2', placeholder: 'Address2', Header: 'Address2', width: null, },
-  { accessor: 'address3', placeholder: 'Address3', Header: 'Address3', width: null, },
-  { accessor: 'address4', placeholder: 'Address4', Header: 'Address4', width: null, },
-  { accessor: 'address5', placeholder: 'Address5', Header: 'Address5', width: null, },
-  { accessor: 'suburb', placeholder: 'Suburb', Header: 'Suburb', width: null, },
-  { accessor: 'postcode', placeholder: 'Postcode', Header: 'Postcode', width: null, },
-  { accessor: 'state', placeholder: 'State', Header: 'State', width: null, },
-  { accessor: 'country', placeholder: 'Country', Header: 'Country', width: null, },
-  { accessor: 'loadnumber', placeholder: 'Load Number', Header: 'Load Number', width: null, },
-  { accessor: 'loadoutstart', placeholder: 'Loadout Start', Header: 'Loadout Start', width: null, 
+  { 
+    accessor: 'customerpono', 
+    placeholder: 'Customer Order Ref', 
+    Header: 'Customer Order Ref', 
+    width: 155, 
+  },
+  { 
+    accessor: 'vendororderno', 
+    placeholder: 'Vendor Order No', 
+    Header: 'Vendor Order No', 
+    width: null,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: 'address1', placeholder: 'Address1', Header: 'Address1', width: null, 
+    Cell: props => <span>{props.value ? props.value : '-'}</span> 
+  },
+  { 
+    accessor: 'address2', placeholder: 'Address2', Header: 'Address2', width: null,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: 'address3', placeholder: 'Address3', Header: 'Address3', width: null, 
+    Cell: props => <span>{props.value ? props.value : '-'}</span> 
+  },
+  { 
+    accessor: 'address4', placeholder: 'Address4', Header: 'Address4', width: null, 
+    Cell: props => <span>{props.value ? props.value : '-'}</span> 
+  },
+  { 
+    accessor: 'address5', placeholder: 'Address5', Header: 'Address5', width: null, 
+    Cell: props => <span>{props.value ? props.value : '-'}</span> 
+  },
+  { 
+    accessor: 'suburb', placeholder: 'Suburb', Header: 'Suburb', width: null, 
+    Cell: props => <span>{props.value ? props.value : '-'}</span> 
+  },
+  { 
+    accessor: 'postcode', placeholder: 'Postcode', Header: 'Postcode', width: null, 
+    Cell: props => <span>{props.value ? props.value : '-'}</span> 
+  },
+  { 
+    accessor: 'state', placeholder: 'State', Header: 'State', width: null,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: 'country', placeholder: 'Country', Header: 'Country', width: null, 
+    Cell: props => <span>{props.value ? props.value : '-'}</span> 
+  },
+  { 
+    accessor: 'loadnumber', placeholder: 'Load Number', Header: 'Load Number', width: null,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: 'loadoutstart', placeholder: 'Loadout Start', Header: 'Loadout Start', width: null, 
     style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY H:MM:SS'): '-'}</span>  
   },
   { accessor: 'loadoutfinish', placeholder: 'Loadout Finish', Header: 'Loadout Finish', width: null,
     style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY H:MM:SS'): '-'}</span>  
 },
-  { accessor: 'consignmentno', placeholder: 'Consignment No', Header: 'Consignment No', width: null, },
-  { accessor: 'freightcharge', placeholder: 'Freight Charge', Header: 'Freight Charge', width: null, },
+  { accessor: 'consignmentno', placeholder: 'Consignment No', Header: 'Consignment No', width: null,
+  Cell: props => <span>{props.value ? props.value : '-'}</span> 
+ },
+  { 
+    accessor: 'freightcharge', placeholder: 'Freight Charge', Header: 'Freight Charge', width: null , 
+    Cell: props => <span>{props.value ? props.value : '-'}</span>   
+  },
 ]
 
 const customColumns = [
