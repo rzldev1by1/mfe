@@ -77,7 +77,7 @@ const columns = [
     Cell: row => (<div className="text-left">{row.value ? row.value : '-'}</div>),   
     placeholder: 'Batch', 
     Header: "Batch", 
-    width: null, 
+    width: 350, 
   },
   { 
     accessor: "rotadate",  
@@ -89,15 +89,15 @@ const columns = [
     accessor: "ref3", 
     placeholder: 'Ref3', 
     Header: "Ref3", 
-    width: null ,
+    width: 350 ,
     Cell: props => <span>{props.value ? props.value : '-'}</span>  
   },
   { 
     accessor: "ref4",  
     placeholder: 'Ref4', 
     Header: "Ref4", 
-    width: null,
-    Cell: props => <span>{props.value ? props.value : '-'}</span>   
+    width: 350,
+    Cell: props => <span>{props.value ? props.value : '-‎‎‎‎‎‎‎‎‎‎'}</span>   
   },
   { 
     accessor: "disposition", 

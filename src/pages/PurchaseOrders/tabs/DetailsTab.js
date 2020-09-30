@@ -317,11 +317,11 @@ class CreateTab extends React.Component {
       error.orderId = 'Please select client first'
       return this.setState({ error })
     }
-    if (!orderId) {
+    if (!orderId.trim()) {
       error.orderId = 'Order no. cannot be empty'
       return this.setState({ error })
     }
-    if (orderId.length < 4) {
+    if (orderId.trim().length < 4) {
       error.orderId = 'Order no. must have min 4 characters'
       return this.setState({ error })
     }

@@ -90,21 +90,27 @@ const columns = [
     Cell: row => (<div className="text-left">{row.value}</div>),  
     placeholder: 'Batch',  
     Header: "Batch" , 
-    width: 100 ,
+    width: 350 ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: "rota1",
+    placeholder: 'Rotadate', 
+    Header: "ROTADATE", 
     Cell: props => <span>{props.value ? props.value : '-'}</span>  
   },
   { 
     accessor: "ref3",
     placeholder: 'Ref3', 
     Header: "Ref3" , 
-    width: null ,
+    width: 350 ,
     Cell: props => <span>{props.value ? props.value : '-'}</span>  
   },
   { 
     accessor: "ref4",
     placeholder: 'Ref4', 
     Header: "Ref4" , 
-    width: null ,
+    width: 350 ,
     Cell: props => <span>{props.value ? props.value : '-'}</span>  
   },
   { 
@@ -118,13 +124,7 @@ const columns = [
     placeholder: 'Pack ID', 
     Header: "Pack ID",
     Cell: props => <span>{props.value ? props.value : '-'}</span>  
-   },
-  { 
-    accessor: "rota1",
-    placeholder: 'Rotadate', 
-    Header: "ROTADATE", 
-    Cell: props => <span>{props.value ? props.value : '-'}</span>  
-  }
+   }
 ]
 class SalesOrderDetail extends React.Component {
   // ref to get element height and calculate table height
