@@ -241,6 +241,7 @@ class SalesOrderDetail extends React.Component {
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer Name</CCol> <CCol>{detail.customername || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer Order Ref</CCol> <CCol>{detail.customerpono || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Vendor Order Ref</CCol> <CCol>{detail.vendororderno || '-'}</CCol></CRow>
+             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Delivery Instruction</CCol> <CCol>{detail.vendororderno || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>
         <CCard>
