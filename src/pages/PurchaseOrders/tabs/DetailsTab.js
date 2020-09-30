@@ -11,7 +11,7 @@ import DatePicker from 'shared/DatePicker'
 import validations from './validations'
 
 const Required = ({ error, id }) => {
-  return <span className="text-error text-danger font-12">{error && error[id]}</span>
+  return <span className="text-error pl-0 text-danger font-12">{error && error[id]}</span>
 }
 // const debounceEventHandler = (...args) => {
 //   const debounced = _.debounce(...args)
@@ -368,10 +368,12 @@ class CreateTab extends React.Component {
       delete header.productDataName
       delete header.dispositionData
       delete header.uomData
+      delete header.deleteMs
 
       let orderDetails = [...this.state.orderDetails]
       const payload = { header, orderDetails, lineDetail }
       this.props.submit(payload)
+      this.setState({ error:{}});
     }
   }
 
@@ -715,8 +717,12 @@ class CreateTab extends React.Component {
           </tbody>
         </table>
       </div>
-      <button className="btn btn-light-blue m-0" onClick={this.addLine}>ADD LINE</button>
-
+      <div>
+          <button className="btn btn-light-blue m-0" onClick={this.addLine}>ADD LINE</button>
+      </div>
+      <div>
+          <Required  id="deleteMs" error={error} />
+      </div>
       <Row className="mt-3">
         <Col lg={2}></Col>
         <Col lg={8}></Col>

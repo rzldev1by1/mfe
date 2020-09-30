@@ -329,9 +329,11 @@ class CreateTab extends React.Component {
       delete header.productDataName
       delete header.dispositionData
       delete header.uomData
+      delete header.deleteMs
 
       const payload = { header, lineDetail }
       this.props.submit(payload)
+      this.setState({ error:{}});
     }
   }
 
@@ -810,7 +812,12 @@ class CreateTab extends React.Component {
           </tbody>
         </table>
       </div>
-      <button className="btn btn-light-blue m-0" onClick={this.addLine}>ADD LINE</button>
+      <div>
+          <button className="btn btn-light-blue m-0" onClick={this.addLine}>ADD LINE</button>
+      </div>
+      <div>
+          <Required  id="deleteMs" error={error} />
+      </div>
 
       <Row className="mt-3 pt-3">
         <Col lg={2}></Col>
