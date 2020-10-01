@@ -16,33 +16,115 @@ import HeaderTitle from 'shared/container/TheHeader'
 import './SalesOrder.scss'
 
 const columns = [
-  { accessor: "line", placeholder: 'Line No', Header: "Line No" },
-  { accessor: "product", placeholder: 'Product', Header: "Product" },
-  { accessor: "product_description",placeholder: 'Description', Header: "Description" },
-  { accessor: "qty", Cell: row => (<div className="alg-right">{row.value}</div>),  placeholder: 'Qty', Header: "Qty", width: 100, style:{textAlign:'right'}, headerClassName:'text-right'  },
-  { accessor: "uom", placeholder: 'UOM', Header: "UOM", width: 80 },
-  { accessor: "qty_processed", Cell: row => (<div className="alg-right">{row.value}</div>),placeholder: 'Qty Processed', Header: "Qty Processed" },
-  { accessor: "weight",  Cell: row => (<div className="alg-right">{row.value}</div>),placeholder: 'Weight', Header: "Weight" },
-  { accessor: "weight_processed", Cell: row => (<div className="alg-right">{row.value}</div>), placeholder: 'Weight Procesed', Header: "Weight Processed" },
+  { 
+    accessor: "line", 
+    placeholder: 'Line No', 
+    Header: "Line No" ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span> 
+  },
+  { 
+    accessor: "product", 
+    placeholder: 'Product', 
+    Header: "Product", 
+    Cell: props => <span>{props.value ? props.value : '-'}</span> 
+  },
+  { 
+    accessor: "product_description",
+    placeholder: 'Description', 
+    Header: "Description",
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: "qty", 
+    placeholder: 'Qty', Header: "Qty", 
+    width: 100, style:{textAlign:'right'}, 
+    headerClassName:'text-right',
+    Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>)    
+  },
+  { 
+    accessor: "uom", 
+    placeholder: 'UOM', 
+    Header: "UOM", 
+    width: 80,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>   
+  },
+  { 
+    accessor: "qty_processed", 
+    placeholder: 'Qty Processed',
+    Header: "Qty Processed", 
+    Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>)    
+  },
+  { 
+    accessor: "weight",  
+    placeholder: 'Wght', 
+    Header: "Wght" ,
+    Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>)   
+  },
+  { 
+    accessor: "weight_processed", 
+    placeholder: 'Wght Procesed', 
+    Header: "Wght Processed" ,
+    Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>)   
+  },
   {
-    accessor: "completed",placeholder: 'Completed', Header: "Completed",
+    accessor: "completed",
+    placeholder: 'Completed',
+     Header: "Completed",
     Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
-  //{ accessor: "oos", Header: "OOS", width: 50 },
   {
-    accessor: "oos",placeholder: 'OOS', Header: "OOS", width: 60 ,
+    accessor: "oos",
+    placeholder: 'OOS', 
+    Header: "OOS", 
+    width: 60 ,
     Cell: (row) => <i className={`${row.original.oos === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
   {
-    accessor: "released",placeholder: 'Released', Header: "Released", 
+    accessor: "released",
+    placeholder: 'Released', 
+    Header: "Released", 
     Cell: (row) => <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
-  { accessor: "batch",  Cell: row => (<div className="text-left">{row.value}</div>),  placeholder: 'Batch',  Header: "Batch" , width: 100 },
-  // { accessor: "ref2",placeholder: 'Ref2', Header: "Ref2" , width: 70 , style : {display:"none"}},
-  { accessor: "ref3",placeholder: 'Ref3', Header: "Ref3" , width: null },
-  { accessor: "ref4",placeholder: 'Ref4', Header: "Ref4" , width: null },
-  { accessor: "disposition",placeholder: 'Disposition', Header: "Disposition" },
-  { accessor: "pack_id",placeholder: 'Pack ID', Header: "Pack ID" }
+  { 
+    accessor: "batch",  
+    Cell: row => (<div className="text-left">{row.value}</div>),  
+    placeholder: 'Batch',  
+    Header: "Batch" , 
+    width: 350 ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: "rota1",
+    placeholder: 'Rotadate', 
+    Header: "ROTADATE", 
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: "ref3",
+    placeholder: 'Ref3', 
+    Header: "Ref3" , 
+    width: 350 ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: "ref4",
+    placeholder: 'Ref4', 
+    Header: "Ref4" , 
+    width: 350 ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: "disposition",
+    placeholder: 'Disposition',
+    Header: "Disposition" ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: "pack_id",
+    placeholder: 'Pack ID', 
+    Header: "Pack ID",
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+   }
 ]
 class SalesOrderDetail extends React.Component {
   // ref to get element height and calculate table height
@@ -159,6 +241,7 @@ class SalesOrderDetail extends React.Component {
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer Name</CCol> <CCol>{detail.customername || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer Order Ref</CCol> <CCol>{detail.customerpono || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Vendor Order Ref</CCol> <CCol>{detail.vendororderno || '-'}</CCol></CRow>
+             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Delivery Instruction</CCol> <CCol>{detail.vendororderno || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>
         <CCard>

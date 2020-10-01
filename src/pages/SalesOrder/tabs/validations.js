@@ -54,6 +54,8 @@ export default (values) => {
     if (error.orderLine.length < 1 || (error.orderLine.length === 1 && !error.orderLine[0])) {
       delete error.orderLine
     }
+  }if (orderLine.length < 1 ){
+    error.deleteMs = 'At least one line is required to continue'
   }
   
   return error

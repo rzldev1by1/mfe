@@ -244,6 +244,9 @@
         }
       }
       .rt-tbody {
+        .rt-tr-group :hover{
+          background-color: transparent;
+        }
         .rt-tr-group {
           .rt-tr {
             .rt-td:first-child {
