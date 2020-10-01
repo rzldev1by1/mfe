@@ -10,8 +10,22 @@ import CustomTable from '../../shared/table/CustomTable'
 import HeaderTitle from 'shared/container/TheHeader'
 import './StockHolding.scss'
 const columns = [
-  { accessor: 'site', Header: 'Site', placeholder: 'Site', width: 70, sortable: true },
-  { accessor: 'client', Header: 'Client', placeholder: 'Client', width: 130, sortable: true },
+  { 
+    accessor: 'site', 
+    Header: 'Site', 
+    placeholder: 'Site',
+    width: 70, 
+    sortable: true,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: 'client', 
+    Header: 'Client', 
+    placeholder: 'Client', 
+    width: 130, 
+    sortable: true ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
   {
     accessor: 'product',
     Header: 'Product',
@@ -19,6 +33,7 @@ const columns = [
     sortable: true,
     width: null,
     style: { textAlign: 'left' },
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
   },
   {
     accessor: 'product_name',
@@ -26,9 +41,16 @@ const columns = [
     placeholder: 'Description',
     width: null,
     sortable: true,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
   },
-  // { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: 140, sortable: true },
-  { accessor: 'packdesc_1', Header: 'UOM', placeholder: 'UOM', width: 80, sortable: true },
+  { 
+    accessor: 'packdesc_1', 
+    Header: 'UOM', 
+    placeholder: 'UOM', 
+    width: 80, 
+    sortable: true ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
 {
   accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140,
   Cell: row => {
@@ -46,7 +68,7 @@ const columns = [
 },
   {
     accessor: 'on_hand_qty',
-    Cell: row => (<div className="alg-right">{row.value}</div>),
+    Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),
     Header: 'Stock on Hand',
     placeholder: 'Stock on Hand',
     sortable: false,
@@ -56,9 +78,9 @@ const columns = [
   },
   {
     accessor: 'on_hand_wgy',
-    Cell: row => (<div className="alg-right">{row.value}</div>),
-    Header: 'On Hand WGT',
-    placeholder: 'On Hand Weight',
+    Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),
+    Header: 'On Hand Wght',
+    placeholder: 'On Hand Wght',
     sortable: false,
     sortType: "float",
     width: 130,
@@ -66,7 +88,7 @@ const columns = [
   },
   {
     accessor: 'expected_in_qty',
-    Cell: row => (<div className="alg-right">{row.value}</div>),
+    Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),
     Header: 'Expected In Qty',
     placeholder: 'Expected In Qty',
     sortable: false,
@@ -76,9 +98,9 @@ const columns = [
   },
   {
     accessor: 'expected_in_wgt',
-    Cell: row => (<div className="alg-right">{row.value}</div>),
-    Header: 'Expected In Weight',
-    placeholder: 'Expected In Weight',
+    Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),
+    Header: 'Expected In Wght',
+    placeholder: 'Expected In Wght',
     sortable: false,
     sortType: "float",
     width: 150,
@@ -86,7 +108,7 @@ const columns = [
   },
   {
     accessor: 'expected_out_qty',
-    Cell: row => (<div className="alg-right">{row.value}</div>),
+    Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),
     Header: 'Expected Out Qty',
     placeholder: 'Expected Out Qty',
     sortable: false,
@@ -94,10 +116,10 @@ const columns = [
     width: 140,
     style: {flexDirection: 'row-reverse'}
   },
-  { accessor: 'price', Cell: row => (<div className="alg-right">{row.value}</div>),Header: ' Price ', placeholder: 'Price', width: 70, sortable: false,
+  { accessor: 'price', Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),Header: ' Price ', placeholder: 'Price', width: 70, sortable: false,
   sortType: "float",
     style: {flexDirection: 'row-reverse'} },
-  { accessor: 'pallets',Cell: row => (<div className="alg-right">{row.value}</div>), Header: 'Pallets', placeholder: 'Pallets', width: 70, sortable: false,
+  { accessor: 'pallets',Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>), Header: 'Pallets', placeholder: 'Pallets', width: 70, sortable: false,
   sortType: "float",
   style: {flexDirection: 'row-reverse'} },
 ];
@@ -150,7 +172,7 @@ const customColumns = [
   {
     accessor: 'expected_in_wgt',
     Header: 'Expected In Weight',
-    placeholder: 'Expected In Weight',
+    placeholder: 'Expected In Wght',
     sortable: false,
     sortType: "float",
     width: 140,
