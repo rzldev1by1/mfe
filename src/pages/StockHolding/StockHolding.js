@@ -511,16 +511,22 @@ class StockHolding extends React.PureComponent {
                         <input value={this.siteCheck(site.value)} className="form-control sh-input" readOnly />
                         :
                         <Select
+                          isClearable
                           name='site'
                           placeholder='Site'
                           // value={site}
                           options={siteData}
-                          onChange={(val) => this.setState({ site: val }, () => { })}
+                          onChange={(val) => this.setState({ site: val }, () => { })} 
                           styles={{
-                            dropdownIndicator: (base, state) => ({
-                              ...base,
-                              transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                            })
+                              option: (provided, state) => ({
+                                ...provided,
+                                textAlign: 'left'
+                              }),
+                              dropdownIndicator: (base, state) => ({
+                                ...base,
+                                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                                display: !site || !site.value ? "flex" : "none"
+                              })
                           }}
                         />
                     }
@@ -531,32 +537,44 @@ class StockHolding extends React.PureComponent {
                         <input value={this.clientCheck(client.value)} className="form-control sh-input" readOnly />
                         :
                         <Select
+                          isClearable
                           name='client'
                           placeholder='Client'
                           // value={client}
                           options={clientData}
-                          onChange={(val) => this.setState({ client: val })}
+                          onChange={(val) => this.setState({ client: val })} 
                           styles={{
-                            dropdownIndicator: (base, state) => ({
-                              ...base,
-                              transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                            })
+                              option: (provided, state) => ({
+                                ...provided,
+                                textAlign: 'left'
+                              }),
+                              dropdownIndicator: (base, state) => ({
+                                ...base,
+                                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                                display: !client || !client.value ? "flex" : "none"
+                              })
                           }}
                         />
                     }
                   </CCol>
                   <CCol sm={4} lg={2} className='px-0'>
                     <Select
+                      isClearable
                       name='status'
                       placeholder='Status'
                       value={status}
                       options={statusData}
-                      onChange={(val) => this.setState({ status: val })}
+                      onChange={(val) => this.setState({ status: val })} 
                       styles={{
-                        dropdownIndicator: (base, state) => ({
-                          ...base,
-                          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                        })
+                          option: (provided, state) => ({
+                            ...provided,
+                            textAlign: 'left'
+                          }),
+                          dropdownIndicator: (base, state) => ({
+                            ...base,
+                            transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                            display: !status || !status.value ? "flex" : "none"
+                          })
                       }}
                     />
                   </CCol>

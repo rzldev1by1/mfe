@@ -371,7 +371,7 @@ class PurchaseOrders extends React.PureComponent {
                       this.props.store.user.site ?
                         <input value={this.siteCheck(site.value)} className="form-control sh-input" readOnly />
                         :
-                        <Select name="site" placeholder="Site"
+                        <Select isClearable name="site" placeholder="Site"
                           options={siteData}
                           filterOption={
                               (option, inputVal) => {
@@ -380,10 +380,15 @@ class PurchaseOrders extends React.PureComponent {
                           }
                           onChange={(val) => this.setSite(val)}
                           styles={{
-                            dropdownIndicator: (base, state) => ({
-                              ...base,
-                              transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                            })
+                              option: (provided, state) => ({
+                                ...provided,
+                                textAlign: 'left'
+                              }),
+                              dropdownIndicator: (base, state) => ({
+                                ...base,
+                                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                                display: !site || !site.value ? "flex" : "none"
+                              })
                           }}
                         />
                     }
@@ -393,7 +398,7 @@ class PurchaseOrders extends React.PureComponent {
                       this.props.store.user.client ?
                         <input value={this.clientCheck(client.value)} className="form-control sh-input" readOnly />
                         :
-                        <Select name="client" placeholder="Client"
+                        <Select isClearable name="client" placeholder="Client"
                           options={clientData}
                           onChange={(val) => this.setClient(val)}
                           filterOption={
@@ -402,17 +407,22 @@ class PurchaseOrders extends React.PureComponent {
                               }
                           }
                           styles={{
-                            dropdownIndicator: (base, state) => ({
-                              ...base,
-                              transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                            })
+                              option: (provided, state) => ({
+                                ...provided,
+                                textAlign: 'left'
+                              }),
+                              dropdownIndicator: (base, state) => ({
+                                ...base,
+                                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                                display:  !client || !client.value ? "flex" : "none"
+                              })
                           }}
                         />
                     }
                     {console.log(this.state.status)}
                   </CCol>
                   <CCol sm={4} lg={2} className="px-0">
-                    <Select name="status" placeholder="Status"
+                    <Select isClearable name="status" placeholder="Status"
                       value={status} options={statusData}
                       onChange={(val) => this.setState({ status: val })}
                       filterOption={
@@ -421,15 +431,20 @@ class PurchaseOrders extends React.PureComponent {
                           }
                       }
                       styles={{
-                        dropdownIndicator: (base, state) => ({
-                          ...base,
-                          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                        })
+                          option: (provided, state) => ({
+                            ...provided,
+                            textAlign: 'left'
+                          }),
+                          dropdownIndicator: (base, state) => ({
+                            ...base,
+                            transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                            display: !status ? "flex" : "none"
+                          })
                       }}
                     />
                   </CCol>
                   <CCol sm={4} lg={2} className="px-3">
-                    <Select name="orderType" placeholder="Order Type"
+                    <Select isClearable name="orderType" placeholder="Order Type"
                       value={orderType} options={orderTypeFilterData}
                       onChange={(val) => this.setState({ orderType: val })}
                       filterOption={
@@ -438,15 +453,20 @@ class PurchaseOrders extends React.PureComponent {
                           }
                       }
                       styles={{
-                        dropdownIndicator: (base, state) => ({
-                          ...base,
-                          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                        })
+                          option: (provided, state) => ({
+                            ...provided,
+                            textAlign: 'left'
+                          }),
+                          dropdownIndicator: (base, state) => ({
+                            ...base,
+                            transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                            display: !orderType ? "flex" : "none"
+                          })
                       }}
                     />
                   </CCol>
                   <CCol sm={4} lg={2} className="px-0">
-                    <Select name="task" placeholder="Task"
+                    <Select isClearable name="task" placeholder="Task"
                       value={task} options={taskData}
                       onChange={(val) => this.setState({ task: val })}
                       filterOption={
@@ -455,10 +475,15 @@ class PurchaseOrders extends React.PureComponent {
                           }
                       }
                       styles={{
-                        dropdownIndicator: (base, state) => ({
-                          ...base,
-                          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                        })
+                          option: (provided, state) => ({
+                            ...provided,
+                            textAlign: 'left'
+                          }),
+                          dropdownIndicator: (base, state) => ({
+                            ...base,
+                            transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                            display: !task ? "flex" : "none"
+                          })
                       }}
                     />
                   </CCol>
