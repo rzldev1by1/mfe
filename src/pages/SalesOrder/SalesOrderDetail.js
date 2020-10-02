@@ -14,6 +14,7 @@ import CustomTable from 'shared/table/CustomTableDetail'
 import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader'
 import './SalesOrder.scss'
+import { Link } from 'react-router-dom'
 
 const columns = [
   { accessor: "line", placeholder: 'Line No', Header: "Line No" },
@@ -159,6 +160,14 @@ class SalesOrderDetail extends React.Component {
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer Name</CCol> <CCol>{detail.customername || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer Order Ref</CCol> <CCol>{detail.customerpono || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Vendor Order Ref</CCol> <CCol>{detail.vendororderno || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Delivery Instructions</CCol>
+              {/* <CCol>{detail.deliverydescription || '-'}</CCol> */}
+              {detail.deliverydescription ?
+                <CCol className='line-camp'>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+               </CCol>
+               : <CCol>-</CCol>}
+            </CRow>
           </CCardBody>
         </CCard>
         <CCard>
