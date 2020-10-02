@@ -8,6 +8,7 @@ import NewUser from './tabs/NewUser'
 import Review from './tabs/Review'
 import _ from 'lodash'
 import client from './Client';
+import MessageTab from "../../shared/MessageTab";
 
 const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement'];
 // const webgroup = {
@@ -36,6 +37,8 @@ class UserManagementCreate extends React.PureComponent {
     isEnableAllModule: false,
     isEnableAllSite: false,
     isEnableAllClient: false,
+    submit: false,
+    status: null
     // data: { "header": { "site": { "value": "A", "label": "A : Australis A" }, "client": { "value": "AESOP", "label": "AESOP : Aesop" }, "orderType": { "value": "MVKT", "label": "MVKT: Move Orders" }, "orderId": "AB29123", "shipToAddress1": "Ark Street 12", "postCode": "291923", "state": "Victoria", "deliveryDate": "2020-07-02" }, "lineDetail": [{ "product": "product 1001", "productVal": { "value": "1001", "label": "1001", "i": 0 }, "qty": "2", "uom": { "value": "CARTON", "label": "CARTON" }, "disposition": "G", "dispositionVal": { "value": "G", "label": "G", "i": 9 } }] }
   }
 
@@ -189,7 +192,7 @@ class UserManagementCreate extends React.PureComponent {
 
   onSelectTab = (key) => {
     if (this.AllIsValid())
-      this.setState({ key })
+      this.setState({ key, submit: false })
   }
 
   setData = (data) => {
@@ -227,9 +230,12 @@ class UserManagementCreate extends React.PureComponent {
   }
 
   onSubmit = () => {
-    this.setState({ saveProgress: true }, () => {
-      this.submit();
-    })
+    this.setState({ saveProgress: true })
+    if(!navigator.onLine){
+        this.setState({ status: "No Internet Connection", saveProgress: false, submit: true })
+    }else{
+        this.submit();
+    }
   }
 
   submit = async () => {
@@ -255,11 +261,13 @@ class UserManagementCreate extends React.PureComponent {
 
     const { status, data } = await axios.post(endpoint.userManagementCreate, userInfo);
     if (status === 200) {
-      this.setState({ saveProgress: false }, () => {
-        this.onHideModal();
+      this.setState({ saveProgress: false, status, submit: true  }, () => {
+        // this.onHideModal();
         this.props.afterSuccess();
       });;
     }
+
+    
 
   }
 
@@ -279,6 +287,7 @@ class UserManagementCreate extends React.PureComponent {
       isEnableAllModule: false,
       isEnableAllSite: false,
       isEnableAllClient: false,
+      submit: false
     }, () => {
       this.loadModuleAccess();
       this.loadSites();
@@ -329,13 +338,26 @@ class UserManagementCreate extends React.PureComponent {
               users={users} />
           </TabPane>
           <TabPane tabId="review">
-            <Review user={user} isAdmin={isAdmin}
-              moduleAccess={moduleAccess}
-              sites={sites}
-              clients={clients}
-              next={this.onSelectTab}
-              submitProgress={saveProgress}
-              submit={this.onSubmit} />
+              {this.state.submit ? (
+                <MessageTab
+                  module={"UM"}
+                  name={this.state.user.name}
+                  status={this.state.status}
+                  role={this.state.user.webGroup}
+                  back={() => this.onSelectTab("new")}
+                  exit={() => this.onHideModal()}
+                />
+              )
+              : (
+                <Review user={user} isAdmin={isAdmin}
+                  moduleAccess={moduleAccess}
+                  sites={sites}
+                  clients={clients}
+                  next={this.onSelectTab}
+                  submitProgress={saveProgress}
+                  submit={this.onSubmit} />
+              )
+              }
           </TabPane>
         </TabContent>
 
