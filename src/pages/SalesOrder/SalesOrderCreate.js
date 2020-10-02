@@ -26,7 +26,7 @@ class SalesOrderCreate extends React.PureComponent {
     if (key === "review" && !Object.keys(header).length && !lineDetail.length) {
       return null;
     }
-    this.setState({ key });
+    this.setState({ key, submit: false });
   };
   setData = (data) => {
     if (data.header && data.lineDetail) {
@@ -38,12 +38,9 @@ class SalesOrderCreate extends React.PureComponent {
     this.setState({ submit: true });
     if (status == "create successfully") {
       this.setState({ submit: true, status: "Successfully added" });
-      setTimeout(() => {
-        this.onHide();
-      }, 3000);
     } else {
       this.setState({ status });
-      this.setState({ submit: false });
+      this.setState({ submit: true });
     }
   };
   onHide = () => {
