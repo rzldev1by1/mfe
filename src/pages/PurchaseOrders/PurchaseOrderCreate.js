@@ -32,15 +32,14 @@ class SalesOrderCreate extends React.PureComponent {
     this.setState({ submit: true })
     if (status === 'Successfully added') {
       this.setState({ submit: true, status })
-      setTimeout(() => this.onHide(), 40000)
     }
     else {
-      this.setState({ status })
+      this.setState({ status, submit: true })
     }
   }
   onHide = () => {
     this.props.toggle()
-    this.setState({ key: 'detail', data: { header: {}, lineDetail: [], orderDetails: [{}] } })
+    this.setState({ key: 'detail', data: { header: {}, lineDetail: [], orderDetails: [{}] }, submit: false })
   }
   render() {
     const { data, key } = this.state

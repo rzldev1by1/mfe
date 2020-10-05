@@ -69,12 +69,18 @@ class ReviewTab extends React.Component {
     const { data } = await axios.post(endpoint.salesOrderCreate, {
       header,
       lineDetail,
-    });
+    }).catch(error => error);
     if (data === "create successfully") {
       console.log(data);
       this.props.submit({ header: header, lineDetail: lineDetail });
       // setTimeout(() => this.props.hide(), 3000)
       this.props.submitStatus(data);
+    }
+    
+    if(!navigator.onLine){
+      console.log(data);
+      this.props.submitStatus("No Internet Connection");
+
     }
   };
 
