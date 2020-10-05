@@ -555,19 +555,24 @@ class StockMovement extends React.PureComponent {
         {/* Filter content start */}
 
         <CCol lg={2} className="sm-col-14 px-0">
-            <Select name="filterType" className="stockMovement" placeholder="Display Period"
+            <Select isClearable name="filterType" className="stockMovement" placeholder="Display Period"
               value={filterType} options={filterData} 
               onChange={(val) => this.periodHandler( val )} 
               filterOption={
                   (option, inputVal) => {
                       return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
                   }
-              } 
+              }
               styles={{
-                dropdownIndicator: (base, state) => ({
-                  ...base, 
-                  transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                })
+                  option: (provided, state) => ({
+                    ...provided,
+                    textAlign: 'left'
+                  }),
+                  dropdownIndicator: (base, state) => ({
+                    ...base,
+                    transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                    display: !filterType || !filterType.value ? "flex" : "none"
+                  })
               }}
             />
             <Required id="periodSelected" error={error} />
@@ -598,7 +603,7 @@ class StockMovement extends React.PureComponent {
           this.props.store?.user?.site ? 
           < input name="site" type="text" value={this.siteCheck(this.props.store?.user?.site) || ''} className="form-control" placeholder="Site" maxLength="12" readOnly />
           :
-          < Select name="site" placeholder="Site"
+          <Select isClearable name="site" placeholder="Site"
             value={site} options={siteData}
             filterOption={
                 (option, inputVal) => {
@@ -607,11 +612,16 @@ class StockMovement extends React.PureComponent {
             }
             onChange={(val) => this.setState({ site: val })} 
             styles={{
-            dropdownIndicator: (base, state) => ({
-                ...base, 
-                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-          })
-          }}
+                option: (provided, state) => ({
+                  ...provided,
+                  textAlign: 'left'
+                }),
+                dropdownIndicator: (base, state) => ({
+                  ...base,
+                  transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                  display: !site || !site.value ? "flex" : "none"
+                })
+            }}
           />
         }
       
@@ -622,7 +632,7 @@ class StockMovement extends React.PureComponent {
            this.props.store?.user?.client ? 
            < input name="client" type="text" value={this.clientCheck(this.props.store?.user?.client) || ''} className="form-control" placeholder="Client" maxLength="12" readOnly />
            :
-           <Select name="client" placeholder="Client"
+           <Select isClearable name="client" placeholder="Client"
            value={client} options={clientData}
            onChange={(val) => this.setState({ client: val })} 
            filterOption={
@@ -631,17 +641,22 @@ class StockMovement extends React.PureComponent {
                }
            }
            styles={{
-           dropdownIndicator: (base, state) => ({
-               ...base, 
-               transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-           })
+               option: (provided, state) => ({
+                 ...provided,
+                 textAlign: 'left'
+               }),
+               dropdownIndicator: (base, state) => ({
+                 ...base,
+                 transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                 display: !client || !client.value ? "flex" : "none"
+               })
            }}
        />
         }
       
         </CCol>
         <CCol lg={2} className="sm-col-13 product" > {console.log(this.state.productSm)}
-        <Select name="product" placeholder="Product"
+        <Select isClearable name="product" placeholder="Product"
             isClearable={true} 
             // value={productSm}
             isLoading={productIsLoad}
@@ -657,10 +672,15 @@ class StockMovement extends React.PureComponent {
                 }
             }
             styles={{
-            dropdownIndicator: (base, state) => ({
-                ...base, 
-                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-            })
+                option: (provided, state) => ({
+                  ...provided,
+                  textAlign: 'left'
+                }),
+                dropdownIndicator: (base, state) => ({
+                  ...base,
+                  transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                  display: !productSm || !productSm.value ? "flex" : "none"
+                })
             }}
         />
         </CCol> 

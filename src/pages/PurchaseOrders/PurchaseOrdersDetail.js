@@ -9,25 +9,106 @@ import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader'
 import './PurchaseOrder.scss'
 const columns = [
-  { accessor: "orig_line_number",  placeholder: 'Line No', Header: "Line No", width:90 },
-  { accessor: "product", Cell: row => (<div>{row.value}</div>),    placeholder: 'Product', Header: "Product" },
-  { accessor: "product_name",  placeholder: 'Description', Header: "Description" },
-  { accessor: "quantity",  Cell: row => (<div className="alg-right">{row.value}</div>),   placeholder: 'Qty', Header: "Qty", width: 60, sortType: "float" },
-  { accessor: "packdesc_1",  placeholder: 'UOM', Header: "UOM", width: 80 },
-  { accessor: "qty_processed", Cell: row => (<div className="alg-right">{row.value}</div>),    placeholder: 'Qty Processed', Header: "Qty Processed", width: 130, sortType: "float" },
-  { accessor: "weight",  Cell: row => (<div className="alg-right">{row.value}</div>),   placeholder: 'Weight', Header: "Weight", sortType: "float" },
-  { accessor: "weight_processed",  Cell: row => (<div className="alg-right">{row.value}</div>),   placeholder: 'Weight Processed', Header: "Weight Processed", width: 140 , sortType: "float"},
+  { 
+    accessor: "orig_line_number",  
+    placeholder: 'Line No', 
+    Header: "Line No", 
+    width:90 ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: "product",   
+    placeholder: 'Product', 
+    Header: "Product" ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: "product_name",  
+    placeholder: 'Description', 
+    Header: "Description" ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: "quantity",  
+    Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),   
+    placeholder: 'Qty', 
+    Header: "Qty", 
+    width: 60, 
+    sortType: "float" 
+  },
+  { 
+    accessor: "packdesc_1",  
+    placeholder: 'UOM', 
+    Header: "UOM", 
+    width: 80 ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: "qty_processed", 
+    Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),    
+    placeholder: 'Qty Processed', 
+    Header: "Qty Processed", 
+    width: 130, 
+    sortType: "float" 
+  },
+  { 
+    accessor: "weight",  
+    Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),   
+    placeholder: 'Wght', 
+    Header: "Wght", 
+    sortType: "float" 
+  },
+  { 
+    accessor: "weight_processed",  
+    Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),   
+    placeholder: 'Wght Processed', 
+    Header: "Wght Processed", 
+    width: 140 , 
+    sortType: "float"
+  },
   {
-    accessor: "completed",  placeholder: 'Completed', Header: "Completed",
+    accessor: "completed",  
+    placeholder: 'Completed', 
+    Header: "Completed",
     Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
-  { accessor: "batch",  Cell: row => (<div className="text-left">{row.value}</div>),   placeholder: 'Batch', Header: "Batch", width: null },
-  { accessor: "rotadate",  placeholder: 'Rotadate', Header: "Rotadate" },
-  { accessor: "ref3",  placeholder: 'Ref3', Header: "Ref3", width: null },
-  { accessor: "ref4",  placeholder: 'Ref4', Header: "Ref4", width: null },
-  { accessor: "disposition", placeholder: 'Disposition', Header: "Disposition" },
+  { 
+    accessor: "batch",  
+    Cell: row => (<div className="text-left">{row.value ? row.value : '-'}</div>),   
+    placeholder: 'Batch', 
+    Header: "Batch", 
+    width: 350, 
+  },
+  { 
+    accessor: "rotadate",  
+    placeholder: 'Rotadate', 
+    Header: "Rotadate" ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: "ref3", 
+    placeholder: 'Ref3', 
+    Header: "Ref3", 
+    width: 350 ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: "ref4",  
+    placeholder: 'Ref4', 
+    Header: "Ref4", 
+    width: 350,
+    Cell: props => <span>{props.value ? props.value : '-‎‎‎‎‎‎‎‎‎‎'}</span>   
+  },
+  { 
+    accessor: "disposition", 
+    placeholder: 'Disposition', 
+    Header: "Disposition" ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
   {
-    accessor: "released",placeholder: 'Released', Header: "Released", 
+    accessor: "released",
+    placeholder: 'Released', 
+    Header: "Released", 
     Cell: (row) => <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   }
 ]
@@ -187,6 +268,7 @@ class PurchaseOrdersDetail extends React.Component {
             <CRow><CCol lg={3} className="text-light-gray px-3 py-1">Client</CCol> <CCol className="py-1">{this.clientCheck(detail.client) || '-'}</CCol></CRow>
             <CRow><CCol lg={3} className="text-light-gray px-3">Order No</CCol> <CCol>{detail.order_no || '-'}</CCol></CRow>
             <CRow><CCol lg={3} className="text-light-gray px-3 py-1">Order Type</CCol> <CCol className="py-1">{detail.order_type || '-'}</CCol></CRow>
+            <CRow><CCol lg={3} className="text-light-gray px-3">Task</CCol> <CCol>{detail.isis_task || '-'}</CCol></CRow>
             <CRow><CCol lg={3} className="text-light-gray px-3">Status</CCol> <CCol>{detail.status || '-'}</CCol></CRow>
           </CCardBody>
         </CCard>

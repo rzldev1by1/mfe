@@ -23,7 +23,7 @@ export default class MessageTab extends React.Component{
         statusMessage = 'The order that you tried to create could not be saved to the system.'
         return (
             <Container className="px-5 py-4 tab-content">
-                <Col className='pl-4'>
+                <Col className='pl-4 pb-4 mb-1'>
                   <img src={imgSrc} alt='message' className='img-msg'/>
                   <div className='h1 bold text-gray-title'>{status === 'Successfully added' ? 'Success' : 'Sorry'}</div>
                   <div className='h4 text-gray w-50 msg-tab text-gray-md'>

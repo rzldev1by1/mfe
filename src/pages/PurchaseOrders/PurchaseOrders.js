@@ -12,13 +12,61 @@ import PurchaseOrderCreate from './PurchaseOrderCreate'
 import './PurchaseOrder.scss'
 
 const columns = [
-  { accessor: 'site', placeholder: 'Site', Header: 'Site', width: 80, sortable: true },
-  { accessor: 'client', placeholder: 'Client', Header: 'Client', width: 110, sortable: true },
-  { accessor: 'order_no', placeholder: 'Order No', Header: 'Order No', width: 160, },
-  { accessor: 'order_type', placeholder: 'Order Type', Header: 'Order Type', width: 120, sortable: true },
-  { accessor: 'isis_task', placeholder: 'Task', Header: 'Task', width: 100, sortable: true },
-  { accessor: 'supplier_no', placeholder: 'Supplier No', Header: 'Supplier No', width: 120, sortable: true, style: { textAlign: 'left' } },
-  { accessor: 'supplier_name', placeholder: 'Supplier Name', Header: 'Supplier Name', width: 290 },
+  { 
+    accessor: 'site', 
+    placeholder: 'Site', 
+    Header: 'Site', 
+    width: 80, 
+    sortable: true ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: 'client', 
+    placeholder: 'Client', 
+    Header: 'Client', 
+    width: 110, 
+    sortable: true ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: 'order_no', 
+    placeholder: 'Order No', 
+    Header: 'Order No', 
+    width: 160, 
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: 'order_type', 
+    placeholder: 'Order Type', 
+    Header: 'Order Type', 
+    width: 120, 
+    sortable: true ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: 'isis_task', 
+    placeholder: 'Task', 
+    Header: 'Task', 
+    width: 100, 
+    sortable: true ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
+  { 
+    accessor: 'supplier_no', 
+    placeholder: 'Supplier No', 
+    Header: 'Supplier No', 
+    width: 120, 
+    sortable: true, 
+    style: { textAlign: 'left' },
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+   },
+  { 
+    accessor: 'supplier_name', 
+    placeholder: 'Supplier Name', 
+    Header: 'Supplier Name',
+    width: 290 ,
+    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+  },
   {
     accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140,
     Cell: row => {
@@ -323,7 +371,7 @@ class PurchaseOrders extends React.PureComponent {
                       this.props.store.user.site ?
                         <input value={this.siteCheck(site.value)} className="form-control sh-input" readOnly />
                         :
-                        <Select name="site" placeholder="Site"
+                        <Select isClearable name="site" placeholder="Site"
                           options={siteData}
                           filterOption={
                               (option, inputVal) => {
@@ -332,10 +380,15 @@ class PurchaseOrders extends React.PureComponent {
                           }
                           onChange={(val) => this.setSite(val)}
                           styles={{
-                            dropdownIndicator: (base, state) => ({
-                              ...base,
-                              transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                            })
+                              option: (provided, state) => ({
+                                ...provided,
+                                textAlign: 'left'
+                              }),
+                              dropdownIndicator: (base, state) => ({
+                                ...base,
+                                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                                display: !site || !site.value ? "flex" : "none"
+                              })
                           }}
                         />
                     }
@@ -345,7 +398,7 @@ class PurchaseOrders extends React.PureComponent {
                       this.props.store.user.client ?
                         <input value={this.clientCheck(client.value)} className="form-control sh-input" readOnly />
                         :
-                        <Select name="client" placeholder="Client"
+                        <Select isClearable name="client" placeholder="Client"
                           options={clientData}
                           onChange={(val) => this.setClient(val)}
                           filterOption={
@@ -354,17 +407,22 @@ class PurchaseOrders extends React.PureComponent {
                               }
                           }
                           styles={{
-                            dropdownIndicator: (base, state) => ({
-                              ...base,
-                              transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                            })
+                              option: (provided, state) => ({
+                                ...provided,
+                                textAlign: 'left'
+                              }),
+                              dropdownIndicator: (base, state) => ({
+                                ...base,
+                                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                                display:  !client || !client.value ? "flex" : "none"
+                              })
                           }}
                         />
                     }
                     {console.log(this.state.status)}
                   </CCol>
                   <CCol sm={4} lg={2} className="px-0">
-                    <Select name="status" placeholder="Status"
+                    <Select isClearable name="status" placeholder="Status"
                       value={status} options={statusData}
                       onChange={(val) => this.setState({ status: val })}
                       filterOption={
@@ -373,15 +431,20 @@ class PurchaseOrders extends React.PureComponent {
                           }
                       }
                       styles={{
-                        dropdownIndicator: (base, state) => ({
-                          ...base,
-                          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                        })
+                          option: (provided, state) => ({
+                            ...provided,
+                            textAlign: 'left'
+                          }),
+                          dropdownIndicator: (base, state) => ({
+                            ...base,
+                            transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                            display: !status ? "flex" : "none"
+                          })
                       }}
                     />
                   </CCol>
                   <CCol sm={4} lg={2} className="px-3">
-                    <Select name="orderType" placeholder="Order Type"
+                    <Select isClearable name="orderType" placeholder="Order Type"
                       value={orderType} options={orderTypeFilterData}
                       onChange={(val) => this.setState({ orderType: val })}
                       filterOption={
@@ -390,15 +453,20 @@ class PurchaseOrders extends React.PureComponent {
                           }
                       }
                       styles={{
-                        dropdownIndicator: (base, state) => ({
-                          ...base,
-                          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                        })
+                          option: (provided, state) => ({
+                            ...provided,
+                            textAlign: 'left'
+                          }),
+                          dropdownIndicator: (base, state) => ({
+                            ...base,
+                            transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                            display: !orderType ? "flex" : "none"
+                          })
                       }}
                     />
                   </CCol>
                   <CCol sm={4} lg={2} className="px-0">
-                    <Select name="task" placeholder="Task"
+                    <Select isClearable name="task" placeholder="Task"
                       value={task} options={taskData}
                       onChange={(val) => this.setState({ task: val })}
                       filterOption={
@@ -407,10 +475,15 @@ class PurchaseOrders extends React.PureComponent {
                           }
                       }
                       styles={{
-                        dropdownIndicator: (base, state) => ({
-                          ...base,
-                          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                        })
+                          option: (provided, state) => ({
+                            ...provided,
+                            textAlign: 'left'
+                          }),
+                          dropdownIndicator: (base, state) => ({
+                            ...base,
+                            transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                            display: !task ? "flex" : "none"
+                          })
                       }}
                     />
                   </CCol>
