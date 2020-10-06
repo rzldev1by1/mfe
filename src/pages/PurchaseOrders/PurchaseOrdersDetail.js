@@ -112,10 +112,14 @@ const columns = [
     Cell: (row) => <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   }
 ]
+
 class PurchaseOrdersDetail extends React.Component {
   constructor(props) {
     super(props)
     // ref to get element height and calculate table height
+
+    // console.log(this.props.store.total_length)
+
     this.section1 = React.createRef()
     this.state = {
       dimension: { width: 0, height: 0 },
@@ -156,20 +160,37 @@ class PurchaseOrdersDetail extends React.Component {
     const { orderdetail, client,site} = this.props.match.params
     const url = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${page}&export=${export_}`
     const { data } = await axios.get(url)
+    console.log(data);
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     // if (data.data.length) {
     //   this.setState({ products: data.data })
     // }
     if (data?.data?.data) { 
       console.log(data.data.data)
+      let txt = []
       const dt = data.data.data.map(m => { 
         m.rotadate = m?.rotadate ? moment(m.rotadate).format('DD/MM/YYYY') : '-'
         m.quantity = numeral(m.quantity).format('0,0')
         m.qty_processed = numeral(m.qty_processed).format('0,0')
         m.weight = numeral(m.weight).format('0,0.000')
         m.weight_processed = numeral(m.weight_processed).format('0,0.000')
+        txt.push(m.batch?.length)
         return m
       })
+      console.log(txt);
+
+      let largest= 0;
+
+      for (let i=0; i<=largest;i++){
+        if (txt[i]>largest) {
+            largest=txt[i];
+        }
+      }
+
+      // this.props.dispatch({ type: 'TOTAL_LENGTH', data: largest })
+      // console.log(this.props.store.total_length)
+      // console.log(largest)
+
       if(export_=='true'){
         this.setState({ 
           exportData: dt
@@ -328,7 +349,9 @@ class PurchaseOrdersDetail extends React.Component {
 const mapStateToProps = state => {
   return {
     site: state.site,
-    client: state.client
+    client: state.client,
+    store: state.store
   }
 }
-export default connect(mapStateToProps)(PurchaseOrdersDetail)
+const mapDispatchToProps = (dispatch) => ({ dispatch })
+export default connect(mapStateToProps, mapDispatchToProps)(PurchaseOrdersDetail)

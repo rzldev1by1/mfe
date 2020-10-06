@@ -341,6 +341,8 @@ class StockHolding extends React.PureComponent {
         item['expected_in_wgt'] = numeral(item['expected_in_wgt']).format('0,0.000')
         item['weight_processed'] = numeral(item['weight_processed']).format('0,0.000')
       })
+
+      
       
       if(export_=='true'){
         this.setState({ 

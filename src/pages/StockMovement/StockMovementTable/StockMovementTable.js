@@ -138,6 +138,7 @@ class StockMovementTable extends React.Component {
 
   ExportHeader = () => {
     let headers = ""
+    console.log(headers)
     return headers
   }
   ExportFont = () => {
@@ -229,53 +230,52 @@ class StockMovementTable extends React.Component {
           </CRow>
 
           <table id="excel" style={{display: 'none'}}>
-                    <thead>
-                        <tr  className="border-bottom border-right text-center">
-                            <th>Site </th>
-                            <th>Client </th>
-                            <th>Product </th>
-                            <th>Description </th>
-                            <th>UOM </th>
-                            {date_array.map((date, index) =>
-                                <th key={index} className="movement-header text-center border-right">
-                                    <table>
-                                        <tr>
-                                            <th colSpan="4">{this.formatDate(date)}</th>
-                                        </tr>
-                                        <tr>
-                                            <th width="25%">SA+</th>
-                                            <th width="25%">SA-</th>
-                                            <th width="25%">Rec</th>
-                                            <th width="25%">Send</th>
-                                        </tr>
-                                    </table>
-                                </th>
-                            )}
+            <thead>
+              <tr  className="border-bottom border-right text-center">
+                <th>Site </th>
+                <th>Client </th>
+                <th>Product </th>
+                <th>Description </th>
+                <th>UOM </th>
+                  {date_array.map((date, index) =>
+                    <th key={index} className="movement-header text-center border-right">
+                      <table>
+                        <tr>
+                          <th colSpan="4">{this.formatDate(date)}</th>
                         </tr>
-                    </thead>
-                    <tbody>  
-                        {dataExport.map((data, index) =>
-                            <tr ref={"row"+index} key={index}>
-                                <td style={{textAlign: 'left'}}>{data.site}</td>
-                                <td style={{textAlign: 'left'}}>{data.client}</td>
-                                <td style={{textAlign: 'left'}}>{data.product}</td>
-                                <td style={{textAlign: 'left'}} className="text-left">{data.product_name}</td>
-                                <td style={{textAlign: 'left'}}>{data.packdesc}</td>
-                                {data.detail.map(detail => 
-                                <td>
-                                <table>
-                                    <td style={{textAlign: "right"}}> {detail.sa_plus ? detail.sa_plus : '-'}</td>
-                                    <td style={{textAlign: "right"}}>{detail.sa_minus ? detail.sa_minus : '-'}</td>
-                                    <td style={{textAlign: "right"}}>{detail.recv_weight ? detail.recv_weight : '-'}</td>
-                                    <td style={{textAlign: "right"}}>{detail.send_weight ? detail.send_weight : '-'}</td>
-                                </table>
-                                </td>
-                                )}
-                            </tr>  
-                        )}
-                    </tbody>
-                </table>
-
+                        <tr>
+                          <th width="25%">SA+</th>
+                          <th width="25%">SA-</th>
+                          <th width="25%">Rec</th>
+                          <th width="25%">Send</th>
+                        </tr>
+                      </table>
+                    </th>
+                  )}
+              </tr>
+            </thead>
+            <tbody>  
+              {dataExport.map((data, index) =>
+                <tr ref={"row"+index} key={index}>
+                    <td style={{textAlign: 'left'}}>{data.site}</td>
+                    <td style={{textAlign: 'left'}}>{data.client}</td>
+                    <td style={{textAlign: 'left'}}>{data.product}</td>
+                    <td style={{textAlign: 'left'}} className="text-left">{data.product_name}</td>
+                    <td style={{textAlign: 'left'}}>{data.packdesc}</td>
+                    {data.detail.map(detail => 
+                    <td>
+                    <table>
+                        <td style={{textAlign: "right"}}> {detail.sa_plus ? detail.sa_plus : '-'}</td>
+                        <td style={{textAlign: "right"}}>{detail.sa_minus ? detail.sa_minus : '-'}</td>
+                        <td style={{textAlign: "right"}}>{detail.recv_weight ? detail.recv_weight : '-'}</td>
+                        <td style={{textAlign: "right"}}>{detail.send_weight ? detail.send_weight : '-'}</td>
+                    </table>
+                    </td>
+                    )}
+                </tr>  
+              )}
+            </tbody>
+          </table>
         </div>
       </React.Fragment>
     )
