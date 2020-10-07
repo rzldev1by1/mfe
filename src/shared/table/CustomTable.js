@@ -640,14 +640,32 @@ console.log(this.state)
               <tr key={i} >
                 {fields.map((column, columnIdx) => {
                   console.log(data[column.accessor] )
-                  if(column.accessor === 'batch'){
+                  if(column.accessor === 'customer'){
+                    return (<td key={columnIdx}>{data[column.accessor]}‎</td>)//hidden fonts for export
+                  }
+                  if(column.accessor === 'customername'){
+                    return (<td key={columnIdx}>{data[column.accessor]}‎</td>)//hidden fonts for export
+                  }
+                  if(column.accessor === 'address1'){
+                    return (<td key={columnIdx}>{data[column.accessor]}‎‎‎</td>)//hidden fonts for export
+                  }
+                  if(column.accessor === 'orderno'){
                     return (<td key={columnIdx}>{data[column.accessor]}‎‎</td>)//hidden fonts for export
+                  }
+                  if(column.accessor === 'order_no'){
+                    return (<td key={columnIdx}>{data[column.accessor]}‎</td>)//hidden fonts for export
+                  }
+                  if(column.accessor === 'product'){
+                    return (<td key={columnIdx}>{data[column.accessor]}</td>)//hidden fonts for export
+                  }
+                  if(column.accessor === 'batch'){
+                    return (<td key={columnIdx}>{data[column.accessor]}</td>)//hidden fonts for export
                   }if(column.accessor === 'pack_id'){
-                    return (<td key={columnIdx}>{data[column.accessor]}‎‎‎‎</td>) //hidden fonts for export
+                    return (<td key={columnIdx}>{data[column.accessor]}</td>) //hidden fonts for export
                   }else{
-                  return (
-                    <td key={columnIdx}>{data[column.accessor]}</td>
-                  )
+                    return (
+                      <td key={columnIdx}>{data[column.accessor]}</td>
+                    )
                   }
                 })}
               </tr>

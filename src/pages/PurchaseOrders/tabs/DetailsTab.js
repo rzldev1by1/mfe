@@ -225,8 +225,9 @@ class CreateTab extends React.Component {
         let number;
         let decimal = newVal.slice(dot + 1, dot + 4).split('').filter(d => d !== '.' && d !== ',').join('')
         let integer = newVal.slice(0, dot).split('').filter(d => d !== ',').join('')
-        console.log(decimal + ' dot')
+        console.log(decimal + ' decimal')
         console.log(integer + ' int')
+        console.log(integer.length + ' int l')
         if (integer.length <= 6) {
           if (integer.length >= 4) {
             let idxSepr1 = integer.slice(0, integer.length - 3)
@@ -321,7 +322,8 @@ class CreateTab extends React.Component {
       error.orderId = 'Please select client first'
       return this.setState({ error }) && false
     }
-    if (orderId.trim().length < 4) {
+   
+    if (orderId.length < 4) {
       error.orderId = 'Order no. must have min 4 characters'
       return this.setState({ error })
     }
@@ -356,7 +358,10 @@ class CreateTab extends React.Component {
     console.log(this.state.error)
     if (Object.keys(error).length) {
       return this.setState({ error })
-    } else {
+    } 
+    if (!Object.keys(error).length) {
+      
+    // else {
       let header = Object.assign({}, this.state)
       let lineDetail = header.orderLine
       delete header.error
@@ -539,7 +544,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order No</label>
-          <input name="orderId" type="text" value={orderId || ''} onChange={this.checkOrderId} className="form-control" maxLength='12' placeholder="Order No" required />
+          <input name="orderId" type="text" value={orderId || ''} onKeyDown={(e) => e.keyCode === 32 ? e.preventDefault() : null } onChange={this.checkOrderId} className="form-control" maxLength='12' placeholder="Order No" required />
           <Required id="orderId" error={error} />
         </Col>
         <Col lg="3">
