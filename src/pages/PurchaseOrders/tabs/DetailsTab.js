@@ -315,14 +315,11 @@ class CreateTab extends React.Component {
     let orderId = e.target.value
     let orderDetails = [...this.state.orderDetails]
     orderDetails[0].orderNo = orderId.toUpperCase()
-    this.setState({ orderId: orderId.toUpperCase(), orderDetails })
+    this.setState({ orderId: orderId.toUpperCase()  , orderDetails })
+    console.log(orderId.trim().length)
     if (!client) {
       error.orderId = 'Please select client first'
-      return this.setState({ error })
-    }
-    if (!orderId.trim()) {
-      error.orderId = 'Order no. cannot be empty'
-      return this.setState({ error })
+      return this.setState({ error }) && false
     }
     if (orderId.trim().length < 4) {
       error.orderId = 'Order no. must have min 4 characters'
