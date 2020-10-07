@@ -100,7 +100,7 @@ const columns = [
     accessor: "rota1",
     placeholder: 'Rotadate', 
     Header: "ROTADATE", 
-    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+    Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>  
   },
   { 
     accessor: "ref3",
@@ -184,7 +184,7 @@ class SalesOrderDetail extends React.Component {
     this.setState({ data: [], tableStatus: "waiting" }) 
     const url = `/salesorder/${orderno}?client=${client}&site=${site}&page=${page}&export=${export_}`
     const { data } = await axios.get(url)
-    console.log(data)
+    console.log(data.data.data.batch)
 
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     if (data?.data?.data) { 

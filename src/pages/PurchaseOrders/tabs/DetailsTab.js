@@ -217,7 +217,7 @@ class CreateTab extends React.Component {
     let newVal = value;
 
     if (name === 'weight') {
-      if (newVal.length > 14) newVal = newVal.split('').filter(d => d !== ',' ? d : null).map((d, i) => { if (i > 10 && !newVal.includes('.')) { return null } else return d }).join('')
+      if (newVal.length > 11) newVal = newVal.split('').filter(d => d !== ',' ? d : null).map((d, i) => { if (i > 10 && !newVal.includes('.')) { return null } else return d }).join('')
       console.log(newVal)
       const dot = newVal.indexOf('.')
       console.log(dot + ' dot')
@@ -244,7 +244,7 @@ class CreateTab extends React.Component {
           console.log(`${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`)
           number = `${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`
         }
-        if (integer.length > 9 && integer.length <= 11) {
+        if (integer.length > 9 && integer.length <= 8) {
           let idxSepr1 = integer.slice(0, integer.length - 9)
           let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 6)
           let idxSepr3 = integer.slice(idxSepr1.length + idxSepr2.length, idxSepr1.length + idxSepr2.length + 3)
@@ -641,7 +641,7 @@ class CreateTab extends React.Component {
 
                 </td>
                 <td className="px-1">
-                  <input name="weight" value={this.state.orderLine[i]['weight']} onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="18" className="form-control" placeholder="Weight" />
+                  <input name="weight" value={this.state.orderLine[i]['weight']} onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="14" className="form-control" placeholder="Weight" />
                 </td>
                 <td className="px-1">
                   <Select 

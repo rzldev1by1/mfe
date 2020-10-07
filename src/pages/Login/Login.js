@@ -131,7 +131,8 @@ class Logins extends Component {
     loginForm(errorMessage, formValidation) {
         return (
             <form className={"mt-3 " + (this.state.forgotPassword ? 'form-hidden' : 'form-show')} onSubmit={this.validateForm}>
-                <input className={'form-control  inputLogin ' + (formValidation.username ? "" : ""/*"is-invalid"*/)}
+                <input className={'form-control  inputLogin ' + (formValidation.username ? "ssss" : "border-red"/*"is-invalid"*/)}
+                    style={formValidation.username ? {} : {borderColor:'#f44336 !important'}}
                     type="text" name="username"
                     placeholder="Enter your user ID here" />
                 <br />
