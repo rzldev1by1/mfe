@@ -10,6 +10,7 @@ import DatePicker from 'shared/DatePicker'
 import validations from './validations'
 import { connect } from 'react-redux'
 import { MdBorderColor } from 'react-icons/md'
+import { isEmptyObject } from 'jquery'
 
 const Required = ({ error, id }) => {
   return <span className="text-error text-danger font-12">{error && error[id]}</span>
@@ -31,8 +32,11 @@ class CreateTab extends React.Component {
     deliveryDate: null,
     orderId: null,
     orderTypeValue: null,
-    site: this.props.user.site ? { value: this.props.user.site } : '',
-    client: this.props.user.client ? { value: this.props.user.client } : ''
+    site: this.props.user.site ? { value: this.props.user.site } : {},
+    client: this.props.user.client ? { value: this.props.user.client } : {},
+    orderType: {},
+    supplier: {},
+    customer: {}
   }
   componentDidMount() {
     this.getDisposition()
@@ -119,7 +123,8 @@ class CreateTab extends React.Component {
   getDisposition = async () => {
     const url = `${endpoints.getDisposition}`
     const { data } = await axios.get(url)
-    const dispositionData = data.code.map((c, i) => ({ value: c, label: c, i }))
+    const dispositionData = [];
+    data.code.map((c, i) => {if((c.length > 0) && (c != " ")) dispositionData.push({ value: c, label: c, i })})
     this.setState({ dispositionData })
   }
   getUom = async (product) => {
@@ -397,7 +402,7 @@ class CreateTab extends React.Component {
 
   orderTypeValue = (orderType) => {
     this.setState({
-      orderTypeValue: orderType.value
+      orderTypeValue: orderType ? orderType.value : {}
     })
   }
 
@@ -409,12 +414,18 @@ class CreateTab extends React.Component {
       console.log(newVal)
       const dot = newVal.indexOf('.')
       console.log(dot + ' dot')
+      if(dot === -1 && newVal.length === 11) {
+        newVal = newVal.slice(0, dot).split('').filter(d => d !== ',').join('')
+      }
       if (dot !== -1) {
         let number;
         let decimal = newVal.slice(dot + 1, dot + 4).split('').filter(d => d !== '.' && d !== ',').join('')
         let integer = newVal.slice(0, dot).split('').filter(d => d !== ',').join('')
         console.log(decimal + ' dot')
         console.log(integer + ' int')
+        console.log(decimal.length + ' dot')
+        console.log(integer.length + ' int')
+
         if (integer.length <= 6) {
           if (integer.length >= 4) {
             let idxSepr1 = integer.slice(0, integer.length - 3)
@@ -425,6 +436,7 @@ class CreateTab extends React.Component {
           else number = `${integer}.${decimal}`
         }
         if (integer.length > 6 && integer.length <= 9) {
+          // alert('www')
           let idxSepr1 = integer.slice(0, integer.length - 6)
           let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 3)
           let idxSepr3 = integer.slice(integer.length - 3)
@@ -480,7 +492,7 @@ class CreateTab extends React.Component {
 
 
   render() {
-    const { error, overflow, site, client, orderType, orderLine, customer,
+    const { error, overflow, site, client, orderTypeValue, orderLine, customer,
       orderId, shipToAddress1, postCode, state,
       siteData, clientData, orderTypeData, productData, uomData, dispositionData, supplierData
     } = this.state
@@ -502,18 +514,19 @@ class CreateTab extends React.Component {
             user.site ?
               <input value={this.siteCheck(user.site)} className="form-control" readOnly />
               :
-              <Select options={this.hideAllOptionSite()} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required
+              <Select isClearable={true}  options={this.hideAllOptionSite()} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required
                 filterOption={
                     (option, inputVal) => {
                         return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
                     }
                 }
                 styles={{
-                  dropdownIndicator: (base, state) => ({
-                    ...base,
-                    transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                  })
-                }}
+                    dropdownIndicator: (base, state) => ({
+                      ...base,
+                      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                      display: isEmptyObject(site) ? "flex" : "none"
+                    })
+                  }}
               />
           }
           <Required id="site" error={error} />
@@ -521,18 +534,20 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order Type</label>
-          <Select name="orderType" value={orderType || ''} options={orderTypeData} onChange={val => this.onSelectChange('orderType', val)} placeholder="Order Type" required
+          <Select isClearable name="orderType" options={orderTypeData} onChange={val => this.onSelectChange('orderType', val)} placeholder="Order Type" required
             filterOption={
                 (option, inputVal) => {
                     return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
                 }
             }
+            
             styles={{
-              dropdownIndicator: (base, state) => ({
-                ...base,
-                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-              })
-            }}
+                dropdownIndicator: (base, state) => ({
+                  ...base,
+                  transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                  display: isEmptyObject(orderTypeValue) ? "flex" : "none"
+                })
+              }}
           />
           <Required id="orderType" error={error} />
         </Col>
@@ -560,18 +575,19 @@ class CreateTab extends React.Component {
             user.client ?
               <input value={this.clientCheck(user.client)} className="form-control" readOnly />
               :
-              <Select options={this.hideAllOptionClient()} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required
+              <Select isClearable options={this.hideAllOptionClient()} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required
                 filterOption={
                     (option, inputVal) => {
                         return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
                     }
                 }
                 styles={{
-                  dropdownIndicator: (base, state) => ({
-                    ...base,
-                    transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                  })
-                }}
+                    dropdownIndicator: (base, state) => ({
+                      ...base,
+                      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                      display: isEmptyObject(client) ? "flex" : "none"
+                    })
+                  }}
               />
           }
           <Required id="client" error={error} />
@@ -596,7 +612,7 @@ class CreateTab extends React.Component {
       <Row>
         <Col lg="3" className="mb-3">
           <label className="text-muted mb-0">Customer</label>
-          < Select
+          <Select isClearable
             options={supplierData}
             placeholder="Customer Name or ID"
             onInputChange={_.debounce(this.findCustomer, 300)}
@@ -607,11 +623,12 @@ class CreateTab extends React.Component {
                 }
             }
             styles={{
-              dropdownIndicator: (base, state) => ({
-                ...base,
-                transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-              })
-            }}
+                dropdownIndicator: (base, state) => ({
+                  ...base,
+                  transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                  display: isEmptyObject(customer) ? "flex" : "none"
+                })
+              }}
           />
         </Col>
       </Row>
@@ -736,7 +753,7 @@ class CreateTab extends React.Component {
                   <input name="weight" ref="weight" value={this.state.orderLine[i]['weight']} onChange={(e) => this.numberCommaCheck(i, "weight", 16, 3, e)} type="text" maxLength='18' className="form-control c-170" placeholder="Weight" />
                 </td>
                 <td className="">
-                  <Select value={o.uom || ''}
+                  <Select isClearable
                     options={uomData}
                     onMenuOpen={() => {
                       UOMStatus[i] = true;
@@ -746,7 +763,7 @@ class CreateTab extends React.Component {
                       UOMStatus[i] = false;
                       this.setState({ UOMStatus: UOMStatus })
                     }}
-                    onChange={(val) => this.lineSelectChange(i, 'uom', val)}
+                    onChange={(val, { action }) => this.lineSelectChange(i, 'uom', action == "clear" ? {} : val)}
                     className={`c-150 ${overflow[i] && overflow[i].uom ? 'absolute right' : null}`} placeholder="UOM"
                     filterOption={
                         (option, inputVal) => {
@@ -754,11 +771,12 @@ class CreateTab extends React.Component {
                         }
                     }
                     styles={{
-                      dropdownIndicator: (base, state) => ({
-                        ...base,
-                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
-                      })
-                    }}
+                        dropdownIndicator: (base, state) => ({
+                          ...base,
+                          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                          display: isEmptyObject(o.uom) ? "flex" : "none"
+                        })
+                      }}
                   />
                   <Required id="uom" error={error.orderLine && error.orderLine[i]} />
                 </td>
@@ -772,11 +790,11 @@ class CreateTab extends React.Component {
                   <input name="ref4" onChange={(e) => this.lineChange(i, e)} className="form-control c-100" placeholder="Ref4" maxLength="30" />
                 </td>
                 <td className="">
-                  <Select value={o.dispositionVal || ''}
+                  <Select isClearable
                     options={dispositionData}
                     onMenuOpen={() => { dispositionStatus[i] = true; this.setState({ dispositionStatus: dispositionStatus }) }}
                     onMenuClose={() => { dispositionStatus[i] = false; this.setState({ dispositionStatus: dispositionStatus }) }}
-                    onChange={(val) => this.lineSelectChange(i, 'dispositionVal', val)}
+                    onChange={(val, { action }) => this.lineSelectChange(i, 'dispositionVal', action == "clear" ? {} : val)}
                     className={`c-150 ${overflow[i] && overflow[i].dispositionVal ? 'absolute right' : null}`} placeholder="Disposition"
                     filterOption={
                         (option, inputVal) => {
@@ -786,7 +804,8 @@ class CreateTab extends React.Component {
                     styles={{
                       dropdownIndicator: (base, state) => ({
                         ...base,
-                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null
+                        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                        display: isEmptyObject(o.dispositionVal) ? "flex" : "none"
                       })
                     }}
                   />

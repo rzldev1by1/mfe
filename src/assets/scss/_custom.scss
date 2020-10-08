@@ -5,6 +5,9 @@ body {
 .text-muted-soft{
   color:#d5d8da;
 }
+.login .border-red{
+  border-color:#f44336 !important;
+}
 .breadcrumb-item a {
   color: #637176 !important;
   font-weight: 700 !important;
@@ -15,6 +18,12 @@ body {
   height: initial !important;
 }
 
+.rt-resizer{
+  display: none !important;
+}
+.mt-45{
+  margin-top: 1.28rem;
+}
 // Custom style
 .grid-col{
   display: grid !important;

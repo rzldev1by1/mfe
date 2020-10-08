@@ -14,6 +14,12 @@ class ReviewTab extends React.Component {
   }
   next = async () => {
     this.setState({ status: 'loading' })
+    
+    if(!navigator.onLine){
+        console.log(data);
+        this.setState({ status: 'success' })
+        this.props.submitStatus("No Internet Connection");
+    }
     // const url = 'https://apidev.microlistics.tech/salesorder/store'
     let { header, lineDetail, orderDetails } = JSON.parse(JSON.stringify(this.props.data))
     const keys = ['site', 'client', 'clientName', 'company', 'supplier', 'supplierName', 'customerOrderRef',
@@ -30,7 +36,7 @@ class ReviewTab extends React.Component {
       l.product = l.productVal?.value || null
       l.ref3 = l.ref3 || null
       l.ref4 = l.ref4 || null
-      l.rotaDate = moment(l.rotaDate).format('DD/MM/YYYY') || null
+      l.rotaDate = l.rotaDate ? moment(l.rotaDate).format('DD/MM/YYYY') : null
       l.disposition = l.disposition || null
       l.dispositionVal = l.dispositionVal?.value || null
       l.uom = l.uom?.value || null
@@ -45,8 +51,8 @@ class ReviewTab extends React.Component {
     if (data.message === 'Successfully added') {
       this.setState({ status: 'success' })
       this.props.submit({ orderNo: orderDetails[0].orderNo, header: {}, lineDetail: [], orderDetails: [{}] })
+      this.props.submitStatus(data.message)
     }
-    this.props.submitStatus(data.message)
   }
 
   siteCheck = (siteVal) => {

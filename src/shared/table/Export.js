@@ -67,11 +67,13 @@ class Export extends Component {
           this.changeExportStatus('ready')
           return 0;
         }
-          this.changeExportStatus('wait');
-          await this.props.getExportData()  
-          document.getElementById("button-download-as-xls").click();
-          this.changeExportStatus('ready')
-        }
+        this.changeExportStatus('wait');
+
+        await this.props.getExportData()
+
+        document.getElementById("button-download-as-xls").click();
+        this.changeExportStatus('ready')
+      }
 
       examples = () => {
         console.log(this.props.ExportData())

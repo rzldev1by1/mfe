@@ -18,6 +18,7 @@ import validations from './validations'
 //import { splice } from 'core-js/fn/array'
 
 const baseUrl = process.env.REACT_APP_API_URL;
+const no = Math.floor(Math.random() * 100000) + 1;
 
 // automatic column width
 const getColumnWidth = (rows, accessor, headerText) => {
@@ -74,13 +75,14 @@ class CustomTable extends React.Component {
       fields: props.fields,
       urlHeader: props.urlHeader,
       products: [],
-      isLoading: true
+      isLoading: true,
+      no: Math.floor(Math.random() * 100000) + 1
     }
   }
 
   mountEvents() {
     const headers = Array.prototype.slice.call(
-      document.querySelectorAll(".draggable-header")
+      document.querySelectorAll(".draggable-header"+this.state.no)
     );
 
     headers.forEach((header, i) => {
@@ -236,7 +238,7 @@ class CustomTable extends React.Component {
     header && header.map((h, index) => {
       if (!editColumn[index]) {
         let withIcon = (
-          <span className='text-light-gray draggable-header' onClick={() => h.sortType === "float" ? this.sortFloat(h.accessor) : false }>
+          <span className={'text-light-gray draggable-header'+this.state.no} onClick={() => h.sortType === "float" ? this.sortFloat(h.accessor) : false }>
             {h.Header}{' '}
               <svg
                 stroke='currentColor'
@@ -640,14 +642,32 @@ console.log(this.state)
               <tr key={i} >
                 {fields.map((column, columnIdx) => {
                   console.log(data[column.accessor] )
-                  if(column.accessor === 'batch'){
+                  if(column.accessor === 'customer'){
+                    return (<td key={columnIdx}>{data[column.accessor]}‎</td>)//hidden fonts for export
+                  }
+                  if(column.accessor === 'customername'){
+                    return (<td key={columnIdx}>{data[column.accessor]}‎</td>)//hidden fonts for export
+                  }
+                  if(column.accessor === 'address1'){
+                    return (<td key={columnIdx}>{data[column.accessor]}‎‎‎</td>)//hidden fonts for export
+                  }
+                  if(column.accessor === 'orderno'){
                     return (<td key={columnIdx}>{data[column.accessor]}‎‎</td>)//hidden fonts for export
+                  }
+                  if(column.accessor === 'order_no'){
+                    return (<td key={columnIdx}>{data[column.accessor]}‎</td>)//hidden fonts for export
+                  }
+                  if(column.accessor === 'product'){
+                    return (<td key={columnIdx}>{data[column.accessor]}‎</td>)//hidden fonts for export
+                  }
+                  if(column.accessor === 'batch'){
+                    return (<td key={columnIdx}>{data[column.accessor]}</td>)//hidden fonts for export
                   }if(column.accessor === 'pack_id'){
-                    return (<td key={columnIdx}>{data[column.accessor]}‎‎‎‎</td>) //hidden fonts for export
+                    return (<td key={columnIdx}>{data[column.accessor]}</td>) //hidden fonts for export
                   }else{
-                  return (
-                    <td key={columnIdx}>{data[column.accessor]}</td>
-                  )
+                    return (
+                      <td key={columnIdx}>{data[column.accessor]}</td>
+                    )
                   }
                 })}
               </tr>
