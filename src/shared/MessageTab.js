@@ -31,10 +31,10 @@ export default class MessageTab extends React.Component{
             statusMessage = "You have created a new " + role + " User for " + name + ". The " + role + " User " + name + " will receive an email shortly with their user ID and password to access the portal"
         }
         return (
-            <Container className="px-5 py-4 tab-content">
+            <Container className="px-5 py-5 tab-content">
                 <Col className='pl-4 pb-4 mb-1'>
                   <i style={{color:"#cccccc"}} className={"img-msg " + ((status === 'Successfully added') || (status === 200) ? "msg-Icon_Complete" : status == "No Internet Connection" ? "msg-Icon_Reload" : " msg-Icon_Caution")}></i>
-                  <div className='h1 bold text-gray-title font-2xl mt-2'>{(status !== 'Successfully added') && (status !== 200) ? 'Sorry' : ''}{status === "Successfully added" ? 'Success' : ''}{status === 200 ? 'Thank You' : ''}</div>
+                  <div className='h1 bold text-gray-title font-2xl mt-4'>{(status !== 'Successfully added') && (status !== 200) ? 'Sorry' : ''}{status === "Successfully added" ? 'Success' : ''}{status === 200 ? 'Thank You' : ''}</div>
                   <div className='h4 text-gray w-75 msg-tab text-gray-md font-2xl'>
                     {statusMessage}
                     <span className='h4 text-gray w-50 font-2xl'>{(status === 'Successfully added') || (status === 200) ? null : 'Please try again.'}</span>
