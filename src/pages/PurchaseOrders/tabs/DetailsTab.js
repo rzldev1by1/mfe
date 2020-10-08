@@ -13,7 +13,7 @@ import validations from './validations'
 import { isEmptyObject } from 'jquery'
 
 const Required = ({ error, id }) => {
-  return <span className="text-error pl-0 text-danger font-12">{error && error[id]}</span>
+  return <span className="text-error pl-0 text-danger position-absolute font-12">{error && error[id]}</span>
 }
 // const debounceEventHandler = (...args) => {
 //   const debounced = _.debounce(...args)
@@ -459,7 +459,7 @@ class CreateTab extends React.Component {
           <label className="text-muted mb-0 required">Site</label>
           {
             user.site ?
-              <input value={this.siteCheck(user.site)} className="form-control" readOnly />
+              <input value={this.siteCheck(user.site)} className="form-control mb-3" readOnly />
               :
               <Select isClearable={true} options={this.hideAllOptionSite()} onChange={val => this.onSelectChange('site', val)} placeholder="Site"
 
@@ -522,7 +522,7 @@ class CreateTab extends React.Component {
         </Col>
       </Row>
       <Row>
-        <Col lg="3">
+        <Col lg="3" className="mt-45">
           <label className="text-muted mb-0 required">Client</label>
           {
             user.client ?
@@ -546,12 +546,12 @@ class CreateTab extends React.Component {
           }
           <Required id="client" error={error} />
         </Col>
-        <Col lg="3">
+        <Col lg="3" className="mt-45">
           <label className="text-muted mb-0 required">Order No</label>
           <input name="orderId" type="text" value={orderId || ''} onKeyDown={(e) => e.keyCode === 32 ? e.preventDefault() : null } onChange={this.checkOrderId} className="form-control" maxLength='12' placeholder="Order No" required />
           <Required id="orderId" error={error} />
         </Col>
-        <Col lg="3">
+        <Col lg="3" className="mt-45">
           <label className="text-muted mb-0 required">Order Date</label>
           <DatePicker
             className="form-control"
@@ -565,13 +565,13 @@ class CreateTab extends React.Component {
           />
           <Required id="orderDate" error={error} />
         </Col>
-        <Col lg="3">
+        <Col lg="3" className="mt-45">
           <label className="text-muted mb-0">Vendor Order Ref</label>
           <input name="vendorOrderRef" onChange={this.onChange} className="form-control" placeholder="Vendor Order Ref" maxLength='40' />
         </Col>
       </Row>
 
-      <h3 className="text-primary font-20">Line Details</h3>
+      <h3 className="text-primary font-20 mt-4">Line Details</h3>
       <div className={"orderline mb-2 pb-2 scroll-x-y" + datepickerExpandStyle + dropdownExpandStyle}>
         {/* ${this.state.overflow ? 'scroll-x-y' : null} */}
         <table>
