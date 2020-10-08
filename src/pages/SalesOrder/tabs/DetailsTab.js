@@ -415,8 +415,7 @@ class CreateTab extends React.Component {
       const dot = newVal.indexOf('.')
       console.log(dot + ' dot')
       if(dot === -1 && newVal.length === 11) {
-        console.log(newVal.length + 'new val lenght')
-        newVal = null
+        newVal = newVal.slice(0, dot).split('').filter(d => d !== ',').join('')
       }
       if (dot !== -1) {
         let number;
@@ -424,6 +423,9 @@ class CreateTab extends React.Component {
         let integer = newVal.slice(0, dot).split('').filter(d => d !== ',').join('')
         console.log(decimal + ' dot')
         console.log(integer + ' int')
+        console.log(decimal.length + ' dot')
+        console.log(integer.length + ' int')
+
         if (integer.length <= 6) {
           if (integer.length >= 4) {
             let idxSepr1 = integer.slice(0, integer.length - 3)
@@ -434,6 +436,7 @@ class CreateTab extends React.Component {
           else number = `${integer}.${decimal}`
         }
         if (integer.length > 6 && integer.length <= 9) {
+          // alert('www')
           let idxSepr1 = integer.slice(0, integer.length - 6)
           let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 3)
           let idxSepr3 = integer.slice(integer.length - 3)

@@ -221,12 +221,10 @@ class CreateTab extends React.Component {
       // console.log(newVal.length)
       const dot = newVal.indexOf('.')
       console.log(dot + ' dot')
-      if (dot === -1 && newVal.length === 11) newVal = newVal.split('').filter(d => d !== ',' ? d : null).map((d, i) => { if (i > 10 && !newVal.includes('.')) { return null } else return d }).join('')
 
-      // if(dot === -1 && newVal.length === 11) {
-      //   console.log(newVal.length + 'new val lenght')
-      //   newVal = null
-      // }
+      if(dot === -1 && newVal.length === 11) {
+        newVal = newVal.slice(0, dot).split('').filter(d => d !== ',').join('')
+      }
       if (dot !== -1 && newVal.length) {
         let number;
         let decimal = newVal.slice(dot + 1, dot + 4).split('').filter(d => d !== '.' && d !== ',').join('')
