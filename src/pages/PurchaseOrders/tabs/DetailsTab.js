@@ -217,16 +217,22 @@ class CreateTab extends React.Component {
     let newVal = value;
 
     if (name === 'weight') {
-      if (newVal.length > 14) newVal = newVal.split('').filter(d => d !== ',' ? d : null).map((d, i) => { if (i > 10 && !newVal.includes('.')) { return null } else return d }).join('')
-      console.log(newVal)
+      if (newVal.length > 11) newVal = newVal.split('').filter(d => d !== ',' ? d : null).map((d, i) => { if (i > 10 && !newVal.includes('.')) { return null } else return d }).join('')
+      // console.log(newVal.length)
       const dot = newVal.indexOf('.')
       console.log(dot + ' dot')
+
+      if(dot === -1 && newVal.length === 11) {
+        console.log(newVal.length + 'new val lenght')
+        newVal = null
+      }
       if (dot !== -1 && newVal.length) {
         let number;
         let decimal = newVal.slice(dot + 1, dot + 4).split('').filter(d => d !== '.' && d !== ',').join('')
         let integer = newVal.slice(0, dot).split('').filter(d => d !== ',').join('')
-        console.log(decimal + ' dot')
+        console.log(decimal + ' decimal')
         console.log(integer + ' int')
+        console.log(integer.length + ' int l')
         if (integer.length <= 6) {
           if (integer.length >= 4) {
             let idxSepr1 = integer.slice(0, integer.length - 3)
@@ -244,7 +250,7 @@ class CreateTab extends React.Component {
           console.log(`${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`)
           number = `${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`
         }
-        if (integer.length > 9 && integer.length <= 11) {
+        if (integer.length > 9 && integer.length <= 8) {
           let idxSepr1 = integer.slice(0, integer.length - 9)
           let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 6)
           let idxSepr3 = integer.slice(idxSepr1.length + idxSepr2.length, idxSepr1.length + idxSepr2.length + 3)
@@ -315,16 +321,14 @@ class CreateTab extends React.Component {
     let orderId = e.target.value
     let orderDetails = [...this.state.orderDetails]
     orderDetails[0].orderNo = orderId.toUpperCase()
-    this.setState({ orderId: orderId.toUpperCase(), orderDetails })
+    this.setState({ orderId: orderId.toUpperCase()  , orderDetails })
+    console.log(orderId.trim().length)
     if (!client) {
       error.orderId = 'Please select client first'
-      return this.setState({ error })
+      return this.setState({ error }) && false
     }
-    if (!orderId.trim()) {
-      error.orderId = 'Order no. cannot be empty'
-      return this.setState({ error })
-    }
-    if (orderId.trim().length < 4) {
+   
+    if (orderId.length < 4) {
       error.orderId = 'Order no. must have min 4 characters'
       return this.setState({ error })
     }
@@ -359,7 +363,10 @@ class CreateTab extends React.Component {
     console.log(this.state.error)
     if (Object.keys(error).length) {
       return this.setState({ error })
-    } else {
+    } 
+    if (!Object.keys(error).length) {
+      
+    // else {
       let header = Object.assign({}, this.state)
       let lineDetail = header.orderLine
       delete header.error
@@ -542,7 +549,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order No</label>
-          <input name="orderId" type="text" value={orderId || ''} onChange={this.checkOrderId} className="form-control" maxLength='12' placeholder="Order No" required />
+          <input name="orderId" type="text" value={orderId || ''} onKeyDown={(e) => e.keyCode === 32 ? e.preventDefault() : null } onChange={this.checkOrderId} className="form-control" maxLength='12' placeholder="Order No" required />
           <Required id="orderId" error={error} />
         </Col>
         <Col lg="3">
@@ -644,7 +651,7 @@ class CreateTab extends React.Component {
 
                 </td>
                 <td className="px-1">
-                  <input name="weight" value={this.state.orderLine[i]['weight']} onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="18" className="form-control" placeholder="Weight" />
+                  <input name="weight" value={this.state.orderLine[i]['weight']} onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="14" className="form-control" placeholder="Weight" />
                 </td>
                 <td className="px-1">
                   <Select 

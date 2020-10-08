@@ -9,11 +9,14 @@ import {
   CCol,
   CButton,
 } from '@coreui/react'
+import { Modal, ModalBody, ModalHeader } from 'reactstrap'
 import { IoIosArrowDown } from 'react-icons/io'
 import CustomTable from 'shared/table/CustomTableDetail'
 import CustomPagination from 'shared/table/CustomPagination'
 import HeaderTitle from 'shared/container/TheHeader'
 import './SalesOrder.scss'
+import { Link } from 'react-router-dom'
+import logo_confirm from 'assets/img/LOGO5@2x.png' 
 
 const columns = [
   { 
@@ -97,7 +100,7 @@ const columns = [
     accessor: "rota1",
     placeholder: 'Rotadate', 
     Header: "ROTADATE", 
-    Cell: props => <span>{props.value ? props.value : '-'}</span>  
+    Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>  
   },
   { 
     accessor: "ref3",
@@ -137,8 +140,20 @@ class SalesOrderDetail extends React.Component {
     request_status: 'Please Wait...',
     pagination: {}, 
     tableStatus: 'waiting',
-    exportData: []
+    exportData: [],
+    notifPaging: false
   }
+
+  // console.log(this.state.notifPaging)
+
+  closeConfirmDialog = () => {
+    this.setState({ notifPaging: false });
+  }
+
+  openConfirmDialog = () => {
+    this.setState({ notifPaging: true });
+  }
+
   componentDidMount() {
     this.updateDimension();
     window.addEventListener('resize', this.updateDimension);
@@ -169,7 +184,8 @@ class SalesOrderDetail extends React.Component {
     this.setState({ data: [], tableStatus: "waiting" }) 
     const url = `/salesorder/${orderno}?client=${client}&site=${site}&page=${page}&export=${export_}`
     const { data } = await axios.get(url)
-    console.log(data)
+    console.log(data.data.data.batch)
+
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     if (data?.data?.data) { 
         if(export_=='true'){
@@ -241,7 +257,17 @@ class SalesOrderDetail extends React.Component {
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer Name</CCol> <CCol>{detail.customername || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Customer Order Ref</CCol> <CCol>{detail.customerpono || '-'}</CCol></CRow>
             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Vendor Order Ref</CCol> <CCol>{detail.vendororderno || '-'}</CCol></CRow>
-             <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Delivery Instruction</CCol> <CCol>{detail.vendororderno || '-'}</CCol></CRow>
+            <CRow  className="mx-0"><CCol  lg={3} className="text-light-gray px-0">Delivery Instructions</CCol>
+              {/* <CCol>{detail.deliverydescription || '-'}</CCol> */}
+              {detail.deliverydescription ?
+                <CCol className="p-0">
+                  <CCol className='line-camp'>
+                   {detail.deliverydescription}
+                  </CCol>
+                  <Link className="pl-3" onClick={this.openConfirmDialog}>Show More</Link>
+                </CCol>
+                : <CCol>-</CCol>}
+            </CRow>
           </CCardBody>
         </CCard>
         <CCard>
@@ -297,6 +323,21 @@ class SalesOrderDetail extends React.Component {
         exportApi={async () =>  {await this.getProducts(1,'true')}}
         exportData={exportData}
       />
+
+      {/* Modal Pagination */}
+      <Modal isOpen={this.state.notifPaging} centered={true}
+          contentClassName="modal-content-paging box-er-pagination"
+          >
+          <ModalBody>
+          <div  className="text-right px-0" style={{fontSize: '14px'}}>
+            <i className="iconU-close pointer" onClick={this.closeConfirmDialog}></i>
+          </div>
+          <div className="d-flex d-inline-flex">
+            <img src={logo_confirm} alt="logo" style={{ width: "20%", height: "20%" }} />
+            {detail.deliverydescription}
+          </div>
+          </ModalBody> 
+      </Modal>
     </div>
   }
 }
