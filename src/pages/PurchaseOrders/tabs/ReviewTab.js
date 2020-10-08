@@ -36,7 +36,7 @@ class ReviewTab extends React.Component {
       l.product = l.productVal?.value || null
       l.ref3 = l.ref3 || null
       l.ref4 = l.ref4 || null
-      l.rotaDate = moment(l.rotaDate).format('DD/MM/YYYY') || null
+      l.rotaDate = l.rotaDate ? moment(l.rotaDate).format('DD/MM/YYYY') : null
       l.disposition = l.disposition || null
       l.dispositionVal = l.dispositionVal?.value || null
       l.uom = l.uom?.value || null
