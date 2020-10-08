@@ -183,10 +183,10 @@ const columns = [
   },
   { 
     accessor: 'loadoutstart', placeholder: 'Loadout Start', Header: 'Loadout Start', width: null, 
-    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY H:MM:SS'): '-'}</span>  
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('YYYY/MM/DD HH:mm:ss'): '-'}</span>  
   },
   { accessor: 'loadoutfinish', placeholder: 'Loadout Finish', Header: 'Loadout Finish', width: null,
-    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY H:MM:SS'): '-'}</span>  
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('YYYY/MM/DD HH:mm:ss'): '-'}</span>  
 },
   { accessor: 'consignmentno', placeholder: 'Consignment No', Header: 'Consignment No', width: null,
   Cell: props => <span>{props.value ? props.value : '-'}</span> 
