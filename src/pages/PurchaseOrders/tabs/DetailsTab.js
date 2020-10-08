@@ -223,8 +223,7 @@ class CreateTab extends React.Component {
       console.log(dot + ' dot')
 
       if(dot === -1 && newVal.length === 11) {
-        console.log(newVal.length + 'new val lenght')
-        newVal = null
+        newVal = newVal.slice(0, dot).split('').filter(d => d !== ',').join('')
       }
       if (dot !== -1 && newVal.length) {
         let number;
