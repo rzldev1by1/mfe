@@ -414,6 +414,10 @@ class CreateTab extends React.Component {
       console.log(newVal)
       const dot = newVal.indexOf('.')
       console.log(dot + ' dot')
+      if(dot === -1 && newVal.length === 11) {
+        console.log(newVal.length + 'new val lenght')
+        newVal = null
+      }
       if (dot !== -1) {
         let number;
         let decimal = newVal.slice(dot + 1, dot + 4).split('').filter(d => d !== '.' && d !== ',').join('')
