@@ -326,7 +326,7 @@ class SalesOrderDetail extends React.Component {
 
       {/* Modal Pagination */}
       <Modal isOpen={this.state.notifPaging} centered={true}
-          contentClassName="modal-content-paging box-er-pagination"
+          contentClassName="modal-content-paging"
           >
           <ModalBody>
           <div  className="text-right px-0" style={{fontSize: '14px'}}>
