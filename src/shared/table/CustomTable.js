@@ -238,7 +238,7 @@ class CustomTable extends React.Component {
     header && header.map((h, index) => {
       if (!editColumn[index]) {
         let withIcon = (
-          <span className={'text-light-gray '+this.state.no} onClick={() => h.sortType === "float" ? this.sortFloat(h.accessor) : false }>
+          <span className={'text-light-gray draggable-header'+this.state.no} onClick={() => h.sortType === "float" ? this.sortFloat(h.accessor) : false }>
             {h.Header}{' '}
               <svg
                 stroke='currentColor'
@@ -642,9 +642,6 @@ console.log(this.state)
               <tr key={i} >
                 {fields.map((column, columnIdx) => {
                   console.log(data[column.accessor] )
-                  if(column.accessor === 'expected_in_wgt'){
-                    return (<td key={columnIdx}>{data[column.accessor]}‎</td>)//hidden fonts for export
-                  }
                   if(column.accessor === 'customer'){
                     return (<td key={columnIdx}>{data[column.accessor]}‎</td>)//hidden fonts for export
                   }
