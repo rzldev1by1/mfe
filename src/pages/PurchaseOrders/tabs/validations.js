@@ -30,7 +30,7 @@ export default (values) => {
         error.orderLine[i].qty = 'Qty must be entered'
       }
       if (object.qty == 0) {
-        error.orderLine[i].qty = 'Qty must be more than 0'
+        error.orderLine[i].qty = 'Qty cannot be 0'
       }
       if (!object?.uom?.value) {
         error.orderLine[i].uom = 'UOM must be entered'
