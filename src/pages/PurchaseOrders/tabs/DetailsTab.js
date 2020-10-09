@@ -13,7 +13,7 @@ import validations from './validations'
 import { isEmptyObject } from 'jquery'
 
 const Required = ({ error, id }) => {
-  return <span className="text-error pl-0 text-danger position-absolute font-12">{error && error[id]}</span>
+  return <span className="text-error pl-0 text-danger font-12">{error && error[id]}</span>
 }
 // const debounceEventHandler = (...args) => {
 //   const debounced = _.debounce(...args)
