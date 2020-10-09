@@ -16,6 +16,7 @@ import endpoints from 'helpers/endpoints'
 import './StockMovement.scss'
 import DatePicker from 'shared/DatePicker'
 import './StockMovement.css'
+import { isEmptyObject } from 'jquery';
 
 const columns = [
   { accessor: 'site', Header: 'Site', sortable: true },
@@ -149,7 +150,7 @@ class StockMovement extends React.PureComponent {
       dateFromShow: true,
       filterType: val
     });
-    if(val){
+    if(!isEmptyObject(val)){
         this.openDatePicker('from')
     }
   }
@@ -259,18 +260,18 @@ class StockMovement extends React.PureComponent {
       periodSelected: 1
     })
     const { periods, site, client, filterType, product, periodSelected, productSm } = this.state
-    if (filterType.value) {
-      let header = Object.assign({}, this.state)
-      this.load_data(filterType.value, site.value, client.value, productSm.value)
-      this.setState({ error: delete header.error})
-    } else {
-      const error = validations(this.state)
-      console.log(this.state.error)
-      if (Object.keys(error).length) {
-        return this.setState({ 
-          periodSelected: '',
-          error })
-      }
+    if(isEmptyObject(validations(this.state))){
+        let header = Object.assign({}, this.state)
+        this.load_data(filterType.value, site.value, client.value, productSm.value)
+        this.setState({ error: delete header.error})
+    }else{
+        const error = validations(this.state)
+        if (Object.keys(error).length) {
+          return this.setState({ 
+            periodSelected: '',
+            error })
+        }
+
     }
   }
 
@@ -558,8 +559,8 @@ class StockMovement extends React.PureComponent {
 
         <CCol lg={2} className="sm-col-14 px-0">
             <Select isClearable name="filterType" className="stockMovement" placeholder="Display Period"
-              value={filterType} options={filterData} 
-              onChange={(val, { action }) => this.periodHandler( action == "clear" ? null : val )} 
+              value={isEmptyObject(filterType) ? null : filterType} options={filterData} 
+              onChange={(val, { action }) => this.periodHandler( action == "clear" ? {} : val )} 
               filterOption={
                   (option, inputVal) => {
                       return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
@@ -577,7 +578,7 @@ class StockMovement extends React.PureComponent {
                   })
               }}
             />
-            <Required id="periodSelected" error={error} />
+            <Required id="filterType" error={error} />
         </CCol>
         <div className="px-3 text-light-gray labelDateFrom d-flex align-items-center" >Date From</div>
         <CCol lg={2} className="sm-col-14 px-0 dateFrom" > 
@@ -600,6 +601,7 @@ class StockMovement extends React.PureComponent {
                       defaultValue={new Date(this.state.endDate)} tabIndex="1" placeHolder="Select Date"
                       fromMonth={minDate} toMonth={maxDate}
                   /> 
+                  <Required id="endDate" error={error} />
         </CCol>
         <CCol lg={2} className="sm-col-12 pr-0 site" > 
         {
