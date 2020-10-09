@@ -658,7 +658,7 @@ console.log(this.state)
                     return (<td key={columnIdx}>{data[column.accessor]}‎</td>)//hidden fonts for export
                   }
                   if(column.accessor === 'product'){
-                    return (<td key={columnIdx}>{data[column.accessor]}</td>)//hidden fonts for export
+                    return (<td key={columnIdx}>{data[column.accessor]}‎</td>)//hidden fonts for export
                   }
                   if(column.accessor === 'batch'){
                     return (<td key={columnIdx}>{data[column.accessor]}</td>)//hidden fonts for export
