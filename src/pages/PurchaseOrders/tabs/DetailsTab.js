@@ -294,6 +294,9 @@ class CreateTab extends React.Component {
       orderLine[i].productVal = val
       orderLine[i].productValue = val.value
       orderLine[i].productKeyword = null
+      if(isEmptyObject(val)){
+        orderLine[i].uom = null
+      }
     }
     if (key === 'dispositionVal') {
       orderLine[i].disposition = val.value
@@ -310,7 +313,6 @@ class CreateTab extends React.Component {
     this.setState({ orderLine, error }, () => {
       if (key === 'productVal') {
         this.getUom(val.value)
-        orderLine[i].uom = null
         this.setState({ orderLine, error })
       }
     })
@@ -617,7 +619,7 @@ class CreateTab extends React.Component {
 
                      }}
                     onMenuClose={() => { productStatus[i] = false; this.setState({ productStatus: productStatus }) }}
-                    onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
+                    onChange={(val, { action }) => this.lineSelectChange(i, 'productVal', action == "clear" ? {} : val)}
                     className={`c-400 ${overflow[i] && overflow[i].productVal ? 'absolute' : null}`} placeholder="Product" required
                     getOptionLabel={option => this.state.productStatus[i] ? option.value + " : " + option.label : option.value}
                     filterOption={
@@ -640,7 +642,7 @@ class CreateTab extends React.Component {
                   <div className='w-100 d-flex align-items-start'><Required id="productVal" error={error.orderLine && error.orderLine[i]} /></div>
                 </td>
                 <td className="px-1">
-                  <input value={o.product || ''} className="form-control" placeholder="Choose a product first" readOnly style={{ backgroundColor: "#f6f7f9" }} />
+                  <input value={o.productVal ? o.product || '' : ''} className="form-control" placeholder="Choose a product first" readOnly style={{ backgroundColor: "#f6f7f9" }} />
                 </td>
                 <td className="px-1">
                   <input name="qty" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['qty']} type="text" className="form-control" placeholder="Qty" maxlength="10" />
@@ -654,7 +656,7 @@ class CreateTab extends React.Component {
                 </td>
                 <td className="px-1">
                   <Select 
-                    // value={o.uom || ''}
+                    value={o.uom || ''}
                     isClearable={true}
                     options={uomData}
                     onMenuOpen={() => {
