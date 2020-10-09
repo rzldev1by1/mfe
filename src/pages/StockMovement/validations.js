@@ -6,7 +6,7 @@ export default (values) => {
     error.filterType = 'Display Period must be selected'
   }
   if(endDate < startDate){
-      error.endDate = "End Date must not be less than the Start Date"
+      error.endDate = "Must not older than Date From"
   }
   return error
 }
