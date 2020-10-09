@@ -55,7 +55,7 @@ class StockMovement extends React.PureComponent {
       dimension: { width: 0, height: 0 },
       startDate: moment().subtract(27, 'days').format('YYYY-MM-DD'),
       endDate: moment().format('YYYY-MM-DD'),
-      filterType: 'week',
+      filterType: {value: "week", label: "Weekly"},
       productData: [],
       filterData: [
         { 'value': 'day', 'label': 'Daily' },
@@ -65,11 +65,11 @@ class StockMovement extends React.PureComponent {
       complete: false,
       periodSelected: { value: 1 ? 1 : null },
       error: {},
-      dateFromSelected: null,
       dateFromText: null,
       dateFromShow: false,
+
+      firstValue: true,
   
-      dateToSelected: null,
       dateToText: null,
       dateToShow: false, 
       minDate: null,
@@ -149,7 +149,9 @@ class StockMovement extends React.PureComponent {
       dateFromShow: true,
       filterType: val
     });
-    this.openDatePicker('from')
+    if(val){
+        this.openDatePicker('from')
+    }
   }
 
   openDatePicker = (type) => {
@@ -256,10 +258,10 @@ class StockMovement extends React.PureComponent {
     this.setState({
       periodSelected: 1
     })
-    const { periods, site, client, filterType, product, dateFromSelected, dateToSelected, periodSelected, productSm } = this.state
+    const { periods, site, client, filterType, product, periodSelected, productSm } = this.state
     if (filterType.value) {
       let header = Object.assign({}, this.state)
-      this.load_data(dateFromSelected, dateToSelected, filterType.value, site.value, client.value, productSm.value)
+      this.load_data(filterType.value, site.value, client.value, productSm.value)
       this.setState({ error: delete header.error})
     } else {
       const error = validations(this.state)
@@ -456,7 +458,7 @@ class StockMovement extends React.PureComponent {
     })
   }
 
-  load_data = async (dtStart, dtEnd, periods, site = this.props.store?.user?.site, client = this.props.store?.user?.client, product = "") => {
+  load_data = async (periods, site = this.props.store?.user?.site, client = this.props.store?.user?.client, product = "") => {
 
     try {   
       this.setState({
@@ -467,11 +469,11 @@ class StockMovement extends React.PureComponent {
       
       let paramUrl = []
       let dateArray = []
-      let stDate = dtStart ? dtStart : this.state.startDate
-      let enDate = dtEnd ? dtEnd : this.state.endDate
+      let stDate = this.state.startDate
+      let enDate = this.state.endDate
       let startDate = moment(stDate)
       let endDate = moment(enDate)
-      let periodd = periods ? periods : this.state.filterType
+      let periodd = periods ? periods : this.state.filterType.value
 
       paramUrl.push('startDate=' + (stDate ? stDate : ''))
       paramUrl.push('endDate=' + (enDate ? enDate : ''))
@@ -557,7 +559,7 @@ class StockMovement extends React.PureComponent {
         <CCol lg={2} className="sm-col-14 px-0">
             <Select isClearable name="filterType" className="stockMovement" placeholder="Display Period"
               value={filterType} options={filterData} 
-              onChange={(val) => this.periodHandler( val )} 
+              onChange={(val, { action }) => this.periodHandler( action == "clear" ? null : val )} 
               filterOption={
                   (option, inputVal) => {
                       return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
@@ -581,8 +583,8 @@ class StockMovement extends React.PureComponent {
         <CCol lg={2} className="sm-col-14 px-0 dateFrom" > 
                 <DatePicker style={{ minWidth: '100%' }}
                   ref="dateFrom" arrowStyle={true}
-                  getDate={(e) => { this.setState({ dateFromSelected: e })}}
-                  defaultValue={this.state.dateFromSelected} tabIndex="1" placeHolder="Select Date"
+                  getDate={(e) => { this.setState({ startDate: e, firstValue: false })}}
+                  defaultValue={new Date(this.state.startDate)} tabIndex="1" placeHolder="Select Date"
                   onChange={(e) => {this.openDatePicker('to')}}
                   fromMonth={minDate} toMonth={maxDate}
                 />
@@ -591,10 +593,11 @@ class StockMovement extends React.PureComponent {
         <CCol lg={2} className="sm-col-14 px-0 dateTo" > 
                   <DatePicker style={{ minWidth: '100%', height:'50px' }}
                       ref="dateTo" arrowStyle={true}
-                      firstDate = {this.state.dateFromSelected}
+                      firstDate = {new Date(this.state.startDate)}
+                      firstValue={this.state.firstValue}
                       onOpen={() => { this.closeDatePicker("from") }}
-                      getDate={(e) => { this.setState({ dateToSelected: e })}}
-                      defaultValue={this.state.dateToSelected} tabIndex="1" placeHolder="Select Date"
+                      getDate={(e) => { this.setState({ endDate: e })}}
+                      defaultValue={new Date(this.state.endDate)} tabIndex="1" placeHolder="Select Date"
                       fromMonth={minDate} toMonth={maxDate}
                   /> 
         </CCol>
