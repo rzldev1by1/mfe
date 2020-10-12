@@ -334,8 +334,9 @@ class SalesOrderDetail extends React.Component {
             <i className="iconU-close pointer" onClick={this.closeConfirmDialog}></i>
           </div>
           <div className="d-flex d-inline-flex">
-            <img src={logo_confirm} alt="logo" className="pr-3" style={{ width: "20%", height: "20%" }} />
-            {detail.deliverydescription}
+            <img src={logo_confirm} alt="logo" className="px-3" style={{ width: "120px", height: "20%" }} />
+            <p className="m-0 pl-3 pr-4" style={{overflowWrap: 'anywhere'}}>
+            {detail.deliverydescription}</p>
           </div>
           </ModalBody> 
       </Modal>
