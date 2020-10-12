@@ -329,7 +329,7 @@ class SalesOrderDetail extends React.Component {
           contentClassName="modal-content-paging dev-inst"
           style={{borderLeft: '2px transparent solid !important', borderRight: '2px transparent solid !important',borderBottom: '2px transparent solid !important;'}}
           >
-          <ModalBody>
+          <ModalBody className="align-bottom" style={{paddingBottom: "2.4rem !important"}}>
           <div  className="text-right px-0" style={{fontSize: '14px'}}>
             <i className="iconU-close pointer" onClick={this.closeConfirmDialog}></i>
           </div>
