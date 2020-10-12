@@ -505,7 +505,7 @@ class UserManagementDetail extends Component {
         let userInfo = this.props.store;
         this.setState({ loginInfo: userInfo.user });
     }
-
+    
     render() {
         const { match } = this.props;
         const { moduleAccess, sites, clients, accountInfo, loginInfo, adminClass,validation } = this.state;    
@@ -640,6 +640,8 @@ class UserManagementDetail extends Component {
                             </p>
 
                             <button type="button" className="font-lg btn btn-primary btn-submit default-box-height" onClick={(e) => { this.saveClick(); }}>
+                                {/* {!this.onSiteStatusClick || !this.onEnabledAllSite ? alert('sssss') : null} */}
+                                {console.log(this.onSiteStatusClick)}
                                 {this.state.isSaveProgressing ? <img src={loading} className='mt-min-5' width='45' height='45'/> : 'SAVE'}
                                 {/* <i className={(this.state.isSaveProgressing) ? "mr-2 fa fa-refresh fa-spin " : "fa fa-refresh fa-spin d-none"}></i> */}
                                 {/* <label className="create-user-label mb-0">SAVE</label> */}

@@ -326,14 +326,15 @@ class SalesOrderDetail extends React.Component {
 
       {/* Modal Pagination */}
       <Modal isOpen={this.state.notifPaging} centered={true}
-          contentClassName="modal-content-paging"
+          contentClassName="modal-content-paging dev-inst"
+          style={{borderLeft: '2px transparent solid !important', borderRight: '2px transparent solid !important',borderBottom: '2px transparent solid !important;'}}
           >
           <ModalBody>
           <div  className="text-right px-0" style={{fontSize: '14px'}}>
             <i className="iconU-close pointer" onClick={this.closeConfirmDialog}></i>
           </div>
           <div className="d-flex d-inline-flex">
-            <img src={logo_confirm} alt="logo" style={{ width: "20%", height: "20%" }} />
+            <img src={logo_confirm} alt="logo" className="pr-3" style={{ width: "20%", height: "20%" }} />
             {detail.deliverydescription}
           </div>
           </ModalBody> 
