@@ -148,6 +148,7 @@ class StockMovementTable extends React.Component {
 
   ExportData = () => {
     let data = ""
+    console.log(data)
     return data
   }
 

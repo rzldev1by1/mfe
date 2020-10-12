@@ -642,6 +642,9 @@ console.log(this.state)
               <tr key={i} >
                 {fields.map((column, columnIdx) => {
                   console.log(data[column.accessor] )
+                  let string1 = '';
+                  let int1 = '';
+                  let int2 = '';
                   if(column.accessor === 'customer'){
                     return (<td key={columnIdx}>{data[column.accessor]}‎</td>)//hidden fonts for export
                   }
