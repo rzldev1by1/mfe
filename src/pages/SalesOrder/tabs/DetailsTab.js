@@ -265,6 +265,9 @@ class CreateTab extends React.Component {
       orderLine[i].product = val.label
       orderLine[i].productVal = val
       orderLine[i].productKeyword = null
+      if(isEmptyObject(val)){
+        orderLine[i].uom = null
+      }
     }
     if (key === 'dispositionVal') {
       orderLine[i].disposition = val.value
@@ -724,7 +727,7 @@ class CreateTab extends React.Component {
 
                      }}
                     onMenuClose={() => { productStatus[i] = false; this.setState({ productStatus: productStatus }) }}
-                    onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
+                    onChange={(val, { action }) => this.lineSelectChange(i, 'productVal', action == "clear" ? {} : val)}
                     className={`c-400 ${overflow[i] && overflow[i].productVal ? 'absolute' : null}`} placeholder="Product" required
                     getOptionLabel={option => this.state.productStatus[i] ? option.value + " : " + option.label : option.value}
                     filterOption={
@@ -743,7 +746,7 @@ class CreateTab extends React.Component {
                   <Required id="productVal" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="">
-                  <input value={o.product || ''} className="form-control c-600" placeholder="Choose a product first" readOnly style={{ backgroundColor: "#f6f7f9" }} />
+                  <input value={o.productVal ? o.product || '' : ''} className="form-control c-600" placeholder="Choose a product first" readOnly style={{ backgroundColor: "#f6f7f9" }} />
                 </td>
                 <td className="">
                   <input name="qty" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control c-150" value={this.state.orderLine[i]['qty']} placeholder="Qty" maxLength="10" />
@@ -754,6 +757,7 @@ class CreateTab extends React.Component {
                 </td>
                 <td className="">
                   <Select isClearable
+                    value={o.uom || ''}
                     options={uomData}
                     onMenuOpen={() => {
                       UOMStatus[i] = true;
