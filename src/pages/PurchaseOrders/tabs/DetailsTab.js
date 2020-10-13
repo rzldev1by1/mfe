@@ -241,7 +241,7 @@ class CreateTab extends React.Component {
           }
           else number = `${integer}.${decimal}`
         }
-        if (integer.length > 6 && integer.length <= 9) {
+        if (integer.length > 6 && integer.length <= 8) {
           console.log(integer.length + ' asd')
           let idxSepr1 = integer.slice(0, integer.length - 6)
           let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 3)
@@ -249,15 +249,16 @@ class CreateTab extends React.Component {
           console.log(`${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`)
           number = `${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`
         }
-        if (integer.length > 9 && integer.length <= 8) {
-          let idxSepr1 = integer.slice(0, integer.length - 9)
-          let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 6)
-          let idxSepr3 = integer.slice(idxSepr1.length + idxSepr2.length, idxSepr1.length + idxSepr2.length + 3)
-          let idxSepr4 = integer.slice(integer.length - 3)
-          console.log(`${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`)
-          number = `${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`
+        if (integer.length <= 8) {
+          let idxSepr1 = integer.slice(0, integer.length - 6)
+          console.log(idxSepr1 + ' ddddddddd ', integer.length);
+          let idxSepr2 = integer.slice(idxSepr1.length, idxSepr1.length + 3)
+          let idxSepr3 = integer.slice(integer.length - 3)
+          console.log(`${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`)
+          number = `${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`
         }
         number = number?.split('')
+        console.log(number + ' number');
         if (number && number[0] === ',') delete number[0]
         number = number?.join('')
         return number
@@ -338,7 +339,8 @@ class CreateTab extends React.Component {
       "client": client.value,
       "order_no": orderId
     })
-    if (data.message !== 'available' && data.message !== 'The client field is required.') {
+    console.log(data);
+    if (data.message === 'available' && data.message !== 'The client field is required.') {
       error.orderId = 'Order number exist'
       return this.setState({ error })
     }
@@ -390,6 +392,10 @@ class CreateTab extends React.Component {
 
   numberCheck = (e) => {
     if (!/^[0-9]+$/.test(e.key)) e.preventDefault()
+  }
+  
+  regExp = (e) => {
+    if (!/^[a-zA-Z0-9-_]+$/.test(e.key)) e.preventDefault()
   }
 
   decimalCheck = (e) => {
@@ -550,7 +556,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3" className="mt-45">
           <label className="text-muted mb-0 required">Order No</label>
-          <input name="orderId" type="text" value={orderId || ''} onKeyDown={(e) => e.keyCode === 32 ? e.preventDefault() : null } onChange={this.checkOrderId} className="form-control" maxLength='12' placeholder="Order No" required />
+          <input name="orderId" type="text" value={orderId || ''} onKeyPress={(e) => this.regExp(e)} onKeyDown={(e) => e.keyCode === 32 ? e.preventDefault() : null } onChange={this.checkOrderId} className="form-control" maxLength='12' placeholder="Order No" required />
           <Required id="orderId" error={error} />
         </Col>
         <Col lg="3" className="mt-45">

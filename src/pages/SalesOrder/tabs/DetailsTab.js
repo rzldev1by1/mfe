@@ -355,6 +355,9 @@ class CreateTab extends React.Component {
     }
   }
 
+  regExp = (e) => {
+    if (!/^[a-zA-Z0-9-_]+$/.test(e.key)) e.preventDefault()
+  }
   numberCommaCheck = (index, refs, numberLength, commaLength, e) => {
     var value = e.target.value
     var name = e.target.name
@@ -597,7 +600,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order No</label>
-          <input name="orderId" type="text" value={orderId || ''} onChange={this.checkOrderId} className="form-control" placeholder="Order No" maxLength="12" required />
+          <input name="orderId" type="text" value={orderId || ''} onKeyPress={(e) => this.regExp(e)} onChange={this.checkOrderId} className="form-control" placeholder="Order No" maxLength="12" required />
           <Required id="orderId" error={error} />
         </Col>
         <Col lg="3">
