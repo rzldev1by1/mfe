@@ -45,6 +45,7 @@ class UserManagementDetail extends Component {
             isEnableAllModule: false,
             isEnableAllSite: false,
             isEnableAllClient: false,
+            unableSave: false,
             loginInfo: {},
             adminClass: 'd-none',
             users: [],
@@ -57,12 +58,27 @@ class UserManagementDetail extends Component {
 
     }
 
-    componentDidMount() {
+    componentDidUpdate(prevProps, prevState) {
+        if(prevState.acountInfo !== this.state.accountInfo){
+            // this.edit()
+        }
+    }
+
+    async componentDidMount() {
         let id = this.props.match.params.id;
         console.log(id)
-        this.getAccountInfo(id);
-        this.loadPersonalLogin();
-        this.loadUsers();
+           const a = await this.getAccountInfo(id);
+            const b = await this.loadPersonalLogin();
+             const c = await this.loadUsers();
+             this.setState({
+                initialData:{
+                    isEnableAllClient: this.state.isEnableAllClient,
+                    isEnableAllSite: this.state.isEnableAllSite,
+                    isEnableAllModule:this.state.isEnableAllModule,
+                    moduleAccess:this.state.moduleAccess,
+                    accountInfo:this.state.accountInfo
+                }
+            })
     }
 
     loadUsers = async (e) => {
@@ -229,6 +245,7 @@ class UserManagementDetail extends Component {
         this.setState({ moduleAccess: newArray, isEnableAllModule: !isEnableAllModule });
     }
 
+    
     onEnabledAllSite = () => {
         let isEnableAllSite = this.state.isEnableAllSite;
 
@@ -237,7 +254,7 @@ class UserManagementDetail extends Component {
             item.status = !isEnableAllSite;
             return item;
         });
-
+       
         this.setState({ sites: newArray, isEnableAllSite: !isEnableAllSite });
     }
 
@@ -248,6 +265,7 @@ class UserManagementDetail extends Component {
             item.status = !isEnableAllClient;
             return item;
         });
+       
         this.setState({ clients: newArray, isEnableAllClient: !isEnableAllClient });
     }
 
@@ -260,7 +278,10 @@ class UserManagementDetail extends Component {
             return item;
         });
 
+        console.log(moduleAccess);
+
         let isEnableAll = newModules.filter((item) => { return item.status === true }).length;
+        console.log(isEnableAll);
         let isEnableAllModule = (moduleAccess.length === isEnableAll) ? true : false;
 
         this.setState({ moduleAccess: newModules, isEnableAllModule: isEnableAllModule });
@@ -278,7 +299,7 @@ class UserManagementDetail extends Component {
         });
         let isEnableAll = newSites.filter((item) => { return item.status === true }).length;
         let isEnableAllSite = (sites.length === isEnableAll) ? true : false;
-
+       
         this.setState({ sites: newSites, isEnableAllSite: isEnableAllSite });
     }
 
@@ -303,6 +324,11 @@ class UserManagementDetail extends Component {
     onChangeName = (e) => {
         const { name, value } = e.target;
         let user = { ...this.state.accountInfo };
+        if(user.user !== value) {
+            this.state.unableSave = true
+        }else{
+            this.state.unableSave = false
+        }
         let validation = this.checkNameValidation(value);
         user.user = value;
         this.setState({ accountInfo: user, isValidForm: false, validation:validation });
@@ -333,7 +359,13 @@ class UserManagementDetail extends Component {
     onChangeEmail = (e) => {
         const { name, value } = e.target;
         let user = { ...this.state.accountInfo };
-        let validation = this.checkEmailValidation(value);        
+        if(user.email !== value) {
+            this.state.unableSave = true
+        }else{
+            this.state.unableSave = false
+        }
+        console.log(user.email, value)
+        let validation = this.checkEmailValidation(value);
         user.email = value;
         this.setState({ accountInfo: user, isValidForm: false, validation:validation });
     }
@@ -505,11 +537,29 @@ class UserManagementDetail extends Component {
         let userInfo = this.props.store;
         this.setState({ loginInfo: userInfo.user });
     }
+
+    edit = () => {
+        const {initialData,accountInfo,moduleAccess} = this.state
+        let edited = false
+        if( (initialData?.accountInfo.email !== accountInfo.email || initialData?.accountInfo.user !== accountInfo.user || this.state.isEnableAllClient !== initialData?.isEnableAllClient || this.state.isEnableAllSite !== initialData?.isEnableAllSite || this.state.isEnableAllModule !== initialData?.isEnableAllModule || initialData?.moduleAccess.status !== moduleAccess.status) && initialData){
+            console.log('update ' + initialData?.accountInfo.disabled)
+            edited = true
+          }
+          else {
+            console.log('not')
+            edited = false
+          }
+
+          return edited
+    }
     
     render() {
         const { match } = this.props;
         const { moduleAccess, sites, clients, accountInfo, loginInfo, adminClass,validation } = this.state;    
-        
+        console.log(this.state.edited, this.state.initialData, this.state.accountInfo)
+
+        const edited = this.edit()
+
         return (<div className="um-detail w-100 h-100">
             {/* <div className={(this.state.isLoadComplete ? 'd-none' : 'spinner')} />
             <div className={(this.state.isLoadComplete ? ' ' : 'd-none')}>
@@ -561,7 +611,7 @@ class UserManagementDetail extends Component {
                                 </div>
 
                                 <div className="col-md-3 pr-0">
-                                    <input type="email" name="email" className={`form-control ${validation.email["isValid"]? '':validation.email["invalidClass"]}`} onChange={(e) => { this.onChangeEmail(e); }} onBlur={(e)=> {this.onBlurEmail(e);}} value={accountInfo.email} />
+                                    <input type="email" name="email" className={`form-control ${validation.email["isValid"]? '':validation.email["invalidClass"]}`} onChange={(e) => { this.onChangeEmail(e , accountInfo.email); }} onBlur={(e)=> {this.onBlurEmail(e);}} value={accountInfo.email} />
                                     <FormFeedback className="invalid-error-padding">
                                         {`${validation.email["message"]}`}
                                     </FormFeedback>
@@ -639,12 +689,8 @@ class UserManagementDetail extends Component {
                                         </label>
                             </p>
 
-                            <button type="button" className="font-lg btn btn-primary btn-submit default-box-height" onClick={(e) => { this.saveClick(); }}>
-                                {/* {!this.onSiteStatusClick || !this.onEnabledAllSite ? alert('sssss') : null} */}
-                                {console.log(this.onSiteStatusClick)}
+                            <button type="button" className={`font-lg btn btn-submit default-box-height ${edited ? "btn-primary" : "btn-grey"}`} disabled={!edited} onClick={(e) => { this.saveClick(); }} >
                                 {this.state.isSaveProgressing ? <img src={loading} className='mt-min-5' width='45' height='45'/> : 'SAVE'}
-                                {/* <i className={(this.state.isSaveProgressing) ? "mr-2 fa fa-refresh fa-spin " : "fa fa-refresh fa-spin d-none"}></i> */}
-                                {/* <label className="create-user-label mb-0">SAVE</label> */}
                             </button>
 
                         </div>

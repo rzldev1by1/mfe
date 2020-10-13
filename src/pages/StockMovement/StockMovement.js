@@ -419,15 +419,18 @@ class StockMovement extends React.PureComponent {
       var dateA = new Date(a), dateB = new Date(b);
       return dateA - dateB;
     });
-
+    let tmp_detail = []
     this.state.data.map((datax, idx) => {
       let details = datax.detail
-      let tmp_detail = []
+      
       tmp_date.map((date, index) => {
         let tmp_x = null;
         for (let x = 0; x < details.length; x++) {
+          console.log(date);
+          console.log(details[x].date);
+          console.log(details);
           let tmp = null
-          if (date == details[x].date) {
+          if (moment(date) == moment(details[x].date)) {
             tmp = {
               'date': date,
               'sa_plus': details[x].sa_plus,
