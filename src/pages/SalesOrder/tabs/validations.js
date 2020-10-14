@@ -1,12 +1,18 @@
 import _ from 'lodash'
 export default (values) => {
   let error = {}
-  let { site, client, orderId, orderType, deliveryDate, shipToAddress1, postCode, state, orderLine } = values
+  let { site, client, orderId, orderType, deliveryDate, shipToAddress1, postCode, state, orderLine, orderStatus } = values
   if (!site) {
     error.site = 'Site must be entered'
   }
   if (!orderId) {
     error.orderId = 'Order Number must be entered'
+  }
+  if(orderStatus !== true && orderId){
+    error.orderId = 'Order number exist'
+  }
+  if (!client) {
+    error.orderId = 'Please select client first'
   }
   if (!!orderId && orderId.length < 4 && orderId.length > 12) {
     error.postCode = 'Order Number must have min 4 characters'

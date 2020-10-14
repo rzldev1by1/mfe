@@ -30,6 +30,7 @@ class CreateTab extends React.Component {
 
     this.state = {
       status: '',
+      orderStatus:true,
       webUser: props.webUser,
       overflow: [],
       orderDetails: [{
@@ -241,7 +242,7 @@ class CreateTab extends React.Component {
           }
           else number = `${integer}.${decimal}`
         }
-        if (integer.length > 6 && integer.length <= 8) {
+        if (integer.length > 6 && integer.length <= 9) {
           console.log(integer.length + ' asd')
           let idxSepr1 = integer.slice(0, integer.length - 6)
           let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 3)
@@ -249,14 +250,16 @@ class CreateTab extends React.Component {
           console.log(`${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`)
           number = `${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`
         }
-        if (integer.length <= 8) {
-          let idxSepr1 = integer.slice(0, integer.length - 6)
-          console.log(idxSepr1 + ' ddddddddd ', integer.length);
-          let idxSepr2 = integer.slice(idxSepr1.length, idxSepr1.length + 3)
-          let idxSepr3 = integer.slice(integer.length - 3)
-          console.log(`${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`)
-          number = `${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`
+        if (integer.length > 9 && integer.length <= 8) {
+          alert('22222')
+          let idxSepr1 = integer.slice(0, integer.length - 9)
+          let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 6)
+          let idxSepr3 = integer.slice(idxSepr1.length + idxSepr2.length, idxSepr1.length + idxSepr2.length + 3)
+          let idxSepr4 = integer.slice(integer.length - 3)
+          console.log(`${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`)
+          number = `${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`
         }
+
         number = number?.split('')
         console.log(number + ' number');
         if (number && number[0] === ',') delete number[0]
@@ -319,33 +322,41 @@ class CreateTab extends React.Component {
     })
   }
   checkOrderId = async (e) => {
+    this.setState({orderStatus:true})
     let { error, client } = this.state
     let orderId = e.target.value
     let orderDetails = [...this.state.orderDetails]
     orderDetails[0].orderNo = orderId.toUpperCase()
     this.setState({ orderId: orderId.toUpperCase()  , orderDetails })
     console.log(orderId.trim().length)
-    if (!client) {
-      error.orderId = 'Please select client first'
-      return this.setState({ error }) && false
-    }
+    // if (!client) {
+    //   error.orderId = 'Please select client first'
+    //   return this.setState({ error }) && false
+    // }
    
-    if (orderId.length < 4) {
-      error.orderId = 'Order no. must have min 4 characters'
-      return this.setState({ error })
-    }
+    // if (orderId.length < 4) {
+    //   error.orderId = 'Order no. must have min 4 characters'
+    //   return this.setState({ error })
+    // }
     delete error.orderId
     const { data } = await axios.post('/orderCheck', {
       "client": client.value,
       "order_no": orderId
     })
     console.log(data);
-    if (data.message === 'available' && data.message !== 'The client field is required.') {
+    
+    if (data.message === 'not available') {
       error.orderId = 'Order number exist'
+      this.setState({orderStatus:'Order number exist'})
       return this.setState({ error })
     }
     if (data.message === 'The client field is required.') {
+      this.setState({orderStatus:'Please select client'})
       error.orderId = 'Please select client'
+      return this.setState({ error })
+    }
+    if (data.message === 'The order no field is required.') {
+      error.orderId = null
       return this.setState({ error })
     }
   }
@@ -365,8 +376,10 @@ class CreateTab extends React.Component {
     const error = validations(this.state)
     console.log(this.state.error)
     if (Object.keys(error).length) {
+      console.log('ffffffff');
       return this.setState({ error })
     } 
+    console.log('sssssss');
     if (!Object.keys(error).length) {
       
     // else {
