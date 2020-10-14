@@ -672,6 +672,9 @@ class CreateTab extends React.Component {
                 </td>
                 <td className="px-1">
                   <input name="weight" value={this.state.orderLine[i]['weight']} onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="14" className="form-control" placeholder="Weight" />
+                  <div className='w-100 d-flex align-items-start text-nowrap'>
+                    <Required id="weight" error={error.orderLine && error.orderLine[i]} />
+                  </div>
                 </td>
                 <td className="px-1">
                   <Select 

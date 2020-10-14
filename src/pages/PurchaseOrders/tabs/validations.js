@@ -15,7 +15,7 @@ export default (values) => {
   if (!orderId) {
     error.orderId = 'Order Number must be entered'
   }
-  if (orderId.length < 4) {
+  if (orderId?.length < 4) {
     error.orderId = 'Order no. must have min 4 characters'
   }
   if (!orderType) {
@@ -36,6 +36,12 @@ export default (values) => {
       if (!object.productVal) {
         error.orderLine[i].productVal = 'Product must be entered'
       }
+      
+      const weightArray = object?.weight?.split('')
+      if(weightArray[weightArray.length - 1] === '.' || weightArray[weightArray.length - 1] === '.' ){
+        error.orderLine[i].weight = 'Incorrect number format'
+      }
+      
       if (!object.qty) {
         error.orderLine[i].qty = 'Qty must be entered'
       }

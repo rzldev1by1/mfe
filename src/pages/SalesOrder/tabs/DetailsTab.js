@@ -760,6 +760,7 @@ class CreateTab extends React.Component {
                 </td>
                 <td className="">
                   <input name="weight" ref="weight" value={this.state.orderLine[i]['weight']} onChange={(e) => this.numberCommaCheck(i, "weight", 16, 3, e)} type="text" maxLength='18' className="form-control c-170" placeholder="Weight" />
+                  <Required id="weight" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="">
                   <Select isClearable

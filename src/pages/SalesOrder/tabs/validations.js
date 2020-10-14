@@ -44,13 +44,21 @@ export default (values) => {
     for (let i = 0; i < orderLine.length; i++) {
       const object = orderLine[i];
       error.orderLine[i] = {}
+      
+      const weightArray = object?.weight?.split('')
+      if(object?.weight?.length > 0){
+        if(weightArray[weightArray.length - 1] === '.' || weightArray[weightArray.length - 1] === '.' ){
+          error.orderLine[i].weight = 'Incorrect number format'
+        }
+      }
+
       if (!object.productVal) {
         error.orderLine[i].productVal = 'Product must be entered'
       }
       if (!object.qty) {
         error.orderLine[i].qty = 'Qty must be entered' 
       }
-      if (object.qty == 0) {
+      if (object.qty === 0) {
         error.orderLine[i].qty = 'Qty cannot be 0'
       }
       if (!object.uom) {
