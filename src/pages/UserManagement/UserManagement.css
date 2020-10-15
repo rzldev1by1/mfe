@@ -90,6 +90,10 @@
     border-radius: 7px;
     width: 80px;
   }
+  .um-detail .btn-outline-All-notActive:hover {color: #ffffff !important;}
+  .um-detail .btn-outline-All-active:hover {color: #ffffff !important;}
+  .um-detail .btn-outline-active:hover {color: #3366ff !important;}
+  .um-detail .btn-outline-notActive:hover {color: #d5d8da !important;}
 
   .line-border {
     border-bottom: 1px solid #e8e8e8;
