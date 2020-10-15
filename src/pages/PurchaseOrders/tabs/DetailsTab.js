@@ -30,6 +30,7 @@ class CreateTab extends React.Component {
 
     this.state = {
       status: '',
+      orderStatus:true,
       webUser: props.webUser,
       overflow: [],
       orderDetails: [{
@@ -250,6 +251,7 @@ class CreateTab extends React.Component {
           number = `${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`
         }
         if (integer.length > 9 && integer.length <= 8) {
+          alert('22222')
           let idxSepr1 = integer.slice(0, integer.length - 9)
           let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 6)
           let idxSepr3 = integer.slice(idxSepr1.length + idxSepr2.length, idxSepr1.length + idxSepr2.length + 3)
@@ -257,7 +259,9 @@ class CreateTab extends React.Component {
           console.log(`${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`)
           number = `${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`
         }
+
         number = number?.split('')
+        console.log(number + ' number');
         if (number && number[0] === ',') delete number[0]
         number = number?.join('')
         return number
@@ -318,32 +322,41 @@ class CreateTab extends React.Component {
     })
   }
   checkOrderId = async (e) => {
+    this.setState({orderStatus:true})
     let { error, client } = this.state
     let orderId = e.target.value
     let orderDetails = [...this.state.orderDetails]
     orderDetails[0].orderNo = orderId.toUpperCase()
     this.setState({ orderId: orderId.toUpperCase()  , orderDetails })
     console.log(orderId.trim().length)
-    if (!client) {
-      error.orderId = 'Please select client first'
-      return this.setState({ error }) && false
-    }
+    // if (!client) {
+    //   error.orderId = 'Please select client first'
+    //   return this.setState({ error }) && false
+    // }
    
-    if (orderId.length < 4) {
-      error.orderId = 'Order no. must have min 4 characters'
-      return this.setState({ error })
-    }
+    // if (orderId.length < 4) {
+    //   error.orderId = 'Order no. must have min 4 characters'
+    //   return this.setState({ error })
+    // }
     delete error.orderId
     const { data } = await axios.post('/orderCheck', {
       "client": client.value,
       "order_no": orderId
     })
-    if (data.message !== 'available' && data.message !== 'The client field is required.') {
+    console.log(data);
+    
+    if (data.message === 'not available') {
       error.orderId = 'Order number exist'
+      this.setState({orderStatus:'Order number exist'})
       return this.setState({ error })
     }
     if (data.message === 'The client field is required.') {
+      this.setState({orderStatus:'Please select client'})
       error.orderId = 'Please select client'
+      return this.setState({ error })
+    }
+    if (data.message === 'The order no field is required.') {
+      error.orderId = null
       return this.setState({ error })
     }
   }
@@ -363,8 +376,10 @@ class CreateTab extends React.Component {
     const error = validations(this.state)
     console.log(this.state.error)
     if (Object.keys(error).length) {
+      console.log('ffffffff');
       return this.setState({ error })
     } 
+    console.log('sssssss');
     if (!Object.keys(error).length) {
       
     // else {
@@ -390,6 +405,10 @@ class CreateTab extends React.Component {
 
   numberCheck = (e) => {
     if (!/^[0-9]+$/.test(e.key)) e.preventDefault()
+  }
+  
+  regExp = (e) => {
+    if (!/^[a-zA-Z0-9-_]+$/.test(e.key)) e.preventDefault()
   }
 
   decimalCheck = (e) => {
@@ -550,7 +569,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3" className="mt-45">
           <label className="text-muted mb-0 required">Order No</label>
-          <input name="orderId" type="text" value={orderId || ''} onKeyDown={(e) => e.keyCode === 32 ? e.preventDefault() : null } onChange={this.checkOrderId} className="form-control" maxLength='12' placeholder="Order No" required />
+          <input name="orderId" type="text" value={orderId || ''} onKeyPress={(e) => this.regExp(e)} onKeyDown={(e) => e.keyCode === 32 ? e.preventDefault() : null } onChange={this.checkOrderId} className="form-control" maxLength='12' placeholder="Order No" required />
           <Required id="orderId" error={error} />
         </Col>
         <Col lg="3" className="mt-45">
@@ -653,6 +672,9 @@ class CreateTab extends React.Component {
                 </td>
                 <td className="px-1">
                   <input name="weight" value={this.state.orderLine[i]['weight']} onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="14" className="form-control" placeholder="Weight" />
+                  <div className='w-100 d-flex align-items-start text-nowrap'>
+                    <Required id="weight" error={error.orderLine && error.orderLine[i]} />
+                  </div>
                 </td>
                 <td className="px-1">
                   <Select 
