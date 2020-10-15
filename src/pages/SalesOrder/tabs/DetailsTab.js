@@ -467,7 +467,7 @@ class CreateTab extends React.Component {
       }
       else return numeral(newVal).format('0,0')
     }
-    else if (name == 'qty') return numeral(newVal).format('0,0')
+    else if (name == 'qty') return newVal ? numeral(newVal).format('0,0') : newVal
     return value
   }
 
