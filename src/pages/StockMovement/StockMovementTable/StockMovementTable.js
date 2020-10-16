@@ -148,6 +148,7 @@ class StockMovementTable extends React.Component {
 
   ExportData = () => {
     let data = ""
+    console.log(data)
     return data
   }
 
@@ -189,7 +190,7 @@ class StockMovementTable extends React.Component {
     let { title, data, fields, onClick, pageSize = 50, height, pagination,dataExport,date_array, tableStatus  } = this.props
     const headerIcon = this.headerIcon(fields, editColumnTemp)
      
-
+    console.log(date_array)
     return (
       <React.Fragment>
         <div className="stockMovement">

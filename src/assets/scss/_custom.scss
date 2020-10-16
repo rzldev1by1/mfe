@@ -438,6 +438,7 @@ header {
 .pt-md{
   padding-top: 2.3rem !important;
 }
+
 .modal-content{
   border-radius: 0.3rem !important;
   border-left: 2px #376bfb solid !important;
@@ -552,4 +553,14 @@ header {
 }
 .is-invalid{
     background-image: none !important;
+}
+
+.dev-inst{
+  border-left: 2px transparent solid !important;
+  border-right: 2px transparent solid !important;
+  border-bottom: 2px transparent solid !important;
+}
+
+.align-bottom{
+  padding-bottom: 2.4rem !important;
 }

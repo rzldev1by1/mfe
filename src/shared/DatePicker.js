@@ -26,13 +26,16 @@ function Navbar({
         float: 'left',
         color: "#637175",
         backgroundColor: "#E9ECED",
-        borderColor: "#E9ECED"
+        borderColor: "#E9ECED",
+        boxShadow: "none"
+    
     };
     const styleRight = {
         float: 'right',
         color: "#637175",
         backgroundColor: "#E9ECED",
-        borderColor: "#E9ECED"
+        borderColor: "#E9ECED",
+        boxShadow: "none"
     };
     return (
         <div className={className} style={{ marginTop: "14px", marginLeft: "19px", marginRight: "19px", position: "relative" }}>
@@ -121,13 +124,13 @@ class DatePicker extends React.Component {
         this.handleYearMonthChange = this.handleYearMonthChange.bind(this);
         this.handleDayClick = this.handleDayClick.bind(this);
         this.state = {
-            selectedDay: new Date(),
+            selectedDay: props.defaultValue ? props.defaultValue : new Date(),
             showDatePicker: false,
-            month: new Date(),
+            month: props.defaultValue ? props.defaultValue : new Date(),
             monthChange: false,
             top: null,
             left: null,
-            defaultValue: null
+            defaultValue: props.defaultValue ? moment(props.defaultValue).format("DD/MM/YYYY") : null
         }
     }
 
@@ -141,11 +144,13 @@ class DatePicker extends React.Component {
     // }
 
     componentDidUpdate(prevProps){
-        if (prevProps.firstDate !== this.props.firstDate){
-            let firstDate = new Date(this.props.firstDate);
-            firstDate.setDate(firstDate.getDate() + 1)
-            this.setState({ month: firstDate, selectedDay: firstDate, defaultValue: null});
-            this.props.getDate(null)
+        if (moment(prevProps.firstDate).format("DD/MM/YYYY") !== moment(this.props.firstDate).format("DD/MM/YYYY")){
+            if(!this.props.firstValue){
+                let firstDate = new Date(this.props.firstDate);
+                firstDate.setDate(firstDate.getDate() + 1)
+                this.setState({ month: firstDate, selectedDay: firstDate, defaultValue: moment(firstDate).format("DD/MM/YYYY")});
+                this.props.getDate(moment(firstDate).format("DD/MM/YYYY"))
+            }
         }
     }
 

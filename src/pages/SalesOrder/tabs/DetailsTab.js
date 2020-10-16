@@ -18,6 +18,7 @@ const Required = ({ error, id }) => {
 var tmpChar = "";
 class CreateTab extends React.Component {
   state = {
+    orderStatus: true,
     overflow: [],
     orderLine: [{}], error: {},
     siteData: this.props.siteData,
@@ -265,6 +266,9 @@ class CreateTab extends React.Component {
       orderLine[i].product = val.label
       orderLine[i].productVal = val
       orderLine[i].productKeyword = null
+      if(isEmptyObject(val)){
+        orderLine[i].uom = null
+      }
     }
     if (key === 'dispositionVal') {
       orderLine[i].disposition = val.value
@@ -280,29 +284,31 @@ class CreateTab extends React.Component {
     })
   }
   checkOrderId = async (e) => {
+    this.setState({orderStatus:true})
     let { error, client } = this.state
     client = this.props.user.client ? this.state.client : this.state.client.value
     let orderId = e.target.value
     this.setState({ orderId: orderId.toUpperCase() })
-    if (!client) {
-      error.orderId = 'Please select client first'
-      return this.setState({ error })
-    }
+    // if (!client) {
+    //   error.orderId = 'Please select client first'
+    //   return this.setState({ error })
+    // }
     // if (!orderId) {
     //   error.orderId = 'Order no. cannot be empty'
     //   return this.setState({ error })
     // }
-    if (orderId.length < 4) {
-      error.orderId = 'Order no. must have min 4 characters'
-      return this.setState({ error })
-    }
+    // if (orderId.length < 4) {
+    //   error.orderId = 'Order no. must have min 4 characters'
+    //   return this.setState({ error })
+    // }
     delete error.orderId
     const { data } = await axios.post('/orderCheck', {
       "client": client,
       "order_no": orderId
     })
-    if (data.message !== 'available') {
+    if (data.message === 'not available') {
       error.orderId = 'Order number exist'
+      this.setState({orderStatus:'Order number exist'})
       return this.setState({ error })
     }
   }
@@ -352,6 +358,9 @@ class CreateTab extends React.Component {
     }
   }
 
+  regExp = (e) => {
+    if (!/^[a-zA-Z0-9-_]+$/.test(e.key)) e.preventDefault()
+  }
   numberCommaCheck = (index, refs, numberLength, commaLength, e) => {
     var value = e.target.value
     var name = e.target.name
@@ -458,7 +467,7 @@ class CreateTab extends React.Component {
       }
       else return numeral(newVal).format('0,0')
     }
-    else if (name == 'qty') return numeral(newVal).format('0,0')
+    else if (name == 'qty') return newVal ? numeral(newVal).format('0,0') : newVal
     return value
   }
 
@@ -594,7 +603,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order No</label>
-          <input name="orderId" type="text" value={orderId || ''} onChange={this.checkOrderId} className="form-control" placeholder="Order No" maxLength="12" required />
+          <input name="orderId" type="text" value={orderId || ''} onKeyPress={(e) => this.regExp(e)} onChange={this.checkOrderId} className="form-control" placeholder="Order No" maxLength="12" required />
           <Required id="orderId" error={error} />
         </Col>
         <Col lg="3">
@@ -724,7 +733,7 @@ class CreateTab extends React.Component {
 
                      }}
                     onMenuClose={() => { productStatus[i] = false; this.setState({ productStatus: productStatus }) }}
-                    onChange={(val) => this.lineSelectChange(i, 'productVal', val)}
+                    onChange={(val, { action }) => this.lineSelectChange(i, 'productVal', action == "clear" ? {} : val)}
                     className={`c-400 ${overflow[i] && overflow[i].productVal ? 'absolute' : null}`} placeholder="Product" required
                     getOptionLabel={option => this.state.productStatus[i] ? option.value + " : " + option.label : option.value}
                     filterOption={
@@ -743,17 +752,19 @@ class CreateTab extends React.Component {
                   <Required id="productVal" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="">
-                  <input value={o.product || ''} className="form-control c-600" placeholder="Choose a product first" readOnly style={{ backgroundColor: "#f6f7f9" }} />
+                  <input value={o.productVal ? o.product || '' : ''} className="form-control c-600" placeholder="Choose a product first" readOnly style={{ backgroundColor: "#f6f7f9" }} />
                 </td>
-                <td className="">
+                <td className="text-left">
                   <input name="qty" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control c-150" value={this.state.orderLine[i]['qty']} placeholder="Qty" maxLength="10" />
                   <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="">
                   <input name="weight" ref="weight" value={this.state.orderLine[i]['weight']} onChange={(e) => this.numberCommaCheck(i, "weight", 16, 3, e)} type="text" maxLength='18' className="form-control c-170" placeholder="Weight" />
+                  <Required id="weight" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="">
                   <Select isClearable
+                    value={o.uom || ''}
                     options={uomData}
                     onMenuOpen={() => {
                       UOMStatus[i] = true;
