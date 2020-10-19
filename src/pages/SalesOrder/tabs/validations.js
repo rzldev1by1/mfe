@@ -12,7 +12,7 @@ export default (values) => {
     error.orderId = 'Order number exist'
   }
   if (!client.value) {
-    error.orderId = 'Please select client first'
+    error.orderId = 'Please select Client first'
   }
   if (!!orderId && orderId.length < 4 && orderId.length > 12) {
     error.postCode = 'Order Number must have min 4 characters'
@@ -45,12 +45,12 @@ export default (values) => {
       const object = orderLine[i];
       error.orderLine[i] = {}
       
-    //   const weightArray = object?.weight?.split('')
-    //   if(object?.weight?.length > 0){
-    //     if(weightArray[weightArray.length - 1] === '.' || weightArray[weightArray.length - 1] === '.' ){
-    //       error.orderLine[i].weight = 'Incorrect number format'
-    //     }
-    //   }
+      const weightArray = object?.weight?.split('')
+      if(object?.weight?.length > 0){
+        if(weightArray[weightArray.length - 1] === '.' || weightArray[weightArray.length - 1] === '.' ){
+          error.orderLine[i].weight = 'Incorrect number format'
+        }
+      }
 
       if (!object.productVal) {
         error.orderLine[i].productVal = 'Product must be entered'

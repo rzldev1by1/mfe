@@ -132,7 +132,8 @@ const columns = [
     accessor: 'customerpono', 
     placeholder: 'Customer Order Ref', 
     Header: 'Customer Order Ref', 
-    width: 155, 
+    width: 320, 
+    Cell: props => <span>{props.value ? props.value : '-'}</span> 
   },
   { 
     accessor: 'vendororderno', 
