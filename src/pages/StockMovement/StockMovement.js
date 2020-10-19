@@ -90,7 +90,7 @@ class StockMovement extends React.PureComponent {
     this.getStatus()
     this.getResources()
     //this.searchStockMovement() 
-    this.load_data('', '', 'week')
+    this.load_data('week', '', '')
     this.getStockDate();
     document.getElementById("stockMovement").addEventListener('mousedown', (e) => {
         if(self.refs["dateFrom"] && self.refs["dateFrom"].state.showDatePicker){
@@ -592,6 +592,7 @@ class StockMovement extends React.PureComponent {
                   onChange={(e) => {this.openDatePicker('to')}}
                   fromMonth={minDate} toMonth={maxDate}
                 />
+                  <Required id="startDate" error={error} />
         </CCol>
         <div className="px-3 text-light-gray labelDateTo d-flex align-items-center">To</div>
         <CCol lg={2} className="sm-col-14 px-0 dateTo" > 

@@ -37,15 +37,14 @@ export default (values) => {
         error.orderLine[i].productVal = 'Product must be entered'
       }
       
-      const weightArray = object?.weight?.split('')
-      if(weightArray[weightArray.length - 1] === '.' || weightArray[weightArray.length - 1] === '.' ){
-        error.orderLine[i].weight = 'Incorrect number format'
-      }
+    //   const weightArray = object?.weight?.split('')
+    //   if(weightArray[weightArray.length - 1] === '.' || weightArray[weightArray.length - 1] === '.' ){
+    //     error.orderLine[i].weight = 'Incorrect number format'
+    //   }
       
       if (!object.qty) {
         error.orderLine[i].qty = 'Qty must be entered'
-      }
-      if (object.qty == 0) {
+      }else if (object.qty == 0) {
         error.orderLine[i].qty = 'Qty cannot be 0'
       }
       if (!object?.uom?.value) {

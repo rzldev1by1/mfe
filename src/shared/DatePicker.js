@@ -26,13 +26,16 @@ function Navbar({
         float: 'left',
         color: "#637175",
         backgroundColor: "#E9ECED",
-        borderColor: "#E9ECED"
+        borderColor: "#E9ECED",
+        boxShadow: "none"
+    
     };
     const styleRight = {
         float: 'right',
         color: "#637175",
         backgroundColor: "#E9ECED",
-        borderColor: "#E9ECED"
+        borderColor: "#E9ECED",
+        boxShadow: "none"
     };
     return (
         <div className={className} style={{ marginTop: "14px", marginLeft: "19px", marginRight: "19px", position: "relative" }}>
