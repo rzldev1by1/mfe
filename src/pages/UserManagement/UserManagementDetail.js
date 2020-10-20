@@ -58,7 +58,6 @@ class UserManagementDetail extends Component {
     }
 
     async componentDidMount() {
-        alert('ssssssss')
         let id = this.props.match.params.id;
         console.log(id)
            const a = await this.getAccountInfo(id);
