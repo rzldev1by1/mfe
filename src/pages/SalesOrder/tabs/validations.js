@@ -46,9 +46,11 @@ export default (values) => {
       error.orderLine[i] = {}
       
       const weightArray = object?.weight?.split('')
-      if(object?.weight?.length > 0){
-        if(weightArray[weightArray.length - 1] === '.' || weightArray[weightArray.length - 1] === '.' ){
-          error.orderLine[i].weight = 'Incorrect number format'
+      if(weightArray !== undefined){
+        if(object?.weight?.length > 0){
+          if(weightArray[weightArray.length - 1] === '.' || weightArray[weightArray.length - 1] === '.' ){
+            error.orderLine[i].weight = 'Incorrect number format'
+          }
         }
       }
 

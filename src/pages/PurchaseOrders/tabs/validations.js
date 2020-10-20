@@ -38,8 +38,10 @@ export default (values) => {
       }
       
       const weightArray = object?.weight?.split('')
-      if(weightArray[weightArray.length - 1] === '.' || weightArray[weightArray.length - 1] === '.' ){
-        error.orderLine[i].weight = 'Incorrect number format'
+      if(weightArray !== undefined){
+        if(weightArray[weightArray.length - 1] === '.' || weightArray[weightArray.length - 1] === '.' ){
+          error.orderLine[i].weight = 'Incorrect number format'
+        }
       }
       
       if (!object.qty) {
