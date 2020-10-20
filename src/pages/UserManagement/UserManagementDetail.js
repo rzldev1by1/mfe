@@ -45,7 +45,6 @@ class UserManagementDetail extends Component {
             isEnableAllModule: false,
             isEnableAllSite: false,
             isEnableAllClient: false,
-            unableSave: false,
             loginInfo: {},
             adminClass: 'd-none',
             users: [],
@@ -58,13 +57,8 @@ class UserManagementDetail extends Component {
 
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if(prevState.acountInfo !== this.state.accountInfo){
-            // this.edit()
-        }
-    }
-
     async componentDidMount() {
+        alert('ssssssss')
         let id = this.props.match.params.id;
         console.log(id)
            const a = await this.getAccountInfo(id);
@@ -324,11 +318,6 @@ class UserManagementDetail extends Component {
     onChangeName = (e) => {
         const { name, value } = e.target;
         let user = { ...this.state.accountInfo };
-        if(user.user !== value) {
-            this.state.unableSave = true
-        }else{
-            this.state.unableSave = false
-        }
         let validation = this.checkNameValidation(value);
         user.user = value;
         this.setState({ accountInfo: user, isValidForm: false, validation:validation });
@@ -359,11 +348,6 @@ class UserManagementDetail extends Component {
     onChangeEmail = (e) => {
         const { name, value } = e.target;
         let user = { ...this.state.accountInfo };
-        if(user.email !== value) {
-            this.state.unableSave = true
-        }else{
-            this.state.unableSave = false
-        }
         console.log(user.email, value)
         let validation = this.checkEmailValidation(value);
         user.email = value;
@@ -507,12 +491,13 @@ class UserManagementDetail extends Component {
         this.props.history.push('/users-management');
 
     }
-
     onClieckSuspendUser = () => {
-        const { accountInfo } = this.state;
-        accountInfo.disabled = !accountInfo.disabled;
+        let accountInfoUpdate = {...this.state.accountInfo}
+        // const { accountInfo } = this.state;
+        console.log(accountInfoUpdate.disabled);
+        accountInfoUpdate.disabled = !accountInfoUpdate.disabled;
 
-        this.setState({ accountInfo: accountInfo })
+        this.setState({ accountInfo: accountInfoUpdate}, () => console.log(accountInfoUpdate.disabled))
     }
 
     onClickResetPassword = () => {
@@ -541,7 +526,8 @@ class UserManagementDetail extends Component {
     edit = () => {
         const {initialData,accountInfo,moduleAccess} = this.state
         let edited = false
-        if( (initialData?.accountInfo.email !== accountInfo.email || initialData?.accountInfo.user !== accountInfo.user || this.state.isEnableAllClient !== initialData?.isEnableAllClient || this.state.isEnableAllSite !== initialData?.isEnableAllSite || this.state.isEnableAllModule !== initialData?.isEnableAllModule || initialData?.moduleAccess.status !== moduleAccess.status) && initialData){
+        console.log(initialData?.accountInfo.disabled, accountInfo.disabled );
+        if( (initialData?.accountInfo.email !== accountInfo.email || initialData?.accountInfo.user !== accountInfo.user || initialData?.accountInfo.disabled !== accountInfo.disabled || this.state.isEnableAllClient !== initialData?.isEnableAllClient || this.state.isEnableAllSite !== initialData?.isEnableAllSite || this.state.isEnableAllModule !== initialData?.isEnableAllModule || initialData?.moduleAccess.status !== moduleAccess.status) && initialData){
             console.log('update ' + initialData?.accountInfo.disabled)
             edited = true
           }
@@ -559,7 +545,7 @@ class UserManagementDetail extends Component {
         console.log(this.state.edited, this.state.initialData, this.state.accountInfo)
 
         const edited = this.edit()
-
+        console.log(accountInfo.disabled);
         return (<div className="um-detail w-100 h-100">
             {/* <div className={(this.state.isLoadComplete ? 'd-none' : 'spinner')} />
             <div className={(this.state.isLoadComplete ? ' ' : 'd-none')}>

@@ -260,6 +260,7 @@ class SalesOrderDetail extends React.Component {
     const { product, client, site } = this.props.match.params;
     const url = `/stockbal?client=${client}&product=${product}&site=${site}`;
     const { data } = await axios.get(url);
+    console.log(data);
     const available = data[0][0]['available orders']
     if (data[0][0]['stock expiry'].length === 0) {
       this.setState({
@@ -267,12 +268,14 @@ class SalesOrderDetail extends React.Component {
       })
       return
     }
-    let expiry = data[0][0]['stock expiry']
-    let expdt = expiry[expiry.length - 1].stockexpirydate
-    const openingbal = [{ openingbalancetext: `Opening Balance as on ${moment().format('DD/MM/YYYY')}`, startbalance: data[0][0]['opening balance'] }]
+    let expiryDateSH = data[0][0]['stock expiry']
+    console.log(expiryDateSH)
+    let expdt = expiryDateSH[0].stockexpirydate
     let closingbal = [{ closingbalancetext: `Closing Balance as on ${expdt}`, totalbalance: data[0][0]['closing balance'] }]
+    const openingbal = [{ openingbalancetext: `Opening Balance as on ${moment().format('DD/MM/YYYY')}`, startbalance: data[0][0]['opening balance'] }]
     let txt = []
-
+    let expiry = Object.values(expiryDateSH);
+    console.log(expiry);
     expiry.map(expiry => {
       expiry['qty'] = expiry['quantity']
       closingbal[0].totalbalance = parseInt(closingbal[0].totalbalance) - parseInt(expiry.qty)
@@ -283,6 +286,7 @@ class SalesOrderDetail extends React.Component {
       return expiry
     
     })
+
     let largest= 0;
 
     for (let i=0; i<=largest;i++){
