@@ -30,6 +30,7 @@ export default (values) => {
 
   if (orderLine.length) {
     error.orderLine = []
+    console.log(orderLine.length);
     for (let i = 0; i < orderLine.length; i++) {
       const object = orderLine[i];
       error.orderLine[i] = {}
@@ -38,8 +39,11 @@ export default (values) => {
       }
       
       const weightArray = object?.weight?.split('')
-      if(weightArray[weightArray.length - 1] === '.' || weightArray[weightArray.length - 1] === '.' ){
-        error.orderLine[i].weight = 'Incorrect number format'
+      console.log(weightArray);
+      if(weightArray !== undefined){
+        if(weightArray[weightArray.length - 1] === '.' || weightArray[weightArray.length - 1] === '.'){
+          error.orderLine[i].weight = 'Incorrect number format'
+        }
       }
       
       if (!object.qty) {
