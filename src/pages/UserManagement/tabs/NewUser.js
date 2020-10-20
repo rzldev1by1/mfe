@@ -263,7 +263,7 @@ class NewUser extends React.PureComponent {
                     <Col lg={2}></Col>
                     <Col lg={8}></Col>
                     <Col lg={2} className="text-right">
-                        <button className="btn btn-primary font-lg" onClick={(e) => { this.onNext(); }}>{'NEXT'}</button>
+                        <button className={`btn font-lg ${validation.email["message"]?'btn-grey':'btn-primary'}`} disabled={validation.email["message"]} onClick={(e) => { this.onNext(); }}>{'NEXT'}</button>
                     </Col>
                 </Row>
             </Container>
