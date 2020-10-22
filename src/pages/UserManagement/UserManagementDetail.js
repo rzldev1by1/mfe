@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react'
+import { CCard, CCardBody } from '@coreui/react'
 import './UserManagement.css'
 import ModuleAccess from './ModuleAccess'
 import Site from './Site'
@@ -81,19 +81,20 @@ class UserManagementDetail extends Component {
 
 
     checkEmailValidation = (textmail) => {
-        const { validation} = this.state;
+      const { validation} = this.state;
 
-            let validFormat = EmailValidator.validate(textmail);
-            validation.email["isValid"] = validFormat? true : false;
+      let validFormat = EmailValidator.validate(textmail);
+      validation.email["isValid"] = validFormat? true : false;
 
-            if(!validFormat)
-                validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
+      if (!validFormat) {
+        validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
+        validation.email["invalidClass"] = 'is-invalid';
+      } else {
+        validation.email["message"] = "";
+        validation.email["invalidClass"] = '';
+      }
 
-            if(validFormat)
-                validation.email["message"] = "";
-
-
-        return validation;
+      return validation;
     }
 
     checkNameValidation = (textName) => {
@@ -322,26 +323,28 @@ class UserManagementDetail extends Component {
         this.setState({ accountInfo: user, isValidForm: false, validation:validation });
     }
 
-     onBlurEmail = async (e) => {
-        const { name, value } = e.target;
-        const { oldAccountInfo } = this.state;
-        let validation = { ...this.state.validation };
-        const {data}  = await axios.post(endpoint.userManagementCheckMailValidation,{email:value});
-        validation.email["isValid"] = ((oldAccountInfo.email !== value) && data === 0)?true:false;
+    onBlurEmail = async (e) => {
+      const { value } = e.target;
+      const { oldAccountInfo } = this.state;
+      let validation = { ...this.state.validation };
+      const {data}  = await axios.post(endpoint.userManagementCheckMailValidation,{email:value});
+      validation.email["isValid"] = ((oldAccountInfo.email !== value) && data === 0)?true:false;
 
-        if(!validation.email["isValid"]){
-            validation.email["message"] = utility.validationMsg.EMAIL_EXIST;
-        }else{
-            validation.email["message"] = "";
-            if(!this.checkEmailValidation(value).email["isValid"]){
-                validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
-            }else{
-                validation.email["message"] = "";
-            }
-
+      if (!validation.email["isValid"]) {
+        validation.email["message"] = utility.validationMsg.EMAIL_EXIST;
+        validation.email["invalidClass"] = 'is-invalid';
+      } else {
+        validation.email["message"] = "";
+        validation.email["invalidClass"] = '';
+        if (!this.checkEmailValidation(value).email["isValid"]) {
+          validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
+          validation.email["invalidClass"] = 'is-invalid';
+        } else {
+          validation.email["message"] = "";
         }
+      }
 
-        this.setState({ validation:validation });
+      this.setState({ validation:validation });
     }
 
     onChangeEmail = (e) => {
@@ -351,18 +354,6 @@ class UserManagementDetail extends Component {
         let validation = this.checkEmailValidation(value);
         user.email = value;
         this.setState({ accountInfo: user, isValidForm: false, validation:validation });
-    }
-
-    generateUserID = (textValue) => {
-        let result = "";
-
-        if (textValue && textValue.length > 2) {
-            var anysize = 3;//the size of string
-            var charset = "abcdefghijklmnopqrstuvwxyz"; //from where to create
-            for (var i = 0; i < anysize; i++)
-                result += charset[Math.floor(Math.random() * (9))];
-        }
-        return result;
     }
 
     getParam = (passwordChange) => {
@@ -390,7 +381,7 @@ class UserManagementDetail extends Component {
             return item.status === true;
         });
 
-         let clientValue = (client && (clients.filter((item) => {return item.status === true;}).length !== clients.length))? client.code:null;
+        let clientValue = (client && (clients.filter((item) => {return item.status === true;}).length !== clients.length))? client.code:null;
 
         let accountInfo = { ...this.state.accountInfo };
         newParam.name = accountInfo.user;
@@ -453,7 +444,7 @@ class UserManagementDetail extends Component {
         let url = `${endpoint.userManagementresetpassword}`;
 
         let newText = user.substring(0, 2);
-        let result = this.generateUserID(today);
+        let result = utility.generateUserID(today);
         let new_password = result + newText.toLowerCase();
         let param = { "email": email, "web_user": web_user_id, "new_password": new_password }
 
@@ -523,23 +514,23 @@ class UserManagementDetail extends Component {
     }
 
     edit = () => {
-      const {initialData, accountInfo, moduleAccess} = this.state
+      const {initialData, accountInfo, moduleAccess, clients, sites, validation} = this.state
       let edited = false
-      console.log(initialData?.accountInfo.disabled, accountInfo.disabled );
 
-      if ((initialData?.accountInfo.email !== accountInfo.email ||
-          initialData?.accountInfo.user !== accountInfo.user ||
-          initialData?.accountInfo.disabled !== accountInfo.disabled ||
-          this.state.isEnableAllClient !== initialData?.isEnableAllClient ||
-          this.state.isEnableAllSite !== initialData?.isEnableAllSite ||
-          this.state.isEnableAllModule !== initialData?.isEnableAllModule ||
-          initialData?.moduleAccess.status !== moduleAccess.status) &&
-          initialData) {
-        console.log('update ' + initialData?.accountInfo.disabled)
-        edited = true
-      } else {
-        console.log('not')
-        edited = false
+      if (initialData && accountInfo.email) {
+        const activeClient = clients.filter((c) => c.status !== false);
+        const activeSite = sites.filter((s) => s.status !== false);
+        const activeModule = (accountInfo.web_group !== 'Admin') ? moduleAccess.filter((m) => m.status !== false) : ["Admin"];
+        edited = true;
+
+        if (accountInfo.email === '' ||
+            accountInfo.user === '' ||
+            !validation.email.isValid ||
+            activeClient.length === 0 ||
+            activeSite.length === 0 ||
+            activeModule.length === 0) {
+              edited = false;
+        }
       }
 
       return edited
