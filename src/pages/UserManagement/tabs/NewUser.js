@@ -212,7 +212,7 @@ class NewUser extends React.PureComponent {
                         </div>
                     </Col>
                     <Col sm="4">
-                        <input type="email" name="email" placeholder="Enter an email address" 
+                        <input type="email" name="email" autoComplete='off' placeholder="Enter an email address" 
                         className={`form-control ${validation.email["isValid"]? '':validation.email["invalidClass"]}`} 
                         onChange={(e) => { this.onEmailChange(e); }} 
                         onBlur={(e)=>{this.onBlurEmail(e);}} 
@@ -223,7 +223,7 @@ class NewUser extends React.PureComponent {
                         </FormFeedback>
                     </Col>
                     <Col sm="4">
-                        <input type="text" name="userName" placeholder="Enter a name" maxLength="60" className={`form-control ${validation.name["isValid"]?'':validation.name["invalidClass"]}`} onChange={(e) => { this.onNameChange(e); }} value={user.name || ''} />
+                        <input type="text" name="userName" placeholder="Enter a name" autoComplete='off' maxLength="60" className={`form-control ${validation.name["isValid"]?'':validation.name["invalidClass"]}`} onChange={(e) => { this.onNameChange(e); }} value={user.name || ''} />
                         <FormFeedback className="invalid-error-padding">
                             {`${validation.name["message"]}`}
                         </FormFeedback>
