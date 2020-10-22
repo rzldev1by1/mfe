@@ -603,12 +603,12 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Order No</label>
-          <input name="orderId" type="text" value={orderId || ''} onKeyPress={(e) => this.regExp(e)} onChange={this.checkOrderId} className="form-control" placeholder="Order No" maxLength="12" required />
+          <input name="orderId" type="text" autoComplete='off' value={orderId || ''} onKeyPress={(e) => this.regExp(e)} onChange={this.checkOrderId} className="form-control" placeholder="Order No" maxLength="12" required />
           <Required id="orderId" error={error} />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Vendor Order Ref</label>
-          <input name="vendorOrderRef" onChange={this.onChange} className="form-control" placeholder="Vendor Order Ref" maxLength="40" />
+          <input name="vendorOrderRef" autoComplete='off' onChange={this.onChange} className="form-control" placeholder="Vendor Order Ref" maxLength="40" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Delivery Instructions</label>
@@ -644,46 +644,46 @@ class CreateTab extends React.Component {
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0 required">Address 1</label>
-          <input value={this.state.shipToAddress1} name="shipToAddress1" type="text" value={shipToAddress1 || ''} onChange={this.onChange} className="form-control" placeholder="Address 1" required />
+          <input value={this.state.shipToAddress1} autoComplete='off' name="shipToAddress1" type="text" value={shipToAddress1 || ''} onChange={this.onChange} className="form-control" placeholder="Address 1" required />
           <Required id="shipToAddress1" error={error} />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Address 2</label>
-          <input value={this.state.shipToAddress2} name="shipToAddress2" onChange={this.onChange} className="form-control" placeholder="Address 2" />
+          <input value={this.state.shipToAddress2} autoComplete='off' name="shipToAddress2" onChange={this.onChange} className="form-control" placeholder="Address 2" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Address 3</label>
-          <input value={this.state.shipToAddress3} name="shipToAddress3" onChange={this.onChange} className="form-control" placeholder="Address 3" />
+          <input value={this.state.shipToAddress3} autoComplete='off' name="shipToAddress3" onChange={this.onChange} className="form-control" placeholder="Address 3" />
         </Col>
       </Row>
       <Row>
         <Col lg="3" className="mb-3">
           <label className="text-muted mb-0">Address 4</label>
-          <input value={this.state.shipToAddress4} name="shipToAddress4" onChange={this.onChange} className="form-control" placeholder="Address 4" />
+          <input value={this.state.shipToAddress4} autoComplete='off' name="shipToAddress4" onChange={this.onChange} className="form-control" placeholder="Address 4" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Address 5</label>
-          <input value={this.state.shipToAddress5} name="shipToAddress5" onChange={this.onChange} className="form-control" placeholder="Address 5" />
+          <input value={this.state.shipToAddress5} autoComplete='off' name="shipToAddress5" onChange={this.onChange} className="form-control" placeholder="Address 5" />
         </Col>
       </Row>
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0">Suburb</label>
-          <input value={this.state.city} name="city" onChange={this.onChange} className="form-control" placeholder="Suburb" />
+          <input value={this.state.city} autoComplete='off' name="city" onChange={this.onChange} className="form-control" placeholder="Suburb" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Postcode</label>
-          <input value={this.state.postCode} name="postCode" type="number" value={postCode || ''} onChange={this.onChange} className="form-control" placeholder="Postcode" required />
+          <input value={this.state.postCode} autoComplete='off' name="postCode" type="number" value={postCode || ''} onChange={this.onChange} className="form-control" placeholder="Postcode" required />
           <Required id="postCode" error={error} />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">State</label>
-          <input value={this.state.state} name="state" type="text" value={state || ''} onChange={this.onChange} className="form-control" placeholder="State" required />
+          <input value={this.state.state} autoComplete='off' name="state" type="text" value={state || ''} onChange={this.onChange} className="form-control" placeholder="State" required />
           <Required id="state" error={error} />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Country</label>
-          <input value={this.state.country} name="country" onChange={this.onChange} className="form-control" placeholder="Country" />
+          <input value={this.state.country} autoComplete='off' name="country" onChange={this.onChange} className="form-control" placeholder="Country" />
         </Col>
       </Row>
 
@@ -759,7 +759,7 @@ class CreateTab extends React.Component {
                   <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="">
-                  <input name="weight" ref="weight" value={this.state.orderLine[i]['weight']} onChange={(e) => this.numberCommaCheck(i, "weight", 16, 3, e)} type="text" maxLength='18' className="form-control c-170" placeholder="Weight" />
+                  <input name="weight" autoComplete='off' ref="weight" value={this.state.orderLine[i]['weight']} onChange={(e) => this.numberCommaCheck(i, "weight", 16, 3, e)} type="text" maxLength='18' className="form-control c-170" placeholder="Weight" />
                   <Required id="weight" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="">
@@ -792,13 +792,13 @@ class CreateTab extends React.Component {
                   <Required id="uom" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="">
-                  <input name="batch" onChange={(e) => this.lineChange(i, e)} className="form-control c-250" placeholder="Batch" maxLength="30" />
+                  <input name="batch" autoComplete='off' onChange={(e) => this.lineChange(i, e)} className="form-control c-250" placeholder="Batch" maxLength="30" />
                 </td>
                 <td className="">
-                  <input name="ref3" onChange={(e) => this.lineChange(i, e)} className="form-control c-100" placeholder="Ref3" maxLength="30" />
+                  <input name="ref3" autoComplete='off' onChange={(e) => this.lineChange(i, e)} className="form-control c-100" placeholder="Ref3" maxLength="30" />
                 </td>
                 <td className="">
-                  <input name="ref4" onChange={(e) => this.lineChange(i, e)} className="form-control c-100" placeholder="Ref4" maxLength="30" />
+                  <input name="ref4" autoComplete='off' onChange={(e) => this.lineChange(i, e)} className="form-control c-100" placeholder="Ref4" maxLength="30" />
                 </td>
                 <td className="">
                   <Select isClearable
