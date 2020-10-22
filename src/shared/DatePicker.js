@@ -289,6 +289,11 @@ class DatePicker extends React.Component {
         }
     }
 
+    resetDateValue = () => {
+        this.setState({ defaultValue: "" });
+        // this.refs["dateValue"].value = this.state.defaultValue;
+    }
+
     render() {
         let placeHolder = "Select Date";
         let firstDate = new Date(this.props.firstDate);
