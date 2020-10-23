@@ -221,7 +221,9 @@ class CreateTab extends React.Component {
       } else if (name === 'orderType') {
         this.orderTypeValue(val)
       } else if (name === 'customer') {
-        this.getSupplierIdentity(val.value)
+        if(val){
+            this.getSupplierIdentity(val.value)
+        }
       }
     })
   }
