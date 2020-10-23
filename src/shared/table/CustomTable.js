@@ -15,6 +15,7 @@ import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
 import validations from './validations'
+import { data } from 'jquery'
 //import { splice } from 'core-js/fn/array'
 
 const baseUrl = process.env.REACT_APP_API_URL;
@@ -62,6 +63,7 @@ class CustomTable extends React.Component {
         }
       });
     }
+    console.log(props.data)
     this.state = {
       showModal: false,
       editColumn: {},
@@ -483,6 +485,7 @@ class CustomTable extends React.Component {
       //   payload
       // );
       const { data } = urlAll;
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -751,7 +754,7 @@ console.log(this.state)
               <Col lg={6} className='text-primary font-20 p-0'>{title}</Col>
               <Row className='align-items-center rename-columns mx-0 text-align-left'>
 
-                {this.props.store.user.userLevel !== 'Admin' ? '' :
+                {/* {this.props.store.user.userLevel !== 'Admin' ? '' : */}
                   <Nav tabs className="px-1">
                     <div className='input-group'>
                       <NavItem className='pl-0 pr-0'>
@@ -793,7 +796,7 @@ console.log(this.state)
                       </NavItem>
                     </div>
                   </Nav>
-                }
+                {/* } */}
               </Row>
             </Row>
             <Row >
@@ -846,6 +849,7 @@ console.log(this.state)
                           return (
                             <div key={index} className='p-2'>
                               <input
+                                autoComplete='off'
                                 placeholder={item.placeholder}
                                 name={item.headerData}
                                 sortable={item.sortable}

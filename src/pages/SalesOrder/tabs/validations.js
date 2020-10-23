@@ -2,7 +2,7 @@ import _ from 'lodash'
 export default (values) => {
   let error = {}
   let { site, client, orderId, orderType, deliveryDate, shipToAddress1, postCode, state, orderLine, orderStatus } = values
-  if (!site) {
+  if (!site.value) {
     error.site = 'Site must be entered'
   }
   if (!orderId) {
@@ -11,16 +11,16 @@ export default (values) => {
   if(orderStatus !== true && orderId){
     error.orderId = 'Order number exist'
   }
-  if (!client) {
-    error.orderId = 'Please select client first'
+  if (!client.value) {
+    error.orderId = 'Please select Client first'
   }
   if (!!orderId && orderId.length < 4 && orderId.length > 12) {
     error.postCode = 'Order Number must have min 4 characters'
   }
-  if (!orderType) {
+  if (!orderType.value) {
     error.orderType = 'Order Type must be entered'
   }
-  if (!client) {
+  if (!client.value) {
     error.client = 'Client must be entered'
   }
   if (!deliveryDate) {
@@ -45,12 +45,14 @@ export default (values) => {
       const object = orderLine[i];
       error.orderLine[i] = {}
       
-    //   const weightArray = object?.weight?.split('')
-    //   if(object?.weight?.length > 0){
-    //     if(weightArray[weightArray.length - 1] === '.' || weightArray[weightArray.length - 1] === '.' ){
-    //       error.orderLine[i].weight = 'Incorrect number format'
-    //     }
-    //   }
+      const weightArray = object?.weight?.split('')
+      if(weightArray !== undefined){
+        if(object?.weight?.length > 0){
+          if(weightArray[weightArray.length - 1] === '.' || weightArray[weightArray.length - 1] === '.' ){
+            error.orderLine[i].weight = 'Incorrect number format'
+          }
+        }
+      }
 
       if (!object.productVal) {
         error.orderLine[i].productVal = 'Product must be entered'

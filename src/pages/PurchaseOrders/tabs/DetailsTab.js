@@ -11,6 +11,7 @@ import DatePicker from 'shared/DatePicker'
 import validations from './validations'
 
 import { isEmptyObject } from 'jquery'
+import { object } from 'prop-types'
 
 const Required = ({ error, id }) => {
   return <span className="text-error pl-0 text-danger font-12">{error && error[id]}</span>
@@ -57,6 +58,7 @@ class CreateTab extends React.Component {
   componentDidMount() {
     this.getDisposition()
     const { user } = this.props
+    let error= this.state.error
 
     if (user.client && user.site) {
       this.getSupplier()
@@ -374,12 +376,9 @@ class CreateTab extends React.Component {
   }
   next = (e) => {
     const error = validations(this.state)
-    console.log(this.state.error)
     if (Object.keys(error).length) {
-      console.log('ffffffff');
       return this.setState({ error })
     } 
-    console.log('sssssss');
     if (!Object.keys(error).length) {
       
     // else {
@@ -462,9 +461,9 @@ class CreateTab extends React.Component {
 
   render() {
     const { error, overflow, site, client, orderType, orderLine,
-      orderId, siteData, clientData, orderTypeData, productData, uomData, dispositionData, supplierData, supplier, orderDetails
+      orderId, siteData, clientData, orderTypeData, productData, uomData, dispositionData, supplierData, supplier, orderDetails, errorCheck
     } = this.state
-
+    
     const { user } = this.props
     let datepickerStatus = this.state.datepickerStatus;
     let UOMStatus = []
@@ -539,7 +538,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Customer Order Ref</label>
-          <input name="customerOrderRef" onChange={this.onChange} className="form-control" placeholder="Customer Order Ref" maxLength='30' />
+          <input name="customerOrderRef" autoComplete='off' onChange={this.onChange} className="form-control" placeholder="Customer Order Ref" maxLength='30' />
         </Col>
       </Row>
       <Row>
@@ -569,7 +568,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3" className="mt-45">
           <label className="text-muted mb-0 required">Order No</label>
-          <input name="orderId" type="text" value={orderId || ''} onKeyPress={(e) => this.regExp(e)} onKeyDown={(e) => e.keyCode === 32 ? e.preventDefault() : null } onChange={this.checkOrderId} className="form-control" maxLength='12' placeholder="Order No" required />
+          <input name="orderId" autoComplete='off' type="text" value={orderId || ''} onKeyPress={(e) => this.regExp(e)} onKeyDown={(e) => e.keyCode === 32 ? e.preventDefault() : null } onChange={this.checkOrderId} className="form-control" maxLength='12' placeholder="Order No" required />
           <Required id="orderId" error={error} />
         </Col>
         <Col lg="3" className="mt-45">
@@ -588,7 +587,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3" className="mt-45">
           <label className="text-muted mb-0">Vendor Order Ref</label>
-          <input name="vendorOrderRef" onChange={this.onChange} className="form-control" placeholder="Vendor Order Ref" maxLength='40' />
+          <input name="vendorOrderRef" autoComplete='off' onChange={this.onChange} className="form-control" placeholder="Vendor Order Ref" maxLength='40' />
         </Col>
       </Row>
 
@@ -664,14 +663,14 @@ class CreateTab extends React.Component {
                   <input value={o.productVal ? o.product || '' : ''} className="form-control" placeholder="Choose a product first" readOnly style={{ backgroundColor: "#f6f7f9" }} />
                 </td>
                 <td className="px-1">
-                  <input name="qty" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['qty']} type="text" className="form-control" placeholder="Qty" maxlength="10" />
+                  <input name="qty" autoComplete='off' onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['qty']} type="text" className="form-control" placeholder="Qty" maxlength="10" />
                   <div className='w-100 d-flex align-items-start text-nowrap'>
                     <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                   </div>
 
                 </td>
                 <td className="px-1">
-                  <input name="weight" value={this.state.orderLine[i]['weight']} onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="14" className="form-control" placeholder="Weight" />
+                  <input name="weight" autoComplete='off' value={this.state.orderLine[i]['weight']} onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="14" className="form-control" placeholder="Weight" />
                   <div className='w-100 d-flex align-items-start text-nowrap'>
                     <Required id="weight" error={error.orderLine && error.orderLine[i]} />
                   </div>
@@ -710,13 +709,13 @@ class CreateTab extends React.Component {
 
                 </td>
                 <td className="px-1">
-                  <input name="batch" onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['batch']} className="form-control" placeholder="Batch" maxLength='30' />
+                  <input name="batch" autoComplete='off' onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['batch']} className="form-control" placeholder="Batch" maxLength='30' />
                 </td>
                 <td className="px-1">
-                  <input name="ref3" onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['ref3']} className="form-control" placeholder="Ref3" maxLength='30' />
+                  <input name="ref3" autoComplete='off' onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['ref3']} className="form-control" placeholder="Ref3" maxLength='30' />
                 </td>
                 <td className="px-1">
-                  <input name="ref4" onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['ref4']} className="form-control" placeholder="Ref4" maxLength='30' />
+                  <input name="ref4" autoComplete='off' onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['ref4']} className="form-control" placeholder="Ref4" maxLength='30' />
                 </td>
                 <td className="px-1">
                   <Select 
@@ -771,7 +770,7 @@ class CreateTab extends React.Component {
         <Col lg={2}></Col>
         <Col lg={8}></Col>
         <Col lg={2} className="text-right">
-          <button className="btn btn-primary" onClick={this.next}>{'NEXT'}</button>
+          <button className='btn btn-primary' onClick={this.next}>{'NEXT'}</button>
         </Col>
       </Row>
     </Container>

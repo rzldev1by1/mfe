@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react'
+import { CCard, CCardBody } from '@coreui/react'
 import './UserManagement.css'
 import ModuleAccess from './ModuleAccess'
 import Site from './Site'
@@ -45,7 +45,6 @@ class UserManagementDetail extends Component {
             isEnableAllModule: false,
             isEnableAllSite: false,
             isEnableAllClient: false,
-            unableSave: false,
             loginInfo: {},
             adminClass: 'd-none',
             users: [],
@@ -56,12 +55,6 @@ class UserManagementDetail extends Component {
             isLoadReset: false
         }
 
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if(prevState.acountInfo !== this.state.accountInfo){
-            // this.edit()
-        }
     }
 
     async componentDidMount() {
@@ -85,35 +78,36 @@ class UserManagementDetail extends Component {
         const { data } = await axios.get(`${endpoint.userManagementListUser}`)
         this.setState({ users: data.data.data });
     }
-   
+
 
     checkEmailValidation = (textmail) => {
-        const { validation} = this.state;
-                
-            let validFormat = EmailValidator.validate(textmail);
-            validation.email["isValid"] = validFormat? true : false;
+      const { validation} = this.state;
 
-            if(!validFormat)
-                validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
-                
-            if(validFormat)
-                validation.email["message"] = "";
-        
+      let validFormat = EmailValidator.validate(textmail);
+      validation.email["isValid"] = validFormat? true : false;
 
-        return validation;
+      if (!validFormat) {
+        validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
+        validation.email["invalidClass"] = 'is-invalid';
+      } else {
+        validation.email["message"] = "";
+        validation.email["invalidClass"] = '';
+      }
+
+      return validation;
     }
 
     checkNameValidation = (textName) => {
 
         const { users, validation } = this.state;
-        
+
         let isValid = (textName === ""?false:true);
-         
+
         validation.name["isValid"] = isValid;
         if(!isValid)
             validation.name["message"] = utility.validationMsg.USERNAME_REQUIRED;
         else
-            validation.name["message"] = "";        
+            validation.name["message"] = "";
 
         return validation;
     }
@@ -163,10 +157,10 @@ class UserManagementDetail extends Component {
         if (data && data !== '') {
             let adminClassName = this.state.adminClass;
             let result = this.restructureAccount(data.data);
-            
+
             if(result.web_group !== utility.webgroup.ADMIN)
                 adminClassName = ' ';
-            
+
             this.setState({ accountInfo: result, oldAccountInfo:result, isLoadComplete: true, adminClass: adminClassName }, () => {
                 this.loadMasterResource();
             });
@@ -196,7 +190,7 @@ class UserManagementDetail extends Component {
                 return newItem;
             });
 
-            
+
            isEnableAllModule = menus.filter((item) => {return item.status === true;}).length === menus.length?true:false;
         this.setState({ moduleAccess: menus,isEnableAllModule:isEnableAllModule });
     }
@@ -205,7 +199,7 @@ class UserManagementDetail extends Component {
         let user = { ...this.state.accountInfo };
         let isEnableAllSite = {...this.state.isEnableAllSite};
         const { data } = await axios.get(endpoint.getSite);
-        
+
         let sites = data.map((item, index) => {
             let newItem = item;
             newItem.status = (user.site === null?true:((item.site === user.site) ? true : false));
@@ -226,7 +220,7 @@ class UserManagementDetail extends Component {
             newItem.status = (user.client === null?true: ((item.code === user.client) ? true : false));
             return newItem;
         });
-        
+
         isEnableAllClient = clients.filter((item) => {return item.status === true;}).length === clients.length?true:false;
         this.setState({ clients: clients, isEnableAllClient:isEnableAllClient });
     }
@@ -245,7 +239,7 @@ class UserManagementDetail extends Component {
         this.setState({ moduleAccess: newArray, isEnableAllModule: !isEnableAllModule });
     }
 
-    
+
     onEnabledAllSite = () => {
         let isEnableAllSite = this.state.isEnableAllSite;
 
@@ -254,7 +248,7 @@ class UserManagementDetail extends Component {
             item.status = !isEnableAllSite;
             return item;
         });
-       
+
         this.setState({ sites: newArray, isEnableAllSite: !isEnableAllSite });
     }
 
@@ -265,7 +259,7 @@ class UserManagementDetail extends Component {
             item.status = !isEnableAllClient;
             return item;
         });
-       
+
         this.setState({ clients: newArray, isEnableAllClient: !isEnableAllClient });
     }
 
@@ -299,7 +293,7 @@ class UserManagementDetail extends Component {
         });
         let isEnableAll = newSites.filter((item) => { return item.status === true }).length;
         let isEnableAllSite = (sites.length === isEnableAll) ? true : false;
-       
+
         this.setState({ sites: newSites, isEnableAllSite: isEnableAllSite });
     }
 
@@ -324,62 +318,42 @@ class UserManagementDetail extends Component {
     onChangeName = (e) => {
         const { name, value } = e.target;
         let user = { ...this.state.accountInfo };
-        if(user.user !== value) {
-            this.state.unableSave = true
-        }else{
-            this.state.unableSave = false
-        }
         let validation = this.checkNameValidation(value);
         user.user = value;
         this.setState({ accountInfo: user, isValidForm: false, validation:validation });
     }
 
-     onBlurEmail = async (e) => {
-        const { name, value } = e.target;
-        const { oldAccountInfo } = this.state;
-        let validation = { ...this.state.validation };
-        const {data}  = await axios.post(endpoint.userManagementCheckMailValidation,{email:value});
-        validation.email["isValid"] = ((oldAccountInfo.email !== value) && data === 0)?true:false;
+    onBlurEmail = async (e) => {
+      const { value } = e.target;
+      const { oldAccountInfo } = this.state;
+      let validation = { ...this.state.validation };
+      const {data}  = await axios.post(endpoint.userManagementCheckMailValidation,{email:value});
+      validation.email["isValid"] = ((oldAccountInfo.email !== value) && data === 0)?true:false;
 
-        if(!validation.email["isValid"]){
-            validation.email["message"] = utility.validationMsg.EMAIL_EXIST;
-        }else{
-            validation.email["message"] = "";
-            if(!this.checkEmailValidation(value).email["isValid"]){
-                validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
-            }else{
-                validation.email["message"] = "";
-            }
-        
+      if (!validation.email["isValid"]) {
+        validation.email["message"] = utility.validationMsg.EMAIL_EXIST;
+        validation.email["invalidClass"] = 'is-invalid';
+      } else {
+        validation.email["message"] = "";
+        validation.email["invalidClass"] = '';
+        if (!this.checkEmailValidation(value).email["isValid"]) {
+          validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
+          validation.email["invalidClass"] = 'is-invalid';
+        } else {
+          validation.email["message"] = "";
         }
+      }
 
-        this.setState({ validation:validation });
+      this.setState({ validation:validation });
     }
 
     onChangeEmail = (e) => {
         const { name, value } = e.target;
         let user = { ...this.state.accountInfo };
-        if(user.email !== value) {
-            this.state.unableSave = true
-        }else{
-            this.state.unableSave = false
-        }
         console.log(user.email, value)
         let validation = this.checkEmailValidation(value);
         user.email = value;
         this.setState({ accountInfo: user, isValidForm: false, validation:validation });
-    }
-
-    generateUserID = (textValue) => {
-        let result = "";
-
-        if (textValue && textValue.length > 2) {
-            var anysize = 3;//the size of string
-            var charset = "abcdefghijklmnopqrstuvwxyz"; //from where to create
-            for (var i = 0; i < anysize; i++)
-                result += charset[Math.floor(Math.random() * (9))];
-        }
-        return result;
     }
 
     getParam = (passwordChange) => {
@@ -390,26 +364,26 @@ class UserManagementDetail extends Component {
         let adminMenu = moduleAccess.map((item, index) => {
                 return item.menuid;
             });
-            
+
         let userMenu = moduleAccess.filter((item) => { return item.status === true; })
             .map((item, index) => {
                 return item.menuid;
             });
-        
+
         let site = sites.find((item, index) => {
             return item.status === true;
         });
-        
+
 
         let siteValue = (site && (sites.filter((item) => {return item.status === true;}).length !== sites.length))? site.site:null;
-        
+
         let client = clients.find((item, index) => {
             return item.status === true;
         });
 
-         let clientValue = (client && (clients.filter((item) => {return item.status === true;}).length !== clients.length))? client.code:null;
+        let clientValue = (client && (clients.filter((item) => {return item.status === true;}).length !== clients.length))? client.code:null;
 
-        let accountInfo = { ...this.state.accountInfo }; 
+        let accountInfo = { ...this.state.accountInfo };
         newParam.name = accountInfo.user;
         newParam.email = accountInfo.email;
         newParam.lastAccess = accountInfo.lastAccess;
@@ -470,7 +444,7 @@ class UserManagementDetail extends Component {
         let url = `${endpoint.userManagementresetpassword}`;
 
         let newText = user.substring(0, 2);
-        let result = this.generateUserID(today);
+        let result = utility.generateUserID(today);
         let new_password = result + newText.toLowerCase();
         let param = { "email": email, "web_user": web_user_id, "new_password": new_password }
 
@@ -507,12 +481,13 @@ class UserManagementDetail extends Component {
         this.props.history.push('/users-management');
 
     }
-
     onClieckSuspendUser = () => {
-        const { accountInfo } = this.state;
-        accountInfo.disabled = !accountInfo.disabled;
+        let accountInfoUpdate = {...this.state.accountInfo}
+        // const { accountInfo } = this.state;
+        console.log(accountInfoUpdate.disabled);
+        accountInfoUpdate.disabled = !accountInfoUpdate.disabled;
 
-        this.setState({ accountInfo: accountInfo })
+        this.setState({ accountInfo: accountInfoUpdate}, () => console.log(accountInfoUpdate.disabled))
     }
 
     onClickResetPassword = () => {
@@ -539,27 +514,35 @@ class UserManagementDetail extends Component {
     }
 
     edit = () => {
-        const {initialData,accountInfo,moduleAccess} = this.state
-        let edited = false
-        if( (initialData?.accountInfo.email !== accountInfo.email || initialData?.accountInfo.user !== accountInfo.user || this.state.isEnableAllClient !== initialData?.isEnableAllClient || this.state.isEnableAllSite !== initialData?.isEnableAllSite || this.state.isEnableAllModule !== initialData?.isEnableAllModule || initialData?.moduleAccess.status !== moduleAccess.status) && initialData){
-            console.log('update ' + initialData?.accountInfo.disabled)
-            edited = true
-          }
-          else {
-            console.log('not')
-            edited = false
-          }
+      const {initialData, accountInfo, moduleAccess, clients, sites, validation} = this.state
+      let edited = false
 
-          return edited
+      if (initialData && accountInfo.email) {
+        const activeClient = clients.filter((c) => c.status !== false);
+        const activeSite = sites.filter((s) => s.status !== false);
+        const activeModule = (accountInfo.web_group !== 'Admin') ? moduleAccess.filter((m) => m.status !== false) : ["Admin"];
+        edited = true;
+
+        if (accountInfo.email === '' ||
+            accountInfo.user === '' ||
+            !validation.email.isValid ||
+            activeClient.length === 0 ||
+            activeSite.length === 0 ||
+            activeModule.length === 0) {
+              edited = false;
+        }
+      }
+
+      return edited
     }
-    
+
     render() {
         const { match } = this.props;
-        const { moduleAccess, sites, clients, accountInfo, loginInfo, adminClass,validation } = this.state;    
+        const { moduleAccess, sites, clients, accountInfo, loginInfo, adminClass,validation } = this.state;
         console.log(this.state.edited, this.state.initialData, this.state.accountInfo)
 
         const edited = this.edit()
-
+        console.log(accountInfo.disabled);
         return (<div className="um-detail w-100 h-100">
             {/* <div className={(this.state.isLoadComplete ? 'd-none' : 'spinner')} />
             <div className={(this.state.isLoadComplete ? ' ' : 'd-none')}>

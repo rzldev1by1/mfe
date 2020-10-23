@@ -148,11 +148,16 @@ class StockMovement extends React.PureComponent {
     this.setState({
       periodExpand: false,
       dateFromShow: true,
-      filterType: val
+      filterType: val,
+      startDate: null,
+      endDate: null
     });
     if(!isEmptyObject(val)){
         this.openDatePicker('from')
     }
+    this.refs["dateFrom"].resetDateValue();
+    this.refs["dateTo"].resetDateValue();
+
   }
 
   openDatePicker = (type) => {
@@ -592,6 +597,7 @@ class StockMovement extends React.PureComponent {
                   onChange={(e) => {this.openDatePicker('to')}}
                   fromMonth={minDate} toMonth={maxDate}
                 />
+                  <Required id="startDate" error={error} />
         </CCol>
         <div className="px-3 text-light-gray labelDateTo d-flex align-items-center">To</div>
         <CCol lg={2} className="sm-col-14 px-0 dateTo" > 
