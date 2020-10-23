@@ -148,11 +148,16 @@ class StockMovement extends React.PureComponent {
     this.setState({
       periodExpand: false,
       dateFromShow: true,
-      filterType: val
+      filterType: val,
+      startDate: null,
+      endDate: null
     });
     if(!isEmptyObject(val)){
         this.openDatePicker('from')
     }
+    this.refs["dateFrom"].resetDateValue();
+    this.refs["dateTo"].resetDateValue();
+
   }
 
   openDatePicker = (type) => {

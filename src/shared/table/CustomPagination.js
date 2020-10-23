@@ -42,7 +42,8 @@ class CustomPagination extends React.Component {
   };
   goToPage = () => {
     const { pagination, page } = this.state;
-    const { data } = this.props; 
+    const { data } = this.props;
+    console.log(data); 
     if(page==0 || page===null){
       return 0;
     }
