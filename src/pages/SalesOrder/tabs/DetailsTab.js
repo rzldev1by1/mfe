@@ -507,6 +507,7 @@ class CreateTab extends React.Component {
       orderId, shipToAddress1, postCode, state,
       siteData, clientData, orderTypeData, productData, uomData, dispositionData, supplierData
     } = this.state
+    console.log(orderTypeData);
     const { user } = this.props
     let datepickerStatus = this.state.datepickerStatus;
     let UOMStatus = []
@@ -757,7 +758,7 @@ class CreateTab extends React.Component {
                   <input value={o.productVal ? o.product || '' : ''} className="form-control c-600" placeholder="Choose a product first" readOnly style={{ backgroundColor: "#f6f7f9" }} />
                 </td>
                 <td className="text-left">
-                  <input name="qty" autoComplete="off" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control c-150" value={this.state.orderLine[i]['qty']} placeholder="Qty" maxLength="10" />
+                  <input name="qty" autoComplete="off" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control c-150" value={this.state.orderLine[i]['qty']} placeholder="Qty" maxLength="12" />
                   <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="">

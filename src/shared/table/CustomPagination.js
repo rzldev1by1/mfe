@@ -44,9 +44,10 @@ class CustomPagination extends React.Component {
     const { pagination, page } = this.state;
     const { data } = this.props;
     console.log(data); 
-    if(page==0 || page===null){
+    if(page == 0 || page === null || page === ''){
       return 0;
     }
+    
     if(page > pagination.last_page)
     {
         this.setState({ notifPaging:true })
