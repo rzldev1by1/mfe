@@ -12,6 +12,7 @@ import validations from './validations'
 
 import { isEmptyObject } from 'jquery'
 import { object } from 'prop-types'
+import NumberFormat from 'react-number-format';
 
 const Required = ({ error, id }) => {
   return <span className="text-error pl-0 text-danger font-12">{error && error[id]}</span>
@@ -458,6 +459,79 @@ class CreateTab extends React.Component {
     }
   }
 
+  customFormat = (e) => {
+    let value = e.target.value.split(".");
+    if(e.target.value.length){
+        for(var i = 0; i < e.target.value.length; i++){
+            if(e.target.value[i] == "."){
+                let totalLength = value[0].length + value[1].length;
+                if(value[1].length > 0){
+                    if((totalLength == 11) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((totalLength == 12) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((e.target.selectionStart <= 10) && value[0].length >= 10){
+                        if((e.key != ".") && (e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight")){
+                            e.preventDefault();
+                        }
+                    }
+                }
+                if(value[1].length > 1){
+                    if((totalLength == 11) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((totalLength == 12) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((totalLength == 13) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((e.target.selectionStart <= 10) && value[0].length >= 10){
+                        if((e.key != ".") && (e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight")){
+                            e.preventDefault();
+                        }
+                    }
+
+                }
+                if(value[1].length > 2){
+                    if((totalLength == 10) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((totalLength == 11) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((totalLength == 12) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((totalLength == 13) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((e.target.selectionStart <= 10) && value[0].length >= 10){
+                        if((e.key != ".") && (e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight")){
+                            e.preventDefault();
+                        }
+                    }
+                    
+                }
+                
+            }else{
+                if((e.target.selectionStart == 10) && ((e.key != ".") && ((e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight")))){
+                        if(e.target.value.length == 10){
+                            e.preventDefault();
+                        }
+                }else if((e.target.selectionStart < 10) && !value[1]){
+                    if((e.target.value.length > 9) && ((e.key != ".") && (e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                }
+            }
+        }
+        
+    }
+  }
+
 
   render() {
     const { error, overflow, site, client, orderType, orderLine,
@@ -670,7 +744,7 @@ class CreateTab extends React.Component {
 
                 </td>
                 <td className="px-1">
-                  <input name="weight" autoComplete='off' value={this.state.orderLine[i]['weight']} onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="14" className="form-control" placeholder="Weight" />
+                  <NumberFormat onKeyDown={this.customFormat} thousandSeparator={true} onChange={(e) => this.lineChange(i, e, numeral)} decimalScale={3} name="weight" autoComplete='off' ref="weight" value={this.state.orderLine[i]['weight']} className="form-control" placeholder="Weight" inputmode="numeric" />
                   <div className='w-100 d-flex align-items-start text-nowrap'>
                     <Required id="weight" error={error.orderLine && error.orderLine[i]} />
                   </div>
