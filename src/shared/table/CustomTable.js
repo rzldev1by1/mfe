@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import axios from 'axios'
+import moment from 'moment'
 import React from 'react'
 import { connect } from 'react-redux'
 import ReactTable from 'react-table-v6'
@@ -16,6 +17,7 @@ import 'react-table-v6/react-table.css'
 import './CustomTable.css'
 import validations from './validations'
 import { data } from 'jquery'
+
 //import { splice } from 'core-js/fn/array'
 
 const baseUrl = process.env.REACT_APP_API_URL;
@@ -546,7 +548,18 @@ class CustomTable extends React.Component {
     let dataAll = []
     if (this.props.exportData) {
       dataAll = this.props.exportData.map((data, idx,) => {
+          console.log(this.props.exportData);
+          
           let column = fields.map((column, columnIdx) => {
+            if(column.accessor === 'date_received' || column.accessor === 'delivery_date' || column.accessor === 'date_completed' || column.accessor === 'date_released'){
+              if(data[column.accessor]){
+                if(data[column.accessor] === 'Invalid date'){
+                  data[column.accessor] = ''
+                }else{
+                  data[column.accessor] = moment(data[column.accessor]).format('DD/MM/YYYY')
+                }
+              }
+            }
           let split = [data[column.accessor]]
           return split
         })
