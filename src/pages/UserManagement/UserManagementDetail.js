@@ -50,7 +50,10 @@ class UserManagementDetail extends Component {
             users: [],
             validation: {
                 "name": { isValid: true, invalidClass: /*"is-invalid"*/"", message:'invalid email' },
-                "email": { isValid: true, invalidClass: /*"is-invalid"*/"", message:'username must be entered' }
+                "email": { isValid: true, invalidClass: /*"is-invalid"*/"", message:'username must be entered' },
+                "modules": { isValid: true, invalidClass: "is-invalid", message:'Please enable at least one on module access' },
+                "sites": { isValid: true, invalidClass: "is-invalid", message:'Please enable at least one on site' },
+                "clients": { isValid: true, invalidClass: "is-invalid", message:'Please enable at least one on client' }
             },
             isLoadReset: false
         }
@@ -228,89 +231,104 @@ class UserManagementDetail extends Component {
 
 
     onEnabledAllModuleAccess = () => {
-        let newState = [...this.state.moduleAccess];
-        let isEnableAllModule = this.state.isEnableAllModule;
-        let newArray = newState.map((item, index) => {
-            let newItem = item;
-            newItem.status = !isEnableAllModule;
-            return newItem;
-        })
+      let validation = { ...this.state.validation };
+      let newState = [...this.state.moduleAccess];
+      let isEnableAllModule = this.state.isEnableAllModule;
+      let newArray = newState.map((item, index) => {
+          let newItem = item;
+          newItem.status = !isEnableAllModule;
+          return newItem;
+      })
 
-        this.setState({ moduleAccess: newArray, isEnableAllModule: !isEnableAllModule });
+      validation.modules.isValid = (newArray.filter((m) => m.status !== false).length > 0);
+
+      this.setState({ moduleAccess: newArray, isEnableAllModule: !isEnableAllModule, validation });
     }
 
 
     onEnabledAllSite = () => {
-        let isEnableAllSite = this.state.isEnableAllSite;
+      let validation = { ...this.state.validation };
+      let isEnableAllSite = this.state.isEnableAllSite;
 
-        let sites = [...this.state.sites];
-        var newArray = sites.map((item, index) => {
-            item.status = !isEnableAllSite;
-            return item;
-        });
+      let sites = [...this.state.sites];
+      var newArray = sites.map((item, index) => {
+          item.status = !isEnableAllSite;
+          return item;
+      });
 
-        this.setState({ sites: newArray, isEnableAllSite: !isEnableAllSite });
+      validation.sites.isValid = (newArray.filter((s) => s.status !== false).length > 0);
+
+      this.setState({ sites: newArray, isEnableAllSite: !isEnableAllSite, validation });
     }
 
     onEnabledAllClient = () => {
-        let isEnableAllClient = this.state.isEnableAllClient;
-        let clients = [...this.state.clients];
-        var newArray = clients.map((item, index) => {
-            item.status = !isEnableAllClient;
-            return item;
-        });
+      let validation = { ...this.state.validation };
+      let isEnableAllClient = this.state.isEnableAllClient;
+      let clients = [...this.state.clients];
+      var newArray = clients.map((item, index) => {
+          item.status = !isEnableAllClient;
+          return item;
+      });
 
-        this.setState({ clients: newArray, isEnableAllClient: !isEnableAllClient });
+      validation.clients.isValid = (newArray.filter((c) => c.status !== false).length > 0);
+
+      this.setState({ clients: newArray, isEnableAllClient: !isEnableAllClient, validation });
     }
 
     onModuleAccessClick = (e, index) => {
-        let moduleAccess = [...this.state.moduleAccess];
-        let newModules = moduleAccess.map((item, idx) => {
-            if (idx === index) {
-                item.status = !item.status;
-            }
-            return item;
-        });
+      let validation = { ...this.state.validation };
+      let moduleAccess = [...this.state.moduleAccess];
+      let newModules = moduleAccess.map((item, idx) => {
+          if (idx === index) {
+              item.status = !item.status;
+          }
+          return item;
+      });
 
-        console.log(moduleAccess);
+      let isEnableAll = newModules.filter((item) => { return item.status === true }).length;
+      let isEnableAllModule = (moduleAccess.length === isEnableAll) ? true : false;
 
-        let isEnableAll = newModules.filter((item) => { return item.status === true }).length;
-        console.log(isEnableAll);
-        let isEnableAllModule = (moduleAccess.length === isEnableAll) ? true : false;
+      validation.modules.isValid = isEnableAll > 0;
 
-        this.setState({ moduleAccess: newModules, isEnableAllModule: isEnableAllModule });
+      this.setState({ moduleAccess: newModules, isEnableAllModule: isEnableAllModule, validation });
     }
 
     onSiteStatusClick = (e, index) => {
-        let sites = [...this.state.sites];
-        let newSites = sites.map((item, idx) => {
-            if (idx === index) {
-                item.status = true;
-            } else {
-                item.status = false;
-            }
-            return item;
-        });
-        let isEnableAll = newSites.filter((item) => { return item.status === true }).length;
-        let isEnableAllSite = (sites.length === isEnableAll) ? true : false;
+      let validation = { ...this.state.validation };
+      let sites = [...this.state.sites];
+      let newSites = sites.map((item, idx) => {
+          if (idx === index) {
+              item.status = true;
+          } else {
+              item.status = false;
+          }
+          return item;
+      });
+      let isEnableAll = newSites.filter((item) => { return item.status === true }).length;
+      let isEnableAllSite = (sites.length === isEnableAll) ? true : false;
 
-        this.setState({ sites: newSites, isEnableAllSite: isEnableAllSite });
+      validation.sites.isValid = isEnableAll > 0;
+
+      this.setState({ sites: newSites, isEnableAllSite: isEnableAllSite, validation });
     }
 
     onClientStatusClick = (e, index) => {
-        let clients = [...this.state.clients];
-        let newClients = clients.map((item, idx) => {
-            if (idx === index) {
-                item.status = true;
-            } else {
-                item.status = false;
-            }
-            return item;
-        });
-        let isEnableAll = newClients.filter((item) => { return item.status === true }).length;
-        let isEnableAllClient = (clients.length === isEnableAll) ? true : false;
+      let validation = { ...this.state.validation };
+      let clients = [...this.state.clients];
+      let newClients = clients.map((item, idx) => {
+          if (idx === index) {
+              item.status = true;
+          } else {
+              item.status = false;
+          }
+          return item;
+      });
+      let isEnableAll = newClients.filter((item) => { return item.status === true }).length;
+      let isEnableAllClient = (clients.length === isEnableAll) ? true : false;
 
-        this.setState({ clients: newClients, isEnableAllClient: isEnableAllClient });
+      validation.clients.isValid = isEnableAll > 0;
+
+      this.setState({ clients: newClients, isEnableAllClient: isEnableAllClient, validation });
     }
 
 
@@ -514,7 +532,7 @@ class UserManagementDetail extends Component {
     }
 
     edit = () => {
-      const {initialData, accountInfo, moduleAccess, clients, sites, validation} = this.state
+      const { initialData, accountInfo, moduleAccess, clients, sites, validation } = this.state
       let edited = false
 
       if (initialData && accountInfo.email) {
@@ -526,9 +544,9 @@ class UserManagementDetail extends Component {
         if (accountInfo.email === '' ||
             accountInfo.user === '' ||
             !validation.email.isValid ||
-            activeClient.length === 0 ||
-            activeSite.length === 0 ||
-            activeModule.length === 0) {
+            !validation.clients.isValid ||
+            !validation.sites.isValid ||
+            !validation.modules.isValid) {
               edited = false;
         }
       }
@@ -537,12 +555,9 @@ class UserManagementDetail extends Component {
     }
 
     render() {
-        const { match } = this.props;
-        const { moduleAccess, sites, clients, accountInfo, loginInfo, adminClass,validation } = this.state;
-        console.log(this.state.edited, this.state.initialData, this.state.accountInfo)
-
+        const { moduleAccess, sites, clients, accountInfo, adminClass,validation } = this.state;
         const edited = this.edit()
-        console.log(accountInfo.disabled);
+
         return (<div className="um-detail w-100 h-100">
             {/* <div className={(this.state.isLoadComplete ? 'd-none' : 'spinner')} />
             <div className={(this.state.isLoadComplete ? ' ' : 'd-none')}>
@@ -649,12 +664,24 @@ class UserManagementDetail extends Component {
                             <div className="row">
                                 <div className="col-4">
                                     <ModuleAccess moduleAccess={moduleAccess} onEnableClick={this.onModuleAccessClick} onModuleEnableAll={this.onEnabledAllModuleAccess} isEnableAllModule={this.state.isEnableAllModule} />
+                                    <input type="checkbox" name="moduleAccess" className={`d-none ${validation.modules["isValid"]?'':validation.modules["invalidClass"]}`} />
+                                    <FormFeedback>
+                                        {`${validation.modules["message"]}`}
+                                    </FormFeedback>
                                 </div>
                                 <div className="col-4 pl-0">
                                     <Site sites={sites} onEnableClick={this.onSiteStatusClick} onSiteEnableAll={this.onEnabledAllSite} isEnableAllSite={this.state.isEnableAllSite} />
+                                    <input type="checkbox" name="sites" className={`d-none ${validation.sites["isValid"]?'':validation.sites["invalidClass"]}`} />
+                                    <FormFeedback>
+                                        {`${validation.sites["message"]}`}
+                                    </FormFeedback>
                                 </div>
                                 <div className="col-4 um-client-scrollbar">
                                     <Client clients={clients} onEnableClick={this.onClientStatusClick} onClientEnableAll={this.onEnabledAllClient} isEnableAllClient={this.state.isEnableAllClient} />
+                                    <input type="checkbox" name="clients" className={`d-none ${validation.clients["isValid"]?'':validation.clients["invalidClass"]}`} />
+                                    <FormFeedback>
+                                        {`${validation.clients["message"]}`}
+                                    </FormFeedback>
                                 </div>
 
                             </div>
