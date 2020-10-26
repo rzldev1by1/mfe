@@ -60,6 +60,10 @@ button:focus {
   overflow-x: auto;
   z-index: -99 !important;
 }
+/*Change text in autofill textbox*/
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
 ::placeholder {
   color: #b4b9bb !important;
 }

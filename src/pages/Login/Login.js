@@ -131,12 +131,12 @@ class Logins extends Component {
     loginForm(errorMessage, formValidation) {
         return (
             <form className={"mt-3 " + (this.state.forgotPassword ? 'form-hidden' : 'form-show')} onSubmit={this.validateForm}>
-                <input className={'form-control  inputLogin ' + (formValidation.username ? "ssss" : "border-red"/*"is-invalid"*/)}
+                <input autoComplete="off" className={'form-control  inputLogin ' + (formValidation.username ? "ssss" : "border-red"/*"is-invalid"*/)}
                     style={formValidation.username ? {} : {borderColor:'#f44336 !important'}}
                     type="text" name="username"
                     placeholder="Enter your user ID here" />
                 <br />
-                <input className={'form-control inputLogin ' + (formValidation.password ? "" : ""/*"is-invalid"*/)}
+                <input autoComplete="off" className={'form-control inputLogin ' + (formValidation.password ? "" : ""/*"is-invalid"*/)}
                     type="password" name="password"
                     placeholder="Enter your password here"
                 />
@@ -167,7 +167,7 @@ class Logins extends Component {
                     </div>
                 :
                     <div>
-                        <input onChange={this.onChangeEmail} className={'form-control  inputLogin ' + (this.state.emailValidation ? "" : ""/*"is-invalid"*/)}
+                        <input autoComplete="off" onChange={this.onChangeEmail} className={'form-control  inputLogin ' + (this.state.emailValidation ? "" : ""/*"is-invalid"*/)}
                             type="text" name="email"
                             placeholder="Enter your email address here" />
                         <span className='email-message'>Enter your email address to find your acccount</span>
