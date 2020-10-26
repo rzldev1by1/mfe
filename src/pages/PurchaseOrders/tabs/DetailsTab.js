@@ -161,7 +161,6 @@ class CreateTab extends React.Component {
   addLine = () => {
     const error = validations(this.state)
     this.setState({ error })
-    console.log(error?.orderLine)
     if (error?.orderLine?.length > 0) return
     if (this.state.orderLine.length < 10) {
       this.setState({ orderLine: [...this.state.orderLine, {}] })
@@ -222,9 +221,7 @@ class CreateTab extends React.Component {
 
     if (name === 'weight') {
       if (newVal.length > 11) newVal = newVal.split('').filter(d => d !== ',' ? d : null).map((d, i) => { if (i > 10 && !newVal.includes('.')) { return null } else return d }).join('')
-      // console.log(newVal.length)
       const dot = newVal.indexOf('.')
-      console.log(dot + ' dot')
 
       if(dot === -1 && newVal.length === 11) {
         newVal = newVal.slice(0, dot).split('').filter(d => d !== ',').join('')
@@ -233,38 +230,29 @@ class CreateTab extends React.Component {
         let number;
         let decimal = newVal.slice(dot + 1, dot + 4).split('').filter(d => d !== '.' && d !== ',').join('')
         let integer = newVal.slice(0, dot).split('').filter(d => d !== ',').join('')
-        console.log(decimal + ' decimal')
-        console.log(integer + ' int')
-        console.log(integer.length + ' int l')
         if (integer.length <= 6) {
           if (integer.length >= 4) {
             let idxSepr1 = integer.slice(0, integer.length - 3)
             let idxSepr2 = integer.slice(integer.length - 3)
-            console.log(`${idxSepr1},${idxSepr2}.${decimal}`)
             number = `${idxSepr1},${idxSepr2}.${decimal}`
           }
           else number = `${integer}.${decimal}`
         }
         if (integer.length > 6 && integer.length <= 9) {
-          console.log(integer.length + ' asd')
           let idxSepr1 = integer.slice(0, integer.length - 6)
           let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 3)
           let idxSepr3 = integer.slice(integer.length - 3)
-          console.log(`${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`)
           number = `${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`
         }
         if (integer.length > 9 && integer.length <= 8) {
-          alert('22222')
           let idxSepr1 = integer.slice(0, integer.length - 9)
           let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 6)
           let idxSepr3 = integer.slice(idxSepr1.length + idxSepr2.length, idxSepr1.length + idxSepr2.length + 3)
           let idxSepr4 = integer.slice(integer.length - 3)
-          console.log(`${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`)
           number = `${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`
         }
 
         number = number?.split('')
-        console.log(number + ' number');
         if (number && number[0] === ',') delete number[0]
         number = number?.join('')
         return number
@@ -331,7 +319,6 @@ class CreateTab extends React.Component {
     let orderDetails = [...this.state.orderDetails]
     orderDetails[0].orderNo = orderId.toUpperCase()
     this.setState({ orderId: orderId.toUpperCase()  , orderDetails })
-    console.log(orderId.trim().length)
     // if (!client) {
     //   error.orderId = 'Please select client first'
     //   return this.setState({ error }) && false
@@ -537,7 +524,6 @@ class CreateTab extends React.Component {
     const { error, overflow, site, client, orderType, orderLine,
       orderId, siteData, clientData, orderTypeData, productData, uomData, dispositionData, supplierData, supplier, orderDetails, errorCheck
     } = this.state
-    
     const { user } = this.props
     let datepickerStatus = this.state.datepickerStatus;
     let UOMStatus = []
@@ -737,7 +723,7 @@ class CreateTab extends React.Component {
                   <input value={o.productVal ? o.product || '' : ''} className="form-control" placeholder="Choose a product first" readOnly style={{ backgroundColor: "#f6f7f9" }} />
                 </td>
                 <td className="px-1">
-                  <input name="qty" autoComplete='off' onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['qty']} type="text" className="form-control" placeholder="Qty" maxlength="10" />
+                  <input name="qty" autoComplete='off' onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['qty']} type="text" className="form-control" placeholder="Qty" maxlength="12" />
                   <div className='w-100 d-flex align-items-start text-nowrap'>
                     <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                   </div>

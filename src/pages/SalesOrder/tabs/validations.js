@@ -8,6 +8,9 @@ export default (values) => {
   if (!orderId) {
     error.orderId = 'Order Number must be entered'
   }
+  if (orderId?.length < 4) {
+    error.orderId = 'Order no. must have min 4 characters'
+  }
   if(orderStatus !== true && orderId){
     error.orderId = 'Order number exist'
   }
