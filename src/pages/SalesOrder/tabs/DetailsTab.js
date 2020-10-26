@@ -627,7 +627,7 @@ class CreateTab extends React.Component {
           <label className="text-muted mb-0 required">Site</label>
           {
             user.site ?
-              <input autoComplete="off" value={this.siteCheck(user.site)} className="form-control" readOnly />
+              <input value={this.siteCheck(user.site)} className="form-control" readOnly />
               :
               <Select isClearable={true}  options={this.hideAllOptionSite()} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required
                 filterOption={
@@ -668,7 +668,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Customer Order Ref</label>
-          <input name="customerOrderRef" autoComplete="off" onChange={this.onChange} className="form-control" placeholder="Customer Order Ref" maxLength="30" />
+          <input name="customerOrderRef" onChange={this.onChange} className="form-control" placeholder="Customer Order Ref" maxLength="30" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Delivery Date</label>
@@ -688,7 +688,7 @@ class CreateTab extends React.Component {
           <label className="text-muted mb-0 required">Client</label>
           {
             user.client ?
-              <input autoComplete="off" value={this.clientCheck(user.client)} className="form-control" readOnly />
+              <input value={this.clientCheck(user.client)} className="form-control" readOnly />
               :
               <Select isClearable options={this.hideAllOptionClient()} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required
                 filterOption={
@@ -818,7 +818,7 @@ class CreateTab extends React.Component {
             {orderLine.length && orderLine.map((o, i) => {
               return <tr className="py-1 text-center orderline-row">
                 <td className="">
-                  <input autoComplete="off" value={i + 1} className="c-50 form-control text-center" readOnly style={{ backgroundColor: "#f6f7f9" }} />
+                  <input value={i + 1} className="c-50 form-control text-center" readOnly style={{ backgroundColor: "#f6f7f9" }} />
                 </td>
                 <td className={` text-left ${error.orderLine && error.orderLine[i] ? error.orderLine[i].productVal ? "react-select-alert" : null : null}`}>
                   <Select 
@@ -858,7 +858,7 @@ class CreateTab extends React.Component {
                   <Required id="productVal" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="">
-                  <input autoComplete="off" value={o.productVal ? o.product || '' : ''} className="form-control c-600" placeholder="Choose a product first" readOnly style={{ backgroundColor: "#f6f7f9" }} />
+                  <input value={o.productVal ? o.product || '' : ''} className="form-control c-600" placeholder="Choose a product first" readOnly style={{ backgroundColor: "#f6f7f9" }} />
                 </td>
                 <td className="text-left">
                   <input name="qty" autoComplete="off" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control c-150" value={this.state.orderLine[i]['qty']} placeholder="Qty" maxLength="12" />
@@ -928,7 +928,7 @@ class CreateTab extends React.Component {
                   />
                 </td>
                 <td className="">
-                  <input name="packId" autoComplete="off" onChange={(e) => this.lineChange(i, e)} className="form-control c-200" placeholder="Pack ID" maxLength="20" />
+                  <input name="packId" onChange={(e) => this.lineChange(i, e)} className="form-control c-200" placeholder="Pack ID" maxLength="20" />
                 </td>
                 <td className="">
                   <DatePicker top={true} getDate={(date) => {
