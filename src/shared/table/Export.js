@@ -50,7 +50,11 @@ class Export extends Component {
           this.changeExportStatus('ready')
           return 0;
         }
-        await this.props.getExportData()  
+
+        console.log(await this.props.getExportData()) 
+        console.log('ssssssssssssssssssssssss');
+
+        await this.props.getExportData() 
         const marginLeft = 40;
         
         const doc = this.examples();

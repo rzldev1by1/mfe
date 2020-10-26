@@ -11,6 +11,7 @@ import validations from './validations'
 import { connect } from 'react-redux'
 import { MdBorderColor } from 'react-icons/md'
 import { isEmptyObject } from 'jquery'
+import NumberFormat from 'react-number-format';
 
 const Required = ({ error, id }) => {
   return <span className="text-error text-danger font-12">{error && error[id]}</span>
@@ -198,7 +199,6 @@ class CreateTab extends React.Component {
   addLine = () => {
     const error = validations(this.state)
     this.setState({ error })
-    console.log(error?.orderLine)
     if (error?.orderLine?.length > 0) return
     if (this.state.orderLine.length < 10) {
       this.setState({ orderLine: [...this.state.orderLine, {}] })
@@ -422,9 +422,7 @@ class CreateTab extends React.Component {
 
     if (name === 'weight') {
       if (newVal.length > 14) newVal = newVal.split('').filter(d => d !== ',' ? d : null).map((d, i) => { if (i > 10 && !newVal.includes('.')) { return null } else return d }).join('')
-      console.log(newVal)
       const dot = newVal.indexOf('.')
-      console.log(dot + ' dot')
       if(dot === -1 && newVal.length === 11) {
         newVal = newVal.slice(0, dot).split('').filter(d => d !== ',').join('')
       }
@@ -432,16 +430,11 @@ class CreateTab extends React.Component {
         let number;
         let decimal = newVal.slice(dot + 1, dot + 4).split('').filter(d => d !== '.' && d !== ',').join('')
         let integer = newVal.slice(0, dot).split('').filter(d => d !== ',').join('')
-        console.log(decimal + ' dot')
-        console.log(integer + ' int')
-        console.log(decimal.length + ' dot')
-        console.log(integer.length + ' int')
 
         if (integer.length <= 6) {
           if (integer.length >= 4) {
             let idxSepr1 = integer.slice(0, integer.length - 3)
             let idxSepr2 = integer.slice(integer.length - 3)
-            console.log(`${idxSepr1},${idxSepr2}.${decimal}`)
             number = `${idxSepr1},${idxSepr2}.${decimal}`
           }
           else number = `${integer}.${decimal}`
@@ -451,7 +444,6 @@ class CreateTab extends React.Component {
           let idxSepr1 = integer.slice(0, integer.length - 6)
           let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 3)
           let idxSepr3 = integer.slice(integer.length - 3)
-          console.log(`${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`)
           number = `${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`
         }
         if (integer.length > 9 && integer.length <= 11) {
@@ -459,7 +451,6 @@ class CreateTab extends React.Component {
           let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 6)
           let idxSepr3 = integer.slice(idxSepr1.length + idxSepr2.length, idxSepr1.length + idxSepr2.length + 3)
           let idxSepr4 = integer.slice(integer.length - 3)
-          console.log(`${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`)
           number = `${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`
         }
         number = number?.split('')
@@ -469,55 +460,47 @@ class CreateTab extends React.Component {
       }
       else return numeral(newVal).format('0,0')
     }
-    else if (name == 'qty') {
-        if (newVal.length > 14) newVal = newVal.split('').filter(d => d !== ',' ? d : null).map((d, i) => { if (i > 10 && !newVal.includes('.')) { return null } else return d }).join('')
-        console.log(newVal)
-        const dot = newVal.indexOf('.')
-        console.log(dot + ' dot')
-        if(dot === -1 && newVal.length === 11) {
-          newVal = newVal.slice(0, dot).split('').filter(d => d !== ',').join('')
-        }
-        if (dot !== -1) {
-          let number;
-          let decimal = newVal.slice(dot + 1, dot + 4).split('').filter(d => d !== '.' && d !== ',').join('')
-          let integer = newVal.slice(0, dot).split('').filter(d => d !== ',').join('')
-          console.log(decimal + ' dot')
-          console.log(integer + ' int')
-          console.log(decimal.length + ' dot')
-          console.log(integer.length + ' int')
+    else if (name == 'qty') return newVal ? numeral(newVal).format('0,0') : newVal
+    // else if (name == 'qty') {
+    //     if (newVal.length > 14) newVal = newVal.split('').filter(d => d !== ',' ? d : null).map((d, i) => { if (i > 10 && !newVal.includes('.')) { return null } else return d }).join('')
+    //     const dot = newVal.indexOf('.')
+    //     if(dot === -1 && newVal.length === 11) {
+    //       newVal = newVal.slice(0, dot).split('').filter(d => d !== ',').join('')
+    //     }
+    //     if (dot !== -1) {
+    //       let number;
+    //       let decimal = newVal.slice(dot + 1, dot + 4).split('').filter(d => d !== '.' && d !== ',').join('')
+    //       let integer = newVal.slice(0, dot).split('').filter(d => d !== ',').join('')
   
-          if (integer.length <= 6) {
-            if (integer.length >= 4) {
-              let idxSepr1 = integer.slice(0, integer.length - 3)
-              let idxSepr2 = integer.slice(integer.length - 3)
-              console.log(`${idxSepr1},${idxSepr2}.${decimal}`)
-              number = `${idxSepr1},${idxSepr2}.${decimal}`
-            }
-            else number = `${integer}.${decimal}`
-          }
-          if (integer.length > 6 && integer.length <= 9) {
-            // alert('www')
-            let idxSepr1 = integer.slice(0, integer.length - 6)
-            let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 3)
-            let idxSepr3 = integer.slice(integer.length - 3)
-            console.log(`${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`)
-            number = `${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`
-          }
-          if (integer.length > 9 && integer.length <= 11) {
-            let idxSepr1 = integer.slice(0, integer.length - 9)
-            let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 6)
-            let idxSepr3 = integer.slice(idxSepr1.length + idxSepr2.length, idxSepr1.length + idxSepr2.length + 3)
-            let idxSepr4 = integer.slice(integer.length - 3)
-            console.log(`${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`)
-            number = `${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`
-          }
-          number = number?.split('')
-          if (number && number[0] === ',') delete number[0]
-          number = number?.join('')
-          return number
-        }
-        else return newVal ? numeral(newVal).format('0,0') : newVal
-      } 
+    //       if (integer.length <= 6) {
+    //         if (integer.length >= 4) {
+    //           let idxSepr1 = integer.slice(0, integer.length - 3)
+    //           let idxSepr2 = integer.slice(integer.length - 3)
+    //           number = `${idxSepr1},${idxSepr2}.${decimal}`
+    //         }
+    //         else number = `${integer}.${decimal}`
+    //       }
+    //       if (integer.length > 6 && integer.length <= 9) {
+    //         // alert('www')
+    //         let idxSepr1 = integer.slice(0, integer.length - 6)
+    //         let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 3)
+    //         let idxSepr3 = integer.slice(integer.length - 3)
+    //         number = `${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`
+    //       }
+    //       if (integer.length > 9 && integer.length <= 11) {
+    //         let idxSepr1 = integer.slice(0, integer.length - 9)
+    //         let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 6)
+    //         let idxSepr3 = integer.slice(idxSepr1.length + idxSepr2.length, idxSepr1.length + idxSepr2.length + 3)
+    //         let idxSepr4 = integer.slice(integer.length - 3)
+    //         number = `${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`
+    //       }
+    //       number = number?.split('')
+    //       if (number && number[0] === ',') delete number[0]
+    //       number = number?.join('')
+    //       return number
+    //     }
+    //     else return newVal ? numeral(newVal).format('0,0') : newVal
+    //   } 
     return value
   }
 
@@ -549,6 +532,79 @@ class CreateTab extends React.Component {
     }
   }
 
+  customFormat = (e) => {
+    let value = e.target.value.split(".");
+    if(e.target.value.length){
+        for(var i = 0; i < e.target.value.length; i++){
+            if(e.target.value[i] == "."){
+                let totalLength = value[0].length + value[1].length;
+                if(value[1].length > 0){
+                    if((totalLength == 11) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((totalLength == 12) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((e.target.selectionStart <= 10) && value[0].length >= 10){
+                        if((e.key != ".") && (e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight")){
+                            e.preventDefault();
+                        }
+                    }
+                }
+                if(value[1].length > 1){
+                    if((totalLength == 11) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((totalLength == 12) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((totalLength == 13) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((e.target.selectionStart <= 10) && value[0].length >= 10){
+                        if((e.key != ".") && (e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight")){
+                            e.preventDefault();
+                        }
+                    }
+
+                }
+                if(value[1].length > 2){
+                    if((totalLength == 10) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((totalLength == 11) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((totalLength == 12) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((totalLength == 13) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((e.target.selectionStart <= 10) && value[0].length >= 10){
+                        if((e.key != ".") && (e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight")){
+                            e.preventDefault();
+                        }
+                    }
+                    
+                }
+                
+            }else{
+                if((e.target.selectionStart == 10) && ((e.key != ".") && ((e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight")))){
+                        if(e.target.value.length == 10){
+                            e.preventDefault();
+                        }
+                }else if((e.target.selectionStart < 10) && !value[1]){
+                    if((e.target.value.length > 9) && ((e.key != ".") && (e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                }
+            }
+        }
+        
+    }
+  }
+
 
   render() {
     const { error, overflow, site, client, orderTypeValue, orderLine, customer,
@@ -571,7 +627,7 @@ class CreateTab extends React.Component {
           <label className="text-muted mb-0 required">Site</label>
           {
             user.site ?
-              <input value={this.siteCheck(user.site)} className="form-control" readOnly />
+              <input autoComplete="off" value={this.siteCheck(user.site)} className="form-control" readOnly />
               :
               <Select isClearable={true}  options={this.hideAllOptionSite()} onChange={val => this.onSelectChange('site', val)} placeholder="Site" required
                 filterOption={
@@ -612,7 +668,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Customer Order Ref</label>
-          <input name="customerOrderRef" onChange={this.onChange} className="form-control" placeholder="Customer Order Ref" maxLength="30" />
+          <input autoComplete="off" name="customerOrderRef" onChange={this.onChange} className="form-control" placeholder="Customer Order Ref" maxLength="30" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Delivery Date</label>
@@ -632,7 +688,7 @@ class CreateTab extends React.Component {
           <label className="text-muted mb-0 required">Client</label>
           {
             user.client ?
-              <input value={this.clientCheck(user.client)} className="form-control" readOnly />
+              <input autoComplete="off" value={this.clientCheck(user.client)} className="form-control" readOnly />
               :
               <Select isClearable options={this.hideAllOptionClient()} onChange={val => this.onSelectChange('client', val)} placeholder="Client" required
                 filterOption={
@@ -762,7 +818,7 @@ class CreateTab extends React.Component {
             {orderLine.length && orderLine.map((o, i) => {
               return <tr className="py-1 text-center orderline-row">
                 <td className="">
-                  <input value={i + 1} className="c-50 form-control text-center" readOnly style={{ backgroundColor: "#f6f7f9" }} />
+                  <input autoComplete="off" value={i + 1} className="c-50 form-control text-center" readOnly style={{ backgroundColor: "#f6f7f9" }} />
                 </td>
                 <td className={` text-left ${error.orderLine && error.orderLine[i] ? error.orderLine[i].productVal ? "react-select-alert" : null : null}`}>
                   <Select 
@@ -802,14 +858,14 @@ class CreateTab extends React.Component {
                   <Required id="productVal" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="">
-                  <input value={o.productVal ? o.product || '' : ''} className="form-control c-600" placeholder="Choose a product first" readOnly style={{ backgroundColor: "#f6f7f9" }} />
+                  <input autoComplete="off" value={o.productVal ? o.product || '' : ''} className="form-control c-600" placeholder="Choose a product first" readOnly style={{ backgroundColor: "#f6f7f9" }} />
                 </td>
                 <td className="text-left">
-                  <input name="qty" autoComplete="off" onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control c-150" value={this.state.orderLine[i]['qty']} placeholder="Qty" maxLength="18" />
+                  <input name="qty" autoComplete="off" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control c-150" value={this.state.orderLine[i]['qty']} placeholder="Qty" maxLength="12" />
                   <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="">
-                  <input name="weight" autoComplete='off' ref="weight" value={this.state.orderLine[i]['weight']} onChange={(e) => this.numberCommaCheck(i, "weight", 16, 3, e)} type="text" maxLength='18' className="form-control c-170" placeholder="Weight" />
+                  <NumberFormat onKeyDown={this.customFormat} thousandSeparator={true}  onChange={(e) => this.lineChange(i, e)} decimalScale={3} name="weight" autoComplete='off' ref="weight" value={this.state.orderLine[i]['weight']} className="form-control c-170" placeholder="Weight" inputmode="numeric" />
                   <Required id="weight" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="">
@@ -872,7 +928,7 @@ class CreateTab extends React.Component {
                   />
                 </td>
                 <td className="">
-                  <input name="packId" onChange={(e) => this.lineChange(i, e)} className="form-control c-200" placeholder="Pack ID" maxLength="20" />
+                  <input autoComplete="off" name="packId" onChange={(e) => this.lineChange(i, e)} className="form-control c-200" placeholder="Pack ID" maxLength="20" />
                 </td>
                 <td className="">
                   <DatePicker top={true} getDate={(date) => {
@@ -903,7 +959,7 @@ class CreateTab extends React.Component {
         <Col lg={2}></Col>
         <Col lg={8}></Col>
         <Col lg={2} className="text-right">
-          <button className="btn btn-primary" onClick={this.next}>{'NEXT'}</button>
+          <button className={`btn btn-primary ${!error ? 'btn-primary' : 'btn-grey'}`} onClick={this.next}>{'NEXT'}</button>
         </Col>
       </Row>
     </Container>

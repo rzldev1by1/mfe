@@ -121,7 +121,7 @@ const customColumns = [
   { accessor: 'isis_task', Header: 'Task', width: null, sortable: true },
   { accessor: 'supplier_no', Header: 'Supplier No', width: null, sortable: true },
   { accessor: 'supplier_name', Header: 'Supplier Name', width: 290 },
-  { accessor: 'statusTxt', Header: 'Status', width: 140 },
+  { accessor: 'status', Header: 'Status', width: 140 },
   { accessor: 'delivery_date', Header: 'Order Date', width: null, sortable: true },
   { accessor: 'date_received', Header: 'Date Received', width: null, sortable: true },
   { accessor: 'date_released', Header: 'Date Released', width: null, sortable: true },

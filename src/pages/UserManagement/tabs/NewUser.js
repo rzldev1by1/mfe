@@ -17,29 +17,28 @@ class NewUser extends React.PureComponent {
       validation: {
           "name": { isValid: true, invalidClass: "is-invalid", message:'Invalid format (eg: microlistica@test.com)' },
           "email": { isValid: true, invalidClass: "is-invalid", message:'Username must be entered' },
-          "modules": { isValid: true, invalidClass: "is-invalid", message:'Please enable at least one on module access' },
-          "sites": { isValid: true, invalidClass: "is-invalid", message:'Please enable at least one on site' },
-          "clients": { isValid: true, invalidClass: "is-invalid", message:'Please enable at least one on client' }
+          "modules": { isValid: false, invalidClass: "is-invalid", message:'Please enable at least one on module access' },
+          "sites": { isValid: false, invalidClass: "is-invalid", message:'Please enable at least one on site' },
+          "clients": { isValid: false, invalidClass: "is-invalid", message:'Please enable at least one on client' }
         },
   }
 
   checkMail = async (email) => {
-    const {data}  = await axios.post(endpoint.userManagementCheckMailValidation,{email:email});
-    // console.log(data);
-    return (data===1?true:false);
+    const { data }  = await axios.post(endpoint.userManagementCheckMailValidation, { email });
+    return (data === 1);
   }
 
-  checkEmailValidation = (textmail) => {
+  checkEmailValidation = (textEmail) => {
     let validation = { ...this.state.validation };
 
-    //  let isValidUser = users.filter((item)=>{return item.email === textmail}).length > 0?false:true;
-    let validFormat = EmailValidator.validate(textmail);
-    validation.email["isValid"] = validFormat?true:false;
+    //  let isValidUser = users.filter((item)=>{return item.email === textEmail}).length > 0?false:true;
+    let validFormat = EmailValidator.validate(textEmail);
+    validation.email.isValid = validFormat ? true : false;
 
     if (!validFormat) {
-      validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
+      validation.email.message = utility.validationMsg.INVALID_EMAIL;
     } else {
-      validation.email["message"] = "";
+      validation.email.message = "";
     }
 
     return validation;
@@ -47,55 +46,49 @@ class NewUser extends React.PureComponent {
 
   checkNameValidation = (textName) => {
     let validation = { ...this.state.validation };
-    let isValid = (textName === ""?false:true);
+    let isValid = (textName !== "");
 
-    validation.name["isValid"] = isValid;
+    validation.name.isValid = isValid;
     if (!isValid) {
-      validation.name["message"] = utility.validationMsg.USERNAME_REQUIRED;
+      validation.name.message = utility.validationMsg.USERNAME_REQUIRED;
     } else {
-      validation.name["message"] = "";
+      validation.name.message = "";
     }
 
     return validation;
   }
 
   onBlurEmail = async (e) => {
-    let self = this;
     const { value } = e.target;
 
     let validation = { ...this.state.validation };
-    const {data}  = await axios.post(endpoint.userManagementCheckMailValidation,{email:value});
-    validation.email["isValid"] = (data === 0);
+    const { data }  = await axios.post(endpoint.userManagementCheckMailValidation,{ email: value });
+    validation.email.isValid = (data === 0);
 
-    if (!validation.email["isValid"]) {
-            validation.email["message"] = utility.validationMsg.EMAIL_EXIST;
+    if (!validation.email.isValid) {
+      validation.email.message = utility.validationMsg.EMAIL_EXIST;
     } else {
-      validation.email["message"] = "";
-      if (!self.checkEmailValidation(value).email["isValid"]) {
-          validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
-      } else {
-          validation.email["message"] = "";
-      }
+      validation.email.message = "";
     }
 
-    this.setState({ validation:validation });
+    this.setState({ validation });
   }
 
   onEmailChange = (e) => {
     let validation = this.checkEmailValidation(e.target.value);
     this.props.onChangeEmail(e);
-    this.setState({validation:validation});
+    this.setState({ validation });
   }
 
   onNameChange = (e) => {
     let validation = this.checkNameValidation(e.target.value);
     this.props.onChangeName(e);
-    this.setState({validation:validation});
+    this.setState({ validation });
   }
 
   onNext = () => {
     const {user, sites, clients, moduleAccess} = this.props;
-    let validation = {...this.state.validation};;
+    let validation = { ...this.state.validation };
 
     let emailValid = this.checkEmailValidation(user.email);
     let nameValid = this.checkNameValidation(user.name);
@@ -156,14 +149,20 @@ class NewUser extends React.PureComponent {
       const activeModule = !isAdmin ? moduleAccess.filter((m) => m.status !== false) : ["Admin"];
       formValid = true;
 
+      validation.clients.isValid = (activeClient.length > 0);
+      validation.sites.isValid = (activeSite.length > 0);
+      validation.modules.isValid = (activeModule.length > 0);
+
       if (user.email === '' ||
           user.name === '' ||
           !validation.email.isValid ||
-          activeClient.length === 0 ||
-          activeSite.length === 0 ||
-          activeModule.length === 0) {
+          !validation.clients.isValid ||
+          !validation.sites.isValid ||
+          !validation.modules.isValid) {
             formValid = false;
       }
+
+      this.setState({ validation });
     }
 
     return formValid;

@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import axios from 'axios'
+import moment from 'moment'
 import React from 'react'
 import { connect } from 'react-redux'
 import ReactTable from 'react-table-v6'
@@ -16,6 +17,7 @@ import 'react-table-v6/react-table.css'
 import './CustomTable.css'
 import validations from './validations'
 import { data } from 'jquery'
+
 //import { splice } from 'core-js/fn/array'
 
 const baseUrl = process.env.REACT_APP_API_URL;
@@ -39,12 +41,8 @@ const getColumnWidth = (rows, accessor, headerText) => {
   return cellLength * 12
 }
 const Required = ({ error, id }) => {
-  console.log(error)
-  console.log(id)
   if(error) {
     const object = Object.keys(error)
-    console.log(object)
-    console.log('---')
     if(object.includes(id)) return <span className="text-error text-danger position-absolute font-rename-error">{error && error[id]}</span>
     else return <div></div>
   }
@@ -485,7 +483,6 @@ class CustomTable extends React.Component {
       //   payload
       // );
       const { data } = urlAll;
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -515,7 +512,6 @@ class CustomTable extends React.Component {
   renameSubmit = (e) => {
     const error = validations(this.state, this.state.changedColumns)
     const { rename } = this.state
-    console.log(error)
     if (Object.keys(error).length) {
       return this.setState({ error })
     } else {
@@ -541,7 +537,7 @@ class CustomTable extends React.Component {
 
   ExportHeader = () => {
     let fields = this.props.customFields || this.state.fields
-    let data = fields.map((data, idx) => {
+      let data = fields.map((data, idx) => {
       return data.Header
     });
     return data
@@ -552,7 +548,18 @@ class CustomTable extends React.Component {
     let dataAll = []
     if (this.props.exportData) {
       dataAll = this.props.exportData.map((data, idx,) => {
-        let column = fields.map((column, columnIdx) => {
+          console.log(this.props.exportData);
+          
+          let column = fields.map((column, columnIdx) => {
+            if(column.accessor === 'date_received' || column.accessor === 'delivery_date' || column.accessor === 'date_completed' || column.accessor === 'date_released'){
+              if(data[column.accessor]){
+                if(data[column.accessor] === 'Invalid date'){
+                  data[column.accessor] = ''
+                }else{
+                  data[column.accessor] = moment(data[column.accessor]).format('DD/MM/YYYY')
+                }
+              }
+            }
           let split = [data[column.accessor]]
           return split
         })
@@ -586,7 +593,6 @@ class CustomTable extends React.Component {
   getExportData = async () => {
     if (this.props.exportApi) {
       await this.props.exportApi()
-      console.log(this.props.exportData)
     } else {
       console.log("Not Paginate API")
       return 0
@@ -596,12 +602,9 @@ class CustomTable extends React.Component {
   render() {
     const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename  } = this.state
     let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus } = this.props
-    // console.log(data)
-
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
-    // console.log(this.ExportHeader())  
-console.log(this.state)
+
     return (
       <React.Fragment>
         <ReactTable
@@ -644,10 +647,6 @@ console.log(this.state)
             {exportData ? exportData.map((data, i) =>
               <tr key={i} >
                 {fields.map((column, columnIdx) => {
-                  console.log(data[column.accessor] )
-                  let string1 = '';
-                  let int1 = '';
-                  let int2 = '';
                   if(column.accessor === 'customer'){
                     return (<td key={columnIdx}>{data[column.accessor]}‎</td>)//hidden fonts for export
                   }
@@ -708,7 +707,7 @@ console.log(this.state)
               pdf={this.props.pdf}
               excel={this.props.excel}
               getExportData={() => this.getExportData()}
-              ExportData={exportData}
+              // ExportData={exportData}
               pagination={pagination}
               ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={font} />
           </CCol>
