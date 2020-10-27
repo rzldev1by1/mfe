@@ -604,7 +604,8 @@ class CustomTable extends React.Component {
     let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus } = this.props
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
-
+    console.log(data);
+    console.log(pagination);
     return (
       <React.Fragment>
         <ReactTable

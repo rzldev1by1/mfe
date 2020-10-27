@@ -222,10 +222,10 @@ class SalesOrderDetail extends React.Component {
   getDetail = async () => {
     const { product, client, site } = this.props.match.params;
     const url = `/stockdetail/header/${product}?client=${client}&site=${site}`;
-    // const { data } = await axios.get(url)
     axios
       .get(url)
       .then((res) => {
+        console.log(res)
         const result = res.data.data;
         this.setState({ datahead: result });
         this.potableref.current.setPagination(res);
@@ -241,10 +241,12 @@ class SalesOrderDetail extends React.Component {
     const { product, client, site, expected_out_qty } = this.props.match.params;
     const url = `/stockdetail/${product}?client=${client}&site=${site}`;
     const { data } = await axios.get(url);
+    console.log(data);
+    console.log(data.data.data.length);
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|[''([{])+\S/g, match => match.toUpperCase());
-    if (data.data.length) {
-      console.log(data.data.length)
-      this.setState({ products: data.data });
+    if (data.data.data.length) {
+      console.log(data.data.data.length)
+      this.setState({ products: data.data.data });
     } else {
       this.setState({
         tableStatus: 'noData'
