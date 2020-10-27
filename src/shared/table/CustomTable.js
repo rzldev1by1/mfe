@@ -546,20 +546,25 @@ class CustomTable extends React.Component {
   ExportData = () => {
     let fields = this.props.customFields || this.state.fields
     let dataAll = []
+    let isDate = function (input) {
+      if (Object.prototype.toString.call(input) === "[object Date]")
+        return true;
+      return false;
+    };
+
     if (this.props.exportData) {
       dataAll = this.props.exportData.map((data, idx,) => {
           console.log(this.props.exportData);
-          
           let column = fields.map((column, columnIdx) => {
-            // if(column.accessor === 'date_received' || column.accessor === 'delivery_date' || column.accessor === 'date_completed' || column.accessor === 'date_released'){
-            //   if(data[column.accessor]){
-            //     if(data[column.accessor] === 'Invalid date'){
-            //       data[column.accessor] = ''
-            //     }else{
-            //       data[column.accessor] = moment(data[column.accessor]).format('DD/MM/YYYY')
-            //     }
-            //   }
-            // }
+            if(column.accessor === 'date_received' || column.accessor === 'delivery_date' || column.accessor === 'date_completed' || column.accessor === 'date_released'){
+              if(data[column.accessor]){
+                if(data[column.accessor] === null || data[column.accessor] === 'Invalid Date'){
+                  data[column.accessor] = ''
+                }else{
+                  data[column.accessor] = moment(data[column.accessor]).isValid().format('DD/MM/YYYY')
+                }
+              }
+            }
           let split = [data[column.accessor]]
           return split
         })

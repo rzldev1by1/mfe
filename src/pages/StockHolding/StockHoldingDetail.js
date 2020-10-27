@@ -192,6 +192,8 @@ class SalesOrderDetail extends React.Component {
     detail: {},
     products: [],
     forecast: [],
+    pagination: {}, 
+    paginationForcast: {}, 
     datahead: [],
     activeTab: '1',
     tableStatus: 'waiting', //stock details
@@ -232,35 +234,47 @@ class SalesOrderDetail extends React.Component {
       })
       .catch((error) => { });
   };
-  getStockDetails = async () => {
+  getStockDetails = async (page=1,export_='false') => {
     this.setState({
       data: [],
       tableStatus: 'waiting'
     })
 
+    const { pagination } = this.state
     const { product, client, site, expected_out_qty } = this.props.match.params;
-    const url = `/stockdetail/${product}?client=${client}&site=${site}`;
+    const url = `/stockdetail/${product}?client=${client}&site=${site}&page=${page}&export=${export_}`;
     const { data } = await axios.get(url);
     console.log(data);
     console.log(data.data.data.length);
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|[''([{])+\S/g, match => match.toUpperCase());
     if (data.data.data.length) {
       console.log(data.data.data.length)
-      this.setState({ products: data.data.data });
+      this.setState({ 
+        products: data.data.data,
+        pagination: {
+          active: pagination.active || data.data.current_page,
+          show: data.data.per_page,
+          total: data.data.total,
+          last_page: data.data.last_page,
+          from: data.data.from,
+          to: data.data.to
+        } 
+       });
+
     } else {
       this.setState({
         tableStatus: 'noData'
       })
     }
   };
-  getForescast = async () => {
+  getForescast = async (page=1,export_='false') => {
     this.setState({
       data: [],
       tableStatusForecast: 'waiting'
     })
-
+    const {paginationForcast} = this.state
     const { product, client, site } = this.props.match.params;
-    const url = `/stockbal?client=${client}&product=${product}&site=${site}`;
+    const url = `/stockbal?client=${client}&product=${product}&site=${site}&page=${page}&export=${export_}`;
     const { data } = await axios.get(url);
     console.log(data);
     const available = data[0][0]['available orders']
@@ -305,7 +319,17 @@ class SalesOrderDetail extends React.Component {
     concat = concat.concat(closingbal)
     console.log(concat)
     if (data) {
-      this.setState({ forecast: concat });
+      this.setState({ 
+        forecast: concat,
+        paginationForcast: {
+          active: paginationForcast.active || data.current_page,
+          show: data.per_page,
+          total: data.total,
+          last_page: data.last_page,
+          from: data.from,
+          to: data.to
+        }
+      });
     } else {
       this.setState({
         tableStatusForecast: 'noData'
@@ -375,11 +399,14 @@ class SalesOrderDetail extends React.Component {
       products,
       stockDetail,
       activeTab,
+      pagination,
+      paginationForcast,
       ForesCast,
       forecast,
       tableStatus,
       tableStatusForecast
     } = this.state;
+    console.log(paginationForcast)
     let site = this.state.datahead.length ? this.state.datahead[0].site : null;
     let client = this.state.datahead.length
       ? this.state.datahead[0].client
@@ -488,6 +515,7 @@ class SalesOrderDetail extends React.Component {
                   fields={stockDetail}
                   data={products}
                   tableStatus={tableStatus}
+                  pagination={pagination}
                   export={
                     <button className='btn btn-primary float-right btn-export'>
                       {/* <div className='export-export pr-3' /> */}
@@ -507,6 +535,7 @@ class SalesOrderDetail extends React.Component {
                   fields={ForesCast}
                   data={forecast}
                   tableStatus={tableStatusForecast}
+                  pagination={paginationForcast}
                   exportData={forecast}
                   export={
                     <button className='btn btn-primary float-right btn-export'>
