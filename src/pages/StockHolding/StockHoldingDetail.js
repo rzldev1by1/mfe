@@ -535,7 +535,7 @@ class SalesOrderDetail extends React.Component {
                   fields={ForesCast}
                   data={forecast}
                   tableStatus={tableStatusForecast}
-                  pagination={paginationForcast}
+                  // pagination={paginationForcast}
                   exportData={forecast}
                   export={
                     <button className='btn btn-primary float-right btn-export'>
