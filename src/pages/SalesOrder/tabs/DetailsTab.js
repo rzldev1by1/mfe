@@ -959,7 +959,7 @@ class CreateTab extends React.Component {
         <Col lg={2}></Col>
         <Col lg={8}></Col>
         <Col lg={2} className="text-right">
-          <button className={`btn btn-primary ${!error ? 'btn-primary' : 'btn-grey'}`} onClick={this.next}>{'NEXT'}</button>
+          <button className={`btn btn-primary`} onClick={this.next}>{'NEXT'}</button>
         </Col>
       </Row>
     </Container>
