@@ -314,12 +314,12 @@ class SalesOrder extends React.PureComponent {
       const { data } = await axios.get(`${endpoints.getSoResources}?company=${user.company || ''}&client=${user.client || ''}`)
       const { code, name } = data.orderTypeFilter
       const orderTypeFilterData = data.orderTypeFilter.code.map((data, i) => ({ value: data, label: `${data}: ${name[i]}` }))
-      const orderTypeData = data.orderType.name.map((data, i) => ({ value: data, label: `${data}: ${data?.orderType?.name[i]}` }))
+      const orderTypeData = data.orderType.description.map((data, i) => ({ value: data, label: `${data}: ${data?.orderType?.description[i]}` }))
       const orderType = { value: 'all', label: 'All Order' }
       orderTypeFilterData.splice(0, 0, orderType)
 
-      const code2 = data.orderType.code.sort();
-      const name2 = data.orderType.name.sort();
+      const code2 = data.orderType.code;
+      const name2 = data.orderType.description;
       const orderTypeInsert = code2.map((c, i) => ({ value: c, label: `${code2[i]}: ${name2[i]}` }))
       this.setState({ resources: data, orderTypeData, orderTypeInsert, orderTypeFilterData })
 

@@ -551,15 +551,15 @@ class CustomTable extends React.Component {
           console.log(this.props.exportData);
           
           let column = fields.map((column, columnIdx) => {
-            if(column.accessor === 'date_received' || column.accessor === 'delivery_date' || column.accessor === 'date_completed' || column.accessor === 'date_released'){
-              if(data[column.accessor]){
-                if(data[column.accessor] === 'Invalid date'){
-                  data[column.accessor] = ''
-                }else{
-                  data[column.accessor] = moment(data[column.accessor]).format('DD/MM/YYYY')
-                }
-              }
-            }
+            // if(column.accessor === 'date_received' || column.accessor === 'delivery_date' || column.accessor === 'date_completed' || column.accessor === 'date_released'){
+            //   if(data[column.accessor]){
+            //     if(data[column.accessor] === 'Invalid date'){
+            //       data[column.accessor] = ''
+            //     }else{
+            //       data[column.accessor] = moment(data[column.accessor]).format('DD/MM/YYYY')
+            //     }
+            //   }
+            // }
           let split = [data[column.accessor]]
           return split
         })
@@ -604,7 +604,8 @@ class CustomTable extends React.Component {
     let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus } = this.props
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
-
+    console.log(data);
+    console.log(pagination);
     return (
       <React.Fragment>
         <ReactTable
