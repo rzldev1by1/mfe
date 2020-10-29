@@ -714,6 +714,16 @@ class CreateTab extends React.Component {
                         ...base,
                         transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
                         display: state.selectProps.menuIsOpen ? "flex" : "none"
+                      }),
+                      menu: base => ({
+                          ...base,
+                          height: 230,
+                          maxHeight: 230
+                      }),
+                      menuList: base => ({
+                          ...base,
+                          height: 230,
+                          maxHeight: 230
                       })
                     }}
                   />
@@ -792,6 +802,16 @@ class CreateTab extends React.Component {
                         ...base,
                         transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
                         display: isEmptyObject(o.dispositionVal) ? "flex" : "none"
+                      }),
+                      menu: base => ({
+                          ...base,
+                          height: 230,
+                          maxHeight: 230
+                      }),
+                      menuList: base => ({
+                          ...base,
+                          height: 230,
+                          maxHeight: 230
                       })
                     }}
                     onMenuOpen={() => { dispositionStatus[i] = true; this.setState({ dispositionStatus: dispositionStatus }) }}
