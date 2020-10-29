@@ -52,7 +52,7 @@ class CustomTableDetail extends React.Component {
   constructor(props) {
     super(props);
     this.dragged = null;
-    this.reorder = [];
+    this.reorder = props.columnsPosition ? props.columnsPosition : [];
     let tables = localStorage.getItem("tables") ? JSON.parse(localStorage.getItem("tables")) : [];
     if (tables.length > 0) {
       tables.map((data, idx) => {
