@@ -603,7 +603,7 @@ class StockMovement extends React.PureComponent {
         <CCol lg={2} className="sm-col-14 px-0 dateTo" > 
                   <DatePicker style={{ minWidth: '100%', height:'50px' }}
                       ref="dateTo" arrowStyle={true}
-                      firstDate = {new Date(this.state.startDate)}
+                      firstDate = {this.state.startDate ? new Date(this.state.startDate) : this.state.startDate}
                       firstValue={this.state.firstValue}
                       onOpen={() => { this.closeDatePicker("from") }}
                       getDate={(e) => { this.setState({ endDate: e })}}
