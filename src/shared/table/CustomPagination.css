@@ -16,14 +16,13 @@ ul.pagination {
   padding: 7px 0;
   margin: 0 4px;
   /* width: 56px !important; */
-  width: 44px !important;
+  width: fit-content !important;
 }
 .page-link {
   border: none !important;
   border-radius: 10px !important;
   background-color: none;
 }
-
 .page-2 {
      background-color: #fff;
      border-top-right-radius: 5px;
