@@ -316,6 +316,7 @@ class PurchaseOrdersDetail extends React.Component {
         UrlAll={this.UrlAll}
         tableStatus={tableStatus}
         sortFloat={(column) => this.sortFloat(products, column, sort)}
+        columnsPosition={[{a: 9, b: 14}]}
         export={
           <button className='btn btn-primary float-right btn-export'>
             {/* <div className='export-export pr-3' /> */}

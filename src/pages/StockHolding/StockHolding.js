@@ -314,8 +314,8 @@ class StockHolding extends React.PureComponent {
     
     let urls = []
     urls.push('searchParam=' + (search ? search : ''))
-    urls.push('site=' + (site.value ? site.value : 'all'))
-    urls.push('client=' + (client.value ? client.value : 'all'))
+    urls.push('site=' + (site?.value ? site.value : 'all'))
+    urls.push('client=' + (client?.value ? client.value : 'all'))
     urls.push('status=' + (status ? status.value : 'all'))
     urls.push('page=' + (pagination.active || 1))
     if(export_=='true'){urls.push('export=true')}
@@ -510,7 +510,7 @@ class StockHolding extends React.PureComponent {
                   <CCol sm={4} lg={2} className='px-0'>
                     {
                       this.props.store.user.site ?
-                        <input value={this.siteCheck(site.value)} className="form-control sh-input" readOnly />
+                        <input value={this.siteCheck(site?.value)} className="form-control sh-input" readOnly />
                         :
                         <Select
                           isClearable
@@ -536,7 +536,7 @@ class StockHolding extends React.PureComponent {
                   <CCol sm={4} lg={2} className='px-3'>
                     {
                       this.props.store.user.client ?
-                        <input value={this.clientCheck(client.value)} className="form-control sh-input" readOnly />
+                        <input value={this.clientCheck(client?.value)} className="form-control sh-input" readOnly />
                         :
                         <Select
                           isClearable
