@@ -94,12 +94,10 @@ nav .pagination li:nth-last-child(2) .page-link:hover {
 nav .pagination li:nth-last-child(2) .page-link {
   padding-right: 0px !important;
 }
-
 nav .pagination li:last-child {
   margin-right: 0px !important;
   text-align: right !important;
 }
-
 nav .pagination li:last-child .page-link {
   padding-right: 0px !important;
 }
@@ -124,7 +122,6 @@ nav .pagination li:last-child .page-link:hover {
 .card-group .card:last-child div input {
   height: 30px !important;
 }
-
 .text-muted-s{
   color:#b4b9bb;
 }

@@ -124,16 +124,6 @@ class StockMovement extends React.PureComponent {
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimension);
     let self = this;
-    // document.getElementsByClassName("stockMovement").removeEventListener('mousedown', (e) => {
-
-    // if(self.refs["dateFrom"] && self.refs["dateFrom"].state.showDatePicker){
-    //     self.closeDatePicker("from", e)
-    // }
-
-    // if(self.refs["dateTo"] && self.refs["dateTo"].state.showDatePicker){
-    //     self.closeDatePicker("to", e)
-    // }
-    // });
   }
 
   getStockDate = () => {
@@ -144,7 +134,6 @@ class StockMovement extends React.PureComponent {
   }
 
   periodHandler = (val) => {
-    // alert(any.periodSelected);
     this.setState({
       periodExpand: false,
       dateFromShow: true,
@@ -397,6 +386,8 @@ class StockMovement extends React.PureComponent {
     let tmp_data = []
     let tmp_date = []
     const tmp_export = this.state.data
+    console.log(this.state.data);
+    console.log(tmp_export);
     this.state.data.map((datas, idx) => {
       let tmp_row = {
         'site': datas.site,
@@ -419,6 +410,7 @@ class StockMovement extends React.PureComponent {
         }
       })
       tmp_data.push(tmp_row)
+      console.log(tmp_row);
     })
     tmp_date.sort(async function (a, b) {
       var dateA = new Date(a), dateB = new Date(b);
@@ -463,6 +455,7 @@ class StockMovement extends React.PureComponent {
 
     this.setState({ data_table: tmp_data, date_array: tmp_date, export_data: tmp_export }, () => {
       console.log(tmp_date)
+      console.log(tmp_data)
       console.log("-------------------------")
     })
   }
