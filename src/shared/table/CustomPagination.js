@@ -23,11 +23,16 @@ class CustomPagination extends React.Component {
       this.setState({ pagination });
     }
   };
+
   onChange = (e) => {
-    if (e.target.value) {
+    if (e.target.value === '') {
+      this.setState({ page: '' });
+    }
+    else {
       this.setState({ page: parseInt(e.target.value) });
     }
   };
+
   closeConfirmDialog = () => {
      this.setState({ notifPaging: false });
   }
@@ -43,8 +48,7 @@ class CustomPagination extends React.Component {
   goToPage = () => {
     const { pagination, page } = this.state;
     const { data } = this.props;
-    console.log(data); 
-    if(page === 0 || page === null || page === ''){
+    if(page === 0 || page === null || page === '' || page === undefined){
       return false;
     }
     
@@ -83,7 +87,6 @@ class CustomPagination extends React.Component {
     const x_last_page = (pagination && pagination.last_page)?pagination.last_page:1;
     const x_from = (pagination && pagination.from)?pagination.from:tmp_startIndex;
     const x_to = (pagination && pagination.to)?pagination.to:endIndex;
- 
     return (
       // <CContainer fluid>
       <CRow className=" pagination-custom">
@@ -97,7 +100,7 @@ class CustomPagination extends React.Component {
                 activePage={active}
                 pages={pages > 0 ? pages : 1}
                 onActivePageChange={this.onActivePageChange}
-                firstButton={<BsChevronBarLeft />}
+                firstButton={<BsChevronBarLeft/>}
                 previousButton={<BsChevronLeft />}
                 nextButton={<BsChevronRight className="nextBtn" />}
                 lastButton={<BsChevronBarRight className="nextBtn" />}

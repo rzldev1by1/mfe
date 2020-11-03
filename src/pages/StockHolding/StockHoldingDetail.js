@@ -136,7 +136,7 @@ class SalesOrderDetail extends React.Component {
         Cell: row => {
           return (
             <div>
-              <span className="class-for-name alg-right">{row.original.effectivedate}</span>
+              <span className="class-for-name">{moment(row.original.effectivedate).format('DD/MM/YYYY')}</span>
             </div>
           )
         }
@@ -287,7 +287,7 @@ class SalesOrderDetail extends React.Component {
     let expiryDateSH = data[0][0]['stock expiry']
     console.log(expiryDateSH)
     let expdt = expiryDateSH[0].stockexpirydate
-    let closingbal = [{ closingbalancetext: `Closing Balance as on ${expdt}`, totalbalance: data[0][0]['closing balance'] }]
+    let closingbal = [{ closingbalancetext: `Closing Balance as on ${moment(expdt).format('DD/MM/YYYY')}`, totalbalance: data[0][0]['closing balance'] }]
     const openingbal = [{ openingbalancetext: `Opening Balance as on ${moment().format('DD/MM/YYYY')}`, startbalance: data[0][0]['opening balance'] }]
     let txt = []
     let expiry = Object.values(expiryDateSH);
@@ -295,7 +295,7 @@ class SalesOrderDetail extends React.Component {
     expiry.map(expiry => {
       expiry['qty'] = expiry['quantity']
       closingbal[0].totalbalance = parseInt(closingbal[0].totalbalance) - parseInt(expiry.qty)
-      expiry['newstockexpirydate'] = `Stock Expires on ${expiry['stockexpirydate']}`
+      expiry['newstockexpirydate'] = `Stock Expires on ${moment(expiry['stockexpirydate']).format('DD/MM/YYYY')}`
       expiry['closingstock'] = closingbal[0].totalbalance
       txt.push(expiry.newstockexpirydate?.length)
       
