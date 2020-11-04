@@ -52,7 +52,6 @@ class Export extends Component {
         }
 
         console.log(await this.props.getExportData()) 
-        console.log('ssssssssssssssssssssssss');
 
         await this.props.getExportData() 
         const marginLeft = 40;

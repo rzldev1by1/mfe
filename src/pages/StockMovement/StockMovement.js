@@ -68,9 +68,7 @@ class StockMovement extends React.PureComponent {
       error: {},
       dateFromText: null,
       dateFromShow: false,
-
       firstValue: true,
-  
       dateToText: null,
       dateToShow: false, 
       minDate: null,
@@ -84,7 +82,6 @@ class StockMovement extends React.PureComponent {
     // set automatic table height
     this.updateDimension();
     window.addEventListener('resize', this.updateDimension);
-
     this.getSite()
     this.getClient()
     this.getStatus()
