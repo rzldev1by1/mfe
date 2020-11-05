@@ -559,6 +559,7 @@ class CustomTable extends React.Component {
   ExportData = () => {
     let fields = this.props.customFields || this.state.fields
     let dataAll = []
+    console.log(fields);
     let isDate = function (input) {
       if (Object.prototype.toString.call(input) === "[object Date]")
         return true;
@@ -569,15 +570,19 @@ class CustomTable extends React.Component {
       dataAll = this.props.exportData.map((data, idx,) => {
           console.log(this.props.exportData);
           let column = fields.map((column, columnIdx) => {
-            if(column.accessor === 'date_received' || column.accessor === 'delivery_date' || column.accessor === 'date_completed' || column.accessor === 'date_released'){
-              if(data[column.accessor]){
-                if(data[column.accessor] === null || data[column.accessor] === 'Invalid Date'){
-                  data[column.accessor] = ''
-                }else{
-                  data[column.accessor] = moment(data[column.accessor]).isValid().format('DD/MM/YYYY')
-                }
-              }
-            }
+            // if(column.accessor === 'date_received' || column.accessor === 'delivery_date' || column.accessor === 'date_completed' || column.accessor === 'date_released'){
+            //   if(data[column.accessor]){
+                // let dateTime = new Date(data[column.accessor]);
+                // dateTime = moment(dateTime).utc().format("YYYY-MM-DD HH:mm:ss");
+                // data[column.accessor] = moment(moment(dateTime).format("DD/MM/YYYY")).format();
+                // const day = new Date(2011, 9, 16);
+                // const dayWrapper = moment(day);
+                  // console.log(data[column.accessor])
+                  // const date = data[column.accessor] = moment(data[column.accessor],"YYYY-MM-DD hh:mm:ss")
+                  // data[column.accessor] = moment(data[column.accessor]).format('DD/MM/YYYY')
+                  // console.log(data);
+            //   }
+            // }
           let split = [data[column.accessor]]
           return split
         })

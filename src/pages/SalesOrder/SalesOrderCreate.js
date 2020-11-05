@@ -29,6 +29,7 @@ class SalesOrderCreate extends React.PureComponent {
     this.setState({ key, submit: false });
   };
   setData = (data) => {
+    console.log(data);
     if (data.header && data.lineDetail) {
       this.setState({ data, key: "review" }, () => {});
     }
