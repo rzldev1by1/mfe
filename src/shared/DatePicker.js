@@ -26,13 +26,16 @@ function Navbar({
         float: 'left',
         color: "#637175",
         backgroundColor: "#E9ECED",
-        borderColor: "#E9ECED"
+        borderColor: "#E9ECED",
+        boxShadow: "none"
+    
     };
     const styleRight = {
         float: 'right',
         color: "#637175",
         backgroundColor: "#E9ECED",
-        borderColor: "#E9ECED"
+        borderColor: "#E9ECED",
+        boxShadow: "none"
     };
     return (
         <div className={className} style={{ marginTop: "14px", marginLeft: "19px", marginRight: "19px", position: "relative" }}>
@@ -141,12 +144,14 @@ class DatePicker extends React.Component {
     // }
 
     componentDidUpdate(prevProps){
-        if (moment(prevProps.firstDate).format("DD/MM/YYYY") !== moment(this.props.firstDate).format("DD/MM/YYYY")){
-            if(!this.props.firstValue){
-                let firstDate = new Date(this.props.firstDate);
-                firstDate.setDate(firstDate.getDate() + 1)
-                this.setState({ month: firstDate, selectedDay: firstDate, defaultValue: moment(firstDate).format("DD/MM/YYYY")});
-                this.props.getDate(moment(firstDate).format("DD/MM/YYYY"))
+        if(this.props.firstDate){
+            if (moment(prevProps.firstDate).format("DD/MM/YYYY") !== moment(this.props.firstDate).format("DD/MM/YYYY")){
+                if(!this.props.firstValue){
+                    let firstDate = new Date(this.props.firstDate);
+                    firstDate.setDate(firstDate.getDate() + 1)
+                    this.setState({ month: firstDate, selectedDay: firstDate, defaultValue: moment(firstDate).format("DD/MM/YYYY")});
+                    this.props.getDate(moment(firstDate).format("DD/MM/YYYY"))
+                }
             }
         }
     }
@@ -284,6 +289,11 @@ class DatePicker extends React.Component {
                 this.props.showDatePicker(false)
             }
         }
+    }
+
+    resetDateValue = () => {
+        this.setState({ defaultValue: "" });
+        // this.refs["dateValue"].value = this.state.defaultValue;
     }
 
     render() {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react'
+import { CCard, CCardBody } from '@coreui/react'
 import './UserManagement.css'
 import ModuleAccess from './ModuleAccess'
 import Site from './Site'
@@ -50,54 +50,67 @@ class UserManagementDetail extends Component {
             users: [],
             validation: {
                 "name": { isValid: true, invalidClass: /*"is-invalid"*/"", message:'invalid email' },
-                "email": { isValid: true, invalidClass: /*"is-invalid"*/"", message:'username must be entered' }
+                "email": { isValid: true, invalidClass: /*"is-invalid"*/"", message:'username must be entered' },
+                "modules": { isValid: true, invalidClass: "is-invalid", message:'Please enable at least one on module access' },
+                "sites": { isValid: true, invalidClass: "is-invalid", message:'Please enable at least one on site' },
+                "clients": { isValid: true, invalidClass: "is-invalid", message:'Please enable at least one on client' }
             },
             isLoadReset: false
         }
 
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         let id = this.props.match.params.id;
         console.log(id)
-        this.getAccountInfo(id);
-        this.loadPersonalLogin();
-        this.loadUsers();
+           const a = await this.getAccountInfo(id);
+            const b = await this.loadPersonalLogin();
+             const c = await this.loadUsers();
+             this.setState({
+                initialData:{
+                    isEnableAllClient: this.state.isEnableAllClient,
+                    isEnableAllSite: this.state.isEnableAllSite,
+                    isEnableAllModule:this.state.isEnableAllModule,
+                    moduleAccess:this.state.moduleAccess,
+                    accountInfo:this.state.accountInfo
+                }
+            })
     }
 
     loadUsers = async (e) => {
         const { data } = await axios.get(`${endpoint.userManagementListUser}`)
         this.setState({ users: data.data.data });
     }
-   
+
 
     checkEmailValidation = (textmail) => {
-        const { validation} = this.state;
-                
-            let validFormat = EmailValidator.validate(textmail);
-            validation.email["isValid"] = validFormat? true : false;
+      const { validation} = this.state;
 
-            if(!validFormat)
-                validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
-                
-            if(validFormat)
-                validation.email["message"] = "";
-        
+      let validFormat = EmailValidator.validate(textmail);
+      validation.email["isValid"] = validFormat? true : false;
 
-        return validation;
+      if (!validFormat) {
+        validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
+        validation.email["invalidClass"] = 'is-invalid';
+      } else {
+        validation.email["message"] = "";
+        validation.email["invalidClass"] = '';
+      }
+
+      return validation;
     }
 
     checkNameValidation = (textName) => {
 
         const { users, validation } = this.state;
-        
+
         let isValid = (textName === ""?false:true);
-         
+
         validation.name["isValid"] = isValid;
         if(!isValid)
             validation.name["message"] = utility.validationMsg.USERNAME_REQUIRED;
         else
-            validation.name["message"] = "";        
+            validation.name["message"] = "";
 
         return validation;
     }
@@ -147,10 +160,10 @@ class UserManagementDetail extends Component {
         if (data && data !== '') {
             let adminClassName = this.state.adminClass;
             let result = this.restructureAccount(data.data);
-            
+
             if(result.web_group !== utility.webgroup.ADMIN)
                 adminClassName = ' ';
-            
+
             this.setState({ accountInfo: result, oldAccountInfo:result, isLoadComplete: true, adminClass: adminClassName }, () => {
                 this.loadMasterResource();
             });
@@ -180,7 +193,7 @@ class UserManagementDetail extends Component {
                 return newItem;
             });
 
-            
+
            isEnableAllModule = menus.filter((item) => {return item.status === true;}).length === menus.length?true:false;
         this.setState({ moduleAccess: menus,isEnableAllModule:isEnableAllModule });
     }
@@ -189,7 +202,7 @@ class UserManagementDetail extends Component {
         let user = { ...this.state.accountInfo };
         let isEnableAllSite = {...this.state.isEnableAllSite};
         const { data } = await axios.get(endpoint.getSite);
-        
+
         let sites = data.map((item, index) => {
             let newItem = item;
             newItem.status = (user.site === null?true:((item.site === user.site) ? true : false));
@@ -210,7 +223,7 @@ class UserManagementDetail extends Component {
             newItem.status = (user.client === null?true: ((item.code === user.client) ? true : false));
             return newItem;
         });
-        
+
         isEnableAllClient = clients.filter((item) => {return item.status === true;}).length === clients.length?true:false;
         this.setState({ clients: clients, isEnableAllClient:isEnableAllClient });
     }
@@ -218,84 +231,104 @@ class UserManagementDetail extends Component {
 
 
     onEnabledAllModuleAccess = () => {
-        let newState = [...this.state.moduleAccess];
-        let isEnableAllModule = this.state.isEnableAllModule;
-        let newArray = newState.map((item, index) => {
-            let newItem = item;
-            newItem.status = !isEnableAllModule;
-            return newItem;
-        })
+      let validation = { ...this.state.validation };
+      let newState = [...this.state.moduleAccess];
+      let isEnableAllModule = this.state.isEnableAllModule;
+      let newArray = newState.map((item, index) => {
+          let newItem = item;
+          newItem.status = !isEnableAllModule;
+          return newItem;
+      })
 
-        this.setState({ moduleAccess: newArray, isEnableAllModule: !isEnableAllModule });
+      validation.modules.isValid = (newArray.filter((m) => m.status !== false).length > 0);
+
+      this.setState({ moduleAccess: newArray, isEnableAllModule: !isEnableAllModule, validation });
     }
 
+
     onEnabledAllSite = () => {
-        let isEnableAllSite = this.state.isEnableAllSite;
+      let validation = { ...this.state.validation };
+      let isEnableAllSite = this.state.isEnableAllSite;
 
-        let sites = [...this.state.sites];
-        var newArray = sites.map((item, index) => {
-            item.status = !isEnableAllSite;
-            return item;
-        });
+      let sites = [...this.state.sites];
+      var newArray = sites.map((item, index) => {
+          item.status = !isEnableAllSite;
+          return item;
+      });
 
-        this.setState({ sites: newArray, isEnableAllSite: !isEnableAllSite });
+      validation.sites.isValid = (newArray.filter((s) => s.status !== false).length > 0);
+
+      this.setState({ sites: newArray, isEnableAllSite: !isEnableAllSite, validation });
     }
 
     onEnabledAllClient = () => {
-        let isEnableAllClient = this.state.isEnableAllClient;
-        let clients = [...this.state.clients];
-        var newArray = clients.map((item, index) => {
-            item.status = !isEnableAllClient;
-            return item;
-        });
-        this.setState({ clients: newArray, isEnableAllClient: !isEnableAllClient });
+      let validation = { ...this.state.validation };
+      let isEnableAllClient = this.state.isEnableAllClient;
+      let clients = [...this.state.clients];
+      var newArray = clients.map((item, index) => {
+          item.status = !isEnableAllClient;
+          return item;
+      });
+
+      validation.clients.isValid = (newArray.filter((c) => c.status !== false).length > 0);
+
+      this.setState({ clients: newArray, isEnableAllClient: !isEnableAllClient, validation });
     }
 
     onModuleAccessClick = (e, index) => {
-        let moduleAccess = [...this.state.moduleAccess];
-        let newModules = moduleAccess.map((item, idx) => {
-            if (idx === index) {
-                item.status = !item.status;
-            }
-            return item;
-        });
+      let validation = { ...this.state.validation };
+      let moduleAccess = [...this.state.moduleAccess];
+      let newModules = moduleAccess.map((item, idx) => {
+          if (idx === index) {
+              item.status = !item.status;
+          }
+          return item;
+      });
 
-        let isEnableAll = newModules.filter((item) => { return item.status === true }).length;
-        let isEnableAllModule = (moduleAccess.length === isEnableAll) ? true : false;
+      let isEnableAll = newModules.filter((item) => { return item.status === true }).length;
+      let isEnableAllModule = (moduleAccess.length === isEnableAll) ? true : false;
 
-        this.setState({ moduleAccess: newModules, isEnableAllModule: isEnableAllModule });
+      validation.modules.isValid = isEnableAll > 0;
+
+      this.setState({ moduleAccess: newModules, isEnableAllModule: isEnableAllModule, validation });
     }
 
     onSiteStatusClick = (e, index) => {
-        let sites = [...this.state.sites];
-        let newSites = sites.map((item, idx) => {
-            if (idx === index) {
-                item.status = true;
-            } else {
-                item.status = false;
-            }
-            return item;
-        });
-        let isEnableAll = newSites.filter((item) => { return item.status === true }).length;
-        let isEnableAllSite = (sites.length === isEnableAll) ? true : false;
+      let validation = { ...this.state.validation };
+      let sites = [...this.state.sites];
+      let newSites = sites.map((item, idx) => {
+          if (idx === index) {
+              item.status = true;
+          } else {
+              item.status = false;
+          }
+          return item;
+      });
+      let isEnableAll = newSites.filter((item) => { return item.status === true }).length;
+      let isEnableAllSite = (sites.length === isEnableAll) ? true : false;
 
-        this.setState({ sites: newSites, isEnableAllSite: isEnableAllSite });
+      validation.sites.isValid = isEnableAll > 0;
+
+      this.setState({ sites: newSites, isEnableAllSite: isEnableAllSite, validation });
     }
 
     onClientStatusClick = (e, index) => {
-        let clients = [...this.state.clients];
-        let newClients = clients.map((item, idx) => {
-            if (idx === index) {
-                item.status = true;
-            } else {
-                item.status = false;
-            }
-            return item;
-        });
-        let isEnableAll = newClients.filter((item) => { return item.status === true }).length;
-        let isEnableAllClient = (clients.length === isEnableAll) ? true : false;
+      let validation = { ...this.state.validation };
+      let clients = [...this.state.clients];
+      let newClients = clients.map((item, idx) => {
+          if (idx === index) {
+              item.status = true;
+          } else {
+              item.status = false;
+          }
+          return item;
+      });
+      let isEnableAll = newClients.filter((item) => { return item.status === true }).length;
+      let isEnableAllClient = (clients.length === isEnableAll) ? true : false;
 
-        this.setState({ clients: newClients, isEnableAllClient: isEnableAllClient });
+      validation.clients.isValid = isEnableAll > 0;
+
+      this.setState({ clients: newClients, isEnableAllClient: isEnableAllClient, validation });
     }
 
 
@@ -308,46 +341,37 @@ class UserManagementDetail extends Component {
         this.setState({ accountInfo: user, isValidForm: false, validation:validation });
     }
 
-     onBlurEmail = async (e) => {
-        const { name, value } = e.target;
-        const { oldAccountInfo } = this.state;
-        let validation = { ...this.state.validation };
-        const {data}  = await axios.post(endpoint.userManagementCheckMailValidation,{email:value});
-        validation.email["isValid"] = ((oldAccountInfo.email !== value) && data === 0)?true:false;
+    onBlurEmail = async (e) => {
+      const { value } = e.target;
+      const { oldAccountInfo } = this.state;
+      let validation = { ...this.state.validation };
+      const {data}  = await axios.post(endpoint.userManagementCheckMailValidation,{email:value});
+      validation.email["isValid"] = ((oldAccountInfo.email !== value) && data === 0)?true:false;
 
-        if(!validation.email["isValid"]){
-            validation.email["message"] = utility.validationMsg.EMAIL_EXIST;
-        }else{
-            validation.email["message"] = "";
-            if(!this.checkEmailValidation(value).email["isValid"]){
-                validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
-            }else{
-                validation.email["message"] = "";
-            }
-        
+      if (!validation.email["isValid"]) {
+        validation.email["message"] = utility.validationMsg.EMAIL_EXIST;
+        validation.email["invalidClass"] = 'is-invalid';
+      } else {
+        validation.email["message"] = "";
+        validation.email["invalidClass"] = '';
+        if (!this.checkEmailValidation(value).email["isValid"]) {
+          validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
+          validation.email["invalidClass"] = 'is-invalid';
+        } else {
+          validation.email["message"] = "";
         }
+      }
 
-        this.setState({ validation:validation });
+      this.setState({ validation:validation });
     }
 
     onChangeEmail = (e) => {
         const { name, value } = e.target;
         let user = { ...this.state.accountInfo };
-        let validation = this.checkEmailValidation(value);        
+        console.log(user.email, value)
+        let validation = this.checkEmailValidation(value);
         user.email = value;
         this.setState({ accountInfo: user, isValidForm: false, validation:validation });
-    }
-
-    generateUserID = (textValue) => {
-        let result = "";
-
-        if (textValue && textValue.length > 2) {
-            var anysize = 3;//the size of string
-            var charset = "abcdefghijklmnopqrstuvwxyz"; //from where to create
-            for (var i = 0; i < anysize; i++)
-                result += charset[Math.floor(Math.random() * (9))];
-        }
-        return result;
     }
 
     getParam = (passwordChange) => {
@@ -358,26 +382,26 @@ class UserManagementDetail extends Component {
         let adminMenu = moduleAccess.map((item, index) => {
                 return item.menuid;
             });
-            
+
         let userMenu = moduleAccess.filter((item) => { return item.status === true; })
             .map((item, index) => {
                 return item.menuid;
             });
-        
+
         let site = sites.find((item, index) => {
             return item.status === true;
         });
-        
+
 
         let siteValue = (site && (sites.filter((item) => {return item.status === true;}).length !== sites.length))? site.site:null;
-        
+
         let client = clients.find((item, index) => {
             return item.status === true;
         });
 
-         let clientValue = (client && (clients.filter((item) => {return item.status === true;}).length !== clients.length))? client.code:null;
+        let clientValue = (client && (clients.filter((item) => {return item.status === true;}).length !== clients.length))? client.code:null;
 
-        let accountInfo = { ...this.state.accountInfo }; 
+        let accountInfo = { ...this.state.accountInfo };
         newParam.name = accountInfo.user;
         newParam.email = accountInfo.email;
         newParam.lastAccess = accountInfo.lastAccess;
@@ -438,7 +462,7 @@ class UserManagementDetail extends Component {
         let url = `${endpoint.userManagementresetpassword}`;
 
         let newText = user.substring(0, 2);
-        let result = this.generateUserID(today);
+        let result = utility.generateUserID(today);
         let new_password = result + newText.toLowerCase();
         let param = { "email": email, "web_user": web_user_id, "new_password": new_password }
 
@@ -475,12 +499,13 @@ class UserManagementDetail extends Component {
         this.props.history.push('/users-management');
 
     }
-
     onClieckSuspendUser = () => {
-        const { accountInfo } = this.state;
-        accountInfo.disabled = !accountInfo.disabled;
+        let accountInfoUpdate = {...this.state.accountInfo}
+        // const { accountInfo } = this.state;
+        console.log(accountInfoUpdate.disabled);
+        accountInfoUpdate.disabled = !accountInfoUpdate.disabled;
 
-        this.setState({ accountInfo: accountInfo })
+        this.setState({ accountInfo: accountInfoUpdate}, () => console.log(accountInfoUpdate.disabled))
     }
 
     onClickResetPassword = () => {
@@ -506,10 +531,33 @@ class UserManagementDetail extends Component {
         this.setState({ loginInfo: userInfo.user });
     }
 
+    edit = () => {
+      const { initialData, accountInfo, moduleAccess, clients, sites, validation } = this.state
+      let edited = false
+
+      if (initialData && accountInfo.email) {
+        const activeClient = clients.filter((c) => c.status !== false);
+        const activeSite = sites.filter((s) => s.status !== false);
+        const activeModule = (accountInfo.web_group !== 'Admin') ? moduleAccess.filter((m) => m.status !== false) : ["Admin"];
+        edited = true;
+
+        if (accountInfo.email === '' ||
+            accountInfo.user === '' ||
+            !validation.email.isValid ||
+            !validation.clients.isValid ||
+            !validation.sites.isValid ||
+            !validation.modules.isValid) {
+              edited = false;
+        }
+      }
+
+      return edited
+    }
+
     render() {
-        const { match } = this.props;
-        const { moduleAccess, sites, clients, accountInfo, loginInfo, adminClass,validation } = this.state;    
-        
+        const { moduleAccess, sites, clients, accountInfo, adminClass,validation } = this.state;
+        const edited = this.edit()
+
         return (<div className="um-detail w-100 h-100">
             {/* <div className={(this.state.isLoadComplete ? 'd-none' : 'spinner')} />
             <div className={(this.state.isLoadComplete ? ' ' : 'd-none')}>
@@ -561,7 +609,7 @@ class UserManagementDetail extends Component {
                                 </div>
 
                                 <div className="col-md-3 pr-0">
-                                    <input type="email" name="email" className={`form-control ${validation.email["isValid"]? '':validation.email["invalidClass"]}`} onChange={(e) => { this.onChangeEmail(e); }} onBlur={(e)=> {this.onBlurEmail(e);}} value={accountInfo.email} />
+                                    <input type="email" name="email" className={`form-control ${validation.email["isValid"]? '':validation.email["invalidClass"]}`} onChange={(e) => { this.onChangeEmail(e , accountInfo.email); }} onBlur={(e)=> {this.onBlurEmail(e);}} value={accountInfo.email} />
                                     <FormFeedback className="invalid-error-padding">
                                         {`${validation.email["message"]}`}
                                     </FormFeedback>
@@ -616,12 +664,24 @@ class UserManagementDetail extends Component {
                             <div className="row">
                                 <div className="col-4">
                                     <ModuleAccess moduleAccess={moduleAccess} onEnableClick={this.onModuleAccessClick} onModuleEnableAll={this.onEnabledAllModuleAccess} isEnableAllModule={this.state.isEnableAllModule} />
+                                    <input type="checkbox" name="moduleAccess" className={`d-none ${validation.modules["isValid"]?'':validation.modules["invalidClass"]}`} />
+                                    <FormFeedback>
+                                        {`${validation.modules["message"]}`}
+                                    </FormFeedback>
                                 </div>
                                 <div className="col-4 pl-0">
                                     <Site sites={sites} onEnableClick={this.onSiteStatusClick} onSiteEnableAll={this.onEnabledAllSite} isEnableAllSite={this.state.isEnableAllSite} />
+                                    <input type="checkbox" name="sites" className={`d-none ${validation.sites["isValid"]?'':validation.sites["invalidClass"]}`} />
+                                    <FormFeedback>
+                                        {`${validation.sites["message"]}`}
+                                    </FormFeedback>
                                 </div>
                                 <div className="col-4 um-client-scrollbar">
                                     <Client clients={clients} onEnableClick={this.onClientStatusClick} onClientEnableAll={this.onEnabledAllClient} isEnableAllClient={this.state.isEnableAllClient} />
+                                    <input type="checkbox" name="clients" className={`d-none ${validation.clients["isValid"]?'':validation.clients["invalidClass"]}`} />
+                                    <FormFeedback>
+                                        {`${validation.clients["message"]}`}
+                                    </FormFeedback>
                                 </div>
 
                             </div>
@@ -639,10 +699,8 @@ class UserManagementDetail extends Component {
                                         </label>
                             </p>
 
-                            <button type="button" className="font-lg btn btn-primary btn-submit default-box-height" onClick={(e) => { this.saveClick(); }}>
+                            <button type="button" className={`font-lg btn btn-submit default-box-height ${edited ? "btn-primary" : "btn-grey"}`} disabled={!edited} onClick={(e) => { this.saveClick(); }} >
                                 {this.state.isSaveProgressing ? <img src={loading} className='mt-min-5' width='45' height='45'/> : 'SAVE'}
-                                {/* <i className={(this.state.isSaveProgressing) ? "mr-2 fa fa-refresh fa-spin " : "fa fa-refresh fa-spin d-none"}></i> */}
-                                {/* <label className="create-user-label mb-0">SAVE</label> */}
                             </button>
 
                         </div>

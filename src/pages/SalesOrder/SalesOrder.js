@@ -132,7 +132,8 @@ const columns = [
     accessor: 'customerpono', 
     placeholder: 'Customer Order Ref', 
     Header: 'Customer Order Ref', 
-    width: 155, 
+    width: 320, 
+    Cell: props => <span>{props.value ? props.value : '-'}</span> 
   },
   { 
     accessor: 'vendororderno', 
@@ -300,7 +301,7 @@ class SalesOrder extends React.PureComponent {
   getTask = async () => {
     const { client, site } = this.state
     if (client && site) {
-      const { data } = await axios.get(`${endpoints.getIsisTask}?client=${client.value}&site=${site.value}&order=so`)
+      const { data } = await axios.get(`${endpoints.getIsisTask}?client=${client?.value}&site=${site?.value}&order=so`)
       const taskData = data.code.map((c, i) => ({ value: c, label: `${data.name[i]}` }))
       const task = { value: 'All', label: 'All Task' }
       taskData.splice(0, 0, task)
@@ -313,12 +314,12 @@ class SalesOrder extends React.PureComponent {
       const { data } = await axios.get(`${endpoints.getSoResources}?company=${user.company || ''}&client=${user.client || ''}`)
       const { code, name } = data.orderTypeFilter
       const orderTypeFilterData = data.orderTypeFilter.code.map((data, i) => ({ value: data, label: `${data}: ${name[i]}` }))
-      const orderTypeData = data.orderType.name.map((data, i) => ({ value: data, label: `${data}: ${data?.orderType?.name[i]}` }))
+      const orderTypeData = data.orderType.description.map((data, i) => ({ value: data, label: `${data}: ${data?.orderType?.description[i]}` }))
       const orderType = { value: 'all', label: 'All Order' }
       orderTypeFilterData.splice(0, 0, orderType)
 
-      const code2 = data.orderType.code.sort();
-      const name2 = data.orderType.name.sort();
+      const code2 = data.orderType.code;
+      const name2 = data.orderType.description;
       const orderTypeInsert = code2.map((c, i) => ({ value: c, label: `${code2[i]}: ${name2[i]}` }))
       this.setState({ resources: data, orderTypeData, orderTypeInsert, orderTypeFilterData })
 
@@ -432,6 +433,7 @@ class SalesOrder extends React.PureComponent {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData, orderTypeInsert, taskData, customFields, tableStatus, exportData, orderTypeFilterData
     } = this.state
+    
     return <div className="sales-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Sales Orders', active: true }]}

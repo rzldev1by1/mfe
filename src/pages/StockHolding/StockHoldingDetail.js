@@ -136,7 +136,7 @@ class SalesOrderDetail extends React.Component {
         Cell: row => {
           return (
             <div>
-              <span className="class-for-name alg-right">{row.original.effectivedate}</span>
+              <span className="class-for-name">{moment(row.original.effectivedate).format('DD/MM/YYYY')}</span>
             </div>
           )
         }
@@ -192,6 +192,8 @@ class SalesOrderDetail extends React.Component {
     detail: {},
     products: [],
     forecast: [],
+    pagination: {}, 
+    paginationForcast: {}, 
     datahead: [],
     activeTab: '1',
     tableStatus: 'waiting', //stock details
@@ -222,44 +224,59 @@ class SalesOrderDetail extends React.Component {
   getDetail = async () => {
     const { product, client, site } = this.props.match.params;
     const url = `/stockdetail/header/${product}?client=${client}&site=${site}`;
-    // const { data } = await axios.get(url)
     axios
       .get(url)
       .then((res) => {
+        console.log(res)
         const result = res.data.data;
         this.setState({ datahead: result });
         this.potableref.current.setPagination(res);
       })
       .catch((error) => { });
   };
-  getStockDetails = async () => {
+  getStockDetails = async (page=1,export_='false') => {
     this.setState({
       data: [],
       tableStatus: 'waiting'
     })
 
+    const { pagination } = this.state
     const { product, client, site, expected_out_qty } = this.props.match.params;
-    const url = `/stockdetail/${product}?client=${client}&site=${site}`;
+    const url = `/stockdetail/${product}?client=${client}&site=${site}&page=${page}&export=${export_}`;
     const { data } = await axios.get(url);
+    console.log(data);
+    console.log(data.data.data.length);
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|[''([{])+\S/g, match => match.toUpperCase());
-    if (data.data.length) {
-      console.log(data.data.length)
-      this.setState({ products: data.data });
+    if (data.data.data.length) {
+      console.log(data.data.data.length)
+      this.setState({ 
+        products: data.data.data,
+        pagination: {
+          active: pagination.active || data.data.current_page,
+          show: data.data.per_page,
+          total: data.data.total,
+          last_page: data.data.last_page,
+          from: data.data.from,
+          to: data.data.to
+        } 
+       });
+
     } else {
       this.setState({
         tableStatus: 'noData'
       })
     }
   };
-  getForescast = async () => {
+  getForescast = async (page=1,export_='false') => {
     this.setState({
       data: [],
       tableStatusForecast: 'waiting'
     })
-
+    const {paginationForcast} = this.state
     const { product, client, site } = this.props.match.params;
-    const url = `/stockbal?client=${client}&product=${product}&site=${site}`;
+    const url = `/stockbal?client=${client}&product=${product}&site=${site}&page=${page}&export=${export_}`;
     const { data } = await axios.get(url);
+    console.log(data);
     const available = data[0][0]['available orders']
     if (data[0][0]['stock expiry'].length === 0) {
       this.setState({
@@ -267,22 +284,25 @@ class SalesOrderDetail extends React.Component {
       })
       return
     }
-    let expiry = data[0][0]['stock expiry']
-    let expdt = expiry[expiry.length - 1].stockexpirydate
+    let expiryDateSH = data[0][0]['stock expiry']
+    console.log(expiryDateSH)
+    let expdt = expiryDateSH[0].stockexpirydate
+    let closingbal = [{ closingbalancetext: `Closing Balance as on ${moment(expdt).format('DD/MM/YYYY')}`, totalbalance: data[0][0]['closing balance'] }]
     const openingbal = [{ openingbalancetext: `Opening Balance as on ${moment().format('DD/MM/YYYY')}`, startbalance: data[0][0]['opening balance'] }]
-    let closingbal = [{ closingbalancetext: `Closing Balance as on ${expdt}`, totalbalance: data[0][0]['closing balance'] }]
     let txt = []
-
+    let expiry = Object.values(expiryDateSH);
+    console.log(expiry);
     expiry.map(expiry => {
       expiry['qty'] = expiry['quantity']
       closingbal[0].totalbalance = parseInt(closingbal[0].totalbalance) - parseInt(expiry.qty)
-      expiry['newstockexpirydate'] = `Batch ( ${expiry['batchnum']} ) Stock Expires on ${expiry['stockexpirydate']}`
+      expiry['newstockexpirydate'] = `Stock Expires on ${moment(expiry['stockexpirydate']).format('DD/MM/YYYY')}`
       expiry['closingstock'] = closingbal[0].totalbalance
       txt.push(expiry.newstockexpirydate?.length)
       
       return expiry
     
     })
+
     let largest= 0;
 
     for (let i=0; i<=largest;i++){
@@ -299,7 +319,17 @@ class SalesOrderDetail extends React.Component {
     concat = concat.concat(closingbal)
     console.log(concat)
     if (data) {
-      this.setState({ forecast: concat });
+      this.setState({ 
+        forecast: concat,
+        paginationForcast: {
+          active: paginationForcast.active || data.current_page,
+          show: data.per_page,
+          total: data.total,
+          last_page: data.last_page,
+          from: data.from,
+          to: data.to
+        }
+      });
     } else {
       this.setState({
         tableStatusForecast: 'noData'
@@ -369,11 +399,14 @@ class SalesOrderDetail extends React.Component {
       products,
       stockDetail,
       activeTab,
+      pagination,
+      paginationForcast,
       ForesCast,
       forecast,
       tableStatus,
       tableStatusForecast
     } = this.state;
+    console.log(paginationForcast)
     let site = this.state.datahead.length ? this.state.datahead[0].site : null;
     let client = this.state.datahead.length
       ? this.state.datahead[0].client
@@ -482,6 +515,7 @@ class SalesOrderDetail extends React.Component {
                   fields={stockDetail}
                   data={products}
                   tableStatus={tableStatus}
+                  pagination={pagination}
                   export={
                     <button className='btn btn-primary float-right btn-export'>
                       {/* <div className='export-export pr-3' /> */}
@@ -501,6 +535,7 @@ class SalesOrderDetail extends React.Component {
                   fields={ForesCast}
                   data={forecast}
                   tableStatus={tableStatusForecast}
+                  // pagination={paginationForcast}
                   exportData={forecast}
                   export={
                     <button className='btn btn-primary float-right btn-export'>

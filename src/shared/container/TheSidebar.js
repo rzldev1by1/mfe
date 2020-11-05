@@ -22,14 +22,20 @@ const TheSidebar = () => {
     dispatch({ type: 'LOGOUT' })
   }
   let userMenu = user.userModules.map(item => (item.menu_id));
-  const adminRoutes = ['/users-management']
+  const adminRoutes = ['/users-management'];
+  const superAdmin = ['MLS12345', 'angae'];
+
   let navigation = nav
   if (user.userLevel === 'Regular') {
     navigation = navigation.filter(n => {
-      console.log();
-      return ((adminRoutes.includes(n.to) ? false : true) && (userMenu.includes(n.key) ? true : false))
-    })
+      return !adminRoutes.includes(n.to) && userMenu.includes(n.key);
+    });
+  } else if (!superAdmin.includes(user.userId)) {
+    navigation = navigation.filter((n) => {
+      return adminRoutes.includes(n.to);
+    });
   }
+
   return (
     <CSidebar
       id="theSidebar"

@@ -10,7 +10,7 @@ import HeaderTitle from 'shared/container/TheHeader'
 import './PurchaseOrder.scss'
 const columns = [
   { 
-    accessor: "orig_line_number",  
+    accessor: "rn",  
     placeholder: 'Line No', 
     Header: "Line No", 
     width:90 ,
@@ -118,8 +118,6 @@ class PurchaseOrdersDetail extends React.Component {
     super(props)
     // ref to get element height and calculate table height
 
-    // console.log(this.props.store.total_length)
-
     this.section1 = React.createRef()
     this.state = {
       dimension: { width: 0, height: 0 },
@@ -160,13 +158,11 @@ class PurchaseOrdersDetail extends React.Component {
     const { orderdetail, client,site} = this.props.match.params
     const url = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${page}&export=${export_}`
     const { data } = await axios.get(url)
-    console.log(data);
     // const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     // if (data.data.length) {
     //   this.setState({ products: data.data })
     // }
     if (data?.data?.data) { 
-      console.log(data.data.data)
       let txt = []
       const dt = data.data.data.map(m => { 
         m.rotadate = m?.rotadate ? moment(m.rotadate).format('DD/MM/YYYY') : '-'
@@ -177,7 +173,6 @@ class PurchaseOrdersDetail extends React.Component {
         txt.push(m.batch?.length)
         return m
       })
-      console.log(txt);
 
       let largest= 0;
 
@@ -188,8 +183,6 @@ class PurchaseOrdersDetail extends React.Component {
       }
 
       // this.props.dispatch({ type: 'TOTAL_LENGTH', data: largest })
-      // console.log(this.props.store.total_length)
-      // console.log(largest)
 
       if(export_=='true'){
         this.setState({ 
@@ -323,6 +316,7 @@ class PurchaseOrdersDetail extends React.Component {
         UrlAll={this.UrlAll}
         tableStatus={tableStatus}
         sortFloat={(column) => this.sortFloat(products, column, sort)}
+        columnsPosition={[{a: 9, b: 14}]}
         export={
           <button className='btn btn-primary float-right btn-export'>
             {/* <div className='export-export pr-3' /> */}

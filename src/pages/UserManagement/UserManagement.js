@@ -225,7 +225,7 @@ class UserManagemen extends Component {
                                     <div className="input-group-prepend">
                                         <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
                                     </div>
-                                    <input type="text" className="form-control pl-0 border-left-0" placeholder="Enter User ID or Username" onChange={e => this.setState({ search: e.target.value })} />
+                                    <input type="text" className="form-control pl-0 border-left-0" placeholder="Enter User ID or Name" onChange={e => this.setState({ search: e.target.value })} />
                                 </div>
                             </CCol>
                             <CCol xl={1} lg={2} md={2} sm={12} className="pr-0">

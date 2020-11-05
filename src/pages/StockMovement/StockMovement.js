@@ -90,7 +90,7 @@ class StockMovement extends React.PureComponent {
     this.getStatus()
     this.getResources()
     //this.searchStockMovement() 
-    this.load_data('', '', 'week')
+    this.load_data('week', '', '')
     this.getStockDate();
     document.getElementById("stockMovement").addEventListener('mousedown', (e) => {
         if(self.refs["dateFrom"] && self.refs["dateFrom"].state.showDatePicker){
@@ -148,11 +148,16 @@ class StockMovement extends React.PureComponent {
     this.setState({
       periodExpand: false,
       dateFromShow: true,
-      filterType: val
+      filterType: val,
+      startDate: null,
+      endDate: null
     });
     if(!isEmptyObject(val)){
         this.openDatePicker('from')
     }
+    this.refs["dateFrom"].resetDateValue();
+    this.refs["dateTo"].resetDateValue();
+
   }
 
   openDatePicker = (type) => {
@@ -419,15 +424,18 @@ class StockMovement extends React.PureComponent {
       var dateA = new Date(a), dateB = new Date(b);
       return dateA - dateB;
     });
-
+    let tmp_detail = []
     this.state.data.map((datax, idx) => {
       let details = datax.detail
-      let tmp_detail = []
+      
       tmp_date.map((date, index) => {
         let tmp_x = null;
         for (let x = 0; x < details.length; x++) {
+          console.log(date);
+          console.log(details[x].date);
+          console.log(details);
           let tmp = null
-          if (date == details[x].date) {
+          if (moment(date) == moment(details[x].date)) {
             tmp = {
               'date': date,
               'sa_plus': details[x].sa_plus,
@@ -589,12 +597,13 @@ class StockMovement extends React.PureComponent {
                   onChange={(e) => {this.openDatePicker('to')}}
                   fromMonth={minDate} toMonth={maxDate}
                 />
+                  <Required id="startDate" error={error} />
         </CCol>
         <div className="px-3 text-light-gray labelDateTo d-flex align-items-center">To</div>
         <CCol lg={2} className="sm-col-14 px-0 dateTo" > 
                   <DatePicker style={{ minWidth: '100%', height:'50px' }}
                       ref="dateTo" arrowStyle={true}
-                      firstDate = {new Date(this.state.startDate)}
+                      firstDate = {this.state.startDate ? new Date(this.state.startDate) : this.state.startDate}
                       firstValue={this.state.firstValue}
                       onOpen={() => { this.closeDatePicker("from") }}
                       getDate={(e) => { this.setState({ endDate: e })}}

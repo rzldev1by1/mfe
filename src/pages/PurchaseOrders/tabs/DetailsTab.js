@@ -11,6 +11,8 @@ import DatePicker from 'shared/DatePicker'
 import validations from './validations'
 
 import { isEmptyObject } from 'jquery'
+import { object } from 'prop-types'
+import NumberFormat from 'react-number-format';
 
 const Required = ({ error, id }) => {
   return <span className="text-error pl-0 text-danger font-12">{error && error[id]}</span>
@@ -30,6 +32,7 @@ class CreateTab extends React.Component {
 
     this.state = {
       status: '',
+      orderStatus:true,
       webUser: props.webUser,
       overflow: [],
       orderDetails: [{
@@ -56,6 +59,7 @@ class CreateTab extends React.Component {
   componentDidMount() {
     this.getDisposition()
     const { user } = this.props
+    let error= this.state.error
 
     if (user.client && user.site) {
       this.getSupplier()
@@ -157,7 +161,6 @@ class CreateTab extends React.Component {
   addLine = () => {
     const error = validations(this.state)
     this.setState({ error })
-    console.log(error?.orderLine)
     if (error?.orderLine?.length > 0) return
     if (this.state.orderLine.length < 10) {
       this.setState({ orderLine: [...this.state.orderLine, {}] })
@@ -218,9 +221,7 @@ class CreateTab extends React.Component {
 
     if (name === 'weight') {
       if (newVal.length > 11) newVal = newVal.split('').filter(d => d !== ',' ? d : null).map((d, i) => { if (i > 10 && !newVal.includes('.')) { return null } else return d }).join('')
-      // console.log(newVal.length)
       const dot = newVal.indexOf('.')
-      console.log(dot + ' dot')
 
       if(dot === -1 && newVal.length === 11) {
         newVal = newVal.slice(0, dot).split('').filter(d => d !== ',').join('')
@@ -229,24 +230,18 @@ class CreateTab extends React.Component {
         let number;
         let decimal = newVal.slice(dot + 1, dot + 4).split('').filter(d => d !== '.' && d !== ',').join('')
         let integer = newVal.slice(0, dot).split('').filter(d => d !== ',').join('')
-        console.log(decimal + ' decimal')
-        console.log(integer + ' int')
-        console.log(integer.length + ' int l')
         if (integer.length <= 6) {
           if (integer.length >= 4) {
             let idxSepr1 = integer.slice(0, integer.length - 3)
             let idxSepr2 = integer.slice(integer.length - 3)
-            console.log(`${idxSepr1},${idxSepr2}.${decimal}`)
             number = `${idxSepr1},${idxSepr2}.${decimal}`
           }
           else number = `${integer}.${decimal}`
         }
         if (integer.length > 6 && integer.length <= 9) {
-          console.log(integer.length + ' asd')
           let idxSepr1 = integer.slice(0, integer.length - 6)
           let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 3)
           let idxSepr3 = integer.slice(integer.length - 3)
-          console.log(`${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`)
           number = `${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`
         }
         if (integer.length > 9 && integer.length <= 8) {
@@ -254,9 +249,9 @@ class CreateTab extends React.Component {
           let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 6)
           let idxSepr3 = integer.slice(idxSepr1.length + idxSepr2.length, idxSepr1.length + idxSepr2.length + 3)
           let idxSepr4 = integer.slice(integer.length - 3)
-          console.log(`${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`)
           number = `${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`
         }
+
         number = number?.split('')
         if (number && number[0] === ',') delete number[0]
         number = number?.join('')
@@ -264,7 +259,7 @@ class CreateTab extends React.Component {
       }
       else return numeral(newVal).format('0,0')
     }
-    else if (name == 'qty') return numeral(newVal).format('0,0')
+    else if (name == 'qty') return newVal ? numeral(newVal).format('0,0') : newVal
     return value
   }
   lineChange = (i, e, numeral) => {
@@ -318,32 +313,40 @@ class CreateTab extends React.Component {
     })
   }
   checkOrderId = async (e) => {
+    this.setState({orderStatus:true})
     let { error, client } = this.state
     let orderId = e.target.value
     let orderDetails = [...this.state.orderDetails]
     orderDetails[0].orderNo = orderId.toUpperCase()
     this.setState({ orderId: orderId.toUpperCase()  , orderDetails })
-    console.log(orderId.trim().length)
-    if (!client) {
-      error.orderId = 'Please select client first'
-      return this.setState({ error }) && false
-    }
+    // if (!client) {
+    //   error.orderId = 'Please select client first'
+    //   return this.setState({ error }) && false
+    // }
    
-    if (orderId.length < 4) {
-      error.orderId = 'Order no. must have min 4 characters'
-      return this.setState({ error })
-    }
+    // if (orderId.length < 4) {
+    //   error.orderId = 'Order no. must have min 4 characters'
+    //   return this.setState({ error })
+    // }
     delete error.orderId
     const { data } = await axios.post('/orderCheck', {
       "client": client.value,
       "order_no": orderId
     })
-    if (data.message !== 'available' && data.message !== 'The client field is required.') {
+    console.log(data);
+    
+    if (data.message === 'not available') {
       error.orderId = 'Order number exist'
+      this.setState({orderStatus:'Order number exist'})
       return this.setState({ error })
     }
     if (data.message === 'The client field is required.') {
+      this.setState({orderStatus:'Please select client'})
       error.orderId = 'Please select client'
+      return this.setState({ error })
+    }
+    if (data.message === 'The order no field is required.') {
+      error.orderId = null
       return this.setState({ error })
     }
   }
@@ -361,7 +364,6 @@ class CreateTab extends React.Component {
   }
   next = (e) => {
     const error = validations(this.state)
-    console.log(this.state.error)
     if (Object.keys(error).length) {
       return this.setState({ error })
     } 
@@ -390,6 +392,10 @@ class CreateTab extends React.Component {
 
   numberCheck = (e) => {
     if (!/^[0-9]+$/.test(e.key)) e.preventDefault()
+  }
+  
+  regExp = (e) => {
+    if (!/^[a-zA-Z0-9-_]+$/.test(e.key)) e.preventDefault()
   }
 
   decimalCheck = (e) => {
@@ -440,12 +446,84 @@ class CreateTab extends React.Component {
     }
   }
 
+  customFormat = (e) => {
+    let value = e.target.value.split(".");
+    if(e.target.value.length){
+        for(var i = 0; i < e.target.value.length; i++){
+            if(e.target.value[i] == "."){
+                let totalLength = value[0].length + value[1].length;
+                if(value[1].length > 0){
+                    if((totalLength == 11) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((totalLength == 12) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((e.target.selectionStart <= 10) && value[0].length >= 10){
+                        if((e.key != ".") && (e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight")){
+                            e.preventDefault();
+                        }
+                    }
+                }
+                if(value[1].length > 1){
+                    if((totalLength == 11) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((totalLength == 12) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((totalLength == 13) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((e.target.selectionStart <= 10) && value[0].length >= 10){
+                        if((e.key != ".") && (e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight")){
+                            e.preventDefault();
+                        }
+                    }
+
+                }
+                if(value[1].length > 2){
+                    if((totalLength == 10) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((totalLength == 11) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((totalLength == 12) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((totalLength == 13) && ((e.target.selectionStart == (i+1)) && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                    if((e.target.selectionStart <= 10) && value[0].length >= 10){
+                        if((e.key != ".") && (e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight")){
+                            e.preventDefault();
+                        }
+                    }
+                    
+                }
+                
+            }else{
+                if((e.target.selectionStart == 10) && ((e.key != ".") && ((e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight")))){
+                        if(e.target.value.length == 10){
+                            e.preventDefault();
+                        }
+                }else if((e.target.selectionStart < 10) && !value[1]){
+                    if((e.target.value.length > 9) && ((e.key != ".") && (e.key !== "Backspace") && (e.key !== "ArrowLeft" && e.key !== "ArrowRight"))){
+                        e.preventDefault();
+                    }
+                }
+            }
+        }
+        
+    }
+  }
+
 
   render() {
     const { error, overflow, site, client, orderType, orderLine,
-      orderId, siteData, clientData, orderTypeData, productData, uomData, dispositionData, supplierData, supplier, orderDetails
+      orderId, siteData, clientData, orderTypeData, productData, uomData, dispositionData, supplierData, supplier, orderDetails, errorCheck
     } = this.state
-
     const { user } = this.props
     let datepickerStatus = this.state.datepickerStatus;
     let UOMStatus = []
@@ -520,7 +598,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Customer Order Ref</label>
-          <input name="customerOrderRef" onChange={this.onChange} className="form-control" placeholder="Customer Order Ref" maxLength='30' />
+          <input name="customerOrderRef" autoComplete='off' onChange={this.onChange} className="form-control" placeholder="Customer Order Ref" maxLength='30' />
         </Col>
       </Row>
       <Row>
@@ -550,7 +628,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3" className="mt-45">
           <label className="text-muted mb-0 required">Order No</label>
-          <input name="orderId" type="text" value={orderId || ''} onKeyDown={(e) => e.keyCode === 32 ? e.preventDefault() : null } onChange={this.checkOrderId} className="form-control" maxLength='12' placeholder="Order No" required />
+          <input name="orderId" autoComplete='off' type="text" value={orderId || ''} onKeyPress={(e) => this.regExp(e)} onKeyDown={(e) => e.keyCode === 32 ? e.preventDefault() : null } onChange={this.checkOrderId} className="form-control" maxLength='12' placeholder="Order No" required />
           <Required id="orderId" error={error} />
         </Col>
         <Col lg="3" className="mt-45">
@@ -569,7 +647,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3" className="mt-45">
           <label className="text-muted mb-0">Vendor Order Ref</label>
-          <input name="vendorOrderRef" onChange={this.onChange} className="form-control" placeholder="Vendor Order Ref" maxLength='40' />
+          <input name="vendorOrderRef" autoComplete='off' onChange={this.onChange} className="form-control" placeholder="Vendor Order Ref" maxLength='40' />
         </Col>
       </Row>
 
@@ -636,6 +714,16 @@ class CreateTab extends React.Component {
                         ...base,
                         transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
                         display: state.selectProps.menuIsOpen ? "flex" : "none"
+                      }),
+                      menu: base => ({
+                          ...base,
+                          height: 230,
+                          maxHeight: 230
+                      }),
+                      menuList: base => ({
+                          ...base,
+                          height: 230,
+                          maxHeight: 230
                       })
                     }}
                   />
@@ -645,14 +733,17 @@ class CreateTab extends React.Component {
                   <input value={o.productVal ? o.product || '' : ''} className="form-control" placeholder="Choose a product first" readOnly style={{ backgroundColor: "#f6f7f9" }} />
                 </td>
                 <td className="px-1">
-                  <input name="qty" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['qty']} type="text" className="form-control" placeholder="Qty" maxlength="10" />
+                  <input name="qty" autoComplete='off' onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['qty']} type="text" className="form-control" placeholder="Qty" maxlength="12" />
                   <div className='w-100 d-flex align-items-start text-nowrap'>
                     <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                   </div>
 
                 </td>
                 <td className="px-1">
-                  <input name="weight" value={this.state.orderLine[i]['weight']} onChange={(e) => this.lineChange(i, e, numeral)} type="text" maxLength="14" className="form-control" placeholder="Weight" />
+                  <NumberFormat onKeyDown={this.customFormat} thousandSeparator={true} onChange={(e) => this.lineChange(i, e, numeral)} decimalScale={3} name="weight" autoComplete='off' ref="weight" value={this.state.orderLine[i]['weight']} className="form-control" placeholder="Weight" inputmode="numeric" />
+                  <div className='w-100 d-flex align-items-start text-nowrap'>
+                    <Required id="weight" error={error.orderLine && error.orderLine[i]} />
+                  </div>
                 </td>
                 <td className="px-1">
                   <Select 
@@ -688,13 +779,13 @@ class CreateTab extends React.Component {
 
                 </td>
                 <td className="px-1">
-                  <input name="batch" onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['batch']} className="form-control" placeholder="Batch" maxLength='30' />
+                  <input name="batch" autoComplete='off' onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['batch']} className="form-control" placeholder="Batch" maxLength='30' />
                 </td>
                 <td className="px-1">
-                  <input name="ref3" onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['ref3']} className="form-control" placeholder="Ref3" maxLength='30' />
+                  <input name="ref3" autoComplete='off' onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['ref3']} className="form-control" placeholder="Ref3" maxLength='30' />
                 </td>
                 <td className="px-1">
-                  <input name="ref4" onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['ref4']} className="form-control" placeholder="Ref4" maxLength='30' />
+                  <input name="ref4" autoComplete='off' onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['ref4']} className="form-control" placeholder="Ref4" maxLength='30' />
                 </td>
                 <td className="px-1">
                   <Select 
@@ -711,6 +802,16 @@ class CreateTab extends React.Component {
                         ...base,
                         transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
                         display: isEmptyObject(o.dispositionVal) ? "flex" : "none"
+                      }),
+                      menu: base => ({
+                          ...base,
+                          height: 230,
+                          maxHeight: 230
+                      }),
+                      menuList: base => ({
+                          ...base,
+                          height: 230,
+                          maxHeight: 230
                       })
                     }}
                     onMenuOpen={() => { dispositionStatus[i] = true; this.setState({ dispositionStatus: dispositionStatus }) }}
@@ -749,7 +850,7 @@ class CreateTab extends React.Component {
         <Col lg={2}></Col>
         <Col lg={8}></Col>
         <Col lg={2} className="text-right">
-          <button className="btn btn-primary" onClick={this.next}>{'NEXT'}</button>
+          <button className='btn btn-primary' onClick={this.next}>{'NEXT'}</button>
         </Col>
       </Row>
     </Container>

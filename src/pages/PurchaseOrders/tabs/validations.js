@@ -1,12 +1,22 @@
 import _ from 'lodash'
 export default (values) => {
   let error = {}
-  let { site, client, orderId, orderType, orderDate, shipToAddress1, postCode, state, orderLine, } = values
+  let { site, client, orderId, orderType, orderDate, shipToAddress1, postCode, state, orderLine, orderStatus } = values
   if (!site.value) {
     error.site = 'Site must be entered'
   }
+  if(orderStatus !== true && orderId){
+    error.orderId = 'Order number exist'
+  }
+  if (!client) {
+    error.orderId = 'Please select client first'
+    // return this.setState({ error }) && false
+  }
   if (!orderId) {
     error.orderId = 'Order Number must be entered'
+  }
+  if (orderId?.length < 4) {
+    error.orderId = 'Order no. must have min 4 characters'
   }
   if (!orderType) {
     error.orderType = 'Order Type must be entered'
@@ -26,10 +36,17 @@ export default (values) => {
       if (!object.productVal) {
         error.orderLine[i].productVal = 'Product must be entered'
       }
+      
+      const weightArray = object?.weight?.split('')
+      if(weightArray !== undefined){
+        if(weightArray[weightArray.length - 1] === '.' || weightArray[weightArray.length - 1] === '.' ){
+          error.orderLine[i].weight = 'Incorrect number format'
+        }
+      }
+      
       if (!object.qty) {
         error.orderLine[i].qty = 'Qty must be entered'
-      }
-      if (object.qty == 0) {
+      }else if (object.qty == 0) {
         error.orderLine[i].qty = 'Qty cannot be 0'
       }
       if (!object?.uom?.value) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal } from 'react-bootstrap'
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
-import * as utility from './UmUtility'
+import * as utility from './UmUtility';
 import axios from 'axios'
 import endpoint from '../../helpers/endpoints'
 import NewUser from './tabs/NewUser'
@@ -175,13 +175,13 @@ class UserManagementCreate extends React.PureComponent {
     if (user.webGroup === utility.webgroup.ADMIN)
       isValid = (user.name && user.email) ? true : false;
     else {
-      
+
         let siteFiltered = sites.filter((item) => {return item.status === true;});
-                
+
         let siteValue = ((siteFiltered.length === 1) || (siteFiltered.length === sites.length)) ? siteFiltered.map(item => item.site):null;
-        
+
         let clientFiltered = clients.filter((item) => {return item.status === true;})
-      
+
           let clientValue = ((clientFiltered.length === 1) || (clientFiltered.length === clients.length))? clientFiltered.map( item => item.code ):null;
 
       isValid = (user.name && user.email && (userMenu && userMenu.length) && siteValue && clientValue) ? true : false;
@@ -248,11 +248,11 @@ class UserManagementCreate extends React.PureComponent {
     let adminMenu = moduleAccess.map((item, index) => { return item.menuid; });
 
     let siteFiltered = sites.filter((item) => {return item.status === true;});
-                
+
         let siteValue = ((siteFiltered.length === 1) || (siteFiltered.length === sites.length)) ? siteFiltered.map(item => item.site):null;
-        
+
         let clientFiltered = clients.filter((item) => {return item.status === true;})
-      
+
           let clientValue = ((clientFiltered.length === 1) || (clientFiltered.length === clients.length))? clientFiltered.map( item => item.code ):null;
 
     userInfo.userMenu = (user.webGroup === utility.webgroup.ADMIN) ? adminMenu : userMenu;
@@ -267,7 +267,7 @@ class UserManagementCreate extends React.PureComponent {
       });;
     }
 
-    
+
 
   }
 
@@ -316,7 +316,7 @@ class UserManagementCreate extends React.PureComponent {
         <Nav tabs className="px-7 mx-0">
           <NavItem className='mr-2'>
             <NavLink className={`d-flex align-items-center m-0 ${key === 'new' ? 'active' : null}`} onClick={() => this.onSelectTab('new')} style={{marginLeft:'0px !important'}}>
-            <span className='number-number-1' /> User Detail                
+            <span className='number-number-1' /> User Detail
             </NavLink>
           </NavItem>
           <NavItem>
