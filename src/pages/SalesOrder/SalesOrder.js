@@ -301,7 +301,7 @@ class SalesOrder extends React.PureComponent {
   getTask = async () => {
     const { client, site } = this.state
     if (client && site) {
-      const { data } = await axios.get(`${endpoints.getIsisTask}?client=${client.value}&site=${site.value}&order=so`)
+      const { data } = await axios.get(`${endpoints.getIsisTask}?client=${client?.value}&site=${site?.value}&order=so`)
       const taskData = data.code.map((c, i) => ({ value: c, label: `${data.name[i]}` }))
       const task = { value: 'All', label: 'All Task' }
       taskData.splice(0, 0, task)
@@ -433,7 +433,8 @@ class SalesOrder extends React.PureComponent {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData, orderTypeInsert, taskData, customFields, tableStatus, exportData, orderTypeFilterData
     } = this.state
-    
+    console.log(siteData);
+    console.log(clientData);
     return <div className="sales-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Sales Orders', active: true }]}

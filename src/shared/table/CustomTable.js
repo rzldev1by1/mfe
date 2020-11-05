@@ -16,7 +16,7 @@ import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
 import validations from './validations'
-import { data } from 'jquery'
+import { data, isEmptyObject } from 'jquery'
 
 //import { splice } from 'core-js/fn/array'
 
@@ -66,6 +66,8 @@ class CustomTable extends React.Component {
       showModal: false,
       editColumn: {},
       error: {},
+      sameColumns: [],
+      sameColumnsIdx: [],
       rename : [],
       editColumnTemp: {},
       trigger: 0,
@@ -489,7 +491,13 @@ class CustomTable extends React.Component {
   };
 
   changedColumn = (e) => {
+    let {error, sameColumns, sameColumnsIdx} = validations(this.state, this.state.changedColumns, e.target.value, e.target.id)
     let changedColumns = this.state.changedColumns;
+
+    this.setState({ error, sameColumnsIdx });
+    if(!isEmptyObject(error)){
+        return null
+    }
 
     if (e.target.value.length > 0) {
       changedColumns.map((item, idx) => {
@@ -500,20 +508,25 @@ class CustomTable extends React.Component {
         }
       });
 
-      changedColumns.push({
+      changedColumns[e.target.id] = {
         headerData: e.target.name,
         header: e.target.value,
-      });
+      }
+
+    //   changedColumns.push({
+    //     headerData: e.target.name,
+    //     header: e.target.value,
+    //   });
 
       this.setState({ changedColumns: changedColumns });
     }
   };
 
   renameSubmit = (e) => {
-    const error = validations(this.state, this.state.changedColumns)
+    const {error, sameColumns, sameColumnsIdx } = validations(this.state, this.state.changedColumns)
     const { rename } = this.state
     if (Object.keys(error).length) {
-      return this.setState({ error })
+      return this.setState({ error, sameColumns, sameColumnsIdx })
     } else {
           this.renameSubmits(this.state.changedColumns);
           this.setState({ showModal: false , error:{}});
@@ -546,6 +559,7 @@ class CustomTable extends React.Component {
   ExportData = () => {
     let fields = this.props.customFields || this.state.fields
     let dataAll = []
+    console.log(fields);
     let isDate = function (input) {
       if (Object.prototype.toString.call(input) === "[object Date]")
         return true;
@@ -556,15 +570,19 @@ class CustomTable extends React.Component {
       dataAll = this.props.exportData.map((data, idx,) => {
           console.log(this.props.exportData);
           let column = fields.map((column, columnIdx) => {
-            if(column.accessor === 'date_received' || column.accessor === 'delivery_date' || column.accessor === 'date_completed' || column.accessor === 'date_released'){
-              if(data[column.accessor]){
-                if(data[column.accessor] === null || data[column.accessor] === 'Invalid Date'){
-                  data[column.accessor] = ''
-                }else{
-                  data[column.accessor] = moment(data[column.accessor]).isValid().format('DD/MM/YYYY')
-                }
-              }
-            }
+            // if(column.accessor === 'date_received' || column.accessor === 'delivery_date' || column.accessor === 'date_completed' || column.accessor === 'date_released'){
+            //   if(data[column.accessor]){
+                // let dateTime = new Date(data[column.accessor]);
+                // dateTime = moment(dateTime).utc().format("YYYY-MM-DD HH:mm:ss");
+                // data[column.accessor] = moment(moment(dateTime).format("DD/MM/YYYY")).format();
+                // const day = new Date(2011, 9, 16);
+                // const dayWrapper = moment(day);
+                  // console.log(data[column.accessor])
+                  // const date = data[column.accessor] = moment(data[column.accessor],"YYYY-MM-DD hh:mm:ss")
+                  // data[column.accessor] = moment(data[column.accessor]).format('DD/MM/YYYY')
+                  // console.log(data);
+            //   }
+            // }
           let split = [data[column.accessor]]
           return split
         })
@@ -605,7 +623,7 @@ class CustomTable extends React.Component {
   }
 
   render() {
-    const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename  } = this.state
+    const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename, sameColumnsIdx  } = this.state
     let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus } = this.props
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
@@ -854,12 +872,13 @@ class CustomTable extends React.Component {
                           return (
                             <div key={index} className='p-2'>
                               <input
+                                id={index}
                                 autoComplete='off'
                                 placeholder={item.placeholder}
                                 name={item.headerData}
                                 sortable={item.sortable}
                                 onChange={this.changedColumn}
-                                className={ `text-left form-rename `}
+                                className={"text-left form-rename"+ (sameColumnsIdx.includes(index.toString()) ? " input-danger" : "")}
                               />
                             </div>
                           );

@@ -209,7 +209,7 @@ class PurchaseOrders extends React.PureComponent {
   getTask = async () => {
     const { client, site } = this.state
     if (client && site) {
-      const { data } = await axios.get(`${endpoints.getIsisTask}?client=${client.value}&site=${site.value}&order=po`)
+      const { data } = await axios.get(`${endpoints.getIsisTask}?client=${client?.value}&site=${site?.value}&order=po`)
       const taskData = data.code.map((c, i) => ({ value: c, label: `${data.name[i]}` }))
       const task = { value: 'all', label: 'All Task' }
       taskData.splice(0, 0, task)
@@ -245,8 +245,8 @@ class PurchaseOrders extends React.PureComponent {
     }
 
     urls.push('searchParam=' + (search ? search : ''))
-    urls.push('site=' + (site.value ? site.value : 'all'))
-    urls.push('client=' + (client.value ? client.value : 'all'))
+    urls.push('site=' + (site?.value ? site.value : 'all'))
+    urls.push('client=' + (client?.value ? client.value : 'all'))
     urls.push('orderType=' + (orderType ? orderType.value : 'all'))
     urls.push('status=' + (status ? status.value : 'all'))
     if (task && task.value !== 'all') urls.push('task=' + task.value)
@@ -254,12 +254,14 @@ class PurchaseOrders extends React.PureComponent {
     if (export_ == 'true') { urls.push('export=true') }
     console.log('load Purchase order', urls.join('&'), task)
     const { data } = await axios.get(`${endpoints.purchaseOrder}?${urls.join('&')}`)
+    console.log(data);
     if (data?.data?.data) {
       const modifiedData = data.data.data.map(m => {
         // m.delivery_date = m?.delivery_date ? moment(m.delivery_date).format('DD/MM/YYYY') : '-'
         // m.date_received = m?.date_received ? moment(m.date_received).format('DD/MM/YYYY') : '-'
         // m.date_released = m?.date_released ? moment(m.date_released).format('DD/MM/YYYY') : '-'
         // m.date_completed = m?.date_completed ? moment(m.date_completed).format('DD/MM/YYYY') : '-'
+        console.log(m);
         return m
       })
       if (export_ == 'true') {
@@ -369,7 +371,7 @@ class PurchaseOrders extends React.PureComponent {
                   <CCol sm={4} lg={2} className="px-0">
                     {
                       this.props.store.user.site ?
-                        <input value={this.siteCheck(site.value)} className="form-control sh-input" readOnly />
+                        <input value={this.siteCheck(site?.value)} className="form-control sh-input" readOnly />
                         :
                         <Select isClearable name="site" placeholder="Site"
                           options={siteData}
@@ -396,7 +398,7 @@ class PurchaseOrders extends React.PureComponent {
                   <CCol sm={4} lg={2} className="px-3">
                     {
                       this.props.store.user.client ?
-                        <input value={this.clientCheck(client.value)} className="form-control sh-input" readOnly />
+                        <input value={this.clientCheck(client?.value)} className="form-control sh-input" readOnly />
                         :
                         <Select isClearable name="client" placeholder="Client"
                           options={clientData}

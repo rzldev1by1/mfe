@@ -714,6 +714,16 @@ class CreateTab extends React.Component {
                         ...base,
                         transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
                         display: state.selectProps.menuIsOpen ? "flex" : "none"
+                      }),
+                      menu: base => ({
+                          ...base,
+                          height: 230,
+                          maxHeight: 230
+                      }),
+                      menuList: base => ({
+                          ...base,
+                          height: 230,
+                          maxHeight: 230
                       })
                     }}
                   />
@@ -723,7 +733,7 @@ class CreateTab extends React.Component {
                   <input value={o.productVal ? o.product || '' : ''} className="form-control" placeholder="Choose a product first" readOnly style={{ backgroundColor: "#f6f7f9" }} />
                 </td>
                 <td className="px-1">
-                  <input name="qty" autoComplete='off' onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['qty']} type="text" className="form-control" placeholder="Qty" maxlength="12" />
+                  <input name="qty" autoComplete='off' onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} value={this.state.orderLine[i]['qty']} type="text" className="form-control" placeholder="Qty" maxlength="11" />
                   <div className='w-100 d-flex align-items-start text-nowrap'>
                     <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                   </div>
@@ -792,6 +802,16 @@ class CreateTab extends React.Component {
                         ...base,
                         transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
                         display: isEmptyObject(o.dispositionVal) ? "flex" : "none"
+                      }),
+                      menu: base => ({
+                          ...base,
+                          height: 230,
+                          maxHeight: 230
+                      }),
+                      menuList: base => ({
+                          ...base,
+                          height: 230,
+                          maxHeight: 230
                       })
                     }}
                     onMenuOpen={() => { dispositionStatus[i] = true; this.setState({ dispositionStatus: dispositionStatus }) }}
