@@ -27,7 +27,7 @@
 }
 
 .form-rename:hover{
-  border-color: #4a78f8 !important;
+  border-color: #4a78f8;
 }
 .form-rename:focus{
   outline: none !important;
