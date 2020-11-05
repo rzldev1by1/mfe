@@ -618,7 +618,7 @@ class CustomTable extends React.Component {
   }
 
   render() {
-    const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename  } = this.state
+    const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename, sameColumnsIdx  } = this.state
     let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus } = this.props
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
@@ -873,7 +873,7 @@ class CustomTable extends React.Component {
                                 name={item.headerData}
                                 sortable={item.sortable}
                                 onChange={this.changedColumn}
-                                className={ `text-left form-rename `}
+                                className={"text-left form-rename"+ (sameColumnsIdx.includes(index.toString()) ? " input-danger" : "")}
                               />
                             </div>
                           );
