@@ -393,6 +393,7 @@ class CreateTab extends React.Component {
 
   siteCheck = (siteVal) => {
     let l = null
+    console.log(this.props.site);
     this.props.site.map(data => {
       if (data.value === siteVal) {
         l = data.label
@@ -619,7 +620,7 @@ class CreateTab extends React.Component {
     let expandDropdownCheck = (this.state.UOMStatus.includes(true) || this.state.dispositionStatus.includes(true)) || this.state.productStatus.includes(true);
     let datepickerExpandStyle = this.state.datepickerStatus.includes(true) ? " lineDetailsTopExpand" : "";
     let dropdownExpandStyle = expandDropdownCheck ? " lineDetailsBottomExpand" : "";
-
+    console.log(user);
     return <Container className="px-5 py-4">
       <h3 className="text-primary font-20">Order Details</h3>
       <Row>
@@ -871,7 +872,7 @@ class CreateTab extends React.Component {
                   <input autoComplete="off" value={o.productVal ? o.product || '' : ''} className="form-control c-600" placeholder="Choose a product first" readOnly style={{ backgroundColor: "#f6f7f9" }} />
                 </td>
                 <td className="text-left">
-                  <input name="qty" autoComplete="off" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control c-150" value={this.state.orderLine[i]['qty']} placeholder="Qty" maxLength="12" />
+                  <input name="qty" autoComplete="off" onKeyPress={(e) => this.numberCheck(e)} onChange={(e) => this.lineChange(i, e)} type="text" min="0" className="form-control c-150" value={this.state.orderLine[i]['qty']} placeholder="Qty" maxLength="11" />
                   <Required id="qty" error={error.orderLine && error.orderLine[i]} />
                 </td>
                 <td className="">

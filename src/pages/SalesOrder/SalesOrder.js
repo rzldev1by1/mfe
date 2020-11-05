@@ -433,7 +433,8 @@ class SalesOrder extends React.PureComponent {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData, orderTypeInsert, taskData, customFields, tableStatus, exportData, orderTypeFilterData
     } = this.state
-    
+    console.log(siteData);
+    console.log(clientData);
     return <div className="sales-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Sales Orders', active: true }]}

@@ -43,6 +43,7 @@ class SalesOrderCreate extends React.PureComponent {
   }
   render() {
     const { data, key } = this.state
+    console.log(data);
     return <Modal show={this.props.show} /* onHide={this.onHide}*/ size="xl" className="purchase-order-create" >
       <Modal.Body className="bg-primary p-0">
         <Row className="pl-5 pr-3 pb-3 pt-3 mx-0">
