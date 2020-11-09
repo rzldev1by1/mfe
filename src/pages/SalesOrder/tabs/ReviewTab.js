@@ -117,6 +117,7 @@ class ReviewTab extends React.Component {
 
   render() {
     const { header, lineDetail } = this.props.data;
+    console.log(this.props.data);
     return (
       <Container className="px-5 py-4">
         <h3 className="text-primary font-20">Order Details</h3>
