@@ -495,7 +495,7 @@ class CustomTable extends React.Component {
     let {error, sameColumns, sameColumnsIdx} = validations(this.state, this.state.changedColumns, e.target.value, e.target.id)
     let changedColumns = this.state.changedColumns;
 
-    this.setState({ error, sameColumnsIdx });
+    this.setState({ error, sameColumns, sameColumnsIdx });
     if(!isEmptyObject(error)){
         return null
     }
