@@ -16,7 +16,8 @@ class Export extends Component {
             exportExpand: false,
             value: "",
             dropdownOpen: new Array(19).fill(false),
-            exportPdf: this.props.pdf || true,
+            ExportBodyPDF: this.props.ExportBodyPDF,
+            module: this.props.module,
             exportExcel: this.props.excel || true,
             exportStatus: 'ready',
             notifExport: false
@@ -55,11 +56,34 @@ class Export extends Component {
 
         await this.props.getExportData() 
         const marginLeft = 40;
-        
-        const doc = this.examples();
-        // const data = this.props.ExportData()
-    
-        doc.save(this.props.ExportName()+".pdf")
+        const {module} = this.state
+
+        if(module === 'sm'){
+          const unit = "pt";
+          const size = "A4"; // Use A1, A2, A3 or A4
+          const orientation = "landscape"; // portrait or landscape
+          const doc = new jsPDF(orientation, unit, size);
+          // You can use html:
+          doc.autoTable({
+            theme: 'plain',
+            margin: 20,
+            html: '#bodyStockMovementPDF',
+            styles: {
+              fontsize: 8,
+              cellPadding: 1.5,
+              overflow: 'linebreak',
+              valign: 'middle',
+              halign: 'center',
+              lineColor: [0, 0, 0],
+              lineWidth: 0.2
+            }
+          });
+          doc.save('table.pdf');
+        }else{
+          const doc = this.examples();
+          // const data = this.props.ExportData()
+          doc.save(this.props.ExportName()+".pdf")
+        }
         this.changeExportStatus('ready')
       }
       exportXLS = async () => {
@@ -114,11 +138,12 @@ class Export extends Component {
     
     render = () => {
         const {exportPdf, exportExcel, exportStatus} = this.state
+        const {exportDataPDF} = this.props
         let styleButton = {}
         if(exportStatus=='wait'){
           styleButton = {pointerEvents:'none'}
         }
-        console.log(this.props.ExportData())
+        console.log(exportDataPDF);
         return (            
             <div> 
                {/* <div style={{marginTop:"-3rem"}}> */}
@@ -130,6 +155,7 @@ class Export extends Component {
                         </div>
                   </DropdownToggle>
                     <DropdownMenu style={{top: "1px",left: "5px"}} className={"no-shadow "+((exportPdf == 'false' || exportExcel == 'false')?' dropdown-single ':' Dropdown-menu ')} >
+                      
                       {(exportPdf == 'false')?'':
                         <DropdownItem className="export-pdf px-3" onClick={() => this.exportPDF()}> 
                             <span className="exp-PDF" style={{paddingRight: "0.28rem"}}/> EXPORT TO PDF

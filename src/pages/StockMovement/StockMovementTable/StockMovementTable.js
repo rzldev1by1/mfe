@@ -5,6 +5,8 @@ import './StockMovementTable.css'
 import CustomPagination from 'shared/table/CustomPagination'
 import moment from 'moment';
 import loading from "assets/icons/loading/LOADING-MLS-GRAY.gif"
+import logoC from "assets/icons/notification/Complete.png"
+import StockMovementPDF from "./StockMovementPDF"
 
 // import mid from 'assets/img/field-idle.png'
 // import down from 'assets/img/field-bot.png'
@@ -185,12 +187,18 @@ class StockMovementTable extends React.Component {
       )
     }
 
+    bodyPDF = () => {
+      return(
+        document.getElementById("bodyPDF")
+      )
+    }
+
   render() {
     const { page, editColumnTemp } = this.state
     let { title, data, fields, onClick, pageSize = 50, height, pagination,dataExport,date_array, tableStatus  } = this.props
     const headerIcon = this.headerIcon(fields, editColumnTemp)
      
-    console.log(dataExport)
+    console.log(data)
     return (
       <React.Fragment>
         <div className="stockMovement">
@@ -221,7 +229,8 @@ class StockMovementTable extends React.Component {
                         export={this.props.export} />
               </CCol>
               <CCol lg="5" className="px-0 export-ml">
-                <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName} module={'sm'}
+                    exportDataPDF={data}
                     ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} 
                     pdf={this.props.pdf}
                     excel={this.props.excel}
@@ -277,6 +286,56 @@ class StockMovementTable extends React.Component {
               )}
             </tbody>
           </table>
+
+          <table id='bodyStockMovementPDF' style={{display: 'none'}}>
+            <thead>
+              <tr>
+                <th colSpan='5'>Client </th>
+                <th colSpan='15'>Product </th>
+              </tr>
+              <tr>
+                <th colSpan='5'> </th>
+                <th colSpan='15'> </th>
+              </tr>
+              <tr  className="border-bottom border-right text-center">
+                <th rowSpan='3' style={{backgroundColor:'red !important'}}>Site <img src={logoC}></img></th>
+                <th rowSpan='3'>Client </th>
+                <th rowSpan='3'>Product </th>
+                <th rowSpan='3'>Description </th>
+                <th rowSpan='3'>UOM </th>
+                {date_array.map((date, index) =>
+                  <th key={index} className="movement-header text-center border-right">
+                        <th colSpan="4">{this.formatDate(date)}</th>
+                        <th width="25%">SA+</th>
+                        <th width="25%">SA-</th>
+                        <th width="25%">Rec</th>
+                        <th width="25%">Send</th>
+                  </th>
+                )}
+              </tr>
+            </thead>
+            <tbody>  
+              {dataExport.map((data, index) =>
+                <tr ref={"row"+index} key={index}>
+                    <td style={{textAlign: 'left'}}>{data.site}</td>
+                    <td style={{textAlign: 'left'}}>{data.client}</td>
+                    <td style={{textAlign: 'left'}}>{data.product}</td>
+                    <td style={{textAlign: 'left'}} className="text-left">{data.product_name}</td>
+                    <td style={{textAlign: 'left'}}>{data.packdesc}</td>
+                    {data.detail.map(detail => 
+                    <td>
+                    <table>
+                        <td style={{textAlign: "right"}}> {detail.sa_plus ? detail.sa_plus : '-'}</td>
+                        <td style={{textAlign: "right"}}>{detail.sa_minus ? detail.sa_minus : '-'}</td>
+                        <td style={{textAlign: "right"}}>{detail.recv_weight ? detail.recv_weight : '-'}</td>
+                        <td style={{textAlign: "right"}}>{detail.send_weight ? detail.send_weight : '-'}</td>
+                    </table>
+                    </td>
+                    )}
+                </tr>  
+              )}
+            </tbody>
+              </table>
         </div>
       </React.Fragment>
     )

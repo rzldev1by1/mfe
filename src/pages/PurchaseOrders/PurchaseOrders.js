@@ -133,7 +133,6 @@ const customColumns = [
 class PurchaseOrders extends React.PureComponent {
   constructor(props) {
     super(props)
-
     this.state = {
       search: '',
       site: {
@@ -283,11 +282,14 @@ class PurchaseOrders extends React.PureComponent {
       }
 
       if (modifiedData.length < 1) {
+      alert('test status')
+
         this.setState({ tableStatus: 'noData' })
       }
     } else {
       this.setState({ data: [] })
-      this.setState({ tableStatus: 'noData' })
+      alert('test status')
+      // this.setState({ tableStatus: 'noData' })
     }
     // this.setState({ data: DummyData })
   }

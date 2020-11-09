@@ -711,10 +711,10 @@ class StockMovement extends React.PureComponent {
       onClick={this.showDetails}
       pagination={pagination}  
       export={<CButton className="btn btn-primary d-flex float-right px-3 align-items-center btn-export">
-      <div className="export-export pr-3"/>
-      EXPORT
-    </CButton>} 
-      pdf='false'
+                <div className="export-export pr-3"/>
+                EXPORT
+              </CButton>} 
+      pdf='true'
     /> 
 
       {/* <CustomPagination
