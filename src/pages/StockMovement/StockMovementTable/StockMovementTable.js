@@ -198,7 +198,7 @@ class StockMovementTable extends React.Component {
     let { title, data, fields, onClick, pageSize = 50, height, pagination,dataExport,date_array, tableStatus  } = this.props
     const headerIcon = this.headerIcon(fields, editColumnTemp)
      
-    console.log(data)
+    console.log(date_array.client)
     return (
       <React.Fragment>
         <div className="stockMovement">
@@ -265,14 +265,14 @@ class StockMovementTable extends React.Component {
               </tr>
             </thead>
             <tbody>  
-              {dataExport.map((data, index) =>
+              {date_array.map((data, index) =>
                 <tr ref={"row"+index} key={index}>
                     <td style={{textAlign: 'left'}}>{data.site}</td>
                     <td style={{textAlign: 'left'}}>{data.client}</td>
                     <td style={{textAlign: 'left'}}>{data.product}</td>
                     <td style={{textAlign: 'left'}} className="text-left">{data.product_name}</td>
                     <td style={{textAlign: 'left'}}>{data.packdesc}</td>
-                    {data.detail.map(detail => 
+                      {data.detail.map(detail => 
                     <td>
                     <table>
                         <td style={{textAlign: "right"}}> {detail.sa_plus ? detail.sa_plus : '-'}</td>
