@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactTable from 'react-table-v6'
-import 'react-table-v6/react-table.css' 
+import 'react-table-v6/react-table.css'
 import './StockMovementTable.css'
 import CustomPagination from 'shared/table/CustomPagination'
 import moment from 'moment';
@@ -12,7 +12,7 @@ import loading from "assets/icons/loading/LOADING-MLS-GRAY.gif"
 
 // Import React Table HOC Fixed columns
 import withFixedColumns from "react-table-hoc-fixed-columns";
-import { CRow, CCol} from "@coreui/react";
+import { CRow, CCol } from "@coreui/react";
 import "react-table-hoc-fixed-columns/lib/styles.css";
 import Export from "../../../shared/table/Export"
 const ReactTableFixedColumns = withFixedColumns(ReactTable);
@@ -28,9 +28,9 @@ class StockMovementTable extends React.Component {
     }
   }
 
-  getExportData = async () => {  
-      console.log("Not Paginate API")
-      return 0 
+  getExportData = async () => {
+    // console.log("Not Paginate API")
+    return 0
   }
 
   showModal = (show) => {
@@ -138,7 +138,7 @@ class StockMovementTable extends React.Component {
 
   ExportHeader = () => {
     let headers = ""
-    console.log(headers)
+    // console.log(headers)
     return headers
   }
   ExportFont = () => {
@@ -148,132 +148,135 @@ class StockMovementTable extends React.Component {
 
   ExportData = () => {
     let data = ""
-    console.log(data)
+    // console.log(data)
     return data
   }
 
   ExportPDFName = () => {
     let name = ""
-    return name 
+    return name
   }
 
   formatDate = (date) => {
-    let dates = moment(date).format('DD MMMM YYYY') 
-    if (this.props.filterType === 'day') {
-        dates = moment(date).format('DD MMMM YYYY')
+    let dates = moment(date).format('DD MMMM YYYY')
+    if (this.props.filterType?.value === 'day') {
+      dates = moment(date).format('DD MMMM YYYY')
     }
-    else if (this.props.filterType === 'week') {
-        let dates2 = moment(date).add('days', 6).format('DD MMMM YYYY')
-        dates = moment(date).format('DD MMMM YYYY')
-        dates = dates + ' - ' + dates2
+    else if (this.props.filterType?.value === 'week') {
+      let dates2 = moment(date).add('days', 6).format('DD MMMM YYYY')
+      dates = moment(date).format('DD MMMM YYYY')
+      dates = dates + ' - ' + dates2
     }
-    else if (this.props.filterType === 'month') {
-        dates = moment(date).format('MMMM YYYY')
-    } 
-    return dates
-}
-  
-    waitingStatus = () => {
-      return (
-        <div className='caution-caution' > <div>No Data Available</div> </div>
-      )
+    else if (this.props.filterType?.value === 'month') {
+      dates = moment(date).format('MMMM YYYY')
     }
+    return dates.toString();
+  }
 
-    noDataStatus = () => {
-      return( 
-        <div> <img src={loading} width='45' height='45'/> </div>
-      )
-    }
+  waitingStatus = () => {
+    return (
+      <div className='caution-caution' > <div>No Data Available</div> </div>
+    )
+  }
+
+  noDataStatus = () => {
+    return (
+      <div> <img src={loading} width='45' height='45' /> </div>
+    )
+  }
 
   render() {
     const { page, editColumnTemp } = this.state
-    let { title, data, fields, onClick, pageSize = 50, height, pagination,dataExport,date_array, tableStatus  } = this.props
+    let { title, data, fields, onClick, pageSize = 50, height, pagination, dataExport, date_array, tableStatus } = this.props
     const headerIcon = this.headerIcon(fields, editColumnTemp)
-     
-    console.log(dataExport)
+    date_array.sort();
+    // console.log('date_array', date_array)
     return (
       <React.Fragment>
-        <div className="stockMovement">
-        <ReactTableFixedColumns
-          columns={headerIcon}
-          data={data}
-          showPagination={false}
-          page={page}
-          defaultPageSize={pageSize}
-          style={{ height }} 
-          noDataText={tableStatus=="noData"?this.waitingStatus():this.noDataStatus()} 
-          minRows='0'
-          getTdProps={(state, rowInfo, column, instance) => {
-            return {
-              onClick: (e, handleOriginal) => {
-                !!onClick && onClick(rowInfo.original, state, column, e, instance)
-              },
-              style: { cursor: !!onClick && 'pointer', textAlign: isNaN(rowInfo?.original[column.id]) ? 'left' : 'right' }
-            }
-          }}
-          {...this.props}
-        />
-         <CRow lg="12" className="mt-3 pagination-custom" >
-          <CCol lg="7" className="px-0 margin-mr" >
+        <div className="stockMovement" >
+          <ReactTableFixedColumns
+            columns={headerIcon}
+            data={data}
+            showPagination={false}
+            page={page}
+            defaultPageSize={pageSize}
+            style={{
+              height
+            }}
+            id='excel'
+            noDataText={tableStatus == "noData" ? this.waitingStatus() : this.noDataStatus()}
+            minRows='0'
+            getTdProps={(state, rowInfo, column, instance) => {
+              return {
+                onClick: (e, handleOriginal) => {
+                  !!onClick && onClick(rowInfo.original, state, column, e, instance)
+                },
+                style: { cursor: !!onClick && 'pointer', textAlign: isNaN(rowInfo?.original[column.id]) ? 'left' : 'right' }
+              }
+            }}
+            {...this.props}
+          />
+          <CRow lg="12" className="mt-3 pagination-custom" >
+            <CCol lg="7" className="px-0 margin-mr" >
               <CustomPagination data={data}
-                        pagination={pagination}
-                        goto={this.props.goto}
-                        export={this.props.export} />
-              </CCol>
-              <CCol lg="5" className="px-0 export-ml">
-                <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
-                    ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont} 
-                    pdf={this.props.pdf}
-                    excel={this.props.excel}
-                    getExportData={() => this.getExportData()}
-                />
+                pagination={pagination}
+                goto={this.props.goto}
+                export={this.props.export} />
+            </CCol>
+            <CCol lg="5" className="px-0 export-ml">
+              <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont}
+                pdf={this.props.pdf}
+                excel={this.props.excel}
+                getExportData={() => this.getExportData()}
+              />
             </CCol>
           </CRow>
 
-          <table id="excel" style={{display: 'none'}}>
+          <table className="table" id="excel" style={{ display: 'none' }}>
             <thead>
-              <tr  className="border-bottom border-right text-center">
+              <tr className="border-bottom border-right text-center">
                 <th>Site </th>
                 <th>Client </th>
                 <th>Product </th>
                 <th>Description </th>
                 <th>UOM </th>
-                  {date_array.map((date, index) =>
-                    <th key={index} className="movement-header text-center border-right">
-                      <table>
-                        <tr>
-                          <th colSpan="4">{this.formatDate(date)}</th>
-                        </tr>
-                        <tr>
-                          <th width="25%">SA+</th>
-                          <th width="25%">SA-</th>
-                          <th width="25%">Rec</th>
-                          <th width="25%">Send</th>
-                        </tr>
-                      </table>
-                    </th>
-                  )}
+                {date_array.map((date, index) =>
+                  <th key={index} className="movement-header text-center border-right">
+                    <table>
+                      <tr>
+                        <th colSpan="4">{this.formatDate(date)}</th>
+                      </tr>
+                      <tr>
+                        <th width="25%">SA+</th>
+                        <th width="25%">SA-</th>
+                        <th width="25%">Rec</th>
+                        <th width="25%">Send</th>
+                      </tr>
+                    </table>
+                  </th>
+                )}
               </tr>
             </thead>
-            <tbody>  
-              {dataExport.map((data, index) =>
-                <tr ref={"row"+index} key={index}>
-                    <td style={{textAlign: 'left'}}>{data.site}</td>
-                    <td style={{textAlign: 'left'}}>{data.client}</td>
-                    <td style={{textAlign: 'left'}}>{data.product}</td>
-                    <td style={{textAlign: 'left'}} className="text-left">{data.product_name}</td>
-                    <td style={{textAlign: 'left'}}>{data.packdesc}</td>
-                    {data.detail.map(detail => 
+            <tbody>
+              {data?.map((datax, index) =>
+                <tr ref={"row" + index} key={index}>
+                  <td style={{ textAlign: 'left' }}>{datax.site}</td>
+                  <td style={{ textAlign: 'left' }}>{datax.client}</td>
+                  <td style={{ textAlign: 'left' }}>{datax.product}</td>
+                  <td style={{ textAlign: 'left' }} className="text-left">{datax.product_name}</td>
+                  <td style={{ textAlign: 'left' }}>{datax.packdesc}</td>
+                  {date_array.map(datex =>
                     <td>
-                    <table>
-                        <td style={{textAlign: "right"}}> {detail.sa_plus ? detail.sa_plus : '-'}</td>
-                        <td style={{textAlign: "right"}}>{detail.sa_minus ? detail.sa_minus : '-'}</td>
-                        <td style={{textAlign: "right"}}>{detail.recv_weight ? detail.recv_weight : '-'}</td>
-                        <td style={{textAlign: "right"}}>{detail.send_weight ? detail.send_weight : '-'}</td>
-                    </table>
+                      <table>
+                        <td style={{ textAlign: "right" }}> {datax['sa_plus_' + datex] ? datax['sa_plus_' + datex] : '-'}</td>
+                        <td style={{ textAlign: "right" }}>{datax['sa_minus_' + datex] ? datax['sa_minus_' + datex] : '-'}</td>
+                        <td style={{ textAlign: "right" }}>{datax['recv_weight_' + datex] ? datax['recv_weight_' + datex] : '-'}</td>
+                        <td style={{ textAlign: "right" }}>{datax['send_weight_' + datex] ? datax['send_weight_' + datex] : '-'}</td>
+                      </table>
                     </td>
-                    )}
-                </tr>  
+                  )}
+                </tr>
               )}
             </tbody>
           </table>
