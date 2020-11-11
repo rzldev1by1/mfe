@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactTable from 'react-table-v6'
-import 'react-table-v6/react-table.css' 
+import 'react-table-v6/react-table.css'
 import './StockMovementTable.css'
 import CustomPagination from 'shared/table/CustomPagination'
 import moment from 'moment';
@@ -14,7 +14,7 @@ import StockMovementPDF from "./StockMovementPDF"
 
 // Import React Table HOC Fixed columns
 import withFixedColumns from "react-table-hoc-fixed-columns";
-import { CRow, CCol} from "@coreui/react";
+import { CRow, CCol } from "@coreui/react";
 import "react-table-hoc-fixed-columns/lib/styles.css";
 import Export from "../../../shared/table/Export"
 const ReactTableFixedColumns = withFixedColumns(ReactTable);
@@ -30,9 +30,9 @@ class StockMovementTable extends React.Component {
     }
   }
 
-  getExportData = async () => {  
-      // console.log("Not Paginate API")
-      return 0 
+  getExportData = async () => {
+    // console.log("Not Paginate API")
+    return 0
   }
 
   showModal = (show) => {
@@ -140,6 +140,7 @@ class StockMovementTable extends React.Component {
 
   ExportHeader = () => {
     let headers = ""
+    // console.log(headers)
     return headers
   }
   ExportFont = () => {
@@ -149,12 +150,13 @@ class StockMovementTable extends React.Component {
 
   ExportData = () => {
     let data = ""
+    // console.log(data)
     return data
   }
 
   ExportPDFName = () => {
     let name = ""
-    return name 
+    return name
   }
 
   formatDate = (date) => {
@@ -172,7 +174,7 @@ class StockMovementTable extends React.Component {
     }
     return dates.toString();
   }
-  
+
   waitingStatus = () => {
     return (
       <div className='caution-caution' > <div>No Data Available</div> </div>
@@ -185,20 +187,15 @@ class StockMovementTable extends React.Component {
     )
   }
 
-    bodyPDF = () => {
-      return(
-        document.getElementById("bodyPDF")
-      )
-    }
-
   render() {
     const { page, editColumnTemp } = this.state
-    let { title, data, fields, onClick, pageSize = 50, height, pagination,dataExport,date_array, tableStatus  } = this.props
+    let { title, data, fields, onClick, pageSize = 50, height, pagination, dataExport, date_array, tableStatus } = this.props
     const headerIcon = this.headerIcon(fields, editColumnTemp)
     date_array.sort();
+    // console.log('date_array', date_array)
     return (
       <React.Fragment>
-         <div className="stockMovement" >
+        <div className="stockMovement" >
           <ReactTableFixedColumns
             columns={headerIcon}
             data={data}
@@ -224,22 +221,23 @@ class StockMovementTable extends React.Component {
           <CRow lg="12" className="mt-3 pagination-custom" >
             <CCol lg="7" className="px-0 margin-mr" >
               <CustomPagination data={data}
-                 pagination={pagination}
-                 goto={this.props.goto}
-                 export={this.props.export} />
-             </CCol>
-             <CCol lg="5" className="px-0 export-ml">
-               <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
-                 ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont}
-                 pdf={this.props.pdf}
-                 excel={this.props.excel}
-                 getExportData={() => this.getExportData()}
-               />
-             </CCol>
-           </CRow>
-           <table className="table" id="excel" style={{ display: 'none' }}>
+                pagination={pagination}
+                goto={this.props.goto}
+                export={this.props.export} />
+            </CCol>
+            <CCol lg="5" className="px-0 export-ml">
+              <Export ExportName={this.ExportName} ExportPDFName={this.ExportPDFName}
+                ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={this.ExportFont}
+                pdf={this.props.pdf}
+                excel={this.props.excel}
+                getExportData={() => this.getExportData()}
+              />
+            </CCol>
+          </CRow>
+
+          <table className="table" id="excel" style={{ display: 'none' }}>
             <thead>
-            <tr className="border-bottom border-right text-center">
+              <tr className="border-bottom border-right text-center">
                 <th>Site </th>
                 <th>Client </th>
                 <th>Product </th>
@@ -279,59 +277,8 @@ class StockMovementTable extends React.Component {
                         <td style={{ textAlign: "right" }}>{datax['send_weight_' + datex] ? datax['send_weight_' + datex] : '-'}</td>
                       </table>
                     </td>
-                    )}
-                    </tr>
-              )}
-            </tbody>
-          </table>
-
-
-          <table id='bodyStockMovementPDF' style={{display: 'none'}}>
-            <thead>
-              <tr>
-                <th colSpan='5'>Client </th>
-                <th colSpan='15'>Product </th>
-              </tr>
-              <tr>
-                <th colSpan='5'> </th>
-                <th colSpan='15'> </th>
-              </tr>
-              <tr  className="border-bottom border-right text-center">
-                <th rowSpan='3' style={{backgroundColor:'red !important'}}>Site <img src={logoC}></img></th>
-                <th rowSpan='3'>Client </th>
-                <th rowSpan='3'>Product </th>
-                <th rowSpan='3'>Description </th>
-                <th rowSpan='3'>UOM </th>
-                {date_array.map((date, index) =>
-                  <th key={index} className="movement-header text-center border-right">
-                        <th colSpan="4">{this.formatDate(date)}</th>
-                        <th width="25%">SA+</th>
-                        <th width="25%">SA-</th>
-                        <th width="25%">Rec</th>
-                        <th width="25%">Send</th>
-                  </th>
-                )}
-              </tr>
-            </thead>
-            <tbody>  
-              {dataExport.map((data, index) =>
-                <tr ref={"row"+index} key={index}>
-                    <td style={{textAlign: 'left'}}>{data.site}</td>
-                    <td style={{textAlign: 'left'}}>{data.client}</td>
-                    <td style={{textAlign: 'left'}}>{data.product}</td>
-                    <td style={{textAlign: 'left'}} className="text-left">{data.product_name}</td>
-                    <td style={{textAlign: 'left'}}>{data.packdesc}</td>
-                    {data.detail.map(detail => 
-                    <td>
-                    <table>
-                        <td style={{textAlign: "right"}}> {detail.sa_plus ? detail.sa_plus : '-'}</td>
-                        <td style={{textAlign: "right"}}>{detail.sa_minus ? detail.sa_minus : '-'}</td>
-                        <td style={{textAlign: "right"}}>{detail.recv_weight ? detail.recv_weight : '-'}</td>
-                        <td style={{textAlign: "right"}}>{detail.send_weight ? detail.send_weight : '-'}</td>
-                    </table>
-                    </td>
-                    )}
-                </tr>  
+                  )}
+                </tr>
               )}
             </tbody>
               </table>
