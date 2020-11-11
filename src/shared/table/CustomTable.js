@@ -12,6 +12,7 @@ import { FaRegEdit } from 'react-icons/fa'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 import CustomPagination from 'shared/table/CustomPagination'
 import Export from "./Export"
+import StockMovementPDF from "../../../src/pages/StockMovement/StockMovementTable/StockMovementPDF"
 import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
@@ -727,7 +728,7 @@ class CustomTable extends React.Component {
               ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={font} /> */}
           </CCol>
           <CCol lg="5" className="px-0 export-ml">
-            <Export ExportName={this.ExportName} ExportPDFName={title}
+            <Export ExportName={this.ExportName} ExportPDFName={title} ExportBodyPDF={<StockMovementPDF/>}
               pdf={this.props.pdf}
               excel={this.props.excel}
               getExportData={() => this.getExportData()}

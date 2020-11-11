@@ -658,6 +658,50 @@ class StockMovement extends React.PureComponent {
                       }}
                     />
                 }
+<<<<<<< HEAD
+            }
+            styles={{
+                option: (provided, state) => ({
+                  ...provided,
+                  textAlign: 'left'
+                }),
+                dropdownIndicator: (base, state) => ({
+                  ...base,
+                  transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                  display: !productSm || !productSm.value ? "flex" : "none"
+                })
+            }}
+        />
+        </CCol> 
+        <CCol lg={2} className="sm-col-11 col-btn px-0">
+            <button className="btn btn-block btn-primary float-right stockMovement btn-search" onClick={this.searchStockMovement} id="stockMovementBtn">SEARCH</button>
+        </CCol>
+
+        {/* Filter content End */} 
+        </CRow>
+        </form>
+      </CCardBody>
+    </CCard>
+
+
+    <StockMovementTable
+      title="Stock Movement"
+      height={dimension.height}
+      data={data_table} //data untuk react-table
+      dataExport={export_data} //data untuk export
+      date_array={date_array}
+      filterType={filterType}
+      fields={fields}
+      tableStatus={tableStatus}
+      onClick={this.showDetails}
+      pagination={pagination}  
+      export={<CButton className="btn btn-primary d-flex float-right px-3 align-items-center btn-export">
+                <div className="export-export pr-3"/>
+                EXPORT
+              </CButton>} 
+      pdf='true'
+    /> 
+=======
 
               </CCol>
               <CCol lg={2} className="sm-col-13 product" >
@@ -719,6 +763,7 @@ class StockMovement extends React.PureComponent {
     </CButton>}
         pdf='false'
       />
+>>>>>>> qa
 
       {/* <CustomPagination
       data={data}

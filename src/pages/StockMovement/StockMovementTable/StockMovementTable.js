@@ -5,6 +5,8 @@ import './StockMovementTable.css'
 import CustomPagination from 'shared/table/CustomPagination'
 import moment from 'moment';
 import loading from "assets/icons/loading/LOADING-MLS-GRAY.gif"
+import logoC from "assets/icons/notification/Complete.png"
+import StockMovementPDF from "./StockMovementPDF"
 
 // import mid from 'assets/img/field-idle.png'
 // import down from 'assets/img/field-bot.png'
@@ -279,7 +281,7 @@ class StockMovementTable extends React.Component {
                 </tr>
               )}
             </tbody>
-          </table>
+              </table>
         </div>
       </React.Fragment>
     )
