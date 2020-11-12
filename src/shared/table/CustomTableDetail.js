@@ -42,7 +42,6 @@ const Required = ({ error, id }) => {
   if(error) {
     const object = Object.keys(error)
     console.log(object)
-    console.log('---')
     if(object.includes(id)) return <span className="text-error text-danger position-absolute font-rename-error">{error && error[id]}</span>
     else return <div></div>
   }
@@ -509,7 +508,9 @@ class CustomTableDetail extends React.Component {
   }
 
   ExportData = () => {
+    console.log(this.props.exportData);
     let fields = this.props.customFields || this.state.fields
+    console.log(fields);
     let dataAll = []
     if (this.props.exportData) {
       dataAll = this.props.exportData.map((data, idx,) => {
@@ -547,7 +548,6 @@ class CustomTableDetail extends React.Component {
   getExportData = async () => {
     if (this.props.exportApi) {
       await this.props.exportApi()
-      console.log(this.props.exportData)
     } else {
       console.log("Not Paginate API")
       return 0
@@ -557,12 +557,10 @@ class CustomTableDetail extends React.Component {
   render() {
     const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename  } = this.state
     let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus } = this.props
-    // console.log(data)
 
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
-    // console.log(this.ExportHeader())  
-console.log(this.state)
+    console.log(exportData)
     return (
       <React.Fragment>
         <ReactTable
