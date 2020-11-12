@@ -34,12 +34,13 @@ class CreateTab extends React.Component {
     deliveryDate: null,
     orderId: null,
     orderTypeValue: null,
-    site: this.props.user.site ? { value: this.props.user.site } : {},
-    client: this.props.user.client ? { value: this.props.user.client } : {},
+    site: this.props.user.site ? { value: this.props.user.site, label:this.props.user.site} : {},
+    client: this.props.user.client ? { value: this.props.user.client, label:this.props.user.client } : {},
     orderType: {},
     supplier: {},
-    customer: {}
+    customer: {},
   }
+  
   componentDidMount() {
     this.getDisposition()
     const { user } = this.props
@@ -148,22 +149,38 @@ class CreateTab extends React.Component {
   }
 
   getSupplierIdentity = async (customer) => {
+
+    if(customer === null){
+      this.setState({
+        city: '',
+        country: '',
+        postCode: '',
+        shipToAddress1: '',
+        shipToAddress2: '',
+        shipToAddress3: '',
+        shipToAddress4: '',
+        shipToAddress5: '',
+        state: ''
+      })
+    }
+
     const { client } = this.state
     const url = `${endpoints.getSoIdentity}`
     if (!customer) return
     const param = `?client=${client.value}&&customerNo=${customer}`
     const { data } = await axios.get(url + param)
+    console.log(data);
     if (data?.identity.length === 0) {
       this.setState({
-        city: null,
-        country: null,
-        postCode: null,
-        shipToAddress1: null,
-        shipToAddress2: null,
-        shipToAddress3: null,
-        shipToAddress4: null,
-        shipToAddress5: null,
-        state: null
+        city: '',
+        country: '',
+        postCode: '',
+        shipToAddress1: '',
+        shipToAddress2: '',
+        shipToAddress3: '',
+        shipToAddress4: '',
+        shipToAddress5: '',
+        state: ''
       })
     }
     else {
@@ -180,6 +197,7 @@ class CreateTab extends React.Component {
         postcode,
         state,
       } = data.identity[0]
+      console.log(data.identity[0]);
       this.setState({
         city: city,
         country: country,
@@ -213,6 +231,7 @@ class CreateTab extends React.Component {
     this.setState({ orderLine })
   }
   onSelectChange = (name, val) => {
+    console.log(name);
     let { error } = this.state
     delete error[name]
     this.setState({ [name]: val }, () => {
@@ -221,7 +240,10 @@ class CreateTab extends React.Component {
       } else if (name === 'orderType') {
         this.orderTypeValue(val)
       } else if (name === 'customer') {
-        if(val){
+        if(val === null){
+          this.getSupplierIdentity(val)
+        }
+        else{
             this.getSupplierIdentity(val.value)
         }
       }
@@ -393,7 +415,6 @@ class CreateTab extends React.Component {
 
   siteCheck = (siteVal) => {
     let l = null
-    console.log(this.props.site);
     this.props.site.map(data => {
       if (data.value === siteVal) {
         l = data.label
@@ -608,10 +629,7 @@ class CreateTab extends React.Component {
 
 
   render() {
-    const { error, overflow, site, client, orderTypeValue, orderLine, customer,
-      orderId, shipToAddress1, postCode, state,
-      siteData, clientData, orderTypeData, productData, uomData, dispositionData, supplierData
-    } = this.state
+    const { error, overflow, site, client, orderTypeValue, orderLine, customer, orderId, shipToAddress1, postCode, state, siteData, clientData, orderTypeData, productData, uomData, dispositionData, supplierData} = this.state
     const { user } = this.props
     let datepickerStatus = this.state.datepickerStatus;
     let UOMStatus = []
@@ -620,7 +638,7 @@ class CreateTab extends React.Component {
     let expandDropdownCheck = (this.state.UOMStatus.includes(true) || this.state.dispositionStatus.includes(true)) || this.state.productStatus.includes(true);
     let datepickerExpandStyle = this.state.datepickerStatus.includes(true) ? " lineDetailsTopExpand" : "";
     let dropdownExpandStyle = expandDropdownCheck ? " lineDetailsBottomExpand" : "";
-    console.log(user);
+    console.log(this.state.shipToAddress3);
     return <Container className="px-5 py-4">
       <h3 className="text-primary font-20">Order Details</h3>
       <Row>
@@ -756,41 +774,41 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Address 2</label>
-          <input value={this.state.shipToAddress2} autoComplete='off' name="shipToAddress2" onChange={this.onChange} className="form-control" placeholder="Address 2" />
+          <input value={this.state.shipToAddress2 === null ? '' : this.state.shipToAddress2} autoComplete='off' name="shipToAddress2" onChange={this.onChange} className="form-control" placeholder="Address 2" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Address 3</label>
-          <input value={this.state.shipToAddress3} autoComplete='off' name="shipToAddress3" onChange={this.onChange} className="form-control" placeholder="Address 3" />
+          <input value={this.state.shipToAddress3 === null ? '' : this.state.shipToAddress3} autoComplete='off' name="shipToAddress3" onChange={this.onChange} className="form-control" placeholder="Address 3" />
         </Col>
       </Row>
       <Row>
         <Col lg="3" className="mb-3">
           <label className="text-muted mb-0">Address 4</label>
-          <input value={this.state.shipToAddress4} autoComplete='off' name="shipToAddress4" onChange={this.onChange} className="form-control" placeholder="Address 4" />
+          <input value={this.state.shipToAddress4 === null ? '' : this.state.shipToAddress4} autoComplete='off' name="shipToAddress4" onChange={this.onChange} className="form-control" placeholder="Address 4" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Address 5</label>
-          <input value={this.state.shipToAddress5} autoComplete='off' name="shipToAddress5" onChange={this.onChange} className="form-control" placeholder="Address 5" />
+          <input value={this.state.shipToAddress5 === null ? '' : this.state.shipToAddress5} autoComplete='off' name="shipToAddress5" onChange={this.onChange} className="form-control" placeholder="Address 5" />
         </Col>
       </Row>
       <Row>
         <Col lg="3">
           <label className="text-muted mb-0">Suburb</label>
-          <input value={this.state.city} autoComplete='off' name="city" onChange={this.onChange} className="form-control" placeholder="Suburb" />
+          <input value={this.state.city === null ? '' : this.state.city} autoComplete='off' name="city" onChange={this.onChange} className="form-control" placeholder="Suburb" />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">Postcode</label>
-          <input value={this.state.postCode} autoComplete='off' name="postCode" type="number" value={postCode || ''} onChange={this.onChange} className="form-control" placeholder="Postcode" required />
+          <input value={this.state.postCode === null ? '' : this.state.postCode} autoComplete='off' name="postCode" type="number" value={postCode || ''} onChange={this.onChange} className="form-control" placeholder="Postcode" required />
           <Required id="postCode" error={error} />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 required">State</label>
-          <input value={this.state.state} autoComplete='off' name="state" type="text" value={state || ''} onChange={this.onChange} className="form-control" placeholder="State" required />
+          <input value={this.state.state === null ? '' : this.state.state} autoComplete='off' name="state" type="text" value={state || ''} onChange={this.onChange} className="form-control" placeholder="State" required />
           <Required id="state" error={error} />
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Country</label>
-          <input value={this.state.country} autoComplete='off' name="country" onChange={this.onChange} className="form-control" placeholder="Country" />
+          <input value={this.state.country === null ? '' : this.state.country} autoComplete='off' name="country" onChange={this.onChange} className="form-control" placeholder="Country" />
         </Col>
       </Row>
 

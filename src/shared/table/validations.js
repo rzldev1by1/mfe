@@ -6,14 +6,14 @@ export default (thisState, changedColumn, renameField, indexField) => {
   let { fields, sameColumns, sameColumnsIdx, error } = thisState
   fields.map((item, idx) => {
     if(idx !== indexField){
-        if(renameField && renameField.toUpperCase() === item.placeholder.toUpperCase()){
-            sameColumns.push(item.placeholder.toUpperCase())
+        if(renameField && renameField?.toUpperCase() === item?.Header?.toUpperCase()){
+            sameColumns.push(item?.Header?.toUpperCase())
             sameColumnsIdx.push(indexField)
         }
         
     }
   })
-      if(!sameColumns.includes(renameField.toUpperCase())){
+      if(!sameColumns.includes(renameField?.toUpperCase())){
           sameColumnsIdx = sameColumnsIdx.filter(value => value != indexField)
       }
   if(!isEmptyObject(sameColumnsIdx)){

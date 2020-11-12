@@ -15,6 +15,7 @@ import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
 import validations from './validations'
+import { isEmptyObject } from "jquery";
 //import { splice } from 'core-js/fn/array'
 
 const baseUrl = process.env.REACT_APP_API_URL;
@@ -42,7 +43,6 @@ const Required = ({ error, id }) => {
   if(error) {
     const object = Object.keys(error)
     console.log(object)
-    console.log('---')
     if(object.includes(id)) return <span className="text-error text-danger position-absolute font-rename-error">{error && error[id]}</span>
     else return <div></div>
   }
@@ -52,7 +52,8 @@ class CustomTableDetail extends React.Component {
   constructor(props) {
     super(props);
     this.dragged = null;
-    this.reorder = props.columnsPosition ? props.columnsPosition : [];
+    this.reorder = [];
+    this.defaultOrder = props.columnsPosition ? props.columnsPosition : []
     let tables = localStorage.getItem("tables") ? JSON.parse(localStorage.getItem("tables")) : [];
     if (tables.length > 0) {
       tables.map((data, idx) => {
@@ -129,6 +130,8 @@ class CustomTableDetail extends React.Component {
   }
 
   componentDidMount() {
+    // this.reorder.forEach(o => this.state.fields.splice(o.a, 0, this.state.fields.splice(o.b, 1)[0]));
+    // this.setState({ fields: this.state.fields })
     this.mountEvents();
     this.headerRename();
     let tableColumns = localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : [];
@@ -362,6 +365,8 @@ class CustomTableDetail extends React.Component {
       }
       fields.push(headerTable);
     });
+    this.defaultOrder.forEach(o => fields.splice(o.a, 0, fields.splice(o.b, 1)[0]));
+    
     if (data.data.length) {
       this.setState({
         products: data.data[0],
@@ -509,7 +514,9 @@ class CustomTableDetail extends React.Component {
   }
 
   ExportData = () => {
+    console.log(this.props.exportData);
     let fields = this.props.customFields || this.state.fields
+    console.log(fields);
     let dataAll = []
     if (this.props.exportData) {
       dataAll = this.props.exportData.map((data, idx,) => {
@@ -547,7 +554,6 @@ class CustomTableDetail extends React.Component {
   getExportData = async () => {
     if (this.props.exportApi) {
       await this.props.exportApi()
-      console.log(this.props.exportData)
     } else {
       console.log("Not Paginate API")
       return 0
@@ -557,12 +563,9 @@ class CustomTableDetail extends React.Component {
   render() {
     const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename  } = this.state
     let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus } = this.props
-    // console.log(data)
 
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
-    this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
-    // console.log(this.ExportHeader())  
-console.log(this.state)
+    this.reorder.forEach(o => isEmptyObject(this.reorder) ? null : headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
     return (
       <React.Fragment>
         <ReactTable
