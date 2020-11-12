@@ -71,7 +71,6 @@ class Export extends Component {
     this.changeExportStatus('wait');
 
     await this.props.getExportData()
-    alert('jjjj')
     document.getElementById("button-download-as-xls").click();
     this.changeExportStatus('ready')
   }
