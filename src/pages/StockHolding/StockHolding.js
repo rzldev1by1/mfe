@@ -116,9 +116,16 @@ const columns = [
     width: 140,
     style: {flexDirection: 'row-reverse'}
   },
-  { accessor: 'price', Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),Header: ' Price ', placeholder: 'Price', width: 70, sortable: false,
-  sortType: "float",
-    style: {flexDirection: 'row-reverse'} },
+  { 
+    accessor: 'price',
+    Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),
+    Header: ' Price ',
+    placeholder: 'Price',
+    width: 70,
+    sortable: false,
+    sortType: "float",
+    style: {flexDirection: 'row-reverse'}
+  },
   { accessor: 'pallets',Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>), Header: 'Pallets', placeholder: 'Pallets', width: 70, sortable: false,
   sortType: "float",
   style: {flexDirection: 'row-reverse'} },
@@ -320,6 +327,7 @@ class StockHolding extends React.PureComponent {
     urls.push('page=' + (pagination.active || 1))
     if(export_=='true'){urls.push('export=true')}
     const { data } = await axios.get(`${endpoints.stockHoldingSummary}?${urls.join('&')}`)
+    console.log(data);
     if (data?.data?.data) {
       const modifiedData = data.data.data;
       console.log(modifiedData)
