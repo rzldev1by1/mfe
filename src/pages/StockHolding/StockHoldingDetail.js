@@ -295,7 +295,11 @@ class SalesOrderDetail extends React.Component {
     expiry.map(expiry => {
       expiry['qty'] = expiry['quantity']
       closingbal[0].totalbalance = parseInt(closingbal[0].totalbalance) - parseInt(expiry.qty)
-      expiry['newstockexpirydate'] = `Stock Expires on ${moment(expiry['stockexpirydate']).format('DD/MM/YYYY')}`
+      if(expiry['batchnum']){
+        expiry['newstockexpirydate'] = `Batch (${expiry['batchnum']}) Stock Expires on ${moment(expiry['stockexpirydate']).format('DD/MM/YYYY')}`
+      }else{
+        expiry['newstockexpirydate'] = `Stock Expires on ${moment(expiry['stockexpirydate']).format('DD/MM/YYYY')}`
+      }
       expiry['closingstock'] = closingbal[0].totalbalance
       txt.push(expiry.newstockexpirydate?.length)
       
