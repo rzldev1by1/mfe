@@ -149,6 +149,21 @@ class CreateTab extends React.Component {
   }
 
   getSupplierIdentity = async (customer) => {
+
+    if(customer === null){
+      this.setState({
+        city: '',
+        country: '',
+        postCode: '',
+        shipToAddress1: '',
+        shipToAddress2: '',
+        shipToAddress3: '',
+        shipToAddress4: '',
+        shipToAddress5: '',
+        state: ''
+      })
+    }
+
     const { client } = this.state
     const url = `${endpoints.getSoIdentity}`
     if (!customer) return
@@ -157,15 +172,15 @@ class CreateTab extends React.Component {
     console.log(data);
     if (data?.identity.length === 0) {
       this.setState({
-        city: null,
-        country: null,
-        postCode: null,
-        shipToAddress1: null,
-        shipToAddress2: null,
-        shipToAddress3: null,
-        shipToAddress4: null,
-        shipToAddress5: null,
-        state: null
+        city: '',
+        country: '',
+        postCode: '',
+        shipToAddress1: '',
+        shipToAddress2: '',
+        shipToAddress3: '',
+        shipToAddress4: '',
+        shipToAddress5: '',
+        state: ''
       })
     }
     else {
@@ -216,6 +231,7 @@ class CreateTab extends React.Component {
     this.setState({ orderLine })
   }
   onSelectChange = (name, val) => {
+    console.log(name);
     let { error } = this.state
     delete error[name]
     this.setState({ [name]: val }, () => {
@@ -224,7 +240,10 @@ class CreateTab extends React.Component {
       } else if (name === 'orderType') {
         this.orderTypeValue(val)
       } else if (name === 'customer') {
-        if(val){
+        if(val === null){
+          this.getSupplierIdentity(val)
+        }
+        else{
             this.getSupplierIdentity(val.value)
         }
       }
