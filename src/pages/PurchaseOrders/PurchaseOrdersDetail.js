@@ -270,6 +270,7 @@ class PurchaseOrdersDetail extends React.Component {
   render() {
     // const { match, history } = this.props
     const { detail, products, fields, pagination, tableStatus, exportData, sort } = this.state
+    console.log(exportData);
     return <div className="purchase-order-details">
       <HeaderTitle breadcrumb={[
         { to: '/purchase-order', label: 'Purchase Order' },

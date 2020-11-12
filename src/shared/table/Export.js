@@ -55,7 +55,7 @@ class Export extends Component {
     const marginLeft = 40;
 
     const doc = this.examples();
-    // const data = this.props.ExportData()
+    const data = this.props.ExportData()
 
     doc.save(this.props.ExportName() + ".pdf")
     this.changeExportStatus('ready')
@@ -71,7 +71,7 @@ class Export extends Component {
     this.changeExportStatus('wait');
 
     await this.props.getExportData()
-
+    alert('jjjj')
     document.getElementById("button-download-as-xls").click();
     this.changeExportStatus('ready')
   }
@@ -116,7 +116,7 @@ class Export extends Component {
     if (exportStatus == 'wait') {
       styleButton = { pointerEvents: 'none' }
     }
-    // console.log(this.props.ExportData())
+    console.log(exportExcel)
     return (
       <div>
         {/* <div style={{marginTop:"-3rem"}}> */}
