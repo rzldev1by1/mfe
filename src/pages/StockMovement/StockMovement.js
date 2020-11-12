@@ -29,9 +29,9 @@ const columns = [
 const Required = ({ error, id }) => {
   return <span className="text-error text-danger position-absolute font-12">{error && error[id]}</span>
 }
- 
+
 class StockMovement extends React.PureComponent {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       search: '',
@@ -39,7 +39,7 @@ class StockMovement extends React.PureComponent {
       client: '',
       status: '',
       product: '',
-      productSm:'',
+      productSm: '',
       productIsLoad: false,
       orderType: null,
       task: null,
@@ -51,12 +51,12 @@ class StockMovement extends React.PureComponent {
       create: false,
       export_data: [],
       detail: {},
-      pagination: {last_page: 1},
+      pagination: { last_page: 1 },
       dateArray: [],
       dimension: { width: 0, height: 0 },
       startDate: moment().subtract(27, 'days').format('YYYY-MM-DD'),
       endDate: moment().format('YYYY-MM-DD'),
-      filterType: {value: "week", label: "Weekly"},
+      filterType: { value: "week", label: "Weekly" },
       productData: [],
       filterData: [
         { 'value': 'day', 'label': 'Daily' },
@@ -70,7 +70,7 @@ class StockMovement extends React.PureComponent {
       dateFromShow: false,
       firstValue: true,
       dateToText: null,
-      dateToShow: false, 
+      dateToShow: false,
       minDate: null,
       maxDate: null,
       tableStatus: 'waiting' //table status waiting or noData
@@ -78,7 +78,7 @@ class StockMovement extends React.PureComponent {
   }
 
   componentDidMount = () => {
-      let self = this;
+    let self = this;
     // set automatic table height
     this.updateDimension();
     window.addEventListener('resize', this.updateDimension);
@@ -90,31 +90,31 @@ class StockMovement extends React.PureComponent {
     this.load_data('week', '', '')
     this.getStockDate();
     document.getElementById("stockMovement").addEventListener('mousedown', (e) => {
-        if(self.refs["dateFrom"] && self.refs["dateFrom"].state.showDatePicker){
-            self.closeDatePicker("from", e)
-        }
+      if (self.refs["dateFrom"] && self.refs["dateFrom"].state.showDatePicker) {
+        self.closeDatePicker("from", e)
+      }
 
-        if(self.refs["dateTo"] && self.refs["dateTo"].state.showDatePicker){
-            self.closeDatePicker("to", e)
-        }
+      if (self.refs["dateTo"] && self.refs["dateTo"].state.showDatePicker) {
+        self.closeDatePicker("to", e)
+      }
     });
     document.getElementById("stockMovementBtn").addEventListener('mousedown', (e) => {
-        if(self.refs["dateFrom"] && self.refs["dateFrom"].state.showDatePicker){
-            self.closeDatePicker("from", e)
-        }
+      if (self.refs["dateFrom"] && self.refs["dateFrom"].state.showDatePicker) {
+        self.closeDatePicker("from", e)
+      }
 
-        if(self.refs["dateTo"] && self.refs["dateTo"].state.showDatePicker){
-            self.closeDatePicker("to", e)
-        }
+      if (self.refs["dateTo"] && self.refs["dateTo"].state.showDatePicker) {
+        self.closeDatePicker("to", e)
+      }
     });
     document.getElementById("theSidebar").addEventListener('mousedown', (e) => {
-        if(self.refs["dateFrom"] && self.refs["dateFrom"].state.showDatePicker){
-            self.closeDatePicker("from", e)
-        }
+      if (self.refs["dateFrom"] && self.refs["dateFrom"].state.showDatePicker) {
+        self.closeDatePicker("from", e)
+      }
 
-        if(self.refs["dateTo"] && self.refs["dateTo"].state.showDatePicker){
-            self.closeDatePicker("to", e)
-        }
+      if (self.refs["dateTo"] && self.refs["dateTo"].state.showDatePicker) {
+        self.closeDatePicker("to", e)
+      }
     });
   }
 
@@ -138,8 +138,8 @@ class StockMovement extends React.PureComponent {
       startDate: null,
       endDate: null
     });
-    if(!isEmptyObject(val)){
-        this.openDatePicker('from')
+    if (!isEmptyObject(val)) {
+      this.openDatePicker('from')
     }
     this.refs["dateFrom"].resetDateValue();
     this.refs["dateTo"].resetDateValue();
@@ -156,12 +156,12 @@ class StockMovement extends React.PureComponent {
 
   closeDatePicker = (type, e) => {
     let self = this;
-    if((e) && ((type === 'from') && (this.refs["dateFrom"].current && !this.refs["dateFrom"].current.contains(e.target)))){
-        return this.refs["dateFrom"].closeDatePicker()
+    if ((e) && ((type === 'from') && (this.refs["dateFrom"].current && !this.refs["dateFrom"].current.contains(e.target)))) {
+      return this.refs["dateFrom"].closeDatePicker()
     }
 
-    if((e) && ((type === 'to') && (this.refs["dateTo"].current && !this.refs["dateTo"].current.contains(e.target)))){
-        return this.refs["dateTo"].closeDatePicker()
+    if ((e) && ((type === 'to') && (this.refs["dateTo"].current && !this.refs["dateTo"].current.contains(e.target)))) {
+      return this.refs["dateTo"].closeDatePicker()
     }
 
     if (type === 'from') {
@@ -192,21 +192,21 @@ class StockMovement extends React.PureComponent {
   }
   siteCheck = (siteVal) => {
     let l = null
-    const {site} = this.props.store
-    if(site)
-    site.map(data => {
-      if (data.value === siteVal) l = data.label
-    })
+    const { site } = this.props.store
+    if (site)
+      site.map(data => {
+        if (data.value === siteVal) l = data.label
+      })
     return l
   }
 
   clientCheck = (clientVal) => {
     let c = null
-    const {client} = this.props.store
-    if(client)
-    client.map(data => {
-      if (data.value === clientVal) c = data.label
-    })
+    const { client } = this.props.store
+    if (client)
+      client.map(data => {
+        if (data.value === clientVal) c = data.label
+      })
     return c
   }
   getStatus = async () => {
@@ -224,11 +224,11 @@ class StockMovement extends React.PureComponent {
 
   getproduct = async (val) => {
     this.setState({ productdata: [], productIsLoad: true });
-    const { data } = await axios.get(endpoints.getProduct + '?client=' + this.state.client.value + '&param=' + (val.toUpperCase()) ).then(res => {
-        this.setState({ productIsLoad: false });
-        return res
+    const { data } = await axios.get(endpoints.getProduct + '?client=' + this.state.client.value + '&param=' + (val.toUpperCase())).then(res => {
+      this.setState({ productIsLoad: false });
+      return res
     })
-    const productData = data.map((data, i) => ({ value: data.code, label: data.code + " : " + data.name , i }))
+    const productData = data.map((data, i) => ({ value: data.code, label: data.code + " : " + data.name, i }))
     const tmp = { value: 'all', label: 'All Product' }
     productData.splice(0, 0, tmp);
     this.setState({ productData });
@@ -239,29 +239,30 @@ class StockMovement extends React.PureComponent {
     if (user) {
       const { data } = await axios.get(`/getsorecources?company=${user.company}&client=${user.client}`)
       const { code, name } = data.orderType
-      const orderTypeData = code.map((c, i) => ({ value: c, label: `${code[i]}: ${name[i]}` }))
-      const orderType = { value: 'all', label: 'All' }
-      orderTypeData.splice(0, 0, orderType)
-      this.setState({ resources: data, orderTypeData })
+      // const orderTypeData = code && code.map((c, i) => ({ value: c, label: `${code[i]}: ${name[i]}` }))
+      // const orderType = { value: 'all', label: 'All' }
+      // orderTypeData.splice(0, 0, orderType)
+      // this.setState({ resources: data, orderTypeData })
     }
   }
 
-  searchStockMovement = async () => { 
+  searchStockMovement = async () => {
     this.setState({
       periodSelected: 1
     })
     const { periods, site, client, filterType, product, periodSelected, productSm } = this.state
-    if(isEmptyObject(validations(this.state))){
-        let header = Object.assign({}, this.state)
-        this.load_data(filterType.value, site.value, client.value, productSm.value)
-        this.setState({ error: delete header.error})
-    }else{
-        const error = validations(this.state)
-        if (Object.keys(error).length) {
-          return this.setState({ 
-            periodSelected: '',
-            error })
-        }
+    if (isEmptyObject(validations(this.state))) {
+      let header = Object.assign({}, this.state)
+      this.load_data(filterType.value, site.value, client.value, productSm.value)
+      this.setState({ error: delete header.error })
+    } else {
+      const error = validations(this.state)
+      if (Object.keys(error).length) {
+        return this.setState({
+          periodSelected: '',
+          error
+        })
+      }
 
     }
   }
@@ -380,11 +381,11 @@ class StockMovement extends React.PureComponent {
   }
 
   setData = async () => {
+    //this function will set data that generate table for export
     let tmp_data = []
     let tmp_date = []
     const tmp_export = this.state.data
-    console.log(this.state.data);
-    console.log(tmp_export);
+    // console.log('tmp_export', tmp_export)
     this.state.data.map((datas, idx) => {
       let tmp_row = {
         'site': datas.site,
@@ -416,13 +417,13 @@ class StockMovement extends React.PureComponent {
     let tmp_detail = []
     this.state.data.map((datax, idx) => {
       let details = datax.detail
-      
+
       tmp_date.map((date, index) => {
         let tmp_x = null;
         for (let x = 0; x < details.length; x++) {
-          console.log(date);
-          console.log(details[x].date);
-          console.log(details);
+          // console.log(date);
+          // console.log(details[x].date);
+          // console.log(details);
           let tmp = null
           if (moment(date) == moment(details[x].date)) {
             tmp = {
@@ -451,21 +452,20 @@ class StockMovement extends React.PureComponent {
 
 
     this.setState({ data_table: tmp_data, date_array: tmp_date, export_data: tmp_export }, () => {
-      console.log(tmp_date)
-      console.log(tmp_data)
-      console.log("-------------------------")
+      // console.log(tmp_date)
+      // console.log("-------------------------")
     })
   }
 
   load_data = async (periods, site = this.props.store?.user?.site, client = this.props.store?.user?.client, product = "") => {
 
-    try {   
+    try {
       this.setState({
         periodSelected: 1,
         data: [],
         tableStatus: 'waiting'
       })
-      
+
       let paramUrl = []
       let dateArray = []
       let stDate = this.state.startDate
@@ -505,18 +505,18 @@ class StockMovement extends React.PureComponent {
       axios.get(endpoints.stockMovement + '?' + paramUrl.join('&')).then(res => {
         //get result 
         const result = res.data.data
+        // console.log(result)
+        if (result.length < 1) {
+          this.setState({ tableStatus: 'noData' })
+        }
 
-          if(result.length < 1){
-            this.setState({   tableStatus: 'noData'  })
-          }
-
-          this.setState({ data: result }, function(){ 
-              this.setData()
-          }) 
+        this.setState({ data: result }, function () {
+          this.setData()
+        })
       })
-      .catch(error => {
-        console.log(error) 
-      })
+        .catch(error => {
+          console.log(error)
+        })
         .catch(error => {
           console.log(error)
         })
@@ -536,186 +536,189 @@ class StockMovement extends React.PureComponent {
 
 
   render() {
-    console.log(this.props.store)
+    // console.log(this.props.store)f
     const {
       dimension, fields, data, site, client, status, orderType, create, task, error,
-      siteData, clientData, statusData, orderTypeData, taskData, data_table, filterType,filterData,
-      product, productData, productIsLoad, periodSelected, pagination,dateFromShow, minDate,maxDate, date_array,export_data,
-      tableStatus,productSm
-  } = this.state 
-  //custom style react-select  
-  return <div className="stockMovement">
-    <HeaderTitle
-      breadcrumb={[{ to: '', label: 'Stock Movement', active: true }]} 
-    />
- 
-    <CCard style={{zIndex: '999'}} className="mb-3 StockMovementFilter">
-      <CCardBody className="p-3 main-con">
-        <form onSubmit={this.submitSearch}>
-        <CRow > 
-        {/* Filter content start */}
+      siteData, clientData, statusData, orderTypeData, taskData, data_table, filterType, filterData,
+      product, productData, productIsLoad, periodSelected, pagination, dateFromShow, minDate, maxDate, date_array, export_data,
+      tableStatus, productSm
+    } = this.state
+    // console.log('data_table', data_table)
+    //custom style react-select  
+    return <div className="stockMovement">
+      <HeaderTitle
+        breadcrumb={[{ to: '', label: 'Stock Movement', active: true }]}
+      />
 
-        <CCol lg={2} className="sm-col-14 px-0">
-            <Select isClearable name="filterType" className="stockMovement" placeholder="Display Period"
-              value={isEmptyObject(filterType) ? null : filterType} options={filterData} 
-              onChange={(val, { action }) => this.periodHandler( action == "clear" ? {} : val )} 
-              filterOption={
-                  (option, inputVal) => {
+      <CCard style={{ zIndex: '999' }} className="mb-3 StockMovementFilter">
+        <CCardBody className="p-3 main-con">
+          <form onSubmit={this.submitSearch}>
+            <CRow >
+              {/* Filter content start */}
+
+              <CCol lg={2} className="sm-col-14 px-0">
+                <Select isClearable name="filterType" className="stockMovement" placeholder="Display Period"
+                  value={isEmptyObject(filterType) ? null : filterType} options={filterData}
+                  onChange={(val, { action }) => this.periodHandler(action == "clear" ? {} : val)}
+                  filterOption={
+                    (option, inputVal) => {
                       return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                    }
                   }
-              }
-              styles={{
-                  option: (provided, state) => ({
-                    ...provided,
-                    textAlign: 'left'
-                  }),
-                  dropdownIndicator: (base, state) => ({
-                    ...base,
-                    transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
-                    display: !filterType || !filterType.value ? "flex" : "none"
-                  })
-              }}
-            />
-            <Required id="filterType" error={error} />
-        </CCol>
-        <div className="px-3 text-light-gray labelDateFrom d-flex align-items-center" >Date From</div>
-        <CCol lg={2} className="sm-col-14 px-0 dateFrom" > 
+                  styles={{
+                    option: (provided, state) => ({
+                      ...provided,
+                      textAlign: 'left'
+                    }),
+                    dropdownIndicator: (base, state) => ({
+                      ...base,
+                      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                      display: !filterType || !filterType.value ? "flex" : "none"
+                    })
+                  }}
+                />
+                <Required id="filterType" error={error} />
+              </CCol>
+              <div className="px-3 text-light-gray labelDateFrom d-flex align-items-center" >Date From</div>
+              <CCol lg={2} className="sm-col-14 px-0 dateFrom" >
                 <DatePicker style={{ minWidth: '100%' }}
                   ref="dateFrom" arrowStyle={true}
-                  getDate={(e) => { this.setState({ startDate: e, firstValue: false })}}
+                  getDate={(e) => { this.setState({ startDate: e, firstValue: false }) }}
                   defaultValue={new Date(this.state.startDate)} tabIndex="1" placeHolder="Select Date"
-                  onChange={(e) => {this.openDatePicker('to')}}
+                  onChange={(e) => { this.openDatePicker('to') }}
                   fromMonth={minDate} toMonth={maxDate}
                 />
-                  <Required id="startDate" error={error} />
-        </CCol>
-        <div className="px-3 text-light-gray labelDateTo d-flex align-items-center">To</div>
-        <CCol lg={2} className="sm-col-14 px-0 dateTo" > 
-                  <DatePicker style={{ minWidth: '100%', height:'50px' }}
-                      ref="dateTo" arrowStyle={true}
-                      firstDate = {this.state.startDate ? new Date(this.state.startDate) : this.state.startDate}
-                      firstValue={this.state.firstValue}
-                      onOpen={() => { this.closeDatePicker("from") }}
-                      getDate={(e) => { this.setState({ endDate: e })}}
-                      defaultValue={new Date(this.state.endDate)} tabIndex="1" placeHolder="Select Date"
-                      fromMonth={minDate} toMonth={maxDate}
-                  /> 
-                  <Required id="endDate" error={error} />
-        </CCol>
-        <CCol lg={2} className="sm-col-12 pr-0 site" > 
-        {
-          this.props.store?.user?.site ? 
-          < input name="site" type="text" value={this.siteCheck(this.props.store?.user?.site) || ''} className="form-control" placeholder="Site" maxLength="12" readOnly />
-          :
-          <Select isClearable name="site" placeholder="Site"
-            value={site} options={siteData}
-            filterOption={
-                (option, inputVal) => {
-                    return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                <Required id="startDate" error={error} />
+              </CCol>
+              <div className="px-3 text-light-gray labelDateTo d-flex align-items-center">To</div>
+              <CCol lg={2} className="sm-col-14 px-0 dateTo" >
+                <DatePicker style={{ minWidth: '100%', height: '50px' }}
+                  ref="dateTo" arrowStyle={true}
+                  firstDate={this.state.startDate ? new Date(this.state.startDate) : this.state.startDate}
+                  firstValue={this.state.firstValue}
+                  onOpen={() => { this.closeDatePicker("from") }}
+                  getDate={(e) => { this.setState({ endDate: e }) }}
+                  defaultValue={new Date(this.state.endDate)} tabIndex="1" placeHolder="Select Date"
+                  fromMonth={minDate} toMonth={maxDate}
+                />
+                <Required id="endDate" error={error} />
+              </CCol>
+              <CCol lg={2} className="sm-col-12 pr-0 site" >
+                {
+                  this.props.store?.user?.site ?
+                    < input name="site" type="text" value={this.siteCheck(this.props.store?.user?.site) || ''} className="form-control" placeholder="Site" maxLength="12" readOnly />
+                    :
+                    <Select isClearable name="site" placeholder="Site"
+                      value={site} options={siteData}
+                      filterOption={
+                        (option, inputVal) => {
+                          return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                        }
+                      }
+                      onChange={(val) => this.setState({ site: val })}
+                      styles={{
+                        option: (provided, state) => ({
+                          ...provided,
+                          textAlign: 'left'
+                        }),
+                        dropdownIndicator: (base, state) => ({
+                          ...base,
+                          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                          display: !site || !site.value ? "flex" : "none"
+                        })
+                      }}
+                    />
                 }
-            }
-            onChange={(val) => this.setState({ site: val })} 
-            styles={{
-                option: (provided, state) => ({
-                  ...provided,
-                  textAlign: 'left'
-                }),
-                dropdownIndicator: (base, state) => ({
-                  ...base,
-                  transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
-                  display: !site || !site.value ? "flex" : "none"
-                })
-            }}
-          />
-        }
-      
 
-        </CCol>
-        <CCol lg={2} className="sm-col-12 pr-0 client" > 
-        {
-           this.props.store?.user?.client ? 
-           < input name="client" type="text" value={this.clientCheck(this.props.store?.user?.client) || ''} className="form-control" placeholder="Client" maxLength="12" readOnly />
-           :
-           <Select isClearable name="client" placeholder="Client"
-           value={client} options={clientData}
-           onChange={(val) => this.setState({ client: val })} 
-           filterOption={
-               (option, inputVal) => {
-                   return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
-               }
-           }
-           styles={{
-               option: (provided, state) => ({
-                 ...provided,
-                 textAlign: 'left'
-               }),
-               dropdownIndicator: (base, state) => ({
-                 ...base,
-                 transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
-                 display: !client || !client.value ? "flex" : "none"
-               })
-           }}
-       />
-        }
-      
-        </CCol>
-        <CCol lg={2} className="sm-col-13 product" > {console.log(this.state.productSm)}
-        <Select isClearable name="product" placeholder="Product"
-            isClearable={true} 
-            // value={productSm}
-            isLoading={productIsLoad}
-             options={product ? productData : []}
-            menuIsOpen={product ? true : false}
-            onInputChange={(val) => {this.setState({ product: val.length >= 3 ? val : null }, () => {
-                if(val.length >= 3) { this.getproduct(val) }
-            }) }}
-            onChange={(val) => this.setState({ productSm: val })} 
-            filterOption={
-                (option, inputVal) => {
-                    return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+
+              </CCol>
+              <CCol lg={2} className="sm-col-12 pr-0 client" >
+                {
+                  this.props.store?.user?.client ?
+                    < input name="client" type="text" value={this.clientCheck(this.props.store?.user?.client) || ''} className="form-control" placeholder="Client" maxLength="12" readOnly />
+                    :
+                    <Select isClearable name="client" placeholder="Client"
+                      value={client} options={clientData}
+                      onChange={(val) => this.setState({ client: val })}
+                      filterOption={
+                        (option, inputVal) => {
+                          return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                        }
+                      }
+                      styles={{
+                        option: (provided, state) => ({
+                          ...provided,
+                          textAlign: 'left'
+                        }),
+                        dropdownIndicator: (base, state) => ({
+                          ...base,
+                          transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                          display: !client || !client.value ? "flex" : "none"
+                        })
+                      }}
+                    />
                 }
-            }
-            styles={{
-                option: (provided, state) => ({
-                  ...provided,
-                  textAlign: 'left'
-                }),
-                dropdownIndicator: (base, state) => ({
-                  ...base,
-                  transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
-                  display: !productSm || !productSm.value ? "flex" : "none"
-                })
-            }}
-        />
-        </CCol> 
-        <CCol lg={2} className="sm-col-11 col-btn px-0">
-            <button className="btn btn-block btn-primary float-right stockMovement btn-search" onClick={this.searchStockMovement} id="stockMovementBtn">SEARCH</button>
-        </CCol>
 
-        {/* Filter content End */} 
-        </CRow>
-        </form>
-      </CCardBody>
-    </CCard>
+              </CCol>
+              <CCol lg={2} className="sm-col-13 product" >
+                <Select isClearable name="product" placeholder="Product"
+                  isClearable={true}
+                  // value={productSm}
+                  isLoading={productIsLoad}
+                  options={product ? productData : []}
+                  menuIsOpen={product ? true : false}
+                  onInputChange={(val) => {
+                    this.setState({ product: val.length >= 3 ? val : null }, () => {
+                      if (val.length >= 3) { this.getproduct(val) }
+                    })
+                  }}
+                  onChange={(val) => this.setState({ productSm: val })}
+                  filterOption={
+                    (option, inputVal) => {
+                      return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase()
+                    }
+                  }
+                  styles={{
+                    option: (provided, state) => ({
+                      ...provided,
+                      textAlign: 'left'
+                    }),
+                    dropdownIndicator: (base, state) => ({
+                      ...base,
+                      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+                      display: !productSm || !productSm.value ? "flex" : "none"
+                    })
+                  }}
+                />
+              </CCol>
+              <CCol lg={2} className="sm-col-11 col-btn px-0">
+                <button className="btn btn-block btn-primary float-right stockMovement btn-search" onClick={this.searchStockMovement} id="stockMovementBtn">SEARCH</button>
+              </CCol>
+
+              {/* Filter content End */}
+            </CRow>
+          </form>
+        </CCardBody>
+      </CCard>
 
 
-    <StockMovementTable
-      title="Stock Movement"
-      height={dimension.height}
-      data={data_table} //data untuk react-table
-      dataExport={export_data} //data untuk export
-      date_array={date_array}
-      filterType={filterType}
-      fields={fields}
-      tableStatus={tableStatus}
-      onClick={this.showDetails}
-      pagination={pagination}  
-      export={<CButton className="btn btn-primary d-flex float-right px-3 align-items-center btn-export">
-      <div className="export-export pr-3"/>
+      <StockMovementTable
+        title="Stock Movement"
+        height={dimension.height}
+        data={data_table} //data untuk react-table
+        dataExport={export_data} //data untuk export
+        date_array={date_array}
+        filterType={filterType}
+        fields={fields}
+        tableStatus={tableStatus}
+        onClick={this.showDetails}
+        pagination={pagination}
+        export={<CButton className="btn btn-primary d-flex float-right px-3 align-items-center btn-export">
+          <div className="export-export pr-3" />
       EXPORT
-    </CButton>} 
-      pdf='false'
-    /> 
+    </CButton>}
+        pdf='false'
+      />
 
       {/* <CustomPagination
       data={data}

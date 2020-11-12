@@ -68,7 +68,6 @@ const columns = [
   {
     accessor: 'status', placeholder: 'Status', Header: 'Status', width: 140,
     Cell: row => {
-      console.log(row.original.status)
       switch (row.original.status) {
         case '0: Not Available':
           return <a className="status-Unavailable">UNAVAILABLE</a>
@@ -311,7 +310,7 @@ class SalesOrder extends React.PureComponent {
   getResources = async () => {
     const { user } = this.props.store
     if (user) {
-      const { data } = await axios.get(`${endpoints.getSoResources}?company=${user.company || ''}&client=${user.client || ''}`)
+      const { data } = await axios.get(`${endpoints.getSoResources}?company=${user.company || ''}&client=${user.client || 'all' || ''}`)
       const { code, name } = data.orderTypeFilter
       const orderTypeFilterData = data.orderTypeFilter.code.map((data, i) => ({ value: data, label: `${data}: ${name[i]}` }))
       const orderTypeData = data.orderType.description.map((data, i) => ({ value: data, label: `${data}: ${data?.orderType?.description[i]}` }))
@@ -433,8 +432,6 @@ class SalesOrder extends React.PureComponent {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
       siteData, clientData, statusData, orderTypeData, orderTypeInsert, taskData, customFields, tableStatus, exportData, orderTypeFilterData
     } = this.state
-    console.log(siteData);
-    console.log(clientData);
     return <div className="sales-order">
       <HeaderTitle
         breadcrumb={[{ to: '', label: 'Sales Orders', active: true }]}
@@ -584,7 +581,6 @@ class SalesOrder extends React.PureComponent {
           </form>
         </CCardBody>
       </CCard>
-      {console.log(data)}
       <CustomTable
         title="Sales Order Summary"
         filename='Microlistics_SalesOrder.'

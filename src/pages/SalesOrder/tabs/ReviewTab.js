@@ -71,14 +71,12 @@ class ReviewTab extends React.Component {
       lineDetail,
     }).catch(error => error);
     if (data === "create successfully") {
-      console.log(data);
       this.props.submit({ header: header, lineDetail: lineDetail });
       // setTimeout(() => this.props.hide(), 3000)
       this.props.submitStatus(data);
     }
     
     if(!navigator.onLine){
-      console.log(data);
       this.props.submitStatus("No Internet Connection");
 
     }
@@ -99,13 +97,14 @@ class ReviewTab extends React.Component {
 
   siteCheck = (siteVal) => {
     let l = null;
-    let site = this.props.client || [];
+    // let site = this.props.client || [];
+    let site = this.props.site || [];
     site.map((data) => {
       if (data.value === siteVal) l = data.label;
     });
     return l;
   };
-
+ 
   clientCheck = (clientVal) => {
     let c = null;
     let client = this.props.client || [];
@@ -117,7 +116,6 @@ class ReviewTab extends React.Component {
 
   render() {
     const { header, lineDetail } = this.props.data;
-    console.log(this.props.data);
     return (
       <Container className="px-5 py-4">
         <h3 className="text-primary font-20">Order Details</h3>
@@ -127,7 +125,7 @@ class ReviewTab extends React.Component {
             <input
               value={
                 (header.site && header.site.label
-                  ? header.site.label
+                  ? this.siteCheck(header.site.label)
                   : false) || this.siteCheck(header.site)
               }
               className="form-control"
@@ -165,7 +163,7 @@ class ReviewTab extends React.Component {
             <input
               value={
                 (header.client && header.client.label
-                  ? header.client.label
+                  ? this.clientCheck(header.client.label)
                   : false) || this.clientCheck(header.client)
               }
               className="form-control"
