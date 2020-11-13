@@ -117,8 +117,10 @@ class CreateTab extends React.Component {
 
     this.setState({ orderLine, error });
     // Get Product from APi if length equal or more than 3
-    if (!val || val.length < 3) return
-    else Promise.resolve(this.getProduct(val, i));
+    if(!(val.includes(":"))){
+        if (!val || val.length < 3) return
+        else Promise.resolve(this.getProduct(val, i));
+    }
 
 
   }
@@ -874,13 +876,11 @@ class CreateTab extends React.Component {
                       }),
                       menu: base => ({
                           ...base,
-                          height: 230,
-                          maxHeight: 230
+                          maxHeight: 200
                       }),
                       menuList: base => ({
                           ...base,
-                          height: 230,
-                          maxHeight: 230
+                          maxHeight: 200
                       })
                     }}
                   />
@@ -955,13 +955,11 @@ class CreateTab extends React.Component {
                       }),
                       menu: base => ({
                           ...base,
-                          height: 230,
-                          maxHeight: 230
+                          maxHeight: 200
                       }),
                       menuList: base => ({
                           ...base,
-                          height: 230,
-                          maxHeight: 230
+                          maxHeight: 200
                       })
                     }}
                   />
