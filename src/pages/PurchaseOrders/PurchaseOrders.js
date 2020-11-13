@@ -282,13 +282,11 @@ class PurchaseOrders extends React.PureComponent {
       }
 
       if (modifiedData.length < 1) {
-      alert('test status')
 
         this.setState({ tableStatus: 'noData' })
       }
     } else {
       this.setState({ data: [] })
-      alert('test status')
       // this.setState({ tableStatus: 'noData' })
     }
     // this.setState({ data: DummyData })

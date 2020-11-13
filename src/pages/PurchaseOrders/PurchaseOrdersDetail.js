@@ -72,6 +72,12 @@ const columns = [
     Header: "Completed",
     Cell: (row) => <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   },
+  {
+    accessor: "released",
+    placeholder: 'Released', 
+    Header: "Released", 
+    Cell: (row) => <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+  },
   { 
     accessor: "batch",  
     Cell: row => (<div className="text-left">{row.value ? row.value : '-'}</div>),   
@@ -104,13 +110,8 @@ const columns = [
     placeholder: 'Disposition', 
     Header: "Disposition" ,
     Cell: props => <span>{props.value ? props.value : '-'}</span>  
-  },
-  {
-    accessor: "released",
-    placeholder: 'Released', 
-    Header: "Released", 
-    Cell: (row) => <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
   }
+ 
 ]
 
 class PurchaseOrdersDetail extends React.Component {
