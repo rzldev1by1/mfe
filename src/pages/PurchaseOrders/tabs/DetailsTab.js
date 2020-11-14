@@ -130,8 +130,10 @@ class CreateTab extends React.Component {
     this.setState({ orderLine, error });
 
     // Get Product from APi if length more than 2
-    if (!val || val.length < 3) return
-    else Promise.resolve(this.getProduct(val, i));
+    if(!(val.includes(":"))){
+        if (!val || val.length < 3) return
+        else Promise.resolve(this.getProduct(val, i));
+    }
   }
   getDisposition = async () => {
     const url = `${endpoints.getDisposition}`
@@ -717,12 +719,10 @@ class CreateTab extends React.Component {
                       }),
                       menu: base => ({
                           ...base,
-                          height: 230,
                           maxHeight: 230
                       }),
                       menuList: base => ({
                           ...base,
-                          height: 230,
                           maxHeight: 230
                       })
                     }}
@@ -805,13 +805,11 @@ class CreateTab extends React.Component {
                       }),
                       menu: base => ({
                           ...base,
-                          height: 230,
-                          maxHeight: 230
+                          maxHeight: 200
                       }),
                       menuList: base => ({
                           ...base,
-                          height: 230,
-                          maxHeight: 230
+                          maxHeight: 200
                       })
                     }}
                     onMenuOpen={() => { dispositionStatus[i] = true; this.setState({ dispositionStatus: dispositionStatus }) }}
