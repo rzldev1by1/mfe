@@ -2,9 +2,12 @@ import _ from "lodash";
 import React from "react";
 import ReactTable from "react-table-v6";
 import { Button, Container, Row, Col, Modal } from "react-bootstrap";
+import { CRow, CCol } from "@coreui/react";
 import { MdClose } from "react-icons/md";
 import { FaRegEdit, FaPencilAlt } from "react-icons/fa";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
+import CustomPagination from 'shared/table/CustomPagination'
+import Export from "../../../shared/table/Export"
 import "react-table-v6/react-table.css";
 import "./StockAgeProfileTable.css";
 
@@ -186,7 +189,7 @@ class StockAgeProfileTable extends React.Component {
 
   render() {
     const { showModal, editColumn, editColumnTemp } = this.state;
-    let { title, data, fields, onClick, height } = this.props;
+    let { title, data, fields, onClick, height, pagination } = this.props;
     const headerIcon = this.headerIcon(fields, editColumnTemp);
     return (
       <React.Fragment>
@@ -211,6 +214,16 @@ class StockAgeProfileTable extends React.Component {
           }}
           {...this.props}
         />
+        <CRow lg="12" className="mt-3 pagination-custom" >
+            <CCol lg="7" className="px-0 margin-mr" >
+              <CustomPagination data={data}
+                pagination={pagination}
+                goto={this.props.goto}
+                export={this.props.export} />
+            </CCol>
+            
+          </CRow>
+
         <Modal
           show={showModal}
           size="xl"
