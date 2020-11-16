@@ -66,6 +66,8 @@ class CustomTableDetail extends React.Component {
       showModal: false,
       editColumn: {},
       error: {},
+      sameColumns: [],
+      sameColumnsIdx: [],
       rename : [],
       editColumnTemp: {},
       trigger: 0,
@@ -458,7 +460,13 @@ class CustomTableDetail extends React.Component {
   };
 
   changedColumn = (e) => {
+    let {error, sameColumns, sameColumnsIdx} = validations(this.state, this.state.changedColumns, e.target.value, e.target.id)
     let changedColumns = this.state.changedColumns;
+
+    this.setState({ error, sameColumns, sameColumnsIdx });
+    if(!isEmptyObject(error)){
+        return null
+    }
 
     if (e.target.value.length > 0) {
       changedColumns.map((item, idx) => {
@@ -469,21 +477,21 @@ class CustomTableDetail extends React.Component {
         }
       });
 
-      changedColumns.push({
+      changedColumns[e.target.id] = {
         headerData: e.target.name,
         header: e.target.value,
-      });
+      }
 
       this.setState({ changedColumns: changedColumns });
     }
   };
 
   renameSubmit = (e) => {
-    const error = validations(this.state, this.state.changedColumns)
+    const {error, sameColumns, sameColumnsIdx } = validations(this.state, this.state.changedColumns)
     const { rename } = this.state
     console.log(error)
     if (Object.keys(error).length) {
-      return this.setState({ error })
+        return this.setState({ error, sameColumns, sameColumnsIdx })
     } else {
           this.renameSubmits(this.state.changedColumns);
           this.setState({ showModal: false , error:{}});
@@ -561,7 +569,7 @@ class CustomTableDetail extends React.Component {
   }
 
   render() {
-    const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename  } = this.state
+    const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename, sameColumnsIdx  } = this.state
     let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus } = this.props
 
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
@@ -782,12 +790,13 @@ class CustomTableDetail extends React.Component {
                           return (
                             <div key={index} className='p-2'>
                               <input
+                                id={index}
                                 autoComplete='off'
                                 placeholder={item.placeholder}
                                 name={item.headerData}
                                 sortable={item.sortable}
                                 onChange={this.changedColumn}
-                                className={ `text-left form-rename `}
+                                className={"text-left form-rename"+ (sameColumnsIdx.includes(index.toString()) ? " input-danger" : "")}
                               />
                             </div>
                           );
