@@ -29,7 +29,7 @@ export default (values) => {
   if (!deliveryDate) {
     error.deliveryDate = 'Delivery Date must be entered'
   }
-  if (deliveryInstruction.length > 240) {
+  if (deliveryInstruction?.length > 240) {
     error.deliveryInstruction = 'Value must not exceed 240 characters'
   }
   if (!shipToAddress1) {

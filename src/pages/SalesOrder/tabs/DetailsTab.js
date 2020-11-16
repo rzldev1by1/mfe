@@ -464,7 +464,6 @@ class CreateTab extends React.Component {
           else number = `${integer}.${decimal}`
         }
         if (integer.length > 6 && integer.length <= 9) {
-          // alert('www')
           let idxSepr1 = integer.slice(0, integer.length - 6)
           let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 3)
           let idxSepr3 = integer.slice(integer.length - 3)
