@@ -447,7 +447,7 @@ class SalesOrder extends React.PureComponent {
                   <div className="input-group-prepend">
                     <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
                   </div>
-                  <input type="text" className="form-control pl-0 border-left-0" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
+                  <input type="text" className="form-control pl-0 border-left-0" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value.toUpperCase() })} />
                 </div>
               </CCol>
               <CCol lg={9} className="pr-0">
