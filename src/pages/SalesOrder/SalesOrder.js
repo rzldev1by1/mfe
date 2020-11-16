@@ -507,7 +507,7 @@ class SalesOrder extends React.PureComponent {
                     }
                   </CCol>
                   <CCol lg={2} className="px-0">
-                    <Select isClearable name="status"
+                    <Select isClearable name="status" placeholder="Status"
                       value={status} options={statusData}
                       onChange={(val) => this.setState({ status: val })}
                       filterOption={
