@@ -99,7 +99,7 @@ const columns = [
   { 
     accessor: "rota1",
     placeholder: 'Rotadate', 
-    Header: "ROTADATE", 
+    Header: "Rotadate", 
     Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>  
   },
   { 
@@ -240,6 +240,7 @@ class SalesOrderDetail extends React.Component {
   render() {
     // const { match, history } = this.props
     const { detail, products, fields, pagination, tableStatus, exportData} = this.state
+    console.log(fields);
     return <div className="sales-order-detail">
       <HeaderTitle breadcrumb={[
         { to: '/sales-orders', label: 'Sales Order' },

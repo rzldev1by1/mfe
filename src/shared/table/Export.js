@@ -75,19 +75,42 @@ class Export extends Component {
     this.changeExportStatus('ready')
   }
 
+  
+
   examples = () => {
     console.log(this.props.ExportData())
     const unit = "pt";
     const size = "A4"; // Use A1, A2, A3 or A4
     const orientation = "landscape"; // portrait or landscape
     const doc = new jsPDF(orientation, unit, size);
-
-
     // From Javascript
     var finalY = doc.previousAutoTable.finalY || 10
     doc.text(this.props.ExportPDFName + " Data Microlistics  " + this.Date(), 14, finalY + 15)
+    // var img = new Image()
+    // img.src = 'C:/Users/MSI GEMER/Documents/hotma/mls/microlistics/src/assets/img/LOGO.png';
+    // doc.addImage(img, 'PNG', 0, 0, 0, 0)
+    // function loadImage(url) {
+
+    //   return new Promise((resolve) => {
+    //     let img = new Image();
+    //     img.onload = () => resolve(img);
+    //     img.src = url;
+    //   })
+    // }
+    // loadImage = ('assets/img/LOGO.png').then((logo) => {
+    //   doc.addImage(logo, 'PNG', 10, 10);
+    //   doc.save('report.pdf');
+    // });
+    
     doc.autoTable({
-      startY: finalY + 20,
+      margin: 
+        {
+          left: 20,
+          right: 20,
+          bottom: 20
+        },
+        // elem: imgData,
+      startY: finalY + 40,
       head: [this.props.ExportHeader()],
       body: this.props.ExportData(),
       styles: { cellPadding: 0.5, fontSize: this.props.ExportFont },
@@ -95,7 +118,12 @@ class Export extends Component {
 
     finalY = doc.previousAutoTable.finalY
     doc.autoTable({
-      startY: finalY + 20,
+      margin: 
+        {
+          left: 20,
+          right: 20,
+          bottom: 20
+        },
       html: '.table',
       useCss: true,
     })

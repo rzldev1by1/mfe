@@ -75,6 +75,7 @@ class CustomTableDetail extends React.Component {
       changedColumns: [],
       data: props.data,
       fields: props.fields,
+      fieldss: props.fields,
       urlHeader: props.urlHeader,
       products: [],
       isLoading: true
@@ -569,10 +570,10 @@ class CustomTableDetail extends React.Component {
   }
 
   render() {
-    const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename, sameColumnsIdx  } = this.state
+    const { showModal, editColumn, editColumnTemp, fields, fieldss, activeTab, error, rename, sameColumnsIdx  } = this.state
     let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus } = this.props
-
-    let headerIcon = this.headerIcon(data, fields, editColumnTemp);
+    console.log(fieldss);
+    let headerIcon = this.headerIcon(data, fieldss, editColumnTemp);
     this.reorder.forEach(o => isEmptyObject(this.reorder) ? null : headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
     return (
       <React.Fragment>
