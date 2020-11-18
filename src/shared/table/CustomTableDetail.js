@@ -570,10 +570,9 @@ class CustomTableDetail extends React.Component {
   }
 
   render() {
-    const { showModal, editColumn, editColumnTemp, fields, fieldss, activeTab, error, rename, sameColumnsIdx  } = this.state
+    const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename, sameColumnsIdx  } = this.state
     let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus } = this.props
-    console.log(fieldss);
-    let headerIcon = this.headerIcon(data, fieldss, editColumnTemp);
+    let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => isEmptyObject(this.reorder) ? null : headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
     return (
       <React.Fragment>
