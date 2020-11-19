@@ -285,7 +285,7 @@ class CreateTab extends React.Component {
       return null
     }
     const { orderLine, error } = this.state
-    if (error.orderLine && error.orderLine.length) {
+    if ((error.orderLine && error.orderLine.length) && (error.orderLine[i] && error.orderLine[i][key])) {
       delete error.orderLine[i][key]
     }
     if (key === 'productVal') {
