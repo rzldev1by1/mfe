@@ -23,6 +23,7 @@ const columns = [
     accessor: "line", 
     placeholder: 'Line No', 
     Header: "Line No" ,
+    width: 84,
     Cell: props => <span>{props.value ? props.value : '-'}</span> 
   },
   { 

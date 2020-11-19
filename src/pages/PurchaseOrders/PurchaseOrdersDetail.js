@@ -297,10 +297,10 @@ class PurchaseOrdersDetail extends React.Component {
         </CCard>
         <CCard>
           <CCardBody className="p-0 mx-3 my-3">
-            <CRow><CCol lg={3}  className="text-light-gray px-0">Order Date</CCol> <CCol className="px-3">{this.formatDate(detail.delivery_date)}</CCol></CRow>
-            <CRow><CCol lg={3}  className="text-light-gray px-0 py-1">Date Received</CCol> <CCol className="px-3 py-1">{this.formatDate(detail.date_received)}</CCol></CRow>
-            <CRow><CCol lg={3}  className="text-light-gray px-0">Date Released</CCol> <CCol className="px-3">{this.formatDate(detail.date_released)}</CCol></CRow>
-            <CRow><CCol lg={3}  className="text-light-gray px-0 pt-1">Date Completed</CCol> <CCol className="px-3 pt-1">{this.formatDate(detail.date_completed)}</CCol></CRow>
+            <CRow><CCol lg={3}  className="text-light-gray px-0">Order Date</CCol> <CCol className="px-3">{detail.delivery_date}</CCol></CRow>
+            <CRow><CCol lg={3}  className="text-light-gray px-0 py-1">Date Received</CCol> <CCol className="px-3 py-1">{detail.date_received}</CCol></CRow>
+            <CRow><CCol lg={3}  className="text-light-gray px-0">Date Released</CCol> <CCol className="px-3">{detail.date_released}</CCol></CRow>
+            <CRow><CCol lg={3}  className="text-light-gray px-0 pt-1">Date Completed</CCol> <CCol className="px-3 pt-1">{detail.date_completed}</CCol></CRow>
           </CCardBody>
         </CCard>
       </div>
