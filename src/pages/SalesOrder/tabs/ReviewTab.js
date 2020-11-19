@@ -145,6 +145,7 @@ class ReviewTab extends React.Component {
             <input
               value={header.customerOrderRef || ""}
               className="form-control"
+              placeholder="Customer Order Ref"
               readOnly
             />
           </Col>
@@ -206,6 +207,7 @@ class ReviewTab extends React.Component {
             <input
               value={header.customer?.label || ""}
               className="form-control"
+              placeholder="Customer"
               readOnly
             />
           </Col>

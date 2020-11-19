@@ -101,7 +101,7 @@ const columns = [
     Header: 'Delivery Date', 
     width: 120,
     style: { textAlign: 'left' }, 
-    Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+    Cell: props => <span>{props.value ?props.value : '-'}</span>
   },
   {
     accessor: 'datereceived', 
@@ -109,7 +109,7 @@ const columns = [
     Header: 'Date Received', 
     width: 120,
     style: { textAlign: 'left' },
-    Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+    Cell: props => <span>{props.value ? props.value : '-'}</span>
   },
   {
     accessor: 'datereleased', 
@@ -117,7 +117,7 @@ const columns = [
     Header: 'Date Released', 
     width: 120,
     style: { textAlign: 'left' }, 
-    Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+    Cell: props => <span>{props.value ?props.value : '-'}</span>
   },
   {
     accessor: 'datecompleted', 
@@ -125,7 +125,7 @@ const columns = [
     Header: 'Date Completed', 
     width: 130,
     style: { textAlign: 'left' }, 
-    Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+    Cell: props => <span>{props.value ? props.value : '-'}</span>
   },
   { 
     accessor: 'customerpono', 

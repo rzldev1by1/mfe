@@ -160,6 +160,7 @@ class UserManagemen extends Component {
         const url = `/users-management/${item.web_user}/detail`;
         this.props.history.push(url)
     }
+
     UrlHeader = () => {
         return `UM?client=ANTEC`
       }

@@ -65,7 +65,7 @@ const columns = [
   },
   { 
     accessor: "weight_processed", 
-    placeholder: 'Wght Procesed', 
+    placeholder: 'Wght Processed', 
     Header: "Wght Processed" ,
     Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>)   
   },
