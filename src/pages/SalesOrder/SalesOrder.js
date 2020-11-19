@@ -101,7 +101,7 @@ const columns = [
     Header: 'Delivery Date', 
     width: 120,
     style: { textAlign: 'left' }, 
-    Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+    Cell: props => <span>{props.value ?props.value : '-'}</span>
   },
   {
     accessor: 'datereceived', 
@@ -109,7 +109,7 @@ const columns = [
     Header: 'Date Received', 
     width: 120,
     style: { textAlign: 'left' },
-    Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+    Cell: props => <span>{props.value ? props.value : '-'}</span>
   },
   {
     accessor: 'datereleased', 
@@ -117,7 +117,7 @@ const columns = [
     Header: 'Date Released', 
     width: 120,
     style: { textAlign: 'left' }, 
-    Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+    Cell: props => <span>{props.value ?props.value : '-'}</span>
   },
   {
     accessor: 'datecompleted', 
@@ -125,7 +125,7 @@ const columns = [
     Header: 'Date Completed', 
     width: 130,
     style: { textAlign: 'left' }, 
-    Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+    Cell: props => <span>{props.value ? props.value : '-'}</span>
   },
   { 
     accessor: 'customerpono', 
@@ -447,7 +447,7 @@ class SalesOrder extends React.PureComponent {
                   <div className="input-group-prepend">
                     <span className="input-group-text border-right-0 bg-white"><i className="iconU-search"></i></span>
                   </div>
-                  <input type="text" className="form-control pl-0 border-left-0" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value })} />
+                  <input type="text" className="form-control pl-0 border-left-0" placeholder="Enter an Order No" onChange={e => this.setState({ search: e.target.value.toUpperCase() })} />
                 </div>
               </CCol>
               <CCol lg={9} className="pr-0">
@@ -507,7 +507,7 @@ class SalesOrder extends React.PureComponent {
                     }
                   </CCol>
                   <CCol lg={2} className="px-0">
-                    <Select isClearable name="status"
+                    <Select isClearable name="status" placeholder="Status"
                       value={status} options={statusData}
                       onChange={(val) => this.setState({ status: val })}
                       filterOption={

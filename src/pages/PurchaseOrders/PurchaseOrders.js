@@ -96,19 +96,19 @@ const columns = [
   },
   {
     accessor: 'delivery_date', placeholder: 'Order Date', Header: 'Order Date', width: 150, sortable: true,
-    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? props.value : '-'}</span>
   },
   {
     accessor: 'date_received', placeholder: 'Date Received', Header: 'Date Received', width: 150, sortable: true,
-    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ?props.value : '-'}</span>
   },
   {
     accessor: 'date_released', placeholder: 'Date Released', Header: 'Date Released', width: 150, sortable: true,
-    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? props.value : '-'}</span>
   },
   {
     accessor: 'date_completed', placeholder: 'Date Completed', Header: 'Date Completed', width: 150, sortable: true,
-    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? moment(props.value).format('DD/MM/YYYY') : '-'}</span>
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? props.value : '-'}</span>
   },
   // { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
   // { accessor: 'vendor_order_ref', Header: 'Vendor Order No' },
@@ -282,13 +282,11 @@ class PurchaseOrders extends React.PureComponent {
       }
 
       if (modifiedData.length < 1) {
-      alert('test status')
 
         this.setState({ tableStatus: 'noData' })
       }
     } else {
       this.setState({ data: [] })
-      alert('test status')
       // this.setState({ tableStatus: 'noData' })
     }
     // this.setState({ data: DummyData })

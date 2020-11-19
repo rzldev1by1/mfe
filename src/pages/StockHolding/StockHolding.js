@@ -116,9 +116,16 @@ const columns = [
     width: 140,
     style: {flexDirection: 'row-reverse'}
   },
-  { accessor: 'price', Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),Header: ' Price ', placeholder: 'Price', width: 70, sortable: false,
-  sortType: "float",
-    style: {flexDirection: 'row-reverse'} },
+  { 
+    accessor: 'price',
+    Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>),
+    Header: ' Price ',
+    placeholder: 'Price',
+    width: 100,
+    sortable: false,
+    sortType: "float",
+    style: {flexDirection: 'row-reverse'}
+  },
   { accessor: 'pallets',Cell: row => (<div className="alg-right">{row.value ? row.value : '-'}</div>), Header: 'Pallets', placeholder: 'Pallets', width: 70, sortable: false,
   sortType: "float",
   style: {flexDirection: 'row-reverse'} },
@@ -185,8 +192,14 @@ const customColumns = [
     sortType: "float",
     width: null,
   },
-  { accessor: 'price', Header: ' Price ', placeholder: 'Price', width: 100, sortable: false,
-  sortType: null },
+  {
+    accessor: 'price',
+    Header: ' Price ',
+    placeholder: 'Price',
+    width: 100,
+    sortable: false,
+    sortType: "float"
+},
   { accessor: 'pallets', Header: 'Pallets', placeholder: 'Pallets', width: 100, sortable: false,
   sortType: null },
 ];
@@ -322,7 +335,6 @@ class StockHolding extends React.PureComponent {
     const { data } = await axios.get(`${endpoints.stockHoldingSummary}?${urls.join('&')}`)
     if (data?.data?.data) {
       const modifiedData = data.data.data;
-      console.log(modifiedData)
       modifiedData.map((item, idx) => {
         let statusOk = []
         let statusShortage = []
@@ -340,6 +352,7 @@ class StockHolding extends React.PureComponent {
         item['pallets'] = numeral(item['pallets']).format('0,0')
         item['expected_in_wgt'] = numeral(item['expected_in_wgt']).format('0,0.000')
         item['weight_processed'] = numeral(item['weight_processed']).format('0,0.000')
+        item['price'] = numeral(item['price']).format('0,0.00')
       })
 
       
@@ -449,7 +462,7 @@ class StockHolding extends React.PureComponent {
         });
         this.setState({ sort: "down" })
     }
-
+    console.log(data);
     this.setState({ data: data })
 
   }
@@ -471,6 +484,7 @@ class StockHolding extends React.PureComponent {
       customFields,
       tableStatus
     } = this.state
+    console.log(data);
     return (
       <div className='stockHolding table-summary'>
         <HeaderTitle

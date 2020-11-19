@@ -127,7 +127,7 @@ class StockAgeProfile extends Component {
   }
 
   updateDimension = () => {
-    const height = (window.innerHeight - 250);
+    const height = (window.innerHeight - 257);
     // const height = {overflow: 'visible', height: heightAdjust}
     this.setState({ dimension: { width: window.innerWidth, height } });
   };
@@ -256,7 +256,7 @@ class StockAgeProfile extends Component {
         </div>}
           minRows='0'
         />
-        <CustomPagination
+        {/* <CustomPagination
           data={data}
           pagination={pagination}
           goto={(active) => {
@@ -270,7 +270,7 @@ class StockAgeProfile extends Component {
               EXPORT
             </CButton>
           }
-        />
+        /> */}
       </div>
     );
   }

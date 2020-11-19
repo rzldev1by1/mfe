@@ -66,13 +66,16 @@ class CustomTableDetail extends React.Component {
       showModal: false,
       editColumn: {},
       error: {},
+      sameColumns: [],
+      sameColumnsIdx: [],
       rename : [],
       editColumnTemp: {},
       trigger: 0,
       activeTab: '1',
       changedColumns: [],
       data: props.data,
-      fields: props.fields,
+      fields: this.props.fields,
+      // fieldss: props.fields,
       urlHeader: props.urlHeader,
       products: [],
       isLoading: true
@@ -236,6 +239,7 @@ class CustomTableDetail extends React.Component {
 
   headerIcon = (data, header, editColumn) => {
     let listHeader = []
+    console.log(header);
     header && header.map((h, index) => {
       if (!editColumn[index]) {
         let withIcon = (
@@ -298,14 +302,17 @@ class CustomTableDetail extends React.Component {
     let fields = [];
     let accessor = this.state.fields.map((data, idx) => {
       let split = data.accessor
+      console.log(data.accessor);
       return split
     });
     let style = this.state.fields.map((data, idx) => {
       let split = data.style
+      console.log(data.style);
       return split
     });
     let Cell = this.state.fields.map((data, idx) => {
       let split = data.Cell
+      console.log(data.Cell);
       return split
     });
     let placeholder = this.state.fields.map((data, idx) => {
@@ -329,18 +336,23 @@ class CustomTableDetail extends React.Component {
         }
         return split
     });
-    let headerData = Object.keys(data.data[0]);
+    let l = Object.keys(data.data[0]);
+    let headerData = l.map(v => v.toLowerCase());
+    console.log(headerData);
     accessor.map((data, idx) => {
       let lowerCase = data.toLowerCase();
+      console.log(lowerCase);
       if (lowerCase.includes(' ')) {
         let split = lowerCase.split(' ');
         let result = split.join('_');
         accessor[idx] = result;
       } else {
         accessor[idx] = lowerCase;
+        console.log(lowerCase);
       }
     });
-
+    console.log(data.data[0]);
+    
     Object.values(data.data[0]).map((data, idx) => {
       let headerTable = {
         accessor: '',
@@ -363,8 +375,12 @@ class CustomTableDetail extends React.Component {
       if(sortType[idx]) {
         headerTable.sortType = sortType[idx];
       }
+      console.log(headerTable);
+      
       fields.push(headerTable);
     });
+    console.log(fields);
+
     this.defaultOrder.forEach(o => fields.splice(o.a, 0, fields.splice(o.b, 1)[0]));
     
     if (data.data.length) {
@@ -458,7 +474,13 @@ class CustomTableDetail extends React.Component {
   };
 
   changedColumn = (e) => {
+    let {error, sameColumns, sameColumnsIdx} = validations(this.state, this.state.changedColumns, e.target.value, e.target.id)
     let changedColumns = this.state.changedColumns;
+
+    this.setState({ error, sameColumns, sameColumnsIdx });
+    if(!isEmptyObject(error)){
+        return null
+    }
 
     if (e.target.value.length > 0) {
       changedColumns.map((item, idx) => {
@@ -469,21 +491,21 @@ class CustomTableDetail extends React.Component {
         }
       });
 
-      changedColumns.push({
+      changedColumns[e.target.id] = {
         headerData: e.target.name,
         header: e.target.value,
-      });
+      }
 
       this.setState({ changedColumns: changedColumns });
     }
   };
 
   renameSubmit = (e) => {
-    const error = validations(this.state, this.state.changedColumns)
+    const {error, sameColumns, sameColumnsIdx } = validations(this.state, this.state.changedColumns)
     const { rename } = this.state
     console.log(error)
     if (Object.keys(error).length) {
-      return this.setState({ error })
+        return this.setState({ error, sameColumns, sameColumnsIdx })
     } else {
           this.renameSubmits(this.state.changedColumns);
           this.setState({ showModal: false , error:{}});
@@ -561,9 +583,8 @@ class CustomTableDetail extends React.Component {
   }
 
   render() {
-    const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename  } = this.state
+    const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename, sameColumnsIdx  } = this.state
     let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus } = this.props
-
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => isEmptyObject(this.reorder) ? null : headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
     return (
@@ -782,12 +803,13 @@ class CustomTableDetail extends React.Component {
                           return (
                             <div key={index} className='p-2'>
                               <input
+                                id={index}
                                 autoComplete='off'
                                 placeholder={item.placeholder}
                                 name={item.headerData}
                                 sortable={item.sortable}
                                 onChange={this.changedColumn}
-                                className={ `text-left form-rename `}
+                                className={"text-left form-rename"+ (sameColumnsIdx.includes(index.toString()) ? " input-danger" : "")}
                               />
                             </div>
                           );

@@ -1,7 +1,7 @@
 import _ from 'lodash'
 export default (values) => {
   let error = {}
-  let { site, client, orderId, orderType, deliveryDate, shipToAddress1, postCode, state, orderLine, orderStatus } = values
+  let { site, client, orderId, orderType, deliveryDate, shipToAddress1, postCode, state, orderLine, orderStatus, deliveryInstruction } = values
   if (!site.value) {
     error.site = 'Site must be entered'
   }
@@ -28,6 +28,9 @@ export default (values) => {
   }
   if (!deliveryDate) {
     error.deliveryDate = 'Delivery Date must be entered'
+  }
+  if (deliveryInstruction?.length > 240) {
+    error.deliveryInstruction = 'Value must not exceed 240 characters'
   }
   if (!shipToAddress1) {
     error.shipToAddress1 = 'Address 1 must be entered'

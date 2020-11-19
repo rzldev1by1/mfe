@@ -124,8 +124,8 @@ class ReviewTab extends React.Component {
             <label className="text-muted mb-0 required">Site</label>
             <input
               value={
-                (header.site && header.site.label
-                  ? this.siteCheck(header.site.label)
+                (header?.site?.label
+                  ? header.site.label
                   : false) || this.siteCheck(header.site)
               }
               className="form-control"
@@ -145,6 +145,7 @@ class ReviewTab extends React.Component {
             <input
               value={header.customerOrderRef || ""}
               className="form-control"
+              placeholder="Customer Order Ref"
               readOnly
             />
           </Col>
@@ -162,8 +163,8 @@ class ReviewTab extends React.Component {
             <label className="text-muted mb-0 required">Client</label>
             <input
               value={
-                (header.client && header.client.label
-                  ? this.clientCheck(header.client.label)
+                (header?.client?.label
+                  ? header.client.label
                   : false) || this.clientCheck(header.client)
               }
               className="form-control"
@@ -206,6 +207,7 @@ class ReviewTab extends React.Component {
             <input
               value={header.customer?.label || ""}
               className="form-control"
+              placeholder="Customer"
               readOnly
             />
           </Col>

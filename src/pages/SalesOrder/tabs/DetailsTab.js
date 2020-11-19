@@ -33,6 +33,7 @@ class CreateTab extends React.Component {
     productStatus: [],
     deliveryDate: null,
     orderId: null,
+    deliveryInstruction: null,
     orderTypeValue: null,
     site: this.props.user.site ? { value: this.props.user.site, label:this.props.user.site} : {},
     client: this.props.user.client ? { value: this.props.user.client, label:this.props.user.client } : {},
@@ -117,8 +118,10 @@ class CreateTab extends React.Component {
 
     this.setState({ orderLine, error });
     // Get Product from APi if length equal or more than 3
-    if (!val || val.length < 3) return
-    else Promise.resolve(this.getProduct(val, i));
+    if(!(val.includes(":"))){
+        if (!val || val.length < 3) return
+        else Promise.resolve(this.getProduct(val, i));
+    }
 
 
   }
@@ -256,16 +259,15 @@ class CreateTab extends React.Component {
     this.setState({ [name]: value, error })
     if(name == "deliveryInstruction"){
       // Error message if input length more than 240 character
-            if ((value.length !== 0) && (value.length > 240)) {
-              error.deliveryInstruction = 'Value must not exceed 240 characters'
-            }
-          
-          if(error.deliveryInstruction && (error.deliveryInstruction.length < 1 || (error.deliveryInstruction.length === 1 && !error.deliveryInstruction))) {
-            delete error.deliveryInstruction
-          }
+      if ((value.length !== 0) && (value.length > 240)) {
+        error.deliveryInstruction = 'Value must not exceed 240 characters'
       }
-
+      if(error.deliveryInstruction && (error.deliveryInstruction.length < 1 || (error.deliveryInstruction.length === 1 && !error.deliveryInstruction))) {
+        delete error.deliveryInstruction
+      }
+    }
   }
+
   lineChange = (i, e) => {
     const { name, value } = e.target
     const { orderLine } = this.state
@@ -283,7 +285,7 @@ class CreateTab extends React.Component {
       return null
     }
     const { orderLine, error } = this.state
-    if (error.orderLine && error.orderLine.length) {
+    if ((error.orderLine && error.orderLine.length) && (error.orderLine[i] && error.orderLine[i][key])) {
       delete error.orderLine[i][key]
     }
     if (key === 'productVal') {
@@ -462,7 +464,6 @@ class CreateTab extends React.Component {
           else number = `${integer}.${decimal}`
         }
         if (integer.length > 6 && integer.length <= 9) {
-          // alert('www')
           let idxSepr1 = integer.slice(0, integer.length - 6)
           let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 3)
           let idxSepr3 = integer.slice(integer.length - 3)
@@ -629,7 +630,7 @@ class CreateTab extends React.Component {
 
 
   render() {
-    const { error, overflow, site, client, orderTypeValue, orderLine, customer, orderId, shipToAddress1, postCode, state, siteData, clientData, orderTypeData, productData, uomData, dispositionData, supplierData} = this.state
+    const { error, overflow, site, client, orderTypeValue, orderLine, customer, orderId, deliveryInstruction, shipToAddress1, postCode, state, siteData, clientData, orderTypeData, productData, uomData, dispositionData, supplierData} = this.state
     const { user } = this.props
     let datepickerStatus = this.state.datepickerStatus;
     let UOMStatus = []
@@ -737,7 +738,7 @@ class CreateTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0">Delivery Instructions</label>
-          <textarea name="deliveryInstruction"  onChange={this.onChange} className="form-control" placeholder="Delivery Instructions" required />
+          <textarea name="deliveryInstruction" value={deliveryInstruction || ''}  onChange={this.onChange} className="form-control" placeholder="Delivery Instructions" required />
           <Required id="deliveryInstruction" error={error} />
         </Col>
       </Row>
@@ -874,13 +875,11 @@ class CreateTab extends React.Component {
                       }),
                       menu: base => ({
                           ...base,
-                          height: 230,
-                          maxHeight: 230
+                          maxHeight: 200
                       }),
                       menuList: base => ({
                           ...base,
-                          height: 230,
-                          maxHeight: 230
+                          maxHeight: 200
                       })
                     }}
                   />
@@ -955,13 +954,11 @@ class CreateTab extends React.Component {
                       }),
                       menu: base => ({
                           ...base,
-                          height: 230,
-                          maxHeight: 230
+                          maxHeight: 200
                       }),
                       menuList: base => ({
                           ...base,
-                          height: 230,
-                          maxHeight: 230
+                          maxHeight: 200
                       })
                     }}
                   />
