@@ -92,7 +92,7 @@ class ReviewTab extends React.Component {
         </Col>
         <Col lg="3">
           <label className="text-muted mb-0 ">Customer Order Ref</label>
-          <input value={od ? od[0].customerOrderRef : ''} className="form-control" readOnly />
+          <input value={od ? od[0].customerOrderRef : ''} className="form-control" placeholder="Customer Order Ref" readOnly />
         </Col>
       </Row>
       <Row className="pt-1 pb-3">
