@@ -11,7 +11,7 @@ import './PurchaseOrder.scss'
 const columns = [
   { 
     accessor: "rn",  
-    placeholder: 'Line No', 
+    placeholder: 'Line Nooo', 
     Header: "Line No", 
     width:90 ,
     Cell: props => <span>{props.value ? props.value : '-'}</span>  

@@ -74,8 +74,8 @@ class CustomTableDetail extends React.Component {
       activeTab: '1',
       changedColumns: [],
       data: props.data,
-      fields: props.fields,
-      fieldss: props.fields,
+      fields: this.props.fields,
+      // fieldss: props.fields,
       urlHeader: props.urlHeader,
       products: [],
       isLoading: true
@@ -239,6 +239,7 @@ class CustomTableDetail extends React.Component {
 
   headerIcon = (data, header, editColumn) => {
     let listHeader = []
+    console.log(header);
     header && header.map((h, index) => {
       if (!editColumn[index]) {
         let withIcon = (
@@ -301,14 +302,17 @@ class CustomTableDetail extends React.Component {
     let fields = [];
     let accessor = this.state.fields.map((data, idx) => {
       let split = data.accessor
+      console.log(data.accessor);
       return split
     });
     let style = this.state.fields.map((data, idx) => {
       let split = data.style
+      console.log(data.style);
       return split
     });
     let Cell = this.state.fields.map((data, idx) => {
       let split = data.Cell
+      console.log(data.Cell);
       return split
     });
     let placeholder = this.state.fields.map((data, idx) => {
@@ -332,18 +336,23 @@ class CustomTableDetail extends React.Component {
         }
         return split
     });
-    let headerData = Object.keys(data.data[0]);
+    let l = Object.keys(data.data[0]);
+    let headerData = l.map(v => v.toLowerCase());
+    console.log(headerData);
     accessor.map((data, idx) => {
       let lowerCase = data.toLowerCase();
+      console.log(lowerCase);
       if (lowerCase.includes(' ')) {
         let split = lowerCase.split(' ');
         let result = split.join('_');
         accessor[idx] = result;
       } else {
         accessor[idx] = lowerCase;
+        console.log(lowerCase);
       }
     });
-
+    console.log(data.data[0]);
+    
     Object.values(data.data[0]).map((data, idx) => {
       let headerTable = {
         accessor: '',
@@ -366,8 +375,12 @@ class CustomTableDetail extends React.Component {
       if(sortType[idx]) {
         headerTable.sortType = sortType[idx];
       }
+      console.log(headerTable);
+      
       fields.push(headerTable);
     });
+    console.log(fields);
+
     this.defaultOrder.forEach(o => fields.splice(o.a, 0, fields.splice(o.b, 1)[0]));
     
     if (data.data.length) {
@@ -570,10 +583,10 @@ class CustomTableDetail extends React.Component {
   }
 
   render() {
-    const { showModal, editColumn, editColumnTemp, fields, fieldss, activeTab, error, rename, sameColumnsIdx  } = this.state
+    const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename, sameColumnsIdx  } = this.state
+    console.log(this.props.fields);
     let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus } = this.props
-    console.log(fieldss);
-    let headerIcon = this.headerIcon(data, fieldss, editColumnTemp);
+    let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => isEmptyObject(this.reorder) ? null : headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
     return (
       <React.Fragment>

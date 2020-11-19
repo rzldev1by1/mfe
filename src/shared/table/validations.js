@@ -18,7 +18,7 @@ export default (thisState, changedColumn, renameField, indexField) => {
       }
   if(!isEmptyObject(sameColumnsIdx)){
     if(indexField){
-        error[fields[indexField].headerData] = `Columns cannot contain the same name`
+        // error[fields[indexField].headerData] = `Columns cannot contain the same name`
     }
   }else{
     error = {}
