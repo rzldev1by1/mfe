@@ -86,9 +86,20 @@ class Export extends Component {
     // From Javascript
     var finalY = doc.previousAutoTable.finalY || 10
     doc.text(this.props.ExportPDFName + " Data Microlistics  " + this.Date(), 14, finalY + 15)
-    // var img = new Image()
-    // img.src = 'C:/Users/MSI GEMER/Documents/hotma/mls/microlistics/src/assets/img/LOGO.png';
-    // doc.addImage(img, 'PNG', 0, 0, 0, 0)
+// var base64String= Convert.ToBase64String(File.ReadAllBytes(logo_confirm));
+// console.log(base64String);
+//     doc.addImage(base64String, 'PNG', 0, 0, 0, 0)
+
+const img = new Image();
+      img.crossOrigin = 'Anonymous';
+      img.onload = () => {
+    
+      };
+
+      img.src = logo_confirm;
+      doc.addImage(img, 'PNG', 15, -40, 180, 160)
+
+
     // function loadImage(url) {
 
     //   return new Promise((resolve) => {

@@ -206,6 +206,11 @@ class SalesOrderDetail extends React.Component {
     this.getStockDetails();
     this.getForescast();
   }
+
+  componentDidUpdate(nextprops) {
+    console.log(this.state.pagination) 
+  }
+
   activeTabIndex = (tabIndex) => {
     if (this.state.activeTab !== tabIndex) {
       this.setState({ activeTab: tabIndex });
@@ -241,6 +246,10 @@ class SalesOrderDetail extends React.Component {
     })
 
     const { pagination } = this.state
+    if(pagination.active){
+      page = pagination.active 
+    }
+
     const { product, client, site, expected_out_qty } = this.props.match.params;
     const url = `/stockdetail/${product}?client=${client}&site=${site}&page=${page}&export=${export_}`;
     const { data } = await axios.get(url);
@@ -410,7 +419,7 @@ class SalesOrderDetail extends React.Component {
       tableStatus,
       tableStatusForecast
     } = this.state;
-    console.log(paginationForcast)
+    console.log('pagination',pagination); 
     let site = this.state.datahead.length ? this.state.datahead[0].site : null;
     let client = this.state.datahead.length
       ? this.state.datahead[0].client
@@ -526,7 +535,12 @@ class SalesOrderDetail extends React.Component {
                       EXPORT
                     </button>
                   }
-                  exportData={products}
+                  exportData={products} 
+                  goto={(active) => {
+                    this.setState({ pagination: { ...pagination, active } }, () =>
+                      this.getStockDetails()
+                    )
+                  }}
                 />
               </TabPane>
               <TabPane className='stockDetails' tabId='2' style={{background: "#e9eced"}}>

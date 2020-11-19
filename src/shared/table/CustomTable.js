@@ -61,8 +61,7 @@ class CustomTable extends React.Component {
           this.reorder = data.reorderIdx
         }
       });
-    }
-    console.log(props.data)
+    } 
     this.state = {
       showModal: false,
       editColumn: {},
@@ -560,7 +559,6 @@ class CustomTable extends React.Component {
   ExportData = () => {
     let fields = this.props.customFields || this.state.fields
     let dataAll = []
-    console.log(fields);
     let isDate = function (input) {
       if (Object.prototype.toString.call(input) === "[object Date]")
         return true;
@@ -569,7 +567,6 @@ class CustomTable extends React.Component {
 
     if (this.props.exportData) {
       dataAll = this.props.exportData.map((data, idx,) => {
-          console.log(this.props.exportData);
           let column = fields.map((column, columnIdx) => {
             // if(column.accessor === 'date_received' || column.accessor === 'delivery_date' || column.accessor === 'date_completed' || column.accessor === 'date_released'){
             //   if(data[column.accessor]){
@@ -625,11 +622,9 @@ class CustomTable extends React.Component {
 
   render() {
     const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename, sameColumnsIdx  } = this.state
-    let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus } = this.props
+    let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus } = this.props 
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
-    this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0]));
-    console.log(data);
-    console.log(pagination);
+    this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0])); 
     return (
       <React.Fragment>
         <ReactTable
