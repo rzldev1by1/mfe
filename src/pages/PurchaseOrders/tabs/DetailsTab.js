@@ -303,7 +303,7 @@ class CreateTab extends React.Component {
       orderLine[i].uom = val
     }
 
-    if (error.orderLine && error.orderLine.length > 0 && error.orderLine[i][key]) {
+    if ((error.orderLine && error.orderLine.length) && (error.orderLine[i] && error.orderLine[i][key])) {
       delete error.orderLine[i][key]
     }
 
