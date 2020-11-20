@@ -260,7 +260,7 @@ class UserManagemen extends Component {
                     data={data} 
                     tableStatus={tableStatus}
                     onClick={this.showDetails}
-                    UrlHeader={this.UrlHeader} 
+                    // UrlHeader={this.UrlHeader} 
                     dimension={dimension}
                     editColumn='false'
                     goto={(active) => {

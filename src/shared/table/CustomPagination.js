@@ -38,7 +38,7 @@ class CustomPagination extends React.Component {
   }
   onActivePageChange = (i) => {
     const { pagination } = this.state;
-    const active = parseInt(i > 1 ? i : 1);
+    const active = parseInt(i > 1 ? i : 1); 
     if (this.props.goto) {
       this.props.goto(active);
     } else {
@@ -75,6 +75,7 @@ class CustomPagination extends React.Component {
     let { data, pagination } = this.props;
     // console.log(data);
     // console.log(pagination);
+    console.log('pagination', pagination)
     total = pagination && pagination.total ? pagination.total : data.length;
     const startIndex = (active - 1) * (total < show ? total : show);
     const endIndex = startIndex + (total < show ? total : show);
