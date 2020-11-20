@@ -56,7 +56,7 @@ class Export extends Component {
 
     const doc = this.examples();
     const data = this.props.ExportData()
-
+    console.log(data);
     doc.save(this.props.ExportName() + ".pdf")
     this.changeExportStatus('ready')
   }
@@ -85,59 +85,54 @@ class Export extends Component {
     const doc = new jsPDF(orientation, unit, size);
     // From Javascript
     var finalY = doc.previousAutoTable.finalY || 10
-    doc.text(this.props.ExportPDFName + " Data Microlistics  " + this.Date(), 14, finalY + 15)
-// var base64String= Convert.ToBase64String(File.ReadAllBytes(logo_confirm));
-// console.log(base64String);
-//     doc.addImage(base64String, 'PNG', 0, 0, 0, 0)
-
-const img = new Image();
-      img.crossOrigin = 'Anonymous';
-      img.onload = () => {
-    
-      };
-
-      img.src = logo_confirm;
-      doc.addImage(img, 'PNG', 15, -40, 180, 160)
-
-
-    // function loadImage(url) {
-
-    //   return new Promise((resolve) => {
-    //     let img = new Image();
-    //     img.onload = () => resolve(img);
-    //     img.src = url;
-    //   })
+    doc.text(this.props.ExportPDFName + " Data Microlistics  " + this.Date(), 15, finalY + 20)
+  
+    const img = new Image();
+    img.src = logo_confirm;
+    doc.addImage(img, 'PNG', 775, 9, 50, 40)
+    // var ll = this.props.ExportHeader();
+    // console.log(ll);
+    // if(ll === 'Site'){
+    //   alert('hh')
     // }
-    // loadImage = ('assets/img/LOGO.png').then((logo) => {
-    //   doc.addImage(logo, 'PNG', 10, 10);
-    //   doc.save('report.pdf');
-    // });
-    
     doc.autoTable({
+      theme: 'grid',
       margin: 
         {
           left: 20,
           right: 20,
           bottom: 20
         },
-        // elem: imgData,
-      startY: finalY + 40,
+      startY: finalY + 50,
       head: [this.props.ExportHeader()],
       body: this.props.ExportData(),
-      styles: { cellPadding: 0.5, fontSize: this.props.ExportFont },
+      headerStyles: {
+        tableHeaderLineColor:[189, 195, 199],
+        //columnWidth: 'wrap',
+        cellPadding: 5,
+        lineWidth: 1,
+        valign:'top',
+        fontStyle: 'bold', 
+        halign: 'left',    //'center' or 'right'
+        fillColor: null, 
+        textColor: [186, 185, 182],  
+        rowHeight:20
+      },
+      styles: { cellPadding: 1, fontSize: this.props.ExportFont },
+
     })
 
     finalY = doc.previousAutoTable.finalY
-    doc.autoTable({
-      margin: 
-        {
-          left: 20,
-          right: 20,
-          bottom: 20
-        },
-      html: '.table',
-      useCss: true,
-    })
+    // doc.autoTable({
+    //   margin: 
+    //     {
+    //       left: 20,
+    //       right: 20,
+    //       bottom: 20
+    //     },
+    //   html: '.table',
+    //   useCss: true,
+    // })
 
     return doc
   }

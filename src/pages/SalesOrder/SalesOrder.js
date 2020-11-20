@@ -178,7 +178,7 @@ const columns = [
     Cell: props => <span>{props.value ? props.value : '-'}</span> 
   },
   { 
-    accessor: 'loadnumber', placeholder: 'Load Number', Header: 'Load Number', width: null,
+    accessor: 'loadnumber', placeholder: 'Load Number', Header: 'Load Number', width: null, style: { textAlign: 'right' },
     Cell: props => <span>{props.value ? props.value : '-'}</span>  
   },
   { 
