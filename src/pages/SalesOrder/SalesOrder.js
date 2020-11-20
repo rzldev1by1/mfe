@@ -136,8 +136,8 @@ const columns = [
   },
   { 
     accessor: 'vendororderno', 
-    placeholder: 'Vendor Order No', 
-    Header: 'Vendor Order No', 
+    placeholder: 'Vendor Order Ref', 
+    Header: 'Vendor Order Ref', 
     width: null,
     Cell: props => <span>{props.value ? props.value : '-'}</span>  
   },

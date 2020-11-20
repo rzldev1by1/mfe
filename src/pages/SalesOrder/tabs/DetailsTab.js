@@ -248,6 +248,9 @@ class CreateTab extends React.Component {
         }
         else{
             this.getSupplierIdentity(val.value)
+            delete error.shipToAddress1
+            delete error.postCode;
+            delete error.state;
         }
       }
     })
