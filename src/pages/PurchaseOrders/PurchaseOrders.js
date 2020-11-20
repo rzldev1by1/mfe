@@ -96,19 +96,27 @@ const columns = [
   },
   {
     accessor: 'delivery_date', placeholder: 'Order Date', Header: 'Order Date', width: 150, sortable: true,
-    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? props.value : '-'}</span>
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? props.value : '-'}</span>,
+    sortable: false, 
+    sortType: "date"
   },
   {
     accessor: 'date_received', placeholder: 'Date Received', Header: 'Date Received', width: 150, sortable: true,
-    style: { textAlign: 'left' }, Cell: props => <span>{props.value ?props.value : '-'}</span>
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ?props.value : '-'}</span>,
+    sortable: false, 
+    sortType: "date"
   },
   {
     accessor: 'date_released', placeholder: 'Date Released', Header: 'Date Released', width: 150, sortable: true,
-    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? props.value : '-'}</span>
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? props.value : '-'}</span>,
+    sortable: false, 
+    sortType: "date"
   },
   {
     accessor: 'date_completed', placeholder: 'Date Completed', Header: 'Date Completed', width: 150, sortable: true,
-    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? props.value : '-'}</span>
+    style: { textAlign: 'left' }, Cell: props => <span>{props.value ? props.value : '-'}</span>,
+    sortable: false, 
+    sortType: "date"
   },
   // { accessor: 'customer_order_ref', Header: 'Customer Order Ref' },
   // { accessor: 'vendor_order_ref', Header: 'Vendor Order No' },
@@ -154,6 +162,7 @@ class PurchaseOrders extends React.PureComponent {
       dimension: { width: 0, height: 0 },
       tableStatus: 'waiting',
       exportData: [],
+      sort: "down"
     }
 
   }
@@ -340,8 +349,50 @@ class PurchaseOrders extends React.PureComponent {
     this.searchPurchaseOrder();
   }
 
+  sortDate = (value, column, sort) => {
+    let data = value;
+    let dateFormatting = (value) => {
+        if(value){
+            let split = value.split("/");
+            split.reverse()
+            return split.join("-")
+        }
 
+    }
+    if(sort == "down"){
+        data.sort((a, b) => {
+            if (a[column] !== undefined && b[column] !== undefined) {
+                let date1 = new Date(dateFormatting(a[column]));
+                let date2 = new Date(dateFormatting(b[column]));
+                if(a[column] === null){
+                    return -1;
+                }else if(b[column] === null){
+                    return 1;
+                }
+                return date2 - date1;
+            }
+        })
 
+        
+        this.setState({ sort: "up" })
+    }else if(sort == "up"){
+        data.sort((a, b) => {
+            if (a[column] !== undefined && b[column] !== undefined) {
+                let date1 = new Date(dateFormatting(a[column]));
+                let date2 = new Date(dateFormatting(b[column]));
+                if(a[column] === null){
+                    return 1;
+                }else if(b[column] === null){
+                    return -1;
+                }
+                return date1 - date2;
+            }
+
+        })
+        this.setState({ sort: "down" })
+    }
+    this.setState({ data });
+  }
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
@@ -511,6 +562,7 @@ class PurchaseOrders extends React.PureComponent {
         onClick={this.showDetails}
         UrlHeader={this.UrlHeader}
         UrlAll={this.UrlAll}
+        sortDate={(column) => this.sortDate(this.state.data, column, this.state.sort)}
         tableStatus={tableStatus}
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchPurchaseOrder())

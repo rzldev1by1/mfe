@@ -235,12 +235,26 @@ class CustomTable extends React.Component {
     this.refs['reactTable'].state.sorted.splice(0, this.refs['reactTable'].state.sorted.length)
   }
 
+  sortDate = (column) => {
+    this.props.sortDate(column)
+    this.refs['reactTable'].state.sorted.splice(0, this.refs['reactTable'].state.sorted.length)
+  }
+
   headerIcon = (data, header, editColumn) => {
     let listHeader = []
     header && header.map((h, index) => {
       if (!editColumn[index]) {
         let withIcon = (
-          <span className={'text-light-gray draggable-header'+this.state.no} onClick={() => h.sortType === "float" ? this.sortFloat(h.accessor) : false }>
+          <span className={'text-light-gray draggable-header'+this.state.no} 
+            onClick={() => {
+              if(h.sortType === "float"){
+                this.sortFloat(h.accessor)
+              }else if(h.sortType === "date"){
+                this.sortDate(h.accessor)
+              }else{
+                  return false
+              }
+          } }>
             {h.Header}{' '}
               <svg
                 stroke='currentColor'
