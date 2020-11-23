@@ -101,7 +101,9 @@ const columns = [
     Header: 'Delivery Date', 
     width: 120,
     style: { textAlign: 'left' }, 
-    Cell: props => <span>{props.value ?props.value : '-'}</span>
+    Cell: props => <span>{props.value ?props.value : '-'}</span>,
+    sortable: false, 
+    sortType: "date", 
   },
   {
     accessor: 'datereceived', 
@@ -109,7 +111,9 @@ const columns = [
     Header: 'Date Received', 
     width: 120,
     style: { textAlign: 'left' },
-    Cell: props => <span>{props.value ? props.value : '-'}</span>
+    Cell: props => <span>{props.value ? props.value : '-'}</span>,
+    sortable: false, 
+    sortType: "date", 
   },
   {
     accessor: 'datereleased', 
@@ -117,7 +121,9 @@ const columns = [
     Header: 'Date Released', 
     width: 120,
     style: { textAlign: 'left' }, 
-    Cell: props => <span>{props.value ?props.value : '-'}</span>
+    Cell: props => <span>{props.value ?props.value : '-'}</span>,
+    sortable: false, 
+    sortType: "date", 
   },
   {
     accessor: 'datecompleted', 
@@ -125,7 +131,9 @@ const columns = [
     Header: 'Date Completed', 
     width: 130,
     style: { textAlign: 'left' }, 
-    Cell: props => <span>{props.value ? props.value : '-'}</span>
+    Cell: props => <span>{props.value ? props.value : '-'}</span>,
+    sortable: false, 
+    sortType: "date", 
   },
   { 
     accessor: 'customerpono', 
@@ -249,6 +257,7 @@ class SalesOrder extends React.PureComponent {
       dimension: { width: 0, height: 0 },
       tableStatus: 'waiting',
       exportData: [],
+      sort: "down"
     }
   }
   componentDidMount = () => {
@@ -427,6 +436,51 @@ class SalesOrder extends React.PureComponent {
     this.searchSalesOrder();
   }
 
+  sortDate = (value, column, sort) => {
+    let data = value;
+    let dateFormatting = (value) => {
+        if(value){
+            let split = value.split("/");
+            split.reverse()
+            return split.join("-")
+        }
+
+    }
+    if(sort == "down"){
+        data.sort((a, b) => {
+            if (a[column] !== undefined && b[column] !== undefined) {
+                let date1 = new Date(dateFormatting(a[column]));
+                let date2 = new Date(dateFormatting(b[column]));
+                if(a[column] === null){
+                    return -1;
+                }else if(b[column] === null){
+                    return 1;
+                }
+                return date2 - date1;
+            }
+        })
+
+        
+        this.setState({ sort: "up" })
+    }else if(sort == "up"){
+        data.sort((a, b) => {
+            if (a[column] !== undefined && b[column] !== undefined) {
+                let date1 = new Date(dateFormatting(a[column]));
+                let date2 = new Date(dateFormatting(b[column]));
+                if(a[column] === null){
+                    return 1;
+                }else if(b[column] === null){
+                    return -1;
+                }
+                return date1 - date2;
+            }
+
+        })
+        this.setState({ sort: "down" })
+    }
+    this.setState({ data });
+  }
+
   render() {
     const {
       dimension, fields, data, pagination, site, client, status, orderType, create, task,
@@ -593,6 +647,7 @@ class SalesOrder extends React.PureComponent {
         tableStatus={tableStatus}
         onClick={this.showDetails}
         renameSubmit={this.renameSubmit}
+        sortDate={(column) => this.sortDate(this.state.data, column, this.state.sort)}
         UrlHeader={this.UrlHeader}
         UrlAll={this.UrlAll}
         goto={(active) => {
