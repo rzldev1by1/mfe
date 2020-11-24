@@ -128,7 +128,6 @@ class Export extends Component {
       didDrawPage:function(data) {
         doc.text(title + " Data Microlistics  " + date, 15, finalY + 20)
         doc.addImage(img, 'PNG', 785, 9, 45, 40,"a","FAST")
-        
       }
     })
 
