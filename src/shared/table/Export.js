@@ -3,10 +3,12 @@ import { InputGroup } from 'reactstrap'
 import './Export.css';
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import moment from 'moment'
 import ExportExl from 'react-html-table-to-excel'
 import loading from "assets/icons/loading/LOADING-MLS.gif"
 import { Modal, ModalBody, ModalHeader, Button, ButtonDropdown, Card, CardBody, CardHeader, Col, DropdownItem, DropdownMenu, DropdownToggle, Row } from 'reactstrap';
 import logo_confirm from 'assets/img/LOGO5@2x.png'
+import logo_export from 'assets/img/logo_export2.png'
 
 class Export extends Component {
   constructor(props) {
@@ -85,35 +87,32 @@ class Export extends Component {
     // From Javascript
     var finalY = doc.previousAutoTable.finalY || 10
     var title = this.props.ExportPDFName
-    var date = this.Date()
+    var originDate = this.Date()
+    var date = moment(originDate).format('DD/MM/YYYY')
     const img = new Image();
-    img.src = logo_confirm;
+    img.src = logo_export;
     
     doc.autoTable({
-      theme: 'grid',
+      theme: 'striped',
       margin: 
         {
-          left: 20,
-          right: 20,
-          bottom: 15
+          left: 15,
+          right: 15,
+          bottom: 5
         },
-      startY: finalY + 50,
+      startY: finalY + 30,
       head: [this.props.ExportHeader()],
       body: this.props.ExportData(),
       headerStyles: {
-        tableHeaderLineColor:[189, 195, 199],
         cellPadding: 5,
-        lineWidth: 1,
+        lineWidth: 0,
         valign:'top',
         fontStyle: 'bold', 
         halign: 'left',    //'center' or 'right'
-        fillColor: null, 
-        textColor: [186, 185, 182],  
+        fillColor: [94, 68, 232], 
+        textColor: [255, 255, 255],  
         rowHeight:22
       },
-      // alternateRowStyles: {
-      //   lineWidth: 0
-      // },
       styles: { 
         rowHeight:24,
         cellPadding: {
@@ -127,16 +126,10 @@ class Export extends Component {
       },
      
       didDrawPage:function(data) {
-        doc.text(title + " Data Microlistics  " + date, 18, finalY + 20)
-        doc.addImage(img, 'PNG', 775, 9, 50, 40,"a","FAST")
-        doc.autoTable({
-          finalY: 50,
-        })
+        doc.text(title + " Data Microlistics  " + date, 15, finalY + 20)
+        doc.addImage(img, 'PNG', 785, 9, 45, 40,"a","FAST")
         
       }
-
-
-
     })
 
     return doc
