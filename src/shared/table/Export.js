@@ -53,7 +53,6 @@ class Export extends Component {
 
     await this.props.getExportData()
     const marginLeft = 40;
-
     const doc = this.examples();
     const data = this.props.ExportData()
     console.log(data);
@@ -85,30 +84,24 @@ class Export extends Component {
     const doc = new jsPDF(orientation, unit, size);
     // From Javascript
     var finalY = doc.previousAutoTable.finalY || 10
-    doc.text(this.props.ExportPDFName + " Data Microlistics  " + this.Date(), 15, finalY + 20)
-  
+    var title = this.props.ExportPDFName
+    var date = this.Date()
     const img = new Image();
     img.src = logo_confirm;
-    doc.addImage(img, 'PNG', 775, 9, 50, 40)
-    // var ll = this.props.ExportHeader();
-    // console.log(ll);
-    // if(ll === 'Site'){
-    //   alert('hh')
-    // }
+    
     doc.autoTable({
       theme: 'grid',
       margin: 
         {
           left: 20,
           right: 20,
-          bottom: 20
+          bottom: 15
         },
       startY: finalY + 50,
       head: [this.props.ExportHeader()],
       body: this.props.ExportData(),
       headerStyles: {
         tableHeaderLineColor:[189, 195, 199],
-        //columnWidth: 'wrap',
         cellPadding: 5,
         lineWidth: 1,
         valign:'top',
@@ -116,23 +109,35 @@ class Export extends Component {
         halign: 'left',    //'center' or 'right'
         fillColor: null, 
         textColor: [186, 185, 182],  
-        rowHeight:20
+        rowHeight:22
       },
-      styles: { cellPadding: 1, fontSize: this.props.ExportFont },
+      // alternateRowStyles: {
+      //   lineWidth: 0
+      // },
+      styles: { 
+        rowHeight:24,
+        cellPadding: {
+          top: 8,
+          right: 4,
+          bottom: 8,
+          left: 4
+        },
+        fontSize: 8,
+        borderBottom: 0
+      },
+     
+      didDrawPage:function(data) {
+        doc.text(title + " Data Microlistics  " + date, 18, finalY + 20)
+        doc.addImage(img, 'PNG', 775, 9, 50, 40,"a","FAST")
+        doc.autoTable({
+          finalY: 50,
+        })
+        
+      }
+
+
 
     })
-
-    finalY = doc.previousAutoTable.finalY
-    // doc.autoTable({
-    //   margin: 
-    //     {
-    //       left: 20,
-    //       right: 20,
-    //       bottom: 20
-    //     },
-    //   html: '.table',
-    //   useCss: true,
-    // })
 
     return doc
   }
