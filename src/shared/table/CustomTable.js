@@ -564,7 +564,11 @@ class CustomTable extends React.Component {
 
   ExportHeader = () => {
     let fields = this.props.customFields || this.state.fields
-      let data = fields.map((data, idx) => {
+    // Object.keys(fields).forEach(function(key) {
+    //   if (fields[key].accessor === 'country') {
+       
+    // });
+    let data = fields.map((data, idx) => {
       return data.Header
     });
     return data
@@ -580,21 +584,8 @@ class CustomTable extends React.Component {
     };
 
     if (this.props.exportData) {
-      dataAll = this.props.exportData.map((data, idx,) => {
-          let column = fields.map((column, columnIdx) => {
-            // if(column.accessor === 'date_received' || column.accessor === 'delivery_date' || column.accessor === 'date_completed' || column.accessor === 'date_released'){
-            //   if(data[column.accessor]){
-                // let dateTime = new Date(data[column.accessor]);
-                // dateTime = moment(dateTime).utc().format("YYYY-MM-DD HH:mm:ss");
-                // data[column.accessor] = moment(moment(dateTime).format("DD/MM/YYYY")).format();
-                // const day = new Date(2011, 9, 16);
-                // const dayWrapper = moment(day);
-                  // console.log(data[column.accessor])
-                  // const date = data[column.accessor] = moment(data[column.accessor],"YYYY-MM-DD hh:mm:ss")
-                  // data[column.accessor] = moment(data[column.accessor]).format('DD/MM/YYYY')
-                  // console.log(data);
-            //   }
-            // }
+      dataAll = this.props.exportData.map((data, idx) => {
+        let column = fields.map((column, columnIdx) => {
           let split = [data[column.accessor]]
           return split
         })
@@ -609,7 +600,6 @@ class CustomTable extends React.Component {
         return column
       })
     }
-
     return dataAll
   }
 
