@@ -3,10 +3,12 @@ import { InputGroup } from 'reactstrap'
 import './Export.css';
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import moment from 'moment'
 import ExportExl from 'react-html-table-to-excel'
 import loading from "assets/icons/loading/LOADING-MLS.gif"
 import { Modal, ModalBody, ModalHeader, Button, ButtonDropdown, Card, CardBody, CardHeader, Col, DropdownItem, DropdownMenu, DropdownToggle, Row } from 'reactstrap';
 import logo_confirm from 'assets/img/LOGO5@2x.png'
+import logo_export from 'assets/img/logo_export2.png'
 
 class Export extends Component {
   constructor(props) {
@@ -53,7 +55,6 @@ class Export extends Component {
 
     await this.props.getExportData()
     const marginLeft = 40;
-
     const doc = this.examples();
     const data = this.props.ExportData()
     console.log(data);
@@ -85,54 +86,50 @@ class Export extends Component {
     const doc = new jsPDF(orientation, unit, size);
     // From Javascript
     var finalY = doc.previousAutoTable.finalY || 10
-    doc.text(this.props.ExportPDFName + " Data Microlistics  " + this.Date(), 15, finalY + 20)
-  
+    var title = this.props.ExportPDFName
+    var originDate = this.Date()
+    var date = moment(originDate).format('DD/MM/YYYY')
     const img = new Image();
-    img.src = logo_confirm;
-    doc.addImage(img, 'PNG', 775, 9, 50, 40)
-    // var ll = this.props.ExportHeader();
-    // console.log(ll);
-    // if(ll === 'Site'){
-    //   alert('hh')
-    // }
+    img.src = logo_export;
+    
     doc.autoTable({
-      theme: 'grid',
+      theme: 'striped',
       margin: 
         {
-          left: 20,
-          right: 20,
-          bottom: 20
+          left: 15,
+          right: 15,
+          bottom: 5
         },
-      startY: finalY + 50,
+      startY: finalY + 30,
       head: [this.props.ExportHeader()],
       body: this.props.ExportData(),
       headerStyles: {
-        tableHeaderLineColor:[189, 195, 199],
-        //columnWidth: 'wrap',
         cellPadding: 5,
-        lineWidth: 1,
+        lineWidth: 0,
         valign:'top',
         fontStyle: 'bold', 
         halign: 'left',    //'center' or 'right'
-        fillColor: null, 
-        textColor: [186, 185, 182],  
-        rowHeight:20
+        fillColor: [94, 68, 232], 
+        textColor: [255, 255, 255],  
+        rowHeight:22
       },
-      styles: { cellPadding: 1, fontSize: this.props.ExportFont },
-
+      styles: { 
+        rowHeight:24,
+        cellPadding: {
+          top: 8,
+          right: 4,
+          bottom: 8,
+          left: 4
+        },
+        fontSize: 8,
+        borderBottom: 0
+      },
+     
+      didDrawPage:function(data) {
+        doc.text(title + " Data Microlistics  " + date, 15, finalY + 20)
+        doc.addImage(img, 'PNG', 785, 9, 45, 40,"a","FAST")
+      }
     })
-
-    finalY = doc.previousAutoTable.finalY
-    // doc.autoTable({
-    //   margin: 
-    //     {
-    //       left: 20,
-    //       right: 20,
-    //       bottom: 20
-    //     },
-    //   html: '.table',
-    //   useCss: true,
-    // })
 
     return doc
   }
