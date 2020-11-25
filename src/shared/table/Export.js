@@ -3,10 +3,12 @@ import { InputGroup } from 'reactstrap'
 import './Export.css';
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import moment from 'moment'
 import ExportExl from 'react-html-table-to-excel'
 import loading from "assets/icons/loading/LOADING-MLS.gif"
 import { Modal, ModalBody, ModalHeader, Button, ButtonDropdown, Card, CardBody, CardHeader, Col, DropdownItem, DropdownMenu, DropdownToggle, Row } from 'reactstrap';
 import logo_confirm from 'assets/img/LOGO5@2x.png'
+import logo_export from 'assets/img/logo_export2.png'
 
 class Export extends Component {
   constructor(props) {
@@ -53,10 +55,9 @@ class Export extends Component {
 
     await this.props.getExportData()
     const marginLeft = 40;
-
     const doc = this.examples();
-    const data = this.props.ExportData()
-
+    // const data = this.props.ExportData()
+    // console.log(data);
     doc.save(this.props.ExportName() + ".pdf")
     this.changeExportStatus('ready')
   }
@@ -78,65 +79,66 @@ class Export extends Component {
   
 
   examples = () => {
+    console.log(this.props.ExportHeader());
     console.log(this.props.ExportData())
+
+    let header = [...this.props.ExportHeader()]
+    let body = [...this.props.ExportData()]
+
+    header = header.filter((data, idx) => idx  <=11)
+    body = body.map(data => {
+      let newData = data.filter((dt,idx) => idx <= 11)
+      return newData
+    })
     const unit = "pt";
     const size = "A4"; // Use A1, A2, A3 or A4
     const orientation = "landscape"; // portrait or landscape
     const doc = new jsPDF(orientation, unit, size);
     // From Javascript
     var finalY = doc.previousAutoTable.finalY || 10
-    doc.text(this.props.ExportPDFName + " Data Microlistics  " + this.Date(), 14, finalY + 15)
-// var base64String= Convert.ToBase64String(File.ReadAllBytes(logo_confirm));
-// console.log(base64String);
-//     doc.addImage(base64String, 'PNG', 0, 0, 0, 0)
-
-const img = new Image();
-      img.crossOrigin = 'Anonymous';
-      img.onload = () => {
-    
-      };
-
-      img.src = logo_confirm;
-      doc.addImage(img, 'PNG', 15, -40, 180, 160)
-
-
-    // function loadImage(url) {
-
-    //   return new Promise((resolve) => {
-    //     let img = new Image();
-    //     img.onload = () => resolve(img);
-    //     img.src = url;
-    //   })
-    // }
-    // loadImage = ('assets/img/LOGO.png').then((logo) => {
-    //   doc.addImage(logo, 'PNG', 10, 10);
-    //   doc.save('report.pdf');
-    // });
-    
+    var title = this.props.ExportPDFName
+    var originDate = this.Date()
+    var date = moment(originDate).format('DD/MM/YYYY')
+    const img = new Image();
+    img.src = logo_export;
+    doc.setFontSize(15);
     doc.autoTable({
+      theme: 'striped',
       margin: 
         {
-          left: 20,
-          right: 20,
-          bottom: 20
+          left: 15,
+          right: 15,
+          bottom: 5
         },
-        // elem: imgData,
-      startY: finalY + 40,
-      head: [this.props.ExportHeader()],
-      body: this.props.ExportData(),
-      styles: { cellPadding: 0.5, fontSize: this.props.ExportFont },
-    })
-
-    finalY = doc.previousAutoTable.finalY
-    doc.autoTable({
-      margin: 
-        {
-          left: 20,
-          right: 20,
-          bottom: 20
+      startY: finalY + 30,
+      head: [header],
+      body: body,
+      headerStyles: {
+        cellPadding: 5,
+        lineWidth: 0,
+        valign:'top',
+        fontStyle: 'bold', 
+        halign: 'left',    //'center' or 'right'
+        fillColor: [94, 68, 232], 
+        textColor: [255, 255, 255],  
+        rowHeight:22
+      },
+      styles: { 
+        rowHeight:24,
+        cellPadding: {
+          top: 8,
+          right: 4,
+          bottom: 8,
+          left: 4
         },
-      html: '.table',
-      useCss: true,
+        fontSize: 8,
+        borderBottom: 0
+      },
+     
+      didDrawPage:function(data) {
+        doc.text(title + " Data Microlistics  " + date, 15, finalY + 15)
+        doc.addImage(img, 'PNG', 785, 5, 45, 40,"a","FAST")
+      }
     })
 
     return doc
