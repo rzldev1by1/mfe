@@ -150,7 +150,7 @@ class DatePicker extends React.Component {
                     let firstDate = new Date(this.props.firstDate);
                     firstDate.setDate(firstDate.getDate() + 1)
                     this.setState({ month: firstDate, selectedDay: firstDate, defaultValue: moment(firstDate).format("DD/MM/YYYY")});
-                    this.props.getDate(moment(firstDate).format("DD/MM/YYYY"))
+                    this.props.getDate(moment(firstDate).format("YYYY-MM-DD"))
                 }
             }
         }
