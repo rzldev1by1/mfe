@@ -56,8 +56,8 @@ class Export extends Component {
     await this.props.getExportData()
     const marginLeft = 40;
     const doc = this.examples();
-    const data = this.props.ExportData()
-    console.log(data);
+    // const data = this.props.ExportData()
+    // console.log(data);
     doc.save(this.props.ExportName() + ".pdf")
     this.changeExportStatus('ready')
   }
@@ -79,7 +79,17 @@ class Export extends Component {
   
 
   examples = () => {
+    console.log(this.props.ExportHeader());
     console.log(this.props.ExportData())
+
+    let header = [...this.props.ExportHeader()]
+    let body = [...this.props.ExportData()]
+
+    header = header.filter((data, idx) => idx  <=11)
+    body = body.map(data => {
+      let newData = data.filter((dt,idx) => idx <= 11)
+      return newData
+    })
     const unit = "pt";
     const size = "A4"; // Use A1, A2, A3 or A4
     const orientation = "landscape"; // portrait or landscape
@@ -91,7 +101,7 @@ class Export extends Component {
     var date = moment(originDate).format('DD/MM/YYYY')
     const img = new Image();
     img.src = logo_export;
-    
+    doc.setFontSize(15);
     doc.autoTable({
       theme: 'striped',
       margin: 
@@ -101,8 +111,8 @@ class Export extends Component {
           bottom: 5
         },
       startY: finalY + 30,
-      head: [this.props.ExportHeader()],
-      body: this.props.ExportData(),
+      head: [header],
+      body: body,
       headerStyles: {
         cellPadding: 5,
         lineWidth: 0,
@@ -126,8 +136,8 @@ class Export extends Component {
       },
      
       didDrawPage:function(data) {
-        doc.text(title + " Data Microlistics  " + date, 15, finalY + 20)
-        doc.addImage(img, 'PNG', 785, 9, 45, 40,"a","FAST")
+        doc.text(title + " Data Microlistics  " + date, 15, finalY + 15)
+        doc.addImage(img, 'PNG', 785, 5, 45, 40,"a","FAST")
       }
     })
 
