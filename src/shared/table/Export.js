@@ -100,6 +100,7 @@ class Export extends Component {
     const img = new Image();
     img.src = logo_export;
     doc.setFontSize(15);
+    
     doc.autoTable({
       theme: 'striped',
       margin: 
@@ -132,7 +133,6 @@ class Export extends Component {
         fontSize: 8,
         borderBottom: 0
       },
-     
       didDrawPage:function(data) {
         doc.text(title + " Data Microlistics  " + date, 15, finalY + 15)
         doc.addImage(img, 'PNG', 785, 5, 45, 40,"a","FAST")

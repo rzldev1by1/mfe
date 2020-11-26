@@ -482,9 +482,9 @@ class ReviewTab extends React.Component {
             ) : null}
           </Col>
           <Col lg={2} className="text-right">
-            <button className="btn btn-primary" onClick={this.next}>
-              {"SUBMIT"}
-            </button>
+          <button className="btn btn-primary" onClick={this.next}>{this.state.status === 'loading' ?
+            <div className='m-iconLoad'><img src={loading} width='45' height='45' /></div>
+            : 'SUBMIT'}</button>
           </Col>
         </Row>
       </Container>

@@ -105,7 +105,7 @@ class SalesOrderDetail extends React.Component {
         accessor: 'type',
         placeholder: 'Type',
         Header: 'Type',
-        sortable: true,
+        sortable: false,
         width: this.props.store.total_length + 400,
         Cell: row => {
           return (
@@ -122,16 +122,16 @@ class SalesOrderDetail extends React.Component {
         accessor: 'company',
         placeholder: 'Customer No',
         Header: 'Customer No',
-        sortable: true,
+        sortable: false,
         width: 140,
         
       },
-      { accessor: 'orderno', placeholder: 'Order No', Header: 'Order No', sortable: true, width: 170 },
+      { accessor: 'orderno', placeholder: 'Order No', Header: 'Order No', sortable: false, width: 170 },
       {
         accessor: 'effectivedate',
         placeholder: 'Order Date',
         Header: 'Order Date',
-        sortable: true,
+        sortable: false,
         width: 150,
         Cell: row => {
           return (
@@ -145,7 +145,7 @@ class SalesOrderDetail extends React.Component {
         accessor: 'qtyexpected',
         placeholder: 'Expected In',
         Header: 'Expected In',
-        sortable: true,
+        sortable: false,
         width: 150,
         Cell: row => {
           return (
@@ -160,7 +160,7 @@ class SalesOrderDetail extends React.Component {
         accessor: 'qtycommitted',
         placeholder: 'Expected Out',
         Header: 'Expected Out',
-        sortable: true,
+        sortable: false,
         width: 150,
         Cell: row => {
           return (
@@ -175,7 +175,7 @@ class SalesOrderDetail extends React.Component {
         accessor: 'closingbalance',
         placeholder: 'Balance',
         Header: 'Balance',
-        sortable: true,
+        sortable: false,
         width: 140,
         Cell: row => {
           return (
@@ -283,8 +283,10 @@ class SalesOrderDetail extends React.Component {
     })
     const {paginationForcast} = this.state
     const { product, client, site } = this.props.match.params;
+    console.log(this.props.match.params);
     const url = `/stockbal?client=${client}&product=${product}&site=${site}&page=${page}&export=${export_}`;
     const { data } = await axios.get(url);
+    console.clear()
     console.log(data);
     const available = data[0][0]['available orders']
     if (data[0][0]['stock expiry'].length === 0) {
