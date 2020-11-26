@@ -213,7 +213,7 @@ const customColumns = [
   { accessor: 'isistask', Header: 'Task', width: 100 },
   { accessor: 'customer', Header: 'Customer No', style: { textAlign: 'left' } },
   { accessor: 'customername', Header: 'Customer Name' },
-  { accessor: 'statusTxt', Header: 'Status', width: 150 },
+  { accessor: 'status', Header: 'Status', width: 150 },
   { accessor: 'deliverydate', Header: 'Delivery Date', width: 120 },
   { accessor: 'datereceived', Header: 'Date Received', width: 120 },
   { accessor: 'datereleased', Header: 'Date Released', width: 120 },
