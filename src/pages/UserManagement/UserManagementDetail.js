@@ -243,7 +243,7 @@ class UserManagementDetail extends Component {
 
       validation.modules.isValid = (newArray.filter((m) => m.status !== false).length > 0);
 
-      this.setState({ moduleAccess: newArray, isEnableAllModule: !isEnableAllModule, validation });
+      this.setState({ moduleAccess: newArray, isEnableAllModule: !isEnableAllModule, validation, changed: true });
     }
 
 
@@ -259,7 +259,7 @@ class UserManagementDetail extends Component {
 
       validation.sites.isValid = (newArray.filter((s) => s.status !== false).length > 0);
 
-      this.setState({ sites: newArray, isEnableAllSite: !isEnableAllSite, validation });
+      this.setState({ sites: newArray, isEnableAllSite: !isEnableAllSite, validation, changed: true });
     }
 
     onEnabledAllClient = () => {
@@ -273,7 +273,7 @@ class UserManagementDetail extends Component {
 
       validation.clients.isValid = (newArray.filter((c) => c.status !== false).length > 0);
 
-      this.setState({ clients: newArray, isEnableAllClient: !isEnableAllClient, validation });
+      this.setState({ clients: newArray, isEnableAllClient: !isEnableAllClient, validation, changed: true });
     }
 
     onModuleAccessClick = (e, index) => {
@@ -291,7 +291,7 @@ class UserManagementDetail extends Component {
 
       validation.modules.isValid = isEnableAll > 0;
 
-      this.setState({ moduleAccess: newModules, isEnableAllModule: isEnableAllModule, validation });
+      this.setState({ moduleAccess: newModules, isEnableAllModule: isEnableAllModule, validation, changed: true });
     }
 
     onSiteStatusClick = (e, index) => {
@@ -310,7 +310,7 @@ class UserManagementDetail extends Component {
 
       validation.sites.isValid = isEnableAll > 0;
 
-      this.setState({ sites: newSites, isEnableAllSite: isEnableAllSite, validation });
+      this.setState({ sites: newSites, isEnableAllSite: isEnableAllSite, validation, changed: true });
     }
 
     onClientStatusClick = (e, index) => {
@@ -329,7 +329,7 @@ class UserManagementDetail extends Component {
 
       validation.clients.isValid = isEnableAll > 0;
 
-      this.setState({ clients: newClients, isEnableAllClient: isEnableAllClient, validation });
+      this.setState({ clients: newClients, isEnableAllClient: isEnableAllClient, validation, changed: true });
     }
 
 
@@ -512,7 +512,7 @@ class UserManagementDetail extends Component {
         console.log(accountInfoUpdate.disabled);
         accountInfoUpdate.disabled = !accountInfoUpdate.disabled;
 
-        this.setState({ accountInfo: accountInfoUpdate}, () => console.log(accountInfoUpdate.disabled))
+        this.setState({ accountInfo: accountInfoUpdate, changed: true}, () => console.log(accountInfoUpdate.disabled))
     }
 
     onClickResetPassword = () => {
