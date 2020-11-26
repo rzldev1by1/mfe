@@ -54,7 +54,7 @@ class SalesOrderCreate extends React.PureComponent {
     const { data, key } = this.state;
     console.log("start ------------------------------");
     console.log(data);
-    console.log("end ------------------------------");
+    console.log("end ------------------------------"); 
     return (
       <Modal
         show={this.props.show}
@@ -126,6 +126,7 @@ class SalesOrderCreate extends React.PureComponent {
                   submit={this.setData}
                   submitStatus={this.submitStatus}
                   hide={this.onHide}
+                  userLevel={this.props.user.userLevel}
                 />
               )}
             </TabPane>
