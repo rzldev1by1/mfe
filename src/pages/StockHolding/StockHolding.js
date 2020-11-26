@@ -149,7 +149,7 @@ const customColumns = [
     width: 250,
     sortable: true,
   },
-  { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: null, sortable: true },
+  // { accessor: 'disposition', Header: 'Disposition', placeholder: 'Disposition', width: null, sortable: true },
   { accessor: 'packdesc_1', Header: 'UOM', placeholder: 'UOM', width: null, sortable: true },
   { accessor: 'statusTxt', Header: ' Status ', placeholder: 'Status', width: 200, sortable: true },
   {

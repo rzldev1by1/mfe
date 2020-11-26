@@ -626,7 +626,7 @@ class CustomTable extends React.Component {
 
   render() {
     const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename, sameColumnsIdx  } = this.state
-    let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus } = this.props 
+    let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus, module } = this.props 
     let headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0])); 
     return (
@@ -731,6 +731,7 @@ class CustomTable extends React.Component {
               pdf={this.props.pdf}
               excel={this.props.excel}
               getExportData={() => this.getExportData()}
+              module={this.props.module}
               // ExportData={exportData}
               pagination={pagination}
               ExportHeader={this.ExportHeader} ExportData={this.ExportData} ExportFont={font} />

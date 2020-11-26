@@ -650,6 +650,7 @@ class SalesOrder extends React.PureComponent {
         sortDate={(column) => this.sortDate(this.state.data, column, this.state.sort)}
         UrlHeader={this.UrlHeader}
         UrlAll={this.UrlAll}
+        module='so'
         goto={(active) => {
           this.setState({ pagination: { ...pagination, active } }, () => this.searchSalesOrder())
         }}

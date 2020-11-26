@@ -79,15 +79,17 @@ class Export extends Component {
   examples = () => {
     console.log(this.props.ExportHeader());
     console.log(this.props.ExportData())
-
+    console.log(this.props.module);
     let header = [...this.props.ExportHeader()]
     let body = [...this.props.ExportData()]
-
-    header = header.filter((data, idx) => idx  <=11)
-    body = body.map(data => {
-      let newData = data.filter((dt,idx) => idx <= 11)
-      return newData
-    })
+    if(this.props.module === 'so'){
+        header = header.filter((data, idx) => idx  <=11)
+        body = body.map(data => {
+        let newData = data.filter((dt,idx) => idx <= 11)
+        return newData
+      })
+    }
+    
     const unit = "pt";
     const size = "A4"; // Use A1, A2, A3 or A4
     const orientation = "landscape"; // portrait or landscape
