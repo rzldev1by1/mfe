@@ -4,7 +4,8 @@ const INITIAL_STATE = {
   darkMode: false,
   user: null,
   loading: true,
-  expired:false
+  expired:false,
+  lastChangedUser: null
 }
 
 // REDUCERS
@@ -28,6 +29,8 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, ...rest }) => {
       return {...state, expired:true}
     case 'TOTAL_LENGTH' :
       return {...state, total_length:data}
+    case 'CHANGED_USER':
+      return {...state, lastChangedUser: data}
     default:
       return state
   }

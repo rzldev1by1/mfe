@@ -172,8 +172,8 @@ class UserManagemen extends Component {
 
 
     render() {
-
         const { loginInfo, data, fields, customFields, pagination, dimension, modalShow, tableStatus,exportData } = this.state;
+        let lastChangedUser = this.props.store.lastChangedUser;
         console.log(data) 
         return (
             <div className="um-summary pt-1">
@@ -205,10 +205,10 @@ class UserManagemen extends Component {
                                     {loginInfo.userId}
                                 </CCol>
                                 <CCol sm={1} className="user-login-info-value">
-                                    <Link to={`/users-management/${loginInfo.webUser}/detail`} >{loginInfo.name}</Link>
+                                    <Link to={`/users-management/${loginInfo.webUser}/detail`} >{ lastChangedUser && ((lastChangedUser.userId === loginInfo.userId ) && (lastChangedUser.email === loginInfo.email)) ? lastChangedUser.name : loginInfo.name}</Link>
                                 </CCol>
                                 <CCol sm={2} className="user-login-info-value pr-0">
-                                    {loginInfo.email}
+                                    {lastChangedUser && ((lastChangedUser.userId === loginInfo.userId ) && (lastChangedUser.email === loginInfo.email)) ? lastChangedUser.email : loginInfo.email}
                                 </CCol>
                                 <CCol sm={1} className="user-login-info-value pl-0">
                                     {`${loginInfo.site && loginInfo.site !== '' ? loginInfo.site : 'All'}`}
