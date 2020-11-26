@@ -253,7 +253,7 @@ class StockMovement extends React.PureComponent {
     const { periods, site, client, filterType, product, periodSelected, productSm } = this.state
     if (isEmptyObject(validations(this.state))) {
       let header = Object.assign({}, this.state)
-      this.load_data(filterType.value, site.value, client.value, productSm.value)
+      this.load_data(filterType?.value, site?.value, client?.value, productSm?.value)
       this.setState({ error: delete header.error })
     } else {
       const error = validations(this.state)
