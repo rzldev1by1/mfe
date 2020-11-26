@@ -55,7 +55,8 @@ class UserManagementDetail extends Component {
                 "sites": { isValid: true, invalidClass: "is-invalid", message:'Please enable at least one on site' },
                 "clients": { isValid: true, invalidClass: "is-invalid", message:'Please enable at least one on client' }
             },
-            isLoadReset: false
+            isLoadReset: false,
+            changed: false
         }
 
     }
@@ -537,7 +538,7 @@ class UserManagementDetail extends Component {
         this.setState({ loginInfo: userInfo.user });
     }
 
-    edit = () => {
+    edit = (changed) => {
       const { initialData, accountInfo, moduleAccess, clients, sites, validation } = this.state
       let edited = false
 
@@ -545,7 +546,11 @@ class UserManagementDetail extends Component {
         const activeClient = clients.filter((c) => c.status !== false);
         const activeSite = sites.filter((s) => s.status !== false);
         const activeModule = (accountInfo.web_group !== 'Admin') ? moduleAccess.filter((m) => m.status !== false) : ["Admin"];
-        edited = true;
+        if(!changed){
+            edited = false;
+        }else{
+            edited = true;
+        }
 
         if (accountInfo.email === '' ||
             accountInfo.user === '' ||
@@ -562,7 +567,7 @@ class UserManagementDetail extends Component {
 
     render() {
         const { moduleAccess, sites, clients, accountInfo, adminClass,validation } = this.state;
-        const edited = this.edit()
+        let edited = this.edit(this.state.changed)
 
         return (<div className="um-detail w-100 h-100">
             {/* <div className={(this.state.isLoadComplete ? 'd-none' : 'spinner')} />
@@ -615,14 +620,14 @@ class UserManagementDetail extends Component {
                                 </div>
 
                                 <div className="col-md-3 pr-0">
-                                    <input type="email" name="email" className={`form-control ${validation.email["isValid"]? '':validation.email["invalidClass"]}`} onChange={(e) => { this.onChangeEmail(e , accountInfo.email); }} onBlur={(e)=> {this.onBlurEmail(e);}} value={accountInfo.email} />
+                                    <input type="email" name="email" className={`form-control ${validation.email["isValid"]? '':validation.email["invalidClass"]}`} onChange={(e) => { this.onChangeEmail(e , accountInfo.email);this.setState({ changed: true }) }} onBlur={(e)=> {this.onBlurEmail(e);}} value={accountInfo.email} />
                                     <FormFeedback className="invalid-error-padding">
                                         {`${validation.email["message"]}`}
                                     </FormFeedback>
                                 </div>
 
                                 <div className="col-md-2 pr-0">
-                                    <input type="text" className={`form-control ${validation.name["isValid"]?'':validation.name["invalidClass"]}`} maxLength="60" onChange={(e) => { this.onChangeName(e); }} value={accountInfo.user} />
+                                    <input type="text" className={`form-control ${validation.name["isValid"]?'':validation.name["invalidClass"]}`} maxLength="60" onChange={(e) => { this.onChangeName(e);this.setState({ changed: true }) }} value={accountInfo.user} />
                                     <FormFeedback className="invalid-error-padding">
                                         {`${validation.name["message"]}`}
                                     </FormFeedback>
