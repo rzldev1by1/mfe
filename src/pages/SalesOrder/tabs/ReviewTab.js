@@ -118,8 +118,7 @@ class ReviewTab extends React.Component {
 
   render() {
     const { header, lineDetail } = this.props.data;
-    console.log(header);
-    // console.log(header.site.label);
+    
     return (
       <Container className="px-5 py-4">
         <h3 className="text-primary font-20">Order Details</h3>
@@ -128,9 +127,9 @@ class ReviewTab extends React.Component {
             <label className="text-muted mb-0 required">Site</label>
             <input
               value={
-                (header.site?.label
-                  ? this.siteCheck(header.site?.label)
-                  : header.site?.label) || this.siteCheck(header.site?.label)
+                ((header.site?.label?.length > 1)
+                  ? header.site?.label
+                  : this.siteCheck(header.site?.label)) || this.siteCheck(header.site?.label)
               }
               className="form-control"
               readOnly
@@ -167,9 +166,9 @@ class ReviewTab extends React.Component {
             <label className="text-muted mb-0 required">Client</label>
             <input
                value={
-                (header.client?.label
-                  ? this.clientCheck(header.client?.label)
-                  : header.client?.label) || this.clientCheck(header.client?.label)
+                ((header.client?.label?.length > 1)
+                  ? header.client?.label
+                  : this.clientCheck(header.client?.label)) || this.clientCheck(header.client?.label)
               }
               className="form-control"
               readOnly

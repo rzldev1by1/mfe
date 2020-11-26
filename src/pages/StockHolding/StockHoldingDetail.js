@@ -296,8 +296,10 @@ class SalesOrderDetail extends React.Component {
       return
     }
     let expiryDateSH = data[0][0]['stock expiry']
-    console.log(expiryDateSH)
-    let expdt = expiryDateSH[0].stockexpirydate
+    console.log(expiryDateSH.length)
+    let idxForcast = expiryDateSH.length -1
+    let expdt = expiryDateSH[idxForcast].stockexpirydate
+    
     let closingbal = [{ closingbalancetext: `Closing Balance as on ${moment(expdt).format('DD/MM/YYYY')}`, totalbalance: data[0][0]['closing balance'] }]
     const openingbal = [{ openingbalancetext: `Opening Balance as on ${moment().format('DD/MM/YYYY')}`, startbalance: data[0][0]['opening balance'] }]
     let txt = []
