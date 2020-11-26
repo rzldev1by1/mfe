@@ -6,6 +6,7 @@ import loading from "assets/icons/loading/LOADING-MLS.gif"
 import { connect } from "react-redux";
 
 class ReviewTab extends React.Component {
+
   state = {
     status: "",
   };
@@ -118,6 +119,7 @@ class ReviewTab extends React.Component {
 
   render() {
     const { header, lineDetail } = this.props.data;
+    const { userLevel } = this.props;
     
     return (
       <Container className="px-5 py-4">
@@ -166,7 +168,8 @@ class ReviewTab extends React.Component {
             <label className="text-muted mb-0 required">Client</label>
             <input
                value={
-                ((header.client?.label?.length > 1)
+                
+                ((header.client?.label && userLevel == 'Admin')
                   ? header.client?.label
                   : this.clientCheck(header.client?.label)) || this.clientCheck(header.client?.label)
               }
