@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
 import endpoint from 'helpers/endpoints'
+import loading from "assets/icons/loading/LOADING-MLS.gif"
 import moment from 'moment'
 
 class ReviewTab extends React.Component {
@@ -161,12 +162,14 @@ class ReviewTab extends React.Component {
           {this.state.status === 'success' ?
             <div className="text-center text-secondary mt-2"> <span className="text-success">Success,</span> order has been successfully submitted for processing </div>
             : null}
-          {this.state.status === 'loading' ?
+          {/* {this.state.status === 'loading' ?
             <div className="text-center text-secondary mt-2"> Loading... </div>
-            : null}
+            : null} */}
         </Col>
         <Col lg={2} className="text-right">
-          <button className="btn btn-primary" onClick={this.next}>{'SUBMIT'}</button>
+          <button className="btn btn-primary" onClick={this.next}>{this.state.status === 'loading' ?
+            <div className='m-iconLoad'><img src={loading} width='45' height='45' /></div>
+            : 'SUBMIT'}</button>
         </Col>
       </Row>
     </Container>

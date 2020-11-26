@@ -56,8 +56,6 @@ class Export extends Component {
     await this.props.getExportData()
     const marginLeft = 40;
     const doc = this.examples();
-    // const data = this.props.ExportData()
-    // console.log(data);
     doc.save(this.props.ExportName() + ".pdf")
     this.changeExportStatus('ready')
   }
