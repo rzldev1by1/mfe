@@ -480,12 +480,18 @@ class UserManagementDetail extends Component {
     updateRequest = async (param) => {
 
         var self = this;
-        const { userId } = self.state.accountInfo;
+        const { userId, user, email } = self.state.accountInfo;
 
         let url = `${endpoint.userManagementUpdate}${userId}`;
 
         const { data, status } = await axios.post(url, param);
         if (status === 200) {
+            let lastChangedUser = {}
+            lastChangedUser.name = user;
+            lastChangedUser.userId = userId;
+            lastChangedUser.email = email;
+            let data = lastChangedUser;
+            this.props.dispatch({ type: 'CHANGED_USER', data })
             this.setState({ isSaveProgressing: false, isResetSuccess: true }, this.gotoUM());
         } else {
             this.setState({ isSaveProgressing: false, isResetSuccess: false });
@@ -723,5 +729,6 @@ class UserManagementDetail extends Component {
 }
 
 const mapStateToProps = (store) => ({ store })
+const mapDispatchToProps = (dispatch) => ({ dispatch })
 
-export default connect(mapStateToProps,null)(UserManagementDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(UserManagementDetail);

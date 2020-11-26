@@ -16,6 +16,7 @@ const TheSidebar = () => {
   const location = useLocation()
   const show = useSelector(state => state.sidebarShow)
   const user = useSelector(state => state.user)
+  const lastChangedUser = useSelector(state => state.lastChangedUser)
 
   const [hover, setHover] = useState(null)
   const signOut = (e) => {
@@ -87,7 +88,9 @@ const TheSidebar = () => {
         <li className="c-sidebar-item" onMouseEnter={() => setHover('logout')} onMouseLeave={() => setHover(null)}>
           <img className="m-0 c-sidebar-nav-icon-profile" src="nav/profile.png" alt="" />
           <div className=" text-left text-blue">
-            <div>{user.name}</div>
+            <div>
+                {lastChangedUser && ((lastChangedUser.userId === user.userId ) && (lastChangedUser.email === user.email)) ? lastChangedUser.name : user.name}
+            </div>
             <div>ID: {user.userId} </div>
             <a href="#/" onClick={signOut} className='logOutHover'> LOGOUT </a>
           </div>
