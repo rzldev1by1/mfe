@@ -1,10 +1,4 @@
 import React from 'react';
-// import Loadable from 'react-loadable';
-// import DefaultLayout from 'shared/DefaultLayout';
-
-// function Loading() {
-// 	return <div>Loading...</div>;
-// }
 
 // const Breadcrumbs = React.lazy(() => import('./pages/Base/Breadcrumbs'));
 const Welcome = React.lazy(() => import('./pages/Welcome/Welcome'));
@@ -18,6 +12,9 @@ const StockMovement = React.lazy(() => import('./pages/StockMovement/StockMoveme
 // const StockAgeProfile = React.lazy(() => import('./pages/StockAgeProfile/StockAgeProfile'));
 const UsersManagement = React.lazy(() => import('./pages/UserManagement/UserManagement'));
 const UsersManagementDetail = React.lazy(() => import('./pages/UserManagement/UserManagementDetail'));
+
+// REFACTOR - component
+const Component = React.lazy(() => import('./pages/Component'));
 
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
@@ -33,6 +30,15 @@ const routes = [
 	{ path: '/sales-orders/:client/:site/:orderno', exact: true, name: 'Sales Order Detail', component: SalesOrderDetail },
 	{ path: '/sales-orders', exact: true, name: 'Sales Orders', component: SalesOrder },
 	{ path: '/stock-movement', exact: true, name: 'Stock Movement', component: StockMovement },
+
+	// REFACTOR - component Start ----------------------------------------------------------------------------------------------
+	{ 
+		path: '/component',
+		exact: true,
+		name: 'Component',
+		component: Component
+	},
+	// REFACTOR - component End ----------------------------------------------------------------------------------------------
 ];
 
 export default routes;
