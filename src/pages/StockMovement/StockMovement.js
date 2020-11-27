@@ -719,19 +719,6 @@ class StockMovement extends React.PureComponent {
     </CButton>}
         pdf='false'
       />
-
-      {/* <CustomPagination
-      data={data}
-      pagination={pagination}
-      goto={(active) => {
-        this.setState({ pagination: { ...pagination, active } }, () => this.searchStockMovement())
-      }}
-      export={<CButton className="btn btn-primary float-right btn-export">
-      {/* <div className="export-export pr-3"/> 
-      EXPORT
-    </CButton>}
-    /> */}
-
     </div>
   }
 }

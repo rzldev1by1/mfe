@@ -535,7 +535,6 @@ class SalesOrderDetail extends React.Component {
                   pagination={pagination}
                   export={
                     <button className='btn btn-primary float-right btn-export'>
-                      {/* <div className='export-export pr-3' /> */}
                       EXPORT
                     </button>
                   }
@@ -561,7 +560,6 @@ class SalesOrderDetail extends React.Component {
                   exportData={forecast}
                   export={
                     <button className='btn btn-primary float-right btn-export'>
-                      {/* <div className='export-export pr-3' /> */}
                       EXPORT
                     </button>
                   }
