@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import { CRow, CCol } from '@coreui/react'
 import Search from 'Component/Search'
 import Dropdown from 'Component/Dropdown'
 import InputNumber from 'Component/InputNumber'
-import { CRow, CCol } from '@coreui/react'
 import Breadcrumb from 'Component/Breadcrumb'
+import DetailHeader from 'Component/DetailHeader'
 
 export const category = [
     {
@@ -112,8 +113,32 @@ const TesComponent = () => {
                     />
                 </CCol>
             </CRow>
-            <div>
-            </div>
+            <CRow className='pl-3 pr-3 pt-3'>
+                <CCol lg={12} className="px-0">
+                    <DetailHeader
+                        //titleRight
+                        titleRight={true}
+                        titleRightOne={'site'} titleRightTwo={'site'} titleRightThree={'site'} titleRightFour={'site'} titleRightFive={'site'}
+                        titleRightSix={'site'} titleRightSeven={'site'} titleRightEight={'site'} titleRightNine={'site'} titleRightTen={'site'}
+                        //titleRight
+                        valeuRightOne={'site'} valeuRightTwo={'site'} valeuRightThree={'site'} valeuRightFour={'site'} valeuRightFive={'site'}
+                        valeuRightSix={'site'} valeuRightSeven={'site'} valeuRightEight={'site'} valeuRightNine={'site'} valeuRightTen={'site'}
+                        //titleCenter
+                        titleCenter={true}
+                        titleCenterOne={'site'} titleCenterTwo={'site'} titleCenterThree={'site'} titleCenterFour={'site'} titleCenterFive={'site'}
+                        titleCenterSix={'site'} titleCenterSeven={'site'} titleCenterEight={'site'} titleCenterNine={'site'} titleCenterTen={'site'}
+                        //titleCenter
+                        valeuCenterOne={'site'} valeuCenterTwo={'site'} valeuCenterThree={'site'} valeuCenterFour={'site'} valeuCenterFive={'site'}
+                        valeuCenterSix={'site'} valeuCenterSeven={'site'} valeuCenterEight={'site'} valeuCenterNine={'site'} valeuCenterTen={''}
+                        //titleLeft
+                        titleLeft={true}
+                        titleLeftOne={'site'} titleLeftTwo={'site'} titleLeftThree={'site'} titleLeftFour={'site'} titleLeftFive={'site'}
+                        titleLeftSix={'site'} titleLeftSeven={'site'} titleLeftEight={'site'} titleLeftNine={'site'} titleLeftTen={'site'}
+                        //titleLeft
+                        valeuLeftOne={'site'} valeuLeftTwo={'site'} valeuLeftThree={'site'} valeuLeftFour={'site'} valeuLeftFive={'site'}
+                        valeuLeftSix={'site'} valeuLeftSeven={'site'} valeuLeftEight={'site'} valeuLeftNine={'site'} valeuLeftTen={''} />
+                </CCol>
+            </CRow>
             <div className="d-flex flex-column justify-content-between mt-3" style={{ minHeight: height, maxHeight: height }}>
             </div>
             <div className='mt-2'>
