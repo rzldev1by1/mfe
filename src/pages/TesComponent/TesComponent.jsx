@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Search from 'Component/Search'
 import Dropdown from 'Component/Dropdown'
 import InputNumber from 'Component/InputNumber'
-import Select from 'react-select'
+import { CRow, CCol } from '@coreui/react'
+import Breadcrumb from 'Component/Breadcrumb'
 
 export const category = [
     {
@@ -20,14 +21,11 @@ export const category = [
 
 const TesComponent = () => {
     const filterSite = (
-        <InputNumber
-            name="qty"
-            autoComplete="off"
-            type="text"
-            min="0"
-            className="form-control c-150"
-            placeholder="Qty"
-            maxLength="11"
+        <Dropdown
+            showTitle={false}
+            show={true}
+            options={category}
+            placeholder='site'
         />
     )
     const filterClient = (
@@ -60,26 +58,8 @@ const TesComponent = () => {
         />
     )
     const [page, setPage] = useState({
-        //Paging
-        currentPage: 1,
-        startIndex: 0,
-        lastIndex: 10,
-        displayPage: 10,
-        totalRows: 0,
-        maxPage: 0,
-        value: [],
-        notifPaging: false,
-        // data: datax,
-        show: false,
+        NumberFormat: [{}],
 
-        // edit Columns
-        showEdit: false,
-        editColumn: {},
-        editColumnTemp: {},
-
-        //Drag and Drop
-        reorder: localStorage.getItem("tables") ? JSON.parse(localStorage.getItem("tables")) : [],
-        no: Math.floor(Math.random() * 100000) + 1
     })
 
     useEffect(() => {
@@ -93,23 +73,50 @@ const TesComponent = () => {
     const emptyItem = dimention - 400
     return (
         <div className="inventory-data">
+            <div>
+                <Breadcrumb breadcrumb={[
+                    { to: '/sales-orders', label: 'Tes Component' },
+                    { to: '/purchase-order', label: 'wadidau', },
+                    { to: '', label: 20, active: true },
+                ]} />
+            </div>
             <div >
-                a
                 <Search
                     filterSite={filterSite}
                     filterClient={filterClient}
                     filterStatus={filterStatus}
-                    // filterOrderType={filterOrderType}
-                    // filterTask={filterTask}
+                    filterOrderType={filterOrderType}
+                    filterTask={filterTask}
                     placeholder={'Enter SKU'}
                     filter={true}
                 />
             </div>
+            <CRow className='pl-3'>
+                <CCol lg={2} className="px-0">
+                    <Dropdown
+                        showTitle={false}
+                        show={true}
+                        options={category}
+                        placeholder='Tes Dropdown'
+                    />
+                </CCol>
+                <CCol lg={2} className="px-3">
+                    <InputNumber
+                        name="qty"
+                        autoComplete="off"
+                        type="text"
+                        min="0"
+                        className="form-control c-150"
+                        placeholder="Qty"
+                        maxLength="11"
+                    />
+                </CCol>
+            </CRow>
+            <div>
+            </div>
             <div className="d-flex flex-column justify-content-between mt-3" style={{ minHeight: height, maxHeight: height }}>
-                b
             </div>
             <div className='mt-2'>
-                c
             </div>
         </div>
     )
