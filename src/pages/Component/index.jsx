@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { CRow, CCol } from '@coreui/react'
 import Dropdown from 'Component/Dropdown'
-import DetailHeader from 'Component/DetailHeader'
 
 export const category = [
     {
