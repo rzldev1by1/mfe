@@ -41,4 +41,11 @@ export default [
     icon: 'um',
     key: 'usermanagement',
   },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Test Component',
+    to: '/tes-component',
+    icon: 'um',
+    key: 'usermanagement',
+  },
 ];
