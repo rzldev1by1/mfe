@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { CRow, CCol } from '@coreui/react'
 import Dropdown from 'Component/Dropdown'
+import InputNumber from 'Component/InputNumber'
 
 export const category = [
     {
@@ -34,6 +35,19 @@ const Component = () => {
                         show={true}
                         options={category}
                         placeholder='Tes Dropdown'
+                    />
+                </CCol>
+            </CRow>
+            <CRow>
+                <CCol lg={2}>
+                    <InputNumber
+                        name="qty"
+                        autoComplete="off"
+                        type="text"
+                        min="0"
+                        className="form-control c-150"
+                        placeholder="Qty"
+                        maxLength="11"
                     />
                 </CCol>
             </CRow>
