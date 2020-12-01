@@ -3,6 +3,7 @@ import { CRow, CCol } from '@coreui/react'
 import Dropdown from 'Component/Dropdown'
 import InputNumber from 'Component/InputNumber'
 import Breadcrumb from 'Component/Breadcrumb'
+import Search from 'Component/Search'
 
 export const category = [
     {
@@ -19,7 +20,44 @@ export const category = [
 ]
 
 const Component = () => {
-  
+    
+    const filterSite = (
+        <Dropdown
+            showTitle={false}
+            show={true}
+            options={category}
+            placeholder='site'
+        />
+    )
+    const filterClient = (
+        <Dropdown
+            showTitle={false}
+            show={true}
+            options={category}
+            placeholder='Client'
+        />
+    )
+    const filterStatus = (
+        <Dropdown showTitle={false}
+            show={true}
+            options={category}
+            placeholder='Status'
+        />
+    )
+    const filterOrderType = (
+        <Dropdown showTitle={false}
+            show={true}
+            options={category}
+            placeholder='Order Type'
+        />
+    )
+    const filterTask = (
+        <Dropdown showTitle={false}
+            show={true}
+            options={category}
+            placeholder='Task'
+        />
+    )
   
     useEffect(() => {
     }, [])
@@ -35,6 +73,17 @@ const Component = () => {
                     { to: '/purchase-order', label: 'wadidau', },
                     { to: '', label: 20, active: true },
                 ]} />
+            </div>
+            <div >
+                <Search
+                    filterSite={filterSite}
+                    filterClient={filterClient}
+                    filterStatus={filterStatus}
+                    filterOrderType={filterOrderType}
+                    filterTask={filterTask}
+                    placeholder={'Enter SKU'}
+                    filter={true}
+                />
             </div>
             <CRow className='pl-3'>
                 <CCol lg={2} className="px-0 pb-3">
