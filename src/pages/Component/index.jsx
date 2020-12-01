@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { CRow, CCol } from '@coreui/react'
 import Dropdown from 'Component/Dropdown'
 import InputNumber from 'Component/InputNumber'
+import Breadcrumb from 'Component/Breadcrumb'
 
 export const category = [
     {
@@ -28,8 +29,15 @@ const Component = () => {
     const emptyItem = dimention - 400
     return (
         <div className="inventory-data">
+            <div>
+                <Breadcrumb breadcrumb={[
+                    { to: '/sales-orders', label: 'Tes Component' },
+                    { to: '/purchase-order', label: 'wadidau', },
+                    { to: '', label: 20, active: true },
+                ]} />
+            </div>
             <CRow className='pl-3'>
-                <CCol lg={2} className="px-0 py-3">
+                <CCol lg={2} className="px-0 pb-3">
                     <Dropdown
                         showTitle={false}
                         show={true}
