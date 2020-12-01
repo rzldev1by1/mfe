@@ -1,14 +1,9 @@
 import React, { useState } from 'react'
-import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react'
-import Select from 'react-select'
+import { CCard, CCardBody, CRow, CCol } from '@coreui/react'
 
 const Search = ({
     placeholder = '',
-    textSearch = '', //text search
-    searchHandler = null, //fungsi ketika tombol search di klik
-    filter = '', //isi dari filter
-    width = 'w-100',
-    className = null,
+    searchHandler = null, //function when search button clicked
 
     // filter 
     filterSite = null,
