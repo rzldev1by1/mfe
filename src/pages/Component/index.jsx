@@ -5,6 +5,8 @@ import InputNumber from 'Component/InputNumber'
 import Breadcrumb from 'Component/Breadcrumb'
 import Search from 'Component/Search'
 import DetailHeader from 'Component/DetailHeader'
+import PopUpPages from 'Component/Modal/PopUpPages'
+import { showModal } from 'Component/Modal/PopUpPages/service'
 
 export const category = [
     {
@@ -21,7 +23,6 @@ export const category = [
 ]
 
 const Component = () => {
-    
     const filterSite = (
         <Dropdown
             showTitle={false}
@@ -59,7 +60,11 @@ const Component = () => {
             placeholder='Task'
         />
     )
-  
+
+    const [page, setPage] = useState({
+        notifPaging: false,
+    })
+
     return (
         <div className="inventory-data">
             <div>
@@ -100,6 +105,13 @@ const Component = () => {
                         className="form-control c-150"
                         placeholder="Qty"
                         maxLength="11"
+                    />
+                </CCol>
+                <CCol lg={2} >
+                    <button className="btn btn-search btn-primary" onClick={() => showModal({ page, setPage })}  >Pop Up</button>
+                    <PopUpPages
+                        page={page}
+                        setPage={setPage}
                     />
                 </CCol>
             </CRow>
