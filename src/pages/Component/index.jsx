@@ -7,6 +7,7 @@ import Search from 'Component/Search'
 import DetailHeader from 'Component/DetailHeader'
 import PopUpPages from 'Component/Modal/PopUpPages'
 import { showModal } from 'Component/Modal/PopUpPages/service'
+import Pagination from 'Component/Pagination/Pagination'
 
 export const category = [
     {
@@ -63,6 +64,9 @@ const Component = () => {
 
     const [page, setPage] = useState({
         notifPaging: false,
+        pagination: { active: 1, show: 10, total: 0, last_page: 1, from: 0, to: 0 },
+        PagingPage: 1,
+        paginationData: {}
     })
 
     return (
@@ -139,6 +143,14 @@ const Component = () => {
                         //titleLeft
                         valeuLeftOne={'site'} valeuLeftTwo={'site'} valeuLeftThree={'site'} valeuLeftFour={'site'} valeuLeftFive={'site'}
                         valeuLeftSix={'site'} valeuLeftSeven={'site'} valeuLeftEight={'site'} valeuLeftNine={'site'} valeuLeftTen={''} />
+                </CCol>
+            </CRow>
+            <CRow className='pl-3 pr-3 pt-3'>
+                <CCol lg={12} className="px-0">
+                    <Pagination
+                        page={page}
+                        setPage={setPage}
+                    />
                 </CCol>
             </CRow>
         </div>
