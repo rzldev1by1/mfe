@@ -5,23 +5,11 @@ import InputNumber from 'Component/InputNumber'
 import Breadcrumb from 'Component/Breadcrumb'
 import Search from 'Component/Search'
 import DetailHeader from 'Component/DetailHeader'
-
-export const category = [
-    {
-        label: 'VEGETABLES',
-        value: '1',
-    }, {
-        label: 'FRUIT',
-        value: '2',
-    },
-    {
-        label: 'MEAT',
-        value: '3',
-    }
-]
+import TableFixedColumn from 'Component/TableFixedColumn'
+import { category, simpleSchema, simpleData } from './service'
 
 const Component = () => {
-    
+
     const filterSite = (
         <Dropdown
             showTitle={false}
@@ -59,7 +47,7 @@ const Component = () => {
             placeholder='Task'
         />
     )
-  
+
     return (
         <div className="inventory-data">
             <div>
@@ -129,6 +117,20 @@ const Component = () => {
                         valeuLeftSix={'site'} valeuLeftSeven={'site'} valeuLeftEight={'site'} valeuLeftNine={'site'} valeuLeftTen={''} />
                 </CCol>
             </CRow>
+
+            {/* React Table Fixed Column */}
+            <h3 className="pt-3">Simple  Fixed Column Table</h3>
+            <CRow className='pl-3 pr-3  '>
+                <CCol lg={12} className="px-0">
+                    <TableFixedColumn
+                        schemaColumn={simpleSchema}
+                        data={simpleData}
+                        style={{ height: '200px' }}
+                    />
+                </CCol>
+            </CRow>
+            {/* END React Table Fixed Column */}
+
         </div>
     )
 }
