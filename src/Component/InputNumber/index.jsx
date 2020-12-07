@@ -12,19 +12,19 @@ const InputNumber = ({
     onChange,
 }) => {
     return (
-        <td>
-            <NumberFormat
-                thousandSeparator={true}
-                name={name}
-                min={min}
-                style={style}
-                className={className}
-                placeholder={'   ' + placeholder}
-                maxLength={maxLength}
-                value={value}
-                onChange={onChange}
-            />
-        </td>
+      <td>
+        <NumberFormat
+          thousandSeparator
+          name={name}
+          min={min}
+          style={style}
+          className={className}
+          placeholder={`   ${  placeholder}`}
+          maxLength={maxLength}
+          value={value}
+          onChange={onChange}
+        />
+      </td>
     )
 }
 

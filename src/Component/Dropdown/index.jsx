@@ -3,19 +3,13 @@ import Select from 'react-select'
 
 const Dropdown = ({
     isEmpty,
-    title,
     placeholder,
     options,
     selectedValue,
-    showTitle,
-    width,
-    className,
     entryListIdx,
     onChangeDropdown,
-    show,
     poListIdx,
     isDisabled,
-    margin,
 }) => {
     const onChangeHandler = (selected) => {
         onChangeDropdown(selected)
@@ -33,23 +27,23 @@ const Dropdown = ({
         position = elem?.getBoundingClientRect()
     }, [isOpen])
     return (
-        <Select
-            isDisabled={isDisabled ? isDisabled : false}
-            id={`dropdown${entryListIdx}${poListIdx}`}
-            value={selectedValue?.value ? selectedValue : false}
-            menuIsOpen={isOpen}
-            menuPortal
-            placeholder={placeholder}
-            options={options}
-            onMenuOpen={() => setIsOpen(true)}
-            onMenuClose={() => setIsOpen(false)}
-            onChange={onChangeHandler}
-            menuPortalTarget={document.body}
-            maxMenuHeight={200}
-            menuPlacement={`${position?.bottom > 600 ? 'top' : 'bottom'}`}
+      <Select
+        isDisabled={isDisabled || false}
+        id={`dropdown${entryListIdx}${poListIdx}`}
+        value={selectedValue?.value ? selectedValue : false}
+        menuIsOpen={isOpen}
+        menuPortal
+        placeholder={placeholder}
+        options={options}
+        onMenuOpen={() => setIsOpen(true)}
+        onMenuClose={() => setIsOpen(false)}
+        onChange={onChangeHandler}
+        menuPortalTarget={document.body}
+        maxMenuHeight={200}
+        menuPlacement={`${position?.bottom > 600 ? 'top' : 'bottom'}`}
             // isClearable={true}
-            styles={{
-                option: (provided, state) => ({
+        styles={{
+                option: (provided) => ({
                     ...provided,
                     textAlign: 'left'
                 }),
@@ -59,10 +53,11 @@ const Dropdown = ({
                     display: "flex"
                 })
             }}
-            theme={(theme) => ({
+        theme={(theme) => ({
                 ...theme,
                 borderRadius: 4,
-            })} />
+            })}
+      />
     )
 }
 
