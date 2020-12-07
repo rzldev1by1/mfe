@@ -41,7 +41,7 @@ export const simpleSchema = [
         style: { textAlign: 'left', paddingLeft: '15px' },
         headerClassName: 'borderBottom noPaddingTop',
         sortable: true,
-        width: 300
+        width: 500
     },
     {
         Header: 'Column 3',
@@ -50,7 +50,7 @@ export const simpleSchema = [
         style: { textAlign: 'left', paddingLeft: '15px' },
         headerClassName: 'borderBottom noPaddingTop',
         sortable: true,
-        width: 300
+        width: 800
     },
     {
         Header: 'Column 4',
@@ -59,6 +59,6 @@ export const simpleSchema = [
         style: { textAlign: 'left', paddingLeft: '15px' },
         headerClassName: 'borderBottom noPaddingTop',
         sortable: true,
-        width: 300
+        width: 800
     }
 ]
