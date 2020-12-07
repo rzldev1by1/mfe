@@ -7,21 +7,12 @@ import {
   BsChevronBarRight,
 } from "react-icons/bs";
 import PopUpPages from 'Component/Modal/PopUpPages'
-import { goToPage, numberCheck } from 'Component/Pagination/service'
+import { numberCheck, onChange } from 'Component/Pagination/service'
 import "./Pagination.scss";
 import logo_confirm from 'assets/img/LOGO5@2x.png'
 
 class Pagination extends React.Component {
   state = {
-  };
-
-  onChange = (e) => {
-    if (e.target.value === '') {
-      this.setState({ page: '' });
-    }
-    else {
-      this.setState({ page: parseInt(e.target.value) });
-    }
   };
 
   onActivePageChange = (i) => {
@@ -31,6 +22,28 @@ class Pagination extends React.Component {
       this.props.goto(active);
     } else {
       this.setState({ pagination: { ...pagination, active } });
+    }
+  };
+
+  goToPage = () => {
+    let { page, setPage, data } = this.props;
+    let newPage = { ...page }
+    let { active, show, total, last_page, from, to } = newPage.pagination;
+
+    if (newPage.PagingPage === 0 || newPage.PagingPage === null || newPage.PagingPage === '' || newPage.PagingPage === undefined) {
+      return false;
+    }
+
+    if (newPage.PagingPage > last_page) {
+      this.setState({ notifPaging: true })
+      return 0
+    }
+
+    if (this.props.goto) {
+      this.props.goto(newPage.PagingPage);
+    } else {
+      newPage.pagination = { ...newPage.pagination, active: newPage.PagingPage }
+      setPage(newPage)
     }
   };
 
@@ -74,13 +87,13 @@ class Pagination extends React.Component {
                 <input
                   type="number"
                   className="form-control form-control-sm"
-                  onChange={this.onChange}
+                  onChange={onChange({ page, setPage })}
                   min="1"
                   max={pages > 0 ? pages : 1}
                   onKeyPress={(e) => numberCheck(e)}
                   style={{ textAlign: 'center' }}
                 />
-                <span className="text-muted-dark ml-3 pointer" onClick={() => goToPage({ page, setPage, data: data })}>
+                <span className="text-muted-dark ml-3 pointer" onClick={this.goToPage({ page, setPage, })}>
                   {"Go >"}
                 </span>
               </div>
