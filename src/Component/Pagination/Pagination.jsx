@@ -35,15 +35,15 @@ class Pagination extends React.Component {
     }
 
     if (newPage.PagingPage > last_page) {
-      this.setState({ notifPaging: true })
-      return 0
+      newPage.notifPaging = true
+      // setPage(newPage)
     }
 
     if (this.props.goto) {
       this.props.goto(newPage.PagingPage);
     } else {
       newPage.pagination = { ...newPage.pagination, active: newPage.PagingPage }
-      // setPage(newPage)s
+      // setPage(newPage)
     }
   };
 
