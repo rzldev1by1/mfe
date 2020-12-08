@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -24,7 +25,9 @@ const TheHeader = (props) => {
           <CToggler inHeader className="p-0 d-lg-none" onClick={toggleSidebarMobile} />
           <CBreadcrumb className="no-border no-shadow mr-auto m-0 py-3">
             {props.breadcrumb ? props.breadcrumb.map((b, i) => {
+                        // eslint-disable-next-line max-len
                         return b.active ? <CBreadcrumbItem key={i} active>{b.label}</CBreadcrumbItem>
+                        // eslint-disable-next-line max-len
                             : <CBreadcrumbItem key={i}><Link to={b.to}>{b.label}</Link></CBreadcrumbItem>
                     }) : ''}
           </CBreadcrumb>

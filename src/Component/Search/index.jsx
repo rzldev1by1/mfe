@@ -25,7 +25,9 @@ const Search = ({
             <CCol lg={3} className="pr-3 pl-0">
               <div className="input-group">
                 <div className="input-group-prepend">
-                  <span className="input-group-text border-right-0 bg-white"><i className="iconU-search" /></span>
+                  <span className="input-group-text border-right-0 bg-white">
+                    <i className="iconU-search" />
+                  </span>
                 </div>
                 <input
                   type="text"
@@ -55,7 +57,13 @@ const Search = ({
                   {filterTask}
                 </CCol>
                 <CCol sm={4} lg={2} className="px-0">
-                  <button className="btn btn-search btn-primary float-right" onClick={() => searchHandler()}>SEARCH</button>
+                  <button
+                    type="button"
+                    className="btn btn-search btn-primary float-right"
+                    onClick={() => searchHandler()}
+                  >
+                    SEARCH
+                  </button>
                 </CCol>
               </CRow>
             </CCol>
