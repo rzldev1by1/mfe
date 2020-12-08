@@ -11,25 +11,32 @@ class PopUpPages extends Component {
         this.state = {
         }
     }
+
     render = () => {
-        let { page, setPage } = this.props
-        let newPage = { ...page }
+        const { page, setPage } = this.props
+        const newPage = { ...page }
         return (
-            <Modal isOpen={newPage.notifPaging} centered={true}
-                onOpened={() => newPage.notifPaging ? setTimeout(() => { closeModal({ page, setPage }) }, 36000) : {}}
-                contentClassName="modal-content-paging box-er-pagination" closeOnBackdrop={false}>
-                <ModalBody>
-                    <div className="text-right px-0" style={{ fontSize: '14px' }}>
-                        <i className="iconU-close pointer" onClick={() => closeModal({ page, setPage })}></i>
-                    </div>
-                    <div className="d-flex d-inline-flex">
-                        <img src={logo_confirm} alt="logo" style={{ width: "20%", height: "20%" }} />
-                        <label className="pl-3 font">
-                            Only 3 pages are available on this screen, please try again. <br />
-                        </label>
-                    </div>
-                </ModalBody>
-            </Modal>
+          <Modal
+            isOpen={newPage.notifPaging}
+            centered
+            onOpened={() => newPage.notifPaging ? setTimeout(() =>{ closeModal({ page, setPage }) }, 36000) : {}}
+            contentClassName="modal-content-paging box-er-pagination"
+            closeOnBackdrop={false}
+          >
+            <ModalBody>
+              <div className="text-right px-0" style={{ fontSize: '14px' }}>
+                <i className="iconU-close pointer" onClick={() => closeModal({ page, setPage })} />
+              </div>
+              <div className="d-flex d-inline-flex">
+                <img src={logo_confirm} alt="logo" style={{ width: "20%", height: "20%" }} />
+                <label className="pl-3 font">
+                  Only 3 pages are available on this screen, please try again. 
+                  {' '}
+                  <br />
+                </label>
+              </div>
+            </ModalBody>
+          </Modal>
 
         );
     }
