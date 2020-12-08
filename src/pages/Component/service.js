@@ -32,7 +32,7 @@ export const simpleSchema = [
         className: 'borderRight',
         fixed: 'left',
         width: 300,
-        sortable: false,
+        // sortable: false,
     },
     {
         Header: 'Column 2',

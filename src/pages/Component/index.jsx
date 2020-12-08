@@ -8,6 +8,7 @@ import Breadcrumb from 'Component/Breadcrumb'
 import Search from 'Component/Search'
 import DetailHeader from 'Component/DetailHeader'
 import TableFixedColumn from 'Component/TableFixedColumn'
+import Table from 'Component/Table'
 import { category, simpleSchema, simpleData } from './service'
 import PopUpPages from 'Component/Modal/PopUpPages'
 import { showModal } from 'Component/Modal/PopUpPages/service'
@@ -60,7 +61,7 @@ const Component = () => {
   })
 
   return (
-    <div className="inventory-data">
+    <div className="inventory-data component-page">
       <div>
         <Breadcrumb breadcrumb={[
           { to: '/sales-orders', label: 'Tes Component' },
@@ -186,6 +187,20 @@ const Component = () => {
         </CCol>
       </CRow>
 
+      {/* React Table */}
+      <h3 className="pt-3">Simple React Table + Reorder Column Header</h3>
+      <CRow className='pl-3 pr-3  '>
+        <CCol lg={12} className="px-0">
+          <Table
+            schemaColumn={simpleSchema}
+            data={simpleData}
+            style={{ height: '200px' }}
+            module="component" //e.g purchaseOrders, salesOrders
+          />
+        </CCol>
+      </CRow>
+      {/* END React Table */}
+
       {/* React Table Fixed Column */}
       <h3 className="pt-3">Simple  Fixed Column Table</h3>
       <CRow className='pl-3 pr-3  '>
@@ -202,4 +217,4 @@ const Component = () => {
   )
 }
 
-export default Component
+export default Component;
