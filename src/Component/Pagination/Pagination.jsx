@@ -35,15 +35,15 @@ class Pagination extends React.Component {
     }
 
     if (newPage.PagingPage > last_page) {
-      this.setState({ notifPaging: true })
-      return 0
+      newPage.notifPaging = true
+      // setPage(newPage)
     }
 
     if (this.props.goto) {
       this.props.goto(newPage.PagingPage);
     } else {
       newPage.pagination = { ...newPage.pagination, active: newPage.PagingPage }
-      setPage(newPage)
+      // setPage(newPage)
     }
   };
 
@@ -87,7 +87,8 @@ class Pagination extends React.Component {
                 <input
                   type="number"
                   className="form-control form-control-sm"
-                  onChange={onChange({ page, setPage })}
+                  onChange={(e) => onChange({ page, setPage, e })}
+                  // onChange={this.onChange}
                   min="1"
                   max={pages > 0 ? pages : 1}
                   onKeyPress={(e) => numberCheck(e)}
