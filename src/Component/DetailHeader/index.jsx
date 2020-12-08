@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import {
     CCard,
     CCardBody,
@@ -35,58 +36,50 @@ const DetailHeader = ({
           <CCardBody className={`p-0 m-3${  titleCenter === true ? " border-right" : " d-none"}`}>
             <CRow className={`mx-0 ${  titleRightOne ? null : " d-none"}`}>
               <CCol lg={3} className="text-light-gray px-0">{titleRightOne}</CCol> 
-              {' '}
               <CCol>{valeuRightOne || '-'}</CCol>
             </CRow>
             <CRow className={`mx-0 ${  titleRightOne ? null : " d-none"}`}>
               <CCol lg={3} className="text-light-gray px-0">{titleRightTwo}</CCol> 
-              {' '}
               <CCol>{valeuRightTwo || '-'}</CCol>
             </CRow>
             <CRow className={`mx-0 ${  titleRightOne ? null : " d-none"}`}>
               <CCol lg={3} className="text-light-gray px-0">{titleRightThree}</CCol> 
-              {' '}
               <CCol>{valeuRightThree || '-'}</CCol>
             </CRow>
             <CRow className={`mx-0 ${  titleRightOne ? null : " d-none"}`}>
               <CCol lg={3} className="text-light-gray px-0">{titleRightFour}</CCol> 
-              {' '}
               <CCol>{valeuRightFour || '-'}</CCol>
             </CRow>
             <CRow className={`mx-0 ${  titleRightOne ? null : " d-none"}`}>
               <CCol lg={3} className="text-light-gray px-0">{titleRightFive}</CCol> 
-              {' '}
               <CCol>{valeuRightFive || '-'}</CCol>
             </CRow>
             <CRow className={`mx-0 ${  titleRightOne ? null : " d-none"}`}>
               <CCol lg={3} className="text-light-gray px-0">{titleRightSix}</CCol> 
-              {' '}
               <CCol>{valeuRightSix || '-'}</CCol>
             </CRow>
             <CRow className={`mx-0 ${  titleRightOne ? null : " d-none"}`}>
               <CCol lg={3} className="text-light-gray px-0">{titleRightSeven}</CCol> 
-              {' '}
               <CCol>{valeuRightSeven || '-'}</CCol>
             </CRow>
             <CRow className={`mx-0 ${  titleRightOne ? null : " d-none"}`}>
               <CCol lg={3} className="text-light-gray px-0">{titleRightEight}</CCol> 
-              {' '}
               <CCol>{valeuRightEight || '-'}</CCol>
             </CRow>
             <CRow className={`mx-0 ${  titleRightOne ? null : " d-none"}`}>
               <CCol lg={3} className="text-light-gray px-0">{titleRightNine}</CCol> 
-              {' '}
               <CCol>{valeuRightNine || '-'}</CCol>
             </CRow>
             <CRow className={`mx-0 ${  titleRightOne ? null : " d-none"}`}>
               <CCol lg={3} className="text-light-gray px-0">{titleRightTen}</CCol> 
-              {' '}
               <CCol>{valeuRightTen || '-'}</CCol>
             </CRow>
           </CCardBody>
         </CCard>
         <CCard className={titleCenter === true ? null : " d-none"}>
-          <CCardBody className={`p-0 my-3 mx-0${  titleLeft === true ? " border-right" : " d-none"}`}>
+          <CCardBody 
+            className={`p-0 my-3 mx-0 ${  titleLeft === true ? " border-right" : " d-none"}`}
+          >
             <CRow className={`mx-0 ${  titleCenterOne ? null : " d-none"}`}>
               <CCol lg={3} className="text-light-gray px-0">{titleCenterOne}</CCol> 
               {' '}
@@ -195,6 +188,10 @@ const DetailHeader = ({
         </CCard>
       </div>
     )
+}
+
+DetailHeader.propTypes = {
+    titleRight : PropTypes.string.isRequired
 }
 
 export default DetailHeader

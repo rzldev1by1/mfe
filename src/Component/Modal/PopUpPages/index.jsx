@@ -19,7 +19,7 @@ class PopUpPages extends Component {
           <Modal
             isOpen={newPage.notifPaging}
             centered
-            onOpened={() => newPage.notifPaging ? setTimeout(() => { closeModal({ page, setPage }) }, 36000) : {}}
+            onOpened={() => newPage.notifPaging ? setTimeout(() =>{ closeModal({ page, setPage }) }, 36000) : {}}
             contentClassName="modal-content-paging box-er-pagination"
             closeOnBackdrop={false}
           >
