@@ -86,6 +86,7 @@ class Pagination extends React.Component {
                 <span className="text-muted-soft mr-3">Go to page</span>
                 <input
                   type="number"
+                  value=''
                   className="form-control form-control-sm"
                   value=''
                   onChange={(e) => onChange({ page, setPage, e })}
