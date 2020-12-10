@@ -87,6 +87,7 @@ class Pagination extends React.Component {
                 <input
                   type="number"
                   className="form-control form-control-sm"
+                  value=''
                   onChange={(e) => onChange({ page, setPage, e })}
                   // onChange={this.onChange}
                   min="1"

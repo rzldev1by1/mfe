@@ -242,24 +242,24 @@ class CustomTableDetail extends React.Component {
     console.log(header);
     header && header.map((h, index) => {
       if (!editColumn[index]) {
-        let withIcon = (
-          <span className='text-light-gray draggable-header' onClick={() => h.sortType === "float" ? this.sortFloat(h.accessor) : false }>
+        const withIcon = (
+          <span className='text-light-gray draggable-header' onClick={() => h.sortType === "float" ? this.sortFloat(h.accessor) : false}>
             {h.Header}{' '}
-              <svg
+            <svg
                 stroke='currentColor'
                 fill='currentColor'
                 strokeWidth='0'
                 viewBox='0 0 24 24'
                 height='1em'
                 width='1em'
-                xmlns='http://www.w3.org/2000/svg'
+              xmlns='http://www.w3.org/2000/svg'
               >
                 <path d='M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z'></path>
-              </svg>
+            </svg>
           </span>
         );
 
-        let obj = {
+        const obj = {
           Header: withIcon,
           Cell: h.Cell,
           render: h.render || null,
