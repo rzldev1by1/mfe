@@ -91,15 +91,15 @@ const Component = () => {
             filterStatus={filterStatus}
             filterOrderType={filterOrderType}
             filterTask={filterTask}
-            placeholder={'Enter SKU'}
-            filter={true}
+            placeholder='Enter SKU'
+            filter
           />
         </div>
         <CRow className='pl-3'>
           <CCol lg={2} className="px-0 pb-3">
             <Dropdown
               showTitle={false}
-              show={true}
+              show
               options={category}
               placeholder='Tes Dropdown'
             />
