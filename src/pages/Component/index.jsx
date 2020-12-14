@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable max-len */
 /* eslint-disable import/no-unresolved */
 import React, { useState } from 'react'
@@ -9,10 +10,10 @@ import Search from 'Component/Search'
 import DetailHeader from 'Component/DetailHeader'
 import TableFixedColumn from 'Component/TableFixedColumn'
 import Table from 'Component/Table'
-import { category, simpleSchema, simpleData } from './service'
 import PopUpPages from 'Component/Modal/PopUpPages'
 import { showModal } from 'Component/Modal/PopUpPages/service'
 import Pagination from 'Component/Pagination/Pagination'
+import { category, simpleSchema, simpleData } from './service'
 
 const Component = () => {
   const filterSite = (
@@ -71,9 +72,10 @@ const Component = () => {
             { to: '/sales-orders', label: 'Tes Component' },
             { to: '/purchase-order', label: 'wadidau', },
             { to: '', label: 20, active: true },
-          ]} />
+          ]}
+          />
         </div>
-        <div >
+        <div>
           <Search
             filterSite={filterSite}
             filterClient={filterClient}
@@ -106,8 +108,8 @@ const Component = () => {
               maxLength="11"
             />
           </CCol>
-          <CCol lg={2} >
-            <button className="btn btn-search btn-primary" onClick={() => showModal({ page, setPage })}  >Pop Up</button>
+          <CCol lg={2}>
+            <button className="btn btn-search btn-primary" onClick={() => showModal({ page, setPage })}>Pop Up</button>
             <PopUpPages
               page={page}
               setPage={setPage}
@@ -117,27 +119,76 @@ const Component = () => {
         <CRow className='pl-3 pr-3 pt-3'>
           <CCol lg={12} className="px-0">
             <DetailHeader
-              //titleRight
-              titleRight={true}
-              titleRightOne={'site'} titleRightTwo={'site'} titleRightThree={'site'} titleRightFour={'site'} titleRightFive={'site'}
-              titleRightSix={'site'} titleRightSeven={'site'} titleRightEight={'site'} titleRightNine={'site'} titleRightTen={'site'}
-              //titleRight
-              valeuRightOne={'site'} valeuRightTwo={'site'} valeuRightThree={'site'} valeuRightFour={'site'} valeuRightFive={'site'}
-              valeuRightSix={'site'} valeuRightSeven={'site'} valeuRightEight={'site'} valeuRightNine={'site'} valeuRightTen={'site'}
-              //titleCenter
-              titleCenter={true}
-              titleCenterOne={'site'} titleCenterTwo={'site'} titleCenterThree={'site'} titleCenterFour={'site'} titleCenterFive={'site'}
-              titleCenterSix={'site'} titleCenterSeven={'site'} titleCenterEight={'site'} titleCenterNine={'site'} titleCenterTen={'site'}
-              //titleCenter
-              valeuCenterOne={'site'} valeuCenterTwo={'site'} valeuCenterThree={'site'} valeuCenterFour={'site'} valeuCenterFive={'site'}
-              valeuCenterSix={'site'} valeuCenterSeven={'site'} valeuCenterEight={'site'} valeuCenterNine={'site'} valeuCenterTen={''}
-              //titleLeft
-              titleLeft={true}
-              titleLeftOne={'site'} titleLeftTwo={'site'} titleLeftThree={'site'} titleLeftFour={'site'} titleLeftFive={'site'}
-              titleLeftSix={'site'} titleLeftSeven={'site'} titleLeftEight={'site'} titleLeftNine={'site'} titleLeftTen={'site'}
-              //titleLeft
-              valeuLeftOne={'site'} valeuLeftTwo={'site'} valeuLeftThree={'site'} valeuLeftFour={'site'} valeuLeftFive={'site'}
-              valeuLeftSix={'site'} valeuLeftSeven={'site'} valeuLeftEight={'site'} valeuLeftNine={'site'} valeuLeftTen={''} />
+              // titleRight
+              titleRight
+              titleRightOne="site"
+              titleRightTwo="site"
+              titleRightThree="site"
+              titleRightFour="site"
+              titleRightFive="site"
+              titleRightSix="site"
+              titleRightSeven="site"
+              titleRightEight="site"
+              titleRightNine="site"
+              titleRightTen="site"
+              // titleRight
+              valeuRightOne="site"
+              valeuRightTwo="site"
+              valeuRightThree="site"
+              valeuRightFour="site"
+              valeuRightFive="site"
+              valeuRightSix="site"
+              valeuRightSeven="site"
+              valeuRightEight="site"
+              valeuRightNine="site"
+              valeuRightTen="site"
+              // titleCenter
+              titleCenter
+              titleCenterOne="site"
+              titleCenterTwo="site"
+              titleCenterThree="site"
+              titleCenterFour="site"
+              titleCenterFive="site"
+              titleCenterSix="site"
+              titleCenterSeven="site"
+              titleCenterEight="site"
+              titleCenterNine="site"
+              titleCenterTen="site"
+              // titleCenter
+              valeuCenterOne="site"
+              valeuCenterTwo="site"
+              valeuCenterThree="site"
+              valeuCenterFour="site"
+              valeuCenterFive="site"
+              valeuCenterSix="site"
+              valeuCenterSeven="site"
+              valeuCenterEight="site"
+              valeuCenterNine="site"
+              valeuCenterTen=""
+              // titleLeft
+              titleLeft
+              titleLeftOne="site"
+              titleLeftTwo="site"
+              titleLeftThree="site"
+              titleLeftFour="site"
+              titleLeftFive="site"
+              titleLeftSix="site"
+              titleLeftSeven="site"
+              titleLeftEight="site"
+              titleLeftNine="site"
+              titleLeftTen="site"
+              // titleLeft
+              valeuLeftOne="site"
+              valeuLeftTwo="site"
+              valeuLeftThree="site"
+              valeuLeftFour="site"
+              valeuLeftFive="site"
+              valeuLeftSix="site"
+              valeuLeftSeven="site"
+              valeuLeftEight="site"
+              valeuLeftNine="site"
+              valeuLeftTen=""
+            />
           </CCol>
         </CRow>
         <CRow className='pl-3 pr-3 pt-3'>
@@ -157,7 +208,7 @@ const Component = () => {
               schemaColumn={simpleSchema}
               data={simpleData}
               style={{ height: '200px' }}
-              module="component" //e.g purchaseOrders, salesOrders
+              module="component" // e.g purchaseOrders, salesOrders
             />
           </CCol>
         </CRow>
@@ -176,7 +227,7 @@ const Component = () => {
         </CRow>
         {/* END React Table Fixed Column */}
       </div>
-    </div >
+    </div>
   )
 }
 

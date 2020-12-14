@@ -44,7 +44,7 @@ const Required = ({ error, id }) => {
     const object = Object.keys(error)
     console.log(object)
     if(object.includes(id)) return <span className="text-error text-danger position-absolute font-rename-error">{error && error[id]}</span>
-    else return <div></div>
+    return <div></div>
   }
 }
 
@@ -244,17 +244,18 @@ class CustomTableDetail extends React.Component {
       if (!editColumn[index]) {
         const withIcon = (
           <span className='text-light-gray draggable-header' onClick={() => h.sortType === "float" ? this.sortFloat(h.accessor) : false}>
-            {h.Header}{' '}
+            {h.Header}
+            {' '}
             <svg
-                stroke='currentColor'
-                fill='currentColor'
-                strokeWidth='0'
-                viewBox='0 0 24 24'
-                height='1em'
-                width='1em'
+              stroke='currentColor'
+              fill='currentColor'
+              strokeWidth='0'
+              viewBox='0 0 24 24'
+              height='1em'
+              width='1em'
               xmlns='http://www.w3.org/2000/svg'
-              >
-                <path d='M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z'></path>
+            >
+              <path d='M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z' />
             </svg>
           </span>
         );
@@ -264,16 +265,16 @@ class CustomTableDetail extends React.Component {
           Cell: h.Cell,
           render: h.render || null,
           accessor: h.accessor,
-          sortable: h.sortable === false ? false : true,
+          sortable: h.sortable !== false,
           resizable: h.resizable || false,
           className: h.className || null,
           style: h.style || null,
           width: h.width || getColumnWidth(data, h.accessor, h.Header),
         }
         return listHeader = [...listHeader, obj]
-      } else {
+      } 
         return listHeader = [...listHeader]
-      }
+      
     })
 
     if (this.props.editColumn !== 'false') {
@@ -506,10 +507,10 @@ class CustomTableDetail extends React.Component {
     console.log(error)
     if (Object.keys(error).length) {
         return this.setState({ error, sameColumns, sameColumnsIdx })
-    } else {
+    } 
           this.renameSubmits(this.state.changedColumns);
           this.setState({ showModal: false , error:{}});
-    }
+    
     // this.renameSubmits(this.state.changedColumns);
     // this.setState({ showModal: false });
   };
@@ -633,11 +634,11 @@ class CustomTableDetail extends React.Component {
                     return (<td key={columnIdx}>{data[column.accessor]}‎‎</td>)//hidden fonts for export
                   }if(column.accessor === 'pack_id'){
                     return (<td key={columnIdx}>{data[column.accessor]}‎‎‎‎</td>) //hidden fonts for export
-                  }else{
+                  }
                   return (
                     <td key={columnIdx}>{data[column.accessor]}</td>
                   )
-                  }
+                  
                 })}
               </tr>
             ) :

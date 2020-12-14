@@ -274,8 +274,6 @@ input.form-control {
 
 .sales-order,
 .sales-order-detail,
-.purchase-order,
-.purchase-order-details,
 .um-summary,
 .um-detail,
 .stock-holding,
@@ -350,7 +348,7 @@ header {
   // disable vertical scrolling on desktop
   body,
   .c-wrapper {
-    overflow-y: hidden !important;
+    overflow-y: auto !important;
   }
 }
 
@@ -613,17 +611,14 @@ header {
 @media (min-width: 1200px) {
 
   .um-create,
-  .sales-order-create,
-  .purchase-order-create {
+  .sales-order-create {
     .modal-xl {
       max-width: 1525px !important;
     }
   }
 
   .um-create,
-  .sales-order-create,
-  .purchase-order-create {
-
+  .sales-order-create {
     .container,
     .container-sm,
     .container-md,
