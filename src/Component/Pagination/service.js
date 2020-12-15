@@ -1,17 +1,17 @@
 export const onChange = ({page, setPage, e}) => {
-    let newPage = { ...page }
+    const newPage = { ...page }
     if (e.target.value === '') {
         newPage.PagingPage = ''
         setPage(newPage)
     }
     else {
-        newPage.PagingPage = parseInt(e.target.value)
+       const targetValue = e.target.value
+        newPage.PagingPage = parseFloat(targetValue)
         setPage(newPage)
     }
   };
 
 export const numberCheck = (e) => {
-    var tmpChar = e.key;
     if (!/^[0-9]+$/.test(e.key)) {
       e.preventDefault()
     }

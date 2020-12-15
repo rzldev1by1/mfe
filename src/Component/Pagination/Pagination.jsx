@@ -1,3 +1,7 @@
+/* eslint-disable consistent-return */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable radix */
+/* eslint-disable import/no-unresolved */
 import React from "react";
 import { CCard, CCardGroup, CPagination, CRow, CCol } from "@coreui/react";
 import {
@@ -9,11 +13,8 @@ import {
 import PopUpPages from 'Component/Modal/PopUpPages'
 import { numberCheck, onChange } from 'Component/Pagination/service'
 import "./Pagination.scss";
-import logo_confirm from 'assets/img/LOGO5@2x.png'
 
 class Pagination extends React.Component {
-  state = {
-  };
 
   onActivePageChange = (i) => {
     const { pagination } = this.state;
@@ -26,15 +27,16 @@ class Pagination extends React.Component {
   };
 
   goToPage = () => {
-    let { page, setPage, data } = this.props;
-    let newPage = { ...page }
-    let { active, show, total, last_page, from, to } = newPage.pagination;
+    const { page } = this.props;
+    const newPage = { ...page }
+    const { lastPage } = newPage.pagination;
 
+    // eslint-disable-next-line max-len
     if (newPage.PagingPage === 0 || newPage.PagingPage === null || newPage.PagingPage === '' || newPage.PagingPage === undefined) {
       return false;
     }
 
-    if (newPage.PagingPage > last_page) {
+    if (newPage.PagingPage > lastPage) {
       newPage.notifPaging = true
       // setPage(newPage)
     }
@@ -48,27 +50,26 @@ class Pagination extends React.Component {
   };
 
   render() {
-    let { page, setPage, data } = this.props
-    let newPage = { ...page }
-    let { active, show, total, last_page, from, to } = newPage.pagination;
+    const { page, setPage, data } = this.props
+    const newPage = { ...page }
+    const { active, show, total, from, to } = newPage.pagination;
 
-    total = newPage.pagination && total ? total : data;
+    const pTotal = newPage.pagination && total ? total : data;
 
-    const startIndex = (active - 1) * (total < show ? total : show);
-    const endIndex = startIndex + (total < show ? total : show);
-    const pages = Math.ceil(total / show);
-    const tmp_startIndex = (data > 0 && startIndex < 1) ? 1 : startIndex
+    const startIndex = (active - 1) * (pTotal < show ? pTotal : show);
+    const endIndex = startIndex + (pTotal < show ? pTotal : show);
+    const pages = Math.ceil(pTotal / show);
+    const tmpStartIndex = (data > 0 && startIndex < 1) ? 1 : startIndex
 
-    //pagination
-    const x_total = (newPage.pagination && total) ? total : total;
-    const x_last_page = (newPage.pagination && last_page) ? last_page : 1;
-    const x_from = (newPage.pagination && from) ? from : tmp_startIndex;
-    const x_to = (newPage.pagination && to) ? to : endIndex;
+    // pagination
+    const xTotal = (newPage.pagination && pTotal) ? pTotal : pTotal;
+    const xFrom = (newPage.pagination && from) ? from : tmpStartIndex;
+    const xTo = (newPage.pagination && to) ? to : endIndex;
     return (
       // <CContainer fluid>
       <CRow className=" pagination-custom">
         <CCol lg="7" className="px-0 margin-mr">
-          <CCardGroup >
+          <CCardGroup>
             <CCard className="col-lg-6 border-right">
               <CPagination
                 limit={3}
@@ -95,7 +96,13 @@ class Pagination extends React.Component {
                   onKeyPress={(e) => numberCheck(e)}
                   style={{ textAlign: 'center' }}
                 />
-                <span className="text-muted-dark ml-3 pointer" onClick={this.goToPage({ page, setPage, })}>
+                <span
+                  className="text-muted-dark ml-3 pointer" 
+                  onClick={this.goToPage({ page, setPage, })}
+                  onKeyPress
+                  role="button"
+                  tabIndex="0"
+                >
                   {"Go >"}
                 </span>
               </div>
@@ -105,7 +112,11 @@ class Pagination extends React.Component {
         <CCol lg="3" className="mt-3 showing" style={{ flex: '0 0 30%', maxWidth: '30%' }}>
           <span className="text-muted-s">
             {" Showing "}
-            <b className="text-muted-dark"> {`${x_from} to ${x_to} of ${x_total} `} </b>
+            <b className="text-muted-dark"> 
+              {' '}
+              {`${xFrom} to ${xTo} of ${xTotal} `}
+              {' '}
+            </b>
             {" entries "}
           </span>
         </CCol>
