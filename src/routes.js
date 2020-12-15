@@ -16,8 +16,8 @@ import React from 'react';
 // const UsersManagementDetail = React.lazy(() => import('./pages/UserManagement/UserManagementDetail'));
 
 // REFACTOR - component
-const Component = React.lazy(() => import('./pages/Component'));
-const PurchaseOrders = React.lazy(() => import('./pages/PurchaseOrders'));
+const Component = React.lazy(() => import('../src/pages/Component'));
+const PurchaseOrders = React.lazy(() => import('../src/pages/PurchaseOrders'));
 
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config

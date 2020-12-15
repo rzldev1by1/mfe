@@ -1,16 +1,13 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import React from 'react'
-import Breadcrumb from 'Component/Breadcrumb'
-import Search from 'Component/Search'
-import Dropdown from 'Component/Dropdown'
+import Search from '../../Component/Search'
+import Dropdown from '../../Component/Dropdown'
+import Breadcrumb from '../../Component/Breadcrumb'
 
 const PurchaseOrders = () => {
   const filterSite = (
     <Dropdown
       showTitle={false}
       show
-     
       placeholder='Site'
     />
   )
@@ -18,7 +15,6 @@ const PurchaseOrders = () => {
     <Dropdown
       showTitle={false}
       show
-     
       placeholder='Client'
     />
   )
@@ -26,7 +22,6 @@ const PurchaseOrders = () => {
     <Dropdown
       showTitle={false}
       show
-     
       placeholder='Status'
     />
   )
@@ -34,7 +29,6 @@ const PurchaseOrders = () => {
     <Dropdown
       showTitle={false}
       show
-     
       placeholder='Order Type'
     />
   )
@@ -42,7 +36,6 @@ const PurchaseOrders = () => {
     <Dropdown
       showTitle={false}
       show
-     
       placeholder='Task'
     />
   )
