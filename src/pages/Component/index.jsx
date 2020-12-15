@@ -1,3 +1,5 @@
+/* eslint-disable react/button-has-type */
+/* eslint-disable max-len */
 /* eslint-disable import/no-unresolved */
 import React, { useState } from 'react'
 import { CRow, CCol } from '@coreui/react'
@@ -80,7 +82,7 @@ const Component = () => {
             filterStatus={filterStatus}
             filterOrderType={filterOrderType}
             filterTask={filterTask}
-            placeholder="Enter SKU"
+            placeholder='Enter SKU'
             filter
           />
         </div>
@@ -107,13 +109,7 @@ const Component = () => {
             />
           </CCol>
           <CCol lg={2}>
-            <button
-              type="button"
-              className="btn btn-search btn-primary" 
-              onClick={() => showModal({ page, setPage })}
-            >
-              Pop Up
-            </button>
+            <button className="btn btn-search btn-primary" onClick={() => showModal({ page, setPage })}>Pop Up</button>
             <PopUpPages
               page={page}
               setPage={setPage}
