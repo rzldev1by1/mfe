@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable max-len */
 /* eslint-disable import/no-unresolved */
@@ -63,7 +64,10 @@ const Table = ({
           getTdProps={(state, rowInfo, column,  instance) => {
                     return {
                         // eslint-disable-next-line no-restricted-globals
-                        style: { textAlign: isNaN(rowInfo?.original[column.id]) ? 'left' : 'right' }
+                        style: { 
+                          textAlign: isNaN(rowInfo?.original[column.id]) ? 'left' : 'right',
+                          height: "3rem",
+                        }
                     }
                 }}
         />

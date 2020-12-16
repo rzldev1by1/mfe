@@ -1,8 +1,7 @@
 import React from 'react'
-import Table from 'reactstrap/lib/Table'
-import { CRow, CCol } from "@coreui/react";
-import Pagination from '../Pagination/Pagination'
-// import Table from '../../Component/Table'
+import { CRow, CCol } from "@coreui/react"
+// import Pagination from '../Pagination/Pagination'
+import Table from '../Table'
 
 const TableMaster = ({
     schemaColumn,
@@ -13,9 +12,9 @@ const TableMaster = ({
     pageSize,
     noDataText,
     tableStatus,
-    pagination,
-    goto,
-    exportData
+    // pagination,
+    // goto,
+    // exportData,
 }) => {
     return(
       <div>
@@ -31,7 +30,7 @@ const TableMaster = ({
         />
         <CRow lg="12" className="mt-3 pagination-custom">
           <CCol lg="7" className="px-0 margin-mr">
-            <Pagination
+            {/* <Pagination
               data={data}
               pagination={pagination}
               goto={goto}
@@ -39,7 +38,7 @@ const TableMaster = ({
               schemaColumn={schemaColumn}
               page={page}
               pageSize={pageSize}
-            />
+            /> */}
           </CCol>
           <CCol lg="5" className="px-0 export-ml" />
         </CRow>
