@@ -2,6 +2,7 @@ import React from 'react'
 import Search from '../../Component/Search'
 import Dropdown from '../../Component/Dropdown'
 import Breadcrumb from '../../Component/Breadcrumb'
+import TableMaster from '../../Component/TableMaster'
 
 const PurchaseOrders = () => {
   const filterSite = (
@@ -54,6 +55,21 @@ const PurchaseOrders = () => {
             filterTask={filterTask}
             placeholder='Enter SKU'
             filter
+          />
+        </div>
+        <div>
+          <TableMaster
+            schemaColumn
+            data
+            style
+            module
+            page
+            pageSize
+            noDataText
+            tableStatus
+            pagination
+            goto
+            exportData
           />
         </div>
       </div>
