@@ -1,14 +1,14 @@
 
 export const renewColumn = ({ schemaColumn, module, userId }) => {
 
-    //reorder column
-    let key = `tables__${module}__${userId}`
+    // reorder column
+    const key = `tables__${module}__${userId}`
     let schema = []
-    let oldSchema = localStorage.getItem(key)
+    const oldSchema = localStorage.getItem(key)
     if (oldSchema !== null && oldSchema !== undefined) {
-        let schemaOrder = JSON.parse(oldSchema)
-        schemaColumn.map((data, idx) => {
-            let schemaOrderIndex = schemaOrder.indexOf(data.accessor);
+        const schemaOrder = JSON.parse(oldSchema)
+        schemaColumn.map((data) => {
+            const schemaOrderIndex = schemaOrder.indexOf(data.accessor);
             schema[schemaOrderIndex] = data
         })
     } else {
@@ -19,7 +19,7 @@ export const renewColumn = ({ schemaColumn, module, userId }) => {
 };
 
 export const setDraggableColumn = ({ schemaColumn }) => {
-    let listHeader = schemaColumn.map((data, idx) => {
+    const listHeader = schemaColumn.map((data) => {
         return data.accessor
     });
     return listHeader
@@ -34,42 +34,42 @@ export const saveSchemaToLocal = ({
     newIndex,
     module
 }) => {
-    //get old schema from local storage data , if null then set schemaColumn as oldSchema 
-    let key = `tables__${module}__${userId}`
-    let newSchemaOrder = []
+    // get old schema from local storage data , if null then set schemaColumn as oldSchema 
+    const key = `tables__${module}__${userId}`
+    const newSchemaOrder = []
     let oldSchema = localStorage.getItem(key)
     if (oldSchema === null || oldSchema === undefined) {
-        oldSchema = schemaColumn.map((data, index) => {
+        oldSchema = schemaColumn.map((data) => {
             return data.accessor
         })
     } else {
         let tmp = oldSchema
         oldSchema = JSON.parse(oldSchema)
     }
-    let length = oldSchema.length
+    const {length} = oldSchema
 
-    //move item from old schema to newschema
+    // move item from old schema to newschema
     newSchemaOrder[newIndex] = oldSchema[oldIndex]
     oldSchema.splice(oldIndex, 1)
 
-    //reorder     
+    // reorder     
     let i = 0
     while (i < length) {
         if (i < newIndex) {
-            //index before new index, position will same
+            // index before new index, position will same
             newSchemaOrder[i] = oldSchema[i]
-        } else if (i == newIndex) {
-            //index == newindex, abaikan
+        } else if (i === newIndex) {
+            // index == newindex, abaikan
             i++;
             continue;
         } else {
-            //index after newindex, index-1
+            // index after newindex, index-1
             newSchemaOrder[i] = oldSchema[i - 1]
         }
         i++;
     }
 
-    //set to local storage
+    // set to local storage
     localStorage.removeItem(key)
     localStorage.setItem(key, JSON.stringify(newSchemaOrder))
 

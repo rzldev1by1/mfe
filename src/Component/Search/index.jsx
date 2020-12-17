@@ -1,24 +1,40 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import { CCard, CCardBody, CRow, CCol } from '@coreui/react'
+import Dropdown from '../Dropdown'
+import {getSite, getClient, getStatus, getOrderType, getTask} from '../../apiServices/dropdown'
 
 const Search = ({
     placeholder = '',
     searchHandler = null, // function when search button clicked
-
-    // filter 
-    filterSite = null,
-    filterClient = null,
-    filterStatus = null,
-    filterOrderType = null,
-    filterTask = null
 }) => {
     // params
+    const dispatch = useDispatch()
     const [desc, setDesc] = useState(null)
+    const siteData = useSelector(state => state.site)
+    const clientData = useSelector(state => state.client)
+    const statusData = useSelector(state => state.status)
+    const orderTypeData = useSelector(state => state.orderType)
+    const taskData = useSelector(state => state.task)
+    const user = useSelector(state => state.user)
+    const {company, client, site} = user
 
     const search = (e) => {
-        if (e.key === 'Enter') searchHandler(desc)
+      if (e.key === 'Enter') searchHandler(desc)
     }
+
+    useEffect(async () =>{
+      if (!site) {
+        await getSite({dispatch})
+        await getClient({dispatch})
+      }
+      getStatus({dispatch})
+      await getOrderType({dispatch, company, client})
+      await getTask({dispatch, client, site})
+    },[])
+    
     return (
+
       <CCard className="mb-3">
         <CCardBody className="p-3">
           <CRow className="mx-0">
@@ -42,19 +58,40 @@ const Search = ({
             <CCol lg={9} className="px-0">
               <CRow className="mx-0">
                 <CCol sm={4} lg={2} className='px-0'>
-                  {filterSite}
+                  <Dropdown
+                    options={siteData}
+                    showTitle={false}
+                    show
+                    placeholder='Site'
+                  />
                 </CCol>
                 <CCol sm={4} lg={2} className='px-3'>
-                  {filterClient}
+                  <Dropdown
+                    options={clientData}
+                    show
+                    placeholder='Client'
+                  />
                 </CCol>
                 <CCol sm={4} lg={2} className='px-0'>
-                  {filterStatus}
+                  <Dropdown
+                    options={statusData}
+                    show
+                    placeholder='Status'
+                  />
                 </CCol>
                 <CCol sm={4} lg={2} className='px-3'>
-                  {filterOrderType}
+                  <Dropdown
+                    options={orderTypeData}
+                    show
+                    placeholder='Order Type'
+                  />
                 </CCol>
                 <CCol sm={4} lg={2} className='px-0'>
-                  {filterTask}
+                  <Dropdown
+                    options={taskData}
+                    show
+                    placeholder='Task'
+                  />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-0">
                   <button

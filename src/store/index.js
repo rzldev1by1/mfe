@@ -25,6 +25,12 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, ...rest }) => {
       return { ...state, client: data }
     case 'SITE' :
       return { ...state, site: data }
+    case 'STATUS' :
+      return {...state, status: data}
+    case 'ORDER_TYPE' :
+      return {...state, orderType: data}
+    case 'TASK' :
+      return {...state, task: data}
     case 'EXPIRED' :
       return {...state, expired:true}
     case 'TOTAL_LENGTH' :
