@@ -16,47 +16,6 @@ import Pagination from 'Component/Pagination/Pagination'
 import { category, simpleSchema, simpleData } from './service'
 
 const Component = () => {
-  const filterSite = (
-    <Dropdown
-      showTitle={false}
-      show
-      options={category}
-      placeholder='site'
-    />
-  )
-  const filterClient = (
-    <Dropdown
-      showTitle={false}
-      show
-      options={category}
-      placeholder='Client'
-    />
-  )
-  const filterStatus = (
-    <Dropdown
-      showTitle={false}
-      show
-      options={category}
-      placeholder='Status'
-    />
-  )
-  const filterOrderType = (
-    <Dropdown
-      showTitle={false}
-      show
-      options={category}
-      placeholder='Order Type'
-    />
-  )
-  const filterTask = (
-    <Dropdown
-      showTitle={false}
-      show
-      options={category}
-      placeholder='Task'
-    />
-  )
-
   const [page, setPage] = useState({
     notifPaging: false,
     pagination: { active: 1, show: 10, total: 0, lastPage: 1, from: 0, to: 0 },
@@ -77,11 +36,11 @@ const Component = () => {
         </div>
         <div>
           <Search
-            filterSite={filterSite}
-            filterClient={filterClient}
-            filterStatus={filterStatus}
-            filterOrderType={filterOrderType}
-            filterTask={filterTask}
+            filterSite
+            filterClient
+            filterStatus
+            filterOrderType
+            filterTask
             placeholder='Enter SKU'
             filter
           />

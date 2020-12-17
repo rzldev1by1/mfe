@@ -1,188 +1,7 @@
-export const dummyData = [
-    { 
-        site: 'A', 
-        client: 'BEGA', 
-        order_no: 'AM2020007P0001', 
-        order_type: 'RKWN', 
-        isis_task: 'RKWN', 
-        supplier_no: '123', 
-        supplier_name: 'Intervace', 
-        status: 'AvaiLable' ,
-        delivery_date: '07/09/2020', 
-        date_received: '07/09/2020', 
-        date_released: '07/09/2020', 
-        date_completed: '07/09/2020' 
-    },
-    { 
-        site: 'B', 
-        client: 'BEGA', 
-        order_no: 'AM2020007P0001', 
-        order_type: 'RKWN', 
-        isis_task: 'RKWN', 
-        supplier_no: '123', 
-        supplier_name: 'Intervace', 
-        status: 'AvaiLable' ,
-        delivery_date: '07/09/2020', 
-        date_received: '07/09/2020', 
-        date_released: '07/09/2020', 
-        date_completed: '07/09/2020' 
-    },
-    { 
-        site: 'E', 
-        client: 'BEGA', 
-        order_no: 'AM2020007P0001', 
-        order_type: 'RKWN', 
-        isis_task: 'RKWN', 
-        supplier_no: '123', 
-        supplier_name: 'Intervace', 
-        status: 'AvaiLable' ,
-        delivery_date: '07/09/2020', 
-        date_received: '07/09/2020', 
-        date_released: '07/09/2020', 
-        date_completed: '07/09/2020' 
-    },
-    { 
-        site: 'L', 
-        client: 'BEGA', 
-        order_no: 'AM2020007P0001', 
-        order_type: 'RKWN', 
-        isis_task: 'RKWN', 
-        supplier_no: '123', 
-        supplier_name: 'Intervace', 
-        status: 'AvaiLable' ,
-        delivery_date: '07/09/2020', 
-        date_received: '07/09/2020', 
-        date_released: '07/09/2020', 
-        date_completed: '07/09/2020' 
-    },
-    { 
-        site: 'A', 
-        client: 'TATURA', 
-        order_no: 'AM2020007P0001', 
-        order_type: 'RKWN', 
-        isis_task: 'RKWN', 
-        supplier_no: '123', 
-        supplier_name: 'Intervace', 
-        status: 'AvaiLable' ,
-        delivery_date: '07/09/2020', 
-        date_received: '07/09/2020', 
-        date_released: '07/09/2020', 
-        date_completed: '07/09/2020' 
-    },
-    { 
-        site: 'B', 
-        client: 'TATURA', 
-        order_no: 'AM2020007P0001', 
-        order_type: 'RKWN', 
-        isis_task: 'RKWN', 
-        supplier_no: '123', 
-        supplier_name: 'Intervace', 
-        status: 'AvaiLable' ,
-        delivery_date: '07/09/2020', 
-        date_received: '07/09/2020', 
-        date_released: '07/09/2020', 
-        date_completed: '07/09/2020' 
-    },
-    { 
-        site: 'E', 
-        client: 'TATURA', 
-        order_no: 'AM2020007P0001', 
-        order_type: 'RKWN', 
-        isis_task: 'RKWN', 
-        supplier_no: '123', 
-        supplier_name: 'Intervace', 
-        status: 'AvaiLable' ,
-        delivery_date: '07/09/2020', 
-        date_received: '07/09/2020', 
-        date_released: '07/09/2020', 
-        date_completed: '07/09/2020' 
-    },
-    { 
-        site: 'L', 
-        client: 'BEGA', 
-        order_no: 'AM2020007P0001', 
-        order_type: 'RKWN', 
-        isis_task: 'RKWN', 
-        supplier_no: '123', 
-        supplier_name: 'Intervace', 
-        status: 'AvaiLable' ,
-        delivery_date: '07/09/2020', 
-        date_received: '07/09/2020', 
-        date_released: '07/09/2020', 
-        date_completed: '07/09/2020' 
-    },
-    { 
-        site: 'A', 
-        client: 'ANTEC', 
-        order_no: 'AM2020007P0001', 
-        order_type: 'RKWN', 
-        isis_task: 'RKWN', 
-        supplier_no: '123', 
-        supplier_name: 'Intervace', 
-        status: 'AvaiLable' ,
-        delivery_date: '07/09/2020', 
-        date_received: '07/09/2020', 
-        date_released: '07/09/2020', 
-        date_completed: '07/09/2020' 
-    },
-    { 
-        site: 'B', 
-        client: 'ANTEC', 
-        order_no: 'AM2020007P0001', 
-        order_type: 'RKWN', 
-        isis_task: 'RKWN', 
-        supplier_no: '123', 
-        supplier_name: 'Intervace', 
-        status: 'AvaiLable' ,
-        delivery_date: '07/09/2020', 
-        date_received: '07/09/2020', 
-        date_released: '07/09/2020', 
-        date_completed: '07/09/2020' 
-    },
-    { 
-        site: 'E', 
-        client: 'ANTEC', 
-        order_no: 'AM2020007P0001', 
-        order_type: 'RKWN', 
-        isis_task: 'RKWN', 
-        supplier_no: '123', 
-        supplier_name: 'Intervace', 
-        status: 'AvaiLable' ,
-        delivery_date: '07/09/2020', 
-        date_received: '07/09/2020', 
-        date_released: '07/09/2020', 
-        date_completed: '07/09/2020' 
-    },
-    { 
-        site: 'L', 
-        client: 'ANTEC', 
-        order_no: 'AM2020007P0001', 
-        order_type: 'RKWN', 
-        isis_task: 'RKWN', 
-        supplier_no: '123', 
-        supplier_name: 'Intervace', 
-        status: 'AvaiLable' ,
-        delivery_date: '07/09/2020', 
-        date_received: '07/09/2020', 
-        date_released: '07/09/2020', 
-        date_completed: '07/09/2020' 
-    },
-    { 
-        site: 'A', 
-        client: 'ANTEC', 
-        order_no: 'AM2020007P0001', 
-        order_type: 'RKWN', 
-        isis_task: 'RKWN', 
-        supplier_no: '123', 
-        supplier_name: 'Intervace', 
-        status: 'AvaiLable' ,
-        delivery_date: '07/09/2020', 
-        date_received: '07/09/2020', 
-        date_released: '07/09/2020', 
-        date_completed: '07/09/2020' 
-    },
-
-]
+/* eslint-disable no-unused-vars */
+/* eslint-disable prefer-const */
+import axios from 'axios'
+import endpoints from '../../helpers/endpoints'
 
 export const schemaColumn = [
     {
@@ -192,7 +11,7 @@ export const schemaColumn = [
         style: { textAlign: 'left', paddingLeft: '15px' },
         headerClassName: 'borderBottom noPaddingTop',
         sortable: true,
-        width: 500,
+        width: 100,
     },
     {
         Header: 'Client',
@@ -201,7 +20,7 @@ export const schemaColumn = [
         style: { textAlign: 'left', paddingLeft: '15px' },
         headerClassName: 'borderBottom noPaddingTop',
         sortable: true,
-        width: 500
+        width: 100
     },
     {
         Header: 'Order NO',
@@ -210,7 +29,7 @@ export const schemaColumn = [
         style: { textAlign: 'left', paddingLeft: '15px' },
         headerClassName: 'borderBottom noPaddingTop',
         sortable: true,
-        width: 800
+        width: 200
     },
     {
         Header: 'Order Type',
@@ -219,7 +38,7 @@ export const schemaColumn = [
         style: { textAlign: 'left', paddingLeft: '15px' },
         headerClassName: 'borderBottom noPaddingTop',
         sortable: true,
-        width: 800
+        width: 100
     },
     {
         Header: 'Task',
@@ -228,7 +47,7 @@ export const schemaColumn = [
         style: { textAlign: 'left', paddingLeft: '15px' },
         headerClassName: 'borderBottom noPaddingTop',
         sortable: true,
-        width: 800
+        width: 100
     },
     {
         Header: 'Supplier No',
@@ -237,7 +56,7 @@ export const schemaColumn = [
         style: { textAlign: 'left', paddingLeft: '15px' },
         headerClassName: 'borderBottom noPaddingTop',
         sortable: true,
-        width: 800
+        width: 200
     },
     {
         Header: 'Supplier Name',
@@ -246,7 +65,7 @@ export const schemaColumn = [
         style: { textAlign: 'left', paddingLeft: '15px' },
         headerClassName: 'borderBottom noPaddingTop',
         sortable: true,
-        width: 800
+        width: 200
     },
     {
         Header: 'Status',
@@ -255,7 +74,7 @@ export const schemaColumn = [
         style: { textAlign: 'left', paddingLeft: '15px' },
         headerClassName: 'borderBottom noPaddingTop',
         sortable: true,
-        width: 800
+        width: 200
     },
     {
         Header: 'Order Date',
@@ -264,7 +83,7 @@ export const schemaColumn = [
         style: { textAlign: 'left', paddingLeft: '15px' },
         headerClassName: 'borderBottom noPaddingTop',
         sortable: true,
-        width: 800
+        width: 200
     },
     {
         Header: 'Date Received',
@@ -273,7 +92,7 @@ export const schemaColumn = [
         style: { textAlign: 'left', paddingLeft: '15px' },
         headerClassName: 'borderBottom noPaddingTop',
         sortable: true,
-        width: 800
+        width: 200
     },
     {
         Header: 'Date Released',
@@ -282,7 +101,7 @@ export const schemaColumn = [
         style: { textAlign: 'left', paddingLeft: '15px' },
         headerClassName: 'borderBottom noPaddingTop',
         sortable: true,
-        width: 800
+        width: 200
     },
     {
         Header: 'Date Completed',
@@ -291,6 +110,77 @@ export const schemaColumn = [
         style: { textAlign: 'left', paddingLeft: '15px' },
         headerClassName: 'borderBottom noPaddingTop',
         sortable: true,
-        width: 800
+        width: 200
     },
 ]
+
+export const  searchPurchaseOrder = async ({
+    export_ = 'false', 
+    readyDocument = 'false', 
+    page, 
+    setPage,
+    dispatch
+    }) => {
+    let newPage = {...page}
+    let { 
+        search,
+        site, 
+        client, 
+        orderType, 
+        task, 
+        pagination, 
+        status, 
+        data,
+        exportData, 
+        tableStatus } = newPage
+    let urls = []
+
+    // reset table
+    if (readyDocument === 'false' && export_ === 'false') {
+        data = []
+        tableStatus = 'waiting'
+        setPage(newPage)
+    }
+
+    // Url 
+    urls.push(`searchParam=${  search || ''}`)
+    urls.push(`site=${  site?.value ? site.value : 'all'}`)
+    urls.push(`client=${  client?.value ? client.value : 'all'}`)
+    urls.push(`orderType=${  orderType ? orderType.value : 'all'}`)
+    urls.push(`status=${  status ? status.value : 'all'}`)
+    if (task && task.value !== 'all') urls.push(`task=${  task.value}`)
+    urls.push(`page=${  pagination.active || 1}`)
+    if (export_ === 'true') { urls.push('export=true') }
+    
+    const  newData  = await axios.get(`${endpoints.purchaseOrder}?${urls.join('&')}`)
+    if (newData?.data?.data) {
+      let modifiedData = newData.data.data.data
+      if ( export_ === 'true' ) {
+            exportData = modifiedData
+            setPage(newPage)
+      } else {
+        pagination = {
+                        active: pagination.active || newData.data.data.current_page,
+                        show: newData.data.data.per_page,
+                        total: newData.data.data.total,
+                        last_page: newData.data.data.last_page,
+                        from: newData.data.data.from,
+                        to: newData.data.data.to
+          }
+        let paging = pagination
+          newPage.data = modifiedData
+          dispatch({type:'GET_PO_SUMMARY', data:modifiedData})
+          dispatch({type:'PAGING', data:paging})
+          setPage(newPage)
+      }
+
+      if (modifiedData.length < 1) {
+        tableStatus = 'noData'
+        setPage(newPage)
+      }
+    } else {
+      dispatch({type:'GET_PO_SUMMARY', data:[]})
+      data = []
+      setPage(newPage)
+    }
+  }

@@ -12,6 +12,7 @@ const Dropdown = ({
     onChangeDropdown,
     poListIdx,
     isDisabled,
+    className
 }) => {
     const onChangeHandler = (selected) => {
         onChangeDropdown(selected)
@@ -30,6 +31,7 @@ const Dropdown = ({
     }, [isOpen])
     return (
       <Select
+        className={className}
         isDisabled={isDisabled || false}
         id={`dropdown${entryListIdx}${poListIdx}`}
         value={selectedValue?.value ? selectedValue : false}

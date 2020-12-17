@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import { CRow, CCol } from "@coreui/react"
-// import Pagination from '../Pagination/Pagination'
+import Pagination from '../Pagination'
 import Table from '../Table'
 
 const TableMaster = ({
@@ -12,9 +13,9 @@ const TableMaster = ({
     pageSize,
     noDataText,
     tableStatus,
-    // pagination,
-    // goto,
-    // exportData,
+    pagination,
+    goto,
+    exportData,
 }) => {
     return(
       <div>
@@ -30,15 +31,12 @@ const TableMaster = ({
         />
         <CRow lg="12" className="mt-3 pagination-custom">
           <CCol lg="7" className="px-0 margin-mr">
-            {/* <Pagination
+            <Pagination
+              pagination={pagination} 
               data={data}
-              pagination={pagination}
               goto={goto}
-              export={exportData}
               schemaColumn={schemaColumn}
-              page={page}
-              pageSize={pageSize}
-            /> */}
+            />
           </CCol>
           <CCol lg="5" className="px-0 export-ml" />
         </CRow>

@@ -1,16 +1,18 @@
+/* eslint-disable max-len */
 import React, { useState } from 'react'
 import { CCard, CCardBody, CRow, CCol } from '@coreui/react'
+import {useSelector, useDispatch} from 'react-redux'
+import Dropdown from '../Dropdown'
+
 
 const Search = ({
     placeholder = '',
     searchHandler = null, // function when search button clicked
-
-    // filter 
-    filterSite = null,
-    filterClient = null,
-    filterStatus = null,
-    filterOrderType = null,
-    filterTask = null
+    filterSite,
+    filterClient,
+    filterStatus,
+    filterOrderType,
+    filterTask
 }) => {
     // params
     const [desc, setDesc] = useState(null)
@@ -18,6 +20,10 @@ const Search = ({
     const search = (e) => {
         if (e.key === 'Enter') searchHandler(desc)
     }
+
+    const dispatch = useDispatch()
+    const site = useSelector(state => state.site)
+    const client = useSelector(state => state.client)
     return (
       <CCard className="mb-3">
         <CCardBody className="p-3">
@@ -41,20 +47,50 @@ const Search = ({
             </CCol>
             <CCol lg={9} className="px-0">
               <CRow className="mx-0">
-                <CCol sm={4} lg={2} className='px-0'>
-                  {filterSite}
+                <CCol sm={4} lg={2}>
+                  <Dropdown
+                    className={`px-0 ${filterSite === true ? null : " d-none"}`}
+                    show
+                    placeholder='Site'
+                    options={site}
+                    onChange={(val) => dispatch({site: val})}
+                  />
                 </CCol>
-                <CCol sm={4} lg={2} className='px-3'>
-                  {filterClient}
+                <CCol sm={4} lg={2}>
+                  <Dropdown
+                    className={`px-3 ${filterClient === true ? null : " d-none"}`}
+                    show
+                    placeholder='Client'
+                    options={client}
+                    onChange={(val) => dispatch({client: val})}
+                  />
                 </CCol>
-                <CCol sm={4} lg={2} className='px-0'>
-                  {filterStatus}
+                <CCol sm={4} lg={2}>
+                  <Dropdown
+                    className={`px-0 ${filterStatus === true ? null : " d-none"}`}
+                    show
+                    placeholder='Status'
+                    // options={clientData}
+                    // onChange={(val) => this.setClient(val)}
+                  />
                 </CCol>
-                <CCol sm={4} lg={2} className='px-3'>
-                  {filterOrderType}
+                <CCol sm={4} lg={2}>
+                  <Dropdown
+                    className={`px-0 ${filterOrderType === true ? null : " d-none"}`}
+                    show
+                    placeholder='Order Type'
+                    // options={clientData}
+                    // onChange={(val) => this.setClient(val)}
+                  />
                 </CCol>
-                <CCol sm={4} lg={2} className='px-0'>
-                  {filterTask}
+                <CCol sm={4} lg={2}>
+                  <Dropdown
+                    className={`px-0 ${filterTask === true ? null : " d-none"}`} 
+                    show
+                    placeholder='Task'
+                    // options={clientData}
+                    // onChange={(val) => this.setClient(val)}
+                  />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-0">
                   <button
