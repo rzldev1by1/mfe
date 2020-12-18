@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default-member */
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import { CRow, CCol } from "@coreui/react"
@@ -10,7 +11,7 @@ const TableMaster = ({
     style,
     module,
     page,
-    pageSize,
+    setPage,
     noDataText,
     tableStatus,
     pagination,
@@ -25,7 +26,7 @@ const TableMaster = ({
           style={style}
           module={module}
           page={page}
-          pageSize={pageSize}
+          setPage={setPage}
           noDataText={noDataText}
           tableStatus={tableStatus}
         />
@@ -34,6 +35,8 @@ const TableMaster = ({
             <Pagination
               pagination={pagination} 
               data={data}
+              page={page}
+              setPage={setPage}
               goto={goto}
               schemaColumn={schemaColumn}
             />

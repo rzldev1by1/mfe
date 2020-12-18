@@ -22,7 +22,7 @@ const Table = ({
     style,
     module,
     page,
-    pageSize,
+    setPage,
     noDataText,
     tableStatus,
     groupHeader = false

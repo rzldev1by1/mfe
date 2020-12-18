@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 /* eslint-disable camelcase */
 /* eslint-disable import/no-unresolved */
 import React from "react";
@@ -8,45 +9,17 @@ import {
   BsChevronBarLeft,
   BsChevronBarRight,
 } from "react-icons/bs";
-import {useSelector, useDispatch} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import PopUpPages from 'Component/Modal/PopUpPages'
-import { numberCheck, onChange } from 'Component/Pagination/service'
+import { numberCheck, onChange, onActivePageChange, goToPage  } from 'Component/Pagination/service'
 import "./Pagination.scss";
-
-const onActivePageChange = ({i, pagination, goto, dispatch}) => {
-  const active = parseInt(i > 1 ? i : 1);
-  console.log(active)
-  // if (goto) {
-  //  goto(active);
-  // } else {
-  //   dispatch({type:'PAGING', data:{ ...pagination, active }})
-  // }
-};
-const goToPage = (goto) => {
-  console.log(goto)
-  // const { pagination, page } = this.state;
-  // const { data } = this.props;
-  // if (page === 0 || page === null || page === '' || page === undefined) {
-  //   return false;
-  // }
-
-  // if (page > pagination.last_page) {
-  //   this.setState({ notifPaging: true })
-  //   return 0
-  // }
-
-  // if (this.props.goto) {
-  //   this.props.goto(page);
-  // } else {
-  //   this.setState({ pagination: { ...pagination, active: page } });
-  // }
-};
-
 
 const Pagination = ({
     pagination,
     data,
-    goto
+    goto,
+    page,
+    setPage,
 }) => {
   const dispatch = useDispatch()
 
@@ -61,6 +34,7 @@ const Pagination = ({
   // const x_last_page = (pagination && pagination.last_page) ? pagination.last_page : 1;
   const x_from = (pagination && pagination.from) ? pagination.from : tmp_startIndex;
   const x_to = (pagination && pagination.to) ? pagination.to : endIndex;
+
     return(
       <div>
         <CRow className=" pagination-custom">
@@ -71,7 +45,7 @@ const Pagination = ({
                   limit={3}
                   activePage={active}
                   pages={pages > 0 ? pages : 1}
-                  onActivePageChange={onActivePageChange({pagination, goto, dispatch})}
+                  onActivePageChange={(e) => onActivePageChange({e, pagination, goto, dispatch})}
                   firstButton={<BsChevronBarLeft />}
                   previousButton={<BsChevronLeft />}
                   nextButton={<BsChevronRight className="nextBtn" />}
@@ -85,7 +59,7 @@ const Pagination = ({
                     type="number"
                     value=''
                     className="form-control form-control-sm"
-                    onChange={(e) => onChange(e)}
+                    onChange={(e) => onChange({e, page, setPage,})}
                   // onChange={this.onChange}
                     min="1"
                     max={pages > 0 ? pages : 1}
@@ -94,7 +68,7 @@ const Pagination = ({
                   />
                   <span
                     className="text-muted-dark ml-3 pointer" 
-                    onClick={goToPage(goto)}
+                    onClick={() => goToPage({goto, pagination, page, setPage, dispatch})}
                     onKeyPress
                     role="button"
                     tabIndex="0"
@@ -118,8 +92,10 @@ const Pagination = ({
           </CCol>
 
           {/* Modal Pagination */}
-          <PopUpPages />
-
+          <PopUpPages
+            page={page}
+            setPage={setPage}
+          />
         </CRow>
 
       </div>

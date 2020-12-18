@@ -17,20 +17,24 @@ const PurchaseOrders = () => {
   const [page, setPage] = useState({
     // Paging
     notifPaging: false,
-    pagination: { active: 1, show: 10, total: 0, last_page: 1, from: 0, to: 0 },
-    PagingPage: 1,
+    goPage: 1,
     // table
     data: [],
     tableStatus: 'waiting',
     status: null,
     search: '',
+    active: ''
   })
 
+  const [active, setActive] = useState(1)
   const height = (window.innerHeight - 257)
   const widht = window.innerWidth
-  useEffect(async() => {
-    await searchPurchaseOrder({ page, setPage, dispatch })
-}, [])
+  useEffect(() => {}, [page])
+
+  useEffect(() => {
+    searchPurchaseOrder({ dispatch,page,active ,setPage})
+  },[active]);
+
     return(
       <div>
         <Breadcrumb breadcrumb={[
@@ -58,8 +62,8 @@ const PurchaseOrders = () => {
             tableStatus
             pagination={pagination}
             goto={(active) => {
-              dispatch({type:'PAGING', data:{ ...pagination, active }} )
-              searchPurchaseOrder({ page, setPage, dispatch })
+              console.log('test-activeeeeeeee',active)
+               setActive(active)
             }}
             exportData
             page={page}

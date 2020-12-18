@@ -119,7 +119,8 @@ export const  searchPurchaseOrder = async ({
     readyDocument = 'false', 
     page, 
     setPage,
-    dispatch
+    dispatch, 
+    active,
     }) => {
     let newPage = {...page}
     let { 
@@ -141,7 +142,7 @@ export const  searchPurchaseOrder = async ({
         tableStatus = 'waiting'
         setPage(newPage)
     }
-
+    console.log('test - services')
     // Url 
     urls.push(`searchParam=${  search || ''}`)
     urls.push(`site=${  site?.value ? site.value : 'all'}`)
@@ -149,7 +150,7 @@ export const  searchPurchaseOrder = async ({
     urls.push(`orderType=${  orderType ? orderType.value : 'all'}`)
     urls.push(`status=${  status ? status.value : 'all'}`)
     if (task && task.value !== 'all') urls.push(`task=${  task.value}`)
-    urls.push(`page=${  pagination.active || 1}`)
+    urls.push(`page=${  active || 1}`)
     if (export_ === 'true') { urls.push('export=true') }
     
     const  newData  = await axios.get(`${endpoints.purchaseOrder}?${urls.join('&')}`)
@@ -160,7 +161,7 @@ export const  searchPurchaseOrder = async ({
             setPage(newPage)
       } else {
         pagination = {
-                        active: pagination.active || newData.data.data.current_page,
+                        active: active || newData.data.data.current_page,
                         show: newData.data.data.per_page,
                         total: newData.data.data.total,
                         last_page: newData.data.data.last_page,
