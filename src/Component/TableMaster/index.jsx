@@ -32,14 +32,14 @@ const TableMaster = ({
         />
         <CRow lg="12" className="mt-3 pagination-custom">
           <CCol lg="7" className="px-0 margin-mr">
-            <Pagination
+            {/* <Pagination
               pagination={pagination} 
               data={data}
               page={page}
               setPage={setPage}
               goto={goto}
               schemaColumn={schemaColumn}
-            />
+            /> */}
           </CCol>
           <CCol lg="5" className="px-0 export-ml" />
         </CRow>
