@@ -126,7 +126,6 @@ const Search = ({
     )
 }
 
-
 Search.propTypes = {
   placeholder: PropTypes.string.isRequired,
   filterSite: PropTypes.bool.isRequired,
