@@ -23,12 +23,14 @@ const Pagination = ({
 }) => {
   const dispatch = useDispatch()
 
-  let { active, show, total } = pagination;
-  total = pagination && pagination.total ? pagination.total : data.length;
+  let active =  pagination?.active;
+  let show = pagination?.show
+  let total = pagination?.total
+  total = pagination && pagination.total ? pagination.total : data?.length;
   const startIndex = (active - 1) * (total < show ? total : show);
   const endIndex = startIndex + (total < show ? total : show);
   const pages = Math.ceil(total / show);
-  const tmp_startIndex = (data.length > 0 && startIndex < 1) ? 1 : startIndex
+  const tmp_startIndex = (data?.length > 0 && startIndex < 1) ? 1 : startIndex
   // pagination
   const x_total = (pagination && pagination.total) ? pagination.total : total;
   // const x_last_page = (pagination && pagination.last_page) ? pagination.last_page : 1;
