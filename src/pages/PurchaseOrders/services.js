@@ -142,7 +142,6 @@ export const  searchPurchaseOrder = async ({
         tableStatus = 'waiting'
         setPage(newPage)
     }
-    console.log('test - services')
     // Url 
     urls.push(`searchParam=${  search || ''}`)
     urls.push(`site=${  site?.value ? site.value : 'all'}`)

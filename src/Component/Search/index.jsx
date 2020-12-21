@@ -1,12 +1,20 @@
+/* eslint-disable max-len */
 import React, { useEffect, useState } from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import PropTypes from 'prop-types';
+import {useSelector, useDispatch} from 'react-redux'
 import { CCard, CCardBody, CRow, CCol } from '@coreui/react'
 import Dropdown from '../Dropdown'
-import {getSite, getClient, getStatus, getOrderType, getTask} from '../../apiServices/dropdown'
+import {getSite, getClient, getStatus, getOrderType, getTask} from '../../apiService/dropdown'
+
 
 const Search = ({
     placeholder = '',
     searchHandler = null, // function when search button clicked
+    filterSite,
+    filterClient,
+    filterStatus,
+    filterOrderType,
+    filterTask
 }) => {
     // params
     const dispatch = useDispatch()
@@ -20,7 +28,7 @@ const Search = ({
     const {company, client, site} = user
 
     const search = (e) => {
-      if (e.key === 'Enter') searchHandler(desc)
+        if (e.key === 'Enter') searchHandler(desc)
     }
 
     useEffect(async () =>{
@@ -32,9 +40,8 @@ const Search = ({
       await getOrderType({dispatch, company, client})
       await getTask({dispatch, client, site})
     },[])
-    
-    return (
 
+    return (
       <CCard className="mb-3">
         <CCardBody className="p-3">
           <CRow className="mx-0">
@@ -57,40 +64,49 @@ const Search = ({
             </CCol>
             <CCol lg={9} className="px-0">
               <CRow className="mx-0">
-                <CCol sm={4} lg={2} className='px-0'>
+                <CCol sm={4} lg={2}>
                   <Dropdown
-                    options={siteData}
-                    showTitle={false}
+                    className={`px-0 ${filterSite === true ? null : " d-none"}`}
                     show
                     placeholder='Site'
+                    options={siteData}
+                    onChange={(val) => dispatch({site: val})}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className='px-3'>
+                <CCol sm={4} lg={2}>
                   <Dropdown
-                    options={clientData}
+                    className={`px-3 ${filterClient === true ? null : " d-none"}`}
                     show
                     placeholder='Client'
+                    options={clientData}
+                    onChange={(val) => dispatch({client: val})}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className='px-0'>
+                <CCol sm={4} lg={2}>
                   <Dropdown
-                    options={statusData}
+                    className={`px-0 ${filterStatus === true ? null : " d-none"}`}
                     show
                     placeholder='Status'
+                    options={statusData}
+                    // onChange={(val) => this.setClient(val)}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className='px-3'>
+                <CCol sm={4} lg={2}>
                   <Dropdown
-                    options={orderTypeData}
+                    className={`px-0 ${filterOrderType === true ? null : " d-none"}`}
                     show
                     placeholder='Order Type'
+                    options={orderTypeData}
+                    // onChange={(val) => this.setClient(val)}
                   />
                 </CCol>
-                <CCol sm={4} lg={2} className='px-0'>
+                <CCol sm={4} lg={2}>
                   <Dropdown
-                    options={taskData}
+                    className={`px-0 ${filterTask === true ? null : " d-none"}`} 
                     show
                     placeholder='Task'
+                    options={taskData}
+                    // onChange={(val) => this.setClient(val)}
                   />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-0">
@@ -108,6 +124,15 @@ const Search = ({
         </CCardBody>
       </CCard>
     )
+}
+
+Search.propTypes = {
+  placeholder: PropTypes.string.isRequired,
+  filterSite: PropTypes.bool.isRequired,
+  filterClient: PropTypes.bool.isRequired,
+  filterStatus: PropTypes.bool.isRequired,
+  filterOrderType: PropTypes.bool.isRequired,
+  filterTask: PropTypes.bool.isRequired
 }
 
 export default Search

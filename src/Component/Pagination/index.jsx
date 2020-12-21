@@ -34,7 +34,6 @@ const Pagination = ({
   // const x_last_page = (pagination && pagination.last_page) ? pagination.last_page : 1;
   const x_from = (pagination && pagination.from) ? pagination.from : tmp_startIndex;
   const x_to = (pagination && pagination.to) ? pagination.to : endIndex;
-
     return(
       <div>
         <CRow className=" pagination-custom">
@@ -57,10 +56,8 @@ const Pagination = ({
                   <span className="text-muted-soft mr-3">Go to page</span>
                   <input
                     type="number"
-                    value=''
                     className="form-control form-control-sm"
                     onChange={(e) => onChange({e, page, setPage,})}
-                  // onChange={this.onChange}
                     min="1"
                     max={pages > 0 ? pages : 1}
                     onKeyPress={(e) => numberCheck(e)}
@@ -82,10 +79,8 @@ const Pagination = ({
           <CCol lg="3" className="mt-3 showing" style={{ flex: '0 0 30%', maxWidth: '30%' }}>
             <span className="text-muted-s">
               {" Showing "}
-              <b className="text-muted-dark"> 
-                {' '}
+              <b className="text-muted-dark">
                 {`${x_from} to ${x_to} of ${x_total} `}
-                {' '}
               </b>
               {" entries "}
             </span>

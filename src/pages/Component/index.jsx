@@ -12,7 +12,7 @@ import TableFixedColumn from 'Component/TableFixedColumn'
 import Table from 'Component/Table'
 import PopUpPages from 'Component/Modal/PopUpPages'
 import { showModal } from 'Component/Modal/PopUpPages/service'
-import Pagination from 'Component/Pagination/Pagination'
+import Pagination from 'Component/Pagination'
 import { category, simpleSchema, simpleData } from './service'
 
 const Component = () => {

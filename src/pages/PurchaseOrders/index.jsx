@@ -61,9 +61,8 @@ const PurchaseOrders = () => {
             noDataText
             tableStatus
             pagination={pagination}
-            goto={(active) => {
-              console.log('test-activeeeeeeee',active)
-               setActive(active)
+            goto={(e) => {
+               setActive(e)
             }}
             exportData
             page={page}
