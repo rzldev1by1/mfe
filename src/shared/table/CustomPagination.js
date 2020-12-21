@@ -17,8 +17,9 @@ class CustomPagination extends React.Component {
     page: 1,
     notifPaging: false
   };
+
   componentDidUpdate = (nextProps) => {
-    let { pagination } = this.props;
+    const { pagination } = this.props;
     if (pagination && nextProps.pagination !== pagination) {
       this.setState({ pagination });
     }
@@ -36,6 +37,7 @@ class CustomPagination extends React.Component {
   closeConfirmDialog = () => {
     this.setState({ notifPaging: false });
   }
+
   onActivePageChange = (i) => {
     const { pagination } = this.state;
     const active = parseInt(i > 1 ? i : 1); 
@@ -45,6 +47,7 @@ class CustomPagination extends React.Component {
       this.setState({ pagination: { ...pagination, active } });
     }
   };
+
   goToPage = () => {
     const { pagination, page } = this.state;
     const { data } = this.props;
@@ -63,8 +66,9 @@ class CustomPagination extends React.Component {
       this.setState({ pagination: { ...pagination, active: page } });
     }
   };
+
   numberCheck = (e) => {
-    var tmpChar = e.key;
+    const tmpChar = e.key;
     if (!/^[0-9]+$/.test(e.key)) {
       e.preventDefault()
     }
@@ -72,7 +76,7 @@ class CustomPagination extends React.Component {
 
   render() {
     let { active, show, total } = this.state.pagination;
-    let { data, pagination } = this.props;
+    const { data, pagination } = this.props;
     // console.log(data);
     // console.log(pagination);
     console.log('pagination', pagination)
@@ -82,7 +86,7 @@ class CustomPagination extends React.Component {
     // console.log(endIndex);
     const pages = Math.ceil(total / show);
     const tmp_startIndex = (data.length > 0 && startIndex < 1) ? 1 : startIndex
-    //pagination
+    // pagination
     const x_total = (pagination && pagination.total) ? pagination.total : total;
     const x_last_page = (pagination && pagination.last_page) ? pagination.last_page : 1;
     const x_from = (pagination && pagination.from) ? pagination.from : tmp_startIndex;
@@ -93,7 +97,7 @@ class CustomPagination extends React.Component {
         {/* <CCol lg="6" className="px-0 mr-5">
           <CCardGroup style={{width:"max-content"}}> */}
         <CCol lg="7" className="px-0 margin-mr">
-          <CCardGroup >
+          <CCardGroup>
             <CCard className="col-lg-6 border-right">
               <CPagination
                 limit={3}
@@ -132,8 +136,13 @@ class CustomPagination extends React.Component {
         {/* <CCol lg="3" className="mt-3 entries-paging p-0 showing"> */}
         <CCol lg="3" className="mt-3 showing" style={{ flex: '0 0 30%', maxWidth: '30%' }}>
           <span className="text-muted-s">
-            Showing{" "}
-            <b className="text-muted-dark"> &nbsp; {`${x_from} to ${x_to} of ${x_total} `} </b>{" "}
+            Showing
+            {" "}
+            <b className="text-muted-dark">
+              {' '}
+              {`${x_from} to ${x_to} of ${x_total} `} 
+            </b>
+            {" "}
             &nbsp; entries
           </span>
         </CCol>
@@ -143,18 +152,28 @@ class CustomPagination extends React.Component {
 
 
         {/* Modal Pagination */}
-        <Modal isOpen={this.state.notifPaging} centered={true}
+        <Modal
+          isOpen={this.state.notifPaging}
+          centered
           onOpened={() => this.state.notifPaging ? setTimeout(() => { this.closeConfirmDialog() }, 36000) : {}}
           contentClassName="modal-content-paging box-er-pagination"
         >
           <ModalBody>
             <div className="text-right px-0" style={{ fontSize: '14px' }}>
-              <i className="iconU-close pointer" onClick={this.closeConfirmDialog}></i>
+              <i className="iconU-close pointer" onClick={this.closeConfirmDialog} />
             </div>
             <div className="d-flex d-inline-flex">
               <img src={logo_confirm} alt="logo" style={{ width: "20%", height: "20%" }} />
               <label className="pl-3 font">
-                Only {x_last_page} {x_last_page === 1 ? "page is" : "pages are"} available on this screen, please try again. <br />
+                Only 
+                {' '}
+                {x_last_page} 
+                {' '}
+                {x_last_page === 1 ? "page is" : "pages are"}
+                {' '}
+                available on this screen, please try again. 
+                {' '}
+                <br />
 
               </label>
             </div>
