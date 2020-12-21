@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import Select from 'react-select'
 
@@ -10,6 +12,7 @@ const Dropdown = ({
     onChangeDropdown,
     poListIdx,
     isDisabled,
+    className
 }) => {
     const onChangeHandler = (selected) => {
         onChangeDropdown(selected)
@@ -28,6 +31,7 @@ const Dropdown = ({
     }, [isOpen])
     return (
       <Select
+        className={className}
         isDisabled={isDisabled || false}
         id={`dropdown${entryListIdx}${poListIdx}`}
         value={selectedValue?.value ? selectedValue : false}

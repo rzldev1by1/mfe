@@ -1,44 +1,40 @@
-import React from 'react'
-import Search from '../../Component/Search'
-import Dropdown from '../../Component/Dropdown'
-import Breadcrumb from '../../Component/Breadcrumb'
+/* eslint-disable import/no-unresolved */
+/* eslint-disable consistent-return */
+import React, { useEffect, useState }  from 'react'
+import {useSelector, useDispatch} from 'react-redux'
+import Search from 'Component/Search'
+import Breadcrumb from 'Component/Breadcrumb'
+import TableMaster from 'Component/TableMaster'
+import {
+  schemaColumn, 
+  searchPurchaseOrder } from './services'
 
 const PurchaseOrders = () => {
-  const filterSite = (
-    <Dropdown
-      showTitle={false}
-      show
-      placeholder='Site'
-    />
-  )
-  const filterClient = (
-    <Dropdown
-      showTitle={false}
-      show
-      placeholder='Client'
-    />
-  )
-  const filterStatus = (
-    <Dropdown
-      showTitle={false}
-      show
-      placeholder='Status'
-    />
-  )
-  const filterOrderType = (
-    <Dropdown
-      showTitle={false}
-      show
-      placeholder='Order Type'
-    />
-  )
-  const filterTask = (
-    <Dropdown
-      showTitle={false}
-      show
-      placeholder='Task'
-    />
-  )
+  const dispatch = useDispatch()
+  const poSummaryData = useSelector(state => state.poSummaryData)
+  const pagination = useSelector(state => state.pagination)
+
+  const [page, setPage] = useState({
+    // Paging
+    notifPaging: false,
+    goPage: 1,
+    // table
+    data: [],
+    tableStatus: 'waiting',
+    status: null,
+    search: '',
+    active: ''
+  })
+
+  const [active, setActive] = useState(1)
+  const height = (window.innerHeight - 257)
+  const widht = window.innerWidth
+  useEffect(() => {}, [page])
+
+  useEffect(() => {
+    searchPurchaseOrder({ dispatch,page,active ,setPage})
+  },[active]);
+
     return(
       <div>
         <Breadcrumb breadcrumb={[
@@ -47,13 +43,30 @@ const PurchaseOrders = () => {
         />
         <div>
           <Search
-            filterSite={filterSite}
-            filterClient={filterClient}
-            filterStatus={filterStatus}
-            filterOrderType={filterOrderType}
-            filterTask={filterTask}
+            filterSite
+            filterClient
+            filterStatus
+            filterOrderType
+            filterTask
             placeholder='Enter SKU'
             filter
+          />
+        </div>
+        <div>
+          <TableMaster
+            schemaColumn={schemaColumn}
+            data={poSummaryData}
+            style={{ minHeight: height, maxHeight: height, minWidht:widht, maxWidht:widht }}
+            module='Purchase Orders'
+            noDataText
+            tableStatus
+            pagination={pagination}
+            goto={(e) => {
+               setActive(e)
+            }}
+            exportData
+            page={page}
+            setPage={setPage}
           />
         </div>
       </div>
