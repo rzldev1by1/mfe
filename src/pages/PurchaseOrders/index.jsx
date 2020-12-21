@@ -34,6 +34,7 @@ const PurchaseOrders = () => {
   useEffect(() => {
     searchPurchaseOrder({ dispatch,page,active ,setPage})
   },[active]);
+  
 
     return(
       <div>
