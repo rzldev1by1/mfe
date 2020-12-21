@@ -35,7 +35,6 @@ class Pagination extends React.Component {
     if (newPage.PagingPage === 0 || newPage.PagingPage === null || newPage.PagingPage === '' || newPage.PagingPage === undefined) {
       return false;
     }
-
     if (newPage.PagingPage > lastPage) {
       newPage.notifPaging = true
       // setPage(newPage)
