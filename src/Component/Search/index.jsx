@@ -129,7 +129,10 @@ const Search = ({
 Search.propTypes = {
   placeholder: PropTypes.string.isRequired,
   filterSite: PropTypes.bool.isRequired,
-  filterClient : PropTypes.bool.isRequired
+  filterClient: PropTypes.bool.isRequired,
+  filterStatus: PropTypes.bool.isRequired,
+  filterOrderType: PropTypes.bool.isRequired,
+  filterTask: PropTypes.bool.isRequired
 }
 
 export default Search
