@@ -1,35 +1,41 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react'
-import Select from 'react-select'
+import React, { useState, useEffect } from 'react';
+import Select from 'react-select';
 
 const Dropdown = ({
-    isEmpty,
-    placeholder,
-    options,
-    selectedValue,
-    entryListIdx,
-    onChangeDropdown,
-    poListIdx,
-    isDisabled,
-    className
+  isEmpty,
+  placeholder,
+  options,
+  selectedValue,
+  entryListIdx,
+  onChangeDropdown,
+  poListIdx,
+  isDisabled,
+  className,
+  showTitle = false,
+  title = null,
+  required = false,
 }) => {
-    const onChangeHandler = (selected) => {
-        onChangeDropdown(selected)
-        setIsOpen(false)
-    }
-    const [isOpen, setIsOpen] = useState()
-    useEffect(() => {
-        if (selectedValue === 'empty') setIsOpen(true)
-    }, [selectedValue, isEmpty])
+  const [isOpen, setIsOpen] = useState();
+  const onChangeHandler = (selected) => {
+    onChangeDropdown(selected);
+    setIsOpen(false);
+  };
+  useEffect(() => {
+    if (selectedValue === 'empty') setIsOpen(true);
+  }, [selectedValue, isEmpty]);
 
-    const elem = document?.getElementById(`dropdown${entryListIdx}${poListIdx}`);
-    let position = elem?.getBoundingClientRect()
+  const elem = document?.getElementById(`dropdown${entryListIdx}${poListIdx}`);
+  let position = elem?.getBoundingClientRect();
 
-    useEffect(() => {
-        position = elem?.getBoundingClientRect()
-    }, [isOpen])
-    return (
+  useEffect(() => {
+    position = elem?.getBoundingClientRect();
+  }, [isOpen]);
+
+  return (
+    <div>
+      {!showTitle ? null : <label className={'text-muted mb-0 ' + (required ? 'required' : '')}>{title}</label>}
       <Select
         className={className}
         isDisabled={isDisabled || false}
@@ -42,27 +48,28 @@ const Dropdown = ({
         onMenuOpen={() => setIsOpen(true)}
         onMenuClose={() => setIsOpen(false)}
         onChange={onChangeHandler}
-        menuPortalTarget={document.body}
+        // menuPortalTarget={document.body}
         maxMenuHeight={200}
         menuPlacement={`${position?.bottom > 600 ? 'top' : 'bottom'}`}
-            // isClearable={true}
+        // isClearable={true}
         styles={{
-                option: (provided) => ({
-                    ...provided,
-                    textAlign: 'left'
-                }),
-                dropdownIndicator: (base, state) => ({
-                    ...base,
-                    transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
-                    display: "flex"
-                })
-            }}
+          option: (provided) => ({
+            ...provided,
+            textAlign: 'left',
+          }),
+          dropdownIndicator: (base, state) => ({
+            ...base,
+            transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : null,
+            display: 'flex',
+          }),
+        }}
         theme={(theme) => ({
-                ...theme,
-                borderRadius: 4,
-            })}
+          ...theme,
+          borderRadius: 4,
+        })}
       />
-    )
-}
+    </div>
+  );
+};
 
-export default Dropdown
+export default Dropdown;
