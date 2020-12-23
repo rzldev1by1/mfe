@@ -27,6 +27,8 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, ...rest }) => {
       return { ...state, darkMode: data }
     case 'CLIENT':
       return { ...state, client: data }
+    case 'SITE_DATA' :
+      return { ...state, site_data: data }
     case 'SITE' :
       return { ...state, site: data }
     case 'ORDER_TYPE' :

@@ -6,7 +6,7 @@ const getSite = async ({dispatch}) => {
     const siteData = data.map(d => ({ value: d.site, label: `${d.site}: ${d.name}` }))
     const site = { value: 'all', label: 'All Site' }
     siteData.splice(0, 0, site)
-    dispatch({ type: 'SITE', data: siteData })
+    dispatch({ type: 'SITE_DATA', data: siteData })
 }
 
 const getClient = async ({dispatch}) => {
@@ -47,6 +47,7 @@ const getTask = async ({dispatch, client, site}) => {
     const siteParam = site?.value ? site.value : site
     if (client && site) {
       const { data } = await axios.get(`${endpoints.getIsisTask}?client=${clientParam}&site=${siteParam}&order=po`)
+      console.log(data);
       const taskData = data.code.map((c, i) => ({ value: c, label: `${data.name[i]}` }))
       const task = { value: 'all', label: 'All Task' }
       taskData.splice(0, 0, task)

@@ -2,6 +2,7 @@
 /* eslint-disable consistent-return */
 import React, { useEffect, useState }  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
+import { CButton } from '@coreui/react'
 import Search from 'Component/Search'
 import Breadcrumb from 'Component/Breadcrumb'
 import TableMaster from 'Component/TableMaster'
@@ -37,10 +38,12 @@ const PurchaseOrders = () => {
   
 
     return(
-      <div>
-        <Breadcrumb breadcrumb={[
+      <div className='purchase-order'>
+        <Breadcrumb 
+          breadcrumb={[
           { to: '/purchase-order', label: 'Purchase Order', active: true},
           ]}
+          button={<CButton className="btn btn-primary btn-create float-right">CREATE PURCHASE ORDER</CButton>}
         />
         <div>
           <Search

@@ -14,10 +14,12 @@ const Dropdown = ({
     isDisabled,
     className
 }) => {
+    console.log(selectedValue);
     const onChangeHandler = (selected) => {
         onChangeDropdown(selected)
         setIsOpen(false)
     }
+
     const [isOpen, setIsOpen] = useState()
     useEffect(() => {
         if (selectedValue === 'empty') setIsOpen(true)

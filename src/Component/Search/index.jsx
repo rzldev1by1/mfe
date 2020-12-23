@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
 import {useSelector, useDispatch} from 'react-redux'
 import { CCard, CCardBody, CRow, CCol } from '@coreui/react'
+import { setSite } from './service'
 import Dropdown from '../Dropdown'
 import {getSite, getClient, getStatus, getOrderType, getTask} from '../../apiService/dropdown'
 
@@ -19,10 +20,11 @@ const Search = ({
     // params
     const dispatch = useDispatch()
     const [desc, setDesc] = useState(null)
-    const siteData = useSelector(state => state.site)
+    const siteData = useSelector(state => state.site_data)
+    const siteVal = useSelector(state => state.site)
     const clientData = useSelector(state => state.client)
     const statusData = useSelector(state => state.status)
-    const orderTypeData = useSelector(state => state.orderType)
+    const orderTypeData = useSelector(state => state.order_type)
     const taskData = useSelector(state => state.task)
     const user = useSelector(state => state.user)
     const {company, client, site} = user
@@ -64,16 +66,17 @@ const Search = ({
             </CCol>
             <CCol lg={9} className="px-0">
               <CRow className="mx-0">
-                <CCol sm={4} lg={2}>
+                <CCol sm={4} lg={2} className="px-0">
                   <Dropdown
                     className={`px-0 ${filterSite === true ? null : " d-none"}`}
                     show
                     placeholder='Site'
                     options={siteData}
-                    onChange={(val) => dispatch({site: val})}
+                    onChangeDropdown={(selected) => setSite({selected, dispatch})}
+                    selectedValue={siteVal}
                   />
                 </CCol>
-                <CCol sm={4} lg={2}>
+                <CCol sm={4} lg={2} className="px-0">
                   <Dropdown
                     className={`px-3 ${filterClient === true ? null : " d-none"}`}
                     show
@@ -82,7 +85,7 @@ const Search = ({
                     onChange={(val) => dispatch({client: val})}
                   />
                 </CCol>
-                <CCol sm={4} lg={2}>
+                <CCol sm={4} lg={2} className="px-0">
                   <Dropdown
                     className={`px-0 ${filterStatus === true ? null : " d-none"}`}
                     show
@@ -100,7 +103,7 @@ const Search = ({
                     // onChange={(val) => this.setClient(val)}
                   />
                 </CCol>
-                <CCol sm={4} lg={2}>
+                <CCol sm={4} lg={2} className="px-0">
                   <Dropdown
                     className={`px-0 ${filterTask === true ? null : " d-none"}`} 
                     show
