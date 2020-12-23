@@ -47,7 +47,6 @@ const getTask = async ({dispatch, client, site}) => {
     const siteParam = site?.value ? site.value : site
     if (client && site) {
       const { data } = await axios.get(`${endpoints.getIsisTask}?client=${clientParam}&site=${siteParam}&order=po`)
-      console.log(data);
       const taskData = data.code.map((c, i) => ({ value: c, label: `${data.name[i]}` }))
       const task = { value: 'all', label: 'All Task' }
       taskData.splice(0, 0, task)

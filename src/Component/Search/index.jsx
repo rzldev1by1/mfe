@@ -22,7 +22,8 @@ const Search = ({
     const [desc, setDesc] = useState(null)
     const siteData = useSelector(state => state.site_data)
     const siteVal = useSelector(state => state.site)
-    const clientData = useSelector(state => state.client)
+    const clientVal = useSelector(state => state.client)
+    const clientData = useSelector(state => state.client_data)
     const statusData = useSelector(state => state.status)
     const orderTypeData = useSelector(state => state.order_type)
     const taskData = useSelector(state => state.task)
@@ -82,7 +83,8 @@ const Search = ({
                     show
                     placeholder='Client'
                     options={clientData}
-                    onChange={(val) => dispatch({client: val})}
+                    onChangeDropdown={(selected) => setClient({selected, dispatch})}
+                    selectedValue={clientVal}
                   />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-0">
