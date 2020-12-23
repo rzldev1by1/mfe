@@ -4,22 +4,27 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Dropdown from 'Component/Dropdown';
 import DatePicker from 'shared/DatePicker';
 import Input from 'Component/Input';
+import { addLine, removeLine, lineChange } from './services';
 import './style.scss';
 
 const InsertForm = ({ activeTab }) => {
   const resources = useSelector((state) => state.po_resources);
   const client = useSelector((state) => state.client);
 
-  const [orderDate, setOrderDate] = useState();
+  const [orderDate, setOrderDate] = useState({
+  });
+  const [line, setLine] = useState({
+    orderLine: [{}],
+  });
   //   let expandDropdownCheck =
   //     this.state.UOMStatus.includes(true) ||
   //     this.state.dispositionStatus.includes(true) ||
   //     this.state.productStatus.includes(true);
 
-  let expandDropdownCheck = true;
-  let datepickerExpandStyle = true ? ' lineDetailsTopExpand' : '';
-  let dropdownExpandStyle = expandDropdownCheck ? ' lineDetailsBottomExpandPO' : '';
-
+  const expandDropdownCheck = true;
+  const datepickerExpandStyle = true ? ' lineDetailsTopExpand' : '';
+  const dropdownExpandStyle = expandDropdownCheck ? ' lineDetailsBottomExpandPO' : '';
+  const newOrderLine = { ...line}
   return (
     <div>
       <h3 className="text-primary font-20">Order Details</h3>
@@ -30,9 +35,9 @@ const InsertForm = ({ activeTab }) => {
             placeholder="Site"
             options={resources?.site}
             onChangeDropdown
-            showTitle={true}
+            showTitle
             title="Site"
-            required={true}
+            required
           />
         </Col>
         <Col lg="3">
@@ -40,9 +45,9 @@ const InsertForm = ({ activeTab }) => {
             placeholder="Order Type"
             options={resources?.orderType}
             onChangeDropdown
-            showTitle={true}
+            showTitle
             title="Order Type"
-            required={true}
+            required
           />
         </Col>
         <Col lg="3">
@@ -50,7 +55,7 @@ const InsertForm = ({ activeTab }) => {
             placeholder="Supplier"
             options
             onChangeDropdown
-            showTitle={true}
+            showTitle
             title="Supplier"
             required={false}
           />
@@ -59,7 +64,7 @@ const InsertForm = ({ activeTab }) => {
           <Input
             name="customerOrderRef"
             title="Customer Order Ref"
-            showTitle={true}
+            showTitle
             placeholder="Customer Order Ref"
             maxLength={30}
           />
@@ -71,19 +76,19 @@ const InsertForm = ({ activeTab }) => {
             placeholder="Client"
             options={client}
             onChangeDropdown
-            showTitle={true}
+            showTitle
             title="Client"
-            required={true}
+            required
           />
         </Col>
         <Col lg="3" className="mt-45">
           <Input
             name="orderNo"
             title="Order No"
-            showTitle={true}
+            showTitle
             placeholder="Order No"
             maxLength={30}
-            required={true}
+            required
           />
         </Col>
         <Col lg="3" className="mt-45">
@@ -100,7 +105,7 @@ const InsertForm = ({ activeTab }) => {
           <Input
             name="customerOrderRef"
             title="Customer Order Ref"
-            showTitle={true}
+            showTitle
             placeholder="Customer Order Ref"
             maxLength={30}
           />
@@ -109,7 +114,7 @@ const InsertForm = ({ activeTab }) => {
       {/* End Order Details */}
 
       {/* Start Line Details */}
-      <div className={'orderline mb-2 pb-2 scroll-x-y' + datepickerExpandStyle + dropdownExpandStyle}>
+      <div className={`orderline mb-2 pb-2 scroll-x-y${  datepickerExpandStyle  }${dropdownExpandStyle}`}>
         <h3 className="text-primary font-20">Line Details</h3>
         {/* End Line Details */}
         <table>
@@ -149,12 +154,129 @@ const InsertForm = ({ activeTab }) => {
                 <div className="c-150">Rotadate</div>
               </td>
               <td>
-                <div className="c-50"></div>
+                <div className="c-50" />
+
               </td>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            {newOrderLine.orderLine.length && newOrderLine.orderLine.map((o, i) => {
+                return(
+                  <tr className="py-1 text-center orderline-row" style={{ height: '70px' }}>
+                    <td className="px-1">
+                      <input
+                        value={i + 1}
+                        className="form-control text-center"
+                        readOnly
+                        style={{ backgroundColor: '#f6f7f9' }}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        name="ref3"
+                        onChange={(e) => lineChange({i, e, line, setLine})}
+                        value={newOrderLine.orderLine[i].ref3}
+                        className="form-control"
+                        placeholder="Ref3"
+                        maxLength="30"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        name="ref3"
+                        onChange={(e) => lineChange({i, e, line, setLine})}
+                        value={newOrderLine.orderLine[i].ref3}
+                        className="form-control"
+                        placeholder="Ref3"
+                        maxLength="30"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        name="ref3"
+                        onChange={(e) => lineChange({i, e, line, setLine})}
+                        value={newOrderLine.orderLine[i].ref3}
+                        className="form-control"
+                        placeholder="Ref3"
+                        maxLength="30"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        name="ref3"
+                        onChange={(e) => lineChange({i, e, line, setLine})}
+                        value={newOrderLine.orderLine[i].ref3}
+                        className="form-control"
+                        placeholder="Ref3"
+                        maxLength="30"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        name="ref3"
+                        onChange={(e) => lineChange({i, e, line, setLine})}
+                        value={newOrderLine.orderLine[i].ref3}
+                        className="form-control"
+                        placeholder="Ref3"
+                        maxLength="30"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        name="ref3"
+                        onChange={(e) => lineChange({i, e, line, setLine})}
+                        value={newOrderLine.orderLine[i].ref3}
+                        className="form-control"
+                        placeholder="Ref3"
+                        maxLength="30"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        name="ref3"
+                        onChange={(e) => lineChange({i, e, line, setLine})}
+                        value={newOrderLine.orderLine[i].ref3}
+                        className="form-control"
+                        placeholder="Ref3"
+                        maxLength="30"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        name="ref3"
+                        onChange={(e) => lineChange({i, e, line, setLine})}
+                        value={newOrderLine.orderLine[i].ref3}
+                        className="form-control"
+                        placeholder="Ref3"
+                        maxLength="30"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        name="ref3"
+                        onChange={(e) => lineChange({i, e, line, setLine})}
+                        value={newOrderLine.orderLine[i].ref3}
+                        className="form-control"
+                        placeholder="Ref3"
+                        maxLength="30"
+                      />
+                    </td>
+                    <td>
+                      <button type="button" className="btn btn-light-gray btn-block" onClick={(i) => removeLine({i, line, setLine})}>
+                        <i className="iconU-delete" />
+                      </button>
+                    </td>
+                  </tr>
+                  )
+                }
+                )}
+          </tbody>
         </table>
+      </div>
+      <div>
+        <button type="button" className="btn btn-light-blue m-0" onClick={() => addLine({line, setLine})}>
+          ADD LINE
+        </button>
       </div>
     </div>
   );

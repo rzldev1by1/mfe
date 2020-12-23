@@ -17,3 +17,38 @@ export const getResources = async ({ user, dispatch }) => {
   let resources = { site: site, orderType: orderTypeFilterData };
   dispatch({ type: 'PO_RESOURCES', data: resources });
 };
+
+export const  addLine = ({line, setLine}) => {
+  const newOrderLine = { ...line}
+  if ( newOrderLine.orderLine.length < 10) {
+    newOrderLine.orderLine = [...newOrderLine.orderLine, {}]
+    setLine(newOrderLine)
+    console.log(newOrderLine.orderLine )
+  }
+};
+
+export const removeLine = ({ i, line, setLine}) => {
+  const newOrderLine = { ...line}
+  if ( newOrderLine.orderLine.length > 1){
+  const tes  = Object.assign([], newOrderLine.orderLine);
+      tes.splice(i, 1);
+      newOrderLine.orderLine = tes
+      setLine(newOrderLine)
+      console.log(newOrderLine.orderLine )
+  }
+};
+
+export const  lineChange = (i, e, line, setLine) => {
+  const newOrderLine = { ...line}
+  const { name, value } = e.target;
+
+  let formatted = value;
+  formatted = this.decimalFormatter(name, value);
+
+  const tes = [...newOrderLine.orderLine];
+  tes[i][name] = formatted;
+
+  newOrderLine.orderLine = tes
+  setLine(newOrderLine)
+  console.log(newOrderLine.orderLine )
+};

@@ -51,7 +51,7 @@ const PurchaseOrders = () => {
         <Search filterSite filterClient filterStatus filterOrderType filterTask placeholder="Enter SKU" filter />
       </div>
       <div>
-        {/* <TableMaster
+        <TableMaster
           schemaColumn={schemaColumn}
           data={poSummaryData}
           style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
@@ -65,7 +65,7 @@ const PurchaseOrders = () => {
           exportData
           page={page}
           setPage={setPage}
-        /> */}
+        />
       </div>
       <Create show={showModal} setShow={setShowModal} />
     </div>
