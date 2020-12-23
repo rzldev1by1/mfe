@@ -1,5 +1,7 @@
-const setSite = ({ selected, dispatch }) => {
-    if (selected) dispatch({ type: 'SITE', site:selected })
+const setSite = ({ selected, dispatch }) => { 
+    if (selected) {
+        dispatch({ type: 'SITE', data:selected })
+    }
 }
 
 const setClient = ({ selected, dispatch }) => {

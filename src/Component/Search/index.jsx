@@ -42,7 +42,7 @@ const Search = ({
       await getOrderType({dispatch, company, client})
       await getTask({dispatch, client, site})
     },[])
-
+ 
     return (
       <CCard className="mb-3">
         <CCardBody className="p-3">
