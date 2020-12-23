@@ -25,6 +25,8 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, ...rest }) => {
 
       // Dropdown Start
       return { ...state, darkMode: data }
+    case 'CLIENT_DATA':
+      return { ...state, client_data: data }
     case 'CLIENT':
       return { ...state, client: data }
     case 'SITE_DATA' :

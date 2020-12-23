@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
 import {useSelector, useDispatch} from 'react-redux'
 import { CCard, CCardBody, CRow, CCol } from '@coreui/react'
-import { setSite } from './service'
+import { setSite, setClient } from './service'
 import Dropdown from '../Dropdown'
 import {getSite, getClient, getStatus, getOrderType, getTask} from '../../apiService/dropdown'
 
@@ -43,7 +43,7 @@ const Search = ({
       await getOrderType({dispatch, company, client})
       await getTask({dispatch, client, site})
     },[])
-
+ 
     return (
       <CCard className="mb-3">
         <CCardBody className="p-3">

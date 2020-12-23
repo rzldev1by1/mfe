@@ -14,7 +14,7 @@ const getClient = async ({dispatch}) => {
     const clientData = data.map(d => ({ value: d.code, label: `${d.code}: ${d.name}` }))
     const client = { value: 'all', label: 'All Client' }
     clientData.splice(0, 0, client)
-    dispatch({ type: 'CLIENT', data: clientData })
+    dispatch({ type: 'CLIENT_DATA', data: clientData })
 }
 
 const getStatus = async ({dispatch}) => {
