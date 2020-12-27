@@ -7,6 +7,7 @@ import Table from '../Table'
 
 const TableMaster = ({
     schemaColumn,
+    onClick,
     data,
     style,
     module,
@@ -25,6 +26,7 @@ const TableMaster = ({
           data={data}
           style={style}
           module={module}
+          onClick={onClick}
           page={page}
           setPage={setPage}
           noDataText={noDataText}

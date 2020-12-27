@@ -27,31 +27,31 @@ const getStatus = async ({dispatch}) => {
       { value: "part_released", label: '3: Part Released' },
       { value: "completed", label: '4: Completed' },
     ];
-    dispatch({type: 'STATUS', data: statusData})
+    dispatch({type: 'STATUS_DATA', data: statusData})
 }
 
 const getOrderType = async ({dispatch, company, client}) => {
-    if (client) {
+    // if (client) {
       const { data } = await axios.get(`${endpoints.getPOResources}?company=${company}&client=${client}`)
       const orderTypeFilterData = data.orderTypeFilter.map((dataIndex) => ({ value: dataIndex.code, label: `${dataIndex.code}: ${dataIndex.description}` }))
     //   const orderTypeData = data.orderType.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.description}` }))
     //   const site = data.site.map(data => ({ value: data.site, label: `${data.site}: ${data.name}` }))
       const orderType = { value: 'all', label: 'All' }
       orderTypeFilterData.splice(0, 0, orderType)
-      dispatch({ type: 'ORDER_TYPE', data: orderTypeFilterData })
-    }
+      dispatch({ type: 'ORDER_TYPE_DATA', data: orderTypeFilterData })
+    // }
 }
 
 const getTask = async ({dispatch, client, site}) => {
     const clientParam = client?.value ? client.value : client
     const siteParam = site?.value ? site.value : site
-    if (client && site) {
+    // if (client && site) {
       const { data } = await axios.get(`${endpoints.getIsisTask}?client=${clientParam}&site=${siteParam}&order=po`)
       const taskData = data.code.map((c, i) => ({ value: c, label: `${data.name[i]}` }))
       const task = { value: 'all', label: 'All Task' }
       taskData.splice(0, 0, task)
-      dispatch({ type: 'TASK', data: taskData })
-    }
+      dispatch({ type: 'TASK_DATA', data: taskData })
+    // }
   }
 
 export {getSite, getClient, getStatus, getOrderType, getTask } 

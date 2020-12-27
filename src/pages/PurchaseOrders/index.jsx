@@ -1,14 +1,11 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable consistent-return */
 import React, { useEffect, useState }  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import { CButton } from '@coreui/react'
-import Search from 'Component/Search'
-import Breadcrumb from 'Component/Breadcrumb'
-import TableMaster from 'Component/TableMaster'
-import {
-  schemaColumn, 
-  searchPurchaseOrder } from './services'
+import Search from '../../Component/Search'
+import Breadcrumb from '../../Component/Breadcrumb'
+import TableMaster from '../../Component/TableMaster'
+import { schemaColumn } from './services'
+import { searchPurchaseOrder } from '../../apiService'
 
 const PurchaseOrders = () => {
   const dispatch = useDispatch()
@@ -26,7 +23,8 @@ const PurchaseOrders = () => {
     search: '',
     active: ''
   })
-
+  const user = useSelector(state => state.user)
+  const item = user
   const [active, setActive] = useState(1)
   const height = (window.innerHeight - 257)
   const widht = window.innerWidth
@@ -62,6 +60,7 @@ const PurchaseOrders = () => {
             data={poSummaryData}
             style={{ minHeight: height, maxHeight: height, minWidht:widht, maxWidht:widht }}
             module='Purchase Orders'
+            onClick={`/purchase-order/${  item.site  }/${  item.client  }/${  item.order_no}`}
             noDataText
             tableStatus
             pagination={pagination}
