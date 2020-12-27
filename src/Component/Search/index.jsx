@@ -124,7 +124,7 @@ const Search = ({
                   <button
                     type="button"
                     className="btn btn-search btn-primary float-right"
-                    onClick={() => searchPurchaseOrder(siteVal, clientVal, orderType, task, status)}
+                    onClick={() => searchPurchaseOrder({siteVal, clientVal, orderType, task, status, dispatch})}
                   >
                     SEARCH
                   </button>

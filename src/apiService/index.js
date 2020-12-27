@@ -2,7 +2,6 @@ import axios from "axios";
 import endpoints from '../helpers/endpoints'
 
 const showDetails = ({module, item}) => {
-    alert('dddddd')
     const url = `/${  module  }/${  item.site  }/${  item.client  }/${  item.order_no}`
     this.props.history.push(url)
 }
@@ -24,7 +23,7 @@ const searchPurchaseOrder = async ({
     if (readyDocument === 'false' && export_ === 'false') {
         const data = []
         const tableStatus = 'waiting'
-        setPage(newPage)
+        if (setPage) setPage(newPage)
     }
     // Url 
     urls.push(`searchParam=${  search || ''}`)
@@ -55,17 +54,17 @@ const searchPurchaseOrder = async ({
           newPage.data = modifiedData
           dispatch({type:'GET_PO_SUMMARY', data:modifiedData})
           dispatch({type:'PAGING', data:paging})
-          setPage(newPage)
+          if (setPage) setPage(newPage)
       }
 
       if (modifiedData.length < 1) {
         const tableStatus = 'noData'
-        setPage(newPage)
+        if (setPage) setPage(newPage)
       }
     } else {
       dispatch({type:'GET_PO_SUMMARY', data:[]})
       const data = []
-      setPage(newPage)
+      if (setPage) setPage(newPage)
     }
   }
 
