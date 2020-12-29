@@ -11,7 +11,11 @@ const INITIAL_STATE = {
 };
 
 // REDUCERS
-export const rootReducer = (state = INITIAL_STATE, { type, data, ...rest }) => {
+export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest }) => {
+  let createPO = null;
+  let tmp = null;
+  let orderLines = null;
+
   switch (type) {
     case 'LOGIN':
       return { ...state, user: data, expired: false };
@@ -54,6 +58,38 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, ...rest }) => {
     // Resources for insert module
     case 'PO_RESOURCES':
       return { ...state, po_resources: data };
+    case 'CREATE_PO':
+      return { ...state, createPO: data };
+    case 'CREATE_PO_DISPOSITION':
+      return { ...state, po_disposition: data };
+    case 'CREATE_PO_DETAILS':
+      createPO = state.createPO;
+      let orderDetails = createPO.orderDetails;
+      orderDetails[column].value = data;
+      tmp = { ...createPO, orderDetails };
+      return { ...state, createPO: tmp };
+    case 'CREATE_PO_LINES':
+      createPO = state.createPO;
+      orderLines = createPO.orderLines;
+      let lineIndex = column.index;
+      let lineColumn = column.column;
+      console.log(lineIndex, lineColumn);
+      orderLines[lineIndex][lineColumn].value = data;
+      console.log(orderLines);
+      tmp = { ...createPO, orderLines };
+      return { ...state, createPO: tmp };
+    case 'ADD_PO_LINES':
+      createPO = state.createPO;
+      orderLines = createPO.orderLines;
+      orderLines.push(data);
+      tmp = { ...createPO, orderLines };
+      return { ...state, createPO: tmp };
+    case 'DELETE_PO_LINES':
+      createPO = state.createPO;
+      orderLines = createPO.orderLines;
+      orderLines.splice(data, 1);
+      tmp = { ...createPO, orderLines };
+      return { ...state, createPO: tmp };
     //end resources
 
     default:

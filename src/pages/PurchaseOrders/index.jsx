@@ -13,6 +13,8 @@ const PurchaseOrders = () => {
   const dispatch = useDispatch();
   const poSummaryData = useSelector((state) => state.poSummaryData);
   const pagination = useSelector((state) => state.pagination);
+  const poResource = useSelector((state) => state.po_resources);
+  const user = useSelector((state) => state.user);
 
   const [page, setPage] = useState({
     // Paging

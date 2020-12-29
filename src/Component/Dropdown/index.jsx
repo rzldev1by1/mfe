@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
+import './Dropdown.scss';
 
 const Dropdown = ({
   isEmpty,
@@ -16,6 +17,7 @@ const Dropdown = ({
   showTitle = false,
   title = null,
   required = false,
+  readOnly = false,
 }) => {
   const [isOpen, setIsOpen] = useState();
   const onChangeHandler = (selected) => {
@@ -25,7 +27,6 @@ const Dropdown = ({
   useEffect(() => {
     if (selectedValue === 'empty') setIsOpen(true);
   }, [selectedValue, isEmpty]);
-
   const elem = document?.getElementById(`dropdown${entryListIdx}${poListIdx}`);
   let position = elem?.getBoundingClientRect();
 
@@ -39,6 +40,9 @@ const Dropdown = ({
       <Select
         className={className}
         isDisabled={isDisabled || false}
+        isClearable={!readOnly}
+        isSearchable={!readOnly}
+        openMenuOnClick={!readOnly}
         id={`dropdown${entryListIdx}${poListIdx}`}
         value={selectedValue?.value ? selectedValue : false}
         menuIsOpen={isOpen}
@@ -60,7 +64,15 @@ const Dropdown = ({
           dropdownIndicator: (base, state) => ({
             ...base,
             transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : null,
-            display: 'flex',
+            display: readOnly ? 'none' : 'flex',
+          }),
+          control: (provided, state) => ({
+            ...provided,
+            backgroundColor: readOnly ? '#e4e7ea !important' : 'white',
+            pointerEvents: readOnly ? 'none' : 'auto',
+            border: readOnly ? 0 : '',
+            borderColor: '#e4e7ea !important',
+            height: 50,
           }),
         }}
         theme={(theme) => ({

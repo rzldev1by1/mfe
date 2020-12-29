@@ -8,7 +8,10 @@ const Input = ({
   maxLength = 99,
   className,
   name,
+  style = null,
+  value = null,
   required = false,
+  readOnly = false,
 }) => {
   return (
     <div>
@@ -16,10 +19,13 @@ const Input = ({
       <input
         name={name}
         autoComplete={autoComplete}
-        onChange={() => this.onChange()}
+        onChange={(e) => onChange(e)}
         className={`form-control ${className}`}
         placeholder={placeholder}
         maxLength={maxLength}
+        readOnly={readOnly}
+        value={value}
+        style={style}
       />
     </div>
   );
