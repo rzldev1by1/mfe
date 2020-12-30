@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
@@ -36,7 +37,7 @@ const Dropdown = ({
 
   return (
     <div>
-      {!showTitle ? null : <label className={'text-muted mb-0 ' + (required ? 'required' : '')}>{title}</label>}
+      {!showTitle ? null : <label className={`text-muted mb-0 ${required ? 'required' : ''}`}>{title}</label>}
       <Select
         className={className}
         isDisabled={isDisabled || false}
