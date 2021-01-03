@@ -14,7 +14,7 @@ const Form = ({ activeTab, isValidation }) => {
   const dispatch = useDispatch();
   const resources = useSelector((state) => state.po_resources);
   const createPO = useSelector((state) => state.createPO);
-  const client = useSelector((state) => state.client);
+  const client = useSelector((state) => state.client_data);
 
   const [orderDate, setOrderDate] = useState({});
   const [line, setLine] = useState([]);
@@ -27,7 +27,7 @@ const Form = ({ activeTab, isValidation }) => {
 
   useEffect(() => {
     let clientOption = [];
-    client.forEach(function (item, key) {
+    let tmp = client?.map((item, key) => {
       if (item.value !== 'all') {
         clientOption.push(item);
       }
