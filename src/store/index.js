@@ -14,6 +14,7 @@ const INITIAL_STATE = {
 export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest }) => {
   let createPO = null;
   let tmp = null;
+  let orderDetails = null;
   let orderLines = null;
 
   switch (type) {
@@ -28,8 +29,12 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
     case 'DARKMODE':
       // Dropdown Start
       return { ...state, darkMode: data };
+    case 'CLIENT_DATA':
+      return { ...state, client_data: data };
     case 'CLIENT':
       return { ...state, client: data };
+    case 'SITE_DATA':
+      return { ...state, site_data: data };
     case 'SITE':
       return { ...state, site: data };
     case 'ORDER_TYPE':
@@ -64,18 +69,14 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, po_disposition: data };
     case 'CREATE_PO_DETAILS':
       createPO = state.createPO;
-      let orderDetails = createPO.orderDetails;
+      orderDetails = createPO.orderDetails;
       orderDetails[column].value = data;
       tmp = { ...createPO, orderDetails };
       return { ...state, createPO: tmp };
     case 'CREATE_PO_LINES':
       createPO = state.createPO;
       orderLines = createPO.orderLines;
-      let lineIndex = column.index;
-      let lineColumn = column.column;
-      console.log(lineIndex, lineColumn);
-      orderLines[lineIndex][lineColumn].value = data;
-      console.log(orderLines);
+      orderLines[column.index][column.column].value = data;
       tmp = { ...createPO, orderLines };
       return { ...state, createPO: tmp };
     case 'ADD_PO_LINES':
@@ -90,7 +91,7 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       orderLines.splice(data, 1);
       tmp = { ...createPO, orderLines };
       return { ...state, createPO: tmp };
-    //end resources
+    // end resources
 
     default:
       return state;

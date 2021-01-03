@@ -21,7 +21,7 @@
       }
 
       .-header .rt-tr {
-        border-bottom: 2px solid #E0E2E4;
+        border-bottom: 2px solid #E0E2E4 !important;
       }
 
       //clickable column header
@@ -40,7 +40,7 @@
         // content: "  ▼"; 
       } 
       .rt-tr {
-        border-bottom: 2px solid #E0E2E4;
+        border-bottom: 0px !important;
       }
       .rt-td{ 
         border-right: none !important;

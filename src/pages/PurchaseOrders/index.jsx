@@ -2,19 +2,17 @@
 /* eslint-disable consistent-return */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { CButton } from '@coreui/react';
 import Search from 'Component/Search';
 import Breadcrumb from 'Component/Breadcrumb';
 import TableMaster from 'Component/TableMaster';
 import { schemaColumn, searchPurchaseOrder } from './services';
-import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react';
 import Create from './Create';
 
 const PurchaseOrders = () => {
   const dispatch = useDispatch();
   const poSummaryData = useSelector((state) => state.poSummaryData);
   const pagination = useSelector((state) => state.pagination);
-  const poResource = useSelector((state) => state.po_resources);
-  const user = useSelector((state) => state.user);
 
   const [page, setPage] = useState({
     // Paging
