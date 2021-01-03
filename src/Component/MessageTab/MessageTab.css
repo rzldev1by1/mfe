@@ -1,0 +1,37 @@
+.img-msg {
+  /* width: 7rem; */
+  margin-left: -0.5rem;
+  padding-bottom: 1rem;
+}
+
+.msg-tab > span::before {
+  content: '\A';
+  white-space: pre;
+}
+
+.msg-tab {
+  padding-bottom: 13.5rem;
+  font-family: 'Rubik' !important;
+}
+
+.h-fit-content {
+  height: fit-content;
+}
+
+.e-text-color {
+  color: #e8e8e8;
+  font-size: x-large;
+  margin-right: 1rem;
+}
+
+.text-gray-md {
+  color: #979ea1;
+}
+
+.text-gray-title {
+  color: #637175;
+}
+
+.btn-green {
+  background-color: #05e0bd;
+}

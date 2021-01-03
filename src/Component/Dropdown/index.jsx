@@ -14,14 +14,20 @@ const Dropdown = ({
   poListIdx,
   isDisabled,
   className,
+  onMenuOpen,
+  onMenuClose,
   showTitle = false,
   title = null,
   required = false,
   readOnly = false,
 }) => {
   const [isOpen, setIsOpen] = useState();
-  const onChangeHandler = (selected) => {
-    onChangeDropdown(selected);
+  const onChangeHandler = (selected, action) => {
+    if (action == 'clear') {
+      onChangeDropdown(null);
+    } else {
+      onChangeDropdown(selected);
+    }
     setIsOpen(false);
   };
   useEffect(() => {
@@ -32,6 +38,12 @@ const Dropdown = ({
 
   useEffect(() => {
     position = elem?.getBoundingClientRect();
+
+    if (onMenuOpen && isOpen === false) {
+      onMenuClose();
+    } else if (onMenuClose && isOpen === true) {
+      onMenuOpen();
+    }
   }, [isOpen]);
 
   return (
@@ -43,7 +55,7 @@ const Dropdown = ({
         isClearable={!readOnly}
         isSearchable={!readOnly}
         openMenuOnClick={!readOnly}
-        id={`dropdown${entryListIdx}${poListIdx}`}
+        // id={entryListIdx`dropdown${entryListIdx}${poListIdx}`}
         value={selectedValue?.value ? selectedValue : false}
         menuIsOpen={isOpen}
         menuPortal
@@ -51,7 +63,7 @@ const Dropdown = ({
         options={options}
         onMenuOpen={() => setIsOpen(true)}
         onMenuClose={() => setIsOpen(false)}
-        onChange={onChangeHandler}
+        onChange={(val, { action }) => onChangeHandler(val, action)}
         // menuPortalTarget={document.body}
         maxMenuHeight={200}
         menuPlacement={`${position?.bottom > 600 ? 'top' : 'bottom'}`}

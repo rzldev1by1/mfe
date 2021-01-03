@@ -62,7 +62,10 @@ export const validation = async ({ dispatch, data, setActiveTab }) => {
     }
   });
 
-  console.log(statusValidate);
+  if (orderLines.length < 1) {
+    statusValidate = false;
+  }
+
   if (statusValidate) {
     setActiveTab('review');
   } else {
@@ -105,9 +108,7 @@ export const resetCreate = (dispatch) => {
 };
 
 export const changeOrderDetails = ({ type, column, value, dispatch }) => {
-  if (value) {
-    dispatch({ type: 'CREATE_PO_DETAILS', data: value, column });
-  }
+  dispatch({ type: 'CREATE_PO_DETAILS', data: value, column });
 };
 
 export const changeOrderLines = ({ val, column, index, dispatch }) => {
@@ -150,7 +151,6 @@ export const removeLine = ({ i, line, setLine }) => {
     tes.splice(i, 1);
     newOrderLine.orderLine = tes;
     setLine(newOrderLine);
-    console.log(newOrderLine.orderLine);
   }
 };
 
@@ -166,7 +166,6 @@ export const lineChange = (i, e, line, setLine) => {
 
   newOrderLine.orderLine = tes;
   setLine(newOrderLine);
-  console.log(newOrderLine.orderLine);
 };
 
 export const getDisposition = async ({ dispatch }) => {
@@ -280,9 +279,7 @@ const decimalFormatter = (name, value) => {
   return value;
 };
 
-export const submit = async ({ data, setIsSubmitStatus }) => {
-  console.log(data);
-
+export const submit = async ({ data, user, setIsSubmitReturn, setActiveTab, setIsSubmitStatus }) => {
   //validate Order Details
   let orderDetails = [
     {
@@ -290,8 +287,8 @@ export const submit = async ({ data, setIsSubmitStatus }) => {
       client: data?.orderDetails?.client?.value?.value || '',
       orderNo: data?.orderDetails?.orderNo?.value || '',
       orderType: data?.orderDetails?.orderType?.value?.value || '',
-      orderDate: data?.orderDetails?.client?.value || '',
-      web_user: '99998',
+      orderDate: data?.orderDetails?.orderDate?.value || '',
+      web_user: user.webUser,
     },
   ];
 
@@ -313,9 +310,13 @@ export const submit = async ({ data, setIsSubmitStatus }) => {
     newOrderLines.push(tmp);
   });
 
-  let payload = { orderDetails, lineDetails: newOrderLines };
-  const { ret } = await axios.post(endpoints.purchaseOrderCreate, { orderDetails, lineDetails: newOrderLines });
+  const ret = await axios.post(endpoints.purchaseOrderCreate, { orderDetails, lineDetails: newOrderLines });
 
-  //reset
-  setIsSubmitStatus('success');
+  //check return
+  let status = ret?.status;
+  let message = ret?.data?.message;
+  let submitReturn = { status: status, message: message, orderNo: data?.orderDetails?.orderNo?.value };
+  await setIsSubmitReturn(submitReturn);
+  await setActiveTab('message');
+  setIsSubmitStatus('done');
 };

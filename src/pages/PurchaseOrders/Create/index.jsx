@@ -5,6 +5,7 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap
 import Form from './Form';
 import { getResources, resetCreate, getDisposition, validation, submit } from './services.js';
 import loading from 'assets/icons/loading/LOADING-MLS.gif';
+import MessageTab from 'Component/MessageTab';
 import './style.scss';
 
 const Create = ({ show, setShow }) => {
@@ -18,11 +19,14 @@ const Create = ({ show, setShow }) => {
   const [isReset, setIsReset] = useState(0);
   const [isValidation, setIsValidation] = useState(false);
   const [isSubmitStatus, setIsSubmitStatus] = useState(null);
+  const [isSubmitReturn, setIsSubmitReturn] = useState(null);
 
   useEffect(() => {
     if (isReset === 0) {
       resetCreate(dispatch);
       setIsReset(1);
+      setIsValidation(false);
+      setActiveTab('details');
     }
   }, [isReset]);
 
@@ -32,6 +36,7 @@ const Create = ({ show, setShow }) => {
       getDisposition({ dispatch });
     }
   }, [resources]);
+
   return (
     <div>
       <Modal show={show} size="xl" className="purchase-order-create">
@@ -43,7 +48,13 @@ const Create = ({ show, setShow }) => {
               <span className="ml-7">Enter Order and line details to create a new purchase order</span>
             </Col>
             <Col xs={2} className="text-right px-0">
-              <i className="iconU-close pointer" onClick={() => setShow(false)}></i>
+              <i
+                className="iconU-close pointer"
+                onClick={() => {
+                  setShow(false);
+                  setIsReset(0);
+                }}
+              ></i>
             </Col>
           </Row>
           <Nav tabs className="px-7 m-0">
@@ -60,7 +71,10 @@ const Create = ({ show, setShow }) => {
             <NavItem>
               <NavLink
                 className={`d-flex height-nav align-items-center ${activeTab === 'review' ? 'active' : null}`}
-                onClick={() => setActiveTab('review')}
+                onClick={() => {
+                  validation({ dispatch, data: createPO, setActiveTab });
+                  setIsValidation(true);
+                }}
               >
                 <span className="number-number-2" /> Review
               </NavLink>
@@ -68,7 +82,22 @@ const Create = ({ show, setShow }) => {
           </Nav>
           <TabContent>
             <Container className="px-5 pt-4 pb-5">
-              <Form activeTab={activeTab} isValidation={isValidation} />
+              {/* Tabs */}
+              {activeTab == 'message' ? (
+                <MessageTab
+                  module={'Purchase Order'}
+                  submitReturn={isSubmitReturn}
+                  back={() => setActiveTab('detail')}
+                  exit={() => {
+                    setShow(false);
+                    setIsReset(0);
+                  }}
+                />
+              ) : (
+                <Form activeTab={activeTab} isValidation={isValidation} />
+              )}
+
+              {/* Button */}
               {activeTab == 'details' ? (
                 <Row className="mt-3 pt-3">
                   <Col lg={2}></Col>
@@ -85,7 +114,7 @@ const Create = ({ show, setShow }) => {
                     </button>
                   </Col>
                 </Row>
-              ) : (
+              ) : activeTab == 'review' ? (
                 <Row className="mt-3 pt-3">
                   <Col lg={2}>
                     <button className="btn btn-primary" onClick={() => setActiveTab('details')}>
@@ -106,7 +135,7 @@ const Create = ({ show, setShow }) => {
                       className="btn btn-primary"
                       onClick={() => {
                         setIsSubmitStatus('loading');
-                        submit({ setIsSubmitStatus, data: createPO });
+                        submit({ setIsSubmitStatus, setIsSubmitReturn, setActiveTab, user, data: createPO });
                       }}
                     >
                       {isSubmitStatus === 'loading' ? (
@@ -119,7 +148,7 @@ const Create = ({ show, setShow }) => {
                     </button>
                   </Col>
                 </Row>
-              )}
+              ) : null}
             </Container>
           </TabContent>
         </Modal.Body>

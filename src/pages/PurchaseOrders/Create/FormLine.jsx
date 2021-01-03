@@ -15,7 +15,7 @@ import {
 } from './services';
 import NumberFormat from 'react-number-format';
 
-const FormLine = ({ index, data, orderDetails, isReadonly, isValidation }) => {
+const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrderLineSelectOpen }) => {
   const dispatch = useDispatch();
   const disposition = useSelector((state) => state.po_disposition);
   const [isLoading, setIsLoading] = useState(false);
@@ -96,6 +96,8 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation }) => {
             changeOrderLines({ val: selected, column: 'uom', index, dispatch });
           }}
           readOnly={isReadonly}
+          onMenuOpen={() => setOrderLineSelectOpen('dropdown')}
+          onMenuClose={() => setOrderLineSelectOpen(null)}
         />
         <RequiredMessage column="uom" columnText="UOM" isValidation={isValidation} data={data?.uom} />
       </td>
@@ -145,6 +147,8 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation }) => {
             changeOrderLines({ val: selected, column: 'disposition', index, dispatch });
           }}
           readOnly={isReadonly}
+          onMenuOpen={() => setOrderLineSelectOpen('dropdown')}
+          onMenuClose={() => setOrderLineSelectOpen(null)}
         />
       </td>
       <td className="p-0 m-0">
@@ -153,9 +157,9 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation }) => {
           getDate={(date) => {
             changeOrderLines({ val: date, column: 'rotaDate', index, dispatch });
           }}
-          // showDatePicker={(e) => { datepickerStatus[i] = e; this.setState({ datepickerStatus: datepickerStatus }) }}
-          // onDateOpen={() => this.toggleOverflow(i, 'rotaDate', true)}
-          // onDateClose={() => this.toggleOverflow(i, 'rotaDate', false)}
+          showDatePicker={(e) => {
+            setOrderLineSelectOpen('datePicker');
+          }}
           // className={`form-control ${overflow[i] && overflow[i].date ? 'absolute right' : null}`}
           className={`form-control `}
           placeholder="Select Date"

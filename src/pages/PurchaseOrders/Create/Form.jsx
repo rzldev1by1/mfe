@@ -21,11 +21,8 @@ const Form = ({ activeTab, isValidation }) => {
   const [clientOption, setClientOption] = useState(null);
   const [supplier, setSupplier] = useState(null);
   const [isReadonly, setIsReadOnly] = useState(false);
-
-  const expandDropdownCheck = true;
-  const datepickerExpandStyle = true ? ' lineDetailsTopExpand' : '';
-  const dropdownExpandStyle = expandDropdownCheck ? ' lineDetailsBottomExpandPO' : '';
-  const newOrderLine = { ...line };
+  const [orderLineSelectOpen, setOrderLineSelectOpen] = useState(false);
+  const [dropdownExpandStyle, setDropdownExpandStyle] = useState(null);
   const orderDetails = createPO?.orderDetails;
 
   useEffect(() => {
@@ -45,6 +42,17 @@ const Form = ({ activeTab, isValidation }) => {
       setIsReadOnly(false);
     }
   }, [activeTab]);
+
+  useEffect(() => {
+    if (orderLineSelectOpen == 'datePicker') {
+      setDropdownExpandStyle('lineDetailsTopExpand');
+    } else if (orderLineSelectOpen == 'dropdown') {
+      setDropdownExpandStyle('lineDetailsBottomExpand');
+    } else {
+      setDropdownExpandStyle(null);
+    }
+  }, [orderLineSelectOpen]);
+
   return (
     <div>
       <h3 className="text-primary font-20">Order Details</h3>
@@ -198,8 +206,8 @@ const Form = ({ activeTab, isValidation }) => {
       {/* End Order Details */}
 
       {/* Start Line Details */}
-      <div className={`orderline mb-2 pb-2 scroll-x-y${datepickerExpandStyle}${dropdownExpandStyle}`}>
-        <h3 className="text-primary font-20 mt-45">Line Details</h3>
+      <h3 className="text-primary font-20 mt-45">Line Details</h3>
+      <div className={`orderline mb-2 pb-2 scroll-x-y  ${dropdownExpandStyle}`}>
         {/* End Line Details */}
         <table>
           <thead>
@@ -253,12 +261,14 @@ const Form = ({ activeTab, isValidation }) => {
                   data={item}
                   orderDetails={orderDetails}
                   isReadonly={isReadonly}
+                  setOrderLineSelectOpen={setOrderLineSelectOpen}
                 />
               );
             })}
           </tbody>
         </table>
       </div>
+
       <div>
         <button
           style={isReadonly ? { display: 'none' } : null}
@@ -268,6 +278,12 @@ const Form = ({ activeTab, isValidation }) => {
         >
           ADD LINE
         </button>
+        <RequiredMessage
+          column="OrderLines"
+          columnText="Order Lines"
+          isValidation={isValidation}
+          data={createPO.orderLines.length}
+        />
       </div>
     </div>
   );
