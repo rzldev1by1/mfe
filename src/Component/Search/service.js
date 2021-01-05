@@ -1,6 +1,9 @@
-
-const filterToggle = ({ filterShow, setFilterShow }) => {
-    setFilterShow(!filterShow)
+const setSite = ({ selected, dispatch }) => {
+    if (selected) dispatch({ type: 'SITE', data:selected })
 }
 
-export default filterToggle
+const setClient = ({ selected, dispatch }) => {
+    if (selected) dispatch({ type: 'CLIENT', data: selected })
+}
+
+export {setSite, setClient}

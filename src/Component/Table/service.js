@@ -2,7 +2,7 @@
 export const renewColumn = ({ schemaColumn, module, userId }) => {
 
     // reorder column
-    const key = `tables__${module}__${userId}`
+    let key = `tables__${module}__${userId}`
     let schema = []
     const oldSchema = localStorage.getItem(key)
     if (oldSchema !== null && oldSchema !== undefined) {
@@ -35,8 +35,8 @@ export const saveSchemaToLocal = ({
     module
 }) => {
     // get old schema from local storage data , if null then set schemaColumn as oldSchema 
-    const key = `tables__${module}__${userId}`
-    const newSchemaOrder = []
+    let key = `tables__${module}__${userId}`
+    let newSchemaOrder = []
     let oldSchema = localStorage.getItem(key)
     if (oldSchema === null || oldSchema === undefined) {
         oldSchema = schemaColumn.map((data) => {
@@ -58,7 +58,7 @@ export const saveSchemaToLocal = ({
         if (i < newIndex) {
             // index before new index, position will same
             newSchemaOrder[i] = oldSchema[i]
-        } else if (i === newIndex) {
+        } else if (i == newIndex) {
             // index == newindex, abaikan
             i++;
             continue;
