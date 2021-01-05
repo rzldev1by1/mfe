@@ -16,7 +16,7 @@ ul.pagination {
 .page-item {
   text-align: center;
   padding: 7px 0;
-  margin: 0 4px;
+  margin: 0 3.5px;
   /* width: 56px !important; */
   width: fit-content !important;
 }
@@ -62,7 +62,7 @@ nav .pagination .page-item .page-link>a>svg {
 }
 
 nav .pagination li:first-child {
-  margin-left: 0px !important;
+  margin-left: 10px !important;
   text-align: left !important;
 }
 
@@ -111,7 +111,7 @@ nav .pagination li:nth-last-child(2) .page-link {
 }
 
 nav .pagination li:last-child {
-  margin-right: 0px !important;
+  margin-right: 10px !important;
   text-align: right !important;
 }
 

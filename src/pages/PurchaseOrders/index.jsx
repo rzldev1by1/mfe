@@ -1,19 +1,17 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable consistent-return */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CButton } from '@coreui/react';
-import Search from 'Component/Search';
-import Breadcrumb from 'Component/Breadcrumb';
-import TableMaster from 'Component/TableMaster';
-import {  schemaColumn, 
-          searchPurchaseOrder, } from './services';
+import Search from '../../Component/Search';
+import Breadcrumb from '../../Component/Breadcrumb';
+import TableMaster from '../../Component/TableMaster';
+import { schemaColumn } from './services';
+import { searchPurchaseOrder } from '../../apiService';
 import Create from './Create';
 
 const PurchaseOrders = (props) => {
   const showDetails = (item) => {
-    props.history.push(`/purchase-order/${  item.site  }/${  item.client  }/${  item.order_no}`)
-  }
+    props.history.push(`/purchase-order/${item.site}/${item.client}/${item.order_no}`);
+  };
 
   const dispatch = useDispatch();
   const poSummaryData = useSelector((state) => state.poSummaryData);
@@ -30,10 +28,10 @@ const PurchaseOrders = (props) => {
     search: '',
     active: '',
   });
-
+  const user = useSelector((state) => state.user);
+  const item = user;
   const [active, setActive] = useState(1);
   const [showModal, setShowModal] = useState(false);
-
   const height = window.innerHeight - 257;
   const widht = window.innerWidth;
   useEffect(() => {}, [page]);
@@ -46,32 +44,34 @@ const PurchaseOrders = (props) => {
     <div>
       <Breadcrumb
         breadcrumb={[{ to: '/purchase-order', label: 'Purchase Order', active: true }]}
-        button={(
+        button={
           <CButton onClick={() => setShowModal(true)} className="btn btn-primary btn-create float-right">
             CREATE PURCHASE ORDER
           </CButton>
-        )}
+        }
       />
-      {/* <div>
-        <Search filterSite filterClient filterStatus filterOrderType filterTask placeholder="Enter SKU" filter />
-      </div> */}
       <div>
-        <TableMaster
-          onClick={showDetails}
-          schemaColumn={schemaColumn}
-          data={poSummaryData}
-          style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
-          module="Purchase Orders"
-          noDataText
-          tableStatus
-          pagination={pagination}
-          goto={(e) => {
-            setActive(e);
-          }}
-          exportData
-          page={page}
-          setPage={setPage}
-        />
+        <div>
+          <Search filterSite filterClient filterStatus filterOrderType filterTask placeholder="Enter SKU" filter />
+        </div>
+        <div>
+          <TableMaster
+            onClick={showDetails}
+            schemaColumn={schemaColumn}
+            data={poSummaryData}
+            style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
+            module="Purchase Orders"
+            noDataText
+            tableStatus
+            pagination={pagination}
+            goto={(e) => {
+              setActive(e);
+            }}
+            exportData
+            page={page}
+            setPage={setPage}
+          />
+        </div>
       </div>
       <Create show={showModal} setShow={setShowModal} />
     </div>

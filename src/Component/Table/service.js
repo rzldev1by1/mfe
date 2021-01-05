@@ -4,11 +4,11 @@ export const renewColumn = ({ schemaColumn, module, userId }) => {
     // reorder column
     let key = `tables__${module}__${userId}`
     let schema = []
-    let oldSchema = localStorage.getItem(key)
+    const oldSchema = localStorage.getItem(key)
     if (oldSchema !== null && oldSchema !== undefined) {
-        let schemaOrder = JSON.parse(oldSchema)
-        schemaColumn.map((data, idx) => {
-            let schemaOrderIndex = schemaOrder.indexOf(data.accessor);
+        const schemaOrder = JSON.parse(oldSchema)
+        schemaColumn.map((data) => {
+            const schemaOrderIndex = schemaOrder.indexOf(data.accessor);
             schema[schemaOrderIndex] = data
         })
     } else {
@@ -19,7 +19,7 @@ export const renewColumn = ({ schemaColumn, module, userId }) => {
 };
 
 export const setDraggableColumn = ({ schemaColumn }) => {
-    let listHeader = schemaColumn.map((data, idx) => {
+    const listHeader = schemaColumn.map((data) => {
         return data.accessor
     });
     return listHeader
@@ -39,14 +39,14 @@ export const saveSchemaToLocal = ({
     let newSchemaOrder = []
     let oldSchema = localStorage.getItem(key)
     if (oldSchema === null || oldSchema === undefined) {
-        oldSchema = schemaColumn.map((data, index) => {
+        oldSchema = schemaColumn.map((data) => {
             return data.accessor
         })
     } else {
         let tmp = oldSchema
         oldSchema = JSON.parse(oldSchema)
     }
-    let length = oldSchema.length
+    const {length} = oldSchema
 
     // move item from old schema to newschema
     newSchemaOrder[newIndex] = oldSchema[oldIndex]
