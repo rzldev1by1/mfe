@@ -16,11 +16,13 @@ const TableMaster = ({
     tableStatus,
     pagination,
     goto,
+    onClick,
     exportData,
 }) => {
     return(
       <div>
         <Table
+          onClick={onClick}
           schemaColumn={schemaColumn}
           data={data}
           style={style}

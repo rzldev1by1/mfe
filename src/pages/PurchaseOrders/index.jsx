@@ -3,13 +3,18 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CButton } from '@coreui/react';
-import Search from 'Component/Search';
+// import Search from 'Component/Search';
 import Breadcrumb from 'Component/Breadcrumb';
 import TableMaster from 'Component/TableMaster';
-import { schemaColumn, searchPurchaseOrder } from './services';
+import {  schemaColumn, 
+          searchPurchaseOrder, } from './services';
 import Create from './Create';
 
-const PurchaseOrders = () => {
+const PurchaseOrders = (props) => {
+  const showDetails = (item) => {
+    props.history.push(`/purchase-order/${  item.site  }/${  item.client  }/${  item.order_no}`)
+  }
+
   const dispatch = useDispatch();
   const poSummaryData = useSelector((state) => state.poSummaryData);
   const pagination = useSelector((state) => state.pagination);
@@ -41,17 +46,18 @@ const PurchaseOrders = () => {
     <div>
       <Breadcrumb
         breadcrumb={[{ to: '/purchase-order', label: 'Purchase Order', active: true }]}
-        button={
+        button={(
           <CButton onClick={() => setShowModal(true)} className="btn btn-primary btn-create float-right">
             CREATE PURCHASE ORDER
           </CButton>
-        }
+        )}
       />
-      <div>
+      {/* <div>
         <Search filterSite filterClient filterStatus filterOrderType filterTask placeholder="Enter SKU" filter />
-      </div>
+      </div> */}
       <div>
         <TableMaster
+          onClick={showDetails}
           schemaColumn={schemaColumn}
           data={poSummaryData}
           style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}

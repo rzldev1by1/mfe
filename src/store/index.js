@@ -55,10 +55,14 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, pagination: data };
     // Pagination End
 
-    // Summary
+    // Purchase Order
     case 'GET_PO_SUMMARY':
       return { ...state, poSummaryData: data };
-    // Summary End
+    case 'GET_PO_DETAIL':
+        return { ...state, poDetail: data };
+    case 'GET_PO_DETAIL_TABLE':
+        return { ...state, poDetailTable: data };
+    // Purchase Order End
 
     // Resources for insert module
     case 'PO_RESOURCES':
