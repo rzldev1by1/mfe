@@ -66,6 +66,9 @@ const PurchaseOrders = () => {
             exportData
             page={page}
             setPage={setPage}
+            title='Purchase Order Summary'
+            filename='Microlistics_PurchaseOrder.'
+            font="9"
           />
         </div>
       </div>
