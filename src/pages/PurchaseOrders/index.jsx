@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CButton } from '@coreui/react';
@@ -44,11 +45,11 @@ const PurchaseOrders = (props) => {
     <div>
       <Breadcrumb
         breadcrumb={[{ to: '/purchase-order', label: 'Purchase Order', active: true }]}
-        button={
+        button={(
           <CButton onClick={() => setShowModal(true)} className="btn btn-primary btn-create float-right">
             CREATE PURCHASE ORDER
           </CButton>
-        }
+        )}
       />
       <div>
         <div>

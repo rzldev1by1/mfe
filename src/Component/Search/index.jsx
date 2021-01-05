@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
@@ -36,14 +37,14 @@ const Search = ({
       if (e.key === 'Enter') searchPurchaseOrder({e, siteVal, clientVal, orderType, task, status})
     }
 
-    useEffect(async () =>{
+    useEffect(() =>{
       if (!site) {
-        await getSite({dispatch})
-        await getClient({dispatch})
+        getSite({dispatch})
+        getClient({dispatch})
       }
       getStatus({dispatch})
-      await getOrderType({dispatch, company, client})
-      await getTask({dispatch, client, site})
+       getOrderType({dispatch, company, client})
+       getTask({dispatch, client, site})
     },[])
  
     return (
