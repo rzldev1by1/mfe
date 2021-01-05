@@ -69,6 +69,7 @@ const PurchaseOrders = () => {
             title='Purchase Order Summary'
             filename='Microlistics_PurchaseOrder.'
             font="9"
+            exportApi={async () => { await searchPurchaseOrder({ dispatch}) }}
           />
         </div>
       </div>

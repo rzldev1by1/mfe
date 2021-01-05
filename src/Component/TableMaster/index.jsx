@@ -24,7 +24,8 @@ const TableMaster = ({
     excelStatus,
     font,
     ExportHeader,
-    ExportData
+    ExportData,
+    exportApi
 }) => {
     return(
       <div>
@@ -61,6 +62,7 @@ const TableMaster = ({
               ExportHeader={ExportHeader}
               ExportData={ExportData}
               ExportFont={font}
+              exportApi={exportApi}
             />
           </CCol>
         </CRow>
