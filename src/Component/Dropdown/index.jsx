@@ -14,7 +14,6 @@ const Dropdown = ({
     isDisabled,
     className
 }) => {
-    console.log(selectedValue);
     const onChangeHandler = (selected) => {
         onChangeDropdown(selected)
         setIsOpen(false)
@@ -51,12 +50,13 @@ const Dropdown = ({
         styles={{
                 option: (provided) => ({
                     ...provided,
-                    textAlign: 'left'
+                    textAlign: 'left',
+                    paddingLeft: '1rem'
                 }),
                 dropdownIndicator: (base, state) => ({
                     ...base,
                     transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
-                    display: "flex"
+                    display: "flex",
                 })
             }}
         theme={(theme) => ({

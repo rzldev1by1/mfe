@@ -3,14 +3,13 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
 import {useSelector, useDispatch} from 'react-redux'
 import { CCard, CCardBody, CRow, CCol } from '@coreui/react'
-import { setSite, setClient } from './service'
+import { setSite, setClient, setOrderType, setTask, setStatus } from './service'
 import Dropdown from '../Dropdown'
 import {getSite, getClient, getStatus, getOrderType, getTask} from '../../apiService/dropdown'
-
+import {searchPurchaseOrder} from '../../apiService'
 
 const Search = ({
     placeholder = '',
-    searchHandler = null, // function when search button clicked
     filterSite,
     filterClient,
     filterStatus,
@@ -20,18 +19,21 @@ const Search = ({
     // params
     const dispatch = useDispatch()
     const [desc, setDesc] = useState(null)
-    const siteData = useSelector(state => state.site_data)
+    const siteData = useSelector(state => state.siteData)
     const siteVal = useSelector(state => state.site)
     const clientVal = useSelector(state => state.client)
-    const clientData = useSelector(state => state.client_data)
-    const statusData = useSelector(state => state.status)
-    const orderTypeData = useSelector(state => state.order_type)
-    const taskData = useSelector(state => state.task)
+    const clientData = useSelector(state => state.clientData)
+    const statusData = useSelector(state => state.statusData)
+    const status = useSelector(state => state.status)
+    const orderTypeData = useSelector(state => state.orderTypeData)
+    const orderType = useSelector(state => state.orderType)
+    const taskData = useSelector(state => state.taskData)
+    const task = useSelector(state => state.task)
     const user = useSelector(state => state.user)
     const {company, client, site} = user
 
     const search = (e) => {
-      if (e.key === 'Enter') searchHandler(desc)
+      if (e.key === 'Enter') searchPurchaseOrder({e, siteVal, clientVal, orderType, task, status})
     }
 
     useEffect(async () =>{
@@ -94,7 +96,8 @@ const Search = ({
                     show
                     placeholder='Status'
                     options={statusData}
-                    // onChange={(val) => this.setClient(val)}
+                    onChangeDropdown={(selected) => setStatus({selected, dispatch})}
+                    selectedValue={status}
                   />
                 </CCol>
                 <CCol sm={4} lg={2}>
@@ -103,7 +106,8 @@ const Search = ({
                     show
                     placeholder='Order Type'
                     options={orderTypeData}
-                    // onChange={(val) => this.setClient(val)}
+                    onChangeDropdown={(selected) => setOrderType({selected, dispatch})}
+                    selectedValue={orderType}
                   />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-0">
@@ -112,14 +116,15 @@ const Search = ({
                     show
                     placeholder='Task'
                     options={taskData}
-                    // onChange={(val) => this.setClient(val)}
+                    onChangeDropdown={(selected) => setTask({selected, dispatch})}
+                    selectedValue={task}
                   />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-0">
                   <button
                     type="button"
                     className="btn btn-search btn-primary float-right"
-                    onClick={() => searchHandler()}
+                    onClick={() => searchPurchaseOrder({siteVal, clientVal, orderType, task, status, dispatch})}
                   >
                     SEARCH
                   </button>

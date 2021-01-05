@@ -41,7 +41,7 @@ const Pagination = ({
         <CRow className=" pagination-custom">
           <CCol lg="7" className="px-0 margin-mr">
             <CCardGroup>
-              <CCard className="col-lg-6 border-right">
+              <CCard className="col-lg-5 border-right px-0">
                 <CPagination
                   limit={3}
                   activePage={active}
@@ -78,7 +78,7 @@ const Pagination = ({
               </CCard>
             </CCardGroup>
           </CCol>
-          <CCol lg="3" className="mt-3 showing" style={{ flex: '0 0 30%', maxWidth: '30%' }}>
+          <CCol lg="3" className="mt-3 showing px-0" style={{ flex: '0 0 30%', maxWidth: '30%', marginLeft: '-3.2rem' }}>
             <span className="text-muted-s">
               {" Showing "}
               <b className="text-muted-dark">

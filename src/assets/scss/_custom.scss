@@ -575,6 +575,10 @@ header {
 
     .rt-thead {
       .rt-tr {
+        .rt-th{
+          display: flex;
+          align-items: center;
+        }
         .rt-th:first-child {
           padding-left: 1.15rem !important;
           text-align: left !important;

@@ -1,7 +1,3 @@
-/* eslint-disable no-restricted-globals */
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-unused-vars */
 // import library
 import React from 'react'
 import { useSelector } from "react-redux";
@@ -16,7 +12,8 @@ import 'react-table-hoc-draggable-columns/dist/styles.css'
 import "./style.scss";
 
 const Table = ({
-    headerColumn,
+    schemaColumn,
+    onClick,
     data,
     style,
     module,
@@ -26,7 +23,6 @@ const Table = ({
     tableStatus,
     groupHeader = false
 }) => {
-    
     const userId = useSelector(state => state.user.userId)
     const ReactTableDraggableColumns = withDraggableColumns(ReactTable);
     const noDataMessage = (
@@ -53,7 +49,7 @@ const Table = ({
           draggableColumns={{
                     mode: 'reorder',
                     draggable: draggableColumn,
-                    onDropSuccess: (draggedColumn, targetColumn, oldIndex, newIndex, oldOffset, newOffset) => saveSchemaToLocal({ userId, schemaColumn, module, draggedColumn, targetColumn, oldIndex, newIndex })
+                    onDropSuccess: (draggedColumn, targetColumn, oldIndex, newIndex) => saveSchemaToLocal({ userId, schemaColumn, module, draggedColumn, targetColumn, oldIndex, newIndex })
                 }}
           columns={newSchema}
           data={data}
@@ -63,6 +59,10 @@ const Table = ({
           minRows='1'
           getTdProps={(state, rowInfo, column,  instance) => {
                     return {
+                      onClick: (e, handleOriginal) => {
+                        !! onClick &&
+                          onClick(rowInfo.original, state, column, e, instance);
+                      },
                         // eslint-disable-next-line no-restricted-globals
                         style: { 
                           textAlign: isNaN(rowInfo?.original[column.id]) ? 'left' : 'right',
@@ -76,11 +76,4 @@ const Table = ({
     )
 }
 
-
-Table.propTypes = {
-    headerColumn: PropTypes.objectOf(PropTypes.object).isRequired,
-    module: PropTypes.string.isRequired,
-}
-
 export default Table
-
