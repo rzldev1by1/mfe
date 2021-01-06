@@ -19,12 +19,12 @@ const searchPurchaseOrder = async ({
     const newPage = {...page}
     const urls = []
 
-    // reset table
-    if (readyDocument === 'false' && export_ === 'false') {
-        const data = []
-        const tableStatus = 'waiting'
-        if (setPage) setPage(newPage)
-    }
+        // reset table
+        if (readyDocument === 'false' && export_ === 'false') {
+          newPage.data = []
+          newPage.tableStatus = 'waiting'
+          
+     }
     // Url 
     urls.push(`searchParam=${  search || ''}`)
     urls.push(`site=${  siteVal?.value ? siteVal.value : 'all'}`)
@@ -40,7 +40,6 @@ const searchPurchaseOrder = async ({
       const modifiedData = newData.data.data.data
       if ( export_ === 'true' ) {
         const exportData = modifiedData
-            setPage(newPage)
       } else {
         const pagination = {
                         active: active || newData.data.data.current_page,
@@ -54,18 +53,17 @@ const searchPurchaseOrder = async ({
           newPage.data = modifiedData
           dispatch({type:'GET_PO_SUMMARY', data:modifiedData})
           dispatch({type:'PAGING', data:paging})
-          if (setPage) setPage(newPage)
       }
 
       if (modifiedData.length < 1) {
-        const tableStatus = 'noData'
-        if (setPage) setPage(newPage)
+        newPage.tableStatus = 'noData'
       }
     } else {
       dispatch({type:'GET_PO_SUMMARY', data:[]})
-      const data = []
-      if (setPage) setPage(newPage)
+      newPage.data = []
     }
+
+     setPage(newPage)
   }
 
 export {showDetails, searchPurchaseOrder}

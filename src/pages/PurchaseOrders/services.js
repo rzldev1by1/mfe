@@ -1,5 +1,5 @@
+/* eslint-disable prefer-const */
 import axios from 'axios'
-import endpoints from '../../helpers/endpoints'
 
 export const schemaColumn = [
     {
@@ -112,73 +112,58 @@ export const schemaColumn = [
     },
 ]
 
-export const  searchPurchaseOrder = async ({
+export const getDetail = async ({dispatch, props}) => {
+    const { orderdetail, client,site } = props.match.params
+    const url = `/purchaseOrder?searchParam=${orderdetail}&client=${client}&site=${site}`
+    const { data } = await axios.get(url)
+    if (data.data) {
+      dispatch({type:'GET_PO_DETAIL', data: data.data.data[0]})
+    }
+  }
+  export const  getProductsTable = async ({
     export_ = 'false', 
     readyDocument = 'false', 
     page, 
     setPage,
     dispatch, 
     active,
+    props
     }) => {
-    let newPage = {...page}
-    let { 
-        search,
-        site, 
-        client, 
-        orderType, 
-        task, 
-        pagination, 
-        status, 
-        data,
-        exportData, 
-        tableStatus } = newPage
-    let urls = []
-
-    // reset table
-    if (readyDocument === 'false' && export_ === 'false') {
-        data = []
-        tableStatus = 'waiting'
-        setPage(newPage)
-    }
-    // Url 
-    urls.push(`searchParam=${  search || ''}`)
-    urls.push(`site=${  site?.value ? site.value : 'all'}`)
-    urls.push(`client=${  client?.value ? client.value : 'all'}`)
-    urls.push(`orderType=${  orderType ? orderType.value : 'all'}`)
-    urls.push(`status=${  status ? status.value : 'all'}`)
-    if (task && task.value !== 'all') urls.push(`task=${  task.value}`)
-    urls.push(`page=${  active || 1}`)
-    if (export_ === 'true') { urls.push('export=true') }
-    
-    const  newData  = await axios.get(`${endpoints.purchaseOrder}?${urls.join('&')}`)
+    const newPage = {...page}    
+    const { orderdetail, client,site} = props.match.params
+    const url = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${newPage.goPage}&export=${export_}`
+    const  newData  = await axios.get(url)
     if (newData?.data?.data) {
-      let modifiedData = newData.data.data.data
-      if ( export_ === 'true' ) {
-            exportData = modifiedData
-            setPage(newPage)
+        let modifiedData = newData.data.data.data
+        if ( export_ === 'true' ) {
+            newPage.exportData = modifiedData
+        } else {
+          const pagination = {
+                          active: active || newData.data.data.current_page,
+                          show: newData.data.data.per_page,
+                          total: newData.data.data.total,
+                          last_page: newData.data.data.last_page,
+                          from: newData.data.data.from,
+                          to: newData.data.data.to
+            }
+          const paging = pagination
+            newPage.data = modifiedData
+            dispatch({type:'GET_PO_DETAIL_TABLE', data:modifiedData})
+            dispatch({type:'PAGING', data:paging})
+        }
+  
+        if (modifiedData.length < 1) {
+            newPage.tableStatus = 'noData'
+        }
       } else {
-        pagination = {
-                        active: active || newData.data.data.current_page,
-                        show: newData.data.data.per_page,
-                        total: newData.data.data.total,
-                        last_page: newData.data.data.last_page,
-                        from: newData.data.data.from,
-                        to: newData.data.data.to
-          }
-        let paging = pagination
-          newPage.data = modifiedData
-          dispatch({type:'GET_PO_SUMMARY', data:modifiedData})
-          dispatch({type:'PAGING', data:paging})
-          setPage(newPage)
+        dispatch({type:'GET_PO_DETAIL_TABLE', data:[]})
+        newPage.data = []
       }
 
-      if (modifiedData.length < 1) {
-        tableStatus = 'noData'
-        setPage(newPage)
-      }
-    } else {
-      dispatch({type:'GET_PO_SUMMARY', data:[]})
-      data = []
-      setPage(newPage)
+      if (readyDocument === 'false' && export_ === 'false') {
+        newPage.data = []
+        newPage.tableStatus = 'waiting'
+        
     }
+    setPage(newPage)
   }

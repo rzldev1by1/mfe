@@ -27,7 +27,6 @@ const TableMaster = ({
         data={data}
         style={style}
         module={module}
-        onClick={onClick}
         page={page}
         setPage={setPage}
         noDataText={noDataText}

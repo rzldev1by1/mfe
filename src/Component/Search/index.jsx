@@ -10,6 +10,8 @@ import {getSite, getClient, getStatus, getOrderType, getTask} from '../../apiSer
 import {searchPurchaseOrder} from '../../apiService'
 
 const Search = ({
+    page, 
+    setPage,
     placeholder = '',
     filterSite,
     filterClient,
@@ -34,9 +36,8 @@ const Search = ({
     const {company, client, site} = user
 
     const search = (e) => {
-      if (e.key === 'Enter') searchPurchaseOrder({e, siteVal, clientVal, orderType, task, status})
+      if (e.key === 'Enter') searchPurchaseOrder({e, siteVal, clientVal, orderType, task, status, page, setPage})
     }
-
     useEffect(() =>{
       if (!site) {
         getSite({dispatch})
@@ -46,7 +47,6 @@ const Search = ({
        getOrderType({dispatch, company, client})
        getTask({dispatch, client, site})
     },[])
- 
     return (
 
       <CCard className="mb-3">
@@ -125,7 +125,7 @@ const Search = ({
                   <button
                     type="button"
                     className="btn btn-search btn-primary float-right"
-                    onClick={() => searchPurchaseOrder({siteVal, clientVal, orderType, task, status, dispatch})}
+                    onClick={() => searchPurchaseOrder({siteVal, clientVal, orderType, task, status, dispatch, page, setPage})}
                   >
                     SEARCH
                   </button>

@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import Breadcrumb from 'Component/Breadcrumb';
 import DetailHeader from 'Component/DetailHeader';
 import TableMaster from 'Component/TableMaster';
-import { getDetail, getProductsTable } from './service';
+import { getDetail, 
+         getProductsTable } from '../services';
 
 const columns = [
   {
@@ -126,6 +127,7 @@ const PurchaseOrdersDetail = (props) => {
     search: '',
     active: {},
   });
+  const newPage = {...page}
 
   useEffect(() => {}, [page]);
   useEffect(() => {
@@ -192,7 +194,7 @@ const PurchaseOrdersDetail = (props) => {
         style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
         module="Purchase Orders"
         noDataText
-        tableStatus
+        tableStatus={newPage.tableStatus}
         pagination={pagination}
         goto={(e) => {
           setActive(e);
