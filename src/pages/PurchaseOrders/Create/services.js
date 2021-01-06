@@ -20,8 +20,6 @@ export const getResources = async ({ user, dispatch }) => {
   dispatch({ type: 'PO_RESOURCES', data: resources });
 };
 
-const validateOrderDetails = (data) => {};
-
 export const validation = async ({ dispatch, data, setActiveTab }) => {
   //initial
   let statusValidate = true;
@@ -107,7 +105,7 @@ export const resetCreate = (dispatch) => {
   dispatch({ type: 'CREATE_PO', data: tmp });
 };
 
-export const changeOrderDetails = ({ type, column, value, dispatch }) => {
+export const changeOrderDetails = ({ column, value, dispatch }) => {
   dispatch({ type: 'CREATE_PO_DETAILS', data: value, column });
 };
 
