@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-// import helpers from 'helpers'
 import axios from 'axios'
 import Logo from 'assets/img/login-logo.png'
 import loading from "../../assets/icons/loading/LOADING-MLS.gif"
-// import videobg from 'assets/img/brand/microlisticsvideos.mp4'
 import './Login.css'
 
 const baseUrl = process.env.REACT_APP_API_URL;
@@ -90,7 +88,6 @@ class Logins extends Component {
                     this.setState({ isLoad: false, errorMessage: result.message, emailValidation: false })
                 } else {
                     this.hideErrorMessageHandler(errorMessage)
-                    // setTimeout(() => this.props.history.push('/'), 1500)
                     this.setState({ forgotSuccess: true })
                 }
             } catch (error) {
@@ -146,7 +143,7 @@ class Logins extends Component {
                 <div className="row">
                     <div className="pl-3 pr-0" style={{width:'30%'}}>
                         <button type="submit" className="btn btn-primary btn-login col-12">
-                            {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : 'LOGIN'}
+                            {this.state.isLoad ? <img src={loading} alt="" className='mt-min-5' width='45' height='45'/> : 'LOGIN'}
                         </button>
                     </div>
                     <div className="col-7 mt-3">
@@ -180,13 +177,13 @@ class Logins extends Component {
                     {this.state.forgotSuccess ? 
                         <div className="pr-0 pl-3 white-space" style={{width:'30%'}}>
                             <button onClick={() => this.exitPolicyHandler()} type="button" className="btn btn-primary btn-login col-12">
-                                {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "BACK"}
+                                {this.state.isLoad ? <img src={loading} alt="" className='mt-min-5' width='45' height='45'/> : "BACK"}
                             </button>
                         </div>
                      : 
                         <div className="pr-0 pl-3 white-space" style={{width:'30%'}}>
                             <button type="submit" className="btn btn-primary btn-login col-12">
-                                {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "SEND"}
+                                {this.state.isLoad ? <img src={loading} alt="" className='mt-min-5' width='45' height='45'/> : "SEND"}
                             </button>
                         </div>
                       }
@@ -356,7 +353,7 @@ class Logins extends Component {
                 <div className="row mt-3">
                     <div className="pl-3 pr-0" style={{width:'30%'}}>
                         <button onClick={() => this.exitPolicyHandler()} type="button" className="btn btn-primary btn-login col-12">
-                            {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "BACK"}
+                            {this.state.isLoad ? <img src={loading} alt="" className='mt-min-5' width='45' height='45'/> : "BACK"}
                         </button>
                     </div>
                 </div>
@@ -543,7 +540,7 @@ class Logins extends Component {
                 <div className="row mt-3">
                     <div className="pl-3 pr-0" style={{ width:'30%' }}>
                         <button onClick={() => this.exitPolicyHandler()} type="button" className="btn btn-primary btn-login col-12">
-                            {this.state.isLoad ? <img src={loading} className='mt-min-5' width='45' height='45'/> : "BACK"}
+                            {this.state.isLoad ? <img src={loading} alt="" className='mt-min-5' width='45' height='45'/> : "BACK"}
                         </button>
                     </div>
                 </div>
@@ -564,10 +561,7 @@ class Logins extends Component {
                     <div className="card col-md-8 col-lg-4 offset-md-1">
                         <div className="card-body login-card">
                             <img src={Logo} className="logo mb-2" alt="mlslogo" />
-                            {
-                                formComponent
-                                // this.state.forgotPassword ? this.forgotPasswordForm(errorMessage, formValidation) : this.loginForm(errorMessage, formValidation)
-                            }
+                            {formComponent}
                             <div className="links mt-3">
                                 <span onClick={() => this.changePolicyHandler()} className='term-and-condition'>Privacy and Policy</span>
                                 <span> &nbsp; | &nbsp; </span>

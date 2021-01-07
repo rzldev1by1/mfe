@@ -1,6 +1,5 @@
 import _ from 'lodash'
 import axios from 'axios'
-import moment from 'moment'
 import React from 'react'
 import { connect } from 'react-redux'
 import ReactTable from 'react-table-v6'
@@ -17,12 +16,10 @@ import loading from "../../assets/icons/loading/LOADING-MLS-GRAY.gif"
 import 'react-table-v6/react-table.css'
 import './CustomTable.css'
 import validations from './validations'
-import { data, isEmptyObject } from 'jquery'
+import { isEmptyObject } from 'jquery'
 
-//import { splice } from 'core-js/fn/array'
+// import { splice } from 'core-js/fn/array'
 
-const baseUrl = process.env.REACT_APP_API_URL;
-const no = Math.floor(Math.random() * 100000) + 1;
 
 // automatic column width
 const getColumnWidth = (rows, accessor, headerText) => {
@@ -44,8 +41,9 @@ const getColumnWidth = (rows, accessor, headerText) => {
 const Required = ({ error, id }) => {
   if(error) {
     const object = Object.keys(error)
+    // eslint-disable-next-line max-len
     if(object.includes(id)) return <span className="text-error text-danger position-absolute font-rename-error">{error && error[id]}</span>
-    else return <div></div>
+    return <div />
   }
 }
 
@@ -54,10 +52,10 @@ class CustomTable extends React.Component {
     super(props);
     this.dragged = null;
     this.reorder = [];
-    let tables = localStorage.getItem("tables") ? JSON.parse(localStorage.getItem("tables")) : [];
+    const tables = localStorage.getItem("tables") ? JSON.parse(localStorage.getItem("tables")) : [];
     if (tables.length > 0) {
-      tables.map((data, idx) => {
-        if (data.title == props.title) {
+      tables.map((data) => {
+        if (data.title === props.title) {
           this.reorder = data.reorderIdx
         }
       });
@@ -84,12 +82,12 @@ class CustomTable extends React.Component {
 
   mountEvents() {
     const headers = Array.prototype.slice.call(
-      document.querySelectorAll(".draggable-header"+this.state.no)
+      document.querySelectorAll(`.draggable-header${this.state.no}`)
     );
 
     headers.forEach((header, i) => {
       header.setAttribute("draggable", true);
-      //the dragged header
+      // the dragged header
       header.ondragstart = e => {
         e.stopPropagation();
         this.dragged = i;
@@ -97,7 +95,7 @@ class CustomTable extends React.Component {
 
       header.ondrag = e => e.stopPropagation;
 
-      //the dropped header
+      // the dropped header
       header.ondragover = e => {
         e.preventDefault();
       };
@@ -108,7 +106,7 @@ class CustomTable extends React.Component {
         this.reorder.push({ a: i, b: this.dragged });
         this.setState({ trigger: Math.random() });
 
-        let tables = localStorage.getItem("tables") ? JSON.parse(localStorage.getItem("tables")) : [];
+        const tables = localStorage.getItem("tables") ? JSON.parse(localStorage.getItem("tables")) : [];
         if (tables.length > 0) {
           tables.map((data, index) => {
             if (data.title === this.props.title) {
@@ -135,10 +133,10 @@ class CustomTable extends React.Component {
   componentDidMount() {
     this.mountEvents();
     this.headerRename();
-    let tableColumns = localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : [];
+    const tableColumns = localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : [];
     let savedTableColumns = {};
     if (tableColumns.length > 0) {
-      tableColumns.map((data, idx) => {
+      tableColumns.map((data) => {
         if ((data.title == this.props.title) && (data.userId == this.props.store.user.userId)) {
           savedTableColumns = data.columns
         }
@@ -178,23 +176,23 @@ class CustomTable extends React.Component {
 
   showColumn = (header, index, length) => {
     const { editColumn } = this.state
-    let max = (length - Object.keys(editColumn).length) > 1
-    let hide = editColumn[index] === undefined
+    const max = (length - Object.keys(editColumn).length) > 1
+    const hide = editColumn[index] === undefined
 
     if (hide && max) {
       // hide column
-      let obj = {
+      const obj = {
         [index]: header
       }
 
-      let addColumn = {
+      const addColumn = {
         ...editColumn,
         ...obj
       }
       this.setState({ editColumn: addColumn })
     } else if ((!hide && max) || (!max && !hide)) {
       // show column
-      let deleteColumn = {
+      const deleteColumn = {
         ...editColumn
       }
       delete deleteColumn[index]
@@ -206,7 +204,7 @@ class CustomTable extends React.Component {
   }
 
   saveEdit = (editColumn) => {
-    let savedTableColumns = localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : [];
+    const savedTableColumns = localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : [];
     if (savedTableColumns.length > 0) {
       savedTableColumns.map((data, index) => {
         if (data.title === this.props.title) {
@@ -244,8 +242,8 @@ class CustomTable extends React.Component {
     let listHeader = []
     header && header.map((h, index) => {
       if (!editColumn[index]) {
-        let withIcon = (
-          <span className={'text-light-gray draggable-header'+this.state.no} 
+        const withIcon = (
+          <span className={`text-light-gray draggable-header${this.state.no}`} 
             onClick={() => {
               if(h.sortType === "float"){
                 this.sortFloat(h.accessor)
@@ -265,12 +263,12 @@ class CustomTable extends React.Component {
                 width='1em'
                 xmlns='http://www.w3.org/2000/svg'
               >
-                <path d='M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z'></path>
+                <path d='M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z' />
               </svg>
           </span>
         );
 
-        let obj = {
+        const obj = {
           Header: withIcon,
           Cell: h.Cell,
           render: h.render || null,
@@ -282,18 +280,18 @@ class CustomTable extends React.Component {
           width: h.width || getColumnWidth(data, h.accessor, h.Header),
         }
         return listHeader = [...listHeader, obj]
-      } else {
+      } 
         return listHeader = [...listHeader]
-      }
+      
     })
 
     if (this.props.editColumn !== 'false') {
-      let editBtn = (
+      const editBtn = (
         <div className='edit-column' onClick={this.showModal.bind(this, true)}>
           <i className='iconU-edit' />
         </div>
       )
-      let obj = {
+      const obj = {
         Header: editBtn,
         accessor: 'editBtn',
         width: 50,
@@ -310,32 +308,32 @@ class CustomTable extends React.Component {
     if(this.props.UrlHeader){
     const url = this.props.UrlHeader();
     const { data } = await axios.get(url);
-    let fields = [];
-    let accessor = this.state.fields.map((data, idx) => {
-      let split = data.accessor
+    const fields = [];
+    const accessor = this.state.fields.map((data) => {
+      const split = data.accessor
       return split
     });
-    let style = this.state.fields.map((data, idx) => {
-      let split = data.style
+    const style = this.state.fields.map((data) => {
+      const split = data.style
       return split
     });
-    let Cell = this.state.fields.map((data, idx) => {
-      let split = data.Cell
+    const Cell = this.state.fields.map((data) => {
+      const split = data.Cell
       return split
     });
-    let placeholder = this.state.fields.map((data, idx) => {
-      let split = data.placeholder
+    const placeholder = this.state.fields.map((data) => {
+      const split = data.placeholder
       return split
     });
-    let width = this.state.fields.map((data, idx) => {
-      let split = data.width
+    const width = this.state.fields.map((data) => {
+      const split = data.width
       return split
     });
-    let sortable = this.state.fields.map((data, idx) => {
-        let split = data.sortable
+    const sortable = this.state.fields.map((data) => {
+        const split = data.sortable
         return split
       });
-    let sortType = this.state.fields.map((data, idx) => {
+    const sortType = this.state.fields.map((data) => {
         let split;
         if(data.sortType){
             split = data.sortType
@@ -344,12 +342,12 @@ class CustomTable extends React.Component {
         }
         return split
     });
-    let headerData = Object.keys(data.data[0]);
+    const headerData = Object.keys(data.data[0]);
     accessor.map((data, idx) => {
-      let lowerCase = data.toLowerCase();
+      const lowerCase = data.toLowerCase();
       if (lowerCase.includes(' ')) {
-        let split = lowerCase.split(' ');
-        let result = split.join('_');
+        const split = lowerCase.split(' ');
+        const result = split.join('_');
         accessor[idx] = result;
       } else {
         accessor[idx] = lowerCase;
@@ -357,7 +355,7 @@ class CustomTable extends React.Component {
     });
 
     Object.values(data.data[0]).map((data, idx) => {
-      let headerTable = {
+      const headerTable = {
         accessor: '',
         Header: '',
         Cell: [],
@@ -401,12 +399,12 @@ class CustomTable extends React.Component {
     const changedFieldHeaderData = [];
     const changedFieldHeader = [];
 
-    changedField.map((item, idx) => {
+    changedField.map((item) => {
       changedFieldHeaderData.push(item.headerData);
       changedFieldHeader.push(item.header);
     });
 
-    fields.map((item, idx) => {
+    fields.map((item) => {
       changedFieldHeaderData.map((data, idx) => {
         if (item.headerData == data) {
           item.Header = changedFieldHeader[idx];
@@ -416,15 +414,15 @@ class CustomTable extends React.Component {
 
     this.setState({ fields: fields });
 
-    let payload = {};
-    let payloadIndex = Object.keys(this.state.products);
-    let defaultValues = Object.values(this.state.products);
-    let fieldsHeaderData = changedFieldHeaderData;
+    const payload = {};
+    const payloadIndex = Object.keys(this.state.products);
+    const defaultValues = Object.values(this.state.products);
+    const fieldsHeaderData = changedFieldHeaderData;
 
     fieldsHeaderData.map((data, idx) => {
       if (data.includes(' ')) {
-        let uppercaseHeaderData = data.toUpperCase();
-        let index = uppercaseHeaderData.split(' ');
+        const uppercaseHeaderData = data.toUpperCase();
+        const index = uppercaseHeaderData.split(' ');
         fieldsHeaderData[idx] = index.join('_');
       } else {
         fieldsHeaderData[idx] = data.toUpperCase();
@@ -433,13 +431,12 @@ class CustomTable extends React.Component {
 
     payloadIndex.map((data, idx) => {
       if (data.includes(' ')) {
-        let uppercaseHeaderData = data;
-        let index = uppercaseHeaderData.split(' ');
+        const uppercaseHeaderData = data;
+        const index = uppercaseHeaderData.split(' ');
         payloadIndex[idx] = index.join('_');
       }
     });
 
-    let newPayload = {};
 
     for (let i = 0; i < Object.keys(this.state.products).length; i++) {
       fieldsHeaderData.map((data, idx) => {
@@ -498,15 +495,14 @@ class CustomTable extends React.Component {
       //   baseUrl + this.props.UrlTtchem(),
       //   payload
       // );
-      const { data } = urlAll;
     } catch (error) {
       console.log(error);
     }
   };
 
   changedColumn = (e) => {
-    let {error, sameColumns, sameColumnsIdx} = validations(this.state, this.state.changedColumns, e.target.value, e.target.id)
-    let changedColumns = this.state.changedColumns;
+    const {error, sameColumns, sameColumnsIdx} = validations(this.state, this.state.changedColumns, e.target.value, e.target.id)
+    const changedColumns = this.state.changedColumns;
 
     this.setState({ error, sameColumns, sameColumnsIdx });
     if(!isEmptyObject(error)){
@@ -536,65 +532,59 @@ class CustomTable extends React.Component {
     }
   };
 
-  renameSubmit = (e) => {
+  renameSubmit = () => {
     const {error, sameColumns, sameColumnsIdx } = validations(this.state, this.state.changedColumns)
-    const { rename } = this.state
     if (Object.keys(error).length) {
       return this.setState({ error, sameColumns, sameColumnsIdx })
-    } else {
+    } 
           this.renameSubmits(this.state.changedColumns);
           this.setState({ showModal: false , error:{}});
-    }
+    
     // this.renameSubmits(this.state.changedColumns);
     // this.setState({ showModal: false });
   };
   // Header Name And
 
   ExportName = () => {
-    let arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    let date = new Date();
-    let date1 = date.getDate(),
+    const arrmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const date = new Date();
+    const date1 = date.getDate(),
       month = date.getMonth(),
       year = date.getFullYear(),
       Seconds = date.getSeconds(),
       Minutes = date.getMinutes(),
       Hours = date.getHours();
-    return (this.props.filename + date1 + "-" + arrmonth[month] + "-" + year + "." + Hours + "-" + Minutes + "-" + Seconds)
+    return (`${this.props.filename + date1  }-${  arrmonth[month]  }-${  year  }.${  Hours  }-${  Minutes  }-${  Seconds}`)
   }
 
   ExportHeader = () => {
-    let fields = this.props.customFields || this.state.fields
+    const fields = this.props.customFields || this.state.fields
     // Object.keys(fields).forEach(function(key) {
     //   if (fields[key].accessor === 'country') {
        
     // });
-    let data = fields.map((data, idx) => {
+    const data = fields.map((data) => {
       return data.Header
     });
     return data
   }
 
   ExportData = () => {
-    let fields = this.props.customFields || this.state.fields
+    const fields = this.props.customFields || this.state.fields
     let dataAll = []
-    let isDate = function (input) {
-      if (Object.prototype.toString.call(input) === "[object Date]")
-        return true;
-      return false;
-    };
 
     if (this.props.exportData) {
-      dataAll = this.props.exportData.map((data, idx) => {
-        let column = fields.map((column, columnIdx) => {
-          let split = [data[column.accessor]]
+      dataAll = this.props.exportData.map((data) => {
+        const column = fields.map((column) => {
+          const split = [data[column.accessor]]
           return split
         })
         return column
       })
     } else {
-      dataAll = this.props.data.map((data, idx,) => {
-        let column = fields.map((column, columnIdx) => {
-          let split = [data[column.accessor]]
+      dataAll = this.props.data.map((data,) => {
+        const column = fields.map((column) => {
+          const split = [data[column.accessor]]
           return split
         })
         return column
@@ -625,9 +615,9 @@ class CustomTable extends React.Component {
   }
 
   render() {
-    const { showModal, editColumn, editColumnTemp, fields, activeTab, error, rename, sameColumnsIdx  } = this.state
-    let { title, data, exportData, onClick, height, pagination, request_status, font, tableStatus, module } = this.props 
-    let headerIcon = this.headerIcon(data, fields, editColumnTemp);
+    const { showModal, editColumn, editColumnTemp, fields, activeTab, error, sameColumnsIdx  } = this.state
+    const { title, data, exportData, onClick, height, pagination, font, tableStatus } = this.props 
+    const headerIcon = this.headerIcon(data, fields, editColumnTemp);
     this.reorder.forEach(o => headerIcon.splice(o.a, 0, headerIcon.splice(o.b, 1)[0])); 
     return (
       <React.Fragment>
@@ -642,7 +632,7 @@ class CustomTable extends React.Component {
           minRows='0'
           getTdProps={(state, rowInfo, column, instance) => {
             return {
-              onClick: (e, handleOriginal) => {
+              onClick: (e) => {
                 !!onClick &&
                   onClick(rowInfo.original, state, column, e, instance);
               },
@@ -672,32 +662,32 @@ class CustomTable extends React.Component {
               <tr key={i} >
                 {fields.map((column, columnIdx) => {
                   if(column.accessor === 'customer'){
-                    return (<td key={columnIdx}>{data[column.accessor]}‎</td>)//hidden fonts for export
+                    return (<td key={columnIdx}>{data[column.accessor]}‎</td>)// hidden fonts for export
                   }
                   if(column.accessor === 'customername'){
-                    return (<td key={columnIdx}>{data[column.accessor]}‎</td>)//hidden fonts for export
+                    return (<td key={columnIdx}>{data[column.accessor]}‎</td>)// hidden fonts for export
                   }
                   if(column.accessor === 'address1'){
-                    return (<td key={columnIdx}>{data[column.accessor]}‎‎‎</td>)//hidden fonts for export
+                    return (<td key={columnIdx}>{data[column.accessor]}‎‎‎</td>)// hidden fonts for export
                   }
                   if(column.accessor === 'orderno'){
-                    return (<td key={columnIdx}>{data[column.accessor]}‎‎</td>)//hidden fonts for export
+                    return (<td key={columnIdx}>{data[column.accessor]}‎‎</td>)// hidden fonts for export
                   }
                   if(column.accessor === 'order_no'){
-                    return (<td key={columnIdx}>{data[column.accessor]}‎</td>)//hidden fonts for export
+                    return (<td key={columnIdx}>{data[column.accessor]}‎</td>)// hidden fonts for export
                   }
                   if(column.accessor === 'product'){
-                    return (<td key={columnIdx}>{data[column.accessor]}‎</td>)//hidden fonts for export
+                    return (<td key={columnIdx}>{data[column.accessor]}‎</td>)// hidden fonts for export
                   }
                   if(column.accessor === 'batch'){
-                    return (<td key={columnIdx}>{data[column.accessor]}</td>)//hidden fonts for export
+                    return (<td key={columnIdx}>{data[column.accessor]}</td>)// hidden fonts for export
                   }if(column.accessor === 'pack_id'){
-                    return (<td key={columnIdx}>{data[column.accessor]}</td>) //hidden fonts for export
-                  }else{
+                    return (<td key={columnIdx}>{data[column.accessor]}</td>) // hidden fonts for export
+                  }
                     return (
                       <td key={columnIdx}>{data[column.accessor]}</td>
                     )
-                  }
+                  
                 })}
               </tr>
             ) :
@@ -774,7 +764,7 @@ class CustomTable extends React.Component {
             </Container>
           </Modal.Header>
           <Modal.Body className='px-5 pt-3 pb-5'>
-            <Row className={"mx-0 justify-content-between  " + (this.props.store.user.userLevel == 'Admin' ? 'mb-3' : '')}>
+            <Row className={`mx-0 justify-content-between  ${  this.props.store.user.userLevel == 'Admin' ? 'mb-3' : ''}`}>
               <Col lg={6} className='text-primary font-20 p-0'>{title}</Col>
               <Row className='align-items-center rename-columns mx-0 text-align-left'>
 
@@ -784,8 +774,8 @@ class CustomTable extends React.Component {
                       <NavItem className='pl-0 pr-0'>
                         <NavLink
                           className={
-                            'nav-link-cust tab-color' +
-                            (activeTab === '1' ? ' tab-rename' : '')
+                            `nav-link-cust tab-color${ 
+                            activeTab === '1' ? ' tab-rename' : ''}`
                           }
                           active={this.state.activeTab === '1'}
                           onClick={() => {
@@ -803,8 +793,8 @@ class CustomTable extends React.Component {
                       <NavItem className='pl-2 pr-0'>
                         <NavLink
                           className={
-                            'nav-link-cust tab-color' +
-                            (activeTab === '2' ? ' tab-rename' : '')
+                            `nav-link-cust tab-color${ 
+                            activeTab === '2' ? ' tab-rename' : ''}`
                           }
                           active={this.state.activeTab === '2'}
                           onClick={() => {
@@ -879,14 +869,14 @@ class CustomTable extends React.Component {
                                 name={item.headerData}
                                 sortable={item.sortable}
                                 onChange={this.changedColumn}
-                                className={"text-left form-rename"+ (sameColumnsIdx.includes(index.toString()) ? " input-danger" : "")}
+                                className={`text-left form-rename${ sameColumnsIdx.includes(index.toString()) ? " input-danger" : ""}`}
                               />
                             </div>
                           );
                         })}
                     </Row>
                     <Col className="pt-5">
-                    {fields && fields.map((item, index) => {
+                    {fields && fields.map((item) => {
                       return (<Required id={item.headerData} error={error} /> )
                     })}
                       <Button

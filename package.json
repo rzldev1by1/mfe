@@ -52,6 +52,7 @@
     "react-resize-detector": "5.0.6",
     "react-router-dom": "5.2.0",
     "react-select": "3.1.0",
+    "react-table-hoc-draggable-columns": "^1.2.5",
     "react-table-hoc-fixed-columns": "2.3.1",
     "react-table-v6": "6.8.6",
     "reactstrap": "8.5.1",
@@ -62,7 +63,15 @@
     "spinkit": "2.0.1"
   },
   "devDependencies": {
-    "react-scripts": "3.4.1"
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.0.0",
+    "prettier": "^2.1.1",
+    "react-scripts": "^3.4.3"
   },
   "scripts": {
     "start": "react-scripts start",

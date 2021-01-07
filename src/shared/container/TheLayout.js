@@ -2,8 +2,6 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import TheContent from './TheContent'
 import TheSidebar from './TheSidebar'
-import TheAside from './TheAside'
-// import TheFooter from './TheFooter'
 
 const TheLayout = () => {
   const darkMode = useSelector(state => state.darkMode)

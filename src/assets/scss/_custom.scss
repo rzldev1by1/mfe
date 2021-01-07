@@ -236,8 +236,6 @@ input:-webkit-autofill {
   color: #959DA0 !important;
 }
 
-// .input-group,
-// .input-group input,
 .input-group,
 input.form-control,
 .input-group-text {
@@ -274,8 +272,6 @@ input.form-control {
 
 .sales-order,
 .sales-order-detail,
-.purchase-order,
-.purchase-order-details,
 .um-summary,
 .um-detail,
 .stock-holding,
@@ -350,7 +346,7 @@ header {
   // disable vertical scrolling on desktop
   body,
   .c-wrapper {
-    overflow-y: hidden !important;
+    overflow-y: auto !important;
   }
 }
 
@@ -573,13 +569,18 @@ header {
 
 // REACTABLE
 .ReactTable {
+  border: 0px !important;
   .rt-table {
     margin-top: 0px !important;
 
     .rt-thead {
       .rt-tr {
+        .rt-th{
+          display: flex;
+          align-items: center;
+        }
         .rt-th:first-child {
-          padding-left: 1.8rem !important;
+          padding-left: 1.15rem !important;
           text-align: left !important;
         }
       }
@@ -589,8 +590,8 @@ header {
       .rt-tr-group {
         .rt-tr {
           .rt-td {
-            // display: flex !important;
-            align-items: center !important;
+            display: flex;
+            align-items: center;
           }
 
           .rt-td:first-child {
@@ -613,17 +614,14 @@ header {
 @media (min-width: 1200px) {
 
   .um-create,
-  .sales-order-create,
-  .purchase-order-create {
+  .sales-order-create {
     .modal-xl {
       max-width: 1525px !important;
     }
   }
 
   .um-create,
-  .sales-order-create,
-  .purchase-order-create {
-
+  .sales-order-create {
     .container,
     .container-sm,
     .container-md,
