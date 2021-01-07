@@ -4,7 +4,7 @@ import React from 'react';
 import { CRow, CCol } from '@coreui/react';
 import Pagination from '../Pagination';
 import Table from '../Table';
-import Export from '../Export';
+import Export from 'Component/Export';
 
 const TableMaster = ({
   schemaColumn,
@@ -18,10 +18,11 @@ const TableMaster = ({
   tableStatus,
   pagination,
   goto,
-  exportColumns,
-  exportApi,
-  getExportData,
   filename,
+  getExportData,
+  exportApi,
+  exportColumns,
+  exportData,
 }) => {
   return (
     <div>
@@ -53,7 +54,7 @@ const TableMaster = ({
             getExportData={async () => await getExportData()}
             module={module}
             exportApi={exportApi}
-            schemaColumn={exportColumns}
+            schemaColumn={exportColumns || schemaColumn}
           />
         </CCol>
       </CRow>

@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import Breadcrumb from 'Component/Breadcrumb';
 import DetailHeader from 'Component/DetailHeader';
 import TableMaster from 'Component/TableMaster';
-import { getDetail, 
-         getProductsTable } from '../services';
+import { getDetail, getProductsTable } from '../services';
+import { setExportData } from './services';
 
 const columns = [
   {
@@ -115,7 +115,6 @@ const PurchaseOrdersDetail = (props) => {
   const poDetailTable = useSelector((state) => state.poDetailTable);
   const pagination = useSelector((state) => state.pagination);
   const [active, setActive] = useState(1);
-
   const [page, setPage] = useState({
     // Paging
     notifPaging: false,
@@ -127,7 +126,7 @@ const PurchaseOrdersDetail = (props) => {
     search: '',
     active: {},
   });
-  const newPage = {...page}
+  const newPage = { ...page };
 
   useEffect(() => {}, [page]);
   useEffect(() => {
@@ -199,9 +198,11 @@ const PurchaseOrdersDetail = (props) => {
         goto={(e) => {
           setActive(e);
         }}
-        exportData
+        getExportData={() => setExportData({ dispatch, data: poDetailTable })}
         page={page}
         setPage={setPage}
+        title="Purchase Order Details"
+        filename="Microlistics_PurchaseOrderDetails."
       />
     </div>
   );

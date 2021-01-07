@@ -43,9 +43,11 @@ const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExp
       await getExportData();
     }
     getData();
+    console.log('exportData', exportData);
   }, [runExport]);
 
   useEffect(() => {
+    console.log('exportData', exportData);
     if (!exportData) {
       return;
     }
@@ -56,7 +58,7 @@ const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExp
     }
     setExportStatus('ready');
     setRunExport(null);
-  }, [exportData]);
+  }, [exportData, runExport]);
 
   const columnHiddenCharacter = [
     'customer',
@@ -126,7 +128,7 @@ const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExp
       <table className="d-none" id="excel">
         <thead>
           <tr>
-            {schemaColumn.map((data, idx) => {
+            {schemaColumn?.map((data, idx) => {
               return (
                 <th key={idx} id={data.accessor}>
                   {data.Header}
