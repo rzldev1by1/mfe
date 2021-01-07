@@ -1,4 +1,5 @@
 /* eslint-disable prefer-const */
+import React from 'react';
 import axios from 'axios';
 
 export const schemaColumn = [
@@ -27,6 +28,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 200,
   },
   {
@@ -36,6 +38,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 100,
   },
   {
@@ -45,6 +48,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 100,
   },
   {
@@ -54,6 +58,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 200,
   },
   {
@@ -63,6 +68,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 200,
   },
   {
@@ -73,6 +79,30 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     width: 200,
+    Cell: (row) => {
+      switch (row.original.status) {
+        case '0: Unavailable':
+          return <a className="status-Unavailable">UNAVAILABLE</a>;
+          break;
+        case '1: Available':
+          return <a className="status-available">AVAILABLE</a>;
+          break;
+        case '2: Released':
+          return <a className="status-Release">RELEASED</a>;
+          break;
+        case '3: Part Released':
+          return <a className="status-partRelease">PART RELEASED</a>;
+          break;
+        case '4: Completed':
+          return <a className="status-complete">COMPLETED</a>;
+          break;
+        case 'All Open':
+          return <a className="status-ok">ALL OPEN</a>;
+          break;
+        default:
+          break;
+      }
+    },
   },
   {
     Header: 'Order Date',
@@ -81,6 +111,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 200,
   },
   {
@@ -90,6 +121,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 200,
   },
   {
@@ -99,6 +131,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 200,
   },
   {
@@ -108,6 +141,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 200,
   },
 ];

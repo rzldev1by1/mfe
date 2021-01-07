@@ -12,7 +12,7 @@ const searchPurchaseOrder = async ({
   orderType,
   task,
   status,
-  search = null,
+  searchInput,
   Export = false,
   readyDocument = 'false',
   page,
@@ -25,12 +25,11 @@ const searchPurchaseOrder = async ({
 
   // reset table
   if (readyDocument === false && Export === false) {
-    const data = [];
-    const tableStatus = 'waiting';
-    if (setPage) setPage(newPage);
+    newPage.data = [];
+    newPage.tableStatus = 'waiting';
   }
   // Url
-  urls.push(`searchParam=${search || ''}`);
+  urls.push(`searchParam=${searchInput || ''}`);
   urls.push(`site=${siteVal?.value ? siteVal.value : 'all'}`);
   urls.push(`client=${clientVal?.value ? clientVal.value : 'all'}`);
   urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
@@ -39,7 +38,6 @@ const searchPurchaseOrder = async ({
   urls.push(`page=${active || 1}`);
   if (Export === true) {
     urls.push('export=true');
-  } else {
   }
 
   const newData = await axios.get(`${endpoints.purchaseOrder}?${urls.join('&')}`);

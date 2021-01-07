@@ -70,7 +70,7 @@ const PurchaseOrders = (props) => {
             filterStatus
             filterOrderType
             filterTask
-            placeholder="Enter SKU"
+            placeholder="Enter an Order No"
             filter
           />
         </div>

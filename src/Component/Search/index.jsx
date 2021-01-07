@@ -6,7 +6,13 @@ import {useSelector, useDispatch} from 'react-redux'
 import { CCard, CCardBody, CRow, CCol } from '@coreui/react'
 import { setSite, setClient, setOrderType, setTask, setStatus } from './service'
 import Dropdown from '../Dropdown'
-import {getSite, getClient, getStatus, getOrderType, getTask} from '../../apiService/dropdown'
+import {  getSite, 
+          getClient, 
+          getStatus, 
+          getOrderType, 
+          getTask, 
+          siteCheck, 
+          clientCheck} from '../../apiService/dropdown'
 import {searchPurchaseOrder} from '../../apiService'
 
 const Search = ({
@@ -21,7 +27,7 @@ const Search = ({
 }) => {
     // params
     const dispatch = useDispatch()
-    const [desc, setDesc] = useState(null)
+    const [searchInput, setSearchInput] = useState(null)
     const siteData = useSelector(state => state.siteData)
     const siteVal = useSelector(state => state.site)
     const clientVal = useSelector(state => state.client)
@@ -36,16 +42,14 @@ const Search = ({
     const {company, client, site} = user
 
     const search = (e) => {
-      if (e.key === 'Enter') searchPurchaseOrder({e, siteVal, clientVal, orderType, task, status, page, setPage})
+      if (e.key === 'Enter') searchPurchaseOrder({e, siteVal, clientVal, orderType, task, status, page, setPage, searchInput})
     }
-    useEffect(() =>{
-      if (!site) {
-        getSite({dispatch})
-        getClient({dispatch})
-      }
+    useEffect( () =>{
+      getSite({dispatch})
+      getClient({dispatch})
       getStatus({dispatch})
-       getOrderType({dispatch, company, client})
-       getTask({dispatch, client, site})
+      getOrderType({dispatch, company, client})
+      getTask({dispatch, client, site})
     },[])
     return (
 
@@ -63,7 +67,7 @@ const Search = ({
                   type="text"
                   className="form-control border-left-0 input-height"
                   placeholder={placeholder}
-                  onChange={(e) => setDesc(e.target.value)}
+                  onChange={(e) => setSearchInput(e.target.value)}
                   onKeyPress={(e) => search(e)}
                   style={{ height: "100%" }}
                 />
@@ -71,25 +75,33 @@ const Search = ({
             </CCol>
             <CCol lg={9} className="px-0">
               <CRow className="mx-0">
-                <CCol sm={4} lg={2} className="px-0">
-                  <Dropdown
-                    className={`px-0 ${filterSite === true ? null : " d-none"}`}
-                    show
-                    placeholder='Site'
-                    options={siteData}
-                    onChangeDropdown={(selected) => setSite({selected, dispatch})}
-                    selectedValue={siteVal}
-                  />
+                <CCol sm={4} lg={2} className={`px-0 ${  user?.site ?  " pr-3" : ""}`}>
+                  {user?.site ? 
+                    <input value={siteCheck(siteData, user.site)} className="form-control sh-input" readOnly />
+                  : (
+                    <Dropdown
+                      className={`px-0 ${filterSite === true ? null : " d-none"}`}
+                      show
+                      placeholder='Site'
+                      options={siteData}
+                      onChangeDropdown={(selected) => setSite({selected, dispatch})}
+                      selectedValue={siteVal}
+                    />
+                )}
                 </CCol>
-                <CCol sm={4} lg={2} className="px-0">
-                  <Dropdown
-                    className={`px-3 ${filterClient === true ? null : " d-none"}`}
-                    show
-                    placeholder='Client'
-                    options={clientData}
-                    onChangeDropdown={(selected) => setClient({selected, dispatch})}
-                    selectedValue={clientVal}
-                  />
+                <CCol sm={4} lg={2} className={`px-0 ${  user?.site ?  " pr-3" : ""}`}>
+                  {user?.client ? 
+                    <input value={clientCheck(clientData, user.client)} className="form-control sh-input" readOnly />
+                  : (
+                    <Dropdown
+                      className={`px-3 ${filterClient === true ? null : " d-none"}`}
+                      show
+                      placeholder='Client'
+                      options={clientData}
+                      onChangeDropdown={(selected) => setClient({selected, dispatch})}
+                      selectedValue={clientVal}
+                    />
+                )}
                 </CCol>
                 <CCol sm={4} lg={2} className="px-0">
                   <Dropdown
@@ -125,7 +137,7 @@ const Search = ({
                   <button
                     type="button"
                     className="btn btn-search btn-primary float-right"
-                    onClick={() => searchPurchaseOrder({siteVal, clientVal, orderType, task, status, dispatch, page, setPage})}
+                    onClick={() => searchPurchaseOrder({siteVal, clientVal, orderType, task, status, dispatch, page, setPage, searchInput})}
                   >
                     SEARCH
                   </button>
