@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import axios from "axios";
 import endpoints from '../../helpers/endpoints'
 
@@ -54,4 +55,26 @@ const getTask = async ({dispatch, client, site}) => {
     // }
   }
 
-export {getSite, getClient, getStatus, getOrderType, getTask } 
+  const siteCheck = (siteData, site) => {
+    let l = null
+    if (site)
+    if(siteData){
+      siteData.map(data => {
+        if (data.value === site) l = data.label
+      })
+    }
+    return l
+  }
+
+  const clientCheck = (clientData, client) => {
+    let l = null
+    if (client)
+    if(clientData){
+      clientData.map(data => {
+        if (data.value === client) l = data.label
+      })
+    }
+    return l
+  }
+
+export {getSite, getClient, getStatus, getOrderType, getTask,  siteCheck, clientCheck } 

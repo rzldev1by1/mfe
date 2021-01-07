@@ -8,7 +8,7 @@ const showDetails = ({module, item}) => {
 
 const searchPurchaseOrder = async ({
     siteVal, clientVal, orderType, task, status,
-    search=null,
+    searchInput,
     export_ = 'false', 
     readyDocument = 'false', 
     page, 
@@ -26,7 +26,7 @@ const searchPurchaseOrder = async ({
           
      }
     // Url 
-    urls.push(`searchParam=${  search || ''}`)
+    urls.push(`searchParam=${  searchInput || ''}`)
     urls.push(`site=${  siteVal?.value ? siteVal.value : 'all'}`)
     urls.push(`client=${  clientVal?.value ? clientVal.value : 'all'}`)
     urls.push(`orderType=${  orderType ? orderType.value : 'all'}`)

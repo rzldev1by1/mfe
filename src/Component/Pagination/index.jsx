@@ -22,7 +22,7 @@ const Pagination = ({ pagination, data, goto, page, setPage }) => {
   const tmp_startIndex = data?.length > 0 && startIndex < 1 ? 1 : startIndex;
   // pagination
   const x_total = pagination && pagination.total ? pagination.total : total;
-  // const x_last_page = (pagination && pagination.last_page) ? pagination.last_page : 1;
+  const x_last_page = (pagination && pagination.last_page) ? pagination.last_page : 1;
   const x_from = pagination && pagination.from ? pagination.from : tmp_startIndex;
   const x_to = pagination && pagination.to ? pagination.to : endIndex;
   return (
@@ -76,7 +76,11 @@ const Pagination = ({ pagination, data, goto, page, setPage }) => {
         </CCol>
 
         {/* Modal Pagination */}
-        <PopUpPages page={page} setPage={setPage} />
+        <PopUpPages 
+          page={page} 
+          setPage={setPage} 
+          xLastPage={x_last_page}
+        />
       </CRow>
     </div>
   );
