@@ -67,7 +67,7 @@ const Pagination = ({ pagination, data, goto, page, setPage }) => {
             </CCard>
           </CCardGroup>
         </CCol>
-        <CCol lg="3" className="mt-3 showing px-0" style={{ flex: '0 0 30%', maxWidth: '30%', marginLeft: '-3.2rem' }}>
+        <CCol lg="3" className="mt-3 pl-4 showing px-0" style={{ flex: '0 0 30%', maxWidth: '30%', marginLeft: '-3.2rem' }}>
           <span className="text-muted-s">
             {' Showing '}
             <b className="text-muted-dark">{`${x_from} to ${x_to} of ${x_total} `}</b>

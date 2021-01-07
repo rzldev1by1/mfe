@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CButton } from '@coreui/react';
@@ -8,10 +9,20 @@ import { schemaColumn, exportColumns } from './services';
 import { searchPurchaseOrder } from '../../apiService';
 import Create from './Create';
 
-const PurchaseOrders = () => {
+const PurchaseOrders = (props) => {
+  const showDetails = (item) => {
+    props.history.push(`/purchase-order/${item.site}/${item.client}/${item.order_no}`);
+  };
+
   const dispatch = useDispatch();
   const poSummaryData = useSelector((state) => state.poSummaryData);
   const pagination = useSelector((state) => state.pagination);
+  const user = useSelector((state) => state.user);
+  const item = user;
+  const [active, setActive] = useState(1);
+  const [showModal, setShowModal] = useState(false);
+  const height = window.innerHeight - 257;
+  const widht = window.innerWidth;
 
   const [page, setPage] = useState({
     // Paging
@@ -19,7 +30,7 @@ const PurchaseOrders = () => {
     goPage: 1,
     // table
     data: [],
-    tableStatus: 'waiting',
+    tableStatus: 'lol',
     status: null,
     search: '',
     active: '',
@@ -32,8 +43,8 @@ const PurchaseOrders = () => {
   const [Export, setExport] = useState(false);
   const height = window.innerHeight - 257;
   const widht = window.innerWidth;
+  const newPage = { ...page };
   useEffect(() => {}, [page]);
-
   useEffect(() => {
     searchPurchaseOrder({ dispatch, page, active, setPage });
   }, [active]);
@@ -57,17 +68,27 @@ const PurchaseOrders = () => {
       />
       <div>
         <div>
-          <Search filterSite filterClient filterStatus filterOrderType filterTask placeholder="Enter SKU" filter />
+          <Search
+            page={page}
+            setPage={setPage}
+            filterSite
+            filterClient
+            filterStatus
+            filterOrderType
+            filterTask
+            placeholder="Enter SKU"
+            filter
+          />
         </div>
         <div>
           <TableMaster
+            onClick={showDetails}
             schemaColumn={schemaColumn}
             data={poSummaryData}
             style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
             module="Purchase Orders"
-            onClick={`/purchase-order/${item.site}/${item.client}/${item.order_no}`}
             noDataText
-            tableStatus
+            tableStatus={newPage.tableStatus}
             pagination={pagination}
             goto={(e) => {
               setActive(e);

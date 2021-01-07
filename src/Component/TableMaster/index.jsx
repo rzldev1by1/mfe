@@ -26,11 +26,11 @@ const TableMaster = ({
   return (
     <div>
       <Table
+        onClick={onClick}
         schemaColumn={schemaColumn}
         data={data}
         style={style}
         module={module}
-        onClick={onClick}
         page={page}
         setPage={setPage}
         noDataText={noDataText}

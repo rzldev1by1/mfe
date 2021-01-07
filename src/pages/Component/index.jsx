@@ -35,7 +35,7 @@ const Component = () => {
           />
         </div>
         <div>
-          <Search
+          {/* <Search
             filterSite
             filterClient
             filterStatus
@@ -43,7 +43,7 @@ const Component = () => {
             filterTask
             placeholder='Enter SKU'
             filter
-          />
+          /> */}
         </div>
         <CRow className='pl-3'>
           <CCol lg={2} className="px-0 pb-3">
