@@ -37,7 +37,8 @@ const searchPurchaseOrder = async ({
     
     const  newData  = await axios.get(`${endpoints.purchaseOrder}?${urls.join('&')}`)
     if (newData?.data?.data) {
-      const modifiedData = newData.data.data.data
+      let modifiedData = newData.data.data.data
+      
       if ( export_ === 'true' ) {
         const exportData = modifiedData
       } else {
@@ -51,6 +52,7 @@ const searchPurchaseOrder = async ({
           }
           const paging = pagination
           newPage.data = modifiedData
+
           dispatch({type:'GET_PO_SUMMARY', data:modifiedData})
           dispatch({type:'PAGING', data:paging})
       }
