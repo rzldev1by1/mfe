@@ -88,6 +88,7 @@ const Table = ({
           user={user}
           title={title}
           fields={schemaColumn}
+          columnHidden={columnHidden}
         />
 
       </div>

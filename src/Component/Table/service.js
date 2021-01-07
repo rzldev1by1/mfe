@@ -1,22 +1,18 @@
 import React from 'react'
  
 
-export const renewColumn = ({ schemaColumn, columnHidden, module, userId, editColumn, showModal }) => {
+export const renewColumn = ({dispatch, schemaColumn, columnHidden, module, userId, editColumn, showModal }) => {
     // console.log(schemaColumn);
     // reorder column  
     const key = `tables__${module}__${userId}`
-    let schema = []
-    const oldSchema = localStorage.getItem(key) 
-    if (columnHidden !== null && columnHidden !== undefined) {
-        const schemaOrder = JSON.parse(oldSchema)
-         
+    let schema = [] 
+    if (columnHidden !== null && columnHidden !== undefined) {  
         schemaColumn.map((data) => {   
             if(columnHidden.includes(data.accessor)){
-                return 0;
-            }
- 
+                return 0; 
+            } 
             schema.push(data)
-        }) 
+        })  
     } else {
         schema = schemaColumn
     }

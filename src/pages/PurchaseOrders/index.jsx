@@ -35,14 +35,20 @@ const PurchaseOrders = () => {
   useEffect(() => {
     searchPurchaseOrder({ dispatch, page, active, setPage });
   }, [active]);
-
+  
   const [columnHidden, setColumnHidden] = useState(null);  
-  const [state2, setState2] = useState(null);  
-
-  if(!columnHidden || stateChangeHeader){
+  const [state2, setState2] = useState(null);   
+  if(!columnHidden){
     setColumnHidden(localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : []) 
     setState2(true)
   }
+  
+  useEffect(() => {
+    if(stateChangeHeader){ 
+      setColumnHidden(localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : [])  
+      setState2(true) 
+    }
+  }, [stateChangeHeader]);  
   
   useEffect(() => {
     if(state2){ 
@@ -54,8 +60,7 @@ const PurchaseOrders = () => {
       setState2(false)
       dispatch({type:'CHANGE_HEADER', data:false})
     }
-  }, [state2]);  
-  
+  }, [state2]);   
 
   return (
     <div>

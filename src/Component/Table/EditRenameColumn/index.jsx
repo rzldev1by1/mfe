@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { FaRegEdit } from 'react-icons/fa'
 import { MdClose } from 'react-icons/md'
@@ -15,24 +15,31 @@ const EditRenameColumn = ({
     editColumnTemp,
     user,
     title,
-    fields
+    fields,
+    columnHidden
 }) => {
-    const dispatch = useDispatch() 
+    const dispatch = useDispatch()  
     const [activeTab, setActiveTab] = useState(1)
-    const [editColumn, setEditColumn] = useState({})
+    const [editColumn, setEditColumn] = useState([])
     const [sameColumnsIdx, setSameColumnsIdx] = useState({})
     
     const closeModal = (closeMod, editColumnTemp) => {
         setShowMod(closeMod)
         setEditColumnTemp(editColumnTemp)
-    }
+    } 
 
+    useEffect(() => {  
+      setEditColumn(columnHidden)
+    },[columnHidden])
+
+    useEffect(() => {  },[editColumn])
       
     function activeTabIndex(tab) {
         if (activeTab !== tab) {
           setActiveTab(tab)
         }
     }
+    console.log(editColumn)
 
     return (
       <Modal
@@ -122,20 +129,18 @@ const EditRenameColumn = ({
                               <button
                                 type
                                 className={`text-left btn btn-block pl-2 ${
-                                  !editColumn[index]
+                                  !editColumn.includes(item.accessor) 
                                     ? 'btn-outline-primary'
                                     : 'btn-light-gray'
                                   }`}
-                                onClick={showColumn.bind(
-                                  this,
-                                  item.accessor,
-                                  index,
-                                  fields.length,
+                                onClick={() => showColumn({ 
+                                  header: item.accessor, 
+                                  length: fields.length,
                                   editColumn,
                                   setEditColumn
-                                )}
+                                })}
                               >
-                                {!editColumn[index] ? (
+                                {!editColumn.includes(item.accessor)  ? (
                                   <AiOutlineEye size={25} />
                                 ) : (
                                     <AiOutlineEyeInvisible size={25} />
