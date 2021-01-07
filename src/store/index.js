@@ -57,6 +57,8 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, total_length: data };
     case 'CHANGED_USER':
       return { ...state, lastChangedUser: data };
+    case 'CHANGE_HEADER':
+      return { ...state, changeHeader: data };
 
     // Pagingation
     case 'PAGING':

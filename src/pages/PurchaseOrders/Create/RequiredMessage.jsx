@@ -9,7 +9,7 @@ const RequiredMessage = ({ isValidation, data, column, columnText }) => {
     message = columnText + ' must be entered';
   }
 
-  if (column == 'OrderLines') {
+  if (column === 'OrderLines') {
     if (!data) {
       message = 'At least one line is required to continue';
     } else {
@@ -17,7 +17,7 @@ const RequiredMessage = ({ isValidation, data, column, columnText }) => {
     }
   }
 
-  if (column == 'orderNo' && value) {
+  if (column === 'orderNo' && value) {
     if (value && value.length < 4) {
       message = columnText + ' must have min 4 characters';
     }

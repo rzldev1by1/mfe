@@ -1,6 +1,7 @@
 import React from 'react';
 
 // Component
+const Welcome = React.lazy(() => import('./pages/Welcome/Welcome'));
 const Component = React.lazy(() => import('../src/pages/Component'));
 const PurchaseOrders = React.lazy(() => import('../src/pages/PurchaseOrders'));
 // const PurchaseOrdersDetail = React.lazy(() => import('../src/pages/PurchaseOrders/Detail'));
@@ -9,6 +10,12 @@ const PurchaseOrders = React.lazy(() => import('../src/pages/PurchaseOrders'));
 const routes = [
 
 	// Component Start --------------------------------------------------------
+	{ 
+		path: '/', 
+		exact: true, 
+		name: 'Microlistics', 
+		component: Welcome 
+	},
 	{ 
 		path: '/component',
 		exact: true,

@@ -1,19 +1,42 @@
+import React from 'react'
+ 
 
-export const renewColumn = ({ schemaColumn, module, userId }) => {
-
-    // reorder column
-    let key = `tables__${module}__${userId}`
+export const renewColumn = ({ schemaColumn, columnHidden, module, userId, editColumn, showModal }) => {
+    // console.log(schemaColumn);
+    // reorder column  
+    const key = `tables__${module}__${userId}`
     let schema = []
-    const oldSchema = localStorage.getItem(key)
-    if (oldSchema !== null && oldSchema !== undefined) {
+    const oldSchema = localStorage.getItem(key) 
+    if (columnHidden !== null && columnHidden !== undefined) {
         const schemaOrder = JSON.parse(oldSchema)
-        schemaColumn.map((data) => {
-            const schemaOrderIndex = schemaOrder.indexOf(data.accessor);
-            schema[schemaOrderIndex] = data
-        })
+         
+        schemaColumn.map((data) => {   
+            if(columnHidden.includes(data.accessor)){
+                return 0;
+            }
+ 
+            schema.push(data)
+        }) 
     } else {
         schema = schemaColumn
     }
+
+    // Edit & Rename Column button icon
+    if (editColumn !== 'false') {
+        const editBtn = (
+          <div className='edit-column' onClick={showModal.bind(this, true)}>
+            <i className='iconU-edit' /> 
+          </div>
+        )
+        const obj = {
+          Header: editBtn,
+          accessor: 'editBtn',
+          width: 50,
+          style: { textAlign: 'center' },
+          sortable: false
+        };
+        schema = [...schema, obj];
+      }
 
     return schema;
 };
@@ -35,15 +58,15 @@ export const saveSchemaToLocal = ({
     module
 }) => {
     // get old schema from local storage data , if null then set schemaColumn as oldSchema 
-    let key = `tables__${module}__${userId}`
-    let newSchemaOrder = []
+    const key = `tables__${module}__${userId}`
+    const newSchemaOrder = []
     let oldSchema = localStorage.getItem(key)
     if (oldSchema === null || oldSchema === undefined) {
         oldSchema = schemaColumn.map((data) => {
             return data.accessor
         })
     } else {
-        let tmp = oldSchema
+        const tmp = oldSchema
         oldSchema = JSON.parse(oldSchema)
     }
     const {length} = oldSchema
@@ -58,7 +81,7 @@ export const saveSchemaToLocal = ({
         if (i < newIndex) {
             // index before new index, position will same
             newSchemaOrder[i] = oldSchema[i]
-        } else if (i == newIndex) {
+        } else if (i === newIndex) {
             // index == newindex, abaikan
             i++;
             continue;

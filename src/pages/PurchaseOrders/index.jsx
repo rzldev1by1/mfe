@@ -12,7 +12,7 @@ const PurchaseOrders = () => {
   const dispatch = useDispatch();
   const poSummaryData = useSelector((state) => state.poSummaryData);
   const pagination = useSelector((state) => state.pagination);
-
+  const stateChangeHeader = useSelector((state) => state.changeHeader); 
   const [page, setPage] = useState({
     // Paging
     notifPaging: false,
@@ -35,6 +35,27 @@ const PurchaseOrders = () => {
   useEffect(() => {
     searchPurchaseOrder({ dispatch, page, active, setPage });
   }, [active]);
+
+  const [columnHidden, setColumnHidden] = useState(null);  
+  const [state2, setState2] = useState(null);  
+
+  if(!columnHidden || stateChangeHeader){
+    setColumnHidden(localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : []) 
+    setState2(true)
+  }
+  
+  useEffect(() => {
+    if(state2){ 
+      let x = columnHidden?.map((data,idx) => {
+        if(data.title==="Purchase Order Summary"){
+          setColumnHidden(data.columns);
+        }
+      }) 
+      setState2(false)
+      dispatch({type:'CHANGE_HEADER', data:false})
+    }
+  }, [state2]);  
+  
 
   return (
     <div>
@@ -66,6 +87,9 @@ const PurchaseOrders = () => {
             exportData
             page={page}
             setPage={setPage}
+            user={user}
+            title="Purchase Order Summary"
+            columnHidden={columnHidden}
           />
         </div>
       </div>

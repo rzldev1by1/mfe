@@ -18,6 +18,10 @@ const TableMaster = ({
     pagination,
     goto,
     exportData,
+    user,
+    fields,
+    title,
+    columnHidden
 }) => {
     return(
       <div>
@@ -31,6 +35,9 @@ const TableMaster = ({
           setPage={setPage}
           noDataText={noDataText}
           tableStatus={tableStatus}
+          user={user}
+          title={title}
+          columnHidden={columnHidden}
         />
         <CRow lg="12" className="mt-3 pagination-custom">
           <CCol lg="7" className="px-0 margin-mr">
