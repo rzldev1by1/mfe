@@ -101,6 +101,13 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, createPO: tmp };
     // end resources
 
+    // Export
+    case 'EXPORT_DATA':
+      return { ...state, exportData: data };
+    case 'EXPORT_STATUS':
+      return { ...state, exportStatus: data };
+    // end Export
+
     default:
       return state;
   }

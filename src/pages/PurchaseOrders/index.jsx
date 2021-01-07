@@ -4,7 +4,7 @@ import { CButton } from '@coreui/react';
 import Search from '../../Component/Search';
 import Breadcrumb from '../../Component/Breadcrumb';
 import TableMaster from '../../Component/TableMaster';
-import { schemaColumn } from './services';
+import { schemaColumn, exportColumns } from './services';
 import { searchPurchaseOrder } from '../../apiService';
 import Create from './Create';
 
@@ -25,9 +25,11 @@ const PurchaseOrders = () => {
     active: '',
   });
   const user = useSelector((state) => state.user);
+  const exportData = useSelector((state) => state.exportData);
   const item = user;
   const [active, setActive] = useState(1);
   const [showModal, setShowModal] = useState(false);
+  const [Export, setExport] = useState(false);
   const height = window.innerHeight - 257;
   const widht = window.innerWidth;
   useEffect(() => {}, [page]);
@@ -35,6 +37,13 @@ const PurchaseOrders = () => {
   useEffect(() => {
     searchPurchaseOrder({ dispatch, page, active, setPage });
   }, [active]);
+
+  useEffect(() => {
+    if (Export === true) {
+      setExport(false);
+      searchPurchaseOrder({ dispatch, page, active, setPage, Export });
+    }
+  }, [Export]);
 
   return (
     <div>
@@ -63,13 +72,16 @@ const PurchaseOrders = () => {
             goto={(e) => {
               setActive(e);
             }}
-            exportData
+            exportColumns={exportColumns}
+            exportData={exportData}
             page={page}
             setPage={setPage}
-            title='Purchase Order Summary'
-            filename='Microlistics_PurchaseOrder.'
+            title="Purchase Order Summary"
+            filename="Microlistics_PurchaseOrder."
             font="9"
-            exportApi={async () => { await searchPurchaseOrder({ dispatch}) }}
+            getExportData={async () => {
+              setExport(true);
+            }}
           />
         </div>
       </div>
