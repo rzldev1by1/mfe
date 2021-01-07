@@ -5,7 +5,7 @@ import ReactTable from 'react-table-v6';
 import withDraggableColumns from 'react-table-hoc-draggable-columns';
 
 // import style
-import loading from '../../assets/icons/loading/LOADING-MLS-GRAY.gif';
+import loading from 'assets/icons/loading/LOADING-MLS-GRAY.gif';
 import { setDraggableColumn, saveSchemaToLocal, renewColumn } from './service';
 import 'react-table-v6/react-table.css';
 import 'react-table-hoc-draggable-columns/dist/styles.css';
@@ -32,7 +32,7 @@ const Table = ({
   );
   const loadingMessage = (
     <div>
-      <img src={loading} alt="" width="45" height="45" />
+      <img src={loading} width="45" height="45" />
     </div>
   );
   const icon = (
@@ -54,8 +54,9 @@ const Table = ({
 
   // renew Schema column, to get old order column or additional logic
   const newSchema = renewColumn({ schemaColumn, module, userId });
+
   return (
-    <div className={data && data < 1 ? 'TableDownHover'  : 'Table'}>
+    <div className="Table">
       <ReactTableDraggableColumns
         draggableColumns={{
           mode: 'reorder',
@@ -74,9 +75,10 @@ const Table = ({
             onClick: (e, handleOriginal) => {
               !!onClick && onClick(rowInfo.original, state, column, e, instance);
             },
+            // eslint-disable-next-line no-restricted-globals
             style: {
+              textAlign: isNaN(rowInfo?.original[column.id]) ? 'left' : 'right',
               height: '3rem',
-              cursor: !!onClick && 'pointer',
             },
           };
         }}
