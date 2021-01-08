@@ -56,7 +56,7 @@ const Table = ({
   const newSchema = renewColumn({ schemaColumn, module, userId });
 
   return (
-    <div className="Table">
+    <div className={data && data < 1 || data === undefined ? 'TableDownHover'  : 'Table'}>
       <ReactTableDraggableColumns
         draggableColumns={{
           mode: 'reorder',
