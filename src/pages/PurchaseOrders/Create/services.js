@@ -1,24 +1,8 @@
 import axios from 'axios';
 import endpoints from 'helpers/endpoints';
 import numeral from 'numeral';
-
-export const getResources = async ({ user, dispatch }) => {
-  //get site and order type
-  const { data } = await axios.get(`${endpoints.getPOResources}?company=${user.company}&client=${user.client}`);
-  const orderTypeFilterData = data.orderTypeFilter.map((data, i) => ({
-    value: data.code,
-    label: `${data.code}: ${data.description}`,
-  }));
-  const site = data.site.map((data) => ({ value: data.site, label: `${data.site}: ${data.name}` }));
-  const orderTypeData = data.orderType.map((data, i) => ({
-    value: data.code,
-    label: `${data.code}: ${data.description}`,
-  }));
-
-  //get client
-  let resources = { site: site, orderType: orderTypeData };
-  dispatch({ type: 'PO_RESOURCES', data: resources });
-};
+import { checkOrderNo, submitPurchaseOrder } from 'apiService';
+import { getUOM } from 'apiService/dropdown';
 
 export const validation = async ({ dispatch, data, setActiveTab }) => {
   //initial
@@ -109,6 +93,27 @@ export const changeOrderDetails = ({ column, value, dispatch }) => {
   dispatch({ type: 'CREATE_PO_DETAILS', data: value, column });
 };
 
+export const changeOrderNo = async ({ orderNo, client, setCheckingOrderNo, dispatch }) => {
+  if (!client) {
+    setCheckingOrderNo({ status: false, message: 'Please select client' });
+    return;
+  }
+
+  if (orderNo && orderNo.length < 4) {
+    setCheckingOrderNo({ status: false, message: 'Order No must have min 4 characters' });
+    return;
+  } else {
+    setCheckingOrderNo({ status: true, message: '' });
+  }
+
+  let ret = await checkOrderNo({ client, orderNo });
+  if (ret.status) {
+    changeOrderDetails({ column: 'orderNo', value: orderNo, dispatch });
+  } else {
+    setCheckingOrderNo({ status: ret.status, message: ret.message });
+  }
+};
+
 export const changeOrderLines = ({ val, column, index, dispatch }) => {
   //use formatter
   const formaterColumn = ['weight', 'qty'];
@@ -166,35 +171,6 @@ export const lineChange = (i, e, line, setLine) => {
   setLine(newOrderLine);
 };
 
-export const getDisposition = async ({ dispatch }) => {
-  const url = `${endpoints.getDisposition}`;
-  const { data } = await axios.get(url);
-  const dispositionData = [];
-  data.code.map((c, i) => {
-    if (c.length > 0 && c != ' ') dispositionData.push({ value: c, label: c, i });
-  });
-  dispatch({ type: 'CREATE_PO_DISPOSITION', data: dispositionData });
-};
-
-export const getSupplier = async ({ createPO, setSupplier }) => {
-  let site = createPO?.orderDetails?.site?.value?.value;
-  let client = createPO?.orderDetails?.client?.value?.value;
-  const { data } = await axios.get(`${endpoints.getSupplier}?client=${client || ''}&site=${site || ''}`);
-  const supplierData = data.map((d) => ({ value: d.supplier_no, label: `${d.supplier_no}: ${d.name}` }));
-  setSupplier(supplierData);
-};
-
-export const getProduct = async ({ orderDetails, val, setIsLoading, setIsProduct }) => {
-  const client = orderDetails?.client?.value?.value;
-  const url = `${endpoints.getProduct}?client=${client || ''}&param=${val.toUpperCase()}`;
-  // const orderLine = this.state.orderLine;
-  // orderLine[i].productIsLoad = true;
-  const { data } = await axios.get(url);
-  const productData = data.map((data, i) => ({ value: data.code, label: `${data.name}`, i }));
-  setIsLoading(false);
-  setIsProduct(productData);
-};
-
 export const productHandler = async ({ val, column, index, dispatch, orderDetails, setIsUom }) => {
   //set redux
   let tmp_column = { column: column, index: index };
@@ -203,8 +179,7 @@ export const productHandler = async ({ val, column, index, dispatch, orderDetail
   //get uom
   const client = orderDetails?.client?.value?.value;
   const product = val?.value;
-  const url = `${endpoints.getUom}?client=${client || ''}&product=${product || ''}`;
-  const { data } = await axios.get(url);
+  let data = await getUOM({ client, product });
   const uomData = data.uom.map((c, i) => ({ value: c, label: c }));
   setIsUom(uomData);
 };
@@ -308,7 +283,7 @@ export const submit = async ({ data, user, setIsSubmitReturn, setActiveTab, setI
     newOrderLines.push(tmp);
   });
 
-  const ret = await axios.post(endpoints.purchaseOrderCreate, { orderDetails, lineDetails: newOrderLines });
+  const ret = await submitPurchaseOrder({ orderDetails, lineDetails: newOrderLines });
 
   //check return
   let status = ret?.status;

@@ -6,17 +6,12 @@ import DatePicker from 'shared/DatePicker';
 import Input from 'Component/Input';
 import FormLine from './FormLine';
 import RequiredMessage from './RequiredMessage';
-import {
-  changeOrderDetails,
-  addLine,
-  getSupplier,
-  removeLine,
-  lineChange,
-  addOrderLines,
-  getClientOption,
-} from './services';
-import './style.scss';
+
+import { changeOrderDetails, addOrderLines, changeOrderNo } from './services';
+import { getSupplier } from 'apiService/dropdown';
 import { validate } from 'email-validator';
+
+import './style.scss';
 
 const Form = ({ activeTab, isValidation }) => {
   const dispatch = useDispatch();
@@ -33,6 +28,7 @@ const Form = ({ activeTab, isValidation }) => {
   const [isReadonly, setIsReadOnly] = useState(false);
   const [orderLineSelectOpen, setOrderLineSelectOpen] = useState(false);
   const [dropdownExpandStyle, setDropdownExpandStyle] = useState(null);
+  const [checkingOrderNo, setCheckingOrderNo] = useState(null);
   const { company, client, site } = user;
   const orderDetails = createPO?.orderDetails;
 
@@ -177,14 +173,23 @@ const Form = ({ activeTab, isValidation }) => {
             showTitle
             placeholder="Order No"
             maxLength={30}
-            onChange={(e) => changeOrderDetails({ column: 'orderNo', value: e.target.value, dispatch })}
+            // onChange={(e) => changeOrderDetails({ column: 'orderNo', value: e.target.value, dispatch })}
+            onChange={(e) =>
+              changeOrderNo({
+                orderNo: e.target.value,
+                client: orderDetails?.client?.value?.value,
+                setCheckingOrderNo,
+                dispatch,
+              })
+            }
             required
             readOnly={isReadonly}
           />
           <RequiredMessage
             column="orderNo"
             columnText="Order No."
-            isValidation={isValidation}
+            isValidation={isValidation || checkingOrderNo?.status === false}
+            customMessage={checkingOrderNo}
             data={orderDetails?.orderNo}
           />
         </Col>
