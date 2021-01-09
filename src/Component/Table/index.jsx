@@ -1,6 +1,6 @@
 // import library
 import React, {useState} from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 import ReactTable from 'react-table-v6'
 import withDraggableColumns from 'react-table-hoc-draggable-columns';
 import loading from '../../assets/icons/loading/LOADING-MLS-GRAY.gif'
@@ -18,7 +18,11 @@ const Table = ({
     data,
     style,
     module,
+    page,
+    setPage,
+    noDataText,
     tableStatus,
+    groupHeader = false,
     user,
     fields,
     title,
@@ -51,36 +55,35 @@ const Table = ({
     const newSchema = renewColumn({ schemaColumn, module, userId, editColumnTemp,columnHidden, showModal })
  
 
-    return (
-      <div className="Table">
-        <ReactTableDraggableColumns
-          draggableColumns={{
-                    mode: 'reorder',
-                    draggable: draggableColumn,
-                    onDropSuccess: (draggedColumn, targetColumn, oldIndex, newIndex) => saveSchemaToLocal({ userId, schemaColumn, module, draggedColumn, targetColumn, oldIndex, newIndex })
-                }}
-          columns={newSchema}
-          data={data}
-          showPagination={false}
-          style={style}
-          noDataText={tableStatus === "noData" ? noDataMessage : loadingMessage}
-          minRows='1'
-          getTdProps={(state, rowInfo, column,  instance) => {
-                    return {
-                      onClick: (e, handleOriginal) => {
-                        !! onClick &&
-                          onClick(rowInfo.original, state, column, e, instance);
-                      },
-                        // eslint-disable-next-line no-restricted-globals
-                        style: { 
-                          textAlign: isNaN(rowInfo?.original[column.id]) ? 'left' : 'right',
-                          height: "3rem",
-                        }
-                    }
-                }}
-        />
-
-        <EditRenameColumn 
+  return (
+    <div className={data && data < 1 || data === undefined ? 'TableDownHover'  : 'Table'}>
+      <ReactTableDraggableColumns
+        draggableColumns={{
+          mode: 'reorder',
+          draggable: draggableColumn,
+          onDropSuccess: (draggedColumn, targetColumn, oldIndex, newIndex) =>
+            saveSchemaToLocal({ userId, schemaColumn, module, draggedColumn, targetColumn, oldIndex, newIndex }),
+        }}
+        columns={newSchema}
+        data={data}
+        showPagination={false}
+        style={style}
+        noDataText={tableStatus === 'noData' ? noDataMessage : loadingMessage}
+        minRows="1"
+        getTdProps={(state, rowInfo, column, instance) => {
+          return {
+            onClick: (e, handleOriginal) => {
+              !!onClick && onClick(rowInfo.original, state, column, e, instance);
+            },
+            // eslint-disable-next-line no-restricted-globals
+            style: {
+              textAlign: isNaN(rowInfo?.original[column.id]) ? 'left' : 'right',
+              height: '3rem',
+            },
+          };
+        }}
+      />
+      <EditRenameColumn 
           showModal={showMod}
           setShowMod={setShowMod}
           setEditColumnTemp={setEditColumnTemp}
@@ -90,9 +93,8 @@ const Table = ({
           fields={schemaColumn}
           columnHidden={columnHidden}
         />
-
-      </div>
-    )
+    </div>
+  )
 }
 
 export default Table

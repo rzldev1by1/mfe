@@ -5,7 +5,7 @@ import { CButton } from '@coreui/react';
 import Search from '../../Component/Search';
 import Breadcrumb from '../../Component/Breadcrumb';
 import TableMaster from '../../Component/TableMaster';
-import { schemaColumn, exportColumns } from './services';
+import { schemaColumn } from './services';
 import { searchPurchaseOrder } from '../../apiService';
 import Create from './Create';
 
@@ -17,14 +17,17 @@ const PurchaseOrders = (props) => {
   const dispatch = useDispatch();
   const poSummaryData = useSelector((state) => state.poSummaryData);
   const pagination = useSelector((state) => state.pagination);
-  const stateChangeHeader = useSelector((state) => state.changeHeader); 
   const user = useSelector((state) => state.user);
+
   const exportData = useSelector((state) => state.exportData);
   const item = user;
   const [active, setActive] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [Export, setExport] = useState(false);
   const height = window.innerHeight - 257;
+  const widht = window.innerWidth;
+  const newPage = { ...page };
+  useEffect(() => {}, [page]);
 
   const [page, setPage] = useState({
     // Paging
@@ -37,67 +40,30 @@ const PurchaseOrders = (props) => {
     search: '',
     active: '',
   });
-  const widht = window.innerWidth;
-  const newPage = { ...page };
-  useEffect(() => {}, [page]);
   useEffect(() => {
     searchPurchaseOrder({ dispatch, page, active, setPage });
   }, [active]);
-  
-  const [columnHidden, setColumnHidden] = useState(null);  
-  const [state2, setState2] = useState(null);   
-  if(!columnHidden){
-    setColumnHidden(localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : []) 
-    setState2(true)
-  }
-  
-  useEffect(() => {
-    if(stateChangeHeader){ 
-      setColumnHidden(localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : [])  
-      setState2(true) 
-    }
-  }, [stateChangeHeader]);  
-  
-  useEffect(() => {
-    if(state2){ 
-      let x = columnHidden?.map((data,idx) => {
-        if(data.title==="Purchase Order Summary"){
-          setColumnHidden(data.columns);
-        }
-      }) 
-      setState2(false)
-      dispatch({type:'CHANGE_HEADER', data:false})
-    }
-  }, [state2]);   
-
-  useEffect(() => {
-    if (Export === true) {
-      setExport(false);
-      searchPurchaseOrder({ dispatch, page, active, setPage, Export });
-    }
-  }, [Export]);
-
   return (
     <div>
       <Breadcrumb
         breadcrumb={[{ to: '/purchase-order', label: 'Purchase Order', active: true }]}
-        button={
+        button={(
           <CButton onClick={() => setShowModal(true)} className="btn btn-primary btn-create float-right">
             CREATE PURCHASE ORDER
           </CButton>
-        }
+        )}
       />
       <div>
         <div>
-          <Search
+          <Search 
             page={page}
             setPage={setPage}
-            filterSite
-            filterClient
-            filterStatus
-            filterOrderType
-            filterTask
-            placeholder="Enter an Order No"
+            filterSite 
+            filterClient 
+            filterStatus 
+            filterOrderType 
+            filterTask 
+            placeholder="Enter SKU" 
             filter
           />
         </div>
@@ -114,18 +80,9 @@ const PurchaseOrders = (props) => {
             goto={(e) => {
               setActive(e);
             }}
-            exportColumns={exportColumns}
-            exportData={exportData}
+            exportData
             page={page}
             setPage={setPage}
-            user={user}
-            columnHidden={columnHidden}
-            title="Purchase Order Summary"
-            filename="Microlistics_PurchaseOrder."
-            font="9"
-            getExportData={async () => {
-              setExport(true);
-            }}
           />
         </div>
       </div>

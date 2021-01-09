@@ -1,21 +1,24 @@
-const setSite = ({ selected, dispatch }) => {
-    if (selected) dispatch({ type: 'SITE', data:selected })
-}
+export const setSite = ({ selected, action, dispatch }) => {
+  if (selected) dispatch({ type: 'SITE', data: selected });
+  else dispatch({ type: 'SITE', data: null });
+};
 
-const setClient = ({ selected, dispatch }) => {
-    if (selected) dispatch({ type: 'CLIENT', data: selected })
-}
+export const setClient = ({ selected, dispatch }) => {
+  if (selected) dispatch({ type: 'CLIENT', data: selected });
+  else dispatch({ type: 'CLIENT', data: null });
+};
 
-const setOrderType = ({selected, dispatch}) => {
-    if (selected) dispatch({type:'ORDER_TYPE', data: selected})
-}
+export const setOrderType = ({ selected, dispatch }) => {
+  if (selected) dispatch({ type: 'ORDER_TYPE', data: selected });
+  else dispatch({ type: 'ORDER_TYPE', data: null });
+};
 
-const setTask = ({selected, dispatch}) => {
-    if (selected) dispatch({type:'TASK', data:selected})
-}
+export const setTask = ({ selected, dispatch }) => {
+  if (selected) dispatch({ type: 'TASK', data: selected });
+  else dispatch({ type: 'TASK', data: null });
+};
 
-const setStatus = ({selected, dispatch}) => {
-    if (selected) dispatch({type:'STATUS', data:selected})
-}
-
-export {setSite, setClient, setOrderType, setTask, setStatus}
+export const setStatus = ({ selected, dispatch }) => {
+  if (selected) dispatch({ type: 'STATUS', data: selected });
+  else dispatch({ type: 'STATUS', data: null });
+};

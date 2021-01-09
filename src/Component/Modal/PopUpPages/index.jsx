@@ -17,7 +17,7 @@ class PopUpPages extends Component {
     }
 
     render = () => {
-        const { page, setPage } = this.props
+        const { page, setPage, xLastPage } = this.props
         const newPage = { ...page }
         return (
           <Modal
@@ -38,8 +38,12 @@ class PopUpPages extends Component {
               <div className="d-flex d-inline-flex">
                 <img src={logoConfirm} alt="logo" style={{ width: "20%", height: "20%" }} />
                 <div className="pl-3 font">
-                  Only 3 pages are available on this screen, please try again. 
+                  Only
+                  {' '}  
+                  {xLastPage}
+                  {xLastPage === 1 ? " page is " : " pages are "}
                   {' '}
+                  available on this screen, please try again. 
                   <br />
                 </div>
               </div>

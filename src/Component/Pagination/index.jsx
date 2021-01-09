@@ -22,7 +22,7 @@ const Pagination = ({ pagination, data, goto, page, setPage }) => {
   const tmp_startIndex = data?.length > 0 && startIndex < 1 ? 1 : startIndex;
   // pagination
   const x_total = pagination && pagination.total ? pagination.total : total;
-  // const x_last_page = (pagination && pagination.last_page) ? pagination.last_page : 1;
+  const x_last_page = (pagination && pagination.last_page) ? pagination.last_page : 1;
   const x_from = pagination && pagination.from ? pagination.from : tmp_startIndex;
   const x_to = pagination && pagination.to ? pagination.to : endIndex;
   return (
@@ -67,7 +67,7 @@ const Pagination = ({ pagination, data, goto, page, setPage }) => {
             </CCard>
           </CCardGroup>
         </CCol>
-        <CCol lg="3" className="mt-3 showing px-0" style={{ flex: '0 0 30%', maxWidth: '30%', marginLeft: '-3.2rem' }}>
+        <CCol lg="3" className="mt-3 pl-4 showing px-0" style={{ flex: '0 0 30%', maxWidth: '30%', marginLeft: '-3.2rem' }}>
           <span className="text-muted-s">
             {' Showing '}
             <b className="text-muted-dark">{`${x_from} to ${x_to} of ${x_total} `}</b>
@@ -76,7 +76,11 @@ const Pagination = ({ pagination, data, goto, page, setPage }) => {
         </CCol>
 
         {/* Modal Pagination */}
-        <PopUpPages page={page} setPage={setPage} />
+        <PopUpPages 
+          page={page} 
+          setPage={setPage} 
+          xLastPage={x_last_page}
+        />
       </CRow>
     </div>
   );
