@@ -3,13 +3,13 @@ import React, {useState} from 'react'
 import { useSelector } from 'react-redux'
 import ReactTable from 'react-table-v6'
 import withDraggableColumns from 'react-table-hoc-draggable-columns';
-import loading from '../../assets/icons/loading/LOADING-MLS-GRAY.gif'
 import EditRenameColumn from './EditRenameColumn'
 
 // import style
-import { setDraggableColumn, saveSchemaToLocal, renewColumn } from './service'
-import 'react-table-v6/react-table.css'
-import 'react-table-hoc-draggable-columns/dist/styles.css'
+import loading from '../../assets/icons/loading/LOADING-MLS-GRAY.gif';
+import { setDraggableColumn, saveSchemaToLocal, renewColumn } from './service';
+import 'react-table-v6/react-table.css';
+import 'react-table-hoc-draggable-columns/dist/styles.css';
 import './style.scss';
 
 const Table = ({
