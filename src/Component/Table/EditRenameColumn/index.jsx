@@ -5,7 +5,7 @@ import { MdClose } from 'react-icons/md'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 import { Button, Container, Row, Col, Modal, Nav } from 'react-bootstrap'
 import { NavItem, NavLink, TabPane, TabContent } from 'reactstrap'
-import {showColumn, saveEdit} from './services'
+import {showColumn, saveEdit, changedColumn} from './services'
 import './style.scss'
 
 const EditRenameColumn = ({
@@ -19,27 +19,37 @@ const EditRenameColumn = ({
     columnHidden
 }) => {
     const dispatch = useDispatch()  
-    const [activeTab, setActiveTab] = useState(1)
-    const [editColumn, setEditColumn] = useState([])
-    const [sameColumnsIdx, setSameColumnsIdx] = useState({})
-    
+    const [state, setState] = React.useState({
+      editColumn: {},
+      error: {},
+      sameColumns: [],
+      sameColumnsIdx: [],
+      editColumn: [],
+      activeTab: '1',
+      changedColumns: [],
+      fields
+    })
+
     const closeModal = (closeMod, editColumnTemp) => {
         setShowMod(closeMod)
         setEditColumnTemp(editColumnTemp)
     } 
 
-    useEffect(() => {  
-      setEditColumn(columnHidden)
+    useEffect(() => { 
+      let newState = {...state}
+      newState.editColumn = columnHidden
+      setState(newState) 
     },[columnHidden])
 
-    useEffect(() => {  },[editColumn])
+    useEffect(() => {  },[state.editColumn])
       
     function activeTabIndex(tab) {
-        if (activeTab !== tab) {
-          setActiveTab(tab)
+        if (state.activeTab !== tab) {
+          let newState = {...state}
+          newState.activeTab = tab
+          setState(newState)
         }
     }
-    console.log(editColumn)
 
     return (
       <Modal
@@ -83,13 +93,13 @@ const EditRenameColumn = ({
                 <div className='input-group'>
                   <NavItem className='pl-0 pr-0'>
                     <NavLink
-                      className={`nav-link-cust tab-color${ activeTab === '1' ? ' tab-rename' : ''}`}
-                      active={activeTab === '1'}
+                      className={`nav-link-cust tab-color${ state.activeTab === '1' ? ' tab-rename' : ''}`}
+                      active={state.activeTab === '1'}
                       onClick={() => {activeTabIndex('1');}}
                     >
                       <div className='row rowTabCustom align-items-center'>
                         <span className='tabTitleText font-18'> 
-                          {activeTab === '1'}
+                          {state.activeTab === '1'}
                           TOGGLE COLUMN
                         </span>
                       </div>
@@ -98,15 +108,15 @@ const EditRenameColumn = ({
 
                   <NavItem className='pl-2 pr-0'>
                     <NavLink
-                      className={`nav-link-cust tab-color${ activeTab === '2' ? ' tab-rename' : ''}`}
-                      active={activeTab === '2'}
+                      className={`nav-link-cust tab-color${ state.activeTab === '2' ? ' tab-rename' : ''}`}
+                      active={state.activeTab === '2'}
                       onClick={() => {
                             activeTabIndex('2');
                           }}
                     >
                       <div className='row rowTabCustom align-items-center'>
                         <span className='tabTitleText font-18'>
-                          {activeTab === '2'}
+                          {state.activeTab === '2'}
                           {' '}
                           RENAME COLUMN
                         </span>
@@ -119,7 +129,7 @@ const EditRenameColumn = ({
           </Row>
           <Row>
             <Col sm='12' md='12' lg='12' className="px-0">
-              <TabContent activeTab={activeTab}>
+              <TabContent activeTab={state.activeTab}>
                 <TabPane tabId='1'>
                   <Row xl={5} lg={10} className='mx-1 grid-col'>
                     {fields &&
@@ -129,18 +139,18 @@ const EditRenameColumn = ({
                               <button
                                 type
                                 className={`text-left btn btn-block pl-2 ${
-                                  !editColumn.includes(item.accessor) 
+                                  !state.editColumn?.includes(item.accessor) 
                                     ? 'btn-outline-primary'
                                     : 'btn-light-gray'
                                   }`}
                                 onClick={() => showColumn({ 
                                   header: item.accessor, 
                                   length: fields.length,
-                                  editColumn,
-                                  setEditColumn
+                                  editColumn : state.editColumn,
+                                  setState
                                 })}
                               >
-                                {!editColumn.includes(item.accessor)  ? (
+                                {!state.editColumn?.includes(item.accessor)  ? (
                                   <AiOutlineEye size={25} />
                                 ) : (
                                     <AiOutlineEyeInvisible size={25} />
@@ -154,7 +164,7 @@ const EditRenameColumn = ({
                     <Button
                       variant='primary'
                       className='px-3 float-right'
-                      onClick={() => saveEdit({ editColumn, title, user, setEditColumnTemp, setShowModal: setShowMod, dispatch})}
+                      onClick={() => saveEdit({ editColumn: state.editColumn, title, user, setState, setShowModal: setShowMod, dispatch})}
                     >
                       SAVE
                     </Button>
@@ -166,7 +176,16 @@ const EditRenameColumn = ({
                         fields.map((item, index) => {
                           return (
                             <div key={index} className='p-2'>
-                             dddd
+                              <input
+                                id={index}
+                                autoComplete='off'
+                                placeholder={item.placeholder}
+                                name={item.headerData}
+                                sortable={item.sortable}
+                                value=''
+                                onChange={(e) => changedColumn({e, state, setState, fields})}
+                                className={"text-left form-rename"}
+                              />
                             </div>
                           )
                         })}

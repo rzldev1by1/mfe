@@ -84,15 +84,15 @@ const Table = ({
         }}
       />
       <EditRenameColumn 
-          showModal={showMod}
-          setShowMod={setShowMod}
-          setEditColumnTemp={setEditColumnTemp}
-          editColumnTemp={editColumnTemp}
-          user={user}
-          title={title}
-          fields={schemaColumn}
-          columnHidden={columnHidden}
-        />
+        showModal={showMod}
+        setShowMod={setShowMod}
+        setEditColumnTemp={setEditColumnTemp}
+        editColumnTemp={editColumnTemp}
+        user={user}
+        title={title}
+        fields={schemaColumn}
+        columnHidden={columnHidden}
+      />
     </div>
   )
 }

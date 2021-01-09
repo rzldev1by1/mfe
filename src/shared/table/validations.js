@@ -1,9 +1,8 @@
 import _ from 'lodash'
 import { isEmptyObject } from 'jquery';
+
 export default (thisState, changedColumn, renameField, indexField) => {
-  console.log(thisState)
-  console.log(changedColumn)
-  let { fields, sameColumns, sameColumnsIdx, error } = thisState
+  const { fields, sameColumns, sameColumnsIdx, error } = thisState
   fields.map((item, idx) => {
     if(idx !== indexField){
         if(renameField && renameField?.toUpperCase() === item?.Header?.toUpperCase()){

@@ -43,11 +43,9 @@ const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExp
       await getExportData();
     }
     getData();
-    console.log('exportData', exportData);
   }, [runExport]);
 
   useEffect(() => {
-    console.log('exportData', exportData);
     if (!exportData) {
       return;
     }
