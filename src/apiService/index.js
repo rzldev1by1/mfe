@@ -1,12 +1,12 @@
 import axios from 'axios';
 import endpoints from '../helpers/endpoints';
 
-const showDetails = ({ module, item }) => {
+export const showDetails = ({ module, item }) => {
   const url = `/${module}/${item.site}/${item.client}/${item.order_no}`;
   this.props.history.push(url);
 };
 
-const searchPurchaseOrder = async ({
+export const searchPurchaseOrder = async ({
   siteVal,
   clientVal,
   orderType,
@@ -33,7 +33,7 @@ const searchPurchaseOrder = async ({
   urls.push(`site=${siteVal?.value ? siteVal.value : 'all'}`);
   urls.push(`client=${clientVal?.value ? clientVal.value : 'all'}`);
   urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
-  urls.push(`status=${status ? status.value : 'all'}`);
+  urls.push(`status=${status ? status.value : 'open'}`);
   if (task && task.value !== 'all') urls.push(`task=${task.value}`);
   urls.push(`page=${active || 1}`);
   if (Export === true) {
@@ -70,4 +70,23 @@ const searchPurchaseOrder = async ({
   setPage(newPage);
 };
 
-export { showDetails, searchPurchaseOrder };
+export const checkOrderNo = async ({ client, orderNo }) => {
+  const { data } = await axios.post('/orderCheck', {
+    client: client,
+    order_no: orderNo,
+  });
+
+  if (data.message === 'not available') {
+    return { status: false, message: 'Order number exist' };
+  }
+  if (data.message === 'The client field is required.') {
+    return { status: false, message: 'Please select client' };
+  }
+
+  return { status: true, message: null };
+};
+
+export const submitPurchaseOrder = async ({ orderDetails, lineDetails }) => {
+  const ret = await axios.post(endpoints.purchaseOrderCreate, { orderDetails, lineDetails });
+  return ret;
+};

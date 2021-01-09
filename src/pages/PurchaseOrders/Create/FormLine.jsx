@@ -4,16 +4,10 @@ import Dropdown from 'Component/Dropdown';
 import DropdownAxios from 'Component/Dropdown/DropdownAxios';
 import DatePicker from 'shared/DatePicker';
 import RequiredMessage from './RequiredMessage';
+import InputNumber from 'Component/InputNumber';
 
-import {
-  getProduct,
-  productHandler,
-  numberCheck,
-  changeOrderLines,
-  customNumberFormat,
-  deleteOrderLines,
-} from './services';
-import NumberFormat from 'react-number-format';
+import { productHandler, numberCheck, changeOrderLines, deleteOrderLines } from './services';
+import { getProduct } from 'apiService/dropdown';
 
 const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrderLineSelectOpen }) => {
   const dispatch = useDispatch();
@@ -38,7 +32,7 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrde
             productHandler({ val, column: 'product', index, orderDetails, setIsUom, dispatch });
           }}
           onInputChange={(val) => {
-            getProduct({ val, orderDetails, setIsLoading, setIsProduct });
+            getProduct({ val, client: orderDetails?.client?.value?.value, setIsLoading, setIsProduct });
             setIsLoading(true);
           }}
           minChar={3}
@@ -73,7 +67,7 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrde
         <RequiredMessage column="qty" columnText="Qty" isValidation={isValidation} data={data?.qty} />
       </td>
       <td className="px-1">
-        <input
+        <InputNumber
           name="weight"
           autoComplete="off"
           onKeyPress={(e) => numberCheck(e)}
@@ -83,7 +77,7 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrde
           className="form-control"
           placeholder="Weight"
           maxlength="11"
-          readOnly={isReadonly}
+          isReadOnly={isReadonly}
         />
       </td>
       <td>

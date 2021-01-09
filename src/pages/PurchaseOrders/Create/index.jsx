@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Container } from 'react-bootstrap';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 import Form from './Form';
-import { getResources, resetCreate, getDisposition, validation, submit } from './services.js';
+import { resetCreate, validation, submit } from './services.js';
+import { getPOResources, getDisposition } from 'apiService/dropdown';
 import loading from 'assets/icons/loading/LOADING-MLS.gif';
 import MessageTab from 'Component/MessageTab';
 import './style.scss';
@@ -32,7 +33,7 @@ const Create = ({ show, setShow }) => {
 
   useEffect(() => {
     if (!resources || !disposition) {
-      getResources({ user, dispatch });
+      getPOResources({ user, dispatch });
       getDisposition({ dispatch });
     }
   }, [resources]);
