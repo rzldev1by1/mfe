@@ -6,34 +6,65 @@ import DatePicker from 'shared/DatePicker';
 import Input from 'Component/Input';
 import FormLine from './FormLine';
 import RequiredMessage from './RequiredMessage';
-import { changeOrderDetails, addLine, getSupplier, removeLine, lineChange, addOrderLines } from './services';
-import './style.scss';
+
+import { changeOrderDetails, addOrderLines, changeOrderNo } from './services';
+import { getSupplier } from 'apiService/dropdown';
 import { validate } from 'email-validator';
+
+import './style.scss';
 
 const Form = ({ activeTab, isValidation }) => {
   const dispatch = useDispatch();
   const resources = useSelector((state) => state.po_resources);
   const createPO = useSelector((state) => state.createPO);
-  const client = useSelector((state) => state.client_data);
+  const clientData = useSelector((state) => state.clientData);
+  const user = useSelector((state) => state.user);
 
   const [orderDate, setOrderDate] = useState({});
   const [line, setLine] = useState([]);
   const [clientOption, setClientOption] = useState(null);
-  const [supplier, setSupplier] = useState(null);
+  const [siteOption, setSiteOption] = useState(null);
+  const [supplier, setSupplier] = useState([]);
   const [isReadonly, setIsReadOnly] = useState(false);
   const [orderLineSelectOpen, setOrderLineSelectOpen] = useState(false);
   const [dropdownExpandStyle, setDropdownExpandStyle] = useState(null);
+  const [checkingOrderNo, setCheckingOrderNo] = useState(null);
+  const { company, client, site } = user;
   const orderDetails = createPO?.orderDetails;
 
   useEffect(() => {
+    // set client dropdown option
     let clientOption = [];
-    let tmp = client?.map((item, key) => {
+    let tmp = clientData?.map((item, key) => {
       if (item.value !== 'all') {
         clientOption.push(item);
       }
+
+      if (client === item.value) {
+        let val = {
+          value: item.value,
+          label: `${item.label}`,
+        };
+        changeOrderDetails({ column: 'client', value: val, dispatch });
+        return 0;
+      }
     });
     setClientOption(clientOption);
-  }, [client]);
+  }, [clientData]);
+
+  useEffect(() => {
+    // set site dropdown option
+    let tmp = resources?.site?.map((item, key) => {
+      if (site === item.value) {
+        let val = {
+          value: item.value,
+          label: `${item.label}`,
+        };
+        changeOrderDetails({ column: 'site', value: val, dispatch });
+        return 0;
+      }
+    });
+  }, [resources]);
 
   useEffect(() => {
     if (activeTab == 'review') {
@@ -64,12 +95,10 @@ const Form = ({ activeTab, isValidation }) => {
             options={resources?.site}
             title="Site"
             selectedValue={orderDetails?.site?.value}
-            onChangeDropdown={(selected) =>
-              changeOrderDetails({ type: 'details', column: 'site', value: selected, dispatch })
-            }
+            onChangeDropdown={(selected) => changeOrderDetails({ column: 'site', value: selected, dispatch })}
             showTitle
             required
-            readOnly={isReadonly}
+            readOnly={isReadonly || site}
           />
           <RequiredMessage column="site" columnText="Site" isValidation={isValidation} data={orderDetails?.site} />
         </Col>
@@ -80,9 +109,7 @@ const Form = ({ activeTab, isValidation }) => {
             showTitle
             title="Order Type"
             selectedValue={orderDetails?.orderType?.value}
-            onChangeDropdown={(selected) =>
-              changeOrderDetails({ type: 'details', column: 'orderType', value: selected, dispatch })
-            }
+            onChangeDropdown={(selected) => changeOrderDetails({ column: 'orderType', value: selected, dispatch })}
             required
             readOnly={isReadonly}
           />
@@ -101,9 +128,7 @@ const Form = ({ activeTab, isValidation }) => {
             title="Supplier"
             required={false}
             selectedValue={orderDetails?.supplier?.value}
-            onChangeDropdown={(selected) =>
-              changeOrderDetails({ type: 'details', column: 'supplier', value: selected, dispatch })
-            }
+            onChangeDropdown={(selected) => changeOrderDetails({ column: 'supplier', value: selected, dispatch })}
             readOnly={isReadonly}
           />
         </Col>
@@ -113,9 +138,7 @@ const Form = ({ activeTab, isValidation }) => {
             title="Customer Order Ref"
             showTitle
             placeholder="Customer Order Ref"
-            onChange={(e) =>
-              changeOrderDetails({ type: 'details', column: 'customerOrderRef', value: e.target.value, dispatch })
-            }
+            onChange={(e) => changeOrderDetails({ column: 'customerOrderRef', value: e.target.value, dispatch })}
             maxLength={30}
             readOnly={isReadonly}
           />
@@ -131,10 +154,10 @@ const Form = ({ activeTab, isValidation }) => {
             required
             selectedValue={orderDetails?.client?.value}
             onChangeDropdown={async (selected) => {
-              await changeOrderDetails({ type: 'details', column: 'client', value: selected, dispatch });
+              await changeOrderDetails({ column: 'client', value: selected, dispatch });
               getSupplier({ createPO, setSupplier });
             }}
-            readOnly={isReadonly}
+            readOnly={isReadonly || client}
           />
           <RequiredMessage
             column="client"
@@ -150,8 +173,14 @@ const Form = ({ activeTab, isValidation }) => {
             showTitle
             placeholder="Order No"
             maxLength={30}
+            // onChange={(e) => changeOrderDetails({ column: 'orderNo', value: e.target.value, dispatch })}
             onChange={(e) =>
-              changeOrderDetails({ type: 'details', column: 'orderNo', value: e.target.value, dispatch })
+              changeOrderNo({
+                orderNo: e.target.value,
+                client: orderDetails?.client?.value?.value,
+                setCheckingOrderNo,
+                dispatch,
+              })
             }
             required
             readOnly={isReadonly}
@@ -159,7 +188,8 @@ const Form = ({ activeTab, isValidation }) => {
           <RequiredMessage
             column="orderNo"
             columnText="Order No."
-            isValidation={isValidation}
+            isValidation={isValidation || checkingOrderNo?.status === false}
+            customMessage={checkingOrderNo}
             data={orderDetails?.orderNo}
           />
         </Col>
@@ -169,7 +199,7 @@ const Form = ({ activeTab, isValidation }) => {
             className="form-control"
             placeholder="Order Date"
             getDate={(date) => {
-              changeOrderDetails({ type: 'details', column: 'orderDate', value: date, dispatch });
+              changeOrderDetails({ column: 'orderDate', value: date, dispatch });
             }}
             readOnly={isReadonly}
             style={isReadonly ? { display: 'none' } : null}
@@ -195,9 +225,7 @@ const Form = ({ activeTab, isValidation }) => {
             title="Vendor Order Ref"
             showTitle
             placeholder="Vendor Order Ref"
-            onChange={(e) =>
-              changeOrderDetails({ type: 'details', column: 'vendorOrderRef', value: e.target.value, dispatch })
-            }
+            onChange={(e) => changeOrderDetails({ column: 'vendorOrderRef', value: e.target.value, dispatch })}
             maxLength={30}
             readOnly={isReadonly}
           />

@@ -72,7 +72,7 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
         return { ...state, poDetailTable: data };
     // Purchase Order End
 
-    // Resources for insert module
+    // Resources for insert PO
     case 'PO_RESOURCES':
       return { ...state, po_resources: data };
     case 'CREATE_PO':
@@ -103,7 +103,7 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       orderLines.splice(data, 1);
       tmp = { ...createPO, orderLines };
       return { ...state, createPO: tmp };
-    // end resources
+    // end resources PO
 
     // Export
     case 'EXPORT_DATA':
