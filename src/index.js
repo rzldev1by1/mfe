@@ -16,10 +16,7 @@ import * as serviceWorker from './serviceWorker';
 import { icons } from 'assets/icons';
 React.icons = icons;
 
-const persistedReducer = persistReducer(
-  { key: 'root', storage, whitelist: ['user', 'siteData', 'clientData'] },
-  rootReducer,
-);
+const persistedReducer = persistReducer({ key: 'root', storage, whitelist: ['user', 'site', 'client'] }, rootReducer);
 const middleware = composeWithDevTools(applyMiddleware(thunk));
 const store = createStore(persistedReducer, middleware);
 const persistor = persistStore(store);

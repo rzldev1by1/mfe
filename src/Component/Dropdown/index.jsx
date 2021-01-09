@@ -24,7 +24,7 @@ const Dropdown = ({
 }) => {
   const [isOpen, setIsOpen] = useState();
   const onChangeHandler = (selected, action) => {
-    if (action == 'clear') {
+    if (action === 'clear') {
       onChangeDropdown(null);
     } else {
       onChangeDropdown(selected);
@@ -68,7 +68,6 @@ const Dropdown = ({
         // menuPortalTarget={document.body}
         maxMenuHeight={200}
         menuPlacement={`${position?.bottom > 600 ? 'top' : 'bottom'}`}
-        // isClearable={true}
         styles={{
           option: (provided) => ({
             ...provided,
