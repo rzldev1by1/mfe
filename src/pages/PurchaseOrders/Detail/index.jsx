@@ -6,108 +6,10 @@ import Breadcrumb from 'Component/Breadcrumb';
 import DetailHeader from 'Component/DetailHeader';
 import TableMaster from 'Component/TableMaster';
 import { getDetail, getProductsTable } from '../services';
-import { setExportData } from './services';
-
-const columns = [
-  {
-    accessor: 'rn',
-    placeholder: 'Line Nooo',
-    Header: 'Line No',
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-  },
-  {
-    accessor: 'product',
-    placeholder: 'Product',
-    Header: 'Product',
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-  },
-  {
-    accessor: 'product_name',
-    placeholder: 'Description',
-    Header: 'Description',
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-  },
-  {
-    accessor: 'quantity',
-    Cell: (row) => <div className="alg-right">{row.value ? row.value : '-'}</div>,
-    placeholder: 'Qty',
-    Header: 'Qty',
-    sortType: 'float',
-  },
-  {
-    accessor: 'packdesc_1',
-    placeholder: 'UOM',
-    Header: 'UOM',
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-  },
-  {
-    accessor: 'qty_processed',
-    Cell: (row) => <div className="alg-right">{row.value ? row.value : '-'}</div>,
-    placeholder: 'Qty Processed',
-    Header: 'Qty Processed',
-    sortType: 'float',
-  },
-  {
-    accessor: 'weight',
-    Cell: (row) => <div className="alg-right">{row.value ? row.value : '-'}</div>,
-    placeholder: 'Wght',
-    Header: 'Wght',
-    sortType: 'float',
-  },
-  {
-    accessor: 'weight_processed',
-    Cell: (row) => <div className="alg-right">{row.value ? row.value : '-'}</div>,
-    placeholder: 'Wght Processed',
-    Header: 'Wght Processed',
-    sortType: 'float',
-  },
-  {
-    accessor: 'completed',
-    placeholder: 'Completed',
-    Header: 'Completed',
-    Cell: (row) => (
-      <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
-    ),
-  },
-  {
-    accessor: 'batch',
-    Cell: (row) => <div className="text-left">{row.value ? row.value : '-'}</div>,
-    placeholder: 'Batch',
-    Header: 'Batch',
-  },
-  {
-    accessor: 'rotadate',
-    placeholder: 'Rotadate',
-    Header: 'Rotadate',
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-  },
-  {
-    accessor: 'ref3',
-    placeholder: 'Ref3',
-    Header: 'Ref3',
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-  },
-  {
-    accessor: 'ref4',
-    placeholder: 'Ref4',
-    Header: 'Ref4',
-    Cell: (props) => <span>{props.value ? props.value : '-‎‎‎‎‎‎‎‎‎‎'}</span>,
-  },
-  {
-    accessor: 'disposition',
-    placeholder: 'Disposition',
-    Header: 'Disposition',
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-  },
-  {
-    accessor: 'released',
-    placeholder: 'Released',
-    Header: 'Released',
-    Cell: (row) => (
-      <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
-    ),
-  },
-];
+import {  setExportData,
+          siteCheck,
+          clientCheck,
+          schemaColumnDetailPO } from './services';
 
 const PurchaseOrdersDetail = (props) => {
   const dispatch = useDispatch();
@@ -157,8 +59,8 @@ const PurchaseOrdersDetail = (props) => {
           titleRightFive="Task"
           titleRightSix="Status"
           // Valeu Right
-          valeuRightOne={poDetail?.site || '-'}
-          valeuRightTwo={poDetail?.client || '-'}
+          valeuRightOne={siteCheck(poDetail?.site) || '-'}
+          valeuRightTwo={clientCheck(poDetail?.client ) || '-'}
           valeuRightThree={poDetail?.order_no || '-'}
           valeuRightFour={poDetail?.order_type || '-'}
           valeuRightFive={poDetail?.isis_task || '-'}
@@ -188,7 +90,7 @@ const PurchaseOrdersDetail = (props) => {
         />
       </div>
       <TableMaster
-        schemaColumn={columns}
+        schemaColumn={schemaColumnDetailPO}
         data={poDetailTable}
         style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
         module="Purchase Orders"

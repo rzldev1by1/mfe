@@ -5,7 +5,7 @@ import ReactTable from 'react-table-v6';
 import withDraggableColumns from 'react-table-hoc-draggable-columns';
 
 // import style
-import loading from 'assets/icons/loading/LOADING-MLS-GRAY.gif';
+import loading from '../../assets/icons/loading/LOADING-MLS-GRAY.gif';
 import { setDraggableColumn, saveSchemaToLocal, renewColumn } from './service';
 import 'react-table-v6/react-table.css';
 import 'react-table-hoc-draggable-columns/dist/styles.css';
