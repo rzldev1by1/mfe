@@ -24,7 +24,7 @@ const Form = ({ activeTab, isValidation }) => {
   const [line, setLine] = useState([]);
   const [clientOption, setClientOption] = useState(null);
   const [siteOption, setSiteOption] = useState(null);
-  const [supplier, setSupplier] = useState(null);
+  const [supplier, setSupplier] = useState([]);
   const [isReadonly, setIsReadOnly] = useState(false);
   const [orderLineSelectOpen, setOrderLineSelectOpen] = useState(false);
   const [dropdownExpandStyle, setDropdownExpandStyle] = useState(null);
