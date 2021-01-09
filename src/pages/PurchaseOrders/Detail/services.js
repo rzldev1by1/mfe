@@ -7,18 +7,20 @@ const formatDate = (date) =>{
   return moment(date).format('DD/MM/YYYY') || false
 }
 
-const getColumnWidth = (data, accessor, headerText) => {
-  if (typeof accessor === 'string' || accessor instanceof String) {
-    accessor = d => d[accessor]; // eslint-disable-line no-param-reassign
-  }
-  const maxWidth = 600;
-  const magicSpacing = 10;
-  const cellLength = Math.max(
-    ...data.map(row => (`${accessor(row)}` || '').length),
-    headerText.length,
-  );
-  return Math.min(maxWidth, cellLength * magicSpacing);
-};
+// https://github.com/tannerlinsley/react-table/issues/94
+
+// const getColumnWidth = (data, accessor, headerText) => {
+//   if (typeof accessor === 'string' || accessor instanceof String) {
+//     accessor = d => d[accessor]; // eslint-disable-line no-param-reassign
+//   }
+//   const maxWidth = 600;
+//   const magicSpacing = 10;
+//   const cellLength = Math.max(
+//     ...data.map(row => (`${accessor(row)}` || '').length),
+//     headerText.length,
+//   );
+//   return Math.min(maxWidth, cellLength * magicSpacing);
+// };
 
 export const schemaColumnDetailPO = [
   {
@@ -89,6 +91,14 @@ export const schemaColumnDetailPO = [
     ),
   },
   {
+    accessor: 'released',
+    placeholder: 'Released',
+    Header: 'Released',
+    Cell: (row) => (
+      <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+    ),
+  },
+  {
     accessor: 'batch',
     placeholder: 'Batch',
     Header: 'Batch', 
@@ -125,14 +135,6 @@ export const schemaColumnDetailPO = [
     className: 'align-right',
     Cell:(props) =>  props.value || '-'
    
-  },
-  {
-    accessor: 'released',
-    placeholder: 'Released',
-    Header: 'Released',
-    Cell: (row) => (
-      <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
-    ),
   },
 ];
 export const setExportData = async ({ dispatch, data }) => {

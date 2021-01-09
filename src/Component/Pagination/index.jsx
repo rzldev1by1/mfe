@@ -55,7 +55,7 @@ const Pagination = ({ pagination, data, goto, page, setPage }) => {
                   style={{ textAlign: 'center' }}
                 />
                 <span
-                  className="text-muted-dark ml-3 pointer"
+                  className="text-muted-dark ml-3 pointer tes-haha"
                   onClick={() => goToPage({ goto, pagination, page, setPage, dispatch })}
                   onKeyPress
                   role="button"
