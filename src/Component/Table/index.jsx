@@ -68,6 +68,7 @@ const Table = ({
         columns={newSchema}
         data={data}
         showPagination={false}
+        defaultPageSize={50}
         style={style}
         noDataText={tableStatus === 'noData' ? noDataMessage : loadingMessage}
         minRows="1"
