@@ -81,7 +81,7 @@ const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExp
           setDropdownOpen(!dropdownOpen);
         }}
       >
-        <DropdownToggle className="Dropdown-toggel btn-primary align-items-center">
+        <DropdownToggle color="primary" className="Dropdown-toggel align-items-center">
           <div style={{ fontSize: '0.875rem', letterSpacing: '1px' }}>
             {exportStatus === 'ready' ? (
               'EXPORT'
