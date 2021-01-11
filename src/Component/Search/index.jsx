@@ -115,12 +115,12 @@ const Search = ({
                     />
                   )}
                 </CCol>
-                <CCol sm={4} lg={2} className={`px-0 ${user?.site ? ' pr-3' : ''}`}>
+                <CCol sm={4} lg={2} className={`px-3 ${user?.site ? ' pr-3' : ''}`}>
                   {user?.client ? (
                     <input value={clientCheck(clientData, user.client)} className="form-control sh-input" readOnly />
                   ) : (
                     <Dropdown
-                      className={`px-3 ${filterClient === true ? null : ' d-none'}`}
+                      className={` ${filterClient === true ? null : ' d-none'}`}
                       show
                       placeholder="Client"
                       options={clientData}
