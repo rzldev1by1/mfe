@@ -8,6 +8,7 @@ import TableMaster from '../../Component/TableMaster';
 import { schemaColumn, exportColumns } from './services';
 import { searchPurchaseOrder } from '../../apiService';
 import Create from './Create';
+import './index.scss';
 
 const PurchaseOrders = (props) => {
   const showDetails = (item) => {
@@ -54,11 +55,11 @@ const PurchaseOrders = (props) => {
     <div>
       <Breadcrumb
         breadcrumb={[{ to: '/purchase-order', label: 'Purchase Order', active: true }]}
-        button={
+        button={(
           <CButton onClick={() => setShowModal(true)} className="btn btn-primary btn-create float-right">
             CREATE PURCHASE ORDER
           </CButton>
-        }
+        )}
       />
       <div>
         <div>

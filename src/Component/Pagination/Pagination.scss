@@ -341,3 +341,9 @@ nav .pagination li:last-child .page-link:hover {
   font-size: 18px;
   padding-right: 20px;
 }
+
+.showing-page{
+  flex: 0 0 30%;
+  max-width: 30%;
+  margin-left: -3.2rem;
+}
