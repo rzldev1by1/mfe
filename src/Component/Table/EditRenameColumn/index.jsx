@@ -5,7 +5,7 @@ import { MdClose } from 'react-icons/md'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 import { Button, Container, Row, Col, Modal, Nav } from 'react-bootstrap'
 import { NavItem, NavLink, TabPane, TabContent } from 'reactstrap'
-import {showColumn, saveEdit, changedColumn} from './services'
+import {showColumn, saveEdit, changedColumn, renameSubmit} from './services'
 import './style.scss'
 
 const EditRenameColumn = ({
@@ -27,13 +27,23 @@ const EditRenameColumn = ({
       editColumn: [],
       activeTab: '1',
       changedColumns: [],
-      fields
+      fields,
+      products: [],
+      columnsPayload: []
     })
 
     const closeModal = (closeMod, editColumnTemp) => {
         setShowMod(closeMod)
         setEditColumnTemp(editColumnTemp)
     } 
+
+    const Required = ({ error, id }) => {
+      if(error) {
+        const object = Object.keys(error)
+        if(object.includes(id)) return <span className="text-error text-danger position-absolute font-rename-error">{error && error[id]}</span>
+        else return <div></div>
+      }
+    }
 
     useEffect(() => { 
       let newState = {...state}
@@ -146,8 +156,8 @@ const EditRenameColumn = ({
                                 onClick={() => showColumn({ 
                                   header: item.accessor, 
                                   length: fields.length,
-                                  editColumn : state.editColumn,
-                                  setState
+                                  setState,
+                                  state
                                 })}
                               >
                                 {!state.editColumn?.includes(item.accessor)  ? (
@@ -164,7 +174,7 @@ const EditRenameColumn = ({
                     <Button
                       variant='primary'
                       className='px-3 float-right'
-                      onClick={() => saveEdit({ editColumn: state.editColumn, title, user, setState, setShowModal: setShowMod, dispatch})}
+                      onClick={() => saveEdit({ state, title, user, setEditColumnTemp, setShowModal: setShowMod, dispatch})}
                     >
                       SAVE
                     </Button>
@@ -172,24 +182,32 @@ const EditRenameColumn = ({
                 </TabPane>
                 <TabPane tabId='2'>
                   <Row xl={5} lg={10} className='mx-1 grid-col'>
-                  {fields &&
-                        fields.map((item, index) => {
-                          return (
-                            <div key={index} className='p-2'>
-                              <input
-                                id={index}
-                                autoComplete='off'
-                                placeholder={item.placeholder}
-                                name={item.headerData}
-                                sortable={item.sortable}
-                                value=''
-                                onChange={(e) => changedColumn({e, state, setState, fields})}
-                                className={"text-left form-rename"}
-                              />
-                            </div>
-                          )
-                        })}
+                    {fields &&
+                      fields.map((item, index) => {
+                        return (
+                          <div key={index} className='p-2'>
+                            <input
+                              id={index}
+                              autoComplete='off'
+                              placeholder={item.placeholder}
+                              name={item.headerData}
+                              sortable={item.sortable}
+                              onChange={(e) => changedColumn({e, state, setState})}
+                              className={"text-left form-rename"+ (state.sameColumnsIdx?.includes(index.toString()) ? " input-danger" : "")}
+                            />
+                          </div>
+                        )
+                    })}
                   </Row>
+                  <Col className="pt-5">
+                    <Button
+                      variant='primary'
+                      className='px-3 float-right'
+                      // onClick={renameSubmit({state, setState, setShowMod})}
+                    >
+                      DONE
+                    </Button>
+                  </Col>
                 </TabPane>
               </TabContent>
             </Col>

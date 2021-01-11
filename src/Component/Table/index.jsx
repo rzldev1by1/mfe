@@ -52,7 +52,7 @@ const Table = ({
     const draggableColumn = setDraggableColumn({ schemaColumn })
 
     // renew Schema column, to get old order column or additional logic
-    const newSchema = renewColumn({ schemaColumn, module, userId, editColumnTemp,columnHidden, showModal })
+    const newSchema = renewColumn({ schemaColumn, module, userId, editColumnTemp, columnHidden, showModal })
  
 
   return (

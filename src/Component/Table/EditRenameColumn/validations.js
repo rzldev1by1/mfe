@@ -1,8 +1,8 @@
 import _ from 'lodash'
 import { isEmptyObject } from 'jquery';
 
-export default (thisState, changedColumn, renameField, indexField) => {
-  const { fields, sameColumns, sameColumnsIdx, error } = thisState
+export default (state, renameField, indexField) => {
+  const { fields, sameColumns, sameColumnsIdx, error } = state
   fields.map((item, idx) => {
     if(idx !== indexField){
         if(renameField && renameField?.toUpperCase() === item?.Header?.toUpperCase()){
@@ -13,14 +13,14 @@ export default (thisState, changedColumn, renameField, indexField) => {
     }
   })
       if(!sameColumns.includes(renameField?.toUpperCase())){
-          sameColumnsIdx = sameColumnsIdx.filter(value => value != indexField)
+          sameColumnsIdx.filter(value => value !== indexField)
       }
   if(!isEmptyObject(sameColumnsIdx)){
     if(indexField){
         error[fields[indexField].headerData] = `Columns cannot contain the same name`
     }
   }else{
-    error = {}
+    // error = {}
   }
   return {error, sameColumns, sameColumnsIdx}
 }
