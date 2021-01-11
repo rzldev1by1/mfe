@@ -3,6 +3,9 @@
   margin-right: 5rem !important;
   margin-left:  5rem !important;
 } */
+.tes-haha:focus{
+outline: none;
+}
 .margin-mr {
   margin-right: -3rem !important;
 }
@@ -337,4 +340,10 @@ nav .pagination li:last-child .page-link:hover {
   border: 0px !important;
   font-size: 18px;
   padding-right: 20px;
+}
+
+.showing-page{
+  flex: 0 0 30%;
+  max-width: 30%;
+  margin-left: -3.2rem;
 }

@@ -46,7 +46,6 @@ const Dropdown = ({
       onMenuOpen();
     }
   }, [isOpen]);
-
   return (
     <div>
       {!showTitle ? null : <label className={`text-muted mb-0 ${required ? 'required' : ''}`}>{title}</label>}
@@ -76,9 +75,9 @@ const Dropdown = ({
           dropdownIndicator: (base, state) => ({
             ...base,
             transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : null,
-            display: readOnly ? 'none' : 'flex',
+            display: readOnly || selectedValue ? 'none' : 'flex',
           }),
-          control: (provided, state) => ({
+          control: (provided) => ({
             ...provided,
             backgroundColor: readOnly ? '#e4e7ea !important' : 'white',
             pointerEvents: readOnly ? 'none' : 'auto',

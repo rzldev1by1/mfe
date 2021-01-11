@@ -1,4 +1,4 @@
-export const setSite = ({ selected, action, dispatch }) => {
+export const setSite = ({ selected, dispatch }) => {
   if (selected) dispatch({ type: 'SITE', data: selected });
   else dispatch({ type: 'SITE', data: null });
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.scss';
 
-const RequiredMessage = ({ isValidation, data, column, columnText }) => {
+const RequiredMessage = ({ isValidation, data, column, columnText, customMessage }) => {
   const value = data?.value;
   let message = null;
 
@@ -17,10 +17,8 @@ const RequiredMessage = ({ isValidation, data, column, columnText }) => {
     }
   }
 
-  if (column == 'orderNo' && value) {
-    if (value && value.length < 4) {
-      message = columnText + ' must have min 4 characters';
-    }
+  if (customMessage?.status === false) {
+    message = customMessage?.message;
   }
 
   return <div>{isValidation ? <span className="text-error pl-0 text-danger font-12">{message}</span> : null}</div>;

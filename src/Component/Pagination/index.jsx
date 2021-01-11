@@ -9,7 +9,7 @@ import PopUpPages from 'Component/Modal/PopUpPages';
 import { numberCheck, onChange, onActivePageChange, goToPage } from 'Component/Pagination/service';
 import './Pagination.scss';
 
-const Pagination = ({ pagination, data, goto, page, setPage }) => {
+const Pagination = ({ pagination, data, goto, page, setPage, className }) => {
   const dispatch = useDispatch();
 
   let active = pagination?.active;
@@ -42,7 +42,7 @@ const Pagination = ({ pagination, data, goto, page, setPage }) => {
                 lastButton={<BsChevronBarRight className="nextBtn" />}
               />
             </CCard>
-            <CCard className="col-lg-5" style={{ maxWidth: '39.36667%' }}>
+            <CCard className={`${className} col-lg-5`} style={{ maxWidth: '39.36667%' }}>
               <div className="page-2 d-flex justify-content-center align-items-center">
                 <span className="text-muted-soft mr-3">Go to page</span>
                 <input
@@ -55,7 +55,7 @@ const Pagination = ({ pagination, data, goto, page, setPage }) => {
                   style={{ textAlign: 'center' }}
                 />
                 <span
-                  className="text-muted-dark ml-3 pointer"
+                  className="text-muted-dark ml-3 pointer tes-haha"
                   onClick={() => goToPage({ goto, pagination, page, setPage, dispatch })}
                   onKeyPress
                   role="button"
@@ -67,7 +67,7 @@ const Pagination = ({ pagination, data, goto, page, setPage }) => {
             </CCard>
           </CCardGroup>
         </CCol>
-        <CCol lg="3" className="mt-3 pl-4 showing px-0" style={{ flex: '0 0 30%', maxWidth: '30%', marginLeft: '-3.2rem' }}>
+        <CCol lg="3" className={`${className} mt-3 pl-4 showing px-0 showing-page`}>
           <span className="text-muted-s">
             {' Showing '}
             <b className="text-muted-dark">{`${x_from} to ${x_to} of ${x_total} `}</b>

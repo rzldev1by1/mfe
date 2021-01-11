@@ -5,7 +5,7 @@ import ReactTable from 'react-table-v6';
 import withDraggableColumns from 'react-table-hoc-draggable-columns';
 
 // import style
-import loading from 'assets/icons/loading/LOADING-MLS-GRAY.gif';
+import loading from '../../assets/icons/loading/LOADING-MLS-GRAY.gif';
 import { setDraggableColumn, saveSchemaToLocal, renewColumn } from './service';
 import 'react-table-v6/react-table.css';
 import 'react-table-hoc-draggable-columns/dist/styles.css';
@@ -17,6 +17,7 @@ const Table = ({
   data,
   style,
   module,
+  className,
   page,
   setPage,
   noDataText,
@@ -56,7 +57,7 @@ const Table = ({
   const newSchema = renewColumn({ schemaColumn, module, userId });
 
   return (
-    <div className={(data && data < 1) || data === undefined ? 'TableDownHover' : 'Table'}>
+    <div className={`${className} ${(data && data < 1) || data === undefined ? 'TableDownHover' : 'Table'}`}>
       <ReactTableDraggableColumns
         draggableColumns={{
           mode: 'reorder',
