@@ -1,6 +1,6 @@
 *,
 body {
-  font-family: "Rubik";
+  font-family: 'Rubik';
 }
 
 .text-muted-soft {
@@ -23,7 +23,7 @@ body {
 }
 
 .m-iconLoad {
-  margin-top: -35px !important
+  margin-top: -35px !important;
 }
 
 .rt-resizer {
@@ -79,7 +79,7 @@ button:focus {
   z-index: -99 !important;
 }
 
-.card-pag>input.border-red {
+.card-pag > input.border-red {
   border-color: red !important;
 }
 
@@ -99,10 +99,10 @@ input:-webkit-autofill {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #CBCBCB;
-    border: 3px solid transparent;
-    border-radius: 9px;
-    background-clip: content-box;
+  background-color: #cbcbcb;
+  border: 3px solid transparent;
+  border-radius: 9px;
+  background-clip: content-box;
 }
 
 .scroll-x-y::-webkit-scrollbar-thumb {
@@ -134,7 +134,7 @@ input:-webkit-autofill {
 }
 
 .text-logo {
-  color: #47C0FF;
+  color: #47c0ff;
   display: flex;
 }
 
@@ -229,14 +229,14 @@ input:-webkit-autofill {
 }
 
 .nav-item a {
-  color: #959DA0 !important;
+  color: #959da0 !important;
 }
 
 .tab-nonActiveCreate {
   background-color: #eee !important;
   border-top-left-radius: 0.25rem !important;
   border-top-right-radius: 0.25rem !important;
-  color: #959DA0 !important;
+  color: #959da0 !important;
 }
 
 .input-group,
@@ -343,9 +343,7 @@ header {
   padding-right: 15px !important;
 }
 
-@media (min-height: 1025px),
-(min-width: 1024px) {
-
+@media (min-height: 1025px), (min-width: 1024px) {
   // disable vertical scrolling on desktop
   body,
   .c-wrapper {
@@ -372,12 +370,12 @@ header {
   color: $secondary;
 }
 
-.breadcrumb-item+.breadcrumb-item::before {
-  content: ">" !important;
+.breadcrumb-item + .breadcrumb-item::before {
+  content: '>' !important;
 }
 
-.breadcrumb-item+.breadcrumb-item::before {
-  content: ">" !important;
+.breadcrumb-item + .breadcrumb-item::before {
+  content: '>' !important;
 }
 
 /* breadcrumb style end*/
@@ -442,7 +440,6 @@ header {
   margin-bottom: -312px !important;
   padding-bottom: 338px !important;
   overflow: hidden !important;
-
 }
 
 /* Line Details Styles End */
@@ -511,7 +508,7 @@ header {
 
 .rt-noData {
   text-align: center !important;
-  color: #D1CCCC !important;
+  color: #d1cccc !important;
   z-index: 0 !important;
 }
 
@@ -563,8 +560,6 @@ header {
   color: red;
 }
 
-
-
 .rightColumn {
   display: inline-block !important;
   text-align: right;
@@ -578,7 +573,7 @@ header {
 
     .rt-thead {
       .rt-tr {
-        .rt-th{
+        .rt-th {
           display: flex;
           align-items: center;
         }
@@ -609,22 +604,23 @@ header {
 //search filter
 .input-group-text {
   .iconU-search {
-    color: #C2BBC4 !important;
+    color: #c2bbc4 !important;
   }
 }
 
 // modal box
 @media (min-width: 1200px) {
-
   .um-create,
-  .sales-order-create {
+  .sales-order-create,
+  .purchase-order-create {
     .modal-xl {
       max-width: 1525px !important;
     }
   }
 
   .um-create,
-  .sales-order-create {
+  .sales-order-create,
+  .purchase-order-create {
     .container,
     .container-sm,
     .container-md,
@@ -634,13 +630,13 @@ header {
     }
   }
 
-  .row-cols-xl-5>* {
+  .row-cols-xl-5 > * {
     flex: 0 0 100%;
     max-width: 100%;
   }
 }
 
-@media (min-width:992px) and (max-width: 1199px) {
+@media (min-width: 992px) and (max-width: 1199px) {
   .modal-xl {
     max-width: 1000px !important;
   }
@@ -652,7 +648,7 @@ header {
 }
 
 // -------------------------------
-@media (max-width:991px) {
+@media (max-width: 991px) {
   .btn-create {
     display: none !important;
   }
