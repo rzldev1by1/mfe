@@ -56,7 +56,7 @@ const Table = ({
   const newSchema = renewColumn({ schemaColumn, module, userId });
 
   return (
-    <div className={data && data < 1 || data === undefined ? 'TableDownHover'  : 'Table'}>
+    <div className={(data && data < 1) || data === undefined ? 'TableDownHover' : 'Table'}>
       <ReactTableDraggableColumns
         draggableColumns={{
           mode: 'reorder',
@@ -81,6 +81,41 @@ const Table = ({
               height: '3rem',
             },
           };
+        }}
+        defaultSortMethod={(a, b, desc) => {
+          let type = 'string';
+
+          //check format if date
+          if (a && a.includes('/')) {
+            let str = a.split('/');
+            let date = `${str[1]}-${str[0]}-${str[2]}`;
+            a = new Date(date).getTime();
+            type = 'date';
+          }
+          if (b && b.includes('/')) {
+            let str = b.split('/');
+            let date = `${str[1]}-${str[0]}-${str[2]}`;
+            b = new Date(date).getTime();
+            type = 'date';
+          }
+
+          // force null and undefined to the bottom
+          a = a === null || a === undefined ? (type == 'string' ? '' : -999999999999) : a;
+          b = b === null || b === undefined ? (type == 'string' ? '' : -999999999999) : b;
+
+          // force any string values to lowercase
+          a = typeof a === 'string' ? a.toLowerCase() : a;
+          b = typeof b === 'string' ? b.toLowerCase() : b;
+          // Return either 1 or -1 to indicate a sort priority
+          if (a > b) {
+            return 1;
+          }
+          if (a < b) {
+            return -1;
+          }
+          // returning 0, undefined or any falsey value will use subsequent sorts or
+          // the index as a tiebreaker
+          return 0;
         }}
       />
     </div>
