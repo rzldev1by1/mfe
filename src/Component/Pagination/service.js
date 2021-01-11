@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 /* eslint-disable consistent-return */
 /* eslint-disable radix */
 export const  onActivePageChange = ({e, pagination, goto, dispatch}) => {

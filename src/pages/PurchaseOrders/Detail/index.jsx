@@ -5,11 +5,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import Breadcrumb from 'Component/Breadcrumb';
 import DetailHeader from 'Component/DetailHeader';
 import TableMaster from 'Component/TableMaster';
-import { getDetail, getProductsTable } from '../services';
+import { getProductsTablePO, 
+         getDetailPO,  } from '../../../apiService';
 import {  setExportData,
           siteCheck,
           clientCheck,
-          schemaColumnDetailPO } from './services';
+          schemaColumnDetailPO, } from './services';
+import './index.scss';
 
 const PurchaseOrdersDetail = (props) => {
   const dispatch = useDispatch();
@@ -32,10 +34,10 @@ const PurchaseOrdersDetail = (props) => {
 
   useEffect(() => {}, [page]);
   useEffect(() => {
-    getDetail({ dispatch, props });
+    getDetailPO({ dispatch, props });
   }, []);
   useEffect(() => {
-    getProductsTable({ dispatch, props, page, active, setPage });
+    getProductsTablePO({ dispatch, props, page, active, setPage });
   }, [active]);
 
   const height = window.innerHeight - 370;
@@ -91,6 +93,8 @@ const PurchaseOrdersDetail = (props) => {
       </div>
       <TableMaster
         schemaColumn={schemaColumnDetailPO}
+        classNamePaging='display-paging'
+        classNameTable='table-detail '
         data={poDetailTable}
         style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
         module="Purchase Orders"
