@@ -10,6 +10,7 @@ import {  setExportData,
           siteCheck,
           clientCheck,
           schemaColumnDetailPO } from './services';
+import './index.scss';
 
 const PurchaseOrdersDetail = (props) => {
   const dispatch = useDispatch();
@@ -91,6 +92,8 @@ const PurchaseOrdersDetail = (props) => {
       </div>
       <TableMaster
         schemaColumn={schemaColumnDetailPO}
+        classNamePaging='display-paging'
+        classNameTable='table-detail '
         data={poDetailTable}
         style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
         module="Purchase Orders"

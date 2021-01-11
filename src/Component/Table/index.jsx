@@ -17,6 +17,7 @@ const Table = ({
   data,
   style,
   module,
+  className,
   page,
   setPage,
   noDataText,
@@ -56,7 +57,7 @@ const Table = ({
   const newSchema = renewColumn({ schemaColumn, module, userId });
 
   return (
-    <div className={data && data < 1 || data === undefined ? 'TableDownHover'  : 'Table'}>
+    <div className={`${className} ${data && data < 1 || data === undefined ? 'TableDownHover'  : 'Table'}`}>
       <ReactTableDraggableColumns
         draggableColumns={{
           mode: 'reorder',
