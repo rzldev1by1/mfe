@@ -42,6 +42,9 @@
       .rt-tr {
         border-bottom: 0px !important;
       }
+      .rt-tbody{
+        display: inline-table;
+      }
       .rt-tbody .rt-tr-group:hover  {
         background-color: #eee;
         cursor: pointer !important;

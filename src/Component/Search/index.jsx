@@ -45,20 +45,9 @@ const Search = ({
 
   const search = async (e) => {
     if (e.key === 'Enter')
-      await searchPurchaseOrder({
-        e,
-        siteVal,
-        clientVal,
-        orderType,
-        task,
-        status,
-        page,
-        setPage,
-        searchInput,
-        dispatch,
-      });
+      await searchPurchaseOrder({ e, siteVal, clientVal, orderType, task, status, page, setPage, searchInput, dispatch });
   };
-  const searchFrom = (e) => {
+  const searchForm = (e) => {
     e.preventDefault();
     searchPurchaseOrder({ e, siteVal, clientVal, orderType, task, status, page, setPage, searchInput, dispatch });
   };
@@ -80,7 +69,7 @@ const Search = ({
   return (
     <CCard className="mb-3">
       <CCardBody className="p-3">
-        <form onSubmit={searchFrom}>
+        <form onSubmit={searchForm}>
           <CRow className="mx-0">
             <CCol lg={3} className="pr-3 pl-0">
               <div className="input-group">
@@ -174,8 +163,7 @@ const Search = ({
                         page,
                         setPage,
                         searchInput,
-                      })
-                    }
+                      })}
                   >
                     SEARCH
                   </button>
