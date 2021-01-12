@@ -1,11 +1,19 @@
-export const setSite = ({ selected, dispatch }) => {
+export const setSite = ({ selected, dispatch, onChangeGetTask, getTask, getTaskParam }) => {
   if (selected) dispatch({ type: 'SITE', data: selected });
   else dispatch({ type: 'SITE', data: null });
+
+  if (onChangeGetTask) {
+    getTask({ dispatch, client: getTaskParam?.client, site: selected });
+  }
 };
 
-export const setClient = ({ selected, dispatch }) => {
+export const setClient = ({ selected, dispatch, onChangeGetTask, getTask, getTaskParam }) => {
   if (selected) dispatch({ type: 'CLIENT', data: selected });
   else dispatch({ type: 'CLIENT', data: null });
+
+  if (onChangeGetTask) {
+    getTask({ dispatch, client: selected, site: getTaskParam?.site });
+  }
 };
 
 export const setOrderType = ({ selected, dispatch }) => {

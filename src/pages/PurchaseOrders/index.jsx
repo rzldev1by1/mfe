@@ -55,11 +55,11 @@ const PurchaseOrders = (props) => {
     <div>
       <Breadcrumb
         breadcrumb={[{ to: '/purchase-order', label: 'Purchase Order', active: true }]}
-        button={(
+        button={
           <CButton onClick={() => setShowModal(true)} className="btn btn-primary btn-create float-right">
             CREATE PURCHASE ORDER
           </CButton>
-        )}
+        }
       />
       <div>
         <div>
@@ -73,6 +73,7 @@ const PurchaseOrders = (props) => {
             filterTask
             placeholder="Enter an Order No"
             filter
+            onChangeGetTask
           />
         </div>
         <div>
