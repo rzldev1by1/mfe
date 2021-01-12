@@ -106,7 +106,7 @@ const Search = ({
             </CCol>
             <CCol lg={9} className="px-0">
               <CRow className="mx-0">
-                <CCol sm={4} lg={2} className={`px-0 ${user?.site ? ' pr-3' : ''}`}>
+                <CCol sm={4} lg={2} className={`px-0`}>
                   {user?.site ? (
                     <input value={siteCheck(siteData, user.site)} className="form-control sh-input" readOnly />
                   ) : (
