@@ -26,6 +26,7 @@ const Search = ({
   filterStatus,
   filterOrderType,
   filterTask,
+  onChangeGetTask = false,
 }) => {
   // params
   const dispatch = useDispatch();
@@ -42,10 +43,22 @@ const Search = ({
   const task = useSelector((state) => state.task);
   const user = useSelector((state) => state.user);
   const { company, client, site } = user;
+  const [getTaskParam, setGetTaskParam] = useState(false);
 
   const search = async (e) => {
     if (e.key === 'Enter')
-      await searchPurchaseOrder({ e, siteVal, clientVal, orderType, task, status, page, setPage, searchInput, dispatch });
+      await searchPurchaseOrder({
+        e,
+        siteVal,
+        clientVal,
+        orderType,
+        task,
+        status,
+        page,
+        setPage,
+        searchInput,
+        dispatch,
+      });
   };
   const searchForm = (e) => {
     e.preventDefault();
@@ -57,8 +70,11 @@ const Search = ({
     getClient({ dispatch });
     getStatus({ dispatch });
     getOrderType({ dispatch, company, client });
-    getTask({ dispatch, client, site });
   }, []);
+
+  useEffect(() => {
+    setGetTaskParam({ site: siteVal, client: clientVal });
+  }, [siteVal, clientVal]);
 
   useEffect(() => {
     if (status === undefined) {
@@ -99,7 +115,9 @@ const Search = ({
                       show
                       placeholder="Site"
                       options={siteData}
-                      onChangeDropdown={(selected) => setSite({ selected, dispatch })}
+                      onChangeDropdown={(selected) =>
+                        setSite({ onChangeGetTask, getTask, getTaskParam, selected, dispatch })
+                      }
                       selectedValue={siteVal}
                     />
                   )}
@@ -113,7 +131,9 @@ const Search = ({
                       show
                       placeholder="Client"
                       options={clientData}
-                      onChangeDropdown={(selected) => setClient({ selected, dispatch })}
+                      onChangeDropdown={(selected) =>
+                        setClient({ onChangeGetTask, getTask, getTaskParam, selected, dispatch })
+                      }
                       selectedValue={clientVal}
                     />
                   )}
@@ -163,7 +183,8 @@ const Search = ({
                         page,
                         setPage,
                         searchInput,
-                      })}
+                      })
+                    }
                   >
                     SEARCH
                   </button>

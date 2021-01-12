@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { CRow, CCol } from '@coreui/react';
-import Export from "../Export";
+import Export from '../Export';
 import Pagination from '../Pagination';
 import Table from '../Table';
 
