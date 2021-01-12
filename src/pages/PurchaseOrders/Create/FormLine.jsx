@@ -150,8 +150,9 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrde
           top={true}
           getDate={(date) => {
             changeOrderLines({ val: date, column: 'rotaDate', index, dispatch });
+            setOrderLineSelectOpen(null);
           }}
-          showDatePicker={(e) => {
+          showDatePicker={() => {
             setOrderLineSelectOpen('datePicker');
           }}
           // className={`form-control ${overflow[i] && overflow[i].date ? 'absolute right' : null}`}
