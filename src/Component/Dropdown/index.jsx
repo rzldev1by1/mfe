@@ -67,6 +67,9 @@ const Dropdown = ({
         // menuPortalTarget={document.body}
         maxMenuHeight={200}
         menuPlacement={`${position?.bottom > 600 ? 'top' : 'bottom'}`}
+        filterOption={(option, inputVal) => {
+          return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase();
+        }}
         styles={{
           option: (provided) => ({
             ...provided,
