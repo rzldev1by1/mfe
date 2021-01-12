@@ -6,7 +6,7 @@ export const schemaColumn = [
   {
     Header: 'Site',
     accessor: 'site',
-    headerStyle: { textAlign: 'left' },
+    headerStyle: { textAlign: 'left', paddingLeft:"0px !important" },
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
