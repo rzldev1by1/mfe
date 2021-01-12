@@ -75,7 +75,11 @@ const Form = ({ activeTab, isValidation }) => {
   }, [activeTab]);
 
   useEffect(() => {
-    console.log(orderLineSelectOpen);
+    console.log(client, site, user);
+    getSupplier({ client, site, setSupplier });
+  }, []);
+
+  useEffect(() => {
     if (orderLineSelectOpen == 'datePicker') {
       setDropdownExpandStyle('lineDetailsBottomExpand lineDetailsTopExpand');
     } else if (orderLineSelectOpen == 'dropdown') {
