@@ -101,9 +101,12 @@ export const getDisposition = async ({ dispatch }) => {
   dispatch({ type: 'CREATE_PO_DISPOSITION', data: dispositionData });
 };
 
-export const getSupplier = async ({ createPO, setSupplier }) => {
-  let site = createPO?.orderDetails?.site?.value?.value;
-  let client = createPO?.orderDetails?.client?.value?.value;
+export const getSupplier = async ({ createPO, client, site, setSupplier }) => {
+  if (createPO) {
+    site = createPO?.orderDetails?.site?.value?.value;
+    client = createPO?.orderDetails?.client?.value?.value;
+  }
+
   const { data } = await axios.get(`${endpoints.getSupplier}?client=${client || ''}&site=${site || ''}`);
   const supplierData = data.map((d) => ({ value: d.supplier_no, label: `${d.supplier_no}: ${d.name}` }));
   setSupplier(supplierData);
