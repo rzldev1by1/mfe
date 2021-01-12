@@ -54,7 +54,7 @@ const Table = ({
   const draggableColumn = setDraggableColumn({ schemaColumn });
 
   // renew Schema column, to get old order column or additional logic
-  const newSchema = renewColumn({ schemaColumn, module, userId });
+  const newSchema = renewColumn({ data, schemaColumn, module, userId });
 
   return (
     <div className={`${className} ${(data && data < 1) || data === undefined ? 'TableDownHover' : 'Table'}`}>

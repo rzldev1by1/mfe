@@ -14,7 +14,6 @@
   .rt-th {
     box-shadow: none !important;
     height: 40px;
-    padding: 5px 5px !important;
     border-right: none !important;
     color: #b4b9bb;
     font-weight: inherit;
@@ -117,5 +116,11 @@
   //draggable column
   .enable-drag:hover {
     cursor: pointer !important;
+  }
+}
+
+.table-detail {
+  .rt-draggable-container div.draggable-header.enable-drag {
+    padding: 0px !important;
   }
 }
