@@ -62,7 +62,7 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrde
           className="form-control"
           placeholder="Qty"
           maxLength={9}
-          readOnly={isReadonly}
+          isReadOnly={isReadonly}
         />
         <RequiredMessage column="qty" columnText="Qty" isValidation={isValidation} data={data?.qty} />
       </td>

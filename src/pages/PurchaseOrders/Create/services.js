@@ -33,7 +33,7 @@ export const validation = async ({ dispatch, data, setActiveTab }) => {
   //validate orderlines
   let orderLines = data.orderLines;
   orderLines.map((item, index) => {
-    if (!item.qty.value) {
+    if (!item.qty.value || item.qty.value < 1) {
       statusValidate = false;
     }
     if (!item.uom.value) {
@@ -94,8 +94,6 @@ export const changeOrderDetails = ({ column, value, dispatch }) => {
 };
 
 export const changeOrderNo = async ({ orderNo, client, setCheckingOrderNo, dispatch }) => {
-  console.log(orderNo);
-
   if (!client) {
     setCheckingOrderNo({ status: false, message: 'Please select client' });
     return;
