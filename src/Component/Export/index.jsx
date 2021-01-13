@@ -66,10 +66,6 @@ const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExp
     'batch',
     'pack_id',
     'supplier_no',
-    'delivery_date',
-    'date_received',
-    'date_released',
-    'date_completed',
   ];
   return (
     <div>
