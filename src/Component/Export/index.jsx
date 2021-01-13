@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import ExportExl from 'react-html-table-to-excel';
 import { ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
-import { exportPDF, exportXLS, ExportName, Dates, setHeader } from './services';
 import { useSelector } from 'react-redux';
 import './style.scss';
-import loading from '../../assets/icons/loading/LOADING-MLS.gif';
-import PopUpExport from 'Component/Modal/PopUpExport';
-import jsPDF from 'jspdf';
+import PopUpExport from "../Modal/PopUpExport";
 import 'jspdf-autotable';
-import logo_export from 'assets/img/logo_export2.png';
-import moment from 'moment';
+import { exportPDF, exportXLS, ExportName, Dates, setHeader } from './services';
+import loading from '../../assets/icons/loading/LOADING-MLS.gif';
+import { AiOutlineConsoleSql } from 'react-icons/ai';
 
 const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExportData, secondTable = false }) => {
   const exportData = useSelector((state) => state.exportData);
@@ -43,11 +41,9 @@ const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExp
       await getExportData();
     }
     getData();
-    console.log('exportData', exportData);
   }, [runExport]);
 
   useEffect(() => {
-    console.log('exportData', exportData);
     if (!exportData) {
       return;
     }
@@ -69,6 +65,11 @@ const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExp
     'product',
     'batch',
     'pack_id',
+    'supplier_no',
+    'delivery_date',
+    'date_received',
+    'date_released',
+    'date_completed',
   ];
   return (
     <div>
@@ -99,7 +100,8 @@ const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExp
             ''
           ) : (
             <DropdownItem className="export-pdf px-3" onClick={() => setRunExport('PDF')}>
-              <span className="exp-PDF" style={{ paddingRight: '0.28rem' }} /> EXPORT TO PDF
+              <span className="exp-PDF" style={{ paddingRight: '0.28rem' }} />
+              EXPORT TO PDF
             </DropdownItem>
           )}
           {exportExcel === 'false' ? (
@@ -144,11 +146,17 @@ const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExp
             exportData?.map((data, i) => (
               <tr key={i}>
                 {schemaColumn.map((column, columnIdx) => {
+                  console.log(data[column.accessor])
+                  let dataReturn = data[column.accessor] == null ? "-" : data[column.accessor]
                   if (columnHiddenCharacter.includes(column.accessor)) {
-                    return <td key={columnIdx}>{data[column.accessor]}‎</td>;
-                  } else {
-                    return <td key={columnIdx}>{data[column.accessor]}</td>;
-                  }
+                    return (
+                      <td key={columnIdx}>
+                        {dataReturn}                ‎
+                      </td>
+                  );
+                  } 
+                    return <td key={columnIdx}>{dataReturn}</td>;
+                  
                 })}
               </tr>
             ))

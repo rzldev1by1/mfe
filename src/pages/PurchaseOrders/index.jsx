@@ -24,7 +24,9 @@ const PurchaseOrders = (props) => {
   const [active, setActive] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [Export, setExport] = useState(false);
+
   const height = window.innerHeight - 257;
+  const widht = window.innerWidth;
 
   const [page, setPage] = useState({
     // Paging
@@ -37,7 +39,6 @@ const PurchaseOrders = (props) => {
     search: '',
     active: '',
   });
-  const widht = window.innerWidth;
   const newPage = { ...page };
   useEffect(() => {}, [page]);
   useEffect(() => {
@@ -50,7 +51,6 @@ const PurchaseOrders = (props) => {
       searchPurchaseOrder({ dispatch, page, active, setPage, Export });
     }
   }, [Export]);
-
   return (
     <div>
       <Breadcrumb
@@ -89,7 +89,6 @@ const PurchaseOrders = (props) => {
             goto={(e) => {
               setActive(e);
             }}
-            exportColumns={exportColumns}
             exportData={exportData}
             page={page}
             setPage={setPage}

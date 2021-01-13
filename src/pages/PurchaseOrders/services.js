@@ -81,8 +81,8 @@ export const schemaColumn = [
     width: 200,
     Cell: (row) => {
       switch (row.original.status) {
-        case '0: Unavailable':
-          return <a className="status-Unavailable">UNAVAILABLE</a>;
+        case '0: Not Available':
+          return <a className="status-unavailable">UNAVAILABLE</a>;
           break;
         case '1: Available':
           return <a className="status-available">AVAILABLE</a>;
@@ -146,21 +146,6 @@ export const schemaColumn = [
   },
 ];
 
-export const exportColumns = [
-  { accessor: 'site', Header: 'Site', width: 30 },
-  { accessor: 'client', Header: 'Client', width: null },
-  { accessor: 'order_no', Header: 'Order No', width: 130 },
-  { accessor: 'order_type', Header: 'Order Type', width: null },
-  { accessor: 'isis_task', Header: 'Task', width: null },
-  { accessor: 'supplier_no', Header: 'Supplier No', width: null },
-  { accessor: 'supplier_name', Header: 'Supplier Name', width: 290 },
-  { accessor: 'status', Header: 'Status', width: 140 },
-  { accessor: 'delivery_date', Header: 'Order Date', width: null },
-  { accessor: 'date_received', Header: 'Date Received', width: null },
-  { accessor: 'date_released', Header: 'Date Released', width: null },
-  { accessor: 'date_completed', Header: 'Date Completed', width: null },
-];
-
 export const getDetail = async ({ dispatch, props }) => {
   const { orderdetail, client, site } = props.match.params;
   const url = `/purchaseOrder?searchParam=${orderdetail}&client=${client}&site=${site}`;
@@ -169,6 +154,7 @@ export const getDetail = async ({ dispatch, props }) => {
     dispatch({ type: 'GET_PO_DETAIL', data: data.data.data[0] });
   }
 };
+
 export const getProductsTable = async ({
   export_ = 'false',
   readyDocument = 'false',

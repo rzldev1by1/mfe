@@ -701,3 +701,16 @@ header {
 .input-danger:hover {
   border-color: #e55353 !important;
 }
+
+.btn-primary.focus, .btn-primary:focus {
+  color: #fff;
+  background-color: #376bfb !important;
+  border-color: #376bfb !important;
+  box-shadow: 0 0 0 0.2rem rgba(85,129,252,.5);
+}
+.btn-primary.hover, .btn-primary:hover {
+  color: #fff;
+  background-color: #124ffa !important;
+  border-color: #0546fa !important;
+  box-shadow: 0 0 0 0.2rem rgba(85,129,252,.5);
+}
