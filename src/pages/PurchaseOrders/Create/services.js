@@ -293,3 +293,13 @@ export const submit = async ({ data, user, setIsSubmitReturn, setActiveTab, setI
   await setActiveTab('message');
   setIsSubmitStatus('done');
 };
+
+export const formatDate = (dateStr) => {
+  console.log(dateStr);
+  if (!dateStr) {
+    return null;
+  }
+
+  let dArr = dateStr.split('-');
+  return dArr[2] + '/' + dArr[1] + '/' + dArr[0];
+};

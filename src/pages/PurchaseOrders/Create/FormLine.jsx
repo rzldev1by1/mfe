@@ -6,7 +6,7 @@ import DatePicker from 'shared/DatePicker';
 import RequiredMessage from './RequiredMessage';
 import InputNumber from 'Component/InputNumber';
 
-import { productHandler, numberCheck, changeOrderLines, deleteOrderLines } from './services';
+import { productHandler, numberCheck, changeOrderLines, deleteOrderLines, formatDate } from './services';
 import { getProduct } from 'apiService/dropdown';
 
 const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrderLineSelectOpen }) => {
@@ -52,7 +52,7 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrde
         />
       </td>
       <td className="px-1">
-        <input
+        <InputNumber
           name="qty"
           autoComplete="off"
           onKeyPress={(e) => numberCheck(e)}
@@ -61,7 +61,7 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrde
           type="text"
           className="form-control"
           placeholder="Qty"
-          maxlength="11"
+          maxLength={9}
           readOnly={isReadonly}
         />
         <RequiredMessage column="qty" columnText="Qty" isValidation={isValidation} data={data?.qty} />
@@ -76,11 +76,12 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrde
           type="text"
           className="form-control"
           placeholder="Weight"
-          maxlength="11"
+          maxLength={8}
           isReadOnly={isReadonly}
+          isDecimal
         />
       </td>
-      <td>
+      <td className="px-1">
         <Dropdown
           placeholder="UOM"
           options={isUom}
@@ -131,7 +132,7 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrde
           readOnly={isReadonly}
         />
       </td>
-      <td>
+      <td className="px-1">
         <Dropdown
           placeholder="Disposition"
           options={disposition}
@@ -145,7 +146,7 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrde
           onMenuClose={() => setOrderLineSelectOpen(null)}
         />
       </td>
-      <td className="p-0 m-0">
+      <td className="px-1">
         <DatePicker
           top={true}
           getDate={(date) => {
@@ -162,7 +163,7 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrde
         />
 
         <input
-          value={data?.rotaDate?.value}
+          value={formatDate(data?.rotaDate?.value)}
           readOnly
           maxLength={30}
           style={!isReadonly ? { display: 'none' } : null}
@@ -170,7 +171,7 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrde
           placeholder="Select Date"
         />
       </td>
-      <td className="px-1">
+      <td className="px-1" style={isReadonly ? { display: 'none' } : null}>
         <button
           type="button"
           className="btn btn-light-gray btn-block"

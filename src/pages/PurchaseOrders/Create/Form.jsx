@@ -7,7 +7,7 @@ import Input from 'Component/Input';
 import FormLine from './FormLine';
 import RequiredMessage from './RequiredMessage';
 
-import { changeOrderDetails, addOrderLines, changeOrderNo } from './services';
+import { changeOrderDetails, addOrderLines, changeOrderNo, formatDate } from './services';
 import { getSupplier } from 'apiService/dropdown';
 import { validate } from 'email-validator';
 
@@ -81,7 +81,7 @@ const Form = ({ activeTab, isValidation }) => {
 
   useEffect(() => {
     if (orderLineSelectOpen == 'datePicker') {
-      setDropdownExpandStyle('lineDetailsBottomExpand lineDetailsTopExpand');
+      setDropdownExpandStyle('lineDetailsTopExpand');
     } else if (orderLineSelectOpen == 'dropdown') {
       setDropdownExpandStyle('lineDetailsBottomExpand');
     } else {
@@ -212,7 +212,7 @@ const Form = ({ activeTab, isValidation }) => {
           <Input
             name="orderDate"
             placeholder="Order Date"
-            value={orderDetails?.orderDate?.value}
+            value={formatDate(orderDetails?.orderDate?.value)}
             readOnly
             maxLength={30}
             style={!isReadonly ? { display: 'none' } : null}
