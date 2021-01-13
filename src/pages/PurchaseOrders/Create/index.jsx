@@ -59,7 +59,7 @@ const Create = ({ show, setShow }) => {
             </Col>
           </Row>
           <Nav tabs className="px-7 m-0">
-            <NavItem className="mr-2">
+            <NavItem className="mr-1">
               <NavLink
                 style={{ paddingBottom: '12px' }}
                 className={`d-flex height-nav align-items-center ${activeTab === 'details' ? 'active' : null}`}

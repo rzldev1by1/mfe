@@ -94,6 +94,8 @@ export const changeOrderDetails = ({ column, value, dispatch }) => {
 };
 
 export const changeOrderNo = async ({ orderNo, client, setCheckingOrderNo, dispatch }) => {
+  console.log(orderNo);
+
   if (!client) {
     setCheckingOrderNo({ status: false, message: 'Please select client' });
     return;
@@ -292,4 +294,13 @@ export const submit = async ({ data, user, setIsSubmitReturn, setActiveTab, setI
   await setIsSubmitReturn(submitReturn);
   await setActiveTab('message');
   setIsSubmitStatus('done');
+};
+
+export const formatDate = (dateStr) => {
+  if (!dateStr) {
+    return null;
+  }
+
+  let dArr = dateStr.split('-');
+  return dArr[2] + '/' + dArr[1] + '/' + dArr[0];
 };
