@@ -35,7 +35,7 @@ export const schemaColumnDetailPO = [
     accessor: 'product',
     placeholder: 'Product',
     Header: 'Product',
-    width: 90,
+    width: 100,
     Cell: (props) => props.value || '-',
   },
   {
@@ -93,6 +93,7 @@ export const schemaColumnDetailPO = [
     accessor: 'completed',
     placeholder: 'Completed',
     Header: 'Completed',
+    width: 100,
     Cell: (row) => (
       <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
     ),
@@ -101,6 +102,7 @@ export const schemaColumnDetailPO = [
     accessor: 'released',
     placeholder: 'Released',
     Header: 'Released',
+    width: 100,
     Cell: (row) => (
       <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
     ),
@@ -117,6 +119,7 @@ export const schemaColumnDetailPO = [
     accessor: 'rotadate',
     placeholder: 'Rotadate',
     Header: 'Rotadate',
+    width: 100,
     Cell: (props) => formatDate(props.value) || '-',
   },
   {
@@ -124,7 +127,6 @@ export const schemaColumnDetailPO = [
     placeholder: 'Ref3',
     Header: 'Ref3',
     width: 350,
-    className: 'align-right',
     Cell: (props) => props.value || '-',
   },
   {
@@ -132,14 +134,13 @@ export const schemaColumnDetailPO = [
     placeholder: 'Ref4',
     Header: 'Ref4',
     width: 350,
-    className: 'align-right',
     Cell: (props) => props.value || '-',
   },
   {
     accessor: 'disposition',
     placeholder: 'Disposition',
     Header: 'Disposition',
-    className: 'align-right',
+    width: 200,
     Cell: (props) => props.value || '-',
   },
 ];

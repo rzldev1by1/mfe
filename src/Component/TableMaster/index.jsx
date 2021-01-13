@@ -21,7 +21,6 @@ const TableMaster = ({
   filename,
   getExportData,
   exportApi,
-  exportColumns,
   classNamePaging,
   classNameTable,
   exportData,
@@ -58,7 +57,7 @@ const TableMaster = ({
             getExportData={async () => await getExportData()}
             module={module}
             exportApi={exportApi}
-            schemaColumn={exportColumns || schemaColumn}
+            schemaColumn={schemaColumn}
           />
         </CCol>
       </CRow>
