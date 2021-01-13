@@ -25,8 +25,25 @@ const PurchaseOrders = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [Export, setExport] = useState(false);
 
-  const height = window.innerHeight - 257;
-  const widht = window.innerWidth;
+  //dimension
+  const [dimension, setDimension] = useState({
+    height: window.innerHeight - 257,
+    width: window.innerWidth,
+  });
+  const { width, height } = dimension;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimension({
+        height: window.innerHeight - 257,
+        width: window.innerWidth,
+      });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
 
   const [page, setPage] = useState({
     // Paging
@@ -81,7 +98,7 @@ const PurchaseOrders = (props) => {
             onClick={showDetails}
             schemaColumn={schemaColumn}
             data={poSummaryData}
-            style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
+            style={{ minHeight: height, maxHeight: height, maxWidth: width }}
             module="Purchase Orders"
             noDataText
             tableStatus={newPage.tableStatus}

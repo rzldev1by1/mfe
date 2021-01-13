@@ -21,7 +21,7 @@ const Input = ({
         name={name}
         autoComplete={autoComplete}
         onChange={(e) => onChange(e)}
-        onKeyUp={(e) => onKeyUp(e)}
+        onKeyUp={(e) => (onKeyUp ? onKeyUp(e) : null)}
         className={`form-control ${className}`}
         placeholder={placeholder}
         maxLength={maxLength}

@@ -75,7 +75,6 @@ const Form = ({ activeTab, isValidation }) => {
   }, [activeTab]);
 
   useEffect(() => {
-    console.log(client, site, user);
     getSupplier({ client, site, setSupplier });
   }, []);
 
@@ -177,7 +176,7 @@ const Form = ({ activeTab, isValidation }) => {
             title="Order No"
             showTitle
             placeholder="Order No"
-            maxLength={30}
+            maxLength={12}
             // onChange={(e) => changeOrderDetails({ column: 'orderNo', value: e.target.value, dispatch })}
             onChange={(e) =>
               changeOrderNo({

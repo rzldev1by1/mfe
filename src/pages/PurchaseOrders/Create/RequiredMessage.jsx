@@ -9,6 +9,12 @@ const RequiredMessage = ({ isValidation, data, column, columnText, customMessage
     message = columnText + ' must be entered';
   }
 
+  if (column == 'qty') {
+    if (value < 1) {
+      message = 'Qty cannot be 0';
+    }
+  }
+
   if (column == 'OrderLines') {
     if (!data) {
       message = 'At least one line is required to continue';

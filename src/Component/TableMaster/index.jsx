@@ -39,8 +39,8 @@ const TableMaster = ({
         tableStatus={tableStatus}
         className={classNameTable}
       />
-      <CRow lg="12" className="mt-3 pagination-custom">
-        <CCol lg="7" className="px-0 margin-mr">
+      <CRow lg="12" className="mt-3 w-100 pagination-custom">
+        <CCol lg="10" className="px-0 w-100 margin-mr">
           <Pagination
             pagination={pagination}
             data={data}
@@ -51,7 +51,7 @@ const TableMaster = ({
             className={classNamePaging}
           />
         </CCol>
-        <CCol lg="5" className="px-0 export-ml">
+        <CCol lg="2" md="1" className="px-0 w-100 export-ml">
           <Export
             filename={filename}
             getExportData={async () => await getExportData()}
