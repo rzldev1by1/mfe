@@ -12,6 +12,7 @@ const Input = ({
   value = null,
   required = false,
   readOnly = false,
+  onKeyUp,
 }) => {
   return (
     <div>
@@ -20,6 +21,7 @@ const Input = ({
         name={name}
         autoComplete={autoComplete}
         onChange={(e) => onChange(e)}
+        onKeyUp={(e) => onKeyUp(e)}
         className={`form-control ${className}`}
         placeholder={placeholder}
         maxLength={maxLength}

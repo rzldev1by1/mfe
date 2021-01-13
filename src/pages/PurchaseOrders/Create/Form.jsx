@@ -181,12 +181,16 @@ const Form = ({ activeTab, isValidation }) => {
             // onChange={(e) => changeOrderDetails({ column: 'orderNo', value: e.target.value, dispatch })}
             onChange={(e) =>
               changeOrderNo({
-                orderNo: e.target.value,
+                orderNo: e.target.value.toUpperCase(),
                 client: orderDetails?.client?.value?.value,
                 setCheckingOrderNo,
                 dispatch,
               })
             }
+            onKeyUp={(e) => {
+              let orderNo = e.target.value;
+              e.target.value = orderNo.toUpperCase();
+            }}
             required
             readOnly={isReadonly}
           />

@@ -94,6 +94,8 @@ export const changeOrderDetails = ({ column, value, dispatch }) => {
 };
 
 export const changeOrderNo = async ({ orderNo, client, setCheckingOrderNo, dispatch }) => {
+  console.log(orderNo);
+
   if (!client) {
     setCheckingOrderNo({ status: false, message: 'Please select client' });
     return;
@@ -295,7 +297,6 @@ export const submit = async ({ data, user, setIsSubmitReturn, setActiveTab, setI
 };
 
 export const formatDate = (dateStr) => {
-  console.log(dateStr);
   if (!dateStr) {
     return null;
   }
