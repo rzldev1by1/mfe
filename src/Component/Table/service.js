@@ -10,7 +10,6 @@ const getColumnWidth = (rows, accessor, headerText, minWidth) => {
   }
 };
 export const renewColumn = ({ data, schemaColumn, module, userId }) => {
-  console.log(data);
   // reorder column
   let key = `tables__${module}__${userId}`;
   let schema = [];
@@ -50,7 +49,6 @@ export const old_renewColumn = ({ data, schemaColumn, module, userId }) => {
     } else {
       schema = schemaColumn;
     }
-    console.log(schema);
   }
 
   return schema;

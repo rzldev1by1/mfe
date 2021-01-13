@@ -29,7 +29,6 @@ const InputNumber = ({
         isAllowed={(values) => {
           const { value } = values;
           const number = value.split('.');
-          console.log(number);
           return number[0].length <= maxLength;
         }}
       />

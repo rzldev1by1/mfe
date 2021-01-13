@@ -33,7 +33,6 @@ const PurchaseOrders = (props) => {
   const { width, height } = dimension;
 
   useEffect(() => {
-    console.log(width, height);
     const handleResize = () => {
       setDimension({
         height: window.innerHeight - 257,
@@ -101,7 +100,7 @@ const PurchaseOrders = (props) => {
             onClick={showDetails}
             schemaColumn={schemaColumn}
             data={poSummaryData}
-            style={{ minHeight: height, maxHeight: height, minWidth: width, maxWidth: width }}
+            style={{ minHeight: height, maxHeight: height, maxWidth: width }}
             module="Purchase Orders"
             noDataText
             tableStatus={newPage.tableStatus}
