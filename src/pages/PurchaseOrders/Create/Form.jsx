@@ -75,7 +75,6 @@ const Form = ({ activeTab, isValidation }) => {
   }, [activeTab]);
 
   useEffect(() => {
-    console.log(client, site, user);
     getSupplier({ client, site, setSupplier });
   }, []);
 
@@ -177,8 +176,7 @@ const Form = ({ activeTab, isValidation }) => {
             title="Order No"
             showTitle
             placeholder="Order No"
-            maxLength={30}
-            // onChange={(e) => changeOrderDetails({ column: 'orderNo', value: e.target.value, dispatch })}
+            maxLength={12}
             onChange={(e) =>
               changeOrderNo({
                 orderNo: e.target.value.toUpperCase(),
@@ -191,6 +189,7 @@ const Form = ({ activeTab, isValidation }) => {
               let orderNo = e.target.value;
               e.target.value = orderNo.toUpperCase();
             }}
+            alphaNumeric
             required
             readOnly={isReadonly}
           />

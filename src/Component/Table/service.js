@@ -49,7 +49,6 @@ export const old_renewColumn = ({ data, schemaColumn, module, userId }) => {
     } else {
       schema = schemaColumn;
     }
-    console.log(schema);
   }
 
   return schema;

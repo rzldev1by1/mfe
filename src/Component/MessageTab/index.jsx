@@ -15,7 +15,6 @@ const MessageTab = ({ module, submitReturn, back, exit }) => {
   const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
-    console.log('submitReturn', submitReturn);
     if (status === 200 && message === 'Successfully added') {
       setStatusMessage('The ' + module + ' ' + submitReturn.orderNo + ' has successfully submitted for processing.');
       setImgSrc(complete);

@@ -22,12 +22,12 @@ const Pagination = ({ pagination, data, goto, page, setPage, className }) => {
   const tmp_startIndex = data?.length > 0 && startIndex < 1 ? 1 : startIndex;
   // pagination
   const x_total = pagination && pagination.total ? pagination.total : total;
-  const x_last_page = (pagination && pagination.last_page) ? pagination.last_page : 1;
+  const x_last_page = pagination && pagination.last_page ? pagination.last_page : 1;
   const x_from = pagination && pagination.from ? pagination.from : tmp_startIndex;
   const x_to = pagination && pagination.to ? pagination.to : endIndex;
   return (
     <div>
-      <CRow className=" pagination-custom">
+      <CRow lg="10" className=" pagination-custom">
         <CCol lg="7" className="px-0 margin-mr">
           <CCardGroup>
             <CCard className="col-lg-5 border-right px-0">
@@ -76,11 +76,7 @@ const Pagination = ({ pagination, data, goto, page, setPage, className }) => {
         </CCol>
 
         {/* Modal Pagination */}
-        <PopUpPages 
-          page={page} 
-          setPage={setPage} 
-          xLastPage={x_last_page}
-        />
+        <PopUpPages page={page} setPage={setPage} xLastPage={x_last_page} />
       </CRow>
     </div>
   );

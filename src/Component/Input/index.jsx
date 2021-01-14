@@ -13,6 +13,7 @@ const Input = ({
   required = false,
   readOnly = false,
   onKeyUp,
+  alphaNumeric = false,
 }) => {
   return (
     <div>
@@ -21,13 +22,18 @@ const Input = ({
         name={name}
         autoComplete={autoComplete}
         onChange={(e) => onChange(e)}
-        onKeyUp={(e) => onKeyUp(e)}
+        onKeyUp={(e) => (onKeyUp ? onKeyUp(e) : null)}
         className={`form-control ${className}`}
         placeholder={placeholder}
         maxLength={maxLength}
         readOnly={readOnly}
         value={value}
         style={style}
+        onKeyPress={(e) => {
+          if (alphaNumeric) {
+            if (!/^[a-zA-Z0-9-_]+$/.test(e.key)) e.preventDefault();
+          }
+        }}
       />
     </div>
   );

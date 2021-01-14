@@ -21,7 +21,7 @@ const InputNumber = ({
         min={min}
         style={style}
         className={className}
-        placeholder={`   ${placeholder}`}
+        placeholder={placeholder}
         value={value}
         onChange={onChange}
         readOnly={isReadOnly}
@@ -29,7 +29,6 @@ const InputNumber = ({
         isAllowed={(values) => {
           const { value } = values;
           const number = value.split('.');
-          console.log(number);
           return number[0].length <= maxLength;
         }}
       />
