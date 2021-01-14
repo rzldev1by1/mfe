@@ -7,16 +7,16 @@ import Breadcrumb from '../../Component/Breadcrumb';
 import TableMaster from '../../Component/TableMaster';
 import { schemaColumn, exportColumns } from './services';
 import { getSummaryData } from '../../apiService';
-import Create from './Create';
+// import Create from './Create';
 import './index.scss';
 
-const PurchaseOrders = (props) => {
+const SalesOrders = (props) => {
   const showDetails = (item) => {
-    props.history.push(`/purchase-order/${item.site}/${item.client}/${item.order_no}`);
+    props.history.push(`/sales-order/${item.client}/${item.site}/${item.orderno}`);
   };
 
   const dispatch = useDispatch();
-  const poSummaryData = useSelector((state) => state.poSummaryData);
+  const soSummaryData = useSelector((state) => state.soSummaryData);
   const pagination = useSelector((state) => state.pagination);
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
@@ -24,7 +24,7 @@ const PurchaseOrders = (props) => {
   const [active, setActive] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [Export, setExport] = useState(false);
-  const module = "purchaseOrder"
+  const module = "salesOrder"
 
   const height = window.innerHeight - 257;
   const widht = window.innerWidth;
@@ -55,7 +55,7 @@ const PurchaseOrders = (props) => {
   return (
     <div>
       <Breadcrumb
-        breadcrumb={[{ to: '/purchase-order', label: 'Purchase Order', active: true }]}
+        breadcrumb={[{ to: '/sales-order', label: 'Sales Order', active: true }]}
         button={
           <CButton onClick={() => setShowModal(true)} className="btn btn-primary btn-create float-right">
             CREATE PURCHASE ORDER
@@ -82,9 +82,9 @@ const PurchaseOrders = (props) => {
           <TableMaster
             onClick={showDetails}
             schemaColumn={schemaColumn}
-            data={poSummaryData}
+            data={soSummaryData}
             style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
-            module="Purchase Orders"
+            module="Sales Orders"
             noDataText
             tableStatus={newPage.tableStatus}
             pagination={pagination}
@@ -94,8 +94,8 @@ const PurchaseOrders = (props) => {
             exportData={exportData}
             page={page}
             setPage={setPage}
-            title="Purchase Order Summary"
-            filename="Microlistics_PurchaseOrder."
+            title="Sales Order Summary"
+            filename="Microlistics_SalesOrder."
             font="9"
             getExportData={async () => {
               setExport(true);
@@ -103,9 +103,9 @@ const PurchaseOrders = (props) => {
           />
         </div>
       </div>
-      <Create show={showModal} setShow={setShowModal} />
+      {/* <Create show={showModal} setShow={setShowModal} /> */}
     </div>
   );
 };
 
-export default PurchaseOrders;
+export default SalesOrders;

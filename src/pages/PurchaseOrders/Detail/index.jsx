@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Breadcrumb from 'Component/Breadcrumb';
 import DetailHeader from 'Component/DetailHeader';
 import TableMaster from 'Component/TableMaster';
-import { getProductsTablePO, getDetailPO } from '../../../apiService';
+import { getDetailData, getDetailHeader } from '../../../apiService';
 import { setExportData, siteCheck, clientCheck, schemaColumnDetailPO } from './services';
 import './index.scss';
 
@@ -15,6 +15,7 @@ const PurchaseOrdersDetail = (props) => {
   const poDetailTable = useSelector((state) => state.poDetailTable);
   const pagination = useSelector((state) => state.pagination);
   const [active, setActive] = useState(1);
+  const module = "purchaseOrder"
   const [page, setPage] = useState({
     // Paging
     notifPaging: false,
@@ -30,10 +31,10 @@ const PurchaseOrdersDetail = (props) => {
 
   useEffect(() => {}, [page]);
   useEffect(() => {
-    getDetailPO({ dispatch, props });
+    getDetailHeader({ dispatch, props, module });
   }, []);
   useEffect(() => {
-    getProductsTablePO({ dispatch, props, page, active, setPage });
+    getDetailData({ dispatch, props, page, active, setPage, module });
   }, [active]);
 
   const height = window.innerHeight - 370;

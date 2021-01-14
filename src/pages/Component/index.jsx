@@ -28,7 +28,7 @@ const Component = () => {
       <div>
         <div>
           <Breadcrumb breadcrumb={[
-            { to: '/sales-orders', label: 'Tes Component' },
+            { to: '/sales-order', label: 'Tes Component' },
             { to: '/purchase-order', label: 'wadidau', },
             { to: '', label: 20, active: true },
           ]}

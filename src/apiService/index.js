@@ -4,8 +4,8 @@ import axios from 'axios';
 import numeral from 'numeral'
 import endpoints from '../helpers/endpoints';
 
-// Get Purchase Order
-export const searchPurchaseOrder = async ({
+
+export const getSummaryData = async ({
   siteVal,
   clientVal,
   orderType,
@@ -18,9 +18,21 @@ export const searchPurchaseOrder = async ({
   setPage,
   dispatch,
   active,
+  module,
 }) => {
   const newPage = { ...page };
   const urls = [];
+  let endpointsUrl = ''
+  let paramType = ''
+
+  if(module === "purchaseOrder"){
+    endpointsUrl = endpoints.purchaseOrder
+    paramType = 'GET_PO_SUMMARY'
+  }
+  if(module === "salesOrder"){
+    endpointsUrl = endpoints.salesOrder
+    paramType = 'GET_SO_SUMMARY'
+  }
 
   // reset table
   if (readyDocument === false && Export === false) {
@@ -39,7 +51,7 @@ export const searchPurchaseOrder = async ({
     urls.push('export=true');
   }
 
-  const newData = await axios.get(`${endpoints.purchaseOrder}?${urls.join('&')}`);
+  const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
   if (newData?.data?.data) {
     const modifiedData = newData.data.data.data;
     if (Export === true) {
@@ -55,7 +67,7 @@ export const searchPurchaseOrder = async ({
       };
       const paging = pagination;
       newPage.data = modifiedData;
-      dispatch({ type: 'GET_PO_SUMMARY', data: modifiedData });
+      dispatch({ type: paramType, data: modifiedData });
       dispatch({ type: 'PAGING', data: paging });
     }
 
@@ -63,22 +75,34 @@ export const searchPurchaseOrder = async ({
       newPage.tableStatus = 'noData';
     }
   } else {
-    dispatch({ type: 'GET_PO_SUMMARY', data: [] });
+    dispatch({ type: paramType, data: [] });
     newPage.data = [];
   }
   setPage(newPage);
 };
 
-export const getDetailPO = async ({ dispatch, props }) => {
-  const { orderdetail, client, site } = props.match.params;
-  const url = `/purchaseOrder?searchParam=${orderdetail}&client=${client}&site=${site}`;
+export const getDetailHeader = async ({ dispatch, props, module }) => {
+  const { orderdetail, client, site, orderno } = props.match.params;
+
+  let endpointsUrl = ''
+  let paramType = ''
+  if(module === "purchaseOrder"){
+    endpointsUrl = `/purchaseOrder?searchParam=${orderdetail}&client=${client}&site=${site}`
+    paramType = 'GET_PO_DETAIL'
+  }
+  if(module === "salesOrder"){
+    endpointsUrl = `/salesorder?searchParam=${orderno}&client=${client}&site=${site}`
+    paramType = 'GET_SO_DETAIL'
+  }
+
+  const url = endpointsUrl;
   const { data } = await axios.get(url);
   if (data.data) {
-    dispatch({ type: 'GET_PO_DETAIL', data: data.data.data[0] });
+    dispatch({ type: paramType, data: data.data.data[0] });
   }
 };
 
-export const getProductsTablePO = async ({
+export const getDetailData = async ({
   export_ = 'false',
   readyDocument = 'false',
   page,
@@ -86,10 +110,23 @@ export const getProductsTablePO = async ({
   dispatch,
   active,
   props,
+  module,
 }) => {
   const newPage = { ...page };
-  const { orderdetail, client, site } = props.match.params;
-  const url = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${newPage.goPage}&export=${export_}`;
+  const { orderdetail, client, site, orderno } = props.match.params;
+
+  let endpointsUrl = ''
+  let paramType = ''
+  if(module === "purchaseOrder"){
+    endpointsUrl = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${newPage.goPage}&export=${export_}`
+    paramType = 'GET_PO_DETAIL_TABLE'
+  }
+  if(module === "salesOrder"){
+    endpointsUrl =  `/salesorder/${orderno}?client=${client}&site=${site}&page=${newPage.goPage}&export=${export_}`
+    paramType = 'GET_SO_DETAIL_TABLE'
+  }
+
+  const url = endpointsUrl;
   const newData = await axios.get(url);
   if (newData?.data?.data) {
     let txt = []
@@ -114,7 +151,7 @@ export const getProductsTablePO = async ({
       };
       const paging = pagination;
       newPage.data = modifiedData;
-      dispatch({ type: 'GET_PO_DETAIL_TABLE', data: modifiedData });
+      dispatch({ type: paramType, data: modifiedData });
       dispatch({ type: 'PAGING', data: paging });
     }
 
@@ -122,7 +159,7 @@ export const getProductsTablePO = async ({
       newPage.tableStatus = 'noData';
     }
   } else {
-    dispatch({ type: 'GET_PO_DETAIL_TABLE', data: [] });
+    dispatch({ type: paramType, data: [] });
     newPage.data = [];
   }
 
@@ -137,7 +174,6 @@ export const submitPurchaseOrder = async ({ orderDetails, lineDetails }) => {
   const ret = await axios.post(endpoints.purchaseOrderCreate, { orderDetails, lineDetails });
   return ret;
 };
-// And Purchase Order
 
 export const showDetails = ({ module, item }) => {
   const url = `/${module}/${item.site}/${item.client}/${item.order_no}`;

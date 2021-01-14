@@ -15,11 +15,12 @@ import {
   siteCheck,
   clientCheck,
 } from '../../apiService/dropdown';
-import { searchPurchaseOrder } from '../../apiService';
+import { getSummaryData } from '../../apiService';
 
 const Search = ({
   page,
   setPage,
+  module,
   placeholder = '',
   filterSite,
   filterClient,
@@ -47,7 +48,7 @@ const Search = ({
 
   const search = async (e) => {
     if (e.key === 'Enter')
-      await searchPurchaseOrder({
+      await getSummaryData({
         e,
         siteVal,
         clientVal,
@@ -58,11 +59,12 @@ const Search = ({
         setPage,
         searchInput,
         dispatch,
+        module,
       });
   };
   const searchForm = (e) => {
     e.preventDefault();
-    searchPurchaseOrder({ e, siteVal, clientVal, orderType, task, status, page, setPage, searchInput, dispatch });
+    getSummaryData({ e, siteVal, clientVal, orderType, task, status, page, setPage, searchInput, dispatch, module});
   };
 
   useEffect(() => {
@@ -173,7 +175,7 @@ const Search = ({
                     type="button"
                     className="btn btn-search btn-primary float-right"
                     onClick={() =>
-                      searchPurchaseOrder({
+                      getSummaryData({
                         siteVal,
                         clientVal,
                         orderType,
@@ -183,6 +185,7 @@ const Search = ({
                         page,
                         setPage,
                         searchInput,
+                        module,
                       })
                     }
                   >
