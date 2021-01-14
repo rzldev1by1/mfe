@@ -177,7 +177,6 @@ const Form = ({ activeTab, isValidation }) => {
             showTitle
             placeholder="Order No"
             maxLength={12}
-            // onChange={(e) => changeOrderDetails({ column: 'orderNo', value: e.target.value, dispatch })}
             onChange={(e) =>
               changeOrderNo({
                 orderNo: e.target.value.toUpperCase(),
@@ -190,6 +189,7 @@ const Form = ({ activeTab, isValidation }) => {
               let orderNo = e.target.value;
               e.target.value = orderNo.toUpperCase();
             }}
+            alphaNumeric
             required
             readOnly={isReadonly}
           />

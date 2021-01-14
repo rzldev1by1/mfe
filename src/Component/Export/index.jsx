@@ -3,7 +3,7 @@ import ExportExl from 'react-html-table-to-excel';
 import { ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 import { useSelector } from 'react-redux';
 import './style.scss';
-import PopUpExport from "../Modal/PopUpExport";
+import PopUpExport from '../Modal/PopUpExport';
 import 'jspdf-autotable';
 import { exportPDF, exportXLS, ExportName, Dates, setHeader } from './services';
 import loading from '../../assets/icons/loading/LOADING-MLS.gif';
@@ -142,17 +142,11 @@ const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExp
             exportData?.map((data, i) => (
               <tr key={i}>
                 {schemaColumn.map((column, columnIdx) => {
-                  console.log(data[column.accessor])
-                  let dataReturn = data[column.accessor] == null ? "-" : data[column.accessor]
+                  let dataReturn = data[column.accessor] == null ? '-' : data[column.accessor];
                   if (columnHiddenCharacter.includes(column.accessor)) {
-                    return (
-                      <td key={columnIdx}>
-                        {dataReturn}                ‎
-                      </td>
-                  );
-                  } 
-                    return <td key={columnIdx}>{dataReturn}</td>;
-                  
+                    return <td key={columnIdx}>{dataReturn} ‎</td>;
+                  }
+                  return <td key={columnIdx}>{dataReturn}</td>;
                 })}
               </tr>
             ))

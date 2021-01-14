@@ -28,21 +28,18 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
   let header = await setHeader(schemaColumn);
   let body = await setBody(exportData, schemaColumn);
 
-  console.log(body);
-  if (module === 'so') {
-    header = header.filter((data, idx) => idx <= 12);
-    body = body.map((data) => {
-      let newData = data.filter((dt, idx) => idx <= 12);
-      let newData2 = newData.map((dt, idx) => {
-        if (dt[0] === null) {
-          return ['-'];
-        } else {
-          return dt;
-        }
-      });
-      return newData2;
+  header = header.filter((data, idx) => idx <= 12);
+  body = body.map((data) => {
+    let newData = data.filter((dt, idx) => idx <= 12);
+    let newData2 = newData.map((dt, idx) => {
+      if (dt[0] === null) {
+        return ['-'];
+      } else {
+        return dt;
+      }
     });
-  }
+    return newData2;
+  });
 
   const unit = 'pt';
   const size = 'A4'; // Use A1, A2, A3 or A4

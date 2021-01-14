@@ -13,6 +13,7 @@ const Input = ({
   required = false,
   readOnly = false,
   onKeyUp,
+  alphaNumeric = false,
 }) => {
   return (
     <div>
@@ -28,6 +29,11 @@ const Input = ({
         readOnly={readOnly}
         value={value}
         style={style}
+        onKeyPress={(e) => {
+          if (alphaNumeric) {
+            if (!/^[a-zA-Z0-9-_]+$/.test(e.key)) e.preventDefault();
+          }
+        }}
       />
     </div>
   );
