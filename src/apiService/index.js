@@ -1,9 +1,8 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable prefer-const */
 import axios from 'axios';
-import numeral from 'numeral'
+import numeral from 'numeral';
 import endpoints from '../helpers/endpoints';
-
 
 export const getSummaryData = async ({
   siteVal,
@@ -22,16 +21,16 @@ export const getSummaryData = async ({
 }) => {
   const newPage = { ...page };
   const urls = [];
-  let endpointsUrl = ''
-  let paramType = ''
+  let endpointsUrl = '';
+  let paramType = '';
 
-  if(module === "purchaseOrder"){
-    endpointsUrl = endpoints.purchaseOrder
-    paramType = 'GET_PO_SUMMARY'
+  if (module === 'purchaseOrder') {
+    endpointsUrl = endpoints.purchaseOrder;
+    paramType = 'GET_PO_SUMMARY';
   }
-  if(module === "salesOrder"){
-    endpointsUrl = endpoints.salesOrder
-    paramType = 'GET_SO_SUMMARY'
+  if (module === 'salesOrder') {
+    endpointsUrl = endpoints.salesOrder;
+    paramType = 'GET_SO_SUMMARY';
   }
 
   // reset table
@@ -84,15 +83,15 @@ export const getSummaryData = async ({
 export const getDetailHeader = async ({ dispatch, props, module }) => {
   const { orderdetail, client, site, orderno } = props.match.params;
 
-  let endpointsUrl = ''
-  let paramType = ''
-  if(module === "purchaseOrder"){
-    endpointsUrl = `/purchaseOrder?searchParam=${orderdetail}&client=${client}&site=${site}`
-    paramType = 'GET_PO_DETAIL'
+  let endpointsUrl = '';
+  let paramType = '';
+  if (module === 'purchaseOrder') {
+    endpointsUrl = `/purchaseOrder?searchParam=${orderdetail}&client=${client}&site=${site}`;
+    paramType = 'GET_PO_DETAIL';
   }
-  if(module === "salesOrder"){
-    endpointsUrl = `/salesorder?searchParam=${orderno}&client=${client}&site=${site}`
-    paramType = 'GET_SO_DETAIL'
+  if (module === 'salesOrder') {
+    endpointsUrl = `/salesorder?searchParam=${orderno}&client=${client}&site=${site}`;
+    paramType = 'GET_SO_DETAIL';
   }
 
   const url = endpointsUrl;
@@ -115,29 +114,29 @@ export const getDetailData = async ({
   const newPage = { ...page };
   const { orderdetail, client, site, orderno } = props.match.params;
 
-  let endpointsUrl = ''
-  let paramType = ''
-  if(module === "purchaseOrder"){
-    endpointsUrl = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${newPage.goPage}&export=${export_}`
-    paramType = 'GET_PO_DETAIL_TABLE'
+  let endpointsUrl = '';
+  let paramType = '';
+  if (module === 'purchaseOrder') {
+    endpointsUrl = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${newPage.goPage}&export=${export_}`;
+    paramType = 'GET_PO_DETAIL_TABLE';
   }
-  if(module === "salesOrder"){
-    endpointsUrl =  `/salesorder/${orderno}?client=${client}&site=${site}&page=${newPage.goPage}&export=${export_}`
-    paramType = 'GET_SO_DETAIL_TABLE'
+  if (module === 'salesOrder') {
+    endpointsUrl = `/salesorder/${orderno}?client=${client}&site=${site}&page=${newPage.goPage}&export=${export_}`;
+    paramType = 'GET_SO_DETAIL_TABLE';
   }
 
   const url = endpointsUrl;
   const newData = await axios.get(url);
   if (newData?.data?.data) {
-    let txt = []
-    let modifiedData = newData.data.data.data.map(m => { 
-      m.quantity = numeral(m.quantity).format('0,0')
-      m.qty_processed = numeral(m.qty_processed).format('0,0')
-      m.weight = numeral(m.weight).format('0,0.000')
-      m.weight_processed = numeral(m.weight_processed).format('0,0.000')
-      txt.push(m.batch?.length)
-      return m
-    })
+    let txt = [];
+    let modifiedData = newData.data.data.data.map((m) => {
+      m.quantity = numeral(m.quantity).format('0,0');
+      m.qty_processed = numeral(m.qty_processed).format('0,0');
+      m.weight = numeral(m.weight).format('0,0.000');
+      m.weight_processed = numeral(m.weight_processed).format('0,0.000');
+      txt.push(m.batch?.length);
+      return m;
+    });
     if (export_ === 'true') {
       newPage.exportData = modifiedData;
     } else {
@@ -175,6 +174,11 @@ export const submitPurchaseOrder = async ({ orderDetails, lineDetails }) => {
   return ret;
 };
 
+export const submitSalesOrder = async ({ header, lineDetail }) => {
+  const ret = await axios.post(endpoints.salesOrderCreate, { header, lineDetail });
+  return ret;
+};
+
 export const showDetails = ({ module, item }) => {
   const url = `/${module}/${item.site}/${item.client}/${item.order_no}`;
   this.props.history.push(url);
@@ -196,3 +200,26 @@ export const checkOrderNo = async ({ client, orderNo }) => {
   return { status: true, message: null };
 };
 
+export const getCustomerDetail = async ({ client, customer, customerDetails, dispatch }) => {
+  if (!client) {
+    return;
+  }
+
+  let customerVal = customer?.value;
+  client = client?.value?.value;
+  const { data } = await axios.get(`${endpoints.getSoIdentity}?client=${client || ''}&customerNo=${customerVal}`);
+
+  //set customer Details
+  const identity = data?.identity[0];
+  customerDetails.customer.value = customer;
+  customerDetails.address1.value = identity?.address_1 || '';
+  customerDetails.address2.value = identity?.address_2 || '';
+  customerDetails.address3.value = identity?.address_3 || '';
+  customerDetails.address4.value = identity?.address_4 || '';
+  customerDetails.address5.value = identity?.address_5 || '';
+  customerDetails.suburb.value = identity?.city || '';
+  customerDetails.postcode.value = identity?.postcode || '';
+  customerDetails.state.value = identity?.state || '';
+  customerDetails.country.value = identity?.country || '';
+  dispatch({ type: 'RESET_CUSTOMER_DETAIL', data: customerDetails });
+};

@@ -4,8 +4,10 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import './Dropdown.scss';
+import RequiredMessage from 'Component/RequiredMessage';
 
 const Dropdown = ({
+  name,
   isEmpty,
   placeholder,
   options,
@@ -17,19 +19,21 @@ const Dropdown = ({
   className,
   onMenuOpen,
   onMenuClose,
-  showTitle = false,
+  showTitle,
   title = null,
-  required = false,
-  readOnly = false,
+  required,
+  readOnly,
+  messageRequired,
+  messageParam = { messageShow: false, messageData: {}, messageCustom: {} },
 }) => {
   const [isOpen, setIsOpen] = useState();
   const onChangeHandler = (selected, action) => {
+    setIsOpen(false);
     if (action === 'clear') {
       onChangeDropdown(null);
     } else {
       onChangeDropdown(selected);
     }
-    setIsOpen(false);
   };
   useEffect(() => {
     if (selectedValue === 'empty') setIsOpen(true);
@@ -94,6 +98,10 @@ const Dropdown = ({
           borderRadius: 4,
         })}
       />
+
+      {!messageRequired ? null : (
+        <RequiredMessage column={name} messageShow={messageParam?.messageShow} data={messageParam?.messageData} />
+      )}
     </div>
   );
 };

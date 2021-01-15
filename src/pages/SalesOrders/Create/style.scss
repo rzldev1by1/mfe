@@ -1,0 +1,51 @@
+/* Sales Order Create */
+.sales-order-create {
+  .required::after {
+    content: ' *';
+    color: #e55353;
+  }
+  textarea {
+    min-height: 35px !important;
+  }
+  .modal-desc {
+    padding-left: 36px;
+  }
+  .text-error {
+    padding-left: 10px;
+  }
+  .orderline-row td {
+    vertical-align: top;
+  }
+  .orderline .absolute {
+    position: absolute !important;
+    z-index: 99;
+  }
+  .orderline .right {
+    right: 22% !important;
+  }
+  .ReactTable .rt-table .rt-thead .rt-tr .rt-th:first-child {
+    padding-left: 1rem !important;
+    text-align: left !important;
+  }
+}
+
+.sales-order-detail {
+  .ReactTable .rt-table .rt-thead .rt-tr .rt-th:first-child {
+    padding-left: 1rem !important;
+    text-align: left !important;
+  }
+  .ReactTable {
+    .rt-table {
+      .rt-tbody {
+        .rt-tr-group :hover {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}
+@media (min-width: 800px) {
+  .sales-order-detail .border-right {
+    border-right: 2px solid #eee !important;
+  }
+}

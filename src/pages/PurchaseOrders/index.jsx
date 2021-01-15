@@ -24,7 +24,7 @@ const PurchaseOrders = (props) => {
   const [active, setActive] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [Export, setExport] = useState(false);
-  const module = "purchaseOrder"
+  const module = 'purchaseOrder';
 
   //dimension
   const [dimension, setDimension] = useState({
@@ -60,13 +60,13 @@ const PurchaseOrders = (props) => {
   const newPage = { ...page };
   useEffect(() => {}, [page]);
   useEffect(() => {
-    getSummaryData({ dispatch, page, active, setPage, module});
+    getSummaryData({ dispatch, page, active, setPage, module });
   }, [active]);
 
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      getSummaryData({ dispatch, page, active, setPage, Export, module});
+      getSummaryData({ dispatch, page, active, setPage, Export, module });
     }
   }, [Export]);
   return (

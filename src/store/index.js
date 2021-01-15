@@ -13,9 +13,12 @@ const INITIAL_STATE = {
 // REDUCERS
 export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest }) => {
   let createPO = null;
+  let createSO = null;
   let tmp = null;
+  let customerDetails = null;
   let orderDetails = null;
   let orderLines = null;
+  let orderLinesData = null;
 
   switch (type) {
     case 'LOGIN':
@@ -67,18 +70,18 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
     case 'GET_PO_SUMMARY':
       return { ...state, poSummaryData: data };
     case 'GET_PO_DETAIL':
-        return { ...state, poDetail: data };
+      return { ...state, poDetail: data };
     case 'GET_PO_DETAIL_TABLE':
-        return { ...state, poDetailTable: data };
+      return { ...state, poDetailTable: data };
     // Purchase Order End
 
     // Sales Order
     case 'GET_SO_SUMMARY':
       return { ...state, soSummaryData: data };
     case 'GET_SO_DETAIL':
-        return { ...state, soDetail: data };
+      return { ...state, soDetail: data };
     case 'GET_SO_DETAIL_TABLE':
-        return { ...state, soDetailTable: data };
+      return { ...state, soDetailTable: data };
     // Sales Order End
 
     // Resources for insert PO
@@ -113,6 +116,42 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       tmp = { ...createPO, orderLines };
       return { ...state, createPO: tmp };
     // end resources PO
+
+    //CREATE SO
+    case 'SO_RESOURCES':
+      return { ...state, so_resources: data };
+    case 'CREATE_SO_DISPOSITION':
+      return { ...state, so_disposition: data };
+
+    //CREATE PO/SO
+    case 'SET_ORDER_DETAIL':
+      orderDetails = state.orderDetails;
+      orderDetails[column].value = data;
+      return { ...state, orderDetails };
+    case 'RESET_ORDER_DETAIL':
+      return { ...state, orderDetails: data };
+    case 'SET_CUSTOMER_DETAIL':
+      customerDetails = state.customerDetails;
+      customerDetails[column].value = data;
+      return { ...state, customerDetails };
+    case 'RESET_CUSTOMER_DETAIL':
+      return { ...state, customerDetails: data };
+    case 'RESET_ORDER_LINES':
+      return { ...state, orderLines: data };
+    case 'RESET_ORDER_LINES_DATA':
+      return { ...state, orderLinesData: data };
+    case 'SET_ORDER_LINES_DATA':
+      orderLinesData = state.orderLinesData;
+      orderLinesData[column.index][column.column] = data;
+      return { ...state, orderLinesData };
+    case 'DELETE_ORDER_LINES_DATA':
+      orderLinesData = state.orderLinesData;
+      orderLinesData.splice(data, 1);
+      return { ...state, orderLinesData };
+    case 'ADD_ORDER_LINES_DATA':
+      orderLinesData = state.orderLinesData;
+      orderLinesData.push(data);
+      return { ...state, orderLinesData };
 
     // Export
     case 'EXPORT_DATA':

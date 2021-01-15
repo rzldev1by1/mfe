@@ -81,7 +81,9 @@ export const clientCheck = (clientData, client) => {
 };
 
 export const getPOResources = async ({ user, dispatch }) => {
-  let { data } = await axios.get(`${endpoints.getPOResources}?company=${user.company}&client=${user.client}`);
+  let { data } = await axios.get(
+    `${endpoints.getPOResources}?company=${user.company || ''}&client=${user.client || 'all'}`,
+  );
   let site = data.site.map((data) => ({ value: data.site, label: `${data.site}: ${data.name}` }));
   let orderTypeData = data.orderType.map((data, i) => ({
     value: data.code,
@@ -90,6 +92,23 @@ export const getPOResources = async ({ user, dispatch }) => {
 
   let resources = { site: site, orderType: orderTypeData };
   dispatch({ type: 'PO_RESOURCES', data: resources });
+};
+
+export const getSOResources = async ({ user, dispatch }) => {
+  let { data } = await axios.get(
+    `${endpoints.getSoResources}?company=${user.company || ''}&client=${user.client || 'all'}`,
+  );
+
+  //get Site
+  let siteDescription = data.site.name;
+  let site = data.site.code.map((data, idx) => ({ value: data, label: `${siteDescription[idx]}` }));
+
+  //get Order Type
+  let orderTypeDescription = data.orderType.description;
+  let orderType = data.orderType.code.map((data, idx) => ({ value: data, label: `${orderTypeDescription[idx]}` }));
+
+  let resources = { site, orderType };
+  dispatch({ type: 'SO_RESOURCES', data: resources });
 };
 
 export const getDisposition = async ({ dispatch }) => {
@@ -124,4 +143,14 @@ export const getUOM = async ({ client, product }) => {
   const url = `${endpoints.getUom}?client=${client || ''}&product=${product || ''}`;
   const { data } = await axios.get(url);
   return data;
+};
+
+export const getCustomer = async ({ client, setCustomerData }) => {
+  if (!client) {
+    return;
+  }
+  client = client?.value?.value;
+  const { data } = await axios.get(`${endpoints.getCustomer}?client=${client || ''}`);
+  const customerData = data.map((d) => ({ value: d.supplier_no, label: `${d.supplier_no}: ${d.name}` }));
+  setCustomerData(customerData);
 };

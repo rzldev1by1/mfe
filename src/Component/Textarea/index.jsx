@@ -1,7 +1,5 @@
 import React from 'react';
-import RequiredMessage from 'Component/RequiredMessage';
-
-const Input = ({
+const Textarea = ({
   title,
   showTitle = false,
   autoComplete = 'off',
@@ -10,19 +8,16 @@ const Input = ({
   maxLength = 99,
   className,
   name,
+  onKeyUp,
   style = null,
   value = null,
-  required,
-  readOnly,
-  onKeyUp,
-  alphaNumeric,
-  messageRequired,
-  messageParam = { messageShow: false, messageData: {}, messageCustom: {} },
+  required = false,
+  readOnly = false,
 }) => {
   return (
     <div>
       {!showTitle ? null : <label className={'text-muted mb-0 ' + (required ? 'required' : '')}>{title}</label>}
-      <input
+      <textarea
         name={name}
         autoComplete={autoComplete}
         onChange={(e) => onChange(e)}
@@ -33,22 +28,9 @@ const Input = ({
         readOnly={readOnly}
         value={value}
         style={style}
-        onKeyPress={(e) => {
-          if (alphaNumeric) {
-            if (!/^[a-zA-Z0-9-_]+$/.test(e.key)) e.preventDefault();
-          }
-        }}
-      />
-      {!messageRequired ? null : (
-        <RequiredMessage
-          column={name}
-          messageShow={messageParam?.messageShow}
-          data={messageParam?.messageData}
-          customMessage={messageParam?.customMessage}
-        />
-      )}
+      ></textarea>
     </div>
   );
 };
 
-export default Input;
+export default Textarea;
