@@ -1,3 +1,5 @@
+import React from 'react'
+
 const getColumnWidth = (rows, accessor, headerText, minWidth) => {
   const maxWidth = 400;
   const magicSpacing = 10;
@@ -5,13 +7,13 @@ const getColumnWidth = (rows, accessor, headerText, minWidth) => {
   const width = Math.min(maxWidth, cellLength * magicSpacing);
   if (minWidth > width) {
     return minWidth;
-  } else {
+  } 
     return width;
-  }
+  
 };
-export const renewColumn = ({ data, schemaColumn, module, userId }) => {
+export const renewColumn = ({ data, schemaColumn, module, userId, editColumn, showModal, columnHidden }) => {
   // reorder column
-  let key = `tables__${module}__${userId}`;
+  const key = `tables__${module}__${userId}`;
   let schema = [];
   const oldSchema = localStorage.getItem(key);
   const schemaOrder = JSON.parse(oldSchema);
@@ -21,34 +23,35 @@ export const renewColumn = ({ data, schemaColumn, module, userId }) => {
         idx = schemaOrder.indexOf(d.accessor);
       }
       schema[idx] = d;
-      schema[idx]['width'] = await getColumnWidth(data, d.accessor, d.Header, d.width || 0);
+      schema[idx].width = await getColumnWidth(data, d.accessor, d.Header, d.width || 0);
     });
+    if (columnHidden !== null && columnHidden !== undefined) {  
+      schemaColumn.map((data) => {   
+          if(columnHidden.includes(data.accessor)){
+              return 0; 
+          } 
+          schema.push(data)
+      }) 
+    }
   } else {
     schema = schemaColumn;
   }
-  return schema;
-};
 
-export const old_renewColumn = ({ data, schemaColumn, module, userId }) => {
-  // reorder column
-  let key = `tables__${module}__${userId}`;
-  let schema = [];
-  const oldSchema = localStorage.getItem(key);
-  if (oldSchema !== null && oldSchema !== undefined) {
-    const schemaOrder = JSON.parse(oldSchema);
-    schemaColumn.map((data) => {
-      const schemaOrderIndex = schemaOrder.indexOf(data.accessor);
-      schema[schemaOrderIndex] = data;
-    });
-  } else {
-    if (data) {
-      schemaColumn.map(async (d, idx) => {
-        schema[idx] = d;
-        schema[idx]['width'] = await getColumnWidth(data, d.accessor, d.Header, d.width || 0);
-      });
-    } else {
-      schema = schemaColumn;
-    }
+  // Edit & Rename Column button icon
+  if (editColumn !== 'false') {
+    const editBtn = (
+      <div className='edit-column' onClick={showModal.bind(this, true)}>
+        <i className='iconU-edit' /> 
+      </div>
+    )
+    const obj = {
+      Header: editBtn,
+      accessor: 'editBtn',
+      width: 50,
+      style: { textAlign: 'center' },
+      sortable: false
+    };
+    schema = [...schema, obj];
   }
 
   return schema;
@@ -71,15 +74,15 @@ export const saveSchemaToLocal = ({
   module,
 }) => {
   // get old schema from local storage data , if null then set schemaColumn as oldSchema
-  let key = `tables__${module}__${userId}`;
-  let newSchemaOrder = [];
+  const key = `tables__${module}__${userId}`;
+  const newSchemaOrder = [];
   let oldSchema = localStorage.getItem(key);
   if (oldSchema === null || oldSchema === undefined) {
     oldSchema = schemaColumn.map((data) => {
       return data.accessor;
     });
   } else {
-    let tmp = oldSchema;
+    const tmp = oldSchema;
     oldSchema = JSON.parse(oldSchema);
   }
   const { length } = oldSchema;

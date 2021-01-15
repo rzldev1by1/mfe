@@ -1,5 +1,5 @@
 // import library
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import ReactTable from 'react-table-v6';
 import withDraggableColumns from 'react-table-hoc-draggable-columns';
@@ -23,8 +23,11 @@ const Table = ({
   noDataText,
   tableStatus,
   groupHeader = false,
+  columnHidden
 }) => {
   const userId = useSelector((state) => state.user.userId);
+  const [showMod, setShowMod] = useState(false)
+  const [editColumnTemp, setEditColumnTemp] = useState({})
   const ReactTableDraggableColumns = withDraggableColumns(ReactTable);
   const noDataMessage = (
     <div className="caution-caution">
@@ -50,11 +53,15 @@ const Table = ({
     </svg>
   );
 
+  const showModal = (show) => {
+    setShowMod(show)
+  }
+  
   // List Header: to enable function draggable
   const draggableColumn = setDraggableColumn({ schemaColumn });
 
   // renew Schema column, to get old order column or additional logic
-  const newSchema = renewColumn({ data, schemaColumn, module, userId });
+  const newSchema = renewColumn({ data, schemaColumn, module, userId, editColumnTemp, showModal, columnHidden });
 
   return (
     <div className={`${className} ${(data && data < 1) || data === undefined ? 'TableDownHover' : 'Table'}`}>
