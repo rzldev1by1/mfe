@@ -1,36 +1,20 @@
-import _ from 'lodash'
-
 export default (state, renameField, indexField) => {
   const { fields, sameColumns, sameColumnsIdx, error } = state
-  console.log(fields);
-
+  let newerror = error 
+  let newsameColumns = sameColumns
+  let newsameColumnsIdx = sameColumnsIdx
   fields.map((item, idx) => {
-    if(idx !== indexField){
-        if(renameField && renameField?.toUpperCase() === item?.Header?.toUpperCase()){
-            sameColumns.push(item?.Header?.toUpperCase())
-            sameColumnsIdx.push(indexField)
-        }
-        
+    const idxField = parseInt(indexField,10)
+    if(idx === idxField && renameField?.toUpperCase() === item?.Header?.toUpperCase()){
+      newerror[fields[indexField].Header] = `Columns cannot contain the same name`
+      newsameColumns.push(item?.Header?.toUpperCase())
+      newsameColumnsIdx.push(indexField)
+    }
+    else if(idx === idxField && renameField?.toUpperCase() !== item?.Header?.toUpperCase()){
+      delete newerror[fields[indexField].Header]
+      const i = newsameColumnsIdx.indexOf(indexField)
+      delete newsameColumnsIdx[i]
     }
   })
-
-  if(!sameColumns.includes(renameField?.toUpperCase())){
-      sameColumnsIdx.filter(value => value !== indexField)
-  }
-
-  if(Object.keys(sameColumnsIdx).length !== 0){
-    if(indexField){
-        error[fields[indexField].headerData] = `Columns cannot contain the same name`
-        console.log(Object.keys(sameColumnsIdx).length !== 0);
-        console.log(sameColumnsIdx);
-        console.log(error);
-    }
-
-  }else{
-    // error = {}
-  }
-
-  console.log(sameColumnsIdx);
-  console.log(error);
-  return {error, sameColumns, sameColumnsIdx}
+  return {newerror, newsameColumns, newsameColumnsIdx}
 }

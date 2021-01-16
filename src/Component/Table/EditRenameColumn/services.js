@@ -61,14 +61,14 @@ export const changedColumn = ({e, state, setState}) => {
         split.map((val) => val?.length !== 0 ? join.push(val) : null)
         value = join.join(" ")
     }
-    const {error, sameColumns, sameColumnsIdx} = validations(state, value, e.target.id)
+    const {newerror, newsameColumns, newsameColumnsIdx} = validations(state, value, e.target.id)
     const {changedColumns} = state;
-    newVal.error = error
-    newVal.sameColumns = sameColumns
-    newVal.sameColumnsIdx = sameColumnsIdx
+    newVal.error = newerror
+    newVal.sameColumns = newsameColumns
+    newVal.sameColumnsIdx = newsameColumnsIdx
     setState(newVal);
     
-    if(Object.keys(error).length !== 0){
+    if(Object.keys(newerror).length !== 0){
         return null
     }
 
@@ -173,14 +173,15 @@ const renameSubmits = async ({state, setState, UrlAll}) => {
 
 export const renameSubmit = ({ state, setState, setShowMod, UrlAll }) => {
   console.log(state);
-  const {error, sameColumns, sameColumnsIdx } = validations(state)
+  const {newerror, newsameColumns, newsameColumnsIdx } = validations(state)
   const newState = {...state}
 
-  if (Object.keys(error).length) {
+  if (Object.keys(newerror).length) {
+    console.log(newerror);
     console.log('error');
-    newState.error = error
-    newState.sameColumns = sameColumns
-    newState.sameColumnsIdx = sameColumnsIdx
+    newState.error = newerror
+    newState.sameColumns = newsameColumns
+    newState.sameColumnsIdx = newsameColumnsIdx
     setState(newState)
   } else{
     console.log('tidak error');
