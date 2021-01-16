@@ -7,9 +7,9 @@ import { getUOM } from 'apiService/dropdown';
 export const validation = async ({ dispatch, data, setActiveTab }) => {
   //initial
   let statusValidate = true;
+  const { orderDetails, orderLinesData } = data;
 
   //validate Order Details
-  let orderDetails = data.orderDetails;
   for (var key in orderDetails) {
     if (!orderDetails[key]['required']) {
       continue;
@@ -31,20 +31,19 @@ export const validation = async ({ dispatch, data, setActiveTab }) => {
   }
 
   //validate orderlines
-  let orderLines = data.orderLines;
-  orderLines.map((item, index) => {
-    if (!item.qty.value || item.qty.value < 1) {
+  orderLinesData.map((item, index) => {
+    if (!item.qty || item.qty < 1) {
       statusValidate = false;
     }
-    if (!item.uom.value) {
+    if (!item.uom) {
       statusValidate = false;
     }
-    if (!item.product.value) {
+    if (!item.product) {
       statusValidate = false;
     }
   });
 
-  if (orderLines.length < 1) {
+  if (orderLinesData.length < 1) {
     statusValidate = false;
   }
 
@@ -67,30 +66,41 @@ export const resetCreate = (dispatch) => {
     vendorOrderRef: { value: null, required: false, text: 'Vendor Order Ref' },
   };
 
-  const orderLines = [
+  const orderLines = {
+    product: { required: true, text: 'Product' },
+    desc: { required: false, text: 'Desc' },
+    qty: { required: true, text: 'Qty' },
+    weight: { required: false, text: 'Weight' },
+    uom: { required: true, text: 'UOM' },
+    batch: { required: false, text: 'Batch' },
+    ref3: { required: false, text: 'Ref3' },
+    ref4: { required: false, text: 'Ref4' },
+    disposition: { required: false, text: 'Disposition' },
+    rotaDate: { required: false, text: 'Rotadate' },
+  };
+
+  const orderLinesData = [
     {
-      product: { value: null, required: true, text: 'Product' },
-      desc: { value: null, required: false, text: 'Desc' },
-      qty: { value: null, required: true, text: 'Qty' },
-      weight: { value: null, required: false, text: 'Weight' },
-      uom: { value: null, required: true, text: 'UOM' },
-      batch: { value: null, required: false, text: 'Batch' },
-      ref3: { value: null, required: false, text: 'Ref3' },
-      ref4: { value: null, required: false, text: 'Ref4' },
-      disposition: { value: null, required: false, text: 'Disposition' },
-      rotaDate: { value: null, required: false, text: 'Rotadate' },
+      product: null,
+      desc: null,
+      qty: null,
+      weight: null,
+      uom: null,
+      batch: null,
+      ref3: null,
+      ref4: null,
+      disposition: null,
+      rotaDate: null,
     },
   ];
 
-  const tmp = {
-    orderDetails: orderDetails,
-    orderLines: orderLines,
-  };
-  dispatch({ type: 'CREATE_PO', data: tmp });
+  dispatch({ type: 'RESET_ORDER_DETAIL', data: orderDetails });
+  dispatch({ type: 'RESET_ORDER_LINES', data: orderLines });
+  dispatch({ type: 'RESET_ORDER_LINES_DATA', data: orderLinesData });
 };
 
 export const changeOrderDetails = ({ column, value, dispatch }) => {
-  dispatch({ type: 'CREATE_PO_DETAILS', data: value, column });
+  dispatch({ type: 'SET_ORDER_DETAIL', data: value, column });
 };
 
 export const changeOrderNo = async ({ orderNo, client, setCheckingOrderNo, dispatch }) => {
@@ -116,15 +126,10 @@ export const changeOrderNo = async ({ orderNo, client, setCheckingOrderNo, dispa
 
 export const changeOrderLines = ({ val, column, index, dispatch }) => {
   //use formatter
-  const formaterColumn = ['weight', 'qty'];
-  let newVal = val;
-  if (formaterColumn.includes(column)) {
-    newVal = decimalFormatter(column, val);
-  }
 
   //set redux
   let tmp_column = { column: column, index: index };
-  dispatch({ type: 'CREATE_PO_LINES', data: val, column: tmp_column });
+  dispatch({ type: 'SET_ORDER_LINES_DATA', data: val, column: tmp_column });
 };
 
 export const addOrderLines = ({ dispatch }) => {
@@ -140,11 +145,11 @@ export const addOrderLines = ({ dispatch }) => {
     disposition: { value: null, required: false },
     rotaDate: { value: null, required: false },
   };
-  dispatch({ type: 'ADD_PO_LINES', data: orderLines });
+  dispatch({ type: 'ADD_ORDER_LINES_DATA', data: orderLines });
 };
 
 export const deleteOrderLines = ({ index, dispatch }) => {
-  dispatch({ type: 'DELETE_PO_LINES', data: index });
+  dispatch({ type: 'DELETE_ORDER_LINES_DATA', data: index });
 };
 
 export const removeLine = ({ i, line, setLine }) => {
@@ -174,7 +179,7 @@ export const lineChange = (i, e, line, setLine) => {
 export const productHandler = async ({ val, column, index, dispatch, orderDetails, setIsUom }) => {
   //set redux
   let tmp_column = { column: column, index: index };
-  dispatch({ type: 'CREATE_PO_LINES', data: val, column: tmp_column });
+  dispatch({ type: 'SET_ORDER_LINES_DATA', data: val, column: tmp_column });
 
   //get uom
   const client = orderDetails?.client?.value?.value;
@@ -253,37 +258,35 @@ const decimalFormatter = (name, value) => {
 };
 
 export const submit = async ({ data, user, setIsSubmitReturn, setActiveTab, setIsSubmitStatus }) => {
-  //validate Order Details
-  let orderDetails = [
+  const { orderDetails, orderLinesData } = data;
+  let newOrderDetails = [
     {
-      site: data?.orderDetails?.site?.value?.value || '',
-      client: data?.orderDetails?.client?.value?.value || '',
-      orderNo: data?.orderDetails?.orderNo?.value || '',
-      orderType: data?.orderDetails?.orderType?.value?.value || '',
-      orderDate: data?.orderDetails?.orderDate?.value || '',
+      site: orderDetails?.site?.value?.value || '',
+      client: orderDetails?.client?.value?.value || '',
+      orderNo: orderDetails?.orderNo?.value || '',
+      orderType: orderDetails?.orderType?.value?.value || '',
+      orderDate: orderDetails?.orderDate?.value || '',
       web_user: user.webUser,
     },
   ];
 
-  //validate orderlines
-  let orderLines = data.orderLines;
   let newOrderLines = [];
-  orderLines.map((item, index) => {
+  orderLinesData.map((item, index) => {
     let tmp = {
-      product: item?.product?.value?.value || '',
-      qty: item?.qty?.value || '',
-      uom: item?.uom?.value?.value || '',
-      ref3: item?.ref3?.value || '',
-      ref4: item?.ref4?.value || '',
-      rotaDate: item?.rotaDate?.value || '',
-      disposition: item?.disposition?.value?.value || '',
-      batch: item?.batch?.value || '',
-      weight: item?.weight?.value || '',
+      product: item?.product?.value || '',
+      qty: item?.qty || '',
+      uom: item?.uom?.value || '',
+      ref3: item?.ref3 || '',
+      ref4: item?.ref4 || '',
+      rotaDate: item?.rotaDate || '',
+      disposition: item?.disposition?.value || '',
+      batch: item?.batch || '',
+      weight: item?.weight || '',
     };
     newOrderLines.push(tmp);
   });
 
-  const ret = await submitPurchaseOrder({ orderDetails, lineDetails: newOrderLines });
+  const ret = await submitPurchaseOrder({ orderDetails: newOrderDetails, lineDetails: newOrderLines });
 
   //check return
   let status = ret?.status;

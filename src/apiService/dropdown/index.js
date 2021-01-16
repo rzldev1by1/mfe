@@ -120,10 +120,10 @@ export const getDisposition = async ({ dispatch }) => {
   dispatch({ type: 'CREATE_PO_DISPOSITION', data: dispositionData });
 };
 
-export const getSupplier = async ({ createPO, client, site, setSupplier }) => {
-  if (createPO) {
-    site = createPO?.orderDetails?.site?.value?.value;
-    client = createPO?.orderDetails?.client?.value?.value;
+export const getSupplier = async ({ orderDetails, client, site, setSupplier }) => {
+  if (orderDetails) {
+    site = orderDetails?.site?.value?.value;
+    client = orderDetails?.client?.value?.value;
   }
 
   const { data } = await axios.get(`${endpoints.getSupplier}?client=${client || ''}&site=${site || ''}`);

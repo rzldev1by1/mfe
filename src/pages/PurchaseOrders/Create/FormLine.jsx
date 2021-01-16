@@ -9,13 +9,14 @@ import InputNumber from 'Component/InputNumber';
 import { productHandler, numberCheck, changeOrderLines, deleteOrderLines, formatDate } from './services';
 import { getProduct } from 'apiService/dropdown';
 
-const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrderLineSelectOpen }) => {
+const FormLine = ({ index, data, orderDetails, isReadonly, orderLines, isValidation, setOrderLineSelectOpen }) => {
   const dispatch = useDispatch();
-  const disposition = useSelector((state) => state.po_disposition);
+  const dispositionData = useSelector((state) => state.po_disposition);
   const [isLoading, setIsLoading] = useState(false);
   const [isProduct, setIsProduct] = useState(null);
   const [isProductDesc, setIsProductDesc] = useState(null);
   const [isUom, setIsUom] = useState(null);
+  const { product, desc, qty, weight, uom, batch, ref3, ref4, disposition, rotaDate } = orderLines;
 
   return (
     <tr className="py-1 orderline-row" style={{ height: '70px' }}>
@@ -24,7 +25,8 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrde
       </td>
       <td>
         <DropdownAxios
-          placeholder="Product"
+          name="product"
+          placeholder={product?.text}
           options={isProduct}
           selectedValue
           onChangeDropdown={(val) => {
@@ -39,8 +41,9 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrde
           required={true}
           isLoading={isLoading}
           readOnly={isReadonly}
+          messageRequired={product?.required}
+          messageParam={{ messageShow: isValidation, messageData: { text: product?.text, value: data?.product } }}
         />
-        <RequiredMessage column="product" columnText="Product" isValidation={isValidation} data={data?.product} />
       </td>
       <td className="px-1">
         <input
@@ -53,29 +56,28 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrde
       </td>
       <td className="px-1">
         <InputNumber
+          placeholder={qty?.text}
           name="qty"
           autoComplete="off"
           onKeyPress={(e) => numberCheck(e)}
           onChange={(e) => changeOrderLines({ val: e.target.value, column: 'qty', index, dispatch })}
-          value={data?.qty?.value}
           type="text"
           className="form-control"
-          placeholder="Qty"
           maxLength={9}
           isReadOnly={isReadonly}
+          messageRequired={qty?.required}
+          messageParam={{ messageShow: isValidation, messageData: { text: qty?.text, value: data?.qty } }}
         />
-        <RequiredMessage column="qty" columnText="Qty" isValidation={isValidation} data={data?.qty} />
       </td>
       <td className="px-1">
         <InputNumber
           name="weight"
+          placeholder={product?.text}
           autoComplete="off"
           onKeyPress={(e) => numberCheck(e)}
           onChange={(e) => changeOrderLines({ val: e.target.value, column: 'weight', index, dispatch })}
-          value={data?.weight?.value}
           type="text"
           className="form-control"
-          placeholder="Weight"
           maxLength={8}
           isReadOnly={isReadonly}
           isDecimal
@@ -83,27 +85,28 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrde
       </td>
       <td className="px-1">
         <Dropdown
-          placeholder="UOM"
+          name="uom"
+          placeholder={uom?.text}
           options={isUom}
           required
-          selectedValue={data?.uom?.value}
+          selectedValue={uom?.value}
           onChangeDropdown={(selected) => {
             changeOrderLines({ val: selected, column: 'uom', index, dispatch });
           }}
           readOnly={isReadonly}
           onMenuOpen={() => setOrderLineSelectOpen('dropdown')}
           onMenuClose={() => setOrderLineSelectOpen(null)}
+          messageRequired={product?.required}
+          messageParam={{ messageShow: isValidation, messageData: { text: uom?.text, value: data?.uom } }}
         />
-        <RequiredMessage column="uom" columnText="UOM" isValidation={isValidation} data={data?.uom} />
       </td>
       <td className="px-1">
         <input
           name="batch"
+          placeholder={batch?.text}
           autoComplete="off"
           onChange={(e) => changeOrderLines({ val: e.target.value, column: 'batch', index, dispatch })}
-          value={data?.batch?.value}
           className="form-control"
-          placeholder="Batch"
           maxLength="30"
           readOnly={isReadonly}
         />
@@ -111,11 +114,10 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrde
       <td className="px-1">
         <input
           name="ref3"
+          placeholder={ref3?.text}
           autoComplete="off"
           onChange={(e) => changeOrderLines({ val: e.target.value, column: 'ref3', index, dispatch })}
-          value={data?.ref3?.value}
           className="form-control"
-          placeholder="Ref3"
           maxLength="30"
           readOnly={isReadonly}
         />
@@ -123,21 +125,21 @@ const FormLine = ({ index, data, orderDetails, isReadonly, isValidation, setOrde
       <td className="px-1">
         <input
           name="ref4"
+          placeholder={ref4?.text}
           autoComplete="off"
           onChange={(e) => changeOrderLines({ val: e.target.value, column: 'ref4', index, dispatch })}
-          value={data?.ref4?.value}
           className="form-control"
-          placeholder="Ref4"
           maxLength="30"
           readOnly={isReadonly}
         />
       </td>
       <td className="px-1">
         <Dropdown
-          placeholder="Disposition"
-          options={disposition}
+          name="disposition"
+          placeholder={disposition?.text}
+          options={dispositionData}
           required
-          selectedValue={data?.disposition?.value}
+          selectedValue={disposition?.value}
           onChangeDropdown={(selected) => {
             changeOrderLines({ val: selected, column: 'disposition', index, dispatch });
           }}

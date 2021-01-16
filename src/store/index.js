@@ -17,7 +17,6 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
   let tmp = null;
   let customerDetails = null;
   let orderDetails = null;
-  let orderLines = null;
   let orderLinesData = null;
 
   switch (type) {
@@ -84,38 +83,11 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, soDetailTable: data };
     // Sales Order End
 
-    // Resources for insert PO
+    //CREATE PO
     case 'PO_RESOURCES':
       return { ...state, po_resources: data };
-    case 'CREATE_PO':
-      return { ...state, createPO: data };
     case 'CREATE_PO_DISPOSITION':
       return { ...state, po_disposition: data };
-    case 'CREATE_PO_DETAILS':
-      createPO = state.createPO;
-      orderDetails = createPO.orderDetails;
-      orderDetails[column].value = data;
-      tmp = { ...createPO, orderDetails };
-      return { ...state, createPO: tmp };
-    case 'CREATE_PO_LINES':
-      createPO = state.createPO;
-      orderLines = createPO.orderLines;
-      orderLines[column.index][column.column].value = data;
-      tmp = { ...createPO, orderLines };
-      return { ...state, createPO: tmp };
-    case 'ADD_PO_LINES':
-      createPO = state.createPO;
-      orderLines = createPO.orderLines;
-      orderLines.push(data);
-      tmp = { ...createPO, orderLines };
-      return { ...state, createPO: tmp };
-    case 'DELETE_PO_LINES':
-      createPO = state.createPO;
-      orderLines = createPO.orderLines;
-      orderLines.splice(data, 1);
-      tmp = { ...createPO, orderLines };
-      return { ...state, createPO: tmp };
-    // end resources PO
 
     //CREATE SO
     case 'SO_RESOURCES':
