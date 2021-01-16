@@ -14,13 +14,16 @@ const Create = ({ show, setShow }) => {
   const resources = useSelector((state) => state.po_resources);
   const disposition = useSelector((state) => state.po_disposition);
   const user = useSelector((state) => state.user);
-  const createPO = useSelector((state) => state.createPO);
+  const orderDetails = useSelector((state) => state.orderDetails);
+  const orderLines = useSelector((state) => state.orderLines);
+  const orderLinesData = useSelector((state) => state.orderLinesData);
 
   const [activeTab, setActiveTab] = useState('details');
   const [isReset, setIsReset] = useState(0);
   const [isValidation, setIsValidation] = useState(false);
   const [isSubmitStatus, setIsSubmitStatus] = useState(null);
   const [isSubmitReturn, setIsSubmitReturn] = useState(null);
+  const createPO = { orderDetails, orderLines, orderLinesData };
 
   useEffect(() => {
     if (isReset === 0) {
@@ -95,7 +98,7 @@ const Create = ({ show, setShow }) => {
                   }}
                 />
               ) : (
-                <Form activeTab={activeTab} isValidation={isValidation} />
+                <Form activeTab={activeTab} createData={createPO} isValidation={isValidation} />
               )}
 
               {/* Button */}

@@ -16,6 +16,7 @@ const Create = ({ show, setShow }) => {
   const user = useSelector((state) => state.user);
   const orderDetails = useSelector((state) => state.orderDetails);
   const customerDetails = useSelector((state) => state.customerDetails);
+  const orderLines = useSelector((state) => state.orderLines);
   const orderLinesData = useSelector((state) => state.orderLinesData);
 
   const [activeTab, setActiveTab] = useState('details');
@@ -23,7 +24,7 @@ const Create = ({ show, setShow }) => {
   const [isValidation, setIsValidation] = useState(false);
   const [isSubmitStatus, setIsSubmitStatus] = useState(null);
   const [isSubmitReturn, setIsSubmitReturn] = useState(null);
-  const createSO = { orderDetails, customerDetails, orderLinesData };
+  const createSO = { orderDetails, customerDetails, orderLines, orderLinesData };
 
   useEffect(() => {
     if (isReset === 0) {
@@ -96,7 +97,7 @@ const Create = ({ show, setShow }) => {
                   }}
                 />
               ) : (
-                <Form activeTab={activeTab} isValidation={isValidation} />
+                <Form createData={createSO} activeTab={activeTab} isValidation={isValidation} />
               )}
 
               {/* Button */}

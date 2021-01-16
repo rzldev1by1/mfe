@@ -15,16 +15,13 @@ import { validate } from 'email-validator';
 
 import './style.scss';
 
-const Form = ({ activeTab, isValidation }) => {
+const Form = ({ activeTab, isValidation, createData }) => {
   const dispatch = useDispatch();
   const resources = useSelector((state) => state.so_resources);
   const createSO = useSelector((state) => state.createSO);
   const clientData = useSelector((state) => state.clientData);
-  const orderDetails = useSelector((state) => state.orderDetails);
-  const customerDetails = useSelector((state) => state.customerDetails);
-  const orderLines = useSelector((state) => state.orderLines);
-  const orderLinesData = useSelector((state) => state.orderLinesData);
   const user = useSelector((state) => state.user);
+  const { orderDetails, customerDetails, orderLines, orderLinesData } = createData;
 
   const [orderDate, setOrderDate] = useState({});
   const [line, setLine] = useState([]);
@@ -141,7 +138,7 @@ const Form = ({ activeTab, isValidation }) => {
           />
         </Col>
         <Col lg="3">
-          <label className="text-muted mb-0 required">Delivery Date</label>
+          <label className="text-muted mb-0 required">{orderDetails?.deliveryDate?.text}</label>
           <DatePicker
             className="form-control"
             getDate={(date) => {
@@ -152,7 +149,7 @@ const Form = ({ activeTab, isValidation }) => {
           />
           <Input
             name="deliveryDate"
-            placeholder="Order Date"
+            placeholder={orderDetails?.deliveryDate?.text}
             value={formatDate(orderDetails?.deliveryDate?.value)}
             readOnly
             maxLength={30}
