@@ -5,6 +5,7 @@ import moment from 'moment';
 export const schemaColumn = [
   {
     Header: 'Site',
+    placeholder: 'Site',
     accessor: 'site',
     headerStyle: { textAlign: 'left', paddingLeft: "8px" },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -14,6 +15,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Client',
+    placeholder: 'Client',
     accessor: 'client',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -23,6 +25,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Order No',
+    placeholder: 'Order No',
     accessor: 'orderno',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -33,6 +36,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Order Type',
+    placeholder: 'Order Type',
     accessor: 'ordertype',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -43,6 +47,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Task',
+    placeholder: 'Task',
     accessor: 'isistask',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -53,6 +58,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Customer No',
+    placeholder: 'Customer No',
     accessor: 'customer_no',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -63,6 +69,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Customer Name',
+    placeholder: 'Customer Name',
     accessor: 'customername',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -73,6 +80,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Status',
+    placeholder: 'Status',
     accessor: 'status',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -106,6 +114,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Delivery Date',
+    placeholder: 'Delivery Date',
     accessor: 'deliverydate',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -116,6 +125,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Date Received',
+    placeholder: 'Date Received',
     accessor: 'datereceived',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -126,6 +136,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Date Released',
+    placeholder: 'Date Released',
     accessor: 'datereleased',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -136,6 +147,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Date Completed',
+    placeholder: 'Date Completed',
     accessor: 'datecompleted',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -146,6 +158,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Customer Order Ref',
+    placeholder: 'Customer Order Ref',
     accessor: 'customerpono',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -156,6 +169,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Vendor Order Ref',
+    placeholder: 'Vendor Order Ref',
     accessor: 'vendororderno',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -166,6 +180,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Address1',
+    placeholder: 'Address1',
     accessor: 'address1',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -176,6 +191,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Address2',
+    placeholder: 'Address2',
     accessor: 'address2',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -186,6 +202,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Address3',
+    placeholder: 'Address3',
     accessor: 'address3',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -196,6 +213,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Address4',
+    placeholder: 'Address4',
     accessor: 'address4',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -206,6 +224,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Address5',
+    placeholder: 'Address5',
     accessor: 'address5',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -216,6 +235,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Suburb',
+    placeholder: 'Suburb',
     accessor: 'suburb',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -226,6 +246,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Postcode',
+    placeholder: 'Postcode',
     accessor: 'Postcode',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -236,6 +257,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Country',
+    placeholder: 'Country',
     accessor: 'country',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -246,6 +268,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Load Number',
+    placeholder: 'Load Number',
     accessor: 'loadnumber',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -256,7 +279,8 @@ export const schemaColumn = [
     width: 200,
   },
   {
-    Header: 'loadout Start',
+    Header: 'Loadout Start',
+    placeholder: 'Loadout Start',
     accessor: 'loadoutstart',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -267,6 +291,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Loadout Finish',
+    placeholder: 'Loadout Finish',
     accessor: 'loadoutfinish',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -277,6 +302,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Consignment No',
+    placeholder: 'Consignment No',
     accessor: 'consignmentno',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
@@ -287,6 +313,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Freight Charge',
+    placeholder: 'Freight Charge',
     accessor: 'freightcharge',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },

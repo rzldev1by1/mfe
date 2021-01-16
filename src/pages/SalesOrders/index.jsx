@@ -46,6 +46,26 @@ const SalesOrders = (props) => {
     getSummaryData({ dispatch, page, active, setPage, module });
   }, [active]);
 
+
+  const [columnHidden, setColumnHidden] = useState(null);  
+  const [state2, setState2] = useState(null);   
+  if(!columnHidden){
+    setColumnHidden(localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : []) 
+    setState2(true)
+  }
+
+  useEffect(() => {
+    if(state2){ 
+      let x = columnHidden?.map((data,idx) => {
+        if(data.title==="Purchase Order Summary"){
+          setColumnHidden(data.columns);
+        }
+      }) 
+      setState2(false)
+      dispatch({type:'CHANGE_HEADER', data:false})
+    }
+  }, [state2]);
+
   useEffect(() => {
     if (Export === true) {
       setExport(false);
@@ -94,12 +114,15 @@ const SalesOrders = (props) => {
             exportData={exportData}
             page={page}
             setPage={setPage}
+            user={user}
+            columnHidden={columnHidden}
             title="Sales Order Summary"
             filename="Microlistics_SalesOrder."
             font="9"
             getExportData={async () => {
               setExport(true);
             }}
+
           />
         </div>
       </div>
