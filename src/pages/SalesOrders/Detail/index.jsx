@@ -29,7 +29,7 @@ const SalesOrdersDetail = (props) => {
   });
   const newPage = { ...page };
 
-  useEffect(() => {}, [page]);
+  useEffect(() => { }, [page]);
   useEffect(() => {
     getDetailHeader({ dispatch, props, module });
   }, []);
@@ -37,9 +37,11 @@ const SalesOrdersDetail = (props) => {
     getDetailData({ dispatch, props, page, active, setPage, module });
   }, [active]);
 
-  const height = window.innerHeight - 455;
+  const height = window.innerHeight - 495;
   const widht = window.innerWidth;
-  console.log(soDetailTable)
+
+
+  const indexCustomerName = soDetail?.customername.split(":")
   return (
     <div>
       <Breadcrumb
@@ -61,7 +63,7 @@ const SalesOrdersDetail = (props) => {
           titleRightSeven="Customer Name"
           titleRightEight="Customer Order Ref"
           titleRightNine="Vendor Order Ref"
-          titleRightTen="Delivery Instructions"
+          titleRightEleven="Delivery Instructions"
           // Valeu Right
           valeuRightOne={siteCheck(soDetail?.site) || '-'}
           valeuRightTwo={clientCheck(soDetail?.client) || '-'}
@@ -69,10 +71,10 @@ const SalesOrdersDetail = (props) => {
           valeuRightFour={soDetail?.ordertype || '-'}
           valeuRightFive={soDetail?.isistask || '-'}
           valeuRightSix={soDetail?.customer || '-'}
-          valeuRightSeven={soDetail?.customername || '-'}
+          valeuRightSeven={indexCustomerName || '-'}
           valeuRightEight={soDetail?.customerpono || '-'}
           valeuRightNine={soDetail?.vendororderno || '-'}
-          valeuRightTen={soDetail?.deliverydescription || '-'}
+          valeuRightEleven={soDetail?.deliverydescription || '-'}
           // title Center
           titleCenter
           titleCenterOne="Address 1"
@@ -107,7 +109,7 @@ const SalesOrdersDetail = (props) => {
           titleLeftNine="Consignment No"
           titleLeftTen="Freight Charge"
           // Valeu Left
-          valeuLeftOne={(soDetail?.status && soDetail?.status.includes("0:")?"0: Unavailable":soDetail?.status) || '-'}
+          valeuLeftOne={(soDetail?.status && soDetail?.status.includes("0:") ? "0: Unavailable" : soDetail?.status) || '-'}
           valeuLeftTwo={soDetail?.consignmentno || '-'}
           valeuLeftThree={soDetail?.deliverydate || '-'}
           valeuLeftFour={soDetail?.datereceived || '-'}
@@ -116,7 +118,7 @@ const SalesOrdersDetail = (props) => {
           valeuLeftSeven={soDetail?.loadnumber || '-'}
           valeuLeftEight={formatDate(soDetail?.loadoutstart) || '-'}
           valeuLeftNine={formatDate(soDetail?.loadoutfinish) || '-'}
-          valeuLeftTen={soDetail?.freightcharge  || '-'}
+          valeuLeftTen={soDetail?.freightcharge || '-'}
         />
       </div>
       <TableMaster
@@ -137,6 +139,7 @@ const SalesOrdersDetail = (props) => {
         setPage={setPage}
         title="Sales Order Details"
         filename="Microlistics_SalesOrderDetails."
+        exportPdf={false}
       />
     </div>
   );

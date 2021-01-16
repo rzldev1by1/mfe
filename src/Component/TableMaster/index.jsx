@@ -24,6 +24,7 @@ const TableMaster = ({
   classNamePaging,
   classNameTable,
   exportData,
+  exportPdf,
 }) => {
   return (
     <div>
@@ -58,6 +59,7 @@ const TableMaster = ({
             module={module}
             exportApi={exportApi}
             schemaColumn={schemaColumn}
+            exportPdf={exportPdf}
           />
         </CCol>
       </CRow>
