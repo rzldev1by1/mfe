@@ -39,7 +39,6 @@ const EditRenameColumn = ({
     } 
 
     const Required = ({ error, id }) => {
-      console.log(error);
       if(error) {
         const object = Object.keys(error)
         if(object.includes(id)) return <span className="text-error text-danger position-absolute font-rename-error">{error && error[id]}</span>
@@ -62,7 +61,7 @@ const EditRenameColumn = ({
           setState(newState)
         }
     }
-    console.log(fields);
+    
     return (
       <Modal
         show={showModal}

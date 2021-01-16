@@ -35,7 +35,7 @@ const DetailHeader = ({
   valeuLeftSix, valeuLeftSeven, valeuLeftEight, valeuLeftNine, valeuLeftTen,
 }) => {
   const [ModalShow, setModalShow] = useState(false);
-  console.log(ModalShow)
+  
   return (
     <div className="card-group">
       <CCard className={titleRight === true ? null : " d-none"}>
