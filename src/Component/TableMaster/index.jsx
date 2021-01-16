@@ -24,6 +24,11 @@ const TableMaster = ({
   classNamePaging,
   classNameTable,
   exportData,
+  user,
+  fields,
+  title,
+  columnHidden,
+  UrlHeader
 }) => {
   return (
     <div>
@@ -38,6 +43,10 @@ const TableMaster = ({
         noDataText={noDataText}
         tableStatus={tableStatus}
         className={classNameTable}
+        user={user}
+        title={title}
+        columnHidden={columnHidden}
+        UrlHeader={UrlHeader}
       />
       <CRow lg="12" className="mt-3 w-100 pagination-custom">
         <CCol lg="10" className="px-0 w-100 margin-mr">

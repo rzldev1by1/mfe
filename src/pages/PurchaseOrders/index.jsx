@@ -18,6 +18,7 @@ const PurchaseOrders = (props) => {
   const dispatch = useDispatch();
   const poSummaryData = useSelector((state) => state.poSummaryData);
   const pagination = useSelector((state) => state.pagination);
+  const stateChangeHeader = useSelector((state) => state.changeHeader); 
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
   const item = user;
@@ -62,6 +63,36 @@ const PurchaseOrders = (props) => {
   useEffect(() => {
     getSummaryData({ dispatch, page, active, setPage, module});
   }, [active]);
+  
+  const [columnHidden, setColumnHidden] = useState(null);  
+  const [state2, setState2] = useState(null);   
+  if(!columnHidden){
+    setColumnHidden(localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : []) 
+    setState2(true)
+  }
+
+  const UrlHeader = () => {
+    return `/getPurchaseOrderColumn?client=ALL`
+  }
+  
+  useEffect(() => {
+    if(stateChangeHeader){ 
+      setColumnHidden(localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : [])  
+      setState2(true) 
+    }
+  }, [stateChangeHeader]);  
+  
+  useEffect(() => {
+    if(state2){ 
+      let x = columnHidden?.map((data,idx) => {
+        if(data.title==="Purchase Order Summary"){
+          setColumnHidden(data.columns);
+        }
+      }) 
+      setState2(false)
+      dispatch({type:'CHANGE_HEADER', data:false})
+    }
+  }, [state2]);   
 
   useEffect(() => {
     if (Export === true) {
@@ -111,12 +142,15 @@ const PurchaseOrders = (props) => {
             exportData={exportData}
             page={page}
             setPage={setPage}
+            user={user}
+            columnHidden={columnHidden}
             title="Purchase Order Summary"
             filename="Microlistics_PurchaseOrder."
             font="9"
             getExportData={async () => {
               setExport(true);
             }}
+            UrlHeader={UrlHeader}
           />
         </div>
       </div>

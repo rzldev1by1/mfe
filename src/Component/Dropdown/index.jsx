@@ -46,6 +46,7 @@ const Dropdown = ({
       onMenuOpen();
     }
   }, [isOpen]);
+  
   return (
     <div>
       {!showTitle ? null : <label className={`text-muted mb-0 ${required ? 'required' : ''}`}>{title}</label>}

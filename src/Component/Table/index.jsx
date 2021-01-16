@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import ReactTable from 'react-table-v6';
 import withDraggableColumns from 'react-table-hoc-draggable-columns';
+import EditRenameColumn from './EditRenameColumn'
 
 // import style
 import loading from '../../assets/icons/loading/LOADING-MLS-GRAY.gif';
@@ -23,7 +24,11 @@ const Table = ({
   noDataText,
   tableStatus,
   groupHeader = false,
-  columnHidden
+  user,
+  fields,
+  title,
+  columnHidden,
+  UrlHeader
 }) => {
   const userId = useSelector((state) => state.user.userId);
   const [showMod, setShowMod] = useState(false)
@@ -62,7 +67,7 @@ const Table = ({
 
   // renew Schema column, to get old order column or additional logic
   const newSchema = renewColumn({ data, schemaColumn, module, userId, editColumnTemp, showModal, columnHidden });
-
+  
   return (
     <div className={`${className} ${(data && data < 1) || data === undefined ? 'TableDownHover' : 'Table'}`}>
       <ReactTableDraggableColumns
@@ -127,8 +132,19 @@ const Table = ({
           return 0;
         }}
       />
+      <EditRenameColumn 
+        showModal={showMod}
+        setShowMod={setShowMod}
+        setEditColumnTemp={setEditColumnTemp}
+        editColumnTemp={editColumnTemp}
+        user={user}
+        title={title}
+        fields={schemaColumn}
+        columnHidden={columnHidden}
+        UrlHeader={UrlHeader}
+      />
     </div>
-  );
-};
+  )
+}
 
-export default Table;
+export default Table

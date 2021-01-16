@@ -9,30 +9,34 @@ const getColumnWidth = (rows, accessor, headerText, minWidth) => {
     return minWidth;
   } 
     return width;
-  
 };
+
 export const renewColumn = ({ data, schemaColumn, module, userId, editColumn, showModal, columnHidden }) => {
   // reorder column
   const key = `tables__${module}__${userId}`;
   let schema = [];
   const oldSchema = localStorage.getItem(key);
+  
   const schemaOrder = JSON.parse(oldSchema);
+
   if (data) {
-    schemaColumn.map(async (d, idx) => {
-      if (oldSchema) {
-        idx = schemaOrder.indexOf(d.accessor);
-      }
-      schema[idx] = d;
-      schema[idx].width = await getColumnWidth(data, d.accessor, d.Header, d.width || 0);
-    });
-    if (columnHidden !== null && columnHidden !== undefined) {  
-      schemaColumn.map((data) => {   
-          if(columnHidden.includes(data.accessor)){
+    if (columnHidden !== null && columnHidden !== undefined) { 
+      schemaColumn.map((datas) => {   
+          if(columnHidden.includes(datas.accessor)){
               return 0; 
           } 
-          schema.push(data)
+          schema.push(datas)
       }) 
+    }else {
+      schemaColumn.map(async (d, idx) => {
+        if (oldSchema) {
+          idx = schemaOrder.indexOf(d.accessor);
+        }
+        schema[idx] = d;
+        schema[idx].width = await getColumnWidth(data, d.accessor, d.Header, d.width || 0);
+      });
     }
+    
   } else {
     schema = schemaColumn;
   }
@@ -54,7 +58,7 @@ export const renewColumn = ({ data, schemaColumn, module, userId, editColumn, sh
     schema = [...schema, obj];
   }
 
-  return schema;
+    return schema;
 };
 
 export const setDraggableColumn = ({ schemaColumn }) => {
