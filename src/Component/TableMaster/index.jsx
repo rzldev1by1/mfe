@@ -28,7 +28,8 @@ const TableMaster = ({
   fields,
   title,
   columnHidden,
-  UrlHeader
+  UrlHeader,
+  exportPdf,
 }) => {
   return (
     <div>
@@ -67,6 +68,7 @@ const TableMaster = ({
             module={module}
             exportApi={exportApi}
             schemaColumn={schemaColumn}
+            exportPdf={exportPdf}
           />
         </CCol>
       </CRow>

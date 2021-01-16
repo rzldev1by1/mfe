@@ -3,20 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import Dropdown from 'Component/Dropdown';
 import DropdownAxios from 'Component/Dropdown/DropdownAxios';
 import DatePicker from 'shared/DatePicker';
-import RequiredMessage from './RequiredMessage';
 import InputNumber from 'Component/InputNumber';
 
 import { productHandler, numberCheck, changeOrderLines, deleteOrderLines, formatDate } from './services';
 import { getProduct } from 'apiService/dropdown';
 
-const FormLine = ({ index, data, orderDetails, isReadonly, orderLines, isValidation, setOrderLineSelectOpen }) => {
+const FormLine = ({ index, data, orderDetails, orderLines, isReadonly, isValidation, setOrderLineSelectOpen }) => {
   const dispatch = useDispatch();
   const dispositionData = useSelector((state) => state.po_disposition);
   const [isLoading, setIsLoading] = useState(false);
   const [isProduct, setIsProduct] = useState(null);
   const [isProductDesc, setIsProductDesc] = useState(null);
   const [isUom, setIsUom] = useState(null);
-  const { product, desc, qty, weight, uom, batch, ref3, ref4, disposition, rotaDate } = orderLines;
+  const { product, description, qty, weight, uom, batch, ref3, ref4, disposition, packId, rotaDate } = orderLines;
 
   return (
     <tr className="py-1 orderline-row" style={{ height: '70px' }}>
@@ -28,7 +27,6 @@ const FormLine = ({ index, data, orderDetails, isReadonly, orderLines, isValidat
           name="product"
           placeholder={product?.text}
           options={isProduct}
-          selectedValue
           onChangeDropdown={(val) => {
             setIsProductDesc(val?.label);
             productHandler({ val, column: 'product', index, orderDetails, setIsUom, dispatch });
@@ -38,7 +36,7 @@ const FormLine = ({ index, data, orderDetails, isReadonly, orderLines, isValidat
             setIsLoading(true);
           }}
           minChar={3}
-          required={true}
+          required={product?.required}
           isLoading={isLoading}
           readOnly={isReadonly}
           messageRequired={product?.required}
@@ -56,8 +54,8 @@ const FormLine = ({ index, data, orderDetails, isReadonly, orderLines, isValidat
       </td>
       <td className="px-1">
         <InputNumber
-          placeholder={qty?.text}
           name="qty"
+          placeholder={qty?.text}
           autoComplete="off"
           onKeyPress={(e) => numberCheck(e)}
           onChange={(e) => changeOrderLines({ val: e.target.value, column: 'qty', index, dispatch })}
@@ -72,12 +70,12 @@ const FormLine = ({ index, data, orderDetails, isReadonly, orderLines, isValidat
       <td className="px-1">
         <InputNumber
           name="weight"
-          placeholder={product?.text}
           autoComplete="off"
           onKeyPress={(e) => numberCheck(e)}
           onChange={(e) => changeOrderLines({ val: e.target.value, column: 'weight', index, dispatch })}
           type="text"
           className="form-control"
+          placeholder={weight?.text}
           maxLength={8}
           isReadOnly={isReadonly}
           isDecimal
@@ -89,7 +87,7 @@ const FormLine = ({ index, data, orderDetails, isReadonly, orderLines, isValidat
           placeholder={uom?.text}
           options={isUom}
           required
-          selectedValue={uom?.value}
+          selectedValue={data?.uom}
           onChangeDropdown={(selected) => {
             changeOrderLines({ val: selected, column: 'uom', index, dispatch });
           }}
@@ -98,15 +96,15 @@ const FormLine = ({ index, data, orderDetails, isReadonly, orderLines, isValidat
           onMenuClose={() => setOrderLineSelectOpen(null)}
           messageRequired={product?.required}
           messageParam={{ messageShow: isValidation, messageData: { text: uom?.text, value: data?.uom } }}
-        />
+        />{' '}
       </td>
       <td className="px-1">
         <input
           name="batch"
-          placeholder={batch?.text}
           autoComplete="off"
           onChange={(e) => changeOrderLines({ val: e.target.value, column: 'batch', index, dispatch })}
           className="form-control"
+          placeholder={batch?.text}
           maxLength="30"
           readOnly={isReadonly}
         />
@@ -114,10 +112,10 @@ const FormLine = ({ index, data, orderDetails, isReadonly, orderLines, isValidat
       <td className="px-1">
         <input
           name="ref3"
-          placeholder={ref3?.text}
           autoComplete="off"
           onChange={(e) => changeOrderLines({ val: e.target.value, column: 'ref3', index, dispatch })}
           className="form-control"
+          placeholder={ref3?.text}
           maxLength="30"
           readOnly={isReadonly}
         />
@@ -125,10 +123,10 @@ const FormLine = ({ index, data, orderDetails, isReadonly, orderLines, isValidat
       <td className="px-1">
         <input
           name="ref4"
-          placeholder={ref4?.text}
           autoComplete="off"
           onChange={(e) => changeOrderLines({ val: e.target.value, column: 'ref4', index, dispatch })}
           className="form-control"
+          placeholder={ref4?.text}
           maxLength="30"
           readOnly={isReadonly}
         />
@@ -139,13 +137,24 @@ const FormLine = ({ index, data, orderDetails, isReadonly, orderLines, isValidat
           placeholder={disposition?.text}
           options={dispositionData}
           required
-          selectedValue={disposition?.value}
+          selectedValue={data?.disposition}
           onChangeDropdown={(selected) => {
             changeOrderLines({ val: selected, column: 'disposition', index, dispatch });
           }}
           readOnly={isReadonly}
           onMenuOpen={() => setOrderLineSelectOpen('dropdown')}
           onMenuClose={() => setOrderLineSelectOpen(null)}
+        />
+      </td>
+      <td className="px-1">
+        <input
+          name="packId"
+          autoComplete="off"
+          onChange={(e) => changeOrderLines({ val: e.target.value, column: 'ref4', index, dispatch })}
+          className="form-control"
+          placeholder={packId?.text}
+          maxLength="30"
+          readOnly={isReadonly}
         />
       </td>
       <td className="px-1">
@@ -165,7 +174,7 @@ const FormLine = ({ index, data, orderDetails, isReadonly, orderLines, isValidat
         />
 
         <input
-          value={formatDate(data?.rotaDate?.value)}
+          value={formatDate(data?.rotaDate)}
           readOnly
           maxLength={30}
           style={!isReadonly ? { display: 'none' } : null}

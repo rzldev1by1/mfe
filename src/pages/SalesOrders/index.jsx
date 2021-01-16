@@ -7,7 +7,7 @@ import Breadcrumb from '../../Component/Breadcrumb';
 import TableMaster from '../../Component/TableMaster';
 import { schemaColumn, exportColumns } from './services';
 import { getSummaryData } from '../../apiService';
-// import Create from './Create';
+import Create from './Create';
 import './index.scss';
 
 const SalesOrders = (props) => {
@@ -24,7 +24,7 @@ const SalesOrders = (props) => {
   const [active, setActive] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [Export, setExport] = useState(false);
-  const module = "salesOrder"
+  const module = 'salesOrder';
 
   const height = window.innerHeight - 257;
   const widht = window.innerWidth;
@@ -43,13 +43,13 @@ const SalesOrders = (props) => {
   const newPage = { ...page };
   useEffect(() => {}, [page]);
   useEffect(() => {
-    getSummaryData({ dispatch, page, active, setPage, module});
+    getSummaryData({ dispatch, page, active, setPage, module });
   }, [active]);
 
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      getSummaryData({ dispatch, page, active, setPage, Export, module});
+      getSummaryData({ dispatch, page, active, setPage, Export, module });
     }
   }, [Export]);
   return (
@@ -58,7 +58,7 @@ const SalesOrders = (props) => {
         breadcrumb={[{ to: '/sales-order', label: 'Sales Order', active: true }]}
         button={
           <CButton onClick={() => setShowModal(true)} className="btn btn-primary btn-create float-right">
-            CREATE PURCHASE ORDER
+            CREATE SALES ORDER
           </CButton>
         }
       />
@@ -103,7 +103,7 @@ const SalesOrders = (props) => {
           />
         </div>
       </div>
-      {/* <Create show={showModal} setShow={setShowModal} /> */}
+      <Create show={showModal} setShow={setShowModal} />
     </div>
   );
 };

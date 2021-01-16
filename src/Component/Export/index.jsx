@@ -66,6 +66,7 @@ const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExp
     'batch',
     'pack_id',
     'supplier_no',
+    'customer_no'
   ];
   return (
     <div>
@@ -83,42 +84,39 @@ const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExp
             {exportStatus === 'ready' ? (
               'EXPORT'
             ) : (
-              <img src={loading} className="mt-min-5" width="45" height="45" alt="" />
-            )}
+                <img src={loading} className="mt-min-5" width="45" height="45" alt="" />
+              )}
           </div>
         </DropdownToggle>
         <DropdownMenu
-          className={`no-shadow ${
-            exportPdf === 'false' || exportExcel === 'false' ? ' dropdown-single only-pdf' : ' Dropdown-menu ex-pdf'
-          }`}
+          className={`no-shadow ${exportPdf === false || exportExcel === false ? ' dropdown-single only-pdf' : ' Dropdown-menu ex-pdf'
+            }`}
         >
-          {exportPdf === 'false' ? (
-            ''
-          ) : (
+          {exportPdf === false ? '' : (
             <DropdownItem className="export-pdf px-3" onClick={() => setRunExport('PDF')}>
               <span className="exp-PDF" style={{ paddingRight: '0.28rem' }} />
               EXPORT TO PDF
             </DropdownItem>
           )}
-          {exportExcel === 'false' ? (
+          {exportExcel === false ? (
             ''
           ) : (
-            <div>
-              <DropdownItem className="export-excel so-export" onClick={() => setRunExport('XLS')}>
-                <span className="exp-XLS" style={{ paddingRight: '0.3rem' }} />
+              <div>
+                <DropdownItem className="export-excel so-export" onClick={() => setRunExport('XLS')}>
+                  <span className="exp-XLS" style={{ paddingRight: '0.3rem' }} />
                 EXPORT TO XLS
               </DropdownItem>
-              <div style={{ display: 'none' }}>
-                <ExportExl
-                  className="Excel-bottom"
-                  table={secondTable ? 'excel2' : 'excel'}
-                  filename={ExportName(filename)}
-                  sheet="sheet 1"
-                  buttonText="EXPORT TO XLS"
-                />
+                <div style={{ display: 'none' }}>
+                  <ExportExl
+                    className="Excel-bottom"
+                    table={secondTable ? 'excel2' : 'excel'}
+                    filename={ExportName(filename)}
+                    sheet="sheet 1"
+                    buttonText="EXPORT TO XLS"
+                  />
+                </div>
               </div>
-            </div>
-          )}
+            )}
         </DropdownMenu>
       </ButtonDropdown>
 
@@ -139,18 +137,19 @@ const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExp
           {!exportData ? (
             <div> No data available </div>
           ) : (
-            exportData?.map((data, i) => (
-              <tr key={i}>
-                {schemaColumn.map((column, columnIdx) => {
-                  let dataReturn = data[column.accessor] == null ? '-' : data[column.accessor];
-                  if (columnHiddenCharacter.includes(column.accessor)) {
-                    return <td key={columnIdx}>{dataReturn} ‎</td>;
-                  }
-                  return <td key={columnIdx}>{dataReturn}</td>;
-                })}
-              </tr>
-            ))
-          )}
+              exportData?.map((data, i) => (
+                <tr key={i}>
+                  {schemaColumn.map((column, columnIdx) => {
+                    let dataReturn = data[column.accessor] == null ? '-' : data[column.accessor];
+                    if (columnHiddenCharacter.includes(column.accessor)) {
+                      return <td key={columnIdx}>{dataReturn} ‎</td>;
+                    }
+
+                    return <td key={columnIdx}>{dataReturn}</td>;
+                  })}
+                </tr>
+              ))
+            )}
         </tbody>
       </table>
       {/* End Excel Export */}

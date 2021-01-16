@@ -1,74 +1,37 @@
 import axios from 'axios';
 import endpoints from 'helpers/endpoints';
 import numeral from 'numeral';
-import { checkOrderNo, submitPurchaseOrder } from 'apiService';
+import { checkOrderNo, submitSalesOrder } from 'apiService';
 import { getUOM } from 'apiService/dropdown';
-
-export const validation = async ({ dispatch, data, setActiveTab }) => {
-  //initial
-  let statusValidate = true;
-  const { orderDetails, orderLinesData } = data;
-
-  //validate Order Details
-  for (var key in orderDetails) {
-    if (!orderDetails[key]['required']) {
-      continue;
-    }
-
-    let values = orderDetails[key]['value'];
-    let text = orderDetails[key]['text'];
-    let status = true;
-    let message = null;
-    if (key === 'orderNo') {
-      if (values && values.length < 4) {
-        statusValidate = false;
-      }
-    }
-
-    if (!values) {
-      statusValidate = false;
-    }
-  }
-
-  //validate orderlines
-  orderLinesData.map((item, index) => {
-    if (!item.qty || item.qty < 1) {
-      statusValidate = false;
-    }
-    if (!item.uom) {
-      statusValidate = false;
-    }
-    if (!item.product) {
-      statusValidate = false;
-    }
-  });
-
-  if (orderLinesData.length < 1) {
-    statusValidate = false;
-  }
-
-  if (statusValidate) {
-    setActiveTab('review');
-  } else {
-    setActiveTab('details');
-  }
-};
 
 export const resetCreate = (dispatch) => {
   const orderDetails = {
     site: { value: null, required: true, text: 'Site' },
     orderType: { value: null, required: true, text: 'Order Type' },
-    supplier: { value: null, required: false, text: 'Supplier' },
     customerOrderRef: { value: null, required: false, text: 'Customer Order Ref' },
+    deliveryDate: { value: null, required: true, text: 'Delivery Date' },
     client: { value: null, required: true, text: 'Client' },
-    orderNo: { value: null, required: true, minLength: 4, text: 'Order no.' },
-    orderDate: { value: null, required: true, text: 'Order Date' },
+    orderNo: { value: null, required: true, minLength: 4, text: 'Order No' },
     vendorOrderRef: { value: null, required: false, text: 'Vendor Order Ref' },
+    deliveryInstructions: { value: null, required: false, text: 'Delivery Instructions' },
+  };
+
+  const customerDetails = {
+    customer: { value: null, required: false, text: 'Customer' },
+    address1: { value: null, required: true, text: 'Address 1' },
+    address2: { value: null, required: false, text: 'Address 2' },
+    address3: { value: null, required: false, text: 'Address 3' },
+    address4: { value: null, required: false, text: 'Address 4' },
+    address5: { value: null, required: false, text: 'Address 5' },
+    suburb: { value: null, required: false, text: 'Suburb' },
+    postcode: { value: null, required: true, text: 'Postcode' },
+    state: { value: null, required: true, minLength: 4, text: 'State' },
+    country: { value: null, required: false, text: 'Country' },
   };
 
   const orderLines = {
     product: { required: true, text: 'Product' },
-    desc: { required: false, text: 'Desc' },
+    description: { required: false, text: 'Description' },
     qty: { required: true, text: 'Qty' },
     weight: { required: false, text: 'Weight' },
     uom: { required: true, text: 'UOM' },
@@ -76,13 +39,13 @@ export const resetCreate = (dispatch) => {
     ref3: { required: false, text: 'Ref3' },
     ref4: { required: false, text: 'Ref4' },
     disposition: { required: false, text: 'Disposition' },
+    packId: { required: false, text: 'Pack ID' },
     rotaDate: { required: false, text: 'Rotadate' },
   };
 
   const orderLinesData = [
     {
       product: null,
-      desc: null,
       qty: null,
       weight: null,
       uom: null,
@@ -90,17 +53,22 @@ export const resetCreate = (dispatch) => {
       ref3: null,
       ref4: null,
       disposition: null,
+      packId: null,
       rotaDate: null,
     },
   ];
 
   dispatch({ type: 'RESET_ORDER_DETAIL', data: orderDetails });
+  dispatch({ type: 'RESET_CUSTOMER_DETAIL', data: customerDetails });
   dispatch({ type: 'RESET_ORDER_LINES', data: orderLines });
   dispatch({ type: 'RESET_ORDER_LINES_DATA', data: orderLinesData });
 };
 
 export const changeOrderDetails = ({ column, value, dispatch }) => {
   dispatch({ type: 'SET_ORDER_DETAIL', data: value, column });
+};
+export const changeCustomerDetails = ({ column, value, dispatch }) => {
+  dispatch({ type: 'SET_CUSTOMER_DETAIL', data: value, column });
 };
 
 export const changeOrderNo = async ({ orderNo, client, setCheckingOrderNo, dispatch }) => {
@@ -125,25 +93,23 @@ export const changeOrderNo = async ({ orderNo, client, setCheckingOrderNo, dispa
 };
 
 export const changeOrderLines = ({ val, column, index, dispatch }) => {
-  //use formatter
-
   //set redux
-  let tmp_column = { column: column, index: index };
+  let tmp_column = { column, index };
   dispatch({ type: 'SET_ORDER_LINES_DATA', data: val, column: tmp_column });
 };
 
 export const addOrderLines = ({ dispatch }) => {
   const orderLines = {
-    product: { value: null, required: true },
-    desc: { value: null, required: false },
-    qty: { value: null, required: true },
-    weight: { value: null, required: false },
-    uom: { value: null, required: true },
-    batch: { value: null, required: false },
-    ref3: { value: null, required: false },
-    ref4: { value: null, required: false },
-    disposition: { value: null, required: false },
-    rotaDate: { value: null, required: false },
+    product: null,
+    qty: null,
+    weight: null,
+    uom: null,
+    batch: null,
+    ref3: null,
+    ref4: null,
+    disposition: null,
+    packId: null,
+    rotaDate: null,
   };
   dispatch({ type: 'ADD_ORDER_LINES_DATA', data: orderLines });
 };
@@ -257,42 +223,109 @@ const decimalFormatter = (name, value) => {
   return value;
 };
 
+export const validation = async ({ data, setActiveTab }) => {
+  //initial
+  let statusValidate = true;
+  const { orderDetails, customerDetails, orderLinesData } = data;
+
+  //validate Order Details
+  for (var key in orderDetails) {
+    if (!orderDetails[key]['required']) {
+      continue;
+    }
+    let values = orderDetails[key]['value'];
+    if (key === 'orderNo') {
+      if (values && values.length < 4) {
+        statusValidate = false;
+      }
+    }
+
+    if (!values) {
+      statusValidate = false;
+    }
+  }
+
+  //validate customer Details
+  for (var key in customerDetails) {
+    if (!customerDetails[key]['required']) {
+      continue;
+    }
+    let values = customerDetails[key]['value'];
+    if (!values) {
+      statusValidate = false;
+    }
+  }
+
+  //validate orderlines
+  let tmp = orderLinesData?.map((item, index) => {
+    if (!item.qty || item.qty < 1) {
+      statusValidate = false;
+    }
+    if (!item.uom) {
+      statusValidate = false;
+    }
+    if (!item.product) {
+      statusValidate = false;
+    }
+  });
+
+  if (statusValidate) {
+    setActiveTab('review');
+  } else {
+    setActiveTab('details');
+  }
+};
+
 export const submit = async ({ data, user, setIsSubmitReturn, setActiveTab, setIsSubmitStatus }) => {
-  const { orderDetails, orderLinesData } = data;
-  let newOrderDetails = [
-    {
-      site: orderDetails?.site?.value?.value || '',
-      client: orderDetails?.client?.value?.value || '',
-      orderNo: orderDetails?.orderNo?.value || '',
-      orderType: orderDetails?.orderType?.value?.value || '',
-      orderDate: orderDetails?.orderDate?.value || '',
-      web_user: user.webUser,
-    },
-  ];
+  const { orderDetails, customerDetails, orderLinesData } = data;
+  let header = {
+    site: orderDetails?.site?.value?.value || '',
+    client: orderDetails?.client?.value?.value || '',
+    orderId: orderDetails?.orderNo?.value || '',
+    orderType: orderDetails?.orderType?.value?.value || '',
+    deliveryDate: orderDetails?.deliveryDate?.value || '',
+    deliveryInstruction: orderDetails?.deliveryInstructions?.value || '',
+    vendorOrderRef: orderDetails?.vendorOrderRef?.value || '',
+    customerOrderRef: orderDetails?.customerOrderRef?.value || '',
+    web_user: user.webUser,
+    customer: customerDetails?.customer?.value || '',
+    shipToAddress1: customerDetails?.address1?.value || '',
+    shipToAddress2: customerDetails?.address2?.value || '',
+    shipToAddress3: customerDetails?.address3?.value || '',
+    shipToAddress4: customerDetails?.address4?.value || '',
+    shipToAddress5: customerDetails?.address5?.value || '',
+    city: customerDetails?.city?.value || '',
+    country: customerDetails?.country?.value || '',
+    postCode: customerDetails?.postCode?.value || '',
+    state: customerDetails?.state?.value || '',
+  };
 
   let newOrderLines = [];
   orderLinesData.map((item, index) => {
     let tmp = {
-      product: item?.product?.value || '',
+      productVal: item?.product?.value || '',
       qty: item?.qty || '',
       uom: item?.uom?.value || '',
       ref3: item?.ref3 || '',
       ref4: item?.ref4 || '',
       rotaDate: item?.rotaDate || '',
-      disposition: item?.disposition?.value || '',
+      dispositionVal: item?.disposition?.value || '',
       batch: item?.batch || '',
+      packId: item?.packId || '',
       weight: item?.weight || '',
     };
     newOrderLines.push(tmp);
   });
 
-  const ret = await submitPurchaseOrder({ orderDetails: newOrderDetails, lineDetails: newOrderLines });
+  const ret = await submitSalesOrder({ header, lineDetail: newOrderLines });
 
   //check return
+  console.log(ret);
   let status = ret?.status;
-  let message = ret?.data?.message;
-  let submitReturn = { status: status, message: message, orderNo: data?.orderDetails?.orderNo?.value };
+  let message = ret?.data;
+  let submitReturn = { status: status, message: message, orderNo: orderDetails?.orderNo?.value };
   await setIsSubmitReturn(submitReturn);
+
   await setActiveTab('message');
   setIsSubmitStatus('done');
 };

@@ -3,8 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { onChangeHandler } from './services';
+import RequiredMessage from 'Component/RequiredMessage';
 
 const DropdownAxios = ({
+  name,
   isEmpty,
   placeholder,
   options,
@@ -21,6 +23,8 @@ const DropdownAxios = ({
   minChar = 3,
   required = false,
   readOnly,
+  messageRequired,
+  messageParam = { messageShow: false, messageData: {}, messageCustom: {} },
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isValue, setIsValue] = useState('');
@@ -90,6 +94,10 @@ const DropdownAxios = ({
           }),
         }}
       />
+
+      {!messageRequired ? null : (
+        <RequiredMessage column={name} messageShow={messageParam?.messageShow} data={messageParam?.messageData} />
+      )}
     </div>
   );
 };
