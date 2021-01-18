@@ -5,29 +5,45 @@ import { CButton } from '@coreui/react';
 import Search from '../../Component/Search';
 import Breadcrumb from '../../Component/Breadcrumb';
 import TableMaster from '../../Component/TableMaster';
-import { schemaColumn, exportColumns } from './services';
+import { schemaColumn, statusDataSH } from './services';
 import { getSummaryData } from '../../apiService';
-import Create from './Create';
 import './index.scss';
 
-const SalesOrders = (props) => {
+const PurchaseOrders = (props) => {
   const showDetails = (item) => {
-    props.history.push(`/sales-order/${item.client}/${item.site}/${item.orderno}`);
+    props.history.push(`/purchase-order/${item.site}/${item.client}/${item.order_no}`);
   };
 
   const dispatch = useDispatch();
-  const soSummaryData = useSelector((state) => state.soSummaryData);
+  const shSummaryData = useSelector((state) => state.shSummaryData);
   const pagination = useSelector((state) => state.pagination);
+  const stateChangeHeader = useSelector((state) => state.changeHeader); 
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
   const item = user;
   const [active, setActive] = useState(1);
-  const [showModal, setShowModal] = useState(false);
   const [Export, setExport] = useState(false);
-  const module = 'salesOrder';
+  const module = 'StockHolding';
 
-  const height = window.innerHeight - 257;
-  const widht = window.innerWidth;
+  //dimension
+  const [dimension, setDimension] = useState({
+    height: window.innerHeight - 257,
+    width: window.innerWidth,
+  });
+  const { width, height } = dimension;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimension({
+        height: window.innerHeight - 257,
+        width: window.innerWidth,
+      });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
 
   const [page, setPage] = useState({
     // Paging
@@ -45,8 +61,7 @@ const SalesOrders = (props) => {
   useEffect(() => {
     getSummaryData({ dispatch, page, active, setPage, module });
   }, [active]);
-
-
+  
   const [columnHidden, setColumnHidden] = useState(null);  
   const [state2, setState2] = useState(null);   
   if(!columnHidden){
@@ -54,6 +69,17 @@ const SalesOrders = (props) => {
     setState2(true)
   }
 
+  const UrlHeader = () => {
+    return `/getPurchaseOrderColumn?client=ALL`
+  }
+  
+  useEffect(() => {
+    if(stateChangeHeader){ 
+      setColumnHidden(localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : [])  
+      setState2(true) 
+    }
+  }, [stateChangeHeader]);  
+  
   useEffect(() => {
     if(state2){ 
       let x = columnHidden?.map((data,idx) => {
@@ -64,7 +90,7 @@ const SalesOrders = (props) => {
       setState2(false)
       dispatch({type:'CHANGE_HEADER', data:false})
     }
-  }, [state2]);
+  }, [state2]);   
 
   useEffect(() => {
     if (Export === true) {
@@ -75,12 +101,7 @@ const SalesOrders = (props) => {
   return (
     <div>
       <Breadcrumb
-        breadcrumb={[{ to: '/sales-order', label: 'Sales Order', active: true }]}
-        button={
-          <CButton onClick={() => setShowModal(true)} className="btn btn-primary btn-create float-right">
-            CREATE SALES ORDER
-          </CButton>
-        }
+        breadcrumb={[{ to: '/stock-holding', label: 'Stock Holding', active: true }]}
       />
       <div>
         <div>
@@ -91,20 +112,19 @@ const SalesOrders = (props) => {
             filterSite
             filterClient
             filterStatus
-            filterOrderType
-            filterTask
             placeholder="Enter an Order No"
             filter
             onChangeGetTask
+            statusDataSH={statusDataSH}
           />
         </div>
         <div>
           <TableMaster
             onClick={showDetails}
             schemaColumn={schemaColumn}
-            data={soSummaryData}
-            style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
-            module="Sales Orders"
+            data={shSummaryData}
+            style={{ minHeight: height, maxHeight: height, maxWidth: width }}
+            module="Purchase Orders"
             noDataText
             tableStatus={newPage.tableStatus}
             pagination={pagination}
@@ -116,19 +136,18 @@ const SalesOrders = (props) => {
             setPage={setPage}
             user={user}
             columnHidden={columnHidden}
-            title="Sales Order Summary"
-            filename="Microlistics_SalesOrder."
+            title="Purchase Order Summary"
+            filename="Microlistics_PurchaseOrder."
             font="9"
             getExportData={async () => {
               setExport(true);
             }}
-            exportPdf={false}
+            UrlHeader={UrlHeader}
           />
         </div>
       </div>
-      <Create show={showModal} setShow={setShowModal} />
     </div>
   );
 };
 
-export default SalesOrders;
+export default PurchaseOrders;

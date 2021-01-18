@@ -27,6 +27,7 @@ const Search = ({
   filterStatus,
   filterOrderType,
   filterTask,
+  statusDataSH,
   onChangeGetTask = false,
 }) => {
   // params
@@ -145,7 +146,7 @@ const Search = ({
                     className={`px-0 ${filterStatus === true ? null : ' d-none'}`}
                     show
                     placeholder="Status"
-                    options={statusData}
+                    options={statusDataSH || statusData}
                     onChangeDropdown={(selected) => setStatus({ selected, dispatch })}
                     selectedValue={status}
                   />

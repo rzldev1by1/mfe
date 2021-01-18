@@ -67,6 +67,15 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, pagination: data };
     // Pagination End
 
+    // Stock Holding
+    case 'GET_SH_SUMMARY':
+      return { ...state, shSummaryData: data };
+    case 'GET_SH_DETAIL':
+      return { ...state, shDetail: data };
+    case 'GET_SH_DETAIL_TABLE':
+      return { ...state, shDetailTable: data };
+    // Purchase Order End
+
     // Purchase Order
     case 'GET_PO_SUMMARY':
       return { ...state, poSummaryData: data };

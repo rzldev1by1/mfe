@@ -139,7 +139,6 @@ const SalesOrdersDetail = (props) => {
         setPage={setPage}
         title="Sales Order Details"
         filename="Microlistics_SalesOrderDetails."
-        exportPdf={false}
       />
     </div>
   );

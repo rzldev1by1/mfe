@@ -1,6 +1,13 @@
 export default [
   {
     _tag: 'CSidebarNavItem',
+    name: 'STOCK HOLDING',
+    to: '/stock-holding',
+    icon: 'sh',
+    key: 'menu_inventory_stkHolding',
+  },
+  {
+    _tag: 'CSidebarNavItem',
     name: 'PURCHASE ORDERS',
     to: '/purchase-order',
     icon: 'po',
