@@ -58,21 +58,22 @@ export const getSummaryData = async ({
   if (newData?.data?.data) {
     const modifiedData = newData.data.data.data;
     modifiedData.map((item, idx) => {
-      if (parseInt(item['on_hand_qty'] + item['expected_in_qty'])  >= item['expected_out_qty']) {
-        item['status'] = 'OK';
-        item['statusTxt'] = 'OK';
-      }if (parseInt(item['on_hand_qty'] + item['expected_in_qty'])  <= item['expected_out_qty']) {
-        item['status'] =  'SHORTAGE';
-        item['statusTxt'] = 'SHORTAGE';
+      if (parseInt(item.on_hand_qty + item.expected_in_qty)  >= item.expected_out_qty) {
+        item.status = 'OK';
+        item.statusTxt = 'OK';
+      }if (parseInt(item.on_hand_qty + item.expected_in_qty)  <= item.expected_out_qty) {
+        item.status =  'SHORTAGE';
+        item.statusTxt = 'SHORTAGE';
       }
       item.product = String(item.product)
-      item['expected_in_qty'] = numeral(item['expected_in_qty']).format('0,0')
-      item['expected_out_qty'] = numeral(item['expected_out_qty']).format('0,0')
-      item['on_hand_qty'] = numeral(item['on_hand_qty']).format('0,0')
-      item['pallets'] = numeral(item['pallets']).format('0,0')
-      item['expected_in_wgt'] = numeral(item['expected_in_wgt']).format('0,0.000')
-      item['weight_processed'] = numeral(item['weight_processed']).format('0,0.000')
-      item['price'] = numeral(item['price']).format('0,0.00')
+      item.expected_in_qty = numeral(item.expected_in_qty).format('0,0')
+      item.expected_out_qty = numeral(item.expected_out_qty).format('0,0')
+      item.on_hand_qty = numeral(item.on_hand_qty).format('0,0')
+      item.pallets = numeral(item.pallets).format('0,0')
+      item.expected_in_wgt = numeral(item.expected_in_wgt).format('0,0.000')
+      item.weight_processed = numeral(item.weight_processed).format('0,0.000')
+      item.price = numeral(item.price).format('0,0.00')
+      item.customername = item?.customername?.split(":")
     })
     if (Export === true) {
       await dispatch({ type: 'EXPORT_DATA', data: modifiedData });
