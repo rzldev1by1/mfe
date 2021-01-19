@@ -96,7 +96,7 @@ const Search = ({
 
   useEffect(() => {
     const newDropdownVelue = { ...dropdownVelue };
-    if(module === 'purchaseOrder' || 'salesOrder'){
+    if(module === 'purchaseOrder' || module === 'salesOrder'){
     if (newDropdownVelue.status === '') {
       newDropdownVelue.status = { value: 'open', label: 'All Open' }
       setdropdownVelue(newDropdownVelue)

@@ -11,7 +11,7 @@ import './index.scss';
 
 const PurchaseOrders = (props) => {
   const showDetails = (item) => {
-    props.history.push(`/purchase-order/${item.site}/${item.client}/${item.order_no}`);
+    props.history.push(`/stock-holding${item.product}/${item.client}/${item.site}`);
   };
 
   const dispatch = useDispatch();
