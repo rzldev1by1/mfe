@@ -15,6 +15,7 @@ const PurchaseOrdersDetail = (props) => {
   const poDetailTable = useSelector((state) => state.poDetailTable);
   const pagination = useSelector((state) => state.pagination);
   const [active, setActive] = useState(1);
+  const user = useSelector((state) => state.user);
   const module = "purchaseOrder"
   const [page, setPage] = useState({
     // Paging
@@ -104,6 +105,7 @@ const PurchaseOrdersDetail = (props) => {
         getExportData={() => setExportData({ dispatch, data: poDetailTable })}
         page={page}
         setPage={setPage}
+        user={user}
         title="Purchase Order Details"
         filename="Microlistics_PurchaseOrderDetails."
       />
