@@ -15,6 +15,7 @@ const SalesOrdersDetail = (props) => {
   const soDetailTable = useSelector((state) => state.soDetailTable);
   const pagination = useSelector((state) => state.pagination);
   const [active, setActive] = useState(1);
+  const user = useSelector((state) => state.user);
   const module = "salesOrder"
   const [page, setPage] = useState({
     // Paging
@@ -137,8 +138,10 @@ const SalesOrdersDetail = (props) => {
         getExportData={() => setExportData({ dispatch, data: soDetailTable })}
         page={page}
         setPage={setPage}
+        user={user}
         title="Sales Order Details"
         filename="Microlistics_SalesOrderDetails."
+        exportPdf={false}
       />
     </div>
   );
