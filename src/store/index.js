@@ -33,24 +33,14 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, darkMode: data };
     case 'CLIENT_DATA':
       return { ...state, clientData: data };
-    case 'CLIENT':
-      return { ...state, client: data };
     case 'SITE_DATA':
       return { ...state, siteData: data };
-    case 'SITE':
-      return { ...state, site: data };
     case 'ORDER_TYPE_DATA':
       return { ...state, orderTypeData: data };
-    case 'ORDER_TYPE':
-      return { ...state, orderType: data };
     case 'TASK_DATA':
       return { ...state, taskData: data };
-    case 'TASK':
-      return { ...state, task: data };
     case 'STATUS_DATA':
       return { ...state, statusData: data };
-    case 'STATUS':
-      return { ...state, status: data };
     // Dropdown End
 
     case 'EXPIRED':

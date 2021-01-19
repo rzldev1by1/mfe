@@ -165,7 +165,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 350,
   },
   {
     Header: 'Vendor Order Ref',
@@ -176,7 +176,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 350,
   },
   {
     Header: 'Address1',
@@ -187,7 +187,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 100,
+    width: 250,
   },
   {
     Header: 'Address2',
@@ -198,7 +198,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 100,
+    width: 250,
   },
   {
     Header: 'Address3',
@@ -209,7 +209,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 100,
+    width: 250,
   },
   {
     Header: 'Address4',
@@ -220,7 +220,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 100,
+    width: 250,
   },
   {
     Header: 'Address5',
@@ -231,7 +231,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 100,
+    width: 250,
   },
   {
     Header: 'Suburb',
@@ -242,7 +242,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 100,
+    width: 200,
   },
   {
     Header: 'Postcode',
