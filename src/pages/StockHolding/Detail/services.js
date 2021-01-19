@@ -3,12 +3,6 @@ import React from 'react';
 import moment from 'moment';
 import numeral from 'numeral';
 
-const formatDate = (date) => {
-  if (date) {
-    return moment(date).format('DD/MM/YYYY') || false;
-  }
-};
-
 export const schemaColumnDetailPO = [
   {
     accessor: 'batch',
@@ -36,7 +30,6 @@ export const schemaColumnDetailPO = [
     placeholder: 'Disposition',
     Header: 'Disposition',
     width: 100,
-    className: 'align-right',
     sortType: 'float',
     Cell: (props) => props.value || '-',
   },
@@ -80,25 +73,26 @@ export const schemaColumnDetailPO = [
     placeholder: 'Prince', 
     Header: 'Price',
     width: 80,
-    Cell: (row) => (
-      <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
-    ),
+    className: 'align-right',
+    sortType: 'float',
+    Cell: (props) => props.value || '-',
   },
   {
     accessor: 'released',
     placeholder: 'Released',
     Header: 'Released',
     width: 100,
-    Cell: (row) => (
-      <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
-    ),
+    className: 'align-right',
+    sortType: 'float',
+    Cell: (props) => props.value || '-',
   },
   {
     accessor: 'pack_id', 
     placeholder: 'Pack ID', 
     Header: 'Pack ID', 
     width: 170,
-    headerStyle: { textAlign: 'left' },
+    className: 'align-right',
+    sortType: 'float',
     Cell: (props) => props.value || '-',
   },
 ];

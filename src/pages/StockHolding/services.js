@@ -1,4 +1,6 @@
-/* eslint-disable prefer-const */
+/* eslint-disable consistent-return */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 
 export const schemaColumn = [
@@ -68,10 +70,8 @@ export const schemaColumn = [
       switch (row.original.status) {
       case 'OK':
         return <a id='SHORTAGE' className='status-ok'>OK</a>
-        break;
       case 'SHORTAGE':
         return <a id='SHORTAGE' className='status-shortage'>SHORTAGE</a>
-        break;
       default:
         break;
     }

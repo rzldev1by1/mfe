@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable array-callback-return */
+/* eslint-disable prefer-const */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { CButton } from '@coreui/react';
 import Search from '../../Component/Search';
 import Breadcrumb from '../../Component/Breadcrumb';
 import TableMaster from '../../Component/TableMaster';
@@ -20,12 +21,11 @@ const PurchaseOrders = (props) => {
   const stateChangeHeader = useSelector((state) => state.changeHeader); 
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
-  const item = user;
   const [active, setActive] = useState(1);
   const [Export, setExport] = useState(false);
   const module = 'StockHolding';
 
-  //dimension
+  // dimension
   const [dimension, setDimension] = useState({
     height: window.innerHeight - 257,
     width: window.innerWidth,
