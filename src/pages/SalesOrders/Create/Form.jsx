@@ -227,6 +227,7 @@ const Form = ({ activeTab, isValidation, createData }) => {
             placeholder={orderDetails?.deliveryInstructions?.text}
             readOnly={isReadonly}
             showTitle
+            maxLength={240}
           />
         </Col>
       </Row>
