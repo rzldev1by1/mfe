@@ -2,6 +2,7 @@
 /* eslint-disable prefer-const */
 import axios from 'axios';
 import numeral from 'numeral';
+import moment from 'moment';
 import endpoints from '../helpers/endpoints';
 
 export const getSummaryData = async ({
@@ -103,7 +104,7 @@ export const getSummaryData = async ({
 };
 
 export const getDetailHeader = async ({ dispatch, props, module }) => {
-  const { orderdetail, client, site, orderno } = props.match.params;
+  const { orderdetail, client, site, orderno, product } = props.match.params;
 
   let endpointsUrl = '';
   let paramType = '';
@@ -115,12 +116,23 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
     endpointsUrl = `/salesorder?searchParam=${orderno}&client=${client}&site=${site}`;
     paramType = 'GET_SO_DETAIL';
   }
+  if (module === 'stockHolding') {
+    endpointsUrl = `/stockdetail/header/${product}?client=${client}&site=${site}`;
+    paramType = 'GET_SH_DETAIL';
+  }
 
   const url = endpointsUrl;
   const { data } = await axios.get(url);
-  if (data.data) {
-    dispatch({ type: paramType, data: data.data.data[0] });
+    if(module === 'salesOrder' || module === 'purchaseOrder'){
+      if (data.data) {
+        dispatch({ type: paramType, data: data.data.data[0] });
+      }
   }
+  if(module === 'stockHolding'){
+    if (data.data) {
+      dispatch({ type: paramType, data: data.data[0] });
+    }
+}
 };
 
 export const getDetailData = async ({
@@ -134,7 +146,7 @@ export const getDetailData = async ({
   module,
 }) => {
   const newPage = { ...page };
-  const { orderdetail, client, site, orderno } = props.match.params;
+  const { orderdetail, client, site, orderno, product, } = props.match.params;
 
   let endpointsUrl = '';
   let paramType = '';
@@ -145,6 +157,10 @@ export const getDetailData = async ({
   if (module === 'salesOrder') {
     endpointsUrl = `/salesorder/${orderno}?client=${client}&site=${site}&page=${newPage.goPage}&export=${export_}`;
     paramType = 'GET_SO_DETAIL_TABLE';
+  }
+  if (module === 'stockHolding') {
+    endpointsUrl = `/stockdetail/${product}?client=${client}&site=${site}&page=${newPage.goPage}&export=${export_}`;
+    paramType = 'GET_SH_DETAIL_TABLE';
   }
 
   const url = endpointsUrl;
@@ -186,6 +202,95 @@ export const getDetailData = async ({
 
   if (readyDocument === 'false' && export_ === 'false') {
     newPage.data = [];
+    newPage.tableStatus = 'waiting';
+  }
+  setPage(newPage);
+};
+
+export const getForescast = async ({
+  export_='false',
+  readyDocument = 'false',
+  page,
+  setPage,
+  dispatch,
+  active,
+  props,
+}) => {
+  const newPage = { ...page };
+  const { product, client, site } = props.match.params;
+  const url = `/stockbal?client=${client}&product=${product}&site=${site}&page=${page}&export=${export_}`;
+  const { data } = await axios.get(url);
+  const available2 = data[0][0]['available orders']
+  const available = Object.values(available2);
+  available.map(available => {
+    if(available['closingbalance'] < 0){
+      available['closingbalance'] = 0
+    }
+    return available
+  })
+  if (data[0][0]['stock expiry'].length === 0) {
+    this.setState({
+      tableStatusForecast: 'noData'
+    })
+    return
+  }
+  let expiryDateSH = data[0][0]['stock expiry']
+  let idxForcast = expiryDateSH?.length -1
+  let expdt = expiryDateSH[idxForcast]?.stockexpirydate
+  
+  let closingbal = [{ closingbalancetext: `Closing Balance as on ${moment(expdt).format('DD/MM/YYYY')}`, totalbalance: data[0][0]['closing balance'] }]
+  const openingbal = [{ openingbalancetext: `Opening Balance as on ${moment().format('DD/MM/YYYY')}`, startbalance: data[0][0]['opening balance'] }]
+  let txt = []
+  let expiry = Object.values(expiryDateSH);
+  expiry.map(expiry => {
+    expiry['qty'] = expiry['quantity']
+    closingbal[0].totalbalance = parseInt(closingbal[0].totalbalance) - parseInt(expiry.qty)
+    if(closingbal[0].totalbalance <= 0){
+      closingbal[0].totalbalance = 0
+    }
+    if(expiry['batchnum']){
+      expiry['newstockexpirydate'] = `Batch (${expiry['batchnum']}) Stock Expires on ${moment(expiry['stockexpirydate']).format('DD/MM/YYYY')}`
+    }else{
+      expiry['newstockexpirydate'] = `Stock Expires on ${moment(expiry['stockexpirydate']).format('DD/MM/YYYY')}`
+    }
+    expiry['closingstock'] = closingbal[0].totalbalance
+    txt.push(expiry.newstockexpirydate?.length)
+    
+    return expiry
+  
+  })
+
+  let largest= 0;
+
+  for (let i=0; i<=largest;i++){
+      if (txt[i]>largest) {
+          largest=txt[i];
+      }
+  }
+
+  dispatch({ type: 'TOTAL_LENGTH', data: largest })
+  let concat = openingbal.concat(available)
+  concat = concat.concat(expiry)
+  concat = concat.concat(closingbal)
+
+  if (data) {
+    const pagination = {
+      active: active ||  data.current_page,
+      show:  data.per_page,
+      total:  data.total,
+      last_page:  data.last_page,
+      from:  data.from,
+      to:  data.to,
+    };
+    const paging = pagination;
+      newPage.dataForecast = concat;
+      dispatch({ type: "GET_SH_DETAIL_FORESCAST", data: concat });
+      dispatch({ type: 'PAGING', data: paging });
+  } else {
+    newPage.tableStatus = 'noData';
+  }
+  if (readyDocument === 'false' && export_ === 'false') {
+    newPage.dataForecast = [];
     newPage.tableStatus = 'waiting';
   }
   setPage(newPage);
