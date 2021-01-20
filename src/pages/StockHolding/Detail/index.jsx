@@ -59,7 +59,7 @@ const StockHoldingDetail = (props) => {
     <div>
       <Breadcrumb
         breadcrumb={[
-          { to: '/stock-holding', label: 'StockHolding' },
+          { to: '/stock-holding', label: 'Stock Holding' },
           { to: '', label: props.match.params.product, active: true },
         ]}
       />
@@ -87,7 +87,7 @@ const StockHoldingDetail = (props) => {
           titleLeftFive="Rotadate Type"
           // Valeu Left
           valeuLeftOne={shDetail?.stock_on_hand || '-'}
-          valeuLeftTwo={shDetail?.available_qty || '-'}
+          valeuLeftTwo={shDetail?.projected_available_qty || '-'}
           valeuLeftThree={shDetail?.expected_in_qty || '-'}
           valeuLeftFour={shDetail?.expected_out_qty || '-'}
           valeuLeftFive={shDetail?.rotadate_type || '-'}
