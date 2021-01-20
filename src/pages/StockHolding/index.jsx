@@ -112,7 +112,7 @@ const PurchaseOrders = (props) => {
             filterSite
             filterClient
             filterStatus
-            placeholder="Enter an Order No"
+            placeholder="Enter an Product"
             filter
             onChangeGetTask
             statusDataSH={statusDataSH}
