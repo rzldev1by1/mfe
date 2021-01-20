@@ -44,7 +44,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 300,
+    width: 450,
   },
   {
     Header: 'UOM',

@@ -20,21 +20,21 @@ export const setClient = ({ selected, dispatch, onChangeGetTask, getTask, getTas
   }
 };
 
-export const setOrderType = ({ selected, dispatch, dropdownVelue, setdropdownVelue }) => {
+export const setOrderType = ({ selected, dropdownVelue, setdropdownVelue }) => {
   const newDropdownVelue = { ...dropdownVelue };
   if (selected) newDropdownVelue.orderType = selected 
   else newDropdownVelue.orderType = null
   setdropdownVelue(newDropdownVelue)
 };
 
-export const setTask = ({ selected, dispatch, dropdownVelue, setdropdownVelue }) => {
+export const setTask = ({ selected, dropdownVelue, setdropdownVelue }) => {
   const newDropdownVelue = { ...dropdownVelue };
   if (selected) newDropdownVelue.task = selected 
   else newDropdownVelue.task = null
   setdropdownVelue(newDropdownVelue)
 };
 
-export const setStatus = ({ selected, dispatch, dropdownVelue, setdropdownVelue  }) => {
+export const setStatus = ({ selected, dropdownVelue, setdropdownVelue  }) => {
   // if (selected) dispatch({ type: 'STATUS', data: selected });
   // else dispatch({ type: 'STATUS', data: null });
   const newDropdownVelue = { ...dropdownVelue };

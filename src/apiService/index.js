@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable no-param-reassign */
 /* eslint-disable prefer-const */
 import axios from 'axios';
@@ -59,6 +60,7 @@ export const getSummaryData = async ({
   if (newData?.data?.data) {
     const modifiedData = newData.data.data.data;
     modifiedData.map((item, idx) => {
+      const tolol = item?.customername?.split(":")
       if (parseInt(item.on_hand_qty + item.expected_in_qty)  >= item.expected_out_qty) {
         item.status = 'OK';
         item.statusTxt = 'OK';
@@ -74,7 +76,7 @@ export const getSummaryData = async ({
       item.expected_in_wgt = numeral(item.expected_in_wgt).format('0,0.000')
       item.weight_processed = numeral(item.weight_processed).format('0,0.000')
       item.price = numeral(item.price).format('0,0.00')
-      item.customername = item?.customername?.split(":")
+      if (tolol !== undefined ) item.customername = tolol[1]
     })
     if (Export === true) {
       await dispatch({ type: 'EXPORT_DATA', data: modifiedData });
