@@ -129,52 +129,58 @@ const StockHoldingDetail = (props) => {
       </CRow>
 
       <TabContent activeTab={activeTab}>
-        <TabPane tabId='1' style={{background: "#e9eced"}}>
-          <TableMaster
-            schemaColumn={schemaColumnDetailPO}
-            classNamePaging="display-paging"
-            classNameTable="table-detail "
-            data={shDetailTable}
-            style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
-            module="Stock Holding Detail"
-            noDataText
-            tableStatus={newPage.tableStatus}
-            pagination={pagination}
-            goto={(e) => {
-                setActive(e);
-              }}
-            getExportData={() => setExportData({ dispatch, data: shDetailTable })}
-            page={page}
-            setPage={setPage}
-            user={user}
-            title="Stock Holding Details"
-            filename="Microlistics_StockHoldingDetails."
-            editColumn='false'
-          />
-        </TabPane>
-        <TabPane tabId='2' style={{background: "#e9eced"}}>
-          <TableMaster
-            schemaColumn={schameColumnForesCast}
-            classNamePaging="display-paging"
-            classNameTable="table-detail "
-            data={shDetailForescast}
-            style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
-            module="Stock Holding Detail"
-            noDataText
-            tableStatus={newPage.tableStatus}
-            pagination={pagination}
-            goto={(e) => {
+        {activeTab === '1' ?(
+          <TabPane tabId='1' style={{background: "#e9eced"}}>
+            <TableMaster
+              schemaColumn={schemaColumnDetailPO}
+              classNamePaging="display-paging"
+              classNameTable="table-detail "
+              data={shDetailTable}
+              style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
+              module="Stock Holding Detail"
+              noDataText
+              tableStatus={newPage.tableStatus}
+              pagination={pagination}
+              goto={(e) => {
                   setActive(e);
                 }}
-            getExportData={() => setExportData({ dispatch, data: shDetailForescast })}
-            page={page}
-            setPage={setPage}
-            user={user}
-            title="Stock Holding Details"
-            filename="Microlistics_StockHoldingDetails."
-            editColumn='false'
-          />
-        </TabPane>
+              getExportData={() => setExportData({ dispatch, data: shDetailTable })}
+              page={page}
+              setPage={setPage}
+              user={user}
+              title="Stock Holding Details"
+              filename="Microlistics_StockHoldingDetails."
+              editColumn='false'
+            />
+          </TabPane>
+          )
+         : ''}
+        {activeTab === '2' ? (
+          <TabPane tabId='2' style={{background: "#e9eced"}}>
+            <TableMaster
+              schemaColumn={schameColumnForesCast}
+              classNamePaging="display-paging"
+              classNameTable="table-detail "
+              data={shDetailForescast}
+              style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
+              module="Stock Holding Forecast"
+              noDataText
+              tableStatus={newPage.tableStatus}
+              pagination={pagination}
+              goto={(e) => {
+                  setActive(e);
+                }}
+              getExportData={() => setExportData({ dispatch, data: shDetailForescast })}
+              page={page}
+              setPage={setPage}
+              user={user}
+              title="Stock Holding Forecast"
+              filename="Microlistics_StockHoldingForecast."
+              editColumn='false'
+            />
+          </TabPane>
+      ) :''}
+        
       </TabContent>
     </div>
   );
