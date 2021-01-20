@@ -1,44 +1,44 @@
-export const setSite = ({ selected, dispatch, onChangeGetTask, getTask, getTaskParam, dropdownVelue, setdropdownVelue}) => {
-  const newDropdownVelue = { ...dropdownVelue };
-  if (selected) newDropdownVelue.site = selected 
-  else newDropdownVelue.site = null
+export const setSite = ({ selected, dispatch, onChangeGetTask, getTask, getTaskParam, dropdownValue, setdropdownValue}) => {
+  const newDropdownValue = { ...dropdownValue };
+  if (selected) newDropdownValue.site = selected 
+  else newDropdownValue.site = null
 
   if (onChangeGetTask) {
     getTask({ dispatch, client: getTaskParam?.client, site: selected });
   }
-  setdropdownVelue(newDropdownVelue)
+  setdropdownValue(newDropdownValue)
 };
 
-export const setClient = ({ selected, dispatch, onChangeGetTask, getTask, getTaskParam, dropdownVelue, setdropdownVelue}) => {
-  const newDropdownVelue = { ...dropdownVelue };
-  if (selected) newDropdownVelue.client = selected 
-  else newDropdownVelue.client = null
+export const setClient = ({ selected, dispatch, onChangeGetTask, getTask, getTaskParam, dropdownValue, setdropdownValue}) => {
+  const newDropdownValue = { ...dropdownValue };
+  if (selected) newDropdownValue.client = selected 
+  else newDropdownValue.client = null
 
   if (onChangeGetTask) {
     getTask({ dispatch, client: selected, site: getTaskParam?.site });
-    setdropdownVelue(newDropdownVelue)
+    setdropdownValue(newDropdownValue)
   }
 };
 
-export const setOrderType = ({ selected, dropdownVelue, setdropdownVelue }) => {
-  const newDropdownVelue = { ...dropdownVelue };
-  if (selected) newDropdownVelue.orderType = selected 
-  else newDropdownVelue.orderType = null
-  setdropdownVelue(newDropdownVelue)
+export const setOrderType = ({ selected, dropdownValue, setdropdownValue }) => {
+  const newDropdownValue = { ...dropdownValue };
+  if (selected) newDropdownValue.orderType = selected 
+  else newDropdownValue.orderType = null
+  setdropdownValue(newDropdownValue)
 };
 
-export const setTask = ({ selected, dropdownVelue, setdropdownVelue }) => {
-  const newDropdownVelue = { ...dropdownVelue };
-  if (selected) newDropdownVelue.task = selected 
-  else newDropdownVelue.task = null
-  setdropdownVelue(newDropdownVelue)
+export const setTask = ({ selected, dropdownValue, setdropdownValue }) => {
+  const newDropdownValue = { ...dropdownValue };
+  if (selected) newDropdownValue.task = selected 
+  else newDropdownValue.task = null
+  setdropdownValue(newDropdownValue)
 };
 
-export const setStatus = ({ selected, dropdownVelue, setdropdownVelue  }) => {
+export const setStatus = ({ selected, dropdownValue, setdropdownValue  }) => {
   // if (selected) dispatch({ type: 'STATUS', data: selected });
   // else dispatch({ type: 'STATUS', data: null });
-  const newDropdownVelue = { ...dropdownVelue };
-  if (selected) newDropdownVelue.status = selected 
-  else newDropdownVelue.status = null
-  setdropdownVelue(newDropdownVelue)
+  const newDropdownValue = { ...dropdownValue };
+  if (selected) newDropdownValue.status = selected 
+  else newDropdownValue.status = null
+  setdropdownValue(newDropdownValue)
 };
