@@ -100,12 +100,16 @@ export const getSOResources = async ({ user, dispatch }) => {
   );
 
   //get Site
-  let siteDescription = data.site.name;
-  let site = data.site.code.map((data, idx) => ({ value: data, label: `${siteDescription[idx]}` }));
+  let siteDescription = data.site.name.sort();
+  let siteCode = data.site.code.sort();
+  let site = siteCode.map((data, idx) => ({ value: data, label: `${siteDescription[idx]}` }));
 
   //get Order Type
   let orderTypeDescription = data.orderType.description;
-  let orderType = data.orderType.code.map((data, idx) => ({ value: data, label: `${orderTypeDescription[idx]}` }));
+  let orderType = data.orderType.code.map((data, idx) => ({
+    value: data,
+    label: `${data}: ${orderTypeDescription[idx]}`,
+  }));
 
   let resources = { site, orderType };
   dispatch({ type: 'SO_RESOURCES', data: resources });
