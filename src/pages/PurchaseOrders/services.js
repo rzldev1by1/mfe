@@ -1,3 +1,5 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable prefer-const */
 import React from 'react';
 
@@ -89,23 +91,17 @@ export const schemaColumn = [
     Cell: (row) => {
       switch (row.original.status) {
         case '0: Not Available':
-          return <a className="status-unavailable">UNAVAILABLE</a>;
-          break;
+          return <div className="status-unavailable">UNAVAILABLE</div>;
         case '1: Available':
-          return <a className="status-available">AVAILABLE</a>;
-          break;
+          return <div className="status-available">AVAILABLE</div>;
         case '2: Released':
-          return <a className="status-Release">RELEASED</a>;
-          break;
+          return <div className="status-Release">RELEASED</div>;
         case '3: Part Released':
-          return <a className="status-partRelease">PART RELEASED</a>;
-          break;
+          return <div className="status-partRelease">PART RELEASED</div>;
         case '4: Completed':
-          return <a className="status-complete">COMPLETED</a>;
-          break;
+          return <div className="status-complete">COMPLETED</div>;
         case 'All Open':
-          return <a className="status-ok">ALL OPEN</a>;
-          break;
+          return <div className="status-ok">ALL OPEN</div>;
         default:
           break;
       }

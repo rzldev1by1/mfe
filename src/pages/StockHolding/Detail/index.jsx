@@ -149,6 +149,7 @@ const StockHoldingDetail = (props) => {
             user={user}
             title="Stock Holding Details"
             filename="Microlistics_StockHoldingDetails."
+            editColumn='false'
           />
         </TabPane>
         <TabPane tabId='2' style={{background: "#e9eced"}}>
@@ -171,6 +172,7 @@ const StockHoldingDetail = (props) => {
             user={user}
             title="Stock Holding Details"
             filename="Microlistics_StockHoldingDetails."
+            editColumn='false'
           />
         </TabPane>
       </TabContent>
