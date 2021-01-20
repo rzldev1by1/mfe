@@ -149,24 +149,24 @@ export const setExportData = async ({ dispatch, data }) => {
   await dispatch({ type: 'EXPORT_DATA', data });
 };
 
-export const siteCheck = (siteVal) => {
-  if (siteVal === 'A') return 'A: Australia A';
-  if (siteVal === 'B') return 'B: Australia B';
-  if (siteVal === 'E') return 'E: TT Logistics (ECK)';
-  if (siteVal === 'L') return 'L: TT Logistics (LAV)';
-};
+export const siteCheck = ({val, site}) =>{
+  let ret = null;
+  site.map((data) =>{
+     if(data?.value !== val){
+       return 0;
+     }
+     ret = data.label
+  }) 
+  return ret;
+}
 
-export const clientCheck = (clientVal) => {
-  if (clientVal === 'AESOP') return 'AESOP: Aesop';
-  if (clientVal === 'ANTEC') return 'ANTEC: Antec';
-  if (clientVal === 'BEGA') return 'BEGA: BEGA';
-  if (clientVal === 'CLUTCH') return 'CLUTCH: Clutch Industries';
-  if (clientVal === 'EXQUIRA') return 'EXQUIRA: Exquira';
-  if (clientVal === 'LEDVANCE') return 'LEDVANCE: Ledvance Australia';
-  if (clientVal === 'ONESTOP') return 'ONESTOP: Onestop';
-  if (clientVal === 'STARTRACK') return 'STARTRACK: Carrier';
-  if (clientVal === 'TATURA') return 'TATURA: TATURA LTD';
-  if (clientVal === 'TTL') return 'TTL: TT Logistics';
-  if (clientVal === 'TATURA') return 'TATURA: TATURA LTD';
-  if (clientVal === 'TTLCHEM') return 'TTLCHEM: TTLChem';
+export const clientCheck = ({val, client}) => {
+  let ret = null;
+  client.map((data) =>{
+     if(data?.value !== val){
+       return 0;
+     }
+     ret = data.label
+  }) 
+  return ret;
 };

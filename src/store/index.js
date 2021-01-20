@@ -86,19 +86,19 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, soDetailTable: data };
     // Sales Order End
 
-    //CREATE PO
+    // CREATE PO
     case 'PO_RESOURCES':
       return { ...state, po_resources: data };
     case 'CREATE_PO_DISPOSITION':
       return { ...state, po_disposition: data };
 
-    //CREATE SO
+    // CREATE SO
     case 'SO_RESOURCES':
       return { ...state, so_resources: data };
     case 'CREATE_SO_DISPOSITION':
       return { ...state, so_disposition: data };
 
-    //CREATE PO/SO
+    // CREATE PO/SO
     case 'SET_ORDER_DETAIL':
       orderDetails = state.orderDetails;
       orderDetails[column].value = data;

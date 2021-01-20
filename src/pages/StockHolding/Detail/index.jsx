@@ -23,6 +23,8 @@ const StockHoldingDetail = (props) => {
   const shDetailTable = useSelector((state) => state.shDetailTable);
   const shDetailForescast = useSelector((state) => state.shDetailForescast);
   const pagination = useSelector((state) => state.pagination);
+  const siteData = useSelector((state) => state.siteData);
+  const clientData = useSelector((state) => state.clientData);
   const [active, setActive] = useState(1);
   const user = useSelector((state) => state.user);
   const module = "stockHolding"
@@ -73,8 +75,8 @@ const StockHoldingDetail = (props) => {
           titleCenterFour="Description"
           titleCenterFive="UOM"
           // Valeu Center
-          valeuCenterOne={siteCheck(shDetail?.site) || '-'}
-          valeuCenterTwo={clientCheck(shDetail?.client) || '-'}
+          valeuCenterOne={siteCheck({val:shDetail?.site, site:siteData}) || '-'}
+          valeuCenterTwo={clientCheck({val:shDetail?.client, client:clientData}) || '-'}
           valeuCenterThree={shDetail?.product || '-'}
           valeuCenterFour={shDetail?.description || '-'}
           valeuCenterFive={shDetail?.uom || '-'}
