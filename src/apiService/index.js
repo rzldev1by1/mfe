@@ -1,9 +1,8 @@
-/* eslint-disable radix */
+/* eslint-disable consistent-return */
 /* eslint-disable no-param-reassign */
 /* eslint-disable prefer-const */
 import axios from 'axios';
 import numeral from 'numeral';
-import moment from 'moment';
 import endpoints from '../helpers/endpoints';
 
 export const getSummaryData = async ({
@@ -60,7 +59,7 @@ export const getSummaryData = async ({
   if (newData?.data?.data) {
     const modifiedData = newData.data.data.data;
     modifiedData.map((item, idx) => {
-      const tolol = item?.customername?.split(":")
+      const customerName = item?.customername?.split(":")
       if (parseInt(item.on_hand_qty + item.expected_in_qty)  >= item.expected_out_qty) {
         item.status = 'OK';
         item.statusTxt = 'OK';
@@ -76,7 +75,7 @@ export const getSummaryData = async ({
       item.expected_in_wgt = numeral(item.expected_in_wgt).format('0,0.000')
       item.weight_processed = numeral(item.weight_processed).format('0,0.000')
       item.price = numeral(item.price).format('0,0.00')
-      if (tolol !== undefined ) item.customername = tolol[1]
+      if (customerName !== undefined ) item.customername = customerName[1]
     })
     if (Export === true) {
       await dispatch({ type: 'EXPORT_DATA', data: modifiedData });
@@ -219,77 +218,35 @@ export const getForescast = async ({
   props,
 }) => {
   const newPage = { ...page };
+  newPage.dataForecast = []
+  newPage.tableStatus =  'waiting'
+
   const { product, client, site } = props.match.params;
-  const url = `/stockbal?client=${client}&product=${product}&site=${site}&page=${page}&export=${export_}`;
+  const url = `/stock-balance-forecast?client=${client}&product=${product}&site=${site}&page=${newPage.goPage}&export=${export_}&limit=50`;
   const { data } = await axios.get(url);
-  const available2 = data[0][0]['available orders']
-  const available = Object.values(available2);
-  available.map(available => {
-    if(available['closingbalance'] < 0){
-      available['closingbalance'] = 0
+  let forecast = []
+  Object.keys(data.data).map((value) => forecast.push(data.data[value]))
+  if(data){
+    if (!data && forecast.length === 0) {
+      return 0;
+    } 
+      const pagination = {
+        active: active ||data.current_page,
+        show: data.per_page,
+        total: data.total,
+        last_page: data.last_page,
+        from: data.from,
+        to: data.to,
+      };
+      newPage.dataForecast = forecast
+      dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: forecast });
+      dispatch({ type: 'PAGING', data: pagination });     
+    if (forecast.length < 1) {
+      newPage.tableStatus = 'noData';
     }
-    return available
-  })
-  if (data[0][0]['stock expiry'].length === 0) {
-    this.setState({
-      tableStatusForecast: 'noData'
-    })
-    return
-  }
-  let expiryDateSH = data[0][0]['stock expiry']
-  let idxForcast = expiryDateSH?.length -1
-  let expdt = expiryDateSH[idxForcast]?.stockexpirydate
-  
-  let closingbal = [{ closingbalancetext: `Closing Balance as on ${moment(expdt).format('DD/MM/YYYY')}`, totalbalance: data[0][0]['closing balance'] }]
-  const openingbal = [{ openingbalancetext: `Opening Balance as on ${moment().format('DD/MM/YYYY')}`, startbalance: data[0][0]['opening balance'] }]
-  let txt = []
-  let expiry = Object.values(expiryDateSH);
-  expiry.map(expiry => {
-    expiry['qty'] = expiry['quantity']
-    closingbal[0].totalbalance = parseInt(closingbal[0].totalbalance) - parseInt(expiry.qty)
-    if(closingbal[0].totalbalance <= 0){
-      closingbal[0].totalbalance = 0
-    }
-    if(expiry['batchnum']){
-      expiry['newstockexpirydate'] = `Batch (${expiry['batchnum']}) Stock Expires on ${moment(expiry['stockexpirydate']).format('DD/MM/YYYY')}`
-    }else{
-      expiry['newstockexpirydate'] = `Stock Expires on ${moment(expiry['stockexpirydate']).format('DD/MM/YYYY')}`
-    }
-    expiry['closingstock'] = closingbal[0].totalbalance
-    txt.push(expiry.newstockexpirydate?.length)
-    
-    return expiry
-  
-  })
-
-  let largest= 0;
-
-  for (let i=0; i<=largest;i++){
-      if (txt[i]>largest) {
-          largest=txt[i];
-      }
-  }
-
-  dispatch({ type: 'TOTAL_LENGTH', data: largest })
-  let concat = openingbal.concat(available)
-  concat = concat.concat(expiry)
-  concat = concat.concat(closingbal)
-
-  if (data) {
-    const pagination = {
-      active: active ||  data.current_page,
-      show:  data.per_page,
-      total:  data.total,
-      last_page:  data.last_page,
-      from:  data.from,
-      to:  data.to,
-    };
-    const paging = pagination;
-      newPage.dataForecast = concat;
-      dispatch({ type: "GET_SH_DETAIL_FORESCAST", data: concat });
-      dispatch({ type: 'PAGING', data: paging });
   } else {
-    newPage.tableStatus = 'noData';
+    dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: [] });
+    newPage.dataForecast = [];
   }
   if (readyDocument === 'false' && export_ === 'false') {
     newPage.dataForecast = [];
@@ -338,7 +295,7 @@ export const getCustomerDetail = async ({ client, customer, customerDetails, dis
   client = client?.value?.value;
   const { data } = await axios.get(`${endpoints.getSoIdentity}?client=${client || ''}&customerNo=${customerVal}`);
 
-  //set customer Details
+  // set customer Details
   const identity = data?.identity[0];
   customerDetails.customer.value = customer;
   customerDetails.address1.value = identity?.address_1 || '';

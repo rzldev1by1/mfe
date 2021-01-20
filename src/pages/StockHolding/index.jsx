@@ -124,7 +124,7 @@ const PurchaseOrders = (props) => {
             schemaColumn={schemaColumn}
             data={shSummaryData}
             style={{ minHeight: height, maxHeight: height, maxWidth: width }}
-            module="Purchase Orders"
+            module="Stock Holding"
             noDataText
             tableStatus={newPage.tableStatus}
             pagination={pagination}
@@ -136,8 +136,8 @@ const PurchaseOrders = (props) => {
             setPage={setPage}
             user={user}
             columnHidden={columnHidden}
-            title="Purchase Order Summary"
-            filename="Microlistics_PurchaseOrder."
+            title="Stock Holding Summary"
+            filename="Microlistics_StockHolding."
             font="9"
             getExportData={async () => {
               setExport(true);
