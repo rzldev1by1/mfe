@@ -137,8 +137,17 @@ export const getSupplier = async ({ orderDetails, client, site, setSupplier }) =
 
 export const getProduct = async ({ client, val, setIsLoading, setIsProduct }) => {
   const url = `${endpoints.getProduct}?client=${client || ''}&param=${val.toUpperCase()}`;
-  const { data } = await axios.get(url);
-  const productData = data.map((data, i) => ({ value: data.code, label: `${data.name}`, i }));
+
+  let productData = [];
+  await axios
+    .get(url)
+    .then((res) => {
+      const data = res.data;
+      productData = data.map((data, i) => ({ value: data.code, label: `${data.name}`, i }));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   setIsLoading(false);
   setIsProduct(productData);
 };

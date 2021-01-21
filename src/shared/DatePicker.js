@@ -28,6 +28,7 @@ function Navbar({
     backgroundColor: '#E9ECED',
     borderColor: '#E9ECED',
     boxShadow: 'none',
+    margin: '0px 6px',
   };
   const styleRight = {
     float: 'right',
@@ -35,6 +36,7 @@ function Navbar({
     backgroundColor: '#E9ECED',
     borderColor: '#E9ECED',
     boxShadow: 'none',
+    margin: '0px 6px',
   };
   return (
     <div
@@ -82,13 +84,13 @@ function YearMonthForm({ date, localeUtils, onChange, current, fromMonth, toMont
   });
 
   return (
-    <form className="DayPicker-Caption" style={{ marginTop: '-16px', padding: '0 1.87em' }}>
+    <form className="DayPicker-Caption" style={{ marginTop: '-16px', padding: '0 1.57em' }}>
       <Dropdown
         placeHolder="Month"
         optionList={months.toString()}
         optionValue={monthsIndex.toString()}
         getValue={handleChange}
-        style={{ width: '100px', height: '35px', float: 'left', marginRight: '0.4em', marginLeft: '0.128em' }}
+        style={{ width: '110px', height: '35px', float: 'left', marginRight: '0.4em', marginLeft: '0.128em' }}
         firstChecked={true}
         optionSelected={current.getMonth()}
         usedFor="Datepicker"
@@ -165,7 +167,7 @@ class DatePicker extends React.Component {
   }
 
   componentDidMount() {
-    if (this.state.showDatePicker && this.props.showDatePicker) {
+    if (this.props.showDatePicker) {
       this.props.showDatePicker(this.state.showDatePicker);
     }
   }
@@ -326,7 +328,9 @@ class DatePicker extends React.Component {
   closeDatePicker = () => {
     this.setState({ showDatePicker: false });
     if (this.props.showDatePicker) {
-      this.props.showDatePicker(false);
+      if (!this.props.isShow) {
+        this.props.showDatePicker(false);
+      }
     }
   };
 
@@ -404,9 +408,12 @@ class DatePicker extends React.Component {
                   ((this.props.top && this.props.fixedTop) || this.props.fixedTop ? 'fixed-top-position' : '')
                 }
                 style={
-                  this.props.top && !this.props.fixedTop
+                  (this.props.top && !this.props.fixedTop
                     ? { marginTop: '-' + height + 'px', marginLeft: '-' + (width + 6) + 'px' }
-                    : null
+                    : null) ||
+                  (this.props.right && !this.props.fixedTop
+                    ? { marginTop: '-50px', marginLeft: width + 24 + 'px' }
+                    : null)
                 }
               >
                 <div className="dateInfo">

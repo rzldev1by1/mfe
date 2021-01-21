@@ -59,24 +59,25 @@ export const getSummaryData = async ({
   if (newData?.data?.data) {
     const modifiedData = newData.data.data.data;
     modifiedData.map((item, idx) => {
-      const customerName = item?.customername?.split(":")
-      if (parseInt(item.on_hand_qty + item.expected_in_qty)  >= item.expected_out_qty) {
+      const customerName = item?.customername?.split(':');
+      if (parseInt(item.on_hand_qty + item.expected_in_qty) >= item.expected_out_qty) {
         item.status = 'OK';
         item.statusTxt = 'OK';
-      }if (parseInt(item.on_hand_qty + item.expected_in_qty)  <= item.expected_out_qty) {
-        item.status =  'SHORTAGE';
+      }
+      if (parseInt(item.on_hand_qty + item.expected_in_qty) <= item.expected_out_qty) {
+        item.status = 'SHORTAGE';
         item.statusTxt = 'SHORTAGE';
       }
-      item.product = String(item.product)
-      item.expected_in_qty = numeral(item.expected_in_qty).format('0,0')
-      item.expected_out_qty = numeral(item.expected_out_qty).format('0,0')
-      item.on_hand_qty = numeral(item.on_hand_qty).format('0,0')
-      item.pallets = numeral(item.pallets).format('0,0')
-      item.expected_in_wgt = numeral(item.expected_in_wgt).format('0,0.000')
-      item.weight_processed = numeral(item.weight_processed).format('0,0.000')
-      item.price = numeral(item.price).format('0,0.00')
-      if (customerName !== undefined ) item.customername = customerName[1]
-    })
+      item.product = String(item.product);
+      item.expected_in_qty = numeral(item.expected_in_qty).format('0,0');
+      item.expected_out_qty = numeral(item.expected_out_qty).format('0,0');
+      item.on_hand_qty = numeral(item.on_hand_qty).format('0,0');
+      item.pallets = numeral(item.pallets).format('0,0');
+      item.expected_in_wgt = numeral(item.expected_in_wgt).format('0,0.000');
+      item.weight_processed = numeral(item.weight_processed).format('0,0.000');
+      item.price = numeral(item.price).format('0,0.00');
+      if (customerName !== undefined) item.customername = customerName[1];
+    });
     if (Export === true) {
       await dispatch({ type: 'EXPORT_DATA', data: modifiedData });
     } else {
@@ -124,16 +125,16 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
 
   const url = endpointsUrl;
   const { data } = await axios.get(url);
-    if(module === 'salesOrder' || module === 'purchaseOrder'){
-      if (data.data) {
-        dispatch({ type: paramType, data: data.data.data[0] });
-      }
+  if (module === 'salesOrder' || module === 'purchaseOrder') {
+    if (data.data) {
+      dispatch({ type: paramType, data: data.data.data[0] });
+    }
   }
-  if(module === 'stockHolding'){
+  if (module === 'stockHolding') {
     if (data.data) {
       dispatch({ type: paramType, data: data.data[0] });
     }
-}
+  }
 };
 
 export const getDetailData = async ({
@@ -147,7 +148,7 @@ export const getDetailData = async ({
   module,
 }) => {
   const newPage = { ...page };
-  const { orderdetail, client, site, orderno, product, } = props.match.params;
+  const { orderdetail, client, site, orderno, product } = props.match.params;
 
   let endpointsUrl = '';
   let paramType = '';
@@ -171,8 +172,8 @@ export const getDetailData = async ({
     let modifiedData = newData.data.data.data.map((m) => {
       m.quantity = numeral(m.quantity).format('0,0');
       m.qty_processed = numeral(m.qty_processed).format('0,0');
-      m.weight = numeral(m.weight).format('0,0.000').replace(".", ",");
-      m.weight_processed = numeral(m.weight_processed).format('0,0.000').replace(".", ",");
+      m.weight = numeral(m.weight).format('0,0.000').replace('.', ',');
+      m.weight_processed = numeral(m.weight_processed).format('0,0.000').replace('.', ',');
       txt.push(m.batch?.length);
       return m;
     });
@@ -208,7 +209,7 @@ export const getDetailData = async ({
 };
 
 export const getForescast = async ({
-  export_='false',
+  export_ = 'false',
   readyDocument = 'false',
   page,
   setPage,
@@ -217,29 +218,29 @@ export const getForescast = async ({
   props,
 }) => {
   const newPage = { ...page };
-  newPage.dataForecast = []
-  newPage.tableStatus =  'waiting'
+  newPage.dataForecast = [];
+  newPage.tableStatus = 'waiting';
 
   const { product, client, site } = props.match.params;
   const url = `/stock-balance-forecast?client=${client}&product=${product}&site=${site}&page=${newPage.goPage}&export=${export_}&limit=50`;
   const { data } = await axios.get(url);
-  let forecast = []
-  Object.keys(data.data).map((value) => forecast.push(data.data[value]))
-  if(data){
+  let forecast = [];
+  Object.keys(data.data).map((value) => forecast.push(data.data[value]));
+  if (data) {
     if (!data && forecast.length === 0) {
       return 0;
-    } 
-      const pagination = {
-        active: active ||data.current_page,
-        show: data.per_page,
-        total: data.total,
-        last_page: data.last_page,
-        from: data.from,
-        to: data.to,
-      };
-      newPage.dataForecast = forecast
-      dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: forecast });
-      dispatch({ type: 'PAGING', data: pagination });     
+    }
+    const pagination = {
+      active: active || data.current_page,
+      show: data.per_page,
+      total: data.total,
+      last_page: data.last_page,
+      from: data.from,
+      to: data.to,
+    };
+    newPage.dataForecast = forecast;
+    dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: forecast });
+    dispatch({ type: 'PAGING', data: pagination });
     if (forecast.length < 1) {
       newPage.tableStatus = 'noData';
     }
@@ -308,3 +309,80 @@ export const getCustomerDetail = async ({ client, customer, customerDetails, dis
   customerDetails.country.value = identity?.country || '';
   dispatch({ type: 'RESET_CUSTOMER_DETAIL', data: customerDetails });
 };
+
+// Stock Movement
+export const getDateRange = async ({ setDefaultDate }) => {
+  const url = `${endpoints.stockDateRange}`;
+  let productData = [];
+
+  await axios
+    .get(url)
+    .then((res) => {
+      let data = res?.data?.data[0];
+      setDefaultDate({
+        minDate: data.min_date,
+        maxDate: data.max_date,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const getStockMovement = async ({ dropdownValue, dispatch }) => {
+  const url = `${endpoints.stockMovement}`;
+  let { siteVal, clientVal, period, fromDate, toDate, productVal } = dropdownValue;
+  let paramUrl = [];
+  period = period?.value || 'week';
+
+  //get Data
+  paramUrl.push(`startDate=${fromDate || ''}`);
+  paramUrl.push(`endDate=${toDate || ''}`);
+  paramUrl.push(`filterType=${period}`);
+  paramUrl.push(`client=${clientVal?.value || ''}`);
+  paramUrl.push(`site=${siteVal?.value || ''}`);
+  paramUrl.push(`product=${productVal?.value || ''}`);
+
+  await axios
+    .get(url + '?' + paramUrl.join('&'))
+    .then((res) => {
+      let data = res?.data?.data;
+      let newData = [];
+
+      // re arrange data array
+      data.map((data, index) => {
+        let tmp_row = {
+          site: data.site,
+          client: data.client,
+          packdesc: data.packdesc,
+          product: data.product,
+          product_name: data.product_name,
+        };
+
+        let detail = data.detail;
+        detail.map((details) => {
+          let dates = details.date.replaceAll('-', '_');
+          tmp_row['sa_plus_' + dates] = details.sa_plus;
+          tmp_row['sa_minus_' + dates] = details.sa_minus;
+          tmp_row['rec_' + dates] = details.recv_weight;
+          tmp_row['send_' + dates] = details.send_weight;
+        });
+        newData.push(tmp_row);
+      });
+
+      const pagination = {
+        active: 1,
+        show: 50,
+        total: data.length,
+        last_page: 1,
+        from: 1,
+        to: data.length,
+      };
+      dispatch({ type: 'PAGING', data: pagination });
+      dispatch({ type: 'GET_SM_SUMMARY', data: newData });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+// End Stock Movement

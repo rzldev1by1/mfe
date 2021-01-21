@@ -64,7 +64,7 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, shDetail: data };
     case 'GET_SH_DETAIL_TABLE':
       return { ...state, shDetailTable: data };
-      case 'GET_SH_DETAIL_FORESCAST':
+    case 'GET_SH_DETAIL_FORESCAST':
       return { ...state, shDetailForescast: data };
     // Purchase Order End
 
@@ -134,6 +134,11 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
     case 'EXPORT_STATUS':
       return { ...state, exportStatus: data };
     // end Export
+
+    // Stock Movement
+    case 'GET_SM_SUMMARY':
+      return { ...state, smSummaryData: data };
+    // Stock Movement End
 
     default:
       return state;
