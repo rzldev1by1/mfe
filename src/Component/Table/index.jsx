@@ -19,16 +19,12 @@ const Table = ({
   style,
   module,
   className,
-  page,
-  setPage,
-  noDataText,
   tableStatus,
-  groupHeader = false,
   user,
-  fields,
   title,
   columnHidden,
-  UrlHeader
+  UrlHeader,
+  editColumn,
 }) => {
   const userId = useSelector((state) => state.user.userId);
   const [showMod, setShowMod] = useState(false)
@@ -41,23 +37,9 @@ const Table = ({
   );
   const loadingMessage = (
     <div>
-      <img src={loading} width="45" height="45" />
+      <img src={loading} alt='' width="45" height="45" />
     </div>
   );
-  const icon = (
-    <svg
-      stroke="currentColor"
-      fill="currentColor"
-      strokeWidth="0"
-      viewBox="0 0 24 24"
-      height="1em"
-      width="1em"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z" />
-    </svg>
-  );
-
   const showModal = (show) => {
     setShowMod(show)
   }
@@ -66,7 +48,7 @@ const Table = ({
   const draggableColumn = setDraggableColumn({ schemaColumn });
 
   // renew Schema column, to get old order column or additional logic
-  const newSchema = renewColumn({ data, schemaColumn, module, userId, editColumnTemp, showModal, columnHidden });
+  const newSchema = renewColumn({ data, schemaColumn, module, userId, editColumnTemp, showModal, columnHidden , editColumn});
   
   return (
     <div className={`${className} ${(data && data < 1) || data === undefined ? 'TableDownHover' : 'Table'}`}>
@@ -86,7 +68,7 @@ const Table = ({
         minRows="1"
         getTdProps={(state, rowInfo, column, instance) => {
           return {
-            onClick: (e, handleOriginal) => {
+            onClick: (e) => {
               !!onClick && onClick(rowInfo.original, state, column, e, instance);
             },
             // eslint-disable-next-line no-restricted-globals
@@ -96,26 +78,26 @@ const Table = ({
             },
           };
         }}
-        defaultSortMethod={(a, b, desc) => {
+        defaultSortMethod={(a, b) => {
           let type = 'string';
 
-          //check format if date
+          // check format if date
           if (a && a.includes('/')) {
-            let str = a.split('/');
-            let date = `${str[1]}-${str[0]}-${str[2]}`;
+            const str = a.split('/');
+            const date = `${str[1]}-${str[0]}-${str[2]}`;
             a = new Date(date).getTime();
             type = 'date';
           }
           if (b && b.includes('/')) {
-            let str = b.split('/');
-            let date = `${str[1]}-${str[0]}-${str[2]}`;
+            const str = b.split('/');
+            const date = `${str[1]}-${str[0]}-${str[2]}`;
             b = new Date(date).getTime();
             type = 'date';
           }
 
           // force null and undefined to the bottom
-          a = a === null || a === undefined ? (type == 'string' ? '' : -999999999999) : a;
-          b = b === null || b === undefined ? (type == 'string' ? '' : -999999999999) : b;
+          a = a === null || a === undefined ? (type === 'string' ? '' : -999999999999) : a;
+          b = b === null || b === undefined ? (type === 'string' ? '' : -999999999999) : b;
 
           // force any string values to lowercase
           a = typeof a === 'string' ? a.toLowerCase() : a;

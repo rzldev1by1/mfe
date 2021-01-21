@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
+/* eslint-disable no-shadow */
+/* eslint-disable no-use-before-define */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
@@ -39,10 +39,10 @@ const Search = ({
   const orderTypeData = useSelector((state) => state.orderTypeData);
   const taskData = useSelector((state) => state.taskData);
   const user = useSelector((state) => state.user);
-  const { company, client, site } = user;
+  const { company, client } = user;
   const [getTaskParam, setGetTaskParam] = useState(false);
 
-  const [dropdownVelue, setdropdownVelue] = useState({
+  const [dropdownValue, setdropdownValue] = useState({
     site: '',
     client: '',
     status: '',
@@ -54,11 +54,11 @@ const Search = ({
     if (e.key === 'Enter')
       await getSummaryData({
         e,
-        siteVal: newDropdownVelue.site,
-        clientVal: newDropdownVelue.client,
-        orderType: newDropdownVelue.orderType,
-        task: newDropdownVelue.task,
-        status: newDropdownVelue.status,
+        siteVal: newDropdownValue.site,
+        clientVal: newDropdownValue.client,
+        orderType: newDropdownValue.orderType,
+        task: newDropdownValue.task,
+        status: newDropdownValue.status,
         page,
         setPage,
         searchInput,
@@ -70,11 +70,11 @@ const Search = ({
     e.preventDefault();
     getSummaryData({
       e,
-      siteVal: newDropdownVelue.site,
-      clientVal: newDropdownVelue.client,
-      orderType: newDropdownVelue.orderType,
-      task: newDropdownVelue.task,
-      status: newDropdownVelue.status,
+      siteVal: newDropdownValue.site,
+      clientVal: newDropdownValue.client,
+      orderType: newDropdownValue.orderType,
+      task: newDropdownValue.task,
+      status: newDropdownValue.status,
       page,
       setPage,
       searchInput,
@@ -89,21 +89,21 @@ const Search = ({
     getStatus({ dispatch });
     getOrderType({ dispatch, company, client });
   }, []);
-  const newDropdownVelue = { ...dropdownVelue };
+  const newDropdownValue = { ...dropdownValue };
 
   useEffect(() => {
-    setGetTaskParam({ site: newDropdownVelue.site, client: newDropdownVelue.client });
-  }, [newDropdownVelue.site, newDropdownVelue.client]);
+    setGetTaskParam({ site: newDropdownValue.site, client: newDropdownValue.client });
+  }, [newDropdownValue.site, newDropdownValue.client]);
 
   useEffect(() => {
-    const newDropdownVelue = { ...dropdownVelue };
-    if (module === 'purchaseOrder' || 'salesOrder') {
-      if (newDropdownVelue.status === '') {
-        newDropdownVelue.status = { value: 'open', label: 'All Open' };
-        setdropdownVelue(newDropdownVelue);
+    const newDropdownValue = { ...dropdownValue };
+    if (module === 'purchaseOrder' || module === 'salesOrder') {
+      if (newDropdownValue.status === '') {
+        newDropdownValue.status = { value: 'open', label: 'All Open' };
+        setdropdownValue(newDropdownValue);
       }
     }
-  }, [newDropdownVelue.status]);
+  }, [newDropdownValue.status]);
 
   return (
     <CCard className="mb-3">
@@ -129,7 +129,7 @@ const Search = ({
             </CCol>
             <CCol lg={9} className="px-0">
               <CRow className="mx-0">
-                <CCol sm={4} lg={2} className={`px-0`}>
+                <CCol sm={4} lg={2} className="px-0">
                   {user?.site ? (
                     <input value={siteCheck(siteData, user.site)} className="form-control sh-input" readOnly />
                   ) : (
@@ -145,11 +145,11 @@ const Search = ({
                           getTaskParam,
                           selected,
                           dispatch,
-                          dropdownVelue,
-                          setdropdownVelue,
+                          dropdownValue,
+                          setdropdownValue,
                         })
                       }
-                      selectedValue={newDropdownVelue.site}
+                      selectedValue={newDropdownValue.site}
                     />
                   )}
                 </CCol>
@@ -169,11 +169,11 @@ const Search = ({
                           getTaskParam,
                           selected,
                           dispatch,
-                          dropdownVelue,
-                          setdropdownVelue,
+                          dropdownValue,
+                          setdropdownValue,
                         })
                       }
-                      selectedValue={newDropdownVelue.client}
+                      selectedValue={newDropdownValue.client}
                     />
                   )}
                 </CCol>
@@ -183,8 +183,8 @@ const Search = ({
                     show
                     placeholder="Status"
                     options={statusDataSH || statusData}
-                    onChangeDropdown={(selected) => setStatus({ selected, dispatch, dropdownVelue, setdropdownVelue })}
-                    selectedValue={newDropdownVelue.status}
+                    onChangeDropdown={(selected) => setStatus({ selected, dispatch, dropdownValue, setdropdownValue })}
+                    selectedValue={newDropdownValue.status}
                   />
                 </CCol>
                 <CCol sm={4} lg={2}>
@@ -194,9 +194,9 @@ const Search = ({
                     placeholder="Order Type"
                     options={orderTypeData}
                     onChangeDropdown={(selected) =>
-                      setOrderType({ selected, dispatch, dropdownVelue, setdropdownVelue })
+                      setOrderType({ selected, dispatch, dropdownValue, setdropdownValue })
                     }
-                    selectedValue={newDropdownVelue.orderType}
+                    selectedValue={newDropdownValue.orderType}
                   />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-0">
@@ -205,8 +205,8 @@ const Search = ({
                     show
                     placeholder="Task"
                     options={taskData}
-                    onChangeDropdown={(selected) => setTask({ selected, dispatch, dropdownVelue, setdropdownVelue })}
-                    selectedValue={newDropdownVelue.task}
+                    onChangeDropdown={(selected) => setTask({ selected, dispatch, dropdownValue, setdropdownValue })}
+                    selectedValue={newDropdownValue.task}
                   />
                 </CCol>
                 <CCol sm={4} lg={2} className="px-0">
@@ -215,11 +215,11 @@ const Search = ({
                     className="btn btn-search btn-primary float-right"
                     onClick={() =>
                       getSummaryData({
-                        siteVal: newDropdownVelue.site,
-                        clientVal: newDropdownVelue.client,
-                        orderType: newDropdownVelue.orderType,
-                        task: newDropdownVelue.task,
-                        status: newDropdownVelue.status,
+                        siteVal: newDropdownValue.site,
+                        clientVal: newDropdownValue.client,
+                        orderType: newDropdownValue.orderType,
+                        task: newDropdownValue.task,
+                        status: newDropdownValue.status,
                         dispatch,
                         page,
                         setPage,

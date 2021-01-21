@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import React from 'react';
 import moment from 'moment';
 
@@ -7,21 +6,6 @@ export const formatDate = (date) => {
     return moment(date).format('DD/MM/YYYY') || false;
   }
 };
-
-// https://github.com/tannerlinsley/react-table/issues/94
-
-// const getColumnWidth = (data, accessor, headerText) => {
-//   if (typeof accessor === 'string' || accessor instanceof String) {
-//     accessor = d => d[accessor]; // eslint-disable-line no-param-reassign
-//   }
-//   const maxWidth = 600;
-//   const magicSpacing = 10;
-//   const cellLength = Math.max(
-//     ...data.map(row => (`${accessor(row)}` || '').length),
-//     headerText.length,
-//   );
-//   return Math.min(maxWidth, cellLength * magicSpacing);
-// };
 
 export const schemaColumnDetailPO = [
   {
@@ -165,24 +149,24 @@ export const setExportData = async ({ dispatch, data }) => {
   await dispatch({ type: 'EXPORT_DATA', data });
 };
 
-export const siteCheck = (siteVal) => {
-  if (siteVal === 'A') return 'A: Australia A';
-  if (siteVal === 'B') return 'B: Australia B';
-  if (siteVal === 'E') return 'E: TT Logistics (ECK)';
-  if (siteVal === 'L') return 'L: TT Logistics (LAV)';
-};
+export const siteCheck = ({val, site}) =>{
+  let ret = null;
+  site.map((data) =>{
+     if(data?.value !== val){
+       return 0;
+     }
+     ret = data.label
+  }) 
+  return ret;
+}
 
-export const clientCheck = (clientVal) => {
-  if (clientVal === 'AESOP') return 'AESOP: Aesop';
-  if (clientVal === 'ANTEC') return 'ANTEC: Antec';
-  if (clientVal === 'BEGA') return 'BEGA: BEGA';
-  if (clientVal === 'CLUTCH') return 'CLUTCH: Clutch Industries';
-  if (clientVal === 'EXQUIRA') return 'EXQUIRA: Exquira';
-  if (clientVal === 'LEDVANCE') return 'LEDVANCE: Ledvance Australia';
-  if (clientVal === 'ONESTOP') return 'ONESTOP: Onestop';
-  if (clientVal === 'STARTRACK') return 'STARTRACK: Carrier';
-  if (clientVal === 'TATURA') return 'TATURA: TATURA LTD';
-  if (clientVal === 'TTL') return 'TTL: TT Logistics';
-  if (clientVal === 'TATURA') return 'TATURA: TATURA LTD';
-  if (clientVal === 'TTLCHEM') return 'TTLCHEM: TTLChem';
+export const clientCheck = ({val, client}) => {
+  let ret = null;
+  client.map((data) =>{
+     if(data?.value !== val){
+       return 0;
+     }
+     ret = data.label
+  }) 
+  return ret;
 };

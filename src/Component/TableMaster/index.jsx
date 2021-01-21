@@ -1,5 +1,4 @@
-/* eslint-disable import/no-named-as-default-member */
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-return-await */
 import React from 'react';
 import { CRow, CCol } from '@coreui/react';
 import Export from '../Export';
@@ -23,13 +22,12 @@ const TableMaster = ({
   exportApi,
   classNamePaging,
   classNameTable,
-  exportData,
   user,
-  fields,
   title,
   columnHidden,
   UrlHeader,
   exportPdf,
+  editColumn,
 }) => {
   return (
     <div>
@@ -48,6 +46,7 @@ const TableMaster = ({
         title={title}
         columnHidden={columnHidden}
         UrlHeader={UrlHeader}
+        editColumn={editColumn}
       />
       <CRow lg="12" className="mt-3 w-100 pagination-custom">
         <CCol lg="7" className="px-0 w-100 margin-mr">

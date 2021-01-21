@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-param-reassign */
 /* eslint-disable prefer-const */
 import axios from 'axios';
@@ -58,6 +59,7 @@ export const getSummaryData = async ({
   if (newData?.data?.data) {
     const modifiedData = newData.data.data.data;
     modifiedData.map((item, idx) => {
+      const customerName = item?.customername?.split(':');
       if (parseInt(item.on_hand_qty + item.expected_in_qty) >= item.expected_out_qty) {
         item.status = 'OK';
         item.statusTxt = 'OK';
@@ -74,7 +76,7 @@ export const getSummaryData = async ({
       item.expected_in_wgt = numeral(item.expected_in_wgt).format('0,0.000');
       item.weight_processed = numeral(item.weight_processed).format('0,0.000');
       item.price = numeral(item.price).format('0,0.00');
-      item.customername = item?.customername?.split(':');
+      if (customerName !== undefined) item.customername = customerName[1];
     });
     if (Export === true) {
       await dispatch({ type: 'EXPORT_DATA', data: modifiedData });
@@ -104,7 +106,7 @@ export const getSummaryData = async ({
 };
 
 export const getDetailHeader = async ({ dispatch, props, module }) => {
-  const { orderdetail, client, site, orderno } = props.match.params;
+  const { orderdetail, client, site, orderno, product } = props.match.params;
 
   let endpointsUrl = '';
   let paramType = '';
@@ -116,11 +118,22 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
     endpointsUrl = `/salesorder?searchParam=${orderno}&client=${client}&site=${site}`;
     paramType = 'GET_SO_DETAIL';
   }
+  if (module === 'stockHolding') {
+    endpointsUrl = `/stockdetail/header/${product}?client=${client}&site=${site}`;
+    paramType = 'GET_SH_DETAIL';
+  }
 
   const url = endpointsUrl;
   const { data } = await axios.get(url);
-  if (data.data) {
-    dispatch({ type: paramType, data: data.data.data[0] });
+  if (module === 'salesOrder' || module === 'purchaseOrder') {
+    if (data.data) {
+      dispatch({ type: paramType, data: data.data.data[0] });
+    }
+  }
+  if (module === 'stockHolding') {
+    if (data.data) {
+      dispatch({ type: paramType, data: data.data[0] });
+    }
   }
 };
 
@@ -135,7 +148,7 @@ export const getDetailData = async ({
   module,
 }) => {
   const newPage = { ...page };
-  const { orderdetail, client, site, orderno } = props.match.params;
+  const { orderdetail, client, site, orderno, product } = props.match.params;
 
   let endpointsUrl = '';
   let paramType = '';
@@ -146,6 +159,10 @@ export const getDetailData = async ({
   if (module === 'salesOrder') {
     endpointsUrl = `/salesorder/${orderno}?client=${client}&site=${site}&page=${newPage.goPage}&export=${export_}`;
     paramType = 'GET_SO_DETAIL_TABLE';
+  }
+  if (module === 'stockHolding') {
+    endpointsUrl = `/stockdetail/${product}?client=${client}&site=${site}&page=${newPage.goPage}&export=${export_}`;
+    paramType = 'GET_SH_DETAIL_TABLE';
   }
 
   const url = endpointsUrl;
@@ -192,6 +209,53 @@ export const getDetailData = async ({
   setPage(newPage);
 };
 
+export const getForescast = async ({
+  export_ = 'false',
+  readyDocument = 'false',
+  page,
+  setPage,
+  dispatch,
+  active,
+  props,
+}) => {
+  const newPage = { ...page };
+  newPage.dataForecast = [];
+  newPage.tableStatus = 'waiting';
+
+  const { product, client, site } = props.match.params;
+  const url = `/stock-balance-forecast?client=${client}&product=${product}&site=${site}&page=${newPage.goPage}&export=${export_}&limit=50`;
+  const { data } = await axios.get(url);
+  let forecast = [];
+  Object.keys(data.data).map((value) => forecast.push(data.data[value]));
+  if (data) {
+    if (!data && forecast.length === 0) {
+      return 0;
+    }
+    const pagination = {
+      active: active || data.current_page,
+      show: data.per_page,
+      total: data.total,
+      last_page: data.last_page,
+      from: data.from,
+      to: data.to,
+    };
+    newPage.dataForecast = forecast;
+    dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: forecast });
+    dispatch({ type: 'PAGING', data: pagination });
+    if (forecast.length < 1) {
+      newPage.tableStatus = 'noData';
+    }
+  } else {
+    dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: [] });
+    newPage.dataForecast = [];
+  }
+  if (readyDocument === 'false' && export_ === 'false') {
+    newPage.dataForecast = [];
+    newPage.tableStatus = 'waiting';
+  }
+  setPage(newPage);
+};
+
 export const submitPurchaseOrder = async ({ orderDetails, lineDetails }) => {
   const ret = await axios.post(endpoints.purchaseOrderCreate, { orderDetails, lineDetails });
   return ret;
@@ -232,7 +296,7 @@ export const getCustomerDetail = async ({ client, customer, customerDetails, dis
   client = client?.value?.value;
   const { data } = await axios.get(`${endpoints.getSoIdentity}?client=${client || ''}&customerNo=${customerVal}`);
 
-  //set customer Details
+  // set customer Details
   const identity = data?.identity[0];
   customerDetails.customer.value = customer;
   customerDetails.address1.value = identity?.address_1 || '';

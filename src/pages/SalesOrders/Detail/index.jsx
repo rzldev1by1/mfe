@@ -14,6 +14,8 @@ const SalesOrdersDetail = (props) => {
   const soDetail = useSelector((state) => state.soDetail);
   const soDetailTable = useSelector((state) => state.soDetailTable);
   const pagination = useSelector((state) => state.pagination);
+  const siteData = useSelector((state) => state.siteData);
+  const clientData = useSelector((state) => state.clientData);
   const [active, setActive] = useState(1);
   const user = useSelector((state) => state.user);
   const module = "salesOrder"
@@ -38,7 +40,7 @@ const SalesOrdersDetail = (props) => {
     getDetailData({ dispatch, props, page, active, setPage, module });
   }, [active]);
 
-  const height = window.innerHeight - 495;
+  const height = window.innerHeight - 490;
   const widht = window.innerWidth;
 
 
@@ -66,8 +68,8 @@ const SalesOrdersDetail = (props) => {
           titleRightNine="Vendor Order Ref"
           titleRightEleven="Delivery Instructions"
           // Valeu Right
-          valeuRightOne={siteCheck(soDetail?.site) || '-'}
-          valeuRightTwo={clientCheck(soDetail?.client) || '-'}
+          valeuRightOne={siteCheck({val:soDetail?.site, site:siteData}) || '-'}
+          valeuRightTwo={clientCheck({val:soDetail?.client, client:clientData}) || '-'}
           valeuRightThree={soDetail?.orderno || '-'}
           valeuRightFour={soDetail?.ordertype || '-'}
           valeuRightFive={soDetail?.isistask || '-'}

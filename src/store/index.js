@@ -64,7 +64,9 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, shDetail: data };
     case 'GET_SH_DETAIL_TABLE':
       return { ...state, shDetailTable: data };
-    // Stock Holding End
+    case 'GET_SH_DETAIL_FORESCAST':
+      return { ...state, shDetailForescast: data };
+    // Purchase Order End
 
     // Purchase Order
     case 'GET_PO_SUMMARY':
@@ -84,19 +86,19 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, soDetailTable: data };
     // Sales Order End
 
-    //CREATE PO
+    // CREATE PO
     case 'PO_RESOURCES':
       return { ...state, po_resources: data };
     case 'CREATE_PO_DISPOSITION':
       return { ...state, po_disposition: data };
 
-    //CREATE SO
+    // CREATE SO
     case 'SO_RESOURCES':
       return { ...state, so_resources: data };
     case 'CREATE_SO_DISPOSITION':
       return { ...state, so_disposition: data };
 
-    //CREATE PO/SO
+    // CREATE PO/SO
     case 'SET_ORDER_DETAIL':
       orderDetails = state.orderDetails;
       orderDetails[column].value = data;

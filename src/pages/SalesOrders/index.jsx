@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -5,7 +6,7 @@ import { CButton } from '@coreui/react';
 import Search from '../../Component/Search';
 import Breadcrumb from '../../Component/Breadcrumb';
 import TableMaster from '../../Component/TableMaster';
-import { schemaColumn, exportColumns } from './services';
+import { schemaColumn } from './services';
 import { getSummaryData } from '../../apiService';
 import Create from './Create';
 import './index.scss';
@@ -55,8 +56,8 @@ const SalesOrders = (props) => {
 
   useEffect(() => {
     if (state2) {
-      let x = columnHidden?.map((data, idx) => {
-        if (data.title === 'Purchase Order Summary') {
+      const x = columnHidden?.map((data, idx) => {
+        if (data.title === 'Sales Order Summary') {
           setColumnHidden(data.columns);
         }
       });

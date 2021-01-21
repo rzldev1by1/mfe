@@ -14,6 +14,8 @@ const PurchaseOrdersDetail = (props) => {
   const poDetail = useSelector((state) => state.poDetail);
   const poDetailTable = useSelector((state) => state.poDetailTable);
   const pagination = useSelector((state) => state.pagination);
+  const siteData = useSelector((state) => state.siteData);
+  const clientData = useSelector((state) => state.clientData);
   const [active, setActive] = useState(1);
   const user = useSelector((state) => state.user);
   const module = "purchaseOrder"
@@ -38,7 +40,7 @@ const PurchaseOrdersDetail = (props) => {
     getDetailData({ dispatch, props, page, active, setPage, module });
   }, [active]);
 
-  const height = window.innerHeight - 370;
+  const height = window.innerHeight - 395;
   const widht = window.innerWidth;
   return (
     <div>
@@ -59,8 +61,8 @@ const PurchaseOrdersDetail = (props) => {
           titleRightFive="Task"
           titleRightSix="Status"
           // Valeu Right
-          valeuRightOne={siteCheck(poDetail?.site) || '-'}
-          valeuRightTwo={clientCheck(poDetail?.client) || '-'}
+          valeuRightOne={siteCheck({val:poDetail?.site, site:siteData}) || '-'}
+          valeuRightTwo={clientCheck({val:poDetail?.client, client:clientData}) || '-'}
           valeuRightThree={poDetail?.order_no || '-'}
           valeuRightFour={poDetail?.order_type || '-'}
           valeuRightFive={poDetail?.isis_task || '-'}
