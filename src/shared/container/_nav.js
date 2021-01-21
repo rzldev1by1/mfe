@@ -8,6 +8,13 @@ export default [
   },
   {
     _tag: 'CSidebarNavItem',
+    name: 'STOCK MOVEMENT',
+    to: '/stock-movement',
+    icon: 'sm',
+    key: 'menu_inventory_stkMovement',
+  },
+  {
+    _tag: 'CSidebarNavItem',
     name: 'PURCHASE ORDERS',
     to: '/purchase-order',
     icon: 'po',
@@ -20,11 +27,11 @@ export default [
     icon: 'so',
     key: 'menu_orders_highSoOrder',
   },
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'Component',
-    to: '/component',
-    icon: 'um',
-    key: 'usermanagement',
-  },
+  // {
+  //   _tag: 'CSidebarNavItem',
+  //   name: 'Component',
+  //   to: '/component',
+  //   icon: 'um',
+  //   key: 'usermanagement',
+  // },
 ];

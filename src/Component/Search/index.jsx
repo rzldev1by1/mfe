@@ -45,8 +45,8 @@ const Search = ({
   const [dropdownVelue, setdropdownVelue] = useState({
     site: '',
     client: '',
-    status:'',
-    orderType:'',
+    status: '',
+    orderType: '',
     task: '',
   });
 
@@ -54,11 +54,11 @@ const Search = ({
     if (e.key === 'Enter')
       await getSummaryData({
         e,
-        siteVal:newDropdownVelue.site,
-        clientVal:newDropdownVelue.client,
-        orderType:newDropdownVelue.orderType,
-        task:newDropdownVelue.task,
-        status:newDropdownVelue.status,
+        siteVal: newDropdownVelue.site,
+        clientVal: newDropdownVelue.client,
+        orderType: newDropdownVelue.orderType,
+        task: newDropdownVelue.task,
+        status: newDropdownVelue.status,
         page,
         setPage,
         searchInput,
@@ -68,18 +68,19 @@ const Search = ({
   };
   const searchForm = (e) => {
     e.preventDefault();
-    getSummaryData({ 
-                    e, 
-                    siteVal:newDropdownVelue.site, 
-                    clientVal:newDropdownVelue.client, 
-                    orderType:newDropdownVelue.orderType, 
-                    task:newDropdownVelue.task, 
-                    status:newDropdownVelue.status, 
-                    page, 
-                    setPage, 
-                    searchInput, 
-                    dispatch, 
-                    module});
+    getSummaryData({
+      e,
+      siteVal: newDropdownVelue.site,
+      clientVal: newDropdownVelue.client,
+      orderType: newDropdownVelue.orderType,
+      task: newDropdownVelue.task,
+      status: newDropdownVelue.status,
+      page,
+      setPage,
+      searchInput,
+      dispatch,
+      module,
+    });
   };
 
   useEffect(() => {
@@ -96,12 +97,12 @@ const Search = ({
 
   useEffect(() => {
     const newDropdownVelue = { ...dropdownVelue };
-    if(module === 'purchaseOrder' || 'salesOrder'){
-    if (newDropdownVelue.status === '') {
-      newDropdownVelue.status = { value: 'open', label: 'All Open' }
-      setdropdownVelue(newDropdownVelue)
+    if (module === 'purchaseOrder' || 'salesOrder') {
+      if (newDropdownVelue.status === '') {
+        newDropdownVelue.status = { value: 'open', label: 'All Open' };
+        setdropdownVelue(newDropdownVelue);
+      }
     }
-  }
   }, [newDropdownVelue.status]);
 
   return (
@@ -138,7 +139,15 @@ const Search = ({
                       placeholder="Site"
                       options={siteData}
                       onChangeDropdown={(selected) =>
-                        setSite({ onChangeGetTask, getTask, getTaskParam, selected, dispatch, dropdownVelue, setdropdownVelue})
+                        setSite({
+                          onChangeGetTask,
+                          getTask,
+                          getTaskParam,
+                          selected,
+                          dispatch,
+                          dropdownVelue,
+                          setdropdownVelue,
+                        })
                       }
                       selectedValue={newDropdownVelue.site}
                     />
@@ -154,7 +163,15 @@ const Search = ({
                       placeholder="Client"
                       options={clientData}
                       onChangeDropdown={(selected) =>
-                        setClient({ onChangeGetTask, getTask, getTaskParam, selected, dispatch, dropdownVelue, setdropdownVelue })
+                        setClient({
+                          onChangeGetTask,
+                          getTask,
+                          getTaskParam,
+                          selected,
+                          dispatch,
+                          dropdownVelue,
+                          setdropdownVelue,
+                        })
                       }
                       selectedValue={newDropdownVelue.client}
                     />
@@ -166,7 +183,7 @@ const Search = ({
                     show
                     placeholder="Status"
                     options={statusDataSH || statusData}
-                    onChangeDropdown={(selected) => setStatus({ selected, dispatch,  dropdownVelue, setdropdownVelue  })}
+                    onChangeDropdown={(selected) => setStatus({ selected, dispatch, dropdownVelue, setdropdownVelue })}
                     selectedValue={newDropdownVelue.status}
                   />
                 </CCol>
@@ -176,7 +193,9 @@ const Search = ({
                     show
                     placeholder="Order Type"
                     options={orderTypeData}
-                    onChangeDropdown={(selected) => setOrderType({ selected, dispatch, dropdownVelue, setdropdownVelue })}
+                    onChangeDropdown={(selected) =>
+                      setOrderType({ selected, dispatch, dropdownVelue, setdropdownVelue })
+                    }
                     selectedValue={newDropdownVelue.orderType}
                   />
                 </CCol>
@@ -186,7 +205,7 @@ const Search = ({
                     show
                     placeholder="Task"
                     options={taskData}
-                    onChangeDropdown={(selected) => setTask({ selected, dispatch, dropdownVelue, setdropdownVelue  })}
+                    onChangeDropdown={(selected) => setTask({ selected, dispatch, dropdownVelue, setdropdownVelue })}
                     selectedValue={newDropdownVelue.task}
                   />
                 </CCol>
@@ -196,11 +215,11 @@ const Search = ({
                     className="btn btn-search btn-primary float-right"
                     onClick={() =>
                       getSummaryData({
-                        siteVal:newDropdownVelue.site,
-                        clientVal:newDropdownVelue.client,
-                        orderType:newDropdownVelue.orderType,
-                        task:newDropdownVelue.task,
-                        status:newDropdownVelue.status,
+                        siteVal: newDropdownVelue.site,
+                        clientVal: newDropdownVelue.client,
+                        orderType: newDropdownVelue.orderType,
+                        task: newDropdownVelue.task,
+                        status: newDropdownVelue.status,
                         dispatch,
                         page,
                         setPage,

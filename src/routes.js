@@ -8,6 +8,7 @@ const PurchaseOrders = React.lazy(() => import('../src/pages/PurchaseOrders'));
 const PurchaseOrdersDetail = React.lazy(() => import('./pages/PurchaseOrders/Detail'));
 const SalesOrder = React.lazy(() => import('./pages/SalesOrders/'));
 const SalesOrderDetail = React.lazy(() => import('./pages/SalesOrders/Detail'));
+const StockMovement = React.lazy(() => import('./pages/StockMovement'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -25,11 +26,11 @@ const routes = [
     component: Component,
   },
   // Stock Holding --------------------------------------------------------
-  { 
-    path: '/stock-holding', 
-    exact: true, 
-    name: 'Stock Holding', 
-    component: StockHolding 
+  {
+    path: '/stock-holding',
+    exact: true,
+    name: 'Stock Holding',
+    component: StockHolding,
   },
   // Purchase Order --------------------------------------------------------
   {
@@ -45,24 +46,30 @@ const routes = [
     component: PurchaseOrdersDetail,
   },
   // Sales Order --------------------------------------------------------
-  { 
-    path: '/sales-order', 
-    exact: true, 
-    name: 'Sales Orders', 
-    component: SalesOrder 
-  },
-  { 
-    path: '/sales-order/:client/:site/:orderno', 
-    exact: true, 
-    name: 'Sales Order Detail', 
-    component: SalesOrderDetail 
+  {
+    path: '/sales-order',
+    exact: true,
+    name: 'Sales Orders',
+    component: SalesOrder,
   },
   {
-		path: '/purchase-order/:site/:client/:orderdetail',
-		exact: true,
-		name: 'Purchase Order Detail',
-		component: PurchaseOrdersDetail,
-	},
+    path: '/sales-order/:client/:site/:orderno',
+    exact: true,
+    name: 'Sales Order Detail',
+    component: SalesOrderDetail,
+  },
+  {
+    path: '/purchase-order/:site/:client/:orderdetail',
+    exact: true,
+    name: 'Purchase Order Detail',
+    component: PurchaseOrdersDetail,
+  },
+  {
+    path: '/stock-movement',
+    exact: true,
+    name: 'Stock Movement',
+    component: StockMovement,
+  },
   // Component End -----------------------------------------------------------
 ];
 

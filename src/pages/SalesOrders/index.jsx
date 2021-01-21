@@ -46,23 +46,22 @@ const SalesOrders = (props) => {
     getSummaryData({ dispatch, page, active, setPage, module });
   }, [active]);
 
-
-  const [columnHidden, setColumnHidden] = useState(null);  
-  const [state2, setState2] = useState(null);   
-  if(!columnHidden){
-    setColumnHidden(localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : []) 
-    setState2(true)
+  const [columnHidden, setColumnHidden] = useState(null);
+  const [state2, setState2] = useState(null);
+  if (!columnHidden) {
+    setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
+    setState2(true);
   }
 
   useEffect(() => {
-    if(state2){ 
-      let x = columnHidden?.map((data,idx) => {
-        if(data.title==="Purchase Order Summary"){
+    if (state2) {
+      let x = columnHidden?.map((data, idx) => {
+        if (data.title === 'Purchase Order Summary') {
           setColumnHidden(data.columns);
         }
-      }) 
-      setState2(false)
-      dispatch({type:'CHANGE_HEADER', data:false})
+      });
+      setState2(false);
+      dispatch({ type: 'CHANGE_HEADER', data: false });
     }
   }, [state2]);
 

@@ -43,7 +43,7 @@
   /* border: 1px solid #22ABE3 !important; */
 }
 .select_date_label {
-  font-family: "Rubik Medium";
+  font-family: 'Rubik Medium';
   margin-bottom: 0 !important;
   transition: all 250ms cubic-bezier(0.4, 0.25, 0.3, 1);
   display: block;
@@ -88,8 +88,8 @@
 }
 /* Calendar Icon */
 .select_calendar_expand::after {
-  content: "\e928";
-  font-family: "icomoon" !important;
+  content: '\e928';
+  font-family: 'icomoon' !important;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -110,26 +110,25 @@
 }
 
 .select_arrow_expand::after {
-	content: '\003E';
-    position: absolute;
-    top: 63%;
-    right: .2em;
-    -webkit-transform: translate(-50%, -50%) rotate(90deg) scaleY(1.5);
-    transform: translate(-50%, -50%) rotate(90deg) scaleY(1.5);
-    font-weight: bold;
-    font-size: 13px;
-    opacity: 0.3;
-    pointer-events: none;
-    z-index: 2;
-    -webkit-transition: all 250ms cubic-bezier(.4,.25,.3,1);
-    transition: all 250ms cubic-bezier(.4,.25,.3,1);
+  content: '\003E';
+  position: absolute;
+  top: 63%;
+  right: 0.2em;
+  -webkit-transform: translate(-50%, -50%) rotate(90deg) scaleY(1.5);
+  transform: translate(-50%, -50%) rotate(90deg) scaleY(1.5);
+  font-weight: bold;
+  font-size: 13px;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 2;
+  -webkit-transition: all 250ms cubic-bezier(0.4, 0.25, 0.3, 1);
+  transition: all 250ms cubic-bezier(0.4, 0.25, 0.3, 1);
 }
 
 .select_arrow_expand:checked::after {
-	-webkit-transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.5);
-    transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.5);
-    opacity: 1;
-    
+  -webkit-transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.5);
+  transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.5);
+  opacity: 1;
 }
 
 /* Label Close for Checkbox */
@@ -156,8 +155,8 @@
   margin-top: 8px;
   background-color: white;
   border-radius: 5px;
-  border: 1px solid #D5D8DA !important;
-  width: 300px;
+  border: 1px solid #d5d8da !important;
+  width: 320px;
   height: 360px;
 }
 
@@ -184,10 +183,7 @@
   left: 0;
   cursor: pointer;
 }
-.select_date_expand:checked
-  + .select_date_closeLabel
-  + .select_date_options
-  + .select_date_expandLabel {
+.select_date_expand:checked + .select_date_closeLabel + .select_date_options + .select_date_expandLabel {
   display: none;
 }
 
@@ -206,7 +202,7 @@
 .datepicker-content {
   width: 100%;
 }
-.DayPicker-wrapper{
+.DayPicker-wrapper {
   outline: none;
 }
 .DayPicker-Day {
@@ -232,19 +228,18 @@
   height: 2.2rem !important;
 }
 
-
-.DayPicker-Weekday abbr[title="Monday"]{
-    color: #000000;
+.DayPicker-Weekday abbr[title='Monday'] {
+  color: #000000;
 }
-.DayPicker-Weekday abbr[title="Tuesday"]{
-    color: #000000;
+.DayPicker-Weekday abbr[title='Tuesday'] {
+  color: #000000;
 }
-.DayPicker-Weekday abbr[title="Wednesday"]{
-    color: #000000;
+.DayPicker-Weekday abbr[title='Wednesday'] {
+  color: #000000;
 }
-.DayPicker-Weekday abbr[title="Thursday"]{
-    color: #000000;
+.DayPicker-Weekday abbr[title='Thursday'] {
+  color: #000000;
 }
-.DayPicker-Weekday abbr[title="Friday"]{
-    color: #000000;
+.DayPicker-Weekday abbr[title='Friday'] {
+  color: #000000;
 }
