@@ -11,6 +11,10 @@
 // }
 
 .stockMovement {
+  .export-pdf {
+    cursor: no-drop;
+    pointer-events: none;
+  }
   .text-center {
     justify-content: center;
   }

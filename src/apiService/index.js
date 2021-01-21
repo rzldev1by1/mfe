@@ -306,8 +306,16 @@ export const getStockMovement = async ({ dropdownValue, dispatch }) => {
         });
         newData.push(tmp_row);
       });
-      console.log(newData);
-      console.log(data);
+
+      const pagination = {
+        active: 1,
+        show: 50,
+        total: data.length,
+        last_page: 1,
+        from: 1,
+        to: data.length,
+      };
+      dispatch({ type: 'PAGING', data: pagination });
       dispatch({ type: 'GET_SM_SUMMARY', data: newData });
     })
     .catch((error) => {

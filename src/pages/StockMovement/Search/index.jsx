@@ -12,7 +12,7 @@ import moment from 'moment';
 import DropdownAxios from 'Component/Dropdown/DropdownAxios';
 import './style.scss';
 
-const Search = ({ setHeader }) => {
+const Search = ({ setHeader, setdateHeader }) => {
   // params
   const dispatch = useDispatch();
   const siteData = useSelector((state) => state.siteData);
@@ -48,8 +48,9 @@ const Search = ({ setHeader }) => {
 
   useEffect(() => {
     if (isSearch === true) {
+      dispatch({ type: 'GET_SM_SUMMARY', data: undefined });
       getStockMovement({ dropdownValue, dispatch });
-      setHeaderSummary({ dropdownValue, setHeader });
+      setHeaderSummary({ dropdownValue, setHeader, setdateHeader });
       setIsSearch(false);
     }
   }, [isSearch]);
@@ -57,7 +58,7 @@ const Search = ({ setHeader }) => {
   return (
     <CCard className="mb-3 StockMovementFilter">
       <CCardBody className="p-3">
-        <form>
+        <form onSubmit={() => setIsSearch(true)}>
           <CRow className="mx-0">
             <CCol lg={2} sm={12} className="colPeriod pr-3 pl-0">
               <Dropdown
@@ -154,7 +155,7 @@ const Search = ({ setHeader }) => {
                     }}
                     isLoading={isLoading}
                     onInputChange={(val) => {
-                      getProduct({ client: dropdownValue?.client?.value || '', val, setIsProduct, setIsLoading });
+                      getProduct({ client: clientVal?.value || '', val, setIsProduct, setIsLoading });
                       setIsLoading(true);
                     }}
                     minChar={3}
@@ -164,7 +165,13 @@ const Search = ({ setHeader }) => {
               </CRow>
             </CCol>
             <CCol lg="1" sm="12" className=" colBtn">
-              <button type="button" className="btn btn-search btn-primary float-right" onClick={() => {}}>
+              <button
+                type="button"
+                className="btn btn-search btn-primary float-right"
+                onClick={() => {
+                  setIsSearch(true);
+                }}
+              >
                 SEARCH
               </button>
             </CCol>

@@ -8,6 +8,9 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import ReactTable from 'react-table-v6';
 import withFixedColumns from 'react-table-hoc-fixed-columns';
+import { CRow, CCol } from '@coreui/react';
+import Export from '../Export';
+import Pagination from '../Pagination';
 
 // import style
 import 'react-table-v6/react-table.css';
@@ -15,16 +18,7 @@ import 'react-table-hoc-fixed-columns/lib/styles.css';
 import loading from 'assets/icons/loading/LOADING-MLS-GRAY.gif';
 import './style.scss';
 
-const TableFixedColumn = ({
-  schemaColumn,
-  data,
-  style,
-  page,
-  pageSize,
-  noDataText,
-  tableStatus,
-  groupHeader = false,
-}) => {
+const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, pagination, filename }) => {
   const ReactTableFixedColumns = withFixedColumns(ReactTable);
   const noDataMessage = (
     <div className="caution-caution">
@@ -65,6 +59,15 @@ const TableFixedColumn = ({
           };
         }}
       />
+
+      <CRow lg="12" className="mt-3 w-100 pagination-custom">
+        <CCol lg="7" className="px-0 w-100 margin-mr">
+          <Pagination pagination={pagination} data={[]} page={1} setPage={0} />
+        </CCol>
+        <CCol lg="5" md="1" className="px-0 w-100 export-ml">
+          <Export filename={filename} exportPdf exportExcel module={module} />
+        </CCol>
+      </CRow>
     </div>
   );
 };

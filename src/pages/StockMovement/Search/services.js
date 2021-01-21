@@ -1,63 +1,65 @@
 import moment from 'moment';
 
-const header = [
-  {
-    Header: '',
-    headerStyle: { backgroundColor: 'white', textAlign: 'left' },
-    headerClassName: 'borderRight noBorderBottom ',
-    fixed: 'left',
-    columns: [
-      {
-        Header: 'Site',
-        accessor: 'site',
-        headerStyle: { textAlign: 'left' },
-        style: { textAlign: 'left', paddingLeft: '15px' },
-        headerClassName: 'borderBottom noPaddingTop',
-        sortable: true,
-        width: 70,
-      },
-      {
-        Header: 'Client',
-        accessor: 'client',
-        headerStyle: { textAlign: 'left' },
-        style: { textAlign: 'left' },
-        sortable: true,
-        width: 90,
-        className: 'wrap-text',
-        headerClassName: 'borderBottom noPaddingTop',
-      },
-      {
-        Header: 'Product',
-        accessor: 'product',
-        headerStyle: { textAlign: 'left' },
-        style: { textAlign: 'left' },
-        sortable: true,
-        className: 'wrap-all',
-        headerClassName: 'borderBottom noPaddingTop',
-      },
-      {
-        Header: 'Description',
-        accessor: 'product_name',
-        headerStyle: { textAlign: 'left' },
-        style: { textAlign: 'left' },
-        sortable: true,
-        width: 200,
-        className: 'word-warp',
-        headerClassName: 'borderBottom noPaddingTop',
-      },
-      {
-        Header: 'UOM',
-        accessor: 'packdesc',
-        headerStyle: { textAlign: 'left' },
-        style: { textAlign: 'left' },
-        sortable: true,
-        className: 'borderRight',
-        headerClassName: 'borderRight borderBottom noPaddingTop',
-        width: 100,
-      },
-    ],
-  },
-];
+const getHeaders = () => {
+  return [
+    {
+      Header: '',
+      headerStyle: { backgroundColor: 'white', textAlign: 'left' },
+      headerClassName: 'borderRight noBorderBottom ',
+      fixed: 'left',
+      columns: [
+        {
+          Header: 'Site',
+          accessor: 'site',
+          headerStyle: { textAlign: 'left' },
+          style: { textAlign: 'left', paddingLeft: '15px' },
+          headerClassName: 'borderBottom noPaddingTop',
+          sortable: true,
+          width: 70,
+        },
+        {
+          Header: 'Client',
+          accessor: 'client',
+          headerStyle: { textAlign: 'left' },
+          style: { textAlign: 'left' },
+          sortable: true,
+          width: 90,
+          className: 'wrap-text',
+          headerClassName: 'borderBottom noPaddingTop',
+        },
+        {
+          Header: 'Product',
+          accessor: 'product',
+          headerStyle: { textAlign: 'left' },
+          style: { textAlign: 'left' },
+          sortable: true,
+          className: 'wrap-all',
+          headerClassName: 'borderBottom noPaddingTop',
+        },
+        {
+          Header: 'Description',
+          accessor: 'product_name',
+          headerStyle: { textAlign: 'left' },
+          style: { textAlign: 'left' },
+          sortable: true,
+          width: 200,
+          className: 'word-warp',
+          headerClassName: 'borderBottom noPaddingTop',
+        },
+        {
+          Header: 'UOM',
+          accessor: 'packdesc',
+          headerStyle: { textAlign: 'left' },
+          style: { textAlign: 'left' },
+          sortable: true,
+          className: 'borderRight',
+          headerClassName: 'borderRight borderBottom noPaddingTop',
+          width: 100,
+        },
+      ],
+    },
+  ];
+};
 
 export const getDefaultDate = ({ setDefaultDate }) => {
   let minDate = '2021-01-01';
@@ -71,17 +73,21 @@ export const setValues = ({ dropdownValue, setDropdownValue, column, selected })
   setDropdownValue(newDropdownValue);
 };
 
-export const setHeaderSummary = ({ dropdownValue, setHeader }) => {
+export const setHeaderSummary = ({ dropdownValue, setHeader, setdateHeader }) => {
   let { fromDate, toDate, period } = dropdownValue;
-  let tmp_header = header;
+  let tmp_header = null;
+  let tmp_date_header = [];
+  let x = getHeaders();
+  tmp_header = x;
+  console.log(tmp_header);
   let startDate = moment(fromDate);
   let endDate = moment(toDate);
   period = period.value;
 
   while (startDate <= endDate) {
-    let newDate = startDate.format('YYYY-MM-DD');
+    let newDate = startDate.format('DD MMMM YYYY');
     let dateAccessor = startDate.format('YYYY_MM_DD');
-    // dateArray.push(newDate);
+    tmp_date_header.push(dateAccessor);
 
     if (period === 'day') {
       startDate.add('days', 1);
@@ -138,4 +144,5 @@ export const setHeaderSummary = ({ dropdownValue, setHeader }) => {
     tmp_header.push(tmp_header_date);
   }
   setHeader(tmp_header);
+  setdateHeader(tmp_date_header);
 };
