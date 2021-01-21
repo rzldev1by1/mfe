@@ -54,9 +54,8 @@ const StockHoldingDetail = (props) => {
     getForescast({ dispatch, props, page, active, setPage});
   }, [active]);
 
-  const height = window.innerHeight - 400;
+  const height = window.innerHeight - 378;
   const widht = window.innerWidth;
-
   return (
     <div>
       <Breadcrumb

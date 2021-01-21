@@ -89,7 +89,9 @@ const DetailHeader = ({
                   <CCol className='line-camp'>
                     {valeuRightEleven}
                   </CCol>
-                  <Link className="pl-3" onClick={() => setModalShow(true)}>Show More</Link>
+                  {valeuRightEleven.length > 100 ? (
+                    <Link className="pl-3" onClick={() => setModalShow(true)}>Show More</Link>
+                  ):""}
                 </CCol>
           )
             : <CCol>-</CCol>}

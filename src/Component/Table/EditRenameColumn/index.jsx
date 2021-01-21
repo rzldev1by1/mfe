@@ -85,7 +85,7 @@ const EditRenameColumn = ({
                   <span className='font-20 text-white'>Edit Column</span>
                 </div>
                 <span style={{ marginLeft: '29px' }} className='text-white'>
-                  Show and hide the column according to your needs. Please select columns to show
+                  Show and hide the column according to your needs. Please select columns to show.
                 </span>
               </Col>
               

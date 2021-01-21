@@ -203,7 +203,6 @@ export const getDetailData = async ({
 
   if (readyDocument === 'false' && export_ === 'false') {
     newPage.data = [];
-    newPage.tableStatus = 'waiting';
   }
   setPage(newPage);
 };

@@ -117,7 +117,7 @@ const SalesOrders = (props) => {
             setPage={setPage}
             user={user}
             columnHidden={columnHidden}
-            title="Sales Order Summary"
+            title="Sales Order"
             filename="Microlistics_SalesOrder."
             font="9"
             getExportData={async () => {
