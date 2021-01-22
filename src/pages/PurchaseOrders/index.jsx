@@ -148,7 +148,7 @@ const PurchaseOrders = (props) => {
             getExportData={async () => {
               setExport(true);
             }}
-            UrlHeader={UrlHeader}
+            splitModule="PurchaseOrder"
           />
         </div>
       </div>

@@ -25,9 +25,9 @@ const TableMaster = ({
   user,
   title,
   columnHidden,
-  UrlHeader,
   exportPdf,
   editColumn,
+  splitModule
 }) => {
   return (
     <div>
@@ -45,8 +45,8 @@ const TableMaster = ({
         user={user}
         title={title}
         columnHidden={columnHidden}
-        UrlHeader={UrlHeader}
         editColumn={editColumn}
+        splitModule={splitModule}
       />
       <CRow lg="12" className="mt-3 w-100 pagination-custom justify-content-between">
         <Pagination

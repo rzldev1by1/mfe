@@ -22,7 +22,7 @@ const Table = ({
   user,
   title,
   columnHidden,
-  UrlHeader,
+  splitModule,
   editColumn,
 }) => {
   const userId = useSelector((state) => state.user.userId);
@@ -125,7 +125,7 @@ const Table = ({
         fields={fields}
         setFields={setFields}
         columnHidden={columnHidden}
-        UrlHeader={UrlHeader}
+        splitModule={splitModule}
       />
     </div>
   )
