@@ -40,30 +40,34 @@ const Pagination = ({ pagination, data, goto, page, setPage, isDisplay }) => {
           nextButton={<BsChevronRight className="nextBtn" />}
           lastButton={<BsChevronBarRight className="nextBtn" />}
         />
-        <div className={`d-flex alig align-items-center bg-white px-3 rounded-right ${isDisplay === false ? 'd-none' : ''}`}>
-          <span className="text-muted-soft mr-3">Go to page</span>
-          <input
-            type="number"
-            className="number-pag rounded"
-            onChange={(e) => onChange({ e, page, setPage })}
-            min="1"
-            max={pages > 0 ? pages : 1}
-            onKeyPress={(e) => numberCheck(e)}
-            style={{ textAlign: 'center' }}
-          />
-          <span
-            className="text-muted-dark ml-3 pointer outLineNone"
-            onClick={() => goToPage({ goto, pagination, page, setPage, dispatch })}
-            onKeyPress
-            role="button"
-            tabIndex="0"
-          >
-            {'Go >'}
-          </span>
-        </div>
-        <span className={`text-muted-s px-3 d-flex alig align-items-center ${isDisplay === 'false' ? 'd-none' : ''}`}>
-          <b className="text-muted-dark">{`Showing ${x_from} to ${x_to} of ${x_total} entries`}</b>
-        </span>
+        {isDisplay === false ? '' :(
+           <div className={`d-flex alig align-items-center bg-white px-3 rounded-right`}>
+           <span className="text-muted-soft mr-3">Go to page</span>
+           <input
+             type="number"
+             className="number-pag rounded"
+             onChange={(e) => onChange({ e, page, setPage })}
+             min="1"
+             max={pages > 0 ? pages : 1}
+             onKeyPress={(e) => numberCheck(e)}
+             style={{ textAlign: 'center' }}
+           />
+           <span
+             className="text-muted-dark ml-3 pointer outLineNone"
+             onClick={() => goToPage({ goto, pagination, page, setPage, dispatch })}
+             onKeyPress
+             role="button"
+             tabIndex="0"
+           >
+             {'Go >'}
+           </span>
+         </div>
+        )}
+        {isDisplay === false ? '' :(
+        <span className={`text-muted-s px-3 d-flex alig align-items-center`}>
+        <b className="text-muted-dark">{`Showing ${x_from} to ${x_to} of ${x_total} entries`}</b>
+      </span>
+        )}
       </div>
       <PopUpPages page={page} setPage={setPage} xLastPage={x_last_page} />
     </div>

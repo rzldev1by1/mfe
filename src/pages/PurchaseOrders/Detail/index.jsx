@@ -108,6 +108,7 @@ const PurchaseOrdersDetail = (props) => {
         user={user}
         title="Purchase Order Details"
         filename="Microlistics_PurchaseOrderDetails."
+        isDisplay={false}
       />
     </div>
   );
