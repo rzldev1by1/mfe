@@ -320,7 +320,6 @@ export const submit = async ({ data, user, setIsSubmitReturn, setActiveTab, setI
   const ret = await submitSalesOrder({ header, lineDetail: newOrderLines });
 
   //check return
-  console.log(ret);
   let status = ret?.status;
   let message = ret?.data;
   let submitReturn = { status: status, message: message, orderNo: orderDetails?.orderNo?.value };

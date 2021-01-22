@@ -26,7 +26,6 @@ const Pagination = ({ pagination, data, goto, page, setPage, isDisplay }) => {
   const x_last_page = pagination && pagination.last_page ? pagination.last_page : 1;
   const x_from = pagination && pagination.from ? pagination.from : tmp_startIndex;
   const x_to = pagination && pagination.to ? pagination.to : endIndex;
-  console.log(isDisplay);
   return (
     <div>
       <div style={{width : "fit-content"}} className="d-flex">

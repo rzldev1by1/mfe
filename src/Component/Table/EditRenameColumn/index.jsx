@@ -63,7 +63,6 @@ const EditRenameColumn = ({
       let newState = {...state}
       newState.editColumn = columnHidden
       setState(newState) 
-      console.log(state);
     },[columnHidden])
 
     useEffect(() => {  },[state.editColumn])
@@ -76,8 +75,6 @@ const EditRenameColumn = ({
           setState(newState)
         }
     }
-    console.log(columnHidden);
-    console.log(state);
     return (
       <Modal
         show={showModal}
