@@ -53,7 +53,6 @@ const PurchaseOrders = (props) => {
     goPage: 1,
     // table
     data: [],
-    tableStatus: 'lol',
     status: null,
     search: '',
     active: '',
@@ -134,7 +133,6 @@ const PurchaseOrders = (props) => {
             style={{ minHeight: height, maxHeight: height, maxWidth: width }}
             module="Purchase Orders"
             noDataText
-            tableStatus={newPage.tableStatus}
             pagination={pagination}
             goto={(e) => {
               setActive(e);

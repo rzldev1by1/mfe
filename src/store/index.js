@@ -135,6 +135,11 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, exportStatus: data };
     // end Export
 
+    // Table Status
+    case 'TABLE_STATUS':
+      return { ...state, tableStatus: data };
+    // and Table Status
+
     default:
       return state;
   }

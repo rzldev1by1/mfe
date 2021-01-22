@@ -19,7 +19,6 @@ const Table = ({
   style,
   module,
   className,
-  tableStatus,
   user,
   title,
   columnHidden,
@@ -29,6 +28,7 @@ const Table = ({
   const userId = useSelector((state) => state.user.userId);
   const [showMod, setShowMod] = useState(false)
   const [editColumnTemp, setEditColumnTemp] = useState({})
+  const tableStatus = useSelector((state) => state.tableStatus);
   const ReactTableDraggableColumns = withDraggableColumns(ReactTable);
   const noDataMessage = (
     <div className="caution-caution">
