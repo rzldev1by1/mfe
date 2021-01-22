@@ -17,7 +17,8 @@ const EditRenameColumn = ({
     title,
     fields,
     columnHidden,
-    setFields
+    setFields,
+    splitModule
 }) => {
     const dispatch = useDispatch()  
     const [state, setState] = React.useState({
@@ -47,11 +48,11 @@ const EditRenameColumn = ({
     }
 
     const UrlHeader = () => {
-      return `/getPurchaseOrderColumn?client=ALL`
+      return `/get${splitModule}Column?client=ALL`
     }
 
     const UrlAll = () => {
-      return '/putPurchaseOrderColumn?client=ALL'
+      return `/put${splitModule}Column?client=ALL`
     }
 
     useEffect(() => { 

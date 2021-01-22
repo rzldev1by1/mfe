@@ -40,7 +40,7 @@ const Pagination = ({ pagination, data, goto, page, setPage, isDisplay }) => {
           nextButton={<BsChevronRight className="nextBtn" />}
           lastButton={<BsChevronBarRight className="nextBtn" />}
         />
-        <div className={`d-flex alig align-items-center bg-white px-3 ${isDisplay === false ? 'd-none' : ''}`}>
+        <div className={`d-flex alig align-items-center bg-white px-3 rounded-right ${isDisplay === false ? 'd-none' : ''}`}>
           <span className="text-muted-soft mr-3">Go to page</span>
           <input
             type="number"

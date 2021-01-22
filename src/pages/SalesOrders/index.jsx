@@ -123,6 +123,7 @@ const SalesOrders = (props) => {
               setExport(true);
             }}
             exportPdf={false}
+            splitModule="SalesOrder"
           />
         </div>
       </div>

@@ -142,7 +142,7 @@ const PurchaseOrders = (props) => {
             getExportData={async () => {
               setExport(true);
             }}
-            UrlHeader={UrlHeader}
+            splitModule="Stockholding"
           />
         </div>
       </div>
