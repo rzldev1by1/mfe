@@ -5,7 +5,7 @@ import { MdClose } from 'react-icons/md'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 import { Button, Container, Row, Col, Modal, Nav } from 'react-bootstrap'
 import { NavItem, NavLink, TabPane, TabContent } from 'reactstrap'
-import {showColumn, saveEdit, changedColumn, renameSubmit} from './services'
+import {showColumn, saveEdit, changedColumn, renameSubmit, headerRename} from './services'
 import './style.scss'
 
 const EditRenameColumn = ({
@@ -17,7 +17,7 @@ const EditRenameColumn = ({
     title,
     fields,
     columnHidden,
-    UrlAll
+    setFields
 }) => {
     const dispatch = useDispatch()  
     const [state, setState] = React.useState({
@@ -50,13 +50,23 @@ const EditRenameColumn = ({
       }
     }
 
+    const UrlHeader = () => {
+      return `/getPurchaseOrderColumn?client=ALL`
+    }
+
+    const UrlAll = () => {
+      return '/putPurchaseOrderColumn?client=ALL'
+    }
+
     useEffect(() => { 
       let newState = {...state}
       newState.editColumn = columnHidden
       setState(newState) 
+      console.log(state);
     },[columnHidden])
 
     useEffect(() => {  },[state.editColumn])
+    useEffect(() => { headerRename({UrlHeader, state, setState, fields, setFields}) },[])
       
     function activeTabIndex(tab) {
         if (state.activeTab !== tab) {
@@ -65,7 +75,8 @@ const EditRenameColumn = ({
           setState(newState)
         }
     }
-    
+    console.log(columnHidden);
+    console.log(state);
     return (
       <Modal
         show={showModal}

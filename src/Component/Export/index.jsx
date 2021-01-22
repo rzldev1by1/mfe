@@ -8,8 +8,17 @@ import 'jspdf-autotable';
 import { exportPDF, exportXLS, ExportName, Dates, setHeader } from './services';
 import loading from '../../assets/icons/loading/LOADING-MLS.gif';
 import { AiOutlineConsoleSql } from 'react-icons/ai';
+import { setExportData } from 'pages/PurchaseOrders/Detail/services';
 
-const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExportData, secondTable = false }) => {
+const Export = ({
+  exportPdf = true,
+  exportExcel = true,
+  schemaColumn,
+  filename,
+  module,
+  getExportData,
+  secondTable = false,
+}) => {
   const exportData = useSelector((state) => state.exportData);
   const pagination = useSelector((state) => state.pagination);
   const totalData = pagination?.total || 0;
@@ -30,6 +39,11 @@ const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExp
       return;
     }
 
+    if (!getExportData) {
+      exportXLS();
+      return;
+    }
+
     if (totalData > 75000) {
       setModalShow(true);
       setRunExport(null);
@@ -44,7 +58,7 @@ const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExp
   }, [runExport]);
 
   useEffect(() => {
-    if (!exportData) {
+    if (!setExportData) {
       return;
     }
     if (runExport == 'PDF') {
@@ -66,8 +80,9 @@ const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExp
     'batch',
     'pack_id',
     'supplier_no',
-    'customer_no'
+    'customer_no',
   ];
+
   return (
     <div>
       <ButtonDropdown
@@ -84,59 +99,63 @@ const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExp
             {exportStatus === 'ready' ? (
               'EXPORT'
             ) : (
-                <img src={loading} className="mt-min-5" width="45" height="45" alt="" />
-              )}
+              <img src={loading} className="mt-min-5" width="45" height="45" alt="" />
+            )}
           </div>
         </DropdownToggle>
         <DropdownMenu
-          className={`no-shadow ${exportPdf === false || exportExcel === false ? ' dropdown-single only-pdf' : ' Dropdown-menu ex-pdf'
-            }`}
+          className={`no-shadow ${
+            exportPdf === false || exportExcel === false ? ' dropdown-single only-pdf' : ' Dropdown-menu ex-pdf'
+          }`}
         >
-          {exportPdf === false ? '' : (
+          {!exportPdf ? (
+            ''
+          ) : (
             <DropdownItem className="export-pdf px-3" onClick={() => setRunExport('PDF')}>
               <span className="exp-PDF" style={{ paddingRight: '0.28rem' }} />
               EXPORT TO PDF
             </DropdownItem>
           )}
-          {exportExcel === false ? (
+          {!exportExcel ? (
             ''
           ) : (
-              <div>
-                <DropdownItem className="export-excel so-export" onClick={() => setRunExport('XLS')}>
-                  <span className="exp-XLS" style={{ paddingRight: '0.3rem' }} />
+            <div>
+              <DropdownItem className="export-excel so-export" onClick={() => setRunExport('XLS')}>
+                <span className="exp-XLS" style={{ paddingRight: '0.3rem' }} />
                 EXPORT TO XLS
               </DropdownItem>
-                <div style={{ display: 'none' }}>
-                  <ExportExl
-                    className="Excel-bottom"
-                    table={secondTable ? 'excel2' : 'excel'}
-                    filename={ExportName(filename)}
-                    sheet="sheet 1"
-                    buttonText="EXPORT TO XLS"
-                  />
-                </div>
+              <div style={{ display: 'none' }}>
+                <ExportExl
+                  className="Excel-bottom"
+                  table={secondTable ? 'excel2' : 'excel'}
+                  filename={ExportName(filename)}
+                  sheet="sheet 1"
+                  buttonText="EXPORT TO XLS"
+                />
               </div>
-            )}
+            </div>
+          )}
         </DropdownMenu>
       </ButtonDropdown>
 
       {/* Excel Export */}
-      <table className="d-none" id="excel">
-        <thead>
-          <tr>
-            {schemaColumn?.map((data, idx) => {
-              return (
-                <th key={idx} id={data.accessor}>
-                  {data.Header}
-                </th>
-              );
-            })}
-          </tr>
-        </thead>
-        <tbody>
-          {!exportData ? (
-            <div> No data available </div>
-          ) : (
+      {schemaColumn && exportData ? (
+        <table className="d-none" id="excel">
+          <thead>
+            <tr>
+              {schemaColumn?.map((data, idx) => {
+                return (
+                  <th key={idx} id={data.accessor}>
+                    {data.Header}
+                  </th>
+                );
+              })}
+            </tr>
+          </thead>
+          <tbody>
+            {!exportData ? (
+              <div> No data available </div>
+            ) : (
               exportData?.map((data, i) => (
                 <tr key={i}>
                   {schemaColumn.map((column, columnIdx) => {
@@ -150,8 +169,10 @@ const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExp
                 </tr>
               ))
             )}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      ) : null}
+
       {/* End Excel Export */}
 
       {/* Popup */}

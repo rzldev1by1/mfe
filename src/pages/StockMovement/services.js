@@ -1,17 +1,5 @@
-export const category = [
-  {
-    label: 'VEGETABLES',
-    value: '1',
-  },
-  {
-    label: 'FRUIT',
-    value: '2',
-  },
-  {
-    label: 'MEAT',
-    value: '3',
-  },
-];
+/* eslint-disable prefer-const */
+import React from 'react';
 
 export const simpleData = [
   { col1: 'data1', col2: 'data1', col3: 'data', col4: 'data' },
@@ -23,7 +11,7 @@ export const simpleData = [
   { col1: 'data7', col2: 'data7', col3: 'data', col4: 'data' },
 ];
 
-export const simpleSchema = [
+export const schemaColumn = [
   {
     Header: 'Column 1',
     accessor: 'col1',

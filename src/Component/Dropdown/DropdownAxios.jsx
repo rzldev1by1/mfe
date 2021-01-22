@@ -60,7 +60,7 @@ const DropdownAxios = ({
         }}
         menuIsOpen={isOpen}
         onChange={(val) => onChangeDropdown(val)}
-        className={`c-400 ${isOpen ? 'absolute' : null}`}
+        className={`c-400 ${isOpen ? 'absolute' : null} ${className}`}
         placeholder={placeholder}
         required={required}
         filterOption={(option, inputVal) => {

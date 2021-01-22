@@ -45,8 +45,8 @@ const Search = ({
   const [dropdownValue, setdropdownValue] = useState({
     site: '',
     client: '',
-    status:'',
-    orderType:'',
+    status: '',
+    orderType: '',
     task: '',
   });
 
@@ -54,11 +54,11 @@ const Search = ({
     if (e.key === 'Enter')
       await getSummaryData({
         e,
-        siteVal:newDropdownValue.site,
-        clientVal:newDropdownValue.client,
-        orderType:newDropdownValue.orderType,
-        task:newDropdownValue.task,
-        status:newDropdownValue.status,
+        siteVal: newDropdownValue.site,
+        clientVal: newDropdownValue.client,
+        orderType: newDropdownValue.orderType,
+        task: newDropdownValue.task,
+        status: newDropdownValue.status,
         page,
         setPage,
         searchInput,
@@ -68,18 +68,19 @@ const Search = ({
   };
   const searchForm = (e) => {
     e.preventDefault();
-    getSummaryData({ 
-                    e, 
-                    siteVal:newDropdownValue.site, 
-                    clientVal:newDropdownValue.client, 
-                    orderType:newDropdownValue.orderType, 
-                    task:newDropdownValue.task, 
-                    status:newDropdownValue.status, 
-                    page, 
-                    setPage, 
-                    searchInput, 
-                    dispatch, 
-                    module});
+    getSummaryData({
+      e,
+      siteVal: newDropdownValue.site,
+      clientVal: newDropdownValue.client,
+      orderType: newDropdownValue.orderType,
+      task: newDropdownValue.task,
+      status: newDropdownValue.status,
+      page,
+      setPage,
+      searchInput,
+      dispatch,
+      module,
+    });
   };
 
   useEffect(() => {
@@ -96,12 +97,12 @@ const Search = ({
 
   useEffect(() => {
     const newDropdownValue = { ...dropdownValue };
-    if(module === 'purchaseOrder' || module === 'salesOrder'){
-    if (newDropdownValue.status === '') {
-      newDropdownValue.status = { value: 'open', label: 'All Open' }
-      setdropdownValue(newDropdownValue)
+    if (module === 'purchaseOrder' || module === 'salesOrder') {
+      if (newDropdownValue.status === '') {
+        newDropdownValue.status = { value: 'open', label: 'All Open' };
+        setdropdownValue(newDropdownValue);
+      }
     }
-  }
   }, [newDropdownValue.status]);
 
   return (
@@ -138,7 +139,16 @@ const Search = ({
                       placeholder="Site"
                       options={siteData}
                       onChangeDropdown={(selected) =>
-                        setSite({ onChangeGetTask, getTask, getTaskParam, selected, dispatch, dropdownValue, setdropdownValue})}
+                        setSite({
+                          onChangeGetTask,
+                          getTask,
+                          getTaskParam,
+                          selected,
+                          dispatch,
+                          dropdownValue,
+                          setdropdownValue,
+                        })
+                      }
                       selectedValue={newDropdownValue.site}
                     />
                   )}
@@ -153,7 +163,16 @@ const Search = ({
                       placeholder="Client"
                       options={clientData}
                       onChangeDropdown={(selected) =>
-                        setClient({ onChangeGetTask, getTask, getTaskParam, selected, dispatch, dropdownValue, setdropdownValue })}
+                        setClient({
+                          onChangeGetTask,
+                          getTask,
+                          getTaskParam,
+                          selected,
+                          dispatch,
+                          dropdownValue,
+                          setdropdownValue,
+                        })
+                      }
                       selectedValue={newDropdownValue.client}
                     />
                   )}
@@ -164,7 +183,7 @@ const Search = ({
                     show
                     placeholder="Status"
                     options={statusDataSH || statusData}
-                    onChangeDropdown={(selected) => setStatus({ selected, dispatch,  dropdownValue, setdropdownValue  })}
+                    onChangeDropdown={(selected) => setStatus({ selected, dispatch, dropdownValue, setdropdownValue })}
                     selectedValue={newDropdownValue.status}
                   />
                 </CCol>
@@ -174,7 +193,9 @@ const Search = ({
                     show
                     placeholder="Order Type"
                     options={orderTypeData}
-                    onChangeDropdown={(selected) => setOrderType({ selected, dispatch, dropdownValue, setdropdownValue })}
+                    onChangeDropdown={(selected) =>
+                      setOrderType({ selected, dispatch, dropdownValue, setdropdownValue })
+                    }
                     selectedValue={newDropdownValue.orderType}
                   />
                 </CCol>
@@ -184,7 +205,7 @@ const Search = ({
                     show
                     placeholder="Task"
                     options={taskData}
-                    onChangeDropdown={(selected) => setTask({ selected, dispatch, dropdownValue, setdropdownValue  })}
+                    onChangeDropdown={(selected) => setTask({ selected, dispatch, dropdownValue, setdropdownValue })}
                     selectedValue={newDropdownValue.task}
                   />
                 </CCol>
@@ -194,17 +215,18 @@ const Search = ({
                     className="btn btn-search btn-primary float-right"
                     onClick={() =>
                       getSummaryData({
-                        siteVal:newDropdownValue.site,
-                        clientVal:newDropdownValue.client,
-                        orderType:newDropdownValue.orderType,
-                        task:newDropdownValue.task,
-                        status:newDropdownValue.status,
+                        siteVal: newDropdownValue.site,
+                        clientVal: newDropdownValue.client,
+                        orderType: newDropdownValue.orderType,
+                        task: newDropdownValue.task,
+                        status: newDropdownValue.status,
                         dispatch,
                         page,
                         setPage,
                         searchInput,
                         module,
-                      })}
+                      })
+                    }
                   >
                     SEARCH
                   </button>

@@ -1,52 +1,47 @@
-.fixedColumnTable{
-    .rt-table {
-        border: none;
-        background-color: white;
-        border-radius: 4px;
-      }
+.fixedColumnTable {
+  .rt-table {
+    border: none;
+    background-color: white;
+    border-radius: 4px;
+  }
 
-      .rt-thead {
-        padding: 0 !important;
-        margin: 0 !important;
-        box-shadow: none !important;   
-      }
-      
-      .rt-th{
-        box-shadow: none !important;
-        height: 40px;
-        padding: 10px 10px !important;   
-        border-right: none !important;
-        color: #b4b9bb;
-        font-weight: bold;
-      }
+  .rt-thead {
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+  }
 
-      .-header .rt-tr {
-        border-bottom: 2px solid #E0E2E4;
-      }
+  .rt-th {
+    box-shadow: none !important;
+    border-right: none !important;
+    color: #b4b9bb;
+    font-weight: inherit;
+  }
 
-      //clickable column header
-      .rt-th.-cursor-pointer .rt-resizable-header-content:after{
-        content: "\00a0\00a0"url('/field-idle.png'); 
-        width: 42px; height:42px;
-      } 
+  .-header .rt-tr {
+    border-bottom: 2px solid #e0e2e4;
+  }
 
-      .rt-th.-cursor-pointer.-sort-asc .rt-resizable-header-content:after{
-        content: "\00a0\00a0" url('/field-top.png'); 
-        // content: "  ▲"; 
-      } 
+  //clickable column header
+  .rt-th.-cursor-pointer .rt-resizable-header-content:after {
+    content: '\00a0\00a0'url('/field-idle.png');
+    width: 42px;
+    height: 42px;
+  }
 
-      .rt-th.-cursor-pointer.-sort-desc .rt-resizable-header-content:after{
-        content:"\00a0\00a0" url('/field-bot.png'); 
-        // content: "  ▼"; 
-      } 
-      .rt-tr {
-        border-bottom: 2px solid #E0E2E4;
-      }
-      .rt-td{ 
-        border-right: none !important;
-      }
-      .borderRight {
-        border-right: 1px solid #d5d8da !important;
-      } 
+  .rt-th.-cursor-pointer.-sort-asc .rt-resizable-header-content:after {
+    content: '\00a0\00a0'url('/field-top.png');
+    // content: "  ▲";
+  }
+
+  .rt-th.-cursor-pointer.-sort-desc .rt-resizable-header-content:after {
+    content: '\00a0\00a0'url('/field-bot.png');
+    // content: "  ▼";
+  }
+  .rt-td {
+    border-right: none !important;
+  }
+  .borderRight {
+    border-right: 1px solid #d5d8da !important;
+  }
 }
- 
