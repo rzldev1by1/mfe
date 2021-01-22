@@ -10,7 +10,15 @@ import loading from '../../assets/icons/loading/LOADING-MLS.gif';
 import { AiOutlineConsoleSql } from 'react-icons/ai';
 import { setExportData } from 'pages/PurchaseOrders/Detail/services';
 
-const Export = ({ exportPdf, exportExcel, schemaColumn, filename, module, getExportData, secondTable = false }) => {
+const Export = ({
+  exportPdf = true,
+  exportExcel = true,
+  schemaColumn,
+  filename,
+  module,
+  getExportData,
+  secondTable = false,
+}) => {
   const exportData = useSelector((state) => state.exportData);
   const pagination = useSelector((state) => state.pagination);
   const totalData = pagination?.total || 0;
