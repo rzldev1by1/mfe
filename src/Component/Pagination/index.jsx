@@ -8,8 +8,9 @@ import { useDispatch } from 'react-redux';
 import PopUpPages from 'Component/Modal/PopUpPages';
 import { numberCheck, onChange, onActivePageChange, goToPage } from 'Component/Pagination/service';
 import './Pagination.scss';
+import { Col } from 'reactstrap';
 
-const Pagination = ({ pagination, data, goto, page, setPage, className }) => {
+const Pagination = ({ pagination, data, goto, page, setPage, isDisplay }) => {
   const dispatch = useDispatch();
 
   let active = pagination?.active;
@@ -25,59 +26,46 @@ const Pagination = ({ pagination, data, goto, page, setPage, className }) => {
   const x_last_page = pagination && pagination.last_page ? pagination.last_page : 1;
   const x_from = pagination && pagination.from ? pagination.from : tmp_startIndex;
   const x_to = pagination && pagination.to ? pagination.to : endIndex;
+  console.log(isDisplay);
   return (
     <div>
-      <CRow lg="10" className=" pagination-custom">
-        <CCol lg="7" className="px-0 margin-mr">
-          <CCardGroup>
-            <CCard className="col-lg-5 border-right px-0">
-              <CPagination
-                limit={3}
-                activePage={active}
-                pages={pages > 0 ? pages : 1}
-                onActivePageChange={(e) => onActivePageChange({ e, pagination, goto, dispatch })}
-                firstButton={<BsChevronBarLeft />}
-                previousButton={<BsChevronLeft />}
-                nextButton={<BsChevronRight className="nextBtn" />}
-                lastButton={<BsChevronBarRight className="nextBtn" />}
-              />
-            </CCard>
-            <CCard className={`${className} col-lg-5`} style={{ maxWidth: '39.36667%' }}>
-              <div className="page-2 d-flex justify-content-center align-items-center">
-                <span className="text-muted-soft mr-3">Go to page</span>
-                <input
-                  type="number"
-                  className="form-control form-control-sm"
-                  onChange={(e) => onChange({ e, page, setPage })}
-                  min="1"
-                  max={pages > 0 ? pages : 1}
-                  onKeyPress={(e) => numberCheck(e)}
-                  style={{ textAlign: 'center' }}
-                />
-                <span
-                  className="text-muted-dark ml-3 pointer outLineNone"
-                  onClick={() => goToPage({ goto, pagination, page, setPage, dispatch })}
-                  onKeyPress
-                  role="button"
-                  tabIndex="0"
-                >
-                  {'Go >'}
-                </span>
-              </div>
-            </CCard>
-          </CCardGroup>
-        </CCol>
-        <CCol lg="3" className={`${className} mt-3 pl-4 showing px-0 showing-page`}>
-          <span className="text-muted-s">
-            {' Showing '}
-            <b className="text-muted-dark">{`${x_from} to ${x_to} of ${x_total} `}</b>
-            {' entries '}
+      <div style={{width : "fit-content"}} className="d-flex">
+        <CPagination
+          limit={3}
+          activePage={active}
+          pages={pages > 0 ? pages : 1}
+          onActivePageChange={(e) => onActivePageChange({ e, pagination, goto, dispatch })}
+          firstButton={<BsChevronBarLeft />}
+          previousButton={<BsChevronLeft />}
+          nextButton={<BsChevronRight className="nextBtn" />}
+          lastButton={<BsChevronBarRight className="nextBtn" />}
+        />
+        <div className={`d-flex alig align-items-center bg-white px-3 ${isDisplay === false ? 'd-none' : ''}`}>
+          <span className="text-muted-soft mr-3">Go to page</span>
+          <input
+            type="number"
+            className="number-pag rounded"
+            onChange={(e) => onChange({ e, page, setPage })}
+            min="1"
+            max={pages > 0 ? pages : 1}
+            onKeyPress={(e) => numberCheck(e)}
+            style={{ textAlign: 'center' }}
+          />
+          <span
+            className="text-muted-dark ml-3 pointer outLineNone"
+            onClick={() => goToPage({ goto, pagination, page, setPage, dispatch })}
+            onKeyPress
+            role="button"
+            tabIndex="0"
+          >
+            {'Go >'}
           </span>
-        </CCol>
-
-        {/* Modal Pagination */}
-        <PopUpPages page={page} setPage={setPage} xLastPage={x_last_page} />
-      </CRow>
+        </div>
+        <span className={`text-muted-s px-3 d-flex alig align-items-center ${isDisplay === 'false' ? 'd-none' : ''}`}>
+          <b className="text-muted-dark">{`Showing ${x_from} to ${x_to} of ${x_total} entries`}</b>
+        </span>
+      </div>
+      <PopUpPages page={page} setPage={setPage} xLastPage={x_last_page} />
     </div>
   );
 };

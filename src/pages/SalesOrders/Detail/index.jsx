@@ -144,6 +144,7 @@ const SalesOrdersDetail = (props) => {
         title="Sales Order Details"
         filename="Microlistics_SalesOrderDetails."
         exportPdf={false}
+        isDisplay={false}
       />
     </div>
   );
