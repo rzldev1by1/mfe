@@ -124,7 +124,7 @@ const PurchaseOrders = (props) => {
             schemaColumn={schemaColumn}
             data={shSummaryData}
             style={{ minHeight: height, maxHeight: height, maxWidth: width }}
-            module="Stock Holding"
+            module="Stock Holding Summary"
             noDataText
             tableStatus={newPage.tableStatus}
             pagination={pagination}

@@ -105,7 +105,7 @@ const SalesOrders = (props) => {
             schemaColumn={schemaColumn}
             data={soSummaryData}
             style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
-            module="Sales Orders"
+            module="Sales Orders Summary"
             noDataText
             tableStatus={newPage.tableStatus}
             pagination={pagination}

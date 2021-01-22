@@ -34,8 +34,12 @@ const EditRenameColumn = ({
     })
 
     const closeModal = (closeMod, editColumnTemp) => {
+        const ErrorClose = {...state}
         setShowMod(closeMod)
         setEditColumnTemp(editColumnTemp)
+        ErrorClose.error = {}
+        ErrorClose.sameColumnsIdx = []
+        setState(ErrorClose)
     } 
 
     const Required = ({ error, id }) => {
@@ -96,8 +100,6 @@ const EditRenameColumn = ({
           <Row className={`mx-0 justify-content-between  ${  user.userLevel === 'Admin' ? 'mb-3' : ''}`}>
             <Col lg={6} className='text-primary font-20 p-0'>
               {title}
-              {' '}
-              Summary
             </Col>
             <Row className='align-items-center rename-columns mx-0 text-align-left'>
               <Nav tabs className="px-1">

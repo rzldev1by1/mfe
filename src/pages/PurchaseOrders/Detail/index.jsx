@@ -40,7 +40,7 @@ const PurchaseOrdersDetail = (props) => {
     getDetailData({ dispatch, props, page, active, setPage, module });
   }, [active]);
 
-  const height = window.innerHeight - 395;
+  const height = window.innerHeight - 355;
   const widht = window.innerWidth;
   return (
     <div>

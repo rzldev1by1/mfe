@@ -48,7 +48,6 @@ export const saveEdit = ({state, title, user, setEditColumnTemp, setShowModal, d
   try { 
     dispatch({type:'CHANGE_HEADER', data:true})
   } catch (e){
-    console.log(e)
   }
 }
 
@@ -91,7 +90,6 @@ export const changedColumn = ({e, state, setState}) => {
 };
 
 const renameSubmits = async ({state, setState, UrlAll}) => {
-  console.log(state);
   const {fields, changedColumns, products} = state;
   const changedField = changedColumns;
   const changedFieldHeaderData = [];
@@ -105,7 +103,6 @@ const renameSubmits = async ({state, setState, UrlAll}) => {
 
   const ni = fields.map((item, idx) => {
     changedFieldHeaderData.map((data, idx) => {
-      console.log(item, data, changedFieldHeader[idx]);
       if (item.Header === data) {
         
         item.Header = changedFieldHeader[idx];
@@ -115,8 +112,6 @@ const renameSubmits = async ({state, setState, UrlAll}) => {
   });
 
   newState.fields = ni
-  console.log(newState.fields);
-  console.log(newState);
   setState(newState);
 
   const payload = {};
@@ -167,24 +162,19 @@ const renameSubmits = async ({state, setState, UrlAll}) => {
     );
     
   } catch (error) {
-    // console.log(error);
   }
 };
 
 export const renameSubmit = ({ state, setState, setShowMod, UrlAll }) => {
-  console.log(state);
   const {newerror, newsameColumns, newsameColumnsIdx } = validations(state)
   const newState = {...state}
 
   if (Object.keys(newerror).length) {
-    console.log(newerror);
-    console.log('error');
     newState.error = newerror
     newState.sameColumns = newsameColumns
     newState.sameColumnsIdx = newsameColumnsIdx
     setState(newState)
   } else{
-    console.log('tidak error');
     renameSubmits({state, setState, UrlAll});
     setShowMod(false)
     newState.error = {}
