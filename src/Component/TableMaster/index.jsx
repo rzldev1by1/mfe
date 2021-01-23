@@ -20,14 +20,14 @@ const TableMaster = ({
   filename,
   getExportData,
   exportApi,
-  classNamePaging,
+  isDisplay,
   classNameTable,
   user,
   title,
   columnHidden,
-  UrlHeader,
   exportPdf,
   editColumn,
+  splitModule
 }) => {
   return (
     <div>
@@ -45,31 +45,27 @@ const TableMaster = ({
         user={user}
         title={title}
         columnHidden={columnHidden}
-        UrlHeader={UrlHeader}
         editColumn={editColumn}
+        splitModule={splitModule}
       />
-      <CRow lg="12" className="mt-3 w-100 pagination-custom">
-        <CCol lg="7" className="px-0 w-100 margin-mr">
-          <Pagination
-            pagination={pagination}
-            data={data}
-            page={page}
-            setPage={setPage}
-            goto={goto}
-            schemaColumn={schemaColumn}
-            className={classNamePaging}
-          />
-        </CCol>
-        <CCol lg="5" md="1" className="px-0 w-100 export-ml">
-          <Export
-            filename={filename}
-            getExportData={async () => await getExportData()}
-            module={module}
-            exportApi={exportApi}
-            schemaColumn={schemaColumn}
-            exportPdf={exportPdf}
-          />
-        </CCol>
+      <CRow lg="12" className="mt-3 w-100 pagination-custom justify-content-between">
+        <Pagination
+          pagination={pagination}
+          data={data}
+          page={page}
+          setPage={setPage}
+          goto={goto}
+          schemaColumn={schemaColumn}
+          isDisplay={isDisplay}
+        />
+        <Export
+          filename={filename}
+          getExportData={async () => await getExportData()}
+          module={module}
+          exportApi={exportApi}
+          schemaColumn={schemaColumn}
+          exportPdf={exportPdf}
+        />
       </CRow>
     </div>
   );

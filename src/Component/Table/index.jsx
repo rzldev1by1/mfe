@@ -19,16 +19,17 @@ const Table = ({
   style,
   module,
   className,
-  tableStatus,
   user,
   title,
   columnHidden,
-  UrlHeader,
+  splitModule,
   editColumn,
 }) => {
   const userId = useSelector((state) => state.user.userId);
   const [showMod, setShowMod] = useState(false)
   const [editColumnTemp, setEditColumnTemp] = useState({})
+  const tableStatus = useSelector((state) => state.tableStatus);
+  const [fields, setFields] = useState(schemaColumn)
   const ReactTableDraggableColumns = withDraggableColumns(ReactTable);
   const noDataMessage = (
     <div className="caution-caution">
@@ -45,10 +46,10 @@ const Table = ({
   }
   
   // List Header: to enable function draggable
-  const draggableColumn = setDraggableColumn({ schemaColumn });
+  const draggableColumn = setDraggableColumn({ fields });
 
   // renew Schema column, to get old order column or additional logic
-  const newSchema = renewColumn({ data, schemaColumn, module, userId, editColumnTemp, showModal, columnHidden , editColumn});
+  const newSchema = renewColumn({ data, fields, module, userId, editColumnTemp, showModal, columnHidden , editColumn});
   
   return (
     <div className={`${className} ${(data && data < 1) || data === undefined ? 'TableDownHover' : 'Table'}`}>
@@ -57,7 +58,7 @@ const Table = ({
           mode: 'reorder',
           draggable: draggableColumn,
           onDropSuccess: (draggedColumn, targetColumn, oldIndex, newIndex) =>
-            saveSchemaToLocal({ userId, schemaColumn, module, draggedColumn, targetColumn, oldIndex, newIndex }),
+            saveSchemaToLocal({ userId, fields, module, draggedColumn, targetColumn, oldIndex, newIndex }),
         }}
         columns={newSchema}
         data={data}
@@ -121,9 +122,10 @@ const Table = ({
         editColumnTemp={editColumnTemp}
         user={user}
         title={title}
-        fields={schemaColumn}
+        fields={fields}
+        setFields={setFields}
         columnHidden={columnHidden}
-        UrlHeader={UrlHeader}
+        splitModule={splitModule}
       />
     </div>
   )

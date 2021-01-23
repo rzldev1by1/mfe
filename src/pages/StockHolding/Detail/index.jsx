@@ -36,7 +36,6 @@ const StockHoldingDetail = (props) => {
     // table
     data: [],
     dataForecast: [],
-    tableStatus: 'waiting',
     status: null,
     search: '',
     active: {},
@@ -140,7 +139,6 @@ const StockHoldingDetail = (props) => {
               style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
               module="Stock Holding Detail"
               noDataText
-              tableStatus={newPage.tableStatus}
               pagination={pagination}
               goto={(e) => {
                   setActive(e);

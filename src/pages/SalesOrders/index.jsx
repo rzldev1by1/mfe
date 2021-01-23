@@ -36,7 +36,6 @@ const SalesOrders = (props) => {
     goPage: 1,
     // table
     data: [],
-    tableStatus: 'lol',
     status: null,
     search: '',
     active: '',
@@ -104,9 +103,8 @@ const SalesOrders = (props) => {
             schemaColumn={schemaColumn}
             data={soSummaryData}
             style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
-            module="Sales Orders"
+            module="Sales Orders Summary"
             noDataText
-            tableStatus={newPage.tableStatus}
             pagination={pagination}
             goto={(e) => {
               setActive(e);
@@ -123,6 +121,7 @@ const SalesOrders = (props) => {
               setExport(true);
             }}
             exportPdf={false}
+            splitModule="SalesOrder"
           />
         </div>
       </div>

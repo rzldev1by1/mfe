@@ -25,7 +25,6 @@ const PurchaseOrdersDetail = (props) => {
     goPage: 1,
     // table
     data: [],
-    tableStatus: 'waiting',
     status: null,
     search: '',
     active: {},
@@ -40,7 +39,7 @@ const PurchaseOrdersDetail = (props) => {
     getDetailData({ dispatch, props, page, active, setPage, module });
   }, [active]);
 
-  const height = window.innerHeight - 395;
+  const height = window.innerHeight - 355;
   const widht = window.innerWidth;
   return (
     <div>
@@ -99,7 +98,6 @@ const PurchaseOrdersDetail = (props) => {
         style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
         module="Purchase Orders Detail"
         noDataText
-        tableStatus={newPage.tableStatus}
         pagination={pagination}
         goto={(e) => {
           setActive(e);
@@ -110,6 +108,7 @@ const PurchaseOrdersDetail = (props) => {
         user={user}
         title="Purchase Order Details"
         filename="Microlistics_PurchaseOrderDetails."
+        isDisplay={false}
       />
     </div>
   );

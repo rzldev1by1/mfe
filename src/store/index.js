@@ -140,6 +140,11 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, smSummaryData: data };
     // Stock Movement End
 
+    // Table Status
+    case 'TABLE_STATUS':
+      return { ...state, tableStatus: data };
+    // and Table Status
+
     default:
       return state;
   }

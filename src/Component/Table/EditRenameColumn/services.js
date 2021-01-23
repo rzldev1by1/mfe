@@ -48,7 +48,6 @@ export const saveEdit = ({state, title, user, setEditColumnTemp, setShowModal, d
   try { 
     dispatch({type:'CHANGE_HEADER', data:true})
   } catch (e){
-    console.log(e)
   }
 }
 
@@ -90,24 +89,126 @@ export const changedColumn = ({e, state, setState}) => {
     }
 };
 
+export const headerRename = async ({ UrlHeader, state, setState, fields, setFields }) => {
+  const newVal = {...state}
+
+  if(UrlHeader){
+  const url = UrlHeader();
+  const { data } = await axios.get(url);
+  const newfields = [];
+  const accessor = fields.map((datas) => {
+    const split = datas.accessor
+    return split
+  });
+  const style = fields.map((datas) => {
+    const split = datas.style
+    return split
+  });
+  const Cell = fields.map((datas) => {
+    const split = datas.Cell
+    return split
+  });
+  const placeholder = fields.map((datas) => {
+    const split = datas.placeholder
+    return split
+  });
+  const width = fields.map((datas) => {
+    const split = datas.width
+    return split
+  });
+  const space = fields.map((datas) => {
+    const split = datas.space
+    return split
+  });
+  const align = fields.map((datas) => {
+    const split = datas.align
+    return split
+  });
+  const sortable = fields.map((datas) => {
+      const split = datas.sortable
+      return split
+    });
+  const sortType = fields.map((datas) => {
+      let split;
+      if(datas.sortType){
+          split = datas.sortType
+      }else{
+          split = null
+      }
+      return split
+  });
+
+  const headerData = Object.keys(data.data[0]);
+  accessor.map((data, idx) => {
+    const lowerCase = data.toLowerCase();
+    if (lowerCase.includes(' ')) {
+      const split = lowerCase.split(' ');
+      const result = split.join('_');
+      accessor[idx] = result;
+    } else {
+      accessor[idx] = lowerCase;
+    }
+  });
+
+  Object.values(data.data[0]).map((data, idx) => {
+    const headerTable = {
+      accessor: '',
+      Header: '',
+      Cell: [],
+      headerData,
+      placeholder: '',
+      width: null,
+      space: null,
+      style: null,
+      sortable: false,
+      align: null
+    };
+    headerTable.Header = data;
+    headerTable.placeholder = placeholder[idx];
+    headerTable.accessor = accessor[idx];
+    headerTable.Cell = Cell[idx];
+    headerTable.headerData = headerData[idx];
+    headerTable.width = width[idx];
+    headerTable.space = space[idx];
+    headerTable.align = align[idx];
+    headerTable.style = style[idx];
+    headerTable.sortable = sortable[idx];
+    if(sortType[idx]) {
+      headerTable.sortType = sortType[idx];
+    }
+    newfields.push(headerTable);
+  });
+  if (data.data.length) {
+    newVal.products = data.data[0]
+    newVal.fields = newfields
+    setFields(newfields)
+    setState(newVal);
+
+    if (data.data.length) {
+      newVal.products = data.data[0]
+      newVal.fields = newfields
+      setFields(newfields)
+      setState(newVal);
+    }
+  }
+}
+};
+
 const renameSubmits = async ({state, setState, UrlAll}) => {
-  console.log(state);
   const {fields, changedColumns, products} = state;
   const changedField = changedColumns;
   const changedFieldHeaderData = [];
   const changedFieldHeader = [];
   const newState = {...state}
 
-  changedField.map((item, idx) => {
+  changedField.map((item) => {
     changedFieldHeaderData.push(item.headerData);
     changedFieldHeader.push(item.header);
   });
 
-  const ni = fields.map((item, idx) => {
+  const ni = fields.map((item) => {
     changedFieldHeaderData.map((data, idx) => {
-      console.log(item, data, changedFieldHeader[idx]);
       if (item.Header === data) {
-        
         item.Header = changedFieldHeader[idx];
       }
     });
@@ -115,8 +216,6 @@ const renameSubmits = async ({state, setState, UrlAll}) => {
   });
 
   newState.fields = ni
-  console.log(newState.fields);
-  console.log(newState);
   setState(newState);
 
   const payload = {};
@@ -143,6 +242,7 @@ const renameSubmits = async ({state, setState, UrlAll}) => {
   });
 
   for (let i = 0; i < Object.keys(products).length; i++) {
+
     fieldsHeaderData.map((data, idx) => {
       if (payloadIndex[i] === data) {
         payload[payloadIndex[i]] = changedFieldHeader[idx];
@@ -157,7 +257,6 @@ const renameSubmits = async ({state, setState, UrlAll}) => {
   });
 
   newState.columnsPayload = payload
-  setState(newState);
 
   const baseUrl = process.env.REACT_APP_API_URL;
   try {
@@ -167,24 +266,19 @@ const renameSubmits = async ({state, setState, UrlAll}) => {
     );
     
   } catch (error) {
-    // console.log(error);
   }
 };
 
 export const renameSubmit = ({ state, setState, setShowMod, UrlAll }) => {
-  console.log(state);
   const {newerror, newsameColumns, newsameColumnsIdx } = validations(state)
   const newState = {...state}
 
   if (Object.keys(newerror).length) {
-    console.log(newerror);
-    console.log('error');
     newState.error = newerror
     newState.sameColumns = newsameColumns
     newState.sameColumnsIdx = newsameColumnsIdx
     setState(newState)
   } else{
-    console.log('tidak error');
     renameSubmits({state, setState, UrlAll});
     setShowMod(false)
     newState.error = {}

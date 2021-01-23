@@ -41,7 +41,6 @@ export const getSummaryData = async ({
   // reset table
   if (readyDocument === false && Export === false) {
     newPage.data = [];
-    newPage.tableStatus = 'waiting';
   }
   // Url
   urls.push(`searchParam=${searchInput?.toUpperCase() || ''}`);
@@ -54,8 +53,18 @@ export const getSummaryData = async ({
   if (Export === true) {
     urls.push('export=true');
   }
-
+  dispatch({ type: 'TABLE_STATUS', data: 'waiting' })
   const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
+
+  // Table Status
+  const dataStatus = newData?.data?.data?.data
+				if(dataStatus?.length){
+					dispatch({ type: 'TABLE_STATUS', data: '' })
+				}else if (dataStatus?.length < 1){
+					dispatch({ type: 'TABLE_STATUS', data: 'noData' })
+        }
+   // End Table Status
+
   if (newData?.data?.data) {
     const modifiedData = newData.data.data.data;
     modifiedData.map((item, idx) => {
@@ -93,10 +102,6 @@ export const getSummaryData = async ({
       newPage.data = modifiedData;
       dispatch({ type: paramType, data: modifiedData });
       dispatch({ type: 'PAGING', data: paging });
-    }
-
-    if (modifiedData.length < 1) {
-      newPage.tableStatus = 'noData';
     }
   } else {
     dispatch({ type: paramType, data: [] });

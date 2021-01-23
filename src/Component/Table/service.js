@@ -11,7 +11,7 @@ const getColumnWidth = (rows, accessor, headerText, minWidth) => {
   return width;
 };
 
-export const renewColumn = ({ data, schemaColumn, module, userId, editColumn, showModal, columnHidden }) => {
+export const renewColumn = ({ data, fields, module, userId, editColumn, showModal, columnHidden }) => {
   // reorder column
   const key = `tables__${module}__${userId}`;
   let schema = [];
@@ -21,14 +21,14 @@ export const renewColumn = ({ data, schemaColumn, module, userId, editColumn, sh
 
   if (data) {
     if (columnHidden !== null && columnHidden !== undefined) {
-      schemaColumn.map((datas) => {
+      fields.map((datas) => {
         if (columnHidden.includes(datas.accessor)) {
           return 0;
         }
         schema.push(datas);
       });
     } else {
-      schemaColumn.map(async (d, idx) => {
+      fields.map(async (d, idx) => {
         if (oldSchema) {
           idx = schemaOrder.indexOf(d.accessor);
         }
@@ -37,7 +37,7 @@ export const renewColumn = ({ data, schemaColumn, module, userId, editColumn, sh
       });
     }
   } else {
-    schema = schemaColumn;
+    schema = fields;
   }
 
   // Edit & Rename Column button icon
@@ -60,8 +60,8 @@ export const renewColumn = ({ data, schemaColumn, module, userId, editColumn, sh
   return schema;
 };
 
-export const setDraggableColumn = ({ schemaColumn }) => {
-  const listHeader = schemaColumn.map((data) => {
+export const setDraggableColumn = ({ fields }) => {
+  const listHeader = fields.map((data) => {
     return data.accessor;
   });
   return listHeader;

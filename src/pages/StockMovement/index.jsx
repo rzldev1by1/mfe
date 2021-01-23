@@ -49,7 +49,7 @@ const StockMovement = (props) => {
     }
 
     //renew Schema
-    if (smData) {
+    if (smData && header.length > 0) {
       customSchema({ data: smData, schemaColumn: header, setHeader });
     }
 
@@ -88,6 +88,8 @@ const StockMovement = (props) => {
     setHeaderExcel(newHeader);
   }, [header]);
 
+  // console.log('header', header);
+  // console.log('dateHeader', dateHeader);
   return (
     <div className="stockMovement">
       <Breadcrumb breadcrumb={[{ to: '/purchase-order', label: 'Stock Movement', active: true }]} />

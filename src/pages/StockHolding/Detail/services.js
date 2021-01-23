@@ -5,8 +5,17 @@ export const schemaColumnDetailPO = [
   {
     accessor: 'batch',
     placeholder: 'Batch',
-    Header: 'batch',
+    Header: 'Batch',
     width: 200,
+    Cell: (props) => props.value || '-',
+  },
+  { 
+    accessor: 'rotadate', 
+    placeholder: 'Rotadate', 
+    Header: 'Rotadate', 
+    sortable: true, 
+    width: 100 ,
+    style: { textAlign: 'left' }, 
     Cell: (props) => props.value || '-',
   },
   {

@@ -33,7 +33,7 @@ const getHeaders = () => {
           headerStyle: { textAlign: 'left' },
           style: { textAlign: 'left' },
           sortable: true,
-          width: 100,
+          width: 180,
           className: 'wrap-all',
           headerClassName: 'borderBottom noPaddingTop',
         },
@@ -147,6 +147,8 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setdateHeader }) =>
     };
     tmp_header.push(tmp_header_date);
   }
+  console.log('tmp_header', tmp_header);
+  console.log('tmp_date_header', tmp_date_header);
   setHeader(tmp_header);
   setdateHeader(tmp_date_header);
 };

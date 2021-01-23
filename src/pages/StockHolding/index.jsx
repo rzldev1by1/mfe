@@ -51,7 +51,6 @@ const PurchaseOrders = (props) => {
     goPage: 1,
     // table
     data: [],
-    tableStatus: 'lol',
     status: null,
     search: '',
     active: '',
@@ -124,9 +123,8 @@ const PurchaseOrders = (props) => {
             schemaColumn={schemaColumn}
             data={shSummaryData}
             style={{ minHeight: height, maxHeight: height, maxWidth: width }}
-            module="Stock Holding"
+            module="Stock Holding Summary"
             noDataText
-            tableStatus={newPage.tableStatus}
             pagination={pagination}
             goto={(e) => {
               setActive(e);
@@ -142,7 +140,7 @@ const PurchaseOrders = (props) => {
             getExportData={async () => {
               setExport(true);
             }}
-            UrlHeader={UrlHeader}
+            splitModule="Stockholding"
           />
         </div>
       </div>
