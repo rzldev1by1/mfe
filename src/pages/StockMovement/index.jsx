@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Search from './Search';
 import Breadcrumb from 'Component/Breadcrumb';
 import TableFixedColumn from 'Component/TableFixedColumn';
-import { schemaColumn, simpleData, exportColumns } from './services';
+import { customSchema } from './services';
 import './style.scss';
 
 const StockMovement = (props) => {
@@ -39,6 +39,7 @@ const StockMovement = (props) => {
       window.removeEventListener('resize', handleResize);
     };
   });
+
   useEffect(() => {
     let dataLength = smData?.length;
     if (dataLength !== undefined && dataLength < 1) {
@@ -47,7 +48,11 @@ const StockMovement = (props) => {
       setTableStatus('waiting');
     }
 
-    console.log(smData);
+    //renew Schema
+    if (smData && header.length > 0) {
+      customSchema({ data: smData, schemaColumn: header, setHeader });
+    }
+
     //set data for excel
     let dataExcel = smData?.map((data, index) => {
       data.column = [];
@@ -64,7 +69,7 @@ const StockMovement = (props) => {
     });
     setDataExcel(dataExcel);
   }, [smData]);
-  console.log(dataExcel);
+
   useEffect(() => {
     //set Header Excel
     if (header.length < 1) {
@@ -83,6 +88,8 @@ const StockMovement = (props) => {
     setHeaderExcel(newHeader);
   }, [header]);
 
+  // console.log('header', header);
+  // console.log('dateHeader', dateHeader);
   return (
     <div className="stockMovement">
       <Breadcrumb breadcrumb={[{ to: '/purchase-order', label: 'Stock Movement', active: true }]} />

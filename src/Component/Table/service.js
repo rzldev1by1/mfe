@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const getColumnWidth = (rows, accessor, headerText, minWidth) => {
   const maxWidth = 400;
@@ -7,8 +7,8 @@ const getColumnWidth = (rows, accessor, headerText, minWidth) => {
   const width = Math.min(maxWidth, cellLength * magicSpacing);
   if (minWidth > width) {
     return minWidth;
-  } 
-    return width;
+  }
+  return width;
 };
 
 export const renewColumn = ({ data, fields, module, userId, editColumn, showModal, columnHidden }) => {
@@ -16,18 +16,18 @@ export const renewColumn = ({ data, fields, module, userId, editColumn, showModa
   const key = `tables__${module}__${userId}`;
   let schema = [];
   const oldSchema = localStorage.getItem(key);
-  
+
   const schemaOrder = JSON.parse(oldSchema);
 
   if (data) {
-    if (columnHidden !== null && columnHidden !== undefined) { 
-      fields.map((datas) => {   
-          if(columnHidden.includes(datas.accessor)){
-              return 0; 
-          } 
-          schema.push(datas)
-      }) 
-    }else {
+    if (columnHidden !== null && columnHidden !== undefined) {
+      fields.map((datas) => {
+        if (columnHidden.includes(datas.accessor)) {
+          return 0;
+        }
+        schema.push(datas);
+      });
+    } else {
       fields.map(async (d, idx) => {
         if (oldSchema) {
           idx = schemaOrder.indexOf(d.accessor);
@@ -36,7 +36,6 @@ export const renewColumn = ({ data, fields, module, userId, editColumn, showModa
         schema[idx].width = await getColumnWidth(data, d.accessor, d.Header, d.width || 0);
       });
     }
-    
   } else {
     schema = fields;
   }
@@ -44,21 +43,21 @@ export const renewColumn = ({ data, fields, module, userId, editColumn, showModa
   // Edit & Rename Column button icon
   if (editColumn !== 'false') {
     const editBtn = (
-      <div className='edit-column' onClick={showModal.bind(this, true)}>
-        <i className='iconU-edit' /> 
+      <div className="edit-column" onClick={showModal.bind(this, true)}>
+        <i className="iconU-edit" />
       </div>
-    )
+    );
     const obj = {
       Header: editBtn,
       accessor: 'editBtn',
       width: 50,
       style: { textAlign: 'center' },
-      sortable: false
+      sortable: false,
     };
     schema = [...schema, obj];
   }
 
-    return schema;
+  return schema;
 };
 
 export const setDraggableColumn = ({ fields }) => {

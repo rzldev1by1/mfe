@@ -51,3 +51,33 @@ export const schemaColumn = [
     width: 800,
   },
 ];
+
+const getColumnWidth = (rows, accessor, headerText, minWidth) => {
+  if (accessor !== 'product') {
+    return minWidth;
+  }
+  const maxWidth = 400;
+  const magicSpacing = 11;
+  const cellLength = Math.max(...rows.map((row) => (`${row[accessor]}` || '').length), headerText.length);
+  const width = Math.min(maxWidth, cellLength * magicSpacing);
+  if (minWidth > width) {
+    return minWidth;
+  }
+  return width;
+};
+
+export const customSchema = async ({ data, schemaColumn, setHeader }) => {
+  let newSchema = [];
+  await schemaColumn.forEach(async (h, index) => {
+    if (index < 1) {
+      let newColumns = [];
+      await h.columns.forEach(async (d, i) => {
+        d.width = await getColumnWidth(data, d.accessor, d.Header, d.width || '75px');
+        newColumns.push(d);
+      });
+      h.columns = newColumns;
+    }
+    newSchema.push(h);
+  });
+  setHeader(newSchema);
+};

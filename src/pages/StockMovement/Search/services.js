@@ -33,6 +33,7 @@ const getHeaders = () => {
           headerStyle: { textAlign: 'left' },
           style: { textAlign: 'left' },
           sortable: true,
+          width: 180,
           className: 'wrap-all',
           headerClassName: 'borderBottom noPaddingTop',
         },
@@ -79,7 +80,6 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setdateHeader }) =>
   let tmp_date_header = [];
   let x = getHeaders();
   tmp_header = x;
-  console.log(tmp_header);
   let startDate = moment(fromDate);
   let endDate = moment(toDate);
   period = period.value;
@@ -105,15 +105,16 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setdateHeader }) =>
     let tmp_header_date = {
       Header: newDate,
       headerStyle: { backgroundColor: 'white' },
-      headerClassName: 'borderRight text-center dateHeader noBorderBottom ',
+      headerClassName: 'borderRight text-center noBorderBottom ',
       columns: [
         {
           Header: 'SA+',
           accessor: 'sa_plus_' + dateAccessor,
           className: 'text-right',
-          headerClassName: 'borderBottom blueColor text-center',
+          headerClassName: 'borderBottom blueColor text-center ',
           Cell: '-',
           sortable: false,
+          width: 75,
         },
         {
           Header: 'SA-',
@@ -122,6 +123,7 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setdateHeader }) =>
           headerClassName: 'borderBottom blueColor text-center',
           Cell: '-',
           sortable: false,
+          width: 75,
         },
         {
           Header: 'Rec',
@@ -130,6 +132,7 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setdateHeader }) =>
           className: 'text-right',
           headerClassName: 'borderBottom blueColor text-center',
           sortable: false,
+          width: 75,
         },
         {
           Header: 'Send',
@@ -138,11 +141,14 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setdateHeader }) =>
           headerClassName: 'borderRight borderBottom blueColor text-center',
           Cell: '-',
           sortable: false,
+          width: 75,
         },
       ],
     };
     tmp_header.push(tmp_header_date);
   }
+  console.log('tmp_header', tmp_header);
+  console.log('tmp_date_header', tmp_date_header);
   setHeader(tmp_header);
   setdateHeader(tmp_date_header);
 };
