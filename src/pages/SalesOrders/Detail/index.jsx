@@ -112,14 +112,14 @@ const SalesOrdersDetail = (props) => {
           titleLeftTen="Freight Charge"
           // Valeu Left
           valeuLeftOne={(soDetail?.status && soDetail?.status.includes("0:") ? "0: Unavailable" : soDetail?.status) || '-'}
-          valeuLeftTwo={soDetail?.consignmentno || '-'}
-          valeuLeftThree={soDetail?.deliverydate || '-'}
-          valeuLeftFour={soDetail?.datereceived || '-'}
-          valeuLeftFive={formatDate(soDetail?.datereleased) || '-'}
-          valeuLeftSix={formatDate(soDetail?.datecompleted) || '-'}
-          valeuLeftSeven={soDetail?.loadnumber || '-'}
-          valeuLeftEight={formatDate(soDetail?.loadoutstart) || '-'}
-          valeuLeftNine={formatDate(soDetail?.loadoutfinish) || '-'}
+          valeuLeftTwo={soDetail?.deliverydate || '-'}
+          valeuLeftThree={soDetail?.datereceived || '-'}
+          valeuLeftFour={formatDate(soDetail?.datereleased) || '-'}
+          valeuLeftFive={formatDate(soDetail?.datecompleted) || '-'}
+          valeuLeftSix={soDetail?.loadnumber || '-'}
+          valeuLeftSeven={formatDate(soDetail?.loadoutstart) || '-'}
+          valeuLeftEight={formatDate(soDetail?.loadoutfinish) || '-'}
+          valeuLeftNine={soDetail?.consignmentno || '-'}
           valeuLeftTen={soDetail?.freightcharge || '-'}
         />
       </div>
@@ -141,7 +141,6 @@ const SalesOrdersDetail = (props) => {
         user={user}
         title="Sales Order Details"
         filename="Microlistics_SalesOrderDetails."
-        exportPdf={false}
         isDisplay={false}
       />
     </div>

@@ -53,6 +53,7 @@ export const getSummaryData = async ({
   if (Export === true) {
     urls.push('export=true');
   }
+  dispatch({ type: paramType, data: [] });
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' })
   const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
 
@@ -171,7 +172,17 @@ export const getDetailData = async ({
   }
 
   const url = endpointsUrl;
+    dispatch({ type: paramType, data: [] });
+    dispatch({ type: 'TABLE_STATUS', data: 'waiting' })
   const newData = await axios.get(url);
+   // Table Status
+   const dataStatus = newData?.data?.data
+   if(dataStatus?.length){
+     dispatch({ type: 'TABLE_STATUS', data: '' })
+   }else if (dataStatus?.length < 1){
+     dispatch({ type: 'TABLE_STATUS', data: 'noData' })
+   }
+// End Table Status
   if (newData?.data?.data) {
     let txt = [];
     let modifiedData = newData.data.data.data.map((m) => {
@@ -197,10 +208,6 @@ export const getDetailData = async ({
       newPage.data = modifiedData;
       dispatch({ type: paramType, data: modifiedData });
       dispatch({ type: 'PAGING', data: paging });
-    }
-
-    if (modifiedData.length < 1) {
-      newPage.tableStatus = 'noData';
     }
   } else {
     dispatch({ type: paramType, data: [] });
@@ -228,6 +235,8 @@ export const getForescast = async ({
 
   const { product, client, site } = props.match.params;
   const url = `/stock-balance-forecast?client=${client}&product=${product}&site=${site}&page=${newPage.goPage}&export=${export_}&limit=50`;
+  dispatch({ type: "GET_SH_DETAIL_FORESCAST", data: [] });
+  dispatch({ type: 'TABLE_STATUS', data: 'waiting' })
   const { data } = await axios.get(url);
   let forecast = [];
   Object.keys(data.data).map((value) => forecast.push(data.data[value]));
@@ -249,9 +258,6 @@ export const getForescast = async ({
     if (forecast.length < 1) {
       newPage.tableStatus = 'noData';
     }
-  } else {
-    dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: [] });
-    newPage.dataForecast = [];
   }
   if (readyDocument === 'false' && export_ === 'false') {
     newPage.dataForecast = [];

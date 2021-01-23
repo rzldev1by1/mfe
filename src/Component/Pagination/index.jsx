@@ -64,7 +64,7 @@ const Pagination = ({ pagination, data, goto, page, setPage, isDisplay }) => {
         )}
         {isDisplay === false ? '' :(
         <span className={`text-muted-s px-3 d-flex alig align-items-center`}>
-        <b className="text-muted-dark">{`Showing ${x_from} to ${x_to} of ${x_total} entries`}</b>
+        <b className="text-muted-dark">{`Showing ${isNaN(x_from) ? 0 : x_from} to ${isNaN(x_to) ? 0 : x_to} of ${x_total === undefined ? 0 : x_total} entries`}</b>
       </span>
         )}
       </div>
