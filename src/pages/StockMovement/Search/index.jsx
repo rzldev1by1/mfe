@@ -55,6 +55,10 @@ const Search = ({ setHeader, setdateHeader }) => {
     }
   }, [isSearch]);
 
+  //ref
+  const dateFrom = React.createRef(null);
+  const dateTo = React.createRef(null);
+
   return (
     <CCard className="mb-3 StockMovementFilter">
       <CCardBody className="p-3">
@@ -67,7 +71,10 @@ const Search = ({ setHeader, setdateHeader }) => {
                 options={periodData}
                 onChangeDropdown={(selected) => {
                   let newDropdownValue = dropdownValue;
-                  setdropdownValue({ ...newDropdownValue, period: selected });
+                  setdropdownValue({ ...newDropdownValue, period: selected, fromDate: null });
+                  dateFrom.current.resetDateValue();
+                  dateTo.current.resetDateValue();
+                  dateFrom.current.openDatePicker();
                 }}
                 selectedValue={period}
                 className=" z-99"
@@ -83,10 +90,12 @@ const Search = ({ setHeader, setdateHeader }) => {
                 getDate={(selected) => {
                   let newDropdownValue = dropdownValue;
                   setdropdownValue({ ...newDropdownValue, fromDate: selected });
+                  dateTo.current.openDatePicker();
                 }}
                 fromMonth={defaultDate?.minDate}
                 toMonth={defaultDate?.maxDate}
-                defaultValue={new Date(fromDate)}
+                defaultValue={fromDate ? new Date(fromDate) : null}
+                ref={dateFrom}
               />
             </CCol>
             <div className="colDateText d-flex text-light-gray align-items-center">Date To</div>
@@ -100,9 +109,11 @@ const Search = ({ setHeader, setdateHeader }) => {
                   let newDropdownValue = dropdownValue;
                   setdropdownValue({ ...newDropdownValue, toDate: selected });
                 }}
+                firstDate={fromDate ? new Date(fromDate) : null}
                 fromMonth={defaultDate?.minDate}
                 toMonth={defaultDate?.maxDate}
                 defaultValue={new Date(toDate)}
+                ref={dateTo}
               />
             </CCol>
 
@@ -151,7 +162,7 @@ const Search = ({ setHeader, setdateHeader }) => {
                     className="width-100 z-99"
                     onChangeDropdown={(selected) => {
                       let newDropdownValue = dropdownValue;
-                      setdropdownValue({ ...newDropdownValue, product: selected });
+                      setdropdownValue({ ...newDropdownValue, productVal: selected });
                     }}
                     isLoading={isLoading}
                     onInputChange={(val) => {
