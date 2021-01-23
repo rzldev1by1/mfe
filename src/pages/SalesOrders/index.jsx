@@ -28,7 +28,7 @@ const SalesOrders = (props) => {
   const module = 'salesOrder';
 
   const height = window.innerHeight - 257;
-  const widht = window.innerWidth;
+  const width = window.innerWidth;
 
   const [page, setPage] = useState({
     // Paging
@@ -75,11 +75,11 @@ const SalesOrders = (props) => {
     <div>
       <Breadcrumb
         breadcrumb={[{ to: '/sales-order', label: 'Sales Order', active: true }]}
-        button={
+        button={(
           <CButton onClick={() => setShowModal(true)} className="btn btn-primary btn-create float-right">
             CREATE SALES ORDER
           </CButton>
-        }
+        )}
       />
       <div>
         <div>
@@ -102,8 +102,8 @@ const SalesOrders = (props) => {
             onClick={showDetails}
             schemaColumn={schemaColumn}
             data={soSummaryData}
-            style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
-            module="Sales Orders Summary"
+            style={{ minHeight: height, maxHeight: height, minWidht: width, maxWidht: width }}
+            module="Sales Orders"
             noDataText
             pagination={pagination}
             goto={(e) => {
@@ -114,13 +114,12 @@ const SalesOrders = (props) => {
             setPage={setPage}
             user={user}
             columnHidden={columnHidden}
-            title="Sales Order"
-            filename="Microlistics_SalesOrder."
+            title="Sales Order Summary"
+            filename="Microlistics_PurchaseOrder."
             font="9"
             getExportData={async () => {
               setExport(true);
             }}
-            exportPdf={false}
             splitModule="SalesOrder"
           />
         </div>

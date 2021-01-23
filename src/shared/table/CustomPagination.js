@@ -79,7 +79,6 @@ class CustomPagination extends React.Component {
     const { data, pagination } = this.props;
     // console.log(data);
     // console.log(pagination);
-    console.log('pagination', pagination)
     total = pagination && pagination.total ? pagination.total : data.length;
     const startIndex = (active - 1) * (total < show ? total : show);
     const endIndex = startIndex + (total < show ? total : show);

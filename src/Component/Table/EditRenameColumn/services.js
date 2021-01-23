@@ -51,7 +51,7 @@ export const saveEdit = ({state, title, user, setEditColumnTemp, setShowModal, d
   }
 }
 
-export const changedColumn = ({e, state, setState}) => {
+export const changedColumn = ({e, state, setState, fields}) => {
     let {value} = e.target
     const newVal = {...state}
     const split = value.split(" ");
@@ -60,7 +60,8 @@ export const changedColumn = ({e, state, setState}) => {
         split.map((val) => val?.length !== 0 ? join.push(val) : null)
         value = join.join(" ")
     }
-    const {newerror, newsameColumns, newsameColumnsIdx} = validations(state, value, e.target.id)
+
+    const {newerror, newsameColumns, newsameColumnsIdx} = validations(state, value, e.target.id, fields)
     const {changedColumns} = state;
     newVal.error = newerror
     newVal.sameColumns = newsameColumns
@@ -179,29 +180,23 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
     newfields.push(headerTable);
   });
   if (data.data.length) {
-    newVal.products = data.data[0]
-    newVal.fields = newfields
+    // newVal.products = data.data[0]
+    // newVal.fields = newfields
     setFields(newfields)
-    setState(newVal);
-
-    if (data.data.length) {
-      newVal.products = data.data[0]
-      newVal.fields = newfields
-      setFields(newfields)
-      setState(newVal);
-    }
+    // setState(newVal);
   }
 }
 };
 
-const renameSubmits = async ({state, setState, UrlAll}) => {
-  const {fields, changedColumns, products} = state;
+const renameSubmits = async ({state, UrlAll, fields, setFields}) => {
+
+  const {changedColumns} = state;
   const changedField = changedColumns;
   const changedFieldHeaderData = [];
   const changedFieldHeader = [];
   const newState = {...state}
-
-  changedField.map((item) => {
+  
+  changedField.map((item) => {  
     changedFieldHeaderData.push(item.headerData);
     changedFieldHeader.push(item.header);
   });
@@ -215,62 +210,26 @@ const renameSubmits = async ({state, setState, UrlAll}) => {
     return item
   });
 
-  newState.fields = ni
-  setState(newState);
+  setFields(ni);
 
-  const payload = {};
-  const payloadIndex = Object.keys(products);
-  const defaultValues = Object.values(products);
-  const fieldsHeaderData = changedFieldHeaderData;
-
-  fieldsHeaderData.map((data, idx) => {
-    if (data.includes(' ')) {
-      const uppercaseHeaderData = data.toUpperCase();
-      const index = uppercaseHeaderData.split(' ');
-      fieldsHeaderData[idx] = index.join('_');
-    } else {
-      fieldsHeaderData[idx] = data.toUpperCase();
-    }
-  });
-
-  payloadIndex.map((data, idx) => {
-    if (data.includes(' ')) {
-      const uppercaseHeaderData = data;
-      const index = uppercaseHeaderData.split(' ');
-      payloadIndex[idx] = index.join('_');
-    }
-  });
-
-  for (let i = 0; i < Object.keys(products).length; i++) {
-
-    fieldsHeaderData.map((data, idx) => {
-      if (payloadIndex[i] === data) {
-        payload[payloadIndex[i]] = changedFieldHeader[idx];
-        payloadIndex.splice(i, 1);
-        defaultValues.splice(i, 1);
-      }
-    });
-  }
-
-  payloadIndex.map((data, idx) => {
-    payload[data] = defaultValues[idx];
-  });
-
+  let payload = {};
+  ni.map(obj => {
+    payload[obj.headerData.replace(' ', '_').toUpperCase()] = obj.Header
+  })
   newState.columnsPayload = payload
-
   const baseUrl = process.env.REACT_APP_API_URL;
   try {
     const urlAll = await axios.post(
       baseUrl + UrlAll(),
       payload
     );
-    
   } catch (error) {
+    console.log(error);
   }
 };
 
-export const renameSubmit = ({ state, setState, setShowMod, UrlAll }) => {
-  const {newerror, newsameColumns, newsameColumnsIdx } = validations(state)
+export const renameSubmit = ({ state, setState, setShowMod, UrlAll, fields, setFields }) => {
+  const {newerror, newsameColumns, newsameColumnsIdx } = validations(state, fields)
   const newState = {...state}
 
   if (Object.keys(newerror).length) {
@@ -279,7 +238,7 @@ export const renameSubmit = ({ state, setState, setShowMod, UrlAll }) => {
     newState.sameColumnsIdx = newsameColumnsIdx
     setState(newState)
   } else{
-    renameSubmits({state, setState, UrlAll});
+    renameSubmits({state, setState, UrlAll, fields, setFields});
     setShowMod(false)
     newState.error = {}
     setState(newState);
