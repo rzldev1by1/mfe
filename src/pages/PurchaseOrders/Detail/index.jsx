@@ -18,19 +18,12 @@ const PurchaseOrdersDetail = (props) => {
   const clientData = useSelector((state) => state.clientData);
   const user = useSelector((state) => state.user);
   const module = "purchaseOrder"
-  const [page, setPage] = useState({
-    notifPaging: false,
-    goPage: 1,
-    data: [],
-  });
-  const newPage = { ...page };
-
-  useEffect(() => {}, [page]);
+ 
   useEffect(() => {
     getDetailHeader({ dispatch, props, module });
   }, []);
   useEffect(() => {
-    getDetailData({ dispatch, props, page, active:pagination?.active, setPage, module });
+    getDetailData({ dispatch, props, active:pagination?.active, module });
   }, [pagination?.active]);
 
   const height = window.innerHeight - 355;
@@ -97,8 +90,6 @@ const PurchaseOrdersDetail = (props) => {
           dispatch({type:'PAGING', data:{ ...pagination, active: e}})
         }}
         getExportData={() => setExportData({ dispatch, data: poDetailTable })}
-        page={page}
-        setPage={setPage}
         user={user}
         title="Purchase Order Details"
         filename="Microlistics_PurchaseOrderDetails."

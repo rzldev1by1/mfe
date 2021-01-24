@@ -13,14 +13,10 @@ export const getSummaryData = async ({
   status,
   searchInput,
   Export = false,
-  readyDocument = 'false',
-  page,
-  setPage,
   dispatch,
   active,
   module,
 }) => {
-  const newPage = { ...page };
   const urls = [];
   let endpointsUrl = '';
   let paramType = '';
@@ -42,10 +38,6 @@ export const getSummaryData = async ({
     paramPaging = 'PAGING_SH';
   }
 
-  // reset table
-  if (readyDocument === false && Export === false) {
-    newPage.data = [];
-  }
   // Url
   urls.push(`searchParam=${searchInput?.toUpperCase() || ''}`);
   urls.push(`site=${siteVal?.value ? siteVal.value : 'all'}`);
@@ -57,7 +49,6 @@ export const getSummaryData = async ({
   if (Export === true) {
     urls.push('export=true');
   }
-  dispatch({ type: paramType, data: [] });
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' })
   const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
 
@@ -104,15 +95,12 @@ export const getSummaryData = async ({
         to: newData.data.data.to,
       };
       const paging = pagination;
-      newPage.data = modifiedData;
       dispatch({ type: paramType, data: modifiedData });
       dispatch({ type: paramPaging, data: paging });
     }
   } else {
     dispatch({ type: paramType, data: [] });
-    newPage.data = [];
   }
-  setPage(newPage);
 };
 
 export const getDetailHeader = async ({ dispatch, props, module }) => {

@@ -44,17 +44,9 @@ const PurchaseOrders = (props) => {
       window.removeEventListener('resize', handleResize);
     };
   });
-
-  const [page, setPage] = useState({
-    notifPaging: false,
-    goPage: 1,
-    data: [],
-  });
-  const newPage = { ...page };
-  useEffect(() => {}, [page]);
   useEffect(() => {
     console.log(paginationPo?.active)
-    getSummaryData({ dispatch, page, active:paginationPo?.active, setPage, module });
+    getSummaryData({ dispatch, active:paginationPo?.active, module });
   }, [paginationPo?.active]);
   
   const [columnHidden, setColumnHidden] = useState(null);  
@@ -90,7 +82,7 @@ const PurchaseOrders = (props) => {
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      getSummaryData({ dispatch, page, active:paginationPo?.active, setPage, Export, module });
+      getSummaryData({ dispatch,active:paginationPo?.active, Export, module });
     }
   }, [Export]);
   return (
@@ -106,8 +98,6 @@ const PurchaseOrders = (props) => {
       <div>
         <div>
           <Search
-            page={page}
-            setPage={setPage}
             module={module}
             filterSite
             filterClient
@@ -132,8 +122,6 @@ const PurchaseOrders = (props) => {
               dispatch({type:'PAGING_PO', data:{ ...paginationPo, active: e}})
             }}
             exportData={exportData}
-            page={page}
-            setPage={setPage}
             user={user}
             columnHidden={columnHidden}
             title="Purchase Order Summary"

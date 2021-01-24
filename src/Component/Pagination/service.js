@@ -3,10 +3,20 @@
 export const  onActivePageChange = ({e, pagination, goto, dispatch, module}) => {
   const active = parseInt(e > 1 ? e : 1);
   let paramPaging = '';
-  if (module === 'StockHolding')paramPaging = 'PAGING_SH';
-  if (module === 'Purchase Orders')paramPaging = 'PAGING_PO';
-  if (module === 'Sales Orders')paramPaging = 'PAGING_SO';
-
+  let paramType = '';
+  if (module === 'Stock Holding'){
+    paramType = 'GET_SH_SUMMARY';
+    paramPaging = 'PAGING_SH';
+  }
+  if (module === 'Purchase Orders'){
+    paramType = 'GET_PO_SUMMARY';
+    paramPaging = 'PAGING_PO';
+  }
+  if (module === 'Sales Orders'){
+    paramType = 'GET_SO_SUMMARY'
+    paramPaging = 'PAGING_SO';;
+  }
+  dispatch({type: paramType , data:[]})
   if (goto) {
     goto(active)
   } else {
@@ -17,9 +27,21 @@ export const  onActivePageChange = ({e, pagination, goto, dispatch, module}) => 
 export const goToPage = ({goto, pagination,page, setPage, dispatch, module}) => {
   const newPage = { ...page }
   let paramPaging = '';
-  if (module === 'StockHolding')paramPaging = 'PAGING_SH';
-  if (module === 'Purchase Orders')paramPaging = 'PAGING_PO';
-  if (module === 'Sales Orders')paramPaging = 'PAGING_SO';
+  let paramType = '';
+  if (module === 'Stock Holding'){
+    paramType = 'GET_SH_SUMMARY';
+    paramPaging = 'PAGING_SH';
+  }
+  if (module === 'Purchase Orders'){
+    paramType = 'GET_PO_SUMMARY';
+    paramPaging = 'PAGING_PO';
+  }
+  if (module === 'Sales Orders'){
+    paramType = 'GET_SO_SUMMARY'
+    paramPaging = 'PAGING_SO';;
+  }
+
+  dispatch({type: paramType , data:[]})
 
   if (newPage.goPage === 0 || newPage.goPage === null || newPage.goPage === '' || newPage.goPage === undefined) {
     return false;
@@ -30,7 +52,6 @@ export const goToPage = ({goto, pagination,page, setPage, dispatch, module}) => 
     setPage(newPage)
     return 0
   }
-
   if (goto) {
     goto(newPage.goPage);
   } else {

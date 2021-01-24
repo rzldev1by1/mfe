@@ -44,16 +44,8 @@ const PurchaseOrders = (props) => {
     };
   });
 
-  const [page, setPage] = useState({
-    // Paging
-    notifPaging: false,
-    goPage: 1,
-    data: [],
-  });
-  const newPage = { ...page };
-  useEffect(() => {}, [page]);
   useEffect(() => {
-      getSummaryData({ dispatch, page, active: paginationSh?.active, setPage, module, changePage: true });
+      getSummaryData({ dispatch, active: paginationSh?.active, module, changePage: true });
   }, [paginationSh?.active]);
   
   const [columnHidden, setColumnHidden] = useState(null);  
@@ -89,7 +81,7 @@ const PurchaseOrders = (props) => {
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      getSummaryData({ dispatch, page, active: paginationSh?.active, setPage, Export, module });
+      getSummaryData({ dispatch, active: paginationSh?.active, Export, module });
     }
   }, [Export]);
   return (
@@ -100,8 +92,6 @@ const PurchaseOrders = (props) => {
       <div>
         <div>
           <Search
-            page={page}
-            setPage={setPage}
             module={module}
             filterSite
             filterClient
@@ -118,15 +108,13 @@ const PurchaseOrders = (props) => {
             schemaColumn={schemaColumn}
             data={shSummaryData}
             style={{ minHeight: height, maxHeight: height, maxWidth: width }}
-            module="Stock Holding Summary"
+            module="Stock Holding"
             noDataText
             pagination={paginationSh}
             goto={(e) => {
               dispatch({type:'PAGING_SH', data:{ ...paginationSh, active: e}})
             }}
             exportData={exportData}
-            page={page}
-            setPage={setPage}
             user={user}
             columnHidden={columnHidden}
             title="Stock Holding"

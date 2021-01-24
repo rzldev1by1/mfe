@@ -29,24 +29,15 @@ const StockHoldingDetail = (props) => {
   const user = useSelector((state) => state.user);
   const module = "stockHolding"
   const [activeTab, setActiveTab] = useState('1');
-  const [page, setPage] = useState({
-    // Paging
-    notifPaging: false,
-    goPage: 1,
-    // table
-    data: [],
-  });
-  const newPage = { ...page };
 
-  useEffect(() => {}, [page]);
   useEffect(() => {
     getDetailHeader({ dispatch, props, module });
   }, []);
   useEffect(() => {
-    getDetailData({ dispatch, props, page, active, setPage, module });
+    getDetailData({ dispatch, props, active, module });
   }, [active]);
   useEffect(() => {
-    getForescast({ dispatch, props, page, active, setPage});
+    getForescast({ dispatch, props, active,});
   }, [active]);
 
   const height = window.innerHeight - 378;
@@ -140,8 +131,6 @@ const StockHoldingDetail = (props) => {
                   setActive(e);
                 }}
               getExportData={() => setExportData({ dispatch, data: shDetailTable })}
-              page={page}
-              setPage={setPage}
               user={user}
               title="Stock Holding Details"
               filename="Microlistics_StockHoldingDetails."
@@ -160,14 +149,11 @@ const StockHoldingDetail = (props) => {
               style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
               module="Stock Holding Forecast"
               noDataText
-              tableStatus={newPage.tableStatus}
               pagination={pagination}
               goto={(e) => {
                   setActive(e);
                 }}
               getExportData={() => setExportData({ dispatch, data: shDetailForescast })}
-              page={page}
-              setPage={setPage}
               user={user}
               title="Stock Holding Forecast"
               filename="Microlistics_StockHoldingForecast."

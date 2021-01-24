@@ -28,16 +28,8 @@ const SalesOrders = (props) => {
   const height = window.innerHeight - 257;
   const widht = window.innerWidth;
 
-  const [page, setPage] = useState({
-    // Paging
-    notifPaging: false,
-    goPage: 1,
-    data: [],
-  });
-  const newPage = { ...page };
-  useEffect(() => {}, [page]);
   useEffect(() => {
-    getSummaryData({ dispatch, page, active:paginationSo?.active, setPage, module });
+    getSummaryData({ dispatch, active:paginationSo?.active, module });
   }, [paginationSo?.active]);
 
   const [columnHidden, setColumnHidden] = useState(null);
@@ -62,7 +54,7 @@ const SalesOrders = (props) => {
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      getSummaryData({ dispatch, page, active:paginationSo?.active, setPage, Export, module });
+      getSummaryData({ dispatch, active:paginationSo?.active, Export, module });
     }
   }, [Export]);
   return (
@@ -78,8 +70,6 @@ const SalesOrders = (props) => {
       <div>
         <div>
           <Search
-            page={page}
-            setPage={setPage}
             module={module}
             filterSite
             filterClient
@@ -104,8 +94,6 @@ const SalesOrders = (props) => {
               dispatch({type:'PAGING_SO', data:{ ...paginationSo, active: e}})
             }}
             exportData={exportData}
-            page={page}
-            setPage={setPage}
             user={user}
             columnHidden={columnHidden}
             title="Sales Order"
