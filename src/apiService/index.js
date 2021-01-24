@@ -24,18 +24,22 @@ export const getSummaryData = async ({
   const urls = [];
   let endpointsUrl = '';
   let paramType = '';
+  let paramPaging = '';
 
   if (module === 'purchaseOrder') {
     endpointsUrl = endpoints.purchaseOrder;
     paramType = 'GET_PO_SUMMARY';
+    paramPaging = 'PAGING_PO';
   }
   if (module === 'salesOrder') {
     endpointsUrl = endpoints.salesOrder;
-    paramType = 'GET_SO_SUMMARY';
+    paramType = 'GET_SO_SUMMARY'
+    paramPaging = 'PAGING_SO';;
   }
   if (module === 'StockHolding') {
     endpointsUrl = endpoints.stockHoldingSummary;
     paramType = 'GET_SH_SUMMARY';
+    paramPaging = 'PAGING_SH';
   }
 
   // reset table
@@ -102,7 +106,7 @@ export const getSummaryData = async ({
       const paging = pagination;
       newPage.data = modifiedData;
       dispatch({ type: paramType, data: modifiedData });
-      dispatch({ type: 'PAGING', data: paging });
+      dispatch({ type: paramPaging, data: paging });
     }
   } else {
     dispatch({ type: paramType, data: [] });
@@ -155,7 +159,6 @@ export const getDetailData = async ({
 }) => {
   const newPage = { ...page };
   const { orderdetail, client, site, orderno, product } = props.match.params;
-
   let endpointsUrl = '';
   let paramType = '';
   if (module === 'purchaseOrder') {
@@ -172,7 +175,6 @@ export const getDetailData = async ({
   }
 
   const url = endpointsUrl;
-    dispatch({ type: paramType, data: [] });
     dispatch({ type: 'TABLE_STATUS', data: 'waiting' })
   const newData = await axios.get(url);
    // Table Status

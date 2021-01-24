@@ -35,10 +35,6 @@ const StockHoldingDetail = (props) => {
     goPage: 1,
     // table
     data: [],
-    dataForecast: [],
-    status: null,
-    search: '',
-    active: {},
   });
   const newPage = { ...page };
 

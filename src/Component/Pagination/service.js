@@ -1,16 +1,26 @@
 /* eslint-disable consistent-return */
 /* eslint-disable radix */
-export const  onActivePageChange = ({e, pagination, goto, dispatch}) => {
+export const  onActivePageChange = ({e, pagination, goto, dispatch, module}) => {
   const active = parseInt(e > 1 ? e : 1);
+  let paramPaging = '';
+  if (module === 'StockHolding')paramPaging = 'PAGING_SH';
+  if (module === 'Purchase Orders')paramPaging = 'PAGING_PO';
+  if (module === 'Sales Orders')paramPaging = 'PAGING_SO';
+
   if (goto) {
     goto(active)
   } else {
-    dispatch({type:'PAGING', data:{ ...pagination, active }})
+    dispatch({type: paramPaging ||'PAGING', data:{ ...pagination, active }})
   }
 };
 
-export const goToPage = ({goto, pagination,page, setPage, dispatch}) => {
+export const goToPage = ({goto, pagination,page, setPage, dispatch, module}) => {
   const newPage = { ...page }
+  let paramPaging = '';
+  if (module === 'StockHolding')paramPaging = 'PAGING_SH';
+  if (module === 'Purchase Orders')paramPaging = 'PAGING_PO';
+  if (module === 'Sales Orders')paramPaging = 'PAGING_SO';
+
   if (newPage.goPage === 0 || newPage.goPage === null || newPage.goPage === '' || newPage.goPage === undefined) {
     return false;
   }
@@ -24,7 +34,7 @@ export const goToPage = ({goto, pagination,page, setPage, dispatch}) => {
   if (goto) {
     goto(newPage.goPage);
   } else {
-    dispatch({type:'PAGING', data:{ ...pagination, active: newPage.goPage}})
+    dispatch({type: paramPaging ||'PAGING', data:{ ...pagination, active: newPage.goPage}})
   }
 };
 

@@ -51,6 +51,7 @@ const TableMaster = ({
       <CRow lg="12" className="mt-3 w-100 pagination-custom justify-content-between">
         <Pagination
           pagination={pagination}
+          module={module}
           data={data}
           page={page}
           setPage={setPage}

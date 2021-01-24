@@ -17,11 +17,10 @@ const PurchaseOrders = (props) => {
 
   const dispatch = useDispatch();
   const shSummaryData = useSelector((state) => state.shSummaryData);
-  const pagination = useSelector((state) => state.pagination);
+  const paginationSh = useSelector((state) => state.paginationSh);
   const stateChangeHeader = useSelector((state) => state.changeHeader); 
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
-  const [active, setActive] = useState(1);
   const [Export, setExport] = useState(false);
   const module = 'StockHolding';
 
@@ -49,17 +48,13 @@ const PurchaseOrders = (props) => {
     // Paging
     notifPaging: false,
     goPage: 1,
-    // table
     data: [],
-    status: null,
-    search: '',
-    active: '',
   });
   const newPage = { ...page };
   useEffect(() => {}, [page]);
   useEffect(() => {
-    getSummaryData({ dispatch, page, active, setPage, module });
-  }, [active]);
+      getSummaryData({ dispatch, page, active: paginationSh?.active, setPage, module, changePage: true });
+  }, [paginationSh?.active]);
   
   const [columnHidden, setColumnHidden] = useState(null);  
   const [state2, setState2] = useState(null);   
@@ -94,7 +89,7 @@ const PurchaseOrders = (props) => {
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      getSummaryData({ dispatch, page, active, setPage, Export, module });
+      getSummaryData({ dispatch, page, active: paginationSh?.active, setPage, Export, module });
     }
   }, [Export]);
   return (
@@ -125,9 +120,9 @@ const PurchaseOrders = (props) => {
             style={{ minHeight: height, maxHeight: height, maxWidth: width }}
             module="Stock Holding Summary"
             noDataText
-            pagination={pagination}
+            pagination={paginationSh}
             goto={(e) => {
-              setActive(e);
+              dispatch({type:'PAGING_SH', data:{ ...paginationSh, active: e}})
             }}
             exportData={exportData}
             page={page}

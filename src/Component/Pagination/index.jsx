@@ -2,15 +2,14 @@
 /* eslint-disable camelcase */
 /* eslint-disable import/no-unresolved */
 import React from 'react';
-import { CCard, CCardGroup, CPagination, CRow, CCol } from '@coreui/react';
+import { CPagination } from '@coreui/react';
 import { BsChevronLeft, BsChevronRight, BsChevronBarLeft, BsChevronBarRight } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import PopUpPages from 'Component/Modal/PopUpPages';
 import { numberCheck, onChange, onActivePageChange, goToPage } from 'Component/Pagination/service';
 import './Pagination.scss';
-import { Col } from 'reactstrap';
 
-const Pagination = ({ pagination, data, goto, page, setPage, isDisplay }) => {
+const Pagination = ({ pagination, data, goto, page, setPage, isDisplay, module }) => {
   const dispatch = useDispatch();
 
   let active = pagination?.active;
@@ -33,7 +32,7 @@ const Pagination = ({ pagination, data, goto, page, setPage, isDisplay }) => {
           limit={3}
           activePage={active}
           pages={pages > 0 ? pages : 1}
-          onActivePageChange={(e) => onActivePageChange({ e, pagination, goto, dispatch })}
+          onActivePageChange={(e) => onActivePageChange({ e, pagination, goto, dispatch, module })}
           firstButton={<BsChevronBarLeft />}
           previousButton={<BsChevronLeft />}
           nextButton={<BsChevronRight className="nextBtn" />}
@@ -53,7 +52,7 @@ const Pagination = ({ pagination, data, goto, page, setPage, isDisplay }) => {
            />
            <span
              className="text-muted-dark ml-3 pointer outLineNone"
-             onClick={() => goToPage({ goto, pagination, page, setPage, dispatch })}
+             onClick={() => goToPage({ goto, pagination, page, setPage, dispatch, module })}
              onKeyPress
              role="button"
              tabIndex="0"
