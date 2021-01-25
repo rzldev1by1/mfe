@@ -26,7 +26,7 @@ const SalesOrdersDetail = (props) => {
     getDetailData({ dispatch, props, active:pagination?.active, module });
   }, [pagination?.active]);
 
-  const height = window.innerHeight - ((soDetail?.deliverydescription)?.length > 105 ? 490 : 455);
+  const height = window.innerHeight - ((soDetail?.deliverydescription)?.length > 105 ? 493 : 455);
   console.log(height);
   const widht = window.innerWidth;
 
