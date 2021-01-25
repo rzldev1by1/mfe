@@ -93,6 +93,10 @@ const Dropdown = ({
             borderColor: '#e4e7ea !important',
             height: 50,
           }),
+          valueContainer:(provided) => ({
+            ...provided,
+            paddingLeft:14
+          })
         }}
         theme={(theme) => ({
           ...theme,
