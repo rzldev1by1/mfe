@@ -104,7 +104,7 @@ const DetailHeader = ({
       {titleCenter === true ? (
         <CCard>
           <CCardBody
-            className={`p-0 m-3  mx-0 ${titleLeft === true ? " border-right" : " d-none"}`}
+            className={`p-0 my-3 mr-3 ml-0 ${titleLeft === true ? " border-right" : " d-none"}`}
           >
             <CRow className={`mx-0 ${titleCenterOne ? null : " d-none"}`}>
               <CCol lg={3} className="text-light-gray px-0">{titleCenterOne}</CCol>
@@ -153,7 +153,7 @@ const DetailHeader = ({
 
       {titleLeft === true ? (
         <CCard>
-          <CCardBody className="p-0 m-3">
+          <CCardBody className="p-0 my-3 mr-3 ml-0">
             <CRow className={`mx-0 ${titleLeftOne ? null : " d-none"}`}>
               <CCol lg={3} className="text-light-gray px-0">{titleLeftOne}</CCol>
               <CCol className={`${valeuLeftOne ? null : " d-none"}`}>{valeuLeftOne}</CCol>
