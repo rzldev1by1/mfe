@@ -348,7 +348,7 @@ header {
   // disable vertical scrolling on desktop
   body,
   .c-wrapper {
-    overflow-y: auto !important;
+    overflow-y: none !important;
   }
 }
 

@@ -25,8 +25,11 @@ const SalesOrdersDetail = (props) => {
   useEffect(() => {
     getDetailData({ dispatch, props, active:pagination?.active, module });
   }, [pagination?.active]);
+  const descLenght = "pesies yang pertama kali dikenal di Indonesia adalah hamster emas (Mesocricetus auratus). Hamster ini mer"
+  console.log(descLenght?.length);
 
-  const height = window.innerHeight - 490;
+  const height = window.innerHeight - ((soDetail?.deliverydescription)?.length > 105 ? 490 : 455);
+  console.log(height);
   const widht = window.innerWidth;
 
 
