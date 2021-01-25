@@ -27,11 +27,10 @@ const SalesOrdersDetail = (props) => {
   }, [pagination?.active]);
 
   const height = window.innerHeight - ((soDetail?.deliverydescription)?.length > 105 ? 493 : 455);
-  console.log(height);
   const widht = window.innerWidth;
 
-
-  const indexCustomerName = soDetail?.customername.split(":")
+  let indexCustomerName = soDetail?.customername.split(":")
+  if (indexCustomerName !== undefined) indexCustomerName = indexCustomerName[1];
   return (
     <div>
       <Breadcrumb
