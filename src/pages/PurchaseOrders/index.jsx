@@ -5,7 +5,7 @@ import { CButton } from '@coreui/react';
 import Search from '../../Component/Search';
 import Breadcrumb from '../../Component/Breadcrumb';
 import TableMaster from '../../Component/TableMaster';
-import { schemaColumn} from './services';
+import { schemaColumn } from './services';
 import { getSummaryData } from '../../apiService';
 import Create from './Create';
 import './index.scss';
@@ -18,7 +18,7 @@ const PurchaseOrders = (props) => {
   const dispatch = useDispatch();
   const poSummaryData = useSelector((state) => state.poSummaryData);
   const pagination = useSelector((state) => state.pagination);
-  const stateChangeHeader = useSelector((state) => state.changeHeader); 
+  const stateChangeHeader = useSelector((state) => state.changeHeader);
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
   const item = user;
@@ -62,52 +62,52 @@ const PurchaseOrders = (props) => {
   useEffect(() => {
     getSummaryData({ dispatch, page, active, setPage, module });
   }, [active]);
-  
-  const [columnHidden, setColumnHidden] = useState(null);  
-  const [state2, setState2] = useState(null);   
-  if(!columnHidden){
-    setColumnHidden(localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : []) 
-    setState2(true)
+
+  const [columnHidden, setColumnHidden] = useState(null);
+  const [state2, setState2] = useState(null);
+  if (!columnHidden) {
+    setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
+    setState2(true);
   }
 
   const UrlHeader = () => {
-    return `/getPurchaseOrderColumn?client=ALL`
-  }
-  
+    return `/getPurchaseOrderColumn?client=ALL`;
+  };
+
   useEffect(() => {
-    if(stateChangeHeader){ 
-      setColumnHidden(localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : [])  
-      setState2(true) 
+    if (stateChangeHeader) {
+      setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
+      setState2(true);
     }
-  }, [stateChangeHeader]);  
-  
+  }, [stateChangeHeader]);
+
   useEffect(() => {
-    if(state2){ 
-      let x = columnHidden?.map((data,idx) => {
-        if(data.title==="Purchase Order Summary"){
+    if (state2) {
+      let x = columnHidden?.map((data, idx) => {
+        if (data.title === 'Purchase Order Summary') {
           setColumnHidden(data.columns);
         }
-      }) 
-      setState2(false)
-      dispatch({type:'CHANGE_HEADER', data:false})
+      });
+      setState2(false);
+      dispatch({ type: 'CHANGE_HEADER', data: false });
     }
-  }, [state2]);   
+  }, [state2]);
 
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      getSummaryData({ dispatch, page, active, setPage, Export, module });
+      getSummaryData({ dispatch, page, active, setPage, Export: true, module });
     }
   }, [Export]);
   return (
     <div>
       <Breadcrumb
         breadcrumb={[{ to: '/purchase-order', label: 'Purchase Order', active: true }]}
-        button={(
+        button={
           <CButton onClick={() => setShowModal(true)} className="btn btn-primary btn-create float-right">
             CREATE PURCHASE ORDER
           </CButton>
-        )}
+        }
       />
       <div>
         <div>

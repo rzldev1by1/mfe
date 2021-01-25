@@ -2,20 +2,18 @@ import React, { useState, useEffect } from 'react';
 import ExportExl from 'react-html-table-to-excel';
 import { ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 import { useSelector } from 'react-redux';
-import './style.scss';
 import PopUpExport from '../Modal/PopUpExport';
-import 'jspdf-autotable';
 import { exportPDF, exportXLS, ExportName, Dates, setHeader } from './services';
-import loading from '../../assets/icons/loading/LOADING-MLS.gif';
 import { AiOutlineConsoleSql } from 'react-icons/ai';
-import { setExportData } from 'pages/PurchaseOrders/Detail/services';
+import './style.scss';
+import 'jspdf-autotable';
+import loading from '../../assets/icons/loading/LOADING-MLS.gif';
 
 const Export = ({
   exportPdf = true,
   exportExcel = true,
   schemaColumn,
   filename,
-  module,
   getExportData,
   secondTable = false,
 }) => {
@@ -39,11 +37,6 @@ const Export = ({
       return;
     }
 
-    if (!getExportData) {
-      exportXLS();
-      return;
-    }
-
     if (totalData > 75000) {
       setModalShow(true);
       setRunExport(null);
@@ -58,9 +51,6 @@ const Export = ({
   }, [runExport]);
 
   useEffect(() => {
-    if (!setExportData) {
-      return;
-    }
     if (runExport == 'PDF') {
       exportPDF({ filename, exportData, schemaColumn });
     } else if (runExport == 'XLS') {
@@ -68,7 +58,7 @@ const Export = ({
     }
     setExportStatus('ready');
     setRunExport(null);
-  }, [exportData, runExport]);
+  }, [exportData]);
 
   const columnHiddenCharacter = [
     'customer',
@@ -83,8 +73,43 @@ const Export = ({
     'customer_no',
   ];
 
+  console.log(schemaColumn, exportData);
   return (
     <div>
+      {schemaColumn && exportData ? (
+        <table className="d-none" id="excel">
+          <thead>
+            <tr>
+              {schemaColumn?.map((data, idx) => {
+                return (
+                  <th key={idx} id={data.accessor}>
+                    {data.Header}
+                  </th>
+                );
+              })}
+            </tr>
+          </thead>
+          <tbody>
+            {!exportData ? (
+              <div> No data available </div>
+            ) : (
+              exportData?.map((data, i) => (
+                <tr key={i}>
+                  {schemaColumn.map((column, columnIdx) => {
+                    let dataReturn = data[column.accessor] == null ? '-' : data[column.accessor];
+                    if (columnHiddenCharacter.includes(column.accessor)) {
+                      return <td key={columnIdx}>{dataReturn} ‎</td>;
+                    }
+
+                    return <td key={columnIdx}>{dataReturn}</td>;
+                  })}
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      ) : null}
+
       <ButtonDropdown
         direction="up"
         style={styleButton}
@@ -139,7 +164,7 @@ const Export = ({
       </ButtonDropdown>
 
       {/* Excel Export */}
-      {schemaColumn && exportData ? (
+      {/* {schemaColumn && exportData ? (
         <table className="d-none" id="excel">
           <thead>
             <tr>
@@ -171,7 +196,7 @@ const Export = ({
             )}
           </tbody>
         </table>
-      ) : null}
+      ) : null} */}
 
       {/* End Excel Export */}
 
