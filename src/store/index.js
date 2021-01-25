@@ -55,6 +55,12 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
     // Pagingation
     case 'PAGING':
       return { ...state, pagination: data };
+    case 'PAGING_SH':
+      return { ...state, paginationSh: data };
+    case 'PAGING_SO':
+      return { ...state, paginationSo: data };
+    case 'PAGING_PO':
+      return { ...state, paginationPo: data };
     // Pagination End
 
     // Stock Holding

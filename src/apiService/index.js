@@ -13,35 +13,31 @@ export const getSummaryData = async ({
   status,
   searchInput,
   Export = false,
-  readyDocument = 'false',
-  page,
-  setPage,
   dispatch,
   active,
   module,
 }) => {
-  const newPage = { ...page };
   const urls = [];
   let endpointsUrl = '';
   let paramType = '';
+  let paramPaging = '';
 
   if (module === 'purchaseOrder') {
     endpointsUrl = endpoints.purchaseOrder;
     paramType = 'GET_PO_SUMMARY';
+    paramPaging = 'PAGING_PO';
   }
   if (module === 'salesOrder') {
     endpointsUrl = endpoints.salesOrder;
-    paramType = 'GET_SO_SUMMARY';
+    paramType = 'GET_SO_SUMMARY'
+    paramPaging = 'PAGING_SO';;
   }
   if (module === 'StockHolding') {
     endpointsUrl = endpoints.stockHoldingSummary;
     paramType = 'GET_SH_SUMMARY';
+    paramPaging = 'PAGING_SH';
   }
 
-  // reset table
-  if (readyDocument === false && Export === false) {
-    newPage.data = [];
-  }
   // Url
   urls.push(`searchParam=${searchInput?.toUpperCase() || ''}`);
   urls.push(`site=${siteVal?.value ? siteVal.value : 'all'}`);
@@ -55,8 +51,7 @@ export const getSummaryData = async ({
   } else {
     dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   }
-  dispatch({ type: paramType, data: [] });
-  dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
+  dispatch({ type: 'TABLE_STATUS', data: 'waiting' })
   const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
 
   // Table Status
@@ -103,17 +98,12 @@ export const getSummaryData = async ({
         to: newData.data.data.to,
       };
       const paging = pagination;
-      newPage.data = modifiedData;
       dispatch({ type: paramType, data: modifiedData });
-      dispatch({ type: 'PAGING', data: paging });
-      setPage(newPage);
+      dispatch({ type: paramPaging, data: paging });
     }
   } else {
     dispatch({ type: paramType, data: [] });
-    newPage.data = [];
-    setPage(newPage);
   }
-  console.log('end of apiservices');
 };
 
 export const getDetailHeader = async ({ dispatch, props, module }) => {
@@ -160,7 +150,6 @@ export const getDetailData = async ({
 }) => {
   const newPage = { ...page };
   const { orderdetail, client, site, orderno, product } = props.match.params;
-
   let endpointsUrl = '';
   let paramType = '';
   if (module === 'purchaseOrder') {
@@ -177,8 +166,7 @@ export const getDetailData = async ({
   }
 
   const url = endpointsUrl;
-  dispatch({ type: paramType, data: [] });
-  dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
+    dispatch({ type: 'TABLE_STATUS', data: 'waiting' })
   const newData = await axios.get(url);
   // Table Status
   const dataStatus = newData?.data?.data;
