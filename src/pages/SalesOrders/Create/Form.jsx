@@ -20,6 +20,7 @@ const Form = ({ activeTab, isValidation, createData }) => {
   const resources = useSelector((state) => state.so_resources);
   const createSO = useSelector((state) => state.createSO);
   const clientData = useSelector((state) => state.clientData);
+  const siteData = useSelector((state) => state.siteData);
   const user = useSelector((state) => state.user);
   const { orderDetails, customerDetails, orderLines, orderLinesData } = createData;
 
@@ -56,7 +57,11 @@ const Form = ({ activeTab, isValidation, createData }) => {
 
   useEffect(() => {
     // set site dropdown option
-    let tmp = resources?.site?.map((item, key) => {
+    let siteOption = [];
+    let tmp = siteData?.map((item, key) => {
+      if (item.value !== 'all') {
+        siteOption.push(item);
+      }
       if (site === item.value) {
         let val = {
           value: item.value,
@@ -66,7 +71,8 @@ const Form = ({ activeTab, isValidation, createData }) => {
         return 0;
       }
     });
-  }, [resources]);
+    setSiteOption(siteOption);
+  }, [siteData]);
 
   useEffect(() => {
     if (activeTab == 'review') {
@@ -100,7 +106,7 @@ const Form = ({ activeTab, isValidation, createData }) => {
           <Dropdown
             name="site"
             placeholder={orderDetails?.site?.text}
-            options={resources?.site}
+            options={siteOption}
             title={orderDetails?.site?.text}
             selectedValue={orderDetails?.site?.value}
             onChangeDropdown={(selected) => changeOrderDetails({ column: 'site', value: selected, dispatch })}

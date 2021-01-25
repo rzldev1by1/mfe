@@ -17,12 +17,10 @@ const PurchaseOrders = (props) => {
 
   const dispatch = useDispatch();
   const poSummaryData = useSelector((state) => state.poSummaryData);
-  const pagination = useSelector((state) => state.pagination);
+  const paginationPo = useSelector((state) => state.paginationPo);
   const stateChangeHeader = useSelector((state) => state.changeHeader); 
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
-  const item = user;
-  const [active, setActive] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [Export, setExport] = useState(false);
   const module = 'purchaseOrder';
@@ -46,22 +44,10 @@ const PurchaseOrders = (props) => {
       window.removeEventListener('resize', handleResize);
     };
   });
-
-  const [page, setPage] = useState({
-    // Paging
-    notifPaging: false,
-    goPage: 1,
-    // table
-    data: [],
-    status: null,
-    search: '',
-    active: '',
-  });
-  const newPage = { ...page };
-  useEffect(() => {}, [page]);
   useEffect(() => {
-    getSummaryData({ dispatch, page, active, setPage, module });
-  }, [active]);
+    console.log(paginationPo?.active)
+    getSummaryData({ dispatch, active:paginationPo?.active, module });
+  }, [paginationPo?.active]);
   
   const [columnHidden, setColumnHidden] = useState(null);  
   const [state2, setState2] = useState(null);   
@@ -96,7 +82,7 @@ const PurchaseOrders = (props) => {
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      getSummaryData({ dispatch, page, active, setPage, Export, module });
+      getSummaryData({ dispatch,active:paginationPo?.active, Export, module });
     }
   }, [Export]);
   return (
@@ -112,8 +98,6 @@ const PurchaseOrders = (props) => {
       <div>
         <div>
           <Search
-            page={page}
-            setPage={setPage}
             module={module}
             filterSite
             filterClient
@@ -133,13 +117,11 @@ const PurchaseOrders = (props) => {
             style={{ minHeight: height, maxHeight: height, maxWidth: width }}
             module="Purchase Orders"
             noDataText
-            pagination={pagination}
+            pagination={paginationPo}
             goto={(e) => {
-              setActive(e);
+              dispatch({type:'PAGING_PO', data:{ ...paginationPo, active: e}})
             }}
             exportData={exportData}
-            page={page}
-            setPage={setPage}
             user={user}
             columnHidden={columnHidden}
             title="Purchase Order Summary"
