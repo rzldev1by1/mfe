@@ -1,6 +1,5 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-param-reassign */
-/* eslint-disable prefer-const */
 import axios from 'axios';
 import numeral from 'numeral';
 import endpoints from '../helpers/endpoints';
@@ -140,28 +139,24 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
 
 export const getDetailData = async ({
   export_ = 'false',
-  readyDocument = 'false',
-  page,
-  setPage,
   dispatch,
   active,
   props,
   module,
 }) => {
-  const newPage = { ...page };
   const { orderdetail, client, site, orderno, product } = props.match.params;
   let endpointsUrl = '';
   let paramType = '';
   if (module === 'purchaseOrder') {
-    endpointsUrl = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${newPage.goPage}&export=${export_}`;
+    endpointsUrl = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${active}&export=${export_}`;
     paramType = 'GET_PO_DETAIL_TABLE';
   }
   if (module === 'salesOrder') {
-    endpointsUrl = `/salesorder/${orderno}?client=${client}&site=${site}&page=${newPage.goPage}&export=${export_}`;
+    endpointsUrl = `/salesorder/${orderno}?client=${client}&site=${site}&page=${active}&export=${export_}`;
     paramType = 'GET_SO_DETAIL_TABLE';
   }
   if (module === 'stockHolding') {
-    endpointsUrl = `/stockdetail/${product}?client=${client}&site=${site}&page=${newPage.goPage}&export=${export_}`;
+    endpointsUrl = `/stockdetail/${product}?client=${client}&site=${site}&page=${active}&export=${export_}`;
     paramType = 'GET_SH_DETAIL_TABLE';
   }
 
@@ -187,7 +182,7 @@ export const getDetailData = async ({
       return m;
     });
     if (export_ === 'true') {
-      newPage.exportData = modifiedData;
+      
     } else {
       const pagination = {
         active: active || newData.data.data.current_page,
@@ -198,36 +193,22 @@ export const getDetailData = async ({
         to: newData.data.data.to,
       };
       const paging = pagination;
-      newPage.data = modifiedData;
       dispatch({ type: paramType, data: modifiedData });
       dispatch({ type: 'PAGING', data: paging });
     }
   } else {
     dispatch({ type: paramType, data: [] });
-    newPage.data = [];
   }
-
-  if (readyDocument === 'false' && export_ === 'false') {
-    newPage.data = [];
-  }
-  setPage(newPage);
 };
 
 export const getForescast = async ({
   export_ = 'false',
-  readyDocument = 'false',
-  page,
-  setPage,
   dispatch,
   active,
   props,
 }) => {
-  const newPage = { ...page };
-  newPage.dataForecast = [];
-  newPage.tableStatus = 'waiting';
-
   const { product, client, site } = props.match.params;
-  const url = `/stock-balance-forecast?client=${client}&product=${product}&site=${site}&page=${newPage.goPage}&export=${export_}&limit=50`;
+  const url = `/stock-balance-forecast?client=${client}&product=${product}&site=${site}&page=${active}&export=${export_}&limit=50`;
   dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: [] });
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const { data } = await axios.get(url);
@@ -245,18 +226,9 @@ export const getForescast = async ({
       from: data.from,
       to: data.to,
     };
-    newPage.dataForecast = forecast;
     dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: forecast });
     dispatch({ type: 'PAGING', data: pagination });
-    if (forecast.length < 1) {
-      newPage.tableStatus = 'noData';
-    }
   }
-  if (readyDocument === 'false' && export_ === 'false') {
-    newPage.dataForecast = [];
-    newPage.tableStatus = 'waiting';
-  }
-  setPage(newPage);
 };
 
 export const submitPurchaseOrder = async ({ orderDetails, lineDetails }) => {

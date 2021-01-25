@@ -117,7 +117,7 @@ const PurchaseOrders = (props) => {
             exportData={exportData}
             user={user}
             columnHidden={columnHidden}
-            title="Stock Holding"
+            title="Stock Holding Summary"
             filename="Microlistics_StockHolding."
             font="9"
             getExportData={async () => {
