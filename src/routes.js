@@ -10,6 +10,7 @@ const PurchaseOrdersDetail = React.lazy(() => import('./pages/PurchaseOrders/Det
 const SalesOrder = React.lazy(() => import('./pages/SalesOrders/'));
 const SalesOrderDetail = React.lazy(() => import('./pages/SalesOrders/Detail'));
 const StockMovement = React.lazy(() => import('./pages/StockMovement'));
+const UserManagement = React.lazy(() => import('./pages/UserManagement'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -65,18 +66,22 @@ const routes = [
     name: 'Sales Order Detail',
     component: SalesOrderDetail,
   },
-  {
-    path: '/purchase-order/:site/:client/:orderdetail',
-    exact: true,
-    name: 'Purchase Order Detail',
-    component: PurchaseOrdersDetail,
-  },
+  // Stock Movement --------------------------------------------------------
   {
     path: '/stock-movement',
     exact: true,
     name: 'Stock Movement',
     component: StockMovement,
   },
+  // User Management --------------------------------------------------------
+
+  {
+    path: '/user-management',
+    exact: true,
+    name: 'User Management',
+    component: UserManagement,
+  },
+
   // Component End -----------------------------------------------------------
 ];
 

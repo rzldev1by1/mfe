@@ -61,6 +61,8 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, paginationSo: data };
     case 'PAGING_PO':
       return { ...state, paginationPo: data };
+    case 'PAGING_UM':
+      return { ...state, paginationUm: data };
     // Pagination End
 
     // Stock Holding
@@ -150,6 +152,11 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
     case 'TABLE_STATUS':
       return { ...state, tableStatus: data };
     // and Table Status
+
+     // User Management
+    case 'GET_UM_SUMMARY':
+      return { ...state, umSummaryData: data };
+    // User Management End
 
     default:
       return state;

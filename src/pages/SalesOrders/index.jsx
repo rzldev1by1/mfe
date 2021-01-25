@@ -97,7 +97,7 @@ const SalesOrders = (props) => {
             user={user}
             columnHidden={columnHidden}
             title="Sales Order Summary"
-            filename="Microlistics_PurchaseOrder."
+            filename="Microlistics_SalesOrder."
             font="9"
             getExportData={async () => {
               setExport(true);

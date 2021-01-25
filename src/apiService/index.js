@@ -36,6 +36,11 @@ export const getSummaryData = async ({
     paramType = 'GET_SH_SUMMARY';
     paramPaging = 'PAGING_SH';
   }
+  if (module === 'UserManagement') {
+    endpointsUrl = endpoints.userManagementListUser;
+    paramType = 'GET_UM_SUMMARY';
+    paramPaging = 'PAGING_UM';
+  }
 
   // Url
   urls.push(`searchParam=${searchInput?.toUpperCase() || ''}`);

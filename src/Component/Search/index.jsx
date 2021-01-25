@@ -16,6 +16,7 @@ import {
   clientCheck,
 } from '../../apiService/dropdown';
 import { getSummaryData } from '../../apiService';
+import './index.scss';
 
 const Search = ({
   module,
@@ -112,8 +113,8 @@ const Search = ({
   console.log(module)
 
   return (
-    <CCard className="mb-3">
-      <CCardBody className="p-3">
+    <CCard className={`mb-3 ${module === 'UserManagement' ? 'rounded-bottom' : 'rounded'}`}>
+      <CCardBody className={`p-3 ${module === 'UserManagement' ? 'rounded-bottom' : 'rounded'}`}>
         <form onSubmit={searchForm}>
           <CRow className="mx-0">
             <CCol lg={3} className="pr-3 pl-0">

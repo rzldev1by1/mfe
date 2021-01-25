@@ -16,6 +16,10 @@ export const  onActivePageChange = ({e, pagination, goto, dispatch, module}) => 
     paramType = 'GET_SO_SUMMARY'
     paramPaging = 'PAGING_SO';;
   }
+  if (module === 'User Management'){
+    paramType = 'GET_UM_SUMMARY'
+    paramPaging = 'PAGING_UM';;
+  }
   dispatch({type: paramType , data:[]})
   if (goto) {
     goto(active)
@@ -40,7 +44,10 @@ export const goToPage = ({goto, pagination,page, setPage, dispatch, module}) => 
     paramType = 'GET_SO_SUMMARY'
     paramPaging = 'PAGING_SO';;
   }
-
+  if (module === 'User Management'){
+    paramType = 'GET_UM_SUMMARY'
+    paramPaging = 'PAGING_UM';;
+  }
   dispatch({type: paramType , data:[]})
 
   if (newPage.goPage === 0 || newPage.goPage === null || newPage.goPage === '' || newPage.goPage === undefined) {

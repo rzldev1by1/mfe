@@ -27,11 +27,11 @@ export default [
     icon: 'so',
     key: 'menu_orders_highSoOrder',
   },
-  // {
-  //   _tag: 'CSidebarNavItem',
-  //   name: 'Component',
-  //   to: '/component',
-  //   icon: 'um',
-  //   key: 'usermanagement',
-  // },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'USER MANAGEMENT',
+    to: '/user-management',
+    icon: 'um',
+    key: 'usermanagement',
+  },
 ];
