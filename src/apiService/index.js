@@ -52,19 +52,21 @@ export const getSummaryData = async ({
   urls.push(`page=${active || 1}`);
   if (Export === true) {
     urls.push('export=true');
+  } else {
+    dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   }
   dispatch({ type: paramType, data: [] });
-  dispatch({ type: 'TABLE_STATUS', data: 'waiting' })
+  dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
 
   // Table Status
-  const dataStatus = newData?.data?.data?.data
-				if(dataStatus?.length){
-					dispatch({ type: 'TABLE_STATUS', data: '' })
-				}else if (dataStatus?.length < 1){
-					dispatch({ type: 'TABLE_STATUS', data: 'noData' })
-        }
-   // End Table Status
+  const dataStatus = newData?.data?.data?.data;
+  if (dataStatus?.length) {
+    dispatch({ type: 'TABLE_STATUS', data: '' });
+  } else if (dataStatus?.length < 1) {
+    dispatch({ type: 'TABLE_STATUS', data: 'noData' });
+  }
+  // End Table Status
 
   if (newData?.data?.data) {
     const modifiedData = newData.data.data.data;
@@ -88,6 +90,7 @@ export const getSummaryData = async ({
       item.price = numeral(item.price).format('0,0.00');
       if (customerName !== undefined) item.customername = customerName[1];
     });
+
     if (Export === true) {
       await dispatch({ type: 'EXPORT_DATA', data: modifiedData });
     } else {
@@ -103,12 +106,14 @@ export const getSummaryData = async ({
       newPage.data = modifiedData;
       dispatch({ type: paramType, data: modifiedData });
       dispatch({ type: 'PAGING', data: paging });
+      setPage(newPage);
     }
   } else {
     dispatch({ type: paramType, data: [] });
     newPage.data = [];
+    setPage(newPage);
   }
-  setPage(newPage);
+  console.log('end of apiservices');
 };
 
 export const getDetailHeader = async ({ dispatch, props, module }) => {
@@ -172,17 +177,17 @@ export const getDetailData = async ({
   }
 
   const url = endpointsUrl;
-    dispatch({ type: paramType, data: [] });
-    dispatch({ type: 'TABLE_STATUS', data: 'waiting' })
+  dispatch({ type: paramType, data: [] });
+  dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(url);
-   // Table Status
-   const dataStatus = newData?.data?.data
-   if(dataStatus?.length){
-     dispatch({ type: 'TABLE_STATUS', data: '' })
-   }else if (dataStatus?.length < 1){
-     dispatch({ type: 'TABLE_STATUS', data: 'noData' })
-   }
-// End Table Status
+  // Table Status
+  const dataStatus = newData?.data?.data;
+  if (dataStatus?.length) {
+    dispatch({ type: 'TABLE_STATUS', data: '' });
+  } else if (dataStatus?.length < 1) {
+    dispatch({ type: 'TABLE_STATUS', data: 'noData' });
+  }
+  // End Table Status
   if (newData?.data?.data) {
     let txt = [];
     let modifiedData = newData.data.data.data.map((m) => {
@@ -235,8 +240,8 @@ export const getForescast = async ({
 
   const { product, client, site } = props.match.params;
   const url = `/stock-balance-forecast?client=${client}&product=${product}&site=${site}&page=${newPage.goPage}&export=${export_}&limit=50`;
-  dispatch({ type: "GET_SH_DETAIL_FORESCAST", data: [] });
-  dispatch({ type: 'TABLE_STATUS', data: 'waiting' })
+  dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: [] });
+  dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const { data } = await axios.get(url);
   let forecast = [];
   Object.keys(data.data).map((value) => forecast.push(data.data[value]));
