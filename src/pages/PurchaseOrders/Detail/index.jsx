@@ -18,7 +18,7 @@ const PurchaseOrdersDetail = (props) => {
   const clientData = useSelector((state) => state.clientData);
   const [active, setActive] = useState(1);
   const user = useSelector((state) => state.user);
-  const module = "purchaseOrder"
+  const module = 'purchaseOrder';
   const [page, setPage] = useState({
     // Paging
     notifPaging: false,
@@ -60,8 +60,8 @@ const PurchaseOrdersDetail = (props) => {
           titleRightFive="Task"
           titleRightSix="Status"
           // Valeu Right
-          valeuRightOne={siteCheck({val:poDetail?.site, site:siteData}) || '-'}
-          valeuRightTwo={clientCheck({val:poDetail?.client, client:clientData}) || '-'}
+          valeuRightOne={siteCheck({ val: poDetail?.site, site: siteData }) || '-'}
+          valeuRightTwo={clientCheck({ val: poDetail?.client, client: clientData }) || '-'}
           valeuRightThree={poDetail?.order_no || '-'}
           valeuRightFour={poDetail?.order_type || '-'}
           valeuRightFive={poDetail?.isis_task || '-'}

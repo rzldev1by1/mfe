@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Search from './Search';
 import Breadcrumb from 'Component/Breadcrumb';
 import TableFixedColumn from 'Component/TableFixedColumn';
-import { customSchema } from './services';
+import { customSchema, setupHeaderExcel } from './services';
 import './style.scss';
 
 const StockMovement = (props) => {
@@ -51,6 +51,7 @@ const StockMovement = (props) => {
     //renew Schema
     if (smData && header.length > 0) {
       customSchema({ data: smData, schemaColumn: header, setHeader });
+      setupHeaderExcel({ header, setHeaderExcel });
     }
 
     //set data for excel
@@ -70,26 +71,6 @@ const StockMovement = (props) => {
     setDataExcel(dataExcel);
   }, [smData]);
 
-  useEffect(() => {
-    //set Header Excel
-    if (header.length < 1) {
-      return;
-    }
-    let newHeader = [];
-    header.map((data, index) => {
-      if (index > 0) {
-        newHeader.push(data.Header);
-      } else {
-        data.columns.map((d, i) => {
-          newHeader.push(d.Header);
-        });
-      }
-    });
-    setHeaderExcel(newHeader);
-  }, [header]);
-
-  // console.log('header', header);
-  // console.log('dateHeader', dateHeader);
   return (
     <div className="stockMovement">
       <Breadcrumb breadcrumb={[{ to: '/purchase-order', label: 'Stock Movement', active: true }]} />

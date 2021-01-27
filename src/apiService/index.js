@@ -147,7 +147,7 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
 };
 
 export const getDetailData = async ({
-  export_ = 'false',
+  Export = 'false',
   readyDocument = 'false',
   page,
   setPage,
@@ -162,15 +162,15 @@ export const getDetailData = async ({
   let endpointsUrl = '';
   let paramType = '';
   if (module === 'purchaseOrder') {
-    endpointsUrl = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${newPage.goPage}&export=${export_}`;
+    endpointsUrl = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${newPage.goPage}&export=${Export}`;
     paramType = 'GET_PO_DETAIL_TABLE';
   }
   if (module === 'salesOrder') {
-    endpointsUrl = `/salesorder/${orderno}?client=${client}&site=${site}&page=${newPage.goPage}&export=${export_}`;
+    endpointsUrl = `/salesorder/${orderno}?client=${client}&site=${site}&page=${newPage.goPage}&export=${Export}`;
     paramType = 'GET_SO_DETAIL_TABLE';
   }
   if (module === 'stockHolding') {
-    endpointsUrl = `/stockdetail/${product}?client=${client}&site=${site}&page=${newPage.goPage}&export=${export_}`;
+    endpointsUrl = `/stockdetail/${product}?client=${client}&site=${site}&page=${newPage.goPage}&export=${Export}`;
     paramType = 'GET_SH_DETAIL_TABLE';
   }
 
@@ -186,7 +186,7 @@ export const getDetailData = async ({
       txt.push(m.batch?.length);
       return m;
     });
-    if (export_ === 'true') {
+    if (Export === 'true') {
       newPage.exportData = modifiedData;
     } else {
       const pagination = {
@@ -211,7 +211,7 @@ export const getDetailData = async ({
     newPage.data = [];
   }
 
-  if (readyDocument === 'false' && export_ === 'false') {
+  if (readyDocument === 'false' && Export === 'false') {
     newPage.data = [];
   }
   setPage(newPage);

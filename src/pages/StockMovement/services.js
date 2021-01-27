@@ -81,3 +81,17 @@ export const customSchema = async ({ data, schemaColumn, setHeader }) => {
   });
   setHeader(newSchema);
 };
+
+export const setupHeaderExcel = ({ setHeaderExcel, header }) => {
+  let newHeader = [];
+  header.map((data, index) => {
+    if (index > 0) {
+      newHeader.push(data.Header);
+    } else {
+      data.columns.map((d, i) => {
+        newHeader.push(d.Header);
+      });
+    }
+  });
+  setHeaderExcel(newHeader);
+};

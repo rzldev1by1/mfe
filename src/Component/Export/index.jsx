@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ExportExl from 'react-html-table-to-excel';
 import { ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PopUpExport from '../Modal/PopUpExport';
 import { exportPDF, exportXLS, ExportName, Dates, setHeader } from './services';
 import { AiOutlineConsoleSql } from 'react-icons/ai';
@@ -16,7 +16,10 @@ const Export = ({
   filename,
   getExportData,
   secondTable = false,
+  customExportXls,
+  customExportPdf,
 }) => {
+  const dispatch = useDispatch();
   const exportData = useSelector((state) => state.exportData);
   const pagination = useSelector((state) => state.pagination);
   const totalData = pagination?.total || 0;
@@ -25,6 +28,7 @@ const Export = ({
   const [exportStatus, setExportStatus] = useState('ready');
   const [notifExport, setNotifExport] = useState(false);
   const [runExport, setRunExport] = useState(null);
+  const [startExport, setStartExport] = useState(null);
   const [modalShow, setModalShow] = useState(false);
 
   let styleButton = {};
@@ -37,6 +41,20 @@ const Export = ({
       return;
     }
 
+    //if use custom function for export, example stockmovement
+    if (customExportXls || customExportPdf) {
+      if (runExport == 'PDF') {
+        customExportPdf();
+      } else if (runExport == 'XLS') {
+        exportXLS();
+      }
+      setRunExport(null);
+      return;
+    }
+
+    //cleaning data export
+    dispatch({ type: 'EXPORT_DATA', data: null });
+
     if (totalData > 75000) {
       setModalShow(true);
       setRunExport(null);
@@ -46,11 +64,16 @@ const Export = ({
     setExportStatus('wait');
     async function getData() {
       await getExportData();
+      setStartExport(1);
     }
     getData();
   }, [runExport]);
 
   useEffect(() => {
+    if (!startExport || !exportData) {
+      return;
+    }
+
     if (runExport == 'PDF') {
       exportPDF({ filename, exportData, schemaColumn });
     } else if (runExport == 'XLS') {
@@ -58,7 +81,8 @@ const Export = ({
     }
     setExportStatus('ready');
     setRunExport(null);
-  }, [exportData]);
+    setStartExport(null);
+  }, [startExport, exportData]);
 
   const columnHiddenCharacter = [
     'customer',
@@ -73,43 +97,8 @@ const Export = ({
     'customer_no',
   ];
 
-  console.log(schemaColumn, exportData);
   return (
     <div>
-      {schemaColumn && exportData ? (
-        <table className="d-none" id="excel">
-          <thead>
-            <tr>
-              {schemaColumn?.map((data, idx) => {
-                return (
-                  <th key={idx} id={data.accessor}>
-                    {data.Header}
-                  </th>
-                );
-              })}
-            </tr>
-          </thead>
-          <tbody>
-            {!exportData ? (
-              <div> No data available </div>
-            ) : (
-              exportData?.map((data, i) => (
-                <tr key={i}>
-                  {schemaColumn.map((column, columnIdx) => {
-                    let dataReturn = data[column.accessor] == null ? '-' : data[column.accessor];
-                    if (columnHiddenCharacter.includes(column.accessor)) {
-                      return <td key={columnIdx}>{dataReturn} ‎</td>;
-                    }
-
-                    return <td key={columnIdx}>{dataReturn}</td>;
-                  })}
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      ) : null}
-
       <ButtonDropdown
         direction="up"
         style={styleButton}
@@ -164,7 +153,7 @@ const Export = ({
       </ButtonDropdown>
 
       {/* Excel Export */}
-      {/* {schemaColumn && exportData ? (
+      {schemaColumn && exportData ? (
         <table className="d-none" id="excel">
           <thead>
             <tr>
@@ -196,7 +185,7 @@ const Export = ({
             )}
           </tbody>
         </table>
-      ) : null} */}
+      ) : null}
 
       {/* End Excel Export */}
 
