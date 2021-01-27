@@ -87,7 +87,6 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setdateHeader }) =>
   while (startDate <= endDate) {
     let newDate = startDate.format('DD MMMM YYYY');
     let dateAccessor = startDate.format('YYYY_MM_DD');
-    tmp_date_header.push(dateAccessor);
 
     if (period === 'day') {
       startDate.add('days', 1);
@@ -97,8 +96,11 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setdateHeader }) =>
       newDate = dates1 + ' - ' + dates2;
       startDate.add('days', 7);
     } else if (period === 'month') {
+      newDate = startDate.format('MMMM YYYY');
       startDate.add(1, 'M');
     }
+
+    tmp_date_header.push({ dateAccessor, dateText: newDate });
 
     //set header
     let date = startDate;

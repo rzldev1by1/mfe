@@ -3,7 +3,7 @@ import ExportExl from 'react-html-table-to-excel';
 import { ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import PopUpExport from '../Modal/PopUpExport';
-import { exportPDF, exportXLS, ExportName, Dates, setHeader } from './services';
+import { exportPDF, exportXLS, ExportName } from './services';
 import { AiOutlineConsoleSql } from 'react-icons/ai';
 import './style.scss';
 import 'jspdf-autotable';

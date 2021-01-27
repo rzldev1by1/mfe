@@ -1,5 +1,9 @@
 /* eslint-disable prefer-const */
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import React from 'react';
+import moment from 'moment';
+import logo_export from '../../assets/img/logo_export2.png';
 
 export const simpleData = [
   { col1: 'data1', col2: 'data1', col3: 'data', col4: 'data' },
@@ -82,7 +86,131 @@ export const customSchema = async ({ data, schemaColumn, setHeader }) => {
   setHeader(newSchema);
 };
 
-export const setupHeaderExcel = ({ setHeaderExcel, header }) => {
+const setHeader = (schemaColumn) => {
+  let data = schemaColumn.map((data, idx) => {
+    return data.Header;
+  });
+  return data;
+};
+
+const setBody = (exportData, schemaColumn) => {
+  let dataAll = [];
+  let isDate = function (input) {
+    if (Object.prototype.toString.call(input) === '[object Date]') return true;
+    return false;
+  };
+
+  if (exportData) {
+    dataAll = exportData.map((data, idx) => {
+      let column = schemaColumn.map((column, columnIdx) => {
+        let split = [data[column.accessor]];
+        return split;
+      });
+      return column;
+    });
+  } else {
+    return ['-'];
+  }
+  return dataAll;
+};
+
+const ExportName = (filename) => {
+  const arrmonth = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  const date = new Date();
+  const date1 = date.getDate();
+  const month = date.getMonth();
+  const year = date.getFullYear();
+  const Seconds = date.getSeconds();
+  const Minutes = date.getMinutes();
+  const Hours = date.getHours();
+  return `${filename + date1}-${arrmonth[month]}-${year}.${Hours}-${Minutes}-${Seconds}`;
+};
+
+export const Dates = () => {
+  let dateNow = '';
+  let arrmonth2 = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  let date = new Date();
+  let date1 = date.getDate(),
+    month = date.getMonth(),
+    year = date.getFullYear();
+  return (dateNow = date1 + '-' + arrmonth2[month] + '-' + year);
+};
+
+export const setupPdf = ({ data, dateHeader, header, period, setDataPDF }) => {
+  let newData = [];
+  //make array to 2 parts
+  let indexPart1 = Math.ceil(dateHeader.length / 2) - 1;
+
+  //set data for Pdf
+  dateHeader.map((dt, idx) => {});
+
+  let dataPdf = [];
+  data.forEach((data, index) => {
+    let pdfData = {
+      site: data.site,
+      client: data.client,
+      packdesc: data.packdesc,
+      product: data.product,
+      product_name: data.product_name,
+      rowspan: indexPart1 + 1,
+      date: [],
+    };
+    dateHeader.forEach((d, idx) => {
+      //first/second column in pdf
+      let column = 1;
+      let obj = {};
+      if (idx <= indexPart1) {
+        //kolom date pertama
+        obj['date_' + column] = d.dateText;
+        obj['sa_plus_' + column] = data['sa_plus_' + d.dateAccessor] || '-';
+        obj['sa_minus_' + column] = data['sa_minus_' + d.dateAccessor] || '-';
+        obj['rec_' + column] = data['rec_' + d.dateAccessor] || '-';
+        obj['send_' + column] = data['send_' + d.dateAccessor] || '-';
+        pdfData.date.push(obj);
+      } else {
+        //kolom date kedua
+        column = 2;
+        let idxx = idx - indexPart1 - 1;
+        pdfData.date[idxx]['date_' + column] = d.dateText;
+        pdfData.date[idxx]['sa_plus_' + column] = data['sa_plus_' + d.dateAccessor] || '-';
+        pdfData.date[idxx]['sa_minus_' + column] = data['sa_minus_' + d.dateAccessor] || '-';
+        pdfData.date[idxx]['rec_' + column] = data['rec_' + d.dateAccessor] || '-';
+        pdfData.date[idxx]['send_' + column] = data['send_' + d.dateAccessor] || '-';
+      }
+    });
+    dataPdf.push(pdfData);
+  });
+  setDataPDF(dataPdf);
+};
+
+export const setupExcel = ({ data, dateHeader, header, setDataExcel, setHeaderExcel }) => {
+  //set Header
   let newHeader = [];
   header.map((data, index) => {
     if (index > 0) {
@@ -94,4 +222,262 @@ export const setupHeaderExcel = ({ setHeaderExcel, header }) => {
     }
   });
   setHeaderExcel(newHeader);
+
+  //set data for excel
+  let dataExcel = data?.map((data, index) => {
+    data.column = [];
+    dateHeader.forEach((d) => {
+      let temp = {
+        sa_plus: data['sa_plus_' + d.dateAccessor] || '-',
+        sa_min: data['sa_minus_' + d.dateAccessor] || '-',
+        rec: data['rec_' + d.dateAccessor] || '-',
+        send: data['send_' + d.dateAccessor] || '-',
+      };
+      data.column.push(temp);
+    });
+    return data;
+  });
+  setDataExcel(dataExcel);
+};
+
+export const headerPdf = [
+  {
+    Header: 'Site',
+    accessor: 'site',
+    style: { textAlign: 'left', paddingLeft: '15px' },
+    width: 70,
+  },
+  {
+    Header: 'Client',
+    accessor: 'client',
+    style: { textAlign: 'left' },
+    width: 90,
+  },
+  {
+    Header: 'Product',
+    accessor: 'product',
+    style: { textAlign: 'left' },
+    width: 180,
+  },
+  {
+    Header: 'Description',
+    accessor: 'product_name',
+    style: { textAlign: 'left' },
+    width: 200,
+  },
+  {
+    Header: 'UOM',
+    accessor: 'packdesc',
+    style: { textAlign: 'left' },
+    width: 70,
+  },
+  {
+    Header: 'Date',
+    accessor: 'date_1',
+    style: { textAlign: 'left' },
+    width: 100,
+  },
+  {
+    Header: 'SA+',
+    accessor: 'sa_plus_1',
+    style: { textAlign: 'left' },
+    width: 60,
+  },
+  {
+    Header: 'SA-',
+    accessor: 'sa_minus_1',
+    style: { textAlign: 'left' },
+    width: 60,
+  },
+  {
+    Header: 'Rec',
+    accessor: 'rec_1',
+    style: { textAlign: 'left' },
+    width: 60,
+  },
+  {
+    Header: 'Send',
+    accessor: 'send_1',
+    style: { textAlign: 'left' },
+    width: 60,
+  },
+  {
+    Header: 'Date',
+    accessor: 'date_2',
+    style: { textAlign: 'left' },
+    width: 100,
+  },
+  {
+    Header: 'SA+',
+    accessor: 'sa_plus_2',
+    style: { textAlign: 'left' },
+    width: 60,
+  },
+  {
+    Header: 'SA-',
+    accessor: 'sa_minus_2',
+    style: { textAlign: 'left' },
+    width: 60,
+  },
+  {
+    Header: 'Rec',
+    accessor: 'rec_2',
+    style: { textAlign: 'left' },
+    width: 60,
+  },
+  {
+    Header: 'Send',
+    accessor: 'send_2',
+    style: { textAlign: 'left' },
+    width: 60,
+  },
+];
+
+const setupDocPDF = async (filename, exportData, schemaColumn) => {
+  let header = await setHeader(schemaColumn);
+  let body = await setBody(exportData, schemaColumn);
+
+  header = header.filter((data, idx) => idx <= 12);
+  body = body.map((data) => {
+    let newData = data.filter((dt, idx) => idx <= 12);
+    let newData2 = newData.map((dt, idx) => {
+      if (dt[0] === null) {
+        return ['-'];
+      } else {
+        return dt;
+      }
+    });
+    return newData2;
+  });
+
+  const unit = 'pt';
+  const size = 'A4'; // Use A1, A2, A3 or A4
+  const orientation = 'landscape'; // portrait or landscape
+  const doc = new jsPDF(orientation, unit, size);
+  // From Javascript
+  var finalY = doc.previousAutoTable.finalY || 10;
+  var title = ExportName(filename);
+  var originDate = Dates();
+  var date = moment(originDate).format('DD/MM/YYYY');
+  const img = new Image();
+  img.src = logo_export;
+  doc.setFontSize(15);
+
+  doc.autoTable({
+    theme: 'striped',
+    margin: {
+      left: 15,
+      right: 15,
+      bottom: 5,
+    },
+    startY: finalY + 30,
+    head: [header],
+    body: body,
+    headerStyles: {
+      cellPadding: 5,
+      lineWidth: 0,
+      valign: 'top',
+      fontStyle: 'bold',
+      halign: 'left', //'center' or 'right'
+      fillColor: [94, 68, 232],
+      textColor: [255, 255, 255],
+      rowHeight: 22,
+    },
+    columnStyles: {
+      0: { cellWidth: 40 },
+      1: { cellWidth: 40 },
+      2: { cellWidth: 80 },
+      3: { cellWidth: 80 },
+      4: { cellWidth: 40 },
+      5: { cellWidth: 80 },
+      6: { cellWidth: 40 },
+      7: { cellWidth: 40 },
+      8: { cellWidth: 40 },
+      9: { cellWidth: 40 },
+      10: { cellWidth: 80 },
+      11: { cellWidth: 40 },
+      12: { cellWidth: 40 },
+      13: { cellWidth: 40 },
+      14: { cellWidth: 40 },
+    },
+    styles: {
+      rowHeight: 24,
+      cellPadding: {
+        top: 8,
+        right: 4,
+        bottom: 8,
+        left: 4,
+      },
+      fontSize: 8,
+      borderBottom: 0,
+    },
+    didDrawPage: function (data) {
+      doc.text(title + ' Data Microlistics  ' + date, 15, finalY + 15);
+      doc.addImage(img, 'PNG', 785, 5, 45, 40, 'a', 'FAST');
+    },
+  });
+
+  return doc;
+};
+
+export const exportPDF = async ({ filename, exportData, schemaColumn }) => {
+  const marginLeft = 40;
+  const doc = await setupDocPDF(filename, exportData, schemaColumn);
+  doc.save(ExportName(filename) + '.pdf');
+};
+
+export const demoPDF = ({ filename, rowSpan }) => {
+  const unit = 'pt';
+  const size = 'A4'; // Use A1, A2, A3 or A4
+  const orientation = 'landscape'; // portrait or landscape
+  const pdf = new jsPDF(orientation, unit, size);
+  let title = ExportName(filename);
+  let originDate = Dates();
+  let date = moment(originDate).format('DD/MM/YYYY');
+  let colour = 'red';
+
+  var finalY = pdf.previousAutoTable.finalY || 10;
+  const img = new Image();
+  img.src = logo_export;
+  pdf.setFontSize(15);
+  pdf.autoTable({
+    html: '#tablePdf',
+    theme: 'grid',
+    margin: {
+      left: 15,
+      right: 15,
+      bottom: 5,
+    },
+    startY: finalY + 30,
+    styles: {
+      rowHeight: 24,
+      cellPadding: {
+        top: 8,
+        right: 4,
+        bottom: 8,
+        left: 4,
+      },
+      fontSize: 8,
+      borderBottom: 0,
+    },
+    headerStyles: {
+      cellPadding: 5,
+      lineWidth: 0,
+      valign: 'top',
+      fontStyle: 'bold',
+      halign: 'left', //'center' or 'right'
+      fillColor: [94, 68, 232],
+      textColor: [255, 255, 255],
+      rowHeight: 22,
+    },
+    didParseCell: function (data) {
+      let index = data.row.index;
+    },
+    didDrawPage: function (data) {
+      pdf.text(title + ' Data Microlistics  ' + date, 15, finalY + 15);
+      pdf.addImage(img, 'PNG', 785, 5, 45, 40, 'a', 'FAST');
+    },
+  });
+
+  pdf.save(title + '.pdf');
 };

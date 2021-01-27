@@ -158,3 +158,15 @@ export const Dates = () => {
     year = date.getFullYear();
   return (dateNow = date1 + '-' + arrmonth2[month] + '-' + year);
 };
+
+// export const testPDF = () => {
+//   var doc = new jsPDF();
+//   window.html2canvas = html2canvas;
+//   doc.html(document.body, {
+//     callback: function (doc) {
+//       doc.save();
+//     },
+//     x: 10,
+//     y: 10,
+//   });
+// };
