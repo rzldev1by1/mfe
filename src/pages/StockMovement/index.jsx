@@ -83,6 +83,7 @@ const StockMovement = (props) => {
             exportPdf={false}
             tableStatus={tableStatus}
             pagination={pagination}
+            filename="Microlistics_StockMovement."
             customExportPdf={() => {
               demoPDF({ filename: 'Microlistics_StockMovement.', rowSpan });
             }}
