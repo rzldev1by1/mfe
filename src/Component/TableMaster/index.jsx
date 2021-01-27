@@ -11,10 +11,7 @@ const TableMaster = ({
   data,
   style,
   module,
-  page,
-  setPage,
   noDataText,
-  tableStatus,
   pagination,
   goto,
   filename,
@@ -37,10 +34,7 @@ const TableMaster = ({
         data={data}
         style={style}
         module={module}
-        page={page}
-        setPage={setPage}
         noDataText={noDataText}
-        tableStatus={tableStatus}
         className={classNameTable}
         user={user}
         title={title}
@@ -51,9 +45,8 @@ const TableMaster = ({
       <CRow lg="12" className="mt-3 w-100 pagination-custom justify-content-between">
         <Pagination
           pagination={pagination}
+          module={module}
           data={data}
-          page={page}
-          setPage={setPage}
           goto={goto}
           schemaColumn={schemaColumn}
           isDisplay={isDisplay}

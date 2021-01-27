@@ -18,8 +18,6 @@ import {
 import { getSummaryData } from '../../apiService';
 
 const Search = ({
-  page,
-  setPage,
   module,
   placeholder = '',
   filterSite,
@@ -59,8 +57,6 @@ const Search = ({
         orderType: newDropdownValue.orderType,
         task: newDropdownValue.task,
         status: newDropdownValue.status,
-        page,
-        setPage,
         searchInput,
         dispatch,
         module,
@@ -75,8 +71,6 @@ const Search = ({
       orderType: newDropdownValue.orderType,
       task: newDropdownValue.task,
       status: newDropdownValue.status,
-      page,
-      setPage,
       searchInput,
       dispatch,
       module,
@@ -104,6 +98,18 @@ const Search = ({
       }
     }
   }, [newDropdownValue.status]);
+
+  let paramType = '';
+  if (module === 'StockHolding'){
+    paramType = 'GET_SH_SUMMARY';
+  }
+  if (module === 'purchaseOrder'){
+    paramType = 'GET_PO_SUMMARY';
+  }
+  if (module === 'salesOrder'){
+    paramType = 'GET_SO_SUMMARY'
+  }
+  console.log(module)
 
   return (
     <CCard className="mb-3">
@@ -221,11 +227,10 @@ const Search = ({
                         task: newDropdownValue.task,
                         status: newDropdownValue.status,
                         dispatch,
-                        page,
-                        setPage,
                         searchInput,
                         module,
-                      })
+                      })&&
+                      dispatch({type: paramType , data:[]})
                     }
                   >
                     SEARCH

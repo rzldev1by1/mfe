@@ -16,30 +16,18 @@ const SalesOrdersDetail = (props) => {
   const pagination = useSelector((state) => state.pagination);
   const siteData = useSelector((state) => state.siteData);
   const clientData = useSelector((state) => state.clientData);
-  const [active, setActive] = useState(1);
   const user = useSelector((state) => state.user);
   const module = "salesOrder"
-  const [page, setPage] = useState({
-    // Paging
-    notifPaging: false,
-    goPage: 1,
-    // table
-    data: [],
-    status: null,
-    search: '',
-    active: {},
-  });
-  const newPage = { ...page };
 
-  useEffect(() => { }, [page]);
   useEffect(() => {
     getDetailHeader({ dispatch, props, module });
   }, []);
   useEffect(() => {
-    getDetailData({ dispatch, props, page, active, setPage, module });
-  }, [active]);
+    getDetailData({ dispatch, props, active:pagination?.active, module });
+  }, [pagination?.active]);
 
-  const height = window.innerHeight - 490;
+  const height = window.innerHeight - ((soDetail?.deliverydescription)?.length > 105 ? 493 : 455);
+  console.log(height);
   const widht = window.innerWidth;
 
 
@@ -112,14 +100,14 @@ const SalesOrdersDetail = (props) => {
           titleLeftTen="Freight Charge"
           // Valeu Left
           valeuLeftOne={(soDetail?.status && soDetail?.status.includes("0:") ? "0: Unavailable" : soDetail?.status) || '-'}
-          valeuLeftTwo={soDetail?.consignmentno || '-'}
-          valeuLeftThree={soDetail?.deliverydate || '-'}
-          valeuLeftFour={soDetail?.datereceived || '-'}
-          valeuLeftFive={formatDate(soDetail?.datereleased) || '-'}
-          valeuLeftSix={formatDate(soDetail?.datecompleted) || '-'}
-          valeuLeftSeven={soDetail?.loadnumber || '-'}
-          valeuLeftEight={formatDate(soDetail?.loadoutstart) || '-'}
-          valeuLeftNine={formatDate(soDetail?.loadoutfinish) || '-'}
+          valeuLeftTwo={soDetail?.deliverydate || '-'}
+          valeuLeftThree={soDetail?.datereceived || '-'}
+          valeuLeftFour={formatDate(soDetail?.datereleased) || '-'}
+          valeuLeftFive={formatDate(soDetail?.datecompleted) || '-'}
+          valeuLeftSix={soDetail?.loadnumber || '-'}
+          valeuLeftSeven={formatDate(soDetail?.loadoutstart) || '-'}
+          valeuLeftEight={formatDate(soDetail?.loadoutfinish) || '-'}
+          valeuLeftNine={soDetail?.consignmentno || '-'}
           valeuLeftTen={soDetail?.freightcharge || '-'}
         />
       </div>
@@ -133,15 +121,12 @@ const SalesOrdersDetail = (props) => {
         noDataText
         pagination={pagination}
         goto={(e) => {
-          setActive(e);
+          dispatch({type:'PAGING', data:{ ...pagination, active: e}})
         }}
         getExportData={() => setExportData({ dispatch, data: soDetailTable })}
-        page={page}
-        setPage={setPage}
         user={user}
         title="Sales Order Details"
         filename="Microlistics_SalesOrderDetails."
-        exportPdf={false}
         isDisplay={false}
       />
     </div>

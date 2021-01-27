@@ -104,9 +104,6 @@ class Export extends Component {
   };
 
   examples = () => {
-    console.log(this.props.ExportHeader());
-    console.log(this.props.ExportData());
-    console.log(this.props.module);
     let header = [...this.props.ExportHeader()];
     let body = [...this.props.ExportData()];
     if (this.props.module === 'so') {
@@ -182,7 +179,6 @@ class Export extends Component {
     if (exportStatus == 'wait') {
       styleButton = { pointerEvents: 'none' };
     }
-    console.log(exportExcel);
     return (
       <div>
         {/* <div style={{marginTop:"-3rem"}}> */}

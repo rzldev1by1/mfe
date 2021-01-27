@@ -38,11 +38,8 @@ const getColumnWidth = (rows, accessor, headerText) => {
   return cellLength * 12
 }
 const Required = ({ error, id }) => {
-  console.log(error)
-  console.log(id)
   if(error) {
     const object = Object.keys(error)
-    console.log(object)
     if(object.includes(id)) return <span className="text-error text-danger position-absolute font-rename-error">{error && error[id]}</span>
     return <div></div>
   }
@@ -239,7 +236,6 @@ class CustomTableDetail extends React.Component {
 
   headerIcon = (data, header, editColumn) => {
     let listHeader = []
-    console.log(header);
     header && header.map((h, index) => {
       if (!editColumn[index]) {
         const withIcon = (
@@ -303,17 +299,14 @@ class CustomTableDetail extends React.Component {
     let fields = [];
     let accessor = this.state.fields.map((data, idx) => {
       let split = data.accessor
-      console.log(data.accessor);
       return split
     });
     let style = this.state.fields.map((data, idx) => {
       let split = data.style
-      console.log(data.style);
       return split
     });
     let Cell = this.state.fields.map((data, idx) => {
       let split = data.Cell
-      console.log(data.Cell);
       return split
     });
     let placeholder = this.state.fields.map((data, idx) => {
@@ -339,20 +332,16 @@ class CustomTableDetail extends React.Component {
     });
     let l = Object.keys(data.data[0]);
     let headerData = l.map(v => v.toLowerCase());
-    console.log(headerData);
     accessor.map((data, idx) => {
       let lowerCase = data.toLowerCase();
-      console.log(lowerCase);
       if (lowerCase.includes(' ')) {
         let split = lowerCase.split(' ');
         let result = split.join('_');
         accessor[idx] = result;
       } else {
         accessor[idx] = lowerCase;
-        console.log(lowerCase);
       }
     });
-    console.log(data.data[0]);
     
     Object.values(data.data[0]).map((data, idx) => {
       let headerTable = {
@@ -376,11 +365,9 @@ class CustomTableDetail extends React.Component {
       if(sortType[idx]) {
         headerTable.sortType = sortType[idx];
       }
-      console.log(headerTable);
       
       fields.push(headerTable);
     });
-    console.log(fields);
 
     this.defaultOrder.forEach(o => fields.splice(o.a, 0, fields.splice(o.b, 1)[0]));
     
@@ -504,7 +491,6 @@ class CustomTableDetail extends React.Component {
   renameSubmit = (e) => {
     const {error, sameColumns, sameColumnsIdx } = validations(this.state, this.state.changedColumns)
     const { rename } = this.state
-    console.log(error)
     if (Object.keys(error).length) {
         return this.setState({ error, sameColumns, sameColumnsIdx })
     } 
@@ -537,9 +523,7 @@ class CustomTableDetail extends React.Component {
   }
 
   ExportData = () => {
-    console.log(this.props.exportData);
     let fields = this.props.customFields || this.state.fields
-    console.log(fields);
     let dataAll = []
     if (this.props.exportData) {
       dataAll = this.props.exportData.map((data, idx,) => {
@@ -629,7 +613,6 @@ class CustomTableDetail extends React.Component {
             {exportData ? exportData.map((data, i) =>
               <tr key={i} >
                 {fields.map((column, columnIdx) => {
-                  console.log(data[column.accessor] )
                   if(column.accessor === 'batch'){
                     return (<td key={columnIdx}>{data[column.accessor]}‎‎</td>)//hidden fonts for export
                   }if(column.accessor === 'pack_id'){

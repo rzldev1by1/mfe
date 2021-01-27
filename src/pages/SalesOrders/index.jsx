@@ -18,33 +18,19 @@ const SalesOrders = (props) => {
 
   const dispatch = useDispatch();
   const soSummaryData = useSelector((state) => state.soSummaryData);
-  const pagination = useSelector((state) => state.pagination);
+  const paginationSo = useSelector((state) => state.paginationSo);
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
-  const item = user;
-  const [active, setActive] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [Export, setExport] = useState(false);
   const module = 'salesOrder';
 
   const height = window.innerHeight - 257;
-  const widht = window.innerWidth;
+  const width = window.innerWidth;
 
-  const [page, setPage] = useState({
-    // Paging
-    notifPaging: false,
-    goPage: 1,
-    // table
-    data: [],
-    status: null,
-    search: '',
-    active: '',
-  });
-  const newPage = { ...page };
-  useEffect(() => {}, [page]);
   useEffect(() => {
-    getSummaryData({ dispatch, page, active, setPage, module });
-  }, [active]);
+    getSummaryData({ dispatch, active:paginationSo?.active, module });
+  }, [paginationSo?.active]);
 
   const [columnHidden, setColumnHidden] = useState(null);
   const [state2, setState2] = useState(null);
@@ -68,24 +54,22 @@ const SalesOrders = (props) => {
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      getSummaryData({ dispatch, page, active, setPage, Export, module });
+      getSummaryData({ dispatch, active:paginationSo?.active, Export, module });
     }
   }, [Export]);
   return (
     <div>
       <Breadcrumb
         breadcrumb={[{ to: '/sales-order', label: 'Sales Order', active: true }]}
-        button={
+        button={(
           <CButton onClick={() => setShowModal(true)} className="btn btn-primary btn-create float-right">
             CREATE SALES ORDER
           </CButton>
-        }
+        )}
       />
       <div>
         <div>
           <Search
-            page={page}
-            setPage={setPage}
             module={module}
             filterSite
             filterClient
@@ -102,26 +86,24 @@ const SalesOrders = (props) => {
             onClick={showDetails}
             schemaColumn={schemaColumn}
             data={soSummaryData}
-            style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
-            module="Sales Orders Summary"
+            style={{ minHeight: height, maxHeight: height, minWidht: width, maxWidht: width }}
+            module="Sales Orders"
             noDataText
-            pagination={pagination}
+            pagination={paginationSo}
             goto={(e) => {
-              setActive(e);
+              dispatch({type:'PAGING_SO', data:{ ...paginationSo, active: e}})
             }}
             exportData={exportData}
-            page={page}
-            setPage={setPage}
             user={user}
             columnHidden={columnHidden}
-            title="Sales Order"
-            filename="Microlistics_SalesOrder."
+            title="Sales Order Summary"
+            filename="Microlistics_PurchaseOrder."
             font="9"
             getExportData={async () => {
               setExport(true);
             }}
-            exportPdf={false}
             splitModule="SalesOrder"
+            exportPdf={false}
           />
         </div>
       </div>

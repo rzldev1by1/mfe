@@ -1,17 +1,21 @@
 /* eslint-disable prefer-const */
 /* eslint-disable camelcase */
 /* eslint-disable import/no-unresolved */
-import React from 'react';
-import { CCard, CCardGroup, CPagination, CRow, CCol } from '@coreui/react';
+import React, { useState } from 'react';
+import { CPagination } from '@coreui/react';
 import { BsChevronLeft, BsChevronRight, BsChevronBarLeft, BsChevronBarRight } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import PopUpPages from 'Component/Modal/PopUpPages';
 import { numberCheck, onChange, onActivePageChange, goToPage } from 'Component/Pagination/service';
 import './Pagination.scss';
-import { Col } from 'reactstrap';
 
-const Pagination = ({ pagination, data, goto, page, setPage, isDisplay }) => {
+const Pagination = ({ pagination, data, goto, isDisplay, module }) => {
   const dispatch = useDispatch();
+
+  const [page, setPage] = useState({
+    notifPaging: false,
+    goPage: 1,
+  });
 
   let active = pagination?.active;
   let show = pagination?.show;
@@ -33,7 +37,7 @@ const Pagination = ({ pagination, data, goto, page, setPage, isDisplay }) => {
           limit={3}
           activePage={active}
           pages={pages > 0 ? pages : 1}
-          onActivePageChange={(e) => onActivePageChange({ e, pagination, goto, dispatch })}
+          onActivePageChange={(e) => onActivePageChange({ e, pagination, goto, dispatch, module })}
           firstButton={<BsChevronBarLeft />}
           previousButton={<BsChevronLeft />}
           nextButton={<BsChevronRight className="nextBtn" />}
@@ -53,7 +57,7 @@ const Pagination = ({ pagination, data, goto, page, setPage, isDisplay }) => {
            />
            <span
              className="text-muted-dark ml-3 pointer outLineNone"
-             onClick={() => goToPage({ goto, pagination, page, setPage, dispatch })}
+             onClick={() => goToPage({ goto, pagination, page, setPage, dispatch, module })}
              onKeyPress
              role="button"
              tabIndex="0"
@@ -64,7 +68,7 @@ const Pagination = ({ pagination, data, goto, page, setPage, isDisplay }) => {
         )}
         {isDisplay === false ? '' :(
         <span className={`text-muted-s px-3 d-flex alig align-items-center`}>
-        <b className="text-muted-dark">{`Showing ${x_from} to ${x_to} of ${x_total} entries`}</b>
+        <b className="text-muted-dark">{`Showing ${isNaN(x_from) ? 0 : x_from} to ${isNaN(x_to) ? 0 : x_to} of ${x_total === undefined ? 0 : x_total} entries`}</b>
       </span>
         )}
       </div>

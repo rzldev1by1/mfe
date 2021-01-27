@@ -22,14 +22,12 @@ const EditRenameColumn = ({
 }) => {
     const dispatch = useDispatch()  
     const [state, setState] = React.useState({
-      editColumn: {},
       error: {},
       sameColumns: [],
       sameColumnsIdx: [],
       editColumn: [],
       activeTab: '1',
       changedColumns: [],
-      fields,
       products: [],
       columnsPayload: []
     })
@@ -65,8 +63,10 @@ const EditRenameColumn = ({
       setState(newState) 
     },[columnHidden])
 
-    useEffect(() => {  },[state.editColumn])
-    useEffect(() => { headerRename({UrlHeader, state, setState, fields, setFields}) },[])
+    // useEffect(() => {  },[state.editColumn])
+    useEffect(() => { 
+      headerRename({UrlHeader, state, setState, fields, setFields}) 
+    },[])
       
     function activeTabIndex(tab) {
         if (state.activeTab !== tab) {
@@ -75,6 +75,7 @@ const EditRenameColumn = ({
           setState(newState)
         }
     }
+    console.log(fields);
     return (
       <Modal
         show={showModal}
@@ -204,7 +205,7 @@ const EditRenameColumn = ({
                               placeholder={item.placeholder}
                               name={item.Header}
                               sortable={item.sortable}
-                              onChange={(e) => changedColumn({e, state, setState})}
+                              onChange={(e) => changedColumn({e, state, setState, fields})}
                               className={"text-left form-rename"+ (state.sameColumnsIdx?.includes(index.toString()) ? " input-danger" : "")}
                             />
                           </div>
@@ -218,7 +219,7 @@ const EditRenameColumn = ({
                     <Button
                       variant='primary'
                       className='px-3 float-right'
-                      onClick={() => renameSubmit({state, setState, setShowMod, UrlAll})}
+                      onClick={() => renameSubmit({state, setState, setShowMod, UrlAll, fields, setFields})}
                     >
                       DONE
                     </Button>

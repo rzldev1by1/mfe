@@ -244,6 +244,7 @@ input.form-control,
 .input-group-text {
   height: 50px !important;
   border-color: #e4e7ea !important;
+  padding-right: 0px;
 }
 
 // input.form-control {
@@ -259,7 +260,7 @@ input.form-control,
 }
 
 .btn {
-  height: 50px !important;
+  height: 48px !important;
   padding-left: 20px;
   padding-right: 20px;
   color: #fff;
@@ -347,7 +348,7 @@ header {
   // disable vertical scrolling on desktop
   body,
   .c-wrapper {
-    overflow-y: auto !important;
+    overflow-y: none !important;
   }
 }
 
@@ -467,7 +468,7 @@ header {
   border-radius: 0.5rem;
   /* border: solid 1.0.5rem #959292; */
   font-size: 12px;
-  padding: 2px 22px;
+  padding: 2px 6px;
 }
 
 .status-unavailable {
@@ -476,7 +477,7 @@ header {
   border-radius: 0.5rem;
   /* border: solid 1.0.5rem #959292; */
   font-size: 12px;
-  padding: 2px 22px;
+  padding: 2px6;
 }
 
 .status-complete {
@@ -485,7 +486,7 @@ header {
   border-radius: 0.5rem;
   border: solid 1px #555050;
   font-size: 12px;
-  padding: 2px 19px;
+  padding: 2px 6px;
 }
 
 .status-partRelease {
