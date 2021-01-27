@@ -74,7 +74,9 @@ const Search = ({ setHeader, setdateHeader }) => {
                   setdropdownValue({ ...newDropdownValue, period: selected, fromDate: null });
                   dateFrom.current.resetDateValue();
                   dateTo.current.resetDateValue();
-                  dateFrom.current.openDatePicker();
+                  if (selected) {
+                    dateFrom.current.openDatePicker();
+                  }
                 }}
                 selectedValue={period}
                 className=" z-99"
