@@ -18,7 +18,7 @@ import 'react-table-hoc-fixed-columns/lib/styles.css';
 import loading from 'assets/icons/loading/LOADING-MLS-GRAY.gif';
 import './style.scss';
 
-const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, pagination, filename }) => {
+const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, pagination, filename, customExportPdf }) => {
   const ReactTableFixedColumns = withFixedColumns(ReactTable);
   const noDataMessage = (
     <div className="caution-caution">
@@ -65,7 +65,7 @@ const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, pagination, 
           <Pagination pagination={pagination} data={[]} page={1} setPage={0} />
         </CCol>
         <CCol lg="5" md="1" className="px-0 w-100 export-ml">
-          <Export filename={filename} exportPdf exportExcel module={module} />
+          <Export filename={filename} customExportXls customExportPdf={customExportPdf} module={module} />
         </CCol>
       </CRow>
     </div>

@@ -17,13 +17,13 @@ const PurchaseOrdersDetail = (props) => {
   const siteData = useSelector((state) => state.siteData);
   const clientData = useSelector((state) => state.clientData);
   const user = useSelector((state) => state.user);
-  const module = "purchaseOrder"
- 
+  const module = 'purchaseOrder';
+
   useEffect(() => {
     getDetailHeader({ dispatch, props, module });
   }, []);
   useEffect(() => {
-    getDetailData({ dispatch, props, active:pagination?.active, module });
+    getDetailData({ dispatch, props, active: pagination?.active, module });
   }, [pagination?.active]);
 
   const height = window.innerHeight - 355;
@@ -47,8 +47,8 @@ const PurchaseOrdersDetail = (props) => {
           titleRightFive="Task"
           titleRightSix="Status"
           // Valeu Right
-          valeuRightOne={siteCheck({val:poDetail?.site, site:siteData}) || '-'}
-          valeuRightTwo={clientCheck({val:poDetail?.client, client:clientData}) || '-'}
+          valeuRightOne={siteCheck({ val: poDetail?.site, site: siteData }) || '-'}
+          valeuRightTwo={clientCheck({ val: poDetail?.client, client: clientData }) || '-'}
           valeuRightThree={poDetail?.order_no || '-'}
           valeuRightFour={poDetail?.order_type || '-'}
           valeuRightFive={poDetail?.isis_task || '-'}
@@ -87,7 +87,7 @@ const PurchaseOrdersDetail = (props) => {
         noDataText
         pagination={pagination}
         goto={(e) => {
-          dispatch({type:'PAGING', data:{ ...pagination, active: e}})
+          dispatch({ type: 'PAGING', data: { ...pagination, active: e } });
         }}
         getExportData={() => setExportData({ dispatch, data: poDetailTable })}
         user={user}

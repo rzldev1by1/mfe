@@ -28,8 +28,8 @@ export const getSummaryData = async ({
   }
   if (module === 'salesOrder') {
     endpointsUrl = endpoints.salesOrder;
-    paramType = 'GET_SO_SUMMARY'
-    paramPaging = 'PAGING_SO';;
+    paramType = 'GET_SO_SUMMARY';
+    paramPaging = 'PAGING_SO';
   }
   if (module === 'StockHolding') {
     endpointsUrl = endpoints.stockHoldingSummary;
@@ -60,7 +60,7 @@ export const getSummaryData = async ({
   } else {
     dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   }
-  dispatch({ type: 'TABLE_STATUS', data: 'waiting' })
+  dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
   // Table Status
   const dataStatus = newData?.data?.data?.data;
@@ -150,13 +150,7 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
   }
 };
 
-export const getDetailData = async ({
-  export_ = 'false',
-  dispatch,
-  active,
-  props,
-  module,
-}) => {
+export const getDetailData = async ({ export_ = 'false', dispatch, active, props, module }) => {
   const { orderdetail, client, site, orderno, product } = props.match.params;
   let endpointsUrl = '';
   let paramType = '';
@@ -174,7 +168,7 @@ export const getDetailData = async ({
   }
 
   const url = endpointsUrl;
-    dispatch({ type: 'TABLE_STATUS', data: 'waiting' })
+  dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(url);
   // Table Status
   const dataStatus = newData?.data?.data;
@@ -195,7 +189,6 @@ export const getDetailData = async ({
       return m;
     });
     if (export_ === 'true') {
-      
     } else {
       const pagination = {
         active: active || newData.data.data.current_page,
@@ -214,12 +207,7 @@ export const getDetailData = async ({
   }
 };
 
-export const getForescast = async ({
-  export_ = 'false',
-  dispatch,
-  active,
-  props,
-}) => {
+export const getForescast = async ({ export_ = 'false', dispatch, active, props }) => {
   const { product, client, site } = props.match.params;
   const url = `/stock-balance-forecast?client=${client}&product=${product}&site=${site}&page=${active}&export=${export_}&limit=50`;
   dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: [] });

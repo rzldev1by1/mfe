@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Search from './Search';
 import Breadcrumb from 'Component/Breadcrumb';
 import TableFixedColumn from 'Component/TableFixedColumn';
-import { customSchema } from './services';
+import { customSchema, setupExcel, setupPdf, exportPDF, headerPdf, demoPDF } from './services';
 import './style.scss';
 
 const StockMovement = (props) => {
@@ -13,20 +13,25 @@ const StockMovement = (props) => {
   const smData = useSelector((state) => state.smSummaryData);
   const pagination = useSelector((state) => state.pagination);
 
+  const [header, setHeader] = useState([]);
+  const [dateHeader, setdateHeader] = useState([]);
+  const [tableStatus, setTableStatus] = useState('waiting');
+
+  //header Export Excel
+  const [headerExcel, setHeaderExcel] = useState([]);
+  const [dataExcel, setDataExcel] = useState([]);
+  const [firstHeader, setFirstHeader] = useState(['Site', 'Client', 'Product', 'Description', 'UOM']);
+
+  //header Export PDF
+  const [rowSpan, setRowSpan] = useState([]);
+  const [dataPDF, setDataPDF] = useState([]);
+
   //dimension
   const [dimension, setDimension] = useState({
     height: window.innerHeight - 257,
     width: window.innerWidth,
   });
   const { width, height } = dimension;
-
-  const [header, setHeader] = useState([]);
-  const [dateHeader, setdateHeader] = useState([]);
-  const [headerExcel, setHeaderExcel] = useState([]);
-  const [dataExcel, setDataExcel] = useState([]);
-  const [tableStatus, setTableStatus] = useState('waiting');
-  const [firstHeader, setFirstHeader] = useState(['Site', 'Client', 'Product', 'Description', 'UOM']);
-
   useEffect(() => {
     const handleResize = () => {
       setDimension({
@@ -51,45 +56,17 @@ const StockMovement = (props) => {
     //renew Schema
     if (smData && header.length > 0) {
       customSchema({ data: smData, schemaColumn: header, setHeader });
+      setupExcel({ data: smData, dateHeader, header, setDataExcel, setHeaderExcel });
+      setupPdf({ data: smData, dateHeader, header, setDataPDF });
     }
-
-    //set data for excel
-    let dataExcel = smData?.map((data, index) => {
-      data.column = [];
-      dateHeader.forEach((d) => {
-        let temp = {
-          sa_plus: data['sa_plus_' + d] || '-',
-          sa_min: data['sa_minus_' + d] || '-',
-          rec: data['rec_' + d] || '-',
-          send: data['send_' + d] || '-',
-        };
-        data.column.push(temp);
-      });
-      return data;
-    });
-    setDataExcel(dataExcel);
   }, [smData]);
 
   useEffect(() => {
-    //set Header Excel
-    if (header.length < 1) {
-      return;
+    if (dataPDF) {
+      setRowSpan(dataPDF[0]?.rowspan || 0);
     }
-    let newHeader = [];
-    header.map((data, index) => {
-      if (index > 0) {
-        newHeader.push(data.Header);
-      } else {
-        data.columns.map((d, i) => {
-          newHeader.push(d.Header);
-        });
-      }
-    });
-    setHeaderExcel(newHeader);
-  }, [header]);
+  }, [dataPDF]);
 
-  // console.log('header', header);
-  // console.log('dateHeader', dateHeader);
   return (
     <div className="stockMovement">
       <Breadcrumb breadcrumb={[{ to: '/purchase-order', label: 'Stock Movement', active: true }]} />
@@ -103,10 +80,12 @@ const StockMovement = (props) => {
             data={smData}
             style={{ minHeight: height, maxHeight: height, maxWidth: width }}
             module="Stock Movement"
-            filename="Microlistics_StockMovement."
             exportPdf={false}
             tableStatus={tableStatus}
             pagination={pagination}
+            customExportPdf={() => {
+              demoPDF({ filename: 'Microlistics_StockMovement.', rowSpan });
+            }}
           />
         </div>
       </div>
@@ -160,6 +139,70 @@ const StockMovement = (props) => {
                 })}
               </tr>,
             ])}
+        </tbody>
+      </table>
+      <table id="tablePdf" className="d-none">
+        <thead>
+          <tr>
+            <th>Site</th>
+            <th>Client</th>
+            <th>Product</th>
+            <th>Description</th>
+            <th>UOM</th>
+            <th>Date</th>
+            <th>SA+</th>
+            <th>SA-</th>
+            <th>Rec</th>
+            <th>Send</th>
+            <th>Date</th>
+            <th>SA+</th>
+            <th>SA-</th>
+            <th>Rec</th>
+            <th>Send</th>
+          </tr>
+        </thead>
+        <tbody>
+          {dataPDF &&
+            dataPDF.map((data, index) => {
+              return data.date.map((d, idx) => {
+                if (idx < 1) {
+                  return (
+                    <tr>
+                      <td rowSpan={data.rowspan}>{data.site}</td>
+                      <td rowSpan={data.rowspan}>{data.client}</td>
+                      <td rowSpan={data.rowspan}>{data.product}</td>
+                      <td rowSpan={data.rowspan}>{data.product_name}</td>
+                      <td rowSpan={data.rowspan}>{data.packdesc}</td>
+                      <td>{d.date_1}</td>
+                      <td>{d.sa_plus_1}</td>
+                      <td>{d.sa_minus_1}</td>
+                      <td>{d.rec_1}</td>
+                      <td>{d.send_1}</td>
+                      <td>{d.date_2}</td>
+                      <td>{d.sa_plus_2}</td>
+                      <td>{d.sa_minus_2}</td>
+                      <td>{d.rec_2}</td>
+                      <td>{d.send_2}</td>
+                    </tr>
+                  );
+                } else {
+                  return (
+                    <tr>
+                      <td>{d.date_1}</td>
+                      <td>{d.sa_plus_1}</td>
+                      <td>{d.sa_minus_1}</td>
+                      <td>{d.rec_1}</td>
+                      <td>{d.send_1}</td>
+                      <td>{d.date_2}</td>
+                      <td>{d.sa_plus_2}</td>
+                      <td>{d.sa_minus_2}</td>
+                      <td>{d.rec_2}</td>
+                      <td>{d.send_2}</td>
+                    </tr>
+                  );
+                }
+              });
+            })}
         </tbody>
       </table>
     </div>
