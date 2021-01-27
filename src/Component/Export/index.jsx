@@ -72,8 +72,6 @@ const Export = ({
     'supplier_no',
     'customer_no',
   ];
-
-  console.log(schemaColumn, exportData);
   return (
     <div>
       {schemaColumn && exportData ? (

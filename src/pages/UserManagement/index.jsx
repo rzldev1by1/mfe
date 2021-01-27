@@ -1,29 +1,44 @@
-import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch, connect } from 'react-redux';
 import { CButton, CCard, CCardBody, CRow, CCol } from '@coreui/react';
 import { Link } from 'react-router-dom'
 import Breadcrumb from '../../Component/Breadcrumb';
 import Search from '../../Component/Search';
 import TableMaster from '../../Component/TableMaster';
+import { getSummaryData } from '../../apiService';
 import { schemaColumn } from './services';
 import './index.scss';
 
-const UserManagement = () => {
+const UserManagement = (props) => {
+  const showDetails = (item) => {
+    props.history.push(`/users-management/${item.web_user}/detail`);
+  };
 
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
     const umSummaryData = useSelector((state) => state.umSummaryData);
     const paginationUm = useSelector((state) => state.paginationUm);
-     const [Export, setExport] = useState(false);
+    const [Export, setExport] = useState(false);
+    const module = 'UserManagement'
 
-    const height = window.innerHeight - 257;
+    const height = window.innerHeight - 340;
     const width = window.innerWidth;
 
-    const module = 'UserManagement'
+    useEffect(() => {
+      getSummaryData({ dispatch, active:paginationUm?.active, module });
+    }, [paginationUm?.active]);
+
+    useEffect(() => {
+      if (Export === true) {
+        setExport(false);
+        getSummaryData({ dispatch, active:paginationUm?.active, Export, module });
+      }
+    }, [Export]);
+
     return(
       <div>
         <Breadcrumb
-          breadcrumb={[{ to: '/sales-order', label: 'Sales Order', active: true }]}
+          breadcrumb={[{ to: '/sales-order', label: 'User Management', active: true }]}
           button={(
             <CButton className="btn btn-primary btn-create float-right">
               CREATE USER
@@ -54,7 +69,7 @@ const UserManagement = () => {
                 {user.userId}
               </CCol>
               <CCol sm={1} className="user-login-info-value">
-                <Link>
+                <Link to={`/users-management/${user.webUser}/detail`} >
                   {user.userId}
                 </Link>
               </CCol>
@@ -62,10 +77,10 @@ const UserManagement = () => {
                 {user.email}
               </CCol>
               <CCol sm={1} className="user-login-info-value pl-0">
-                {user.site ? user.site : '-'}
+                {user.site ? user.site : 'All'}
               </CCol>
               <CCol sm={1} className="user-login-info-value">
-                {user.client ? user.client : '-'}
+                {user.client ? user.client : 'All'}
               </CCol>
             </CRow>
           </CCardBody>
@@ -76,7 +91,8 @@ const UserManagement = () => {
             onChangeGetTask
           />
         </CCard>
-        <TableMaster 
+        <TableMaster
+          onClick={showDetails} 
           schemaColumn={schemaColumn}
           data={umSummaryData}
           style={{ minHeight: height, maxHeight: height, minWidht: width, maxWidht: width }}
@@ -84,7 +100,7 @@ const UserManagement = () => {
           noDataText
           pagination={paginationUm}
           goto={(e) => {
-            dispatch({type:'PAGING_SO', data:{ ...paginationUm, active: e}})
+            dispatch({type:'PAGING_UM', data:{ ...paginationUm, active: e}})
           }}
           exportData=''
           user={user}
@@ -94,6 +110,7 @@ const UserManagement = () => {
           getExportData={async () => {
             setExport(true);
           }}
+          editColumn='false'
         />
       </div>
     )

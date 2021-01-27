@@ -75,7 +75,6 @@ const EditRenameColumn = ({
           setState(newState)
         }
     }
-    console.log(fields);
     return (
       <Modal
         show={showModal}

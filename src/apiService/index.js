@@ -43,11 +43,16 @@ export const getSummaryData = async ({
   }
 
   // Url
-  urls.push(`searchParam=${searchInput?.toUpperCase() || ''}`);
-  urls.push(`site=${siteVal?.value ? siteVal.value : 'all'}`);
-  urls.push(`client=${clientVal?.value ? clientVal.value : 'all'}`);
-  urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
-  urls.push(`status=${status ? status.value : 'open'}`);
+  if(module === 'UserManagement'){
+    urls.push(`searchParam=${searchInput?.toUpperCase() || ''}`);
+  }
+  if(module === 'purchaseOrder' || module === 'salesOrder'|| module === 'StockHolding'){
+    urls.push(`searchParam=${searchInput?.toUpperCase() || ''}`);
+    urls.push(`site=${siteVal?.value ? siteVal.value : 'all'}`);
+    urls.push(`client=${clientVal?.value ? clientVal.value : 'all'}`);
+    urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
+    urls.push(`status=${status ? status.value : 'open'}`);
+  }
   if (task && task.value !== 'all') urls.push(`task=${task.value}`);
   urls.push(`page=${active || 1}`);
   if (Export === true) {
@@ -57,7 +62,6 @@ export const getSummaryData = async ({
   }
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' })
   const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
-
   // Table Status
   const dataStatus = newData?.data?.data?.data;
   if (dataStatus?.length) {
@@ -87,6 +91,10 @@ export const getSummaryData = async ({
       item.expected_in_wgt = numeral(item.expected_in_wgt).format('0,0.000');
       item.weight_processed = numeral(item.weight_processed).format('0,0.000');
       item.price = numeral(item.price).format('0,0.00');
+      // User Management Data
+      item.site = (item.site && item.site !== '') ? item.site : 'All';
+      item.client = (item.client && item.client !== '') ? item.client : 'All';
+      item.last_access = (item.last_access && item.last_access !== '') ? item.last_access : '-';
       if (customerName !== undefined) item.customername = customerName[1];
     });
 

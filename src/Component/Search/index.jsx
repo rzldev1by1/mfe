@@ -110,14 +110,15 @@ const Search = ({
   if (module === 'salesOrder'){
     paramType = 'GET_SO_SUMMARY'
   }
-  console.log(module)
-
+  if (module === 'UserManagement'){
+    paramType = 'GET_UM_SUMMARY'
+  }
   return (
-    <CCard className={`mb-3 ${module === 'UserManagement' ? 'rounded-bottom' : 'rounded'}`}>
-      <CCardBody className={`p-3 ${module === 'UserManagement' ? 'rounded-bottom' : 'rounded'}`}>
+    <CCard className={`mb-3`}>
+      <CCardBody className={`p-3`}>
         <form onSubmit={searchForm}>
           <CRow className="mx-0">
-            <CCol lg={3} className="pr-3 pl-0">
+            <CCol lg={ module === 'UserManagement' ? 11 : 3 } className="pr-3 pl-0">
               <div className="input-group">
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white">
@@ -134,7 +135,30 @@ const Search = ({
                 />
               </div>
             </CCol>
-            <CCol lg={9} className="px-0">
+            {module === 'UserManagement' ? (
+              <CCol lg={1} className="pr-0">
+              <button
+                    type="button"
+                    className="btn btn-search btn-primary float-right"
+                    onClick={() =>
+                      getSummaryData({
+                        siteVal: newDropdownValue.site,
+                        clientVal: newDropdownValue.client,
+                        orderType: newDropdownValue.orderType,
+                        task: newDropdownValue.task,
+                        status: newDropdownValue.status,
+                        dispatch,
+                        searchInput,
+                        module,
+                      })&&
+                      dispatch({type: paramType , data:[]})
+                    }
+                  >
+                    SEARCH
+                  </button>
+            </CCol>)        
+            : (
+              <CCol lg={9} className="px-0">
               <CRow className="mx-0">
                 <CCol sm={4} lg={2} className="px-0">
                   {user?.site ? (
@@ -239,6 +263,7 @@ const Search = ({
                 </CCol>
               </CRow>
             </CCol>
+            )}
           </CRow>
         </form>
       </CCardBody>
