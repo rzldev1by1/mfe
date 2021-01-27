@@ -93,7 +93,7 @@ const Export = ({
     'product',
     'batch',
     'pack_id',
-    'supplier_no',
+    'on_hand_wgt',
     'customer_no',
   ];
 
@@ -175,7 +175,11 @@ const Export = ({
                   {schemaColumn.map((column, columnIdx) => {
                     let dataReturn = data[column.accessor] == null ? '-' : data[column.accessor];
                     if (columnHiddenCharacter.includes(column.accessor)) {
-                      return <td key={columnIdx}>{dataReturn} ‎</td>;
+                      return (
+                        <td style={{ textAlign: 'right' }} key={columnIdx}>
+                          {dataReturn} ‎
+                        </td>
+                      );
                     }
 
                     return <td key={columnIdx}>{dataReturn}</td>;
