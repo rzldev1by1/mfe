@@ -2,7 +2,12 @@
 /* eslint-disable no-param-reassign */
 import axios from 'axios';
 import numeral from 'numeral';
+import moment from 'moment';
 import endpoints from '../helpers/endpoints';
+import * as utility from './UmUtility'
+import * as EmailValidator from 'email-validator'
+
+const today = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
 
 export const getSummaryData = async ({
   siteVal,
@@ -363,3 +368,147 @@ export const getStockMovement = async ({ dropdownValue, dispatch }) => {
     });
 };
 // End Stock Movement
+
+// User Management 
+
+// Get Info Account
+export const getAccountInfo = async ({ userid, state, setState }) => {
+    const { data } = await axios.get(endpoints.userManagementUser_Detail + userid);
+    const newState = {...state}
+    if (data && data !== '') {
+        let adminClassName = newState.adminClass;
+        let result = restructureAccount(data.data);
+
+        if(result.web_group !== utility.webgroup.ADMIN)
+          adminClassName = ' ';
+          newState.accountInfo = result
+          newState.oldAccountInfo = result 
+          newState.isLoadComplete =  true 
+          newState.adminClass = adminClassName 
+          setState(newState)
+    }
+}
+
+export const restructureAccount = (sources) => {
+  let newAccount = {};
+  let account = sources[0];
+
+  if (account) {
+      newAccount.user = account.name;
+      newAccount.email = account.email;
+      newAccount.lastAccess = today;
+      newAccount.lastLogin = today;
+      newAccount.thisAccess = today;
+      newAccount.thisLogin = today;
+      newAccount.userMenu = restuctureMenuList(account.module);
+      newAccount.userId = account.userid;
+      newAccount.client = account.client;
+      newAccount.disabled = account.disabled !== 'Y' ? false : true;
+      newAccount.passwordChange = account.passwordChange ? account.passwordChange : '';
+      newAccount.site = account.site;
+      newAccount.web_group = account.web_group;
+  }
+  return newAccount;
+}
+
+export const restuctureMenuList = (sources) => {
+  let newUserMenu = [];
+  let userMenu = sources;
+
+  if (userMenu.length) {
+      newUserMenu = sources.map((item) => {
+          let newItem = {};
+          newItem.menuid = item.menu_id;
+          newItem.menuname = item.menu_name;
+          return newItem;
+      });
+  }
+  return newUserMenu;
+}
+// End Get Info Account
+
+// Check Email
+export const onChangeEmail = ({e , state, setState}) => {
+  const newState = {...state}
+  onBlurEmail({e:e.target, state, setState });
+  const { value } = e.target;
+  newState.validation = checkEmailValidation({textmail:value, state, setState});
+  if(value===""){
+    return 0
+  }
+  newState.accountInfo.email = value
+  newState.isValidForm = false
+  newState.changed = true
+  setState(newState)
+}
+
+export const onBlurEmail = async ({e, state, setState}) => {
+  const { value } = e.target;
+  const newState = {...state}
+  const {data}  = await axios.post(endpoints.userManagementCheckMailValidation,{email:value});
+  newState.validation.email["isValid"] = ((newState.oldAccountInfo.email !== value) && data === 0)?true:false;
+
+  if (!newState.validation.email["isValid"]) {
+    newState.validation.email["message"] = utility.validationMsg.EMAIL_EXIST;
+    newState.validation.email["invalidClass"] = 'is-invalid';
+  } else {
+    newState.validation.email["message"] = "";
+    newState.validation.email["invalidClass"] = '';
+    if (!checkEmailValidation({textmail:value, state,setState}).email["isValid"]) {
+      newState.validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
+      newState.validation.email["invalidClass"] = 'is-invalid';
+    } else {
+      newState.validation.email["message"] = "";
+    }
+  }
+  setState(newState)
+}
+
+export const checkEmailValidation = ({textmail, state, setState}) => {
+  const newState = {...state}
+  let validFormat = EmailValidator.validate(textmail);
+  newState.validation.email["isValid"] = validFormat? true : false;
+
+  if (!validFormat) {
+    newState.validation.email["message"] = utility.validationMsg.INVALID_EMAIL;
+    newState.validation.email["invalidClass"] = 'is-invalid';
+  } else {
+    newState.validation.email["message"] = "";
+    newState.validation.email["invalidClass"] = '';
+  }
+  return newState.validation;
+}
+// End Check Email
+
+// Check Name
+export const onChangeName = ({e , state, setState}) => {
+  const { name, value } = e.target;
+  const newState = {...state}
+  newState.validation = checkNameValidation({textName:value, state, setState});
+  if(value===""){
+    return 0
+  }
+  newState.accountInfo.user = value
+  newState.isValidForm = false
+  newState.changed = true
+  setState(newState);
+}
+export const checkNameValidation = ({textName, state, setState}) => {
+  const newState = {...state}
+  let isValid = (textName === ""? false : true );
+    newState.validation.name["isValid"] = isValid;
+  if(!isValid)
+    newState.validation.name["message"] = utility.validationMsg.USERNAME_REQUIRED;
+  else
+    newState.validation.name["message"] = "";
+  return newState.validation;
+}
+// and Check Name 
+export const loadUsers = async ({ state, setState }) => {
+  const newState = {...state}
+  const { data } = await axios.get(`${endpoints.userManagementListUser}`)
+  newState.users = data.data.data
+  setState(newState);
+}
+
+// End User Management

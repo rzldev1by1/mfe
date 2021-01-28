@@ -3,17 +3,23 @@ import { useSelector, useDispatch } from 'react-redux';
 import Breadcrumb from 'Component/Breadcrumb';
 import { FormFeedback } from 'reactstrap'
 import { CCard, CCardBody } from '@coreui/react'
-import DetailHeader from 'Component/DetailHeader';
-import TableMaster from 'Component/TableMaster';
-import { getDetailData, getDetailHeader } from '../../../apiService';
+import { getAccountInfo, 
+         onBlurEmail,
+         onChangeEmail,
+         onChangeName,
+         loadUsers,} from '../../../apiService';
 import { disabledCharacterName } from './service';
-import '../index.scss';
+import './index.scss';
 
 const UserManagementDetail = (props) => {
 //   const dispatch = useDispatch();
 const [state, setState] = useState({
     accountInfo: {},
-    adminClass: '',
+    oldAccountInfo: {},
+    users: [],
+    changed: false,
+    isLoadComplete: false,
+    adminClass: 'd-none',
     validation: {
         name : { isValid: true, invalidClass: /*"is-invalid"*/" ", message:'invalid email' },
         email : { isValid: true, invalidClass: /*"is-invalid"*/" ", message:'username must be entered' },
@@ -23,6 +29,7 @@ const [state, setState] = useState({
     },
   });
 const user = useSelector((state) => state.user);
+const userid = props.match.params.id ;
 
 //   const poDetail = useSelector((state) => state.poDetail);
 //   const poDetailTable = useSelector((state) => state.poDetailTable);
@@ -33,8 +40,16 @@ const user = useSelector((state) => state.user);
 
 //   const height = window.innerHeight - 355;
 //   const widht = window.innerWidth;
+
+useEffect(() => {
+    getAccountInfo({ userid, state, setState });
+}, [userid]);
+useEffect(() => {
+    loadUsers({ state, setState });
+}, []);
+
 const newState = {...state}
-console.log(newState.validation)
+console.log(newState.accountInfo.user)
   return (
     <div>
       <Breadcrumb
@@ -84,8 +99,8 @@ console.log(newState.validation)
                                 type="email" 
                                 name="email" 
                                 className={ `form-control ${newState.validation.email["isValid"] ? '' : newState.validation.email["invalidClass"]}`} 
-                                onChange={(e) => {  this.onChangeEmail(e , newState.accountInfo.email); this.setState({ changed: true }) }} 
-                                onBlur={(e)=> {this.onBlurEmail(e);}} 
+                                onChange={(e) => {  onChangeEmail({e , state, setState}) }} 
+                                onBlur={(e)=> {onBlurEmail(e);}} 
                                 value={newState.accountInfo.email} 
                             />
                             <FormFeedback className="invalid-error-padding">
@@ -97,7 +112,7 @@ console.log(newState.validation)
                                 type="text" 
                                 className={`form-control ${newState.validation.name["isValid"]?'': newState.validation.name["invalidClass"]}`} 
                                 maxLength="60" 
-                                onChange={(e) => { this.onChangeName(e);this.setState({ changed: true }) }} 
+                                onChange={(e) => {onChangeName({e , state, setState})}} 
                                 onKeyDown={disabledCharacterName} 
                                 value={newState.accountInfo.user}
                             />
