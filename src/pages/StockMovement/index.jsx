@@ -57,15 +57,9 @@ const StockMovement = (props) => {
     if (smData && header.length > 0) {
       customSchema({ data: smData, schemaColumn: header, setHeader });
       setupExcel({ data: smData, dateHeader, header, setDataExcel, setHeaderExcel });
-      setupPdf({ data: smData, dateHeader, header, setDataPDF });
+      setupPdf({ data: smData, dateHeader, header, setDataPDF, setRowSpan });
     }
   }, [smData]);
-
-  useEffect(() => {
-    if (dataPDF) {
-      setRowSpan(dataPDF[0]?.rowspan || 0);
-    }
-  }, [dataPDF]);
 
   return (
     <div className="stockMovement">
@@ -142,7 +136,7 @@ const StockMovement = (props) => {
             ])}
         </tbody>
       </table>
-      <table id="tablePdf" className="d-none">
+      <table id="tablePdf" border="1" className="d-none">
         <thead>
           <tr>
             <th>Site</th>

@@ -100,7 +100,17 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setdateHeader }) =>
       startDate.add(1, 'M');
     }
 
-    tmp_date_header.push({ dateAccessor, dateText: newDate });
+    let datePdf = null;
+    if (period === 'week') {
+      let newDate2 = startDate.format('DD MMMM YYYY');
+      let dates2 = moment(newDate2).add('days', 6).format('DD MMM YYYY');
+      let dates1 = moment(newDate2).format('DD MMM YYYY');
+      datePdf = dates1 + ' - ' + dates2;
+    } else {
+      datePdf = newDate;
+    }
+
+    tmp_date_header.push({ dateAccessor, dateText: newDate, datePdf });
 
     //set header
     let date = startDate;
