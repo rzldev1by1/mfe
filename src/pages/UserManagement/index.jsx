@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Breadcrumb from '../../Component/Breadcrumb';
 import Search from '../../Component/Search';
 import TableMaster from '../../Component/TableMaster';
-import { getSummaryData } from '../../apiService';
+import { getSummaryData, loadModuleAccess, loadClients, loadSites } from '../../apiService';
 import { schemaColumn } from './services';
 import Create from './Create';
 import './index.scss';
@@ -29,6 +29,12 @@ const UserManagement = (props) => {
   useEffect(() => {
     getSummaryData({ dispatch, active: paginationUm?.active, module });
   }, [paginationUm?.active]);
+
+  useEffect(() => {
+    loadSites({ dispatch });
+    loadClients({ dispatch });
+    loadModuleAccess({ dispatch });
+  }, []);
 
   useEffect(() => {
     if (Export === true) {
