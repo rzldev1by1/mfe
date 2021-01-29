@@ -185,7 +185,8 @@ const EditRenameColumn = ({
                   <Col className="pt-5">
                     <Button
                       variant='primary'
-                      className='px-3 float-right'
+                      className='float-right'
+                      style={{padding: '0rem 1.08rem'}}
                       onClick={() => saveEdit({ state, title, user, setEditColumnTemp, setShowModal: setShowMod, dispatch})}
                     >
                       SAVE
