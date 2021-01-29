@@ -8,6 +8,7 @@ import * as utility from './UmUtility'
 import * as EmailValidator from 'email-validator'
 
 const today = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
+const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement'];
 
 export const getSummaryData = async ({
   siteVal,
@@ -372,22 +373,66 @@ export const getStockMovement = async ({ dropdownValue, dispatch }) => {
 // User Management 
 
 // Get Info Account
-export const getAccountInfo = async ({ userid, state, setState }) => {
+export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSite, loadClient, moduleAccess }) => {
     const { data } = await axios.get(endpoints.userManagementUser_Detail + userid);
     const newState = {...state}
+    let result = restructureAccount(data.data);
     if (data && data !== '') {
         let adminClassName = newState.adminClass;
-        let result = restructureAccount(data.data);
 
         if(result.web_group !== utility.webgroup.ADMIN)
           adminClassName = ' ';
           newState.accountInfo = result
+          dispatch({ type: 'GET_UM_INFO_ACCOUNT', data: result });
           newState.oldAccountInfo = result 
           newState.isLoadComplete =  true 
           newState.adminClass = adminClassName 
-          setState(newState)
     }
-}
+    const accountInfoUser = result 
+    // ModalAccess
+    let newIsEnableAllModule = { ...newState.isEnableAllModule };
+    let userMenu = [...accountInfoUser.userMenu].map((item, index) => { return item.menuid; });
+    let menus = moduleAccess?.filter((item) => { 
+                  return menuAvailable.indexOf(item.menuname.toLowerCase()) !== -1 }).map((item, index) => {
+                            let newItem = item;
+                            let isStatus = false;
+                            if (accountInfoUser.web_group !== utility.webgroup.ADMIN) {
+                                isStatus = userMenu.includes(item.menuid) ? true : false;
+                            }
+                            newItem.status = isStatus;
+                            return newItem;
+                        });
+    newIsEnableAllModule = menus?.filter((item) => {return item.status === true;})?.length === menus?.length ? true : false;
+    newState.moduleAccess = menus
+    // and ModalAccess
+
+   // LoadSite
+    let newIsEnableAllSite = {...newState.isEnableAllSite};
+    let sites = loadSite?.map((item, index) => {
+      let newItem = item;
+      newItem.status = (accountInfoUser.site === null?true:((item.site === accountInfoUser.site) ? true : false));
+      return newItem;
+  });
+    newIsEnableAllSite = sites?.filter((item) => {return item.status === true;})?.length === sites?.length? true : false ;
+    newState.sites = sites 
+    newState.isEnableAllSite = newIsEnableAllSite
+    // end LoadSite
+
+    // LoadClient
+    let newIsEnableAllClient = {...newState.isEnableAllClient};
+    let clients = loadClient?.map((item, index) => {
+        let newItem = item;
+        newItem.status = (accountInfoUser.client === null?true: ((item.code === accountInfoUser.client) ? true : false));
+        return newItem;
+    });
+  
+    newIsEnableAllClient = clients?.filter((item) => {return item.status === true;})?.length === clients?.length?true:false;
+    newState.clients = clients 
+    newState.isEnableAllClient = newIsEnableAllClient
+    // end LoadClient
+
+  setState(newState)  
+}   
 
 export const restructureAccount = (sources) => {
   let newAccount = {};
@@ -433,9 +478,6 @@ export const onChangeEmail = ({e , state, setState}) => {
   onBlurEmail({e:e.target, state, setState });
   const { value } = e.target;
   newState.validation = checkEmailValidation({textmail:value, state, setState});
-  if(value===""){
-    return 0
-  }
   newState.accountInfo.email = value
   newState.isValidForm = false
   newState.changed = true
@@ -483,14 +525,12 @@ export const checkEmailValidation = ({textmail, state, setState}) => {
 // Check Name
 export const onChangeName = ({e , state, setState}) => {
   const { name, value } = e.target;
+  console.log(value)
   const newState = {...state}
   newState.validation = checkNameValidation({textName:value, state, setState});
-  if(value===""){
-    return 0
-  }
-  newState.accountInfo.user = value
-  newState.isValidForm = false
-  newState.changed = true
+    newState.accountInfo.user = value
+    newState.isValidForm = false
+    newState.changed = true
   setState(newState);
 }
 export const checkNameValidation = ({textName, state, setState}) => {
@@ -504,11 +544,21 @@ export const checkNameValidation = ({textName, state, setState}) => {
   return newState.validation;
 }
 // and Check Name 
-export const loadUsers = async ({ state, setState }) => {
-  const newState = {...state}
+export const loadUsers = async ({ dispatch }) => {
   const { data } = await axios.get(`${endpoints.userManagementListUser}`)
-  newState.users = data.data.data
-  setState(newState);
+  dispatch({ type: 'GET_UM_USERS_DATA', data: data.data.data });
+}
+export const loadModuleAccess = async ({dispatch}) => {
+  const { data } = await axios.get(endpoints.userManagementModuleAccess)
+  dispatch({ type: 'GET_UM_MODAL_ACCESS', data: data});
+}
+export const loadSites = async ({dispatch}) => {
+  const { data } = await axios.get(endpoints.getSite);
+  dispatch({ type: 'GET_UM_LOAD_SITE', data: data});
+}
+export const loadClients = async ({dispatch}) => {
+  const { data } = await axios.get(endpoints.getClient);
+  dispatch({ type: 'GET_UM_LOAD_CLIENT', data: data});
 }
 
 // End User Management

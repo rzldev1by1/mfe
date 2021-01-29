@@ -156,6 +156,16 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
      // User Management
     case 'GET_UM_SUMMARY':
       return { ...state, umSummaryData: data };
+    case 'GET_UM_USERS_DATA':
+      return { ...state, usersData: data };
+    case 'GET_UM_INFO_ACCOUNT':
+      return { ...state, accountInfo: data };
+    case 'GET_UM_MODAL_ACCESS':
+      return { ...state, moduleAccess: data };
+    case 'GET_UM_LOAD_SITE':
+      return { ...state, loadSite: data };
+    case 'GET_UM_LOAD_CLIENT':
+      return { ...state, loadClient: data };
     // User Management End
 
     default:

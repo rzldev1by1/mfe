@@ -1,3 +1,14 @@
+.client-areas {
+  height:340px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.line-border {
+  border-bottom: 1px solid #e8e8e8;
+}
+.client-enableall-padding{
+  padding-right: 25px;
+}
  input.form-control{
     padding: 0.375rem 0.75rem !important;
   }
@@ -27,6 +38,24 @@
   }
   .text-title-detail{
     color: #637176;
+  }
+  .btn-outline-All-notActive {
+    width: 115px !important;
+    height: 40px !important;
+    background-color: #d5d8da;
+    color: #ffffff;
+    border: 1.5px solid #d5d8da;
+    border-radius: 7px;
+    width: 80px;
+  }
+  .btn-outline-All-active {
+    width: 115px !important;
+    height: 40px !important;
+    border: 1.5px solid #3366ff;
+    border-radius: 7px;
+    background-color: #3366ff;
+    color: #ffffff;
+    width: 80px;
   }
    .btn-outline-All-notActive:hover {color: #ffffff !important;}
    .btn-outline-All-active:hover {color: #ffffff !important;}
