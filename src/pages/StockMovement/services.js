@@ -162,10 +162,11 @@ export const Dates = () => {
   return (dateNow = date1 + '-' + arrmonth2[month] + '-' + year);
 };
 
-export const setupPdf = ({ data, dateHeader, header, period, setDataPDF }) => {
+export const setupPdf = ({ data, dateHeader, header, period, setDataPDF, setRowSpan }) => {
   let newData = [];
   //make array to 2 parts
   let indexPart1 = Math.ceil(dateHeader.length / 2) - 1;
+  setRowSpan(indexPart1);
 
   //set data for Pdf
   dateHeader.map((dt, idx) => {});
@@ -187,7 +188,7 @@ export const setupPdf = ({ data, dateHeader, header, period, setDataPDF }) => {
       let obj = {};
       if (idx <= indexPart1) {
         //kolom date pertama
-        obj['date_' + column] = d.dateText;
+        obj['date_' + column] = d.datePdf;
         obj['sa_plus_' + column] = data['sa_plus_' + d.dateAccessor] || '-';
         obj['sa_minus_' + column] = data['sa_minus_' + d.dateAccessor] || '-';
         obj['rec_' + column] = data['rec_' + d.dateAccessor] || '-';
@@ -197,7 +198,7 @@ export const setupPdf = ({ data, dateHeader, header, period, setDataPDF }) => {
         //kolom date kedua
         column = 2;
         let idxx = idx - indexPart1 - 1;
-        pdfData.date[idxx]['date_' + column] = d.dateText;
+        pdfData.date[idxx]['date_' + column] = d.datePdf;
         pdfData.date[idxx]['sa_plus_' + column] = data['sa_plus_' + d.dateAccessor] || '-';
         pdfData.date[idxx]['sa_minus_' + column] = data['sa_minus_' + d.dateAccessor] || '-';
         pdfData.date[idxx]['rec_' + column] = data['rec_' + d.dateAccessor] || '-';
@@ -206,7 +207,45 @@ export const setupPdf = ({ data, dateHeader, header, period, setDataPDF }) => {
     });
     dataPdf.push(pdfData);
   });
-  setDataPDF(dataPdf);
+
+  //fix bugs
+  let newDataPdf = [];
+  let restRow = 20;
+  dataPdf.map((data, index) => {
+    let date_tmp = [[]];
+    let i = 0;
+    let j = 0;
+
+    let restRow2 = 20;
+    if (index > 0) {
+      restRow2 = restRow;
+    }
+    data.date.map((d, idx) => {
+      if (j > 19 || j == restRow2) {
+        date_tmp.push([]);
+        i++;
+        j = 0;
+        restRow = 20;
+        restRow2 = 20;
+      }
+      date_tmp[i].push(d);
+      j++;
+      restRow--;
+    });
+    date_tmp.map((d, idx) => {
+      let obj = {
+        site: data.site,
+        client: data.client,
+        packdesc: data.packdesc,
+        product: data.product,
+        product_name: data.product_name,
+        rowspan: d.length,
+        date: d,
+      };
+      newDataPdf.push(obj);
+    });
+  });
+  setDataPDF(newDataPdf);
 };
 
 export const setupExcel = ({ data, dateHeader, header, setDataExcel, setHeaderExcel }) => {
@@ -333,99 +372,6 @@ export const headerPdf = [
   },
 ];
 
-const setupDocPDF = async (filename, exportData, schemaColumn) => {
-  let header = await setHeader(schemaColumn);
-  let body = await setBody(exportData, schemaColumn);
-
-  header = header.filter((data, idx) => idx <= 12);
-  body = body.map((data) => {
-    let newData = data.filter((dt, idx) => idx <= 12);
-    let newData2 = newData.map((dt, idx) => {
-      if (dt[0] === null) {
-        return ['-'];
-      } else {
-        return dt;
-      }
-    });
-    return newData2;
-  });
-
-  const unit = 'pt';
-  const size = 'A4'; // Use A1, A2, A3 or A4
-  const orientation = 'landscape'; // portrait or landscape
-  const doc = new jsPDF(orientation, unit, size);
-  // From Javascript
-  var finalY = doc.previousAutoTable.finalY || 10;
-  var title = ExportName(filename);
-  var originDate = Dates();
-  var date = moment(originDate).format('DD/MM/YYYY');
-  const img = new Image();
-  img.src = logo_export;
-  doc.setFontSize(15);
-
-  doc.autoTable({
-    theme: 'striped',
-    margin: {
-      left: 15,
-      right: 15,
-      bottom: 5,
-    },
-    startY: finalY + 30,
-    head: [header],
-    body: body,
-    headerStyles: {
-      cellPadding: 5,
-      lineWidth: 0,
-      valign: 'top',
-      fontStyle: 'bold',
-      halign: 'left', //'center' or 'right'
-      fillColor: [94, 68, 232],
-      textColor: [255, 255, 255],
-      rowHeight: 22,
-    },
-    columnStyles: {
-      0: { cellWidth: 40 },
-      1: { cellWidth: 40 },
-      2: { cellWidth: 80 },
-      3: { cellWidth: 80 },
-      4: { cellWidth: 40 },
-      5: { cellWidth: 80 },
-      6: { cellWidth: 40 },
-      7: { cellWidth: 40 },
-      8: { cellWidth: 40 },
-      9: { cellWidth: 40 },
-      10: { cellWidth: 80 },
-      11: { cellWidth: 40 },
-      12: { cellWidth: 40 },
-      13: { cellWidth: 40 },
-      14: { cellWidth: 40 },
-    },
-    styles: {
-      rowHeight: 24,
-      cellPadding: {
-        top: 8,
-        right: 4,
-        bottom: 8,
-        left: 4,
-      },
-      fontSize: 8,
-      borderBottom: 0,
-    },
-    didDrawPage: function (data) {
-      doc.text(title + ' Data Microlistics  ' + date, 15, finalY + 15);
-      doc.addImage(img, 'PNG', 785, 5, 45, 40, 'a', 'FAST');
-    },
-  });
-
-  return doc;
-};
-
-export const exportPDF = async ({ filename, exportData, schemaColumn }) => {
-  const marginLeft = 40;
-  const doc = await setupDocPDF(filename, exportData, schemaColumn);
-  doc.save(ExportName(filename) + '.pdf');
-};
-
 export const demoPDF = ({ filename, rowSpan }) => {
   const unit = 'pt';
   const size = 'A4'; // Use A1, A2, A3 or A4
@@ -434,15 +380,16 @@ export const demoPDF = ({ filename, rowSpan }) => {
   let title = ExportName(filename);
   let originDate = Dates();
   let date = moment(originDate).format('DD/MM/YYYY');
-  let colour = 'red';
-
+  let colour = 1;
+  let i = 2;
   var finalY = pdf.previousAutoTable.finalY || 10;
   const img = new Image();
   img.src = logo_export;
   pdf.setFontSize(15);
   pdf.autoTable({
     html: '#tablePdf',
-    theme: 'grid',
+    // theme: 'plain',
+    // pageBreak: 'avoid',
     margin: {
       left: 15,
       right: 15,
@@ -470,8 +417,38 @@ export const demoPDF = ({ filename, rowSpan }) => {
       textColor: [255, 255, 255],
       rowHeight: 22,
     },
-    didParseCell: function (data) {
+    // didParseCell: function (data) {
+    //   let index = data.row.index;
+    // },
+    willDrawCell: function (data) {
+      let section = data.row.section;
       let index = data.row.index;
+      if (section == 'head') {
+        return;
+      }
+      if (index <= rowSpan) {
+        colour = 1;
+      } else if (index > rowSpan && index <= rowSpan * i + i - 1) {
+        if (i % 2) {
+          colour = 1;
+        } else {
+          colour = 2;
+        }
+      } else {
+        i++;
+        if (i % 2) {
+          colour = 1;
+        } else {
+          colour = 2;
+        }
+      }
+      // console.log(rowSpan, index, rowSpan * i, colour);
+
+      if (colour == 1) {
+        pdf.setFillColor(240, 239, 242);
+      } else {
+        pdf.setFillColor(217, 213, 221);
+      }
     },
     didDrawPage: function (data) {
       pdf.text(title + ' Data Microlistics  ' + date, 15, finalY + 15);
