@@ -29,11 +29,13 @@ export const renewColumn = ({ data, fields, module, userId, editColumn, showModa
       });
     } else {
       fields.map(async (d, idx) => {
+        alert('2')
         if (oldSchema) {
           idx = schemaOrder.indexOf(d.accessor);
         }
         schema[idx] = d;
         schema[idx].width = await getColumnWidth(data, d.accessor, d.Header, d.width || 0);
+        console.log(schema[idx].width);
       });
     }
   } else {

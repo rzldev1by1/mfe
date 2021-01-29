@@ -19,6 +19,13 @@
     font-weight: inherit;
   }
 
+  .rt-th:last-child{
+    position: absolute;
+    background: whitesmoke;
+    right: 0;
+    justify-content: center;
+  }
+  
   .-header .rt-tr {
     border-bottom: 2px solid #e0e2e4 !important;
   }
