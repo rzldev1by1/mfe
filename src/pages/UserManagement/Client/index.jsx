@@ -2,7 +2,7 @@ import React from 'react';
 import '../index.scss';
 import { onClientStatusClick, onEnabledAllClient } from '../services';
 
-const client = ({ clients, isEnableAllClient, state, setState }) => {
+const client = ({ clients, isEnableAllClient, state, setState, isReadOnly }) => {
   const disableAll = 'Disable All';
   const enableAll = 'Enable All';
   const enable = 'Enabled';
@@ -21,7 +21,7 @@ const client = ({ clients, isEnableAllClient, state, setState }) => {
               type="button"
               className={`btn float-right px-1 mb-2 ${
                 isEnableAllClient ? 'btn-outline-All-notActive' : 'btn-outline-All-active'
-              } `}
+              } ${isReadOnly ? 'd-none' : ''}`}
               onClick={() => onEnabledAllClient({ state, setState })}
             >
               {`${isEnableAllClient ? disableAll.toUpperCase() : enableAll.toUpperCase()}`}
@@ -36,14 +36,16 @@ const client = ({ clients, isEnableAllClient, state, setState }) => {
                 <div className="flex-column" key={index}>
                   <div className="d-flex mb-1" key={index}>
                     <label className="text-muted col-6 section-value-text p-0 py-2 " key={item.code}>
-                      {`${item.code}: ${item.name}`}
+                      {` ${item.name}`}
                     </label>
                     <div className="col-6">
                       <button
                         type="button"
                         htmlFor={item.code}
                         className={
-                          'btn px-1 float-right ' + (item.status ? 'btn-outline-active' : 'btn-outline-notActive')
+                          'btn px-1 float-right ' +
+                          (!isReadOnly && item.status ? 'btn-outline-active' : 'btn-outline-notActive') +
+                          (isReadOnly ? ' btn-review' : '')
                         }
                         onClick={(e) => {
                           onClientStatusClick({ e, index, state, setState });

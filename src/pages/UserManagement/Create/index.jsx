@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Container } from 'react-bootstrap';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 import Form from './Form';
-import { resetCreate, validation, submit } from './services.js';
+import { renewState, resetState, resetCreate, validation, submit, validateButton } from './services.js';
 import { getPOResources, getDisposition } from 'apiService/dropdown';
 import loading from 'assets/icons/loading/LOADING-MLS.gif';
 import MessageTab from 'Component/MessageTab';
@@ -13,6 +13,9 @@ const Create = ({ show, setShow }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const orderLinesData = useSelector((state) => state.orderLinesData);
+  const clientData = useSelector((state) => state.clientData);
+  const siteData = useSelector((state) => state.siteData);
+  const moduleAccess = useSelector((state) => state.moduleAccess);
 
   const [activeTab, setActiveTab] = useState('details');
   const [isReset, setIsReset] = useState(0);
@@ -20,22 +23,52 @@ const Create = ({ show, setShow }) => {
   const [isSubmitStatus, setIsSubmitStatus] = useState(null);
   const [isSubmitReturn, setIsSubmitReturn] = useState(null);
   const [createDetails, setCreateDetails] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [state, setState] = useState({
+    userId: null,
+    email: null,
+    name: null,
+    moduleAccess: [],
+    isEnableAllModule: false,
+    sites: [],
+    isEnableAllSite: false,
+    clients: [],
+    isEnableAllClient: false,
+    validate: false,
+    isAdmin: false,
+
+    changed: false,
+    isLoadComplete: false,
+    adminClass: '',
+    validation: {
+      name: { isValid: false, invalidClass: 'is-invalid', message: '' },
+      email: { isValid: false, invalidClass: 'is-invalid', message: '' },
+      modules: {
+        isValid: false,
+        invalidClass: 'is-invalid',
+        message: 'Please enable at least one on module access',
+      },
+      sites: { isValid: false, invalidClass: 'is-invalid', message: 'Please enable at least one on site' },
+      clients: { isValid: false, invalidClass: 'is-invalid', message: 'Please enable at least one on client' },
+    },
+  });
 
   useEffect(() => {
     if (isReset === 0) {
       setIsReset(1);
-      setIsValidation(false);
       setActiveTab('details');
-      setCreateDetails({
-        userId: '',
-        email: '',
-        userName: '',
-        module: '',
-        site: '',
-        client: '',
-      });
+      resetState({ setState });
+      renewState({ setState, state, siteData, clientData, moduleAccess });
     }
   }, [isReset]);
+
+  useEffect(() => {
+    validateButton({ isAdmin, setState, state });
+  }, [state?.validation]);
+
+  useEffect(() => {
+    renewState({ setState, state, siteData, clientData, moduleAccess });
+  }, []);
 
   return (
     <div>
@@ -72,8 +105,9 @@ const Create = ({ show, setShow }) => {
               <NavLink
                 className={`d-flex height-nav align-items-center ${activeTab === 'review' ? 'active' : null}`}
                 onClick={() => {
-                  // validation({ dispatch, data: createPO, setActiveTab });
-                  setIsValidation(true);
+                  if (state.validate) {
+                    setActiveTab('review');
+                  }
                 }}
               >
                 <span className="number-number-2" /> Review
@@ -85,7 +119,7 @@ const Create = ({ show, setShow }) => {
               {/* Tabs */}
               {activeTab == 'message' ? (
                 <MessageTab
-                  module={'Purchase Order'}
+                  module="UM"
                   submitReturn={isSubmitReturn}
                   back={() => setActiveTab('detail')}
                   exit={() => {
@@ -95,9 +129,11 @@ const Create = ({ show, setShow }) => {
                 />
               ) : (
                 <Form
+                  isAdmin={isAdmin}
+                  setIsAdmin={setIsAdmin}
                   activeTab={activeTab}
-                  setCreateDetails={setCreateDetails}
-                  createDetails={createDetails}
+                  state={state}
+                  setState={setState}
                   isValidation={isValidation}
                 />
               )}
@@ -109,11 +145,11 @@ const Create = ({ show, setShow }) => {
                   <Col lg={8}></Col>
                   <Col lg={2} className="text-right">
                     <button
-                      className={'btn btn-primary '}
+                      className={'btn ' + (state.validate ? 'btn-primary' : 'btn-grey')}
                       onClick={() => {
-                        // validation({ dispatch, data: createPO, setActiveTab });
-                        setIsValidation(true);
+                        setActiveTab('review');
                       }}
+                      disabled={state.validate ? false : true}
                     >
                       {'NEXT'}
                     </button>
@@ -139,8 +175,9 @@ const Create = ({ show, setShow }) => {
                     <button
                       className="btn btn-primary"
                       onClick={() => {
+                        console.log(state);
                         setIsSubmitStatus('loading');
-                        // submit({ setIsSubmitStatus, setIsSubmitReturn, setActiveTab, user, data: createPO });
+                        submit({ setIsSubmitStatus, setIsSubmitReturn, setActiveTab, isAdmin, user, data: state });
                       }}
                     >
                       {isSubmitStatus === 'loading' ? (

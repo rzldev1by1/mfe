@@ -1,47 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap';
-import Dropdown from 'Component/Dropdown';
-import DatePicker from 'shared/DatePicker';
-import Input from 'Component/Input';
-import RequiredMessage from './RequiredMessage';
-
-import { changeOrderDetails, addOrderLines, createData, changeOrderNo, formatDate } from './services';
-import { getSupplier } from 'apiService/dropdown';
-import { validate } from 'email-validator';
+import ModuleAccess from '../ModuleAccess';
+import Site from '../Site';
+import Client from '../Client';
+import { FormFeedback } from 'reactstrap';
+import { validateButton, changeDetails, generateUserID, disabledCharacterName } from './services.js';
 
 import './style.scss';
 
-const Form = ({ activeTab, isValidation, createDetails, setCreateDetails }) => {
-  const dispatch = useDispatch();
-  const clientData = useSelector((state) => state.clientData);
-  const siteData = useSelector((state) => state.siteData);
-  const [isReadonly, setIsReadOnly] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [clientOption, setClientOption] = useState(null);
-  const [siteOption, setSiteOption] = useState(null);
-  const { userId, email, userName, module, site, client } = createDetails;
-  useEffect(() => {
-    // set client dropdown option
-    let clientOption = [];
-    let tmp = clientData?.map((item, key) => {
-      if (item.value !== 'all') {
-        clientOption.push(item);
-      }
-    });
-    setClientOption(clientOption);
-  }, [clientData]);
-
-  useEffect(() => {
-    // set site dropdown option
-    let siteOption = [];
-    let tmp = siteData?.map((item, key) => {
-      if (item.value !== 'all') {
-        siteOption.push(item);
-      }
-    });
-    setSiteOption(siteOption);
-  }, [siteData]);
+const Form = ({ activeTab, state, setState, isAdmin, setIsAdmin }) => {
+  const [isReadOnly, setIsReadOnly] = useState(null);
+  const [isButtonState, setIsButtonState] = useState(false);
+  const [webGroupClass, setIsWebGroupClass] = useState({
+    newUser: 'webgroup-active',
+    admin: 'webgroup-notactive',
+  });
 
   useEffect(() => {
     if (activeTab == 'review') {
@@ -51,10 +25,26 @@ const Form = ({ activeTab, isValidation, createDetails, setCreateDetails }) => {
     }
   }, [activeTab]);
 
+  useEffect(() => {
+    //set class for webGroup
+    let WebGroupClass = {};
+    if (activeTab !== 'review') {
+      WebGroupClass.newUser = isAdmin ? ' webgroup-notactive' : ' webgroup-active';
+      WebGroupClass.admin = isAdmin ? ' webgroup-active' : ' webgroup-notactive';
+    } else {
+      WebGroupClass.newUser = isAdmin ? ' webgroup-review-notactive' : ' webgroup-review-active';
+      WebGroupClass.admin = isAdmin ? ' webgroup-review-active' : ' webgroup-review-notactive';
+    }
+    setIsWebGroupClass(WebGroupClass);
+  }, [activeTab, isAdmin]);
+
+  if (!state) {
+    return;
+  }
+
   return (
     <div>
       {/* Start Order Details */}
-
       <Row>
         <Col lg="2" className="pr-0" style={{ flex: '0 0 11%', maxWidth: '11%' }}>
           <h3 className="text-primary font-20 um-text-webgroup">New User</h3>
@@ -66,58 +56,132 @@ const Form = ({ activeTab, isValidation, createDetails, setCreateDetails }) => {
                 <input
                   type="checkbox"
                   onChange={(e) => {
-                    setIsAdmin(!isAdmin);
+                    if (!isReadOnly) setIsAdmin(!isAdmin);
                   }}
+                  readOnly={isReadOnly}
                 />
-                <span className={`flex-fill ${isAdmin ? ' webgroup-notactive' : ' webgroup-active'}`}>
-                  REGULAR USER
-                </span>
-                <span className={`flex-fill ${isAdmin ? ' webgroup-active' : ' webgroup-notactive'}`}>ADMIN USER</span>
+                <span className={`flex-fill ${webGroupClass.newUser}`}>REGULAR USER</span>
+                <span className={`flex-fill ${webGroupClass.admin}`}>ADMIN USER</span>
               </label>
             </Col>
           </Row>
         </Col>
       </Row>
 
-      <Row>
-        <Col lg="4">
-          <Input
-            name="userId"
-            title={'User ID'}
-            showTitle
-            onChange={(e) => {
-              let data = { ...createDetails, userId: e };
-              setCreateDetails(data);
-            }}
-            readOnly={true}
-            maxLength={30}
-          />
-          <span className="text-title font-sm">Auto Generated</span>
-        </Col>
-        <Col lg="4">
-          <Input
-            name="email"
-            title={'Email'}
-            showTitle
-            onChange={(e) => {
-              let data = { ...createDetails, email: e };
-              setCreateDetails(data);
-            }}
-          />
-        </Col>
-        <Col lg="4">
-          <Input
-            name="name"
-            title={'Name'}
-            showTitle
-            onChange={(e) => {
-              let data = { ...createDetails, name: e };
-              setCreateDetails(data);
-            }}
-          />
-        </Col>
-      </Row>
-      {/* End Order Details */}
+      <div>
+        <div className="row">
+          <div className="col-sm-4">
+            <label className="text-title-detail">User ID</label>
+          </div>
+          <div className="col-sm-4">
+            <label className="text-title-detail">Email</label>
+          </div>
+          <div className="col-sm-4">
+            <label className="text-title-detail">Name</label>
+          </div>
+        </div>
+
+        <div className="row mb-3">
+          <div className="col-sm-4  ">
+            <input readOnly type="text" className="form-control" value={state.userId} />
+            <span className="text-title font-sm">Auto Generated</span>
+          </div>
+          <div className="col-sm-4  ">
+            <input
+              type="email"
+              name="email"
+              readOnly={isReadOnly}
+              className={`form-control ${
+                state.validation.email['isValid'] ? '' : state.validation.email['invalidClass']
+              }`}
+              onChange={async (e) => {
+                await changeDetails({ isAdmin, setState, state, column: 'email', e });
+              }}
+              onBlur={async (e) => {
+                await changeDetails({ isAdmin, setState, state, column: 'email', e });
+              }}
+            />
+            <FormFeedback className="invalid-error-padding">{`${state.validation.email['message']}`}</FormFeedback>
+          </div>
+          <div className="col-sm-4  ">
+            <input
+              name="name"
+              type="text"
+              readOnly={isReadOnly}
+              className={`form-control ${
+                state.validation.name['isValid'] ? '' : state.validation.name['invalidClass']
+              }`}
+              maxLength="60"
+              onChange={(e) => {
+                changeDetails({ isAdmin, setState, state, column: 'name', e });
+              }}
+              onKeyDown={(e) => disabledCharacterName(e)}
+            />
+            <FormFeedback className="invalid-error-padding">{`${state.validation.name['message']}`}</FormFeedback>
+          </div>
+        </div>
+      </div>
+
+      <div className={`system mb-0 ${isAdmin ? 'd-none' : ''}`}>
+        <div className="row">
+          <div className="col-12">
+            <h3 className="mb-0">
+              <label className="text-primary font-20 ">System</label>
+            </h3>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-4">
+            <ModuleAccess
+              state={state}
+              setState={setState}
+              moduleAccess={state.moduleAccess}
+              isEnableAllModule={state.isEnableAllModule}
+              isReadOnly={isReadOnly}
+            />
+            <input
+              type="checkbox"
+              name="moduleAccess"
+              className={`d-none ${
+                state.validation.modules['isValid'] ? '' : state.validation.modules['invalidClass']
+              }`}
+            />
+            <FormFeedback>{`${state.validation.modules['message']}`}</FormFeedback>
+          </div>
+          <div className="col-4 pl-0">
+            <Site
+              state={state}
+              setState={setState}
+              sites={state.sites}
+              isEnableAllSite={state.isEnableAllSite}
+              isReadOnly={isReadOnly}
+            />
+            <input
+              type="checkbox"
+              name="sites"
+              className={`d-none ${state.validation.sites['isValid'] ? '' : state.validation.sites['invalidClass']}`}
+            />
+            <FormFeedback>{`${state.validation.sites['message']}`}</FormFeedback>
+          </div>
+          <div className="col-4 um-client-scrollbar">
+            <Client
+              state={state}
+              setState={setState}
+              clients={state.clients}
+              isEnableAllClient={state.isEnableAllClient}
+              isReadOnly={isReadOnly}
+            />
+            <input
+              type="checkbox"
+              name="clients"
+              className={`d-none ${
+                state.validation.clients['isValid'] ? '' : state.validation.clients['invalidClass']
+              }`}
+            />
+            <FormFeedback>{`${state.validation.clients['message']}`}</FormFeedback>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

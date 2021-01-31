@@ -27,13 +27,14 @@ const UserManagementDetail = (props) => {
     isLoadComplete: false,
     adminClass: 'd-none',
     validation: {
-      name: { isValid: true, invalidClass: /*"is-invalid"*/ ' ', message: 'invalid email' },
-      email: { isValid: true, invalidClass: /*"is-invalid"*/ ' ', message: 'username must be entered' },
+      name: { isValid: true, invalidClass: ' ', message: 'invalid email' },
+      email: { isValid: true, invalidClass: ' ', message: 'username must be entered' },
       modules: { isValid: true, invalidClass: 'is-invalid', message: 'Please enable at least one on module access' },
       sites: { isValid: true, invalidClass: 'is-invalid', message: 'Please enable at least one on site' },
       clients: { isValid: true, invalidClass: 'is-invalid', message: 'Please enable at least one on client' },
     },
   });
+
   const user = useSelector((state) => state.user);
   const usersData = useSelector((state) => state.usersData);
   const accountInfo = useSelector((state) => state.accountInfo);
@@ -53,6 +54,7 @@ const UserManagementDetail = (props) => {
 
   const newState = { ...state };
   console.log(newState.clients, newState.isEnableAllClient);
+  console.log(newState?.moduleAccess);
   return (
     <div>
       <Breadcrumb breadcrumb={[{ to: '/user-management', label: 'User Management' }]} />
