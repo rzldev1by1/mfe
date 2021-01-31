@@ -2,7 +2,13 @@
 /* eslint-disable no-param-reassign */
 import axios from 'axios';
 import numeral from 'numeral';
+import moment from 'moment';
 import endpoints from '../helpers/endpoints';
+import * as utility from './UmUtility';
+import * as EmailValidator from 'email-validator';
+
+const today = moment(new Date()).format('YYYY-MM-DD hh:mm:ss');
+const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement'];
 
 export const getSummaryData = async ({
   siteVal,
@@ -43,10 +49,10 @@ export const getSummaryData = async ({
   }
 
   // Url
-  if(module === 'UserManagement'){
+  if (module === 'UserManagement') {
     urls.push(`searchParam=${searchInput?.toUpperCase() || ''}`);
   }
-  if(module === 'purchaseOrder' || module === 'salesOrder'|| module === 'StockHolding'){
+  if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
     urls.push(`searchParam=${searchInput?.toUpperCase() || ''}`);
     urls.push(`site=${siteVal?.value ? siteVal.value : 'all'}`);
     urls.push(`client=${clientVal?.value ? clientVal.value : 'all'}`);
@@ -92,9 +98,9 @@ export const getSummaryData = async ({
       item.weight_processed = numeral(item.weight_processed).format('0,0.000');
       item.price = numeral(item.price).format('0,0.00');
       // User Management Data
-      item.site = (item.site && item.site !== '') ? item.site : 'All';
-      item.client = (item.client && item.client !== '') ? item.client : 'All';
-      item.last_access = (item.last_access && item.last_access !== '') ? item.last_access : '-';
+      item.site = item.site && item.site !== '' ? item.site : 'All';
+      item.client = item.client && item.client !== '' ? item.client : 'All';
+      item.last_access = item.last_access && item.last_access !== '' ? item.last_access : '-';
       if (customerName !== undefined) item.customername = customerName[1];
     });
 
@@ -363,3 +369,222 @@ export const getStockMovement = async ({ dropdownValue, dispatch }) => {
     });
 };
 // End Stock Movement
+
+// User Management
+
+// Get Info Account
+export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSite, loadClient, moduleAccess }) => {
+  const { data } = await axios.get(endpoints.userManagementUser_Detail + userid);
+  const newState = { ...state };
+  let result = restructureAccount(data.data);
+  if (data && data !== '') {
+    let adminClassName = newState.adminClass;
+
+    if (result.web_group !== utility.webgroup.ADMIN) adminClassName = ' ';
+    newState.accountInfo = result;
+    dispatch({ type: 'GET_UM_INFO_ACCOUNT', data: result });
+    newState.oldAccountInfo = result;
+    newState.isLoadComplete = true;
+    newState.adminClass = adminClassName;
+  }
+  const accountInfoUser = result;
+  // ModalAccess
+  let newIsEnableAllModule = { ...newState.isEnableAllModule };
+  let userMenu = [...accountInfoUser.userMenu].map((item, index) => {
+    return item.menuid;
+  });
+  let menus = moduleAccess
+    ?.filter((item) => {
+      return menuAvailable.indexOf(item.menuname.toLowerCase()) !== -1;
+    })
+    .map((item, index) => {
+      let newItem = item;
+      let isStatus = false;
+      if (accountInfoUser.web_group !== utility.webgroup.ADMIN) {
+        isStatus = userMenu.includes(item.menuid) ? true : false;
+      }
+      newItem.status = isStatus;
+      return newItem;
+    });
+  newIsEnableAllModule =
+    menus?.filter((item) => {
+      return item.status === true;
+    })?.length === menus?.length
+      ? true
+      : false;
+  newState.moduleAccess = menus;
+  // and ModalAccess
+
+  // LoadSite
+  let newIsEnableAllSite = { ...newState.isEnableAllSite };
+  let sites = loadSite?.map((item, index) => {
+    let newItem = item;
+    newItem.status = accountInfoUser.site === null ? true : item.site === accountInfoUser.site ? true : false;
+    return newItem;
+  });
+  newIsEnableAllSite =
+    sites?.filter((item) => {
+      return item.status === true;
+    })?.length === sites?.length
+      ? true
+      : false;
+  newState.sites = sites;
+  newState.isEnableAllSite = newIsEnableAllSite;
+  // end LoadSite
+
+  // LoadClient
+  let newIsEnableAllClient = { ...newState.isEnableAllClient };
+  let clients = loadClient?.map((item, index) => {
+    let newItem = item;
+    newItem.status = accountInfoUser.client === null ? true : item.code === accountInfoUser.client ? true : false;
+    return newItem;
+  });
+
+  newIsEnableAllClient =
+    clients?.filter((item) => {
+      return item.status === true;
+    })?.length === clients?.length
+      ? true
+      : false;
+  newState.clients = clients;
+  newState.isEnableAllClient = newIsEnableAllClient;
+  // end LoadClient
+
+  setState(newState);
+};
+
+export const restructureAccount = (sources) => {
+  let newAccount = {};
+  let account = sources[0];
+
+  if (account) {
+    newAccount.user = account.name;
+    newAccount.email = account.email;
+    newAccount.lastAccess = today;
+    newAccount.lastLogin = today;
+    newAccount.thisAccess = today;
+    newAccount.thisLogin = today;
+    newAccount.userMenu = restuctureMenuList(account.module);
+    newAccount.userId = account.userid;
+    newAccount.client = account.client;
+    newAccount.disabled = account.disabled !== 'Y' ? false : true;
+    newAccount.passwordChange = account.passwordChange ? account.passwordChange : '';
+    newAccount.site = account.site;
+    newAccount.web_group = account.web_group;
+  }
+  return newAccount;
+};
+
+export const restuctureMenuList = (sources) => {
+  let newUserMenu = [];
+  let userMenu = sources;
+
+  if (userMenu.length) {
+    newUserMenu = sources.map((item) => {
+      let newItem = {};
+      newItem.menuid = item.menu_id;
+      newItem.menuname = item.menu_name;
+      return newItem;
+    });
+  }
+  return newUserMenu;
+};
+// End Get Info Account
+
+// Check Email
+export const checkEmails = async ({ email }) => {
+  const { data } = await axios.post(endpoints.userManagementCheckMailValidation, { email });
+  return data;
+};
+
+export const onChangeEmail = ({ e, state, setState }) => {
+  const newState = { ...state };
+  onBlurEmail({ e: e.target, state, setState });
+  const { value } = e.target;
+  newState.validation = checkEmailValidation({ textmail: value, state, setState });
+  newState.accountInfo.email = value;
+  newState.isValidForm = false;
+  newState.changed = true;
+  setState(newState);
+};
+
+export const onBlurEmail = async ({ e, state, setState }) => {
+  const { value } = e.target;
+  const newState = { ...state };
+  const { data } = await axios.post(endpoints.userManagementCheckMailValidation, { email: value });
+  newState.validation.email['isValid'] = newState.oldAccountInfo.email !== value && data === 0 ? true : false;
+
+  if (!newState.validation.email['isValid']) {
+    newState.validation.email['message'] = utility.validationMsg.EMAIL_EXIST;
+    newState.validation.email['invalidClass'] = 'is-invalid';
+  } else {
+    newState.validation.email['message'] = '';
+    newState.validation.email['invalidClass'] = '';
+    if (!checkEmailValidation({ textmail: value, state, setState }).email['isValid']) {
+      newState.validation.email['message'] = utility.validationMsg.INVALID_EMAIL;
+      newState.validation.email['invalidClass'] = 'is-invalid';
+    } else {
+      newState.validation.email['message'] = '';
+    }
+  }
+  setState(newState);
+};
+
+export const checkEmailValidation = ({ textmail, state, setState }) => {
+  const newState = { ...state };
+  let validFormat = EmailValidator.validate(textmail);
+  newState.validation.email['isValid'] = validFormat ? true : false;
+
+  if (!validFormat) {
+    newState.validation.email['message'] = utility.validationMsg.INVALID_EMAIL;
+    newState.validation.email['invalidClass'] = 'is-invalid';
+  } else {
+    newState.validation.email['message'] = '';
+    newState.validation.email['invalidClass'] = '';
+  }
+  return newState.validation;
+};
+// End Check Email
+
+// Check Name
+export const onChangeName = ({ e, state, setState }) => {
+  const { name, value } = e.target;
+  console.log(value);
+  const newState = { ...state };
+  newState.validation = checkNameValidation({ textName: value, state, setState });
+  newState.accountInfo.user = value;
+  newState.isValidForm = false;
+  newState.changed = true;
+  setState(newState);
+};
+export const checkNameValidation = ({ textName, state, setState }) => {
+  const newState = { ...state };
+  let isValid = textName === '' ? false : true;
+  newState.validation.name['isValid'] = isValid;
+  if (!isValid) newState.validation.name['message'] = utility.validationMsg.USERNAME_REQUIRED;
+  else newState.validation.name['message'] = '';
+  return newState.validation;
+};
+// and Check Name
+export const loadUsers = async ({ dispatch }) => {
+  const { data } = await axios.get(`${endpoints.userManagementListUser}`);
+  dispatch({ type: 'GET_UM_USERS_DATA', data: data.data.data });
+};
+export const loadModuleAccess = async ({ dispatch }) => {
+  const { data } = await axios.get(endpoints.userManagementModuleAccess);
+  dispatch({ type: 'GET_UM_MODAL_ACCESS', data: data });
+};
+export const loadSites = async ({ dispatch }) => {
+  const { data } = await axios.get(endpoints.getSite);
+  dispatch({ type: 'GET_UM_LOAD_SITE', data: data });
+};
+export const loadClients = async ({ dispatch }) => {
+  const { data } = await axios.get(endpoints.getClient);
+  dispatch({ type: 'GET_UM_LOAD_CLIENT', data: data });
+};
+
+export const submitUserManagement = async ({ data }) => {
+  const ret = await axios.post(endpoints.userManagementCreate, data);
+  return ret;
+};
+// End User Management
