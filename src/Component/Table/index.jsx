@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import ReactTable from 'react-table-v6';
 import withDraggableColumns from 'react-table-hoc-draggable-columns';
-import EditRenameColumn from './EditRenameColumn'
+import EditRenameColumn from './EditRenameColumn';
 
 // import style
 import loading from '../../assets/icons/loading/LOADING-MLS-GRAY.gif';
@@ -26,10 +26,10 @@ const Table = ({
   editColumn,
 }) => {
   const userId = useSelector((state) => state.user.userId);
-  const [showMod, setShowMod] = useState(false)
-  const [editColumnTemp, setEditColumnTemp] = useState({})
+  const [showMod, setShowMod] = useState(false);
+  const [editColumnTemp, setEditColumnTemp] = useState({});
   const tableStatus = useSelector((state) => state.tableStatus);
-  const [fields, setFields] = useState(schemaColumn)
+  const [fields, setFields] = useState(schemaColumn);
   const ReactTableDraggableColumns = withDraggableColumns(ReactTable);
   const noDataMessage = (
     <div className="caution-caution">
@@ -38,19 +38,19 @@ const Table = ({
   );
   const loadingMessage = (
     <div>
-      <img src={loading} alt='' width="45" height="45" />
+      <img src={loading} alt="" width="45" height="45" />
     </div>
   );
   const showModal = (show) => {
-    setShowMod(show)
-  }
-  
+    setShowMod(show);
+  };
+
   // List Header: to enable function draggable
   const draggableColumn = setDraggableColumn({ fields });
 
   // renew Schema column, to get old order column or additional logic
-  const newSchema = renewColumn({ data, fields, module, userId, editColumnTemp, showModal, columnHidden , editColumn});
-  
+  const newSchema = renewColumn({ data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn });
+
   return (
     <div className={`${className} ${(data && data < 1) || data === undefined ? 'TableDownHover' : 'Table'}`}>
       <ReactTableDraggableColumns
@@ -58,7 +58,15 @@ const Table = ({
           mode: 'reorder',
           draggable: draggableColumn,
           onDropSuccess: (draggedColumn, targetColumn, oldIndex, newIndex) =>
-            saveSchemaToLocal({ userId, fields, module, draggedColumn, targetColumn, oldIndex, newIndex }),
+            saveSchemaToLocal({
+              userId,
+              schemaColumn: fields,
+              module,
+              draggedColumn,
+              targetColumn,
+              oldIndex,
+              newIndex,
+            }),
         }}
         columns={newSchema}
         data={data}
@@ -115,7 +123,7 @@ const Table = ({
           return 0;
         }}
       />
-      <EditRenameColumn 
+      <EditRenameColumn
         showModal={showMod}
         setShowMod={setShowMod}
         setEditColumnTemp={setEditColumnTemp}
@@ -128,7 +136,7 @@ const Table = ({
         splitModule={splitModule}
       />
     </div>
-  )
-}
+  );
+};
 
-export default Table
+export default Table;

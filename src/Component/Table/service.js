@@ -29,7 +29,6 @@ export const renewColumn = ({ data, fields, module, userId, editColumn, showModa
       });
     } else {
       fields.map(async (d, idx) => {
-        alert('2')
         if (oldSchema) {
           idx = schemaOrder.indexOf(d.accessor);
         }
@@ -81,7 +80,7 @@ export const saveSchemaToLocal = ({
   // get old schema from local storage data , if null then set schemaColumn as oldSchema
   const key = `tables__${module}__${userId}`;
   const newSchemaOrder = [];
-  let oldSchema = localStorage.getItem(key);
+  let oldSchema = localStorage.getItem(key) || null;
   if (oldSchema === null || oldSchema === undefined) {
     oldSchema = schemaColumn.map((data) => {
       return data.accessor;
