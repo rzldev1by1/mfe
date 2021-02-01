@@ -30,7 +30,7 @@ export default [
   {
     _tag: 'CSidebarNavItem',
     name: 'USER MANAGEMENT',
-    to: '/user-management',
+    to: '/users-management',
     icon: 'um',
     key: 'usermanagement',
   },

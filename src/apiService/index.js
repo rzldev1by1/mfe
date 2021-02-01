@@ -549,7 +549,6 @@ export const checkEmailValidation = ({ textmail, state, setState }) => {
 // Check Name
 export const onChangeName = ({ e, state, setState }) => {
   const { name, value } = e.target;
-  console.log(value);
   const newState = { ...state };
   newState.validation = checkNameValidation({ textName: value, state, setState });
   newState.accountInfo.user = value;
@@ -586,5 +585,125 @@ export const loadClients = async ({ dispatch }) => {
 export const submitUserManagement = async ({ data }) => {
   const ret = await axios.post(endpoints.userManagementCreate, data);
   return ret;
+};
+
+export const saveClick = ({ props, state, setState, dispatch }) => {
+  const newState = { ...state };
+  let newParam = {};
+  let adminMenu = newState.moduleAccess.map((item, index) => {
+    return item.menuid;
+  });
+
+  let userMenu = newState.moduleAccess
+    .filter((item) => {
+      return item.status === true;
+    })
+    .map((item, index) => {
+      return item.menuid;
+    });
+
+  let site = newState.sites.find((item, index) => {
+    return item.status === true;
+  });
+
+  let siteValue =
+    site &&
+    newState.sites.filter((item) => {
+      return item.status === true;
+    }).length !== newState.sites.length
+      ? site.site
+      : null;
+
+  let client = newState.clients.find((item, index) => {
+    return item.status === true;
+  });
+
+  let clientValue =
+    client &&
+    newState.clients.filter((item) => {
+      return item.status === true;
+    }).length !== newState.clients.length
+      ? client.code
+      : null;
+
+  const accountInfo = { ...newState.accountInfo };
+  newParam.name = accountInfo.user;
+  newParam.email = accountInfo.email;
+  newParam.lastAccess = accountInfo.lastAccess;
+  newParam.lastLogin = accountInfo.lastLogin;
+  newParam.thisAccess = accountInfo.thisAccess;
+  newParam.thisLogin = accountInfo.thisLogin;
+  newParam.userMenu = accountInfo.web_group === utility.webgroup.ADMIN ? adminMenu : userMenu;
+  newParam.client = accountInfo.web_group === utility.webgroup.ADMIN ? null : clientValue;
+  newParam.site = accountInfo.web_group === utility.webgroup.ADMIN ? null : siteValue;
+  newParam.disabled = accountInfo.disabled ? 'Y' : 'N';
+
+  let dataParam = newParam;
+  let newValidation = { ...newState.validation };
+  let emailValid = checkEmailValidation({ textmail: dataParam.email, state, setState });
+  let nameValid = checkNameValidation({ textName: dataParam.email, state, setState });
+
+  if (!emailValid.email['isValid']) newValidation.email = emailValid.email;
+  if (!emailValid.name['isValid']) newValidation.name = nameValid.name;
+
+  if (newValidation.email['isValid'] && newValidation.name['isValid'] && dataParam.userMenu.length) {
+    newState.isSaveProgressing = true;
+    newState.validation = newValidation;
+    updateRequest({ param: dataParam, state, setState, props, dispatch });
+  } else {
+    newState.isValidForm = true;
+    newState.validation = newValidation;
+  }
+  setState(newState);
+};
+
+export const updateRequest = async ({ param, state, setState, props, dispatch }) => {
+  const newState = { ...state };
+  const { userId, user, email } = newState.accountInfo;
+  let url = `${endpoints.userManagementUpdate}${userId}`;
+
+  const { data, status } = await axios.post(url, param);
+  if (status === 200) {
+    let lastChangedUser = {};
+    lastChangedUser.name = user;
+    lastChangedUser.userId = userId;
+    lastChangedUser.email = email;
+    let data = lastChangedUser;
+    dispatch({ type: 'CHANGED_USER', data });
+
+    newState.isSaveProgressing = false;
+    newState.isResetSuccess = true;
+    props.history.push('/users-management');
+  } else {
+    newState.isSaveProgressing = false;
+    newState.isResetSuccess = false;
+  }
+  setState(newState);
+};
+
+export const resetPassword = ({ state, setState, props }) => {
+  const newState = { ...state };
+  const { match } = props;
+  let web_user_id = match.params.id;
+  const { user, userId, email, userMenu } = newState.accountInfo;
+
+  let url = `${endpoints.userManagementresetpassword}`;
+  let newText = user.substring(0, 1);
+  let result = utility.generateUserID(today);
+  let new_password = result + newText.toLowerCase();
+  let param = { email: email, web_user: web_user_id, new_password: new_password };
+
+  newState.isLoadReset = true;
+  setState(newState);
+
+  axios.post(url, param).then((res) => {
+    if (res.status === 200) {
+      newState.isSaveProgressing = false;
+      newState.isResetSuccess = true;
+      newState.popUpReset = true;
+      newState.isLoadReset = false;
+      setState(newState);
+    }
+  });
 };
 // End User Management

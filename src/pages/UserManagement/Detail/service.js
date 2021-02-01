@@ -7,6 +7,11 @@ export const disabledCharacterName = (e) => {
     }
   }
 };
+
+export const gotoUM = (props) => {
+  props.history.push('/users-management');
+};
+
 // ModuleAccess
 export const onModuleAccessClick = ({ e, index, state, setState }) => {
   const newState = { ...state };
@@ -144,3 +149,18 @@ export const onEnabledAllClient = ({ state, setState }) => {
   setState(newState);
 };
 // And Client
+
+export const onClieckSuspendUser = ({ state, setState }) => {
+  const newState = { ...state };
+  let accountInfoUpdate = { ...newState.accountInfo };
+  accountInfoUpdate.disabled = !accountInfoUpdate.disabled;
+  newState.accountInfo = accountInfoUpdate;
+  newState.changed = true;
+  setState(newState);
+};
+
+export const onClickResetPassword = ({ state, setState }) => {
+  const newState = { ...state };
+  newState.popUpReset = true;
+  setState(newState);
+};

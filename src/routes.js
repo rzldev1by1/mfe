@@ -35,11 +35,11 @@ const routes = [
     name: 'Stock Holding',
     component: StockHolding,
   },
-  { 
-    path: '/stock-holding:product/:client/:site', 
-    exact: true, 
-    name: 'Stock Holding Detail', 
-    component: StockHoldingDetail 
+  {
+    path: '/stock-holding:product/:client/:site',
+    exact: true,
+    name: 'Stock Holding Detail',
+    component: StockHoldingDetail,
   },
   // Purchase Order --------------------------------------------------------
   {
@@ -77,16 +77,16 @@ const routes = [
   // User Management --------------------------------------------------------
 
   {
-    path: '/user-management',
+    path: '/users-management',
     exact: true,
     name: 'User Management',
     component: UserManagement,
   },
-  { 
-    path: '/users-management/:id/detail', 
-    exact: true, 
-    name: 'User Management', 
-    component: UsersManagementDetail 
+  {
+    path: '/users-management/:id/detail',
+    exact: true,
+    name: 'User Management',
+    component: UsersManagementDetail,
   },
 
   // Component End -----------------------------------------------------------
