@@ -25,6 +25,22 @@ const MessageTab = ({ module, submitReturn, back, exit }) => {
       setStatusMessage('Check your Internet Connection');
       setImgClass('msg-Icon_Reload');
       setTitle('');
+    } else if (module == 'UM' && message === 'register successfully') {
+      setStatusMessage(
+        'You have created a new ' +
+          submitReturn.role +
+          ' User for ' +
+          submitReturn.name +
+          '. The ' +
+          submitReturn.role +
+          ' User ' +
+          submitReturn.name +
+          ' will receive an email shortly with their user ID and password to access the portal',
+      );
+      setImgSrc(complete);
+      setImgClass('msg-Icon_Complete');
+      setTitle('Thank You');
+      setIsSuccess(true);
     } else {
       setStatusMessage(
         'The ' + (module == 'UM' ? 'user' : 'order') + ' that you tried to create could not be saved to the system.',

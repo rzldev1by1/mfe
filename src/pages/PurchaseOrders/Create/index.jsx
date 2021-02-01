@@ -44,14 +44,14 @@ const Create = ({ show, setShow }) => {
   return (
     <div>
       <Modal show={show} size="xl" className="purchase-order-create">
-        <Modal.Body className="bg-primary p-0">
+        <Modal.Body className="bg-primary p-0 rounded-top">
           <Row className="pl-5 pr-3 pb-3 pt-3 mx-0">
-            <Col xs={10} className="px-0">
+            <Col xs={10} className="px-0 pt-4">
               <i className="iconU-createModal font-20"></i>
               <span className="font-20 pl-2">Create Purchase Order</span> <br />
               <span className="ml-7">Enter Order and line details to create a new purchase order</span>
             </Col>
-            <Col xs={2} className="text-right px-0">
+            <Col className="text-right px-0 pr-4 pt-4 mr-2">
               <i
                 className="iconU-close pointer"
                 onClick={() => {
@@ -65,22 +65,22 @@ const Create = ({ show, setShow }) => {
             <NavItem className="mr-1">
               <NavLink
                 style={{ paddingBottom: '12px' }}
-                className={`d-flex height-nav align-items-center ${activeTab === 'details' ? 'active' : null}`}
+                className={`d-flex height-nav align-items-center px-3 ${activeTab === 'details' ? 'active' : null}`}
                 onClick={() => setActiveTab('details')}
               >
-                <span className="number-number-1" />
+                <span className="number-number-1 mr-2" />
                 Order & Product Details
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink
-                className={`d-flex height-nav align-items-center ${activeTab === 'review' ? 'active' : null}`}
+                className={`d-flex height-nav align-items-center px-3 ${activeTab === 'review' ? 'active' : null}`}
                 onClick={() => {
                   validation({ dispatch, data: createPO, setActiveTab });
                   setIsValidation(true);
                 }}
               >
-                <span className="number-number-2" /> Review
+                <span className="number-number-2 mr-2" /> Review
               </NavLink>
             </NavItem>
           </Nav>

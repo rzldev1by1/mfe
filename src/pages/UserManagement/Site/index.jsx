@@ -2,7 +2,7 @@ import React from 'react';
 import '../index.scss';
 import { onSiteStatusClick, onEnabledAllSite } from '../services';
 
-const site = ({ sites, isEnableAllSite, state, setState }) => {
+const site = ({ sites, isEnableAllSite, state, setState, isReadOnly }) => {
   const disableAll = 'Disable All';
   const enableAll = 'Enable All';
   const enable = 'Enabled';
@@ -20,7 +20,7 @@ const site = ({ sites, isEnableAllSite, state, setState }) => {
               type="button"
               className={`btn px-1 float-right mb-2 ${
                 isEnableAllSite ? 'btn-outline-All-notActive' : 'btn-outline-All-active'
-              } `}
+              } ${isReadOnly ? 'd-none' : ''}`}
               onClick={() => onEnabledAllSite({ state, setState })}
             >
               {`${isEnableAllSite ? disableAll.toUpperCase() : enableAll.toUpperCase()}`}
@@ -34,16 +34,18 @@ const site = ({ sites, isEnableAllSite, state, setState }) => {
             return (
               <div className="flex-column mb-1 mr-2" key={index}>
                 <div className="d-flex" key={index}>
-                  <label className="col-6 text-muted px-0 py-2" key={item.site}>{`${item.site}: ${item.name}`}</label>
+                  <label className="col-6 text-muted px-0 py-2" key={item.site}>{`${item.name}`}</label>
                   <div className="col-6">
                     <button
                       type="button"
                       htmlFor={item.site}
                       className={
-                        'btn px-1 float-right ' + (item.status ? 'btn-outline-active' : 'btn-outline-notActive')
+                        'btn px-1 float-right ' +
+                        (!isReadOnly && item.status ? 'btn-outline-active' : 'btn-outline-notActive') +
+                        (isReadOnly ? ' btn-review' : '')
                       }
                       onClick={(e) => {
-                        onSiteStatusClick({ e, index, state, setState });
+                        if (!isReadOnly) onSiteStatusClick({ e, index, state, setState });
                       }}
                     >
                       {`${item.status ? enable.toUpperCase() : disable.toUpperCase()}`}

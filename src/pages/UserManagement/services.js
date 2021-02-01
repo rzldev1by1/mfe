@@ -165,6 +165,7 @@ export const onEnabledAllSite = ({ state, setState }) => {
 
 // Client
 export const onClientStatusClick = ({ e, index, state, setState }) => {
+  console.log(state);
   const newState = { ...state };
   let newValidation = { ...newState.validation };
   let clients = [...newState.clients];

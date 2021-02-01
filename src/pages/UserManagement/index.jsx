@@ -51,7 +51,7 @@ const UserManagement = (props) => {
   }, [Export]);
 
   return (
-    <div>
+    <div className="userManagement">
       <Breadcrumb
         breadcrumb={[{ to: '/sales-order', label: 'User Management', active: true }]}
         button={

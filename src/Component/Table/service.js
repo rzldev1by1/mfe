@@ -34,6 +34,7 @@ export const renewColumn = ({ data, fields, module, userId, editColumn, showModa
         }
         schema[idx] = d;
         schema[idx].width = await getColumnWidth(data, d.accessor, d.Header, d.width || 0);
+        console.log(schema[idx].width);
       });
     }
   } else {
@@ -79,7 +80,7 @@ export const saveSchemaToLocal = ({
   // get old schema from local storage data , if null then set schemaColumn as oldSchema
   const key = `tables__${module}__${userId}`;
   const newSchemaOrder = [];
-  let oldSchema = localStorage.getItem(key);
+  let oldSchema = localStorage.getItem(key) || null;
   if (oldSchema === null || oldSchema === undefined) {
     oldSchema = schemaColumn.map((data) => {
       return data.accessor;

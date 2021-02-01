@@ -99,14 +99,14 @@ input:-webkit-autofill {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #cbcbcb;
+  background-color: #D3D9DB;
   border: 3px solid transparent;
   border-radius: 9px;
   background-clip: content-box;
 }
 
 .scroll-x-y::-webkit-scrollbar-thumb {
-  background-color: #e4e7ea;
+  background-color: #D3D9DB;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -162,6 +162,10 @@ input:-webkit-autofill {
 
 .sh-input {
   padding-left: 0.75rem !important;
+}
+
+.half-padding{
+  padding-bottom: 2.7rem !important;
 }
 
 .font-rename-error {
@@ -542,12 +546,15 @@ header {
 .pt-md {
   padding-top: 2.3rem !important;
 }
+.modal-backdrop{
+  background-color: #2d1b46;
+  .show {
+    opacity: 57%;
+  }
+}
 
 .modal-content {
   border-radius: 0.3rem !important;
-  border-left: 2px #376bfb solid !important;
-  border-right: 2px #376bfb solid !important;
-  border-bottom: 2px #376bfb solid !important;
 
   .modal-body {
     .select_calendar_expand::after {

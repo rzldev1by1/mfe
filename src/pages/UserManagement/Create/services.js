@@ -1,307 +1,235 @@
 import axios from 'axios';
 import endpoints from 'helpers/endpoints';
 import numeral from 'numeral';
-import { checkOrderNo, submitPurchaseOrder } from 'apiService';
+import { checkOrderNo, submitUserManagement, checkEmails } from 'apiService';
 import { getUOM } from 'apiService/dropdown';
+import * as EmailValidator from 'email-validator';
 
-export const validation = async ({ dispatch, data, setActiveTab }) => {
-  //initial
-  let statusValidate = true;
-  const { orderDetails, orderLinesData } = data;
-
-  //validate Order Details
-  for (var key in orderDetails) {
-    if (!orderDetails[key]['required']) {
-      continue;
-    }
-
-    let values = orderDetails[key]['value'];
-    let text = orderDetails[key]['text'];
-    let status = true;
-    let message = null;
-    if (key === 'orderNo') {
-      if (values && values.length < 4) {
-        statusValidate = false;
-      }
-    }
-
-    if (!values) {
-      statusValidate = false;
-    }
-  }
-
-  //validate orderlines
-  orderLinesData.map((item, index) => {
-    if (!item.qty || item.qty < 1) {
-      statusValidate = false;
-    }
-    if (!item.uom) {
-      statusValidate = false;
-    }
-    if (!item.product) {
-      statusValidate = false;
-    }
+export const submit = async ({ data, isAdmin, setIsSubmitReturn, setActiveTab, setIsSubmitStatus }) => {
+  const { moduleAccess, clients, sites, name } = data;
+  let userMenu = moduleAccess
+    .filter((item) => {
+      return item.status === true;
+    })
+    .map((item, index) => {
+      return item.menuid;
+    });
+  let adminMenu = moduleAccess.map((item, index) => {
+    return item.menuid;
   });
-
-  if (orderLinesData.length < 1) {
-    statusValidate = false;
-  }
-
-  if (statusValidate) {
-    setActiveTab('review');
-  } else {
-    setActiveTab('details');
-  }
-};
-
-export const resetCreate = (dispatch) => {
-  const orderDetails = {
-    site: { value: null, required: true, text: 'Site' },
-    orderType: { value: null, required: true, text: 'Order Type' },
-    supplier: { value: null, required: false, text: 'Supplier' },
-    customerOrderRef: { value: null, required: false, text: 'Customer Order Ref' },
-    client: { value: null, required: true, text: 'Client' },
-    orderNo: { value: null, required: true, minLength: 4, text: 'Order no.' },
-    orderDate: { value: null, required: true, text: 'Order Date' },
-    vendorOrderRef: { value: null, required: false, text: 'Vendor Order Ref' },
-  };
-
-  const orderLines = {
-    product: { required: true, text: 'Product' },
-    desc: { required: false, text: 'Desc' },
-    qty: { required: true, text: 'Qty' },
-    weight: { required: false, text: 'Weight' },
-    uom: { required: true, text: 'UOM' },
-    batch: { required: false, text: 'Batch' },
-    ref3: { required: false, text: 'Ref3' },
-    ref4: { required: false, text: 'Ref4' },
-    disposition: { required: false, text: 'Disposition' },
-    rotaDate: { required: false, text: 'Rotadate' },
-  };
-
-  const orderLinesData = [
-    {
-      product: null,
-      desc: null,
-      qty: null,
-      weight: null,
-      uom: null,
-      batch: null,
-      ref3: null,
-      ref4: null,
-      disposition: null,
-      rotaDate: null,
-    },
-  ];
-
-  dispatch({ type: 'RESET_ORDER_DETAIL', data: orderDetails });
-  dispatch({ type: 'RESET_ORDER_LINES', data: orderLines });
-  dispatch({ type: 'RESET_ORDER_LINES_DATA', data: orderLinesData });
-};
-
-export const changeOrderDetails = ({ column, value, dispatch }) => {
-  dispatch({ type: 'SET_ORDER_DETAIL', data: value, column });
-};
-
-export const changeOrderNo = async ({ orderNo, client, setCheckingOrderNo, dispatch }) => {
-  if (!client) {
-    setCheckingOrderNo({ status: false, message: 'Please select client' });
-    return;
-  }
-
-  if (orderNo && orderNo.length < 4) {
-    setCheckingOrderNo({ status: false, message: 'Order No must have min 4 characters' });
-    return;
-  } else {
-    setCheckingOrderNo({ status: true, message: '' });
-  }
-
-  let ret = await checkOrderNo({ client, orderNo });
-  if (ret.status) {
-    changeOrderDetails({ column: 'orderNo', value: orderNo, dispatch });
-  } else {
-    setCheckingOrderNo({ status: ret.status, message: ret.message });
-  }
-};
-
-export const changeOrderLines = ({ val, column, index, dispatch }) => {
-  //use formatter
-
-  //set redux
-  let tmp_column = { column: column, index: index };
-  dispatch({ type: 'SET_ORDER_LINES_DATA', data: val, column: tmp_column });
-};
-
-export const addOrderLines = ({ dispatch }) => {
-  const orderLines = {
-    product: { value: null, required: true },
-    desc: { value: null, required: false },
-    qty: { value: null, required: true },
-    weight: { value: null, required: false },
-    uom: { value: null, required: true },
-    batch: { value: null, required: false },
-    ref3: { value: null, required: false },
-    ref4: { value: null, required: false },
-    disposition: { value: null, required: false },
-    rotaDate: { value: null, required: false },
-  };
-  dispatch({ type: 'ADD_ORDER_LINES_DATA', data: orderLines });
-};
-
-export const deleteOrderLines = ({ index, dispatch }) => {
-  dispatch({ type: 'DELETE_ORDER_LINES_DATA', data: index });
-};
-
-export const removeLine = ({ i, line, setLine }) => {
-  const newOrderLine = { ...line };
-  if (newOrderLine.orderLine.length > 1) {
-    const tes = Object.assign([], newOrderLine.orderLine);
-    tes.splice(i, 1);
-    newOrderLine.orderLine = tes;
-    setLine(newOrderLine);
-  }
-};
-
-export const lineChange = (i, e, line, setLine) => {
-  const newOrderLine = { ...line };
-  const { name, value } = e.target;
-
-  let formatted = value;
-  formatted = this.decimalFormatter(name, value);
-
-  const tes = [...newOrderLine.orderLine];
-  tes[i][name] = formatted;
-
-  newOrderLine.orderLine = tes;
-  setLine(newOrderLine);
-};
-
-export const productHandler = async ({ val, column, index, dispatch, orderDetails, setIsUom }) => {
-  //set redux
-  let tmp_column = { column: column, index: index };
-  dispatch({ type: 'SET_ORDER_LINES_DATA', data: val, column: tmp_column });
-
-  //get uom
-  const client = orderDetails?.client?.value?.value;
-  const product = val?.value;
-  let data = await getUOM({ client, product });
-  const uomData = data.uom.map((c, i) => ({ value: c, label: c }));
-  setIsUom(uomData);
-};
-
-export const numberCheck = (e) => {
-  if (!/^[0-9]+$/.test(e.key)) e.preventDefault();
-};
-
-const decimalFormatter = (name, value) => {
-  let newVal = value;
-  if (name === 'weight') {
-    if (newVal.length > 11)
-      newVal = newVal
-        .split('')
-        .filter((d) => (d !== ',' ? d : null))
-        .map((d, i) => {
-          if (i > 10 && !newVal.includes('.')) {
-            return null;
-          } else return d;
-        })
-        .join('');
-    const dot = newVal.indexOf('.');
-
-    if (dot === -1 && newVal.length === 11) {
-      newVal = newVal
-        .slice(0, dot)
-        .split('')
-        .filter((d) => d !== ',')
-        .join('');
-    }
-    if (dot !== -1 && newVal.length) {
-      let number;
-      let decimal = newVal
-        .slice(dot + 1, dot + 4)
-        .split('')
-        .filter((d) => d !== '.' && d !== ',')
-        .join('');
-      let integer = newVal
-        .slice(0, dot)
-        .split('')
-        .filter((d) => d !== ',')
-        .join('');
-      if (integer.length <= 6) {
-        if (integer.length >= 4) {
-          let idxSepr1 = integer.slice(0, integer.length - 3);
-          let idxSepr2 = integer.slice(integer.length - 3);
-          number = `${idxSepr1},${idxSepr2}.${decimal}`;
-        } else number = `${integer}.${decimal}`;
-      }
-      if (integer.length > 6 && integer.length <= 9) {
-        let idxSepr1 = integer.slice(0, integer.length - 6);
-        let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 3);
-        let idxSepr3 = integer.slice(integer.length - 3);
-        number = `${idxSepr1},${idxSepr2},${idxSepr3}.${decimal}`;
-      }
-      if (integer.length > 9 && integer.length <= 8) {
-        let idxSepr1 = integer.slice(0, integer.length - 9);
-        let idxSepr2 = integer.slice(idxSepr1.length, integer.length - 6);
-        let idxSepr3 = integer.slice(idxSepr1.length + idxSepr2.length, idxSepr1.length + idxSepr2.length + 3);
-        let idxSepr4 = integer.slice(integer.length - 3);
-        number = `${idxSepr1},${idxSepr2},${idxSepr3},${idxSepr4}.${decimal}`;
-      }
-
-      number = number?.split('');
-      if (number && number[0] === ',') delete number[0];
-      number = number?.join('');
-      return number;
-    } else return numeral(newVal).format('0,0');
-  } else if (name == 'qty') return newVal ? numeral(newVal).format('0,0') : newVal;
-  return value;
-};
-
-export const submit = async ({ data, user, setIsSubmitReturn, setActiveTab, setIsSubmitStatus }) => {
-  const { orderDetails, orderLinesData } = data;
-  let newOrderDetails = [
-    {
-      site: orderDetails?.site?.value?.value || '',
-      client: orderDetails?.client?.value?.value || '',
-      orderNo: orderDetails?.orderNo?.value || '',
-      orderType: orderDetails?.orderType?.value?.value || '',
-      orderDate: orderDetails?.orderDate?.value || '',
-      web_user: user.webUser,
-    },
-  ];
-
-  let newOrderLines = [];
-  orderLinesData.map((item, index) => {
-    let tmp = {
-      product: item?.product?.value || '',
-      qty: item?.qty || '',
-      uom: item?.uom?.value || '',
-      ref3: item?.ref3 || '',
-      ref4: item?.ref4 || '',
-      rotaDate: item?.rotaDate || '',
-      disposition: item?.disposition?.value || '',
-      batch: item?.batch || '',
-      weight: item?.weight || '',
-    };
-    newOrderLines.push(tmp);
+  let siteFiltered = sites.filter((item) => {
+    return item.status === true;
   });
+  let siteValue =
+    siteFiltered.length === 1 || siteFiltered.length === sites.length ? siteFiltered.map((item) => item.site) : null;
+  let clientFiltered = clients.filter((item) => {
+    return item.status === true;
+  });
+  let clientValue =
+    clientFiltered.length === 1 || clientFiltered.length === clients.length
+      ? clientFiltered.map((item) => item.code)
+      : null;
 
-  const ret = await submitPurchaseOrder({ orderDetails: newOrderDetails, lineDetails: newOrderLines });
+  let submitData = {
+    ...data,
+  };
+
+  submitData.userMenu = isAdmin ? adminMenu : userMenu;
+  submitData.site = isAdmin ? null : siteValue.length == sites.length ? null : siteValue;
+  submitData.client = isAdmin ? null : clientValue.length == clients.length ? null : clientValue;
+  submitData.webGroup = isAdmin ? 'Admin' : 'Regular';
+  submitData.disabled = 'N';
+  console.log(submitData);
+
+  const ret = await submitUserManagement({ data: submitData });
 
   //check return
   let status = ret?.status;
   let message = ret?.data?.message;
-  let submitReturn = { status: status, message: message, orderNo: data?.orderDetails?.orderNo?.value };
+  let submitReturn = { status: status, message: message, role: isAdmin ? 'Admin' : 'Regular', name };
+  console.log(submitReturn);
   await setIsSubmitReturn(submitReturn);
   await setActiveTab('message');
   setIsSubmitStatus('done');
 };
 
-export const formatDate = (dateStr) => {
-  if (!dateStr) {
-    return null;
+export const renewState = ({ setState, state, siteData, clientData, moduleAccess }) => {
+  //renew client option
+  let clientOption = [];
+  let tmp = clientData?.map((item, key) => {
+    if (item.value !== 'all') {
+      let newItem = {
+        code: item.value,
+        name: item.label,
+        status: false,
+      };
+      clientOption.push(newItem);
+    }
+  });
+
+  // renew site dropdown
+  let siteOption = [];
+  tmp = siteData?.map((item, key) => {
+    if (item.value !== 'all') {
+      let newItem = {
+        code: item.value,
+        name: item.label,
+        status: false,
+      };
+      siteOption.push(newItem);
+    }
+  });
+
+  //renew module Access Option
+  let moduleAccessOption = [];
+  let allowedValues = [
+    'menu_orders_po_open',
+    'menu_orders_highSoOrder',
+    'menu_inventory_stkHolding',
+    'menu_inventory_stkMovement',
+  ];
+  tmp = moduleAccess?.map((item, key) => {
+    if (allowedValues.includes(item.menuid)) {
+      moduleAccessOption.push(item);
+    }
+  });
+
+  state = { ...state, sites: siteOption, clients: clientOption, moduleAccess: moduleAccessOption };
+  setState(state);
+};
+
+export const changeDetails = async ({ isAdmin, setState, state, column, e }) => {
+  let value = e.target.value;
+  let newState = { ...state };
+  let isValid = true;
+  if (!value) {
+    isValid = false;
+  }
+  newState[column] = value;
+
+  newState['validation'][column]['isValid'] = isValid;
+
+  if (column == 'email') {
+    let validFormat = EmailValidator.validate(value);
+    if (!validFormat) {
+      newState['validation'][column]['isValid'] = false;
+      newState['validation'][column]['message'] = 'Invalid format (eg. microlistics@test.com)';
+    } else {
+      let check = await checkEmails({ email: value });
+      if (!check) {
+        newState['validation'][column]['isValid'] = true;
+        newState['validation'][column]['message'] = 'Invalid format (eg. microlistics@test.com)';
+      } else {
+        newState['validation'][column]['isValid'] = false;
+        newState['validation'][column]['message'] = 'Email address has been registered';
+      }
+    }
+  }
+  if (column == 'name') {
+    if (!value) {
+      newState['validation'][column]['message'] = 'username must be entered';
+    }
+
+    let generate = await generateUserID({ textValue: value });
+    newState['userId'] = generate?.userId;
+    newState['password'] = generate?.password;
+  }
+  newState['changed'] = true;
+
+  //validate
+  let validate = await validateButton({ isAdmin, state });
+  newState['validate'] = validate;
+  console.log(newState);
+  setState(newState);
+};
+
+export const validateButton = ({ isAdmin, state, setState }) => {
+  let newState = { ...state };
+  const validation = newState['validation'];
+  const admin = isAdmin;
+
+  let status = true;
+  let menuForAdmin = ['name', 'email'];
+
+  for (var key in validation) {
+    //if admin only check name and email
+    if (admin && !menuForAdmin.includes(key)) {
+      continue;
+    }
+
+    if (!validation[key]['isValid']) {
+      status = false;
+    }
+  }
+  if (setState) {
+    newState['validate'] = status;
+    setState(newState);
+  } else {
+    return status;
+  }
+};
+
+export const resetState = ({ setState }) => {
+  setState({
+    userId: null,
+    email: null,
+    name: null,
+    moduleAccess: [],
+    isEnableAllModule: false,
+    sites: [],
+    isEnableAllSite: false,
+    clients: [],
+    isEnableAllClient: false,
+    validate: false,
+    isAdmin: false,
+
+    changed: false,
+    isLoadComplete: false,
+    adminClass: '',
+    validation: {
+      name: { isValid: false, invalidClass: 'is-invalid', message: '' },
+      email: { isValid: false, invalidClass: 'is-invalid', message: '' },
+      modules: {
+        isValid: false,
+        invalidClass: 'is-invalid',
+        message: 'Please enable at least one on module access',
+      },
+      sites: { isValid: false, invalidClass: 'is-invalid', message: 'Please enable at least one on site' },
+      clients: { isValid: false, invalidClass: 'is-invalid', message: 'Please enable at least one on client' },
+    },
+  });
+};
+
+export function generateUserID({ textValue }) {
+  let newText = textValue.substring(0, 1);
+  let result = '';
+
+  if (textValue && textValue.length > 0) {
+    var anysize = 4; //the size of string
+    var charset = 'abcdefghijklmnopqrstuvwxyz'; //from where to create
+    for (var i = 0; i < anysize; i++) result += charset[Math.floor(Math.random() * 26)];
   }
 
-  let dArr = dateStr.split('-');
-  return dArr[2] + '/' + dArr[1] + '/' + dArr[0];
+  return {
+    userId: newText.toLowerCase() + result,
+    password: result + newText.toLowerCase(),
+  };
+}
+
+export const setIsAdmin = async ({ state, setState }) => {
+  let newState = { ...state };
+  let admin = !newState['isAdmin'];
+
+  newState['isAdmin'] = admin;
+  setState(newState);
+};
+
+export const disabledCharacterName = (e) => {
+  if (e.target.selectionStart == 0 && !/[a-zA-Z0-9]/g.test(e.key)) {
+    e.preventDefault();
+  } else {
+    if (!/[a-zA-Z0-9 _-]/g.test(e.key)) {
+      e.preventDefault();
+    }
+  }
 };

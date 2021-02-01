@@ -83,7 +83,7 @@ const EditRenameColumn = ({
       >
         <Modal.Header className='bg-primary'>
           <Container className='px-0'>
-            <Col className="mx-0">
+            <Col className="mx-0 pr-4">
               <Button
                 onClick={closeModal.bind(this, false, editColumnTemp)}
                 className="pr-0 mt-2 no-hover float-right"
@@ -105,9 +105,9 @@ const EditRenameColumn = ({
             </Col>
           </Container>
         </Modal.Header>
-        <Modal.Body className='px-5 pt-3 pb-5'>
+        <Modal.Body className='px-5 pt-3 half-padding'>
           <Row className={`mx-0 justify-content-between  ${  user.userLevel === 'Admin' ? 'mb-3' : ''}`}>
-            <Col lg={6} className='text-primary font-20 p-0'>
+            <Col lg={6} className='text-primary font-20 p-0 d-flex align-items-center'>
               {title}
             </Col>
             <Row className='align-items-center rename-columns mx-0 text-align-left'>
@@ -115,7 +115,7 @@ const EditRenameColumn = ({
                 <div className='input-group'>
                   <NavItem className='pl-0 pr-0'>
                     <NavLink
-                      className={`nav-link-cust tab-color${ state.activeTab === '1' ? ' tab-rename' : ''}`}
+                      className={`nav-link-cust d-flex align-items-center tab-color${ state.activeTab === '1' ? ' tab-rename' : ''}`}
                       active={state.activeTab === '1'}
                       onClick={() => {activeTabIndex('1');}}
                     >
@@ -130,7 +130,7 @@ const EditRenameColumn = ({
 
                   <NavItem className='pl-2 pr-0'>
                     <NavLink
-                      className={`nav-link-cust tab-color${ state.activeTab === '2' ? ' tab-rename' : ''}`}
+                      className={`nav-link-cust d-flex align-items-center tab-color${ state.activeTab === '2' ? ' tab-rename' : ''}`}
                       active={state.activeTab === '2'}
                       onClick={() => {
                             activeTabIndex('2');
@@ -185,7 +185,8 @@ const EditRenameColumn = ({
                   <Col className="pt-5">
                     <Button
                       variant='primary'
-                      className='px-3 float-right'
+                      className='float-right'
+                      style={{padding: '0rem 1.08rem'}}
                       onClick={() => saveEdit({ state, title, user, setEditColumnTemp, setShowModal: setShowMod, dispatch})}
                     >
                       SAVE
