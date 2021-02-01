@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 export const schemaColumn = [
   {
@@ -50,7 +51,9 @@ export const schemaColumn = [
     Header: 'Last Accessed',
     width: 180,
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : 'No Access Logged'}</span>,
+    Cell: (props) => (
+      <span>{props.value ? moment(props.value).format('DD/MM/YYYY HH:mm:ss') : 'No Access Logged'}</span>
+    ),
   },
   {
     accessor: 'disabled',
@@ -64,7 +67,7 @@ export const schemaColumn = [
       return a.toLowerCase() > b.toLowerCase() ? 1 : -1;
     },
     Cell: (row) =>
-      row.value === 'Y' ? (
+      row.value === 'Suspended' ? (
         <label className="um-suspended">Suspended</label>
       ) : (
         <label className="um-active">Active</label>

@@ -99,14 +99,14 @@ input:-webkit-autofill {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #D3D9DB;
+  background-color: #d3d9db;
   border: 3px solid transparent;
   border-radius: 9px;
   background-clip: content-box;
 }
 
 .scroll-x-y::-webkit-scrollbar-thumb {
-  background-color: #D3D9DB;
+  background-color: #d3d9db;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -164,7 +164,7 @@ input:-webkit-autofill {
   padding-left: 0.75rem !important;
 }
 
-.half-padding{
+.half-padding {
   padding-bottom: 2.7rem !important;
 }
 
@@ -546,7 +546,7 @@ header {
 .pt-md {
   padding-top: 2.3rem !important;
 }
-.modal-backdrop{
+.modal-backdrop {
   background-color: #2d1b46;
   .show {
     opacity: 57%;
@@ -699,6 +699,7 @@ header {
 }
 
 .align-right {
+  display: flex !important;
   justify-content: flex-end !important;
 }
 

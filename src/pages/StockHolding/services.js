@@ -8,7 +8,7 @@ export const schemaColumn = [
     Header: 'Site',
     placeholder: 'Site',
     accessor: 'site',
-    headerStyle: { textAlign: 'left', paddingLeft:"8px" },
+    headerStyle: { textAlign: 'left', paddingLeft: '8px' },
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
@@ -68,13 +68,21 @@ export const schemaColumn = [
     width: 200,
     Cell: (row) => {
       switch (row.original.status) {
-      case 'OK':
-        return <a id='SHORTAGE' className='status-ok'>OK</a>
-      case 'SHORTAGE':
-        return <a id='SHORTAGE' className='status-shortage'>SHORTAGE</a>
-      default:
-        break;
-    }
+        case 'OK':
+          return (
+            <a id="SHORTAGE" className="status-ok">
+              OK
+            </a>
+          );
+        case 'SHORTAGE':
+          return (
+            <a id="SHORTAGE" className="status-shortage">
+              SHORTAGE
+            </a>
+          );
+        default:
+          break;
+      }
     },
   },
   {
@@ -83,7 +91,7 @@ export const schemaColumn = [
     accessor: 'on_hand_qty',
     className: 'align-right',
     headerStyle: { textAlign: 'left' },
-    style: { textAlign: 'left', paddingLeft: '15px' },
+    style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
@@ -92,10 +100,10 @@ export const schemaColumn = [
   {
     Header: 'On Hand Wght',
     placeholder: 'On Hand Wght',
-    accessor: 'on_hand_wgt',
+    accessor: 'weight',
     className: 'align-right',
     headerStyle: { textAlign: 'left' },
-    style: { textAlign: 'left', paddingLeft: '15px' },
+    style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
@@ -107,7 +115,19 @@ export const schemaColumn = [
     accessor: 'expected_in_qty',
     className: 'align-right',
     headerStyle: { textAlign: 'left' },
-    style: { textAlign: 'left', paddingLeft: '15px' },
+    style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
+    headerClassName: 'borderBottom noPaddingTop',
+    sortable: true,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    width: 200,
+  },
+  {
+    Header: 'Expected Out Wght',
+    placeholder: 'Expected Out Wght',
+    accessor: 'expected_in_wgt',
+    className: 'align-right',
+    headerStyle: { textAlign: 'left' },
+    style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
@@ -119,7 +139,7 @@ export const schemaColumn = [
     accessor: 'expected_out_qty',
     className: 'align-right',
     headerStyle: { textAlign: 'left' },
-    style: { textAlign: 'left', paddingLeft: '15px' },
+    style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
@@ -131,7 +151,7 @@ export const schemaColumn = [
     accessor: 'price',
     className: 'align-right',
     headerStyle: { textAlign: 'left' },
-    style: { textAlign: 'left', paddingLeft: '15px' },
+    style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
@@ -143,7 +163,7 @@ export const schemaColumn = [
     accessor: 'pallets',
     className: 'align-right',
     headerStyle: { textAlign: 'left' },
-    style: { textAlign: 'left', paddingLeft: '15px' },
+    style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,

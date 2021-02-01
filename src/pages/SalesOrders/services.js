@@ -9,7 +9,7 @@ export const schemaColumn = [
     Header: 'Site',
     placeholder: 'Site',
     accessor: 'site',
-    headerStyle: { textAlign: 'left', paddingLeft: "8px" },
+    headerStyle: { textAlign: 'left', paddingLeft: '8px' },
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
@@ -282,7 +282,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? moment(props.value).format('YYYY/MM/DD HH:mm:ss') : '-'}</span>,
+    Cell: (props) => <span>{props.value ? moment(props.value).format('DD/MM/YYYY HH:mm:ss') : '-'}</span>,
     width: 200,
   },
   {
@@ -293,7 +293,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? moment(props.value).format('YYYY/MM/DD HH:mm:ss') : '-'}</span>,
+    Cell: (props) => <span>{props.value ? moment(props.value).format('DD/MM/YYYY HH:mm:ss') : '-'}</span>,
     width: 200,
   },
   {

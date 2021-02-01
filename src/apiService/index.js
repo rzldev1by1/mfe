@@ -98,6 +98,7 @@ export const getSummaryData = async ({
       item.weight_processed = numeral(item.weight_processed).format('0,0.000');
       item.price = numeral(item.price).format('0,0.00');
       // User Management Data
+      item.disabled = item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
       item.site = item.site && item.site !== '' ? item.site : 'All';
       item.client = item.client && item.client !== '' ? item.client : 'All';
       item.last_access = item.last_access && item.last_access !== '' ? item.last_access : '-';
