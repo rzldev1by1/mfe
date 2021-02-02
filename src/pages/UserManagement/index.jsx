@@ -28,20 +28,13 @@ const UserManagement = (props) => {
 
   useEffect(() => {
     getSummaryData({ dispatch, active: paginationUm?.active, module });
-  }, [paginationUm?.active]);
+  }, []);
 
   useEffect(() => {
     loadSites({ dispatch });
     loadClients({ dispatch });
     loadModuleAccess({ dispatch });
   }, []);
-
-  useEffect(() => {
-    if (Export === true) {
-      setExport(false);
-      getSummaryData({ dispatch, active: paginationUm?.active, Export, module });
-    }
-  }, [Export]);
 
   useEffect(() => {
     if (Export === true) {
@@ -104,7 +97,7 @@ const UserManagement = (props) => {
         schemaColumn={schemaColumn}
         data={umSummaryData}
         style={{ minHeight: height, maxHeight: height, minWidht: width, maxWidht: width }}
-        module="User Management"
+        module={module}
         noDataText
         pagination={paginationUm}
         goto={(e) => {

@@ -11,12 +11,10 @@ import './Pagination.scss';
 
 const Pagination = ({ pagination, data, goto, isDisplay, module }) => {
   const dispatch = useDispatch();
-
   const [page, setPage] = useState({
     notifPaging: false,
     goPage: 1,
   });
-
   let active = pagination?.active;
   let show = pagination?.show;
   let total = pagination?.total;
@@ -32,7 +30,7 @@ const Pagination = ({ pagination, data, goto, isDisplay, module }) => {
   const x_to = pagination && pagination.to ? pagination.to : endIndex;
   return (
     <div>
-      <div style={{width : "fit-content"}} className="d-flex">
+      <div style={{ width: 'fit-content' }} className="d-flex">
         <CPagination
           limit={3}
           activePage={active}
@@ -43,33 +41,39 @@ const Pagination = ({ pagination, data, goto, isDisplay, module }) => {
           nextButton={<BsChevronRight className="nextBtn" />}
           lastButton={<BsChevronBarRight className="nextBtn" />}
         />
-        {isDisplay === false ? '' :(
-           <div className={`d-flex alig align-items-center bg-white px-3 rounded-right`}>
-           <span className="text-muted-soft mr-3">Go to page</span>
-           <input
-             type="number"
-             className="number-pag rounded"
-             onChange={(e) => onChange({ e, page, setPage })}
-             min="1"
-             max={pages > 0 ? pages : 1}
-             onKeyPress={(e) => numberCheck(e)}
-             style={{ textAlign: 'center' }}
-           />
-           <span
-             className="text-muted-dark ml-3 pointer outLineNone"
-             onClick={() => goToPage({ goto, pagination, page, setPage, dispatch, module })}
-             onKeyPress
-             role="button"
-             tabIndex="0"
-           >
-             {'Go >'}
-           </span>
-         </div>
+        {isDisplay === false ? (
+          ''
+        ) : (
+          <div className={`d-flex alig align-items-center bg-white px-3 rounded-right`}>
+            <span className="text-muted-soft mr-3">Go to page</span>
+            <input
+              type="number"
+              className="number-pag rounded"
+              onChange={(e) => onChange({ e, page, setPage })}
+              min="1"
+              max={pages > 0 ? pages : 1}
+              onKeyPress={(e) => numberCheck(e)}
+              style={{ textAlign: 'center' }}
+            />
+            <span
+              className="text-muted-dark ml-3 pointer outLineNone"
+              onClick={() => goToPage({ goto, pagination, page, setPage, dispatch, module })}
+              onKeyPress
+              role="button"
+              tabIndex="0"
+            >
+              {'Go >'}
+            </span>
+          </div>
         )}
-        {isDisplay === false ? '' :(
-        <span className={`text-muted-s px-3 d-flex alig align-items-center`}>
-        <b className="text-muted-dark">{`Showing ${isNaN(x_from) ? 0 : x_from} to ${isNaN(x_to) ? 0 : x_to} of ${x_total === undefined ? 0 : x_total} entries`}</b>
-      </span>
+        {isDisplay === false ? (
+          ''
+        ) : (
+          <span className={`text-muted-s px-3 d-flex alig align-items-center`}>
+            <b className="text-muted-dark">{`Showing ${isNaN(x_from) ? 0 : x_from} to ${isNaN(x_to) ? 0 : x_to} of ${
+              x_total === undefined ? 0 : x_total
+            } entries`}</b>
+          </span>
         )}
       </div>
       <PopUpPages page={page} setPage={setPage} xLastPage={x_last_page} />

@@ -29,8 +29,8 @@ const SalesOrders = (props) => {
   const width = window.innerWidth;
 
   useEffect(() => {
-    getSummaryData({ dispatch, active:paginationSo?.active, module });
-  }, [paginationSo?.active]);
+    getSummaryData({ dispatch, active: paginationSo?.active, module });
+  }, []);
 
   const [columnHidden, setColumnHidden] = useState(null);
   const [state2, setState2] = useState(null);
@@ -54,18 +54,18 @@ const SalesOrders = (props) => {
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      getSummaryData({ dispatch, active:paginationSo?.active, Export, module });
+      getSummaryData({ dispatch, active: paginationSo?.active, Export, module });
     }
   }, [Export]);
   return (
     <div>
       <Breadcrumb
         breadcrumb={[{ to: '/sales-order', label: 'Sales Order', active: true }]}
-        button={(
+        button={
           <CButton onClick={() => setShowModal(true)} className="btn btn-primary btn-create float-right">
             CREATE SALES ORDER
           </CButton>
-        )}
+        }
       />
       <div>
         <div>
@@ -87,11 +87,11 @@ const SalesOrders = (props) => {
             schemaColumn={schemaColumn}
             data={soSummaryData}
             style={{ minHeight: height, maxHeight: height, minWidht: width, maxWidht: width }}
-            module="Sales Orders"
+            module={module}
             noDataText
             pagination={paginationSo}
             goto={(e) => {
-              dispatch({type:'PAGING_SO', data:{ ...paginationSo, active: e}})
+              dispatch({ type: 'PAGING_SO', data: { ...paginationSo, active: e } });
             }}
             exportData={exportData}
             user={user}

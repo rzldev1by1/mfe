@@ -24,7 +24,7 @@ const TableMaster = ({
   columnHidden,
   exportPdf,
   editColumn,
-  splitModule
+  splitModule,
 }) => {
   return (
     <div>
@@ -54,7 +54,6 @@ const TableMaster = ({
         <Export
           filename={filename}
           getExportData={async () => await getExportData()}
-          module={module}
           exportApi={exportApi}
           schemaColumn={schemaColumn}
           exportPdf={exportPdf}

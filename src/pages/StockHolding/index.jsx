@@ -18,7 +18,7 @@ const PurchaseOrders = (props) => {
   const dispatch = useDispatch();
   const shSummaryData = useSelector((state) => state.shSummaryData);
   const paginationSh = useSelector((state) => state.paginationSh);
-  const stateChangeHeader = useSelector((state) => state.changeHeader); 
+  const stateChangeHeader = useSelector((state) => state.changeHeader);
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
   const [Export, setExport] = useState(false);
@@ -45,38 +45,38 @@ const PurchaseOrders = (props) => {
   });
 
   useEffect(() => {
-      getSummaryData({ dispatch, active: paginationSh?.active, module, changePage: true });
-  }, [paginationSh?.active]);
-  
-  const [columnHidden, setColumnHidden] = useState(null);  
-  const [state2, setState2] = useState(null);   
-  if(!columnHidden){
-    setColumnHidden(localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : []) 
-    setState2(true)
+    getSummaryData({ dispatch, active: paginationSh?.active, module });
+  }, []);
+
+  const [columnHidden, setColumnHidden] = useState(null);
+  const [state2, setState2] = useState(null);
+  if (!columnHidden) {
+    setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
+    setState2(true);
   }
 
   const UrlHeader = () => {
-    return `/getPurchaseOrderColumn?client=ALL`
-  }
-  
+    return `/getPurchaseOrderColumn?client=ALL`;
+  };
+
   useEffect(() => {
-    if(stateChangeHeader){ 
-      setColumnHidden(localStorage.getItem("tableColumns") ? JSON.parse(localStorage.getItem("tableColumns")) : [])  
-      setState2(true) 
+    if (stateChangeHeader) {
+      setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
+      setState2(true);
     }
-  }, [stateChangeHeader]);  
-  
+  }, [stateChangeHeader]);
+
   useEffect(() => {
-    if(state2){ 
-      let x = columnHidden?.map((data,idx) => {
-        if(data.title==="Purchase Order Summary"){
+    if (state2) {
+      let x = columnHidden?.map((data, idx) => {
+        if (data.title === 'Purchase Order Summary') {
           setColumnHidden(data.columns);
         }
-      }) 
-      setState2(false)
-      dispatch({type:'CHANGE_HEADER', data:false})
+      });
+      setState2(false);
+      dispatch({ type: 'CHANGE_HEADER', data: false });
     }
-  }, [state2]);   
+  }, [state2]);
 
   useEffect(() => {
     if (Export === true) {
@@ -86,9 +86,7 @@ const PurchaseOrders = (props) => {
   }, [Export]);
   return (
     <div>
-      <Breadcrumb
-        breadcrumb={[{ to: '/stock-holding', label: 'Stock Holding', active: true }]}
-      />
+      <Breadcrumb breadcrumb={[{ to: '/stock-holding', label: 'Stock Holding', active: true }]} />
       <div>
         <div>
           <Search
@@ -108,11 +106,11 @@ const PurchaseOrders = (props) => {
             schemaColumn={schemaColumn}
             data={shSummaryData}
             style={{ minHeight: height, maxHeight: height, maxWidth: width }}
-            module="Stock Holding"
+            module={module}
             noDataText
             pagination={paginationSh}
             goto={(e) => {
-              dispatch({type:'PAGING_SH', data:{ ...paginationSh, active: e}})
+              dispatch({ type: 'PAGING_SH', data: { ...paginationSh, active: e } });
             }}
             exportData={exportData}
             user={user}
