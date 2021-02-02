@@ -51,17 +51,10 @@ const UserManagementDetail = (props) => {
   const loadSite = useSelector((state) => state.loadSite);
   const loadClient = useSelector((state) => state.loadClient);
   const moduleAccess = useSelector((state) => state.moduleAccess);
-
-  //   const height = window.innerHeight - 355;
-  //   const widht = window.innerWidth;
   const newState = { ...state };
 
-  useEffect(async () => {
-    await getAccountInfo({ userid, state, setState, dispatch, loadSite, loadClient, moduleAccess });
-  }, []);
-
-  useEffect(async () => {
-    await getAccountInfo({ userid, state, setState, dispatch, loadSite, loadClient, moduleAccess });
+  useEffect(() => {
+    getAccountInfo({ userid, state, setState, dispatch, loadSite, loadClient, moduleAccess });
   }, []);
 
   useEffect(() => {
@@ -76,8 +69,6 @@ const UserManagementDetail = (props) => {
     setState(newState);
   }, []);
 
-  // let edited = edit({ changed: newState.changed, state, setState });
-  console.log(newState.initialData);
   return (
     <div>
       <Breadcrumb breadcrumb={[{ to: '/users-management', label: 'User Management' }]} />
