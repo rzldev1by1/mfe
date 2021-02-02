@@ -7,6 +7,8 @@ export const schemaColumn = [
     placeholder: 'User Id',
     Header: 'User ID',
     width: 160,
+    headerStyle: { textAlign: 'left', paddingLeft: '15px' },
+    style: { textAlign: 'left', paddingLeft: '15px' },
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : 'No Access Logged'}</span>,
   },
@@ -52,7 +54,7 @@ export const schemaColumn = [
     width: 180,
     sortable: true,
     Cell: (props) => (
-      <span>{props.value ? moment(props.value).format('DD/MM/YYYY HH:mm:ss') : 'No Access Logged'}</span>
+      <span> {props.value === '-' ? 'No Access Logged' : moment(props.value).format('DD/MM/YYYY HH:mm:ss')} </span>
     ),
   },
   {
@@ -168,7 +170,6 @@ export const onEnabledAllSite = ({ state, setState }) => {
 
 // Client
 export const onClientStatusClick = ({ e, index, state, setState }) => {
-  console.log(state);
   const newState = { ...state };
   let newValidation = { ...newState.validation };
   let clients = [...newState.clients];

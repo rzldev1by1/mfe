@@ -188,7 +188,7 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   if (newData?.data?.data) {
     let txt = [];
     let modifiedData = newData.data.data.data.map((m) => {
-      m.quantity = numeral(m.quantity).format('0,0');
+      m.qty = numeral(m.qty).format('0,0');
       m.qty_processed = numeral(m.qty_processed).format('0,0');
       m.weight = numeral(m.weight).format('0,0.000').replace('.', ',');
       m.weight_processed = numeral(m.weight_processed).format('0,0.000').replace('.', ',');

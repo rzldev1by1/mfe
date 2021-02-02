@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import Breadcrumb from 'Component/Breadcrumb';
 import { FormFeedback } from 'reactstrap';
 import { CCard, CCardBody } from '@coreui/react';
-import ModuleAccess from './ModuleAccess';
-import Site from './Site';
-import Client from './Client';
+import ModuleAccess from '../ModuleAccess';
+import Site from '../Site';
+import Client from '../Client';
 import { getAccountInfo, onBlurEmail, onChangeEmail, onChangeName, saveClick } from '../../../apiService';
 import { disabledCharacterName, onClieckSuspendUser, gotoUM, onClickResetPassword } from './service';
 import loading from '../../../assets/icons/loading/LOADING-MLS.gif';
@@ -68,7 +68,6 @@ const UserManagementDetail = (props) => {
     newState.initialData = newInitialData;
     setState(newState);
   }, []);
-
   return (
     <div>
       <Breadcrumb breadcrumb={[{ to: '/users-management', label: 'User Management' }]} />
@@ -267,8 +266,8 @@ const UserManagementDetail = (props) => {
               </p>
               <button
                 type="button"
-                className={`font-lg btn btn-submit default-box-height btn-primary`}
-                // disabled={!edited}
+                className={`font-lg btn btn-submit default-box-height ${newState.changed ? 'btn-primary' : 'btn-grey'}`}
+                disabled={!newState.changed}
                 onClick={() => {
                   saveClick({ props, state, setState, dispatch });
                 }}

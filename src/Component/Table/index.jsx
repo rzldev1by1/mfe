@@ -52,7 +52,11 @@ const Table = ({
   const newSchema = renewColumn({ data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn });
 
   return (
-    <div className={`${className} ${(data && data < 1) || data === undefined ? 'TableDownHover' : 'Table'}`}>
+    <div
+      className={`${className} ${editColumn === 'false' ? '' : 'show-edit-icon'} ${
+        (data && data < 1) || data === undefined ? 'TableDownHover' : 'Table'
+      }`}
+    >
       <ReactTableDraggableColumns
         draggableColumns={{
           mode: 'reorder',

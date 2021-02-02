@@ -49,8 +49,23 @@ const Search = ({
     task: '',
   });
 
+  let paramType = '';
+  if (module === 'StockHolding') {
+    paramType = 'GET_SH_SUMMARY';
+  }
+  if (module === 'purchaseOrder') {
+    paramType = 'GET_PO_SUMMARY';
+  }
+  if (module === 'salesOrder') {
+    paramType = 'GET_SO_SUMMARY';
+  }
+  if (module === 'UserManagement') {
+    paramType = 'GET_UM_SUMMARY';
+  }
+
   const search = async (e) => {
-    if (e.key === 'Enter')
+    if (e.key === 'Enter') {
+      dispatch({ type: paramType, data: [] });
       await getSummaryData({
         e,
         siteVal: newDropdownValue.site,
@@ -62,6 +77,7 @@ const Search = ({
         dispatch,
         module,
       });
+    }
   };
   const searchForm = (e) => {
     e.preventDefault();
@@ -99,26 +115,12 @@ const Search = ({
       }
     }
   }, [newDropdownValue.status]);
-
-  let paramType = '';
-  if (module === 'StockHolding'){
-    paramType = 'GET_SH_SUMMARY';
-  }
-  if (module === 'purchaseOrder'){
-    paramType = 'GET_PO_SUMMARY';
-  }
-  if (module === 'salesOrder'){
-    paramType = 'GET_SO_SUMMARY'
-  }
-  if (module === 'UserManagement'){
-    paramType = 'GET_UM_SUMMARY'
-  }
   return (
     <CCard className={`mb-3`}>
       <CCardBody className={`p-3`}>
         <form onSubmit={searchForm}>
           <CRow className="mx-0">
-            <CCol lg={ module === 'UserManagement' ? 11 : 3 } className="pr-3 pl-0">
+            <CCol lg={module === 'UserManagement' ? 11 : 3} className="pr-3 pl-0">
               <div className="input-group">
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white">
@@ -137,132 +139,132 @@ const Search = ({
             </CCol>
             {module === 'UserManagement' ? (
               <CCol lg={1} className="pr-0">
-              <button
-                    type="button"
-                    className="btn btn-search btn-primary float-right"
-                    onClick={() =>
-                      getSummaryData({
-                        siteVal: newDropdownValue.site,
-                        clientVal: newDropdownValue.client,
-                        orderType: newDropdownValue.orderType,
-                        task: newDropdownValue.task,
-                        status: newDropdownValue.status,
-                        dispatch,
-                        searchInput,
-                        module,
-                      })&&
-                      dispatch({type: paramType , data:[]})
-                    }
-                  >
-                    SEARCH
-                  </button>
-            </CCol>)        
-            : (
+                <button
+                  type="button"
+                  className="btn btn-search btn-primary float-right"
+                  onClick={() =>
+                    getSummaryData({
+                      siteVal: newDropdownValue.site,
+                      clientVal: newDropdownValue.client,
+                      orderType: newDropdownValue.orderType,
+                      task: newDropdownValue.task,
+                      status: newDropdownValue.status,
+                      dispatch,
+                      searchInput,
+                      module,
+                    }) && dispatch({ type: paramType, data: [] })
+                  }
+                >
+                  SEARCH
+                </button>
+              </CCol>
+            ) : (
               <CCol lg={9} className="px-0">
-              <CRow className="mx-0">
-                <CCol sm={4} lg={2} className="px-0">
-                  {user?.site ? (
-                    <input value={siteCheck(siteData, user.site)} className="form-control sh-input" readOnly />
-                  ) : (
+                <CRow className="mx-0">
+                  <CCol sm={4} lg={2} className="px-0">
+                    {user?.site ? (
+                      <input value={siteCheck(siteData, user.site)} className="form-control sh-input" readOnly />
+                    ) : (
+                      <Dropdown
+                        className={`px-0 ${filterSite === true ? null : ' d-none'}`}
+                        show
+                        placeholder="Site"
+                        options={siteData}
+                        onChangeDropdown={(selected) =>
+                          setSite({
+                            onChangeGetTask,
+                            getTask,
+                            getTaskParam,
+                            selected,
+                            dispatch,
+                            dropdownValue,
+                            setdropdownValue,
+                          })
+                        }
+                        selectedValue={newDropdownValue.site}
+                      />
+                    )}
+                  </CCol>
+                  <CCol sm={4} lg={2} className={`px-3 ${user?.site ? ' pr-3' : ''}`}>
+                    {user?.client ? (
+                      <input value={clientCheck(clientData, user.client)} className="form-control sh-input" readOnly />
+                    ) : (
+                      <Dropdown
+                        className={` ${filterClient === true ? null : ' d-none'}`}
+                        show
+                        placeholder="Client"
+                        options={clientData}
+                        onChangeDropdown={(selected) =>
+                          setClient({
+                            onChangeGetTask,
+                            getTask,
+                            getTaskParam,
+                            selected,
+                            dispatch,
+                            dropdownValue,
+                            setdropdownValue,
+                          })
+                        }
+                        selectedValue={newDropdownValue.client}
+                      />
+                    )}
+                  </CCol>
+                  <CCol sm={4} lg={2} className="px-0">
                     <Dropdown
-                      className={`px-0 ${filterSite === true ? null : ' d-none'}`}
+                      className={`px-0 ${filterStatus === true ? null : ' d-none'}`}
                       show
-                      placeholder="Site"
-                      options={siteData}
+                      placeholder="Status"
+                      options={statusDataSH || statusData}
                       onChangeDropdown={(selected) =>
-                        setSite({
-                          onChangeGetTask,
-                          getTask,
-                          getTaskParam,
-                          selected,
-                          dispatch,
-                          dropdownValue,
-                          setdropdownValue,
-                        })
+                        setStatus({ selected, dispatch, dropdownValue, setdropdownValue })
                       }
-                      selectedValue={newDropdownValue.site}
+                      selectedValue={newDropdownValue.status}
                     />
-                  )}
-                </CCol>
-                <CCol sm={4} lg={2} className={`px-3 ${user?.site ? ' pr-3' : ''}`}>
-                  {user?.client ? (
-                    <input value={clientCheck(clientData, user.client)} className="form-control sh-input" readOnly />
-                  ) : (
+                  </CCol>
+                  <CCol sm={4} lg={2}>
                     <Dropdown
-                      className={` ${filterClient === true ? null : ' d-none'}`}
+                      className={`px-0 ${filterOrderType === true ? null : ' d-none'}`}
                       show
-                      placeholder="Client"
-                      options={clientData}
+                      placeholder="Order Type"
+                      options={orderTypeData}
                       onChangeDropdown={(selected) =>
-                        setClient({
-                          onChangeGetTask,
-                          getTask,
-                          getTaskParam,
-                          selected,
-                          dispatch,
-                          dropdownValue,
-                          setdropdownValue,
-                        })
+                        setOrderType({ selected, dispatch, dropdownValue, setdropdownValue })
                       }
-                      selectedValue={newDropdownValue.client}
+                      selectedValue={newDropdownValue.orderType}
                     />
-                  )}
-                </CCol>
-                <CCol sm={4} lg={2} className="px-0">
-                  <Dropdown
-                    className={`px-0 ${filterStatus === true ? null : ' d-none'}`}
-                    show
-                    placeholder="Status"
-                    options={statusDataSH || statusData}
-                    onChangeDropdown={(selected) => setStatus({ selected, dispatch, dropdownValue, setdropdownValue })}
-                    selectedValue={newDropdownValue.status}
-                  />
-                </CCol>
-                <CCol sm={4} lg={2}>
-                  <Dropdown
-                    className={`px-0 ${filterOrderType === true ? null : ' d-none'}`}
-                    show
-                    placeholder="Order Type"
-                    options={orderTypeData}
-                    onChangeDropdown={(selected) =>
-                      setOrderType({ selected, dispatch, dropdownValue, setdropdownValue })
-                    }
-                    selectedValue={newDropdownValue.orderType}
-                  />
-                </CCol>
-                <CCol sm={4} lg={2} className="px-0">
-                  <Dropdown
-                    className={`px-0 ${filterTask === true ? null : ' d-none'}`}
-                    show
-                    placeholder="Task"
-                    options={taskData}
-                    onChangeDropdown={(selected) => setTask({ selected, dispatch, dropdownValue, setdropdownValue })}
-                    selectedValue={newDropdownValue.task}
-                  />
-                </CCol>
-                <CCol sm={4} lg={2} className="px-0">
-                  <button
-                    type="button"
-                    className="btn btn-search btn-primary float-right"
-                    onClick={() =>
-                      getSummaryData({
-                        siteVal: newDropdownValue.site,
-                        clientVal: newDropdownValue.client,
-                        orderType: newDropdownValue.orderType,
-                        task: newDropdownValue.task,
-                        status: newDropdownValue.status,
-                        dispatch,
-                        searchInput,
-                        module,
-                      })&&
-                      dispatch({type: paramType , data:[]})
-                    }
-                  >
-                    SEARCH
-                  </button>
-                </CCol>
-              </CRow>
-            </CCol>
+                  </CCol>
+                  <CCol sm={4} lg={2} className="px-0">
+                    <Dropdown
+                      className={`px-0 ${filterTask === true ? null : ' d-none'}`}
+                      show
+                      placeholder="Task"
+                      options={taskData}
+                      onChangeDropdown={(selected) => setTask({ selected, dispatch, dropdownValue, setdropdownValue })}
+                      selectedValue={newDropdownValue.task}
+                    />
+                  </CCol>
+                  <CCol sm={4} lg={2} className="px-0">
+                    <button
+                      type="button"
+                      className="btn btn-search btn-primary float-right"
+                      onClick={() =>
+                        getSummaryData({
+                          siteVal: newDropdownValue.site,
+                          clientVal: newDropdownValue.client,
+                          orderType: newDropdownValue.orderType,
+                          task: newDropdownValue.task,
+                          status: newDropdownValue.status,
+                          dispatch,
+                          searchInput,
+                          module,
+                        }) && dispatch({ type: paramType, data: [] })
+                      }
+                    >
+                      SEARCH
+                    </button>
+                  </CCol>
+                </CRow>
+              </CCol>
             )}
           </CRow>
         </form>
