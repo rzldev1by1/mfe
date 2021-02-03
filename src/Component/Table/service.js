@@ -34,7 +34,6 @@ export const renewColumn = ({ data, fields, module, userId, editColumn, showModa
         }
         schema[idx] = d;
         schema[idx].width = await getColumnWidth(data, d.accessor, d.Header, d.width || 0);
-        console.log(schema[idx].width);
       });
     }
   } else {

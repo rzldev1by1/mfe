@@ -89,6 +89,18 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
       doc.text(title + ' Data Microlistics  ' + date, 15, finalY + 15);
       doc.addImage(img, 'PNG', 785, 5, 45, 40, 'a', 'FAST');
     },
+    willDrawCell: function (data) {
+      const dataKey = data.column.dataKey;
+      if (dataKey === 6) {
+        const dataColumns = data.row.raw[6];
+        if (dataColumns[0] == 'Suspended') {
+          doc.setTextColor(252, 28, 3);
+        }
+        if (dataColumns[0] == 'Active') {
+          doc.setTextColor(5, 237, 245);
+        }
+      }
+    },
   });
 
   return doc;

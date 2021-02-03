@@ -226,6 +226,12 @@ export const getForescast = async ({ export_ = 'false', dispatch, active, props 
     if (!data && forecast.length === 0) {
       return 0;
     }
+    const modifiedData = forecast;
+    modifiedData.map((item, idx) => {
+      item.in = numeral(item.in).format('0,0');
+      item.out = numeral(item.out).format('0,0');
+      item.balance = numeral(item.balance).format('0,0');
+    });
     const pagination = {
       active: active || data.current_page,
       show: data.per_page,
@@ -234,7 +240,7 @@ export const getForescast = async ({ export_ = 'false', dispatch, active, props 
       from: data.from,
       to: data.to,
     };
-    dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: forecast });
+    dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: modifiedData });
     dispatch({ type: 'PAGING', data: pagination });
   }
 };

@@ -175,7 +175,6 @@ const Create = ({ show, setShow }) => {
                     <button
                       className="btn btn-primary"
                       onClick={() => {
-                        console.log(state);
                         setIsSubmitStatus('loading');
                         submit({ setIsSubmitStatus, setIsSubmitReturn, setActiveTab, isAdmin, user, data: state });
                       }}

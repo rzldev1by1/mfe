@@ -30,7 +30,6 @@ const Pagination = ({ pagination, data, goto, isDisplay, module }) => {
   const x_to = pagination && pagination.to ? pagination.to : endIndex;
 
   const search = async (e) => {
-    console.log(e);
     if (e.key === 'Enter') {
       await goToPage({ goto, pagination, page, setPage, dispatch, module });
     }
