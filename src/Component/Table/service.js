@@ -10,34 +10,37 @@ const getColumnWidth = (rows, accessor, headerText, minWidth) => {
   }
   return width;
 };
-
 export const renewColumn = ({ data, fields, module, userId, editColumn, showModal, columnHidden }) => {
+  console.clear();
+
   // reorder column
   const key = `tables__${module}__${userId}`;
   let schema = [];
   const oldSchema = localStorage.getItem(key);
-
   const schemaOrder = JSON.parse(oldSchema);
 
-  if (data) {
-    if (columnHidden !== null && columnHidden !== undefined) {
-      fields.map((datas) => {
-        if (columnHidden.includes(datas.accessor)) {
-          return 0;
-        }
-        schema.push(datas);
-      });
-    } else {
-      fields.map(async (d, idx) => {
-        if (oldSchema) {
-          idx = schemaOrder.indexOf(d.accessor);
-        }
-        schema[idx] = d;
-        schema[idx].width = await getColumnWidth(data, d.accessor, d.Header, d.width || 0);
-      });
+  //reorder column first
+  let tmp_oldSchema = [];
+  fields.forEach(async (d, idx) => {
+    if (oldSchema) {
+      idx = schemaOrder.indexOf(d.accessor);
     }
+    tmp_oldSchema[idx] = d;
+    if (data) {
+      tmp_oldSchema[idx].width = await getColumnWidth(data, d.accessor, d.Header, d.width || 0);
+    }
+  });
+
+  //hide column
+  if (columnHidden !== null && columnHidden !== undefined) {
+    tmp_oldSchema.forEach(async (d, idx) => {
+      if (columnHidden.includes(d.accessor)) {
+        return 0;
+      }
+      schema.push(d);
+    });
   } else {
-    schema = fields;
+    schema = tmp_oldSchema;
   }
 
   // Edit & Rename Column button icon
@@ -110,6 +113,9 @@ export const saveSchemaToLocal = ({
     }
     i++;
   }
+
+  console.log(draggedColumn, targetColumn, oldIndex);
+  console.log(newSchemaOrder);
 
   // set to local storage
   localStorage.removeItem(key);
