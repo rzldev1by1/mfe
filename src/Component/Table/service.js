@@ -10,7 +10,6 @@ const getColumnWidth = (rows, accessor, headerText, minWidth) => {
   }
   return width;
 };
-var ix = 0;
 export const renewColumn = ({ data, fields, module, userId, editColumn, showModal, columnHidden }) => {
   console.clear();
 
@@ -19,8 +18,6 @@ export const renewColumn = ({ data, fields, module, userId, editColumn, showModa
   let schema = [];
   const oldSchema = localStorage.getItem(key);
   const schemaOrder = JSON.parse(oldSchema);
-  console.log('run', ix);
-  ix++;
 
   //reorder column first
   let tmp_oldSchema = [];
