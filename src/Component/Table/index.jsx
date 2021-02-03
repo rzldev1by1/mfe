@@ -1,5 +1,5 @@
 // import library
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import ReactTable from 'react-table-v6';
 import withDraggableColumns from 'react-table-hoc-draggable-columns';
@@ -30,6 +30,7 @@ const Table = ({
   const [editColumnTemp, setEditColumnTemp] = useState({});
   const tableStatus = useSelector((state) => state.tableStatus);
   const [fields, setFields] = useState(schemaColumn);
+  const [newSchema, setNewSchema] = useState(schemaColumn);
   const ReactTableDraggableColumns = withDraggableColumns(ReactTable);
   const noDataMessage = (
     <div className="caution-caution">
@@ -49,7 +50,10 @@ const Table = ({
   const draggableColumn = setDraggableColumn({ fields });
 
   // renew Schema column, to get old order column or additional logic
-  const newSchema = renewColumn({ data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn });
+  useEffect(() => {
+    let newSchema = renewColumn({ data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn });
+    setNewSchema(newSchema);
+  }, [data, fields, columnHidden]);
 
   return (
     <div
