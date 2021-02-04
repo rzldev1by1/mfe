@@ -161,6 +161,8 @@ const Form = ({ activeTab, isValidation, createData }) => {
             onChangeDropdown={async (selected) => {
               await changeOrderDetails({ column: 'client', value: selected, dispatch });
               getSupplier({ orderDetails, setSupplier });
+              setSupplier([]);
+              changeOrderDetails({ column: 'supplier', value: null, dispatch });
             }}
             readOnly={isReadonly || client}
             messageRequired={true}

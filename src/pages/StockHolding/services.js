@@ -33,7 +33,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 150,
+    width: 100,
   },
   {
     Header: 'Description',
@@ -44,7 +44,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 450,
+    width: 200,
   },
   {
     Header: 'UOM',
@@ -65,7 +65,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    width: 200,
+    width: 100,
     Cell: (row) => {
       switch (row.original.status) {
         case 'OK':
@@ -95,7 +95,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 190,
   },
   {
     Header: 'On Hand Wght',
@@ -107,7 +107,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 130,
   },
   {
     Header: 'Expected In Qty',
@@ -119,7 +119,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 140,
   },
   {
     Header: 'Expected Out Wght',
@@ -131,7 +131,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 140,
   },
   {
     Header: 'Expected Out Qty',
@@ -143,7 +143,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 152,
   },
   {
     Header: 'Price',
@@ -155,7 +155,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 70,
   },
   {
     Header: 'Pallets',
@@ -167,7 +167,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 80,
   },
 ];
 

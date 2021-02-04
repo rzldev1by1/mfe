@@ -1,18 +1,27 @@
 import React from 'react';
 
 const getColumnWidth = (rows, accessor, headerText, minWidth) => {
-  const maxWidth = 400;
-  const magicSpacing = 10;
+  const magicSpacing = 9;
   const cellLength = Math.max(...rows.map((row) => (`${row[accessor]}` || '').length), headerText.length);
-  const width = Math.min(maxWidth, cellLength * magicSpacing);
-  if (minWidth > width) {
+  const width = cellLength * magicSpacing;
+  if (width < minWidth) {
     return minWidth;
+  } else {
+    return width;
   }
-  return width;
 };
-export const renewColumn = ({ data, fields, module, userId, editColumn, showModal, columnHidden }) => {
-  console.clear();
 
+export const renewColumn = async ({
+  setNewSchema,
+  data,
+  fields,
+  module,
+  userId,
+  editColumn,
+  showModal,
+  columnHidden,
+}) => {
+  console.log('terpanggil');
   // reorder column
   const key = `tables__${module}__${userId}`;
   let schema = [];
@@ -21,19 +30,19 @@ export const renewColumn = ({ data, fields, module, userId, editColumn, showModa
 
   //reorder column first
   let tmp_oldSchema = [];
-  fields.forEach(async (d, idx) => {
+  await fields.forEach(async (d, idx) => {
     if (oldSchema) {
       idx = schemaOrder.indexOf(d.accessor);
     }
     tmp_oldSchema[idx] = d;
     if (data) {
-      tmp_oldSchema[idx].width = await getColumnWidth(data, d.accessor, d.Header, d.width || 0);
+      tmp_oldSchema[idx].width = await getColumnWidth(data, d.accessor, d.Header, d.width || 70);
     }
   });
 
   //hide column
   if (columnHidden !== null && columnHidden !== undefined) {
-    tmp_oldSchema.forEach(async (d, idx) => {
+    await tmp_oldSchema.forEach(async (d, idx) => {
       if (columnHidden.includes(d.accessor)) {
         return 0;
       }
@@ -59,8 +68,7 @@ export const renewColumn = ({ data, fields, module, userId, editColumn, showModa
     };
     schema = [...schema, obj];
   }
-
-  return schema;
+  setNewSchema([...schema]);
 };
 
 export const setDraggableColumn = ({ fields }) => {
@@ -113,9 +121,6 @@ export const saveSchemaToLocal = ({
     }
     i++;
   }
-
-  console.log(draggedColumn, targetColumn, oldIndex);
-  console.log(newSchemaOrder);
 
   // set to local storage
   localStorage.removeItem(key);

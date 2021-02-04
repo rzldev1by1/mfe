@@ -51,8 +51,7 @@ const Table = ({
 
   // renew Schema column, to get old order column or additional logic
   useEffect(() => {
-    let newSchema = renewColumn({ data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn });
-    setNewSchema(newSchema);
+    renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn });
   }, [data, fields, columnHidden]);
 
   return (
@@ -97,28 +96,59 @@ const Table = ({
         }}
         defaultSortMethod={(a, b) => {
           let type = 'string';
+          a = a ? a.replaceAll(',', '') : '';
+          b = b ? b.replaceAll(',', '') : '';
 
           // check format if date
           if (a && a.includes('/')) {
             const str = a.split('/');
             const date = `${str[1]}-${str[0]}-${str[2]}`;
-            a = new Date(date).getTime();
-            type = 'date';
+            let tmp = new Date(date).getTime();
+            if (!isNaN(tmp)) {
+              a = tmp;
+              type = 'date';
+            }
           }
           if (b && b.includes('/')) {
             const str = b.split('/');
             const date = `${str[1]}-${str[0]}-${str[2]}`;
-            b = new Date(date).getTime();
-            type = 'date';
+            let tmp = new Date(date).getTime();
+            if (!isNaN(tmp)) {
+              b = tmp;
+              type = 'date';
+            }
           }
+          //end date
+
+          //check format if number
+          const regex = /^\d*(\.\d+)?$/;
+          let typeA = 'string';
+          let typeB = 'string';
+          if (type == 'string' && a.match(regex)) {
+            let tmp = parseFloat(a);
+            if (!isNaN(tmp)) {
+              a = tmp;
+              typeA = 'number';
+            }
+          } else if (type == 'string') {
+            a = a.toLowerCase();
+          }
+          if (type == 'string' && b.match(regex)) {
+            let tmp = parseFloat(b);
+            if (!isNaN(tmp)) {
+              b = tmp;
+              typeB = 'number';
+            }
+          } else if (type == 'string') {
+            b = b.toLowerCase();
+          }
+          type = typeA == 'number' && typeB == 'number' ? 'number' : 'string';
+          //end check number
 
           // force null and undefined to the bottom
-          a = a === null || a === undefined ? (type === 'string' ? '' : -999999999999) : a;
-          b = b === null || b === undefined ? (type === 'string' ? '' : -999999999999) : b;
+          a = a === '' ? (type === 'string' ? '' : -999999999999) : a;
+          b = b === '' ? (type === 'string' ? '' : -999999999999) : b;
 
-          // force any string values to lowercase
-          a = typeof a === 'string' ? a.toLowerCase() : a;
-          b = typeof b === 'string' ? b.toLowerCase() : b;
           // Return either 1 or -1 to indicate a sort priority
           if (a > b) {
             return 1;

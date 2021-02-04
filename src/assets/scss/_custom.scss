@@ -589,6 +589,9 @@ header {
           padding-left: 1.15rem;
           text-align: left !important;
         }
+        .enable-drag {
+          padding: 0px !important;
+        }
       }
     }
 
@@ -598,6 +601,7 @@ header {
           .rt-td {
             display: flex;
             align-items: center;
+            padding-left: 7px !important;
           }
 
           .rt-td:first-child {

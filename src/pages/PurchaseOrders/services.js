@@ -8,11 +8,11 @@ export const schemaColumn = [
     Header: 'Site',
     placeholder: 'Site',
     accessor: 'site',
-    headerStyle: { textAlign: 'left', paddingLeft:"8px" },
+    headerStyle: { textAlign: 'left', paddingLeft: '8px' },
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    width: 100,
+    width: 80,
   },
   {
     Header: 'Client',
@@ -22,7 +22,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    width: 100,
+    width: 80,
   },
   {
     Header: 'Order No',
@@ -33,7 +33,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 130,
   },
   {
     Header: 'Order Type',
@@ -66,7 +66,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 130,
   },
   {
     Header: 'Supplier Name',
@@ -87,7 +87,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    width: 200,
+    width: 130,
     Cell: (row) => {
       switch (row.original.status) {
         case '0: Not Available':
@@ -116,7 +116,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 130,
   },
   {
     Header: 'Date Received',
@@ -127,7 +127,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 130,
   },
   {
     Header: 'Date Released',
@@ -138,7 +138,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 130,
   },
   {
     Header: 'Date Completed',
@@ -149,6 +149,6 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 150,
   },
 ];

@@ -13,7 +13,6 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    width: 100,
   },
   {
     Header: 'Client',
@@ -23,7 +22,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    width: 100,
+    width: 80,
   },
   {
     Header: 'Order No',
@@ -34,7 +33,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 130,
   },
   {
     Header: 'Order Type',
@@ -67,7 +66,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 125,
   },
   {
     Header: 'Customer Name',
@@ -78,7 +77,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 300,
+    width: 130,
   },
   {
     Header: 'Status',
@@ -88,7 +87,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    width: 200,
+    width: 130,
     Cell: (row) => {
       switch (row.original.status) {
         case '0: Not Available':
@@ -117,7 +116,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 130,
   },
   {
     Header: 'Date Received',
@@ -128,7 +127,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 130,
   },
   {
     Header: 'Date Released',
@@ -139,7 +138,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 130,
   },
   {
     Header: 'Date Completed',
@@ -150,7 +149,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 150,
   },
   {
     Header: 'Customer Order Ref',
@@ -161,7 +160,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 350,
+    width: 150,
   },
   {
     Header: 'Vendor Order Ref',
@@ -172,7 +171,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 350,
+    width: 150,
   },
   {
     Header: 'Address1',
@@ -183,7 +182,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 250,
+    width: 130,
   },
   {
     Header: 'Address2',
@@ -194,7 +193,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 250,
+    width: 130,
   },
   {
     Header: 'Address3',
@@ -205,7 +204,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 250,
+    width: 130,
   },
   {
     Header: 'Address4',
@@ -216,7 +215,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 250,
+    width: 130,
   },
   {
     Header: 'Address5',
@@ -227,7 +226,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 250,
+    width: 130,
   },
   {
     Header: 'Suburb',
@@ -272,7 +271,7 @@ export const schemaColumn = [
     sortable: true,
     className: 'align-right',
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 140,
   },
   {
     Header: 'Loadout Start',
@@ -283,7 +282,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? moment(props.value).format('DD/MM/YYYY HH:mm:ss') : '-'}</span>,
-    width: 200,
+    width: 130,
   },
   {
     Header: 'Loadout Finish',
@@ -294,7 +293,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? moment(props.value).format('DD/MM/YYYY HH:mm:ss') : '-'}</span>,
-    width: 200,
+    width: 140,
   },
   {
     Header: 'Consignment No',
@@ -305,7 +304,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 150,
   },
   {
     Header: 'Freight Charge',
@@ -317,6 +316,6 @@ export const schemaColumn = [
     sortable: true,
     className: 'align-right',
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 200,
+    width: 150,
   },
 ];
