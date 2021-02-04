@@ -45,7 +45,7 @@ const Create = ({ show, setShow }) => {
       <Modal show={show} size="xl" className="sales-order-create">
         <Modal.Body className="bg-primary p-0 rounded-top">
           <Row className="pl-5 pr-3 pb-3 pt-3 mx-0">
-            <Col xs={10} className="px-0 pt-4">
+            <Col xs={10} className="px-0 ">
               <i className="iconU-createModal font-20"></i>
               <span className="font-20 pl-2">Create Sales Order</span> <br />
               <span className="ml-7">Enter Order and line details to create a new sales order</span>
