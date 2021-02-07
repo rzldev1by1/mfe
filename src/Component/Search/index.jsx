@@ -98,7 +98,7 @@ const Search = ({
     getSite({ dispatch });
     getClient({ dispatch });
     getStatus({ dispatch });
-    getOrderType({ dispatch, company, client });
+    getOrderType({ dispatch, company, client, module });
   }, []);
   const newDropdownValue = { ...dropdownValue };
 
@@ -172,9 +172,6 @@ const Search = ({
                         options={siteData}
                         onChangeDropdown={(selected) =>
                           setSite({
-                            onChangeGetTask,
-                            getTask,
-                            getTaskParam,
                             selected,
                             dispatch,
                             dropdownValue,

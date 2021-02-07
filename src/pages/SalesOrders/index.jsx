@@ -102,7 +102,7 @@ const SalesOrders = (props) => {
             getExportData={async () => {
               setExport(true);
             }}
-            splitModule="SalesOrder"
+            splitModule="sales-order"
             exportPdf={false}
           />
         </div>

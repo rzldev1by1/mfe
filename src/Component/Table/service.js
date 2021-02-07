@@ -21,7 +21,6 @@ export const renewColumn = async ({
   showModal,
   columnHidden,
 }) => {
-  console.log('terpanggil');
   // reorder column
   const key = `tables__${module}__${userId}`;
   let schema = [];
