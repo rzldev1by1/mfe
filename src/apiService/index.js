@@ -134,7 +134,7 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
   let endpointsUrl = '';
   let paramType = '';
   if (module === 'purchaseOrder') {
-    endpointsUrl = `/purchaseOrder?searchParam=${orderdetail}&client=${client}&site=${site}`;
+    endpointsUrl = endpoints.purchaseOrder + `?search=${orderdetail}&client=${client}&site=${site}`;
     paramType = 'GET_PO_DETAIL';
   }
   if (module === 'salesOrder') {
@@ -165,7 +165,7 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   let endpointsUrl = '';
   let paramType = '';
   if (module === 'purchaseOrder') {
-    endpointsUrl = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${active}&export=${export_}`;
+    endpointsUrl = endpoints.purchaseOrder + `/${site}/${client}/${orderdetail}?page=${active}&export=${export_}`;
     paramType = 'GET_PO_DETAIL_TABLE';
   }
   if (module === 'salesOrder') {
@@ -252,8 +252,8 @@ export const getForescast = async ({ export_ = 'false', dispatch, active, props 
   }
 };
 
-export const submitPurchaseOrder = async ({ orderDetails, lineDetails }) => {
-  const ret = await axios.post(endpoints.purchaseOrderCreate, { orderDetails, lineDetails });
+export const submitPurchaseOrder = async ({ orderDetail, lineDetails }) => {
+  const ret = await axios.post(endpoints.purchaseOrderCreate, { orderDetail, lineDetails });
   return ret;
 };
 
@@ -267,8 +267,8 @@ export const showDetails = ({ module, item }) => {
   this.props.history.push(url);
 };
 
-export const checkOrderNo = async ({ client, orderNo }) => {
-  const { data } = await axios.post('/v1/sales-orders/check-order-number', {
+export const checkOrderNo = async ({ client, orderNo, module = 'sales-orders' }) => {
+  const { data } = await axios.post(`/v1/${module}/check-order-number`, {
     client: client?.value,
     order_no: orderNo,
   });

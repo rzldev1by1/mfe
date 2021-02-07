@@ -116,7 +116,7 @@ export const changeOrderNo = async ({ orderNo, client, setCheckingOrderNo, dispa
     setCheckingOrderNo({ status: true, message: '' });
   }
 
-  let ret = await checkOrderNo({ client, orderNo });
+  let ret = await checkOrderNo({ client, orderNo, module: 'purchase-orders' });
   if (ret.status) {
     changeOrderDetails({ column: 'orderNo', value: orderNo, dispatch });
   } else {
@@ -182,11 +182,14 @@ export const productHandler = async ({ val, column, index, dispatch, orderDetail
   dispatch({ type: 'SET_ORDER_LINES_DATA', data: val, column: tmp_column });
 
   //get uom
-  const client = orderDetails?.client?.value?.value;
-  const product = val?.value;
-  let data = await getUOM({ client, product });
-  const uomData = data.uom.map((c, i) => ({ value: c, label: c }));
-  setIsUom(uomData);
+  const stringUOM = val?.data?.uom;
+  if (stringUOM) {
+    const uomDataArr = stringUOM.split(',');
+    const uomData = uomDataArr.map((c, i) => ({ value: c, label: c }));
+    setIsUom(uomData);
+  } else {
+    setIsUom([]);
+  }
 };
 
 export const numberCheck = (e) => {
@@ -259,17 +262,14 @@ const decimalFormatter = (name, value) => {
 
 export const submit = async ({ data, user, setIsSubmitReturn, setActiveTab, setIsSubmitStatus }) => {
   const { orderDetails, orderLinesData } = data;
-  let newOrderDetails = [
-    {
-      site: orderDetails?.site?.value?.value || '',
-      client: orderDetails?.client?.value?.value || '',
-      orderNo: orderDetails?.orderNo?.value || '',
-      orderType: orderDetails?.orderType?.value?.value || '',
-      orderDate: orderDetails?.orderDate?.value || '',
-      web_user: user.webUser,
-    },
-  ];
-
+  let newOrderDetails = {
+    site: orderDetails?.site?.value?.value || '',
+    client: orderDetails?.client?.value?.value || '',
+    orderNo: orderDetails?.orderNo?.value || '',
+    orderType: orderDetails?.orderType?.value?.value || '',
+    orderDate: orderDetails?.orderDate?.value || '',
+    web_user: user.webUser,
+  };
   let newOrderLines = [];
   orderLinesData.map((item, index) => {
     let tmp = {
@@ -286,7 +286,7 @@ export const submit = async ({ data, user, setIsSubmitReturn, setActiveTab, setI
     newOrderLines.push(tmp);
   });
 
-  const ret = await submitPurchaseOrder({ orderDetails: newOrderDetails, lineDetails: newOrderLines });
+  const ret = await submitPurchaseOrder({ orderDetail: newOrderDetails, lineDetails: newOrderLines });
 
   //check return
   let status = ret?.status;

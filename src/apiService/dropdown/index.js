@@ -44,8 +44,7 @@ export const getOrderType = async ({ dispatch, company, client, module }) => {
     value: dataIndex.code,
     label: `${dataIndex.code}: ${dataIndex.description}`,
   }));
-  //   const orderTypeData = data.orderType.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.description}` }))
-  //   const site = data.site.map(data => ({ value: data.site, label: `${data.site}: ${data.name}` }))
+
   const orderType = { value: 'all', label: 'All' };
   orderTypeFilterData.splice(0, 0, orderType);
   dispatch({ type: 'ORDER_TYPE_DATA', data: orderTypeFilterData });
@@ -90,13 +89,13 @@ export const getPOResources = async ({ user, dispatch }) => {
   let { data } = await axios.get(
     `${endpoints.getPOResources}?company=${user.company || ''}&client=${user.client || 'all'}`,
   );
-  let site = data.site.map((data) => ({ value: data.site, label: `${data.site}: ${data.name}` }));
+
   let orderTypeData = data.orderType.map((data, i) => ({
     value: data.code,
     label: `${data.code}: ${data.description}`,
   }));
 
-  let resources = { site: site, orderType: orderTypeData };
+  let resources = { orderType: orderTypeData };
   dispatch({ type: 'PO_RESOURCES', data: resources });
 };
 

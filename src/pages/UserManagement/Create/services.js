@@ -47,7 +47,6 @@ export const submit = async ({ data, isAdmin, setIsSubmitReturn, setActiveTab, s
   let status = ret?.status;
   let message = ret?.data?.message;
   let submitReturn = { status: status, message: message, role: isAdmin ? 'Admin' : 'Regular', name };
-  console.log(submitReturn);
   await setIsSubmitReturn(submitReturn);
   await setActiveTab('message');
   setIsSubmitStatus('done');
@@ -89,7 +88,7 @@ export const renewState = ({ setState, state, siteData, clientData, moduleAccess
     'menu_inventory_stkMovement',
   ];
   tmp = moduleAccess?.map((item, key) => {
-    if (allowedValues.includes(item.menuid)) {
+    if (allowedValues.includes(item.menu_id)) {
       moduleAccessOption.push(item);
     }
   });

@@ -34,13 +34,13 @@ const moduleAccess = ({ moduleAccess, isEnableAllModule, state, setState, isRead
               return (
                 <div className="flex-column mb-1 mr-2" key={index}>
                   <div className="d-flex" key={index}>
-                    <label className="col-6 text-muted px-0 py-2" key={item.menuid}>
-                      {item.menuname.toLowerCase() === 'create sales order' ? 'Sales Orders' : item.menuname}
+                    <label className="col-6 text-muted px-0 py-2" key={item.menu_id}>
+                      {item.menu_name.toLowerCase() === 'create sales order' ? 'Sales Orders' : item.menu_name}
                     </label>
                     <div className="col-6">
                       <button
                         type="button"
-                        htmlFor={item.menuname}
+                        htmlFor={item.menu_name}
                         className={
                           'btn float-right px-1 ' +
                           (!isReadOnly && item.status ? 'btn-outline-active' : 'btn-outline-notActive') +

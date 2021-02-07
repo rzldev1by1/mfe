@@ -8,7 +8,7 @@ export default {
   getDisposition: '/settings/dispositions',
 
   getOrderNo: '/dropdown/getorderno',
-  getSupplier: '/dropdown/getsupplier',
+  getSupplier: '/settings/suppliers',
   getCustomer: '/settings/customers',
   getOrderType: '/dropdown/getordertype',
   // Dropdown End --------------------------------------------------------
@@ -22,13 +22,13 @@ export default {
   // Stock Holding End --------------------------------------------------------
 
   // Stock Movement Start --------------------------------------------------------
-  stockMovement: '/stockmovement',
+  stockMovement: '/v1/stocks/movement',
   // Stock Movement End --------------------------------------------------------
 
   // purchace Order Start --------------------------------------------------------
-  purchaseOrder: '/purchaseOrder',
-  purchaseOrderCreate: '/purchaseOrder/store',
-  getPOResources: '/getporecources',
+  purchaseOrder: '/v1/purchase-orders',
+  purchaseOrderCreate: '/v1/purchase-orders',
+  getPOResources: '/v1/preferences/purchase-order-options',
 
   // purchace Order End --------------------------------------------------------
 
@@ -40,16 +40,16 @@ export default {
   // sales Order End --------------------------------------------------------
 
   // User Management Start --------------------------------------------------------
-  userManagementModuleAccess: '/usermanagement/module',
-  userManagementCreate: '/usermanagement/register',
+  userManagementModuleAccess: '/v1/preferences/user-modules',
+  userManagementCreate: '/v1/users',
   userManagementListUser: '/v1/users',
   userManagementUser_Detail: '/web_user_detail/',
   userManagementUpdate: '/usermanagement/update/',
   userManagementresetpassword: '/usermanagement/forgot_password',
-  userManagementCheckMailValidation: '/emailCheck',
+  userManagementCheckMailValidation: '/v1/users/check-email',
   // User Management End --------------------------------------------------------
 
-  stockDateRange: '/stockdaterange',
+  stockDateRange: '/v1/stocks/movement/date-range',
   stockAgeProfile: '/stockageprofile',
 
   userLogin: '/auth/login',
