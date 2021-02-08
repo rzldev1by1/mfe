@@ -50,7 +50,7 @@ export default {
   stockAgeProfile: '/stockageprofile',
 
   userLogin: '/auth/login',
-  resetPassword: '/usermanagement/request_reset_password',
+  resetPassword: '/auth/forgot-password',
 
   orderCheck: '/orderCheck',
 };

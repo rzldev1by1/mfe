@@ -88,7 +88,7 @@ class Logins extends Component {
       }
       this.setState({ isLoad: true });
       try {
-        const result = await axios.post(baseUrl + '/usermanagement/request_reset_password', payload);
+        const result = await axios.post(baseUrl + '/auth/forgot-password', payload);
         if (result.status === 400) {
           this.setState({ isLoad: false, errorMessage: result.message, emailValidation: false });
         } else {
