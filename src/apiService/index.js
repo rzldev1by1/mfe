@@ -332,14 +332,26 @@ export const getStockMovement = async ({ dropdownValue, dispatch }) => {
           product_name: data.product_name,
         };
 
-        let detail = data.detail;
-        detail.map((details) => {
-          let dates = details.date.replaceAll('-', '_');
-          tmp_row['sa_plus_' + dates] = details.sa_plus;
-          tmp_row['sa_minus_' + dates] = details.sa_minus;
-          tmp_row['rec_' + dates] = details.recv_weight;
-          tmp_row['send_' + dates] = details.send_weight;
-        });
+        for (var key in data) {
+          if (key.includes('sum_')) {
+            let dates = key.replace('sum_', '');
+            let tmp = data[key];
+            let tmp_arr = tmp.split('-');
+            tmp_row['sa_plus_' + dates] = tmp_arr[0];
+            tmp_row['sa_minus_' + dates] = tmp_arr[1];
+            tmp_row['rec_' + dates] = tmp_arr[2];
+            tmp_row['send_' + dates] = tmp_arr[3];
+          }
+        }
+
+        // let detail = data.detail;
+        // detail.map((details) => {
+        //   let dates = details.date.replaceAll('-', '_');
+        //   tmp_row['sa_plus_' + dates] = details.sa_plus;
+        //   tmp_row['sa_minus_' + dates] = details.sa_minus;
+        //   tmp_row['rec_' + dates] = details.recv_weight;
+        //   tmp_row['send_' + dates] = details.send_weight;
+        // });
         newData.push(tmp_row);
       });
 
