@@ -14,10 +14,7 @@ export default {
   // Dropdown End --------------------------------------------------------
 
   // Stock Holding Start --------------------------------------------------------
-  stockHoldingSummary: '/stockholding',
-  stockHoldingDetail: '/stockdetail/header/',
-  stockDetail: '/stockdetail',
-  stockBalanceForecast: '/foreshadowedstockbalance/',
+  stockHoldingSummary: '/v1/stocks/holding',
   getStockHoldingHearder: '/getStockholdingColumn',
   // Stock Holding End --------------------------------------------------------
 
@@ -53,7 +50,7 @@ export default {
   stockAgeProfile: '/stockageprofile',
 
   userLogin: '/auth/login',
-  resetPassword: '/usermanagement/request_reset_password',
+  resetPassword: '/auth/forgot-password',
 
   orderCheck: '/orderCheck',
 };
