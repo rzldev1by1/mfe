@@ -1,3 +1,4 @@
+import { objectOf } from 'prop-types';
 import React from 'react';
 
 const getColumnWidth = (rows, accessor, headerText, minWidth) => {
@@ -38,7 +39,7 @@ export const renewColumn = async ({
       tmp_oldSchema[idx].width = await getColumnWidth(data, d.accessor, d.Header, d.width || 70);
     }
   });
-
+  
   //hide column
   if (columnHidden !== null && columnHidden !== undefined) {
     await tmp_oldSchema.forEach(async (d, idx) => {
