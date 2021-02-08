@@ -142,7 +142,7 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
     paramType = 'GET_SO_DETAIL';
   }
   if (module === 'stockHolding') {
-    endpointsUrl = `/stockdetail/header/${product}?client=${client}&site=${site}`;
+    endpointsUrl = endpoints.stockHoldingSummary + `/${site}/${client}/${product}/detail-header`;
     paramType = 'GET_SH_DETAIL';
   }
 
@@ -155,7 +155,7 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
   }
   if (module === 'stockHolding') {
     if (data.data) {
-      dispatch({ type: paramType, data: data.data[0] });
+      dispatch({ type: paramType, data: data.data });
     }
   }
 };
@@ -164,17 +164,22 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   const { orderdetail, client, site, orderno, product } = props.match.params;
   let endpointsUrl = '';
   let paramType = '';
+  let paramPaging = '';
   if (module === 'purchaseOrder') {
     endpointsUrl = endpoints.purchaseOrder + `/${site}/${client}/${orderdetail}?page=${active}&export=${export_}`;
     paramType = 'GET_PO_DETAIL_TABLE';
+    paramPaging = 'PAGING';
   }
   if (module === 'salesOrder') {
     endpointsUrl = endpoints.salesOrder + `/${orderno}?client=${client}&site=${site}&page=${active}&export=${export_}`;
     paramType = 'GET_SO_DETAIL_TABLE';
+    paramPaging = 'PAGING';
   }
   if (module === 'stockHolding') {
-    endpointsUrl = `/stockdetail/${product}?client=${client}&site=${site}&page=${active}&export=${export_}`;
+    endpointsUrl =
+      endpoints.stockHoldingSummary + `/${site}/${client}/${product}/detail-line?page=${active}&export=${export_}`;
     paramType = 'GET_SH_DETAIL_TABLE';
+    paramPaging = 'PAGING_SH_DETAIL';
   }
 
   const url = endpointsUrl;
@@ -205,16 +210,16 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
     if (export_ === 'true') {
     } else {
       const pagination = {
-        active: active || Meta.current_page,
-        show: Meta.per_page,
-        total: Meta.total,
-        last_page: Meta.last_page,
-        from: Meta.from,
-        to: Meta.to,
+        active: active || Meta?.current_page,
+        show: Meta?.per_page,
+        total: Meta?.total,
+        last_page: Meta?.last_page,
+        from: Meta?.from,
+        to: Meta?.to,
       };
       const paging = pagination;
       dispatch({ type: paramType, data: modifiedData });
-      dispatch({ type: 'PAGING', data: paging });
+      dispatch({ type: paramPaging, data: paging });
     }
   } else {
     dispatch({ type: paramType, data: [] });
@@ -223,7 +228,7 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
 
 export const getForescast = async ({ export_ = 'false', dispatch, active, props }) => {
   const { product, client, site } = props.match.params;
-  const url = `/stock-balance-forecast?client=${client}&product=${product}&site=${site}&page=${active}&export=${export_}&limit=50`;
+  const url = endpoints.stockHoldingSummary + `/${site}/${client}/${product}/detail-balance`;
   dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: [] });
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const { data } = await axios.get(url);
@@ -234,21 +239,24 @@ export const getForescast = async ({ export_ = 'false', dispatch, active, props 
       return 0;
     }
     const modifiedData = forecast;
+    const Meta = data?.meta;
+    const Links = data?.links;
+
     modifiedData.map((item, idx) => {
       item.in = numeral(item.in).format('0,0');
       item.out = numeral(item.out).format('0,0');
       item.balance = numeral(item.balance).format('0,0');
     });
     const pagination = {
-      active: active || data.current_page,
-      show: data.per_page,
-      total: data.total,
-      last_page: data.last_page,
-      from: data.from,
-      to: data.to,
+      active: active || Meta?.current_page,
+      show: Meta?.per_page,
+      total: Meta?.total,
+      last_page: Meta?.last_page,
+      from: Meta?.from,
+      to: Meta?.to,
     };
     dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: modifiedData });
-    dispatch({ type: 'PAGING', data: pagination });
+    dispatch({ type: 'PAGING_SH_FORECAST', data: pagination });
   }
 };
 

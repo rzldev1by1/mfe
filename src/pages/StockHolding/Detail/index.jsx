@@ -16,10 +16,10 @@ const StockHoldingDetail = (props) => {
   const shDetail = useSelector((state) => state.shDetail);
   const shDetailTable = useSelector((state) => state.shDetailTable);
   const shDetailForescast = useSelector((state) => state.shDetailForescast);
-  const pagination = useSelector((state) => state.pagination);
+  const paginationShDetail = useSelector((state) => state.paginationShDetail);
+  const paginationShForecast = useSelector((state) => state.paginationShForecast);
   const siteData = useSelector((state) => state.siteData);
   const clientData = useSelector((state) => state.clientData);
-  const [active, setActive] = useState(1);
   const user = useSelector((state) => state.user);
   const module = 'stockHolding';
   const [activeTab, setActiveTab] = useState('1');
@@ -28,11 +28,15 @@ const StockHoldingDetail = (props) => {
     getDetailHeader({ dispatch, props, module });
   }, []);
   useEffect(() => {
-    getDetailData({ dispatch, props, active, module });
-  }, [active]);
+    if (!shDetailTable) {
+      getDetailData({ dispatch, props, active: paginationShDetail?.active, module });
+    }
+  }, []);
   useEffect(() => {
-    getForescast({ dispatch, props, active });
-  }, [active]);
+    if (!shDetailForescast) {
+      getForescast({ dispatch, props, active: paginationShForecast?.active });
+    }
+  }, []);
 
   const height = window.innerHeight - 378;
   const widht = window.innerWidth;
@@ -129,9 +133,9 @@ const StockHoldingDetail = (props) => {
               style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
               module="Stock Holding Detail"
               noDataText
-              pagination={pagination}
+              pagination={paginationShDetail}
               goto={(e) => {
-                setActive(e);
+                dispatch({ type: 'PAGING_SH_DETAIL', data: { ...paginationShDetail, active: e } });
               }}
               getExportData={() => setExportData({ dispatch, data: shDetailTable })}
               user={user}
@@ -153,9 +157,9 @@ const StockHoldingDetail = (props) => {
               style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
               module="Stock Holding Forecast"
               noDataText
-              pagination={pagination}
+              pagination={paginationShForecast}
               goto={(e) => {
-                setActive(e);
+                dispatch({ type: 'PAGING_SH_FORECAST', data: { ...paginationShForecast, active: e } });
               }}
               getExportData={() => setExportData({ dispatch, data: shDetailForescast })}
               user={user}
