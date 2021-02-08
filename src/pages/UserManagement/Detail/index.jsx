@@ -78,6 +78,7 @@ const UserManagementDetail = (props) => {
               e.preventDefault();
               saveClick({ props, state, setState, dispatch });
             }}
+            className="d-flex flex-column justify-content-between"
           >
             <div className="account-detail">
               <div className="row mb-3">
@@ -249,7 +250,7 @@ const UserManagementDetail = (props) => {
                 </div>
               </div>
             </div>
-            <div className="d-flex mt-3 mr-3 justify-content-between">
+            <div className="d-flex justify-content-between">
               <button
                 type="button"
                 className=" font-lg btn btn-primary btn-submit default-box-height"
@@ -279,7 +280,7 @@ const UserManagementDetail = (props) => {
                 )}
               </button>
             </div>
-            <button type="submit" style={{ opacity: '0' }}></button>
+            {/* <button type="submit" style={{ opacity: '0' }}></button> */}
           </form>
         </CCardBody>
       </CCard>

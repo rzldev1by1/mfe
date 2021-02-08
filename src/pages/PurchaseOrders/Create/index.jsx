@@ -45,13 +45,13 @@ const Create = ({ show, setShow }) => {
     <div>
       <Modal show={show} size="xl" className="purchase-order-create">
         <Modal.Body className="bg-primary p-0 rounded-top">
-          <Row className="pl-5 pr-3 pb-3 pt-3 mx-0">
+          <Row className="pl-5 pr-3 py-5 mx-0">
             <Col xs={10} className="px-0">
               <i className="iconU-createModal font-20"></i>
               <span className="font-20 pl-2">Create Purchase Order</span> <br />
               <span className="ml-7">Enter Order and line details to create a new purchase order</span>
             </Col>
-            <Col className="text-right px-0 pr-4 pt-4 mr-2">
+            <Col className="text-right px-0 pr-4 mr-2">
               <i
                 className="iconU-close pointer"
                 onClick={() => {
