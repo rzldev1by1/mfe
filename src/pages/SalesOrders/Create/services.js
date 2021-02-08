@@ -148,11 +148,14 @@ export const productHandler = async ({ val, column, index, dispatch, orderDetail
   dispatch({ type: 'SET_ORDER_LINES_DATA', data: val, column: tmp_column });
 
   //get uom
-  const client = orderDetails?.client?.value?.value;
-  const product = val?.value;
-  let data = await getUOM({ client, product });
-  const uomData = data.uom.map((c, i) => ({ value: c, label: c }));
-  setIsUom(uomData);
+  const stringUOM = val?.data?.uom;
+  if (stringUOM) {
+    const uomDataArr = stringUOM.split(',');
+    const uomData = uomDataArr.map((c, i) => ({ value: c, label: c }));
+    setIsUom(uomData);
+  } else {
+    setIsUom([]);
+  }
 };
 
 export const numberCheck = (e) => {
@@ -320,7 +323,7 @@ export const submit = async ({ data, user, setIsSubmitReturn, setActiveTab, setI
   const ret = await submitSalesOrder({ header, lineDetail: newOrderLines });
 
   //check return
-  let status = ret?.status;
+  let status = ret?.data?.status;
   let message = ret?.data;
   let submitReturn = { status: status, message: message, orderNo: orderDetails?.orderNo?.value };
   await setIsSubmitReturn(submitReturn);
@@ -336,4 +339,24 @@ export const formatDate = (dateStr) => {
 
   let dArr = dateStr.split('-');
   return dArr[2] + '/' + dArr[1] + '/' + dArr[0];
+};
+
+export const getCustomerDetail = async ({ client, customer, customerDetails, dispatch }) => {
+  if (!client) {
+    return;
+  }
+
+  // set customer Details
+  const identity = customer.data;
+  customerDetails.customer.value = customer;
+  customerDetails.address1.value = identity?.address_1 || '';
+  customerDetails.address2.value = identity?.address_2 || '';
+  customerDetails.address3.value = identity?.address_3 || '';
+  customerDetails.address4.value = identity?.address_4 || '';
+  customerDetails.address5.value = identity?.address_5 || '';
+  customerDetails.suburb.value = identity?.city || '';
+  customerDetails.postcode.value = identity?.postcode || '';
+  customerDetails.state.value = identity?.state || '';
+  customerDetails.country.value = identity?.country || '';
+  dispatch({ type: 'RESET_CUSTOMER_DETAIL', data: customerDetails });
 };

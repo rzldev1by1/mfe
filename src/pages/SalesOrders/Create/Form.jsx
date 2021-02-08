@@ -8,9 +8,15 @@ import Textarea from 'Component/Textarea';
 import FormLine from './FormLine';
 import RequiredMessage from 'Component/RequiredMessage';
 
-import { changeOrderDetails, addOrderLines, changeOrderNo, formatDate, changeCustomerDetails } from './services';
+import {
+  changeOrderDetails,
+  addOrderLines,
+  changeOrderNo,
+  formatDate,
+  changeCustomerDetails,
+  getCustomerDetail,
+} from './services';
 import { getCustomer } from 'apiService/dropdown';
-import { getCustomerDetail } from 'apiService';
 import { validate } from 'email-validator';
 
 import './style.scss';

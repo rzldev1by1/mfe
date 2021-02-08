@@ -31,15 +31,20 @@ export const getStatus = async ({ dispatch }) => {
   dispatch({ type: 'STATUS_DATA', data: statusData });
 };
 
-export const getOrderType = async ({ dispatch, company, client }) => {
-  // if (client) {
-  const { data } = await axios.get(`${endpoints.getPOResources}?company=${company}&client=${client}`);
+export const getOrderType = async ({ dispatch, company, client, module }) => {
+  let url = '';
+  if (module == 'purchaseOrder') {
+    url = endpoints.getPOResources;
+  } else {
+    url = endpoints.getSoResources;
+  }
+
+  const { data } = await axios.get(`${url}?company=${company}&client=${client}`);
   const orderTypeFilterData = data.orderTypeFilter.map((dataIndex) => ({
     value: dataIndex.code,
     label: `${dataIndex.code}: ${dataIndex.description}`,
   }));
-  //   const orderTypeData = data.orderType.map((data, i) => ({ value: data.code, label: `${data.code}: ${data.description}` }))
-  //   const site = data.site.map(data => ({ value: data.site, label: `${data.site}: ${data.name}` }))
+
   const orderType = { value: 'all', label: 'All' };
   orderTypeFilterData.splice(0, 0, orderType);
   dispatch({ type: 'ORDER_TYPE_DATA', data: orderTypeFilterData });
@@ -51,7 +56,7 @@ export const getTask = async ({ dispatch, client, site }) => {
   const siteParam = site?.value ? site.value : site;
   // if (client && site) {
   const { data } = await axios.get(`${endpoints.getIsisTask}?client=${clientParam}&site=${siteParam}&order=po`);
-  const taskData = data.code.map((c, i) => ({ value: c, label: `${data.name[i]}` }));
+  const taskData = data && data.map((c, i) => ({ value: c.code, label: `${c.code}: ${c.name}` }));
   const task = { value: 'all', label: 'All Task' };
   taskData.splice(0, 0, task);
   dispatch({ type: 'TASK_DATA', data: taskData });
@@ -84,13 +89,13 @@ export const getPOResources = async ({ user, dispatch }) => {
   let { data } = await axios.get(
     `${endpoints.getPOResources}?company=${user.company || ''}&client=${user.client || 'all'}`,
   );
-  let site = data.site.map((data) => ({ value: data.site, label: `${data.site}: ${data.name}` }));
+
   let orderTypeData = data.orderType.map((data, i) => ({
     value: data.code,
     label: `${data.code}: ${data.description}`,
   }));
 
-  let resources = { site: site, orderType: orderTypeData };
+  let resources = { orderType: orderTypeData };
   dispatch({ type: 'PO_RESOURCES', data: resources });
 };
 
@@ -99,27 +104,27 @@ export const getSOResources = async ({ user, dispatch }) => {
     `${endpoints.getSoResources}?company=${user.company || ''}&client=${user.client || 'all'}`,
   );
 
-  //get Site
-  let siteDescription = data.site.name.sort();
-  let siteCode = data.site.code.sort();
-  let site = siteCode.map((data, idx) => ({ value: data, label: `${siteDescription[idx]}` }));
-
-  //get Order Type
-  let orderTypeDescription = data.orderType.description;
-  let orderType = data.orderType.code.map((data, idx) => ({
-    value: data,
-    label: `${data}: ${orderTypeDescription[idx]}`,
+  //Order Type
+  let orderType = data.orderType.map((data, idx) => ({
+    value: data.code,
+    label: `${data.code}: ${data.name}`,
   }));
 
-  let resources = { site, orderType };
+  //Order Type for Filter
+  let orderTypeFilter = data.orderTypeFilter.map((data, idx) => ({
+    value: data.code,
+    label: `${data.code}: ${data.name}`,
+  }));
+
+  let resources = { orderTypeFilter, orderType };
   dispatch({ type: 'SO_RESOURCES', data: resources });
 };
 
 export const getDisposition = async ({ dispatch }) => {
   const { data } = await axios.get(`${endpoints.getDisposition}`);
   const dispositionData = [];
-  data.code.map((c, i) => {
-    if (c.length > 0 && c != ' ') dispositionData.push({ value: c, label: c, i });
+  data.map((c, i) => {
+    if (c.length > 0 && c != ' ') dispositionData.push({ value: c, label: c });
   });
   dispatch({ type: 'CREATE_PO_DISPOSITION', data: dispositionData });
 };
@@ -136,14 +141,14 @@ export const getSupplier = async ({ orderDetails, client, site, setSupplier }) =
 };
 
 export const getProduct = async ({ client, val, setIsLoading, setIsProduct }) => {
-  const url = `${endpoints.getProduct}?client=${client || ''}&param=${val.toUpperCase()}`;
+  const url = `${endpoints.getProduct}?client=${client || ''}&search=${val.toUpperCase()}`;
 
   let productData = [];
   await axios
     .get(url)
     .then((res) => {
       const data = res.data;
-      productData = data.map((data, i) => ({ value: data.code, label: `${data.name}`, i }));
+      productData = data.map((data, i) => ({ value: data.code, label: `${data.name}`, data, i }));
     })
     .catch((error) => {
       console.log(error);
@@ -164,6 +169,6 @@ export const getCustomer = async ({ client, setCustomerData }) => {
   }
   client = client?.value?.value;
   const { data } = await axios.get(`${endpoints.getCustomer}?client=${client || ''}`);
-  const customerData = data.map((d) => ({ value: d.supplier_no, label: `${d.supplier_no}: ${d.name}` }));
+  const customerData = data.map((d) => ({ value: d.code, label: `${d.code}: ${d.name}`, data: d }));
   setCustomerData(customerData);
 };

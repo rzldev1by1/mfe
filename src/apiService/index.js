@@ -50,10 +50,10 @@ export const getSummaryData = async ({
 
   // Url
   if (module === 'UserManagement') {
-    urls.push(`searchParam=${searchInput?.toUpperCase() || ''}`);
+    urls.push(`search=${searchInput?.toUpperCase() || ''}`);
   }
   if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
-    urls.push(`searchParam=${searchInput?.toUpperCase() || ''}`);
+    urls.push(`search=${searchInput?.toUpperCase() || ''}`);
     urls.push(`site=${siteVal?.value ? siteVal.value : 'all'}`);
     urls.push(`client=${clientVal?.value ? clientVal.value : 'all'}`);
     urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
@@ -68,18 +68,21 @@ export const getSummaryData = async ({
   }
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
+
+  const Meta = newData?.data?.meta;
+  const Links = newData?.data?.links;
+  const Data = newData?.data?.data;
+
   // Table Status
-  const dataStatus = newData?.data?.data?.data;
-  if (dataStatus?.length) {
+  if (Data?.length) {
     dispatch({ type: 'TABLE_STATUS', data: '' });
-  } else if (dataStatus?.length < 1) {
+  } else if (Data?.length < 1) {
     dispatch({ type: 'TABLE_STATUS', data: 'noData' });
   }
   // End Table Status
 
-  if (newData?.data?.data) {
-    const modifiedData = newData.data.data.data;
-    modifiedData.map((item, idx) => {
+  if (Data) {
+    Data.map((item, idx) => {
       const customerName = item?.customername?.split(':');
       if (parseInt(item.on_hand_qty + item.expected_in_qty) >= item.expected_out_qty) {
         item.status = 'OK';
@@ -106,18 +109,18 @@ export const getSummaryData = async ({
     });
 
     if (Export === true) {
-      await dispatch({ type: 'EXPORT_DATA', data: modifiedData });
+      await dispatch({ type: 'EXPORT_DATA', data: Data });
     } else {
       const pagination = {
-        active: active || newData.data.data.current_page,
-        show: newData.data.data.per_page,
-        total: newData.data.data.total,
-        last_page: newData.data.data.last_page,
-        from: newData.data.data.from,
-        to: newData.data.data.to,
+        active: active || Meta.current_page,
+        show: Meta.per_page,
+        total: Meta.total,
+        last_page: Meta.last_page,
+        from: Meta.from,
+        to: Meta.to,
       };
       const paging = pagination;
-      dispatch({ type: paramType, data: modifiedData });
+      dispatch({ type: paramType, data: Data });
       dispatch({ type: paramPaging, data: paging });
     }
   } else {
@@ -131,11 +134,11 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
   let endpointsUrl = '';
   let paramType = '';
   if (module === 'purchaseOrder') {
-    endpointsUrl = `/purchaseOrder?searchParam=${orderdetail}&client=${client}&site=${site}`;
+    endpointsUrl = endpoints.purchaseOrder + `?search=${orderdetail}&client=${client}&site=${site}`;
     paramType = 'GET_PO_DETAIL';
   }
   if (module === 'salesOrder') {
-    endpointsUrl = `/salesorder?searchParam=${orderno}&client=${client}&site=${site}`;
+    endpointsUrl = endpoints.salesOrder + `?search=${orderno}&client=${client}&site=${site}`;
     paramType = 'GET_SO_DETAIL';
   }
   if (module === 'stockHolding') {
@@ -147,7 +150,7 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
   const { data } = await axios.get(url);
   if (module === 'salesOrder' || module === 'purchaseOrder') {
     if (data.data) {
-      dispatch({ type: paramType, data: data.data.data[0] });
+      dispatch({ type: paramType, data: data.data[0] });
     }
   }
   if (module === 'stockHolding') {
@@ -162,11 +165,11 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   let endpointsUrl = '';
   let paramType = '';
   if (module === 'purchaseOrder') {
-    endpointsUrl = `/purchaseOrder/${site}/${client}/${orderdetail}?page=${active}&export=${export_}`;
+    endpointsUrl = endpoints.purchaseOrder + `/${site}/${client}/${orderdetail}?page=${active}&export=${export_}`;
     paramType = 'GET_PO_DETAIL_TABLE';
   }
   if (module === 'salesOrder') {
-    endpointsUrl = `/salesorder/${orderno}?client=${client}&site=${site}&page=${active}&export=${export_}`;
+    endpointsUrl = endpoints.salesOrder + `/${orderno}?client=${client}&site=${site}&page=${active}&export=${export_}`;
     paramType = 'GET_SO_DETAIL_TABLE';
   }
   if (module === 'stockHolding') {
@@ -177,17 +180,21 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   const url = endpointsUrl;
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(url);
+
+  const Meta = newData?.data?.meta;
+  const Links = newData?.data?.links;
+  const Data = newData?.data?.data;
+
   // Table Status
-  const dataStatus = newData?.data?.data;
-  if (dataStatus?.length) {
+  if (Data?.length) {
     dispatch({ type: 'TABLE_STATUS', data: '' });
-  } else if (dataStatus?.length < 1) {
+  } else if (Data?.length < 1) {
     dispatch({ type: 'TABLE_STATUS', data: 'noData' });
   }
   // End Table Status
-  if (newData?.data?.data) {
+  if (Data) {
     let txt = [];
-    let modifiedData = newData.data.data.data.map((m) => {
+    let modifiedData = Data.map((m) => {
       m.qty = numeral(m.qty).format('0,0');
       m.qty_processed = numeral(m.qty_processed).format('0,0');
       m.weight = numeral(m.weight).format('0,0.000').replace('.', ',');
@@ -198,12 +205,12 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
     if (export_ === 'true') {
     } else {
       const pagination = {
-        active: active || newData.data.data.current_page,
-        show: newData.data.data.per_page,
-        total: newData.data.data.total,
-        last_page: newData.data.data.last_page,
-        from: newData.data.data.from,
-        to: newData.data.data.to,
+        active: active || Meta.current_page,
+        show: Meta.per_page,
+        total: Meta.total,
+        last_page: Meta.last_page,
+        from: Meta.from,
+        to: Meta.to,
       };
       const paging = pagination;
       dispatch({ type: paramType, data: modifiedData });
@@ -245,13 +252,13 @@ export const getForescast = async ({ export_ = 'false', dispatch, active, props 
   }
 };
 
-export const submitPurchaseOrder = async ({ orderDetails, lineDetails }) => {
-  const ret = await axios.post(endpoints.purchaseOrderCreate, { orderDetails, lineDetails });
+export const submitPurchaseOrder = async ({ orderDetail, lineDetails }) => {
+  const ret = await axios.post(endpoints.purchaseOrderCreate, { orderDetail, lineDetails });
   return ret;
 };
 
 export const submitSalesOrder = async ({ header, lineDetail }) => {
-  const ret = await axios.post(endpoints.salesOrderCreate, { header, lineDetail });
+  const ret = await axios.post(endpoints.salesOrderCreate, { orderDetail: header, lineDetails: lineDetail });
   return ret;
 };
 
@@ -260,13 +267,13 @@ export const showDetails = ({ module, item }) => {
   this.props.history.push(url);
 };
 
-export const checkOrderNo = async ({ client, orderNo }) => {
-  const { data } = await axios.post('/orderCheck', {
-    client,
+export const checkOrderNo = async ({ client, orderNo, module = 'sales-orders' }) => {
+  const { data } = await axios.post(`/v1/${module}/check-order-number`, {
+    client: client?.value,
     order_no: orderNo,
   });
 
-  if (data.message === 'not available') {
+  if (data.status === 'failed') {
     return { status: false, message: 'Order number exist' };
   }
   if (data.message === 'The client field is required.') {
@@ -274,30 +281,6 @@ export const checkOrderNo = async ({ client, orderNo }) => {
   }
 
   return { status: true, message: null };
-};
-
-export const getCustomerDetail = async ({ client, customer, customerDetails, dispatch }) => {
-  if (!client) {
-    return;
-  }
-
-  let customerVal = customer?.value;
-  client = client?.value?.value;
-  const { data } = await axios.get(`${endpoints.getSoIdentity}?client=${client || ''}&customerNo=${customerVal}`);
-
-  // set customer Details
-  const identity = data?.identity[0];
-  customerDetails.customer.value = customer;
-  customerDetails.address1.value = identity?.address_1 || '';
-  customerDetails.address2.value = identity?.address_2 || '';
-  customerDetails.address3.value = identity?.address_3 || '';
-  customerDetails.address4.value = identity?.address_4 || '';
-  customerDetails.address5.value = identity?.address_5 || '';
-  customerDetails.suburb.value = identity?.city || '';
-  customerDetails.postcode.value = identity?.postcode || '';
-  customerDetails.state.value = identity?.state || '';
-  customerDetails.country.value = identity?.country || '';
-  dispatch({ type: 'RESET_CUSTOMER_DETAIL', data: customerDetails });
 };
 
 // Stock Movement

@@ -50,11 +50,11 @@ const EditRenameColumn = ({
   };
 
   const UrlHeader = () => {
-    return `/get${splitModule}Column?client=ALL`;
+    return `/settings/field-label/${splitModule}?client=ALL`;
   };
 
   const UrlAll = () => {
-    return `/put${splitModule}Column?client=ALL`;
+    return `/settings/field-label/${splitModule}?client=all`;
   };
 
   useEffect(() => {
