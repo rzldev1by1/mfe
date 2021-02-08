@@ -81,7 +81,7 @@ const StockHoldingDetail = (props) => {
           <Nav tabs className="mx-0">
             <div className="input-group">
               <NavItem className={`p-0 ${activeTab === '2' ? 'bg-tabNonActive' : 'n'}`}>
-                <NavLink active={activeTab === '1'} onClick={() => setActiveTab('1')} style={{ marginLeft: '0px' }}>
+                <NavLink className="d-flex align-items-center" active={activeTab === '1'} onClick={() => setActiveTab('1')} style={{ marginLeft: '0px' }}>
                   <div
                     className={`row rowTabCustom align-items-center tabColumn mx-0 ${
                       activeTab === '1' ? ' tab-custom' : 'tab-nonActive'
@@ -100,7 +100,7 @@ const StockHoldingDetail = (props) => {
                 ''
               ) : (
                 <NavItem className={`p-0 ml-2 ${activeTab === '1' ? 'bg-tabNonActive' : 'sss'}`}>
-                  <NavLink active={activeTab === '2'} onClick={() => setActiveTab('2')}>
+                  <NavLink className="d-flex align-items-center" active={activeTab === '2'} onClick={() => setActiveTab('2')}>
                     <div
                       className={`row rowTabCustom align-items-center tabColumn mx-0 ${
                         activeTab === '2' ? ' tab-custom' : 'tab-nonActive'
