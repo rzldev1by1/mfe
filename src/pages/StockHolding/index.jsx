@@ -119,7 +119,7 @@ const PurchaseOrders = (props) => {
             getExportData={async () => {
               setExport(true);
             }}
-            splitModule="Stockholding"
+            splitModule="stock-holding"
           />
         </div>
       </div>
