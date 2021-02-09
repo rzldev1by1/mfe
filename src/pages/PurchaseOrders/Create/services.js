@@ -289,7 +289,7 @@ export const submit = async ({ data, user, setIsSubmitReturn, setActiveTab, setI
   const ret = await submitPurchaseOrder({ orderDetail: newOrderDetails, lineDetails: newOrderLines });
 
   //check return
-  let status = ret?.status;
+  let status = ret?.data?.status;
   let message = ret?.data?.message;
   let submitReturn = { status: status, message: message, orderNo: data?.orderDetails?.orderNo?.value };
   await setIsSubmitReturn(submitReturn);

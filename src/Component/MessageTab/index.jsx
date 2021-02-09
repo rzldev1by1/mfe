@@ -25,7 +25,7 @@ const MessageTab = ({ module, submitReturn, back, exit }) => {
       setStatusMessage('Check your Internet Connection');
       setImgClass('msg-Icon_Reload');
       setTitle('');
-    } else if (module == 'UM' && message === 'register successfully') {
+    } else if (module == 'UM' && message === 'User created') {
       setStatusMessage(
         'You have created a new ' +
           submitReturn.role +

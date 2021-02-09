@@ -50,7 +50,7 @@ export const getSummaryData = async ({
 
   // Url
   if (module === 'UserManagement') {
-    urls.push(`search=${searchInput?.toUpperCase() || ''}`);
+    urls.push(`search=${searchInput || ''}`);
   }
   if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
     urls.push(`search=${searchInput?.toUpperCase() || ''}`);
@@ -386,7 +386,7 @@ export const getStockMovement = async ({ dropdownValue, dispatch }) => {
 export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSite, loadClient, moduleAccess }) => {
   const { data } = await axios.get(endpoints.userManagementUser_Detail + userid);
   const newState = { ...state };
-  let result = restructureAccount(data.data);
+  let result = restructureAccount(data);
   if (data && data !== '') {
     let adminClassName = newState.adminClass;
 
@@ -405,13 +405,13 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
   });
   let menus = moduleAccess
     ?.filter((item) => {
-      return menuAvailable.indexOf(item.menuname.toLowerCase()) !== -1;
+      return menuAvailable.indexOf(item.menu_name.toLowerCase()) !== -1;
     })
     .map((item, index) => {
       let newItem = item;
       let isStatus = false;
       if (accountInfoUser.web_group !== utility.webgroup.ADMIN) {
-        isStatus = userMenu.includes(item.menuid) ? true : false;
+        isStatus = userMenu.includes(item.menu_id) ? true : false;
       }
       newItem.status = isStatus;
       return newItem;
@@ -465,7 +465,7 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
 
 export const restructureAccount = (sources) => {
   let newAccount = {};
-  let account = sources[0];
+  let account = sources?.data;
 
   if (account) {
     newAccount.user = account.name;
@@ -474,13 +474,15 @@ export const restructureAccount = (sources) => {
     newAccount.lastLogin = today;
     newAccount.thisAccess = today;
     newAccount.thisLogin = today;
-    newAccount.userMenu = restuctureMenuList(account.module);
+    newAccount.userMenu = restuctureMenuList(account.user_menus);
     newAccount.userId = account.userid;
     newAccount.client = account.client;
     newAccount.disabled = account.disabled !== 'Y' ? false : true;
     newAccount.passwordChange = account.passwordChange ? account.passwordChange : '';
     newAccount.site = account.site;
     newAccount.web_group = account.web_group;
+    newAccount.web_user = account.web_user;
+    newAccount.request_forgot_password = account.request_forgot_password;
   }
   return newAccount;
 };
@@ -488,7 +490,7 @@ export const restructureAccount = (sources) => {
 export const restuctureMenuList = (sources) => {
   let newUserMenu = [];
   let userMenu = sources;
-
+  console.log(sources);
   if (userMenu.length) {
     newUserMenu = sources.map((item) => {
       let newItem = {};
@@ -503,7 +505,11 @@ export const restuctureMenuList = (sources) => {
 
 // Check Email
 export const checkEmails = async ({ email }) => {
-  const { data } = await axios.post(endpoints.userManagementCheckMailValidation, { email });
+  const data = await axios.post(endpoints.userManagementCheckMailValidation, { email }).catch(function (error) {
+    if (error.response) {
+      return error.response;
+    }
+  });
   return data;
 };
 
@@ -519,10 +525,11 @@ export const onChangeEmail = ({ e, state, setState }) => {
 };
 
 export const onBlurEmail = async ({ e, state, setState }) => {
-  const { value } = e.target;
+  const { value } = e;
   const newState = { ...state };
   const { data } = await axios.post(endpoints.userManagementCheckMailValidation, { email: value });
-  newState.validation.email['isValid'] = newState.oldAccountInfo.email !== value && data === 0 ? true : false;
+  newState.validation.email['isValid'] =
+    newState.oldAccountInfo.email !== value && data?.exists !== true ? true : false;
 
   if (!newState.validation.email['isValid']) {
     newState.validation.email['message'] = utility.validationMsg.EMAIL_EXIST;
@@ -609,7 +616,7 @@ export const saveClick = ({ props, state, setState, dispatch }) => {
       return item.status === true;
     })
     .map((item, index) => {
-      return item.menuid;
+      return item.menu_id;
     });
 
   let site = newState.sites.find((item, index) => {
@@ -638,6 +645,7 @@ export const saveClick = ({ props, state, setState, dispatch }) => {
 
   const accountInfo = { ...newState.accountInfo };
   newParam.name = accountInfo.user;
+  newParam.webGroup = accountInfo.web_group;
   newParam.email = accountInfo.email;
   newParam.lastAccess = accountInfo.lastAccess;
   newParam.lastLogin = accountInfo.lastLogin;
@@ -669,10 +677,11 @@ export const saveClick = ({ props, state, setState, dispatch }) => {
 
 export const updateRequest = async ({ param, state, setState, props, dispatch }) => {
   const newState = { ...state };
-  const { userId, user, email } = newState.accountInfo;
-  let url = `${endpoints.userManagementUpdate}${userId}`;
+  console.log(newState);
+  const { userId, user, email, web_user } = newState.accountInfo;
+  let url = `${endpoints.userManagementUpdate}${web_user}`;
 
-  const { data, status } = await axios.post(url, param);
+  const { data, status } = await axios.put(url, param);
   if (status === 200) {
     let lastChangedUser = {};
     lastChangedUser.name = user;
@@ -697,7 +706,7 @@ export const resetPassword = ({ state, setState, props }) => {
   let web_user_id = match.params.id;
   const { user, userId, email, userMenu } = newState.accountInfo;
 
-  let url = `${endpoints.userManagementresetpassword}`;
+  let url = `${endpoints.userManagementresetpassword}${web_user_id}/reset-password`;
   let newText = user.substring(0, 1);
   let result = utility.generateUserID(today);
   let new_password = result + newText.toLowerCase();

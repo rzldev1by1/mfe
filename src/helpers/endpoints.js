@@ -40,9 +40,9 @@ export default {
   userManagementModuleAccess: '/v1/preferences/user-modules',
   userManagementCreate: '/v1/users',
   userManagementListUser: '/v1/users',
-  userManagementUser_Detail: '/web_user_detail/',
-  userManagementUpdate: '/usermanagement/update/',
-  userManagementresetpassword: '/usermanagement/forgot_password',
+  userManagementUser_Detail: '/v1/users/',
+  userManagementUpdate: '/v1/users/',
+  userManagementresetpassword: '/v1/users/',
   userManagementCheckMailValidation: '/v1/users/check-email',
   // User Management End --------------------------------------------------------
 
