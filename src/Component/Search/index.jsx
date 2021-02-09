@@ -120,7 +120,7 @@ const Search = ({
       <CCardBody className={`p-3`}>
         <form onSubmit={searchForm}>
           <CRow className="mx-0">
-            <CCol lg={module === 'UserManagement' ? 11 : 3} className="pr-3 pl-0">
+            <CCol lg={module === 'UserManagement' ? 11 : 3} className="pl-0 mobile-input">
               <div className="input-group">
                 <div className="input-group-prepend">
                   <span className="input-group-text border-right-0 bg-white">
@@ -138,10 +138,10 @@ const Search = ({
               </div>
             </CCol>
             {module === 'UserManagement' ? (
-              <CCol lg={1} className="pr-0">
+              <CCol lg={1} className="px-0">
                 <button
                   type="button"
-                  className="btn btn-search btn-primary float-right"
+                  className="btn btn-search mobile-search  btn-primary float-right"
                   onClick={() =>
                     getSummaryData({
                       siteVal: newDropdownValue.site,
@@ -161,7 +161,7 @@ const Search = ({
             ) : (
               <CCol lg={9} className="px-0">
                 <CRow className="mx-0">
-                  <CCol sm={4} lg={2} className="px-0">
+                  <CCol sm={4} lg={2} className="mobile-site px-0">
                     {user?.site ? (
                       <input value={siteCheck(siteData, user.site)} className="form-control sh-input" readOnly />
                     ) : (
@@ -182,7 +182,7 @@ const Search = ({
                       />
                     )}
                   </CCol>
-                  <CCol sm={4} lg={2} className={`px-3 ${user?.site ? ' pr-3' : ''}`}>
+                  <CCol sm={4} lg={2} className={`mobile-client px-3 ${user?.site ? ' pr-3' : ''}`}>
                     {user?.client ? (
                       <input value={clientCheck(clientData, user.client)} className="form-control sh-input" readOnly />
                     ) : (
@@ -206,7 +206,7 @@ const Search = ({
                       />
                     )}
                   </CCol>
-                  <CCol sm={4} lg={2} className="px-0">
+                  <CCol sm={4} lg={2} className="px-0 mobile-status">
                     <Dropdown
                       className={`px-0 ${filterStatus === true ? null : ' d-none'}`}
                       show
@@ -218,7 +218,7 @@ const Search = ({
                       selectedValue={newDropdownValue.status}
                     />
                   </CCol>
-                  <CCol sm={4} lg={2}>
+                  <CCol sm={4} lg={2} className=" mobile-type">
                     <Dropdown
                       className={`px-0 ${filterOrderType === true ? null : ' d-none'}`}
                       show
@@ -230,7 +230,7 @@ const Search = ({
                       selectedValue={newDropdownValue.orderType}
                     />
                   </CCol>
-                  <CCol sm={4} lg={2} className="px-0">
+                  <CCol sm={4} lg={2} className="mobile-task  px-0">
                     <Dropdown
                       className={`px-0 ${filterTask === true ? null : ' d-none'}`}
                       show
@@ -243,7 +243,7 @@ const Search = ({
                   <CCol sm={4} lg={2} className="px-0">
                     <button
                       type="button"
-                      className="btn btn-search btn-primary float-right"
+                      className="btn btn-search mobile-search btn-primary float-right"
                       onClick={() =>
                         getSummaryData({
                           siteVal: newDropdownValue.site,
