@@ -98,13 +98,14 @@ export const getSummaryData = async ({
       item.on_hand_qty = numeral(item.on_hand_qty).format('0,0');
       item.pallets = numeral(item.pallets).format('0,0');
       item.expected_in_wgt = numeral(item.expected_in_wgt).format('0,0.000');
+      item.weight = numeral(item.weight).format('0,0.000');
       item.weight_processed = numeral(item.weight_processed).format('0,0.000');
       item.price = numeral(item.price).format('0,0.00');
       // User Management Data
       item.disabled = item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
       item.site = item.site && item.site !== '' ? item.site : 'All';
       item.client = item.client && item.client !== '' ? item.client : 'All';
-      item.last_access = item.last_access && item.last_access !== '' ? item.last_access : '-';
+      item.last_access = item.last_access && item.last_access !== '' ? moment(item.last_access).format('DD/MM/YYYY HH:mm:ss') : '-';
       if (customerName !== undefined) item.customername = customerName[1];
     });
 
