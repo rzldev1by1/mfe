@@ -124,8 +124,9 @@ export const getDisposition = async ({ dispatch }) => {
   const { data } = await axios.get(`${endpoints.getDisposition}`);
   const dispositionData = [];
   data.map((c, i) => {
-    if (c.length > 0 && c != ' ') dispositionData.push({ value: c, label: c });
+    if (c.code.length > 0 && c.code !== ' ') dispositionData.push({ value: c.code, label: c.code });
   });
+  console.log('osas', dispositionData);
   dispatch({ type: 'CREATE_PO_DISPOSITION', data: dispositionData });
 };
 

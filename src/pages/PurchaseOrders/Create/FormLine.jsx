@@ -17,6 +17,7 @@ const FormLine = ({ index, data, orderDetails, isReadonly, orderLines, isValidat
   const [isProductDesc, setIsProductDesc] = useState(null);
   const [isUom, setIsUom] = useState(null);
   const { product, desc, qty, weight, uom, batch, ref3, ref4, disposition, rotaDate } = orderLines;
+  console.log(data);
 
   return (
     <tr className="py-1 orderline-row" style={{ height: '70px' }}>
@@ -89,7 +90,7 @@ const FormLine = ({ index, data, orderDetails, isReadonly, orderLines, isValidat
           placeholder={uom?.text}
           options={isUom}
           required
-          selectedValue={uom?.value}
+          selectedValue={data?.uom}
           onChangeDropdown={(selected) => {
             changeOrderLines({ val: selected, column: 'uom', index, dispatch });
           }}
@@ -139,7 +140,7 @@ const FormLine = ({ index, data, orderDetails, isReadonly, orderLines, isValidat
           placeholder={disposition?.text}
           options={dispositionData}
           required
-          selectedValue={disposition?.value}
+          selectedValue={data?.disposition}
           onChangeDropdown={(selected) => {
             changeOrderLines({ val: selected, column: 'disposition', index, dispatch });
           }}
