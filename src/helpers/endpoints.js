@@ -14,10 +14,7 @@ export default {
   // Dropdown End --------------------------------------------------------
 
   // Stock Holding Start --------------------------------------------------------
-  stockHoldingSummary: '/stockholding',
-  stockHoldingDetail: '/stockdetail/header/',
-  stockDetail: '/stockdetail',
-  stockBalanceForecast: '/foreshadowedstockbalance/',
+  stockHoldingSummary: '/v1/stocks/holding',
   getStockHoldingHearder: '/getStockholdingColumn',
   // Stock Holding End --------------------------------------------------------
 
@@ -43,9 +40,9 @@ export default {
   userManagementModuleAccess: '/v1/preferences/user-modules',
   userManagementCreate: '/v1/users',
   userManagementListUser: '/v1/users',
-  userManagementUser_Detail: '/web_user_detail/',
-  userManagementUpdate: '/usermanagement/update/',
-  userManagementresetpassword: '/usermanagement/forgot_password',
+  userManagementUser_Detail: '/v1/users/',
+  userManagementUpdate: '/v1/users/',
+  userManagementresetpassword: '/v1/users/',
   userManagementCheckMailValidation: '/v1/users/check-email',
   // User Management End --------------------------------------------------------
 
@@ -53,7 +50,7 @@ export default {
   stockAgeProfile: '/stockageprofile',
 
   userLogin: '/auth/login',
-  resetPassword: '/usermanagement/request_reset_password',
+  resetPassword: '/auth/forgot-password',
 
   orderCheck: '/orderCheck',
 };

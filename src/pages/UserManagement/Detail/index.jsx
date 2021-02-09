@@ -36,8 +36,8 @@ const UserManagementDetail = (props) => {
 
     adminClass: 'd-none',
     validation: {
-      name: { isValid: true, invalidClass: ' ', message: 'invalid email' },
-      email: { isValid: true, invalidClass: ' ', message: 'username must be entered' },
+      name: { isValid: true, invalidClass: ' ', message: 'username must be entered' },
+      email: { isValid: true, invalidClass: ' ', message: 'invalid email' },
       modules: { isValid: true, invalidClass: 'is-invalid', message: 'Please enable at least one on module access' },
       sites: { isValid: true, invalidClass: 'is-invalid', message: 'Please enable at least one on site' },
       clients: { isValid: true, invalidClass: 'is-invalid', message: 'Please enable at least one on client' },
@@ -100,9 +100,14 @@ const UserManagementDetail = (props) => {
                 <div className="col-md-2">
                   <label className="text-title-detail">Name</label>
                 </div>
-                <div className="col-md-3 pr-0">
-                  <label className="text-title-detail">Reset Password</label>
-                </div>
+                {newState?.accountInfo?.request_forgot_password ? (
+                  <div className="col-md-3 pr-0">
+                    <label className="text-title-detail">Reset Password</label>
+                  </div>
+                ) : (
+                  ''
+                )}
+
                 <div className={`col-md-3 pl-0 ${newState.adminClass}`}>
                   <label className="text-title-detail">Suspend Users</label>
                 </div>
@@ -122,7 +127,7 @@ const UserManagementDetail = (props) => {
                       onChangeEmail({ e, state, setState });
                     }}
                     onBlur={(e) => {
-                      onBlurEmail(e);
+                      onChangeEmail({ e, state, setState });
                     }}
                     value={newState.accountInfo.email}
                   />
@@ -147,25 +152,33 @@ const UserManagementDetail = (props) => {
                     {`${newState.validation.name['message']}`}
                   </FormFeedback>
                 </div>
-                <div className="col-md-3 pr-0">
-                  <div className="row pl-0">
-                    <div className="col-6 text-title-detail pr-0">Are you sure you want to create new password?</div>
-                    <div className="col-5">
-                      <button
-                        type="button"
-                        className={
-                          'btn ' +
-                          (newState.accountInfo.passwordChange === '' ? 'btn-outline-active' : 'btn-outline-notActive')
-                        }
-                        onClick={(e) => {
-                          onClickResetPassword({ state, setState });
-                        }}
-                      >
-                        RESET
-                      </button>
+
+                {newState?.accountInfo?.request_forgot_password ? (
+                  <div className="col-md-3 pr-0">
+                    <div className="row pl-0">
+                      <div className="col-6 text-title-detail pr-0">Are you sure you want to create new password?</div>
+                      <div className="col-5">
+                        <button
+                          type="button"
+                          className={
+                            'btn ' +
+                            (newState.accountInfo.passwordChange === ''
+                              ? 'btn-outline-active'
+                              : 'btn-outline-notActive')
+                          }
+                          onClick={(e) => {
+                            onClickResetPassword({ state, setState });
+                          }}
+                        >
+                          RESET
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
+                ) : (
+                  ''
+                )}
+
                 <div className={`col-md-3 pl-0 ${newState.adminClass}`}>
                   <div className="row">
                     <div className="col-6 text-title-detail">
@@ -250,7 +263,7 @@ const UserManagementDetail = (props) => {
                 </div>
               </div>
             </div>
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between pt-3">
               <button
                 type="button"
                 className=" font-lg btn btn-primary btn-submit default-box-height"
@@ -261,9 +274,9 @@ const UserManagementDetail = (props) => {
                 <label className="create-user-label mb-0">BACK</label>
               </button>
               <p>
-                <label className={newState.isValidForm ? 'errorText ' : ' d-none'}>
+                {/* <label className={newState.isValidForm ? 'errorText ' : ' d-none'}>
                   Please make sure user name, email is valid and module has one enabled
-                </label>
+                </label> */}
               </p>
               <button
                 type="button"

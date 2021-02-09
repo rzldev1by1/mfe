@@ -1,6 +1,14 @@
-.line-camp{
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+.line-camp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+@media (max-width: 575px) {
+  .border-right {
+    border-right: none !important;
   }
+  .mobile-header {
+    margin-left: 15px !important;
+  }
+}

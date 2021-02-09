@@ -12,8 +12,9 @@ export const submit = async ({ data, isAdmin, setIsSubmitReturn, setActiveTab, s
       return item.status === true;
     })
     .map((item, index) => {
-      return item.menuid;
+      return item.menu_id;
     });
+
   let adminMenu = moduleAccess.map((item, index) => {
     return item.menuid;
   });
@@ -35,8 +36,8 @@ export const submit = async ({ data, isAdmin, setIsSubmitReturn, setActiveTab, s
   };
 
   submitData.userMenu = isAdmin ? adminMenu : userMenu;
-  submitData.site = isAdmin ? null : siteValue.length == sites.length ? null : siteValue;
-  submitData.client = isAdmin ? null : clientValue.length == clients.length ? null : clientValue;
+  submitData.site = isAdmin ? null : siteValue.length == sites.length ? null : siteValue[0];
+  submitData.client = isAdmin ? null : clientValue.length == clients.length ? null : clientValue[0];
   submitData.webGroup = isAdmin ? 'Admin' : 'Regular';
   submitData.disabled = 'N';
   console.log(submitData);
@@ -115,12 +116,18 @@ export const changeDetails = async ({ isAdmin, setState, state, column, e }) => 
       newState['validation'][column]['message'] = 'Invalid format (eg. microlistics@test.com)';
     } else {
       let check = await checkEmails({ email: value });
-      if (!check) {
-        newState['validation'][column]['isValid'] = true;
-        newState['validation'][column]['message'] = 'Invalid format (eg. microlistics@test.com)';
-      } else {
+      let statusCode = check?.status;
+      if (statusCode === 200) {
+        if (check?.data?.exists) {
+          newState['validation'][column]['isValid'] = false;
+          newState['validation'][column]['message'] = 'Email address has been registered';
+        } else {
+          newState['validation'][column]['isValid'] = true;
+          newState['validation'][column]['message'] = 'Invalid format (eg. microlistics@test.com)';
+        }
+      } else if (statusCode === 422) {
         newState['validation'][column]['isValid'] = false;
-        newState['validation'][column]['message'] = 'Email address has been registered';
+        newState['validation'][column]['message'] = 'The email must be a valid email address.';
       }
     }
   }
@@ -138,7 +145,6 @@ export const changeDetails = async ({ isAdmin, setState, state, column, e }) => 
   //validate
   let validate = await validateButton({ isAdmin, state });
   newState['validate'] = validate;
-  console.log(newState);
   setState(newState);
 };
 

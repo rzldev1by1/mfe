@@ -50,7 +50,7 @@ export const getSummaryData = async ({
 
   // Url
   if (module === 'UserManagement') {
-    urls.push(`search=${searchInput?.toUpperCase() || ''}`);
+    urls.push(`search=${searchInput || ''}`);
   }
   if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
     urls.push(`search=${searchInput?.toUpperCase() || ''}`);
@@ -142,7 +142,7 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
     paramType = 'GET_SO_DETAIL';
   }
   if (module === 'stockHolding') {
-    endpointsUrl = `/stockdetail/header/${product}?client=${client}&site=${site}`;
+    endpointsUrl = endpoints.stockHoldingSummary + `/${site}/${client}/${product}/detail-header`;
     paramType = 'GET_SH_DETAIL';
   }
 
@@ -155,7 +155,7 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
   }
   if (module === 'stockHolding') {
     if (data.data) {
-      dispatch({ type: paramType, data: data.data[0] });
+      dispatch({ type: paramType, data: data.data });
     }
   }
 };
@@ -164,17 +164,22 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   const { orderdetail, client, site, orderno, product } = props.match.params;
   let endpointsUrl = '';
   let paramType = '';
+  let paramPaging = '';
   if (module === 'purchaseOrder') {
     endpointsUrl = endpoints.purchaseOrder + `/${site}/${client}/${orderdetail}?page=${active}&export=${export_}`;
     paramType = 'GET_PO_DETAIL_TABLE';
+    paramPaging = 'PAGING';
   }
   if (module === 'salesOrder') {
     endpointsUrl = endpoints.salesOrder + `/${orderno}?client=${client}&site=${site}&page=${active}&export=${export_}`;
     paramType = 'GET_SO_DETAIL_TABLE';
+    paramPaging = 'PAGING';
   }
   if (module === 'stockHolding') {
-    endpointsUrl = `/stockdetail/${product}?client=${client}&site=${site}&page=${active}&export=${export_}`;
+    endpointsUrl =
+      endpoints.stockHoldingSummary + `/${site}/${client}/${product}/detail-line?page=${active}&export=${export_}`;
     paramType = 'GET_SH_DETAIL_TABLE';
+    paramPaging = 'PAGING_SH_DETAIL';
   }
 
   const url = endpointsUrl;
@@ -205,16 +210,16 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
     if (export_ === 'true') {
     } else {
       const pagination = {
-        active: active || Meta.current_page,
-        show: Meta.per_page,
-        total: Meta.total,
-        last_page: Meta.last_page,
-        from: Meta.from,
-        to: Meta.to,
+        active: active || Meta?.current_page,
+        show: Meta?.per_page,
+        total: Meta?.total,
+        last_page: Meta?.last_page,
+        from: Meta?.from,
+        to: Meta?.to,
       };
       const paging = pagination;
       dispatch({ type: paramType, data: modifiedData });
-      dispatch({ type: 'PAGING', data: paging });
+      dispatch({ type: paramPaging, data: paging });
     }
   } else {
     dispatch({ type: paramType, data: [] });
@@ -223,7 +228,7 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
 
 export const getForescast = async ({ export_ = 'false', dispatch, active, props }) => {
   const { product, client, site } = props.match.params;
-  const url = `/stock-balance-forecast?client=${client}&product=${product}&site=${site}&page=${active}&export=${export_}&limit=50`;
+  const url = endpoints.stockHoldingSummary + `/${site}/${client}/${product}/detail-balance`;
   dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: [] });
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const { data } = await axios.get(url);
@@ -234,21 +239,24 @@ export const getForescast = async ({ export_ = 'false', dispatch, active, props 
       return 0;
     }
     const modifiedData = forecast;
+    const Meta = data?.meta;
+    const Links = data?.links;
+
     modifiedData.map((item, idx) => {
       item.in = numeral(item.in).format('0,0');
       item.out = numeral(item.out).format('0,0');
       item.balance = numeral(item.balance).format('0,0');
     });
     const pagination = {
-      active: active || data.current_page,
-      show: data.per_page,
-      total: data.total,
-      last_page: data.last_page,
-      from: data.from,
-      to: data.to,
+      active: active || Meta?.current_page,
+      show: Meta?.per_page,
+      total: Meta?.total,
+      last_page: Meta?.last_page,
+      from: Meta?.from,
+      to: Meta?.to,
     };
     dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: modifiedData });
-    dispatch({ type: 'PAGING', data: pagination });
+    dispatch({ type: 'PAGING_SH_FORECAST', data: pagination });
   }
 };
 
@@ -332,14 +340,26 @@ export const getStockMovement = async ({ dropdownValue, dispatch }) => {
           product_name: data.product_name,
         };
 
-        let detail = data.detail;
-        detail.map((details) => {
-          let dates = details.date.replaceAll('-', '_');
-          tmp_row['sa_plus_' + dates] = details.sa_plus;
-          tmp_row['sa_minus_' + dates] = details.sa_minus;
-          tmp_row['rec_' + dates] = details.recv_weight;
-          tmp_row['send_' + dates] = details.send_weight;
-        });
+        for (var key in data) {
+          if (key.includes('sum_')) {
+            let dates = key.replace('sum_', '');
+            let tmp = data[key];
+            let tmp_arr = tmp.split('-');
+            tmp_row['sa_plus_' + dates] = tmp_arr[0];
+            tmp_row['sa_minus_' + dates] = tmp_arr[1];
+            tmp_row['rec_' + dates] = tmp_arr[2];
+            tmp_row['send_' + dates] = tmp_arr[3];
+          }
+        }
+
+        // let detail = data.detail;
+        // detail.map((details) => {
+        //   let dates = details.date.replaceAll('-', '_');
+        //   tmp_row['sa_plus_' + dates] = details.sa_plus;
+        //   tmp_row['sa_minus_' + dates] = details.sa_minus;
+        //   tmp_row['rec_' + dates] = details.recv_weight;
+        //   tmp_row['send_' + dates] = details.send_weight;
+        // });
         newData.push(tmp_row);
       });
 
@@ -366,7 +386,7 @@ export const getStockMovement = async ({ dropdownValue, dispatch }) => {
 export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSite, loadClient, moduleAccess }) => {
   const { data } = await axios.get(endpoints.userManagementUser_Detail + userid);
   const newState = { ...state };
-  let result = restructureAccount(data.data);
+  let result = restructureAccount(data);
   if (data && data !== '') {
     let adminClassName = newState.adminClass;
 
@@ -385,13 +405,13 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
   });
   let menus = moduleAccess
     ?.filter((item) => {
-      return menuAvailable.indexOf(item.menuname.toLowerCase()) !== -1;
+      return menuAvailable.indexOf(item.menu_name.toLowerCase()) !== -1;
     })
     .map((item, index) => {
       let newItem = item;
       let isStatus = false;
       if (accountInfoUser.web_group !== utility.webgroup.ADMIN) {
-        isStatus = userMenu.includes(item.menuid) ? true : false;
+        isStatus = userMenu.includes(item.menu_id) ? true : false;
       }
       newItem.status = isStatus;
       return newItem;
@@ -445,7 +465,7 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
 
 export const restructureAccount = (sources) => {
   let newAccount = {};
-  let account = sources[0];
+  let account = sources?.data;
 
   if (account) {
     newAccount.user = account.name;
@@ -454,13 +474,15 @@ export const restructureAccount = (sources) => {
     newAccount.lastLogin = today;
     newAccount.thisAccess = today;
     newAccount.thisLogin = today;
-    newAccount.userMenu = restuctureMenuList(account.module);
+    newAccount.userMenu = restuctureMenuList(account.user_menus);
     newAccount.userId = account.userid;
     newAccount.client = account.client;
     newAccount.disabled = account.disabled !== 'Y' ? false : true;
     newAccount.passwordChange = account.passwordChange ? account.passwordChange : '';
     newAccount.site = account.site;
     newAccount.web_group = account.web_group;
+    newAccount.web_user = account.web_user;
+    newAccount.request_forgot_password = account.request_forgot_password;
   }
   return newAccount;
 };
@@ -468,7 +490,7 @@ export const restructureAccount = (sources) => {
 export const restuctureMenuList = (sources) => {
   let newUserMenu = [];
   let userMenu = sources;
-
+  console.log(sources);
   if (userMenu.length) {
     newUserMenu = sources.map((item) => {
       let newItem = {};
@@ -483,7 +505,11 @@ export const restuctureMenuList = (sources) => {
 
 // Check Email
 export const checkEmails = async ({ email }) => {
-  const { data } = await axios.post(endpoints.userManagementCheckMailValidation, { email });
+  const data = await axios.post(endpoints.userManagementCheckMailValidation, { email }).catch(function (error) {
+    if (error.response) {
+      return error.response;
+    }
+  });
   return data;
 };
 
@@ -499,10 +525,11 @@ export const onChangeEmail = ({ e, state, setState }) => {
 };
 
 export const onBlurEmail = async ({ e, state, setState }) => {
-  const { value } = e.target;
+  const { value } = e;
   const newState = { ...state };
   const { data } = await axios.post(endpoints.userManagementCheckMailValidation, { email: value });
-  newState.validation.email['isValid'] = newState.oldAccountInfo.email !== value && data === 0 ? true : false;
+  newState.validation.email['isValid'] =
+    newState.oldAccountInfo.email !== value && data?.exists !== true ? true : false;
 
   if (!newState.validation.email['isValid']) {
     newState.validation.email['message'] = utility.validationMsg.EMAIL_EXIST;
@@ -589,7 +616,7 @@ export const saveClick = ({ props, state, setState, dispatch }) => {
       return item.status === true;
     })
     .map((item, index) => {
-      return item.menuid;
+      return item.menu_id;
     });
 
   let site = newState.sites.find((item, index) => {
@@ -618,6 +645,7 @@ export const saveClick = ({ props, state, setState, dispatch }) => {
 
   const accountInfo = { ...newState.accountInfo };
   newParam.name = accountInfo.user;
+  newParam.webGroup = accountInfo.web_group;
   newParam.email = accountInfo.email;
   newParam.lastAccess = accountInfo.lastAccess;
   newParam.lastLogin = accountInfo.lastLogin;
@@ -649,10 +677,11 @@ export const saveClick = ({ props, state, setState, dispatch }) => {
 
 export const updateRequest = async ({ param, state, setState, props, dispatch }) => {
   const newState = { ...state };
-  const { userId, user, email } = newState.accountInfo;
-  let url = `${endpoints.userManagementUpdate}${userId}`;
+  console.log(newState);
+  const { userId, user, email, web_user } = newState.accountInfo;
+  let url = `${endpoints.userManagementUpdate}${web_user}`;
 
-  const { data, status } = await axios.post(url, param);
+  const { data, status } = await axios.put(url, param);
   if (status === 200) {
     let lastChangedUser = {};
     lastChangedUser.name = user;
@@ -677,7 +706,7 @@ export const resetPassword = ({ state, setState, props }) => {
   let web_user_id = match.params.id;
   const { user, userId, email, userMenu } = newState.accountInfo;
 
-  let url = `${endpoints.userManagementresetpassword}`;
+  let url = `${endpoints.userManagementresetpassword}${web_user_id}/reset-password`;
   let newText = user.substring(0, 1);
   let result = utility.generateUserID(today);
   let new_password = result + newText.toLowerCase();

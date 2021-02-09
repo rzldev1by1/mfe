@@ -56,37 +56,27 @@ const UserManagement = (props) => {
       <CCard className="bg-transparent mb-0">
         <CCardBody className="p-3 border-user-info">
           <CRow>
-            <CCol sm={1} className="user-login-info-header">
-              User ID
+            <CCol lg={1} className="col-3">
+              <div className="user-login-info-header">User ID</div>
+              <div className="user-login-info-value">{user.userId}</div>
             </CCol>
-            <CCol sm={1} className="user-login-info-header">
-              Name
+            <CCol lg={1} className="col-3 user-login-info-header">
+              <div className="user-login-info-header">Name</div>
+              <div className="user-login-info-value">
+                <Link to={`/users-management/${user.webUser}/detail`}>{user.userId}</Link>
+              </div>
             </CCol>
-            <CCol sm={2} className="user-login-info-header pr-0">
-              Email Address
+            <CCol lg={2} className="col-4 user-login-info-header pr-0">
+              <div className="user-login-info-header">Email Address</div>
+              <div className="user-login-info-value">{user.email}</div>
             </CCol>
-            <CCol sm={1} className="user-login-info-header pl-0">
-              Site
+            <CCol lg={1} className="col-3 user-login-info-header">
+              <div className="user-login-info-header">Site</div>
+              <div className="user-login-info-value">{user.site ? user.site : 'All'}</div>
             </CCol>
-            <CCol sm={1} className="user-login-info-header">
-              Client
-            </CCol>
-          </CRow>
-          <CRow className="mt-2">
-            <CCol sm={1} className="user-login-info-value">
-              {user.userId}
-            </CCol>
-            <CCol sm={1} className="user-login-info-value">
-              <Link to={`/users-management/${user.webUser}/detail`}>{user.userId}</Link>
-            </CCol>
-            <CCol sm={2} className="user-login-info-value pr-0">
-              {user.email}
-            </CCol>
-            <CCol sm={1} className="user-login-info-value pl-0">
-              {user.site ? user.site : 'All'}
-            </CCol>
-            <CCol sm={1} className="user-login-info-value">
-              {user.client ? user.client : 'All'}
+            <CCol lg={1} className="col-3 user-login-info-header">
+              <div className="user-login-info-header"> Client</div>
+              <div className="user-login-info-value"> {user.client ? user.client : 'All'}</div>
             </CCol>
           </CRow>
         </CCardBody>
