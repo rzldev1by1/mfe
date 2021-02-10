@@ -173,10 +173,12 @@ const Export = ({
                 <tr key={i}>
                   {schemaColumn.map((column, columnIdx) => {
                     let dataReturn = data[column.accessor] == null ? '-' : data[column.accessor];
+                    let dataExport = dataReturn =='0,000' ? 0 : dataReturn ;
+                    console.log(dataExport)
                     if (columnHiddenCharacter.includes(column.accessor)) {
-                      return <td key={columnIdx}>{dataReturn}‎‎‎</td>;
+                      return <td key={columnIdx}>{dataExport}‎‎‎</td>;
                     }
-                    return <td key={columnIdx}>{dataReturn}</td>;
+                    return <td key={columnIdx}>{dataExport}</td>;
                   })}
                 </tr>
               ))
