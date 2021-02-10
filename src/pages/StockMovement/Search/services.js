@@ -149,7 +149,7 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setdateHeader }) =>
         {
           Header: 'Send',
           accessor: 'send_' + dateAccessor,
-          className: 'borderRight text-right blueColor',
+          className: 'borderRight text-right',
           headerClassName: 'borderRight borderBottom blueColor text-center',
           Cell: '-',
           sortable: false,

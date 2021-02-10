@@ -29,12 +29,12 @@ const StockHoldingDetail = (props) => {
   }, []);
   useEffect(() => {
     if (!shDetailTable) {
-      getDetailData({ dispatch, props, active: paginationShDetail?.active, module });
+      getDetailData({ dispatch, props, active: paginationShDetail?.active || 1, module });
     }
   }, []);
   useEffect(() => {
     if (!shDetailForescast) {
-      getForescast({ dispatch, props, active: paginationShForecast?.active });
+      getForescast({ dispatch, props, active: paginationShForecast?.active|| 1 });
     }
   }, []);
 
@@ -131,7 +131,7 @@ const StockHoldingDetail = (props) => {
               classNameTable="table-detail "
               data={shDetailTable}
               style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
-              module="Stock Holding Detail"
+              module="StockHoldingDetail"
               noDataText
               pagination={paginationShDetail}
               goto={(e) => {
@@ -142,6 +142,7 @@ const StockHoldingDetail = (props) => {
               title="Stock Holding Details"
               filename="Microlistics_StockHoldingDetails."
               editColumn="false"
+              props={props}
             />
           </TabPane>
         ) : (
@@ -155,7 +156,7 @@ const StockHoldingDetail = (props) => {
               classNameTable="table-detail "
               data={shDetailForescast}
               style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
-              module="Stock Holding Forecast"
+              module="StockHoldingForecast"
               noDataText
               pagination={paginationShForecast}
               goto={(e) => {
@@ -166,6 +167,7 @@ const StockHoldingDetail = (props) => {
               title="Stock Holding Forecast"
               filename="Microlistics_StockHoldingForecast."
               editColumn="false"
+              props={props}
             />
           </TabPane>
         ) : (

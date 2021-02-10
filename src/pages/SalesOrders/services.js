@@ -242,13 +242,24 @@ export const schemaColumn = [
   {
     Header: 'Postcode',
     placeholder: 'Postcode',
-    accessor: 'Postcode',
+    accessor: 'postcode',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 100,
+  },
+  {
+    Header: 'State',
+    placeholder: 'State',
+    accessor: 'state',
+    headerStyle: { textAlign: 'left' },
+    style: { textAlign: 'left', paddingLeft: '15px' },
+    headerClassName: 'borderBottom noPaddingTop',
+    sortable: true,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    width: 150,
   },
   {
     Header: 'Country',
@@ -315,7 +326,8 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     className: 'align-right',
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => <span>{props.value == null ? '-': props.value }
+    </span>,
     width: 150,
   },
 ];

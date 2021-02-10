@@ -227,9 +227,9 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   }
 };
 
-export const getForescast = async ({ export_ = 'false', dispatch, active, props }) => {
+export const getForescast = async ({ export_ = 'false', dispatch, active, props,}) => {
   const { product, client, site } = props.match.params;
-  const url = endpoints.stockHoldingSummary + `/${site}/${client}/${product}/detail-balance`;
+  const url = endpoints.stockHoldingSummary + `/${site}/${client}/${product}/detail-balance?page=${active}&export=${export_}`;
   dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: [] });
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const { data } = await axios.get(url);
