@@ -98,13 +98,14 @@ export const getSummaryData = async ({
       item.on_hand_qty = numeral(item.on_hand_qty).format('0,0');
       item.pallets = numeral(item.pallets).format('0,0');
       item.expected_in_wgt = numeral(item.expected_in_wgt).format('0,0.000');
+      item.weight = numeral(item.weight).format('0,0.000');
       item.weight_processed = numeral(item.weight_processed).format('0,0.000');
       item.price = numeral(item.price).format('0,0.00');
       // User Management Data
       item.disabled = item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
       item.site = item.site && item.site !== '' ? item.site : 'All';
       item.client = item.client && item.client !== '' ? item.client : 'All';
-      item.last_access = item.last_access && item.last_access !== '' ? item.last_access : '-';
+      item.last_access = item.last_access && item.last_access !== '' ? moment(item.last_access).format('DD/MM/YYYY HH:mm:ss') : '-';
       if (customerName !== undefined) item.customername = customerName[1];
     });
 
@@ -226,9 +227,9 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   }
 };
 
-export const getForescast = async ({ export_ = 'false', dispatch, active, props }) => {
+export const getForescast = async ({ export_ = 'false', dispatch, active, props,}) => {
   const { product, client, site } = props.match.params;
-  const url = endpoints.stockHoldingSummary + `/${site}/${client}/${product}/detail-balance`;
+  const url = endpoints.stockHoldingSummary + `/${site}/${client}/${product}/detail-balance?page=${active}&export=${export_}`;
   dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: [] });
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const { data } = await axios.get(url);
@@ -490,7 +491,6 @@ export const restructureAccount = (sources) => {
 export const restuctureMenuList = (sources) => {
   let newUserMenu = [];
   let userMenu = sources;
-  console.log(sources);
   if (userMenu.length) {
     newUserMenu = sources.map((item) => {
       let newItem = {};
@@ -677,7 +677,6 @@ export const saveClick = ({ props, state, setState, dispatch }) => {
 
 export const updateRequest = async ({ param, state, setState, props, dispatch }) => {
   const newState = { ...state };
-  console.log(newState);
   const { userId, user, email, web_user } = newState.accountInfo;
   let url = `${endpoints.userManagementUpdate}${web_user}`;
 

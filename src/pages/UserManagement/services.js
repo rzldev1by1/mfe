@@ -54,7 +54,7 @@ export const schemaColumn = [
     width: 180,
     sortable: true,
     Cell: (props) => (
-      <span> {props.value === '-' ? 'No Access Logged' : moment(props.value).format('DD/MM/YYYY HH:mm:ss')} </span>
+      <span> {props.value === '-' ? 'No Access Logged' : props.value} </span>
     ),
   },
   {

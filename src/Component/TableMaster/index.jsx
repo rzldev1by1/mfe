@@ -25,6 +25,7 @@ const TableMaster = ({
   exportPdf,
   editColumn,
   splitModule,
+  props,
 }) => {
   return (
     <div>
@@ -50,6 +51,7 @@ const TableMaster = ({
           goto={goto}
           schemaColumn={schemaColumn}
           isDisplay={isDisplay}
+          props={props}
         />
         <Export
           filename={filename}

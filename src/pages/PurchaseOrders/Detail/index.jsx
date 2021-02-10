@@ -6,7 +6,7 @@ import Breadcrumb from 'Component/Breadcrumb';
 import DetailHeader from 'Component/DetailHeader';
 import TableMaster from 'Component/TableMaster';
 import { getDetailData, getDetailHeader } from '../../../apiService';
-import { setExportData, siteCheck, clientCheck, schemaColumnDetailPO } from './services';
+import { setExportData, siteCheck, clientCheck, schemaColumnDetailPO, formatDate } from './services';
 import './index.scss';
 
 const PurchaseOrdersDetail = (props) => {
@@ -71,10 +71,10 @@ const PurchaseOrdersDetail = (props) => {
           titleLeftThree="Date Released"
           titleLeftFour="Date Completed"
           // Valeu Left
-          valeuLeftOne={poDetail?.delivery_date || '-'}
-          valeuLeftTwo={poDetail?.date_received || '-'}
-          valeuLeftThree={poDetail?.date_released || '-'}
-          valeuLeftFour={poDetail?.date_completed || '-'}
+          valeuLeftOne={formatDate(poDetail?.delivery_date) || '-'}
+          valeuLeftTwo={formatDate(poDetail?.date_received) || '-'}
+          valeuLeftThree={formatDate(poDetail?.date_released) || '-'}
+          valeuLeftFour={formatDate(poDetail?.date_completed) || '-'}
         />
       </div>
       <TableMaster
@@ -94,6 +94,7 @@ const PurchaseOrdersDetail = (props) => {
         title="Purchase Order Details"
         filename="Microlistics_PurchaseOrderDetails."
         isDisplay={false}
+        splitModule="purchase-order-detail"
       />
     </div>
   );

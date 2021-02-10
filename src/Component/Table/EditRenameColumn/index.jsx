@@ -197,7 +197,7 @@ const EditRenameColumn = ({
                           <input
                             id={index}
                             autoComplete="off"
-                            placeholder={item.Header}
+                            placeholder={item.placeholder}
                             name={item.Header}
                             sortable={item.sortable}
                             onChange={(e) => changedColumn({ e, state, setState, fields })}
