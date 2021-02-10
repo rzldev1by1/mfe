@@ -28,9 +28,9 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
   let header = await setHeader(schemaColumn);
   let body = await setBody(exportData, schemaColumn);
 
-  header = header.filter((data, idx) => idx <= 12);
+  header = header.filter((data, idx) => idx <= 17);
   body = body.map((data) => {
-    let newData = data.filter((dt, idx) => idx <= 12);
+    let newData = data.filter((dt, idx) => idx <= 17);
     let newData2 = newData.map((dt, idx) => {
       if (dt[0] === null) {
         return ['-'];

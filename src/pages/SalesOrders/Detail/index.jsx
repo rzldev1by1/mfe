@@ -99,8 +99,8 @@ const SalesOrdersDetail = (props) => {
           titleLeftTen="Freight Charge"
           // Valeu Left
           valeuLeftOne={(soDetail?.status && soDetail?.status.includes("0:") ? "0: Unavailable" : soDetail?.status) || '-'}
-          valeuLeftTwo={soDetail?.deliverydate || '-'}
-          valeuLeftThree={soDetail?.datereceived || '-'}
+          valeuLeftTwo={formatDate(soDetail?.deliverydate )|| '-'}
+          valeuLeftThree={formatDate(soDetail?.datereceived) || '-'}
           valeuLeftFour={formatDate(soDetail?.datereleased) || '-'}
           valeuLeftFive={formatDate(soDetail?.datecompleted) || '-'}
           valeuLeftSix={soDetail?.loadnumber || '-'}

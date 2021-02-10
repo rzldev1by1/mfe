@@ -1,9 +1,11 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable prefer-const */
 import React from 'react';
 import moment from 'moment';
 
+export const formatDate = (date) => {
+  if (date) {
+    return moment(date).format('DD/MM/YYYY') || false;
+  }
+};
 export const schemaColumn = [
   {
     Header: 'Site',
@@ -22,7 +24,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    width: 80,
+    width: 130,
   },
   {
     Header: 'Order No',
@@ -60,7 +62,7 @@ export const schemaColumn = [
   {
     Header: 'Customer No',
     placeholder: 'Customer No',
-    accessor: 'customer_no',
+    accessor: 'customer',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
@@ -115,7 +117,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => <span>{props.value ? formatDate(props.value) : '-'}</span>,
     width: 130,
   },
   {
@@ -126,7 +128,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => <span>{props.value ? formatDate(props.value) : '-'}</span>,
     width: 130,
   },
   {
@@ -137,7 +139,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => <span>{props.value ? formatDate(props.value) : '-'}</span>,
     width: 130,
   },
   {
@@ -148,7 +150,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    Cell: (props) => <span>{props.value ? formatDate(props.value) : '-'}</span>,
     width: 150,
   },
   {

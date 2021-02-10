@@ -155,7 +155,7 @@ const DetailHeader = ({
                 <CCol className="px-0">
                   <CCol className="px-0 line-camp">{valeuRightEleven}</CCol>
                   {valeuRightEleven.length > 100 ? (
-                    <Link className="pl-3" onClick={() => setModalShow(true)}>
+                    <Link onClick={() => setModalShow(true)}>
                       Show More
                     </Link>
                   ) : (

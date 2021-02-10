@@ -41,7 +41,7 @@ const SalesOrders = (props) => {
 
   useEffect(() => {
     if (state2) {
-      const x = columnHidden?.map((data, idx) => {
+      let x = columnHidden?.map((data, idx) => {
         if (data.title === 'Sales Order Summary') {
           setColumnHidden(data.columns);
         }

@@ -103,7 +103,7 @@ const Form = ({ activeTab, isValidation, createData }) => {
             name="site"
             placeholder={orderDetails?.site?.text}
             title={orderDetails?.site?.text}
-            options={siteData}
+            options={siteOption}
             selectedValue={orderDetails?.site?.value}
             onChangeDropdown={(selected) => changeOrderDetails({ column: 'site', value: selected, dispatch })}
             showTitle

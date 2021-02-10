@@ -2,7 +2,7 @@
 import React from 'react';
 import moment from 'moment';
 
-const formatDate = (date) => {
+export const formatDate = (date) => {
   if (date) {
     return moment(date).format('DD/MM/YYYY') || false;
   }
@@ -99,15 +99,6 @@ export const schemaColumnDetailPO = [
     ),
   },
   {
-    accessor: 'released',
-    placeholder: 'Released',
-    Header: 'Released',
-    width: 100,
-    Cell: (row) => (
-      <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
-    ),
-  },
-  {
     accessor: 'batch',
     placeholder: 'Batch',
     Header: 'Batch',
@@ -142,6 +133,15 @@ export const schemaColumnDetailPO = [
     Header: 'Disposition',
     width: 200,
     Cell: (props) => props.value || '-',
+  },
+  {
+    accessor: 'released',
+    placeholder: 'Released',
+    Header: 'Released',
+    width: 100,
+    Cell: (row) => (
+      <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+    ),
   },
 ];
 

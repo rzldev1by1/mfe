@@ -491,7 +491,6 @@ export const restructureAccount = (sources) => {
 export const restuctureMenuList = (sources) => {
   let newUserMenu = [];
   let userMenu = sources;
-  console.log(sources);
   if (userMenu.length) {
     newUserMenu = sources.map((item) => {
       let newItem = {};
@@ -678,7 +677,6 @@ export const saveClick = ({ props, state, setState, dispatch }) => {
 
 export const updateRequest = async ({ param, state, setState, props, dispatch }) => {
   const newState = { ...state };
-  console.log(newState);
   const { userId, user, email, web_user } = newState.accountInfo;
   let url = `${endpoints.userManagementUpdate}${web_user}`;
 
