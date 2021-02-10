@@ -94,7 +94,7 @@
   color: #376bfb !important;
 }
 
-@media (max-width: 575px) {
+@media (min-width: 376px) and (max-width: 575px) {
   .grid-col {
     display: grid !important;
     grid-template-columns: 50% 50% !important;
@@ -104,5 +104,17 @@
   .grid-col {
     display: grid !important;
     grid-template-columns: 50% 50% !important;
+  }
+}
+@media (max-width: 375px) {
+  .grid-col {
+    display: grid !important;
+    grid-template-columns: 100% !important;
+  }
+  .font-18 {
+    font-size: 9px !important;
+  }
+  .font-20 {
+    font-size: 17px;
   }
 }

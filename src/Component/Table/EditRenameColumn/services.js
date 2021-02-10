@@ -214,7 +214,7 @@ const renameSubmits = async ({ state, UrlAll, fields, setFields }) => {
 
   let payload = {};
   ni.map((obj) => {
-    payload[obj.headerData.replace(' ', '_').toUpperCase()] = obj.Header;
+    payload[obj.headerData.replace(' ', '_').toLowerCase()] = obj.Header;
   });
   newState.columnsPayload = payload;
   const baseUrl = process.env.REACT_APP_API_URL;

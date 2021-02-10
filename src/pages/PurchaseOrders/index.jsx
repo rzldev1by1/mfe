@@ -44,6 +44,7 @@ const PurchaseOrders = (props) => {
       window.removeEventListener('resize', handleResize);
     };
   });
+
   useEffect(() => {
     getSummaryData({ dispatch, active: paginationPo?.active, module });
   }, []);
@@ -54,10 +55,6 @@ const PurchaseOrders = (props) => {
     setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
     setState2(true);
   }
-
-  const UrlHeader = () => {
-    return `/getPurchaseOrderColumn?client=ALL`;
-  };
 
   useEffect(() => {
     if (stateChangeHeader) {

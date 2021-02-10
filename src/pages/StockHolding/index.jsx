@@ -22,8 +22,6 @@ const PurchaseOrders = (props) => {
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
   const [Export, setExport] = useState(false);
-  const [columnHidden, setColumnHidden] = useState(null);
-  const [state2, setState2] = useState(null);
   const module = 'StockHolding';
 
   // dimension
@@ -47,11 +45,11 @@ const PurchaseOrders = (props) => {
   });
 
   useEffect(() => {
-    if (!shSummaryData) {
       getSummaryData({ dispatch, active: paginationSh?.active, module });
-    }
   }, []);
 
+  const [columnHidden, setColumnHidden] = useState(null);
+  const [state2, setState2] = useState(null);
   if (!columnHidden) {
     setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
     setState2(true);
@@ -67,7 +65,7 @@ const PurchaseOrders = (props) => {
   useEffect(() => {
     if (state2) {
       let x = columnHidden?.map((data, idx) => {
-        if (data.title === 'Purchase Order Summary') {
+        if (data.title === 'Stock Holding Summary') {
           setColumnHidden(data.columns);
         }
       });

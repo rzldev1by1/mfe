@@ -19,14 +19,30 @@ const SalesOrders = (props) => {
   const dispatch = useDispatch();
   const soSummaryData = useSelector((state) => state.soSummaryData);
   const paginationSo = useSelector((state) => state.paginationSo);
+  const stateChangeHeader = useSelector((state) => state.changeHeader);
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
   const [showModal, setShowModal] = useState(false);
   const [Export, setExport] = useState(false);
   const module = 'salesOrder';
 
-  const height = window.innerHeight - 257;
-  const width = window.innerWidth;
+  const [dimension, setDimension] = useState({
+    height: window.innerHeight - 257,
+    width: window.innerWidth,
+  });
+  const { width, height } = dimension;
+  useEffect(() => {
+    const handleResize = () => {
+      setDimension({
+        height: window.innerHeight - 257,
+        width: window.innerWidth,
+      });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
 
   useEffect(() => {
     getSummaryData({ dispatch, active: paginationSo?.active, module });
@@ -38,6 +54,13 @@ const SalesOrders = (props) => {
     setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
     setState2(true);
   }
+
+  useEffect(() => {
+    if (stateChangeHeader) {
+      setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
+      setState2(true);
+    }
+  }, [stateChangeHeader]);
 
   useEffect(() => {
     if (state2) {
