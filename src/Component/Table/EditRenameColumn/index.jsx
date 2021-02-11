@@ -50,11 +50,11 @@ const EditRenameColumn = ({
   };
 
   const UrlHeader = () => {
-    return `/settings/field-label/${splitModule}?client=ALL`;
+    return `settings/field-label/${splitModule}?client=ALL`;
   };
 
   const UrlAll = () => {
-    return `/settings/field-label/${splitModule}?client=all`;
+    return `settings/field-label/${splitModule}?client=all`;
   };
 
   useEffect(() => {
@@ -197,7 +197,7 @@ const EditRenameColumn = ({
                           <input
                             id={index}
                             autoComplete="off"
-                            placeholder={item.Header}
+                            placeholder={item.placeholder}
                             name={item.Header}
                             sortable={item.sortable}
                             onChange={(e) => changedColumn({ e, state, setState, fields })}
