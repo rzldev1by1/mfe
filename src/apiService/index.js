@@ -7,7 +7,7 @@ import endpoints from '../helpers/endpoints';
 import * as utility from './UmUtility';
 import * as EmailValidator from 'email-validator';
 
-const today = moment(new Date()).format('YYYY-MM-DD hh:mm:ss');
+const today = moment(Date()).format('YYYY-MM-DD hh:mm:ss');
 const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement'];
 
 export const getSummaryData = async ({
@@ -335,7 +335,7 @@ export const getStockMovement = async ({ dropdownValue, dispatch }) => {
         let tmp_row = {
           site: data.site,
           client: data.client,
-          packdesc: data.packdesc,
+          uom: data.uom,
           product: data.product,
           product_name: data.product_name,
         };
@@ -368,9 +368,10 @@ export const getStockMovement = async ({ dropdownValue, dispatch }) => {
         show: 50,
         total: data.length,
         last_page: 1,
-        from: 1,
+        from: newData.length > 0 ? 1 : 0,
         to: data.length,
       };
+      console.log(newData);
       dispatch({ type: 'PAGING', data: pagination });
       dispatch({ type: 'GET_SM_SUMMARY', data: newData });
     })
