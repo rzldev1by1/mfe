@@ -96,6 +96,13 @@ const Export = ({
     'on_hand_wgt',
     'customer_no',
   ];
+  const columnRightCharacter = [
+    'qty',
+    'qty_processed',
+    'weight',
+    'weight_processed',
+    'quantity',
+  ];
   return (
     <div>
       <ButtonDropdown
@@ -173,12 +180,13 @@ const Export = ({
                 <tr key={i}>
                   {schemaColumn.map((column, columnIdx) => {
                     let dataReturn = data[column.accessor] == null ? '-' : data[column.accessor];
-                    let dataExport = dataReturn =='0,000' ? 0 : dataReturn ;
-                    console.log(dataExport)
                     if (columnHiddenCharacter.includes(column.accessor)) {
-                      return <td key={columnIdx}>{dataExport}‎‎‎</td>;
+                      return <td key={columnIdx}>{dataReturn}‎‎‎</td>;
                     }
-                    return <td key={columnIdx}>{dataExport}</td>;
+                    if (columnRightCharacter.includes(column.accessor)) {
+                      return <td style={{ textAlign: 'right'}} key={columnIdx}>{dataReturn}‎‎‎</td>;
+                    }
+                    return <td key={columnIdx}>{dataReturn}</td>;
                   })}
                 </tr>
               ))
