@@ -48,6 +48,7 @@ export const schemaColumnDetailPO = [
     width: 60,
     Cell: (props) => props.value || '-',
     headerStyle: { textAlign: 'right' },
+    textAlign: "right"
   },
   {
     accessor: 'weight', 
@@ -57,6 +58,7 @@ export const schemaColumnDetailPO = [
     width: 80,
     sortType: 'float',
     Cell: (props) => props.value || '-',
+    textAlign: "right"
   },
   {
     accessor: 'pallet', 
@@ -66,6 +68,7 @@ export const schemaColumnDetailPO = [
     className: 'align-right',
     sortType: 'float',
     Cell: (props) => props.value || '-',
+    textAlign: "right"
   },
   {
     accessor: 'price', 
@@ -75,6 +78,7 @@ export const schemaColumnDetailPO = [
     className: 'align-right',
     sortType: 'float',
     Cell: (props) => props.value || '-',
+    textAlign: "right"
   },
   {
     accessor: 'pack_id', 
@@ -111,6 +115,7 @@ export const schameColumnForesCast = [
     className: 'align-right',
     sortable: false,
     width: 150,
+    textAlign: "right"
   },
   {
     accessor: 'out',
@@ -120,6 +125,7 @@ export const schameColumnForesCast = [
     className: 'align-right',
     sortable: false,
     width: 150,
+    textAlign: "right"
   },
   {
     accessor: 'balance',
@@ -129,6 +135,7 @@ export const schameColumnForesCast = [
     className: 'align-right',
     sortable: false,
     width: 140,
+    textAlign: "right"
   },
 ]
 

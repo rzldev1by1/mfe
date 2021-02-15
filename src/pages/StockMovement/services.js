@@ -423,9 +423,17 @@ export const demoPDF = ({ filename, rowSpan }) => {
     willDrawCell: function (data) {
       let section = data.row.section;
       let index = data.row.index;
+      let dataKey = data.column.dataKey;
       if (section == 'head') {
         return;
       }
+
+      //set align
+      let rightAlign = [6,7,8,9,11,12,13,14];
+      if (rightAlign.includes(dataKey)) {
+          data.cell.styles.halign = "right"
+      }
+
       if (index <= rowSpan) {
         colour = 1;
       } else if (index > rowSpan && index <= rowSpan * i + i - 1) {
