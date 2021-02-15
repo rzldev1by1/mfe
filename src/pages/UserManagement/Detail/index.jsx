@@ -271,7 +271,7 @@ const UserManagementDetail = (props) => {
                   gotoUM(props);
                 }}
               >
-                <label className="create-user-label mb-0">BACK</label>
+                <label className="create-user-label mb-0">{`< BACK`}</label>
               </button>
               <p>
                 {/* <label className={newState.isValidForm ? 'errorText ' : ' d-none'}>

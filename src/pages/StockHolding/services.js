@@ -70,7 +70,7 @@ export const schemaColumn = [
       switch (row.original.status) {
         case 'OK':
           return (
-            <a id="SHORTAGE" className="status-ok">
+            <a id="OK" className="status-ok">
               OK
             </a>
           );
@@ -173,6 +173,6 @@ export const schemaColumn = [
 
 export const statusDataSH = [
   { value: 'all', label: 'All Status' },
-  { value: 'Ok', label: 'Ok' },
-  { value: 'Shortage', label: 'Shortage' },
+  { value: 'ok', label: 'Ok' },
+  { value: 'shortage', label: 'Shortage' },
 ];
