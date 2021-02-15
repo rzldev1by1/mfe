@@ -121,7 +121,28 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
           doc.setTextColor(5, 237, 245);
         }
       }
-    }
+      if (dataKey === 8) {
+        const dataColumns = data.row.raw[8];
+        console.log(dataColumns)
+        if (dataColumns[0] == 'x') {
+          doc.setTextColor(252, 28, 3);
+        }
+        if (dataColumns[0] == 'Yes') {
+          doc.setTextColor(5, 237, 245);
+        }
+      }
+      if (dataKey === 14) {
+        const dataColumns = data.row.raw[14];
+        console.log(dataColumns)
+        if (dataColumns[0] == 'x') {
+          doc.setTextColor(252, 28, 3);
+        }
+        if (dataColumns[0] == 'Yes') {
+          doc.setTextColor(5, 237, 245);
+        }
+      }
+      
+    },
   });
 
   return doc;

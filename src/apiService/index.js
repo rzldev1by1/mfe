@@ -10,6 +10,12 @@ import * as EmailValidator from 'email-validator';
 const today = moment(Date()).format('YYYY-MM-DD hh:mm:ss');
 const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement'];
 
+export const formatDate = (date) => {
+  if (date) {
+    return moment(date).format('DD/MM/YYYY') || false;
+  }
+};
+
 export const getSummaryData = async ({
   siteVal,
   clientVal,
@@ -101,6 +107,10 @@ export const getSummaryData = async ({
       item.weight = numeral(item.weight).format('0,0.000');
       item.weight_processed = numeral(item.weight_processed).format('0,0.000');
       item.price = numeral(item.price).format('0,0.00');
+      item.delivery_date = item.delivery_date && item.delivery_date !== '' ? formatDate(item.delivery_date): '-';
+      item.date_received =  item.date_received && item.date_received !== '' ? formatDate(item.date_received): '-';
+      item.date_released =  item.date_released  && item.date_released  !== '' ? formatDate(item.date_released) : '-';
+      item.date_completed =  item.date_completed && item.date_completed !== '' ? formatDate(item.date_completed): '-';
       // User Management Data
       item.disabled = item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
       item.site = item.site && item.site !== '' ? item.site : 'All';
@@ -201,10 +211,15 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   if (Data) {
     let txt = [];
     let modifiedData = Data.map((m) => {
-      m.qty = numeral(m.qty).format('0,0');
+      m.qty = numeral(m.qty).format('0,0.000');
+      m.quantity = numeral(m.quantity).format('0,0.000');
       m.qty_processed = numeral(m.qty_processed).format('0,0');
       m.weight = numeral(m.weight).format('0,0.000');
-      m.weight_processed = numeral(m.weight_processed).format('0,0.000').replace('.', ',');
+      m.weight = numeral(m.weight).format('0,0.000');
+      m.weight = numeral(m.weight).format('0,0.000');
+      m.completed = m.completed == 'Y' ? 'Yes': 'x';
+      m.released = m.released == 'Y' ? 'Yes': 'x';
+      m.rotadate = m.rotadate && m.rotadate !== '' ? formatDate(m.rotadate): '-';
       txt.push(m.batch?.length);
       return m;
     });
