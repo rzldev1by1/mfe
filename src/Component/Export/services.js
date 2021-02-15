@@ -24,9 +24,23 @@ const setBody = (exportData, schemaColumn) => {
   return dataAll;
 };
 
+const getAlignRight = async (schemaColumn) => {
+  let arrRightAlign = []
+  schemaColumn.map((data,idx) => {
+    console.log(data)
+    if(data.textAlign=="right"){
+      arrRightAlign.push(idx);
+    }
+  })
+  console.log('1',arrRightAlign);
+  return arrRightAlign;
+}
+
 const setupDocPDF = async (filename, exportData, schemaColumn) => {
   let header = await setHeader(schemaColumn);
   let body = await setBody(exportData, schemaColumn);
+  let alignRight = await getAlignRight(schemaColumn)
+  console.log('2',alignRight);
 
   header = header.filter((data, idx) => idx <= 17);
   body = body.map((data) => {
@@ -89,8 +103,15 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
       doc.text(title + ' Data Microlistics  ' + date, 15, finalY + 15);
       doc.addImage(img, 'PNG', 785, 5, 45, 40, 'a', 'FAST');
     },
-    willDrawCell: function (data) {
+    willDrawCell: function (data) { 
       const dataKey = data.column.dataKey;
+      const section = data.section;
+
+      //set align right
+      if (alignRight.includes(dataKey) && section !== "head") {
+          data.cell.styles.halign = "right"
+      }
+
       if (dataKey === 6) {
         const dataColumns = data.row.raw[6];
         if (dataColumns[0] == 'Suspended') {
@@ -100,7 +121,7 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
           doc.setTextColor(5, 237, 245);
         }
       }
-    },
+    }
   });
 
   return doc;
@@ -169,16 +190,4 @@ export const Dates = () => {
     month = date.getMonth(),
     year = date.getFullYear();
   return (dateNow = date1 + '-' + arrmonth2[month] + '-' + year);
-};
-
-// export const testPDF = () => {
-//   var doc = new jsPDF();
-//   window.html2canvas = html2canvas;
-//   doc.html(document.body, {
-//     callback: function (doc) {
-//       doc.save();
-//     },
-//     x: 10,
-//     y: 10,
-//   });
-// };
+}; 

@@ -38,6 +38,7 @@ export const schemaColumnDetailPO = [
     className: 'align-right',
     sortType: 'float',
     Cell: (props) => props.value || '-',
+    textAlign: "right"
   },
   {
     accessor: 'uom',
@@ -56,6 +57,7 @@ export const schemaColumnDetailPO = [
     width: 130,
     sortType: 'float',
     Cell: (props) => props.value || '-',
+    textAlign: "right"
   },
   {
     accessor: 'weight',
@@ -66,6 +68,7 @@ export const schemaColumnDetailPO = [
     className: 'align-right',
     sortType: 'float',
     Cell: (props) => props.value || '-',
+    textAlign: "right"
   },
   {
     accessor: 'weight_processed',
@@ -76,6 +79,7 @@ export const schemaColumnDetailPO = [
     className: 'align-right',
     sortType: 'float',
     Cell: (props) => props.value || '-',
+    textAlign: "right"
   },
   {
     accessor: 'completed',
