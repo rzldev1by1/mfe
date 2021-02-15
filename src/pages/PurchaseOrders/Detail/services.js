@@ -103,7 +103,7 @@ export const schemaColumnDetailPO = [
     Header: 'Completed',
     width: 100,
     Cell: (row) => (
-      <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+      <i className={`${row.original.completed === '✔️' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
     ),
   },
   {
@@ -119,7 +119,6 @@ export const schemaColumnDetailPO = [
     placeholder: 'Rotadate',
     Header: 'Rotadate',
     width: 100,
-    Cell: (props) => formatDate(props.value) || '-',
   },
   {
     accessor: 'ref3',
@@ -148,7 +147,7 @@ export const schemaColumnDetailPO = [
     Header: 'Released',
     width: 100,
     Cell: (row) => (
-      <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+      <i className={`${row.original.released === '✔️' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
     ),
   },
 ];
