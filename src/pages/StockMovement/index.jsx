@@ -119,7 +119,7 @@ const StockMovement = (props) => {
                 <td> ‎{data.client}</td>
                 <td> ‎{data.product}</td>
                 <td> ‎{data.product_name}</td>
-                <td> ‎{data.packdesc}</td>
+                <td> ‎{data.uom}</td>
                 {data.column.map((d, i) => {
                   return (
                     <td>
@@ -167,7 +167,7 @@ const StockMovement = (props) => {
                       <td rowSpan={data.rowspan}>{data.client}</td>
                       <td rowSpan={data.rowspan}>{data.product}</td>
                       <td rowSpan={data.rowspan}>{data.product_name}</td>
-                      <td rowSpan={data.rowspan}>{data.packdesc}</td>
+                      <td rowSpan={data.rowspan}>{data.uom}</td>
                       <td>{d.date_1}</td>
                       <td>{d.sa_plus_1}</td>
                       <td>{d.sa_minus_1}</td>

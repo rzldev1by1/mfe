@@ -176,7 +176,7 @@ export const setupPdf = ({ data, dateHeader, header, period, setDataPDF, setRowS
     let pdfData = {
       site: data.site,
       client: data.client,
-      packdesc: data.packdesc,
+      uom: data.uom,
       product: data.product,
       product_name: data.product_name,
       rowspan: indexPart1 + 1,
@@ -236,7 +236,7 @@ export const setupPdf = ({ data, dateHeader, header, period, setDataPDF, setRowS
       let obj = {
         site: data.site,
         client: data.client,
-        packdesc: data.packdesc,
+        uom: data.uom,
         product: data.product,
         product_name: data.product_name,
         rowspan: d.length,
@@ -306,7 +306,7 @@ export const headerPdf = [
   },
   {
     Header: 'UOM',
-    accessor: 'packdesc',
+    accessor: 'uom',
     style: { textAlign: 'left' },
     width: 70,
   },

@@ -49,7 +49,7 @@ const getHeaders = () => {
         },
         {
           Header: 'UOM',
-          accessor: 'packdesc',
+          accessor: 'uom',
           headerStyle: { textAlign: 'left' },
           style: { textAlign: 'left' },
           sortable: true,
