@@ -127,9 +127,9 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
         if (dataColumns[0] == 'x') {
           doc.setTextColor(252, 28, 3);
         }
-        // if (dataColumns[0] == 'Active') {
-        //   doc.setTextColor(5, 237, 245);
-        // }
+        if (dataColumns[0] == 'Yes') {
+          doc.setTextColor(5, 237, 245);
+        }
       }
       if (dataKey === 14) {
         const dataColumns = data.row.raw[14];
@@ -137,9 +137,9 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
         if (dataColumns[0] == 'x') {
           doc.setTextColor(252, 28, 3);
         }
-        // if (dataColumns[0] == 'Active') {
-        //   doc.setTextColor(5, 237, 245);
-        // }
+        if (dataColumns[0] == 'Yes') {
+          doc.setTextColor(5, 237, 245);
+        }
       }
       
     },

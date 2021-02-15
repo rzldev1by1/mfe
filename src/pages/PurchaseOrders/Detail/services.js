@@ -103,7 +103,7 @@ export const schemaColumnDetailPO = [
     Header: 'Completed',
     width: 100,
     Cell: (row) => (
-      <i className={`${row.original.completed === '✔️' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+      <i className={`${row.original.completed === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
     ),
   },
   {
@@ -147,7 +147,7 @@ export const schemaColumnDetailPO = [
     Header: 'Released',
     width: 100,
     Cell: (row) => (
-      <i className={`${row.original.released === '✔️' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+      <i className={`${row.original.released === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
     ),
   },
 ];
