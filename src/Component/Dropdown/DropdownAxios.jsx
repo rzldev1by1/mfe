@@ -78,11 +78,11 @@ const DropdownAxios = ({
           }),
           menu: (base) => ({
             ...base,
-            maxHeight: 230,
+            maxHeight: 210,
           }),
           menuList: (base) => ({
             ...base,
-            maxHeight: 230,
+            maxHeight: 210,
           }),
           control: (provided, state) => ({
             ...provided,
