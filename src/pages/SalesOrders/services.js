@@ -324,7 +324,7 @@ export const schemaColumn = [
     placeholder: 'Freight Charge',
     accessor: 'freightcharge',
     headerStyle: { textAlign: 'left' },
-    style: { textAlign: 'left', paddingLeft: '15px' },
+    style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     className: 'align-right',

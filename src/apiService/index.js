@@ -203,7 +203,7 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
     let modifiedData = Data.map((m) => {
       m.qty = numeral(m.qty).format('0,0');
       m.qty_processed = numeral(m.qty_processed).format('0,0');
-      m.weight = numeral(m.weight).format('0,0.000').replace('.', ',');
+      m.weight = numeral(m.weight).format('0,0.000');
       m.weight_processed = numeral(m.weight_processed).format('0,0.000').replace('.', ',');
       txt.push(m.batch?.length);
       return m;
