@@ -26,21 +26,18 @@ const setBody = (exportData, schemaColumn) => {
 
 const getAlignRight = async (schemaColumn) => {
   let arrRightAlign = []
-  schemaColumn.map((data,idx) => {
-    console.log(data)
+  schemaColumn.map((data,idx) => { 
     if(data.textAlign=="right"){
       arrRightAlign.push(idx);
     }
-  })
-  console.log('1',arrRightAlign);
+  }) 
   return arrRightAlign;
 }
 
 const setupDocPDF = async (filename, exportData, schemaColumn) => {
   let header = await setHeader(schemaColumn);
   let body = await setBody(exportData, schemaColumn);
-  let alignRight = await getAlignRight(schemaColumn)
-  console.log('2',alignRight);
+  let alignRight = await getAlignRight(schemaColumn);
 
   header = header.filter((data, idx) => idx <= 17);
   body = body.map((data) => {
