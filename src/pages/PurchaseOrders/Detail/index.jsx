@@ -83,7 +83,7 @@ const PurchaseOrdersDetail = (props) => {
         classNameTable="table-detail "
         data={poDetailTable}
         style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
-        module="Purchase Orders Detail"
+        module="Purchase Order Details"
         noDataText
         pagination={pagination}
         goto={(e) => {

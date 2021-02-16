@@ -161,18 +161,21 @@ const Table = ({
           return 0;
         }}
       />
-      <EditRenameColumn
-        showModal={showMod}
-        setShowMod={setShowMod}
-        setEditColumnTemp={setEditColumnTemp}
-        editColumnTemp={editColumnTemp}
-        user={user}
-        title={title}
-        fields={fields}
-        setFields={setFields}
-        columnHidden={columnHidden}
-        splitModule={splitModule}
-      />
+
+      {editColumn == 'false' ? null : (
+        <EditRenameColumn
+          showModal={showMod}
+          setShowMod={setShowMod}
+          setEditColumnTemp={setEditColumnTemp}
+          editColumnTemp={editColumnTemp}
+          user={user}
+          title={title}
+          fields={fields}
+          setFields={setFields}
+          columnHidden={columnHidden}
+          splitModule={splitModule}
+        />
+      )}
     </div>
   );
 };
