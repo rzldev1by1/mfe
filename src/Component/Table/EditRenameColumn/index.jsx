@@ -79,7 +79,7 @@ const EditRenameColumn = ({
     <Modal show={showModal} size="xl" centered>
       <Modal.Header className="bg-primary">
         <Container className="px-0">
-          <Col className="mx-0 pr-4">
+          <Col className="mx-0 pr-4 pb-3">
             <Button onClick={closeModal.bind(this, false, editColumnTemp)} className="pr-0 mt-2 no-hover float-right">
               <MdClose color="white" size={30} />
             </Button>

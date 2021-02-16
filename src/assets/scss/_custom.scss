@@ -196,7 +196,7 @@ input:-webkit-autofill {
 }
 
 .nav-link {
-  background-color:  #e9eced !important;
+  background-color: rgb(246, 247, 249) !important;
   color: #959da0 !important;
   border: none !important;
   font-size: 20px;
@@ -275,7 +275,7 @@ input.form-control,
 }
 
 .nav-tabs .nav-item {
-  margin-bottom: 0px !important;
+  margin-bottom: -1px !important;
 }
 
 .sales-order,
@@ -537,6 +537,10 @@ header {
   padding: 0px 1.2rem !important;
 }
 
+.px-8 {
+  padding: 0px 1.7rem !important;
+}
+
 .ml-6 {
   margin-left: 1.6rem !important;
 }
@@ -588,7 +592,7 @@ header {
           align-items: center;
         }
         .rt-th:first-child {
-          padding-left: 1.15rem;
+          padding-left: 1.15rem !important;
           text-align: left !important;
         }
         .enable-drag {
