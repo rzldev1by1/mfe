@@ -4,13 +4,14 @@
 import React, { useState } from 'react';
 import { CPagination } from '@coreui/react';
 import { BsChevronLeft, BsChevronRight, BsChevronBarLeft, BsChevronBarRight } from 'react-icons/bs';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PopUpPages from 'Component/Modal/PopUpPages';
 import { numberCheck, onChange, onActivePageChange, goToPage } from 'Component/Pagination/service';
 import './Pagination.scss';
 
 const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
   const dispatch = useDispatch();
+  const searchFilter = useSelector((state) => state.searchFilter);
   const [page, setPage] = useState({
     notifPaging: false,
     goPage: 1,
@@ -38,7 +39,6 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
     e.preventDefault();
     goToPage({ goto, pagination, page, setPage, dispatch, module });
   };
-
   return (
     <div>
       <form onSubmit={searchForm}>
@@ -47,7 +47,7 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
             limit={3}
             activePage={active}
             pages={pages > 0 ? pages : 1}
-            onActivePageChange={(e) => onActivePageChange({ e, pagination, goto, dispatch, module, props })}
+            onActivePageChange={(e) => onActivePageChange({ e, pagination, goto, dispatch, module, props, searchFilter })}
             firstButton={<BsChevronBarLeft />}
             previousButton={<BsChevronLeft />}
             nextButton={<BsChevronRight className="nextBtn" />}
@@ -70,7 +70,7 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
               />
               <span
                 className="text-muted-dark ml-3 pointer outLineNone"
-                onClick={() => goToPage({ goto, pagination, page, setPage, dispatch, module, props })}
+                onClick={() => goToPage({ goto, pagination, page, setPage, dispatch, module, props, searchFilter })}
                 onKeyPress
                 role="button"
                 tabIndex="0"

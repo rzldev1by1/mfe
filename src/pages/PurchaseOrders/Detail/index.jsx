@@ -13,21 +13,76 @@ const PurchaseOrdersDetail = (props) => {
   const dispatch = useDispatch();
   const poDetail = useSelector((state) => state.poDetail);
   const poDetailTable = useSelector((state) => state.poDetailTable);
-  const pagination = useSelector((state) => state.pagination);
+  const paginationPoDetail = useSelector((state) => state.paginationPoDetail);
   const siteData = useSelector((state) => state.siteData);
+  const stateChangeHeader = useSelector((state) => state.changeHeader);
   const clientData = useSelector((state) => state.clientData);
   const user = useSelector((state) => state.user);
+  const exportData = useSelector((state) => state.exportData);
+  const [Export, setExport] = useState(false);
   const module = 'purchaseOrder';
+
+  // dimension
+  const [dimension, setDimension] = useState({
+    height: window.innerHeight - 355,
+    width: window.innerWidth,
+  });
+  const { width, height } = dimension;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimension({
+        height: window.innerHeight - 355,
+        width: window.innerWidth,
+      });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
 
   useEffect(() => {
     getDetailHeader({ dispatch, props, module });
   }, []);
-  useEffect(() => {
-    getDetailData({ dispatch, props, active: pagination?.active, module });
-  }, [pagination?.active]);
 
-  const height = window.innerHeight - 355;
-  const widht = window.innerWidth;
+  useEffect(() => {
+    getDetailData({ dispatch, props, active: paginationPoDetail?.active, module });
+  }, []);
+
+  const [columnHidden, setColumnHidden] = useState(null);
+  const [state2, setState2] = useState(null);
+  if (!columnHidden) {
+    setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
+    setState2(true);
+  }
+
+  useEffect(() => {
+    if (stateChangeHeader) {
+      setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
+      setState2(true);
+    }
+  }, [stateChangeHeader]);
+
+  useEffect(() => {
+    if (state2) {
+      let x = columnHidden?.map((data, idx) => {
+        if (data.title === 'Purchase Order Details') {
+          setColumnHidden(data.columns);
+        }
+      });
+      setState2(false);
+      dispatch({ type: 'CHANGE_HEADER', data: false });
+    }
+  }, [state2]);
+
+  useEffect(() => {
+    if (Export === true) {
+      setExport(false);
+      getDetailData({ dispatch, active: paginationPoDetail?.active, Export, module });
+    }
+  }, [Export]);
+
   return (
     <div>
       <Breadcrumb
@@ -82,12 +137,14 @@ const PurchaseOrdersDetail = (props) => {
         classNamePaging="display-paging"
         classNameTable="table-detail "
         data={poDetailTable}
-        style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
-        module="Purchase Order Details"
+        style={{ minHeight: height, maxHeight: height, minWidht: width, maxWidht: width }}
+        module="PurchaseOrdersDetail"
         noDataText
-        pagination={pagination}
+        exportData={exportData}
+        columnHidden={columnHidden}
+        pagination={paginationPoDetail}
         goto={(e) => {
-          dispatch({ type: 'PAGING', data: { ...pagination, active: e } });
+          dispatch({ type: 'PAGING_PO_DETAIL', data: { ...paginationPoDetail, active: e } });
         }}
         getExportData={() => setExportData({ dispatch, data: poDetailTable })}
         user={user}

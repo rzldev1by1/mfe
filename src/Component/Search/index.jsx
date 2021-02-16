@@ -50,11 +50,13 @@ const Search = ({
   });
 
   let paramType = '';
+  let searchFilter = '';
   if (module === 'StockHolding') {
     paramType = 'GET_SH_SUMMARY';
   }
   if (module === 'purchaseOrder') {
     paramType = 'GET_PO_SUMMARY';
+    searchFilter ='SEARCH_FILTER';
   }
   if (module === 'salesOrder') {
     paramType = 'GET_SO_SUMMARY';
@@ -115,6 +117,18 @@ const Search = ({
       }
     }
   }, [newDropdownValue.status]);
+  useEffect(() => {
+      dispatch({ type: 'SEARCH_FILTER', data: { siteVal: newDropdownValue.site,
+                                                clientVal: newDropdownValue.client, 
+                                                orderType: newDropdownValue.orderType, 
+                                                task: newDropdownValue.task, 
+                                                status: newDropdownValue.status, } });  
+    }, [  newDropdownValue.site, 
+          newDropdownValue.client, 
+          newDropdownValue.orderType, 
+          newDropdownValue.task, 
+          newDropdownValue.status,]);
+  
   return (
     <CCard className={`mb-3`}>
       <CCardBody className={`p-3`}>
