@@ -107,15 +107,16 @@ export const getSummaryData = async ({
       item.weight = numeral(item.weight).format('0,0.000');
       item.weight_processed = numeral(item.weight_processed).format('0,0.000');
       item.price = numeral(item.price).format('0,0.00');
-      item.delivery_date = item.delivery_date && item.delivery_date !== '' ? formatDate(item.delivery_date): '-';
-      item.date_received =  item.date_received && item.date_received !== '' ? formatDate(item.date_received): '-';
-      item.date_released =  item.date_released  && item.date_released  !== '' ? formatDate(item.date_released) : '-';
-      item.date_completed =  item.date_completed && item.date_completed !== '' ? formatDate(item.date_completed): '-';
+      item.delivery_date = item.delivery_date && item.delivery_date !== '' ? formatDate(item.delivery_date) : '-';
+      item.date_received = item.date_received && item.date_received !== '' ? formatDate(item.date_received) : '-';
+      item.date_released = item.date_released && item.date_released !== '' ? formatDate(item.date_released) : '-';
+      item.date_completed = item.date_completed && item.date_completed !== '' ? formatDate(item.date_completed) : '-';
       // User Management Data
       item.disabled = item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
       item.site = item.site && item.site !== '' ? item.site : 'All';
       item.client = item.client && item.client !== '' ? item.client : 'All';
-      item.last_access = item.last_access && item.last_access !== '' ? moment(item.last_access).format('DD/MM/YYYY HH:mm:ss') : '-';
+      item.last_access =
+        item.last_access && item.last_access !== '' ? moment(item.last_access).format('DD/MM/YYYY HH:mm:ss') : '-';
       if (customerName !== undefined) item.customername = customerName[1];
     });
 
@@ -211,15 +212,15 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   if (Data) {
     let txt = [];
     let modifiedData = Data.map((m) => {
-      m.qty = numeral(m.qty).format('0,0.000');
-      m.quantity = numeral(m.quantity).format('0,0.000');
+      m.qty = numeral(m.qty).format('0,0'); //qty
+      m.quantity = numeral(m.quantity).format('0,0'); //qty in purchase order details
       m.qty_processed = numeral(m.qty_processed).format('0,0');
       m.weight = numeral(m.weight).format('0,0.000');
       m.weight = numeral(m.weight).format('0,0.000');
       m.weight = numeral(m.weight).format('0,0.000');
-      m.completed = m.completed == 'Y' ? 'Yes': 'x';
-      m.released = m.released == 'Y' ? 'Yes': 'x';
-      m.rotadate = m.rotadate && m.rotadate !== '' ? formatDate(m.rotadate): '-';
+      m.completed = m.completed == 'Y' ? 'Yes' : 'x';
+      m.released = m.released == 'Y' ? 'Yes' : 'x';
+      m.rotadate = m.rotadate && m.rotadate !== '' ? formatDate(m.rotadate) : '-';
       txt.push(m.batch?.length);
       return m;
     });
@@ -242,9 +243,10 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   }
 };
 
-export const getForescast = async ({ export_ = 'false', dispatch, active, props,}) => {
+export const getForescast = async ({ export_ = 'false', dispatch, active, props }) => {
   const { product, client, site } = props?.match?.params;
-  const url = endpoints.stockHoldingSummary + `/${site}/${client}/${product}/detail-balance?page=${active}&export=${export_}`;
+  const url =
+    endpoints.stockHoldingSummary + `/${site}/${client}/${product}/detail-balance?page=${active}&export=${export_}`;
   dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: [] });
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const { data } = await axios.get(url);
@@ -361,10 +363,10 @@ export const getStockMovement = async ({ dropdownValue, dispatch }) => {
             let dates = key.replace('sum_', '');
             let tmp = data[key];
             let tmp_arr = tmp.split('-');
-            tmp_row['sa_plus_' + dates] = tmp_arr[0];
-            tmp_row['sa_minus_' + dates] = tmp_arr[1];
-            tmp_row['rec_' + dates] = tmp_arr[2];
-            tmp_row['send_' + dates] = tmp_arr[3];
+            tmp_row['sa_plus_' + dates] = numeral(tmp_arr[0]).format('0,0');
+            tmp_row['sa_minus_' + dates] = numeral(tmp_arr[1]).format('0,0');
+            tmp_row['rec_' + dates] = numeral(tmp_arr[2]).format('0,0');
+            tmp_row['send_' + dates] = numeral(tmp_arr[3]).format('0,0');
           }
         }
 

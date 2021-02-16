@@ -108,7 +108,7 @@ const UserManagementDetail = (props) => {
                   ''
                 )}
 
-                <div className={`col-md-3 pl-0 ${newState.adminClass}`}>
+                <div className={`col-md-3 pr-0 ${newState.adminClass}`}>
                   <label className="text-title-detail">Suspend Users</label>
                 </div>
               </div>
@@ -155,7 +155,7 @@ const UserManagementDetail = (props) => {
 
                 {newState?.accountInfo?.request_forgot_password ? (
                   <div className="col-md-3 pr-0">
-                    <div className="row pl-0">
+                    <div className="row pr-0">
                       <div className="col-6 text-title-detail pr-0">Are you sure you want to create new password?</div>
                       <div className="col-5">
                         <button
@@ -179,7 +179,7 @@ const UserManagementDetail = (props) => {
                   ''
                 )}
 
-                <div className={`col-md-3 pl-0 ${newState.adminClass}`}>
+                <div className={`col-md-3 pr-0 ${newState.adminClass}`}>
                   <div className="row">
                     <div className="col-6 text-title-detail">
                       Are you sure you want

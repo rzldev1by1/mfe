@@ -59,7 +59,7 @@ const EditRenameColumn = ({
 
   useEffect(() => {
     let newState = { ...state };
-    newState.editColumn = columnHidden;
+    newState.editColumn = columnHidden || [];
     setState(newState);
   }, [columnHidden]);
 

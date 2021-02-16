@@ -25,14 +25,14 @@ const setBody = (exportData, schemaColumn) => {
 };
 
 const getAlignRight = async (schemaColumn) => {
-  let arrRightAlign = []
-  schemaColumn.map((data,idx) => { 
-    if(data.textAlign=="right"){
+  let arrRightAlign = [];
+  schemaColumn.map((data, idx) => {
+    if (data.textAlign == 'right') {
       arrRightAlign.push(idx);
     }
-  }) 
+  });
   return arrRightAlign;
-}
+};
 
 const setupDocPDF = async (filename, exportData, schemaColumn) => {
   let header = await setHeader(schemaColumn);
@@ -100,13 +100,13 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
       doc.text(title + ' Data Microlistics  ' + date, 15, finalY + 15);
       doc.addImage(img, 'PNG', 785, 5, 45, 40, 'a', 'FAST');
     },
-    willDrawCell: function (data) { 
+    willDrawCell: function (data) {
       const dataKey = data.column.dataKey;
       const section = data.section;
 
       //set align right
-      if (alignRight.includes(dataKey) && section !== "head") {
-          data.cell.styles.halign = "right"
+      if (alignRight.includes(dataKey) && section !== 'head') {
+        data.cell.styles.halign = 'right';
       }
 
       if (dataKey === 6) {
@@ -120,7 +120,7 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
       }
       if (dataKey === 8) {
         const dataColumns = data.row.raw[8];
-        console.log(dataColumns)
+        console.log(dataColumns);
         if (dataColumns[0] == 'x') {
           doc.setTextColor(252, 28, 3);
         }
@@ -128,9 +128,9 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
           doc.setTextColor(5, 237, 245);
         }
       }
-      if (dataKey === 14) {
+      if (dataKey === 9) {
         const dataColumns = data.row.raw[14];
-        console.log(dataColumns)
+        console.log(dataColumns);
         if (dataColumns[0] == 'x') {
           doc.setTextColor(252, 28, 3);
         }
@@ -138,7 +138,6 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
           doc.setTextColor(5, 237, 245);
         }
       }
-      
     },
   });
 
@@ -208,4 +207,4 @@ export const Dates = () => {
     month = date.getMonth(),
     year = date.getFullYear();
   return (dateNow = date1 + '-' + arrmonth2[month] + '-' + year);
-}; 
+};

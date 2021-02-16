@@ -43,7 +43,6 @@ class Logins extends Component {
         // const result = await helpers.authenticationHandler(payload)
         try {
           const { data } = await axios.post(baseUrl + '/auth/login', payload);
-          console.log(data);
           if (data) {
             this.setState({ errorMessage: null });
 

@@ -26,7 +26,7 @@ export const formatDate = (date) => {
 export const schemaColumnDetailPO = [
   {
     accessor: 'rn',
-    placeholder: 'Line Nooo',
+    placeholder: 'Line No',
     Header: 'Line No',
     width: 100,
     Cell: (props) => props.value || '-',
@@ -54,7 +54,7 @@ export const schemaColumnDetailPO = [
     className: 'align-right',
     sortType: 'float',
     Cell: (props) => props.value || '-',
-    textAlign: "right"
+    textAlign: 'right',
   },
   {
     accessor: 'packdesc_1',
@@ -73,7 +73,7 @@ export const schemaColumnDetailPO = [
     width: 130,
     sortType: 'float',
     Cell: (props) => props.value || '-',
-    textAlign: "right"
+    textAlign: 'right',
   },
   {
     accessor: 'weight',
@@ -84,7 +84,7 @@ export const schemaColumnDetailPO = [
     className: 'align-right',
     sortType: 'float',
     Cell: (props) => props.value || '-',
-    textAlign: "right"
+    textAlign: 'right',
   },
   {
     accessor: 'weight_processed',
@@ -95,7 +95,7 @@ export const schemaColumnDetailPO = [
     className: 'align-right',
     sortType: 'float',
     Cell: (props) => props.value || '-',
-    textAlign: "right"
+    textAlign: 'right',
   },
   {
     accessor: 'completed',
@@ -110,7 +110,6 @@ export const schemaColumnDetailPO = [
     accessor: 'batch',
     placeholder: 'Batch',
     Header: 'Batch',
-    width: 350,
     headerStyle: { textAlign: 'left' },
     Cell: (props) => props.value || '-',
   },
@@ -124,21 +123,19 @@ export const schemaColumnDetailPO = [
     accessor: 'ref3',
     placeholder: 'Ref3',
     Header: 'Ref3',
-    width: 350,
     Cell: (props) => props.value || '-',
   },
   {
     accessor: 'ref4',
     placeholder: 'Ref4',
     Header: 'Ref4',
-    width: 350,
     Cell: (props) => props.value || '-',
   },
   {
     accessor: 'disposition',
     placeholder: 'Disposition',
     Header: 'Disposition',
-    width: 200,
+    width: 120,
     Cell: (props) => props.value || '-',
   },
   {
@@ -156,24 +153,24 @@ export const setExportData = async ({ dispatch, data }) => {
   await dispatch({ type: 'EXPORT_DATA', data });
 };
 
-export const siteCheck = ({val, site}) =>{
+export const siteCheck = ({ val, site }) => {
   let ret = null;
-  site.map((data) =>{
-     if(data?.value !== val){
-       return 0;
-     }
-     ret = data.label
-  }) 
+  site.map((data) => {
+    if (data?.value !== val) {
+      return 0;
+    }
+    ret = data.label;
+  });
   return ret;
-}
+};
 
-export const clientCheck = ({val, client}) => {
+export const clientCheck = ({ val, client }) => {
   let ret = null;
-  client.map((data) =>{
-     if(data?.value !== val){
-       return 0;
-     }
-     ret = data.label
-  }) 
+  client.map((data) => {
+    if (data?.value !== val) {
+      return 0;
+    }
+    ret = data.label;
+  });
   return ret;
 };

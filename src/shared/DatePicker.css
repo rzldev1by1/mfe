@@ -157,7 +157,7 @@
   border-radius: 5px;
   border: 1px solid #d5d8da !important;
   width: 320px;
-  height: 330px;
+  height: 360px;
 }
 
 .select_date_expand:checked + .select_date_closeLabel + .top {
