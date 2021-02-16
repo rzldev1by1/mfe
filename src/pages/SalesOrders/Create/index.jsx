@@ -60,7 +60,7 @@ const Create = ({ show, setShow }) => {
               ></i>
             </Col>
           </Row>
-          <Nav tabs className="px-7 m-0">
+          <Nav tabs className="px-8 m-0">
             <NavItem className="mr-1">
               <NavLink
                 style={{ paddingBottom: '12px' }}
