@@ -13,7 +13,7 @@ const PurchaseOrdersDetail = (props) => {
   const dispatch = useDispatch();
   const poDetail = useSelector((state) => state.poDetail);
   const poDetailTable = useSelector((state) => state.poDetailTable);
-  const pagination = useSelector((state) => state.pagination);
+  const paginationPoDetail = useSelector((state) => state.paginationPoDetail);
   const siteData = useSelector((state) => state.siteData);
   const clientData = useSelector((state) => state.clientData);
   const user = useSelector((state) => state.user);
@@ -23,8 +23,8 @@ const PurchaseOrdersDetail = (props) => {
     getDetailHeader({ dispatch, props, module });
   }, []);
   useEffect(() => {
-    getDetailData({ dispatch, props, active: pagination?.active, module });
-  }, [pagination?.active]);
+    getDetailData({ dispatch, props, active: paginationPoDetail?.active, module });
+  }, [paginationPoDetail?.active]);
 
   const height = window.innerHeight - 355;
   const widht = window.innerWidth;
@@ -83,11 +83,11 @@ const PurchaseOrdersDetail = (props) => {
         classNameTable="table-detail "
         data={poDetailTable}
         style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
-        module="Purchase Orders Detail"
+        module="PurchaseOrdersDetail"
         noDataText
-        pagination={pagination}
+        pagination={paginationPoDetail}
         goto={(e) => {
-          dispatch({ type: 'PAGING', data: { ...pagination, active: e } });
+          dispatch({ type: 'PAGING_PO_DETAIL', data: { ...paginationPoDetail, active: e } });
         }}
         getExportData={() => setExportData({ dispatch, data: poDetailTable })}
         user={user}

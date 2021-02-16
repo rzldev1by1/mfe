@@ -29,8 +29,8 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
     case 'SIDEBAR':
       return { ...state, sidebarShow: data };
     case 'DARKMODE':
-      // Dropdown Start
       return { ...state, darkMode: data };
+    // Dropdown Start
     case 'CLIENT_DATA':
       return { ...state, clientData: data };
     case 'SITE_DATA':
@@ -41,6 +41,8 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, taskData: data };
     case 'STATUS_DATA':
       return { ...state, statusData: data };
+    case 'SEARCH_FILTER':
+      return { ...state, searchFilter: data };
     // Dropdown End
 
     case 'EXPIRED':
@@ -57,6 +59,10 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, pagination: data };
     case 'PAGING_SH':
       return { ...state, paginationSh: data };
+    case 'PAGING_SO_DETAIL':
+      return { ...state, paginationSoDetail: data };
+    case 'PAGING_PO_DETAIL':
+      return { ...state, paginationPoDetail: data };
     case 'PAGING_SH_DETAIL':
       return { ...state, paginationShDetail: data };
     case 'PAGING_SH_FORECAST':
