@@ -16,18 +16,72 @@ const SalesOrdersDetail = (props) => {
   const paginationSoDetail = useSelector((state) => state.paginationSoDetail);
   const siteData = useSelector((state) => state.siteData);
   const clientData = useSelector((state) => state.clientData);
+  const stateChangeHeader = useSelector((state) => state.changeHeader);
   const user = useSelector((state) => state.user);
+  const exportData = useSelector((state) => state.exportData);
+  const [Export, setExport] = useState(false);
   const module = "salesOrder"
+
+      // dimension
+      const [dimension, setDimension] = useState({
+        height: window.innerHeight - 450,
+        width: window.innerWidth,
+      });
+      const { width, height } = dimension;
+    
+      useEffect(() => {
+        const handleResize = () => {
+          setDimension({
+            height: window.innerHeight - 450,
+            width: window.innerWidth,
+          });
+        };
+        window.addEventListener('resize', handleResize);
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      });
 
   useEffect(() => {
     getDetailHeader({ dispatch, props, module });
   }, []);
+
   useEffect(() => {
     getDetailData({ dispatch, props, active:paginationSoDetail?.active, module });
-  }, [paginationSoDetail?.active]);
+  }, []);
 
-  const height = window.innerHeight - ((soDetail?.deliverydescription)?.length > 105 ? 493 : 455);
-  const widht = window.innerWidth;
+  const [columnHidden, setColumnHidden] = useState(null);
+  const [state2, setState2] = useState(null);
+  if (!columnHidden) {
+    setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
+    setState2(true);
+  }
+
+  useEffect(() => {
+    if (stateChangeHeader) {
+      setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
+      setState2(true);
+    }
+  }, [stateChangeHeader]);
+
+  useEffect(() => {
+    if (state2) {
+      let x = columnHidden?.map((data, idx) => {
+        if (data.title === 'Sales Order Details') {
+          setColumnHidden(data.columns);
+        }
+      });
+      setState2(false);
+      dispatch({ type: 'CHANGE_HEADER', data: false });
+    }
+  }, [state2]);
+
+  useEffect(() => {
+    if (Export === true) {
+      setExport(false);
+      getDetailData({ dispatch, active: paginationSoDetail?.active, Export, module });
+    }
+  }, [Export]);
 
   let indexCustomerName = soDetail?.customername.split(":")
   if (indexCustomerName !== undefined) indexCustomerName = indexCustomerName[1];
@@ -115,9 +169,11 @@ const SalesOrdersDetail = (props) => {
         classNamePaging="display-paging"
         classNameTable="table-detail "
         data={soDetailTable}
-        style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
+        style={{ minHeight: height, maxHeight: height, minWidht: width, maxWidht: width }}
         module="SalesOrdersDetail"
         noDataText
+        exportData={exportData}
+        columnHidden={columnHidden}
         pagination={paginationSoDetail}
         goto={(e) => {
           dispatch({type:'PAGING_SO_DETAIL', data:{ ...paginationSoDetail, active: e}})
