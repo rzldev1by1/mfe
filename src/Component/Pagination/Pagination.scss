@@ -5,9 +5,15 @@
 } 
 .number-pag{
   border: 1px solid #e9eced;
-  height: 30px;
-  width: 50px;
+  height: 21px;
+  width: 38px;
   font-family: 'Rubik';
+}
+.click-tab{
+  cursor: pointer;
+}
+.click-tab:hover{
+  background-color: transparent !important;
 }
 .outLineNone:focus{
 outline: none;
@@ -32,20 +38,24 @@ input::-webkit-inner-spin-button {
 ul.pagination {
   margin-bottom: 0;
   justify-content: center !important;
-  background-color: #fff;
+  background-color:transparent;
+  border-right-color: transparent !important;
 }
 
 .page-item {
   text-align: center;
-  padding: 7px 0;
   margin: 0 3.5px;
-  /* width: 56px !important; */
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
   width: fit-content !important;
 }
-
 .page-link {
   border: none !important;
-  border-radius: 10px !important;
+  border-radius: 4px !important;
   background-color: none;
 }
 
@@ -89,7 +99,8 @@ nav .pagination li:first-child {
 }
 
 nav .pagination li:first-child .page-link {
-  padding-left: 0px !important;
+  padding-left: 7px !important;
+  padding-right: 5px !important;
 }
 
 nav .pagination li .page-link:focus {
@@ -108,7 +119,8 @@ nav .pagination li:nth-child(2) {
 }
 
 nav .pagination li:nth-child(2) .page-link {
-  padding-left: 0px !important;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
 }
 
 nav .pagination li:nth-child(2) .page-link:hover {
@@ -129,7 +141,8 @@ nav .pagination li:nth-last-child(2) .page-link:hover {
 }
 
 nav .pagination li:nth-last-child(2) .page-link {
-  padding-right: 0px !important;
+  padding-right: 5px !important;
+  padding-left:5px !important;
 }
 
 nav .pagination li:last-child {
@@ -138,7 +151,8 @@ nav .pagination li:last-child {
 }
 
 nav .pagination li:last-child .page-link {
-  padding-right: 0px !important;
+  padding-right: 7px !important;
+  padding-left:5px !important
 }
 
 nav .pagination li:last-child .page-link:hover {
@@ -189,4 +203,7 @@ nav .pagination li:last-child .page-link:hover {
 }
 .form-control-sm{
   padding-left: 4.7% !important;
+}
+.box-input{
+  border-radius: 5px;
 }
