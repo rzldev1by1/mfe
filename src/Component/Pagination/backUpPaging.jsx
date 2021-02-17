@@ -1,11 +1,12 @@
+/* eslint-disable prefer-const */
+/* eslint-disable camelcase */
+/* eslint-disable import/no-unresolved */
 import React, { useState } from 'react';
+import { CPagination } from '@coreui/react';
 import { BsChevronLeft, BsChevronRight, BsChevronBarLeft, BsChevronBarRight } from 'react-icons/bs';
 import { useSelector, useDispatch } from 'react-redux';
 import PopUpPages from 'Component/Modal/PopUpPages';
-import {  numberCheck, 
-          onChange,
-          goToPage,
-          changePage, } from 'Component/Pagination/service';
+import { numberCheck, onChange, onActivePageChange, goToPage } from 'Component/Pagination/service';
 import './Pagination.scss';
 
 const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
@@ -31,55 +32,60 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
 
   const search = async (e) => {
     if (e.key === 'Enter') {
-      await goToPage({ goto, pagination, page, setPage, dispatch, module, searchFilter });
+      await goToPage({ goto, pagination, page, setPage, dispatch, module });
     }
   };
   const searchForm = (e) => {
     e.preventDefault();
-    goToPage({ goto, pagination, page, setPage, dispatch, module, searchFilter });
+    goToPage({ goto, pagination, page, setPage, dispatch, module });
   };
   return (
     <div>
       <form onSubmit={searchForm}>
-        <div style={{ width: 'fit-content', height:'34px' }} className="d-flex">
-          <div className={`page-item ${pagination?.active == 1 ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
-               onClick={() => changePage({active:1, dispatch, module, props, searchFilter})}>
-                <BsChevronBarLeft />
-          </div>
-          <div className={`page-item mr-2 ${pagination?.active == 1 ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
-               onClick={() => changePage({active:pagination?.active - 1, dispatch, module, props, searchFilter})}>
-                  <BsChevronLeft />
-          </div>
-            <div className={`d-flex align-items-center bg-white pl-2 pr-2 rounded-right box-input`}>
+        <div style={{ width: 'fit-content' }} className="d-flex">
+          <CPagination
+            limit={3}
+            activePage={active}
+            pages={pages > 0 ? pages : 1}
+            onActivePageChange={(e) => onActivePageChange({ e, pagination, goto, dispatch, module, props, searchFilter })}
+            firstButton={<BsChevronBarLeft />}
+            previousButton={<BsChevronLeft />}
+            nextButton={<BsChevronRight className="nextBtn" />}
+            lastButton={<BsChevronBarRight className="nextBtn" />}
+          />
+          {isDisplay === false ? (
+            ''
+          ) : (
+            <div className={`d-flex alig align-items-center bg-white px-3 rounded-right`}>
+              <span className="text-muted-soft mr-3">Go to page</span>
               <input
                 type="number"
-                placeholder={pagination?.active}
                 className="number-pag rounded"
                 onChange={(e) => onChange({ e, page, setPage })}
-                onKeyDown={(e) => search(e)}
+                onKeyPress={(e) => search(e)}
                 min="1"
                 max={pages > 0 ? pages : 1}
                 onKeyPress={(e) => numberCheck(e)}
                 style={{ textAlign: 'center' }}
               />
-              <span className="text-muted-soft ml-2">of {x_last_page}</span>
+              <span
+                className="text-muted-dark ml-3 pointer outLineNone"
+                onClick={() => goToPage({ goto, pagination, page, setPage, dispatch, module, props, searchFilter })}
+                onKeyPress
+                role="button"
+                tabIndex="0"
+              >
+                {'Go >'}
+              </span>
             </div>
-          <div className={`page-item ml-2 ${pagination?.active >= x_last_page ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
-               onClick={() => changePage({active:pagination?.active + 1, dispatch, module, props, searchFilter})}>
-                <BsChevronRight className="nextBtn" />
-          </div>
-          <div className={`page-item ${pagination?.active >= x_last_page ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
-               onClick={() => changePage({active:x_last_page, dispatch, module, props, searchFilter})}>
-                <BsChevronBarRight className="nextBtn" />
-          </div>
+          )}
           {isDisplay === false ? (
             ''
           ) : (
             <span className={`text-muted-s px-3 d-flex alig align-items-center`}>
-              <b className="text-muted-soft mr-1"> {`Showing`}</b>
-              <b className="text-muted-dark mr-1">
-                {`${isNaN(x_from) ? 0 : x_from} to ${isNaN(x_to) ? 0 : x_to} of ${ x_total === undefined ? 0 : x_total}`}</b>
-              <b className="text-muted-soft"> {`entries`}</b>
+              <b className="text-muted-dark">{`Showing ${isNaN(x_from) ? 0 : x_from} to ${isNaN(x_to) ? 0 : x_to} of ${
+                x_total === undefined ? 0 : x_total
+              } entries`}</b>
             </span>
           )}
         </div>
