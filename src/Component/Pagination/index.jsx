@@ -1,19 +1,11 @@
-/* eslint-disable prefer-const */
-/* eslint-disable camelcase */
-/* eslint-disable import/no-unresolved */
 import React, { useState } from 'react';
-import { CPagination } from '@coreui/react';
 import { BsChevronLeft, BsChevronRight, BsChevronBarLeft, BsChevronBarRight } from 'react-icons/bs';
 import { useSelector, useDispatch } from 'react-redux';
 import PopUpPages from 'Component/Modal/PopUpPages';
 import {  numberCheck, 
-          onChange, 
-          onActivePageChange, 
+          onChange,
           goToPage,
-          previousPage,
-          backPage,
-          nextPage,
-          lastPage, } from 'Component/Pagination/service';
+          changePage, } from 'Component/Pagination/service';
 import './Pagination.scss';
 
 const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
@@ -51,11 +43,11 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
       <form onSubmit={searchForm}>
         <div style={{ width: 'fit-content', height:'34px' }} className="d-flex">
           <div className={`page-item ${pagination?.active == 1 ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
-               onClick={() => previousPage({active:pagination?.active, dispatch, module, props, searchFilter})}>
+               onClick={() => changePage({active:1, dispatch, module, props, searchFilter})}>
                 <BsChevronBarLeft />
           </div>
           <div className={`page-item mr-2 ${pagination?.active == 1 ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
-               onClick={() => backPage({active:pagination?.active, dispatch, module, props, searchFilter})}>
+               onClick={() => changePage({active:pagination?.active - 1, dispatch, module, props, searchFilter})}>
                   <BsChevronLeft />
           </div>
             <div className={`d-flex align-items-center bg-white pl-2 pr-2 rounded-right box-input`}>
@@ -73,11 +65,11 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
               <span className="text-muted-soft ml-2">of {x_last_page}</span>
             </div>
           <div className={`page-item ml-2 ${pagination?.active >= x_last_page ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
-               onClick={() => nextPage({active:pagination?.active, dispatch, module, props, searchFilter})}>
+               onClick={() => changePage({active:pagination?.active + 1, dispatch, module, props, searchFilter})}>
                 <BsChevronRight className="nextBtn" />
           </div>
           <div className={`page-item ${pagination?.active >= x_last_page ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
-               onClick={() => lastPage({active:x_last_page, dispatch, module, props, searchFilter})}>
+               onClick={() => changePage({active:x_last_page, dispatch, module, props, searchFilter})}>
                 <BsChevronBarRight className="nextBtn" />
           </div>
           {isDisplay === false ? (
