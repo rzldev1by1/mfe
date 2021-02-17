@@ -83,7 +83,7 @@ const Form = ({ activeTab, state, setState, isAdmin, setIsAdmin }) => {
 
         <div className="row mb-3">
           <div className="col-sm-4  ">
-            <input readOnly type="text" className="form-control" value={state.userId} />
+            <input readOnly type="text" className="form-control readonly" value={state.userId} />
             <span className="text-title font-sm">Auto Generated</span>
           </div>
           <div className="col-sm-4  ">
@@ -93,7 +93,7 @@ const Form = ({ activeTab, state, setState, isAdmin, setIsAdmin }) => {
               readOnly={isReadOnly}
               className={`form-control ${
                 state.validation.email['isValid'] ? '' : state.validation.email['invalidClass']
-              }`}
+              } ${isReadOnly ? 'readonly' : null}`}
               onChange={async (e) => {
                 await changeDetails({ isAdmin, setState, state, column: 'email', e });
               }}
@@ -110,7 +110,7 @@ const Form = ({ activeTab, state, setState, isAdmin, setIsAdmin }) => {
               readOnly={isReadOnly}
               className={`form-control ${
                 state.validation.name['isValid'] ? '' : state.validation.name['invalidClass']
-              }`}
+              } ${isReadOnly ? 'readonly' : null}`}
               maxLength="60"
               onChange={(e) => {
                 changeDetails({ isAdmin, setState, state, column: 'name', e });

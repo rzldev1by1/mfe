@@ -68,13 +68,13 @@ export const changedColumn = ({ e, state, setState, fields }) => {
   newVal.sameColumns = newsameColumns;
   newVal.sameColumnsIdx = newsameColumnsIdx;
   setState(newVal);
-
   if (Object.keys(newerror).length !== 0) {
     return null;
   }
 
   if (value.length > 0) {
     changedColumns.map((item, idx) => {
+      console.log(item, e.target.name);
       if (item.headerData) {
         if (item.headerData === e.target.name) {
           changedColumns.splice(idx, 1);

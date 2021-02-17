@@ -45,7 +45,7 @@ const Create = ({ show, setShow }) => {
     <div>
       <Modal show={show} size="xl" className="purchase-order-create">
         <Modal.Body className="bg-primary p-0 rounded-top">
-          <Row className="pl-5 pr-3 py-5 mx-0">
+          <Row className="pl-5 pr-3 py-4 mx-0">
             <Col xs={10} className="px-0">
               <i className="iconU-createModal font-20"></i>
               <span className="font-20 pl-2">Create Purchase Order</span> <br />
@@ -61,7 +61,7 @@ const Create = ({ show, setShow }) => {
               ></i>
             </Col>
           </Row>
-          <Nav tabs className="px-7 m-0">
+          <Nav tabs className="px-8 m-0">
             <NavItem className="mr-1">
               <NavLink
                 style={{ paddingBottom: '12px' }}
