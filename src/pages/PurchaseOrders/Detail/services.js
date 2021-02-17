@@ -107,6 +107,15 @@ export const schemaColumnDetailPO = [
     ),
   },
   {
+    accessor: 'released',
+    placeholder: 'Released',
+    Header: 'Released',
+    width: 100,
+    Cell: (row) => (
+      <i className={`${row.original.released === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+    ),
+  },
+  {
     accessor: 'batch',
     placeholder: 'Batch',
     Header: 'Batch',
@@ -137,15 +146,6 @@ export const schemaColumnDetailPO = [
     Header: 'Disposition',
     width: 120,
     Cell: (props) => props.value || '-',
-  },
-  {
-    accessor: 'released',
-    placeholder: 'Released',
-    Header: 'Released',
-    width: 100,
-    Cell: (row) => (
-      <i className={`${row.original.released === 'Yes' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
-    ),
   },
 ];
 
