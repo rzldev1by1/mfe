@@ -102,7 +102,6 @@ export const goToPage = ({ goto, pagination, page, setPage, dispatch, module, pr
     paramType = 'GET_SO_DETAIL_TABLE';
     paramPaging = 'PAGING_SO_DETAIL';
   }
-  dispatch({ type: paramType, data: [] });
 
   if (newPage.goPage === 0 || newPage.goPage === null || newPage.goPage === '' || newPage.goPage === undefined) {
     return false;
@@ -112,7 +111,10 @@ export const goToPage = ({ goto, pagination, page, setPage, dispatch, module, pr
     newPage.notifPaging = true;
     setPage(newPage);
     return 0;
+  }else{
+    dispatch({ type: paramType, data: [] });
   }
+
   if (goto) {
     goto(newPage.goPage);
   } else {
