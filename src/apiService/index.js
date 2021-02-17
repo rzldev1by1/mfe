@@ -442,6 +442,7 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
       ? true
       : false;
   newState.moduleAccess = menus;
+  newState.isEnableAllModule = newIsEnableAllModule;
   // and ModalAccess
 
   // LoadSite
