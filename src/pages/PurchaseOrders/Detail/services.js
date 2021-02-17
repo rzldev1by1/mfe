@@ -121,12 +121,13 @@ export const schemaColumnDetailPO = [
     Header: 'Batch',
     headerStyle: { textAlign: 'left' },
     Cell: (props) => props.value || '-',
+    width: 130,
   },
   {
     accessor: 'rotadate',
     placeholder: 'Rotadate',
     Header: 'Rotadate',
-    width: 100,
+    width: 130,
   },
   {
     accessor: 'ref3',
@@ -139,6 +140,7 @@ export const schemaColumnDetailPO = [
     placeholder: 'Ref4',
     Header: 'Ref4',
     Cell: (props) => props.value || '-',
+    width: 120,
   },
   {
     accessor: 'disposition',

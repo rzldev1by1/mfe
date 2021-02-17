@@ -74,7 +74,6 @@ export const changedColumn = ({ e, state, setState, fields }) => {
 
   if (value.length > 0) {
     changedColumns.map((item, idx) => {
-      console.log(item, e.target.name);
       if (item.headerData) {
         if (item.headerData === e.target.name) {
           changedColumns.splice(idx, 1);
