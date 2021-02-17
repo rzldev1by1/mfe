@@ -31,7 +31,9 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
 
   const search = async (e) => {
     if (e.key === 'Enter') {
+      document.getElementById('paging-number').blur();
       await goToPage({ goto, pagination, page, setPage, dispatch, module, searchFilter });
+      document.getElementById('paging-number').value = "";
     }
   };
   const searchForm = (e) => {
@@ -41,17 +43,18 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
   return (
     <div>
       <form onSubmit={searchForm}>
-        <div style={{ width: 'fit-content', height:'34px' }} className="d-flex">
+        <div style={{ width: 'fit-content', height:'49px' }} className="d-flex">
           <div className={`page-item ${pagination?.active == 1 ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
                onClick={() => changePage({active:1, dispatch, module, props, searchFilter})}>
-                <BsChevronBarLeft />
+                <BsChevronBarLeft className='icon-size-paging-double' />
           </div>
           <div className={`page-item mr-2 ${pagination?.active == 1 ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
                onClick={() => changePage({active:pagination?.active - 1, dispatch, module, props, searchFilter})}>
-                  <BsChevronLeft />
+                  <BsChevronLeft className='icon-size-paging'  />
           </div>
             <div className={`d-flex align-items-center bg-white pl-2 pr-2 rounded-right box-input`}>
               <input
+                id='paging-number'
                 type="number"
                 placeholder={pagination?.active}
                 className="number-pag rounded"
@@ -62,15 +65,15 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
                 onKeyPress={(e) => numberCheck(e)}
                 style={{ textAlign: 'center' }}
               />
-              <span className="text-muted-soft ml-2">of {x_last_page}</span>
+              <span className="text-muted-soft ml-2 mr-2">of {x_last_page}</span>
             </div>
           <div className={`page-item ml-2 ${pagination?.active >= x_last_page ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
                onClick={() => changePage({active:pagination?.active + 1, dispatch, module, props, searchFilter})}>
-                <BsChevronRight className="nextBtn" />
+                <BsChevronRight className=" icon-size-paging" />
           </div>
           <div className={`page-item ${pagination?.active >= x_last_page ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
                onClick={() => changePage({active:x_last_page, dispatch, module, props, searchFilter})}>
-                <BsChevronBarRight className="nextBtn" />
+                <BsChevronBarRight className="icon-size-paging-double" />
           </div>
           {isDisplay === false ? (
             ''
