@@ -220,7 +220,7 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
       m.weight = numeral(m.weight).format('0,0.000');
       m.completed = m.completed == 'Y' ? 'Yes' : 'x';
       m.released = m.released == 'Y' ? 'Yes' : 'x';
-      m.rotadate = m.rotadate && m.rotadate !== '' ? formatDate(m.rotadate) : '-';
+      m.rotadate = m.rotadate && m.rotadate !== '' ? m.rotadate : '-';
       txt.push(m.batch?.length);
       return m;
     });
@@ -442,6 +442,7 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
       ? true
       : false;
   newState.moduleAccess = menus;
+  newState.isEnableAllModule = newIsEnableAllModule;
   // and ModalAccess
 
   // LoadSite

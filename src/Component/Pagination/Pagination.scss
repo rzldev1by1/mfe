@@ -5,9 +5,12 @@
 } 
 .number-pag{
   border: 1px solid #e9eced;
-  height: 21px;
+  height: 33px;
   width: 38px;
   font-family: 'Rubik' !important;
+}
+.number-pag:focus{
+  border: solid 1px #376bfb ;
 }
 .click-tab{
   cursor: pointer;
@@ -48,10 +51,16 @@ ul.pagination {
   background-color: #fff;
   display: flex;
   align-items: center;
-  border-radius: 3px;
-  padding-left: 5px;
-  padding-right: 5px;
+  border-radius: 7px;
+  padding-left: 8px;
+  padding-right: 8px;
   width: fit-content !important;
+}
+.icon-size-paging-double{
+  font-size: 20px;
+}
+.icon-size-paging{
+  font-size: 16px;
 }
 .page-link {
   border: none !important;

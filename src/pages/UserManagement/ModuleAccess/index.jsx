@@ -47,7 +47,7 @@ const moduleAccess = ({ moduleAccess, isEnableAllModule, state, setState, isRead
                           (isReadOnly ? ' btn-review' : '')
                         }
                         onClick={(e) => {
-                          onModuleAccessClick({ e, index, state, setState });
+                          if (!isReadOnly) onModuleAccessClick({ e, index, state, setState });
                         }}
                       >
                         {`${item.status ? enable.toUpperCase() : disable.toUpperCase()}`}

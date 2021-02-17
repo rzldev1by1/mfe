@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { cibLetsEncrypt } from '@coreui/icons';
 
 export const schemaColumn = [
   {
@@ -84,20 +85,21 @@ export const onModuleAccessClick = ({ e, index, state, setState }) => {
   let moduleAccess = [...newState.moduleAccess];
   let newModules = moduleAccess.map((item, idx) => {
     if (idx === index) {
-      item.status = !item.status;
+      item.status = true;
+    } else {
+      item.status = false;
     }
     return item;
   });
 
-  const isEnableAll = newModules.filter((item) => {
+  let isEnableAll = newModules.filter((item) => {
     return item.status === true;
   }).length;
-  const newIsEnableAllModule = moduleAccess.length === isEnableAll ? true : false;
+  let isEnableAllModule = moduleAccess.length === isEnableAll ? true : false;
 
   newValidation.modules.isValid = isEnableAll > 0;
-
   newState.moduleAccess = newModules;
-  newState.isEnableAllModule = newIsEnableAllModule;
+  newState.isEnableAllModule = isEnableAllModule;
   newState.validation = newValidation;
   newState.changed = true;
   setState(newState);
@@ -108,13 +110,12 @@ export const onEnabledAllModuleAccess = ({ state, setState }) => {
   let newValidation = { ...newState.validation };
   let newModuleAccess = [...newState.moduleAccess];
   let newIsEnableAllModule = newState.isEnableAllModule;
-  let newArray = newModuleAccess.map((item, index) => {
-    let newItem = item;
-    newItem.status = !newIsEnableAllModule;
-    return newItem;
+  var newArray = newModuleAccess.map((item, index) => {
+    item.status = !newIsEnableAllModule;
+    return item;
   });
+  
   newValidation.modules.isValid = newArray.filter((m) => m.status !== false).length > 0;
-
   newState.moduleAccess = newArray;
   newState.isEnableAllModule = !newIsEnableAllModule;
   newState.validation = newValidation;
@@ -152,8 +153,8 @@ export const onSiteStatusClick = ({ e, index, state, setState }) => {
 export const onEnabledAllSite = ({ state, setState }) => {
   const newState = { ...state };
   let newValidation = { ...newState.validation };
-  let newIsEnableAllSite = newState.isEnableAllSite;
   let sites = [...newState.sites];
+  let newIsEnableAllSite = newState.isEnableAllSite;
   var newArray = sites.map((item, index) => {
     item.status = !newIsEnableAllSite;
     return item;
