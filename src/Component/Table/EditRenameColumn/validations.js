@@ -12,6 +12,11 @@ export default (state, renameField, indexField, fields) => {
             newsameColumns.push(item?.Header?.toUpperCase())
             newsameColumnsIdx.push(indexField)
         }
+      } if(idx === idxField){
+          if(renameField?.toUpperCase() === item?.Header?.toUpperCase()){
+              newsameColumns.push(item?.Header?.toUpperCase())
+              newsameColumnsIdx.push(indexField)
+          }
       }
       if(!newsameColumns.includes(renameField?.toUpperCase())){
         newsameColumnsIdx = newsameColumnsIdx.filter(value => value != idxField)
@@ -22,16 +27,6 @@ export default (state, renameField, indexField, fields) => {
       } else{
         newerror = {}
         }
-
-      if (idx === idxField && renameField === item?.Header) {
-        newerror[fields[indexField].Header] = `Columns cannot contain the same name`;
-        newsameColumns.push(item?.Header);
-        newsameColumnsIdx.push(indexField);
-      } if (idx === idxField && renameField !== item?.Header) {
-        delete newerror[fields[indexField].Header];
-        const i = newsameColumnsIdx.indexOf(indexField);
-        delete newsameColumnsIdx[i];
-      }
      });
   }
   return {newerror, newsameColumns, newsameColumnsIdx}
