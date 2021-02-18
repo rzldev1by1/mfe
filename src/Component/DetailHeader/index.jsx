@@ -131,7 +131,7 @@ const DetailHeader = ({
               titleLeft === true ? ' border-right' : ' d-none'
             }`}
           >
-            <CRow className={`mx-0 ${titleRightOne ? null : ' d-none'}`}>
+            <CRow className={`mx-0 ${titleCenter ? null : ' d-none'}`}>
               <CCol lg={'auto'} className="px-0 mr-3 text-light-gray">
                 <CRow className={`mx-0 ${titleCenterOne ? null : ' d-none'}`}>{titleCenterOne}</CRow>
                 <CRow className={`mx-0 pt-1 ${titleCenterTwo ? null : ' d-none'}`}>{titleCenterTwo}</CRow>
@@ -166,7 +166,7 @@ const DetailHeader = ({
       {titleLeft === true ? (
         <CCard>
           <CCardBody className="mobile-header p-0 my-3 mr-3 ml-0">
-            <CRow className={`mx-0 ${titleRightOne ? null : ' d-none'}`}>
+            <CRow className={`mx-0 ${titleLeft ? null : ' d-none'}`}>
               <CCol lg={'auto'} className="px-0 mr-3 text-light-gray">
                 <CRow className={`mx-0 ${titleLeftOne ? null : ' d-none'}`}>{titleLeftOne}</CRow>
                 <CRow className={`mx-0 pt-1 ${titleLeftTwo ? null : ' d-none'}`}>{titleLeftTwo}</CRow>
