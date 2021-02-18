@@ -91,6 +91,7 @@ const DropdownAxios = ({
             border: readOnly ? 0 : '',
             borderColor: '#e4e7ea !important',
             height: 50,
+            boxShadow: 'none',
           }),
         }}
       />

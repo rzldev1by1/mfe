@@ -420,6 +420,10 @@
   animation: sk-scaleout 1s infinite ease-in-out;
 }
 
+.toggleWidth {
+  width: 150px !important;
+}
+
 @-webkit-keyframes sk-scaleout {
   0% {
     -webkit-transform: scale(0);

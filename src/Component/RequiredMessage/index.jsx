@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './style.scss';
 
 const RequiredMessage = ({ messageShow, column, data, dropdown = false, customMessage }) => {
   const [message, setMessage] = useState(null);
@@ -35,7 +36,11 @@ const RequiredMessage = ({ messageShow, column, data, dropdown = false, customMe
     }
   }, [columnText, value, customMessage]);
 
-  return <div>{messageShow ? <span className="text-error pl-0 text-danger font-12">{message}</span> : null}</div>;
+  return (
+    <div className="text-error ">
+      {messageShow ? <span className="pl-0 text-danger font-12">{message}</span> : null}
+    </div>
+  );
 };
 
 export default RequiredMessage;

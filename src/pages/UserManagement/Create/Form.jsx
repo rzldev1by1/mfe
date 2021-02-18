@@ -60,8 +60,8 @@ const Form = ({ activeTab, state, setState, isAdmin, setIsAdmin }) => {
                   }}
                   readOnly={isReadOnly}
                 />
-                <span className={`flex-fill ${webGroupClass.newUser}`}>REGULAR USER</span>
-                <span className={`flex-fill px-3 ${webGroupClass.admin}`}>ADMIN USER</span>
+                <span className={`flex-fill toggleWidth ${webGroupClass.newUser}`}>REGULAR USER</span>
+                <span className={`flex-fill toggleWidth px-3 ${webGroupClass.admin}`}>ADMIN USER</span>
               </label>
             </Col>
           </Row>
