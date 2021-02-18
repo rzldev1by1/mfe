@@ -152,7 +152,7 @@ const EditRenameColumn = ({
                         <Col key={index} className="p-2">
                           <button
                             type
-                            className={`text-left btn btn-block pl-2 ${
+                            className={`text-left btn btn-block pl-2 ver-center-item ${
                               !state.editColumn?.includes(item.accessor) ? 'btn-outline-primary' : 'btn-light-gray'
                             }`}
                             onClick={() =>
@@ -169,7 +169,7 @@ const EditRenameColumn = ({
                             ) : (
                               <AiOutlineEyeInvisible size={25} />
                             )}
-                            <b className="p-0"> {item.Header} </b>
+                            <b className="p-0 pl-1"> {item.Header} </b>
                           </button>
                         </Col>
                       );
