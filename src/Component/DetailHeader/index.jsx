@@ -88,83 +88,35 @@ const DetailHeader = ({
         <CCard className={titleRight === true ? null : ' d-none'}>
           <CCardBody className={`p-0 m-3${titleCenter === true ? ' border-right' : ' d-none'}`}>
             <CRow className={`mx-0 ${titleRightOne ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleRightOne}
+              <CCol lg={'auto'} className="px-0 mr-3 text-light-gray">
+                <CRow className={`mx-0 ${titleRightOne ? null : ' d-none'}`}>{titleRightOne}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleRightTwo ? null : ' d-none'}`}>{titleRightTwo}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleRightThree ? null : ' d-none'}`}>{titleRightThree}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleRightFour ? null : ' d-none'}`}>{titleRightFour}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleRightFive ? null : ' d-none'}`}>{titleRightFive}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleRightSix ? null : ' d-none'}`}>{titleRightSix}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleRightSeven ? null : ' d-none'}`}>{titleRightSeven}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleRightEight ? null : ' d-none'}`}>{titleRightEight}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleRightNine ? null : ' d-none'}`}>{titleRightNine}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleRightTen ? null : ' d-none'}`}>{titleRightTen}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleRightEleven ? null : ' d-none'}`}>{titleRightEleven}</CRow>
               </CCol>
-              <CCol className={`px-0 ${valeuRightOne ? null : ' d-none'}`}>{valeuRightOne}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleRightTwo ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleRightTwo}
-              </CCol>
-              <CCol className={`px-0 ${valeuRightTwo ? null : ' d-none'}`}>{valeuRightTwo}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleRightThree ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleRightThree}
-              </CCol>
-              <CCol className={`px-0 ${valeuRightThree ? null : ' d-none'}`}>{valeuRightThree}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleRightFour ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleRightFour}
-              </CCol>
-              <CCol className={`px-0 ${valeuRightFour ? null : ' d-none'}`}>{valeuRightFour}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleRightFive ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleRightFive}
-              </CCol>
-              <CCol className={`px-0 ${valeuRightFive ? null : ' d-none'}`}>{valeuRightFive}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleRightSix ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleRightSix}
-              </CCol>
-              <CCol className={`px-0 ${valeuRightSix ? null : ' d-none'}`}>{valeuRightSix}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleRightSeven ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleRightSeven}
-              </CCol>
-              <CCol className={`px-0 ${valeuRightSeven ? null : ' d-none'}`}>{valeuRightSeven}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleRightEight ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleRightEight}
-              </CCol>
-              <CCol className={`px-0 ${valeuRightEight ? null : ' d-none'}`}>{valeuRightEight}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleRightNine ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleRightNine}
-              </CCol>
-              <CCol className={`px-0 ${valeuRightNine ? null : ' d-none'}`}>{valeuRightNine}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleRightTen ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleRightTen}
-              </CCol>
-              <CCol className={`px-0 ${valeuRightTen ? null : ' d-none'}`}>{valeuRightTen}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleRightEleven ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleRightEleven}
-              </CCol>
-              {valeuRightEleven ? (
-                <CCol className="px-0">
+              <CCol className="px-0">
+                <CRow className={`mx-0 ${valeuRightOne ? null : ' d-none'}`}>{valeuRightOne}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuRightTwo ? null : ' d-none'}`}>{valeuRightTwo}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuRightThree ? null : ' d-none'}`}>{valeuRightThree}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuRightFour ? null : ' d-none'}`}>{valeuRightFour}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuRightFive ? null : ' d-none'}`}>{valeuRightFive}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuRightSix ? null : ' d-none'}`}>{valeuRightSix}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuRightSeven ? null : ' d-none'}`}>{valeuRightSeven}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuRightEight ? null : ' d-none'}`}>{valeuRightEight}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuRightNine ? null : ' d-none'}`}>{valeuRightNine}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuRightTen ? null : ' d-none'}`}>{valeuRightTen}</CRow>
+                <CRow className={`mx-0 pt-1  line-camp ${valeuRightEleven ? null : ' d-none'}`}>
                   <CCol className="px-0 line-camp">{valeuRightEleven}</CCol>
-                  {valeuRightEleven.length > 100 ? (
-                    <Link onClick={() => setModalShow(true)}>
-                      Show More
-                    </Link>
-                  ) : (
-                    ''
-                  )}
-                </CCol>
-              ) : (
-                <CCol className="px-0">-</CCol>
-              )}
+                  {valeuRightEleven?.length > 100 ? <Link onClick={() => setModalShow(true)}>Show More</Link> : ''}
+                </CRow>
+              </CCol>
             </CRow>
           </CCardBody>
         </CCard>
@@ -179,65 +131,31 @@ const DetailHeader = ({
               titleLeft === true ? ' border-right' : ' d-none'
             }`}
           >
-            <CRow className={`mx-0 ${titleCenterOne ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleCenterOne}
+            <CRow className={`mx-0 ${titleRightOne ? null : ' d-none'}`}>
+              <CCol lg={'auto'} className="px-0 mr-3 text-light-gray">
+                <CRow className={`mx-0 ${titleCenterOne ? null : ' d-none'}`}>{titleCenterOne}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleCenterTwo ? null : ' d-none'}`}>{titleCenterTwo}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleCenterThree ? null : ' d-none'}`}>{titleCenterThree}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleCenterFour ? null : ' d-none'}`}>{titleCenterFour}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleCenterFive ? null : ' d-none'}`}>{titleCenterFive}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleCenterSix ? null : ' d-none'}`}>{titleCenterSix}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleCenterSeven ? null : ' d-none'}`}>{titleCenterSeven}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleCenterEight ? null : ' d-none'}`}>{titleCenterEight}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleCenterNine ? null : ' d-none'}`}>{titleCenterNine}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleCenterTen ? null : ' d-none'}`}>{titleCenterTen}</CRow>
               </CCol>
-              <CCol className={`px-0 ${valeuCenterOne ? null : ' d-none'}`}>{valeuCenterOne}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleCenterTwo ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleCenterTwo}
+              <CCol className="px-0">
+                <CRow className={`mx-0 ${valeuCenterOne ? null : ' d-none'}`}>{valeuCenterOne}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuCenterTwo ? null : ' d-none'}`}>{valeuCenterTwo}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuCenterThree ? null : ' d-none'}`}>{valeuCenterThree}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuCenterFour ? null : ' d-none'}`}>{valeuCenterFour}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuCenterFive ? null : ' d-none'}`}>{valeuCenterFive}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuCenterSix ? null : ' d-none'}`}>{valeuCenterSix}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuCenterSeven ? null : ' d-none'}`}>{valeuCenterSeven}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuCenterEight ? null : ' d-none'}`}>{valeuCenterEight}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuCenterNine ? null : ' d-none'}`}>{valeuCenterNine}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuCenterTen ? null : ' d-none'}`}>{valeuCenterTen}</CRow>
               </CCol>
-              <CCol className={`px-0 ${valeuCenterTwo ? null : ' d-none'}`}>{valeuCenterTwo}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleCenterThree ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleCenterThree}
-              </CCol>
-              <CCol className={`px-0 ${valeuCenterThree ? null : ' d-none'}`}>{valeuCenterThree}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleCenterFour ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleCenterFour}
-              </CCol>
-              <CCol className={`px-0 ${valeuCenterFour ? null : ' d-none'}`}>{valeuCenterFour}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleCenterFive ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleCenterFive}
-              </CCol>
-              <CCol className={`px-0 ${valeuCenterFive ? null : ' d-none'}`}>{valeuCenterFive}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleCenterSix ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleCenterSix}
-              </CCol>
-              <CCol className={`px-0 ${valeuCenterSix ? null : ' d-none'}`}>{valeuCenterSix}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleCenterSeven ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleCenterSeven}
-              </CCol>
-              <CCol className={`px-0 ${valeuCenterSeven ? null : ' d-none'}`}>{valeuCenterSeven}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleCenterEight ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleCenterEight}
-              </CCol>
-              <CCol className={`px-0 ${valeuCenterEight ? null : ' d-none'}`}>{valeuCenterEight}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleCenterNine ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleCenterNine}
-              </CCol>
-              <CCol className={`px-0 ${valeuCenterNine ? null : ' d-none'}`}>{valeuCenterNine}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleCenterTen ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleCenterTen}
-              </CCol>
-              <CCol className={`px-0 ${valeuCenterTen ? null : ' d-none'}`}>{valeuCenterTen}</CCol>
             </CRow>
           </CCardBody>
         </CCard>
@@ -248,65 +166,31 @@ const DetailHeader = ({
       {titleLeft === true ? (
         <CCard>
           <CCardBody className="mobile-header p-0 my-3 mr-3 ml-0">
-            <CRow className={`mx-0 ${titleLeftOne ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleLeftOne}
+            <CRow className={`mx-0 ${titleRightOne ? null : ' d-none'}`}>
+              <CCol lg={'auto'} className="px-0 mr-3 text-light-gray">
+                <CRow className={`mx-0 ${titleLeftOne ? null : ' d-none'}`}>{titleLeftOne}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleLeftTwo ? null : ' d-none'}`}>{titleLeftTwo}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleLeftThree ? null : ' d-none'}`}>{titleLeftThree}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleLeftFour ? null : ' d-none'}`}>{titleLeftFour}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleLeftFive ? null : ' d-none'}`}>{titleLeftFive}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleLeftSix ? null : ' d-none'}`}>{titleLeftSix}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleLeftSeven ? null : ' d-none'}`}>{titleLeftSeven}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleLeftEight ? null : ' d-none'}`}>{titleLeftEight}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleLeftNine ? null : ' d-none'}`}>{titleLeftNine}</CRow>
+                <CRow className={`mx-0 pt-1 ${titleLeftTen ? null : ' d-none'}`}>{titleLeftTen}</CRow>
               </CCol>
-              <CCol className={`px-0 ${valeuLeftOne ? null : ' d-none'}`}>{valeuLeftOne}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleLeftTwo ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleLeftTwo}
+              <CCol className="px-0">
+                <CRow className={`mx-0 ${valeuLeftOne ? null : ' d-none'}`}>{valeuLeftOne}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuLeftTwo ? null : ' d-none'}`}>{valeuLeftTwo}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuLeftThree ? null : ' d-none'}`}>{valeuLeftThree}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuLeftFour ? null : ' d-none'}`}>{valeuLeftFour}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuLeftFive ? null : ' d-none'}`}>{valeuLeftFive}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuLeftSix ? null : ' d-none'}`}>{valeuLeftSix}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuLeftSeven ? null : ' d-none'}`}>{valeuLeftSeven}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuLeftEight ? null : ' d-none'}`}>{valeuLeftEight}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuLeftNine ? null : ' d-none'}`}>{valeuLeftNine}</CRow>
+                <CRow className={`mx-0 pt-1 ${valeuLeftTen ? null : ' d-none'}`}>{valeuLeftTen}</CRow>
               </CCol>
-              <CCol className={`px-0 ${valeuLeftTwo ? null : ' d-none'}`}>{valeuLeftTwo}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleLeftThree ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleLeftThree}
-              </CCol>
-              <CCol className={`px-0 ${valeuLeftThree ? null : ' d-none'}`}>{valeuLeftThree}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleLeftFour ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleLeftFour}
-              </CCol>
-              <CCol className={`px-0 ${valeuLeftFour ? null : ' d-none'}`}>{valeuLeftFour}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleLeftFive ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleLeftFive}
-              </CCol>
-              <CCol className={`px-0 ${valeuLeftFive ? null : ' d-none'}`}>{valeuLeftFive}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleLeftSix ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleLeftSix}
-              </CCol>
-              <CCol className={`px-0 ${valeuLeftSix ? null : ' d-none'}`}>{valeuLeftSix}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleLeftSeven ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleLeftSeven}
-              </CCol>
-              <CCol className={`px-0 ${valeuLeftSeven ? null : ' d-none'}`}>{valeuLeftSeven}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleLeftEight ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleLeftEight}
-              </CCol>
-              <CCol className={`px-0 ${valeuLeftEight ? null : ' d-none'}`}>{valeuLeftEight}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleLeftNine ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleLeftNine}
-              </CCol>
-              <CCol className={`px-0 ${valeuLeftNine ? null : ' d-none'}`}>{valeuLeftNine}</CCol>
-            </CRow>
-            <CRow className={`mx-0 pt-1 ${titleLeftTen ? null : ' d-none'}`}>
-              <CCol lg={3} className="col-4 text-light-gray px-0">
-                {titleLeftTen}
-              </CCol>
-              <CCol className={`px-0 ${valeuLeftTen ? null : ' d-none'}`}>{valeuLeftTen}</CCol>
             </CRow>
           </CCardBody>
         </CCard>
