@@ -343,7 +343,7 @@ header {
   margin-left: -30px !important;
   outline: none !important;
 }
-.c-header-toggler{
+.c-header-toggler {
   outline: none !important;
 }
 
@@ -547,7 +547,7 @@ header {
 }
 
 .px-8 {
-  padding: 0px 1.7rem !important;
+  padding: 0px 1.9rem !important;
 }
 
 .ml-6 {
@@ -727,6 +727,18 @@ header {
 }
 
 .input-danger:hover {
+  border-color: #e55353 !important;
+}
+
+input.form-control.input-danger {
+  border-color: #e55353 !important;
+}
+
+.input-danger .css-5y2tk-control {
+  border-color: #e55353 !important;
+}
+
+.input-danger .css-1to7m39-control {
   border-color: #e55353 !important;
 }
 

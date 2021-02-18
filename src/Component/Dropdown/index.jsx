@@ -25,6 +25,7 @@ const Dropdown = ({
   readOnly,
   messageRequired,
   messageParam = { messageShow: false, messageData: {}, messageCustom: {} },
+  parentDivClassName,
 }) => {
   const [isOpen, setIsOpen] = useState();
   const onChangeHandler = (selected, action) => {
@@ -52,7 +53,7 @@ const Dropdown = ({
   }, [isOpen]);
 
   return (
-    <div>
+    <div className={parentDivClassName}>
       {!showTitle ? null : <label className={`text-muted mb-0 ${required ? 'required' : ''}`}>{title}</label>}
       <Select
         className={className}

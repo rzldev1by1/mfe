@@ -111,6 +111,7 @@ const Form = ({ activeTab, isValidation, createData }) => {
             readOnly={isReadonly || site}
             messageRequired={true}
             messageParam={{ messageShow: isValidation, messageData: orderDetails?.site }}
+            parentDivClassName={isValidation && !orderDetails?.site?.value ? 'input-danger' : ''}
           />
         </Col>
         <Col lg="3">
@@ -126,6 +127,7 @@ const Form = ({ activeTab, isValidation, createData }) => {
             readOnly={isReadonly || site}
             messageRequired={true}
             messageParam={{ messageShow: isValidation, messageData: orderDetails?.orderType }}
+            parentDivClassName={isValidation && !orderDetails?.orderType?.value ? 'input-danger' : ''}
           />
         </Col>
         <Col lg="3">
@@ -173,6 +175,7 @@ const Form = ({ activeTab, isValidation, createData }) => {
             readOnly={isReadonly || client}
             messageRequired={true}
             messageParam={{ messageShow: isValidation, messageData: orderDetails?.client }}
+            parentDivClassName={isValidation && !orderDetails?.client?.value ? 'input-danger' : ''}
           />
         </Col>
         <Col lg="3" className="mt-45">
@@ -189,6 +192,9 @@ const Form = ({ activeTab, isValidation, createData }) => {
                 setCheckingOrderNo,
                 dispatch,
               })
+            }
+            className={
+              (isValidation && !orderDetails?.orderNo?.value) || checkingOrderNo?.status === false ? 'input-danger' : ''
             }
             onKeyUp={(e) => {
               let orderNo = e.target.value;
@@ -208,12 +214,12 @@ const Form = ({ activeTab, isValidation, createData }) => {
         <Col lg="3" className="mt-45">
           <label className="text-muted mb-0 required">{orderDetails?.orderDate?.text}</label>
           <DatePicker
-            className="form-control"
             getDate={(date) => {
               changeOrderDetails({ column: 'orderDate', value: date, dispatch });
             }}
             readOnly={isReadonly}
             style={isReadonly ? { display: 'none' } : null}
+            className={'form-control ' + (isValidation && !orderDetails?.deliveryDate?.value ? 'input-danger' : '')}
           />
           <Input
             name="orderDate"

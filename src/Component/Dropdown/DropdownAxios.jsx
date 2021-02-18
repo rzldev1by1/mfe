@@ -25,6 +25,7 @@ const DropdownAxios = ({
   readOnly,
   messageRequired,
   messageParam = { messageShow: false, messageData: {}, messageCustom: {} },
+  parentDivClassName,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isValue, setIsValue] = useState('');
@@ -45,7 +46,7 @@ const DropdownAxios = ({
   }, [isValue]);
 
   return (
-    <div>
+    <div className={parentDivClassName}>
       {!showTitle ? null : <label className={'text-muted mb-0 ' + (required ? 'required' : '')}>{title}</label>}
       <Select
         isClearable={!readOnly}
