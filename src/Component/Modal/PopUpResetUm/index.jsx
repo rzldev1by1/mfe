@@ -1,7 +1,10 @@
 import React from 'react';
 import { Row, Col, Modal } from 'react-bootstrap';
-import loadBtn from '../../../assets/icons/loading/LOADING-MLS-GREEN.gif';
+import loadBtn from '../../../assets/icons/loading/LOADING-MLS.gif';
+import reset_done from '../../../assets/img/reset_done.png';
 import { closeModalPopupReset, confirmResetPassword } from './service';
+import { CButton } from '@coreui/react';
+import './style.scss';
 
 class Reset extends React.PureComponent {
   render() {
@@ -14,60 +17,55 @@ class Reset extends React.PureComponent {
         className="sales-order-create"
         backdrop="static"
       >
-        <Modal.Body className="bg-primary p-0">
-          <Row className="p-4">
-            <Col xs={10}>
-              <i className="fa fa-refresh font-20"></i>
-              <span className="font-20 pl-2">Reset Password</span> <br />
-              <span className="pl-4">Confirm your request to reset password</span>
-            </Col>
-            <Col xs={2} className="text-right">
-              <i className="iconU-close pointer" onClick={() => closeModalPopupReset({ state, setState })}></i>
+        <Modal.Body>
+          <Row>
+            <Col className="bg-white">
+              <div className="pt-2 close-reset">
+                <i className="iconU-close pointer" onClick={() => closeModalPopupReset({ state, setState })}></i>
+              </div>
             </Col>
           </Row>
           <Row className="px-3">
             <Col className="bg-white">
-              <div className="d-flex justify-content ml-4">
-                <i
-                  style={{ color: '#cccccc' }}
-                  className={isResetSuccess ? 'mt-4 icon-Icon_done' : ' mb-n3 mt-n3 reset-caution'}
-                ></i>
+              <div className="content-reset">
+                    <img src={reset_done}  width="130" height="130" />
+
+                  {isResetSuccess ? (
+                    <div className="ver-center-item pl-2">
+                      <label style={{ fontSize: '19px' }}>
+                        <span style={{ color: '#637176' }}>Success!</span>
+                        <br />
+                        <span style={{ color: '#B4B9BB' }}>
+                          Reset password requested! 
+                          <br/>
+                          We will send to the registered email address on a new password
+                        </span>
+                      </label>
+                    </div>
+                  ) : (
+                    <div className="ver-center-item pl-2">
+                      <label style={{ fontSize: '19px' }}>
+                        <span style={{ color: '#637176' }}>Are you sure</span>
+                        <br/>
+                        <span style={{ color: '#B4B9BB' }}>to reset this user's password?</span> 
+                      </label>
+                    </div>
+                  )}
               </div>
 
-              <div className="d-flex mb-2 ml-4">
-                {isResetSuccess ? (
-                  <label style={{ fontSize: '19px' }}>
-                    <span style={{ color: '#637176' }}>Success!</span>
-                    <br />
-                    <span style={{ color: '#B4B9BB' }}>
-                      Reset password requested! <br /> We will send you an email to reset password
-                    </span>
-                  </label>
-                ) : (
-                  <label style={{ fontSize: '19px' }}>
-                    <span style={{ color: '#637176' }}>Are you sure</span> <br />{' '}
-                    <span style={{ color: '#B4B9BB' }}>to reset this user's password?</span>
-                  </label>
-                )}
-              </div>
-
-              <div className="d-flex justify-content-between pb-3">
+              <div className="content-buttom pb-3 pt-2">
                 {isLoad ? (
-                  <button type="submit" className=" btn btn-outline-success font-lg font-md font-sm mb-2 ml-4 loadBtn">
+                  <CButton  type="submit" className=" btn btn-primary float-right">
                     <img src={loadBtn} className="mt-n4" width="35" height="35" />
-                  </button>
+                  </CButton >
                 ) : isResetSuccess ? (
-                  ''
+                  <CButton onClick={() => closeModalPopupReset({ state, setState })} className="btn btn-primary float-right">
+                    DONE
+                  </CButton>
                 ) : (
-                  <button
-                    className="font-lg font-md font-sm btn mr-5 mb-4"
-                    style={{ width: '15%', marginTop: '-20px' }}
-                    onClick={(e) => {
-                      confirmResetPassword({ state, setState, props });
-                    }}
-                  >
-                    <i className="reset-done" style={{ color: '#81efdd' }}></i>
-                  </button>
+                  <CButton onClick={(e) => { confirmResetPassword({ state, setState, props });}} className="btn btn-primary float-right">
+                    RESET
+                  </CButton>
                 )}
               </div>
             </Col>
