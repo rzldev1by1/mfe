@@ -27,7 +27,11 @@ const RequiredMessage = ({ isValidation, data, column, columnText, customMessage
     message = customMessage?.message;
   }
 
-  return <div>{isValidation ? <span className="text-error pl-0 text-danger font-12">{message}</span> : null}</div>;
+  return (
+    <div className="text-error">
+      {isValidation ? <span className="pl-0 text-danger font-12">{message}</span> : null}
+    </div>
+  );
 };
 
 export default RequiredMessage;
