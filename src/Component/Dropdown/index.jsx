@@ -50,7 +50,7 @@ const Dropdown = ({
       onMenuOpen();
     }
   }, [isOpen]);
-  
+
   return (
     <div>
       {!showTitle ? null : <label className={`text-muted mb-0 ${required ? 'required' : ''}`}>{title}</label>}
@@ -92,11 +92,12 @@ const Dropdown = ({
             border: readOnly ? 0 : '',
             borderColor: '#e4e7ea !important',
             height: 50,
+            boxShadow: 'none',
           }),
-          valueContainer:(provided) => ({
+          valueContainer: (provided) => ({
             ...provided,
-            paddingLeft:14
-          })
+            paddingLeft: 14,
+          }),
         }}
         theme={(theme) => ({
           ...theme,

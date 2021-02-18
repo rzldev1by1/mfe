@@ -119,7 +119,7 @@ const Search = ({ setHeader, setdateHeader }) => {
               />
             </CCol>
 
-            <CCol lg={5} sm={12} className="pl-3 colOthers">
+            <CCol style={{ flexGrow: 1 }} className="pl-0   colOthers">
               <CRow>
                 <CCol lg="3" sm="4" className="pl-0">
                   {user?.site ? (
@@ -155,7 +155,7 @@ const Search = ({ setHeader, setdateHeader }) => {
                     />
                   )}
                 </CCol>
-                <CCol lg="6" sm="4" className="pl-0">
+                <CCol sm="auto" style={{ flexGrow: 1 }} className="pl-0 pr-0">
                   <DropdownAxios
                     name="product"
                     placeholder="Product"
@@ -177,7 +177,7 @@ const Search = ({ setHeader, setdateHeader }) => {
                 </CCol>
               </CRow>
             </CCol>
-            <CCol lg="1" sm="12" className=" colBtn">
+            <CCol sm={12} lg={1} style={{ flexGrow: 1 }} className=" colBtn">
               <button
                 type="button"
                 className="btn btn-search btn-primary float-right"

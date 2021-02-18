@@ -243,3 +243,9 @@
 .DayPicker-Weekday abbr[title='Friday'] {
   color: #000000;
 }
+.DayPicker-Day--today {
+  color: #5e44e8 !important;
+}
+.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+  color: #f0f8ff !important;
+}
