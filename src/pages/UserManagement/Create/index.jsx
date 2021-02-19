@@ -41,8 +41,8 @@ const Create = ({ show, setShow }) => {
     isLoadComplete: false,
     adminClass: '',
     validation: {
-      name: { isValid: false, invalidClass: 'is-invalid', message: '' },
-      email: { isValid: false, invalidClass: 'is-invalid', message: '' },
+      name: { isValid: null, invalidClass: 'is-invalid', message: 'Username must be entered' },
+      email: { isValid: null, invalidClass: 'is-invalid', message: 'Email must be entered' },
       modules: {
         isValid: false,
         invalidClass: 'is-invalid',
@@ -56,9 +56,9 @@ const Create = ({ show, setShow }) => {
   useEffect(() => {
     if (isReset === 0) {
       setIsReset(1);
+      setIsValidation(false);
       setActiveTab('details');
-      resetState({ setState });
-      renewState({ setState, state, siteData, clientData, moduleAccess });
+      renewState({ setState, state, siteData, clientData, moduleAccess, reset: true });
     }
   }, [isReset]);
 
@@ -145,11 +145,13 @@ const Create = ({ show, setShow }) => {
                   <Col lg={8}></Col>
                   <Col lg={2} className="text-right">
                     <button
-                      className={'btn ' + (state.validate ? 'btn-primary' : 'btn-grey')}
+                      className={'btn btn-primary'}
                       onClick={() => {
-                        setActiveTab('review');
+                        setIsValidation(true);
+                        if (state.validate) {
+                          setActiveTab('review');
+                        }
                       }}
-                      disabled={state.validate ? false : true}
                     >
                       {'NEXT'}
                     </button>

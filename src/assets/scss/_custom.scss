@@ -196,7 +196,7 @@ input:-webkit-autofill {
 }
 
 .nav-link {
-  background-color: rgb(246, 247, 249) !important;
+  background-color: #e8e8e8 !important;
   color: #959da0 !important;
   border: none !important;
   font-size: 20px;
@@ -211,8 +211,12 @@ input:-webkit-autofill {
   border-top-right-radius: 0.25rem !important;
 
   .nav-link {
-    background-color: #dee3e5 !important;
+    background-color: #e8e8e8 !important;
   }
+}
+
+.input-group .nav-link {
+  background-color: #e8e8e8 !important;
 }
 
 .nav-link.active {

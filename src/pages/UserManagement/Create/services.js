@@ -53,7 +53,39 @@ export const submit = async ({ data, isAdmin, setIsSubmitReturn, setActiveTab, s
   setIsSubmitStatus('done');
 };
 
-export const renewState = ({ setState, state, siteData, clientData, moduleAccess }) => {
+export const renewState = ({ setState, state, siteData, clientData, moduleAccess, reset = false }) => {
+  //if reset
+  if (reset) {
+    state = {
+      userId: null,
+      email: null,
+      name: null,
+      moduleAccess: [],
+      isEnableAllModule: false,
+      sites: [],
+      isEnableAllSite: false,
+      clients: [],
+      isEnableAllClient: false,
+      validate: false,
+      isAdmin: false,
+
+      changed: false,
+      isLoadComplete: false,
+      adminClass: '',
+      validation: {
+        name: { isValid: null, invalidClass: 'is-invalid', message: 'Username must be entered' },
+        email: { isValid: null, invalidClass: 'is-invalid', message: 'Email must be entered' },
+        modules: {
+          isValid: false,
+          invalidClass: 'is-invalid',
+          message: 'Please enable at least one on module access',
+        },
+        sites: { isValid: false, invalidClass: 'is-invalid', message: 'Please enable at least one on site' },
+        clients: { isValid: false, invalidClass: 'is-invalid', message: 'Please enable at least one on client' },
+      },
+    };
+  }
+
   //renew client option
   let clientOption = [];
   let tmp = clientData?.map((item, key) => {
@@ -90,6 +122,7 @@ export const renewState = ({ setState, state, siteData, clientData, moduleAccess
   ];
   tmp = moduleAccess?.map((item, key) => {
     if (allowedValues.includes(item.menu_id)) {
+      item.status = false;
       moduleAccessOption.push(item);
     }
   });
