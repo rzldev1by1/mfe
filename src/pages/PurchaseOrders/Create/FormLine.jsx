@@ -44,6 +44,7 @@ const FormLine = ({ index, data, orderDetails, isReadonly, orderLines, isValidat
           readOnly={isReadonly}
           messageRequired={product?.required}
           messageParam={{ messageShow: isValidation, messageData: { text: product?.text, value: data?.product } }}
+          parentDivClassName={isValidation && !data?.product?.value ? 'input-danger' : ''}
         />
       </td>
       <td className="px-1">
@@ -63,7 +64,7 @@ const FormLine = ({ index, data, orderDetails, isReadonly, orderLines, isValidat
           onKeyPress={(e) => numberCheck(e)}
           onChange={(e) => changeOrderLines({ val: e.target.value, column: 'qty', index, dispatch })}
           type="text"
-          className="form-control"
+          className={`form-control ${isValidation && !data?.qty ? 'input-danger' : ''}`}
           maxLength={9}
           isReadOnly={isReadonly}
           messageRequired={qty?.required}
@@ -78,10 +79,10 @@ const FormLine = ({ index, data, orderDetails, isReadonly, orderLines, isValidat
           onKeyPress={(e) => numberCheck(e)}
           onChange={(e) => changeOrderLines({ val: e.target.value, column: 'weight', index, dispatch })}
           type="text"
-          className="form-control"
           maxLength={8}
           isReadOnly={isReadonly}
           isDecimal
+          className={`form-control`}
         />
       </td>
       <td className="px-1">
@@ -99,6 +100,7 @@ const FormLine = ({ index, data, orderDetails, isReadonly, orderLines, isValidat
           onMenuClose={() => setOrderLineSelectOpen(null)}
           messageRequired={product?.required}
           messageParam={{ messageShow: isValidation, messageData: { text: uom?.text, value: data?.uom } }}
+          parentDivClassName={isValidation && !data?.uom?.value ? 'input-danger' : ''}
         />
       </td>
       <td className="px-1">

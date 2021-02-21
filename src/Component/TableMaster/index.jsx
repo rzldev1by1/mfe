@@ -43,7 +43,7 @@ const TableMaster = ({
         editColumn={editColumn}
         splitModule={splitModule}
       />
-      <CRow lg="12" className="mt-3 w-100 pagination-custom justify-content-between">
+      <CRow lg="12" className="mt-3 mb-2 w-100 pagination-custom justify-content-between">
         <Pagination
           pagination={pagination}
           module={module}

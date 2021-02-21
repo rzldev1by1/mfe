@@ -121,6 +121,7 @@ const Form = ({ activeTab, isValidation, createData }) => {
             readOnly={isReadonly || site}
             messageRequired={true}
             messageParam={{ messageShow: isValidation, messageData: orderDetails?.site }}
+            parentDivClassName={isValidation && !orderDetails?.site?.value ? 'input-danger' : ''}
           />
         </Col>
         <Col lg="3">
@@ -136,6 +137,7 @@ const Form = ({ activeTab, isValidation, createData }) => {
             readOnly={isReadonly}
             messageRequired={true}
             messageParam={{ messageShow: isValidation, messageData: orderDetails?.orderType }}
+            parentDivClassName={isValidation && !orderDetails?.orderType?.value ? 'input-danger' : ''}
           />
         </Col>
         <Col lg="3">
@@ -158,6 +160,7 @@ const Form = ({ activeTab, isValidation, createData }) => {
             }}
             readOnly={isReadonly}
             style={isReadonly ? { display: 'none' } : null}
+            className={'form-control ' + (isValidation && !orderDetails?.deliveryDate?.value ? 'input-danger' : '')}
           />
           <Input
             name="deliveryDate"
@@ -187,6 +190,7 @@ const Form = ({ activeTab, isValidation, createData }) => {
             readOnly={isReadonly || client}
             messageRequired={true}
             messageParam={{ messageShow: isValidation, messageData: orderDetails?.client }}
+            parentDivClassName={isValidation && !orderDetails?.client?.value ? 'input-danger' : ''}
           />
         </Col>
         <Col lg="3" className="mt-45">
@@ -217,6 +221,9 @@ const Form = ({ activeTab, isValidation, createData }) => {
             alphaNumeric
             required
             readOnly={isReadonly}
+            className={
+              (isValidation && !orderDetails?.orderNo?.value) || checkingOrderNo?.status === false ? 'input-danger' : ''
+            }
           />
         </Col>
         <Col lg="3" className="mt-45">
@@ -264,6 +271,7 @@ const Form = ({ activeTab, isValidation, createData }) => {
             readOnly={isReadonly}
             messageRequired={true}
             messageParam={{ messageShow: isValidation, messageData: customerDetails?.customer }}
+            parentDivClassName={isValidation && !customerDetails?.customer?.value ? 'input-danger' : ''}
           />
         </Col>
       </Row>
@@ -281,6 +289,7 @@ const Form = ({ activeTab, isValidation, createData }) => {
             required
             messageRequired={true}
             messageParam={{ messageShow: isValidation, messageData: customerDetails?.address1 }}
+            className={isValidation && !customerDetails?.address1?.value ? 'input-danger' : ''}
           />
         </Col>
         <Col lg="3" className="mt-45">
@@ -360,6 +369,7 @@ const Form = ({ activeTab, isValidation, createData }) => {
             required
             messageRequired={true}
             messageParam={{ messageShow: isValidation, messageData: customerDetails?.postcode }}
+            className={isValidation && !customerDetails?.postcode?.value ? 'input-danger' : ''}
           />
         </Col>
         <Col lg="3" className="mt-45">

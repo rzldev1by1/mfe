@@ -196,7 +196,7 @@ input:-webkit-autofill {
 }
 
 .nav-link {
-  background-color: rgb(246, 247, 249) !important;
+  background-color: #e8e8e8 !important;
   color: #959da0 !important;
   border: none !important;
   font-size: 20px;
@@ -211,8 +211,12 @@ input:-webkit-autofill {
   border-top-right-radius: 0.25rem !important;
 
   .nav-link {
-    background-color: #dee3e5 !important;
+    background-color: #e8e8e8 !important;
   }
+}
+
+.input-group .nav-link {
+  background-color: #e8e8e8 !important;
 }
 
 .nav-link.active {
@@ -343,7 +347,7 @@ header {
   margin-left: -30px !important;
   outline: none !important;
 }
-.c-header-toggler{
+.c-header-toggler {
   outline: none !important;
 }
 
@@ -547,7 +551,7 @@ header {
 }
 
 .px-8 {
-  padding: 0px 1.7rem !important;
+  padding: 0px 1.9rem !important;
 }
 
 .ml-6 {
@@ -727,6 +731,18 @@ header {
 }
 
 .input-danger:hover {
+  border-color: #e55353 !important;
+}
+
+input.form-control.input-danger {
+  border-color: #e55353 !important;
+}
+
+.input-danger .css-5y2tk-control {
+  border-color: #e55353 !important;
+}
+
+.input-danger .css-1to7m39-control {
   border-color: #e55353 !important;
 }
 

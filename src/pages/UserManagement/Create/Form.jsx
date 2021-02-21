@@ -9,14 +9,14 @@ import { validateButton, changeDetails, generateUserID, disabledCharacterName } 
 
 import './style.scss';
 
-const Form = ({ activeTab, state, setState, isAdmin, setIsAdmin }) => {
+const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin }) => {
   const [isReadOnly, setIsReadOnly] = useState(null);
   const [isButtonState, setIsButtonState] = useState(false);
   const [webGroupClass, setIsWebGroupClass] = useState({
     newUser: 'webgroup-active',
     admin: 'webgroup-notactive',
   });
-
+  console.log(state);
   useEffect(() => {
     if (activeTab == 'review') {
       setIsReadOnly(true);
@@ -92,7 +92,9 @@ const Form = ({ activeTab, state, setState, isAdmin, setIsAdmin }) => {
               name="email"
               readOnly={isReadOnly}
               className={`form-control ${
-                state.validation.email['isValid'] ? '' : state.validation.email['invalidClass']
+                (isValidation && !state.email) || state.validation.email['isValid'] === false
+                  ? state.validation.email['invalidClass'] + ' input-danger '
+                  : ''
               } ${isReadOnly ? 'readonly' : null}`}
               onChange={async (e) => {
                 await changeDetails({ isAdmin, setState, state, column: 'email', e });
@@ -109,8 +111,8 @@ const Form = ({ activeTab, state, setState, isAdmin, setIsAdmin }) => {
               type="text"
               readOnly={isReadOnly}
               className={`form-control ${
-                state.validation.name['isValid'] ? '' : state.validation.name['invalidClass']
-              } ${isReadOnly ? 'readonly' : null}`}
+                isValidation && !state.name ? state.validation.name['invalidClass'] + ' input-danger ' : ''
+              } ${isReadOnly ? 'readonly' : null} `}
               maxLength="60"
               onChange={(e) => {
                 changeDetails({ isAdmin, setState, state, column: 'name', e });
@@ -143,7 +145,7 @@ const Form = ({ activeTab, state, setState, isAdmin, setIsAdmin }) => {
               type="checkbox"
               name="moduleAccess"
               className={`d-none ${
-                state.validation.modules['isValid'] ? '' : state.validation.modules['invalidClass']
+                isValidation && !state.validation.modules['isValid'] ? state.validation.modules['invalidClass'] : ''
               }`}
             />
             <FormFeedback>{`${state.validation.modules['message']}`}</FormFeedback>
@@ -159,7 +161,9 @@ const Form = ({ activeTab, state, setState, isAdmin, setIsAdmin }) => {
             <input
               type="checkbox"
               name="sites"
-              className={`d-none ${state.validation.sites['isValid'] ? '' : state.validation.sites['invalidClass']}`}
+              className={`d-none ${
+                isValidation && !state.validation.sites['isValid'] ? state.validation.sites['invalidClass'] : ''
+              }`}
             />
             <FormFeedback>{`${state.validation.sites['message']}`}</FormFeedback>
           </div>
@@ -175,7 +179,7 @@ const Form = ({ activeTab, state, setState, isAdmin, setIsAdmin }) => {
               type="checkbox"
               name="clients"
               className={`d-none ${
-                state.validation.clients['isValid'] ? '' : state.validation.clients['invalidClass']
+                isValidation && !state.validation.clients['isValid'] ? state.validation.clients['invalidClass'] : ''
               }`}
             />
             <FormFeedback>{`${state.validation.clients['message']}`}</FormFeedback>

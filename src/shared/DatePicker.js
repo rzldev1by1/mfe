@@ -354,7 +354,7 @@ class DatePicker extends React.Component {
             type="text"
             ref="dateValue"
             placeholder={this.props.placeHolder ? this.props.placeHolder : 'DD/MM/YYYY'}
-            className="form-control"
+            className={`form-control ` + this?.props?.className}
             maxLength="10"
             value={this.state.defaultValue}
             onChange={(e) => {
