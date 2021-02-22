@@ -50,7 +50,7 @@ const Create = ({ show, setShow }) => {
               <span className="font-20 pl-2">Create Sales Order</span> <br />
               <span className="ml-7">Enter Order and line details to create a new sales order</span>
             </Col>
-            <Col className="text-right px-0 pr-4 mr-2">
+            <Col className="text-right px-0 pr-4 mr-2 pt-3">
               <i
                 className="iconU-close pointer"
                 onClick={() => {

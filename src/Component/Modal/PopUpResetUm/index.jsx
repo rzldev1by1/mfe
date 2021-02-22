@@ -14,13 +14,13 @@ class Reset extends React.PureComponent {
         show={show}
         onHide={() => closeModalPopupReset({ state, setState })}
         size="md"
-        className="sales-order-create"
+        className="sales-order-create content-modal"
         backdrop="static"
       >
         <Modal.Body>
           <Row>
             <Col className="bg-white">
-              <div className="pt-2 close-reset">
+              <div className="pt-2 close-reset pr-3">
                 <i className="iconU-close pointer" onClick={() => closeModalPopupReset({ state, setState })}></i>
               </div>
             </Col>
@@ -53,7 +53,7 @@ class Reset extends React.PureComponent {
                   )}
               </div>
 
-              <div className="content-buttom pb-3 pt-2">
+              <div className="content-buttom pb-3 pt-1">
                 {isLoad ? (
                   <CButton  type="submit" className=" btn btn-primary float-right">
                     <img src={loadBtn} className="mt-n4" width="35" height="35" />
