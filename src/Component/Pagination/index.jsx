@@ -71,10 +71,10 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
                onClick={() => changePage({active:pagination?.active + 1, dispatch, module, props, searchFilter})}>
                 <BsChevronRight className=" icon-size-paging" />
           </div>
-          <div className={`page-item ${pagination?.active >= x_last_page ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
+          {/* <div className={`page-item ${pagination?.active >= x_last_page ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
                onClick={() => changePage({active:x_last_page, dispatch, module, props, searchFilter})}>
                 <BsChevronBarRight className="icon-size-paging-double" />
-          </div>
+          </div> */}
           {isDisplay === false ? (
             ''
           ) : (

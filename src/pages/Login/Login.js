@@ -142,7 +142,7 @@ class Logins extends Component {
       >
         <input
           autoComplete="off"
-          className={'form-control  inputLogin ' + (formValidation.username ? '' : 'border-red') /*"is-invalid"*/}
+          className={'form-control  inputLogin '   + (errorMessage === '' ? '' : ' border-red') /*"is-invalid"*/}
           style={formValidation.username ? {} : { borderColor: '#f44336 !important' }}
           type="text"
           name="username"
@@ -151,7 +151,7 @@ class Logins extends Component {
         <br />
         <input
           autoComplete="off"
-          className={'form-control inputLogin ' + (formValidation.password ? '' : 'border-red') /*"is-invalid"*/}
+          className={'form-control inputLogin ' + (errorMessage === '' ? '' : ' border-red') /*"is-invalid"*/}
           type="password"
           name="password"
           placeholder="Enter your password here"
@@ -165,7 +165,7 @@ class Logins extends Component {
         </div>
         <div className="row">
           <div className="pl-3 pr-0" style={{ width: '30%' }}>
-            <button type="submit" className="btn btn-primary btn-login col-12">
+            <button type="submit" className="btn btn-primary btn-login col-12" onClick={() => this.setState({ errorMessage:'' })}>
               {this.state.isLoad ? <img src={loading} alt="" className="mt-min-5" width="45" height="45" /> : 'LOGIN'}
             </button>
           </div>
