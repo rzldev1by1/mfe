@@ -7,13 +7,21 @@ import Input from 'Component/Input';
 import FormLine from './FormLine';
 import RequiredMessage from './RequiredMessage';
 
-import { changeOrderDetails, addOrderLines, createData, changeOrderNo, formatDate } from './services';
+import {
+  changeOrderDetails,
+  addOrderLines,
+  createData,
+  changeOrderNo,
+  formatDate,
+  changeClient,
+  cleanOrderLines,
+} from './services';
 import { getSupplier } from 'apiService/dropdown';
 import { validate } from 'email-validator';
 
 import './style.scss';
 
-const Form = ({ activeTab, isValidation, createData }) => {
+const Form = ({ activeTab, isValidation, orderDetails, setOrderDetails, orderLines, setOrderLines }) => {
   const dispatch = useDispatch();
   const resources = useSelector((state) => state.po_resources);
   const clientData = useSelector((state) => state.clientData);
@@ -30,7 +38,11 @@ const Form = ({ activeTab, isValidation, createData }) => {
   const [dropdownExpandStyle, setDropdownExpandStyle] = useState(null);
   const [checkingOrderNo, setCheckingOrderNo] = useState(null);
   const { company, client, site } = user;
-  const { orderDetails, orderLines, orderLinesData } = createData;
+  // const { orderDetails, orderLines, orderLinesData } = createData;
+
+  useEffect(() => {
+    addOrderLines({ orderLines, setOrderLines });
+  }, []);
 
   useEffect(() => {
     // set client dropdown option
@@ -80,10 +92,6 @@ const Form = ({ activeTab, isValidation, createData }) => {
   }, [activeTab]);
 
   useEffect(() => {
-    getSupplier({ client, site, setSupplier });
-  }, []);
-
-  useEffect(() => {
     if (orderLineSelectOpen == 'datePicker') {
       setDropdownExpandStyle('lineDetailsTopExpand');
     } else if (orderLineSelectOpen == 'dropdown') {
@@ -101,56 +109,58 @@ const Form = ({ activeTab, isValidation, createData }) => {
         <Col lg="3">
           <Dropdown
             name="site"
-            placeholder={orderDetails?.site?.text}
-            title={orderDetails?.site?.text}
+            title="Site"
             options={siteOption}
-            selectedValue={orderDetails?.site?.value}
-            onChangeDropdown={(selected) => changeOrderDetails({ column: 'site', value: selected, dispatch })}
-            showTitle
+            selectedValue={orderDetails?.site}
+            onChangeDropdown={(selected) => {
+              changeOrderDetails({ column: 'site', value: selected, orderDetails, setOrderDetails });
+            }}
             required
             readOnly={isReadonly || site}
             messageRequired={true}
-            messageParam={{ messageShow: isValidation, messageData: orderDetails?.site }}
-            parentDivClassName={isValidation && !orderDetails?.site?.value ? 'input-danger' : ''}
+            messageParam={{ messageShow: isValidation, value: orderDetails?.site }}
+            parentDivClassName={isValidation && !orderDetails?.site ? 'input-danger' : ''}
           />
         </Col>
         <Col lg="3">
           <Dropdown
             name="orderType"
-            placeholder={orderDetails?.orderType?.text}
-            title={orderDetails?.orderType?.text}
+            title="Order Type"
             options={resources?.orderType}
-            selectedValue={orderDetails?.orderType?.value}
-            onChangeDropdown={(selected) => changeOrderDetails({ column: 'orderType', value: selected, dispatch })}
-            showTitle
+            selectedValue={orderDetails?.orderType}
+            onChangeDropdown={(selected) =>
+              changeOrderDetails({ column: 'orderType', value: selected, orderDetails, setOrderDetails })
+            }
             required
-            readOnly={isReadonly || site}
+            readOnly={isReadonly}
             messageRequired={true}
-            messageParam={{ messageShow: isValidation, messageData: orderDetails?.orderType }}
+            messageParam={{
+              messageShow: isValidation,
+              value: orderDetails?.orderType,
+            }}
             parentDivClassName={isValidation && !orderDetails?.orderType?.value ? 'input-danger' : ''}
           />
         </Col>
         <Col lg="3">
           <Dropdown
             name="supplier"
-            placeholder={orderDetails?.supplier?.text}
+            title="Supplier"
             options={supplier}
-            showTitle
-            placeholder={orderDetails?.supplier?.text}
-            title={orderDetails?.supplier?.text}
-            required={false}
-            selectedValue={orderDetails?.supplier?.value}
-            onChangeDropdown={(selected) => changeOrderDetails({ column: 'supplier', value: selected, dispatch })}
+            selectedValue={orderDetails?.supplier}
+            onChangeDropdown={(selected) =>
+              changeOrderDetails({ column: 'supplier', value: selected, orderDetails, setOrderDetails })
+            }
             readOnly={isReadonly}
           />
         </Col>
         <Col lg="3">
           <Input
             name="customerOrderRef"
-            title={orderDetails?.customerOrderRef?.text}
-            placeholder={orderDetails?.customerOrderRef?.text}
-            showTitle
-            onChange={(e) => changeOrderDetails({ column: 'customerOrderRef', value: e.target.value, dispatch })}
+            title="Customer Order Ref"
+            placeholder={orderDetails?.customerOrderRef}
+            onChange={(selected) =>
+              changeOrderDetails({ column: 'customerOrderRef', value: selected, orderDetails, setOrderDetails })
+            }
             maxLength={30}
             readOnly={isReadonly}
           />
@@ -160,41 +170,46 @@ const Form = ({ activeTab, isValidation, createData }) => {
         <Col lg="3" className="mt-45">
           <Dropdown
             name="client"
-            title={orderDetails?.client?.text}
-            placeholder={orderDetails?.client?.text}
+            title="Client"
             options={clientOption}
-            showTitle
             required
-            selectedValue={orderDetails?.client?.value}
-            onChangeDropdown={async (selected) => {
-              await changeOrderDetails({ column: 'client', value: selected, dispatch });
-              getSupplier({ orderDetails, setSupplier });
+            selectedValue={orderDetails?.client}
+            onChangeDropdown={(selected) => {
+              changeClient({ value: selected, orderDetails, setOrderDetails, setSupplier });
               setSupplier([]);
-              changeOrderDetails({ column: 'supplier', value: null, dispatch });
+              if (selected) {
+                getSupplier({ client: selected.value, site: orderDetails?.site, setSupplier });
+              }
             }}
             readOnly={isReadonly || client}
             messageRequired={true}
-            messageParam={{ messageShow: isValidation, messageData: orderDetails?.client }}
-            parentDivClassName={isValidation && !orderDetails?.client?.value ? 'input-danger' : ''}
+            messageParam={{
+              messageShow: isValidation,
+              value: orderDetails?.client,
+            }}
+            parentDivClassName={isValidation && !orderDetails?.client ? 'input-danger' : ''}
           />
         </Col>
         <Col lg="3" className="mt-45">
           <Input
+            id="orderNo"
             name="orderNo"
-            title={orderDetails?.orderNo?.text}
-            placeholder={orderDetails?.orderNo?.text}
-            showTitle
+            title="Order No"
             maxLength={12}
-            onChange={(e) =>
-              changeOrderNo({
-                orderNo: e.target.value.toUpperCase(),
-                client: orderDetails?.client?.value,
-                setCheckingOrderNo,
-                dispatch,
-              })
-            }
+            onChange={(e) => {
+              let val = e.target.value.toUpperCase();
+              if (val !== orderDetails?.client) {
+                changeOrderNo({
+                  orderNo: e.target.value.toUpperCase(),
+                  client: orderDetails?.client,
+                  setCheckingOrderNo,
+                  setOrderDetails,
+                  orderDetails,
+                });
+              }
+            }}
             className={
-              (isValidation && !orderDetails?.orderNo?.value) || checkingOrderNo?.status === false ? 'input-danger' : ''
+              (isValidation && !orderDetails?.orderNo) || checkingOrderNo?.status === false ? 'input-danger' : ''
             }
             onKeyUp={(e) => {
               let orderNo = e.target.value;
@@ -206,39 +221,42 @@ const Form = ({ activeTab, isValidation, createData }) => {
             messageRequired={true}
             messageParam={{
               messageShow: isValidation || checkingOrderNo?.status === false,
-              messageData: orderDetails?.orderNo,
+              value: orderDetails?.orderNo,
               customMessage: checkingOrderNo,
             }}
           />
         </Col>
         <Col lg="3" className="mt-45">
-          <label className="text-muted mb-0 required">{orderDetails?.orderDate?.text}</label>
+          <label className="text-muted mb-0 required">Order Date</label>
           <DatePicker
             getDate={(date) => {
-              changeOrderDetails({ column: 'orderDate', value: date, dispatch });
+              changeOrderDetails({ column: 'orderDate', value: date, orderDetails, setOrderDetails });
             }}
             readOnly={isReadonly}
             style={isReadonly ? { display: 'none' } : null}
-            className={'form-control ' + (isValidation && !orderDetails?.deliveryDate?.value ? 'input-danger' : '')}
+            className={'form-control ' + (isValidation && !orderDetails?.orderDate ? 'input-danger' : '')}
+            selectedDates={orderDetails?.orderDate || ''}
           />
           <Input
             name="orderDate"
-            placeholder={orderDetails?.orderDate?.text}
-            value={formatDate(orderDetails?.orderDate?.value)}
+            placeholder={'Order Date'}
+            value={formatDate(orderDetails?.orderDate)}
             readOnly
-            maxLength={30}
             style={!isReadonly ? { display: 'none' } : null}
             messageRequired={true}
-            messageParam={{ messageShow: isValidation, messageData: orderDetails?.orderDate }}
+            messageParam={{
+              messageShow: isValidation,
+              value: orderDetails?.orderDate,
+            }}
           />
         </Col>
         <Col lg="3" className="mt-45">
           <Input
             name="vendorOrderRef"
-            title={orderDetails?.vendorOrderRef?.text}
-            placeholder={orderDetails?.vendorOrderRef?.text}
-            showTitle
-            onChange={(e) => changeOrderDetails({ column: 'vendorOrderRef', value: e.target.value, dispatch })}
+            title={'Vendor Order Ref'}
+            onChange={(e) =>
+              changeOrderDetails({ column: 'vendorOrderRef', value: e.target.value, orderDetails, setOrderDetails })
+            }
             maxLength={30}
             readOnly={isReadonly}
           />
@@ -294,7 +312,7 @@ const Form = ({ activeTab, isValidation, createData }) => {
             </tr>
           </thead>
           <tbody>
-            {orderLinesData.map((item, i) => {
+            {orderLines.map((item, i) => {
               return (
                 <FormLine
                   isValidation={isValidation}
@@ -304,6 +322,7 @@ const Form = ({ activeTab, isValidation, createData }) => {
                   isReadonly={isReadonly}
                   setOrderLineSelectOpen={setOrderLineSelectOpen}
                   orderLines={orderLines}
+                  setOrderLines={setOrderLines}
                 />
               );
             })}
@@ -316,7 +335,7 @@ const Form = ({ activeTab, isValidation, createData }) => {
           style={isReadonly ? { display: 'none' } : null}
           type="button"
           className="btn btn-light-blue m-0"
-          onClick={() => addOrderLines({ dispatch })}
+          onClick={() => addOrderLines({ orderLines, setOrderLines })}
         >
           ADD LINE
         </button>
@@ -324,7 +343,7 @@ const Form = ({ activeTab, isValidation, createData }) => {
           column="OrderLines"
           columnText="Order Lines"
           isValidation={isValidation}
-          data={orderLinesData.length}
+          data={orderLines.length}
         />
       </div>
     </div>

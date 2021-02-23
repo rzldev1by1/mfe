@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Container } from 'react-bootstrap';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 import Form from './Form';
-import { resetCreate, validation, submit } from './services.js';
+import { resetCreate, validation, submit, cleanOrderDetails, cleanOrderLines } from './services.js';
 import { getPOResources, getDisposition } from 'apiService/dropdown';
 import loading from 'assets/icons/loading/LOADING-MLS.gif';
 import MessageTab from 'Component/MessageTab';
@@ -14,8 +14,8 @@ const Create = ({ show, setShow }) => {
   const resources = useSelector((state) => state.po_resources);
   const disposition = useSelector((state) => state.po_disposition);
   const user = useSelector((state) => state.user);
-  const orderDetails = useSelector((state) => state.orderDetails);
-  const orderLines = useSelector((state) => state.orderLines);
+  const orderDetailsTmp = useSelector((state) => state.orderDetails);
+  const orderLinesTmp = useSelector((state) => state.orderLines);
   const orderLinesData = useSelector((state) => state.orderLinesData);
 
   const [activeTab, setActiveTab] = useState('details');
@@ -23,14 +23,20 @@ const Create = ({ show, setShow }) => {
   const [isValidation, setIsValidation] = useState(false);
   const [isSubmitStatus, setIsSubmitStatus] = useState(null);
   const [isSubmitReturn, setIsSubmitReturn] = useState(null);
-  const createPO = { orderDetails, orderLines, orderLinesData };
+  const [orderDetails, setOrderDetails] = useState({});
+  const [orderLines, setOrderLines] = useState([]);
+
+  useEffect(() => {
+    setOrderDetails(cleanOrderDetails);
+  }, []);
 
   useEffect(() => {
     if (isReset === 0) {
-      resetCreate(dispatch);
       setIsReset(1);
       setIsValidation(false);
       setActiveTab('details');
+      setOrderDetails(cleanOrderDetails);
+      setOrderLines([]);
     }
   }, [isReset]);
 
@@ -40,6 +46,9 @@ const Create = ({ show, setShow }) => {
       getDisposition({ dispatch });
     }
   }, [resources]);
+
+  console.clear();
+  console.log(orderDetails, orderLines);
 
   return (
     <div>
@@ -51,7 +60,7 @@ const Create = ({ show, setShow }) => {
               <span className="font-20 pl-2">Create Purchase Order</span> <br />
               <span className="ml-7">Enter Order and line details to create a new purchase order</span>
             </Col>
-            <Col className="text-right px-0 pr-4 mr-2 pt-3">
+            <Col className="text-right px-0 pr-4 mr-2">
               <i
                 className="iconU-close pointer"
                 onClick={() => {
@@ -76,7 +85,7 @@ const Create = ({ show, setShow }) => {
               <NavLink
                 className={`d-flex height-nav align-items-center px-3 ${activeTab === 'review' ? 'active' : null}`}
                 onClick={() => {
-                  validation({ dispatch, data: createPO, setActiveTab });
+                  validation({ orderDetails, orderLines, setActiveTab });
                   setIsValidation(true);
                 }}
               >
@@ -98,7 +107,14 @@ const Create = ({ show, setShow }) => {
                   }}
                 />
               ) : (
-                <Form activeTab={activeTab} createData={createPO} isValidation={isValidation} />
+                <Form
+                  activeTab={activeTab}
+                  orderDetails={orderDetails}
+                  orderLines={orderLines}
+                  setOrderLines={setOrderLines}
+                  setOrderDetails={setOrderDetails}
+                  isValidation={isValidation}
+                />
               )}
 
               {/* Button */}
@@ -110,7 +126,7 @@ const Create = ({ show, setShow }) => {
                     <button
                       className={'btn btn-primary '}
                       onClick={() => {
-                        validation({ dispatch, data: createPO, setActiveTab });
+                        validation({ orderDetails, orderLines, setActiveTab });
                         setIsValidation(true);
                       }}
                     >
@@ -139,7 +155,14 @@ const Create = ({ show, setShow }) => {
                       className="btn btn-primary"
                       onClick={() => {
                         setIsSubmitStatus('loading');
-                        submit({ setIsSubmitStatus, setIsSubmitReturn, setActiveTab, user, data: createPO });
+                        submit({
+                          setIsSubmitStatus,
+                          setIsSubmitReturn,
+                          setActiveTab,
+                          user,
+                          orderDetails,
+                          orderLinesData: orderLines,
+                        });
                       }}
                     >
                       {isSubmitStatus === 'loading' ? (

@@ -4,48 +4,29 @@ import numeral from 'numeral';
 import { checkOrderNo, submitPurchaseOrder } from 'apiService';
 import { getUOM } from 'apiService/dropdown';
 
-export const validation = async ({ dispatch, data, setActiveTab }) => {
+export const validation = async ({ orderDetails, orderLines, setActiveTab }) => {
   //initial
   let statusValidate = true;
-  const { orderDetails, orderLinesData } = data;
+  let orderDetailsValidation = [
+    'validation_site',
+    'validation_orderType',
+    'validation_client',
+    'validation_orderNo',
+    'validation_orderDate',
+  ];
+  let orderDetaillinessValidation = ['validation_product', 'validation_uom', 'validation_qty'];
 
-  //validate Order Details
-  for (var key in orderDetails) {
-    if (!orderDetails[key]['required']) {
-      continue;
-    }
-
-    let values = orderDetails[key]['value'];
-    let text = orderDetails[key]['text'];
-    let status = true;
-    let message = null;
-    if (key === 'orderNo') {
-      if (values && values.length < 4) {
-        statusValidate = false;
-      }
-    }
-
-    if (!values) {
-      statusValidate = false;
-    }
-  }
-
-  //validate orderlines
-  orderLinesData.map((item, index) => {
-    if (!item.qty || item.qty < 1) {
-      statusValidate = false;
-    }
-    if (!item.uom) {
-      statusValidate = false;
-    }
-    if (!item.product) {
-      statusValidate = false;
-    }
+  //validasi order details
+  orderDetailsValidation.map((key, keyIndex) => {
+    if (orderDetails[key] !== true) statusValidate = false;
   });
 
-  if (orderLinesData.length < 1) {
-    statusValidate = false;
-  }
+  //validasi orderLines
+  orderLines.map((data, index) => {
+    orderDetaillinessValidation.map((key, keyIndex) => {
+      if (data[key] !== true) statusValidate = false;
+    });
+  });
 
   if (statusValidate) {
     setActiveTab('review');
@@ -99,57 +80,123 @@ export const resetCreate = (dispatch) => {
   dispatch({ type: 'RESET_ORDER_LINES_DATA', data: orderLinesData });
 };
 
-export const changeOrderDetails = ({ column, value, dispatch }) => {
-  dispatch({ type: 'SET_ORDER_DETAIL', data: value, column });
+export const cleanOrderDetails = {
+  site: null,
+  orderType: null,
+  supplier: null,
+  customerOrderRef: null,
+  client: null,
+  orderNo: null,
+  orderDate: null,
+  vendorOrderRef: null,
+  validation_site: false,
+  validation_orderType: false,
+  validation_client: false,
+  validation_orderNo: false,
+  validation_orderDate: false,
 };
 
-export const changeOrderNo = async ({ orderNo, client, setCheckingOrderNo, dispatch }) => {
+export const cleanOrderLines = {
+  product: '',
+  desc: '',
+  qty: '',
+  weight: '',
+  uom: '',
+  batch: '',
+  ref3: '',
+  ref4: '',
+  disposition: '',
+  rotaDate: '',
+  productDesc: '',
+  validation_product: false,
+  validation_uom: false,
+  validation_qty: false,
+};
+
+export const changeOrderDetails = ({ column, value, orderDetails, setOrderDetails }) => {
+  let od = { ...orderDetails };
+  od[column] = value;
+  od['validation_' + column] = value ? true : false;
+  setOrderDetails(od);
+};
+
+export const changeClient = ({ value, orderDetails, setOrderDetails, setSupplier }) => {
+  let od = { ...orderDetails };
+  od['client'] = value;
+  od['validation_client'] = value ? true : false;
+  od['supplier'] = null;
+  setOrderDetails(od);
+};
+
+export const changeOrderNo = async ({ orderNo, client, setCheckingOrderNo, setOrderDetails, orderDetails }) => {
   if (!client) {
+    setOrderDetails({ ...orderDetails, validation_orderNo: false });
     setCheckingOrderNo({ status: false, message: 'Please select client' });
     return;
   }
 
-  if (orderNo && orderNo.length < 4) {
+  if ((orderNo && orderNo.length < 4) || !orderNo) {
+    setOrderDetails({ ...orderDetails, validation_orderNo: false });
     setCheckingOrderNo({ status: false, message: 'Order No must have min 4 characters' });
     return;
-  } else {
-    setCheckingOrderNo({ status: true, message: '' });
   }
 
+  setCheckingOrderNo({ status: false, message: 'verifying...' });
   let ret = await checkOrderNo({ client, orderNo, module: 'purchase-orders' });
+
+  let val = document.getElementById('orderNo').value;
+  if (val !== orderNo) {
+    return;
+  }
+
   if (ret.status) {
-    changeOrderDetails({ column: 'orderNo', value: orderNo, dispatch });
+    setCheckingOrderNo({ status: true, message: '' });
+    setOrderDetails({ ...orderDetails, orderNo, validation_orderNo: true });
   } else {
     setCheckingOrderNo({ status: ret.status, message: ret.message });
+    setOrderDetails({ ...orderDetails, validation_orderNo: false });
   }
 };
 
-export const changeOrderLines = ({ val, column, index, dispatch }) => {
-  //use formatter
-
-  //set redux
-  let tmp_column = { column: column, index: index };
-  dispatch({ type: 'SET_ORDER_LINES_DATA', data: val, column: tmp_column });
+export const changeOrderLines = ({ val, column, index, orderLines, setOrderLines }) => {
+  //set data
+  let newOrderLines = [...orderLines];
+  newOrderLines[index][column] = val;
+  newOrderLines[index]['validation_' + column] = val ? true : false;
+  setOrderLines(newOrderLines);
 };
 
-export const addOrderLines = ({ dispatch }) => {
-  const orderLines = {
-    product: { value: null, required: true },
-    desc: { value: null, required: false },
-    qty: { value: null, required: true },
-    weight: { value: null, required: false },
-    uom: { value: null, required: true },
-    batch: { value: null, required: false },
-    ref3: { value: null, required: false },
-    ref4: { value: null, required: false },
-    disposition: { value: null, required: false },
-    rotaDate: { value: null, required: false },
-  };
-  dispatch({ type: 'ADD_ORDER_LINES_DATA', data: orderLines });
+export const productHandler = async ({ val, index, orderLines, setIsUom, setOrderLines }) => {
+  //set data
+  let newOrderLines = [...orderLines];
+  newOrderLines[index]['product'] = val;
+  newOrderLines[index]['validation_product'] = val ? true : false;
+  newOrderLines[index]['productDesc'] = val?.label || '';
+  setOrderLines(newOrderLines);
+
+  //get uom
+  const stringUOM = val?.data?.uom;
+  if (stringUOM) {
+    const uomDataArr = stringUOM.split(',');
+    const uomData = uomDataArr.map((c, i) => ({ value: c, label: c }));
+    setIsUom(uomData);
+  } else {
+    setIsUom([]);
+  }
 };
 
-export const deleteOrderLines = ({ index, dispatch }) => {
-  dispatch({ type: 'DELETE_ORDER_LINES_DATA', data: index });
+export const addOrderLines = ({ orderLines, setOrderLines }) => {
+  let newCleanOrderLines = Object.assign({}, JSON.parse(JSON.stringify(cleanOrderLines)));
+  let newOrderLines = [...orderLines];
+
+  newOrderLines.push(newCleanOrderLines);
+  setOrderLines(newOrderLines);
+};
+
+export const deleteOrderLines = ({ orderLines, setOrderLines, index }) => {
+  let newOrderLines = [...orderLines];
+  newOrderLines.splice(index, 1);
+  setOrderLines(newOrderLines);
 };
 
 export const removeLine = ({ i, line, setLine }) => {
@@ -174,22 +221,6 @@ export const lineChange = (i, e, line, setLine) => {
 
   newOrderLine.orderLine = tes;
   setLine(newOrderLine);
-};
-
-export const productHandler = async ({ val, column, index, dispatch, orderDetails, setIsUom }) => {
-  //set redux
-  let tmp_column = { column: column, index: index };
-  dispatch({ type: 'SET_ORDER_LINES_DATA', data: val, column: tmp_column });
-
-  //get uom
-  const stringUOM = val?.data?.uom;
-  if (stringUOM) {
-    const uomDataArr = stringUOM.split(',');
-    const uomData = uomDataArr.map((c, i) => ({ value: c, label: c }));
-    setIsUom(uomData);
-  } else {
-    setIsUom([]);
-  }
 };
 
 export const numberCheck = (e) => {
@@ -260,14 +291,20 @@ const decimalFormatter = (name, value) => {
   return value;
 };
 
-export const submit = async ({ data, user, setIsSubmitReturn, setActiveTab, setIsSubmitStatus }) => {
-  const { orderDetails, orderLinesData } = data;
+export const submit = async ({
+  orderDetails,
+  orderLinesData,
+  user,
+  setIsSubmitReturn,
+  setActiveTab,
+  setIsSubmitStatus,
+}) => {
   let newOrderDetails = {
-    site: orderDetails?.site?.value?.value || '',
-    client: orderDetails?.client?.value?.value || '',
-    orderNo: orderDetails?.orderNo?.value || '',
-    orderType: orderDetails?.orderType?.value?.value || '',
-    orderDate: orderDetails?.orderDate?.value || '',
+    site: orderDetails?.site?.value || '',
+    client: orderDetails?.client?.value || '',
+    orderNo: orderDetails?.orderNo || '',
+    orderType: orderDetails?.orderType?.value || '',
+    orderDate: orderDetails?.orderDate || '',
     web_user: user.webUser,
   };
   let newOrderLines = [];
@@ -291,7 +328,7 @@ export const submit = async ({ data, user, setIsSubmitReturn, setActiveTab, setI
   //check return
   let status = ret?.data?.status;
   let message = ret?.data?.message;
-  let submitReturn = { status: status, message: message, orderNo: data?.orderDetails?.orderNo?.value };
+  let submitReturn = { status: status, message: message, orderNo: orderDetails?.orderNo };
   await setIsSubmitReturn(submitReturn);
   await setActiveTab('message');
   setIsSubmitStatus('done');

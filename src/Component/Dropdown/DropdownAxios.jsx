@@ -24,6 +24,7 @@ const DropdownAxios = ({
   required = false,
   readOnly,
   messageRequired,
+
   messageParam = { messageShow: false, messageData: {}, messageCustom: {} },
   parentDivClassName,
 }) => {
@@ -47,12 +48,12 @@ const DropdownAxios = ({
 
   return (
     <div className={parentDivClassName}>
-      {!showTitle ? null : <label className={'text-muted mb-0 ' + (required ? 'required' : '')}>{title}</label>}
+      {!title ? null : <label className={'text-muted mb-0 ' + (required ? 'required' : '')}>{title}</label>}
       <Select
         isClearable={!readOnly}
         isSearchable={!readOnly}
         openMenuOnClick={!readOnly}
-        // isClearable={true}
+        value={selectedValue ? selectedValue : false}
         options={options && isOpen ? options : []}
         getOptionLabel={(option) => option.value + ' : ' + option.label}
         isLoading={isLoading}
@@ -62,7 +63,7 @@ const DropdownAxios = ({
         menuIsOpen={isOpen}
         onChange={(val) => onChangeDropdown(val)}
         className={`c-400 ${isOpen ? 'absolute' : null} ${className}`}
-        placeholder={placeholder}
+        placeholder={placeholder || title}
         required={required}
         filterOption={(option, inputVal) => {
           return option.label.substr(0, inputVal.length).toUpperCase() == inputVal.toUpperCase();
@@ -98,7 +99,12 @@ const DropdownAxios = ({
       />
 
       {!messageRequired ? null : (
-        <RequiredMessage column={name} messageShow={messageParam?.messageShow} data={messageParam?.messageData} />
+        <RequiredMessage
+          column={name}
+          messageShow={messageParam?.messageShow}
+          columnText={title || placeholder}
+          value={messageParam?.value}
+        />
       )}
     </div>
   );

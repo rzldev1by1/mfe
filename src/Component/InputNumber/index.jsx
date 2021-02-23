@@ -37,7 +37,12 @@ const InputNumber = ({
       />
 
       {!messageRequired ? null : (
-        <RequiredMessage column={name} messageShow={messageParam?.messageShow} data={messageParam?.messageData} />
+        <RequiredMessage
+          column={name}
+          messageShow={messageParam?.messageShow}
+          columnText={placeholder}
+          value={messageParam?.value}
+        />
       )}
     </div>
   );

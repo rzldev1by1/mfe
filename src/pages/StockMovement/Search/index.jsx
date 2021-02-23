@@ -96,7 +96,7 @@ const Search = ({ setHeader, setdateHeader }) => {
                 }}
                 fromMonth={defaultDate?.minDate}
                 toMonth={defaultDate?.maxDate}
-                defaultValue={fromDate ? new Date(fromDate) : null}
+                selectedDates={fromDate ? new Date(fromDate) : null}
                 ref={dateFrom}
               />
             </CCol>
@@ -114,7 +114,7 @@ const Search = ({ setHeader, setdateHeader }) => {
                 firstDate={fromDate ? new Date(fromDate) : null}
                 fromMonth={defaultDate?.minDate}
                 toMonth={defaultDate?.maxDate}
-                defaultValue={new Date(toDate)}
+                selectedDates={fromDate ? new Date(toDate) : null}
                 ref={dateTo}
               />
             </CCol>
