@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Container } from 'react-bootstrap';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 import Form from './Form';
-import { resetCreate, validation, submit } from './services.js';
+import { resetCreate, validation, submit, cleanOrderDetails, cleanCustomerDetails } from './services.js';
 import { getSOResources, getDisposition } from 'apiService/dropdown';
 import loading from 'assets/icons/loading/LOADING-MLS.gif';
 import MessageTab from 'Component/MessageTab';
@@ -14,17 +14,24 @@ const Create = ({ show, setShow }) => {
   const resources = useSelector((state) => state.so_resources);
   const disposition = useSelector((state) => state.so_disposition);
   const user = useSelector((state) => state.user);
-  const orderDetails = useSelector((state) => state.orderDetails);
-  const customerDetails = useSelector((state) => state.customerDetails);
-  const orderLines = useSelector((state) => state.orderLines);
-  const orderLinesData = useSelector((state) => state.orderLinesData);
+  const orderDetailsTmp = useSelector((state) => state.orderDetails);
+  const customerDetailsTmp = useSelector((state) => state.customerDetails);
+  const orderLinesTmp = useSelector((state) => state.orderLines);
+  const orderLinesDataTmp = useSelector((state) => state.orderLinesData);
 
   const [activeTab, setActiveTab] = useState('details');
   const [isReset, setIsReset] = useState(0);
   const [isValidation, setIsValidation] = useState(false);
   const [isSubmitStatus, setIsSubmitStatus] = useState(null);
   const [isSubmitReturn, setIsSubmitReturn] = useState(null);
-  const createSO = { orderDetails, customerDetails, orderLines, orderLinesData };
+  const [orderDetails, setOrderDetails] = useState({});
+  const [customerDetails, setCustomerDetails] = useState({});
+  const [orderLines, setOrderLines] = useState([]);
+
+  useEffect(() => {
+    setOrderDetails(cleanOrderDetails);
+    setCustomerDetails(cleanCustomerDetails);
+  }, []);
 
   useEffect(() => {
     if (isReset === 0) {
@@ -32,6 +39,8 @@ const Create = ({ show, setShow }) => {
       setIsReset(1);
       setIsValidation(false);
       setActiveTab('details');
+      setCustomerDetails(cleanCustomerDetails);
+      setOrderLines([]);
     }
   }, [isReset]);
 
@@ -55,7 +64,6 @@ const Create = ({ show, setShow }) => {
                 className="iconU-close pointer"
                 onClick={() => {
                   setShow(false);
-                  setIsReset(0);
                 }}
               ></i>
             </Col>
@@ -75,7 +83,7 @@ const Create = ({ show, setShow }) => {
               <NavLink
                 className={`d-flex height-nav align-items-center px-3 ${activeTab === 'review' ? 'active' : null}`}
                 onClick={() => {
-                  validation({ data: createSO, setActiveTab });
+                  // validation({ data: createSO, setActiveTab });
                   setIsValidation(true);
                 }}
               >
@@ -97,7 +105,16 @@ const Create = ({ show, setShow }) => {
                   }}
                 />
               ) : (
-                <Form createData={createSO} activeTab={activeTab} isValidation={isValidation} />
+                <Form
+                  activeTab={activeTab}
+                  isValidation={isValidation}
+                  orderDetails={orderDetails}
+                  setOrderDetails={setOrderDetails}
+                  customerDetails={customerDetails}
+                  setCustomerDetails={setCustomerDetails}
+                  orderLines={orderLines}
+                  setOrderLines={setOrderLines}
+                />
               )}
 
               {/* Button */}
@@ -109,7 +126,7 @@ const Create = ({ show, setShow }) => {
                     <button
                       className={'btn btn-primary '}
                       onClick={() => {
-                        validation({ dispatch, data: createSO, setActiveTab });
+                        // validation({ dispatch, data: createSO, setActiveTab });
                         setIsValidation(true);
                       }}
                     >
@@ -138,13 +155,13 @@ const Create = ({ show, setShow }) => {
                       className="btn btn-primary"
                       onClick={() => {
                         setIsSubmitStatus('loading');
-                        submit({
-                          setIsSubmitStatus,
-                          setIsSubmitReturn,
-                          setActiveTab,
-                          user,
-                          data: createSO,
-                        });
+                        // submit({
+                        //   setIsSubmitStatus,
+                        //   setIsSubmitReturn,
+                        //   setActiveTab,
+                        //   user,
+                        //   data: createSO,
+                        // });
                       }}
                     >
                       {isSubmitStatus === 'loading' ? (

@@ -4,6 +4,55 @@ import numeral from 'numeral';
 import { checkOrderNo, submitSalesOrder } from 'apiService';
 import { getUOM } from 'apiService/dropdown';
 
+export const cleanOrderDetails = {
+  site: null,
+  orderType: null,
+  customerOrderRef: null,
+  deliveryDate: null,
+  client: null,
+  orderNo: null,
+  vendorOrderRef: null,
+  deliveryInstructions: null,
+  validation_site: false,
+  validation_orderType: false,
+  validation_client: false,
+  validation_orderNo: false,
+  validation_deliveryDate: false,
+};
+
+export const cleanCustomerDetails = {
+  customer: null,
+  address1: null,
+  address2: null,
+  address3: null,
+  address4: null,
+  address5: null,
+  suburb: null,
+  postcode: null,
+  state: null,
+  country: null,
+  validation_customer: false,
+  validation_address1: false,
+  validation_postcode: false,
+  validation_state: false,
+};
+
+export const cleanOrderLines = {
+  product: '',
+  qty: '',
+  weight: '',
+  uom: '',
+  batch: '',
+  ref3: '',
+  ref4: '',
+  disposition: '',
+  packId: '',
+  rotaDate: '',
+  validation_product: false,
+  validation_uom: false,
+  validation_qty: false,
+};
+
 export const resetCreate = (dispatch) => {
   const orderDetails = {
     site: { value: null, required: true, text: 'Site' },
@@ -64,31 +113,69 @@ export const resetCreate = (dispatch) => {
   dispatch({ type: 'RESET_ORDER_LINES_DATA', data: orderLinesData });
 };
 
-export const changeOrderDetails = ({ column, value, dispatch }) => {
-  dispatch({ type: 'SET_ORDER_DETAIL', data: value, column });
-};
-export const changeCustomerDetails = ({ column, value, dispatch }) => {
-  dispatch({ type: 'SET_CUSTOMER_DETAIL', data: value, column });
+export const changeOrderDetails = ({ column, value, orderDetails, setOrderDetails }) => {
+  let od = { ...orderDetails };
+  od[column] = value;
+  od['validation_' + column] = value ? true : false;
+  setOrderDetails(od);
+  console.log(od);
 };
 
-export const changeOrderNo = async ({ orderNo, client, setCheckingOrderNo, dispatch }) => {
+export const changeClient = ({
+  value,
+  orderDetails,
+  setOrderDetails,
+  setCustomerData,
+  customerDetails,
+  setCustomerDetails,
+}) => {
+  let od = { ...orderDetails };
+  od['client'] = value;
+  od['validation_client'] = value ? true : false;
+  setOrderDetails(od);
+
+  let cd = { ...customerDetails };
+  cd['customer'] = '';
+  cd['validation_customer'] = false;
+  setCustomerDetails(od);
+};
+
+export const changeCustomerDetails = ({ column, value, customerDetails, setCustomerDetails }) => {
+  let cd = { ...customerDetails };
+  cd[column] = value;
+  cd['validation_' + column] = value ? true : false;
+  setCustomerDetails(cd);
+  console.log(cd);
+};
+
+export const changeOrderNo = async ({ orderNo, client, setCheckingOrderNo, setOrderDetails, orderDetails }) => {
   if (!client) {
+    setOrderDetails({ ...orderDetails, validation_orderNo: false });
     setCheckingOrderNo({ status: false, message: 'Please select client' });
     return;
   }
 
-  if (orderNo && orderNo.length < 4) {
+  if ((orderNo && orderNo.length < 4) || !orderNo) {
+    setOrderDetails({ ...orderDetails, validation_orderNo: false });
     setCheckingOrderNo({ status: false, message: 'Order No must have min 4 characters' });
     return;
-  } else {
-    setCheckingOrderNo({ status: true, message: '' });
   }
 
-  let ret = await checkOrderNo({ client, orderNo });
+  setCheckingOrderNo({ status: false, message: 'verifying...' });
+  setOrderDetails({ ...orderDetails, validation_orderNo: false });
+  let ret = await checkOrderNo({ client, orderNo, module: 'purchase-orders' });
+
+  let val = document.getElementById('orderNo').value;
+  if (val !== orderNo) {
+    return;
+  }
+
   if (ret.status) {
-    changeOrderDetails({ column: 'orderNo', value: orderNo, dispatch });
+    setCheckingOrderNo({ status: true, message: '' });
+    setOrderDetails({ ...orderDetails, orderNo, validation_orderNo: true });
   } else {
     setCheckingOrderNo({ status: ret.status, message: ret.message });
+    setOrderDetails({ ...orderDetails, validation_orderNo: false });
   }
 };
 
@@ -341,22 +428,24 @@ export const formatDate = (dateStr) => {
   return dArr[2] + '/' + dArr[1] + '/' + dArr[0];
 };
 
-export const getCustomerDetail = async ({ client, customer, customerDetails, dispatch }) => {
-  if (!client) {
+export const getCustomerDetail = async ({ client, customer, setCustomerDetails }) => {
+  if (!client || !customer) {
     return;
   }
 
   // set customer Details
   const identity = customer.data;
-  customerDetails.customer.value = customer;
-  customerDetails.address1.value = identity?.address_1 || '';
-  customerDetails.address2.value = identity?.address_2 || '';
-  customerDetails.address3.value = identity?.address_3 || '';
-  customerDetails.address4.value = identity?.address_4 || '';
-  customerDetails.address5.value = identity?.address_5 || '';
-  customerDetails.suburb.value = identity?.city || '';
-  customerDetails.postcode.value = identity?.postcode || '';
-  customerDetails.state.value = identity?.state || '';
-  customerDetails.country.value = identity?.country || '';
-  dispatch({ type: 'RESET_CUSTOMER_DETAIL', data: customerDetails });
+  let customerDetails = {
+    customer: customer,
+    address1: identity?.address_1 || '',
+    address2: identity?.address_2 || '',
+    address3: identity?.address_3 || '',
+    address4: identity?.address_4 || '',
+    address5: identity?.address_5 || '',
+    suburb: identity?.city || '',
+    postcode: identity?.postcode || '',
+    state: identity?.state || '',
+    country: identity?.country || '',
+  };
+  setCustomerDetails(customerDetails);
 };

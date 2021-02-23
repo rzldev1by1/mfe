@@ -14,9 +14,6 @@ const Create = ({ show, setShow }) => {
   const resources = useSelector((state) => state.po_resources);
   const disposition = useSelector((state) => state.po_disposition);
   const user = useSelector((state) => state.user);
-  const orderDetailsTmp = useSelector((state) => state.orderDetails);
-  const orderLinesTmp = useSelector((state) => state.orderLines);
-  const orderLinesData = useSelector((state) => state.orderLinesData);
 
   const [activeTab, setActiveTab] = useState('details');
   const [isReset, setIsReset] = useState(0);

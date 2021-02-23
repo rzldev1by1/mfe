@@ -142,6 +142,7 @@ export const changeOrderNo = async ({ orderNo, client, setCheckingOrderNo, setOr
   }
 
   setCheckingOrderNo({ status: false, message: 'verifying...' });
+  setOrderDetails({ ...orderDetails, validation_orderNo: false });
   let ret = await checkOrderNo({ client, orderNo, module: 'purchase-orders' });
 
   let val = document.getElementById('orderNo').value;

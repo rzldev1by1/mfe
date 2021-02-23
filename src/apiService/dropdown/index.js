@@ -162,7 +162,6 @@ export const getCustomer = async ({ client, setCustomerData }) => {
   if (!client) {
     return;
   }
-  client = client?.value?.value;
   const { data } = await axios.get(`${endpoints.getCustomer}?client=${client || ''}`);
   const customerData = data.map((d) => ({ value: d.code, label: `${d.code}: ${d.name}`, data: d }));
   setCustomerData(customerData);
