@@ -18,7 +18,6 @@ import {
   changeClient,
 } from './services';
 import { getCustomer } from 'apiService/dropdown';
-import { validate } from 'email-validator';
 
 import './style.scss';
 
@@ -49,6 +48,10 @@ const Form = ({
   const [dropdownExpandStyle, setDropdownExpandStyle] = useState(null);
   const [checkingOrderNo, setCheckingOrderNo] = useState(null);
   const { client, site } = user;
+
+  useEffect(() => {
+    addOrderLines({ orderLines, setOrderLines });
+  }, []);
 
   useEffect(() => {
     // set client dropdown option
@@ -466,38 +469,38 @@ const Form = ({
               </td>
               <td>
                 {' '}
-                <div className="c-400 required px-1">{orderLines?.product?.text}</div>{' '}
+                <div className="c-400 required px-1">Product</div>{' '}
               </td>
               <td>
                 {' '}
-                <div className="c-600 px-1">{orderLines?.description?.text}</div>{' '}
+                <div className="c-600 px-1">Description</div>{' '}
               </td>
               <td>
-                <div className="c-100 required px-1">{orderLines?.qty?.text}</div>
+                <div className="c-100 required px-1">Qty</div>
               </td>
               <td>
-                <div className="c-170 px-1">{orderLines?.weight?.text}</div>
+                <div className="c-170 px-1">Weight</div>
               </td>
               <td>
-                <div className="c-150 required px-1">{orderLines?.uom?.text}</div>
+                <div className="c-150 required px-1">UOM</div>
               </td>
               <td>
-                <div className="c-250 px-1">{orderLines?.batch?.text}</div>
+                <div className="c-250 px-1">Batch</div>
               </td>
               <td>
-                <div className="c-100 px-1">{orderLines?.ref3?.text}</div>
+                <div className="c-100 px-1">Ref3</div>
               </td>
               <td>
-                <div className="c-100 px-1">{orderLines?.ref4?.text}</div>
+                <div className="c-100 px-1">Ref4</div>
               </td>
               <td>
-                <div className="c-150 px-1">{orderLines?.disposition?.text}</div>
+                <div className="c-150 px-1">Disposition</div>
               </td>
               <td>
-                <div className="c-150">{orderLines?.packId?.text}</div>
+                <div className="c-150">Pack ID</div>
               </td>
               <td>
-                <div className="c-150">{orderLines?.rotaDate?.text}</div>
+                <div className="c-150">RotaDate</div>
               </td>
               <td>
                 <div className="c-50" />
@@ -528,7 +531,7 @@ const Form = ({
           style={isReadonly ? { display: 'none' } : null}
           type="button"
           className="btn btn-light-blue m-0"
-          onClick={() => addOrderLines({ dispatch })}
+          onClick={() => addOrderLines({ orderLines, setOrderLines })}
         >
           ADD LINE
         </button>

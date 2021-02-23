@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Dropdown from 'Component/Dropdown';
 import DropdownAxios from 'Component/Dropdown/DropdownAxios';
 import DatePicker from 'shared/DatePicker';
-import RequiredMessage from './RequiredMessage';
 import InputNumber from 'Component/InputNumber';
 import Input from 'Component/Input';
 
@@ -20,7 +19,6 @@ const FormLine = ({
   orderLines,
   setOrderLineSelectOpen,
 }) => {
-  const dispatch = useDispatch();
   const dispositionData = useSelector((state) => state.po_disposition);
   const [isLoading, setIsLoading] = useState(false);
   const [isProduct, setIsProduct] = useState('');
@@ -37,7 +35,7 @@ const FormLine = ({
           options={isProduct}
           placeholder="Product"
           onChangeDropdown={(val) => {
-            productHandler({ val, column: 'product', index, orderLines, setOrderLines, setIsUom, dispatch });
+            productHandler({ val, column: 'product', index, orderLines, setOrderLines, setIsUom });
           }}
           onInputChange={(val) => {
             getProduct({ val, client: orderDetails?.client?.value, setIsLoading, setIsProduct });

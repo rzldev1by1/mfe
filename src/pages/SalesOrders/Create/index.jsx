@@ -39,6 +39,7 @@ const Create = ({ show, setShow }) => {
       setIsReset(1);
       setIsValidation(false);
       setActiveTab('details');
+      setOrderDetails(cleanOrderDetails);
       setCustomerDetails(cleanCustomerDetails);
       setOrderLines([]);
     }
@@ -64,6 +65,9 @@ const Create = ({ show, setShow }) => {
                 className="iconU-close pointer"
                 onClick={() => {
                   setShow(false);
+                  setTimeout(() => {
+                    setIsReset(0);
+                  }, 500);
                 }}
               ></i>
             </Col>
@@ -83,7 +87,7 @@ const Create = ({ show, setShow }) => {
               <NavLink
                 className={`d-flex height-nav align-items-center px-3 ${activeTab === 'review' ? 'active' : null}`}
                 onClick={() => {
-                  // validation({ data: createSO, setActiveTab });
+                  validation({ orderDetails, orderLines, customerDetails, setActiveTab });
                   setIsValidation(true);
                 }}
               >
@@ -126,7 +130,7 @@ const Create = ({ show, setShow }) => {
                     <button
                       className={'btn btn-primary '}
                       onClick={() => {
-                        // validation({ dispatch, data: createSO, setActiveTab });
+                        validation({ orderDetails, orderLines, customerDetails, setActiveTab });
                         setIsValidation(true);
                       }}
                     >
@@ -155,13 +159,15 @@ const Create = ({ show, setShow }) => {
                       className="btn btn-primary"
                       onClick={() => {
                         setIsSubmitStatus('loading');
-                        // submit({
-                        //   setIsSubmitStatus,
-                        //   setIsSubmitReturn,
-                        //   setActiveTab,
-                        //   user,
-                        //   data: createSO,
-                        // });
+                        submit({
+                          setIsSubmitStatus,
+                          setIsSubmitReturn,
+                          setActiveTab,
+                          user,
+                          orderDetails,
+                          customerDetails,
+                          orderLines,
+                        });
                       }}
                     >
                       {isSubmitStatus === 'loading' ? (
