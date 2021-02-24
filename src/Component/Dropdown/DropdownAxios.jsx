@@ -32,6 +32,7 @@ const DropdownAxios = ({
   const [isValue, setIsValue] = useState('');
   const elem = document?.getElementById(`dropdown${entryListIdx}${poListIdx}`);
   let position = elem?.getBoundingClientRect();
+  const newSelectedValue = {label:selectedValue?.value, value:selectedValue?.value}
 
   useEffect(() => {
     if (selectedValue === 'empty') setIsOpen(true);
@@ -46,6 +47,14 @@ const DropdownAxios = ({
     }
   }, [isValue]);
 
+  let newOptions = []
+  if(options?.length){
+    newOptions = options?.map(data => ({
+      label: `${data?.value} : ${data?.label}`, 
+      value:data?.value, orginLabel: data?.label, 
+      uom: data?.data?.uom
+    }))
+  }
   return (
     <div className={parentDivClassName}>
       {!title ? null : <label className={'text-muted mb-0 ' + (required ? 'required' : '')}>{title}</label>}
@@ -53,9 +62,9 @@ const DropdownAxios = ({
         isClearable={!readOnly}
         isSearchable={!readOnly}
         openMenuOnClick={!readOnly}
-        value={selectedValue ? selectedValue : false}
-        options={options && isOpen ? options : []}
-        getOptionLabel={(option) => option.value + ' : ' + option.label}
+        value={newSelectedValue?.value ? newSelectedValue : false}
+        options={newOptions && isOpen ? newOptions : []}
+        getOptionLabel={(option) => option.label}
         isLoading={isLoading}
         onInputChange={(val) => {
           setIsValue(val);
