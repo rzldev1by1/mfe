@@ -118,6 +118,7 @@ const Create = ({ show, setShow }) => {
                   setCustomerDetails={setCustomerDetails}
                   orderLines={orderLines}
                   setOrderLines={setOrderLines}
+                  setIsValidation={setIsValidation}
                 />
               )}
 

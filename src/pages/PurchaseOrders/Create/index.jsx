@@ -44,9 +44,6 @@ const Create = ({ show, setShow }) => {
     }
   }, [resources]);
 
-  console.clear();
-  console.log(orderDetails, orderLines);
-
   return (
     <div>
       <Modal show={show} size="xl" className="purchase-order-create">
@@ -111,6 +108,7 @@ const Create = ({ show, setShow }) => {
                   setOrderLines={setOrderLines}
                   setOrderDetails={setOrderDetails}
                   isValidation={isValidation}
+                  setIsValidation={setIsValidation}
                 />
               )}
 

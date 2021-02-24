@@ -7,13 +7,28 @@ import Input from 'Component/Input';
 import FormLine from './FormLine';
 import RequiredMessage from './RequiredMessage';
 
-import { changeOrderDetails, addOrderLines, changeOrderNo, formatDate, changeClient } from './services';
+import {
+  changeOrderDetails,
+  addOrderLines,
+  changeOrderNo,
+  formatDate,
+  changeClient,
+  validationOrderLines,
+} from './services';
 import { getSupplier } from 'apiService/dropdown';
 import { validate } from 'email-validator';
 
 import './style.scss';
 
-const Form = ({ activeTab, isValidation, orderDetails, setOrderDetails, orderLines, setOrderLines }) => {
+const Form = ({
+  activeTab,
+  isValidation,
+  setIsValidation,
+  orderDetails,
+  setOrderDetails,
+  orderLines,
+  setOrderLines,
+}) => {
   const dispatch = useDispatch();
   const resources = useSelector((state) => state.po_resources);
   const clientData = useSelector((state) => state.clientData);
@@ -327,7 +342,14 @@ const Form = ({ activeTab, isValidation, orderDetails, setOrderDetails, orderLin
           style={isReadonly ? { display: 'none' } : null}
           type="button"
           className="btn btn-light-blue m-0"
-          onClick={() => addOrderLines({ orderLines, setOrderLines })}
+          onClick={async () => {
+            //validate first
+            setIsValidation(true);
+            let validate = await validationOrderLines({ orderLines });
+            if (validate) {
+              addOrderLines({ orderLines, setOrderLines });
+            }
+          }}
         >
           ADD LINE
         </button>
