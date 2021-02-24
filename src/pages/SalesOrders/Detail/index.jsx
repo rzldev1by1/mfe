@@ -83,7 +83,7 @@ const SalesOrdersDetail = (props) => {
     }
   }, [Export]);
 
-  let indexCustomerName = soDetail?.customername.split(":")
+  let indexCustomerName = soDetail?.customername ? soDetail?.customername.split(":") : []
   if (indexCustomerName !== undefined) indexCustomerName = indexCustomerName[1];
   return (
     <div>
@@ -183,6 +183,7 @@ const SalesOrdersDetail = (props) => {
         title="Sales Order Details"
         filename="Microlistics_SalesOrderDetails."
         isDisplay={false}
+        splitModule="sales-order-detail"
       />
     </div>
   );
