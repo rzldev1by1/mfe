@@ -40,6 +40,7 @@ const FormLine = ({
             getProduct({ val, client: orderDetails?.client?.value, setIsLoading, setIsProduct });
             setIsLoading(true);
           }}
+          showLabelOnly
           minChar={3}
           required={true}
           isLoading={isLoading}
