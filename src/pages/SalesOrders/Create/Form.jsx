@@ -506,7 +506,7 @@ const Form = ({
             {orderLines?.map((item, i) => {
               return (
                 <FormLine
-                  isValidation={isValidation}
+                  isValidation={item.validation}
                   index={i}
                   data={item}
                   orderDetails={orderDetails}
@@ -529,7 +529,7 @@ const Form = ({
           onClick={async () => {
             //validate first
             setIsValidation(true);
-            let validate = await validationOrderLines({ orderLines });
+            let validate = await validationOrderLines({ orderLines, setOrderLines });
             if (validate) {
               addOrderLines({ orderLines, setOrderLines });
             }
@@ -540,8 +540,8 @@ const Form = ({
         <RequiredMessage
           column="OrderLines"
           columnText="Order Lines"
-          isValidation={isValidation}
-          data={orderLines.length}
+          messageShow={isValidation}
+          value={orderLines.length}
         />
       </div>
     </div>

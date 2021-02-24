@@ -4,7 +4,7 @@ import numeral from 'numeral';
 import { checkOrderNo, submitPurchaseOrder } from 'apiService';
 import { getUOM } from 'apiService/dropdown';
 
-export const validation = async ({ orderDetails, orderLines, setActiveTab }) => {
+export const validation = async ({ orderDetails, orderLines, setActiveTab, setOrderLines }) => {
   //initial
   let statusValidate = true;
   let orderDetailsValidation = [
@@ -23,10 +23,17 @@ export const validation = async ({ orderDetails, orderLines, setActiveTab }) => 
 
   //validasi orderLines
   orderLines.map((data, index) => {
+    data.validation = true;
     orderDetaillinessValidation.map((key, keyIndex) => {
       if (data[key] !== true) statusValidate = false;
     });
   });
+  let newOrderLines = [...orderLines];
+  setOrderLines(newOrderLines);
+
+  if (orderLines.length < 1) {
+    statusValidate = false;
+  }
 
   if (statusValidate) {
     setActiveTab('review');
@@ -35,17 +42,23 @@ export const validation = async ({ orderDetails, orderLines, setActiveTab }) => 
   }
 };
 
-export const validationOrderLines = async ({ orderLines }) => {
+export const validationOrderLines = async ({ orderLines, setOrderLines }) => {
   //initial
   let statusValidate = true;
   let orderDetaillinessValidation = ['validation_product', 'validation_uom', 'validation_qty'];
 
   //validasi orderLines
   orderLines.map((data, index) => {
+    data.validation = true;
     orderDetaillinessValidation.map((key, keyIndex) => {
       if (data[key] !== true) statusValidate = false;
     });
   });
+
+  //set
+  let newOrderLines = [...orderLines];
+  setOrderLines(newOrderLines);
+  return statusValidate;
 
   return statusValidate;
 };
@@ -123,6 +136,7 @@ export const cleanOrderLines = {
   disposition: '',
   rotaDate: '',
   productDesc: '',
+  validation: false,
   validation_product: false,
   validation_uom: false,
   validation_qty: false,

@@ -48,6 +48,7 @@ export const cleanOrderLines = {
   disposition: '',
   packId: '',
   rotaDate: '',
+  validation: false,
   validation_product: false,
   validation_uom: false,
   validation_qty: false,
@@ -315,7 +316,7 @@ const decimalFormatter = (name, value) => {
   return value;
 };
 
-export const validation = async ({ orderDetails, orderLines, customerDetails, setActiveTab }) => {
+export const validation = async ({ orderDetails, orderLines, customerDetails, setActiveTab, setOrderLines }) => {
   //initial
   let statusValidate = true;
   const orderDetailsValidation = [
@@ -340,10 +341,17 @@ export const validation = async ({ orderDetails, orderLines, customerDetails, se
 
   //validasi orderLines
   orderLines.map((data, index) => {
+    data.validation = true;
     orderDetaillinessValidation.map((key, keyIndex) => {
       if (data[key] !== true) statusValidate = false;
     });
   });
+  let newOrderLines = [...orderLines];
+  setOrderLines(newOrderLines);
+
+  if (orderLines.length < 1) {
+    statusValidate = false;
+  }
 
   if (statusValidate) {
     setActiveTab('review');
@@ -352,18 +360,22 @@ export const validation = async ({ orderDetails, orderLines, customerDetails, se
   }
 };
 
-export const validationOrderLines = async ({ orderLines }) => {
+export const validationOrderLines = async ({ orderLines, setOrderLines }) => {
   //initial
   let statusValidate = true;
   let orderDetaillinessValidation = ['validation_product', 'validation_uom', 'validation_qty'];
 
   //validasi orderLines
   orderLines.map((data, index) => {
+    data.validation = true;
     orderDetaillinessValidation.map((key, keyIndex) => {
       if (data[key] !== true) statusValidate = false;
     });
   });
 
+  //set
+  let newOrderLines = [...orderLines];
+  setOrderLines(newOrderLines);
   return statusValidate;
 };
 

@@ -13,7 +13,7 @@ const RequiredMessage = ({ messageShow, column, data, columnText, value, dropdow
 
     if (column == 'OrderLines') {
       //if column order lines logic
-      if (!data) setMessage('At least one line is required to continue');
+      if (value < 1) setMessage('At least one line is required to continue');
       else setMessage('');
     }
 
