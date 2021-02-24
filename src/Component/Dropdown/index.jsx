@@ -54,7 +54,7 @@ const Dropdown = ({
 
   return (
     <div className={parentDivClassName}>
-      {!showTitle ? null : <label className={`text-muted mb-0 ${required ? 'required' : ''}`}>{title}</label>}
+      {!title ? null : <label className={`text-muted mb-0 ${required ? 'required' : ''}`}>{title}</label>}
       <Select
         className={className}
         isDisabled={isDisabled || false}
@@ -65,7 +65,7 @@ const Dropdown = ({
         value={selectedValue?.value ? selectedValue : false}
         menuIsOpen={isOpen}
         menuPortal
-        placeholder={placeholder}
+        placeholder={placeholder ? placeholder : title}
         options={options}
         onMenuOpen={() => setIsOpen(true)}
         onMenuClose={() => setIsOpen(false)}
@@ -107,7 +107,12 @@ const Dropdown = ({
       />
 
       {!messageRequired ? null : (
-        <RequiredMessage column={name} messageShow={messageParam?.messageShow} data={messageParam?.messageData} />
+        <RequiredMessage
+          column={name}
+          messageShow={messageParam?.messageShow}
+          columnText={title || placeholder}
+          value={messageParam?.value}
+        />
       )}
     </div>
   );

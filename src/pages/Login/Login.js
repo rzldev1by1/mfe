@@ -142,7 +142,9 @@ class Logins extends Component {
       >
         <input
           autoComplete="off"
-          className={'form-control  inputLogin '   + (errorMessage === '' ? '' : ' border-red') /*"is-invalid"*/}
+          className={'form-control  inputLogin '+ 
+                      (errorMessage === '' ? '' : ' border-red') + 
+                      (errorMessage === 'Password is required' ? 'none' : '') /*"is-invalid"*/}
           style={formValidation.username ? {} : { borderColor: '#f44336 !important' }}
           type="text"
           name="username"
@@ -151,7 +153,9 @@ class Logins extends Component {
         <br />
         <input
           autoComplete="off"
-          className={'form-control inputLogin ' + (errorMessage === '' ? '' : ' border-red') /*"is-invalid"*/}
+          className={'form-control inputLogin ' + 
+                      (errorMessage === '' ? '' : ' border-red') + 
+                      (errorMessage === 'Username is required' ? 'none' : '') /*"is-invalid"*/}
           type="password"
           name="password"
           placeholder="Enter your password here"

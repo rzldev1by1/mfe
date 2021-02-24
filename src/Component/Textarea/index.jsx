@@ -16,14 +16,14 @@ const Textarea = ({
 }) => {
   return (
     <div>
-      {!showTitle ? null : <label className={'text-muted mb-0 ' + (required ? 'required' : '')}>{title}</label>}
+      {!title ? null : <label className={'text-muted mb-0 ' + (required ? 'required' : '')}>{title}</label>}
       <textarea
         name={name}
         autoComplete={autoComplete}
         onChange={(e) => onChange(e)}
         onKeyUp={(e) => (onKeyUp ? onKeyUp(e) : null)}
         className={`form-control ${className}`}
-        placeholder={placeholder}
+        placeholder={placeholder || title}
         maxLength={maxLength}
         readOnly={readOnly}
         value={value}

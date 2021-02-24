@@ -1,18 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './style.scss';
 
-const RequiredMessage = ({ messageShow, column, data, dropdown = false, customMessage }) => {
+const RequiredMessage = ({ messageShow, column, data, columnText, value, dropdown = false, customMessage }) => {
   const [message, setMessage] = useState(null);
-  const [value, setValue] = useState(null);
-  const [columnText, setColumnText] = useState(null);
-
-  useEffect(() => {
-    if (!data) {
-      return null;
-    }
-    setColumnText(data?.text);
-    setValue(data?.value);
-  }, [data, data?.value]);
 
   useEffect(() => {
     setMessage('');

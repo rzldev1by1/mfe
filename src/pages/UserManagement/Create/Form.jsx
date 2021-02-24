@@ -83,19 +83,19 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
 
         <div className="row mb-3">
           <div className="col-sm-4  ">
-            <input readOnly type="text" className="form-control readonly" value={state.userId} />
+            <input placeholder="User ID" readOnly type="text" className="form-control readonly" value={state.userId} />
             <span className="text-title font-sm">Auto Generated</span>
           </div>
           <div className="col-sm-4  ">
             <input
               type="email"
               name="email"
+              placeholder="Email"
               readOnly={isReadOnly}
-              className={`form-control ${
-                (isValidation && !state.email) || state.validation.email['isValid'] === false
-                  ? state.validation.email['invalidClass'] + ' input-danger '
-                  : ''
-              } ${isReadOnly ? 'readonly' : null}`}
+              className={`form-control ${(isValidation && !state.email) || state.validation.email['isValid'] === false
+                ? state.validation.email['invalidClass'] + ' input-danger '
+                : ''
+                } ${isReadOnly ? 'readonly' : null}`}
               onChange={async (e) => {
                 await changeDetails({ isAdmin, setState, state, column: 'email', e });
               }}
@@ -109,10 +109,10 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
             <input
               name="name"
               type="text"
+              placeholder="Name"
               readOnly={isReadOnly}
-              className={`form-control ${
-                isValidation && !state.name ? state.validation.name['invalidClass'] + ' input-danger ' : ''
-              } ${isReadOnly ? 'readonly' : null} `}
+              className={`form-control ${isValidation && !state.name ? state.validation.name['invalidClass'] + ' input-danger ' : ''
+                } ${isReadOnly ? 'readonly' : null} `}
               maxLength="60"
               onChange={(e) => {
                 changeDetails({ isAdmin, setState, state, column: 'name', e });
@@ -144,9 +144,8 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
             <input
               type="checkbox"
               name="moduleAccess"
-              className={`d-none ${
-                isValidation && !state.validation.modules['isValid'] ? state.validation.modules['invalidClass'] : ''
-              }`}
+              className={`d-none ${isValidation && !state.validation.modules['isValid'] ? state.validation.modules['invalidClass'] : ''
+                }`}
             />
             <FormFeedback>{`${state.validation.modules['message']}`}</FormFeedback>
           </div>
@@ -161,9 +160,8 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
             <input
               type="checkbox"
               name="sites"
-              className={`d-none ${
-                isValidation && !state.validation.sites['isValid'] ? state.validation.sites['invalidClass'] : ''
-              }`}
+              className={`d-none ${isValidation && !state.validation.sites['isValid'] ? state.validation.sites['invalidClass'] : ''
+                }`}
             />
             <FormFeedback>{`${state.validation.sites['message']}`}</FormFeedback>
           </div>
@@ -178,9 +176,8 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
             <input
               type="checkbox"
               name="clients"
-              className={`d-none ${
-                isValidation && !state.validation.clients['isValid'] ? state.validation.clients['invalidClass'] : ''
-              }`}
+              className={`d-none ${isValidation && !state.validation.clients['isValid'] ? state.validation.clients['invalidClass'] : ''
+                }`}
             />
             <FormFeedback>{`${state.validation.clients['message']}`}</FormFeedback>
           </div>

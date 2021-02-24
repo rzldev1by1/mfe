@@ -583,7 +583,7 @@ header {
 }
 
 .required::after {
-  content: '*';
+  content: ' *';
   color: red;
 }
 

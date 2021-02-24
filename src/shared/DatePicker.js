@@ -347,6 +347,7 @@ class DatePicker extends React.Component {
     const className = `select_date ${
       this.state.showDatePicker && this.props.for === 'SalesOrderCreate' ? 'datepickerForOrderLine' : ''
     }`;
+
     return (
       <React.Fragment>
         <ul className={className} style={this.props.style} tabIndex={this.props.tabIndex ? this.props.tabIndex : null}>
@@ -356,7 +357,7 @@ class DatePicker extends React.Component {
             placeholder={this.props.placeHolder ? this.props.placeHolder : 'DD/MM/YYYY'}
             className={`form-control ` + this?.props?.className}
             maxLength="10"
-            value={this.state.defaultValue}
+            value={this.props.selectedDates ? moment(this.props.selectedDates).format('DD/MM/YYYY') : ''}
             onChange={(e) => {
               this.dateValueProcess(e);
             }}

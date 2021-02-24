@@ -2,6 +2,7 @@ import React from 'react';
 import RequiredMessage from 'Component/RequiredMessage';
 
 const Input = ({
+  id,
   title,
   showTitle = false,
   autoComplete = 'off',
@@ -17,18 +18,19 @@ const Input = ({
   onKeyUp,
   alphaNumeric,
   messageRequired,
-  messageParam = { messageShow: false, messageData: {}, messageCustom: {} },
+  messageParam = { messageShow: false, messageData: {}, customMessage: {} },
 }) => {
   return (
     <div>
-      {!showTitle ? null : <label className={'text-muted mb-0 ' + (required ? 'required' : '')}>{title}</label>}
+      {!title ? null : <label className={'text-muted mb-0 ' + (required ? 'required' : '')}>{title}</label>}
       <input
+        id={id}
         name={name}
         autoComplete={autoComplete}
         onChange={(e) => onChange(e)}
         onKeyUp={(e) => (onKeyUp ? onKeyUp(e) : null)}
         className={`form-control ${className}`}
-        placeholder={placeholder}
+        placeholder={placeholder || title}
         maxLength={maxLength}
         readOnly={readOnly}
         value={value}
@@ -43,7 +45,8 @@ const Input = ({
         <RequiredMessage
           column={name}
           messageShow={messageParam?.messageShow}
-          data={messageParam?.messageData}
+          columnText={title || placeholder}
+          value={messageParam?.value}
           customMessage={messageParam?.customMessage}
         />
       )}

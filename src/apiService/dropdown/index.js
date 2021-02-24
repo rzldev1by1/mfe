@@ -125,16 +125,11 @@ export const getDisposition = async ({ dispatch }) => {
   const dispositionData = [];
   data.map((c, i) => {
     if (c.code.length > 0 && c.code !== ' ') dispositionData.push({ value: c.code, label: c.code });
-  }); 
+  });
   dispatch({ type: 'CREATE_PO_DISPOSITION', data: dispositionData });
 };
 
-export const getSupplier = async ({ orderDetails, client, site, setSupplier }) => {
-  if (orderDetails) {
-    site = orderDetails?.site?.value?.value;
-    client = orderDetails?.client?.value?.value;
-  }
-
+export const getSupplier = async ({ client, site, setSupplier }) => {
   const { data } = await axios.get(`${endpoints.getSupplier}?client=${client || ''}&site=${site || ''}`);
   const supplierData = data.map((d) => ({ value: d.supplier_no, label: `${d.supplier_no}: ${d.name}` }));
   setSupplier(supplierData);
@@ -167,7 +162,6 @@ export const getCustomer = async ({ client, setCustomerData }) => {
   if (!client) {
     return;
   }
-  client = client?.value?.value;
   const { data } = await axios.get(`${endpoints.getCustomer}?client=${client || ''}`);
   const customerData = data.map((d) => ({ value: d.code, label: `${d.code}: ${d.name}`, data: d }));
   setCustomerData(customerData);
