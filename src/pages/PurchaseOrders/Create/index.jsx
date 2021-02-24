@@ -79,7 +79,7 @@ const Create = ({ show, setShow }) => {
               <NavLink
                 className={`d-flex height-nav align-items-center px-3 ${activeTab === 'review' ? 'active' : null}`}
                 onClick={() => {
-                  validation({ orderDetails, orderLines, setActiveTab });
+                  validation({ orderDetails, orderLines, setOrderLines, setActiveTab });
                   setIsValidation(true);
                 }}
               >
@@ -121,7 +121,7 @@ const Create = ({ show, setShow }) => {
                     <button
                       className={'btn btn-primary '}
                       onClick={() => {
-                        validation({ orderDetails, orderLines, setActiveTab });
+                        validation({ orderDetails, orderLines, setOrderLines, setActiveTab });
                         setIsValidation(true);
                       }}
                     >
