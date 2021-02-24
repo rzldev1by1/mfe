@@ -74,10 +74,10 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
             <label className="text-title-detail">User ID</label>
           </div>
           <div className="col-sm-4">
-            <label className="text-title-detail">Email</label>
+            <label className="text-title-detail required">Email</label>
           </div>
           <div className="col-sm-4">
-            <label className="text-title-detail">Name</label>
+            <label className="text-title-detail required">Name</label>
           </div>
         </div>
 
