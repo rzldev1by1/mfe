@@ -629,7 +629,7 @@ class Logins extends Component {
     return (
       <div className="login">
         <div className="container-fluid">
-          <div className="card col-md-4 col-4 col-sm-10 box-login offset-md-1">
+          <div className="card col-md-4 col-12 col-sm-12 box-login offset-md-1">
             <div className="card-body login-card">
               <img src={Logo} className="logo mb-2" alt="mlslogo" />
               {formComponent}
