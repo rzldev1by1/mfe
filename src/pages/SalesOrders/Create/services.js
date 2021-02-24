@@ -232,6 +232,8 @@ export const productHandler = async ({ val, index, orderLines, setIsUom, setOrde
   newOrderLines[index]['product'] = val;
   newOrderLines[index]['validation_product'] = val ? true : false;
   newOrderLines[index]['productDesc'] = val?.label || '';
+  newOrderLines[index]['uom'] = '';
+  newOrderLines[index]['validation_uom'] = false;
   setOrderLines(newOrderLines);
 
   //get uom
@@ -323,7 +325,7 @@ export const validation = async ({ orderDetails, orderLines, customerDetails, se
     'validation_orderNo',
     'validation_deliveryDate',
   ];
-  const customerValidation = ['validation_customer', 'validation_address1', 'validation_postcode', 'validation_state'];
+  const customerValidation = ['validation_address1', 'validation_postcode', 'validation_state'];
   const orderDetaillinessValidation = ['validation_product', 'validation_uom', 'validation_qty'];
 
   //validasi order details

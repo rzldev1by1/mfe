@@ -188,6 +188,8 @@ export const productHandler = async ({ val, index, orderLines, setIsUom, setOrde
   newOrderLines[index]['product'] = val;
   newOrderLines[index]['validation_product'] = val ? true : false;
   newOrderLines[index]['productDesc'] = val?.label || '';
+  newOrderLines[index]['uom'] = '';
+  newOrderLines[index]['validation_uom'] = false;
   setOrderLines(newOrderLines);
 
   //get uom
