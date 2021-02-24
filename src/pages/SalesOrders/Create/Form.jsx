@@ -306,14 +306,7 @@ const Form = ({
               getCustomerDetail({ client: orderDetails?.client, customer: selected, setCustomerDetails });
             }}
             showTitle
-            required
             readOnly={isReadonly}
-            messageRequired={true}
-            messageParam={{
-              messageShow: isValidation,
-              value: orderDetails?.client,
-            }}
-            parentDivClassName={isValidation && !customerDetails?.customer ? 'input-danger' : ''}
           />
         </Col>
       </Row>
