@@ -187,11 +187,11 @@ export const productHandler = async ({ val, index, orderLines, setIsUom, setOrde
   let newOrderLines = [...orderLines];
   newOrderLines[index]['product'] = val;
   newOrderLines[index]['validation_product'] = val ? true : false;
-  newOrderLines[index]['productDesc'] = val?.label || '';
+  newOrderLines[index]['productDesc'] = val?.orginLabel || '';
   setOrderLines(newOrderLines);
 
   //get uom
-  const stringUOM = val?.data?.uom;
+  const stringUOM = val?.uom;
   if (stringUOM) {
     const uomDataArr = stringUOM.split(',');
     const uomData = uomDataArr.map((c, i) => ({ value: c, label: c }));
