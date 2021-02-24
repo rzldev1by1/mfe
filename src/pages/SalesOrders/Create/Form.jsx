@@ -16,6 +16,7 @@ import {
   changeCustomerDetails,
   getCustomerDetail,
   changeClient,
+  validationOrderLines,
 } from './services';
 import { getCustomer } from 'apiService/dropdown';
 
@@ -24,6 +25,7 @@ import './style.scss';
 const Form = ({
   activeTab,
   isValidation,
+  setIsValidation,
   orderDetails,
   setOrderDetails,
   customerDetails,
@@ -531,7 +533,14 @@ const Form = ({
           style={isReadonly ? { display: 'none' } : null}
           type="button"
           className="btn btn-light-blue m-0"
-          onClick={() => addOrderLines({ orderLines, setOrderLines })}
+          onClick={async () => {
+            //validate first
+            setIsValidation(true);
+            let validate = await validationOrderLines({ orderLines });
+            if (validate) {
+              addOrderLines({ orderLines, setOrderLines });
+            }
+          }}
         >
           ADD LINE
         </button>

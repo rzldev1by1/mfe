@@ -35,6 +35,21 @@ export const validation = async ({ orderDetails, orderLines, setActiveTab }) => 
   }
 };
 
+export const validationOrderLines = async ({ orderLines }) => {
+  //initial
+  let statusValidate = true;
+  let orderDetaillinessValidation = ['validation_product', 'validation_uom', 'validation_qty'];
+
+  //validasi orderLines
+  orderLines.map((data, index) => {
+    orderDetaillinessValidation.map((key, keyIndex) => {
+      if (data[key] !== true) statusValidate = false;
+    });
+  });
+
+  return statusValidate;
+};
+
 export const resetCreate = (dispatch) => {
   const orderDetails = {
     site: { value: null, required: true, text: 'Site' },
