@@ -4,7 +4,41 @@ import numeral from 'numeral';
 import { checkOrderNo, submitPurchaseOrder } from 'apiService';
 import { getUOM } from 'apiService/dropdown';
 
-export const validation = async ({ orderDetails, orderLines, setActiveTab }) => {
+export const cleanOrderDetails = {
+  site: null,
+  orderType: null,
+  supplier: null,
+  customerOrderRef: null,
+  client: null,
+  orderNo: null,
+  orderDate: null,
+  vendorOrderRef: null,
+  validation_site: false,
+  validation_orderType: false,
+  validation_client: false,
+  validation_orderNo: false,
+  validation_orderDate: false,
+};
+
+export const cleanOrderLines = {
+  product: '',
+  desc: '',
+  qty: '',
+  weight: '',
+  uom: '',
+  batch: '',
+  ref3: '',
+  ref4: '',
+  disposition: '',
+  rotaDate: '',
+  productDesc: '',
+  validation: false,
+  validation_product: false,
+  validation_uom: false,
+  validation_qty: false,
+};
+
+export const validation = async ({ orderDetails, orderLines, setActiveTab, setOrderLines }) => {
   //initial
   let statusValidate = true;
   let orderDetailsValidation = [
@@ -23,10 +57,17 @@ export const validation = async ({ orderDetails, orderLines, setActiveTab }) => 
 
   //validasi orderLines
   orderLines.map((data, index) => {
+    data.validation = true;
     orderDetaillinessValidation.map((key, keyIndex) => {
       if (data[key] !== true) statusValidate = false;
     });
   });
+  let newOrderLines = [...orderLines];
+  setOrderLines(newOrderLines);
+
+  if (orderLines.length < 1) {
+    statusValidate = false;
+  }
 
   if (statusValidate) {
     setActiveTab('review');
@@ -35,17 +76,23 @@ export const validation = async ({ orderDetails, orderLines, setActiveTab }) => 
   }
 };
 
-export const validationOrderLines = async ({ orderLines }) => {
+export const validationOrderLines = async ({ orderLines, setOrderLines }) => {
   //initial
   let statusValidate = true;
   let orderDetaillinessValidation = ['validation_product', 'validation_uom', 'validation_qty'];
 
   //validasi orderLines
   orderLines.map((data, index) => {
+    data.validation = true;
     orderDetaillinessValidation.map((key, keyIndex) => {
       if (data[key] !== true) statusValidate = false;
     });
   });
+
+  //set
+  let newOrderLines = [...orderLines];
+  setOrderLines(newOrderLines);
+  return statusValidate;
 
   return statusValidate;
 };
@@ -93,39 +140,6 @@ export const resetCreate = (dispatch) => {
   dispatch({ type: 'RESET_ORDER_DETAIL', data: orderDetails });
   dispatch({ type: 'RESET_ORDER_LINES', data: orderLines });
   dispatch({ type: 'RESET_ORDER_LINES_DATA', data: orderLinesData });
-};
-
-export const cleanOrderDetails = {
-  site: null,
-  orderType: null,
-  supplier: null,
-  customerOrderRef: null,
-  client: null,
-  orderNo: null,
-  orderDate: null,
-  vendorOrderRef: null,
-  validation_site: false,
-  validation_orderType: false,
-  validation_client: false,
-  validation_orderNo: false,
-  validation_orderDate: false,
-};
-
-export const cleanOrderLines = {
-  product: '',
-  desc: '',
-  qty: '',
-  weight: '',
-  uom: '',
-  batch: '',
-  ref3: '',
-  ref4: '',
-  disposition: '',
-  rotaDate: '',
-  productDesc: '',
-  validation_product: false,
-  validation_uom: false,
-  validation_qty: false,
 };
 
 export const changeOrderDetails = ({ column, value, orderDetails, setOrderDetails }) => {
@@ -187,11 +201,13 @@ export const productHandler = async ({ val, index, orderLines, setIsUom, setOrde
   let newOrderLines = [...orderLines];
   newOrderLines[index]['product'] = val;
   newOrderLines[index]['validation_product'] = val ? true : false;
-  newOrderLines[index]['productDesc'] = val?.label || '';
+  newOrderLines[index]['productDesc'] = val?.orginLabel || '';
+  newOrderLines[index]['uom'] = '';
+  newOrderLines[index]['validation_uom'] = false;
   setOrderLines(newOrderLines);
 
   //get uom
-  const stringUOM = val?.data?.uom;
+  const stringUOM = val?.uom;
   if (stringUOM) {
     const uomDataArr = stringUOM.split(',');
     const uomData = uomDataArr.map((c, i) => ({ value: c, label: c }));
@@ -321,6 +337,9 @@ export const submit = async ({
     orderNo: orderDetails?.orderNo || '',
     orderType: orderDetails?.orderType?.value || '',
     orderDate: orderDetails?.orderDate || '',
+    customerOrderRef: orderDetails?.customerOrderRef || '',
+    supplier: orderDetails?.supplier?.value || '',
+    vendorOrderRef: orderDetails?.vendorOrderRef || '',
     web_user: user.webUser,
   };
   let newOrderLines = [];

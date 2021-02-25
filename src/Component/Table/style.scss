@@ -1,3 +1,11 @@
+:root {
+  --widhtTable: {
+    .Table .rt-thead .rt-tr .rt-th{
+      min-width: min-content;
+    };
+  }
+}
+
 .Table {
   .rt-table {
     border: none;
@@ -19,12 +27,13 @@
     font-weight: inherit;
   }
 
-  // .rt-th:last-child {
-  //   position: absolute;
-  //   background: whitesmoke;
-  //   right: 0;
-  //   justify-content: center;
-  // }
+  .rt-thead .rt-tr .rt-th{
+    min-width: min-content;
+  }
+  
+  .rt-body .rt-tr-group .rt-tr .rt-td{
+    width: var(--widhtTable);
+  }
 
   .-header .rt-tr {
     border-bottom: 2px solid #e0e2e4 !important;

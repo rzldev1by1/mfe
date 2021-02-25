@@ -5,7 +5,7 @@ import Dropdown from 'Component/Dropdown';
 import DatePicker from 'shared/DatePicker';
 import Input from 'Component/Input';
 import FormLine from './FormLine';
-import RequiredMessage from './RequiredMessage';
+import RequiredMessage from 'Component/RequiredMessage';
 
 import {
   changeOrderDetails,
@@ -165,8 +165,8 @@ const Form = ({
             name="customerOrderRef"
             title="Customer Order Ref"
             placeholder={orderDetails?.customerOrderRef}
-            onChange={(selected) =>
-              changeOrderDetails({ column: 'customerOrderRef', value: selected, orderDetails, setOrderDetails })
+            onChange={(val) =>
+              changeOrderDetails({ column: 'customerOrderRef', value: val.target.value, orderDetails, setOrderDetails })
             }
             maxLength={30}
             readOnly={isReadonly}
@@ -273,7 +273,11 @@ const Form = ({
 
       {/* Start Line Details */}
       <h3 className="text-primary font-20 mt-45">Line Details</h3>
-      <div className={`orderline mb-2 pb-2 scroll-x-y row  ${dropdownExpandStyle}`} style={{ marginLeft: "-4.5px", marginRight: "-4.5px" }}>
+      <div
+        id="orderLines"
+        className={`orderline mb-2 pb-2 scroll-x-y row  ${dropdownExpandStyle}`}
+        style={{ marginLeft: '-4.5px', marginRight: '-4.5px' }}
+      >
         {/* End Line Details */}
         <table>
           <thead>
@@ -322,7 +326,7 @@ const Form = ({
             {orderLines.map((item, i) => {
               return (
                 <FormLine
-                  isValidation={isValidation}
+                  isValidation={item.validation}
                   index={i}
                   data={item}
                   orderDetails={orderDetails}
@@ -345,7 +349,7 @@ const Form = ({
           onClick={async () => {
             //validate first
             setIsValidation(true);
-            let validate = await validationOrderLines({ orderLines });
+            let validate = await validationOrderLines({ orderLines, setOrderLines });
             if (validate) {
               addOrderLines({ orderLines, setOrderLines });
             }
@@ -356,8 +360,8 @@ const Form = ({
         <RequiredMessage
           column="OrderLines"
           columnText="Order Lines"
-          isValidation={isValidation}
-          data={orderLines.length}
+          messageShow={isValidation}
+          value={orderLines.length}
         />
       </div>
     </div>

@@ -48,7 +48,7 @@ const Create = ({ show, setShow }) => {
     <div>
       <Modal show={show} size="xl" className="purchase-order-create">
         <Modal.Body className="bg-primary p-0 rounded-top">
-          <Row className="pl-5 pr-3 py-4 mx-0">
+          <Row className="pl-5 pr-3 py-5 mx-0">
             <Col xs={10} className="px-0">
               <i className="iconU-createModal font-20"></i>
               <span className="font-20 pl-2">Create Purchase Order</span> <br />
@@ -79,7 +79,7 @@ const Create = ({ show, setShow }) => {
               <NavLink
                 className={`d-flex height-nav align-items-center px-3 ${activeTab === 'review' ? 'active' : null}`}
                 onClick={() => {
-                  validation({ orderDetails, orderLines, setActiveTab });
+                  validation({ orderDetails, orderLines, setOrderLines, setActiveTab });
                   setIsValidation(true);
                 }}
               >
@@ -121,7 +121,7 @@ const Create = ({ show, setShow }) => {
                     <button
                       className={'btn btn-primary '}
                       onClick={() => {
-                        validation({ orderDetails, orderLines, setActiveTab });
+                        validation({ orderDetails, orderLines, setOrderLines, setActiveTab });
                         setIsValidation(true);
                       }}
                     >

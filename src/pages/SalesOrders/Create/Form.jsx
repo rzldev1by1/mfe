@@ -306,14 +306,7 @@ const Form = ({
               getCustomerDetail({ client: orderDetails?.client, customer: selected, setCustomerDetails });
             }}
             showTitle
-            required
             readOnly={isReadonly}
-            messageRequired={true}
-            messageParam={{
-              messageShow: isValidation,
-              value: orderDetails?.client,
-            }}
-            parentDivClassName={isValidation && !customerDetails?.customer ? 'input-danger' : ''}
           />
         </Col>
       </Row>
@@ -461,7 +454,7 @@ const Form = ({
 
       {/* Start Line Details */}
       <h3 className="text-primary font-20 mt-45">Line Details</h3>
-      <div className={`orderline mb-2 pb-2 scroll-x-y  ${dropdownExpandStyle}`}>
+      <div id="orderLines" className={`orderline mb-2 pb-2 scroll-x-y  ${dropdownExpandStyle}`}>
         {/* End Line Details */}
         <table>
           <thead>
@@ -513,7 +506,7 @@ const Form = ({
             {orderLines?.map((item, i) => {
               return (
                 <FormLine
-                  isValidation={isValidation}
+                  isValidation={item.validation}
                   index={i}
                   data={item}
                   orderDetails={orderDetails}
@@ -536,7 +529,7 @@ const Form = ({
           onClick={async () => {
             //validate first
             setIsValidation(true);
-            let validate = await validationOrderLines({ orderLines });
+            let validate = await validationOrderLines({ orderLines, setOrderLines });
             if (validate) {
               addOrderLines({ orderLines, setOrderLines });
             }
@@ -547,8 +540,8 @@ const Form = ({
         <RequiredMessage
           column="OrderLines"
           columnText="Order Lines"
-          isValidation={isValidation}
-          data={orderLines.length}
+          messageShow={isValidation}
+          value={orderLines.length}
         />
       </div>
     </div>

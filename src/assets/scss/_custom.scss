@@ -4,7 +4,7 @@ body {
 }
 
 .text-muted-soft {
-  color: #d5d8da;
+  color: #B4B9BB;
 }
 
 .login .border-red {
@@ -485,7 +485,7 @@ header {
   border-radius: 0.5rem;
   /* border: solid 1.0.5rem #959292; */
   font-size: 12px;
-  padding: 2px 6px;
+  padding: 2px 22px;
 }
 
 .status-unavailable {
@@ -494,9 +494,7 @@ header {
   border-radius: 0.5rem;
   /* border: solid 1.0.5rem #959292; */
   font-size: 12px;
-  padding: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding: 2px 14px;
 }
 
 .status-complete {
@@ -505,7 +503,7 @@ header {
   border-radius: 0.5rem;
   border: solid 1px #555050;
   font-size: 12px;
-  padding: 2px 6px;
+  padding: 2px 19px;
 }
 
 .status-partRelease {

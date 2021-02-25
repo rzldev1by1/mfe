@@ -33,6 +33,7 @@ const FormLine = ({
         <DropdownAxios
           name="product"
           options={isProduct}
+          showLabelOnly
           placeholder="Product"
           onChangeDropdown={(val) => {
             productHandler({ val, column: 'product', index, orderLines, setOrderLines, setIsUom });

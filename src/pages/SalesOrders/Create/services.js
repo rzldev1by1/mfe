@@ -48,6 +48,7 @@ export const cleanOrderLines = {
   disposition: '',
   packId: '',
   rotaDate: '',
+  validation: false,
   validation_product: false,
   validation_uom: false,
   validation_qty: false,
@@ -231,11 +232,13 @@ export const productHandler = async ({ val, index, orderLines, setIsUom, setOrde
   let newOrderLines = [...orderLines];
   newOrderLines[index]['product'] = val;
   newOrderLines[index]['validation_product'] = val ? true : false;
-  newOrderLines[index]['productDesc'] = val?.label || '';
+  newOrderLines[index]['uom'] = '';
+  newOrderLines[index]['validation_uom'] = false;
+  newOrderLines[index]['productDesc'] = val?.orginLabel || '';
   setOrderLines(newOrderLines);
 
   //get uom
-  const stringUOM = val?.data?.uom;
+  const stringUOM = val?.uom;
   if (stringUOM) {
     const uomDataArr = stringUOM.split(',');
     const uomData = uomDataArr.map((c, i) => ({ value: c, label: c }));
@@ -313,7 +316,7 @@ const decimalFormatter = (name, value) => {
   return value;
 };
 
-export const validation = async ({ orderDetails, orderLines, customerDetails, setActiveTab }) => {
+export const validation = async ({ orderDetails, orderLines, customerDetails, setActiveTab, setOrderLines }) => {
   //initial
   let statusValidate = true;
   const orderDetailsValidation = [
@@ -323,7 +326,7 @@ export const validation = async ({ orderDetails, orderLines, customerDetails, se
     'validation_orderNo',
     'validation_deliveryDate',
   ];
-  const customerValidation = ['validation_customer', 'validation_address1', 'validation_postcode', 'validation_state'];
+  const customerValidation = ['validation_address1', 'validation_postcode', 'validation_state'];
   const orderDetaillinessValidation = ['validation_product', 'validation_uom', 'validation_qty'];
 
   //validasi order details
@@ -338,10 +341,17 @@ export const validation = async ({ orderDetails, orderLines, customerDetails, se
 
   //validasi orderLines
   orderLines.map((data, index) => {
+    data.validation = true;
     orderDetaillinessValidation.map((key, keyIndex) => {
       if (data[key] !== true) statusValidate = false;
     });
   });
+  let newOrderLines = [...orderLines];
+  setOrderLines(newOrderLines);
+
+  if (orderLines.length < 1) {
+    statusValidate = false;
+  }
 
   if (statusValidate) {
     setActiveTab('review');
@@ -350,18 +360,22 @@ export const validation = async ({ orderDetails, orderLines, customerDetails, se
   }
 };
 
-export const validationOrderLines = async ({ orderLines }) => {
+export const validationOrderLines = async ({ orderLines, setOrderLines }) => {
   //initial
   let statusValidate = true;
   let orderDetaillinessValidation = ['validation_product', 'validation_uom', 'validation_qty'];
 
   //validasi orderLines
   orderLines.map((data, index) => {
+    data.validation = true;
     orderDetaillinessValidation.map((key, keyIndex) => {
       if (data[key] !== true) statusValidate = false;
     });
   });
 
+  //set
+  let newOrderLines = [...orderLines];
+  setOrderLines(newOrderLines);
   return statusValidate;
 };
 
@@ -384,7 +398,7 @@ export const submit = async ({
     vendorOrderRef: orderDetails?.vendorOrderRef || '',
     customerOrderRef: orderDetails?.customerOrderRef || '',
     web_user: user.webUser,
-    customer: customerDetails?.customer?.value || '',
+    customer: customerDetails?.customer || '',
     shipToAddress1: customerDetails?.address1 || '',
     shipToAddress2: customerDetails?.address2 || '',
     shipToAddress3: customerDetails?.address3 || '',

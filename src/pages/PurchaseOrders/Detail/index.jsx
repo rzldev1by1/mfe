@@ -118,7 +118,7 @@ const PurchaseOrdersDetail = (props) => {
           valeuCenterOne={poDetail?.supplier_no || '-'}
           valeuCenterTwo={poDetail?.supplier_name || '-'}
           valeuCenterThree={poDetail?.customer_order_ref || '-'}
-          valeuCenterFour={poDetail?.vendor_oreder_ref || '-'}
+          valeuCenterFour={poDetail?.vendor_ord_ref || '-'}
           // title Left
           titleLeft
           titleLeftOne="Order Date"
