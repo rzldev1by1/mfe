@@ -131,7 +131,7 @@ const Export = ({
           {!exportPdf ? (
             ''
           ) : (
-            <DropdownItem className="export-pdf px-3" onClick={() => setRunExport('PDF')}>
+            <DropdownItem className="export-pdf px-1 d-flex justify-content-center" onClick={() => setRunExport('PDF')}>
               <span className="exp-PDF" style={{ paddingRight: '0.28rem' }} />
               EXPORT TO PDF
             </DropdownItem>
@@ -140,7 +140,7 @@ const Export = ({
             ''
           ) : (
             <div>
-              <DropdownItem className="export-excel so-export" onClick={() => setRunExport('XLS')}>
+              <DropdownItem className="export-excel so-export px-1 d-flex justify-content-center" onClick={() => setRunExport('XLS')}>
                 <span className="exp-XLS" style={{ paddingRight: '0.3rem' }} />
                 EXPORT TO XLS
               </DropdownItem>
