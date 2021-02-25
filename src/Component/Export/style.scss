@@ -30,6 +30,7 @@
     margin-left: -80px;
     margin-bottom: 1px !important;
     padding-top: 14px;
+    transform: translate3d(20px, -1px, 0px);
 }
 .Excel-bottom {
   border: solid 0px;
@@ -44,7 +45,9 @@
   border: solid 2px #e8e8e8;
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
-  margin-top: -8px;
+  margin-top: -14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .export-excel {
@@ -52,6 +55,8 @@
   border-bottom-right-radius: 0.3rem;
   margin-top: -2px;
   border: solid 2px #e8e8e8;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .export-pdf:focus,
 .export-excel:focus,
