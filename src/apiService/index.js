@@ -32,6 +32,7 @@ export const getSummaryData = async ({
   let endpointsUrl = '';
   let paramType = '';
   let paramPaging = '';
+  searchInput = searchInput ? searchInput : '';
 
   if (module === 'purchaseOrder') {
     endpointsUrl = endpoints.purchaseOrder;
@@ -80,6 +81,13 @@ export const getSummaryData = async ({
   const Data = newData?.data?.data;
 
   // Table Status
+  let element = document.getElementById('searchInput');
+  if (element) {
+    if (element.value !== searchInput) {
+      return;
+    }
+  }
+
   if (Data?.length) {
     dispatch({ type: 'TABLE_STATUS', data: '' });
   } else if (Data?.length < 1) {
