@@ -273,7 +273,7 @@ const Form = ({
 
       {/* Start Line Details */}
       <h3 className="text-primary font-20 mt-45">Line Details</h3>
-      <div className={`orderline mb-2 pb-2 scroll-x-y  ${dropdownExpandStyle}`}>
+      <div className={`orderline mb-2 pb-2 scroll-x-y row  ${dropdownExpandStyle}`} style={{ marginLeft: "-4.5px", marginRight: "-4.5px" }}>
         {/* End Line Details */}
         <table>
           <thead>
