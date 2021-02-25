@@ -165,8 +165,8 @@ const Form = ({
             name="customerOrderRef"
             title="Customer Order Ref"
             placeholder={orderDetails?.customerOrderRef}
-            onChange={(selected) =>
-              changeOrderDetails({ column: 'customerOrderRef', value: selected, orderDetails, setOrderDetails })
+            onChange={(val) =>
+              changeOrderDetails({ column: 'customerOrderRef', value: val.target.value, orderDetails, setOrderDetails })
             }
             maxLength={30}
             readOnly={isReadonly}
@@ -273,7 +273,7 @@ const Form = ({
 
       {/* Start Line Details */}
       <h3 className="text-primary font-20 mt-45">Line Details</h3>
-      <div className={`orderline mb-2 pb-2 scroll-x-y  ${dropdownExpandStyle}`}>
+      <div id="orderLines" className={`orderline mb-2 pb-2 scroll-x-y  ${dropdownExpandStyle}`}>
         {/* End Line Details */}
         <table>
           <thead>

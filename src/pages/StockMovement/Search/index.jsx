@@ -160,7 +160,7 @@ const Search = ({ setHeader, setdateHeader }) => {
                     name="product"
                     placeholder="Product"
                     options={isProduct}
-                    selectedValue
+                    selectedValue={productVal}
                     className="width-100 z-99"
                     onChangeDropdown={(selected) => {
                       let newDropdownValue = dropdownValue;
