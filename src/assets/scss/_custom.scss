@@ -466,7 +466,7 @@ header {
   color: #637175 !important;
   background: transparent;
   padding: 1px 28px;
-  border-radius: 0.5rem;
+  border-radius: 0.2rem;
   border: solid 1.5px #637175;
   font-size: 12px;
 }
@@ -476,13 +476,13 @@ header {
   background: #f94548;
   padding: 2px 6px;
   font-size: 12px;
-  border-radius: 0.4rem;
+  border-radius: 0.2rem;
 }
 
 .status-available {
   color: #fff !important;
   background-color: #637175;
-  border-radius: 0.5rem;
+  border-radius: 0.2rem;
   /* border: solid 1.0.5rem #959292; */
   font-size: 12px;
   padding: 2px 22px;
@@ -491,7 +491,7 @@ header {
 .status-unavailable {
   color: #fff !important;
   background-color: #f94548;
-  border-radius: 0.5rem;
+  border-radius: 0.2rem;
   /* border: solid 1.0.5rem #959292; */
   font-size: 12px;
   padding: 2px 14px;
@@ -500,7 +500,7 @@ header {
 .status-complete {
   color: #555050 !important;
   background-color: transparent;
-  border-radius: 0.5rem;
+  border-radius: 0.2rem;
   border: solid 1px #555050;
   font-size: 12px;
   padding: 2px 19px;
@@ -509,7 +509,7 @@ header {
 .status-partRelease {
   color: #637175 !important;
   background-color: transparent;
-  border-radius: 0.5rem;
+  border-radius: 0.2rem;
   border: solid 1px #637175;
   font-size: 12px;
   padding: 1px 6px;
@@ -518,7 +518,7 @@ header {
 .status-Release {
   color: #555050 (209, 204, 204) !important;
   background: transparent;
-  border-radius: 0.5rem;
+  border-radius: 0.2rem;
   border: solid 1px #555050;
   font-size: 12px;
   padding: 2px 23px;

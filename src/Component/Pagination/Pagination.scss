@@ -16,7 +16,7 @@
   cursor: pointer;
 }
 .click-tab:hover{
-  background-color: transparent !important;
+  background-color: #d5d8da !important;
 }
 .outLineNone:focus{
 outline: none;
@@ -41,8 +41,8 @@ input::-webkit-inner-spin-button {
 ul.pagination {
   margin-bottom: 0;
   justify-content: center !important;
-  background-color:transparent;
-  border-right-color: transparent !important;
+  background-color:#d5d8da;
+  border-right-color: #d5d8da !important;
 }
 
 .page-item {
@@ -51,9 +51,9 @@ ul.pagination {
   background-color: #fff;
   display: flex;
   align-items: center;
-  border-radius: 7px;
-  padding-left: 11px;
-  padding-right: 11px;
+  border-radius: 5px;
+  padding-left: 16px;
+  padding-right: 16px;
   width: fit-content !important;
 }
 .icon-size-paging-double{
@@ -117,7 +117,7 @@ nav .pagination li .page-link:focus {
 }
 
 nav .pagination li:first-child .page-link:hover {
-  background-color: transparent !important;
+  background-color: #d5d8da !important;
   border: none !important;
   outline: 0 !important;
 }
@@ -133,7 +133,7 @@ nav .pagination li:nth-child(2) .page-link {
 }
 
 nav .pagination li:nth-child(2) .page-link:hover {
-  background-color: transparent !important;
+  background-color: #d5d8da !important;
   border: none !important;
   outline: 0 !important;
 }
@@ -144,7 +144,7 @@ nav .pagination li:nth-last-child(2) {
 }
 
 nav .pagination li:nth-last-child(2) .page-link:hover {
-  background-color: transparent !important;
+  background-color: #d5d8da !important;
   border: none !important;
   outline: 0 !important;
 }
@@ -165,7 +165,7 @@ nav .pagination li:last-child .page-link {
 }
 
 nav .pagination li:last-child .page-link:hover {
-  background-color: transparent !important;
+  background-color: #d5d8da !important;
   border: none !important;
   outline: 0 !important;
 }

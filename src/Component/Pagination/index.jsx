@@ -79,10 +79,10 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
             ''
           ) : (
             <span className={`text-muted-s px-3 d-flex alig align-items-center`}>
-              <b className="text-muted-soft mr-1"> {`Showing`}</b>
+              <b className="text-muted-soft mr-1" style={{fontWeight:'400'}}> {`Showing`}</b>
               <b className="text-muted-dark mr-1">
                 {`${isNaN(x_from) ? 0 : x_from} to ${isNaN(x_to) ? 0 : x_to} of ${ x_total === undefined ? 0 : x_total}`}</b>
-              <b className="text-muted-soft"> {`entries`}</b>
+              <b className="text-muted-soft" style={{fontWeight:'400'}}> {`entries`}</b>
             </span>
           )}
         </div>
