@@ -95,7 +95,7 @@ const Create = ({ show, setShow }) => {
             </NavItem>
             <NavItem>
               <NavLink
-                style={{ paddingBottom: '7px', maxWidth:'146px'  }}
+                style={{ paddingBottom: '7px' }}
                 className={`d-flex height-nav align-items-center px-3 ${activeTab === 'review' ? 'active' : null}`}
                 onClick={() => {
                   validation({ orderDetails, orderLines, setOrderLines, customerDetails, setActiveTab });
