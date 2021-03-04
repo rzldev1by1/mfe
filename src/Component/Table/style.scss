@@ -155,8 +155,20 @@
 .show-edit-icon {
   .rt-th:last-child {
     position: absolute;
-    background: whitesmoke;
+    background: #F6F7F9;
     right: 0;
     justify-content: center;
+  }
+  .edit-column img:last-child {
+    display: none;
+    cursor: pointer;  
+  }
+  .edit-column:hover img:last-child {
+    display: inline;
+    cursor: pointer;  
+  }
+  .edit-column:hover img:first-child {
+    display: none; 
+    cursor: pointer;   
   }
 }
