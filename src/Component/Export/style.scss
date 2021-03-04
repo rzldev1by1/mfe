@@ -26,9 +26,9 @@
 }
 .Dropdown-menu {
     margin-top: -101px !important;
-    background-color: #fff;
+    background-color: transparent;
     margin-left: -59px;
-    padding-top: 14px;
+    padding-top: 8px;
     transform: translate3d(20px, -1px, 0px);
 }
 .Excel-bottom {
@@ -41,21 +41,23 @@
   margin-left: 48px;
 }
 .export-pdf {
-  border: solid 2px #e8e8e8;
+  border: solid 2px #b4b9bb;
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
   margin-top: -14px;
   padding-top: 10px;
   padding-bottom: 10px;
+  background-color: #fff;
 }
 
 .export-excel {
   border-bottom-left-radius: 0.3rem;
   border-bottom-right-radius: 0.3rem;
   margin-top: -2px;
-  border: solid 2px #e8e8e8;
+  border: solid 2px #b4b9bb;
   padding-top: 10px;
   padding-bottom: 10px;
+  background-color: #fff;
 }
 .export-pdf:focus,
 .export-excel:focus,
@@ -66,11 +68,14 @@
 }
 .dropdown-menu.dropdown-single {
   padding: 0 !important;
-  /* bottom: 0% !important; */
-  margin-top: -50px !important;
+  margin-top: -56px !important;
   background-color: rgb(255, 255, 255);
   margin-left: -37px;
   margin-bottom: 5px !important;
+}
+.radius-top-export{
+  border-top-left-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
 }
 
 .Dropdown-toggel:hover {

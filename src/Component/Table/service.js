@@ -1,5 +1,7 @@
 import { objectOf } from 'prop-types';
 import React from 'react';
+import logoEdit from 'assets/img/Icon-edit-column.png';
+import logoEditHover from 'assets/img/Icon-edit-column-hover.png'
 
 const getColumnWidth = (rows, accessor, headerText, minWidth) => {
   const magicSpacing = 9;
@@ -56,7 +58,9 @@ export const renewColumn = async ({
   if (editColumn !== 'false') {
     const editBtn = (
       <div className="edit-column" onClick={showModal.bind(this, true)}>
-        <i className="iconU-edit" />
+        <img src={logoEdit} alt="logo" style={{ width: '60%'}} />
+        <img src={logoEditHover} alt="logo" style={{ width: '60%' }} />
+        {/* <i className="iconU-edit" /> */}
       </div>
     );
     const obj = {

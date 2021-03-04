@@ -16,7 +16,7 @@
   cursor: pointer;
 }
 .click-tab:hover{
-  background-color: #d5d8da !important;
+  background-color: #b4b9bb !important;
 }
 .outLineNone:focus{
 outline: none;
@@ -213,6 +213,28 @@ nav .pagination li:last-child .page-link:hover {
 .form-control-sm{
   padding-left: 4.7% !important;
 }
-.box-input{
-  border-radius: 5px;
+
+.border-left-none{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+.border-right-none{
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.bg-paging-search{
+  background-color: #f6f7f9;
+  margin-left: -4px;
+}
+.paging-previous{
+  margin-left: -4px;
+  border-radius: 0px;
+}
+.margin-none-left{
+ margin-left: 0px !important;
+}
+.input-paging{
+    text-align: center;
+    border: solid 2px #b4b9bb;
+    background-color: #f6f7f9;
 }

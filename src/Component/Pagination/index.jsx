@@ -44,30 +44,31 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
     <div>
       <form onSubmit={searchForm}>
         <div style={{ width: 'fit-content', height:'49px' }} className="d-flex">
-          <div className={`page-item ${pagination?.active == 1 ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
-               onClick={() => changePage({active:1, dispatch, module, props, searchFilter})}>
+          <div className={`page-item border-right-none ${pagination?.active == 1 ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
+               onClick={() => pagination?.active == 1 ? "" :
+                        (changePage({active:1, dispatch, module, props, searchFilter}))}>
                 <BsChevronBarLeft className='icon-size-paging-double' />
           </div>
-          <div className={`page-item mr-2 ${pagination?.active == 1 ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
-               onClick={() => changePage({active:pagination?.active - 1, dispatch, module, props, searchFilter})}>
+          <div className={`page-item paging-previous ${pagination?.active == 1 ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
+               onClick={() => pagination?.active == 1 ? "" :
+                        (changePage({active:pagination?.active - 1, dispatch, module, props, searchFilter}))}>
                   <BsChevronLeft className='icon-size-paging'  />
           </div>
-            <div className={`d-flex align-items-center bg-white pl-2 pr-2 rounded-right box-input`}>
+            <div className={`d-flex align-items-center bg-paging-search pl-2 pr-2`}>
               <input
                 id='paging-number'
                 type="number"
                 placeholder={pagination?.active}
-                className="number-pag rounded"
+                className="number-pag rounded input-paging"
                 onChange={(e) => onChange({ e, page, setPage })}
                 onKeyDown={(e) => search(e)}
                 min="1"
                 max={pages > 0 ? pages : 1}
                 onKeyPress={(e) => numberCheck(e)}
-                style={{ textAlign: 'center' }}
               />
-              <span className="text-muted-soft ml-2 mr-2">of {x_last_page}</span>
+              <span className="text-muted-soft ml-2">of {x_last_page}</span>
             </div>
-          <div className={`page-item ml-2 ${pagination?.active >= x_last_page ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
+          <div className={`page-item margin-none-left border-left-none ${pagination?.active >= x_last_page ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
                onClick={() => changePage({active:pagination?.active + 1, dispatch, module, props, searchFilter})}>
                 <BsChevronRight className=" icon-size-paging" />
           </div>

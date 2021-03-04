@@ -140,7 +140,10 @@ const Export = ({
             ''
           ) : (
             <div>
-              <DropdownItem className="export-excel so-export px-1 d-flex justify-content-center" onClick={() => setRunExport('XLS')}>
+              <DropdownItem 
+                  className={`export-excel so-export px-1 d-flex justify-content-center
+                  ${exportPdf === false ? ' radius-top-export' : ''}`}
+                  onClick={() => setRunExport('XLS')}>
                 <span className="exp-XLS" style={{ paddingRight: '0.3rem' }} />
                 EXPORT TO XLS
               </DropdownItem>
