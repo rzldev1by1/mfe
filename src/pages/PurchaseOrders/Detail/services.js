@@ -127,6 +127,7 @@ export const schemaColumnDetailPO = [
     accessor: 'rotadate',
     placeholder: 'Rotadate',
     Header: 'Rotadate',
+    Cell: (props) => formatDate(props.value) || '-',
     width: 130,
   },
   {
