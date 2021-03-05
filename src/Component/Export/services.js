@@ -107,6 +107,7 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
       //set align right
       if (alignRight.includes(dataKey) && section !== 'head') {
         data.cell.styles.halign = 'right';
+        return;
       }
 
       if (dataKey === 6) {
@@ -130,7 +131,9 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
       }
       if (dataKey === 9) {
         const dataColumns = data.row.raw[14];
-        console.log(dataColumns);
+        if (!dataColumns) {
+          return;
+        }
         if (dataColumns[0] == 'x') {
           doc.setTextColor(252, 28, 3);
         }

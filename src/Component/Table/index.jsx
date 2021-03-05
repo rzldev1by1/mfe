@@ -95,7 +95,6 @@ const Table = ({
           };
         }}
         defaultSortMethod={(a, b) => {
-          console.log(a, b);
           let type = 'string';
           a = a !== '-' ? a : '';
           b = b !== '-' ? b : '';
