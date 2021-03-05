@@ -150,7 +150,7 @@ const Create = ({ show, setShow }) => {
                 <Row className="mt-3 pt-3">
                   <Col lg={2}>
                     <button className="btn btn-primary" onClick={() => setActiveTab('details')}>
-                      {'< BACK'}
+                      {'BACK'}
                     </button>
                   </Col>
                   <Col lg={8}>
