@@ -86,7 +86,7 @@ const SalesOrdersDetail = (props) => {
   let indexCustomerName = soDetail?.customername ? soDetail?.customername.split(":") : []
   if (indexCustomerName !== undefined) indexCustomerName = indexCustomerName[1];
   return (
-    <div>
+    <div className="so-detail">
       <Breadcrumb
         breadcrumb={[
           { to: '/sales-order', label: 'Sales Order' },

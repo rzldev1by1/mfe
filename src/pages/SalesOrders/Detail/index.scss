@@ -7,15 +7,16 @@
  .display-paging{
      display: none !important;
  }
-
- .ReactTable{
-  .rt-table {
-    .rt-tbody {
-      .rt-tr-group {
-        .rt-tr {
-          .rt-td:first-child {
-            padding-right: 1.8rem !important;
-            justify-content:center ;
+.so-detail{
+  .ReactTable{
+    .rt-table {
+      .rt-tbody {
+        .rt-tr-group {
+          .rt-tr {
+            .rt-td:first-child {
+              padding-right: 1.8rem !important;
+              justify-content:center ;
+            }
           }
         }
       }
