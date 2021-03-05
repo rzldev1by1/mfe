@@ -1,9 +1,17 @@
 .table-detail {
+ 
   .rt-tbody .rt-tr-group:hover {
     background-color: #fff !important;
     cursor: default !important;
   }
 }
+
+.stock-detail{
+  .ReactTable .rt-table{
+    border-radius: 0px 4px 4px 4px !important;
+  }
+}
+
 .display-paging {
   display: none !important;
 }
