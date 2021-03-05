@@ -10,6 +10,7 @@ import Dropdown from 'Component/Dropdown';
 import DatePicker from 'shared/DatePicker';
 import moment from 'moment';
 import DropdownAxios from 'Component/Dropdown/DropdownAxios';
+import Input from 'Component/Input';
 import './style.scss';
 
 const Search = ({ setHeader, setdateHeader }) => {
@@ -48,9 +49,12 @@ const Search = ({ setHeader, setdateHeader }) => {
 
   useEffect(() => {
     if (isSearch === true) {
-      dispatch({ type: 'GET_SM_SUMMARY', data: undefined });
-      getStockMovement({ dropdownValue, dispatch });
-      setHeaderSummary({ dropdownValue, setHeader, setdateHeader });
+      console.log(isSearch, period, fromDate, toDate);
+      if ((period && fromDate, toDate)) {
+        dispatch({ type: 'GET_SM_SUMMARY', data: undefined });
+        getStockMovement({ dropdownValue, dispatch });
+        setHeaderSummary({ dropdownValue, setHeader, setdateHeader });
+      }
       setIsSearch(false);
     }
   }, [isSearch]);
@@ -71,7 +75,7 @@ const Search = ({ setHeader, setdateHeader }) => {
                 options={periodData}
                 onChangeDropdown={(selected) => {
                   let newDropdownValue = dropdownValue;
-                  setdropdownValue({ ...newDropdownValue, period: selected, fromDate: null });
+                  setdropdownValue({ ...newDropdownValue, period: selected, fromDate: null, toDate: null });
                   dateFrom.current.resetDateValue();
                   dateTo.current.resetDateValue();
                   if (selected) {
@@ -80,6 +84,17 @@ const Search = ({ setHeader, setdateHeader }) => {
                 }}
                 selectedValue={period}
                 className=" z-99"
+              />
+              <Input
+                placeholder={'Period'}
+                value={period}
+                readOnly
+                style={{ display: 'none' }}
+                messageRequired={true}
+                messageParam={{
+                  messageShow: true,
+                  value: period,
+                }}
               />
             </CCol>
             <div className="colDateText d-flex text-light-gray align-items-center">Date From</div>
@@ -99,6 +114,18 @@ const Search = ({ setHeader, setdateHeader }) => {
                 selectedDates={fromDate ? new Date(fromDate) : null}
                 ref={dateFrom}
               />
+              <Input
+                name="validDates"
+                placeholder={'Date From'}
+                value={fromDate}
+                readOnly
+                style={{ display: 'none' }}
+                messageRequired={true}
+                messageParam={{
+                  messageShow: true,
+                  value: fromDate,
+                }}
+              />
             </CCol>
             <div className="colDateText d-flex text-light-gray align-items-center">Date To</div>
             <CCol lg={2} sm={10} className="colDate pr-3 pl-0">
@@ -112,10 +139,22 @@ const Search = ({ setHeader, setdateHeader }) => {
                   setdropdownValue({ ...newDropdownValue, toDate: selected });
                 }}
                 firstDate={fromDate ? new Date(fromDate) : null}
-                fromMonth={defaultDate?.minDate}
+                fromMonth={fromDate ? fromDate : defaultDate?.minDate}
                 toMonth={defaultDate?.maxDate}
-                selectedDates={fromDate ? new Date(toDate) : null}
+                selectedDates={toDate ? new Date(toDate) : null}
                 ref={dateTo}
+              />
+              <Input
+                name="validDates"
+                placeholder={'Date To'}
+                value={toDate}
+                readOnly
+                style={{ display: 'none' }}
+                messageRequired={true}
+                messageParam={{
+                  messageShow: true,
+                  value: toDate,
+                }}
               />
             </CCol>
 
