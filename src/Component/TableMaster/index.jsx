@@ -53,13 +53,18 @@ const TableMaster = ({
           isDisplay={isDisplay}
           props={props}
         />
-        <Export
-          filename={filename}
-          getExportData={async () => await getExportData()}
-          exportApi={exportApi}
-          schemaColumn={schemaColumn}
-          exportPdf={exportPdf}
-        />
+
+        {pagination && pagination.total < 1 ? (
+          ''
+        ) : (
+          <Export
+            filename={filename}
+            getExportData={async () => await getExportData()}
+            exportApi={exportApi}
+            schemaColumn={schemaColumn}
+            exportPdf={exportPdf}
+          />
+        )}
       </CRow>
     </div>
   );

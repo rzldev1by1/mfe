@@ -23,20 +23,22 @@ const StockHoldingDetail = (props) => {
   const user = useSelector((state) => state.user);
   const module = 'stockHolding';
   const [activeTab, setActiveTab] = useState('1');
-
   useEffect(() => {
     getDetailHeader({ dispatch, props, module });
+    getDetailData({ dispatch, props, active: paginationShDetail?.active || 1, module });
+    getForescast({ dispatch, props, active: paginationShForecast?.active || 1 });
   }, []);
-  useEffect(() => {
-    if (!shDetailTable) {
-      getDetailData({ dispatch, props, active: paginationShDetail?.active || 1, module });
-    }
-  }, []);
-  useEffect(() => {
-    if (!shDetailForescast) {
-      getForescast({ dispatch, props, active: paginationShForecast?.active || 1 });
-    }
-  }, []);
+
+  // useEffect(() => {
+  //   if (!shDetailTable) {
+  //     getDetailData({ dispatch, props, active: paginationShDetail?.active || 1, module });
+  //   }
+  // }, []);
+  // useEffect(() => {
+  //   if (!shDetailForescast) {
+  //     getForescast({ dispatch, props, active: paginationShForecast?.active || 1 });
+  //   }
+  // }, []);
 
   const height = window.innerHeight - 378;
   const widht = window.innerWidth;
