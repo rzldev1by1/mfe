@@ -71,9 +71,9 @@ export const schemaColumn = [
     },
     Cell: (row) =>
       row.value === 'Suspended' ? (
-        <label className="um-suspended">Suspended</label>
+        <label className="um-suspended m-0">Suspended</label>
       ) : (
-        <label className="um-active">Active</label>
+        <label className="um-active m-0">Active</label>
       ),
   },
 ];
