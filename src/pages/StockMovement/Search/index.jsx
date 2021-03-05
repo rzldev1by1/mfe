@@ -90,6 +90,7 @@ const Search = ({ setHeader, setdateHeader }) => {
                 tabIndex="1"
                 placeHolder="Select Date"
                 getDate={(selected) => {
+                  console.log(selected);
                   let newDropdownValue = dropdownValue;
                   setdropdownValue({ ...newDropdownValue, fromDate: selected });
                   dateTo.current.openDatePicker();

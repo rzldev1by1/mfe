@@ -196,6 +196,7 @@ class DatePicker extends React.Component {
   };
 
   dateValueProcess = (e) => {
+    console.log(e.target.value);
     this.setState({ defaultValue: e.target.value });
     if (e.target.value.length >= 10) {
       let value = e.target.value.split('');
@@ -213,7 +214,8 @@ class DatePicker extends React.Component {
   };
 
   disabledAlpha = (e) => {
-    if (!/[0-9]/g.test(e.key) && e.key !== 'Backspace' && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') {
+    const regex = /[0-9/]/g.test(e.key);
+    if (!regex && e.key !== 'Backspace' && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') {
       e.preventDefault();
     }
 
