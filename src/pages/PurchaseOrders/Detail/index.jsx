@@ -59,18 +59,32 @@ const PurchaseOrdersDetail = (props) => {
 
   useEffect(() => {
     if (stateChangeHeader) {
-      setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
-      setState2(true);
-    }
-  }, [stateChangeHeader]);
-
-  useEffect(() => {
-    if (state2) {
+      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
       let x = columnHidden?.map((data, idx) => {
         if (data.title === 'Purchase Order Details') {
           setColumnHidden(data.columns);
         }
       });
+      dispatch({ type: 'CHANGE_HEADER', data: false });
+    }
+  }, [stateChangeHeader]);
+
+  useEffect(() => {
+    if (state2) {
+      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      let tmp = null;
+      let x = columnHidden?.map((data, idx) => {
+        console.log(data);
+        if (data.title === 'Purchase Order Details') {
+          tmp = data.columns;
+        }
+      });
+      if (tmp) {
+        setColumnHidden(tmp);
+      } else {
+        setColumnHidden([]);
+      }
+      console.log('state2', tmp);
       setState2(false);
       dispatch({ type: 'CHANGE_HEADER', data: false });
     }

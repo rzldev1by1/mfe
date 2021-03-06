@@ -39,7 +39,6 @@ const EditRenameColumn = ({
     ErrorClose.sameColumnsIdx = [];
     setState(ErrorClose);
   };
-
   const Required = ({ error, id }) => {
     if (error) {
       const object = Object.keys(error);
