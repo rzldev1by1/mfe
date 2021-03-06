@@ -2,10 +2,9 @@ import axios from 'axios';
 import validations from './validations';
 
 export const showColumn = ({ header, length, setState, state }) => {
-  const max = length - Object.keys(state.editColumn).length >= 1;
+  const max = length - Object.keys(state.editColumn).length > 1;
   const hide = !state.editColumn.includes(header); // true || false
   const newState = { ...state };
-  // console.log(max, header, length, Object.keys(state.editColumn).length);
   if (hide && max) {
     state.editColumn.push(header);
     newState.editColumn = state.editColumn;
