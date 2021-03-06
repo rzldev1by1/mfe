@@ -53,7 +53,7 @@ export const getOrderType = async ({ dispatch, company, client, module }) => {
     }));
   }
 
-  const orderType = { value: 'all', label: 'All' };
+  const orderType = { value: 'all', label: 'All Order Type' };
   orderTypeFilterData.splice(0, 0, orderType);
   dispatch({ type: 'ORDER_TYPE_DATA', data: orderTypeFilterData });
   // }
