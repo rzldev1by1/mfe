@@ -602,7 +602,8 @@ export const onChangeName = ({ e, state, setState }) => {
 };
 export const checkNameValidation = ({ textName, state, setState }) => {
   const newState = { ...state };
-  let isValid = textName === '' ? false : true;
+  console.log(textName);
+  let isValid = textName == '' ? false : true;
   newState.validation.name['isValid'] = isValid;
   if (!isValid) newState.validation.name['message'] = utility.validationMsg.USERNAME_REQUIRED;
   else newState.validation.name['message'] = '';

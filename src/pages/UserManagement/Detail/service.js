@@ -61,3 +61,20 @@ export const onChangeEmail = async ({ e, state, setState }) => {
   }
   setState(newState);
 };
+
+export const buttonValidation = async ({ setIsButton, validation }) => {
+  let status = true;
+  if (validation) {
+    for (var key in validation) {
+      if (!validation[key]['isValid']) {
+        status = false;
+      }
+    }
+
+    if (status) {
+      setIsButton(true);
+    } else {
+      setIsButton(false);
+    }
+  }
+};

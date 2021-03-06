@@ -52,7 +52,9 @@ const Form = ({
   const { client, site } = user;
 
   useEffect(() => {
-    addOrderLines({ orderLines, setOrderLines });
+    if (orderLines?.length < 1) {
+      addOrderLines({ orderLines, setOrderLines });
+    }
   }, []);
 
   useEffect(() => {
