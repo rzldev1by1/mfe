@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import { BsChevronLeft, BsChevronRight, BsChevronBarLeft, BsChevronBarRight } from 'react-icons/bs';
 import { useSelector, useDispatch } from 'react-redux';
 import PopUpPages from 'Component/Modal/PopUpPages';
-import {  numberCheck, 
-          onChange,
-          goToPage,
-          changePage, } from 'Component/Pagination/service';
+import { numberCheck, onChange, goToPage, changePage } from 'Component/Pagination/service';
 import './Pagination.scss';
 
 const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
@@ -33,7 +30,7 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
     if (e.key === 'Enter') {
       document.getElementById('paging-number').blur();
       await goToPage({ goto, pagination, page, setPage, dispatch, module, searchFilter });
-      document.getElementById('paging-number').value = "";
+      document.getElementById('paging-number').value = '';
     }
   };
   const searchForm = (e) => {
@@ -43,47 +40,70 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
   return (
     <div>
       <form onSubmit={searchForm}>
-        <div style={{ width: 'fit-content', height:'49px' }} className="d-flex">
-          <div className={`page-item border-right-none ${pagination?.active == 1 ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
-               onClick={() => pagination?.active == 1 ? "" :
-                        (changePage({active:1, dispatch, module, props, searchFilter}))}>
-                <BsChevronBarLeft className='icon-size-paging-double' />
+        <div style={{ width: 'fit-content', height: '49px' }} className="d-flex">
+          <div
+            className={`page-item border-right-none ${
+              pagination?.active == 1 ? 'text-muted-soft' : ' text-muted-dark click-tab'
+            }`}
+            onClick={() =>
+              pagination?.active == 1 ? '' : changePage({ active: 1, dispatch, module, props, searchFilter })
+            }
+          >
+            <BsChevronBarLeft className="icon-size-paging-double" />
           </div>
-          <div className={`page-item paging-previous ${pagination?.active == 1 ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
-               onClick={() => pagination?.active == 1 ? "" :
-                        (changePage({active:pagination?.active - 1, dispatch, module, props, searchFilter}))}>
-                  <BsChevronLeft className='icon-size-paging'  />
+          <div
+            className={`page-item paging-previous ${
+              pagination?.active == 1 ? 'text-muted-soft' : ' text-muted-dark click-tab'
+            }`}
+            onClick={() =>
+              pagination?.active == 1
+                ? ''
+                : changePage({ active: pagination?.active - 1, dispatch, module, props, searchFilter })
+            }
+          >
+            <BsChevronLeft className="icon-size-paging" />
           </div>
-            <div className={`d-flex align-items-center bg-paging-search pl-2 pr-2`}>
-              <input
-                id='paging-number'
-                type="number"
-                placeholder={pagination?.active}
-                className="number-pag rounded input-paging"
-                onChange={(e) => onChange({ e, page, setPage })}
-                onKeyDown={(e) => search(e)}
-                min="1"
-                max={pages > 0 ? pages : 1}
-                onKeyPress={(e) => numberCheck(e)}
-              />
-              <span className="text-muted-soft ml-2">of {x_last_page}</span>
-            </div>
-          <div className={`page-item margin-none-left border-left-none ${pagination?.active >= x_last_page ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
-               onClick={() => changePage({active:pagination?.active + 1, dispatch, module, props, searchFilter})}>
-                <BsChevronRight className=" icon-size-paging" />
+          <div className={`d-flex align-items-center bg-paging-search pl-2 pr-2`}>
+            <input
+              id="paging-number"
+              type="number"
+              placeholder={pagination?.active}
+              className="number-pag rounded input-paging"
+              onChange={(e) => onChange({ e, page, setPage })}
+              onKeyDown={(e) => search(e)}
+              min="1"
+              max={pages > 0 ? pages : 1}
+              onKeyPress={(e) => numberCheck(e)}
+            />
+            <span className="text-muted-soft ml-2">of {x_last_page}</span>
           </div>
-          {/* <div className={`page-item ${pagination?.active >= x_last_page ? 'text-muted-soft' :' text-muted-dark click-tab'}`} 
-               onClick={() => changePage({active:x_last_page, dispatch, module, props, searchFilter})}>
-                <BsChevronBarRight className="icon-size-paging-double" />
-          </div> */}
+          <div
+            className={`page-item margin-none-left border-left-none ${
+              pagination?.active >= x_last_page ? 'text-muted-soft' : ' text-muted-dark click-tab'
+            }`}
+            onClick={() => {
+              if (pagination?.active < x_last_page) {
+                changePage({ active: pagination?.active + 1, dispatch, module, props, searchFilter });
+              }
+            }}
+          >
+            <BsChevronRight className=" icon-size-paging" />
+          </div>
           {isDisplay === false ? (
             ''
           ) : (
             <span className={`text-muted-s px-3 d-flex alig align-items-center`}>
-              <b className="text-muted-soft mr-1" style={{fontWeight:'400'}}> {`Showing`}</b>
+              <b className="text-muted-soft mr-1" style={{ fontWeight: '400' }}>
+                {' '}
+                {`Showing`}
+              </b>
               <b className="text-muted-dark mr-1">
-                {`${isNaN(x_from) ? 0 : x_from} to ${isNaN(x_to) ? 0 : x_to} of ${ x_total === undefined ? 0 : x_total}`}</b>
-              <b className="text-muted-soft" style={{fontWeight:'400'}}> {`entries`}</b>
+                {`${isNaN(x_from) ? 0 : x_from} to ${isNaN(x_to) ? 0 : x_to} of ${x_total === undefined ? 0 : x_total}`}
+              </b>
+              <b className="text-muted-soft" style={{ fontWeight: '400' }}>
+                {' '}
+                {`entries`}
+              </b>
             </span>
           )}
         </div>

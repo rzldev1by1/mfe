@@ -338,7 +338,7 @@ export const submit = async ({
     orderType: orderDetails?.orderType?.value || '',
     orderDate: orderDetails?.orderDate || '',
     customerOrderRef: orderDetails?.customerOrderRef || '',
-    supplier: orderDetails?.supplier?.value || '',
+    supplier: orderDetails?.supplier || '',
     vendorOrderRef: orderDetails?.vendorOrderRef || '',
     web_user: user.webUser,
   };

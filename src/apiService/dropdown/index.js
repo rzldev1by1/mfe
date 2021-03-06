@@ -40,12 +40,20 @@ export const getOrderType = async ({ dispatch, company, client, module }) => {
   }
 
   const { data } = await axios.get(`${url}?company=${company}&client=${client}`);
-  const orderTypeFilterData = data.orderTypeFilter.map((dataIndex) => ({
-    value: dataIndex.code,
-    label: `${dataIndex.code}: ${dataIndex.description}`,
-  }));
+  let orderTypeFilterData = [];
+  if (module == 'purchaseOrder') {
+    orderTypeFilterData = data.orderTypeFilter.map((dataIndex) => ({
+      value: dataIndex.code,
+      label: `${dataIndex.code}: ${dataIndex.description}`,
+    }));
+  } else {
+    orderTypeFilterData = data.orderTypeFilter.map((dataIndex) => ({
+      value: dataIndex.code,
+      label: `${dataIndex.code}: ${dataIndex.name}`,
+    }));
+  }
 
-  const orderType = { value: 'all', label: 'All' };
+  const orderType = { value: 'all', label: 'All Order Type' };
   orderTypeFilterData.splice(0, 0, orderType);
   dispatch({ type: 'ORDER_TYPE_DATA', data: orderTypeFilterData });
   // }
