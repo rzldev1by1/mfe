@@ -30,6 +30,7 @@ const Search = ({ setHeader, setdateHeader }) => {
     toDate: moment().format('YYYY-MM-DD'),
     productVal: '',
     period: { value: 'week', label: `Weekly` },
+    firstValue: false,
   });
   const [periodData, setPeriodData] = useState([
     { value: 'day', label: `Daily` },
@@ -38,7 +39,7 @@ const Search = ({ setHeader, setdateHeader }) => {
   ]);
 
   const { company, client, site } = user;
-  const { siteVal, clientVal, period, fromDate, toDate, productVal } = dropdownValue;
+  const { siteVal, clientVal, period, fromDate, toDate, productVal, firstValue } = dropdownValue;
 
   useEffect(() => {
     getSite({ dispatch });
@@ -84,26 +85,41 @@ const Search = ({ setHeader, setdateHeader }) => {
             </CCol>
             <div className="colDateText d-flex text-light-gray align-items-center">Date From</div>
             <CCol lg={2} sm={10} className="colDate pr-3 pl-0">
-              <DatePicker
+              {/* <DatePicker
                 style={{ minWidth: '100%' }}
                 arrowStyle={true}
                 tabIndex="1"
                 placeHolder="Select Date"
                 getDate={(selected) => {
                   console.log(selected);
-                  let newDropdownValue = dropdownValue;
-                  setdropdownValue({ ...newDropdownValue, fromDate: selected });
+                  // let newDropdownValue = dropdownValue;
+                  setdropdownValue({ fromDate: selected });
                   dateTo.current.openDatePicker();
                 }}
                 fromMonth={defaultDate?.minDate}
                 toMonth={defaultDate?.maxDate}
-                selectedDates={fromDate ? new Date(fromDate) : null}
+                selectedDates={new Date(fromDate)}
                 ref={dateFrom}
-              />
+              /> */}
+               <DatePicker
+                  style={{ minWidth: '100%' }}
+                  ref={dateFrom}
+                  arrowStyle={true}
+                  getDate={(e) => { 
+                     let newDropdownValue = dropdownValue;
+                     setdropdownValue({...newDropdownValue, fromDate: e, firstValue: false })
+                  }}
+                  defaultValue={new Date(fromDate)}
+                  tabIndex="1"
+                  placeHolder="Select Date"
+                  onChange={(e) => { dateTo.current.openDatePicker('to') }}
+                  fromMonth={defaultDate?.minDate}
+                  toMonth={defaultDate?.maxDate}
+                />
             </CCol>
             <div className="colDateText d-flex text-light-gray align-items-center">Date To</div>
             <CCol lg={2} sm={10} className="colDate pr-3 pl-0">
-              <DatePicker
+              {/* <DatePicker
                 style={{ minWidth: '100%' }}
                 arrowStyle={true}
                 tabIndex="1"
@@ -117,7 +133,24 @@ const Search = ({ setHeader, setdateHeader }) => {
                 toMonth={defaultDate?.maxDate}
                 selectedDates={fromDate ? new Date(toDate) : null}
                 ref={dateTo}
-              />
+              /> */}
+              <DatePicker
+                  style={{ minWidth: '100%' }}
+                  ref={dateTo}
+                  arrowStyle={true}
+                  firstDate={fromDate ? new Date(fromDate) : fromDate}
+                  firstValue={firstValue}
+                  onOpen={() => { dateTo.current.openDatePicker('from') }}
+                  getDate={(e) => { 
+                    let newDropdownValue = dropdownValue;
+                    setdropdownValue({ ...newDropdownValue, toDate: e });
+                  }}
+                  defaultValue={new Date(toDate)}
+                  tabIndex="1"
+                  placeHolder="Select Date"
+                  fromMonth={defaultDate?.minDate}
+                  toMonth={defaultDate?.maxDate}
+                />
             </CCol>
 
             <CCol style={{ flexGrow: 1 }} className="pl-0   colOthers">

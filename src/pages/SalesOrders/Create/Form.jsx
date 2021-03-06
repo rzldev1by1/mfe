@@ -499,7 +499,7 @@ const Form = ({
                 <div className="c-150">Pack ID</div>
               </td>
               <td>
-                <div className="c-150">RotaDate</div>
+                <div className="c-150">Rotadate</div>
               </td>
               <td>
                 <div className="c-50" />
