@@ -45,7 +45,7 @@ const PurchaseOrders = (props) => {
   });
 
   useEffect(() => {
-      getSummaryData({ dispatch, active: paginationSh?.active, module });
+    getSummaryData({ dispatch, active: paginationSh?.active, module });
   }, []);
 
   const [columnHidden, setColumnHidden] = useState(null);
@@ -77,7 +77,7 @@ const PurchaseOrders = (props) => {
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      getSummaryData({ dispatch, active: paginationSh?.active, Export, module });
+      // getSummaryData({ dispatch, active: paginationSh?.active, Export, module });
     }
   }, [Export]);
   return (
@@ -94,6 +94,7 @@ const PurchaseOrders = (props) => {
             filter
             onChangeGetTask
             statusDataSH={statusDataSH}
+            Export={Export}
           />
         </div>
         <div>

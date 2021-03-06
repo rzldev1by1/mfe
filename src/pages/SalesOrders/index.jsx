@@ -77,7 +77,7 @@ const SalesOrders = (props) => {
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      getSummaryData({ dispatch, active: paginationSo?.active, Export, module });
+      // getSummaryData({ dispatch, active: paginationSo?.active, Export, module });
     }
   }, [Export]);
   return (
@@ -102,6 +102,7 @@ const SalesOrders = (props) => {
             placeholder="Enter an Order No"
             filter
             onChangeGetTask
+            Export={Export}
           />
         </div>
         <div>

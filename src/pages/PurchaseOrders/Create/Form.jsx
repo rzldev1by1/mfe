@@ -48,7 +48,9 @@ const Form = ({
   // const { orderDetails, orderLines, orderLinesData } = createData;
 
   useEffect(() => {
-    addOrderLines({ orderLines, setOrderLines });
+    if (orderLines?.length < 1) {
+      addOrderLines({ orderLines, setOrderLines });
+    }
   }, []);
 
   useEffect(() => {

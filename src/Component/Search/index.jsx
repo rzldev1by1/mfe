@@ -28,6 +28,7 @@ const Search = ({
   filterTask,
   statusDataSH,
   onChangeGetTask = false,
+  Export = false,
 }) => {
   // params
   const dispatch = useDispatch();
@@ -135,6 +136,22 @@ const Search = ({
     newDropdownValue.task,
     newDropdownValue.status,
   ]);
+
+  useEffect(() => {
+    if (Export === true) {
+      getSummaryData({
+        siteVal: newDropdownValue.site,
+        clientVal: newDropdownValue.client,
+        orderType: newDropdownValue.orderType,
+        task: newDropdownValue.task,
+        status: newDropdownValue.status,
+        dispatch,
+        searchInput,
+        module,
+        Export,
+      });
+    }
+  }, [Export]);
 
   return (
     <CCard className={`mb-3`}>
