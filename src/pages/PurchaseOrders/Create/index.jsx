@@ -8,11 +8,6 @@ import { getPOResources, getDisposition } from 'apiService/dropdown';
 import loading from 'assets/icons/loading/LOADING-MLS.gif';
 import MessageTab from 'Component/MessageTab';
 import './style.scss';
-// icon
-import iconCreate from '../../../assets/img/Icon-create.png';
-import iconCreateHover from '../../../assets/img/Icon-create-hover.png';
-import iconReview from '../../../assets/img/Icon-review.png';
-import iconReviewHover from '../../../assets/img/Icon-review-hover.png';
 
 const Create = ({ show, setShow }) => {
   const dispatch = useDispatch();
@@ -76,12 +71,7 @@ const Create = ({ show, setShow }) => {
                 className={`d-flex height-nav align-items-center px-3 ${activeTab === 'details' ? 'active' : null}`}
                 onClick={() => setActiveTab('details')}
               >
-                {/* <span className="number-number-1 mr-2" /> */}
-                {activeTab === 'details' ? (
-                  <img src={iconCreateHover} alt="logo" style={{ width: '10.7%'}} />
-                ):(
-                  <img src={iconCreate} alt="logo" style={{ width: '10.7%'}} />
-                )}
+                <span className="newIcon-create_edit" />
                 <div className="pl-2">Order & Product Details</div>
               </NavLink>
             </NavItem>
@@ -94,12 +84,7 @@ const Create = ({ show, setShow }) => {
                   setIsValidation(true);
                 }}
               >
-                {/* <span className="number-number-2 mr-2" />  */}
-                {activeTab === 'review' ? (
-                  <img src={iconReviewHover} alt="logo" style={{ width: '25.7%'}} />
-                ):(
-                  <img src={iconReview} alt="logo" style={{ width: '25.7%'}} />
-                )}
+                <span className="newIcon-review" /> 
                 <div className="pl-2">Review</div>
               </NavLink>
             </NavItem>

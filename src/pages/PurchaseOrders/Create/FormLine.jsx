@@ -235,7 +235,7 @@ const FormLine = ({
               orderLines,
               setOrderLines,
             });
-            setOrderLineSelectOpen(null);
+            setOrderLineSelectOpen('datePicker');
           }}
           showDatePicker={() => {
             setOrderLineSelectOpen('datePicker');
