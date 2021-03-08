@@ -113,9 +113,10 @@ const Form = ({
       setDropdownExpandStyle('lineDetailsTopExpand');
     } else if (orderLineSelectOpen == 'dropdown') {
       setDropdownExpandStyle('lineDetailsBottomExpand');
-    } else {
-      setDropdownExpandStyle(null);
     }
+    // else {
+    //   setDropdownExpandStyle(null);
+    // }
   }, [orderLineSelectOpen]);
 
   return (
