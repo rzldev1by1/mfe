@@ -98,7 +98,7 @@ const StockHoldingDetail = (props) => {
                       activeTab === '1' ? ' tab-custom' : 'tab-nonActive'
                     }`}
                   >
-                    <span className="number-number-1 tabTitleText" />
+                    <span className="newIcon-stock_details tabTitleText" />
                     {activeTab === '1'}
                     Stock Details
                   </div>
@@ -121,7 +121,7 @@ const StockHoldingDetail = (props) => {
                         activeTab === '2' ? ' tab-custom' : 'tab-nonActive'
                       }`}
                     >
-                      <span className="number-number-2 tabTitleText" />
+                      <span className="newIcon-stock_balance tabTitleText" />
                       {activeTab === '2'}
                       Stock Balance Forecast
                     </div>

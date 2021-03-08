@@ -159,6 +159,12 @@ input:-webkit-autofill {
   background-color: white !important;
   border: 1px solid #3366ff !important;
 }
+.btn-light-none {
+  color: transparent !important;
+  font-weight: 600 !important;
+  background-color: transparent !important;
+  border: 1px solid transparent !important;
+}
 
 .sh-input {
   padding-left: 0.75rem !important;
@@ -754,4 +760,11 @@ input.form-control.input-danger {
   background-color: #124ffa !important;
   border-color: #0546fa !important;
   box-shadow: 0 0 0 0.2rem rgba(85, 129, 252, 0.5);
+}
+
+.newIcon-create_edit{
+  font-size: 1.7rem;
+}
+.newIcon-review{
+  font-size: 1.7rem;
 }

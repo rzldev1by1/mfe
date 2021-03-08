@@ -106,9 +106,9 @@ const Form = ({
     } else if (orderLineSelectOpen == 'dropdown') {
       setDropdownExpandStyle('lineDetailsBottomExpand');
     }
-    // else {
-    //   setDropdownExpandStyle(null);
-    // }
+    else{
+      setDropdownExpandStyle(null);
+    }
   }, [orderLineSelectOpen]);
 
   return (
@@ -347,9 +347,8 @@ const Form = ({
 
       <div>
         <button
-          style={isReadonly ? { display: 'none' } : null}
           type="button"
-          className="btn btn-light-blue m-0"
+          className={`btn m-0 ${isReadonly ? `btn-light-none`: `btn-light-blue`}`}
           onClick={async () => {
             //validate first
             setIsValidation(true);

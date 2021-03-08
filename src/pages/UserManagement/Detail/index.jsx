@@ -95,7 +95,7 @@ const UserManagementDetail = (props) => {
               <div className="row mb-3">
                 <div className="col-12">
                   <h3 className="mb-0">
-                    <i class="fa fa-user pr-3" aria-hidden="true"></i>
+                    <i class="fa newIcon-profile pr-3" aria-hidden="true"></i>
                     <label className="text-primary mb-0">{newState.accountInfo.user}</label>
                   </h3>
                 </div>
