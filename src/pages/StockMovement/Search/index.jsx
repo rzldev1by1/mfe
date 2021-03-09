@@ -86,17 +86,6 @@ const Search = ({ setHeader, setdateHeader }) => {
                 selectedValue={period}
                 className=" z-99"
               />
-              <Input
-                placeholder={'Period'}
-                value={period}
-                readOnly
-                style={{ display: 'none' }}
-                messageRequired={true}
-                messageParam={{
-                  messageShow: true,
-                  value: period,
-                }}
-              />
             </CCol>
             <div className="colDateText d-flex text-light-gray align-items-center">Date From</div>
             <CCol lg={2} sm={10} className="colDate pr-3 pl-0">
@@ -236,6 +225,20 @@ const Search = ({ setHeader, setdateHeader }) => {
               >
                 SEARCH
               </button>
+            </CCol>
+          </CRow>
+          <CRow className="mx-0">
+            <CCol lg={2} sm={12} className="colPeriod pr-3 pl-0">
+              <Input
+                placeholder={'Period'}
+                readOnly
+                style={{ display: 'none' }}
+                messageRequired={true}
+                messageParam={{
+                  messageShow: true,
+                  value: period,
+                }}
+              />
             </CCol>
           </CRow>
         </form>
