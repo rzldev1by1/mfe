@@ -15,7 +15,7 @@ import {
   changeClient,
   validationOrderLines,
 } from './services';
-import { getSupplier } from 'apiService/dropdown';
+import { getSupplier, getDisposition } from 'apiService/dropdown';
 import { validate } from 'email-validator';
 
 import './style.scss';
@@ -189,6 +189,7 @@ const Form = ({
               setSupplier([]);
               if (selected) {
                 getSupplier({ client: selected.value, site: orderDetails?.site, setSupplier });
+                getDisposition({dispatch, client: selected.value})
               }
             }}
             readOnly={isReadonly || client}

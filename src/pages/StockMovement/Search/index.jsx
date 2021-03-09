@@ -49,15 +49,15 @@ const Search = ({ setHeader, setdateHeader }) => {
   }, []);
 
   useEffect(() => {
+    console.log(isSearch, period, fromDate, toDate);
     if (isSearch === true) {
-      console.log(isSearch, period, fromDate, toDate);
-      if ((period && fromDate, toDate)) {
+      if(period && dateFrom && dateTo ){
         dispatch({ type: 'GET_SM_SUMMARY', data: undefined });
         getStockMovement({ dropdownValue, dispatch });
         setHeaderSummary({ dropdownValue, setHeader, setdateHeader });
       }
-      setIsSearch(false);
     }
+    setIsSearch(false);
   }, [isSearch]);
 
   //ref
@@ -187,7 +187,7 @@ const Search = ({ setHeader, setdateHeader }) => {
                       options={clientData}
                       onChangeDropdown={(selected) => {
                         let newDropdownValue = dropdownValue;
-                        setdropdownValue({ ...newDropdownValue, clientVal: selected });
+                        setdropdownValue({ ...newDropdownValue, clientVal: selected , productVal:[] });
                       }}
                       selectedValue={clientVal}
                     />
