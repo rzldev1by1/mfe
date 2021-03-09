@@ -49,17 +49,15 @@ const Search = ({ setHeader, setdateHeader }) => {
   }, []);
 
   useEffect(() => {
+    console.log(isSearch, period, fromDate, toDate);
     if (isSearch === true) {
-      console.log(isSearch, period, fromDate, toDate);
-      if(period == null){
-        setIsSearch(false);
-      }
-      else{
+      if(period && dateFrom && dateTo ){
         dispatch({ type: 'GET_SM_SUMMARY', data: undefined });
         getStockMovement({ dropdownValue, dispatch });
         setHeaderSummary({ dropdownValue, setHeader, setdateHeader });
       }
     }
+    setIsSearch(false);
   }, [isSearch]);
 
   //ref
