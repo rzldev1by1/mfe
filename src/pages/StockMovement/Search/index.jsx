@@ -67,7 +67,7 @@ const Search = ({ setHeader, setdateHeader }) => {
   return (
     <CCard className="mb-3 StockMovementFilter">
       <CCardBody className="p-3">
-        <form onSubmit={() => setIsSearch(true)}>
+        <form autocomplete='on' onSubmit={() => setIsSearch(true)}>
           <CRow className="mx-0">
             <CCol lg={2} sm={12} className="colPeriod pr-3 pl-0">
               <Dropdown

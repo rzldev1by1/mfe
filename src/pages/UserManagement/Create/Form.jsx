@@ -90,6 +90,7 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
             <input
               type="email"
               name="email"
+              autocomplete='off'
               placeholder="Email"
               readOnly={isReadOnly}
               className={`form-control ${(isValidation && !state.email) || state.validation.email['isValid'] === false
@@ -109,6 +110,7 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
             <input
               name="name"
               type="text"
+              autocomplete='off'
               placeholder="Name"
               readOnly={isReadOnly}
               className={`form-control ${isValidation && !state.name ? state.validation.name['invalidClass'] + ' input-danger ' : ''
