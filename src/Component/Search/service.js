@@ -11,8 +11,13 @@ export const setSite = ({ selected, dispatch, onChangeGetTask, getTask, getTaskP
 
 export const setClient = ({ selected, dispatch, onChangeGetTask, getTask, getTaskParam, dropdownValue, setdropdownValue}) => {
   const newDropdownValue = { ...dropdownValue };
-  if (selected) newDropdownValue.client = selected 
-  else newDropdownValue.client = null
+  if (selected) {
+    newDropdownValue.client = selected 
+  }
+  else {
+    newDropdownValue.client = null
+    newDropdownValue.task = []
+  }
 
   if (onChangeGetTask) {
     getTask({ dispatch, client: selected, site: getTaskParam?.site });
