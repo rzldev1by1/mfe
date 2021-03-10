@@ -71,8 +71,8 @@ const Search = ({
       dispatch({ type: paramType, data: [] });
       await getSummaryData({
         e,
-        siteVal: newDropdownValue.site,
-        clientVal: newDropdownValue.client,
+        siteVal: newDropdownValue.site?.value,
+        clientVal: newDropdownValue.client?.value,
         orderType: newDropdownValue.orderType,
         task: newDropdownValue.task,
         status: newDropdownValue.status,
@@ -86,8 +86,8 @@ const Search = ({
     e.preventDefault();
     getSummaryData({
       e,
-      siteVal: newDropdownValue.site,
-      clientVal: newDropdownValue.client,
+      siteVal: user.site || newDropdownValue.site,
+      clientVal: user.client || newDropdownValue.client,
       orderType: newDropdownValue.orderType,
       task: newDropdownValue.task,
       status: newDropdownValue.status,
@@ -122,16 +122,16 @@ const Search = ({
     dispatch({
       type: 'SEARCH_FILTER',
       data: {
-        siteVal: newDropdownValue.site,
-        clientVal: newDropdownValue.client,
+        siteVal: newDropdownValue.site?.value,
+        clientVal: newDropdownValue.client?.value,
         orderType: newDropdownValue.orderType,
         task: newDropdownValue.task,
         status: newDropdownValue.status,
       },
     });
   }, [
-    newDropdownValue.site,
-    newDropdownValue.client,
+    newDropdownValue.site?.value,
+    newDropdownValue.client?.value,
     newDropdownValue.orderType,
     newDropdownValue.task,
     newDropdownValue.status,
@@ -140,8 +140,8 @@ const Search = ({
   useEffect(() => {
     if (Export === true) {
       getSummaryData({
-        siteVal: newDropdownValue.site,
-        clientVal: newDropdownValue.client,
+        siteVal: user.site ||newDropdownValue.site?.value,
+        clientVal: user.client || newDropdownValue.client?.value,
         orderType: newDropdownValue.orderType,
         task: newDropdownValue.task,
         status: newDropdownValue.status,
@@ -183,8 +183,8 @@ const Search = ({
                   className="btn btn-search mobile-search  btn-primary float-right"
                   onClick={() =>
                     getSummaryData({
-                      siteVal: newDropdownValue.site,
-                      clientVal: newDropdownValue.client,
+                      siteVal: user.site || newDropdownValue.site?.value,
+                      clientVal: user.client || newDropdownValue.client?.value,
                       orderType: newDropdownValue.orderType,
                       task: newDropdownValue.task,
                       status: newDropdownValue.status,
@@ -285,8 +285,8 @@ const Search = ({
                       className="btn btn-search mobile-search btn-primary float-right"
                       onClick={() =>
                         getSummaryData({
-                          siteVal: newDropdownValue.site,
-                          clientVal: newDropdownValue.client,
+                          siteVal: user.site || newDropdownValue.site?.value,
+                          clientVal: user.client || newDropdownValue.client?.value,
                           orderType: newDropdownValue.orderType,
                           task: newDropdownValue.task,
                           status: newDropdownValue.status,

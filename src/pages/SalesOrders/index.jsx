@@ -45,7 +45,7 @@ const SalesOrders = (props) => {
   });
 
   useEffect(() => {
-    getSummaryData({ dispatch, active: paginationSo?.active, module });
+    getSummaryData({ dispatch, active: paginationSo?.active, module, siteVal: user.site, clientVal: user.client  });
   }, []);
 
   const [columnHidden, setColumnHidden] = useState(null);

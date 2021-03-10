@@ -61,8 +61,8 @@ export const getSummaryData = async ({
   }
   if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
     urls.push(`search=${searchInput?.toUpperCase() || ''}`);
-    urls.push(`site=${siteVal?.value ? siteVal.value : 'all'}`);
-    urls.push(`client=${clientVal?.value ? clientVal.value : 'all'}`);
+    urls.push(`site=${siteVal ? siteVal : 'all'}`);
+    urls.push(`client=${clientVal ? clientVal : 'all'}`);
     urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
     urls.push(`status=${status ? status.value : 'open'}`);
   }
