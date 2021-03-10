@@ -12,12 +12,12 @@ class PopUpLoss extends Component {
     }
 
     render = () => {
-        const { modal, setModal} = this.props
+        const { modal, setModal, back} = this.props
         return (
           <Modal
             isOpen={modal}
             centered            
-            onOpened={() => modal ? setTimeout(() =>{ setModal(false) }, 36000) : {}}
+            onOpened={() => modal ? setTimeout(() =>{ setModal(false); back(); }, 36000) : {}}
             contentClassName="modal-content-paging box-er-pagination"
             closeOnBackdrop={false}
           >
@@ -25,7 +25,7 @@ class PopUpLoss extends Component {
               <div 
                 className="text-right px-0" 
                 style={{ fontSize: '14px' }} 
-                onClick={() => setModal(false)}
+                onClick={() => {setModal(false);  back();}}
               >
                 <i className="iconU-close pointer" />
               </div>
@@ -43,7 +43,7 @@ class PopUpLoss extends Component {
               </div>
               <button
                 type="button"
-                onClick={() => setModal(false)}
+                onClick={() => {setModal(false);  back();}}
                 className="btn btn-search mobile-search btn-primary float-right">
                 DONE
               </button>

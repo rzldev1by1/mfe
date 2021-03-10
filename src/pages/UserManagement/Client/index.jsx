@@ -37,7 +37,7 @@ const client = ({ clients, isEnableAllClient, state, setState, isReadOnly, modul
                 <div className="flex-column" key={index}>
                   <div className="d-flex mb-1" key={index}>
                     <label className="text-muted col-6 section-value-text p-0 py-2 " key={item.code}>
-                      {module === 'detail' ? `${item.code} : ${item.name}` : `${item.name}` }
+                      {module === 'detail' ? `${item.code}: ${item.name}` : `${item.name}` }
                     </label>
                     <div className="col-6">
                       <button
