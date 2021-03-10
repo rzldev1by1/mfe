@@ -98,7 +98,7 @@ const Create = ({ show, setShow }) => {
                 onClick={() => setActiveTab('details')}
               >
                 <span className="newIcon-create_edit" />
-                <div className="pl-2">Order & Product Details</div>
+                <div className="pl-2">User Details</div>
               </NavLink>
             </NavItem>
             <NavItem>
