@@ -2,7 +2,7 @@ import React from 'react';
 import '../index.scss';
 import { onClientStatusClick, onEnabledAllClient } from '../services';
 
-const client = ({ clients, isEnableAllClient, state, setState, isReadOnly }) => {
+const client = ({ clients, isEnableAllClient, state, setState, isReadOnly, module }) => {
   const disableAll = 'Disable All';
   const enableAll = 'Enable All';
   const enable = 'Enabled';
@@ -32,11 +32,12 @@ const client = ({ clients, isEnableAllClient, state, setState, isReadOnly }) => 
       <div className="client-areas">
         {clients && client.length
           ? clients.map((item, index) => {
+            console.log(clients)
               return (
                 <div className="flex-column" key={index}>
                   <div className="d-flex mb-1" key={index}>
                     <label className="text-muted col-6 section-value-text p-0 py-2 " key={item.code}>
-                      {` ${item.name}`}
+                      {module === 'detail' ? `${item.code} : ${item.name}` : `${item.name}` }
                     </label>
                     <div className="col-6">
                       <button

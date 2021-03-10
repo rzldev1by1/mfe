@@ -104,7 +104,7 @@ export const renewState = ({ setState, state, siteData, clientData, moduleAccess
   tmp = siteData?.map((item, key) => {
     if (item.value !== 'all') {
       let newItem = {
-        code: item.value,
+        site: item.value,
         name: item.label,
         status: false,
       };

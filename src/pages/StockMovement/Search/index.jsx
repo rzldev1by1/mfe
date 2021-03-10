@@ -49,15 +49,15 @@ const Search = ({ setHeader, setdateHeader }) => {
   }, []);
 
   useEffect(() => {
+    console.log(isSearch, period, fromDate, toDate);
     if (isSearch === true) {
-      console.log(isSearch, period, fromDate, toDate);
-      if ((period && fromDate, toDate)) {
+      if(period && dateFrom && dateTo ){
         dispatch({ type: 'GET_SM_SUMMARY', data: undefined });
         getStockMovement({ dropdownValue, dispatch });
         setHeaderSummary({ dropdownValue, setHeader, setdateHeader });
       }
-      setIsSearch(false);
     }
+    setIsSearch(false);
   }, [isSearch]);
 
   //ref
@@ -67,7 +67,7 @@ const Search = ({ setHeader, setdateHeader }) => {
   return (
     <CCard className="mb-3 StockMovementFilter">
       <CCardBody className="p-3">
-        <form onSubmit={() => setIsSearch(true)}>
+        <form autocomplete='on' onSubmit={() => setIsSearch(true)}>
           <CRow className="mx-0">
             <CCol lg={2} sm={12} className="colPeriod pr-3 pl-0">
               <Dropdown
@@ -187,7 +187,7 @@ const Search = ({ setHeader, setdateHeader }) => {
                       options={clientData}
                       onChangeDropdown={(selected) => {
                         let newDropdownValue = dropdownValue;
-                        setdropdownValue({ ...newDropdownValue, clientVal: selected });
+                        setdropdownValue({ ...newDropdownValue, clientVal: selected , productVal:[] });
                       }}
                       selectedValue={clientVal}
                     />

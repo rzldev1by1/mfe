@@ -18,7 +18,7 @@ import {
   changeClient,
   validationOrderLines,
 } from './services';
-import { getCustomer } from 'apiService/dropdown';
+import { getCustomer, getDisposition } from 'apiService/dropdown';
 
 import './style.scss';
 
@@ -216,6 +216,7 @@ const Form = ({
               setCustomerData([]);
               if (selected) {
                 getCustomer({ client: selected.value, setCustomerData });
+                getDisposition({dispatch, client: selected.value})
               }
             }}
             readOnly={isReadonly || client}

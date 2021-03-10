@@ -425,6 +425,7 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
     newState.adminClass = adminClassName;
   }
   const accountInfoUser = result;
+
   // ModalAccess
   let newIsEnableAllModule = { ...newState.isEnableAllModule };
   let userMenu = [...accountInfoUser.userMenu].map((item, index) => {
@@ -443,12 +444,7 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
       newItem.status = isStatus;
       return newItem;
     });
-  newIsEnableAllModule =
-    menus?.filter((item) => {
-      return item.status === true;
-    })?.length === menus?.length
-      ? true
-      : false;
+  newIsEnableAllModule = menus?.filter((item) => { return item.status === true; })?.length === menus?.length ? true : false;
   newState.moduleAccess = menus;
   newState.isEnableAllModule = newIsEnableAllModule;
   // and ModalAccess
@@ -460,12 +456,7 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
     newItem.status = accountInfoUser.site === null ? true : item.site === accountInfoUser.site ? true : false;
     return newItem;
   });
-  newIsEnableAllSite =
-    sites?.filter((item) => {
-      return item.status === true;
-    })?.length === sites?.length
-      ? true
-      : false;
+  newIsEnableAllSite = sites?.filter((item) => { return item.status === true; })?.length === sites?.length ? true : false;
   newState.sites = sites;
   newState.isEnableAllSite = newIsEnableAllSite;
   // end LoadSite

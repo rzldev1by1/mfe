@@ -78,7 +78,6 @@ const UserManagementDetail = (props) => {
   useEffect(() => {
     getAccountInfo({ userid, state, setState, dispatch, loadSite, loadClient, moduleAccess });
   }, []);
-
   return (
     <div>
       <Breadcrumb breadcrumb={[{ to: '/users-management', label: 'User Management' }]} />
@@ -129,6 +128,7 @@ const UserManagementDetail = (props) => {
                 </div>
                 <div className="col-md-3 pr-0">
                   <input
+                    readOnly
                     type="email"
                     name="email"
                     className={`form-control ${
@@ -142,12 +142,13 @@ const UserManagementDetail = (props) => {
                     }}
                     value={newState.accountInfo.email}
                   />
-                  <FormFeedback className="invalid-error-padding">
+                  {/* <FormFeedback className="invalid-error-padding">
                     {`${newState.validation.email['message']}`}
-                  </FormFeedback>
+                  </FormFeedback> */}
                 </div>
                 <div className="col-md-2 pr-0">
                   <input
+                    readOnly
                     type="text"
                     className={`form-control ${
                       newState.validation.name['isValid'] ? '' : newState.validation.name['invalidClass']
@@ -159,9 +160,9 @@ const UserManagementDetail = (props) => {
                     onKeyDown={disabledCharacterName}
                     value={newState.accountInfo.user}
                   />
-                  <FormFeedback className="invalid-error-padding">
+                  {/* <FormFeedback className="invalid-error-padding">
                     {`${newState.validation.name['message']}`}
-                  </FormFeedback>
+                  </FormFeedback> */}
                 </div>
 
                 {newState?.accountInfo?.request_forgot_password ? (
@@ -243,6 +244,7 @@ const UserManagementDetail = (props) => {
                 <div className="col-4 pl-0">
                   <Site
                     state={state}
+                    module='detail'
                     setState={setState}
                     sites={newState.sites}
                     isEnableAllSite={newState.isEnableAllSite}
@@ -259,6 +261,7 @@ const UserManagementDetail = (props) => {
                 <div className="col-4 um-client-scrollbar">
                   <Client
                     state={state}
+                    module='detail'
                     setState={setState}
                     clients={newState.clients}
                     isEnableAllClient={newState.isEnableAllClient}
