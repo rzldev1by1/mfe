@@ -31,9 +31,9 @@ const RequiredMessage = ({ messageShow, column, data, columnText, value, dropdow
   }, [columnText, value, customMessage]);
 
   return (
-    <div className="text-error ">
+    <p className="text-error mb-0 position-absolute">
       {messageShow ? <span className="pl-0 text-danger font-12">{message}</span> : null}
-    </div>
+    </p>
   );
 };
 
