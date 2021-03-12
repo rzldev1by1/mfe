@@ -73,7 +73,7 @@ const Create = ({ show, setShow }) => {
   return (
     <div>
       <Modal show={show} size="xl" className="purchase-order-create">
-        <Modal.Body className="bg-primary p-0">
+        <Modal.Body className="bg-primary p-0 rounded-top">
           <Row className="pl-5 pr-3 pb-3 pt-3 mx-0">
             <Col xs={10} className="px-0">
               <i className="iconU-createModal font-20"></i>
