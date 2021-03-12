@@ -12,20 +12,20 @@ class PopUpCreateSucces extends Component {
     }
 
     render = () => {
-        const { modal, setModal} = this.props
+        const { modal, setModal, module, submitReturn, exit} = this.props
         return (
           <Modal
             isOpen={modal}
             centered            
-            onOpened={() => modal ? setTimeout(() =>{ setModal(false) }, 36000) : {}}
-            contentClassName="modal-content-paging box-er-pagination"
+            onOpened={() => modal ? setTimeout(() =>{ setModal(false) ; exit(); }, 36000) : {}}
+            contentClassName="modal-content-paging"
             closeOnBackdrop={false}
           >
             <ModalBody>
               <div 
                 className="text-right px-0" 
                 style={{ fontSize: '14px' }} 
-                onClick={() => setModal(false)}
+                onClick={() => { setModal(false); exit(); }}
               >
                 <i className="iconU-close pointer" />
               </div>
@@ -36,14 +36,14 @@ class PopUpCreateSucces extends Component {
                       Success
                     </div>
                     <div className="text-muted-soft">
-                      The Purchase Order P0100512333 
+                      The { module } { submitReturn.orderNo } {` `}
                       has successfully submitted for processing.
                     </div>
                 </div>
               </div>
               <button
                 type="button"
-                onClick={() => setModal(false)}
+                onClick={() => { setModal(false); exit(); }}
                 className="btn btn-search mobile-search btn-primary float-right">
                 DONE
               </button>

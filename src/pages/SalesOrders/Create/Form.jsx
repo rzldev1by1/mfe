@@ -14,11 +14,12 @@ import {
   changeOrderNo,
   formatDate,
   changeCustomerDetails,
+  clearCustomerData,
   getCustomerDetail,
   changeClient,
   validationOrderLines,
 } from './services';
-import { getCustomer } from 'apiService/dropdown';
+import { getCustomer, getDisposition } from 'apiService/dropdown';
 
 import './style.scss';
 
@@ -50,6 +51,7 @@ const Form = ({
   const [dropdownExpandStyle, setDropdownExpandStyle] = useState(null);
   const [checkingOrderNo, setCheckingOrderNo] = useState(null);
   const { client, site } = user;
+  const [address1, setAddress1] = useState(customerDetails?.address1);
 
   useEffect(() => {
     if (orderLines?.length < 1) {
@@ -114,7 +116,7 @@ const Form = ({
     } else if (orderLineSelectOpen == 'dropdown') {
       setDropdownExpandStyle('lineDetailsBottomExpand');
     }
-    else{
+    else {
       setDropdownExpandStyle(null);
     }
   }, [orderLineSelectOpen]);
@@ -216,6 +218,7 @@ const Form = ({
               setCustomerData([]);
               if (selected) {
                 getCustomer({ client: selected.value, setCustomerData });
+                getDisposition({ dispatch, client: selected.value })
               }
             }}
             readOnly={isReadonly || client}
@@ -305,7 +308,7 @@ const Form = ({
             title={'Customer'}
             selectedValue={customerDetails?.customer}
             onChangeDropdown={(selected) => {
-              changeCustomerDetails({ column: 'customer', value: selected, customerDetails, setCustomerDetails });
+              changeCustomerDetails({ column: 'customer', value: selected, customerDetails, setCustomerDetails, selected });
               getCustomerDetail({ client: orderDetails?.client, customer: selected, setCustomerDetails });
             }}
             showTitle
@@ -531,7 +534,7 @@ const Form = ({
       <div>
         <button
           type="button"
-          className={`btn m-0 ${isReadonly ? `btn-light-none`: `btn-light-blue`}`}
+          className={`btn m-0 ${isReadonly ? `btn-light-none` : `btn-light-blue`}`}
           onClick={async () => {
             //validate first
             setIsValidation(true);

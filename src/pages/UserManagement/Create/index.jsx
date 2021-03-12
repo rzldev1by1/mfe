@@ -93,18 +93,18 @@ const Create = ({ show, setShow }) => {
           <Nav tabs className="px-7 m-0">
             <NavItem className="mr-1">
               <NavLink
-                style={{ paddingBottom: '7px', maxWidth:'297px'  }}
+                style={{ paddingBottom: '7px', maxWidth:'297px', paddingRight:'20px' }}
                 className={`d-flex height-nav align-items-center ${activeTab === 'details' ? 'active' : null}`}
                 onClick={() => setActiveTab('details')}
               >
                 <span className="newIcon-create_edit" />
-                <div className="pl-2">Order & Product Details</div>
+                <div className="pl-2">User Details</div>
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink
                 className={`d-flex height-nav align-items-center ${activeTab === 'review' ? 'active' : null}`}
-                style={{ paddingBottom: '7px', maxWidth:'146px' }}
+                style={{ paddingBottom: '7px', maxWidth:'146px', paddingRight:'22px' }}
                 onClick={() => {
                   if (state.validate) {
                     setActiveTab('review');

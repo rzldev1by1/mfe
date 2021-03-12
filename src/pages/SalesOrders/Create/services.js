@@ -137,16 +137,28 @@ export const changeClient = ({
 
   let cd = { ...customerDetails };
   cd['customer'] = '';
-  cd['validation_customer'] = false;
+  cd['validation_customer'] = value ? true : false;
   setCustomerDetails(od);
 };
 
-export const changeCustomerDetails = ({ column, value, customerDetails, setCustomerDetails }) => {
+export const changeCustomerDetails = ({ column, value, customerDetails, setCustomerDetails, selected }) => {
   let cd = { ...customerDetails };
-  cd[column] = value;
-  cd['validation_' + column] = value ? true : false;
+  if (selected) {
+    cd[column] = value;
+    cd['validation_' + column] = value ? true : false;
+  } else {
+    cd.customer = [];
+    cd.address1 = [];
+    cd.address2 = [];
+    cd.address3 = [];
+    cd.address4 = [];
+    cd.address5 = [];
+    cd.suburb = [];
+    cd.postcode = [];
+    cd.state = [];
+    cd.country = [];
+  }
   setCustomerDetails(cd);
-  console.log(cd);
 };
 
 export const changeOrderNo = async ({ orderNo, client, setCheckingOrderNo, setOrderDetails, orderDetails }) => {

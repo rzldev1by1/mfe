@@ -6,7 +6,8 @@ import Form from './Form';
 import { resetCreate, validation, submit, cleanOrderDetails, cleanCustomerDetails } from './services.js';
 import { getSOResources, getDisposition } from 'apiService/dropdown';
 import loading from 'assets/icons/loading/LOADING-MLS.gif';
-import MessageTab from 'Component/MessageTab';
+import PopUpCreateSucces from 'Component/Modal/PopUpCreateSucces'
+import PopUpLoss from 'Component/Modal/PopUpLoss'
 import './style.scss';
 
 const Create = ({ show, setShow }) => {
@@ -27,6 +28,7 @@ const Create = ({ show, setShow }) => {
   const [orderDetails, setOrderDetails] = useState({});
   const [customerDetails, setCustomerDetails] = useState({});
   const [orderLines, setOrderLines] = useState([]);
+  const [modal, setModal] = useState(true);
 
   useEffect(() => {
     setOrderDetails(cleanOrderDetails);
@@ -52,7 +54,7 @@ const Create = ({ show, setShow }) => {
 
   return (
     <div>
-      <Modal show={show} size="xl" className="sales-order-create">
+      <Modal show={show} size="xl" className={`sales-order-create ${activeTab == 'message' ? ' d-none': ' '}`}>
         <Modal.Body className="bg-primary p-0 rounded-top">
           <Row className="pl-5 pr-3 py-5 mx-0">
             <Col xs={10} className="px-0 ">
@@ -75,8 +77,8 @@ const Create = ({ show, setShow }) => {
           <Nav tabs className="px-8 m-0">
             <NavItem className="mr-1">
               <NavLink
-                style={{ paddingBottom: '7px', maxWidth:'297px' }}
-                className={`d-flex height-nav align-items-center px-3 ${activeTab === 'details' ? 'active' : null}`}
+                style={{ paddingBottom: '7px', maxWidth:'297px', paddingRight:'21x' }}
+                className={`d-flex height-nav align-items-center pl-3 ${activeTab === 'details' ? 'active' : null}`}
                 onClick={() => setActiveTab('details')}
               >
                 <span className="newIcon-create_edit" />
@@ -85,8 +87,8 @@ const Create = ({ show, setShow }) => {
             </NavItem>
             <NavItem>
               <NavLink
-                style={{ paddingBottom: '7px', maxWidth:'146px'  }}
-                className={`d-flex height-nav align-items-center px-3 ${activeTab === 'review' ? 'active' : null}`}
+                style={{ paddingBottom: '7px', maxWidth:'146px' , paddingRight:'20px' }}
+                className={`d-flex height-nav align-items-center pl-3 ${activeTab === 'review' ? 'active' : null}`}
                 onClick={() => {
                   validation({ orderDetails, orderLines, setOrderLines, customerDetails, setActiveTab });
                   setIsValidation(true);
@@ -100,17 +102,7 @@ const Create = ({ show, setShow }) => {
           <TabContent>
             <Container className="px-5 pt-4 pb-5">
               {/* Tabs */}
-              {activeTab == 'message' ? (
-                <MessageTab
-                  module={'Sales Order'}
-                  submitReturn={isSubmitReturn}
-                  back={() => setActiveTab('detail')}
-                  exit={() => {
-                    setShow(false);
-                    setIsReset(0);
-                  }}
-                />
-              ) : (
+              {activeTab == 'message' ? '' : (
                 <Form
                   activeTab={activeTab}
                   isValidation={isValidation}
@@ -188,6 +180,29 @@ const Create = ({ show, setShow }) => {
           </TabContent>
         </Modal.Body>
       </Modal>
+      {activeTab == 'message' ? 
+          isSubmitReturn?.message === 'Successfully added' || 
+          isSubmitReturn?.message === 'create successfully' ||
+          isSubmitReturn?.status == 'ok' ? (
+            <PopUpCreateSucces
+              modal={modal}
+              setModal={setModal}
+              module={'Purchase Order'}
+              submitReturn={isSubmitReturn}
+              exit={() => {
+                setShow(false);
+                setIsReset(0);
+              }}
+              />
+          ) : (
+            <PopUpLoss
+              modal={modal}
+              setModal={setModal}
+              back={() => setActiveTab('detail')
+              }
+              />
+          )
+       : '' }
     </div>
   );
 };
