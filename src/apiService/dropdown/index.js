@@ -128,8 +128,8 @@ export const getSOResources = async ({ user, dispatch }) => {
   dispatch({ type: 'SO_RESOURCES', data: resources });
 };
 
-export const getDisposition = async ({ dispatch, client }) => {
-  const { data } = await axios.get(`${endpoints.getDisposition}?client=${client || ''}`);
+export const getDisposition = async ({ dispatch }) => {
+  const { data } = await axios.get(`${endpoints.getDisposition}`);
   const dispositionData = [];
   data.map((c, i) => {
     if (c.code.length > 0 && c.code !== ' ') dispositionData.push({ value: c.code, label: c.code });
