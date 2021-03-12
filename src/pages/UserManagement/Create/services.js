@@ -7,6 +7,12 @@ import * as EmailValidator from 'email-validator';
 
 export const submit = async ({ data, isAdmin, setIsSubmitReturn, setActiveTab, setIsSubmitStatus }) => {
   const { moduleAccess, clients, sites, name } = data;
+
+
+  let adminMenu = moduleAccess.map((item, index) => {
+    return item.menu_id;
+  });
+
   let userMenu = moduleAccess
     .filter((item) => {
       return item.status === true;
@@ -15,9 +21,6 @@ export const submit = async ({ data, isAdmin, setIsSubmitReturn, setActiveTab, s
       return item.menu_id;
     });
 
-  let adminMenu = moduleAccess.map((item, index) => {
-    return item.menuid;
-  });
   let siteFiltered = sites.filter((item) => {
     return item.status === true;
   });
