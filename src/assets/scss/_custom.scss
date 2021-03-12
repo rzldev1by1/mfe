@@ -7,6 +7,10 @@ body {
   color: #b4b9bb;
 }
 
+.text-tranparent{
+  opacity: 0 !important;
+}
+
 .login .border-red {
   border-color: #f44336 !important;
 }
@@ -32,6 +36,11 @@ body {
 
 .mt-45 {
   margin-top: 1.28rem;
+}
+
+// height of the row create
+.h-93{
+  height: 93px;
 }
 
 // Custom style

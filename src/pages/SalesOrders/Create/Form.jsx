@@ -126,7 +126,7 @@ const Form = ({
       <h3 className="text-primary font-20">Order Details</h3>
 
       {/* Start Order Details */}
-      <Row>
+      <Row className="h-93">
         <Col lg="3">
           <Dropdown
             name="site"
@@ -198,8 +198,8 @@ const Form = ({
           />
         </Col>
       </Row>
-      <Row>
-        <Col lg="3" className="mt-45">
+      <Row className="h-93">
+        <Col lg="3">
           <Dropdown
             name="client"
             title="Client"
@@ -230,7 +230,7 @@ const Form = ({
             parentDivClassName={isValidation && !orderDetails?.client ? 'input-danger' : ''}
           />
         </Col>
-        <Col lg="3" className="mt-45">
+        <Col lg="3">
           <Input
             id="orderNo"
             name="orderNo"
@@ -266,7 +266,7 @@ const Form = ({
             }}
           />
         </Col>
-        <Col lg="3" className="mt-45">
+        <Col lg="3">
           <Input
             name="vendorOrderRef"
             title={'Vendor Order Ref'}
@@ -278,7 +278,7 @@ const Form = ({
             readOnly={isReadonly}
           />
         </Col>
-        <Col lg="3" className="mt-45">
+        <Col lg="3">
           <Textarea
             name="deliveryInstructions"
             onChange={(e) =>
@@ -300,7 +300,7 @@ const Form = ({
 
       {/* Start Customer Details */}
       <h3 className="text-primary font-20 mt-45">Customer Details</h3>
-      <Row>
+      <Row className="h-93">
         <Col lg="3">
           <Dropdown
             name="customer"
@@ -316,8 +316,8 @@ const Form = ({
           />
         </Col>
       </Row>
-      <Row>
-        <Col lg="3" className="mt-45">
+      <Row className="h-93">
+        <Col lg="3">
           <Input
             name="address1"
             title={'Address 1'}
@@ -337,7 +337,7 @@ const Form = ({
             className={isValidation && !customerDetails?.address1 ? 'input-danger' : ''}
           />
         </Col>
-        <Col lg="3" className="mt-45">
+        <Col lg="3">
           <Input
             name="address2"
             value={customerDetails?.address2}
@@ -349,7 +349,7 @@ const Form = ({
             readOnly={isReadonly}
           />
         </Col>
-        <Col lg="3" className="mt-45">
+        <Col lg="3">
           <Input
             name="address3"
             value={customerDetails?.address3}
@@ -363,8 +363,8 @@ const Form = ({
           />
         </Col>
       </Row>
-      <Row>
-        <Col lg="3" className="mt-45">
+      <Row className="h-93">
+        <Col lg="3">
           <Input
             name="address4"
             value={customerDetails?.address4}
@@ -376,7 +376,7 @@ const Form = ({
             readOnly={isReadonly}
           />
         </Col>
-        <Col lg="3" className="mt-45">
+        <Col lg="3">
           <Input
             name="address5"
             value={customerDetails?.address5}
@@ -389,8 +389,8 @@ const Form = ({
           />
         </Col>
       </Row>
-      <Row>
-        <Col lg="3" className="mt-45">
+      <Row className="h-93">
+        <Col lg="3">
           <Input
             name="suburb"
             value={customerDetails?.suburb}
@@ -402,7 +402,7 @@ const Form = ({
             readOnly={isReadonly}
           />
         </Col>
-        <Col lg="3" className="mt-45">
+        <Col lg="3">
           <Input
             name="postcode"
             value={customerDetails?.postcode}
@@ -422,7 +422,7 @@ const Form = ({
             className={isValidation && !customerDetails?.postcode ? 'input-danger' : ''}
           />
         </Col>
-        <Col lg="3" className="mt-45">
+        <Col lg="3">
           <Input
             name="state"
             title="State"
@@ -442,7 +442,7 @@ const Form = ({
             className={isValidation && !customerDetails?.state ? 'input-danger' : ''}
           />
         </Col>
-        <Col lg="3" className="mt-45">
+        <Col lg="3">
           <Input
             name="country"
             value={customerDetails?.country}
