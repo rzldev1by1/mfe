@@ -45,7 +45,7 @@ const PurchaseOrders = (props) => {
   });
 
   useEffect(() => {
-      getSummaryData({ dispatch, active: paginationSh?.active, module });
+    getSummaryData({ dispatch, active: paginationSh?.active, module });
   }, []);
 
   const [columnHidden, setColumnHidden] = useState(null);
@@ -57,18 +57,30 @@ const PurchaseOrders = (props) => {
 
   useEffect(() => {
     if (stateChangeHeader) {
-      setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
-      setState2(true);
-    }
-  }, [stateChangeHeader]);
-
-  useEffect(() => {
-    if (state2) {
+      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
       let x = columnHidden?.map((data, idx) => {
         if (data.title === 'Stock Holding Summary') {
           setColumnHidden(data.columns);
         }
       });
+      dispatch({ type: 'CHANGE_HEADER', data: false });
+    }
+  }, [stateChangeHeader]);
+
+  useEffect(() => {
+    if (state2) {
+      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      let tmp = null;
+      let x = columnHidden?.map((data, idx) => {
+        if (data.title === 'Stock Holding Summary') {
+          tmp = data.columns;
+        }
+      });
+      if (tmp) {
+        setColumnHidden(tmp);
+      } else {
+        setColumnHidden([]);
+      }
       setState2(false);
       dispatch({ type: 'CHANGE_HEADER', data: false });
     }
@@ -77,7 +89,7 @@ const PurchaseOrders = (props) => {
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      getSummaryData({ dispatch, active: paginationSh?.active, Export, module });
+      // getSummaryData({ dispatch, active: paginationSh?.active, Export, module });
     }
   }, [Export]);
   return (
@@ -90,10 +102,11 @@ const PurchaseOrders = (props) => {
             filterSite
             filterClient
             filterStatus
-            placeholder="Enter an Product"
+            placeholder="Enter a Product"
             filter
             onChangeGetTask
             statusDataSH={statusDataSH}
+            Export={Export}
           />
         </div>
         <div>

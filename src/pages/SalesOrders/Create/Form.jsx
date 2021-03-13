@@ -14,11 +14,12 @@ import {
   changeOrderNo,
   formatDate,
   changeCustomerDetails,
+  clearCustomerData,
   getCustomerDetail,
   changeClient,
   validationOrderLines,
 } from './services';
-import { getCustomer } from 'apiService/dropdown';
+import { getCustomer, getDisposition } from 'apiService/dropdown';
 
 import './style.scss';
 
@@ -50,9 +51,12 @@ const Form = ({
   const [dropdownExpandStyle, setDropdownExpandStyle] = useState(null);
   const [checkingOrderNo, setCheckingOrderNo] = useState(null);
   const { client, site } = user;
+  const [address1, setAddress1] = useState(customerDetails?.address1);
 
   useEffect(() => {
-    addOrderLines({ orderLines, setOrderLines });
+    if (orderLines?.length < 1) {
+      addOrderLines({ orderLines, setOrderLines });
+    }
   }, []);
 
   useEffect(() => {
@@ -111,7 +115,8 @@ const Form = ({
       setDropdownExpandStyle('lineDetailsTopExpand');
     } else if (orderLineSelectOpen == 'dropdown') {
       setDropdownExpandStyle('lineDetailsBottomExpand');
-    } else {
+    }
+    else {
       setDropdownExpandStyle(null);
     }
   }, [orderLineSelectOpen]);
@@ -213,6 +218,7 @@ const Form = ({
               setCustomerData([]);
               if (selected) {
                 getCustomer({ client: selected.value, setCustomerData });
+                getDisposition({ dispatch, client: selected.value })
               }
             }}
             readOnly={isReadonly || client}
@@ -302,7 +308,7 @@ const Form = ({
             title={'Customer'}
             selectedValue={customerDetails?.customer}
             onChangeDropdown={(selected) => {
-              changeCustomerDetails({ column: 'customer', value: selected, customerDetails, setCustomerDetails });
+              changeCustomerDetails({ column: 'customer', value: selected, customerDetails, setCustomerDetails, selected });
               getCustomerDetail({ client: orderDetails?.client, customer: selected, setCustomerDetails });
             }}
             showTitle
@@ -454,7 +460,11 @@ const Form = ({
 
       {/* Start Line Details */}
       <h3 className="text-primary font-20 mt-45">Line Details</h3>
-      <div className={`orderline mb-2 pb-2 scroll-x-y  ${dropdownExpandStyle}`}>
+      <div
+        id="orderLines"
+        className={`orderline mb-2 pb-2 scroll-x-y row  ${dropdownExpandStyle}`}
+        style={{ marginLeft: '-4.5px', marginRight: '-4.5px' }}
+      >
         {/* End Line Details */}
         <table>
           <thead>
@@ -495,7 +505,7 @@ const Form = ({
                 <div className="c-150">Pack ID</div>
               </td>
               <td>
-                <div className="c-150">RotaDate</div>
+                <div className="c-150">Rotadate</div>
               </td>
               <td>
                 <div className="c-50" />
@@ -523,9 +533,8 @@ const Form = ({
 
       <div>
         <button
-          style={isReadonly ? { display: 'none' } : null}
           type="button"
-          className="btn btn-light-blue m-0"
+          className={`btn m-0 ${isReadonly ? `btn-light-none` : `btn-light-blue`}`}
           onClick={async () => {
             //validate first
             setIsValidation(true);

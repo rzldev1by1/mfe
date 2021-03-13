@@ -45,7 +45,7 @@ const SalesOrders = (props) => {
   });
 
   useEffect(() => {
-    getSummaryData({ dispatch, active: paginationSo?.active, module });
+    getSummaryData({ dispatch, active: paginationSo?.active, module, siteVal: user.site, clientVal: user.client  });
   }, []);
 
   const [columnHidden, setColumnHidden] = useState(null);
@@ -57,18 +57,30 @@ const SalesOrders = (props) => {
 
   useEffect(() => {
     if (stateChangeHeader) {
-      setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
-      setState2(true);
-    }
-  }, [stateChangeHeader]);
-
-  useEffect(() => {
-    if (state2) {
+      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
       let x = columnHidden?.map((data, idx) => {
         if (data.title === 'Sales Order Summary') {
           setColumnHidden(data.columns);
         }
       });
+      dispatch({ type: 'CHANGE_HEADER', data: false });
+    }
+  }, [stateChangeHeader]);
+
+  useEffect(() => {
+    if (state2) {
+      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      let tmp = null;
+      let x = columnHidden?.map((data, idx) => {
+        if (data.title === 'Sales Order Summary') {
+          tmp = data.columns;
+        }
+      });
+      if (tmp) {
+        setColumnHidden(tmp);
+      } else {
+        setColumnHidden([]);
+      }
       setState2(false);
       dispatch({ type: 'CHANGE_HEADER', data: false });
     }
@@ -77,7 +89,7 @@ const SalesOrders = (props) => {
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      getSummaryData({ dispatch, active: paginationSo?.active, Export, module });
+      // getSummaryData({ dispatch, active: paginationSo?.active, Export, module });
     }
   }, [Export]);
   return (
@@ -102,6 +114,7 @@ const SalesOrders = (props) => {
             placeholder="Enter an Order No"
             filter
             onChangeGetTask
+            Export={Export}
           />
         </div>
         <div>

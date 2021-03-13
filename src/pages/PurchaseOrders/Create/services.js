@@ -4,6 +4,40 @@ import numeral from 'numeral';
 import { checkOrderNo, submitPurchaseOrder } from 'apiService';
 import { getUOM } from 'apiService/dropdown';
 
+export const cleanOrderDetails = {
+  site: null,
+  orderType: null,
+  supplier: null,
+  customerOrderRef: null,
+  client: null,
+  orderNo: null,
+  orderDate: null,
+  vendorOrderRef: null,
+  validation_site: false,
+  validation_orderType: false,
+  validation_client: false,
+  validation_orderNo: false,
+  validation_orderDate: false,
+};
+
+export const cleanOrderLines = {
+  product: '',
+  desc: '',
+  qty: '',
+  weight: '',
+  uom: '',
+  batch: '',
+  ref3: '',
+  ref4: '',
+  disposition: '',
+  rotaDate: '',
+  productDesc: '',
+  validation: false,
+  validation_product: false,
+  validation_uom: false,
+  validation_qty: false,
+};
+
 export const validation = async ({ orderDetails, orderLines, setActiveTab, setOrderLines }) => {
   //initial
   let statusValidate = true;
@@ -106,40 +140,6 @@ export const resetCreate = (dispatch) => {
   dispatch({ type: 'RESET_ORDER_DETAIL', data: orderDetails });
   dispatch({ type: 'RESET_ORDER_LINES', data: orderLines });
   dispatch({ type: 'RESET_ORDER_LINES_DATA', data: orderLinesData });
-};
-
-export const cleanOrderDetails = {
-  site: null,
-  orderType: null,
-  supplier: null,
-  customerOrderRef: null,
-  client: null,
-  orderNo: null,
-  orderDate: null,
-  vendorOrderRef: null,
-  validation_site: false,
-  validation_orderType: false,
-  validation_client: false,
-  validation_orderNo: false,
-  validation_orderDate: false,
-};
-
-export const cleanOrderLines = {
-  product: '',
-  desc: '',
-  qty: '',
-  weight: '',
-  uom: '',
-  batch: '',
-  ref3: '',
-  ref4: '',
-  disposition: '',
-  rotaDate: '',
-  productDesc: '',
-  validation: false,
-  validation_product: false,
-  validation_uom: false,
-  validation_qty: false,
 };
 
 export const changeOrderDetails = ({ column, value, orderDetails, setOrderDetails }) => {
@@ -337,6 +337,9 @@ export const submit = async ({
     orderNo: orderDetails?.orderNo || '',
     orderType: orderDetails?.orderType?.value || '',
     orderDate: orderDetails?.orderDate || '',
+    customerOrderRef: orderDetails?.customerOrderRef || '',
+    supplier: orderDetails?.supplier || '',
+    vendorOrderRef: orderDetails?.vendorOrderRef || '',
     web_user: user.webUser,
   };
   let newOrderLines = [];

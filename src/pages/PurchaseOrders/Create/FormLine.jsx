@@ -33,6 +33,7 @@ const FormLine = ({
         <DropdownAxios
           name="product"
           options={isProduct}
+          showLabelOnly
           placeholder="Product"
           onChangeDropdown={(val) => {
             productHandler({ val, column: 'product', index, orderLines, setOrderLines, setIsUom });
@@ -234,7 +235,7 @@ const FormLine = ({
               orderLines,
               setOrderLines,
             });
-            setOrderLineSelectOpen(null);
+            setOrderLineSelectOpen('datePicker');
           }}
           showDatePicker={() => {
             setOrderLineSelectOpen('datePicker');

@@ -5,7 +5,6 @@ export const showColumn = ({ header, length, setState, state }) => {
   const max = length - Object.keys(state.editColumn).length > 1;
   const hide = !state.editColumn.includes(header); // true || false
   const newState = { ...state };
-
   if (hide && max) {
     state.editColumn.push(header);
     newState.editColumn = state.editColumn;

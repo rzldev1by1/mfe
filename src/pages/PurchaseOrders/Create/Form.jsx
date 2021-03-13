@@ -15,7 +15,7 @@ import {
   changeClient,
   validationOrderLines,
 } from './services';
-import { getSupplier } from 'apiService/dropdown';
+import { getSupplier, getDisposition } from 'apiService/dropdown';
 import { validate } from 'email-validator';
 
 import './style.scss';
@@ -48,7 +48,9 @@ const Form = ({
   // const { orderDetails, orderLines, orderLinesData } = createData;
 
   useEffect(() => {
-    addOrderLines({ orderLines, setOrderLines });
+    if (orderLines?.length < 1) {
+      addOrderLines({ orderLines, setOrderLines });
+    }
   }, []);
 
   useEffect(() => {
@@ -103,7 +105,8 @@ const Form = ({
       setDropdownExpandStyle('lineDetailsTopExpand');
     } else if (orderLineSelectOpen == 'dropdown') {
       setDropdownExpandStyle('lineDetailsBottomExpand');
-    } else {
+    }
+    else{
       setDropdownExpandStyle(null);
     }
   }, [orderLineSelectOpen]);
@@ -165,8 +168,8 @@ const Form = ({
             name="customerOrderRef"
             title="Customer Order Ref"
             placeholder={orderDetails?.customerOrderRef}
-            onChange={(selected) =>
-              changeOrderDetails({ column: 'customerOrderRef', value: selected, orderDetails, setOrderDetails })
+            onChange={(val) =>
+              changeOrderDetails({ column: 'customerOrderRef', value: val.target.value, orderDetails, setOrderDetails })
             }
             maxLength={30}
             readOnly={isReadonly}
@@ -186,6 +189,7 @@ const Form = ({
               setSupplier([]);
               if (selected) {
                 getSupplier({ client: selected.value, site: orderDetails?.site, setSupplier });
+                getDisposition({dispatch, client: selected.value})
               }
             }}
             readOnly={isReadonly || client}
@@ -202,6 +206,7 @@ const Form = ({
             id="orderNo"
             name="orderNo"
             title="Order No"
+            style={{ marginLeft: '2px' }}
             maxLength={12}
             onChange={(e) => {
               let val = e.target.value.toUpperCase();
@@ -273,7 +278,11 @@ const Form = ({
 
       {/* Start Line Details */}
       <h3 className="text-primary font-20 mt-45">Line Details</h3>
-      <div className={`orderline mb-2 pb-2 scroll-x-y  ${dropdownExpandStyle}`}>
+      <div
+        id="orderLines"
+        className={`orderline mb-2 pb-2 scroll-x-y row  ${dropdownExpandStyle}`}
+        style={{ marginLeft: '-4.5px', marginRight: '-4.5px' }}
+      >
         {/* End Line Details */}
         <table>
           <thead>
@@ -339,9 +348,8 @@ const Form = ({
 
       <div>
         <button
-          style={isReadonly ? { display: 'none' } : null}
           type="button"
-          className="btn btn-light-blue m-0"
+          className={`btn m-0 ${isReadonly ? `btn-light-none`: `btn-light-blue`}`}
           onClick={async () => {
             //validate first
             setIsValidation(true);

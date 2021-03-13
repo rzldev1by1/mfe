@@ -24,7 +24,7 @@ const DropdownAxios = ({
   required = false,
   readOnly,
   messageRequired,
-
+  showLabelOnly,
   messageParam = { messageShow: false, messageData: {}, messageCustom: {} },
   parentDivClassName,
 }) => {
@@ -32,7 +32,9 @@ const DropdownAxios = ({
   const [isValue, setIsValue] = useState('');
   const elem = document?.getElementById(`dropdown${entryListIdx}${poListIdx}`);
   let position = elem?.getBoundingClientRect();
-  const newSelectedValue = {label:selectedValue?.value, value:selectedValue?.value}
+  const newSelectedValue = !showLabelOnly
+    ? selectedValue
+    : { label: selectedValue?.value, value: selectedValue?.value };
 
   useEffect(() => {
     if (selectedValue === 'empty') setIsOpen(true);
@@ -41,19 +43,23 @@ const DropdownAxios = ({
   useEffect(() => {
     if (isValue.length >= minChar) {
       onInputChange(isValue);
+      if (document.getElementById('orderLines')) {
+        document.getElementById('orderLines').scrollLeft -= 200;
+      }
       setIsOpen(true);
     } else {
       setIsOpen(false);
     }
   }, [isValue]);
 
-  let newOptions = []
-  if(options?.length){
-    newOptions = options?.map(data => ({
-      label: `${data?.value} : ${data?.label}`, 
-      value:data?.value, orginLabel: data?.label, 
-      uom: data?.data?.uom
-    }))
+  let newOptions = [];
+  if (options?.length) {
+    newOptions = options?.map((data) => ({
+      label: `${data?.value}: ${data?.label}`,
+      value: data?.value,
+      orginLabel: data?.label,
+      uom: data?.data?.uom,
+    }));
   }
   return (
     <div className={parentDivClassName}>

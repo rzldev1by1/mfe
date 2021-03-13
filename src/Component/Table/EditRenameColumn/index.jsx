@@ -39,7 +39,6 @@ const EditRenameColumn = ({
     ErrorClose.sameColumnsIdx = [];
     setState(ErrorClose);
   };
-
   const Required = ({ error, id }) => {
     if (error) {
       const object = Object.keys(error);
@@ -50,11 +49,11 @@ const EditRenameColumn = ({
   };
 
   const UrlHeader = () => {
-    return `settings/field-label/${splitModule}?client=ALL`;
+    return `/settings/field-label/${splitModule}?client=ALL`;
   };
 
   const UrlAll = () => {
-    return `settings/field-label/${splitModule}?client=all`;
+    return `/settings/field-label/${splitModule}?client=all`;
   };
 
   useEffect(() => {

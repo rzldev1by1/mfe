@@ -124,7 +124,7 @@ export const schemaColumn = [
   },
   {
     Header: 'Date Received',
-    placeholder: 'Order Received',
+    placeholder: 'Date Received',
     accessor: 'date_received',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },

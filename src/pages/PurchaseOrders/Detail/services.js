@@ -3,8 +3,10 @@ import React from 'react';
 import moment from 'moment';
 
 export const formatDate = (date) => {
-  if (date) {
+  if (date !== null && date !== '-') {
     return moment(date).format('DD/MM/YYYY') || false;
+  }else{
+    return date
   }
 };
 
@@ -35,7 +37,7 @@ export const schemaColumnDetailPO = [
     accessor: 'product',
     placeholder: 'Product',
     Header: 'Product',
-    width: 100,
+    width: 180,
     Cell: (props) => props.value || '-',
   },
   {
@@ -127,6 +129,7 @@ export const schemaColumnDetailPO = [
     accessor: 'rotadate',
     placeholder: 'Rotadate',
     Header: 'Rotadate',
+    Cell: (props) => props.value || '-',
     width: 130,
   },
   {

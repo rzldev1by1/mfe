@@ -4,7 +4,7 @@ body {
 }
 
 .text-muted-soft {
-  color: #d5d8da;
+  color: #b4b9bb;
 }
 
 .login .border-red {
@@ -159,6 +159,12 @@ input:-webkit-autofill {
   background-color: white !important;
   border: 1px solid #3366ff !important;
 }
+.btn-light-none {
+  color: transparent !important;
+  font-weight: 600 !important;
+  background-color: transparent !important;
+  border: 1px solid transparent !important;
+}
 
 .sh-input {
   padding-left: 0.75rem !important;
@@ -222,9 +228,10 @@ input:-webkit-autofill {
 .nav-link.active {
   background-color: #fff !important;
   color: #376bfb !important;
+}
+.height-nav{
   height: 3.25rem;
 }
-
 @-moz-document url-prefix() {
   .nav-link.active {
     height: 3.3rem;
@@ -276,10 +283,6 @@ input.form-control,
 
 .badge-secondary {
   color: #eeeeee;
-}
-
-.nav-tabs .nav-item {
-  margin-bottom: -1px !important;
 }
 
 .sales-order,
@@ -466,7 +469,7 @@ header {
   color: #637175 !important;
   background: transparent;
   padding: 1px 28px;
-  border-radius: 0.5rem;
+  border-radius: 0.2rem;
   border: solid 1.5px #637175;
   font-size: 12px;
 }
@@ -476,42 +479,40 @@ header {
   background: #f94548;
   padding: 2px 6px;
   font-size: 12px;
-  border-radius: 0.4rem;
+  border-radius: 0.2rem;
 }
 
 .status-available {
   color: #fff !important;
   background-color: #637175;
-  border-radius: 0.5rem;
+  border-radius: 0.2rem;
   /* border: solid 1.0.5rem #959292; */
   font-size: 12px;
-  padding: 2px 6px;
+  padding: 2px 22px;
 }
 
 .status-unavailable {
   color: #fff !important;
   background-color: #f94548;
-  border-radius: 0.5rem;
+  border-radius: 0.2rem;
   /* border: solid 1.0.5rem #959292; */
   font-size: 12px;
-  padding: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding: 2px 14px;
 }
 
 .status-complete {
   color: #555050 !important;
   background-color: transparent;
-  border-radius: 0.5rem;
+  border-radius: 0.2rem;
   border: solid 1px #555050;
   font-size: 12px;
-  padding: 2px 6px;
+  padding: 2px 19px;
 }
 
 .status-partRelease {
   color: #637175 !important;
   background-color: transparent;
-  border-radius: 0.5rem;
+  border-radius: 0.2rem;
   border: solid 1px #637175;
   font-size: 12px;
   padding: 1px 6px;
@@ -520,7 +521,7 @@ header {
 .status-Release {
   color: #555050 (209, 204, 204) !important;
   background: transparent;
-  border-radius: 0.5rem;
+  border-radius: 0.2rem;
   border: solid 1px #555050;
   font-size: 12px;
   padding: 2px 23px;
@@ -759,4 +760,11 @@ input.form-control.input-danger {
   background-color: #124ffa !important;
   border-color: #0546fa !important;
   box-shadow: 0 0 0 0.2rem rgba(85, 129, 252, 0.5);
+}
+
+.newIcon-create_edit{
+  font-size: 1.7rem;
+}
+.newIcon-review{
+  font-size: 1.7rem;
 }

@@ -23,20 +23,22 @@ const StockHoldingDetail = (props) => {
   const user = useSelector((state) => state.user);
   const module = 'stockHolding';
   const [activeTab, setActiveTab] = useState('1');
-
   useEffect(() => {
     getDetailHeader({ dispatch, props, module });
+    getDetailData({ dispatch, props, active: paginationShDetail?.active || 1, module });
+    getForescast({ dispatch, props, active: paginationShForecast?.active || 1 });
   }, []);
-  useEffect(() => {
-    if (!shDetailTable) {
-      getDetailData({ dispatch, props, active: paginationShDetail?.active || 1, module });
-    }
-  }, []);
-  useEffect(() => {
-    if (!shDetailForescast) {
-      getForescast({ dispatch, props, active: paginationShForecast?.active || 1 });
-    }
-  }, []);
+
+  // useEffect(() => {
+  //   if (!shDetailTable) {
+  //     getDetailData({ dispatch, props, active: paginationShDetail?.active || 1, module });
+  //   }
+  // }, []);
+  // useEffect(() => {
+  //   if (!shDetailForescast) {
+  //     getForescast({ dispatch, props, active: paginationShForecast?.active || 1 });
+  //   }
+  // }, []);
 
   const height = window.innerHeight - 378;
   const widht = window.innerWidth;
@@ -83,7 +85,7 @@ const StockHoldingDetail = (props) => {
       <CRow className="align-items-center mx-0" style={{ width: 'max-content' }}>
         <div className="stockDetails col-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
           <Nav tabs className="mx-0">
-            <div className="input-group">
+            <div className="d-flex">
               <NavItem className={`p-0 ${activeTab === '2' ? 'bg-tabNonActive' : 'n'}`}>
                 <NavLink
                   className="d-flex align-items-center pl-0"
@@ -96,7 +98,7 @@ const StockHoldingDetail = (props) => {
                       activeTab === '1' ? ' tab-custom' : 'tab-nonActive'
                     }`}
                   >
-                    <span className="number-number-1 tabTitleText" />
+                    <span className="newIcon-stock_details tabTitleText" />
                     {activeTab === '1'}
                     Stock Details
                   </div>
@@ -119,7 +121,7 @@ const StockHoldingDetail = (props) => {
                         activeTab === '2' ? ' tab-custom' : 'tab-nonActive'
                       }`}
                     >
-                      <span className="number-number-2 tabTitleText" />
+                      <span className="newIcon-stock_balance tabTitleText" />
                       {activeTab === '2'}
                       Stock Balance Forecast
                     </div>
@@ -137,7 +139,7 @@ const StockHoldingDetail = (props) => {
             <TableMaster
               schemaColumn={schemaColumnDetailPO}
               classNamePaging="display-paging"
-              classNameTable="table-detail "
+              classNameTable="table-detail stock-detail "
               data={shDetailTable}
               style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
               module="StockHoldingDetail"
@@ -162,7 +164,7 @@ const StockHoldingDetail = (props) => {
             <TableMaster
               schemaColumn={schameColumnForesCast}
               classNamePaging="display-paging"
-              classNameTable="table-detail "
+              classNameTable="table-detail stock-detail"
               data={shDetailForescast}
               style={{ minHeight: height, maxHeight: height, minWidht: widht, maxWidht: widht }}
               module="StockHoldingForecast"

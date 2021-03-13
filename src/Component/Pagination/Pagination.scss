@@ -16,7 +16,7 @@
   cursor: pointer;
 }
 .click-tab:hover{
-  background-color: transparent !important;
+  background-color: #b4b9bb !important;
 }
 .outLineNone:focus{
 outline: none;
@@ -41,19 +41,18 @@ input::-webkit-inner-spin-button {
 ul.pagination {
   margin-bottom: 0;
   justify-content: center !important;
-  background-color:transparent;
-  border-right-color: transparent !important;
+  background-color:#d5d8da;
+  border-right-color: #d5d8da !important;
 }
 
 .page-item {
   text-align: center;
-  margin: 0 3.5px;
   background-color: #fff;
   display: flex;
   align-items: center;
-  border-radius: 7px;
-  padding-left: 8px;
-  padding-right: 8px;
+  border-radius: 5px;
+  padding-left: 16px;
+  padding-right: 16px;
   width: fit-content !important;
 }
 .icon-size-paging-double{
@@ -117,7 +116,7 @@ nav .pagination li .page-link:focus {
 }
 
 nav .pagination li:first-child .page-link:hover {
-  background-color: transparent !important;
+  background-color: #d5d8da !important;
   border: none !important;
   outline: 0 !important;
 }
@@ -133,7 +132,7 @@ nav .pagination li:nth-child(2) .page-link {
 }
 
 nav .pagination li:nth-child(2) .page-link:hover {
-  background-color: transparent !important;
+  background-color: #d5d8da !important;
   border: none !important;
   outline: 0 !important;
 }
@@ -144,7 +143,7 @@ nav .pagination li:nth-last-child(2) {
 }
 
 nav .pagination li:nth-last-child(2) .page-link:hover {
-  background-color: transparent !important;
+  background-color: #d5d8da !important;
   border: none !important;
   outline: 0 !important;
 }
@@ -165,7 +164,7 @@ nav .pagination li:last-child .page-link {
 }
 
 nav .pagination li:last-child .page-link:hover {
-  background-color: transparent !important;
+  background-color: #d5d8da !important;
   border: none !important;
   outline: 0 !important;
 }
@@ -213,6 +212,28 @@ nav .pagination li:last-child .page-link:hover {
 .form-control-sm{
   padding-left: 4.7% !important;
 }
-.box-input{
-  border-radius: 5px;
+
+.border-left-none{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+.border-right-none{
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.bg-paging-search{
+  background-color: #f6f7f9;
+  margin-left: -4px;
+}
+.paging-previous{
+  margin-left: -4px;
+  border-radius: 0px;
+}
+.margin-none-left{
+ margin-left: 0px !important;
+}
+.input-paging{
+    text-align: center;
+    // border: solid 2px #b4b9bb  ;
+    background-color: #f6f7f9;
 }

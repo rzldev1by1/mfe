@@ -46,7 +46,7 @@ const PurchaseOrders = (props) => {
   });
 
   useEffect(() => {
-    getSummaryData({ dispatch, active: paginationPo?.active, module });
+    getSummaryData({ dispatch, active: paginationPo?.active, module, siteVal: user.site, clientVal: user.client });
   }, []);
 
   const [columnHidden, setColumnHidden] = useState(null);
@@ -58,18 +58,32 @@ const PurchaseOrders = (props) => {
 
   useEffect(() => {
     if (stateChangeHeader) {
-      setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
-      setState2(true);
-    }
-  }, [stateChangeHeader]);
-
-  useEffect(() => {
-    if (state2) {
+      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
       let x = columnHidden?.map((data, idx) => {
         if (data.title === 'Purchase Order Summary') {
           setColumnHidden(data.columns);
         }
       });
+      dispatch({ type: 'CHANGE_HEADER', data: false });
+    }
+  }, [stateChangeHeader]);
+
+  useEffect(() => {
+    if (state2) {
+      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      let tmp = null;
+      let x = columnHidden?.map((data, idx) => {
+        console.log(data);
+        if (data.title === 'Purchase Order Summary') {
+          tmp = data.columns;
+        }
+      });
+      if (tmp) {
+        setColumnHidden(tmp);
+      } else {
+        setColumnHidden([]);
+      }
+      console.log('state2', tmp);
       setState2(false);
       dispatch({ type: 'CHANGE_HEADER', data: false });
     }
@@ -78,7 +92,7 @@ const PurchaseOrders = (props) => {
   useEffect(() => {
     if (Export === true) {
       setExport(false);
-      getSummaryData({ dispatch, active: paginationPo?.active, Export, module });
+      // getSummaryData({ dispatch, active: paginationPo?.active, Export, module });
     }
   }, [Export]);
   return (
@@ -103,6 +117,7 @@ const PurchaseOrders = (props) => {
             placeholder="Enter an Order No"
             filter
             onChangeGetTask
+            Export={Export}
           />
         </div>
         <div>

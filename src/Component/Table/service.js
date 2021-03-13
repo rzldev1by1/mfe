@@ -1,4 +1,3 @@
-import { objectOf } from 'prop-types';
 import React from 'react';
 
 const getColumnWidth = (rows, accessor, headerText, minWidth) => {
@@ -39,7 +38,7 @@ export const renewColumn = async ({
       tmp_oldSchema[idx].width = await getColumnWidth(data, d.accessor, d.Header, d.width || 70);
     }
   });
-  
+  console.log('columnHidden from table component', columnHidden);
   //hide column
   if (columnHidden !== null && columnHidden !== undefined) {
     await tmp_oldSchema.forEach(async (d, idx) => {
@@ -56,7 +55,7 @@ export const renewColumn = async ({
   if (editColumn !== 'false') {
     const editBtn = (
       <div className="edit-column" onClick={showModal.bind(this, true)}>
-        <i className="iconU-edit" />
+        <i className="newIcon-edit_column" />
       </div>
     );
     const obj = {

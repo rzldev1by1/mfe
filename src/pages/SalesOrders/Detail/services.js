@@ -19,7 +19,7 @@ export const schemaColumnDetailPO = [
     accessor: 'product',
     placeholder: 'Product',
     Header: 'Product',
-    width: 100,
+    width: 180,
     Cell: (props) => props.value || '-',
   },
   {

@@ -7,10 +7,11 @@ import ModuleAccess from '../ModuleAccess';
 import Site from '../Site';
 import Client from '../Client';
 import { getAccountInfo, onBlurEmail, onChangeEmail, onChangeName, saveClick } from '../../../apiService';
-import { disabledCharacterName, onClieckSuspendUser, gotoUM, onClickResetPassword } from './service';
+import { disabledCharacterName, onClieckSuspendUser, gotoUM, onClickResetPassword, buttonValidation } from './service';
 import loading from '../../../assets/icons/loading/LOADING-MLS.gif';
 import ResetModal from '../../../Component/Modal/PopUpResetUm';
 import './index.scss';
+import { validateButton } from '../Create/services';
 
 const UserManagementDetail = (props) => {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const UserManagementDetail = (props) => {
 
     adminClass: 'd-none',
     validation: {
-      name: { isValid: true, invalidClass: ' ', message: 'username must be entered' },
+      name: { isValid: true, invalidClass: 'is-invalid', message: 'username must be entered' },
       email: { isValid: true, invalidClass: ' ', message: 'invalid email' },
       modules: { isValid: true, invalidClass: 'is-invalid', message: 'Please enable at least one on module access' },
       sites: { isValid: true, invalidClass: 'is-invalid', message: 'Please enable at least one on site' },
@@ -51,6 +52,7 @@ const UserManagementDetail = (props) => {
   const loadSite = useSelector((state) => state.loadSite);
   const loadClient = useSelector((state) => state.loadClient);
   const moduleAccess = useSelector((state) => state.moduleAccess);
+  const [isButton, setIsButton] = useState(false);
   const newState = { ...state };
 
   useEffect(() => {
@@ -68,6 +70,14 @@ const UserManagementDetail = (props) => {
     newState.initialData = newInitialData;
     setState(newState);
   }, []);
+
+  useEffect(() => {
+    buttonValidation({ setIsButton, validation: newState?.validation });
+  }, [state]);
+
+  useEffect(() => {
+    getAccountInfo({ userid, state, setState, dispatch, loadSite, loadClient, moduleAccess });
+  }, []);
   return (
     <div>
       <Breadcrumb breadcrumb={[{ to: '/users-management', label: 'User Management' }]} />
@@ -84,7 +94,7 @@ const UserManagementDetail = (props) => {
               <div className="row mb-3">
                 <div className="col-12">
                   <h3 className="mb-0">
-                    <i class="fa fa-user pr-3" aria-hidden="true"></i>
+                    <i class="fa newIcon-profile pr-3" aria-hidden="true"></i>
                     <label className="text-primary mb-0">{newState.accountInfo.user}</label>
                   </h3>
                 </div>
@@ -118,6 +128,7 @@ const UserManagementDetail = (props) => {
                 </div>
                 <div className="col-md-3 pr-0">
                   <input
+                    readOnly
                     type="email"
                     name="email"
                     className={`form-control ${
@@ -131,12 +142,13 @@ const UserManagementDetail = (props) => {
                     }}
                     value={newState.accountInfo.email}
                   />
-                  <FormFeedback className="invalid-error-padding">
+                  {/* <FormFeedback className="invalid-error-padding">
                     {`${newState.validation.email['message']}`}
-                  </FormFeedback>
+                  </FormFeedback> */}
                 </div>
                 <div className="col-md-2 pr-0">
                   <input
+                    readOnly
                     type="text"
                     className={`form-control ${
                       newState.validation.name['isValid'] ? '' : newState.validation.name['invalidClass']
@@ -148,9 +160,9 @@ const UserManagementDetail = (props) => {
                     onKeyDown={disabledCharacterName}
                     value={newState.accountInfo.user}
                   />
-                  <FormFeedback className="invalid-error-padding">
+                  {/* <FormFeedback className="invalid-error-padding">
                     {`${newState.validation.name['message']}`}
-                  </FormFeedback>
+                  </FormFeedback> */}
                 </div>
 
                 {newState?.accountInfo?.request_forgot_password ? (
@@ -232,6 +244,7 @@ const UserManagementDetail = (props) => {
                 <div className="col-4 pl-0">
                   <Site
                     state={state}
+                    module='detail'
                     setState={setState}
                     sites={newState.sites}
                     isEnableAllSite={newState.isEnableAllSite}
@@ -248,6 +261,7 @@ const UserManagementDetail = (props) => {
                 <div className="col-4 um-client-scrollbar">
                   <Client
                     state={state}
+                    module='detail'
                     setState={setState}
                     clients={newState.clients}
                     isEnableAllClient={newState.isEnableAllClient}
@@ -271,7 +285,7 @@ const UserManagementDetail = (props) => {
                   gotoUM(props);
                 }}
               >
-                <label className="create-user-label mb-0">{`< BACK`}</label>
+                <label className="create-user-label mb-0">{`BACK`}</label>
               </button>
               <p>
                 {/* <label className={newState.isValidForm ? 'errorText ' : ' d-none'}>
@@ -280,8 +294,10 @@ const UserManagementDetail = (props) => {
               </p>
               <button
                 type="button"
-                className={`font-lg btn btn-submit default-box-height ${newState.changed ? 'btn-primary' : 'btn-grey'}`}
-                disabled={!newState.changed}
+                className={`font-lg btn btn-submit default-box-height ${
+                  newState.changed && isButton ? 'btn-primary' : 'btn-grey'
+                }`}
+                disabled={!newState.changed || !isButton}
                 onClick={() => {
                   saveClick({ props, state, setState, dispatch });
                 }}

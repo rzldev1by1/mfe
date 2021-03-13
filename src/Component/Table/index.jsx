@@ -96,6 +96,8 @@ const Table = ({
         }}
         defaultSortMethod={(a, b) => {
           let type = 'string';
+          a = a !== '-' ? a : '';
+          b = b !== '-' ? b : '';
           a = a ? a.replaceAll(',', '') : '';
           b = b ? b.replaceAll(',', '') : '';
 

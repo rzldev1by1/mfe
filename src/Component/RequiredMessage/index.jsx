@@ -20,9 +20,13 @@ const RequiredMessage = ({ messageShow, column, data, columnText, value, dropdow
     //if empty
     if (!value) setMessage(columnText + ' must be entered');
 
-    if (customMessage?.status === false) {
-      //if it use custom message, example: order Number
-      setMessage(customMessage?.message);
+    //if dates
+    if (!value) setMessage(columnText + ' must be entered');
+
+    if (column == 'validDates') {
+      if (!value) {
+        setMessage('Please select a valid date');
+      }
     }
   }, [columnText, value, customMessage]);
 

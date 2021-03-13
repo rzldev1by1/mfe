@@ -2,7 +2,7 @@ import React from 'react';
 import '../index.scss';
 import { onClientStatusClick, onEnabledAllClient } from '../services';
 
-const client = ({ clients, isEnableAllClient, state, setState, isReadOnly }) => {
+const client = ({ clients, isEnableAllClient, state, setState, isReadOnly, module }) => {
   const disableAll = 'Disable All';
   const enableAll = 'Enable All';
   const enable = 'Enabled';
@@ -10,16 +10,15 @@ const client = ({ clients, isEnableAllClient, state, setState, isReadOnly }) => 
 
   return (
     <div>
-      <div className={`flex-column line-border my-3 `}>
+      <div className={`flex-column line-border mr-2 my-3`}>
         <div className={`d-flex `}>
-          <label className="text-muted-soft col-6 p-0 py-2" htmlFor="Client">
+          <label className="col-6 text-muted-soft px-0 py-2" htmlFor="Client">
             Client
           </label>
-
-          <div className="col-6 client-enableall-padding">
+          <div className="col-6 pr-4">
             <button
               type="button"
-              className={`btn float-right px-1 mb-2 ${
+              className={`btn px-1 float-right mb-2  ${
                 isEnableAllClient ? 'btn-outline-All-notActive' : 'btn-outline-All-active'
               } ${isReadOnly ? 'd-none' : ''}`}
               onClick={() => onEnabledAllClient({ state, setState })}
@@ -29,14 +28,15 @@ const client = ({ clients, isEnableAllClient, state, setState, isReadOnly }) => 
           </div>
         </div>
       </div>
+
       <div className="client-areas">
         {clients && client.length
           ? clients.map((item, index) => {
               return (
-                <div className="flex-column" key={index}>
-                  <div className="d-flex mb-1" key={index}>
-                    <label className="text-muted col-6 section-value-text p-0 py-2 " key={item.code}>
-                      {` ${item.name}`}
+                <div className="flex-column mb-1" style={{paddingRight:'1.5px'}} key={index}>
+                  <div className="d-flex" key={index}>
+                    <label className="col-6 text-muted px-0 py-2" key={item.code}>
+                      {module === 'detail' ? `${item.code}: ${item.name}` : `${item.name}` }
                     </label>
                     <div className="col-6">
                       <button

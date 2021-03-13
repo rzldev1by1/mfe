@@ -20,34 +20,34 @@ const SalesOrdersDetail = (props) => {
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
   const [Export, setExport] = useState(false);
-  const module = "salesOrder"
+  const module = 'salesOrder';
 
-      // dimension
-      const [dimension, setDimension] = useState({
+  // dimension
+  const [dimension, setDimension] = useState({
+    height: window.innerHeight - 450,
+    width: window.innerWidth,
+  });
+  const { width, height } = dimension;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimension({
         height: window.innerHeight - 450,
         width: window.innerWidth,
       });
-      const { width, height } = dimension;
-    
-      useEffect(() => {
-        const handleResize = () => {
-          setDimension({
-            height: window.innerHeight - 450,
-            width: window.innerWidth,
-          });
-        };
-        window.addEventListener('resize', handleResize);
-        return () => {
-          window.removeEventListener('resize', handleResize);
-        };
-      });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
 
   useEffect(() => {
     getDetailHeader({ dispatch, props, module });
   }, []);
 
   useEffect(() => {
-    getDetailData({ dispatch, props, active:paginationSoDetail?.active, module });
+    getDetailData({ dispatch, props, active: paginationSoDetail?.active, module });
   }, []);
 
   const [columnHidden, setColumnHidden] = useState(null);
@@ -59,18 +59,30 @@ const SalesOrdersDetail = (props) => {
 
   useEffect(() => {
     if (stateChangeHeader) {
-      setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
-      setState2(true);
-    }
-  }, [stateChangeHeader]);
-
-  useEffect(() => {
-    if (state2) {
+      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
       let x = columnHidden?.map((data, idx) => {
         if (data.title === 'Sales Order Details') {
           setColumnHidden(data.columns);
         }
       });
+      dispatch({ type: 'CHANGE_HEADER', data: false });
+    }
+  }, [stateChangeHeader]);
+
+  useEffect(() => {
+    if (state2) {
+      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      let tmp = null;
+      let x = columnHidden?.map((data, idx) => {
+        if (data.title === 'Sales Order Details') {
+          tmp = data.columns;
+        }
+      });
+      if (tmp) {
+        setColumnHidden(tmp);
+      } else {
+        setColumnHidden([]);
+      }
       setState2(false);
       dispatch({ type: 'CHANGE_HEADER', data: false });
     }
@@ -83,10 +95,10 @@ const SalesOrdersDetail = (props) => {
     }
   }, [Export]);
 
-  let indexCustomerName = soDetail?.customername.split(":")
+  let indexCustomerName = soDetail?.customername ? soDetail?.customername.split(':') : [];
   if (indexCustomerName !== undefined) indexCustomerName = indexCustomerName[1];
   return (
-    <div>
+    <div className="so-detail">
       <Breadcrumb
         breadcrumb={[
           { to: '/sales-order', label: 'Sales Order' },
@@ -108,8 +120,8 @@ const SalesOrdersDetail = (props) => {
           titleRightNine="Vendor Order Ref"
           titleRightEleven="Delivery Instructions"
           // Valeu Right
-          valeuRightOne={siteCheck({val:soDetail?.site, site:siteData}) || '-'}
-          valeuRightTwo={clientCheck({val:soDetail?.client, client:clientData}) || '-'}
+          valeuRightOne={siteCheck({ val: soDetail?.site, site: siteData }) || '-'}
+          valeuRightTwo={clientCheck({ val: soDetail?.client, client: clientData }) || '-'}
           valeuRightThree={soDetail?.orderno || '-'}
           valeuRightFour={soDetail?.ordertype || '-'}
           valeuRightFive={soDetail?.isistask || '-'}
@@ -152,8 +164,10 @@ const SalesOrdersDetail = (props) => {
           titleLeftNine="Consignment No"
           titleLeftTen="Freight Charge"
           // Valeu Left
-          valeuLeftOne={(soDetail?.status && soDetail?.status.includes("0:") ? "0: Unavailable" : soDetail?.status) || '-'}
-          valeuLeftTwo={formatDate(soDetail?.deliverydate )|| '-'}
+          valeuLeftOne={
+            (soDetail?.status && soDetail?.status.includes('0:') ? '0: Unavailable' : soDetail?.status) || '-'
+          }
+          valeuLeftTwo={formatDate(soDetail?.deliverydate) || '-'}
           valeuLeftThree={formatDate(soDetail?.datereceived) || '-'}
           valeuLeftFour={formatDate(soDetail?.datereleased) || '-'}
           valeuLeftFive={formatDate(soDetail?.datecompleted) || '-'}
@@ -176,13 +190,14 @@ const SalesOrdersDetail = (props) => {
         columnHidden={columnHidden}
         pagination={paginationSoDetail}
         goto={(e) => {
-          dispatch({type:'PAGING_SO_DETAIL', data:{ ...paginationSoDetail, active: e}})
+          dispatch({ type: 'PAGING_SO_DETAIL', data: { ...paginationSoDetail, active: e } });
         }}
         getExportData={() => setExportData({ dispatch, data: soDetailTable })}
         user={user}
         title="Sales Order Details"
         filename="Microlistics_SalesOrderDetails."
         isDisplay={false}
+        splitModule="sales-order-detail"
       />
     </div>
   );

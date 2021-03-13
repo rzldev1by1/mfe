@@ -32,6 +32,7 @@ export const getSummaryData = async ({
   let endpointsUrl = '';
   let paramType = '';
   let paramPaging = '';
+  searchInput = searchInput ? searchInput : '';
 
   if (module === 'purchaseOrder') {
     endpointsUrl = endpoints.purchaseOrder;
@@ -60,8 +61,8 @@ export const getSummaryData = async ({
   }
   if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
     urls.push(`search=${searchInput?.toUpperCase() || ''}`);
-    urls.push(`site=${siteVal?.value ? siteVal.value : 'all'}`);
-    urls.push(`client=${clientVal?.value ? clientVal.value : 'all'}`);
+    urls.push(`site=${siteVal ? siteVal : 'all'}`);
+    urls.push(`client=${clientVal ? clientVal : 'all'}`);
     urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
     urls.push(`status=${status ? status.value : 'open'}`);
   }
@@ -80,6 +81,13 @@ export const getSummaryData = async ({
   const Data = newData?.data?.data;
 
   // Table Status
+  let element = document.getElementById('searchInput');
+  if (element) {
+    if (element.value !== searchInput) {
+      return;
+    }
+  }
+
   if (Data?.length) {
     dispatch({ type: 'TABLE_STATUS', data: '' });
   } else if (Data?.length < 1) {
@@ -220,7 +228,7 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
       m.weight = numeral(m.weight).format('0,0.000');
       m.completed = m.completed == 'Y' ? 'Yes' : 'x';
       m.released = m.released == 'Y' ? 'Yes' : 'x';
-      m.rotadate = m.rotadate && m.rotadate !== '' ? m.rotadate : '-';
+      m.rotadate = m.rotadate && m.rotadate !== '' ? formatDate(m.rotadate) : '-';
       txt.push(m.batch?.length);
       return m;
     });
@@ -417,6 +425,7 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
     newState.adminClass = adminClassName;
   }
   const accountInfoUser = result;
+
   // ModalAccess
   let newIsEnableAllModule = { ...newState.isEnableAllModule };
   let userMenu = [...accountInfoUser.userMenu].map((item, index) => {
@@ -435,12 +444,7 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
       newItem.status = isStatus;
       return newItem;
     });
-  newIsEnableAllModule =
-    menus?.filter((item) => {
-      return item.status === true;
-    })?.length === menus?.length
-      ? true
-      : false;
+  newIsEnableAllModule = menus?.filter((item) => { return item.status === true; })?.length === menus?.length ? true : false;
   newState.moduleAccess = menus;
   newState.isEnableAllModule = newIsEnableAllModule;
   // and ModalAccess
@@ -452,12 +456,7 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
     newItem.status = accountInfoUser.site === null ? true : item.site === accountInfoUser.site ? true : false;
     return newItem;
   });
-  newIsEnableAllSite =
-    sites?.filter((item) => {
-      return item.status === true;
-    })?.length === sites?.length
-      ? true
-      : false;
+  newIsEnableAllSite = sites?.filter((item) => { return item.status === true; })?.length === sites?.length ? true : false;
   newState.sites = sites;
   newState.isEnableAllSite = newIsEnableAllSite;
   // end LoadSite
@@ -594,7 +593,8 @@ export const onChangeName = ({ e, state, setState }) => {
 };
 export const checkNameValidation = ({ textName, state, setState }) => {
   const newState = { ...state };
-  let isValid = textName === '' ? false : true;
+  console.log(textName);
+  let isValid = textName == '' ? false : true;
   newState.validation.name['isValid'] = isValid;
   if (!isValid) newState.validation.name['message'] = utility.validationMsg.USERNAME_REQUIRED;
   else newState.validation.name['message'] = '';

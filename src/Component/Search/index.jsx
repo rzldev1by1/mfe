@@ -28,6 +28,7 @@ const Search = ({
   filterTask,
   statusDataSH,
   onChangeGetTask = false,
+  Export = false,
 }) => {
   // params
   const dispatch = useDispatch();
@@ -56,7 +57,7 @@ const Search = ({
   }
   if (module === 'purchaseOrder') {
     paramType = 'GET_PO_SUMMARY';
-    searchFilter ='SEARCH_FILTER';
+    searchFilter = 'SEARCH_FILTER';
   }
   if (module === 'salesOrder') {
     paramType = 'GET_SO_SUMMARY';
@@ -70,8 +71,8 @@ const Search = ({
       dispatch({ type: paramType, data: [] });
       await getSummaryData({
         e,
-        siteVal: newDropdownValue.site,
-        clientVal: newDropdownValue.client,
+        siteVal: newDropdownValue.site?.value,
+        clientVal: newDropdownValue.client?.value,
         orderType: newDropdownValue.orderType,
         task: newDropdownValue.task,
         status: newDropdownValue.status,
@@ -85,8 +86,8 @@ const Search = ({
     e.preventDefault();
     getSummaryData({
       e,
-      siteVal: newDropdownValue.site,
-      clientVal: newDropdownValue.client,
+      siteVal: user.site || newDropdownValue.site,
+      clientVal: user.client || newDropdownValue.client,
       orderType: newDropdownValue.orderType,
       task: newDropdownValue.task,
       status: newDropdownValue.status,
@@ -118,17 +119,40 @@ const Search = ({
     }
   }, [newDropdownValue.status]);
   useEffect(() => {
-      dispatch({ type: 'SEARCH_FILTER', data: { siteVal: newDropdownValue.site,
-                                                clientVal: newDropdownValue.client, 
-                                                orderType: newDropdownValue.orderType, 
-                                                task: newDropdownValue.task, 
-                                                status: newDropdownValue.status, } });  
-    }, [  newDropdownValue.site, 
-          newDropdownValue.client, 
-          newDropdownValue.orderType, 
-          newDropdownValue.task, 
-          newDropdownValue.status,]);
-  
+    dispatch({
+      type: 'SEARCH_FILTER',
+      data: {
+        siteVal: newDropdownValue.site?.value,
+        clientVal: newDropdownValue.client?.value,
+        orderType: newDropdownValue.orderType,
+        task: newDropdownValue.task,
+        status: newDropdownValue.status,
+      },
+    });
+  }, [
+    newDropdownValue.site?.value,
+    newDropdownValue.client?.value,
+    newDropdownValue.orderType,
+    newDropdownValue.task,
+    newDropdownValue.status,
+  ]);
+
+  useEffect(() => {
+    if (Export === true) {
+      getSummaryData({
+        siteVal: user.site ||newDropdownValue.site?.value,
+        clientVal: user.client || newDropdownValue.client?.value,
+        orderType: newDropdownValue.orderType,
+        task: newDropdownValue.task,
+        status: newDropdownValue.status,
+        dispatch,
+        searchInput,
+        module,
+        Export,
+      });
+    }
+  }, [Export]);
+
   return (
     <CCard className={`mb-3`}>
       <CCardBody className={`p-3`}>
@@ -142,6 +166,7 @@ const Search = ({
                   </span>
                 </div>
                 <input
+                  id="searchInput"
                   type="text"
                   className="form-control border-left-0 input-height"
                   placeholder={placeholder}
@@ -158,8 +183,8 @@ const Search = ({
                   className="btn btn-search mobile-search  btn-primary float-right"
                   onClick={() =>
                     getSummaryData({
-                      siteVal: newDropdownValue.site,
-                      clientVal: newDropdownValue.client,
+                      siteVal: user.site || newDropdownValue.site?.value,
+                      clientVal: user.client || newDropdownValue.client?.value,
                       orderType: newDropdownValue.orderType,
                       task: newDropdownValue.task,
                       status: newDropdownValue.status,
@@ -260,8 +285,8 @@ const Search = ({
                       className="btn btn-search mobile-search btn-primary float-right"
                       onClick={() =>
                         getSummaryData({
-                          siteVal: newDropdownValue.site,
-                          clientVal: newDropdownValue.client,
+                          siteVal: user.site || newDropdownValue.site?.value,
+                          clientVal: user.client || newDropdownValue.client?.value,
                           orderType: newDropdownValue.orderType,
                           task: newDropdownValue.task,
                           status: newDropdownValue.status,

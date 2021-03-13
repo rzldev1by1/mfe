@@ -1,9 +1,17 @@
 .table-detail {
+ 
   .rt-tbody .rt-tr-group:hover {
     background-color: #fff !important;
     cursor: default !important;
   }
 }
+
+.stock-detail{
+  .ReactTable .rt-table{
+    border-radius: 0px 4px 4px 4px !important;
+  }
+}
+
 .display-paging {
   display: none !important;
 }
@@ -14,6 +22,11 @@
   }
 }
 
-.number-number-2 {
-  padding-top: 1px;
+.newIcon-stock_balance{
+  font-size: 2rem;
+  padding-right: 10px;
+}
+.newIcon-stock_details{
+  font-size: 2rem;
+  padding-right: 10px;
 }

@@ -93,24 +93,26 @@ const Create = ({ show, setShow }) => {
           <Nav tabs className="px-7 m-0">
             <NavItem className="mr-1">
               <NavLink
-                style={{ paddingBottom: '12px' }}
+                style={{ paddingBottom: '7px', maxWidth:'297px', paddingRight:'20px' }}
                 className={`d-flex height-nav align-items-center ${activeTab === 'details' ? 'active' : null}`}
                 onClick={() => setActiveTab('details')}
               >
-                <span className="number-number-1" />
-                Order & Product Details
+                <span className="newIcon-create_edit" />
+                <div className="pl-2">User Details</div>
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink
                 className={`d-flex height-nav align-items-center ${activeTab === 'review' ? 'active' : null}`}
+                style={{ paddingBottom: '7px', maxWidth:'146px', paddingRight:'22px' }}
                 onClick={() => {
                   if (state.validate) {
                     setActiveTab('review');
                   }
                 }}
               >
-                <span className="number-number-2" /> Review
+                <span className="newIcon-review" /> 
+                <div className="pl-2">Review</div>
               </NavLink>
             </NavItem>
           </Nav>
@@ -161,7 +163,7 @@ const Create = ({ show, setShow }) => {
                 <Row className="mt-3 pt-3">
                   <Col lg={2}>
                     <button className="btn btn-primary" onClick={() => setActiveTab('details')}>
-                      {'< BACK'}
+                      {'BACK'}
                     </button>
                   </Col>
                   <Col lg={8}>
