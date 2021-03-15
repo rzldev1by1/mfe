@@ -75,7 +75,8 @@ const Pagination = ({ pagination, data, goto, isDisplay, module, props }) => {
               max={pages > 0 ? pages : 1}
               onKeyPress={(e) => numberCheck(e)}
             />
-            <span className="text-muted-soft ml-2">of {x_last_page}</span>
+            <span className="text-muted-soft ml-2">of</span>
+            <span className="text-muted-soft ml-2">{x_last_page}</span>
           </div>
           <div
             className={`page-item margin-none-left border-left-none ${
