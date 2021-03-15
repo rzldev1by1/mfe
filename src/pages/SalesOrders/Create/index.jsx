@@ -56,13 +56,13 @@ const Create = ({ show, setShow }) => {
     <div>
       <Modal show={show} size="xl" className={`sales-order-create ${activeTab == 'message' ? ' d-none': ' '}`}>
         <Modal.Body className="bg-primary p-0 rounded-top">
-          <Row className="pl-5 pr-3 py-5 mx-0">
+          <Row className="px-9 mx-0">
             <Col xs={10} className="px-0 ">
               <i className="iconU-createModal font-20"></i>
               <span className="font-20 pl-2">Create Sales Order</span> <br />
               <span className="ml-7">Enter Order and line details to create a new sales order</span>
             </Col>
-            <Col className="text-right px-0 pr-4 mr-2 pt-3">
+            <Col className="text-right px-0">
               <i
                 className="iconU-close pointer"
                 onClick={() => {
@@ -100,7 +100,7 @@ const Create = ({ show, setShow }) => {
             </NavItem>
           </Nav>
           <TabContent>
-            <Container className="px-5 pt-4 pb-5">
+            <Container className="px-9 pt-4 pb-9">
               {/* Tabs */}
               {activeTab == 'message' ? '' : (
                 <Form

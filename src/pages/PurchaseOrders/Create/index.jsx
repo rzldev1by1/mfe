@@ -92,7 +92,7 @@ const Create = ({ show, setShow }) => {
             </NavItem>
           </Nav>
           <TabContent>
-            <Container className="px-9 pt-4 pb-5">
+            <Container className="px-9 pt-4 pb-9">
               {/* Tabs */}
               {activeTab == 'message' ?  '' : (
                 <Form
