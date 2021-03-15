@@ -31,9 +31,12 @@ const RequiredMessage = ({ messageShow, column, data, columnText, value, dropdow
   }, [columnText, value, customMessage]);
 
   return (
-    <div className="text-error ">
-      {messageShow ? <span className="pl-0 text-danger font-12">{message}</span> : null}
-    </div>
+    // <div className="text-error position-absolute">
+    //   {messageShow ? <span className="pl-0 text-danger font-12">{message}</span> : null}
+    // </div>
+    <div className={messageShow ? 'text-error' : null}>
+     {messageShow ? <p className="pl-0 text-danger font-12">{message}</p> : <p style={{color:'transparent !important'}} className="pl-0 text-tranparent font-12">{'a'}</p>}
+   </div>
   );
 };
 
