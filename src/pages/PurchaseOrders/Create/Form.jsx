@@ -115,7 +115,7 @@ const Form = ({
     <div>
       <h3 className="text-primary font-20">Order Details</h3>
       {/* Start Order Details */}
-      <Row>
+      <Row className="h-93">
         <Col lg="3">
           <Dropdown
             name="site"
@@ -176,8 +176,8 @@ const Form = ({
           />
         </Col>
       </Row>
-      <Row>
-        <Col lg="3" className="mt-45">
+      <Row className="h-93">
+        <Col lg="3">
           <Dropdown
             name="client"
             title="Client"
@@ -201,7 +201,7 @@ const Form = ({
             parentDivClassName={isValidation && !orderDetails?.client ? 'input-danger' : ''}
           />
         </Col>
-        <Col lg="3" className="mt-45">
+        <Col lg="3">
           <Input
             id="orderNo"
             name="orderNo"
@@ -238,7 +238,7 @@ const Form = ({
             }}
           />
         </Col>
-        <Col lg="3" className="mt-45">
+        <Col lg="3">
           <label className="text-muted mb-0 required">Order Date</label>
           <DatePicker
             getDate={(date) => {
@@ -262,7 +262,7 @@ const Form = ({
             }}
           />
         </Col>
-        <Col lg="3" className="mt-45">
+        <Col lg="3">
           <Input
             name="vendorOrderRef"
             title={'Vendor Order Ref'}

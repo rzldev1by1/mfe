@@ -51,17 +51,10 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
         </Col>
         <Col lg="10" className="pl-0">
           <Row className="mx-0">
-            <Col lg="4" md="4" sm="12" className="pl-0 toggle-um">
+            <Col lg="4" md="4" sm="12" className="pl-0 toggle-um"> 
               <label className="webgroup d-flex justify-content-between">
-                <input
-                  type="checkbox"
-                  onChange={(e) => {
-                    if (!isReadOnly) setIsAdmin(!isAdmin);
-                  }}
-                  readOnly={isReadOnly}
-                />
-                <span className={`flex-fill toggleWidth ${webGroupClass.newUser}`}>REGULAR USER</span>
-                <span className={`flex-fill toggleWidth px-3 ${webGroupClass.admin}`}>ADMIN USER</span>
+                <span onClick={(e) => { setIsAdmin(false)}} className={`flex-fill pointer toggleWidth ${webGroupClass.newUser}`}>REGULAR USER</span>
+                <span onClick={(e) => { setIsAdmin(true)}}  className={`flex-fill pointer toggleWidth px-3 ${webGroupClass.admin}`}>ADMIN USER</span>
               </label>
             </Col>
           </Row>
