@@ -26,15 +26,24 @@ const TheSidebar = () => {
   const superAdmin = ['MLS12345', 'angae'];
 
   let navigation = nav;
+
+  // Old Checking menu, admin only access user management
+  // if (user.userLevel === 'Regular') {
+  //   navigation = navigation.filter((n) => {
+  //     return !adminRoutes.includes(n.to) && userMenu.includes(n.key);
+  //   });
+  // } else if (!superAdmin.includes(user.userId)) {
+  //   navigation = navigation.filter((n) => {
+  //     return adminRoutes.includes(n.to);
+  //   });
+  // }
+
+  
   if (user.userLevel === 'Regular') {
     navigation = navigation.filter((n) => {
       return !adminRoutes.includes(n.to) && userMenu.includes(n.key);
     });
-  } else if (!superAdmin.includes(user.userId)) {
-    navigation = navigation.filter((n) => {
-      return adminRoutes.includes(n.to);
-    });
-  }
+  }  
 
   return (
     <CSidebar
