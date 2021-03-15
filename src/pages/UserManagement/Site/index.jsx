@@ -15,7 +15,7 @@ const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module }) =
           <label className="col-6 text-muted-soft px-0 py-2" htmlFor="Site">
             Site
           </label>
-          <div className="col-6">
+          <div className="col-6 pr-4">
             <button
               type="button"
               className={`btn px-1 float-right mb-2 ${
@@ -29,11 +29,11 @@ const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module }) =
         </div>
       </div>
 
+    <div className="client-areas">
       {sites && sites.length
         ? sites.map((item, index) => {
-          console.log(sites)
             return (
-              <div className="flex-column mb-1 mr-2" key={index}>
+              <div className="flex-column mb-1" style={{paddingRight:'1.5px'}} key={index}>
                 <div className="d-flex" key={index}>
                   <label className="col-6 text-muted px-0 py-2" key={item.site}>{module === 'detail' ? `${item.site}: ${item.name}` : `${item.name}` }</label>
                   <div className="col-6">
@@ -57,6 +57,7 @@ const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module }) =
             );
           })
         : null}
+     </div>
     </div>
   );
 };
