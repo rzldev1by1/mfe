@@ -35,7 +35,7 @@ class PopUpPages extends Component {
           >
             <i className="iconU-close pointer" />
           </div>
-          <div className="d-flex d-inline-flex">
+          <div className="d-flex d-inline-flex pl-3 pb-3">
             <img src={logoConfirm} alt="logo" style={{ width: "20%", height: "20%" }} />
             <div className="pl-3 font">
               Only

@@ -255,6 +255,9 @@ input:-webkit-autofill {
 .nav-item a {
   color: #959da0 !important;
 }
+.nav-tabs .nav-item {
+  margin-bottom: 0px !important;
+}
 
 .tab-nonActiveCreate {
   background-color: #eee !important;
@@ -561,7 +564,15 @@ header {
 }
 
 .px-8 {
-  padding: 0px 1.9rem !important;
+  padding: 0px 1.3rem !important;
+}
+
+.px-9 {
+  padding: 2.3rem;
+}
+
+.pb-9 {
+  padding-bottom: 2.3rem;
 }
 
 .ml-6 {
@@ -583,7 +594,7 @@ header {
 }
 
 .modal-content {
-  border-radius: 0.3rem !important;
+  border-radius: 0.25rem !important;
 
   .modal-body {
     .select_calendar_expand::after {

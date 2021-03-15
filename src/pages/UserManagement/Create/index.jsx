@@ -73,8 +73,8 @@ const Create = ({ show, setShow }) => {
   return (
     <div>
       <Modal show={show} size="xl" className="purchase-order-create">
-        <Modal.Body className="bg-primary p-0 rounded-top">
-          <Row className="p-5 mx-0">
+        <Modal.Body className="bg-primary p-0 rounded-top rounded-bottom">
+          <Row className="px-9 mx-0">
             <Col xs={10} className="px-0">
               <i className="iconU-createModal font-20"></i>
               <span className="font-20 pl-2">Create Users</span> <br />
@@ -117,7 +117,7 @@ const Create = ({ show, setShow }) => {
             </NavItem>
           </Nav>
           <TabContent>
-            <Container className="px-5 pt-4 pb-5">
+            <Container className="px-9 pt-4 pb-9">
               {/* Tabs */}
               {activeTab == 'message' ? (
                 <MessageTab
