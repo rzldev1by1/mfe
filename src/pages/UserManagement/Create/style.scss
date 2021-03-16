@@ -14,10 +14,12 @@
 }
 
 .webgroup {
-  background-color: #e4e7ea;
-  display: inline-block;
-  border-radius: 5px;
-  text-align: center;
+    background-color: #e4e7ea;
+    border-radius: 5px;
+    text-align: center;
+    padding: 8px;
+    padding-left: 4px;
+    padding-right: 4px;
 }
 
 .webgroup input {
@@ -26,23 +28,18 @@
 
 .webgroup-active {
   background-color: #ffffff;
-  /* font-family: 'Rubik Regular'; */
-  /* font-size: 0.875rem !important; */
   color: #376bfb !important;
-  margin: 4px;
-  padding: 6px;
   border-radius: 5px;
   align-items: stretch;
+  padding: 6px;
 }
 
 .webgroup-notactive {
   background-color: transparent;
-  /* font-family: 'Rubik Regular'; */
-  /* font-size: 20px !important; */
-  color: #bbbcbd !important;
-  margin: 4px;
-  padding: 6px;
+  color: #376bfb !important;
   border-radius: 5px;
+  align-items: stretch;
+  padding: 6px;
 }
 
 .btn-outline-active {
@@ -105,12 +102,6 @@
 
 .line-border {
   border-bottom: 1px solid #e8e8e8;
-}
-
-.client-areas {
-  height: 340px;
-  overflow-y: auto;
-  overflow-x: hidden;
 }
 
 .webgroup-review-active {

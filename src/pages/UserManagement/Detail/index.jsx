@@ -53,6 +53,7 @@ const UserManagementDetail = (props) => {
   const loadClient = useSelector((state) => state.loadClient);
   const moduleAccess = useSelector((state) => state.moduleAccess);
   const [isButton, setIsButton] = useState(false);
+  const heightDetail = window.innerHeight - 508;
   const newState = { ...state };
 
   useEffect(() => {
@@ -232,6 +233,32 @@ const UserManagementDetail = (props) => {
                     moduleAccess={newState.moduleAccess}
                     isEnableAllModule={newState.isEnableAllModule}
                   />
+                </div>
+                <div className="col-4 pl-0">
+                  <Site
+                    state={state}
+                    module='detail'
+                    setState={setState}
+                    sites={newState.sites}
+                    isEnableAllSite={newState.isEnableAllSite}
+                    styleheight={heightDetail}
+                  />
+                </div>
+                <div className="col-4 um-client-scrollbar">
+                  <Client
+                    state={state}
+                    module='detail'
+                    setState={setState}
+                    clients={newState.clients}
+                    isEnableAllClient={newState.isEnableAllClient}
+                    styleheight={heightDetail}
+                  />
+                </div>
+              </div>
+              {/* Validasi */}
+              <div className="row">
+                <div className="col-4">
+                <div style={{color:'transparent'}}>transparent</div>
                   <input
                     type="checkbox"
                     name="moduleAccess"
@@ -242,13 +269,6 @@ const UserManagementDetail = (props) => {
                   <FormFeedback>{`${newState.validation.modules['message']}`}</FormFeedback>
                 </div>
                 <div className="col-4 pl-0">
-                  <Site
-                    state={state}
-                    module='detail'
-                    setState={setState}
-                    sites={newState.sites}
-                    isEnableAllSite={newState.isEnableAllSite}
-                  />
                   <input
                     type="checkbox"
                     name="sites"
@@ -259,13 +279,6 @@ const UserManagementDetail = (props) => {
                   <FormFeedback>{`${newState.validation.sites['message']}`}</FormFeedback>
                 </div>
                 <div className="col-4 um-client-scrollbar">
-                  <Client
-                    state={state}
-                    module='detail'
-                    setState={setState}
-                    clients={newState.clients}
-                    isEnableAllClient={newState.isEnableAllClient}
-                  />
                   <input
                     type="checkbox"
                     name="clients"

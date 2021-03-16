@@ -43,7 +43,7 @@ const EditRenameColumn = ({
     if (error) {
       const object = Object.keys(error);
       if (object.includes(id))
-        return <span className="text-error text-danger position-absolute font-rename-error">{error && error[id]}</span>;
+        return <span className="text-danger position-absolute font-rename-error">{error && error[id]}</span>;
       else return <div></div>;
     }
   };
