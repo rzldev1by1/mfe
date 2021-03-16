@@ -53,7 +53,6 @@ const UserManagementDetail = (props) => {
   const loadClient = useSelector((state) => state.loadClient);
   const moduleAccess = useSelector((state) => state.moduleAccess);
   const [isButton, setIsButton] = useState(false);
-  const heightDetail = window.innerHeight - 508;
   const newState = { ...state };
 
   useEffect(() => {
@@ -241,7 +240,6 @@ const UserManagementDetail = (props) => {
                     setState={setState}
                     sites={newState.sites}
                     isEnableAllSite={newState.isEnableAllSite}
-                    styleheight={heightDetail}
                   />
                 </div>
                 <div className="col-4 um-client-scrollbar">
@@ -251,7 +249,6 @@ const UserManagementDetail = (props) => {
                     setState={setState}
                     clients={newState.clients}
                     isEnableAllClient={newState.isEnableAllClient}
-                    styleheight={heightDetail}
                   />
                 </div>
               </div>
