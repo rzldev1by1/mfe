@@ -2,7 +2,7 @@ import React from 'react';
 import '../index.scss';
 import { onSiteStatusClick, onEnabledAllSite } from '../services';
 
-const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module, styleheight }) => {
+const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module}) => {
   const disableAll = 'Disable All';
   const enableAll = 'Enable All';
   const enable = 'Enabled';
@@ -29,7 +29,7 @@ const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module, sty
         </div>
       </div>
 
-    <div className="client-areas" style={{height:styleheight}}>
+    <div className="client-areas">
       {sites && sites.length
         ? sites.map((item, index) => {
             return (
