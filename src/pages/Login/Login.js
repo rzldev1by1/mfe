@@ -201,7 +201,7 @@ class Logins extends Component {
             <input
               autoComplete="off"
               onChange={this.onChangeEmail}
-              className={'form-control  inputLogin ' + (this.state.emailValidation ? '' : '') /*"is-invalid"*/}
+              className={'form-control  inputLogin ' + (errorMessage === ''? '' : 'border-red') /*"is-invalid"*/}
               type="text"
               name="email"
               placeholder="Enter your email address here"
@@ -209,6 +209,7 @@ class Logins extends Component {
             <span className="email-message">Enter your email address to find your acccount</span>
           </div>
         )}
+        {console.log(errorMessage )}
         <div className={'error pl-2 ml-1' + (errorMessage ? ' alertFadeIn' : '')}>
           {errorMessage && (
             <div>
