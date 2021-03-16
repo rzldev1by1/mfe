@@ -128,7 +128,7 @@ export const getSOResources = async ({ user, dispatch }) => {
   dispatch({ type: 'SO_RESOURCES', data: resources });
 };
 
-export const getDisposition = async ({ dispatch , client}) => {
+export const getDisposition = async ({ dispatch, client }) => {
   const { data } = await axios.get(`${endpoints.getDisposition}?client=${client || ''}`);
   const dispositionData = [];
   data.map((c, i) => {
