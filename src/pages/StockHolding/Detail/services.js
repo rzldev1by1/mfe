@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
 import React from 'react';
+import {formatDate} from '../../../apiService/index'
 
 export const schemaColumnDetailPO = [
   {
@@ -16,7 +17,7 @@ export const schemaColumnDetailPO = [
     sortable: true, 
     width: 100 ,
     style: { textAlign: 'left' }, 
-    Cell: (props) => props.value || '-',
+    Cell: (props) => formatDate(props.value) || '-',
   },
   {
     accessor: 'ref3',

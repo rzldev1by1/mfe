@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Nav, NavItem, NavLink, TabPane, TabContent } from 'reactstrap';
 import { CRow } from '@coreui/react';
+import numeral from 'numeral';
 import TableMaster from '../../../Component/TableMaster';
 import DetailHeader from '../../../Component/DetailHeader';
 import Breadcrumb from '../../../Component/Breadcrumb/index';
@@ -42,6 +43,7 @@ const StockHoldingDetail = (props) => {
 
   const height = window.innerHeight - 378;
   const widht = window.innerWidth;
+  console.log(shDetailTable);
   return (
     <div>
       <Breadcrumb
@@ -75,8 +77,8 @@ const StockHoldingDetail = (props) => {
           titleLeftFive="Rotadate Type"
           // Valeu Left
           valeuLeftOne={shDetail?.stock_on_hand || '-'}
-          valeuLeftTwo={shDetail?.projected_available_qty || '-'}
-          valeuLeftThree={shDetail?.expected_in_qty || '-'}
+          valeuLeftTwo={numeral(shDetail?.projected_available_qty).format('0,0') || '-'}
+          valeuLeftThree={numeral(shDetail?.expected_in_qty).format('0,0') || '-'}
           valeuLeftFour={shDetail?.expected_out_qty || '-'}
           valeuLeftFive={shDetail?.rotadate_type || '-'}
         />
