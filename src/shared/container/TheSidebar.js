@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import axios from 'axios';
 import {
   CSidebar,
   // CSidebarBrand,
@@ -18,8 +19,12 @@ const TheSidebar = () => {
   const lastChangedUser = useSelector((state) => state.lastChangedUser);
 
   const [hover, setHover] = useState(null);
-  const signOut = (e) => {
+  const signOut = async (e) => {
     dispatch({ type: 'LOGOUT' });
+    const payload = {last_access: new Date().toLocaleString()};
+    console.log(payload)
+    const ret = await axios.post('auth/logout',payload );
+    return ret;
   };
   let userMenu = user.userModules.map((item) => item.menu_id);
   const adminRoutes = ['/users-management'];

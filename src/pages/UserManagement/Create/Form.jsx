@@ -52,7 +52,7 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
         <Col lg="10" className="pl-0">
           <Row className="mx-0">
             <Col lg="4" md="4" sm="12" className="pl-0 toggle-um"> 
-              <label className="webgroup d-flex justify-content-between">
+              <label className="webgroup">
                 <span onClick={(e) => { setIsAdmin(false)}} className={`flex-fill pointer toggleWidth ${webGroupClass.newUser}`}>REGULAR USER</span>
                 <span onClick={(e) => { setIsAdmin(true)}}  className={`flex-fill pointer toggleWidth px-3 ${webGroupClass.admin}`}>ADMIN USER</span>
               </label>
@@ -136,13 +136,6 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
               isEnableAllModule={state.isEnableAllModule}
               isReadOnly={isReadOnly}
             />
-            <input
-              type="checkbox"
-              name="moduleAccess"
-              className={`d-none ${isValidation && !state.validation.modules['isValid'] ? state.validation.modules['invalidClass'] : ''
-                }`}
-            />
-            <FormFeedback>{`${state.validation.modules['message']}`}</FormFeedback>
           </div>
           <div className="col-4 pl-0">
             <Site
@@ -152,13 +145,6 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
               isEnableAllSite={state.isEnableAllSite}
               isReadOnly={isReadOnly}
             />
-            <input
-              type="checkbox"
-              name="sites"
-              className={`d-none ${isValidation && !state.validation.sites['isValid'] ? state.validation.sites['invalidClass'] : ''
-                }`}
-            />
-            <FormFeedback>{`${state.validation.sites['message']}`}</FormFeedback>
           </div>
           <div className="col-4 um-client-scrollbar">
             <Client
@@ -168,6 +154,30 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
               isEnableAllClient={state.isEnableAllClient}
               isReadOnly={isReadOnly}
             />
+          </div>
+        </div>
+        {/* Validasi */}
+        <div className="row">
+          <div className="col-4 d-flex">
+          <div style={{color:'transparent'}}>transparent</div>
+            <input
+              type="checkbox"
+              name="moduleAccess"
+              className={`d-none ${isValidation && !state.validation.modules['isValid'] ? state.validation.modules['invalidClass'] : ''
+                }`}
+            />
+            <FormFeedback>{`${state.validation.modules['message']}`}</FormFeedback>
+          </div>
+          <div className="col-4 pl-0">
+            <input
+              type="checkbox"
+              name="sites"
+              className={`d-none ${isValidation && !state.validation.sites['isValid'] ? state.validation.sites['invalidClass'] : ''
+                }`}
+            />
+            <FormFeedback>{`${state.validation.sites['message']}`}</FormFeedback>
+          </div>
+          <div className="col-4 um-client-scrollbar">
             <input
               type="checkbox"
               name="clients"

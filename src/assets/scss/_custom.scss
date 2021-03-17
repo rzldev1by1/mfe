@@ -255,6 +255,9 @@ input:-webkit-autofill {
 .nav-item a {
   color: #959da0 !important;
 }
+.nav-tabs .nav-item {
+  margin-bottom: 0px !important;
+}
 
 .tab-nonActiveCreate {
   background-color: #eee !important;
@@ -431,6 +434,7 @@ header {
 
 .css-1wa3eu0-placeholder {
   color: #b4b9bb !important;
+  margin-left: 2px !important;
 }
 
 .css-1okebmr-indicatorSeparator {

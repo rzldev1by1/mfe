@@ -2,7 +2,7 @@ import React from 'react';
 import '../index.scss';
 import { onSiteStatusClick, onEnabledAllSite } from '../services';
 
-const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module }) => {
+const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module}) => {
   const disableAll = 'Disable All';
   const enableAll = 'Enable All';
   const enable = 'Enabled';
