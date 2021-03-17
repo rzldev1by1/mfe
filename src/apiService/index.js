@@ -3,17 +3,19 @@
 import axios from 'axios';
 import numeral from 'numeral';
 import moment from 'moment';
+import * as EmailValidator from 'email-validator';
 import endpoints from '../helpers/endpoints';
 import * as utility from './UmUtility';
-import * as EmailValidator from 'email-validator';
 
 const today = moment(Date()).format('YYYY-MM-DD hh:mm:ss');
 const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement'];
 
 export const formatDate = (date) => {
-  if (date) {
+  if (date !== "Invalid date" || date === undefined || date === null || date === '') {
     return moment(date).format('DD/MM/YYYY') || false;
   }
+  return '-';
+  
 };
 
 export const getSummaryData = async ({
@@ -32,7 +34,7 @@ export const getSummaryData = async ({
   let endpointsUrl = '';
   let paramType = '';
   let paramPaging = '';
-  searchInput = searchInput ? searchInput : '';
+  searchInput = searchInput || '';
 
   if (module === 'purchaseOrder') {
     endpointsUrl = endpoints.purchaseOrder;
