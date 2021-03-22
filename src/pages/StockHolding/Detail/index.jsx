@@ -76,10 +76,10 @@ const StockHoldingDetail = (props) => {
           titleLeftFour="Expected Out Qty"
           titleLeftFive="Rotadate Type"
           // Valeu Left
-          valeuLeftOne={shDetail?.stock_on_hand || '-'}
+          valeuLeftOne={numeral(shDetail?.stock_on_hand).format('0,0') || '-'}
           valeuLeftTwo={numeral(shDetail?.projected_available_qty).format('0,0') || '-'}
           valeuLeftThree={numeral(shDetail?.expected_in_qty).format('0,0') || '-'}
-          valeuLeftFour={shDetail?.expected_out_qty || '-'}
+          valeuLeftFour={numeral(shDetail?.expected_out_qty).format('0,0') || '-'}
           valeuLeftFive={shDetail?.rotadate_type || '-'}
         />
       </div>

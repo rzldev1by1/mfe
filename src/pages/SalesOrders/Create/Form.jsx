@@ -235,6 +235,7 @@ const Form = ({
             id="orderNo"
             name="orderNo"
             title="Order No"
+            style={{ marginLeft: '0.5px' }}
             maxLength={12}
             onChange={(e) => {
               let val = e.target.value.toUpperCase();

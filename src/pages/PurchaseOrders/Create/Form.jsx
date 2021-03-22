@@ -106,7 +106,7 @@ const Form = ({
     } else if (orderLineSelectOpen == 'dropdown') {
       setDropdownExpandStyle('lineDetailsBottomExpand');
     }
-    else{
+    else {
       setDropdownExpandStyle(null);
     }
   }, [orderLineSelectOpen]);
@@ -189,7 +189,7 @@ const Form = ({
               setSupplier([]);
               if (selected) {
                 getSupplier({ client: selected.value, site: orderDetails?.site, setSupplier });
-                getDisposition({dispatch, client: selected.value})
+                getDisposition({ dispatch, client: selected.value })
               }
             }}
             readOnly={isReadonly || client}
@@ -206,7 +206,7 @@ const Form = ({
             id="orderNo"
             name="orderNo"
             title="Order No"
-            style={{ marginLeft: '2px' }}
+            style={{ marginLeft: '-3px' }}
             maxLength={12}
             onChange={(e) => {
               let val = e.target.value.toUpperCase();
@@ -349,7 +349,7 @@ const Form = ({
       <div>
         <button
           type="button"
-          className={`btn m-0 ${isReadonly ? `btn-light-none`: `btn-light-blue`}`}
+          className={`btn m-0 ${isReadonly ? `btn-light-none` : `btn-light-blue`}`}
           onClick={async () => {
             //validate first
             setIsValidation(true);
