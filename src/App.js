@@ -61,19 +61,24 @@ class ProtectedRoute extends React.Component {
 
 class App extends React.Component {
   render() {
-    return (
-      <HashRouter>
-        <React.Suspense fallback={loading}>
-          <Switch>
-            <Route exact path="/register" name="Register Page" render={(props) => <Register {...props} />} />
-            <Route exact path="/login" name="Login Page" render={(props) => <Login {...props} />} />
-            <ProtectedRoute path="/" name="Home" component={TheLayout} {...this.props} />
-          </Switch>
-        </React.Suspense>
-      </HashRouter>
-    );
+    const isMobileView = document.documentElement.clientWidth > 500;
+    if (isMobileView){
+      return (
+        <HashRouter>
+          <React.Suspense fallback={loading}>
+            <Switch>
+              <Route exact path="/register" name="Register Page" render={(props) => <Register {...props} />} />
+              <Route exact path="/login" name="Login Page" render={(props) => <Login {...props} />} />
+              <ProtectedRoute path="/" name="Home" component={TheLayout} {...this.props} />
+            </Switch>
+          </React.Suspense>
+        </HashRouter>
+      );
+    }
+    return window.location.assign("http://m.qa.microlistics.tech/")
   }
 }
+
 
 const mapStateToProps = (store) => ({ store });
 const mapDispatchToProps = (dispatch) => ({ dispatch });
