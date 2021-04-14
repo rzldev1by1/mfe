@@ -24,6 +24,7 @@ const Search = ({ setHeader, setdateHeader }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSearch, setIsSearch] = useState(true);
   const [defaultDate, setDefaultDate] = useState(null);
+
   const [dropdownValue, setdropdownValue] = useState({
     siteVal: '',
     clientVal: '',
@@ -49,7 +50,6 @@ const Search = ({ setHeader, setdateHeader }) => {
   }, []);
 
   useEffect(() => {
-    console.log(isSearch, period, fromDate, toDate);
     if (isSearch === true) {
       if(period && dateFrom && dateTo ){
         dispatch({ type: 'GET_SM_SUMMARY', data: undefined });
@@ -59,11 +59,11 @@ const Search = ({ setHeader, setdateHeader }) => {
     }
     setIsSearch(false);
   }, [isSearch]);
-
+  console.log(fromDate);
   //ref
   const dateFrom = React.createRef(null);
   const dateTo = React.createRef(null);
-
+  console.log(dropdownValue);
   return (
     <CCard className="mb-3 StockMovementFilter">
       <CCardBody className="p-3">
@@ -111,14 +111,21 @@ const Search = ({ setHeader, setdateHeader }) => {
                   arrowStyle={true}
                   getDate={(e) => { 
                      let newDropdownValue = dropdownValue;
-                     setdropdownValue({...newDropdownValue, fromDate: e, firstValue: false })
+                     setdropdownValue({...newDropdownValue, fromDate:e, firstValue: false })
                   }}
                   defaultValue={new Date(fromDate)}
                   tabIndex="1"
                   placeHolder="Select Date"
-                  onChange={(e) => { dateTo.current.openDatePicker('to') }}
+                  onOpen={(e) => { dateTo.current.openDatePicker('to') }}
                   fromMonth={defaultDate?.minDate}
                   toMonth={defaultDate?.maxDate}
+                  messageRequired={true}
+                  messageParam={{
+                    column:'validDates',
+                    columnText:'Date From',
+                    fieldName:'fromDate',
+                    style:'position-absolute',
+                  }}
                 />
             </CCol>
             <div className="colDateText d-flex text-light-gray align-items-center">Date To</div>
@@ -154,9 +161,17 @@ const Search = ({ setHeader, setdateHeader }) => {
                   placeHolder="Select Date"
                   fromMonth={defaultDate?.minDate}
                   toMonth={defaultDate?.maxDate}
+                  messageRequired={true}
+                  messageParam={{
+                    column:'validDates',
+                    columnText:'Date To',
+                    fieldName:'toDate',
+                    style:'position-absolute',
+                    checkDateTo: fromDate &&  fromDate > toDate
+                  }}
                 />
             </CCol>
-
+            
             <CCol style={{ flexGrow: 1 }} className="pl-0   colOthers">
               <CRow>
                 <CCol lg="3" sm="4" className="pl-0">

@@ -6,6 +6,7 @@ import 'react-day-picker/lib/style.css';
 import moment from 'moment';
 import { Button } from 'reactstrap';
 import ReactResizeDetector from 'react-resize-detector';
+import RequiredMessage from '../Component/RequiredMessage';
 
 // const currentYear = new Date().getFullYear();
 // const fromMonth = new Date();
@@ -305,6 +306,8 @@ class DatePicker extends React.Component {
         firstDate.setDate(firstDate.getDate() + 1)
         const no = Math.floor(Math.random() * 100000) + 1;
         const className = `select_date ${this.state.showDatePicker && (this.props.for === "SalesOrderCreate") ? "datepickerForOrderLine" : ""}`
+        const messageParam = this.props.messageParam;
+        console.log(messageParam, this.state.defaultValue);
         return (
             <React.Fragment>
                 <ul className={className} style={this.props.style} tabIndex={this.props.tabIndex ? this.props.tabIndex : null}>
@@ -372,6 +375,17 @@ class DatePicker extends React.Component {
                     {/* <label className="select_date_expandLabel" htmlFor={"select-opener" + placeHolder + no}></label> */}
                     {/* </li> */}
                 </ul>
+                {!this.props.messageRequired ? null : (
+                    <RequiredMessage
+                        messageShow={this.state.defaultValue === '' || messageParam.checkDateTo ? true : false}
+                        column={messageParam.column}
+                        columnText={messageParam.columnText}
+                        value={this.state.defaultValue !== '' ? this.state.defaultValue : null }
+                        fieldName={messageParam.fieldName}
+                        style={messageParam.style}
+                        checkDateTo={messageParam.checkDateTo}
+                    />
+                )}
 
             </React.Fragment>
         )
