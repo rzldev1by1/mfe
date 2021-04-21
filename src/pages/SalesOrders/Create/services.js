@@ -146,17 +146,6 @@ export const changeCustomerDetails = ({ column, value, customerDetails, setCusto
   if (selected) {
     cd[column] = value;
     cd['validation_' + column] = value ? true : false;
-  } else {
-    cd.customer = [];
-    cd.address1 = [];
-    cd.address2 = [];
-    cd.address3 = [];
-    cd.address4 = [];
-    cd.address5 = [];
-    cd.suburb = [];
-    cd.postcode = [];
-    cd.state = [];
-    cd.country = [];
   }
   setCustomerDetails(cd);
 };
