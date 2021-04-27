@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './style.scss';
 
-const RequiredMessage = ({ messageShow, column, data, columnText, value, dropdown = false, customMessage }) => {
+const RequiredMessage = ({ messageShow, column, data, columnText, value, dropdown = false, customMessage, fieldName, style, checkDateTo }) => {
   const [message, setMessage] = useState(null);
-
+  console.log(messageShow, columnText, value, checkDateTo);
   useEffect(() => {
     setMessage('');
     if (column == 'qty') {
@@ -18,14 +18,14 @@ const RequiredMessage = ({ messageShow, column, data, columnText, value, dropdow
     }
 
     //if empty
-    if (!value) setMessage(columnText + ' must be entered');
+    if (!value) setMessage(`${columnText  } must be entered`);
 
-    //if dates
-    if (!value) setMessage(columnText + ' must be entered');
-
-    if (column == 'validDates') {
-      if (!value) {
-        setMessage('Please select a valid date');
+    if (column === 'validDates') {
+      if (!value && !checkDateTo) {
+        setMessage(`${columnText  } must be entered`);
+      }
+      if (checkDateTo !== undefined && value) {
+        setMessage('Please select a valid date')
       }
     }
   }, [columnText, value, customMessage]);
@@ -35,7 +35,7 @@ const RequiredMessage = ({ messageShow, column, data, columnText, value, dropdow
     //   {messageShow ? <span className="pl-0 text-danger font-12">{message}</span> : null}
     // </div>
     <div className={messageShow ? 'text-error' : null}>
-     {messageShow ? <p className="pl-0 text-danger font-12">{message}</p> : <p style={{color:'transparent !important'}} className="pl-0 text-tranparent font-12">{'a'}</p>}
+     {messageShow ? <p className={`pl-0 text-danger font-12 ${column === 'validDates' ? style : null}`}>{message}</p> : <p style={{color:'transparent !important'}} className={`pl-0 text-tranparent font-12 ${column === 'validDates' ? style : null}`}>{'a'}</p>}
    </div>
   );
 };

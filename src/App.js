@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { isMobile, isLandscape } from 'react-device-detect'
 import 'assets/scss/style.scss';
 import axios from 'axios';
 
@@ -61,6 +62,10 @@ class ProtectedRoute extends React.Component {
 
 class App extends React.Component {
   render() {
+    const isMobileView = document.documentElement.clientWidth <= 500;
+    if (isMobile && isMobileView){
+      return window.location.assign("http://m.qa.microlistics.tech/")
+    }
     return (
       <HashRouter>
         <React.Suspense fallback={loading}>
@@ -74,6 +79,7 @@ class App extends React.Component {
     );
   }
 }
+
 
 const mapStateToProps = (store) => ({ store });
 const mapDispatchToProps = (dispatch) => ({ dispatch });
