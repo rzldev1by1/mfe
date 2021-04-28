@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { FaRegEdit } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
-import { Button, Container, Row, Col, Modal, Nav } from 'react-bootstrap';
+import { Button, Container, Row, Col, Modal, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { NavItem, NavLink, TabPane, TabContent } from 'reactstrap';
-import { showColumn, saveEdit, changedColumn, renameSubmit, headerRename } from './services';
+import { showColumn, saveEdit, changedColumn, renameSubmit, headerRename, resetColumnName, resetColumnTable } from './services';
+import logoConfirm from 'assets/img/IconReset.png'
 import './style.scss';
 
 const EditRenameColumn = ({
@@ -19,8 +20,11 @@ const EditRenameColumn = ({
   columnHidden,
   setFields,
   splitModule,
+  module,
 }) => {
   const dispatch = useDispatch();
+  const reorder = useSelector((state) => state.reorder);
+  console.log(reorder);
   const [state, setState] = React.useState({
     error: {},
     sameColumns: [],
@@ -30,6 +34,8 @@ const EditRenameColumn = ({
     changedColumns: [],
     products: [],
     columnsPayload: [],
+    disableBtn: false,
+    modConfirmation: false
   });
   const closeModal = (closeMod, editColumnTemp) => {
     const ErrorClose = { ...state };
@@ -48,6 +54,12 @@ const EditRenameColumn = ({
     }
   };
 
+  const currentOrderColumn = localStorage.getItem(`tables__${module}__${user.name}`)
+  let templateColumn = []
+  fields.map((data) => {
+    templateColumn.push(data.accessor)
+  });
+
   const UrlHeader = () => {
     return `/settings/field-label/${splitModule}?client=ALL`;
   };
@@ -59,6 +71,9 @@ const EditRenameColumn = ({
   useEffect(() => {
     let newState = { ...state };
     newState.editColumn = columnHidden || [];
+    if(JSON.stringify(currentOrderColumn) === JSON.stringify(templateColumn) || currentOrderColumn === null){
+      newState.disableBtn = true
+    }
     setState(newState);
   }, [columnHidden]);
 
@@ -74,31 +89,51 @@ const EditRenameColumn = ({
       setState(newState);
     }
   }
+
+  function resetConfirmation() {
+    let newState = { ...state };
+    if (state.modConfirmation === false) {
+      setShowMod(false);
+      newState.modConfirmation = true;
+      setState(newState);
+    }else{
+      setShowMod(true);
+      newState.modConfirmation = false;
+      setState(newState);
+    }
+  }
+
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Every value that has been arranged by the User will be reset to the system default
+    </Tooltip>
+  );
+
+  console.log(state.modConfirmation);
   return (
+    <div>
     <Modal show={showModal} size="xl" centered>
       <Modal.Header className="bg-primary">
         <Container className="px-0">
-          <Col className="mx-0 pr-4 pb-3">
-            <Button onClick={closeModal.bind(this, false, editColumnTemp)} className="pr-0 mt-2 no-hover float-right">
+          <Col className="mx-0 px-0">
+            <Button onClick={closeModal.bind(this, false, editColumnTemp)} className="pr-0 pt-0 pb-4 no-hover float-right">
               <MdClose color="white" size={30} />
             </Button>
-            <Col xs={10} sm={10} md={10} lg={10} xl={10} className="pl-3 pt-4">
+            <Col xs={10} sm={10} md={10} lg={10} xl={10} className="pl-1">
               <div className="d-flex">
                 <FaRegEdit color="white" size={25} /> &nbsp;
+                <span className="font-20" style={{color: '#A6BCFC'}}>{title}:</span>&nbsp;
                 <span className="font-20 text-white">Edit Column</span>
               </div>
               <span style={{ marginLeft: '29px' }} className="text-white">
-                Show and hide the column according to your needs. Please select columns to show.
+                Please select columns to {state.activeTab === '2' ? 'rename' : 'show'}.
               </span>
             </Col>
           </Col>
         </Container>
       </Modal.Header>
-      <Modal.Body className="px-5 pt-3 half-padding">
-        <Row className={`mx-0 justify-content-between  ${user.userLevel === 'Admin' ? 'mb-3' : ''}`}>
-          <Col lg={6} className="text-primary font-20 p-0 d-flex align-items-center">
-            {title}
-          </Col>
+      <Modal.Body className="p-3">
+        <Row className={`mx-0 justify-content-between  ${user.userLevel === 'Admin' ? 'mb-2' : ''}`}>
           <Row className="align-items-center rename-columns mx-0 text-align-left">
             <Nav tabs className="px-1">
               <div className="input-group">
@@ -140,11 +175,11 @@ const EditRenameColumn = ({
             </Nav>
           </Row>
         </Row>
-        <Row>
+        <Row className="px-2">
           <Col sm="12" md="12" lg="12" className="px-0">
             <TabContent activeTab={state.activeTab}>
               <TabPane tabId="1">
-                <Row xl={5} lg={10} className="mx-1 grid-col">
+                <Row xl={5} lg={10} className="mx-0 grid-col">
                   {fields &&
                     fields.map((item, index) => {
                       return (
@@ -174,21 +209,50 @@ const EditRenameColumn = ({
                       );
                     })}
                 </Row>
-                <Col className="pt-5">
+                <Col className="pt-2 px-2 d-flex justify-between">
+                  <Col className="p-0">
+                    <Button
+                      variant="primary"
+                      style={{ padding: '0rem 1.08rem', marginRight: '1rem' }}
+                      onClick={() =>
+                        resetColumnName({ state, title, user, setEditColumnTemp, setShowModal: setShowMod, dispatch })
+                      }
+                      className="btn-disabled"
+                      disabled
+                    >
+                      RESET COLUMN NAME
+                    </Button>
+                    <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={renderTooltip}
+                      >
+                      <Button
+                        variant="primary"
+                        style={{ padding: '0rem 1.08rem' }}
+                        onClick={() =>
+                          resetConfirmation()
+                        }
+                        disabled={state.disableBtn}
+                        className={state.disableBtn ? "btn-disabled" : ""}
+                      >
+                        RESET COLUMN TABLE
+                      </Button>
+                      </OverlayTrigger>
+                  </Col>
                   <Button
-                    variant="primary"
-                    className="float-right"
-                    style={{ padding: '0rem 1.08rem' }}
-                    onClick={() =>
-                      saveEdit({ state, title, user, setEditColumnTemp, setShowModal: setShowMod, dispatch })
-                    }
-                  >
-                    SAVE
-                  </Button>
+                      variant="primary"
+                      style={{ padding: '0rem 1.08rem' }}
+                      onClick={() =>
+                        saveEdit({ state, title, user, setEditColumnTemp, setShowModal: setShowMod, dispatch })
+                      }
+                    >
+                      SAVE
+                    </Button>
                 </Col>
               </TabPane>
               <TabPane tabId="2">
-                <Row xl={5} lg={10} className="mx-1 grid-col">
+                <Row xl={5} lg={10} className="mx-0 grid-col">
                   {fields &&
                     fields.map((item, index) => {
                       return (
@@ -209,7 +273,37 @@ const EditRenameColumn = ({
                       );
                     })}
                 </Row>
-                <Col className="pt-5">
+                <Col className="pt-2 px-2 d-flex justify-between">
+                  <Col className="p-0">
+                      <Button
+                        variant="primary"
+                        style={{ padding: '0rem 1.08rem', marginRight: '1rem' }}
+                        onClick={() =>
+                          resetColumnName({ state, title, user, setEditColumnTemp, setShowModal: setShowMod, dispatch })
+                        }
+                        className="btn-disabled"
+                        disabled
+                      >
+                        RESET COLUMN NAME
+                      </Button>
+                      <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={renderTooltip}
+                      >
+                      <Button
+                        variant="primary"
+                        style={{ padding: '0rem 1.08rem' }}
+                        onClick={() =>
+                          resetConfirmation()
+                        }
+                        disabled={state.disableBtn}
+                        className={state.disableBtn ? "btn-disabled" : ""}
+                      >
+                        RESET COLUMN TABLE
+                      </Button>
+                      </OverlayTrigger>
+                    </Col>
                   {fields &&
                     fields.map((item) => {
                       return <Required id={item.Header} error={state.error} />;
@@ -228,6 +322,49 @@ const EditRenameColumn = ({
         </Row>
       </Modal.Body>
     </Modal>
+    <Modal show={state.modConfirmation} size="lg" centered className="p-3" className="modal-confirmation">
+      <Modal.Body className="p-3">
+           <div
+            className="text-right px-0"
+            style={{ fontSize: '14px' }}
+            onClick={() =>
+              resetConfirmation()
+            }
+          >
+            <i className="iconU-close pointer" />
+          </div>
+        <div className="d-flex justify-content-between">
+          <img src={logoConfirm} alt="logo" style={{ width: "25%", height: "25%" }} />
+          <div className="pl-3">
+            <p className="mb-0" style={{color: "#D6D8DA"}}>Are you sure?</p>
+            <p>To reset all the arrangement column that has been modified, this action can not be undo.</p>
+          </div>
+        </div>
+        <Col className="px-0 pb-0 pt-3 d-flex justify-content-between">
+          <Button
+            variant="primary"
+            style={{ padding: '0rem 1.08rem', marginRight: '1rem' }}
+            onClick={() =>
+              resetConfirmation()
+            }
+          >
+            CANCEL
+          </Button>
+          <Button
+            variant="primary"
+            style={{ padding: '0rem 1.08rem'}}
+            onClick={() =>
+              resetColumnTable({ module, user, editColumnTemp, fields, state, setState })
+            }
+            disabled={state.disableBtn}
+            className={state.disableBtn ? "btn-disabled" : ""}
+          >
+            DONE
+          </Button>
+        </Col>
+      </Modal.Body>
+    </Modal>
+    </div>
   );
 };
 

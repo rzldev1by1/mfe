@@ -85,6 +85,7 @@ export const saveSchemaToLocal = ({
   oldIndex,
   newIndex,
   module,
+  dispatch
 }) => {
   // get old schema from local storage data , if null then set schemaColumn as oldSchema
   const key = `tables__${module}__${userId}`;
@@ -120,6 +121,7 @@ export const saveSchemaToLocal = ({
     }
     i++;
   }
+  // dispatch({ type: 'REORDER', data: true });
 
   // set to local storage
   localStorage.removeItem(key);

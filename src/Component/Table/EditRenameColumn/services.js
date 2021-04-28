@@ -22,7 +22,6 @@ export const saveEdit = ({ state, title, user, setEditColumnTemp, setShowModal, 
     ? JSON.parse(localStorage.getItem('tableColumns'))
     : [];
   const hiddenColumn = Object.values(state.editColumn);
-
   if (savedTableColumns.length > 0) {
     savedTableColumns.map((data, index) => {
       if (data.title === title) {
@@ -239,3 +238,23 @@ export const renameSubmit = ({ state, setState, setShowMod, UrlAll, fields, setF
     setState(newState);
   }
 };
+
+export const resetColumnName = ({state, title, user, setEditColumnTemp, setShowModal: setShowMod, dispatch}) => {
+}
+
+export const resetColumnTable = ({module, user, fields, state, setState}) => {
+  const currentOrderColumn = localStorage.getItem(`tables__${module}__${user.name}`)
+  ? JSON.parse(localStorage.getItem(`tables__${module}__${user.name}`))
+  : [];
+  let templateColumn = []
+  fields.map((data) => {
+    templateColumn.push(data.accessor)
+  });
+  const newState = { ...state };
+   if(JSON.stringify(currentOrderColumn) !== JSON.stringify(templateColumn)){
+    localStorage.removeItem(`tables__${module}__${user.name}`);
+    window.location.reload();
+    // newState.disableBtn = true
+    // setState(newState)
+  }
+}

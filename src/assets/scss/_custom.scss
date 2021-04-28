@@ -134,6 +134,12 @@ input:-webkit-autofill {
   border: none !important;
 }
 
+.modal-confirmation{
+  .modal-lg{
+    max-width: 450px !important
+  }
+}
+
 .text-purple {
   color: #5e44e8;
 }
@@ -155,6 +161,17 @@ input:-webkit-autofill {
   color: #757575 !important;
   background-color: #e4e7ea !important;
   border: 1px solid #e4e7ea !important;
+}
+
+.btn-disabled {
+  color: #fff !important;
+  background-color: #D6D8DA !important;
+  border: 1px solid #D6D8DA !important;
+}
+
+.btn-disabled:hover {
+  color: #fff !important;
+  background-color: darken(#e4e7ea, 10) !important;
 }
 
 .btn-light-gray:hover {
@@ -231,7 +248,7 @@ input:-webkit-autofill {
 }
 
 .input-group .nav-link {
-  background-color: #e8e8e8 !important;
+  background-color: #A6BCFC !important;
 }
 
 .nav-link.active {
@@ -253,7 +270,7 @@ input:-webkit-autofill {
 }
 
 .nav-item a {
-  color: #959da0 !important;
+  color: #fff !important;
 }
 .nav-tabs .nav-item {
   margin-bottom: 0px !important;
