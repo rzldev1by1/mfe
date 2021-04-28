@@ -197,7 +197,7 @@ const SalesOrdersDetail = (props) => {
         title="Sales Order Details"
         filename="Microlistics_SalesOrderDetails."
         isDisplay={false}
-        splitModule="sales-order-detail"
+        splitModule="sales-order/detail"
       />
     </div>
   );
