@@ -7,7 +7,8 @@ import { useIdleTimer } from 'react-idle-timer';
 const TheLayout = () => {
   const dispatch = useDispatch();
   const [expired, setExpired] = useState(useSelector((state) => state.expired));
-  const darkMode = useSelector((state) => state.darkMode);
+  // const darkMode = useSelector((state) => state.darkMode);
+  const darkMode = useSelector((state) => state.customDarkMode);
   const onActive = () => {
     dispatch({ type: 'EXPIRED' });
   };
@@ -19,7 +20,8 @@ const TheLayout = () => {
   // })
 
   return (
-    <div className={`c-app c-default-layout ${darkMode && 'c-dark-theme'}`}>
+    // <div className={`c-app c-default-layout ${darkMode && 'c-dark-theme'}`}>
+    <div className={`c-app c-default-layout ${darkMode ? 'customDarkMode' : ''}`}>
       <TheSidebar />
       {/* <TheAside /> */}
       <div className="c-wrapper">

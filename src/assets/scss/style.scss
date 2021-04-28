@@ -1,25 +1,25 @@
 // If you want to override variables do it here
-@import "variables";
+@import 'variables';
 
 // Import styles with default layout.
 // If you are going to use dark layout please comment next line
-@import "~@coreui/coreui-pro/scss/coreui.scss";
+@import '~@coreui/coreui-pro/scss/coreui.scss';
 
 // Import styles with dark layout
 // If you want to use dark layout uncomment next line
 // @import "~@coreui/coreui-pro/scss/themes/dark/coreui-dark.scss";
 
 // Temp fix for reactstrap
-@import "~@coreui/coreui-pro/scss/_dropdown-menu-right.scss";
+@import '~@coreui/coreui-pro/scss/_dropdown-menu-right.scss';
 
 // If you want to add something do it here
-@import "custom";
+@import 'custom';
 
 // ie fixes
-@import "ie-fix";
+@import 'ie-fix';
 
 // temp fixes
-@import "fixes";
+@import 'fixes';
 
 // Import Icomoon Icons
 @import 'icomoon';
@@ -36,7 +36,112 @@
 // Import Simple Line Icons Set
 // @import '~simple-line-icons/css/simple-line-icons.css';
 
-
 // // Spinkit
 $spinkit-spinner-color: $body-color;
 @import '~spinkit/spinkit.min.css';
+
+//custom DarkMode
+.customDarkMode {
+  .c-sidebar {
+    background-color: #1c1c1c;
+  }
+  .darkLayer {
+    background-color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .c-header {
+    background-color: #47444a !important;
+  }
+
+  //breadcrump
+  .breadcrumb-item {
+    color: white !important;
+  }
+
+  //card
+  .card {
+    background-color: #281f34 !important;
+  }
+
+  //table
+  .rt-table {
+    background-color: #281f34 !important;
+    color: white !important;
+  }
+  .show-edit-icon .rt-th:last-child {
+    background: #281f34 !important;
+  }
+
+  .ReactTable .rt-tbody .rt-tr-group {
+    border-bottom: solid 1px #74717d !important;
+  }
+  .Table .-header .rt-tr {
+    border-bottom: solid 1px #74717d !important;
+  }
+  .rt-tr-group:hover {
+    background-color: #74717d !important;
+  }
+
+  //button
+  .btn-primary {
+    background-color: #4717ed !important;
+  }
+
+  //status
+  .status-ok {
+    color: #ffffff !important;
+    border: solid 1.5px #ffffff;
+  }
+
+  //form
+  .form-control {
+    background-color: #635f78 !important;
+    border-color: white !important;
+    color: white;
+  }
+
+  //form-dropdown
+  .css-5y2tk-control,
+  .css-1to7m39-control {
+    background-color: #635f78 !important;
+    border-color: white !important;
+    color: white !important;
+  }
+  .css-1uccc91-singleValue,
+  .css-b8ldur-Input,
+  .css-tlfecz-indicatorContainer,
+  .css-1duue3-indicatorContainer,
+  .css-g9vg27-indicatorContainer,
+  .css-1rdz61g-indicatorContainer,
+  .css-1gtu0rj-indicatorContainer {
+    color: white !important;
+  }
+  .css-26l3qy-menu {
+    //dropdown option background
+    background-color: #281f34 !important;
+    color: white;
+  }
+  .css-ihtdzf-option,
+  .css-1dhet8w-option:hover {
+    background-color: #74717d !important;
+  }
+
+  .bg-white {
+    background-color: #635f78 !important;
+  }
+
+  //pagination
+  .page-item,
+  .bg-paging-search,
+  .number-pag.rounded.input-paging {
+    background-color: #281f34 !important;
+    color: white !important;
+  }
+}
+.c-app.customDarkMode {
+  background-color: #47444a !important;
+}
