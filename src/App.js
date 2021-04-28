@@ -62,7 +62,8 @@ class ProtectedRoute extends React.Component {
 
 class App extends React.Component {
   render() {
-    if (isMobile){
+    const isMobileView = document.documentElement.clientWidth <= 500;
+    if (isMobile && isMobileView){
       return window.location.assign("http://m.qa.microlistics.tech/")
     }
     return (

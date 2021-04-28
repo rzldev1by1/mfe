@@ -187,7 +187,7 @@ const Create = ({ show, setShow }) => {
             <PopUpCreateSucces
               modal={modal}
               setModal={setModal}
-              module={'Purchase Order'}
+              module={'Sales Order'}
               submitReturn={isSubmitReturn}
               exit={() => {
                 setShow(false);
