@@ -42,6 +42,10 @@ $spinkit-spinner-color: $body-color;
 
 //custom DarkMode
 .customDarkMode {
+  //Modal Create
+  .modal-header, .modal-body, .modal-footer, .modal-content{
+    background-color: #1c1c1c !important;
+  }
   .c-sidebar {
     background-color: #1c1c1c;
   }
@@ -68,6 +72,9 @@ $spinkit-spinner-color: $body-color;
   }
 
   //table
+  .Table .rt-tbody .rt-tr-group:hover {
+    background-color: #504164  !important ;
+}
   .rt-table {
     background-color: #281f34 !important;
     color: white !important;
@@ -84,6 +91,20 @@ $spinkit-spinner-color: $body-color;
   }
   .rt-tr-group:hover {
     background-color: #74717d !important;
+  }
+  .ReactTable .rt-noData{
+    background-color: transparent !important;
+  }
+
+  //Table StockMovement
+  .stockMovement .ReactTable .rt-thead.-headerGroups > .rt-tr > .rt-th{
+    background-color: #281f34 !important;
+  }
+  .stockMovement .ReactTable .rt-table .rt-thead .rt-tr .rt-th{
+    background-color: #281f34 !important;
+  }
+  .stockMovement .ReactTable .rt-table .rt-tbody .rt-tr-group .rt-tr .rt-td{
+    background-color: #281f34 !important;
   }
 
   //button
@@ -141,6 +162,7 @@ $spinkit-spinner-color: $body-color;
     background-color: #281f34 !important;
     color: white !important;
   }
+
 }
 .c-app.customDarkMode {
   background-color: #47444a !important;

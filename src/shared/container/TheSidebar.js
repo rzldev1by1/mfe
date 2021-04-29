@@ -9,6 +9,7 @@ import {
 } from '@coreui/react';
 import Logo from 'assets/img/logo-white.png';
 import nav from './_nav';
+import { darkModeMLS } from '../../apiService';
 import './TheSidebar.css';
 
 const TheSidebar = () => {
@@ -17,6 +18,7 @@ const TheSidebar = () => {
   const show = useSelector((state) => state.sidebarShow);
   const user = useSelector((state) => state.user);
   const lastChangedUser = useSelector((state) => state.lastChangedUser);
+  const darkMode = useSelector((state) => state.darkMode);
 
   const [hover, setHover] = useState(null);
   const signOut = async (e) => {
@@ -91,7 +93,7 @@ const TheSidebar = () => {
       </CSidebarNav>
       <ul className="sidebar-nav-bottom m-0 p-0">
         <li className="c-sidebar-item" onMouseEnter={() => setHover('logout')} onMouseLeave={() => setHover(null)}>
-          <img className="m-0 c-sidebar-nav-icon-profile" src="nav/profile.png" alt="" />
+          <img className="m-0 c-sidebar-nav-icon-profile" onClick={() => darkModeMLS({ darkMode, dispatch })} src="nav/profile.png" alt="" />
           <div className=" text-left text-blue">
             <div>
               {lastChangedUser && lastChangedUser.userId === user.userId && lastChangedUser.email === user.email

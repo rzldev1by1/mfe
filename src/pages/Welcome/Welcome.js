@@ -14,7 +14,7 @@ class Welcome extends Component {
       <div className="welcome">
         <div className="darkLayer"></div>
         <HeaderTitle />
-        <img src={this.props.customDarkMode ? LogoWhite : Logo} className="logo" alt="logo" />
+        <img src={this.props.darkMode ? LogoWhite : Logo} className="logo" alt="logo" />
       </div>
     );
   }
@@ -22,7 +22,7 @@ class Welcome extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    customDarkMode: state.customDarkMode,
+    darkMode: state.darkMode,
   };
 };
 export default connect(mapStateToProps)(Welcome);
