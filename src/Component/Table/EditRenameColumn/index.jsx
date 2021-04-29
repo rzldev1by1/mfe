@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FaRegEdit } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
@@ -21,6 +21,7 @@ const EditRenameColumn = ({
   splitModule,
 }) => {
   const dispatch = useDispatch();
+  const darkMode = useSelector((state) => state.darkMode);
   const [state, setState] = React.useState({
     error: {},
     sameColumns: [],
@@ -75,8 +76,8 @@ const EditRenameColumn = ({
     }
   }
   return (
-    <Modal show={showModal} size="xl" centered>
-      <Modal.Header className="bg-primary">
+    <Modal show={showModal} size="xl" centered className={darkMode ? 'customDarkMode' : ''}>
+      <Modal.Header className="bgn-header">
         <Container className="px-0">
           <Col className="mx-0 pr-4 pb-3">
             <Button onClick={closeModal.bind(this, false, editColumnTemp)} className="pr-0 mt-2 no-hover float-right">
@@ -96,7 +97,7 @@ const EditRenameColumn = ({
       </Modal.Header>
       <Modal.Body className="px-5 pt-3 half-padding">
         <Row className={`mx-0 justify-content-between  ${user.userLevel === 'Admin' ? 'mb-3' : ''}`}>
-          <Col lg={6} className="text-primary font-20 p-0 d-flex align-items-center">
+          <Col lg={6} className="text-color font-20 p-0 d-flex align-items-center">
             {title}
           </Col>
           <Row className="align-items-center rename-columns mx-0 text-align-left">

@@ -42,10 +42,6 @@ $spinkit-spinner-color: $body-color;
 
 //custom DarkMode
 .customDarkMode {
-  //Modal Create
-  .modal-header, .modal-body, .modal-footer, .modal-content{
-    background-color: #1c1c1c !important;
-  }
   .c-sidebar {
     background-color: #1c1c1c;
   }
@@ -161,6 +157,16 @@ $spinkit-spinner-color: $body-color;
   .number-pag.rounded.input-paging {
     background-color: #281f34 !important;
     color: white !important;
+  }
+
+  //Export 
+  .export-pdf{
+    background-color: #635f78 !important;
+    color: #fff
+  }
+  .export-excel{
+    background-color: #635f78 !important;
+    color: #fff
   }
 
 }
