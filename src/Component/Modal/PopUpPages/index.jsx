@@ -22,7 +22,7 @@ class PopUpPages extends Component {
         isOpen={newPage.notifPaging}
         centered
         onOpened={() => newPage.notifPaging ? setTimeout(() => { closeModal({ page, setPage }) }, 36000) : {}}
-        contentClassName={`modal-content-paging ${this.props.darkMode ? ' customDarkMode' : ''}`}
+        contentClassName={`modal-content-paging ${this.props.darkMode ? ' customDarkModes' : ''}`}
         closeOnBackdrop={false}
       >
         <ModalBody>

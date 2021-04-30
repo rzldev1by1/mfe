@@ -24,6 +24,7 @@ const Create = ({ show, setShow }) => {
   const [orderDetails, setOrderDetails] = useState({});
   const [orderLines, setOrderLines] = useState([]);
   const [modal, setModal] = useState(true);
+  const darkMode = useSelector((state) => state.darkMode);
 
   useEffect(() => {
     setOrderDetails(cleanOrderDetails);
@@ -49,7 +50,7 @@ const Create = ({ show, setShow }) => {
   return (
     <div>
       <Modal show={show} size="xl" className={`purchase-order-create ${activeTab == 'message' ? ' d-none': ' '}`}>
-        <Modal.Body className="bg-primary p-0 rounded-top rounded-bottom">
+        <Modal.Body className={`${darkMode ? 'customDarkModes' : 'bg-primary'} p-0 rounded-top rounded-bottom`}>
           <Row className="mx-0 px-9">
             <Col xs={10} className="px-0">
               <i className="iconU-createModal font-20"></i>

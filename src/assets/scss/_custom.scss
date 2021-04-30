@@ -789,3 +789,13 @@ input.form-control.input-danger {
 .newIcon-review{
   font-size: 1.7rem;
 }
+
+// darkMode Modal
+.customDarkModes {
+    background-color: #1c1c1c !important;
+    color: #fff !important;
+    .tab-content{
+      background-color: #3e3846 !important;
+      color: #fff !important;
+    }
+}

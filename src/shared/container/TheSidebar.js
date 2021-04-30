@@ -61,7 +61,7 @@ const TheSidebar = () => {
     >
       <ul className="sidebar-nav-header">
         <li className="c-sidebar-item">
-          <Link to="/">
+          <Link  onClick={() => darkModeMLS({ darkMode, dispatch })}>
             <img src={Logo} height="35" alt="logo" />
           </Link>
         </li>
@@ -93,7 +93,7 @@ const TheSidebar = () => {
       </CSidebarNav>
       <ul className="sidebar-nav-bottom m-0 p-0">
         <li className="c-sidebar-item" onMouseEnter={() => setHover('logout')} onMouseLeave={() => setHover(null)}>
-          <img className="m-0 c-sidebar-nav-icon-profile" onClick={() => darkModeMLS({ darkMode, dispatch })} src="nav/profile.png" alt="" />
+          <img className="m-0 c-sidebar-nav-icon-profile" src="nav/profile.png" alt="" />
           <div className=" text-left text-blue">
             <div>
               {lastChangedUser && lastChangedUser.userId === user.userId && lastChangedUser.email === user.email
