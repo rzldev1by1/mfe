@@ -8,7 +8,8 @@ const TheLayout = () => {
   const dispatch = useDispatch();
   const [expired, setExpired] = useState(useSelector((state) => state.expired));
   // const darkMode = useSelector((state) => state.darkMode);
-  const darkMode = useSelector((state) => state.darkMode);
+  const darkMode = useSelector((state) => state.customDarkMode);
+  console.log(darkMode)
   const onActive = () => {
     dispatch({ type: 'EXPIRED' });
   };

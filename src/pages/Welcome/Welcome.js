@@ -22,7 +22,7 @@ class Welcome extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    darkMode: state.darkMode,
+    darkMode: state.customDarkMode,
   };
 };
 export default connect(mapStateToProps)(Welcome);

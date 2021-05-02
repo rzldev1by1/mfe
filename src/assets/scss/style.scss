@@ -66,11 +66,17 @@ $spinkit-spinner-color: $body-color;
   .card {
     background-color: #281f34 !important;
   }
+  .tab-pane{
+    background-color: #47444a !important;
+  }
 
   //table
   .Table .rt-tbody .rt-tr-group:hover {
-    background-color: #504164  !important ;
-}
+      background-color: #504164  !important ;
+  }
+  .table-detail .rt-tbody .rt-tr-group:hover{
+    background-color: #504164 !important;
+  }
   .rt-table {
     background-color: #281f34 !important;
     color: white !important;
@@ -170,6 +176,58 @@ $spinkit-spinner-color: $body-color;
   }
 
 }
+
+//datePicker
+
+.select_date_options {
+  background-color: #281f34 !important;
+  
+  .DayPicker-Weekday abbr[title='Monday'],
+  .DayPicker-Weekday abbr[title='Tuesday'],
+  .DayPicker-Weekday abbr[title='Wednesday'],
+  .DayPicker-Weekday abbr[title='Thursday'],
+  .DayPicker-Weekday abbr[title='Friday'],
+  .DayPicker-Weekday abbr[title='Saturday'],
+  .DayPicker-Weekday abbr[title='Sunday']
+  {
+    color: white !important;
+  }
+  label{
+    color: white !important;
+  }
+}
+
+  // modal 
+  .customDarkMode.modal{ 
+    .bg-primary{
+      background-color: #1c1c1c !important;
+    }
+    .text-primary {
+      color: white !important;
+    }
+    label{
+      color: white !important;
+    }
+    .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options{
+      background-color: #281f34 !important;
+      background: #281f34 !important;
+    }
+    .select_dropdown_label{
+      background-color: #281f34 !important;
+    }
+    .select_dropdown{
+      background-color: #281f34 !important;
+    }
+    .btn.btn-secondary{
+      background-color: #281f34 !important;
+      color: white !important;
+    }
+    .DayPicker-Day:hover{
+      color: black  !important;
+      
+    }
+  }
+
 .c-app.customDarkMode {
   background-color: #47444a !important;
 }
