@@ -46,7 +46,7 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
     <div>
       {/* Start Order Details */}
       <Row>
-        <Col lg="2" className="pr-0" style={{ flex: '0 0 11%', maxWidth: '11%' }}>
+        <Col lg="1" className="pr-0">
           <h3 className="text-primary font-20 um-text-webgroup">New User</h3>
         </Col>
         <Col lg="10" className="pl-0">

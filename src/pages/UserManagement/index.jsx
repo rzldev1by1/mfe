@@ -23,7 +23,7 @@ const UserManagement = (props) => {
   const [Export, setExport] = useState(false);
   const module = 'UserManagement';
 
-  const height = window.innerHeight - 340;
+  const height = window.innerHeight - 335;
   const width = window.innerWidth;
 
   useEffect(() => {
