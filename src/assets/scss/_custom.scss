@@ -806,3 +806,50 @@ input.form-control.input-danger {
 .newIcon-review{
   font-size: 1.7rem;
 }
+
+// tooltip reset column
+#button-tooltip-reset{
+  .tooltip.show{
+    opacity: 100%;
+  }
+  .tooltip-inner {
+    max-width: 280px;
+    padding: 0.25rem 0.5rem;
+    color: #fff;
+    text-align: left;
+    background-color: #a6bcfc;
+    border-radius: 0.25rem;
+    position: absolute;
+    width: 280px;
+    margin-left: -103px;
+    margin-top: -47px;
+  }
+  .arrow::before{
+    border-top-color: #a6bcfc !important;
+    margin-left: -90px;
+    margin-top: -3px;
+  }
+}
+
+#button-tooltip-input-rename{
+  .tooltip.show{
+    opacity: 100%;
+  }
+  .tooltip-inner {
+    max-width: 280px;
+    padding: 0.25rem 0.5rem;
+    color: #fff;
+    text-align: left;
+    background-color: #a6bcfc;
+    border-radius: 0.25rem;
+    position: absolute;
+    width: fit-content;
+    margin-left: -132px;
+  }
+  .arrow::before{
+    border-bottom-color: #a6bcfc !important;
+    margin-left: -120px;
+    margin-top: -3px;
+  }
+}
+

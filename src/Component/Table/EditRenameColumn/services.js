@@ -50,8 +50,17 @@ export const saveEdit = ({ state, title, user, setEditColumnTemp, setShowModal, 
   } catch (e) {}
 };
 
-export const changedColumn = ({ e, state, setState, fields }) => {
-  let { value } = e.target;
+export const changedColumn = ({ e, state, setState, fields,defaults,id,name }) => {
+console.log(defaults);
+  let value = e?.target?.value;
+  let ids = e?.target?.id
+  let names = e?.target?.name
+  if(defaults){
+    value = defaults
+    ids = id
+    names = name
+    document.getElementById(ids).value = value
+  }
   const newVal = { ...state };
   const split = value.split(' ');
   if (split.length > 1) {
@@ -60,7 +69,7 @@ export const changedColumn = ({ e, state, setState, fields }) => {
     value = join.join(' ');
   }
 
-  const { newerror, newsameColumns, newsameColumnsIdx } = validations(state, value, e.target.id, fields);
+  const { newerror, newsameColumns, newsameColumnsIdx } = validations(state, value, ids, fields);
   const { changedColumns } = state;
   newVal.error = newerror;
   newVal.sameColumns = newsameColumns;
@@ -73,14 +82,14 @@ export const changedColumn = ({ e, state, setState, fields }) => {
   if (value.length > 0) {
     changedColumns.map((item, idx) => {
       if (item.headerData) {
-        if (item.headerData === e.target.name) {
+        if (item.headerData === names) {
           changedColumns.splice(idx, 1);
         }
       }
     });
 
-    changedColumns[e.target.id] = {
-      headerData: e.target.name,
+    changedColumns[ids] = {
+      headerData: names,
       header: value,
     };
     newVal.changedColumns = changedColumns;
@@ -239,7 +248,10 @@ export const renameSubmit = ({ state, setState, setShowMod, UrlAll, fields, setF
   }
 };
 
-export const resetColumnName = ({state, title, user, setEditColumnTemp, setShowModal: setShowMod, dispatch}) => {
+export const resetColumnName = async({user,module}) => {
+  const baseUrl = process.env.REACT_APP_API_URL;
+  const {data, status} = await axios.post(`https://qaapi.microlistics.tech/settings/field-label/${module}/reset?client=${user?.client}`)
+  console.log(data, status);
 }
 
 export const resetColumnTable = ({module, user, fields, state, setState}) => {
