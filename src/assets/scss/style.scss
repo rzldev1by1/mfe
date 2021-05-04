@@ -152,6 +152,15 @@ $spinkit-spinner-color: $body-color;
   .css-1dhet8w-option:hover {
     background-color: #74717d !important;
   }
+  //dropdown readonly
+  .css-12ivlxl-control{
+    background-color: #635f78 !important;
+    border: 1px solid white;
+  }
+  //dropdown danger
+  .input-danger .css-5y2tk-control{
+    border-color: #e55353 !important; 
+  }
 
   .bg-white {
     background-color: #635f78 !important;
@@ -225,6 +234,13 @@ $spinkit-spinner-color: $body-color;
     .DayPicker-Day:hover{
       color: black  !important;
       
+    }
+    .text-muted{
+      color: white !important;
+    }
+    .modalCreateSuccess, .modalCreateLoss{ 
+      background-color: #281f34;
+      color: white;
     }
   }
 
