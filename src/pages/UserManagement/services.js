@@ -83,14 +83,11 @@ export const onModuleAccessClick = ({ e, index, state, setState }) => {
   const newState = { ...state };
   let newValidation = { ...newState.validation };
   let moduleAccess = [...newState.moduleAccess];
-  console.log(moduleAccess, index )
   let newModules = moduleAccess.map((item, idx) => {
     if (idx === index) {
-      if(item.status == false){
-        item.status = true;
-      }else{
-        item.status = false
-      }
+      item.status = true;
+    } else {
+      item.status = false;
     }
     return item;
   });
