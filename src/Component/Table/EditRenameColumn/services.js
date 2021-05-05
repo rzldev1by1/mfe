@@ -248,13 +248,13 @@ export const renameSubmit = ({ state, setState, setShowMod, UrlAll, fields, setF
   }
 };
 
-export const resetColumnName = async({user,module}) => {
+export const resetColumnName = async({user,splitModule}) => {
   const baseUrl = process.env.REACT_APP_API_URL;
-  const {data, status} = await axios.post(`https://qaapi.microlistics.tech/settings/field-label/${module}/reset?client=${user?.client}`)
-  console.log(data, status);
+  const {data, status} = await axios.post(`${baseUrl}/settings/field-label/${splitModule}/reset?client=${user?.client}`)
+  window.location.reload()
 }
 
-export const resetColumnTable = ({module, user, fields, state, setState}) => {
+export const resetColumnTable = ({module, user, fields, state}) => {
   const currentOrderColumn = localStorage.getItem(`tables__${module}__${user.name}`)
   ? JSON.parse(localStorage.getItem(`tables__${module}__${user.name}`))
   : [];
@@ -262,11 +262,8 @@ export const resetColumnTable = ({module, user, fields, state, setState}) => {
   fields.map((data) => {
     templateColumn.push(data.accessor)
   });
-  const newState = { ...state };
    if(JSON.stringify(currentOrderColumn) !== JSON.stringify(templateColumn)){
     localStorage.removeItem(`tables__${module}__${user.name}`);
     window.location.reload();
-    // newState.disableBtn = true
-    // setState(newState)
   }
 }

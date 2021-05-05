@@ -64,9 +64,6 @@ const EditRenameColumn = ({
   let templateHeaders = []
   fields.map((data) => {
     templateColumn.push(data.accessor)
-    // currentHeaders.push(data.Header)
-    // templateHeaders.push(data.placeholder)
-    // setState({ currentHeader: currentHeaders, templateHeader: templateHeaders })
   });
 
   const UrlHeader = () => {
@@ -112,20 +109,22 @@ const EditRenameColumn = ({
     }
   }
 
-  const renderTooltip = (props) => (
+  const renderTooltip = ({props, msg}) => (
     <Tooltip id="button-tooltip-reset" {...props}>
-      Every value that has been arranged by the User will be reset to the system default
+      {msg}
     </Tooltip>
   );
 
-  const renderTooltipRename = ({props, defaults,changedColumn, state, setState, fields,id,name}) => (
-    <Tooltip id="button-tooltip-input-rename" {...props} onClickCapture={() => changedColumn({ state, setState, fields,defaults,id,name })}>
-      Default: <span>{defaults}</span>
-    </Tooltip>
+  const renderTooltipRename = ({props, header, defaults,changedColumn, state, setState, fields,id,name}) => (
+        <Tooltip id={`${header !== defaults ? "button-tooltip-input-rename" : "tooltip-input-rename-none"}`} {...props} onClickCapture={() => changedColumn({ state, setState, fields,defaults,id,name })}>
+          Default: <span>{defaults}</span>
+        </Tooltip>
   );
+
  let isChanged = fields?.filter(data => data.Header !== data.placeholder)
  isChanged = isChanged?.length ? false : true
-  console.log(isChanged);
+
+ console.log(user);
   return (
     <div>
     <Modal show={showModal} size="xl" centered>
@@ -227,35 +226,44 @@ const EditRenameColumn = ({
                 </Row>
                 <Col className="pt-2 px-2 d-flex justify-between">
                   <Col className="p-0">
-                    <Button
-                      variant="primary"
-                      style={{ padding: '0rem 1.08rem', marginRight: '1rem' }}
-                      onClick={() =>
-                        resetColumnName({user,module})
-                      }
-                      className="btn-disabled"
-                      disabled={isChanged}
-                    >
-                      RESET COLUMN NAME
-                    </Button>
                     <OverlayTrigger
-                        placement="top"
-                        delay={{ show: 250, hide: 14000 }}
-                        overlay={renderTooltip}
-                        className="reset-button"
+                      placement="top"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={renderTooltip({
+                        msg:'Every value that has been renamed by the User will reset to the system default.'
+                      })}
+                      className="reset-button"
+                    >
+                      <Button
+                        variant="primary"
+                        style={{ padding: '0rem 1.08rem', marginRight: '1rem' }}
+                        onClick={user.userLevel === 'Admin'? () => resetConfirmation() : () => resetColumnName({user,splitModule})}
+                        className={!isChanged ? '' : "btn-disabled"}
+                        disabled={isChanged}
                       >
+                        RESET COLUMN NAME
+                      </Button>
+                    </OverlayTrigger>
+                    <OverlayTrigger
+                      placement="top"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={renderTooltip({
+                        msg:'Every value that has been arranged by the User will be reset to the system default.'
+                      })}
+                      className="reset-button"
+                    >
                       <Button
                         variant="primary"
                         style={{ padding: '0rem 1.08rem' }}
                         onClick={() =>
-                          resetConfirmation()
+                          resetColumnTable({ module, user, editColumnTemp, fields, state, setState })
                         }
                         disabled={state.disableBtn}
                         className={state.disableBtn ? "btn-disabled" : ""}
                       >
                         RESET COLUMN ORDER
                       </Button>
-                      </OverlayTrigger>
+                    </OverlayTrigger>
                   </Col>
                   <Button
                       variant="primary"
@@ -272,12 +280,13 @@ const EditRenameColumn = ({
                 <Row xl={5} lg={10} className="mx-0 grid-col">
                   {fields &&
                     fields.map((item, index) => {
+                      console.log(item.Header !== item.placeholder);
                       return (
                         <div key={index} className="p-2">
                           <OverlayTrigger
                             placement="bottom"
                             delay={{ show: 250, hide: 400 }}
-                            overlay={renderTooltipRename({ defaults: item.placeholder,changedColumn, state, setState, fields,id:index,name:item.Header})}
+                            overlay={renderTooltipRename({ header:item.Header, defaults: item.placeholder,changedColumn, state, setState, fields,id:index,name:item.Header})}
                           >
                           <input
                             id={index}
@@ -298,35 +307,44 @@ const EditRenameColumn = ({
                 </Row>
                 <Col className="pt-2 px-2 d-flex justify-between">
                   <Col className="p-0">
+                  <OverlayTrigger
+                      placement="top"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={renderTooltip({
+                        msg:'Every value that has been renamed by the User will reset to the system default.'
+                      })}
+                      className="reset-button"
+                    >
                       <Button
                         variant="primary"
                         style={{ padding: '0rem 1.08rem', marginRight: '1rem' }}
-                        onClick={() =>
-                          resetColumnName()
-                        }
-                        className="btn-disabled"
+                        onClick={user.userLevel === 'Admin'? () => resetConfirmation() : () => resetColumnName({user,splitModule})}
+                        className={!isChanged ? '' : "btn-disabled"}
                         disabled={isChanged}
                       >
                         RESET COLUMN NAME
                       </Button>
-                      <OverlayTrigger
-                        placement="top"
-                        delay={{ show: 250, hide: 400 }}
-                        overlay={renderTooltip}
-                        className="reset-button"
-                      >
+                    </OverlayTrigger>
+                    <OverlayTrigger
+                      placement="top"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={renderTooltip({
+                        msg:'Every value that has been arranged by the User will be reset to the system default.'
+                      })}
+                      className="reset-button"
+                    >
                       <Button
                         variant="primary"
                         style={{ padding: '0rem 1.08rem' }}
                         onClick={() =>
-                          resetConfirmation()
+                          resetColumnTable({ module, user, editColumnTemp, fields, state, setState })
                         }
                         disabled={state.disableBtn}
                         className={state.disableBtn ? "btn-disabled" : ""}
                       >
                         RESET COLUMN ORDER
                       </Button>
-                      </OverlayTrigger>
+                    </OverlayTrigger>
                     </Col>
                   {fields &&
                     fields.map((item) => {
@@ -361,7 +379,7 @@ const EditRenameColumn = ({
           <img src={logoConfirm} alt="logo" style={{ width: "25%", height: "25%" }} />
           <div className="pl-3">
             <p className="mb-0" style={{color: "#D6D8DA"}}>Are you sure?</p>
-            <p>To reset all the arrangement column that has been modified, this action can not be undo.</p>
+            <p>To reset all the Rename Column that has been modified, this action can not be undo.</p>
           </div>
         </div>
         <Col className="px-0 pb-0 pt-3 d-flex justify-content-between">
@@ -378,7 +396,8 @@ const EditRenameColumn = ({
             variant="primary"
             style={{ padding: '0rem 1.08rem'}}
             onClick={() =>
-              resetColumnTable({ module, user, editColumnTemp, fields, state, setState })
+              // resetColumnTable({ module, user, editColumnTemp, fields, state, setState })
+              resetColumnName({user,splitModule})
             }
             disabled={state.disableBtn}
             className={state.disableBtn ? "btn-disabled" : ""}

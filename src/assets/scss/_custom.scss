@@ -853,3 +853,15 @@ input.form-control.input-danger {
   }
 }
 
+#tooltip-input-rename-none{
+  .tooltip.show{
+    display: none;
+  }
+  .tooltip-inner {
+    display: none;
+  }
+  .arrow::before{
+    display: none;
+  }
+}
+
