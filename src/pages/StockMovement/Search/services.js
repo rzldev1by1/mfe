@@ -15,7 +15,7 @@ const getHeaders = () => {
           style: { textAlign: 'left', paddingLeft: '15px' },
           headerClassName: 'borderBottom noPaddingTop',
           sortable: true,
-          width: 70,
+          width: 100,
         },
         {
           Header: 'Client',
@@ -23,7 +23,7 @@ const getHeaders = () => {
           headerStyle: { textAlign: 'left' },
           style: { textAlign: 'left' },
           sortable: true,
-          width: 90,
+          width: 120,
           className: 'wrap-text',
           headerClassName: 'borderBottom noPaddingTop',
         },
