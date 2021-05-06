@@ -317,7 +317,7 @@ class DatePicker extends React.Component {
                         className="form-control"
                         maxLength="10"
                         value={this.state.defaultValue}
-                        onChange={(e) => { this.dateValueProcess(e) }}
+                        onChange={(e) => { this.dateValueProcess(e); if(this.props.onChange) {this.props.onChange()} }}
                         onFocus={() => {this.openDatePicker(); if(this.props.onOpen) {this.props.onOpen()}}}
                         onKeyUp={(e) => this.dateValueFormat(e)}
                         onKeyDown={(e) => this.disabledAlpha(e)}

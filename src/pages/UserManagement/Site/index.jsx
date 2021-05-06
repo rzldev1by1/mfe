@@ -8,6 +8,10 @@ const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module}) =>
   const enable = 'Enabled';
   const disable = 'Disabled';
 
+  const height = window.innerHeight - 690;
+  const width = window.innerWidth;
+
+
   return (
     <div>
       <div className={`flex-column line-border mr-2 my-3 `}>
@@ -29,7 +33,7 @@ const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module}) =>
         </div>
       </div>
 
-    <div className="client-areas">
+      <div className="client-areas" style={{height:height, minHeight:height}}>
       {sites && sites.length
         ? sites.map((item, index) => {
             return (
