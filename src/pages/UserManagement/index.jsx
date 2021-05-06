@@ -23,8 +23,23 @@ const UserManagement = (props) => {
   const [Export, setExport] = useState(false);
   const module = 'UserManagement';
 
-  const height = window.innerHeight - 335;
-  const width = window.innerWidth;
+  const [dimension, setDimension] = useState({
+    height: window.innerHeight - 355,
+    width: window.innerWidth,
+  });
+  const { width, height } = dimension;
+  useEffect(() => {
+    const handleResize = () => {
+      setDimension({
+        height: window.innerHeight - 355,
+        width: window.innerWidth,
+      });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
 
   useEffect(() => {
     getSummaryData({ dispatch, active: paginationUm?.active, module });

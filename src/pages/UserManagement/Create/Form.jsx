@@ -49,7 +49,7 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
         <Col lg="1" className="pr-0">
           <h3 className="text-primary font-20 um-text-webgroup">New User</h3>
         </Col>
-        <Col lg="10" className="pl-0">
+        <Col lg="10">
           <Row className="mx-0">
             <Col lg="4" md="4" sm="12" className="pl-0 toggle-um"> 
               <label className="webgroup">

@@ -116,7 +116,12 @@ const Search = ({ setHeader, setdateHeader }) => {
                   defaultValue={new Date(fromDate)}
                   tabIndex="1"
                   placeHolder="Select Date"
-                  onOpen={(e) => { dateTo.current.openDatePicker('to') }}
+                  onChange={(selected) => { dateTo.current.openDatePicker();  }}
+                  onOpen={(e) => { 
+                    dateTo.current.openDatePicker('to');  
+                    if (e) {
+                    dateTo.current.openDatePicker();  
+                  } }}
                   fromMonth={defaultDate?.minDate}
                   toMonth={defaultDate?.maxDate}
                   messageRequired={true}
