@@ -161,6 +161,8 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
     // Table Status
     case 'TABLE_STATUS':
       return { ...state, tableStatus: data };
+    case 'REORDER':
+      return { ...state, reorder: data };
     // and Table Status
 
     // User Management
