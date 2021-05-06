@@ -2,11 +2,14 @@ import React from 'react';
 import '../index.scss';
 import { onModuleAccessClick, onEnabledAllModuleAccess } from '../services';
 
-const moduleAccess = ({ moduleAccess, isEnableAllModule, state, setState, isReadOnly }) => {
+const moduleAccess = ({ moduleAccess, isEnableAllModule, state, setState, isReadOnly , module}) => {
   const disableAll = 'Disable All';
   const enableAll = 'Enable All';
   const enable = 'Enabled';
   const disable = 'Disabled';
+
+  const height = window.innerHeight - 680;
+  const heightDetail = window.innerHeight - 492;
 
   return (
     <div>
@@ -28,7 +31,9 @@ const moduleAccess = ({ moduleAccess, isEnableAllModule, state, setState, isRead
           </div>
         </div>
       </div>
-      <div>
+
+      <div className="client-areas" 
+            style={ module === 'detail' ? { height:heightDetail, minHeight:heightDetail} : {height:height, minHeight:height}}>
         {moduleAccess && moduleAccess.length
           ? moduleAccess.map((item, index) => {
               return (
