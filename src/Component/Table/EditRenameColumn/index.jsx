@@ -24,7 +24,6 @@ const EditRenameColumn = ({
 }) => {
   const dispatch = useDispatch();
   const reorder = useSelector((state) => state.reorder);
-  console.log(reorder);
   const [state, setState] = React.useState({
     error: {},
     sameColumns: [],
@@ -124,7 +123,6 @@ const EditRenameColumn = ({
  let isChanged = fields?.filter(data => data.Header !== data.placeholder)
  isChanged = isChanged?.length ? false : true
 
- console.log(user);
   return (
     <div>
     <Modal show={showModal} size="xl" centered>
@@ -280,7 +278,6 @@ const EditRenameColumn = ({
                 <Row xl={5} lg={10} className="mx-0 grid-col">
                   {fields &&
                     fields.map((item, index) => {
-                      console.log(item.Header !== item.placeholder);
                       return (
                         <div key={index} className="p-2">
                           <OverlayTrigger

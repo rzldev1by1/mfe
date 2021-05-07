@@ -59,11 +59,9 @@ const Search = ({ setHeader, setdateHeader }) => {
     }
     setIsSearch(false);
   }, [isSearch]);
-  console.log(fromDate);
   //ref
   const dateFrom = React.createRef(null);
   const dateTo = React.createRef(null);
-  console.log(dropdownValue);
   return (
     <CCard className="mb-3 StockMovementFilter">
       <CCardBody className="p-3">

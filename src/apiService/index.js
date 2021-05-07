@@ -399,7 +399,6 @@ export const getStockMovement = async ({ dropdownValue, dispatch }) => {
         from: newData.length > 0 ? 1 : 0,
         to: data.length,
       };
-      console.log(newData);
       dispatch({ type: 'PAGING', data: pagination });
       dispatch({ type: 'GET_SM_SUMMARY', data: newData });
     })
@@ -595,7 +594,6 @@ export const onChangeName = ({ e, state, setState }) => {
 };
 export const checkNameValidation = ({ textName, state, setState }) => {
   const newState = { ...state };
-  console.log(textName);
   let isValid = textName == '' ? false : true;
   newState.validation.name['isValid'] = isValid;
   if (!isValid) newState.validation.name['message'] = utility.validationMsg.USERNAME_REQUIRED;

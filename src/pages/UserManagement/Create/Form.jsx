@@ -16,7 +16,6 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
     newUser: 'webgroup-active',
     admin: 'webgroup-notactive',
   });
-  console.log(state);
   useEffect(() => {
     if (activeTab == 'review') {
       setIsReadOnly(true);
