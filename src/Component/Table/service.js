@@ -68,6 +68,8 @@ export const renewColumn = async ({
     schema = [...schema, obj];
   }
   setNewSchema([...schema]);
+  console.log([...schema]);
+
 };
 
 export const setDraggableColumn = ({ fields }) => {
@@ -80,6 +82,7 @@ export const setDraggableColumn = ({ fields }) => {
 export const saveSchemaToLocal = ({
   userId,
   schemaColumn,
+  setNewSchema,
   draggedColumn,
   targetColumn,
   oldIndex,
@@ -126,4 +129,7 @@ export const saveSchemaToLocal = ({
   // set to local storage
   localStorage.removeItem(key);
   localStorage.setItem(key, JSON.stringify(newSchemaOrder));
+
+  //set Local
+  console.log(newSchemaOrder);
 };
