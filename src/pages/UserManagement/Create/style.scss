@@ -386,13 +386,6 @@
 .mt-min-5 {
   margin-top: -2rem !important;
 }
-@media (max-height: 700px) {
-  .client-areas {
-    height: 250px;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-}
 
 .btn-review {
   pointer-events: none !important;

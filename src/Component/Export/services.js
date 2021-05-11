@@ -121,7 +121,6 @@ const setupDocPDF = async (filename, exportData, schemaColumn) => {
       }
       if (dataKey === 8) {
         const dataColumns = data.row.raw[8];
-        console.log(dataColumns);
         if (dataColumns[0] == 'x') {
           doc.setTextColor(252, 28, 3);
         }

@@ -51,7 +51,6 @@ export const saveEdit = ({ state, title, user, setEditColumnTemp, setShowModal, 
 };
 
 export const changedColumn = ({ e, state, setState, fields,defaults,id,name }) => {
-console.log(defaults);
   let value = e?.target?.value;
   let ids = e?.target?.id
   let names = e?.target?.name

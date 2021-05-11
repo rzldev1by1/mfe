@@ -227,6 +227,7 @@ const UserManagementDetail = (props) => {
               <div className="row">
                 <div className="col-4">
                   <ModuleAccess
+                    module={'detail'}
                     state={state}
                     setState={setState}
                     moduleAccess={newState.moduleAccess}
@@ -236,7 +237,7 @@ const UserManagementDetail = (props) => {
                 <div className="col-4 pl-0">
                   <Site
                     state={state}
-                    module='detail'
+                    module={'detail'}
                     setState={setState}
                     sites={newState.sites}
                     isEnableAllSite={newState.isEnableAllSite}
@@ -245,7 +246,7 @@ const UserManagementDetail = (props) => {
                 <div className="col-4 um-client-scrollbar">
                   <Client
                     state={state}
-                    module='detail'
+                    module={'detail'}
                     setState={setState}
                     clients={newState.clients}
                     isEnableAllClient={newState.isEnableAllClient}

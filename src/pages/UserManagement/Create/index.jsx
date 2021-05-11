@@ -116,86 +116,88 @@ const Create = ({ show, setShow }) => {
               </NavLink>
             </NavItem>
           </Nav>
-          <TabContent>
-            <Container className="px-9 pt-4 pb-9">
-              {/* Tabs */}
-              {activeTab == 'message' ? (
-                <MessageTab
-                  module="UM"
-                  submitReturn={isSubmitReturn}
-                  back={() => setActiveTab('detail')}
-                  exit={() => {
-                    setShow(false);
-                    setIsReset(0);
-                  }}
-                />
-              ) : (
-                <Form
-                  isAdmin={isAdmin}
-                  setIsAdmin={setIsAdmin}
-                  activeTab={activeTab}
-                  state={state}
-                  setState={setState}
-                  isValidation={isValidation}
-                />
-              )}
+          <div>
+            <TabContent >
+              <Container className="px-9 pt-4 pb-9">
+                {/* Tabs */}
+                {activeTab == 'message' ? (
+                  <MessageTab
+                    module="UM"
+                    submitReturn={isSubmitReturn}
+                    back={() => setActiveTab('detail')}
+                    exit={() => {
+                      setShow(false);
+                      setIsReset(0);
+                    }}
+                  />
+                ) : (
+                  <Form
+                    isAdmin={isAdmin}
+                    setIsAdmin={setIsAdmin}
+                    activeTab={activeTab}
+                    state={state}
+                    setState={setState}
+                    isValidation={isValidation}
+                  />
+                )}
 
-              {/* Button */}
-              {activeTab == 'details' ? (
-                <Row className="mt-3 pt-3">
-                  <Col lg={2}></Col>
-                  <Col lg={8}></Col>
-                  <Col lg={2} className="text-right">
-                    <button
-                      className={'btn btn-primary'}
-                      onClick={() => {
-                        setIsValidation(true);
-                        if (state.validate) {
-                          setActiveTab('review');
-                        }
-                      }}
-                    >
-                      {'NEXT'}
-                    </button>
-                  </Col>
-                </Row>
-              ) : activeTab == 'review' ? (
-                <Row className="mt-3 pt-3">
-                  <Col lg={2}>
-                    <button className="btn btn-primary" onClick={() => setActiveTab('details')}>
-                      {'BACK'}
-                    </button>
-                  </Col>
-                  <Col lg={8}>
-                    {isSubmitStatus === 'success' ? (
-                      <div className="text-center text-secondary mt-2">
-                        {' '}
-                        <span className="text-success">Success,</span> order has been successfully submitted for
-                        processing{' '}
-                      </div>
-                    ) : null}
-                  </Col>
-                  <Col lg={2} className="text-right">
-                    <button
-                      className="btn btn-primary"
-                      onClick={() => {
-                        setIsSubmitStatus('loading');
-                        submit({ setIsSubmitStatus, setIsSubmitReturn, setActiveTab, isAdmin, user, data: state });
-                      }}
-                    >
-                      {isSubmitStatus === 'loading' ? (
-                        <div className="m-iconLoad">
-                          <img src={loading} width="45" height="45" />
+                {/* Button */}
+                {activeTab == 'details' ? (
+                  <Row className="mt-3 pt-3">
+                    <Col lg={2}></Col>
+                    <Col lg={8}></Col>
+                    <Col lg={2} className="text-right">
+                      <button
+                        className={'btn btn-primary'}
+                        onClick={() => {
+                          setIsValidation(true);
+                          if (state.validate) {
+                            setActiveTab('review');
+                          }
+                        }}
+                      >
+                        {'NEXT'}
+                      </button>
+                    </Col>
+                  </Row>
+                ) : activeTab == 'review' ? (
+                  <Row className="mt-3 pt-3">
+                    <Col lg={2}>
+                      <button className="btn btn-primary" onClick={() => setActiveTab('details')}>
+                        {'BACK'}
+                      </button>
+                    </Col>
+                    <Col lg={8}>
+                      {isSubmitStatus === 'success' ? (
+                        <div className="text-center text-secondary mt-2">
+                          {' '}
+                          <span className="text-success">Success,</span> order has been successfully submitted for
+                          processing{' '}
                         </div>
-                      ) : (
-                        'SUBMIT'
-                      )}
-                    </button>
-                  </Col>
-                </Row>
-              ) : null}
-            </Container>
-          </TabContent>
+                      ) : null}
+                    </Col>
+                    <Col lg={2} className="text-right">
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => {
+                          setIsSubmitStatus('loading');
+                          submit({ setIsSubmitStatus, setIsSubmitReturn, setActiveTab, isAdmin, user, data: state });
+                        }}
+                      >
+                        {isSubmitStatus === 'loading' ? (
+                          <div className="m-iconLoad">
+                            <img src={loading} width="45" height="45" />
+                          </div>
+                        ) : (
+                          'SUBMIT'
+                        )}
+                      </button>
+                    </Col>
+                  </Row>
+                ) : null}
+              </Container>
+            </TabContent>
+          </div>
         </Modal.Body>
       </Modal>
     </div>

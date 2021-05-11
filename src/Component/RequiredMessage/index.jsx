@@ -3,7 +3,6 @@ import './style.scss';
 
 const RequiredMessage = ({ messageShow, column, data, columnText, value, dropdown = false, customMessage, fieldName, style, checkDateTo }) => {
   const [message, setMessage] = useState(null);
-  console.log(messageShow, columnText, value, checkDateTo);
   useEffect(() => {
     setMessage('');
     if (column == 'qty') {
