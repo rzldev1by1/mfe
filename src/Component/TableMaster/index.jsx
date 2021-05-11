@@ -26,6 +26,7 @@ const TableMaster = ({
   editColumn,
   splitModule,
   props,
+  exportBtn
 }) => {
   return (
     <div>
@@ -56,7 +57,7 @@ const TableMaster = ({
 
         {pagination && pagination.total < 1 ? (
           ''
-        ) : (
+        ) : exportBtn ? (
           <Export
             filename={filename}
             getExportData={async () => await getExportData()}
@@ -64,7 +65,8 @@ const TableMaster = ({
             schemaColumn={schemaColumn}
             exportPdf={exportPdf}
           />
-        )}
+        )
+        : ''}
       </CRow>
     </div>
   );

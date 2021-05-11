@@ -142,6 +142,7 @@ const PurchaseOrders = (props) => {
               setExport(true);
             }}
             splitModule="purchase-order"
+            exportBtn
           />
         </div>
       </div>

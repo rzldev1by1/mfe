@@ -166,6 +166,7 @@ const PurchaseOrdersDetail = (props) => {
         filename="Microlistics_PurchaseOrderDetails."
         isDisplay={false}
         splitModule="purchase-order/detail"
+        exportBtn
       />
     </div>
   );

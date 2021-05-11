@@ -122,6 +122,7 @@ export const renewState = ({ setState, state, siteData, clientData, moduleAccess
     'menu_orders_highSoOrder',
     'menu_inventory_stkHolding',
     'menu_inventory_stkMovement',
+    'menu_inventory_sPortal',
   ];
   tmp = moduleAccess?.map((item, key) => {
     if (allowedValues.includes(item.menu_id)) {

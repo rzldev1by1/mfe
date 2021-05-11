@@ -1,6 +1,13 @@
 export default [
   {
     _tag: 'CSidebarNavItem',
+    name: 'SUPPLIER MANAGEMENT',
+    to: '/supplier-management',
+    icon: 'sp',
+    key: 'menu_inventory_sPortal',
+  },
+  {
+    _tag: 'CSidebarNavItem',
     name: 'STOCK HOLDING',
     to: '/stock-holding',
     icon: 'sh',

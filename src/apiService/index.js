@@ -57,8 +57,14 @@ export const getSummaryData = async ({
     paramPaging = 'PAGING_UM';
   }
 
+  if (module === 'SupplierManagement') {
+    endpointsUrl = endpoints.supplierManagement;
+    paramType = 'GET_SP_SUMMARY';
+    paramPaging = 'PAGING_SP';
+  }
+
   // Url
-  if (module === 'UserManagement') {
+  if (module === 'UserManagement' || module === 'SupplierManagement') {
     urls.push(`search=${searchInput || ''}`);
   }
   if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
@@ -121,6 +127,8 @@ export const getSummaryData = async ({
       item.date_received = item.date_received && item.date_received !== '' ? formatDate(item.date_received) : '-';
       item.date_released = item.date_released && item.date_released !== '' ? formatDate(item.date_released) : '-';
       item.date_completed = item.date_completed && item.date_completed !== '' ? formatDate(item.date_completed) : '-';
+      // Supplier Management PO Date format
+      item.date_due = item.date_due && item.date_due !== '' ? formatDate(item.date_due) : '-';
       // User Management Data
       item.disabled = item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
       item.site = item.site && item.site !== '' ? item.site : 'All';
@@ -399,7 +407,6 @@ export const getStockMovement = async ({ dropdownValue, dispatch }) => {
         from: newData.length > 0 ? 1 : 0,
         to: data.length,
       };
-      console.log(newData);
       dispatch({ type: 'PAGING', data: pagination });
       dispatch({ type: 'GET_SM_SUMMARY', data: newData });
     })
@@ -595,7 +602,6 @@ export const onChangeName = ({ e, state, setState }) => {
 };
 export const checkNameValidation = ({ textName, state, setState }) => {
   const newState = { ...state };
-  console.log(textName);
   let isValid = textName == '' ? false : true;
   newState.validation.name['isValid'] = isValid;
   if (!isValid) newState.validation.name['message'] = utility.validationMsg.USERNAME_REQUIRED;

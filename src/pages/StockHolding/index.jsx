@@ -131,6 +131,7 @@ const PurchaseOrders = (props) => {
               setExport(true);
             }}
             splitModule="stock-holding"
+            exportBtn
           />
         </div>
       </div>

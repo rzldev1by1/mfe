@@ -865,3 +865,10 @@ input.form-control.input-danger {
   }
 }
 
+// end tooltip
+
+// styling user info in breadcrum
+html:not([dir="rtl"]) .dropdown-toggle::after {
+  margin-left: 1em;
+}
+

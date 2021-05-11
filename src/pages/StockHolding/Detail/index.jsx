@@ -181,6 +181,7 @@ const StockHoldingDetail = (props) => {
               filename="Microlistics_StockHoldingForecast."
               editColumn="false"
               props={props}
+              exportBtn
             />
           </TabPane>
         ) : (
