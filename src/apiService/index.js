@@ -62,7 +62,7 @@ export const getSummaryData = async ({
     paramType = 'GET_SP_SUMMARY';
     paramPaging = 'PAGING_SP';
   }
-
+  
   // Url
   if (module === 'UserManagement' || module === 'SupplierManagement') {
     urls.push(`search=${searchInput || ''}`);

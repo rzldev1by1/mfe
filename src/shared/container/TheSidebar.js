@@ -22,7 +22,6 @@ const TheSidebar = () => {
   const signOut = async (e) => {
     dispatch({ type: 'LOGOUT' });
     const payload = {last_access: new Date().toLocaleString()};
-    console.log(payload)
     const ret = await axios.post('auth/logout',payload );
     return ret;
   };

@@ -24,13 +24,12 @@ const TheHeader = (props) => {
         dispatch({ type: 'SIDEBAR', data: val })
     }
     const { button, breadcrumb, userInfo, user } = props;
-    console.log(user);
-
+    
     return (
       <CHeader withSubheader className="no-border no-shadow" id="stockMovement">
         <CSubheader className="bg-transparent no-border no-shadow my-0">
           <CToggler inHeader className="p-0 d-lg-none" onClick={toggleSidebarMobile} />
-          <CBreadcrumb className="no-border no-shadow mr-auto m-0 py-3 d-flex justify-content-between w-100 pr-0">
+          <CBreadcrumb className={`no-border no-shadow mr-auto m-0 py-3 ${breadcrumb[1]?.active ? '' : 'd-flex justify-content-between'} w-100 pr-0`}>
             {breadcrumb ? breadcrumb.map((b, i) => {
                         return b.active ? <CBreadcrumbItem key={i} active>{b.label}</CBreadcrumbItem>
                             : <CBreadcrumbItem key={i}><Link to={b.to}>{b.label}</Link></CBreadcrumbItem>

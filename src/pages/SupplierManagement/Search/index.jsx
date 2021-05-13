@@ -3,29 +3,49 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { CCard, CCardBody, CRow, CCol } from '@coreui/react';
-// import { setHeaderSummary } from './services';
 import { getDateRange, getSummaryData } from 'apiService';
 import DatePicker from 'shared/DatePicker';
 import moment from 'moment';
-import Input from 'Component/Input';
 import './style.scss';
 
-const Search = ({ placeholder }) => {
+const Search = ({ placeholder, module }) => {
   // params
   const dispatch = useDispatch();
   const [searchInput, setSearchInput] = useState(null);
   const [isSearch, setIsSearch] = useState(true);
   const [defaultDate, setDefaultDate] = useState(null);
+
   const [dropdownValue, setdropdownValue] = useState({
-    siteVal: '',
-    clientVal: '',
     fromDate: moment().subtract(27, 'days').format('YYYY-MM-DD'),
     toDate: moment().format('YYYY-MM-DD'),
-    productVal: '',
-    period: { value: 'week', label: `Weekly` },
     firstValue: false,
   });
- 
+
+  const newDropdownValue = { ...dropdownValue };
+
+  // ref
+  const dateFrom = React.createRef(null);
+  const dateTo = React.createRef(null);
+
+  useEffect(() => {
+    getDateRange({ setDefaultDate });
+  }, []);
+
+  useEffect(() => {
+    if (isSearch === true) {
+      if(dateFrom && dateTo ){
+        dispatch({ type: 'GET_SP_SUMMARY', data: undefined });
+        getSummaryData({ 
+          fromDate:newDropdownValue.fromDate,
+          toDate: newDropdownValue.toDate,
+          dispatch,
+          searchInput,
+          module
+        });
+      }
+    }
+    setIsSearch(false);
+  }, [isSearch]);
   const search = async (e) => {
     if (e.key === 'Enter') {
       dispatch({ type: 'GET_SP_SUMMARY', data: [] });
@@ -38,25 +58,9 @@ const Search = ({ placeholder }) => {
     }
   };
 
-  const { period, fromDate, toDate, firstValue } = dropdownValue;
-
   useEffect(() => {
     getDateRange({ setDefaultDate });
   }, []);
-
-  useEffect(() => {
-    if (isSearch === true) {
-      if(period && dateFrom && dateTo ){
-        dispatch({ type: 'GET_SP_SUMMARY', data: undefined });
-        getSummaryData({ dropdownValue, dispatch });
-      }
-    }
-    setIsSearch(false);
-  }, [isSearch]);
-  
-  // ref
-  const dateFrom = React.createRef(null);
-  const dateTo = React.createRef(null);
 
   return (
     <CCard className="SupplierManagementFilter mb-3">
@@ -90,10 +94,9 @@ const Search = ({ placeholder }) => {
                   ref={dateFrom}
                   arrowStyle
                   getDate={(e) => { 
-                        const newDropdownValue = dropdownValue;
                         setdropdownValue({...newDropdownValue, fromDate:e, firstValue: false })
                     }}
-                  defaultValue={new Date(fromDate)}
+                  defaultValue={new Date(newDropdownValue.fromDate)}
                   tabIndex="1"
                   placeHolder="Select Date"
                   onOpen={(e) => { dateTo.current.openDatePicker('to') }}
@@ -114,14 +117,13 @@ const Search = ({ placeholder }) => {
                   style={{ minWidth: '100%' }}
                   ref={dateTo}
                   arrowStyle
-                  firstDate={fromDate ? new Date(fromDate) : fromDate}
-                  firstValue={firstValue}
+                  firstDate={newDropdownValue.fromDate ? new Date(newDropdownValue.fromDate) : newDropdownValue.fromDate}
+                  firstValue={newDropdownValue.firstValue}
                   onOpen={() => { dateTo.current.openDatePicker('from') }}
                   getDate={(e) => { 
-                        const newDropdownValue = dropdownValue;
                         setdropdownValue({ ...newDropdownValue, toDate: e });
                     }}
-                  defaultValue={new Date(toDate)}
+                  defaultValue={new Date(newDropdownValue.toDate)}
                   tabIndex="1"
                   placeHolder="Select Date"
                   fromMonth={defaultDate?.minDate}
@@ -132,7 +134,7 @@ const Search = ({ placeholder }) => {
                         columnText:'Date To',
                         fieldName:'toDate',
                         style:'position-absolute',
-                        checkDateTo: fromDate &&  fromDate > toDate
+                        checkDateTo: newDropdownValue.fromDate &&  newDropdownValue.fromDate > newDropdownValue.toDate
                     }}
                 />
               </CCol>

@@ -38,7 +38,7 @@ export const renewColumn = async ({
       tmp_oldSchema[idx].width = await getColumnWidth(data, d.accessor, d.Header, d.width || 70);
     }
   });
-  console.log('columnHidden from table component', columnHidden);
+
   //hide column
   if (columnHidden !== null && columnHidden !== undefined) {
     await tmp_oldSchema.forEach(async (d, idx) => {
@@ -68,7 +68,6 @@ export const renewColumn = async ({
     schema = [...schema, obj];
   }
   setNewSchema([...schema]);
-  console.log([...schema]);
 
 };
 
@@ -131,5 +130,4 @@ export const saveSchemaToLocal = ({
   localStorage.setItem(key, JSON.stringify(newSchemaOrder));
 
   //set Local
-  console.log(newSchemaOrder);
 };

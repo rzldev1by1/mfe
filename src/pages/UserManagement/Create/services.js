@@ -43,7 +43,6 @@ export const submit = async ({ data, isAdmin, setIsSubmitReturn, setActiveTab, s
   submitData.client = isAdmin ? null : clientValue.length == clients.length ? null : clientValue[0];
   submitData.webGroup = isAdmin ? 'Admin' : 'Regular';
   submitData.disabled = 'N';
-  console.log(submitData);
 
   const ret = await submitUserManagement({ data: submitData });
 

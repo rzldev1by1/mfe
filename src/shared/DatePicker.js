@@ -307,7 +307,7 @@ class DatePicker extends React.Component {
         const no = Math.floor(Math.random() * 100000) + 1;
         const className = `select_date ${this.state.showDatePicker && (this.props.for === "SalesOrderCreate") ? "datepickerForOrderLine" : ""}`
         const messageParam = this.props.messageParam;
-        console.log(messageParam, this.state.defaultValue);
+        
         return (
             <React.Fragment>
                 <ul className={className} style={this.props.style} tabIndex={this.props.tabIndex ? this.props.tabIndex : null}>
