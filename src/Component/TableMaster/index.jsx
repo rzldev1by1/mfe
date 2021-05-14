@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-return-await */
 import React from 'react';
 import { CRow, CCol } from '@coreui/react';
@@ -26,7 +27,8 @@ const TableMaster = ({
   editColumn,
   splitModule,
   props,
-  exportBtn
+  exportBtn,
+  printBtn
 }) => {
   return (
     <div>
@@ -57,6 +59,7 @@ const TableMaster = ({
 
         {pagination && pagination.total < 1 ? (
           ''
+        // eslint-disable-next-line no-nested-ternary
         ) : exportBtn ? (
           <Export
             filename={filename}
@@ -66,7 +69,14 @@ const TableMaster = ({
             exportPdf={exportPdf}
           />
         )
-        : ''}
+        : printBtn ? (
+          <button
+            type="button"
+            className="btn btn-search mobile-search btn-primary float-right"
+          >
+            PRINT LABELS
+          </button>
+        ) : ''}
       </CRow>
     </div>
   );

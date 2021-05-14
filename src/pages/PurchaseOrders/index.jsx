@@ -116,6 +116,8 @@ const PurchaseOrders = (props) => {
             filter
             onChangeGetTask
             Export={Export}
+            btnSearch
+            inputTag
           />
         </div>
         <div>

@@ -66,7 +66,7 @@ const StockMovement = (props) => {
       <Breadcrumb breadcrumb={[{ to: '/purchase-order', label: 'Stock Movement', active: true }]} />
       <div>
         <div>
-          <Search module={module} setHeader={setHeader} setdateHeader={setdateHeader} />
+          <Search module={module} setHeader={setHeader} setdateHeader={setdateHeader} btnSearch inputTag />
         </div>
         <div>
           <TableFixedColumn

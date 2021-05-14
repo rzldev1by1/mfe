@@ -95,7 +95,7 @@ const UserManagement = (props) => {
             </CCol>
           </CRow>
         </CCardBody>
-        <Search module={module} Export={Export} placeholder="Enter User ID or Name" filter onChangeGetTask />
+        <Search module={module} Export={Export} placeholder="Enter User ID or Name" filter onChangeGetTask btnSearch inputTag />
       </CCard>
       <TableMaster
         onClick={showDetails}

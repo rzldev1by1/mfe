@@ -39,7 +39,7 @@ const routes = [
     component: SupplierManagement,
   },
   {
-    path: '/supplier-management:product',
+    path: '/supplier-management/:product',
     exact: true,
     name: 'Supplier Management',
     component: SupplierManagementDetail,

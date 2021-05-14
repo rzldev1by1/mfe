@@ -10,7 +10,7 @@ import './style.scss';
 
 const SupplierManagement = (props) => {
   const showDetails = (item) => {
-    props.history.push(`/supplier-management/${item.product}`);
+    props.history.push(`/supplier-management/${item.order_no}`);
   };
 
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const SupplierManagement = (props) => {
     <div className="supplierManagement">
       <Breadcrumb breadcrumb={[{ to: '/supplier-management', label: 'Supplier Management', active: true }]} userInfo user={user} />
       <div>
-        <Search placeholder="Enter purchase order no." module={module} />
+        <Search placeholder="Enter purchase order no." module={module} btnSearch inputTag />
       </div>
       <div>
         <TableMaster
