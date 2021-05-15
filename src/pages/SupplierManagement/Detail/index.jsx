@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import TableMaster from '../../../Component/TableMaster';
 import Breadcrumb from '../../../Component/Breadcrumb';
 import Search from '../../../Component/Search';
+import { getDetailData } from '../../../apiService';
+
 import { schemaColumnDetailSP } from './service';
 
 const SupplierManagementDetail = (props) => {
@@ -11,8 +13,9 @@ const SupplierManagementDetail = (props) => {
   const [columnHidden, setColumnHidden] = useState(null);
   const paginationSpDetail = useSelector((state) => state.paginationSpDetail);
   const user = useSelector((state) => state.user);
+  const paginationSoDetail = useSelector((state) => state.paginationSoDetail);
 
-  const module = 'SupplierManagement';
+  const module = 'supplierManagement';
 
   // dimension
   const [dimension, setDimension] = useState({
@@ -21,11 +24,17 @@ const SupplierManagementDetail = (props) => {
   });
   const { width, height } = dimension;
 
+  useEffect(() => {
+    console.log('masuk');
+    getDetailData({ dispatch, props, active: paginationSoDetail?.active, module });
+  }, []);
+
+    console.log(spDetailTable);
     return (
       <div>
         <Breadcrumb
           breadcrumb={[
-            { to: '/supplier-mamangement', label: 'Supplier Management' },
+            { to: '/supplier-management', label: 'Supplier Management' },
             { to: '', label: props.match.params.product, active: true },
           ]}
         />

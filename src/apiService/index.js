@@ -83,7 +83,6 @@ export const getSummaryData = async ({
   }
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
-
   const Meta = newData?.data?.meta;
   const Links = newData?.data?.links;
   const Data = newData?.data?.data;
@@ -164,15 +163,15 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
   let endpointsUrl = '';
   let paramType = '';
   if (module === 'purchaseOrder') {
-    endpointsUrl = endpoints.purchaseOrder + `?search=${orderdetail}&client=${client}&site=${site}`;
+    endpointsUrl = `${endpoints.purchaseOrder  }?search=${orderdetail}&client=${client}&site=${site}`;
     paramType = 'GET_PO_DETAIL';
   }
   if (module === 'salesOrder') {
-    endpointsUrl = endpoints.salesOrder + `?search=${orderno}&client=${client}&site=${site}`;
+    endpointsUrl = `${endpoints.salesOrder  }?search=${orderno}&client=${client}&site=${site}`;
     paramType = 'GET_SO_DETAIL';
   }
   if (module === 'stockHolding') {
-    endpointsUrl = endpoints.stockHoldingSummary + `/${site}/${client}/${product}/detail-header`;
+    endpointsUrl = `${endpoints.stockHoldingSummary  }/${site}/${client}/${product}/detail-header`;
     paramType = 'GET_SH_DETAIL';
   }
 
@@ -196,20 +195,25 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   let paramType = '';
   let paramPaging = '';
   if (module === 'purchaseOrder') {
-    endpointsUrl = endpoints.purchaseOrder + `/${site}/${client}/${orderdetail}?page=${active}&export=${export_}`;
+    endpointsUrl = `${endpoints.purchaseOrder  }/${site}/${client}/${orderdetail}?page=${active}&export=${export_}`;
     paramType = 'GET_PO_DETAIL_TABLE';
     paramPaging = 'PAGING_PO_DETAIL';
   }
   if (module === 'salesOrder') {
-    endpointsUrl = endpoints.salesOrder + `/${orderno}?client=${client}&site=${site}&page=${active}&export=${export_}`;
+    endpointsUrl = `${endpoints.salesOrder  }/${orderno}?client=${client}&site=${site}&page=${active}&export=${export_}`;
     paramType = 'GET_SO_DETAIL_TABLE';
     paramPaging = 'PAGING_SO_DETAIL';
   }
   if (module === 'stockHolding') {
     endpointsUrl =
-      endpoints.stockHoldingSummary + `/${site}/${client}/${product}/detail-line?page=${active}&export=${export_}`;
+      `${endpoints.stockHoldingSummary  }/${site}/${client}/${product}/detail-line?page=${active}&export=${export_}`;
     paramType = 'GET_SH_DETAIL_TABLE';
     paramPaging = 'PAGING_SH_DETAIL';
+  }
+  if (module === 'supplierManagement'){
+    endpointsUrl = `${endpoints.supplierManagement  }/${product}`
+    paramType = 'GET_SP_DETAIL_TABLE';
+    paramPaging = 'PAGING_SP_DETAIL';
   }
 
   const url = endpointsUrl;
@@ -264,7 +268,7 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
 export const getForescast = async ({ export_ = 'false', dispatch, active, props }) => {
   const { product, client, site } = props?.match?.params;
   const url =
-    endpoints.stockHoldingSummary + `/${site}/${client}/${product}/detail-balance?page=${active}&export=${export_}`;
+    `${endpoints.stockHoldingSummary  }/${site}/${client}/${product}/detail-balance?page=${active}&export=${export_}`;
   dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: [] });
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const { data } = await axios.get(url);
@@ -361,7 +365,7 @@ export const getStockMovement = async ({ dropdownValue, dispatch }) => {
   paramUrl.push(`product=${productVal?.value || ''}`);
 
   await axios
-    .get(url + '?' + paramUrl.join('&'))
+    .get(`${url  }?${  paramUrl.join('&')}`)
     .then((res) => {
       let data = res?.data?.data;
       let newData = [];
@@ -381,10 +385,10 @@ export const getStockMovement = async ({ dropdownValue, dispatch }) => {
             let dates = key.replace('sum_', '');
             let tmp = data[key];
             let tmp_arr = tmp.split('-');
-            tmp_row['sa_plus_' + dates] = numeral(tmp_arr[0]).format('0,0');
-            tmp_row['sa_minus_' + dates] = numeral(tmp_arr[1]).format('0,0');
-            tmp_row['rec_' + dates] = numeral(tmp_arr[2]).format('0,0');
-            tmp_row['send_' + dates] = numeral(tmp_arr[3]).format('0,0');
+            tmp_row[`sa_plus_${  dates}`] = numeral(tmp_arr[0]).format('0,0');
+            tmp_row[`sa_minus_${  dates}`] = numeral(tmp_arr[1]).format('0,0');
+            tmp_row[`rec_${  dates}`] = numeral(tmp_arr[2]).format('0,0');
+            tmp_row[`send_${  dates}`] = numeral(tmp_arr[3]).format('0,0');
           }
         }
 

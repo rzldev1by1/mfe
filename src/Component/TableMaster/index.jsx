@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-return-await */
 import React from 'react';
-import { CRow, CCol } from '@coreui/react';
+import { CRow, CCol, CDropdown, CDropdownToggle, CDropdownMenu, CDropdownItem, CDropdownDivider } from '@coreui/react';
 import Export from '../Export';
 import Pagination from '../Pagination';
 import Table from '../Table';
@@ -70,12 +70,16 @@ const TableMaster = ({
           />
         )
         : printBtn ? (
-          <button
-            type="button"
-            className="btn btn-search mobile-search btn-primary float-right"
-          >
-            PRINT LABELS
-          </button>
+          <CDropdown className="btn-group print-lables">
+            <CDropdownToggle color="primary"> 
+              PRINT LABELS
+            </CDropdownToggle>
+            <CDropdownMenu className="mb-2 shadow-none border">
+              <CDropdownItem>PAGE BREAK</CDropdownItem>
+              <CDropdownDivider />
+              <CDropdownItem>ONE PAGE</CDropdownItem>
+            </CDropdownMenu>
+          </CDropdown>
         ) : ''}
       </CRow>
     </div>
