@@ -148,6 +148,15 @@ export const goToPage = ({ goto, pagination, page, setPage, dispatch, module, pr
                    task: searchFilter.task,
                    status: searchFilter.status, });
     }
+  
+  if (module === 'SupplierManagement'){
+    getSummaryData({ dispatch, 
+      active: newPage.goPage, 
+      module, 
+      props,  
+      });
+  }
+
   if (module === 'StockHoldingForecast') {
     getForescast({ dispatch, active: newPage.goPage, module, props });
   }

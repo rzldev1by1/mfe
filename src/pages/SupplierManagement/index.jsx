@@ -26,6 +26,18 @@ const SupplierManagement = (props) => {
     width: window.innerWidth,
   });
   const { width, height } = dimension;
+  useEffect(() => {
+    const handleResize = () => {
+      setDimension({
+        height: window.innerHeight - 253,
+        width: window.innerWidth,
+      });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
 
   useEffect(() => {
     getSummaryData({ dispatch, active: paginationSp?.active, module });
