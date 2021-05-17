@@ -56,7 +56,7 @@ export const schemaColumnDetailSP = [
     textAlign: "right"
   },
   {
-    accessor: 'qty',
+    accessor: 'packfactor_1',
     placeholder: 'Carton Qty',
     Header: 'Carton Qty',
     width: 130,
@@ -100,25 +100,5 @@ export const schemaColumnDetailSP = [
     width: 180,
     className: 'align-right',
     Cell: (props) => props.value || '-',
-  },
-  {
-    accessor: 'edit_qty',
-    placeholder: 'Edit Qty',
-    Header: 'Edit Qty',
-    width: 130,
-    headerStyle: { textAlign: 'left', marginLeft: '1rem' },
-    sortable:false,
-    Cell: (props) => 
-      <input id='edit_qty' value='' className='input-in-table' style={{width:'100px', marginLeft: '1rem'}} />
-    ,
-  },
-  {
-    accessor: 'edit_cartons',
-    placeholder: 'Edit Carton',
-    Header: 'Edit Cartons',
-    headerStyle: { textAlign: 'left', marginLeft: '-1rem', justifyContent: 'end' },
-    sortable:false,
-    width: 120,
-    Cell: (props) => <input id='edit_cartons' value='' className='input-in-table' style={{width:'100px'}} />,
   },
 ];

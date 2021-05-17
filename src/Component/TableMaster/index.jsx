@@ -28,7 +28,9 @@ const TableMaster = ({
   splitModule,
   props,
   exportBtn,
-  printBtn
+  printBtn,
+  editOrderQty,
+  editCarton
 }) => {
   return (
     <div>
@@ -45,6 +47,8 @@ const TableMaster = ({
         columnHidden={columnHidden}
         editColumn={editColumn}
         splitModule={splitModule}
+        editOrderQty={editOrderQty}
+        editCarton={editCarton}
       />
       <CRow lg="12" className="mt-3 mb-2 w-100 pagination-custom justify-content-between">
         <Pagination

@@ -24,6 +24,8 @@ const Table = ({
   columnHidden,
   splitModule,
   editColumn,
+  editOrderQty,
+  editCarton
 }) => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.userId);
@@ -52,7 +54,7 @@ const Table = ({
 
   // renew Schema column, to get old order column or additional logic
   useEffect(() => {
-    renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn });
+    renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn, editOrderQty, editCarton });
   }, [data, fields, columnHidden]);
 
   return (
@@ -67,7 +69,7 @@ const Table = ({
           draggable: draggableColumn,
           onDropSuccess: (draggedColumn, targetColumn, oldIndex, newIndex) =>{
             saveSchemaToLocal({ setNewSchema, userId, schemaColumn: fields,  module, draggedColumn, targetColumn, oldIndex, newIndex, dispatch  });
-            renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn });
+            renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn,  editOrderQty, editCarton });
           }
         }}
         columns={newSchema}

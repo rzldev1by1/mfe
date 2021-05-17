@@ -72,6 +72,8 @@ const SupplierManagementDetail = (props) => {
               isDisplay={false}
               splitModule="supplier-management/detail"
               printBtn
+              editOrderQty
+              editCarton
             />
           </div>
         </div>
