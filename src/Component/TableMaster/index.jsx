@@ -1,6 +1,7 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-return-await */
 import React from 'react';
-import { CRow, CCol } from '@coreui/react';
+import { CRow, CCol, CDropdown, CDropdownToggle, CDropdownMenu, CDropdownItem, CDropdownDivider } from '@coreui/react';
 import Export from '../Export';
 import Pagination from '../Pagination';
 import Table from '../Table';
@@ -26,7 +27,10 @@ const TableMaster = ({
   editColumn,
   splitModule,
   props,
-  exportBtn
+  exportBtn,
+  printBtn,
+  editOrderQty,
+  editCarton
 }) => {
   return (
     <div>
@@ -43,6 +47,8 @@ const TableMaster = ({
         columnHidden={columnHidden}
         editColumn={editColumn}
         splitModule={splitModule}
+        editOrderQty={editOrderQty}
+        editCarton={editCarton}
       />
       <CRow lg="12" className="mt-3 mb-2 w-100 pagination-custom justify-content-between">
         <Pagination
@@ -57,6 +63,7 @@ const TableMaster = ({
 
         {pagination && pagination.total < 1 ? (
           ''
+        // eslint-disable-next-line no-nested-ternary
         ) : exportBtn ? (
           <Export
             filename={filename}
@@ -66,7 +73,18 @@ const TableMaster = ({
             exportPdf={exportPdf}
           />
         )
-        : ''}
+        : printBtn ? (
+          <CDropdown className="btn-group print-lables">
+            <CDropdownToggle color="primary"> 
+              PRINT LABELS
+            </CDropdownToggle>
+            <CDropdownMenu className="mb-2 shadow-none border">
+              <CDropdownItem>PAGE BREAK</CDropdownItem>
+              <CDropdownDivider />
+              <CDropdownItem>ONE PAGE</CDropdownItem>
+            </CDropdownMenu>
+          </CDropdown>
+        ) : ''}
       </CRow>
     </div>
   );

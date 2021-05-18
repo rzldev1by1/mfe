@@ -47,3 +47,38 @@ export const setStatus = ({ selected, dropdownValue, setdropdownValue  }) => {
   else newDropdownValue.status = null
   setdropdownValue(newDropdownValue)
 };
+
+export const setStyle = ({ selected, dropdownValue, setdropdownValue  }) => {
+  const newDropdownValue = { ...dropdownValue };
+  if (selected) newDropdownValue.style = selected 
+  else newDropdownValue.style = null
+  setdropdownValue(newDropdownValue)
+};
+
+export const setStyleDesc = ({ selected, dropdownValue, setdropdownValue  }) => {
+  const newDropdownValue = { ...dropdownValue };
+  if (selected) newDropdownValue.styleDesc = selected 
+  else newDropdownValue.styleDesc = null
+  setdropdownValue(newDropdownValue)
+};
+
+export const setColor = ({ selected, dropdownValue, setdropdownValue  }) => {
+  const newDropdownValue = { ...dropdownValue };
+  if (selected) newDropdownValue.color = selected 
+  else newDropdownValue.color = null
+  setdropdownValue(newDropdownValue)
+};
+
+export const setDimensions = ({ selected, dropdownValue, setdropdownValue  }) => {
+  const newDropdownValue = { ...dropdownValue };
+  if (selected) newDropdownValue.dimensions = selected 
+  else newDropdownValue.dimensions = null
+  setdropdownValue(newDropdownValue)
+};
+
+export const setSize = ({ selected, dropdownValue, setdropdownValue  }) => {
+  const newDropdownValue = { ...dropdownValue };
+  if (selected) newDropdownValue.size = selected 
+  else newDropdownValue.size = null
+  setdropdownValue(newDropdownValue)
+};

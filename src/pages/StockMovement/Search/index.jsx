@@ -43,6 +43,10 @@ const Search = ({ setHeader, setdateHeader }) => {
   const { company, client, site } = user;
   const { siteVal, clientVal, period, fromDate, toDate, productVal, firstValue } = dropdownValue;
 
+   // ref
+   const dateFrom = React.createRef(null);
+   const dateTo = React.createRef(null);
+
   useEffect(() => {
     getSite({ dispatch });
     getClient({ dispatch });
@@ -59,9 +63,7 @@ const Search = ({ setHeader, setdateHeader }) => {
     }
     setIsSearch(false);
   }, [isSearch]);
-  //ref
-  const dateFrom = React.createRef(null);
-  const dateTo = React.createRef(null);
+ 
   return (
     <CCard className="mb-3 StockMovementFilter">
       <CCardBody className="p-3">
@@ -93,7 +95,6 @@ const Search = ({ setHeader, setdateHeader }) => {
                 tabIndex="1"
                 placeHolder="Select Date"
                 getDate={(selected) => {
-                  console.log(selected);
                   // let newDropdownValue = dropdownValue;
                   setdropdownValue({ fromDate: selected });
                   dateTo.current.openDatePicker();

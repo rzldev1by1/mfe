@@ -74,7 +74,6 @@ const PurchaseOrdersDetail = (props) => {
       let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
       let tmp = null;
       let x = columnHidden?.map((data, idx) => {
-        console.log(data);
         if (data.title === 'Purchase Order Details') {
           tmp = data.columns;
         }
@@ -84,7 +83,6 @@ const PurchaseOrdersDetail = (props) => {
       } else {
         setColumnHidden([]);
       }
-      console.log('state2', tmp);
       setState2(false);
       dispatch({ type: 'CHANGE_HEADER', data: false });
     }

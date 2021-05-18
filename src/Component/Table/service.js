@@ -1,4 +1,13 @@
 import React from 'react';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+
+const renderTooltipRename = (field, props) => (
+  <Tooltip id='edit-qty-tooltip'>
+    Remaining qty: 
+    {' '}
+    <span>{field === 'edit_qty' ? props.original.order_qty : props.original.no_of_carton }</span>
+  </Tooltip>
+);
 
 const getColumnWidth = (rows, accessor, headerText, minWidth) => {
   const magicSpacing = 9;
@@ -6,9 +15,9 @@ const getColumnWidth = (rows, accessor, headerText, minWidth) => {
   const width = cellLength * magicSpacing;
   if (width < minWidth) {
     return minWidth;
-  } else {
+  } 
     return width;
-  }
+  
 };
 
 export const renewColumn = async ({
@@ -20,6 +29,8 @@ export const renewColumn = async ({
   editColumn,
   showModal,
   columnHidden,
+  editOrderQty,
+  editCarton
 }) => {
   // reorder column
   const key = `tables__${module}__${userId}`;
@@ -27,8 +38,8 @@ export const renewColumn = async ({
   const oldSchema = localStorage.getItem(key);
   const schemaOrder = JSON.parse(oldSchema);
 
-  //reorder column first
-  let tmp_oldSchema = [];
+  // reorder column first
+  const tmp_oldSchema = [];
   await fields.forEach(async (d, idx) => {
     if (oldSchema) {
       idx = schemaOrder.indexOf(d.accessor);
@@ -38,8 +49,8 @@ export const renewColumn = async ({
       tmp_oldSchema[idx].width = await getColumnWidth(data, d.accessor, d.Header, d.width || 70);
     }
   });
-  console.log('columnHidden from table component', columnHidden);
-  //hide column
+
+  // hide column
   if (columnHidden !== null && columnHidden !== undefined) {
     await tmp_oldSchema.forEach(async (d, idx) => {
       if (columnHidden.includes(d.accessor)) {
@@ -49,6 +60,51 @@ export const renewColumn = async ({
     });
   } else {
     schema = tmp_oldSchema;
+  }
+
+  // Edit Order Qty Supplier Portal 
+  if ( editOrderQty === true) {
+    const obj = {
+      accessor: 'edit_qty',
+      placeholder: 'Edit Qty',
+      Header: 'Edit Qty',
+      width: 130,
+      headerStyle: { textAlign: 'left', marginLeft: '1rem' },
+      sortable:false,
+      Cell: (props) => (
+        <OverlayTrigger
+          placement="bottom"
+          delay={{ show: 250, hide: 400 }}
+          overlay={renderTooltipRename('edit_qty', props)}
+        >
+          <input id='edit_qty' value={ props.value } className='input-in-table' style={{width:'100px', marginLeft: '1rem'}} />
+        </OverlayTrigger>
+      )
+      ,
+    };
+    schema = [...schema, obj];
+  }
+
+   // Edit Order Qty Supplier Portal 
+   if ( editCarton === true) {
+    const obj = {
+      accessor: 'edit_cartons',
+      placeholder: 'Edit Carton',
+      Header: 'Edit Cartons',
+      headerStyle: { textAlign: 'left', marginLeft: '-1rem', justifyContent: 'end' },
+      sortable:false,
+      width: 120,
+      Cell: (props) => (
+        <OverlayTrigger
+          placement="bottom"
+          delay={{ show: 250, hide: 400 }}
+          overlay={renderTooltipRename('edit_cartons', props)}
+        >
+          <input id='edit_cartons' value={ props.value } className='input-in-table' style={{width:'100px'}} />
+        </OverlayTrigger>
+    ),
+    };
+    schema = [...schema, obj];
   }
 
   // Edit & Rename Column button icon
@@ -68,7 +124,6 @@ export const renewColumn = async ({
     schema = [...schema, obj];
   }
   setNewSchema([...schema]);
-  console.log([...schema]);
 
 };
 
@@ -130,6 +185,5 @@ export const saveSchemaToLocal = ({
   localStorage.removeItem(key);
   localStorage.setItem(key, JSON.stringify(newSchemaOrder));
 
-  //set Local
-  console.log(newSchemaOrder);
+  // set Local
 };

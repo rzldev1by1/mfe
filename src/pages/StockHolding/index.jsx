@@ -107,6 +107,8 @@ const PurchaseOrders = (props) => {
             onChangeGetTask
             statusDataSH={statusDataSH}
             Export={Export}
+            btnSearch
+            inputTag
           />
         </div>
         <div>

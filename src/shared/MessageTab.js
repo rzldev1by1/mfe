@@ -12,7 +12,6 @@ export default class MessageTab extends React.Component {
   }
   render() {
     const { module, status, back, orderNo, exit, role, name } = this.props;
-    console.log(status);
     let imgSrc = complete;
     let statusMessage = 'The ' + module + ' ' + orderNo + ' has successfully submitted for processing.';
     if (status === 'Successfully added') imgSrc = complete;

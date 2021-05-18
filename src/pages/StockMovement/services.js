@@ -450,7 +450,6 @@ export const demoPDF = ({ filename, rowSpan }) => {
           colour = 2;
         }
       }
-      // console.log(rowSpan, index, rowSpan * i, colour);
 
       if (colour == 1) {
         pdf.setFillColor(240, 239, 242);

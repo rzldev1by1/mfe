@@ -65,6 +65,8 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, paginationPoDetail: data };
     case 'PAGING_SH_DETAIL':
       return { ...state, paginationShDetail: data };
+    case 'PAGING_SP_DETAIL':
+      return { ...state, paginationSpDetail: data };
     case 'PAGING_SH_FORECAST':
       return { ...state, paginationShForecast: data };
     case 'PAGING_SO':
@@ -185,6 +187,8 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
     // Supplier Management
     case 'GET_SP_SUMMARY':
       return {...state, spSummaryData: data};
+    case 'GET_SP_DETAIL_TABLE':
+      return { ...state, spDetailTable: data };
     // Supplier Management End
 
     default:
