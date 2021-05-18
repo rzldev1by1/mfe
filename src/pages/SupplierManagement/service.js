@@ -12,12 +12,12 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    width: 100,
+    width: 150,
   },
   {
     Header: 'PO Date',
     placeholder: 'PO Date',
-    accessor: 'date_due',
+    accessor: 'po_date',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
@@ -27,7 +27,7 @@ export const schemaColumn = [
   {
     Header: 'Total No. of Lines',
     placeholder: 'Total No. of Lines',
-    accessor: 'totline',
+    accessor: 'total_line',
     className:'align-right',
     headerStyle: { textAlign: 'right' },
     style: { textAlign: 'right', paddingLeft: '15px' },
@@ -39,7 +39,7 @@ export const schemaColumn = [
   {
     Header: 'Total Order Qty',
     placeholder: 'Total Order Qty',
-    accessor: 'totor',
+    accessor: 'total_order',
     className:'align-right',
     headerStyle: { textAlign: 'right' },
     style: { textAlign: 'right', paddingLeft: '15px' },
@@ -51,7 +51,7 @@ export const schemaColumn = [
   {
     Header: 'Total Qty Shipped',
     placeholder: 'Total Qty Shipped',
-    accessor: 'tosh',
+    accessor: 'total_shipped',
     className:'align-right',
     headerStyle: { textAlign: 'right' },
     style: { textAlign: 'right', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
@@ -63,7 +63,7 @@ export const schemaColumn = [
   {
     Header: 'Total Printed Qty',
     placeholder: 'Total Printed Qty',
-    accessor: 'topri_qty',
+    accessor: 'total_printed_qty',
     className: 'align-right',
     headerStyle: { textAlign: 'right' },
     style: { textAlign: 'right', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
@@ -75,7 +75,7 @@ export const schemaColumn = [
   {
     Header: 'Total Printed Cartons',
     placeholder: 'Total Printed Cartons',
-    accessor: 'topri_cartons',
+    accessor: 'total_printed_cartons',
     className: 'align-right',
     headerStyle: { textAlign: 'right' },
     style: { textAlign: 'right', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },

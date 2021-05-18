@@ -83,6 +83,7 @@ export const getSummaryData = async ({
   }
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
+  console.log(newData);
   const Meta = newData?.data?.meta;
   const Links = newData?.data?.links;
   const Data = newData?.data?.data;
@@ -127,7 +128,7 @@ export const getSummaryData = async ({
       item.date_released = item.date_released && item.date_released !== '' ? formatDate(item.date_released) : '-';
       item.date_completed = item.date_completed && item.date_completed !== '' ? formatDate(item.date_completed) : '-';
       // Supplier Management PO Date format
-      item.date_due = item.date_due && item.date_due !== '' ? formatDate(item.date_due) : '-';
+      item.po_date = item.po_date && item.po_date !== '' ? formatDate(item.po_date) : '-';
       // User Management Data
       item.disabled = item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
       item.site = item.site && item.site !== '' ? item.site : 'All';
