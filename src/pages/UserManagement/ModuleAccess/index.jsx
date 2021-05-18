@@ -40,7 +40,8 @@ const moduleAccess = ({ moduleAccess, isEnableAllModule, state, setState, isRead
                 <div className="flex-column mb-1 mr-2" key={index}>
                   <div className="d-flex" key={index}>
                     <label className="col-6 text-muted px-0 py-2" key={item.menu_id}>
-                      {item.menu_name.toLowerCase() === 'create sales order' ? 'Sales Orders' : item.menu_name}
+                      { item.menu_name.toLowerCase() === 'create sales order' ? 'Sales Orders' : 
+                        item.menu_name.toLowerCase() === 'manage supplier users' ? 'Supplier Management' : item.menu_name}
                     </label>
                     <div className="col-6">
                       <button

@@ -74,10 +74,6 @@ const UserManagementDetail = (props) => {
   useEffect(() => {
     buttonValidation({ setIsButton, validation: newState?.validation });
   }, [state]);
-
-  useEffect(() => {
-    getAccountInfo({ userid, state, setState, dispatch, loadSite, loadClient, moduleAccess });
-  }, []);
   return (
     <div>
       <Breadcrumb breadcrumb={[{ to: '/users-management', label: 'User Management' }]} />
