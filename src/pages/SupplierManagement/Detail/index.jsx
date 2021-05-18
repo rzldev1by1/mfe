@@ -25,11 +25,9 @@ const SupplierManagementDetail = (props) => {
   const { width, height } = dimension;
 
   useEffect(() => {
-    console.log('masuk');
     getDetailData({ dispatch, props, active: paginationSoDetail?.active, module });
   }, []);
 
-    console.log(spDetailTable);
     return (
       <div>
         <Breadcrumb
@@ -51,6 +49,8 @@ const SupplierManagementDetail = (props) => {
               btnClear
               btnFulfill
               btnSearch={false}
+              paginationSoDetail={paginationSoDetail}
+              props={props}
             />
           </div>
           <div>

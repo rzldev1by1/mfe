@@ -2,10 +2,10 @@ import React from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const renderTooltipRename = (field, props) => (
-  <Tooltip>
+  <Tooltip id='edit-qty-tooltip'>
     Remaining qty: 
     {' '}
-    <span>{field === 'edit_qty' ? props.original.order_qty : props.original.packfactor_1 }</span>
+    <span>{field === 'edit_qty' ? props.original.order_qty : props.original.no_of_carton }</span>
   </Tooltip>
 );
 
@@ -77,7 +77,7 @@ export const renewColumn = async ({
           delay={{ show: 250, hide: 400 }}
           overlay={renderTooltipRename('edit_qty', props)}
         >
-          <input id='edit_qty' value='' className='input-in-table' style={{width:'100px', marginLeft: '1rem'}} />
+          <input id='edit_qty' value={ props.value } className='input-in-table' style={{width:'100px', marginLeft: '1rem'}} />
         </OverlayTrigger>
       )
       ,
@@ -100,7 +100,7 @@ export const renewColumn = async ({
           delay={{ show: 250, hide: 400 }}
           overlay={renderTooltipRename('edit_cartons', props)}
         >
-          <input id='edit_cartons' value='' className='input-in-table' style={{width:'100px'}} />
+          <input id='edit_cartons' value={ props.value } className='input-in-table' style={{width:'100px'}} />
         </OverlayTrigger>
     ),
     };

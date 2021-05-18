@@ -15,7 +15,7 @@ import {
   siteCheck,
   clientCheck,
 } from '../../apiService/dropdown';
-import { getSummaryData } from '../../apiService';
+import { getSummaryData, getDetailData } from '../../apiService';
 import './index.scss';
 
 const Search = ({
@@ -37,7 +37,10 @@ const Search = ({
   inputTag,
   btnClear,
   btnFulfill,
-  btnSearch
+  btnSearch,
+  setFulfill,
+  paginationSoDetail,
+  props
 }) => {
   // params
   const dispatch = useDispatch();
@@ -110,6 +113,14 @@ const Search = ({
       module,
     });
   };
+
+  const handleFulfill = () => {
+    getDetailData({dispatch, props, active: paginationSoDetail?.active, module, fulfill: true})
+  }
+
+  const handleClear = () => {
+    getDetailData({dispatch, props, active: paginationSoDetail?.active, module, fulfill: false})
+  }
 
   useEffect(() => {
     getSite({ dispatch });
@@ -370,7 +381,7 @@ const Search = ({
                             CLEAR
                           </CDropdownToggle>
                           <CDropdownMenu className="mt-2 shadow-none border">
-                            <CDropdownItem>CLEAR ALL</CDropdownItem>
+                            <CDropdownItem onClick={() => handleClear()}>CLEAR ALL</CDropdownItem>
                             <CDropdownDivider />
                             <CDropdownItem>CLEAR MARKED</CDropdownItem>
                           </CDropdownMenu>
@@ -382,7 +393,7 @@ const Search = ({
                             FULFILL
                           </CDropdownToggle>
                           <CDropdownMenu className="mt-2 shadow-none border">
-                            <CDropdownItem>FULFILL ALL</CDropdownItem>
+                            <CDropdownItem onClick={() => handleFulfill()}>FULFILL ALL</CDropdownItem>
                             <CDropdownDivider />
                             <CDropdownItem>FULFILL MARKED</CDropdownItem>
                           </CDropdownMenu>

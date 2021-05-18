@@ -305,6 +305,11 @@ input.input-in-table {
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+input.input-in-table:focus {
+  border-color: orange !important;
+  outline: orange !important;
+
+}
 
 // input.form-control {
 //   padding: 0.375rem 0.75rem 0.375rem 0rem;
@@ -822,7 +827,16 @@ input.form-control.input-danger {
   font-size: 1.7rem;
 }
 
-// tooltip reset column
+// tooltip
+#edit-qty-tooltip{
+  .tooltip-inner {
+    background-color: orange;
+  }
+  .arrow::before{
+    border-bottom-color: orange !important;
+  }
+}
+
 #button-tooltip-reset{
   .tooltip.show{
     opacity: 100%;

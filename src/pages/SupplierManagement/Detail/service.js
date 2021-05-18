@@ -78,12 +78,12 @@ export const schemaColumnDetailSP = [
     textAlign: "right"
   },
   {
-    accessor: 'qty',
+    accessor: 'no_of_carton',
     placeholder: 'No. of Carton',
     Header: 'No. of Carton',
     width: 145,
     className: 'align-right',
-    Cell: (props) => props.value || '-',
+    Cell: (props) => props.value || 0,
   },
   {
     accessor: 'qty',

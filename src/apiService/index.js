@@ -189,7 +189,7 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
   }
 };
 
-export const getDetailData = async ({ export_ = 'false', dispatch, active, props, module }) => {
+export const getDetailData = async ({ export_ = 'false', dispatch, active, props, module, fulfill }) => {
   const { orderdetail, client, site, orderno, product } = props?.match?.params;
   let endpointsUrl = '';
   let paramType = '';
@@ -242,6 +242,11 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
       m.weight = numeral(m.weight).format('0,0.000');
       m.completed = m.completed == 'Y' ? 'Yes' : 'x';
       m.released = m.released == 'Y' ? 'Yes' : 'x';
+      if (fulfill === true){
+        m.edit_qty = m.order_qty
+        m.edit_cartons = m.packfactor_1
+      }
+      m.no_of_carton = Math.round(m.order_qty/m.packfactor_1)
       m.rotadate = m.rotadate && m.rotadate !== '' ? formatDate(m.rotadate) : '-';
       txt.push(m.batch?.length);
       return m;
