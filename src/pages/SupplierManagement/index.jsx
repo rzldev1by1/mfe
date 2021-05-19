@@ -17,7 +17,7 @@ const SupplierManagement = (props) => {
   const user = useSelector((state) => state.user);
   const spSummaryData = useSelector((state) => state.spSummaryData);
   const paginationSp = useSelector((state) => state.paginationSp);
-
+  const stateChangeHeader = useSelector((state) => state.changeHeader);
   const module = 'SupplierManagement';
 
   // dimension
@@ -42,6 +42,44 @@ const SupplierManagement = (props) => {
   useEffect(() => {
     getSummaryData({ dispatch, active: paginationSp?.active, module });
   }, []);
+
+  const [columnHidden, setColumnHidden] = useState(null);
+  const [state2, setState2] = useState(null);
+  if (!columnHidden) {
+    setColumnHidden(localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : []);
+    setState2(true);
+  }
+
+  useEffect(() => {
+    if (stateChangeHeader) {
+      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      let x = columnHidden?.map((data, idx) => {
+        if (data.title === 'Supplier Management') {
+          setColumnHidden(data.columns);
+        }
+      });
+      dispatch({ type: 'CHANGE_HEADER', data: false });
+    }
+  }, [stateChangeHeader]);
+
+  useEffect(() => {
+    if (state2) {
+      let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
+      let tmp = null;
+      let x = columnHidden?.map((data, idx) => {
+        if (data.title === 'Supplier Management') {
+          tmp = data.columns;
+        }
+      });
+      if (tmp) {
+        setColumnHidden(tmp);
+      } else {
+        setColumnHidden([]);
+      }
+      setState2(false);
+      dispatch({ type: 'CHANGE_HEADER', data: false });
+    }
+  }, [state2]);
   
   return (
     <div className="supplierManagement">
@@ -62,7 +100,7 @@ const SupplierManagement = (props) => {
             dispatch({ type: 'PAGING_SP', data: { ...paginationSp, active: e } });
           }}
           user={user}
-          // columnHidden={columnHidden}
+          columnHidden={columnHidden}
           title="Supplier Management"
           splitModule="supplier-management"
           exportBtn={false}

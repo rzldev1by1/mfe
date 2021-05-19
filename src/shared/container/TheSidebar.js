@@ -47,12 +47,12 @@ const TheSidebar = () => {
     navigation = navigation.filter((n) => {
       return !adminRoutes.includes(n.to) && userMenu.includes(n.key);
     });
-  }else{
-    navigation = navigation.filter((n) => {
-      return n.to !== "/supplier-management"
-    });
-  
-   }
+  }
+  // else{
+  //   navigation = navigation.filter((n) => {
+  //     return n.to !== "/supplier-management"
+  //   });
+  //  }
 
   return (
     <CSidebar
