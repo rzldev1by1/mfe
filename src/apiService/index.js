@@ -8,7 +8,7 @@ import endpoints from '../helpers/endpoints';
 import * as utility from './UmUtility';
 
 const today = moment(Date()).format('YYYY-MM-DD hh:mm:ss');
-const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement'];
+const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'manage supplier users'];
 
 export const formatDate = (date) => {
   if (date !== "Invalid date" || date === undefined || date === null || date === '') {

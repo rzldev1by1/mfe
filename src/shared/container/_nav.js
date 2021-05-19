@@ -4,7 +4,7 @@ export default [
     name: 'SUPPLIER MANAGEMENT',
     to: '/supplier-management',
     icon: 'sp',
-    key: 'menu_inventory_sPortal',
+    key: 'menu_manageUsers_supplierUsers',
   },
   {
     _tag: 'CSidebarNavItem',
