@@ -9,7 +9,7 @@ const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module}) =>
   const disable = 'Disabled';
 
   const height = window.innerHeight - 680;
-  const heightDetail = window.innerHeight - 492;
+  const heightDetail = window.innerHeight - 510;
 
 
   return (
@@ -19,7 +19,7 @@ const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module}) =>
           <label className="col-6 text-muted-soft px-0 py-2" htmlFor="Site">
             Site
           </label>
-          <div className="col-6 pr-4">
+          <div className="col-6 pr-2">
             <button
               type="button"
               className={`btn px-1 float-right mb-2 ${
