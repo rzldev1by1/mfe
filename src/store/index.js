@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   sidebarShow: 'responsive',
   asideShow: false,
   darkMode: false,
+  customDarkMode: true,
   user: null,
   loading: true,
   expired: false,
@@ -29,7 +30,7 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
     case 'SIDEBAR':
       return { ...state, sidebarShow: data };
     case 'DARKMODE':
-      return { ...state, darkMode: data };
+      return { ...state, darkModeMLS: data };
     // Dropdown Start
     case 'CLIENT_DATA':
       return { ...state, clientData: data };

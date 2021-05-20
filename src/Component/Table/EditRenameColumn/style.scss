@@ -23,7 +23,7 @@
   width: max-content;
   margin-left: 74%;
   border: solid 0px;
-  background-color: #A6BCFC !important;
+  background-color: #e8e8e8;
   border-radius: 0.3rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
@@ -93,6 +93,58 @@
 }
 .form-rename::placeholder {
   color: #376bfb !important;
+}
+
+.bgn-header{
+  background-color: #376BFB;
+}
+.text-color{
+  color: #376BFB;
+}
+
+//DarkMode
+.customDarkMode{
+  .bgn-header{
+    background-color: #1c1c1c !important;
+  }
+  .no-hover{
+    background-color: #1c1c1c !important;
+    border: solid 1px #1c1c1c !important;
+    outline: solid 9px #1c1c1c !important;
+    border-radius: 0px !important;
+  }
+  .no-hover:hover{
+    background-color: #1c1c1c !important;
+    outline: solid 9px #1c1c1c !important;
+    border-radius: 0px !important;
+  }
+  .half-padding{
+    background-color: #3e3846 !important;
+  }
+  .tab-content{
+    background-color: #3e3846 !important;
+  }
+  .text-color{
+    color: #f1f1f2 !important;
+  }
+  .btn-light-gray{
+    background-color: #635f78 !important;
+    border: solid 1px #635f78 !important;
+  }
+  .nav-link.active {
+    background-color: #3e3846 !important;
+  }
+  .rename-columns {
+    background-color: #635f78 !important;
+    color: #376BFB !important;
+  }
+  .nav-link{
+    background-color: #635f78  !important;
+    color: #fff !important;
+  }
+  .form-rename{
+    background-color: #3e3846 !important;
+  }
 }
 
 @media (min-width: 376px) and (max-width: 575px) {

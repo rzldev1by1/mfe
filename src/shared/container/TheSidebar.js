@@ -9,6 +9,7 @@ import {
 } from '@coreui/react';
 import Logo from 'assets/img/logo-white.png';
 import nav from './_nav';
+import { darkModeMLS } from '../../apiService';
 import './TheSidebar.css';
 
 const TheSidebar = () => {
@@ -17,6 +18,7 @@ const TheSidebar = () => {
   const show = useSelector((state) => state.sidebarShow);
   const user = useSelector((state) => state.user);
   const lastChangedUser = useSelector((state) => state.lastChangedUser);
+  const darkMode = useSelector((state) => state.darkModeMLS);
 
   const [hover, setHover] = useState(null);
   const signOut = async (e) => {
@@ -63,7 +65,7 @@ const TheSidebar = () => {
     >
       <ul className="sidebar-nav-header">
         <li className="c-sidebar-item">
-          <Link to="/">
+          <Link  onClick={() => darkModeMLS({ darkMode, dispatch })}>
             <img src={Logo} height="35" alt="logo" />
           </Link>
         </li>
