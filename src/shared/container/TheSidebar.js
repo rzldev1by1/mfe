@@ -18,7 +18,7 @@ const TheSidebar = () => {
   const show = useSelector((state) => state.sidebarShow);
   const user = useSelector((state) => state.user);
   const lastChangedUser = useSelector((state) => state.lastChangedUser);
-  const darkMode = useSelector((state) => state.darkMode);
+  const darkMode = useSelector((state) => state.darkModeMLS);
 
   const [hover, setHover] = useState(null);
   const signOut = async (e) => {
