@@ -921,3 +921,12 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
 .btn-fulfill .dropdown-toggle::after {
   display: none !important;
 }
+// darkMode Modal
+.customDarkModes {
+    background-color: #1c1c1c !important;
+    color: #fff !important;
+    .tab-content{
+      background-color: #3e3846 !important;
+      color: #fff !important;
+    }
+}

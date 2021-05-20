@@ -41,7 +41,7 @@ const Table = ({
     </div>
   );
   const loadingMessage = (
-    <div>
+    <div style={{background:'transparent'}}>
       <img src={loading} alt="" width="45" height="45" />
     </div>
   );

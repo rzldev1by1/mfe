@@ -1,15 +1,28 @@
-import React, { Component } from 'react'
-import HeaderTitle from 'shared/container/TheHeader'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import HeaderTitle from 'shared/container/TheHeader';
 import Logo from '../../assets/img/LOGO1.png';
-import './Welcome.css'
+import LogoWhite from '../../assets/img/LOGO1_WHITE.png';
+import './Welcome.css';
 
 class Welcome extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
-    return <div className="welcome">
-      <HeaderTitle />
-      <img src={Logo} className="logo" alt="logo" />
-    </div>
+    return (
+      <div className="welcome">
+        <div className="darkLayer"></div>
+        <HeaderTitle />
+        <img src={this.props.darkMode ? LogoWhite : Logo} className="logo" alt="logo" />
+      </div>
+    );
   }
 }
 
-export default Welcome;
+const mapStateToProps = (state) => {
+  return {
+    darkMode: state.customDarkMode,
+  };
+};
+export default connect(mapStateToProps)(Welcome);

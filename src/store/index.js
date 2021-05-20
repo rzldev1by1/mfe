@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   sidebarShow: 'responsive',
   asideShow: false,
   darkMode: false,
+  customDarkMode: true,
   user: null,
   loading: true,
   expired: false,
