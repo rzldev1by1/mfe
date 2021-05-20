@@ -119,7 +119,6 @@ export const changeOrderDetails = ({ column, value, orderDetails, setOrderDetail
   od[column] = value;
   od['validation_' + column] = value ? true : false;
   setOrderDetails(od);
-  console.log(od);
 };
 
 export const changeClient = ({
@@ -186,7 +185,6 @@ export const changeOrderLines = ({ val, column, index, orderLines, setOrderLines
   let newOrderLines = [...orderLines];
   newOrderLines[index][column] = val;
   newOrderLines[index]['validation_' + column] = val ? true : false;
-  console.log(newOrderLines);
   setOrderLines(newOrderLines);
 };
 

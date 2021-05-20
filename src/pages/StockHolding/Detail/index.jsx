@@ -43,7 +43,6 @@ const StockHoldingDetail = (props) => {
 
   const height = window.innerHeight - 378;
   const widht = window.innerWidth;
-  console.log(shDetailTable);
   return (
     <div>
       <Breadcrumb
@@ -181,6 +180,7 @@ const StockHoldingDetail = (props) => {
               filename="Microlistics_StockHoldingForecast."
               editColumn="false"
               props={props}
+              exportBtn
             />
           </TabPane>
         ) : (

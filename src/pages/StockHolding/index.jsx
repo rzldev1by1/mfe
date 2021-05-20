@@ -107,6 +107,8 @@ const PurchaseOrders = (props) => {
             onChangeGetTask
             statusDataSH={statusDataSH}
             Export={Export}
+            btnSearch
+            inputTag
           />
         </div>
         <div>
@@ -131,6 +133,7 @@ const PurchaseOrders = (props) => {
               setExport(true);
             }}
             splitModule="stock-holding"
+            exportBtn
           />
         </div>
       </div>

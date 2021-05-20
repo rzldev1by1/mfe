@@ -43,6 +43,10 @@ const Search = ({ setHeader, setdateHeader }) => {
   const { company, client, site } = user;
   const { siteVal, clientVal, period, fromDate, toDate, productVal, firstValue } = dropdownValue;
 
+   // ref
+   const dateFrom = React.createRef(null);
+   const dateTo = React.createRef(null);
+
   useEffect(() => {
     getSite({ dispatch });
     getClient({ dispatch });
@@ -59,11 +63,7 @@ const Search = ({ setHeader, setdateHeader }) => {
     }
     setIsSearch(false);
   }, [isSearch]);
-  console.log(fromDate);
-  //ref
-  const dateFrom = React.createRef(null);
-  const dateTo = React.createRef(null);
-  console.log(dropdownValue);
+ 
   return (
     <CCard className="mb-3 StockMovementFilter">
       <CCardBody className="p-3">
@@ -95,7 +95,6 @@ const Search = ({ setHeader, setdateHeader }) => {
                 tabIndex="1"
                 placeHolder="Select Date"
                 getDate={(selected) => {
-                  console.log(selected);
                   // let newDropdownValue = dropdownValue;
                   setdropdownValue({ fromDate: selected });
                   dateTo.current.openDatePicker();
@@ -116,7 +115,12 @@ const Search = ({ setHeader, setdateHeader }) => {
                   defaultValue={new Date(fromDate)}
                   tabIndex="1"
                   placeHolder="Select Date"
-                  onOpen={(e) => { dateTo.current.openDatePicker('to') }}
+                  onChange={(selected) => { dateTo.current.openDatePicker();  }}
+                  onOpen={(e) => { 
+                    dateTo.current.openDatePicker('to');  
+                    if (e) {
+                    dateTo.current.openDatePicker();  
+                  } }}
                   fromMonth={defaultDate?.minDate}
                   toMonth={defaultDate?.maxDate}
                   messageRequired={true}

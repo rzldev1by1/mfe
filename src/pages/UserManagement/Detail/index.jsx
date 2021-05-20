@@ -74,10 +74,6 @@ const UserManagementDetail = (props) => {
   useEffect(() => {
     buttonValidation({ setIsButton, validation: newState?.validation });
   }, [state]);
-
-  useEffect(() => {
-    getAccountInfo({ userid, state, setState, dispatch, loadSite, loadClient, moduleAccess });
-  }, []);
   return (
     <div>
       <Breadcrumb breadcrumb={[{ to: '/users-management', label: 'User Management' }]} />
@@ -93,9 +89,9 @@ const UserManagementDetail = (props) => {
             <div className="account-detail">
               <div className="row mb-3">
                 <div className="col-12">
-                  <h3 className="mb-0">
+                  <h3 className="mb-0 d-flex">
                     <i class="fa newIcon-profile pr-3" aria-hidden="true"></i>
-                    <label className="text-primary mb-0">{newState.accountInfo.user}</label>
+                    <label className="text-primary">{newState.accountInfo.user}</label>
                   </h3>
                 </div>
               </div>
@@ -227,6 +223,7 @@ const UserManagementDetail = (props) => {
               <div className="row">
                 <div className="col-4">
                   <ModuleAccess
+                    module={'detail'}
                     state={state}
                     setState={setState}
                     moduleAccess={newState.moduleAccess}
@@ -236,7 +233,7 @@ const UserManagementDetail = (props) => {
                 <div className="col-4 pl-0">
                   <Site
                     state={state}
-                    module='detail'
+                    module={'detail'}
                     setState={setState}
                     sites={newState.sites}
                     isEnableAllSite={newState.isEnableAllSite}
@@ -245,7 +242,7 @@ const UserManagementDetail = (props) => {
                 <div className="col-4 um-client-scrollbar">
                   <Client
                     state={state}
-                    module='detail'
+                    module={'detail'}
                     setState={setState}
                     clients={newState.clients}
                     isEnableAllClient={newState.isEnableAllClient}

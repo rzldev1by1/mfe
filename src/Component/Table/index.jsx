@@ -1,6 +1,6 @@
 // import library
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ReactTable from 'react-table-v6';
 import withDraggableColumns from 'react-table-hoc-draggable-columns';
 import EditRenameColumn from './EditRenameColumn';
@@ -24,7 +24,10 @@ const Table = ({
   columnHidden,
   splitModule,
   editColumn,
+  editOrderQty,
+  editCarton
 }) => {
+  const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.userId);
   const [showMod, setShowMod] = useState(false);
   const [editColumnTemp, setEditColumnTemp] = useState({});
@@ -51,7 +54,7 @@ const Table = ({
 
   // renew Schema column, to get old order column or additional logic
   useEffect(() => {
-    renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn });
+    renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn, editOrderQty, editCarton });
   }, [data, fields, columnHidden]);
 
   return (
@@ -64,16 +67,10 @@ const Table = ({
         draggableColumns={{
           mode: 'reorder',
           draggable: draggableColumn,
-          onDropSuccess: (draggedColumn, targetColumn, oldIndex, newIndex) =>
-            saveSchemaToLocal({
-              userId,
-              schemaColumn: fields,
-              module,
-              draggedColumn,
-              targetColumn,
-              oldIndex,
-              newIndex,
-            }),
+          onDropSuccess: (draggedColumn, targetColumn, oldIndex, newIndex) =>{
+            saveSchemaToLocal({ setNewSchema, userId, schemaColumn: fields,  module, draggedColumn, targetColumn, oldIndex, newIndex, dispatch  });
+            renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn,  editOrderQty, editCarton });
+          }
         }}
         columns={newSchema}
         data={data}
@@ -176,6 +173,7 @@ const Table = ({
           setFields={setFields}
           columnHidden={columnHidden}
           splitModule={splitModule}
+          module={module}
         />
       )}
     </div>

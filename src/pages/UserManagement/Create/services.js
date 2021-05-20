@@ -43,7 +43,6 @@ export const submit = async ({ data, isAdmin, setIsSubmitReturn, setActiveTab, s
   submitData.client = isAdmin ? null : clientValue.length == clients.length ? null : clientValue[0];
   submitData.webGroup = isAdmin ? 'Admin' : 'Regular';
   submitData.disabled = 'N';
-  console.log(submitData);
 
   const ret = await submitUserManagement({ data: submitData });
 
@@ -122,6 +121,8 @@ export const renewState = ({ setState, state, siteData, clientData, moduleAccess
     'menu_orders_highSoOrder',
     'menu_inventory_stkHolding',
     'menu_inventory_stkMovement',
+    'menu_inventory_sPortal',
+    'menu_manageUsers_supplierUsers',
   ];
   tmp = moduleAccess?.map((item, key) => {
     if (allowedValues.includes(item.menu_id)) {

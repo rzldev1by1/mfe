@@ -307,7 +307,7 @@ class DatePicker extends React.Component {
         const no = Math.floor(Math.random() * 100000) + 1;
         const className = `select_date ${this.state.showDatePicker && (this.props.for === "SalesOrderCreate") ? "datepickerForOrderLine" : ""}`
         const messageParam = this.props.messageParam;
-        console.log(messageParam, this.state.defaultValue);
+        
         return (
             <React.Fragment>
                 <ul className={className} style={this.props.style} tabIndex={this.props.tabIndex ? this.props.tabIndex : null}>
@@ -317,7 +317,7 @@ class DatePicker extends React.Component {
                         className="form-control"
                         maxLength="10"
                         value={this.state.defaultValue}
-                        onChange={(e) => { this.dateValueProcess(e) }}
+                        onChange={(e) => { this.dateValueProcess(e); if(this.props.onChange) {this.props.onChange()} }}
                         onFocus={() => {this.openDatePicker(); if(this.props.onOpen) {this.props.onOpen()}}}
                         onKeyUp={(e) => this.dateValueFormat(e)}
                         onKeyDown={(e) => this.disabledAlpha(e)}

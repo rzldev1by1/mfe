@@ -23,8 +23,23 @@ const UserManagement = (props) => {
   const [Export, setExport] = useState(false);
   const module = 'UserManagement';
 
-  const height = window.innerHeight - 340;
-  const width = window.innerWidth;
+  const [dimension, setDimension] = useState({
+    height: window.innerHeight - 355,
+    width: window.innerWidth,
+  });
+  const { width, height } = dimension;
+  useEffect(() => {
+    const handleResize = () => {
+      setDimension({
+        height: window.innerHeight - 355,
+        width: window.innerWidth,
+      });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
 
   useEffect(() => {
     getSummaryData({ dispatch, active: paginationUm?.active, module });
@@ -80,7 +95,7 @@ const UserManagement = (props) => {
             </CCol>
           </CRow>
         </CCardBody>
-        <Search module={module} Export={Export} placeholder="Enter User ID or Name" filter onChangeGetTask />
+        <Search module={module} Export={Export} placeholder="Enter User ID or Name" filter onChangeGetTask btnSearch inputTag />
       </CCard>
       <TableMaster
         onClick={showDetails}

@@ -8,6 +8,9 @@ const client = ({ clients, isEnableAllClient, state, setState, isReadOnly, modul
   const enable = 'Enabled';
   const disable = 'Disabled';
 
+  const height = window.innerHeight - 680;
+  const heightDetail = window.innerHeight - 492;
+
   return (
     <div>
       <div className={`flex-column line-border mr-2 my-3`}>
@@ -29,7 +32,8 @@ const client = ({ clients, isEnableAllClient, state, setState, isReadOnly, modul
         </div>
       </div>
 
-      <div className="client-areas" >
+      <div className="client-areas" 
+            style={ module === 'detail' ? { height:heightDetail, minHeight:heightDetail} : {height:height, minHeight:height}}>
         {clients && client.length
           ? clients.map((item, index) => {
               return (

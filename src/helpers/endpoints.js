@@ -46,6 +46,10 @@ export default {
   userManagementCheckMailValidation: '/v1/users/check-email',
   // User Management End --------------------------------------------------------
 
+  // Supplier Management ----------------------------------------------------
+  supplierManagement: 'v1/supplier-management',
+  // Supplier Management End ----------------------------------------------------
+
   stockDateRange: '/v1/stocks/movement/date-range',
   stockAgeProfile: '/stockageprofile',
 

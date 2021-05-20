@@ -73,7 +73,6 @@ const PurchaseOrders = (props) => {
       let columnHidden = localStorage.getItem('tableColumns') ? JSON.parse(localStorage.getItem('tableColumns')) : [];
       let tmp = null;
       let x = columnHidden?.map((data, idx) => {
-        console.log(data);
         if (data.title === 'Purchase Order Summary') {
           tmp = data.columns;
         }
@@ -83,7 +82,6 @@ const PurchaseOrders = (props) => {
       } else {
         setColumnHidden([]);
       }
-      console.log('state2', tmp);
       setState2(false);
       dispatch({ type: 'CHANGE_HEADER', data: false });
     }
@@ -118,6 +116,8 @@ const PurchaseOrders = (props) => {
             filter
             onChangeGetTask
             Export={Export}
+            btnSearch
+            inputTag
           />
         </div>
         <div>
@@ -142,6 +142,7 @@ const PurchaseOrders = (props) => {
               setExport(true);
             }}
             splitModule="purchase-order"
+            exportBtn
           />
         </div>
       </div>

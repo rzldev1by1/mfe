@@ -38,6 +38,14 @@ export const onActivePageChange = ({ e, pagination, goto, dispatch, module, prop
     paramType = 'GET_SO_DETAIL_TABLE';
     paramPaging = 'PAGING_SO_DETAIL';
   }
+  if (module === 'SupplierManagement') {
+    paramType = 'GET_SP_SUMMARY';
+    paramPaging = 'PAGING_SP';
+  }
+  if (module === 'SupplierManagementDetail') {
+    paramType = 'GET_SP_DETAIL_TABLE';
+    paramPaging = 'PAGING_SP_DETAIL';
+  }
   dispatch({ type: paramType, data: [] });
   if (goto) {
     goto(active);
@@ -102,6 +110,14 @@ export const goToPage = ({ goto, pagination, page, setPage, dispatch, module, pr
     paramType = 'GET_SO_DETAIL_TABLE';
     paramPaging = 'PAGING_SO_DETAIL';
   }
+  if (module === 'SupplierManagement') {
+    paramType = 'GET_SP_SUMMARY';
+    paramPaging = 'PAGING_SP';
+  }
+  if (module === 'SupplierManagementDetail') {
+    paramType = 'GET_SP_DETAIL_TABLE';
+    paramPaging = 'PAGING_SP_DETAIL';
+  }
 
   if (newPage.goPage === 0 || newPage.goPage === null || newPage.goPage === '' || newPage.goPage === undefined) {
     return false;
@@ -132,6 +148,15 @@ export const goToPage = ({ goto, pagination, page, setPage, dispatch, module, pr
                    task: searchFilter.task,
                    status: searchFilter.status, });
     }
+  
+  if (module === 'SupplierManagement'){
+    getSummaryData({ dispatch, 
+      active: newPage.goPage, 
+      module, 
+      props,  
+      });
+  }
+
   if (module === 'StockHoldingForecast') {
     getForescast({ dispatch, active: newPage.goPage, module, props });
   }
@@ -192,6 +217,14 @@ export const changePage = ({active, dispatch, module, props, searchFilter}) =>{
   if (module === 'SalesOrdersDetail') {
     paramType = 'GET_SO_DETAIL_TABLE';
     paramPaging = 'PAGING_SO_DETAIL';
+  }
+  if (module === 'SupplierManagement') {
+    paramType = 'GET_SP_SUMMARY';
+    paramPaging = 'PAGING_SP';
+  }
+  if (module === 'SupplierManagementDetail') {
+    paramType = 'GET_SP_DETAIL_TABLE';
+    paramPaging = 'PAGING_SP_DETAIL';
   }
   dispatch({ type: paramType, data: [] });
   let arraySummary = ['StockHolding', 'purchaseOrder' , 'salesOrder','UserManagement' ]

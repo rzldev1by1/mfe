@@ -198,6 +198,7 @@ const SalesOrdersDetail = (props) => {
         filename="Microlistics_SalesOrderDetails."
         isDisplay={false}
         splitModule="sales-order/detail"
+        exportBtn
       />
     </div>
   );

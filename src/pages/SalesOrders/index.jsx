@@ -115,6 +115,8 @@ const SalesOrders = (props) => {
             filter
             onChangeGetTask
             Export={Export}
+            btnSearch
+            inputTag
           />
         </div>
         <div>
@@ -139,7 +141,7 @@ const SalesOrders = (props) => {
               setExport(true);
             }}
             splitModule="sales-order"
-            exportPdf={false}
+            exportPdf
           />
         </div>
       </div>

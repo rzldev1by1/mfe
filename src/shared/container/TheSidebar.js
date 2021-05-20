@@ -18,13 +18,12 @@ const TheSidebar = () => {
   const show = useSelector((state) => state.sidebarShow);
   const user = useSelector((state) => state.user);
   const lastChangedUser = useSelector((state) => state.lastChangedUser);
-  const darkMode = useSelector((state) => state.darkMode);
+  const darkMode = useSelector((state) => state.darkModeMLS);
 
   const [hover, setHover] = useState(null);
   const signOut = async (e) => {
     dispatch({ type: 'LOGOUT' });
     const payload = {last_access: new Date().toLocaleString()};
-    console.log(payload)
     const ret = await axios.post('auth/logout',payload );
     return ret;
   };
@@ -50,7 +49,12 @@ const TheSidebar = () => {
     navigation = navigation.filter((n) => {
       return !adminRoutes.includes(n.to) && userMenu.includes(n.key);
     });
-  }  
+  }
+  // else{
+  //   navigation = navigation.filter((n) => {
+  //     return n.to !== "/supplier-management"
+  //   });
+  //  }
 
   return (
     <CSidebar

@@ -30,7 +30,7 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
     case 'SIDEBAR':
       return { ...state, sidebarShow: data };
     case 'DARKMODE':
-      return { ...state, darkMode: data };
+      return { ...state, darkModeMLS: data };
     // Dropdown Start
     case 'CLIENT_DATA':
       return { ...state, clientData: data };
@@ -66,6 +66,8 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, paginationPoDetail: data };
     case 'PAGING_SH_DETAIL':
       return { ...state, paginationShDetail: data };
+    case 'PAGING_SP_DETAIL':
+      return { ...state, paginationSpDetail: data };
     case 'PAGING_SH_FORECAST':
       return { ...state, paginationShForecast: data };
     case 'PAGING_SO':
@@ -74,6 +76,8 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, paginationPo: data };
     case 'PAGING_UM':
       return { ...state, paginationUm: data };
+    case 'PAGING_SP':
+      return { ...state, paginationSp: data };
     // Pagination End
 
     // Stock Holding
@@ -162,6 +166,8 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
     // Table Status
     case 'TABLE_STATUS':
       return { ...state, tableStatus: data };
+    case 'REORDER':
+      return { ...state, reorder: data };
     // and Table Status
 
     // User Management
@@ -178,6 +184,13 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
     case 'GET_UM_LOAD_CLIENT':
       return { ...state, loadClient: data };
     // User Management End
+
+    // Supplier Management
+    case 'GET_SP_SUMMARY':
+      return {...state, spSummaryData: data};
+    case 'GET_SP_DETAIL_TABLE':
+      return { ...state, spDetailTable: data };
+    // Supplier Management End
 
     default:
       return state;
