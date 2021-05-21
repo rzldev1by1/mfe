@@ -24,6 +24,7 @@ const EditRenameColumn = ({
 }) => {
   const dispatch = useDispatch();
   const reorder = useSelector((state) => state.reorder);
+  const darkMode = useSelector((state) => state.customDarkMode);
   const [state, setState] = React.useState({
     error: {},
     sameColumns: [],
@@ -126,10 +127,10 @@ const EditRenameColumn = ({
   return (
     <div>
     <Modal show={showModal} size="xl" centered>
-      <Modal.Header className="bg-primary">
+      <Modal.Header className={`${darkMode ? 'customDarkModes' : 'bg-primary'}`}>
         <Container className="px-0">
           <Col className="mx-0 px-0">
-            <Button onClick={closeModal.bind(this, false, editColumnTemp)} className="pr-0 pt-0 pb-4 no-hover float-right">
+            <Button onClick={closeModal.bind(this, false, editColumnTemp)} className={`${darkMode ? 'drakClose ' : ''} pr-0 pt-0 pb-4 no-hover float-right `}>
               <MdClose color="white" size={30} />
             </Button>
             <Col xs={10} sm={10} md={10} lg={10} xl={10} className="pl-1">
@@ -145,7 +146,7 @@ const EditRenameColumn = ({
           </Col>
         </Container>
       </Modal.Header>
-      <Modal.Body className="p-3">
+      <Modal.Body className={`${darkMode ? 'DarkModesEditRename ' : ' '} p-3`}>
         <Row className={`mx-0 justify-content-between  ${user.userLevel === 'Admin' ? 'mb-2' : ''}`}>
           <Row className="align-items-center rename-columns mx-0 text-align-left">
             <Nav tabs className="px-1">
@@ -188,7 +189,7 @@ const EditRenameColumn = ({
             </Nav>
           </Row>
         </Row>
-        <Row className="px-2">
+        <Row className="px-2 content-edit">
           <Col sm="12" md="12" lg="12" className="px-0">
             <TabContent activeTab={state.activeTab}>
               <TabPane tabId="1">
@@ -362,7 +363,7 @@ const EditRenameColumn = ({
       </Modal.Body>
     </Modal>
     <Modal show={state.modConfirmation} size="lg" centered className="p-3" className="modal-confirmation">
-      <Modal.Body className="p-3">
+      <Modal.Body className={`${darkMode ? 'customDarkModes' : ' '} p-3`}>
            <div
             className="text-right px-0"
             style={{ fontSize: '14px' }}

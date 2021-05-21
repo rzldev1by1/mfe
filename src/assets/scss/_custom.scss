@@ -929,4 +929,38 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
       background-color: #3e3846 !important;
       color: #fff !important;
     }
+    .btn-primary {
+      background-color: #4717ed !important;
+    }
+}
+.DarkModesEditRename{
+  background-color: #3e3846 !important;
+  color: #fff !important;
+  .btn-primary {
+    background-color: #4717ed !important;
+  }
+  .btn-disabled {
+    color: #fff !important;
+    background-color: #D6D8DA !important;
+    border: 1px solid #D6D8DA !important;
+  }
+  
+  .btn-disabled:hover {
+    color: #fff !important;
+    background-color: darken(#e4e7ea, 10) !important;
+  }
+  .tab-content{
+      background-color: #3e3846 !important;
+      .form-rename{
+        background-color: #635f78 !important;
+        border-color: white !important;
+        color: white !important;
+      }
+      .form-rename::placeholder {
+        color: white !important;
+      }
+    }
+  .rename-columns{
+    background-color: #585757 !important;
+  }
 }

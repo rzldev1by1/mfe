@@ -16,6 +16,7 @@ const Create = ({ show, setShow }) => {
   const clientData = useSelector((state) => state.clientData);
   const siteData = useSelector((state) => state.siteData);
   const moduleAccess = useSelector((state) => state.moduleAccess);
+  const darkMode = useSelector((state) => state.customDarkMode);
 
   const [activeTab, setActiveTab] = useState('details');
   const [isReset, setIsReset] = useState(0);
@@ -73,7 +74,7 @@ const Create = ({ show, setShow }) => {
   return (
     <div>
       <Modal show={show} size="xl" className="purchase-order-create">
-        <Modal.Body className="bg-primary p-0 rounded-top rounded-bottom">
+        <Modal.Body className={`${darkMode ? 'customDarkModes' : 'bg-primary'}  p-0 rounded-top rounded-bottom`}>
           <Row className="px-9 mx-0">
             <Col xs={10} className="px-0">
               <i className="iconU-createModal font-20"></i>
