@@ -305,10 +305,14 @@ input.input-in-table {
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-input.input-in-table:focus {
+input.remaining-input:focus {
   border-color: orange !important;
   outline: orange !important;
+}
 
+input.outOfRemaining-input:focus {
+  border-color: red !important;
+  outline: red !important;
 }
 
 // input.form-control {
@@ -825,6 +829,10 @@ input.form-control.input-danger {
 }
 .newIcon-review{
   font-size: 1.7rem;
+}
+
+.orange{
+  color: orange !important;
 }
 
 // tooltip

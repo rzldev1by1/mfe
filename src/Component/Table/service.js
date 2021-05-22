@@ -1,11 +1,42 @@
 import React from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
-const renderTooltipRename = (field, props) => (
-  <Tooltip id='edit-qty-tooltip'>
+const changeColor = ({e, props, column, isInvalidOrderQty, dispatch}) => {   
+    const elementOrderQty = document.getElementById(`order_qty_${props?.row._index}`);
+    const elementEditQty = document.getElementById(`edit_qty_${props?.row._index}`);
+    const elementPackFactor = document.getElementById(`packfactor_1_${props?.row._index}`);
+    const elementEditCarton = document.getElementById(`edit_cartons_${props?.row._index}`);
+
+    if (column === 'order_qty' && e.target.value > props?.original.order_qty){
+      elementOrderQty.style.color = 'red';
+      elementEditQty.classList.add("outOfRemaining-input");
+    } else {
+      elementPackFactor.style.color = 'orange';
+      elementOrderQty.style.color = 'orange';
+      elementEditQty.classList.add("remaining-input");
+    }
+    if (column === 'packfactor_1'){
+      if( e.target.value > props?.original.packfactor_1){
+        elementPackFactor.style.color = 'red';
+        elementEditCarton.classList.add("outOfRemaining-input");
+      }else{
+        elementPackFactor.style.color = 'orange';
+        elementOrderQty.style.color = 'orange';
+        elementEditCarton.classList.add("remaining-input");
+      }
+    }
+}
+
+const blurColor = ({props}) => {
+  document.getElementById(`order_qty_${props?.row._index}`).style.color = 'black';
+  document.getElementById(`packfactor_1_${props?.row._index}`).style.color = 'black';
+}
+
+const renderTooltipRename = ({field, props}) => (
+  <Tooltip id='edit-qty-tooltip' onClickCapture={() => false}>
     Remaining qty: 
     {' '}
-    <span>{field === 'edit_qty' ? props.original.order_qty : props.original.no_of_carton }</span>
+    <span>{field === 'edit_qty' ? props?.original.order_qty : props?.original.packfactor_1 }</span>
   </Tooltip>
 );
 
@@ -30,7 +61,9 @@ export const renewColumn = async ({
   showModal,
   columnHidden,
   editOrderQty,
-  editCarton
+  editCarton,
+  isInvalidOrderQty,
+  dispatch
 }) => {
   // reorder column
   const key = `tables__${module}__${userId}`;
@@ -62,6 +95,7 @@ export const renewColumn = async ({
     schema = tmp_oldSchema;
   }
 
+  let cc = false
   // Edit Order Qty Supplier Portal 
   if ( editOrderQty === true) {
     const obj = {
@@ -75,15 +109,16 @@ export const renewColumn = async ({
         <OverlayTrigger
           placement="bottom"
           delay={{ show: 250, hide: 400 }}
-          overlay={renderTooltipRename('edit_qty', props)}
+          overlay={renderTooltipRename({field:'edit_qty', props})}
         >
-          <input id='edit_qty' value={ props.value } className='input-in-table' style={{width:'100px', marginLeft: '1rem'}} />
+          <input id={`edit_qty_${props?.row._index}`} className='input-in-table' style={{width:'100px', marginLeft: '1rem'}} onFocusCapture={(e) => changeColor({e, props, column: 'order_qty', cc})} onBlur={() => blurColor({props})} onChange={(e) => changeColor({e, props, column:'order_qty', isInvalidOrderQty, dispatch})} />
         </OverlayTrigger>
       )
       ,
     };
     schema = [...schema, obj];
   }
+  
 
    // Edit Order Qty Supplier Portal 
    if ( editCarton === true) {
@@ -100,7 +135,7 @@ export const renewColumn = async ({
           delay={{ show: 250, hide: 400 }}
           overlay={renderTooltipRename('edit_cartons', props)}
         >
-          <input id='edit_cartons' value={ props.value } className='input-in-table' style={{width:'100px'}} />
+          <input id={`edit_cartons_${props?.row._index}`} value={ props.value } className='input-in-table' style={{width:'100px'}} onFocusCapture={(e) => changeColor({e, props, column: 'packfactor_1'})} onBlur={() => blurColor({props})} onChange={(e) => changeColor({e, props, column:'packfactor_1'})} />
         </OverlayTrigger>
     ),
     };

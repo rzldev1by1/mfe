@@ -34,6 +34,7 @@ const Table = ({
   const tableStatus = useSelector((state) => state.tableStatus);
   const [fields, setFields] = useState(schemaColumn);
   const [newSchema, setNewSchema] = useState(schemaColumn);
+  const isInvalidOrderQty = useSelector((state) => state.isInvalidOrderQty);
   const ReactTableDraggableColumns = withDraggableColumns(ReactTable);
   const noDataMessage = (
     <div className="caution-caution">
@@ -54,7 +55,7 @@ const Table = ({
 
   // renew Schema column, to get old order column or additional logic
   useEffect(() => {
-    renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn, editOrderQty, editCarton });
+    renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn, editOrderQty, editCarton, isInvalidOrderQty, dispatch});
   }, [data, fields, columnHidden]);
 
   return (
@@ -69,7 +70,7 @@ const Table = ({
           draggable: draggableColumn,
           onDropSuccess: (draggedColumn, targetColumn, oldIndex, newIndex) =>{
             saveSchemaToLocal({ setNewSchema, userId, schemaColumn: fields,  module, draggedColumn, targetColumn, oldIndex, newIndex, dispatch  });
-            renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn,  editOrderQty, editCarton });
+            renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn,  editOrderQty, editCarton, isInvalidOrderQty, dispatch });
           }
         }}
         columns={newSchema}
@@ -86,8 +87,9 @@ const Table = ({
             },
             // eslint-disable-next-line no-restricted-globals
             style: {
-              textAlign: isNaN(rowInfo?.original[column.id]) ? 'left' : 'right',
+              textAlign: isNaN(rowInfo?.original.[column.id]) ? 'left' : 'right',
               height: '3rem',
+              // color: rowInfo?.row._index === rowIndex && (column.id === 'order_qty' || column.id === 'packfactor_1') ? 'orange' : 'black',
             },
           };
         }}

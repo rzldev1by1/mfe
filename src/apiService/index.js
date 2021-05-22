@@ -29,6 +29,8 @@ export const getSummaryData = async ({
   dispatch,
   active,
   module,
+  fromDate,
+  toDate
 }) => {
   const urls = [];
   let endpointsUrl = '';
@@ -62,15 +64,19 @@ export const getSummaryData = async ({
     paramType = 'GET_SP_SUMMARY';
     paramPaging = 'PAGING_SP';
   }
-  
   // Url
-  if (module === 'UserManagement' || module === 'SupplierManagement') {
+  if (module === 'UserManagement') {
     urls.push(`search=${searchInput || ''}`);
+  }
+  if (module === 'SupplierManagement'){
+    urls.push(`search=${searchInput || ''}`);
+    urls.push(`startDate=${fromDate || ''}`);
+    urls.push(`endDate=${toDate || ''}`);
   }
   if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
     urls.push(`search=${searchInput?.toUpperCase() || ''}`);
-    urls.push(`site=${siteVal ? siteVal : 'all'}`);
-    urls.push(`client=${clientVal ? clientVal : 'all'}`);
+    urls.push(`site=${siteVal || 'all'}`);
+    urls.push(`client=${clientVal || 'all'}`);
     urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
     urls.push(`status=${status ? status.value : 'open'}`);
   }
@@ -83,7 +89,6 @@ export const getSummaryData = async ({
   }
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
-  console.log(newData);
   const Meta = newData?.data?.meta;
   const Links = newData?.data?.links;
   const Data = newData?.data?.data;
@@ -241,6 +246,8 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
       m.weight = numeral(m.weight).format('0,0.000');
       m.weight = numeral(m.weight).format('0,0.000');
       m.weight = numeral(m.weight).format('0,0.000');
+      m.packfactor_1 = numeral(m.packfactor_1).format('0,0'); //packfactor_1
+      m.order_qty = numeral(m.order_qty).format('0,0'); //order_qty
       m.completed = m.completed == 'Y' ? 'Yes' : 'x';
       m.released = m.released == 'Y' ? 'Yes' : 'x';
       if (fulfill === true){
@@ -458,12 +465,12 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
       let newItem = item;
       let isStatus = false;
       if (accountInfoUser.web_group !== utility.webgroup.ADMIN) {
-        isStatus = userMenu.includes(item.menu_id) ? true : false;
+        isStatus = !!userMenu.includes(item.menu_id);
       }
       newItem.status = isStatus;
       return newItem;
     });
-  newIsEnableAllModule = menus?.filter((item) => { return item.status === true; })?.length === menus?.length ? true : false;
+  newIsEnableAllModule = menus?.filter((item) => { return item.status === true; })?.length === menus?.length;
   newState.moduleAccess = menus;
   newState.isEnableAllModule = newIsEnableAllModule;
   // and ModalAccess
@@ -472,10 +479,10 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
   let newIsEnableAllSite = { ...newState.isEnableAllSite };
   let sites = loadSite?.map((item, index) => {
     let newItem = item;
-    newItem.status = accountInfoUser.site === null ? true : item.site === accountInfoUser.site ? true : false;
+    newItem.status = accountInfoUser.site === null ? true : item.site === accountInfoUser.site;
     return newItem;
   });
-  newIsEnableAllSite = sites?.filter((item) => { return item.status === true; })?.length === sites?.length ? true : false;
+  newIsEnableAllSite = sites?.filter((item) => { return item.status === true; })?.length === sites?.length;
   newState.sites = sites;
   newState.isEnableAllSite = newIsEnableAllSite;
   // end LoadSite
@@ -484,16 +491,14 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
   let newIsEnableAllClient = { ...newState.isEnableAllClient };
   let clients = loadClient?.map((item, index) => {
     let newItem = item;
-    newItem.status = accountInfoUser.client === null ? true : item.code === accountInfoUser.client ? true : false;
+    newItem.status = accountInfoUser.client === null ? true : item.code === accountInfoUser.client;
     return newItem;
   });
 
   newIsEnableAllClient =
     clients?.filter((item) => {
       return item.status === true;
-    })?.length === clients?.length
-      ? true
-      : false;
+    })?.length === clients?.length;
   newState.clients = clients;
   newState.isEnableAllClient = newIsEnableAllClient;
   // end LoadClient
@@ -515,7 +520,7 @@ export const restructureAccount = (sources) => {
     newAccount.userMenu = restuctureMenuList(account.user_menus);
     newAccount.userId = account.userid;
     newAccount.client = account.client;
-    newAccount.disabled = account.disabled !== 'Y' ? false : true;
+    newAccount.disabled = account.disabled === 'Y';
     newAccount.passwordChange = account.passwordChange ? account.passwordChange : '';
     newAccount.site = account.site;
     newAccount.web_group = account.web_group;
@@ -566,7 +571,7 @@ export const onBlurEmail = async ({ e, state, setState }) => {
   const newState = { ...state };
   const { data } = await axios.post(endpoints.userManagementCheckMailValidation, { email: value });
   newState.validation.email['isValid'] =
-    newState.oldAccountInfo.email !== value && data?.exists !== true ? true : false;
+    !!(newState.oldAccountInfo.email !== value && data?.exists !== true);
 
   if (!newState.validation.email['isValid']) {
     newState.validation.email['message'] = utility.validationMsg.EMAIL_EXIST;
@@ -587,7 +592,7 @@ export const onBlurEmail = async ({ e, state, setState }) => {
 export const checkEmailValidation = ({ textmail, state, setState }) => {
   const newState = { ...state };
   let validFormat = EmailValidator.validate(textmail);
-  newState.validation.email['isValid'] = validFormat ? true : false;
+  newState.validation.email['isValid'] = !!validFormat;
 
   if (!validFormat) {
     newState.validation.email['message'] = utility.validationMsg.INVALID_EMAIL;
@@ -612,7 +617,7 @@ export const onChangeName = ({ e, state, setState }) => {
 };
 export const checkNameValidation = ({ textName, state, setState }) => {
   const newState = { ...state };
-  let isValid = textName == '' ? false : true;
+  let isValid = textName != '';
   newState.validation.name['isValid'] = isValid;
   if (!isValid) newState.validation.name['message'] = utility.validationMsg.USERNAME_REQUIRED;
   else newState.validation.name['message'] = '';

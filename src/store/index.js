@@ -169,6 +169,10 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, reorder: data };
     // and Table Status
 
+    // STYLE of ROW TABLE
+    case 'ISINVALID_ORDER_QTY':
+      return {...state, isInvalidOrderQty: data}
+
     // User Management
     case 'GET_UM_SUMMARY':
       return { ...state, umSummaryData: data };
