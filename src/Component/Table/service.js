@@ -1,27 +1,52 @@
 import React from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import NumberFormat from 'react-number-format';
 
-const changeColor = ({e, props, column, isInvalidOrderQty, dispatch}) => {   
+// change the style of the row in detail Table SP module when user type a value in edit qty and edit carton
+const changeColor = ({e, props, column}) => {   
     const elementOrderQty = document.getElementById(`order_qty_${props?.row._index}`);
     const elementEditQty = document.getElementById(`edit_qty_${props?.row._index}`);
     const elementPackFactor = document.getElementById(`packfactor_1_${props?.row._index}`);
     const elementEditCarton = document.getElementById(`edit_cartons_${props?.row._index}`);
+    const elementTooltip = document.getElementById(`tooltip_order_qty_${props?.row._index}`)
+    const elementTooltipCarton = document.getElementById(`tooltip_packfactor_1_${props?.row._index}`)
 
-    if (column === 'order_qty' && e.target.value > props?.original.order_qty){
-      elementOrderQty.style.color = 'red';
-      elementEditQty.classList.add("outOfRemaining-input");
-    } else {
-      elementPackFactor.style.color = 'orange';
-      elementOrderQty.style.color = 'orange';
-      elementEditQty.classList.add("remaining-input");
+    const val = e.target.value
+    console.log(`tooltip_${column}_${props?.row._index}`);
+    if (column === 'order_qty'){
+      if(parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.order_qty)){
+        // const newRow = [
+        //   {
+        //     rowIndex: props?.row._index,
+        //     isValid: false
+        //   }
+        // ]
+        // console.log(newRow);
+        elementOrderQty.style.color = 'red';
+        elementPackFactor.style.color = 'orange';
+        elementEditQty.classList.add("outOfRemaining-input");
+        elementTooltip.classList.add("tooltip-outOfReamining");
+
+        // localStorage.setItem("newRow", newRow)
+      } else {
+        elementPackFactor.style.color = 'orange';
+        elementOrderQty.style.color = 'orange';
+        elementEditQty.classList.remove("outOfRemaining-input");
+        elementTooltip.classList.remove("tooltip-outOfReamining");
+        elementEditQty.classList.add("remaining-input");
+
+      }
     }
     if (column === 'packfactor_1'){
-      if( e.target.value > props?.original.packfactor_1){
+      if( parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.packfactor_1.replace(/,/g, ''))){
         elementPackFactor.style.color = 'red';
+        elementOrderQty.style.color = 'orange';
         elementEditCarton.classList.add("outOfRemaining-input");
+        elementTooltipCarton.classList.add("tooltip-outOfReamining");
       }else{
         elementPackFactor.style.color = 'orange';
         elementOrderQty.style.color = 'orange';
+        elementEditCarton.classList.remove("outOfRemaining-input");
         elementEditCarton.classList.add("remaining-input");
       }
     }
@@ -33,7 +58,7 @@ const blurColor = ({props}) => {
 }
 
 const renderTooltipRename = ({field, props}) => (
-  <Tooltip id='edit-qty-tooltip' onClickCapture={() => false}>
+  <Tooltip id={`tooltip_${field === 'edit_qty' ? 'order_qty' : 'packfactor_1'}_${props?.row._index}`} onClickCapture={() => false}>
     Remaining qty: 
     {' '}
     <span>{field === 'edit_qty' ? props?.original.order_qty : props?.original.packfactor_1 }</span>
@@ -61,9 +86,7 @@ export const renewColumn = async ({
   showModal,
   columnHidden,
   editOrderQty,
-  editCarton,
-  isInvalidOrderQty,
-  dispatch
+  editCarton
 }) => {
   // reorder column
   const key = `tables__${module}__${userId}`;
@@ -111,7 +134,18 @@ export const renewColumn = async ({
           delay={{ show: 250, hide: 400 }}
           overlay={renderTooltipRename({field:'edit_qty', props})}
         >
-          <input id={`edit_qty_${props?.row._index}`} className='input-in-table' style={{width:'100px', marginLeft: '1rem'}} onFocusCapture={(e) => changeColor({e, props, column: 'order_qty', cc})} onBlur={() => blurColor({props})} onChange={(e) => changeColor({e, props, column:'order_qty', isInvalidOrderQty, dispatch})} />
+          <NumberFormat
+            autoComplete="off"
+            thousandSeparator
+            style={{width:'100px', marginLeft: '1rem'}}
+            className="input-in-table"
+            value={ props.value }
+            decimalScale={3}
+            id={`edit_qty_${props?.row._index}`}
+            onFocusCapture={(e) => changeColor({e, props, column: 'order_qty', cc})}
+            onChange={(e) => changeColor({e, props, column:'order_qty'})}
+            onBlur={() => blurColor({props})}
+          />
         </OverlayTrigger>
       )
       ,
@@ -132,10 +166,21 @@ export const renewColumn = async ({
       Cell: (props) => (
         <OverlayTrigger
           placement="bottom"
-          delay={{ show: 250, hide: 400 }}
+          delay={{ show: 250, hide: 100400 }}
           overlay={renderTooltipRename('edit_cartons', props)}
         >
-          <input id={`edit_cartons_${props?.row._index}`} value={ props.value } className='input-in-table' style={{width:'100px'}} onFocusCapture={(e) => changeColor({e, props, column: 'packfactor_1'})} onBlur={() => blurColor({props})} onChange={(e) => changeColor({e, props, column:'packfactor_1'})} />
+          <NumberFormat
+            autoComplete="off"
+            thousandSeparator
+            style={{width:'100px'}}
+            className="input-in-table"
+            value={ props.value }
+            decimalScale={3}
+            id={`edit_cartons_${props?.row._index}`}
+            onFocusCapture={(e) => changeColor({e, props, column: 'packfactor_1', cc})}
+            onChange={(e) => changeColor({e, props, column:'packfactor_1'})}
+            onBlur={() => blurColor({props})}
+          />
         </OverlayTrigger>
     ),
     };

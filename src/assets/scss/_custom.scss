@@ -836,12 +836,21 @@ input.form-control.input-danger {
 }
 
 // tooltip
-#edit-qty-tooltip{
+.tooltip-remaining{
   .tooltip-inner {
     background-color: orange;
   }
   .arrow::before{
     border-bottom-color: orange !important;
+  }
+}
+
+.tooltip-outOfReamining{
+  .tooltip-inner {
+    background-color: red;
+  }
+  .arrow::before{
+    border-bottom-color: red !important;
   }
 }
 
