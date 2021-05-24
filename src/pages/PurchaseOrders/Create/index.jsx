@@ -15,7 +15,7 @@ const Create = ({ show, setShow }) => {
   const resources = useSelector((state) => state.po_resources);
   const disposition = useSelector((state) => state.po_disposition);
   const user = useSelector((state) => state.user);
-  const darkMode = useSelector((state) => state.customDarkMode);
+  const darkMode = useSelector((state) => state.darkModeMLS);
 
   const [activeTab, setActiveTab] = useState('details');
   const [isReset, setIsReset] = useState(0);

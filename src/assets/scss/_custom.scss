@@ -929,8 +929,39 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
       background-color: #3e3846 !important;
       color: #fff !important;
     }
-    .btn-primary {
-      background-color: #4717ed !important;
+    .bg-primary{
+      background-color: #1c1c1c !important;
+    }
+    .text-primary {
+      color: white !important;
+    }
+    label{
+      color: white !important;
+    }
+    .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options{
+      background-color: #281f34 !important;
+      background: #281f34 !important;
+    }
+    .select_dropdown_label{
+      background-color: #281f34 !important;
+    }
+    .select_dropdown{
+      background-color: #281f34 !important;
+    }
+    .btn.btn-secondary{
+      background-color: #281f34 !important;
+      color: white !important;
+    }
+    .DayPicker-Day:hover{
+      color: black  !important;
+      
+    }
+    .text-muted{
+      color: white !important;
+    }
+    .modalCreateSuccess, .modalCreateLoss{ 
+      background-color: #281f34;
+      color: white;
     }
 }
 .DarkModesEditRename{

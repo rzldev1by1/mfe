@@ -24,7 +24,7 @@ const EditRenameColumn = ({
 }) => {
   const dispatch = useDispatch();
   const reorder = useSelector((state) => state.reorder);
-  const darkMode = useSelector((state) => state.customDarkMode);
+  const darkMode = useSelector((state) => state.darkModeMLS);
   const [state, setState] = React.useState({
     error: {},
     sameColumns: [],
