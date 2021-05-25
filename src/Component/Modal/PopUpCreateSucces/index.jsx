@@ -17,8 +17,8 @@ class PopUpCreateSucces extends Component {
           <Modal
             isOpen={modal}
             centered            
-            onOpened={() => modal ? setTimeout(() =>{ setModal(false) ; exit(); }, 36000) : {}}
-            contentClassName="modal-content-paging"
+            onOpened={() => modal ? setTimeout(() =>{ setModal(false) ; exit(); }, 900000) : {}}
+            contentClassName="modal-content-paging modalCreateSuccess"
             closeOnBackdrop={false}
           >
             <ModalBody>

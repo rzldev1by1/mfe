@@ -9,7 +9,7 @@ const client = ({ clients, isEnableAllClient, state, setState, isReadOnly, modul
   const disable = 'Disabled';
 
   const height = window.innerHeight - 680;
-  const heightDetail = window.innerHeight - 492;
+  const heightDetail = window.innerHeight - 510;
 
   return (
     <div>

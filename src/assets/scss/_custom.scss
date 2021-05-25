@@ -949,3 +949,77 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
 .btn-fulfill .dropdown-toggle::after {
   display: none !important;
 }
+// darkMode Modal
+.customDarkModes {
+    background-color: #1c1c1c !important;
+    color: #fff !important;
+    .tab-content{
+      background-color: #3e3846 !important;
+      color: #fff !important;
+    }
+    .bg-primary{
+      background-color: #1c1c1c !important;
+    }
+    .text-primary {
+      color: white !important;
+    }
+    label{
+      color: white !important;
+    }
+    .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options{
+      background-color: #281f34 !important;
+      background: #281f34 !important;
+    }
+    .select_dropdown_label{
+      background-color: #281f34 !important;
+    }
+    .select_dropdown{
+      background-color: #281f34 !important;
+    }
+    .btn.btn-secondary{
+      background-color: #281f34 !important;
+      color: white !important;
+    }
+    .DayPicker-Day:hover{
+      color: black  !important;
+      
+    }
+    .text-muted{
+      color: white !important;
+    }
+    .modalCreateSuccess, .modalCreateLoss{ 
+      background-color: #281f34;
+      color: white;
+    }
+}
+.DarkModesEditRename{
+  background-color: #3e3846 !important;
+  color: #fff !important;
+  .btn-primary {
+    background-color: #4717ed !important;
+  }
+  .btn-disabled {
+    color: #fff !important;
+    background-color: #D6D8DA !important;
+    border: 1px solid #D6D8DA !important;
+  }
+  
+  .btn-disabled:hover {
+    color: #fff !important;
+    background-color: darken(#e4e7ea, 10) !important;
+  }
+  .tab-content{
+      background-color: #3e3846 !important;
+      .form-rename{
+        background-color: #635f78 !important;
+        border-color: white !important;
+        color: white !important;
+      }
+      .form-rename::placeholder {
+        color: white !important;
+      }
+    }
+  .rename-columns{
+    background-color: #585757 !important;
+  }
+}

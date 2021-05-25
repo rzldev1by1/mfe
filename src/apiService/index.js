@@ -8,7 +8,7 @@ import endpoints from '../helpers/endpoints';
 import * as utility from './UmUtility';
 
 const today = moment(Date()).format('YYYY-MM-DD hh:mm:ss');
-const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement'];
+const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'manage supplier users'];
 
 export const formatDate = (date) => {
   if (date !== "Invalid date" || date === undefined || date === null || date === '') {
@@ -133,6 +133,7 @@ export const getSummaryData = async ({
       item.date_released = item.date_released && item.date_released !== '' ? formatDate(item.date_released) : '-';
       item.date_completed = item.date_completed && item.date_completed !== '' ? formatDate(item.date_completed) : '-';
       // Supplier Management PO Date format
+      item.no =  idx + 1;
       item.po_date = item.po_date && item.po_date !== '' ? formatDate(item.po_date) : '-';
       // User Management Data
       item.disabled = item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
@@ -766,3 +767,10 @@ export const resetPassword = ({ state, setState, props }) => {
   });
 };
 // End User Management
+
+//DarkMode 
+export const darkModeMLS = ({ darkMode, dispatch }) =>{
+  console.log('ganti', darkMode)
+  if(!darkMode) dispatch({ type: 'DARKMODE', data: true })
+  if(darkMode) dispatch({ type: 'DARKMODE', data: false })
+}

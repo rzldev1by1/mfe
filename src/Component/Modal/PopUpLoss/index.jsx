@@ -18,7 +18,7 @@ class PopUpLoss extends Component {
             isOpen={modal}
             centered            
             onOpened={() => modal ? setTimeout(() =>{ setModal(false); back(); }, 36000) : {}}
-            contentClassName="modal-content-paging "
+            contentClassName="modal-content-paging modalCreateLoss"
             closeOnBackdrop={false}
           >
             <ModalBody>

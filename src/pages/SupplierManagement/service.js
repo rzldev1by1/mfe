@@ -7,7 +7,7 @@ export const schemaColumn = [
   {
     Header: 'No.',
     placeholder: 'No.',
-    accessor: 'rn',
+    accessor: 'no',
     headerStyle: { textAlign: 'left', paddingLeft: '8px' },
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
@@ -35,8 +35,8 @@ export const schemaColumn = [
     width: 100,
   },
   {
-    Header: 'Total No. of Lines',
-    placeholder: 'Total No. of Lines',
+    Header: 'Total No. Of Lines',
+    placeholder: 'Total No. Of Lines',
     accessor: 'total_line',
     className:'align-right',
     headerStyle: { textAlign: 'right' },
@@ -56,7 +56,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 100,
+    width: 200,
   },
   {
     Header: 'Total Qty Shipped',
@@ -80,7 +80,7 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 130,
+    width: 160,
   },
   {
     Header: 'Total Printed Cartons',
@@ -92,6 +92,6 @@ export const schemaColumn = [
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
-    width: 140,
+    width: 160,
   },
 ];

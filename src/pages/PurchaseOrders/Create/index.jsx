@@ -15,6 +15,7 @@ const Create = ({ show, setShow }) => {
   const resources = useSelector((state) => state.po_resources);
   const disposition = useSelector((state) => state.po_disposition);
   const user = useSelector((state) => state.user);
+  const darkMode = useSelector((state) => state.darkModeMLS);
 
   const [activeTab, setActiveTab] = useState('details');
   const [isReset, setIsReset] = useState(0);
@@ -23,7 +24,7 @@ const Create = ({ show, setShow }) => {
   const [isSubmitReturn, setIsSubmitReturn] = useState(null);
   const [orderDetails, setOrderDetails] = useState({});
   const [orderLines, setOrderLines] = useState([]);
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(true); 
 
   useEffect(() => {
     setOrderDetails(cleanOrderDetails);
@@ -48,8 +49,9 @@ const Create = ({ show, setShow }) => {
 
   return (
     <div>
-      <Modal show={show} size="xl" className={`purchase-order-create ${activeTab == 'message' ? ' d-none': ' '}`}>
-        <Modal.Body className="bg-primary p-0 rounded-top rounded-bottom">
+      <Modal show={show} size="xl" className={`purchase-order-create ${activeTab == 'message' ? ' d-none': ' '} 
+        ${darkMode ? 'customDarkMode' : ''}`}>
+        <Modal.Body className={`${darkMode ? 'customDarkModes' : 'bg-primary'} p-0 rounded-top rounded-bottom`}>
           <Row className="mx-0 px-9">
             <Col xs={10} className="px-0">
               <i className="iconU-createModal font-20"></i>
