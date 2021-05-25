@@ -15,7 +15,7 @@ const Create = ({ show, setShow }) => {
   const clientData = useSelector((state) => state.clientData);
   const siteData = useSelector((state) => state.siteData);
   const moduleAccess = useSelector((state) => state.moduleAccess);
-  const darkMode = useSelector((state) => state.customDarkMode);
+  const darkMode = useSelector((state) => state.darkModeMLS);
 
   const [activeTab, setActiveTab] = useState('details');
   const [isReset, setIsReset] = useState(0);

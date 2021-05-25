@@ -326,9 +326,6 @@ input.outOfRemaining-input:focus {
   color: red !important;
 }
 
-// input.form-control {
-//   padding: 0.375rem 0.75rem 0.375rem 0rem;
-// }
 
 .login input.form-control {
   padding: 0.375rem 0.75rem;
@@ -991,6 +988,84 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
       background-color: #281f34;
       color: white;
     }
+
+    //form-dropdown
+      .css-5y2tk-control,
+      .css-1to7m39-control {
+        background-color: #635f78 !important;
+        border-color: white !important;
+        color: white !important;
+      }
+      .css-1uccc91-singleValue,
+      .css-b8ldur-Input,
+      .css-tlfecz-indicatorContainer,
+      .css-1duue3-indicatorContainer,
+      .css-g9vg27-indicatorContainer,
+      .css-1rdz61g-indicatorContainer,
+      .css-1gtu0rj-indicatorContainer {
+        color: white !important;
+      }
+      .css-26l3qy-menu {
+        //dropdown option background
+        background-color: #281f34 !important;
+        color: white;
+      }
+      .css-ihtdzf-option,
+      .css-1dhet8w-option:hover {
+        background-color: #74717d !important;
+      }
+      //dropdown readonly
+      .css-12ivlxl-control{
+        background-color: #635f78 !important;
+        border: 1px solid white;
+      }
+      //dropdown danger
+      .input-danger .css-5y2tk-control{
+        border-color: #e55353 !important; 
+      }
+
+      //pagination
+      .page-item,
+      .bg-paging-search,
+      .number-pag.rounded.input-paging {
+        background-color: #281f34 !important;
+        color: white !important;
+      }
+
+      //Export 
+      .export-pdf{
+        background-color: #635f78 !important;
+        color: #fff
+      }
+      .export-excel{
+        background-color: #635f78 !important;
+        color: #fff
+      }
+
+      //datePicker
+
+    .select_date_options {
+      background-color: #281f34 !important;
+      
+      .DayPicker-Weekday abbr[title='Monday'],
+      .DayPicker-Weekday abbr[title='Tuesday'],
+      .DayPicker-Weekday abbr[title='Wednesday'],
+      .DayPicker-Weekday abbr[title='Thursday'],
+      .DayPicker-Weekday abbr[title='Friday'],
+      .DayPicker-Weekday abbr[title='Saturday'],
+      .DayPicker-Weekday abbr[title='Sunday']
+      {
+        color: white !important;
+      }
+
+  //form
+    .form-control {
+    background-color: #635f78 !important;
+    border-color: white !important;
+    color: white;
+  }
+}
+
 }
 .DarkModesEditRename{
   background-color: #3e3846 !important;
