@@ -8,9 +8,11 @@ import EditRenameColumn from './EditRenameColumn';
 // import style
 import loading from '../../assets/icons/loading/LOADING-MLS-GRAY.gif';
 import { setDraggableColumn, saveSchemaToLocal, renewColumn } from './service';
+import { markRow } from './service';
 import 'react-table-v6/react-table.css';
 import 'react-table-hoc-draggable-columns/dist/styles.css';
 import './style.scss';
+import { cibLogstash } from '@coreui/icons';
 
 const Table = ({
   schemaColumn,
@@ -35,6 +37,7 @@ const Table = ({
   const [fields, setFields] = useState(schemaColumn);
   const [newSchema, setNewSchema] = useState(schemaColumn);
   const isInvalidOrderQty = useSelector((state) => state.isInvalidOrderQty);
+  const markedRow = useSelector((state) => state.markedRow)
   const ReactTableDraggableColumns = withDraggableColumns(ReactTable);
   const noDataMessage = (
     <div className="caution-caution">
@@ -57,7 +60,14 @@ const Table = ({
   useEffect(() => {
     renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn, editOrderQty, editCarton, isInvalidOrderQty, dispatch});
   }, [data, fields, columnHidden]);
-
+// const elementEditQty = document.getElementById(`edit_qty_${idRows}`);// id for column element input Edit Qty
+// if(elementEditQty) {
+//   setTimeout(() => {
+//     console.log(`edit_qty_${idRows}`);
+//     console.log(elementEditQty);
+//     elementEditQty.focus()
+//   }, 1000);
+// }
   return (
     <div
       className={`${className} ${editColumn === 'false' ? '' : 'show-edit-icon'} ${
@@ -65,6 +75,7 @@ const Table = ({
       }`}
     >
       <ReactTableDraggableColumns
+      
         draggableColumns={{
           mode: 'reorder',
           draggable: draggableColumn,
@@ -73,6 +84,7 @@ const Table = ({
             renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn,  editOrderQty, editCarton, isInvalidOrderQty, dispatch });
           }
         }}
+        
         columns={newSchema}
         data={data}
         showPagination={false}
@@ -89,7 +101,7 @@ const Table = ({
             style: {
               textAlign: isNaN(rowInfo?.original.[column.id]) ? 'left' : 'right',
               height: '3rem',
-              // color: rowInfo?.row._index === rowIndex && (column.id === 'order_qty' || column.id === 'packfactor_1') ? 'orange' : 'black',
+              backgroundColor: markedRow.includes(rowInfo?.index) ? 'aliceblue' : false
             },
           };
         }}

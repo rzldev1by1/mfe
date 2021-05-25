@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { CCard, CCardBody, CRow, CCol, CDropdown, CDropdownToggle, CDropdownMenu, CDropdownItem, CDropdownDivider } from '@coreui/react';
-import { setSite, setClient, setOrderType, setTask, setStatus, setStyle, setStyleDesc, setColor, setDimensions, setSize } from './service';
+import { setSite, setClient, setOrderType, setTask, setStatus, setStyle, setStyleDesc, setColor, setDimensions, setSize, handleFullFillMarked } from './service';
 import Dropdown from '../Dropdown';
 import {
   getSite,
@@ -40,7 +40,8 @@ const Search = ({
   btnSearch,
   setFulfill,
   paginationSoDetail,
-  props
+  props,
+  spDetailTable
 }) => {
   // params
   const dispatch = useDispatch();
@@ -58,7 +59,7 @@ const Search = ({
   const user = useSelector((state) => state.user);
   const { company, client } = user;
   const [getTaskParam, setGetTaskParam] = useState(false);
-
+  const markedRow = useSelector((state) => state.markedRow)
   const [dropdownValue, setdropdownValue] = useState({
     site: '',
     client: '',
@@ -383,7 +384,7 @@ const Search = ({
                           <CDropdownMenu className="mt-2 shadow-none border">
                             <CDropdownItem onClick={() => handleClear()}>CLEAR ALL</CDropdownItem>
                             <CDropdownDivider />
-                            <CDropdownItem>CLEAR MARKED</CDropdownItem>
+                            <CDropdownItem onClick={() => handleFullFillMarked({dispatch, spDetailTable,markedRow, clearMarked:true})}>CLEAR MARKED</CDropdownItem>
                           </CDropdownMenu>
                         </CDropdown>
                         ) : ''}
@@ -395,7 +396,7 @@ const Search = ({
                           <CDropdownMenu className="mt-2 shadow-none border">
                             <CDropdownItem onClick={() => handleFulfill()}>FULFILL ALL</CDropdownItem>
                             <CDropdownDivider />
-                            <CDropdownItem>FULFILL MARKED</CDropdownItem>
+                            <CDropdownItem onClick={() => handleFullFillMarked({dispatch, spDetailTable,markedRow})}>FULFILL MARKED</CDropdownItem>
                           </CDropdownMenu>
                         </CDropdown>
                         ) : ''}

@@ -4,6 +4,7 @@ import TableMaster from '../../../Component/TableMaster';
 import Breadcrumb from '../../../Component/Breadcrumb';
 import Search from '../../../Component/Search';
 import { getDetailData } from '../../../apiService';
+import { markRow } from '../../../Component/Table/service'
 
 import { schemaColumnDetailSP } from './service';
 
@@ -14,6 +15,7 @@ const SupplierManagementDetail = (props) => {
   const paginationSpDetail = useSelector((state) => state.paginationSpDetail);
   const user = useSelector((state) => state.user);
   const paginationSoDetail = useSelector((state) => state.paginationSoDetail);
+  const markedRow = useSelector((state) => state.markedRow)
 
   const module = 'supplierManagement';
 
@@ -51,13 +53,15 @@ const SupplierManagementDetail = (props) => {
               btnSearch={false}
               paginationSoDetail={paginationSoDetail}
               props={props}
+              spDetailTable={spDetailTable}
             />
           </div>
           <div>
             <TableMaster
+              onClick={(props) => markRow({props, markedRow,dispatch})}
               schemaColumn={schemaColumnDetailSP}
               classNamePaging="display-paging"
-              classNameTable="table-detail "
+              classNameTable="table-detail bg-mark"
               data={spDetailTable}
               style={{ minHeight: height, maxHeight: height, minWidht: width, maxWidht: width }}
               module="SupplierManagementDetail"

@@ -82,3 +82,22 @@ export const setSize = ({ selected, dropdownValue, setdropdownValue  }) => {
   else newDropdownValue.size = null
   setdropdownValue(newDropdownValue)
 };
+
+export const handleFullFillMarked = ({dispatch, spDetailTable,markedRow, clearMarked}) =>{
+  let newArray = [...spDetailTable]
+  newArray = newArray.map((data,idx) => {
+    if(markedRow.includes(idx)){
+      if(clearMarked){
+        data.edit_qty = ''
+        data.edit_carton = ''
+      }else{
+        data.edit_qty = data.order_qty
+        data.edit_carton = data.no_of_carton
+      }
+    }
+    return data
+  });
+
+  dispatch({type:'GET_SP_DETAIL_TABLE', data:newArray})
+
+}

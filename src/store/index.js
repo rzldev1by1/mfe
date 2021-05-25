@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   loading: true,
   expired: false,
   lastChangedUser: null,
+  markedRow:[]
 };
 
 // REDUCERS
@@ -170,9 +171,10 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
     // and Table Status
 
     // STYLE of ROW TABLE
-    case 'ISINVALID_ORDER_QTY':
-      return {...state, isInvalidOrderQty: data}
-
+    case 'IDX_ROWS':
+      return {...state, idxRows: data}
+    case 'IS_FOCUS': 
+      return {...state, isFocusss:data}
     // User Management
     case 'GET_UM_SUMMARY':
       return { ...state, umSummaryData: data };
@@ -193,6 +195,8 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return {...state, spSummaryData: data};
     case 'GET_SP_DETAIL_TABLE':
       return { ...state, spDetailTable: data };
+      case 'MARKED' :
+      return {...state, markedRow:data}
     // Supplier Management End
 
     default:

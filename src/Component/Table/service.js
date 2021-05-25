@@ -2,68 +2,155 @@ import React from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import NumberFormat from 'react-number-format';
 
-// change the style of the row in detail Table SP module when user type a value in edit qty and edit carton
-const changeColor = ({e, props, column}) => {   
-    const elementOrderQty = document.getElementById(`order_qty_${props?.row._index}`);
-    const elementEditQty = document.getElementById(`edit_qty_${props?.row._index}`);
-    const elementPackFactor = document.getElementById(`packfactor_1_${props?.row._index}`);
-    const elementEditCarton = document.getElementById(`edit_cartons_${props?.row._index}`);
-    const elementTooltip = document.getElementById(`tooltip_order_qty_${props?.row._index}`)
-    const elementTooltipCarton = document.getElementById(`tooltip_packfactor_1_${props?.row._index}`)
+// change the style of the row in detail Table SP module when the input element is onfocus
+const changeRowOnFocus = ({e, props, column, dispatch,data}) => {   
 
+// console.log(data);
+    // let newData = [...data]
+    // newData[props?.row._index].isFocus = true
+    // dispatch({type: 'GET_SP_DETAIL_TABLE', data: newData})
+    // dispatch({type: 'IS_FOCUS', data: props?.row._index})
+    // return
     const val = e.target.value
-    console.log(`tooltip_${column}_${props?.row._index}`);
-    if (column === 'order_qty'){
+    const elementOrderQty = document.getElementById(`order_qty_${props?.row._index}`);// id for column Order Qty
+    const elementEditQty = document.getElementById(`edit_qty_${props?.row._index}`);// id for column element input Edit Qty
+    const elementPackFactor = document.getElementById(`no_of_carton_${props?.row._index}`);// id for column No. Of Carton
+    const elementEditCarton = document.getElementById(`edit_carton_${props?.row._index}`);// id for column element Edit Carton Qty
+    
+    if (column === 'order_qty'){ // if input Edit Qty is on focus
+      // if(elementEditQty) elementEditQty.focus()
       if(parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.order_qty)){
-        // const newRow = [
-        //   {
-        //     rowIndex: props?.row._index,
-        //     isValid: false
-        //   }
-        // ]
-        // console.log(newRow);
+        if(elementEditCarton.value > parseFloat(props?.original.no_of_carton)){
+          elementPackFactor.style.color = 'red';
+          elementEditCarton.classList.add("invalid-input");
+        }else{
+          elementEditCarton.classList.remove("invalid-input");
+          elementPackFactor.style.color = 'orange';
+        }
         elementOrderQty.style.color = 'red';
-        elementPackFactor.style.color = 'orange';
         elementEditQty.classList.add("outOfRemaining-input");
-        elementTooltip.classList.add("tooltip-outOfReamining");
-
-        // localStorage.setItem("newRow", newRow)
       } else {
-        elementPackFactor.style.color = 'orange';
+        if(elementEditCarton.value > parseFloat(props?.original.no_of_carton)){
+          elementPackFactor.style.color = 'red';
+          elementEditCarton.classList.add("invalid-input");
+        }else{
+          elementEditCarton.classList.remove("invalid-input");
+          elementPackFactor.style.color = 'orange';
+        }
         elementOrderQty.style.color = 'orange';
         elementEditQty.classList.remove("outOfRemaining-input");
-        elementTooltip.classList.remove("tooltip-outOfReamining");
         elementEditQty.classList.add("remaining-input");
-
       }
     }
-    if (column === 'packfactor_1'){
-      if( parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.packfactor_1.replace(/,/g, ''))){
+    if (column === 'no_of_carton'){// if input Edit Carton Qty is on focus
+      const newOrderQty = elementEditQty.value
+      // if(elementEditCarton) elementEditCarton.focus()
+      if( parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.no_of_carton)){
+        if(parseFloat(newOrderQty.replace(/,/g, '')) > parseFloat(props?.original.order_qty)){
+          elementOrderQty.style.color = 'red';
+          elementEditQty.classList.add("invalid-input");
+        }else{
+          elementEditQty.classList.remove("invalid-input");
+          elementOrderQty.style.color = 'orange';
+        }
         elementPackFactor.style.color = 'red';
-        elementOrderQty.style.color = 'orange';
         elementEditCarton.classList.add("outOfRemaining-input");
-        elementTooltipCarton.classList.add("tooltip-outOfReamining");
       }else{
+        if(parseFloat(newOrderQty.replace(/,/g, '')) > parseFloat(props?.original.order_qty)){
+          elementOrderQty.style.color = 'red';
+          elementEditQty.classList.add("invalid-input");
+        }else{
+          elementEditQty.classList.remove("invalid-input");
+          elementOrderQty.style.color = 'orange';
+        }
         elementPackFactor.style.color = 'orange';
-        elementOrderQty.style.color = 'orange';
         elementEditCarton.classList.remove("outOfRemaining-input");
         elementEditCarton.classList.add("remaining-input");
       }
     }
 }
 
-const blurColor = ({props}) => {
-  document.getElementById(`order_qty_${props?.row._index}`).style.color = 'black';
-  document.getElementById(`packfactor_1_${props?.row._index}`).style.color = 'black';
+// change the style of the row in detail Table SP module when user type a value in edit qty and edit carton
+const changeRowOnChange = ({e, props, column}) => {
+  const val = e.target.value
+
+  const elementOrderQty = document.getElementById(`order_qty_${props?.row._index}`);// id for column Order Qty
+  const elementEditQty = document.getElementById(`edit_qty_${props?.row._index}`);// id for column element input Edit Qty
+  const elementPackFactor = document.getElementById(`no_of_carton_${props?.row._index}`);// id for column No. Of Carton
+  const elementEditCarton = document.getElementById(`edit_carton_${props?.row._index}`);// id for column element Edit Carton Qty
+
+  if (column === 'order_qty'){
+    if( parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.order_qty)){
+      elementOrderQty.style.color = 'red';
+      elementEditQty.classList.add("outOfRemaining-input");
+    }else{
+      elementEditQty.classList.remove("outOfRemaining-input");
+      elementOrderQty.style.color = 'orange';
+    }
+  }
+  if (column === 'no_of_carton'){// if input Edit Carton Qty is on focus
+    if( parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.no_of_carton)){
+      elementPackFactor.style.color = 'red';
+      elementEditCarton.classList.add("outOfRemaining-input");
+    }else{
+      elementPackFactor.style.color = 'orange';
+      elementEditCarton.classList.remove("outOfRemaining-input");
+    }
+  }
 }
 
-const renderTooltipRename = ({field, props}) => (
-  <Tooltip id={`tooltip_${field === 'edit_qty' ? 'order_qty' : 'packfactor_1'}_${props?.row._index}`} onClickCapture={() => false}>
-    Remaining qty: 
-    {' '}
-    <span>{field === 'edit_qty' ? props?.original.order_qty : props?.original.packfactor_1 }</span>
-  </Tooltip>
-);
+const blurColor = ({e, props}) => {
+  const valEditQty = [];
+  const valOrderQty = [];
+  const valEditCarton = [];
+  const valCartonQty = [];
+
+  document.querySelectorAll('.val-order-qty').forEach(function(qty){
+    valOrderQty.push(qty.innerHTML);
+  })
+  document.querySelectorAll('.input-order-qty').forEach(function(el){
+    valEditQty.push(el.value);
+  });
+
+  document.querySelectorAll('.val-carton-qty').forEach(function(qty){
+    valCartonQty.push(qty.innerHTML);
+  })
+  document.querySelectorAll('.input-carton-qty').forEach(function(el){
+    valEditCarton.push(el.value);
+  });
+
+  valEditQty.forEach((data, idx)=>{
+    const elementOrderQty = document.getElementById(`order_qty_${idx}`);// id for column Order Qty
+    const elementEditQty = document.getElementById(`edit_qty_${idx}`);// id for column element input Edit Qty
+    const elementPackFactor = document.getElementById(`no_of_carton_${idx}`);// id for column No. Of Carton
+    
+    if (valOrderQty[idx] < parseFloat(data)){
+      elementOrderQty.style.color = 'red';
+      elementPackFactor.style.color = 'black';
+      elementEditQty.classList.add("invalid-input");
+    }else{
+      elementOrderQty.style.color = 'black';
+      elementPackFactor.style.color = 'black';
+      elementEditQty.classList.remove("invalid-input");
+    }
+  })
+
+  valEditCarton.forEach((data, idx) => {
+    const elementOrderQty = document.getElementById(`order_qty_${idx}`);// id for column Order Qty
+    const elementPackFactor = document.getElementById(`no_of_carton_${idx}`);// id for column No. Of Carton
+    const elementEditCarton = document.getElementById(`edit_carton_${idx}`);// id for column element Edit Carton Qty
+
+    if (valCartonQty[idx] < parseFloat(data)){
+      elementOrderQty.style.color = 'balck';
+      elementPackFactor.style.color = 'red';
+      elementEditCarton.classList.add("invalid-input");
+    }else{
+      elementOrderQty.style.color = 'black';
+      elementPackFactor.style.color = 'black';
+      elementEditCarton.classList.remove("invalid-input");
+    }
+  })  
+}
 
 const getColumnWidth = (rows, accessor, headerText, minWidth) => {
   const magicSpacing = 9;
@@ -73,7 +160,6 @@ const getColumnWidth = (rows, accessor, headerText, minWidth) => {
     return minWidth;
   } 
     return width;
-  
 };
 
 export const renewColumn = async ({
@@ -86,7 +172,8 @@ export const renewColumn = async ({
   showModal,
   columnHidden,
   editOrderQty,
-  editCarton
+  editCarton,
+  dispatch
 }) => {
   // reorder column
   const key = `tables__${module}__${userId}`;
@@ -118,12 +205,11 @@ export const renewColumn = async ({
     schema = tmp_oldSchema;
   }
 
-  let cc = false
+  const cc = false
   // Edit Order Qty Supplier Portal 
   if ( editOrderQty === true) {
     const obj = {
       accessor: 'edit_qty',
-      placeholder: 'Edit Qty',
       Header: 'Edit Qty',
       width: 130,
       headerStyle: { textAlign: 'left', marginLeft: '1rem' },
@@ -132,18 +218,24 @@ export const renewColumn = async ({
         <OverlayTrigger
           placement="bottom"
           delay={{ show: 250, hide: 400 }}
-          overlay={renderTooltipRename({field:'edit_qty', props})}
+          overlay={(
+            <Tooltip id={`tooltip-bottom_orderQty_${props?.row._index}`} className='tooltip-remaining'>
+              Remaining qty: 
+              {' '}
+              <strong>{props?.original.order_qty}</strong>
+            </Tooltip>
+          )}
         >
           <NumberFormat
             autoComplete="off"
             thousandSeparator
             style={{width:'100px', marginLeft: '1rem'}}
-            className="input-in-table"
-            value={ props.value }
-            decimalScale={3}
+            className="input-in-table input-order-qty"
+            value={props.value}
+            decimalScale={0}
             id={`edit_qty_${props?.row._index}`}
-            onFocusCapture={(e) => changeColor({e, props, column: 'order_qty', cc})}
-            onChange={(e) => changeColor({e, props, column:'order_qty'})}
+            onFocusCapture={(e) => changeRowOnFocus({e, props, column: 'order_qty', dispatch,data})}
+            onChange={(e) => changeRowOnChange({e, props, column:'order_qty'})}
             onBlur={() => blurColor({props})}
           />
         </OverlayTrigger>
@@ -153,36 +245,41 @@ export const renewColumn = async ({
     schema = [...schema, obj];
   }
   
-
-   // Edit Order Qty Supplier Portal 
-   if ( editCarton === true) {
+  // Edit Order Qty Supplier Portal 
+  if ( editCarton === true) {
     const obj = {
-      accessor: 'edit_cartons',
-      placeholder: 'Edit Carton',
+      accessor: 'edit_carton',
       Header: 'Edit Cartons',
-      headerStyle: { textAlign: 'left', marginLeft: '-1rem', justifyContent: 'end' },
+      width: 130,
+      headerStyle: { textAlign: 'left', marginLeft: '1rem' },
       sortable:false,
-      width: 120,
       Cell: (props) => (
         <OverlayTrigger
           placement="bottom"
-          delay={{ show: 250, hide: 100400 }}
-          overlay={renderTooltipRename('edit_cartons', props)}
+          delay={{ show: 250, hide: 400 }}
+          overlay={(
+            <Tooltip id={`tooltip-bottom_noOfCarton_${props?.row._index}`} className='tooltip-remaining'>
+              Remaining qty: 
+              {' '}
+              <strong>{props?.original.no_of_carton}</strong>
+            </Tooltip>
+          )}
         >
           <NumberFormat
             autoComplete="off"
             thousandSeparator
             style={{width:'100px'}}
-            className="input-in-table"
-            value={ props.value }
-            decimalScale={3}
-            id={`edit_cartons_${props?.row._index}`}
-            onFocusCapture={(e) => changeColor({e, props, column: 'packfactor_1', cc})}
-            onChange={(e) => changeColor({e, props, column:'packfactor_1'})}
+            className="input-in-table input-carton-qty"
+            value={props.value}
+            decimalScale={0}
+            id={`edit_carton_${props?.row._index}`}
+            onFocusCapture={(e) => changeRowOnFocus({e, props, column: 'no_of_carton', dispatch})}
+            onChange={(e) => changeRowOnChange({e, props, column:'no_of_carton'})}
             onBlur={() => blurColor({props})}
           />
         </OverlayTrigger>
-    ),
+      )
+      ,
     };
     schema = [...schema, obj];
   }
@@ -267,3 +364,18 @@ export const saveSchemaToLocal = ({
 
   // set Local
 };
+
+export const markRow = ({props, markedRow, dispatch}) => {
+  let arrayIdx = markedRow
+  const idx = props?.rn - 1  
+  if(arrayIdx.includes(idx) === false){
+    arrayIdx.push(idx)
+  }
+  else if(arrayIdx.includes(idx)){
+    arrayIdx = arrayIdx.filter(currentIdx => currentIdx !== idx)
+  }
+
+  // if(typeof(dispatch) === 'function') dispatch({type:'MARKED', data:arrayIdx})
+  // console.log(arrayIdx);
+  // localStorage.setItem('idRowMarked', arrayIdx)
+}

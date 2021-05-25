@@ -49,18 +49,14 @@ export const schemaColumnDetailSP = [
     textAlign: "right"
   },
   {
-    accessor: 'packfactor_1',
+    accessor: 'carton_qty',
     placeholder: 'Carton Qty',
     Header: 'Carton Qty',
     width: 130,
     style: { justifyContent: 'flex-end', display: 'flex' },
     className: 'align-right',
     sortType: 'float',
-    Cell: (props) => (
-      <span id={`packfactor_1_${props?.row._index}`}>
-        {props?.value || 0}
-      </span>
-),
+    Cell: (props) => props?.value || 0,
     textAlign: "right"
   },
   {
@@ -72,8 +68,8 @@ export const schemaColumnDetailSP = [
     className: 'align-right',
     sortType: 'float',
     Cell: (props) => (
-      <span id={`order_qty_${props?.row._index}`}>
-        {props?.value || '-'}
+      <span id={`order_qty_${props?.row._index}`} className={'val-order-qty'}>
+        {props?.value || 0}
       </span>
     ),
     textAlign: "right"
@@ -84,7 +80,11 @@ export const schemaColumnDetailSP = [
     Header: 'No. of Carton',
     width: 145,
     className: 'align-right',
-    Cell: (props) => props.value || 0,
+    Cell: (props) =>  (
+      <span id={`no_of_carton_${props?.row._index}`} className='val-carton-qty'>
+        {props?.value || 0}
+      </span>
+),
   },
   {
     accessor: 'qty',

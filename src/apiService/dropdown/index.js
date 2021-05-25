@@ -177,6 +177,6 @@ export const getCustomer = async ({ client, setCustomerData }) => {
 
 export const getFilterDetailSP = async ({field, dispatch}) => {
   const data = await axios.get(`${endpoints.getFilterDetailSP}`)
-  console.log(data);
+  // console.log(data);
   // dispatch({ type: 'CREATE_PO_DISPOSITION', data: dispositionData });
 }

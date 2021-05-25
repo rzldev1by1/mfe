@@ -225,7 +225,6 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   const url = endpointsUrl;
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(url);
-
   const Meta = newData?.data?.meta;
   const Links = newData?.data?.links;
   const Data = newData?.data?.data;
@@ -246,15 +245,15 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
       m.weight = numeral(m.weight).format('0,0.000');
       m.weight = numeral(m.weight).format('0,0.000');
       m.weight = numeral(m.weight).format('0,0.000');
-      m.packfactor_1 = numeral(m.packfactor_1).format('0,0'); //packfactor_1
+      m.carton_qty = numeral(m.carton_qty).format('0,0'); //carton_qty
       m.order_qty = numeral(m.order_qty).format('0,0'); //order_qty
       m.completed = m.completed == 'Y' ? 'Yes' : 'x';
       m.released = m.released == 'Y' ? 'Yes' : 'x';
+      m.no_of_carton = Math.round((parseFloat(m.order_qty.replace(/,/g, ''))) / (parseFloat(m.carton_qty.replace(/,/g, ''))));
       if (fulfill === true){
         m.edit_qty = m.order_qty
-        m.edit_cartons = m.packfactor_1
+        m.edit_carton = m.no_of_carton
       }
-      m.no_of_carton = Math.round(m.order_qty/m.packfactor_1)
       m.rotadate = m.rotadate && m.rotadate !== '' ? formatDate(m.rotadate) : '-';
       txt.push(m.batch?.length);
       return m;

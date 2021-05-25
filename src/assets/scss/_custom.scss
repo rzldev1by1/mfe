@@ -305,6 +305,9 @@ input.input-in-table {
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+input.invalid-input{
+  border-color: red !important;
+}
 input.remaining-input:focus {
   border-color: orange !important;
   outline: orange !important;
@@ -313,6 +316,14 @@ input.remaining-input:focus {
 input.outOfRemaining-input:focus {
   border-color: red !important;
   outline: red !important;
+}
+
+.color-remaining{
+  color: orange !important;
+}
+
+.color-max-qty{
+  color: red !important;
 }
 
 // input.form-control {
