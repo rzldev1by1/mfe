@@ -318,14 +318,6 @@ input.outOfRemaining-input:focus {
   outline: red !important;
 }
 
-.color-remaining{
-  color: orange !important;
-}
-
-.color-max-qty{
-  color: red !important;
-}
-
 // input.form-control {
 //   padding: 0.375rem 0.75rem 0.375rem 0rem;
 // }
@@ -857,6 +849,14 @@ input.form-control.input-danger {
 }
 
 .tooltip-outOfReamining{
+  .tooltip-inner {
+    background-color: red;
+  }
+  .arrow::before{
+    border-bottom-color: red !important;
+  }
+}
+.tooltip-outOfReamining:hover{
   .tooltip-inner {
     background-color: red;
   }

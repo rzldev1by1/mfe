@@ -16,6 +16,9 @@ const changeRowOnFocus = ({e, props, column, dispatch,data}) => {
     const elementEditQty = document.getElementById(`edit_qty_${props?.row._index}`);// id for column element input Edit Qty
     const elementPackFactor = document.getElementById(`no_of_carton_${props?.row._index}`);// id for column No. Of Carton
     const elementEditCarton = document.getElementById(`edit_carton_${props?.row._index}`);// id for column element Edit Carton Qty
+    const elementTooltip = document.getElementById(`tooltip-bottom_orderQty_${props?.row._index}`)
+    const elementTooltipCarton = document.getElementById(`tooltip-bottom_noOfCarton_${props?.row._index}`)
+    console.log(elementTooltip);
     
     if (column === 'order_qty'){ // if input Edit Qty is on focus
       // if(elementEditQty) elementEditQty.focus()
@@ -29,6 +32,9 @@ const changeRowOnFocus = ({e, props, column, dispatch,data}) => {
         }
         elementOrderQty.style.color = 'red';
         elementEditQty.classList.add("outOfRemaining-input");
+        setTimeout(() => {
+          elementTooltip.classList.add("tooltip-outOfReamining")
+        }, 500);
       } else {
         if(elementEditCarton.value > parseFloat(props?.original.no_of_carton)){
           elementPackFactor.style.color = 'red';
@@ -59,6 +65,7 @@ const changeRowOnFocus = ({e, props, column, dispatch,data}) => {
         if(parseFloat(newOrderQty.replace(/,/g, '')) > parseFloat(props?.original.order_qty)){
           elementOrderQty.style.color = 'red';
           elementEditQty.classList.add("invalid-input");
+          elementTooltip.classList.add("tooltip-outOfReamining")
         }else{
           elementEditQty.classList.remove("invalid-input");
           elementOrderQty.style.color = 'orange';
@@ -78,11 +85,14 @@ const changeRowOnChange = ({e, props, column}) => {
   const elementEditQty = document.getElementById(`edit_qty_${props?.row._index}`);// id for column element input Edit Qty
   const elementPackFactor = document.getElementById(`no_of_carton_${props?.row._index}`);// id for column No. Of Carton
   const elementEditCarton = document.getElementById(`edit_carton_${props?.row._index}`);// id for column element Edit Carton Qty
-
+  const elementTooltip = document.getElementById(`tooltip-bottom_orderQty_${props?.row._index}`)
+  console.log(elementTooltip);
+  
   if (column === 'order_qty'){
     if( parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.order_qty)){
       elementOrderQty.style.color = 'red';
       elementEditQty.classList.add("outOfRemaining-input");
+      elementTooltip.classList.add("tooltip-outOfReamining")
     }else{
       elementEditQty.classList.remove("outOfRemaining-input");
       elementOrderQty.style.color = 'orange';
@@ -234,7 +244,7 @@ export const renewColumn = async ({
             value={props.value}
             decimalScale={0}
             id={`edit_qty_${props?.row._index}`}
-            onFocusCapture={(e) => changeRowOnFocus({e, props, column: 'order_qty', dispatch,data})}
+            onFocusCapture={(e) => changeRowOnFocus({e, props, column: 'order_qty', dispatch, data})}
             onChange={(e) => changeRowOnChange({e, props, column:'order_qty'})}
             onBlur={() => blurColor({props})}
           />
@@ -251,7 +261,7 @@ export const renewColumn = async ({
       accessor: 'edit_carton',
       Header: 'Edit Cartons',
       width: 130,
-      headerStyle: { textAlign: 'left', marginLeft: '1rem' },
+      headerStyle: { textAlign: 'left', marginLeft: '-0.5rem' },
       sortable:false,
       Cell: (props) => (
         <OverlayTrigger

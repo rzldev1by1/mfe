@@ -50,6 +50,8 @@ const Search = ({ placeholder, module }) => {
     if (e.key === 'Enter') {
       dispatch({ type: 'GET_SP_SUMMARY', data: [] });
       await getSummaryData({
+        fromDate:newDropdownValue.fromDate,
+        toDate: newDropdownValue.toDate,
         e,
         searchInput,
         dispatch,
