@@ -184,9 +184,7 @@ $spinkit-spinner-color: $body-color;
     color: #fff
   }
 
-}
-
-//datePicker
+  //datePicker
 
 .select_date_options {
   background-color: #281f34 !important;
@@ -201,10 +199,11 @@ $spinkit-spinner-color: $body-color;
   {
     color: white !important;
   }
-  label{
-    color: white !important;
-  }
+
 }
+
+}
+
 
   // modal 
   .customDarkMode.modal{ 
