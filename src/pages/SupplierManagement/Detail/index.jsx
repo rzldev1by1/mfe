@@ -58,7 +58,7 @@ const SupplierManagementDetail = (props) => {
           </div>
           <div>
             <TableMaster
-              onClick={(props) => markRow({props, markedRow,dispatch})}
+              // onClick={(props) => markRow({props, markedRow,dispatch})}
               schemaColumn={schemaColumnDetailSP}
               classNamePaging="display-paging"
               classNameTable="table-detail bg-mark"
