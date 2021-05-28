@@ -76,8 +76,8 @@ export const schemaColumnDetailSP = [
   },
   {
     accessor: 'no_of_carton',
-    placeholder: 'No. of Carton',
-    Header: 'No. of Carton',
+    placeholder: 'No. Of Cartons',
+    Header: 'No. Of Cartons',
     width: 145,
     className: 'align-right',
     Cell: (props) =>  (
