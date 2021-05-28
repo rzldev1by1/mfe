@@ -17,8 +17,8 @@ export const schemaColumnDetailSP = [
   },
   {
     accessor: 'style_desc',
-    placeholder: 'Style Desc.',
-    Header: 'Style Desc.',
+    placeholder: 'Style Desc',
+    Header: 'Style Desc',
     width: 200,
     Cell: (props) => props.value || '-',
   },
