@@ -60,14 +60,7 @@ const Table = ({
   useEffect(() => {
     renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn, editOrderQty, editCarton, isInvalidOrderQty, dispatch});
   }, [data, fields, columnHidden]);
-// const elementEditQty = document.getElementById(`edit_qty_${idRows}`);// id for column element input Edit Qty
-// if(elementEditQty) {
-//   setTimeout(() => {
-//     console.log(`edit_qty_${idRows}`);
-//     console.log(elementEditQty);
-//     elementEditQty.focus()
-//   }, 1000);
-// }
+
   return (
     <div
       className={`${className} ${editColumn === 'false' ? '' : 'show-edit-icon'} ${

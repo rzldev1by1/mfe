@@ -32,6 +32,14 @@ const TableMaster = ({
   editOrderQty,
   editCarton
 }) => {
+  const checkItsClear = data?.filter((data, idx) => {
+   setTimeout(() => {
+    const elementEditCarton = document.getElementById(`edit_carton_${idx}`)?.value;// id for column element Edit Carton Qty
+    const elementEditQty = document.getElementById(`edit_qty_${idx}`)?.value;// id for column element input Edit Qty
+   }, 10000); 
+
+  })
+  
   return (
     <div>
       <Table
@@ -75,7 +83,7 @@ const TableMaster = ({
         )
         : printBtn ? (
           <CDropdown className="btn-group print-lables">
-            <CDropdownToggle color="primary"> 
+            <CDropdownToggle onClick={()=> alert()} id='print-labels' color="primary"> 
               PRINT LABELS
             </CDropdownToggle>
             <CDropdownMenu className="mb-2 shadow-none border">
