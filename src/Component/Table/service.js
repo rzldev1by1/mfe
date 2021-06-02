@@ -2,137 +2,172 @@ import React from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import NumberFormat from 'react-number-format';
 
-// change the style of the row in detail Table SP module when the input element is onfocus
 const changeRowOnFocus = async({e, props, column, action}) => {  
     const val = e.target.value
     const elementOrderQty = document.getElementById(`order_qty_${props?.row._index}`);// id for column Order Qty
     const elementEditQty = document.getElementById(`edit_qty_${props?.row._index}`);// id for column element input Edit Qty
-    const elementPackFactor = document.getElementById(`no_of_carton_${props?.row._index}`);// id for column No. Of Carton
+    const elementNoOfCarton = document.getElementById(`no_of_carton_${props?.row._index}`);// id for column No. Of Carton
     const elementEditCarton = document.getElementById(`edit_carton_${props?.row._index}`);// id for column element Edit Carton Qty
     const elementTooltip = document.getElementById(`tooltip-bottom_orderQty_${props?.row._index}`)
     const elementTooltipCarton = document.getElementById(`tooltip-bottom_noOfCarton_${props?.row._index}`)
     const printLabels = document.getElementById(`print-labels`)
 
-    // Check empty value
-    if (column === 'order_qty'){ // if input Edit Qty is on focus
-     if (val !== NaN){
-
-      if(parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.order_qty)) printLabels.disabled = true
-      if(!val || (parseFloat(val.replace(/,/g, '')) < parseFloat(props?.original.order_qty))) printLabels.disabled = false
-
+    // change the style of the row in detail Table SP module when the input element is onfocus
+    if ( action === 'onFocus' ){
+      if (column === 'edit_qty'){
         if(parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.order_qty)){
           if(elementEditCarton.value > parseFloat(props?.original.no_of_carton)){
-            elementPackFactor.style.color = 'red';
+            elementNoOfCarton.style.color = 'red'
             elementEditCarton.classList.add("invalid-input");
-          }else{
-            elementEditCarton.classList.remove("invalid-input");
-            elementPackFactor.style.color = 'orange';
           }
-        
-          elementOrderQty.style.color = 'red';
-          elementEditQty.classList.add("outOfRemaining-input");
-          if (action === 'hover') {
-            setTimeout(() => {
-              const elementTooltipz = document.getElementById(`tooltip-bottom_orderQty_${props?.row._index}`)
-              const elementEditQtyz = document.getElementById(`edit_qty_${props?.row._index}`);// id for column element input Edit Qty
-              if(elementEditQtyz)elementEditQtyz.style.color = 'red';
-              if(elementTooltipz)elementTooltipz.classList.add("tooltip-outOfReamining")
-
-              elementOrderQty.style.color = 'black'
-            }, 451);
-          }
-          
-          if(elementTooltip)elementTooltip.classList.add("tooltip-outOfReamining")
-        } else {
-          if(elementEditCarton.value > parseFloat(props?.original.no_of_carton)){
-            elementPackFactor.style.color = 'red';
-            elementEditCarton.classList.add("invalid-input");
-          }else{
-            elementEditCarton.classList.remove("invalid-input");
-            elementPackFactor.style.color = 'orange';
-          }
-
-          if (action === 'hover') return
-
-          elementOrderQty.style.color = 'orange';
-          elementEditQty.classList.remove("outOfRemaining-input");
+          elementOrderQty.style.color = 'red'
           elementEditQty.classList.add("remaining-input");
+          if (elementTooltip) elementTooltip.classList.add("tooltip-outOfReamining");
+        }else {
+          if (elementEditCarton.value > parseFloat(props?.original.no_of_carton)){
+            elementNoOfCarton.style.color = 'red'
+            elementEditCarton.classList.add("invalid-input");
+          }else{
+            elementOrderQty.style.color = elementNoOfCarton.style.color = 'orange'
+            elementEditQty.classList.add("remaining-input");
+          }
         }
-     }
-    }
-    if (column === 'no_of_carton'){// if input Edit Carton Qty is on focus
-      const newOrderQty = elementEditQty.value
-
-      if(parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.no_of_carton)) printLabels.disabled = true
-      if(!val || parseFloat(val.replace(/,/g, '')) < parseFloat(props?.original.no_of_carton)) printLabels.disabled = false
-
-
-      if(parseFloat(val?.replace(/,/g, '')) > parseFloat(props?.original.no_of_carton)){
-        if(parseFloat(newOrderQty.replace(/,/g, '')) > parseFloat(props?.original.order_qty)){
-          elementOrderQty.style.color = 'red';
-          elementEditQty.classList.add("invalid-input");
-        }else{
-          elementEditQty.classList.remove("invalid-input");
-          elementOrderQty.style.color = 'orange';
+      }
+      if (column === 'edit_carton'){
+        if(parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.no_of_carton)){
+          if (elementEditQty.value > parseFloat(props?.original.order_qty)){
+            elementOrderQty.style.color = 'red'
+            elementEditQty.classList.add("invalid-input");
+          }
+          elementNoOfCarton.style.color = 'red'
+          elementEditCarton.classList.add("remaining-input");
+          if(elementTooltipCarton)elementTooltipCarton.classList.add("tooltip-outOfReamining");
+        }else {
+          if (elementEditQty.value > parseFloat(props?.original.order_qty)){
+            elementOrderQty.style.color = 'red'
+            elementEditQty.classList.add("invalid-input");
+          }else{
+            elementOrderQty.style.color = elementNoOfCarton.style.color = 'orange'
+          }
         }
-        if (action === 'hover') {
-          setTimeout(() => {
-            const elementTooltipCartonz = document.getElementById(`tooltip-bottom_noOfCarton_${props?.row._index}`)
-            const elementEditCartonz = document.getElementById(`edit_carton_${props?.row._index}`);// id for column element input Edit Carton
-            if(elementEditCartonz)elementEditCartonz.style.color = 'red';
-            if(elementTooltipCartonz)elementTooltipCartonz.classList.add("tooltip-outOfReamining")
-          }, 451);
-        }
-        elementPackFactor.style.color = 'red';
-        elementEditCarton.classList.add("outOfRemaining-input");
-      }else{
-        if(parseFloat(newOrderQty.replace(/,/g, '')) > parseFloat(props?.original.order_qty)){
-          elementOrderQty.style.color = 'red';
-          elementEditQty.classList.add("invalid-input");
-          if(elementTooltip)elementTooltip.classList.add("tooltip-outOfReamining")
-        }else{
-          elementEditQty.classList.remove("invalid-input");
-          elementOrderQty.style.color = 'orange';
-        }
-        if (action === 'hover') return
-        elementPackFactor.style.color = 'orange';
-        elementEditCarton.classList.remove("outOfRemaining-input");
-        elementEditCarton.classList.add("remaining-input");
       }
     }
-}
 
-// change the style of the row in detail Table SP module when user type a value in edit qty and edit carton
-const changeRowOnChange = ({e, props, column}) => {
-  const val = e.target.value
+    // change the style of the row in detail Table SP module when user type a value in edit qty and edit carton 
+    if ( action === 'onChange' ){
+      if (column === 'edit_qty'){
+        if (parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.order_qty)){
+          elementOrderQty.style.color = 'red'
+          elementEditQty.classList.add("outOfRemaining-input");
+          if(elementTooltip) elementTooltip.classList.add("tooltip-outOfReamining");
+        }else {
+          elementOrderQty.style.color = 'orange';
+          elementEditQty.classList.remove("outOfRemaining-input");
+          if(elementTooltip)elementTooltip.classList.remove("tooltip-outOfReamining");
+          elementEditQty.classList.add("remaining-input");
+        }
+      }
+      if (column === 'edit_carton'){
+        if (parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.no_of_carton)){
+          elementNoOfCarton.style.color = 'red'
+          elementEditCarton.classList.add("outOfRemaining-input");
+          elementTooltipCarton.classList.add("tooltip-outOfReamining");
+        }else {
+          elementNoOfCarton.style.color = 'orange';
+          elementEditCarton.classList.remove("outOfRemaining-input");
+          elementTooltipCarton.classList.remove("tooltip-outOfReamining");
+          elementEditCarton.classList.add("remaining-input");
+        }
+      }
+    }
 
-  const elementOrderQty = document.getElementById(`order_qty_${props?.row._index}`);// id for column Order Qty
-  const elementEditQty = document.getElementById(`edit_qty_${props?.row._index}`);// id for column element input Edit Qty
-  const elementPackFactor = document.getElementById(`no_of_carton_${props?.row._index}`);// id for column No. Of Carton
-  const elementEditCarton = document.getElementById(`edit_carton_${props?.row._index}`);// id for column element Edit Carton Qty
-  const elementTooltip = document.getElementById(`tooltip-bottom_orderQty_${props?.row._index}`)
-  const elementTooltipCarton = document.getElementById(`tooltip-bottom_noOfCarton_${props?.row._index}`)
-  
-  if (column === 'order_qty'){
-    if( parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.order_qty)){
-      elementOrderQty.style.color = 'red';
-      elementEditQty.classList.add("outOfRemaining-input");
-      elementTooltip.classList.add("tooltip-outOfReamining")
-    }else{
-      elementEditQty.classList.remove("outOfRemaining-input");
-      elementOrderQty.style.color = 'orange';
-    }
-  }
-  if (column === 'no_of_carton'){// if input Edit Carton Qty is on focus
-    if( parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.no_of_carton)){
-      elementPackFactor.style.color = 'red';
-      elementEditCarton.classList.add("outOfRemaining-input");
-      if(elementTooltipCarton)elementTooltipCarton.classList.add("tooltip-outOfReamining")
-    }else{
-      elementPackFactor.style.color = 'orange';
-      elementEditCarton.classList.remove("outOfRemaining-input");
-    }
-  }
+    // // Check empty value
+    // if (column === 'edit_qty'){ // if input Edit Qty is on focus
+    //  if (val !== NaN){
+
+    //   if(parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.order_qty)) printLabels.disabled = true
+    //   if(!val || (parseFloat(val.replace(/,/g, '')) < parseFloat(props?.original.order_qty))) printLabels.disabled = false
+
+    //     if(parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.order_qty)){
+    //       if(elementEditCarton.value > parseFloat(props?.original.no_of_carton)){
+    //         elementPackFactor.style.color = 'red';
+    //         elementEditCarton.classList.add("invalid-input");
+    //       }else{
+    //         elementEditCarton.classList.remove("invalid-input");
+    //         elementPackFactor.style.color = 'orange';
+    //       }
+        
+    //       elementOrderQty.style.color = 'red';
+    //       elementEditQty.classList.add("outOfRemaining-input");
+    //       if (action === 'hover') {
+    //         setTimeout(() => {
+    //           const elementTooltipz = document.getElementById(`tooltip-bottom_orderQty_${props?.row._index}`)
+    //           const elementEditQtyz = document.getElementById(`edit_qty_${props?.row._index}`);// id for column element input Edit Qty
+    //           if(elementEditQtyz)elementEditQtyz.style.color = 'red';
+    //           if(elementTooltipz)elementTooltipz.classList.add("tooltip-outOfReamining")
+
+    //           elementOrderQty.style.color = 'black'
+    //         }, 451);
+    //       }
+          
+    //       if(elementTooltip)elementTooltip.classList.add("tooltip-outOfReamining")
+    //     } else {
+    //       if(elementEditCarton.value > parseFloat(props?.original.no_of_carton)){
+    //         elementPackFactor.style.color = 'red';
+    //         elementEditCarton.classList.add("invalid-input");
+    //       }else{
+    //         elementEditCarton.classList.remove("invalid-input");
+    //         elementPackFactor.style.color = 'orange';
+    //       }
+
+    //       if (action === 'hover') return
+
+    //       elementOrderQty.style.color = 'orange';
+    //       elementEditQty.classList.remove("outOfRemaining-input");
+    //       elementEditQty.classList.add("remaining-input");
+    //     }
+    //  }
+    // }
+    // if (column === 'no_of_carton'){// if input Edit Carton Qty is on focus
+    //   const newOrderQty = elementEditQty.value
+
+    //   if(parseFloat(val.replace(/,/g, '')) > parseFloat(props?.original.no_of_carton)) printLabels.disabled = true
+    //   if(!val || parseFloat(val.replace(/,/g, '')) < parseFloat(props?.original.no_of_carton)) printLabels.disabled = false
+
+
+    //   if(parseFloat(val?.replace(/,/g, '')) > parseFloat(props?.original.no_of_carton)){
+    //     if(parseFloat(newOrderQty.replace(/,/g, '')) > parseFloat(props?.original.order_qty)){
+    //       elementOrderQty.style.color = 'red';
+    //       elementEditQty.classList.add("invalid-input");
+    //     }else{
+    //       elementEditQty.classList.remove("invalid-input");
+    //       elementOrderQty.style.color = 'orange';
+    //     }
+    //     if (action === 'hover') {
+    //       setTimeout(() => {
+    //         const elementTooltipCartonz = document.getElementById(`tooltip-bottom_noOfCarton_${props?.row._index}`)
+    //         const elementEditCartonz = document.getElementById(`edit_carton_${props?.row._index}`);// id for column element input Edit Carton
+    //         if(elementEditCartonz)elementEditCartonz.style.color = 'red';
+    //         if(elementTooltipCartonz)elementTooltipCartonz.classList.add("tooltip-outOfReamining")
+    //       }, 451);
+    //     }
+    //     elementPackFactor.style.color = 'red';
+    //     elementEditCarton.classList.add("outOfRemaining-input");
+    //   }else{
+    //     if(parseFloat(newOrderQty.replace(/,/g, '')) > parseFloat(props?.original.order_qty)){
+    //       elementOrderQty.style.color = 'red';
+    //       elementEditQty.classList.add("invalid-input");
+    //       if(elementTooltip)elementTooltip.classList.add("tooltip-outOfReamining")
+    //     }else{
+    //       elementEditQty.classList.remove("invalid-input");
+    //       elementOrderQty.style.color = 'orange';
+    //     }
+    //     if (action === 'hover') return
+    //     elementPackFactor.style.color = 'orange';
+    //     elementEditCarton.classList.remove("outOfRemaining-input");
+    //     elementEditCarton.classList.add("remaining-input");
+    //   }
+    // }
 }
 
 const blurColor = ({e, props}) => {
@@ -269,10 +304,10 @@ export const renewColumn = async ({
             value={props.value}
             decimalScale={0}
             id={`edit_qty_${props?.row._index}`}
-            onFocusCapture={(e) => changeRowOnFocus({e, props, column: 'order_qty'})}
-            onChange={(e) => changeRowOnFocus({e, props, column: 'order_qty'})}
-            onBlur={() => blurColor({props})}
-            onMouseEnter={(e) => changeRowOnFocus({e, props, column: 'order_qty', action: 'hover'})}
+            onFocusCapture={(e) => changeRowOnFocus({e, props, column: 'edit_qty', action:'onFocus'})}
+            onChange={(e) => changeRowOnFocus({e, props, column: 'edit_qty', action:'onChange'})}
+            // onBlur={() => blurColor({props})}
+            // onMouseEnter={(e) => changeRowOnFocus({e, props, column: 'edit_qty', action: 'hover'})}
           />
         </OverlayTrigger>
       )
@@ -308,10 +343,10 @@ export const renewColumn = async ({
             value={props.value}
             decimalScale={0}
             id={`edit_carton_${props?.row._index}`}
-            onFocusCapture={(e) => changeRowOnFocus({e, props, column: 'no_of_carton', dispatch})}
-            onChange={(e) => changeRowOnFocus({e, props, column:'no_of_carton'})}
-            onBlur={() => blurColor({props})}
-            onMouseEnter={(e) => changeRowOnFocus({e, props, column: 'no_of_carton', action: 'hover'})}
+            onFocusCapture={(e) => changeRowOnFocus({e, props, column: 'edit_carton', action:'onFocus'})}
+            onChange={(e) => changeRowOnFocus({e, props, column:'edit_carton', action: 'onChange'})}
+            // onBlur={() => blurColor({props})}
+            // onMouseEnter={(e) => changeRowOnFocus({e, props, column: 'edit_carton', action: 'hover'})}
           />
         </OverlayTrigger>
       )
