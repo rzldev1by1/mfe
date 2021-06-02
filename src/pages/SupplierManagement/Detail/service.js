@@ -68,7 +68,7 @@ export const schemaColumnDetailSP = [
     className: 'align-right',
     sortType: 'float',
     Cell: (props) => (
-      <span id={`order_qty_${props?.row._index}`} className={'val-order-qty'}>
+      <span className={props.original.isInvalidOrderQty ? 'color-max-qty': ''}>
         {props?.value || 0}
       </span>
     ),
@@ -81,7 +81,7 @@ export const schemaColumnDetailSP = [
     width: 145,
     className: 'align-right',
     Cell: (props) =>  (
-      <span id={`no_of_carton_${props?.row._index}`} className='val-carton-qty'>
+      <span className={props.original.isInvalidOrderCarton ? 'color-max-qty': ''}>
         {props?.value || 0}
       </span>
 ),

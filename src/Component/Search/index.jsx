@@ -119,8 +119,15 @@ const Search = ({
     getDetailData({dispatch, props, active: paginationSoDetail?.active, module, fulfill: true})
   }
 
-  const handleClear = () => {
-    getDetailData({dispatch, props, active: paginationSoDetail?.active, module, fulfill: false})
+  const handleClear = ({dispatch,spDetailTable}) => {
+    let newArray = [...spDetailTable]
+  newArray = newArray.map((data,idx) => {
+      data.edit_qty = ''
+      data.edit_carton = ''
+    return data
+  });
+
+  dispatch({type:'GET_SP_DETAIL_TABLE', data:newArray})
   }
 
   useEffect(() => {
@@ -382,7 +389,7 @@ const Search = ({
                             CLEAR
                           </CDropdownToggle>
                           <CDropdownMenu className="mt-2 shadow-none border">
-                            <CDropdownItem onClick={() => handleClear()}>CLEAR ALL</CDropdownItem>
+                            <CDropdownItem onClick={() => handleClear({dispatch,spDetailTable})}>CLEAR ALL</CDropdownItem>
                             <CDropdownDivider />
                             <CDropdownItem onClick={() => handleFullFillMarked({dispatch, spDetailTable,markedRow, clearMarked:true})}>CLEAR MARKED</CDropdownItem>
                           </CDropdownMenu>

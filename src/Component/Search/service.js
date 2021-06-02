@@ -83,17 +83,13 @@ export const setSize = ({ selected, dropdownValue, setdropdownValue  }) => {
   setdropdownValue(newDropdownValue)
 };
 
-export const handleFullFillMarked = ({dispatch, spDetailTable,markedRow, clearMarked}) =>{
+export const handleFullFillMarked = ({dispatch, spDetailTable, clearMarked}) =>{
   let newArray = [...spDetailTable]
   newArray = newArray.map((data,idx) => {
-    if(markedRow.includes(idx)){
-      if(clearMarked){
-        data.edit_qty = ''
-        data.edit_carton = ''
-      }else{
-        data.edit_qty = data.order_qty
-        data.edit_carton = data.no_of_carton
-      }
+    const isMarked = data.isMarked
+    if(isMarked){
+      data.edit_qty = clearMarked ? '' : data.order_qty
+      data.edit_carton = clearMarked ? '' : data.no_of_carton
     }
     return data
   });

@@ -4,7 +4,6 @@ import TableMaster from '../Table/TableMaster';
 import Breadcrumb from '../../../Component/Breadcrumb';
 import Search from '../../../Component/Search';
 import { getDetailData } from '../../../apiService';
-import { markRow } from '../../../Component/Table/service'
 
 import { schemaColumnDetailSP } from './service';
 
@@ -15,20 +14,46 @@ const SupplierManagementDetail = (props) => {
   const paginationSpDetail = useSelector((state) => state.paginationSpDetail);
   const user = useSelector((state) => state.user);
   const paginationSoDetail = useSelector((state) => state.paginationSoDetail);
-  const markedRow = useSelector((state) => state.markedRow)
 
   const module = 'supplierManagement';
 
-  const spDataOnChange = async ({dispatch,e,props,spDetailTable}) => {
+  const spDataOnChange = async ({ dispatch, e, props, spDetailTable }) => {
     const idx = props.index
     const id = props.column.id  
     let newSpDetailTable = [...spDetailTable]
-    newSpDetailTable[idx].isEmpty = true
-    newSpDetailTable[idx].edit_qty = e?.target?.value
+
+    const value = Number(e.target.value?.replace(/,/g, ''))
+    const orderQty = Number(newSpDetailTable[idx].order_qty)
+    const noOfCarton = Number(newSpDetailTable[idx].no_of_carton)
+    
+    //edit qty validation
+    if(id === 'edit_qty'){
+      console.log(newSpDetailTable[idx].order_qty , value, (orderQty < value));
+      if(orderQty < value) newSpDetailTable[idx].isInvalidOrderQty = true
+      else newSpDetailTable[idx].isInvalidOrderQty = false
+    } 
+
+    //edit carton validation
+    if(id === 'edit_carton'){
+      if(noOfCarton < value) newSpDetailTable[idx].isInvalidOrderCarton = true
+      else newSpDetailTable[idx].isInvalidOrderCarton = false
+    } 
+
+    newSpDetailTable[idx][id] = e?.target?.value
+    
     await dispatch({type:'GET_SP_DETAIL_TABLE', data:newSpDetailTable})
     console.log(spDetailTable);
   }
 
+  const markRow = async ({ dispatch, e, props, spDetailTable }) => {
+    const idx = props.index
+    let newSpDetailTable = [...spDetailTable]
+    newSpDetailTable[idx].isMarked = !newSpDetailTable[idx].isMarked
+
+    await dispatch({type:'GET_SP_DETAIL_TABLE', data:newSpDetailTable})
+    console.log(spDetailTable);
+
+  }
   // dimension
   const [dimension, setDimension] = useState({
     height: window.innerHeight - 259,
@@ -39,7 +64,7 @@ const SupplierManagementDetail = (props) => {
   useEffect(() => {
     getDetailData({ dispatch, props, active: paginationSoDetail?.active, module });
   }, []);
-
+  console.log(props);
     return (
       <div>
         <Breadcrumb
@@ -68,7 +93,7 @@ const SupplierManagementDetail = (props) => {
           </div>
           <div>
             <TableMaster
-              onClick={(props) => markRow({props, markedRow,dispatch})}
+              onClick={(e, props) => markRow({dispatch, e, props, spDetailTable})}
               onChange={(e, props) => spDataOnChange({e,props,spDetailTable, dispatch})}
               schemaColumn={schemaColumnDetailSP}
               classNamePaging="display-paging"

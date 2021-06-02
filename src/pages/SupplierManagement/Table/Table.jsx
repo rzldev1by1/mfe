@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import ReactTable from 'react-table-v6';
 import withDraggableColumns from 'react-table-hoc-draggable-columns';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import NumberFormat from 'react-number-format';
 import EditRenameColumn from '../../../Component/Table/EditRenameColumn';
 
 // import style
@@ -33,6 +35,7 @@ class Table extends React.Component{
       editColumnTemp:{},
       fields: this.props.schemaColumn,
       newSchema:this.props.schemaColumn,
+      setFields: this.props.schemaColumn
 
     }
   }
@@ -80,21 +83,66 @@ class Table extends React.Component{
             draggableColumns={{
               mode: 'reorder',
               draggable: draggableColumn,
-              // onDropSuccess: (draggedColumn, targetColumn, oldIndex, newIndex) =>{
-              //   saveSchemaToLocal({ setNewSchema: this.setState, userId, schemaColumn: fields,  module, draggedColumn, targetColumn, oldIndex, newIndex, dispatch  });
-              //   renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn,  editOrderQty, editCarton, isInvalidOrderQty, dispatch });
-              // }
             }}
             
             columns={[...newSchema, {
-              Cell: (props) => <input className='input-in-table' onChange={(e) => onChange(e, props)} type='text' style={{width: '100px'}} />,
-              Header: "Edit Qty",
-              accessor: "edit_qty",
-              width:150
+              accessor: 'edit_qty',
+              Header: 'Edit Qty',
+              width: 130,
+              headerStyle: { textAlign: 'left', marginLeft: '1rem' },
+              sortable:false,
+              Cell: (props) => 
+              <OverlayTrigger
+                placement="bottom"
+                delay={{ show: 200, hide: 350 }}
+                overlay={(
+                <Tooltip id={`tooltip-bottom_orderQty_${props?.row._index}`} className={ props.original.isInvalidOrderQty ? 'tooltip-outOfReamining' : 'tooltip-remaining' }>
+                  Remaining qty: 
+                  {' '}
+                  <strong>{props?.original.order_qty}</strong>
+                </Tooltip>
+              )}
+            >
+              <NumberFormat
+                autoComplete="off"
+                thousandSeparator
+                style={{width:'100px', marginLeft: '1rem'}}
+                className={`input-in-table ${props.original.isInvalidOrderQty ? 'invalid-input': 'remaining-input'}`}
+                value={props.value}
+                decimalScale={0}
+                onChange={(e) => onChange(e, props)}
+              />
+            </OverlayTrigger>
             }, {
-              Cell: (props) => <input className='input-in-table' onChange={(e) => onChange(e, props)} type='text' style={{width: '100px', marginLeft:'1rem'}} />,
-              Header: "Edit Carton",
-              accessor: "edit_carton"
+              accessor: 'edit_carton',
+              Header: 'Edit Cartons',
+              width: 130,
+              headerStyle: { textAlign: 'left', marginLeft: '-0.5rem' },
+              sortable:false,
+              Cell: (props) => (
+                <OverlayTrigger
+                  placement="bottom"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={(
+                    <Tooltip id={`tooltip-bottom_noOfCarton_${props?.row._index}`} className={ props.original.isInvalidOrderCarton ? 'tooltip-outOfReamining' : 'tooltip-remaining' }>
+                      Remaining qty: 
+                      {' '}
+                      <strong>{props?.original.no_of_carton}</strong>
+                    </Tooltip>
+                  )}
+                >
+                  <NumberFormat
+                    autoComplete="off"
+                    thousandSeparator
+                    style={{width:'100px'}}
+                    className={`input-in-table ${props.original.isInvalidOrderCarton ? 'invalid-input': 'remaining-input'}`}
+                    value={props.value}
+                    decimalScale={0}
+                    id={`edit_carton_${props?.row._index}`}
+                    onChange={(e) => onChange(e, props)}
+                  />
+                </OverlayTrigger>
+              )
             }]}
             data={data}
             showPagination={false}
@@ -103,15 +151,16 @@ class Table extends React.Component{
             noDataText={tableStatus === 'noData' ? noDataMessage : loadingMessage}
             minRows="1"
             getTdProps={(state, rowInfo, column, instance) => {
+              const isMarked = state.data[rowInfo?.index]?.isMarked
               return {
                 onClick: (e) => {
-                  !!onClick && onClick(rowInfo.original, state, column, e, instance);
+                  !!onClick && onClick(e, rowInfo);
                 },
                 // eslint-disable-next-line no-restricted-globals
                 style: {
                   textAlign: isNaN(rowInfo?.original.[column.id]) ? 'left' : 'right',
                   height: '3rem',
-                  backgroundColor: markedRow.includes(rowInfo?.index) ? 'aliceblue' : false
+                  backgroundColor: isMarked ? 'aliceblue' : false
                 },
               };
             }}
@@ -185,7 +234,7 @@ class Table extends React.Component{
             }}
           />
     
-          {/* {editColumn == 'false' ? null : (
+          {/* {editColumn === 'false' ? null : (
             <EditRenameColumn
               showModal={showMod}
               // setShowMod={setShowMod}
