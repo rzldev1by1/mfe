@@ -12,7 +12,6 @@ import { markRow } from './service';
 import 'react-table-v6/react-table.css';
 import 'react-table-hoc-draggable-columns/dist/styles.css';
 import './style.scss';
-import { cibLogstash } from '@coreui/icons';
 
 const Table = ({
   schemaColumn,

@@ -14,6 +14,8 @@ const changeRowOnFocus = async({e, props, column, action}) => {
   const elementTooltipCarton = document.getElementById(`tooltip-bottom_noOfCarton_${props?.row._index}`)
   const printLabels = document.getElementById(`print-labels`)
 
+  elementOrderQty.setAttribute('class', `row_1`)
+
   // change the style of the row in detail Table SP module when the input element is onfocus
   if ( action === 'onFocus' ){
     if (column === 'edit_qty'){
@@ -375,14 +377,10 @@ export const saveSchemaToLocal = ({
   // set Local
 };
 
-export const markRow = ({props, markedRow, dispatch}) => {
-  let arrayIdx = markedRow
-  const idx = props?.rn - 1  
-  if(arrayIdx.includes(idx) === false){
-    arrayIdx.push(idx)
-  }
-  else if(arrayIdx.includes(idx)){
-    arrayIdx = arrayIdx.filter(currentIdx => currentIdx !== idx)
-  }
-
+export const markRow = ({props}) => {
+  const idx = props?.rn - 1 
+  const idRow = document.getElementsByClassName('rt-tr-group')[idx];
+  const isExist = idRow?.classList?.contains('bg-mark')
+  if(!isExist) idRow.classList.add('bg-mark')
+  else if(isExist) idRow.classList.remove('bg-mark')
 }

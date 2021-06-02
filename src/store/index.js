@@ -196,6 +196,8 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return {...state, spSummaryData: data};
     case 'GET_SP_DETAIL_TABLE':
       return { ...state, spDetailTable: data };
+      case 'TEST' : 
+      console.log(data)
       case 'MARKED' :
       return {...state, markedRow:data}
     // Supplier Management End

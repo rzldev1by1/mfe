@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import TableMaster from '../../../Component/TableMaster';
+import TableMaster from '../Table/TableMaster';
 import Breadcrumb from '../../../Component/Breadcrumb';
 import Search from '../../../Component/Search';
 import { getDetailData } from '../../../apiService';
@@ -18,6 +18,16 @@ const SupplierManagementDetail = (props) => {
   const markedRow = useSelector((state) => state.markedRow)
 
   const module = 'supplierManagement';
+
+  const spDataOnChange = async ({dispatch,e,props,spDetailTable}) => {
+    const idx = props.index
+    const id = props.column.id  
+    let newSpDetailTable = [...spDetailTable]
+    newSpDetailTable[idx].isEmpty = true
+    newSpDetailTable[idx].edit_qty = e?.target?.value
+    await dispatch({type:'GET_SP_DETAIL_TABLE', data:newSpDetailTable})
+    console.log(spDetailTable);
+  }
 
   // dimension
   const [dimension, setDimension] = useState({
@@ -59,6 +69,7 @@ const SupplierManagementDetail = (props) => {
           <div>
             <TableMaster
               onClick={(props) => markRow({props, markedRow,dispatch})}
+              onChange={(e, props) => spDataOnChange({e,props,spDetailTable, dispatch})}
               schemaColumn={schemaColumnDetailSP}
               classNamePaging="display-paging"
               classNameTable="table-detail bg-mark"
