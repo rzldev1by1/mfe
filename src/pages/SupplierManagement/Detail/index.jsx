@@ -46,7 +46,6 @@ const SupplierManagementDetail = (props) => {
     newSpDetailTable[idx].isMarked = !newSpDetailTable[idx].isMarked
 
     await dispatch({type:'GET_SP_DETAIL_TABLE', data:newSpDetailTable})
-    console.log(spDetailTable);
 
   }
   // dimension

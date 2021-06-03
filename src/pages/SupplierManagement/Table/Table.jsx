@@ -154,11 +154,12 @@ class Table extends React.Component{
               const isMarked = state.data[rowInfo?.index]?.isMarked
               return {
                 onClick: (e) => {
-                  !!onClick && onClick(e, rowInfo);
+                  const isEdit = column.id === 'edit_qty' || column.id === 'edit_carton' ? true : false
+                  !!onClick && !isEdit && onClick(e, rowInfo);
                 },
                 // eslint-disable-next-line no-restricted-globals
                 style: {
-                  textAlign: isNaN(rowInfo?.original.[column.id]) ? 'left' : 'right',
+                  textAlign: isNaN(rowInfo?.original[column.id]) ? 'left' : 'right',
                   height: '3rem',
                   backgroundColor: isMarked ? 'aliceblue' : false
                 },
