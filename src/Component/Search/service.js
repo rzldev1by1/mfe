@@ -90,6 +90,11 @@ export const handleFullFillMarked = ({dispatch, spDetailTable, clearMarked}) =>{
     if(isMarked){
       data.edit_qty = clearMarked ? '' : data.order_qty
       data.edit_carton = clearMarked ? '' : data.no_of_carton
+      if(clearMarked){
+        data.isMarked = false
+        data.isInvalidOrderCarton = false
+        data.isInvalidOrderQty = false
+      }
     }
     return data
   });
