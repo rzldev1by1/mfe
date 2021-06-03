@@ -59,7 +59,7 @@ const SupplierManagementDetail = (props) => {
   useEffect(() => {
     getDetailData({ dispatch, props, active: paginationSoDetail?.active, module });
   }, []);
-  console.log(props);
+  
     return (
       <div>
         <Breadcrumb
