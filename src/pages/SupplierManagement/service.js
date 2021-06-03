@@ -5,16 +5,6 @@ import React from 'react';
 
 export const schemaColumn = [
   {
-    Header: 'No.',
-    placeholder: 'No.',
-    accessor: 'no',
-    headerStyle: { textAlign: 'left', paddingLeft: '8px' },
-    style: { textAlign: 'left', paddingLeft: '15px' },
-    headerClassName: 'borderBottom noPaddingTop',
-    sortable: true,
-    width: 100,
-  },
-  {
     Header: 'PO No.',
     placeholder: 'PO No.',
     accessor: 'order_no',

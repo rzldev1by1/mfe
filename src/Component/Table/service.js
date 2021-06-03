@@ -377,8 +377,10 @@ export const saveSchemaToLocal = ({
   // set Local
 };
 
-export const markRow = ({props}) => {
+export const markRow = ({props, markedRow, setMarkedRow, dispatch}}) => {
+  const idRow = markedRow
   const idx = props?.rn - 1 
+  
   const idRow = document.getElementsByClassName('rt-tr-group')[idx];
   const isExist = idRow?.classList?.contains('bg-mark')
   if(!isExist) idRow.classList.add('bg-mark')
