@@ -124,6 +124,9 @@ const Search = ({
   newArray = newArray.map((data,idx) => {
       data.edit_qty = ''
       data.edit_carton = ''
+      data.isInvalidOrderCarton = false
+      data.isInvalidOrderQty = false
+      data.isMarked = false
     return data
   });
 
