@@ -91,7 +91,7 @@ const Table = ({
             },
             // eslint-disable-next-line no-restricted-globals
             style: {
-              textAlign: isNaN(rowInfo?.original.[column.id]) ? 'left' : 'right',
+              textAlign: isNaN(rowInfo?.original[column.id]) ? 'left' : 'right',
               height: '3rem',
               backgroundColor: markedRow.includes(rowInfo?.index) ? 'aliceblue' : false
             },
