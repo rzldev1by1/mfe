@@ -22,20 +22,15 @@ const SupplierManagementDetail = (props) => {
     const id = props.column.id  
     let newSpDetailTable = [...spDetailTable]
 
-    const value = Number(e.target.value?.replace(/,/g, ''))
-    const orderQty = Number(newSpDetailTable[idx].order_qty)
-    const noOfCarton = Number(newSpDetailTable[idx].no_of_carton)
-    
     //edit qty validation
     if(id === 'edit_qty'){
-      console.log(newSpDetailTable[idx].order_qty , value, (orderQty < value));
-      if(orderQty < value) newSpDetailTable[idx].isInvalidOrderQty = true
+      if(newSpDetailTable[idx]?.order_qty?.replace(/,/g, '') < e.target.value?.replace(/,/g, '')) newSpDetailTable[idx].isInvalidOrderQty = true
       else newSpDetailTable[idx].isInvalidOrderQty = false
     } 
 
     //edit carton validation
     if(id === 'edit_carton'){
-      if(noOfCarton < value) newSpDetailTable[idx].isInvalidOrderCarton = true
+      if(newSpDetailTable[idx]?.no_of_carton < e.target.value?.replace(/,/g, '')) newSpDetailTable[idx].isInvalidOrderCarton = true
       else newSpDetailTable[idx].isInvalidOrderCarton = false
     } 
 
