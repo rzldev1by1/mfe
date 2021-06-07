@@ -32,12 +32,39 @@ class Table extends React.Component{
     super(props)
     this.state={
       showMod:false,
-      editColumnTemp:{},
+      editColumnTemp:[],
       fields: this.props.schemaColumn,
       newSchema:this.props.schemaColumn,
-      setFields: this.props.schemaColumn
 
     }
+  }
+
+  shouldComponentUpdate(props, state){
+    if(this.state.editColumnTemp !== state.editColumnTemp 
+        
+        || props.data !== this.props.data 
+        || props.columnHidden !== this.props.columnHidden 
+        ||state.fields !== this.state.fields
+        || props.editColumn !== this.props.editColumn
+      ){
+      renewColumn({ 
+        setNewSchema: (ns) => this.setState({newSchema:ns}),
+         data:this.props.data,
+         fields:this.state.fields,
+         module:this.props.module,
+         userId:this.props.userId,
+         editColumnTemp:this.state.editColumnTemp,
+         showModal:(value) => this.setState({showMod:value}),
+         columnHidden:this.props.columnHidden,
+         editColumn:this.props.editColumn
+        });
+        return true
+    } 
+    return true
+  }
+
+  setNewSchema = (newSchema) => {
+    this.setState({newSchema})
   }
 
   render(){
@@ -143,7 +170,16 @@ class Table extends React.Component{
                   />
                 </OverlayTrigger>
               )
-            }]}
+            }, { 
+              Header: <div className="edit-column" onClick={() => this.setState({showMod:true})}>
+              <i className="newIcon-edit_column" />
+            </div>,
+              accessor: 'editBtn',
+              width: 50,
+              style: { textAlign: 'center' },
+              sortable: false,
+            }
+          ]}
             data={data}
             showPagination={false}
             defaultPageSize={50}
@@ -235,21 +271,21 @@ class Table extends React.Component{
             }}
           />
     
-          {/* {editColumn === 'false' ? null : (
+          {editColumn === 'false' ? null : (
             <EditRenameColumn
               showModal={showMod}
-              // setShowMod={setShowMod}
-              // setEditColumnTemp={setEditColumnTemp}
+              setShowMod={(value) => this.setState({showMod:value})}
+              setEditColumnTemp={(value) => this.setState({editColumnTemp:value})}
               editColumnTemp={editColumnTemp}
               user={user}
               title={title}
               fields={fields}
-              // setFields={setFields}
+              setFields={(value) => this.setState({fields:value})}
               columnHidden={columnHidden}
               splitModule={splitModule}
               module={module}
             />
-          )} */}
+          )}
         </div>
       );
   }

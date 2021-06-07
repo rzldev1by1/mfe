@@ -183,10 +183,7 @@ export const renewColumn = async ({
   userId,
   editColumn,
   showModal,
-  columnHidden,
-  editOrderQty,
-  editCarton,
-  dispatch
+  columnHidden
 }) => {
   // reorder column
   const key = `tables__${module}__${userId}`;
@@ -217,90 +214,11 @@ export const renewColumn = async ({
   } else {
     schema = tmp_oldSchema;
   }
-
-  // Edit Order Qty Supplier Portal 
-  if ( editOrderQty === true) {
-    const obj = {
-      accessor: 'edit_qty',
-      Header: 'Edit Qty',
-      width: 130,
-      headerStyle: { textAlign: 'left', marginLeft: '1rem' },
-      sortable:false,
-      Cell: (props) => (
-        <OverlayTrigger
-          placement="bottom"
-          delay={{ show: 200, hide: 350 }}
-          overlay={(
-            <Tooltip id={`tooltip-bottom_orderQty_${props?.row._index}`} className='tooltip-remaining'>
-              Remaining qty: 
-              {' '}
-              <strong>{props?.original.order_qty}</strong>
-            </Tooltip>
-          )}
-        >
-          <NumberFormat
-            autoComplete="off"
-            thousandSeparator
-            style={{width:'100px', marginLeft: '1rem'}}
-            className="input-in-table input-order-qty"
-            value={props.value}
-            decimalScale={0}
-            id={`edit_qty_${props?.row._index}`}
-            onFocusCapture={(e) => changeRowOnFocus({e, props, column: 'edit_qty', action:'onFocus'})}
-            onChange={(e) => changeRowOnFocus({e, props, column: 'edit_qty', action:'onChange'})}
-            onBlur={(e) => changeRowOnFocus({e, props, column: 'edit_qty', action:'onBlur'})}
-            onMouseEnter={(e) => changeRowOnFocus({e, props, column: 'edit_qty', action: 'mouseEnter'})}
-          />
-        </OverlayTrigger>
-      )
-    };
-    schema = [...schema, obj];
-  }
   
-  // Edit Order Qty Supplier Portal 
-  if ( editCarton === true) {
-    const obj = {
-      accessor: 'edit_carton',
-      Header: 'Edit Cartons',
-      width: 130,
-      headerStyle: { textAlign: 'left', marginLeft: '-0.5rem' },
-      sortable:false,
-      Cell: (props) => (
-        <OverlayTrigger
-          placement="bottom"
-          delay={{ show: 250, hide: 400 }}
-          overlay={(
-            <Tooltip id={`tooltip-bottom_noOfCarton_${props?.row._index}`} className='tooltip-remaining'>
-              Remaining qty: 
-              {' '}
-              <strong>{props?.original.no_of_carton}</strong>
-            </Tooltip>
-          )}
-        >
-          <NumberFormat
-            autoComplete="off"
-            thousandSeparator
-            style={{width:'100px'}}
-            className="input-in-table input-carton-qty"
-            value={props.value}
-            decimalScale={0}
-            id={`edit_carton_${props?.row._index}`}
-            onFocusCapture={(e) => changeRowOnFocus({e, props, column: 'edit_carton', action:'onFocus'})}
-            onChange={(e) => changeRowOnFocus({e, props, column:'edit_carton', action: 'onChange'})}
-            onBlur={(e) => changeRowOnFocus({e, props, column: 'edit_carton', action:'onBlur'})}
-            onMouseEnter={(e) => changeRowOnFocus({e, props, column: 'edit_carton', action: 'mouseEnter'})}
-          />
-        </OverlayTrigger>
-      )
-      ,
-    };
-    schema = [...schema, obj];
-  }
-
   // Edit & Rename Column button icon
-  if (editColumn !== 'false') {
+  if (editColumn !== 'false' && module !== 'SupplierManagementDetail') {
     const editBtn = (
-      <div className="edit-column" onClick={showModal.bind(this, true)}>
+      <div className="edit-column" onClick={() => showModal(true)}>
         <i className="newIcon-edit_column" />
       </div>
     );

@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-return-await */
 import React from 'react';
-import { CRow, CCol, CDropdown, CDropdownToggle, CDropdownMenu, CDropdownItem, CDropdownDivider } from '@coreui/react';
+import { CRow } from '@coreui/react';
 import Export from '../Export';
 import Pagination from '../Pagination';
 import Table from '../Table';
@@ -81,18 +81,7 @@ const TableMaster = ({
             exportPdf={exportPdf}
           />
         )
-        : printBtn ? (
-          <CDropdown className="btn-group print-lables">
-            <CDropdownToggle onClick={()=> alert()} id='print-labels' color="primary"> 
-              PRINT LABELS
-            </CDropdownToggle>
-            <CDropdownMenu className="mb-2 shadow-none border">
-              <CDropdownItem>PAGE BREAK</CDropdownItem>
-              <CDropdownDivider />
-              <CDropdownItem>ONE PAGE</CDropdownItem>
-            </CDropdownMenu>
-          </CDropdown>
-        ) : ''}
+        : ''}
       </CRow>
     </div>
   );

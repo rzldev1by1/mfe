@@ -1,10 +1,12 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-return-await */
 import React from 'react';
-import { CRow, CCol, CDropdown, CDropdownToggle, CDropdownMenu, CDropdownItem, CDropdownDivider } from '@coreui/react';
+import { CRow } from '@coreui/react';
 import Export from '../../../Component/Export';
+import PrintLabel from '../../../Component/PrintLabel';
 import Pagination from '../../../Component/Pagination';
 import Table from './Table';
+import { renewColumn } from '../../../Component/Table/service';
 
 const TableMaster = ({
   schemaColumn,
@@ -31,19 +33,21 @@ const TableMaster = ({
   printBtn,
   editOrderQty,
   editCarton,
-  onChange
+  onChange,
+  getPrintLabelData
 }) => {
-  const checkItsClear = data?.filter((data, idx) => {
-   setTimeout(() => {
-    const elementEditCarton = document.getElementById(`edit_carton_${idx}`)?.value;// id for column element Edit Carton Qty
-    const elementEditQty = document.getElementById(`edit_qty_${idx}`)?.value;// id for column element input Edit Qty
-   }, 10000); 
 
-  })
+  const tableRef = React.useRef({})
+console.log(tableRef.current);
+    // renew Schema column, to get old order column or additional logic
+    // useEffect(() => {
+    //   renewColumn({ setNewSchema:tableRef.current.setNewSchema, data, fields:tableRef.current.state.fields, module, userId:tableRef.current.props.userId, editColumnTemp:tableRef.current.state.editColumnTemp, showModal:tableRef.current.state.showModal, columnHidden, editColumn});
+    // }, [data, tableRef.current.state.fields, columnHidden]); 
   
   return (
     <div>
       <Table
+        ref={tableRef}
         onClick={onClick}
         onChange={onChange}
         schemaColumn={schemaColumn}
@@ -84,16 +88,11 @@ const TableMaster = ({
           />
         )
         : printBtn ? (
-          <CDropdown className="btn-group print-lables">
-            <CDropdownToggle onClick={()=> alert()} id='print-labels' color="primary"> 
-              PRINT LABELS
-            </CDropdownToggle>
-            <CDropdownMenu className="mb-2 shadow-none border">
-              <CDropdownItem>PAGE BREAK</CDropdownItem>
-              <CDropdownDivider />
-              <CDropdownItem>ONE PAGE</CDropdownItem>
-            </CDropdownMenu>
-          </CDropdown>
+          <PrintLabel 
+            filename={filename}
+            getPrintLabelData={async () => await getPrintLabelData()}
+            
+          />
         ) : ''}
       </CRow>
     </div>

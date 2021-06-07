@@ -159,6 +159,11 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return { ...state, exportStatus: data };
     // end Export
 
+    // Print Label
+    case 'PRINT_LABEL_DATA':
+      return { ...state, printLabelData: data };
+    // end Print Label
+
     // Stock Movement
     case 'GET_SM_SUMMARY':
       return { ...state, smSummaryData: data };

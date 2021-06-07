@@ -2,7 +2,7 @@ import React from 'react';
 
 export const schemaColumnDetailSP = [
   {
-    accessor: 'rn',
+    accessor: 'line_number',
     placeholder: 'Line No',
     Header: 'Line No',
     width: 100,
@@ -103,3 +103,7 @@ export const schemaColumnDetailSP = [
     Cell: (props) => props.value || '-',
   },
 ];
+
+export const getPrintLabelData = async ({ dispatch, data }) => {
+  await dispatch({ type: 'PRINT_LABEL_DATA', data });
+};

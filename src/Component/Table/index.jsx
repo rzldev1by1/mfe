@@ -57,7 +57,7 @@ const Table = ({
 
   // renew Schema column, to get old order column or additional logic
   useEffect(() => {
-    renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn, editOrderQty, editCarton, isInvalidOrderQty, dispatch});
+    renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn});
   }, [data, fields, columnHidden]);
 
   return (
@@ -73,7 +73,7 @@ const Table = ({
           draggable: draggableColumn,
           onDropSuccess: (draggedColumn, targetColumn, oldIndex, newIndex) =>{
             saveSchemaToLocal({ setNewSchema, userId, schemaColumn: fields,  module, draggedColumn, targetColumn, oldIndex, newIndex, dispatch  });
-            renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn,  editOrderQty, editCarton, isInvalidOrderQty, dispatch });
+            renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden});
           }
         }}
         
@@ -91,7 +91,7 @@ const Table = ({
             },
             // eslint-disable-next-line no-restricted-globals
             style: {
-              textAlign: isNaN(rowInfo?.original[column.id]) ? 'left' : 'right',
+              // textAlign: rowInfo?.original[column.id] ? 'left' : 'right',
               height: '3rem',
               backgroundColor: markedRow.includes(rowInfo?.index) ? 'aliceblue' : false
             },

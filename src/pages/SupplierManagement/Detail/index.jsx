@@ -5,7 +5,7 @@ import Breadcrumb from '../../../Component/Breadcrumb';
 import Search from '../../../Component/Search';
 import { getDetailData } from '../../../apiService';
 
-import { schemaColumnDetailSP } from './service';
+import { schemaColumnDetailSP, getPrintLabelData } from './service';
 
 const SupplierManagementDetail = (props) => {
   const dispatch = useDispatch();
@@ -21,10 +21,10 @@ const SupplierManagementDetail = (props) => {
     const idx = props.index
     const id = props.column.id  
     let newSpDetailTable = [...spDetailTable]
-
+    
     //edit qty validation
     if(id === 'edit_qty'){
-      if(newSpDetailTable[idx]?.order_qty?.replace(/,/g, '') < e.target.value?.replace(/,/g, '')) newSpDetailTable[idx].isInvalidOrderQty = true
+      if(Number(newSpDetailTable[idx]?.order_qty?.replace(/,/g, '')) < Number(e.target.value?.replace(/,/g, ''))) newSpDetailTable[idx].isInvalidOrderQty = true
       else newSpDetailTable[idx].isInvalidOrderQty = false
     } 
 
@@ -35,7 +35,7 @@ const SupplierManagementDetail = (props) => {
     } 
 
     newSpDetailTable[idx][id] = e?.target?.value
-    
+    console.log(newSpDetailTable);
     await dispatch({type:'GET_SP_DETAIL_TABLE', data:newSpDetailTable})
     console.log(spDetailTable);
   }
@@ -101,13 +101,12 @@ const SupplierManagementDetail = (props) => {
               goto={(e) => {
                 dispatch({ type: 'PAGING_SP_DETAIL', data: { ...paginationSpDetail, active: e } });
               }}
+              getPrintLabelData={() => getPrintLabelData({ dispatch, data: spDetailTable })}
               user={user}
               title="Supplier Management Details"
               isDisplay={false}
               splitModule="supplier-management/detail"
               printBtn
-              editOrderQty
-              editCarton
             />
           </div>
         </div>
