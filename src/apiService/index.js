@@ -248,10 +248,13 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
       m.weight = numeral(m.weight).format('0,0.000');
       m.weight = numeral(m.weight).format('0,0.000');
       m.weight = numeral(m.weight).format('0,0.000');
-      m.carton_qty = numeral(m.carton_qty).format('0,0'); //carton_qty
-      m.order_qty = numeral(m.order_qty).format('0,0'); //order_qty
       m.completed = m.completed == 'Y' ? 'Yes' : 'x';
       m.released = m.released == 'Y' ? 'Yes' : 'x';
+      
+      // Supplier Management
+      m.carton_qty = numeral(m.carton_qty).format('0,0'); // carton_qty
+      m.order_qty = numeral(m.order_qty).format('0,0'); // order_qty
+      m.no_of_carton = numeral(m.no_of_carton).format('0,0'); // no_of_carton
       m.no_of_carton = Math.round((parseFloat(m.order_qty.replace(/,/g, ''))) / (parseFloat(m.carton_qty.replace(/,/g, ''))));
       if (fulfill === true){
         m.edit_qty = m.order_qty

@@ -79,6 +79,7 @@ export const schemaColumnDetailSP = [
     placeholder: 'No. Of Cartons',
     Header: 'No. Of Cartons',
     width: 145,
+    style: { justifyContent: 'flex-end', display: 'flex' },
     className: 'align-right',
     Cell: (props) =>  (
       <span className={props.original.isInvalidOrderCarton ? 'color-max-qty': ''}>
@@ -91,6 +92,7 @@ export const schemaColumnDetailSP = [
     placeholder: 'Printed Qty',
     Header: 'Printed Qty',
     width: 140,
+    style: { justifyContent: 'flex-end', display: 'flex' },
     className: 'align-right',
     Cell: (props) => props.value || '-',
   },
@@ -99,6 +101,7 @@ export const schemaColumnDetailSP = [
     placeholder: 'Printed Cartons',
     Header: 'Printed Cartons',
     width: 180,
+    style: { justifyContent: 'flex-end', display: 'flex' },
     className: 'align-right',
     Cell: (props) => props.value || '-',
   },
