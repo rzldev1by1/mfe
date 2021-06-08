@@ -1119,3 +1119,13 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
     background-color: #585757 !important;
   }
 }
+
+// print label style
+.container-print{
+  opacity: 0;
+  display: none;
+}
+
+.client-title{
+  font-family: 'Rubik';
+}

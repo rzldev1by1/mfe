@@ -90,8 +90,6 @@ console.log(tableRef.current);
         : printBtn ? (
           <PrintLabel 
             filename={filename}
-            getPrintLabelData={async () => await getPrintLabelData()}
-            
           />
         ) : ''}
       </CRow>
