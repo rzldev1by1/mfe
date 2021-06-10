@@ -29,8 +29,10 @@ export const exportPrintLabel = async ({ filename }) => {
         const pdf = new jsPDF('l', 'mm', 'a4');
         pdf.addFileToVFS('Sailec_bold.ttf', sailecBoldFonts);
         pdf.addFileToVFS('Sailec_regular.ttf', sailecRegularFonts);
-        pdf.fromHTML(elemet, 15, 15);
         pdf.addFont('Sailec_Regular.ttf', 'regular', 'normal');
+
+        pdf.fromHTML(elemet, 15, 15);
+        pdf.setFont('Sailec-Bold', 'normal', 'normal');
 
         pdf.save('download.pdf');
     })

@@ -123,14 +123,14 @@ class Table extends React.Component{
                 placement="bottom"
                 delay={{ show: 200, hide: 350 }}
                 overlay={(
-                <Tooltip id={`tooltip-bottom_orderQty_${props?.row._index}`} className={ props.original.isInvalidOrderQty ? 'tooltip-outOfReamining' : 'tooltip-remaining' }>
+                  <Tooltip id={`tooltip-bottom_orderQty_${props?.row._index}`} className={ props.original.isInvalidOrderQty ? 'tooltip-outOfReamining' : 'tooltip-remaining' }>
                   Remaining qty: 
                   {' '}
                   <strong>{props?.original.order_qty}</strong>
                 </Tooltip>
               )}
             >
-              <NumberFormat
+                <NumberFormat
                 autoComplete="off"
                 thousandSeparator
                 style={{width:'100px', marginLeft: '1rem'}}
@@ -139,7 +139,7 @@ class Table extends React.Component{
                 decimalScale={0}
                 onChange={(e) => onChange(e, props)}
               />
-            </OverlayTrigger>
+              </OverlayTrigger>
             }, {
               accessor: 'edit_carton',
               Header: 'Edit Cartons',
@@ -171,9 +171,7 @@ class Table extends React.Component{
                 </OverlayTrigger>
               )
             }, { 
-              Header: <div className="edit-column" onClick={() => this.setState({showMod:true})}>
-              <i className="newIcon-edit_column" />
-            </div>,
+              Header: <div className="edit-column" onClick={() => this.setState({showMod:true})}><i className="newIcon-edit_column" /></div>,
               accessor: 'editBtn',
               width: 50,
               style: { textAlign: 'center' },

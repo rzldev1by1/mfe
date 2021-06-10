@@ -3,6 +3,10 @@ body {
   font-family: 'Rubik';
 }
 
+html{
+  overflow: hidden;
+}
+
 .text-muted-soft {
   color: #b4b9bb;
 }
@@ -438,7 +442,7 @@ header {
   body,
   .c-wrapper {
     overflow-y: none !important;
-  }
+  } 
 }
 
 /* breadcrumb style start */
@@ -1128,4 +1132,17 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
 
 .client-title{
   font-family: 'Rubik';
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: left;
+  color: black;
 }

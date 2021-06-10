@@ -61,6 +61,7 @@
     "react-table-hoc-draggable-columns": "^1.2.5",
     "react-table-hoc-fixed-columns": "2.3.1",
     "react-table-v6": "6.8.6",
+    "react-to-print": "^2.12.6",
     "reactstrap": "8.5.1",
     "redux": "4.0.5",
     "redux-devtools-extension": "2.13.8",

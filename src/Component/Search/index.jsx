@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { CCard, CCardBody, CRow, CCol, CDropdown, CDropdownToggle, CDropdownMenu, CDropdownItem, CDropdownDivider } from '@coreui/react';
+import { Button, Col, Modal } from 'react-bootstrap';
 import { setSite, setClient, setOrderType, setTask, setStatus, setStyle, setStyleDesc, setColor, setDimensions, setSize, handleFullFillMarked } from './service';
 import Dropdown from '../Dropdown';
 import {
@@ -59,6 +60,8 @@ const Search = ({
   const user = useSelector((state) => state.user);
   const { company, client } = user;
   const [getTaskParam, setGetTaskParam] = useState(false);
+  const [showClearMod, setShowClearMod] = useState(false);
+  const [showFulfillMod, setShowFulfillMod] = useState(false);
   const markedRow = useSelector((state) => state.markedRow)
   const [dropdownValue, setdropdownValue] = useState({
     site: '',
@@ -66,6 +69,12 @@ const Search = ({
     status: '',
     orderType: '',
     task: '',
+  });
+  const [isDisabled, setIsDisabled] = useState({
+    clearAll: false,
+    clearMarked: false,
+    fulfillAll: false,
+    fulfillMarked: false,
   });
 
   let paramType = '';
@@ -119,19 +128,32 @@ const Search = ({
     getDetailData({dispatch, props, active: paginationSoDetail?.active, module, fulfill: true})
   }
 
-  const handleClear = ({dispatch,spDetailTable}) => {
+  const handleClear = ({dispatch, spDetailTable, setShowClearMod}) => {
     let newArray = [...spDetailTable]
-  newArray = newArray.map((data,idx) => {
-      data.edit_qty = ''
-      data.edit_carton = ''
-      data.isInvalidOrderCarton = false
-      data.isInvalidOrderQty = false
-      data.isMarked = false
-    return data
-  });
+    newArray = newArray.map((data,idx) => {
+        data.edit_qty = ''
+        data.edit_carton = ''
+        data.isInvalidOrderCarton = false
+        data.isInvalidOrderQty = false
+        data.isMarked = false
+      return data
+    });
 
-  dispatch({type:'GET_SP_DETAIL_TABLE', data:newArray})
+    dispatch({type:'GET_SP_DETAIL_TABLE', data:newArray})
+    setShowClearMod(false)
   }
+
+  const fulfillMarkedMod = ({dispatch, spDetailTable, setShowFulfillMod, markedRow}) => {
+    spDetailTable.map((data) => {
+      const isMarked = data.isMarked;
+      if(isMarked && data.edit_qty !== '' && data.edit_carton !== ''){
+          setShowFulfillMod(true);
+      }else{
+        handleFullFillMarked({ dispatch, spDetailTable, setShowFulfillMod, markedRow })
+      }
+      })
+  }
+  
 
   useEffect(() => {
     getSite({ dispatch });
@@ -366,6 +388,30 @@ const Search = ({
                   </CRow>
                   <CRow className={`${btnSearch ? 'pr-3' : ''}`}>
                     <CCol sm={4} lg={2} className="px-0 d-flex">
+                      {btnClear ? (
+                        <CDropdown className="btn-group btn-clear">
+                          <CDropdownToggle color="primary"> 
+                            CLEAR
+                          </CDropdownToggle>
+                          <CDropdownMenu className="mt-2 shadow-none border">
+                            <CDropdownItem onClick={() => setShowClearMod(true)}>CLEAR ALL</CDropdownItem>
+                            <CDropdownDivider />
+                            <CDropdownItem onClick={() => handleFullFillMarked({dispatch, spDetailTable,markedRow, clearMarked:true})}>CLEAR MARKED</CDropdownItem>
+                          </CDropdownMenu>
+                        </CDropdown>
+                        ) : ''}
+                      {btnFulfill ? (
+                        <CDropdown className="btn-group mx-3 btn-fulfill">
+                          <CDropdownToggle color="primary"> 
+                            FULFILL
+                          </CDropdownToggle>
+                          <CDropdownMenu className="mt-2 shadow-none border">
+                            <CDropdownItem onClick={() => handleFulfill()}>FULFILL ALL</CDropdownItem>
+                            <CDropdownDivider />
+                            <CDropdownItem onClick={() => fulfillMarkedMod({dispatch, spDetailTable, setShowFulfillMod, markedRow})}>FULFILL MARKED</CDropdownItem>
+                          </CDropdownMenu>
+                        </CDropdown>
+                        ) : ''}
                       {btnSearch ? (
                         <button
                           type="button"
@@ -385,32 +431,63 @@ const Search = ({
                           SEARCH
                         </button>
                         ) : ''}
-                      
-                      {btnClear ? (
-                        <CDropdown className="btn-group mr-3 btn-clear">
-                          <CDropdownToggle color="primary"> 
-                            CLEAR
-                          </CDropdownToggle>
-                          <CDropdownMenu className="mt-2 shadow-none border">
-                            <CDropdownItem onClick={() => handleClear({dispatch,spDetailTable})}>CLEAR ALL</CDropdownItem>
-                            <CDropdownDivider />
-                            <CDropdownItem onClick={() => handleFullFillMarked({dispatch, spDetailTable,markedRow, clearMarked:true})}>CLEAR MARKED</CDropdownItem>
-                          </CDropdownMenu>
-                        </CDropdown>
-                        ) : ''}
-                      {btnFulfill ? (
-                        <CDropdown className="btn-group mr-3 btn-fulfill">
-                          <CDropdownToggle color="primary"> 
-                            FULFILL
-                          </CDropdownToggle>
-                          <CDropdownMenu className="mt-2 shadow-none border">
-                            <CDropdownItem onClick={() => handleFulfill()}>FULFILL ALL</CDropdownItem>
-                            <CDropdownDivider />
-                            <CDropdownItem onClick={() => handleFullFillMarked({dispatch, spDetailTable,markedRow})}>FULFILL MARKED</CDropdownItem>
-                          </CDropdownMenu>
-                        </CDropdown>
-                        ) : ''}
                     </CCol>
+
+                    <Modal show={showClearMod} size="lg" centered className="p-3 modal-confirmation">
+                      <Modal.Body className='p-3'>
+                        <div
+                          className="text-right px-0"
+                          style={{ fontSize: '14px' }}
+                          onClick={() =>
+                            setShowClearMod(!showClearMod)}
+                        >
+                          <i className="iconU-close pointer" />
+                        </div>
+                        <div className="d-flex justify-content-between">
+                          <img src='' alt="logo" style={{ width: "25%", height: "25%" }} />
+                          <div className="pl-3">
+                            <p className="mb-0" style={{color: "#D6D8DA"}}>Are you sure?</p>
+                            <p>To clear all 'Edit Qty' and 'Edit Carton' fields.</p>
+                          </div>
+                        </div>
+                        <Col className="px-0 pb-0 pt-3 d-flex justify-content-end">
+                          <Button
+                            variant="primary"
+                            style={{ padding: '0rem 1.08rem'}}
+                            onClick={() => handleClear({dispatch,spDetailTable, setShowClearMod})}
+                          >
+                            CLEAR
+                          </Button>
+                        </Col>
+                      </Modal.Body>
+                    </Modal>
+                    <Modal show={showFulfillMod} size="lg" centered className="p-3 modal-confirmation">
+                      <Modal.Body className='p-3'>
+                        <div
+                          className="text-right px-0"
+                          style={{ fontSize: '14px' }}
+                          onClick={() =>
+                            setShowFulfillMod(!showFulfillMod)}
+                        >
+                          <i className="iconU-close pointer" />
+                        </div>
+                        <div className="d-flex justify-content-between">
+                          <img src='' alt="logo" style={{ width: "25%", height: "25%" }} />
+                          <div className="pl-3">
+                            <p>System will override data previously entered.</p>
+                          </div>
+                        </div>
+                        <Col className="px-0 pb-0 pt-3 d-flex justify-content-end">
+                          <Button
+                            variant="primary"
+                            style={{ padding: '0rem 1.08rem'}}
+                            onClick={() => handleFullFillMarked({dispatch, spDetailTable, markedRow, setShowFulfillMod})}
+                          >
+                            DONE
+                          </Button>
+                        </Col>
+                      </Modal.Body>
+                    </Modal>
                   </CRow>
                 </CRow>
               </CCol>

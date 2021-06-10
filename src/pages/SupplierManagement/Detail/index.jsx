@@ -24,20 +24,35 @@ const SupplierManagementDetail = (props) => {
     
     //edit qty validation
     if(id === 'edit_qty'){
-      if(Number(newSpDetailTable[idx]?.order_qty?.replace(/,/g, '')) < Number(e.target.value?.replace(/,/g, ''))) newSpDetailTable[idx].isInvalidOrderQty = true
-      else newSpDetailTable[idx].isInvalidOrderQty = false
+      newSpDetailTable[idx].edit_carton = (e.target.value/newSpDetailTable[idx]?.carton_qty)
+      if(Number(newSpDetailTable[idx]?.order_qty?.replace(/,/g, '')) < Number(e.target.value?.replace(/,/g, ''))) {
+        newSpDetailTable[idx].isInvalidOrderQty = true
+        if (newSpDetailTable[idx]?.carton_qty < newSpDetailTable[idx].edit_carton){
+          newSpDetailTable[idx].isInvalidOrderCarton = true
+        }
+      }
+      else {
+        newSpDetailTable[idx].isInvalidOrderQty = false
+        newSpDetailTable[idx].isInvalidOrderCarton = false
+      }
     } 
 
     //edit carton validation
     if(id === 'edit_carton'){
-      if(newSpDetailTable[idx]?.no_of_carton < e.target.value?.replace(/,/g, '')) newSpDetailTable[idx].isInvalidOrderCarton = true
-      else newSpDetailTable[idx].isInvalidOrderCarton = false
+      newSpDetailTable[idx].edit_qty = (e.target.value*newSpDetailTable[idx]?.carton_qty)
+      if(newSpDetailTable[idx]?.no_of_carton < e.target.value?.replace(/,/g, '')) {
+        newSpDetailTable[idx].isInvalidOrderCarton = true
+        if (newSpDetailTable[idx]?.order_qty < newSpDetailTable[idx].edit_qty) {
+          newSpDetailTable[idx].isInvalidOrderQty = true
+        }
+      } else {
+        newSpDetailTable[idx].isInvalidOrderCarton = false
+        newSpDetailTable[idx].isInvalidOrderQty = false
+      }
     } 
 
     newSpDetailTable[idx][id] = e?.target?.value
-    console.log(newSpDetailTable);
     await dispatch({type:'GET_SP_DETAIL_TABLE', data:newSpDetailTable})
-    console.log(spDetailTable);
   }
 
   const markRow = async ({ dispatch, e, props, spDetailTable }) => {
@@ -79,7 +94,7 @@ const SupplierManagementDetail = (props) => {
               inputTag={false}
               btnClear
               btnFulfill
-              btnSearch={false}
+              btnSearch
               paginationSoDetail={paginationSoDetail}
               props={props}
               spDetailTable={spDetailTable}

@@ -227,7 +227,6 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   const url = endpointsUrl;
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(url);
-  console.log(newData);
   const Meta = newData?.data?.meta;
   const Links = newData?.data?.links;
   const Data = newData?.data?.data;

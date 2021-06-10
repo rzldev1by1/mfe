@@ -83,7 +83,7 @@ export const setSize = ({ selected, dropdownValue, setdropdownValue  }) => {
   setdropdownValue(newDropdownValue)
 };
 
-export const handleFullFillMarked = ({dispatch, spDetailTable, clearMarked}) =>{
+export const handleFullFillMarked = ({dispatch, spDetailTable, clearMarked, setShowFulfillMod}) =>{
   let newArray = [...spDetailTable]
   newArray = newArray.map((data,idx) => {
     const isMarked = data.isMarked
@@ -100,5 +100,5 @@ export const handleFullFillMarked = ({dispatch, spDetailTable, clearMarked}) =>{
   });
 
   dispatch({type:'GET_SP_DETAIL_TABLE', data:newArray})
-
+  setShowFulfillMod(false)
 }
