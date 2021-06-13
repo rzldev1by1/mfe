@@ -691,6 +691,7 @@ header {
         .rt-th {
           display: flex;
           align-items: center;
+          -webkit-justify-content: left !important
         }
         .rt-th:first-child {
           padding-left: 1.15rem !important;
