@@ -117,7 +117,7 @@ const Search = ({ setHeader, setdateHeader }) => {
                   placeHolder="Select Date"
                   onChange={(selected) => { dateTo.current.openDatePicker();  }}
                   onOpen={(e) => { 
-                    dateTo.current.openDatePicker('to');  
+                    // dateTo.current.openDatePicker('to');  
                     if (e) {
                     dateTo.current.openDatePicker();  
                   } }}
