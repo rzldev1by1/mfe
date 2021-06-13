@@ -9,7 +9,6 @@ export class ComponentToPrint extends React.PureComponent {
   
       printLabelData.map(data => {
         const num = Math.round(data.edit_carton)
-        console.log(num);
         for(let i = 0 ; i< num ; i++) newData.push({
           style: data.style || '-',
           color: data.color || '-',
@@ -23,17 +22,12 @@ export class ComponentToPrint extends React.PureComponent {
         })
       })
     }
-    console.log(newData);
     return newData
   
   }
 
   render() {
-    console.log(this.props.printLabelData);
-
     const a = this.lo(this.props.printLabelData)
-    
-   
     return (
       <div className='grid-container hotma' id='canvasPrint' style={{position: 'block'}}>
         {a?.map((data) => {

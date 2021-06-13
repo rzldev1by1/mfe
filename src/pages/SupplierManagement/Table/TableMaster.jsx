@@ -38,7 +38,6 @@ const TableMaster = ({
 }) => {
 
   const tableRef = React.useRef({})
-console.log(tableRef.current);
     // renew Schema column, to get old order column or additional logic
     // useEffect(() => {
     //   renewColumn({ setNewSchema:tableRef.current.setNewSchema, data, fields:tableRef.current.state.fields, module, userId:tableRef.current.props.userId, editColumnTemp:tableRef.current.state.editColumnTemp, showModal:tableRef.current.state.showModal, columnHidden, editColumn});

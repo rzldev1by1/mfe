@@ -12,7 +12,7 @@ const Input = ({
   className,
   name,
   style = null,
-  value = null,
+  value,
   required,
   readOnly,
   onKeyUp,

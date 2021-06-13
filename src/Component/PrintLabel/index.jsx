@@ -12,7 +12,6 @@ const PrintLabel = ({
     const dispatch = useDispatch();
     const printLabelData = useSelector((state) => state.spDetailTable);
     const user = useSelector((state) => state.user);
-    console.log(printLabelData);
     const handlePrint = useReactToPrint({
       content: () => componentRef.current,
     });

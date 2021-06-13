@@ -80,7 +80,7 @@ export const getSummaryData = async ({
     urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
     urls.push(`status=${status ? status.value : 'open'}`);
   }
-  if (task && task.value !== 'all') urls.push(`task=${task.value}`);
+  if (task && task?.value !== 'all') urls.push(`task=${task.value || 'all'}`);
   urls.push(`page=${active || 1}`);
   if (Export === true) {
     urls.push('export=true');
@@ -774,7 +774,6 @@ export const resetPassword = ({ state, setState, props }) => {
 
 //DarkMode 
 export const darkModeMLS = ({ darkMode, dispatch }) =>{
-  console.log('ganti', darkMode)
   if(!darkMode) dispatch({ type: 'DARKMODE', data: true })
   if(darkMode) dispatch({ type: 'DARKMODE', data: false })
 }

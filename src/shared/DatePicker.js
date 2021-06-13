@@ -281,10 +281,7 @@ class DatePicker extends React.Component {
 
     openDatePicker = () => {
         this.setState({ showDatePicker: true })
-        console.log('masuk1');
-
         if (this.props.showDatePicker) {
-            console.log('masuk');
             this.props.showDatePicker(true)
         }
     }

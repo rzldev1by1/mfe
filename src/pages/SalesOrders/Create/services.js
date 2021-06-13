@@ -142,10 +142,10 @@ export const changeClient = ({
 
 export const changeCustomerDetails = ({ column, value, customerDetails, setCustomerDetails, selected }) => {
   let cd = { ...customerDetails };
-  if (selected) {
+  // if (selected) {
     cd[column] = value;
     cd['validation_' + column] = value ? true : false;
-  }
+  // }
   setCustomerDetails(cd);
 };
 
