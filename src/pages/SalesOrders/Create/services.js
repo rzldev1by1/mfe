@@ -134,10 +134,10 @@ export const changeClient = ({
   od['validation_client'] = value ? true : false;
   setOrderDetails(od);
 
-  let cd = { ...customerDetails };
-  cd['customer'] = '';
-  cd['validation_customer'] = value ? true : false;
-  setCustomerDetails(od);
+  // let cd = { ...customerDetails };
+  // cd['customer'] = '';
+  // cd['validation_customer'] = value ? true : false;
+  // setCustomerDetails(od);
 };
 
 export const changeCustomerDetails = ({ column, value, customerDetails, setCustomerDetails, selected }) => {
