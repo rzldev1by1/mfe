@@ -159,7 +159,7 @@ export const changeClient = async ({ value, orderDetails, setOrderDetails, setSu
       .get(`${endpoints.getProduct}?client=${value.value || ''}`)
       .then((res) => {
         const data = res.data;
-        productData = data.map((data, i) => ({ value: data.code}));
+        productData = data.map((data, i) => (data.code));
       })
       .catch((error) => {
         console.log(error);
@@ -172,6 +172,13 @@ export const changeClient = async ({ value, orderDetails, setOrderDetails, setSu
           data.validation_uom= true
           data.validation_invalidProduct= true
           data.validation = true
+        }
+        else if (checkProduct && data.product) {
+          data.validation_product= false
+          data.validation_qty= true
+          data.validation_uom= true
+          data.validation_invalidProduct= false
+          data.validation = false
         }
       })
     setOrderLines(ol)
