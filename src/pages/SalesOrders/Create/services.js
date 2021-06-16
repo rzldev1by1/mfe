@@ -121,15 +121,42 @@ export const changeOrderDetails = ({ column, value, orderDetails, setOrderDetail
   setOrderDetails(od);
 };
 
-export const changeClient = ({
+export const changeClient = async ({
   value,
   orderDetails,
   setOrderDetails,
   setCustomerData,
   customerDetails,
   setCustomerDetails,
+  orderLines,
+  setOrderLines
 }) => {
   let od = { ...orderDetails };
+
+  // if(value){
+  //   let productData = [];
+  //   let ol = [...orderLines];
+  //   await axios
+  //     .get(`${endpoints.getProduct}?client=${value.value || ''}`)
+  //     .then((res) => {
+  //       const data = res.data;
+  //       productData = data.map((data, i) => ({ value: data.code}));
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });     
+  //     ol.map( async (data, idx) => {
+  //       const checkProduct =  productData.includes(data.product.value)
+  //       if(!checkProduct && data.product !== ''){
+  //         data.validation_product= false
+  //         data.validation_qty= true
+  //         data.validation_uom= true
+  //         data.validation = true
+  //       }
+  //     })
+  //   setOrderLines(ol)
+  // }
+
   od['client'] = value;
   od['validation_client'] = value ? true : false;
   setOrderDetails(od);
@@ -145,7 +172,18 @@ export const changeCustomerDetails = ({ column, value, customerDetails, setCusto
   // if (selected) {
     cd[column] = value;
     cd['validation_' + column] = value ? true : false;
-  // }
+    if(!value){
+      cd.address1= ""
+      cd.address2= ""
+      cd.address3= ""
+      cd.address4= ""
+      cd.address5= ""
+      cd.country= ""
+      cd.customer= null
+      cd.postcode= ""
+      cd.state= ""
+      cd.suburb= ""
+    }
   setCustomerDetails(cd);
 };
 

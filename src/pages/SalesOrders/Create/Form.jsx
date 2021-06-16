@@ -120,7 +120,6 @@ const Form = ({
       setDropdownExpandStyle(null);
     }
   }, [orderLineSelectOpen]);
-
   return (
     <div>
       <h3 className="text-primary font-20">Order Details</h3>
@@ -214,6 +213,8 @@ const Form = ({
                 setCustomerData,
                 customerDetails,
                 setCustomerDetails,
+                orderLines,
+                setOrderLines
               });
               setCustomerData([]);
               if (selected) {

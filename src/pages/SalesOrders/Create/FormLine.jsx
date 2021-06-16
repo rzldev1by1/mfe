@@ -22,7 +22,6 @@ const FormLine = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isProduct, setIsProduct] = useState(null);
   const [isUom, setIsUom] = useState(null);
-
   return (
     <tr className="py-1 orderline-row" style={{ height: '70px' }}>
       <td className="px-1">

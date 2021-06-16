@@ -145,7 +145,6 @@ export const getSupplier = async ({ client, site, setSupplier }) => {
 
 export const getProduct = async ({ client, val, setIsLoading, setIsProduct }) => {
   const url = `${endpoints.getProduct}?client=${client || ''}&search=${val.toUpperCase()}`;
-
   let productData = [];
   await axios
     .get(url)
