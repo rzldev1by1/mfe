@@ -1,16 +1,5 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
-src/pages/SupplierManagement/*
-
-src/pages/SupplierManagement/Detail/index.jsx
-src/pages/SupplierManagement/Detail/service.js
-src/pages/SupplierManagement/Search/index.jsx
-src/pages/SupplierManagement/Table/Table.jsx
-src/pages/SupplierManagement/Table/TableMaster.jsx
-src/pages/SupplierManagement/index.jsx
-src/pages/SupplierManagement/service.js
-src/pages/SupplierManagement/style.scss
-
 # dependencies
 /node_modules
 /src/coreui-new
