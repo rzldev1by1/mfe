@@ -3,8 +3,6 @@ import React from 'react';
 // Component
 const Welcome = React.lazy(() => import('./pages/Welcome/Welcome'));
 const Component = React.lazy(() => import('../src/pages/Component'));
-const SupplierManagement = React.lazy(() => import('./pages/SupplierManagement'));
-const SupplierManagementDetail = React.lazy(() => import('./pages/SupplierManagement/Detail'));
 const StockHolding = React.lazy(() => import('./pages/StockHolding'));
 const StockHoldingDetail = React.lazy(() => import('./pages/StockHolding/Detail'));
 const PurchaseOrders = React.lazy(() => import('../src/pages/PurchaseOrders'));
@@ -29,20 +27,6 @@ const routes = [
     exact: true,
     name: 'Component',
     component: Component,
-  },
-   // Supllier Management --------------------------------------------------------
-
-  {
-    path: '/supplier-management',
-    exact: true,
-    name: 'Supplier Management',
-    component: SupplierManagement,
-  },
-  {
-    path: '/supplier-management/:product',
-    exact: true,
-    name: 'Supplier Management',
-    component: SupplierManagementDetail,
   },
   
   // Stock Holding --------------------------------------------------------
