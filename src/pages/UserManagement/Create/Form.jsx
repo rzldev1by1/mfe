@@ -158,7 +158,7 @@ const Form = ({ activeTab, state, setState, isValidation, isAdmin, setIsAdmin })
         {/* Validasi */}
         <div className="row">
           <div className="col-4 d-flex">
-          <div style={{color:'transparent'}}>transparent</div>
+          <div className='d-none' style={{color:'transparent'}}>transparent</div>
             <input
               type="checkbox"
               name="moduleAccess"
