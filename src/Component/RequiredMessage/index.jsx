@@ -16,6 +16,10 @@ const RequiredMessage = ({ messageShow, column, data, columnText, value, dropdow
       else setMessage('');
     }
 
+    if (column === 'product') {
+      setMessage(customMessage)
+    }
+
     //if empty
     if (!value) setMessage(`${columnText  } must be entered`);
 

@@ -526,6 +526,7 @@ const Form = ({
                   setOrderLineSelectOpen={setOrderLineSelectOpen}
                   orderLines={orderLines}
                   setOrderLines={setOrderLines}
+                  isInvalidProduct={item.validation_invalidProduct}
                 />
               );
             })}
