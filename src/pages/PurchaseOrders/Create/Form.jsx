@@ -185,7 +185,7 @@ const Form = ({
             required
             selectedValue={orderDetails?.client}
             onChangeDropdown={(selected) => {
-              changeClient({ value: selected, orderDetails, setOrderDetails, setSupplier });
+              changeClient({ value: selected, orderDetails, setOrderDetails, setSupplier, orderLines, setOrderLines });
               setSupplier([]);
               if (selected) {
                 getSupplier({ client: selected.value, site: orderDetails?.site, setSupplier });
@@ -339,6 +339,7 @@ const Form = ({
                   setOrderLineSelectOpen={setOrderLineSelectOpen}
                   orderLines={orderLines}
                   setOrderLines={setOrderLines}
+                  isInvalidProduct={item.validation_invalidProduct}
                 />
               );
             })}

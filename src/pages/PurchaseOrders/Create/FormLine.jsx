@@ -18,6 +18,7 @@ const FormLine = ({
   isValidation,
   orderLines,
   setOrderLineSelectOpen,
+  isInvalidProduct
 }) => {
   const dispositionData = useSelector((state) => state.po_disposition);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,8 +49,9 @@ const FormLine = ({
           readOnly={isReadonly}
           messageRequired={true}
           messageParam={{
-            messageShow: isValidation,
+            messageShow: isInvalidProduct || isValidation,
             value: data?.product,
+            messageCustom: isInvalidProduct ? 'Product is unavailable' : ''
           }}
           selectedValue={data.product}
           parentDivClassName={isValidation && !data?.validation_product ? 'input-danger' : ''}
@@ -86,7 +88,7 @@ const FormLine = ({
           isReadOnly={isReadonly}
           messageRequired={true}
           messageParam={{
-            messageShow: isValidation,
+            messageShow: !isInvalidProduct ? isValidation : false,
             value: data?.qty,
           }}
         />
@@ -135,7 +137,7 @@ const FormLine = ({
           onMenuClose={() => setOrderLineSelectOpen(null)}
           messageRequired={true}
           messageParam={{
-            messageShow: isValidation,
+            messageShow: !isInvalidProduct ? isValidation : false,
             value: data?.uom,
           }}
           parentDivClassName={isValidation && !data?.validation_uom ? 'input-danger' : ''}
