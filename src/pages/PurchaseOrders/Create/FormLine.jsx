@@ -44,10 +44,10 @@ const FormLine = ({
             setIsLoading(true);
           }}
           minChar={3}
-          required={true}
+          required
           isLoading={isLoading}
           readOnly={isReadonly}
-          messageRequired={true}
+          messageRequired
           messageParam={{
             messageShow: isInvalidProduct || isValidation,
             value: data?.product,
