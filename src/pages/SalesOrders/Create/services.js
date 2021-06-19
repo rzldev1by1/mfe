@@ -128,43 +128,49 @@ export const changeClient = async ({
   setCustomerData,
   customerDetails,
   setCustomerDetails,
-  orderLines,
   setOrderLines
 }) => {
-  let od = { ...orderDetails };
-
+  const od = { ...orderDetails };
   if(value){
-    let productData = [];
-    let ol = [...orderLines];
-    await axios
-      .get(`${endpoints.getProduct}?client=${value.value || ''}`)
-      .then((res) => {
-        const data = res.data;
-        productData = data.map((data, i) => (data.code));
-      })
-      .catch((error) => {
-        console.log(error);
-      });     
-      ol.map( async (data, idx) => {
-        const checkProduct =  productData.includes(data.product.value)
-        if(!checkProduct && data.product){
-          data.validation_product= false
-          data.validation_qty= true
-          data.validation_uom= true
-          data.validation_invalidProduct= true
-          data.validation = true
-        } 
-        else if (checkProduct && data.product) {
-          data.validation_product= false
-          data.validation_qty= true
-          data.validation_uom= true
-          data.validation_invalidProduct= false
-          data.validation = false
-        }
-        
-      })
-      console.log(ol);
-    setOrderLines(ol)
+    const resetOrderLines = [
+      {
+        batch: "",
+        disposition: "",
+        packId: "",
+        product: "",
+        qty: "",
+        ref3: "",
+        ref4: "",
+        rotaDate: "",
+        uom: "",
+        productDesc: "",
+        validation: false,
+        validation_product: false,
+        validation_qty: false,
+        validation_uom: false,
+        weight: ""
+      }
+    ];
+
+    const resetCustomerDetails = {
+      address1: "",
+      address2: "",
+      address3: "",
+      address4: "",
+      address5: "",
+      country: "",
+      customer: "",
+      postcode: "",
+      state: "",
+      suburb: "",
+      validation_address1: false,
+      validation_customer: false,
+      validation_postcode: false,
+      validation_state: false
+    }
+
+    setOrderLines(resetOrderLines)
+    setCustomerDetails(resetCustomerDetails);
   }
 
   od['client'] = value;

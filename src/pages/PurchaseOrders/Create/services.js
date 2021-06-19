@@ -149,39 +149,31 @@ export const changeOrderDetails = ({ column, value, orderDetails, setOrderDetail
   setOrderDetails(od);
 };
 
-export const changeClient = async ({ value, orderDetails, setOrderDetails, setSupplier, orderLines, setOrderLines }) => {
+export const changeClient = async ({ value, orderDetails, setOrderDetails, setSupplier, setOrderLines }) => {
   let od = { ...orderDetails };
 
   if(value){
-    let productData = [];
-    let ol = [...orderLines];
-    await axios
-      .get(`${endpoints.getProduct}?client=${value.value || ''}`)
-      .then((res) => {
-        const data = res.data;
-        productData = data.map((data, i) => (data.code));
-      })
-      .catch((error) => {
-        console.log(error);
-      });     
-      ol.map( async (data, idx) => {
-        const checkProduct =  productData.includes(data.product.value)
-        if(!checkProduct && data.product !== ''){
-          data.validation_product= false
-          data.validation_qty= true
-          data.validation_uom= true
-          data.validation_invalidProduct= true
-          data.validation = true
-        }
-        else if (checkProduct && data.product) {
-          data.validation_product= false
-          data.validation_qty= true
-          data.validation_uom= true
-          data.validation_invalidProduct= false
-          data.validation = false
-        }
-      })
-    setOrderLines(ol)
+    const resetOrderLines = [
+      {
+        batch: "",
+        disposition: "",
+        packId: "",
+        product: "",
+        qty: "",
+        ref3: "",
+        ref4: "",
+        rotaDate: "",
+        uom: "",
+        productDesc: "",
+        validation: false,
+        validation_product: false,
+        validation_qty: false,
+        validation_uom: false,
+        weight: ""
+      }
+    ];
+
+    setOrderLines(resetOrderLines)
   }
 
   od['client'] = value;
