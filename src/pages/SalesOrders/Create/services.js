@@ -163,10 +163,10 @@ export const changeClient = async ({
       postcode: "",
       state: "",
       suburb: "",
-      validation_address1: false,
-      validation_customer: false,
-      validation_postcode: false,
-      validation_state: false
+      validation_address1: true,
+      validation_customer: true,
+      validation_postcode: true,
+      validation_state: true
     }
 
     setOrderLines(resetOrderLines)
