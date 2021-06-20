@@ -156,6 +156,7 @@ export const getProduct = async ({ client, val, setIsLoading, setIsProduct }) =>
       console.log(error);
     });
   setIsLoading(false);
+  
   setIsProduct(productData);
 };
 

@@ -120,6 +120,7 @@ const Form = ({
       setDropdownExpandStyle(null);
     }
   }, [orderLineSelectOpen]);
+  console.log(isValidation, orderDetails, isValidation && !orderDetails?.deliveryDate);
   return (
     <div>
       <h3 className="text-primary font-20">Order Details</h3>
@@ -180,7 +181,7 @@ const Form = ({
             }}
             readOnly={isReadonly}
             style={isReadonly ? { display: 'none' } : null}
-            className={'form-control ' + (isValidation && !orderDetails?.deliveryDate ? 'input-danger' : '')}
+            classNameInput={`form-control ${  isValidation && !orderDetails?.deliveryDate ? 'input-danger' : ''}`}
             selectedDates={orderDetails?.deliveryDate || ''}
           />
           <Input

@@ -246,7 +246,7 @@ const Form = ({
             }}
             readOnly={isReadonly}
             style={isReadonly ? { display: 'none' } : null}
-            className={'form-control ' + (isValidation && !orderDetails?.orderDate ? 'input-danger' : '')}
+            classNameInput={`form-control ${  isValidation && !orderDetails?.orderDate ? 'input-danger' : ''}`}
             selectedDates={orderDetails?.orderDate || ''}
           />
           <Input
