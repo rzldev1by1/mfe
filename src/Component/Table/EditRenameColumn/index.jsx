@@ -125,8 +125,6 @@ const EditRenameColumn = ({
  let isChanged = fields?.filter(data => data.Header !== data.placeholder)
  isChanged = isChanged?.length ? false : true
 
-console.log(dragStatus);
-
   return (
     <div>
     <Modal show={showModal} size="xl" centered>
