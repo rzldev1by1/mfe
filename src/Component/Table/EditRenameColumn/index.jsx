@@ -25,6 +25,7 @@ const EditRenameColumn = ({
   const dispatch = useDispatch();
   const reorder = useSelector((state) => state.reorder);
   const darkMode = useSelector((state) => state.darkModeMLS);
+  const dragStatus = useSelector((state) => state.dragStatus);
   const [state, setState] = React.useState({
     error: {},
     sameColumns: [],
@@ -123,6 +124,8 @@ const EditRenameColumn = ({
 
  let isChanged = fields?.filter(data => data.Header !== data.placeholder)
  isChanged = isChanged?.length ? false : true
+
+console.log(dragStatus);
 
   return (
     <div>
@@ -255,10 +258,10 @@ const EditRenameColumn = ({
                         variant="primary"
                         style={{ padding: '0rem 1.08rem' }}
                         onClick={() =>
-                          resetColumnTable({ module, user, editColumnTemp, fields, state, setState })
+                          resetColumnTable({ module, user, editColumnTemp, fields, state, setState, dragStatus, dispatch })
                         }
-                        disabled={state.disableBtn}
-                        className={state.disableBtn ? "btn-disabled" : ""}
+                        disabled={!dragStatus}
+                        className={!dragStatus ? "btn-disabled" : ""}
                       >
                         RESET COLUMN ORDER
                       </Button>
@@ -335,10 +338,10 @@ const EditRenameColumn = ({
                         variant="primary"
                         style={{ padding: '0rem 1.08rem' }}
                         onClick={() =>
-                          resetColumnTable({ module, user, editColumnTemp, fields, state, setState })
+                          resetColumnTable({ module, user, editColumnTemp, fields, state, setState, dragStatus, dispatch })
                         }
-                        disabled={state.disableBtn}
-                        className={state.disableBtn ? "btn-disabled" : ""}
+                        disabled={!dragStatus}
+                        className={!dragStatus ? "btn-disabled" : ""}
                       >
                         RESET COLUMN ORDER
                       </Button>

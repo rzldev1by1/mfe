@@ -253,16 +253,10 @@ export const resetColumnName = async({user,splitModule}) => {
   window.location.reload()
 }
 
-export const resetColumnTable = ({module, user, fields, state}) => {
-  const currentOrderColumn = localStorage.getItem(`tables__${module}__${user.name}`)
-  ? JSON.parse(localStorage.getItem(`tables__${module}__${user.name}`))
-  : [];
-  let templateColumn = []
-  fields.map((data) => {
-    templateColumn.push(data.accessor)
-  });
-   if(JSON.stringify(currentOrderColumn) !== JSON.stringify(templateColumn)){
+export const resetColumnTable = ({module, user, dragStatus, dispatch}) => {
+  if(dragStatus){
     localStorage.removeItem(`tables__${module}__${user.name}`);
+    dispatch({ type: 'DRAG_STATUS', data:false });
     window.location.reload();
   }
 }

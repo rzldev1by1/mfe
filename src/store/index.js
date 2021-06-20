@@ -206,6 +206,11 @@ export const rootReducer = (state = INITIAL_STATE, { type, data, column, ...rest
       return {...state, markedRow:data}
     // Supplier Management End
 
+    // Status drag table
+    case 'DRAG_STATUS':
+      return {...state, dragStatus:data}
+    // end
+
     default:
       return state;
   }

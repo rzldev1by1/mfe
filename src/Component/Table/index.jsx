@@ -33,6 +33,7 @@ const Table = ({
   const [showMod, setShowMod] = useState(false);
   const [editColumnTemp, setEditColumnTemp] = useState({});
   const tableStatus = useSelector((state) => state.tableStatus);
+  const dragStatus = useSelector((state) => state.dragStatus);
   const [fields, setFields] = useState(schemaColumn);
   const [newSchema, setNewSchema] = useState(schemaColumn);
   const isInvalidOrderQty = useSelector((state) => state.isInvalidOrderQty);
@@ -57,7 +58,7 @@ const Table = ({
 
   // renew Schema column, to get old order column or additional logic
   useEffect(() => {
-    renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn});
+    renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn, dispatch});
   }, [data, fields, columnHidden]);
 
   return (
@@ -73,7 +74,7 @@ const Table = ({
           draggable: draggableColumn,
           onDropSuccess: (draggedColumn, targetColumn, oldIndex, newIndex) =>{
             saveSchemaToLocal({ setNewSchema, userId, schemaColumn: fields,  module, draggedColumn, targetColumn, oldIndex, newIndex, dispatch  });
-            renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden});
+            renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, dispatch});
           }
         }}
         

@@ -183,25 +183,30 @@ export const renewColumn = async ({
   userId,
   editColumn,
   showModal,
-  columnHidden
+  columnHidden,
+  dispatch
 }) => {
   // reorder column
   const key = `tables__${module}__${userId}`;
   let schema = [];
   const oldSchema = localStorage.getItem(key);
   const schemaOrder = JSON.parse(oldSchema);
-
   // reorder column first
   const tmp_oldSchema = [];
+  const defaultSchema = [];
   await fields.forEach(async (d, idx) => {
     if (oldSchema) {
       idx = schemaOrder.indexOf(d.accessor);
+      defaultSchema.push(d.accessor)
     }
     tmp_oldSchema[idx] = d;
     if (data) {
       tmp_oldSchema[idx].width = await getColumnWidth(data, d.accessor, d.Header, d.width || 70);
     }
   });
+
+  if(schemaOrder?.toString() !== defaultSchema?.toString() && schemaOrder && defaultSchema) dispatch({ type: 'DRAG_STATUS', data:true });
+  else dispatch({ type: 'DRAG_STATUS', data:false });
 
   // hide column
   if (columnHidden !== null && columnHidden !== undefined) {
@@ -232,7 +237,6 @@ export const renewColumn = async ({
     schema = [...schema, obj];
   }
   setNewSchema([...schema]);
-
 };
 
 export const setDraggableColumn = ({ fields }) => {
@@ -251,7 +255,6 @@ export const saveSchemaToLocal = ({
   oldIndex,
   newIndex,
   module,
-  dispatch
 }) => {
   // get old schema from local storage data , if null then set schemaColumn as oldSchema
   const key = `tables__${module}__${userId}`;
@@ -291,6 +294,6 @@ export const saveSchemaToLocal = ({
   // set to local storage
   localStorage.removeItem(key);
   localStorage.setItem(key, JSON.stringify(newSchemaOrder));
-
   // set Local
+
 };
