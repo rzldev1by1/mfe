@@ -131,7 +131,7 @@ export const changeClient = async ({
   setOrderLines
 }) => {
   const od = { ...orderDetails };
-  if(value){
+  // if(value ){
     const resetOrderLines = [
       {
         batch: "",
@@ -171,7 +171,7 @@ export const changeClient = async ({
 
     setOrderLines(resetOrderLines)
     setCustomerDetails(resetCustomerDetails);
-  }
+  // }
 
   od['client'] = value;
   od['validation_client'] = value ? true : false;

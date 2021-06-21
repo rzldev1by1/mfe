@@ -151,8 +151,7 @@ export const changeOrderDetails = ({ column, value, orderDetails, setOrderDetail
 
 export const changeClient = async ({ value, orderDetails, setOrderDetails, setSupplier, setOrderLines }) => {
   let od = { ...orderDetails };
-
-  if(value){
+  // if(value || !value){
     const resetOrderLines = [
       {
         batch: "",
@@ -174,7 +173,7 @@ export const changeClient = async ({ value, orderDetails, setOrderDetails, setSu
     ];
 
     setOrderLines(resetOrderLines)
-  }
+  // }
 
   od['client'] = value;
   od['validation_client'] = value ? true : false;

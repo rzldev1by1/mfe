@@ -116,6 +116,7 @@ const Search = ({ setHeader, setdateHeader }) => {
                 tabIndex="1"
                 placeHolder="Select Date"
                 onChange={(selected) => { dateTo.current.openDatePicker();  }}
+                classNameInput="form-control"
                 onOpen={(e) => { 
                     // dateTo.current.openDatePicker('to');  
                     if (e) {
@@ -157,6 +158,7 @@ const Search = ({ setHeader, setdateHeader }) => {
                 firstDate={fromDate ? new Date(fromDate) : fromDate}
                 firstValue={firstValue}
                 onOpen={() => { dateTo.current.openDatePicker('from') }}
+                classNameInput="form-control"
                 getDate={(e) => { 
                     const newDropdownValue = dropdownValue;
                     setdropdownValue({ ...newDropdownValue, toDate: e });
