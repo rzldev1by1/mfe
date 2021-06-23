@@ -299,7 +299,7 @@ export const getForescast = async ({ export_ = 'false', dispatch, active, props 
     const Meta = data?.meta;
     const Links = data?.links;
 
-    modifiedData.map((item, idx) => {
+    modifiedData.forEach((item, idx) => {
       item.in = numeral(item.in).format('0,0');
       item.out = numeral(item.out).format('0,0');
       item.balance = numeral(item.balance).format('0,0');

@@ -84,6 +84,9 @@ export const setHeaderSummary = ({ dropdownValue, setHeader, setdateHeader }) =>
   let endDate = moment(toDate);
   period = period.value;
 
+  console.log('startDate',startDate)
+  console.log('endDate',endDate)
+
   while (startDate <= endDate) {
     let newDate = startDate.format('DD MMMM YYYY');
     let dateAccessor = startDate.format('YYYY_MM_DD');
