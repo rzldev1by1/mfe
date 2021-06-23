@@ -93,8 +93,6 @@ export const validationOrderLines = async ({ orderLines, setOrderLines }) => {
   let newOrderLines = [...orderLines];
   setOrderLines(newOrderLines);
   return statusValidate;
-
-  return statusValidate;
 };
 
 export const resetCreate = (dispatch) => {

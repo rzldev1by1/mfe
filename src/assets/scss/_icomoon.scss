@@ -11,7 +11,7 @@
 }
 [class^="caution-"],
 [class*=" caution-"] {
-  font-family: "caution" !important;
+  font-family: "caution", Arial, Verdana, Tahoma, sans-serif !important;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -26,18 +26,18 @@
 
 @font-face {
   font-family: "reset";
-  src: url("../icons/resetpassword/fonts/icomoon.eot?t60pg3");
-  src: url("../icons/resetpassword/fonts/icomoon.eot?t60pg3#iefix")
+  src: url("../icons/resetpassword/icomoon.eot?t60pg3");
+  src: url("../icons/resetpassword/icomoon.eot?t60pg3#iefix")
       format("embedded-opentype"),
-    url("../icons/resetpassword/fonts/icomoon.ttf?t60pg3") format("truetype"),
-    url("../icons/resetpassword/fonts/icomoon.woff?t60pg3") format("woff"),
-    url("../icons/resetpassword/fonts/icomoon.svg?t60pg3#icomoon") format("svg");
+    url("../icons/resetpassword/icomoon.ttf?t60pg3") format("truetype"),
+    url("../icons/resetpassword/icomoon.woff?t60pg3") format("woff"),
+    url("../icons/resetpassword/icomoon.svg?t60pg3#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
 }
 [class^="reset-"],
 [class*=" reset-"] {
-  font-family: "reset" !important;
+  font-family: "reset", Arial, Verdana, Tahoma, sans-serif !important;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -111,7 +111,7 @@
 }
 [class^="iconU-"],
 [class*=" iconU-"] {
-  font-family: "icomoon" !important;
+  font-family: "icomoon", Arial, Verdana, Tahoma, sans-serif !important;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -133,7 +133,7 @@
 
 [class^="exp-"], [class*=" exp-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'export2' !important;
+  font-family: 'export2', Arial, Verdana, Tahoma, sans-serif !important;
   // speak: never;
   font-style: normal;
   font-weight: normal;
@@ -166,7 +166,7 @@
 
 [class^="number-"], [class*=" number-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'number' !important;
+  font-family: 'number', Arial, Verdana, Tahoma, sans-serif !important;
   // speak: never;
   font-style: normal;
   font-weight: normal;
@@ -302,7 +302,7 @@
   
   [class^="icon-"], [class*=" icon-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'success' !important;
+    font-family: 'success', Arial, Verdana, Tahoma, sans-serif !important;
     speak: never;
     font-style: normal;
     font-weight: normal;
@@ -338,7 +338,7 @@
   
   [class^="msg-"], [class*=" msg-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'Message' !important;
+    font-family: 'Message', Arial, Verdana, Tahoma, sans-serif !important;
     speak: never;
     font-style: normal;
     font-weight: normal;
@@ -378,7 +378,7 @@
   
   [class^="reload_"], [class*=" reload_"] {
     /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'Reload' !important;
+    font-family: 'Reload', Arial, Verdana, Tahoma, sans-serif !important;
     speak: never;
     font-style: normal;
     font-weight: normal;
@@ -410,7 +410,7 @@
   
   [class^="newIcon-"], [class*=" newIcon-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'newIcon' !important;
+    font-family: 'newIcon', Arial, Verdana, Tahoma, sans-serif !important;
     speak: never;
     font-style: normal;
     font-weight: normal;

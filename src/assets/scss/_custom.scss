@@ -1,6 +1,6 @@
 *,
 body {
-  font-family: 'Rubik';
+  font-family: 'Rubik', Arial, Verdana, Tahoma, sans-serif;
 }
 
 html{
@@ -991,7 +991,6 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
     }
     .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options{
       background-color: #281f34 !important;
-      background: #281f34 !important;
     }
     .select_dropdown_label{
       background-color: #281f34 !important;
@@ -1132,7 +1131,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
 }
 
 .client-title{
-  font-family: 'Rubik';
+  font-family: 'Rubik', Arial, Verdana, Tahoma, sans-serif;
 }
 
 .grid-container {

@@ -290,7 +290,7 @@ export const getForescast = async ({ export_ = 'false', dispatch, active, props 
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const { data } = await axios.get(url);
   let forecast = [];
-  Object.keys(data.data).map((value) => forecast.push(data.data[value]));
+  Object.keys(data.data).forEach((value) => forecast.push(data.data[value]));
   if (data) {
     if (!data && forecast.length === 0) {
       return 0;
