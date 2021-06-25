@@ -114,10 +114,21 @@ export const resetCreate = (dispatch) => {
   dispatch({ type: 'RESET_ORDER_LINES_DATA', data: orderLinesData });
 };
 
-export const changeOrderDetails = ({ column, value, orderDetails, setOrderDetails }) => {
+export const changeOrderDetails = ({ column, value, orderDetails, setOrderDetails, setIsEmptySite }) => {
   let od = { ...orderDetails };
-  od[column] = value;
-  od['validation_' + column] = value ? true : false;
+  if(column === 'orderType'){
+    if(od.site === null || od.site === '') {
+      od.orderType = ''
+      setIsEmptySite(true)
+    }else{
+      od.orderType = value
+      setIsEmptySite(false)
+    }
+  }else{
+    od[column] = value;
+    od['validation_' + column] = value ? true : false;
+  }
+  
   setOrderDetails(od);
 };
 
