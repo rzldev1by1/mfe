@@ -110,7 +110,6 @@ const Form = ({
       setDropdownExpandStyle(null);
     }
   }, [orderLineSelectOpen]);
-
   return (
     <div>
       <h3 className="text-primary font-20">Order Details</h3>
@@ -139,7 +138,7 @@ const Form = ({
             options={resources?.orderType}
             selectedValue={orderDetails?.orderType}
             onChangeDropdown={(selected) =>
-              changeOrderDetails({ column: 'orderType', value: selected, orderDetails, setOrderDetails })
+              changeOrderDetails({ column: 'orderType', value: selected, orderDetails, setOrderDetails, setIsValidation })
             }
             required
             readOnly={isReadonly}
