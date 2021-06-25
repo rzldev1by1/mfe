@@ -32,7 +32,7 @@ const moduleAccess = ({ moduleAccess, isEnableAllModule, state, setState, isRead
         </div>
       </div>
 
-      <div className="client-areas" 
+      <div className="client-areas pr-3" 
             style={ module === 'detail' ? { height:heightDetail, minHeight:heightDetail} : {height:height, minHeight:height}}>
         {moduleAccess && moduleAccess.length
           ? moduleAccess.map((item, index) => {

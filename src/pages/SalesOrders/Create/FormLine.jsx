@@ -258,7 +258,7 @@ const FormLine = ({
           showDatePicker={() => {
             setOrderLineSelectOpen('datePicker');
           }}
-          className={`form-control `}
+          classNameInput={`form-control `}
           placeholder="Select Date"
           style={isReadonly ? { display: 'none' } : null}
           selectedDates={data?.rotaDate || ''}

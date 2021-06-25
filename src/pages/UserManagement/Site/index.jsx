@@ -32,7 +32,7 @@ const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module}) =>
         </div>
       </div>
 
-      <div className="client-areas" 
+      <div className="client-areas pr-3" 
             style={ module === 'detail' ? { height:heightDetail, minHeight:heightDetail} : {height:height, minHeight:height}}>
       {sites && sites.length
         ? sites.map((item, index) => {

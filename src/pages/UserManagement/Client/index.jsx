@@ -32,7 +32,7 @@ const client = ({ clients, isEnableAllClient, state, setState, isReadOnly, modul
         </div>
       </div>
 
-      <div className="client-areas" 
+      <div className="client-areas pr-3" 
             style={ module === 'detail' ? { height:heightDetail, minHeight:heightDetail} : {height:height, minHeight:height}}>
         {clients && client.length
           ? clients.map((item, index) => {
