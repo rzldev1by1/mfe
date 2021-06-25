@@ -383,19 +383,19 @@ export const validation = async ({ orderDetails, orderLines, customerDetails, se
   const orderDetaillinessValidation = ['validation_product', 'validation_uom', 'validation_qty'];
 
   //validasi order details
-  orderDetailsValidation.map((key, keyIndex) => {
+  orderDetailsValidation.forEach((key, keyIndex) => {
     if (orderDetails[key] !== true) statusValidate = false;
   });
 
   //validasi customer details
-  customerValidation.map((key, keyIndex) => {
+  customerValidation.forEach((key, keyIndex) => {
     if (customerDetails[key] !== true) statusValidate = false;
   });
 
   //validasi orderLines
   orderLines.map((data, index) => {
     data.validation = true;
-    orderDetaillinessValidation.map((key, keyIndex) => {
+    orderDetaillinessValidation.forEach((key, keyIndex) => {
       if (data[key] !== true) statusValidate = false;
     });
   });
@@ -421,7 +421,7 @@ export const validationOrderLines = async ({ orderLines, setOrderLines }) => {
   //validasi orderLines
   orderLines.map((data, index) => {
     data.validation = true;
-    orderDetaillinessValidation.map((key, keyIndex) => {
+    orderDetaillinessValidation.forEach((key, keyIndex) => {
       if (data[key] !== true) statusValidate = false;
     });
   });

@@ -211,7 +211,7 @@ export const setupPdf = ({ data, dateHeader, header, period, setDataPDF, setRowS
   //fix bugs
   let newDataPdf = [];
   let restRow = 20;
-  dataPdf.map((data, index) => {
+  dataPdf.forEach((data, index) => {
     let date_tmp = [[]];
     let i = 0;
     let j = 0;
@@ -232,7 +232,7 @@ export const setupPdf = ({ data, dateHeader, header, period, setDataPDF, setRowS
       j++;
       restRow--;
     });
-    date_tmp.map((d, idx) => {
+    date_tmp.forEach((d, idx) => {
       let obj = {
         site: data.site,
         client: data.client,

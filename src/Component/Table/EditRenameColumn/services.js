@@ -23,7 +23,7 @@ export const saveEdit = ({ state, title, user, setEditColumnTemp, setShowModal, 
     : [];
   const hiddenColumn = Object.values(state.editColumn);
   if (savedTableColumns.length > 0) {
-    savedTableColumns.map((data, index) => {
+    savedTableColumns.forEach((data, index) => {
       if (data.title === title) {
         savedTableColumns.splice(index, 1);
       }
@@ -47,7 +47,9 @@ export const saveEdit = ({ state, title, user, setEditColumnTemp, setShowModal, 
   setShowModal(false);
   try {
     dispatch({ type: 'CHANGE_HEADER', data: true });
-  } catch (e) {}
+  } catch (e){
+    console.log(e)
+  }
 };
 
 export const changedColumn = ({ e, state, setState, fields,defaults,id,name }) => {
@@ -146,8 +148,8 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
     });
 
     const headerData = Object.keys(data[0]);
-    accessor.map((data, idx) => {
-      const lowerCase = data.toLowerCase();
+    accessor.forEach((accessorNew, idx) => {
+      const lowerCase = accessorNew.toLowerCase();
       if (lowerCase.includes(' ')) {
         const split = lowerCase.split(' ');
         const result = split.join('_');
@@ -157,7 +159,7 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
       }
     });
 
-    Object.values(data[0]).map((data, idx) => {
+    Object.values(data[0]).forEach((dataHeader, idx) => {
       const headerTable = {
         accessor: '',
         Header: '',
@@ -170,7 +172,7 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
         sortable: false,
         align: null,
       };
-      headerTable.Header = data;
+      headerTable.Header = dataHeader;
       headerTable.placeholder = placeholder[idx];
       headerTable.accessor = accessor[idx];
       headerTable.Cell = Cell[idx];
@@ -207,7 +209,7 @@ const renameSubmits = async ({ state, UrlAll, fields, setFields }) => {
   });
 
   const ni = fields.map((item) => {
-    changedFieldHeaderData.map((data, idx) => {
+    changedFieldHeaderData.forEach((data, idx) => {
       if (item.Header === data) {
         item.Header = changedFieldHeader[idx];
       }

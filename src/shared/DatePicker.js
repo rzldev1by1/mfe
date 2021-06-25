@@ -79,7 +79,7 @@ function YearMonthForm({ date, localeUtils, onChange, current, fromMonth, toMont
     })
 
     let yearIndex = [];
-    years.map((value, index) => {
+    years.forEach((value, index) => {
         yearIndex.push(index);
     })
 
