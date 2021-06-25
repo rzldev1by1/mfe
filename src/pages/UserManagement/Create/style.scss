@@ -43,49 +43,37 @@
 }
 
 .btn-outline-active {
-  /* font-family: 'Rubik Regular'; */
-  /* font-size: 1rem !important; */
   width: 115px !important;
   height: 40px !important;
   border: 1.5px solid #3366ff;
   border-radius: 5px;
   color: #3366ff;
-  width: 80px;
 }
 
 .btn-outline-notActive {
-  /* font-family: 'Rubik Regular'; */
-  /* font-size: 1rem !important; */
   width: 115px !important;
   height: 40px !important;
   color: #d5d8da;
   border: 1.5px solid #d5d8da;
   border-radius: 5px;
-  width: 80px;
 }
 
 .btn-outline-All-active {
-  /* font-family: 'Rubik Regular'; */
-  /* font-size: 1rem !important; */
   width: 115px !important;
   height: 40px !important;
   border: 1.5px solid #3366ff;
   border-radius: 5px;
   background-color: #3366ff;
   color: #ffffff;
-  width: 80px;
 }
 
 .btn-outline-All-notActive {
-  /* font-family: 'Rubik Regular'; */
-  /* font-size: 1rem !important; */
   width: 115px !important;
   height: 40px !important;
   background-color: #d5d8da;
   color: #ffffff;
   border: 1.5px solid #d5d8da;
   border-radius: 5px;
-  width: 80px;
 }
 .um-detail .btn-outline-All-notActive:hover {
   color: #ffffff !important;
@@ -130,7 +118,6 @@
   color: #959da0;
   border: 1.5px solid #959da0;
   border-radius: 7px;
-  width: 80px;
   background-color: #ffffff;
 }
 
@@ -141,7 +128,6 @@
   color: #e8e8e8;
   border: 1.5px solid #e8e8e8;
   border-radius: 7px;
-  width: 80px;
   background-color: #ffffff;
 }
 
@@ -191,7 +177,6 @@
   font-size: 20px;
   padding-left: 20px;
   cursor: pointer;
-  font-family: Rubik !important;
 }
 .nav-link.active {
   background-color: #fff !important;
@@ -203,7 +188,6 @@
 .nav-tabs {
   margin-left: 26px;
   border: none;
-  font-family: Rubik !important;
 }
 
 /** End modal create **/
