@@ -47,7 +47,6 @@ const Form = ({
   const [siteOption, setSiteOption] = useState(null);
   const [customerData, setCustomerData] = useState([]);
   const [isReadonly, setIsReadOnly] = useState(false);
-  const [isEmptySite, setIsEmptySite] = useState(false);
   const [orderLineSelectOpen, setOrderLineSelectOpen] = useState(false);
   const [dropdownExpandStyle, setDropdownExpandStyle] = useState(null);
   const [checkingOrderNo, setCheckingOrderNo] = useState(null);
@@ -151,17 +150,16 @@ const Form = ({
             options={resources?.orderType}
             selectedValue={orderDetails?.orderType}
             onChangeDropdown={(selected) =>
-              changeOrderDetails({ column: 'orderType', value: selected, orderDetails, setOrderDetails, setIsEmptySite })
+              changeOrderDetails({ column: 'orderType', value: selected, orderDetails, setOrderDetails })
             }
             required
             readOnly={isReadonly}
             messageRequired={true}
             messageParam={{
-              messageShow: isEmptySite || isValidation,
+              messageShow: isValidation,
               value: orderDetails?.orderType,
-              messageCustom: isEmptySite ? 'Site must be entered' : ''
             }}
-            parentDivClassName={isEmptySite ? 'input-danger' :  isValidation && !orderDetails?.orderType?.value ? 'input-danger' : ''}
+            parentDivClassName={isValidation && !orderDetails?.orderType?.value ? 'input-danger' : ''}
           />
         </Col>
         <Col lg="3">
