@@ -122,8 +122,8 @@ export const schemaColumn = [
     width: 140,
   },
   {
-    Header: 'Expected Out Wght',
-    placeholder: 'Expected Out Wght',
+    Header: 'Expected In Wght',
+    placeholder: 'Expected In Wght',
     accessor: 'expected_in_wgt',
     className: 'align-right',
     headerStyle: { textAlign: 'left' },
