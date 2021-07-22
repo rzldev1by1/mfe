@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable array-callback-return */
-/* eslint-disable prefer-const */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Search from '../../Component/Search';
@@ -22,6 +19,7 @@ const PurchaseOrders = (props) => {
   const user = useSelector((state) => state.user);
   const exportData = useSelector((state) => state.exportData);
   const [Export, setExport] = useState(false);
+  const [newSchemaColumn, SetNewSchemaColumn] = useState();
   const module = 'StockHolding';
 
   // dimension
@@ -48,6 +46,18 @@ const PurchaseOrders = (props) => {
     getSummaryData({ dispatch, active: paginationSh?.active, module });
   }, []);
 
+  useEffect(() => {
+    if (shSummaryData?.length) {
+      schemaColumn.map((item, idx) => {
+        item.sortable = false
+        console.log(item.sortable)
+      })
+      SetNewSchemaColumn(schemaColumn)
+    }
+  }, [shSummaryData]);
+
+  console.log(newSchemaColumn)
+
   const [columnHidden, setColumnHidden] = useState(null);
   const [state2, setState2] = useState(null);
   if (!columnHidden) {
@@ -63,6 +73,13 @@ const PurchaseOrders = (props) => {
           setColumnHidden(data.columns);
         }
       });
+      if (shSummaryData?.length) {
+        schemaColumn.map((item, idx) => {
+          item.sortable = false
+          console.log(item.sortable)
+        })
+        SetNewSchemaColumn(schemaColumn)
+      }
       dispatch({ type: 'CHANGE_HEADER', data: false });
     }
   }, [stateChangeHeader]);
@@ -80,6 +97,13 @@ const PurchaseOrders = (props) => {
         setColumnHidden(tmp);
       } else {
         setColumnHidden([]);
+      }
+      if (shSummaryData?.length) {
+        schemaColumn.map((item, idx) => {
+          item.sortable = false
+          console.log(item.sortable)
+        })
+        SetNewSchemaColumn(schemaColumn)
       }
       setState2(false);
       dispatch({ type: 'CHANGE_HEADER', data: false });

@@ -207,7 +207,7 @@ input:-webkit-autofill {
 .font-rename-error {
   font-size: 16px;
   padding-top: 1rem;
-  padding-left: 22rem;
+  padding-left: 29rem;
 }
 
 .font-12 {
@@ -925,6 +925,7 @@ input.form-control.input-danger {
     position: absolute;
     width: fit-content;
     margin-left: -132px;
+    cursor: pointer;
   }
   .arrow::before{
     border-bottom-color: #a6bcfc !important;

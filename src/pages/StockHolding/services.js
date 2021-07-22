@@ -1,6 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 
 export const schemaColumn = [
