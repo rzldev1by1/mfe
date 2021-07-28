@@ -142,9 +142,9 @@ class Logins extends Component {
       >
         <input
           autoComplete="off"
-          className={'form-control  inputLogin '+ 
-                      (errorMessage === '' ? '' : ' border-red') + 
-                      (errorMessage === 'Password is required' ? 'none' : '') /*"is-invalid"*/}
+          className={'form-control  inputLogin ' +
+            (errorMessage === '' ? '' : ' border-red') +
+            (errorMessage === 'Password is required' ? 'none' : '') /*"is-invalid"*/}
           style={formValidation.username ? {} : { borderColor: '#f44336 !important' }}
           type="text"
           name="username"
@@ -153,9 +153,9 @@ class Logins extends Component {
         <br />
         <input
           autoComplete="off"
-          className={'form-control inputLogin ' + 
-                      (errorMessage === '' ? '' : ' border-red') + 
-                      (errorMessage === 'Username is required' ? 'none' : '') /*"is-invalid"*/}
+          className={'form-control inputLogin ' +
+            (errorMessage === '' ? '' : ' border-red') +
+            (errorMessage === 'Username is required' ? 'none' : '') /*"is-invalid"*/}
           type="password"
           name="password"
           placeholder="Enter your password here"
@@ -169,7 +169,7 @@ class Logins extends Component {
         </div>
         <div className="row">
           <div className="pl-3 pr-0" style={{ width: '30%' }}>
-            <button type="submit" className="btn btn-primary btn-login col-12" onClick={() => this.setState({ errorMessage:'' })}>
+            <button type="submit" className="btn btn-primary btn-login col-12" onClick={() => this.setState({ errorMessage: '' })}>
               {this.state.isLoad ? <img src={loading} alt="" className="mt-min-5" width="45" height="45" /> : 'LOGIN'}
             </button>
           </div>
@@ -201,7 +201,7 @@ class Logins extends Component {
             <input
               autoComplete="off"
               onChange={this.onChangeEmail}
-              className={'form-control  inputLogin ' + (errorMessage === ''? '' : 'border-red') /*"is-invalid"*/}
+              className={'form-control  inputLogin ' + (errorMessage === '' ? '' : 'border-red') /*"is-invalid"*/}
               type="text"
               name="email"
               placeholder="Enter your email address here"
@@ -633,7 +633,7 @@ class Logins extends Component {
             <div className="card-body login-card">
               <img src={Logo} className="logo mb-2" alt="mlslogo" />
               {formComponent}
-              <div className="links mt-3">
+              {/* <div className="links mt-3">
                 <span onClick={() => this.changePolicyHandler()} className="term-and-condition">
                   Privacy and Policy
                 </span>
@@ -641,7 +641,7 @@ class Logins extends Component {
                 <span onClick={() => this.changeTermHandler()} className="term-and-condition">
                   Terms and Conditions
                 </span>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="offset-md-1 mt-5">

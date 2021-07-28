@@ -47,16 +47,16 @@ export const saveEdit = ({ state, title, user, setEditColumnTemp, setShowModal, 
   setShowModal(false);
   try {
     dispatch({ type: 'CHANGE_HEADER', data: true });
-  } catch (e){
+  } catch (e) {
     console.log(e)
   }
 };
 
-export const changedColumn = ({ e, state, setState, fields,defaults,id,name }) => {
+export const changedColumn = ({ e, state, setState, fields, defaults, id, name }) => {
   let value = e?.target?.value;
   let ids = e?.target?.id
   let names = e?.target?.name
-  if(defaults){
+  if (defaults) {
     value = defaults
     ids = id
     names = name
@@ -98,12 +98,13 @@ export const changedColumn = ({ e, state, setState, fields,defaults,id,name }) =
   }
 };
 
-export const headerRename = async ({ UrlHeader, state, setState, fields, setFields }) => {
+export const headerRename = async ({ UrlHeader, state, setState, fields, setFields, data }) => {
   const newVal = { ...state };
-
+  let dataSum = data
   if (UrlHeader) {
     const url = UrlHeader();
     const { data } = await axios.get(url);
+    console.log(dataSum?.length)
     const newfields = [];
     const accessor = fields.map((datas) => {
       const split = datas.accessor;
@@ -133,9 +134,16 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
       const split = datas.align;
       return split;
     });
+
     const sortable = fields.map((datas) => {
-      const split = datas.sortable;
-      return split;
+      let hiddenSort
+      if (dataSum) {
+        if (dataSum.length > 1) hiddenSort = datas.sortable
+        else hiddenSort = false
+      } else {
+        hiddenSort = datas.sortable
+      }
+      return hiddenSort;
     });
     const sortType = fields.map((datas) => {
       let split;
@@ -249,16 +257,16 @@ export const renameSubmit = ({ state, setState, setShowMod, UrlAll, fields, setF
   }
 };
 
-export const resetColumnName = async({user,splitModule}) => {
+export const resetColumnName = async ({ user, splitModule }) => {
   const baseUrl = process.env.REACT_APP_API_URL;
-  const {data, status} = await axios.post(`${baseUrl}/settings/field-label/${splitModule}/reset?client=${user?.client}`)
+  const { data, status } = await axios.post(`${baseUrl}/settings/field-label/${splitModule}/reset?client=${user?.client}`)
   window.location.reload()
 }
 
-export const resetColumnTable = ({module, user, dragStatus, dispatch}) => {
-  if(dragStatus){
+export const resetColumnTable = ({ module, user, dragStatus, dispatch }) => {
+  if (dragStatus) {
     localStorage.removeItem(`tables__${module}__${user.name}`);
-    dispatch({ type: 'DRAG_STATUS', data:false });
+    dispatch({ type: 'DRAG_STATUS', data: false });
     window.location.reload();
   }
 }

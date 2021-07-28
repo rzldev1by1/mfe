@@ -45,7 +45,7 @@ const Table = ({
     </div>
   );
   const loadingMessage = (
-    <div style={{background:'transparent'}}>
+    <div style={{ background: 'transparent' }}>
       <img src={loading} alt="" width="45" height="45" />
     </div>
   );
@@ -58,26 +58,25 @@ const Table = ({
 
   // renew Schema column, to get old order column or additional logic
   useEffect(() => {
-    renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn, dispatch});
+    renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, editColumn, dispatch });
   }, [data, fields, columnHidden]);
 
   return (
     <div
-      className={`${className} ${editColumn === 'false' ? '' : 'show-edit-icon'} ${
-        (data && data < 1) || data === undefined ? 'TableDownHover' : 'Table'
-      }`}
+      className={`${className} ${editColumn === 'false' ? '' : 'show-edit-icon'} ${(data && data < 1) || data === undefined ? 'TableDownHover' : 'Table'
+        }`}
     >
       <ReactTableDraggableColumns
-      
+
         draggableColumns={{
           mode: 'reorder',
           draggable: draggableColumn,
-          onDropSuccess: (draggedColumn, targetColumn, oldIndex, newIndex) =>{
-            saveSchemaToLocal({ setNewSchema, userId, schemaColumn: fields,  module, draggedColumn, targetColumn, oldIndex, newIndex, dispatch  });
-            renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, dispatch});
+          onDropSuccess: (draggedColumn, targetColumn, oldIndex, newIndex) => {
+            saveSchemaToLocal({ setNewSchema, userId, schemaColumn: fields, module, draggedColumn, targetColumn, oldIndex, newIndex, dispatch });
+            renewColumn({ setNewSchema, data, fields, module, userId, editColumnTemp, showModal, columnHidden, dispatch });
           }
         }}
-        
+
         columns={newSchema}
         data={data}
         showPagination={false}
@@ -181,6 +180,7 @@ const Table = ({
           columnHidden={columnHidden}
           splitModule={splitModule}
           module={module}
+          data={data}
         />
       )}
     </div>

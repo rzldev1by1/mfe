@@ -146,20 +146,17 @@ const Form = ({
         <Col lg="3">
           <Dropdown
             name="orderType"
-            title="Order Type"
             options={resources?.orderType}
+            title={'Order Type'}
             selectedValue={orderDetails?.orderType}
-            onChangeDropdown={(selected) =>
-              changeOrderDetails({ column: 'orderType', value: selected, orderDetails, setOrderDetails })
-            }
+            onChangeDropdown={(selected) => {
+              changeOrderDetails({ column: 'orderType', value: selected, orderDetails, setOrderDetails });
+            }}
             required
             readOnly={isReadonly}
-            messageRequired={true}
-            messageParam={{
-              messageShow: isValidation,
-              value: orderDetails?.orderType,
-            }}
-            parentDivClassName={isValidation && !orderDetails?.orderType?.value ? 'input-danger' : ''}
+            messageRequired={orderDetails?.orderType ? null : true}
+            messageParam={{ messageShow: isValidation, value: orderDetails?.orderType }}
+            parentDivClassName={isValidation && !orderDetails?.orderType ? 'input-danger' : ''}
           />
         </Col>
         <Col lg="3">
@@ -181,7 +178,7 @@ const Form = ({
             }}
             readOnly={isReadonly}
             style={isReadonly ? { display: 'none' } : null}
-            classNameInput={`form-control ${  isValidation && !orderDetails?.deliveryDate ? 'input-danger' : ''}`}
+            classNameInput={`form-control ${isValidation && !orderDetails?.deliveryDate ? 'input-danger' : ''}`}
             selectedDates={orderDetails?.deliveryDate || ''}
           />
           <Input
