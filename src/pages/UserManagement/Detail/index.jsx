@@ -32,6 +32,7 @@ const UserManagementDetail = (props) => {
     isSaveProgressing: false,
 
     popUpReset: false,
+    statusReset: true,
     isLoadReset: false,
     isResetSuccess: false,
 
@@ -106,7 +107,7 @@ const UserManagementDetail = (props) => {
                 <div className="col-md-2">
                   <label className="text-title-detail">Name</label>
                 </div>
-                {newState?.accountInfo?.request_forgot_password ? (
+                {newState?.accountInfo?.request_forgot_password && newState.statusReset ? (
                   <div className="col-md-3 pr-0">
                     <label className="text-title-detail">Reset Password</label>
                   </div>
@@ -127,9 +128,8 @@ const UserManagementDetail = (props) => {
                     readOnly
                     type="email"
                     name="email"
-                    className={`form-control ${
-                      newState.validation.email['isValid'] ? '' : newState.validation.email['invalidClass']
-                    }`}
+                    className={`form-control ${newState.validation.email['isValid'] ? '' : newState.validation.email['invalidClass']
+                      }`}
                     onChange={(e) => {
                       onChangeEmail({ e, state, setState });
                     }}
@@ -146,9 +146,8 @@ const UserManagementDetail = (props) => {
                   <input
                     readOnly
                     type="text"
-                    className={`form-control ${
-                      newState.validation.name['isValid'] ? '' : newState.validation.name['invalidClass']
-                    }`}
+                    className={`form-control ${newState.validation.name['isValid'] ? '' : newState.validation.name['invalidClass']
+                      }`}
                     maxLength="60"
                     onChange={(e) => {
                       onChangeName({ e, state, setState });
@@ -161,7 +160,7 @@ const UserManagementDetail = (props) => {
                   </FormFeedback> */}
                 </div>
 
-                {newState?.accountInfo?.request_forgot_password ? (
+                {newState?.accountInfo?.request_forgot_password && newState.statusReset ? (
                   <div className="col-md-3 pr-0">
                     <div className="row pr-0">
                       <div className="col-6 text-title-detail pr-0">Are you sure you want to create new password?</div>
@@ -252,13 +251,12 @@ const UserManagementDetail = (props) => {
               {/* Validasi */}
               <div className="row">
                 <div className="col-4">
-                <div style={{color:'transparent'}}>transparent</div>
+                  <div style={{ color: 'transparent' }}>transparent</div>
                   <input
                     type="checkbox"
                     name="moduleAccess"
-                    className={`d-none ${
-                      newState.validation.modules['isValid'] ? '' : newState.validation.modules['invalidClass']
-                    }`}
+                    className={`d-none ${newState.validation.modules['isValid'] ? '' : newState.validation.modules['invalidClass']
+                      }`}
                   />
                   <FormFeedback>{`${newState.validation.modules['message']}`}</FormFeedback>
                 </div>
@@ -266,9 +264,8 @@ const UserManagementDetail = (props) => {
                   <input
                     type="checkbox"
                     name="sites"
-                    className={`d-none ${
-                      newState.validation.sites['isValid'] ? '' : newState.validation.sites['invalidClass']
-                    }`}
+                    className={`d-none ${newState.validation.sites['isValid'] ? '' : newState.validation.sites['invalidClass']
+                      }`}
                   />
                   <FormFeedback>{`${newState.validation.sites['message']}`}</FormFeedback>
                 </div>
@@ -276,9 +273,8 @@ const UserManagementDetail = (props) => {
                   <input
                     type="checkbox"
                     name="clients"
-                    className={`d-none ${
-                      newState.validation.clients['isValid'] ? '' : newState.validation.clients['invalidClass']
-                    }`}
+                    className={`d-none ${newState.validation.clients['isValid'] ? '' : newState.validation.clients['invalidClass']
+                      }`}
                   />
                   <FormFeedback>{`${newState.validation.clients['message']}`}</FormFeedback>
                 </div>
@@ -301,9 +297,8 @@ const UserManagementDetail = (props) => {
               </p>
               <button
                 type="button"
-                className={`font-lg btn btn-submit default-box-height ${
-                  newState.changed && isButton ? 'btn-primary' : 'btn-grey'
-                }`}
+                className={`font-lg btn btn-submit default-box-height ${newState.changed && isButton ? 'btn-primary' : 'btn-grey'
+                  }`}
                 disabled={!newState.changed || !isButton}
                 onClick={() => {
                   saveClick({ props, state, setState, dispatch });

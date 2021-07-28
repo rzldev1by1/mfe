@@ -4,6 +4,7 @@ export const closeModalPopupReset = ({ state, setState }) => {
   const newState = { ...state };
   newState.popUpReset = false;
   newState.isResetSuccess = false;
+  newState.statusReset = false;
   setState(newState);
 };
 
