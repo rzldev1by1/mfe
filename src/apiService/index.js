@@ -128,18 +128,18 @@ export const getSummaryData = async ({
       item.weight           = numeral(item.weight).format('0,0.000');
       item.weight_processed = numeral(item.weight_processed).format('0,0.000');
       item.price            = numeral(item.price).format('0,0.00');
-      item.delivery_date    = item.delivery_date && item.delivery_date !   == '' ? formatDate(item.delivery_date) : '-';
-      item.date_received    = item.date_received && item.date_received !   == '' ? formatDate(item.date_received) : '-';
-      item.date_released    = item.date_released && item.date_released !   == '' ? formatDate(item.date_released) : '-';
-      item.date_completed   = item.date_completed && item.date_completed ! == '' ? formatDate(item.date_completed): '-';
+      item.delivery_date  = item.delivery_date && item.delivery_date !== '' ? formatDate(item.delivery_date) : '-';
+      item.date_received  = item.date_received && item.date_received !== '' ? formatDate(item.date_received) : '-';
+      item.date_released  = item.date_released && item.date_released !== '' ? formatDate(item.date_released) : '-';
+      item.date_completed = item.date_completed && item.date_completed !== '' ? formatDate(item.date_completed): '-';
       // Supplier Management PO Date format
       item.no          = idx + 1;
-      item.po_date     = item.po_date && item.po_date ! == '' ? formatDate(item.po_date): '-';
+      item.po_date     = item.po_date && item.po_date !== '' ? formatDate(item.po_date): '-';
       item.total_order = numeral(item.total_order).format('0,0')
       // User Management Data
-      item.disabled = item.disabled                =  item.disabled && item.disabled ! == 'Y' ? 'Active': 'Suspended';
-      item.site     = item.site && item.site !     == '' ? item.site                   :  'All';
-      item.client   = item.client && item.client ! == '' ? item.client                 :  'All';
+      item.disabled = item.disabled                =  item.disabled && item.disabled !== 'Y' ? 'Active': 'Suspended';
+      item.site     = item.site && item.site !== '' ? item.site                   :  'All';
+      item.client   = item.client && item.client !== '' ? item.client                 :  'All';
       item.last_access =
         item.last_access && item.last_access !== '' ? moment(item.last_access).format('DD/MM/YYYY HH:mm:ss') : '-';
       if (customerName !== undefined) item.customername = customerName[1];
@@ -524,7 +524,7 @@ export const restructureAccount = (sources) => {
     newAccount.userMenu       = restuctureMenuList(account.user_menus);
     newAccount.userId         = account.userid;
     newAccount.client         = account.client;
-    newAccount.disabled       = account.disabled                               = == 'Y';
+    newAccount.disabled       = account.disabled === 'Y';
     newAccount.passwordChange = account.passwordChange ? account.passwordChange: '';
     newAccount.site           = account.site;
     newAccount.web_group      = account.web_group;
@@ -621,7 +621,7 @@ export const onChangeName = ({ e, state, setState }) => {
 };
 export const checkNameValidation = ({ textName, state, setState }) => {
   const newState = { ...state };
-  let isValid    = textName ! = '';
+  let isValid    = textName !== '';
   newState.validation.name['isValid'] = isValid;
   if (!isValid) newState.validation.name['message'] = utility.validationMsg.USERNAME_REQUIRED;
   else newState.validation.name['message'] = '';
@@ -697,9 +697,9 @@ export const saveClick = ({ props, state, setState, dispatch }) => {
   newParam.lastLogin  = accountInfo.lastLogin;
   newParam.thisAccess = accountInfo.thisAccess;
   newParam.thisLogin  = accountInfo.thisLogin;
-  newParam.userMenu   = accountInfo.web_group          = == utility.webgroup.ADMIN ? adminMenu: userMenu;
-  newParam.client     = accountInfo.web_group          = == utility.webgroup.ADMIN ? null     : clientValue;
-  newParam.site       = accountInfo.web_group          = == utility.webgroup.ADMIN ? null     : siteValue;
+  newParam.userMenu   = accountInfo.web_group === utility.webgroup.ADMIN ? adminMenu: userMenu;
+  newParam.client     = accountInfo.web_group === utility.webgroup.ADMIN ? null     : clientValue;
+  newParam.site       = accountInfo.web_group === utility.webgroup.ADMIN ? null     : siteValue;
   newParam.disabled   = accountInfo.disabled ? 'Y'     : 'N';
 
   let dataParam       = newParam;

@@ -104,7 +104,6 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
   if (UrlHeader) {
     const url = UrlHeader();
     const { data } = await axios.get(url);
-    console.log(dataSum?.length)
     const newfields = [];
     const accessor = fields.map((datas) => {
       const split = datas.accessor;
