@@ -84,18 +84,18 @@ export const onModuleAccessClick = ({ e, index, state, setState }) => {
   let newValidation = { ...newState.validation };
   let moduleAccess = [...newState.moduleAccess];
   let newModules = moduleAccess.map((item, idx) => {
-    // if (idx === index) {
-    //   if(item.status == false){
-    //     item.status = true;
-    //   }else{
-    //     item.status = false
-    //   }
-    // }
     if (idx === index) {
-      item.status = true;
-    } else {
-      item.status = false;
+      if (item.status == false) {
+        item.status = true;
+      } else {
+        item.status = false
+      }
     }
+    // if (idx === index) {
+    //   item.status = true;
+    // } else {
+    //   item.status = false;
+    // }
     return item;
   });
 
@@ -121,7 +121,7 @@ export const onEnabledAllModuleAccess = ({ state, setState }) => {
     item.status = !newIsEnableAllModule;
     return item;
   });
-  
+
   newValidation.modules.isValid = newArray.filter((m) => m.status !== false).length > 0;
   newState.moduleAccess = newArray;
   newState.isEnableAllModule = !newIsEnableAllModule;
