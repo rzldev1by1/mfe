@@ -78,7 +78,7 @@ const UserManagement = (props) => {
             <CCol lg={1} className="col-3 user-login-info-header">
               <div className="user-login-info-header">Name</div>
               <div className="user-login-info-value">
-                <Link to={`/users-management/${user.webUser}/detail`}>{user.userId}</Link>
+                <Link to={`/users-management/${user.webUser}/detail`}>{user.name}</Link>
               </div>
             </CCol>
             <CCol lg={2} className="col-4 user-login-info-header pr-0">
