@@ -280,7 +280,7 @@ const EditRenameColumn = ({
                           <div key={index} className="p-2">
                             <OverlayTrigger
                               placement="bottom"
-                              delay={{ show: 250, hide: 850 }}
+                              delay={{ show: 250, hide: 3000 }}
                               overlay={renderTooltipRename({ header: item.Header, defaults: item.placeholder, changedColumn, state, setState, fields, id: index, name: item.Header })}
                             >
                               <input
