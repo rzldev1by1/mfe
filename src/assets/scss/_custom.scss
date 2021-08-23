@@ -895,17 +895,21 @@ input.form-control.input-danger {
   .tooltip-inner {
     max-width: 280px;
     padding: 0.25rem 0.5rem;
-    color: #fff;
+    color: #FFF;
     text-align: left;
-    background-color: #a6bcfc;
+    background-color: #376BFB;
     border-radius: 0.25rem;
     position: absolute;
     width: 280px;
     margin-left: -103px;
     margin-top: -47px;
+    cursor: pointer;
+  }
+  .tooltip-inner:hover{
+    text-decoration: underline;
   }
   .arrow::before{
-    border-top-color: #a6bcfc !important;
+    border-top-color: #376BFB !important;
     margin-left: -90px;
     margin-top: -3px;
   }
@@ -918,17 +922,20 @@ input.form-control.input-danger {
   .tooltip-inner {
     max-width: 280px;
     padding: 0.25rem 0.5rem;
-    color: #fff;
+    color: #FFF;
     text-align: left;
-    background-color: #a6bcfc;
+    background-color: #376BFB;
     border-radius: 0.25rem;
     position: absolute;
     width: fit-content;
     margin-left: -132px;
     cursor: pointer;
   }
+  .tooltip-inner:hover{
+    text-decoration: underline;
+  }
   .arrow::before{
-    border-bottom-color: #a6bcfc !important;
+    border-bottom-color: #376BFB !important;
     margin-left: -120px;
     margin-top: -3px;
   }
