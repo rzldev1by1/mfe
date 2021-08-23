@@ -154,8 +154,7 @@ const EditRenameColumn = ({
                 <div className="input-group">
                   <NavItem className="pl-0 pr-0">
                     <NavLink
-                      className={`nav-link-cust d-flex align-items-center tab-color${state.activeTab === '1' ? ' tab-rename' : ''
-                        }`}
+                      className={`nav-link-cust d-flex align-items-center tab-color${state.activeTab === '1' ? ' tab-rename' : ''}`}
                       active={state.activeTab === '1'}
                       onClick={() => {
                         activeTabIndex('1');
@@ -281,7 +280,7 @@ const EditRenameColumn = ({
                           <div key={index} className="p-2">
                             <OverlayTrigger
                               placement="bottom"
-                              delay={{ show: 250, hide: 400 }}
+                              delay={{ show: 250, hide: 850 }}
                               overlay={renderTooltipRename({ header: item.Header, defaults: item.placeholder, changedColumn, state, setState, fields, id: index, name: item.Header })}
                             >
                               <input

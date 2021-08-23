@@ -691,11 +691,14 @@ header {
         .rt-th {
           display: flex;
           align-items: center;
-          -webkit-justify-content: left !important
+          -webkit-justify-content: left
         }
         .rt-th:first-child {
           padding-left: 1.15rem !important;
           text-align: left !important;
+        }
+        .rt-th:last-child{
+          -webkit-justify-content: center
         }
         .enable-drag {
           padding: 0px !important;
