@@ -10,13 +10,11 @@
   border-right: 2px #376bfb solid !important;
   border-bottom: 2px #376bfb solid !important;
 }
-
 .progressBar {
   .inline {
     display: inline !important;
   }
 }
-
 .progress {
   display: -webkit-flex;
   display: flex;
@@ -29,4 +27,17 @@
   border-bottom-right-radius: 23px;
   background-color: #ebedef;
   width: 99%;
+}
+
+.btnResetCencel{
+    font-size: 85%;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    margin-right: 15px;
+    color: #adafb1;
+}
+
+.btnResetCencel:hover{
+  color: #376bfb;
 }

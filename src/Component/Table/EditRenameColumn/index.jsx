@@ -6,7 +6,7 @@ import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
 import { Button, Container, Row, Col, Modal, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { NavItem, NavLink, TabPane, TabContent } from 'reactstrap';
 import { showColumn, saveEdit, changedColumn, renameSubmit, headerRename, resetColumnName, resetColumnTable } from './services';
-import logoConfirm from 'assets/img/IconReset.png'
+import PopUpResetTable from 'Component/Modal/PopUpResetTable'
 import './style.scss';
 
 const EditRenameColumn = ({
@@ -27,6 +27,7 @@ const EditRenameColumn = ({
   const reorder = useSelector((state) => state.reorder);
   const darkMode = useSelector((state) => state.darkModeMLS);
   const dragStatus = useSelector((state) => state.dragStatus);
+  const [modalReset, setModalReset] = useState(false);
   const [state, setState] = React.useState({
     error: {},
     sameColumns: [],
@@ -99,15 +100,12 @@ const EditRenameColumn = ({
   }
 
   function resetConfirmation() {
-    let newState = { ...state };
-    if (state.modConfirmation === false) {
+    if (modalReset === false) {
       setShowMod(false);
-      newState.modConfirmation = true;
-      setState(newState);
+      setModalReset(true)
     } else {
       setShowMod(true);
-      newState.modConfirmation = false;
-      setState(newState);
+      setModalReset(false)
     }
   }
 
@@ -359,49 +357,15 @@ const EditRenameColumn = ({
           </Row>
         </Modal.Body>
       </Modal>
-      <Modal show={state.modConfirmation} size="lg" centered className="p-3" className="modal-confirmation">
-        <Modal.Body className={`${darkMode ? 'customDarkModes' : ' '} p-3`}>
-          <div
-            className="text-right px-0"
-            style={{ fontSize: '14px' }}
-            onClick={() =>
-              resetConfirmation()
-            }
-          >
-            <i className="iconU-close pointer" />
-          </div>
-          <div className="d-flex justify-content-between">
-            <img src={logoConfirm} alt="logo" style={{ width: "25%", height: "25%" }} />
-            <div className="pl-3">
-              <p className="mb-0" style={{ color: "#D6D8DA" }}>Are you sure?</p>
-              <p>To reset all the Rename Column that has been modified, this action can not be undo.</p>
-            </div>
-          </div>
-          <Col className="px-0 pb-0 pt-3 d-flex justify-content-between">
-            <Button
-              variant="primary"
-              style={{ padding: '0rem 1.08rem', marginRight: '1rem' }}
-              onClick={() =>
-                resetConfirmation()
-              }
-            >
-              CANCEL
-            </Button>
-            <Button
-              variant="primary"
-              style={{ padding: '0rem 1.08rem' }}
-              onClick={() =>
-                // resetColumnTable({ module, user, editColumnTemp, fields, state, setState })
-                resetColumnName({ user, splitModule })
-              }
-            // disabled={state.disableBtn}
-            // className={state.disableBtn ? "btn-disabled" : ""}
-            >
-              DONE
-            </Button>
-          </Col>
-        </Modal.Body>
-      </Modal>
+      {!modalReset ? null : (
+        <PopUpResetTable
+          modal={modalReset}
+          setModalReset={setModalReset}
+          resetConfirmation={resetConfirmation}
+          resetColumnName={resetColumnName}
+          user={user}
+          splitModule={splitModule} />
+      )}
     </div>
   );
 };

@@ -10,3 +10,21 @@
   border-right: 2px #376bfb solid !important;
   border-bottom: 2px #376bfb solid !important;
 }
+.progressBar {
+  .inline {
+    display: inline !important;
+  }
+}
+.progress {
+  display: -webkit-flex;
+  display: flex;
+  height: 0.2rem;
+  overflow: hidden;
+  line-height: 0;
+  font-size: 0.65625rem;
+  border-radius: 1px;
+  border-bottom-left-radius: 23px;
+  border-bottom-right-radius: 23px;
+  background-color: #ebedef;
+  width: 99%;
+}
