@@ -28,7 +28,7 @@ const PopUpResetTable = ({
     <Modal
       isOpen={modal}
       centered
-      onOpened={() => modal ? setTimeout(() => { resetConfirmation() }, 200000) : {}}
+      onOpened={() => modal ? setTimeout(() => { resetConfirmation() }, 20000) : {}}
       contentClassName="modal-content-paging modalCreateSuccess d-flex align-items-center"
       closeOnBackdrop={false}
     >
