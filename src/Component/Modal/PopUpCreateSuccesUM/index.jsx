@@ -28,10 +28,10 @@ const PopUpCreateSuccesUM = ({
           <img src={logo} alt="logo" style={{ width: "19%", height: "19%" }} />
           <div className="pl-3">
             <div className="font font-weight-bold pb-2">
-              THANKS YOU
+              THANK YOU
             </div>
             <div style={{ fontSize: "95%" }}>
-              {'You have created a new ' + submitReturn?.role + ' User for' + submitReturn?.name + ' The ' + submitReturn?.role +
+              {'You have created a new ' + submitReturn?.role + ' User for ' + submitReturn?.name + ' The ' + submitReturn?.role +
                 ' User ' + submitReturn?.name + ' will receive an email shortly with their user ID and password to access the portal'}
             </div>
           </div>
