@@ -189,7 +189,6 @@ const Create = ({ show, setShow }) => {
           </div>
         </Modal.Body>
       </Modal>
-      {console.log(isSubmitReturn?.status, isSubmitReturn?.message)}
       {activeTab == 'message' ?
         isSubmitReturn?.status == 201 ||
           isSubmitReturn?.message === 'User created' ? (

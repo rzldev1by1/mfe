@@ -35,7 +35,7 @@ const PopUpCreateSucces = ({
               SUCCESS
             </div>
             <div style={{ fontSize: "95%" }}>
-              The {module} [ {submitReturn?.orderNo} ]
+              The {module}  {submitReturn?.orderNo}
               has been submitted successfully for processing
             </div>
           </div>

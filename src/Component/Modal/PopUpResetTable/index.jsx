@@ -44,7 +44,7 @@ const PopUpResetTable = ({
         </div>
         <Col className="px-0 pb-0 pt-3 d-flex justify-content-end">
           <div className="btnResetCencel" onClick={() => resetConfirmation()} >
-            CANCEL
+            NO
           </div>
           <Button
             variant="primary"
@@ -55,7 +55,7 @@ const PopUpResetTable = ({
           // disabled={state.disableBtn}
           // className={state.disableBtn ? "btn-disabled" : ""}
           >
-            RESET
+            YES
           </Button>
         </Col>
       </ModalBody>
