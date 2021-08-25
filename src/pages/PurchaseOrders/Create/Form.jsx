@@ -110,6 +110,7 @@ const Form = ({
       setDropdownExpandStyle(null);
     }
   }, [orderLineSelectOpen]);
+
   return (
     <div>
       <h3 className="text-primary font-20">Order Details</h3>
@@ -143,10 +144,7 @@ const Form = ({
             required
             readOnly={isReadonly}
             messageRequired={true}
-            messageParam={{
-              messageShow: isValidation,
-              value: orderDetails?.orderType,
-            }}
+            messageParam={{ messageShow: isValidation && !orderDetails?.orderType?.value, value: orderDetails?.orderType, }}
             parentDivClassName={isValidation && !orderDetails?.orderType?.value ? 'input-danger' : ''}
           />
         </Col>
@@ -245,7 +243,7 @@ const Form = ({
             }}
             readOnly={isReadonly}
             style={isReadonly ? { display: 'none' } : null}
-            classNameInput={`form-control ${  isValidation && !orderDetails?.orderDate ? 'input-danger' : ''}`}
+            classNameInput={`form-control ${isValidation && !orderDetails?.orderDate ? 'input-danger' : ''}`}
             selectedDates={orderDetails?.orderDate || ''}
           />
           <Input

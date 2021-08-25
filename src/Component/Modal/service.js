@@ -22,12 +22,11 @@ export const ProgressBarReset = async ({ resetConfirmation }) => {
         }
     }
 }
-export const ProgressBar = async ({ setModal, back, exit, status }) => {
+export const ProgressBar = async ({ setModal, back, exit, status, }) => {
     let i = 0;
     if (i == 0) {
         i = 1;
         let element = await document.getElementById('progressBar');
-        console.log(element)
         if (element) {
             let width = 1;
             let id = setInterval(frame, 130);
@@ -37,7 +36,7 @@ export const ProgressBar = async ({ setModal, back, exit, status }) => {
                     i = 0;
                     setModal(false);
                     if (status == 'sukses') exit();
-                    else back();
+                    if (status == 'loos') back();
                 } else {
                     width++;
                     element.style.width = width + "%";
