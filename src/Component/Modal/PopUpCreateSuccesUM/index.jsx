@@ -31,8 +31,8 @@ const PopUpCreateSuccesUM = ({
               THANK YOU
             </div>
             <div style={{ fontSize: "95%" }}>
-              {'You have created a new ' + submitReturn?.role + ' User for ' + submitReturn?.name + ' The ' + submitReturn?.role +
-                ' User ' + submitReturn?.name + ' will receive an email shortly with their user ID and password to access the portal'}
+              {'You have created a new ' + submitReturn?.role + ' User for ' + submitReturn?.name + '. The ' + submitReturn?.role +
+                ' User ' + submitReturn?.name + ' will receive an email shortly with their user ID and password to access the portal.'}
             </div>
           </div>
         </div>
