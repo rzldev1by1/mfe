@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Modal, ModalBody } from 'reactstrap'
 import logoConfirm from 'assets/img/warning.png'
-import { Button, Col, } from 'react-bootstrap';
+import { Button, Col, Row } from 'react-bootstrap';
+import { ProgressBarReset } from '../service';
 import "./index.scss";
 
 
@@ -13,22 +14,14 @@ const PopUpResetTable = ({
   resetColumnName,
   user,
   splitModule,
-  reload,
 }) => {
-  const [progressPercent, setProgressPercent] = useState(0);
-
-  useEffect(() => {
-    setTimeout(() => { for (let i = progressPercent; i < 0; i++) { setProgressPercent(i) } }, 100)
-    setTimeout(() => { for (let i = progressPercent; i < 25; i++) { setProgressPercent(i) } }, 5000)
-    setTimeout(() => { for (let i = progressPercent; i < 50; i++) { setProgressPercent(i) } }, 10000)
-    setTimeout(() => { for (let i = progressPercent; i < 75; i++) { setProgressPercent(i) } }, 15000)
-    setTimeout(() => { for (let i = progressPercent; i < 150; i++) { setProgressPercent(i) } }, 20000)
-  }, [reload]);
+  setTimeout(() => {
+    ProgressBarReset({ resetConfirmation })
+  }, 1000);
   return (
     <Modal
       isOpen={modal}
       centered
-      onOpened={() => modal ? setTimeout(() => { resetConfirmation() }, 20000) : {}}
       contentClassName="modal-content-paging modalCreateSuccess d-flex align-items-center"
       closeOnBackdrop={false}
     >
@@ -68,9 +61,10 @@ const PopUpResetTable = ({
       </ModalBody>
       <div className="progress">
         <div
+          id="progressBar"
           className="progress-bar"
           role="progressbar"
-          style={{ width: progressPercent + "%" }}
+          style={{ width: null }}
           aria-valuemin="0"
           aria-valuemax="100"
         ></div>

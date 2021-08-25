@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Modal, ModalBody } from 'reactstrap'
 import logo from 'assets/img/Internet-Problem-Red.png'
+import { ProgressBar } from '../service';
 import "./index.scss";
 
 
@@ -9,21 +10,13 @@ const PopUpLoss = ({
   setModal,
   back
 }) => {
-  const [progressPercent, setProgressPercent] = useState(0);
-
-  useEffect(() => {
-    setTimeout(() => { for (let i = progressPercent; i < 0; i++) { setProgressPercent(i) } }, 100)
-    setTimeout(() => { for (let i = progressPercent; i < 25; i++) { setProgressPercent(i) } }, 5000)
-    setTimeout(() => { for (let i = progressPercent; i < 50; i++) { setProgressPercent(i) } }, 10000)
-    setTimeout(() => { for (let i = progressPercent; i < 75; i++) { setProgressPercent(i) } }, 15000)
-    setTimeout(() => { for (let i = progressPercent; i < 150; i++) { setProgressPercent(i) } }, 20000)
-  }, []);
-
+  setTimeout(() => {
+    ProgressBar({ setModal, back, })
+  }, 1000);
   return (
     <Modal
       isOpen={modal}
       centered
-      onOpened={() => modal ? setTimeout(() => { setModal(false); back(); }, 20000) : {}}
       contentClassName="modal-content-paging modalCreateLoss d-flex align-items-center"
       closeOnBackdrop={false}
     >
@@ -50,9 +43,10 @@ const PopUpLoss = ({
       </ModalBody>
       <div className="progress">
         <div
+          id="progressBar"
           className="progress-bar"
           role="progressbar"
-          style={{ width: progressPercent + "%" }}
+          style={{ width: null }}
           aria-valuemin="0"
           aria-valuemax="100"
         ></div>

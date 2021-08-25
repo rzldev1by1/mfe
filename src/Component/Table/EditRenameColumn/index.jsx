@@ -231,7 +231,7 @@ const EditRenameColumn = ({
                         <Button
                           variant="primary"
                           style={{ padding: '0rem 1.08rem', marginRight: '1rem' }}
-                          onClick={user.userLevel === 'Admin' ? () => resetConfirmation() : () => resetColumnName({ user, splitModule })}
+                          onClick={user.userLevel === 'Admin' ? () => { resetConfirmation() } : () => { resetColumnName({ user, splitModule }) }}
                           className={!isChanged ? '' : "btn-disabled"}
                           disabled={isChanged}
                         >
@@ -311,7 +311,7 @@ const EditRenameColumn = ({
                         <Button
                           variant="primary"
                           style={{ padding: '0rem 1.08rem', marginRight: '1rem' }}
-                          onClick={user.userLevel === 'Admin' ? () => resetConfirmation() : () => resetColumnName({ user, splitModule })}
+                          onClick={user.userLevel === 'Admin' ? () => { resetConfirmation() } : () => { resetColumnName({ user, splitModule }) }}
                           className={!isChanged ? '' : "btn-disabled"}
                           disabled={isChanged}
                         >
