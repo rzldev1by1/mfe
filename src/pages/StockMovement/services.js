@@ -373,13 +373,14 @@ export const headerPdf = [
 ];
 
 export const demoPDF = ({ filename, rowSpan }) => {
+  const dateFormate= process.env.REACT_APP_API_URL_FORMATE;
   const unit = 'pt';
   const size = 'A4'; // Use A1, A2, A3 or A4
   const orientation = 'landscape'; // portrait or landscape
   const pdf = new jsPDF(orientation, unit, size);
   let title = ExportName(filename);
   let originDate = Dates();
-  let date = moment(originDate).format('DD/MM/YYYY');
+  let date = moment(originDate).format(dateFormate);
   let colour = 1;
   let i = 2;
   var finalY = pdf.previousAutoTable.finalY || 10;

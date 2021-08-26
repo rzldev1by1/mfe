@@ -1,9 +1,10 @@
 import React from 'react';
 import moment from 'moment';
+const dateFormate= process.env.REACT_APP_API_URL_FORMATE;
 
 export const formatDate = (date) => {
   if (date) {
-    return moment(date).format('DD/MM/YYYY') || false;
+    return moment(date).format(dateFormate) || false;
   }
 };
 export const schemaColumn = [
@@ -231,6 +232,17 @@ export const schemaColumn = [
     width: 130,
   },
   {
+    Header: 'Ship To Name',
+    placeholder: 'Ship To Name',
+    accessor: 'ship_to_name',
+    headerStyle: { textAlign: 'left' },
+    style: { textAlign: 'left', paddingLeft: '15px' },
+    headerClassName: 'borderBottom noPaddingTop',
+    sortable: true,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
+    width: 130,
+  },
+  {
     Header: 'Suburb',
     placeholder: 'Suburb',
     accessor: 'suburb',
@@ -293,7 +305,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? moment(props.value).format('DD/MM/YYYY HH:mm:ss') : '-'}</span>,
+    Cell: (props) => <span>{props.value ? moment(props.value).format(`${dateFormate}' HH:mm:ss'`) : '-'}</span>,
     width: 130,
   },
   {
@@ -304,7 +316,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? moment(props.value).format('DD/MM/YYYY HH:mm:ss') : '-'}</span>,
+    Cell: (props) => <span>{props.value ? moment(props.value).format(`${dateFormate}' HH:mm:ss'`) : '-'}</span>,
     width: 140,
   },
   {

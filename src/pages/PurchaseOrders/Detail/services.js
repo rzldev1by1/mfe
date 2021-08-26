@@ -2,9 +2,11 @@
 import React from 'react';
 import moment from 'moment';
 
+const dateFormate= process.env.REACT_APP_API_URL_FORMATE;
+
 export const formatDate = (date) => {
   if (date !== null && date !== '-') {
-    return moment(date).format('DD/MM/YYYY') || false;
+    return moment(date).format(dateFormate) || false;
   }else{
     return date
   }

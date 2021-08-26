@@ -137,20 +137,22 @@ const SalesOrdersDetail = (props) => {
           titleCenterThree="Address 3"
           titleCenterFour="Address 4"
           titleCenterFive="Address 5"
-          titleCenterSix="Suburb"
-          titleCenterSeven="Postcode"
-          titleCenterEight="State"
-          titleCenterNine="Country"
+          titleCenterSix="Ship To Name"
+          titleCenterSeven="Suburb"
+          titleCenterEight="Postcode"
+          titleCenterNine="State"
+          titleCenterten="Country"
           // Valeu Center
           valeuCenterOne={soDetail?.address1 || '-'}
           valeuCenterTwo={soDetail?.address2 || '-'}
           valeuCenterThree={soDetail?.address3 || '-'}
           valeuCenterFour={soDetail?.address4 || '-'}
           valeuCenterFive={soDetail?.address5 || '-'}
-          valeuCenterSix={soDetail?.suburb || '-'}
-          valeuCenterSeven={soDetail?.postcode || '-'}
-          valeuCenterEight={soDetail?.state || '-'}
-          valeuCenterNine={soDetail?.country || '-'}
+          valeuCenterSix={soDetail?.ship_to_name || '-'}
+          valeuCenterSeven={soDetail?.suburb || '-'}
+          valeuCenterEight={soDetail?.postcode || '-'}
+          valeuCenterNine={soDetail?.state || '-'}
+          valeuCenterTen={soDetail?.country || '-'}
           // title Left
           titleLeft
           titleLeftOne="Status"

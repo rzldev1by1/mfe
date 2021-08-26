@@ -9,10 +9,11 @@ import * as utility from './UmUtility';
 
 const today = moment(Date()).format('YYYY-MM-DD hh: mm: ss');
 const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'manage supplier users'];
+const dateFormate= process.env.REACT_APP_API_URL_FORMATE;
 
 export const formatDate = (date) => {
   if (date !== "Invalid date" || date === undefined || date === null || date === '') {
-    return moment(date).format('DD/MM/YYYY') || false;
+    return moment(date).format(dateFormate) || false;
   }
   return '-';
 
@@ -141,7 +142,7 @@ export const getSummaryData = async ({
       item.site = item.site && item.site !== '' ? item.site : 'All';
       item.client = item.client && item.client !== '' ? item.client : 'All';
       item.last_access =
-        item.last_access && item.last_access !== '' ? moment(item.last_access).format('DD/MM/YYYY HH:mm:ss') : '-';
+        item.last_access && item.last_access !== '' ? moment(item.last_access).format(`${dateFormate}' HH:mm:ss'`) : '-';
       if (customerName !== undefined) item.customername = customerName[1];
     });
 

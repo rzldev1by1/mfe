@@ -11,6 +11,7 @@ import RequiredMessage from '../Component/RequiredMessage';
 // const currentYear = new Date().getFullYear();
 // const fromMonth = new Date();
 // const toMonth = new Date(currentYear + 10, 11);
+const dateFormate= process.env.REACT_APP_API_URL_FORMATE;
 
 function Navbar({
     // nextMonth,
@@ -134,7 +135,7 @@ class DatePicker extends React.Component {
             monthChange: false,
             top: null,
             left: null,
-            defaultValue: props.defaultValue ? moment(props.defaultValue).format("DD/MM/YYYY") : null
+            defaultValue: props.defaultValue ? moment(props.defaultValue).format(dateFormate) : null
         }
     }
 
@@ -149,11 +150,11 @@ class DatePicker extends React.Component {
 
     componentDidUpdate(prevProps){
         if(this.props.firstDate){
-            if (moment(prevProps.firstDate).format("DD/MM/YYYY") !== moment(this.props.firstDate).format("DD/MM/YYYY")){
+            if (moment(prevProps.firstDate).format(dateFormate) !== moment(this.props.firstDate).format(dateFormate)){
                 if(!this.props.firstValue){
                     let firstDate = new Date(this.props.firstDate);
                     firstDate.setDate(firstDate.getDate() + 1)
-                    this.setState({ month: firstDate, selectedDay: firstDate, defaultValue: moment(firstDate).format("DD/MM/YYYY")});
+                    this.setState({ month: firstDate, selectedDay: firstDate, defaultValue: moment(firstDate).format(dateFormate)});
                     this.props.getDate(moment(firstDate).format("YYYY-MM-DD"))
                 }
             }
@@ -175,11 +176,11 @@ class DatePicker extends React.Component {
             return;
         }
         this.setState({
-            selectedDay: day, defaultValue: moment(day).format("DD/MM/YYYY")
+            selectedDay: day, defaultValue: moment(day).format(dateFormate)
         });
         this.props.getDate(moment(day).format("YYYY-MM-DD"))
         this.setState({ showDatePicker: false });
-        // this.refs['dateValue'].value = moment(day).format("DD/MM/YYYY");
+        // this.refs['dateValue'].value = moment(day).format(dateFormate);
         if (this.props.onChange) {
             this.props.onChange()
         }
@@ -313,7 +314,7 @@ class DatePicker extends React.Component {
                 <ul className={className} style={this.props.style} tabIndex={this.props.tabIndex ? this.props.tabIndex : null}>
                     <input type="text"
                         ref="dateValue"
-                        placeholder={this.props.placeHolder ? this.props.placeHolder : "DD/MM/YYYY"}
+                        placeholder={this.props.placeHolder ? this.props.placeHolder : dateFormate}
                         className={this.props.classNameInput}
                         maxLength="10"
                         value={this.state.defaultValue}
@@ -326,7 +327,7 @@ class DatePicker extends React.Component {
                         onKeyDown={(e) => this.disabledAlpha(e)}
                         style={this.props.formStyle} />
                     {/* <input className="select_date_close" type="radio" name={"select" + placeHolder + no} id={"select-close" + placeHolder + no} value="" defaultChecked/> */}
-                    {/* <span className="select_date_label select_date_label-placeholder">{this.state.selectedDay ? moment(this.state.selectedDay).format("DD/MM/YYYY") : placeHolder}</span> */}
+                    {/* <span className="select_date_label select_date_label-placeholder">{this.state.selectedDay ? moment(this.state.selectedDay).format(dateFormate) : placeHolder}</span> */}
 
                     {/* <li className="select_date_items"> */}
                     <input className={"select_date_expand" + (this.props.arrowStyle ? " select_arrow_expand" : " select_calendar_expand")} ref="opener" type="checkbox" name={"select" + placeHolder + no} value="" checked={this.state.showDatePicker} id={"select-opener" + placeHolder + no} />
