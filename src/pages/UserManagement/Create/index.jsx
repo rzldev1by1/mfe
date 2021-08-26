@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Container } from 'react-bootstrap';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
+import { TabContent, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 import Form from './Form';
-import { renewState, resetState, resetCreate, validation, submit, validateButton } from './services.js';
-import { getPOResources, getDisposition } from 'apiService/dropdown';
+import { renewState, submit, validateButton } from './services.js';
 import loading from 'assets/icons/loading/LOADING-MLS.gif';
-import MessageTab from 'Component/MessageTab';
+import PopUpCreateSuccesUM from 'Component/Modal/PopUpCreateSuccesUM';
+import PopUpLossUM from 'Component/Modal/PopUpLossUM';
 import './style.scss';
 
 const Create = ({ show, setShow }) => {
@@ -16,6 +16,7 @@ const Create = ({ show, setShow }) => {
   const clientData = useSelector((state) => state.clientData);
   const siteData = useSelector((state) => state.siteData);
   const moduleAccess = useSelector((state) => state.moduleAccess);
+  const darkMode = useSelector((state) => state.darkModeMLS);
 
   const [activeTab, setActiveTab] = useState('details');
   const [isReset, setIsReset] = useState(0);
@@ -23,6 +24,7 @@ const Create = ({ show, setShow }) => {
   const [isSubmitStatus, setIsSubmitStatus] = useState(null);
   const [isSubmitReturn, setIsSubmitReturn] = useState(null);
   const [createDetails, setCreateDetails] = useState(null);
+  const [modal, setModal] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [state, setState] = useState({
     userId: null,
@@ -73,7 +75,7 @@ const Create = ({ show, setShow }) => {
   return (
     <div>
       <Modal show={show} size="xl" className="purchase-order-create">
-        <Modal.Body className="bg-primary p-0 rounded-top rounded-bottom">
+        <Modal.Body className={`${darkMode ? 'customDarkModes' : 'bg-primary'}  p-0 rounded-top rounded-bottom`}>
           <Row className="px-9 mx-0">
             <Col xs={10} className="px-0">
               <i className="iconU-createModal font-20"></i>
@@ -93,7 +95,7 @@ const Create = ({ show, setShow }) => {
           <Nav tabs className="px-7 m-0">
             <NavItem className="mr-1">
               <NavLink
-                style={{ paddingBottom: '7px', maxWidth:'297px', paddingRight:'20px' }}
+                style={{ paddingBottom: '7px', maxWidth: '297px', paddingRight: '20px' }}
                 className={`d-flex height-nav align-items-center ${activeTab === 'details' ? 'active' : null}`}
                 onClick={() => setActiveTab('details')}
               >
@@ -104,14 +106,14 @@ const Create = ({ show, setShow }) => {
             <NavItem>
               <NavLink
                 className={`d-flex height-nav align-items-center ${activeTab === 'review' ? 'active' : null}`}
-                style={{ paddingBottom: '7px', maxWidth:'146px', paddingRight:'22px' }}
+                style={{ paddingBottom: '7px', maxWidth: '146px', paddingRight: '22px' }}
                 onClick={() => {
                   if (state.validate) {
                     setActiveTab('review');
                   }
                 }}
               >
-                <span className="newIcon-review" /> 
+                <span className="newIcon-review" />
                 <div className="pl-2">Review</div>
               </NavLink>
             </NavItem>
@@ -119,27 +121,14 @@ const Create = ({ show, setShow }) => {
           <div>
             <TabContent >
               <Container className="px-9 pt-4 pb-9">
-                {/* Tabs */}
-                {activeTab == 'message' ? (
-                  <MessageTab
-                    module="UM"
-                    submitReturn={isSubmitReturn}
-                    back={() => setActiveTab('detail')}
-                    exit={() => {
-                      setShow(false);
-                      setIsReset(0);
-                    }}
-                  />
-                ) : (
-                  <Form
-                    isAdmin={isAdmin}
-                    setIsAdmin={setIsAdmin}
-                    activeTab={activeTab}
-                    state={state}
-                    setState={setState}
-                    isValidation={isValidation}
-                  />
-                )}
+                <Form
+                  isAdmin={isAdmin}
+                  setIsAdmin={setIsAdmin}
+                  activeTab={activeTab}
+                  state={state}
+                  setState={setState}
+                  isValidation={isValidation}
+                />
 
                 {/* Button */}
                 {activeTab == 'details' ? (
@@ -181,7 +170,7 @@ const Create = ({ show, setShow }) => {
                         className="btn btn-primary"
                         onClick={() => {
                           setIsSubmitStatus('loading');
-                          submit({ setIsSubmitStatus, setIsSubmitReturn, setActiveTab, isAdmin, user, data: state });
+                          submit({ setIsSubmitStatus, setIsSubmitReturn, setActiveTab, isAdmin, user, data: state, setShow });
                         }}
                       >
                         {isSubmitStatus === 'loading' ? (
@@ -200,6 +189,23 @@ const Create = ({ show, setShow }) => {
           </div>
         </Modal.Body>
       </Modal>
+      {activeTab == 'message' ?
+        isSubmitReturn?.status == 201 ||
+          isSubmitReturn?.message === 'User created' ? (
+          <PopUpCreateSuccesUM
+            modal={modal}
+            setModal={setModal}
+            module="User Management"
+            submitReturn={isSubmitReturn}
+          />
+        ) : (
+          <PopUpLossUM
+            modal={modal}
+            setModal={setModal}
+            module="User Management"
+            submitReturn={isSubmitReturn}
+          />
+        ) : null}
     </div>
   );
 };

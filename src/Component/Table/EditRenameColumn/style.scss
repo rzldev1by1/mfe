@@ -18,7 +18,6 @@
 }
 .rename-columns {
   height: 40px !important;
-  width: -moz-max-content;
   color: rgb(88, 87, 87);
   width: max-content;
   margin-left: 74%;
@@ -103,48 +102,16 @@
 }
 
 //DarkMode
-.customDarkMode{
-  .bgn-header{
-    background-color: #1c1c1c !important;
-  }
-  .no-hover{
-    background-color: #1c1c1c !important;
-    border: solid 1px #1c1c1c !important;
-    outline: solid 9px #1c1c1c !important;
-    border-radius: 0px !important;
-  }
-  .no-hover:hover{
-    background-color: #1c1c1c !important;
-    outline: solid 9px #1c1c1c !important;
-    border-radius: 0px !important;
-  }
-  .half-padding{
-    background-color: #3e3846 !important;
-  }
-  .tab-content{
-    background-color: #3e3846 !important;
-  }
-  .text-color{
-    color: #f1f1f2 !important;
-  }
-  .btn-light-gray{
-    background-color: #635f78 !important;
-    border: solid 1px #635f78 !important;
-  }
-  .nav-link.active {
-    background-color: #3e3846 !important;
-  }
-  .rename-columns {
-    background-color: #635f78 !important;
-    color: #376BFB !important;
-  }
-  .nav-link{
-    background-color: #635f78  !important;
-    color: #fff !important;
-  }
-  .form-rename{
-    background-color: #3e3846 !important;
-  }
+.drakClose{
+  border: solid 5px  #1c1c1c ;
+  background-color: #1c1c1c !important;
+  color: #fff !important;
+}
+.drakClose:hover{
+  border: solid 5px  #1c1c1c !important;
+  outline: solid 5px #1c1c1c !important;
+  background-color: #1c1c1c !important;
+  color: #fff !important;
 }
 
 @media (min-width: 376px) and (max-width: 575px) {

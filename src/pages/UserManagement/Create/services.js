@@ -5,7 +5,7 @@ import { checkOrderNo, submitUserManagement, checkEmails } from 'apiService';
 import { getUOM } from 'apiService/dropdown';
 import * as EmailValidator from 'email-validator';
 
-export const submit = async ({ data, isAdmin, setIsSubmitReturn, setActiveTab, setIsSubmitStatus }) => {
+export const submit = async ({ data, isAdmin, setIsSubmitReturn, setActiveTab, setIsSubmitStatus, setShow }) => {
   const { moduleAccess, clients, sites, name } = data;
 
 
@@ -53,6 +53,7 @@ export const submit = async ({ data, isAdmin, setIsSubmitReturn, setActiveTab, s
   await setIsSubmitReturn(submitReturn);
   await setActiveTab('message');
   setIsSubmitStatus('done');
+  setShow(false)
 };
 
 export const renewState = ({ setState, state, siteData, clientData, moduleAccess, reset = false }) => {

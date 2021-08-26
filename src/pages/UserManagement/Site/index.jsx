@@ -9,12 +9,11 @@ const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module}) =>
   const disable = 'Disabled';
 
   const height = window.innerHeight - 680;
-  const heightDetail = window.innerHeight - 492;
-
+  const heightDetail = window.innerHeight - 510;
 
   return (
     <div>
-      <div className={`flex-column line-border mr-2 my-3 `}>
+      <div className={`flex-column line-border mr-2 my-3`}>
         <div className={`d-flex `}>
           <label className="col-6 text-muted-soft px-0 py-2" htmlFor="Site">
             Site
@@ -33,12 +32,12 @@ const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module}) =>
         </div>
       </div>
 
-      <div className="client-areas" 
+      <div className="client-areas pr-3" 
             style={ module === 'detail' ? { height:heightDetail, minHeight:heightDetail} : {height:height, minHeight:height}}>
       {sites && sites.length
         ? sites.map((item, index) => {
             return (
-              <div className="flex-column mb-1" style={{paddingRight:'1.5px'}} key={index}>
+              <div className="flex-column mb-1" key={index}>
                 <div className="d-flex" key={index}>
                   <label className="col-6 text-muted px-0 py-2" key={item.site}>{module === 'detail' ? `${item.site}: ${item.name}` : `${item.name}` }</label>
                   <div className="col-6">

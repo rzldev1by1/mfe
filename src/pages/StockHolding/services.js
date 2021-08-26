@@ -1,6 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 
 export const schemaColumn = [
@@ -94,6 +91,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
+    textAlign: 'right',
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 190,
   },
@@ -106,6 +104,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
+    textAlign: 'right',
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 130,
   },
@@ -118,18 +117,20 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
+    textAlign: 'right',
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 140,
   },
   {
-    Header: 'Expected Out Wght',
-    placeholder: 'Expected Out Wght',
+    Header: 'Expected In Wght',
+    placeholder: 'Expected In Wght',
     accessor: 'expected_in_wgt',
     className: 'align-right',
     headerStyle: { textAlign: 'left' },
     style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
+    textAlign: 'right',
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 140,
   },
@@ -142,6 +143,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
+    textAlign: 'right',
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 152,
   },
@@ -154,6 +156,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
+    textAlign: 'right',
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 70,
   },
@@ -166,6 +169,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
+    textAlign: 'right',
     Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 80,
   },

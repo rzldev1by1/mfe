@@ -17,12 +17,12 @@ const FormLine = ({
   isReadonly,
   isValidation,
   setOrderLineSelectOpen,
+  isInvalidProduct
 }) => {
   const dispositionData = useSelector((state) => state.po_disposition);
   const [isLoading, setIsLoading] = useState(false);
   const [isProduct, setIsProduct] = useState(null);
   const [isUom, setIsUom] = useState(null);
-
   return (
     <tr className="py-1 orderline-row" style={{ height: '70px' }}>
       <td className="px-1">
@@ -47,8 +47,9 @@ const FormLine = ({
           readOnly={isReadonly}
           messageRequired={true}
           messageParam={{
-            messageShow: isValidation,
+            messageShow: isInvalidProduct || isValidation,
             value: data?.product,
+            messageCustom: isInvalidProduct ? 'Product is unavailable' : ''
           }}
           selectedValue={data.product}
           parentDivClassName={isValidation && !data?.validation_product ? 'input-danger' : ''}
@@ -85,7 +86,7 @@ const FormLine = ({
           isReadOnly={isReadonly}
           messageRequired={true}
           messageParam={{
-            messageShow: isValidation,
+            messageShow: !isInvalidProduct ? isValidation : false,
             value: data?.qty,
           }}
         />
@@ -134,7 +135,7 @@ const FormLine = ({
           onMenuClose={() => setOrderLineSelectOpen(null)}
           messageRequired={true}
           messageParam={{
-            messageShow: isValidation,
+            messageShow: !isInvalidProduct ? isValidation : false,
             value: data?.uom,
           }}
           parentDivClassName={isValidation && !data?.validation_uom ? 'input-danger' : ''}
@@ -257,7 +258,7 @@ const FormLine = ({
           showDatePicker={() => {
             setOrderLineSelectOpen('datePicker');
           }}
-          className={`form-control `}
+          classNameInput={`form-control `}
           placeholder="Select Date"
           style={isReadonly ? { display: 'none' } : null}
           selectedDates={data?.rotaDate || ''}

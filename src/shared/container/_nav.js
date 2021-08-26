@@ -1,13 +1,6 @@
 export default [
   {
     _tag: 'CSidebarNavItem',
-    name: 'SUPPLIER MANAGEMENT',
-    to: '/supplier-management',
-    icon: 'sp',
-    key: 'menu_manageUsers_supplierUsers',
-  },
-  {
-    _tag: 'CSidebarNavItem',
     name: 'STOCK HOLDING',
     to: '/stock-holding',
     icon: 'sh',

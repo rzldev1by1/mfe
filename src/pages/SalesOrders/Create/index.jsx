@@ -19,7 +19,7 @@ const Create = ({ show, setShow }) => {
   const customerDetailsTmp = useSelector((state) => state.customerDetails);
   const orderLinesTmp = useSelector((state) => state.orderLines);
   const orderLinesDataTmp = useSelector((state) => state.orderLinesData);
-  const darkMode = useSelector((state) => state.customDarkMode);
+  const darkMode = useSelector((state) => state.darkModeMLS);
   
 
   const [activeTab, setActiveTab] = useState('details');
@@ -56,11 +56,8 @@ const Create = ({ show, setShow }) => {
 
   return (
     <div>
-      <Modal show={show} size="xl" className={`sales-order-create 
-        ${activeTab == 'message' ? ' d-none': ' '}
-        ${darkMode ? 'customDarkMode' : ''}`
-      }>
-        <Modal.Body className="bg-primary p-0 rounded-top rounded-bottom">
+      <Modal show={show} size="xl" className={`sales-order-create  ${activeTab == 'message' ? ' d-none': ' '}`}>
+        <Modal.Body className={`${darkMode ? 'customDarkModes' : 'bg-primary'} p-0 rounded-top rounded-bottom`}>
           <Row className="px-9 mx-0">
             <Col xs={10} className="px-0 ">
               <i className="iconU-createModal font-20"></i>

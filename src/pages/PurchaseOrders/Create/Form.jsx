@@ -144,10 +144,7 @@ const Form = ({
             required
             readOnly={isReadonly}
             messageRequired={true}
-            messageParam={{
-              messageShow: isValidation,
-              value: orderDetails?.orderType,
-            }}
+            messageParam={{ messageShow: isValidation && !orderDetails?.orderType?.value, value: orderDetails?.orderType, }}
             parentDivClassName={isValidation && !orderDetails?.orderType?.value ? 'input-danger' : ''}
           />
         </Col>
@@ -185,7 +182,7 @@ const Form = ({
             required
             selectedValue={orderDetails?.client}
             onChangeDropdown={(selected) => {
-              changeClient({ value: selected, orderDetails, setOrderDetails, setSupplier });
+              changeClient({ value: selected, orderDetails, setOrderDetails, setSupplier, orderLines, setOrderLines });
               setSupplier([]);
               if (selected) {
                 getSupplier({ client: selected.value, site: orderDetails?.site, setSupplier });
@@ -246,7 +243,7 @@ const Form = ({
             }}
             readOnly={isReadonly}
             style={isReadonly ? { display: 'none' } : null}
-            className={'form-control ' + (isValidation && !orderDetails?.orderDate ? 'input-danger' : '')}
+            classNameInput={`form-control ${isValidation && !orderDetails?.orderDate ? 'input-danger' : ''}`}
             selectedDates={orderDetails?.orderDate || ''}
           />
           <Input
@@ -339,6 +336,7 @@ const Form = ({
                   setOrderLineSelectOpen={setOrderLineSelectOpen}
                   orderLines={orderLines}
                   setOrderLines={setOrderLines}
+                  isInvalidProduct={item.validation_invalidProduct}
                 />
               );
             })}

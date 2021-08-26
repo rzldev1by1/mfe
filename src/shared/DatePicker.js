@@ -79,7 +79,7 @@ function YearMonthForm({ date, localeUtils, onChange, current, fromMonth, toMont
     })
 
     let yearIndex = [];
-    years.map((value, index) => {
+    years.forEach((value, index) => {
         yearIndex.push(index);
     })
 
@@ -314,10 +314,13 @@ class DatePicker extends React.Component {
                     <input type="text"
                         ref="dateValue"
                         placeholder={this.props.placeHolder ? this.props.placeHolder : "DD/MM/YYYY"}
-                        className="form-control"
+                        className={this.props.classNameInput}
                         maxLength="10"
                         value={this.state.defaultValue}
-                        onChange={(e) => { this.dateValueProcess(e); if(this.props.onChange) {this.props.onChange()} }}
+                        onChange={(e) => { 
+                            this.dateValueProcess(e);
+                        }}
+                        // onChange={(e) => { this.dateValueProcess(e); if(this.props.onChange) {this.props.onChange()} }}
                         onFocus={() => {this.openDatePicker(); if(this.props.onOpen) {this.props.onOpen()}}}
                         onKeyUp={(e) => this.dateValueFormat(e)}
                         onKeyDown={(e) => this.disabledAlpha(e)}

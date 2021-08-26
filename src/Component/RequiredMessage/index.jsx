@@ -16,8 +16,20 @@ const RequiredMessage = ({ messageShow, column, data, columnText, value, dropdow
       else setMessage('');
     }
 
+    if (column === 'product') {
+      setMessage(customMessage)
+    }
+
     //if empty
     if (!value) setMessage(`${columnText  } must be entered`);
+
+    if (column === 'orderType'){
+      if(customMessage){
+        setMessage(customMessage)
+      }else{
+        setMessage(`${columnText  } must be entered`)
+      }
+    }
 
     if (column === 'validDates') {
       if (!value && !checkDateTo) {

@@ -94,7 +94,6 @@ const PurchaseOrdersDetail = (props) => {
       getDetailData({ dispatch, active: paginationPoDetail?.active, Export, module });
     }
   }, [Export]);
-
   return (
     <div>
       <Breadcrumb

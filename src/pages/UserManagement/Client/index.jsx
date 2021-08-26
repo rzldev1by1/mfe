@@ -9,7 +9,7 @@ const client = ({ clients, isEnableAllClient, state, setState, isReadOnly, modul
   const disable = 'Disabled';
 
   const height = window.innerHeight - 680;
-  const heightDetail = window.innerHeight - 492;
+  const heightDetail = window.innerHeight - 510;
 
   return (
     <div>
@@ -32,7 +32,7 @@ const client = ({ clients, isEnableAllClient, state, setState, isReadOnly, modul
         </div>
       </div>
 
-      <div className="client-areas" 
+      <div className="client-areas pr-3" 
             style={ module === 'detail' ? { height:heightDetail, minHeight:heightDetail} : {height:height, minHeight:height}}>
         {clients && client.length
           ? clients.map((item, index) => {

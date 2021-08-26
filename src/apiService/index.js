@@ -7,7 +7,7 @@ import * as EmailValidator from 'email-validator';
 import endpoints from '../helpers/endpoints';
 import * as utility from './UmUtility';
 
-const today = moment(Date()).format('YYYY-MM-DD hh:mm:ss');
+const today         = moment(Date()).format('YYYY-MM-DD hh: mm: ss');
 const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'manage supplier users'];
 
 export const formatDate = (date) => {
@@ -29,52 +29,58 @@ export const getSummaryData = async ({
   dispatch,
   active,
   module,
+  fromDate,
+  toDate
 }) => {
-  const urls = [];
+  const urls       = [];
   let endpointsUrl = '';
-  let paramType = '';
-  let paramPaging = '';
-  searchInput = searchInput || '';
+  let paramType    = '';
+  let paramPaging  = '';
+  searchInput      = searchInput || '';
 
   if (module === 'purchaseOrder') {
     endpointsUrl = endpoints.purchaseOrder;
-    paramType = 'GET_PO_SUMMARY';
-    paramPaging = 'PAGING_PO';
+    paramType    = 'GET_PO_SUMMARY';
+    paramPaging  = 'PAGING_PO';
   }
   if (module === 'salesOrder') {
     endpointsUrl = endpoints.salesOrder;
-    paramType = 'GET_SO_SUMMARY';
-    paramPaging = 'PAGING_SO';
+    paramType    = 'GET_SO_SUMMARY';
+    paramPaging  = 'PAGING_SO';
   }
   if (module === 'StockHolding') {
     endpointsUrl = endpoints.stockHoldingSummary;
-    paramType = 'GET_SH_SUMMARY';
-    paramPaging = 'PAGING_SH';
+    paramType    = 'GET_SH_SUMMARY';
+    paramPaging  = 'PAGING_SH';
   }
   if (module === 'UserManagement') {
     endpointsUrl = endpoints.userManagementListUser;
-    paramType = 'GET_UM_SUMMARY';
-    paramPaging = 'PAGING_UM';
+    paramType    = 'GET_UM_SUMMARY';
+    paramPaging  = 'PAGING_UM';
   }
 
   if (module === 'SupplierManagement') {
     endpointsUrl = endpoints.supplierManagement;
-    paramType = 'GET_SP_SUMMARY';
-    paramPaging = 'PAGING_SP';
+    paramType    = 'GET_SP_SUMMARY';
+    paramPaging  = 'PAGING_SP';
   }
-  
   // Url
-  if (module === 'UserManagement' || module === 'SupplierManagement') {
+  if (module === 'UserManagement') {
     urls.push(`search=${searchInput || ''}`);
+  }
+  if (module === 'SupplierManagement'){
+    urls.push(`search=${searchInput || ''}`);
+    urls.push(`startDate=${fromDate || ''}`);
+    urls.push(`endDate=${toDate || ''}`);
   }
   if (module === 'purchaseOrder' || module === 'salesOrder' || module === 'StockHolding') {
     urls.push(`search=${searchInput?.toUpperCase() || ''}`);
-    urls.push(`site=${siteVal ? siteVal : 'all'}`);
-    urls.push(`client=${clientVal ? clientVal : 'all'}`);
+    urls.push(`site=${siteVal || 'all'}`);
+    urls.push(`client=${clientVal || 'all'}`);
     urls.push(`orderType=${orderType ? orderType.value : 'all'}`);
     urls.push(`status=${status ? status.value : 'open'}`);
   }
-  if (task && task.value !== 'all') urls.push(`task=${task.value}`);
+  if (task && task?.value !== 'all') urls.push(`task=${task.value || 'all'}`);
   urls.push(`page=${active || 1}`);
   if (Export === true) {
     urls.push('export=true');
@@ -83,10 +89,9 @@ export const getSummaryData = async ({
   }
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
-  console.log(newData);
-  const Meta = newData?.data?.meta;
-  const Links = newData?.data?.links;
-  const Data = newData?.data?.data;
+  const Meta    = newData?.data?.meta;
+  const Links   = newData?.data?.links;
+  const Data    = newData?.data?.data;
 
   // Table Status
   let element = document.getElementById('searchInput');
@@ -107,32 +112,34 @@ export const getSummaryData = async ({
     Data.map((item, idx) => {
       const customerName = item?.customername?.split(':');
       if (parseInt(item.on_hand_qty + item.expected_in_qty) >= item.expected_out_qty) {
-        item.status = 'OK';
+        item.status    = 'OK';
         item.statusTxt = 'OK';
       }
       if (parseInt(item.on_hand_qty + item.expected_in_qty) <= item.expected_out_qty) {
-        item.status = 'SHORTAGE';
+        item.status    = 'SHORTAGE';
         item.statusTxt = 'SHORTAGE';
       }
-      item.product = String(item.product);
-      item.expected_in_qty = numeral(item.expected_in_qty).format('0,0');
+      item.product          = String(item.product);
+      item.expected_in_qty  = numeral(item.expected_in_qty).format('0,0');
       item.expected_out_qty = numeral(item.expected_out_qty).format('0,0');
-      item.on_hand_qty = numeral(item.on_hand_qty).format('0,0');
-      item.pallets = numeral(item.pallets).format('0,0');
-      item.expected_in_wgt = numeral(item.expected_in_wgt).format('0,0.000');
-      item.weight = numeral(item.weight).format('0,0.000');
+      item.on_hand_qty      = numeral(item.on_hand_qty).format('0,0');
+      item.pallets          = numeral(item.pallets).format('0,0');
+      item.expected_in_wgt  = numeral(item.expected_in_wgt).format('0,0.000');
+      item.weight           = numeral(item.weight).format('0,0.000');
       item.weight_processed = numeral(item.weight_processed).format('0,0.000');
-      item.price = numeral(item.price).format('0,0.00');
-      item.delivery_date = item.delivery_date && item.delivery_date !== '' ? formatDate(item.delivery_date) : '-';
-      item.date_received = item.date_received && item.date_received !== '' ? formatDate(item.date_received) : '-';
-      item.date_released = item.date_released && item.date_released !== '' ? formatDate(item.date_released) : '-';
-      item.date_completed = item.date_completed && item.date_completed !== '' ? formatDate(item.date_completed) : '-';
+      item.price            = numeral(item.price).format('0,0.00');
+      item.delivery_date  = item.delivery_date && item.delivery_date !== '' ? formatDate(item.delivery_date) : '-';
+      item.date_received  = item.date_received && item.date_received !== '' ? formatDate(item.date_received) : '-';
+      item.date_released  = item.date_released && item.date_released !== '' ? formatDate(item.date_released) : '-';
+      item.date_completed = item.date_completed && item.date_completed !== '' ? formatDate(item.date_completed): '-';
       // Supplier Management PO Date format
-      item.po_date = item.po_date && item.po_date !== '' ? formatDate(item.po_date) : '-';
+      item.no          = idx + 1;
+      item.po_date     = item.po_date && item.po_date !== '' ? formatDate(item.po_date): '-';
+      item.total_order = numeral(item.total_order).format('0,0')
       // User Management Data
-      item.disabled = item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
-      item.site = item.site && item.site !== '' ? item.site : 'All';
-      item.client = item.client && item.client !== '' ? item.client : 'All';
+      item.disabled = item.disabled                =  item.disabled && item.disabled !== 'Y' ? 'Active': 'Suspended';
+      item.site     = item.site && item.site !== '' ? item.site                   :  'All';
+      item.client   = item.client && item.client !== '' ? item.client                 :  'All';
       item.last_access =
         item.last_access && item.last_access !== '' ? moment(item.last_access).format('DD/MM/YYYY HH:mm:ss') : '-';
       if (customerName !== undefined) item.customername = customerName[1];
@@ -142,12 +149,12 @@ export const getSummaryData = async ({
       await dispatch({ type: 'EXPORT_DATA', data: Data });
     } else {
       const pagination = {
-        active: active || Meta.current_page,
-        show: Meta.per_page,
-        total: Meta.total,
+        active   : active || Meta.current_page,
+        show     : Meta.per_page,
+        total    : Meta.total,
         last_page: Meta.last_page,
-        from: Meta.from,
-        to: Meta.to,
+        from     : Meta.from,
+        to       : Meta.to,
       };
       const paging = pagination;
       dispatch({ type: paramType, data: Data });
@@ -164,16 +171,16 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
   let endpointsUrl = '';
   let paramType = '';
   if (module === 'purchaseOrder') {
-    endpointsUrl = `${endpoints.purchaseOrder  }?search=${orderdetail}&client=${client}&site=${site}`;
-    paramType = 'GET_PO_DETAIL';
+    endpointsUrl = `${endpoints.purchaseOrder  }?search = ${orderdetail}&client = ${client}&site = ${site}`;
+    paramType    = 'GET_PO_DETAIL';
   }
   if (module === 'salesOrder') {
-    endpointsUrl = `${endpoints.salesOrder  }?search=${orderno}&client=${client}&site=${site}`;
-    paramType = 'GET_SO_DETAIL';
+    endpointsUrl = `${endpoints.salesOrder  }?search = ${orderno}&client = ${client}&site = ${site}`;
+    paramType    = 'GET_SO_DETAIL';
   }
   if (module === 'stockHolding') {
     endpointsUrl = `${endpoints.stockHoldingSummary  }/${site}/${client}/${product}/detail-header`;
-    paramType = 'GET_SH_DETAIL';
+    paramType    = 'GET_SH_DETAIL';
   }
 
   const url = endpointsUrl;
@@ -193,17 +200,17 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
 export const getDetailData = async ({ export_ = 'false', dispatch, active, props, module, fulfill }) => {
   const { orderdetail, client, site, orderno, product } = props?.match?.params;
   let endpointsUrl = '';
-  let paramType = '';
-  let paramPaging = '';
+  let paramType    = '';
+  let paramPaging  = '';
   if (module === 'purchaseOrder') {
-    endpointsUrl = `${endpoints.purchaseOrder  }/${site}/${client}/${orderdetail}?page=${active}&export=${export_}`;
-    paramType = 'GET_PO_DETAIL_TABLE';
-    paramPaging = 'PAGING_PO_DETAIL';
+    endpointsUrl = `${endpoints.purchaseOrder  }/${site}/${client}/${orderdetail}?page = ${active}&export = ${export_}`;
+    paramType    = 'GET_PO_DETAIL_TABLE';
+    paramPaging  = 'PAGING_PO_DETAIL';
   }
   if (module === 'salesOrder') {
-    endpointsUrl = `${endpoints.salesOrder  }/${orderno}?client=${client}&site=${site}&page=${active}&export=${export_}`;
-    paramType = 'GET_SO_DETAIL_TABLE';
-    paramPaging = 'PAGING_SO_DETAIL';
+    endpointsUrl = `${endpoints.salesOrder  }/${orderno}?client = ${client}&site = ${site}&page = ${active}&export = ${export_}`;
+    paramType    = 'GET_SO_DETAIL_TABLE';
+    paramPaging  = 'PAGING_SO_DETAIL';
   }
   if (module === 'stockHolding') {
     endpointsUrl =
@@ -213,17 +220,16 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   }
   if (module === 'supplierManagement'){
     endpointsUrl = `${endpoints.supplierManagement  }/${product}`
-    paramType = 'GET_SP_DETAIL_TABLE';
-    paramPaging = 'PAGING_SP_DETAIL';
+    paramType    = 'GET_SP_DETAIL_TABLE';
+    paramPaging  = 'PAGING_SP_DETAIL';
   }
 
   const url = endpointsUrl;
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(url);
-
-  const Meta = newData?.data?.meta;
-  const Links = newData?.data?.links;
-  const Data = newData?.data?.data;
+  const Meta    = newData?.data?.meta;
+  const Links   = newData?.data?.links;
+  const Data    = newData?.data?.data;
 
   // Table Status
   if (Data?.length) {
@@ -235,19 +241,24 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   if (Data) {
     let txt = [];
     let modifiedData = Data.map((m) => {
-      m.qty = numeral(m.qty).format('0,0'); //qty
-      m.quantity = numeral(m.quantity).format('0,0'); //qty in purchase order details
+      m.qty           = numeral(m.qty).format('0,0'); //qty
+      m.quantity      = numeral(m.quantity).format('0,0'); //qty in purchase order details
       m.qty_processed = numeral(m.qty_processed).format('0,0');
-      m.weight = numeral(m.weight).format('0,0.000');
-      m.weight = numeral(m.weight).format('0,0.000');
-      m.weight = numeral(m.weight).format('0,0.000');
-      m.completed = m.completed == 'Y' ? 'Yes' : 'x';
-      m.released = m.released == 'Y' ? 'Yes' : 'x';
+      m.weight        = numeral(m.weight).format('0,0.000');
+      m.weight        = numeral(m.weight).format('0,0.000');
+      m.weight        = numeral(m.weight).format('0,0.000');
+      m.completed     = m.completed == 'Y' ? 'Yes': 'x';
+      m.released      = m.released  == 'Y' ? 'Yes': 'x';
+      
+      // Supplier Management
+      m.carton_qty   = numeral(m.carton_qty).format('0,0'); // carton_qty
+      m.order_qty    = numeral(m.order_qty).format('0,0'); // order_qty
+      m.no_of_carton = numeral(m.no_of_carton).format('0,0'); // no_of_carton
+      m.no_of_carton = Math.round((parseFloat(m.order_qty.replace(/,/g, ''))) / (parseFloat(m.carton_qty.replace(/,/g, ''))));
       if (fulfill === true){
-        m.edit_qty = m.order_qty
-        m.edit_cartons = m.packfactor_1
+        m.edit_qty    = m.order_qty
+        m.edit_carton = m.no_of_carton
       }
-      m.no_of_carton = Math.round(m.order_qty/m.packfactor_1)
       m.rotadate = m.rotadate && m.rotadate !== '' ? formatDate(m.rotadate) : '-';
       txt.push(m.batch?.length);
       return m;
@@ -255,12 +266,12 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
     if (export_ === 'true') {
     } else {
       const pagination = {
-        active: active || Meta?.current_page,
-        show: Meta?.per_page,
-        total: Meta?.total,
+        active   : active || Meta?.current_page,
+        show     : Meta?.per_page,
+        total    : Meta?.total,
         last_page: Meta?.last_page,
-        from: Meta?.from,
-        to: Meta?.to,
+        from     : Meta?.from,
+        to       : Meta?.to,
       };
       const paging = pagination;
       dispatch({ type: paramType, data: modifiedData });
@@ -279,27 +290,27 @@ export const getForescast = async ({ export_ = 'false', dispatch, active, props 
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const { data } = await axios.get(url);
   let forecast = [];
-  Object.keys(data.data).map((value) => forecast.push(data.data[value]));
+  Object.keys(data.data).forEach((value) => forecast.push(data.data[value]));
   if (data) {
     if (!data && forecast.length === 0) {
       return 0;
     }
     const modifiedData = forecast;
-    const Meta = data?.meta;
+    const Meta         = data?.meta;
     const Links = data?.links;
 
-    modifiedData.map((item, idx) => {
-      item.in = numeral(item.in).format('0,0');
-      item.out = numeral(item.out).format('0,0');
+    modifiedData.forEach((item, idx) => {
+      item.in      = numeral(item.in).format('0,0');
+      item.out     = numeral(item.out).format('0,0');
       item.balance = numeral(item.balance).format('0,0');
     });
     const pagination = {
-      active: active || Meta?.current_page,
-      show: Meta?.per_page,
-      total: Meta?.total,
+      active   : active || Meta?.current_page,
+      show     : Meta?.per_page,
+      total    : Meta?.total,
       last_page: Meta?.last_page,
-      from: Meta?.from,
-      to: Meta?.to,
+      from     : Meta?.from,
+      to       : Meta?.to,
     };
     dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: modifiedData });
     dispatch({ type: 'PAGING_SH_FORECAST', data: pagination });
@@ -379,22 +390,22 @@ export const getStockMovement = async ({ dropdownValue, dispatch }) => {
       // re arrange data array
       data.map((data, index) => {
         let tmp_row = {
-          site: data.site,
-          client: data.client,
-          uom: data.uom,
-          product: data.product,
+          site        : data.site,
+          client      : data.client,
+          uom         : data.uom,
+          product     : data.product,
           product_name: data.product_name,
         };
 
         for (var key in data) {
           if (key.includes('sum_')) {
-            let dates = key.replace('sum_', '');
-            let tmp = data[key];
+            let dates   = key.replace('sum_', '');
+            let tmp     = data[key];
             let tmp_arr = tmp.split('-');
-            tmp_row[`sa_plus_${  dates}`] = numeral(tmp_arr[0]).format('0,0');
+            tmp_row[`sa_plus_${  dates}`]  = numeral(tmp_arr[0]).format('0,0');
             tmp_row[`sa_minus_${  dates}`] = numeral(tmp_arr[1]).format('0,0');
-            tmp_row[`rec_${  dates}`] = numeral(tmp_arr[2]).format('0,0');
-            tmp_row[`send_${  dates}`] = numeral(tmp_arr[3]).format('0,0');
+            tmp_row[`rec_${  dates}`]      = numeral(tmp_arr[2]).format('0,0');
+            tmp_row[`send_${  dates}`]     = numeral(tmp_arr[3]).format('0,0');
           }
         }
 
@@ -410,12 +421,12 @@ export const getStockMovement = async ({ dropdownValue, dispatch }) => {
       });
 
       const pagination = {
-        active: 1,
-        show: 50,
-        total: data.length,
+        active   : 1,
+        show     : 50,
+        total    : data.length,
         last_page: 1,
-        from: newData.length > 0 ? 1 : 0,
-        to: data.length,
+        from     : newData.length > 0 ? 1: 0,
+        to       : data.length,
       };
       dispatch({ type: 'PAGING', data: pagination });
       dispatch({ type: 'GET_SM_SUMMARY', data: newData });
@@ -441,7 +452,7 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
     dispatch({ type: 'GET_UM_INFO_ACCOUNT', data: result });
     newState.oldAccountInfo = result;
     newState.isLoadComplete = true;
-    newState.adminClass = adminClassName;
+    newState.adminClass     = adminClassName;
   }
   const accountInfoUser = result;
 
@@ -458,12 +469,12 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
       let newItem = item;
       let isStatus = false;
       if (accountInfoUser.web_group !== utility.webgroup.ADMIN) {
-        isStatus = userMenu.includes(item.menu_id) ? true : false;
+        isStatus = !!userMenu.includes(item.menu_id);
       }
       newItem.status = isStatus;
       return newItem;
     });
-  newIsEnableAllModule = menus?.filter((item) => { return item.status === true; })?.length === menus?.length ? true : false;
+  newIsEnableAllModule = menus?.filter((item) => { return item.status === true; })?.length === menus?.length;
   newState.moduleAccess = menus;
   newState.isEnableAllModule = newIsEnableAllModule;
   // and ModalAccess
@@ -472,10 +483,10 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
   let newIsEnableAllSite = { ...newState.isEnableAllSite };
   let sites = loadSite?.map((item, index) => {
     let newItem = item;
-    newItem.status = accountInfoUser.site === null ? true : item.site === accountInfoUser.site ? true : false;
+    newItem.status = accountInfoUser.site === null ? true : item.site === accountInfoUser.site;
     return newItem;
   });
-  newIsEnableAllSite = sites?.filter((item) => { return item.status === true; })?.length === sites?.length ? true : false;
+  newIsEnableAllSite = sites?.filter((item) => { return item.status === true; })?.length === sites?.length;
   newState.sites = sites;
   newState.isEnableAllSite = newIsEnableAllSite;
   // end LoadSite
@@ -484,16 +495,14 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
   let newIsEnableAllClient = { ...newState.isEnableAllClient };
   let clients = loadClient?.map((item, index) => {
     let newItem = item;
-    newItem.status = accountInfoUser.client === null ? true : item.code === accountInfoUser.client ? true : false;
+    newItem.status = accountInfoUser.client === null ? true : item.code === accountInfoUser.client;
     return newItem;
   });
 
   newIsEnableAllClient =
     clients?.filter((item) => {
       return item.status === true;
-    })?.length === clients?.length
-      ? true
-      : false;
+    })?.length === clients?.length;
   newState.clients = clients;
   newState.isEnableAllClient = newIsEnableAllClient;
   // end LoadClient
@@ -506,20 +515,20 @@ export const restructureAccount = (sources) => {
   let account = sources?.data;
 
   if (account) {
-    newAccount.user = account.name;
-    newAccount.email = account.email;
-    newAccount.lastAccess = today;
-    newAccount.lastLogin = today;
-    newAccount.thisAccess = today;
-    newAccount.thisLogin = today;
-    newAccount.userMenu = restuctureMenuList(account.user_menus);
-    newAccount.userId = account.userid;
-    newAccount.client = account.client;
-    newAccount.disabled = account.disabled !== 'Y' ? false : true;
-    newAccount.passwordChange = account.passwordChange ? account.passwordChange : '';
-    newAccount.site = account.site;
-    newAccount.web_group = account.web_group;
-    newAccount.web_user = account.web_user;
+    newAccount.user           = account.name;
+    newAccount.email          = account.email;
+    newAccount.lastAccess     = today;
+    newAccount.lastLogin      = today;
+    newAccount.thisAccess     = today;
+    newAccount.thisLogin      = today;
+    newAccount.userMenu       = restuctureMenuList(account.user_menus);
+    newAccount.userId         = account.userid;
+    newAccount.client         = account.client;
+    newAccount.disabled       = account.disabled === 'Y';
+    newAccount.passwordChange = account.passwordChange ? account.passwordChange: '';
+    newAccount.site           = account.site;
+    newAccount.web_group      = account.web_group;
+    newAccount.web_user       = account.web_user;
     newAccount.request_forgot_password = account.request_forgot_password;
   }
   return newAccount;
@@ -527,10 +536,10 @@ export const restructureAccount = (sources) => {
 
 export const restuctureMenuList = (sources) => {
   let newUserMenu = [];
-  let userMenu = sources;
+  let userMenu    = sources;
   if (userMenu.length) {
     newUserMenu = sources.map((item) => {
-      let newItem = {};
+      let newItem    = {};
       newItem.menuid = item.menu_id;
       newItem.menuname = item.menu_name;
       return newItem;
@@ -553,11 +562,11 @@ export const checkEmails = async ({ email }) => {
 export const onChangeEmail = ({ e, state, setState }) => {
   const newState = { ...state };
   onBlurEmail({ e: e.target, state, setState });
-  const { value } = e.target;
-  newState.validation = checkEmailValidation({ textmail: value, state, setState });
+  const { value }            = e.target;
+  newState.validation        = checkEmailValidation({ textmail: value, state, setState });
   newState.accountInfo.email = value;
-  newState.isValidForm = false;
-  newState.changed = true;
+  newState.isValidForm       = false;
+  newState.changed           = true;
   setState(newState);
 };
 
@@ -566,7 +575,7 @@ export const onBlurEmail = async ({ e, state, setState }) => {
   const newState = { ...state };
   const { data } = await axios.post(endpoints.userManagementCheckMailValidation, { email: value });
   newState.validation.email['isValid'] =
-    newState.oldAccountInfo.email !== value && data?.exists !== true ? true : false;
+    !!(newState.oldAccountInfo.email !== value && data?.exists !== true);
 
   if (!newState.validation.email['isValid']) {
     newState.validation.email['message'] = utility.validationMsg.EMAIL_EXIST;
@@ -587,7 +596,7 @@ export const onBlurEmail = async ({ e, state, setState }) => {
 export const checkEmailValidation = ({ textmail, state, setState }) => {
   const newState = { ...state };
   let validFormat = EmailValidator.validate(textmail);
-  newState.validation.email['isValid'] = validFormat ? true : false;
+  newState.validation.email['isValid'] = !!validFormat;
 
   if (!validFormat) {
     newState.validation.email['message'] = utility.validationMsg.INVALID_EMAIL;
@@ -602,17 +611,17 @@ export const checkEmailValidation = ({ textmail, state, setState }) => {
 
 // Check Name
 export const onChangeName = ({ e, state, setState }) => {
-  const { name, value } = e.target;
-  const newState = { ...state };
-  newState.validation = checkNameValidation({ textName: value, state, setState });
+  const { name, value }     = e.target;
+  const newState            = { ...state };
+  newState.validation       = checkNameValidation({ textName: value, state, setState });
   newState.accountInfo.user = value;
-  newState.isValidForm = false;
-  newState.changed = true;
+  newState.isValidForm      = false;
+  newState.changed          = true;
   setState(newState);
 };
 export const checkNameValidation = ({ textName, state, setState }) => {
   const newState = { ...state };
-  let isValid = textName == '' ? false : true;
+  let isValid    = textName !== '';
   newState.validation.name['isValid'] = isValid;
   if (!isValid) newState.validation.name['message'] = utility.validationMsg.USERNAME_REQUIRED;
   else newState.validation.name['message'] = '';
@@ -680,34 +689,34 @@ export const saveClick = ({ props, state, setState, dispatch }) => {
       ? client.code
       : null;
 
-  const accountInfo = { ...newState.accountInfo };
-  newParam.name = accountInfo.user;
-  newParam.webGroup = accountInfo.web_group;
-  newParam.email = accountInfo.email;
+  const accountInfo   = { ...newState.accountInfo };
+  newParam.name       = accountInfo.user;
+  newParam.webGroup   = accountInfo.web_group;
+  newParam.email      = accountInfo.email;
   newParam.lastAccess = accountInfo.lastAccess;
-  newParam.lastLogin = accountInfo.lastLogin;
+  newParam.lastLogin  = accountInfo.lastLogin;
   newParam.thisAccess = accountInfo.thisAccess;
-  newParam.thisLogin = accountInfo.thisLogin;
-  newParam.userMenu = accountInfo.web_group === utility.webgroup.ADMIN ? adminMenu : userMenu;
-  newParam.client = accountInfo.web_group === utility.webgroup.ADMIN ? null : clientValue;
-  newParam.site = accountInfo.web_group === utility.webgroup.ADMIN ? null : siteValue;
-  newParam.disabled = accountInfo.disabled ? 'Y' : 'N';
+  newParam.thisLogin  = accountInfo.thisLogin;
+  newParam.userMenu   = accountInfo.web_group === utility.webgroup.ADMIN ? adminMenu: userMenu;
+  newParam.client     = accountInfo.web_group === utility.webgroup.ADMIN ? null     : clientValue;
+  newParam.site       = accountInfo.web_group === utility.webgroup.ADMIN ? null     : siteValue;
+  newParam.disabled   = accountInfo.disabled ? 'Y'     : 'N';
 
-  let dataParam = newParam;
-  let newValidation = { ...newState.validation };
-  let emailValid = checkEmailValidation({ textmail: dataParam.email, state, setState });
-  let nameValid = checkNameValidation({ textName: dataParam.email, state, setState });
+  let dataParam       = newParam;
+  let newValidation   = { ...newState.validation };
+  let emailValid      = checkEmailValidation({ textmail: dataParam.email, state, setState });
+  let nameValid       = checkNameValidation({ textName : dataParam.email, state, setState });
 
   if (!emailValid.email['isValid']) newValidation.email = emailValid.email;
-  if (!emailValid.name['isValid']) newValidation.name = nameValid.name;
+  if (!emailValid.name['isValid']) newValidation.name   = nameValid.name;
 
   if (newValidation.email['isValid'] && newValidation.name['isValid'] && dataParam.userMenu.length) {
     newState.isSaveProgressing = true;
-    newState.validation = newValidation;
+    newState.validation        = newValidation;
     updateRequest({ param: dataParam, state, setState, props, dispatch });
   } else {
     newState.isValidForm = true;
-    newState.validation = newValidation;
+    newState.validation  = newValidation;
   }
   setState(newState);
 };
@@ -719,11 +728,11 @@ export const updateRequest = async ({ param, state, setState, props, dispatch })
 
   const { data, status } = await axios.put(url, param);
   if (status === 200) {
-    let lastChangedUser = {};
-    lastChangedUser.name = user;
+    let lastChangedUser    = {};
+    lastChangedUser.name   = user;
     lastChangedUser.userId = userId;
-    lastChangedUser.email = email;
-    let data = lastChangedUser;
+    lastChangedUser.email  = email;
+    let data               = lastChangedUser;
     dispatch({ type: 'CHANGED_USER', data });
 
     newState.isSaveProgressing = false;
@@ -737,16 +746,16 @@ export const updateRequest = async ({ param, state, setState, props, dispatch })
 };
 
 export const resetPassword = ({ state, setState, props }) => {
-  const newState = { ...state };
+  const newState  = { ...state };
   const { match } = props;
   let web_user_id = match.params.id;
   const { user, userId, email, userMenu } = newState.accountInfo;
 
-  let url = `${endpoints.userManagementresetpassword}${web_user_id}/reset-password`;
-  let newText = user.substring(0, 1);
-  let result = utility.generateUserID(today);
+  let url          = `${endpoints.userManagementresetpassword}${web_user_id}/reset-password`;
+  let newText      = user.substring(0, 1);
+  let result       = utility.generateUserID(today);
   let new_password = result + newText.toLowerCase();
-  let param = { email: email, web_user: web_user_id, new_password: new_password };
+  let param        = { email: email, web_user: web_user_id, new_password: new_password };
 
   newState.isLoadReset = true;
   setState(newState);
@@ -754,9 +763,9 @@ export const resetPassword = ({ state, setState, props }) => {
   axios.post(url, param).then((res) => {
     if (res.status === 200) {
       newState.isSaveProgressing = false;
-      newState.isResetSuccess = true;
-      newState.popUpReset = true;
-      newState.isLoadReset = false;
+      newState.isResetSuccess    = true;
+      newState.popUpReset        = true;
+      newState.isLoadReset       = false;
       setState(newState);
     }
   });
@@ -765,7 +774,6 @@ export const resetPassword = ({ state, setState, props }) => {
 
 //DarkMode 
 export const darkModeMLS = ({ darkMode, dispatch }) =>{
-  console.log('ganti', darkMode)
   if(!darkMode) dispatch({ type: 'DARKMODE', data: true })
   if(darkMode) dispatch({ type: 'DARKMODE', data: false })
 }

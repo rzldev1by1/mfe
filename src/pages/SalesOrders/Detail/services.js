@@ -117,13 +117,6 @@ export const schemaColumnDetailPO = [
     Cell: (props) => props.value || '-',
   },
   {
-    accessor: 'rota1',
-    placeholder: 'Rotadate',
-    Header: 'Rotadate',
-    width: 100,
-    Cell: (props) => formatDate(props.value) || '-',
-  },
-  {
     accessor: 'ref3',
     placeholder: 'Ref3',
     Header: 'Ref3',
@@ -157,24 +150,24 @@ export const setExportData = async ({ dispatch, data }) => {
   await dispatch({ type: 'EXPORT_DATA', data });
 };
 
-export const siteCheck = ({val, site}) =>{
+export const siteCheck = ({ val, site }) => {
   let ret = null;
-  site.map((data) =>{
-     if(data?.value !== val){
-       return 0;
-     }
-     ret = data.label
-  }) 
+  site.map((data) => {
+    if (data?.value !== val) {
+      return 0;
+    }
+    ret = data.label
+  })
   return ret;
 }
 
-export const clientCheck = ({val, client}) => {
+export const clientCheck = ({ val, client }) => {
   let ret = null;
-  client.map((data) =>{
-     if(data?.value !== val){
-       return 0;
-     }
-     ret = data.label
-  }) 
+  client.map((data) => {
+    if (data?.value !== val) {
+      return 0;
+    }
+    ret = data.label
+  })
   return ret;
 };

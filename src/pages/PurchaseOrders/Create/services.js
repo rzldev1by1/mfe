@@ -51,14 +51,14 @@ export const validation = async ({ orderDetails, orderLines, setActiveTab, setOr
   let orderDetaillinessValidation = ['validation_product', 'validation_uom', 'validation_qty'];
 
   //validasi order details
-  orderDetailsValidation.map((key, keyIndex) => {
+  orderDetailsValidation.forEach((key, keyIndex) => {
     if (orderDetails[key] !== true) statusValidate = false;
   });
 
   //validasi orderLines
   orderLines.map((data, index) => {
     data.validation = true;
-    orderDetaillinessValidation.map((key, keyIndex) => {
+    orderDetaillinessValidation.forEach((key, keyIndex) => {
       if (data[key] !== true) statusValidate = false;
     });
   });
@@ -84,7 +84,7 @@ export const validationOrderLines = async ({ orderLines, setOrderLines }) => {
   //validasi orderLines
   orderLines.map((data, index) => {
     data.validation = true;
-    orderDetaillinessValidation.map((key, keyIndex) => {
+    orderDetaillinessValidation.forEach((key, keyIndex) => {
       if (data[key] !== true) statusValidate = false;
     });
   });
@@ -92,8 +92,6 @@ export const validationOrderLines = async ({ orderLines, setOrderLines }) => {
   //set
   let newOrderLines = [...orderLines];
   setOrderLines(newOrderLines);
-  return statusValidate;
-
   return statusValidate;
 };
 
@@ -146,11 +144,36 @@ export const changeOrderDetails = ({ column, value, orderDetails, setOrderDetail
   let od = { ...orderDetails };
   od[column] = value;
   od['validation_' + column] = value ? true : false;
+  
   setOrderDetails(od);
 };
 
-export const changeClient = ({ value, orderDetails, setOrderDetails, setSupplier }) => {
+export const changeClient = async ({ value, orderDetails, setOrderDetails, setSupplier, setOrderLines }) => {
   let od = { ...orderDetails };
+  // if(value || !value){
+    const resetOrderLines = [
+      {
+        batch: "",
+        disposition: "",
+        packId: "",
+        product: "",
+        qty: "",
+        ref3: "",
+        ref4: "",
+        rotaDate: "",
+        uom: "",
+        productDesc: "",
+        validation: false,
+        validation_product: false,
+        validation_qty: false,
+        validation_uom: false,
+        weight: ""
+      }
+    ];
+
+    setOrderLines(resetOrderLines)
+  // }
+
   od['client'] = value;
   od['validation_client'] = value ? true : false;
   od['supplier'] = null;

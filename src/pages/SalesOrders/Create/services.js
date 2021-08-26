@@ -118,34 +118,89 @@ export const changeOrderDetails = ({ column, value, orderDetails, setOrderDetail
   let od = { ...orderDetails };
   od[column] = value;
   od['validation_' + column] = value ? true : false;
+  
   setOrderDetails(od);
 };
 
-export const changeClient = ({
+export const changeClient = async ({
   value,
   orderDetails,
   setOrderDetails,
   setCustomerData,
   customerDetails,
   setCustomerDetails,
+  setOrderLines
 }) => {
-  let od = { ...orderDetails };
+  const od = { ...orderDetails };
+  // if(value ){
+    const resetOrderLines = [
+      {
+        batch: "",
+        disposition: "",
+        packId: "",
+        product: "",
+        qty: "",
+        ref3: "",
+        ref4: "",
+        rotaDate: "",
+        uom: "",
+        productDesc: "",
+        validation: false,
+        validation_product: false,
+        validation_qty: false,
+        validation_uom: false,
+        weight: ""
+      }
+    ];
+
+    const resetCustomerDetails = {
+      address1: "",
+      address2: "",
+      address3: "",
+      address4: "",
+      address5: "",
+      country: "",
+      customer: "",
+      postcode: "",
+      state: "",
+      suburb: "",
+      validation_address1: true,
+      validation_customer: true,
+      validation_postcode: true,
+      validation_state: true
+    }
+
+    setOrderLines(resetOrderLines)
+    setCustomerDetails(resetCustomerDetails);
+  // }
+
   od['client'] = value;
   od['validation_client'] = value ? true : false;
   setOrderDetails(od);
 
-  let cd = { ...customerDetails };
-  cd['customer'] = '';
-  cd['validation_customer'] = value ? true : false;
-  setCustomerDetails(od);
+  // let cd = { ...customerDetails };
+  // cd['customer'] = '';
+  // cd['validation_customer'] = value ? true : false;
+  // setCustomerDetails(od);
 };
 
 export const changeCustomerDetails = ({ column, value, customerDetails, setCustomerDetails, selected }) => {
   let cd = { ...customerDetails };
-  if (selected) {
+  // if (selected) {
     cd[column] = value;
     cd['validation_' + column] = value ? true : false;
-  }
+    if(!value){
+      cd.address1= ""
+      cd.address2= ""
+      cd.address3= ""
+      cd.address4= ""
+      cd.address5= ""
+      cd.country= ""
+      cd.customer= null
+      cd.postcode= ""
+      cd.state= ""
+      cd.suburb= ""
+    }
   setCustomerDetails(cd);
 };
 
@@ -329,19 +384,19 @@ export const validation = async ({ orderDetails, orderLines, customerDetails, se
   const orderDetaillinessValidation = ['validation_product', 'validation_uom', 'validation_qty'];
 
   //validasi order details
-  orderDetailsValidation.map((key, keyIndex) => {
+  orderDetailsValidation.forEach((key, keyIndex) => {
     if (orderDetails[key] !== true) statusValidate = false;
   });
 
   //validasi customer details
-  customerValidation.map((key, keyIndex) => {
+  customerValidation.forEach((key, keyIndex) => {
     if (customerDetails[key] !== true) statusValidate = false;
   });
 
   //validasi orderLines
   orderLines.map((data, index) => {
     data.validation = true;
-    orderDetaillinessValidation.map((key, keyIndex) => {
+    orderDetaillinessValidation.forEach((key, keyIndex) => {
       if (data[key] !== true) statusValidate = false;
     });
   });
@@ -367,7 +422,7 @@ export const validationOrderLines = async ({ orderLines, setOrderLines }) => {
   //validasi orderLines
   orderLines.map((data, index) => {
     data.validation = true;
-    orderDetaillinessValidation.map((key, keyIndex) => {
+    orderDetaillinessValidation.forEach((key, keyIndex) => {
       if (data[key] !== true) statusValidate = false;
     });
   });

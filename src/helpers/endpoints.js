@@ -11,6 +11,8 @@ export default {
   getSupplier: '/settings/suppliers',
   getCustomer: '/settings/customers',
   getOrderType: '/dropdown/getordertype',
+
+  getFilterDetailSP: '/supplier-management-options',
   // Dropdown End --------------------------------------------------------
 
   // Stock Holding Start --------------------------------------------------------

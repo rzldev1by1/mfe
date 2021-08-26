@@ -23,7 +23,7 @@ export const saveEdit = ({ state, title, user, setEditColumnTemp, setShowModal, 
     : [];
   const hiddenColumn = Object.values(state.editColumn);
   if (savedTableColumns.length > 0) {
-    savedTableColumns.map((data, index) => {
+    savedTableColumns.forEach((data, index) => {
       if (data.title === title) {
         savedTableColumns.splice(index, 1);
       }
@@ -47,14 +47,16 @@ export const saveEdit = ({ state, title, user, setEditColumnTemp, setShowModal, 
   setShowModal(false);
   try {
     dispatch({ type: 'CHANGE_HEADER', data: true });
-  } catch (e) {}
+  } catch (e) {
+    console.log(e)
+  }
 };
 
-export const changedColumn = ({ e, state, setState, fields,defaults,id,name }) => {
+export const changedColumn = ({ e, state, setState, fields, defaults, id, name }) => {
   let value = e?.target?.value;
   let ids = e?.target?.id
   let names = e?.target?.name
-  if(defaults){
+  if (defaults) {
     value = defaults
     ids = id
     names = name
@@ -96,9 +98,9 @@ export const changedColumn = ({ e, state, setState, fields,defaults,id,name }) =
   }
 };
 
-export const headerRename = async ({ UrlHeader, state, setState, fields, setFields }) => {
+export const headerRename = async ({ UrlHeader, state, setState, fields, setFields, data }) => {
   const newVal = { ...state };
-
+  let dataSum = data
   if (UrlHeader) {
     const url = UrlHeader();
     const { data } = await axios.get(url);
@@ -131,9 +133,16 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
       const split = datas.align;
       return split;
     });
+
     const sortable = fields.map((datas) => {
-      const split = datas.sortable;
-      return split;
+      let hiddenSort
+      if (dataSum) {
+        if (dataSum.length > 1) hiddenSort = datas.sortable
+        else hiddenSort = false
+      } else {
+        hiddenSort = datas.sortable
+      }
+      return hiddenSort;
     });
     const sortType = fields.map((datas) => {
       let split;
@@ -146,8 +155,8 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
     });
 
     const headerData = Object.keys(data[0]);
-    accessor.map((data, idx) => {
-      const lowerCase = data.toLowerCase();
+    accessor.forEach((accessorNew, idx) => {
+      const lowerCase = accessorNew.toLowerCase();
       if (lowerCase.includes(' ')) {
         const split = lowerCase.split(' ');
         const result = split.join('_');
@@ -157,7 +166,7 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
       }
     });
 
-    Object.values(data[0]).map((data, idx) => {
+    Object.values(data[0]).forEach((dataHeader, idx) => {
       const headerTable = {
         accessor: '',
         Header: '',
@@ -170,7 +179,7 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
         sortable: false,
         align: null,
       };
-      headerTable.Header = data;
+      headerTable.Header = dataHeader;
       headerTable.placeholder = placeholder[idx];
       headerTable.accessor = accessor[idx];
       headerTable.Cell = Cell[idx];
@@ -207,7 +216,7 @@ const renameSubmits = async ({ state, UrlAll, fields, setFields }) => {
   });
 
   const ni = fields.map((item) => {
-    changedFieldHeaderData.map((data, idx) => {
+    changedFieldHeaderData.forEach((data, idx) => {
       if (item.Header === data) {
         item.Header = changedFieldHeader[idx];
       }
@@ -247,22 +256,16 @@ export const renameSubmit = ({ state, setState, setShowMod, UrlAll, fields, setF
   }
 };
 
-export const resetColumnName = async({user,splitModule}) => {
+export const resetColumnName = async ({ user, splitModule }) => {
   const baseUrl = process.env.REACT_APP_API_URL;
-  const {data, status} = await axios.post(`${baseUrl}/settings/field-label/${splitModule}/reset?client=${user?.client}`)
+  const { data, status } = await axios.post(`${baseUrl}/settings/field-label/${splitModule}/reset?client=${user?.client}`)
   window.location.reload()
 }
 
-export const resetColumnTable = ({module, user, fields, state}) => {
-  const currentOrderColumn = localStorage.getItem(`tables__${module}__${user.name}`)
-  ? JSON.parse(localStorage.getItem(`tables__${module}__${user.name}`))
-  : [];
-  let templateColumn = []
-  fields.map((data) => {
-    templateColumn.push(data.accessor)
-  });
-   if(JSON.stringify(currentOrderColumn) !== JSON.stringify(templateColumn)){
+export const resetColumnTable = ({ module, user, dragStatus, dispatch }) => {
+  if (dragStatus) {
     localStorage.removeItem(`tables__${module}__${user.name}`);
+    dispatch({ type: 'DRAG_STATUS', data: false });
     window.location.reload();
   }
 }

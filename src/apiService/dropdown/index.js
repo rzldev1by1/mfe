@@ -145,7 +145,6 @@ export const getSupplier = async ({ client, site, setSupplier }) => {
 
 export const getProduct = async ({ client, val, setIsLoading, setIsProduct }) => {
   const url = `${endpoints.getProduct}?client=${client || ''}&search=${val.toUpperCase()}`;
-
   let productData = [];
   await axios
     .get(url)
@@ -157,6 +156,7 @@ export const getProduct = async ({ client, val, setIsLoading, setIsProduct }) =>
       console.log(error);
     });
   setIsLoading(false);
+  
   setIsProduct(productData);
 };
 
@@ -174,3 +174,9 @@ export const getCustomer = async ({ client, setCustomerData }) => {
   const customerData = data.map((d) => ({ value: d.code, label: `${d.code}: ${d.name}`, data: d }));
   setCustomerData(customerData);
 };
+
+export const getFilterDetailSP = async ({field, dispatch}) => {
+  const data = await axios.get(`${endpoints.getFilterDetailSP}`)
+  // console.log(data);
+  // dispatch({ type: 'CREATE_PO_DISPOSITION', data: dispositionData });
+}

@@ -51,7 +51,6 @@ const Dropdown = ({
       onMenuOpen();
     }
   }, [isOpen]);
-
   return (
     <div className={parentDivClassName}>
       {!title ? null : <label className={`text-muted mb-0 ${required ? 'required' : ''}`}>{title}</label>}
@@ -112,6 +111,8 @@ const Dropdown = ({
           messageShow={messageParam?.messageShow}
           columnText={title || placeholder}
           value={messageParam?.value}
+          customMessage={messageParam?.messageCustom}
+
         />
       )}
     </div>

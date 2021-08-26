@@ -63,6 +63,7 @@
   }
   .rt-tbody {
     display: flow-root;
+    overflow-x: hidden;
   }
   .rt-tbody .rt-tr-group:hover {
     background-color: #eee;

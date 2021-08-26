@@ -20,3 +20,34 @@
 .content-modal{
     margin-top: 20rem;
 }
+
+.btn-reset-um{
+    background-color: #d2d4d8;
+    color: #ffffff;
+}
+
+.btn-reset-um:hover{
+    background-color: #376BFB;
+    color: #ffffff !important;
+}
+
+.progressBar {
+    .inline {
+      display: inline !important;
+    }
+  }
+  
+  .progress {
+    display: -webkit-flex;
+    display: flex;
+    height: 0.2rem;
+    overflow: hidden;
+    line-height: 0;
+    font-size: 0.65625rem;
+    border-radius: 1px;
+    border-bottom-left-radius: 23px;
+    border-bottom-right-radius: 23px;
+    background-color: #ffffff;
+    width: 99%;
+  }
+  
