@@ -5,7 +5,6 @@ export const ProgressBarReset = async ({ resetConfirmation }) => {
     if (i == 0) {
         i = 1;
         let element = await document.getElementById('progressBar');
-        console.log(element)
         if (element) {
             let width = 1;
             let id = setInterval(frame, 150);
