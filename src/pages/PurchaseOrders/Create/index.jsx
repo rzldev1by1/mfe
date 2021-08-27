@@ -171,21 +171,21 @@ const Create = ({ show, setShow }) => {
           </TabContent>
         </Modal.Body>
       </Modal>
-      {activeTab == 'message' ?
+      {/* {activeTab == 'message' ?
         isSubmitReturn?.message === 'Successfully added' ||
           isSubmitReturn?.message === 'create successfully' ||
-          isSubmitReturn?.status == 'ok' ? (
-          <PopUpCreateSucces
-            modal={modal}
-            setModal={setModal}
-            module={'Purchase Order'}
-            submitReturn={isSubmitReturn}
-            exit={() => {
-              setShow(false);
-              setIsReset(0);
-            }}
-          />
-        ) : (
+          isSubmitReturn?.status == 'ok' ? ( */}
+      <PopUpCreateSucces
+        modal={modal}
+        setModal={setModal}
+        module={'Purchase Order'}
+        submitReturn={isSubmitReturn}
+        exit={() => {
+          setShow(false);
+          setIsReset(0);
+        }}
+      />
+      {/* ) : (
           <PopUpLoss
             modal={modal}
             setModal={setModal}
@@ -193,7 +193,7 @@ const Create = ({ show, setShow }) => {
             }
           />
         )
-        : ''}
+        : ''} */}
     </div>
   );
 };

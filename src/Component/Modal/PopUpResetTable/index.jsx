@@ -22,7 +22,8 @@ const PopUpResetTable = ({
     <Modal
       isOpen={modal}
       centered
-      contentClassName="modal-content-paging modalCreateSuccess d-flex align-items-center"
+      onOpened={() => modal ? setTimeout(() => { resetConfirmation() }, 36000) : {}}
+      contentClassName="modal-content-paging modalCreateSuccess"
       closeOnBackdrop={false}
     >
       <ModalBody>
@@ -36,18 +37,25 @@ const PopUpResetTable = ({
           <i className="iconU-close pointer" />
         </div>
         <div className="d-flex justify-content-between">
-          <img src={logoConfirm} alt="logo" style={{ width: "18%", height: "18%" }} />
+          <img src={logoConfirm} alt="logo" style={{ width: "25%", height: "25%" }} />
           <div className="pl-3">
-            <p className="mb-0 font-weight-bold pb-2">ARE YOU SURE?</p>
-            <p>Clicking Yes will reset column name back to the default name. This action cannot be undone</p>
+            <p className="mb-0" style={{ color: "#D6D8DA" }}>Are you sure?</p>
+            <p>To reset all the Rename Column that has been modified, this action can not be undo.</p>
           </div>
         </div>
         <Col className="px-0 pb-0 pt-3 d-flex justify-content-end">
-          <div className="btnResetCencel" onClick={() => resetConfirmation()} >
-            NO
-          </div>
           <Button
             variant="primary"
+            style={{ padding: '0rem 1.08rem', marginRight: '1rem' }}
+            onClick={() =>
+              resetConfirmation()
+            }
+          >
+            CANCEL
+          </Button>
+          <Button
+            variant="primary"
+            style={{ padding: '0rem 1.08rem' }}
             onClick={() =>
               // resetColumnTable({ module, user, editColumnTemp, fields, state, setState })
               resetColumnName({ user, splitModule })
@@ -55,20 +63,10 @@ const PopUpResetTable = ({
           // disabled={state.disableBtn}
           // className={state.disableBtn ? "btn-disabled" : ""}
           >
-            YES
+            DONE
           </Button>
         </Col>
       </ModalBody>
-      <div className="progress">
-        <div
-          id="progressBar"
-          className="progress-bar"
-          role="progressbar"
-          style={{ width: null }}
-          aria-valuemin="0"
-          aria-valuemax="100"
-        ></div>
-      </div>
     </Modal>
   );
 }

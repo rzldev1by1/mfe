@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Modal, ModalBody } from 'reactstrap'
 import logo from 'assets/img/success.png'
 import { ProgressBar } from '../service'
@@ -17,36 +17,37 @@ const PopUpCreateSuccesUM = ({
     <Modal
       isOpen={modal}
       centered
+      onOpened={() => modal ? setTimeout(() => { setModal(false); }, 36000) : {}}
       contentClassName="modal-content-paging modalCreateSuccess d-flex align-items-center"
       closeOnBackdrop={false}
     >
       <ModalBody>
-        <div className="text-right px-0" style={{ fontSize: '14px' }} onClick={() => { setModal(false); }}>
+        <div
+          className="text-right px-0"
+          style={{ fontSize: '14px' }}
+          onClick={() => { setModal(false); }}
+        >
           <i className="iconU-close pointer" />
         </div>
-        <div className="d-flex d-inline-flexc align-items-center pb-4">
-          <img src={logo} alt="logo" style={{ width: "19%", height: "19%" }} />
+        <div className="d-flex d-inline-flexc align-items-center">
+          <img src={logo} alt="logo" style={{ width: "30%", height: "30%" }} />
           <div className="pl-3">
-            <div className="font font-weight-bold pb-2">
-              THANK YOU
+            <div className="font">
+              Thank you
             </div>
-            <div style={{ fontSize: "95%" }}>
+            <div className="text-muted-soft">
               {'You have created a new ' + submitReturn?.role + ' User for ' + submitReturn?.name + '. The ' + submitReturn?.role +
                 ' User ' + submitReturn?.name + ' will receive an email shortly with their user ID and password to access the portal.'}
             </div>
           </div>
         </div>
+        <button
+          type="button"
+          onClick={() => { setModal(false); }}
+          className="btn btn-search mobile-search btn-primary float-right">
+          DONE
+        </button>
       </ModalBody>
-      <div className="progress">
-        <div
-          id="progressBar"
-          className="progress-bar"
-          role="progressbar"
-          style={{ width: null }}
-          aria-valuemin="0"
-          aria-valuemax="100"
-        ></div>
-      </div>
     </Modal>
   );
 }
