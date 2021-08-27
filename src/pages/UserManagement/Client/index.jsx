@@ -8,8 +8,8 @@ const client = ({ clients, isEnableAllClient, state, setState, isReadOnly, modul
   const enable = 'Enabled';
   const disable = 'Disabled';
 
-  const height = window.innerHeight - 680;
-  const heightDetail = window.innerHeight - 510;
+  const height = window.innerHeight - 700;
+  const heightDetail = window.innerHeight - 530;
 
   return (
     <div>
@@ -21,9 +21,8 @@ const client = ({ clients, isEnableAllClient, state, setState, isReadOnly, modul
           <div className="col-6 pr-4">
             <button
               type="button"
-              className={`btn px-1 float-right mb-2  ${
-                isEnableAllClient ? 'btn-outline-All-notActive' : 'btn-outline-All-active'
-              } ${isReadOnly ? 'd-none' : ''}`}
+              className={`btn px-1 float-right mb-2  ${isEnableAllClient ? 'btn-outline-All-notActive' : 'btn-outline-All-active'
+                } ${isReadOnly ? 'd-none' : ''}`}
               onClick={() => onEnabledAllClient({ state, setState })}
             >
               {`${isEnableAllClient ? disableAll.toUpperCase() : enableAll.toUpperCase()}`}
@@ -32,36 +31,36 @@ const client = ({ clients, isEnableAllClient, state, setState, isReadOnly, modul
         </div>
       </div>
 
-      <div className="client-areas pr-3" 
-            style={ module === 'detail' ? { height:heightDetail, minHeight:heightDetail} : {height:height, minHeight:height}}>
+      <div className="client-areas pr-3"
+        style={module === 'detail' ? { height: heightDetail, minHeight: heightDetail } : { height: height, minHeight: height }}>
         {clients && client.length
           ? clients.map((item, index) => {
-              return (
-                <div className="flex-column mb-1" style={{paddingRight:'1.5px'}} key={index}>
-                  <div className="d-flex" key={index}>
-                    <label className="col-6 text-muted px-0 py-2" key={item.code}>
-                      {module === 'detail' ? `${item.code}: ${item.name}` : `${item.name}` }
-                    </label>
-                    <div className="col-6">
-                      <button
-                        type="button"
-                        htmlFor={item.code}
-                        className={
-                          'btn px-1 float-right ' +
-                          (!isReadOnly && item.status ? 'btn-outline-active' : 'btn-outline-notActive') +
-                          (isReadOnly ? ' btn-review' : '')
-                        }
-                        onClick={(e) => {
-                          onClientStatusClick({ e, index, state, setState });
-                        }}
-                      >
-                        {`${item.status ? enable.toUpperCase() : disable.toUpperCase()}`}
-                      </button>
-                    </div>
+            return (
+              <div className="flex-column mb-1" style={{ paddingRight: '1.5px' }} key={index}>
+                <div className="d-flex" key={index}>
+                  <label className="col-6 text-muted px-0 py-2" key={item.code}>
+                    {module === 'detail' ? `${item.code}: ${item.name}` : `${item.name}`}
+                  </label>
+                  <div className="col-6">
+                    <button
+                      type="button"
+                      htmlFor={item.code}
+                      className={
+                        'btn px-1 float-right ' +
+                        (!isReadOnly && item.status ? 'btn-outline-active' : 'btn-outline-notActive') +
+                        (isReadOnly ? ' btn-review' : '')
+                      }
+                      onClick={(e) => {
+                        onClientStatusClick({ e, index, state, setState });
+                      }}
+                    >
+                      {`${item.status ? enable.toUpperCase() : disable.toUpperCase()}`}
+                    </button>
                   </div>
                 </div>
-              );
-            })
+              </div>
+            );
+          })
           : null}
       </div>
     </div>

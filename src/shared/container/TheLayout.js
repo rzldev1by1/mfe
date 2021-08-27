@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TheContent from './TheContent';
 import TheSidebar from './TheSidebar';
-import { useIdleTimer } from 'react-idle-timer';
+import TheHeader from './TheHeader';
 
 const TheLayout = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const TheLayout = () => {
     // <div className={`c-app c-default-layout ${darkMode && 'c-dark-theme'}`}>
     <div className={`c-app c-default-layout ${darkMode ? 'customDarkMode' : ''}`}>
       <TheSidebar />
-      {/* <TheAside /> */}
+      <TheHeader />
       <div className="c-wrapper">
         <div className="c-body">
           <TheContent />

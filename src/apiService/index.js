@@ -9,7 +9,7 @@ import * as utility from './UmUtility';
 
 const today = moment(Date()).format('YYYY-MM-DD hh: mm: ss');
 const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'manage supplier users'];
-const dateFormate= process.env.REACT_APP_API_URL_FORMATE;
+const dateFormate = process.env.REACT_APP_API_URL_FORMATE;
 
 export const formatDate = (date) => {
   if (date !== "Invalid date" || date === undefined || date === null || date === '') {
@@ -776,6 +776,7 @@ export const resetPassword = ({ state, setState, props }) => {
 
 //DarkMode 
 export const darkModeMLS = ({ darkMode, dispatch }) => {
+  console.log(darkMode)
   if (!darkMode) dispatch({ type: 'DARKMODE', data: true })
   if (darkMode) dispatch({ type: 'DARKMODE', data: false })
 }

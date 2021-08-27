@@ -28,14 +28,14 @@ const StockMovement = (props) => {
 
   //dimension
   const [dimension, setDimension] = useState({
-    height: window.innerHeight - 272,
+    height: window.innerHeight - 333,
     width: window.innerWidth,
   });
   const { width, height } = dimension;
   useEffect(() => {
     const handleResize = () => {
       setDimension({
-        height: window.innerHeight - 272,
+        height: window.innerHeight - 333,
         width: window.innerWidth,
       });
     };

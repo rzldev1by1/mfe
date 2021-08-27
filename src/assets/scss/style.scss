@@ -43,7 +43,7 @@ $spinkit-spinner-color: $body-color;
 //custom DarkMode
 .customDarkMode {
   .c-sidebar {
-    background-color: #1c1c1c;
+    background-color: #1F192D;
   }
   .darkLayer {
     background-color: rgba(0, 0, 0, 0.8);
@@ -54,7 +54,12 @@ $spinkit-spinner-color: $body-color;
     height: 100%;
   }
   .c-header {
-    background-color: #47444a !important;
+    background-color: #1F192D !important;
+    .header-mls-text{
+      .v-header-mls{
+        border-left: 1px solid rgb(71,68,74);
+      }
+    }
   }
 
   //breadcrump
@@ -64,7 +69,7 @@ $spinkit-spinner-color: $body-color;
 
   //card
   .card {
-    background-color: #281f34 !important;
+    background-color: #1F192D !important;
   }
   .tab-pane{
     background-color: #47444a !important;
@@ -78,11 +83,11 @@ $spinkit-spinner-color: $body-color;
     background-color: #504164 !important;
   }
   .rt-table {
-    background-color: #281f34 !important;
+    background-color: #1F192D !important;
     color: white !important;
   }
   .show-edit-icon .rt-th:last-child {
-    background: #281f34 !important;
+    background: #1F192D !important;
   }
 
   .ReactTable .rt-tbody .rt-tr-group {
@@ -100,13 +105,13 @@ $spinkit-spinner-color: $body-color;
 
   //Table StockMovement
   .stockMovement .ReactTable .rt-thead.-headerGroups > .rt-tr > .rt-th{
-    background-color: #281f34 !important;
+    background-color: #1F192D !important;
   }
   .stockMovement .ReactTable .rt-table .rt-thead .rt-tr .rt-th{
-    background-color: #281f34 !important;
+    background-color: #1F192D !important;
   }
   .stockMovement .ReactTable .rt-table .rt-tbody .rt-tr-group .rt-tr .rt-td{
-    background-color: #281f34 !important;
+    background-color: #1F192D !important;
   }
 
   //button
@@ -145,7 +150,7 @@ $spinkit-spinner-color: $body-color;
   }
   .css-26l3qy-menu {
     //dropdown option background
-    background-color: #281f34 !important;
+    background-color: #1F192D !important;
     color: white;
   }
   .css-ihtdzf-option,
@@ -170,7 +175,7 @@ $spinkit-spinner-color: $body-color;
   .page-item,
   .bg-paging-search,
   .number-pag.rounded.input-paging {
-    background-color: #281f34 !important;
+    background-color: #1F192D !important;
     color: white !important;
   }
 
@@ -187,7 +192,7 @@ $spinkit-spinner-color: $body-color;
   //datePicker
 
 .select_date_options {
-  background-color: #281f34 !important;
+  background-color: #1F192D !important;
   
   .DayPicker-Weekday abbr[title='Monday'],
   .DayPicker-Weekday abbr[title='Tuesday'],
@@ -217,16 +222,16 @@ $spinkit-spinner-color: $body-color;
       color: white !important;
     }
     .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options{
-      background-color: #281f34 !important;
+      background-color: #1F192D !important;
     }
     .select_dropdown_label{
-      background-color: #281f34 !important;
+      background-color: #1F192D !important;
     }
     .select_dropdown{
-      background-color: #281f34 !important;
+      background-color: #1F192D !important;
     }
     .btn.btn-secondary{
-      background-color: #281f34 !important;
+      background-color: #1F192D !important;
       color: white !important;
     }
     .DayPicker-Day:hover{
@@ -237,7 +242,7 @@ $spinkit-spinner-color: $body-color;
       color: white !important;
     }
     .modalCreateSuccess, .modalCreateLoss{ 
-      background-color: #281f34;
+      background-color: #1F192D;
       color: white;
     }
   }

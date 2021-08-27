@@ -2,14 +2,14 @@ import React from 'react';
 import '../index.scss';
 import { onSiteStatusClick, onEnabledAllSite } from '../services';
 
-const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module}) => {
+const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module }) => {
   const disableAll = 'Disable All';
   const enableAll = 'Enable All';
   const enable = 'Enabled';
   const disable = 'Disabled';
 
-  const height = window.innerHeight - 680;
-  const heightDetail = window.innerHeight - 510;
+  const height = window.innerHeight - 700;
+  const heightDetail = window.innerHeight - 530;
 
   return (
     <div>
@@ -21,9 +21,8 @@ const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module}) =>
           <div className="col-6 pr-4">
             <button
               type="button"
-              className={`btn px-1 float-right mb-2 ${
-                isEnableAllSite ? 'btn-outline-All-notActive' : 'btn-outline-All-active'
-              } ${isReadOnly ? 'd-none' : ''}`}
+              className={`btn px-1 float-right mb-2 ${isEnableAllSite ? 'btn-outline-All-notActive' : 'btn-outline-All-active'
+                } ${isReadOnly ? 'd-none' : ''}`}
               onClick={() => onEnabledAllSite({ state, setState })}
             >
               {`${isEnableAllSite ? disableAll.toUpperCase() : enableAll.toUpperCase()}`}
@@ -32,14 +31,14 @@ const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module}) =>
         </div>
       </div>
 
-      <div className="client-areas pr-3" 
-            style={ module === 'detail' ? { height:heightDetail, minHeight:heightDetail} : {height:height, minHeight:height}}>
-      {sites && sites.length
-        ? sites.map((item, index) => {
+      <div className="client-areas pr-3"
+        style={module === 'detail' ? { height: heightDetail, minHeight: heightDetail } : { height: height, minHeight: height }}>
+        {sites && sites.length
+          ? sites.map((item, index) => {
             return (
               <div className="flex-column mb-1" key={index}>
                 <div className="d-flex" key={index}>
-                  <label className="col-6 text-muted px-0 py-2" key={item.site}>{module === 'detail' ? `${item.site}: ${item.name}` : `${item.name}` }</label>
+                  <label className="col-6 text-muted px-0 py-2" key={item.site}>{module === 'detail' ? `${item.site}: ${item.name}` : `${item.name}`}</label>
                   <div className="col-6">
                     <button
                       type="button"
@@ -60,8 +59,8 @@ const site = ({ sites, isEnableAllSite, state, setState, isReadOnly, module}) =>
               </div>
             );
           })
-        : null}
-     </div>
+          : null}
+      </div>
     </div>
   );
 };

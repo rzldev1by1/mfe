@@ -1,65 +1,77 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import axios from 'axios';
 import { Link } from 'react-router-dom'
 import {
   CHeader,
-  CToggler,
   CSubheader,
-  CBreadcrumb,
-  CBreadcrumbItem,
+  CSwitch,
+  CDropdown,
+  CDropdownItem,
+  CDropdownMenu,
+  CDropdownToggle,
+  CToggler
 } from '@coreui/react'
-// import CIcon from '@coreui/icons-react'
+import CIcon from '@coreui/icons-react'
+import { darkModeMLS } from '../../apiService';
 
 const TheHeader = (props) => {
   const dispatch = useDispatch()
-  // const darkMode = useSelector(state => state.darkMode)
-  const sidebarShow = useSelector(state => state.sidebarShow)
+  const user = useSelector((state) => state.user);
+  const darkModes = useSelector(state => state.darkMode)
 
-  // const toggleSidebar = () => {
-  //   const val = [true, 'responsive'].includes(sidebarShow) ? false : 'responsive'
-  //   dispatch({ type: 'set', sidebarShow: val })
-  // }
+  const signOut = async (e) => {
+    dispatch({ type: 'LOGOUT' });
+    const payload = { last_access: new Date().toLocaleString() };
+    const ret = await axios.post('auth/logout', payload);
+    return ret;
+  };
 
-  const toggleSidebarMobile = () => {
-    const val = [false, 'responsive'].includes(sidebarShow) ? true : 'responsive'
-    dispatch({ type: 'SIDEBAR', data: val })
-  }
+  useEffect(() => {
+    darkModeMLS({ darkMode: darkModes, dispatch })
+  }, [darkModes]);
 
   return (
-    <CHeader withSubheader className="no-border no-shadow" id="stockMovement">
-      {/* 
-      <CToggler
-        inHeader
-        title="Toggle Light/Dark Mode"
-        className="ml-3 d-lg-none"
-        onClick={() => dispatch({ type: 'DARKMODE', data: !darkMode })}
-      >
-        <CIcon name="cil-moon" className="c-d-dark-none" alt="CoreUI Icons Moon" />
-        <CIcon name="cil-sun" className="c-d-default-none" alt="CoreUI Icons Sun" />
-      </CToggler> */}
+    <CHeader withSubheader className="no-border no-shadow">
+      <div className="header-mls-text">
+        <Link to="/" className="text-logo text-white">Microlistics </Link>
+        <div class="v-header-mls"></div>
+      </div>
 
-      <CSubheader className="bg-transparent no-border no-shadow my-2">
-        <CToggler inHeader className="p-0 d-lg-none" onClick={toggleSidebarMobile} />
-        {/* <CToggler inHeader onClick={toggleSidebar} className="p-0 d-md-down-none" /> */}
-        {/* <CBreadcrumbRouter className="border-0 c-subheader-nav mr-auto" routes={routes} /> */}
-        <CBreadcrumb className="no-border no-shadow mr-auto m-0 py-3">
-          {props.breadcrumb ? props.breadcrumb.map((b, i) => {
-            return b.active ? <CBreadcrumbItem key={i} active>{b.label}</CBreadcrumbItem>
-              : <CBreadcrumbItem key={i}><Link to={b.to}>{b.label}</Link></CBreadcrumbItem>
-          }) : ''}
-        </CBreadcrumb>
-        <div className="c-subheader-nav">
-          {props.button}
-        </div >
-        {/* <CToggler
-          inHeader
-          title="Toggle Light/Dark Mode"
-          className="ml-3"
-          onClick={() => dispatch({ type: 'DARKMODE', data: !darkMode })}
-        >
-          <CIcon name="cil-moon" className="c-d-dark-none" alt="CoreUI Icons Moon" />
-          <CIcon name="cil-sun" className="c-d-default-none" alt="CoreUI Icons Sun" />
-        </CToggler> */}
+      <CSubheader className="bg-transparent acount-mls">
+        <div className="mfe-2 c-subheader-nav">
+          <CDropdown>
+            <CDropdownToggle className="no-shadow alig-items-center pr-0 d-flex align-items-center">
+              <div class="v-header-mls"></div>
+              <div className="d-flex">
+                <CIcon name="cil-user" className="icon-profil-user pl-2" />
+                <div className="mx-3 text-left ">
+                  <p className="my-0 ">{user?.name}</p>
+                  <p className="my-0 ">{`${user.email} . ${user?.name}`}</p>
+                </div>
+              </div>
+            </CDropdownToggle>
+            <CDropdownMenu className="drop-menu-profil p-0">
+              <CDropdownItem className="menu-item-profil">User Details</CDropdownItem>
+              <CDropdownItem className="menu-item-profil">Company License</CDropdownItem>
+              <CDropdownItem className="menu-item-profil">Notification</CDropdownItem>
+              <div className="m-info">
+                <p className="my-0 py-2" style={{ paddingLeft: "6%" }}>
+                  <div className=" d-flex pr-2 align-items-md-center">
+                    <CIcon name="cil-moon" className="c-d-dark-none mr-2" alt="CoreUI Icons Moon" />
+                    DarkMode
+                    <div style={{ marginLeft: "53%" }}>
+                      <CSwitch shape={'pill'} color={'secondary'} onClick={() => dispatch({ type: 'DARKMODE', data: true })} defaultChecked />
+                    </div>
+                  </div>
+                </p>
+              </div>
+              <CDropdownItem className="menu-item-profil">Language</CDropdownItem>
+              <CDropdownItem className="menu-item-profil" onClick={() => props.history.push('/settings')}>Settings</CDropdownItem>
+              <CDropdownItem className="menu-item-profil" onClick={() => signOut()}>Logout</CDropdownItem>
+            </CDropdownMenu>
+          </CDropdown>
+        </div>
       </CSubheader>
     </CHeader>
   )

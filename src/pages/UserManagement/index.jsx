@@ -24,14 +24,14 @@ const UserManagement = (props) => {
   const module = 'UserManagement';
 
   const [dimension, setDimension] = useState({
-    height: window.innerHeight - 335,
+    height: window.innerHeight - 395,
     width: window.innerWidth,
   });
   const { width, height } = dimension;
   useEffect(() => {
     const handleResize = () => {
       setDimension({
-        height: window.innerHeight - 335,
+        height: window.innerHeight - 395,
         width: window.innerWidth,
       });
     };

@@ -29,14 +29,14 @@ const SalesOrders = (props) => {
   const module = 'salesOrder';
 
   const [dimension, setDimension] = useState({
-    height: window.innerHeight - 253,
+    height: window.innerHeight - 323,
     width: window.innerWidth,
   });
   const { width, height } = dimension;
   useEffect(() => {
     const handleResize = () => {
       setDimension({
-        height: window.innerHeight - 253,
+        height: window.innerHeight - 323,
         width: window.innerWidth,
       });
     };
@@ -47,7 +47,7 @@ const SalesOrders = (props) => {
   });
 
   useEffect(() => {
-    getSummaryData({ dispatch, active: paginationSo?.active, module, siteVal: user.site, clientVal: user.client  });
+    getSummaryData({ dispatch, active: paginationSo?.active, module, siteVal: user.site, clientVal: user.client });
   }, []);
 
   const [columnHidden, setColumnHidden] = useState(null);

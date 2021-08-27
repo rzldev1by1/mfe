@@ -21,12 +21,6 @@ const TheSidebar = () => {
   const darkMode = useSelector((state) => state.darkModeMLS);
 
   const [hover, setHover] = useState(null);
-  const signOut = async (e) => {
-    dispatch({ type: 'LOGOUT' });
-    const payload = {last_access: new Date().toLocaleString()};
-    const ret = await axios.post('auth/logout',payload );
-    return ret;
-  };
   let userMenu = user.userModules.map((item) => item.menu_id);
   const adminRoutes = ['/users-management'];
   const superAdmin = ['MLS12345', 'angae'];
@@ -44,17 +38,17 @@ const TheSidebar = () => {
   //   });
   // }
 
-  
+
   if (user.userLevel === 'Regular') {
     navigation = navigation.filter((n) => {
       return !adminRoutes.includes(n.to) && userMenu.includes(n.key);
     });
   }
-  else{
+  else {
     navigation = navigation.filter((n) => {
       return n.to !== "/supplier-management"
     });
-   }
+  }
 
   return (
     <CSidebar
@@ -64,14 +58,11 @@ const TheSidebar = () => {
       onShowChange={(val) => dispatch({ type: 'set', sidebarShow: val })}
     >
       <ul className="sidebar-nav-header">
-        <li className="c-sidebar-item">
-          <Link  onClick={() => darkModeMLS({ darkMode, dispatch })}>
+        <li className="c-sidebar-item py-2 justify-content-end d-flex">
+          <Link onClick={() => darkModeMLS({ darkMode, dispatch })}>
             <img src={Logo} height="35" alt="logo" />
           </Link>
         </li>
-        <Link to="/" className="text-logo">
-          <li className="c-sidebar-item logo-text text-white">Microlistics</li>
-        </Link>
         <li></li>
       </ul>
       <CSidebarNav className="sidebar-nav-menu">
@@ -95,23 +86,6 @@ const TheSidebar = () => {
           );
         })}
       </CSidebarNav>
-      <ul className="sidebar-nav-bottom m-0 p-0">
-        <li className="c-sidebar-item" onMouseEnter={() => setHover('logout')} onMouseLeave={() => setHover(null)}>
-          <img className="m-0 c-sidebar-nav-icon-profile" src="nav/profile.png" alt="" />
-          <div className=" text-left text-blue">
-            <div>
-              {lastChangedUser && lastChangedUser.userId === user.userId && lastChangedUser.email === user.email
-                ? lastChangedUser.name
-                : user.name}
-            </div>
-            <div>ID: {user.userId} </div>
-            <a href="#/" onClick={signOut} className="logOutHover">
-              {' '}
-              LOGOUT{' '}
-            </a>
-          </div>
-        </li>
-      </ul>
     </CSidebar>
   );
 };

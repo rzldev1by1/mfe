@@ -410,14 +410,58 @@ input.outOfRemaining-input:focus {
 .c-600 {
   width: 600px !important;
 }
+// C header
+.c-header {
+  background-color: #2d1b46 !important;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-wrap: nowrap;
+  .header-mls-text{
+    padding-left: 2.4% !important;
+    align-items: center;
+    font-size: 136%;
+    display: flex;
+    .text-logo{
+      margin-left: 53%;
+    }
+  }
+  .acount-mls{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 3%;
+  }
+  .v-header-mls{
+    border-left: 1px solid #EBEDEF;
+    margin-left: 14%;
+    height: 70px;
+  }
+  .icon-profil-user{
+    width: 2rem !important;
+    height: 2rem !important;
+    font-size: 2rem !important;
+  }
+  .drop-menu-profil{
+    margin: 3% !important;
+    margin-left: 19% !important;
+    width: 106% !important;
+    font-size: 116% !important;
+    background-color: #2d1b46;
+    color:#fff
+  }
+  .menu-item-profil{
+    color:#fff;
+  }
+  .menu-item-profil:hover{
+    color:#2d1b46;
+  }
+}
+.arrow-profile{
+  transform: rotate(-92deg);
+}
 
 // Core-UI component style
 .c-app,
-.c-header {
-  background-color: #e9eced !important;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
 
 header {
   margin: 0 !important;
@@ -1001,16 +1045,16 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
       color: white !important;
     }
     .select_dropdown_expand:checked + .select_dropdown_closeLabel + .select_dropdown_options{
-      background-color: #281f34 !important;
+      background-color: #1F192D !important;
     }
     .select_dropdown_label{
-      background-color: #281f34 !important;
+      background-color: #1F192D !important;
     }
     .select_dropdown{
-      background-color: #281f34 !important;
+      background-color: #1F192D !important;
     }
     .btn.btn-secondary{
-      background-color: #281f34 !important;
+      background-color: #1F192D !important;
       color: white !important;
     }
     .DayPicker-Day:hover{
@@ -1021,7 +1065,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
       color: white !important;
     }
     .modalCreateSuccess, .modalCreateLoss{ 
-      background-color: #281f34;
+      background-color: #1F192D;
       color: white;
     }
 
@@ -1043,7 +1087,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
       }
       .css-26l3qy-menu {
         //dropdown option background
-        background-color: #281f34 !important;
+        background-color: #1F192D !important;
         color: white;
       }
       .css-ihtdzf-option,
@@ -1064,7 +1108,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
       .page-item,
       .bg-paging-search,
       .number-pag.rounded.input-paging {
-        background-color: #281f34 !important;
+        background-color: #1F192D !important;
         color: white !important;
       }
 
@@ -1081,7 +1125,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
       //datePicker
 
     .select_date_options {
-      background-color: #281f34 !important;
+      background-color: #1F192D !important;
       
       .DayPicker-Weekday abbr[title='Monday'],
       .DayPicker-Weekday abbr[title='Tuesday'],
