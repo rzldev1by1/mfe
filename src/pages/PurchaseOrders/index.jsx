@@ -15,6 +15,8 @@ const PurchaseOrders = (props) => {
     props.history.push(`/purchase-order/${item.site}/${item.client}/${item.order_no}`);
   };
 
+  const createBtn = process.env.REACT_APP_API_URL_CREATE;
+
   const dispatch = useDispatch();
   const poSummaryData = useSelector((state) => state.poSummaryData);
   const paginationPo = useSelector((state) => state.paginationPo);
@@ -97,11 +99,11 @@ const PurchaseOrders = (props) => {
     <div>
       <Breadcrumb
         breadcrumb={[{ to: '/purchase-order', label: 'Purchase Order', active: true }]}
-        button={
-          <CButton onClick={() => setShowModal(true)} className="btn btn-primary btn-create float-right">
+        button={(
+          <CButton onClick={() => setShowModal(true)} className={`btn btn-primary btn-create float-right ${createBtn === 'true' ? '' : 'd-none'}`}>
             CREATE PURCHASE ORDER
           </CButton>
-        }
+        )}
       />
       <div>
         <div>
