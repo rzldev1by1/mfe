@@ -29,14 +29,14 @@ const SalesOrders = (props) => {
   const module = 'salesOrder';
 
   const [dimension, setDimension] = useState({
-    height: window.innerHeight - 323,
+    height: window.innerHeight - 330,
     width: window.innerWidth,
   });
   const { width, height } = dimension;
   useEffect(() => {
     const handleResize = () => {
       setDimension({
-        height: window.innerHeight - 323,
+        height: window.innerHeight - 330,
         width: window.innerWidth,
       });
     };

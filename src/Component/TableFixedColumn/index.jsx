@@ -60,13 +60,20 @@ const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, pagination, 
         }}
       />
 
-      <CRow lg="12" className="mt-3 w-100 pagination-custom">
-        <CCol lg="7" className="px-0 w-100 margin-mr">
+      <CRow lg="12" className="mt-3 w-100 pagination-custom align-items-center d-flex  line-paging">
+        <CCol lg="5" className="px-0 w-100 margin-mr py-1">
           <Pagination pagination={pagination} data={[]} page={1} setPage={0} />
         </CCol>
-        <CCol lg="5" md="1" className="px-0 w-100 export-ml">
+        <CCol lg="3">
+          <div style={{ paddingLeft: "20%" }}>
+            Copyright &#169; 2021 Microlistics
+          </div>
+        </CCol>
+        <CCol lg="4" md="1" className="px-0 w-100 export-ml">
           {data?.length < 1 ? null : (
-            <Export filename={filename} customExportXls customExportPdf={customExportPdf} module={module} />
+            <div className="pr-2">
+              <Export filename={filename} customExportXls customExportPdf={customExportPdf} module={module} />
+            </div>
           )}
         </CCol>
       </CRow>

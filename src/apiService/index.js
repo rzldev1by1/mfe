@@ -773,10 +773,3 @@ export const resetPassword = ({ state, setState, props }) => {
   });
 };
 // End User Management
-
-//DarkMode 
-export const darkModeMLS = ({ darkMode, dispatch }) => {
-  console.log(darkMode)
-  if (!darkMode) dispatch({ type: 'DARKMODE', data: true })
-  if (darkMode) dispatch({ type: 'DARKMODE', data: false })
-}

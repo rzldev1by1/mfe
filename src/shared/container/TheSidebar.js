@@ -9,7 +9,6 @@ import {
 } from '@coreui/react';
 import Logo from 'assets/img/logo-white.png';
 import nav from './_nav';
-import { darkModeMLS } from '../../apiService';
 import './TheSidebar.css';
 
 const TheSidebar = () => {
@@ -17,8 +16,6 @@ const TheSidebar = () => {
   const location = useLocation();
   const show = useSelector((state) => state.sidebarShow);
   const user = useSelector((state) => state.user);
-  const lastChangedUser = useSelector((state) => state.lastChangedUser);
-  const darkMode = useSelector((state) => state.darkModeMLS);
 
   const [hover, setHover] = useState(null);
   let userMenu = user.userModules.map((item) => item.menu_id);
@@ -59,7 +56,7 @@ const TheSidebar = () => {
     >
       <ul className="sidebar-nav-header">
         <li className="c-sidebar-item py-2 justify-content-end d-flex">
-          <Link onClick={() => darkModeMLS({ darkMode, dispatch })}>
+          <Link>
             <img src={Logo} height="35" alt="logo" />
           </Link>
         </li>

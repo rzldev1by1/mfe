@@ -41,7 +41,7 @@ const StockHoldingDetail = (props) => {
   //   }
   // }, []);
 
-  const height = window.innerHeight - 431;
+  const height = window.innerHeight - 450;
   const widht = window.innerWidth;
   return (
     <div>

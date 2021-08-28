@@ -29,7 +29,7 @@ const PurchaseOrders = (props) => {
 
   // dimension
   const [dimension, setDimension] = useState({
-    height: window.innerHeight - 320,
+    height: window.innerHeight - 330,
     width: window.innerWidth,
   });
   const { width, height } = dimension;
@@ -37,7 +37,7 @@ const PurchaseOrders = (props) => {
   useEffect(() => {
     const handleResize = () => {
       setDimension({
-        height: window.innerHeight - 320,
+        height: window.innerHeight - 330,
         width: window.innerWidth,
       });
     };

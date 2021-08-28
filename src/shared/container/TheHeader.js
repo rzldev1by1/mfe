@@ -18,7 +18,7 @@ import { darkModeMLS } from '../../apiService';
 const TheHeader = (props) => {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user);
-  const darkModes = useSelector(state => state.darkMode)
+  const darkModes = useSelector(state => state.darkModeMLS)
 
   const signOut = async (e) => {
     dispatch({ type: 'LOGOUT' });
@@ -26,10 +26,6 @@ const TheHeader = (props) => {
     const ret = await axios.post('auth/logout', payload);
     return ret;
   };
-
-  useEffect(() => {
-    darkModeMLS({ darkMode: darkModes, dispatch })
-  }, [darkModes]);
 
   return (
     <CHeader withSubheader className="no-border no-shadow">
@@ -61,7 +57,7 @@ const TheHeader = (props) => {
                     <CIcon name="cil-moon" className="c-d-dark-none mr-2" alt="CoreUI Icons Moon" />
                     DarkMode
                     <div style={{ marginLeft: "53%" }}>
-                      <CSwitch shape={'pill'} color={'secondary'} onClick={() => dispatch({ type: 'DARKMODE', data: true })} defaultChecked />
+                      <CSwitch shape={'pill'} color={'secondary'} onClick={() => dispatch({ type: 'DARKMODE', data: !darkModes })} defaultChecked />
                     </div>
                   </div>
                 </p>

@@ -423,7 +423,7 @@ input.outOfRemaining-input:focus {
     font-size: 136%;
     display: flex;
     .text-logo{
-      margin-left: 53%;
+      margin-left: 68%;
     }
   }
   .acount-mls{
@@ -455,6 +455,10 @@ input.outOfRemaining-input:focus {
   .menu-item-profil:hover{
     color:#2d1b46;
   }
+}
+.line-paging{
+  background-color: #fff;
+  border-radius: 6px;
 }
 .arrow-profile{
   transform: rotate(-92deg);
@@ -1136,6 +1140,11 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
       .DayPicker-Weekday abbr[title='Sunday']
       {
         color: white !important;
+      }
+
+      .line-paging{
+        background-color: #1F192D !important;
+        border-radius: 6px;
       }
 
   //form
