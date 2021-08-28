@@ -83,6 +83,11 @@ const TheSidebar = () => {
           );
         })}
       </CSidebarNav>
+      <ul className="sidebar-nav-bottom m-0 p-0">
+        <li className="c-sidebar-item">
+          <img className="m-0 c-sidebar-nav-icon-profile" src="nav/profile.png" alt="" />
+        </li>
+      </ul>
     </CSidebar>
   );
 };
