@@ -353,7 +353,7 @@ input.outOfRemaining-input:focus {
 }
 
 .btn {
-  height: 48px !important;
+  height: 48px ;
   padding-left: 20px;
   padding-right: 20px;
   color: #fff;
@@ -431,11 +431,6 @@ input.outOfRemaining-input:focus {
     justify-content: flex-end;
     padding-right: 3%;
   }
-  .v-header-mls{
-    border-left: 1px solid #EBEDEF;
-    margin-left: 14%;
-    height: 70px;
-  }
   .icon-profil-user{
     width: 2rem !important;
     height: 2rem !important;
@@ -459,6 +454,12 @@ input.outOfRemaining-input:focus {
 .line-paging{
   background-color: #fff;
   border-radius: 6px;
+  color: rgb(0, 0, 0)
+}
+.v-header-mls{
+  border-left: 1px solid #EBEDEF;
+  margin-left: 14%;
+  height: 70px;
 }
 .arrow-profile{
   transform: rotate(-92deg);
@@ -1033,14 +1034,14 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
 }
 // darkMode Modal
 .customDarkModes {
-    background-color: #1c1c1c !important;
+    background-color: #261E42 !important;
     color: #fff !important;
     .tab-content{
-      background-color: #3e3846 !important;
+      background-color: #1F192D !important;
       color: #fff !important;
     }
     .bg-primary{
-      background-color: #1c1c1c !important;
+      background-color: #261E42 !important;
     }
     .text-primary {
       color: white !important;
@@ -1076,7 +1077,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
     //form-dropdown
       .css-5y2tk-control,
       .css-1to7m39-control {
-        background-color: #635f78 !important;
+        background-color: #1F192D !important;
         border-color: white !important;
         color: white !important;
       }
@@ -1100,7 +1101,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
       }
       //dropdown readonly
       .css-12ivlxl-control{
-        background-color: #635f78 !important;
+        background-color: #1F192D !important;
         border: 1px solid white;
       }
       //dropdown danger
@@ -1118,11 +1119,11 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
 
       //Export 
       .export-pdf{
-        background-color: #635f78 !important;
+        background-color: #1F192D !important;
         color: #fff
       }
       .export-excel{
-        background-color: #635f78 !important;
+        background-color: #1F192D !important;
         color: #fff
       }
 
@@ -1145,11 +1146,12 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
       .line-paging{
         background-color: #1F192D !important;
         border-radius: 6px;
+        color: rgb(255, 255, 255)
       }
 
   //form
     .form-control {
-    background-color: #635f78 !important;
+    background-color: #1F192D !important;
     border-color: white !important;
     color: white;
   }
@@ -1157,7 +1159,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
 
 }
 .DarkModesEditRename{
-  background-color: #3e3846 !important;
+  background-color: #1F192D !important;
   color: #fff !important;
   .btn-primary {
     background-color: #4717ed !important;
@@ -1173,9 +1175,9 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
     background-color: darken(#e4e7ea, 10) !important;
   }
   .tab-content{
-      background-color: #3e3846 !important;
+      background-color: #1F192D !important;
       .form-rename{
-        background-color: #635f78 !important;
+        background-color: #1F192D !important;
         border-color: white !important;
         color: white !important;
       }
@@ -1185,6 +1187,26 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
     }
   .rename-columns{
     background-color: #585757 !important;
+  }
+  .btn-outline-primary{
+    color: #fff !important;
+    border-color: #fff;
+  }
+  .btn-light-gray {
+    color: #282336 !important;
+    background-color: #4E4C5B !important;
+  }
+  .btn-light-gray:hover {
+    color: #fff !important;
+    background-color: #696778 !important;
+  }
+ .btn-disabled {
+    color: #282336 !important;
+    background-color: #4E4C5B !important;
+  }
+.tab-rename {
+  color: #FFF !important;
+  background-color: #4717ED !important;
   }
 }
 

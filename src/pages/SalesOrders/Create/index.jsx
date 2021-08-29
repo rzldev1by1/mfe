@@ -20,7 +20,7 @@ const Create = ({ show, setShow }) => {
   const orderLinesTmp = useSelector((state) => state.orderLines);
   const orderLinesDataTmp = useSelector((state) => state.orderLinesData);
   const darkMode = useSelector((state) => state.darkModeMLS);
-  
+
 
   const [activeTab, setActiveTab] = useState('details');
   const [isReset, setIsReset] = useState(0);
@@ -56,7 +56,7 @@ const Create = ({ show, setShow }) => {
 
   return (
     <div>
-      <Modal show={show} size="xl" className={`sales-order-create  ${activeTab == 'message' ? ' d-none': ' '}`}>
+      <Modal show={show} size="xl" className={`sales-order-create  ${activeTab == 'message' ? ' d-none' : ' '}`}>
         <Modal.Body className={`${darkMode ? 'customDarkModes' : 'bg-primary'} p-0 rounded-top rounded-bottom`}>
           <Row className="px-9 mx-0">
             <Col xs={10} className="px-0 ">
@@ -79,7 +79,7 @@ const Create = ({ show, setShow }) => {
           <Nav tabs className="px-8 m-0">
             <NavItem className="mr-1">
               <NavLink
-                style={{ paddingBottom: '7px', maxWidth:'297px', paddingRight:'21x' }}
+                style={{ paddingBottom: '7px', maxWidth: '297px', paddingRight: '21x' }}
                 className={`d-flex height-nav align-items-center pl-3 ${activeTab === 'details' ? 'active' : null}`}
                 onClick={() => setActiveTab('details')}
               >
@@ -89,14 +89,14 @@ const Create = ({ show, setShow }) => {
             </NavItem>
             <NavItem>
               <NavLink
-                style={{ paddingBottom: '7px', maxWidth:'146px' , paddingRight:'20px' }}
+                style={{ paddingBottom: '7px', maxWidth: '146px', paddingRight: '20px' }}
                 className={`d-flex height-nav align-items-center pl-3 ${activeTab === 'review' ? 'active' : null}`}
                 onClick={() => {
                   validation({ orderDetails, orderLines, setOrderLines, customerDetails, setActiveTab });
                   setIsValidation(true);
                 }}
               >
-                <span className="newIcon-review" /> 
+                <span className="newIcon-review" />
                 <div className="pl-2">Review</div>
               </NavLink>
             </NavItem>
@@ -182,29 +182,29 @@ const Create = ({ show, setShow }) => {
           </TabContent>
         </Modal.Body>
       </Modal>
-      {activeTab == 'message' ? 
-          isSubmitReturn?.message === 'Successfully added' || 
+      {activeTab == 'message' ?
+        isSubmitReturn?.message === 'Successfully added' ||
           isSubmitReturn?.message === 'create successfully' ||
           isSubmitReturn?.status == 'ok' ? (
-            <PopUpCreateSucces
-              modal={modal}
-              setModal={setModal}
-              module={'Sales Order'}
-              submitReturn={isSubmitReturn}
-              exit={() => {
-                setShow(false);
-                setIsReset(0);
-              }}
-              />
-          ) : (
-            <PopUpLoss
-              modal={modal}
-              setModal={setModal}
-              back={() => setActiveTab('detail')
-              }
-              />
-          )
-       : '' }
+          <PopUpCreateSucces
+            modal={modal}
+            setModal={setModal}
+            module={'Sales Order'}
+            submitReturn={isSubmitReturn}
+            exit={() => {
+              setShow(false);
+              setIsReset(0);
+            }}
+          />
+        ) : (
+          <PopUpLoss
+            modal={modal}
+            setModal={setModal}
+            back={() => setActiveTab('detail')
+            }
+          />
+        )
+        : ''}
     </div>
   );
 };

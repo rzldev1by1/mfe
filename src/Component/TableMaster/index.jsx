@@ -75,7 +75,9 @@ const TableMaster = ({
           Copyright &#169; 2021 Microlistics
         </div>
         {pagination && pagination.total < 1 ? (
-          ''
+          <div style={{ color: "transparent" }}>
+            Transparent
+          </div>
           // eslint-disable-next-line no-nested-ternary
         ) : exportBtn ? (
           <div className="pr-2">

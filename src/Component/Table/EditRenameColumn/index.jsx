@@ -129,9 +129,9 @@ const EditRenameColumn = ({
         <Modal.Header className={`${darkMode ? 'customDarkModes' : 'bg-primary'}`}>
           <Container className="px-0">
             <Col className="mx-0 px-0">
-              <Button onClick={closeModal.bind(this, false, editColumnTemp)} className={`${darkMode ? 'drakClose ' : ''} pr-0 pt-0 pb-4 no-hover float-right `}>
+              <div onClick={closeModal.bind(this, false, editColumnTemp)} className={`${darkMode ? 'drakClose ' : ''} pr-0 pt-0 pb- float-right `} style={{ cursor: "pointer" }}>
                 <MdClose color="white" size={30} />
-              </Button>
+              </div>
               <Col xs={10} sm={10} md={10} lg={10} xl={10} className="pl-1">
                 <div className="d-flex">
                   <FaRegEdit color="white" size={25} /> &nbsp;
@@ -152,7 +152,7 @@ const EditRenameColumn = ({
                 <div className="input-group">
                   <NavItem className="pl-0 pr-0">
                     <NavLink
-                      className={`nav-link-cust d-flex align-items-center tab-color${state.activeTab === '1' ? ' tab-rename' : ''}`}
+                      className={`nav-link-cust d-flex align-items-center tab-color${state.activeTab === '1' ? ' tab-rename' : ' tes'}`}
                       active={state.activeTab === '1'}
                       onClick={() => {
                         activeTabIndex('1');
@@ -169,7 +169,7 @@ const EditRenameColumn = ({
 
                   <NavItem className="pl-2 pr-0">
                     <NavLink
-                      className={`nav-link-cust d-flex align-items-center tab-color${state.activeTab === '2' ? ' tab-rename' : ''
+                      className={`nav-link-cust d-flex align-items-center tab-color${state.activeTab === '2' ? ' tab-rename' : ' tes'
                         }`}
                       active={state.activeTab === '2'}
                       onClick={() => {

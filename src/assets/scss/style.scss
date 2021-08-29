@@ -46,7 +46,7 @@ $spinkit-spinner-color: $body-color;
     background-color: #1F192D;
   }
   .darkLayer {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(38, 30, 66, 0.8);
     position: absolute;
     top: 0;
     left: 0;
@@ -55,12 +55,38 @@ $spinkit-spinner-color: $body-color;
   }
   .c-header {
     background-color: #1F192D !important;
-    .header-mls-text{
-      .v-header-mls{
-        border-left: 1px solid rgb(71,68,74);
-      }
+    .v-header-mls{
+      border-left: 1px solid rgb(71,68,74);
     }
   }
+  .tab-rename {
+    color: #1F192D !important;
+  }
+  .bg-tabNonActive {
+    background-color: #5E44E8 !important;
+    border-top-left-radius: 0.25rem !important;
+    border-top-right-radius: 0.25rem !important;
+  
+    .nav-link {
+      background-color: #5E44E8 !important;
+      color :#34276B !important;
+    }
+  }
+  .bg-tabActive {
+    background-color: #1F192D !important;
+    border-top-left-radius: 0.25rem !important;
+    border-top-right-radius: 0.25rem !important;
+  
+    .nav-link {
+      background-color: #1F192D !important;
+      color :#9795A4 !important;
+    }
+  }
+  .input-group{
+    .nav-link {
+      background-color: #3D3A4B !important;
+    }
+  } 
 
   //breadcrump
   .breadcrumb-item {
@@ -72,7 +98,7 @@ $spinkit-spinner-color: $body-color;
     background-color: #1F192D !important;
   }
   .tab-pane{
-    background-color: #47444a !important;
+    background-color: #261E42 !important;
   }
 
   //table
@@ -127,7 +153,7 @@ $spinkit-spinner-color: $body-color;
 
   //form
   .form-control {
-    background-color: #635f78 !important;
+    background-color: #1F192D !important;
     border-color: white !important;
     color: white;
   }
@@ -135,7 +161,7 @@ $spinkit-spinner-color: $body-color;
   //form-dropdown
   .css-5y2tk-control,
   .css-1to7m39-control {
-    background-color: #635f78 !important;
+    background-color: #1F192D !important;
     border-color: white !important;
     color: white !important;
   }
@@ -159,7 +185,7 @@ $spinkit-spinner-color: $body-color;
   }
   //dropdown readonly
   .css-12ivlxl-control{
-    background-color: #635f78 !important;
+    background-color: #1F192D !important;
     border: 1px solid white;
   }
   //dropdown danger
@@ -168,7 +194,7 @@ $spinkit-spinner-color: $body-color;
   }
 
   .bg-white {
-    background-color: #635f78 !important;
+    background-color: #1F192D !important;
   }
 
   //pagination
@@ -181,35 +207,40 @@ $spinkit-spinner-color: $body-color;
 
   //Export 
   .export-pdf{
-    background-color: #635f78 !important;
+    background-color: #1F192D !important;
     color: #fff
   }
   .export-excel{
-    background-color: #635f78 !important;
+    background-color: #1F192D !important;
     color: #fff
   }
 
   //datePicker
 
-.select_date_options {
-  background-color: #1F192D !important;
-  
-  .DayPicker-Weekday abbr[title='Monday'],
-  .DayPicker-Weekday abbr[title='Tuesday'],
-  .DayPicker-Weekday abbr[title='Wednesday'],
-  .DayPicker-Weekday abbr[title='Thursday'],
-  .DayPicker-Weekday abbr[title='Friday'],
-  .DayPicker-Weekday abbr[title='Saturday'],
-  .DayPicker-Weekday abbr[title='Sunday']
-  {
-    color: white !important;
+  .select_date_options {
+    background-color: #1F192D !important;
+    
+    .DayPicker-Weekday abbr[title='Monday'],
+    .DayPicker-Weekday abbr[title='Tuesday'],
+    .DayPicker-Weekday abbr[title='Wednesday'],
+    .DayPicker-Weekday abbr[title='Thursday'],
+    .DayPicker-Weekday abbr[title='Friday'],
+    .DayPicker-Weekday abbr[title='Saturday'],
+    .DayPicker-Weekday abbr[title='Sunday']
+    {
+      color: white !important;
+    }
+
+  }
+  .line-paging{
+    background-color: #1F192D !important;
+    border-radius: 6px;
+    color: rgb(255, 255, 255)
   }
 
-}
-.line-paging{
-  background-color: #1F192D !important;
-  border-radius: 6px;
-}
+  .btn-outline-primary{
+    color: #FFF !important;
+  }
 
 }
 
@@ -217,7 +248,7 @@ $spinkit-spinner-color: $body-color;
   // modal 
   .customDarkMode.modal{ 
     .bg-primary{
-      background-color: #1c1c1c !important;
+      background-color: #261E42 !important;
     }
     .text-primary {
       color: white !important;
@@ -249,8 +280,32 @@ $spinkit-spinner-color: $body-color;
       background-color: #1F192D;
       color: white;
     }
+    .btn-outline-primary{
+      color: #FFF !important;
+    }
+    .bg-tabNonActive {
+      background-color: #5E44E8 !important;
+      border-top-left-radius: 0.25rem !important;
+      border-top-right-radius: 0.25rem !important;
+    
+      .nav-link {
+        background-color: #5E44E8 !important;
+        color :#34276B !important;
+      }
+    }
+    .bg-tabActive {
+      background-color: #1F192D !important;
+      border-top-left-radius: 0.25rem !important;
+      border-top-right-radius: 0.25rem !important;
+    
+      .nav-link {
+        background-color: #1F192D !important;
+        color :#9795A4 !important;
+      }
+    }
+    
   }
 
 .c-app.customDarkMode {
-  background-color: #47444a !important;
+  background-color: #261E42 !important;
 }

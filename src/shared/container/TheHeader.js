@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios';
 import { Link } from 'react-router-dom'
@@ -13,12 +13,14 @@ import {
   CToggler
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { darkModeMLS } from '../../apiService';
+// import { DarkModeChange } from '../../apiService';
 
 const TheHeader = (props) => {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user);
   const darkModes = useSelector(state => state.darkModeMLS)
+  // const [changeMode, setChangeMode] = useState(null);
+  // const [valueMode, setValueMode] = useState(null);
 
   const signOut = async (e) => {
     dispatch({ type: 'LOGOUT' });
@@ -26,6 +28,13 @@ const TheHeader = (props) => {
     const ret = await axios.post('auth/logout', payload);
     return ret;
   };
+
+  // useEffect(() => {
+  //   if (changeMode) {
+  //     const localMode = localStorage.getItem("darkModeLocal")
+  //   }
+  // }, [changeMode]);
+
 
   return (
     <CHeader withSubheader className="no-border no-shadow">
@@ -57,6 +66,7 @@ const TheHeader = (props) => {
                     <CIcon name="cil-moon" className="c-d-dark-none mr-2" alt="CoreUI Icons Moon" />
                     DarkMode
                     <div style={{ marginLeft: "53%" }}>
+                      {/* <button onClick={() => DarkModeChange({ changeMode, setChangeMode })}>tes</button> */}
                       <CSwitch shape={'pill'} color={'secondary'} onClick={() => dispatch({ type: 'DARKMODE', data: !darkModes })} defaultChecked />
                     </div>
                   </div>

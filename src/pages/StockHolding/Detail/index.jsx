@@ -87,17 +87,14 @@ const StockHoldingDetail = (props) => {
         <div className="stockDetails col-12 col-lg-12 col-md-12 col-sm-12 pl-0 pr-0">
           <Nav tabs className="mx-0">
             <div className="d-flex">
-              <NavItem className={`p-0 ${activeTab === '2' ? 'bg-tabNonActive' : 'n'}`}>
+              <NavItem className={`p-0 ${activeTab === '2' ? 'bg-tabNonActive' : 'bg-tabActive'}`}>
                 <NavLink
                   className="d-flex align-items-center pl-0"
                   active={activeTab === '1'}
                   onClick={() => setActiveTab('1')}
                   style={{ marginLeft: '0px' }}
                 >
-                  <div
-                    className={`row rowTabCustom align-items-center tabColumn mx-0 ${activeTab === '1' ? ' tab-custom' : 'tab-nonActive'
-                      }`}
-                  >
+                  <div className={`row rowTabCustom align-items-center tabColumn mx-0 ${activeTab === '1' ? ' tab-Active' : 'tab-nonActive'}`}>
                     <span className="newIcon-stock_details tabTitleText" />
                     {activeTab === '1'}
                     Stock Details
@@ -110,7 +107,7 @@ const StockHoldingDetail = (props) => {
                 parseInt(shDetail?.stock_on_hand) + parseInt(shDetail?.expected_in_qty) >= shDetail?.expected_out_qty ? (
                 ''
               ) : (
-                <NavItem className={`p-0 ml-2 ${activeTab === '1' ? 'bg-tabNonActive' : 'sss'}`}>
+                <NavItem className={`p-0 ml-2 ${activeTab === '1' ? 'bg-tabNonActive' : 'bg-tabActive'}`}>
                   <NavLink
                     className="d-flex align-items-center pl-0"
                     active={activeTab === '2'}

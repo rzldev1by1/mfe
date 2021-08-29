@@ -115,7 +115,7 @@ const Export = ({
           setDropdownOpen(!dropdownOpen);
         }}
       >
-        <DropdownToggle color="primary" className="Dropdown-toggel align-items-center">
+        <DropdownToggle color="primary" className="Dropdown-toggel align-items-center btn-export">
           <div style={{ fontSize: '0.875rem', letterSpacing: '1px' }}>
             {exportStatus === 'ready' ? (
               'EXPORT'

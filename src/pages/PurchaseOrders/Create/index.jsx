@@ -72,7 +72,7 @@ const Create = ({ show, setShow }) => {
             <NavItem className="mr-1">
               <NavLink
                 style={{ paddingBottom: '7px', maxWidth: '297px', paddingRight: '18px' }}
-                className={`d-flex pl-3 height-nav align-items-center ${activeTab === 'details' ? 'active' : null}`}
+                className={`d-flex pl-3 height-nav align-items-center ${activeTab === 'details' ? 'bg-tabNonActive' : 'bg-tabActive'}`}
                 onClick={() => setActiveTab('details')}
               >
                 <span className="newIcon-create_edit" />
@@ -81,7 +81,7 @@ const Create = ({ show, setShow }) => {
             </NavItem>
             <NavItem>
               <NavLink
-                className={`d-flex height-nav align-items-center pl-3 ${activeTab === 'review' ? 'active' : null}`}
+                className={`d-flex height-nav align-items-center pl-3 ${activeTab === 'review' ? 'bg-tabNonActive' : 'bg-tabActive'}`}
                 style={{ paddingBottom: '7px', maxWidth: '146px', paddingRight: '20px' }}
                 onClick={() => {
                   validation({ orderDetails, orderLines, setOrderLines, setActiveTab });

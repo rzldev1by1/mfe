@@ -772,4 +772,17 @@ export const resetPassword = ({ state, setState, props }) => {
     }
   });
 };
+
+export const DarkModeChange = ({ changeMode, setChangeMode }) => {
+  if (changeMode == true) {
+    localStorage.setItem("darkModeLocal", false);
+    setChangeMode(false)
+  } else if (changeMode == false) {
+    localStorage.setItem("darkModeLocal", true);
+    setChangeMode(true)
+  } else {
+    localStorage.setItem("darkModeLocal", false);
+    setChangeMode(false)
+  }
+}
 // End User Management

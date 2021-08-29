@@ -65,7 +65,7 @@ const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, pagination, 
           <Pagination pagination={pagination} data={[]} page={1} setPage={0} />
         </CCol>
         <CCol lg="3">
-          <div style={{ paddingLeft: "20%" }}>
+          <div style={{ paddingLeft: "13%" }}>
             Copyright &#169; 2021 Microlistics
           </div>
         </CCol>

@@ -56,7 +56,7 @@ const TheSidebar = () => {
     >
       <ul className="sidebar-nav-header">
         <li className="c-sidebar-item py-2 justify-content-end d-flex">
-          <Link>
+          <Link to="/">
             <img src={Logo} height="35" alt="logo" />
           </Link>
         </li>
