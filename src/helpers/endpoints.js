@@ -1,16 +1,16 @@
 const version = process.env.REACT_APP_API_URL_VERSION;
 export default {
   // Dropdown Start --------------------------------------------------------
-  getSite: '/settings/sites',
-  getClient: '/settings/clients',
-  getIsisTask: '/settings/tasks',
+  getSite: `/${version}/settings/sites`,
+  getClient: `/${version}/settings/clients`,
+  getIsisTask: `/${version}/settings/tasks`,
   getProduct: `/${version}/products/typeahead`,
   getUom: '/dropdown/getuom',
-  getDisposition: '/settings/dispositions',
+  getDisposition: `/${version}/settings/dispositions`,
 
   getOrderNo: '/dropdown/getorderno',
-  getSupplier: '/settings/suppliers',
-  getCustomer: '/settings/customers',
+  getSupplier: `/${version}/settings/suppliers`,
+  getCustomer: `/${version}/settings/customers`,
   getOrderType: '/dropdown/getordertype',
 
   getFilterDetailSP: '/supplier-management-options',
