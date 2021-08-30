@@ -6,7 +6,7 @@ export default {
   getIsisTask: '/settings/tasks',
   getProduct: `/${version}/products/typeahead`,
   getUom: '/dropdown/getuom',
-  getDisposition: '/settings/dispositions',
+  getDisposition: `/${version}/settings/dispositions`,
 
   getOrderNo: '/dropdown/getorderno',
   getSupplier: '/settings/suppliers',

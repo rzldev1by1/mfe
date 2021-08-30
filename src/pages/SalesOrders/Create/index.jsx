@@ -56,49 +56,48 @@ const Create = ({ show, setShow }) => {
 
   return (
     <div>
-      <Modal show={show} size="xl" className={`sales-order-create  ${activeTab == 'message' ? ' d-none' : ' '}`}>
+      <Modal show={show} size="xl" className={`purchase-order-create ${activeTab == 'message' ? ' d-none' : ' '} 
+        ${darkMode ? 'customDarkMode' : ''}`}>
         <Modal.Body className={`${darkMode ? 'customDarkModes' : 'bg-primary'} p-0 rounded-top rounded-bottom`}>
-          <Row className="px-9 mx-0">
-            <Col xs={10} className="px-0 ">
+          <Row className="mx-0 px-9">
+            <Col xs={10} className="px-0">
               <i className="iconU-createModal font-20"></i>
-              <span className="font-20 pl-2">Create Sales Order</span> <br />
-              <span className="ml-7">Enter Order and line details to create a new sales order</span>
+              <span className="font-20 pl-2">Create Purchase Order</span> <br />
+              <span className="ml-7">Enter Order and line details to create a new purchase order</span>
             </Col>
             <Col className="text-right px-0">
               <i
                 className="iconU-close pointer"
                 onClick={() => {
                   setShow(false);
-                  setTimeout(() => {
-                    setIsReset(0);
-                  }, 500);
+                  setIsReset(0);
                 }}
               ></i>
             </Col>
           </Row>
           <Nav tabs className="px-8 m-0">
             <NavItem className="mr-1">
-              <NavLink
-                style={{ paddingBottom: '7px', maxWidth: '297px', paddingRight: '21x' }}
-                className={`d-flex height-nav align-items-center pl-3 ${activeTab === 'details' ? 'active' : null}`}
+              <div
+                style={{ paddingBottom: '7px', maxWidth: '297px', paddingRight: '18px' }}
+                className={`d-flex pl-3 height-nav align-items-center ${activeTab === 'details' ? ' bg-tabActive ' : ' bg-nonTabActive'}`}
                 onClick={() => setActiveTab('details')}
               >
                 <span className="newIcon-create_edit" />
                 <div className="pl-2">Order & Product Details</div>
-              </NavLink>
+              </div>
             </NavItem>
             <NavItem>
-              <NavLink
+              <div
+                className={`d-flex height-nav align-items-center pl-3 ${activeTab === 'review' ? ' bg-tabActive ' : ' bg-nonTabActive'}`}
                 style={{ paddingBottom: '7px', maxWidth: '146px', paddingRight: '20px' }}
-                className={`d-flex height-nav align-items-center pl-3 ${activeTab === 'review' ? 'active' : null}`}
                 onClick={() => {
-                  validation({ orderDetails, orderLines, setOrderLines, customerDetails, setActiveTab });
+                  validation({ orderDetails, orderLines, setOrderLines, setActiveTab });
                   setIsValidation(true);
                 }}
               >
                 <span className="newIcon-review" />
                 <div className="pl-2">Review</div>
-              </NavLink>
+              </div>
             </NavItem>
           </Nav>
           <TabContent>

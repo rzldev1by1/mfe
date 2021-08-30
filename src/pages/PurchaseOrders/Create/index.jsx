@@ -41,11 +41,9 @@ const Create = ({ show, setShow }) => {
   }, [isReset]);
 
   useEffect(() => {
-    if (!resources || !disposition) {
-      getPOResources({ user, dispatch });
-      getDisposition({ dispatch });
-    }
-  }, [resources]);
+    getPOResources({ user, dispatch });
+    getDisposition({ dispatch });
+  }, []);
 
   return (
     <div>
@@ -70,18 +68,18 @@ const Create = ({ show, setShow }) => {
           </Row>
           <Nav tabs className="px-8 m-0">
             <NavItem className="mr-1">
-              <NavLink
+              <div
                 style={{ paddingBottom: '7px', maxWidth: '297px', paddingRight: '18px' }}
-                className={`d-flex pl-3 height-nav align-items-center ${activeTab === 'details' ? 'bg-tabNonActive' : 'bg-tabActive'}`}
+                className={`d-flex pl-3 height-nav align-items-center ${activeTab === 'details' ? ' bg-tabActive ' : ' bg-nonTabActive'}`}
                 onClick={() => setActiveTab('details')}
               >
                 <span className="newIcon-create_edit" />
                 <div className="pl-2">Order & Product Details</div>
-              </NavLink>
+              </div>
             </NavItem>
             <NavItem>
-              <NavLink
-                className={`d-flex height-nav align-items-center pl-3 ${activeTab === 'review' ? 'bg-tabNonActive' : 'bg-tabActive'}`}
+              <div
+                className={`d-flex height-nav align-items-center pl-3 ${activeTab === 'review' ? ' bg-tabActive ' : ' bg-nonTabActive'}`}
                 style={{ paddingBottom: '7px', maxWidth: '146px', paddingRight: '20px' }}
                 onClick={() => {
                   validation({ orderDetails, orderLines, setOrderLines, setActiveTab });
@@ -90,7 +88,7 @@ const Create = ({ show, setShow }) => {
               >
                 <span className="newIcon-review" />
                 <div className="pl-2">Review</div>
-              </NavLink>
+              </div>
             </NavItem>
           </Nav>
           <TabContent>

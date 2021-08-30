@@ -244,14 +244,35 @@ input:-webkit-autofill {
 .bg-mark{
   background-color: aliceblue !important;
 }
-
-.bg-tabNonActive {
+.bg-nonTabActive {
   background-color: #dee3e5 !important;
   border-top-left-radius: 0.25rem !important;
   border-top-right-radius: 0.25rem !important;
 
   .nav-link {
+    background-color: #dee3e5 !important;
+  }
+}
+
+.bg-tabNonActive {
+  background-color: #dee3e5 !important;
+  border-top-left-radius: 0.25rem !important;
+  border-top-right-radius: 0.25rem !important;
+  font-size: 120%;
+
+  .nav-link {
     background-color: #e8e8e8 !important;
+  }
+}
+.bg-tabActive{
+  background-color: #FFF !important;
+  border-top-left-radius: 0.25rem !important;
+  border-top-right-radius: 0.25rem !important;
+  color: #376BFB !important;
+  font-size: 120%;
+
+  .nav-link {
+    background-color: #FFF !important;
   }
 }
 
@@ -1072,6 +1093,12 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
     .modalCreateSuccess, .modalCreateLoss{ 
       background-color: #1F192D;
       color: white;
+    }
+
+    //form-axios
+    .css-yr94r1-menu{
+      background-color: #1F192D !important;
+      color: #fff !important;
     }
 
     //form-dropdown

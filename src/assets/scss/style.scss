@@ -62,6 +62,16 @@ $spinkit-spinner-color: $body-color;
   .tab-rename {
     color: #1F192D !important;
   }
+  .bg-nonTabActive {
+    background-color: #4E4C5B !important;
+    border-top-left-radius: 0.25rem !important;
+    border-top-right-radius: 0.25rem !important;
+  
+    .nav-link {
+      background-color: #4E4C5B !important;
+      color :#fff !important;
+    }
+  }
   .bg-tabNonActive {
     background-color: #5E44E8 !important;
     border-top-left-radius: 0.25rem !important;
@@ -76,6 +86,7 @@ $spinkit-spinner-color: $body-color;
     background-color: #1F192D !important;
     border-top-left-radius: 0.25rem !important;
     border-top-right-radius: 0.25rem !important;
+    color :#FFF !important;
   
     .nav-link {
       background-color: #1F192D !important;
@@ -283,6 +294,16 @@ $spinkit-spinner-color: $body-color;
     .btn-outline-primary{
       color: #FFF !important;
     }
+    .bg-nonTabActive {
+      background-color: #4E4C5B !important;
+      border-top-left-radius: 0.25rem !important;
+      border-top-right-radius: 0.25rem !important;
+    
+      .nav-link {
+        background-color: #4E4C5B !important;
+        color :#fff !important;
+      }
+    }
     .bg-tabNonActive {
       background-color: #5E44E8 !important;
       border-top-left-radius: 0.25rem !important;
@@ -297,10 +318,11 @@ $spinkit-spinner-color: $body-color;
       background-color: #1F192D !important;
       border-top-left-radius: 0.25rem !important;
       border-top-right-radius: 0.25rem !important;
+      color :#FFF !important;
     
       .nav-link {
         background-color: #1F192D !important;
-        color :#9795A4 !important;
+        color :#FFF !important;
       }
     }
     
