@@ -41,11 +41,9 @@ const Create = ({ show, setShow }) => {
   }, [isReset]);
 
   useEffect(() => {
-    if (!resources || !disposition) {
-      getPOResources({ user, dispatch });
-      getDisposition({ dispatch });
-    }
-  }, [resources]);
+    getPOResources({ user, dispatch });
+    getDisposition({ dispatch });
+  }, []);
 
   return (
     <div>
