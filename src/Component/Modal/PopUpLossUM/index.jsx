@@ -56,7 +56,7 @@ const PopUpLoss = ({
           style={{ fontSize: '14px' }}
           onClick={() => { setModal(false); }}
         >
-          <i className="iconU-close pointer" />
+          <span className="icon-group_4696 pointer" />
         </div>
         <div className="d-flex d-inline-flex align-items-center pb-4">
           <img src={logo} alt="logo" style={{ width: "20%", height: "20%" }} />

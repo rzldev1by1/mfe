@@ -29,7 +29,7 @@ const Reset = ({
         <Row>
           <Col className="bg-white">
             <div className=" close-reset  pointer" onClick={() => { closeModalResetUM({ state, setState }) }}>
-              <i className="iconU-close "></i>
+              <span className="icon-group_4696 " />
             </div>
           </Col>
         </Row>

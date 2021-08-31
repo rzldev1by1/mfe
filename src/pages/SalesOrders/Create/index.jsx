@@ -61,18 +61,18 @@ const Create = ({ show, setShow }) => {
         <Modal.Body className={`${darkMode ? 'customDarkModes' : 'bg-primary'} p-0 rounded-top rounded-bottom`}>
           <Row className="mx-0 px-9">
             <Col xs={10} className="px-0">
-              <i className="iconU-createModal font-20"></i>
+              <i className="icon-icon_awesome_edit font-20"></i>
               <span className="font-20 pl-2">Create Purchase Order</span> <br />
               <span className="ml-7">Enter Order and line details to create a new purchase order</span>
             </Col>
             <Col className="text-right px-0">
-              <i
-                className="iconU-close pointer"
+              <span
+                className="icon-group_4696 pointer"
                 onClick={() => {
                   setShow(false);
                   setIsReset(0);
                 }}
-              ></i>
+              />
             </Col>
           </Row>
           <Nav tabs className="px-8 m-0">

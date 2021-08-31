@@ -127,9 +127,8 @@ const DetailHeader = ({
       {titleCenter === true ? (
         <CCard>
           <CCardBody
-            className={`mobile-header p-0 my-3 mr-3 ml-0 ${module === 'stockHolding' ? 'pl-3' : ''} ${
-              titleLeft === true ? ' border-right' : ' d-none'
-            }`}
+            className={`mobile-header p-0 my-3 mr-3 ml-0 ${module === 'stockHolding' ? 'pl-3' : ''} ${titleLeft === true ? ' border-right' : ' d-none'
+              }`}
           >
             <CRow className={`mx-0 ${titleCenter ? null : ' d-none'}`}>
               <CCol lg={'auto'} className="px-0 mr-3 text-light-gray">
@@ -210,7 +209,7 @@ const DetailHeader = ({
       >
         <ModalBody className="align-bottom" style={{ paddingBottom: '2.4rem !important' }}>
           <div className="text-right px-0" style={{ fontSize: '14px' }}>
-            <i className="iconU-close pointer" onClick={() => setModalShow(false)} />
+            <span className="icon-group_4696 pointer" onClick={() => setModalShow(false)} />
           </div>
           <div className="d-flex d-inline-flex">
             <img src={logo_confirm} alt="logo" className="px-3" style={{ width: '120px', height: '20%' }} />

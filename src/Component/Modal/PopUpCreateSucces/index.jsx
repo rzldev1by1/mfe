@@ -26,7 +26,7 @@ const PopUpCreateSucces = ({
     >
       <ModalBody>
         <div className="text-right px-0" style={{ fontSize: '14px' }} onClick={() => { setModal(false); exit(); }}>
-          <i className="iconU-close pointer" />
+          <span className="icon-group_4696 pointer" />
         </div>
         <div className="d-flex d-inline-flexc align-items-center pb-4">
           <img src={logo} alt="logo" style={{ width: "19%", height: "19%" }} />

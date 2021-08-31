@@ -31,18 +31,18 @@ class PopUpPages extends Component {
             style={{ fontSize: '14px' }}
             onClick={() => closeModal({ page, setPage })}
           >
-            <i className="iconU-close pointer" />
+            <span className="icon-group_4696 pointer" />
           </div>
           <div className="d-flex d-inline-flex pl-3 pb-3">
             <img src={this.props.darkMode ? LogoWhite : logoConfirm} alt="logo" style={{ width: "20%", height: "20%" }} />
             <div className="pl-3 fontDes">
               Only
-                  {' '}
+              {' '}
               {xLastPage}
               {xLastPage === 1 ? " page is " : " pages are "}
               {' '}
-                  available on this screen, please try again.
-                  <br />
+              available on this screen, please try again.
+              <br />
             </div>
           </div>
         </ModalBody>

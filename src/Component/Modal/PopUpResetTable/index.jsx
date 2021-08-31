@@ -33,7 +33,7 @@ const PopUpResetTable = ({
             resetConfirmation()
           }
         >
-          <i className="iconU-close pointer" />
+          <span className="icon-group_4696 pointer" />
         </div>
         <div className="d-flex justify-content-between">
           <img src={logoConfirm} alt="logo" style={{ width: "18%", height: "18%" }} />

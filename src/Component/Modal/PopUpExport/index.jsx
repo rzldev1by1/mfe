@@ -11,8 +11,8 @@ const PopUpExport = ({ modalShow, setModalShow }) => {
       onOpened={() =>
         modalShow
           ? setTimeout(() => {
-              setModalShow(false);
-            }, 3000)
+            setModalShow(false);
+          }, 3000)
           : {}
       }
       contentClassName="modal-content-paging box-er-pagination"
@@ -20,7 +20,7 @@ const PopUpExport = ({ modalShow, setModalShow }) => {
     >
       <ModalBody>
         <div className="text-right px-0" style={{ fontSize: '14px' }} onClick={() => setModalShow(false)}>
-          <i className="iconU-close pointer" />
+          <span className="icon-group_4696 pointer" />
         </div>
         <div className="d-flex d-inline-flex">
           <img src={logoConfirm} alt="logo" style={{ width: '20%', height: '20%' }} />

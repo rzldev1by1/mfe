@@ -40,7 +40,7 @@ const Table = ({
   const markedRow = useSelector((state) => state.markedRow)
   const ReactTableDraggableColumns = withDraggableColumns(ReactTable);
   const noDataMessage = (
-    <div className="caution-caution">
+    <div className="icon-alert-triangle">
       <div>No Data Available</div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-const dateFormate= process.env.REACT_APP_API_URL_FORMATE;
+const dateFormate = process.env.REACT_APP_API_URL_FORMATE;
 
 export const formatDate = (date) => {
   if (date) {
@@ -89,7 +89,7 @@ export const schemaColumnDetailPO = [
     Header: 'Completed',
     width: 100,
     Cell: (row) => (
-      <i className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+      <span className={`${row.original.completed === 'Y' ? 'iconU-checked text-success' : 'icon-group_4696 text-danger'}`} />
     ),
   },
   {
@@ -98,7 +98,7 @@ export const schemaColumnDetailPO = [
     Header: 'OOS',
     width: 100,
     Cell: (row) => (
-      <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+      <span className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'icon-group_4696 text-danger'}`} />
     ),
   },
   {
@@ -107,7 +107,7 @@ export const schemaColumnDetailPO = [
     Header: 'Released',
     width: 100,
     Cell: (row) => (
-      <i className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'iconU-close text-danger'}`} />
+      <span className={`${row.original.released === 'Y' ? 'iconU-checked text-success' : 'icon-group_4696 text-danger'}`} />
     ),
   },
   {

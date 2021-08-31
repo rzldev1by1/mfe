@@ -21,7 +21,7 @@ import './style.scss';
 const TableFixedColumn = ({ schemaColumn, data, style, tableStatus, pagination, filename, customExportPdf }) => {
   const ReactTableFixedColumns = withFixedColumns(ReactTable);
   const noDataMessage = (
-    <div className="caution-caution">
+    <div className="icon-alert-triangle">
       <div>No Data Available</div>
     </div>
   );

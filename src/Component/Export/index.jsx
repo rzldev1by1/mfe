@@ -132,7 +132,7 @@ const Export = ({
             ''
           ) : (
             <DropdownItem className="export-pdf px-1 d-flex justify-content-center" onClick={() => setRunExport('PDF')}>
-              <span className="exp-PDF" style={{ paddingRight: '0.28rem' }} />
+              <span className="icon-group_4672" style={{ paddingRight: '0.28rem' }} />
               EXPORT TO PDF
             </DropdownItem>
           )}
@@ -144,7 +144,7 @@ const Export = ({
                 className={`export-excel so-export px-1 d-flex justify-content-center
                   ${exportPdf === false ? ' radius-top-export' : ''}`}
                 onClick={() => setRunExport('XLS')}>
-                <span className="exp-XLS" style={{ paddingRight: '0.3rem' }} />
+                <span className="icon-group_4671" style={{ paddingRight: '0.3rem' }} />
                 EXPORT TO XLS
               </DropdownItem>
               <div style={{ display: 'none' }}>

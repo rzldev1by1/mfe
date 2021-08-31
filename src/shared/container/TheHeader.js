@@ -63,7 +63,7 @@ const TheHeader = (props) => {
               <div className="m-info">
                 <p className="my-0 py-2" style={{ paddingLeft: "6%" }}>
                   <div className=" d-flex pr-2 align-items-md-center">
-                    <CIcon name="cil-moon" className="c-d-dark-none mr-2" alt="CoreUI Icons Moon" />
+                    <span className="newIcon-create_edit" />
                     DarkMode
                     <div style={{ marginLeft: "53%" }}>
                       {/* <button onClick={() => DarkModeChange({ changeMode, setChangeMode })}>tes</button> */}

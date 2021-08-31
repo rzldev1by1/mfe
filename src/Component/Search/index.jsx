@@ -221,7 +221,7 @@ const Search = ({
                 <div className="input-group">
                   <div className="input-group-prepend">
                     <span className="input-group-text border-right-0 bg-white">
-                      <i className="iconU-search" />
+                      <i className="icon-group_27" />
                     </span>
                   </div>
                   <input
@@ -441,7 +441,7 @@ const Search = ({
                           onClick={() =>
                             setShowClearMod(!showClearMod)}
                         >
-                          <i className="iconU-close pointer" />
+                          <span className="icon-group_4696 pointer" />
                         </div>
                         <div className="d-flex justify-content-between">
                           <img src='' alt="logo" style={{ width: "25%", height: "25%" }} />
@@ -469,7 +469,7 @@ const Search = ({
                           onClick={() =>
                             setShowFulfillMod(!showFulfillMod)}
                         >
-                          <i className="iconU-close pointer" />
+                          <span className="icon-group_4696 pointer" />
                         </div>
                         <div className="d-flex justify-content-between">
                           <img src='' alt="logo" style={{ width: "25%", height: "25%" }} />
