@@ -107,6 +107,7 @@ export const schameColumnForesCast = [
     Header: 'Order Date',
     sortable: false,
     width: 150,
+    Cell: (props) => formatDate(props.value) || '-',
   },
   {
     accessor: 'in',

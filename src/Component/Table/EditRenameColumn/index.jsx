@@ -9,6 +9,8 @@ import { showColumn, saveEdit, changedColumn, renameSubmit, headerRename, resetC
 import PopUpResetTable from 'Component/Modal/PopUpResetTable'
 import './style.scss';
 
+const version = process.env.REACT_APP_API_URL_VERSION;
+
 const EditRenameColumn = ({
   showModal,
   setShowMod,
@@ -70,11 +72,11 @@ const EditRenameColumn = ({
   });
 
   const UrlHeader = () => {
-    return `/settings/field-label/${splitModule}?client=ALL`;
+    return `/${version}/settings/field-label/${splitModule}?client=ALL`;
   };
 
   const UrlAll = () => {
-    return `/settings/field-label/${splitModule}?client=all`;
+    return `/${version}/settings/field-label/${splitModule}?client=all`;
   };
 
   useEffect(() => {
