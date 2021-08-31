@@ -22,7 +22,7 @@ export default {
   // Stock Holding End --------------------------------------------------------
 
   // Stock Movement Start --------------------------------------------------------
-  stockMovement: `'/${version}/stocks/movement'`,
+  stockMovement: `/${version}/stocks/movement`,
   // Stock Movement End --------------------------------------------------------
 
   // purchace Order Start --------------------------------------------------------

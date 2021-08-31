@@ -84,8 +84,9 @@ const TheSidebar = () => {
         })}
       </CSidebarNav>
       <ul className="sidebar-nav-bottom m-0 p-0">
-        <li className="c-sidebar-item">
-          <img className="m-0 c-sidebar-nav-icon-profile" src="nav/profile.png" alt="" />
+        <li className="c-sidebar-item ">
+          <span className="icon-icon_material_questi_0Ea8D d-block" style={{ fontSize: "300%" }} />
+          FAQ
         </li>
       </ul>
     </CSidebar>

@@ -48,9 +48,10 @@ const PopUpResetTable = ({
           </div>
           <Button
             variant="primary"
-            onClick={() =>
-              // resetColumnTable({ module, user, editColumnTemp, fields, state, setState })
-              resetColumnName({ user, splitModule })
+            onClick={() => {
+              // resetColumnTable({ module, user, editColumnTemp, fields, state, setState });
+              resetColumnName({ user, splitModule });
+            }
             }
           // disabled={state.disableBtn}
           // className={state.disableBtn ? "btn-disabled" : ""}
