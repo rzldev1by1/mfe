@@ -302,7 +302,6 @@ export const getForescast = async ({ export_ = 'false', dispatch, active, props 
       item.in = numeral(item.in).format('0,0');
       item.out = numeral(item.out).format('0,0');
       item.balance = numeral(item.balance).format('0,0');
-      item.orderDate = item.orderDate && item.orderDate !== '' ? formatDate(item.orderDate) : '-';
     });
     const pagination = {
       active: active || Meta?.current_page,
