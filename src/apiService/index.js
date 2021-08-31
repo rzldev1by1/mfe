@@ -9,7 +9,7 @@ import * as utility from './UmUtility';
 
 const today = moment(Date()).format('YYYY-MM-DD hh: mm: ss');
 const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'manage supplier users'];
-const dateFormate= process.env.REACT_APP_API_URL_FORMATE;
+const dateFormate = process.env.REACT_APP_API_URL_FORMATE;
 
 export const formatDate = (date) => {
   if (date !== "Invalid date" || date === undefined || date === null || date === '') {
@@ -285,8 +285,7 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
 
 export const getForescast = async ({ export_ = 'false', dispatch, active, props }) => {
   const { product, client, site } = props?.match?.params;
-  const url =
-    `${endpoints.stockHoldingSummary}/${site}/${client}/${product}/detail-balance?page=${active}&export=${export_}`;
+  const url = `${endpoints.stockHoldingSummary}/${site}/${client}/${product}/detail-balance?page=${active}&export=${export_}`;
   dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: [] });
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const { data } = await axios.get(url);
@@ -299,7 +298,6 @@ export const getForescast = async ({ export_ = 'false', dispatch, active, props 
     const modifiedData = forecast;
     const Meta = data?.meta;
     const Links = data?.links;
-
     modifiedData.forEach((item, idx) => {
       item.in = numeral(item.in).format('0,0');
       item.out = numeral(item.out).format('0,0');
