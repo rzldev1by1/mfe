@@ -29,21 +29,6 @@
 .rename-columns:hover {
   cursor: pointer;
 }
-.tab-rename {
-  color: #376bfb !important;
-  padding-left: 24px;
-  padding-right: 27px;
-  padding-bottom: 5px;
-  border-radius: 7px;
-}
-.tab-color {
-  color: rgb(88, 87, 87);
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-bottom: 5px;
-  border-radius: 0.3rem;
-  transition: width 2s;
-}
 .font-18 {
   font-size: 14px !important;
   font-weight: 500;
@@ -51,7 +36,7 @@
 .rename-columns .input-group,
 .rename-columns .input-group .nav-item,
 .rename-columns .input-group .nav-item .tab-rename,
-.rename-columns .input-group .nav-item .tab-color {
+.rename-columns .input-group .nav-item .tab-renameNonActive {
   height: 30px !important;
 }
 .rename-columns .input-group {

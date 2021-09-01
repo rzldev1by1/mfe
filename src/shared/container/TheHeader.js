@@ -96,7 +96,7 @@ const TheHeader = (props) => {
                 <div className="menu-item-profil d-flex">
                   <span className="icon-group_9 icon-drop-menu" />
                   <div className="d-flex  align-items-md-center">Language
-                    <div style={{ marginLeft: "570%" }}> English US </div>
+                    <div style={{ marginLeft: "57%" }}> English US </div>
                   </div>
                 </div>
               </CDropdownItem>

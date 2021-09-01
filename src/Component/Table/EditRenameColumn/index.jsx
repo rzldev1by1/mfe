@@ -152,8 +152,8 @@ const EditRenameColumn = ({
               <Nav tabs className="px-1">
                 <div className="input-group">
                   <NavItem className="pl-0 pr-0">
-                    <NavLink
-                      className={`nav-link-cust d-flex align-items-center tab-color${state.activeTab === '1' ? ' tab-rename' : ' tes'}`}
+                    <div
+                      className={`nav-link-cust d-flex align-items-center ${state.activeTab === '1' ? ' tab-rename' : ' tab-renameNonActive'}`}
                       active={state.activeTab === '1'}
                       onClick={() => {
                         activeTabIndex('1');
@@ -165,12 +165,12 @@ const EditRenameColumn = ({
                           TOGGLE COLUMN
                         </span>
                       </div>
-                    </NavLink>
+                    </div>
                   </NavItem>
 
                   <NavItem className="pl-2 pr-0">
-                    <NavLink
-                      className={`nav-link-cust d-flex align-items-center tab-color${state.activeTab === '2' ? ' tab-rename' : ' tes'
+                    <div
+                      className={`nav-link-cust d-flex align-items-center ${state.activeTab === '2' ? ' tab-rename' : ' tab-renameNonActive'
                         }`}
                       active={state.activeTab === '2'}
                       onClick={() => {
@@ -180,7 +180,7 @@ const EditRenameColumn = ({
                       <div className="row rowTabCustom align-items-center">
                         <span className="tabTitleText font-18">{state.activeTab === '2'} RENAME COLUMN</span>
                       </div>
-                    </NavLink>
+                    </div>
                   </NavItem>
                 </div>
               </Nav>
