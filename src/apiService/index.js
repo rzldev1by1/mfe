@@ -204,12 +204,12 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   let paramType = '';
   let paramPaging = '';
   if (module === 'purchaseOrder') {
-    endpointsUrl = `${endpoints.purchaseOrder}/${site}/${client}/${orderdetail}?page = ${active}&export = ${export_}`;
+    endpointsUrl = `${endpoints.purchaseOrder}/${site}/${client}/${orderdetail}?page=${active}&export=${export_}`;
     paramType = 'GET_PO_DETAIL_TABLE';
     paramPaging = 'PAGING_PO_DETAIL';
   }
   if (module === 'salesOrder') {
-    endpointsUrl = `${endpoints.salesOrder}/${orderno}?client = ${client}&site = ${site}&page = ${active}&export = ${export_}`;
+    endpointsUrl = `${endpoints.salesOrder}/${orderno}?client=${client}&site=${site}&page=${active}&export=${export_}`;
     paramType = 'GET_SO_DETAIL_TABLE';
     paramPaging = 'PAGING_SO_DETAIL';
   }
