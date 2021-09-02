@@ -65,7 +65,8 @@ const TheSidebar = () => {
     >
       <ul className="sidebar-nav-header">
         <li className="c-sidebar-item">
-          <Link  onClick={() => darkModeMLS({ darkMode, dispatch })}>
+          {/* <Link onClick={() => darkModeMLS({ darkMode, dispatch })}> */}
+          <Link>
             <img src={Logo} height="35" alt="logo" />
           </Link>
         </li>
