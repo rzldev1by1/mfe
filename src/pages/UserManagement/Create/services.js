@@ -116,6 +116,7 @@ export const renewState = ({ setState, state, siteData, clientData, moduleAccess
   });
 
   //renew module Access Option
+  const isDevelopment = process.env.REACT_APP_DEV;
   let moduleAccessOption = [];
   let allowedValues = [
     'menu_orders_po_open',
@@ -123,7 +124,7 @@ export const renewState = ({ setState, state, siteData, clientData, moduleAccess
     'menu_inventory_stkHolding',
     'menu_inventory_stkMovement',
     'menu_inventory_sPortal',
-    'menu_manageUsers_supplierUsers',
+    isDevelopment === 'true' ? '' : 'menu_manageUsers_supplierUsers',
   ];
   tmp = moduleAccess?.map((item, key) => {
     if (allowedValues.includes(item.menu_id)) {
