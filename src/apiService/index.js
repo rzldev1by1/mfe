@@ -172,11 +172,11 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
   let endpointsUrl = '';
   let paramType = '';
   if (module === 'purchaseOrder') {
-    endpointsUrl = `${endpoints.purchaseOrder}?search = ${orderdetail}&client = ${client}&site = ${site}`;
+    endpointsUrl = `${endpoints.purchaseOrder}?search=${orderdetail}&client=${client}&site=${site}`;
     paramType = 'GET_PO_DETAIL';
   }
   if (module === 'salesOrder') {
-    endpointsUrl = `${endpoints.salesOrder}?search = ${orderno}&client = ${client}&site = ${site}`;
+    endpointsUrl = `${endpoints.salesOrder}?search=${orderno}&client=${client}&site=${site}`;
     paramType = 'GET_SO_DETAIL';
   }
   if (module === 'stockHolding') {
