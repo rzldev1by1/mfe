@@ -258,9 +258,8 @@ export const renameSubmit = ({ state, setState, setShowMod, UrlAll, fields, setF
 
 export const resetColumnName = async ({ user, splitModule }) => {
   const baseUrl = process.env.REACT_APP_API_URL;
-  const version = process.env.REACT_APP_API_URL_VERSION;
 
-  const { data, status } = await axios.post(`${baseUrl}/${version}/settings/field-label/${splitModule}/reset?client=${user?.client}`)
+  const { data, status } = await axios.post(`${baseUrl}/settings/field-label/${splitModule}/reset?client=${user?.client}`)
   window.location.reload()
 }
 
