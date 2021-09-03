@@ -14,7 +14,6 @@ const moduleAccess = ({ moduleAccess, isEnableAllModule, state, setState, isRead
   const heightDetail = window.innerHeight - 510;
 
   const filterModuleAccess = moduleAccess.filter((item) => { return isDevelopment === 'true' ? item : item.menu_id !== "menu_manageUsers_supplierUsers"})
-  console.log(moduleAccess, filterModuleAccess, isDevelopment, isDevelopment === 'true' );
   return (
     <div>
       <div className={`flex-column line-border mr-2 my-3`}>
