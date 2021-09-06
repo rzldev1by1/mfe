@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col, Modal } from 'react-bootstrap';
 import loadBtn from '../../../assets/icons/loading/LOADING-MLS.gif';
 import reset_done from '../../../assets/img/reset_done.png';
-import { closeModalPopupReset, confirmResetPassword, closeModalResetUM, closeModalResetUMDone } from './service';
+import { closeModalPopupReset, closeModalResetUM, confirmResetPassword } from './service';
 // import { ProgressBar } from '../service'
 import { CButton } from '@coreui/react';
 import './style.scss';
@@ -29,8 +29,8 @@ const Reset = ({
       <Modal.Body>
         <Row>
           <Col className="bg-white">
-            <div className="pt-2 close-reset pr-3">
-              <i className="iconU-close pointer" onClick={() => closeModalPopupReset({ state, setState })}></i>
+            <div className="pt-2 close-reset pr-3" onClick={() => closeModalResetUM({ state, setState })}>
+              <i className="iconU-close pointer"></i>
             </div>
           </Col>
         </Row>
@@ -68,7 +68,7 @@ const Reset = ({
                   <img src={loadBtn} className="mt-n4" width="35" height="35" />
                 </CButton >
               ) : isResetSuccess ? (
-                <CButton onClick={() => closeModalPopupReset({ state, setState })} className="btn btn-primary float-right">
+                <CButton onClick={() => { closeModalResetUM({ state, setState }) }} className="btn btn-primary float-right">
                   DONE
                 </CButton>
               ) : (
