@@ -176,7 +176,6 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
         width: null,
         space: null,
         style: null,
-        sortable: false,
         align: null,
       };
       headerTable.Header = dataHeader;
@@ -188,7 +187,6 @@ export const headerRename = async ({ UrlHeader, state, setState, fields, setFiel
       headerTable.space = space[idx];
       headerTable.align = align[idx];
       headerTable.style = style[idx];
-      headerTable.sortable = sortable[idx];
       if (sortType[idx]) {
         headerTable.sortType = sortType[idx];
       }
