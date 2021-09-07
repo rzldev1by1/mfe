@@ -112,14 +112,6 @@ export const getSummaryData = async ({
   if (Data) {
     Data.map((item, idx) => {
       const customerName = item?.customername?.split(':');
-      if (parseInt(item.on_hand_qty + item.expected_in_qty) >= item.expected_out_qty) {
-        item.status = 'OK';
-        item.statusTxt = 'OK';
-      }
-      if (parseInt(item.on_hand_qty + item.expected_in_qty) <= item.expected_out_qty) {
-        item.status = 'SHORTAGE';
-        item.statusTxt = 'SHORTAGE';
-      }
       item.product = String(item.product);
       item.expected_in_qty = numeral(item.expected_in_qty).format('0,0');
       item.expected_out_qty = numeral(item.expected_out_qty).format('0,0');
