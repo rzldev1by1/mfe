@@ -42,6 +42,13 @@ $spinkit-spinner-color: $body-color;
 
 //custom DarkMode
 .customDarkMode {
+  ::-webkit-scrollbar-thumb {
+    background-color: #4E4C5B;
+  }
+  
+  .scroll-x-y::-webkit-scrollbar-thumb {
+    background-color: #4E4C5B;
+  }
   .c-sidebar {
     background-color: #1F192D;
   }
@@ -55,10 +62,13 @@ $spinkit-spinner-color: $body-color;
   }
   .c-header {
     background-color: #1F192D !important;
-    .v-header-mls{
-      border-left: 1px solid rgb(71,68,74);
-    }
     .drop-menu-profil{
+      background-color: #1F192D !important;
+    }
+    .switch-profil .c-switch-input:checked + .c-switch-slider {
+      background-color: #1F192D !important;
+    }
+    .c-switch-slider{
       background-color: #1F192D !important;
     }
   }
@@ -151,6 +161,9 @@ $spinkit-spinner-color: $body-color;
     background-color: #1F192D !important;
   }
   .stockMovement .ReactTable .rt-table .rt-tbody .rt-tr-group .rt-tr .rt-td{
+    background-color: #1F192D !important;
+  }
+  .stockMovement .ReactTable .rt-tr {
     background-color: #1F192D !important;
   }
 

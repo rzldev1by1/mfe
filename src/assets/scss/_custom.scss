@@ -486,16 +486,18 @@ input.outOfRemaining-input:focus {
   .menu-item-profil:hover{
     color:#2d1b46;
   }
+  .switch-profil .c-switch-input:checked + .c-switch-slider {
+    background-color: #2d1b46 !important;
+  }
+  .c-switch-slider{
+    background-color: #2d1b46 !important;
+  }
+
 }
 .line-paging{
   background-color: #fff;
   border-radius: 6px;
   color: rgb(0, 0, 0)
-}
-.v-header-mls{
-  border-left: 1px solid #EBEDEF;
-  margin-left: 14%;
-  height: 70px;
 }
 .arrow-profile{
   transform: rotate(-92deg);
@@ -1261,7 +1263,13 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
     padding-right: 27px;
     border-radius: 5%;
   }
+  ::-webkit-scrollbar-thumb {
+    background-color: #4E4C5B;
+  }
   
+  .scroll-x-y::-webkit-scrollbar-thumb {
+    background-color: #4E4C5B;
+  }
 }
 
 // print label style
