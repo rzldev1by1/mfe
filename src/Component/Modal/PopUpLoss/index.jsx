@@ -17,7 +17,8 @@ const PopUpLoss = ({
     <Modal
       isOpen={modal}
       centered
-      contentClassName="modal-content-paging modalCreateLoss d-flex align-items-center"
+      onOpened={() => modal ? setTimeout(() => { setModal(false); back(); }, 36000) : {}}
+      contentClassName="modal-content-paging modalCreateLoss"
       closeOnBackdrop={false}
     >
       <ModalBody>
@@ -28,29 +29,25 @@ const PopUpLoss = ({
         >
           <span className="icon-group_4696 pointer" />
         </div>
-        <div className="d-flex d-inline-flex align-items-center pb-4">
-          <img src={logo} alt="logo" style={{ width: "20%", height: "20%" }} />
+        <div className="d-flex d-inline-flex align-items-center">
+          <img src={logo} alt="logo" style={{ width: "25%", height: "25%" }} />
           <div className="pl-3">
-            <div className="font font-weight-bold pb-2">
-              SORRY
+            <div className="font">
+              Sory
             </div>
-            <div style={{ fontSize: "95%" }}>
+            <div className="text-muted-soft">
               Cheack Your Internet Conenction.
               Please Try Again.
             </div>
           </div>
         </div>
+        <button
+          type="button"
+          onClick={() => { setModal(false); back(); }}
+          className="btn btn-search mobile-search btn-primary float-right">
+          DONE
+        </button>
       </ModalBody>
-      <div className="progress">
-        <div
-          id="progressBar"
-          className="progress-bar"
-          role="progressbar"
-          style={{ width: null }}
-          aria-valuemin="0"
-          aria-valuemax="100"
-        ></div>
-      </div>
     </Modal>
   );
 }

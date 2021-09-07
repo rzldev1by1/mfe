@@ -116,6 +116,7 @@ export const renewState = ({ setState, state, siteData, clientData, moduleAccess
   });
 
   //renew module Access Option
+  const isDevelopment = process.env.REACT_APP_DEV;
   let moduleAccessOption = [];
   let allowedValues = [
     'menu_orders_po_open',

@@ -23,7 +23,7 @@ export const closeModalPopupReset = async ({ state, setState }) => {
     }
   }
 };
-export const closeModalResetUM = async ({ state, setState }) => {
+export const closeModalResetUM = ({ state, setState }) => {
   const newState = { ...state };
   newState.popUpReset = false;
   setState(newState);

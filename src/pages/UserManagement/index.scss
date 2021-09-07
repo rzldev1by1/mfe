@@ -85,3 +85,45 @@ input.form-control {
 .btn-outline-notActive:hover {
   color: #d5d8da !important;
 }
+.ReactTable {
+  border: 0px !important;
+  .rt-table {
+    margin-top: 0px !important;
+
+    .rt-thead {
+      .rt-tr {
+        .rt-th {
+          display: flex;
+          align-items: center;
+          -webkit-justify-content: left
+        }
+        .rt-th:first-child {
+          padding-left: 1.15rem !important;
+          text-align: left !important;
+        }
+        .rt-th:last-child{
+          -webkit-justify-content: left !important
+        }
+        .enable-drag {
+          padding: 0px !important;
+        }
+      }
+    }
+
+    .rt-tbody {
+      .rt-tr-group {
+        .rt-tr {
+          .rt-td {
+            display: flex;
+            align-items: center;
+            padding-left: 7px !important;
+          }
+
+          .rt-td:first-child {
+            padding-left: 1.2rem !important;
+          }
+        }
+      }
+    }
+  }
+}

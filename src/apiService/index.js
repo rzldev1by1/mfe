@@ -113,14 +113,6 @@ export const getSummaryData = async ({
   if (Data) {
     Data.map((item, idx) => {
       const customerName = item?.customername?.split(':');
-      if (parseInt(item.on_hand_qty + item.expected_in_qty) >= item.expected_out_qty) {
-        item.status = 'OK';
-        item.statusTxt = 'OK';
-      }
-      if (parseInt(item.on_hand_qty + item.expected_in_qty) <= item.expected_out_qty) {
-        item.status = 'SHORTAGE';
-        item.statusTxt = 'SHORTAGE';
-      }
       item.product = String(item.product);
       item.expected_in_qty = numeral(item.expected_in_qty).format('0,0');
       item.expected_out_qty = numeral(item.expected_out_qty).format('0,0');
@@ -173,11 +165,11 @@ export const getDetailHeader = async ({ dispatch, props, module }) => {
   let endpointsUrl = '';
   let paramType = '';
   if (module === 'purchaseOrder') {
-    endpointsUrl = `${endpoints.purchaseOrder}?search = ${orderdetail}&client = ${client}&site = ${site}`;
+    endpointsUrl = `${endpoints.purchaseOrder}?search=${orderdetail}&client=${client}&site=${site}`;
     paramType = 'GET_PO_DETAIL';
   }
   if (module === 'salesOrder') {
-    endpointsUrl = `${endpoints.salesOrder}?search = ${orderno}&client = ${client}&site = ${site}`;
+    endpointsUrl = `${endpoints.salesOrder}?search=${orderno}&client=${client}&site=${site}`;
     paramType = 'GET_SO_DETAIL';
   }
   if (module === 'stockHolding') {
@@ -205,12 +197,12 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
   let paramType = '';
   let paramPaging = '';
   if (module === 'purchaseOrder') {
-    endpointsUrl = `${endpoints.purchaseOrder}/${site}/${client}/${orderdetail}?page = ${active}&export = ${export_}`;
+    endpointsUrl = `${endpoints.purchaseOrder}/${site}/${client}/${orderdetail}?page=${active}&export=${export_}`;
     paramType = 'GET_PO_DETAIL_TABLE';
     paramPaging = 'PAGING_PO_DETAIL';
   }
   if (module === 'salesOrder') {
-    endpointsUrl = `${endpoints.salesOrder}/${orderno}?client = ${client}&site = ${site}&page = ${active}&export = ${export_}`;
+    endpointsUrl = `${endpoints.salesOrder}/${orderno}?client=${client}&site=${site}&page=${active}&export=${export_}`;
     paramType = 'GET_SO_DETAIL_TABLE';
     paramPaging = 'PAGING_SO_DETAIL';
   }
@@ -286,8 +278,7 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
 
 export const getForescast = async ({ export_ = 'false', dispatch, active, props }) => {
   const { product, client, site } = props?.match?.params;
-  const url =
-    `${endpoints.stockHoldingSummary}/${site}/${client}/${product}/detail-balance?page=${active}&export=${export_}`;
+  const url = `${endpoints.stockHoldingSummary}/${site}/${client}/${product}/detail-balance?page=${active}&export=${export_}`;
   dispatch({ type: 'GET_SH_DETAIL_FORESCAST', data: [] });
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const { data } = await axios.get(url);
@@ -300,7 +291,6 @@ export const getForescast = async ({ export_ = 'false', dispatch, active, props 
     const modifiedData = forecast;
     const Meta = data?.meta;
     const Links = data?.links;
-
     modifiedData.forEach((item, idx) => {
       item.in = numeral(item.in).format('0,0');
       item.out = numeral(item.out).format('0,0');
