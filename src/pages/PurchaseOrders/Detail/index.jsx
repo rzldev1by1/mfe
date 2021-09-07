@@ -24,7 +24,7 @@ const PurchaseOrdersDetail = (props) => {
 
   // dimension
   const [dimension, setDimension] = useState({
-    height: window.innerHeight - 425,
+    height: window.innerHeight - 355,
     width: window.innerWidth,
   });
   const { width, height } = dimension;
@@ -32,7 +32,7 @@ const PurchaseOrdersDetail = (props) => {
   useEffect(() => {
     const handleResize = () => {
       setDimension({
-        height: window.innerHeight - 425,
+        height: window.innerHeight - 355,
         width: window.innerWidth,
       });
     };
@@ -137,10 +137,10 @@ const PurchaseOrdersDetail = (props) => {
           titleLeftThree="Date Released"
           titleLeftFour="Date Completed"
           // Valeu Left
-          valeuLeftOne={formatDate(poDetail?.delivery_date) || '-'}
-          valeuLeftTwo={formatDate(poDetail?.date_received) || '-'}
-          valeuLeftThree={formatDate(poDetail?.date_released) || '-'}
-          valeuLeftFour={formatDate(poDetail?.date_completed) || '-'}
+          valeuLeftOne={poDetail?.delivery_date || '-'}
+          valeuLeftTwo={poDetail?.date_received || '-'}
+          valeuLeftThree={poDetail?.date_released || '-'}
+          valeuLeftFour={poDetail?.date_completed || '-'}
         />
       </div>
       <TableMaster
