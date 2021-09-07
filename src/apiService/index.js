@@ -122,13 +122,13 @@ export const getSummaryData = async ({
       item.weight = numeral(item.weight).format('0,0.000');
       item.weight_processed = numeral(item.weight_processed).format('0,0.000');
       item.price = numeral(item.price).format('0,0.00');
-      item.delivery_date = item.delivery_date && item.delivery_date !== '' ? formatDate(item.delivery_date) : '-';
-      item.date_received = item.date_received && item.date_received !== '' ? formatDate(item.date_received) : '-';
-      item.date_released = item.date_released && item.date_released !== '' ? formatDate(item.date_released) : '-';
-      item.date_completed = item.date_completed && item.date_completed !== '' ? formatDate(item.date_completed) : '-';
+      item.delivery_date = item.delivery_date && item.delivery_date !== '' ? item.delivery_date : '-';
+      item.date_received = item.date_received && item.date_received !== '' ? item.date_received : '-';
+      item.date_released = item.date_released && item.date_released !== '' ? item.date_released : '-';
+      item.date_completed = item.date_completed && item.date_completed !== '' ? item.date_completed : '-';
       // Supplier Management PO Date format
       item.no = idx + 1;
-      item.po_date = item.po_date && item.po_date !== '' ? formatDate(item.po_date) : '-';
+      item.po_date = item.po_date && item.po_date !== '' ? item.po_date : '-';
       item.total_order = numeral(item.total_order).format('0,0')
       // User Management Data
       item.disabled = item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
