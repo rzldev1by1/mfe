@@ -90,6 +90,7 @@ export const getSummaryData = async ({
   }
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
+  console.log(newData);
   const Meta = newData?.data?.meta;
   const Links = newData?.data?.links;
   const Data = newData?.data?.data;
@@ -121,13 +122,13 @@ export const getSummaryData = async ({
       item.weight = numeral(item.weight).format('0,0.000');
       item.weight_processed = numeral(item.weight_processed).format('0,0.000');
       item.price = numeral(item.price).format('0,0.00');
-      item.delivery_date = item.delivery_date && item.delivery_date !== '' ? formatDate(item.delivery_date) : '-';
-      item.date_received = item.date_received && item.date_received !== '' ? formatDate(item.date_received) : '-';
-      item.date_released = item.date_released && item.date_released !== '' ? formatDate(item.date_released) : '-';
-      item.date_completed = item.date_completed && item.date_completed !== '' ? formatDate(item.date_completed) : '-';
+      item.delivery_date = item.delivery_date && item.delivery_date !== '' ? item.delivery_date : '-';
+      item.date_received = item.date_received && item.date_received !== '' ? item.date_received : '-';
+      item.date_released = item.date_released && item.date_released !== '' ? item.date_released : '-';
+      item.date_completed = item.date_completed && item.date_completed !== '' ? item.date_completed : '-';
       // Supplier Management PO Date format
       item.no = idx + 1;
-      item.po_date = item.po_date && item.po_date !== '' ? formatDate(item.po_date) : '-';
+      item.po_date = item.po_date && item.po_date !== '' ? item.po_date : '-';
       item.total_order = numeral(item.total_order).format('0,0')
       // User Management Data
       item.disabled = item.disabled = item.disabled && item.disabled !== 'Y' ? 'Active' : 'Suspended';
@@ -762,10 +763,17 @@ export const resetPassword = ({ state, setState, props }) => {
     }
   });
 };
-// End User Management
 
-//DarkMode 
-export const darkModeMLS = ({ darkMode, dispatch }) => {
-  if (!darkMode) dispatch({ type: 'DARKMODE', data: true })
-  if (darkMode) dispatch({ type: 'DARKMODE', data: false })
+export const DarkModeChange = ({ changeMode, setChangeMode }) => {
+  if (changeMode == true) {
+    localStorage.setItem("darkModeLocal", false);
+    setChangeMode(false)
+  } else if (changeMode == false) {
+    localStorage.setItem("darkModeLocal", true);
+    setChangeMode(true)
+  } else {
+    localStorage.setItem("darkModeLocal", false);
+    setChangeMode(false)
+  }
 }
+// End User Management
