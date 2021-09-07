@@ -169,13 +169,13 @@ const SalesOrdersDetail = (props) => {
           valeuLeftOne={
             (soDetail?.status && soDetail?.status.includes('0:') ? '0: Unavailable' : soDetail?.status) || '-'
           }
-          valeuLeftTwo={formatDate(soDetail?.deliverydate) || '-'}
-          valeuLeftThree={formatDate(soDetail?.datereceived) || '-'}
-          valeuLeftFour={formatDate(soDetail?.datereleased) || '-'}
-          valeuLeftFive={formatDate(soDetail?.datecompleted) || '-'}
+          valeuLeftTwo={soDetail?.deliverydate || '-'}
+          valeuLeftThree={soDetail?.datereceived || '-'}
+          valeuLeftFour={soDetail?.datereleased || '-'}
+          valeuLeftFive={soDetail?.datecompleted || '-'}
           valeuLeftSix={soDetail?.loadnumber || '-'}
-          valeuLeftSeven={formatDate(soDetail?.loadoutstart) || '-'}
-          valeuLeftEight={formatDate(soDetail?.loadoutfinish) || '-'}
+          valeuLeftSeven={soDetail?.loadoutstart || '-'}
+          valeuLeftEight={soDetail?.loadoutfinish || '-'}
           valeuLeftNine={soDetail?.consignmentno || '-'}
           valeuLeftTen={soDetail?.freightcharge || '-'}
         />

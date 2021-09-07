@@ -253,7 +253,7 @@ export const getDetailData = async ({ export_ = 'false', dispatch, active, props
         m.edit_qty = m.order_qty
         m.edit_carton = m.no_of_carton
       }
-      m.rotadate = m.rotadate && m.rotadate !== '' ? formatDate(m.rotadate) : '-';
+      m.rotadate = m.rotadate && m.rotadate !== '' ? m.rotadate : '-';
       txt.push(m.batch?.length);
       return m;
     });
