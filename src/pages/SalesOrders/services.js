@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-const dateFormate= process.env.REACT_APP_API_URL_FORMATE;
+const dateFormate = process.env.REACT_APP_API_URL_FORMATE;
 
 export const formatDate = (date) => {
   if (date) {
@@ -118,7 +118,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? formatDate(props.value) : '-'}</span>,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 130,
   },
   {
@@ -129,7 +129,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? formatDate(props.value) : '-'}</span>,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 130,
   },
   {
@@ -140,7 +140,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? formatDate(props.value) : '-'}</span>,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 130,
   },
   {
@@ -151,7 +151,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value ? formatDate(props.value) : '-'}</span>,
+    Cell: (props) => <span>{props.value ? props.value : '-'}</span>,
     width: 150,
   },
   {
@@ -338,7 +338,7 @@ export const schemaColumn = [
     style: { textAlign: 'left', paddingLeft: '15px', justifyContent: 'flex-end', display: 'flex' },
     headerClassName: 'borderBottom noPaddingTop',
     sortable: true,
-    Cell: (props) => <span>{props.value == null ? '-': props.value }
+    Cell: (props) => <span>{props.value == null ? '-' : props.value}
     </span>,
     width: 150,
   },
