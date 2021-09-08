@@ -450,26 +450,35 @@ export const getAccountInfo = async ({ userid, state, setState, dispatch, loadSi
   const accountInfoUser = result;
 
   // ModalAccess
+  const isDevelopment = process.env.REACT_APP_SUPPLIER;
   let newIsEnableAllModule = { ...newState.isEnableAllModule };
   let userMenu = [...accountInfoUser.userMenu].map((item, index) => {
     return item.menuid;
   });
-  let menus = moduleAccess
-    ?.filter((item) => {
-      return menuAvailable.indexOf(item.menu_name.toLowerCase()) !== -1;
-    })
-    .map((item, index) => {
-      let newItem = item;
-      let isStatus = false;
-      if (accountInfoUser.web_group !== utility.webgroup.ADMIN) {
-        isStatus = !!userMenu.includes(item.menu_id);
-      }
-      newItem.status = isStatus;
-      return newItem;
-    });
-  newIsEnableAllModule = menus?.filter((item) => { return item.status === true; })?.length === menus?.length;
-  newState.moduleAccess = menus;
-  newState.isEnableAllModule = newIsEnableAllModule;
+
+  let menus = moduleAccess?.filter((item) => {
+    return menuAvailable.indexOf(item.menu_name.toLowerCase()) !== -1;
+  }).map((item, index) => {
+    let newItem = item;
+    let isStatus = false;
+    if (accountInfoUser.web_group !== utility.webgroup.ADMIN) {
+      isStatus = !!userMenu.includes(item.menu_id);
+    }
+    newItem.status = isStatus;
+    return newItem;
+  });
+
+  const newMenus = menus.filter((item) => item.menu_id !== "menu_manageUsers_supplierUsers")
+  if (isDevelopment == "false") {
+    newState.moduleAccess = newMenus;
+    newIsEnableAllModule = newMenus?.filter((item) => { return item.status === true; })?.length === newMenus?.length;
+    newState.isEnableAllModule = newIsEnableAllModule;
+  }
+  else {
+    newState.moduleAccess = menus;
+    newIsEnableAllModule = menus?.filter((item) => { return item.status === true; })?.length === menus?.length;
+    newState.isEnableAllModule = newIsEnableAllModule;
+  }
   // and ModalAccess
 
   // LoadSite
