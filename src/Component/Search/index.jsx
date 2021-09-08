@@ -221,7 +221,7 @@ const Search = ({
                 <div className="input-group">
                   <div className="input-group-prepend">
                     <span className="input-group-text border-right-0 bg-white">
-                      <i className="icon-group_27" />
+                      <i className="icon-search" />
                     </span>
                   </div>
                   <input
