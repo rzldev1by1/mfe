@@ -218,6 +218,17 @@ input:-webkit-autofill {
   font-size: 19px;
 }
 
+.rename-img{
+  background-image: url("../img/icon-rename\ 1.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.v-rename{
+  border-left: 1.9px solid #fff;
+    height: 49px;
+}
+
 .tab-content {
   padding: 0;
   margin: 0;
@@ -1073,8 +1084,18 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
 }
 // darkMode Modal
 .customDarkModes {
-    background-color: #261E42 !important;
+    background-color: #261D3F !important;
     color: #fff !important;
+    .rename-img{
+      background-image: url("../img/icon-rename\ 1.png");
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+    }
+    .input-group, input.form-control, .input-group-text {
+      height: 50px !important;
+      border-color: #5242A5 !important;
+      padding-right: 0px;
+    }
     .tab-content{
       background-color: #1F192D !important;
       color: #fff !important;
@@ -1112,6 +1133,9 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
       background-color: #1F192D;
       color: white;
     }
+    .faqSide{
+      color:#5242A5
+    }
 
     //form-axios
     .css-yr94r1-menu{
@@ -1123,7 +1147,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
       .css-5y2tk-control,
       .css-1to7m39-control {
         background-color: #1F192D !important;
-        border-color: white !important;
+        border-color: #5242A5 !important;
         color: white !important;
       }
       .css-1uccc91-singleValue,
@@ -1138,6 +1162,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
       .css-26l3qy-menu {
         //dropdown option background
         background-color: #1F192D !important;
+        border: 1px solid #5242A5 !important;
         color: white;
       }
       .css-ihtdzf-option,
@@ -1147,7 +1172,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
       //dropdown readonly
       .css-12ivlxl-control{
         background-color: #1F192D !important;
-        border: 1px solid white;
+        border: 1px solid #5242A5;
       }
       //dropdown danger
       .input-danger .css-5y2tk-control{
@@ -1197,7 +1222,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
   //form
     .form-control {
     background-color: #1F192D !important;
-    border-color: white !important;
+    border-color: #5242A5 !important;
     color: white;
   }
 }
@@ -1212,7 +1237,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
   .btn-disabled {
     color: #fff !important;
     background-color: #D6D8DA !important;
-    border: 1px solid #D6D8DA !important;
+    border: 1px solid #5242A5 !important;
   }
   
   .btn-disabled:hover {
@@ -1222,20 +1247,20 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
   .tab-content{
       background-color: #1F192D !important;
       .form-rename{
-        background-color: #1F192D !important;
-        border-color: white !important;
-        color: white !important;
+        color: #5E44E5 !important;
+        background-color: #261D3F !important;
+        border-color: #5E44E5 !important;
       }
       .form-rename::placeholder {
-        color: white !important;
+        color: #5E44E5 !important;
       }
     }
   .rename-columns{
-    background-color: #684df1 !important;
+    background-color: #261D3F !important;
   }
   .btn-outline-primary{
-    color: #fff !important;
-    border-color: #fff;
+    color: #5E44E5 !important;
+    border-color: #5E44E5;
   }
   .btn-light-gray {
     color: #282336 !important;
@@ -1246,8 +1271,14 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
     background-color: #696778 !important;
   }
  .btn-disabled {
-    color: #282336 !important;
-    background-color: #4E4C5B !important;
+    color: #5E44E5 !important;
+    background-color: #261D3F !important;
+    border-color: #261D3F !important;
+  }
+  .btn-disabled:hover {
+    color: #725cdd !important;
+    background-color: #3f3165 !important;
+    border-color: #3f3165 !important;
   }
   .tab-rename {
     color: #FFF !important;
@@ -1257,8 +1288,8 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
     border-radius: 5%;
   }
   .tab-renameNonActive {
-    color: #34276F !important;
-    background-color: #684df1 !important;
+    color: #5242A5 !important;
+    background-color: #261D3F !important;
     padding-left: 24px;
     padding-right: 27px;
     border-radius: 5%;

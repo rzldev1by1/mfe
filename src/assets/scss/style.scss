@@ -72,6 +72,15 @@ $spinkit-spinner-color: $body-color;
       background-color: #1F192D !important;
     }
   }
+  .faqSide{
+    color:#5242A5;
+  }
+
+  .input-group, input.form-control, .input-group-text {
+    height: 50px !important;
+    border-color: #5242A5 !important;
+    padding-right: 0px;
+  }
   .tab-rename {
     color: #1F192D !important;
   }
@@ -181,7 +190,7 @@ $spinkit-spinner-color: $body-color;
   //form
   .form-control {
     background-color: #1F192D !important;
-    border-color: white !important;
+    border-color: #5242A5 !important;
     color: white;
   }
 
@@ -189,7 +198,7 @@ $spinkit-spinner-color: $body-color;
   .css-5y2tk-control,
   .css-1to7m39-control {
     background-color: #1F192D !important;
-    border-color: white !important;
+    border-color: #5242A5 !important;
     color: white !important;
   }
   .css-1uccc91-singleValue,
@@ -204,6 +213,7 @@ $spinkit-spinner-color: $body-color;
   .css-26l3qy-menu {
     //dropdown option background
     background-color: #1F192D !important;
+    border: 1px solid #5242A5 !important;
     color: white;
   }
   .css-ihtdzf-option,
@@ -213,7 +223,7 @@ $spinkit-spinner-color: $body-color;
   //dropdown readonly
   .css-12ivlxl-control{
     background-color: #1F192D !important;
-    border: 1px solid white;
+    border: 1px solid #5242A5;
   }
   //dropdown danger
   .input-danger .css-5y2tk-control{

@@ -84,7 +84,7 @@ const TheSidebar = () => {
         })}
       </CSidebarNav>
       <ul className="sidebar-nav-bottom m-0 p-0">
-        <li className="c-sidebar-item ">
+        <li className="c-sidebar-item faqSide">
           <span className="icon-icon_material_questi_0Ea8D d-block" style={{ fontSize: "300%" }} />
           FAQ
         </li>

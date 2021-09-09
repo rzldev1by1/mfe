@@ -127,31 +127,38 @@ const EditRenameColumn = ({
   return (
     <div>
       <Modal show={showModal} size="xl" centered>
-        <Modal.Header className={`${darkMode ? 'customDarkModes' : 'bg-primary'}`}>
+        <Modal.Header className={`${darkMode ? 'customDarkModes' : 'bg-primary'} p-0`}>
           <Container className="px-0">
-            <Col className="mx-0 px-0">
-              <div onClick={closeModal.bind(this, false, editColumnTemp)} className={`${darkMode ? 'drakClose ' : ''} pr-0 pt-0 pb- float-right `} style={{ cursor: "pointer" }}>
-                <MdClose color="white" size={30} />
-              </div>
-              <Col xs={10} sm={10} md={10} lg={10} xl={10} className="pl-1">
+            <Row className="mx-0 px-0" style={{ height: "140px" }}>
+              <Col xs={6} sm={6} md={6} lg={6} xl={6} className="pl-4 align-items-center d-flex">
                 <div className="d-flex">
-                  <FaRegEdit color="white" size={25} /> &nbsp;
-                  <span className="font-20" style={{ color: '#A6BCFC' }}>{title}:</span>&nbsp;
-                  <span className="font-20 text-white">Edit Column</span>
+                  <div xs={7} sm={7} md={7} lg={7} xl={7} className="pr-2 align-items-center d-flex">
+                    <i className="ri-draft-line ri-2x pr-1" />
+                    <span className="font-20" style={{ fontWeight: "600" }}>{title}</span>&nbsp;
+                  </div>
+                  <div class="v-rename"></div>
+                  <div xs={5} sm={5} md={5} lg={5} xl={5} className="pl-2 pt-1">
+                    <span className="font-20 text-white">Edit Column</span>
+                    <span className="text-white d-flex"> Please select columns to {state.activeTab === '2' ? 'rename' : 'show'}.</span>
+                  </div>
                 </div>
-                <span style={{ marginLeft: '29px' }} className="text-white">
-                  Please select columns to {state.activeTab === '2' ? 'rename' : 'show'}.
-                </span>
               </Col>
-            </Col>
+              <Col xs={6} sm={6} md={6} lg={6} xl={6} className={`justify-content-end d-flex rename-img`}>
+                <Row>
+                  <Col onClick={closeModal.bind(this, false, editColumnTemp)} className={`justify-content-end d-flex`} style={{ cursor: "pointer" }}>
+                    <i className="ri-close-line ri-3x" />
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
           </Container>
         </Modal.Header>
         <Modal.Body className={`${darkMode ? 'DarkModesEditRename ' : ' '} p-3`}>
           <Row className={`mx-0 justify-content-between  ${user.userLevel === 'Admin' ? 'mb-2' : ''}`}>
-            <Row className="align-items-center rename-columns mx-0 text-align-left">
-              <Nav tabs className="px-1">
+            <Row className="rename-columns mx-0 text-align-left">
+              <Nav tabs >
                 <div className="input-group">
-                  <NavItem className="pl-0 pr-0">
+                  <NavItem className="pl-1 pt-1">
                     <div
                       className={`nav-link-cust d-flex align-items-center ${state.activeTab === '1' ? ' tab-rename' : ' tab-renameNonActive'}`}
                       active={state.activeTab === '1'}
@@ -168,7 +175,7 @@ const EditRenameColumn = ({
                     </div>
                   </NavItem>
 
-                  <NavItem className="pl-2 pr-0">
+                  <NavItem className="pr-1 pt-1">
                     <div
                       className={`nav-link-cust d-flex align-items-center ${state.activeTab === '2' ? ' tab-rename' : ' tab-renameNonActive'
                         }`}
@@ -197,22 +204,15 @@ const EditRenameColumn = ({
                           <Col key={index} className="p-2">
                             <button
                               type
-                              className={`text-left btn btn-block pl-2 ver-center-item ${!state.editColumn?.includes(item.accessor) ? 'btn-outline-primary' : 'btn-light-gray'
-                                }`}
-                              onClick={() =>
-                                showColumn({
-                                  header: item.accessor,
-                                  length: fields.length,
-                                  setState,
-                                  state,
-                                })
-                              }
-                            >
+                              className={`text-left btn btn-block pl-2 ver-center-item ${!state.editColumn?.includes(item.accessor) ? 'btn-outline-primary' : 'btn-light-gray'}`}
+                              onClick={() => showColumn({ header: item.accessor, length: fields.length, setState, state, })}>
+
                               {!state.editColumn?.includes(item.accessor) ? (
-                                <AiOutlineEye size={25} />
+                                <i className="ri-eye-2-line ri-xl mr-2 mb-2" />
                               ) : (
-                                <AiOutlineEyeInvisible size={25} />
+                                <i className="ri-eye-close-line ri-xl mr-2 mb-2" />
                               )}
+
                               <b className="p-0 pl-1"> {item.Header} </b>
                             </button>
                           </Col>
