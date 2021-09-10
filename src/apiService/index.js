@@ -7,7 +7,7 @@ import * as EmailValidator from 'email-validator';
 import endpoints from '../helpers/endpoints';
 import * as utility from './UmUtility';
 
-const today = moment(Date()).format('YYYY-MM-DD hh: mm: ss');
+const today = moment(Date()).format('YYYY-MM-DD');
 const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'manage supplier users'];
 const dateFormate = process.env.REACT_APP_API_URL_FORMATE;
 
@@ -90,7 +90,6 @@ export const getSummaryData = async ({
   }
   dispatch({ type: 'TABLE_STATUS', data: 'waiting' });
   const newData = await axios.get(`${endpointsUrl}?${urls.join('&')}`);
-  console.log(newData);
   const Meta = newData?.data?.meta;
   const Links = newData?.data?.links;
   const Data = newData?.data?.data;
@@ -135,7 +134,7 @@ export const getSummaryData = async ({
       item.site = item.site && item.site !== '' ? item.site : 'All';
       item.client = item.client && item.client !== '' ? item.client : 'All';
       item.last_access =
-        item.last_access && item.last_access !== '' ? moment(item.last_access).format(`${dateFormate}' HH:mm:ss'`) : '-';
+        item.last_access && item.last_access !== '' ? moment(item.last_access).format(`${dateFormate}`) : '-';
       if (customerName !== undefined) item.customername = customerName[1];
     });
 
