@@ -71,11 +71,11 @@ const Create = ({ show, setShow }) => {
   useEffect(() => {
     renewState({ setState, state, siteData, clientData, moduleAccess });
   }, []);
-
+  const dataMode = darkMode?.map(d => { return d.dark_mode })
   return (
     <div>
       <Modal show={show} size="xl" className="purchase-order-create">
-        <Modal.Body className={`${darkMode ? 'customDarkModes' : 'bg-primary'}  p-0 rounded-top rounded-bottom`}>
+        <Modal.Body className={`${dataMode == "1" ? 'customDarkModes' : 'bg-primary'}  p-0 rounded-top rounded-bottom`}>
           <Row className="px-9 mx-0">
             <Col xs={10} className="px-0">
               <i className="icon-icon_awesome_edit font-20"></i>

@@ -44,12 +44,12 @@ const Create = ({ show, setShow }) => {
     getPOResources({ user, dispatch });
     getDisposition({ dispatch });
   }, []);
-
+  const dataMode = darkMode?.map(d => { return d.dark_mode })
   return (
     <div>
       <Modal show={show} size="xl" className={`purchase-order-create ${activeTab == 'message' ? ' d-none' : ' '} 
-        ${darkMode ? 'customDarkMode' : ''}`}>
-        <Modal.Body className={`${darkMode ? 'customDarkModes' : 'bg-primary'} p-0 rounded-top rounded-bottom`}>
+        ${dataMode == "1" ? 'customDarkMode' : ''}`}>
+        <Modal.Body className={`${dataMode == "1" ? 'customDarkModes' : 'bg-primary'} p-0 rounded-top rounded-bottom`}>
           <Row className="mx-0 px-9">
             <Col xs={10} className="px-0">
               <i className="icon-icon_awesome_edit font-20"></i>

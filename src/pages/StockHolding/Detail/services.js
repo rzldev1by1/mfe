@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import React from 'react';
-import {formatDate} from '../../../apiService/index'
+import { formatDate } from '../../../apiService/index'
 
 export const schemaColumnDetailPO = [
   {
@@ -10,14 +10,14 @@ export const schemaColumnDetailPO = [
     width: 200,
     Cell: (props) => props.value || '-',
   },
-  { 
-    accessor: 'rotadate', 
-    placeholder: 'Rotadate', 
-    Header: 'Rotadate', 
-    sortable: true, 
-    width: 100 ,
-    style: { textAlign: 'left' }, 
-    Cell: (props) => formatDate(props.value) || '-',
+  {
+    accessor: 'rotadate',
+    placeholder: 'Rotadate',
+    Header: 'Rotadate',
+    sortable: true,
+    width: 100,
+    style: { textAlign: 'left' },
+    Cell: (props) => props.value || '-',
   },
   {
     accessor: 'ref3',
@@ -42,9 +42,9 @@ export const schemaColumnDetailPO = [
     Cell: (props) => props.value || '-',
   },
   {
-    accessor: 'qty', 
-    placeholder: 'QTY', 
-    Header: 'Qty', 
+    accessor: 'qty',
+    placeholder: 'QTY',
+    Header: 'Qty',
     className: 'align-right',
     width: 60,
     Cell: (props) => props.value || '-',
@@ -52,9 +52,9 @@ export const schemaColumnDetailPO = [
     textAlign: "right"
   },
   {
-    accessor: 'weight', 
-    placeholder: 'Wght', 
-    Header: 'Wght', 
+    accessor: 'weight',
+    placeholder: 'Wght',
+    Header: 'Wght',
     className: 'align-right',
     width: 80,
     sortType: 'float',
@@ -62,8 +62,8 @@ export const schemaColumnDetailPO = [
     textAlign: "right"
   },
   {
-    accessor: 'pallet', 
-    placeholder: 'Pallet', 
+    accessor: 'pallet',
+    placeholder: 'Pallet',
     Header: 'Pallet',
     width: 70,
     className: 'align-right',
@@ -72,8 +72,8 @@ export const schemaColumnDetailPO = [
     textAlign: "right"
   },
   {
-    accessor: 'price', 
-    placeholder: 'Prince', 
+    accessor: 'price',
+    placeholder: 'Prince',
     Header: 'Price',
     width: 70,
     className: 'align-right',
@@ -82,9 +82,9 @@ export const schemaColumnDetailPO = [
     textAlign: "right"
   },
   {
-    accessor: 'pack_id', 
-    placeholder: 'Pack ID', 
-    Header: 'Pack ID', 
+    accessor: 'pack_id',
+    placeholder: 'Pack ID',
+    Header: 'Pack ID',
     width: 170,
     headerStyle: { textAlign: 'left' },
     sortType: 'float',
@@ -107,7 +107,7 @@ export const schameColumnForesCast = [
     Header: 'Order Date',
     sortable: false,
     width: 150,
-    Cell: (props) => formatDate(props.value) || '-',
+    Cell: (props) => props.value || '-',
   },
   {
     accessor: 'in',
@@ -145,24 +145,24 @@ export const setExportData = async ({ dispatch, data }) => {
   await dispatch({ type: 'EXPORT_DATA', data });
 };
 
-export const siteCheck = ({val, site}) =>{
+export const siteCheck = ({ val, site }) => {
   let ret = null;
-  site.map((data) =>{
-     if(data?.value !== val){
-       return 0;
-     }
-     ret = data.label
-  }) 
+  site.map((data) => {
+    if (data?.value !== val) {
+      return 0;
+    }
+    ret = data.label
+  })
   return ret;
 }
 
-export const clientCheck = ({val, client}) => {
+export const clientCheck = ({ val, client }) => {
   let ret = null;
-  client.map((data) =>{
-     if(data?.value !== val){
-       return 0;
-     }
-     ret = data.label
-  }) 
+  client.map((data) => {
+    if (data?.value !== val) {
+      return 0;
+    }
+    ret = data.label
+  })
   return ret;
 };

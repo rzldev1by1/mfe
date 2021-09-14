@@ -764,16 +764,16 @@ export const resetPassword = ({ state, setState, props }) => {
   });
 };
 
-export const DarkModeChange = ({ changeMode, setChangeMode }) => {
-  if (changeMode == true) {
-    localStorage.setItem("darkModeLocal", false);
-    setChangeMode(false)
-  } else if (changeMode == false) {
-    localStorage.setItem("darkModeLocal", true);
-    setChangeMode(true)
-  } else {
-    localStorage.setItem("darkModeLocal", false);
-    setChangeMode(false)
-  }
+export const DarkModeChange = ({ darkMode, dispatch }) => {
+  darkMode.map(d => {
+    if (d.dark_mode == "1") {
+      d.dark_mode = "0"
+      const a = axios.post(endpoints.drakMode, { web_user: d.web_user, dark_mode: d.dark_mode });
+    } else {
+      d.dark_mode = "1"
+      const a = axios.post(endpoints.drakMode, { web_user: d.web_user, dark_mode: d.dark_mode });
+    }
+    dispatch({ type: 'DARKMODE', data: darkMode });
+  })
 }
 // End User Management

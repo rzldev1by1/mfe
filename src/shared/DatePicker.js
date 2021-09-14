@@ -329,7 +329,7 @@ class DatePicker extends React.Component {
                     {/* <input className="select_date_close" type="radio" name={"select" + placeHolder + no} id={"select-close" + placeHolder + no} value="" defaultChecked/> */}
                     {/* <span className="select_date_label select_date_label-placeholder">{this.state.selectedDay ? moment(this.state.selectedDay).format(dateFormate) : placeHolder}</span> */}
 
-                    {/* <li className="select_date_items"> */}
+                    <li className="select_date_items" />
                     <input className={"select_date_expand" + (this.props.arrowStyle ? " select_arrow_expand" : " select_calendar_expand")} ref="opener" type="checkbox" name={"select" + placeHolder + no} value="" checked={this.state.showDatePicker} id={"select-opener" + placeHolder + no} />
                     <label className="select_date_closeLabel" htmlFor={"select-opener" + placeHolder + no} onClick={() => this.closeDatePicker()}></label>
                     <ReactResizeDetector

@@ -7,7 +7,6 @@ import TheHeader from './TheHeader';
 const TheLayout = () => {
   const dispatch = useDispatch();
   const [expired, setExpired] = useState(useSelector((state) => state.expired));
-  // const darkMode = useSelector((state) => state.darkMode);
   const darkMode = useSelector((state) => state.darkModeMLS);
   const onActive = () => {
     dispatch({ type: 'EXPIRED' });
@@ -18,10 +17,9 @@ const TheLayout = () => {
   //   onIdle: () => { setExpired(!expired)},
   //   onActive: onActive
   // })
-
+  const dataMode = darkMode?.map(d => { return d.dark_mode })
   return (
-    // <div className={`c-app c-default-layout ${darkMode && 'c-dark-theme'}`}>
-    <div className={`c-app c-default-layout ${darkMode ? 'customDarkMode' : ''}`}>
+    <div className={`c-app c-default-layout ${dataMode == "1" ? 'customDarkMode' : ''}`}>
       <TheSidebar />
       <TheHeader />
       <div className="c-wrapper">

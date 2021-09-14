@@ -53,6 +53,9 @@ export default {
   supplierManagement: `${version}/supplier-management`,
   // Supplier Management End ----------------------------------------------------
 
+  //DarkMode
+  drakMode: `/${version}/settings/dark-mode/user-management`,
+  //DarkMode End
   stockDateRange: `/${version}/stocks/movement/date-range`,
   stockAgeProfile: '/stockageprofile',
 

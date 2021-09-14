@@ -1,28 +1,20 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import HeaderTitle from 'shared/container/TheHeader';
 import Logo from '../../assets/img/LOGO1.png';
 import LogoWhite from '../../assets/img/LOGO1_WHITE.png';
 import './Welcome.css';
 
-class Welcome extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <div className="welcome">
-        <div className="darkLayer"></div>
-        <HeaderTitle />
-        <img src={this.props.darkMode ? LogoWhite : Logo} className="logo" alt="logo" />
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    darkMode: state.darkModeMLS,
-  };
+const Welcome = () => {
+  const darkMode = useSelector((state) => state.darkModeMLS);
+  const dataMode = darkMode?.map(d => { return d.dark_mode })
+  return (
+    <div className="welcome">
+      <div className="darkLayer"></div>
+      <HeaderTitle />
+      <img src={dataMode == "1" ? LogoWhite : Logo} className="logo" alt="logo" />
+    </div>
+  );
 };
-export default connect(mapStateToProps)(Welcome);
+
+export default Welcome;

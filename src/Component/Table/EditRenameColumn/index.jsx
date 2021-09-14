@@ -124,17 +124,19 @@ const EditRenameColumn = ({
 
   let isChanged = fields?.filter(data => data.Header !== data.placeholder)
   isChanged = isChanged?.length ? false : true
+
+  const dataMode = darkMode?.map(d => { return d.dark_mode })
   return (
     <div>
       <Modal show={showModal} size="xl" centered>
-        <Modal.Header className={`${darkMode ? 'customDarkModes' : 'bg-primary'} p-0`}>
+        <Modal.Header className={`${dataMode == "1" ? 'customDarkModes' : 'bg-primary'} p-0`}>
           <Container className="px-0">
             <Row className="mx-0 px-0" style={{ height: "140px" }}>
               <Col xs={6} sm={6} md={6} lg={6} xl={6} className="pl-4 align-items-center d-flex">
                 <div className="d-flex">
                   <div xs={7} sm={7} md={7} lg={7} xl={7} className="pr-2 align-items-center d-flex">
                     <i className="ri-draft-line ri-2x pr-1" />
-                    <span className="font-20" style={{ fontWeight: "600" }}>{title}</span>&nbsp;
+                    <span className="font-20" style={{ fontWeight: "600", color: "#FFF" }}>{title}</span>&nbsp;
                   </div>
                   <div class="v-rename"></div>
                   <div xs={5} sm={5} md={5} lg={5} xl={5} className="pl-2 pt-1">
@@ -153,7 +155,7 @@ const EditRenameColumn = ({
             </Row>
           </Container>
         </Modal.Header>
-        <Modal.Body className={`${darkMode ? 'DarkModesEditRename ' : ' '} p-3`}>
+        <Modal.Body className={`${dataMode == "1" ? 'DarkModesEditRename ' : ' '} p-3`}>
           <Row className={`mx-0 justify-content-between  ${user.userLevel === 'Admin' ? 'mb-2' : ''}`}>
             <Row className="rename-columns mx-0 text-align-left">
               <Nav tabs >

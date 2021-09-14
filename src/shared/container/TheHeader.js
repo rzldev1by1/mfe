@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useMemo, } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import endpoints from '../../helpers/endpoints';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 import {
@@ -12,13 +13,12 @@ import {
   CDropdownToggle,
   CToggler
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-// import { DarkModeChange } from '../../apiService';
+import { DarkModeChange } from '../../apiService';
 
 const TheHeader = (props) => {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user);
-  const darkModes = useSelector(state => state.darkModeMLS)
+  const darkMode = useSelector((state) => state.darkModeMLS);
   // const [changeMode, setChangeMode] = useState(null);
   // const [valueMode, setValueMode] = useState(null);
 
@@ -29,12 +29,10 @@ const TheHeader = (props) => {
     return ret;
   };
 
-  // useEffect(() => {
-  //   if (changeMode) {
-  //     const localMode = localStorage.getItem("darkModeLocal")
-  //   }
-  // }, [changeMode]);
-
+  useMemo(async () => {
+    const dataMode = await axios.get(`${endpoints.drakMode}/${user.webUser}`);
+    dispatch({ type: 'DARKMODE', data: dataMode.data });
+  }, []);
 
   return (
     <CHeader withSubheader className="no-border no-shadow">
@@ -85,7 +83,7 @@ const TheHeader = (props) => {
                     <span className="icon-group_4799 icon-drop-menu" />DarkMode
                     <div style={{ marginLeft: "40%" }}>
                       {/* <button onClick={() => DarkModeChange({ changeMode, setChangeMode })}>tes</button> */}
-                      <CSwitch shape={'pill'} color={'secondary'} variant="outline" defaultChecked className="switch-profil" onClick={() => dispatch({ type: 'DARKMODE', data: !darkModes })} />
+                      <CSwitch shape={'pill'} color={'secondary'} variant="outline" defaultChecked className="switch-profil" onClick={() => DarkModeChange({ darkMode, dispatch })} />
                     </div>
                   </div>
                 </p>

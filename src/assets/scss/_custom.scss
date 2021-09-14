@@ -752,7 +752,7 @@ header {
   padding-top: 2.3rem !important;
 }
 .modal-backdrop {
-  background-color: #2d1b46;
+  background-color: #635F78;
   .show {
     opacity: 57%;
   }
@@ -1084,8 +1084,6 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
 }
 // darkMode Modal
 .customDarkModes {
-    background-color: #261D3F !important;
-    color: #fff !important;
     .rename-img{
       background-image: url("../img/icon-rename\ 1.png");
       background-repeat: no-repeat;
