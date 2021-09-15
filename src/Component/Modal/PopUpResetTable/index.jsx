@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal, ModalBody } from 'reactstrap'
+import { useSelector } from 'react-redux';
 import logoConfirm from 'assets/img/warning.png'
 import { Button, Col, Row } from 'react-bootstrap';
 import { ProgressBarReset } from '../service';
@@ -18,6 +19,8 @@ const PopUpResetTable = ({
   setTimeout(() => {
     ProgressBarReset({ resetConfirmation })
   }, 1000);
+  const darkMode = useSelector((state) => state.darkModeMLS);
+  const dataMode = darkMode?.map(d => { return d.dark_mode })
   return (
     <Modal
       isOpen={modal}
@@ -26,7 +29,7 @@ const PopUpResetTable = ({
       contentClassName="modal-content-paging modalCreateSuccess"
       closeOnBackdrop={false}
     >
-      <ModalBody>
+      <ModalBody className={`${dataMode == "1" ? 'customDarkPopUp' : ''}`}>
         <div
           className="text-right px-0"
           style={{ fontSize: '14px' }}

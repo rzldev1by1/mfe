@@ -1127,7 +1127,7 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
     .text-muted{
       color: white !important;
     }
-    .modalCreateSuccess, .modalCreateLoss{ 
+    .modalCreateSuccess, .modal-color{ 
       background-color: #1F192D;
       color: white;
     }
@@ -1197,34 +1197,41 @@ html:not([dir="rtl"]) .dropdown-toggle::after {
 
       //datePicker
 
-    .select_date_options {
-      background-color: #1F192D !important;
-      
-      .DayPicker-Weekday abbr[title='Monday'],
-      .DayPicker-Weekday abbr[title='Tuesday'],
-      .DayPicker-Weekday abbr[title='Wednesday'],
-      .DayPicker-Weekday abbr[title='Thursday'],
-      .DayPicker-Weekday abbr[title='Friday'],
-      .DayPicker-Weekday abbr[title='Saturday'],
-      .DayPicker-Weekday abbr[title='Sunday']
-      {
-        color: white !important;
-      }
-
-      .line-paging{
+      .select_date_options {
         background-color: #1F192D !important;
-        border-radius: 6px;
-        color: rgb(255, 255, 255)
-      }
+        
+        .DayPicker-Weekday abbr[title='Monday'],
+        .DayPicker-Weekday abbr[title='Tuesday'],
+        .DayPicker-Weekday abbr[title='Wednesday'],
+        .DayPicker-Weekday abbr[title='Thursday'],
+        .DayPicker-Weekday abbr[title='Friday'],
+        .DayPicker-Weekday abbr[title='Saturday'],
+        .DayPicker-Weekday abbr[title='Sunday']
+        {
+          color: white !important;
+        }
 
-  //form
-    .form-control {
-    background-color: #1F192D !important;
-    border-color: #5242A5 !important;
-    color: white;
+        .line-paging{
+          background-color: #1F192D !important;
+          border-radius: 6px;
+          color: rgb(255, 255, 255)
+        }
+
+    //form
+      .form-control {
+      background-color: #1F192D !important;
+      border-color: #5242A5 !important;
+      color: white;
+    }
   }
 }
-
+.customDarkPopUp{
+  background-color: #1F192D !important;
+  color: #fff !important;
+  border-radius: 8px;
+  .btn-primary {
+    background-color: #4717ed !important;
+  }
 }
 .DarkModesEditRename{
   background-color: #1F192D !important;

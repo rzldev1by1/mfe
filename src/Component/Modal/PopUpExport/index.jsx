@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import { useSelector } from 'react-redux';
 import { Modal, ModalBody } from 'reactstrap';
 import logoConfirm from 'assets/img/LOGO5@2x.png';
 import './index.scss';
 
 const PopUpExport = ({ modalShow, setModalShow }) => {
+  const darkMode = useSelector((state) => state.darkModeMLS);
+  const dataMode = darkMode?.map(d => { return d.dark_mode })
   return (
     <Modal
       isOpen={modalShow}
@@ -18,7 +21,7 @@ const PopUpExport = ({ modalShow, setModalShow }) => {
       contentClassName="modal-content-paging box-er-pagination"
       closeOnBackdrop={false}
     >
-      <ModalBody>
+      <ModalBody className={`${dataMode == "1" ? 'customDarkPopUp' : ''}`}>
         <div className="text-right px-0" style={{ fontSize: '14px' }} onClick={() => setModalShow(false)}>
           <span className="icon-group_4696 pointer" />
         </div>

@@ -3,6 +3,7 @@ import { Row, Col, Modal } from 'react-bootstrap';
 import loadBtn from '../../../assets/icons/loading/LOADING-MLS.gif';
 import reset_done from '../../../assets/img/reset_done.png';
 import { closeModalPopupReset, closeModalResetUM, confirmResetPassword } from './service';
+import { useSelector } from 'react-redux';
 // import { ProgressBar } from '../service'
 import { CButton } from '@coreui/react';
 import './style.scss';
@@ -18,6 +19,8 @@ const Reset = ({
   setTimeout(() => {
     closeModalPopupReset({ state, setState })
   }, 1000);
+  const darkMode = useSelector((state) => state.darkModeMLS);
+  const dataMode = darkMode?.map(d => { return d.dark_mode })
   return (
     <Modal
       show={show}
@@ -26,7 +29,7 @@ const Reset = ({
       className="sales-order-create content-modal"
       backdrop="static"
     >
-      <Modal.Body>
+      <Modal.Body className={`${dataMode == "1" ? 'customDarkPopUp' : ''}`}>
         <Row>
           <Col className="bg-white">
             <div className=" close-reset  pointer" onClick={() => { closeModalResetUM({ state, setState }) }}>

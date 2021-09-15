@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Modal, ModalBody } from 'reactstrap'
 import logo from 'assets/img/Internet-Problem-Red.png'
 import { ProgressBar } from '../service';
@@ -13,6 +14,8 @@ const PopUpLoss = ({
   setTimeout(() => {
     ProgressBar({ setModal, back, })
   }, 1000);
+  const darkMode = useSelector((state) => state.darkModeMLS);
+  const dataMode = darkMode?.map(d => { return d.dark_mode })
   return (
     <Modal
       isOpen={modal}
@@ -21,7 +24,7 @@ const PopUpLoss = ({
       contentClassName="modal-content-paging modalCreateLoss"
       closeOnBackdrop={false}
     >
-      <ModalBody>
+      <ModalBody className={`${dataMode == "1" ? 'customDarkPopUp' : ''}`}>
         <div
           className="text-right px-0"
           style={{ fontSize: '14px' }}

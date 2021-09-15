@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Modal, ModalBody } from 'reactstrap'
 import logo from 'assets/img/Complete-Create-Green.png'
 import { ProgressBar } from '../service'
 import "./index.scss";
-
-
 
 const PopUpCreateSucces = ({
   modal,
@@ -16,6 +15,8 @@ const PopUpCreateSucces = ({
   setTimeout(() => {
     ProgressBar({ setModal, exit, status: 'sukses' })
   }, 1000);
+  const darkMode = useSelector((state) => state.darkModeMLS);
+  const dataMode = darkMode?.map(d => { return d.dark_mode })
   return (
     <Modal
       isOpen={modal}
@@ -24,7 +25,7 @@ const PopUpCreateSucces = ({
       contentClassName="modal-content-paging modalCreateSuccess"
       closeOnBackdrop={false}
     >
-      <ModalBody>
+      <ModalBody className={`${dataMode == "1" ? 'customDarkPopUp' : ''}`}>
         <div
           className="text-right px-0"
           style={{ fontSize: '14px' }}
@@ -47,7 +48,7 @@ const PopUpCreateSucces = ({
         <button
           type="button"
           onClick={() => { setModal(false); exit(); }}
-          className="btn btn-search mobile-search btn-primary float-right">
+          className="btn btn-primary float-right">
           DONE
         </button>
       </ModalBody>
