@@ -7,7 +7,7 @@ import * as EmailValidator from 'email-validator';
 import endpoints from '../helpers/endpoints';
 import * as utility from './UmUtility';
 
-const today = moment(Date()).format('YYYY-MM-DD');
+const today = moment(Date());
 const menuAvailable = ['purchase orders', 'create sales order', 'stock holding', 'stock movement', 'manage supplier users'];
 const dateFormate = process.env.REACT_APP_API_URL_FORMATE;
 
