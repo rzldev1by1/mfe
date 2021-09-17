@@ -8,6 +8,7 @@ import TableMaster from '../../Component/TableMaster';
 import { schemaColumn } from './services';
 import { getSummaryData } from '../../apiService';
 import Create from './Create';
+import endpoints from 'helpers/endpoints';
 import './index.scss';
 
 const PurchaseOrders = (props) => {
@@ -15,7 +16,7 @@ const PurchaseOrders = (props) => {
     props.history.push(`/purchase-order/${item.site}/${item.client}/${item.order_no}`);
   };
 
-  const createBtn = process.env.REACT_APP_API_URL_CREATE;
+  const createBtn = endpoints.env.REACT_APP_API_URL_CREATE;
 
   const dispatch = useDispatch();
   const poSummaryData = useSelector((state) => state.poSummaryData);

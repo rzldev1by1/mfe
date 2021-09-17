@@ -2,8 +2,6 @@ import React from 'react';
 import '../index.scss';
 import { onModuleAccessClick, onEnabledAllModuleAccess } from '../services';
 
-const isDevelopment = process.env.REACT_APP_SUPPLIER;
-
 const moduleAccess = ({ moduleAccess, isEnableAllModule, state, setState, isReadOnly, module }) => {
   const disableAll = 'Disable All';
   const enableAll = 'Enable All';

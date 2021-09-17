@@ -7,6 +7,7 @@ import { Button, Container, Row, Col, Modal, Nav, OverlayTrigger, Tooltip } from
 import { NavItem, NavLink, TabPane, TabContent } from 'reactstrap';
 import { showColumn, saveEdit, changedColumn, renameSubmit, headerRename, resetColumnName, resetColumnTable } from './services';
 import PopUpResetTable from 'Component/Modal/PopUpResetTable'
+import endpoints from 'helpers/endpoints';
 import './style.scss';
 
 const EditRenameColumn = ({
@@ -68,7 +69,7 @@ const EditRenameColumn = ({
   fields.map((data) => {
     templateColumn.push(data.accessor)
   });
-  const version = process.env.REACT_APP_API_URL_VERSION;
+  const version = endpoints.env.REACT_APP_API_URL_VERSION;
   const UrlHeader = () => {
     return `/${version}/settings/field-label/${splitModule}?client=ALL`;
   };

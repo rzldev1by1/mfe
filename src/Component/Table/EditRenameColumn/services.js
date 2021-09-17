@@ -1,5 +1,6 @@
 import axios from 'axios';
 import validations from './validations';
+import endpoints from 'helpers/endpoints';
 
 export const showColumn = ({ header, length, setState, state }) => {
   const max = length - Object.keys(state.editColumn).length > 1;
@@ -231,7 +232,7 @@ const renameSubmits = async ({ state, UrlAll, fields, setFields }) => {
     payload[obj.headerData.replaceAll(' ', '_').toLowerCase()] = obj.Header;
   });
   newState.columnsPayload = payload;
-  const baseUrl = process.env.REACT_APP_API_URL;
+  const baseUrl = endpoints.env.REACT_APP_API_URL;
   try {
     const urlAll = await axios.post(baseUrl + UrlAll(), payload);
   } catch (error) {
@@ -257,8 +258,8 @@ export const renameSubmit = ({ state, setState, setShowMod, UrlAll, fields, setF
 };
 
 export const resetColumnName = async ({ user, splitModule }) => {
-  const baseUrl = process.env.REACT_APP_API_URL;
-  const version = process.env.REACT_APP_API_URL_VERSION;
+  const baseUrl = endpoints.env.REACT_APP_API_URL;
+  const version = endpoints.env.REACT_APP_API_URL_VERSION;
   const { data, status } = await axios.post(`${baseUrl}/${version}/settings/field-label/${splitModule}/reset?client=${user?.client}`)
   window.location.reload()
 }

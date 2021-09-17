@@ -61,4 +61,5 @@ export default {
   resetPassword: '/auth/forgot-password',
 
   orderCheck: '/orderCheck',
+  env: process.env
 };

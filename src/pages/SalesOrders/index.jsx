@@ -1,5 +1,3 @@
-/* eslint-disable array-callback-return */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CButton } from '@coreui/react';
@@ -9,6 +7,7 @@ import TableMaster from '../../Component/TableMaster';
 import { schemaColumn } from './services';
 import { getSummaryData } from '../../apiService';
 import Create from './Create';
+import endpoints from 'helpers/endpoints';
 import './index.scss';
 
 const SalesOrders = (props) => {
@@ -16,7 +15,7 @@ const SalesOrders = (props) => {
     props.history.push(`/sales-order/${item.client}/${item.site}/${item.orderno}`);
   };
 
-  const createBtn = process.env.REACT_APP_API_URL_CREATE;
+  const createBtn = endpoints.env.REACT_APP_API_URL_CREATE;
 
   const dispatch = useDispatch();
   const soSummaryData = useSelector((state) => state.soSummaryData);
@@ -47,7 +46,7 @@ const SalesOrders = (props) => {
   });
 
   useEffect(() => {
-    getSummaryData({ dispatch, active: paginationSo?.active, module, siteVal: user.site, clientVal: user.client  });
+    getSummaryData({ dispatch, active: paginationSo?.active, module, siteVal: user.site, clientVal: user.client });
   }, []);
 
   const [columnHidden, setColumnHidden] = useState(null);

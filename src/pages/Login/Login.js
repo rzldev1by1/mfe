@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import Logo from 'assets/img/login-logo.png';
 import loading from '../../assets/icons/loading/LOADING-MLS.gif';
+import endpoints from 'helpers/endpoints';
 import './Login.css';
 
-const baseUrl = process.env.REACT_APP_API_URL;
-const version = process.env.REACT_APP_VERSION || '';
+const baseUrl = endpoints.env.REACT_APP_API_URL;
+const version = endpoints.env.REACT_APP_VERSION || '';
 class Logins extends Component {
   constructor(props) {
     super(props);

@@ -7,8 +7,9 @@ import moment from 'moment';
 import { Button } from 'reactstrap';
 import ReactResizeDetector from 'react-resize-detector';
 import RequiredMessage from '../Component/RequiredMessage';
+import endpoints from 'helpers/endpoints'
 
-const dateFormate= process.env.REACT_APP_API_URL_FORMATE;
+const dateFormate = endpoints.env.REACT_APP_API_URL_FORMATE;
 
 function Navbar({
     // nextMonth,
@@ -26,7 +27,7 @@ function Navbar({
         boxShadow: "none",
         margin: "0px 6px"
 
-    
+
     };
     const styleRight = {
         float: 'right',
@@ -133,13 +134,13 @@ class DatePicker extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps){
-        if(this.props.firstDate){
-            if (moment(prevProps.firstDate).format(dateFormate) !== moment(this.props.firstDate).format(dateFormate)){
-                if(!this.props.firstValue){
+    componentDidUpdate(prevProps) {
+        if (this.props.firstDate) {
+            if (moment(prevProps.firstDate).format(dateFormate) !== moment(this.props.firstDate).format(dateFormate)) {
+                if (!this.props.firstValue) {
                     let firstDate = new Date(this.props.firstDate);
                     firstDate.setDate(firstDate.getDate() + 1)
-                    this.setState({ month: firstDate, selectedDay: firstDate, defaultValue: moment(firstDate).format(dateFormate)});
+                    this.setState({ month: firstDate, selectedDay: firstDate, defaultValue: moment(firstDate).format(dateFormate) });
                     this.props.getDate(moment(firstDate).format("YYYY-MM-DD"))
                 }
             }
@@ -157,7 +158,7 @@ class DatePicker extends React.Component {
     }
 
     handleDayClick = (day, modifiers = {}) => {
-        if(modifiers.disabled){
+        if (modifiers.disabled) {
             return;
         }
         this.setState({
@@ -194,62 +195,62 @@ class DatePicker extends React.Component {
         }
 
         // limit spesific character to slash only
-        if((e.target.selectionStart == 2) && ((e.key != "/") && (e.key !== "Backspace"))){
+        if ((e.target.selectionStart == 2) && ((e.key != "/") && (e.key !== "Backspace"))) {
             e.preventDefault();
-        }else if((e.target.selectionStart == 5) && ((e.key != "/") && (e.key !== "Backspace"))){
+        } else if ((e.target.selectionStart == 5) && ((e.key != "/") && (e.key !== "Backspace"))) {
             e.preventDefault();
         }
 
         // limit date
-        if((e.target.selectionStart == 0) && ((e.key !== "Backspace") && (e.key > 1))){
+        if ((e.target.selectionStart == 0) && ((e.key !== "Backspace") && (e.key > 1))) {
             e.preventDefault();
-        }else if(((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[0] == 0)){
+        } else if (((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[0] == 0)) {
             e.preventDefault();
         } else if (((e.target.selectionStart == 1) && ((e.key !== "Backspace") && (e.key > 2))) && (e.target.value[0] == 1)) {
             e.preventDefault();
         }
 
         //limit month
-        else if((e.target.selectionStart == 3) && ((e.key !== "Backspace") && (e.key > 3))){
+        else if ((e.target.selectionStart == 3) && ((e.key !== "Backspace") && (e.key > 3))) {
             e.preventDefault();
-        }else if(((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[3] == 0)){
+        } else if (((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key == 0))) && (e.target.value[3] == 0)) {
             e.preventDefault();
-        }else if(((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key > 2))) && (e.target.value[3] == 3)){
+        } else if (((e.target.selectionStart == 4) && ((e.key !== "Backspace") && (e.key > 2))) && (e.target.value[3] == 3)) {
             e.preventDefault();
         }
 
         // validate month
 
         // enable month that have more than 29 days if date is 29
-        else if(((e.target.selectionStart == 4) && (e.key !== "Backspace")) && (((e.target.value[0] == 2) && ((e.target.value[1] == 9) && (e.target.value[3] == 0))) && (/[2]/g.test(e.key)))){
+        else if (((e.target.selectionStart == 4) && (e.key !== "Backspace")) && (((e.target.value[0] == 2) && ((e.target.value[1] == 9) && (e.target.value[3] == 0))) && (/[2]/g.test(e.key)))) {
             e.preventDefault();
         }
 
         // enable month that have more than 30 days if date is 30
-        else if(((e.target.selectionStart == 4) && (e.key !== "Backspace")) && (((e.target.value[0] == 3) && ((e.target.value[1] == 0) && (e.target.value[3] == 0))) && (/[2]/g.test(e.key)))){
+        else if (((e.target.selectionStart == 4) && (e.key !== "Backspace")) && (((e.target.value[0] == 3) && ((e.target.value[1] == 0) && (e.target.value[3] == 0))) && (/[2]/g.test(e.key)))) {
             e.preventDefault();
         }
 
         // enable month that have 31 days if date is 31
-        else if(((e.target.selectionStart == 4) && (e.key !== "Backspace")) && (((e.target.value[0] == 3) && ((e.target.value[1] == 1) && (e.target.value[3] == 0))) && !(/[1|3|5|7|8]/g.test(e.key)))){
+        else if (((e.target.selectionStart == 4) && (e.key !== "Backspace")) && (((e.target.value[0] == 3) && ((e.target.value[1] == 1) && (e.target.value[3] == 0))) && !(/[1|3|5|7|8]/g.test(e.key)))) {
             e.preventDefault();
-        }else if(((e.target.selectionStart == 4) && (e.key !== "Backspace")) && (((e.target.value[0] == 3) && ((e.target.value[1] == 1) && (e.target.value[3] == 1))) && !(/[0|2]/g.test(e.key)))){
+        } else if (((e.target.selectionStart == 4) && (e.key !== "Backspace")) && (((e.target.value[0] == 3) && ((e.target.value[1] == 1) && (e.target.value[3] == 1))) && !(/[0|2]/g.test(e.key)))) {
             e.preventDefault();
         }
 
-        
+
         //limit year
-        else if((e.target.selectionStart == 6) && ((e.key !== "Backspace") && ((e.key == 0) || (e.key > 2)))){
+        else if ((e.target.selectionStart == 6) && ((e.key !== "Backspace") && ((e.key == 0) || (e.key > 2)))) {
             e.preventDefault();
-        }else if(((e.target.selectionStart == 7) && ((e.key !== "Backspace") && (e.key != 9))) && (e.target.value[6] == 1)){
+        } else if (((e.target.selectionStart == 7) && ((e.key !== "Backspace") && (e.key != 9))) && (e.target.value[6] == 1)) {
             e.preventDefault();
-        }else if(((e.target.selectionStart == 7) && ((e.key !== "Backspace") && (e.key > 1))) && (e.target.value[6] == 2)){
+        } else if (((e.target.selectionStart == 7) && ((e.key !== "Backspace") && (e.key > 1))) && (e.target.value[6] == 2)) {
             e.preventDefault();
-        }else if(((e.target.selectionStart == 8) && ((e.key > 3) && ((e.key !== "Backspace") && (e.key < 10)))) && (e.target.value[5] == 1)){
+        } else if (((e.target.selectionStart == 8) && ((e.key > 3) && ((e.key !== "Backspace") && (e.key < 10)))) && (e.target.value[5] == 1)) {
             e.preventDefault();
         }
 
-        
+
     }
 
     dateValueFormat = (e) => {
@@ -290,7 +291,7 @@ class DatePicker extends React.Component {
         const no = Math.floor(Math.random() * 100000) + 1;
         const className = `select_date ${this.state.showDatePicker && (this.props.for === "SalesOrderCreate") ? "datepickerForOrderLine" : ""}`
         const messageParam = this.props.messageParam;
-        
+
         return (
             <React.Fragment>
                 <ul className={className} style={this.props.style} tabIndex={this.props.tabIndex ? this.props.tabIndex : null}>
@@ -300,11 +301,11 @@ class DatePicker extends React.Component {
                         className={this.props.classNameInput}
                         maxLength="10"
                         value={this.state.defaultValue}
-                        onChange={(e) => { 
+                        onChange={(e) => {
                             this.dateValueProcess(e);
                         }}
                         // onChange={(e) => { this.dateValueProcess(e); if(this.props.onChange) {this.props.onChange()} }}
-                        onFocus={() => {this.openDatePicker(); if(this.props.onOpen) {this.props.onOpen()}}}
+                        onFocus={() => { this.openDatePicker(); if (this.props.onOpen) { this.props.onOpen() } }}
                         onKeyUp={(e) => this.dateValueFormat(e)}
                         onKeyDown={(e) => this.disabledAlpha(e)}
                         style={this.props.formStyle} />
@@ -366,7 +367,7 @@ class DatePicker extends React.Component {
                         messageShow={this.state.defaultValue === '' || messageParam.checkDateTo ? true : false}
                         column={messageParam.column}
                         columnText={messageParam.columnText}
-                        value={this.state.defaultValue !== '' ? this.state.defaultValue : null }
+                        value={this.state.defaultValue !== '' ? this.state.defaultValue : null}
                         fieldName={messageParam.fieldName}
                         style={messageParam.style}
                         checkDateTo={messageParam.checkDateTo}
