@@ -331,7 +331,7 @@ export const checkOrderNo = async ({ client, orderNo, module = 'sales-orders' })
   });
 
   if (data.status === 'failed') {
-    return { status: false, message: 'Order number exist' };
+    return { status: false, message: 'Order Number already exists!' };
   }
   if (data.message === 'The client field is required.') {
     return { status: false, message: 'Please select client' };

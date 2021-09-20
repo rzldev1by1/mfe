@@ -120,7 +120,7 @@ const Form = ({
       setDropdownExpandStyle(null);
     }
   }, [orderLineSelectOpen]);
-  
+
   return (
     <div>
       <h3 className="text-primary font-20">Order Details</h3>
@@ -260,9 +260,9 @@ const Form = ({
             readOnly={isReadonly}
             messageRequired={true}
             messageParam={{
-              messageShow: isValidation || checkingOrderNo?.status === false,
+              messageShow: isValidation || checkingOrderNo?.status === false || checkingOrderNo?.status === 'failed',
               value: orderDetails?.orderNo,
-              customMessage: checkingOrderNo,
+              customMessage: checkingOrderNo?.message,
             }}
           />
         </Col>

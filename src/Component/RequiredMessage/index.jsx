@@ -19,21 +19,24 @@ const RequiredMessage = ({ messageShow, column, data, columnText, value, dropdow
     if (column === 'product') {
       setMessage(customMessage)
     }
+    if (column === 'orderNo') {
+      setMessage(customMessage)
+    }
 
     //if empty
-    if (!value) setMessage(`${columnText  } must be entered`);
+    if (!value) setMessage(`${columnText} must be entered`);
 
-    if (column === 'orderType'){
-      if(customMessage){
+    if (column === 'orderType') {
+      if (customMessage) {
         setMessage(customMessage)
-      }else{
-        setMessage(`${columnText  } must be entered`)
+      } else {
+        setMessage(`${columnText} must be entered`)
       }
     }
 
     if (column === 'validDates') {
       if (!value && !checkDateTo) {
-        setMessage(`${columnText  } must be entered`);
+        setMessage(`${columnText} must be entered`);
       }
       if (checkDateTo !== undefined && value) {
         setMessage('Please select a valid date')
@@ -46,8 +49,8 @@ const RequiredMessage = ({ messageShow, column, data, columnText, value, dropdow
     //   {messageShow ? <span className="pl-0 text-danger font-12">{message}</span> : null}
     // </div>
     <div className={messageShow ? 'text-error' : null}>
-     {messageShow ? <p className={`pl-0 text-danger font-12 ${column === 'validDates' ? style : null}`}>{message}</p> : <p style={{color:'transparent !important'}} className={`pl-0 text-tranparent font-12 ${column === 'validDates' ? style : null}`}>{'a'}</p>}
-   </div>
+      {messageShow ? <p className={`pl-0 text-danger font-12 ${column === 'validDates' ? style : null}`}>{message}</p> : <p style={{ color: 'transparent !important' }} className={`pl-0 text-tranparent font-12 ${column === 'validDates' ? style : null}`}>{'a'}</p>}
+    </div>
   );
 };
 
